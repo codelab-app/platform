@@ -2,7 +2,7 @@ import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import {
-  CacheService,
+  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IModalService,
@@ -16,7 +16,7 @@ export interface IAtomService
   extends ICRUDService<IAtom, ICreateAtomDTO, IUpdateAtomDTO>,
     IQueryService<IAtom, AtomWhere>,
     Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'>,
-    CacheService<IAtom, IAtomDTO> {
+    ICacheService<IAtomDTO, IAtom> {
   _atoms: ObjectMap<IAtom>
   atom(id: string): Maybe<IAtom>
   atoms: Array<IAtom>

@@ -46,7 +46,6 @@ export type PageBuilderAppFragment = {
     rootElement: {
       descendantElements?: Array<ElementFragment> | null
     } & ElementFragment
-    app: { id: string }
   }>
   store: StoreFragment
 }
@@ -112,9 +111,6 @@ export const PageBuilderAppFragmentDoc = gql`
         descendantElements {
           ...Element
         }
-      }
-      app {
-        id
       }
     }
     store {

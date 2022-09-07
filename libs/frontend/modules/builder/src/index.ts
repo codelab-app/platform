@@ -1,4 +1,5 @@
 export * from './dnd'
+export * from './graphql'
 export * from './hooks'
 export * from './sections'
 export * from './sections/content/Builder'

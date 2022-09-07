@@ -85,20 +85,20 @@ export class ElementService
       }),
     )
 
-    return this.hydrateOrUpdateCache(elements)
+    return this.writeCache(elements)
   })
 
   @modelAction
-  private updateAtomsCache(elements: Array<IElementDTO>) {
+  private writeAtomsCache(elements: Array<IElementDTO>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
     const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
 
-    atomService.updateCache(atoms)
+    atomService.writeCache(atoms)
   }
 
   @modelAction
-  private updateComponentsCache(elements: Array<IElementDTO>) {
+  private writeComponentsCache(elements: Array<IElementDTO>) {
     // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
     const componentService = getComponentService(this)
 
@@ -106,15 +106,13 @@ export class ElementService
       .map((v) => v.component || v.instanceOfComponent)
       .filter(Boolean) as Array<IComponentDTO>
 
-    componentService.updateCache(allComponents)
+    componentService.writeCache(allComponents)
   }
 
   @modelAction
-  public hydrateOrUpdateCache = (
-    elements: Array<IElementDTO>,
-  ): Array<IElement> => {
-    this.updateAtomsCache(elements)
-    this.updateComponentsCache(elements)
+  public writeCache = (elements: Array<IElementDTO>): Array<IElement> => {
+    this.writeAtomsCache(elements)
+    this.writeComponentsCache(elements)
 
     return elements.map((element) => {
       if (this.elements.has(element.id)) {
@@ -163,7 +161,7 @@ export class ElementService
       throw new Error('No elements created')
     }
 
-    const hydratedElements = this.hydrateOrUpdateCache(elements)
+    const hydratedElements = this.writeCache(elements)
 
     return hydratedElements
   })
@@ -190,7 +188,7 @@ export class ElementService
       }),
     )
 
-    return this.hydrateOrUpdateCache(elements)
+    return this.writeCache(elements)
   })
 
   @modelAction
@@ -222,7 +220,7 @@ export class ElementService
       throw new Error('No elements updated')
     }
 
-    return this.hydrateOrUpdateCache([updatedElement])[0]
+    return this.writeCache([updatedElement])[0]
   })
 
   @modelFlow
@@ -556,7 +554,7 @@ export class ElementService
         throw new Error('No elements created')
       }
 
-      const createdElementModel = this.hydrateOrUpdateCache([createdElement])
+      const createdElementModel = this.writeCache([createdElement])
       const elementModel = createdElementModel[0]
 
       if (elementTree) {

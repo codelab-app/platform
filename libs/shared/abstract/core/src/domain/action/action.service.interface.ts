@@ -1,7 +1,7 @@
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import {
-  CacheService,
+  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
@@ -18,7 +18,7 @@ export interface IActionService
   extends ICRUDService<IAnyAction, ICreateActionDTO, IUpdateActionDTO>,
     IQueryService<IAnyAction, IAnyActionWhere>,
     ICRUDModalService<Ref<IAnyAction>, { action: Maybe<IAnyAction> }>,
-    CacheService<IAnyAction, IActionDTO> {
+    ICacheService<IActionDTO, IAnyAction> {
   actionsList: Array<IAnyAction>
   action(id: string): Maybe<IAnyAction>
   setSelectedActions(actions: Array<Ref<IAnyAction>>): void

@@ -261,7 +261,7 @@ export class ComponentService
   }
 
   @modelAction
-  updateCache(components: Array<IComponentDTO>) {
+  writeCache(components: Array<IComponentDTO>) {
     return components.map((component) => this.addOrUpdate(component))
   }
 }

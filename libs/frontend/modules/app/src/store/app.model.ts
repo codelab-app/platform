@@ -7,6 +7,7 @@ import {
   ExtendedModel,
   idProp,
   model,
+  modelAction,
   prop,
   Ref,
   rootRef,
@@ -28,7 +29,7 @@ export class App
   extends ExtendedModel(ElementTreeService, {
     id: idProp,
     ownerId: prop<string>(),
-    name: prop<string>(),
+    name: prop<string>().withSetter(),
     slug: prop<string>(),
     store: prop<IEntity>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
@@ -36,6 +37,18 @@ export class App
   implements IApp
 {
   static hydrate = hydrate
+
+  @modelAction
+  public writeCache(data: IAppDTO): IApp {
+    this.id = data.id
+    this.ownerId = data.owner?.id
+    this.setName(data.name)
+    this.slug = data.slug
+    this.store.id = data.store.id
+    this.pages = data.pages.map((page) => pageRef(page.id))
+
+    return this
+  }
 }
 
 export const appRef = rootRef<App>('@codelab/AppRef', {

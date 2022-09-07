@@ -1,7 +1,8 @@
+import { GetPageBuilderQuery } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, Ref } from 'mobx-keystone'
 import { IModalService } from '../../service'
-import { IAtom } from '../atom/atom.interface'
+import { IAtom } from '../atom'
 import { IComponent } from '../component'
 import { IElementTree } from '../element'
 import { IStateTreeNode, RendererTab } from '../render'
@@ -41,6 +42,14 @@ export interface IBuilderService {
   activeComponent: Nullable<IComponent>
   componentTags: Array<ITag>
   tagsWithComponents: Array<TagWithComponents>
+
+  getPageBuilder({
+    appId,
+    pageId,
+  }: {
+    appId: string
+    pageId: string
+  }): Promise<GetPageBuilderQuery>
 
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
   set_hoveredNode(element: Nullable<Ref<INode>>): void

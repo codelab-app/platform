@@ -52,56 +52,53 @@ const PageBuilder: CodelabPage = observer(() => {
 
   const [, { data, error, isLoading }] = useStatefulExecutor(
     async () => {
-      /**
-       *
-       * load all apps to provide them to mobxState
-       */
-      const apps = await appService.getAll()
-      const app = appService.app(appId)
-      /**
-       *
-       * load app store
-       *
-       */
-      const appStore = await storeService.getOne(app.store.id)
+      const {
+        apps,
+        components,
+        // Can't change shape in GraphQL so we have to use this structure
+        primitiveTypes,
+        arrayTypes,
+        unionTypes,
+        interfaceTypes,
+        elementTypes,
+        renderPropsTypes,
+        reactNodeTypes,
+        enumTypes,
+        lambdaTypes,
+        pageTypes,
+        appTypes,
+        actionTypes,
+        codeMirrorTypes,
+      } = await builderService.getPageBuilder({ appId, pageId })
 
-      if (!appStore) {
-        throw new Error('App store not found')
-      }
+      const { pageElementTree, app, page, store } = appService.load({
+        app: apps[0],
+        pageId,
+      })
 
-      /**
-       *
-       * load all pages to provide them to mobxState
-       *
-       * */
-      const pages = await pageService.getAll()
-      const page = pageService.page(pageId)
+      const types = typeService.writeCache({
+        primitiveTypes,
+        arrayTypes,
+        unionTypes,
+        interfaceTypes,
+        elementTypes,
+        renderPropsTypes,
+        reactNodeTypes,
+        enumTypes,
+        lambdaTypes,
+        pageTypes,
+        appTypes,
+        actionTypes,
+        codeMirrorTypes,
+      })
 
-      if (!page) {
-        throw new Error('Page not found')
-      }
+      componentService.writeCache(components)
 
-      /**
-       *
-       * components are needed to build pageElementTree
-       *
-       */
-      const components = await componentService.loadComponentTrees(
-        userService.auth0Id,
-      )
-
-      /**
-       *
-       * load all types
-       *
-       */
-      const types = await typeService.getAll()
       /**
        *
        * page Element tree
        *
        */
-      const pageElementTree = await page.initTree(page.rootElement.id)
       const pageRootElement = elementService.element(page.rootElement.id)
 
       if (pageRootElement) {
@@ -112,8 +109,8 @@ const PageBuilder: CodelabPage = observer(() => {
         pageId,
         pageElementTree,
         null,
-        appStore,
-        createMobxState(appStore, apps, pages, router),
+        store,
+        createMobxState(store, [app], [page], router),
         true,
       )
 
@@ -121,7 +118,7 @@ const PageBuilder: CodelabPage = observer(() => {
         page,
         pageElementTree,
         providerTree: null,
-        appStore,
+        store,
         types,
         components,
         renderer,
@@ -137,7 +134,7 @@ const PageBuilder: CodelabPage = observer(() => {
       </Head>
 
       <BuilderTabs
-        appStore={data?.appStore}
+        appStore={data?.store}
         builderRenderService={builderRenderService}
         builderService={builderService}
         componentService={componentService}

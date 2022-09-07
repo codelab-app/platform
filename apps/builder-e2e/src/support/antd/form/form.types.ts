@@ -16,15 +16,15 @@ type FieldType =
   | 'date'
   | 'codeMirror'
 
-export const FIELD_TYPE = {
-  INPUT: 'input' as FieldType,
-  NUMBER_INPUT: 'number' as FieldType,
-  SELECT: 'select' as FieldType,
-  MULTISELECT: 'multiselect' as FieldType,
-  TAGS: 'tags' as FieldType,
-  RADIO: 'radio' as FieldType,
-  DATE: 'date' as FieldType,
-  CODE_MIRROR: 'codeMirror' as FieldType,
+export enum FIELD_TYPE {
+  INPUT = 'input',
+  NUMBER_INPUT = 'number',
+  SELECT = 'select',
+  MULTISELECT = 'multiselect',
+  TAGS = 'tags',
+  RADIO = 'radio',
+  DATE = 'date',
+  CODE_MIRROR = 'codeMirror',
 }
 
 export interface FormFieldOptions {

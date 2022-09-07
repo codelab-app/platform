@@ -1,6 +1,9 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/modules/page'
-import { getElementService } from '@codelab/frontend/presenter/container'
+import {
+  getElementService,
+  getStoreService,
+} from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -8,6 +11,7 @@ import {
   IAppDTO,
   IAppService,
   ICreateAppDTO,
+  IPageBuilderAppProps,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
@@ -40,6 +44,44 @@ export class AppService
   })
   implements IAppService
 {
+  /**
+   * Aggregate root method to setup all data invariants
+   */
+  @modelAction
+  load = ({ app, pageId }: IPageBuilderAppProps) => {
+    console.debug('AppService.load', { app, pageId })
+
+    const elementService = getElementService(this)
+    const pageService = getPageService(this)
+    const storeService = getStoreService(this)
+    const appModel = this.writeCache([app])[0]
+    /**
+     * Build the pageElementTree for page
+     */
+    const pageModels = pageService.writeCache(app.pages)
+    const pageModel = pageModels.find((page) => page.id === pageId)
+    const page = app.pages.find((x) => x.id === pageId)
+
+    if (!page || !pageModel) {
+      throw new Error('Missing page')
+    }
+
+    const pageElements = elementService.writeCache([
+      page.rootElement,
+      ...(page.rootElement.descendantElements ?? []),
+    ])
+
+    const pageElementTree = pageModel.initTreeV2(pageElements)
+    const storeModel = storeService.writeCache([app.store])[0]
+
+    return {
+      pageElementTree,
+      app: appModel,
+      page: pageModel,
+      store: storeModel,
+    }
+  }
+
   @computed
   get appsList() {
     return [...this.apps.values()]
@@ -55,7 +97,7 @@ export class AppService
     const pageService = getPageService(this)
     const pages = apps.flatMap((app) => app.pages)
 
-    pageService.updateCache(pages)
+    pageService.writeCache(pages)
   }
 
   @modelFlow
@@ -144,14 +186,6 @@ export class AppService
           },
         },
       },
-      rootElement: {
-        create: {
-          node: {
-            id: v4(),
-            name: PROVIDER_ROOT_ELEMENT_NAME,
-          },
-        },
-      },
     }))
 
     const {
@@ -175,6 +209,27 @@ export class AppService
       return appModel
     })
   })
+
+  @modelAction
+  writeCache = (apps: Array<IAppDTO>) => {
+    const pageService = getPageService(this)
+
+    return apps.map((app) => {
+      let appModel = this.app(app.id)
+
+      if (!appModel) {
+        appModel = App.hydrate(app)
+      } else {
+        appModel = appModel.writeCache(app)
+      }
+
+      this.apps.set(app.id, appModel)
+
+      pageService.writeCache(app.pages)
+
+      return appModel
+    })
+  }
 
   @modelFlow
   @transaction

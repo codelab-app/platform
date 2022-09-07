@@ -63,7 +63,7 @@ export class StoreService
   }
 
   @modelAction
-  public hydrateOrUpdateCache = async (
+  public writeCache = async (
     stores: Array<IStoreDTO>,
   ): Promise<Array<IStore>> => {
     this.updateActionsCache(stores)
@@ -89,7 +89,7 @@ export class StoreService
   getAll = _async(function* (this: StoreService, where?: StoreWhere) {
     const { stores } = yield* _await(storeApi.GetStores({ where }))
 
-    return yield* _await(this.hydrateOrUpdateCache(stores))
+    return yield* _await(this.writeCache(stores))
   })
 
   @modelFlow

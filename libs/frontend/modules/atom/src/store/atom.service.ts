@@ -99,7 +99,7 @@ export class AtomService
   }
 
   @modelAction
-  updateCache(atoms: Array<IAtomDTO>) {
+  writeCache(atoms: Array<IAtomDTO>) {
     return atoms.map((atom) => this.addOrUpdate(atom))
   }
 

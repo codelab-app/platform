@@ -27,6 +27,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { createTypeFactory, updateTypeInputFactory } from '../use-cases/types'
 import { fieldApi } from './apis/field.api'
 import {
@@ -68,6 +69,24 @@ export class TypeService
 
   type(id: string) {
     return this.types.get(id)
+  }
+
+  /**
+   * Caches all types into mobx
+   */
+  @modelAction
+  writeCache = (types: GetTypesQuery) => {
+    console.debug('TypeService.cacheAll', types)
+
+    const flatTypes = Object.values(types).flat()
+
+    return flatTypes.map((type) => {
+      const typeModel = typeFactory(type)
+
+      this.types.set(type.id, typeModel)
+
+      return typeModel
+    })
   }
 
   @modelAction

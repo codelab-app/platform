@@ -19380,3 +19380,5113 @@ export type WithOwnerOwnerUpdateFieldInput = {
   update?: InputMaybe<WithOwnerOwnerUpdateConnectionInput>
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
+
+export type GetRedirectedAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetRedirectedAppsQuery = {
+  __typename?: 'Query'
+  apps: Array<{
+    __typename?: 'App'
+    id: string
+    name: string
+    slug: string
+    owner: { __typename?: 'User'; username: string }
+  }>
+}
+
+export type GetAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetAppsQuery = {
+  __typename?: 'Query'
+  apps: Array<{
+    __typename?: 'App'
+    id: string
+    name: string
+    slug: string
+    owner: { __typename?: 'User'; id: string }
+    pages: Array<{
+      __typename?: 'Page'
+      id: string
+      name: string
+      slug: string
+      app: { __typename?: 'App'; id: string }
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+    store: { __typename?: 'Store'; id: string }
+  }>
+}
+
+export type ResetDatabaseMutationVariables = Exact<{ [key: string]: never }>
+
+export type ResetDatabaseMutation = {
+  __typename?: 'Mutation'
+  resetDatabase?: {
+    __typename?: 'ResetDatabaseMutationResponse'
+    success?: boolean | null
+  } | null
+}
+
+export type ExecuteCommandMutationVariables = Exact<{
+  input: ExecuteCommandInput
+}>
+
+export type ExecuteCommandMutation = {
+  __typename?: 'Mutation'
+  executeCommand: {
+    __typename?: 'ExecuteCommandResponse'
+    success: boolean
+    data: string
+    handler: ExecuteCommandHandler
+  }
+}
+
+export type CreateAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
+}>
+
+export type CreateAppsMutation = {
+  __typename?: 'Mutation'
+  createApps: {
+    __typename?: 'CreateAppsMutationResponse'
+    apps: Array<{
+      __typename?: 'App'
+      id: string
+      name: string
+      slug: string
+      owner: { __typename?: 'User'; id: string }
+      pages: Array<{
+        __typename?: 'Page'
+        id: string
+        name: string
+        slug: string
+        app: { __typename?: 'App'; id: string }
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+      }>
+      store: { __typename?: 'Store'; id: string }
+    }>
+  }
+}
+
+export type UpdateAppsMutationVariables = Exact<{
+  where: AppWhere
+  update: AppUpdateInput
+}>
+
+export type UpdateAppsMutation = {
+  __typename?: 'Mutation'
+  updateApps: {
+    __typename?: 'UpdateAppsMutationResponse'
+    apps: Array<{
+      __typename?: 'App'
+      id: string
+      name: string
+      slug: string
+      owner: { __typename?: 'User'; id: string }
+      pages: Array<{
+        __typename?: 'Page'
+        id: string
+        name: string
+        slug: string
+        app: { __typename?: 'App'; id: string }
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+      }>
+      store: { __typename?: 'Store'; id: string }
+    }>
+  }
+}
+
+export type DeleteAppsMutationVariables = Exact<{
+  where: AppWhere
+  delete?: InputMaybe<AppDeleteInput>
+}>
+
+export type DeleteAppsMutation = {
+  __typename?: 'Mutation'
+  deleteApps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type CreateAtomsMutationVariables = Exact<{
+  input: Array<AtomCreateInput> | AtomCreateInput
+}>
+
+export type CreateAtomsMutation = {
+  __typename?: 'Mutation'
+  createAtoms: {
+    __typename?: 'CreateAtomsMutationResponse'
+    info: {
+      __typename?: 'CreateInfo'
+      nodesCreated: number
+      relationshipsCreated: number
+    }
+    atoms: Array<{
+      __typename?: 'Atom'
+      icon?: string | null
+      id: string
+      name: string
+      type: AtomType
+      tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+      api: { __typename?: 'InterfaceType'; id: string; name: string }
+    }>
+  }
+}
+
+export type DeleteAtomsMutationVariables = Exact<{
+  where: AtomWhere
+}>
+
+export type DeleteAtomsMutation = {
+  __typename?: 'Mutation'
+  deleteAtoms: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type GetAtomsQueryVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
+}>
+
+export type GetAtomsQuery = {
+  __typename?: 'Query'
+  atoms: Array<{
+    __typename?: 'Atom'
+    icon?: string | null
+    id: string
+    name: string
+    type: AtomType
+    tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+    api: { __typename?: 'InterfaceType'; id: string; name: string }
+  }>
+}
+
+export type UpdateAtomsMutationVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  update?: InputMaybe<AtomUpdateInput>
+}>
+
+export type UpdateAtomsMutation = {
+  __typename?: 'Mutation'
+  updateAtoms: {
+    __typename?: 'UpdateAtomsMutationResponse'
+    atoms: Array<{
+      __typename?: 'Atom'
+      icon?: string | null
+      id: string
+      name: string
+      type: AtomType
+      tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+      api: { __typename?: 'InterfaceType'; id: string; name: string }
+    }>
+  }
+}
+
+export type GetPageBuilderQueryVariables = Exact<{
+  appId: Scalars['ID']
+  pageId: Scalars['ID']
+  typeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
+}>
+
+export type GetPageBuilderQuery = {
+  __typename?: 'Query'
+  apps: Array<{
+    __typename?: 'App'
+    id: string
+    name: string
+    slug: string
+    owner: { __typename?: 'User'; id: string }
+    pages: Array<{
+      __typename?: 'Page'
+      id: string
+      name: string
+      slug: string
+      rootElement: {
+        __typename: 'Element'
+        id: string
+        name?: string | null
+        customCss?: string | null
+        guiCss?: string | null
+        renderForEachPropKey?: string | null
+        renderIfPropKey?: string | null
+        preRenderActionId?: string | null
+        postRenderActionId?: string | null
+        propTransformationJs?: string | null
+        descendantElements?: Array<{
+          __typename: 'Element'
+          id: string
+          name?: string | null
+          customCss?: string | null
+          guiCss?: string | null
+          renderForEachPropKey?: string | null
+          renderIfPropKey?: string | null
+          preRenderActionId?: string | null
+          postRenderActionId?: string | null
+          propTransformationJs?: string | null
+          component?: {
+            __typename?: 'Component'
+            id: string
+            name: string
+            rootElement: {
+              __typename?: 'Element'
+              id: string
+              name?: string | null
+            }
+            owner: { __typename?: 'User'; id: string; auth0Id: string }
+            api: { __typename?: 'InterfaceType'; id: string; name: string }
+          } | null
+          instanceOfComponent?: {
+            __typename?: 'Component'
+            id: string
+            name: string
+            rootElement: {
+              __typename?: 'Element'
+              id: string
+              name?: string | null
+            }
+            owner: { __typename?: 'User'; id: string; auth0Id: string }
+            api: { __typename?: 'InterfaceType'; id: string; name: string }
+          } | null
+          prevSibling?: { __typename?: 'Element'; id: string } | null
+          nextSibling?: { __typename?: 'Element'; id: string } | null
+          parentElement?: { __typename?: 'Element'; id: string } | null
+          childrenRoot?: { __typename?: 'Element'; id: string } | null
+          atom?: {
+            __typename?: 'Atom'
+            icon?: string | null
+            id: string
+            name: string
+            type: AtomType
+            tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+            api: { __typename?: 'InterfaceType'; id: string; name: string }
+          } | null
+          props?: { __typename?: 'Prop'; id: string; data: string } | null
+          hooks: Array<{
+            __typename?: 'Hook'
+            id: string
+            type: AtomType
+            config: { __typename?: 'Prop'; id: string; data: string }
+            element: {
+              __typename?: 'Element'
+              id: string
+              name?: string | null
+            }
+          }>
+          propMapBindings: Array<{
+            __typename?: 'PropMapBinding'
+            id: string
+            sourceKey: string
+            targetKey: string
+            element: {
+              __typename?: 'Element'
+              id: string
+              name?: string | null
+            }
+            targetElement?: {
+              __typename?: 'Element'
+              id: string
+              name?: string | null
+            } | null
+          }>
+          parentElementConnection: {
+            __typename?: 'ElementParentElementConnection'
+            edges: Array<{
+              __typename?: 'ElementParentElementRelationship'
+              node: { __typename?: 'Element'; id: string; name?: string | null }
+            }>
+          }
+        }> | null
+        component?: {
+          __typename?: 'Component'
+          id: string
+          name: string
+          rootElement: {
+            __typename?: 'Element'
+            id: string
+            name?: string | null
+          }
+          owner: { __typename?: 'User'; id: string; auth0Id: string }
+          api: { __typename?: 'InterfaceType'; id: string; name: string }
+        } | null
+        instanceOfComponent?: {
+          __typename?: 'Component'
+          id: string
+          name: string
+          rootElement: {
+            __typename?: 'Element'
+            id: string
+            name?: string | null
+          }
+          owner: { __typename?: 'User'; id: string; auth0Id: string }
+          api: { __typename?: 'InterfaceType'; id: string; name: string }
+        } | null
+        prevSibling?: { __typename?: 'Element'; id: string } | null
+        nextSibling?: { __typename?: 'Element'; id: string } | null
+        parentElement?: { __typename?: 'Element'; id: string } | null
+        childrenRoot?: { __typename?: 'Element'; id: string } | null
+        atom?: {
+          __typename?: 'Atom'
+          icon?: string | null
+          id: string
+          name: string
+          type: AtomType
+          tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+          api: { __typename?: 'InterfaceType'; id: string; name: string }
+        } | null
+        props?: { __typename?: 'Prop'; id: string; data: string } | null
+        hooks: Array<{
+          __typename?: 'Hook'
+          id: string
+          type: AtomType
+          config: { __typename?: 'Prop'; id: string; data: string }
+          element: { __typename?: 'Element'; id: string; name?: string | null }
+        }>
+        propMapBindings: Array<{
+          __typename?: 'PropMapBinding'
+          id: string
+          sourceKey: string
+          targetKey: string
+          element: { __typename?: 'Element'; id: string; name?: string | null }
+          targetElement?: {
+            __typename?: 'Element'
+            id: string
+            name?: string | null
+          } | null
+        }>
+        parentElementConnection: {
+          __typename?: 'ElementParentElementConnection'
+          edges: Array<{
+            __typename?: 'ElementParentElementRelationship'
+            node: { __typename?: 'Element'; id: string; name?: string | null }
+          }>
+        }
+      }
+    }>
+    store: {
+      __typename: 'Store'
+      id: string
+      name: string
+      stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
+      state: { __typename?: 'Prop'; id: string; data: string }
+      actions: Array<
+        | {
+            __typename: 'CustomAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            code: string
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'PipelineAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+            actions: Array<
+              | { __typename?: 'CustomAction'; id: string }
+              | { __typename?: 'PipelineAction'; id: string }
+              | { __typename?: 'ResourceAction'; id: string }
+            >
+            actionsConnection: {
+              __typename?: 'PipelineActionActionsConnection'
+              edges: Array<{
+                __typename?: 'PipelineActionActionsRelationship'
+                orders?: Array<string> | null
+                node:
+                  | { __typename?: 'CustomAction'; id: string }
+                  | { __typename?: 'PipelineAction'; id: string }
+                  | { __typename?: 'ResourceAction'; id: string }
+              }>
+            }
+          }
+        | {
+            __typename: 'ResourceAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+            successAction:
+              | {
+                  __typename: 'CustomAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'PipelineAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'ResourceAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+            errorAction:
+              | {
+                  __typename: 'CustomAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'PipelineAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'ResourceAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+            resource: {
+              __typename: 'Resource'
+              id: string
+              name: string
+              type: ResourceType
+              config: { __typename?: 'Prop'; id: string; data: string }
+            }
+            config: { __typename?: 'Prop'; id: string; data: string }
+          }
+      >
+    }
+  }>
+  components: Array<{
+    __typename?: 'Component'
+    id: string
+    name: string
+    rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    api: { __typename?: 'InterfaceType'; id: string; name: string }
+  }>
+  primitiveTypes: Array<{
+    __typename: 'PrimitiveType'
+    kind: TypeKind
+    id: string
+    name: string
+    primitiveKind: PrimitiveTypeKind
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  arrayTypes: Array<{
+    __typename: 'ArrayType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    itemType:
+      | { __typename?: 'ActionType'; id: string; name: string }
+      | { __typename?: 'AppType'; id: string; name: string }
+      | { __typename?: 'ArrayType'; id: string; name: string }
+      | { __typename?: 'CodeMirrorType'; id: string; name: string }
+      | { __typename?: 'ElementType'; id: string; name: string }
+      | { __typename?: 'EnumType'; id: string; name: string }
+      | { __typename?: 'InterfaceType'; id: string; name: string }
+      | { __typename?: 'LambdaType'; id: string; name: string }
+      | { __typename?: 'PageType'; id: string; name: string }
+      | { __typename?: 'PrimitiveType'; id: string; name: string }
+      | { __typename?: 'ReactNodeType'; id: string; name: string }
+      | { __typename?: 'RenderPropsType'; id: string; name: string }
+      | { __typename?: 'UnionType'; id: string; name: string }
+  }>
+  unionTypes: Array<{
+    __typename: 'UnionType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    typesOfUnionType: Array<
+      | { __typename?: 'ActionType'; id: string; name: string }
+      | { __typename?: 'AppType'; id: string; name: string }
+      | { __typename?: 'ArrayType'; id: string; name: string }
+      | { __typename?: 'CodeMirrorType'; id: string; name: string }
+      | { __typename?: 'ElementType'; id: string; name: string }
+      | { __typename?: 'EnumType'; id: string; name: string }
+      | { __typename?: 'InterfaceType'; id: string; name: string }
+      | { __typename?: 'LambdaType'; id: string; name: string }
+      | { __typename?: 'PageType'; id: string; name: string }
+      | { __typename?: 'PrimitiveType'; id: string; name: string }
+      | { __typename?: 'ReactNodeType'; id: string; name: string }
+      | { __typename?: 'RenderPropsType'; id: string; name: string }
+      | { __typename?: 'UnionType'; id: string; name: string }
+    >
+  }>
+  interfaceTypes: Array<{
+    __typename: 'InterfaceType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    fieldsConnection: {
+      __typename?: 'InterfaceTypeFieldsConnection'
+      edges: Array<{
+        __typename?: 'InterfaceTypeFieldsRelationship'
+        id: string
+        key: string
+        name?: string | null
+        description?: string | null
+        fieldType:
+          | { __typename?: 'ActionType'; id: string }
+          | { __typename?: 'AppType'; id: string }
+          | { __typename?: 'ArrayType'; id: string }
+          | { __typename?: 'CodeMirrorType'; id: string }
+          | { __typename?: 'ElementType'; id: string }
+          | { __typename?: 'EnumType'; id: string }
+          | { __typename?: 'InterfaceType'; id: string }
+          | { __typename?: 'LambdaType'; id: string }
+          | { __typename?: 'PageType'; id: string }
+          | { __typename?: 'PrimitiveType'; id: string }
+          | { __typename?: 'ReactNodeType'; id: string }
+          | { __typename?: 'RenderPropsType'; id: string }
+          | { __typename?: 'UnionType'; id: string }
+      }>
+    }
+  }>
+  elementTypes: Array<{
+    __typename: 'ElementType'
+    kind: TypeKind
+    id: string
+    name: string
+    elementKind: ElementTypeKind
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  renderPropsTypes: Array<{
+    __typename: 'RenderPropsType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  reactNodeTypes: Array<{
+    __typename: 'ReactNodeType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  enumTypes: Array<{
+    __typename: 'EnumType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    allowedValues: Array<{
+      __typename?: 'EnumTypeValue'
+      id: string
+      name?: string | null
+      value: string
+    }>
+  }>
+  lambdaTypes: Array<{
+    __typename: 'LambdaType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  pageTypes: Array<{
+    __typename: 'PageType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  appTypes: Array<{
+    __typename: 'AppType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  actionTypes: Array<{
+    __typename: 'ActionType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  codeMirrorTypes: Array<{
+    __typename: 'CodeMirrorType'
+    kind: TypeKind
+    id: string
+    name: string
+    language: CodeMirrorLanguage
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type CreateComponentsMutationVariables = Exact<{
+  input: Array<ComponentCreateInput> | ComponentCreateInput
+}>
+
+export type CreateComponentsMutation = {
+  __typename?: 'Mutation'
+  createComponents: {
+    __typename?: 'CreateComponentsMutationResponse'
+    components: Array<{
+      __typename?: 'Component'
+      id: string
+      name: string
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      api: { __typename?: 'InterfaceType'; id: string; name: string }
+    }>
+  }
+}
+
+export type DeleteComponentsMutationVariables = Exact<{
+  where?: InputMaybe<ComponentWhere>
+  delete?: InputMaybe<ComponentDeleteInput>
+}>
+
+export type DeleteComponentsMutation = {
+  __typename?: 'Mutation'
+  deleteComponents: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type UpdateComponentsMutationVariables = Exact<{
+  where?: InputMaybe<ComponentWhere>
+  update?: InputMaybe<ComponentUpdateInput>
+}>
+
+export type UpdateComponentsMutation = {
+  __typename?: 'Mutation'
+  updateComponents: {
+    __typename?: 'UpdateComponentsMutationResponse'
+    components: Array<{
+      __typename?: 'Component'
+      id: string
+      name: string
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      api: { __typename?: 'InterfaceType'; id: string; name: string }
+    }>
+  }
+}
+
+export type GetComponentsQueryVariables = Exact<{
+  options?: InputMaybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+}>
+
+export type GetComponentsQuery = {
+  __typename?: 'Query'
+  components: Array<{
+    __typename?: 'Component'
+    id: string
+    name: string
+    rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    api: { __typename?: 'InterfaceType'; id: string; name: string }
+  }>
+}
+
+export type GetDomainQueryVariables = Exact<{
+  options?: InputMaybe<DomainOptions>
+  where?: InputMaybe<DomainWhere>
+}>
+
+export type GetDomainQuery = {
+  __typename?: 'Query'
+  domains: Array<{
+    __typename?: 'Domain'
+    id: string
+    name: string
+    domainConfig: {
+      __typename?: 'VercelDomainConfigData'
+      misconfigured: boolean
+    }
+    projectDomain: { __typename?: 'VercelProjectDomainData'; verified: boolean }
+  }>
+}
+
+export type CreateDomainMutationVariables = Exact<{
+  input: CreateDomainMutationInput
+}>
+
+export type CreateDomainMutation = {
+  __typename?: 'Mutation'
+  createDomain: {
+    __typename?: 'Domain'
+    id: string
+    name: string
+    domainConfig: {
+      __typename?: 'VercelDomainConfigData'
+      misconfigured: boolean
+    }
+    projectDomain: { __typename?: 'VercelProjectDomainData'; verified: boolean }
+  }
+}
+
+export type UpdateDomainMutationVariables = Exact<{
+  input: UpdateDomainMutationInput
+}>
+
+export type UpdateDomainMutation = {
+  __typename?: 'Mutation'
+  updateDomain: {
+    __typename?: 'Domain'
+    id: string
+    name: string
+    domainConfig: {
+      __typename?: 'VercelDomainConfigData'
+      misconfigured: boolean
+    }
+    projectDomain: { __typename?: 'VercelProjectDomainData'; verified: boolean }
+  }
+}
+
+export type DeleteDomainMutationVariables = Exact<{
+  id: Scalars['String']
+}>
+
+export type DeleteDomainMutation = {
+  __typename?: 'Mutation'
+  deleteDomain: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetElementGraphQueryVariables = Exact<{
+  input: ElementGraphInput
+}>
+
+export type GetElementGraphQuery = {
+  __typename?: 'Query'
+  elementGraph: {
+    __typename?: 'ElementGraph'
+    id: string
+    descendants: Array<string>
+  }
+}
+
+export type CreateElementsMutationVariables = Exact<{
+  input: Array<ElementCreateInput> | ElementCreateInput
+}>
+
+export type CreateElementsMutation = {
+  __typename?: 'Mutation'
+  createElements: {
+    __typename?: 'CreateElementsMutationResponse'
+    elements: Array<{
+      __typename: 'Element'
+      id: string
+      name?: string | null
+      customCss?: string | null
+      guiCss?: string | null
+      renderForEachPropKey?: string | null
+      renderIfPropKey?: string | null
+      preRenderActionId?: string | null
+      postRenderActionId?: string | null
+      propTransformationJs?: string | null
+      component?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      instanceOfComponent?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      prevSibling?: { __typename?: 'Element'; id: string } | null
+      nextSibling?: { __typename?: 'Element'; id: string } | null
+      parentElement?: { __typename?: 'Element'; id: string } | null
+      childrenRoot?: { __typename?: 'Element'; id: string } | null
+      atom?: {
+        __typename?: 'Atom'
+        icon?: string | null
+        id: string
+        name: string
+        type: AtomType
+        tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      props?: { __typename?: 'Prop'; id: string; data: string } | null
+      hooks: Array<{
+        __typename?: 'Hook'
+        id: string
+        type: AtomType
+        config: { __typename?: 'Prop'; id: string; data: string }
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+      }>
+      propMapBindings: Array<{
+        __typename?: 'PropMapBinding'
+        id: string
+        sourceKey: string
+        targetKey: string
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+        targetElement?: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        } | null
+      }>
+      parentElementConnection: {
+        __typename?: 'ElementParentElementConnection'
+        edges: Array<{
+          __typename?: 'ElementParentElementRelationship'
+          node: { __typename?: 'Element'; id: string; name?: string | null }
+        }>
+      }
+    }>
+  }
+}
+
+export type DeleteElementsMutationVariables = Exact<{
+  where: ElementWhere
+  delete?: InputMaybe<ElementDeleteInput>
+}>
+
+export type DeleteElementsMutation = {
+  __typename?: 'Mutation'
+  deleteElements: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type UpdateElementsMutationVariables = Exact<{
+  where?: InputMaybe<ElementWhere>
+  update?: InputMaybe<ElementUpdateInput>
+}>
+
+export type UpdateElementsMutation = {
+  __typename?: 'Mutation'
+  updateElements: {
+    __typename?: 'UpdateElementsMutationResponse'
+    elements: Array<{
+      __typename: 'Element'
+      id: string
+      name?: string | null
+      customCss?: string | null
+      guiCss?: string | null
+      renderForEachPropKey?: string | null
+      renderIfPropKey?: string | null
+      preRenderActionId?: string | null
+      postRenderActionId?: string | null
+      propTransformationJs?: string | null
+      component?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      instanceOfComponent?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      prevSibling?: { __typename?: 'Element'; id: string } | null
+      nextSibling?: { __typename?: 'Element'; id: string } | null
+      parentElement?: { __typename?: 'Element'; id: string } | null
+      childrenRoot?: { __typename?: 'Element'; id: string } | null
+      atom?: {
+        __typename?: 'Atom'
+        icon?: string | null
+        id: string
+        name: string
+        type: AtomType
+        tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      props?: { __typename?: 'Prop'; id: string; data: string } | null
+      hooks: Array<{
+        __typename?: 'Hook'
+        id: string
+        type: AtomType
+        config: { __typename?: 'Prop'; id: string; data: string }
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+      }>
+      propMapBindings: Array<{
+        __typename?: 'PropMapBinding'
+        id: string
+        sourceKey: string
+        targetKey: string
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+        targetElement?: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        } | null
+      }>
+      parentElementConnection: {
+        __typename?: 'ElementParentElementConnection'
+        edges: Array<{
+          __typename?: 'ElementParentElementRelationship'
+          node: { __typename?: 'Element'; id: string; name?: string | null }
+        }>
+      }
+    }>
+  }
+}
+
+export type MoveElementsMutationVariables = Exact<{
+  where?: InputMaybe<ElementWhere>
+  update?: InputMaybe<ElementUpdateInput>
+}>
+
+export type MoveElementsMutation = {
+  __typename?: 'Mutation'
+  updateElements: {
+    __typename?: 'UpdateElementsMutationResponse'
+    elements: Array<{
+      __typename: 'Element'
+      id: string
+      name?: string | null
+      customCss?: string | null
+      guiCss?: string | null
+      renderForEachPropKey?: string | null
+      renderIfPropKey?: string | null
+      preRenderActionId?: string | null
+      postRenderActionId?: string | null
+      propTransformationJs?: string | null
+      component?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      instanceOfComponent?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      prevSibling?: { __typename?: 'Element'; id: string } | null
+      nextSibling?: { __typename?: 'Element'; id: string } | null
+      parentElement?: { __typename?: 'Element'; id: string } | null
+      childrenRoot?: { __typename?: 'Element'; id: string } | null
+      atom?: {
+        __typename?: 'Atom'
+        icon?: string | null
+        id: string
+        name: string
+        type: AtomType
+        tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      props?: { __typename?: 'Prop'; id: string; data: string } | null
+      hooks: Array<{
+        __typename?: 'Hook'
+        id: string
+        type: AtomType
+        config: { __typename?: 'Prop'; id: string; data: string }
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+      }>
+      propMapBindings: Array<{
+        __typename?: 'PropMapBinding'
+        id: string
+        sourceKey: string
+        targetKey: string
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+        targetElement?: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        } | null
+      }>
+      parentElementConnection: {
+        __typename?: 'ElementParentElementConnection'
+        edges: Array<{
+          __typename?: 'ElementParentElementRelationship'
+          node: { __typename?: 'Element'; id: string; name?: string | null }
+        }>
+      }
+    }>
+  }
+}
+
+export type GetElementsQueryVariables = Exact<{
+  options?: InputMaybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+}>
+
+export type GetElementsQuery = {
+  __typename?: 'Query'
+  elements: Array<{
+    __typename: 'Element'
+    id: string
+    name?: string | null
+    customCss?: string | null
+    guiCss?: string | null
+    renderForEachPropKey?: string | null
+    renderIfPropKey?: string | null
+    preRenderActionId?: string | null
+    postRenderActionId?: string | null
+    propTransformationJs?: string | null
+    component?: {
+      __typename?: 'Component'
+      id: string
+      name: string
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      api: { __typename?: 'InterfaceType'; id: string; name: string }
+    } | null
+    instanceOfComponent?: {
+      __typename?: 'Component'
+      id: string
+      name: string
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      api: { __typename?: 'InterfaceType'; id: string; name: string }
+    } | null
+    prevSibling?: { __typename?: 'Element'; id: string } | null
+    nextSibling?: { __typename?: 'Element'; id: string } | null
+    parentElement?: { __typename?: 'Element'; id: string } | null
+    childrenRoot?: { __typename?: 'Element'; id: string } | null
+    atom?: {
+      __typename?: 'Atom'
+      icon?: string | null
+      id: string
+      name: string
+      type: AtomType
+      tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+      api: { __typename?: 'InterfaceType'; id: string; name: string }
+    } | null
+    props?: { __typename?: 'Prop'; id: string; data: string } | null
+    hooks: Array<{
+      __typename?: 'Hook'
+      id: string
+      type: AtomType
+      config: { __typename?: 'Prop'; id: string; data: string }
+      element: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+    propMapBindings: Array<{
+      __typename?: 'PropMapBinding'
+      id: string
+      sourceKey: string
+      targetKey: string
+      element: { __typename?: 'Element'; id: string; name?: string | null }
+      targetElement?: {
+        __typename?: 'Element'
+        id: string
+        name?: string | null
+      } | null
+    }>
+    parentElementConnection: {
+      __typename?: 'ElementParentElementConnection'
+      edges: Array<{
+        __typename?: 'ElementParentElementRelationship'
+        node: { __typename?: 'Element'; id: string; name?: string | null }
+      }>
+    }
+  }>
+}
+
+export type CreateHooksMutationVariables = Exact<{
+  input: Array<HookCreateInput> | HookCreateInput
+}>
+
+export type CreateHooksMutation = {
+  __typename?: 'Mutation'
+  createHooks: {
+    __typename?: 'CreateHooksMutationResponse'
+    hooks: Array<{
+      __typename?: 'Hook'
+      id: string
+      type: AtomType
+      config: { __typename?: 'Prop'; id: string; data: string }
+      element: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+  }
+}
+
+export type DeleteHooksMutationVariables = Exact<{
+  where: HookWhere
+}>
+
+export type DeleteHooksMutation = {
+  __typename?: 'Mutation'
+  deleteHooks: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type CreatePropMapBindingsMutationVariables = Exact<{
+  input: Array<PropMapBindingCreateInput> | PropMapBindingCreateInput
+}>
+
+export type CreatePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  createPropMapBindings: {
+    __typename?: 'CreatePropMapBindingsMutationResponse'
+    propMapBindings: Array<{
+      __typename?: 'PropMapBinding'
+      id: string
+      sourceKey: string
+      targetKey: string
+      element: { __typename?: 'Element'; id: string; name?: string | null }
+      targetElement?: {
+        __typename?: 'Element'
+        id: string
+        name?: string | null
+      } | null
+    }>
+  }
+}
+
+export type UpdatePropMapBindingsMutationVariables = Exact<{
+  where: PropMapBindingWhere
+  update: PropMapBindingUpdateInput
+}>
+
+export type UpdatePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  updatePropMapBindings: {
+    __typename?: 'UpdatePropMapBindingsMutationResponse'
+    propMapBindings: Array<{
+      __typename?: 'PropMapBinding'
+      id: string
+      sourceKey: string
+      targetKey: string
+      element: { __typename?: 'Element'; id: string; name?: string | null }
+      targetElement?: {
+        __typename?: 'Element'
+        id: string
+        name?: string | null
+      } | null
+    }>
+  }
+}
+
+export type DeletePropMapBindingsMutationVariables = Exact<{
+  where: PropMapBindingWhere
+}>
+
+export type DeletePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  deletePropMapBindings: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetPropMapBindingsQueryVariables = Exact<{
+  options?: InputMaybe<PropMapBindingOptions>
+  where?: InputMaybe<PropMapBindingWhere>
+}>
+
+export type GetPropMapBindingsQuery = {
+  __typename?: 'Query'
+  propMapBindings: Array<{
+    __typename?: 'PropMapBinding'
+    id: string
+    sourceKey: string
+    targetKey: string
+    element: { __typename?: 'Element'; id: string; name?: string | null }
+    targetElement?: {
+      __typename?: 'Element'
+      id: string
+      name?: string | null
+    } | null
+  }>
+}
+
+export type CreatePagesMutationVariables = Exact<{
+  input: Array<PageCreateInput> | PageCreateInput
+}>
+
+export type CreatePagesMutation = {
+  __typename?: 'Mutation'
+  createPages: {
+    __typename?: 'CreatePagesMutationResponse'
+    pages: Array<{
+      __typename?: 'Page'
+      id: string
+      name: string
+      slug: string
+      app: { __typename?: 'App'; id: string }
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+  }
+}
+
+export type DeletePagesMutationVariables = Exact<{
+  where?: InputMaybe<PageWhere>
+  delete?: InputMaybe<PageDeleteInput>
+}>
+
+export type DeletePagesMutation = {
+  __typename?: 'Mutation'
+  deletePages: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type UpdatePagesMutationVariables = Exact<{
+  where?: InputMaybe<PageWhere>
+  update?: InputMaybe<PageUpdateInput>
+}>
+
+export type UpdatePagesMutation = {
+  __typename?: 'Mutation'
+  updatePages: {
+    __typename?: 'UpdatePagesMutationResponse'
+    pages: Array<{
+      __typename?: 'Page'
+      id: string
+      name: string
+      slug: string
+      app: { __typename?: 'App'; id: string }
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+  }
+}
+
+export type GetPagesQueryVariables = Exact<{
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}>
+
+export type GetPagesQuery = {
+  __typename?: 'Query'
+  pages: Array<{
+    __typename?: 'Page'
+    id: string
+    name: string
+    slug: string
+    app: { __typename?: 'App'; id: string }
+    rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  }>
+}
+
+export type GetResourcesQueryVariables = Exact<{
+  options?: InputMaybe<ResourceOptions>
+  where?: InputMaybe<ResourceWhere>
+}>
+
+export type GetResourcesQuery = {
+  __typename?: 'Query'
+  resources: Array<{
+    __typename: 'Resource'
+    id: string
+    name: string
+    type: ResourceType
+    config: { __typename?: 'Prop'; id: string; data: string }
+  }>
+}
+
+export type CreateResourcesMutationVariables = Exact<{
+  input: Array<ResourceCreateInput> | ResourceCreateInput
+}>
+
+export type CreateResourcesMutation = {
+  __typename?: 'Mutation'
+  createResources: {
+    __typename?: 'CreateResourcesMutationResponse'
+    resources: Array<{
+      __typename: 'Resource'
+      id: string
+      name: string
+      type: ResourceType
+      config: { __typename?: 'Prop'; id: string; data: string }
+    }>
+  }
+}
+
+export type UpdateResourceMutationVariables = Exact<{
+  where?: InputMaybe<ResourceWhere>
+  update?: InputMaybe<ResourceUpdateInput>
+}>
+
+export type UpdateResourceMutation = {
+  __typename?: 'Mutation'
+  updateResources: {
+    __typename?: 'UpdateResourcesMutationResponse'
+    resources: Array<{
+      __typename: 'Resource'
+      id: string
+      name: string
+      type: ResourceType
+      config: { __typename?: 'Prop'; id: string; data: string }
+    }>
+  }
+}
+
+export type DeleteResourcesMutationVariables = Exact<{
+  where?: InputMaybe<ResourceWhere>
+}>
+
+export type DeleteResourcesMutation = {
+  __typename?: 'Mutation'
+  deleteResources: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type CreateCustomActionsMutationVariables = Exact<{
+  input: Array<CustomActionCreateInput> | CustomActionCreateInput
+}>
+
+export type CreateCustomActionsMutation = {
+  __typename?: 'Mutation'
+  createCustomActions: {
+    __typename?: 'CreateCustomActionsMutationResponse'
+    customActions: Array<{
+      __typename: 'CustomAction'
+      id: string
+      name: string
+      type: ActionKind
+      runOnInit: boolean
+      code: string
+      store: { __typename?: 'Store'; id: string; name: string }
+    }>
+  }
+}
+
+export type CreateResourceActionsMutationVariables = Exact<{
+  input: Array<ResourceActionCreateInput> | ResourceActionCreateInput
+}>
+
+export type CreateResourceActionsMutation = {
+  __typename?: 'Mutation'
+  createResourceActions: {
+    __typename?: 'CreateResourceActionsMutationResponse'
+    resourceActions: Array<{
+      __typename: 'ResourceAction'
+      id: string
+      name: string
+      type: ActionKind
+      runOnInit: boolean
+      store: { __typename?: 'Store'; id: string; name: string }
+      successAction:
+        | {
+            __typename: 'CustomAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'PipelineAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'ResourceAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+      errorAction:
+        | {
+            __typename: 'CustomAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'PipelineAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'ResourceAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+      resource: {
+        __typename: 'Resource'
+        id: string
+        name: string
+        type: ResourceType
+        config: { __typename?: 'Prop'; id: string; data: string }
+      }
+      config: { __typename?: 'Prop'; id: string; data: string }
+    }>
+  }
+}
+
+export type CreatePipelineActionsMutationVariables = Exact<{
+  input: Array<PipelineActionCreateInput> | PipelineActionCreateInput
+}>
+
+export type CreatePipelineActionsMutation = {
+  __typename?: 'Mutation'
+  createPipelineActions: {
+    __typename?: 'CreatePipelineActionsMutationResponse'
+    pipelineActions: Array<{
+      __typename: 'PipelineAction'
+      id: string
+      name: string
+      type: ActionKind
+      runOnInit: boolean
+      store: { __typename?: 'Store'; id: string; name: string }
+      actions: Array<
+        | { __typename?: 'CustomAction'; id: string }
+        | { __typename?: 'PipelineAction'; id: string }
+        | { __typename?: 'ResourceAction'; id: string }
+      >
+      actionsConnection: {
+        __typename?: 'PipelineActionActionsConnection'
+        edges: Array<{
+          __typename?: 'PipelineActionActionsRelationship'
+          orders?: Array<string> | null
+          node:
+            | { __typename?: 'CustomAction'; id: string }
+            | { __typename?: 'PipelineAction'; id: string }
+            | { __typename?: 'ResourceAction'; id: string }
+        }>
+      }
+    }>
+  }
+}
+
+export type DeleteCustomActionsMutationVariables = Exact<{
+  where: CustomActionWhere
+}>
+
+export type DeleteCustomActionsMutation = {
+  __typename?: 'Mutation'
+  deleteCustomActions: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type DeleteResourceActionsMutationVariables = Exact<{
+  where: ResourceActionWhere
+}>
+
+export type DeleteResourceActionsMutation = {
+  __typename?: 'Mutation'
+  deleteResourceActions: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type DeletePipelineActionsMutationVariables = Exact<{
+  where: PipelineActionWhere
+}>
+
+export type DeletePipelineActionsMutation = {
+  __typename?: 'Mutation'
+  deletePipelineActions: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type GetActionsQueryVariables = Exact<{
+  storeId?: InputMaybe<Scalars['ID']>
+}>
+
+export type GetActionsQuery = {
+  __typename?: 'Query'
+  customActions: Array<{
+    __typename: 'CustomAction'
+    id: string
+    name: string
+    type: ActionKind
+    runOnInit: boolean
+    code: string
+    store: { __typename?: 'Store'; id: string; name: string }
+  }>
+  resourceActions: Array<{
+    __typename: 'ResourceAction'
+    id: string
+    name: string
+    type: ActionKind
+    runOnInit: boolean
+    store: { __typename?: 'Store'; id: string; name: string }
+    successAction:
+      | {
+          __typename: 'CustomAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+      | {
+          __typename: 'PipelineAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+      | {
+          __typename: 'ResourceAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+    errorAction:
+      | {
+          __typename: 'CustomAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+      | {
+          __typename: 'PipelineAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+      | {
+          __typename: 'ResourceAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+    resource: {
+      __typename: 'Resource'
+      id: string
+      name: string
+      type: ResourceType
+      config: { __typename?: 'Prop'; id: string; data: string }
+    }
+    config: { __typename?: 'Prop'; id: string; data: string }
+  }>
+  pipelineActions: Array<{
+    __typename: 'PipelineAction'
+    id: string
+    name: string
+    type: ActionKind
+    runOnInit: boolean
+    store: { __typename?: 'Store'; id: string; name: string }
+    actions: Array<
+      | { __typename?: 'CustomAction'; id: string }
+      | { __typename?: 'PipelineAction'; id: string }
+      | { __typename?: 'ResourceAction'; id: string }
+    >
+    actionsConnection: {
+      __typename?: 'PipelineActionActionsConnection'
+      edges: Array<{
+        __typename?: 'PipelineActionActionsRelationship'
+        orders?: Array<string> | null
+        node:
+          | { __typename?: 'CustomAction'; id: string }
+          | { __typename?: 'PipelineAction'; id: string }
+          | { __typename?: 'ResourceAction'; id: string }
+      }>
+    }
+  }>
+}
+
+export type CreateStoresMutationVariables = Exact<{
+  input: Array<StoreCreateInput> | StoreCreateInput
+}>
+
+export type CreateStoresMutation = {
+  __typename?: 'Mutation'
+  createStores: {
+    __typename?: 'CreateStoresMutationResponse'
+    info: {
+      __typename?: 'CreateInfo'
+      nodesCreated: number
+      relationshipsCreated: number
+    }
+    stores: Array<{
+      __typename: 'Store'
+      id: string
+      name: string
+      stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
+      state: { __typename?: 'Prop'; id: string; data: string }
+      actions: Array<
+        | {
+            __typename: 'CustomAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            code: string
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'PipelineAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+            actions: Array<
+              | { __typename?: 'CustomAction'; id: string }
+              | { __typename?: 'PipelineAction'; id: string }
+              | { __typename?: 'ResourceAction'; id: string }
+            >
+            actionsConnection: {
+              __typename?: 'PipelineActionActionsConnection'
+              edges: Array<{
+                __typename?: 'PipelineActionActionsRelationship'
+                orders?: Array<string> | null
+                node:
+                  | { __typename?: 'CustomAction'; id: string }
+                  | { __typename?: 'PipelineAction'; id: string }
+                  | { __typename?: 'ResourceAction'; id: string }
+              }>
+            }
+          }
+        | {
+            __typename: 'ResourceAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+            successAction:
+              | {
+                  __typename: 'CustomAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'PipelineAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'ResourceAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+            errorAction:
+              | {
+                  __typename: 'CustomAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'PipelineAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'ResourceAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+            resource: {
+              __typename: 'Resource'
+              id: string
+              name: string
+              type: ResourceType
+              config: { __typename?: 'Prop'; id: string; data: string }
+            }
+            config: { __typename?: 'Prop'; id: string; data: string }
+          }
+      >
+    }>
+  }
+}
+
+export type DeleteStoresMutationVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  delete?: InputMaybe<StoreDeleteInput>
+}>
+
+export type DeleteStoresMutation = {
+  __typename?: 'Mutation'
+  deleteStores: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetStoresQueryVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  options?: InputMaybe<StoreOptions>
+}>
+
+export type GetStoresQuery = {
+  __typename?: 'Query'
+  stores: Array<{
+    __typename: 'Store'
+    id: string
+    name: string
+    stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
+    state: { __typename?: 'Prop'; id: string; data: string }
+    actions: Array<
+      | {
+          __typename: 'CustomAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          code: string
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+      | {
+          __typename: 'PipelineAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+          actions: Array<
+            | { __typename?: 'CustomAction'; id: string }
+            | { __typename?: 'PipelineAction'; id: string }
+            | { __typename?: 'ResourceAction'; id: string }
+          >
+          actionsConnection: {
+            __typename?: 'PipelineActionActionsConnection'
+            edges: Array<{
+              __typename?: 'PipelineActionActionsRelationship'
+              orders?: Array<string> | null
+              node:
+                | { __typename?: 'CustomAction'; id: string }
+                | { __typename?: 'PipelineAction'; id: string }
+                | { __typename?: 'ResourceAction'; id: string }
+            }>
+          }
+        }
+      | {
+          __typename: 'ResourceAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+          successAction:
+            | {
+                __typename: 'CustomAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'PipelineAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'ResourceAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+          errorAction:
+            | {
+                __typename: 'CustomAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'PipelineAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'ResourceAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+          resource: {
+            __typename: 'Resource'
+            id: string
+            name: string
+            type: ResourceType
+            config: { __typename?: 'Prop'; id: string; data: string }
+          }
+          config: { __typename?: 'Prop'; id: string; data: string }
+        }
+    >
+  }>
+}
+
+export type UpdateStoresMutationVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  update?: InputMaybe<StoreUpdateInput>
+}>
+
+export type UpdateStoresMutation = {
+  __typename?: 'Mutation'
+  updateStores: {
+    __typename?: 'UpdateStoresMutationResponse'
+    stores: Array<{
+      __typename: 'Store'
+      id: string
+      name: string
+      stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
+      state: { __typename?: 'Prop'; id: string; data: string }
+      actions: Array<
+        | {
+            __typename: 'CustomAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            code: string
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'PipelineAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+            actions: Array<
+              | { __typename?: 'CustomAction'; id: string }
+              | { __typename?: 'PipelineAction'; id: string }
+              | { __typename?: 'ResourceAction'; id: string }
+            >
+            actionsConnection: {
+              __typename?: 'PipelineActionActionsConnection'
+              edges: Array<{
+                __typename?: 'PipelineActionActionsRelationship'
+                orders?: Array<string> | null
+                node:
+                  | { __typename?: 'CustomAction'; id: string }
+                  | { __typename?: 'PipelineAction'; id: string }
+                  | { __typename?: 'ResourceAction'; id: string }
+              }>
+            }
+          }
+        | {
+            __typename: 'ResourceAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+            successAction:
+              | {
+                  __typename: 'CustomAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'PipelineAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'ResourceAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+            errorAction:
+              | {
+                  __typename: 'CustomAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'PipelineAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+              | {
+                  __typename: 'ResourceAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  runOnInit: boolean
+                  store: { __typename?: 'Store'; id: string; name: string }
+                }
+            resource: {
+              __typename: 'Resource'
+              id: string
+              name: string
+              type: ResourceType
+              config: { __typename?: 'Prop'; id: string; data: string }
+            }
+            config: { __typename?: 'Prop'; id: string; data: string }
+          }
+      >
+    }>
+  }
+}
+
+export type UpdateCustomActionsMutationVariables = Exact<{
+  connect?: InputMaybe<CustomActionConnectInput>
+  create?: InputMaybe<CustomActionRelationInput>
+  delete?: InputMaybe<CustomActionDeleteInput>
+  disconnect?: InputMaybe<CustomActionDisconnectInput>
+  update?: InputMaybe<CustomActionUpdateInput>
+  where?: InputMaybe<CustomActionWhere>
+}>
+
+export type UpdateCustomActionsMutation = {
+  __typename?: 'Mutation'
+  updateCustomActions: {
+    __typename?: 'UpdateCustomActionsMutationResponse'
+    customActions: Array<{
+      __typename: 'CustomAction'
+      id: string
+      name: string
+      type: ActionKind
+      runOnInit: boolean
+      code: string
+      store: { __typename?: 'Store'; id: string; name: string }
+    }>
+  }
+}
+
+export type UpdateResourceActionsMutationVariables = Exact<{
+  connect?: InputMaybe<ResourceActionConnectInput>
+  create?: InputMaybe<ResourceActionRelationInput>
+  delete?: InputMaybe<ResourceActionDeleteInput>
+  disconnect?: InputMaybe<ResourceActionDisconnectInput>
+  update?: InputMaybe<ResourceActionUpdateInput>
+  where?: InputMaybe<ResourceActionWhere>
+}>
+
+export type UpdateResourceActionsMutation = {
+  __typename?: 'Mutation'
+  updateResourceActions: {
+    __typename?: 'UpdateResourceActionsMutationResponse'
+    resourceActions: Array<{
+      __typename: 'ResourceAction'
+      id: string
+      name: string
+      type: ActionKind
+      runOnInit: boolean
+      store: { __typename?: 'Store'; id: string; name: string }
+      successAction:
+        | {
+            __typename: 'CustomAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'PipelineAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'ResourceAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+      errorAction:
+        | {
+            __typename: 'CustomAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'PipelineAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+        | {
+            __typename: 'ResourceAction'
+            id: string
+            name: string
+            type: ActionKind
+            runOnInit: boolean
+            store: { __typename?: 'Store'; id: string; name: string }
+          }
+      resource: {
+        __typename: 'Resource'
+        id: string
+        name: string
+        type: ResourceType
+        config: { __typename?: 'Prop'; id: string; data: string }
+      }
+      config: { __typename?: 'Prop'; id: string; data: string }
+    }>
+  }
+}
+
+export type UpdatePipelineActionsMutationVariables = Exact<{
+  connect?: InputMaybe<PipelineActionConnectInput>
+  create?: InputMaybe<PipelineActionRelationInput>
+  delete?: InputMaybe<PipelineActionDeleteInput>
+  disconnect?: InputMaybe<PipelineActionDisconnectInput>
+  update?: InputMaybe<PipelineActionUpdateInput>
+  where?: InputMaybe<PipelineActionWhere>
+}>
+
+export type UpdatePipelineActionsMutation = {
+  __typename?: 'Mutation'
+  updatePipelineActions: {
+    __typename?: 'UpdatePipelineActionsMutationResponse'
+    pipelineActions: Array<{
+      __typename: 'PipelineAction'
+      id: string
+      name: string
+      type: ActionKind
+      runOnInit: boolean
+      store: { __typename?: 'Store'; id: string; name: string }
+      actions: Array<
+        | { __typename?: 'CustomAction'; id: string }
+        | { __typename?: 'PipelineAction'; id: string }
+        | { __typename?: 'ResourceAction'; id: string }
+      >
+      actionsConnection: {
+        __typename?: 'PipelineActionActionsConnection'
+        edges: Array<{
+          __typename?: 'PipelineActionActionsRelationship'
+          orders?: Array<string> | null
+          node:
+            | { __typename?: 'CustomAction'; id: string }
+            | { __typename?: 'PipelineAction'; id: string }
+            | { __typename?: 'ResourceAction'; id: string }
+        }>
+      }
+    }>
+  }
+}
+
+export type CreateTagsMutationVariables = Exact<{
+  input: Array<TagCreateInput> | TagCreateInput
+}>
+
+export type CreateTagsMutation = {
+  __typename?: 'Mutation'
+  createTags: {
+    __typename?: 'CreateTagsMutationResponse'
+    tags: Array<{
+      __typename?: 'Tag'
+      id: string
+      name: string
+      isRoot?: boolean | null
+      parent?: { __typename?: 'Tag'; id: string } | null
+      children: Array<{ __typename?: 'Tag'; id: string }>
+    }>
+  }
+}
+
+export type UpdateTagsMutationVariables = Exact<{
+  where: TagWhere
+  update: TagUpdateInput
+}>
+
+export type UpdateTagsMutation = {
+  __typename?: 'Mutation'
+  updateTags: {
+    __typename?: 'UpdateTagsMutationResponse'
+    tags: Array<{
+      __typename?: 'Tag'
+      id: string
+      name: string
+      isRoot?: boolean | null
+      parent?: { __typename?: 'Tag'; id: string } | null
+      children: Array<{ __typename?: 'Tag'; id: string }>
+    }>
+  }
+}
+
+export type DeleteTagsMutationVariables = Exact<{
+  where: TagWhere
+}>
+
+export type DeleteTagsMutation = {
+  __typename?: 'Mutation'
+  deleteTags: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetTagsQueryVariables = Exact<{
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}>
+
+export type GetTagsQuery = {
+  __typename?: 'Query'
+  tags: Array<{
+    __typename?: 'Tag'
+    id: string
+    name: string
+    isRoot?: boolean | null
+    parent?: { __typename?: 'Tag'; id: string } | null
+    children: Array<{ __typename?: 'Tag'; id: string }>
+  }>
+}
+
+export type GetTagGraphsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetTagGraphsQuery = {
+  __typename?: 'Query'
+  tagGraphs: Array<{
+    __typename?: 'TagGraph'
+    id: string
+    isRoot: boolean
+    name: string
+    descendants: Array<string>
+  }>
+}
+
+export type CreatePrimitiveTypesMutationVariables = Exact<{
+  input: Array<PrimitiveTypeCreateInput> | PrimitiveTypeCreateInput
+}>
+
+export type CreatePrimitiveTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreatePrimitiveTypesMutationResponse'
+    types: Array<{
+      __typename: 'PrimitiveType'
+      kind: TypeKind
+      id: string
+      name: string
+      primitiveKind: PrimitiveTypeKind
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreateArrayTypesMutationVariables = Exact<{
+  input: Array<ArrayTypeCreateInput> | ArrayTypeCreateInput
+}>
+
+export type CreateArrayTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateArrayTypesMutationResponse'
+    types: Array<{
+      __typename: 'ArrayType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      itemType:
+        | { __typename?: 'ActionType'; id: string; name: string }
+        | { __typename?: 'AppType'; id: string; name: string }
+        | { __typename?: 'ArrayType'; id: string; name: string }
+        | { __typename?: 'CodeMirrorType'; id: string; name: string }
+        | { __typename?: 'ElementType'; id: string; name: string }
+        | { __typename?: 'EnumType'; id: string; name: string }
+        | { __typename?: 'InterfaceType'; id: string; name: string }
+        | { __typename?: 'LambdaType'; id: string; name: string }
+        | { __typename?: 'PageType'; id: string; name: string }
+        | { __typename?: 'PrimitiveType'; id: string; name: string }
+        | { __typename?: 'ReactNodeType'; id: string; name: string }
+        | { __typename?: 'RenderPropsType'; id: string; name: string }
+        | { __typename?: 'UnionType'; id: string; name: string }
+    }>
+  }
+}
+
+export type CreateUnionTypesMutationVariables = Exact<{
+  input: Array<UnionTypeCreateInput> | UnionTypeCreateInput
+}>
+
+export type CreateUnionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateUnionTypesMutationResponse'
+    types: Array<{
+      __typename: 'UnionType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      typesOfUnionType: Array<
+        | { __typename?: 'ActionType'; id: string; name: string }
+        | { __typename?: 'AppType'; id: string; name: string }
+        | { __typename?: 'ArrayType'; id: string; name: string }
+        | { __typename?: 'CodeMirrorType'; id: string; name: string }
+        | { __typename?: 'ElementType'; id: string; name: string }
+        | { __typename?: 'EnumType'; id: string; name: string }
+        | { __typename?: 'InterfaceType'; id: string; name: string }
+        | { __typename?: 'LambdaType'; id: string; name: string }
+        | { __typename?: 'PageType'; id: string; name: string }
+        | { __typename?: 'PrimitiveType'; id: string; name: string }
+        | { __typename?: 'ReactNodeType'; id: string; name: string }
+        | { __typename?: 'RenderPropsType'; id: string; name: string }
+        | { __typename?: 'UnionType'; id: string; name: string }
+      >
+    }>
+  }
+}
+
+export type CreateInterfaceTypesMutationVariables = Exact<{
+  input: Array<InterfaceTypeCreateInput> | InterfaceTypeCreateInput
+}>
+
+export type CreateInterfaceTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateInterfaceTypesMutationResponse'
+    types: Array<{
+      __typename: 'InterfaceType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      fieldsConnection: {
+        __typename?: 'InterfaceTypeFieldsConnection'
+        edges: Array<{
+          __typename?: 'InterfaceTypeFieldsRelationship'
+          id: string
+          key: string
+          name?: string | null
+          description?: string | null
+          fieldType:
+            | { __typename?: 'ActionType'; id: string }
+            | { __typename?: 'AppType'; id: string }
+            | { __typename?: 'ArrayType'; id: string }
+            | { __typename?: 'CodeMirrorType'; id: string }
+            | { __typename?: 'ElementType'; id: string }
+            | { __typename?: 'EnumType'; id: string }
+            | { __typename?: 'InterfaceType'; id: string }
+            | { __typename?: 'LambdaType'; id: string }
+            | { __typename?: 'PageType'; id: string }
+            | { __typename?: 'PrimitiveType'; id: string }
+            | { __typename?: 'ReactNodeType'; id: string }
+            | { __typename?: 'RenderPropsType'; id: string }
+            | { __typename?: 'UnionType'; id: string }
+        }>
+      }
+    }>
+  }
+}
+
+export type CreateElementTypesMutationVariables = Exact<{
+  input: Array<ElementTypeCreateInput> | ElementTypeCreateInput
+}>
+
+export type CreateElementTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateElementTypesMutationResponse'
+    types: Array<{
+      __typename: 'ElementType'
+      kind: TypeKind
+      id: string
+      name: string
+      elementKind: ElementTypeKind
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreateRenderPropsTypesMutationVariables = Exact<{
+  input: Array<RenderPropsTypeCreateInput> | RenderPropsTypeCreateInput
+}>
+
+export type CreateRenderPropsTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateRenderPropsTypesMutationResponse'
+    types: Array<{
+      __typename: 'RenderPropsType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreateReactNodeTypesMutationVariables = Exact<{
+  input: Array<ReactNodeTypeCreateInput> | ReactNodeTypeCreateInput
+}>
+
+export type CreateReactNodeTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateReactNodeTypesMutationResponse'
+    types: Array<{
+      __typename: 'ReactNodeType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreateEnumTypesMutationVariables = Exact<{
+  input: Array<EnumTypeCreateInput> | EnumTypeCreateInput
+}>
+
+export type CreateEnumTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateEnumTypesMutationResponse'
+    types: Array<{
+      __typename: 'EnumType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      allowedValues: Array<{
+        __typename?: 'EnumTypeValue'
+        id: string
+        name?: string | null
+        value: string
+      }>
+    }>
+  }
+}
+
+export type CreateLambdaTypesMutationVariables = Exact<{
+  input: Array<LambdaTypeCreateInput> | LambdaTypeCreateInput
+}>
+
+export type CreateLambdaTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateLambdaTypesMutationResponse'
+    types: Array<{
+      __typename: 'LambdaType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreatePageTypesMutationVariables = Exact<{
+  input: Array<PageTypeCreateInput> | PageTypeCreateInput
+}>
+
+export type CreatePageTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreatePageTypesMutationResponse'
+    types: Array<{
+      __typename: 'PageType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreateAppTypesMutationVariables = Exact<{
+  input: Array<AppTypeCreateInput> | AppTypeCreateInput
+}>
+
+export type CreateAppTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateAppTypesMutationResponse'
+    types: Array<{
+      __typename: 'AppType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreateActionTypesMutationVariables = Exact<{
+  input: Array<ActionTypeCreateInput> | ActionTypeCreateInput
+}>
+
+export type CreateActionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateActionTypesMutationResponse'
+    types: Array<{
+      __typename: 'ActionType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type CreateCodeMirrorTypesMutationVariables = Exact<{
+  input: Array<CodeMirrorTypeCreateInput> | CodeMirrorTypeCreateInput
+}>
+
+export type CreateCodeMirrorTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateCodeMirrorTypesMutationResponse'
+    types: Array<{
+      __typename: 'CodeMirrorType'
+      kind: TypeKind
+      id: string
+      name: string
+      language: CodeMirrorLanguage
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type DeletePrimitiveTypesMutationVariables = Exact<{
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>
+  where?: InputMaybe<PrimitiveTypeWhere>
+}>
+
+export type DeletePrimitiveTypesMutation = {
+  __typename?: 'Mutation'
+  deletePrimitiveTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteArrayTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ArrayTypeDeleteInput>
+  where?: InputMaybe<ArrayTypeWhere>
+}>
+
+export type DeleteArrayTypesMutation = {
+  __typename?: 'Mutation'
+  deleteArrayTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteReactNodeTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>
+  where?: InputMaybe<ReactNodeTypeWhere>
+}>
+
+export type DeleteReactNodeTypesMutation = {
+  __typename?: 'Mutation'
+  deleteReactNodeTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteUnionTypesMutationVariables = Exact<{
+  delete?: InputMaybe<UnionTypeDeleteInput>
+  where?: InputMaybe<UnionTypeWhere>
+}>
+
+export type DeleteUnionTypesMutation = {
+  __typename?: 'Mutation'
+  deleteUnionTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteInterfaceTypesMutationVariables = Exact<{
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
+  where?: InputMaybe<InterfaceTypeWhere>
+}>
+
+export type DeleteInterfaceTypesMutation = {
+  __typename?: 'Mutation'
+  deleteInterfaceTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteElementTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ElementTypeDeleteInput>
+  where?: InputMaybe<ElementTypeWhere>
+}>
+
+export type DeleteElementTypesMutation = {
+  __typename?: 'Mutation'
+  deleteElementTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteRenderPropsTypesMutationVariables = Exact<{
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
+  where?: InputMaybe<RenderPropsTypeWhere>
+}>
+
+export type DeleteRenderPropsTypesMutation = {
+  __typename?: 'Mutation'
+  deleteRenderPropsTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteEnumTypesMutationVariables = Exact<{
+  delete?: InputMaybe<EnumTypeDeleteInput>
+  where?: InputMaybe<EnumTypeWhere>
+}>
+
+export type DeleteEnumTypesMutation = {
+  __typename?: 'Mutation'
+  deleteEnumTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+  deleteEnumTypeValues: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type DeleteLambdaTypesMutationVariables = Exact<{
+  delete?: InputMaybe<LambdaTypeDeleteInput>
+  where?: InputMaybe<LambdaTypeWhere>
+}>
+
+export type DeleteLambdaTypesMutation = {
+  __typename?: 'Mutation'
+  deleteLambdaTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeletePageTypesMutationVariables = Exact<{
+  delete?: InputMaybe<PageTypeDeleteInput>
+  where?: InputMaybe<PageTypeWhere>
+}>
+
+export type DeletePageTypesMutation = {
+  __typename?: 'Mutation'
+  deletePageTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteAppTypesMutationVariables = Exact<{
+  delete?: InputMaybe<AppTypeDeleteInput>
+  where?: InputMaybe<AppTypeWhere>
+}>
+
+export type DeleteAppTypesMutation = {
+  __typename?: 'Mutation'
+  deleteAppTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteActionTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ActionTypeDeleteInput>
+  where?: InputMaybe<ActionTypeWhere>
+}>
+
+export type DeleteActionTypesMutation = {
+  __typename?: 'Mutation'
+  deleteActionTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteCodeMirrorTypesMutationVariables = Exact<{
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}>
+
+export type DeleteCodeMirrorTypesMutation = {
+  __typename?: 'Mutation'
+  deleteCodeMirrorTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type UpsertFieldMutationVariables = Exact<{
+  interfaceTypeId: Scalars['ID']
+  fieldTypeId: Scalars['ID']
+  field: FieldCreateInput
+}>
+
+export type UpsertFieldMutation = {
+  __typename?: 'Mutation'
+  upsertField: {
+    __typename: 'InterfaceType'
+    kind: TypeKind
+    id: string
+    name: string
+    fieldsConnection: {
+      __typename?: 'InterfaceTypeFieldsConnection'
+      edges: Array<{
+        __typename?: 'InterfaceTypeFieldsRelationship'
+        id: string
+        key: string
+        name?: string | null
+        description?: string | null
+        fieldType:
+          | { __typename?: 'ActionType'; id: string }
+          | { __typename?: 'AppType'; id: string }
+          | { __typename?: 'ArrayType'; id: string }
+          | { __typename?: 'CodeMirrorType'; id: string }
+          | { __typename?: 'ElementType'; id: string }
+          | { __typename?: 'EnumType'; id: string }
+          | { __typename?: 'InterfaceType'; id: string }
+          | { __typename?: 'LambdaType'; id: string }
+          | { __typename?: 'PageType'; id: string }
+          | { __typename?: 'PrimitiveType'; id: string }
+          | { __typename?: 'ReactNodeType'; id: string }
+          | { __typename?: 'RenderPropsType'; id: string }
+          | { __typename?: 'UnionType'; id: string }
+      }>
+    }
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }
+}
+
+export type DeleteFieldMutationVariables = Exact<{
+  interfaceId: Scalars['ID']
+  where: FieldWhere
+}>
+
+export type DeleteFieldMutation = {
+  __typename?: 'Mutation'
+  updateInterfaceTypes: {
+    __typename?: 'UpdateInterfaceTypesMutationResponse'
+    interfaceTypes: Array<{
+      __typename: 'InterfaceType'
+      kind: TypeKind
+      id: string
+      name: string
+      fieldsConnection: {
+        __typename?: 'InterfaceTypeFieldsConnection'
+        edges: Array<{
+          __typename?: 'InterfaceTypeFieldsRelationship'
+          id: string
+          key: string
+          name?: string | null
+          description?: string | null
+          fieldType:
+            | { __typename?: 'ActionType'; id: string }
+            | { __typename?: 'AppType'; id: string }
+            | { __typename?: 'ArrayType'; id: string }
+            | { __typename?: 'CodeMirrorType'; id: string }
+            | { __typename?: 'ElementType'; id: string }
+            | { __typename?: 'EnumType'; id: string }
+            | { __typename?: 'InterfaceType'; id: string }
+            | { __typename?: 'LambdaType'; id: string }
+            | { __typename?: 'PageType'; id: string }
+            | { __typename?: 'PrimitiveType'; id: string }
+            | { __typename?: 'ReactNodeType'; id: string }
+            | { __typename?: 'RenderPropsType'; id: string }
+            | { __typename?: 'UnionType'; id: string }
+        }>
+      }
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type GetTypesQueryVariables = Exact<{
+  ids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
+}>
+
+export type GetTypesQuery = {
+  __typename?: 'Query'
+  primitiveTypes: Array<{
+    __typename: 'PrimitiveType'
+    kind: TypeKind
+    id: string
+    name: string
+    primitiveKind: PrimitiveTypeKind
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  arrayTypes: Array<{
+    __typename: 'ArrayType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    itemType:
+      | { __typename?: 'ActionType'; id: string; name: string }
+      | { __typename?: 'AppType'; id: string; name: string }
+      | { __typename?: 'ArrayType'; id: string; name: string }
+      | { __typename?: 'CodeMirrorType'; id: string; name: string }
+      | { __typename?: 'ElementType'; id: string; name: string }
+      | { __typename?: 'EnumType'; id: string; name: string }
+      | { __typename?: 'InterfaceType'; id: string; name: string }
+      | { __typename?: 'LambdaType'; id: string; name: string }
+      | { __typename?: 'PageType'; id: string; name: string }
+      | { __typename?: 'PrimitiveType'; id: string; name: string }
+      | { __typename?: 'ReactNodeType'; id: string; name: string }
+      | { __typename?: 'RenderPropsType'; id: string; name: string }
+      | { __typename?: 'UnionType'; id: string; name: string }
+  }>
+  unionTypes: Array<{
+    __typename: 'UnionType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    typesOfUnionType: Array<
+      | { __typename?: 'ActionType'; id: string; name: string }
+      | { __typename?: 'AppType'; id: string; name: string }
+      | { __typename?: 'ArrayType'; id: string; name: string }
+      | { __typename?: 'CodeMirrorType'; id: string; name: string }
+      | { __typename?: 'ElementType'; id: string; name: string }
+      | { __typename?: 'EnumType'; id: string; name: string }
+      | { __typename?: 'InterfaceType'; id: string; name: string }
+      | { __typename?: 'LambdaType'; id: string; name: string }
+      | { __typename?: 'PageType'; id: string; name: string }
+      | { __typename?: 'PrimitiveType'; id: string; name: string }
+      | { __typename?: 'ReactNodeType'; id: string; name: string }
+      | { __typename?: 'RenderPropsType'; id: string; name: string }
+      | { __typename?: 'UnionType'; id: string; name: string }
+    >
+  }>
+  interfaceTypes: Array<{
+    __typename: 'InterfaceType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    fieldsConnection: {
+      __typename?: 'InterfaceTypeFieldsConnection'
+      edges: Array<{
+        __typename?: 'InterfaceTypeFieldsRelationship'
+        id: string
+        key: string
+        name?: string | null
+        description?: string | null
+        fieldType:
+          | { __typename?: 'ActionType'; id: string }
+          | { __typename?: 'AppType'; id: string }
+          | { __typename?: 'ArrayType'; id: string }
+          | { __typename?: 'CodeMirrorType'; id: string }
+          | { __typename?: 'ElementType'; id: string }
+          | { __typename?: 'EnumType'; id: string }
+          | { __typename?: 'InterfaceType'; id: string }
+          | { __typename?: 'LambdaType'; id: string }
+          | { __typename?: 'PageType'; id: string }
+          | { __typename?: 'PrimitiveType'; id: string }
+          | { __typename?: 'ReactNodeType'; id: string }
+          | { __typename?: 'RenderPropsType'; id: string }
+          | { __typename?: 'UnionType'; id: string }
+      }>
+    }
+  }>
+  elementTypes: Array<{
+    __typename: 'ElementType'
+    kind: TypeKind
+    id: string
+    name: string
+    elementKind: ElementTypeKind
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  renderPropsTypes: Array<{
+    __typename: 'RenderPropsType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  reactNodeTypes: Array<{
+    __typename: 'ReactNodeType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  enumTypes: Array<{
+    __typename: 'EnumType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    allowedValues: Array<{
+      __typename?: 'EnumTypeValue'
+      id: string
+      name?: string | null
+      value: string
+    }>
+  }>
+  lambdaTypes: Array<{
+    __typename: 'LambdaType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  pageTypes: Array<{
+    __typename: 'PageType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  appTypes: Array<{
+    __typename: 'AppType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  actionTypes: Array<{
+    __typename: 'ActionType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+  codeMirrorTypes: Array<{
+    __typename: 'CodeMirrorType'
+    kind: TypeKind
+    id: string
+    name: string
+    language: CodeMirrorLanguage
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetDescendantsQueryVariables = Exact<{
+  ids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
+}>
+
+export type GetDescendantsQuery = {
+  __typename?: 'Query'
+  arrayTypes: Array<{
+    __typename?: 'ArrayType'
+    descendantTypesIds: Array<string>
+  }>
+  unionTypes: Array<{
+    __typename?: 'UnionType'
+    descendantTypesIds: Array<string>
+  }>
+  interfaceTypes: Array<{
+    __typename?: 'InterfaceType'
+    descendantTypesIds: Array<string>
+  }>
+}
+
+export type GetPrimitiveTypesQueryVariables = Exact<{
+  options?: InputMaybe<PrimitiveTypeOptions>
+  where?: InputMaybe<PrimitiveTypeWhere>
+}>
+
+export type GetPrimitiveTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'PrimitiveType'
+    kind: TypeKind
+    id: string
+    name: string
+    primitiveKind: PrimitiveTypeKind
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetArrayTypesQueryVariables = Exact<{
+  options?: InputMaybe<ArrayTypeOptions>
+  where?: InputMaybe<ArrayTypeWhere>
+}>
+
+export type GetArrayTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'ArrayType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    itemType:
+      | { __typename?: 'ActionType'; id: string; name: string }
+      | { __typename?: 'AppType'; id: string; name: string }
+      | { __typename?: 'ArrayType'; id: string; name: string }
+      | { __typename?: 'CodeMirrorType'; id: string; name: string }
+      | { __typename?: 'ElementType'; id: string; name: string }
+      | { __typename?: 'EnumType'; id: string; name: string }
+      | { __typename?: 'InterfaceType'; id: string; name: string }
+      | { __typename?: 'LambdaType'; id: string; name: string }
+      | { __typename?: 'PageType'; id: string; name: string }
+      | { __typename?: 'PrimitiveType'; id: string; name: string }
+      | { __typename?: 'ReactNodeType'; id: string; name: string }
+      | { __typename?: 'RenderPropsType'; id: string; name: string }
+      | { __typename?: 'UnionType'; id: string; name: string }
+  }>
+}
+
+export type GetUnionTypesQueryVariables = Exact<{
+  options?: InputMaybe<UnionTypeOptions>
+  where?: InputMaybe<UnionTypeWhere>
+}>
+
+export type GetUnionTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'UnionType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    typesOfUnionType: Array<
+      | { __typename?: 'ActionType'; id: string; name: string }
+      | { __typename?: 'AppType'; id: string; name: string }
+      | { __typename?: 'ArrayType'; id: string; name: string }
+      | { __typename?: 'CodeMirrorType'; id: string; name: string }
+      | { __typename?: 'ElementType'; id: string; name: string }
+      | { __typename?: 'EnumType'; id: string; name: string }
+      | { __typename?: 'InterfaceType'; id: string; name: string }
+      | { __typename?: 'LambdaType'; id: string; name: string }
+      | { __typename?: 'PageType'; id: string; name: string }
+      | { __typename?: 'PrimitiveType'; id: string; name: string }
+      | { __typename?: 'ReactNodeType'; id: string; name: string }
+      | { __typename?: 'RenderPropsType'; id: string; name: string }
+      | { __typename?: 'UnionType'; id: string; name: string }
+    >
+  }>
+}
+
+export type GetInterfaceTypesQueryVariables = Exact<{
+  options?: InputMaybe<InterfaceTypeOptions>
+  where?: InputMaybe<InterfaceTypeWhere>
+}>
+
+export type GetInterfaceTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'InterfaceType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    fieldsConnection: {
+      __typename?: 'InterfaceTypeFieldsConnection'
+      edges: Array<{
+        __typename?: 'InterfaceTypeFieldsRelationship'
+        id: string
+        key: string
+        name?: string | null
+        description?: string | null
+        fieldType:
+          | { __typename?: 'ActionType'; id: string }
+          | { __typename?: 'AppType'; id: string }
+          | { __typename?: 'ArrayType'; id: string }
+          | { __typename?: 'CodeMirrorType'; id: string }
+          | { __typename?: 'ElementType'; id: string }
+          | { __typename?: 'EnumType'; id: string }
+          | { __typename?: 'InterfaceType'; id: string }
+          | { __typename?: 'LambdaType'; id: string }
+          | { __typename?: 'PageType'; id: string }
+          | { __typename?: 'PrimitiveType'; id: string }
+          | { __typename?: 'ReactNodeType'; id: string }
+          | { __typename?: 'RenderPropsType'; id: string }
+          | { __typename?: 'UnionType'; id: string }
+      }>
+    }
+  }>
+}
+
+export type GetElementTypesQueryVariables = Exact<{
+  options?: InputMaybe<ElementTypeOptions>
+  where?: InputMaybe<ElementTypeWhere>
+}>
+
+export type GetElementTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'ElementType'
+    kind: TypeKind
+    id: string
+    name: string
+    elementKind: ElementTypeKind
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetRenderPropsTypesQueryVariables = Exact<{
+  options?: InputMaybe<RenderPropsTypeOptions>
+  where?: InputMaybe<RenderPropsTypeWhere>
+}>
+
+export type GetRenderPropsTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'RenderPropsType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetReactNodeTypesQueryVariables = Exact<{
+  options?: InputMaybe<ReactNodeTypeOptions>
+  where?: InputMaybe<ReactNodeTypeWhere>
+}>
+
+export type GetReactNodeTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'ReactNodeType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetEnumTypesQueryVariables = Exact<{
+  options?: InputMaybe<EnumTypeOptions>
+  where?: InputMaybe<EnumTypeWhere>
+}>
+
+export type GetEnumTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'EnumType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    allowedValues: Array<{
+      __typename?: 'EnumTypeValue'
+      id: string
+      name?: string | null
+      value: string
+    }>
+  }>
+}
+
+export type GetLambdaTypesQueryVariables = Exact<{
+  options?: InputMaybe<LambdaTypeOptions>
+  where?: InputMaybe<LambdaTypeWhere>
+}>
+
+export type GetLambdaTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'LambdaType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetPageTypesQueryVariables = Exact<{
+  options?: InputMaybe<PageTypeOptions>
+  where?: InputMaybe<PageTypeWhere>
+}>
+
+export type GetPageTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'PageType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetAppTypesQueryVariables = Exact<{
+  options?: InputMaybe<AppTypeOptions>
+  where?: InputMaybe<AppTypeWhere>
+}>
+
+export type GetAppTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'AppType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetActionTypesQueryVariables = Exact<{
+  options?: InputMaybe<ActionTypeOptions>
+  where?: InputMaybe<ActionTypeWhere>
+}>
+
+export type GetActionTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'ActionType'
+    kind: TypeKind
+    id: string
+    name: string
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type GetCodeMirrorTypesQueryVariables = Exact<{
+  options?: InputMaybe<CodeMirrorTypeOptions>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}>
+
+export type GetCodeMirrorTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{
+    __typename: 'CodeMirrorType'
+    kind: TypeKind
+    id: string
+    name: string
+    language: CodeMirrorLanguage
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+  }>
+}
+
+export type InterfaceForm_GetAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type InterfaceForm_GetAppsQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App'; id: string; name: string }>
+}
+
+export type InterfaceForm_GetAtomsQueryVariables = Exact<{
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}>
+
+export type InterfaceForm_GetAtomsQuery = {
+  __typename?: 'Query'
+  atoms: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+}
+
+export type InterfaceForm_GetStoresQueryVariables = Exact<{
+  options?: InputMaybe<StoreOptions>
+  where?: InputMaybe<StoreWhere>
+}>
+
+export type InterfaceForm_GetStoresQuery = {
+  __typename?: 'Query'
+  stores: Array<{ __typename?: 'Store'; id: string; name: string }>
+}
+
+export type InterfaceForm_GetResourceQueryVariables = Exact<{
+  options?: InputMaybe<ResourceOptions>
+  where?: InputMaybe<ResourceWhere>
+}>
+
+export type InterfaceForm_GetResourceQuery = {
+  __typename?: 'Query'
+  resources: Array<{ __typename?: 'Resource'; id: string; name: string }>
+}
+
+export type InterfaceForm_GetComponentsQueryVariables = Exact<{
+  options?: InputMaybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+}>
+
+export type InterfaceForm_GetComponentsQuery = {
+  __typename?: 'Query'
+  components: Array<{
+    __typename?: 'Component'
+    id: string
+    name: string
+    descendantComponentIds: Array<string>
+  }>
+}
+
+export type InterfaceForm_GetPagesQueryVariables = Exact<{
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}>
+
+export type InterfaceForm_GetPagesQuery = {
+  __typename?: 'Query'
+  pages: Array<{ __typename?: 'Page'; id: string; name: string }>
+}
+
+export type IsTypeDescendantOfQueryVariables = Exact<{
+  descendantTypeId: Scalars['ID']
+  parentTypeId: Scalars['ID']
+}>
+
+export type IsTypeDescendantOfQuery = {
+  __typename?: 'Query'
+  isTypeDescendantOf?: boolean | null
+}
+
+export type GetTypeReferencesQueryVariables = Exact<{
+  typeId: Scalars['ID']
+}>
+
+export type GetTypeReferencesQuery = {
+  __typename?: 'Query'
+  getTypeReferences?: Array<{
+    __typename?: 'TypeReference'
+    name: string
+    label: string
+  }> | null
+}
+
+export type UpdatePrimitiveTypesMutationVariables = Exact<{
+  connect?: InputMaybe<PrimitiveTypeConnectInput>
+  create?: InputMaybe<PrimitiveTypeRelationInput>
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>
+  disconnect?: InputMaybe<PrimitiveTypeDisconnectInput>
+  update?: InputMaybe<PrimitiveTypeUpdateInput>
+  where?: InputMaybe<PrimitiveTypeWhere>
+}>
+
+export type UpdatePrimitiveTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdatePrimitiveTypesMutationResponse'
+    types: Array<{
+      __typename: 'PrimitiveType'
+      kind: TypeKind
+      id: string
+      name: string
+      primitiveKind: PrimitiveTypeKind
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdateArrayTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ArrayTypeConnectInput>
+  create?: InputMaybe<ArrayTypeRelationInput>
+  delete?: InputMaybe<ArrayTypeDeleteInput>
+  disconnect?: InputMaybe<ArrayTypeDisconnectInput>
+  update?: InputMaybe<ArrayTypeUpdateInput>
+  where?: InputMaybe<ArrayTypeWhere>
+}>
+
+export type UpdateArrayTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateArrayTypesMutationResponse'
+    types: Array<{
+      __typename: 'ArrayType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      itemType:
+        | { __typename?: 'ActionType'; id: string; name: string }
+        | { __typename?: 'AppType'; id: string; name: string }
+        | { __typename?: 'ArrayType'; id: string; name: string }
+        | { __typename?: 'CodeMirrorType'; id: string; name: string }
+        | { __typename?: 'ElementType'; id: string; name: string }
+        | { __typename?: 'EnumType'; id: string; name: string }
+        | { __typename?: 'InterfaceType'; id: string; name: string }
+        | { __typename?: 'LambdaType'; id: string; name: string }
+        | { __typename?: 'PageType'; id: string; name: string }
+        | { __typename?: 'PrimitiveType'; id: string; name: string }
+        | { __typename?: 'ReactNodeType'; id: string; name: string }
+        | { __typename?: 'RenderPropsType'; id: string; name: string }
+        | { __typename?: 'UnionType'; id: string; name: string }
+    }>
+  }
+}
+
+export type UpdateUnionTypesMutationVariables = Exact<{
+  connect?: InputMaybe<UnionTypeConnectInput>
+  create?: InputMaybe<UnionTypeRelationInput>
+  delete?: InputMaybe<UnionTypeDeleteInput>
+  disconnect?: InputMaybe<UnionTypeDisconnectInput>
+  update?: InputMaybe<UnionTypeUpdateInput>
+  where?: InputMaybe<UnionTypeWhere>
+}>
+
+export type UpdateUnionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateUnionTypesMutationResponse'
+    types: Array<{
+      __typename: 'UnionType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      typesOfUnionType: Array<
+        | { __typename?: 'ActionType'; id: string; name: string }
+        | { __typename?: 'AppType'; id: string; name: string }
+        | { __typename?: 'ArrayType'; id: string; name: string }
+        | { __typename?: 'CodeMirrorType'; id: string; name: string }
+        | { __typename?: 'ElementType'; id: string; name: string }
+        | { __typename?: 'EnumType'; id: string; name: string }
+        | { __typename?: 'InterfaceType'; id: string; name: string }
+        | { __typename?: 'LambdaType'; id: string; name: string }
+        | { __typename?: 'PageType'; id: string; name: string }
+        | { __typename?: 'PrimitiveType'; id: string; name: string }
+        | { __typename?: 'ReactNodeType'; id: string; name: string }
+        | { __typename?: 'RenderPropsType'; id: string; name: string }
+        | { __typename?: 'UnionType'; id: string; name: string }
+      >
+    }>
+  }
+}
+
+export type UpdateInterfaceTypesMutationVariables = Exact<{
+  connect?: InputMaybe<InterfaceTypeConnectInput>
+  create?: InputMaybe<InterfaceTypeRelationInput>
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
+  update?: InputMaybe<InterfaceTypeUpdateInput>
+  where?: InputMaybe<InterfaceTypeWhere>
+}>
+
+export type UpdateInterfaceTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateInterfaceTypesMutationResponse'
+    types: Array<{
+      __typename: 'InterfaceType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      fieldsConnection: {
+        __typename?: 'InterfaceTypeFieldsConnection'
+        edges: Array<{
+          __typename?: 'InterfaceTypeFieldsRelationship'
+          id: string
+          key: string
+          name?: string | null
+          description?: string | null
+          fieldType:
+            | { __typename?: 'ActionType'; id: string }
+            | { __typename?: 'AppType'; id: string }
+            | { __typename?: 'ArrayType'; id: string }
+            | { __typename?: 'CodeMirrorType'; id: string }
+            | { __typename?: 'ElementType'; id: string }
+            | { __typename?: 'EnumType'; id: string }
+            | { __typename?: 'InterfaceType'; id: string }
+            | { __typename?: 'LambdaType'; id: string }
+            | { __typename?: 'PageType'; id: string }
+            | { __typename?: 'PrimitiveType'; id: string }
+            | { __typename?: 'ReactNodeType'; id: string }
+            | { __typename?: 'RenderPropsType'; id: string }
+            | { __typename?: 'UnionType'; id: string }
+        }>
+      }
+    }>
+  }
+}
+
+export type UpdateReactNodeTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ReactNodeTypeConnectInput>
+  create?: InputMaybe<ReactNodeTypeRelationInput>
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>
+  disconnect?: InputMaybe<ReactNodeTypeDisconnectInput>
+  update?: InputMaybe<ReactNodeTypeUpdateInput>
+  where?: InputMaybe<ReactNodeTypeWhere>
+}>
+
+export type UpdateReactNodeTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateReactNodeTypesMutationResponse'
+    types: Array<{
+      __typename: 'ReactNodeType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdateElementTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ElementTypeConnectInput>
+  create?: InputMaybe<ElementTypeRelationInput>
+  delete?: InputMaybe<ElementTypeDeleteInput>
+  disconnect?: InputMaybe<ElementTypeDisconnectInput>
+  update?: InputMaybe<ElementTypeUpdateInput>
+  where?: InputMaybe<ElementTypeWhere>
+}>
+
+export type UpdateElementTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateElementTypesMutationResponse'
+    types: Array<{
+      __typename: 'ElementType'
+      kind: TypeKind
+      id: string
+      name: string
+      elementKind: ElementTypeKind
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdateRenderPropsTypesMutationVariables = Exact<{
+  connect?: InputMaybe<RenderPropsTypeConnectInput>
+  create?: InputMaybe<RenderPropsTypeRelationInput>
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
+  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>
+  update?: InputMaybe<RenderPropsTypeUpdateInput>
+  where?: InputMaybe<RenderPropsTypeWhere>
+}>
+
+export type UpdateRenderPropsTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateRenderPropsTypesMutationResponse'
+    types: Array<{
+      __typename: 'RenderPropsType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdateEnumTypesMutationVariables = Exact<{
+  connect?: InputMaybe<EnumTypeConnectInput>
+  create?: InputMaybe<EnumTypeRelationInput>
+  delete?: InputMaybe<EnumTypeDeleteInput>
+  disconnect?: InputMaybe<EnumTypeDisconnectInput>
+  update?: InputMaybe<EnumTypeUpdateInput>
+  where?: InputMaybe<EnumTypeWhere>
+}>
+
+export type UpdateEnumTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateEnumTypesMutationResponse'
+    types: Array<{
+      __typename: 'EnumType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+      allowedValues: Array<{
+        __typename?: 'EnumTypeValue'
+        id: string
+        name?: string | null
+        value: string
+      }>
+    }>
+  }
+}
+
+export type UpdateLambdaTypesMutationVariables = Exact<{
+  connect?: InputMaybe<LambdaTypeConnectInput>
+  create?: InputMaybe<LambdaTypeRelationInput>
+  delete?: InputMaybe<LambdaTypeDeleteInput>
+  disconnect?: InputMaybe<LambdaTypeDisconnectInput>
+  update?: InputMaybe<LambdaTypeUpdateInput>
+  where?: InputMaybe<LambdaTypeWhere>
+}>
+
+export type UpdateLambdaTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateLambdaTypesMutationResponse'
+    types: Array<{
+      __typename: 'LambdaType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdatePageTypesMutationVariables = Exact<{
+  connect?: InputMaybe<PageTypeConnectInput>
+  create?: InputMaybe<PageTypeRelationInput>
+  delete?: InputMaybe<PageTypeDeleteInput>
+  disconnect?: InputMaybe<PageTypeDisconnectInput>
+  update?: InputMaybe<PageTypeUpdateInput>
+  where?: InputMaybe<PageTypeWhere>
+}>
+
+export type UpdatePageTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdatePageTypesMutationResponse'
+    types: Array<{
+      __typename: 'PageType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdateAppTypesMutationVariables = Exact<{
+  connect?: InputMaybe<AppTypeConnectInput>
+  create?: InputMaybe<AppTypeRelationInput>
+  delete?: InputMaybe<AppTypeDeleteInput>
+  disconnect?: InputMaybe<AppTypeDisconnectInput>
+  update?: InputMaybe<AppTypeUpdateInput>
+  where?: InputMaybe<AppTypeWhere>
+}>
+
+export type UpdateAppTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateAppTypesMutationResponse'
+    types: Array<{
+      __typename: 'AppType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdateActionTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ActionTypeConnectInput>
+  create?: InputMaybe<ActionTypeRelationInput>
+  delete?: InputMaybe<ActionTypeDeleteInput>
+  disconnect?: InputMaybe<ActionTypeDisconnectInput>
+  update?: InputMaybe<ActionTypeUpdateInput>
+  where?: InputMaybe<ActionTypeWhere>
+}>
+
+export type UpdateActionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateActionTypesMutationResponse'
+    types: Array<{
+      __typename: 'ActionType'
+      kind: TypeKind
+      id: string
+      name: string
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type UpdateCodeMirrorTypesMutationVariables = Exact<{
+  connect?: InputMaybe<CodeMirrorTypeConnectInput>
+  create?: InputMaybe<CodeMirrorTypeRelationInput>
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
+  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>
+  update?: InputMaybe<CodeMirrorTypeUpdateInput>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}>
+
+export type UpdateCodeMirrorTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateCodeMirrorTypesMutationResponse'
+    types: Array<{
+      __typename: 'CodeMirrorType'
+      kind: TypeKind
+      id: string
+      name: string
+      language: CodeMirrorLanguage
+      owner: { __typename?: 'User'; id: string; auth0Id: string }
+    }>
+  }
+}
+
+export type GetUsersQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetUsersQuery = {
+  __typename?: 'Query'
+  users: Array<{
+    __typename?: 'User'
+    id: string
+    username: string
+    email: string
+    auth0Id: string
+    roles: Array<Role>
+    apps: Array<{
+      __typename?: 'App'
+      id: string
+      name: string
+      slug: string
+      owner: { __typename?: 'User'; id: string }
+      pages: Array<{
+        __typename?: 'Page'
+        id: string
+        name: string
+        slug: string
+        app: { __typename?: 'App'; id: string }
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+      }>
+      store: { __typename?: 'Store'; id: string }
+    }>
+  }>
+}
+
+type ActionBase_CustomAction_Fragment = {
+  __typename: 'CustomAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+type ActionBase_PipelineAction_Fragment = {
+  __typename: 'PipelineAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+type ActionBase_ResourceAction_Fragment = {
+  __typename: 'ResourceAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+export type ActionBaseFragment =
+  | ActionBase_CustomAction_Fragment
+  | ActionBase_PipelineAction_Fragment
+  | ActionBase_ResourceAction_Fragment
+
+type Action_CustomAction_Fragment = {
+  __typename: 'CustomAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  code: string
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+type Action_PipelineAction_Fragment = {
+  __typename: 'PipelineAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+  actions: Array<
+    | { __typename?: 'CustomAction'; id: string }
+    | { __typename?: 'PipelineAction'; id: string }
+    | { __typename?: 'ResourceAction'; id: string }
+  >
+  actionsConnection: {
+    __typename?: 'PipelineActionActionsConnection'
+    edges: Array<{
+      __typename?: 'PipelineActionActionsRelationship'
+      orders?: Array<string> | null
+      node:
+        | { __typename?: 'CustomAction'; id: string }
+        | { __typename?: 'PipelineAction'; id: string }
+        | { __typename?: 'ResourceAction'; id: string }
+    }>
+  }
+}
+
+type Action_ResourceAction_Fragment = {
+  __typename: 'ResourceAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+  successAction:
+    | {
+        __typename: 'CustomAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'PipelineAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'ResourceAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+  errorAction:
+    | {
+        __typename: 'CustomAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'PipelineAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'ResourceAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+  resource: {
+    __typename: 'Resource'
+    id: string
+    name: string
+    type: ResourceType
+    config: { __typename?: 'Prop'; id: string; data: string }
+  }
+  config: { __typename?: 'Prop'; id: string; data: string }
+}
+
+export type ActionFragment =
+  | Action_CustomAction_Fragment
+  | Action_PipelineAction_Fragment
+  | Action_ResourceAction_Fragment
+
+export type CustomActionFragment = {
+  __typename: 'CustomAction'
+  code: string
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+export type PipelineActionFragment = {
+  __typename: 'PipelineAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  actions: Array<
+    | { __typename?: 'CustomAction'; id: string }
+    | { __typename?: 'PipelineAction'; id: string }
+    | { __typename?: 'ResourceAction'; id: string }
+  >
+  actionsConnection: {
+    __typename?: 'PipelineActionActionsConnection'
+    edges: Array<{
+      __typename?: 'PipelineActionActionsRelationship'
+      orders?: Array<string> | null
+      node:
+        | { __typename?: 'CustomAction'; id: string }
+        | { __typename?: 'PipelineAction'; id: string }
+        | { __typename?: 'ResourceAction'; id: string }
+    }>
+  }
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+export type ResourceActionFragment = {
+  __typename: 'ResourceAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  successAction:
+    | {
+        __typename: 'CustomAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'PipelineAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'ResourceAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+  errorAction:
+    | {
+        __typename: 'CustomAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'PipelineAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'ResourceAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+  resource: {
+    __typename: 'Resource'
+    id: string
+    name: string
+    type: ResourceType
+    config: { __typename?: 'Prop'; id: string; data: string }
+  }
+  config: { __typename?: 'Prop'; id: string; data: string }
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+export type RedirectedAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; username: string }
+}
+
+export type AppPreviewFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{
+    __typename?: 'Page'
+    id: string
+    name: string
+    slug: string
+    app: { __typename?: 'App'; id: string }
+    rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  }>
+  store: { __typename?: 'Store'; id: string }
+}
+
+export type AppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{
+    __typename?: 'Page'
+    id: string
+    name: string
+    slug: string
+    app: { __typename?: 'App'; id: string }
+    rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  }>
+  store: { __typename?: 'Store'; id: string }
+}
+
+export type PageBuilderAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{
+    __typename?: 'Page'
+    id: string
+    name: string
+    slug: string
+    rootElement: {
+      __typename: 'Element'
+      id: string
+      name?: string | null
+      customCss?: string | null
+      guiCss?: string | null
+      renderForEachPropKey?: string | null
+      renderIfPropKey?: string | null
+      preRenderActionId?: string | null
+      postRenderActionId?: string | null
+      propTransformationJs?: string | null
+      descendantElements?: Array<{
+        __typename: 'Element'
+        id: string
+        name?: string | null
+        customCss?: string | null
+        guiCss?: string | null
+        renderForEachPropKey?: string | null
+        renderIfPropKey?: string | null
+        preRenderActionId?: string | null
+        postRenderActionId?: string | null
+        propTransformationJs?: string | null
+        component?: {
+          __typename?: 'Component'
+          id: string
+          name: string
+          rootElement: {
+            __typename?: 'Element'
+            id: string
+            name?: string | null
+          }
+          owner: { __typename?: 'User'; id: string; auth0Id: string }
+          api: { __typename?: 'InterfaceType'; id: string; name: string }
+        } | null
+        instanceOfComponent?: {
+          __typename?: 'Component'
+          id: string
+          name: string
+          rootElement: {
+            __typename?: 'Element'
+            id: string
+            name?: string | null
+          }
+          owner: { __typename?: 'User'; id: string; auth0Id: string }
+          api: { __typename?: 'InterfaceType'; id: string; name: string }
+        } | null
+        prevSibling?: { __typename?: 'Element'; id: string } | null
+        nextSibling?: { __typename?: 'Element'; id: string } | null
+        parentElement?: { __typename?: 'Element'; id: string } | null
+        childrenRoot?: { __typename?: 'Element'; id: string } | null
+        atom?: {
+          __typename?: 'Atom'
+          icon?: string | null
+          id: string
+          name: string
+          type: AtomType
+          tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+          api: { __typename?: 'InterfaceType'; id: string; name: string }
+        } | null
+        props?: { __typename?: 'Prop'; id: string; data: string } | null
+        hooks: Array<{
+          __typename?: 'Hook'
+          id: string
+          type: AtomType
+          config: { __typename?: 'Prop'; id: string; data: string }
+          element: { __typename?: 'Element'; id: string; name?: string | null }
+        }>
+        propMapBindings: Array<{
+          __typename?: 'PropMapBinding'
+          id: string
+          sourceKey: string
+          targetKey: string
+          element: { __typename?: 'Element'; id: string; name?: string | null }
+          targetElement?: {
+            __typename?: 'Element'
+            id: string
+            name?: string | null
+          } | null
+        }>
+        parentElementConnection: {
+          __typename?: 'ElementParentElementConnection'
+          edges: Array<{
+            __typename?: 'ElementParentElementRelationship'
+            node: { __typename?: 'Element'; id: string; name?: string | null }
+          }>
+        }
+      }> | null
+      component?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      instanceOfComponent?: {
+        __typename?: 'Component'
+        id: string
+        name: string
+        rootElement: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        }
+        owner: { __typename?: 'User'; id: string; auth0Id: string }
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      prevSibling?: { __typename?: 'Element'; id: string } | null
+      nextSibling?: { __typename?: 'Element'; id: string } | null
+      parentElement?: { __typename?: 'Element'; id: string } | null
+      childrenRoot?: { __typename?: 'Element'; id: string } | null
+      atom?: {
+        __typename?: 'Atom'
+        icon?: string | null
+        id: string
+        name: string
+        type: AtomType
+        tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+        api: { __typename?: 'InterfaceType'; id: string; name: string }
+      } | null
+      props?: { __typename?: 'Prop'; id: string; data: string } | null
+      hooks: Array<{
+        __typename?: 'Hook'
+        id: string
+        type: AtomType
+        config: { __typename?: 'Prop'; id: string; data: string }
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+      }>
+      propMapBindings: Array<{
+        __typename?: 'PropMapBinding'
+        id: string
+        sourceKey: string
+        targetKey: string
+        element: { __typename?: 'Element'; id: string; name?: string | null }
+        targetElement?: {
+          __typename?: 'Element'
+          id: string
+          name?: string | null
+        } | null
+      }>
+      parentElementConnection: {
+        __typename?: 'ElementParentElementConnection'
+        edges: Array<{
+          __typename?: 'ElementParentElementRelationship'
+          node: { __typename?: 'Element'; id: string; name?: string | null }
+        }>
+      }
+    }
+  }>
+  store: {
+    __typename: 'Store'
+    id: string
+    name: string
+    stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
+    state: { __typename?: 'Prop'; id: string; data: string }
+    actions: Array<
+      | {
+          __typename: 'CustomAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          code: string
+          store: { __typename?: 'Store'; id: string; name: string }
+        }
+      | {
+          __typename: 'PipelineAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+          actions: Array<
+            | { __typename?: 'CustomAction'; id: string }
+            | { __typename?: 'PipelineAction'; id: string }
+            | { __typename?: 'ResourceAction'; id: string }
+          >
+          actionsConnection: {
+            __typename?: 'PipelineActionActionsConnection'
+            edges: Array<{
+              __typename?: 'PipelineActionActionsRelationship'
+              orders?: Array<string> | null
+              node:
+                | { __typename?: 'CustomAction'; id: string }
+                | { __typename?: 'PipelineAction'; id: string }
+                | { __typename?: 'ResourceAction'; id: string }
+            }>
+          }
+        }
+      | {
+          __typename: 'ResourceAction'
+          id: string
+          name: string
+          type: ActionKind
+          runOnInit: boolean
+          store: { __typename?: 'Store'; id: string; name: string }
+          successAction:
+            | {
+                __typename: 'CustomAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'PipelineAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'ResourceAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+          errorAction:
+            | {
+                __typename: 'CustomAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'PipelineAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+            | {
+                __typename: 'ResourceAction'
+                id: string
+                name: string
+                type: ActionKind
+                runOnInit: boolean
+                store: { __typename?: 'Store'; id: string; name: string }
+              }
+          resource: {
+            __typename: 'Resource'
+            id: string
+            name: string
+            type: ResourceType
+            config: { __typename?: 'Prop'; id: string; data: string }
+          }
+          config: { __typename?: 'Prop'; id: string; data: string }
+        }
+    >
+  }
+}
+
+export type AtomFragment = {
+  __typename?: 'Atom'
+  icon?: string | null
+  id: string
+  name: string
+  type: AtomType
+  tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+}
+
+export type ComponentFragment = {
+  __typename?: 'Component'
+  id: string
+  name: string
+  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+}
+
+export type DomainFragment = {
+  __typename?: 'Domain'
+  id: string
+  name: string
+  domainConfig: {
+    __typename?: 'VercelDomainConfigData'
+    misconfigured: boolean
+  }
+  projectDomain: { __typename?: 'VercelProjectDomainData'; verified: boolean }
+}
+
+export type ElementFragment = {
+  __typename: 'Element'
+  id: string
+  name?: string | null
+  customCss?: string | null
+  guiCss?: string | null
+  renderForEachPropKey?: string | null
+  renderIfPropKey?: string | null
+  preRenderActionId?: string | null
+  postRenderActionId?: string | null
+  propTransformationJs?: string | null
+  component?: {
+    __typename?: 'Component'
+    id: string
+    name: string
+    rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    api: { __typename?: 'InterfaceType'; id: string; name: string }
+  } | null
+  instanceOfComponent?: {
+    __typename?: 'Component'
+    id: string
+    name: string
+    rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    owner: { __typename?: 'User'; id: string; auth0Id: string }
+    api: { __typename?: 'InterfaceType'; id: string; name: string }
+  } | null
+  prevSibling?: { __typename?: 'Element'; id: string } | null
+  nextSibling?: { __typename?: 'Element'; id: string } | null
+  parentElement?: { __typename?: 'Element'; id: string } | null
+  childrenRoot?: { __typename?: 'Element'; id: string } | null
+  atom?: {
+    __typename?: 'Atom'
+    icon?: string | null
+    id: string
+    name: string
+    type: AtomType
+    tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+    api: { __typename?: 'InterfaceType'; id: string; name: string }
+  } | null
+  props?: { __typename?: 'Prop'; id: string; data: string } | null
+  hooks: Array<{
+    __typename?: 'Hook'
+    id: string
+    type: AtomType
+    config: { __typename?: 'Prop'; id: string; data: string }
+    element: { __typename?: 'Element'; id: string; name?: string | null }
+  }>
+  propMapBindings: Array<{
+    __typename?: 'PropMapBinding'
+    id: string
+    sourceKey: string
+    targetKey: string
+    element: { __typename?: 'Element'; id: string; name?: string | null }
+    targetElement?: {
+      __typename?: 'Element'
+      id: string
+      name?: string | null
+    } | null
+  }>
+  parentElementConnection: {
+    __typename?: 'ElementParentElementConnection'
+    edges: Array<{
+      __typename?: 'ElementParentElementRelationship'
+      node: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+  }
+}
+
+export type ElementGraphFragment = {
+  __typename?: 'ElementGraph'
+  id: string
+  descendants: Array<string>
+}
+
+export type HookPropFragment = { __typename?: 'Prop'; id: string; data: string }
+
+export type HookFragment = {
+  __typename?: 'Hook'
+  id: string
+  type: AtomType
+  config: { __typename?: 'Prop'; id: string; data: string }
+  element: { __typename?: 'Element'; id: string; name?: string | null }
+}
+
+export type PageFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  slug: string
+  app: { __typename?: 'App'; id: string }
+  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+}
+
+export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
+
+export type PropMapBindingFragment = {
+  __typename?: 'PropMapBinding'
+  id: string
+  sourceKey: string
+  targetKey: string
+  element: { __typename?: 'Element'; id: string; name?: string | null }
+  targetElement?: {
+    __typename?: 'Element'
+    id: string
+    name?: string | null
+  } | null
+}
+
+export type ResourceFragment = {
+  __typename: 'Resource'
+  id: string
+  name: string
+  type: ResourceType
+  config: { __typename?: 'Prop'; id: string; data: string }
+}
+
+export type StoreFragment = {
+  __typename: 'Store'
+  id: string
+  name: string
+  stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
+  state: { __typename?: 'Prop'; id: string; data: string }
+  actions: Array<
+    | {
+        __typename: 'CustomAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        code: string
+        store: { __typename?: 'Store'; id: string; name: string }
+      }
+    | {
+        __typename: 'PipelineAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+        actions: Array<
+          | { __typename?: 'CustomAction'; id: string }
+          | { __typename?: 'PipelineAction'; id: string }
+          | { __typename?: 'ResourceAction'; id: string }
+        >
+        actionsConnection: {
+          __typename?: 'PipelineActionActionsConnection'
+          edges: Array<{
+            __typename?: 'PipelineActionActionsRelationship'
+            orders?: Array<string> | null
+            node:
+              | { __typename?: 'CustomAction'; id: string }
+              | { __typename?: 'PipelineAction'; id: string }
+              | { __typename?: 'ResourceAction'; id: string }
+          }>
+        }
+      }
+    | {
+        __typename: 'ResourceAction'
+        id: string
+        name: string
+        type: ActionKind
+        runOnInit: boolean
+        store: { __typename?: 'Store'; id: string; name: string }
+        successAction:
+          | {
+              __typename: 'CustomAction'
+              id: string
+              name: string
+              type: ActionKind
+              runOnInit: boolean
+              store: { __typename?: 'Store'; id: string; name: string }
+            }
+          | {
+              __typename: 'PipelineAction'
+              id: string
+              name: string
+              type: ActionKind
+              runOnInit: boolean
+              store: { __typename?: 'Store'; id: string; name: string }
+            }
+          | {
+              __typename: 'ResourceAction'
+              id: string
+              name: string
+              type: ActionKind
+              runOnInit: boolean
+              store: { __typename?: 'Store'; id: string; name: string }
+            }
+        errorAction:
+          | {
+              __typename: 'CustomAction'
+              id: string
+              name: string
+              type: ActionKind
+              runOnInit: boolean
+              store: { __typename?: 'Store'; id: string; name: string }
+            }
+          | {
+              __typename: 'PipelineAction'
+              id: string
+              name: string
+              type: ActionKind
+              runOnInit: boolean
+              store: { __typename?: 'Store'; id: string; name: string }
+            }
+          | {
+              __typename: 'ResourceAction'
+              id: string
+              name: string
+              type: ActionKind
+              runOnInit: boolean
+              store: { __typename?: 'Store'; id: string; name: string }
+            }
+        resource: {
+          __typename: 'Resource'
+          id: string
+          name: string
+          type: ResourceType
+          config: { __typename?: 'Prop'; id: string; data: string }
+        }
+        config: { __typename?: 'Prop'; id: string; data: string }
+      }
+  >
+}
+
+export type TagFragment = {
+  __typename?: 'Tag'
+  id: string
+  name: string
+  isRoot?: boolean | null
+  parent?: { __typename?: 'Tag'; id: string } | null
+  children: Array<{ __typename?: 'Tag'; id: string }>
+}
+
+export type ActionTypeFragment = {
+  __typename: 'ActionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type AppTypeFragment = {
+  __typename: 'AppType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type ArrayTypeFragment = {
+  __typename: 'ArrayType'
+  kind: TypeKind
+  id: string
+  name: string
+  itemType:
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type CodeMirrorTypeFragment = {
+  __typename: 'CodeMirrorType'
+  language: CodeMirrorLanguage
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type ElementTypeFragment = {
+  __typename: 'ElementType'
+  elementKind: ElementTypeKind
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type EnumTypeValueFragment = {
+  __typename?: 'EnumTypeValue'
+  id: string
+  name?: string | null
+  value: string
+}
+
+export type EnumTypeFragment = {
+  __typename: 'EnumType'
+  kind: TypeKind
+  id: string
+  name: string
+  allowedValues: Array<{
+    __typename?: 'EnumTypeValue'
+    id: string
+    name?: string | null
+    value: string
+  }>
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type FieldFragment = {
+  __typename?: 'InterfaceTypeFieldsRelationship'
+  id: string
+  key: string
+  name?: string | null
+  description?: string | null
+  fieldType:
+    | { __typename?: 'ActionType'; id: string }
+    | { __typename?: 'AppType'; id: string }
+    | { __typename?: 'ArrayType'; id: string }
+    | { __typename?: 'CodeMirrorType'; id: string }
+    | { __typename?: 'ElementType'; id: string }
+    | { __typename?: 'EnumType'; id: string }
+    | { __typename?: 'InterfaceType'; id: string }
+    | { __typename?: 'LambdaType'; id: string }
+    | { __typename?: 'PageType'; id: string }
+    | { __typename?: 'PrimitiveType'; id: string }
+    | { __typename?: 'ReactNodeType'; id: string }
+    | { __typename?: 'RenderPropsType'; id: string }
+    | { __typename?: 'UnionType'; id: string }
+}
+
+export type InterfaceTypeFragment = {
+  __typename: 'InterfaceType'
+  kind: TypeKind
+  id: string
+  name: string
+  fieldsConnection: {
+    __typename?: 'InterfaceTypeFieldsConnection'
+    edges: Array<{
+      __typename?: 'InterfaceTypeFieldsRelationship'
+      id: string
+      key: string
+      name?: string | null
+      description?: string | null
+      fieldType:
+        | { __typename?: 'ActionType'; id: string }
+        | { __typename?: 'AppType'; id: string }
+        | { __typename?: 'ArrayType'; id: string }
+        | { __typename?: 'CodeMirrorType'; id: string }
+        | { __typename?: 'ElementType'; id: string }
+        | { __typename?: 'EnumType'; id: string }
+        | { __typename?: 'InterfaceType'; id: string }
+        | { __typename?: 'LambdaType'; id: string }
+        | { __typename?: 'PageType'; id: string }
+        | { __typename?: 'PrimitiveType'; id: string }
+        | { __typename?: 'ReactNodeType'; id: string }
+        | { __typename?: 'RenderPropsType'; id: string }
+        | { __typename?: 'UnionType'; id: string }
+    }>
+  }
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type LambdaTypeFragment = {
+  __typename: 'LambdaType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type PageTypeFragment = {
+  __typename: 'PageType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type PrimitiveTypeFragment = {
+  __typename: 'PrimitiveType'
+  primitiveKind: PrimitiveTypeKind
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type ReactNodeTypeFragment = {
+  __typename: 'ReactNodeType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type RenderPropsTypeFragment = {
+  __typename: 'RenderPropsType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ActionType_Fragment = {
+  __typename: 'ActionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_AppType_Fragment = {
+  __typename: 'AppType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_CodeMirrorType_Fragment = {
+  __typename: 'CodeMirrorType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ElementType_Fragment = {
+  __typename: 'ElementType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_EnumType_Fragment = {
+  __typename: 'EnumType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_LambdaType_Fragment = {
+  __typename: 'LambdaType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_PageType_Fragment = {
+  __typename: 'PageType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_PrimitiveType_Fragment = {
+  __typename: 'PrimitiveType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ReactNodeType_Fragment = {
+  __typename: 'ReactNodeType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_RenderPropsType_Fragment = {
+  __typename: 'RenderPropsType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_UnionType_Fragment = {
+  __typename: 'UnionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type TypeBaseFragment =
+  | TypeBase_ActionType_Fragment
+  | TypeBase_AppType_Fragment
+  | TypeBase_ArrayType_Fragment
+  | TypeBase_CodeMirrorType_Fragment
+  | TypeBase_ElementType_Fragment
+  | TypeBase_EnumType_Fragment
+  | TypeBase_InterfaceType_Fragment
+  | TypeBase_LambdaType_Fragment
+  | TypeBase_PageType_Fragment
+  | TypeBase_PrimitiveType_Fragment
+  | TypeBase_ReactNodeType_Fragment
+  | TypeBase_RenderPropsType_Fragment
+  | TypeBase_UnionType_Fragment
+
+type Type_ActionType_Fragment = {
+  __typename: 'ActionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_AppType_Fragment = {
+  __typename: 'AppType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  itemType:
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+}
+
+type Type_CodeMirrorType_Fragment = {
+  __typename: 'CodeMirrorType'
+  kind: TypeKind
+  id: string
+  name: string
+  language: CodeMirrorLanguage
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_ElementType_Fragment = {
+  __typename: 'ElementType'
+  kind: TypeKind
+  id: string
+  name: string
+  elementKind: ElementTypeKind
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_EnumType_Fragment = {
+  __typename: 'EnumType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  allowedValues: Array<{
+    __typename?: 'EnumTypeValue'
+    id: string
+    name?: string | null
+    value: string
+  }>
+}
+
+type Type_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  fieldsConnection: {
+    __typename?: 'InterfaceTypeFieldsConnection'
+    edges: Array<{
+      __typename?: 'InterfaceTypeFieldsRelationship'
+      id: string
+      key: string
+      name?: string | null
+      description?: string | null
+      fieldType:
+        | { __typename?: 'ActionType'; id: string }
+        | { __typename?: 'AppType'; id: string }
+        | { __typename?: 'ArrayType'; id: string }
+        | { __typename?: 'CodeMirrorType'; id: string }
+        | { __typename?: 'ElementType'; id: string }
+        | { __typename?: 'EnumType'; id: string }
+        | { __typename?: 'InterfaceType'; id: string }
+        | { __typename?: 'LambdaType'; id: string }
+        | { __typename?: 'PageType'; id: string }
+        | { __typename?: 'PrimitiveType'; id: string }
+        | { __typename?: 'ReactNodeType'; id: string }
+        | { __typename?: 'RenderPropsType'; id: string }
+        | { __typename?: 'UnionType'; id: string }
+    }>
+  }
+}
+
+type Type_LambdaType_Fragment = {
+  __typename: 'LambdaType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_PageType_Fragment = {
+  __typename: 'PageType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_PrimitiveType_Fragment = {
+  __typename: 'PrimitiveType'
+  kind: TypeKind
+  id: string
+  name: string
+  primitiveKind: PrimitiveTypeKind
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_ReactNodeType_Fragment = {
+  __typename: 'ReactNodeType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_RenderPropsType_Fragment = {
+  __typename: 'RenderPropsType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type Type_UnionType_Fragment = {
+  __typename: 'UnionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  typesOfUnionType: Array<
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+  >
+}
+
+export type TypeFragment =
+  | Type_ActionType_Fragment
+  | Type_AppType_Fragment
+  | Type_ArrayType_Fragment
+  | Type_CodeMirrorType_Fragment
+  | Type_ElementType_Fragment
+  | Type_EnumType_Fragment
+  | Type_InterfaceType_Fragment
+  | Type_LambdaType_Fragment
+  | Type_PageType_Fragment
+  | Type_PrimitiveType_Fragment
+  | Type_ReactNodeType_Fragment
+  | Type_RenderPropsType_Fragment
+  | Type_UnionType_Fragment
+
+export type UnionTypeFragment = {
+  __typename: 'UnionType'
+  kind: TypeKind
+  id: string
+  name: string
+  typesOfUnionType: Array<
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+  >
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type UserFragment = {
+  __typename?: 'User'
+  id: string
+  username: string
+  email: string
+  auth0Id: string
+  roles: Array<Role>
+  apps: Array<{
+    __typename?: 'App'
+    id: string
+    name: string
+    slug: string
+    owner: { __typename?: 'User'; id: string }
+    pages: Array<{
+      __typename?: 'Page'
+      id: string
+      name: string
+      slug: string
+      app: { __typename?: 'App'; id: string }
+      rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+    store: { __typename?: 'Store'; id: string }
+  }>
+}

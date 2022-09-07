@@ -1,4 +1,4 @@
-import { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import { IEntity, Maybe, MaybeArray } from '@codelab/shared/abstract/types'
 
 export type ICreateServiceSingleEntitiy<Entity, CreateDTO> = (
   data: CreateDTO,
@@ -11,9 +11,14 @@ export interface ICRUDService<Entity, CreateDTO, UpdateDTO> {
   deleteMany?(ids: Array<string>): Promise<Array<Entity>>
 }
 
-export interface CacheService<Entity, CreateDTO> {
-  updateCache(data: Array<CreateDTO>): Array<Entity>
-  addOrUpdate(data: CreateDTO): Entity
+export interface ICacheService<CreateDTO, Entity> {
+  writeCache(data: Array<CreateDTO>): Array<Entity>
+  // addOrUpdate(data: CreateDTO): Entity
+}
+
+export interface IModelCacheService<CreateDTO, Entity> {
+  writeCache(data: CreateDTO): Entity
+  // addOrUpdate(data: CreateDTO): Entity
 }
 
 export interface IQueryService<Entity, EntityWhere> {

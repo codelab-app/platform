@@ -2,7 +2,7 @@ import { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import {
-  CacheService,
+  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IModalService,
@@ -29,7 +29,7 @@ export interface IResourceService
       'create' | 'update'
     >,
     IQueryService<IResource, ResourceWhere>,
-    CacheService<IResource, IResourceDTO>,
+    ICacheService<IResourceDTO, IResource>,
     Omit<
       ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
       'createModal'

@@ -117,7 +117,7 @@ export class ActionService
   }
 
   @modelAction
-  updateCache(actions: Array<IActionDTO>) {
+  writeCache(actions: Array<IActionDTO>) {
     return actions.map((action) => this.addOrUpdate(action))
   }
 
@@ -148,7 +148,7 @@ export class ActionService
       .filter((action) => action.__typename === IActionKind.ResourceAction)
       .map((action) => (action as IResourceActionDTO).resource)
 
-    return resourceService.updateCache(resources)
+    return resourceService.writeCache(resources)
   }
 
   @modelAction

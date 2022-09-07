@@ -23,13 +23,13 @@ import { gql } from 'graphql-tag'
 import { PageBuilderAppFragmentDoc } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-export type GetBuilderPageQueryVariables = Types.Exact<{
+export type GetPageBuilderQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
   pageId: Types.Scalars['ID']
   typeIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
-export type GetBuilderPageQuery = {
+export type GetPageBuilderQuery = {
   apps: Array<PageBuilderAppFragment>
   components: Array<ComponentFragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
@@ -47,8 +47,8 @@ export type GetBuilderPageQuery = {
   codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>
 }
 
-export const GetBuilderPageDocument = gql`
-  query GetBuilderPage($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
+export const GetPageBuilderDocument = gql`
+  query GetPageBuilder($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
     apps(where: { id: $appId }) {
       ...PageBuilderApp
     }
@@ -117,18 +117,18 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    GetBuilderPage(
-      variables: GetBuilderPageQueryVariables,
+    GetPageBuilder(
+      variables: GetPageBuilderQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetBuilderPageQuery> {
+    ): Promise<GetPageBuilderQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetBuilderPageQuery>(
-            GetBuilderPageDocument,
+          client.request<GetPageBuilderQuery>(
+            GetPageBuilderDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'GetBuilderPage',
+        'GetPageBuilder',
         'query',
       )
     },
