@@ -48,6 +48,8 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.EnumType
           ? [makeAllowedValuesCreateInput(type)]
           : undefined,
+
+      owner: {},
     },
     disconnect: {
       itemType:
