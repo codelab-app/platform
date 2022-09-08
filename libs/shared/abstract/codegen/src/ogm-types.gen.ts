@@ -6964,10 +6964,11 @@ export type UserTypesConnection = {
   pageInfo: PageInfo;
 };
 
-export type UserTypesRelationship = {
+export type UserTypesRelationship = OwnedBy & {
   __typename?: "UserTypesRelationship";
   cursor: Scalars["String"];
   node: TypeBase;
+  value?: Maybe<Scalars["String"]>;
 };
 
 export type VercelDomainConfigData = {
@@ -22483,19 +22484,25 @@ export type UserTypesConnectFieldInput = {
   where?: InputMaybe<TypeBaseConnectWhere>;
 };
 
+
+
 export type UserTypesConnectionSort = {
+  edge?: InputMaybe<OwnedBySort>;
   node?: InputMaybe<TypeBaseSort>;
 };
 
 export type UserTypesConnectionWhere = {
   AND?: InputMaybe<Array<UserTypesConnectionWhere>>;
   OR?: InputMaybe<Array<UserTypesConnectionWhere>>;
+  edge?: InputMaybe<OwnedByWhere>;
+  edge_NOT?: InputMaybe<OwnedByWhere>;
   node?: InputMaybe<TypeBaseWhere>;
   node_NOT?: InputMaybe<TypeBaseWhere>;
 };
 
 export type UserTypesCreateFieldInput = {
   node: TypeBaseCreateInput;
+  edge: OwnedByCreateInput;
 };
 
 export type UserTypesDeleteFieldInput = {
@@ -22514,6 +22521,7 @@ export type UserTypesFieldInput = {
 };
 
 export type UserTypesUpdateConnectionInput = {
+  edge?: InputMaybe<OwnedByUpdateInput>;
   node?: InputMaybe<TypeBaseUpdateInput>;
 };
 
