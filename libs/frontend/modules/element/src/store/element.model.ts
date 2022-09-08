@@ -35,7 +35,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { makePatchElementInput } from './api.utils'
+import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
 import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
@@ -531,7 +531,7 @@ export class Element
       throw new Error(`parent element id ${parentElementId} not found`)
     }
 
-    return makePatchElementInput(parentElement, {
+    return makeUpdateElementInput(parentElement, {
       children: [
         {
           connect: [
@@ -578,7 +578,7 @@ export class Element
       }
     }
 
-    return makePatchElementInput(this.parentElement, parentElementChanges)
+    return makeUpdateElementInput(this.parentElement, parentElementChanges)
   }
 
   makeDetachPrevSiblingInput() {
@@ -586,7 +586,7 @@ export class Element
       return null
     }
 
-    return makePatchElementInput(this.prevSibling, {
+    return makeUpdateElementInput(this.prevSibling, {
       nextSibling: {
         ...disconnectId(this.id),
         ...connectId(this.nextSibling?.id),
@@ -599,7 +599,7 @@ export class Element
       return null
     }
 
-    return makePatchElementInput(this.nextSibling, {
+    return makeUpdateElementInput(this.nextSibling, {
       prevSibling: {
         ...disconnectId(this.id),
         ...connectId(this.prevSibling?.id),
@@ -616,7 +616,7 @@ export class Element
 
     // sibling - next sibling
     // sibling - [element]
-    return makePatchElementInput(sibling, {
+    return makeUpdateElementInput(sibling, {
       nextSibling: {
         // sibling detaches
         ...disconnectId(sibling.nextSibling?.id),
@@ -635,7 +635,7 @@ export class Element
 
     // sibling.prevSibling - sibling
     // [element] - sibling
-    return makePatchElementInput(sibling, {
+    return makeUpdateElementInput(sibling, {
       prevSibling: {
         // sibling detaches its prev sibling
         ...disconnectId(sibling.prevSibling?.id),

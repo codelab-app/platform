@@ -13,7 +13,7 @@ import { v4 } from 'uuid'
 // Utilities for transforming the form inputs to api inputs
 //
 
-export const makePatchElementInput = (
+export const makeUpdateElementInput = (
   element: Pick<IElement, 'id'>,
   input: ElementUpdateInput,
 ) => ({
