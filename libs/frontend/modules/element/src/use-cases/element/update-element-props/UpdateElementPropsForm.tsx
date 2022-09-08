@@ -84,7 +84,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
           <Row gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
-                autosave
+                autoSave
                 context={{ autocomplete, builderState, actionList }}
                 initialValue={initialPropsRef.current}
                 interfaceType={interfaceType}

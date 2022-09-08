@@ -134,6 +134,7 @@
     "react-slick": "0.29.0",
     "react-stickynode": "4.1.0",
     "react-syntax-highlighter": "^15.5.0",
+    "react-use": "^17.4.0",
     "recoil": "^0.7.4",
     "reflect-metadata": "0.1.13",
     "rooks": "^5.11.2",

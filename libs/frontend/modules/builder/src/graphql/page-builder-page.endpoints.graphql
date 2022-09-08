@@ -2,9 +2,6 @@ query GetPageBuilder($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
   apps(where: { id: $appId }) {
     ...PageBuilderApp
   }
-  stores {
-    ...Store
-  }
   components {
     ...Component
   }

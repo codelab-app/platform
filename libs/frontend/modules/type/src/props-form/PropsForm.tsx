@@ -13,10 +13,10 @@ import { Subscription } from 'react-hook-form/dist/utils/createSubject'
 import { PropsFields } from './PropsFields'
 
 export interface PropsFormProps {
-  interfaceType: IInterfaceType
+  interfaceType?: IInterfaceType
   initialValue?: IPropData
   onSubmit: (values: IPropData) => IPropData
-  autosave?: boolean
+  autoSave?: boolean
   context?: IPropsFieldContext
 }
 
@@ -24,12 +24,16 @@ export interface PropsFormProps {
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
  */
 export const PropsForm = observer<PropsFormProps>(
-  ({ interfaceType, initialValue, onSubmit, autosave, context }) => {
+  ({ interfaceType, initialValue, onSubmit, autoSave, context }) => {
+    console.log(interfaceType)
+
     const form = useForm({ defaultValues: initialValue })
     const { handleSubmit, watch } = form
-    const fields: Array<IField> = [...interfaceType.fields.values()]
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const fields: Array<IField> = interfaceType
+      ? [...interfaceType.fields.values()]
+      : []
+
     const debouncedSave = useCallback(
       debounce(() => handleSubmit(onSubmit)(), 500),
       [onSubmit],
@@ -38,12 +42,12 @@ export const PropsForm = observer<PropsFormProps>(
     useEffect(() => {
       let subscription: Nullish<Subscription> = null
 
-      if (autosave) {
+      if (autoSave) {
         subscription = watch(debouncedSave)
       }
 
       return () => subscription?.unsubscribe()
-    }, [watch, autosave, debouncedSave])
+    }, [watch, autoSave, debouncedSave])
 
     return (
       <form onSubmit={form.handleSubmit(onSubmit)}>

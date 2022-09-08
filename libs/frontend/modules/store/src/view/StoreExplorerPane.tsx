@@ -16,11 +16,15 @@ import { GetActionsList, GetStateList } from '../use-cases'
 interface StoreExplorerPaneProps {
   typeService: ITypeService
   actionService: IActionService
-  store: IStore
+  store?: IStore
 }
 
 export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
   ({ typeService, actionService, store }) => {
+    if (!store) {
+      return null
+    }
+
     return (
       <ExplorerPaneTemplate title="Store">
         <Row justify="space-between">
