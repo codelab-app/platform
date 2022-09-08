@@ -61,7 +61,7 @@ export class TypeService
     fieldUpdateModal: prop(() => new FieldModalService({})),
     fieldDeleteModal: prop(() => new FieldModalService({})),
 
-    defaultValueModal: prop(() => new InterfaceTypeModalService({})),
+    defaultValueModal: prop(() => new TypeModalService({})),
   })
   implements ITypeService
 {
