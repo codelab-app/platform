@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 
 export const Logo = () => {
   return (
-    <a css={tw`flex items-center`}>
+    <a css={tw`flex items-center`} href="">
       <Image
         alt="Codelab Logo"
         height={42}

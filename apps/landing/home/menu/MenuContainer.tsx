@@ -39,7 +39,7 @@ export const menuItems = [
   },
   {
     title: 'Pricing',
-    href: '/',
+    href: '/pricing',
   },
   {
     title: 'Tutorials',
