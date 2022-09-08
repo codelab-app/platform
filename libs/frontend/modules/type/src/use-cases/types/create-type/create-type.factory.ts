@@ -16,7 +16,17 @@ export const createTypeFactory = (
     id: type.id,
     name: type.name,
     owner: {
-      connect: { where: { node: { auth0Id: type.auth0Id } } },
+      connect: {
+        where: { node: { auth0Id: type.auth0Id } },
+        connect: {
+          types: [
+            {
+              where: { node: { id: type.id } },
+              edge: { value: JSON.stringify(type.defaultValue) },
+            },
+          ],
+        },
+      },
     },
     primitiveKind:
       type.kind === ITypeKind.PrimitiveType ? type.primitiveKind : undefined,

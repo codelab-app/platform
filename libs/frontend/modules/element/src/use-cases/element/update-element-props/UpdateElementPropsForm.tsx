@@ -80,9 +80,9 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
               <PropsForm
                 autoSave
                 context={{ autocomplete, builderState, actionList }}
-                initialValue={initialPropsRef.current}
                 interfaceType={interfaceType}
                 key={element.id}
+                model={initialPropsRef.current}
                 onSubmit={onSubmit}
               />
             </Col>
