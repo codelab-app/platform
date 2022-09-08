@@ -17825,6 +17825,7 @@ type TypeBaseOwnerRelationship implements OwnedBy {
   cursor: String!
   data: String!
   node: User!
+  value: String
 }
 
 input TypeBaseOwnerUpdateConnectionInput {
@@ -20119,6 +20120,7 @@ input UserTagsUpdateFieldInput {
 
 input UserTypesConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: OwnedByCreateInput
   where: TypeBaseConnectWhere
 }
 
@@ -20129,17 +20131,21 @@ type UserTypesConnection {
 }
 
 input UserTypesConnectionSort {
+  edge: OwnedBySort
   node: TypeBaseSort
 }
 
 input UserTypesConnectionWhere {
   AND: [UserTypesConnectionWhere!]
   OR: [UserTypesConnectionWhere!]
+  edge: OwnedByWhere
+  edge_NOT: OwnedByWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input UserTypesCreateFieldInput {
+  edge: OwnedByCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -20158,12 +20164,14 @@ input UserTypesFieldInput {
   create: [UserTypesCreateFieldInput!]
 }
 
-type UserTypesRelationship {
+type UserTypesRelationship implements OwnedBy {
   cursor: String!
   node: TypeBase!
+  value: String
 }
 
 input UserTypesUpdateConnectionInput {
+  edge: OwnedByUpdateInput
   node: TypeBaseUpdateInput
 }
 
