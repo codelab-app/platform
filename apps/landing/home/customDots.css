@@ -1,0 +1,44 @@
+.slick-dots.slick-thumb {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+  z-index: 10;
+}
+
+.slick-dots.slick-thumb li {
+  width: 70px;
+  height: 7px;
+  margin: 0;
+  margin-top: 20px;
+  /* border-radius: 999px; */
+  transition: all 0.5s ease-in-out;
+  will-change: width;
+  background-color: #ccc;
+}
+.slick-dots.slick-thumb li:first-child {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.slick-dots.slick-thumb li:last-child {
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.slick-dots.slick-thumb li button {
+  opacity: 0;
+}
+
+.slick-dots.slick-thumb li.slick-active {
+  background-color: #b07507;
+  width: 70px;
+  /* border-radius: full; */
+}
+
+@media screen and (max-width: 576px) {
+  .slick-dots.slick-thumb li {
+    width: 40px;
+  }
+  .slick-dots.slick-thumb li.slick-active {
+    width: 40px;
+  }
+}

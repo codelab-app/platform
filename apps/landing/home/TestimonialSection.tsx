@@ -3,6 +3,7 @@ import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
 import React from 'react'
+import { WidthProvider } from 'react-grid-layout'
 import Slider, { Settings } from 'react-slick'
 import tw from 'twin.macro'
 import v from 'voca'
@@ -106,28 +107,10 @@ export const TestimonialSection = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    appendDots: (dots) => (
-      <div
-        style={{
-          backgroundColor: '#fff',
-
-          padding: '2px',
-        }}
-      >
-        <ul style={{ margin: '0px' }}> {dots} </ul>
-      </div>
-    ),
-    customPaging: (i) => (
-      <div
-        style={{
-          width: '30px',
-          color: 'blue',
-          border: '1px blue solid',
-        }}
-      >
-        {i + 1}
-      </div>
-    ),
+    appendDots: (dots) => {
+      return <div>{dots}</div>
+    },
+    dotsClass: 'slick-dots slick-thumb',
     responsive: [
       {
         breakpoint: 1200,
@@ -154,7 +137,7 @@ export const TestimonialSection = () => {
       >
         Loved by startups
       </h1>
-      <Slider {...settings} css={tw`my-2 sm:my-8 z-10 mt-8`}>
+      <Slider {...settings} css={tw`my-2 sm:my-8 pb-0 sm:pb-8 z-10 mt-8`}>
         <TestimonialItem
           review="We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA)."
           role="Co-Founder @ Mrhost"

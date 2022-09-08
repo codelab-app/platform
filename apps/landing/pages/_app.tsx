@@ -1,6 +1,7 @@
 // import '../src/wdyr'
 import 'reflect-metadata'
 import '../styles/app.css'
+import '../home/customDots.css'
 import '../styles/antd-theme.less'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0'
