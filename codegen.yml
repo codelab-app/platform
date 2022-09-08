@@ -34,6 +34,7 @@ generates:
       #
       # This will be a duplicate copy of operation types from the `near-operation-file` plugin
       - typescript-operations
+    #      - typed-document-node
     config:
       #      constEnums: true
       inlineFragmentTypes: combine

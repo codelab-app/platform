@@ -5231,6 +5231,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-codegen/typed-document-node@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "@graphql-codegen/typed-document-node@npm:2.3.3"
+  dependencies:
+    "@graphql-codegen/plugin-helpers": ^2.6.2
+    "@graphql-codegen/visitor-plugin-common": 2.12.1
+    auto-bind: ~4.0.0
+    change-case-all: 1.0.14
+    tslib: ~2.4.0
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: ce7ac8e2b55350f9b5d7d0f3a7352a531d21314c14f53a396399a58e28b17f3184fe10130052eecae7e51bd40fa427c2c62672dd48faf948a6ec1a06c825277f
+  languageName: node
+  linkType: hard
+
 "@graphql-codegen/typescript-document-nodes@npm:2.2.11":
   version: 2.2.11
   resolution: "@graphql-codegen/typescript-document-nodes@npm:2.2.11"
@@ -13838,6 +13853,7 @@ __metadata:
     "@graphql-codegen/import-types-preset": 2.1.18
     "@graphql-codegen/near-operation-file-preset": 2.2.12
     "@graphql-codegen/schema-ast": 2.4.1
+    "@graphql-codegen/typed-document-node": ^2.3.3
     "@graphql-codegen/typescript": 2.4.11
     "@graphql-codegen/typescript-document-nodes": 2.2.11
     "@graphql-codegen/typescript-graphql-request": 4.4.8

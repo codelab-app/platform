@@ -58,7 +58,7 @@ export const elementSchema = gql`
       @relationship(type: "BIND_PROPS_TO_ELEMENT", direction: OUT)
 
     # This is a custom field resolver
-    descendantElements: [Element!]
+    descendantElements: [Element!]!
   }
 
   input ElementGraphInput {

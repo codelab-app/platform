@@ -4343,7 +4343,7 @@ export type Element = {
   componentAggregate?: Maybe<ElementComponentComponentAggregationSelection>
   componentConnection: ElementComponentConnection
   customCss?: Maybe<Scalars['String']>
-  descendantElements?: Maybe<Array<Element>>
+  descendantElements: Array<Element>
   guiCss?: Maybe<Scalars['String']>
   hooks: Array<Hook>
   hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
@@ -21689,9 +21689,7 @@ export type PageBuilderAppFragment = {
     slug: string
     rootElement: {
       __typename?: 'Element'
-      descendantElements?: Array<
-        { __typename?: 'Element' } & ElementFragment
-      > | null
+      descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
     } & ElementFragment
     app: { __typename?: 'App'; id: string }
   }>

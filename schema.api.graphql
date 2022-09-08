@@ -4189,7 +4189,7 @@ type Element {
     where: ElementComponentConnectionWhere
   ): ElementComponentConnection!
   customCss: String
-  descendantElements: [Element!]
+  descendantElements: [Element!]!
   guiCss: String
   hooks(
     directed: Boolean = true

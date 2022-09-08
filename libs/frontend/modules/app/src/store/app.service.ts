@@ -66,6 +66,8 @@ export class AppService
     const pageModel = pageModels.find((page) => page.id === pageId)
     const page = app.pages.find((x) => x.id === pageId)
 
+    console.log(page)
+
     if (!page || !pageModel) {
       throw new Error('Missing page')
     }
@@ -74,6 +76,8 @@ export class AppService
       page.rootElement,
       ...(page.rootElement.descendantElements ?? []),
     ])
+
+    console.log(pageElements)
 
     const pageElementTree = pageModel.initTreeV2(pageElements)
 

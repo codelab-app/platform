@@ -44,7 +44,7 @@ export type PageBuilderAppFragment = {
     name: string
     slug: string
     rootElement: {
-      descendantElements?: Array<ElementFragment> | null
+      descendantElements: Array<ElementFragment>
     } & ElementFragment
     app: { id: string }
   }>
