@@ -71,9 +71,9 @@ export interface IElementService
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  createElementAsSubRoot(data: ICreateElementDTO): Promise<IElement>
+  createElementAsFirstChild(data: ICreateElementDTO): Promise<IElement>
   createElementAsNextSibling(data: ICreateElementDTO): Promise<IElement>
-  attachElementAsSubRoot(props: {
+  attachElementAsFirstChild(props: {
     elementId: string
     parentElementId: string
   }): Promise<void>
@@ -81,7 +81,7 @@ export interface IElementService
     elementId: string
     targetElementId: string
   }): Promise<void>
-  moveElementAsSubRoot(props: {
+  moveElementAsFirstChild(props: {
     elementId: string
     parentElementId: string
   }): Promise<void>

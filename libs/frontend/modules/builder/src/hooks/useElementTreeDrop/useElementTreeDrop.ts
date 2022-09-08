@@ -2,8 +2,8 @@ import { IElementService, IElementTree } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { TreeProps } from 'antd/lib/tree'
 import {
+  shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
-  shouldMoveElementAsSubRoot,
 } from './utilts'
 
 export interface UseElementTreeDropProps {
@@ -21,8 +21,8 @@ export const useElementTreeDrop = (elementService: IElementService) => {
     const dragNodeId = info.dragNode.key.toString()
     const dropNodeId = info.node.key.toString()
 
-    if (shouldMoveElementAsSubRoot(info)) {
-      elementService.moveElementAsSubRoot({
+    if (shouldMoveElementAsFirstChild(info)) {
+      elementService.moveElementAsFirstChild({
         elementId: dragNodeId,
         parentElementId: dropNodeId,
       })

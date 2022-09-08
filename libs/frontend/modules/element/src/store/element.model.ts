@@ -510,7 +510,7 @@ export class Element
   }
 
   @modelAction
-  attachToParentAsSubRoot(parentElementId: string) {
+  attachToParentAsFirstChild(parentElementId: string) {
     return () => {
       const parentElement = this.elementService.element(parentElementId)
       this.attachToParent(parentElementId)()
@@ -544,7 +544,7 @@ export class Element
     })
   }
 
-  makeAttachToParentAsSubRootInput(parentElementId: string) {
+  makeattachToParentAsFirstChildInput(parentElementId: string) {
     const parentElement = this.elementService.element(parentElementId)
     const input = this.makeAttachToParentInput(parentElementId)
 

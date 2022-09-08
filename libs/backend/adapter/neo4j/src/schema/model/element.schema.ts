@@ -15,8 +15,8 @@ export const elementSchema = gql`
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
 
-    firstChild: Element @relationship(type: "TREE_SUB_ROOT", direction: IN)
-    parent: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
+    firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
+    parent: Element @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
 
     children: [Element!]!
       @relationship(

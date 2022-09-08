@@ -389,12 +389,12 @@ parent
 
   @modelFlow
   @transaction
-  moveElementAsSubRoot = _async(function* (
+  moveElementAsFirstChild = _async(function* (
     this: ElementService,
     {
       elementId,
       parentElementId,
-    }: Parameters<IElementService['moveElementAsSubRoot']>[0],
+    }: Parameters<IElementService['moveElementAsFirstChild']>[0],
   ) {
     const element = this.element(elementId)
     const parentElement = this.element(parentElementId)
@@ -404,12 +404,14 @@ parent
     }
 
     yield* _await(this.detachElementFromElementTree(elementId))
-    yield* _await(this.attachElementAsSubRoot({ elementId, parentElementId }))
+    yield* _await(
+      this.attachElementAsFirstChild({ elementId, parentElementId }),
+    )
   })
 
   @modelFlow
   @transaction
-  createElementAsSubRoot = _async(function* (
+  createElementAsFirstChild = _async(function* (
     this: ElementService,
     data: ICreateElementDTO,
   ) {
@@ -419,7 +421,7 @@ parent
 
     const [element] = yield* _await(this.create([data]))
     yield* _await(
-      this.attachElementAsSubRoot({
+      this.attachElementAsFirstChild({
         elementId: element.id,
         parentElementId: data.parentElementId,
       }),
@@ -496,12 +498,12 @@ parent
    */
   @modelFlow
   @transaction
-  attachElementAsSubRoot = _async(function* (
+  attachElementAsFirstChild = _async(function* (
     this: ElementService,
     {
       elementId,
       parentElementId,
-    }: Parameters<IElementService['attachElementAsSubRoot']>[0],
+    }: Parameters<IElementService['attachElementAsFirstChild']>[0],
   ) {
     const element = this.element(elementId)
     const parentElement = this.element(parentElementId)
@@ -525,10 +527,10 @@ element is new parentElement's first child
      */
 
     updateElementCacheFns.push(
-      element.attachToParentAsSubRoot(parentElement.id),
+      element.attachToParentAsFirstChild(parentElement.id),
     )
     updateElementInputs.push(
-      element.makeAttachToParentAsSubRootInput(parentElementId),
+      element.makeattachToParentAsFirstChildInput(parentElementId),
     )
 
     // element prepends first child

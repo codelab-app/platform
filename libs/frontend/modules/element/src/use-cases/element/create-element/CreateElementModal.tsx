@@ -50,7 +50,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
       const element = await (prevSiblingId
         ? elementService.createElementAsNextSibling(data)
-        : elementService.createElementAsSubRoot(data))
+        : elementService.createElementAsFirstChild(data))
 
       // Build tree for page
       pageTree.buildTree([element])

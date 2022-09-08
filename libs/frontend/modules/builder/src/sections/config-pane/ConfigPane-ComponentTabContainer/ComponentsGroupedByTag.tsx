@@ -8,6 +8,7 @@ export const ComponentsGroupedByTag = (
   props: Pick<IBuilderService, 'componentsGroupedByTag'>,
 ) => {
   const componentsGroupedByTag = props.componentsGroupedByTag
+  // [tag, component[]]
   const tags = Object.keys(componentsGroupedByTag)
 
   return (

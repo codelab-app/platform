@@ -68,7 +68,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   detachNextSibling(): () => void
   detachPrevSibling(): () => void
   detachParent(): () => void
-  attachToParentAsSubRoot(parentElementId: string): () => void
+  attachToParentAsFirstChild(parentElementId: string): () => void
   attachToParent(parentElementId: string): () => void
   appendSibling(siblingId: string): () => void
   prependSibling(siblingId: string): () => void
@@ -76,7 +76,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachPrevSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachParentInput(): UpdateElementsMutationVariables | null
-  makeAttachToParentAsSubRootInput(
+  makeattachToParentAsFirstChildInput(
     parentElementId: string,
   ): UpdateElementsMutationVariables
   makeAttachToParentInput(

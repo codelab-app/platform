@@ -9,7 +9,7 @@ export const shouldMoveElementAsNextSibling = (
   return changePrevSibling && newPrevSiblingId
 }
 
-export const shouldMoveElementAsSubRoot = (
+export const shouldMoveElementAsFirstChild = (
   currentParentEmentId: Nullable<string>,
   newParentElementId: Nullable<string>,
   currentPrevSibling: Nullable<string>,
