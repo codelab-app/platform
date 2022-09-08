@@ -30,7 +30,8 @@ export const containerStyles = css`
 
   // Styles taken from ant-input - to make it look similar to other fields
   box-sizing: border-box;
-  margin: 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   font-variant: tabular-nums;
   list-style: none;
   font-feature-settings: 'tnum';

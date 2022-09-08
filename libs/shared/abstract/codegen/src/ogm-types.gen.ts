@@ -2029,6 +2029,10 @@ export type Field = {
   description?: Maybe<Scalars["String"]>;
 };
 
+export type OwnedBy = {
+  value?: Maybe<Scalars["String"]>;
+};
+
 export type ParentOfElement = {
   order?: Maybe<Scalars["Int"]>;
 };
@@ -6868,10 +6872,11 @@ export type UserTypesConnection = {
   pageInfo: PageInfo;
 };
 
-export type UserTypesRelationship = {
+export type UserTypesRelationship = OwnedBy & {
   __typename?: "UserTypesRelationship";
   cursor: Scalars["String"];
   node: TypeBase;
+  value?: Maybe<Scalars["String"]>;
 };
 
 export type VercelDomainConfigData = {
@@ -13931,6 +13936,33 @@ export type LambdaTypeWhere = {
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
 
+export type OwnedByCreateInput = {
+  value?: InputMaybe<Scalars["String"]>;
+};
+
+export type OwnedBySort = {
+  value?: InputMaybe<SortDirection>;
+};
+
+export type OwnedByUpdateInput = {
+  value?: InputMaybe<Scalars["String"]>;
+};
+
+export type OwnedByWhere = {
+  OR?: InputMaybe<Array<OwnedByWhere>>;
+  AND?: InputMaybe<Array<OwnedByWhere>>;
+  value?: InputMaybe<Scalars["String"]>;
+  value_NOT?: InputMaybe<Scalars["String"]>;
+  value_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  value_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  value_CONTAINS?: InputMaybe<Scalars["String"]>;
+  value_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  value_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  value_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  value_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  value_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+};
+
 export type PageAppAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
@@ -19822,19 +19854,25 @@ export type UserTypesConnectFieldInput = {
   where?: InputMaybe<TypeBaseConnectWhere>;
 };
 
+
+
 export type UserTypesConnectionSort = {
+  edge?: InputMaybe<OwnedBySort>;
   node?: InputMaybe<TypeBaseSort>;
 };
 
 export type UserTypesConnectionWhere = {
   AND?: InputMaybe<Array<UserTypesConnectionWhere>>;
   OR?: InputMaybe<Array<UserTypesConnectionWhere>>;
+  edge?: InputMaybe<OwnedByWhere>;
+  edge_NOT?: InputMaybe<OwnedByWhere>;
   node?: InputMaybe<TypeBaseWhere>;
   node_NOT?: InputMaybe<TypeBaseWhere>;
 };
 
 export type UserTypesCreateFieldInput = {
   node: TypeBaseCreateInput;
+  edge: OwnedByCreateInput;
 };
 
 export type UserTypesDeleteFieldInput = {
@@ -19853,6 +19891,7 @@ export type UserTypesFieldInput = {
 };
 
 export type UserTypesUpdateConnectionInput = {
+  edge?: InputMaybe<OwnedByUpdateInput>;
   node?: InputMaybe<TypeBaseUpdateInput>;
 };
 

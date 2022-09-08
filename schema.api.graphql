@@ -321,6 +321,8 @@ input ActionsPipeLineSort {
 
 input ActionsPipeLineUpdateInput {
   orders: [String!]
+  orders_POP: Int
+  orders_PUSH: [String!]
 }
 
 input ActionsPipeLineWhere {
@@ -3405,7 +3407,11 @@ input CreateInfoSort {
 input CreateInfoUpdateInput {
   bookmark: String
   nodesCreated: Int
+  nodesCreated_DECREMENT: Int
+  nodesCreated_INCREMENT: Int
   relationshipsCreated: Int
+  relationshipsCreated_DECREMENT: Int
+  relationshipsCreated_INCREMENT: Int
 }
 
 input CreateInfoWhere {
@@ -3811,7 +3817,11 @@ input DeleteInfoSort {
 input DeleteInfoUpdateInput {
   bookmark: String
   nodesDeleted: Int
+  nodesDeleted_DECREMENT: Int
+  nodesDeleted_INCREMENT: Int
   relationshipsDeleted: Int
+  relationshipsDeleted_DECREMENT: Int
+  relationshipsDeleted_INCREMENT: Int
 }
 
 input DeleteInfoWhere {
@@ -10846,6 +10856,8 @@ input ParentOfElementSort {
 
 input ParentOfElementUpdateInput {
   order: Int
+  order_DECREMENT: Int
+  order_INCREMENT: Int
 }
 
 input ParentOfElementWhere {
@@ -15686,7 +15698,11 @@ input TagGraphOptionsSort {
 
 input TagGraphOptionsUpdateInput {
   limit: Int
+  limit_DECREMENT: Int
+  limit_INCREMENT: Int
   sort: Int
+  sort_DECREMENT: Int
+  sort_INCREMENT: Int
 }
 
 input TagGraphOptionsWhere {
