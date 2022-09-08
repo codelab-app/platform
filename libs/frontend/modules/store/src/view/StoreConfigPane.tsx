@@ -1,30 +1,32 @@
-import { InterfaceType, PropsForm } from '@codelab/frontend/modules/type'
+import { PropsForm } from '@codelab/frontend/modules/type'
+import { ErrorBoundary } from '@codelab/frontend/view/components'
 import {
-  IAppService,
+  IInterfaceType,
   IPropData,
+  IStore,
   IStoreService,
   ITypeService,
 } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { useCurrentStore } from '../hooks'
 
 interface StoreConfigPaneProps {
-  storeService: IStoreService
   typeService: ITypeService
-  appService: IAppService
+  storeService: IStoreService
+  store?: IStore
 }
 
 export const StoreConfigPane = observer<StoreConfigPaneProps>(
-  ({ storeService, typeService, appService }) => {
-    const { store } = useCurrentStore(appService, storeService)
-
+  ({ typeService, storeService, store }) => {
     if (!store) {
       return null
     }
 
-    const api = typeService.type(store.stateApiId) as InterfaceType
+    const api = typeService.type(store.stateApiId)
+
+    console.log(api)
 
     const onSubmit = (values: IPropData) => {
       const promise = storeService.update(store, {
@@ -36,17 +38,19 @@ export const StoreConfigPane = observer<StoreConfigPaneProps>(
     }
 
     return (
-      <div css={tw`p-4`}>
-        <PropsForm
-          autosave
-          context={{
-            builderState: { componentId: undefined },
-          }}
-          initialValue={store.state.values}
-          interfaceType={api}
-          onSubmit={onSubmit}
-        />
-      </div>
+      <ErrorBoundary>
+        <div css={tw`p-4`}>
+          <PropsForm
+            autoSave
+            context={{
+              builderState: { componentId: undefined },
+            }}
+            initialValue={store.state.values}
+            interfaceType={api as Maybe<IInterfaceType>}
+            onSubmit={onSubmit}
+          />
+        </div>
+      </ErrorBoundary>
     )
   },
 )

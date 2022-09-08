@@ -20,6 +20,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { deleteStoreInput } from '../utils/actions'
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './apis/api.utils'
 import { storeApi } from './apis/store.api'
@@ -50,7 +51,7 @@ export class StoreService
     const actionService = getActionService(this)
     const actions = stores.flatMap((s) => s.actions)
 
-    return actionService.hydrateOrUpdateCache(actions)
+    return actionService.writeCache(actions)
   }
 
   @modelAction
@@ -63,22 +64,20 @@ export class StoreService
   }
 
   @modelAction
-  public hydrateOrUpdateCache = async (
-    stores: Array<IStoreDTO>,
-  ): Promise<Array<IStore>> => {
-    this.updateActionsCache(stores)
-    // it is very complex to load api with store fragment
-    await this.fetchStatesApis(stores)
+  public writeCache = (stores: Array<IStoreDTO>): Array<IStore> => {
+    const actionService = getActionService(this)
 
     return stores.map((store) => {
-      if (this.stores.has(store.id)) {
-        const storeModel = this.stores.get(store.id)!
+      actionService.writeCache(store.actions)
 
-        return storeModel.updateCache(store)
+      let storeModel = this.store(store.id)
+
+      if (storeModel) {
+        storeModel.writeCache(store)
+      } else {
+        storeModel = Store.hydrate(store)
+        this.stores.set(store.id, storeModel)
       }
-
-      const storeModel = Store.hydrate(store)
-      this.stores.set(store.id, storeModel)
 
       return storeModel
     })
@@ -89,7 +88,7 @@ export class StoreService
   getAll = _async(function* (this: StoreService, where?: StoreWhere) {
     const { stores } = yield* _await(storeApi.GetStores({ where }))
 
-    return yield* _await(this.hydrateOrUpdateCache(stores))
+    return this.writeCache(stores)
   })
 
   @modelFlow
@@ -143,7 +142,7 @@ export class StoreService
       throw new Error('Failed to update store')
     }
 
-    store.updateCache(updatedStore)
+    store.writeCache(updatedStore)
 
     return store
   })
@@ -160,11 +159,7 @@ export class StoreService
     const { deleteStores } = yield* _await(
       storeApi.DeleteStores({
         where: { id: storeId },
-        delete: {
-          state: { where: {} },
-          stateApi: { where: {} },
-          actions: [{ where: {} }],
-        },
+        delete: deleteStoreInput,
       }),
     )
 

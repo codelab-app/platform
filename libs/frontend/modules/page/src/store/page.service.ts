@@ -179,7 +179,7 @@ export class PageService
     return existing
   })
 
-  updateCache(pages: Array<IPageDTO>): Array<IPage> {
+  writeCache(pages: Array<IPageDTO>): Array<IPage> {
     return pages.map((page) => this.addOrUpdate(page))
   }
 

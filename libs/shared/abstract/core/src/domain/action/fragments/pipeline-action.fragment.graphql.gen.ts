@@ -11,12 +11,6 @@ import { gql } from 'graphql-tag'
 import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen'
 export type PipelineActionFragment = {
   actions: Array<{ id: string } | { id: string } | { id: string }>
-  actionsConnection: {
-    edges: Array<{
-      orders?: Array<string> | null
-      node: { id: string } | { id: string } | { id: string }
-    }>
-  }
 } & ActionBase_PipelineAction_Fragment
 
 export const PipelineActionFragmentDoc = gql`
@@ -31,22 +25,6 @@ export const PipelineActionFragmentDoc = gql`
       }
       ... on PipelineAction {
         id
-      }
-    }
-    actionsConnection {
-      edges {
-        orders
-        node {
-          ... on CustomAction {
-            id
-          }
-          ... on ResourceAction {
-            id
-          }
-          ... on PipelineAction {
-            id
-          }
-        }
       }
     }
   }

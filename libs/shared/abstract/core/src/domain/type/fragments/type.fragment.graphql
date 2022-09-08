@@ -1,13 +1,13 @@
 fragment Type on TypeBase {
   ...TypeBase
   ...ArrayType
+  ...UnionType
   ...EnumType
   ...InterfaceType
   ...PrimitiveType
   ...ElementType
   ...LambdaType
   ...RenderPropsType
-  ...UnionType
   ...CodeMirrorType
   ...PageType
   ...AppType

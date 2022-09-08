@@ -109,12 +109,20 @@ export const makeActionCreateInput = (
 
     errorAction:
       action.type === IActionKind.ResourceAction && action.errorActionId
-        ? { connect: { where: { node: { id: action.errorActionId } } } }
+        ? {
+            ResourceAction: {
+              connect: { where: { node: { id: action.errorActionId } } },
+            },
+          }
         : undefined,
 
     successAction:
       action.type === IActionKind.ResourceAction && action.successActionId
-        ? { connect: { where: { node: { id: action.successActionId } } } }
+        ? {
+            ResourceAction: {
+              connect: { where: { node: { id: action.successActionId } } },
+            },
+          }
         : undefined,
 
     actions:
@@ -154,11 +162,19 @@ export const makeActionUpdateInput = (
           : undefined,
       errorAction:
         input.type === IActionKind.ResourceAction
-          ? { connect: { where: { node: { id: input.errorActionId } } } }
+          ? {
+              ResourceAction: {
+                connect: { where: { node: { id: input.errorActionId } } },
+              },
+            }
           : undefined,
       successAction:
         input.type === IActionKind.ResourceAction
-          ? { connect: { where: { node: { id: input.successActionId } } } }
+          ? {
+              ResourceAction: {
+                connect: { where: { node: { id: input.successActionId } } },
+              },
+            }
           : undefined,
 
       actions:

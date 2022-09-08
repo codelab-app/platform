@@ -37,15 +37,17 @@ const PageRenderer: CodelabPage<any> = observer(() => {
   const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
     async () => {
       /**
-       *
        * load all apps to provide them to mobxState
        */
       const apps = await appService.getAll()
       const app = appService.app(appId)
+
+      if (!app) {
+        throw new Error('Missing app')
+      }
+
       /**
-       *
        * load app store
-       *
        */
       const appStore = await storeService.getOne(app.store.id)
 
@@ -54,9 +56,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       }
 
       /**
-       *
        * load all pages to provide them to mobxState
-       *
        * */
       const pages = await pageService.getAll()
       const page = pageService.page(pageId)
@@ -82,12 +82,6 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       const types = await typeService.getAll()
       /**
        *
-       * construct provider tree
-       *
-       */
-      const providerTree = await app.initTree(app.rootElement.id)
-      /**
-       *
        * page Element tree
        *
        */
@@ -96,7 +90,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       const renderer = await appRenderService.addRenderer(
         pageId,
         pageElementTree,
-        providerTree,
+        null,
         appStore,
         createMobxState(appStore, apps, pages, router),
         false,
@@ -105,7 +99,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       return {
         page,
         pageElementTree,
-        providerTree,
+        providerTree: null,
         appStore,
         renderer,
         components,

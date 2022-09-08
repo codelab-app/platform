@@ -14,19 +14,14 @@ export const elementSchema = gql`
     id: ID! @id(autogenerate: false)
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
-
     childrenRoot: Element @relationship(type: "TREE_SUB_ROOT", direction: IN)
     rootOf: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
-
     children: [Element!]!
       @relationship(
         type: "PARENT_OF_ELEMENT"
         properties: "ParentOfElement"
         direction: OUT
       )
-
-    # Used for reverse lookup to see whether element is detached
-    app: App @relationship(type: "ROOT_APP_ELEMENT", direction: OUT)
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
     props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
@@ -61,6 +56,9 @@ export const elementSchema = gql`
     hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
     propMapBindings: [PropMapBinding!]!
       @relationship(type: "BIND_PROPS_TO_ELEMENT", direction: OUT)
+
+    # This is a custom field resolver
+    descendantElements: [Element!]!
   }
 
   input ElementGraphInput {

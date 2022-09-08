@@ -2,7 +2,7 @@ import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
-  CacheService,
+  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
@@ -20,7 +20,7 @@ export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,
     IQueryService<IComponent, ComponentWhere>,
     ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
-    CacheService<IComponent, IComponentDTO> {
+    ICacheService<IComponentDTO, IComponent> {
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode

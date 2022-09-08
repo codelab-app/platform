@@ -1,4 +1,5 @@
 export * from './element.dto.interface'
+export { ElementFragmentDoc } from './element.fragment.graphql.gen'
 export * from './element.model.interface'
 export * from './element.service.interface'
 export * from './element-graph.interface'

@@ -1,4 +1,3 @@
-import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAppDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
@@ -13,9 +12,6 @@ export const createAppInput = (userId: string): AppCreateInput => {
     id: appId,
     name: `Test app ${appId}`,
     slug: 'test',
-    rootElement: {
-      create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME, id: v4() } },
-    },
     owner: connectOwner(userId),
     store: {
       create: {

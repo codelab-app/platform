@@ -18,7 +18,6 @@ import {
 } from '../prop/prop.fragment.graphql.gen'
 import { ActionFragmentDoc } from '../action/fragments/action.fragment.graphql.gen'
 export type StoreFragment = {
-  __typename: 'Store'
   id: string
   name: string
   stateApi: { id: string; name: string }
@@ -32,7 +31,6 @@ export type StoreFragment = {
 
 export const StoreFragmentDoc = gql`
   fragment Store on Store {
-    __typename
     id
     name
     stateApi {

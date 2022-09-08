@@ -2,7 +2,12 @@ import { AppWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
-import { ICreateAppDTO, IUpdateAppDTO } from './app.dto.interface'
+import {
+  IBuilderApp,
+  ICreateAppDTO,
+  IPageBuilderAppProps,
+  IUpdateAppDTO,
+} from './app.dto.interface'
 import { IApp } from './app.model.interface'
 
 export interface IAppService
@@ -13,6 +18,7 @@ export interface IAppService
    * Properties
    */
   apps: ObjectMap<IApp>
-  app(id: string): IApp
+  app(id: string): Maybe<IApp>
   appsList: Array<IApp>
+  load(data: IPageBuilderAppProps): IBuilderApp
 }

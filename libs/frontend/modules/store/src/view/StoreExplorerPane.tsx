@@ -3,29 +3,24 @@ import { typeRef } from '@codelab/frontend/modules/type'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import {
   IActionService,
-  IAppService,
   IInterfaceType,
-  IStoreService,
+  IStore,
   ITypeService,
 } from '@codelab/shared/abstract/core'
 import { Button, Divider, Row } from 'antd'
 import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useCurrentStore } from '../hooks'
 import { GetActionsList, GetStateList } from '../use-cases'
 
 interface StoreExplorerPaneProps {
   typeService: ITypeService
   actionService: IActionService
-  appService: IAppService
-  storeService: IStoreService
+  store?: IStore
 }
 
 export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
-  ({ typeService, actionService, appService, storeService }) => {
-    const { store } = useCurrentStore(appService, storeService)
-
+  ({ typeService, actionService, store }) => {
     if (!store) {
       return null
     }

@@ -1,5 +1,4 @@
 fragment Store on Store {
-  __typename
   id
   name
   stateApi {

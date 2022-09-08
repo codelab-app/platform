@@ -21,17 +21,13 @@ import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
 
-//
 /**
- * Pass { snapshot: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
+ * Using snapshot isn't very performant, instead we load data on client side
  */
 const queryClient = new QueryClient()
 
 const App = ({ pageProps, Component }: IAppProps) => {
-  const store = useMemo(
-    () => initializeStore(pageProps),
-    [pageProps.snapshot, pageProps.user],
-  )
+  const store = useMemo(() => initializeStore(pageProps), [])
 
   const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
     Component as CodelabPage<unknown>

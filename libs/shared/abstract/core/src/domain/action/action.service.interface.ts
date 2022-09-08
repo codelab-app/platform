@@ -1,7 +1,7 @@
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import {
-  CacheService,
+  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
@@ -16,11 +16,12 @@ import { IAnyActionWhere } from './action.where.interface'
 
 export interface IActionService
   extends ICRUDService<IAnyAction, ICreateActionDTO, IUpdateActionDTO>,
-    IQueryService<IAnyAction, IAnyActionWhere>,
+    Omit<IQueryService<IAnyAction, IAnyActionWhere>, 'getAll'>,
     ICRUDModalService<Ref<IAnyAction>, { action: Maybe<IAnyAction> }>,
-    CacheService<IAnyAction, IActionDTO> {
+    ICacheService<IActionDTO, IAnyAction> {
   actionsList: Array<IAnyAction>
   action(id: string): Maybe<IAnyAction>
   setSelectedActions(actions: Array<Ref<IAnyAction>>): void
-  hydrateOrUpdateCache(actions: Array<IActionDTO>): Array<IAnyAction>
+  // Replace due to union interface neo4j issue
+  getAll(storeId?: string): Promise<Array<IAnyAction>>
 }

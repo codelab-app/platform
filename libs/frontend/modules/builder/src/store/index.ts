@@ -1,1 +1,2 @@
-export { BuilderService } from './builder.service'
+export * from './builder.api'
+export * from './builder.service'

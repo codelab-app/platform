@@ -65,7 +65,7 @@ export interface IElementService
   updatePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
 
-  hydrateOrUpdateCache(elements: Array<IElementDTO>): Array<IElement>
+  writeCache(elements: Array<IElementDTO>): Array<IElement>
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,

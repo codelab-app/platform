@@ -15,6 +15,8 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { componentTagName } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
+  _async,
+  _await,
   findParent,
   Frozen,
   getRefsResolvingTo,
@@ -22,10 +24,13 @@ import {
   Model,
   model,
   modelAction,
+  modelFlow,
   modelTypeKey,
   prop,
   Ref,
+  transaction,
 } from 'mobx-keystone'
+import { pageBuilderApi } from './builder.api'
 import { StateModalService } from './state-modal.service'
 
 @model('@codelab/BuilderService')
@@ -47,20 +52,40 @@ export class BuilderService
   })
   implements IBuilderService
 {
+  /**
+   * This function fetches all data required for the page in a single API call.
+   *
+   * Getting `App`, `Page`, `Store` is easy and works with default GraphQL API
+   *
+   * Getting `Element` is a bit trickier, since we only get the rootElementId from Page query, we would need a custom resolver to get descendant elements
+   */
+  @modelFlow
+  @transaction
+  getPageBuilder = _async(function* (
+    this: BuilderService,
+    { appId, pageId }: { appId: string; pageId: string },
+  ) {
+    return yield* _await(
+      pageBuilderApi.GetPageBuilder({
+        appId,
+        pageId,
+      }),
+    )
+  })
+
   get componentTags() {
     const tagService = getTagService(this)
-    const tags = tagService.tags
 
-    const componentUsecaseTag = tags.find(
+    const componentTag = tagService.tags.find(
       (tag) => tag.name === componentTagName,
     )
 
-    if (!componentUsecaseTag) {
+    if (!componentTag) {
       return []
     }
 
     return (
-      componentUsecaseTag.children
+      componentTag.children
         .map((id) => tagService.tag(id))
         // filter empty
         .filter((t) => t)
@@ -86,15 +111,15 @@ export class BuilderService
     components.forEach((component) => {
       const tagNames = component.tags.map((t) => t.current.name)
 
-      const foundComponentusecaseTag = componentTags.find((usecaseTag) =>
+      const foundComponentUseCaseTag = componentTags.find((usecaseTag) =>
         tagNames.includes(usecaseTag.name),
       ) as TagWithComponents | undefined
 
-      if (!foundComponentusecaseTag) {
+      if (!foundComponentUseCaseTag) {
         return
       }
 
-      foundComponentusecaseTag.components.push(component)
+      foundComponentUseCaseTag.components.push(component)
     })
 
     return componentTags

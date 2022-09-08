@@ -27,6 +27,7 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { PageBuilderAppFragment } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -52,62 +53,53 @@ const PageBuilder: CodelabPage = observer(() => {
 
   const [, { data, error, isLoading }] = useStatefulExecutor(
     async () => {
-      /**
-       *
-       * load all apps to provide them to mobxState
-       */
-      const apps = await appService.getAll()
-      const app = appService.app(appId)
-      /**
-       *
-       * load app store
-       *
-       */
-      const appStore = await storeService.getOne(app.store.id)
+      const {
+        apps,
+        components,
+        // Can't change shape in GraphQL so we have to use this structure
+        primitiveTypes,
+        arrayTypes,
+        unionTypes,
+        interfaceTypes,
+        elementTypes,
+        renderPropsTypes,
+        reactNodeTypes,
+        enumTypes,
+        lambdaTypes,
+        pageTypes,
+        appTypes,
+        actionTypes,
+        codeMirrorTypes,
+      } = await builderService.getPageBuilder({ appId, pageId })
 
-      if (!appStore) {
-        throw new Error('App store not found')
-      }
+      const { pageElementTree, app, page, store } = appService.load({
+        app: apps[0],
+        pageId,
+      })
 
-      /**
-       *
-       * load all pages to provide them to mobxState
-       *
-       * */
-      const pages = await pageService.getAll()
-      const page = pageService.page(pageId)
+      const types = typeService.writeCache({
+        primitiveTypes,
+        arrayTypes,
+        unionTypes,
+        interfaceTypes,
+        elementTypes,
+        renderPropsTypes,
+        reactNodeTypes,
+        enumTypes,
+        lambdaTypes,
+        pageTypes,
+        appTypes,
+        actionTypes,
+        codeMirrorTypes,
+      })
 
-      if (!page) {
-        throw new Error('Page not found')
-      }
+      componentService.writeCache(components)
 
-      /**
-       *
-       * components are needed to build pageElementTree
-       *
-       */
-      const components = await componentService.loadComponentTrees(
-        userService.auth0Id,
-      )
-
-      /**
-       *
-       * load all types
-       *
-       */
-      const types = await typeService.getAll()
-      /**
-       *
-       * construct provider tree
-       *
-       */
-      const providerTree = await app.initTree(app.rootElement.id)
       /**
        *
        * page Element tree
        *
        */
-      const pageElementTree = await page.initTree(page.rootElement.id)
       const pageRootElement = elementService.element(page.rootElement.id)
 
       if (pageRootElement) {
@@ -117,17 +109,17 @@ const PageBuilder: CodelabPage = observer(() => {
       const renderer = await builderRenderService.addRenderer(
         pageId,
         pageElementTree,
-        providerTree,
-        appStore,
-        createMobxState(appStore, apps, pages, router),
+        null,
+        store,
+        createMobxState(store, [app], [page], router),
         true,
       )
 
       return {
         page,
         pageElementTree,
-        providerTree,
-        appStore,
+        providerTree: null,
+        store,
         types,
         components,
         renderer,
@@ -143,7 +135,7 @@ const PageBuilder: CodelabPage = observer(() => {
       </Head>
 
       <BuilderTabs
-        appStore={data?.appStore}
+        appStore={data?.store}
         builderRenderService={builderRenderService}
         builderService={builderService}
         componentService={componentService}

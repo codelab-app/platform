@@ -27,101 +27,6 @@ export type ActionBase = {
   type: ActionKind
 }
 
-export type ActionBaseStoreArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<StoreOptions>
-  where?: InputMaybe<StoreWhere>
-}
-
-export type ActionBaseStoreConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ActionBaseStoreConnectionSort>>
-  where?: InputMaybe<ActionBaseStoreConnectionWhere>
-}
-
-export type ActionBaseConnectInput = {
-  _on?: InputMaybe<ActionBaseImplementationsConnectInput>
-  store?: InputMaybe<ActionBaseStoreConnectFieldInput>
-}
-
-export type ActionBaseConnectWhere = {
-  node: ActionBaseWhere
-}
-
-export type ActionBaseCreateInput = {
-  CustomAction?: InputMaybe<CustomActionCreateInput>
-  PipelineAction?: InputMaybe<PipelineActionCreateInput>
-  ResourceAction?: InputMaybe<ResourceActionCreateInput>
-}
-
-export type ActionBaseDeleteInput = {
-  _on?: InputMaybe<ActionBaseImplementationsDeleteInput>
-  store?: InputMaybe<ActionBaseStoreDeleteFieldInput>
-}
-
-export type ActionBaseDisconnectInput = {
-  _on?: InputMaybe<ActionBaseImplementationsDisconnectInput>
-  store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>
-}
-
-export type ActionBaseImplementationsConnectInput = {
-  CustomAction?: InputMaybe<Array<CustomActionConnectInput>>
-  PipelineAction?: InputMaybe<Array<PipelineActionConnectInput>>
-  ResourceAction?: InputMaybe<Array<ResourceActionConnectInput>>
-}
-
-export type ActionBaseImplementationsDeleteInput = {
-  CustomAction?: InputMaybe<Array<CustomActionDeleteInput>>
-  PipelineAction?: InputMaybe<Array<PipelineActionDeleteInput>>
-  ResourceAction?: InputMaybe<Array<ResourceActionDeleteInput>>
-}
-
-export type ActionBaseImplementationsDisconnectInput = {
-  CustomAction?: InputMaybe<Array<CustomActionDisconnectInput>>
-  PipelineAction?: InputMaybe<Array<PipelineActionDisconnectInput>>
-  ResourceAction?: InputMaybe<Array<ResourceActionDisconnectInput>>
-}
-
-export type ActionBaseImplementationsUpdateInput = {
-  CustomAction?: InputMaybe<CustomActionUpdateInput>
-  PipelineAction?: InputMaybe<PipelineActionUpdateInput>
-  ResourceAction?: InputMaybe<ResourceActionUpdateInput>
-}
-
-export type ActionBaseImplementationsWhere = {
-  CustomAction?: InputMaybe<CustomActionWhere>
-  PipelineAction?: InputMaybe<PipelineActionWhere>
-  ResourceAction?: InputMaybe<ResourceActionWhere>
-}
-
-export type ActionBaseOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more ActionBaseSort objects to sort ActionBases by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<InputMaybe<ActionBaseSort>>>
-}
-
-/** Fields to sort ActionBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionBaseSort object. */
-export type ActionBaseSort = {
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  runOnInit?: InputMaybe<SortDirection>
-  type?: InputMaybe<SortDirection>
-}
-
-export type ActionBaseStoreAggregateInput = {
-  AND?: InputMaybe<Array<ActionBaseStoreAggregateInput>>
-  OR?: InputMaybe<Array<ActionBaseStoreAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<ActionBaseStoreNodeAggregationWhereInput>
-}
-
 export type ActionBaseStoreConnectFieldInput = {
   connect?: InputMaybe<StoreConnectInput>
   where?: InputMaybe<StoreConnectWhere>
@@ -174,32 +79,6 @@ export type ActionBaseStoreFieldInput = {
   create?: InputMaybe<ActionBaseStoreCreateFieldInput>
 }
 
-export type ActionBaseStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ActionBaseStoreNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ActionBaseStoreNodeAggregationWhereInput>>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
 export type ActionBaseStoreRelationship = {
   __typename?: 'ActionBaseStoreRelationship'
   cursor: Scalars['String']
@@ -218,49 +97,6 @@ export type ActionBaseStoreUpdateFieldInput = {
   disconnect?: InputMaybe<ActionBaseStoreDisconnectFieldInput>
   update?: InputMaybe<ActionBaseStoreUpdateConnectionInput>
   where?: InputMaybe<ActionBaseStoreConnectionWhere>
-}
-
-export type ActionBaseUpdateInput = {
-  _on?: InputMaybe<ActionBaseImplementationsUpdateInput>
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  runOnInit?: InputMaybe<Scalars['Boolean']>
-  store?: InputMaybe<ActionBaseStoreUpdateFieldInput>
-}
-
-export type ActionBaseWhere = {
-  _on?: InputMaybe<ActionBaseImplementationsWhere>
-  id?: InputMaybe<Scalars['ID']>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  runOnInit?: InputMaybe<Scalars['Boolean']>
-  runOnInit_NOT?: InputMaybe<Scalars['Boolean']>
-  store?: InputMaybe<StoreWhere>
-  storeAggregate?: InputMaybe<ActionBaseStoreAggregateInput>
-  storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
-  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
-  store_NOT?: InputMaybe<StoreWhere>
-  type?: InputMaybe<ActionKind>
-  type_IN?: InputMaybe<Array<ActionKind>>
-  type_NOT?: InputMaybe<ActionKind>
-  type_NOT_IN?: InputMaybe<Array<ActionKind>>
 }
 
 export enum ActionKind {
@@ -543,9 +379,6 @@ export type App = WithOwner & {
   pages: Array<Page>
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   pagesConnection: AppPagesConnection
-  rootElement: Element
-  rootElementAggregate?: Maybe<AppElementRootElementAggregationSelection>
-  rootElementConnection: AppRootElementConnection
   slug: Scalars['String']
   store: Store
   storeAggregate?: Maybe<AppStoreStoreAggregationSelection>
@@ -609,25 +442,6 @@ export type AppPagesConnectionArgs = {
   where?: InputMaybe<AppPagesConnectionWhere>
 }
 
-export type AppRootElementArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<ElementOptions>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type AppRootElementAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type AppRootElementConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<AppRootElementConnectionSort>>
-  where?: InputMaybe<AppRootElementConnectionWhere>
-}
-
 export type AppStoreArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<StoreOptions>
@@ -659,7 +473,6 @@ export type AppConnectInput = {
   domains?: InputMaybe<Array<AppDomainsConnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  rootElement?: InputMaybe<AppRootElementConnectFieldInput>
   store?: InputMaybe<AppStoreConnectFieldInput>
 }
 
@@ -667,7 +480,6 @@ export type AppConnectOrCreateInput = {
   domains?: InputMaybe<Array<AppDomainsConnectOrCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
-  rootElement?: InputMaybe<AppRootElementConnectOrCreateFieldInput>
   store?: InputMaybe<AppStoreConnectOrCreateFieldInput>
 }
 
@@ -685,7 +497,6 @@ export type AppCreateInput = {
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
-  rootElement?: InputMaybe<AppRootElementFieldInput>
   slug: Scalars['String']
   store?: InputMaybe<AppStoreFieldInput>
 }
@@ -694,7 +505,6 @@ export type AppDeleteInput = {
   domains?: InputMaybe<Array<AppDomainsDeleteFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
-  rootElement?: InputMaybe<AppRootElementDeleteFieldInput>
   store?: InputMaybe<AppStoreDeleteFieldInput>
 }
 
@@ -702,7 +512,6 @@ export type AppDisconnectInput = {
   domains?: InputMaybe<Array<AppDomainsDisconnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
-  rootElement?: InputMaybe<AppRootElementDisconnectFieldInput>
   store?: InputMaybe<AppStoreDisconnectFieldInput>
 }
 
@@ -831,25 +640,6 @@ export type AppEdge = {
   __typename?: 'AppEdge'
   cursor: Scalars['String']
   node: App
-}
-
-export type AppElementRootElementAggregationSelection = {
-  __typename?: 'AppElementRootElementAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<AppElementRootElementNodeAggregateSelection>
-}
-
-export type AppElementRootElementNodeAggregateSelection = {
-  __typename?: 'AppElementRootElementNodeAggregateSelection'
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
-  postRenderActionId: StringAggregateSelectionNullable
-  preRenderActionId: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
-  renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type AppOnCreateInput = {
@@ -1088,257 +878,7 @@ export type AppRelationInput = {
   domains?: InputMaybe<Array<AppDomainsCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
-  rootElement?: InputMaybe<AppRootElementCreateFieldInput>
   store?: InputMaybe<AppStoreCreateFieldInput>
-}
-
-export type AppRootElementAggregateInput = {
-  AND?: InputMaybe<Array<AppRootElementAggregateInput>>
-  OR?: InputMaybe<Array<AppRootElementAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<AppRootElementNodeAggregationWhereInput>
-}
-
-export type AppRootElementConnectFieldInput = {
-  connect?: InputMaybe<ElementConnectInput>
-  where?: InputMaybe<ElementConnectWhere>
-}
-
-export type AppRootElementConnectOrCreateFieldInput = {
-  onCreate: AppRootElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type AppRootElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
-export type AppRootElementConnection = {
-  __typename?: 'AppRootElementConnection'
-  edges: Array<AppRootElementRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type AppRootElementConnectionSort = {
-  node?: InputMaybe<ElementSort>
-}
-
-export type AppRootElementConnectionWhere = {
-  AND?: InputMaybe<Array<AppRootElementConnectionWhere>>
-  OR?: InputMaybe<Array<AppRootElementConnectionWhere>>
-  node?: InputMaybe<ElementWhere>
-  node_NOT?: InputMaybe<ElementWhere>
-}
-
-export type AppRootElementCreateFieldInput = {
-  node: ElementCreateInput
-}
-
-export type AppRootElementDeleteFieldInput = {
-  delete?: InputMaybe<ElementDeleteInput>
-  where?: InputMaybe<AppRootElementConnectionWhere>
-}
-
-export type AppRootElementDisconnectFieldInput = {
-  disconnect?: InputMaybe<ElementDisconnectInput>
-  where?: InputMaybe<AppRootElementConnectionWhere>
-}
-
-export type AppRootElementFieldInput = {
-  connect?: InputMaybe<AppRootElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppRootElementConnectOrCreateFieldInput>
-  create?: InputMaybe<AppRootElementCreateFieldInput>
-}
-
-export type AppRootElementNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AppRootElementNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<AppRootElementNodeAggregationWhereInput>>
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
-  customCss_GT?: InputMaybe<Scalars['Int']>
-  customCss_GTE?: InputMaybe<Scalars['Int']>
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_LT?: InputMaybe<Scalars['Int']>
-  customCss_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  postRenderActionId_EQUAL?: InputMaybe<Scalars['String']>
-  postRenderActionId_GT?: InputMaybe<Scalars['Int']>
-  postRenderActionId_GTE?: InputMaybe<Scalars['Int']>
-  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  postRenderActionId_LT?: InputMaybe<Scalars['Int']>
-  postRenderActionId_LTE?: InputMaybe<Scalars['Int']>
-  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  preRenderActionId_EQUAL?: InputMaybe<Scalars['String']>
-  preRenderActionId_GT?: InputMaybe<Scalars['Int']>
-  preRenderActionId_GTE?: InputMaybe<Scalars['Int']>
-  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  preRenderActionId_LT?: InputMaybe<Scalars['Int']>
-  preRenderActionId_LTE?: InputMaybe<Scalars['Int']>
-  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type AppRootElementRelationship = {
-  __typename?: 'AppRootElementRelationship'
-  cursor: Scalars['String']
-  node: Element
-}
-
-export type AppRootElementUpdateConnectionInput = {
-  node?: InputMaybe<ElementUpdateInput>
-}
-
-export type AppRootElementUpdateFieldInput = {
-  connect?: InputMaybe<AppRootElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppRootElementConnectOrCreateFieldInput>
-  create?: InputMaybe<AppRootElementCreateFieldInput>
-  delete?: InputMaybe<AppRootElementDeleteFieldInput>
-  disconnect?: InputMaybe<AppRootElementDisconnectFieldInput>
-  update?: InputMaybe<AppRootElementUpdateConnectionInput>
-  where?: InputMaybe<AppRootElementConnectionWhere>
 }
 
 /** Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object. */
@@ -1704,7 +1244,6 @@ export type AppUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
-  rootElement?: InputMaybe<AppRootElementUpdateFieldInput>
   slug?: InputMaybe<Scalars['String']>
   store?: InputMaybe<AppStoreUpdateFieldInput>
 }
@@ -1777,11 +1316,6 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
-  rootElement?: InputMaybe<ElementWhere>
-  rootElementAggregate?: InputMaybe<AppRootElementAggregateInput>
-  rootElementConnection?: InputMaybe<AppRootElementConnectionWhere>
-  rootElementConnection_NOT?: InputMaybe<AppRootElementConnectionWhere>
-  rootElement_NOT?: InputMaybe<ElementWhere>
   slug?: InputMaybe<Scalars['String']>
   slug_CONTAINS?: InputMaybe<Scalars['String']>
   slug_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -4796,9 +4330,6 @@ export type DomainsConnection = {
 
 export type Element = {
   __typename?: 'Element'
-  app?: Maybe<App>
-  appAggregate?: Maybe<ElementAppAppAggregationSelection>
-  appConnection: ElementAppConnection
   atom?: Maybe<Atom>
   atomAggregate?: Maybe<ElementAtomAtomAggregationSelection>
   atomConnection: ElementAtomConnection
@@ -4812,6 +4343,7 @@ export type Element = {
   componentAggregate?: Maybe<ElementComponentComponentAggregationSelection>
   componentConnection: ElementComponentConnection
   customCss?: Maybe<Scalars['String']>
+  descendantElements: Array<Element>
   guiCss?: Maybe<Scalars['String']>
   hooks: Array<Hook>
   hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
@@ -4847,25 +4379,6 @@ export type Element = {
   rootOf?: Maybe<Element>
   rootOfAggregate?: Maybe<ElementElementRootOfAggregationSelection>
   rootOfConnection: ElementRootOfConnection
-}
-
-export type ElementAppArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}
-
-export type ElementAppAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<AppWhere>
-}
-
-export type ElementAppConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ElementAppConnectionSort>>
-  where?: InputMaybe<ElementAppConnectionWhere>
 }
 
 export type ElementAtomArgs = {
@@ -5127,148 +4640,6 @@ export type ElementAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfPropKey: StringAggregateSelectionNullable
-}
-
-export type ElementAppAggregateInput = {
-  AND?: InputMaybe<Array<ElementAppAggregateInput>>
-  OR?: InputMaybe<Array<ElementAppAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<ElementAppNodeAggregationWhereInput>
-}
-
-export type ElementAppAppAggregationSelection = {
-  __typename?: 'ElementAppAppAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<ElementAppAppNodeAggregateSelection>
-}
-
-export type ElementAppAppNodeAggregateSelection = {
-  __typename?: 'ElementAppAppNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
-}
-
-export type ElementAppConnectFieldInput = {
-  connect?: InputMaybe<AppConnectInput>
-  where?: InputMaybe<AppConnectWhere>
-}
-
-export type ElementAppConnectOrCreateFieldInput = {
-  onCreate: ElementAppConnectOrCreateFieldInputOnCreate
-  where: AppConnectOrCreateWhere
-}
-
-export type ElementAppConnectOrCreateFieldInputOnCreate = {
-  node: AppOnCreateInput
-}
-
-export type ElementAppConnection = {
-  __typename?: 'ElementAppConnection'
-  edges: Array<ElementAppRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type ElementAppConnectionSort = {
-  node?: InputMaybe<AppSort>
-}
-
-export type ElementAppConnectionWhere = {
-  AND?: InputMaybe<Array<ElementAppConnectionWhere>>
-  OR?: InputMaybe<Array<ElementAppConnectionWhere>>
-  node?: InputMaybe<AppWhere>
-  node_NOT?: InputMaybe<AppWhere>
-}
-
-export type ElementAppCreateFieldInput = {
-  node: AppCreateInput
-}
-
-export type ElementAppDeleteFieldInput = {
-  delete?: InputMaybe<AppDeleteInput>
-  where?: InputMaybe<ElementAppConnectionWhere>
-}
-
-export type ElementAppDisconnectFieldInput = {
-  disconnect?: InputMaybe<AppDisconnectInput>
-  where?: InputMaybe<ElementAppConnectionWhere>
-}
-
-export type ElementAppFieldInput = {
-  connect?: InputMaybe<ElementAppConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementAppConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementAppCreateFieldInput>
-}
-
-export type ElementAppNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementAppNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ElementAppNodeAggregationWhereInput>>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  slug_GT?: InputMaybe<Scalars['Int']>
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_LT?: InputMaybe<Scalars['Int']>
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type ElementAppRelationship = {
-  __typename?: 'ElementAppRelationship'
-  cursor: Scalars['String']
-  node: App
-}
-
-export type ElementAppUpdateConnectionInput = {
-  node?: InputMaybe<AppUpdateInput>
-}
-
-export type ElementAppUpdateFieldInput = {
-  connect?: InputMaybe<ElementAppConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementAppConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementAppCreateFieldInput>
-  delete?: InputMaybe<ElementAppDeleteFieldInput>
-  disconnect?: InputMaybe<ElementAppDisconnectFieldInput>
-  update?: InputMaybe<ElementAppUpdateConnectionInput>
-  where?: InputMaybe<ElementAppConnectionWhere>
 }
 
 export type ElementAtomAggregateInput = {
@@ -6084,7 +5455,6 @@ export type ElementComponentUpdateFieldInput = {
 }
 
 export type ElementConnectInput = {
-  app?: InputMaybe<ElementAppConnectFieldInput>
   atom?: InputMaybe<ElementAtomConnectFieldInput>
   children?: InputMaybe<Array<ElementChildrenConnectFieldInput>>
   childrenRoot?: InputMaybe<ElementChildrenRootConnectFieldInput>
@@ -6101,7 +5471,6 @@ export type ElementConnectInput = {
 }
 
 export type ElementConnectOrCreateInput = {
-  app?: InputMaybe<ElementAppConnectOrCreateFieldInput>
   atom?: InputMaybe<ElementAtomConnectOrCreateFieldInput>
   children?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>
   childrenRoot?: InputMaybe<ElementChildrenRootConnectOrCreateFieldInput>
@@ -6128,7 +5497,6 @@ export type ElementConnectWhere = {
 }
 
 export type ElementCreateInput = {
-  app?: InputMaybe<ElementAppFieldInput>
   atom?: InputMaybe<ElementAtomFieldInput>
   children?: InputMaybe<ElementChildrenFieldInput>
   childrenRoot?: InputMaybe<ElementChildrenRootFieldInput>
@@ -6154,7 +5522,6 @@ export type ElementCreateInput = {
 }
 
 export type ElementDeleteInput = {
-  app?: InputMaybe<ElementAppDeleteFieldInput>
   atom?: InputMaybe<ElementAtomDeleteFieldInput>
   children?: InputMaybe<Array<ElementChildrenDeleteFieldInput>>
   childrenRoot?: InputMaybe<ElementChildrenRootDeleteFieldInput>
@@ -6171,7 +5538,6 @@ export type ElementDeleteInput = {
 }
 
 export type ElementDisconnectInput = {
-  app?: InputMaybe<ElementAppDisconnectFieldInput>
   atom?: InputMaybe<ElementAtomDisconnectFieldInput>
   children?: InputMaybe<Array<ElementChildrenDisconnectFieldInput>>
   childrenRoot?: InputMaybe<ElementChildrenRootDisconnectFieldInput>
@@ -7752,7 +7118,6 @@ export type ElementPropsUpdateFieldInput = {
 }
 
 export type ElementRelationInput = {
-  app?: InputMaybe<ElementAppCreateFieldInput>
   atom?: InputMaybe<ElementAtomCreateFieldInput>
   children?: InputMaybe<Array<ElementChildrenCreateFieldInput>>
   childrenRoot?: InputMaybe<ElementChildrenRootCreateFieldInput>
@@ -8316,7 +7681,6 @@ export type ElementUniqueWhere = {
 }
 
 export type ElementUpdateInput = {
-  app?: InputMaybe<ElementAppUpdateFieldInput>
   atom?: InputMaybe<ElementAtomUpdateFieldInput>
   children?: InputMaybe<Array<ElementChildrenUpdateFieldInput>>
   childrenRoot?: InputMaybe<ElementChildrenRootUpdateFieldInput>
@@ -8344,11 +7708,6 @@ export type ElementUpdateInput = {
 export type ElementWhere = {
   AND?: InputMaybe<Array<ElementWhere>>
   OR?: InputMaybe<Array<ElementWhere>>
-  app?: InputMaybe<AppWhere>
-  appAggregate?: InputMaybe<ElementAppAggregateInput>
-  appConnection?: InputMaybe<ElementAppConnectionWhere>
-  appConnection_NOT?: InputMaybe<ElementAppConnectionWhere>
-  app_NOT?: InputMaybe<AppWhere>
   atom?: InputMaybe<AtomWhere>
   atomAggregate?: InputMaybe<ElementAtomAggregateInput>
   atomConnection?: InputMaybe<ElementAtomConnectionWhere>
@@ -15398,7 +14757,7 @@ export type ResourceAction = ActionBase & {
   config: Prop
   configAggregate?: Maybe<ResourceActionPropConfigAggregationSelection>
   configConnection: ResourceActionConfigConnection
-  errorAction: ActionBase
+  errorAction: AnyAction
   errorActionConnection: ResourceActionErrorActionConnection
   id: Scalars['ID']
   name: Scalars['String']
@@ -15411,7 +14770,7 @@ export type ResourceAction = ActionBase & {
   storeAggregate?: Maybe<ResourceActionStoreStoreAggregationSelection>
   storeConnection: ActionBaseStoreConnection
   /** Response handlers */
-  successAction: ActionBase
+  successAction: AnyAction
   successActionConnection: ResourceActionSuccessActionConnection
   type: ActionKind
 }
@@ -15437,15 +14796,14 @@ export type ResourceActionConfigConnectionArgs = {
 
 export type ResourceActionErrorActionArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<ActionBaseOptions>
-  where?: InputMaybe<ActionBaseWhere>
+  options?: InputMaybe<QueryOptions>
+  where?: InputMaybe<AnyActionWhere>
 }
 
 export type ResourceActionErrorActionConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ResourceActionErrorActionConnectionSort>>
   where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
 }
 
@@ -15489,15 +14847,14 @@ export type ResourceActionStoreConnectionArgs = {
 
 export type ResourceActionSuccessActionArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<ActionBaseOptions>
-  where?: InputMaybe<ActionBaseWhere>
+  options?: InputMaybe<QueryOptions>
+  where?: InputMaybe<AnyActionWhere>
 }
 
 export type ResourceActionSuccessActionConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ResourceActionSuccessActionConnectionSort>>
   where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
 }
 
@@ -15616,16 +14973,18 @@ export type ResourceActionConfigUpdateFieldInput = {
 
 export type ResourceActionConnectInput = {
   config?: InputMaybe<ResourceActionConfigConnectFieldInput>
-  errorAction?: InputMaybe<ResourceActionErrorActionConnectFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionConnectInput>
   resource?: InputMaybe<ResourceActionResourceConnectFieldInput>
   store?: InputMaybe<ActionBaseStoreConnectFieldInput>
-  successAction?: InputMaybe<ResourceActionSuccessActionConnectFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionConnectInput>
 }
 
 export type ResourceActionConnectOrCreateInput = {
   config?: InputMaybe<ResourceActionConfigConnectOrCreateFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionConnectOrCreateInput>
   resource?: InputMaybe<ResourceActionResourceConnectOrCreateFieldInput>
   store?: InputMaybe<ActionBaseStoreConnectOrCreateFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionConnectOrCreateInput>
 }
 
 export type ResourceActionConnectOrCreateWhere = {
@@ -15638,30 +14997,30 @@ export type ResourceActionConnectWhere = {
 
 export type ResourceActionCreateInput = {
   config?: InputMaybe<ResourceActionConfigFieldInput>
-  errorAction?: InputMaybe<ResourceActionErrorActionFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionCreateInput>
   id: Scalars['ID']
   name: Scalars['String']
   resource?: InputMaybe<ResourceActionResourceFieldInput>
   runOnInit?: Scalars['Boolean']
   store?: InputMaybe<ActionBaseStoreFieldInput>
-  successAction?: InputMaybe<ResourceActionSuccessActionFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionCreateInput>
   type?: ActionKind
 }
 
 export type ResourceActionDeleteInput = {
   config?: InputMaybe<ResourceActionConfigDeleteFieldInput>
-  errorAction?: InputMaybe<ResourceActionErrorActionDeleteFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionDeleteInput>
   resource?: InputMaybe<ResourceActionResourceDeleteFieldInput>
   store?: InputMaybe<ActionBaseStoreDeleteFieldInput>
-  successAction?: InputMaybe<ResourceActionSuccessActionDeleteFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionDeleteInput>
 }
 
 export type ResourceActionDisconnectInput = {
   config?: InputMaybe<ResourceActionConfigDisconnectFieldInput>
-  errorAction?: InputMaybe<ResourceActionErrorActionDisconnectFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionDisconnectInput>
   resource?: InputMaybe<ResourceActionResourceDisconnectFieldInput>
   store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>
-  successAction?: InputMaybe<ResourceActionSuccessActionDisconnectFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionDisconnectInput>
 }
 
 export type ResourceActionEdge = {
@@ -15670,9 +15029,16 @@ export type ResourceActionEdge = {
   node: ResourceAction
 }
 
-export type ResourceActionErrorActionConnectFieldInput = {
-  connect?: InputMaybe<ActionBaseConnectInput>
-  where?: InputMaybe<ActionBaseConnectWhere>
+export type ResourceActionErrorActionConnectInput = {
+  CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionConnectFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionConnectFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionConnectFieldInput>
+}
+
+export type ResourceActionErrorActionConnectOrCreateInput = {
+  CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionConnectOrCreateFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionConnectOrCreateFieldInput>
 }
 
 export type ResourceActionErrorActionConnection = {
@@ -15682,53 +15048,224 @@ export type ResourceActionErrorActionConnection = {
   totalCount: Scalars['Int']
 }
 
-export type ResourceActionErrorActionConnectionSort = {
-  node?: InputMaybe<ActionBaseSort>
-}
-
 export type ResourceActionErrorActionConnectionWhere = {
-  AND?: InputMaybe<Array<ResourceActionErrorActionConnectionWhere>>
-  OR?: InputMaybe<Array<ResourceActionErrorActionConnectionWhere>>
-  node?: InputMaybe<ActionBaseWhere>
-  node_NOT?: InputMaybe<ActionBaseWhere>
+  CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionConnectionWhere>
+  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>
+  ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionConnectionWhere>
 }
 
 export type ResourceActionErrorActionCreateFieldInput = {
-  node: ActionBaseCreateInput
+  CustomAction?: InputMaybe<
+    Array<ResourceActionErrorActionCustomActionCreateFieldInput>
+  >
+  PipelineAction?: InputMaybe<
+    Array<ResourceActionErrorActionPipelineActionCreateFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<ResourceActionErrorActionResourceActionCreateFieldInput>
+  >
 }
 
-export type ResourceActionErrorActionDeleteFieldInput = {
-  delete?: InputMaybe<ActionBaseDeleteInput>
-  where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
+export type ResourceActionErrorActionCreateInput = {
+  CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionFieldInput>
 }
 
-export type ResourceActionErrorActionDisconnectFieldInput = {
-  disconnect?: InputMaybe<ActionBaseDisconnectInput>
-  where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
+export type ResourceActionErrorActionCustomActionConnectFieldInput = {
+  connect?: InputMaybe<CustomActionConnectInput>
+  where?: InputMaybe<CustomActionConnectWhere>
 }
 
-export type ResourceActionErrorActionFieldInput = {
-  connect?: InputMaybe<ResourceActionErrorActionConnectFieldInput>
-  create?: InputMaybe<ResourceActionErrorActionCreateFieldInput>
+export type ResourceActionErrorActionCustomActionConnectOrCreateFieldInput = {
+  onCreate: ResourceActionErrorActionCustomActionConnectOrCreateFieldInputOnCreate
+  where: CustomActionConnectOrCreateWhere
+}
+
+export type ResourceActionErrorActionCustomActionConnectOrCreateFieldInputOnCreate =
+  {
+    node: CustomActionOnCreateInput
+  }
+
+export type ResourceActionErrorActionCustomActionConnectionWhere = {
+  AND?: InputMaybe<Array<ResourceActionErrorActionCustomActionConnectionWhere>>
+  OR?: InputMaybe<Array<ResourceActionErrorActionCustomActionConnectionWhere>>
+  node?: InputMaybe<CustomActionWhere>
+  node_NOT?: InputMaybe<CustomActionWhere>
+}
+
+export type ResourceActionErrorActionCustomActionCreateFieldInput = {
+  node: CustomActionCreateInput
+}
+
+export type ResourceActionErrorActionCustomActionDeleteFieldInput = {
+  delete?: InputMaybe<CustomActionDeleteInput>
+  where?: InputMaybe<ResourceActionErrorActionCustomActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionCustomActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<CustomActionDisconnectInput>
+  where?: InputMaybe<ResourceActionErrorActionCustomActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionCustomActionFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionCustomActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionErrorActionCustomActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionCustomActionCreateFieldInput>
+}
+
+export type ResourceActionErrorActionCustomActionUpdateConnectionInput = {
+  node?: InputMaybe<CustomActionUpdateInput>
+}
+
+export type ResourceActionErrorActionCustomActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionCustomActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionErrorActionCustomActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionCustomActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionErrorActionCustomActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionErrorActionCustomActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionErrorActionCustomActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionErrorActionCustomActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionDeleteInput = {
+  CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionDeleteFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionDeleteFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionDeleteFieldInput>
+}
+
+export type ResourceActionErrorActionDisconnectInput = {
+  CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionDisconnectFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionDisconnectFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionDisconnectFieldInput>
+}
+
+export type ResourceActionErrorActionPipelineActionConnectFieldInput = {
+  connect?: InputMaybe<PipelineActionConnectInput>
+  where?: InputMaybe<PipelineActionConnectWhere>
+}
+
+export type ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput = {
+  onCreate: ResourceActionErrorActionPipelineActionConnectOrCreateFieldInputOnCreate
+  where: PipelineActionConnectOrCreateWhere
+}
+
+export type ResourceActionErrorActionPipelineActionConnectOrCreateFieldInputOnCreate =
+  {
+    node: PipelineActionOnCreateInput
+  }
+
+export type ResourceActionErrorActionPipelineActionConnectionWhere = {
+  AND?: InputMaybe<
+    Array<ResourceActionErrorActionPipelineActionConnectionWhere>
+  >
+  OR?: InputMaybe<Array<ResourceActionErrorActionPipelineActionConnectionWhere>>
+  node?: InputMaybe<PipelineActionWhere>
+  node_NOT?: InputMaybe<PipelineActionWhere>
+}
+
+export type ResourceActionErrorActionPipelineActionCreateFieldInput = {
+  node: PipelineActionCreateInput
+}
+
+export type ResourceActionErrorActionPipelineActionDeleteFieldInput = {
+  delete?: InputMaybe<PipelineActionDeleteInput>
+  where?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionPipelineActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<PipelineActionDisconnectInput>
+  where?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionPipelineActionFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionPipelineActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionPipelineActionCreateFieldInput>
+}
+
+export type ResourceActionErrorActionPipelineActionUpdateConnectionInput = {
+  node?: InputMaybe<PipelineActionUpdateInput>
+}
+
+export type ResourceActionErrorActionPipelineActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionPipelineActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionPipelineActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionErrorActionPipelineActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionErrorActionPipelineActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionErrorActionPipelineActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>
 }
 
 export type ResourceActionErrorActionRelationship = {
   __typename?: 'ResourceActionErrorActionRelationship'
   cursor: Scalars['String']
-  node: ActionBase
+  node: AnyAction
 }
 
-export type ResourceActionErrorActionUpdateConnectionInput = {
-  node?: InputMaybe<ActionBaseUpdateInput>
+export type ResourceActionErrorActionResourceActionConnectFieldInput = {
+  connect?: InputMaybe<ResourceActionConnectInput>
+  where?: InputMaybe<ResourceActionConnectWhere>
 }
 
-export type ResourceActionErrorActionUpdateFieldInput = {
-  connect?: InputMaybe<ResourceActionErrorActionConnectFieldInput>
-  create?: InputMaybe<ResourceActionErrorActionCreateFieldInput>
-  delete?: InputMaybe<ResourceActionErrorActionDeleteFieldInput>
-  disconnect?: InputMaybe<ResourceActionErrorActionDisconnectFieldInput>
-  update?: InputMaybe<ResourceActionErrorActionUpdateConnectionInput>
-  where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
+export type ResourceActionErrorActionResourceActionConnectOrCreateFieldInput = {
+  onCreate: ResourceActionErrorActionResourceActionConnectOrCreateFieldInputOnCreate
+  where: ResourceActionConnectOrCreateWhere
+}
+
+export type ResourceActionErrorActionResourceActionConnectOrCreateFieldInputOnCreate =
+  {
+    node: ResourceActionOnCreateInput
+  }
+
+export type ResourceActionErrorActionResourceActionConnectionWhere = {
+  AND?: InputMaybe<
+    Array<ResourceActionErrorActionResourceActionConnectionWhere>
+  >
+  OR?: InputMaybe<Array<ResourceActionErrorActionResourceActionConnectionWhere>>
+  node?: InputMaybe<ResourceActionWhere>
+  node_NOT?: InputMaybe<ResourceActionWhere>
+}
+
+export type ResourceActionErrorActionResourceActionCreateFieldInput = {
+  node: ResourceActionCreateInput
+}
+
+export type ResourceActionErrorActionResourceActionDeleteFieldInput = {
+  delete?: InputMaybe<ResourceActionDeleteInput>
+  where?: InputMaybe<ResourceActionErrorActionResourceActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionResourceActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<ResourceActionDisconnectInput>
+  where?: InputMaybe<ResourceActionErrorActionResourceActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionResourceActionFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionResourceActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionErrorActionResourceActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionResourceActionCreateFieldInput>
+}
+
+export type ResourceActionErrorActionResourceActionUpdateConnectionInput = {
+  node?: InputMaybe<ResourceActionUpdateInput>
+}
+
+export type ResourceActionErrorActionResourceActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionResourceActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionErrorActionResourceActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionResourceActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionErrorActionResourceActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionErrorActionResourceActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionErrorActionResourceActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionErrorActionResourceActionConnectionWhere>
+}
+
+export type ResourceActionErrorActionUpdateInput = {
+  CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionUpdateFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionUpdateFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionUpdateFieldInput>
 }
 
 export type ResourceActionOnCreateInput = {
@@ -15942,9 +15479,16 @@ export type ResourceActionStoreStoreNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
-export type ResourceActionSuccessActionConnectFieldInput = {
-  connect?: InputMaybe<ActionBaseConnectInput>
-  where?: InputMaybe<ActionBaseConnectWhere>
+export type ResourceActionSuccessActionConnectInput = {
+  CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionConnectFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionConnectFieldInput>
+}
+
+export type ResourceActionSuccessActionConnectOrCreateInput = {
+  CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput>
 }
 
 export type ResourceActionSuccessActionConnection = {
@@ -15954,53 +15498,232 @@ export type ResourceActionSuccessActionConnection = {
   totalCount: Scalars['Int']
 }
 
-export type ResourceActionSuccessActionConnectionSort = {
-  node?: InputMaybe<ActionBaseSort>
-}
-
 export type ResourceActionSuccessActionConnectionWhere = {
-  AND?: InputMaybe<Array<ResourceActionSuccessActionConnectionWhere>>
-  OR?: InputMaybe<Array<ResourceActionSuccessActionConnectionWhere>>
-  node?: InputMaybe<ActionBaseWhere>
-  node_NOT?: InputMaybe<ActionBaseWhere>
+  CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionConnectionWhere>
+  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>
+  ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionConnectionWhere>
 }
 
 export type ResourceActionSuccessActionCreateFieldInput = {
-  node: ActionBaseCreateInput
+  CustomAction?: InputMaybe<
+    Array<ResourceActionSuccessActionCustomActionCreateFieldInput>
+  >
+  PipelineAction?: InputMaybe<
+    Array<ResourceActionSuccessActionPipelineActionCreateFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<ResourceActionSuccessActionResourceActionCreateFieldInput>
+  >
 }
 
-export type ResourceActionSuccessActionDeleteFieldInput = {
-  delete?: InputMaybe<ActionBaseDeleteInput>
-  where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
+export type ResourceActionSuccessActionCreateInput = {
+  CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionFieldInput>
 }
 
-export type ResourceActionSuccessActionDisconnectFieldInput = {
-  disconnect?: InputMaybe<ActionBaseDisconnectInput>
-  where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
+export type ResourceActionSuccessActionCustomActionConnectFieldInput = {
+  connect?: InputMaybe<CustomActionConnectInput>
+  where?: InputMaybe<CustomActionConnectWhere>
 }
 
-export type ResourceActionSuccessActionFieldInput = {
-  connect?: InputMaybe<ResourceActionSuccessActionConnectFieldInput>
-  create?: InputMaybe<ResourceActionSuccessActionCreateFieldInput>
+export type ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput = {
+  onCreate: ResourceActionSuccessActionCustomActionConnectOrCreateFieldInputOnCreate
+  where: CustomActionConnectOrCreateWhere
+}
+
+export type ResourceActionSuccessActionCustomActionConnectOrCreateFieldInputOnCreate =
+  {
+    node: CustomActionOnCreateInput
+  }
+
+export type ResourceActionSuccessActionCustomActionConnectionWhere = {
+  AND?: InputMaybe<
+    Array<ResourceActionSuccessActionCustomActionConnectionWhere>
+  >
+  OR?: InputMaybe<Array<ResourceActionSuccessActionCustomActionConnectionWhere>>
+  node?: InputMaybe<CustomActionWhere>
+  node_NOT?: InputMaybe<CustomActionWhere>
+}
+
+export type ResourceActionSuccessActionCustomActionCreateFieldInput = {
+  node: CustomActionCreateInput
+}
+
+export type ResourceActionSuccessActionCustomActionDeleteFieldInput = {
+  delete?: InputMaybe<CustomActionDeleteInput>
+  where?: InputMaybe<ResourceActionSuccessActionCustomActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionCustomActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<CustomActionDisconnectInput>
+  where?: InputMaybe<ResourceActionSuccessActionCustomActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionCustomActionFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionCustomActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionCustomActionCreateFieldInput>
+}
+
+export type ResourceActionSuccessActionCustomActionUpdateConnectionInput = {
+  node?: InputMaybe<CustomActionUpdateInput>
+}
+
+export type ResourceActionSuccessActionCustomActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionCustomActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionCustomActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionSuccessActionCustomActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionSuccessActionCustomActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionSuccessActionCustomActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionSuccessActionCustomActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionDeleteInput = {
+  CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionDeleteFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionDeleteFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionDeleteFieldInput>
+}
+
+export type ResourceActionSuccessActionDisconnectInput = {
+  CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionDisconnectFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionDisconnectFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionDisconnectFieldInput>
+}
+
+export type ResourceActionSuccessActionPipelineActionConnectFieldInput = {
+  connect?: InputMaybe<PipelineActionConnectInput>
+  where?: InputMaybe<PipelineActionConnectWhere>
+}
+
+export type ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput =
+  {
+    onCreate: ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInputOnCreate
+    where: PipelineActionConnectOrCreateWhere
+  }
+
+export type ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInputOnCreate =
+  {
+    node: PipelineActionOnCreateInput
+  }
+
+export type ResourceActionSuccessActionPipelineActionConnectionWhere = {
+  AND?: InputMaybe<
+    Array<ResourceActionSuccessActionPipelineActionConnectionWhere>
+  >
+  OR?: InputMaybe<
+    Array<ResourceActionSuccessActionPipelineActionConnectionWhere>
+  >
+  node?: InputMaybe<PipelineActionWhere>
+  node_NOT?: InputMaybe<PipelineActionWhere>
+}
+
+export type ResourceActionSuccessActionPipelineActionCreateFieldInput = {
+  node: PipelineActionCreateInput
+}
+
+export type ResourceActionSuccessActionPipelineActionDeleteFieldInput = {
+  delete?: InputMaybe<PipelineActionDeleteInput>
+  where?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionPipelineActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<PipelineActionDisconnectInput>
+  where?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionPipelineActionFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionPipelineActionCreateFieldInput>
+}
+
+export type ResourceActionSuccessActionPipelineActionUpdateConnectionInput = {
+  node?: InputMaybe<PipelineActionUpdateInput>
+}
+
+export type ResourceActionSuccessActionPipelineActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionPipelineActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionSuccessActionPipelineActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionSuccessActionPipelineActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionSuccessActionPipelineActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>
 }
 
 export type ResourceActionSuccessActionRelationship = {
   __typename?: 'ResourceActionSuccessActionRelationship'
   cursor: Scalars['String']
-  node: ActionBase
+  node: AnyAction
 }
 
-export type ResourceActionSuccessActionUpdateConnectionInput = {
-  node?: InputMaybe<ActionBaseUpdateInput>
+export type ResourceActionSuccessActionResourceActionConnectFieldInput = {
+  connect?: InputMaybe<ResourceActionConnectInput>
+  where?: InputMaybe<ResourceActionConnectWhere>
 }
 
-export type ResourceActionSuccessActionUpdateFieldInput = {
-  connect?: InputMaybe<ResourceActionSuccessActionConnectFieldInput>
-  create?: InputMaybe<ResourceActionSuccessActionCreateFieldInput>
-  delete?: InputMaybe<ResourceActionSuccessActionDeleteFieldInput>
-  disconnect?: InputMaybe<ResourceActionSuccessActionDisconnectFieldInput>
-  update?: InputMaybe<ResourceActionSuccessActionUpdateConnectionInput>
-  where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
+export type ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput =
+  {
+    onCreate: ResourceActionSuccessActionResourceActionConnectOrCreateFieldInputOnCreate
+    where: ResourceActionConnectOrCreateWhere
+  }
+
+export type ResourceActionSuccessActionResourceActionConnectOrCreateFieldInputOnCreate =
+  {
+    node: ResourceActionOnCreateInput
+  }
+
+export type ResourceActionSuccessActionResourceActionConnectionWhere = {
+  AND?: InputMaybe<
+    Array<ResourceActionSuccessActionResourceActionConnectionWhere>
+  >
+  OR?: InputMaybe<
+    Array<ResourceActionSuccessActionResourceActionConnectionWhere>
+  >
+  node?: InputMaybe<ResourceActionWhere>
+  node_NOT?: InputMaybe<ResourceActionWhere>
+}
+
+export type ResourceActionSuccessActionResourceActionCreateFieldInput = {
+  node: ResourceActionCreateInput
+}
+
+export type ResourceActionSuccessActionResourceActionDeleteFieldInput = {
+  delete?: InputMaybe<ResourceActionDeleteInput>
+  where?: InputMaybe<ResourceActionSuccessActionResourceActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionResourceActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<ResourceActionDisconnectInput>
+  where?: InputMaybe<ResourceActionSuccessActionResourceActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionResourceActionFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionResourceActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionResourceActionCreateFieldInput>
+}
+
+export type ResourceActionSuccessActionResourceActionUpdateConnectionInput = {
+  node?: InputMaybe<ResourceActionUpdateInput>
+}
+
+export type ResourceActionSuccessActionResourceActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionResourceActionConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionResourceActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionSuccessActionResourceActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionSuccessActionResourceActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionSuccessActionResourceActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionSuccessActionResourceActionConnectionWhere>
+}
+
+export type ResourceActionSuccessActionUpdateInput = {
+  CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionUpdateFieldInput>
+  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionUpdateFieldInput>
+  ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionUpdateFieldInput>
 }
 
 export type ResourceActionUniqueWhere = {
@@ -16009,13 +15732,13 @@ export type ResourceActionUniqueWhere = {
 
 export type ResourceActionUpdateInput = {
   config?: InputMaybe<ResourceActionConfigUpdateFieldInput>
-  errorAction?: InputMaybe<ResourceActionErrorActionUpdateFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionUpdateInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   resource?: InputMaybe<ResourceActionResourceUpdateFieldInput>
   runOnInit?: InputMaybe<Scalars['Boolean']>
   store?: InputMaybe<ActionBaseStoreUpdateFieldInput>
-  successAction?: InputMaybe<ResourceActionSuccessActionUpdateFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionUpdateInput>
 }
 
 export type ResourceActionWhere = {
@@ -16434,8 +16157,11 @@ export enum SortDirection {
 
 export type Store = {
   __typename?: 'Store'
-  actions: Array<ActionBase>
+  actions: Array<AnyAction>
   actionsConnection: StoreActionsConnection
+  app: App
+  appAggregate?: Maybe<StoreAppAppAggregationSelection>
+  appConnection: StoreAppConnection
   id: Scalars['ID']
   name: Scalars['String']
   state: Prop
@@ -16448,16 +16174,34 @@ export type Store = {
 
 export type StoreActionsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<ActionBaseOptions>
-  where?: InputMaybe<ActionBaseWhere>
+  options?: InputMaybe<QueryOptions>
+  where?: InputMaybe<AnyActionWhere>
 }
 
 export type StoreActionsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<StoreActionsConnectionSort>>
   where?: InputMaybe<StoreActionsConnectionWhere>
+}
+
+export type StoreAppArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}
+
+export type StoreAppAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<AppWhere>
+}
+
+export type StoreAppConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<StoreAppConnectionSort>>
+  where?: InputMaybe<StoreAppConnectionWhere>
 }
 
 export type StoreStateArgs = {
@@ -16498,9 +16242,26 @@ export type StoreStateConnectionArgs = {
   where?: InputMaybe<StoreStateConnectionWhere>
 }
 
-export type StoreActionsConnectFieldInput = {
-  connect?: InputMaybe<ActionBaseConnectInput>
-  where?: InputMaybe<ActionBaseConnectWhere>
+export type StoreActionsConnectInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionConnectFieldInput>>
+  PipelineAction?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<StoreActionsResourceActionConnectFieldInput>
+  >
+}
+
+export type StoreActionsConnectOrCreateInput = {
+  CustomAction?: InputMaybe<
+    Array<StoreActionsCustomActionConnectOrCreateFieldInput>
+  >
+  PipelineAction?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<StoreActionsResourceActionConnectOrCreateFieldInput>
+  >
 }
 
 export type StoreActionsConnection = {
@@ -16510,53 +16271,227 @@ export type StoreActionsConnection = {
   totalCount: Scalars['Int']
 }
 
-export type StoreActionsConnectionSort = {
-  node?: InputMaybe<ActionBaseSort>
-}
-
 export type StoreActionsConnectionWhere = {
-  AND?: InputMaybe<Array<StoreActionsConnectionWhere>>
-  OR?: InputMaybe<Array<StoreActionsConnectionWhere>>
-  node?: InputMaybe<ActionBaseWhere>
-  node_NOT?: InputMaybe<ActionBaseWhere>
+  CustomAction?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+  PipelineAction?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
+  ResourceAction?: InputMaybe<StoreActionsResourceActionConnectionWhere>
 }
 
 export type StoreActionsCreateFieldInput = {
-  node: ActionBaseCreateInput
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionCreateFieldInput>>
+  PipelineAction?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>
+  ResourceAction?: InputMaybe<Array<StoreActionsResourceActionCreateFieldInput>>
 }
 
-export type StoreActionsDeleteFieldInput = {
-  delete?: InputMaybe<ActionBaseDeleteInput>
-  where?: InputMaybe<StoreActionsConnectionWhere>
+export type StoreActionsCreateInput = {
+  CustomAction?: InputMaybe<StoreActionsCustomActionFieldInput>
+  PipelineAction?: InputMaybe<StoreActionsPipelineActionFieldInput>
+  ResourceAction?: InputMaybe<StoreActionsResourceActionFieldInput>
 }
 
-export type StoreActionsDisconnectFieldInput = {
-  disconnect?: InputMaybe<ActionBaseDisconnectInput>
-  where?: InputMaybe<StoreActionsConnectionWhere>
+export type StoreActionsCustomActionConnectFieldInput = {
+  connect?: InputMaybe<Array<CustomActionConnectInput>>
+  where?: InputMaybe<CustomActionConnectWhere>
 }
 
-export type StoreActionsFieldInput = {
-  connect?: InputMaybe<Array<StoreActionsConnectFieldInput>>
-  create?: InputMaybe<Array<StoreActionsCreateFieldInput>>
+export type StoreActionsCustomActionConnectOrCreateFieldInput = {
+  onCreate: StoreActionsCustomActionConnectOrCreateFieldInputOnCreate
+  where: CustomActionConnectOrCreateWhere
+}
+
+export type StoreActionsCustomActionConnectOrCreateFieldInputOnCreate = {
+  node: CustomActionOnCreateInput
+}
+
+export type StoreActionsCustomActionConnectionWhere = {
+  AND?: InputMaybe<Array<StoreActionsCustomActionConnectionWhere>>
+  OR?: InputMaybe<Array<StoreActionsCustomActionConnectionWhere>>
+  node?: InputMaybe<CustomActionWhere>
+  node_NOT?: InputMaybe<CustomActionWhere>
+}
+
+export type StoreActionsCustomActionCreateFieldInput = {
+  node: CustomActionCreateInput
+}
+
+export type StoreActionsCustomActionDeleteFieldInput = {
+  delete?: InputMaybe<CustomActionDeleteInput>
+  where?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+}
+
+export type StoreActionsCustomActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<CustomActionDisconnectInput>
+  where?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+}
+
+export type StoreActionsCustomActionFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsCustomActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsCustomActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsCustomActionCreateFieldInput>>
+}
+
+export type StoreActionsCustomActionUpdateConnectionInput = {
+  node?: InputMaybe<CustomActionUpdateInput>
+}
+
+export type StoreActionsCustomActionUpdateFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsCustomActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsCustomActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsCustomActionCreateFieldInput>>
+  delete?: InputMaybe<Array<StoreActionsCustomActionDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<StoreActionsCustomActionDisconnectFieldInput>>
+  update?: InputMaybe<StoreActionsCustomActionUpdateConnectionInput>
+  where?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+}
+
+export type StoreActionsDeleteInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionDeleteFieldInput>>
+  PipelineAction?: InputMaybe<Array<StoreActionsPipelineActionDeleteFieldInput>>
+  ResourceAction?: InputMaybe<Array<StoreActionsResourceActionDeleteFieldInput>>
+}
+
+export type StoreActionsDisconnectInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionDisconnectFieldInput>>
+  PipelineAction?: InputMaybe<
+    Array<StoreActionsPipelineActionDisconnectFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<StoreActionsResourceActionDisconnectFieldInput>
+  >
+}
+
+export type StoreActionsPipelineActionConnectFieldInput = {
+  connect?: InputMaybe<Array<PipelineActionConnectInput>>
+  where?: InputMaybe<PipelineActionConnectWhere>
+}
+
+export type StoreActionsPipelineActionConnectOrCreateFieldInput = {
+  onCreate: StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate
+  where: PipelineActionConnectOrCreateWhere
+}
+
+export type StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate = {
+  node: PipelineActionOnCreateInput
+}
+
+export type StoreActionsPipelineActionConnectionWhere = {
+  AND?: InputMaybe<Array<StoreActionsPipelineActionConnectionWhere>>
+  OR?: InputMaybe<Array<StoreActionsPipelineActionConnectionWhere>>
+  node?: InputMaybe<PipelineActionWhere>
+  node_NOT?: InputMaybe<PipelineActionWhere>
+}
+
+export type StoreActionsPipelineActionCreateFieldInput = {
+  node: PipelineActionCreateInput
+}
+
+export type StoreActionsPipelineActionDeleteFieldInput = {
+  delete?: InputMaybe<PipelineActionDeleteInput>
+  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
+}
+
+export type StoreActionsPipelineActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<PipelineActionDisconnectInput>
+  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
+}
+
+export type StoreActionsPipelineActionFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsPipelineActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>
+}
+
+export type StoreActionsPipelineActionUpdateConnectionInput = {
+  node?: InputMaybe<PipelineActionUpdateInput>
+}
+
+export type StoreActionsPipelineActionUpdateFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsPipelineActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>
+  delete?: InputMaybe<Array<StoreActionsPipelineActionDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<StoreActionsPipelineActionDisconnectFieldInput>>
+  update?: InputMaybe<StoreActionsPipelineActionUpdateConnectionInput>
+  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
 }
 
 export type StoreActionsRelationship = {
   __typename?: 'StoreActionsRelationship'
   cursor: Scalars['String']
-  node: ActionBase
+  node: AnyAction
 }
 
-export type StoreActionsUpdateConnectionInput = {
-  node?: InputMaybe<ActionBaseUpdateInput>
+export type StoreActionsResourceActionConnectFieldInput = {
+  connect?: InputMaybe<Array<ResourceActionConnectInput>>
+  where?: InputMaybe<ResourceActionConnectWhere>
 }
 
-export type StoreActionsUpdateFieldInput = {
-  connect?: InputMaybe<Array<StoreActionsConnectFieldInput>>
-  create?: InputMaybe<Array<StoreActionsCreateFieldInput>>
-  delete?: InputMaybe<Array<StoreActionsDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>
-  update?: InputMaybe<StoreActionsUpdateConnectionInput>
-  where?: InputMaybe<StoreActionsConnectionWhere>
+export type StoreActionsResourceActionConnectOrCreateFieldInput = {
+  onCreate: StoreActionsResourceActionConnectOrCreateFieldInputOnCreate
+  where: ResourceActionConnectOrCreateWhere
+}
+
+export type StoreActionsResourceActionConnectOrCreateFieldInputOnCreate = {
+  node: ResourceActionOnCreateInput
+}
+
+export type StoreActionsResourceActionConnectionWhere = {
+  AND?: InputMaybe<Array<StoreActionsResourceActionConnectionWhere>>
+  OR?: InputMaybe<Array<StoreActionsResourceActionConnectionWhere>>
+  node?: InputMaybe<ResourceActionWhere>
+  node_NOT?: InputMaybe<ResourceActionWhere>
+}
+
+export type StoreActionsResourceActionCreateFieldInput = {
+  node: ResourceActionCreateInput
+}
+
+export type StoreActionsResourceActionDeleteFieldInput = {
+  delete?: InputMaybe<ResourceActionDeleteInput>
+  where?: InputMaybe<StoreActionsResourceActionConnectionWhere>
+}
+
+export type StoreActionsResourceActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<ResourceActionDisconnectInput>
+  where?: InputMaybe<StoreActionsResourceActionConnectionWhere>
+}
+
+export type StoreActionsResourceActionFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsResourceActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsResourceActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsResourceActionCreateFieldInput>>
+}
+
+export type StoreActionsResourceActionUpdateConnectionInput = {
+  node?: InputMaybe<ResourceActionUpdateInput>
+}
+
+export type StoreActionsResourceActionUpdateFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsResourceActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsResourceActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsResourceActionCreateFieldInput>>
+  delete?: InputMaybe<Array<StoreActionsResourceActionDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<StoreActionsResourceActionDisconnectFieldInput>>
+  update?: InputMaybe<StoreActionsResourceActionUpdateConnectionInput>
+  where?: InputMaybe<StoreActionsResourceActionConnectionWhere>
+}
+
+export type StoreActionsUpdateInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionUpdateFieldInput>>
+  PipelineAction?: InputMaybe<Array<StoreActionsPipelineActionUpdateFieldInput>>
+  ResourceAction?: InputMaybe<Array<StoreActionsResourceActionUpdateFieldInput>>
 }
 
 export type StoreAggregateSelection = {
@@ -16566,13 +16501,158 @@ export type StoreAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
+export type StoreAppAggregateInput = {
+  AND?: InputMaybe<Array<StoreAppAggregateInput>>
+  OR?: InputMaybe<Array<StoreAppAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<StoreAppNodeAggregationWhereInput>
+}
+
+export type StoreAppAppAggregationSelection = {
+  __typename?: 'StoreAppAppAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreAppAppNodeAggregateSelection>
+}
+
+export type StoreAppAppNodeAggregateSelection = {
+  __typename?: 'StoreAppAppNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+  slug: StringAggregateSelectionNonNullable
+}
+
+export type StoreAppConnectFieldInput = {
+  connect?: InputMaybe<AppConnectInput>
+  where?: InputMaybe<AppConnectWhere>
+}
+
+export type StoreAppConnectOrCreateFieldInput = {
+  onCreate: StoreAppConnectOrCreateFieldInputOnCreate
+  where: AppConnectOrCreateWhere
+}
+
+export type StoreAppConnectOrCreateFieldInputOnCreate = {
+  node: AppOnCreateInput
+}
+
+export type StoreAppConnection = {
+  __typename?: 'StoreAppConnection'
+  edges: Array<StoreAppRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type StoreAppConnectionSort = {
+  node?: InputMaybe<AppSort>
+}
+
+export type StoreAppConnectionWhere = {
+  AND?: InputMaybe<Array<StoreAppConnectionWhere>>
+  OR?: InputMaybe<Array<StoreAppConnectionWhere>>
+  node?: InputMaybe<AppWhere>
+  node_NOT?: InputMaybe<AppWhere>
+}
+
+export type StoreAppCreateFieldInput = {
+  node: AppCreateInput
+}
+
+export type StoreAppDeleteFieldInput = {
+  delete?: InputMaybe<AppDeleteInput>
+  where?: InputMaybe<StoreAppConnectionWhere>
+}
+
+export type StoreAppDisconnectFieldInput = {
+  disconnect?: InputMaybe<AppDisconnectInput>
+  where?: InputMaybe<StoreAppConnectionWhere>
+}
+
+export type StoreAppFieldInput = {
+  connect?: InputMaybe<StoreAppConnectFieldInput>
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>
+  create?: InputMaybe<StoreAppCreateFieldInput>
+}
+
+export type StoreAppNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  slug_EQUAL?: InputMaybe<Scalars['String']>
+  slug_GT?: InputMaybe<Scalars['Int']>
+  slug_GTE?: InputMaybe<Scalars['Int']>
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  slug_LT?: InputMaybe<Scalars['Int']>
+  slug_LTE?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type StoreAppRelationship = {
+  __typename?: 'StoreAppRelationship'
+  cursor: Scalars['String']
+  node: App
+}
+
+export type StoreAppUpdateConnectionInput = {
+  node?: InputMaybe<AppUpdateInput>
+}
+
+export type StoreAppUpdateFieldInput = {
+  connect?: InputMaybe<StoreAppConnectFieldInput>
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>
+  create?: InputMaybe<StoreAppCreateFieldInput>
+  delete?: InputMaybe<StoreAppDeleteFieldInput>
+  disconnect?: InputMaybe<StoreAppDisconnectFieldInput>
+  update?: InputMaybe<StoreAppUpdateConnectionInput>
+  where?: InputMaybe<StoreAppConnectionWhere>
+}
+
 export type StoreConnectInput = {
-  actions?: InputMaybe<Array<StoreActionsConnectFieldInput>>
+  actions?: InputMaybe<StoreActionsConnectInput>
+  app?: InputMaybe<StoreAppConnectFieldInput>
   state?: InputMaybe<StoreStateConnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectFieldInput>
 }
 
 export type StoreConnectOrCreateInput = {
+  actions?: InputMaybe<StoreActionsConnectOrCreateInput>
+  app?: InputMaybe<StoreAppConnectOrCreateFieldInput>
   state?: InputMaybe<StoreStateConnectOrCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>
 }
@@ -16586,7 +16666,8 @@ export type StoreConnectWhere = {
 }
 
 export type StoreCreateInput = {
-  actions?: InputMaybe<StoreActionsFieldInput>
+  actions?: InputMaybe<StoreActionsCreateInput>
+  app?: InputMaybe<StoreAppFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
   state?: InputMaybe<StoreStateFieldInput>
@@ -16594,13 +16675,15 @@ export type StoreCreateInput = {
 }
 
 export type StoreDeleteInput = {
-  actions?: InputMaybe<Array<StoreActionsDeleteFieldInput>>
+  actions?: InputMaybe<StoreActionsDeleteInput>
+  app?: InputMaybe<StoreAppDeleteFieldInput>
   state?: InputMaybe<StoreStateDeleteFieldInput>
   stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>
 }
 
 export type StoreDisconnectInput = {
-  actions?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>
+  actions?: InputMaybe<StoreActionsDisconnectInput>
+  app?: InputMaybe<StoreAppDisconnectFieldInput>
   state?: InputMaybe<StoreStateDisconnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>
 }
@@ -16648,7 +16731,8 @@ export type StorePropStateNodeAggregateSelection = {
 }
 
 export type StoreRelationInput = {
-  actions?: InputMaybe<Array<StoreActionsCreateFieldInput>>
+  actions?: InputMaybe<StoreActionsCreateFieldInput>
+  app?: InputMaybe<StoreAppCreateFieldInput>
   state?: InputMaybe<StoreStateCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiCreateFieldInput>
 }
@@ -16879,7 +16963,8 @@ export type StoreUniqueWhere = {
 }
 
 export type StoreUpdateInput = {
-  actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>
+  actions?: InputMaybe<StoreActionsUpdateInput>
+  app?: InputMaybe<StoreAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   state?: InputMaybe<StoreStateUpdateFieldInput>
@@ -16893,6 +16978,11 @@ export type StoreWhere = {
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>
+  app?: InputMaybe<AppWhere>
+  appAggregate?: InputMaybe<StoreAppAggregateInput>
+  appConnection?: InputMaybe<StoreAppConnectionWhere>
+  appConnection_NOT?: InputMaybe<StoreAppConnectionWhere>
+  app_NOT?: InputMaybe<AppWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -19856,4 +19946,2214 @@ export type WithOwnerOwnerUpdateFieldInput = {
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   update?: InputMaybe<WithOwnerOwnerUpdateConnectionInput>
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
+}
+
+export type GetRedirectedAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetRedirectedAppsQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & RedirectedAppFragment>
+}
+
+export type GetAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetAppsQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+}
+
+export type ResetDatabaseMutationVariables = Exact<{ [key: string]: never }>
+
+export type ResetDatabaseMutation = {
+  __typename?: 'Mutation'
+  resetDatabase?: {
+    __typename?: 'ResetDatabaseMutationResponse'
+    success?: boolean | null
+  } | null
+}
+
+export type ExecuteCommandMutationVariables = Exact<{
+  input: ExecuteCommandInput
+}>
+
+export type ExecuteCommandMutation = {
+  __typename?: 'Mutation'
+  executeCommand: {
+    __typename?: 'ExecuteCommandResponse'
+    success: boolean
+    data: string
+    handler: ExecuteCommandHandler
+  }
+}
+
+export type CreateAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
+}>
+
+export type CreateAppsMutation = {
+  __typename?: 'Mutation'
+  createApps: {
+    __typename?: 'CreateAppsMutationResponse'
+    apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+  }
+}
+
+export type UpdateAppsMutationVariables = Exact<{
+  where: AppWhere
+  update: AppUpdateInput
+}>
+
+export type UpdateAppsMutation = {
+  __typename?: 'Mutation'
+  updateApps: {
+    __typename?: 'UpdateAppsMutationResponse'
+    apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+  }
+}
+
+export type DeleteAppsMutationVariables = Exact<{
+  where: AppWhere
+  delete?: InputMaybe<AppDeleteInput>
+}>
+
+export type DeleteAppsMutation = {
+  __typename?: 'Mutation'
+  deleteApps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type CreateAtomsMutationVariables = Exact<{
+  input: Array<AtomCreateInput> | AtomCreateInput
+}>
+
+export type CreateAtomsMutation = {
+  __typename?: 'Mutation'
+  createAtoms: {
+    __typename?: 'CreateAtomsMutationResponse'
+    info: {
+      __typename?: 'CreateInfo'
+      nodesCreated: number
+      relationshipsCreated: number
+    }
+    atoms: Array<{ __typename?: 'Atom' } & AtomFragment>
+  }
+}
+
+export type DeleteAtomsMutationVariables = Exact<{
+  where: AtomWhere
+}>
+
+export type DeleteAtomsMutation = {
+  __typename?: 'Mutation'
+  deleteAtoms: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type GetAtomsQueryVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
+}>
+
+export type GetAtomsQuery = {
+  __typename?: 'Query'
+  atoms: Array<{ __typename?: 'Atom' } & AtomFragment>
+}
+
+export type UpdateAtomsMutationVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  update?: InputMaybe<AtomUpdateInput>
+}>
+
+export type UpdateAtomsMutation = {
+  __typename?: 'Mutation'
+  updateAtoms: {
+    __typename?: 'UpdateAtomsMutationResponse'
+    atoms: Array<{ __typename?: 'Atom' } & AtomFragment>
+  }
+}
+
+export type GetPageBuilderQueryVariables = Exact<{
+  appId: Scalars['ID']
+  pageId: Scalars['ID']
+  typeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
+}>
+
+export type GetPageBuilderQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
+  stores: Array<{ __typename?: 'Store' } & StoreFragment>
+  components: Array<{ __typename?: 'Component' } & ComponentFragment>
+  primitiveTypes: Array<
+    { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
+  >
+  arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+  unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+  interfaceTypes: Array<
+    { __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment
+  >
+  elementTypes: Array<
+    { __typename?: 'ElementType' } & Type_ElementType_Fragment
+  >
+  renderPropsTypes: Array<
+    { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
+  >
+  reactNodeTypes: Array<
+    { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
+  >
+  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+  lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+  actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+  codeMirrorTypes: Array<
+    { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
+  >
+}
+
+export type CreateComponentsMutationVariables = Exact<{
+  input: Array<ComponentCreateInput> | ComponentCreateInput
+}>
+
+export type CreateComponentsMutation = {
+  __typename?: 'Mutation'
+  createComponents: {
+    __typename?: 'CreateComponentsMutationResponse'
+    components: Array<{ __typename?: 'Component' } & ComponentFragment>
+  }
+}
+
+export type DeleteComponentsMutationVariables = Exact<{
+  where?: InputMaybe<ComponentWhere>
+  delete?: InputMaybe<ComponentDeleteInput>
+}>
+
+export type DeleteComponentsMutation = {
+  __typename?: 'Mutation'
+  deleteComponents: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type UpdateComponentsMutationVariables = Exact<{
+  where?: InputMaybe<ComponentWhere>
+  update?: InputMaybe<ComponentUpdateInput>
+}>
+
+export type UpdateComponentsMutation = {
+  __typename?: 'Mutation'
+  updateComponents: {
+    __typename?: 'UpdateComponentsMutationResponse'
+    components: Array<{ __typename?: 'Component' } & ComponentFragment>
+  }
+}
+
+export type GetComponentsQueryVariables = Exact<{
+  options?: InputMaybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+}>
+
+export type GetComponentsQuery = {
+  __typename?: 'Query'
+  components: Array<{ __typename?: 'Component' } & ComponentFragment>
+}
+
+export type GetDomainQueryVariables = Exact<{
+  options?: InputMaybe<DomainOptions>
+  where?: InputMaybe<DomainWhere>
+}>
+
+export type GetDomainQuery = {
+  __typename?: 'Query'
+  domains: Array<{ __typename?: 'Domain' } & DomainFragment>
+}
+
+export type CreateDomainMutationVariables = Exact<{
+  input: CreateDomainMutationInput
+}>
+
+export type CreateDomainMutation = {
+  __typename?: 'Mutation'
+  createDomain: { __typename?: 'Domain' } & DomainFragment
+}
+
+export type UpdateDomainMutationVariables = Exact<{
+  input: UpdateDomainMutationInput
+}>
+
+export type UpdateDomainMutation = {
+  __typename?: 'Mutation'
+  updateDomain: { __typename?: 'Domain' } & DomainFragment
+}
+
+export type DeleteDomainMutationVariables = Exact<{
+  id: Scalars['String']
+}>
+
+export type DeleteDomainMutation = {
+  __typename?: 'Mutation'
+  deleteDomain: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetElementGraphQueryVariables = Exact<{
+  input: ElementGraphInput
+}>
+
+export type GetElementGraphQuery = {
+  __typename?: 'Query'
+  elementGraph: { __typename?: 'ElementGraph' } & ElementGraphFragment
+}
+
+export type CreateElementsMutationVariables = Exact<{
+  input: Array<ElementCreateInput> | ElementCreateInput
+}>
+
+export type CreateElementsMutation = {
+  __typename?: 'Mutation'
+  createElements: {
+    __typename?: 'CreateElementsMutationResponse'
+    elements: Array<{ __typename?: 'Element' } & ElementFragment>
+  }
+}
+
+export type DeleteElementsMutationVariables = Exact<{
+  where: ElementWhere
+  delete?: InputMaybe<ElementDeleteInput>
+}>
+
+export type DeleteElementsMutation = {
+  __typename?: 'Mutation'
+  deleteElements: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type UpdateElementsMutationVariables = Exact<{
+  where?: InputMaybe<ElementWhere>
+  update?: InputMaybe<ElementUpdateInput>
+}>
+
+export type UpdateElementsMutation = {
+  __typename?: 'Mutation'
+  updateElements: {
+    __typename?: 'UpdateElementsMutationResponse'
+    elements: Array<{ __typename?: 'Element' } & ElementFragment>
+  }
+}
+
+export type MoveElementsMutationVariables = Exact<{
+  where?: InputMaybe<ElementWhere>
+  update?: InputMaybe<ElementUpdateInput>
+}>
+
+export type MoveElementsMutation = {
+  __typename?: 'Mutation'
+  updateElements: {
+    __typename?: 'UpdateElementsMutationResponse'
+    elements: Array<{ __typename?: 'Element' } & ElementFragment>
+  }
+}
+
+export type GetElementsQueryVariables = Exact<{
+  options?: InputMaybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+}>
+
+export type GetElementsQuery = {
+  __typename?: 'Query'
+  elements: Array<{ __typename?: 'Element' } & ElementFragment>
+}
+
+export type CreateHooksMutationVariables = Exact<{
+  input: Array<HookCreateInput> | HookCreateInput
+}>
+
+export type CreateHooksMutation = {
+  __typename?: 'Mutation'
+  createHooks: {
+    __typename?: 'CreateHooksMutationResponse'
+    hooks: Array<{ __typename?: 'Hook' } & HookFragment>
+  }
+}
+
+export type DeleteHooksMutationVariables = Exact<{
+  where: HookWhere
+}>
+
+export type DeleteHooksMutation = {
+  __typename?: 'Mutation'
+  deleteHooks: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type CreatePropMapBindingsMutationVariables = Exact<{
+  input: Array<PropMapBindingCreateInput> | PropMapBindingCreateInput
+}>
+
+export type CreatePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  createPropMapBindings: {
+    __typename?: 'CreatePropMapBindingsMutationResponse'
+    propMapBindings: Array<
+      { __typename?: 'PropMapBinding' } & PropMapBindingFragment
+    >
+  }
+}
+
+export type UpdatePropMapBindingsMutationVariables = Exact<{
+  where: PropMapBindingWhere
+  update: PropMapBindingUpdateInput
+}>
+
+export type UpdatePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  updatePropMapBindings: {
+    __typename?: 'UpdatePropMapBindingsMutationResponse'
+    propMapBindings: Array<
+      { __typename?: 'PropMapBinding' } & PropMapBindingFragment
+    >
+  }
+}
+
+export type DeletePropMapBindingsMutationVariables = Exact<{
+  where: PropMapBindingWhere
+}>
+
+export type DeletePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  deletePropMapBindings: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetPropMapBindingsQueryVariables = Exact<{
+  options?: InputMaybe<PropMapBindingOptions>
+  where?: InputMaybe<PropMapBindingWhere>
+}>
+
+export type GetPropMapBindingsQuery = {
+  __typename?: 'Query'
+  propMapBindings: Array<
+    { __typename?: 'PropMapBinding' } & PropMapBindingFragment
+  >
+}
+
+export type CreatePagesMutationVariables = Exact<{
+  input: Array<PageCreateInput> | PageCreateInput
+}>
+
+export type CreatePagesMutation = {
+  __typename?: 'Mutation'
+  createPages: {
+    __typename?: 'CreatePagesMutationResponse'
+    pages: Array<{ __typename?: 'Page' } & PageFragment>
+  }
+}
+
+export type DeletePagesMutationVariables = Exact<{
+  where?: InputMaybe<PageWhere>
+  delete?: InputMaybe<PageDeleteInput>
+}>
+
+export type DeletePagesMutation = {
+  __typename?: 'Mutation'
+  deletePages: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type UpdatePagesMutationVariables = Exact<{
+  where?: InputMaybe<PageWhere>
+  update?: InputMaybe<PageUpdateInput>
+}>
+
+export type UpdatePagesMutation = {
+  __typename?: 'Mutation'
+  updatePages: {
+    __typename?: 'UpdatePagesMutationResponse'
+    pages: Array<{ __typename?: 'Page' } & PageFragment>
+  }
+}
+
+export type GetPagesQueryVariables = Exact<{
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}>
+
+export type GetPagesQuery = {
+  __typename?: 'Query'
+  pages: Array<{ __typename?: 'Page' } & PageFragment>
+}
+
+export type GetResourcesQueryVariables = Exact<{
+  options?: InputMaybe<ResourceOptions>
+  where?: InputMaybe<ResourceWhere>
+}>
+
+export type GetResourcesQuery = {
+  __typename?: 'Query'
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+}
+
+export type CreateResourcesMutationVariables = Exact<{
+  input: Array<ResourceCreateInput> | ResourceCreateInput
+}>
+
+export type CreateResourcesMutation = {
+  __typename?: 'Mutation'
+  createResources: {
+    __typename?: 'CreateResourcesMutationResponse'
+    resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+  }
+}
+
+export type UpdateResourceMutationVariables = Exact<{
+  where?: InputMaybe<ResourceWhere>
+  update?: InputMaybe<ResourceUpdateInput>
+}>
+
+export type UpdateResourceMutation = {
+  __typename?: 'Mutation'
+  updateResources: {
+    __typename?: 'UpdateResourcesMutationResponse'
+    resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+  }
+}
+
+export type DeleteResourcesMutationVariables = Exact<{
+  where?: InputMaybe<ResourceWhere>
+}>
+
+export type DeleteResourcesMutation = {
+  __typename?: 'Mutation'
+  deleteResources: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type CreateCustomActionsMutationVariables = Exact<{
+  input: Array<CustomActionCreateInput> | CustomActionCreateInput
+}>
+
+export type CreateCustomActionsMutation = {
+  __typename?: 'Mutation'
+  createCustomActions: {
+    __typename?: 'CreateCustomActionsMutationResponse'
+    customActions: Array<
+      { __typename?: 'CustomAction' } & Action_CustomAction_Fragment
+    >
+  }
+}
+
+export type CreateResourceActionsMutationVariables = Exact<{
+  input: Array<ResourceActionCreateInput> | ResourceActionCreateInput
+}>
+
+export type CreateResourceActionsMutation = {
+  __typename?: 'Mutation'
+  createResourceActions: {
+    __typename?: 'CreateResourceActionsMutationResponse'
+    resourceActions: Array<
+      { __typename?: 'ResourceAction' } & Action_ResourceAction_Fragment
+    >
+  }
+}
+
+export type CreatePipelineActionsMutationVariables = Exact<{
+  input: Array<PipelineActionCreateInput> | PipelineActionCreateInput
+}>
+
+export type CreatePipelineActionsMutation = {
+  __typename?: 'Mutation'
+  createPipelineActions: {
+    __typename?: 'CreatePipelineActionsMutationResponse'
+    pipelineActions: Array<
+      { __typename?: 'PipelineAction' } & Action_PipelineAction_Fragment
+    >
+  }
+}
+
+export type DeleteCustomActionsMutationVariables = Exact<{
+  where: CustomActionWhere
+}>
+
+export type DeleteCustomActionsMutation = {
+  __typename?: 'Mutation'
+  deleteCustomActions: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type DeleteResourceActionsMutationVariables = Exact<{
+  where: ResourceActionWhere
+}>
+
+export type DeleteResourceActionsMutation = {
+  __typename?: 'Mutation'
+  deleteResourceActions: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type DeletePipelineActionsMutationVariables = Exact<{
+  where: PipelineActionWhere
+}>
+
+export type DeletePipelineActionsMutation = {
+  __typename?: 'Mutation'
+  deletePipelineActions: {
+    __typename?: 'DeleteInfo'
+    nodesDeleted: number
+    relationshipsDeleted: number
+  }
+}
+
+export type GetActionsQueryVariables = Exact<{
+  storeId?: InputMaybe<Scalars['ID']>
+}>
+
+export type GetActionsQuery = {
+  __typename?: 'Query'
+  customActions: Array<
+    { __typename?: 'CustomAction' } & Action_CustomAction_Fragment
+  >
+  resourceActions: Array<
+    { __typename?: 'ResourceAction' } & Action_ResourceAction_Fragment
+  >
+  pipelineActions: Array<
+    { __typename?: 'PipelineAction' } & Action_PipelineAction_Fragment
+  >
+}
+
+export type CreateStoresMutationVariables = Exact<{
+  input: Array<StoreCreateInput> | StoreCreateInput
+}>
+
+export type CreateStoresMutation = {
+  __typename?: 'Mutation'
+  createStores: {
+    __typename?: 'CreateStoresMutationResponse'
+    info: {
+      __typename?: 'CreateInfo'
+      nodesCreated: number
+      relationshipsCreated: number
+    }
+    stores: Array<{ __typename?: 'Store' } & StoreFragment>
+  }
+}
+
+export type DeleteStoresMutationVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  delete?: InputMaybe<StoreDeleteInput>
+}>
+
+export type DeleteStoresMutation = {
+  __typename?: 'Mutation'
+  deleteStores: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetStoresQueryVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  options?: InputMaybe<StoreOptions>
+}>
+
+export type GetStoresQuery = {
+  __typename?: 'Query'
+  stores: Array<{ __typename?: 'Store' } & StoreFragment>
+}
+
+export type UpdateStoresMutationVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  update?: InputMaybe<StoreUpdateInput>
+}>
+
+export type UpdateStoresMutation = {
+  __typename?: 'Mutation'
+  updateStores: {
+    __typename?: 'UpdateStoresMutationResponse'
+    stores: Array<{ __typename?: 'Store' } & StoreFragment>
+  }
+}
+
+export type UpdateCustomActionsMutationVariables = Exact<{
+  connect?: InputMaybe<CustomActionConnectInput>
+  create?: InputMaybe<CustomActionRelationInput>
+  delete?: InputMaybe<CustomActionDeleteInput>
+  disconnect?: InputMaybe<CustomActionDisconnectInput>
+  update?: InputMaybe<CustomActionUpdateInput>
+  where?: InputMaybe<CustomActionWhere>
+}>
+
+export type UpdateCustomActionsMutation = {
+  __typename?: 'Mutation'
+  updateCustomActions: {
+    __typename?: 'UpdateCustomActionsMutationResponse'
+    customActions: Array<
+      { __typename?: 'CustomAction' } & Action_CustomAction_Fragment
+    >
+  }
+}
+
+export type UpdateResourceActionsMutationVariables = Exact<{
+  connect?: InputMaybe<ResourceActionConnectInput>
+  create?: InputMaybe<ResourceActionRelationInput>
+  delete?: InputMaybe<ResourceActionDeleteInput>
+  disconnect?: InputMaybe<ResourceActionDisconnectInput>
+  update?: InputMaybe<ResourceActionUpdateInput>
+  where?: InputMaybe<ResourceActionWhere>
+}>
+
+export type UpdateResourceActionsMutation = {
+  __typename?: 'Mutation'
+  updateResourceActions: {
+    __typename?: 'UpdateResourceActionsMutationResponse'
+    resourceActions: Array<
+      { __typename?: 'ResourceAction' } & Action_ResourceAction_Fragment
+    >
+  }
+}
+
+export type UpdatePipelineActionsMutationVariables = Exact<{
+  connect?: InputMaybe<PipelineActionConnectInput>
+  create?: InputMaybe<PipelineActionRelationInput>
+  delete?: InputMaybe<PipelineActionDeleteInput>
+  disconnect?: InputMaybe<PipelineActionDisconnectInput>
+  update?: InputMaybe<PipelineActionUpdateInput>
+  where?: InputMaybe<PipelineActionWhere>
+}>
+
+export type UpdatePipelineActionsMutation = {
+  __typename?: 'Mutation'
+  updatePipelineActions: {
+    __typename?: 'UpdatePipelineActionsMutationResponse'
+    pipelineActions: Array<
+      { __typename?: 'PipelineAction' } & Action_PipelineAction_Fragment
+    >
+  }
+}
+
+export type CreateTagsMutationVariables = Exact<{
+  input: Array<TagCreateInput> | TagCreateInput
+}>
+
+export type CreateTagsMutation = {
+  __typename?: 'Mutation'
+  createTags: {
+    __typename?: 'CreateTagsMutationResponse'
+    tags: Array<{ __typename?: 'Tag' } & TagFragment>
+  }
+}
+
+export type UpdateTagsMutationVariables = Exact<{
+  where: TagWhere
+  update: TagUpdateInput
+}>
+
+export type UpdateTagsMutation = {
+  __typename?: 'Mutation'
+  updateTags: {
+    __typename?: 'UpdateTagsMutationResponse'
+    tags: Array<{ __typename?: 'Tag' } & TagFragment>
+  }
+}
+
+export type DeleteTagsMutationVariables = Exact<{
+  where: TagWhere
+}>
+
+export type DeleteTagsMutation = {
+  __typename?: 'Mutation'
+  deleteTags: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetTagsQueryVariables = Exact<{
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}>
+
+export type GetTagsQuery = {
+  __typename?: 'Query'
+  tags: Array<{ __typename?: 'Tag' } & TagFragment>
+}
+
+export type GetTagGraphsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetTagGraphsQuery = {
+  __typename?: 'Query'
+  tagGraphs: Array<{
+    __typename?: 'TagGraph'
+    id: string
+    isRoot: boolean
+    name: string
+    descendants: Array<string>
+  }>
+}
+
+export type CreatePrimitiveTypesMutationVariables = Exact<{
+  input: Array<PrimitiveTypeCreateInput> | PrimitiveTypeCreateInput
+}>
+
+export type CreatePrimitiveTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreatePrimitiveTypesMutationResponse'
+    types: Array<{ __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment>
+  }
+}
+
+export type CreateArrayTypesMutationVariables = Exact<{
+  input: Array<ArrayTypeCreateInput> | ArrayTypeCreateInput
+}>
+
+export type CreateArrayTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateArrayTypesMutationResponse'
+    types: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+  }
+}
+
+export type CreateUnionTypesMutationVariables = Exact<{
+  input: Array<UnionTypeCreateInput> | UnionTypeCreateInput
+}>
+
+export type CreateUnionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateUnionTypesMutationResponse'
+    types: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+  }
+}
+
+export type CreateInterfaceTypesMutationVariables = Exact<{
+  input: Array<InterfaceTypeCreateInput> | InterfaceTypeCreateInput
+}>
+
+export type CreateInterfaceTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateInterfaceTypesMutationResponse'
+    types: Array<{ __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment>
+  }
+}
+
+export type CreateElementTypesMutationVariables = Exact<{
+  input: Array<ElementTypeCreateInput> | ElementTypeCreateInput
+}>
+
+export type CreateElementTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateElementTypesMutationResponse'
+    types: Array<{ __typename?: 'ElementType' } & Type_ElementType_Fragment>
+  }
+}
+
+export type CreateRenderPropsTypesMutationVariables = Exact<{
+  input: Array<RenderPropsTypeCreateInput> | RenderPropsTypeCreateInput
+}>
+
+export type CreateRenderPropsTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateRenderPropsTypesMutationResponse'
+    types: Array<
+      { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
+    >
+  }
+}
+
+export type CreateReactNodeTypesMutationVariables = Exact<{
+  input: Array<ReactNodeTypeCreateInput> | ReactNodeTypeCreateInput
+}>
+
+export type CreateReactNodeTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateReactNodeTypesMutationResponse'
+    types: Array<{ __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment>
+  }
+}
+
+export type CreateEnumTypesMutationVariables = Exact<{
+  input: Array<EnumTypeCreateInput> | EnumTypeCreateInput
+}>
+
+export type CreateEnumTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateEnumTypesMutationResponse'
+    types: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+  }
+}
+
+export type CreateLambdaTypesMutationVariables = Exact<{
+  input: Array<LambdaTypeCreateInput> | LambdaTypeCreateInput
+}>
+
+export type CreateLambdaTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateLambdaTypesMutationResponse'
+    types: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+  }
+}
+
+export type CreatePageTypesMutationVariables = Exact<{
+  input: Array<PageTypeCreateInput> | PageTypeCreateInput
+}>
+
+export type CreatePageTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreatePageTypesMutationResponse'
+    types: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+  }
+}
+
+export type CreateAppTypesMutationVariables = Exact<{
+  input: Array<AppTypeCreateInput> | AppTypeCreateInput
+}>
+
+export type CreateAppTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateAppTypesMutationResponse'
+    types: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+  }
+}
+
+export type CreateActionTypesMutationVariables = Exact<{
+  input: Array<ActionTypeCreateInput> | ActionTypeCreateInput
+}>
+
+export type CreateActionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateActionTypesMutationResponse'
+    types: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+  }
+}
+
+export type CreateCodeMirrorTypesMutationVariables = Exact<{
+  input: Array<CodeMirrorTypeCreateInput> | CodeMirrorTypeCreateInput
+}>
+
+export type CreateCodeMirrorTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'CreateCodeMirrorTypesMutationResponse'
+    types: Array<
+      { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
+    >
+  }
+}
+
+export type DeletePrimitiveTypesMutationVariables = Exact<{
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>
+  where?: InputMaybe<PrimitiveTypeWhere>
+}>
+
+export type DeletePrimitiveTypesMutation = {
+  __typename?: 'Mutation'
+  deletePrimitiveTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteArrayTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ArrayTypeDeleteInput>
+  where?: InputMaybe<ArrayTypeWhere>
+}>
+
+export type DeleteArrayTypesMutation = {
+  __typename?: 'Mutation'
+  deleteArrayTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteReactNodeTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>
+  where?: InputMaybe<ReactNodeTypeWhere>
+}>
+
+export type DeleteReactNodeTypesMutation = {
+  __typename?: 'Mutation'
+  deleteReactNodeTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteUnionTypesMutationVariables = Exact<{
+  delete?: InputMaybe<UnionTypeDeleteInput>
+  where?: InputMaybe<UnionTypeWhere>
+}>
+
+export type DeleteUnionTypesMutation = {
+  __typename?: 'Mutation'
+  deleteUnionTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteInterfaceTypesMutationVariables = Exact<{
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
+  where?: InputMaybe<InterfaceTypeWhere>
+}>
+
+export type DeleteInterfaceTypesMutation = {
+  __typename?: 'Mutation'
+  deleteInterfaceTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteElementTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ElementTypeDeleteInput>
+  where?: InputMaybe<ElementTypeWhere>
+}>
+
+export type DeleteElementTypesMutation = {
+  __typename?: 'Mutation'
+  deleteElementTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteRenderPropsTypesMutationVariables = Exact<{
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
+  where?: InputMaybe<RenderPropsTypeWhere>
+}>
+
+export type DeleteRenderPropsTypesMutation = {
+  __typename?: 'Mutation'
+  deleteRenderPropsTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteEnumTypesMutationVariables = Exact<{
+  delete?: InputMaybe<EnumTypeDeleteInput>
+  where?: InputMaybe<EnumTypeWhere>
+}>
+
+export type DeleteEnumTypesMutation = {
+  __typename?: 'Mutation'
+  deleteEnumTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+  deleteEnumTypeValues: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type DeleteLambdaTypesMutationVariables = Exact<{
+  delete?: InputMaybe<LambdaTypeDeleteInput>
+  where?: InputMaybe<LambdaTypeWhere>
+}>
+
+export type DeleteLambdaTypesMutation = {
+  __typename?: 'Mutation'
+  deleteLambdaTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeletePageTypesMutationVariables = Exact<{
+  delete?: InputMaybe<PageTypeDeleteInput>
+  where?: InputMaybe<PageTypeWhere>
+}>
+
+export type DeletePageTypesMutation = {
+  __typename?: 'Mutation'
+  deletePageTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteAppTypesMutationVariables = Exact<{
+  delete?: InputMaybe<AppTypeDeleteInput>
+  where?: InputMaybe<AppTypeWhere>
+}>
+
+export type DeleteAppTypesMutation = {
+  __typename?: 'Mutation'
+  deleteAppTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteActionTypesMutationVariables = Exact<{
+  delete?: InputMaybe<ActionTypeDeleteInput>
+  where?: InputMaybe<ActionTypeWhere>
+}>
+
+export type DeleteActionTypesMutation = {
+  __typename?: 'Mutation'
+  deleteActionTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type DeleteCodeMirrorTypesMutationVariables = Exact<{
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}>
+
+export type DeleteCodeMirrorTypesMutation = {
+  __typename?: 'Mutation'
+  deleteCodeMirrorTypes: {
+    __typename?: 'DeleteInfo'
+    relationshipsDeleted: number
+    nodesDeleted: number
+  }
+}
+
+export type UpsertFieldMutationVariables = Exact<{
+  interfaceTypeId: Scalars['ID']
+  fieldTypeId: Scalars['ID']
+  field: FieldCreateInput
+}>
+
+export type UpsertFieldMutation = {
+  __typename?: 'Mutation'
+  upsertField: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+}
+
+export type DeleteFieldMutationVariables = Exact<{
+  interfaceId: Scalars['ID']
+  where: FieldWhere
+}>
+
+export type DeleteFieldMutation = {
+  __typename?: 'Mutation'
+  updateInterfaceTypes: {
+    __typename?: 'UpdateInterfaceTypesMutationResponse'
+    interfaceTypes: Array<
+      { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+    >
+  }
+}
+
+export type GetTypesQueryVariables = Exact<{
+  ids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
+}>
+
+export type GetTypesQuery = {
+  __typename?: 'Query'
+  primitiveTypes: Array<
+    { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
+  >
+  arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+  unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+  interfaceTypes: Array<
+    { __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment
+  >
+  elementTypes: Array<
+    { __typename?: 'ElementType' } & Type_ElementType_Fragment
+  >
+  renderPropsTypes: Array<
+    { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
+  >
+  reactNodeTypes: Array<
+    { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
+  >
+  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+  lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+  actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+  codeMirrorTypes: Array<
+    { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
+  >
+}
+
+export type GetDescendantsQueryVariables = Exact<{
+  ids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
+}>
+
+export type GetDescendantsQuery = {
+  __typename?: 'Query'
+  arrayTypes: Array<{
+    __typename?: 'ArrayType'
+    descendantTypesIds: Array<string>
+  }>
+  unionTypes: Array<{
+    __typename?: 'UnionType'
+    descendantTypesIds: Array<string>
+  }>
+  interfaceTypes: Array<{
+    __typename?: 'InterfaceType'
+    descendantTypesIds: Array<string>
+  }>
+}
+
+export type GetPrimitiveTypesQueryVariables = Exact<{
+  options?: InputMaybe<PrimitiveTypeOptions>
+  where?: InputMaybe<PrimitiveTypeWhere>
+}>
+
+export type GetPrimitiveTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment>
+}
+
+export type GetArrayTypesQueryVariables = Exact<{
+  options?: InputMaybe<ArrayTypeOptions>
+  where?: InputMaybe<ArrayTypeWhere>
+}>
+
+export type GetArrayTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+}
+
+export type GetUnionTypesQueryVariables = Exact<{
+  options?: InputMaybe<UnionTypeOptions>
+  where?: InputMaybe<UnionTypeWhere>
+}>
+
+export type GetUnionTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+}
+
+export type GetInterfaceTypesQueryVariables = Exact<{
+  options?: InputMaybe<InterfaceTypeOptions>
+  where?: InputMaybe<InterfaceTypeWhere>
+}>
+
+export type GetInterfaceTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment>
+}
+
+export type GetElementTypesQueryVariables = Exact<{
+  options?: InputMaybe<ElementTypeOptions>
+  where?: InputMaybe<ElementTypeWhere>
+}>
+
+export type GetElementTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'ElementType' } & Type_ElementType_Fragment>
+}
+
+export type GetRenderPropsTypesQueryVariables = Exact<{
+  options?: InputMaybe<RenderPropsTypeOptions>
+  where?: InputMaybe<RenderPropsTypeWhere>
+}>
+
+export type GetRenderPropsTypesQuery = {
+  __typename?: 'Query'
+  types: Array<
+    { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
+  >
+}
+
+export type GetReactNodeTypesQueryVariables = Exact<{
+  options?: InputMaybe<ReactNodeTypeOptions>
+  where?: InputMaybe<ReactNodeTypeWhere>
+}>
+
+export type GetReactNodeTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'ReactNodeType' } & ReactNodeTypeFragment>
+}
+
+export type GetEnumTypesQueryVariables = Exact<{
+  options?: InputMaybe<EnumTypeOptions>
+  where?: InputMaybe<EnumTypeWhere>
+}>
+
+export type GetEnumTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+}
+
+export type GetLambdaTypesQueryVariables = Exact<{
+  options?: InputMaybe<LambdaTypeOptions>
+  where?: InputMaybe<LambdaTypeWhere>
+}>
+
+export type GetLambdaTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+}
+
+export type GetPageTypesQueryVariables = Exact<{
+  options?: InputMaybe<PageTypeOptions>
+  where?: InputMaybe<PageTypeWhere>
+}>
+
+export type GetPageTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+}
+
+export type GetAppTypesQueryVariables = Exact<{
+  options?: InputMaybe<AppTypeOptions>
+  where?: InputMaybe<AppTypeWhere>
+}>
+
+export type GetAppTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+}
+
+export type GetActionTypesQueryVariables = Exact<{
+  options?: InputMaybe<ActionTypeOptions>
+  where?: InputMaybe<ActionTypeWhere>
+}>
+
+export type GetActionTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+}
+
+export type GetCodeMirrorTypesQueryVariables = Exact<{
+  options?: InputMaybe<CodeMirrorTypeOptions>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}>
+
+export type GetCodeMirrorTypesQuery = {
+  __typename?: 'Query'
+  types: Array<{ __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment>
+}
+
+export type InterfaceForm_GetAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type InterfaceForm_GetAppsQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App'; id: string; name: string }>
+}
+
+export type InterfaceForm_GetAtomsQueryVariables = Exact<{
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}>
+
+export type InterfaceForm_GetAtomsQuery = {
+  __typename?: 'Query'
+  atoms: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+}
+
+export type InterfaceForm_GetStoresQueryVariables = Exact<{
+  options?: InputMaybe<StoreOptions>
+  where?: InputMaybe<StoreWhere>
+}>
+
+export type InterfaceForm_GetStoresQuery = {
+  __typename?: 'Query'
+  stores: Array<{ __typename?: 'Store'; id: string; name: string }>
+}
+
+export type InterfaceForm_GetResourceQueryVariables = Exact<{
+  options?: InputMaybe<ResourceOptions>
+  where?: InputMaybe<ResourceWhere>
+}>
+
+export type InterfaceForm_GetResourceQuery = {
+  __typename?: 'Query'
+  resources: Array<{ __typename?: 'Resource'; id: string; name: string }>
+}
+
+export type InterfaceForm_GetComponentsQueryVariables = Exact<{
+  options?: InputMaybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+}>
+
+export type InterfaceForm_GetComponentsQuery = {
+  __typename?: 'Query'
+  components: Array<{
+    __typename?: 'Component'
+    id: string
+    name: string
+    descendantComponentIds: Array<string>
+  }>
+}
+
+export type InterfaceForm_GetPagesQueryVariables = Exact<{
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}>
+
+export type InterfaceForm_GetPagesQuery = {
+  __typename?: 'Query'
+  pages: Array<{ __typename?: 'Page'; id: string; name: string }>
+}
+
+export type IsTypeDescendantOfQueryVariables = Exact<{
+  descendantTypeId: Scalars['ID']
+  parentTypeId: Scalars['ID']
+}>
+
+export type IsTypeDescendantOfQuery = {
+  __typename?: 'Query'
+  isTypeDescendantOf?: boolean | null
+}
+
+export type GetTypeReferencesQueryVariables = Exact<{
+  typeId: Scalars['ID']
+}>
+
+export type GetTypeReferencesQuery = {
+  __typename?: 'Query'
+  getTypeReferences?: Array<{
+    __typename?: 'TypeReference'
+    name: string
+    label: string
+  }> | null
+}
+
+export type UpdatePrimitiveTypesMutationVariables = Exact<{
+  connect?: InputMaybe<PrimitiveTypeConnectInput>
+  create?: InputMaybe<PrimitiveTypeRelationInput>
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>
+  disconnect?: InputMaybe<PrimitiveTypeDisconnectInput>
+  update?: InputMaybe<PrimitiveTypeUpdateInput>
+  where?: InputMaybe<PrimitiveTypeWhere>
+}>
+
+export type UpdatePrimitiveTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdatePrimitiveTypesMutationResponse'
+    types: Array<{ __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment>
+  }
+}
+
+export type UpdateArrayTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ArrayTypeConnectInput>
+  create?: InputMaybe<ArrayTypeRelationInput>
+  delete?: InputMaybe<ArrayTypeDeleteInput>
+  disconnect?: InputMaybe<ArrayTypeDisconnectInput>
+  update?: InputMaybe<ArrayTypeUpdateInput>
+  where?: InputMaybe<ArrayTypeWhere>
+}>
+
+export type UpdateArrayTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateArrayTypesMutationResponse'
+    types: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+  }
+}
+
+export type UpdateUnionTypesMutationVariables = Exact<{
+  connect?: InputMaybe<UnionTypeConnectInput>
+  create?: InputMaybe<UnionTypeRelationInput>
+  delete?: InputMaybe<UnionTypeDeleteInput>
+  disconnect?: InputMaybe<UnionTypeDisconnectInput>
+  update?: InputMaybe<UnionTypeUpdateInput>
+  where?: InputMaybe<UnionTypeWhere>
+}>
+
+export type UpdateUnionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateUnionTypesMutationResponse'
+    types: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+  }
+}
+
+export type UpdateInterfaceTypesMutationVariables = Exact<{
+  connect?: InputMaybe<InterfaceTypeConnectInput>
+  create?: InputMaybe<InterfaceTypeRelationInput>
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
+  update?: InputMaybe<InterfaceTypeUpdateInput>
+  where?: InputMaybe<InterfaceTypeWhere>
+}>
+
+export type UpdateInterfaceTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateInterfaceTypesMutationResponse'
+    types: Array<{ __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment>
+  }
+}
+
+export type UpdateReactNodeTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ReactNodeTypeConnectInput>
+  create?: InputMaybe<ReactNodeTypeRelationInput>
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>
+  disconnect?: InputMaybe<ReactNodeTypeDisconnectInput>
+  update?: InputMaybe<ReactNodeTypeUpdateInput>
+  where?: InputMaybe<ReactNodeTypeWhere>
+}>
+
+export type UpdateReactNodeTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateReactNodeTypesMutationResponse'
+    types: Array<{ __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment>
+  }
+}
+
+export type UpdateElementTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ElementTypeConnectInput>
+  create?: InputMaybe<ElementTypeRelationInput>
+  delete?: InputMaybe<ElementTypeDeleteInput>
+  disconnect?: InputMaybe<ElementTypeDisconnectInput>
+  update?: InputMaybe<ElementTypeUpdateInput>
+  where?: InputMaybe<ElementTypeWhere>
+}>
+
+export type UpdateElementTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateElementTypesMutationResponse'
+    types: Array<{ __typename?: 'ElementType' } & Type_ElementType_Fragment>
+  }
+}
+
+export type UpdateRenderPropsTypesMutationVariables = Exact<{
+  connect?: InputMaybe<RenderPropsTypeConnectInput>
+  create?: InputMaybe<RenderPropsTypeRelationInput>
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
+  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>
+  update?: InputMaybe<RenderPropsTypeUpdateInput>
+  where?: InputMaybe<RenderPropsTypeWhere>
+}>
+
+export type UpdateRenderPropsTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateRenderPropsTypesMutationResponse'
+    types: Array<
+      { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
+    >
+  }
+}
+
+export type UpdateEnumTypesMutationVariables = Exact<{
+  connect?: InputMaybe<EnumTypeConnectInput>
+  create?: InputMaybe<EnumTypeRelationInput>
+  delete?: InputMaybe<EnumTypeDeleteInput>
+  disconnect?: InputMaybe<EnumTypeDisconnectInput>
+  update?: InputMaybe<EnumTypeUpdateInput>
+  where?: InputMaybe<EnumTypeWhere>
+}>
+
+export type UpdateEnumTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateEnumTypesMutationResponse'
+    types: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+  }
+}
+
+export type UpdateLambdaTypesMutationVariables = Exact<{
+  connect?: InputMaybe<LambdaTypeConnectInput>
+  create?: InputMaybe<LambdaTypeRelationInput>
+  delete?: InputMaybe<LambdaTypeDeleteInput>
+  disconnect?: InputMaybe<LambdaTypeDisconnectInput>
+  update?: InputMaybe<LambdaTypeUpdateInput>
+  where?: InputMaybe<LambdaTypeWhere>
+}>
+
+export type UpdateLambdaTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateLambdaTypesMutationResponse'
+    types: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+  }
+}
+
+export type UpdatePageTypesMutationVariables = Exact<{
+  connect?: InputMaybe<PageTypeConnectInput>
+  create?: InputMaybe<PageTypeRelationInput>
+  delete?: InputMaybe<PageTypeDeleteInput>
+  disconnect?: InputMaybe<PageTypeDisconnectInput>
+  update?: InputMaybe<PageTypeUpdateInput>
+  where?: InputMaybe<PageTypeWhere>
+}>
+
+export type UpdatePageTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdatePageTypesMutationResponse'
+    types: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+  }
+}
+
+export type UpdateAppTypesMutationVariables = Exact<{
+  connect?: InputMaybe<AppTypeConnectInput>
+  create?: InputMaybe<AppTypeRelationInput>
+  delete?: InputMaybe<AppTypeDeleteInput>
+  disconnect?: InputMaybe<AppTypeDisconnectInput>
+  update?: InputMaybe<AppTypeUpdateInput>
+  where?: InputMaybe<AppTypeWhere>
+}>
+
+export type UpdateAppTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateAppTypesMutationResponse'
+    types: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+  }
+}
+
+export type UpdateActionTypesMutationVariables = Exact<{
+  connect?: InputMaybe<ActionTypeConnectInput>
+  create?: InputMaybe<ActionTypeRelationInput>
+  delete?: InputMaybe<ActionTypeDeleteInput>
+  disconnect?: InputMaybe<ActionTypeDisconnectInput>
+  update?: InputMaybe<ActionTypeUpdateInput>
+  where?: InputMaybe<ActionTypeWhere>
+}>
+
+export type UpdateActionTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateActionTypesMutationResponse'
+    types: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+  }
+}
+
+export type UpdateCodeMirrorTypesMutationVariables = Exact<{
+  connect?: InputMaybe<CodeMirrorTypeConnectInput>
+  create?: InputMaybe<CodeMirrorTypeRelationInput>
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
+  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>
+  update?: InputMaybe<CodeMirrorTypeUpdateInput>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}>
+
+export type UpdateCodeMirrorTypesMutation = {
+  __typename?: 'Mutation'
+  types: {
+    __typename?: 'UpdateCodeMirrorTypesMutationResponse'
+    types: Array<
+      { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
+    >
+  }
+}
+
+export type GetUsersQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetUsersQuery = {
+  __typename?: 'Query'
+  users: Array<{ __typename?: 'User' } & UserFragment>
+}
+
+type ActionBase_CustomAction_Fragment = {
+  __typename: 'CustomAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+type ActionBase_PipelineAction_Fragment = {
+  __typename: 'PipelineAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+type ActionBase_ResourceAction_Fragment = {
+  __typename: 'ResourceAction'
+  id: string
+  name: string
+  type: ActionKind
+  runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+export type ActionBaseFragment =
+  | ActionBase_CustomAction_Fragment
+  | ActionBase_PipelineAction_Fragment
+  | ActionBase_ResourceAction_Fragment
+
+type Action_CustomAction_Fragment = {
+  __typename?: 'CustomAction'
+} & CustomActionFragment &
+  ActionBase_CustomAction_Fragment
+
+type Action_PipelineAction_Fragment = {
+  __typename?: 'PipelineAction'
+} & PipelineActionFragment &
+  ActionBase_PipelineAction_Fragment
+
+type Action_ResourceAction_Fragment = {
+  __typename?: 'ResourceAction'
+} & ResourceActionFragment &
+  ActionBase_ResourceAction_Fragment
+
+export type ActionFragment =
+  | Action_CustomAction_Fragment
+  | Action_PipelineAction_Fragment
+  | Action_ResourceAction_Fragment
+
+export type CustomActionFragment = {
+  __typename?: 'CustomAction'
+  code: string
+} & ActionBase_CustomAction_Fragment
+
+export type PipelineActionFragment = {
+  __typename?: 'PipelineAction'
+  actions: Array<
+    | { __typename?: 'CustomAction'; id: string }
+    | { __typename?: 'PipelineAction'; id: string }
+    | { __typename?: 'ResourceAction'; id: string }
+  >
+} & ActionBase_PipelineAction_Fragment
+
+export type ResourceActionFragment = {
+  __typename?: 'ResourceAction'
+  successAction:
+    | ({ __typename?: 'CustomAction' } & ActionBase_CustomAction_Fragment)
+    | ({ __typename?: 'PipelineAction' } & ActionBase_PipelineAction_Fragment)
+    | ({ __typename?: 'ResourceAction' } & ActionBase_ResourceAction_Fragment)
+  errorAction:
+    | ({ __typename?: 'CustomAction' } & ActionBase_CustomAction_Fragment)
+    | ({ __typename?: 'PipelineAction' } & ActionBase_PipelineAction_Fragment)
+    | ({ __typename?: 'ResourceAction' } & ActionBase_ResourceAction_Fragment)
+  resource: { __typename?: 'Resource' } & ResourceFragment
+  config: { __typename?: 'Prop'; id: string; data: string }
+} & ActionBase_ResourceAction_Fragment
+
+export type RedirectedAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; username: string }
+}
+
+export type AppPreviewFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{ __typename?: 'Page' } & PageFragment>
+  store: { __typename?: 'Store'; id: string }
+}
+
+export type AppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{ __typename?: 'Page' } & PageFragment>
+  store: { __typename?: 'Store'; id: string }
+}
+
+export type PageBuilderAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{
+    __typename?: 'Page'
+    id: string
+    name: string
+    slug: string
+    rootElement: {
+      __typename?: 'Element'
+      descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+    } & ElementFragment
+    app: { __typename?: 'App'; id: string }
+  }>
+  store: { __typename?: 'Store' } & StoreFragment
+}
+
+export type AtomFragment = {
+  __typename?: 'Atom'
+  icon?: string | null
+  id: string
+  name: string
+  type: AtomType
+  tags: Array<{ __typename?: 'Tag'; id: string; name: string }>
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+}
+
+export type ComponentFragment = {
+  __typename?: 'Component'
+  id: string
+  name: string
+  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+}
+
+export type DomainFragment = {
+  __typename?: 'Domain'
+  id: string
+  name: string
+  domainConfig: {
+    __typename?: 'VercelDomainConfigData'
+    misconfigured: boolean
+  }
+  projectDomain: { __typename?: 'VercelProjectDomainData'; verified: boolean }
+}
+
+export type ElementFragment = {
+  __typename: 'Element'
+  id: string
+  name?: string | null
+  customCss?: string | null
+  guiCss?: string | null
+  renderForEachPropKey?: string | null
+  renderIfPropKey?: string | null
+  preRenderActionId?: string | null
+  postRenderActionId?: string | null
+  propTransformationJs?: string | null
+  component?: ({ __typename?: 'Component' } & ComponentFragment) | null
+  instanceOfComponent?:
+    | ({ __typename?: 'Component' } & ComponentFragment)
+    | null
+  prevSibling?: { __typename?: 'Element'; id: string } | null
+  nextSibling?: { __typename?: 'Element'; id: string } | null
+  parentElement?: { __typename?: 'Element'; id: string } | null
+  childrenRoot?: { __typename?: 'Element'; id: string } | null
+  atom?: ({ __typename?: 'Atom' } & AtomFragment) | null
+  props?: ({ __typename?: 'Prop' } & PropFragment) | null
+  hooks: Array<{ __typename?: 'Hook' } & HookFragment>
+  propMapBindings: Array<
+    { __typename?: 'PropMapBinding' } & PropMapBindingFragment
+  >
+  parentElementConnection: {
+    __typename?: 'ElementParentElementConnection'
+    edges: Array<{
+      __typename?: 'ElementParentElementRelationship'
+      node: { __typename?: 'Element'; id: string; name?: string | null }
+    }>
+  }
+}
+
+export type ElementGraphFragment = {
+  __typename?: 'ElementGraph'
+  id: string
+  descendants: Array<string>
+}
+
+export type HookPropFragment = { __typename?: 'Prop'; id: string; data: string }
+
+export type HookFragment = {
+  __typename?: 'Hook'
+  id: string
+  type: AtomType
+  config: { __typename?: 'Prop' } & HookPropFragment
+  element: { __typename?: 'Element'; id: string; name?: string | null }
+}
+
+export type PageFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  slug: string
+  app: { __typename?: 'App'; id: string }
+  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+}
+
+export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
+
+export type PropMapBindingFragment = {
+  __typename?: 'PropMapBinding'
+  id: string
+  sourceKey: string
+  targetKey: string
+  element: { __typename?: 'Element'; id: string; name?: string | null }
+  targetElement?: {
+    __typename?: 'Element'
+    id: string
+    name?: string | null
+  } | null
+}
+
+export type ResourceFragment = {
+  __typename: 'Resource'
+  id: string
+  name: string
+  type: ResourceType
+  config: { __typename?: 'Prop' } & PropFragment
+}
+
+export type StoreFragment = {
+  __typename?: 'Store'
+  id: string
+  name: string
+  stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
+  state: { __typename?: 'Prop' } & PropFragment
+  actions: Array<
+    | ({ __typename?: 'CustomAction' } & Action_CustomAction_Fragment)
+    | ({ __typename?: 'PipelineAction' } & Action_PipelineAction_Fragment)
+    | ({ __typename?: 'ResourceAction' } & Action_ResourceAction_Fragment)
+  >
+}
+
+export type TagFragment = {
+  __typename?: 'Tag'
+  id: string
+  name: string
+  isRoot?: boolean | null
+  parent?: { __typename?: 'Tag'; id: string } | null
+  children: Array<{ __typename?: 'Tag'; id: string }>
+}
+
+export type ActionTypeFragment = {
+  __typename?: 'ActionType'
+} & TypeBase_ActionType_Fragment
+
+export type AppTypeFragment = {
+  __typename?: 'AppType'
+} & TypeBase_AppType_Fragment
+
+export type ArrayTypeFragment = {
+  __typename?: 'ArrayType'
+  itemType:
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+} & TypeBase_ArrayType_Fragment
+
+export type CodeMirrorTypeFragment = {
+  __typename?: 'CodeMirrorType'
+  language: CodeMirrorLanguage
+} & TypeBase_CodeMirrorType_Fragment
+
+export type ElementTypeFragment = {
+  __typename?: 'ElementType'
+  elementKind: ElementTypeKind
+} & TypeBase_ElementType_Fragment
+
+export type EnumTypeValueFragment = {
+  __typename?: 'EnumTypeValue'
+  id: string
+  name?: string | null
+  value: string
+}
+
+export type EnumTypeFragment = {
+  __typename?: 'EnumType'
+  allowedValues: Array<{ __typename?: 'EnumTypeValue' } & EnumTypeValueFragment>
+} & TypeBase_EnumType_Fragment
+
+export type FieldFragment = {
+  __typename?: 'InterfaceTypeFieldsRelationship'
+  id: string
+  key: string
+  name?: string | null
+  description?: string | null
+  fieldType:
+    | { __typename?: 'ActionType'; id: string }
+    | { __typename?: 'AppType'; id: string }
+    | { __typename?: 'ArrayType'; id: string }
+    | { __typename?: 'CodeMirrorType'; id: string }
+    | { __typename?: 'ElementType'; id: string }
+    | { __typename?: 'EnumType'; id: string }
+    | { __typename?: 'InterfaceType'; id: string }
+    | { __typename?: 'LambdaType'; id: string }
+    | { __typename?: 'PageType'; id: string }
+    | { __typename?: 'PrimitiveType'; id: string }
+    | { __typename?: 'ReactNodeType'; id: string }
+    | { __typename?: 'RenderPropsType'; id: string }
+    | { __typename?: 'UnionType'; id: string }
+}
+
+export type InterfaceTypeFragment = {
+  __typename?: 'InterfaceType'
+  fieldsConnection: {
+    __typename?: 'InterfaceTypeFieldsConnection'
+    edges: Array<
+      { __typename?: 'InterfaceTypeFieldsRelationship' } & FieldFragment
+    >
+  }
+} & TypeBase_InterfaceType_Fragment
+
+export type LambdaTypeFragment = {
+  __typename?: 'LambdaType'
+} & TypeBase_LambdaType_Fragment
+
+export type PageTypeFragment = {
+  __typename?: 'PageType'
+} & TypeBase_PageType_Fragment
+
+export type PrimitiveTypeFragment = {
+  __typename?: 'PrimitiveType'
+  primitiveKind: PrimitiveTypeKind
+} & TypeBase_PrimitiveType_Fragment
+
+export type ReactNodeTypeFragment = {
+  __typename?: 'ReactNodeType'
+} & TypeBase_ReactNodeType_Fragment
+
+export type RenderPropsTypeFragment = {
+  __typename?: 'RenderPropsType'
+} & TypeBase_RenderPropsType_Fragment
+
+type TypeBase_ActionType_Fragment = {
+  __typename: 'ActionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_AppType_Fragment = {
+  __typename: 'AppType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_CodeMirrorType_Fragment = {
+  __typename: 'CodeMirrorType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ElementType_Fragment = {
+  __typename: 'ElementType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_EnumType_Fragment = {
+  __typename: 'EnumType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_LambdaType_Fragment = {
+  __typename: 'LambdaType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_PageType_Fragment = {
+  __typename: 'PageType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_PrimitiveType_Fragment = {
+  __typename: 'PrimitiveType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ReactNodeType_Fragment = {
+  __typename: 'ReactNodeType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_RenderPropsType_Fragment = {
+  __typename: 'RenderPropsType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_UnionType_Fragment = {
+  __typename: 'UnionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type TypeBaseFragment =
+  | TypeBase_ActionType_Fragment
+  | TypeBase_AppType_Fragment
+  | TypeBase_ArrayType_Fragment
+  | TypeBase_CodeMirrorType_Fragment
+  | TypeBase_ElementType_Fragment
+  | TypeBase_EnumType_Fragment
+  | TypeBase_InterfaceType_Fragment
+  | TypeBase_LambdaType_Fragment
+  | TypeBase_PageType_Fragment
+  | TypeBase_PrimitiveType_Fragment
+  | TypeBase_ReactNodeType_Fragment
+  | TypeBase_RenderPropsType_Fragment
+  | TypeBase_UnionType_Fragment
+
+type Type_ActionType_Fragment = {
+  __typename?: 'ActionType'
+} & TypeBase_ActionType_Fragment &
+  ActionTypeFragment
+
+type Type_AppType_Fragment = {
+  __typename?: 'AppType'
+} & TypeBase_AppType_Fragment &
+  AppTypeFragment
+
+type Type_ArrayType_Fragment = {
+  __typename?: 'ArrayType'
+} & TypeBase_ArrayType_Fragment &
+  ArrayTypeFragment
+
+type Type_CodeMirrorType_Fragment = {
+  __typename?: 'CodeMirrorType'
+} & TypeBase_CodeMirrorType_Fragment &
+  CodeMirrorTypeFragment
+
+type Type_ElementType_Fragment = {
+  __typename?: 'ElementType'
+} & TypeBase_ElementType_Fragment &
+  ElementTypeFragment
+
+type Type_EnumType_Fragment = {
+  __typename?: 'EnumType'
+} & TypeBase_EnumType_Fragment &
+  EnumTypeFragment
+
+type Type_InterfaceType_Fragment = {
+  __typename?: 'InterfaceType'
+} & TypeBase_InterfaceType_Fragment &
+  InterfaceTypeFragment
+
+type Type_LambdaType_Fragment = {
+  __typename?: 'LambdaType'
+} & TypeBase_LambdaType_Fragment &
+  LambdaTypeFragment
+
+type Type_PageType_Fragment = {
+  __typename?: 'PageType'
+} & TypeBase_PageType_Fragment &
+  PageTypeFragment
+
+type Type_PrimitiveType_Fragment = {
+  __typename?: 'PrimitiveType'
+} & TypeBase_PrimitiveType_Fragment &
+  PrimitiveTypeFragment
+
+type Type_ReactNodeType_Fragment = {
+  __typename?: 'ReactNodeType'
+} & TypeBase_ReactNodeType_Fragment
+
+type Type_RenderPropsType_Fragment = {
+  __typename?: 'RenderPropsType'
+} & TypeBase_RenderPropsType_Fragment &
+  RenderPropsTypeFragment
+
+type Type_UnionType_Fragment = {
+  __typename?: 'UnionType'
+} & TypeBase_UnionType_Fragment &
+  UnionTypeFragment
+
+export type TypeFragment =
+  | Type_ActionType_Fragment
+  | Type_AppType_Fragment
+  | Type_ArrayType_Fragment
+  | Type_CodeMirrorType_Fragment
+  | Type_ElementType_Fragment
+  | Type_EnumType_Fragment
+  | Type_InterfaceType_Fragment
+  | Type_LambdaType_Fragment
+  | Type_PageType_Fragment
+  | Type_PrimitiveType_Fragment
+  | Type_ReactNodeType_Fragment
+  | Type_RenderPropsType_Fragment
+  | Type_UnionType_Fragment
+
+export type UnionTypeFragment = {
+  __typename?: 'UnionType'
+  typesOfUnionType: Array<
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+  >
+} & TypeBase_UnionType_Fragment
+
+export type UserFragment = {
+  __typename?: 'User'
+  id: string
+  username: string
+  email: string
+  auth0Id: string
+  roles: Array<Role>
+  apps: Array<{ __typename?: 'App' } & AppFragment>
 }

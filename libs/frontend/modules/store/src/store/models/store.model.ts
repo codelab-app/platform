@@ -49,7 +49,7 @@ export class Store
   implements IStore
 {
   @modelAction
-  updateCache({
+  writeCache({
     id,
     name,
     actions,

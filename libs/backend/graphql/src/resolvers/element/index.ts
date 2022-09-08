@@ -1,11 +1,17 @@
-import { withRxReadTransaction } from '@codelab/backend/adapter/neo4j'
+import {
+  withReadTransaction,
+  withRxReadTransaction,
+} from '@codelab/backend/adapter/neo4j'
 import { IResolvers } from '@graphql-tools/utils'
-import { elementGraph } from './element.resolver'
+import { elementDescendants, elementGraph } from './element.resolver'
 
 export const elementResolver: IResolvers = {
   Mutation: {},
   Query: {
     elementGraph: withRxReadTransaction(elementGraph),
+  },
+  Element: {
+    descendantElements: withReadTransaction(elementDescendants),
   },
 }
 

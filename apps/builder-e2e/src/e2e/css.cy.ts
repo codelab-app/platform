@@ -27,10 +27,12 @@ describe('CSS CRUD', () => {
     cy.getCurrentUserId()
       .as(uidCache)
       .then((userId) => {
-        const appInput: AppCreateInput = createAppInput(userId)
-        appInput.pages = {
-          create: [{ node: createPageInput() }],
-        } as AppPagesFieldInput
+        const appInput: AppCreateInput = {
+          ...createAppInput(userId),
+          pages: {
+            create: [{ node: createPageInput() }],
+          },
+        }
 
         cy.createAtom([
           {

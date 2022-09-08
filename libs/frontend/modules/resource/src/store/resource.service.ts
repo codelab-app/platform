@@ -166,7 +166,7 @@ export class ResourceService
   })
 
   @modelAction
-  updateCache(resources: Array<IResourceDTO>) {
+  writeCache(resources: Array<IResourceDTO>) {
     return resources.map((r) => this.addOrUpdate(r))
   }
 

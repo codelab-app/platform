@@ -1,5 +1,6 @@
 import { getElementService } from '@codelab/frontend/presenter/container'
 import {
+  IElement,
   IElementTree,
   IElementTreeService,
 } from '@codelab/shared/abstract/core'
@@ -24,11 +25,6 @@ export class ElementTreeService
   })
   implements IElementTreeService
 {
-  @modelAction
-  test(t: any) {
-    this.elementTree = t
-  }
-
   @modelFlow
   initTree = _async(function* (
     this: ElementTreeService,
@@ -54,4 +50,28 @@ export class ElementTreeService
 
     return this.elementTree
   })
+
+  /**
+   * @param elements All elements are assumed to be cached before being used here
+   */
+  @modelAction
+  initTreeV2 = (elements: Array<IElement>) => {
+    console.debug('ElementTreeService.initTreeV2', elements)
+
+    const elementService = getElementService(this)
+
+    elements.forEach((element) => {
+      elementService.elements.set(element.id, element)
+    })
+
+    if (!this.elementTree) {
+      this.elementTree = ElementTree.init(elements)
+
+      return this.elementTree
+    }
+
+    this.elementTree.buildTree(elements)
+
+    return this.elementTree
+  }
 }

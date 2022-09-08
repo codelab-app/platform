@@ -37,6 +37,7 @@ import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
+import { useAsync } from 'react-use'
 
 const StorePage: CodelabPage = observer(() => {
   const appId = useCurrentAppId()
@@ -67,8 +68,6 @@ const StorePage: CodelabPage = observer(() => {
       const types = await typeService.getAll()
       // load all resources once for ResourceSelect
       const resources = await resourceService.getAll()
-
-      console.log(resources)
 
       return {
         app,
@@ -118,11 +117,32 @@ StorePage.Layout = observer((page) => {
   const { actionService, appService, typeService, storeService, userService } =
     useStore()
 
+  const appId = useCurrentAppId()
+
+  const state = useAsync(async () => {
+    const app = await appService.getOne(appId)
+
+    if (!app) {
+      throw new Error('App not found')
+    }
+
+    const store = await storeService.getOne(app?.store.id)
+
+    if (!store) {
+      throw new Error('Store not found')
+    }
+
+    return {
+      app,
+      store,
+    }
+  }, [appId])
+
   return (
     <DashboardTemplate
       ConfigPane={() => (
         <StoreConfigPane
-          appService={appService}
+          store={state.value?.store}
           storeService={storeService}
           typeService={typeService}
         />
@@ -130,8 +150,7 @@ StorePage.Layout = observer((page) => {
       ExplorerPane={() => (
         <StoreExplorerPane
           actionService={actionService}
-          appService={appService}
-          storeService={storeService}
+          store={state.value?.store}
           typeService={typeService}
         />
       )}

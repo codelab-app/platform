@@ -7,7 +7,6 @@ export const appSchema = gql`
     name: String!
     slug: String!
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
-    rootElement: Element! @relationship(type: "ROOT_APP_ELEMENT", direction: IN)
     store: Store! @relationship(type: "STORE_OF_APP", direction: IN)
     domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }
