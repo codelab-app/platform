@@ -2,6 +2,7 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateTypeButton,
   CreateTypeModal,
+  DefaultValueModal,
   DeleteTypeModal,
   GetTypesTable,
   InterfaceDefaultsModal,

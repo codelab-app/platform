@@ -26,7 +26,7 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.ElementType ? type.elementKind : undefined,
       itemType:
         type.kind === ITypeKind.ArrayType
-          ? makeItemTypeCreateInput(type)
+          ? { ActionType: makeItemTypeCreateInput(type) }
           : undefined,
       owner:
         type.kind === ITypeKind.InterfaceType
@@ -49,7 +49,14 @@ export const updateTypeInputFactory = (
           ? [makeAllowedValuesCreateInput(type)]
           : undefined,
 
-      owner: {},
+      owner: {
+        connect: {
+          where: { node: { auth0Id: type.interfaceDefaults?.auth0Id } },
+          edge: {
+            data: JSON.stringify(type.interfaceDefaults?.data),
+          },
+        },
+      },
     },
     disconnect: {
       itemType:
