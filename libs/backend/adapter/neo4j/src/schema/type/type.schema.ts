@@ -48,6 +48,10 @@ export const typeSchema = gql`
       @cypher(statement: """${getTypeReferences}""")
   }
 
+  interface OwnedBy @relationshipProperties {
+    value: String
+  }
+
   interface TypeBase
   {
     id: ID! @id(autogenerate: false)
@@ -327,6 +331,7 @@ export const typeSchema = gql`
 #    fieldFor: [TypeBase!]!
   }
 
+
   """
   Allows editing the value using a code mirror editor
   """
@@ -348,6 +353,20 @@ export const typeSchema = gql`
     CssInJs
   }
 
+
+  union AnyType = PrimitiveType | 
+                  ArrayType | 
+                  UnionType | 
+                  InterfaceType | 
+                  ElementType | 
+                  RenderPropsType | 
+                  ReactNodeType | 
+                  EnumType | 
+                  LambdaType | 
+                  PageType | 
+                  AppType | 
+                  ActionType | 
+                  CodeMirrorType
 
 
   union AnyType = PrimitiveType | 
