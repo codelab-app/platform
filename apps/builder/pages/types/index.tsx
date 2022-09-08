@@ -2,6 +2,7 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateTypeButton,
   CreateTypeModal,
+  DefaultValueModal,
   DeleteTypeModal,
   GetTypesTable,
   UpdateTypeModal,
@@ -59,6 +60,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <CreateTypeModal typeService={typeService} userService={userService} />
       <DeleteTypeModal typeService={typeService} />
       <UpdateTypeModal typeService={typeService} />
+      <DefaultValueModal typeService={typeService} />
       <ContentSection>
         <GetTypesTable typeService={typeService} />
       </ContentSection>
