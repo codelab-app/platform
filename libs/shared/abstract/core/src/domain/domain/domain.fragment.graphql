@@ -1,6 +1,9 @@
 fragment Domain on Domain {
   id
   name
+  app {
+    id
+  }
   domainConfig {
     misconfigured
   }

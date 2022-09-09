@@ -1,13 +1,11 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IDomainExport } from '../domain'
-import { IElementTree } from '../element'
-import { IPage, IPageExport } from '../page'
-import { IStore, IStoreExport } from '../store'
+import { IPageExport } from '../page'
+import { IStoreExport } from '../store'
 import {
   AppPreviewFragment,
   PageBuilderAppFragment,
 } from './app.fragment.graphql.gen'
-import { IApp } from './app.model.interface'
 
 export interface ICreateAppDTO {
   id?: string
@@ -36,11 +34,4 @@ export type IAppExport = Pick<
   store: IStoreExport
   providerElements: Array<OGM_TYPES.Element>
   domains: Array<IDomainExport>
-}
-
-export interface IBuilderApp {
-  pageElementTree: IElementTree
-  app: IApp
-  page: IPage
-  store: IStore
 }

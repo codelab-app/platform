@@ -1,5 +1,5 @@
 import { FieldCreateInput } from '@codelab/shared/abstract/codegen'
-import { IFieldDTO } from '@codelab/shared/abstract/core'
+import { IFieldProps } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import { CreateFieldDocument } from '../../../../../libs/frontend/modules/type/src/graphql/field.endpoints.graphql.gen'
 
@@ -9,4 +9,4 @@ export const createField = (input: FieldCreateInput) =>
       query: print(CreateFieldDocument),
       variables: { input },
     })
-    .then((result) => result.body.data?.createField as IFieldDTO)
+    .then((result) => result.body.data?.createField as IFieldProps)

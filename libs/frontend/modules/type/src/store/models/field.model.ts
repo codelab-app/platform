@@ -1,4 +1,8 @@
-import type { IAnyType, IField, IFieldDTO } from '@codelab/shared/abstract/core'
+import type {
+  IAnyType,
+  IField,
+  IFieldProps,
+} from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -12,7 +16,7 @@ import {
 } from 'mobx-keystone'
 import { typeRef } from './union-type.model'
 
-const hydrate = (data: IFieldDTO) => {
+const hydrate = (data: IFieldProps) => {
   const { id, key, name, description, fieldType } = data
 
   return new Field({
@@ -37,12 +41,14 @@ export class Field
   implements IField
 {
   @modelAction
-  updateCache(fragment: IFieldDTO) {
+  writeCache(fragment: IFieldProps) {
     this.id = fragment.id
     this.name = fragment.name
     this.description = fragment.description
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
+
+    return this
   }
 
   @modelAction

@@ -3,16 +3,16 @@ import {
   VercelProjectDomainData,
   // VercelProjectDomainData,
 } from '@codelab/shared/abstract/codegen'
-import { IApp, IDomain } from '@codelab/shared/abstract/core'
+import { IDomain, IDomainDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
-const hydrate = (domain: IDomain) => {
+const hydrate = (domain: IDomainDTO) => {
   return new Domain({
     id: domain.id,
     name: domain.name,
-    app: domain.app,
+    // app: domain.app.id,
     domainConfig: domain.domainConfig,
-    projectDomainData: domain.projectDomainData,
+    projectDomainData: domain.projectDomain,
   })
 }
 
@@ -21,7 +21,7 @@ export class Domain
   extends Model({
     id: idProp,
     name: prop<string>(),
-    app: prop<IApp>(),
+    // app: prop<IApp>(),
     domainConfig: prop<VercelDomainConfigData>(),
     projectDomainData: prop<VercelProjectDomainData>(),
   })

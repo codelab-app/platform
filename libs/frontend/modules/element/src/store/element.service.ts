@@ -89,7 +89,7 @@ export class ElementService
       }),
     )
 
-    return this.writeCache(elements)
+    return elements.map((element) => this.writeCache(element))
   })
 
   @modelAction
@@ -98,7 +98,7 @@ export class ElementService
     const atomService = getAtomService(this)
     const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
 
-    atomService.writeCache(atoms)
+    return atoms.map((atom) => atomService.writeCache(atom))
   }
 
   @modelAction
@@ -106,30 +106,28 @@ export class ElementService
     // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
     const componentService = getComponentService(this)
 
-    const allComponents = elements
+    const components = elements
       .map((v) => v.component || v.instanceOfComponent)
       .filter(Boolean) as Array<IComponentDTO>
 
-    componentService.writeCache(allComponents)
+    components.map((component) => componentService.writeCache(component))
   }
 
   @modelAction
-  public writeCache = (elements: Array<IElementDTO>): Array<IElement> => {
-    this.writeAtomsCache(elements)
-    this.writeComponentsCache(elements)
+  public writeCache = (element: IElementDTO): IElement => {
+    this.writeAtomsCache([element])
+    this.writeComponentsCache([element])
 
-    return elements.map((element) => {
-      if (this.elements.has(element.id)) {
-        const elementModel = this.elements.get(element.id)!
+    if (this.elements.has(element.id)) {
+      const elementModel = this.elements.get(element.id)!
 
-        return elementModel.updateCache(element)
-      }
+      return elementModel.writeCache(element)
+    }
 
-      const elementModel = Element.hydrate(element)
-      this.elements.set(element.id, elementModel)
+    const elementModel = Element.hydrate(element)
+    this.elements.set(element.id, elementModel)
 
-      return elementModel
-    })
+    return elementModel
   }
 
   @modelFlow
@@ -165,9 +163,7 @@ export class ElementService
       throw new Error('No elements created')
     }
 
-    const hydratedElements = this.writeCache(elements)
-
-    return hydratedElements
+    return elements.map((element) => this.writeCache(element))
   })
 
   /**
@@ -192,7 +188,7 @@ export class ElementService
       }),
     )
 
-    return this.writeCache(elements)
+    return elements.map((element) => this.writeCache(element))
   })
 
   @modelAction
@@ -224,7 +220,7 @@ export class ElementService
       throw new Error('No elements updated')
     }
 
-    return this.writeCache([updatedElement])[0]
+    return this.writeCache(updatedElement)
   })
 
   @modelFlow
@@ -276,7 +272,7 @@ export class ElementService
     }
 
     if (shouldUpdateCache) {
-      return elementFromCache.updateCache(updatedElement)
+      return elementFromCache.writeCache(updatedElement)
     }
 
     return elementFromCache
@@ -620,11 +616,10 @@ element is new parentElement's first child
         throw new Error('No elements created')
       }
 
-      const createdElementModel = this.writeCache([createdElement])
-      const elementModel = createdElementModel[0]
+      const elementModel = this.writeCache(createdElement)
 
       if (elementTree) {
-        elementTree.buildTree(createdElementModel)
+        elementTree.buildTree([elementModel])
       }
 
       oldToNewIdMap.set(element.id, elementModel.id)
@@ -816,7 +811,7 @@ element is new parentElement's first child
       throw new Error('No prop map bindings updated')
     }
 
-    propMapBinding.updateCache(updatedPropMapBinding)
+    propMapBinding.writeCache(updatedPropMapBinding)
 
     return propMapBinding
   })

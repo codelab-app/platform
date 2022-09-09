@@ -1,9 +1,11 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
+import { ICacheService } from '../../service'
 import { IApp } from '../app'
 import { IRole } from './role.enum'
+import { IUserDTO } from './user.dto.interface'
 
-export interface IUser {
+export interface IUser extends ICacheService<IUserDTO, IUser> {
   // Mobx class requires an id, so we'll use the auth0Id here
   id: string
   auth0Id: string

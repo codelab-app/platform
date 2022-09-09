@@ -79,28 +79,23 @@ export class AtomService
       throw new Error('Failed to update atom')
     }
 
-    atom.updateCache(updatedAtom)
+    atom.writeCache(updatedAtom)
 
     return atom
   })
 
   @modelAction
-  addOrUpdate(atom: IAtomDTO) {
+  writeCache(atom: IAtomDTO) {
     let atomModel = this.atom(atom.id)
 
     if (atomModel) {
-      atomModel.updateCache(atom)
+      atomModel.writeCache(atom)
     } else {
       atomModel = Atom.hydrate(atom)
       this._atoms.set(atom.id, atomModel)
     }
 
     return atomModel
-  }
-
-  @modelAction
-  writeCache(atoms: Array<IAtomDTO>) {
-    return atoms.map((atom) => this.addOrUpdate(atom))
   }
 
   @modelFlow

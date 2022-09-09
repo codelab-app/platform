@@ -43,26 +43,17 @@ export class UnionType
   implements IUnionType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO): void {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.UnionType) {
-      return
+      throw new Error('Invalid UnionType')
     }
 
     this.typesOfUnionType = fragment.typesOfUnionType.map((t) => typeRef(t.id))
-  }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  //
-  //   if (!input.typeIdsOfUnionType) {
-  //     throw new Error('UnionType must have a typesOfUnionType array')
-  //   }
-  //
-  //   this.typesOfUnionType = input.typeIdsOfUnionType.map((tId) => typeRef(tId))
-  // }
+    return this
+  }
 
   public static hydrate = hydrate
 }

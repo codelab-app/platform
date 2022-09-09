@@ -25,14 +25,11 @@ export class LambdaType
   implements ILambdaType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO): void {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
-  }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  // }
+    return this
+  }
 
   public static hydrate = hydrate
 }

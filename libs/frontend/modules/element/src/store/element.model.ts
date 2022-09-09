@@ -680,15 +680,15 @@ export class Element
 
       // sibling - next sibling
       // sibling - [element]
-      // sibling appends alement
+      // sibling appends element
       sibling.nextSiblingId = this.id
-      // element preprends sibling
+      // prepend element sibling
       this.prevSiblingId = sibling.id
     }
   }
 
   @modelAction
-  updateCache({
+  writeCache({
     id,
     name,
     customCss,
@@ -728,14 +728,14 @@ export class Element
     this.firstChildId = firstChild?.id ?? null
 
     if (props) {
-      this.props?.updateCache(props)
+      this.props?.writeCache(props)
     } else {
       this.props = null
     }
 
     for (const pmb of propMapBindings) {
       if (this.propMapBindings.has(pmb.id)) {
-        this.propMapBindings.get(pmb.id)?.updateCache(pmb)
+        this.propMapBindings.get(pmb.id)?.writeCache(pmb)
       } else {
         this.propMapBindings.set(pmb.id, PropMapBinding.hydrate(pmb))
       }

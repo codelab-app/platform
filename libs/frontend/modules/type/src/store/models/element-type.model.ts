@@ -38,26 +38,17 @@ export class ElementType
   implements IElementType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO): void {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.ElementType) {
-      return
+      throw new Error('Invalid ElementType')
     }
 
     this.elementKind = fragment.elementKind
-  }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  //
-  //   if (!input.elementKind) {
-  //     throw new Error('ElementType must have an elementKind')
-  //   }
-  //
-  //   this.elementKind = input.elementKind
-  // }
+    return this
+  }
 
   public static hydrate = hydrate
 }

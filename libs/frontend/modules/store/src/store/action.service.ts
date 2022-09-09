@@ -66,7 +66,7 @@ export class ActionService
   }
 
   @modelAction
-  addOrUpdate(action: IActionDTO) {
+  writeCache(action: IActionDTO) {
     let actionModel = this.action(action.id)
 
     if (actionModel) {
@@ -88,7 +88,7 @@ export class ActionService
         actionModel.type === IActionKind.ResourceAction
       ) {
         actionModel.resource = resourceRef(action.resource.id)
-        actionModel.config.updateCache(action.config)
+        actionModel.config.writeCache(action.config)
         actionModel.errorAction = actionRef(action.errorAction.id)
         actionModel.successAction = actionRef(action.successAction.id)
       }
@@ -114,11 +114,6 @@ export class ActionService
     }
 
     return actionModel
-  }
-
-  @modelAction
-  writeCache(actions: Array<IActionDTO>) {
-    return actions.map((action) => this.addOrUpdate(action))
   }
 
   @modelFlow
@@ -148,7 +143,7 @@ export class ActionService
       .filter((action) => action.__typename === IActionKind.ResourceAction)
       .map((action) => (action as IResourceActionDTO).resource)
 
-    return resourceService.writeCache(resources)
+    return resources.map((resource) => resourceService.writeCache(resource))
   }
 
   @modelAction

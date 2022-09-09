@@ -166,17 +166,12 @@ export class ResourceService
   })
 
   @modelAction
-  writeCache(resources: Array<IResourceDTO>) {
-    return resources.map((r) => this.addOrUpdate(r))
-  }
-
-  @modelAction
-  addOrUpdate(resource: IResourceDTO) {
+  writeCache(resource: IResourceDTO) {
     let resourceModel = this.resource(resource.id)
 
     if (resourceModel) {
       resourceModel.name = resource.name
-      resourceModel.config.updateCache(resource.config)
+      resourceModel.config.writeCache(resource.config)
       resourceModel.type = resource.type
       resourceModel.id = resource.id
     } else {

@@ -1,6 +1,6 @@
 import { getAtomService } from '@codelab/frontend/modules/atom'
 import { Element, elementRef } from '@codelab/frontend/modules/element'
-import { getTagService, Tag } from '@codelab/frontend/modules/tag'
+import { getTagService } from '@codelab/frontend/modules/tag'
 import {
   BuilderDragData,
   BuilderTab,
@@ -79,7 +79,7 @@ export class BuilderService
     const tagService = getTagService(this)
 
     // all component tags are marked under the component tag
-    const componentTag = tagService.tags.find(
+    const componentTag = Array.from(tagService.tags.values()).find(
       (tag) => tag.name === componentTagName,
     )
 

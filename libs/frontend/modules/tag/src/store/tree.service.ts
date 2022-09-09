@@ -1,5 +1,7 @@
 import {
+  ICacheService,
   IGraphQLTagNode,
+  ITagDTO,
   ITagTreeNode,
   ITagTreeService,
   TagFragment,
@@ -21,7 +23,6 @@ import {
 /**
  * Data coming from GraphQL
  */
-
 @model('@codelab/Node')
 export class Node
   extends Model({
@@ -29,14 +30,16 @@ export class Node
     label: prop<string>(),
     children: prop(() => objectMap<Node>()),
   })
-  implements ITagTreeNode
+  implements ITagTreeNode, ICacheService<ITagDTO, ITagTreeNode>
 {
   addChildren(node: Node) {
     this.children.set(node.id, node)
   }
 
-  updateCache(tagFragment: TagFragment): void {
+  writeCache(tagFragment: TagFragment) {
     this.label = tagFragment.name
+
+    return this
   }
 }
 
@@ -175,11 +178,8 @@ export class TreeService<TNode extends IGraphQLTagNode, TEdge>
       return
     }
 
-    tagNode.updateCache(tagFragment)
+    tagNode.writeCache(tagFragment)
   }
-
-  // static updateNode()
-  // static deleteNode()
 
   generateTreeDataNodes(): Array<DataNode> {
     const convertNodeToDataNode = (root: Node): DataNode => {

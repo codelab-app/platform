@@ -21,7 +21,7 @@ export class Page
   extends ExtendedModel(ElementTreeService, {
     id: idProp,
     app: prop<IEntity>(),
-    name: prop<string>(),
+    name: prop<string>().withSetter(),
     slug: prop<string>(),
     rootElement: prop<IEntity>(),
   })
@@ -33,10 +33,12 @@ export class Page
   }
 
   @modelAction
-  updateCache(page: IPageDTO) {
-    this.name = page.name
+  writeCache(page: IPageDTO) {
+    this.setName(page.name)
     this.rootElement = page.rootElement
     this.app = page.app
+
+    return this
   }
 
   static hydrate = hydrate

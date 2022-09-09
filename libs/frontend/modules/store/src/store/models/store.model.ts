@@ -22,13 +22,7 @@ import {
 import { createActionFn } from '../createActionFn'
 import { actionRef } from './action.ref'
 
-export const hydrate = ({
-  actions,
-  id,
-  name,
-  state,
-  stateApi,
-}: Omit<IStoreDTO, '__typename'>) =>
+export const hydrate = ({ actions, id, name, state, stateApi }: IStoreDTO) =>
   new Store({
     id,
     name,
@@ -49,18 +43,12 @@ export class Store
   implements IStore
 {
   @modelAction
-  writeCache({
-    id,
-    name,
-    actions,
-    state,
-    stateApi,
-  }: Omit<IStoreDTO, '__typename'>) {
+  writeCache({ id, name, actions, state, stateApi }: IStoreDTO) {
     this.id = id
     this.name = name
     this.actions = actions.map((a) => actionRef(a.id))
     this.stateApiId = stateApi.id
-    this.state.updateCache(state)
+    this.state.writeCache(state)
 
     return this
   }

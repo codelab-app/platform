@@ -1,5 +1,5 @@
 import type {
-  IFieldDTO,
+  IFieldProps,
   IInterfaceType,
   IInterfaceTypeDTO,
   ITypeDTO,
@@ -57,7 +57,7 @@ export class InterfaceType
   }
 
   @modelAction
-  updateFieldCache(fragment: IFieldDTO): Field {
+  updateFieldCache(fragment: IFieldProps): Field {
     const field = Field.hydrate(fragment)
 
     this.fields.set(field.id, field)
@@ -71,18 +71,18 @@ export class InterfaceType
   }
 
   @modelAction
-  updateCache(fragment: ITypeDTO) {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.InterfaceType) {
-      return
+      throw new Error('Invalid InterfaceType')
     }
 
     for (const fieldEdge of fragment.fieldsConnection.edges) {
       let field = this.field(fieldEdge.id)
 
       if (field) {
-        field.updateCache(fieldEdge)
+        field.writeCache(fieldEdge)
       } else {
         field = this.updateFieldCache(fieldEdge)
         this.fields.set(field.id, field)
@@ -96,6 +96,8 @@ export class InterfaceType
     //     this.fields.delete(field.id)
     //   }
     // }
+
+    return this
   }
 
   public static hydrate = hydrate

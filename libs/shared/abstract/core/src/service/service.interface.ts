@@ -1,8 +1,4 @@
-import { IEntity, Maybe, MaybeArray } from '@codelab/shared/abstract/types'
-
-export type ICreateServiceSingleEntitiy<Entity, CreateDTO> = (
-  data: CreateDTO,
-) => Promise<Array<Entity>>
+import { IEntity, Maybe } from '@codelab/shared/abstract/types'
 
 export interface ICRUDService<Entity, CreateDTO, UpdateDTO> {
   create(data: Array<CreateDTO>): Promise<Array<Entity>>
@@ -12,13 +8,7 @@ export interface ICRUDService<Entity, CreateDTO, UpdateDTO> {
 }
 
 export interface ICacheService<CreateDTO, Entity> {
-  writeCache(data: Array<CreateDTO>): Array<Entity>
-  // addOrUpdate(data: CreateDTO): Entity
-}
-
-export interface IModelCacheService<CreateDTO, Entity> {
   writeCache(data: CreateDTO): Entity
-  // addOrUpdate(data: CreateDTO): Entity
 }
 
 export interface IQueryService<Entity, EntityWhere> {
@@ -33,8 +23,6 @@ export interface ICRUDModalService<
   createModal: IModalService
   updateModal: IModalService<Metadata, Properties>
   deleteModal: IModalService<Metadata, Properties>
-  // Move to model service so we can make it required
-  // deleteManyModal?: IModalService<Array<Entity>, `${Key}s`>
 }
 
 /**

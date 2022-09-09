@@ -35,14 +35,16 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO): void {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.PrimitiveType) {
-      return
+      throw new Error('PrimitiveType')
     }
 
     this.primitiveKind = fragment.primitiveKind
+
+    return this
   }
 
   // @modelAction

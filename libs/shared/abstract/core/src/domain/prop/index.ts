@@ -1,5 +1,5 @@
 export * from './extra-element-props.interface'
 export * from './prop.dto.interface'
-export * from './prop.interface'
+export * from './prop.model.interface'
 export * from './prop-map-binding.dto.interface'
 export * from './prop-map-binding.model.interface'

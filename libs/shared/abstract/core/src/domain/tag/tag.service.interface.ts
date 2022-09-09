@@ -2,16 +2,17 @@ import { TagGraph, TagWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { LabeledValue } from 'antd/es/select'
 import { DataNode } from 'antd/lib/tree'
-import { Ref } from 'mobx-keystone'
+import { ObjectMap, Ref } from 'mobx-keystone'
 import {
+  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IModalService,
   IQueryService,
 } from '../../service'
-import { ICreateTagDTO, IUpdateTagDTO } from './tag.dto.interface'
+import { ICreateTagDTO, ITagDTO, IUpdateTagDTO } from './tag.dto.interface'
 import { ITag, ITagRef } from './tag.model.interface'
-import { ITagTreeNode, ITagTreeService } from './tagtree.service.interface'
+import { ITagTreeNode, ITagTreeService } from './tag-tree.service.interface'
 
 export interface ITagService
   extends Omit<
@@ -19,6 +20,7 @@ export interface ITagService
       'delete' | 'update'
     >,
     Omit<IQueryService<ITag, TagWhere>, 'getOne'>,
+    ICacheService<ITagDTO, ITag>,
     Omit<
       ICRUDModalService<Ref<ITagTreeNode>, { tag: Maybe<ITag> }>,
       'deleteModal' | 'updateModal'
@@ -33,7 +35,8 @@ export interface ITagService
   >
   updateModal: IModalService<Ref<ITagTreeNode>, { tag?: ITagTreeNode }>
   deleteMany(ids: Array<ITagRef>): Promise<Array<ITag>>
-  tags: Array<ITag>
+  tags: ObjectMap<ITag>
+  tag(id: string): Maybe<ITag>
   tagsSelectOptions: Array<LabeledValue>
   selectedOption: LabeledValue
   deleteCheckedTags(): void

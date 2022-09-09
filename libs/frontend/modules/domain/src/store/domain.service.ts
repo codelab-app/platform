@@ -2,6 +2,7 @@ import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { DomainWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateDomainDTO,
+  IDomainDTO,
   IDomainService,
   IUpdateDomainDTO,
 } from '@codelab/shared/abstract/core'
@@ -11,6 +12,7 @@ import {
   _await,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -55,6 +57,19 @@ export class DomainService
   @computed
   get domainsList() {
     return [...this.domains.values()]
+  }
+
+  @modelAction
+  writeCache = (domain: IDomainDTO) => {
+    let domainModel = this.domains.get(domain.id)
+
+    if (!domainModel) {
+      domainModel = Domain.hydrate(domain)
+    }
+
+    this.domains.set(domain.id, domainModel)
+
+    return domainModel
   }
 
   @modelFlow

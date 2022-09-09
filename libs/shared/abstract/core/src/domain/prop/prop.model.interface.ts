@@ -1,15 +1,15 @@
+import { ICacheService } from '../../service'
 import { IAnyAction } from '../action'
 import { IBuilderState } from '../builder'
 import { IElement } from '../element'
 import { IPropDTO } from './prop.dto.interface'
 
-export interface IProp<T = IPropData> {
+export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   id: string
   data: T
   jsonString: string
   values: T
 
-  updateCache(props: IPropDTO): IProp
   set(key: string, value: any): void
   get(key: string): any
 }

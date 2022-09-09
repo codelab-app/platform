@@ -5,6 +5,7 @@ import {
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
+  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IModalService,
@@ -15,7 +16,7 @@ import {
   IPropMapBinding,
   IUpdatePropMapBindingDTO,
 } from '../prop'
-import { IInterfaceType } from '../type/types/interface-type/interface-type.interface'
+import { IInterfaceType } from '../type'
 import { IAuth0Id } from '../user'
 import {
   ICreateElementDTO,
@@ -51,6 +52,7 @@ export interface IElementService
       ICRUDService<IElement, ICreateElementDTO, IUpdateElementDTO>,
       'delete'
     >,
+    ICacheService<IElementDTO, IElement>,
     Omit<IQueryService<IElement, ElementWhere>, 'getOne'>,
     Omit<
       ICRUDModalService<Ref<IElement>, { element: Maybe<IElement> }>,
@@ -66,7 +68,6 @@ export interface IElementService
   updatePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
 
-  writeCache(elements: Array<IElementDTO>): Array<IElement>
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,

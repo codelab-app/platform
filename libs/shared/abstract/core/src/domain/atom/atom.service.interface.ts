@@ -10,7 +10,7 @@ import {
 } from '../../service'
 import { IAuth0Id } from '../user'
 import { IAtomDTO, ICreateAtomDTO, IUpdateAtomDTO } from './atom.dto.interface'
-import { IAtom, IAtomRef } from './atom.interface'
+import { IAtom, IAtomRef } from './atom.model.interface'
 
 export interface IAtomService
   extends ICRUDService<IAtom, ICreateAtomDTO, IUpdateAtomDTO>,

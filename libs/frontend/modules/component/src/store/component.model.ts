@@ -22,7 +22,7 @@ export class Component
   extends ExtendedModel(ElementTreeService, {
     __nodeType: prop<COMPONENT_NODE_TYPE>(COMPONENT_NODE_TYPE),
     id: idProp,
-    name: prop<string>(),
+    name: prop<string>().withSetter(),
     // this isn't a Ref, because it will cause a circular dep.
     rootElementId: prop<string>().withSetter(),
     ownerId: prop<string>(),
@@ -33,10 +33,12 @@ export class Component
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static hydrate = hydrate
 
-  updateCache(fragment: IComponentDTO): void {
-    this.name = fragment.name
+  writeCache(fragment: IComponentDTO) {
+    this.setName(fragment.name)
     this.rootElementId = fragment.rootElement.id
     this.ownerId = fragment.owner?.id
     this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
+
+    return this
   }
 }

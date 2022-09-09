@@ -37,21 +37,18 @@ export class ArrayType
   implements IArrayType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO) {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.ArrayType) {
-      return
+      throw new Error('Invalid ArrayType')
     }
 
     const itemId = fragment.itemType.id
     this.itemType = typeRef(itemId)
-  }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  // }
+    return this
+  }
 
   static hydrate = hydrate
 }

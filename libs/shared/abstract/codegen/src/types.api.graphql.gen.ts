@@ -21718,6 +21718,7 @@ export type DomainFragment = {
   __typename?: 'Domain'
   id: string
   name: string
+  app: { __typename?: 'App'; id: string }
   domainConfig: {
     __typename?: 'VercelDomainConfigData'
     misconfigured: boolean

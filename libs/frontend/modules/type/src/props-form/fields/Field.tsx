@@ -3,6 +3,7 @@ import {
   IArrayType,
   IEnumType,
   IField,
+  IFieldDTO,
   IInterfaceType,
   IPrimitiveType,
   IPrimitiveTypeKind,
@@ -22,13 +23,13 @@ import { SelectComponentField } from './SelectComponentField'
 import { SelectEnumField } from './SelectEnumField'
 
 export interface FieldProps {
-  field: IField
+  field: IFieldDTO
   form: UseFormReturn
   context?: IPropsFieldContext
 }
 
-const isOfTypeKind = <T extends IField>(
-  field: IField,
+const isOfTypeKind = <T extends IFieldDTO>(
+  field: IFieldDTO,
   kind: ITypeKind,
 ): field is T => field.type.current.kind === kind
 

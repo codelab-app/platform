@@ -50,17 +50,19 @@ export class Atom
     return customTextInjectionWhiteList.indexOf(this.type) > -1
   }
 
+  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
+  static hydrate = hydrate
+
   @modelAction
-  updateCache(atom: IAtomDTO) {
+  writeCache(atom: IAtomDTO) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
     this.tags = atom.tags.map((tag) => tagRef(tag.id))
     this.icon = atom.icon
-  }
 
-  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  static hydrate = hydrate
+    return this
+  }
 }
 
 export const atomRef = rootRef<Atom>('@codelab/AtomRef', {
