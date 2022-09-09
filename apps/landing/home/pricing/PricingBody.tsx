@@ -5,16 +5,37 @@ import { Button, Col, Row } from 'antd'
 import * as React from 'react'
 import tw from 'twin.macro'
 
+const generateTextColor = (key: string) => {
+  switch (key) {
+    case 'textWhite':
+      return tw`text-white `
+    case 'textViolet700':
+      return tw`text-violet-700`
+    case 'textViolet900':
+      return tw`text-violet-900`
+    case 'bgWhite':
+      return tw`bg-white hover:bg-white`
+    case 'bgViolet':
+      return tw`bg-violet-700 hover:bg-violet-700`
+    case 'borderPurple':
+      return tw`border-purple-300 `
+    case 'borderViolet':
+      return tw`border-violet-700`
+    default:
+      return tw`bg-purple-100 hover:bg-purple-100 `
+  }
+}
+
 const pricingItems = [
   {
     title: 'Starter',
     price: '$0',
     type: 'Start for free',
     benefit: 'No cost forever',
-    bgColor: '#672FD6',
-    titleColor: '#fff',
-    desColor: '#fff',
-    borderColor: '#F2F1FF',
+    bgColor: 'bgViolet',
+    titleColor: 'textWhite',
+    borderColor: 'borderPurple',
+    descriptionColor: 'textWhite',
     description: [
       'Frontend state management solution',
       'Component configuration using props data',
@@ -28,10 +49,10 @@ const pricingItems = [
     price: '$19',
     type: 'Demo Product',
     benefit: '2 weeks trial',
-    bgColor: '#F3ECFF',
-    titleColor: '#672FD6',
-    borderColor: '#672FD6',
-    desColor: '#3B1F73',
+    bgColor: 'default',
+    titleColor: 'textViolet700',
+    borderColor: 'borderViolet',
+    descriptionColor: 'textViolet900textWhite',
     description: [
       'Runtime data & props validation',
       'Error logging for all RESTful calls',
@@ -44,10 +65,10 @@ const pricingItems = [
     price: '$149',
     type: 'Demo Product',
     benefit: '2 weeks trial',
-    bgColor: '#F3ECFF',
-    titleColor: '#672FD6',
-    borderColor: '#672FD6',
-    desColor: '#3B1F73',
+    bgColor: 'default',
+    titleColor: 'textViolet700',
+    borderColor: 'borderViolet',
+    descriptionColor: 'textViolet900',
     description: [
       'Custom domain',
       'Version control with rollback',
@@ -61,11 +82,11 @@ const pricingItems = [
     title: 'Enterprise',
     price: 'Custom',
     type: 'Contact Sales',
-    bgColor: '#fff',
+    bgColor: 'bgWhite',
     benefit: '',
-    titleColor: '#672FD6',
-    borderColor: '#672FD6',
-    desColor: '#3B1F73',
+    titleColor: 'textViolet700',
+    borderColor: 'borderViolet',
+    descriptionColor: 'textViolet900',
     description: [
       'Custom domain',
       'Version control with rollback',
@@ -86,26 +107,20 @@ export const PricingBody = () => {
         {pricingItems.map((items, index) => (
           <Col
             css={[
-              css`
-                background-color: ${items.bgColor};
-              `,
-              tw`p-7 mb-3 xl:mb-0 w-full md:w-[48%] xl:w-[24%] border-solid border-2 border-violet-500 `,
+              generateTextColor(items.bgColor),
+              tw`p-7 mb-3 xl:mb-0 w-full md:w-[48%] xl:w-[24%] border-solid border-2 border-violet-300 `,
             ]}
             key={index}
           >
             <div
               css={[
-                css`
-                  border-color: ${items.borderColor};
-                `,
-                tw`w-fit m-auto pb-2 mb-4 sm:mb-8 border-0 border-b-2 border-solid `,
+                generateTextColor(items.borderColor),
+                tw` w-fit m-auto pb-2 mb-4 sm:mb-8 border-0 border-b-2 border-solid `,
               ]}
             >
               <p
                 css={[
-                  css`
-                    color: ${items.titleColor};
-                  `,
+                  generateTextColor(items.titleColor),
                   tw`text-2xl md:text-3xl mt-2 sm:mt-4 text-center mb-3 sm:mb-6 font-black`,
                 ]}
               >
@@ -116,9 +131,7 @@ export const PricingBody = () => {
               >
                 <h1
                   css={[
-                    css`
-                      color: ${items.titleColor};
-                    `,
+                    generateTextColor(items.titleColor),
                     tw`text-4xl md:text-5xl mb-0 mr-2`,
                   ]}
                 >
@@ -129,9 +142,7 @@ export const PricingBody = () => {
                 ) : (
                   <h5
                     css={[
-                      css`
-                        color: ${items.titleColor};
-                      `,
+                      generateTextColor(items.titleColor),
                       tw`text-xl md:text-2xl mb-0`,
                     ]}
                   >
@@ -141,22 +152,29 @@ export const PricingBody = () => {
               </div>
               <Button
                 css={[
-                  css`
-                    color: ${items.titleColor}!important;
-                    border-color: ${items.borderColor}!important;
-                  `,
-                  tw`rounded-lg flex m-auto items-center px-10 sm:px-14 lg:px-20 xl:px-10 2xl:px-14 py-6`,
+                  // css`
+                  //   color: ${items.titleColor}!important;
+                  //   border-color: ${items.borderColor}!important;
+                  // `,
+                  generateTextColor(items.bgColor),
+                  generateTextColor(items.titleColor),
+                  generateTextColor(items.borderColor),
+                  tw`border-2 border-solid rounded-lg  flex m-auto items-center px-10 sm:px-14 lg:px-20 xl:px-10 2xl:px-14 py-6`,
                 ]}
-                ghost
+                // ghost
               >
-                <a css={[tw`text-base lg:text-xl font-bold`]}>{items.type}</a>
+                <a
+                  css={[
+                    generateTextColor(items.titleColor),
+                    tw`text-black text-base lg:text-xl font-bold`,
+                  ]}
+                >
+                  {items.type}
+                </a>
               </Button>
               <p
                 css={[
-                  css`
-                    color: #caafff;
-                  `,
-                  tw`text-base md:text-lg min-h-[25px] text-center mt-4 mb-2 sm:mb-4 sm:mt-6`,
+                  tw`text-violet-400 text-base md:text-lg min-h-[25px] text-center mt-4 mb-2 sm:mb-4 sm:mt-6`,
                 ]}
               >
                 {items.benefit ? items.benefit : ''}
@@ -168,18 +186,14 @@ export const PricingBody = () => {
                   <li css={tw`flex `} key={i}>
                     <FontAwesomeIcon
                       css={[
-                        css`
-                          color: ${items.desColor};
-                        `,
+                        generateTextColor(items.descriptionColor),
                         tw`text-sm sm:text-lg mt-1 md:text-xl mr-2`,
                       ]}
                       icon={faCheck}
                     />
                     <p
                       css={[
-                        css`
-                          color: ${items.desColor};
-                        `,
+                        generateTextColor(items.descriptionColor),
                         tw`text-base md:text-xl`,
                       ]}
                     >
