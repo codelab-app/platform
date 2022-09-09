@@ -22,6 +22,7 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { omit } from 'lodash'
 import {
   _async,
   _await,
@@ -792,8 +793,7 @@ export class ElementService
     )
 
     const promises = elementsThatUseTheProp.map((element) => {
-      const currentProps = { ...element.props?.data }
-      const { [propKey]: removedProp, ...updatedProps } = currentProps.data
+      const updatedProps = omit(element.props?.data, propKey)
 
       return this.patchElement(element, {
         props: {
