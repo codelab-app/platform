@@ -9,7 +9,6 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -29,6 +28,7 @@ import { Button, Dropdown, Menu, MenuProps, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
+import { useAsync } from 'react-use'
 
 const items: MenuProps['items'] = [
   {
@@ -60,10 +60,7 @@ const AppsPageHeader = observer(() => {
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, userService } = useStore()
-
-  const [, { isLoading }] = useStatefulExecutor(() => appService.getAll(), {
-    executeOnMount: true,
-  })
+  const { loading, error, value } = useAsync(() => appService.getAll(), [])
 
   return (
     <>
@@ -76,8 +73,8 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       <DeleteAppModal appService={appService} />
 
       <ContentSection>
-        {isLoading && <Spin />}
-        {!isLoading && <GetAppsList appService={appService} />}
+        {loading && <Spin />}
+        {!loading && <GetAppsList appService={appService} />}
       </ContentSection>
     </>
   )

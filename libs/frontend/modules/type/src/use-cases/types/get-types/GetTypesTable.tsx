@@ -1,22 +1,15 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ITypeService } from '@codelab/shared/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useAsync } from 'react-use'
 import { TypeRecord } from './columns'
 import { useTypesTable } from './useGetTypesTable'
 
 export const GetTypesTable = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const { columns, rowSelection } = useTypesTable(typeService)
-
-    const [getTypes, { data, isLoading }] = useStatefulExecutor(() =>
-      typeService.getAll(),
-    )
-
-    useEffect(() => {
-      getTypes()
-    }, [])
+    const { loading, value } = useAsync(() => typeService.getAll(), [])
 
     // Manually build the data for the table because Table is not reactive and
     // this way we ensure it will get re-rendered properly on updates
@@ -31,7 +24,7 @@ export const GetTypesTable = observer<{ typeService: ITypeService }>(
       <Table<TypeRecord>
         columns={columns}
         dataSource={dataSource}
-        loading={isLoading}
+        loading={loading}
         pagination={{ position: ['bottomCenter'] }}
         rowKey={(type) => type.id}
         rowSelection={rowSelection}

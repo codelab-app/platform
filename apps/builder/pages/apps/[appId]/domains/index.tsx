@@ -11,7 +11,6 @@ import {
   useCurrentAppId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -32,6 +31,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useAsync } from 'react-use'
 
 const DomainsPageHeader = observer(() => {
   const { domainService } = useStore()
@@ -58,15 +58,9 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const appId = useCurrentAppId()
   const { app } = useCurrentApp(appService)
 
-  const [, { isLoading }] = useStatefulExecutor(
-    () =>
-      (domainService as any).getAll(
-        { appConnection: { node: { id: appId } } },
-        true,
-      ),
-    {
-      executeOnMount: true,
-    },
+  const { value, loading } = useAsync(
+    () => domainService.getAll({ appConnection: { node: { id: appId } } }),
+    [],
   )
 
   return (
@@ -89,8 +83,8 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       />
 
       <ContentSection>
-        {isLoading && <Spin />}
-        {!isLoading && <GetDomainsList domainService={domainService} />}
+        {loading && <Spin />}
+        {!loading && <GetDomainsList domainService={domainService} />}
       </ContentSection>
     </>
   )

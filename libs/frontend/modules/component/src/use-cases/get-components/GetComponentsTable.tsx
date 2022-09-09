@@ -1,9 +1,9 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import { IComponentService } from '@codelab/shared/abstract/core'
 import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
@@ -13,14 +13,10 @@ import { ComponentColumnData } from './columns/types'
 export const GetComponentsTable = observer<{
   componentService: IComponentService
 }>(({ componentService }) => {
-  const [getComponents, { isLoading }] = useStatefulExecutor(() =>
-    componentService.getAll(),
-  )
+  const { loading, value } = useAsync(async () => {
+    await componentService.getAll()
 
-  const components = componentService.components
-  useEffect(() => {
-    getComponents()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return componentService.components
   }, [])
 
   const headerCellProps = () => ({
@@ -59,16 +55,16 @@ export const GetComponentsTable = observer<{
     },
   ]
 
-  const dataSource: Array<ComponentColumnData> = [...components.values()].map(
-    (c) => ({
-      name: c.name,
-      id: c.id,
-      apiId: c.api.id,
-    }),
-  )
+  const dataSource: Array<ComponentColumnData> = [
+    ...(value ? value.values() : []),
+  ].map((c) => ({
+    name: c.name,
+    id: c.id,
+    apiId: c.api.id,
+  }))
 
   return (
-    <Spinner isLoading={isLoading}>
+    <Spinner isLoading={loading}>
       <Table
         columns={getComponentsTableColumns}
         dataSource={dataSource}

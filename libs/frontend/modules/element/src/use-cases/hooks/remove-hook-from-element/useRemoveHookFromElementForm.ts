@@ -30,7 +30,7 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
     onSubmitSuccess: () => {
       //
     },
-    isLoading: false,
+    loading: false,
     reset: () => {
       //
     },

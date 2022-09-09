@@ -73,7 +73,7 @@ export const usePropsInspector = (
   return {
     lastRenderedPropsString,
     save,
-    isLoading,
+    isLoading: loading,
     persistedProps,
     setPersistedProps,
     setExtraPropsForElement: setExtraProps,

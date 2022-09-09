@@ -40,7 +40,7 @@ export const useImportAppForm = () => {
     reset: () => {
       //
     },
-    isLoading,
+    isLoading: loading,
     actionType: '' as any,
     model: {},
   }

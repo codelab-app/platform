@@ -14,7 +14,6 @@ import {
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -27,12 +26,12 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { PageBuilderAppFragment } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
+import { useAsync } from 'react-use'
 
 const PageBuilder: CodelabPage = observer(() => {
   const {
@@ -51,99 +50,96 @@ const PageBuilder: CodelabPage = observer(() => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const [, { data, error, isLoading }] = useStatefulExecutor(
-    async () => {
-      const {
-        apps,
-        components,
-        // Can't change shape in GraphQL so we have to use this structure
-        primitiveTypes,
-        arrayTypes,
-        unionTypes,
-        interfaceTypes,
-        elementTypes,
-        renderPropsTypes,
-        reactNodeTypes,
-        enumTypes,
-        lambdaTypes,
-        pageTypes,
-        appTypes,
-        actionTypes,
-        codeMirrorTypes,
-      } = await builderService.getPageBuilder({ appId, pageId })
+  const { loading, value, error } = useAsync(async () => {
+    const {
+      apps,
+      components,
+      // Can't change shape in GraphQL so we have to use this structure
+      primitiveTypes,
+      arrayTypes,
+      unionTypes,
+      interfaceTypes,
+      elementTypes,
+      renderPropsTypes,
+      reactNodeTypes,
+      enumTypes,
+      lambdaTypes,
+      pageTypes,
+      appTypes,
+      actionTypes,
+      codeMirrorTypes,
+    } = await builderService.getPageBuilder({ appId, pageId })
 
-      const { pageElementTree, app, page, store } = appService.load({
-        app: apps[0],
-        pageId,
-      })
+    const { pageElementTree, app, page, store } = appService.load({
+      app: apps[0],
+      pageId,
+    })
 
-      const types = typeService.writeCache({
-        primitiveTypes,
-        arrayTypes,
-        unionTypes,
-        interfaceTypes,
-        elementTypes,
-        renderPropsTypes,
-        reactNodeTypes,
-        enumTypes,
-        lambdaTypes,
-        pageTypes,
-        appTypes,
-        actionTypes,
-        codeMirrorTypes,
-      })
+    const types = typeService.writeCache({
+      primitiveTypes,
+      arrayTypes,
+      unionTypes,
+      interfaceTypes,
+      elementTypes,
+      renderPropsTypes,
+      reactNodeTypes,
+      enumTypes,
+      lambdaTypes,
+      pageTypes,
+      appTypes,
+      actionTypes,
+      codeMirrorTypes,
+    })
 
-      componentService.writeCache(components)
+    componentService.writeCache(components)
 
-      /**
-       *
-       * page Element tree
-       *
-       */
-      const pageRootElement = elementService.element(page.rootElement.id)
+    /**
+     *
+     * page Element tree
+     *
+     */
+    const pageRootElement = elementService.element(page.rootElement.id)
 
-      if (pageRootElement) {
-        builderService.set_selectedNode(elementRef(pageRootElement))
-      }
+    if (pageRootElement) {
+      builderService.set_selectedNode(elementRef(pageRootElement))
+    }
 
-      const renderer = await builderRenderService.addRenderer(
-        pageId,
-        pageElementTree,
-        null,
-        store,
-        createMobxState(store, [app], [page], router),
-        true,
-      )
+    const renderer = await builderRenderService.addRenderer(
+      pageId,
+      pageElementTree,
+      null,
+      store,
+      createMobxState(store, [app], [page], router),
+      true,
+    )
 
-      return {
-        page,
-        pageElementTree,
-        providerTree: null,
-        store,
-        types,
-        components,
-        renderer,
-      }
-    },
-    { executeOnMount: true },
-  )
+    return {
+      page,
+      pageElementTree,
+      providerTree: null,
+      store,
+      types,
+      components,
+      renderer,
+    }
+  }, [])
 
   return (
     <>
       <Head>
-        <title>{data?.page?.name} | Builder | Codelab</title>
+        <title>{value?.page?.name} | Builder | Codelab</title>
       </Head>
 
       <BuilderTabs
-        appStore={data?.store}
+        appStore={value?.store}
         builderRenderService={builderRenderService}
         builderService={builderService}
         componentService={componentService}
         elementService={elementService}
-        elementTree={data?.pageElementTree}
-        error={error}
-        isLoading={isLoading}
-        renderer={data?.renderer}
+        elementTree={value?.pageElementTree}
+        error={error?.message}
+        isLoading={loading}
+        renderer={value?.renderer}
       />
     </>
   )

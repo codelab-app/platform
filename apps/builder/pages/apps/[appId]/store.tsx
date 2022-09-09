@@ -15,10 +15,7 @@ import {
   useCurrentAppId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import {
-  extractErrorMessage,
-  useStatefulExecutor,
-} from '@codelab/frontend/shared/utils'
+import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import {
   adminMenuItems,
@@ -50,55 +47,52 @@ const StorePage: CodelabPage = observer(() => {
     resourceService,
   } = useStore()
 
-  const [, { isLoading, error, data }] = useStatefulExecutor(
-    async () => {
-      const app = await appService.getOne(appId)
+  const { value, loading, error } = useAsync(async () => {
+    const app = await appService.getOne(appId)
 
-      if (!app) {
-        throw new Error('Failed to load app')
-      }
+    if (!app) {
+      throw new Error('Failed to load app')
+    }
 
-      const appStore = await storeService.getOne(app.store.id)
+    const appStore = await storeService.getOne(app.store.id)
 
-      if (!appStore) {
-        throw new Error('Failed to load store')
-      }
+    if (!appStore) {
+      throw new Error('Failed to load store')
+    }
 
-      // load all types once for TypeSelect form field
-      const types = await typeService.getAll()
-      // load all resources once for ResourceSelect
-      const resources = await resourceService.getAll()
+    // load all types once for TypeSelect form field
+    const types = await typeService.getAll()
+    // load all resources once for ResourceSelect
+    const resources = await resourceService.getAll()
 
-      return {
-        app,
-        appStore,
-        types,
-        resources,
-      }
-    },
-    { executeOnMount: true },
-  )
+    return {
+      app,
+      appStore,
+      types,
+      resources,
+    }
+  }, [])
 
   return (
     <>
       <Head>
-        <title>{data?.app?.name} | Store | Codelab</title>
+        <title>{value?.app?.name} | Store | Codelab</title>
       </Head>
       <DisplayIf condition={Boolean(error)}>
         <Alert message={extractErrorMessage(error)} type="error" />
       </DisplayIf>
-      <DisplayIf condition={isLoading}>
+      <DisplayIf condition={loading}>
         <Spin />
       </DisplayIf>
       <CreateFieldModal typeService={typeService} />
       <UpdateFieldModal typeService={typeService} />
       <DeleteFieldModal typeService={typeService} />
-      {data?.appStore && (
+      {value?.appStore && (
         <>
           <CreateActionModal
             actionService={actionService}
             resourceService={resourceService}
-            store={data.appStore}
+            store={value.appStore}
           />
           <UpdateActionModal
             actionService={actionService}
@@ -119,7 +113,7 @@ StorePage.Layout = observer((page) => {
 
   const appId = useCurrentAppId()
 
-  const state = useAsync(async () => {
+  const { loading, value } = useAsync(async () => {
     const app = await appService.getOne(appId)
 
     if (!app) {
@@ -142,7 +136,7 @@ StorePage.Layout = observer((page) => {
     <DashboardTemplate
       ConfigPane={() => (
         <StoreConfigPane
-          store={state.value?.store}
+          store={value?.store}
           storeService={storeService}
           typeService={typeService}
         />
@@ -150,7 +144,7 @@ StorePage.Layout = observer((page) => {
       ExplorerPane={() => (
         <StoreExplorerPane
           actionService={actionService}
-          store={state.value?.store}
+          store={value?.store}
           typeService={typeService}
         />
       )}

@@ -1,10 +1,7 @@
-import {
-  createNotificationHandler,
-  useStatefulExecutor,
-} from '@codelab/frontend/shared/utils'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { useEffect } from 'react'
+import { useAsync } from 'react-use'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
 
 type UseAddHookToElementForm = (
@@ -18,21 +15,14 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
   typeService,
   atomService,
 ) => {
-  // const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
-  // const { selectedType, actionType } = useHookState()
-  const [getAtoms] = useStatefulExecutor(() => atomService.getAll())
-
-  useEffect(() => {
-    getAtoms()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useAsync(() => atomService.getAll(), [])
 
   assertIsDefined(elementId)
 
-  const [fetchInterface, { data: interfaceType, isLoading: interfaceLoading }] =
-    useStatefulExecutor((id: string) =>
-      typeService.getInterfaceAndDescendants(id),
-    )
+  const { loading: interfaceLoading } = useAsync(
+    async () => (id: string) => typeService.getInterfaceAndDescendants(id),
+    [],
+  )
   //
   // const [mutate, { isLoading }] = useCreateHooksMutation({
   //   selectFromResult: (r) => ({
@@ -85,7 +75,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
       //   fetchInterface({ apiOfAtoms_SOME: { id: value } })
       // }
     },
-    interfaceType,
+    interfaceType: null,
     reset: () => {
       //
     },
@@ -100,7 +90,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
     ],
     model: {},
     actionType: 'CREATE',
-    isLoading: false,
+    loading: false,
     interfaceLoading,
   }
 }

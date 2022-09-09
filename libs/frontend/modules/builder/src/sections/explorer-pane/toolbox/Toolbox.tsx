@@ -1,4 +1,3 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import {
   IAtom,
@@ -12,6 +11,7 @@ import Fuse from 'fuse.js'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
+import { useAsync } from 'react-use'
 import { BuilderDropId } from '../../../dnd/BuilderDropId'
 import { ToolboxItem, ToolboxItemProps } from './ToolboxItem'
 
@@ -56,15 +56,11 @@ export const Toolbox = observer<ToolboxProps>(
     )
 
     const fuseRef = useRef(new Fuse<ToolboxItemProps>([], { keys: ['name'] }))
+    const { loading: isLoadingAtoms } = useAsync(() => atomService.getAll(), [])
 
-    const [, { isLoading: isLoadingAtoms }] = useStatefulExecutor(
-      () => atomService.getAll(),
-      { executeOnMount: true },
-    )
-
-    const [, { isLoading: isLoadingComponents }] = useStatefulExecutor(
+    const { loading: isLoadingComponents } = useAsync(
       () => componentService.getAll(),
-      { executeOnMount: true },
+      [],
     )
 
     useEffect(() => {

@@ -15,7 +15,6 @@ import {
   muiAtoms,
 } from '@codelab/frontend/modules/renderer'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -33,9 +32,9 @@ import {
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
+import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 // import {
 //   antdAtoms,
@@ -63,13 +62,8 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       : { name: 'Unknown', color: 'black' }
   }, [])
 
-  const [getAtoms, { isLoading }] = useStatefulExecutor(() =>
-    store.atomService.getAll(),
-  )
-
-  useEffect(() => {
-    getAtoms()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const { value, loading } = useAsync(async () => {
+    return Promise.all([store.atomService.getAll(), store.tagService.getAll()])
   }, [])
 
   const atomsData: Array<AtomRecord> = store.atomService.atoms.map((a) => ({
@@ -80,10 +74,6 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
     tags: a.tags.map((tag) => tag.current),
     library: getLibrary(a.type),
   }))
-
-  useStatefulExecutor(() => store.tagService.getAll(), {
-    executeOnMount: true,
-  })
 
   return (
     <>
@@ -105,7 +95,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <GetAtomsTable
           atomService={store.atomService}
           atomsData={atomsData}
-          isLoading={isLoading}
+          isLoading={loading}
         />
       </ContentSection>
     </>
@@ -129,16 +119,7 @@ const Header = () => {
 
 export default AtomsPage
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired({
-  getServerSideProps: async ({ req, res }: GetServerSidePropsContext) => {
-    // const store = initializeStore({ user })
-
-    return {
-      // props: { snapshot: getSnapshot(store) },
-      props: {},
-    }
-  },
-})
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AtomsPage.Layout = (page) => {
   const { userService } = useStore()

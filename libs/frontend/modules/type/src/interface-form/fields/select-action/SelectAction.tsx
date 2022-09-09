@@ -1,6 +1,6 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { IActionService } from '@codelab/shared/abstract/core'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
 export interface SelectActionProps {
@@ -14,14 +14,7 @@ export const SelectAction = ({
   actionService,
   storeId,
 }: SelectActionProps) => {
-  const [getActions, { isLoading, error }] = useStatefulExecutor(() =>
-    actionService.getAll(storeId),
-  )
-
-  useEffect(() => {
-    getActions()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const { loading, error } = useAsync(() => actionService.getAll(storeId))
 
   const actionOptions =
     actionService?.actionsList.map((action) => ({
@@ -32,7 +25,7 @@ export const SelectAction = ({
   return (
     <SelectField
       error={error}
-      loading={isLoading}
+      loading={loading}
       name={name}
       optionFilterProp="label"
       options={actionOptions}

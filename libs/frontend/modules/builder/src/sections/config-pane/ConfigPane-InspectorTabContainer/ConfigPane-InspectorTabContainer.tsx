@@ -107,7 +107,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         <div css={tw`absolute bottom-0 right-0 m-8`}>
           <LoadingIndicator
             error={trackPromises.error}
-            isLoading={trackPromises.isLoading}
+            isLoading={trackPromises.loading}
           />
         </div>
 

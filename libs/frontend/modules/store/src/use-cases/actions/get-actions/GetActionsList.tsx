@@ -1,22 +1,18 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { IActionService, IStore } from '@codelab/shared/abstract/core'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useAsync } from 'react-use'
 import { GetActionItem } from './GetActionItem'
 
 export const GetActionsList = observer<{
   store: IStore
   actionService: IActionService
 }>(({ actionService, store }) => {
-  const [getActions] = useStatefulExecutor((storeId: string) =>
-    actionService.getAll(storeId),
+  const { loading } = useAsync(
+    async () => (storeId: string) => actionService.getAll(storeId),
+    [store.id],
   )
-
-  useEffect(() => {
-    getActions(store.id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.id])
 
   const actions = actionService.actionsList
 
