@@ -32,9 +32,7 @@ export const Modal = ({
   const submitRef = useRef<Maybe<SubmitController>>()
 
   return (
-    <ModalFormContext.Provider
-      value={{ isLoading: loading, setIsLoading, submitRef }}
-    >
+    <ModalFormContext.Provider value={{ isLoading, setIsLoading, submitRef }}>
       <AntdModal
         cancelButtonProps={{
           ...cancelButtonProps,

@@ -10,7 +10,7 @@ export interface IModalFormContext {
 }
 
 export const initialContext: IModalFormContext = {
-  loading: false,
+  isLoading: false,
   setIsLoading: (isLoading: boolean) => {
     throw new Error('ModalFormContext is not initialized')
   },

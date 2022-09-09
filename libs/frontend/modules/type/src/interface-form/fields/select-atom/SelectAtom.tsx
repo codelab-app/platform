@@ -30,7 +30,7 @@ export const useGetAllAtoms = () => {
   return {
     data,
     atomOptions,
-    isLoading: loading,
+    isLoading,
     error,
   }
 }

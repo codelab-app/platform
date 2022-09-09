@@ -19,7 +19,7 @@ export const useGetAllComponents = () => {
       value: c.id,
     })) ?? []
 
-  return { data, options, isLoading: loading, error }
+  return { data, options, isLoading, error }
 }
 
 export interface SelectComponentFieldProps {
