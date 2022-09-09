@@ -9,7 +9,6 @@ import {
   UpdateTagModal,
 } from '@codelab/frontend/modules/tag'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -29,13 +28,11 @@ import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
+import { useAsync } from 'react-use'
 
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { tagService, userService } = useStore()
-
-  const [, { isLoading }] = useStatefulExecutor(() => tagService.getAll(), {
-    executeOnMount: true,
-  })
+  const { loading } = useAsync(() => tagService.getAll(), [])
 
   return (
     <>
@@ -48,7 +45,7 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTagsModal tagService={tagService} />
 
       <ContentSection>
-        <GetTagsTable loading={isLoading} tagService={tagService} />
+        <GetTagsTable loading={loading} tagService={tagService} />
       </ContentSection>
     </>
   )

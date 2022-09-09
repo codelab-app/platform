@@ -7,10 +7,7 @@ import {
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import {
-  extractErrorMessage,
-  useStatefulExecutor,
-} from '@codelab/frontend/shared/utils'
+import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Alert, Spin } from 'antd'
@@ -18,6 +15,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useAsync } from 'react-use'
 
 const PageRenderer: CodelabPage<any> = observer(() => {
   const {
@@ -34,90 +32,87 @@ const PageRenderer: CodelabPage<any> = observer(() => {
   const pageId = useCurrentPageId()
   const router = useRouter()
 
-  const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
-    async () => {
-      /**
-       * load all apps to provide them to mobxState
-       */
-      const apps = await appService.getAll()
-      const app = appService.app(appId)
+  const { loading, value, error } = useAsync(async () => {
+    /**
+     * load all apps to provide them to mobxState
+     */
+    const apps = await appService.getAll()
+    const app = appService.app(appId)
 
-      if (!app) {
-        throw new Error('Missing app')
-      }
+    if (!app) {
+      throw new Error('Missing app')
+    }
 
-      /**
-       * load app store
-       */
-      const appStore = await storeService.getOne(app.store.id)
+    /**
+     * load app store
+     */
+    const appStore = await storeService.getOne(app.store.id)
 
-      if (!appStore) {
-        throw new Error('App store not found')
-      }
+    if (!appStore) {
+      throw new Error('App store not found')
+    }
 
-      /**
-       * load all pages to provide them to mobxState
-       * */
-      const pages = await pageService.getAll()
-      const page = pageService.page(pageId)
+    /**
+     * load all pages to provide them to mobxState
+     * */
+    const pages = await pageService.getAll()
+    const page = pageService.page(pageId)
 
-      if (!page) {
-        throw new Error('Page not found')
-      }
+    if (!page) {
+      throw new Error('Page not found')
+    }
 
-      /**
-       *
-       * components are needed to build pageElementTree
-       *
-       */
-      const components = await componentService.loadComponentTrees(
-        userService.auth0Id,
-      )
+    /**
+     *
+     * components are needed to build pageElementTree
+     *
+     */
+    const components = await componentService.loadComponentTrees(
+      userService.auth0Id,
+    )
 
-      /**
-       *
-       * load all types
-       *
-       */
-      const types = await typeService.getAll()
-      /**
-       *
-       * page Element tree
-       *
-       */
-      const pageElementTree = await page.initTree(page.rootElement.id)
+    /**
+     *
+     * load all types
+     *
+     */
+    const types = await typeService.getAll()
+    /**
+     *
+     * page Element tree
+     *
+     */
+    const pageElementTree = await page.initTree(page.rootElement.id)
 
-      const renderer = await appRenderService.addRenderer(
-        pageId,
-        pageElementTree,
-        null,
-        appStore,
-        createMobxState(appStore, apps, pages, router),
-        false,
-      )
+    const renderer = await appRenderService.addRenderer(
+      pageId,
+      pageElementTree,
+      null,
+      appStore,
+      createMobxState(appStore, apps, pages, router),
+      false,
+    )
 
-      return {
-        page,
-        pageElementTree,
-        providerTree: null,
-        appStore,
-        renderer,
-        components,
-        types,
-      }
-    },
-    { executeOnMount: true },
-  )
+    return {
+      page,
+      pageElementTree,
+      providerTree: null,
+      appStore,
+      renderer,
+      components,
+      types,
+    }
+  }, [])
 
   return (
     <>
       <Head>
-        <title>{data?.page?.name}</title>
+        <title>{value?.page?.name}</title>
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
-      {isLoading && <Spin />}
-      {isDone && data?.pageElementTree && data.renderer && (
-        <Renderer renderRoot={data.renderer.renderRoot.bind(data.renderer)} />
+      {loading && <Spin />}
+      {!loading && value?.pageElementTree && value.renderer && (
+        <Renderer renderRoot={value.renderer.renderRoot.bind(value.renderer)} />
       )}
     </>
   )

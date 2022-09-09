@@ -1,24 +1,18 @@
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { IAppService } from '@codelab/shared/abstract/core'
-import { useEffect } from 'react'
+import { useAsync } from 'react-use'
 
 export const useCurrentApp = (appService: IAppService) => {
   const appId = useCurrentAppId()
 
-  const [getApp, { isLoading, error, isDone }] = useStatefulExecutor(
+  const { loading, value, error } = useAsync(
     (id: string) => appService.getOne(id),
+    [appId],
   )
 
-  useEffect(() => {
-    if (appId) {
-      getApp(appId)
-    }
-  }, [appId, getApp])
-
   return {
-    app: appId && isDone ? appService.app(appId) : null,
-    isLoading,
+    app: value,
+    loading: loading,
     error,
   }
 }

@@ -1,8 +1,8 @@
 import { useStore } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsync } from 'react-use'
 import { ComponentsGroupedByTag } from './ComponentsGroupedByTag'
 
 export const ConfigPaneComponentTabContainer = observer(() => {
@@ -17,26 +17,15 @@ export const ConfigPaneComponentTabContainer = observer(() => {
     tagService,
   } = useStore()
 
-  const [, { isLoading: isLoadingAtoms }] = useStatefulExecutor(
-    () => atomService.getAll(),
-    {
-      executeOnMount: true,
-    },
-  )
+  const { loading: isLoadingAtoms } = useAsync(() => atomService.getAll(), [])
 
-  // const [, { isLoading: isLoadingComponents }] = useStatefulExecutor(() =>
-  //   componentService.getAll(),
-  // )
-
-  const [, { isLoading: isLoadingUsecaseTags }] = useStatefulExecutor(
+  const { loading: isLoadingUseCaseTags } = useAsync(
     () => tagService.getAll(),
-    {
-      executeOnMount: true,
-    },
+    [],
   )
 
   // eslint-disable-next-line no-inline-comments
-  const isLoading = isLoadingAtoms || isLoadingUsecaseTags // isLoadingComponents
+  const isLoading = isLoadingAtoms || isLoadingUseCaseTags // isLoadingComponents
 
   if (isLoading) {
     return <Spin />

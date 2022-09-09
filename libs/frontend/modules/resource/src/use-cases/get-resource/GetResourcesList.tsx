@@ -1,10 +1,10 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { threeGridCol } from '@codelab/frontend/view/style'
 import { IResourceService } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useAsync } from 'react-use'
 import { CreateResourceButton } from '../create-resource'
 import { GetResourcesItem } from './GetResourceItem'
 
@@ -17,19 +17,11 @@ const buttonContainerStyle: React.CSSProperties = {
 
 export const GetResourcesList = observer<{ resourceService: IResourceService }>(
   ({ resourceService }) => {
-    const [getResources, { isLoading }] = useStatefulExecutor(() =>
-      resourceService.getAll(),
-    )
-
-    useEffect(() => {
-      getResources()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
+    const { loading } = useAsync(() => resourceService.getAll(), [])
     const resourceList = resourceService.resourceList
 
     return (
-      <Spinner isLoading={isLoading}>
+      <Spinner isLoading={loading}>
         <DisplayIf condition={!resourceList || !resourceList.length}>
           <Empty description="No resources found" imageStyle={{ height: 60 }}>
             <div style={buttonContainerStyle}>

@@ -96,9 +96,12 @@ describe('CSS CRUD', () => {
       cy.findByText(elementName).click()
       cy.get('[aria-label="format-painter"]').click()
       cy.getSpinner().should('not.exist')
+
       cy.get('[role="textbox"]')
         .click({ force: true })
+        .clear()
         .type(createBackgroundColorStyle(backgroundColor1))
+
       cy.get('#render-root')
         .find('.ant-btn')
         .should('have.css', 'background-color', backgroundColor1)

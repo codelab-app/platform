@@ -21,7 +21,7 @@ export const useTrackLoadingPromises = (): UseTrackLoadingPromises => {
   const [promises, setPromises] = useState<Array<Promise<any>>>([])
 
   useEffect(() => {
-    setState((s) => ({ ...s, isLoading: promises.length !== 0 }))
+    setState((s) => ({ ...s, loading: promises.length !== 0 }))
   }, [promises.length])
 
   const trackPromise = useCallback(

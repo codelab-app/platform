@@ -9,7 +9,6 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   videosFolder: './src/videos',
   screenshotsFolder: './src/screenshots',
   chromeWebSecurity: false,
-  // ignoreTestFiles: ['*.ignore.ts', '*.required.ts'],
   defaultCommandTimeout: 10000,
   responseTimeout: 10000,
   execTimeout: 10000,
@@ -17,7 +16,6 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   experimentalSessionAndOrigin: false,
   projectId: '37q6ed',
   env: {},
-  // testFiles: '**/*.spec.*',
   retries: {
     runMode: 1,
     openMode: 0,

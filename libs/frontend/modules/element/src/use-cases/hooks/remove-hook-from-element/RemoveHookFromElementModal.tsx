@@ -12,7 +12,7 @@ export const RemoveHookFromElementModal = ({
     onSubmitSuccess,
     actionType,
     onSubmitError,
-    isLoading,
+    loading,
     model,
     reset,
     entity,

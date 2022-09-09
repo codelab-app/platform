@@ -34,7 +34,7 @@ import React from 'react'
 const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
   () => {
     const { typeService } = useStore()
-    const { type, isLoading } = useGetCurrentInterfaceWithFields(typeService)
+    const { type, loading } = useGetCurrentInterfaceWithFields(typeService)
 
     return (
       <>
@@ -51,12 +51,12 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
         )}
 
         <ContentSection>
-          {isLoading ? (
+          {loading ? (
             <Spin />
           ) : (
             <FieldsTable
               interfaceType={type}
-              isLoading={isLoading}
+              isLoading={loading}
               typeService={typeService}
             />
           )}

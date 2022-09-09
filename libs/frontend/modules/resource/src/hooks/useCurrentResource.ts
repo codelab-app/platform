@@ -1,24 +1,22 @@
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { IResourceService } from '@codelab/shared/abstract/core'
-import { useEffect } from 'react'
+import { useAsync } from 'react-use'
 
 export const useCurrentResource = (resourcesService: IResourceService) => {
   const resourceId = useCurrentResourceId()
 
-  const [getResource, { isLoading, error }] = useStatefulExecutor(
-    (id: string) => resourcesService.getOne(id),
+  if (!resourceId) {
+    throw new Error('Missing resource id')
+  }
+
+  const { loading, error, value } = useAsync(
+    () => resourcesService.getOne(resourceId),
+    [resourceId],
   )
 
-  useEffect(() => {
-    if (resourceId) {
-      getResource(resourceId)
-    }
-  }, [resourceId, getResource])
-
   return {
-    resource: resourceId ? resourcesService.resource(resourceId) : null,
-    isLoading,
+    resource: value,
+    loading: loading,
     error,
   }
 }
