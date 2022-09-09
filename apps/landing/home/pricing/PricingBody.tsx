@@ -1,30 +1,8 @@
-import { css } from '@emotion/react'
 import { faCheck } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row } from 'antd'
 import * as React from 'react'
 import tw from 'twin.macro'
-
-const generateTextColor = (key: string) => {
-  switch (key) {
-    case 'textWhite':
-      return tw`text-white `
-    case 'textViolet700':
-      return tw`text-violet-700`
-    case 'textViolet900':
-      return tw`text-violet-900`
-    case 'bgWhite':
-      return tw`bg-white hover:bg-white`
-    case 'bgViolet':
-      return tw`bg-violet-700 hover:bg-violet-700`
-    case 'borderPurple':
-      return tw`border-purple-300 `
-    case 'borderViolet':
-      return tw`border-violet-700`
-    default:
-      return tw`bg-purple-100 hover:bg-purple-100 `
-  }
-}
 
 const pricingItems = [
   {
@@ -32,10 +10,10 @@ const pricingItems = [
     price: '$0',
     type: 'Start for free',
     benefit: 'No cost forever',
-    bgColor: 'bgViolet',
-    titleColor: 'textWhite',
-    borderColor: 'borderPurple',
-    descriptionColor: 'textWhite',
+    bgColor: tw`bg-violet-700 hover:bg-violet-700`,
+    titleColor: tw`text-white`,
+    borderColor: tw`border-purple-300`,
+    descriptionColor: tw`text-white`,
     description: [
       'Frontend state management solution',
       'Component configuration using props data',
@@ -49,10 +27,10 @@ const pricingItems = [
     price: '$19',
     type: 'Demo Product',
     benefit: '2 weeks trial',
-    bgColor: 'default',
-    titleColor: 'textViolet700',
-    borderColor: 'borderViolet',
-    descriptionColor: 'textViolet900textWhite',
+    bgColor: tw`bg-purple-100 hover:bg-purple-100 `,
+    titleColor: tw`text-violet-700`,
+    borderColor: tw`border-violet-700`,
+    descriptionColor: tw`text-violet-900`,
     description: [
       'Runtime data & props validation',
       'Error logging for all RESTful calls',
@@ -65,10 +43,10 @@ const pricingItems = [
     price: '$149',
     type: 'Demo Product',
     benefit: '2 weeks trial',
-    bgColor: 'default',
-    titleColor: 'textViolet700',
-    borderColor: 'borderViolet',
-    descriptionColor: 'textViolet900',
+    bgColor: tw`bg-purple-100 hover:bg-purple-100`,
+    titleColor: tw`text-violet-700`,
+    borderColor: tw`border-violet-700`,
+    descriptionColor: tw`text-violet-900`,
     description: [
       'Custom domain',
       'Version control with rollback',
@@ -82,11 +60,11 @@ const pricingItems = [
     title: 'Enterprise',
     price: 'Custom',
     type: 'Contact Sales',
-    bgColor: 'bgWhite',
+    bgColor: tw`bg-white hover:bg-white`,
     benefit: '',
-    titleColor: 'textViolet700',
-    borderColor: 'borderViolet',
-    descriptionColor: 'textViolet900',
+    titleColor: tw`text-violet-700`,
+    borderColor: tw`border-violet-700`,
+    descriptionColor: tw`text-violet-900`,
     description: [
       'Custom domain',
       'Version control with rollback',
@@ -107,68 +85,53 @@ export const PricingBody = () => {
         {pricingItems.map((items, index) => (
           <Col
             css={[
-              generateTextColor(items.bgColor),
+              items.bgColor,
               tw`p-7 mb-3 xl:mb-0 w-full md:w-[48%] xl:w-[24%] border-solid border-2 border-violet-300 `,
             ]}
             key={index}
           >
             <div
               css={[
-                generateTextColor(items.borderColor),
+                items.borderColor,
                 tw` w-fit m-auto pb-2 mb-4 sm:mb-8 border-0 border-b-2 border-solid `,
               ]}
             >
               <p
                 css={[
-                  generateTextColor(items.titleColor),
+                  items.titleColor,
                   tw`text-2xl md:text-3xl mt-2 sm:mt-4 text-center mb-3 sm:mb-6 font-black`,
                 ]}
               >
                 {items.title}
               </p>
               <div
-                css={tw`font-extrabold flex items-end mb-6 h-fit justify-center`}
+                css={[
+                  tw`font-extrabold flex items-end mb-6 h-fit justify-center`,
+                ]}
               >
                 <h1
-                  css={[
-                    generateTextColor(items.titleColor),
-                    tw`text-4xl md:text-5xl mb-0 mr-2`,
-                  ]}
+                  css={[items.titleColor, tw`text-4xl md:text-5xl mb-0 mr-2`]}
                 >
                   {items.price}
                 </h1>
                 {items.price === 'Custom' ? (
                   ''
                 ) : (
-                  <h5
-                    css={[
-                      generateTextColor(items.titleColor),
-                      tw`text-xl md:text-2xl mb-0`,
-                    ]}
-                  >
+                  <h5 css={[items.titleColor, tw`text-xl md:text-2xl mb-0`]}>
                     /mo
                   </h5>
                 )}
               </div>
               <Button
                 css={[
-                  // css`
-                  //   color: ${items.titleColor}!important;
-                  //   border-color: ${items.borderColor}!important;
-                  // `,
-                  generateTextColor(items.bgColor),
-                  generateTextColor(items.titleColor),
-                  generateTextColor(items.borderColor),
+                  items.bgColor,
+                  items.borderColor,
+                  items.titleColor,
                   tw`border-2 border-solid rounded-lg  flex m-auto items-center px-10 sm:px-14 lg:px-20 xl:px-10 2xl:px-14 py-6`,
                 ]}
                 // ghost
               >
-                <a
-                  css={[
-                    generateTextColor(items.titleColor),
-                    tw`text-black text-base lg:text-xl font-bold`,
-                  ]}
-                >
+                <a css={[tw`text-black text-base lg:text-xl font-bold`]}>
                   {items.type}
                 </a>
               </Button>
@@ -186,15 +149,15 @@ export const PricingBody = () => {
                   <li css={tw`flex `} key={i}>
                     <FontAwesomeIcon
                       css={[
-                        generateTextColor(items.descriptionColor),
+                        items.descriptionColor,
                         tw`text-sm sm:text-lg mt-1 md:text-xl mr-2`,
                       ]}
                       icon={faCheck}
                     />
                     <p
                       css={[
-                        generateTextColor(items.descriptionColor),
-                        tw`text-base md:text-xl`,
+                        items.descriptionColor,
+                        tw`text-base md:text-xl mb-3`,
                       ]}
                     >
                       {list}
