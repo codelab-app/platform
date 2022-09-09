@@ -15,12 +15,14 @@ import {
   IElementRef,
   IElementService,
   IElementTree,
+  IInterfaceType,
   isAtomDTO,
   ITypeKind,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { omit } from 'lodash'
 import {
   _async,
   _await,
@@ -777,5 +779,33 @@ export class ElementService
     element.removePropMapBinding(propMapBinding)
 
     return propMapBinding
+  })
+
+  @modelFlow
+  @transaction
+  removeDeletedPropDataFromElements = _async(function* (
+    this: ElementService,
+    interfaceType: IInterfaceType,
+    propKey: string,
+  ) {
+    const elementsThatUseTheProp = yield* _await(
+      this.getAll({ atom: { api: { id: interfaceType.id } } }),
+    )
+
+    const promises = elementsThatUseTheProp.map((element) => {
+      const updatedProps = omit(element.props?.data, propKey)
+
+      return this.patchElement(element, {
+        props: {
+          update: {
+            node: {
+              data: JSON.stringify(updatedProps),
+            },
+          },
+        },
+      })
+    })
+
+    yield* _await(Promise.all(promises))
   })
 }

@@ -1,3 +1,4 @@
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
 import type {
@@ -65,6 +66,11 @@ export class TypeService
   @computed
   get typesList() {
     return [...this.types.values()]
+  }
+
+  @computed
+  get elementService() {
+    return getElementService(this)
   }
 
   type(id: string) {
@@ -347,6 +353,13 @@ export class TypeService
 
     const input = { where: { id: fieldId }, interfaceId }
     const res = yield* _await(fieldApi.DeleteField(input))
+
+    yield* _await(
+      this.elementService.removeDeletedPropDataFromElements(
+        interfaceType,
+        field.key,
+      ),
+    )
 
     // Returns current edges, not deleted edges
     // const deletedField =
