@@ -49,6 +49,7 @@ orbs:
   slack: circleci/slack@4.4.2
   node: circleci/node@4.7.0
   nx: nrwl/nx@1.4.0
+  queue: eddiewebb/queue@1.7.0
 
 executors:
   machine-ubuntu:
@@ -316,12 +317,16 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
+      - queue/block_workflow:
+          requires:
+            - install-and-build-workspace
       - e2e:
           <<: *filters-pr
           e: docker-node
           context: CI
           requires:
-            - install-and-build-workspace
+            - queue/block_workflow
+      #            - install-and-build-workspace
       - notify-success:
           <<: *filters-pr
           context: CI
@@ -329,7 +334,6 @@ workflows:
           requires:
             - lint
             - unit
-            # - integration
             - e2e
 
   app:
