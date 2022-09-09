@@ -3,7 +3,7 @@ import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { TagsWithComponentsList } from './TagsWithComponentsList'
+import { ComponentsGroupedByTag } from './ComponentsGroupedByTag'
 
 export const ConfigPaneComponentTabContainer = observer(() => {
   /**
@@ -43,8 +43,8 @@ export const ConfigPaneComponentTabContainer = observer(() => {
   }
 
   return (
-    <TagsWithComponentsList
-      tagsWithComponents={builderService.tagsWithComponents}
+    <ComponentsGroupedByTag
+      componentsGroupedByTag={builderService.componentsGroupedByTag}
     />
   )
 })

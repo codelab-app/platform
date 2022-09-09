@@ -15,8 +15,8 @@ import { mapElementOption } from '../../../utils/elementOptions'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
 import { moveElementSchema } from './moveElementSchema'
 import {
+  shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
-  shouldMoveElementAsSubRoot,
 } from './utils'
 
 export interface MoveElementFormProps {
@@ -52,14 +52,14 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       const { parentElementId, prevSiblingId } = data
 
       if (
-        shouldMoveElementAsSubRoot(
+        shouldMoveElementAsFirstChild(
           currentParentElementId,
           parentElementId,
           currentPrevSiblingId,
           prevSiblingId,
         )
       ) {
-        return elementService.moveElementAsSubRoot({
+        return elementService.moveElementAsFirstChild({
           elementId: element.id,
           parentElementId: String(parentElementId),
         })

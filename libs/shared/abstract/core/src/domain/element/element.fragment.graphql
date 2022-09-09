@@ -19,7 +19,10 @@ fragment Element on Element {
   parentElement {
     id
   }
-  childrenRoot {
+  parent {
+    id
+  }
+  firstChild {
     id
   }
   atom {

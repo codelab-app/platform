@@ -16,4 +16,4 @@ export const shouldMoveElementAsNextSibling = (info: DropInfo) => {
   return info.dropToGap && !isRootNode
 }
 
-export const shouldMoveElementAsSubRoot = (info: DropInfo) => !info.dropToGap
+export const shouldMoveElementAsFirstChild = (info: DropInfo) => !info.dropToGap

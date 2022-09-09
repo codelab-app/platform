@@ -1,3 +1,4 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import * as Types from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
@@ -10,7 +11,8 @@ import { IProp, IPropData, IPropMapBinding } from '../prop'
 import { IAuth0Id } from '../user'
 import { IElementDTO } from './element.dto.interface'
 
-export interface BatchUpdateElementsMutationVariable {
+// workaround for import { UpdateElementsMutationVariables } from '@codelab/frontend/modules/element', TODO: fix circular import issue
+export interface UpdateElementsMutationVariables {
   where?: Types.InputMaybe<Types.ElementWhere>
   update?: Types.InputMaybe<Types.ElementUpdateInput>
 }
@@ -63,30 +65,28 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   prevSibling: Maybe<IElement>
   prevSiblingId: Nullable<string>
 
-  detachNextSibling(): void
-  detachPrevSibling(): void
-  detachParent(): void
-  attachToParentAsSubRoot(parentElementId: string): void
-  attachToParent(parentElementId: string): void
-  appendSibling(siblingId: string): void
-  prependSibling(siblingId: string): void
+  detachNextSibling(): () => void
+  detachPrevSibling(): () => void
+  detachParent(): () => void
+  attachToParentAsFirstChild(parentElementId: string): () => void
+  attachToParent(parentElementId: string): () => void
+  appendSibling(siblingId: string): () => void
+  prependSibling(siblingId: string): () => void
 
-  makeDetachNextSiblingInput(): BatchUpdateElementsMutationVariable | null
-  makeDetachPrevSiblingInput(): BatchUpdateElementsMutationVariable | null
-  makeDetachParentInput(): BatchUpdateElementsMutationVariable | null
-  makeAttachToParentAsSubRootInput(
+  makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
+  makeDetachPrevSiblingInput(): UpdateElementsMutationVariables | null
+  makeDetachParentInput(): UpdateElementsMutationVariables | null
+  makeAttachToParentAsFirstChildInput(
     parentElementId: string,
-  ): BatchUpdateElementsMutationVariable
+  ): UpdateElementsMutationVariables
   makeAttachToParentInput(
     parentElementId: string,
-  ): BatchUpdateElementsMutationVariable
-  makeAppendSiblingInput(siblingId: string): BatchUpdateElementsMutationVariable
-  makePrependSiblingInput(
-    siblingId: string,
-  ): BatchUpdateElementsMutationVariable
+  ): UpdateElementsMutationVariables
+  makeAppendSiblingInput(siblingId: string): UpdateElementsMutationVariables
+  makePrependSiblingInput(siblingId: string): UpdateElementsMutationVariables
 
-  childrenRoot: Maybe<IElement>
-  childrenRootId: Nullable<string>
+  firstChild: Maybe<IElement>
+  firstChildId: Nullable<string>
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   findDescendant(id: string): Maybe<IElement>

@@ -28,6 +28,18 @@ export const elementSelectionSet = `{
       name
     }
   }
+  parent {
+    id
+  }
+  prevSibling {
+    id
+  }
+  nextSibling {
+    id
+  }
+  firstChild {
+    id
+  }
   props {
     id
     data

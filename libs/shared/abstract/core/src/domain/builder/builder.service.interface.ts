@@ -15,10 +15,9 @@ export interface StateModalProperties {
   node: Nullable<IStateTreeNode>
 }
 
-// eslint-disable-next-line no-inline-comments
-export type IBuilderComponent = IAtom // TBC: | IComponent
-export type TagWithComponents = Pick<ITag, 'name' | 'id'> & {
-  components: Array<IBuilderComponent>
+// TBC: | IComponent
+export type IBuilderComponent = IAtom & {
+  tag: Ref<ITag>
 }
 
 export interface IBuilderService {
@@ -40,8 +39,8 @@ export interface IBuilderService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<IComponent>
-  componentTags: Array<ITag>
-  tagsWithComponents: Array<TagWithComponents>
+  componentTagNames: Array<string>
+  componentsGroupedByTag: Record<string, Array<IBuilderComponent>>
 
   getPageBuilder({
     appId,

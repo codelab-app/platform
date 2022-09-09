@@ -4156,22 +4156,6 @@ type Element {
     sort: [ElementChildrenConnectionSort!]
     where: ElementChildrenConnectionWhere
   ): ElementChildrenConnection!
-  childrenRoot(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element
-  childrenRootAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): ElementElementChildrenRootAggregationSelection
-  childrenRootConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementChildrenRootConnectionSort!]
-    where: ElementChildrenRootConnectionWhere
-  ): ElementChildrenRootConnection!
   component(
     directed: Boolean = true
     options: ComponentOptions
@@ -4190,6 +4174,22 @@ type Element {
   ): ElementComponentConnection!
   customCss: String
   descendantElements: [Element!]!
+  firstChild(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  firstChildAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): ElementElementFirstChildAggregationSelection
+  firstChildConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementFirstChildConnectionSort!]
+    where: ElementFirstChildConnectionWhere
+  ): ElementFirstChildConnection!
   guiCss: String
   hooks(
     directed: Boolean = true
@@ -4253,6 +4253,22 @@ type Element {
     sort: [ElementPageConnectionSort!]
     where: ElementPageConnectionWhere
   ): ElementPageConnection!
+  parent(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  parentAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): ElementElementParentAggregationSelection
+  parentConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementParentConnectionSort!]
+    where: ElementParentConnectionWhere
+  ): ElementParentConnection!
   parentElement(
     directed: Boolean = true
     options: ElementOptions
@@ -4318,22 +4334,6 @@ type Element {
   ): ElementPropsConnection!
   renderForEachPropKey: String
   renderIfPropKey: String
-  rootOf(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element
-  rootOfAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): ElementElementRootOfAggregationSelection
-  rootOfConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementRootOfConnectionSort!]
-    where: ElementRootOfConnectionWhere
-  ): ElementRootOfConnection!
 }
 
 type ElementAggregateSelection {
@@ -4758,71 +4758,427 @@ type ElementChildrenRelationship implements ParentOfElement {
   order: Int
 }
 
-input ElementChildrenRootAggregateInput {
-  AND: [ElementChildrenRootAggregateInput!]
-  OR: [ElementChildrenRootAggregateInput!]
+input ElementChildrenUpdateConnectionInput {
+  edge: ParentOfElementUpdateInput
+  node: ElementUpdateInput
+}
+
+input ElementChildrenUpdateFieldInput {
+  connect: [ElementChildrenConnectFieldInput!]
+  connectOrCreate: [ElementChildrenConnectOrCreateFieldInput!]
+  create: [ElementChildrenCreateFieldInput!]
+  delete: [ElementChildrenDeleteFieldInput!]
+  disconnect: [ElementChildrenDisconnectFieldInput!]
+  update: ElementChildrenUpdateConnectionInput
+  where: ElementChildrenConnectionWhere
+}
+
+input ElementComponentAggregateInput {
+  AND: [ElementComponentAggregateInput!]
+  OR: [ElementComponentAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: ElementChildrenRootNodeAggregationWhereInput
+  node: ElementComponentNodeAggregationWhereInput
 }
 
-input ElementChildrenRootConnectFieldInput {
-  connect: ElementConnectInput
-  where: ElementConnectWhere
+type ElementComponentComponentAggregationSelection {
+  count: Int!
+  node: ElementComponentComponentNodeAggregateSelection
 }
 
-input ElementChildrenRootConnectOrCreateFieldInput {
-  onCreate: ElementChildrenRootConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
+type ElementComponentComponentNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
-input ElementChildrenRootConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
+input ElementComponentConnectFieldInput {
+  connect: ComponentConnectInput
+  where: ComponentConnectWhere
 }
 
-type ElementChildrenRootConnection {
-  edges: [ElementChildrenRootRelationship!]!
+input ElementComponentConnectOrCreateFieldInput {
+  onCreate: ElementComponentConnectOrCreateFieldInputOnCreate!
+  where: ComponentConnectOrCreateWhere!
+}
+
+input ElementComponentConnectOrCreateFieldInputOnCreate {
+  node: ComponentOnCreateInput!
+}
+
+type ElementComponentConnection {
+  edges: [ElementComponentRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementChildrenRootConnectionSort {
+input ElementComponentConnectionSort {
+  node: ComponentSort
+}
+
+input ElementComponentConnectionWhere {
+  AND: [ElementComponentConnectionWhere!]
+  OR: [ElementComponentConnectionWhere!]
+  node: ComponentWhere
+  node_NOT: ComponentWhere
+}
+
+input ElementComponentCreateFieldInput {
+  node: ComponentCreateInput!
+}
+
+input ElementComponentDeleteFieldInput {
+  delete: ComponentDeleteInput
+  where: ElementComponentConnectionWhere
+}
+
+input ElementComponentDisconnectFieldInput {
+  disconnect: ComponentDisconnectInput
+  where: ElementComponentConnectionWhere
+}
+
+input ElementComponentFieldInput {
+  connect: ElementComponentConnectFieldInput
+  connectOrCreate: ElementComponentConnectOrCreateFieldInput
+  create: ElementComponentCreateFieldInput
+}
+
+type ElementComponentInstanceOfComponentAggregationSelection {
+  count: Int!
+  node: ElementComponentInstanceOfComponentNodeAggregateSelection
+}
+
+type ElementComponentInstanceOfComponentNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ElementComponentNodeAggregationWhereInput {
+  AND: [ElementComponentNodeAggregationWhereInput!]
+  OR: [ElementComponentNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ElementComponentRelationship {
+  cursor: String!
+  node: Component!
+}
+
+input ElementComponentUpdateConnectionInput {
+  node: ComponentUpdateInput
+}
+
+input ElementComponentUpdateFieldInput {
+  connect: ElementComponentConnectFieldInput
+  connectOrCreate: ElementComponentConnectOrCreateFieldInput
+  create: ElementComponentCreateFieldInput
+  delete: ElementComponentDeleteFieldInput
+  disconnect: ElementComponentDisconnectFieldInput
+  update: ElementComponentUpdateConnectionInput
+  where: ElementComponentConnectionWhere
+}
+
+input ElementConnectInput {
+  atom: ElementAtomConnectFieldInput
+  children: [ElementChildrenConnectFieldInput!]
+  component: ElementComponentConnectFieldInput
+  firstChild: ElementFirstChildConnectFieldInput
+  hooks: [ElementHooksConnectFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentConnectFieldInput
+  nextSibling: ElementNextSiblingConnectFieldInput
+  page: ElementPageConnectFieldInput
+  parent: ElementParentConnectFieldInput
+  parentElement: ElementParentElementConnectFieldInput
+  prevSibling: ElementPrevSiblingConnectFieldInput
+  propMapBindings: [ElementPropMapBindingsConnectFieldInput!]
+  props: ElementPropsConnectFieldInput
+}
+
+input ElementConnectOrCreateInput {
+  atom: ElementAtomConnectOrCreateFieldInput
+  children: [ElementChildrenConnectOrCreateFieldInput!]
+  component: ElementComponentConnectOrCreateFieldInput
+  firstChild: ElementFirstChildConnectOrCreateFieldInput
+  hooks: [ElementHooksConnectOrCreateFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentConnectOrCreateFieldInput
+  nextSibling: ElementNextSiblingConnectOrCreateFieldInput
+  page: ElementPageConnectOrCreateFieldInput
+  parent: ElementParentConnectOrCreateFieldInput
+  parentElement: ElementParentElementConnectOrCreateFieldInput
+  prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
+  propMapBindings: [ElementPropMapBindingsConnectOrCreateFieldInput!]
+  props: ElementPropsConnectOrCreateFieldInput
+}
+
+input ElementConnectOrCreateWhere {
+  node: ElementUniqueWhere!
+}
+
+input ElementConnectWhere {
+  node: ElementWhere!
+}
+
+input ElementCreateInput {
+  atom: ElementAtomFieldInput
+  children: ElementChildrenFieldInput
+  component: ElementComponentFieldInput
+  customCss: String
+  firstChild: ElementFirstChildFieldInput
+  guiCss: String
+  hooks: ElementHooksFieldInput
+  id: ID!
+  instanceOfComponent: ElementInstanceOfComponentFieldInput
+  name: String
+  nextSibling: ElementNextSiblingFieldInput
+  page: ElementPageFieldInput
+  parent: ElementParentFieldInput
+  parentElement: ElementParentElementFieldInput
+  postRenderActionId: String
+  preRenderActionId: String
+  prevSibling: ElementPrevSiblingFieldInput
+  propMapBindings: ElementPropMapBindingsFieldInput
+  propTransformationJs: String
+  props: ElementPropsFieldInput
+  renderForEachPropKey: String
+  renderIfPropKey: String
+}
+
+input ElementDeleteInput {
+  atom: ElementAtomDeleteFieldInput
+  children: [ElementChildrenDeleteFieldInput!]
+  component: ElementComponentDeleteFieldInput
+  firstChild: ElementFirstChildDeleteFieldInput
+  hooks: [ElementHooksDeleteFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentDeleteFieldInput
+  nextSibling: ElementNextSiblingDeleteFieldInput
+  page: ElementPageDeleteFieldInput
+  parent: ElementParentDeleteFieldInput
+  parentElement: ElementParentElementDeleteFieldInput
+  prevSibling: ElementPrevSiblingDeleteFieldInput
+  propMapBindings: [ElementPropMapBindingsDeleteFieldInput!]
+  props: ElementPropsDeleteFieldInput
+}
+
+input ElementDisconnectInput {
+  atom: ElementAtomDisconnectFieldInput
+  children: [ElementChildrenDisconnectFieldInput!]
+  component: ElementComponentDisconnectFieldInput
+  firstChild: ElementFirstChildDisconnectFieldInput
+  hooks: [ElementHooksDisconnectFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentDisconnectFieldInput
+  nextSibling: ElementNextSiblingDisconnectFieldInput
+  page: ElementPageDisconnectFieldInput
+  parent: ElementParentDisconnectFieldInput
+  parentElement: ElementParentElementDisconnectFieldInput
+  prevSibling: ElementPrevSiblingDisconnectFieldInput
+  propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
+  props: ElementPropsDisconnectFieldInput
+}
+
+type ElementEdge {
+  cursor: String!
+  node: Element!
+}
+
+type ElementElementChildrenAggregationSelection {
+  count: Int!
+  edge: ElementElementChildrenEdgeAggregateSelection
+  node: ElementElementChildrenNodeAggregateSelection
+}
+
+type ElementElementChildrenEdgeAggregateSelection {
+  order: IntAggregateSelectionNullable!
+}
+
+type ElementElementChildrenNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+type ElementElementFirstChildAggregationSelection {
+  count: Int!
+  node: ElementElementFirstChildNodeAggregateSelection
+}
+
+type ElementElementFirstChildNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+type ElementElementNextSiblingAggregationSelection {
+  count: Int!
+  node: ElementElementNextSiblingNodeAggregateSelection
+}
+
+type ElementElementNextSiblingNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+type ElementElementParentAggregationSelection {
+  count: Int!
+  node: ElementElementParentNodeAggregateSelection
+}
+
+type ElementElementParentElementAggregationSelection {
+  count: Int!
+  edge: ElementElementParentElementEdgeAggregateSelection
+  node: ElementElementParentElementNodeAggregateSelection
+}
+
+type ElementElementParentElementEdgeAggregateSelection {
+  order: IntAggregateSelectionNullable!
+}
+
+type ElementElementParentElementNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+type ElementElementParentNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+type ElementElementPrevSiblingAggregationSelection {
+  count: Int!
+  node: ElementElementPrevSiblingNodeAggregateSelection
+}
+
+type ElementElementPrevSiblingNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+input ElementFirstChildAggregateInput {
+  AND: [ElementFirstChildAggregateInput!]
+  OR: [ElementFirstChildAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementFirstChildNodeAggregationWhereInput
+}
+
+input ElementFirstChildConnectFieldInput {
+  connect: ElementConnectInput
+  where: ElementConnectWhere
+}
+
+input ElementFirstChildConnectOrCreateFieldInput {
+  onCreate: ElementFirstChildConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ElementFirstChildConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type ElementFirstChildConnection {
+  edges: [ElementFirstChildRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementFirstChildConnectionSort {
   node: ElementSort
 }
 
-input ElementChildrenRootConnectionWhere {
-  AND: [ElementChildrenRootConnectionWhere!]
-  OR: [ElementChildrenRootConnectionWhere!]
+input ElementFirstChildConnectionWhere {
+  AND: [ElementFirstChildConnectionWhere!]
+  OR: [ElementFirstChildConnectionWhere!]
   node: ElementWhere
   node_NOT: ElementWhere
 }
 
-input ElementChildrenRootCreateFieldInput {
+input ElementFirstChildCreateFieldInput {
   node: ElementCreateInput!
 }
 
-input ElementChildrenRootDeleteFieldInput {
+input ElementFirstChildDeleteFieldInput {
   delete: ElementDeleteInput
-  where: ElementChildrenRootConnectionWhere
+  where: ElementFirstChildConnectionWhere
 }
 
-input ElementChildrenRootDisconnectFieldInput {
+input ElementFirstChildDisconnectFieldInput {
   disconnect: ElementDisconnectInput
-  where: ElementChildrenRootConnectionWhere
+  where: ElementFirstChildConnectionWhere
 }
 
-input ElementChildrenRootFieldInput {
-  connect: ElementChildrenRootConnectFieldInput
-  connectOrCreate: ElementChildrenRootConnectOrCreateFieldInput
-  create: ElementChildrenRootCreateFieldInput
+input ElementFirstChildFieldInput {
+  connect: ElementFirstChildConnectFieldInput
+  connectOrCreate: ElementFirstChildConnectOrCreateFieldInput
+  create: ElementFirstChildCreateFieldInput
 }
 
-input ElementChildrenRootNodeAggregationWhereInput {
-  AND: [ElementChildrenRootNodeAggregationWhereInput!]
-  OR: [ElementChildrenRootNodeAggregationWhereInput!]
+input ElementFirstChildNodeAggregationWhereInput {
+  AND: [ElementFirstChildNodeAggregationWhereInput!]
+  OR: [ElementFirstChildNodeAggregationWhereInput!]
   customCss_AVERAGE_EQUAL: Float
   customCss_AVERAGE_GT: Float
   customCss_AVERAGE_GTE: Float
@@ -4986,379 +5342,23 @@ input ElementChildrenRootNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_LTE: Int
 }
 
-type ElementChildrenRootRelationship {
+type ElementFirstChildRelationship {
   cursor: String!
   node: Element!
 }
 
-input ElementChildrenRootUpdateConnectionInput {
+input ElementFirstChildUpdateConnectionInput {
   node: ElementUpdateInput
 }
 
-input ElementChildrenRootUpdateFieldInput {
-  connect: ElementChildrenRootConnectFieldInput
-  connectOrCreate: ElementChildrenRootConnectOrCreateFieldInput
-  create: ElementChildrenRootCreateFieldInput
-  delete: ElementChildrenRootDeleteFieldInput
-  disconnect: ElementChildrenRootDisconnectFieldInput
-  update: ElementChildrenRootUpdateConnectionInput
-  where: ElementChildrenRootConnectionWhere
-}
-
-input ElementChildrenUpdateConnectionInput {
-  edge: ParentOfElementUpdateInput
-  node: ElementUpdateInput
-}
-
-input ElementChildrenUpdateFieldInput {
-  connect: [ElementChildrenConnectFieldInput!]
-  connectOrCreate: [ElementChildrenConnectOrCreateFieldInput!]
-  create: [ElementChildrenCreateFieldInput!]
-  delete: [ElementChildrenDeleteFieldInput!]
-  disconnect: [ElementChildrenDisconnectFieldInput!]
-  update: ElementChildrenUpdateConnectionInput
-  where: ElementChildrenConnectionWhere
-}
-
-input ElementComponentAggregateInput {
-  AND: [ElementComponentAggregateInput!]
-  OR: [ElementComponentAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementComponentNodeAggregationWhereInput
-}
-
-type ElementComponentComponentAggregationSelection {
-  count: Int!
-  node: ElementComponentComponentNodeAggregateSelection
-}
-
-type ElementComponentComponentNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input ElementComponentConnectFieldInput {
-  connect: ComponentConnectInput
-  where: ComponentConnectWhere
-}
-
-input ElementComponentConnectOrCreateFieldInput {
-  onCreate: ElementComponentConnectOrCreateFieldInputOnCreate!
-  where: ComponentConnectOrCreateWhere!
-}
-
-input ElementComponentConnectOrCreateFieldInputOnCreate {
-  node: ComponentOnCreateInput!
-}
-
-type ElementComponentConnection {
-  edges: [ElementComponentRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementComponentConnectionSort {
-  node: ComponentSort
-}
-
-input ElementComponentConnectionWhere {
-  AND: [ElementComponentConnectionWhere!]
-  OR: [ElementComponentConnectionWhere!]
-  node: ComponentWhere
-  node_NOT: ComponentWhere
-}
-
-input ElementComponentCreateFieldInput {
-  node: ComponentCreateInput!
-}
-
-input ElementComponentDeleteFieldInput {
-  delete: ComponentDeleteInput
-  where: ElementComponentConnectionWhere
-}
-
-input ElementComponentDisconnectFieldInput {
-  disconnect: ComponentDisconnectInput
-  where: ElementComponentConnectionWhere
-}
-
-input ElementComponentFieldInput {
-  connect: ElementComponentConnectFieldInput
-  connectOrCreate: ElementComponentConnectOrCreateFieldInput
-  create: ElementComponentCreateFieldInput
-}
-
-type ElementComponentInstanceOfComponentAggregationSelection {
-  count: Int!
-  node: ElementComponentInstanceOfComponentNodeAggregateSelection
-}
-
-type ElementComponentInstanceOfComponentNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input ElementComponentNodeAggregationWhereInput {
-  AND: [ElementComponentNodeAggregationWhereInput!]
-  OR: [ElementComponentNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type ElementComponentRelationship {
-  cursor: String!
-  node: Component!
-}
-
-input ElementComponentUpdateConnectionInput {
-  node: ComponentUpdateInput
-}
-
-input ElementComponentUpdateFieldInput {
-  connect: ElementComponentConnectFieldInput
-  connectOrCreate: ElementComponentConnectOrCreateFieldInput
-  create: ElementComponentCreateFieldInput
-  delete: ElementComponentDeleteFieldInput
-  disconnect: ElementComponentDisconnectFieldInput
-  update: ElementComponentUpdateConnectionInput
-  where: ElementComponentConnectionWhere
-}
-
-input ElementConnectInput {
-  atom: ElementAtomConnectFieldInput
-  children: [ElementChildrenConnectFieldInput!]
-  childrenRoot: ElementChildrenRootConnectFieldInput
-  component: ElementComponentConnectFieldInput
-  hooks: [ElementHooksConnectFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentConnectFieldInput
-  nextSibling: ElementNextSiblingConnectFieldInput
-  page: ElementPageConnectFieldInput
-  parentElement: ElementParentElementConnectFieldInput
-  prevSibling: ElementPrevSiblingConnectFieldInput
-  propMapBindings: [ElementPropMapBindingsConnectFieldInput!]
-  props: ElementPropsConnectFieldInput
-  rootOf: ElementRootOfConnectFieldInput
-}
-
-input ElementConnectOrCreateInput {
-  atom: ElementAtomConnectOrCreateFieldInput
-  children: [ElementChildrenConnectOrCreateFieldInput!]
-  childrenRoot: ElementChildrenRootConnectOrCreateFieldInput
-  component: ElementComponentConnectOrCreateFieldInput
-  hooks: [ElementHooksConnectOrCreateFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentConnectOrCreateFieldInput
-  nextSibling: ElementNextSiblingConnectOrCreateFieldInput
-  page: ElementPageConnectOrCreateFieldInput
-  parentElement: ElementParentElementConnectOrCreateFieldInput
-  prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
-  propMapBindings: [ElementPropMapBindingsConnectOrCreateFieldInput!]
-  props: ElementPropsConnectOrCreateFieldInput
-  rootOf: ElementRootOfConnectOrCreateFieldInput
-}
-
-input ElementConnectOrCreateWhere {
-  node: ElementUniqueWhere!
-}
-
-input ElementConnectWhere {
-  node: ElementWhere!
-}
-
-input ElementCreateInput {
-  atom: ElementAtomFieldInput
-  children: ElementChildrenFieldInput
-  childrenRoot: ElementChildrenRootFieldInput
-  component: ElementComponentFieldInput
-  customCss: String
-  guiCss: String
-  hooks: ElementHooksFieldInput
-  id: ID!
-  instanceOfComponent: ElementInstanceOfComponentFieldInput
-  name: String
-  nextSibling: ElementNextSiblingFieldInput
-  page: ElementPageFieldInput
-  parentElement: ElementParentElementFieldInput
-  postRenderActionId: String
-  preRenderActionId: String
-  prevSibling: ElementPrevSiblingFieldInput
-  propMapBindings: ElementPropMapBindingsFieldInput
-  propTransformationJs: String
-  props: ElementPropsFieldInput
-  renderForEachPropKey: String
-  renderIfPropKey: String
-  rootOf: ElementRootOfFieldInput
-}
-
-input ElementDeleteInput {
-  atom: ElementAtomDeleteFieldInput
-  children: [ElementChildrenDeleteFieldInput!]
-  childrenRoot: ElementChildrenRootDeleteFieldInput
-  component: ElementComponentDeleteFieldInput
-  hooks: [ElementHooksDeleteFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentDeleteFieldInput
-  nextSibling: ElementNextSiblingDeleteFieldInput
-  page: ElementPageDeleteFieldInput
-  parentElement: ElementParentElementDeleteFieldInput
-  prevSibling: ElementPrevSiblingDeleteFieldInput
-  propMapBindings: [ElementPropMapBindingsDeleteFieldInput!]
-  props: ElementPropsDeleteFieldInput
-  rootOf: ElementRootOfDeleteFieldInput
-}
-
-input ElementDisconnectInput {
-  atom: ElementAtomDisconnectFieldInput
-  children: [ElementChildrenDisconnectFieldInput!]
-  childrenRoot: ElementChildrenRootDisconnectFieldInput
-  component: ElementComponentDisconnectFieldInput
-  hooks: [ElementHooksDisconnectFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentDisconnectFieldInput
-  nextSibling: ElementNextSiblingDisconnectFieldInput
-  page: ElementPageDisconnectFieldInput
-  parentElement: ElementParentElementDisconnectFieldInput
-  prevSibling: ElementPrevSiblingDisconnectFieldInput
-  propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
-  props: ElementPropsDisconnectFieldInput
-  rootOf: ElementRootOfDisconnectFieldInput
-}
-
-type ElementEdge {
-  cursor: String!
-  node: Element!
-}
-
-type ElementElementChildrenAggregationSelection {
-  count: Int!
-  edge: ElementElementChildrenEdgeAggregateSelection
-  node: ElementElementChildrenNodeAggregateSelection
-}
-
-type ElementElementChildrenEdgeAggregateSelection {
-  order: IntAggregateSelectionNullable!
-}
-
-type ElementElementChildrenNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfPropKey: StringAggregateSelectionNullable!
-}
-
-type ElementElementChildrenRootAggregationSelection {
-  count: Int!
-  node: ElementElementChildrenRootNodeAggregateSelection
-}
-
-type ElementElementChildrenRootNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfPropKey: StringAggregateSelectionNullable!
-}
-
-type ElementElementNextSiblingAggregationSelection {
-  count: Int!
-  node: ElementElementNextSiblingNodeAggregateSelection
-}
-
-type ElementElementNextSiblingNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfPropKey: StringAggregateSelectionNullable!
-}
-
-type ElementElementParentElementAggregationSelection {
-  count: Int!
-  edge: ElementElementParentElementEdgeAggregateSelection
-  node: ElementElementParentElementNodeAggregateSelection
-}
-
-type ElementElementParentElementEdgeAggregateSelection {
-  order: IntAggregateSelectionNullable!
-}
-
-type ElementElementParentElementNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfPropKey: StringAggregateSelectionNullable!
-}
-
-type ElementElementPrevSiblingAggregationSelection {
-  count: Int!
-  node: ElementElementPrevSiblingNodeAggregateSelection
-}
-
-type ElementElementPrevSiblingNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfPropKey: StringAggregateSelectionNullable!
-}
-
-type ElementElementRootOfAggregationSelection {
-  count: Int!
-  node: ElementElementRootOfNodeAggregateSelection
-}
-
-type ElementElementRootOfNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfPropKey: StringAggregateSelectionNullable!
+input ElementFirstChildUpdateFieldInput {
+  connect: ElementFirstChildConnectFieldInput
+  connectOrCreate: ElementFirstChildConnectOrCreateFieldInput
+  create: ElementFirstChildCreateFieldInput
+  delete: ElementFirstChildDeleteFieldInput
+  disconnect: ElementFirstChildDisconnectFieldInput
+  update: ElementFirstChildUpdateConnectionInput
+  where: ElementFirstChildConnectionWhere
 }
 
 type ElementGraph {
@@ -5980,6 +5980,62 @@ input ElementPageUpdateFieldInput {
   where: ElementPageConnectionWhere
 }
 
+input ElementParentAggregateInput {
+  AND: [ElementParentAggregateInput!]
+  OR: [ElementParentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementParentNodeAggregationWhereInput
+}
+
+input ElementParentConnectFieldInput {
+  connect: ElementConnectInput
+  where: ElementConnectWhere
+}
+
+input ElementParentConnectOrCreateFieldInput {
+  onCreate: ElementParentConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ElementParentConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type ElementParentConnection {
+  edges: [ElementParentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementParentConnectionSort {
+  node: ElementSort
+}
+
+input ElementParentConnectionWhere {
+  AND: [ElementParentConnectionWhere!]
+  OR: [ElementParentConnectionWhere!]
+  node: ElementWhere
+  node_NOT: ElementWhere
+}
+
+input ElementParentCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input ElementParentDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: ElementParentConnectionWhere
+}
+
+input ElementParentDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: ElementParentConnectionWhere
+}
+
 input ElementParentElementAggregateInput {
   AND: [ElementParentElementAggregateInput!]
   OR: [ElementParentElementAggregateInput!]
@@ -6264,6 +6320,197 @@ input ElementParentElementUpdateFieldInput {
   disconnect: ElementParentElementDisconnectFieldInput
   update: ElementParentElementUpdateConnectionInput
   where: ElementParentElementConnectionWhere
+}
+
+input ElementParentFieldInput {
+  connect: ElementParentConnectFieldInput
+  connectOrCreate: ElementParentConnectOrCreateFieldInput
+  create: ElementParentCreateFieldInput
+}
+
+input ElementParentNodeAggregationWhereInput {
+  AND: [ElementParentNodeAggregationWhereInput!]
+  OR: [ElementParentNodeAggregationWhereInput!]
+  customCss_AVERAGE_EQUAL: Float
+  customCss_AVERAGE_GT: Float
+  customCss_AVERAGE_GTE: Float
+  customCss_AVERAGE_LT: Float
+  customCss_AVERAGE_LTE: Float
+  customCss_EQUAL: String
+  customCss_GT: Int
+  customCss_GTE: Int
+  customCss_LONGEST_EQUAL: Int
+  customCss_LONGEST_GT: Int
+  customCss_LONGEST_GTE: Int
+  customCss_LONGEST_LT: Int
+  customCss_LONGEST_LTE: Int
+  customCss_LT: Int
+  customCss_LTE: Int
+  customCss_SHORTEST_EQUAL: Int
+  customCss_SHORTEST_GT: Int
+  customCss_SHORTEST_GTE: Int
+  customCss_SHORTEST_LT: Int
+  customCss_SHORTEST_LTE: Int
+  guiCss_AVERAGE_EQUAL: Float
+  guiCss_AVERAGE_GT: Float
+  guiCss_AVERAGE_GTE: Float
+  guiCss_AVERAGE_LT: Float
+  guiCss_AVERAGE_LTE: Float
+  guiCss_EQUAL: String
+  guiCss_GT: Int
+  guiCss_GTE: Int
+  guiCss_LONGEST_EQUAL: Int
+  guiCss_LONGEST_GT: Int
+  guiCss_LONGEST_GTE: Int
+  guiCss_LONGEST_LT: Int
+  guiCss_LONGEST_LTE: Int
+  guiCss_LT: Int
+  guiCss_LTE: Int
+  guiCss_SHORTEST_EQUAL: Int
+  guiCss_SHORTEST_GT: Int
+  guiCss_SHORTEST_GTE: Int
+  guiCss_SHORTEST_LT: Int
+  guiCss_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
+  propTransformationJs_AVERAGE_EQUAL: Float
+  propTransformationJs_AVERAGE_GT: Float
+  propTransformationJs_AVERAGE_GTE: Float
+  propTransformationJs_AVERAGE_LT: Float
+  propTransformationJs_AVERAGE_LTE: Float
+  propTransformationJs_EQUAL: String
+  propTransformationJs_GT: Int
+  propTransformationJs_GTE: Int
+  propTransformationJs_LONGEST_EQUAL: Int
+  propTransformationJs_LONGEST_GT: Int
+  propTransformationJs_LONGEST_GTE: Int
+  propTransformationJs_LONGEST_LT: Int
+  propTransformationJs_LONGEST_LTE: Int
+  propTransformationJs_LT: Int
+  propTransformationJs_LTE: Int
+  propTransformationJs_SHORTEST_EQUAL: Int
+  propTransformationJs_SHORTEST_GT: Int
+  propTransformationJs_SHORTEST_GTE: Int
+  propTransformationJs_SHORTEST_LT: Int
+  propTransformationJs_SHORTEST_LTE: Int
+  renderForEachPropKey_AVERAGE_EQUAL: Float
+  renderForEachPropKey_AVERAGE_GT: Float
+  renderForEachPropKey_AVERAGE_GTE: Float
+  renderForEachPropKey_AVERAGE_LT: Float
+  renderForEachPropKey_AVERAGE_LTE: Float
+  renderForEachPropKey_EQUAL: String
+  renderForEachPropKey_GT: Int
+  renderForEachPropKey_GTE: Int
+  renderForEachPropKey_LONGEST_EQUAL: Int
+  renderForEachPropKey_LONGEST_GT: Int
+  renderForEachPropKey_LONGEST_GTE: Int
+  renderForEachPropKey_LONGEST_LT: Int
+  renderForEachPropKey_LONGEST_LTE: Int
+  renderForEachPropKey_LT: Int
+  renderForEachPropKey_LTE: Int
+  renderForEachPropKey_SHORTEST_EQUAL: Int
+  renderForEachPropKey_SHORTEST_GT: Int
+  renderForEachPropKey_SHORTEST_GTE: Int
+  renderForEachPropKey_SHORTEST_LT: Int
+  renderForEachPropKey_SHORTEST_LTE: Int
+  renderIfPropKey_AVERAGE_EQUAL: Float
+  renderIfPropKey_AVERAGE_GT: Float
+  renderIfPropKey_AVERAGE_GTE: Float
+  renderIfPropKey_AVERAGE_LT: Float
+  renderIfPropKey_AVERAGE_LTE: Float
+  renderIfPropKey_EQUAL: String
+  renderIfPropKey_GT: Int
+  renderIfPropKey_GTE: Int
+  renderIfPropKey_LONGEST_EQUAL: Int
+  renderIfPropKey_LONGEST_GT: Int
+  renderIfPropKey_LONGEST_GTE: Int
+  renderIfPropKey_LONGEST_LT: Int
+  renderIfPropKey_LONGEST_LTE: Int
+  renderIfPropKey_LT: Int
+  renderIfPropKey_LTE: Int
+  renderIfPropKey_SHORTEST_EQUAL: Int
+  renderIfPropKey_SHORTEST_GT: Int
+  renderIfPropKey_SHORTEST_GTE: Int
+  renderIfPropKey_SHORTEST_LT: Int
+  renderIfPropKey_SHORTEST_LTE: Int
+}
+
+type ElementParentRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input ElementParentUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ElementParentUpdateFieldInput {
+  connect: ElementParentConnectFieldInput
+  connectOrCreate: ElementParentConnectOrCreateFieldInput
+  create: ElementParentCreateFieldInput
+  delete: ElementParentDeleteFieldInput
+  disconnect: ElementParentDisconnectFieldInput
+  update: ElementParentUpdateConnectionInput
+  where: ElementParentConnectionWhere
 }
 
 input ElementPrevSiblingAggregateInput {
@@ -6768,264 +7015,17 @@ input ElementPropsUpdateFieldInput {
 input ElementRelationInput {
   atom: ElementAtomCreateFieldInput
   children: [ElementChildrenCreateFieldInput!]
-  childrenRoot: ElementChildrenRootCreateFieldInput
   component: ElementComponentCreateFieldInput
+  firstChild: ElementFirstChildCreateFieldInput
   hooks: [ElementHooksCreateFieldInput!]
   instanceOfComponent: ElementInstanceOfComponentCreateFieldInput
   nextSibling: ElementNextSiblingCreateFieldInput
   page: ElementPageCreateFieldInput
+  parent: ElementParentCreateFieldInput
   parentElement: ElementParentElementCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
   propMapBindings: [ElementPropMapBindingsCreateFieldInput!]
   props: ElementPropsCreateFieldInput
-  rootOf: ElementRootOfCreateFieldInput
-}
-
-input ElementRootOfAggregateInput {
-  AND: [ElementRootOfAggregateInput!]
-  OR: [ElementRootOfAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementRootOfNodeAggregationWhereInput
-}
-
-input ElementRootOfConnectFieldInput {
-  connect: ElementConnectInput
-  where: ElementConnectWhere
-}
-
-input ElementRootOfConnectOrCreateFieldInput {
-  onCreate: ElementRootOfConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input ElementRootOfConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type ElementRootOfConnection {
-  edges: [ElementRootOfRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementRootOfConnectionSort {
-  node: ElementSort
-}
-
-input ElementRootOfConnectionWhere {
-  AND: [ElementRootOfConnectionWhere!]
-  OR: [ElementRootOfConnectionWhere!]
-  node: ElementWhere
-  node_NOT: ElementWhere
-}
-
-input ElementRootOfCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input ElementRootOfDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: ElementRootOfConnectionWhere
-}
-
-input ElementRootOfDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: ElementRootOfConnectionWhere
-}
-
-input ElementRootOfFieldInput {
-  connect: ElementRootOfConnectFieldInput
-  connectOrCreate: ElementRootOfConnectOrCreateFieldInput
-  create: ElementRootOfCreateFieldInput
-}
-
-input ElementRootOfNodeAggregationWhereInput {
-  AND: [ElementRootOfNodeAggregationWhereInput!]
-  OR: [ElementRootOfNodeAggregationWhereInput!]
-  customCss_AVERAGE_EQUAL: Float
-  customCss_AVERAGE_GT: Float
-  customCss_AVERAGE_GTE: Float
-  customCss_AVERAGE_LT: Float
-  customCss_AVERAGE_LTE: Float
-  customCss_EQUAL: String
-  customCss_GT: Int
-  customCss_GTE: Int
-  customCss_LONGEST_EQUAL: Int
-  customCss_LONGEST_GT: Int
-  customCss_LONGEST_GTE: Int
-  customCss_LONGEST_LT: Int
-  customCss_LONGEST_LTE: Int
-  customCss_LT: Int
-  customCss_LTE: Int
-  customCss_SHORTEST_EQUAL: Int
-  customCss_SHORTEST_GT: Int
-  customCss_SHORTEST_GTE: Int
-  customCss_SHORTEST_LT: Int
-  customCss_SHORTEST_LTE: Int
-  guiCss_AVERAGE_EQUAL: Float
-  guiCss_AVERAGE_GT: Float
-  guiCss_AVERAGE_GTE: Float
-  guiCss_AVERAGE_LT: Float
-  guiCss_AVERAGE_LTE: Float
-  guiCss_EQUAL: String
-  guiCss_GT: Int
-  guiCss_GTE: Int
-  guiCss_LONGEST_EQUAL: Int
-  guiCss_LONGEST_GT: Int
-  guiCss_LONGEST_GTE: Int
-  guiCss_LONGEST_LT: Int
-  guiCss_LONGEST_LTE: Int
-  guiCss_LT: Int
-  guiCss_LTE: Int
-  guiCss_SHORTEST_EQUAL: Int
-  guiCss_SHORTEST_GT: Int
-  guiCss_SHORTEST_GTE: Int
-  guiCss_SHORTEST_LT: Int
-  guiCss_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-  postRenderActionId_AVERAGE_EQUAL: Float
-  postRenderActionId_AVERAGE_GT: Float
-  postRenderActionId_AVERAGE_GTE: Float
-  postRenderActionId_AVERAGE_LT: Float
-  postRenderActionId_AVERAGE_LTE: Float
-  postRenderActionId_EQUAL: String
-  postRenderActionId_GT: Int
-  postRenderActionId_GTE: Int
-  postRenderActionId_LONGEST_EQUAL: Int
-  postRenderActionId_LONGEST_GT: Int
-  postRenderActionId_LONGEST_GTE: Int
-  postRenderActionId_LONGEST_LT: Int
-  postRenderActionId_LONGEST_LTE: Int
-  postRenderActionId_LT: Int
-  postRenderActionId_LTE: Int
-  postRenderActionId_SHORTEST_EQUAL: Int
-  postRenderActionId_SHORTEST_GT: Int
-  postRenderActionId_SHORTEST_GTE: Int
-  postRenderActionId_SHORTEST_LT: Int
-  postRenderActionId_SHORTEST_LTE: Int
-  preRenderActionId_AVERAGE_EQUAL: Float
-  preRenderActionId_AVERAGE_GT: Float
-  preRenderActionId_AVERAGE_GTE: Float
-  preRenderActionId_AVERAGE_LT: Float
-  preRenderActionId_AVERAGE_LTE: Float
-  preRenderActionId_EQUAL: String
-  preRenderActionId_GT: Int
-  preRenderActionId_GTE: Int
-  preRenderActionId_LONGEST_EQUAL: Int
-  preRenderActionId_LONGEST_GT: Int
-  preRenderActionId_LONGEST_GTE: Int
-  preRenderActionId_LONGEST_LT: Int
-  preRenderActionId_LONGEST_LTE: Int
-  preRenderActionId_LT: Int
-  preRenderActionId_LTE: Int
-  preRenderActionId_SHORTEST_EQUAL: Int
-  preRenderActionId_SHORTEST_GT: Int
-  preRenderActionId_SHORTEST_GTE: Int
-  preRenderActionId_SHORTEST_LT: Int
-  preRenderActionId_SHORTEST_LTE: Int
-  propTransformationJs_AVERAGE_EQUAL: Float
-  propTransformationJs_AVERAGE_GT: Float
-  propTransformationJs_AVERAGE_GTE: Float
-  propTransformationJs_AVERAGE_LT: Float
-  propTransformationJs_AVERAGE_LTE: Float
-  propTransformationJs_EQUAL: String
-  propTransformationJs_GT: Int
-  propTransformationJs_GTE: Int
-  propTransformationJs_LONGEST_EQUAL: Int
-  propTransformationJs_LONGEST_GT: Int
-  propTransformationJs_LONGEST_GTE: Int
-  propTransformationJs_LONGEST_LT: Int
-  propTransformationJs_LONGEST_LTE: Int
-  propTransformationJs_LT: Int
-  propTransformationJs_LTE: Int
-  propTransformationJs_SHORTEST_EQUAL: Int
-  propTransformationJs_SHORTEST_GT: Int
-  propTransformationJs_SHORTEST_GTE: Int
-  propTransformationJs_SHORTEST_LT: Int
-  propTransformationJs_SHORTEST_LTE: Int
-  renderForEachPropKey_AVERAGE_EQUAL: Float
-  renderForEachPropKey_AVERAGE_GT: Float
-  renderForEachPropKey_AVERAGE_GTE: Float
-  renderForEachPropKey_AVERAGE_LT: Float
-  renderForEachPropKey_AVERAGE_LTE: Float
-  renderForEachPropKey_EQUAL: String
-  renderForEachPropKey_GT: Int
-  renderForEachPropKey_GTE: Int
-  renderForEachPropKey_LONGEST_EQUAL: Int
-  renderForEachPropKey_LONGEST_GT: Int
-  renderForEachPropKey_LONGEST_GTE: Int
-  renderForEachPropKey_LONGEST_LT: Int
-  renderForEachPropKey_LONGEST_LTE: Int
-  renderForEachPropKey_LT: Int
-  renderForEachPropKey_LTE: Int
-  renderForEachPropKey_SHORTEST_EQUAL: Int
-  renderForEachPropKey_SHORTEST_GT: Int
-  renderForEachPropKey_SHORTEST_GTE: Int
-  renderForEachPropKey_SHORTEST_LT: Int
-  renderForEachPropKey_SHORTEST_LTE: Int
-  renderIfPropKey_AVERAGE_EQUAL: Float
-  renderIfPropKey_AVERAGE_GT: Float
-  renderIfPropKey_AVERAGE_GTE: Float
-  renderIfPropKey_AVERAGE_LT: Float
-  renderIfPropKey_AVERAGE_LTE: Float
-  renderIfPropKey_EQUAL: String
-  renderIfPropKey_GT: Int
-  renderIfPropKey_GTE: Int
-  renderIfPropKey_LONGEST_EQUAL: Int
-  renderIfPropKey_LONGEST_GT: Int
-  renderIfPropKey_LONGEST_GTE: Int
-  renderIfPropKey_LONGEST_LT: Int
-  renderIfPropKey_LONGEST_LTE: Int
-  renderIfPropKey_LT: Int
-  renderIfPropKey_LTE: Int
-  renderIfPropKey_SHORTEST_EQUAL: Int
-  renderIfPropKey_SHORTEST_GT: Int
-  renderIfPropKey_SHORTEST_GTE: Int
-  renderIfPropKey_SHORTEST_LT: Int
-  renderIfPropKey_SHORTEST_LTE: Int
-}
-
-type ElementRootOfRelationship {
-  cursor: String!
-  node: Element!
-}
-
-input ElementRootOfUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input ElementRootOfUpdateFieldInput {
-  connect: ElementRootOfConnectFieldInput
-  connectOrCreate: ElementRootOfConnectOrCreateFieldInput
-  create: ElementRootOfCreateFieldInput
-  delete: ElementRootOfDeleteFieldInput
-  disconnect: ElementRootOfDisconnectFieldInput
-  update: ElementRootOfUpdateConnectionInput
-  where: ElementRootOfConnectionWhere
 }
 
 """
@@ -7303,9 +7303,9 @@ input ElementUniqueWhere {
 input ElementUpdateInput {
   atom: ElementAtomUpdateFieldInput
   children: [ElementChildrenUpdateFieldInput!]
-  childrenRoot: ElementChildrenRootUpdateFieldInput
   component: ElementComponentUpdateFieldInput
   customCss: String
+  firstChild: ElementFirstChildUpdateFieldInput
   guiCss: String
   hooks: [ElementHooksUpdateFieldInput!]
   id: ID
@@ -7313,6 +7313,7 @@ input ElementUpdateInput {
   name: String
   nextSibling: ElementNextSiblingUpdateFieldInput
   page: ElementPageUpdateFieldInput
+  parent: ElementParentUpdateFieldInput
   parentElement: ElementParentElementUpdateFieldInput
   postRenderActionId: String
   preRenderActionId: String
@@ -7322,7 +7323,6 @@ input ElementUpdateInput {
   props: ElementPropsUpdateFieldInput
   renderForEachPropKey: String
   renderIfPropKey: String
-  rootOf: ElementRootOfUpdateFieldInput
 }
 
 input ElementWhere {
@@ -7338,11 +7338,6 @@ input ElementWhere {
   childrenConnection_NONE: ElementChildrenConnectionWhere
   childrenConnection_SINGLE: ElementChildrenConnectionWhere
   childrenConnection_SOME: ElementChildrenConnectionWhere
-  childrenRoot: ElementWhere
-  childrenRootAggregate: ElementChildrenRootAggregateInput
-  childrenRootConnection: ElementChildrenRootConnectionWhere
-  childrenRootConnection_NOT: ElementChildrenRootConnectionWhere
-  childrenRoot_NOT: ElementWhere
 
   """
   Return Elements where all of the related Elements match this filter
@@ -7378,6 +7373,11 @@ input ElementWhere {
   customCss_NOT_IN: [String]
   customCss_NOT_STARTS_WITH: String
   customCss_STARTS_WITH: String
+  firstChild: ElementWhere
+  firstChildAggregate: ElementFirstChildAggregateInput
+  firstChildConnection: ElementFirstChildConnectionWhere
+  firstChildConnection_NOT: ElementFirstChildConnectionWhere
+  firstChild_NOT: ElementWhere
   guiCss: String
   guiCss_CONTAINS: String
   guiCss_ENDS_WITH: String
@@ -7448,11 +7448,16 @@ input ElementWhere {
   pageConnection: ElementPageConnectionWhere
   pageConnection_NOT: ElementPageConnectionWhere
   page_NOT: PageWhere
+  parent: ElementWhere
+  parentAggregate: ElementParentAggregateInput
+  parentConnection: ElementParentConnectionWhere
+  parentConnection_NOT: ElementParentConnectionWhere
   parentElement: ElementWhere
   parentElementAggregate: ElementParentElementAggregateInput
   parentElementConnection: ElementParentElementConnectionWhere
   parentElementConnection_NOT: ElementParentElementConnectionWhere
   parentElement_NOT: ElementWhere
+  parent_NOT: ElementWhere
   postRenderActionId: String
   postRenderActionId_CONTAINS: String
   postRenderActionId_ENDS_WITH: String
@@ -7538,11 +7543,6 @@ input ElementWhere {
   renderIfPropKey_NOT_IN: [String]
   renderIfPropKey_NOT_STARTS_WITH: String
   renderIfPropKey_STARTS_WITH: String
-  rootOf: ElementWhere
-  rootOfAggregate: ElementRootOfAggregateInput
-  rootOfConnection: ElementRootOfConnectionWhere
-  rootOfConnection_NOT: ElementRootOfConnectionWhere
-  rootOf_NOT: ElementWhere
 }
 
 type ElementsConnection {

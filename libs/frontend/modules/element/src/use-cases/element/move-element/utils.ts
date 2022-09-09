@@ -9,7 +9,7 @@ export const shouldMoveElementAsNextSibling = (
   return changePrevSibling && newPrevSiblingId
 }
 
-export const shouldMoveElementAsSubRoot = (
+export const shouldMoveElementAsFirstChild = (
   currentParentEmentId: Nullable<string>,
   newParentElementId: Nullable<string>,
   currentPrevSibling: Nullable<string>,
@@ -22,6 +22,7 @@ export const shouldMoveElementAsSubRoot = (
     return true
   }
 
+  // clear prevSibling, move to begin of the tree branch
   if (changePrevSibling && !newPrevSiblingId) {
     return true
   }

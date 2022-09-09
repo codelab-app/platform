@@ -22,7 +22,7 @@ export const importCommand: CommandModule<unknown, ImportExportData> = {
   builder: {
     userData: {
       describe: 'userData',
-      demandOption: true,
+      // demandOption: true,
       type: 'string',
     },
     /**
@@ -30,7 +30,7 @@ export const importCommand: CommandModule<unknown, ImportExportData> = {
      */
     seedData: {
       describe: 'seedData',
-      demandOption: true,
+      // demandOption: true,
       type: 'string',
       default: seedFilePath,
     },
@@ -62,9 +62,9 @@ export const importCommand: CommandModule<unknown, ImportExportData> = {
     await importSeedData(selectedUser, seedFilePath)
 
     // If we specified a file for import
-    if (userData) {
-      await importUserData(userData, selectedUser)
-    }
+    // if (userData) {
+    //   await importUserData(userData, selectedUser)
+    // }
 
     // Only used by admin
     // await __seedTagData(selectedUser)
