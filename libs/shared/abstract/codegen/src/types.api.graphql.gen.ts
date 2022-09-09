@@ -21743,6 +21743,7 @@ export type ElementFragment = {
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentElement?: { __typename?: 'Element'; id: string } | null
+  parent?: { __typename?: 'Element'; id: string } | null
   firstChild?: { __typename?: 'Element'; id: string } | null
   atom?: ({ __typename?: 'Atom' } & AtomFragment) | null
   props?: ({ __typename?: 'Prop' } & PropFragment) | null

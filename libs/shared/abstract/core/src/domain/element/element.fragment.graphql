@@ -19,6 +19,9 @@ fragment Element on Element {
   parentElement {
     id
   }
+  parent {
+    id
+  }
   firstChild {
     id
   }
