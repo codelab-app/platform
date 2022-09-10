@@ -26,7 +26,7 @@ import {
   Ref,
 } from 'mobx-keystone'
 import { actionRef } from './action.ref'
-import { createActionBase } from './action-base.model'
+import { createBaseAction, updateBaseAction } from './base-action.model'
 
 const hydrate = (action: IResourceActionDTO): IResourceAction => {
   assertIsActionKind(action.type, IActionKind.ResourceAction)
@@ -46,7 +46,7 @@ const hydrate = (action: IResourceActionDTO): IResourceAction => {
 
 @model('@codelab/ResourceAction')
 export class ResourceAction
-  extends ExtendedModel(createActionBase(IActionKind.ResourceAction), {
+  extends ExtendedModel(createBaseAction(IActionKind.ResourceAction), {
     resource: prop<Ref<IResource>>(),
     config: prop<IResourceActionConfig>(),
     successAction: prop<Ref<IAnyAction>>(),
@@ -55,6 +55,18 @@ export class ResourceAction
   implements IResourceAction
 {
   static hydrate = hydrate
+
+  @modelAction
+  writeCache(action: IResourceActionDTO) {
+    updateBaseAction(this, action)
+
+    this.resource = resourceRef(action.resource.id)
+    this.config.writeCache(action.config)
+    this.errorAction = actionRef(action.errorAction.id)
+    this.successAction = actionRef(action.successAction.id)
+
+    return this
+  }
 
   @modelAction
   restFetch(client: AxiosInstance, config: IRestActionConfig) {

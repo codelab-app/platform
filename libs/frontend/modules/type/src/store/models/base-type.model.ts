@@ -1,5 +1,6 @@
-import { IBaseType, ITypeKind } from '@codelab/shared/abstract/core'
+import { IBaseType, ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { idProp, Model, prop } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 
 export const createTypeBase = <T extends ITypeKind>(typeKind: T) => {
   return class
@@ -9,5 +10,12 @@ export const createTypeBase = <T extends ITypeKind>(typeKind: T) => {
       kind: prop<T>(() => typeKind),
       ownerId: prop<string>().withSetter(),
     })
-    implements IBaseType {}
+    implements IBaseType
+  {
+    writeCache(fragment: ITypeDTO) {
+      updateBaseTypeCache(this, fragment)
+
+      return this
+    }
+  }
 }

@@ -25,14 +25,11 @@ export class RenderPropsType
   implements IRenderPropsType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO) {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
-  }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  // }
+    return this
+  }
 
   public static hydrate = hydrate
 }

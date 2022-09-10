@@ -35,13 +35,15 @@ export class PropMapBinding
   implements IPropMapBinding
 {
   @modelAction
-  updateCache(fragment: IPropMapBindingDTO) {
+  writeCache(fragment: IPropMapBindingDTO) {
     this.id = fragment.id
     this.sourceKey = fragment.sourceKey
     this.targetKey = fragment.targetKey
     this.targetElement = fragment.targetElement
       ? elementRef(fragment.targetElement.id)
       : null
+
+    return this
   }
 
   applyBindings(sourceProps: IPropData): IPropData {

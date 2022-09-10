@@ -3,6 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
+import { ICacheService } from '../../service'
 import { IBuilderDataNode } from '../../ui'
 import { IAtom } from '../atom'
 import { IComponent } from '../component'
@@ -31,7 +32,9 @@ export interface cssMap {
   [prop: string]: string
 }
 
-export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
+export interface IElement
+  extends INodeType<ELEMENT_NODE_TYPE>,
+    ICacheService<IElementDTO, IElement> {
   id: string
   owner: Nullable<IAuth0Id>
   name: Nullable<string>
@@ -87,7 +90,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
 
   firstChild: Maybe<IElement>
   firstChildId: Nullable<string>
-  updateCache(data: Omit<IElementDTO, '__typename'>): IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   findDescendant(id: string): Maybe<IElement>
   setOrderInParent(order: number | null): void

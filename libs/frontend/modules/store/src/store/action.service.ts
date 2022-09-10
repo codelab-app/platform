@@ -1,7 +1,4 @@
-import {
-  getResourceService,
-  resourceRef,
-} from '@codelab/frontend/modules/resource'
+import { getResourceService } from '@codelab/frontend/modules/resource'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
   ActionFragment,
@@ -28,7 +25,6 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { actionFactory } from './action.factory'
 import { ActionModalService } from './action-modal.service'
 import {
   createActionApi,
@@ -38,7 +34,7 @@ import {
   makeActionUpdateInput,
   updateActionApi,
 } from './apis'
-import { actionRef } from './models'
+import { Action } from './models'
 
 @model('@codelab/ActionService')
 export class ActionService
@@ -66,59 +62,19 @@ export class ActionService
   }
 
   @modelAction
-  addOrUpdate(action: IActionDTO) {
+  writeCache(action: IActionDTO) {
     let actionModel = this.action(action.id)
 
     if (actionModel) {
-      actionModel.name = action.name
-      actionModel.runOnInit = action.runOnInit
-      actionModel.storeId = action.store.id
-      actionModel.type = action.type
-
-      if (
-        action.__typename === IActionKind.CustomAction &&
-        // used for linting
-        actionModel.type === IActionKind.CustomAction
-      ) {
-        actionModel.code = action.code
-      }
-
-      if (
-        action.__typename === IActionKind.ResourceAction &&
-        actionModel.type === IActionKind.ResourceAction
-      ) {
-        actionModel.resource = resourceRef(action.resource.id)
-        actionModel.config.updateCache(action.config)
-        actionModel.errorAction = actionRef(action.errorAction.id)
-        actionModel.successAction = actionRef(action.successAction.id)
-      }
-
-      if (
-        action.__typename === IActionKind.PipelineAction &&
-        actionModel.type === IActionKind.PipelineAction
-      ) {
-        actionModel.actions = []
-        // actionModel.actions = action.actionsConnection.edges.flatMap(
-        //   (x) =>
-        //     x.orders?.map((y) => ({
-        //       order: Number(y) || 0,
-        //       action: actionRef(x.node.id),
-        //     })) || [],
-        // )
-      }
+      Action.writeCache(action, actionModel)
 
       return actionModel
     } else {
-      actionModel = actionFactory(action)
+      actionModel = Action.create(action)
       this.actions.set(actionModel.id, actionModel)
     }
 
     return actionModel
-  }
-
-  @modelAction
-  writeCache(actions: Array<IActionDTO>) {
-    return actions.map((action) => this.addOrUpdate(action))
   }
 
   @modelFlow
@@ -134,7 +90,7 @@ export class ActionService
       updateActionApi[action.type](updateInput),
     )
 
-    const actionModel = actionFactory(updatedAction)
+    const actionModel = Action.create(updatedAction)
     this.actions.set(updatedAction.id, actionModel)
 
     return actionModel
@@ -148,7 +104,7 @@ export class ActionService
       .filter((action) => action.__typename === IActionKind.ResourceAction)
       .map((action) => (action as IResourceActionDTO).resource)
 
-    return resourceService.writeCache(resources)
+    return resources.map((resource) => resourceService.writeCache(resource))
   }
 
   @modelAction
@@ -158,7 +114,7 @@ export class ActionService
     this.updateResourceCache(actions)
 
     return actions.map((action) => {
-      const actionModel = actionFactory(action)
+      const actionModel = Action.create(action)
       this.actions.set(action.id, actionModel)
 
       return actionModel
@@ -209,7 +165,7 @@ export class ActionService
     }
 
     return createdActions.map((action) => {
-      const actionModel = actionFactory(action)
+      const actionModel = Action.create(action)
 
       this.actions.set(action.id, actionModel)
 

@@ -3,6 +3,7 @@ import { TagWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTagDTO,
   IGraphQLTagNode,
+  ITag,
   ITagDTO,
   ITagGraphDTO,
   ITagService,
@@ -34,15 +35,15 @@ import { TreeService } from './tree.service'
 @model('@codelab/TagService')
 export class TagService
   extends Model({
-    _tags: prop(() => objectMap<Tag>()),
+    tags: prop(() => objectMap<ITag>()),
     loadingAntdTreeDataNode: prop(false),
     antdTreeDataNode: prop<Array<DataNode>>(() => []),
     tagGraphs: prop<Array<any>>(() => []),
     treeService: prop<TreeService<any, any>>(() =>
       TreeService.init({ nodes: [] }),
     ),
-    selectedTag: prop<Nullish<Ref<Tag>>>(null).withSetter(),
-    checkedTags: prop<Array<Ref<Tag>>>(() => []).withSetter(),
+    selectedTag: prop<Nullish<Ref<ITag>>>(null).withSetter(),
+    checkedTags: prop<Array<Ref<ITag>>>(() => []).withSetter(),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TagModalService({})),
@@ -50,18 +51,13 @@ export class TagService
   })
   implements ITagService
 {
-  @computed
-  get tags() {
-    return [...this._tags.values()]
-  }
-
   tag(id: string) {
-    return this._tags.get(id)
+    return this.tags.get(id)
   }
 
   @computed
   get tagsSelectOptions() {
-    return this.tags.map((tag) => ({
+    return Array.from(this.tags.values()).map((tag) => ({
       label: tag.name,
       value: tag.id,
     }))
@@ -116,7 +112,7 @@ export class TagService
     return tags.map((tag) => {
       const tagModel = Tag.hydrate(tag)
 
-      this._tags.set(tagModel.id, tagModel)
+      this.tags.set(tagModel.id, tagModel)
 
       return tagModel
     })
@@ -146,7 +142,7 @@ export class TagService
 
     const tagModel = Tag.hydrate(updatedTag)
 
-    this._tags.set(tag.id, tagModel)
+    this.tags.set(tag.id, tagModel)
     this.treeService.updateNodeFromFragment(updatedTag)
     this.antdTreeDataNode = this.treeService.generateTreeDataNodes()
 
@@ -159,19 +155,19 @@ export class TagService
     const descendantsIds: Array<string> = []
 
     const tagsToDelete = ids
-      .map((id) => this._tags.get(id))
+      .map((id) => this.tags.get(id))
       .filter((x): x is Tag => !x)
 
     for (const id of ids) {
-      if (this._tags.has(id)) {
+      if (this.tags.has(id)) {
         const DescendantsOfTag = yield* _await(this.getTagDescendants(id))
         DescendantsOfTag?.forEach((descendantsId) => {
           descendantsIds.push(descendantsId)
-          this._tags.delete(descendantsId)
+          this.tags.delete(descendantsId)
           this.treeService.delete(id)
         })
 
-        this._tags.delete(id)
+        this.tags.delete(id)
         this.treeService.delete(id)
       }
     }
@@ -231,22 +227,20 @@ export class TagService
   getAll = _async(function* (this: TagService, where?: TagWhere) {
     const { tags } = yield* _await(tagApi.GetTags({ where }))
 
-    return tags.map((tag) => {
-      const tagModel = Tag.hydrate(tag)
-      this._tags.set(tag.id, tagModel)
-
-      return tagModel
-    })
+    return tags.map((tag) => this.writeCache(tag))
   })
 
   @modelAction
-  getOrCreateNew(tag: ITagDTO) {
-    if (this._tags.has(tag.id)) {
-      return this._tags.get(tag.id)
+  writeCache = (tag: ITagDTO) => {
+    let tagModel = this.tags.get(tag.id)
+
+    if (!tagModel) {
+      tagModel = Tag.hydrate(tag)
+    } else {
+      // tagModel = tagModel.writeCache(tag)
     }
 
-    const tagModel = Tag.hydrate(tag)
-    this._tags.set(tag.id, tagModel)
+    this.tags.set(tag.id, tagModel)
 
     return tagModel
   }

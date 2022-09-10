@@ -6,6 +6,7 @@ import { gql } from 'graphql-tag'
 export type DomainFragment = {
   id: string
   name: string
+  app: { id: string }
   domainConfig: { misconfigured: boolean }
   projectDomain: { verified: boolean }
 }
@@ -14,6 +15,9 @@ export const DomainFragmentDoc = gql`
   fragment Domain on Domain {
     id
     name
+    app {
+      id
+    }
     domainConfig {
       misconfigured
     }

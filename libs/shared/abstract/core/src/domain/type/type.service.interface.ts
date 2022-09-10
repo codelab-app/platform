@@ -52,5 +52,5 @@ export interface ITypeService
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
-  writeCache(types: GetTypesQuery): Array<IAnyType>
+  load(types: GetTypesQuery): Array<IAnyType>
 }

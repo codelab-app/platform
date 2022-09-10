@@ -215,7 +215,7 @@ export class ComponentService
       throw new Error('Updated component not found ')
     }
 
-    componentModel.updateCache(updateComponents.components[0])
+    componentModel.writeCache(updateComponents.components[0])
 
     return componentModel
   })
@@ -247,21 +247,16 @@ export class ComponentService
   })
 
   @modelAction
-  addOrUpdate(componentFragment: IComponentDTO) {
+  writeCache(componentFragment: IComponentDTO) {
     let componentModel = this.component(componentFragment.id)
 
     if (componentModel) {
-      componentModel.updateCache(componentFragment)
+      componentModel.writeCache(componentFragment)
     } else {
       componentModel = Component.hydrate(componentFragment)
       this.components.set(componentModel.id, componentModel)
     }
 
     return componentModel
-  }
-
-  @modelAction
-  writeCache(components: Array<IComponentDTO>) {
-    return components.map((component) => this.addOrUpdate(component))
   }
 }

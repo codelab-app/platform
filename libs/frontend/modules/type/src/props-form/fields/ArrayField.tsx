@@ -3,6 +3,7 @@ import {
   IAnyType,
   IArrayType,
   IField,
+  IFieldDTO,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -15,7 +16,7 @@ import tw from 'twin.macro'
 export interface ArrayFieldProps {
   field: IField<IArrayType>
   form: UseFormReturn
-  renderItemField: (itemField: IField, index: number) => React.ReactElement
+  renderItemField: (itemField: IFieldDTO, index: number) => React.ReactElement
 }
 
 const primitivesDefaults = {

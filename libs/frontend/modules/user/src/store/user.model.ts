@@ -45,10 +45,12 @@ export class User
   static hydrate = hydrate
 
   @modelAction
-  updateCache(data: IUserDTO) {
+  writeCache(data: IUserDTO) {
     this.id = data.id
     this.auth0Id = data.auth0Id
     this.roles = data.roles ?? []
+
+    return this
   }
 }
 

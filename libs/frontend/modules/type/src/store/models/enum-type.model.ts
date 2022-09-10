@@ -62,29 +62,18 @@ export class EnumType
   implements IEnumType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO): void {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.EnumType) {
-      return
+      throw new Error('Incorrect EnumType')
     }
 
     this.allowedValues =
       fragment.allowedValues?.map(EnumTypeValue.hydrate) ?? []
-  }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  //
-  //   if (!input.allowedValues) {
-  //     throw new Error('EnumType must have an allowedValues array')
-  //   }
-  //
-  //   this.allowedValues = input.allowedValues?.map((v) =>
-  //     EnumTypeValue.hydrate({ value: v.value, name: v.name, id: v4() }),
-  //   )
-  // }
+    return this
+  }
 
   public static hydrate = hydrate
 }

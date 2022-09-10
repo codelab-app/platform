@@ -3,6 +3,10 @@ import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
+const hydrate = ({ id, data }: IPropDTO): IProp => {
+  return new Prop({ id, data: frozen(JSON.parse(data)) })
+}
+
 @model('@codelab/Prop')
 export class Prop
   extends Model({
@@ -30,16 +34,14 @@ export class Prop
     this.data = frozen({})
   }
 
+  static hydrate = hydrate
+
   @modelAction
-  updateCache({ id, data }: IPropDTO) {
+  writeCache({ id, data }: IPropDTO) {
     this.id = id
     this.data = frozen(JSON.parse(data))
 
     return this
-  }
-
-  public static hydrate({ id, data }: IPropDTO): IProp {
-    return new Prop({ id, data: frozen(JSON.parse(data)) })
   }
 
   @computed

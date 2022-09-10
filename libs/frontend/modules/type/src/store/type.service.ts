@@ -81,18 +81,12 @@ export class TypeService
    * Caches all types into mobx
    */
   @modelAction
-  writeCache = (types: GetTypesQuery) => {
+  load = (types: GetTypesQuery) => {
     console.debug('TypeService.cacheAll', types)
 
     const flatTypes = Object.values(types).flat()
 
-    return flatTypes.map((type) => {
-      const typeModel = typeFactory(type)
-
-      this.types.set(type.id, typeModel)
-
-      return typeModel
-    })
+    return flatTypes.map((type) => this.writeCache(type))
   }
 
   @modelAction
@@ -101,11 +95,11 @@ export class TypeService
   }
 
   @modelAction
-  updateCache(fragment: ITypeDTO) {
+  writeCache(fragment: ITypeDTO) {
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
-      typeModel.updateCache(fragment)
+      typeModel.writeCache(fragment)
     } else {
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
@@ -132,7 +126,7 @@ export class TypeService
       throw new Error('Type was not updated')
     }
 
-    return this.updateCache(updatedType)
+    return this.writeCache(updatedType)
   })
 
   @modelFlow
@@ -296,7 +290,7 @@ export class TypeService
 
     assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
 
-    interfaceType.updateCache(interfaceTypeDTO)
+    interfaceType.writeCache(interfaceTypeDTO)
 
     return interfaceType
   })
@@ -329,7 +323,7 @@ export class TypeService
     const { upsertField } = yield* _await(fieldApi.UpsertField(input))
     const updatedField = upsertField.fieldsConnection.edges[0]
 
-    field.updateCache(updatedField)
+    field.writeCache(updatedField)
 
     return field
   })

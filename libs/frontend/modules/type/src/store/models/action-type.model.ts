@@ -1,11 +1,9 @@
 import type {
   IAnyActionType,
   IAnyActionTypeDTO,
-  ITypeDTO,
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { createTypeBase } from './base-type.model'
 
 const hydrate = ({ id, kind, name, owner }: IAnyActionTypeDTO): ActionType => {
@@ -19,15 +17,5 @@ export class ActionType
   extends ExtendedModel(createTypeBase(ITypeKind.ActionType), {})
   implements IAnyActionType
 {
-  @modelAction
-  updateCache(fragment: ITypeDTO): void {
-    updateBaseTypeCache(this, fragment)
-  }
-
-  // @modelAction
-  // override actionlyUpdateData(input: IUpdateTypeDTO) {
-  //   super.actionlyUpdateData(input)
-  // }
-
   public static hydrate = hydrate
 }

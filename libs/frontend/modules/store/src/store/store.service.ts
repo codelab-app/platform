@@ -20,11 +20,10 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { deleteStoreInput } from '../utils/actions'
+import { deleteStoreInput } from '../utils'
 import { getActionService } from './action.service'
-import { makeStoreCreateInput, makeStoreUpdateInput } from './apis/api.utils'
-import { storeApi } from './apis/store.api'
-import { Store } from './models/store.model'
+import { makeStoreCreateInput, makeStoreUpdateInput, storeApi } from './apis'
+import { Store } from './models'
 import { StoreModalService } from './store-modal.service'
 
 @model('@codelab/StoreService')
@@ -51,7 +50,7 @@ export class StoreService
     const actionService = getActionService(this)
     const actions = stores.flatMap((s) => s.actions)
 
-    return actionService.writeCache(actions)
+    return actions.map((action) => actionService.writeCache(action))
   }
 
   @modelAction
@@ -64,23 +63,21 @@ export class StoreService
   }
 
   @modelAction
-  public writeCache = (stores: Array<IStoreDTO>): Array<IStore> => {
+  public writeCache = (store: IStoreDTO) => {
     const actionService = getActionService(this)
 
-    return stores.map((store) => {
-      actionService.writeCache(store.actions)
+    store.actions.map((action) => actionService.writeCache(action))
 
-      let storeModel = this.store(store.id)
+    let storeModel = this.store(store.id)
 
-      if (storeModel) {
-        storeModel.writeCache(store)
-      } else {
-        storeModel = Store.hydrate(store)
-        this.stores.set(store.id, storeModel)
-      }
+    if (storeModel) {
+      storeModel.writeCache(store)
+    } else {
+      storeModel = Store.hydrate(store)
+      this.stores.set(store.id, storeModel)
+    }
 
-      return storeModel
-    })
+    return storeModel
   }
 
   @modelFlow
@@ -88,7 +85,7 @@ export class StoreService
   getAll = _async(function* (this: StoreService, where?: StoreWhere) {
     const { stores } = yield* _await(storeApi.GetStores({ where }))
 
-    return this.writeCache(stores)
+    return stores.map((store) => this.writeCache(store))
   })
 
   @modelFlow
@@ -114,12 +111,7 @@ export class StoreService
       throw new Error('No stores created')
     }
 
-    return stores.map((store) => {
-      const storeModel = Store.hydrate(store)
-      this.stores.set(storeModel.id, storeModel)
-
-      return storeModel
-    })
+    return stores.map((store) => this.writeCache(store))
   })
 
   @modelFlow
@@ -142,9 +134,7 @@ export class StoreService
       throw new Error('Failed to update store')
     }
 
-    store.writeCache(updatedStore)
-
-    return store
+    return store.writeCache(updatedStore)
   })
 
   @modelFlow

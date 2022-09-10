@@ -35,14 +35,16 @@ export class CodeMirrorType
   implements ICodeMirrorType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO): void {
+  writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.CodeMirrorType) {
-      return
+      throw new Error('Invalid CodeMirrorType')
     }
 
     this.language = fragment.language
+
+    return this
   }
 
   public static hydrate = hydrate

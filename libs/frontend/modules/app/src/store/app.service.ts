@@ -54,15 +54,15 @@ export class AppService
     const elementService = getElementService(this)
     const pageService = getPageService(this)
     const storeService = getStoreService(this)
-    const storeModel = storeService.writeCache([app.store])[0]
+    const storeModel = storeService.writeCache(app.store)
     /**
      * Need to create nested model
      */
-    const appModel = this.writeCache([app])[0]
+    const appModel = this.writeCache(app)
     /**
      * Build the pageElementTree for page
      */
-    const pageModels = pageService.writeCache(app.pages)
+    const pageModels = app.pages.map((page) => pageService.writeCache(page))
     const pageModel = pageModels.find((page) => page.id === pageId)
     const page = app.pages.find((x) => x.id === pageId)
 
@@ -70,10 +70,14 @@ export class AppService
       throw new Error('Missing page')
     }
 
-    const pageElements = elementService.writeCache([
+    const elements = [
       page.rootElement,
       ...(page.rootElement.descendantElements ?? []),
-    ])
+    ]
+
+    const pageElements = elements.map((element) =>
+      elementService.writeCache(element),
+    )
 
     const pageElementTree = pageModel.initTreeV2(pageElements)
 
@@ -100,7 +104,7 @@ export class AppService
     const pageService = getPageService(this)
     const pages = apps.flatMap((app) => app.pages)
 
-    pageService.writeCache(pages)
+    pages.map((page) => pageService.writeCache(page))
   }
 
   @modelFlow
@@ -214,24 +218,21 @@ export class AppService
   })
 
   @modelAction
-  writeCache = (apps: Array<IAppDTO>) => {
+  writeCache = (app: IAppDTO) => {
     const pageService = getPageService(this)
+    let appModel = this.app(app.id)
 
-    return apps.map((app) => {
-      let appModel = this.app(app.id)
+    if (!appModel) {
+      appModel = App.hydrate(app)
+    } else {
+      appModel = appModel.writeCache(app)
+    }
 
-      if (!appModel) {
-        appModel = App.hydrate(app)
-      } else {
-        appModel = appModel.writeCache(app)
-      }
+    this.apps.set(app.id, appModel)
 
-      this.apps.set(app.id, appModel)
+    app.pages.map((page) => pageService.writeCache(page))
 
-      pageService.writeCache(app.pages)
-
-      return appModel
-    })
+    return appModel
   }
 
   @modelFlow

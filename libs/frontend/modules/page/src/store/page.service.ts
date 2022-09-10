@@ -15,6 +15,7 @@ import {
   detach,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -179,15 +180,12 @@ export class PageService
     return existing
   })
 
-  writeCache(pages: Array<IPageDTO>): Array<IPage> {
-    return pages.map((page) => this.addOrUpdate(page))
-  }
-
-  addOrUpdate(page: IPageDTO): IPage {
+  @modelAction
+  writeCache(page: IPageDTO): IPage {
     let pageModel = this.page(page.id)
 
     if (pageModel) {
-      pageModel.updateCache(page)
+      pageModel.writeCache(page)
     } else {
       pageModel = Page.hydrate(page)
       this.pages.set(page.id, pageModel)

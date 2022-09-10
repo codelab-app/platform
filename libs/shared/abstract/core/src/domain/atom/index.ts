@@ -1,5 +1,5 @@
 export * from './atom.dto.interface'
-export * from './atom.interface'
+export * from './atom.model.interface'
 export * from './atom.service.interface'
 export * from './atom-type.enum'
 export * from './hooks.enum'

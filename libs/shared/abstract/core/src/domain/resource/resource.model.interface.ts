@@ -14,9 +14,7 @@ export interface IResource {
   name: string
   config: IResourceConfig
   type: IResourceType
-
   graphqlClient: GraphQLClient
-
   restClient: AxiosInstance
 }
 

@@ -75,7 +75,7 @@ const PageBuilder: CodelabPage = observer(() => {
       pageId,
     })
 
-    const types = typeService.writeCache({
+    const types = typeService.load({
       primitiveTypes,
       arrayTypes,
       unionTypes,
@@ -91,7 +91,7 @@ const PageBuilder: CodelabPage = observer(() => {
       codeMirrorTypes,
     })
 
-    componentService.writeCache(components)
+    components.map((component) => componentService.writeCache(component))
 
     /**
      *

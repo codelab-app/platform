@@ -3,12 +3,12 @@ import {
   stateOptions,
   typeOptions,
 } from '@codelab/frontend/view/components'
-import { IField, IPropsFieldContext } from '@codelab/shared/abstract/core'
+import { IFieldDTO, IPropsFieldContext } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { Controller, UseFormReturn } from 'react-hook-form'
 
 export interface CodeMirrorFieldProps {
-  field: IField
+  field: IFieldDTO
   form: UseFormReturn
   context?: IPropsFieldContext
 }
