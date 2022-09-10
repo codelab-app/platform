@@ -6,8 +6,8 @@ import {
   IPipelineActionDTO,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
-import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { createActionBase } from './action-base.model'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { createBaseAction, updateBaseAction } from './base-action.model'
 
 const hydrate = (action: IPipelineActionDTO): IPipelineAction => {
   assertIsActionKind(action.type, IActionKind.PipelineAction)
@@ -31,7 +31,7 @@ const hydrate = (action: IPipelineActionDTO): IPipelineAction => {
 
 @model('@codelab/PipelineAction')
 export class PipelineAction
-  extends ExtendedModel(createActionBase(IActionKind.PipelineAction), {
+  extends ExtendedModel(createBaseAction(IActionKind.PipelineAction), {
     actions: prop<Array<ActionWithOrder>>(),
   })
   implements IPipelineAction
@@ -44,6 +44,22 @@ export class PipelineAction
   }
 
   static hydrate = hydrate
+
+  @modelAction
+  writeCache(data: IPipelineActionDTO) {
+    updateBaseAction(this, data)
+
+    this.actions = []
+    // actionModel.actions = action.actionsConnection.edges.flatMap(
+    //   (x) =>
+    //     x.orders?.map((y) => ({
+    //       order: Number(y) || 0,
+    //       action: actionRef(x.node.id),
+    //     })) || [],
+    // )
+
+    return this
+  }
 }
 
 export const compareOrder = (a: ActionWithOrder, b: ActionWithOrder) =>

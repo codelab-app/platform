@@ -17,12 +17,5 @@ export class ActionType
   extends ExtendedModel(createTypeBase(ITypeKind.ActionType), {})
   implements IAnyActionType
 {
-  // @modelAction
-  // writeCache(fragment: ITypeDTO) {
-  //   updateBaseTypeCache(this, fragment)
-  //
-  //   return this
-  // }
-
   public static hydrate = hydrate
 }
