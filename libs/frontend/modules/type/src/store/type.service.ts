@@ -8,14 +8,13 @@ import type {
   IFieldRef,
   IInterfaceType,
   IInterfaceTypeRef,
-  IPropData,
   ITypeDTO,
   ITypeService,
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { flatMap, omit } from 'lodash'
+import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -324,22 +323,6 @@ export class TypeService
     }
 
     const { upsertField } = yield* _await(fieldApi.UpsertField(input))
-
-    const defaultValue: IPropData = omit(interfaceType.defaultValue, [
-      targetKey,
-    ])
-
-    defaultValue[data.key] = interfaceType.defaultValue[targetKey]
-
-    yield* _await(
-      this.update(interfaceType, {
-        id: interfaceType.id,
-        kind: interfaceType.kind,
-        name: interfaceType.name,
-        defaultValue,
-      }),
-    )
-
     const updatedField = upsertField.fieldsConnection.edges[0]
 
     field.writeCache(updatedField)
