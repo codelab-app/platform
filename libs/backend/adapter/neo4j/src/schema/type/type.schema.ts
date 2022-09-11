@@ -48,9 +48,6 @@ export const typeSchema = gql`
       @cypher(statement: """${getTypeReferences}""")
   }
 
-  interface OwnedBy @relationshipProperties {
-    value: String
-  }
 
   interface TypeBase
   {
@@ -58,12 +55,7 @@ export const typeSchema = gql`
     kind: TypeKind! @readonly
     name: String!
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
-    owner: User!
-      @relationship(
-        type: "OWNED_BY",
-        properties: "OwnedBy",
-        direction: OUT
-      )
+    owner: User! @relationship( type: "OWNED_BY", direction: OUT)
     # Any type could be used a field for some interface
 #    fieldFor: [TypeBase!]!
 #      @relationship(
