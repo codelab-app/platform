@@ -6,6 +6,7 @@ import {
 import {
   makeAllowedValuesCreateInput,
   makeItemTypeCreateInput,
+  makeTypesOfUnionTypeCreateInput,
 } from '@codelab/shared/data'
 
 export const updateTypeInputFactory = (
@@ -23,21 +24,11 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.ElementType ? type.elementKind : undefined,
       itemType:
         type.kind === ITypeKind.ArrayType
-          ? { ActionType: makeItemTypeCreateInput(type) }
+          ? makeItemTypeCreateInput(type)
           : undefined,
       typesOfUnionType:
         type.kind === ITypeKind.UnionType
-          ? {
-              ActionType: [
-                {
-                  where: {
-                    node: {
-                      id_NOT_IN: type.unionTypeIds?.map((id) => id),
-                    },
-                  },
-                },
-              ],
-            }
+          ? [makeTypesOfUnionTypeCreateInput(type)]
           : undefined,
       // fields:
       //   type.kind === ITypeKind.InterfaceType
@@ -47,7 +38,6 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.EnumType
           ? [makeAllowedValuesCreateInput(type)]
           : undefined,
-
       owner: {
         connect: {
           where: { node: { auth0Id: type.interfaceDefaults?.auth0Id } },
@@ -60,23 +50,19 @@ export const updateTypeInputFactory = (
     disconnect: {
       itemType:
         type.kind === ITypeKind.ArrayType && type.arrayTypeId
-          ? {
-              ActionType: { where: { node: { id_NOT: type.arrayTypeId } } },
-            }
+          ? { where: { node: { id_NOT: type.arrayTypeId } } }
           : undefined,
       typesOfUnionType:
         type.kind === ITypeKind.UnionType
-          ? {
-              ActionType: [
-                {
-                  where: {
-                    node: {
-                      id_NOT_IN: type.unionTypeIds?.map((id) => id),
-                    },
+          ? [
+              {
+                where: {
+                  node: {
+                    id_NOT_IN: type.unionTypeIds?.map((id) => id),
                   },
                 },
-              ],
-            }
+              },
+            ]
           : undefined,
       // fields:
       //   type.kind === ITypeKind.InterfaceType
