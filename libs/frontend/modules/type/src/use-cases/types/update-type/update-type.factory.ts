@@ -26,7 +26,7 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.ElementType ? type.elementKind : undefined,
       itemType:
         type.kind === ITypeKind.ArrayType
-          ? { ActionType: makeItemTypeCreateInput(type) }
+          ? makeItemTypeCreateInput(type)
           : undefined,
       owner:
         type.kind === ITypeKind.InterfaceType
@@ -48,7 +48,6 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.EnumType
           ? [makeAllowedValuesCreateInput(type)]
           : undefined,
-
       owner: {
         connect: {
           where: { node: { auth0Id: type.interfaceDefaults?.auth0Id } },
