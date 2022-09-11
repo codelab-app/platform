@@ -17,11 +17,6 @@ const baseSelection = `
   name
   owner
     ${userSelectionSet}
-  ownerConnection {
-    edges {
-      value
-    }
-  }
 `
 
 export const exportPrimitiveTypeSelectionSet = `{

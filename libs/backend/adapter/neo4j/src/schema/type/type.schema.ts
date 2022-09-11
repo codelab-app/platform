@@ -48,9 +48,6 @@ export const typeSchema = gql`
       @cypher(statement: """${getTypeReferences}""")
   }
 
-  interface OwnedBy @relationshipProperties {
-    value: String
-  }
 
   interface TypeBase
   {

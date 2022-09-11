@@ -180,7 +180,6 @@ input ActionTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: ActionTypeOwnerEdgeAggregationWhereInput
   node: ActionTypeOwnerNodeAggregationWhereInput
 }
 
@@ -300,7 +299,6 @@ input ActionTypeUpdateInput {
 
 type ActionTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: ActionTypeUserOwnerEdgeAggregateSelection
   node: ActionTypeUserOwnerNodeAggregateSelection
 }
 
@@ -1112,7 +1110,6 @@ input AppTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: AppTypeOwnerEdgeAggregationWhereInput
   node: AppTypeOwnerNodeAggregationWhereInput
 }
 
@@ -1232,7 +1229,6 @@ input AppTypeUpdateInput {
 
 type AppTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: AppTypeUserOwnerEdgeAggregateSelection
   node: AppTypeUserOwnerNodeAggregateSelection
 }
 
@@ -2372,7 +2368,6 @@ input ArrayTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: ArrayTypeOwnerEdgeAggregationWhereInput
   node: ArrayTypeOwnerNodeAggregationWhereInput
 }
 
@@ -2494,7 +2489,6 @@ input ArrayTypeUpdateInput {
 
 type ArrayTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: ArrayTypeUserOwnerEdgeAggregateSelection
   node: ArrayTypeUserOwnerNodeAggregateSelection
 }
 
@@ -3455,7 +3449,6 @@ input CodeMirrorTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: CodeMirrorTypeOwnerEdgeAggregationWhereInput
   node: CodeMirrorTypeOwnerNodeAggregationWhereInput
 }
 
@@ -3577,7 +3570,6 @@ input CodeMirrorTypeUpdateInput {
 
 type CodeMirrorTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: CodeMirrorTypeUserOwnerEdgeAggregateSelection
   node: CodeMirrorTypeUserOwnerNodeAggregateSelection
 }
 
@@ -8181,7 +8173,6 @@ input ElementTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: ElementTypeOwnerEdgeAggregationWhereInput
   node: ElementTypeOwnerNodeAggregationWhereInput
 }
 
@@ -8303,7 +8294,6 @@ input ElementTypeUpdateInput {
 
 type ElementTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: ElementTypeUserOwnerEdgeAggregateSelection
   node: ElementTypeUserOwnerNodeAggregateSelection
 }
 
@@ -8852,7 +8842,6 @@ input EnumTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: EnumTypeOwnerEdgeAggregationWhereInput
   node: EnumTypeOwnerNodeAggregationWhereInput
 }
 
@@ -8974,7 +8963,6 @@ input EnumTypeUpdateInput {
 
 type EnumTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: EnumTypeUserOwnerEdgeAggregateSelection
   node: EnumTypeUserOwnerNodeAggregateSelection
 }
 
@@ -10266,7 +10254,6 @@ input InterfaceTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: InterfaceTypeOwnerEdgeAggregationWhereInput
   node: InterfaceTypeOwnerNodeAggregationWhereInput
 }
 
@@ -10390,7 +10377,6 @@ input InterfaceTypeUpdateInput {
 
 type InterfaceTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: InterfaceTypeUserOwnerEdgeAggregateSelection
   node: InterfaceTypeUserOwnerNodeAggregateSelection
 }
 
@@ -10560,7 +10546,6 @@ input LambdaTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: LambdaTypeOwnerEdgeAggregationWhereInput
   node: LambdaTypeOwnerNodeAggregationWhereInput
 }
 
@@ -10680,7 +10665,6 @@ input LambdaTypeUpdateInput {
 
 type LambdaTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: LambdaTypeUserOwnerEdgeAggregateSelection
   node: LambdaTypeUserOwnerNodeAggregateSelection
 }
 
@@ -11859,7 +11843,6 @@ input PageTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: PageTypeOwnerEdgeAggregationWhereInput
   node: PageTypeOwnerNodeAggregationWhereInput
 }
 
@@ -11979,7 +11962,6 @@ input PageTypeUpdateInput {
 
 type PageTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: PageTypeUserOwnerEdgeAggregateSelection
   node: PageTypeUserOwnerNodeAggregateSelection
 }
 
@@ -12692,7 +12674,6 @@ input PrimitiveTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: PrimitiveTypeOwnerEdgeAggregationWhereInput
   node: PrimitiveTypeOwnerNodeAggregationWhereInput
 }
 
@@ -12816,7 +12797,6 @@ input PrimitiveTypeUpdateInput {
 
 type PrimitiveTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: PrimitiveTypeUserOwnerEdgeAggregateSelection
   node: PrimitiveTypeUserOwnerNodeAggregateSelection
 }
 
@@ -14167,7 +14147,6 @@ input ReactNodeTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: ReactNodeTypeOwnerEdgeAggregationWhereInput
   node: ReactNodeTypeOwnerNodeAggregationWhereInput
 }
 
@@ -14287,7 +14266,6 @@ input ReactNodeTypeUpdateInput {
 
 type ReactNodeTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: ReactNodeTypeUserOwnerEdgeAggregateSelection
   node: ReactNodeTypeUserOwnerNodeAggregateSelection
 }
 
@@ -14436,7 +14414,6 @@ input RenderPropsTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: RenderPropsTypeOwnerEdgeAggregationWhereInput
   node: RenderPropsTypeOwnerNodeAggregationWhereInput
 }
 
@@ -14556,7 +14533,6 @@ input RenderPropsTypeUpdateInput {
 
 type RenderPropsTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: RenderPropsTypeUserOwnerEdgeAggregateSelection
   node: RenderPropsTypeUserOwnerNodeAggregateSelection
 }
 
@@ -17669,7 +17645,6 @@ input TypeBaseOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: TypeBaseOwnerEdgeAggregationWhereInput
   node: TypeBaseOwnerNodeAggregationWhereInput
 }
 
@@ -17696,15 +17671,12 @@ type TypeBaseOwnerConnection {
 }
 
 input TypeBaseOwnerConnectionSort {
-  edge: OwnedBySort
   node: UserSort
 }
 
 input TypeBaseOwnerConnectionWhere {
   AND: [TypeBaseOwnerConnectionWhere!]
   OR: [TypeBaseOwnerConnectionWhere!]
-  edge: OwnedByWhere
-  edge_NOT: OwnedByWhere
   node: UserWhere
   node_NOT: UserWhere
 }
@@ -17821,15 +17793,13 @@ input TypeBaseOwnerNodeAggregationWhereInput {
   username_SHORTEST_LTE: Int
 }
 
-type TypeBaseOwnerRelationship implements OwnedBy {
+type TypeBaseOwnerRelationship {
   cursor: String!
   data: String!
   node: User!
-  value: String
 }
 
 input TypeBaseOwnerUpdateConnectionInput {
-  edge: OwnedByUpdateInput
   node: UserUpdateInput
 }
 
@@ -18093,7 +18063,6 @@ input UnionTypeOwnerAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: UnionTypeOwnerEdgeAggregationWhereInput
   node: UnionTypeOwnerNodeAggregationWhereInput
 }
 
@@ -19070,7 +19039,6 @@ input UnionTypeUpdateInput {
 
 type UnionTypeUserOwnerAggregationSelection {
   count: Int!
-  edge: UnionTypeUserOwnerEdgeAggregateSelection
   node: UnionTypeUserOwnerNodeAggregateSelection
 }
 
@@ -20120,7 +20088,6 @@ input UserTagsUpdateFieldInput {
 
 input UserTypesConnectFieldInput {
   connect: TypeBaseConnectInput
-  edge: OwnedByCreateInput
   where: TypeBaseConnectWhere
 }
 
@@ -20131,21 +20098,17 @@ type UserTypesConnection {
 }
 
 input UserTypesConnectionSort {
-  edge: OwnedBySort
   node: TypeBaseSort
 }
 
 input UserTypesConnectionWhere {
   AND: [UserTypesConnectionWhere!]
   OR: [UserTypesConnectionWhere!]
-  edge: OwnedByWhere
-  edge_NOT: OwnedByWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input UserTypesCreateFieldInput {
-  edge: OwnedByCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -20164,14 +20127,12 @@ input UserTypesFieldInput {
   create: [UserTypesCreateFieldInput!]
 }
 
-type UserTypesRelationship implements OwnedBy {
+type UserTypesRelationship {
   cursor: String!
   node: TypeBase!
-  value: String
 }
 
 input UserTypesUpdateConnectionInput {
-  edge: OwnedByUpdateInput
   node: TypeBaseUpdateInput
 }
 
