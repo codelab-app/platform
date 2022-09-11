@@ -15,11 +15,7 @@ export const createTypeFactory = (
   return types.map((type) => ({
     id: type.id,
     name: type.name,
-    owner: {
-      connect: {
-        where: { node: { auth0Id: type.auth0Id } },
-      },
-    },
+    owner: { connect: { where: { node: { auth0Id: type.auth0Id } } } },
     primitiveKind:
       type.kind === ITypeKind.PrimitiveType ? type.primitiveKind : undefined,
     language:
