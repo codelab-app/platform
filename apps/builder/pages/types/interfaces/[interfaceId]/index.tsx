@@ -75,7 +75,7 @@ const Header = observer(() => {
   const headerButtons = [
     <CreateFieldButton
       interfaceId={interfaceId}
-      key={1}
+      key={0}
       typeService={typeService}
     />,
   ]
