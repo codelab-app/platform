@@ -48,7 +48,6 @@ export const typeSchema = gql`
       @cypher(statement: """${getTypeReferences}""")
   }
 
-
   interface TypeBase
   {
     id: ID! @id(autogenerate: false)
