@@ -130,7 +130,7 @@ export const typeSchema = gql`
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
-    itemType: AnyType!
+    itemType: TypeBase!
       @relationship(
         type: "ARRAY_ITEM_TYPE",
         direction: OUT,
@@ -146,7 +146,7 @@ export const typeSchema = gql`
     name: String! @unique
     owner: User!
     descendantTypesIds: [ID!]!
-    typesOfUnionType: [AnyType!]!
+    typesOfUnionType: [TypeBase!]!
       @relationship(
         type: "UNION_TYPE_CHILD",
         direction: OUT,
@@ -168,6 +168,13 @@ export const typeSchema = gql`
     owner: User!
     fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
+
+    defaults: [User!]! 
+      @relationship(
+        type: "INTERFACE_DEFAULTS",
+        properties: "InterfaceDefaults",
+        direction: IN
+      )
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
@@ -352,22 +359,6 @@ export const typeSchema = gql`
     Graphql
     CssInJs
   }
-
-
-  union AnyType = PrimitiveType | 
-                  ArrayType | 
-                  UnionType | 
-                  InterfaceType | 
-                  ElementType | 
-                  RenderPropsType | 
-                  ReactNodeType | 
-                  EnumType | 
-                  LambdaType | 
-                  PageType | 
-                  AppType | 
-                  ActionType | 
-                  CodeMirrorType
-
 
   union AnyType = PrimitiveType | 
                   ArrayType | 
