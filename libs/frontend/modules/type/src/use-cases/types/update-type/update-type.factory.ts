@@ -26,7 +26,7 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.ElementType ? type.elementKind : undefined,
       itemType:
         type.kind === ITypeKind.ArrayType
-          ? { ActionType: makeItemTypeCreateInput(type) }
+          ? makeItemTypeCreateInput(type)
           : undefined,
       owner:
         type.kind === ITypeKind.InterfaceType
