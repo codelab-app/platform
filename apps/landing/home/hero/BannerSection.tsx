@@ -1,14 +1,12 @@
 import { Fancybox } from '@codelab/frontend/view/components'
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button, Col, Row, Space, Typography } from 'antd'
+import { Button, Col, Row, Space } from 'antd'
 import $ from 'jquery'
 import React, { useEffect, useRef } from 'react'
 import tw from 'twin.macro'
 import { BuilderDemo } from '../demo/BuilderDemo'
 import { CurveAccent } from './CurveAccent'
-
-const { Title, Text, Paragraph } = Typography
 
 // const Fancybox = dynamic<any>(
 //   () => import('@codelab/frontend/view/components').then((mod) => mod.Fancybox),

@@ -3,10 +3,10 @@ import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
 import React from 'react'
-import { WidthProvider } from 'react-grid-layout'
 import Slider, { Settings } from 'react-slick'
 import tw from 'twin.macro'
 import v from 'voca'
+import styles from './customDots.module.css'
 
 const { Meta } = Card
 const { Text } = Typography
@@ -30,14 +30,7 @@ export const TestimonialItem = ({
   return (
     <>
       <div css={tw`h-8`} />
-      <Card
-        css={[
-          css`
-            max-width: 600px;
-          `,
-          tw`mx-2 bg-transparent p-2 sm:p-4 rounded-lg`,
-        ]}
-      >
+      <Card css={[tw`max-w-[600px] mx-2 bg-transparent p-2 sm:p-4 rounded-lg`]}>
         <div css={tw`flex justify-center`}>
           <span css={tw`flex relative -mt-16 bg-slate-700 p-4`}>
             <FontAwesomeIcon
@@ -107,10 +100,14 @@ export const TestimonialSection = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    appendDots: (dots) => {
-      return <div>{dots}</div>
-    },
-    dotsClass: 'slick-dots slick-thumb',
+    appendDots: (dots) => (
+      <>
+        <div className={`${styles['slick-dots']} ${styles['slick-thumb']}`}>
+          {dots}
+        </div>
+      </>
+    ),
+    // dotsClass: 'slick-dots slick-thumb',
     responsive: [
       {
         breakpoint: 1200,

@@ -79,9 +79,10 @@ export const BestPractices = () => {
         <Row
           css={tw`justify-center pl-0 md:pl-8 2xl:pl-0 m-auto w-11/12 md:container`}
         >
-          {featureItems.map((items) => (
+          {featureItems.map((items, index) => (
             <Col
               css={tw`mr-0 md:mr-8 mb-8`}
+              key={index}
               lg={11}
               span={24}
               xl={11}

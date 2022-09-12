@@ -90,8 +90,8 @@ export const MenuMobile = () => {
             <FontAwesomeIcon css={tw`text-xl`} icon={faArrowLeft} />
           </div>
           <ul css={[tw` p-0 flex-col pt-4 flex`]}>
-            {menuItems.map((items) => (
-              <li css={tw`hidden laptop:flex pt-8 text-base flex`}>
+            {menuItems.map((items, index) => (
+              <li css={tw`hidden laptop:flex pt-8 text-base flex`} key={index}>
                 <a
                   css={tw`flex items-center text-black hover:text-primary  font-display font-normal`}
                   href={items.href}

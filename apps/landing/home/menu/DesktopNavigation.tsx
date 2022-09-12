@@ -22,8 +22,11 @@ export const MenuDesktop = () => {
           </li>
           {/* Used to push other items to the end */}
           <li css={tw`flex-grow hidden laptop:flex`}>{}</li>
-          {menuItems.map((items) => (
-            <li css={tw`hidden laptop:flex text-base flex p-2 mr-4`}>
+          {menuItems.map((items, index) => (
+            <li
+              css={tw`hidden laptop:flex text-base flex p-2 mr-4`}
+              key={index}
+            >
               <a
                 css={tw`flex items-center text-black hover:text-primary font-display font-normal`}
                 href={items.href}

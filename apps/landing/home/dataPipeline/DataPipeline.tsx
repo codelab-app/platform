@@ -56,7 +56,7 @@ export const DataPipeline = () => {
         >
           Control Your Data Pipeline
         </h2>
-        {data.map((items) => (
+        {data.map((items, index) => (
           <div
             css={[
               isEvenNumber(items.id) === false
@@ -64,6 +64,7 @@ export const DataPipeline = () => {
                 : tw`lg:flex-row-reverse `,
               tw`flex flex-col mt-7 sm:mt-14 lg:mt-28 justify-between`,
             ]}
+            key={index}
           >
             <div
               css={[

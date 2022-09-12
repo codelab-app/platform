@@ -26,8 +26,8 @@ export const Integrations = () => {
         Integrations
       </p>
       <ul css={tw`list-none flex flex-wrap px-0 sm:px-6  mb-8 justify-center`}>
-        {listItem.map((item) => (
-          <li css={tw`py-6 px-2 w-36 md:w-40 xl:w-48 2xl:w-auto`}>
+        {listItem.map((item, index) => (
+          <li css={tw`py-6 px-2 w-36 md:w-40 xl:w-48 2xl:w-auto`} key={index}>
             <Image height={45} src={item.src} width={200} />
           </li>
         ))}
