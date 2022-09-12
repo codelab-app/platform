@@ -7,3 +7,4 @@
 "src","Image path","string","-","4.6.0",false
 "width","Image width","string | number","-","4.6.0",false
 "onError","Load failed callback","(event: Event) => void","-","4.12.0",false
+"rootClassName","add custom className for image root DOM and preview mode root DOM","string","-","4.20.0",false

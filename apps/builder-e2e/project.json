@@ -17,7 +17,8 @@
           "baseUrl": "http://127.0.0.1:3000",
           "cypressConfig": "apps/builder-e2e/cypress.ci.config.ts",
           "devServerTarget": "builder-e2e:serve:ci",
-          "record": true
+          "record": true,
+          "verbose": true
         },
         "test": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",

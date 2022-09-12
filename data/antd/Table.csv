@@ -7,10 +7,7 @@
 "footer","Table footer renderer","function(currentPageData)","-","",false
 "getPopupContainer","The render container of dropdowns in table","(triggerNode) => HTMLElement","() => TableHtmlElement","",false
 "loading","Loading status of table","boolean | Spin Props","false","",false
-"locale","The i18n text including filter, sort, empty text, etc","object","filterConfirm: Ok
-filterReset: Reset
-emptyText: No Data
-Default","",false
+"locale","The i18n text including filter, sort, empty text, etc","object","Default Value","",false
 "pagination","Config of pagination. You can ref table pagination config or full pagination document, hide it by setting it to false","object","-","",false
 "rowClassName","Row's className","function(record, index): string","-","",false
 "rowKey","Row's unique key, could be a string or function that returns a string","string | function(record): string","key","",false

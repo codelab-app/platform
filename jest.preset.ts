@@ -1,21 +1,11 @@
 const nxPreset = require('@nrwl/jest/preset').default
 
-const testTimeout = process.env.CI ? 30000 : 500000
+const testTimeout = process.env.CI ? 15000 : 20000
 
 const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
 
 module.exports = {
   ...nxPreset,
-  // globals: {
-  //   ...nxPreset.globals,
-  //   // 'ts-jest': {
-  //   //   ...nxPreset.globals?.['ts-jest'],
-  //   //   // Speeds up tests by turning off type checking
-  //   //   isolatedModules: true,
-  //   //   // https://github.com/kentcdodds/babel-plugin-macros/issues/160 error for Wallaby.js
-  //   //   useESM: true,
-  //   // },
-  // },
   setupFiles: [`${JEST_CONFIG_PATH}/setupFiles.js`],
   // globalSetup: `${JEST_CONFIG_PATH}/globalSetup.js`,
   setupFilesAfterEnv: [

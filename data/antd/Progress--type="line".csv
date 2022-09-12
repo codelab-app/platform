@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"steps","The total step count","number","-","-",false
+"strokeColor","The color of progress bar, render linear-gradient when passing an object, could accept string[] when has steps.","string | string[] | { from: string; to: string; direction: string }","-","4.21.0: string[]",false
+"strokeWidth","To set the width of the progress bar, unit: px","number","10","-",false

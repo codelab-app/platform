@@ -8,10 +8,9 @@ import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
 import { importCommand } from './commands/import/import.command'
 import { resetCommand } from './commands/reset/reset.command'
+import { scrapeCommand } from './commands/scrape/scrape.command'
+import { tasksCommand } from './commands/tasks/tasks.command'
 import { Stage } from './utils/env'
-import { requireTestEnvOptions } from './utils/options'
-import { runTasks } from './utils/run-tasks'
-import { Tasks } from './utils/tasks'
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
  *
@@ -35,72 +34,34 @@ yargs(hideBin(process.argv))
   .middleware((argv) => {
     const { stage } = argv
 
+    console.log('process.env.CI', process.env.CI)
+
+    if (process.env.CI) {
+      return
+    }
+
     // Load prod env only if not CI
-    if (stage === Stage.Prod && !process.env.CI) {
+    if (stage === Stage.Prod) {
       dotenv.config({ path: '.env.prod', override: true })
       console.log(process.env.NEO4J_URI)
     }
 
-    if (stage === Stage.Dev && !process.env.CI) {
+    if (stage === Stage.Dev) {
       dotenv.config({ path: '.env', override: true })
       console.log(process.env.NEO4J_URI)
     }
   })
 
-  //
-  // Reset data
-  //
   .command(resetCommand)
-
-  /**
-   * Export/import data
-   *
-   * - import also seeds data
-   */
   .command(importCommand)
   .command(exportCommand)
+  .command(tasksCommand)
+  .command(scrapeCommand)
 
-  //
-  // Task
-  //
-  .command(
-    'tasks',
-    'Run tasks',
-    (_yargs) =>
-      _yargs
-        .command(Tasks.Unit, 'Run unit tests', requireTestEnvOptions, (argv) =>
-          runTasks(argv.env, `${argv._[1]}`),
-        )
-        .command(
-          Tasks.Int,
-          'Run integration tests',
-          requireTestEnvOptions,
-          (argv) => runTasks(argv.env, `${argv._[1]}`),
-        )
-        .command(Tasks.E2e, 'Run e2e tests', requireTestEnvOptions, (argv) =>
-          runTasks(argv.env, `${argv._[1]}`),
-        )
-        .command(Tasks.Lint, 'Lint projects', requireTestEnvOptions, (argv) =>
-          runTasks(argv.env, `${argv._[1]}`),
-        )
-        .command(Tasks.Format, 'Format files', requireTestEnvOptions, (argv) =>
-          runTasks(argv.env, `${argv._[1]}`, `${argv._[2]}`),
-        )
-        .command(
-          Tasks.Commitlint,
-          'Commitlint projects',
-          requireTestEnvOptions,
-          (argv) => runTasks(argv.env, `${argv._[1]}`, `${argv._[2]}`),
-        )
-        .command(Tasks.Build, 'Build projects', requireTestEnvOptions, (argv) =>
-          runTasks(argv.env, `${argv._[1]}`),
-        )
-        .demandCommand(1, 'Please provide a task').argv,
-  )
+  /**
+   * TS Parser
+   */
 
-  //
-  // Ts Parser
-  //
   // .command('parse-ts', 'Typescript prop types to Interface parse', (_yargs) => {
   //   return _yargs.command(
   //     'mui',
@@ -118,6 +79,3 @@ yargs(hideBin(process.argv))
   // })
 
   .demandCommand(1, 'Please provide a command').argv
-//   .strict()
-//   .parse()
-//   .help()

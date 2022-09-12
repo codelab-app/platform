@@ -7,8 +7,8 @@
 "htmlType","Set the original html type of button, see: MDN","string","button","",false
 "icon","Set the icon component of button","ReactNode","-","",false
 "loading","Set the loading status of button","boolean | { delay: number }","false","",false
-"shape","Can be set button shape","circle | round","-","",true
-"size","Set the size of button","large | middle | small","middle","",true
+"shape","Can be set button shape","default | circle | round","'default'","",false
+"size","Set the size of button","large | middle | small","middle","",false
 "target","Same as target attribute of a, works when href is specified","string","-","",false
 "type","Can be set to primary ghost dashed link text default","string","default","",false
 "onClick","Set the handler to handle click event","(event) => void","-","",false

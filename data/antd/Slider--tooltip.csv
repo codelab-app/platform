@@ -1,0 +1,5 @@
+"property","description","type","default","version","isEnum"
+"open","If true, Tooltip will show always, or it will not show anyway, even if dragging or hovering","boolean","-","4.23.0",false
+"placement","Set Tooltip display position. Ref Tooltip","string","-","4.23.0",false
+"getPopupContainer","The DOM container of the Tooltip, the default behavior is to create a div element in body","(triggerNode) => HTMLElement","() => document.body","4.23.0",false
+"formatter","Slider will pass its value to formatter, and display its value in Tooltip, and hide Tooltip when return value is null","value => ReactNode | null","IDENTITY","4.23.0",false

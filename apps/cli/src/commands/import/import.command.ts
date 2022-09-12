@@ -8,38 +8,19 @@ import { importSeedData } from './import-seed-data'
 import { importUserData } from './import-user-data'
 
 /**
- * Imports user data
+ * Imports seed data and/or user data.
  *
- * - apps
- *
- * Import without any argument seeds data
+ * User data includes apps, user type, resources
  */
 export const importCommand: CommandModule<any, unknown> = {
   command: 'import',
   describe: 'Import user data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
-  builder: async (argv) => {
-    return argv.options({
-      // userData: {
-      //   alias: 'u',
-      //   describe: 'User data file to be imported',
-      //   demandOption: true,
-      //   type: 'string',
-      // },
-      // ownerId: {
-      //   alias: 'o',
-      //   describe: 'Owner ID to assign data to',
-      //   choices: users,
-      //   type: 'string',
-      //   demandOption: true,
-      // },
-    })
-  },
   /**
    *
    * @param file File for the user data
    */
-  handler: async ({ userData, seedData }) => {
+  handler: async () => {
     const User = await UserOGM({ reinitialize: true })
     const users = await User.find()
 

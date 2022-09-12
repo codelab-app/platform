@@ -9,5 +9,5 @@
 "onClick","Set the handler to handle click event","(event) => void","-","",false
 "strong","Bold style","boolean","false","",false
 "italic","Italic style","boolean","false","4.16.0",false
-"type","Content type","secondary | success | warning | danger","-","success: 4.6.0",true
+"type","Content type","secondary | success | warning | danger","-","success: 4.6.0",false
 "underline","Underlined style","boolean","false","",false

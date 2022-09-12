@@ -1,7 +1,9 @@
 "property","description","type","default","version","isEnum"
+"children","The wrapped title","ReactNode","-","",false
 "className","The className of container","string","-","",false
 "dashed","Whether line is dashed","boolean","false","",false
 "orientation","The position of title inside divider","left | right | center","center","",false
+"orientationMargin","The margin-left/right between the title and its closest border, while the orientation must be left or right","string | number","-","",false
 "plain","Divider text show as plain style","boolean","true","4.2.0",false
 "style","The style object of container","CSSProperties","-","",false
 "type","The direction type of divider","horizontal | vertical","horizontal","",false
