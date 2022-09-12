@@ -65,11 +65,11 @@ module.exports = withPlugins(
         cssModules: false,
         // Landing page is handled by a separate nx app
         redirects: async () => [
-          {
-            source: '/',
-            destination: '/apps',
-            permanent: true,
-          },
+          // {
+          //   source: '/',
+          //   destination: '/apps',
+          //   permanent: true,
+          // },
         ],
       },
     ],
