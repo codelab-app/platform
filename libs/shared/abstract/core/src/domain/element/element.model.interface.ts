@@ -54,7 +54,7 @@ export interface IElement
   childrenSorted: Array<IElement>
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
-  instanceOfComponent: Nullable<Ref<IComponent>>
+  componentRenderType: Nullable<Ref<IComponent>>
   antdNode: IBuilderDataNode
   children: ObjectMap<Ref<IElement>>
   leftHandDescendants: Array<IElement>

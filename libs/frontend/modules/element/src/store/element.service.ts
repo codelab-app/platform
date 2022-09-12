@@ -107,7 +107,7 @@ export class ElementService
     const componentService = getComponentService(this)
 
     const components = elements
-      .map((v) => v.component || v.instanceOfComponent)
+      .map((v) => v.component || v.componentRenderType)
       .filter(Boolean) as Array<IComponentDTO>
 
     components.map((component) => componentService.writeCache(component))
@@ -710,7 +710,7 @@ element is new parentElement's first child
       }),
     )
 
-    if (!element.component) {
+    if (!element.parentComponent) {
       throw new Error('Could not find component')
     }
 
@@ -722,7 +722,7 @@ element is new parentElement's first child
       this.create([
         {
           name: element.label,
-          instanceOfComponentId: element.component.id,
+          instanceOfComponentId: element.parentComponent.id,
           parentElementId: parentId,
         },
       ]),

@@ -22,7 +22,7 @@ import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { updateElementSchema } from './updateElementSchema'
 
-export type UpdateElementFormProps = {
+export interface UpdateElementFormProps {
   element: IElement
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
@@ -56,7 +56,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       name: element.name,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfPropKey: element.renderIfPropKey,
-      instanceOfComponentId: element.instanceOfComponent?.id,
+      instanceOfComponentId: element.componentRenderType?.id,
       postRenderActionId: element.postRenderActionId,
       preRenderActionId: element.preRenderActionId,
     })

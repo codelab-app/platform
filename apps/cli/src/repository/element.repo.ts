@@ -11,8 +11,8 @@ const label = (element: OGM_TYPES.Element) =>
   element.name ||
   element.atom?.name ||
   (element.atom ? pascalCaseToWords(element.atom.type) : undefined) ||
-  element.component?.name ||
-  element.instanceOfComponent?.name
+  element.parentComponent?.name ||
+  element.componentRenderType?.name
 
 export const importElementInitial = async (
   element: OGM_TYPES.Element,
@@ -108,8 +108,8 @@ export const updateImportedElement = async (
   await Elements.update({
     where: { id: element.id },
     update: {
-      component: element.component
-        ? { connect: { where: { node: { id: element.component.id } } } }
+      component: element.parentComponent
+        ? { connect: { where: { node: { id: element.parentComponent.id } } } }
         : undefined,
       parentElement: element.parentElement
         ? {
@@ -120,10 +120,10 @@ export const updateImportedElement = async (
             },
           }
         : undefined,
-      instanceOfComponent: element.instanceOfComponent
+      componentRenderType: element.componentRenderType
         ? {
             connect: {
-              where: { node: { id: element.instanceOfComponent.id } },
+              where: { node: { id: element.componentRenderType.id } },
             },
           }
         : undefined,

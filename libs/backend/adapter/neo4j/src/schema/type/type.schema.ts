@@ -180,7 +180,7 @@ export const typeSchema = gql`
   Comparison between different element types:
   - RenderPropsType: Component select box, results it '(props) => ReactNode' value
   - ReactNodeType: Component select box, results it 'ReactNode' value
-  - ElementType: Current tree element select box, results it 'ReactNod' value
+  - ElementType: Current tree element select box, results it 'ReactNode' value
   """
   type ElementType implements TypeBase {
     id: ID!
@@ -203,7 +203,7 @@ export const typeSchema = gql`
   Comparison between different element types:
   - RenderPropsType: Component select box, results it '(props) => ReactNode' value
   - ReactNodeType: Component select box, results it 'ReactNode' value
-  - ElementType: Current tree element select box, results it 'ReactNod' value
+  - ElementType: Current tree element select box, results it 'ReactNode' value
   """
   type RenderPropsType implements TypeBase {
     id: ID!
@@ -221,7 +221,7 @@ export const typeSchema = gql`
   Comparison between different element types:
   - RenderPropsType: Component select box, results it '(props) => ReactNode' value
   - ReactNodeType: Component select box, results it 'ReactNode' value
-  - ElementType: Current tree element select box, results it 'ReactNod' value
+  - ElementType: Current tree element select box, results it 'ReactNode' value
   """
   type ReactNodeType implements TypeBase {
     id: ID!

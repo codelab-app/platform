@@ -13,7 +13,7 @@ export const getPageData = async (page: OGM_TYPES.Page) => {
 
   const componentIds = flatMap(elements, (e) => [
     e.component?.id,
-    e.instanceOfComponent?.id,
+    e.componentRenderType?.id,
     ...(e.props?.data.match(uuidRegex) || []),
   ]).filter(Boolean) as Array<string>
 

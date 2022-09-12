@@ -133,7 +133,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentInstanceElementToRender = new Element({
       id: v4(),
       name: '01',
-      instanceOfComponent: componentRef(data.componentToRender),
+      componentRenderType: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
         data: frozen({

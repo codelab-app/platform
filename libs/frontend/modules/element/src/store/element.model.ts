@@ -54,7 +54,7 @@ export const hydrate = ({
   atom,
 
   component,
-  instanceOfComponent,
+  componentRenderType,
   parentElement,
 
   nextSibling,
@@ -89,8 +89,8 @@ export const hydrate = ({
     renderIfPropKey,
     renderForEachPropKey,
     component: component ? componentRef(component.id) : null,
-    instanceOfComponent: instanceOfComponent
-      ? componentRef(instanceOfComponent.id)
+    componentRenderType: componentRenderType
+      ? componentRef(componentRenderType.id)
       : null,
     propMapBindings: objectMap(
       propMapBindings
@@ -144,7 +144,7 @@ export class Element
     component: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
 
     // Marks the element as an instance of a specific component
-    instanceOfComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    componentRenderType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
   })
   implements IElement
@@ -281,7 +281,7 @@ export class Element
         ? pascalCaseToWords(this.atom?.current.type)
         : undefined) ||
       this.component?.current?.name ||
-      this.instanceOfComponent?.current?.name ||
+      this.componentRenderType?.current?.name ||
       ''
     )
   }
@@ -335,7 +335,7 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-      children: !this.instanceOfComponent?.current
+      children: !this.componentRenderType?.current
         ? this.childrenSorted.map((child) => child.antdNode)
         : [],
     }
@@ -695,7 +695,7 @@ export class Element
     guiCss,
     atom,
     component,
-    instanceOfComponent,
+    componentRenderType,
     hooks,
     propMapBindings,
     props,
@@ -742,8 +742,8 @@ export class Element
     }
 
     this.component = component ? componentRef(component.id) : null
-    this.instanceOfComponent = instanceOfComponent
-      ? componentRef(instanceOfComponent.id)
+    this.componentRenderType = componentRenderType
+      ? componentRef(componentRenderType.id)
       : null
 
     return this

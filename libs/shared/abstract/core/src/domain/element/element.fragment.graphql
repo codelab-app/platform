@@ -4,11 +4,11 @@ fragment Element on Element {
   name
   customCss
   guiCss
-  component {
+  componentRenderType {
     ...Component
   }
-  instanceOfComponent {
-    ...Component
+  atomRenderType {
+    ...Atom
   }
   prevSibling {
     id
@@ -19,14 +19,14 @@ fragment Element on Element {
   parentElement {
     id
   }
+  parentComponent {
+    ...Component
+  }
   parent {
     id
   }
   firstChild {
     id
-  }
-  atom {
-    ...Atom
   }
   props {
     ...Prop

@@ -23,7 +23,7 @@ export class ComponentRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    const component = element.instanceOfComponent?.current
+    const component = element.componentRenderType?.current
 
     if (!component) {
       return this.next.render(element, props)

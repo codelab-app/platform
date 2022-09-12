@@ -35,12 +35,12 @@ export const makeCreateInput = (
     propsData,
   } = input
 
-  const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
+  const componentRenderType: ElementCreateInput['componentRenderType'] =
     instanceOfComponentId
       ? { connect: { where: { node: { id: instanceOfComponentId } } } }
       : undefined
 
-  const atom: ElementCreateInput['atom'] = atomId
+  const atomRenderType: ElementCreateInput['atomRenderType'] = atomId
     ? { connect: { where: { node: { id: atomId } } } }
     : undefined
 
@@ -58,8 +58,8 @@ export const makeCreateInput = (
   }
 
   return {
-    instanceOfComponent,
-    atom,
+    componentRenderType,
+    atomRenderType,
     parentElement,
     props,
     postRenderActionId,
@@ -74,12 +74,12 @@ export const makeDuplicateInput = (
   parentId: string,
   userId: string,
 ): ElementCreateInput => {
-  const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
-    element.instanceOfComponent
-      ? { connect: { where: { node: { id: element.instanceOfComponent.id } } } }
+  const componentRenderType: ElementCreateInput['componentRenderType'] =
+    element.componentRenderType
+      ? { connect: { where: { node: { id: element.componentRenderType.id } } } }
       : undefined
 
-  const atom: ElementCreateInput['atom'] = element.atom
+  const atomRenderType: ElementCreateInput['atomRenderType'] = element.atom
     ? { connect: { where: { node: { id: element.atom.id } } } }
     : undefined
 
@@ -97,8 +97,8 @@ export const makeDuplicateInput = (
 
   return {
     id: v4(),
-    instanceOfComponent,
-    atom,
+    componentRenderType,
+    atomRenderType,
     props,
     parentElement,
     propTransformationJs: element.propTransformationJs,
@@ -113,14 +113,14 @@ export const makeDuplicateInput = (
 export const makeUpdateInput = (
   input: IUpdateElementDTO,
 ): ElementUpdateInput => {
-  const atom = input.atomId
+  const atomRenderType = input.atomId
     ? {
         disconnect: { where: {} },
         connect: { where: { node: { id: input.atomId } } },
       }
     : { disconnect: { where: {} } }
 
-  const instanceOfComponent = input.instanceOfComponentId
+  const componentRenderType = input.instanceOfComponentId
     ? {
         disconnect: { where: {} },
         connect: { where: { node: { id: input.instanceOfComponentId } } },
@@ -129,7 +129,7 @@ export const makeUpdateInput = (
 
   return {
     name: input.name,
-    atom,
+    atomRenderType,
     props: {
       update: {
         node: {
@@ -142,7 +142,7 @@ export const makeUpdateInput = (
     preRenderActionId: input.preRenderActionId || null,
     guiCss: input.guiCss,
     renderForEachPropKey: input.renderForEachPropKey,
-    instanceOfComponent,
+    componentRenderType,
     renderIfPropKey: input.renderIfPropKey,
   }
 }

@@ -46,7 +46,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
-    const isComponentInstance = Boolean(element.instanceOfComponent)
+    const isComponentInstance = Boolean(element.componentRenderType)
     const isRoot = !element.parentElement
 
     const onAddChild = () => {
@@ -76,14 +76,14 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onEditComponent = () => {
-      if (!element.instanceOfComponent) {
+      if (!element.componentRenderType) {
         return
       }
 
       builderService.setActiveTree(RendererTab.Component)
 
       const component = componentService.components.get(
-        element.instanceOfComponent.id.toString(),
+        element.componentRenderType.id.toString(),
       )
 
       component && builderService.set_selectedNode(componentRef(component))

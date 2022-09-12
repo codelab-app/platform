@@ -9,6 +9,14 @@ export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetUsersQuery = { users: Array<UserFragment> }
 
+export type CreateUserMutationVariables = Types.Exact<{
+  input: Array<Types.UserCreateInput> | Types.UserCreateInput
+}>
+
+export type CreateUserMutation = {
+  createUsers: { users: Array<{ id: string; email: string }> }
+}
+
 export const GetUsersDocument = gql`
   query GetUsers {
     users: users {
@@ -16,6 +24,16 @@ export const GetUsersDocument = gql`
     }
   }
   ${UserFragmentDoc}
+`
+export const CreateUserDocument = gql`
+  mutation CreateUser($input: [UserCreateInput!]!) {
+    createUsers(input: $input) {
+      users {
+        id
+        email
+      }
+    }
+  }
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -47,6 +65,20 @@ export function getSdk(
           }),
         'GetUsers',
         'query',
+      )
+    },
+    CreateUser(
+      variables: CreateUserMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<CreateUserMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateUserMutation>(CreateUserDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'CreateUser',
+        'mutation',
       )
     },
   }

@@ -28,14 +28,14 @@ export type ElementFragment = {
   preRenderActionId?: string | null
   postRenderActionId?: string | null
   propTransformationJs?: string | null
-  component?: ComponentFragment | null
-  instanceOfComponent?: ComponentFragment | null
+  componentRenderType?: ComponentFragment | null
+  atomRenderType?: AtomFragment | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentElement?: { id: string } | null
+  parentComponent?: ComponentFragment | null
   parent?: { id: string } | null
   firstChild?: { id: string } | null
-  atom?: AtomFragment | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
@@ -53,11 +53,11 @@ export const ElementFragmentDoc = gql`
     name
     customCss
     guiCss
-    component {
+    componentRenderType {
       ...Component
     }
-    instanceOfComponent {
-      ...Component
+    atomRenderType {
+      ...Atom
     }
     prevSibling {
       id
@@ -68,14 +68,14 @@ export const ElementFragmentDoc = gql`
     parentElement {
       id
     }
+    parentComponent {
+      ...Component
+    }
     parent {
       id
     }
     firstChild {
       id
-    }
-    atom {
-      ...Atom
     }
     props {
       ...Prop

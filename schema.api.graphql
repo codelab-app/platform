@@ -3354,11 +3354,6 @@ type CreateEnumTypesMutationResponse {
   info: CreateInfo!
 }
 
-type CreateExecuteCommandResponsesMutationResponse {
-  executeCommandResponses: [ExecuteCommandResponse!]!
-  info: CreateInfo!
-}
-
 type CreateHooksMutationResponse {
   hooks: [Hook!]!
   info: CreateInfo!
@@ -4128,18 +4123,22 @@ type DomainsConnection {
 }
 
 type Element {
-  atom(directed: Boolean = true, options: AtomOptions, where: AtomWhere): Atom
-  atomAggregate(
+  atomRenderType(
+    directed: Boolean = true
+    options: AtomOptions
+    where: AtomWhere
+  ): Atom
+  atomRenderTypeAggregate(
     directed: Boolean = true
     where: AtomWhere
-  ): ElementAtomAtomAggregationSelection
-  atomConnection(
+  ): ElementAtomAtomRenderTypeAggregationSelection
+  atomRenderTypeConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ElementAtomConnectionSort!]
-    where: ElementAtomConnectionWhere
-  ): ElementAtomConnection!
+    sort: [ElementAtomRenderTypeConnectionSort!]
+    where: ElementAtomRenderTypeConnectionWhere
+  ): ElementAtomRenderTypeConnection!
   children(
     directed: Boolean = true
     options: ElementOptions
@@ -4156,22 +4155,22 @@ type Element {
     sort: [ElementChildrenConnectionSort!]
     where: ElementChildrenConnectionWhere
   ): ElementChildrenConnection!
-  component(
+  componentRenderType(
     directed: Boolean = true
     options: ComponentOptions
     where: ComponentWhere
   ): Component
-  componentAggregate(
+  componentRenderTypeAggregate(
     directed: Boolean = true
     where: ComponentWhere
-  ): ElementComponentComponentAggregationSelection
-  componentConnection(
+  ): ElementComponentComponentRenderTypeAggregationSelection
+  componentRenderTypeConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ElementComponentConnectionSort!]
-    where: ElementComponentConnectionWhere
-  ): ElementComponentConnection!
+    sort: [ElementComponentRenderTypeConnectionSort!]
+    where: ElementComponentRenderTypeConnectionWhere
+  ): ElementComponentRenderTypeConnection!
   customCss: String
   descendantElements: [Element!]!
   firstChild(
@@ -4208,22 +4207,6 @@ type Element {
     where: ElementHooksConnectionWhere
   ): ElementHooksConnection!
   id: ID!
-  instanceOfComponent(
-    directed: Boolean = true
-    options: ComponentOptions
-    where: ComponentWhere
-  ): Component
-  instanceOfComponentAggregate(
-    directed: Boolean = true
-    where: ComponentWhere
-  ): ElementComponentInstanceOfComponentAggregationSelection
-  instanceOfComponentConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementInstanceOfComponentConnectionSort!]
-    where: ElementInstanceOfComponentConnectionWhere
-  ): ElementInstanceOfComponentConnection!
   name: String
   nextSibling(
     directed: Boolean = true
@@ -4262,6 +4245,22 @@ type Element {
     directed: Boolean = true
     where: ElementWhere
   ): ElementElementParentAggregationSelection
+  parentComponent(
+    directed: Boolean = true
+    options: ComponentOptions
+    where: ComponentWhere
+  ): Component
+  parentComponentAggregate(
+    directed: Boolean = true
+    where: ComponentWhere
+  ): ElementComponentParentComponentAggregationSelection
+  parentComponentConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementParentComponentConnectionSort!]
+    where: ElementParentComponentConnectionWhere
+  ): ElementParentComponentConnection!
   parentConnection(
     after: String
     directed: Boolean = true
@@ -4349,82 +4348,82 @@ type ElementAggregateSelection {
   renderIfPropKey: StringAggregateSelectionNullable!
 }
 
-input ElementAtomAggregateInput {
-  AND: [ElementAtomAggregateInput!]
-  OR: [ElementAtomAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementAtomNodeAggregationWhereInput
-}
-
-type ElementAtomAtomAggregationSelection {
+type ElementAtomAtomRenderTypeAggregationSelection {
   count: Int!
-  node: ElementAtomAtomNodeAggregateSelection
+  node: ElementAtomAtomRenderTypeNodeAggregateSelection
 }
 
-type ElementAtomAtomNodeAggregateSelection {
+type ElementAtomAtomRenderTypeNodeAggregateSelection {
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
-input ElementAtomConnectFieldInput {
+input ElementAtomRenderTypeAggregateInput {
+  AND: [ElementAtomRenderTypeAggregateInput!]
+  OR: [ElementAtomRenderTypeAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementAtomRenderTypeNodeAggregationWhereInput
+}
+
+input ElementAtomRenderTypeConnectFieldInput {
   connect: AtomConnectInput
   where: AtomConnectWhere
 }
 
-input ElementAtomConnectOrCreateFieldInput {
-  onCreate: ElementAtomConnectOrCreateFieldInputOnCreate!
+input ElementAtomRenderTypeConnectOrCreateFieldInput {
+  onCreate: ElementAtomRenderTypeConnectOrCreateFieldInputOnCreate!
   where: AtomConnectOrCreateWhere!
 }
 
-input ElementAtomConnectOrCreateFieldInputOnCreate {
+input ElementAtomRenderTypeConnectOrCreateFieldInputOnCreate {
   node: AtomOnCreateInput!
 }
 
-type ElementAtomConnection {
-  edges: [ElementAtomRelationship!]!
+type ElementAtomRenderTypeConnection {
+  edges: [ElementAtomRenderTypeRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementAtomConnectionSort {
+input ElementAtomRenderTypeConnectionSort {
   node: AtomSort
 }
 
-input ElementAtomConnectionWhere {
-  AND: [ElementAtomConnectionWhere!]
-  OR: [ElementAtomConnectionWhere!]
+input ElementAtomRenderTypeConnectionWhere {
+  AND: [ElementAtomRenderTypeConnectionWhere!]
+  OR: [ElementAtomRenderTypeConnectionWhere!]
   node: AtomWhere
   node_NOT: AtomWhere
 }
 
-input ElementAtomCreateFieldInput {
+input ElementAtomRenderTypeCreateFieldInput {
   node: AtomCreateInput!
 }
 
-input ElementAtomDeleteFieldInput {
+input ElementAtomRenderTypeDeleteFieldInput {
   delete: AtomDeleteInput
-  where: ElementAtomConnectionWhere
+  where: ElementAtomRenderTypeConnectionWhere
 }
 
-input ElementAtomDisconnectFieldInput {
+input ElementAtomRenderTypeDisconnectFieldInput {
   disconnect: AtomDisconnectInput
-  where: ElementAtomConnectionWhere
+  where: ElementAtomRenderTypeConnectionWhere
 }
 
-input ElementAtomFieldInput {
-  connect: ElementAtomConnectFieldInput
-  connectOrCreate: ElementAtomConnectOrCreateFieldInput
-  create: ElementAtomCreateFieldInput
+input ElementAtomRenderTypeFieldInput {
+  connect: ElementAtomRenderTypeConnectFieldInput
+  connectOrCreate: ElementAtomRenderTypeConnectOrCreateFieldInput
+  create: ElementAtomRenderTypeCreateFieldInput
 }
 
-input ElementAtomNodeAggregationWhereInput {
-  AND: [ElementAtomNodeAggregationWhereInput!]
-  OR: [ElementAtomNodeAggregationWhereInput!]
+input ElementAtomRenderTypeNodeAggregationWhereInput {
+  AND: [ElementAtomRenderTypeNodeAggregationWhereInput!]
+  OR: [ElementAtomRenderTypeNodeAggregationWhereInput!]
   icon_AVERAGE_EQUAL: Float
   icon_AVERAGE_GT: Float
   icon_AVERAGE_GTE: Float
@@ -4468,23 +4467,23 @@ input ElementAtomNodeAggregationWhereInput {
   name_SHORTEST_LTE: Int
 }
 
-type ElementAtomRelationship {
+type ElementAtomRenderTypeRelationship {
   cursor: String!
   node: Atom!
 }
 
-input ElementAtomUpdateConnectionInput {
+input ElementAtomRenderTypeUpdateConnectionInput {
   node: AtomUpdateInput
 }
 
-input ElementAtomUpdateFieldInput {
-  connect: ElementAtomConnectFieldInput
-  connectOrCreate: ElementAtomConnectOrCreateFieldInput
-  create: ElementAtomCreateFieldInput
-  delete: ElementAtomDeleteFieldInput
-  disconnect: ElementAtomDisconnectFieldInput
-  update: ElementAtomUpdateConnectionInput
-  where: ElementAtomConnectionWhere
+input ElementAtomRenderTypeUpdateFieldInput {
+  connect: ElementAtomRenderTypeConnectFieldInput
+  connectOrCreate: ElementAtomRenderTypeConnectOrCreateFieldInput
+  create: ElementAtomRenderTypeCreateFieldInput
+  delete: ElementAtomRenderTypeDeleteFieldInput
+  disconnect: ElementAtomRenderTypeDisconnectFieldInput
+  update: ElementAtomRenderTypeUpdateConnectionInput
+  where: ElementAtomRenderTypeConnectionWhere
 }
 
 input ElementChildrenAggregateInput {
@@ -4773,91 +4772,91 @@ input ElementChildrenUpdateFieldInput {
   where: ElementChildrenConnectionWhere
 }
 
-input ElementComponentAggregateInput {
-  AND: [ElementComponentAggregateInput!]
-  OR: [ElementComponentAggregateInput!]
+type ElementComponentComponentRenderTypeAggregationSelection {
+  count: Int!
+  node: ElementComponentComponentRenderTypeNodeAggregateSelection
+}
+
+type ElementComponentComponentRenderTypeNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+type ElementComponentParentComponentAggregationSelection {
+  count: Int!
+  node: ElementComponentParentComponentNodeAggregateSelection
+}
+
+type ElementComponentParentComponentNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ElementComponentRenderTypeAggregateInput {
+  AND: [ElementComponentRenderTypeAggregateInput!]
+  OR: [ElementComponentRenderTypeAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: ElementComponentNodeAggregationWhereInput
+  node: ElementComponentRenderTypeNodeAggregationWhereInput
 }
 
-type ElementComponentComponentAggregationSelection {
-  count: Int!
-  node: ElementComponentComponentNodeAggregateSelection
-}
-
-type ElementComponentComponentNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input ElementComponentConnectFieldInput {
+input ElementComponentRenderTypeConnectFieldInput {
   connect: ComponentConnectInput
   where: ComponentConnectWhere
 }
 
-input ElementComponentConnectOrCreateFieldInput {
-  onCreate: ElementComponentConnectOrCreateFieldInputOnCreate!
+input ElementComponentRenderTypeConnectOrCreateFieldInput {
+  onCreate: ElementComponentRenderTypeConnectOrCreateFieldInputOnCreate!
   where: ComponentConnectOrCreateWhere!
 }
 
-input ElementComponentConnectOrCreateFieldInputOnCreate {
+input ElementComponentRenderTypeConnectOrCreateFieldInputOnCreate {
   node: ComponentOnCreateInput!
 }
 
-type ElementComponentConnection {
-  edges: [ElementComponentRelationship!]!
+type ElementComponentRenderTypeConnection {
+  edges: [ElementComponentRenderTypeRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementComponentConnectionSort {
+input ElementComponentRenderTypeConnectionSort {
   node: ComponentSort
 }
 
-input ElementComponentConnectionWhere {
-  AND: [ElementComponentConnectionWhere!]
-  OR: [ElementComponentConnectionWhere!]
+input ElementComponentRenderTypeConnectionWhere {
+  AND: [ElementComponentRenderTypeConnectionWhere!]
+  OR: [ElementComponentRenderTypeConnectionWhere!]
   node: ComponentWhere
   node_NOT: ComponentWhere
 }
 
-input ElementComponentCreateFieldInput {
+input ElementComponentRenderTypeCreateFieldInput {
   node: ComponentCreateInput!
 }
 
-input ElementComponentDeleteFieldInput {
+input ElementComponentRenderTypeDeleteFieldInput {
   delete: ComponentDeleteInput
-  where: ElementComponentConnectionWhere
+  where: ElementComponentRenderTypeConnectionWhere
 }
 
-input ElementComponentDisconnectFieldInput {
+input ElementComponentRenderTypeDisconnectFieldInput {
   disconnect: ComponentDisconnectInput
-  where: ElementComponentConnectionWhere
+  where: ElementComponentRenderTypeConnectionWhere
 }
 
-input ElementComponentFieldInput {
-  connect: ElementComponentConnectFieldInput
-  connectOrCreate: ElementComponentConnectOrCreateFieldInput
-  create: ElementComponentCreateFieldInput
+input ElementComponentRenderTypeFieldInput {
+  connect: ElementComponentRenderTypeConnectFieldInput
+  connectOrCreate: ElementComponentRenderTypeConnectOrCreateFieldInput
+  create: ElementComponentRenderTypeCreateFieldInput
 }
 
-type ElementComponentInstanceOfComponentAggregationSelection {
-  count: Int!
-  node: ElementComponentInstanceOfComponentNodeAggregateSelection
-}
-
-type ElementComponentInstanceOfComponentNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input ElementComponentNodeAggregationWhereInput {
-  AND: [ElementComponentNodeAggregationWhereInput!]
-  OR: [ElementComponentNodeAggregationWhereInput!]
+input ElementComponentRenderTypeNodeAggregationWhereInput {
+  AND: [ElementComponentRenderTypeNodeAggregationWhereInput!]
+  OR: [ElementComponentRenderTypeNodeAggregationWhereInput!]
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -4881,35 +4880,35 @@ input ElementComponentNodeAggregationWhereInput {
   name_SHORTEST_LTE: Int
 }
 
-type ElementComponentRelationship {
+type ElementComponentRenderTypeRelationship {
   cursor: String!
   node: Component!
 }
 
-input ElementComponentUpdateConnectionInput {
+input ElementComponentRenderTypeUpdateConnectionInput {
   node: ComponentUpdateInput
 }
 
-input ElementComponentUpdateFieldInput {
-  connect: ElementComponentConnectFieldInput
-  connectOrCreate: ElementComponentConnectOrCreateFieldInput
-  create: ElementComponentCreateFieldInput
-  delete: ElementComponentDeleteFieldInput
-  disconnect: ElementComponentDisconnectFieldInput
-  update: ElementComponentUpdateConnectionInput
-  where: ElementComponentConnectionWhere
+input ElementComponentRenderTypeUpdateFieldInput {
+  connect: ElementComponentRenderTypeConnectFieldInput
+  connectOrCreate: ElementComponentRenderTypeConnectOrCreateFieldInput
+  create: ElementComponentRenderTypeCreateFieldInput
+  delete: ElementComponentRenderTypeDeleteFieldInput
+  disconnect: ElementComponentRenderTypeDisconnectFieldInput
+  update: ElementComponentRenderTypeUpdateConnectionInput
+  where: ElementComponentRenderTypeConnectionWhere
 }
 
 input ElementConnectInput {
-  atom: ElementAtomConnectFieldInput
+  atomRenderType: ElementAtomRenderTypeConnectFieldInput
   children: [ElementChildrenConnectFieldInput!]
-  component: ElementComponentConnectFieldInput
+  componentRenderType: ElementComponentRenderTypeConnectFieldInput
   firstChild: ElementFirstChildConnectFieldInput
   hooks: [ElementHooksConnectFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentConnectFieldInput
   nextSibling: ElementNextSiblingConnectFieldInput
   page: ElementPageConnectFieldInput
   parent: ElementParentConnectFieldInput
+  parentComponent: ElementParentComponentConnectFieldInput
   parentElement: ElementParentElementConnectFieldInput
   prevSibling: ElementPrevSiblingConnectFieldInput
   propMapBindings: [ElementPropMapBindingsConnectFieldInput!]
@@ -4917,15 +4916,15 @@ input ElementConnectInput {
 }
 
 input ElementConnectOrCreateInput {
-  atom: ElementAtomConnectOrCreateFieldInput
+  atomRenderType: ElementAtomRenderTypeConnectOrCreateFieldInput
   children: [ElementChildrenConnectOrCreateFieldInput!]
-  component: ElementComponentConnectOrCreateFieldInput
+  componentRenderType: ElementComponentRenderTypeConnectOrCreateFieldInput
   firstChild: ElementFirstChildConnectOrCreateFieldInput
   hooks: [ElementHooksConnectOrCreateFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentConnectOrCreateFieldInput
   nextSibling: ElementNextSiblingConnectOrCreateFieldInput
   page: ElementPageConnectOrCreateFieldInput
   parent: ElementParentConnectOrCreateFieldInput
+  parentComponent: ElementParentComponentConnectOrCreateFieldInput
   parentElement: ElementParentElementConnectOrCreateFieldInput
   prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
   propMapBindings: [ElementPropMapBindingsConnectOrCreateFieldInput!]
@@ -4941,19 +4940,19 @@ input ElementConnectWhere {
 }
 
 input ElementCreateInput {
-  atom: ElementAtomFieldInput
+  atomRenderType: ElementAtomRenderTypeFieldInput
   children: ElementChildrenFieldInput
-  component: ElementComponentFieldInput
+  componentRenderType: ElementComponentRenderTypeFieldInput
   customCss: String
   firstChild: ElementFirstChildFieldInput
   guiCss: String
   hooks: ElementHooksFieldInput
   id: ID!
-  instanceOfComponent: ElementInstanceOfComponentFieldInput
   name: String
   nextSibling: ElementNextSiblingFieldInput
   page: ElementPageFieldInput
   parent: ElementParentFieldInput
+  parentComponent: ElementParentComponentFieldInput
   parentElement: ElementParentElementFieldInput
   postRenderActionId: String
   preRenderActionId: String
@@ -4966,15 +4965,15 @@ input ElementCreateInput {
 }
 
 input ElementDeleteInput {
-  atom: ElementAtomDeleteFieldInput
+  atomRenderType: ElementAtomRenderTypeDeleteFieldInput
   children: [ElementChildrenDeleteFieldInput!]
-  component: ElementComponentDeleteFieldInput
+  componentRenderType: ElementComponentRenderTypeDeleteFieldInput
   firstChild: ElementFirstChildDeleteFieldInput
   hooks: [ElementHooksDeleteFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentDeleteFieldInput
   nextSibling: ElementNextSiblingDeleteFieldInput
   page: ElementPageDeleteFieldInput
   parent: ElementParentDeleteFieldInput
+  parentComponent: ElementParentComponentDeleteFieldInput
   parentElement: ElementParentElementDeleteFieldInput
   prevSibling: ElementPrevSiblingDeleteFieldInput
   propMapBindings: [ElementPropMapBindingsDeleteFieldInput!]
@@ -4982,15 +4981,15 @@ input ElementDeleteInput {
 }
 
 input ElementDisconnectInput {
-  atom: ElementAtomDisconnectFieldInput
+  atomRenderType: ElementAtomRenderTypeDisconnectFieldInput
   children: [ElementChildrenDisconnectFieldInput!]
-  component: ElementComponentDisconnectFieldInput
+  componentRenderType: ElementComponentRenderTypeDisconnectFieldInput
   firstChild: ElementFirstChildDisconnectFieldInput
   hooks: [ElementHooksDisconnectFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentDisconnectFieldInput
   nextSibling: ElementNextSiblingDisconnectFieldInput
   page: ElementPageDisconnectFieldInput
   parent: ElementParentDisconnectFieldInput
+  parentComponent: ElementParentComponentDisconnectFieldInput
   parentElement: ElementParentElementDisconnectFieldInput
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
@@ -5466,113 +5465,6 @@ input ElementHooksUpdateFieldInput {
   where: ElementHooksConnectionWhere
 }
 
-input ElementInstanceOfComponentAggregateInput {
-  AND: [ElementInstanceOfComponentAggregateInput!]
-  OR: [ElementInstanceOfComponentAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementInstanceOfComponentNodeAggregationWhereInput
-}
-
-input ElementInstanceOfComponentConnectFieldInput {
-  connect: ComponentConnectInput
-  where: ComponentConnectWhere
-}
-
-input ElementInstanceOfComponentConnectOrCreateFieldInput {
-  onCreate: ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate!
-  where: ComponentConnectOrCreateWhere!
-}
-
-input ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate {
-  node: ComponentOnCreateInput!
-}
-
-type ElementInstanceOfComponentConnection {
-  edges: [ElementInstanceOfComponentRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementInstanceOfComponentConnectionSort {
-  node: ComponentSort
-}
-
-input ElementInstanceOfComponentConnectionWhere {
-  AND: [ElementInstanceOfComponentConnectionWhere!]
-  OR: [ElementInstanceOfComponentConnectionWhere!]
-  node: ComponentWhere
-  node_NOT: ComponentWhere
-}
-
-input ElementInstanceOfComponentCreateFieldInput {
-  node: ComponentCreateInput!
-}
-
-input ElementInstanceOfComponentDeleteFieldInput {
-  delete: ComponentDeleteInput
-  where: ElementInstanceOfComponentConnectionWhere
-}
-
-input ElementInstanceOfComponentDisconnectFieldInput {
-  disconnect: ComponentDisconnectInput
-  where: ElementInstanceOfComponentConnectionWhere
-}
-
-input ElementInstanceOfComponentFieldInput {
-  connect: ElementInstanceOfComponentConnectFieldInput
-  connectOrCreate: ElementInstanceOfComponentConnectOrCreateFieldInput
-  create: ElementInstanceOfComponentCreateFieldInput
-}
-
-input ElementInstanceOfComponentNodeAggregationWhereInput {
-  AND: [ElementInstanceOfComponentNodeAggregationWhereInput!]
-  OR: [ElementInstanceOfComponentNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type ElementInstanceOfComponentRelationship {
-  cursor: String!
-  node: Component!
-}
-
-input ElementInstanceOfComponentUpdateConnectionInput {
-  node: ComponentUpdateInput
-}
-
-input ElementInstanceOfComponentUpdateFieldInput {
-  connect: ElementInstanceOfComponentConnectFieldInput
-  connectOrCreate: ElementInstanceOfComponentConnectOrCreateFieldInput
-  create: ElementInstanceOfComponentCreateFieldInput
-  delete: ElementInstanceOfComponentDeleteFieldInput
-  disconnect: ElementInstanceOfComponentDisconnectFieldInput
-  update: ElementInstanceOfComponentUpdateConnectionInput
-  where: ElementInstanceOfComponentConnectionWhere
-}
-
 input ElementNextSiblingAggregateInput {
   AND: [ElementNextSiblingAggregateInput!]
   OR: [ElementNextSiblingAggregateInput!]
@@ -5989,6 +5881,113 @@ input ElementParentAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ElementParentNodeAggregationWhereInput
+}
+
+input ElementParentComponentAggregateInput {
+  AND: [ElementParentComponentAggregateInput!]
+  OR: [ElementParentComponentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementParentComponentNodeAggregationWhereInput
+}
+
+input ElementParentComponentConnectFieldInput {
+  connect: ComponentConnectInput
+  where: ComponentConnectWhere
+}
+
+input ElementParentComponentConnectOrCreateFieldInput {
+  onCreate: ElementParentComponentConnectOrCreateFieldInputOnCreate!
+  where: ComponentConnectOrCreateWhere!
+}
+
+input ElementParentComponentConnectOrCreateFieldInputOnCreate {
+  node: ComponentOnCreateInput!
+}
+
+type ElementParentComponentConnection {
+  edges: [ElementParentComponentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementParentComponentConnectionSort {
+  node: ComponentSort
+}
+
+input ElementParentComponentConnectionWhere {
+  AND: [ElementParentComponentConnectionWhere!]
+  OR: [ElementParentComponentConnectionWhere!]
+  node: ComponentWhere
+  node_NOT: ComponentWhere
+}
+
+input ElementParentComponentCreateFieldInput {
+  node: ComponentCreateInput!
+}
+
+input ElementParentComponentDeleteFieldInput {
+  delete: ComponentDeleteInput
+  where: ElementParentComponentConnectionWhere
+}
+
+input ElementParentComponentDisconnectFieldInput {
+  disconnect: ComponentDisconnectInput
+  where: ElementParentComponentConnectionWhere
+}
+
+input ElementParentComponentFieldInput {
+  connect: ElementParentComponentConnectFieldInput
+  connectOrCreate: ElementParentComponentConnectOrCreateFieldInput
+  create: ElementParentComponentCreateFieldInput
+}
+
+input ElementParentComponentNodeAggregationWhereInput {
+  AND: [ElementParentComponentNodeAggregationWhereInput!]
+  OR: [ElementParentComponentNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ElementParentComponentRelationship {
+  cursor: String!
+  node: Component!
+}
+
+input ElementParentComponentUpdateConnectionInput {
+  node: ComponentUpdateInput
+}
+
+input ElementParentComponentUpdateFieldInput {
+  connect: ElementParentComponentConnectFieldInput
+  connectOrCreate: ElementParentComponentConnectOrCreateFieldInput
+  create: ElementParentComponentCreateFieldInput
+  delete: ElementParentComponentDeleteFieldInput
+  disconnect: ElementParentComponentDisconnectFieldInput
+  update: ElementParentComponentUpdateConnectionInput
+  where: ElementParentComponentConnectionWhere
 }
 
 input ElementParentConnectFieldInput {
@@ -7013,15 +7012,15 @@ input ElementPropsUpdateFieldInput {
 }
 
 input ElementRelationInput {
-  atom: ElementAtomCreateFieldInput
+  atomRenderType: ElementAtomRenderTypeCreateFieldInput
   children: [ElementChildrenCreateFieldInput!]
-  component: ElementComponentCreateFieldInput
+  componentRenderType: ElementComponentRenderTypeCreateFieldInput
   firstChild: ElementFirstChildCreateFieldInput
   hooks: [ElementHooksCreateFieldInput!]
-  instanceOfComponent: ElementInstanceOfComponentCreateFieldInput
   nextSibling: ElementNextSiblingCreateFieldInput
   page: ElementPageCreateFieldInput
   parent: ElementParentCreateFieldInput
+  parentComponent: ElementParentComponentCreateFieldInput
   parentElement: ElementParentElementCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
   propMapBindings: [ElementPropMapBindingsCreateFieldInput!]
@@ -7051,7 +7050,7 @@ be distinguished from other element types.
 Comparison between different element types:
 - RenderPropsType: Component select box, results it '(props) => ReactNode' value
 - ReactNodeType: Component select box, results it 'ReactNode' value
-- ElementType: Current tree element select box, results it 'ReactNod' value
+- ElementType: Current tree element select box, results it 'ReactNode' value
 """
 type ElementType implements TypeBase {
   """
@@ -7301,19 +7300,19 @@ input ElementUniqueWhere {
 }
 
 input ElementUpdateInput {
-  atom: ElementAtomUpdateFieldInput
+  atomRenderType: ElementAtomRenderTypeUpdateFieldInput
   children: [ElementChildrenUpdateFieldInput!]
-  component: ElementComponentUpdateFieldInput
+  componentRenderType: ElementComponentRenderTypeUpdateFieldInput
   customCss: String
   firstChild: ElementFirstChildUpdateFieldInput
   guiCss: String
   hooks: [ElementHooksUpdateFieldInput!]
   id: ID
-  instanceOfComponent: ElementInstanceOfComponentUpdateFieldInput
   name: String
   nextSibling: ElementNextSiblingUpdateFieldInput
   page: ElementPageUpdateFieldInput
   parent: ElementParentUpdateFieldInput
+  parentComponent: ElementParentComponentUpdateFieldInput
   parentElement: ElementParentElementUpdateFieldInput
   postRenderActionId: String
   preRenderActionId: String
@@ -7328,11 +7327,11 @@ input ElementUpdateInput {
 input ElementWhere {
   AND: [ElementWhere!]
   OR: [ElementWhere!]
-  atom: AtomWhere
-  atomAggregate: ElementAtomAggregateInput
-  atomConnection: ElementAtomConnectionWhere
-  atomConnection_NOT: ElementAtomConnectionWhere
-  atom_NOT: AtomWhere
+  atomRenderType: AtomWhere
+  atomRenderTypeAggregate: ElementAtomRenderTypeAggregateInput
+  atomRenderTypeConnection: ElementAtomRenderTypeConnectionWhere
+  atomRenderTypeConnection_NOT: ElementAtomRenderTypeConnectionWhere
+  atomRenderType_NOT: AtomWhere
   childrenAggregate: ElementChildrenAggregateInput
   childrenConnection_ALL: ElementChildrenConnectionWhere
   childrenConnection_NONE: ElementChildrenConnectionWhere
@@ -7358,11 +7357,11 @@ input ElementWhere {
   Return Elements where some of the related Elements match this filter
   """
   children_SOME: ElementWhere
-  component: ComponentWhere
-  componentAggregate: ElementComponentAggregateInput
-  componentConnection: ElementComponentConnectionWhere
-  componentConnection_NOT: ElementComponentConnectionWhere
-  component_NOT: ComponentWhere
+  componentRenderType: ComponentWhere
+  componentRenderTypeAggregate: ElementComponentRenderTypeAggregateInput
+  componentRenderTypeConnection: ElementComponentRenderTypeConnectionWhere
+  componentRenderTypeConnection_NOT: ElementComponentRenderTypeConnectionWhere
+  componentRenderType_NOT: ComponentWhere
   customCss: String
   customCss_CONTAINS: String
   customCss_ENDS_WITH: String
@@ -7423,11 +7422,6 @@ input ElementWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
-  instanceOfComponent: ComponentWhere
-  instanceOfComponentAggregate: ElementInstanceOfComponentAggregateInput
-  instanceOfComponentConnection: ElementInstanceOfComponentConnectionWhere
-  instanceOfComponentConnection_NOT: ElementInstanceOfComponentConnectionWhere
-  instanceOfComponent_NOT: ComponentWhere
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -7450,6 +7444,11 @@ input ElementWhere {
   page_NOT: PageWhere
   parent: ElementWhere
   parentAggregate: ElementParentAggregateInput
+  parentComponent: ComponentWhere
+  parentComponentAggregate: ElementParentComponentAggregateInput
+  parentComponentConnection: ElementParentComponentConnectionWhere
+  parentComponentConnection_NOT: ElementParentComponentConnectionWhere
+  parentComponent_NOT: ComponentWhere
   parentConnection: ElementParentConnectionWhere
   parentConnection_NOT: ElementParentConnectionWhere
   parentElement: ElementWhere
@@ -8207,89 +8206,6 @@ input EnumTypeWhere {
 
 type EnumTypesConnection {
   edges: [EnumTypeEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-enum ExecuteCommandHandler {
-  Download
-  Void
-}
-
-input ExecuteCommandInput {
-  command: String!
-}
-
-type ExecuteCommandResponse {
-  data: String!
-  handler: ExecuteCommandHandler!
-  success: Boolean!
-}
-
-type ExecuteCommandResponseAggregateSelection {
-  count: Int!
-  data: StringAggregateSelectionNonNullable!
-}
-
-input ExecuteCommandResponseCreateInput {
-  data: String!
-  handler: ExecuteCommandHandler!
-  success: Boolean!
-}
-
-type ExecuteCommandResponseEdge {
-  cursor: String!
-  node: ExecuteCommandResponse!
-}
-
-input ExecuteCommandResponseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more ExecuteCommandResponseSort objects to sort ExecuteCommandResponses by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [ExecuteCommandResponseSort!]
-}
-
-"""
-Fields to sort ExecuteCommandResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExecuteCommandResponseSort object.
-"""
-input ExecuteCommandResponseSort {
-  data: SortDirection
-  handler: SortDirection
-  success: SortDirection
-}
-
-input ExecuteCommandResponseUpdateInput {
-  data: String
-  handler: ExecuteCommandHandler
-  success: Boolean
-}
-
-input ExecuteCommandResponseWhere {
-  AND: [ExecuteCommandResponseWhere!]
-  OR: [ExecuteCommandResponseWhere!]
-  data: String
-  data_CONTAINS: String
-  data_ENDS_WITH: String
-  data_IN: [String!]
-  data_NOT: String
-  data_NOT_CONTAINS: String
-  data_NOT_ENDS_WITH: String
-  data_NOT_IN: [String!]
-  data_NOT_STARTS_WITH: String
-  data_STARTS_WITH: String
-  handler: ExecuteCommandHandler
-  handler_IN: [ExecuteCommandHandler!]
-  handler_NOT: ExecuteCommandHandler
-  handler_NOT_IN: [ExecuteCommandHandler!]
-  success: Boolean
-  success_NOT: Boolean
-}
-
-type ExecuteCommandResponsesConnection {
-  edges: [ExecuteCommandResponseEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -9679,9 +9595,6 @@ type Mutation {
   createEnumTypes(
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
-  createExecuteCommandResponses(
-    input: [ExecuteCommandResponseCreateInput!]!
-  ): CreateExecuteCommandResponsesMutationResponse!
   createHooks(input: [HookCreateInput!]!): CreateHooksMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
@@ -9776,7 +9689,6 @@ type Mutation {
     delete: EnumTypeDeleteInput
     where: EnumTypeWhere
   ): DeleteInfo!
-  deleteExecuteCommandResponses(where: ExecuteCommandResponseWhere): DeleteInfo!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
@@ -9836,7 +9748,6 @@ type Mutation {
   deleteVercelProjectDomainData(
     where: VercelProjectDomainDataWhere
   ): DeleteInfo!
-  executeCommand(input: ExecuteCommandInput!): ExecuteCommandResponse!
   resetDatabase: ResetDatabaseMutationResponse
   updateActionTypes(
     connect: ActionTypeConnectInput
@@ -9964,10 +9875,6 @@ type Mutation {
     update: EnumTypeUpdateInput
     where: EnumTypeWhere
   ): UpdateEnumTypesMutationResponse!
-  updateExecuteCommandResponses(
-    update: ExecuteCommandResponseUpdateInput
-    where: ExecuteCommandResponseWhere
-  ): UpdateExecuteCommandResponsesMutationResponse!
   updateHooks(
     connect: HookConnectInput
     connectOrCreate: HookConnectOrCreateInput
@@ -12602,19 +12509,6 @@ type Query {
     sort: [EnumTypeSort]
     where: EnumTypeWhere
   ): EnumTypesConnection!
-  executeCommandResponses(
-    options: ExecuteCommandResponseOptions
-    where: ExecuteCommandResponseWhere
-  ): [ExecuteCommandResponse!]!
-  executeCommandResponsesAggregate(
-    where: ExecuteCommandResponseWhere
-  ): ExecuteCommandResponseAggregateSelection!
-  executeCommandResponsesConnection(
-    after: String
-    first: Int
-    sort: [ExecuteCommandResponseSort]
-    where: ExecuteCommandResponseWhere
-  ): ExecuteCommandResponsesConnection!
 
   """
   Returns a list of all Type and Atom entities that reference the type with the given id
@@ -12881,7 +12775,7 @@ be distinguished from other element types.
 Comparison between different element types:
 - RenderPropsType: Component select box, results it '(props) => ReactNode' value
 - ReactNodeType: Component select box, results it 'ReactNode' value
-- ElementType: Current tree element select box, results it 'ReactNod' value
+- ElementType: Current tree element select box, results it 'ReactNode' value
 """
 type ReactNodeType implements TypeBase {
   id: ID!
@@ -13102,7 +12996,7 @@ be distinguished from other element types.
 Comparison between different element types:
 - RenderPropsType: Component select box, results it '(props) => ReactNode' value
 - ReactNodeType: Component select box, results it 'ReactNode' value
-- ElementType: Current tree element select box, results it 'ReactNod' value
+- ElementType: Current tree element select box, results it 'ReactNode' value
 """
 type RenderPropsType implements TypeBase {
   id: ID!
@@ -17027,11 +16921,6 @@ type UpdateEnumTypeValuesMutationResponse {
 
 type UpdateEnumTypesMutationResponse {
   enumTypes: [EnumType!]!
-  info: UpdateInfo!
-}
-
-type UpdateExecuteCommandResponsesMutationResponse {
-  executeCommandResponses: [ExecuteCommandResponse!]!
   info: UpdateInfo!
 }
 

@@ -96,8 +96,8 @@ export class ElementTree
         this.set_root(elementRef(element))
       }
 
-      if (element.instanceOfComponent?.current) {
-        const componentId = element.instanceOfComponent?.current.id
+      if (element.componentRenderType?.current) {
+        const componentId = element.componentRenderType?.current.id
         const component = this.componentService.components.get(componentId)
 
         if (!component) {

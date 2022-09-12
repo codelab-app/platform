@@ -11,31 +11,10 @@ export type ResetDatabaseMutation = {
   resetDatabase?: { success?: boolean | null } | null
 }
 
-export type ExecuteCommandMutationVariables = Types.Exact<{
-  input: Types.ExecuteCommandInput
-}>
-
-export type ExecuteCommandMutation = {
-  executeCommand: {
-    success: boolean
-    data: string
-    handler: Types.ExecuteCommandHandler
-  }
-}
-
 export const ResetDatabaseDocument = gql`
   mutation ResetDatabase {
     resetDatabase {
       success
-    }
-  }
-`
-export const ExecuteCommandDocument = gql`
-  mutation ExecuteCommand($input: ExecuteCommandInput!) {
-    executeCommand(input: $input) {
-      success
-      data
-      handler
     }
   }
 `
@@ -69,21 +48,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'ResetDatabase',
-        'mutation',
-      )
-    },
-    ExecuteCommand(
-      variables: ExecuteCommandMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<ExecuteCommandMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<ExecuteCommandMutation>(
-            ExecuteCommandDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'ExecuteCommand',
         'mutation',
       )
     },
