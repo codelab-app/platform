@@ -34,13 +34,19 @@ yargs(hideBin(process.argv))
   .middleware((argv) => {
     const { stage } = argv
 
+    console.log('process.env.CI', process.env.CI)
+
+    if (process.env.CI) {
+      return
+    }
+
     // Load prod env only if not CI
-    if (stage === Stage.Prod && !process.env.CI) {
+    if (stage === Stage.Prod) {
       dotenv.config({ path: '.env.prod', override: true })
       console.log(process.env.NEO4J_URI)
     }
 
-    if (stage === Stage.Dev && !process.env.CI) {
+    if (stage === Stage.Dev) {
       dotenv.config({ path: '.env', override: true })
       console.log(process.env.NEO4J_URI)
     }

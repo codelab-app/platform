@@ -39,7 +39,6 @@ const pluginConfig = async (
   config.env.auth0ReturnToUrl = '/'
   config.env.auth0Username = process.env.AUTH0_CYPRESS_USERNAME
   config.env.auth0Password = process.env.AUTH0_CYPRESS_PASSWORD
-  config.env.env = process.env.CI ? 'ci' : 'test'
 
   return config
 }
