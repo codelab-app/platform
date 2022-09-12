@@ -1,6 +1,6 @@
 import { AppOGM } from '@codelab/backend/adapter/neo4j'
 import { NextApiRequest } from '@codelab/backend/application'
-import { isAdmin, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { isAdminSession } from '@codelab/shared/abstract/core'
 import {
   AuthenticationError,
   ForbiddenError,
@@ -15,7 +15,8 @@ export const validateDomainAuth = async (
     throw new AuthenticationError('')
   }
 
-  if (isAdmin(req.user?.[JWT_CLAIMS].roles)) {
+  // admin can access all data
+  if (isAdminSession(req.user)) {
     return
   }
 
