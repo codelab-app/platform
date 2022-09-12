@@ -1,5 +1,4 @@
 import { UserOGM } from '@codelab/backend/adapter/neo4j'
-import { ImportExportData } from '@codelab/shared/abstract/core'
 import * as inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import { seedFilePath } from './config'
@@ -15,56 +14,77 @@ import { importUserData } from './import-user-data'
  *
  * Import without any argument seeds data
  */
-export const importCommand: CommandModule<unknown, ImportExportData> = {
+export const importCommand: CommandModule<any, unknown> = {
   command: 'import',
   describe: 'Import user data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
-  builder: {
-    userData: {
-      describe: 'userData',
-      // demandOption: true,
-      type: 'string',
-    },
-    /**
-     * For UI framework component props
-     */
-    seedData: {
-      describe: 'seedData',
-      // demandOption: true,
-      type: 'string',
-      default: seedFilePath,
-    },
+  builder: async (argv) => {
+    return argv.options({
+      // userData: {
+      //   alias: 'u',
+      //   describe: 'User data file to be imported',
+      //   demandOption: true,
+      //   type: 'string',
+      // },
+      // ownerId: {
+      //   alias: 'o',
+      //   describe: 'Owner ID to assign data to',
+      //   choices: users,
+      //   type: 'string',
+      //   demandOption: true,
+      // },
+    })
   },
   /**
    *
    * @param file File for the user data
    */
   handler: async ({ userData, seedData }) => {
-    const Users = await UserOGM()
-    const allUsers = await Users.find()
+    const User = await UserOGM({ reinitialize: true })
+    const users = await User.find()
 
-    const { selectedUser } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'selectedUser',
-        message: 'Select which user to be owner of the app',
-        choices: allUsers.map((user) => ({
-          name: user.email,
-          value: user.id,
-        })),
-      },
-    ])
+    const { selectedUser, confirmImportSeedData, confirmImportUserData } =
+      await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'selectedUser',
+          message: 'Select which user to be owner of the app',
+          choices: users.map((user) => ({
+            name: user.email,
+            value: user.id,
+          })),
+        },
+        {
+          type: 'confirm',
+          name: 'confirmImportSeedData',
+          message: 'Do you want to import seed data',
+        },
+        {
+          type: 'confirm',
+          name: 'confirmImportUserData',
+          message: 'Do you want to import user data',
+        },
+      ])
 
     /**
      * Seed atoms & types for the project
      */
-
-    await importSeedData(selectedUser, seedFilePath)
+    if (confirmImportSeedData) {
+      await importSeedData(selectedUser, seedFilePath)
+    }
 
     // If we specified a file for import
-    // if (userData) {
-    //   await importUserData(userData, selectedUser)
-    // }
+    if (confirmImportUserData) {
+      const { userDataFilePath } = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'userDataFilePath',
+          message: 'What is the file path to the user data',
+        },
+      ])
+
+      await importUserData(userDataFilePath, selectedUser)
+    }
 
     // Only used by admin
     // await __seedTagData(selectedUser)

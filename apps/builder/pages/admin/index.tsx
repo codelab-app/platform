@@ -1,8 +1,4 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import {
-  ExecuteCommandButton,
-  ExecuteCommandModal,
-} from '@codelab/frontend/modules/admin'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
@@ -34,12 +30,8 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Apps | Codelab</title>
       </Head>
       <ContentSection css={tw`p-4 bg-white`}>
-        <Space>
-          {/* <ResetDataButton adminService={adminService} /> */}
-          <ExecuteCommandButton adminService={adminService} />
-        </Space>
+        <Space></Space>
       </ContentSection>
-      <ExecuteCommandModal adminService={adminService} />
     </>
   )
 })

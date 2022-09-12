@@ -7,5 +7,6 @@ export interface IExecuteCommandDTO {
  */
 export interface ImportExportData {
   userData: string
-  seedData: string
+  // ownerId: string
+  // seedData: string
 }

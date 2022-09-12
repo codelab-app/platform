@@ -21,13 +21,13 @@ export enum Env {
  */
 export enum Stage {
   // Vercel remote
-  Production = 'production',
+  Prod = 'prod',
 
   // Vercel remote
   Staging = 'staging',
 
   // Local
-  Development = 'development',
+  Dev = 'dev',
 }
 
 /**

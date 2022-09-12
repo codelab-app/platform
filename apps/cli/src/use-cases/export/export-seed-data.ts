@@ -1,4 +1,4 @@
-import type { ExportedData } from '../../commands/export/export.command'
+import { ExportedData } from '../../commands/export/export.types'
 import { exportAtoms } from './export-atoms'
 import { exportSeedTypes } from './export-seed-types'
 import { exportTags } from './export-tags'

@@ -12926,60 +12926,8 @@
   ],
   "tags": [
     {
-      "id": "03403b8b-46b3-467d-b521-da3fad35ae8d",
-      "name": "Component",
-      "parent": null,
-      "children": [
-        {
-          "id": "eada4438-1772-48bc-9407-066d5bcdeb6a"
-        },
-        {
-          "id": "6f028070-54b0-495d-b3e6-b07d027e25f3"
-        },
-        {
-          "id": "3a587aba-4585-4bd4-a095-cb9b5ea3b57e"
-        },
-        {
-          "id": "31488899-a87a-4a1e-b2d6-8100f1ccce85"
-        },
-        {
-          "id": "f1f94d4d-651c-48bf-aced-ebc3b590c93d"
-        },
-        {
-          "id": "0f269637-6f4b-4e63-b014-bc553e7dd52c"
-        },
-        {
-          "id": "e2872757-a886-459c-9929-d67106039034"
-        }
-      ]
-    },
-    {
-      "id": "e2872757-a886-459c-9929-d67106039034",
-      "name": "General",
-      "parent": {
-        "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
-      },
-      "children": []
-    },
-    {
-      "id": "f1f94d4d-651c-48bf-aced-ebc3b590c93d",
-      "name": "Layout",
-      "parent": {
-        "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
-      },
-      "children": []
-    },
-    {
-      "id": "eada4438-1772-48bc-9407-066d5bcdeb6a",
-      "name": "Navigation",
-      "parent": {
-        "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
-      },
-      "children": []
-    },
-    {
-      "id": "31488899-a87a-4a1e-b2d6-8100f1ccce85",
-      "name": "Data Entry",
+      "id": "3a587aba-4585-4bd4-a095-cb9b5ea3b57e",
+      "name": "Feedback",
       "parent": {
         "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
       },
@@ -12994,16 +12942,68 @@
       "children": []
     },
     {
-      "id": "3a587aba-4585-4bd4-a095-cb9b5ea3b57e",
-      "name": "Feedback",
+      "id": "31488899-a87a-4a1e-b2d6-8100f1ccce85",
+      "name": "Data Entry",
       "parent": {
         "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
       },
       "children": []
     },
     {
+      "id": "e2872757-a886-459c-9929-d67106039034",
+      "name": "General",
+      "parent": {
+        "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
+      },
+      "children": []
+    },
+    {
+      "id": "03403b8b-46b3-467d-b521-da3fad35ae8d",
+      "name": "Component",
+      "parent": null,
+      "children": [
+        {
+          "id": "6f028070-54b0-495d-b3e6-b07d027e25f3"
+        },
+        {
+          "id": "eada4438-1772-48bc-9407-066d5bcdeb6a"
+        },
+        {
+          "id": "f1f94d4d-651c-48bf-aced-ebc3b590c93d"
+        },
+        {
+          "id": "0f269637-6f4b-4e63-b014-bc553e7dd52c"
+        },
+        {
+          "id": "e2872757-a886-459c-9929-d67106039034"
+        },
+        {
+          "id": "3a587aba-4585-4bd4-a095-cb9b5ea3b57e"
+        },
+        {
+          "id": "31488899-a87a-4a1e-b2d6-8100f1ccce85"
+        }
+      ]
+    },
+    {
       "id": "0f269637-6f4b-4e63-b014-bc553e7dd52c",
       "name": "Other",
+      "parent": {
+        "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
+      },
+      "children": []
+    },
+    {
+      "id": "eada4438-1772-48bc-9407-066d5bcdeb6a",
+      "name": "Navigation",
+      "parent": {
+        "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
+      },
+      "children": []
+    },
+    {
+      "id": "f1f94d4d-651c-48bf-aced-ebc3b590c93d",
+      "name": "Layout",
       "parent": {
         "id": "03403b8b-46b3-467d-b521-da3fad35ae8d"
       },
