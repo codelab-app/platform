@@ -1,2 +1,3 @@
 "property","description","type","default","version","isEnum"
+"disabledTime","To specify the time that cannot be selected","RangeDisabledTime","-","4.19.0",false
 "order","Order start and end time","boolean","true","4.1.0",false
