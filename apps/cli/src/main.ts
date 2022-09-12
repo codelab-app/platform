@@ -1,16 +1,16 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
-import './utils/loadEnv'
 import dotenv from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
 import { importCommand } from './commands/import/import.command'
+import { parseCommand } from './commands/parse/parse.command'
 import { resetCommand } from './commands/reset/reset.command'
 import { scrapeCommand } from './commands/scrape/scrape.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
-import { Stage } from './utils/env'
+import { Stage } from './shared/utils/env'
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
  *
@@ -57,6 +57,7 @@ yargs(hideBin(process.argv))
   .command(exportCommand)
   .command(tasksCommand)
   .command(scrapeCommand)
+  .command(parseCommand)
 
   /**
    * TS Parser

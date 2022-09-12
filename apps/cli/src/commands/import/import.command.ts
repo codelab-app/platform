@@ -1,6 +1,6 @@
-import { UserOGM } from '@codelab/backend/adapter/neo4j'
-import * as inquirer from 'inquirer'
+import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { seedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
 // import { antdAtomsFactory } from '../../data/atom'
@@ -21,20 +21,9 @@ export const importCommand: CommandModule<any, unknown> = {
    * @param file File for the user data
    */
   handler: async () => {
-    const User = await UserOGM({ reinitialize: true })
-    const users = await User.find()
-
     const { selectedUser, confirmImportSeedData, confirmImportUserData } =
       await inquirer.prompt([
-        {
-          type: 'list',
-          name: 'selectedUser',
-          message: 'Select which user to be owner of the app',
-          choices: users.map((user) => ({
-            name: user.email,
-            value: user.id,
-          })),
-        },
+        await selectUserPrompt(),
         {
           type: 'confirm',
           name: 'confirmImportSeedData',

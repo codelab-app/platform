@@ -1,6 +1,7 @@
 import { AppOGM, UserOGM } from '@codelab/backend/adapter/neo4j'
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { exportSeedData } from '../../use-cases/export/export-seed-data'
 import { exportUserData } from '../../use-cases/export/export-user-data'
 import { saveExportFile } from '../../use-cases/export/save-export-file'
@@ -76,15 +77,7 @@ export const exportCommand: CommandModule<
 
     if (confirmExportUserData) {
       const { selectedUser, selectedApp } = await inquirer.prompt([
-        {
-          type: 'list',
-          name: 'selectedUser',
-          message: 'Select which user to be owner of the app',
-          choices: users.map((user) => ({
-            name: user.email,
-            value: user.id,
-          })),
-        },
+        await selectUserPrompt(),
         {
           type: 'list',
           name: 'selectedApp',
