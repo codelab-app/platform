@@ -59,10 +59,10 @@ module.exports = withPlugins(
         // compiler: {
         //   styledComponents: true,
         // },
-        experimental: {
-          esmExternals: false,
-        },
-        cssModules: false,
+        // experimental: {
+        //   esmExternals: false,
+        // },
+        // cssModules: false,
         // Landing page is handled by a separate nx app
         redirects: async () => [
           // {

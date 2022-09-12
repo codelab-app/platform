@@ -2,7 +2,7 @@
  * Thin wrapper to parse env, so we load correct `.env`
  */
 import './utils/loadEnv'
-import * as dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
@@ -35,14 +35,15 @@ yargs(hideBin(process.argv))
   .middleware((argv) => {
     const { stage } = argv
 
-    // Load prod env
-    if (stage === Stage.Prod) {
+    // Load prod env only if not CI
+    if (stage === Stage.Prod && !process.env.CI) {
       dotenv.config({ path: '.env.prod', override: true })
       console.log(process.env.NEO4J_URI)
     }
 
-    if (stage === Stage.Dev) {
+    if (stage === Stage.Dev && !process.env.CI) {
       dotenv.config({ path: '.env', override: true })
+      console.log(process.env.NEO4J_URI)
     }
   })
 
