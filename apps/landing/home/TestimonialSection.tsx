@@ -32,7 +32,7 @@ export const TestimonialItem = ({
       <div css={tw`h-8`} />
       <Card css={[tw`max-w-[600px] mx-2 bg-transparent p-2 sm:p-4 rounded-lg`]}>
         <div css={tw`flex justify-center`}>
-          <span css={tw`flex relative -mt-16 bg-slate-700 p-4`}>
+          <span css={tw`flex relative -mt-20 bg-slate-700 p-4`}>
             <FontAwesomeIcon
               color=""
               css={css`
