@@ -1,13 +1,13 @@
-import { Claims } from '@auth0/nextjs-auth0'
+import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { NextApiRequest as OriginalNextApiRequest } from 'next'
 
 export interface GraphQLRequestContext {
-  user?: Claims
+  user?: Auth0SessionUser
   req: NextApiRequest
 }
 
 interface NextApiRequest extends OriginalNextApiRequest {
-  user?: Claims
+  user?: Auth0SessionUser
 }
 
 export type { NextApiRequest }

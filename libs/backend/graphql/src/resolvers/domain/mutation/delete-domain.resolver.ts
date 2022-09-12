@@ -2,8 +2,8 @@ import { DomainOGM } from '@codelab/backend/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/adapter/vercel'
 import { GraphQLRequestContext } from '@codelab/backend/application'
 import { IFieldResolver } from '@graphql-tools/utils'
-import { ApolloError } from 'apollo-server-micro'
 import { handleAPIError } from '../../utils/handleAPIError'
+import { domainNotFoundError } from '../domain.error'
 import { validateDomainAuth } from '../domain.validation'
 
 export const deleteDomain: IFieldResolver<
@@ -27,15 +27,14 @@ export const deleteDomain: IFieldResolver<
     const domain = domains[0]
 
     if (!domain) {
-      new ApolloError('Domain not found')
+      throw domainNotFoundError
     }
 
     await validateDomainAuth(req, domain.app.id)
 
-    const res = await vercelApis.domain.deleteDomain(String(domain.name))
-    const body = await res.json()
+    const res = await vercelApis.domain.deleteDomain(domain.name)
 
-    handleAPIError(res, body, 'delete - Vercel')
+    await handleAPIError(res, 'deleteDomain - Vercel')
 
     return await domainOgm.delete({
       where: { name: domain.name },

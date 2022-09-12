@@ -1,11 +1,7 @@
 import { ApolloError } from 'apollo-server-micro'
 
-export const handleAPIError = async (
-  res: Response,
-  body: any,
-  requestName: string,
-) => {
-  let parsedBody = body
+export const handleAPIError = async (res: Response, requestName: string) => {
+  let parsedBody = {}
 
   if (!parsedBody) {
     try {
@@ -16,11 +12,9 @@ export const handleAPIError = async (
 
   if (res.status !== 200) {
     console.error(
-      `[${requestName}] Fail to make request. Response: ${JSON.stringify(
-        parsedBody || {},
-        null,
-        2,
-      )}`,
+      `[${requestName}] Fail to make request. HTTTP: ${
+        res.status
+      }. Response: ${JSON.stringify(parsedBody, null, 2)}`,
     )
     throw new ApolloError('Something went wrong')
   }

@@ -1,9 +1,9 @@
-import { DomainOGM } from '@codelab/backend/adapter/neo4j'
+import { DomainOGM, domainSelection } from '@codelab/backend/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/adapter/vercel'
 import { UpdateDomainMutationInput } from '@codelab/shared/abstract/codegen'
 import { IFieldResolver } from '@graphql-tools/utils'
 import { handleAPIError } from '../../utils/handleAPIError'
-import { domainExists } from '../domain.error'
+import { domainExistsError } from '../domain.error'
 import { validateDomainAuth } from '../domain.validation'
 
 export const updateDomain: IFieldResolver<
@@ -20,20 +20,27 @@ export const updateDomain: IFieldResolver<
 
     const domainOgm = await DomainOGM()
     const domains = await domainOgm.find({ where: { id } })
+    // get old domain name
     const domain = domains[0]
+    // to rename domain, we need create new one, and delete the old one
     const createRes = await vercelApis.domain.addDomain(name)
-    const body = await createRes.json()
 
     if (createRes.status === 409) {
-      throw domainExists
+      throw domainExistsError
     }
 
-    handleAPIError(createRes, body, 'updateDomain - vercel')
+    await handleAPIError(createRes, 'createDomain - vercel')
 
+    // delete old domain name domain
     const deleteRes = await vercelApis.domain.deleteDomain(domain.name)
-    handleAPIError(deleteRes, await deleteRes.json(), 'deleteDomain - vercel')
+    await handleAPIError(deleteRes, 'deleteDomain - vercel')
 
     const { domains: updatedDomains } = await domainOgm.update({
+      selectionSet: `{
+        domains {
+          ${domainSelection}
+        }
+      }`,
       where: { id },
       update: { name },
     })
