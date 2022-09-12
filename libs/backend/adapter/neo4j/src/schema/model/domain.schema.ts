@@ -13,8 +13,8 @@ export const domainSchema = gql`
     id: ID! @id(autogenerate: false)
     name: String!
     app: App! @relationship(type: "APP_DOMAIN", direction: OUT)
-    domainConfig: VercelDomainConfigData! @computed(from: ["name"])
-    projectDomain: VercelProjectDomainData! @computed(from: ["name"])
+    domainConfig: VercelDomainConfigData!
+    projectDomain: VercelProjectDomainData!
   }
 
   input CreateDomainMutationInput {
