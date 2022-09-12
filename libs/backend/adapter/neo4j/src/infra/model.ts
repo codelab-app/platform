@@ -1,6 +1,10 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { OGM } from '@neo4j/graphql-ogm'
 import { getOgm } from './ogm'
+
+interface OGMOptions {
+  // Re-initialize OGM model so we use new env
+  reinitialize: true
+}
 
 /**
  * If we pass in ogm, let's use that instead of cached instance.
@@ -8,21 +12,14 @@ import { getOgm } from './ogm'
  * Generally this happens during jest specs
  */
 const getOgmInstance = async <ModelKey extends keyof OGM_TYPES.ModelMap>(
-  inst: OGM_TYPES.ModelMap[ModelKey],
+  inst: OGM_TYPES.ModelMap[ModelKey] | null,
   name: keyof OGM_TYPES.ModelMap,
-  inputOgm?: OGM<OGM_TYPES.ModelMap>,
 ) => {
-  if (inputOgm) {
-    return inputOgm.model(name) as OGM_TYPES.ModelMap[ModelKey]
-  }
-
   // return (inst ??= (await getOgm()).model(name))
   if (!inst) {
     const ogm = await getOgm()
-    const mod = ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
-    inst = mod
 
-    return mod
+    return ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
   }
 
   return inst
@@ -30,151 +27,137 @@ const getOgmInstance = async <ModelKey extends keyof OGM_TYPES.ModelMap>(
 
 let domainInst: OGM_TYPES.DomainModel
 
-export const DomainOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Domain'>(domainInst, 'Domain', ogm)
+export const DomainOGM = async () =>
+  await getOgmInstance<'Domain'>(domainInst, 'Domain')
 
 let userInst: OGM_TYPES.UserModel
 
-export const UserOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'User'>(userInst, 'User', ogm)
+export const UserOGM = async (options?: OGMOptions) =>
+  await getOgmInstance<'User'>(options?.reinitialize ? null : userInst, 'User')
 
 let appInst: OGM_TYPES.AppModel
 
-export const AppOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'App'>(appInst, 'App', ogm)
+export const AppOGM = async (options?: OGMOptions) =>
+  await getOgmInstance<'App'>(options?.reinitialize ? null : appInst, 'App')
 
 let atomInst: OGM_TYPES.AtomModel
 
-export const AtomOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Atom'>(atomInst, 'Atom', ogm)
+export const AtomOGM = async () =>
+  await getOgmInstance<'Atom'>(atomInst, 'Atom')
 
 let elementInst: OGM_TYPES.ElementModel
 
-export const ElementOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Element'>(elementInst, 'Element', ogm)
+export const ElementOGM = async () =>
+  await getOgmInstance<'Element'>(elementInst, 'Element')
 
 let customActionInst: OGM_TYPES.CustomActionModel
 
-export const CustomActionOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'CustomAction'>(customActionInst, 'CustomAction', ogm)
+export const CustomActionOGM = async () =>
+  await getOgmInstance<'CustomAction'>(customActionInst, 'CustomAction')
 
 let resourceActionInst: OGM_TYPES.ResourceActionModel
 
-export const ResourceActionOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'ResourceAction'>(
-    resourceActionInst,
-    'ResourceAction',
-    ogm,
-  )
+export const ResourceActionOGM = async () =>
+  await getOgmInstance<'ResourceAction'>(resourceActionInst, 'ResourceAction')
 
 let pipelineActionInst: OGM_TYPES.PipelineActionModel
 
-export const PipelineActionOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'PipelineAction'>(
-    pipelineActionInst,
-    'PipelineAction',
-    ogm,
-  )
+export const PipelineActionOGM = async () =>
+  await getOgmInstance<'PipelineAction'>(pipelineActionInst, 'PipelineAction')
 
 let storeInst: OGM_TYPES.StoreModel
 
-export const StoreOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Store'>(storeInst, 'Store', ogm)
+export const StoreOGM = async () =>
+  await getOgmInstance<'Store'>(storeInst, 'Store')
 
 let resourceInst: OGM_TYPES.ResourceModel
 
-export const ResourceOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Resource'>(resourceInst, 'Resource', ogm)
+export const ResourceOGM = async (options?: OGMOptions) =>
+  await getOgmInstance<'Resource'>(
+    options?.reinitialize ? null : resourceInst,
+    'Resource',
+  )
 
 let pageInst: OGM_TYPES.PageModel
 
-export const PageOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Page'>(pageInst, 'Page', ogm)
+export const PageOGM = async () =>
+  await getOgmInstance<'Page'>(pageInst, 'Page')
 
 let componentInst: OGM_TYPES.ComponentModel
 
-export const ComponentOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Component'>(componentInst, 'Component', ogm)
+export const ComponentOGM = async () =>
+  await getOgmInstance<'Component'>(componentInst, 'Component')
 
 let interfaceInst: OGM_TYPES.InterfaceTypeModel
 
-export const InterfaceTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'InterfaceType'>(interfaceInst, 'InterfaceType', ogm)
+export const InterfaceTypeOGM = async () =>
+  await getOgmInstance<'InterfaceType'>(interfaceInst, 'InterfaceType')
 
 let tagInst: OGM_TYPES.TagModel
 
-export const TagOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'Tag'>(tagInst, 'Tag', ogm)
+export const TagOGM = async () => await getOgmInstance<'Tag'>(tagInst, 'Tag')
 
 let primitiveInst: OGM_TYPES.PrimitiveTypeModel
 
-export const PrimitiveTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'PrimitiveType'>(primitiveInst, 'PrimitiveType', ogm)
+export const PrimitiveTypeOGM = async () =>
+  await getOgmInstance<'PrimitiveType'>(primitiveInst, 'PrimitiveType')
 
 let unionInst: OGM_TYPES.UnionTypeModel
 
-export const UnionTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'UnionType'>(unionInst, 'UnionType', ogm)
+export const UnionTypeOGM = async () =>
+  await getOgmInstance<'UnionType'>(unionInst, 'UnionType')
 
 let arrayInst: OGM_TYPES.ArrayTypeModel
 
-export const ArrayTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'ArrayType'>(arrayInst, 'PrimitiveType', ogm)
+export const ArrayTypeOGM = async () =>
+  await getOgmInstance<'ArrayType'>(arrayInst, 'PrimitiveType')
 
 let enumInst: OGM_TYPES.EnumTypeModel
 
-export const EnumTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'EnumType'>(enumInst, 'EnumType', ogm)
+export const EnumTypeOGM = async () =>
+  await getOgmInstance<'EnumType'>(enumInst, 'EnumType')
 
 let LambdaInst: OGM_TYPES.LambdaTypeModel
 
-export const LambdaTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'LambdaType'>(LambdaInst, 'LambdaType', ogm)
+export const LambdaTypeOGM = async () =>
+  await getOgmInstance<'LambdaType'>(LambdaInst, 'LambdaType')
 
 let appTypeInst: OGM_TYPES.AppTypeModel
 
-export const AppTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'AppType'>(appTypeInst, 'AppType', ogm)
+export const AppTypeOGM = async () =>
+  await getOgmInstance<'AppType'>(appTypeInst, 'AppType')
 
 let actionTypeInst: OGM_TYPES.ActionTypeModel
 
-export const ActionTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'ActionType'>(actionTypeInst, 'ActionType', ogm)
+export const ActionTypeOGM = async () =>
+  await getOgmInstance<'ActionType'>(actionTypeInst, 'ActionType')
 
 let renderPropsInst: OGM_TYPES.RenderPropsTypeModel
 
-export const RenderPropsTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'RenderPropsType'>(
-    renderPropsInst,
-    'RenderPropsType',
-    ogm,
-  )
+export const RenderPropsTypeOGM = async () =>
+  await getOgmInstance<'RenderPropsType'>(renderPropsInst, 'RenderPropsType')
 
 let reactNodeInst: OGM_TYPES.ReactNodeTypeModel
 
-export const ReactNodeTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'ReactNodeType'>(reactNodeInst, 'ReactNodeType', ogm)
+export const ReactNodeTypeOGM = async () =>
+  await getOgmInstance<'ReactNodeType'>(reactNodeInst, 'ReactNodeType')
 
 let pageTypeInst: OGM_TYPES.PageTypeModel
 
-export const PageTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'PageType'>(pageTypeInst, 'PageType', ogm)
+export const PageTypeOGM = async () =>
+  await getOgmInstance<'PageType'>(pageTypeInst, 'PageType')
 
 let codeMirrorInst: OGM_TYPES.CodeMirrorTypeModel
 
-export const CodeMirrorTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'CodeMirrorType'>(codeMirrorInst, 'CodeMirrorType', ogm)
+export const CodeMirrorTypeOGM = async () =>
+  await getOgmInstance<'CodeMirrorType'>(codeMirrorInst, 'CodeMirrorType')
 
 let elementTypeInst: OGM_TYPES.ElementTypeModel
 
-export const ElementTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'ElementType'>(elementTypeInst, 'ElementType', ogm)
+export const ElementTypeOGM = async () =>
+  await getOgmInstance<'ElementType'>(elementTypeInst, 'ElementType')
 
 let enumTypeValuesInst: OGM_TYPES.EnumTypeValueModel
 
-export const EnumTypeValueOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'EnumTypeValue'>(
-    enumTypeValuesInst,
-    'EnumTypeValue',
-    ogm,
-  )
+export const EnumTypeValueOGM = async () =>
+  await getOgmInstance<'EnumTypeValue'>(enumTypeValuesInst, 'EnumTypeValue')

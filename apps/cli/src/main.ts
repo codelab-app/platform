@@ -2,15 +2,16 @@
  * Thin wrapper to parse env, so we load correct `.env`
  */
 import './utils/loadEnv'
+import dotenv from 'dotenv'
+import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import yargs from 'yargs/yargs'
 import { exportCommand } from './commands/export/export.command'
 import { importCommand } from './commands/import/import.command'
 import { resetCommand } from './commands/reset/reset.command'
+import { Stage } from './utils/env'
 import { requireTestEnvOptions } from './utils/options'
 import { runTasks } from './utils/run-tasks'
 import { Tasks } from './utils/tasks'
-
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
  *
@@ -20,18 +21,31 @@ yargs(hideBin(process.argv))
   .scriptName('cli')
 
   // All scripts here could act on a different stage
-  // .options({
-  //   s: {
-  //     alias: 'stage',
-  //     describe: 'The deployment environment',
-  //     demandOption: true,
-  //     default: Stage.Development,
-  //     type: 'string',
-  //     choices: Object.values(Stage),
-  //   },
-  // })
+  .options({
+    stage: {
+      alias: 's',
+      describe: 'The deployment environment',
+      demandOption: true,
+      default: Stage.Dev,
+      type: 'string',
+      choices: Object.values(Stage),
+    },
+  })
+  // Load different env based on stage
+  .middleware((argv) => {
+    const { stage } = argv
 
-  // .command(demoCommand)
+    // Load prod env only if not CI
+    if (stage === Stage.Prod && !process.env.CI) {
+      dotenv.config({ path: '.env.prod', override: true })
+      console.log(process.env.NEO4J_URI)
+    }
+
+    if (stage === Stage.Dev && !process.env.CI) {
+      dotenv.config({ path: '.env', override: true })
+      console.log(process.env.NEO4J_URI)
+    }
+  })
 
   //
   // Reset data
@@ -104,4 +118,6 @@ yargs(hideBin(process.argv))
   // })
 
   .demandCommand(1, 'Please provide a command').argv
-// .parse()
+//   .strict()
+//   .parse()
+//   .help()

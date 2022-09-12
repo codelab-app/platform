@@ -113,6 +113,7 @@ export const DashboardTemplate = observer(
           <Sider
             collapsed
             collapsedWidth={sidebarWidth}
+            ref={sideNavigationContainerRef}
             style={{
               zIndex: 50,
               height: '100vh',
@@ -123,9 +124,7 @@ export const DashboardTemplate = observer(
             }}
             theme="light"
           >
-            <div ref={sideNavigationContainerRef}>
-              <SidebarNavigation />
-            </div>
+            <SidebarNavigation />
           </Sider>
         )}
 

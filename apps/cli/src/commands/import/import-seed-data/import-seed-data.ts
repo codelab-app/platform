@@ -10,7 +10,7 @@ import {
   createAntDesignTagsData,
 } from '../../../use-cases/parser/ant-design'
 import { ParserService } from '../../../use-cases/parser/parser.service'
-import type { ExportedData } from '../../export/export.command'
+import { ExportedData } from '../../export/export.types'
 
 export const importSeedData = async (
   selectedUser: string,

@@ -160,7 +160,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(`npx nx run builder-e2e:e2e:ci --record`)
+        execCommand(`npx nx run builder-e2e:e2e:ci --verbose`)
       }
 
       break

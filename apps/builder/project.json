@@ -27,22 +27,6 @@
       },
       "defaultConfiguration": "production"
     },
-    "_build": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "commands": ["nx build builder"]
-      },
-      "configurations": {
-        "test": {
-          "commands": [
-            {
-              "command": "npx env-cmd -f .env.test nx build builder -c test",
-              "forwardAllArgs": false
-            }
-          ]
-        }
-      }
-    },
     "serve-test": {
       "executor": "@nrwl/workspace:run-commands",
       "configurations": {

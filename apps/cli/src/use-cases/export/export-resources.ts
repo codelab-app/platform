@@ -5,7 +5,7 @@ import {
 import { IResourceExport } from '@codelab/shared/abstract/core'
 
 export const exportResources = async (): Promise<Array<IResourceExport>> => {
-  const Store = await ResourceOGM()
+  const Store = await ResourceOGM({ reinitialize: true })
 
   return await Store.find({
     selectionSet: resourceSelectionSet,

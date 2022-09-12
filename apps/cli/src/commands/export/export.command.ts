@@ -1,29 +1,10 @@
-import {
-  ExecuteCommandHandler,
-  ExecuteCommandResponse,
-} from '@codelab/shared/abstract/codegen'
-import {
-  IAppExport,
-  IAtomExport,
-  IResourceExport,
-  ITagExport,
-  ITypeExport,
-} from '@codelab/shared/abstract/core'
-import { config } from 'dotenv'
+import { AppOGM, UserOGM } from '@codelab/backend/adapter/neo4j'
+import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import { exportSeedData } from '../../use-cases/export/export-seed-data'
 import { exportUserData } from '../../use-cases/export/export-user-data'
-
-config({ path: `${process.cwd()}/.env` })
-
-export interface ExportedData {
-  apps: Array<IAppExport>
-  atoms: Array<IAtomExport>
-  // atoms: Array<OGM_TYPES.Atom>
-  types: Array<ITypeExport>
-  resources: Array<IResourceExport>
-  tags: Array<ITagExport>
-}
+import { saveExportFile } from '../../use-cases/export/save-export-file'
+import { seedFilePath } from '../import/config'
 
 /**
  * Entry point for all export. Show users a list of questions such as
@@ -33,8 +14,9 @@ export interface ExportedData {
  *
  */
 export const exportCommand: CommandModule<
-  any,
-  { userData: boolean; seedData: boolean }
+  unknown,
+  unknown
+  // { userData: boolean; seedData: boolean }
 > = {
   command: 'export',
   describe: 'Export user data',
@@ -45,41 +27,84 @@ export const exportCommand: CommandModule<
   //   })
   // },
   builder: {
-    userData: {
-      alias: 'user',
-      describe: 'User data to be exported',
-      demandOption: true,
-      type: 'boolean',
-    },
-    seedData: {
-      alias: 'seed',
-      describe: 'Seed data to be exported',
-      demandOption: true,
-      type: 'boolean',
-      // default: seedFilePath,
-    },
+    // userData: {
+    //   alias: 'user',
+    //   describe: 'User data to be exported',
+    //   demandOption: true,
+    //   type: 'boolean',
+    // },
+    // seedData: {
+    //   alias: 'seed',
+    //   describe: 'Seed data to be exported',
+    //   demandOption: true,
+    //   type: 'boolean',
+    //   // default: seedFilePath,
+    // },
   },
-  handler: async ({ userData, seedData }) => {
-    const exportData = {}
+  handler: async () => {
+    const App = await AppOGM({ reinitialize: true })
+    const apps = await App.find()
+    const User = await UserOGM({ reinitialize: true })
+    const users = await User.find()
 
-    if (seedData) {
-      Object.assign(exportData, await exportSeedData())
+    const { confirmExportSeedData, confirmExportUserData } =
+      await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'confirmExportSeedData',
+          default: false,
+          message: 'Would you like to export seed data?',
+        },
+        {
+          type: 'confirm',
+          name: 'confirmExportUserData',
+          default: false,
+          message: 'Would you like to export user data?',
+        },
+      ])
+
+    // Exit early if no apps to export
+    if (confirmExportUserData && !apps.length) {
+      console.log('No app exists')
+      yargs.exit(0, null!)
     }
 
-    if (userData) {
-      Object.assign(exportData, await exportUserData())
+    if (confirmExportSeedData) {
+      const seedData = await exportSeedData()
+      await saveExportFile(seedData, seedFilePath)
     }
 
-    const response: ExecuteCommandResponse = {
-      success: true,
-      data: exportData.toString(),
-      handler: ExecuteCommandHandler.Download,
-    }
+    if (confirmExportUserData) {
+      const { selectedUser, selectedApp } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'selectedUser',
+          message: 'Select which user to be owner of the app',
+          choices: users.map((user) => ({
+            name: user.email,
+            value: user.id,
+          })),
+        },
+        {
+          type: 'list',
+          name: 'selectedApp',
+          message: 'Select which app to export',
+          choices: apps.map((app) => ({
+            name: app.name,
+            value: app.id,
+          })),
+        },
+      ])
 
-    /**
-     * We log the data back to stdout so we can return to the API call
-     */
-    console.log(response)
+      const userData = await exportUserData({
+        appIds: [selectedApp.id],
+      })
+
+      await saveExportFile(
+        userData,
+        `${selectedUser.username}-${Date.now()}.json`,
+      )
+    }
 
     yargs.exit(0, null!)
   },

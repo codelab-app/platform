@@ -2,7 +2,7 @@ import fs from 'fs'
 import inquirer from 'inquirer'
 import * as path from 'path'
 
-export const saveExportFile = async (data: object | null) => {
+export const saveExportFile = async (data: object, file?: string) => {
   /**
    * Export info, file path etc
    */
@@ -11,7 +11,8 @@ export const saveExportFile = async (data: object | null) => {
       type: 'input',
       name: 'outputPath',
       message: 'Enter a path to export to, relative to ./data',
-      default: `user-data-${Date.now()}.json`,
+      default: file ?? `${Date.now()}.json`,
+      // default: `user-data-${Date.now()}.json`,
     },
   ])
 
