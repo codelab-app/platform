@@ -1,7 +1,7 @@
 import { CommandModule } from 'yargs'
-import { requireTestEnvOptions } from '../../utils/options'
-import { runTasks } from '../../utils/run-tasks'
-import { Tasks } from '../../utils/tasks'
+import { requireTestEnvOptions } from '../../shared/utils/options'
+import { runTasks } from '../../shared/utils/run-tasks'
+import { Tasks } from '../../shared/utils/tasks'
 
 export const tasksCommand: CommandModule<unknown, unknown> = {
   command: 'tasks',

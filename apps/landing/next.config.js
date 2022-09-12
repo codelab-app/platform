@@ -27,22 +27,6 @@ module.exports = withPlugins(
          */
         nx: { svgr: true },
         // https://nextjs.org/docs/advanced-features/compiler#styled-components
-        // Disabled if using babel
-        // compiler: {
-        //   styledComponents: true,
-        // },
-        experimental: {
-          esmExternals: false,
-        },
-        cssModules: true,
-        // Landing page is handled by a separate nx app
-        // redirects: async () => [
-        //   {
-        //     source: '/',
-        //     destination: '/apps',
-        //     permanent: true,
-        //   },
-        // ],
       },
     ],
   ],

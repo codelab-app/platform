@@ -39,6 +39,9 @@ export const __seedTagData = async (selectedUser: string) => {
   await importTags(tags, selectedUser)
 }
 
+/**
+ * Seeds atom and empty interface
+ */
 export const __seedAtomData = async (
   selectedUser: string,
   atomsFactory: (atoms: Array<IAtomExport>) => Array<IAtomExport> = (atoms) =>
