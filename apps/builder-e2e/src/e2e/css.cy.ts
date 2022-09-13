@@ -71,7 +71,7 @@ describe('CSS CRUD', () => {
         props: {
           create: { node: { data: JSON.stringify({}) } },
         },
-        atom: {
+        renderAtomType: {
           connect: {
             where: {
               node: {

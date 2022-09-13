@@ -5,17 +5,15 @@ export const elementSelectionSet = `{
   name
   customCss
   guiCss
-  component
+  parentComponent
     ${componentSelectionSet}
-
   renderComponentType
     ${componentSelectionSet}
-
   parentElement {
     id
     name
   }
-  atom {
+  renderAtomType {
     id
     name
     type
