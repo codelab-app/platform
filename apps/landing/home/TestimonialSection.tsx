@@ -92,6 +92,33 @@ export const TestimonialItem = ({
   )
 }
 
+const testimonialItems = [
+  {
+    review:
+      "We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA).",
+    role: 'Co-Founder @ Mrhost',
+    stakeholder: 'Wesley Ko',
+  },
+  {
+    review:
+      'We have created our custom backend API for our E-Commerce wholesale integration business, but our frontend was lacking from the constantly changing requirements. Our single frontend developer was much more productive using this no-code platform.',
+    role: 'Founder @ Glosku',
+    stakeholder: 'Kevin Zhao',
+  },
+  {
+    review:
+      "We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders.",
+    role: 'CEO @ KonvertLab',
+    stakeholder: 'Shelby Lewis',
+  },
+  {
+    review:
+      "We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders.",
+    role: 'CEO @ KonvertLab',
+    stakeholder: 'Shelby Lewis',
+  },
+]
+
 export const TestimonialSection = () => {
   const settings: Settings = {
     dots: true,
@@ -135,26 +162,14 @@ export const TestimonialSection = () => {
         Loved by startups
       </h1>
       <Slider {...settings} css={tw`my-2 sm:my-8 pb-0 sm:pb-8 z-10 mt-8`}>
-        <TestimonialItem
-          review="We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA)."
-          role="Co-Founder @ Mrhost"
-          stakeholder="Wesley Ko"
-        />
-        <TestimonialItem
-          review="We have created our custom backend API for our E-Commerce wholesale integration business, but our frontend was lacking from the constantly changing requirements. Our single frontend developer was much more productive using this no-code platform."
-          role="Founder @ Glosku"
-          stakeholder="Kevin Zhao"
-        />
-        <TestimonialItem
-          review="We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders."
-          role="CEO @ KonvertLab"
-          stakeholder="Shelby Lewis"
-        />
-        <TestimonialItem
-          review="We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders."
-          role="CEO @ KonvertLab"
-          stakeholder="Shelby Lewis"
-        />
+        {testimonialItems.map((item, index) => (
+          <TestimonialItem
+            key={index}
+            review={item.review}
+            role={item.role}
+            stakeholder={item.stakeholder}
+          />
+        ))}
       </Slider>
       <div css={tw`mt-12`}></div>
     </div>

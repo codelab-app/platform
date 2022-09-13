@@ -1,16 +1,8 @@
-import {
-  ApiOutlined,
-  AppstoreOutlined,
-  EditOutlined,
-  FolderOpenOutlined,
-  KeyOutlined,
-  SettingOutlined,
-} from '@ant-design/icons'
-import { Card, Col, Row } from 'antd'
+import { Row } from 'antd'
 import React from 'react'
 import {
   alignFullGridStyle,
-  cardStyle,
+  // cardStyle,
   padding,
   threeGridCol,
 } from '../styles/style'
@@ -25,7 +17,7 @@ export const Features = () => {
 
   return (
     <Row align="middle" gutter={[padding.sm, padding.sm]}>
-      <Col {...colProps}>
+      {/* <Col {...colProps}>
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<AppstoreOutlined />}
@@ -78,7 +70,7 @@ export const Features = () => {
             title="Low-level Building Block"
           />
         </Card>
-      </Col>
+      </Col> */}
     </Row>
   )
 }

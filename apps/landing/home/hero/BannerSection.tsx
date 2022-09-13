@@ -62,7 +62,7 @@ export const BannerSection = () => {
                   code.&nbsp;
                 </span>
                 <br css={tw`hidden md:block`} />
-                <p css={tw`hidden md:block mb-1`}></p>
+                <span css={tw`hidden md:block mb-1`}></span>
                 <span css={tw`mt-0  `}>
                   Configure props provided by UI frameworks so you can save
                   time.
