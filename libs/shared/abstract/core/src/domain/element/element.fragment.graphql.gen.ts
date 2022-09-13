@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ComponentFragment } from '../component/component.fragment.graphql.gen'
-import { AtomPreviewFragment } from '../atom/atom.fragment.graphql.gen'
+import { AtomFragment } from '../atom/atom.fragment.graphql.gen'
 import {
   PropFragment,
   PropMapBindingFragment,
@@ -11,7 +11,7 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ComponentFragmentDoc } from '../component/component.fragment.graphql.gen'
-import { AtomPreviewFragmentDoc } from '../atom/atom.fragment.graphql.gen'
+import { AtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
 import {
   PropFragmentDoc,
   PropMapBindingFragmentDoc,
@@ -29,19 +29,15 @@ export type ElementFragment = {
   postRenderActionId?: string | null
   propTransformationJs?: string | null
   renderComponentType?: ComponentFragment | null
-  renderAtomType?: AtomPreviewFragment | null
+  renderAtomType?: AtomFragment | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
-  parentElement?: { id: string } | null
   parentComponent?: ComponentFragment | null
   parent?: { id: string } | null
   firstChild?: { id: string } | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
-  parentElementConnection: {
-    edges: Array<{ node: { id: string; name?: string | null } }>
-  }
 }
 
 export const ElementFragmentDoc = gql`
@@ -55,15 +51,12 @@ export const ElementFragmentDoc = gql`
       ...Component
     }
     renderAtomType {
-      ...AtomPreview
+      ...Atom
     }
     prevSibling {
       id
     }
     nextSibling {
-      id
-    }
-    parentElement {
       id
     }
     parentComponent {
@@ -89,21 +82,19 @@ export const ElementFragmentDoc = gql`
       ...PropMapBinding
     }
     propTransformationJs
-    parentElementConnection {
-      edges {
-        node {
-          id
-          name
-        }
-      }
-    }
   }
   ${ComponentFragmentDoc}
-  ${AtomPreviewFragmentDoc}
+  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `
+
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string,
+  operationType?: string,
+) => Promise<T>
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,

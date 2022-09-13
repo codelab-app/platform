@@ -3,7 +3,7 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import { IElement, IElementTree } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   detach,
@@ -23,9 +23,10 @@ import { elementRef } from './element.ref'
  * @param elements
  * @param elementService required as param since during constructor function, this isn't attached to the root yet
  */
-const init = (elements: Array<IElement> = []) => {
+const init = (rootElement: IElement, elements: Array<IElement> = []) => {
   return new ElementTree({
     _elements: elements.map((element) => elementRef(element)),
+    _root: elementRef(rootElement),
   })
 }
 
@@ -47,7 +48,7 @@ export class ElementTree
   implements IElementTree
 {
   protected onAttachedToRootStore(rootStore: object) {
-    this.buildTree(this._elements.map((element) => element.current))
+    // this.buildTree(this._elements.map((element) => element.current))
   }
 
   /**
@@ -63,6 +64,13 @@ export class ElementTree
   @computed
   get root() {
     return this._root?.current
+  }
+
+  // ^ get/set ts type must be identical
+  set root(element: Maybe<IElement>) {
+    if (element) {
+      this._root = elementRef(element)
+    }
   }
 
   @computed
@@ -83,19 +91,18 @@ export class ElementTree
    * Refactored to move hydration out of this function, keep this function as only creating references for tree shape
    */
   @modelAction
-  buildTree(elements: Array<IElement>) {
-    for (const element of elements) {
-      /**
-       * For ElementTree that is already initialized, we need this to update its elements
-       */
-      if (!this._elements.find((el) => el.current.id === element.id)) {
-        this._elements.push(elementRef(element))
-      }
+  addElements(elements: Array<IElement>) {
+    // filter elements that are already on the tree
+    const isElementNotInTree = (element: IElement) =>
+      this._elements.some((_element) => _element.id !== element.id)
 
-      if (!element.parentElement?.id) {
-        this.set_root(elementRef(element))
-      }
+    const newElements = elements.filter(isElementNotInTree)
 
+    // add reference to new element
+    newElements.forEach((element) => this._elements.push(elementRef(element)))
+
+    // validate component meta data
+    newElements.forEach((element) => {
       if (element.renderComponentType?.current) {
         const componentId = element.renderComponentType?.current.id
         const component = this.componentService.components.get(componentId)
@@ -104,52 +111,10 @@ export class ElementTree
           throw new Error('Missing component')
         }
       }
-
-      const parentId = element.parentElement?.id
-
-      if (!parentId) {
-        continue
-      }
-
-      // don't use this.element() since not all elements are registered yet
-      const parent = this.elementService.element(parentId)
-
-      if (!parent || parent.hasChild(element)) {
-        continue
-      }
-
-      parent?.addChild(element.id, elementRef(element))
-    }
+    })
 
     return this
   }
-
-  // @modelFlow
-  // @transaction
-  // moveElement = _async(function* (
-  //   this: ElementService,
-  //   targetElementId: IElementRef,
-  //   { parentElementId, order }: MoveData,
-  // ) {
-  //   /*
-  //    * It's important that we do this locally first, because we can do some validations
-  //    * that would otherwise require a custom resolver to do
-  //    */
-  //   const targetElement = this.elementTree.moveElement(
-  //     targetElementId,
-  //     parentElementId,
-  //     order,
-  //   )
-  //
-  //   const input: ElementUpdateInput = {
-  //     parentElement: {
-  //       disconnect: { where: {} },
-  //       connect: { edge: { order }, where: { node: { id: parentElementId } } },
-  //     },
-  //   }
-  //
-  //   return yield* _await(this.elementService(targetElement, input))
-  // })
 
   getPathFromRoot(selectedElement: IElement): Array<IElement> {
     const path = []

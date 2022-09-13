@@ -25,7 +25,6 @@ import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
   findParent,
-  getParent,
   getRefsResolvingTo,
   idProp,
   Model,
@@ -52,10 +51,10 @@ export const hydrate = ({
   customCss,
   guiCss,
   renderAtomType,
+  parent,
 
   parentComponent,
   renderComponentType,
-  parentElement,
 
   nextSibling,
   prevSibling,
@@ -70,14 +69,14 @@ export const hydrate = ({
   propTransformationJs,
   renderIfPropKey,
   renderForEachPropKey,
-  parentElementConnection,
 }: Omit<IElementDTO, '__typename'>) => {
   return new Element({
     id,
     name,
     customCss,
     guiCss,
-    parentId: parentElement?.id,
+    // parent of first child
+    parentId: parent?.id,
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
     firstChildId: firstChild?.id,
@@ -116,7 +115,6 @@ export const getElementTree = (element: IElement): Maybe<IElementTree> => {
 export class Element
   extends Model({
     id: idProp.withSetter(),
-    children: prop(() => objectMap<Ref<IElement>>()),
     __nodeType: prop<ELEMENT_NODE_TYPE>(ELEMENT_NODE_TYPE),
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
@@ -155,7 +153,7 @@ export class Element
   }
 
   @computed
-  get childrenSorted(): Array<IElement> {
+  get children(): Array<IElement> {
     const firstChild = this.firstChild
 
     if (!firstChild) {
@@ -175,17 +173,41 @@ export class Element
     return results
   }
 
-  /**
-   * Using Ref<IElement> doesn't resolve because the ref isn't attached to anything yet, so we must provide an id
-   */
-  @modelAction
-  addChild(id: string, child: Ref<IElement>) {
-    this.children.set(id, child)
+  @computed
+  get isRoot() {
+    // check no parent by
+    // travel first child
+    // travel siblng -> first child
+    return !this.parentElement?.id
   }
 
-  @modelAction
-  hasChild(child: IElement) {
-    return this.children.has(child.id)
+  @computed
+  get parentElementFromId() {
+    if (this.parentId) {
+      return this.elementService.element(this.parentId)
+    }
+  }
+
+  @computed
+  get parentElement() {
+    // parent - first child (this)
+    if (this.parentElementFromId) {
+      return this.parentElementFromId
+    }
+
+    // parent - first child - prev sibling 1 ... prev sibling n - element (this)
+    let traveledNode = this.prevSibling
+
+    while (traveledNode) {
+      if (traveledNode.parentElementFromId) {
+        return traveledNode.parentElementFromId
+      }
+
+      // keep traversing backward
+      traveledNode = traveledNode.prevSibling
+    }
+
+    return undefined
   }
 
   @modelAction
@@ -229,7 +251,7 @@ export class Element
   get descendants(): Array<IElement> {
     const descendants: Array<IElement> = []
 
-    for (const child of this.childrenSorted) {
+    for (const child of this.children) {
       descendants.push(child)
       descendants.push(...child.descendants)
     }
@@ -240,7 +262,7 @@ export class Element
   /** All descendants that are the first child of their parent */
   @computed
   get leftHandDescendants(): Array<IElement> {
-    const firstChild = this.childrenSorted[0]
+    const firstChild = this.children[0]
 
     if (!firstChild) {
       return []
@@ -249,28 +271,29 @@ export class Element
     return [firstChild, ...firstChild.leftHandDescendants]
   }
 
-  @computed
-  get deepestDescendant(): IElement | null {
-    let deepest: IElement | null = null
-    let deepestDepth = 0
+  // TODO: this function isn't used anywhere, update implementation if requires
+  // @computed
+  // get deepestDescendant(): IElement | null {
+  //   let deepest: IElement | null = null
+  //   let deepestDepth = 0
 
-    const visitChildren = (child: IElement, depth: number): void => {
-      if (child.children.size) {
-        for (const subChild of child.childrenSorted) {
-          visitChildren(subChild, depth + 1)
-        }
-      } else {
-        if (depth > deepestDepth) {
-          deepest = child
-          deepestDepth = depth
-        }
-      }
-    }
+  //   const visitChildren = (child: IElement, depth: number): void => {
+  //     if (child.children.size) {
+  //       for (const subChild of child.children) {
+  //         visitChildren(subChild, depth + 1)
+  //       }
+  //     } else {
+  //       if (depth > deepestDepth) {
+  //         deepest = child
+  //         deepestDepth = depth
+  //       }
+  //     }
+  //   }
 
-    visitChildren(this, 0)
+  //   visitChildren(this, 0)
 
-    return deepest
-  }
+  //   return deepest
+  // }
 
   @computed
   get label() {
@@ -284,11 +307,6 @@ export class Element
       this.renderComponentType?.current?.name ||
       ''
     )
-  }
-
-  @computed
-  get siblings() {
-    return this.parentElement?.children
   }
 
   @computed
@@ -312,15 +330,6 @@ export class Element
       : undefined
   }
 
-  @computed
-  get parentElement() {
-    // the parent is ObjectMap items
-
-    return this.parentId
-      ? (getParent(this)[this.parentId] as IElement)
-      : undefined
-  }
-
   /**
    * Internal system props for meta data, use double underline for system-defined identifiers.
    */
@@ -336,7 +345,7 @@ export class Element
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
       children: !this.renderComponentType?.current
-        ? this.childrenSorted.map((child) => child.antdNode)
+        ? this.children.map((child) => child.antdNode)
         : [],
     }
   }
@@ -346,30 +355,26 @@ export class Element
     return this.atom?.maybeCurrent?.name || this.atom?.maybeCurrent?.type || ''
   }
 
-  findDescendant(id: string): Maybe<IElement> {
-    if (this.id === id) {
-      return this as IElement
-    }
+  // TODO: this function isn't used anywhere, update implementation if requires
+  // findDescendant(id: string): Maybe<IElement> {
+  //   if (this.id === id) {
+  //     return this as IElement
+  //   }
 
-    if (this.children.has(id)) {
-      return this.children.get(id)?.current
-    }
+  //   if (this.children.has(id)) {
+  //     return this.children.get(id)?.current
+  //   }
 
-    for (const child of this.childrenSorted) {
-      const descendant = child.findDescendant(id)
+  //   for (const child of this.childrenSorted) {
+  //     const descendant = child.findDescendant(id)
 
-      if (descendant) {
-        return descendant
-      }
-    }
+  //     if (descendant) {
+  //       return descendant
+  //     }
+  //   }
 
-    return undefined
-  }
-
-  @modelAction
-  removeChild(element: IElement) {
-    this.children.delete(element.id)
-  }
+  //   return undefined
+  // }
 
   /**
    * Parses the prop map bindings with the given source props as input
@@ -504,7 +509,6 @@ export class Element
         this.parentElement.firstChildId = this.nextSiblingId
       }
 
-      this.parentElement.removeChild(this)
       this.parentId = null
     }
   }
@@ -518,7 +522,6 @@ export class Element
         throw new Error(`parent element id ${parentElementId} not found`)
       }
 
-      parentElement.children.set(this.id, elementRef(this))
       this.parentId = parentElementId
     }
   }
@@ -538,7 +541,7 @@ export class Element
     }
   }
 
-  makeAttachToParentInput(parentElementId: string) {
+  makeAttachToParentAsFirstChildInput(parentElementId: string) {
     const parentElement = this.elementService.element(parentElementId)
 
     if (!parentElement) {
@@ -546,32 +549,11 @@ export class Element
     }
 
     return makeUpdateElementInput(parentElement, {
-      children: [
-        {
-          connect: [
-            {
-              where: { node: { id: this.id } },
-            },
-          ],
-        },
-      ],
+      firstChild: {
+        ...connectId(this.id),
+        ...disconnectId(parentElement.firstChild?.id),
+      },
     })
-  }
-
-  makeAttachToParentAsFirstChildInput(parentElementId: string) {
-    const parentElement = this.elementService.element(parentElementId)
-    const input = this.makeAttachToParentInput(parentElementId)
-
-    if (!parentElement) {
-      throw new Error(`parent element id ${parentElementId} not found`)
-    }
-
-    input.update.firstChild = {
-      ...connectId(this.id),
-      ...disconnectId(parentElement.firstChild?.id),
-    }
-
-    return input
   }
 
   makeDetachParentInput() {
@@ -579,9 +561,7 @@ export class Element
       return null
     }
 
-    const parentElementChanges: ElementUpdateInput = {
-      children: [{ disconnect: [{ where: { node: { id: this.id } } }] }],
-    }
+    const parentElementChanges: ElementUpdateInput = {}
 
     if (this.parentElement.firstChildId === this.id) {
       parentElementChanges.firstChild = {
@@ -716,8 +696,7 @@ export class Element
     postRenderActionId,
     preRenderActionId,
     renderForEachPropKey,
-    parentComponent,
-    parentElement,
+    parent,
     nextSibling,
     prevSibling,
     firstChild,
@@ -734,7 +713,7 @@ export class Element
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
     this.props = props ? new Prop({ id: props.id }) : null
-    this.parentId = parentElement?.id ?? null
+    this.parentId = parent?.id ?? null
 
     this.nextSiblingId = nextSibling?.id ?? null
     this.prevSiblingId = prevSibling?.id ?? null

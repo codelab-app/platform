@@ -17,12 +17,12 @@ export interface IElementTree {
   elementsList: Array<IElement>
   getPathFromRoot(element: INode): Array<INode>
   element(id: string): Maybe<IElement>
-  buildTree(elements: Array<IElement>): IElementTree
+  addElements(elements: Array<IElement>): IElementTree
 }
 
 export interface IElementTreeService {
   elementTree: IElementTree
   setElementTree(t: IElementTree): void
   initTree(rootElementId: string): Promise<IElementTree>
-  initTreeV2(elements: Array<IElement>): IElementTree
+  initTreeV2(rootElement: IElement, elements: Array<IElement>): IElementTree
 }

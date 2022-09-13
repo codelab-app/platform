@@ -87,12 +87,6 @@ export class ComponentService
     this: ComponentService,
     components: Array<IComponent>,
   ) {
-    const rootElement = new Element({
-      id: 'components',
-      name: 'Components',
-      owner: '',
-    })
-
     return yield* _await(
       Promise.all(
         components.map(async (component) => {
@@ -109,14 +103,6 @@ export class ComponentService
             () => componentTree,
             getElementService(this),
           )
-
-          // Append this to rootComponentNode
-          if (componentTree?.root) {
-            rootElement.addChild(
-              componentTree.root.id,
-              elementRef(componentTree.root),
-            )
-          }
         }),
       ),
     )

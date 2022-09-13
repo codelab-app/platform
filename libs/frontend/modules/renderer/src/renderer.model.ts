@@ -330,7 +330,7 @@ export class Renderer
         return undefined
       }
 
-      const children = element.childrenSorted?.map((child) =>
+      const children = element.children?.map((child) =>
         this.renderElement(child),
       )
 

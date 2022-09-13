@@ -29,6 +29,7 @@ export interface IElement
   extends INodeType<ELEMENT_NODE_TYPE>,
     ICacheService<IElementDTO, IElement> {
   id: string
+  isRoot: boolean
   owner: Nullable<IAuth0Id>
   name: Nullable<string>
   customCss: Nullable<string>
@@ -38,23 +39,22 @@ export interface IElement
   hooks: Array<IHook>
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
+  parentElementFromId: Maybe<IElement>
   propMapBindings: ObjectMap<IPropMapBinding>
   parentComponent: Nullable<Ref<IComponent>>
   label: string
   propTransformationJs: Nullable<string>
   preRenderActionId: Nullish<string>
   postRenderActionId: Nullish<string>
-  childrenSorted: Array<IElement>
+  children: Array<IElement>
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
   renderComponentType: Nullable<Ref<IComponent>>
   antdNode: IBuilderDataNode
-  children: ObjectMap<Ref<IElement>>
   leftHandDescendants: Array<IElement>
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
-  siblings?: ObjectMap<Ref<IElement>>
 
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
@@ -76,23 +76,13 @@ export interface IElement
   makeAttachToParentAsFirstChildInput(
     parentElementId: string,
   ): UpdateElementsMutationVariables
-  makeAttachToParentInput(
-    parentElementId: string,
-  ): UpdateElementsMutationVariables
   makeAppendSiblingInput(siblingId: string): UpdateElementsMutationVariables
   makePrependSiblingInput(siblingId: string): UpdateElementsMutationVariables
 
   firstChild: Maybe<IElement>
   firstChildId: Nullable<string>
   addPropMapBinding(propMapBinding: IPropMapBinding): void
-  findDescendant(id: string): Maybe<IElement>
   setOrderInParent(order: number | null): void
-  addChild(id: string, child: Ref<IElement>): void
-  hasChild(child: IElement): boolean
-  /**
-   * Removes the ref
-   */
-  removeChild(element: IElement): void
   /**
    * Keeps the ref in place
    */

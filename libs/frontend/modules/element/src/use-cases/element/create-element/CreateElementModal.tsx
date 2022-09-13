@@ -53,7 +53,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         : elementService.createElementAsFirstChild(data))
 
       // Build tree for page
-      pageTree.buildTree([element])
+      pageTree.addElements([element])
 
       // Get the component tree for the current element, so we can update the component tree
       const componentId = builderService.activeComponent?.id
@@ -62,7 +62,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         const componentTree =
           renderService.renderers.get(componentId)?.pageTree?.current
 
-        componentTree?.buildTree([element])
+        componentTree?.addElements([element])
       }
 
       return Promise.resolve([element])

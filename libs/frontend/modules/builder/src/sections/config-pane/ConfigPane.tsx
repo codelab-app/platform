@@ -53,7 +53,6 @@ export const ConfigPane = observer<MetaPaneProps>(
     userService,
   }) => {
     const { providePropCompletion } = usePropCompletion(renderService)
-    const isRootElement = (element: IElement) => !element.parentElement
     const selectedNode = builderService.selectedNode
 
     if (!selectedNode) {
@@ -104,7 +103,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                         />
                         <DeleteElementButton
                           css={tw`mt-3`}
-                          disabled={isRootElement(node)}
+                          disabled={node.isRoot}
                           element={node}
                           elementService={elementService}
                         />

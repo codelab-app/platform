@@ -47,7 +47,6 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const { builderService, componentService } = useStore()
     const { user } = useUser()
     const isComponentInstance = Boolean(element.renderComponentType)
-    const isRoot = !element.parentElement
 
     const onAddChild = () => {
       return createModal.open({
@@ -103,7 +102,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         onClick: onDuplicate,
         label: 'Duplicate',
         // find a way to hide it instead of disabling
-        hide: isRoot,
+        hide: element.isRoot,
       },
       {
         key: 'edit-component',
@@ -112,15 +111,15 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         hide: !isComponentInstance,
       },
       {
-        disabled: isRoot,
+        disabled: element.isRoot,
         key: 'convert-component',
         onClick: onConvert,
         label: 'Convert To Component',
-        hide: isComponentInstance || isRoot,
+        hide: isComponentInstance || element.isRoot,
       },
       {
         danger: true,
-        hide: isRoot,
+        hide: element.isRoot,
         key: 'delete',
         onClick: onDelete,
         label: (

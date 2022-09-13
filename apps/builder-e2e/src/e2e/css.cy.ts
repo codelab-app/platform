@@ -57,12 +57,6 @@ describe('CSS CRUD', () => {
       cy.createElement({
         id: v4(),
         name: elementName,
-        parentElement: {
-          connect: {
-            where: { node: { id: app.pages[0].rootElement.id } },
-            edge: { order: 1 },
-          },
-        },
         parent: {
           connect: {
             where: { node: { id: app.pages[0].rootElement.id } },

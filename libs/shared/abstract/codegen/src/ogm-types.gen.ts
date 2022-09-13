@@ -2001,10 +2001,6 @@ export type OwnedBy = {
   data: Scalars["String"];
 };
 
-export type ParentOfElement = {
-  order?: Maybe<Scalars["Int"]>;
-};
-
 export type TypeBase = {
   owner: User;
   ownerConnection: TypeBaseOwnerConnection;
@@ -3540,14 +3536,10 @@ export type Element = {
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>;
   parent?: Maybe<Element>;
   parentAggregate?: Maybe<ElementElementParentAggregationSelection>;
-  children: Array<Element>;
-  childrenAggregate?: Maybe<ElementElementChildrenAggregationSelection>;
   page?: Maybe<Page>;
   pageAggregate?: Maybe<ElementPagePageAggregationSelection>;
   props?: Maybe<Prop>;
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>;
-  parentElement?: Maybe<Element>;
-  parentElementAggregate?: Maybe<ElementElementParentElementAggregationSelection>;
   parentComponent?: Maybe<Component>;
   parentComponentAggregate?: Maybe<ElementComponentParentComponentAggregationSelection>;
   renderComponentType?: Maybe<Component>;
@@ -3562,10 +3554,8 @@ export type Element = {
   prevSiblingConnection: ElementPrevSiblingConnection;
   firstChildConnection: ElementFirstChildConnection;
   parentConnection: ElementParentConnection;
-  childrenConnection: ElementChildrenConnection;
   pageConnection: ElementPageConnection;
   propsConnection: ElementPropsConnection;
-  parentElementConnection: ElementParentElementConnection;
   parentComponentConnection: ElementParentComponentConnection;
   renderComponentTypeConnection: ElementRenderComponentTypeConnection;
   renderAtomTypeConnection: ElementRenderAtomTypeConnection;
@@ -3617,17 +3607,6 @@ export type ElementParentAggregateArgs = {
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type ElementChildrenArgs = {
-  where?: InputMaybe<ElementWhere>;
-  options?: InputMaybe<ElementOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ElementChildrenAggregateArgs = {
-  where?: InputMaybe<ElementWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
 export type ElementPageArgs = {
   where?: InputMaybe<PageWhere>;
   options?: InputMaybe<PageOptions>;
@@ -3647,17 +3626,6 @@ export type ElementPropsArgs = {
 
 export type ElementPropsAggregateArgs = {
   where?: InputMaybe<PropWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ElementParentElementArgs = {
-  where?: InputMaybe<ElementWhere>;
-  options?: InputMaybe<ElementOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ElementParentElementAggregateArgs = {
-  where?: InputMaybe<ElementWhere>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -3748,14 +3716,6 @@ export type ElementParentConnectionArgs = {
   sort?: InputMaybe<Array<ElementParentConnectionSort>>;
 };
 
-export type ElementChildrenConnectionArgs = {
-  where?: InputMaybe<ElementChildrenConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ElementChildrenConnectionSort>>;
-};
-
 export type ElementPageConnectionArgs = {
   where?: InputMaybe<ElementPageConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
@@ -3770,14 +3730,6 @@ export type ElementPropsConnectionArgs = {
   after?: InputMaybe<Scalars["String"]>;
   directed?: InputMaybe<Scalars["Boolean"]>;
   sort?: InputMaybe<Array<ElementPropsConnectionSort>>;
-};
-
-export type ElementParentElementConnectionArgs = {
-  where?: InputMaybe<ElementParentElementConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ElementParentElementConnectionSort>>;
 };
 
 export type ElementParentComponentConnectionArgs = {
@@ -3847,20 +3799,6 @@ export type ElementAtomRenderAtomTypeNodeAggregateSelection = {
   icon: StringAggregateSelectionNullable;
 };
 
-export type ElementChildrenConnection = {
-  __typename?: "ElementChildrenConnection";
-  edges: Array<ElementChildrenRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ElementChildrenRelationship = ParentOfElement & {
-  __typename?: "ElementChildrenRelationship";
-  cursor: Scalars["String"];
-  node: Element;
-  order?: Maybe<Scalars["Int"]>;
-};
-
 export type ElementComponentParentComponentAggregationSelection = {
   __typename?: "ElementComponentParentComponentAggregationSelection";
   count: Scalars["Int"];
@@ -3889,31 +3827,6 @@ export type ElementEdge = {
   __typename?: "ElementEdge";
   cursor: Scalars["String"];
   node: Element;
-};
-
-export type ElementElementChildrenAggregationSelection = {
-  __typename?: "ElementElementChildrenAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<ElementElementChildrenNodeAggregateSelection>;
-  edge?: Maybe<ElementElementChildrenEdgeAggregateSelection>;
-};
-
-export type ElementElementChildrenEdgeAggregateSelection = {
-  __typename?: "ElementElementChildrenEdgeAggregateSelection";
-  order: IntAggregateSelectionNullable;
-};
-
-export type ElementElementChildrenNodeAggregateSelection = {
-  __typename?: "ElementElementChildrenNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNullable;
-  customCss: StringAggregateSelectionNullable;
-  guiCss: StringAggregateSelectionNullable;
-  propTransformationJs: StringAggregateSelectionNullable;
-  renderForEachPropKey: StringAggregateSelectionNullable;
-  renderIfPropKey: StringAggregateSelectionNullable;
-  preRenderActionId: StringAggregateSelectionNullable;
-  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type ElementElementFirstChildAggregationSelection = {
@@ -3958,31 +3871,6 @@ export type ElementElementParentAggregationSelection = {
   __typename?: "ElementElementParentAggregationSelection";
   count: Scalars["Int"];
   node?: Maybe<ElementElementParentNodeAggregateSelection>;
-};
-
-export type ElementElementParentElementAggregationSelection = {
-  __typename?: "ElementElementParentElementAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<ElementElementParentElementNodeAggregateSelection>;
-  edge?: Maybe<ElementElementParentElementEdgeAggregateSelection>;
-};
-
-export type ElementElementParentElementEdgeAggregateSelection = {
-  __typename?: "ElementElementParentElementEdgeAggregateSelection";
-  order: IntAggregateSelectionNullable;
-};
-
-export type ElementElementParentElementNodeAggregateSelection = {
-  __typename?: "ElementElementParentElementNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNullable;
-  customCss: StringAggregateSelectionNullable;
-  guiCss: StringAggregateSelectionNullable;
-  propTransformationJs: StringAggregateSelectionNullable;
-  renderForEachPropKey: StringAggregateSelectionNullable;
-  renderIfPropKey: StringAggregateSelectionNullable;
-  preRenderActionId: StringAggregateSelectionNullable;
-  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type ElementElementParentNodeAggregateSelection = {
@@ -4111,20 +3999,6 @@ export type ElementParentConnection = {
   edges: Array<ElementParentRelationship>;
   totalCount: Scalars["Int"];
   pageInfo: PageInfo;
-};
-
-export type ElementParentElementConnection = {
-  __typename?: "ElementParentElementConnection";
-  edges: Array<ElementParentElementRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ElementParentElementRelationship = ParentOfElement & {
-  __typename?: "ElementParentElementRelationship";
-  cursor: Scalars["String"];
-  node: Element;
-  order?: Maybe<Scalars["Int"]>;
 };
 
 export type ElementParentRelationship = {
@@ -11260,289 +11134,13 @@ export type DomainWhere = {
   appConnection_NOT?: InputMaybe<DomainAppConnectionWhere>;
 };
 
-export type ElementChildrenAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<ElementChildrenAggregateInput>>;
-  OR?: InputMaybe<Array<ElementChildrenAggregateInput>>;
-  node?: InputMaybe<ElementChildrenNodeAggregationWhereInput>;
-  edge?: InputMaybe<ElementChildrenEdgeAggregationWhereInput>;
-};
-
-export type ElementChildrenConnectFieldInput = {
-  where?: InputMaybe<ElementConnectWhere>;
-  connect?: InputMaybe<Array<ElementConnectInput>>;
-  edge?: InputMaybe<ParentOfElementCreateInput>;
-};
-
-export type ElementChildrenConnectionSort = {
-  edge?: InputMaybe<ParentOfElementSort>;
-  node?: InputMaybe<ElementSort>;
-};
-
-export type ElementChildrenConnectionWhere = {
-  AND?: InputMaybe<Array<ElementChildrenConnectionWhere>>;
-  OR?: InputMaybe<Array<ElementChildrenConnectionWhere>>;
-  edge?: InputMaybe<ParentOfElementWhere>;
-  edge_NOT?: InputMaybe<ParentOfElementWhere>;
-  node?: InputMaybe<ElementWhere>;
-  node_NOT?: InputMaybe<ElementWhere>;
-};
-
-export type ElementChildrenConnectOrCreateFieldInput = {
-  where: ElementConnectOrCreateWhere;
-  onCreate: ElementChildrenConnectOrCreateFieldInputOnCreate;
-};
-
-export type ElementChildrenConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput;
-  edge?: InputMaybe<ParentOfElementCreateInput>;
-};
-
-export type ElementChildrenCreateFieldInput = {
-  node: ElementCreateInput;
-  edge?: InputMaybe<ParentOfElementCreateInput>;
-};
-
-export type ElementChildrenDeleteFieldInput = {
-  where?: InputMaybe<ElementChildrenConnectionWhere>;
-  delete?: InputMaybe<ElementDeleteInput>;
-};
-
-export type ElementChildrenDisconnectFieldInput = {
-  where?: InputMaybe<ElementChildrenConnectionWhere>;
-  disconnect?: InputMaybe<ElementDisconnectInput>;
-};
-
-export type ElementChildrenEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementChildrenEdgeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ElementChildrenEdgeAggregationWhereInput>>;
-  order_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  order_MIN_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_MAX_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_SUM_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_GT?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  order_MIN_GT?: InputMaybe<Scalars["Int"]>;
-  order_MAX_GT?: InputMaybe<Scalars["Int"]>;
-  order_SUM_GT?: InputMaybe<Scalars["Int"]>;
-  order_GTE?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  order_MIN_GTE?: InputMaybe<Scalars["Int"]>;
-  order_MAX_GTE?: InputMaybe<Scalars["Int"]>;
-  order_SUM_GTE?: InputMaybe<Scalars["Int"]>;
-  order_LT?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  order_MIN_LT?: InputMaybe<Scalars["Int"]>;
-  order_MAX_LT?: InputMaybe<Scalars["Int"]>;
-  order_SUM_LT?: InputMaybe<Scalars["Int"]>;
-  order_LTE?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  order_MIN_LTE?: InputMaybe<Scalars["Int"]>;
-  order_MAX_LTE?: InputMaybe<Scalars["Int"]>;
-  order_SUM_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementChildrenFieldInput = {
-  create?: InputMaybe<Array<ElementChildrenCreateFieldInput>>;
-  connect?: InputMaybe<Array<ElementChildrenConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>;
-};
-
-export type ElementChildrenNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementChildrenNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ElementChildrenNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  customCss_EQUAL?: InputMaybe<Scalars["String"]>;
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  customCss_GT?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  customCss_GTE?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  customCss_LT?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  customCss_LTE?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_EQUAL?: InputMaybe<Scalars["String"]>;
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  guiCss_GT?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  guiCss_GTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_LT?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  guiCss_LTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_EQUAL?: InputMaybe<Scalars["String"]>;
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_GT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_GTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_LT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_LTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_EQUAL?: InputMaybe<Scalars["String"]>;
-  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_GT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_GTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_LT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_LTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars["String"]>;
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_GT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_GTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_LT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_LTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
-  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
-  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementChildrenUpdateConnectionInput = {
-  node?: InputMaybe<ElementUpdateInput>;
-  edge?: InputMaybe<ParentOfElementUpdateInput>;
-};
-
-export type ElementChildrenUpdateFieldInput = {
-  where?: InputMaybe<ElementChildrenConnectionWhere>;
-  update?: InputMaybe<ElementChildrenUpdateConnectionInput>;
-  connect?: InputMaybe<Array<ElementChildrenConnectFieldInput>>;
-  disconnect?: InputMaybe<Array<ElementChildrenDisconnectFieldInput>>;
-  create?: InputMaybe<Array<ElementChildrenCreateFieldInput>>;
-  delete?: InputMaybe<Array<ElementChildrenDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>;
-};
-
 export type ElementConnectInput = {
   nextSibling?: InputMaybe<ElementNextSiblingConnectFieldInput>;
   prevSibling?: InputMaybe<ElementPrevSiblingConnectFieldInput>;
   firstChild?: InputMaybe<ElementFirstChildConnectFieldInput>;
   parent?: InputMaybe<ElementParentConnectFieldInput>;
-  children?: InputMaybe<Array<ElementChildrenConnectFieldInput>>;
   page?: InputMaybe<ElementPageConnectFieldInput>;
   props?: InputMaybe<ElementPropsConnectFieldInput>;
-  parentElement?: InputMaybe<ElementParentElementConnectFieldInput>;
   parentComponent?: InputMaybe<ElementParentComponentConnectFieldInput>;
   renderComponentType?: InputMaybe<ElementRenderComponentTypeConnectFieldInput>;
   renderAtomType?: InputMaybe<ElementRenderAtomTypeConnectFieldInput>;
@@ -11555,10 +11153,8 @@ export type ElementConnectOrCreateInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingConnectOrCreateFieldInput>;
   firstChild?: InputMaybe<ElementFirstChildConnectOrCreateFieldInput>;
   parent?: InputMaybe<ElementParentConnectOrCreateFieldInput>;
-  children?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>;
   page?: InputMaybe<ElementPageConnectOrCreateFieldInput>;
   props?: InputMaybe<ElementPropsConnectOrCreateFieldInput>;
-  parentElement?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>;
   parentComponent?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>;
   renderComponentType?: InputMaybe<ElementRenderComponentTypeConnectOrCreateFieldInput>;
   renderAtomType?: InputMaybe<ElementRenderAtomTypeConnectOrCreateFieldInput>;
@@ -11590,10 +11186,8 @@ export type ElementCreateInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingFieldInput>;
   firstChild?: InputMaybe<ElementFirstChildFieldInput>;
   parent?: InputMaybe<ElementParentFieldInput>;
-  children?: InputMaybe<ElementChildrenFieldInput>;
   page?: InputMaybe<ElementPageFieldInput>;
   props?: InputMaybe<ElementPropsFieldInput>;
-  parentElement?: InputMaybe<ElementParentElementFieldInput>;
   parentComponent?: InputMaybe<ElementParentComponentFieldInput>;
   renderComponentType?: InputMaybe<ElementRenderComponentTypeFieldInput>;
   renderAtomType?: InputMaybe<ElementRenderAtomTypeFieldInput>;
@@ -11606,10 +11200,8 @@ export type ElementDeleteInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingDeleteFieldInput>;
   firstChild?: InputMaybe<ElementFirstChildDeleteFieldInput>;
   parent?: InputMaybe<ElementParentDeleteFieldInput>;
-  children?: InputMaybe<Array<ElementChildrenDeleteFieldInput>>;
   page?: InputMaybe<ElementPageDeleteFieldInput>;
   props?: InputMaybe<ElementPropsDeleteFieldInput>;
-  parentElement?: InputMaybe<ElementParentElementDeleteFieldInput>;
   parentComponent?: InputMaybe<ElementParentComponentDeleteFieldInput>;
   renderComponentType?: InputMaybe<ElementRenderComponentTypeDeleteFieldInput>;
   renderAtomType?: InputMaybe<ElementRenderAtomTypeDeleteFieldInput>;
@@ -11622,10 +11214,8 @@ export type ElementDisconnectInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingDisconnectFieldInput>;
   firstChild?: InputMaybe<ElementFirstChildDisconnectFieldInput>;
   parent?: InputMaybe<ElementParentDisconnectFieldInput>;
-  children?: InputMaybe<Array<ElementChildrenDisconnectFieldInput>>;
   page?: InputMaybe<ElementPageDisconnectFieldInput>;
   props?: InputMaybe<ElementPropsDisconnectFieldInput>;
-  parentElement?: InputMaybe<ElementParentElementDisconnectFieldInput>;
   parentComponent?: InputMaybe<ElementParentComponentDisconnectFieldInput>;
   renderComponentType?: InputMaybe<ElementRenderComponentTypeDisconnectFieldInput>;
   renderAtomType?: InputMaybe<ElementRenderAtomTypeDisconnectFieldInput>;
@@ -12464,280 +12054,6 @@ export type ElementParentDisconnectFieldInput = {
   disconnect?: InputMaybe<ElementDisconnectInput>;
 };
 
-export type ElementParentElementAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<ElementParentElementAggregateInput>>;
-  OR?: InputMaybe<Array<ElementParentElementAggregateInput>>;
-  node?: InputMaybe<ElementParentElementNodeAggregationWhereInput>;
-  edge?: InputMaybe<ElementParentElementEdgeAggregationWhereInput>;
-};
-
-export type ElementParentElementConnectFieldInput = {
-  where?: InputMaybe<ElementConnectWhere>;
-  connect?: InputMaybe<ElementConnectInput>;
-  edge?: InputMaybe<ParentOfElementCreateInput>;
-};
-
-export type ElementParentElementConnectionSort = {
-  edge?: InputMaybe<ParentOfElementSort>;
-  node?: InputMaybe<ElementSort>;
-};
-
-export type ElementParentElementConnectionWhere = {
-  AND?: InputMaybe<Array<ElementParentElementConnectionWhere>>;
-  OR?: InputMaybe<Array<ElementParentElementConnectionWhere>>;
-  edge?: InputMaybe<ParentOfElementWhere>;
-  edge_NOT?: InputMaybe<ParentOfElementWhere>;
-  node?: InputMaybe<ElementWhere>;
-  node_NOT?: InputMaybe<ElementWhere>;
-};
-
-export type ElementParentElementConnectOrCreateFieldInput = {
-  where: ElementConnectOrCreateWhere;
-  onCreate: ElementParentElementConnectOrCreateFieldInputOnCreate;
-};
-
-export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput;
-  edge?: InputMaybe<ParentOfElementCreateInput>;
-};
-
-export type ElementParentElementCreateFieldInput = {
-  node: ElementCreateInput;
-  edge?: InputMaybe<ParentOfElementCreateInput>;
-};
-
-export type ElementParentElementDeleteFieldInput = {
-  where?: InputMaybe<ElementParentElementConnectionWhere>;
-  delete?: InputMaybe<ElementDeleteInput>;
-};
-
-export type ElementParentElementDisconnectFieldInput = {
-  where?: InputMaybe<ElementParentElementConnectionWhere>;
-  disconnect?: InputMaybe<ElementDisconnectInput>;
-};
-
-export type ElementParentElementEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementParentElementEdgeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ElementParentElementEdgeAggregationWhereInput>>;
-  order_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  order_MIN_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_MAX_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_SUM_EQUAL?: InputMaybe<Scalars["Int"]>;
-  order_GT?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  order_MIN_GT?: InputMaybe<Scalars["Int"]>;
-  order_MAX_GT?: InputMaybe<Scalars["Int"]>;
-  order_SUM_GT?: InputMaybe<Scalars["Int"]>;
-  order_GTE?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  order_MIN_GTE?: InputMaybe<Scalars["Int"]>;
-  order_MAX_GTE?: InputMaybe<Scalars["Int"]>;
-  order_SUM_GTE?: InputMaybe<Scalars["Int"]>;
-  order_LT?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  order_MIN_LT?: InputMaybe<Scalars["Int"]>;
-  order_MAX_LT?: InputMaybe<Scalars["Int"]>;
-  order_SUM_LT?: InputMaybe<Scalars["Int"]>;
-  order_LTE?: InputMaybe<Scalars["Int"]>;
-  order_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  order_MIN_LTE?: InputMaybe<Scalars["Int"]>;
-  order_MAX_LTE?: InputMaybe<Scalars["Int"]>;
-  order_SUM_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementParentElementFieldInput = {
-  create?: InputMaybe<ElementParentElementCreateFieldInput>;
-  connect?: InputMaybe<ElementParentElementConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>;
-};
-
-export type ElementParentElementNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  customCss_EQUAL?: InputMaybe<Scalars["String"]>;
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  customCss_GT?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  customCss_GTE?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  customCss_LT?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  customCss_LTE?: InputMaybe<Scalars["Int"]>;
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  customCss_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_EQUAL?: InputMaybe<Scalars["String"]>;
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  guiCss_GT?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  guiCss_GTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_LT?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  guiCss_LTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_EQUAL?: InputMaybe<Scalars["String"]>;
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_GT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_GTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_LT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_LTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_EQUAL?: InputMaybe<Scalars["String"]>;
-  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_GT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_GTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_LT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_LTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars["String"]>;
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_GT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_GTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_LT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_LTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
-  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
-  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementParentElementUpdateConnectionInput = {
-  node?: InputMaybe<ElementUpdateInput>;
-  edge?: InputMaybe<ParentOfElementUpdateInput>;
-};
-
-export type ElementParentElementUpdateFieldInput = {
-  where?: InputMaybe<ElementParentElementConnectionWhere>;
-  update?: InputMaybe<ElementParentElementUpdateConnectionInput>;
-  connect?: InputMaybe<ElementParentElementConnectFieldInput>;
-  disconnect?: InputMaybe<ElementParentElementDisconnectFieldInput>;
-  create?: InputMaybe<ElementParentElementCreateFieldInput>;
-  delete?: InputMaybe<ElementParentElementDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>;
-};
-
 export type ElementParentFieldInput = {
   create?: InputMaybe<ElementParentCreateFieldInput>;
   connect?: InputMaybe<ElementParentConnectFieldInput>;
@@ -13378,10 +12694,8 @@ export type ElementRelationInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingCreateFieldInput>;
   firstChild?: InputMaybe<ElementFirstChildCreateFieldInput>;
   parent?: InputMaybe<ElementParentCreateFieldInput>;
-  children?: InputMaybe<Array<ElementChildrenCreateFieldInput>>;
   page?: InputMaybe<ElementPageCreateFieldInput>;
   props?: InputMaybe<ElementPropsCreateFieldInput>;
-  parentElement?: InputMaybe<ElementParentElementCreateFieldInput>;
   parentComponent?: InputMaybe<ElementParentComponentCreateFieldInput>;
   renderComponentType?: InputMaybe<ElementRenderComponentTypeCreateFieldInput>;
   renderAtomType?: InputMaybe<ElementRenderAtomTypeCreateFieldInput>;
@@ -13861,10 +13175,8 @@ export type ElementUpdateInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>;
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>;
   parent?: InputMaybe<ElementParentUpdateFieldInput>;
-  children?: InputMaybe<Array<ElementChildrenUpdateFieldInput>>;
   page?: InputMaybe<ElementPageUpdateFieldInput>;
   props?: InputMaybe<ElementPropsUpdateFieldInput>;
-  parentElement?: InputMaybe<ElementParentElementUpdateFieldInput>;
   parentComponent?: InputMaybe<ElementParentComponentUpdateFieldInput>;
   renderComponentType?: InputMaybe<ElementRenderComponentTypeUpdateFieldInput>;
   renderAtomType?: InputMaybe<ElementRenderAtomTypeUpdateFieldInput>;
@@ -13981,28 +13293,12 @@ export type ElementWhere = {
   parent?: InputMaybe<ElementWhere>;
   parent_NOT?: InputMaybe<ElementWhere>;
   parentAggregate?: InputMaybe<ElementParentAggregateInput>;
-  /** @deprecated Use `children_SOME` instead. */
-  children?: InputMaybe<ElementWhere>;
-  /** @deprecated Use `children_NONE` instead. */
-  children_NOT?: InputMaybe<ElementWhere>;
-  childrenAggregate?: InputMaybe<ElementChildrenAggregateInput>;
-  /** Return Elements where all of the related Elements match this filter */
-  children_ALL?: InputMaybe<ElementWhere>;
-  /** Return Elements where none of the related Elements match this filter */
-  children_NONE?: InputMaybe<ElementWhere>;
-  /** Return Elements where one of the related Elements match this filter */
-  children_SINGLE?: InputMaybe<ElementWhere>;
-  /** Return Elements where some of the related Elements match this filter */
-  children_SOME?: InputMaybe<ElementWhere>;
   page?: InputMaybe<PageWhere>;
   page_NOT?: InputMaybe<PageWhere>;
   pageAggregate?: InputMaybe<ElementPageAggregateInput>;
   props?: InputMaybe<PropWhere>;
   props_NOT?: InputMaybe<PropWhere>;
   propsAggregate?: InputMaybe<ElementPropsAggregateInput>;
-  parentElement?: InputMaybe<ElementWhere>;
-  parentElement_NOT?: InputMaybe<ElementWhere>;
-  parentElementAggregate?: InputMaybe<ElementParentElementAggregateInput>;
   parentComponent?: InputMaybe<ComponentWhere>;
   parentComponent_NOT?: InputMaybe<ComponentWhere>;
   parentComponentAggregate?: InputMaybe<ElementParentComponentAggregateInput>;
@@ -14046,20 +13342,10 @@ export type ElementWhere = {
   firstChildConnection_NOT?: InputMaybe<ElementFirstChildConnectionWhere>;
   parentConnection?: InputMaybe<ElementParentConnectionWhere>;
   parentConnection_NOT?: InputMaybe<ElementParentConnectionWhere>;
-  /** @deprecated Use `childrenConnection_SOME` instead. */
-  childrenConnection?: InputMaybe<ElementChildrenConnectionWhere>;
-  /** @deprecated Use `childrenConnection_NONE` instead. */
-  childrenConnection_NOT?: InputMaybe<ElementChildrenConnectionWhere>;
-  childrenConnection_ALL?: InputMaybe<ElementChildrenConnectionWhere>;
-  childrenConnection_NONE?: InputMaybe<ElementChildrenConnectionWhere>;
-  childrenConnection_SINGLE?: InputMaybe<ElementChildrenConnectionWhere>;
-  childrenConnection_SOME?: InputMaybe<ElementChildrenConnectionWhere>;
   pageConnection?: InputMaybe<ElementPageConnectionWhere>;
   pageConnection_NOT?: InputMaybe<ElementPageConnectionWhere>;
   propsConnection?: InputMaybe<ElementPropsConnectionWhere>;
   propsConnection_NOT?: InputMaybe<ElementPropsConnectionWhere>;
-  parentElementConnection?: InputMaybe<ElementParentElementConnectionWhere>;
-  parentElementConnection_NOT?: InputMaybe<ElementParentElementConnectionWhere>;
   parentComponentConnection?: InputMaybe<ElementParentComponentConnectionWhere>;
   parentComponentConnection_NOT?: InputMaybe<ElementParentComponentConnectionWhere>;
   renderComponentTypeConnection?: InputMaybe<ElementRenderComponentTypeConnectionWhere>;
@@ -16509,33 +15795,6 @@ export type PageWhere = {
   rootElementConnection_NOT?: InputMaybe<PageRootElementConnectionWhere>;
   appConnection?: InputMaybe<PageAppConnectionWhere>;
   appConnection_NOT?: InputMaybe<PageAppConnectionWhere>;
-};
-
-export type ParentOfElementCreateInput = {
-  order?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ParentOfElementSort = {
-  order?: InputMaybe<SortDirection>;
-};
-
-export type ParentOfElementUpdateInput = {
-  order?: InputMaybe<Scalars["Int"]>;
-  order_INCREMENT?: InputMaybe<Scalars["Int"]>;
-  order_DECREMENT?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ParentOfElementWhere = {
-  OR?: InputMaybe<Array<ParentOfElementWhere>>;
-  AND?: InputMaybe<Array<ParentOfElementWhere>>;
-  order?: InputMaybe<Scalars["Int"]>;
-  order_NOT?: InputMaybe<Scalars["Int"]>;
-  order_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  order_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  order_LT?: InputMaybe<Scalars["Int"]>;
-  order_LTE?: InputMaybe<Scalars["Int"]>;
-  order_GT?: InputMaybe<Scalars["Int"]>;
-  order_GTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type PrimitiveTypeConnectInput = {

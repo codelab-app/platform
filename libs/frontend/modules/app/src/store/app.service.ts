@@ -80,9 +80,13 @@ export class AppService
       elementService.writeCache(element),
     )
 
-    console.log('3')
+    const rootElement = elementService.element(page.rootElement.id)
 
-    const pageElementTree = pageModel.initTreeV2(pageElements)
+    if (!rootElement) {
+      throw new Error('No root element found')
+    }
+
+    const pageElementTree = pageModel.initTreeV2(rootElement, pageElements)
 
     return {
       pageElementTree,
