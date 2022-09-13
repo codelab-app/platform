@@ -79,9 +79,15 @@ export const importActions = async (
     await ResourceAction.update({
       where: { id: r.id },
       update: {
-        errorAction: { connect: { where: { node: { id: r.errorAction.id } } } },
+        errorAction: {
+          ResourceAction: {
+            connect: { where: { node: { id: r.errorAction.id } } },
+          },
+        },
         successAction: {
-          connect: { where: { node: { id: r.successAction.id } } },
+          ResourceAction: {
+            connect: { where: { node: { id: r.successAction.id } } },
+          },
         },
       },
     })

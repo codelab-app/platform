@@ -12,8 +12,8 @@ export const getPageData = async (page: OGM_TYPES.Page) => {
   const elements = await getElementAndDescendants(page.rootElement.id)
 
   const componentIds = flatMap(elements, (e) => [
-    e.component?.id,
-    e.componentRenderType?.id,
+    e.parentComponent?.id,
+    e.renderComponentType?.id,
     ...(e.props?.data.match(uuidRegex) || []),
   ]).filter(Boolean) as Array<string>
 

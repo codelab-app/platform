@@ -27,7 +27,7 @@ export const makeCreateInput = (
   const {
     id = v4(),
     parentElementId,
-    instanceOfComponentId,
+    renderComponentTypeId,
     atomId,
     name,
     postRenderActionId,
@@ -35,12 +35,12 @@ export const makeCreateInput = (
     propsData,
   } = input
 
-  const componentRenderType: ElementCreateInput['componentRenderType'] =
-    instanceOfComponentId
-      ? { connect: { where: { node: { id: instanceOfComponentId } } } }
+  const renderComponentType: ElementCreateInput['renderComponentType'] =
+    renderComponentTypeId
+      ? { connect: { where: { node: { id: renderComponentTypeId } } } }
       : undefined
 
-  const atomRenderType: ElementCreateInput['atomRenderType'] = atomId
+  const renderAtomType: ElementCreateInput['renderAtomType'] = atomId
     ? { connect: { where: { node: { id: atomId } } } }
     : undefined
 
@@ -58,8 +58,8 @@ export const makeCreateInput = (
   }
 
   return {
-    componentRenderType,
-    atomRenderType,
+    renderComponentType,
+    renderAtomType,
     parentElement,
     props,
     postRenderActionId,
@@ -74,12 +74,12 @@ export const makeDuplicateInput = (
   parentId: string,
   userId: string,
 ): ElementCreateInput => {
-  const componentRenderType: ElementCreateInput['componentRenderType'] =
-    element.componentRenderType
-      ? { connect: { where: { node: { id: element.componentRenderType.id } } } }
+  const renderComponentType: ElementCreateInput['renderComponentType'] =
+    element.renderComponentType
+      ? { connect: { where: { node: { id: element.renderComponentType.id } } } }
       : undefined
 
-  const atomRenderType: ElementCreateInput['atomRenderType'] = element.atom
+  const renderAtomType: ElementCreateInput['renderAtomType'] = element.atom
     ? { connect: { where: { node: { id: element.atom.id } } } }
     : undefined
 
@@ -97,8 +97,8 @@ export const makeDuplicateInput = (
 
   return {
     id: v4(),
-    componentRenderType,
-    atomRenderType,
+    renderComponentType,
+    renderAtomType,
     props,
     parentElement,
     propTransformationJs: element.propTransformationJs,
@@ -113,23 +113,23 @@ export const makeDuplicateInput = (
 export const makeUpdateInput = (
   input: IUpdateElementDTO,
 ): ElementUpdateInput => {
-  const atomRenderType = input.atomId
+  const renderAtomType = input.atomId
     ? {
         disconnect: { where: {} },
         connect: { where: { node: { id: input.atomId } } },
       }
     : { disconnect: { where: {} } }
 
-  const componentRenderType = input.instanceOfComponentId
+  const renderComponentType = input.renderComponentTypeId
     ? {
         disconnect: { where: {} },
-        connect: { where: { node: { id: input.instanceOfComponentId } } },
+        connect: { where: { node: { id: input.renderComponentTypeId } } },
       }
     : { disconnect: { where: {} } }
 
   return {
     name: input.name,
-    atomRenderType,
+    renderAtomType,
     props: {
       update: {
         node: {
@@ -142,7 +142,7 @@ export const makeUpdateInput = (
     preRenderActionId: input.preRenderActionId || null,
     guiCss: input.guiCss,
     renderForEachPropKey: input.renderForEachPropKey,
-    componentRenderType,
+    renderComponentType,
     renderIfPropKey: input.renderIfPropKey,
   }
 }

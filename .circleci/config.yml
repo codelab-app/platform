@@ -173,9 +173,9 @@ jobs:
       - setup-workspace
       - run: yarn cli tasks lint --env ci
       # Check to see if codegen works, all files should be committed locally
-      # - run:
-      #     name: 'GraphQL Codegen'
-      #     command: yarn codegen
+      - run:
+          name: 'GraphQL Codegen'
+          command: yarn cli tasks codegen --env ci
       - run:
           name: 'Circular Dependencies Check'
           command: yarn cli tasks circular-lint --env ci
@@ -326,7 +326,6 @@ workflows:
           context: CI
           requires:
             - queue/block_workflow
-      #            - install-and-build-workspace
       - notify-success:
           <<: *filters-pr
           context: CI

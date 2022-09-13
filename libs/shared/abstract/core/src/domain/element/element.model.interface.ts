@@ -1,5 +1,4 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import * as Types from '@codelab/shared/abstract/codegen'
+import { UpdateElementsMutationVariables } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
@@ -11,12 +10,6 @@ import { IHook } from '../hook'
 import { IProp, IPropData, IPropMapBinding } from '../prop'
 import { IAuth0Id } from '../user'
 import { IElementDTO } from './element.dto.interface'
-
-// workaround for import { UpdateElementsMutationVariables } from '@codelab/frontend/modules/element', TODO: fix circular import issue
-export interface UpdateElementsMutationVariables {
-  where?: Types.InputMaybe<Types.ElementWhere>
-  update?: Types.InputMaybe<Types.ElementUpdateInput>
-}
 
 /**
  * This is a non-element type node that contains the root element.
@@ -46,7 +39,7 @@ export interface IElement
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
   propMapBindings: ObjectMap<IPropMapBinding>
-  component: Nullable<Ref<IComponent>>
+  parentComponent: Nullable<Ref<IComponent>>
   label: string
   propTransformationJs: Nullable<string>
   preRenderActionId: Nullish<string>
@@ -54,7 +47,7 @@ export interface IElement
   childrenSorted: Array<IElement>
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
-  componentRenderType: Nullable<Ref<IComponent>>
+  renderComponentType: Nullable<Ref<IComponent>>
   antdNode: IBuilderDataNode
   children: ObjectMap<Ref<IElement>>
   leftHandDescendants: Array<IElement>

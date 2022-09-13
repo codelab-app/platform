@@ -2,12 +2,7 @@
  * This file is under `api` code so can import backend code
  */
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  generateOgmTypes,
-  getDriver,
-  getSchema,
-  UserOGM,
-} from '@codelab/backend/adapter/neo4j'
+import { getDriver, getSchema, UserOGM } from '@codelab/backend/adapter/neo4j'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { NextApiRequest } from '@codelab/backend/application'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
@@ -122,10 +117,6 @@ const handler: NextApiHandler = async (req, res) => {
 
   await startServer
   await apolloServer.createHandler({ path })(req, res)
-
-  if (Config().dev.generate_ogm_types) {
-    await generateOgmTypes()
-  }
 }
 
 export default handler

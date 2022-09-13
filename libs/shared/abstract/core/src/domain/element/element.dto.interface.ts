@@ -1,15 +1,12 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { IPropData } from '../prop'
-import {
-  ElementFragment,
-  ElementGraphFragment,
-} from './element.fragment.graphql.gen'
+import { ElementFragment } from './element.fragment.graphql.gen'
 
 export interface ICreateElementDTO {
   id?: string
   name?: Nullable<string>
-  instanceOfComponentId?: Nullable<string>
+  renderComponentTypeId?: Nullable<string>
   atomId?: Nullable<string>
   parentElementId?: string
   preRenderActionId?: Nullish<string>
@@ -22,7 +19,7 @@ export interface ICreateElementDTO {
 
 export interface IUpdateElementDTO {
   name?: Nullable<string>
-  instanceOfComponentId?: Nullable<string>
+  renderComponentTypeId?: Nullable<string>
   atomId?: Nullable<string>
   renderForEachPropKey?: Nullable<string>
   renderIfPropKey?: Nullable<string>
@@ -42,7 +39,7 @@ export type IUpdateBaseElementDTO = Pick<
   | 'name'
   | 'renderIfPropKey'
   | 'renderForEachPropKey'
-  | 'instanceOfComponentId'
+  | 'renderComponentTypeId'
   | 'preRenderActionId'
   | 'postRenderActionId'
 >
@@ -52,9 +49,7 @@ export type IUpdateBaseElementDTO = Pick<
  */
 export type IElementDTO = ElementFragment
 
-export type IElementGraphDTO = ElementGraphFragment
-
 export type IElementExport = Pick<
   OGM_TYPES.Element,
-  'id' | 'name' | 'parentElement' | 'atom'
+  'id' | 'name' | 'parentElement' | 'renderAtomType'
 >

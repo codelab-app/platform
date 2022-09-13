@@ -7,4 +7,5 @@ export enum Tasks {
   Commitlint = 'commitlint',
   Format = 'format',
   Circularlint = 'circular-lint',
+  Codegen = 'codegen',
 }

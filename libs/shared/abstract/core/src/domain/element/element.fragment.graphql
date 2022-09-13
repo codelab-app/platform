@@ -4,10 +4,10 @@ fragment Element on Element {
   name
   customCss
   guiCss
-  componentRenderType {
+  renderComponentType {
     ...Component
   }
-  atomRenderType {
+  renderAtomType {
     ...Atom
   }
   prevSibling {

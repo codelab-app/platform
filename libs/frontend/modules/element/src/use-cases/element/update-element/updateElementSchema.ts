@@ -25,7 +25,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       nullable: true,
       label: 'Render for each',
     },
-    instanceOfComponentId: {
+    renderComponentTypeId: {
       type: 'string',
       nullable: true,
       label: 'Component',

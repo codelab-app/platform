@@ -9,7 +9,9 @@ export const validate = async (pages: Array<IPageExport>) => {
   let allAtomIds = flatMap(
     pages,
     (page) =>
-      page.elements.map((e) => e.atom?.id).filter(Boolean) as Array<string>,
+      page.elements
+        .map((e) => e.renderAtomType?.id)
+        .filter(Boolean) as Array<string>,
   )
 
   allAtomIds = [...new Set(allAtomIds)]

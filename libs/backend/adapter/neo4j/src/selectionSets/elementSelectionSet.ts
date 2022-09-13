@@ -8,7 +8,7 @@ export const elementSelectionSet = `{
   component
     ${componentSelectionSet}
 
-  componentRenderType
+  renderComponentType
     ${componentSelectionSet}
 
   parentElement {

@@ -32,7 +32,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       nullable: true,
       label: 'Atom',
     },
-    instanceOfComponentId: {
+    renderComponentTypeId: {
       type: 'string',
       nullable: true,
       label: 'Component',

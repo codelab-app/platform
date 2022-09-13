@@ -52,7 +52,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve builder -c test",
+              "command": "nx serve-test builder -c dev",
               "forwardAllArgs": false
             }
           ]
@@ -63,7 +63,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
             },
             {
-              "command": "npx next start dist/apps/builder --port 3000",
+              "command": "nx serve-test builder -c ci",
               "forwardAllArgs": false
             }
           ]
@@ -74,7 +74,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test next start dist/apps/builder-test --port 3001",
+              "command": "nx serve-test builder -c test",
               "forwardAllArgs": false
             }
           ]

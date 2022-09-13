@@ -53,9 +53,9 @@ export const elementSchema = gql`
     postRenderActionId: String
 
     # Type of element to render, could be either a component or atom
-    componentRenderType: Component
-      @relationship(type: "COMPONENT_RENDER_TYPE", direction: OUT)
-    atomRenderType: Atom @relationship(type: "ATOM_RENDER_TYPE", direction: OUT)
+    renderComponentType: Component
+      @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
+    renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
 
     hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
     propMapBindings: [PropMapBinding!]!

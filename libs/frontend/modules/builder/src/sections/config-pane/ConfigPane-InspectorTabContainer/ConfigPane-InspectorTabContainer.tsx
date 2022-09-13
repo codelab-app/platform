@@ -133,7 +133,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           >
             <div key={selectedNode.id}>
               {isElement(selectedNode) &&
-              (selectedNode.atom || selectedNode.componentRenderType) ? (
+              (selectedNode.atom || selectedNode.renderComponentType) ? (
                 <>
                   <UpdateRichTextForm
                     element={selectedNode}
