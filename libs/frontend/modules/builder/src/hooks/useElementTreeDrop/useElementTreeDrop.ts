@@ -21,7 +21,7 @@ export const useElementTreeDrop = (elementService: IElementService) => {
     const dropNodeId = info.node.key.toString()
 
     if (shouldMoveElementAsFirstChild(info)) {
-      elementService.moveElementAsFirstChild({
+      void elementService.moveElementAsFirstChild({
         elementId: dragNodeId,
         parentElementId: dropNodeId,
       })
@@ -30,7 +30,7 @@ export const useElementTreeDrop = (elementService: IElementService) => {
     }
 
     if (shouldMoveElementAsNextSibling(info)) {
-      elementService.moveElementAsNextSibling({
+      void elementService.moveElementAsNextSibling({
         elementId: dragNodeId,
         targetElementId: dropNodeId,
       })

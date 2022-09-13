@@ -149,6 +149,76 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       break
 
+    case Tasks.Codegen:
+      if (env === Env.Dev) {
+        const startServer = `nx serve builder -c dev`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && exit 0`
+
+        const runSpecsChildProcess = spawn(runSpecs, {
+          stdio: 'inherit',
+          shell: true,
+          detached: true,
+        })
+
+        const startServerChildProcess = spawn(startServer, {
+          stdio: 'inherit',
+          shell: true,
+          detached: true,
+        })
+
+        runSpecsChildProcess.on('exit', async (code: number) => {
+          if (startServerChildProcess.pid) {
+            await generateOgmTypes()
+
+            try {
+              process.kill(-startServerChildProcess.pid, 'SIGINT')
+            } catch (e) {
+              //
+            }
+          }
+
+          process.exit(code)
+        })
+      }
+
+      if (env === Env.CI) {
+        const startServer = `nx serve-test builder -c ci`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && exit 0`
+
+        const runSpecsChildProcess = spawn(runSpecs, {
+          stdio: 'inherit',
+          shell: true,
+          detached: true,
+        })
+
+        const startServerChildProcess = spawn(startServer, {
+          stdio: 'inherit',
+          shell: true,
+          detached: true,
+        })
+
+        runSpecsChildProcess.on('exit', async (code: number) => {
+          if (startServerChildProcess.pid) {
+            await generateOgmTypes()
+
+            try {
+              process.kill(-startServerChildProcess.pid, 'SIGINT')
+            } catch (e) {
+              //
+            }
+
+            if (isGitDirty()) {
+              console.error('Codegen produced untracked files...')
+              process.exit(1)
+            }
+          }
+
+          process.exit(code)
+        })
+      }
+
+      break
+
     /**
      * When building next web, we must use env to create the production port, otherwise the ports will be different
      *

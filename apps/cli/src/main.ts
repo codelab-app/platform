@@ -16,7 +16,7 @@ import { Stage } from './shared/utils/env'
  *
  * Having our own CLI commands also makes it more self documenting on what commands are possible. Think of this as docs for devs, it creates a better DX.
  */
-yargs(hideBin(process.argv))
+void yargs(hideBin(process.argv))
   .scriptName('cli')
 
   // All scripts here could act on a different stage

@@ -31,7 +31,7 @@ export const ActionColumn = observer<ActionColumnProps>(
     }
 
     const onBuilder = () => {
-      router.push({
+      void router.push({
         pathname: PageType.ComponentDetail,
         query: { componentId: component.id },
       })

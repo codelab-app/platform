@@ -33,7 +33,9 @@
     "index.d.ts",
     "**/*.js",
     "**/*.jsx",
-    "../../postcss.config.js"
+    "../../postcss.config.js",
+    ".storybook/main.js",
+    ".storybook/preview.js"
   ],
   "exclude": [
     "node_modules",
