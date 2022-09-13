@@ -22,12 +22,10 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { isNonNullable } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import {
   _async,
   _await,
-  getSnapshot,
   Model,
   model,
   modelAction,
@@ -301,52 +299,41 @@ parent
   element
   next
      */
-    const updateElementInputs = [
-      element.makeDetachParentInput(),
-      element.makeDetachNextSiblingInput(),
-      element.makeDetachPrevSiblingInput(),
-    ]
+    const updateElementRequests: Array<Promise<any>> = []
+    // Detach from parent
+    const detachFromParentInput = element.makeDetachParentInput()
 
-    updateElementCacheFns.push(
-      element.detachParent(),
-      element.detachNextSibling(),
-      element.detachPrevSibling(),
-    )
-
-    // detach element from prev
-    if (element.prevSibling) {
-      updateElementInputs.push(element.prevSibling.makeDetachNextSiblingInput())
-      updateElementCacheFns.push(element.prevSibling.detachNextSibling())
-    }
-
-    // detach element from next
-    if (element.nextSibling) {
-      updateElementInputs.push(element.nextSibling.makeDetachPrevSiblingInput())
-      updateElementCacheFns.push(element.nextSibling.detachPrevSibling())
-    }
-
-    const beforeUpdateElement = getSnapshot(element)
-
-    yield* _await(
-      customElementApi.BatchUpdateElements(
-        updateElementInputs.filter(isNonNullable),
-      ),
-    )
-
-    updateElementCacheFns.forEach((fn) => fn())
-
-    // link prev to next
-    if (
-      beforeUpdateElement.prevSiblingId &&
-      beforeUpdateElement.nextSiblingId
-    ) {
-      yield _await(
-        this.attachElementAsNextSibling({
-          elementId: beforeUpdateElement.nextSiblingId,
-          targetElementId: beforeUpdateElement.prevSiblingId,
-        }),
+    if (detachFromParentInput) {
+      updateElementRequests.push(
+        elementApi.UpdateElements(detachFromParentInput),
       )
+      updateElementCacheFns.push(element.detachParent())
     }
+
+    updateElementCacheFns.push(element.attachPrevToNextSibling())
+
+    // detach from next sibling
+    const detachFromNextSiblingInput = element.makeDetachNextSiblingInput()
+
+    if (detachFromNextSiblingInput) {
+      updateElementRequests.push(
+        elementApi.UpdateElements(detachFromNextSiblingInput),
+      )
+      updateElementCacheFns.push(element.detachNextSibling())
+    }
+
+    // detach from prev sibling
+    const detachFromPrevSiblingInput = element.makeDetachPrevSiblingInput()
+
+    if (detachFromPrevSiblingInput) {
+      updateElementRequests.push(
+        elementApi.UpdateElements(detachFromPrevSiblingInput),
+      )
+      updateElementCacheFns.push(element.detachPrevSibling())
+    }
+
+    yield* _await(Promise.all(updateElementRequests))
+    updateElementCacheFns.forEach((fn) => fn())
   })
 
   /**
@@ -500,7 +487,7 @@ parent
       return
     }
 
-    const updateElementInputs: Array<UpdateElementsMutationVariables> = []
+    const updateElementRequests: Array<Promise<any>> = []
     const updateElementCacheFns: Array<() => void> = []
 
     /**
@@ -513,26 +500,28 @@ parentElement
 
 element is new parentElement's first child
      */
-
-    updateElementCacheFns.push(
-      element.attachToParentAsFirstChild(parentElement.id),
-    )
-    updateElementInputs.push(
-      element.makeAttachToParentAsFirstChildInput(parentElementId),
-    )
-
-    // element prepends first child
     if (parentElement.firstChild) {
+      updateElementRequests.push(
+        elementApi.UpdateElements(
+          element.makeAppendSiblingInput(parentElement.firstChild.id),
+        ),
+      )
       updateElementCacheFns.push(
         element.appendSibling(parentElement.firstChild.id),
       )
-      updateElementInputs.push(
-        element.makeAppendSiblingInput(parentElement.firstChild.id),
-      )
     }
 
-    yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
+    // attach to parent
+    updateElementRequests.push(
+      elementApi.UpdateElements(
+        element.makeAttachToParentAsFirstChildInput(parentElementId),
+      ),
+    )
+    updateElementCacheFns.push(
+      element.attachToParentAsFirstChild(parentElement.id),
+    )
 
+    yield* _await(Promise.all(updateElementRequests))
     updateElementCacheFns.forEach((fn) => fn())
   })
 

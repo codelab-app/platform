@@ -468,6 +468,19 @@ export class Element
   }
 
   @modelAction
+  attachPrevToNextSibling() {
+    return () => {
+      if (this.nextSibling) {
+        this.nextSibling.prevSiblingId = this.prevSiblingId
+      }
+
+      if (this.prevSibling) {
+        this.prevSibling.nextSiblingId = this.nextSiblingId
+      }
+    }
+  }
+
+  @modelAction
   detachPrevSibling() {
     return () => {
       if (!this.prevSibling) {
