@@ -14,7 +14,39 @@ export type ITxnResolver<
   (txn: Transaction) => Promise<TReturn>
 >
 
-export const withReadTransaction = <
+type TransactionWork<T> = (tx: Transaction) => Promise<T> | T
+
+export const withReadTransaction = async <T>(
+  readTransaction: TransactionWork<T>,
+) => {
+  const driver = getDriver()
+  const session = driver.session()
+
+  return session
+    .readTransaction((txn) => readTransaction(txn))
+    .catch((error) => {
+      console.error(error)
+      throw error
+    })
+    .finally(() => session.close())
+}
+
+export const withWriteTransaction = async <T>(
+  writeTransaction: TransactionWork<T>,
+) => {
+  const driver = getDriver()
+  const session = driver.session()
+
+  return session
+    .writeTransaction((txn) => writeTransaction(txn))
+    .catch((error) => {
+      console.error(error)
+      throw error
+    })
+    .finally(() => session.close())
+}
+
+export const withReadTransactionResolver = <
   TParent = any,
   TArgs = Record<string, any>,
   TContext = Record<string, any>,
@@ -22,25 +54,30 @@ export const withReadTransaction = <
 >(
   txnResolver: ITxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {
-  const name = txnResolver.name || ''
-
   const resolver: IFieldResolver<TParent, TContext, TArgs, Promise<TReturn>> = (
     parent,
     args,
     context,
     info,
-  ) => {
-    const driver = getDriver()
-    const session = driver.session()
+  ) => withReadTransaction(txnResolver(parent, args, context, info))
 
-    return session
-      .writeTransaction(txnResolver(parent, args, context, info))
-      .catch((error) => {
-        console.error(`${name ? name + ':' : ''}`, error)
-        throw error
-      })
-      .finally(() => session.close())
-  }
+  return resolver
+}
+
+export const withWriteTransactionResolver = <
+  TParent = any,
+  TArgs = Record<string, any>,
+  TContext = Record<string, any>,
+  TReturn = any,
+>(
+  txnResolver: ITxnResolver<TParent, TContext, TArgs, TReturn>,
+) => {
+  const resolver: IFieldResolver<TParent, TContext, TArgs, Promise<TReturn>> = (
+    parent,
+    args,
+    context,
+    info,
+  ) => withWriteTransaction(txnResolver(parent, args, context, info))
 
   return resolver
 }
