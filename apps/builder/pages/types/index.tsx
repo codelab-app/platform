@@ -2,9 +2,9 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateTypeButton,
   CreateTypeModal,
-  DefaultValueModal,
   DeleteTypeModal,
   GetTypesTable,
+  InterfaceDefaultsModal,
   UpdateTypeModal,
 } from '@codelab/frontend/modules/type'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -60,7 +60,10 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <CreateTypeModal typeService={typeService} userService={userService} />
       <DeleteTypeModal typeService={typeService} />
       <UpdateTypeModal typeService={typeService} />
-      <DefaultValueModal typeService={typeService} />
+      <InterfaceDefaultsModal
+        typeService={typeService}
+        userService={userService}
+      />
       <ContentSection>
         <GetTypesTable typeService={typeService} />
       </ContentSection>

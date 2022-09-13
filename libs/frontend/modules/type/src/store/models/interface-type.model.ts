@@ -33,7 +33,8 @@ const hydrate = ({
     kind,
     name,
     ownerId: owner.id,
-    defaultValue: JSON.parse(ownerConnection.edges[0].value || '{}'),
+    ownerAuthId: owner.auth0Id,
+    defaults: JSON.parse(ownerConnection.edges[0]?.data || '{}'),
   })
 
   for (const edge of fieldsConnection.edges) {
@@ -47,7 +48,8 @@ const hydrate = ({
 export class InterfaceType
   extends ExtendedModel(createTypeBase(ITypeKind.InterfaceType), {
     fields: prop(() => objectMap<Field>()),
-    defaultValue: prop<IPropData>(),
+    ownerAuthId: prop<string>(),
+    defaults: prop<IPropData>(),
   })
   implements IInterfaceType
 {
@@ -93,6 +95,7 @@ export class InterfaceType
       }
     }
 
+    this.defaults = JSON.parse(fragment.ownerConnection.edges[0]?.data || '{}')
     // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
     //
     // for (const [key, field] of this.fields) {
