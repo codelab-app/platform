@@ -130,7 +130,7 @@ export const typeSchema = gql`
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
-    itemType: TypeBase!
+    itemType: AnyType!
       @relationship(
         type: "ARRAY_ITEM_TYPE",
         direction: OUT,
@@ -146,7 +146,7 @@ export const typeSchema = gql`
     name: String! @unique
     owner: User!
     descendantTypesIds: [ID!]!
-    typesOfUnionType: [TypeBase!]!
+    typesOfUnionType: [AnyType!]!
       @relationship(
         type: "UNION_TYPE_CHILD",
         direction: OUT,
@@ -169,12 +169,6 @@ export const typeSchema = gql`
     fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
 
-    defaults: [User!]! 
-      @relationship(
-        type: "INTERFACE_DEFAULTS",
-        properties: "InterfaceDefaults",
-        direction: IN
-      )
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
@@ -337,7 +331,6 @@ export const typeSchema = gql`
     owner: User!
 #    fieldFor: [TypeBase!]!
   }
-
 
   """
   Allows editing the value using a code mirror editor
