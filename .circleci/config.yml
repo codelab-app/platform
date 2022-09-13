@@ -204,7 +204,6 @@ jobs:
     <<: *executor-params
     steps:
       - queue/until_front_of_line:
-          only-on-branch: master
           consider-branch: false
       - setup-workspace
       - run: npx cypress install
