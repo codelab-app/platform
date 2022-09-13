@@ -5518,16 +5518,6 @@ export type ElementFirstChildUpdateFieldInput = {
   where?: InputMaybe<ElementFirstChildConnectionWhere>;
 };
 
-export type ElementGraph = {
-  __typename?: 'ElementGraph';
-  descendants: Array<Scalars['ID']>;
-  id: Scalars['ID'];
-};
-
-export type ElementGraphInput = {
-  rootId: Scalars['String'];
-};
-
 export type ElementHookHooksAggregationSelection = {
   __typename?: 'ElementHookHooksAggregationSelection';
   count: Scalars['Int'];
@@ -13447,7 +13437,6 @@ export type Query = {
   domains: Array<Domain>;
   domainsAggregate: DomainAggregateSelection;
   domainsConnection: DomainsConnection;
-  elementGraph: ElementGraph;
   elementTypes: Array<ElementType>;
   elementTypesAggregate: ElementTypeAggregateSelection;
   elementTypesConnection: ElementTypesConnection;
@@ -13743,11 +13732,6 @@ export type QueryDomainsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<DomainSort>>>;
   where?: InputMaybe<DomainWhere>;
-};
-
-
-export type QueryElementGraphArgs = {
-  input: ElementGraphInput;
 };
 
 

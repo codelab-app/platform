@@ -14,7 +14,7 @@ export type ITxnResolver<
   (txn: Transaction) => Promise<TReturn>
 >
 
-type TransactionWork<T> = (tx: Transaction) => Promise<T> | T
+type TransactionWork<T> = (txn: Transaction) => Promise<T> | T
 
 export const withReadTransaction = async <T>(
   readTransaction: TransactionWork<T>,

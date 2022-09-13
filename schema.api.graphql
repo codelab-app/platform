@@ -5126,15 +5126,6 @@ input ElementFirstChildUpdateFieldInput {
   where: ElementFirstChildConnectionWhere
 }
 
-type ElementGraph {
-  descendants: [ID!]!
-  id: ID!
-}
-
-input ElementGraphInput {
-  rootId: String!
-}
-
 type ElementHookHooksAggregationSelection {
   count: Int!
   node: ElementHookHooksNodeAggregateSelection
@@ -12468,7 +12459,6 @@ type Query {
     sort: [DomainSort]
     where: DomainWhere
   ): DomainsConnection!
-  elementGraph(input: ElementGraphInput!): ElementGraph!
   elementTypes(
     options: ElementTypeOptions
     where: ElementTypeWhere

@@ -1,23 +1,18 @@
 import {
   ElementOGM,
   elementSelectionSet,
-  withReadTransactionResolver,
+  withReadTransaction,
 } from '@codelab/backend/adapter/neo4j'
 import { elementDescendants } from '@codelab/backend/graphql'
 
 export const getElementAndDescendants = async (rootId: string) => {
-  const { id, descendants } = await withReadTransactionResolver(
-    elementDescendants,
-  )(
-    {
+  const descendants = await withReadTransaction(
+    elementDescendants({
       id: rootId,
-    },
-    {},
-    null,
-    {} as any,
+    }),
   )
 
-  const elementIds = [id, ...descendants]
+  const elementIds = [rootId, ...descendants.map((element) => element.id)]
   const Elements = await ElementOGM()
 
   return await Elements.find({

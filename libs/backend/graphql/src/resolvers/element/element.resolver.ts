@@ -1,5 +1,5 @@
-import { ITxnResolver } from '@codelab/backend/adapter/neo4j'
 import { elementRepository } from '@codelab/backend/application'
+import { Transaction } from 'neo4j-driver'
 
 /**
  * We can re-use the same repository, since it just takes an id and get the descendants. The only difference here is that our ID comes from parent context as opposed to argument
@@ -14,8 +14,10 @@ import { elementRepository } from '@codelab/backend/application'
  *     }
  *   }
  * }
+ *
+ * Used `ITxnResolver<{ id: string }>` before, but new signature is more flexible
  */
-export const elementDescendants: ITxnResolver<{ id: string }> =
-  (parent) => (txn) => {
+export const elementDescendants =
+  (parent: { id: string }) => (txn: Transaction) => {
     return elementRepository.getDescendants(txn, parent.id)
   }
