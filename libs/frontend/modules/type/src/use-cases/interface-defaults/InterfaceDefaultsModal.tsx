@@ -12,7 +12,6 @@ import { ModalPropsForm } from '../../props-form/ModalPropsForm'
 
 export interface InterfaceDefaultsModalProps {
   typeService: ITypeService
-  userService: ITypeService
 }
 
 export const InterfaceDefaultsModal = observer<InterfaceDefaultsModalProps>(
