@@ -164,7 +164,6 @@ export const typeSchema = gql`
     owner: User!
     fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
-
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
@@ -348,6 +347,8 @@ export const typeSchema = gql`
     Graphql
     CssInJs
   }
+
+
 
   union AnyType = PrimitiveType | 
                   ArrayType | 
