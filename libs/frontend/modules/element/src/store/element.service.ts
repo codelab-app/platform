@@ -246,10 +246,7 @@ export class ElementService
     this: ElementService,
     element: Pick<IElement, 'id'>,
     input: ElementUpdateInput,
-    shouldUpdateCache = true,
   ) {
-    console.log({ shouldUpdateCache })
-
     const {
       updateElements: {
         elements: [updatedElement],
@@ -271,11 +268,7 @@ export class ElementService
       throw new Error('Element not found')
     }
 
-    if (shouldUpdateCache) {
-      return elementFromCache.writeCache(updatedElement)
-    }
-
-    return elementFromCache
+    return elementFromCache.writeCache(updatedElement)
   })
 
   @modelFlow
