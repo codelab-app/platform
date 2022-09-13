@@ -319,7 +319,6 @@ workflows:
             - install-and-build-workspace
       - queue/block_workflow:
           consider-branch: false
-          job-regex: 'e2e'
           requires:
             - install-and-build-workspace
       - e2e:
