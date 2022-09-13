@@ -27,7 +27,7 @@ export const useIntrospectGraphQLSchema = (serverUrl?: string) => {
       }
     }
 
-    fn()
+    void fn()
   }, [serverUrl])
 
   return {

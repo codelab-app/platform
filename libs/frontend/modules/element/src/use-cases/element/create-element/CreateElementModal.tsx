@@ -82,7 +82,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const closeModal = () => elementService.createModal.close()
 
     const selectParentElementOptions = pageTree.elementsList
-      .filter((element) => !element?.instanceOfComponent && !element?.component)
+      .filter(
+        (element) => !element?.renderComponentType && !element?.parentComponent,
+      )
       .map(mapElementOption)
 
     const selectChildrenElementOptions =
@@ -106,7 +108,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             omitFields={[
               'parentElementId',
               'atomId',
-              'instanceOfComponentId',
+              'renderComponentTypeId',
               'customCss',
               'guiCss',
               'propsData',
@@ -133,7 +135,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           <AutoField
             activeComponentId={builderService.activeComponent?.id}
             component={SelectComponent}
-            name="instanceOfComponentId"
+            name="renderComponentTypeId"
           />
           <SelectAction
             actionService={actionService}

@@ -1,18 +1,14 @@
-import { Options } from 'yargs'
-
-export const ENV_FLAG = 'env'
-
 /**
  * This is the script environment for running processes like CI/CD
  */
 export enum Env {
-  // Local dev flow
+  // Local using primary port
   Dev = 'dev',
 
-  // Local flow
+  // Local using secondary port
   Test = 'test',
 
-  // Remote
+  // Remote on CircleCi
   CI = 'ci',
 }
 
@@ -28,27 +24,4 @@ export enum Stage {
 
   // Local
   Dev = 'dev',
-}
-
-/**
- * Environment for running commands
- */
-export const envOptions: Options = {
-  type: 'string',
-  choices: Object.values(Env),
-  describe: 'Used to load proper `.env`',
-}
-
-export enum TaskEnv {
-  Test = 'test',
-  Ci = 'ci',
-}
-
-/**
- * Environment for running tests
- */
-export const taskEnvOptions: Options = {
-  type: 'string',
-  choices: Object.values(TaskEnv),
-  describe: 'Used to load proper `.env`',
 }

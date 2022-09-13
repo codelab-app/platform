@@ -3,7 +3,10 @@
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"]
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["libs/frontend/view/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

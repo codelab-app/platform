@@ -12,8 +12,6 @@ interface Config {
     password: string
   }
   dev: {
-    // Should we generate OGM types on server hit
-    generate_ogm_types: boolean
     // Should we enable upsert user middleware for next.js
     upsert_user_middleware: boolean
   }
@@ -41,10 +39,6 @@ export const Config = (): Config => ({
     password: env.get('NEO4J_PASSWORD').required().asString(),
   },
   dev: {
-    generate_ogm_types: env
-      .get('DEV_GENERATE_OGM_TYPES')
-      .default('false')
-      .asBoolStrict(),
     upsert_user_middleware: env
       .get('DEV_UPSERT_USER_MIDDLEWARE')
       .default('false')

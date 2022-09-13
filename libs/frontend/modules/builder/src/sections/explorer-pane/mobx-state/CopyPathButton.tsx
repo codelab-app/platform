@@ -10,14 +10,11 @@ interface CopyPathButtonProps {
 
 export const CopyPathButton = ({ path }: CopyPathButtonProps) => {
   const { start, end } = mobxStateKeyTemplate
-
-  const success = () => {
-    message.success('Copied to clipboard !', 1)
-  }
+  const success = () => message.success('Copied to clipboard !', 1)
 
   const onCopy = async () => {
     await copyTextToClipboard(`${start}${path}${end}`)
-    success()
+    await success()
   }
 
   return <Button icon={<CopyOutlined />} onClick={onCopy} size="small" />

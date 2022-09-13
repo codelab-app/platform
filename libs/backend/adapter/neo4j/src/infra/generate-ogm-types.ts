@@ -4,33 +4,30 @@ import * as path from 'path'
 import { getOgm } from './ogm'
 
 export const generateOgmTypes = async () => {
-  try {
-    // Only generate types when you make a schema change
-    const outFile = path.resolve(
-      process.cwd(),
-      'libs/shared/abstract/codegen',
-      'src/ogm-types.gen.ts',
+  const outFile = path.resolve(
+    process.cwd(),
+    'libs/shared/abstract/codegen',
+    'src/ogm-types.gen.ts',
+  )
+
+  return await generate({
+    ogm: await getOgm(),
+    outFile,
+  })
+    .then(() => console.info('OGM type generated!'))
+    .catch((e) =>
+      console.error(`[generateOgmTypes] ${JSON.stringify(e, null, 2)}`),
     )
 
-    const data = await generate({
-      ogm: await getOgm(),
-      outFile,
-    })
+  /**
+   * Save to abstract folder as well for exporting just the interfaces
+   */
+  // fs.writeFileSync(outFile, JSON.stringify(data))
 
-    /**
-     * Save to abstract folder as well for exporting just the interfaces
-     */
-    // fs.writeFileSync(outFile, JSON.stringify(data))
+  // const results = await getEslint().lintFiles(outFile)
+  // await ESLint.outputFixes(results)
 
-    // const results = await getEslint().lintFiles(outFile)
-    // await ESLint.outputFixes(results)
-
-    console.info('OGM type generated!')
-    // process.exit(0)
-  } catch (err) {
-    console.error(`[generateOgmTypes] ${JSON.stringify(err, null, 2)}`)
-    throw err
-  }
+  // process.exit(0)
 }
 
 let eslint: ESLint

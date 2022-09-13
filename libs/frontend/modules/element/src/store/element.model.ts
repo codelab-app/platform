@@ -51,10 +51,10 @@ export const hydrate = ({
   name,
   customCss,
   guiCss,
-  atom,
+  renderAtomType,
 
-  component,
-  instanceOfComponent,
+  parentComponent,
+  renderComponentType,
   parentElement,
 
   nextSibling,
@@ -81,16 +81,16 @@ export const hydrate = ({
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
     firstChildId: firstChild?.id,
-    atom: atom ? atomRef(atom.id) : null,
+    atom: renderAtomType ? atomRef(renderAtomType.id) : null,
     preRenderActionId,
     postRenderActionId,
     props: props ? Prop.hydrate(props) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
-    component: component ? componentRef(component.id) : null,
-    instanceOfComponent: instanceOfComponent
-      ? componentRef(instanceOfComponent.id)
+    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
+    renderComponentType: renderComponentType
+      ? componentRef(renderComponentType.id)
       : null,
     propMapBindings: objectMap(
       propMapBindings
@@ -141,10 +141,10 @@ export class Element
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
-    component: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
 
     // Marks the element as an instance of a specific component
-    instanceOfComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
   })
   implements IElement
@@ -280,8 +280,8 @@ export class Element
       (this.atom?.current
         ? pascalCaseToWords(this.atom?.current.type)
         : undefined) ||
-      this.component?.current?.name ||
-      this.instanceOfComponent?.current?.name ||
+      this.parentComponent?.current?.name ||
+      this.renderComponentType?.current?.name ||
       ''
     )
   }
@@ -335,7 +335,7 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-      children: !this.instanceOfComponent?.current
+      children: !this.renderComponentType?.current
         ? this.childrenSorted.map((child) => child.antdNode)
         : [],
     }
@@ -693,9 +693,8 @@ export class Element
     name,
     customCss,
     guiCss,
-    atom,
-    component,
-    instanceOfComponent,
+    renderAtomType,
+    renderComponentType,
     hooks,
     propMapBindings,
     props,
@@ -704,6 +703,7 @@ export class Element
     postRenderActionId,
     preRenderActionId,
     renderForEachPropKey,
+    parentComponent,
     parentElement,
     nextSibling,
     prevSibling,
@@ -716,7 +716,7 @@ export class Element
     this.propTransformationJs = propTransformationJs ?? null
     this.renderIfPropKey = renderIfPropKey ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
-    this.atom = atom ? atomRef(atom.id) : null
+    this.atom = renderAtomType ? atomRef(renderAtomType.id) : null
 
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
@@ -741,9 +741,11 @@ export class Element
       }
     }
 
-    this.component = component ? componentRef(component.id) : null
-    this.instanceOfComponent = instanceOfComponent
-      ? componentRef(instanceOfComponent.id)
+    this.parentComponent = renderComponentType
+      ? componentRef(renderComponentType.id)
+      : null
+    this.renderComponentType = renderComponentType
+      ? componentRef(renderComponentType.id)
       : null
 
     return this

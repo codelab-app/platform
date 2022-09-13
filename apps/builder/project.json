@@ -33,7 +33,7 @@
         "dev": {
           "commands": [
             {
-              "command": "npx env-cmd -f .env.test nx serve web -c test"
+              "command": "npx env-cmd -f .env.test nx serve builder -c test"
             }
           ]
         },

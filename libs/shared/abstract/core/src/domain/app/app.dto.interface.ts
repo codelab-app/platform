@@ -26,12 +26,8 @@ export interface IPageBuilderAppProps {
   pageId: string
 }
 
-export type IAppExport = Pick<
-  OGM_TYPES.App,
-  'id' | 'name' | 'rootElement' | 'slug'
-> & {
+export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
   pages: Array<IPageExport>
   store: IStoreExport
-  providerElements: Array<OGM_TYPES.Element>
   domains: Array<IDomainExport>
 }

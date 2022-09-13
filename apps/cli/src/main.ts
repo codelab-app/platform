@@ -11,50 +11,62 @@ import { resetCommand } from './commands/reset/reset.command'
 import { scrapeCommand } from './commands/scrape/scrape.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { Stage } from './shared/utils/env'
+
+dotenv.config({ path: '.env' })
+
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
  *
  * Having our own CLI commands also makes it more self documenting on what commands are possible. Think of this as docs for devs, it creates a better DX.
  */
-yargs(hideBin(process.argv))
+void yargs(hideBin(process.argv))
   .scriptName('cli')
+  /**
+   * These scripts could act on different deployment environment
+   */
+  .command('data', 'Import / export / reset', (argv) =>
+    argv
+      .options({
+        stage: {
+          alias: 's',
+          describe: 'The deployment environment',
+          demandOption: true,
+          default: Stage.Dev,
+          type: 'string',
+          choices: Object.values(Stage),
+        },
+      })
+      // Load different env based on stage
+      .middleware(({ stage }) => {
+        console.log('process.env.CI', process.env.CI)
 
-  // All scripts here could act on a different stage
-  .options({
-    stage: {
-      alias: 's',
-      describe: 'The deployment environment',
-      demandOption: true,
-      default: Stage.Dev,
-      type: 'string',
-      choices: Object.values(Stage),
-    },
-  })
-  // Load different env based on stage
-  .middleware((argv) => {
-    const { stage } = argv
+        if (process.env.CI) {
+          return
+        }
 
-    console.log('process.env.CI', process.env.CI)
+        // Load prod env only if not CI
+        if (stage === Stage.Prod) {
+          dotenv.config({ path: '.env.prod', override: true })
+          console.log(process.env.NEO4J_URI)
+        }
 
-    if (process.env.CI) {
-      return
-    }
+        if (stage === Stage.Dev) {
+          dotenv.config({ path: '.env', override: true })
+          console.log(process.env.NEO4J_URI)
+        }
+      })
+      .command(resetCommand)
+      .command(importCommand)
+      .command(exportCommand),
+  )
 
-    // Load prod env only if not CI
-    if (stage === Stage.Prod) {
-      dotenv.config({ path: '.env.prod', override: true })
-      console.log(process.env.NEO4J_URI)
-    }
+  /**
+   * These scripts could run on different env
+   */
 
-    if (stage === Stage.Dev) {
-      dotenv.config({ path: '.env', override: true })
-      console.log(process.env.NEO4J_URI)
-    }
-  })
-
-  .command(resetCommand)
-  .command(importCommand)
-  .command(exportCommand)
+  /**
+   * These scripts are run locally only
+   */
   .command(tasksCommand)
   .command(scrapeCommand)
   .command(parseCommand)

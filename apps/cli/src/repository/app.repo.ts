@@ -11,7 +11,6 @@ import { omit } from 'lodash'
 import { v4 } from 'uuid'
 import { validate } from '../commands/import/validate'
 import type { ExportAppData } from '../use-cases/export/export-apps'
-import { getElementAndDescendants } from '../use-cases/export/get-element'
 import { getPageData } from '../use-cases/export/get-page'
 import { exportActions, importActions } from './action.repo'
 import { createComponent } from './component.repo'
@@ -22,7 +21,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
 
   const App = await AppOGM()
   const Store = await StoreOGM()
-  const { pages, providerElements } = app
+  const { pages } = app
   await validate(pages)
 
   for (const { elements, components } of pages) {
@@ -38,14 +37,6 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
     for (const element of elements) {
       await updateImportedElement(element)
     }
-  }
-
-  for (const element of providerElements) {
-    const newElement = await importElementInitial(element, selectedUser)
-  }
-
-  for (const element of providerElements) {
-    await updateImportedElement(element)
   }
 
   const pagesData = app.pages.map(({ elements, components, ...props }) => ({
@@ -105,11 +96,6 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
         name: app.name,
         owner: { connect: { where: { node: { id: selectedUser } } } },
         slug: app.slug,
-        rootElement: {
-          connect: {
-            where: { node: { id: app.rootElement.id } },
-          },
-        },
         store: { connect: { where: { node: { id: appStore.id } } } },
         pages: {
           create: app.pages.map((page) => ({
@@ -162,13 +148,10 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
     }),
   )
 
-  const providerElements = await getElementAndDescendants(app.rootElement.id)
-
   return {
     app: {
       ...app,
       pages: pagesData,
-      providerElements,
       store: { ...app.store, actions },
     },
   }

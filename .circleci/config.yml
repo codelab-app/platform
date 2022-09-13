@@ -142,7 +142,7 @@ jobs:
       - package-install-dev
       - run:
           name: 'Clear Cache'
-          # clear cache here because this never gets cleared, rely on remote cache instead
+          # clear cache here because NX cache can get quite large, we rely on remote cache instead
           command: |
             rm -rf ~/project/node_modules/nx/.cache
       #            npx cypress cache clear
@@ -172,10 +172,10 @@ jobs:
     steps:
       - setup-workspace
       - run: yarn cli tasks lint --env ci
-      # Check to see if codegen works, all files should be committed locally
-      # - run:
-      #     name: 'GraphQL Codegen'
-      #     command: yarn codegen
+      # Check to see if our commit contains the latest generated code
+      - run:
+          name: 'GraphQL Codegen'
+          command: yarn cli tasks codegen --env ci
       - run:
           name: 'Circular Dependencies Check'
           command: yarn cli tasks circular-lint --env ci
@@ -197,16 +197,14 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      #      - run:
-      #          command: |
-      #            ls ~/projects/apps/builder/specs/setup
-      #            cat ~/projects/apps/builder/specs/setup/auth0-token.json
       - run: yarn cli tasks int --env ci
       - notify-failure
 
   e2e:
     <<: *executor-params
     steps:
+      - queue/until_front_of_line:
+          consider-branch: false
       - setup-workspace
       - run: npx cypress install
       - run: npx cypress verify
@@ -317,16 +315,12 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      - queue/block_workflow:
-          requires:
-            - install-and-build-workspace
       - e2e:
           <<: *filters-pr
           e: docker-node
           context: CI
           requires:
-            - queue/block_workflow
-      #            - install-and-build-workspace
+            - install-and-build-workspace
       - notify-success:
           <<: *filters-pr
           context: CI

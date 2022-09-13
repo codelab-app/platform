@@ -8,6 +8,9 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["apps/builder/tsconfig.*?.json"]
+      },
       "rules": {
         "@next/next/no-html-link-for-pages": ["error", "apps/builder/pages"],
         "jsx-a11y/anchor-is-valid": "off",

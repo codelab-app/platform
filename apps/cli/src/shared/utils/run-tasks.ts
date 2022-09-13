@@ -1,7 +1,12 @@
-/* eslint-disable no-case-declarations */
+import { generateOgmTypes } from '@codelab/backend/adapter/neo4j'
 import { spawn } from 'child_process'
 import execa from 'execa'
-import { TaskEnv } from './env'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import gitChangedFiles from 'git-changed-files'
+import isPortReachable from 'is-port-reachable'
+import path from 'path'
+import { Env } from './env'
 import { Tasks } from './tasks'
 
 const NX_TEST = 'npx env-cmd -f .env.test nx'
@@ -23,29 +28,31 @@ export const execCommand = (command: string) => {
   }
 }
 
-export const runTasks = (env: TaskEnv, task: string, args?: string) => {
+export const runTasks = async (env: string, task: string, args?: string) => {
+  console.log('run tasks', env)
+
   switch (task) {
     case Tasks.Build:
-      if (env === TaskEnv.Test) {
+      if (env === Env.Test) {
         // Added since many times can't find production build of next during push
         // Maybe related? https://github.com/nrwl/nx/issues/2839
         // execCommand(`${NX_TEST} build builder -c test`)
         execCommand(`${NX_TEST} affected:build -c test`)
       }
 
-      if (env === TaskEnv.Ci) {
+      if (env === Env.CI) {
         execCommand('npx nx affected:build -c ci --verbose')
       }
 
       break
 
     case Tasks.Lint:
-      if (env === TaskEnv.Test) {
+      if (env === Env.Test) {
         execCommand(`yarn cross-env TIMING=1 lint-staged --verbose`)
         execCommand(`npx ls-lint`)
       }
 
-      if (env === TaskEnv.Ci) {
+      if (env === Env.CI) {
         execCommand(`npx nx affected:lint`)
         execCommand(`npx prettier --check ./**/*.{graphql,yaml,json}`)
         execCommand(`npx ls-lint`)
@@ -54,13 +61,13 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       break
 
     case Tasks.Unit:
-      if (env === TaskEnv.Test) {
+      if (env === Env.Test) {
         execCommand(
           `${NX_TEST} affected:test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color --parallel=3`,
         )
       }
 
-      if (env === TaskEnv.Ci) {
+      if (env === Env.CI) {
         execCommand(
           `npx nx affected:test --testPathPattern="[^i].spec.ts" --verbose --color --parallel=3`,
         )
@@ -69,7 +76,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       break
 
     case Tasks.Int:
-      if (env === TaskEnv.Test) {
+      if (env === Env.Test) {
         const startServer = `${NX_TEST} serve-test builder -c test`
         const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && ${NX_TEST} test builder -c test`
 
@@ -118,7 +125,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
         })
       }
 
-      if (env === TaskEnv.Ci) {
+      if (env === Env.CI) {
         const startServer = `nx serve-test builder -c ci`
         const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test builder -c ci --verbose`
 
@@ -134,7 +141,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
           detached: true,
         })
 
-        runSpecsChildProcess.on('exit', (code: number) => {
+        runSpecsChildProcess.on('exit', async (code: number) => {
           if (startServerChildProcess.pid) {
             try {
               process.kill(-startServerChildProcess.pid, 'SIGINT')
@@ -149,24 +156,90 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       break
 
+    case Tasks.Codegen:
+      if (env === Env.Dev) {
+        if (!(await isPortReachable(3000, { host: '127.0.0.1' }))) {
+          console.error('Please start server!')
+          process.exit(0)
+        }
+
+        execCommand('yarn graphql-codegen')
+        await generateOgmTypes()
+
+        process.exit(0)
+      }
+
+      if (env === Env.CI) {
+        const startServer = `nx serve-test builder -c ci`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && exit 0`
+
+        const runSpecsChildProcess = spawn(runSpecs, {
+          stdio: 'inherit',
+          shell: true,
+          detached: true,
+        })
+
+        const startServerChildProcess = spawn(startServer, {
+          stdio: 'inherit',
+          shell: true,
+          detached: true,
+        })
+
+        runSpecsChildProcess.on('exit', async (code: number) => {
+          if (startServerChildProcess.pid) {
+            await generateOgmTypes()
+
+            try {
+              process.kill(-startServerChildProcess.pid, 'SIGINT')
+            } catch (e) {
+              console.error(e)
+            }
+          }
+
+          const { unCommittedFiles } = await gitChangedFiles()
+
+          console.log('Un-committed files', unCommittedFiles)
+
+          const containsGeneratedFiles = unCommittedFiles.reduce(
+            (_matches: boolean, file: string) => {
+              const filename = path.basename(file)
+
+              return (
+                _matches ||
+                filename.includes('.gen.ts') ||
+                filename === 'schema.api.graphql'
+              )
+            },
+            false,
+          )
+
+          if (containsGeneratedFiles) {
+            console.error('Please run codegen!')
+            process.exit(1)
+          }
+        })
+      }
+
+      break
+
     /**
      * When building next web, we must use env to create the production port, otherwise the ports will be different
      *
      * `configuration` not passed when using affected, use `c`
      */
     case Tasks.E2e:
-      if (env === TaskEnv.Test) {
+      if (env === Env.Test) {
         execCommand(`${NX_TEST} run builder-e2e:e2e:test --verbose`)
       }
 
-      if (env === TaskEnv.Ci) {
+      if (env === Env.CI) {
         execCommand(`npx nx run builder-e2e:e2e:ci --verbose`)
       }
 
       break
 
     case Tasks.Commitlint:
-      if (env === TaskEnv.Test) {
+      if (env === Env.Test) {
         execCommand(`npx --no-install commitlint --edit ${args}`)
       }
 
@@ -180,4 +253,6 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
     default:
       throw new Error('Incorrect test env')
   }
+
+  console.log('Run tasks done!')
 }

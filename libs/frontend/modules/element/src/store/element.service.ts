@@ -96,7 +96,10 @@ export class ElementService
   private writeAtomsCache(elements: Array<IElementDTO>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
-    const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
+
+    const atoms = elements
+      .map((element) => element.renderAtomType)
+      .filter(isAtomDTO)
 
     return atoms.map((atom) => atomService.writeCache(atom))
   }
@@ -107,7 +110,7 @@ export class ElementService
     const componentService = getComponentService(this)
 
     const components = elements
-      .map((v) => v.component || v.instanceOfComponent)
+      .map((v) => v.parentComponent || v.renderComponentType)
       .filter(Boolean) as Array<IComponentDTO>
 
     components.map((component) => componentService.writeCache(component))
@@ -683,7 +686,7 @@ element is new parentElement's first child
     yield* _await(
       this.patchElement(element, {
         parentElement: { disconnect: { where: {} } },
-        component: {
+        parentComponent: {
           create: {
             node: {
               id: v4(),
@@ -710,7 +713,7 @@ element is new parentElement's first child
       }),
     )
 
-    if (!element.component) {
+    if (!element.parentComponent) {
       throw new Error('Could not find component')
     }
 
@@ -722,7 +725,7 @@ element is new parentElement's first child
       this.create([
         {
           name: element.label,
-          instanceOfComponentId: element.component.id,
+          renderComponentTypeId: element.parentComponent.id,
           parentElementId: parentId,
         },
       ]),
@@ -841,7 +844,7 @@ element is new parentElement's first child
     propKey: string,
   ) {
     const elementsThatUseTheProp = yield* _await(
-      this.getAll({ atom: { api: { id: interfaceType.id } } }),
+      this.getAll({ renderAtomType: { api: { id: interfaceType.id } } }),
     )
 
     const promises = elementsThatUseTheProp.map((element) => {

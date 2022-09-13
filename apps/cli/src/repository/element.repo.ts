@@ -9,10 +9,12 @@ import { v4 } from 'uuid'
 
 const label = (element: OGM_TYPES.Element) =>
   element.name ||
-  element.atom?.name ||
-  (element.atom ? pascalCaseToWords(element.atom.type) : undefined) ||
-  element.component?.name ||
-  element.instanceOfComponent?.name
+  element.renderAtomType?.name ||
+  (element.renderAtomType
+    ? pascalCaseToWords(element.renderAtomType.type)
+    : undefined) ||
+  element.parentComponent?.name ||
+  element.renderComponentType?.name
 
 export const importElementInitial = async (
   element: OGM_TYPES.Element,
@@ -53,8 +55,10 @@ export const importElementInitial = async (
           preRenderActionId: element.preRenderActionId,
           postRenderActionId: element.postRenderActionId,
 
-          atom: element.atom
-            ? { connect: { where: { node: { id: element.atom.id } } } }
+          renderAtomType: element.renderAtomType
+            ? {
+                connect: { where: { node: { id: element.renderAtomType.id } } },
+              }
             : undefined,
           props: element.props
             ? {
@@ -108,8 +112,8 @@ export const updateImportedElement = async (
   await Elements.update({
     where: { id: element.id },
     update: {
-      component: element.component
-        ? { connect: { where: { node: { id: element.component.id } } } }
+      parentComponent: element.parentComponent
+        ? { connect: { where: { node: { id: element.parentComponent.id } } } }
         : undefined,
       parentElement: element.parentElement
         ? {
@@ -120,10 +124,10 @@ export const updateImportedElement = async (
             },
           }
         : undefined,
-      instanceOfComponent: element.instanceOfComponent
+      renderComponentType: element.renderComponentType
         ? {
             connect: {
-              where: { node: { id: element.instanceOfComponent.id } },
+              where: { node: { id: element.renderComponentType.id } },
             },
           }
         : undefined,

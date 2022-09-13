@@ -3,7 +3,7 @@ Match (element:Element {id: $rootId})
 // For root Element, we get all descendants
 CALL apoc.path.subgraphAll(
   element,
-  { relationshipFilter: 'PARENT_OF_ELEMENT>|INSTANCE_OF_COMPONENT>' }
+  { relationshipFilter: 'PARENT_OF_ELEMENT>|RENDER_COMPONENT_TYPE>' }
 ) YIELD nodes AS descendants
 
 // Get isRoot by checking if parent exists

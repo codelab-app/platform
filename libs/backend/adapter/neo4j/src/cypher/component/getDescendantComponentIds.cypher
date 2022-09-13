@@ -1,7 +1,7 @@
 CALL apoc.path.subgraphAll(
   this,
   {
-    relationshipFilter: 'COMPONENT_ROOT>|PARENT_OF_ELEMENT>|INSTANCE_OF_COMPONENT>'
+    relationshipFilter: 'COMPONENT_ROOT>|PARENT_OF_ELEMENT>|RENDER_COMPONENT_TYPE>'
   }
 ) YIELD nodes AS descendants
 
