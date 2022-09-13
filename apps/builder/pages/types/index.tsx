@@ -60,10 +60,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <CreateTypeModal typeService={typeService} userService={userService} />
       <DeleteTypeModal typeService={typeService} />
       <UpdateTypeModal typeService={typeService} />
-      <InterfaceDefaultsModal
-        typeService={typeService}
-        userService={userService}
-      />
+      <InterfaceDefaultsModal typeService={typeService} />
       <ContentSection>
         <GetTypesTable typeService={typeService} />
       </ContentSection>

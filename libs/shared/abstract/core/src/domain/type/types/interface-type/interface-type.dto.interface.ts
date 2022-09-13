@@ -6,6 +6,6 @@ export type IInterfaceTypeDTO = InterfaceTypeFragment
 
 export type IInterfaceTypeExport = Pick<
   OGM_TYPES.InterfaceType,
-  IBaseTypeExportFields | 'fields' | 'fieldsConnection' | 'defaultsConnection'
+  IBaseTypeExportFields | 'fields' | 'fieldsConnection' | 'ownerConnection'
 > &
   Required<Pick<OGM_TYPES.InterfaceType, '__typename'>>
