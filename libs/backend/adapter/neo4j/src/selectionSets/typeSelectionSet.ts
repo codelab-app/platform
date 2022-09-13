@@ -43,6 +43,11 @@ export const exportEnumTypeSelectionSet = `{
 
 export const exportInterfaceTypeSelectionSet = `{
   ${exportBaseSelection}
+  ownerConnection {
+    edges {
+      data
+    }
+  }
   fieldsConnection {
     edges {
       id
@@ -58,6 +63,11 @@ export const exportInterfaceTypeSelectionSet = `{
 
 export const interfaceTypeSelectionSet = `{
   ${baseSelection}
+  ownerConnection {
+    edges {
+      data
+    }
+  }
   fieldsConnection {
     edges {
       id

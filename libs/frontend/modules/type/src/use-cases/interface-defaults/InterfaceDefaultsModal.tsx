@@ -1,20 +1,28 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IPropData, ITypeService } from '@codelab/shared/abstract/core'
+import {
+  IInterfaceType,
+  IPropData,
+  ITypeService,
+} from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ModalPropsForm } from '../../props-form/ModalPropsForm'
 
-export interface DefaultValueModalProps {
+export interface InterfaceDefaultsModalProps {
   typeService: ITypeService
+  userService: ITypeService
 }
 
-export const DefaultValueModal = observer<DefaultValueModalProps>(
+export const InterfaceDefaultsModal = observer<InterfaceDefaultsModalProps>(
   ({ typeService }) => {
-    const closeModal = () => typeService.defaultValueModal.close()
-    const type = typeService.defaultValueModal.type
+    const closeModal = () => typeService.interfaceDefaultsModal.close()
 
-    const onSubmit = (defaultValue: IPropData) => {
+    const type = typeService.interfaceDefaultsModal
+      .type as Maybe<IInterfaceType>
+
+    const onSubmit = (data: IPropData) => {
       if (!type) {
         throw new Error('InterfaceType is undefined')
       }
@@ -23,7 +31,10 @@ export const DefaultValueModal = observer<DefaultValueModalProps>(
         id: type.id,
         kind: type.kind,
         name: type.name,
-        defaultValue,
+        interfaceDefaults: {
+          data,
+          auth0Id: type.ownerAuthId,
+        },
       })
     }
 
@@ -32,16 +43,16 @@ export const DefaultValueModal = observer<DefaultValueModalProps>(
         className="create-default-value-modal"
         okText="Save"
         onCancel={closeModal}
-        visible={typeService.defaultValueModal.isOpen}
+        visible={typeService.interfaceDefaultsModal.isOpen}
       >
         {type && (
           <ModalPropsForm
             interfaceType={type}
             key={type.id}
-            model={type.defaultValue}
+            model={type.defaults}
             onSubmit={onSubmit}
             onSubmitError={createNotificationHandler({
-              title: 'Error while creating field',
+              title: 'Error while updating defaults',
               type: 'error',
             })}
             onSubmitSuccess={closeModal}

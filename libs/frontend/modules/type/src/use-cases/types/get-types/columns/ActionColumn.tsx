@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
 import { typeRef } from '../../../../store'
-import { DefaultValueButton } from '../../../default-value'
+import { InterfaceDefaultsButton } from '../../../interface-defaults'
 import { TypeRecord } from './types'
 
 interface ActionColumnProps {
@@ -32,7 +32,10 @@ export const ActionColumn = observer<ActionColumnProps>(
         ) : null}
 
         <DisplayIf condition={type.typeKind === ITypeKind.InterfaceType}>
-          <DefaultValueButton interfaceId={type.id} typeService={typeService} />
+          <InterfaceDefaultsButton
+            interfaceId={type.id}
+            typeService={typeService}
+          />
         </DisplayIf>
         <ListItemEditButton
           onClick={() => typeService.updateModal.open(typeRef(type.id))}

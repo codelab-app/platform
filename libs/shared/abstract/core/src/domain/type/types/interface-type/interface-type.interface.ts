@@ -12,8 +12,9 @@ import { ITypeKind } from '../base-type/type-kind.enum'
 export interface IInterfaceType extends IBaseType {
   kind: ITypeKind.InterfaceType
   fields: ObjectMap<IField>
+  ownerAuthId: string
   fieldList?: Array<IField>
-  defaultValue: IPropData
+  defaults: IPropData
 }
 
 export type IInterfaceTypeRef = string

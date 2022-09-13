@@ -6,7 +6,12 @@ import { createTypeBase } from './base-type.model'
 const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
   assertIsTypeKind(kind, ITypeKind.AppType)
 
-  return new AppType({ id, kind, name, ownerId: owner.id })
+  return new AppType({
+    id,
+    kind,
+    name,
+    ownerId: owner.id,
+  })
 }
 
 @model('@codelab/AppType')

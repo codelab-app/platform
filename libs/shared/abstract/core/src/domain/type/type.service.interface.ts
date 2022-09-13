@@ -34,9 +34,9 @@ export interface ITypeService
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
-  defaultValueModal: IModalService<
-    Ref<IInterfaceType>,
-    { type: Maybe<IInterfaceType> }
+  interfaceDefaultsModal: IModalService<
+    Ref<IAnyType>,
+    { type: Maybe<IAnyType> }
   >
   fieldUpdateModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
   fieldDeleteModal: IModalService<IFieldModalMetadata, IFieldModalProperties>

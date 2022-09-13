@@ -95,7 +95,7 @@ type UpdateTypesRecord = Record<
   ITypeKind,
   (vars: {
     where: ITypeWhere
-    update: IUpdateTypeInput
+    update?: IUpdateTypeInput
     delete?: IDeleteTypeInput
     disconnect?: IDisconnectTypeInput
     connect?: IConnectTypeInput
