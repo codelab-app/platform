@@ -13,8 +13,6 @@ import { PropFragmentDoc, PropMapBindingFragmentDoc } from '../prop/prop.fragmen
 import { HookFragmentDoc } from '../hook/hook.fragment.graphql.gen';
 export type ElementFragment = { __typename: 'Element', id: string, name?: string | null, customCss?: string | null, guiCss?: string | null, renderForEachPropKey?: string | null, renderIfPropKey?: string | null, preRenderActionId?: string | null, postRenderActionId?: string | null, propTransformationJs?: string | null, renderComponentType?: ComponentFragment | null, renderAtomType?: AtomFragment | null, prevSibling?: { id: string } | null, nextSibling?: { id: string } | null, parentElement?: { id: string } | null, parentComponent?: ComponentFragment | null, parent?: { id: string } | null, firstChild?: { id: string } | null, props?: PropFragment | null, hooks: Array<HookFragment>, propMapBindings: Array<PropMapBindingFragment>, parentElementConnection: { edges: Array<{ node: { id: string, name?: string | null } }> } };
 
-export type ElementGraphFragment = { id: string, descendants: Array<string> };
-
 export const ElementFragmentDoc = gql`
     fragment Element on Element {
   __typename
@@ -74,12 +72,6 @@ ${AtomFragmentDoc}
 ${PropFragmentDoc}
 ${HookFragmentDoc}
 ${PropMapBindingFragmentDoc}`;
-export const ElementGraphFragmentDoc = gql`
-    fragment ElementGraph on ElementGraph {
-  id
-  descendants
-}
-    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 

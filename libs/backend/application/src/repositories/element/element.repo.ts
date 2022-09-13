@@ -2,36 +2,11 @@ import {
   ElementOGM,
   elementSelectionSet,
   getDescendantsCypher,
-  getElementGraph,
 } from '@codelab/backend/adapter/neo4j'
 import { Element } from '@codelab/shared/abstract/codegen'
-import { Node, RxTransaction, Transaction } from 'neo4j-driver'
-import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Node, Transaction } from 'neo4j-driver'
 
 export const elementRepository = {
-  getElementGraph: (
-    txn: RxTransaction,
-    rootId: string,
-  ): Observable<unknown> => {
-    return txn
-      .run(getElementGraph, { rootId })
-      .records()
-      .pipe(
-        map((record) => {
-          const element = record.get(0)
-          const descendants = record.get(1)
-
-          const elementGraph = {
-            ...element,
-            descendants,
-          }
-
-          return elementGraph
-        }),
-      )
-  },
-
   /**
    * Used for field resolver on element
    */

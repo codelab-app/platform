@@ -101,7 +101,6 @@ export interface IElementService
     elementTree: Nullable<IElementTree>,
   ): Promise<void>
   element(id: string): Maybe<IElement>
-
   updateElementsPropTransformationJs(
     element: IElement,
     newPropTransformJs: string,

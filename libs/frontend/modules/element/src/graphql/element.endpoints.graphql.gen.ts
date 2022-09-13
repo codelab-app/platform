@@ -1,17 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { ElementGraphFragment, ElementFragment } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen';
+import { ElementFragment } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
-import { ElementGraphFragmentDoc, ElementFragmentDoc } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen';
-export type GetElementGraphQueryVariables = Types.Exact<{
-  input: Types.ElementGraphInput;
-}>;
-
-
-export type GetElementGraphQuery = { elementGraph: ElementGraphFragment };
-
+import { ElementFragmentDoc } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen';
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput;
 }>;
@@ -51,14 +44,18 @@ export type GetElementsQueryVariables = Types.Exact<{
 
 export type GetElementsQuery = { elements: Array<ElementFragment> };
 
+export type GetElementTreeQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.ElementOptions>;
+  where?: Types.InputMaybe<Types.ElementWhere>;
+}>;
 
-export const GetElementGraphDocument = gql`
-    query GetElementGraph($input: ElementGraphInput!) {
-  elementGraph(input: $input) {
-    ...ElementGraph
-  }
-}
-    ${ElementGraphFragmentDoc}`;
+
+export type GetElementTreeQuery = { elementTrees: Array<(
+    { descendantElements: Array<ElementFragment> }
+    & ElementFragment
+  )> };
+
+
 export const CreateElementsDocument = gql`
     mutation CreateElements($input: [ElementCreateInput!]!) {
   createElements(input: $input) {
@@ -95,8 +92,18 @@ export const MoveElementsDocument = gql`
     ${ElementFragmentDoc}`;
 export const GetElementsDocument = gql`
     query GetElements($options: ElementOptions, $where: ElementWhere) {
-  elements: elements(options: $options, where: $where) {
+  elements(options: $options, where: $where) {
     ...Element
+  }
+}
+    ${ElementFragmentDoc}`;
+export const GetElementTreeDocument = gql`
+    query GetElementTree($options: ElementOptions, $where: ElementWhere) {
+  elementTrees: elements(options: $options, where: $where) {
+    ...Element
+    descendantElements {
+      ...Element
+    }
   }
 }
     ${ElementFragmentDoc}`;
@@ -108,9 +115,6 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    GetElementGraph(variables: GetElementGraphQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetElementGraphQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetElementGraphQuery>(GetElementGraphDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetElementGraph', 'query');
-    },
     CreateElements(variables: CreateElementsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateElementsMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateElementsMutation>(CreateElementsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateElements', 'mutation');
     },
@@ -125,6 +129,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetElements(variables?: GetElementsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetElementsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetElementsQuery>(GetElementsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetElements', 'query');
+    },
+    GetElementTree(variables?: GetElementTreeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetElementTreeQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetElementTreeQuery>(GetElementTreeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetElementTree', 'query');
     }
   };
 }
