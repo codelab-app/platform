@@ -65,7 +65,7 @@ export const CreateTypeModal = observer<{
           <AutoField
             createTypeOptions={typeSelectOptions}
             name="unionTypeIds"
-            typeService={typeService}
+            types={typeService.typesList}
           />
         </DisplayIfKind>
         {/* <ListField name="unionTypes" />; */}

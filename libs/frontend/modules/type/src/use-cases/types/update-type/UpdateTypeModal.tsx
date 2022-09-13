@@ -38,7 +38,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         typeToUpdate?.kind === ITypeKind.EnumType
           ? typeToUpdate?.allowedValues ?? undefined
           : undefined,
-      typeIdsOfUnionType:
+      unionTypeIds:
         typeToUpdate?.kind === ITypeKind.UnionType
           ? typeToUpdate?.typesOfUnionType?.map((t) => t.id) ?? []
           : undefined,
@@ -68,7 +68,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         >
           <AutoFields fields={['name']} />
           {typeToUpdate.kind === ITypeKind.UnionType && (
-            <AutoField name="typeIdsOfUnionType" />
+            <AutoField name="unionTypeIds" types={typeService.typesList} />
           )}
           {typeToUpdate.kind === ITypeKind.PrimitiveType && (
             <AutoField name="primitiveKind" />
