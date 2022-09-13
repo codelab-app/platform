@@ -315,6 +315,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
+            - install-and-build-workspace
       - e2e:
           <<: *filters-pr
           e: docker-node
