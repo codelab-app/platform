@@ -20,7 +20,7 @@ import { menuState } from './menuState'
 
 const SpaceEvenly = styled.div(
   tw`
-  flex flex-row  justify-between items-center flex-grow p-6
+  flex flex-row  justify-between items-center flex-grow py-6 px-12
 `,
   css`
     & > * {
@@ -90,8 +90,8 @@ export const MenuMobile = () => {
             <FontAwesomeIcon css={tw`text-xl`} icon={faArrowLeft} />
           </div>
           <ul css={[tw` p-0 flex-col pt-4 flex`]}>
-            {menuItems.map((items) => (
-              <li css={tw`hidden laptop:flex pt-8 text-base flex`}>
+            {menuItems.map((items, index) => (
+              <li css={tw`hidden laptop:flex pt-8 text-base flex`} key={index}>
                 <a
                   css={tw`flex items-center text-black hover:text-primary  font-display font-normal`}
                   href={items.href}
@@ -108,19 +108,19 @@ export const MenuMobile = () => {
             ))}
           </ul>
           <ul css={tw`flex items-center p-0 mt-10 justify-between`}>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faTwitter} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faFacebook} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faGithub} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faYoutube} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faDiscord} />
             </li>
           </ul>

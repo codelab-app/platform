@@ -6,9 +6,10 @@ import React from 'react'
 import Slider, { Settings } from 'react-slick'
 import tw from 'twin.macro'
 import v from 'voca'
+import styles from './customDots.module.css'
 
 const { Meta } = Card
-const { Text, Link, Title } = Typography
+const { Text } = Typography
 
 interface TestimonialItemProps {
   review: string
@@ -29,16 +30,9 @@ export const TestimonialItem = ({
   return (
     <>
       <div css={tw`h-8`} />
-      <Card
-        css={[
-          css`
-            max-width: 600px;
-          `,
-          tw`mx-2 bg-transparent p-4 rounded-lg`,
-        ]}
-      >
+      <Card css={[tw`max-w-[600px] mx-2 bg-transparent p-2 sm:p-4 rounded-lg`]}>
         <div css={tw`flex justify-center`}>
-          <span css={tw`flex relative -mt-16 bg-slate-700 p-4`}>
+          <span css={tw`flex relative -mt-20 bg-slate-700 p-4`}>
             <FontAwesomeIcon
               color=""
               css={css`
@@ -66,14 +60,12 @@ export const TestimonialItem = ({
           />,
         )}
         <div
-          css={[
-            css`
-              min-height: 150px;
-            `,
-            tw`mt-3`,
-          ]}
+          css={tw`mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]`}
         >
-          <Text css={tw`text-base text-slate-300`} italic>{`"${review}"`}</Text>
+          <Text
+            css={tw` text-sm sm:text-base text-slate-300`}
+            italic
+          >{`"${review}"`}</Text>
         </div>
         <Divider css={tw`bg-slate-600`} />
         <Meta
@@ -100,6 +92,33 @@ export const TestimonialItem = ({
   )
 }
 
+const testimonialItems = [
+  {
+    review:
+      "We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA).",
+    role: 'Co-Founder @ Mrhost',
+    stakeholder: 'Wesley Ko',
+  },
+  {
+    review:
+      'We have created our custom backend API for our E-Commerce wholesale integration business, but our frontend was lacking from the constantly changing requirements. Our single frontend developer was much more productive using this no-code platform.',
+    role: 'Founder @ Glosku',
+    stakeholder: 'Kevin Zhao',
+  },
+  {
+    review:
+      "We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders.",
+    role: 'CEO @ KonvertLab',
+    stakeholder: 'Shelby Lewis',
+  },
+  {
+    review:
+      "We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders.",
+    role: 'CEO @ KonvertLab',
+    stakeholder: 'Shelby Lewis',
+  },
+]
+
 export const TestimonialSection = () => {
   const settings: Settings = {
     dots: true,
@@ -108,37 +127,49 @@ export const TestimonialSection = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    appendDots: (dots) => (
+      <>
+        <div className={`${styles['slick-dots']} ${styles['slick-thumb']}`}>
+          {dots}
+        </div>
+      </>
+    ),
+    // dotsClass: 'slick-dots slick-thumb',
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   }
 
   return (
-    <div css={tw`px-8 pt-12 pb-20 `}>
-      <Title
-        css={tw`text-center mt-28 !font-extrabold !text-white !text-5xl`}
-        level={2}
+    <div css={tw`px-8 pt-12 pb-12 sm:pb-20 `}>
+      <h1
+        css={tw`text-center mt-4 sm:mt-14 md:mt-28 !font-extrabold !text-white text-xl sm:text-3xl lg:text-4xl xl:!text-5xl`}
+        // level={2}
       >
         Loved by startups
-      </Title>
-      <Slider {...settings} css={tw`my-8 mt-8`}>
-        <TestimonialItem
-          review="We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA)."
-          role="Co-Founder @ Mrhost"
-          stakeholder="Wesley Ko"
-        />
-        <TestimonialItem
-          review="We have created our custom backend API for our E-Commerce wholesale integration business, but our frontend was lacking from the constantly changing requirements. Our single frontend developer was much more productive using this no-code platform."
-          role="Founder @ Glosku"
-          stakeholder="Kevin Zhao"
-        />
-        <TestimonialItem
-          review="We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders."
-          role="CEO @ KonvertLab"
-          stakeholder="Shelby Lewis"
-        />
-        <TestimonialItem
-          review="We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders."
-          role="CEO @ KonvertLab"
-          stakeholder="Shelby Lewis"
-        />
+      </h1>
+      <Slider {...settings} css={tw`my-2 sm:my-8 pb-0 sm:pb-8 z-10 mt-8`}>
+        {testimonialItems.map((item, index) => (
+          <TestimonialItem
+            key={index}
+            review={item.review}
+            role={item.role}
+            stakeholder={item.stakeholder}
+          />
+        ))}
       </Slider>
       <div css={tw`mt-12`}></div>
     </div>

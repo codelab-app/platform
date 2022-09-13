@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Card } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
-import { cardStyle } from '../../styles/style'
 
 interface FeatureCardProps {
   icon: IconDefinition
@@ -14,9 +13,13 @@ interface FeatureCardProps {
 
 export const FeatureCard = (props: FeatureCardProps) => {
   return (
-    <Card style={cardStyle}>
-      <div css={tw` pb-24 w-full h-full`}>
-        <div css={tw`flex w-fit bg-violet-100  mb-5 p-4 rounded-2xl`}>
+    <Card
+      css={tw`flex items-start min-h-fit sm:h-[270px] md:h-[260px] lg:h-[300px] xl:h-[280px] 2xl:h-[300px] w-full rounded-lg border-none p-4 sm:p-2 md:p-4 shadow-[rgba(99, 99, 99, 0.2) 0px 2px 8px 0px]`}
+    >
+      <div css={tw`w-full h-full`}>
+        <div
+          css={tw`flex w-fit bg-violet-100 text-xs 2xl:!text-sm text-right sm:text-center mb-5 p-2 sm:p-4 rounded-2xl`}
+        >
           <FontAwesomeIcon
             css={[
               css`
@@ -32,10 +35,10 @@ export const FeatureCard = (props: FeatureCardProps) => {
         <Card.Meta
           css={css`
             .ant-card-meta-title {
-              ${tw`text-2xl w-full font-display font-extrabold`}
+              ${tw`text-base sm:text-lg md:text-2xl lg:text-xl w-full font-display font-extrabold`}
             }
             .ant-card-meta-description {
-              ${tw`text-base text-black mt-3`}
+              ${tw`text-sm sm:text-base text-black mt-3`}
             }
           `}
           description={props.description}
