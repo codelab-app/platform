@@ -22,6 +22,7 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { isNonNullable } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import {
   _async,
@@ -283,7 +284,6 @@ Detaches element from an element tree. Will perform 3 conditional checks to see 
 - Detach from prev sibling
 - Connect prev to next
      */
-    const updateElementCacheFns: Array<() => void> = []
     const element = this.element(elemenId)
 
     if (!element) {
@@ -299,38 +299,29 @@ parent
   element
   next
      */
-    const updateElementRequests: Array<Promise<any>> = []
-    // Detach from parent
-    const detachFromParentInput = element.makeDetachParentInput()
+    const updateElementInputs = [
+      // Detach from parent
+      element.makeDetachParentInput(),
+      // Detach from next sibling
+      element.makeDetachNextSiblingInput(),
+      // Detach from prev sibling
+      element.makeDetachPrevSiblingInput(),
+    ]
 
-    if (detachFromParentInput) {
-      updateElementRequests.push(
-        elementApi.UpdateElements(detachFromParentInput),
-      )
-      updateElementCacheFns.push(element.detachParent())
-    }
+    const updateElementCacheFns: Array<() => void> = [
+      // Detach from parent
+      element.detachParent(),
+      // Attach next to prev
+      element.attachPrevToNextSibling(),
+      // Detach from next sibling
+      element.detachNextSibling(),
+      // Detach from prev sibling
+      element.detachPrevSibling(),
+    ]
 
-    updateElementCacheFns.push(element.attachPrevToNextSibling())
-
-    // detach from next sibling
-    const detachFromNextSiblingInput = element.makeDetachNextSiblingInput()
-
-    if (detachFromNextSiblingInput) {
-      updateElementRequests.push(
-        elementApi.UpdateElements(detachFromNextSiblingInput),
-      )
-      updateElementCacheFns.push(element.detachNextSibling())
-    }
-
-    // detach from prev sibling
-    const detachFromPrevSiblingInput = element.makeDetachPrevSiblingInput()
-
-    if (detachFromPrevSiblingInput) {
-      updateElementRequests.push(
-        elementApi.UpdateElements(detachFromPrevSiblingInput),
-      )
-      updateElementCacheFns.push(element.detachPrevSibling())
-    }
+    const updateElementRequests = updateElementInputs
+      .filter(isNonNullable)
+      .map((input) => elementApi.UpdateElements(input))
 
     yield* _await(Promise.all(updateElementRequests))
     updateElementCacheFns.forEach((fn) => fn())
@@ -487,7 +478,7 @@ parent
       return
     }
 
-    const updateElementRequests: Array<Promise<any>> = []
+    const updateElementInputs = []
     const updateElementCacheFns: Array<() => void> = []
 
     /**
@@ -501,10 +492,8 @@ parentElement
 element is new parentElement's first child
      */
     if (parentElement.firstChild) {
-      updateElementRequests.push(
-        elementApi.UpdateElements(
-          element.makeAppendSiblingInput(parentElement.firstChild.id),
-        ),
+      updateElementInputs.push(
+        element.makeAppendSiblingInput(parentElement.firstChild.id),
       )
       updateElementCacheFns.push(
         element.appendSibling(parentElement.firstChild.id),
@@ -512,13 +501,15 @@ element is new parentElement's first child
     }
 
     // attach to parent
-    updateElementRequests.push(
-      elementApi.UpdateElements(
-        element.makeAttachToParentAsFirstChildInput(parentElementId),
-      ),
+    updateElementInputs.push(
+      element.makeAttachToParentAsFirstChildInput(parentElementId),
     )
     updateElementCacheFns.push(
       element.attachToParentAsFirstChild(parentElement.id),
+    )
+
+    const updateElementRequests = updateElementInputs.map((input) =>
+      elementApi.UpdateElements(input),
     )
 
     yield* _await(Promise.all(updateElementRequests))
