@@ -1,7 +1,7 @@
 import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAtomExport } from '@codelab/shared/abstract/core'
-import { connectId } from '@codelab/shared/data'
+import { connectId, connectTypeId } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { BaseUniqueWhere } from './type.repo'
 
@@ -33,7 +33,7 @@ export const upsertAtom = async (
             node: {
               id: v4(),
               name: `${atom.name} API`,
-              owner: connectId(userId),
+              owner: connectTypeId(userId),
             },
           },
         },

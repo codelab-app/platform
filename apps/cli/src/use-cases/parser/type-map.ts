@@ -9,7 +9,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectId } from '@codelab/shared/data'
+import { connectId, connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { AntdDesignApi } from './ant-design'
@@ -76,7 +76,7 @@ export const getTypeForApi = async (
                 },
               })),
             },
-            owner: connectId(userId),
+            owner: connectTypeId(userId),
           },
         ],
       })
