@@ -9,9 +9,7 @@ import { hideField } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
-export const updateTypeSchema: JSONSchemaType<
-  Omit<IUpdateTypeDTO, 'defaultValue'>
-> = {
+export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
   title: 'Update Type Input',
   type: 'object',
   properties: {
