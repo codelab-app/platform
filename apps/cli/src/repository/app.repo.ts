@@ -73,9 +73,11 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
       {
         id: app.store.id,
         name: app.store.name,
-        state: { create: { node: { data: app.store.state.data } } },
-        stateApi: {
-          connect: { where: { node: { id: app.store.stateApi.id } } },
+        api: {
+          connect: {
+            where: { node: { id: app.store.api.id } },
+            edge: { data: '{}' },
+          },
         },
       },
     ],

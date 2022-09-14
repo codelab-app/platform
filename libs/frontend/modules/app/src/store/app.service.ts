@@ -182,7 +182,7 @@ export class AppService
                 node: { data: '{}' },
               },
             },
-            stateApi: {
+            api: {
               create: {
                 node: {
                   id: v4(),

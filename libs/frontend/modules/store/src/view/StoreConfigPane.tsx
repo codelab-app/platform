@@ -7,7 +7,6 @@ import {
   IStoreService,
   ITypeService,
 } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -20,7 +19,7 @@ interface StateFormProps {
 
 export const StateForm = observer<StateFormProps>(
   ({ storeService, typeService, appStore }) => {
-    const api = typeService.type(appStore.stateApiId) as IInterfaceType
+    const api = typeService.type(appStore.apiId) as IInterfaceType
 
     const onSubmit = (values: IPropData) => {
       const promise = storeService.update(appStore, {

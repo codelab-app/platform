@@ -12,18 +12,18 @@ import { CustomActionFragmentDoc } from './custom-action.fragment.graphql.gen';
 import { ResourceActionFragmentDoc } from './resource-action.fragment.graphql.gen';
 import { PipelineActionFragmentDoc } from './pipeline-action.fragment.graphql.gen';
 export type Action_CustomAction_Fragment = (
-  CustomActionFragment
-  & ActionBase_CustomAction_Fragment
+  ActionBase_CustomAction_Fragment
+  & CustomActionFragment
 );
 
 export type Action_PipelineAction_Fragment = (
-  PipelineActionFragment
-  & ActionBase_PipelineAction_Fragment
+  ActionBase_PipelineAction_Fragment
+  & PipelineActionFragment
 );
 
 export type Action_ResourceAction_Fragment = (
-  ResourceActionFragment
-  & ActionBase_ResourceAction_Fragment
+  ActionBase_ResourceAction_Fragment
+  & ResourceActionFragment
 );
 
 export type ActionFragment = Action_CustomAction_Fragment | Action_PipelineAction_Fragment | Action_ResourceAction_Fragment;
@@ -31,15 +31,9 @@ export type ActionFragment = Action_CustomAction_Fragment | Action_PipelineActio
 export const ActionFragmentDoc = gql`
     fragment Action on ActionBase {
   ...ActionBase
-  ... on CustomAction {
-    ...CustomAction
-  }
-  ... on ResourceAction {
-    ...ResourceAction
-  }
-  ... on PipelineAction {
-    ...PipelineAction
-  }
+  ...CustomAction
+  ...ResourceAction
+  ...PipelineAction
 }
     ${ActionBaseFragmentDoc}
 ${CustomActionFragmentDoc}

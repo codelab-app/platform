@@ -6,9 +6,6 @@ fragment ResourceAction on ResourceAction {
   errorAction {
     ...ActionBase
   }
-  resource {
-    ...Resource
-  }
   config {
     id
     data

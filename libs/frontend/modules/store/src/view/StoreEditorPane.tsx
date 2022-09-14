@@ -65,7 +65,7 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
         icon={<PlusOutlined />}
         onClick={(event: React.MouseEvent) => {
           typeService.fieldCreateModal.open(
-            typeRef(appStore.stateApiId) as Ref<IInterfaceType>,
+            typeRef(appStore.apiId) as Ref<IInterfaceType>,
           )
         }}
         size="small"
