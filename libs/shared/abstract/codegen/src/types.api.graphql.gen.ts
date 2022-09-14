@@ -23545,11 +23545,11 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUsers: { __typename?: 'CreateUsersMutationResponse', users: Array<{ __typename?: 'User', id: string, email: string }> } };
 
-type ActionBase_CustomAction_Fragment = { __typename: 'CustomAction', id: string, name: string, type: ActionKind, runOnInit: boolean };
+type ActionBase_CustomAction_Fragment = { __typename: 'CustomAction', id: string, name: string, type: ActionKind, runOnInit: boolean, store: { __typename?: 'Store', id: string, name: string } };
 
-type ActionBase_PipelineAction_Fragment = { __typename: 'PipelineAction', id: string, name: string, type: ActionKind, runOnInit: boolean };
+type ActionBase_PipelineAction_Fragment = { __typename: 'PipelineAction', id: string, name: string, type: ActionKind, runOnInit: boolean, store: { __typename?: 'Store', id: string, name: string } };
 
-type ActionBase_ResourceAction_Fragment = { __typename: 'ResourceAction', id: string, name: string, type: ActionKind, runOnInit: boolean };
+type ActionBase_ResourceAction_Fragment = { __typename: 'ResourceAction', id: string, name: string, type: ActionKind, runOnInit: boolean, store: { __typename?: 'Store', id: string, name: string } };
 
 export type ActionBaseFragment = ActionBase_CustomAction_Fragment | ActionBase_PipelineAction_Fragment | ActionBase_ResourceAction_Fragment;
 

@@ -8,6 +8,7 @@ import {
 import {
   CreateFieldModal,
   DeleteFieldModal,
+  InterfaceDefaultsModal,
   UpdateFieldModal,
 } from '@codelab/frontend/modules/type'
 import {
@@ -110,6 +111,7 @@ export const EditorPaneBuilder = observer(
         <CreateFieldModal typeService={typeService} />
         <UpdateFieldModal typeService={typeService} />
         <DeleteFieldModal typeService={typeService} />
+        <InterfaceDefaultsModal typeService={typeService} />
         <CreateActionModal
           actionService={actionService}
           resourceService={resourceService}
