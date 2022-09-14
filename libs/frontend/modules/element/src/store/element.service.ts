@@ -42,7 +42,7 @@ import {
   makeDuplicateInput,
   makeUpdateInput,
 } from './api.utils'
-import { customElementApi, elementApi, propMapBindingApi } from './apis'
+import { elementApi, propMapBindingApi } from './apis'
 import { Element } from './element.model'
 import {
   CreateElementModalService,
@@ -432,7 +432,11 @@ parent
     const updateElementInputs: Array<UpdateElementsMutationVariables> = []
     const updateElementCacheFns: Array<() => void> = []
 
+    // Attach to parent
     if (targetElement.parentElement) {
+      updateElementInputs.push(
+        element.makeAttachToParentInput(targetElement.parentElement.id),
+      )
       updateElementCacheFns.push(
         element.attachToParent(targetElement.parentElement.id),
       )
@@ -444,18 +448,30 @@ parent
      * element appends to nextSibling
      */
     if (targetElement.nextSibling) {
-      updateElementCacheFns.push(
-        element.appendSibling(targetElement.nextSibling.id),
-      )
       updateElementInputs.push(
         element.makeAppendSiblingInput(targetElement.nextSibling.id),
       )
+      updateElementCacheFns.push(
+        element.appendSibling(targetElement.nextSibling.id),
+      )
+
+      /** [element]-nextSibling */
+      updateElementInputs.push(
+        targetElement.nextSibling.makePrependSiblingInput(element.id),
+      )
+      updateElementCacheFns.push(
+        targetElement.nextSibling.prependSibling(element.id),
+      )
     }
 
-    // element prepends target
-    updateElementCacheFns.push(element.prependSibling(targetElement.id))
     updateElementInputs.push(element.makePrependSiblingInput(targetElement.id))
-    yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
+    updateElementCacheFns.push(element.prependSibling(targetElement.id))
+
+    const updateElementRequests = updateElementInputs
+      .filter(isNonNullable)
+      .map((input) => elementApi.UpdateElements(input))
+
+    yield* _await(Promise.all(updateElementRequests))
     updateElementCacheFns.forEach((fn) => fn())
   })
 
