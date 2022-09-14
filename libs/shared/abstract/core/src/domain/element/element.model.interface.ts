@@ -64,6 +64,7 @@ export interface IElement
   detachNextSibling(): () => void
   detachPrevSibling(): () => void
   detachParent(): () => void
+  attachPrevToNextSibling(): () => void
   attachToParentAsFirstChild(parentElementId: string): () => void
   attachToParent(parentElementId: string): () => void
   appendSibling(siblingId: string): () => void
