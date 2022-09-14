@@ -31,7 +31,8 @@ export interface IBaseTypeDTO {
 /**
  * Create
  */
-export interface ICreateTypeDTO extends IBaseTypeDTO {
+export interface ICreateTypeDTO
+  extends Omit<IBaseTypeDTO, 'interfaceDefaults'> {
   auth0Id: string
 }
 

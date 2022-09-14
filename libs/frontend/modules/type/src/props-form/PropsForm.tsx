@@ -11,6 +11,7 @@ import {
   IPropsFieldContext,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
+import { css } from '@emotion/react'
 import { CSSInterpolation } from '@emotion/serialize'
 import { Form } from 'antd'
 import { debounce } from 'lodash'
@@ -18,7 +19,6 @@ import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect } from 'react'
 import { DeepPartial, useForm } from 'react-hook-form'
 import { Subscription } from 'react-hook-form/dist/utils/createSubject'
-import { css } from 'twin.macro'
 import { PropsFields } from './PropsFields'
 
 export interface PropsFormProps extends SubmitRef {
@@ -28,10 +28,10 @@ export interface PropsFormProps extends SubmitRef {
   onSubmit: (values: IPropData) => Promise<IPropData | void>
   autosave?: boolean
   context?: IPropsFieldContext
-  setIsLoading: SetIsLoading
+  setIsLoading?: SetIsLoading
   cssString?: CSSInterpolation
-  onSubmitError: FormProps<IPropData, IPropData>['onSubmitError']
-  onSubmitSuccess: FormProps<IPropData, IPropData>['onSubmitSuccess']
+  onSubmitError?: FormProps<IPropData, IPropData>['onSubmitError']
+  onSubmitSuccess?: FormProps<IPropData, IPropData>['onSubmitSuccess']
 }
 
 /**
