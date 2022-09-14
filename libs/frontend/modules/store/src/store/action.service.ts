@@ -148,15 +148,7 @@ export class ActionService
     )
 
     const createdActions: Array<ActionFragment> = yield* _await(
-      Promise.all(
-        input.map((action) => {
-          if (!action.type) {
-            throw new Error('Action type must be provided')
-          }
-
-          return createActionApi[action.type](action)
-        }),
-      ).then((res) => res.flat()),
+      createActionApi(input),
     )
 
     if (!createdActions?.length) {

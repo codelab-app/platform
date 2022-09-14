@@ -1,5 +1,8 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { typeRef } from '@codelab/frontend/modules/type'
+import {
+  InterfaceDefaultsButton,
+  typeRef,
+} from '@codelab/frontend/modules/type'
 import { useResizable } from '@codelab/frontend/view/components'
 import {
   IActionService,
@@ -54,13 +57,13 @@ const Header = ({ children, extra }: PropsWithChildren<HeaderProps>) => (
     justify="space-between"
   >
     <h3>{children}</h3>
-    {extra}
+    <div>{extra}</div>
   </Row>
 )
 
 export const StoreEditorPane = observer<StoreEditorPaneProps>(
   ({ typeService, actionService, appStore, storeService }) => {
-    const stateCreateButton = (
+    const createStateFieldButton = (
       <Button
         icon={<PlusOutlined />}
         onClick={(event: React.MouseEvent) => {
@@ -74,7 +77,14 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
       />
     )
 
-    const actionCreateButton = (
+    const editDefaultStateButton = (
+      <InterfaceDefaultsButton
+        interfaceId={appStore.apiId}
+        typeService={typeService}
+      />
+    )
+
+    const createActionButton = (
       <Button
         icon={<PlusOutlined />}
         onClick={(event: React.MouseEvent) => {
@@ -89,12 +99,14 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
     return (
       <Row css={tw`h-full`} wrap={false}>
         <ResizableColumn>
-          <Header extra={stateCreateButton}>State</Header>
+          <Header extra={[editDefaultStateButton, ' ', createStateFieldButton]}>
+            State
+          </Header>
           <GetStateList store={appStore} typeService={typeService} />
         </ResizableColumn>
 
         <motion.div css={tw`flex-1  h-full`}>
-          <Header extra={actionCreateButton}>Actions</Header>
+          <Header extra={createActionButton}>Actions</Header>
           <GetActionsList actionService={actionService} store={appStore} />
         </motion.div>
       </Row>

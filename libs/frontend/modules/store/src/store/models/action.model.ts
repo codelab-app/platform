@@ -34,21 +34,21 @@ const writeActionCacheFactory = (
     // used for linting
     actionModel.type === IActionKind.CustomAction
   ) {
-    actionModel.writeCache(action)
+    return actionModel.writeCache(action)
   }
 
   if (
     action.__typename === IActionKind.ResourceAction &&
     actionModel.type === IActionKind.ResourceAction
   ) {
-    actionModel.writeCache(action)
+    return actionModel.writeCache(action)
   }
 
   if (
     action.__typename === IActionKind.PipelineAction &&
     actionModel.type === IActionKind.PipelineAction
   ) {
-    actionModel.writeCache(action)
+    return actionModel.writeCache(action)
   }
 
   throw new Error(`unknown action kind: ${action.name}`)

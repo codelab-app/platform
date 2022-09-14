@@ -1,4 +1,9 @@
 import * as cg from '@codelab/shared/abstract/codegen'
+import {
+  CustomActionCreateInput,
+  PipelineActionCreateInput,
+  ResourceActionCreateInput,
+} from '@codelab/shared/abstract/codegen'
 
 export interface IUpdateActionArgs {
   update: IUpdateActionInput
@@ -8,9 +13,9 @@ export interface IUpdateActionArgs {
 }
 
 export type ICreateActionInput =
-  | cg.CustomActionCreateInput
-  | cg.ResourceActionCreateInput
-  | cg.PipelineActionCreateInput
+  | CustomActionCreateInput
+  | ResourceActionCreateInput
+  | PipelineActionCreateInput
 
 export type IUpdateActionInput =
   | cg.CustomActionUpdateInput
