@@ -63,6 +63,20 @@ executors:
     docker:
       - image: cimg/node:16.15.1-browsers
     resource_class: large
+  docker-node-neo4j:
+    <<: *executor-config
+    # Docker containers work on a merged networking stack, the second container should make it available in localhost
+    # https://discuss.circleci.com/t/whats-the-docker-hostname-for-the-second-container/20101
+    docker:
+      - image: cimg/node:16.15.1-browsers
+      # https://circleci.com/docs/using-docker#using-multiple-docker-images
+      - image: neo4j:4.4.10
+        environment:
+          NEO4J_AUTH: neo4j/test
+          NEO4JLABS_PLUGINS: '["apoc"]'
+        #        command: ['--name', 'codelab-neo4j', '-d', '-p7474:7474', '-p7687:7687']
+        command: ['neo4j', 'start']
+    resource_class: large
 
 commands:
   setup-workspace:
@@ -200,17 +214,27 @@ jobs:
 
   e2e:
     <<: *executor-params
-    docker:
-      - image: neo4j:4.4.10
     environment:
-      NEO4J_URI: bolt://localhost:7687
+      NEO4J_URI: bolt://127.0.0.1:7687
       NEO4J_USER: neo4j
       NEO4J_PASSWORD: test
     steps:
       - queue/until_front_of_line:
           consider-branch: false
       - setup-workspace
-      - run: yarn docker:up neo4j
+      # Testing out Neo4j docker
+      # https://discuss.circleci.com/t/cant-get-docker-containers-linking-working/29424
+      # https://circleci.com/blog/setting-up-tricky-containers-in-circle-2-0-multi-image/
+      - setup_remote_docker:
+          version: 20.10.14
+      #      - run: docker-compose -f .docker/docker-compose.ci.yaml up -d neo4j
+      - run:
+          name: Check Docker Processes
+          command: |
+            docker ps
+            echo ${DOCKER_HOST}
+            curl http://127.0.0.1:7474/db/data/
+
       - run: npx cypress install
       - run: npx cypress verify
       - run: yarn cli tasks e2e --env ci
@@ -306,7 +330,7 @@ workflows:
     jobs:
       - install-and-build-workspace:
           <<: *filters-pr
-          e: docker-node
+          e: machine-ubuntu
           context: CI
       - lint:
           <<: *filters-pr
@@ -322,7 +346,7 @@ workflows:
             - install-and-build-workspace
       - e2e:
           <<: *filters-pr
-          e: docker-node
+          e: docker-node-neo4j
           context: CI
           requires:
             - install-and-build-workspace
