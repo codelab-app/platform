@@ -177,11 +177,6 @@ export class AppService
           node: {
             id: v4(),
             name: `${app.name} Store`,
-            state: {
-              create: {
-                node: { data: '{}' },
-              },
-            },
             api: {
               create: {
                 node: {

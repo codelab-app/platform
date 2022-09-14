@@ -1,7 +1,5 @@
-import { Prop } from '@codelab/frontend/modules/element'
 import {
   IAnyAction,
-  IProp,
   IPropData,
   IStore,
   IStoreDTO,
@@ -21,12 +19,11 @@ import {
 import { createActionFn } from '../createActionFn'
 import { actionRef } from './action.ref'
 
-export const hydrate = ({ actions, id, name, state, api }: IStoreDTO) =>
+export const hydrate = ({ actions, id, name, api }: IStoreDTO) =>
   new Store({
     id,
     name,
     actions: actions.map((action) => actionRef(action.id)),
-    state: Prop.hydrate(state),
     apiId: api.id,
   })
 
@@ -36,25 +33,23 @@ export class Store
     id: idProp,
     name: prop<string>(),
     actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
-    state: prop<IProp>(),
     apiId: prop<string>().withSetter(),
   }))
   implements IStore
 {
   @modelAction
-  writeCache({ id, name, actions, state, api }: IStoreDTO) {
+  writeCache({ id, name, actions, api }: IStoreDTO) {
     this.id = id
     this.name = name
     this.actions = actions.map((a) => actionRef(a.id))
     this.apiId = api.id
-    this.state.writeCache(state)
 
     return this
   }
 
   @modelAction
   toMobxObservable(globals: IPropData = {}) {
-    const storeState = this.state.values
+    const storeState = {}
 
     const storeActions = this.actions.map((action) => ({
       [action.current.name]: {
