@@ -1,6 +1,6 @@
 export const deleteStoreInput = {
   state: { where: {} },
-  stateApi: { where: {} },
+  api: { where: {} },
   actions: {
     CustomAction: [{ where: {} }],
     PipelineAction: [{ where: {} }],

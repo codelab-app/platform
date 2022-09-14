@@ -20,7 +20,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
           name: `Test Store ${appId}`,
           actions: {},
           state: { create: { node: { data: '{}' } } },
-          stateApi: {
+          api: {
             create: {
               node: {
                 id: v4(),

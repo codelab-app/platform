@@ -17681,17 +17681,14 @@ export type Store = {
   __typename?: 'Store';
   actions: Array<AnyAction>;
   actionsConnection: StoreActionsConnection;
+  api: InterfaceType;
+  apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>;
+  apiConnection: StoreApiConnection;
   app: App;
   appAggregate?: Maybe<StoreAppAppAggregationSelection>;
   appConnection: StoreAppConnection;
   id: Scalars['ID'];
   name: Scalars['String'];
-  state: Prop;
-  stateAggregate?: Maybe<StorePropStateAggregationSelection>;
-  stateApi: InterfaceType;
-  stateApiAggregate?: Maybe<StoreInterfaceTypeStateApiAggregationSelection>;
-  stateApiConnection: StoreStateApiConnection;
-  stateConnection: StoreStateConnection;
 };
 
 
@@ -17707,6 +17704,28 @@ export type StoreActionsConnectionArgs = {
   directed?: InputMaybe<Scalars['Boolean']>;
   first?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<StoreActionsConnectionWhere>;
+};
+
+
+export type StoreApiArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>;
+  options?: InputMaybe<InterfaceTypeOptions>;
+  where?: InputMaybe<InterfaceTypeWhere>;
+};
+
+
+export type StoreApiAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>;
+  where?: InputMaybe<InterfaceTypeWhere>;
+};
+
+
+export type StoreApiConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  directed?: InputMaybe<Scalars['Boolean']>;
+  first?: InputMaybe<Scalars['Int']>;
+  sort?: InputMaybe<Array<StoreApiConnectionSort>>;
+  where?: InputMaybe<StoreApiConnectionWhere>;
 };
 
 
@@ -17729,50 +17748,6 @@ export type StoreAppConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<StoreAppConnectionSort>>;
   where?: InputMaybe<StoreAppConnectionWhere>;
-};
-
-
-export type StoreStateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>;
-  options?: InputMaybe<PropOptions>;
-  where?: InputMaybe<PropWhere>;
-};
-
-
-export type StoreStateAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>;
-  where?: InputMaybe<PropWhere>;
-};
-
-
-export type StoreStateApiArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>;
-  options?: InputMaybe<InterfaceTypeOptions>;
-  where?: InputMaybe<InterfaceTypeWhere>;
-};
-
-
-export type StoreStateApiAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>;
-  where?: InputMaybe<InterfaceTypeWhere>;
-};
-
-
-export type StoreStateApiConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  directed?: InputMaybe<Scalars['Boolean']>;
-  first?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Array<StoreStateApiConnectionSort>>;
-  where?: InputMaybe<StoreStateApiConnectionWhere>;
-};
-
-
-export type StoreStateConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  directed?: InputMaybe<Scalars['Boolean']>;
-  first?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Array<StoreStateConnectionSort>>;
-  where?: InputMaybe<StoreStateConnectionWhere>;
 };
 
 export type StoreActionsConnectInput = {
@@ -18008,6 +17983,115 @@ export type StoreAggregateSelection = {
   name: StringAggregateSelectionNonNullable;
 };
 
+export type StoreApiAggregateInput = {
+  AND?: InputMaybe<Array<StoreApiAggregateInput>>;
+  OR?: InputMaybe<Array<StoreApiAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']>;
+  count_GT?: InputMaybe<Scalars['Int']>;
+  count_GTE?: InputMaybe<Scalars['Int']>;
+  count_LT?: InputMaybe<Scalars['Int']>;
+  count_LTE?: InputMaybe<Scalars['Int']>;
+  node?: InputMaybe<StoreApiNodeAggregationWhereInput>;
+};
+
+export type StoreApiConnectFieldInput = {
+  connect?: InputMaybe<InterfaceTypeConnectInput>;
+  where?: InputMaybe<InterfaceTypeConnectWhere>;
+};
+
+export type StoreApiConnectOrCreateFieldInput = {
+  onCreate: StoreApiConnectOrCreateFieldInputOnCreate;
+  where: InterfaceTypeConnectOrCreateWhere;
+};
+
+export type StoreApiConnectOrCreateFieldInputOnCreate = {
+  node: InterfaceTypeOnCreateInput;
+};
+
+export type StoreApiConnection = {
+  __typename?: 'StoreApiConnection';
+  edges: Array<StoreApiRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int'];
+};
+
+export type StoreApiConnectionSort = {
+  node?: InputMaybe<InterfaceTypeSort>;
+};
+
+export type StoreApiConnectionWhere = {
+  AND?: InputMaybe<Array<StoreApiConnectionWhere>>;
+  OR?: InputMaybe<Array<StoreApiConnectionWhere>>;
+  node?: InputMaybe<InterfaceTypeWhere>;
+  node_NOT?: InputMaybe<InterfaceTypeWhere>;
+};
+
+export type StoreApiCreateFieldInput = {
+  node: InterfaceTypeCreateInput;
+};
+
+export type StoreApiDeleteFieldInput = {
+  delete?: InputMaybe<InterfaceTypeDeleteInput>;
+  where?: InputMaybe<StoreApiConnectionWhere>;
+};
+
+export type StoreApiDisconnectFieldInput = {
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>;
+  where?: InputMaybe<StoreApiConnectionWhere>;
+};
+
+export type StoreApiFieldInput = {
+  connect?: InputMaybe<StoreApiConnectFieldInput>;
+  connectOrCreate?: InputMaybe<StoreApiConnectOrCreateFieldInput>;
+  create?: InputMaybe<StoreApiCreateFieldInput>;
+};
+
+export type StoreApiNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreApiNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<StoreApiNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars['ID']>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  name_EQUAL?: InputMaybe<Scalars['String']>;
+  name_GT?: InputMaybe<Scalars['Int']>;
+  name_GTE?: InputMaybe<Scalars['Int']>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  name_LT?: InputMaybe<Scalars['Int']>;
+  name_LTE?: InputMaybe<Scalars['Int']>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
+};
+
+export type StoreApiRelationship = {
+  __typename?: 'StoreApiRelationship';
+  cursor: Scalars['String'];
+  node: InterfaceType;
+};
+
+export type StoreApiUpdateConnectionInput = {
+  node?: InputMaybe<InterfaceTypeUpdateInput>;
+};
+
+export type StoreApiUpdateFieldInput = {
+  connect?: InputMaybe<StoreApiConnectFieldInput>;
+  connectOrCreate?: InputMaybe<StoreApiConnectOrCreateFieldInput>;
+  create?: InputMaybe<StoreApiCreateFieldInput>;
+  delete?: InputMaybe<StoreApiDeleteFieldInput>;
+  disconnect?: InputMaybe<StoreApiDisconnectFieldInput>;
+  update?: InputMaybe<StoreApiUpdateConnectionInput>;
+  where?: InputMaybe<StoreApiConnectionWhere>;
+};
+
 export type StoreAppAggregateInput = {
   AND?: InputMaybe<Array<StoreAppAggregateInput>>;
   OR?: InputMaybe<Array<StoreAppAggregateInput>>;
@@ -18152,16 +18236,14 @@ export type StoreAppUpdateFieldInput = {
 
 export type StoreConnectInput = {
   actions?: InputMaybe<StoreActionsConnectInput>;
+  api?: InputMaybe<StoreApiConnectFieldInput>;
   app?: InputMaybe<StoreAppConnectFieldInput>;
-  state?: InputMaybe<StoreStateConnectFieldInput>;
-  stateApi?: InputMaybe<StoreStateApiConnectFieldInput>;
 };
 
 export type StoreConnectOrCreateInput = {
   actions?: InputMaybe<StoreActionsConnectOrCreateInput>;
+  api?: InputMaybe<StoreApiConnectOrCreateFieldInput>;
   app?: InputMaybe<StoreAppConnectOrCreateFieldInput>;
-  state?: InputMaybe<StoreStateConnectOrCreateFieldInput>;
-  stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>;
 };
 
 export type StoreConnectOrCreateWhere = {
@@ -18174,25 +18256,22 @@ export type StoreConnectWhere = {
 
 export type StoreCreateInput = {
   actions?: InputMaybe<StoreActionsCreateInput>;
+  api?: InputMaybe<StoreApiFieldInput>;
   app?: InputMaybe<StoreAppFieldInput>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  state?: InputMaybe<StoreStateFieldInput>;
-  stateApi?: InputMaybe<StoreStateApiFieldInput>;
 };
 
 export type StoreDeleteInput = {
   actions?: InputMaybe<StoreActionsDeleteInput>;
+  api?: InputMaybe<StoreApiDeleteFieldInput>;
   app?: InputMaybe<StoreAppDeleteFieldInput>;
-  state?: InputMaybe<StoreStateDeleteFieldInput>;
-  stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>;
 };
 
 export type StoreDisconnectInput = {
   actions?: InputMaybe<StoreActionsDisconnectInput>;
+  api?: InputMaybe<StoreApiDisconnectFieldInput>;
   app?: InputMaybe<StoreAppDisconnectFieldInput>;
-  state?: InputMaybe<StoreStateDisconnectFieldInput>;
-  stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>;
 };
 
 export type StoreEdge = {
@@ -18201,14 +18280,14 @@ export type StoreEdge = {
   node: Store;
 };
 
-export type StoreInterfaceTypeStateApiAggregationSelection = {
-  __typename?: 'StoreInterfaceTypeStateApiAggregationSelection';
+export type StoreInterfaceTypeApiAggregationSelection = {
+  __typename?: 'StoreInterfaceTypeApiAggregationSelection';
   count: Scalars['Int'];
-  node?: Maybe<StoreInterfaceTypeStateApiNodeAggregateSelection>;
+  node?: Maybe<StoreInterfaceTypeApiNodeAggregateSelection>;
 };
 
-export type StoreInterfaceTypeStateApiNodeAggregateSelection = {
-  __typename?: 'StoreInterfaceTypeStateApiNodeAggregateSelection';
+export type StoreInterfaceTypeApiNodeAggregateSelection = {
+  __typename?: 'StoreInterfaceTypeApiNodeAggregateSelection';
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
 };
@@ -18225,23 +18304,10 @@ export type StoreOptions = {
   sort?: InputMaybe<Array<StoreSort>>;
 };
 
-export type StorePropStateAggregationSelection = {
-  __typename?: 'StorePropStateAggregationSelection';
-  count: Scalars['Int'];
-  node?: Maybe<StorePropStateNodeAggregateSelection>;
-};
-
-export type StorePropStateNodeAggregateSelection = {
-  __typename?: 'StorePropStateNodeAggregateSelection';
-  data: StringAggregateSelectionNonNullable;
-  id: IdAggregateSelectionNonNullable;
-};
-
 export type StoreRelationInput = {
   actions?: InputMaybe<StoreActionsCreateFieldInput>;
+  api?: InputMaybe<StoreApiCreateFieldInput>;
   app?: InputMaybe<StoreAppCreateFieldInput>;
-  state?: InputMaybe<StoreStateCreateFieldInput>;
-  stateApi?: InputMaybe<StoreStateApiCreateFieldInput>;
 };
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
@@ -18250,232 +18316,16 @@ export type StoreSort = {
   name?: InputMaybe<SortDirection>;
 };
 
-export type StoreStateAggregateInput = {
-  AND?: InputMaybe<Array<StoreStateAggregateInput>>;
-  OR?: InputMaybe<Array<StoreStateAggregateInput>>;
-  count?: InputMaybe<Scalars['Int']>;
-  count_GT?: InputMaybe<Scalars['Int']>;
-  count_GTE?: InputMaybe<Scalars['Int']>;
-  count_LT?: InputMaybe<Scalars['Int']>;
-  count_LTE?: InputMaybe<Scalars['Int']>;
-  node?: InputMaybe<StoreStateNodeAggregationWhereInput>;
-};
-
-export type StoreStateApiAggregateInput = {
-  AND?: InputMaybe<Array<StoreStateApiAggregateInput>>;
-  OR?: InputMaybe<Array<StoreStateApiAggregateInput>>;
-  count?: InputMaybe<Scalars['Int']>;
-  count_GT?: InputMaybe<Scalars['Int']>;
-  count_GTE?: InputMaybe<Scalars['Int']>;
-  count_LT?: InputMaybe<Scalars['Int']>;
-  count_LTE?: InputMaybe<Scalars['Int']>;
-  node?: InputMaybe<StoreStateApiNodeAggregationWhereInput>;
-};
-
-export type StoreStateApiConnectFieldInput = {
-  connect?: InputMaybe<InterfaceTypeConnectInput>;
-  where?: InputMaybe<InterfaceTypeConnectWhere>;
-};
-
-export type StoreStateApiConnectOrCreateFieldInput = {
-  onCreate: StoreStateApiConnectOrCreateFieldInputOnCreate;
-  where: InterfaceTypeConnectOrCreateWhere;
-};
-
-export type StoreStateApiConnectOrCreateFieldInputOnCreate = {
-  node: InterfaceTypeOnCreateInput;
-};
-
-export type StoreStateApiConnection = {
-  __typename?: 'StoreStateApiConnection';
-  edges: Array<StoreStateApiRelationship>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int'];
-};
-
-export type StoreStateApiConnectionSort = {
-  node?: InputMaybe<InterfaceTypeSort>;
-};
-
-export type StoreStateApiConnectionWhere = {
-  AND?: InputMaybe<Array<StoreStateApiConnectionWhere>>;
-  OR?: InputMaybe<Array<StoreStateApiConnectionWhere>>;
-  node?: InputMaybe<InterfaceTypeWhere>;
-  node_NOT?: InputMaybe<InterfaceTypeWhere>;
-};
-
-export type StoreStateApiCreateFieldInput = {
-  node: InterfaceTypeCreateInput;
-};
-
-export type StoreStateApiDeleteFieldInput = {
-  delete?: InputMaybe<InterfaceTypeDeleteInput>;
-  where?: InputMaybe<StoreStateApiConnectionWhere>;
-};
-
-export type StoreStateApiDisconnectFieldInput = {
-  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>;
-  where?: InputMaybe<StoreStateApiConnectionWhere>;
-};
-
-export type StoreStateApiFieldInput = {
-  connect?: InputMaybe<StoreStateApiConnectFieldInput>;
-  connectOrCreate?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>;
-  create?: InputMaybe<StoreStateApiCreateFieldInput>;
-};
-
-export type StoreStateApiNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreStateApiNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreStateApiNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars['ID']>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
-  name_EQUAL?: InputMaybe<Scalars['String']>;
-  name_GT?: InputMaybe<Scalars['Int']>;
-  name_GTE?: InputMaybe<Scalars['Int']>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>;
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>;
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
-  name_LT?: InputMaybe<Scalars['Int']>;
-  name_LTE?: InputMaybe<Scalars['Int']>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
-};
-
-export type StoreStateApiRelationship = {
-  __typename?: 'StoreStateApiRelationship';
-  cursor: Scalars['String'];
-  node: InterfaceType;
-};
-
-export type StoreStateApiUpdateConnectionInput = {
-  node?: InputMaybe<InterfaceTypeUpdateInput>;
-};
-
-export type StoreStateApiUpdateFieldInput = {
-  connect?: InputMaybe<StoreStateApiConnectFieldInput>;
-  connectOrCreate?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>;
-  create?: InputMaybe<StoreStateApiCreateFieldInput>;
-  delete?: InputMaybe<StoreStateApiDeleteFieldInput>;
-  disconnect?: InputMaybe<StoreStateApiDisconnectFieldInput>;
-  update?: InputMaybe<StoreStateApiUpdateConnectionInput>;
-  where?: InputMaybe<StoreStateApiConnectionWhere>;
-};
-
-export type StoreStateConnectFieldInput = {
-  where?: InputMaybe<PropConnectWhere>;
-};
-
-export type StoreStateConnectOrCreateFieldInput = {
-  onCreate: StoreStateConnectOrCreateFieldInputOnCreate;
-  where: PropConnectOrCreateWhere;
-};
-
-export type StoreStateConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput;
-};
-
-export type StoreStateConnection = {
-  __typename?: 'StoreStateConnection';
-  edges: Array<StoreStateRelationship>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int'];
-};
-
-export type StoreStateConnectionSort = {
-  node?: InputMaybe<PropSort>;
-};
-
-export type StoreStateConnectionWhere = {
-  AND?: InputMaybe<Array<StoreStateConnectionWhere>>;
-  OR?: InputMaybe<Array<StoreStateConnectionWhere>>;
-  node?: InputMaybe<PropWhere>;
-  node_NOT?: InputMaybe<PropWhere>;
-};
-
-export type StoreStateCreateFieldInput = {
-  node: PropCreateInput;
-};
-
-export type StoreStateDeleteFieldInput = {
-  where?: InputMaybe<StoreStateConnectionWhere>;
-};
-
-export type StoreStateDisconnectFieldInput = {
-  where?: InputMaybe<StoreStateConnectionWhere>;
-};
-
-export type StoreStateFieldInput = {
-  connect?: InputMaybe<StoreStateConnectFieldInput>;
-  connectOrCreate?: InputMaybe<StoreStateConnectOrCreateFieldInput>;
-  create?: InputMaybe<StoreStateCreateFieldInput>;
-};
-
-export type StoreStateNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreStateNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreStateNodeAggregationWhereInput>>;
-  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
-  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
-  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
-  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
-  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
-  data_EQUAL?: InputMaybe<Scalars['String']>;
-  data_GT?: InputMaybe<Scalars['Int']>;
-  data_GTE?: InputMaybe<Scalars['Int']>;
-  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
-  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
-  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
-  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
-  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
-  data_LT?: InputMaybe<Scalars['Int']>;
-  data_LTE?: InputMaybe<Scalars['Int']>;
-  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
-  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
-  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
-  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
-  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
-  id_EQUAL?: InputMaybe<Scalars['ID']>;
-};
-
-export type StoreStateRelationship = {
-  __typename?: 'StoreStateRelationship';
-  cursor: Scalars['String'];
-  node: Prop;
-};
-
-export type StoreStateUpdateConnectionInput = {
-  node?: InputMaybe<PropUpdateInput>;
-};
-
-export type StoreStateUpdateFieldInput = {
-  connect?: InputMaybe<StoreStateConnectFieldInput>;
-  connectOrCreate?: InputMaybe<StoreStateConnectOrCreateFieldInput>;
-  create?: InputMaybe<StoreStateCreateFieldInput>;
-  delete?: InputMaybe<StoreStateDeleteFieldInput>;
-  disconnect?: InputMaybe<StoreStateDisconnectFieldInput>;
-  update?: InputMaybe<StoreStateUpdateConnectionInput>;
-  where?: InputMaybe<StoreStateConnectionWhere>;
-};
-
 export type StoreUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
 export type StoreUpdateInput = {
   actions?: InputMaybe<StoreActionsUpdateInput>;
+  api?: InputMaybe<StoreApiUpdateFieldInput>;
   app?: InputMaybe<StoreAppUpdateFieldInput>;
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
-  state?: InputMaybe<StoreStateUpdateFieldInput>;
-  stateApi?: InputMaybe<StoreStateApiUpdateFieldInput>;
 };
 
 export type StoreWhere = {
@@ -18485,6 +18335,11 @@ export type StoreWhere = {
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>;
+  api?: InputMaybe<InterfaceTypeWhere>;
+  apiAggregate?: InputMaybe<StoreApiAggregateInput>;
+  apiConnection?: InputMaybe<StoreApiConnectionWhere>;
+  apiConnection_NOT?: InputMaybe<StoreApiConnectionWhere>;
+  api_NOT?: InputMaybe<InterfaceTypeWhere>;
   app?: InputMaybe<AppWhere>;
   appAggregate?: InputMaybe<StoreAppAggregateInput>;
   appConnection?: InputMaybe<StoreAppConnectionWhere>;
@@ -18510,16 +18365,6 @@ export type StoreWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>;
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>;
   name_STARTS_WITH?: InputMaybe<Scalars['String']>;
-  state?: InputMaybe<PropWhere>;
-  stateAggregate?: InputMaybe<StoreStateAggregateInput>;
-  stateApi?: InputMaybe<InterfaceTypeWhere>;
-  stateApiAggregate?: InputMaybe<StoreStateApiAggregateInput>;
-  stateApiConnection?: InputMaybe<StoreStateApiConnectionWhere>;
-  stateApiConnection_NOT?: InputMaybe<StoreStateApiConnectionWhere>;
-  stateApi_NOT?: InputMaybe<InterfaceTypeWhere>;
-  stateConnection?: InputMaybe<StoreStateConnectionWhere>;
-  stateConnection_NOT?: InputMaybe<StoreStateConnectionWhere>;
-  state_NOT?: InputMaybe<PropWhere>;
 };
 
 export type StoresConnection = {
@@ -23700,30 +23545,30 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUsers: { __typename?: 'CreateUsersMutationResponse', users: Array<{ __typename?: 'User', id: string, email: string }> } };
 
-type ActionBase_CustomAction_Fragment = { __typename: 'CustomAction', id: string, name: string, type: ActionKind, runOnInit: boolean, store: { __typename?: 'Store', id: string, name: string } };
+type ActionBase_CustomAction_Fragment = { __typename: 'CustomAction', id: string, name: string, type: ActionKind, runOnInit: boolean };
 
-type ActionBase_PipelineAction_Fragment = { __typename: 'PipelineAction', id: string, name: string, type: ActionKind, runOnInit: boolean, store: { __typename?: 'Store', id: string, name: string } };
+type ActionBase_PipelineAction_Fragment = { __typename: 'PipelineAction', id: string, name: string, type: ActionKind, runOnInit: boolean };
 
-type ActionBase_ResourceAction_Fragment = { __typename: 'ResourceAction', id: string, name: string, type: ActionKind, runOnInit: boolean, store: { __typename?: 'Store', id: string, name: string } };
+type ActionBase_ResourceAction_Fragment = { __typename: 'ResourceAction', id: string, name: string, type: ActionKind, runOnInit: boolean };
 
 export type ActionBaseFragment = ActionBase_CustomAction_Fragment | ActionBase_PipelineAction_Fragment | ActionBase_ResourceAction_Fragment;
 
 type Action_CustomAction_Fragment = (
   { __typename?: 'CustomAction' }
-  & CustomActionFragment
   & ActionBase_CustomAction_Fragment
+  & CustomActionFragment
 );
 
 type Action_PipelineAction_Fragment = (
   { __typename?: 'PipelineAction' }
-  & PipelineActionFragment
   & ActionBase_PipelineAction_Fragment
+  & PipelineActionFragment
 );
 
 type Action_ResourceAction_Fragment = (
   { __typename?: 'ResourceAction' }
-  & ResourceActionFragment
   & ActionBase_ResourceAction_Fragment
+  & ResourceActionFragment
 );
 
 export type ActionFragment = Action_CustomAction_Fragment | Action_PipelineAction_Fragment | Action_ResourceAction_Fragment;
@@ -23757,9 +23602,6 @@ export type ResourceActionFragment = (
   ) | (
     { __typename?: 'ResourceAction' }
     & ActionBase_ResourceAction_Fragment
-  ), resource: (
-    { __typename?: 'Resource' }
-    & ResourceFragment
   ), config: { __typename?: 'Prop', id: string, data: string } }
   & ActionBase_ResourceAction_Fragment
 );
@@ -23834,10 +23676,7 @@ export type ResourceFragment = { __typename: 'Resource', id: string, name: strin
     & PropFragment
   ) };
 
-export type StoreFragment = { __typename?: 'Store', id: string, name: string, stateApi: { __typename?: 'InterfaceType', id: string, name: string }, state: (
-    { __typename?: 'Prop' }
-    & PropFragment
-  ), actions: Array<(
+export type StoreFragment = { __typename?: 'Store', id: string, name: string, api: { __typename?: 'InterfaceType', id: string, name: string }, actions: Array<(
     { __typename?: 'CustomAction' }
     & Action_CustomAction_Fragment
   ) | (

@@ -67,7 +67,7 @@ export const makeStoreCreateInput = (
     id: v4(),
     name,
     state: { create: { node: { data: '{}' } } },
-    stateApi: { create: { node: interfaceCreateInput } },
+    api: { create: { node: interfaceCreateInput } },
   }
 }
 

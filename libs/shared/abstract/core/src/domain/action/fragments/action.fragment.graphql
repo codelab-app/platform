@@ -1,12 +1,6 @@
 fragment Action on ActionBase {
   ...ActionBase
-  ... on CustomAction {
-    ...CustomAction
-  }
-  ... on ResourceAction {
-    ...ResourceAction
-  }
-  ... on PipelineAction {
-    ...PipelineAction
-  }
+  ...CustomAction
+  ...ResourceAction
+  ...PipelineAction
 }

@@ -1,7 +1,7 @@
 export const storeSelectionSet = `
   id
   name
-  stateApi { id }
+  api { id }
   state { 
     id
     data

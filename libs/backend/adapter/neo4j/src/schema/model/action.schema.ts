@@ -66,8 +66,6 @@ export const actionSchema = gql`
     orders: [String!]
   }
 
-  union AnyAction = PipelineAction | ResourceAction | CustomAction
-
   type PipelineAction implements ActionBase {
     id: ID!
     name: String!
@@ -85,4 +83,6 @@ export const actionSchema = gql`
         direction: OUT
       )
   }
+
+  union AnyAction = PipelineAction | ResourceAction | CustomAction
 `

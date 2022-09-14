@@ -21,13 +21,13 @@ import {
 import { createActionFn } from '../createActionFn'
 import { actionRef } from './action.ref'
 
-export const hydrate = ({ actions, id, name, state, stateApi }: IStoreDTO) =>
+export const hydrate = ({ actions, id, name, state, api }: IStoreDTO) =>
   new Store({
     id,
     name,
     actions: actions.map((action) => actionRef(action.id)),
     state: Prop.hydrate(state),
-    stateApiId: stateApi.id,
+    apiId: api.id,
   })
 
 @model('@codelab/Store')
@@ -37,16 +37,16 @@ export class Store
     name: prop<string>(),
     actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
     state: prop<IProp>(),
-    stateApiId: prop<string>().withSetter(),
+    apiId: prop<string>().withSetter(),
   }))
   implements IStore
 {
   @modelAction
-  writeCache({ id, name, actions, state, stateApi }: IStoreDTO) {
+  writeCache({ id, name, actions, state, api }: IStoreDTO) {
     this.id = id
     this.name = name
     this.actions = actions.map((a) => actionRef(a.id))
-    this.stateApiId = stateApi.id
+    this.apiId = api.id
     this.state.writeCache(state)
 
     return this
