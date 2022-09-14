@@ -34,6 +34,7 @@ describe.skip('Export', () => {
 
     const owner = {
       connect: {
+        edge: { data: '{}' },
         where: {
           node: {
             id: users[0].id,
