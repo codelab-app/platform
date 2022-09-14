@@ -8,13 +8,18 @@ import { gql } from 'graphql-tag';
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen';
 import { FieldFragmentDoc } from './field.fragment.graphql.gen';
 export type InterfaceTypeFragment = (
-  { fieldsConnection: { edges: Array<FieldFragment> } }
+  { ownerConnection: { edges: Array<{ data: string }> }, fieldsConnection: { edges: Array<FieldFragment> } }
   & TypeBase_InterfaceType_Fragment
 );
 
 export const InterfaceTypeFragmentDoc = gql`
     fragment InterfaceType on InterfaceType {
   ...TypeBase
+  ownerConnection {
+    edges {
+      data
+    }
+  }
   fieldsConnection {
     edges {
       ...Field
