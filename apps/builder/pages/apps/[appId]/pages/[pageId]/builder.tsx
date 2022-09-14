@@ -235,7 +235,6 @@ PageBuilder.Layout = observer((page) => {
         )}
         contentStyles={{ paddingTop: '0rem' }}
         headerHeight={38}
-        key={pageBuilderRenderer?.pageTree?.current.root?.id}
       >
         {page.children}
       </DashboardTemplate>
