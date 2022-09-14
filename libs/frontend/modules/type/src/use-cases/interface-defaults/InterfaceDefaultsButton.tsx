@@ -1,5 +1,5 @@
 import { FormOutlined } from '@ant-design/icons'
-import { ITypeService } from '@codelab/shared/abstract/core'
+import { IInterfaceType, ITypeService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { Ref } from 'mobx-keystone'
 import React from 'react'

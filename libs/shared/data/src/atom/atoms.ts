@@ -51,7 +51,8 @@ export const connectOwner = (auth0Id: string) => {
 export const connectTypeOwner = (auth0Id: string) => {
   return {
     connect: {
-      where: { node: { auth0Id }, edge: { data: '{}' } },
+      where: { node: { auth0Id } },
+      edge: { data: '{}' },
     },
   }
 }

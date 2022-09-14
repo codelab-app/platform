@@ -22,6 +22,7 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { connectTypeOwner } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import {
@@ -679,7 +680,7 @@ element is new parentElement's first child
                     fields: {},
                     kind: ITypeKind.InterfaceType,
                     apiOfAtoms: {},
-                    owner: { connect: { where: { node: { auth0Id } } } },
+                    owner: connectTypeOwner(auth0Id),
                   },
                 },
               },
