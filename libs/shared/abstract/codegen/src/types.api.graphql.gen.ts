@@ -23602,6 +23602,9 @@ export type ResourceActionFragment = (
   ) | (
     { __typename?: 'ResourceAction' }
     & ActionBase_ResourceAction_Fragment
+  ), resource: (
+    { __typename?: 'Resource' }
+    & ResourceFragment
   ), config: { __typename?: 'Prop', id: string, data: string } }
   & ActionBase_ResourceAction_Fragment
 );

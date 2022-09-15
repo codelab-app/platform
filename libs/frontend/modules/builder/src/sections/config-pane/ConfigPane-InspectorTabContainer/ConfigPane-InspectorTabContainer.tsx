@@ -142,7 +142,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                   />
                   <UpdateElementPropsForm
                     actionList={actionService.actionsList}
-                    autocomplete={renderService.platformState}
+                    autocomplete={renderService.state}
                     builderState={{
                       componentId: builderService.activeComponent?.id,
                     }}

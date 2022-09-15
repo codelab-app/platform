@@ -33,7 +33,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { pageBuilderApi } from './builder.api'
-import { StateModalService } from './state-modal.service'
 
 @model('@codelab/BuilderService')
 export class BuilderService
@@ -46,7 +45,6 @@ export class BuilderService
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
 
     activeBuilderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
-    stateModal: prop(() => new StateModalService({})),
 
     expandedNodeIds: prop<Array<string>>(() => []).withSetter(),
 
