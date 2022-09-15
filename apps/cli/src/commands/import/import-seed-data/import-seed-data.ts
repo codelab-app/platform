@@ -60,8 +60,8 @@ export const __seedAtomData = async (
   const parser = new ParserService(selectedUser)
   const parsedData = await parser.extractFields()
 
-  for (const { atom, fields } of parsedData) {
-    for (const field of fields) {
+  for await (const { atom, fields } of parsedData) {
+    for await (const field of fields) {
       if (!atom?.api?.id) {
         continue
       }

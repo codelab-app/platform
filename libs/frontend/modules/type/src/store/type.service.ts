@@ -168,6 +168,8 @@ export class TypeService
       return []
     }
 
+    console.log(ids)
+
     const descendants = yield* _await(getTypeApi.GetDescendants({ ids }))
 
     const allDescendantIds = Object.values(descendants).reduce(

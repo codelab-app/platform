@@ -1,28 +1,26 @@
 #!/usr/bin/env bash
 
-# Check if CIRCLECI_BASE_REVISION is valid, if not then use it
+# This is copied from https://circleci.com/developer/orbs/orb/conventional-changelog/commitlint
+# Had issue using it as a job, so we copied the source and modified it
 
-echo $CIRCLE_BASE_REVISION
-echo "$(git branch -r --contains ${CIRCLE_BASE_REVISION})"
+current_branch="$(git rev-parse --abbrev-ref HEAD)"
+target_branch=master
+git_log="$(git log --reverse --max-count=10 --format="format:%H")"
 
-echo $CIRCLE_REVISION
-echo "$(git branch -r --contains ${CIRCLE_REVISION})"
-
-echo $CIRCLE_SHA1
-echo "$(git branch -r --contains ${CIRCLE_SHA1})"
-
-br="$(git branch -r --contains "${CIRCLE_BASE_REVISION}")"
-
-if [[ -z $br ]]; then
-  # Print the last 10 commits in long hash format
-  # Then get the last one
-  from="$(git log -10 --pretty=format:"%H" | tail -n 1)"
-
-  npx commitlint --from "$from"
-elif [[ $CIRCLE_BASE_REVISION ]]; then
-  npx commitlint --from "${CIRCLE_BASE_REVISION}"
-else
-  echo $(git log -1 --pretty=format:"%s") | npx commitlint
+if [ -z "$git_log" ]; then
+  echo "[WARNING] There are no commits in the log to lint."
+  exit 0
 fi
 
+# If there is only one commit, set target_head to that commit
+if [ "$(echo "$git_log" | wc -l | xargs)" == "1" ]; then
+  target_head=""
+elif [ "$current_branch" != "$target_branch" ]; then
+  # Using the ^ at the end git logs lower bound is not inclusive
+  target_head="$(git cherry "$target_branch" | head -1 | cut -d " " -f2-)^"
+else
+  commit="$(echo "$git_log" | head -1)"
+  target_head="$(git log "$commit^" -1 --pretty=%H)"
+fi
 
+npx commitlint --verbose --from="$target_head"

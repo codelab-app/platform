@@ -171,17 +171,15 @@ jobs:
       CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
-      - run: yarn cli tasks lint --env ci
-      # Check to see if our commit contains the latest generated code
+      - run:
+          name: 'Run Lint on Workspace'
+          command: yarn cli tasks lint --env ci
       - run:
           name: 'GraphQL Codegen'
           command: yarn cli tasks codegen --env ci
       - run:
-          name: 'Circular Dependencies Check'
-          command: yarn cli tasks circular-lint --env ci
-      - run:
           name: 'Commitlint'
-          command: ./scripts/lint/commitlint-circleci.sh
+          command: yarn cli tasks commitlint --env ci
       - notify-failure
 
   unit:

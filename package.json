@@ -103,7 +103,7 @@
     "graphql-iso-date": "3.6.1",
     "graphql-request": "4.1.0",
     "graphql-type-json": "0.3.2",
-    "husky": "7.0.4",
+    "husky": "8.0.1",
     "is-git-dirty": "^2.0.1",
     "isomorphic-fetch": "^3.0.0",
     "jquery": "3.6.0",
