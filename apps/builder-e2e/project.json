@@ -18,6 +18,7 @@
           "cypressConfig": "apps/builder-e2e/cypress.ci.config.ts",
           "devServerTarget": "builder-e2e:serve:ci",
           "record": true,
+          "parallel": true,
           "verbose": true
         },
         "test": {

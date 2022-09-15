@@ -56,7 +56,7 @@ executors:
     <<: *executor-config
     machine:
       docker_layer_caching: true
-      image: ubuntu-2004:202010-01
+      image: ubuntu-2004:2022.04.1
     resource_class: large
   docker-node:
     <<: *executor-config
@@ -74,13 +74,12 @@ executors:
         environment:
           NEO4J_AUTH: neo4j/test
           NEO4JLABS_PLUGINS: '["apoc"]'
-        #        command: ['--name', 'codelab-neo4j', '-d', '-p7474:7474', '-p7687:7687']
         command: ['neo4j', 'start']
     resource_class: large
 
 commands:
   setup-workspace:
-    description: 'Setup workspace'
+    description: 'Setup Workspace'
     steps:
       - checkout
       - attach_workspace:
@@ -97,13 +96,13 @@ commands:
 
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
       - run:
-          name: 'Set node version'
+          name: 'Set Node Version'
           command: |
             nvm install 14.18.0
             nvm alias default 14.18.0
             node -v
       - run:
-          name: 'Setup env'
+          name: 'Setup Env'
           command: |
             # git settings
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
@@ -130,15 +129,15 @@ commands:
       - nx/set-shas:
           main-branch-name: master
 
-  package-install-dev:
+  install-package:
     steps:
       - restore_cache:
-          name: 'Restore Yarn cache'
+          name: 'Restore Yarn Cache'
           keys:
-            - dep-cache-staging-{{ checksum "yarn.lock" }}
+            - dep-cache-{{ checksum "yarn.lock" }}
           # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
       - run:
-          name: 'Install NPM packages'
+          name: 'Install NPM Packages'
           command: yarn install --immutable
 
   notify-failure:
@@ -153,7 +152,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - package-install-dev
+      - install-package
       - run:
           name: 'Clear Cache'
           # clear cache here because NX cache can get quite large, we rely on remote cache instead
@@ -163,7 +162,8 @@ jobs:
       #            npx jest --clearCache
       - run:
           name: 'Build CI'
-          command: npx nx run-many --target=build --projects=builder,cli --configuration=ci --verbose
+          # Can't use `yarn cli` doesn't exist yet
+          command: npx nx affected:build -c ci --exclude=landing
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
@@ -202,18 +202,28 @@ jobs:
       NODE_ENV: test
     steps:
       - setup-workspace
-      - run: yarn cli tasks unit --env ci
+      - run:
+          name: 'Run Unit Tests'
+          command: yarn cli tasks unit --env ci
+      # Upload test results
+      - store_test_results:
+          path: /tmp/test-reports
       - notify-failure
 
   integration:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: yarn cli tasks int --env ci
+      - run:
+          name: 'Run Integration Tests'
+          command: yarn cli tasks int --env ci
       - notify-failure
 
   e2e:
     <<: *executor-params
+    # https://stackoverflow.com/questions/71184771/cypress-parallel-circleci-parllelism-only-one-machine-runs-all-test-cases-th
+    # https://circleci.com/docs/parallelism-faster-jobs
+    parallelism: 4
     environment:
       NEO4J_URI: bolt://127.0.0.1:7687
       NEO4J_USER: neo4j
@@ -222,22 +232,21 @@ jobs:
       - queue/until_front_of_line:
           consider-branch: false
       - setup-workspace
-      # Testing out Neo4j docker
       # https://discuss.circleci.com/t/cant-get-docker-containers-linking-working/29424
       # https://circleci.com/blog/setting-up-tricky-containers-in-circle-2-0-multi-image/
       - setup_remote_docker:
           version: 20.10.14
-      #      - run: docker-compose -f .docker/docker-compose.ci.yaml up -d neo4j
       - run:
-          name: Check Docker Processes
+          name: 'Check Docker Processes'
           command: |
             docker ps
             echo ${DOCKER_HOST}
             curl http://127.0.0.1:7474/db/data/
-
       - run: npx cypress install
       - run: npx cypress verify
-      - run: yarn cli tasks e2e --env ci
+      - run:
+          name: 'Run E2E Tests'
+          command: yarn cli tasks e2e --env ci
       - store_artifacts:
           path: ~/project/apps/builder-e2e/src/videos
           destination: cypress/videos
@@ -330,7 +339,8 @@ workflows:
     jobs:
       - install-and-build-workspace:
           <<: *filters-pr
-          e: machine-ubuntu
+          # Can't build with machine image, causes build issues
+          e: docker-node
           context: CI
       - lint:
           <<: *filters-pr
