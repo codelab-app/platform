@@ -164,7 +164,7 @@ export class Renderer
   implements IRenderer
 {
   @modelAction
-  initForce(pageTree: IElementTree, platformState?: any) {
+  initForce(pageTree: IElementTree) {
     this.pageTree = elementTreeRef(pageTree)
   }
 

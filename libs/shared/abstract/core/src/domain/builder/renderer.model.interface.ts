@@ -1,5 +1,5 @@
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { AnyModel, ModelClass, Ref } from 'mobx-keystone'
+import { Ref } from 'mobx-keystone'
 import { ReactElement, ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IElement, IElementTree } from '../element'
@@ -24,8 +24,5 @@ export interface IRenderer {
   runPreAction(element: IElement): void
   getPostAction(element: IElement): Nullish<() => any>
   renderElement(element: IElement, extraProps?: IPropData): ReactElement
-  initForce(
-    pageTree: IElementTree,
-    platformState?: Nullish<ModelClass<AnyModel>>,
-  ): void
+  initForce(pageTree: IElementTree): void
 }

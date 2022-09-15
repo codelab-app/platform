@@ -1,18 +1,13 @@
 import { GetPageBuilderQuery } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, Ref } from 'mobx-keystone'
-import { IModalService } from '../../service'
 import { IAtom } from '../atom'
 import { IComponent } from '../component'
 import { IElementTree } from '../element'
-import { IStateTreeNode, RendererTab } from '../render'
+import { RendererTab } from '../render'
 import { BuilderDragData } from './builder.interface'
 import { BuilderTab } from './builder-tab.interface'
 import { INode } from './node.interface'
-
-export interface StateModalProperties {
-  node: Nullable<IStateTreeNode>
-}
 
 // TBC: | IComponent
 export type IBuilderComponent = IAtom & {
@@ -31,7 +26,6 @@ export interface IBuilderService {
   selectedNode: Nullable<INode>
   hoveredNode: Nullable<INode>
   currentDragData: Nullable<Frozen<BuilderDragData>>
-  stateModal: IModalService<IStateTreeNode>
   activeElementTree: Maybe<IElementTree>
   expandedNodeIds: Array<string>
   /**
