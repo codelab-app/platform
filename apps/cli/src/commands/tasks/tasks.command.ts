@@ -11,9 +11,6 @@ import { CommandModule } from 'yargs'
 import { Env } from '../../shared/utils/env'
 import { Tasks } from '../../shared/utils/tasks'
 
-// const NX_TEST = 'npx env-cmd -f .env.test nx'
-const NX_TEST = 'npx nx'
-
 export const execCommand = (command: string) => {
   try {
     execa.commandSync(command, {
@@ -60,8 +57,8 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           if (env === Env.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            // execCommand(`${NX_TEST} build builder -c test`)
-            execCommand(`${NX_TEST} affected:build -c test`)
+            // execCommand(`npx nx build builder -c test`)
+            execCommand(`npx nx affected:build -c test`)
           }
 
           if (env === Env.CI) {
@@ -75,14 +72,15 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            // Added since many times can't find production build of next during push
-            // Maybe related? https://github.com/nrwl/nx/issues/2839
-            // execCommand(`${NX_TEST} build builder -c test`)
-            execCommand(`${NX_TEST} affected:build -c test`)
+            execCommand(
+              `npx nx affected:test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color --parallel=3`,
+            )
           }
 
           if (env === Env.CI) {
-            execCommand('npx nx affected:build -c ci --verbose')
+            execCommand(
+              `npx nx affected:test --testPathPattern="[^i].spec.ts" --color --parallel=4`,
+            )
           }
         },
       )
@@ -92,8 +90,8 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            const startServer = `${NX_TEST} serve-test builder -c test`
-            const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && ${NX_TEST} test builder -c test`
+            const startServer = `npx nx serve-test builder -c test`
+            const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && npx nx test builder -c test`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               stdio: 'inherit',
@@ -245,7 +243,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            execCommand(`${NX_TEST} run builder-e2e:e2e:test --verbose`)
+            execCommand(`npx nx run builder-e2e:e2e:test --verbose`)
           }
 
           if (env === Env.CI) {
