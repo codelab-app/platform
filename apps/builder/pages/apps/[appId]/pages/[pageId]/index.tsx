@@ -67,8 +67,12 @@ const PageRenderer: CodelabPage<any> = observer(() => {
      * components are needed to build pageElementTree
      *
      */
-    const components = await componentService.loadComponentTrees(
-      userService.auth0Id,
+    const components = await componentService.getAll({
+      owner: { auth0Id: userService.auth0Id },
+    })
+
+    const componentsWithElementTree = await componentService.loadComponentTrees(
+      components,
     )
 
     /**
@@ -99,7 +103,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       providerTree: null,
       appStore,
       renderer,
-      components,
+      components: componentsWithElementTree,
       types,
     }
   }, [])

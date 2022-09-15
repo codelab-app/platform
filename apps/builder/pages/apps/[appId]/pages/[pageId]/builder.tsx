@@ -36,14 +36,11 @@ import { useAsync } from 'react-use'
 const PageBuilder: CodelabPage = observer(() => {
   const {
     appService,
-    storeService,
-    pageService,
     componentService,
     typeService,
     builderRenderService,
     elementService,
     builderService,
-    userService,
   } = useStore()
 
   const router = useRouter()
@@ -91,7 +88,12 @@ const PageBuilder: CodelabPage = observer(() => {
       codeMirrorTypes,
     })
 
-    components.map((component) => componentService.writeCache(component))
+    const hydratedComponents = components.map((component) =>
+      componentService.writeCache(component),
+    )
+
+    const hydratedComponentsWithElementTree =
+      await componentService.loadComponentTrees(hydratedComponents)
 
     /**
      *
@@ -119,7 +121,7 @@ const PageBuilder: CodelabPage = observer(() => {
       providerTree: null,
       store,
       types,
-      components,
+      components: hydratedComponentsWithElementTree,
       renderer,
     }
   }, [])

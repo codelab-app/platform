@@ -24,5 +24,5 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
-  loadComponentTrees(auth0Id: IAuth0Id): Promise<any>
+  loadComponentTrees(components: Array<IComponent>): Promise<any>
 }

@@ -85,10 +85,8 @@ export class ComponentService
   @modelFlow
   loadComponentTrees = _async(function* (
     this: ComponentService,
-    auth0Id: IAuth0Id,
+    components: Array<IComponent>,
   ) {
-    const components = yield* _await(this.getAll({ owner: { auth0Id } }))
-
     const rootElement = new Element({
       id: 'components',
       name: 'Components',
