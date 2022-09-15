@@ -38,11 +38,11 @@ void yargs(hideBin(process.argv))
       })
       // Load different env based on stage
       .middleware(({ stage }) => {
-        console.log('process.env.CI', process.env.CI)
+        // console.log('process.env.CI', process.env.CI)
 
-        if (process.env.CI) {
-          return
-        }
+        // if (process.env.CI) {
+        //   return
+        // }
 
         // Load prod env only if not CI
         if (stage === Stage.Prod) {
