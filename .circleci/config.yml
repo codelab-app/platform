@@ -70,6 +70,7 @@ executors:
     docker:
       - image: cimg/node:16.15.1-browsers
       # https://circleci.com/docs/using-docker#using-multiple-docker-images
+      # The `command` key is the command issued to the image
       - image: neo4j:4.4.10
         environment:
           NEO4J_AUTH: neo4j/test
@@ -221,8 +222,7 @@ jobs:
 
   e2e:
     <<: *executor-params
-    # https://stackoverflow.com/questions/71184771/cypress-parallel-circleci-parllelism-only-one-machine-runs-all-test-cases-th
-    # https://circleci.com/docs/parallelism-faster-jobs
+    # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
     parallelism: 4
     environment:
       NEO4J_URI: bolt://127.0.0.1:7687
@@ -232,8 +232,6 @@ jobs:
       - queue/until_front_of_line:
           consider-branch: false
       - setup-workspace
-      # https://discuss.circleci.com/t/cant-get-docker-containers-linking-working/29424
-      # https://circleci.com/blog/setting-up-tricky-containers-in-circle-2-0-multi-image/
       - setup_remote_docker:
           version: 20.10.14
       - run:
