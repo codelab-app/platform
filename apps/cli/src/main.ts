@@ -22,7 +22,7 @@ dotenv.config({ path: '.env' })
 void yargs(hideBin(process.argv))
   .scriptName('cli')
   /**
-   * These scripts could act on different deployment environment
+   * These scripts could act on different deployment environment, so we group under `data`
    */
   .command('data', 'Import / export / reset', (argv) =>
     argv
@@ -38,8 +38,6 @@ void yargs(hideBin(process.argv))
       })
       // Load different env based on stage
       .middleware(({ stage }) => {
-        console.log('process.env.CI', process.env.CI)
-
         if (process.env.CI) {
           return
         }
@@ -47,25 +45,22 @@ void yargs(hideBin(process.argv))
         // Load prod env only if not CI
         if (stage === Stage.Prod) {
           dotenv.config({ path: '.env.prod', override: true })
-          console.log(process.env.NEO4J_URI)
+          // console.log(process.env.NEO4J_URI)
         }
 
         if (stage === Stage.Dev) {
           dotenv.config({ path: '.env', override: true })
-          console.log(process.env.NEO4J_URI)
+          // console.log(process.env.NEO4J_URI)
         }
       })
       .command(resetCommand)
       .command(importCommand)
-      .command(exportCommand),
+      .command(exportCommand)
+      .demandCommand(1, 'Please provide a command'),
   )
 
   /**
-   * These scripts could run on different env
-   */
-
-  /**
-   * These scripts are run locally only
+   * These scripts don't require env to be explicitly set
    */
   .command(tasksCommand)
   .command(scrapeCommand)
@@ -91,4 +86,6 @@ void yargs(hideBin(process.argv))
   //   )
   // })
 
-  .demandCommand(1, 'Please provide a command').argv
+  .demandCommand(1, 'Please provide a command')
+  // Must add this to throw error for unknown arguments
+  .strict().argv

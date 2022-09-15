@@ -181,7 +181,8 @@ jobs:
           command: yarn cli tasks circular-lint --env ci
       - run:
           name: 'Commitlint'
-          command: ./scripts/lint/commitlint-circleci.sh
+          command: yarn cli tasks commitlint --env ci
+      #          command: ./scripts/lint/commitlint-circleci.sh
       - notify-failure
 
   unit:
