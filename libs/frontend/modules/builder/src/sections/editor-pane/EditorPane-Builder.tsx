@@ -27,7 +27,6 @@ import {
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
@@ -40,7 +39,6 @@ interface EditorPaneBuilderProps {
   typeService: ITypeService
   resourceService: IResourceService
   appStore: IStore
-  state: any
 }
 
 const Container = styled.div`
@@ -61,7 +59,6 @@ export const EditorPaneBuilder = observer(
     storeService,
     typeService,
     resourceService,
-    state,
   }: EditorPaneBuilderProps) => {
     return (
       <>
@@ -103,7 +100,7 @@ export const EditorPaneBuilder = observer(
                 `}
                 singleLine={false}
                 title="Current props"
-                value={JSON.stringify(toJS(state), null, '\t') ?? '{'}
+                value={JSON.stringify(appStore.state, null, '\t') ?? '{'}
               />
             </TabPane>
           </Tabs>

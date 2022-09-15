@@ -1,6 +1,7 @@
 import { IEntity } from '@codelab/shared/abstract/types'
 import { ICacheService } from '../../service'
 import { IElementTreeService } from '../element'
+import { IPropData } from '../prop'
 import { IPageDTO } from './page.dto.interface'
 
 export interface IPage
@@ -10,5 +11,6 @@ export interface IPage
   app: { id: string }
   name: string
   slug: string
+  toJson: IPropData
   rootElement: { id: string }
 }

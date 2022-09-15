@@ -44,16 +44,16 @@ export const fieldRepository = {
 
       await session.writeTransaction((tx) => tx.run(connectField, args))
 
-      const [interfaceType] = await InterfaceType.find({
+      const [updatedInterfaceType] = await InterfaceType.find({
         selectionSet: interfaceTypeSelectionSet,
         where: {
           id: args.interfaceTypeId,
         },
       })
 
-      return merge(interfaceType, {
+      return merge(updatedInterfaceType, {
         fieldsConnection: {
-          edges: interfaceType.fieldsConnection.edges.map((edge) => ({
+          edges: updatedInterfaceType.fieldsConnection.edges.map((edge) => ({
             node: {
               __resolveType: edge.node.kind,
             },

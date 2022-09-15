@@ -2,6 +2,8 @@ import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { pageRef } from '@codelab/frontend/modules/page'
 import { storeRef } from '@codelab/frontend/presenter/container'
 import { IApp, IAppDTO, IPage, IStore } from '@codelab/shared/abstract/core'
+import { merge } from 'lodash'
+import { computed } from 'mobx'
 import {
   detach,
   ExtendedModel,
@@ -39,6 +41,18 @@ export class App
   implements IApp
 {
   static hydrate = hydrate
+
+  @computed
+  get toJson() {
+    return {
+      [this.name]: {
+        id: this.id,
+        name: this.name,
+        slug: this.slug,
+        pages: this.pages.map((p) => p.current.toJson).reduce(merge, {}),
+      },
+    }
+  }
 
   @modelAction
   public writeCache(data: IAppDTO): IApp {

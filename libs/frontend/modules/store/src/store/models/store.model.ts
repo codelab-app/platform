@@ -1,11 +1,13 @@
+import { getTypeService } from '@codelab/frontend/modules/type'
 import {
   IAnyAction,
+  IInterfaceType,
   IPropData,
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
 import { keys, merge } from 'lodash'
-import { makeAutoObservable } from 'mobx'
+import { computed } from 'mobx'
 import {
   detach,
   idProp,
@@ -34,6 +36,7 @@ export class Store
     name: prop<string>(),
     actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
     apiId: prop<string>().withSetter(),
+    initialState: prop<IPropData>(() => ({})).withSetter(),
   }))
   implements IStore
 {
@@ -47,25 +50,35 @@ export class Store
     return this
   }
 
-  @modelAction
-  toMobxObservable(globals: IPropData = {}) {
-    const storeState = {}
+  @computed
+  get _api() {
+    const typeService = getTypeService(this)
 
-    const storeActions = this.actions.map((action) => ({
-      [action.current.name]: {
-        action: action.current,
-        isAction: true,
-      },
-    }))
+    return typeService.type(this.apiId) as IInterfaceType
+  }
 
-    const state = makeAutoObservable(
-      merge({}, storeState, ...storeActions, globals),
+  @computed
+  get _storeActions() {
+    return this.actions
+      .map((action) => ({
+        [action.current.name]: { action: action.current },
+      }))
+      .reduce(merge, {})
+  }
+
+  @computed
+  get state() {
+    const state: IPropData = merge(
+      {},
+      this.initialState,
+      this._api.defaults,
+      this._storeActions,
     )
 
-    for (const key of keys(state)) {
-      if (state[key]?.isAction) {
-        state[key].run = createActionFn(state[key].action, state)
-      }
+    console.log(this._storeActions)
+
+    for (const key of keys(this._storeActions)) {
+      state[key].run = createActionFn(state[key].action, state)
     }
 
     return state

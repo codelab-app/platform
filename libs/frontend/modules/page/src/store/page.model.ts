@@ -32,6 +32,18 @@ export class Page
     return getElementService(this)
   }
 
+  @computed
+  get toJson() {
+    return {
+      [this.name]: {
+        id: this.id,
+        name: this.name,
+        slug: this.slug,
+        url: `apps/${this.app.id}/pages/${this.id}`,
+      },
+    }
+  }
+
   @modelAction
   writeCache(page: IPageDTO) {
     this.setName(page.name)

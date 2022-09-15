@@ -1,7 +1,6 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import { Renderer } from '@codelab/frontend/modules/renderer'
-import { createMobxState } from '@codelab/frontend/modules/store'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -93,7 +92,6 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       pageElementTree,
       null,
       appStore,
-      createMobxState(appStore, apps, pages, router),
       false,
     )
 

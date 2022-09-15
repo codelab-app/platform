@@ -5,16 +5,8 @@ import type {
   IRenderService,
   IStore,
 } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import {
-  AnyModel,
-  Model,
-  model,
-  modelAction,
-  ModelClass,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
 
 @model('@codelab/RenderService')
@@ -33,7 +25,6 @@ export class RenderService
     pageTree: IElementTree,
     appTree: Nullable<IElementTree>,
     appStore: IStore,
-    platformState?: Nullish<ModelClass<AnyModel>>,
     isBuilder?: boolean,
     set_selectedNode?: IBuilderService['set_selectedNode'],
   ) {
@@ -44,7 +35,6 @@ export class RenderService
         pageTree,
         appStore,
         appTree,
-        platformState,
         isBuilder,
         set_selectedNode,
       )

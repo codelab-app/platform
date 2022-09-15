@@ -1,7 +1,6 @@
 import { AppPagePageProps } from '@codelab/frontend/abstract/types'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Renderer } from '@codelab/frontend/modules/renderer'
-import { createMobxState } from '@codelab/frontend/modules/store'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -27,7 +26,6 @@ const Index = (props: AppPagePageProps) => {
       page.elementTree,
       null,
       appStore,
-      createMobxState(appStore, [app], [page], router),
     )
 
     return result
