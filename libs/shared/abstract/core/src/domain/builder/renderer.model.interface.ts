@@ -12,9 +12,8 @@ export interface IRenderer {
   appTree: Nullable<Ref<IElementTree>>
   appStore: Nullable<Ref<IStore>>
   pageTree: Nullable<Ref<IElementTree>>
-  platformState?: any
   debugMode: boolean
-  setPlatformState: (platformState?: any) => void
+  state?: IPropData
   renderIntermediateElement(
     element: IElement,
     extraProps?: IPropData,

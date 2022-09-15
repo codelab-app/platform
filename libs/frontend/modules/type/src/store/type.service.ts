@@ -14,7 +14,8 @@ import type {
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { flatMap } from 'lodash'
+import { Nullable } from '@codelab/shared/abstract/types'
+import { flatMap, mapKeys, merge, omit } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -286,13 +287,11 @@ export class TypeService
       },
     }
 
-    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
-    const interfaceTypeDTO = upsertField
-    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
+    yield* _await(fieldApi.UpsertField(input))
 
-    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
-
-    interfaceType.writeCache(interfaceTypeDTO)
+    const interfaceType = yield* _await(
+      this.updateDefaults(interfaceTypeId, data.key, null),
+    )
 
     return interfaceType
   })
@@ -323,11 +322,55 @@ export class TypeService
     }
 
     const { upsertField } = yield* _await(fieldApi.UpsertField(input))
+
+    yield* _await(this.updateDefaults(interfaceTypeId, data.key, field.key))
+
     const updatedField = upsertField.fieldsConnection.edges[0]
 
     field.writeCache(updatedField)
 
     return field
+  })
+
+  @modelFlow
+  @transaction
+  updateDefaults = _async(function* (
+    this: TypeService,
+    interfaceId: string,
+    addedKey: Nullable<string>,
+    removedKey: Nullable<string>,
+  ) {
+    const interfaceType = throwIfUndefined(this.type(interfaceId))
+    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
+
+    let data = {}
+
+    if (addedKey && removedKey) {
+      // update key
+      data = mapKeys(interfaceType.defaults, (value, key) =>
+        key === removedKey ? addedKey : key,
+      )
+    } else if (addedKey) {
+      // add key
+      data = merge(interfaceType.defaults, { [addedKey]: null })
+    } else if (removedKey) {
+      // remove key
+      data = omit(interfaceType.defaults, [removedKey])
+    }
+
+    const updateInput = {
+      id: interfaceType.id,
+      kind: interfaceType.kind,
+      name: interfaceType.name,
+      interfaceDefaults: {
+        auth0Id: interfaceType.ownerAuthId,
+        data,
+      },
+    }
+
+    yield* _await(this.update(interfaceType, updateInput))
+
+    return interfaceType
   })
 
   @modelFlow
@@ -349,6 +392,8 @@ export class TypeService
 
     const input = { where: { id: fieldId }, interfaceId }
     const res = yield* _await(fieldApi.DeleteField(input))
+
+    yield* _await(this.updateDefaults(interfaceId, null, field.key))
 
     yield* _await(
       this.elementService.removeDeletedPropDataFromElements(

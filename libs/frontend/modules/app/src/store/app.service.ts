@@ -50,8 +50,6 @@ export class AppService
    */
   @modelAction
   load = ({ app, pageId }: IPageBuilderAppProps) => {
-    console.debug('AppService.load', { app, pageId })
-
     const elementService = getElementService(this)
     const pageService = getPageService(this)
     const storeService = getStoreService(this)

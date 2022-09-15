@@ -1,4 +1,5 @@
 import { getResourceService } from '@codelab/frontend/modules/resource'
+import { getStoreService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
   ActionFragment,
@@ -34,7 +35,7 @@ import {
   makeActionUpdateInput,
   updateActionApi,
 } from './apis'
-import { Action } from './models'
+import { Action, actionRef } from './models'
 
 @model('@codelab/ActionService')
 export class ActionService
@@ -143,6 +144,8 @@ export class ActionService
     this: ActionService,
     data: Array<ICreateActionDTO>,
   ) {
+    const storeService = getStoreService(this)
+
     const input: Array<ICreateActionInput> = data.map((action) =>
       makeActionCreateInput(action),
     )
@@ -158,6 +161,11 @@ export class ActionService
 
     return createdActions.map((action) => {
       const actionModel = Action.create(action)
+
+      // add action to store
+      storeService
+        .store(actionModel.storeId)
+        ?.actions.push(actionRef(actionModel))
 
       this.actions.set(action.id, actionModel)
 

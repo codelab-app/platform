@@ -1,5 +1,5 @@
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { AnyModel, ModelClass, ObjectMap } from 'mobx-keystone'
+import { Nullable } from '@codelab/shared/abstract/types'
+import { ObjectMap } from 'mobx-keystone'
 import { IElementTree } from '../element'
 import { IStore } from '../store'
 import { IBuilderService } from './builder.service.interface'
@@ -13,7 +13,6 @@ export interface IRenderService {
     pageTree: IElementTree,
     appTree: Nullable<IElementTree>,
     appStore: IStore,
-    platformState?: Nullish<ModelClass<AnyModel>>,
     isBuilder?: boolean,
     set_selectedNode?: IBuilderService['set_selectedNode'],
   ): IRenderer
