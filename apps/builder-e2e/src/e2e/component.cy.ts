@@ -121,7 +121,6 @@ describe('Component CRUD', () => {
   describe('Add elements to component', () => {
     it('should be able to add elements to the component', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(waitTimeout)
       cy.get(`[title="${NEW_COMP_NAME}"]`)
         .closest('div')
         .find('.ant-tree-switcher_close')
@@ -156,6 +155,29 @@ describe('Component CRUD', () => {
           cy.get('#Builder').find('.ant-btn').should('exist')
           cy.get('#Builder').find('.ant-typography').should('exist')
         })
+    })
+  })
+  describe('Get component', () => {
+    it('should render component items correctly', () => {
+      cy.reload()
+
+      // expand components list
+      cy.get('[title="Components"]')
+        .parent()
+        .find('.ant-tree-switcher_close')
+        .click()
+
+      // the 1 is on the element tree
+      cy.findAllByText(NEW_COMP_NAME).should('have.length', 2)
+      cy.findAllByText(NEW_COMP_NAME).eq(1).click()
+
+      // the 2 is the component builder tree
+      cy.findAllByText(NEW_COMP_NAME).should('have.length', 3)
+      cy.findAllByText(NEW_COMP_NAME).eq(2).click()
+
+      // the 3 is root of the component on component builder tree
+      cy.findByText(CHILD_BUTTON).should('exist')
+      cy.findByText(CHILD_TEXT).should('exist')
     })
   })
 
