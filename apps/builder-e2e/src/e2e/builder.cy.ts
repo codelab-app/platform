@@ -1,11 +1,10 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import {
   AppCreateInput,
-  AppPagesFieldInput,
   AtomCreateInput,
 } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { createAtomsData } from '@codelab/shared/data'
+import { connectTypeOwner, createAtomsData } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
@@ -72,9 +71,7 @@ describe('Elements CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${atom.name} API`,
-                  owner: userId
-                    ? { connect: { where: { node: { auth0Id: userId } } } }
-                    : undefined,
+                  owner: userId ? connectTypeOwner(userId) : undefined,
                 },
               },
             },
