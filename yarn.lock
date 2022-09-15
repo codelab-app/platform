@@ -4001,6 +4001,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@codelabai/nx@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "@codelabai/nx@npm:0.0.7"
+  dependencies:
+    "@nrwl/devkit": "*"
+    "@nrwl/linter": "*"
+    "@nrwl/workspace": "*"
+    cy2: "*"
+  checksum: 1a412bfe033583e3f18d3a0cd2bf13a9915ac9f866cd7f0c63c9ae11561b66662652bfc3d885553aba162a1ffc691dee84e1bd2ba0c5519e03446b0b809472ee
+  languageName: node
+  linkType: hard
+
 "@codemirror/autocomplete@npm:6.1.0, @codemirror/autocomplete@npm:^6.0.0":
   version: 6.1.0
   resolution: "@codemirror/autocomplete@npm:6.1.0"
@@ -13636,6 +13648,7 @@ __metadata:
     "@babel/core": 7.18.2
     "@babel/runtime": 7.18.3
     "@babel/types": 7.18.2
+    "@codelabai/nx": ^0.0.7
     "@codemirror/autocomplete": 6.1.0
     "@codemirror/lang-css": 6.0.0
     "@codemirror/lang-html": 6.1.0

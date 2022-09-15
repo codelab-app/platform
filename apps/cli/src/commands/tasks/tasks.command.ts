@@ -61,9 +61,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             execCommand(`npx nx affected:build -c test`)
           }
 
-          if (env === Env.CI) {
-            execCommand('npx nx affected:build -c ci --verbose')
-          }
+          // Can't use in CI since cli hasn't been built yet
         },
       )
       .command(
@@ -243,11 +241,11 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            execCommand(`npx nx run builder-e2e:currents:test --verbose`)
+            execCommand(`npx nx run builder-e2e:currents -c test --verbose`)
           }
 
           if (env === Env.CI) {
-            execCommand(`npx nx run builder-e2e:currents:ci --verbose`)
+            execCommand(`npx nx run builder-e2e:currents -c ci --verbose`)
           }
         },
       )

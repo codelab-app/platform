@@ -15,6 +15,7 @@
     "docker:up": "scripts/docker/up.sh",
     "codegen": "yarn cli tasks codegen --env dev",
     "build": "nx run-many --all --target=build",
+    "build:test": "npx env-cmd -f .env.test nx build builder -c test",
     "test": "nx run-many --all --target=test --parallel=3",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",
     "nx": "nx",
@@ -143,6 +144,7 @@
   "devDependencies": {
     "@babel/core": "7.18.2",
     "@babel/types": "7.18.2",
+    "@codelabai/nx": "^0.0.7",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@currents/cli": "^2.1.1",

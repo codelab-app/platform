@@ -4,9 +4,15 @@
   "projectType": "application",
   "targets": {
     "currents": {
-      "executor": "@currents/nx:currents",
+      "executor": "@codelabai/nx:currents",
       "options": {
         "cypressExecutor": "e2e"
+      },
+      // Need this empty block to forward the configurations
+      "configurations": {
+        "ci": {},
+        "test": {},
+        "dev": {}
       }
     },
     "e2e": {
