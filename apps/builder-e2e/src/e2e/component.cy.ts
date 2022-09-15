@@ -1,6 +1,6 @@
 import { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
@@ -37,7 +37,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignButton} API`,
-                  owner: connectOwner(userId),
+                  owner: connectTypeOwner(userId),
                 },
               },
             },
@@ -51,7 +51,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignTypographyText} API`,
-                  owner: connectOwner(userId),
+                  owner: connectTypeOwner(userId),
                 },
               },
             },

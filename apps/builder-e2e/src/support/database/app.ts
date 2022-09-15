@@ -1,6 +1,6 @@
 import { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAppDTO, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
 import { print } from 'graphql'
 import { v4 } from 'uuid'
 import { CreateAppsDocument } from '../../../../../libs/frontend/modules/app/src/graphql/app.endpoints.graphql.gen'
@@ -24,7 +24,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
             create: {
               node: {
                 id: v4(),
-                owner: connectOwner(userId),
+                owner: connectTypeOwner(userId),
                 name: `Test Store ${appId} API`,
                 fields: {},
                 apiOfAtoms: {},
