@@ -266,21 +266,18 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           if (env === Env.CI) {
             execCommand(`npx nx affected:lint`)
             execCommand(`npx prettier --check ./**/*.{graphql,yaml,json}`)
+            execCommand(
+              `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
+            )
             execCommand(`npx ls-lint`)
           }
         },
       )
-      // .command(
-      //   Tasks.Format,
-      //   'Format files',
-      //   (argv) => argv,
-      //   (argv) => runTasks(argv.env, `${argv._[1]}`, `${argv._[2]}`),
-      // )
       .command(
-        `${Tasks.Commitlint} <edit>`,
+        `${Tasks.Commitlint} [edit]`,
         'Commitlint projects',
         (argv) => argv,
-        ({ env, _, edit }) => {
+        ({ env, edit }) => {
           if (env === Env.Test) {
             execCommand(`npx --no-install commitlint --edit ${edit}`)
           }
