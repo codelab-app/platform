@@ -15,7 +15,41 @@ export type IRxTxnResolver<
   (txn: RxTransaction) => Observable<TReturn>
 >
 
-export const withRxWriteTransaction = <
+type RxTransactionWork<T> = (tx: RxTransaction) => Observable<T>
+
+export const withRxReadTransactions = async <T>(
+  readTransaction: RxTransactionWork<T>,
+) => {
+  const driver = getDriver()
+  const session = driver.rxSession()
+
+  return session
+    .readTransaction((txn) => readTransaction(txn))
+    .toPromise()
+    .catch((error) => {
+      console.error(error)
+      throw error
+    })
+    .finally(() => session.close())
+}
+
+export const withRxWriteTransactions = async <T>(
+  writeTransaction: RxTransactionWork<T>,
+) => {
+  const driver = getDriver()
+  const session = driver.rxSession()
+
+  return session
+    .writeTransaction((txn) => writeTransaction(txn))
+    .toPromise()
+    .catch((error) => {
+      console.error(error)
+      throw error
+    })
+    .finally(() => session.close())
+}
+
+export const withRxReadTransactionResolver = <
   TParent = any,
   TArgs = Record<string, any>,
   TContext = Record<string, any>,
@@ -23,31 +57,17 @@ export const withRxWriteTransaction = <
 >(
   rxTxnResolver: IRxTxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {
-  const name = rxTxnResolver.name || ''
-
   const resolver: IFieldResolver<TParent, TContext, TArgs, Promise<TReturn>> = (
     parent,
     args,
     context,
     info,
-  ) => {
-    const driver = getDriver()
-    const session = driver.rxSession()
-
-    return session
-      .writeTransaction(rxTxnResolver(parent, args, context, info))
-      .toPromise()
-      .catch((error) => {
-        console.error(`${name ? name + ':' : ''}`, error)
-        throw error
-      })
-      .finally(() => session.close())
-  }
+  ) => withRxReadTransactions(rxTxnResolver(parent, args, context, info))
 
   return resolver
 }
 
-export const withRxReadTransaction = <
+export const withRxWriteTransactionResolver = <
   TParent = any,
   TArgs = Record<string, any>,
   TContext = Record<string, any>,
@@ -55,26 +75,12 @@ export const withRxReadTransaction = <
 >(
   rxTxnResolver: IRxTxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {
-  const name = rxTxnResolver.name || ''
-
   const resolver: IFieldResolver<TParent, TContext, TArgs, Promise<TReturn>> = (
     parent,
     args,
     context,
     info,
-  ) => {
-    const driver = getDriver()
-    const session = driver.rxSession()
-
-    return session
-      .readTransaction(rxTxnResolver(parent, args, context, info))
-      .toPromise()
-      .catch((error) => {
-        console.error(`${name ? name + ':' : ''}`, error)
-        throw error
-      })
-      .finally(() => session.close())
-  }
+  ) => withRxWriteTransactions(rxTxnResolver(parent, args, context, info))
 
   return resolver
 }

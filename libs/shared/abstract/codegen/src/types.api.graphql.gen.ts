@@ -5518,16 +5518,6 @@ export type ElementFirstChildUpdateFieldInput = {
   where?: InputMaybe<ElementFirstChildConnectionWhere>;
 };
 
-export type ElementGraph = {
-  __typename?: 'ElementGraph';
-  descendants: Array<Scalars['ID']>;
-  id: Scalars['ID'];
-};
-
-export type ElementGraphInput = {
-  rootId: Scalars['String'];
-};
-
 export type ElementHookHooksAggregationSelection = {
   __typename?: 'ElementHookHooksAggregationSelection';
   count: Scalars['Int'];
@@ -13447,7 +13437,6 @@ export type Query = {
   domains: Array<Domain>;
   domainsAggregate: DomainAggregateSelection;
   domainsConnection: DomainsConnection;
-  elementGraph: ElementGraph;
   elementTypes: Array<ElementType>;
   elementTypesAggregate: ElementTypeAggregateSelection;
   elementTypesConnection: ElementTypesConnection;
@@ -13743,11 +13732,6 @@ export type QueryDomainsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<DomainSort>>>;
   where?: InputMaybe<DomainWhere>;
-};
-
-
-export type QueryElementGraphArgs = {
-  input: ElementGraphInput;
 };
 
 
@@ -20299,16 +20283,6 @@ export type DeleteDomainMutationVariables = Exact<{
 
 export type DeleteDomainMutation = { __typename?: 'Mutation', deleteDomain: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
-export type GetElementGraphQueryVariables = Exact<{
-  input: ElementGraphInput;
-}>;
-
-
-export type GetElementGraphQuery = { __typename?: 'Query', elementGraph: (
-    { __typename?: 'ElementGraph' }
-    & ElementGraphFragment
-  ) };
-
 export type CreateElementsMutationVariables = Exact<{
   input: Array<ElementCreateInput> | ElementCreateInput;
 }>;
@@ -20357,6 +20331,20 @@ export type GetElementsQueryVariables = Exact<{
 
 export type GetElementsQuery = { __typename?: 'Query', elements: Array<(
     { __typename?: 'Element' }
+    & ElementFragment
+  )> };
+
+export type GetElementTreeQueryVariables = Exact<{
+  options?: InputMaybe<ElementOptions>;
+  where?: InputMaybe<ElementWhere>;
+}>;
+
+
+export type GetElementTreeQuery = { __typename?: 'Query', elementTrees: Array<(
+    { __typename?: 'Element', descendantElements: Array<(
+      { __typename?: 'Element' }
+      & ElementFragment
+    )> }
     & ElementFragment
   )> };
 
@@ -21529,8 +21517,6 @@ export type ElementFragment = { __typename: 'Element', id: string, name?: string
     { __typename?: 'PropMapBinding' }
     & PropMapBindingFragment
   )>, parentElementConnection: { __typename?: 'ElementParentElementConnection', edges: Array<{ __typename?: 'ElementParentElementRelationship', node: { __typename?: 'Element', id: string, name?: string | null } }> } };
-
-export type ElementGraphFragment = { __typename?: 'ElementGraph', id: string, descendants: Array<string> };
 
 export type HookPropFragment = { __typename?: 'Prop', id: string, data: string };
 

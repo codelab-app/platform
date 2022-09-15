@@ -1,9 +1,3 @@
-query GetElementGraph($input: ElementGraphInput!) {
-  elementGraph(input: $input) {
-    ...ElementGraph
-  }
-}
-
 mutation CreateElements($input: [ElementCreateInput!]!) {
   createElements(input: $input) {
     elements {
@@ -36,7 +30,16 @@ mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
 }
 
 query GetElements($options: ElementOptions, $where: ElementWhere) {
-  elements: elements(options: $options, where: $where) {
+  elements(options: $options, where: $where) {
     ...Element
+  }
+}
+
+query GetElementTree($options: ElementOptions, $where: ElementWhere) {
+  elementTrees: elements(options: $options, where: $where) {
+    ...Element
+    descendantElements {
+      ...Element
+    }
   }
 }

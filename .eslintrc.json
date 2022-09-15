@@ -26,6 +26,12 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        //        "max-params": [
+        //          "error",
+        //          {
+        //            "max": 6
+        //          }
+        //        ],
         //        "unused-imports/no-unused-imports-ts": "error",
         //        "prefer-destructuring": [
         //          "error",

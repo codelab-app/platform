@@ -51,8 +51,3 @@ fragment Element on Element {
     }
   }
 }
-
-fragment ElementGraph on ElementGraph {
-  id
-  descendants
-}

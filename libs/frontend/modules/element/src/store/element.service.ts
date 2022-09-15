@@ -56,9 +56,7 @@ import { PropMapBindingModalService } from './prop-map-binding-modal.service'
  *
  * - PageElementTree
  * - ComponentElementTree
- *
  */
-
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
@@ -132,20 +130,6 @@ export class ElementService
     return elementModel
   }
 
-  @modelFlow
-  @transaction
-  getElementGraph = _async(function* (this: ElementService, rootId: string) {
-    const { elementGraph } = yield* _await(
-      elementApi.GetElementGraph({
-        input: {
-          rootId,
-        },
-      }),
-    )
-
-    return elementGraph
-  })
-
   /**
    * We need a separate create function for element trees
    */
@@ -176,19 +160,11 @@ export class ElementService
     this: ElementService,
     rootId: IElementRef,
   ) {
-    const { elementGraph } = yield* _await(
-      elementApi.GetElementGraph({ input: { rootId } }),
+    const { elementTrees } = yield* _await(
+      elementApi.GetElementTree({ where: { id: rootId } }),
     )
 
-    const ids = [elementGraph.id, ...elementGraph.descendants]
-
-    const { elements } = yield* _await(
-      elementApi.GetElements({
-        where: {
-          id_IN: ids,
-        },
-      }),
-    )
+    const elements = [elementTrees[0], ...elementTrees[0].descendantElements]
 
     return elements.map((element) => this.writeCache(element))
   })
@@ -541,11 +517,15 @@ element is new parentElement's first child
     this: ElementService,
     root: IElementRef,
   ) {
-    const { elementGraph } = yield* _await(
-      elementApi.GetElementGraph({ input: { rootId: root } }),
+    const { elementTrees } = yield* _await(
+      elementApi.GetElementTree({ where: { id: root } }),
     )
 
-    const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
+    const idsToDelete = [
+      elementTrees[0].id,
+      ...elementTrees[0].descendantElements.map((element) => element.id),
+    ]
+
     const rootElement = this.element(root)
 
     if (rootElement) {

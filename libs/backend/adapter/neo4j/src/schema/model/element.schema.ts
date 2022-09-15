@@ -1,11 +1,6 @@
 import { gql } from 'apollo-server-micro'
 
 export const elementSchema = gql`
-  type ElementGraph @exclude {
-    id: ID!
-    descendants: [ID!]!
-  }
-
   interface ParentOfElement @relationshipProperties {
     order: Int
   }
@@ -63,13 +58,5 @@ export const elementSchema = gql`
 
     # This is a custom field resolver
     descendantElements: [Element!]!
-  }
-
-  input ElementGraphInput {
-    rootId: String!
-  }
-
-  type Query {
-    elementGraph(input: ElementGraphInput!): ElementGraph!
   }
 `
