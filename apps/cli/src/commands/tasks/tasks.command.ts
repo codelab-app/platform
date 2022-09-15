@@ -243,11 +243,11 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            execCommand(`npx nx run builder-e2e:e2e:test --verbose`)
+            execCommand(`npx nx run builder-e2e:currents:test --verbose`)
           }
 
           if (env === Env.CI) {
-            execCommand(`npx nx run builder-e2e:e2e:ci --verbose`)
+            execCommand(`npx nx run builder-e2e:currents:ci --verbose`)
           }
         },
       )

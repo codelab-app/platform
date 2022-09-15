@@ -3,6 +3,12 @@
   "sourceRoot": "apps/builder-e2e/src",
   "projectType": "application",
   "targets": {
+    "currents": {
+      "executor": "@currents/nx:currents",
+      "options": {
+        "cypressExecutor": "e2e"
+      }
+    },
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {

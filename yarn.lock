@@ -4412,6 +4412,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@currents/cli@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@currents/cli@npm:2.1.1"
+  dependencies:
+    cy2: 2.0.1
+  bin:
+    currents: bin/currents.js
+    currents-prepare: bin/currents-prepare.js
+  checksum: e355cc6b6cf567b7940a1daca3a2fc7a2eb82bf913f362ddc734fffac8bd8fa6bb897d11fee7aec54948373590177fa74801a248547175b6853c9fd5c0bd6930
+  languageName: node
+  linkType: hard
+
+"@currents/nx@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@currents/nx@npm:0.0.5"
+  dependencies:
+    "@nrwl/devkit": "*"
+    "@nrwl/linter": "*"
+    "@nrwl/workspace": "*"
+    cy2: "*"
+  checksum: 96dd8683298262076c1bbee5987e8c787644ea43c59152a30915d0b7dce785c1f944db9b48a50190faa3f867a0cf9978328fd3e0e2eec28d1591053fa98ab41e
+  languageName: node
+  linkType: hard
+
 "@cypress/request@npm:^2.88.10":
   version: 2.88.10
   resolution: "@cypress/request@npm:2.88.10"
@@ -7209,7 +7233,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/devkit@npm:14.7.5":
+"@nrwl/devkit@npm:*, @nrwl/devkit@npm:14.7.5":
   version: 14.7.5
   resolution: "@nrwl/devkit@npm:14.7.5"
   dependencies:
@@ -7286,7 +7310,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/linter@npm:14.7.5":
+"@nrwl/linter@npm:*, @nrwl/linter@npm:14.7.5":
   version: 14.7.5
   resolution: "@nrwl/linter@npm:14.7.5"
   dependencies:
@@ -7547,7 +7571,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/workspace@npm:14.7.5":
+"@nrwl/workspace@npm:*, @nrwl/workspace@npm:14.7.5":
   version: 14.7.5
   resolution: "@nrwl/workspace@npm:14.7.5"
   dependencies:
@@ -13620,6 +13644,8 @@ __metadata:
     "@codemirror/legacy-modes": 6.1.0
     "@commitlint/cli": 17.0.3
     "@commitlint/config-conventional": 17.0.3
+    "@currents/cli": ^2.1.1
+    "@currents/nx": ^0.0.5
     "@dnd-kit/core": 6.0.5
     "@emotion/babel-plugin": 11.10.0
     "@emotion/babel-preset-css-prop": 11.2.0
@@ -13986,7 +14012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^2.16.0, commander@npm:^2.20.0, commander@npm:^2.20.3, commander@npm:^2.8.1":
+"commander@npm:^2.16.0, commander@npm:^2.20.0, commander@npm:^2.20.3, commander@npm:^2.8.1, commander@npm:^2.9.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
   checksum: ab8c07884e42c3a8dbc5dd9592c606176c7eb5c1ca5ff274bcf907039b2c41de3626f684ea75ccf4d361ba004bbaff1f577d5384c155f3871e456bdf27becf9e
@@ -15002,6 +15028,19 @@ __metadata:
   dependencies:
     array-find-index: ^1.0.1
   checksum: 1f59fe10b5339b54b1a1eee110022f663f3495cf7cf2f480686e89edc7fa8bfe42dbab4b54f85034bc8b092a76cc7becbc2dad4f9adad332ab5831bec39ad540
+  languageName: node
+  linkType: hard
+
+"cy2@npm:*, cy2@npm:2.0.1":
+  version: 2.0.1
+  resolution: "cy2@npm:2.0.1"
+  dependencies:
+    debug: ^4.3.2
+    js-yaml: ^4.0.0
+    npm-which: ^3.0.1
+  bin:
+    cy2: bin/cy2
+  checksum: e4b6bfe1dae4e418c030333bf2b4cf9d83c4558795807ee85a1d9435feed32a0596d7ce947d6e7d77b0e6282cb62e83e329478f76d8c4dd7509822d1becfd5d2
   languageName: node
   linkType: hard
 
@@ -24210,12 +24249,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"npm-path@npm:^2.0.2":
+  version: 2.0.4
+  resolution: "npm-path@npm:2.0.4"
+  dependencies:
+    which: ^1.2.10
+  bin:
+    npm-path: bin/npm-path
+  checksum: 3dfe24d9bb69380f1544a5770550d7ad6a32c033a6f97dd707ac15d12aeefa794b7c802674a6935b98fe2f8ecb01964b2c7c41daeaa1ee1db525c46a82692003
+  languageName: node
+  linkType: hard
+
 "npm-run-path@npm:^4.0.0, npm-run-path@npm:^4.0.1":
   version: 4.0.1
   resolution: "npm-run-path@npm:4.0.1"
   dependencies:
     path-key: ^3.0.0
   checksum: 5374c0cea4b0bbfdfae62da7bbdf1e1558d338335f4cacf2515c282ff358ff27b2ecb91ffa5330a8b14390ac66a1e146e10700440c1ab868208430f56b5f4d23
+  languageName: node
+  linkType: hard
+
+"npm-which@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "npm-which@npm:3.0.1"
+  dependencies:
+    commander: ^2.9.0
+    npm-path: ^2.0.2
+    which: ^1.2.10
+  bin:
+    npm-which: bin/npm-which.js
+  checksum: fba486416171b0eed12db418fb71878de97aa3623da2f907ca9201dbb193f990690a75d15a80388aa769cfb0fa3e48e363237a2806e19223a423c34d4a3cc05a
   languageName: node
   linkType: hard
 
@@ -32637,7 +32700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"which@npm:^1.2.14":
+"which@npm:^1.2.10, which@npm:^1.2.14":
   version: 1.3.1
   resolution: "which@npm:1.3.1"
   dependencies:
