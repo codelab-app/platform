@@ -393,8 +393,6 @@ export type ActionsPipeLineSort = {
 
 export type ActionsPipeLineUpdateInput = {
   orders?: InputMaybe<Array<Scalars['String']>>;
-  orders_POP?: InputMaybe<Scalars['Int']>;
-  orders_PUSH?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type ActionsPipeLineWhere = {
@@ -4611,11 +4609,7 @@ export type CreateInfoSort = {
 export type CreateInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>;
   nodesCreated?: InputMaybe<Scalars['Int']>;
-  nodesCreated_DECREMENT?: InputMaybe<Scalars['Int']>;
-  nodesCreated_INCREMENT?: InputMaybe<Scalars['Int']>;
   relationshipsCreated?: InputMaybe<Scalars['Int']>;
-  relationshipsCreated_DECREMENT?: InputMaybe<Scalars['Int']>;
-  relationshipsCreated_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type CreateInfoWhere = {
@@ -5049,11 +5043,7 @@ export type DeleteInfoSort = {
 export type DeleteInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>;
   nodesDeleted?: InputMaybe<Scalars['Int']>;
-  nodesDeleted_DECREMENT?: InputMaybe<Scalars['Int']>;
-  nodesDeleted_INCREMENT?: InputMaybe<Scalars['Int']>;
   relationshipsDeleted?: InputMaybe<Scalars['Int']>;
-  relationshipsDeleted_DECREMENT?: InputMaybe<Scalars['Int']>;
-  relationshipsDeleted_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type DeleteInfoWhere = {
@@ -13103,8 +13093,6 @@ export type ParentOfElementSort = {
 
 export type ParentOfElementUpdateInput = {
   order?: InputMaybe<Scalars['Int']>;
-  order_DECREMENT?: InputMaybe<Scalars['Int']>;
-  order_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type ParentOfElementWhere = {
@@ -18839,11 +18827,7 @@ export type TagGraphOptionsSort = {
 
 export type TagGraphOptionsUpdateInput = {
   limit?: InputMaybe<Scalars['Int']>;
-  limit_DECREMENT?: InputMaybe<Scalars['Int']>;
-  limit_INCREMENT?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Scalars['Int']>;
-  sort_DECREMENT?: InputMaybe<Scalars['Int']>;
-  sort_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type TagGraphOptionsWhere = {
