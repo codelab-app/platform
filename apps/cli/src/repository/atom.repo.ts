@@ -1,8 +1,9 @@
 import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { BaseUniqueWhere, IAtomExport } from '@codelab/shared/abstract/core'
+import { IAtomExport } from '@codelab/shared/abstract/core'
 import { connectId } from '@codelab/shared/data'
 import { v4 } from 'uuid'
+import { BaseUniqueWhere } from './type.repo'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import

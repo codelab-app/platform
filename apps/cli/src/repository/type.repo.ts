@@ -6,11 +6,7 @@ import {
   RenderPropsTypeOGM,
 } from '@codelab/backend/adapter/neo4j'
 import { fieldRepository } from '@codelab/backend/application'
-import {
-  BaseUniqueWhere,
-  ITypeExport,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { omit } from 'lodash'
 
@@ -27,6 +23,14 @@ const createUpdateBaseFields = (data: ITypeExport, selectedUser: string) => ({
   kind: data.kind,
   owner: connectId(selectedUser),
 })
+
+export type BaseUniqueWhere =
+  | {
+      id: string
+    }
+  | {
+      name: string
+    }
 
 /**
  * For import/export we require ID
@@ -217,9 +221,7 @@ export const upsertType = async (
 
         console.log('Upserting field...', args)
 
-        await fieldRepository.upsertField(args, {
-          id: edge.id,
-        })
+        await fieldRepository.upsertField(args)
       }
     }
   }

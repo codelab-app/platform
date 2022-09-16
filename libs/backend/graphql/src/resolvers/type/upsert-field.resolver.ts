@@ -7,5 +7,5 @@ export const upsertField: IFieldResolver<
   any,
   MutationUpsertFieldArgs
 > = async (parent, args) => {
-  return fieldRepository.upsertField(args, { id: args.field.id })
+  return fieldRepository.upsertField(args)
 }

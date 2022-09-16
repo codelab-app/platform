@@ -1,56 +1,67 @@
 import {
+  connectField,
+  getDriver,
   InterfaceTypeOGM,
   interfaceTypeSelectionSet,
-  upsertField,
-  withWriteTransaction,
 } from '@codelab/backend/adapter/neo4j'
 import {
   MutationUpsertFieldArgs,
   OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
-import { FieldUniqueWhere } from '@codelab/shared/abstract/core'
 import { merge } from 'lodash'
 
 export const fieldRepository = {
-  /**
-   * @param {Object} args
-   * @param {string} args.interfaceTypeId The parent interface
-   * @param {string} args.fieldTypeId The type of the field
-   * @param {Field} args.field The field model
-   *
-   * @param whereField
-   */
   upsertField: async (
     args: MutationUpsertFieldArgs,
-    whereField: FieldUniqueWhere,
   ): Promise<OGM_TYPES.InterfaceType> => {
-    await withWriteTransaction((txn) =>
-      txn.run(upsertField, {
-        interfaceTypeId: args.interfaceTypeId,
-        fieldTypeId: args.fieldTypeId,
-        field: args.field,
-        where: whereField,
-      }),
-    )
-
+    const session = getDriver().session()
     const InterfaceType = await InterfaceTypeOGM()
 
-    const [interfaceType] = await InterfaceType.find({
-      selectionSet: interfaceTypeSelectionSet,
-      where: {
-        id: args.interfaceTypeId,
-      },
-    })
+    try {
+      /**
+       * To implement upsert, we disconnect field first, then re-connect them each time.
+       *
+       * Save us from having to create additional cypher queries
+       *
+       * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
+       */
+      await InterfaceType.update({
+        where: {
+          id: args.interfaceTypeId,
+        },
+        disconnect: {
+          fields: [
+            {
+              where: {
+                edge: {
+                  id: args.field.id,
+                },
+              },
+            },
+          ],
+        },
+      })
 
-    return merge(interfaceType, {
-      fieldsConnection: {
-        // Resolve for GraphQL
-        edges: interfaceType.fieldsConnection.edges.map((edge) => ({
-          node: {
-            __resolveType: edge.node.kind,
-          },
-        })),
-      },
-    })
+      await session.writeTransaction((tx) => tx.run(connectField, args))
+
+      const [interfaceType] = await InterfaceType.find({
+        selectionSet: interfaceTypeSelectionSet,
+        where: {
+          id: args.interfaceTypeId,
+        },
+      })
+
+      return merge(interfaceType, {
+        fieldsConnection: {
+          edges: interfaceType.fieldsConnection.edges.map((edge) => ({
+            node: {
+              __resolveType: edge.node.kind,
+            },
+          })),
+        },
+      })
+    } finally {
+      await session.close()
+    }
   },
 }
