@@ -2,7 +2,7 @@ import inquirer from 'inquirer'
 import { CommandModule } from 'yargs'
 import { antdAtomsFactory } from '../../data/atom'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
-import { parseCsvData } from './parse-csv-data'
+import { parseCsvData, parseTagData } from './parse-csv-data'
 
 export const parseCommand: CommandModule<any, any> = {
   command: 'parse',
@@ -12,6 +12,7 @@ export const parseCommand: CommandModule<any, any> = {
     const { selectedUser } = await inquirer.prompt([await selectUserPrompt()])
 
     await parseCsvData(selectedUser, antdAtomsFactory)
+    await parseTagData(selectedUser)
 
     return process.exit(0)
   },
