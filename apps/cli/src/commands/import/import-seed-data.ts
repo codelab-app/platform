@@ -1,7 +1,7 @@
 import fs from 'fs'
-import { importAtomsById } from '../../use-cases/import/import-atoms'
+import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
-import { importTypesById } from '../../use-cases/import/import-types'
+import { importTypes } from '../../use-cases/import/import-types'
 import { ExportedData } from '../export/export.types'
 
 export const importSeedData = async (
@@ -15,7 +15,7 @@ export const importSeedData = async (
 
   // Type must be seeded first, so atom can reference it
   // ID's must be in sync
-  await importTypesById(types, selectedUser)
+  await importTypes(types, selectedUser, (type) => ({ id: type.id }))
 
-  await importAtomsById(atoms, selectedUser)
+  await importAtoms(atoms, selectedUser, (atom) => ({ id: atom.id }))
 }

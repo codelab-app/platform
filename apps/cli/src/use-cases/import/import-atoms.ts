@@ -1,14 +1,16 @@
 import { IAtomExport } from '@codelab/shared/abstract/core'
-import { upsertAtomById } from '../../repository/atom.repo'
+import { upsertAtom } from '../../repository/atom.repo'
+import { BaseUniqueWhere } from '../../repository/type.repo'
 
-export const importAtomsById = async (
+export const importAtoms = async (
   atoms: Array<IAtomExport> = [],
   userId: string,
+  extractWhere: (atom: IAtomExport) => BaseUniqueWhere,
 ) => {
   console.log('Importing atoms...')
 
   for (const atom of atoms) {
     console.log(`Upserting atom: ${atom.name}`)
-    await upsertAtomById(atom, userId)
+    await upsertAtom(atom, userId, extractWhere(atom))
   }
 }

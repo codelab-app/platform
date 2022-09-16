@@ -16,9 +16,23 @@ const createBaseFields = (data: ITypeExport, selectedUser: string) => ({
   owner: connectId(selectedUser),
 })
 
-export const upsertTypeById = async (
+export type BaseUniqueWhere =
+  | {
+      id: string
+    }
+  | {
+      name: string
+    }
+
+/**
+ * For import/export we require ID
+ *
+ * For parseing we require name, since this generates new data and could replace old data
+ */
+export const upsertType = async (
   data: ITypeExport,
   selectedUser: string,
+  where: BaseUniqueWhere,
 ) => {
   switch (data.__typename) {
     case ITypeKind.PrimitiveType: {
@@ -29,9 +43,7 @@ export const upsertTypeById = async (
       }
 
       const exists = await PrimitiveType.find({
-        where: {
-          id: data.id,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -50,9 +62,7 @@ export const upsertTypeById = async (
       console.log(`Updating ${data.name} [${data.kind}]...`)
 
       return await PrimitiveType.update({
-        where: {
-          id: data.id,
-        },
+        where,
         update: {
           ...createBaseFields(data, selectedUser),
         },
@@ -63,9 +73,7 @@ export const upsertTypeById = async (
       const RenderPropsType = await RenderPropsTypeOGM()
 
       const exists = await RenderPropsType.find({
-        where: {
-          id: data.id,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -87,9 +95,7 @@ export const upsertTypeById = async (
       const ReactNodeType = await ReactNodeTypeOGM()
 
       const exists = await ReactNodeType.find({
-        where: {
-          id: data.id,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -111,9 +117,7 @@ export const upsertTypeById = async (
       const EnumType = await EnumTypeOGM()
 
       const exists = await EnumType.find({
-        where: {
-          id: data.id,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -140,9 +144,7 @@ export const upsertTypeById = async (
       console.log(`Updating ${data.name} [${data.kind}]...`)
 
       return EnumType.update({
-        where: {
-          id: data.id,
-        },
+        where,
         update: {
           ...createBaseFields(data, selectedUser),
           allowedValues: data.allowedValues?.map((value) => ({
@@ -162,9 +164,7 @@ export const upsertTypeById = async (
       const InterfaceType = await InterfaceTypeOGM()
 
       const exists = await InterfaceType.find({
-        where: {
-          id: data.id,
-        },
+        where,
       })
 
       /**
@@ -188,9 +188,7 @@ export const upsertTypeById = async (
       console.log(`Disconnect all fields for ${data.name}`)
 
       await InterfaceType.update({
-        where: {
-          id: data.id,
-        },
+        where,
         update: {
           fields: [
             {
