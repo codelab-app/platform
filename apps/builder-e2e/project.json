@@ -4,7 +4,7 @@
   "projectType": "application",
   "targets": {
     "currents": {
-      "executor": "@codelabai/nx:currents",
+      "executor": "@codelab-app/nx:currents",
       "options": {
         "cypressExecutor": "e2e"
       },

@@ -4001,15 +4001,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codelabai/nx@npm:^0.0.7":
-  version: 0.0.7
-  resolution: "@codelabai/nx@npm:0.0.7"
+"@codelab-app/nx@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@codelab-app/nx@npm:0.0.6"
   dependencies:
     "@nrwl/devkit": "*"
     "@nrwl/linter": "*"
     "@nrwl/workspace": "*"
     cy2: "*"
-  checksum: 1a412bfe033583e3f18d3a0cd2bf13a9915ac9f866cd7f0c63c9ae11561b66662652bfc3d885553aba162a1ffc691dee84e1bd2ba0c5519e03446b0b809472ee
+  checksum: bd1102de80a98543be9e94bf2762e30767c0e4215f8ae48bf554b17136fb49dc624987b8efb0d267fda31ab9b21568f9d36a721bcea10f57e90c34dc2d02f3bf
   languageName: node
   linkType: hard
 
@@ -13648,7 +13648,7 @@ __metadata:
     "@babel/core": 7.18.2
     "@babel/runtime": 7.18.3
     "@babel/types": 7.18.2
-    "@codelabai/nx": ^0.0.7
+    "@codelab-app/nx": ^0.0.6
     "@codemirror/autocomplete": 6.1.0
     "@codemirror/lang-css": 6.0.0
     "@codemirror/lang-html": 6.1.0
