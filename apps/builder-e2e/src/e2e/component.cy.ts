@@ -1,7 +1,4 @@
-import {
-  AppCreateInput,
-  AppPagesFieldInput,
-} from '@codelab/shared/abstract/codegen'
+import { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
@@ -12,7 +9,6 @@ import { createPageInput } from '../support/database/page'
 const NEW_COMP_NAME = 'new component'
 const CHILD_BUTTON = 'Button'
 const CHILD_TEXT = 'Text'
-const waitTimeout = 500
 const UPDATED_COMP_NAME = 'updated component'
 
 interface ComponentChildData {
@@ -120,18 +116,18 @@ describe('Component CRUD', () => {
 
   describe('Add elements to component', () => {
     it('should be able to add elements to the component', () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.get(`[title="${NEW_COMP_NAME}"]`)
         .closest('div')
         .find('.ant-tree-switcher_close')
         .click()
 
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(waitTimeout)
       cy.wrap(componentChildren)
         .each((child: ComponentChildData) => {
           const { name, atom } = child
-          cy.get(`[title="${NEW_COMP_NAME}"]`).eq(2).rightclick()
+          cy.get(`[title="${NEW_COMP_NAME}"]`)
+            .eq(2)
+            .find('.ant-dropdown-trigger')
+            .rightclick({ force: true })
           cy.contains(/Add child/).click({ force: true })
 
           cy.getModal().setFormFieldValue({
@@ -157,6 +153,7 @@ describe('Component CRUD', () => {
         })
     })
   })
+
   describe('Get component', () => {
     it('should render component items correctly', () => {
       cy.reload()
@@ -192,8 +189,6 @@ describe('Component CRUD', () => {
 
   describe('Remove component', () => {
     it('should be able to remove the component', () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(waitTimeout)
       cy.get(`[title="${UPDATED_COMP_NAME}"]`).rightclick()
       cy.contains(/Delete/).click({ force: true })
       cy.getModal()

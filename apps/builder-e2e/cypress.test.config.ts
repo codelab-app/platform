@@ -20,7 +20,8 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
     runMode: 1,
     openMode: 0,
   },
-  viewportHeight: 1000,
+  viewportWidth: 1280,
+  viewportHeight: 960,
   // specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
   // supportFile: 'src/support/e2e.ts',
 }
