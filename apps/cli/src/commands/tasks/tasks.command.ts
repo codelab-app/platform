@@ -57,7 +57,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           if (env === Env.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            // execCommand(`npx nx build builder -c test`)
+            execCommand(`npx nx build builder -c test`)
             execCommand(`npx nx affected:build -c test`)
           }
 
