@@ -7,7 +7,7 @@
       "api": {
         "id": "4dd785ad-1dce-4e07-bdb0-2e499000f578"
       },
-      "icon": "/atoms/antd/Affix.svg",
+      "icon": "/assets/atoms/antd/Affix.svg",
       "tags": []
     },
     {
@@ -17,7 +17,7 @@
       "api": {
         "id": "c5e8c6cc-40bd-4978-a57c-ae893c0fde98"
       },
-      "icon": "/atoms/antd/Alert.svg",
+      "icon": "/assets/atoms/antd/Alert.svg",
       "tags": []
     },
     {
@@ -27,7 +27,7 @@
       "api": {
         "id": "5537d645-1123-44e3-b7a6-0e2faa03ca04"
       },
-      "icon": "/atoms/antd/Anchor.svg",
+      "icon": "/assets/atoms/antd/Anchor.svg",
       "tags": []
     },
     {
@@ -37,7 +37,7 @@
       "api": {
         "id": "8caa0946-3aad-4801-9a1b-31a9c0f0a977"
       },
-      "icon": "/atoms/antd/Anchor.svg",
+      "icon": "/assets/atoms/antd/Anchor.svg",
       "tags": []
     },
     {
@@ -47,7 +47,7 @@
       "api": {
         "id": "52c8b63b-13d2-4849-a205-6a178353da43"
       },
-      "icon": "/atoms/antd/AutoComplete.svg",
+      "icon": "/assets/atoms/antd/AutoComplete.svg",
       "tags": []
     },
     {
@@ -57,7 +57,7 @@
       "api": {
         "id": "51040a3d-e975-4d0c-8bc5-7a0cb963bb2a"
       },
-      "icon": "/atoms/antd/Avatar.svg",
+      "icon": "/assets/atoms/antd/Avatar.svg",
       "tags": []
     },
     {
@@ -67,7 +67,7 @@
       "api": {
         "id": "f9558178-31c3-4f4d-80da-726b91e53a09"
       },
-      "icon": "/atoms/antd/BackTop.svg",
+      "icon": "/assets/atoms/antd/BackTop.svg",
       "tags": []
     },
     {
@@ -77,7 +77,7 @@
       "api": {
         "id": "3b798325-131a-432e-bac0-cfa96823b682"
       },
-      "icon": "/atoms/antd/Badge.svg",
+      "icon": "/assets/atoms/antd/Badge.svg",
       "tags": []
     },
     {
@@ -87,7 +87,7 @@
       "api": {
         "id": "62fddf66-bad6-424e-ae9f-b37fbb281bdf"
       },
-      "icon": "/atoms/antd/Breadcrumb.svg",
+      "icon": "/assets/atoms/antd/Breadcrumb.svg",
       "tags": []
     },
     {
@@ -97,7 +97,7 @@
       "api": {
         "id": "8adc96cc-be70-4b0b-a791-3cac5082ba7f"
       },
-      "icon": "/atoms/antd/Breadcrumb.svg",
+      "icon": "/assets/atoms/antd/Breadcrumb.svg",
       "tags": []
     },
     {
@@ -107,7 +107,7 @@
       "api": {
         "id": "08d87d9a-d1c7-42aa-818e-288b5880b6f4"
       },
-      "icon": "/atoms/antd/Button.svg",
+      "icon": "/assets/atoms/antd/Button.svg",
       "tags": []
     },
     {
@@ -117,7 +117,7 @@
       "api": {
         "id": "e17ff494-8af5-408e-9bac-96d2add14039"
       },
-      "icon": "/atoms/antd/Calendar.svg",
+      "icon": "/assets/atoms/antd/Calendar.svg",
       "tags": []
     },
     {
@@ -127,7 +127,7 @@
       "api": {
         "id": "a9b6d48b-8062-4342-89a9-73ddb473b12f"
       },
-      "icon": "/atoms/antd/Card.svg",
+      "icon": "/assets/atoms/antd/Card.svg",
       "tags": []
     },
     {
@@ -137,7 +137,7 @@
       "api": {
         "id": "ae2428d5-e6a9-4de2-a72c-645dcd118ade"
       },
-      "icon": "/atoms/antd/Card.svg",
+      "icon": "/assets/atoms/antd/Card.svg",
       "tags": []
     },
     {
@@ -147,7 +147,7 @@
       "api": {
         "id": "44585806-e593-40a5-a9a2-b08b55464fed"
       },
-      "icon": "/atoms/antd/Card.svg",
+      "icon": "/assets/atoms/antd/Card.svg",
       "tags": []
     },
     {
@@ -157,7 +157,7 @@
       "api": {
         "id": "8ae6deec-05b3-466d-9421-1621c0ad90f9"
       },
-      "icon": "/atoms/antd/Carousel.svg",
+      "icon": "/assets/atoms/antd/Carousel.svg",
       "tags": []
     },
     {
@@ -177,7 +177,7 @@
       "api": {
         "id": "1f9a3729-2cb4-4f27-8f2b-e83d20b58951"
       },
-      "icon": "/atoms/antd/Checkbox.svg",
+      "icon": "/assets/atoms/antd/Checkbox.svg",
       "tags": []
     },
     {
@@ -187,7 +187,7 @@
       "api": {
         "id": "fa8d4df5-4c82-458a-8d91-f33e94f8c5ce"
       },
-      "icon": "/atoms/antd/Collapse.svg",
+      "icon": "/assets/atoms/antd/Collapse.svg",
       "tags": []
     },
     {
@@ -197,7 +197,7 @@
       "api": {
         "id": "267803a1-3f58-4313-ac3b-9424b35711e6"
       },
-      "icon": "/atoms/antd/Collapse.svg",
+      "icon": "/assets/atoms/antd/Collapse.svg",
       "tags": []
     },
     {
@@ -207,7 +207,7 @@
       "api": {
         "id": "ff7098b3-113d-4401-97ac-3661535a8141"
       },
-      "icon": "/atoms/antd/Comment.svg",
+      "icon": "/assets/atoms/antd/Comment.svg",
       "tags": []
     },
     {
@@ -217,7 +217,7 @@
       "api": {
         "id": "00fb4ea3-1967-4e5e-95ac-40abb6bc8100"
       },
-      "icon": "/atoms/antd/ConfigProvider.svg",
+      "icon": "/assets/atoms/antd/ConfigProvider.svg",
       "tags": []
     },
     {
@@ -237,7 +237,7 @@
       "api": {
         "id": "4cfa9484-8eb3-4246-86fc-05b9c79a9e99"
       },
-      "icon": "/atoms/antd/Descriptions.svg",
+      "icon": "/assets/atoms/antd/Descriptions.svg",
       "tags": []
     },
     {
@@ -247,7 +247,7 @@
       "api": {
         "id": "a54860cb-a971-44d8-a881-9a211591ba80"
       },
-      "icon": "/atoms/antd/Descriptions.svg",
+      "icon": "/assets/atoms/antd/Descriptions.svg",
       "tags": []
     },
     {
@@ -257,7 +257,7 @@
       "api": {
         "id": "444fc638-4741-4039-a746-0d101da906fe"
       },
-      "icon": "/atoms/antd/Divider.svg",
+      "icon": "/assets/atoms/antd/Divider.svg",
       "tags": []
     },
     {
@@ -267,7 +267,7 @@
       "api": {
         "id": "16d72912-0a00-42eb-8818-329a24b90b33"
       },
-      "icon": "/atoms/antd/Drawer.svg",
+      "icon": "/assets/atoms/antd/Drawer.svg",
       "tags": []
     },
     {
@@ -277,7 +277,7 @@
       "api": {
         "id": "2a2ce2fe-9dbf-477c-ab8a-f6657ca87af5"
       },
-      "icon": "/atoms/antd/Dropdown.svg",
+      "icon": "/assets/atoms/antd/Dropdown.svg",
       "tags": []
     },
     {
@@ -287,7 +287,7 @@
       "api": {
         "id": "05d85095-5f07-4a1d-a09d-0017a3ff4d17"
       },
-      "icon": "/atoms/antd/Empty.svg",
+      "icon": "/assets/atoms/antd/Empty.svg",
       "tags": []
     },
     {
@@ -297,7 +297,7 @@
       "api": {
         "id": "53564d93-13f3-4ba8-af6c-f9ea5f5adb9a"
       },
-      "icon": "/atoms/antd/Form.svg",
+      "icon": "/assets/atoms/antd/Form.svg",
       "tags": []
     },
     {
@@ -307,7 +307,7 @@
       "api": {
         "id": "0110d4f4-67c5-4cc0-8222-18b58272338c"
       },
-      "icon": "/atoms/antd/Form.svg",
+      "icon": "/assets/atoms/antd/Form.svg",
       "tags": []
     },
     {
@@ -317,7 +317,7 @@
       "api": {
         "id": "7d679432-ec32-4b2d-b020-e29cc3be56e1"
       },
-      "icon": "/atoms/antd/Form.svg",
+      "icon": "/assets/atoms/antd/Form.svg",
       "tags": []
     },
     {
@@ -327,7 +327,7 @@
       "api": {
         "id": "00ad0fa6-1541-4f7f-8a11-44dd230c183b"
       },
-      "icon": "/atoms/antd/Form.svg",
+      "icon": "/assets/atoms/antd/Form.svg",
       "tags": []
     },
     {
@@ -337,7 +337,7 @@
       "api": {
         "id": "cebe4cbe-5a00-412a-a979-f48503e1fede"
       },
-      "icon": "/atoms/antd/Grid.svg",
+      "icon": "/assets/atoms/antd/Grid.svg",
       "tags": []
     },
     {
@@ -347,7 +347,7 @@
       "api": {
         "id": "64254c73-0f68-471b-b53e-40e908593ab5"
       },
-      "icon": "/atoms/antd/Grid.svg",
+      "icon": "/assets/atoms/antd/Grid.svg",
       "tags": []
     },
     {
@@ -357,7 +357,7 @@
       "api": {
         "id": "a94d751d-2103-4eb5-a820-3813ded34a94"
       },
-      "icon": "/atoms/antd/Icon.svg",
+      "icon": "/assets/atoms/antd/Icon.svg",
       "tags": []
     },
     {
@@ -367,7 +367,7 @@
       "api": {
         "id": "cc5e3268-e54a-474e-8bec-62cc81cbf6d8"
       },
-      "icon": "/atoms/antd/Image.svg",
+      "icon": "/assets/atoms/antd/Image.svg",
       "tags": []
     },
     {
@@ -377,7 +377,7 @@
       "api": {
         "id": "2b61dca0-52a8-46ad-9a49-0dfc7369bf99"
       },
-      "icon": "/atoms/antd/Input.svg",
+      "icon": "/assets/atoms/antd/Input.svg",
       "tags": []
     },
     {
@@ -387,7 +387,7 @@
       "api": {
         "id": "a50a597d-7fc3-4f7b-8ffb-4606f5a3d541"
       },
-      "icon": "/atoms/antd/InputNumber.svg",
+      "icon": "/assets/atoms/antd/InputNumber.svg",
       "tags": []
     },
     {
@@ -397,7 +397,7 @@
       "api": {
         "id": "d912d9c8-6569-4571-8749-dfc98d06b7c8"
       },
-      "icon": "/atoms/antd/Layout.svg",
+      "icon": "/assets/atoms/antd/Layout.svg",
       "tags": []
     },
     {
@@ -407,7 +407,7 @@
       "api": {
         "id": "060b72cf-36bc-457d-88b8-85c6b340a539"
       },
-      "icon": "/atoms/antd/Layout.svg",
+      "icon": "/assets/atoms/antd/Layout.svg",
       "tags": []
     },
     {
@@ -417,7 +417,7 @@
       "api": {
         "id": "2fabcae2-55b7-487a-9559-d8806b4574dc"
       },
-      "icon": "/atoms/antd/Layout.svg",
+      "icon": "/assets/atoms/antd/Layout.svg",
       "tags": []
     },
     {
@@ -427,7 +427,7 @@
       "api": {
         "id": "c29a19b1-9f01-43d0-bf51-6391d92ea304"
       },
-      "icon": "/atoms/antd/Layout.svg",
+      "icon": "/assets/atoms/antd/Layout.svg",
       "tags": []
     },
     {
@@ -437,7 +437,7 @@
       "api": {
         "id": "b5f610fe-44c7-459e-8175-be65bf736707"
       },
-      "icon": "/atoms/antd/Layout.svg",
+      "icon": "/assets/atoms/antd/Layout.svg",
       "tags": []
     },
     {
@@ -447,7 +447,7 @@
       "api": {
         "id": "4c841f2c-e308-4187-ac22-f9e44927e129"
       },
-      "icon": "/atoms/antd/List.svg",
+      "icon": "/assets/atoms/antd/List.svg",
       "tags": []
     },
     {
@@ -457,7 +457,7 @@
       "api": {
         "id": "57301dc1-9301-4f48-998e-492d8bd4e9c3"
       },
-      "icon": "/atoms/antd/List.svg",
+      "icon": "/assets/atoms/antd/List.svg",
       "tags": []
     },
     {
@@ -467,7 +467,7 @@
       "api": {
         "id": "5946ed5e-bfb8-4543-9980-570dc3573c6a"
       },
-      "icon": "/atoms/antd/List.svg",
+      "icon": "/assets/atoms/antd/List.svg",
       "tags": []
     },
     {
@@ -487,7 +487,7 @@
       "api": {
         "id": "27e8bcf8-a421-474f-8c08-fdd858bf566b"
       },
-      "icon": "/atoms/antd/Mentions.svg",
+      "icon": "/assets/atoms/antd/Mentions.svg",
       "tags": []
     },
     {
@@ -497,7 +497,7 @@
       "api": {
         "id": "c8b35425-9ec7-4b20-ade5-5011f458fa01"
       },
-      "icon": "/atoms/antd/Mentions.svg",
+      "icon": "/assets/atoms/antd/Mentions.svg",
       "tags": []
     },
     {
@@ -507,7 +507,7 @@
       "api": {
         "id": "3d33900e-bd2f-493a-8319-608b5fdef68b"
       },
-      "icon": "/atoms/antd/Menu.svg",
+      "icon": "/assets/atoms/antd/Menu.svg",
       "tags": []
     },
     {
@@ -517,7 +517,7 @@
       "api": {
         "id": "2b572e44-7320-43a8-a6e0-ad7a3f8a6e38"
       },
-      "icon": "/atoms/antd/Menu.svg",
+      "icon": "/assets/atoms/antd/Menu.svg",
       "tags": []
     },
     {
@@ -527,7 +527,7 @@
       "api": {
         "id": "4e2acf04-66be-4f8f-8cb2-c295b7b076eb"
       },
-      "icon": "/atoms/antd/Menu.svg",
+      "icon": "/assets/atoms/antd/Menu.svg",
       "tags": []
     },
     {
@@ -537,7 +537,7 @@
       "api": {
         "id": "e3a999f4-0d9e-45b0-8f67-31f536c38f0d"
       },
-      "icon": "/atoms/antd/Menu.svg",
+      "icon": "/assets/atoms/antd/Menu.svg",
       "tags": []
     },
     {
@@ -547,7 +547,7 @@
       "api": {
         "id": "be734f97-bd6b-4cd1-83d7-72261ccf6ea2"
       },
-      "icon": "/atoms/antd/Modal.svg",
+      "icon": "/assets/atoms/antd/Modal.svg",
       "tags": []
     },
     {
@@ -567,7 +567,7 @@
       "api": {
         "id": "d0f648e0-8047-4dd8-91f8-234152d6dc58"
       },
-      "icon": "/atoms/antd/PageHeader.svg",
+      "icon": "/assets/atoms/antd/PageHeader.svg",
       "tags": []
     },
     {
@@ -577,7 +577,7 @@
       "api": {
         "id": "db4cac6a-871a-4556-a5b6-6bd4630cbf2a"
       },
-      "icon": "/atoms/antd/Pagination.svg",
+      "icon": "/assets/atoms/antd/Pagination.svg",
       "tags": []
     },
     {
@@ -587,7 +587,7 @@
       "api": {
         "id": "4eeedb12-1f9f-41d6-a133-ffd027907cd0"
       },
-      "icon": "/atoms/antd/Popconfirm.svg",
+      "icon": "/assets/atoms/antd/Popconfirm.svg",
       "tags": []
     },
     {
@@ -597,7 +597,7 @@
       "api": {
         "id": "5fbda1aa-86d6-45ef-b817-3ff3cec68546"
       },
-      "icon": "/atoms/antd/Popover.svg",
+      "icon": "/assets/atoms/antd/Popover.svg",
       "tags": []
     },
     {
@@ -607,7 +607,7 @@
       "api": {
         "id": "ca4d61c6-d2d8-4cbe-a09b-5abe694440d7"
       },
-      "icon": "/atoms/antd/Progress.svg",
+      "icon": "/assets/atoms/antd/Progress.svg",
       "tags": []
     },
     {
@@ -627,7 +627,7 @@
       "api": {
         "id": "7b5bf059-d527-4439-86c0-7ceb054a73b5"
       },
-      "icon": "/atoms/antd/Radio.svg",
+      "icon": "/assets/atoms/antd/Radio.svg",
       "tags": []
     },
     {
@@ -637,7 +637,7 @@
       "api": {
         "id": "e41b20a2-2fb6-4700-8bd3-83442195fe5a"
       },
-      "icon": "/atoms/antd/Radio.svg",
+      "icon": "/assets/atoms/antd/Radio.svg",
       "tags": []
     },
     {
@@ -647,7 +647,7 @@
       "api": {
         "id": "0f31e3d6-d315-49ed-a914-3e09e3df88b0"
       },
-      "icon": "/atoms/antd/Rate.svg",
+      "icon": "/assets/atoms/antd/Rate.svg",
       "tags": []
     },
     {
@@ -677,7 +677,7 @@
       "api": {
         "id": "d3766bda-928f-41bb-a5e1-fc224fd537aa"
       },
-      "icon": "/atoms/antd/Result.svg",
+      "icon": "/assets/atoms/antd/Result.svg",
       "tags": []
     },
     {
@@ -717,7 +717,7 @@
       "api": {
         "id": "6a38ddcb-e7e0-4e2a-9bb0-4b5dc905e43f"
       },
-      "icon": "/atoms/antd/Select.svg",
+      "icon": "/assets/atoms/antd/Select.svg",
       "tags": []
     },
     {
@@ -727,7 +727,7 @@
       "api": {
         "id": "0cdaaaf9-67b8-4edf-8f9f-5e4391b2a306"
       },
-      "icon": "/atoms/antd/Select.svg",
+      "icon": "/assets/atoms/antd/Select.svg",
       "tags": []
     },
     {
@@ -737,7 +737,7 @@
       "api": {
         "id": "c7c21bbf-6124-45e1-a181-414ac20e4e11"
       },
-      "icon": "/atoms/antd/Skeleton.svg",
+      "icon": "/assets/atoms/antd/Skeleton.svg",
       "tags": []
     },
     {
@@ -757,7 +757,7 @@
       "api": {
         "id": "3ebb3816-2422-410d-b6b3-3a6d932863a3"
       },
-      "icon": "/atoms/antd/Space.svg",
+      "icon": "/assets/atoms/antd/Space.svg",
       "tags": []
     },
     {
@@ -767,7 +767,7 @@
       "api": {
         "id": "b16bb25a-8d1b-4e37-a2b6-85d1ff482d2d"
       },
-      "icon": "/atoms/antd/Spin.svg",
+      "icon": "/assets/atoms/antd/Spin.svg",
       "tags": []
     },
     {
@@ -777,7 +777,7 @@
       "api": {
         "id": "e5ee01c5-004d-4909-9e28-ed4845551a5d"
       },
-      "icon": "/atoms/antd/Statistic.svg",
+      "icon": "/assets/atoms/antd/Statistic.svg",
       "tags": []
     },
     {
@@ -787,7 +787,7 @@
       "api": {
         "id": "62b331b7-7b00-4c0f-91a6-4fcb05291b35"
       },
-      "icon": "/atoms/antd/Steps.svg",
+      "icon": "/assets/atoms/antd/Steps.svg",
       "tags": []
     },
     {
@@ -797,7 +797,7 @@
       "api": {
         "id": "d3c92bf3-6641-4f0a-b249-9c9951136d2d"
       },
-      "icon": "/atoms/antd/Steps.svg",
+      "icon": "/assets/atoms/antd/Steps.svg",
       "tags": []
     },
     {
@@ -807,7 +807,7 @@
       "api": {
         "id": "3b8ac7e3-0173-4d85-82d4-2340c011a327"
       },
-      "icon": "/atoms/antd/Switch.svg",
+      "icon": "/assets/atoms/antd/Switch.svg",
       "tags": []
     },
     {
@@ -817,7 +817,7 @@
       "api": {
         "id": "9e2db173-7625-45a2-bb99-1f345518fb93"
       },
-      "icon": "/atoms/antd/Table.svg",
+      "icon": "/assets/atoms/antd/Table.svg",
       "tags": []
     },
     {
@@ -827,7 +827,7 @@
       "api": {
         "id": "d5c21a4f-25c4-4204-b257-e2aecf0ca6ab"
       },
-      "icon": "/atoms/antd/Tabs.svg",
+      "icon": "/assets/atoms/antd/Tabs.svg",
       "tags": []
     },
     {
@@ -837,7 +837,7 @@
       "api": {
         "id": "f8bb7da9-57f5-411f-86de-4b9e9af39afd"
       },
-      "icon": "/atoms/antd/Tabs.svg",
+      "icon": "/assets/atoms/antd/Tabs.svg",
       "tags": []
     },
     {
@@ -847,7 +847,7 @@
       "api": {
         "id": "5d604fad-76e1-4843-89e6-b2d67e4f7746"
       },
-      "icon": "/atoms/antd/Tag.svg",
+      "icon": "/assets/atoms/antd/Tag.svg",
       "tags": []
     },
     {
@@ -857,7 +857,7 @@
       "api": {
         "id": "3e4fee3d-13e2-4b39-85dd-9f0166be8567"
       },
-      "icon": "/atoms/antd/TimePicker.svg",
+      "icon": "/assets/atoms/antd/TimePicker.svg",
       "tags": []
     },
     {
@@ -867,7 +867,7 @@
       "api": {
         "id": "dd06d754-38cf-4710-b133-4e81f559155b"
       },
-      "icon": "/atoms/antd/Timeline.svg",
+      "icon": "/assets/atoms/antd/Timeline.svg",
       "tags": []
     },
     {
@@ -877,7 +877,7 @@
       "api": {
         "id": "f30d6286-9c3b-43b1-a6f4-1cf06d5ea636"
       },
-      "icon": "/atoms/antd/Timeline.svg",
+      "icon": "/assets/atoms/antd/Timeline.svg",
       "tags": []
     },
     {
@@ -887,7 +887,7 @@
       "api": {
         "id": "ae764c3a-b525-4481-8179-ddd5a5b3e0c8"
       },
-      "icon": "/atoms/antd/Tooltip.svg",
+      "icon": "/assets/atoms/antd/Tooltip.svg",
       "tags": []
     },
     {
@@ -897,7 +897,7 @@
       "api": {
         "id": "aab9247c-896d-404b-aba4-bc54b46dbe8b"
       },
-      "icon": "/atoms/antd/Transfer.svg",
+      "icon": "/assets/atoms/antd/Transfer.svg",
       "tags": []
     },
     {
@@ -907,7 +907,7 @@
       "api": {
         "id": "3430882b-dc0a-4ea4-aa50-d90933feb3a8"
       },
-      "icon": "/atoms/antd/Tree.svg",
+      "icon": "/assets/atoms/antd/Tree.svg",
       "tags": []
     },
     {
@@ -917,7 +917,7 @@
       "api": {
         "id": "69d0e994-f3c1-472f-bfc8-aa0ee8d30aaa"
       },
-      "icon": "/atoms/antd/Tree.svg",
+      "icon": "/assets/atoms/antd/Tree.svg",
       "tags": []
     },
     {
@@ -927,7 +927,7 @@
       "api": {
         "id": "f7fb5f5b-56a6-4863-83b2-a525324f15ee"
       },
-      "icon": "/atoms/antd/TreeSelect.svg",
+      "icon": "/assets/atoms/antd/TreeSelect.svg",
       "tags": []
     },
     {
@@ -937,7 +937,7 @@
       "api": {
         "id": "dcc155ea-6bc5-485c-b692-bb73af5a6862"
       },
-      "icon": "/atoms/antd/Typography.svg",
+      "icon": "/assets/atoms/antd/Typography.svg",
       "tags": []
     },
     {
@@ -947,7 +947,7 @@
       "api": {
         "id": "7c6ae074-f494-4224-8150-fd8027bdf006"
       },
-      "icon": "/atoms/antd/Typography.svg",
+      "icon": "/assets/atoms/antd/Typography.svg",
       "tags": []
     },
     {
@@ -957,7 +957,7 @@
       "api": {
         "id": "25865dea-d145-4357-b10a-a00390c34765"
       },
-      "icon": "/atoms/antd/Typography.svg",
+      "icon": "/assets/atoms/antd/Typography.svg",
       "tags": []
     },
     {
@@ -967,7 +967,7 @@
       "api": {
         "id": "8b2141d2-8672-4024-8e53-1fa169c21c03"
       },
-      "icon": "/atoms/antd/Typography.svg",
+      "icon": "/assets/atoms/antd/Typography.svg",
       "tags": []
     },
     {
@@ -977,7 +977,7 @@
       "api": {
         "id": "d2f3a72a-07f1-498e-8564-1523022c5730"
       },
-      "icon": "/atoms/antd/Upload.svg",
+      "icon": "/assets/atoms/antd/Upload.svg",
       "tags": []
     },
     {

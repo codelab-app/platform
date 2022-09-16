@@ -36,12 +36,6 @@ import Head from 'next/head'
 import React, { useCallback, useMemo } from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
-// import {
-//   antdAtoms,
-//   codelabAtoms,
-//   htmlAtoms,
-//   muiAtoms,
-// } from '../../../../libs/frontend/modules/renderer/src/atoms'
 
 const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
