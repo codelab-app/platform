@@ -16,7 +16,10 @@ const createBaseFields = (data: ITypeExport, selectedUser: string) => ({
   owner: connectId(selectedUser),
 })
 
-export const upsertType = async (data: ITypeExport, selectedUser: string) => {
+export const upsertTypeById = async (
+  data: ITypeExport,
+  selectedUser: string,
+) => {
   switch (data.__typename) {
     case ITypeKind.PrimitiveType: {
       const PrimitiveType = await PrimitiveTypeOGM()
@@ -27,7 +30,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
 
       const exists = await PrimitiveType.find({
         where: {
-          name: data.name,
+          id: data.id,
         },
       })
 
@@ -61,7 +64,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
 
       const exists = await RenderPropsType.find({
         where: {
-          name: data.name,
+          id: data.id,
         },
       })
 
@@ -85,7 +88,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
 
       const exists = await ReactNodeType.find({
         where: {
-          name: data.name,
+          id: data.id,
         },
       })
 

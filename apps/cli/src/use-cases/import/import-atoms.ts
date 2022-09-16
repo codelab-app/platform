@@ -1,7 +1,7 @@
 import { IAtomExport } from '@codelab/shared/abstract/core'
-import { upsertAtom } from '../../repository/atom.repo'
+import { upsertAtomById } from '../../repository/atom.repo'
 
-export const importAtoms = async (
+export const importAtomsById = async (
   atoms: Array<IAtomExport> = [],
   userId: string,
 ) => {
@@ -9,6 +9,6 @@ export const importAtoms = async (
 
   for (const atom of atoms) {
     console.log(`Upserting atom: ${atom.name}`)
-    await upsertAtom(atom, userId)
+    await upsertAtomById(atom, userId)
   }
 }
