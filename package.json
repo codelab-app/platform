@@ -144,7 +144,7 @@
   "devDependencies": {
     "@babel/core": "7.18.2",
     "@babel/types": "7.18.2",
-    "@codelabai/nx": "^0.0.7",
+    "@codelab-app/nx": "^0.0.6",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@currents/cli": "^2.1.1",

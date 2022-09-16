@@ -30,5 +30,4 @@ export const importTags = async (
   })
 
   await Promise.all(syncTagsOperations)
-  console.log('DONE')
 }

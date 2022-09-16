@@ -1,5 +1,4 @@
-import { EnumTypeAllowedValuesUpdateFieldInput } from '@codelab/shared/abstract/codegen'
-import { IUpdateTypeDTO } from '@codelab/shared/abstract/core'
+import { IEnumTypeValue, IUpdateTypeDTO } from '@codelab/shared/abstract/core'
 
 /**
  * We use IUpdateTypeDTO since auth0Id isn't required here
@@ -12,14 +11,19 @@ export const makeTypesOfUnionTypeCreateInput = (type: IUpdateTypeDTO) => {
   }
 }
 
-export const makeAllowedValuesCreateInput = (
-  type: IUpdateTypeDTO,
-): EnumTypeAllowedValuesUpdateFieldInput => {
+export const makeAllowedValuesCreateInput = (type: IUpdateTypeDTO) => {
   return {
-    create: type.allowedValues?.map((av) => ({
-      node: { id: av.id, name: av.name, value: av.value },
+    create: type.allowedValues?.map((value) => ({
+      node: makeAllowedValuesNodeInput(value),
     })),
   }
+}
+
+/**
+ * Create creating an enum node
+ */
+export const makeAllowedValuesNodeInput = (value: IEnumTypeValue) => {
+  return { id: value.id, name: value.name, value: value.value }
 }
 
 export const makeItemTypeCreateInput = (type: IUpdateTypeDTO) => {

@@ -1,14 +1,14 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
-import { ITypeService } from '@codelab/shared/abstract/core'
+import { IInterfaceType, ITypeService } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { fieldRef, InterfaceType, typeRef } from '../../../store'
+import { fieldRef, typeRef } from '../../../store'
 
 export type FieldsTableProps = {
-  interfaceType?: InterfaceType
+  interfaceType?: IInterfaceType
   isLoading: boolean
   hideActions?: boolean
 } & { typeService: ITypeService }

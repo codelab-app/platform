@@ -63,7 +63,16 @@ void yargs(hideBin(process.argv))
    * These scripts don't require env to be explicitly set
    */
   .command(tasksCommand)
+  /**
+   * This uses puppeteer to scrape the API documentation as CSV file
+   */
   .command(scrapeCommand)
+  /**
+   * Here we initialize all data, data ID is created so may duplicate data
+   *
+   * - Basic Types
+   * - Atoms & interfaces
+   */
   .command(parseCommand)
 
   /**

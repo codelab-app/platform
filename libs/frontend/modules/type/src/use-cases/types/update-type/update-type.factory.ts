@@ -7,7 +7,7 @@ import {
   makeAllowedValuesCreateInput,
   makeItemTypeCreateInput,
   makeTypesOfUnionTypeCreateInput,
-} from '../../../shared/type-input.factory'
+} from '@codelab/shared/data'
 
 export const updateTypeInputFactory = (
   type: IUpdateTypeDTO,

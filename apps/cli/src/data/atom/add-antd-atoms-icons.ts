@@ -6,7 +6,7 @@ import { searchRelatedParentName } from './utils'
 export const getAntdIconNames = () => {
   const antdIconPaths = path.resolve(
     process.cwd(),
-    'apps/builder/public/atoms/antd',
+    'apps/builder/public/assets/atoms/antd',
   )
 
   const iconNames = fs.readdirSync(antdIconPaths)
@@ -37,7 +37,7 @@ export const addAntdAtomIcons = (atoms: Array<IAtomExport>) => {
 
     return {
       ...atom,
-      icon: foundIconName ? `/atoms/antd/${expectedIconName}.svg` : '',
+      icon: foundIconName ? `/assets/atoms/antd/${expectedIconName}.svg` : '',
     }
   })
 

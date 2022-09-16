@@ -46,7 +46,6 @@ export const exportCommand: CommandModule<
     const App = await AppOGM({ reinitialize: true })
     const apps = await App.find()
     const User = await UserOGM({ reinitialize: true })
-    const users = await User.find()
 
     const { confirmExportSeedData, confirmExportUserData } =
       await inquirer.prompt([

@@ -82,30 +82,6 @@
       },
       "defaultConfiguration": "development"
     },
-    "codegen": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "parallel": true,
-        "readyWhen": "READY",
-        "commands": [
-          {
-            "command": "npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && echo 'READY'"
-          },
-          {
-            "command": "nx serve web -c test"
-          }
-        ]
-      },
-      "configurations": {
-        "local": {
-          "commands": [
-            {
-              "command": "yarn graphql-codegen"
-            }
-          ]
-        }
-      }
-    },
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
@@ -136,37 +112,6 @@
         }
       },
       "outputs": ["coverage/apps/builder"]
-    },
-    "storybook": {
-      "executor": "@nrwl/storybook:storybook",
-      "options": {
-        "uiFramework": "@storybook/react",
-        "port": 4400,
-        "config": {
-          "configFolder": "apps/builder/.storybook"
-        }
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "uiFramework": "@storybook/react",
-        "outputPath": "dist/storybook/web",
-        "config": {
-          "configFolder": "apps/builder/.storybook"
-        }
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
     }
   },
   "tags": ["scope:frontend"],

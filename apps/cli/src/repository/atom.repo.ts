@@ -3,21 +3,27 @@ import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAtomExport } from '@codelab/shared/abstract/core'
 import { connectId } from '@codelab/shared/data'
 import { v4 } from 'uuid'
+import { BaseUniqueWhere } from './type.repo'
 
-export const upsertAtom = async (atom: IAtomExport, userId: string) => {
+/**
+ * We upsert by ID so we can easily change the names by re-running import
+ */
+export const upsertAtom = async (
+  atom: IAtomExport,
+  userId: string,
+  where: BaseUniqueWhere,
+) => {
   const Atom = await AtomOGM()
 
   // Find by ID & find by name
   const idExisting = await Atom.find({
-    where: {
-      id: atom.id,
-    },
+    where,
   })
 
   const baseInput = {
     id: atom.id,
     name: atom.name,
-    type: atom.type as OGM_TYPES.AtomType,
+    type: atom.type,
     icon: atom.icon,
     // Create an interface if not existing
     api: atom.api?.id

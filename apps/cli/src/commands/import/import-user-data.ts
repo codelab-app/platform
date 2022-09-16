@@ -11,9 +11,9 @@ export const importUserData = async (file: string, selectedUser: string) => {
   const json = fs.readFileSync(path.resolve(process.cwd(), file), 'utf8')
   const { apps, atoms, types, resources } = JSON.parse(json) as ExportedData
 
-  await importTypes(types, selectedUser)
+  await importTypes(types, selectedUser, (type) => ({ id: type.id }))
 
-  await importAtoms(atoms, selectedUser)
+  await importAtoms(atoms, selectedUser, (atom) => ({ id: atom.id }))
 
   await importResources(resources, selectedUser)
 

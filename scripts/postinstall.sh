@@ -8,5 +8,5 @@ if [ "$SKIP_POST_INSTALL" != true ] && [ "$CI" != true ]; then
   husky install
 
   # Build only required projects
-  nx run-many --target=build --projects=cli
+  nx build cli
 fi

@@ -8,7 +8,6 @@ import {
   IModalService,
   IQueryService,
 } from '../../service'
-import { IAuth0Id } from '../user'
 import { IAtomDTO, ICreateAtomDTO, IUpdateAtomDTO } from './atom.dto.interface'
 import { IAtom, IAtomRef } from './atom.model.interface'
 
@@ -25,9 +24,4 @@ export interface IAtomService
 
   selectedIds: ArraySet<string>
   setSelectedIds(arraySet: ArraySet<string>): void
-}
-
-export interface IImportAtomService {
-  exportAtoms(ids: Array<string>): Promise<string>
-  importAtoms(payloadString: string, auth0Id: IAuth0Id): Promise<void>
 }

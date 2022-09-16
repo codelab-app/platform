@@ -7,16 +7,41 @@ import {
 } from '@codelab/backend/adapter/neo4j'
 import { fieldRepository } from '@codelab/backend/application'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectId } from '@codelab/shared/data'
+import { connectId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
+import { omit } from 'lodash'
 
-const createBaseFields = (data: ITypeExport, selectedUser: string) => ({
+const createCreateBaseFields = (data: ITypeExport, selectedUser: string) => ({
   id: data.id,
+  ...createUpdateBaseFields(data, selectedUser),
+})
+
+/**
+ * During update we don't want to change the ID
+ */
+const createUpdateBaseFields = (data: ITypeExport, selectedUser: string) => ({
   name: data.name,
   kind: data.kind,
   owner: connectId(selectedUser),
 })
 
-export const upsertType = async (data: ITypeExport, selectedUser: string) => {
+export type BaseUniqueWhere =
+  | {
+      id: string
+    }
+  | {
+      name: string
+    }
+
+/**
+ * For import/export we require ID
+ *
+ * For parsing we require name, since this generates new data and could replace old data
+ */
+export const upsertType = async (
+  data: ITypeExport,
+  selectedUser: string,
+  where: BaseUniqueWhere,
+) => {
   switch (data.__typename) {
     case ITypeKind.PrimitiveType: {
       const PrimitiveType = await PrimitiveTypeOGM()
@@ -26,9 +51,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       }
 
       const exists = await PrimitiveType.find({
-        where: {
-          name: data.name,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -37,7 +60,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
         return await PrimitiveType.create({
           input: [
             {
-              ...createBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUser),
               primitiveKind: data.primitiveKind,
             },
           ],
@@ -47,12 +70,8 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       console.log(`Updating ${data.name} [${data.kind}]...`)
 
       return await PrimitiveType.update({
-        where: {
-          id: data.id,
-        },
-        update: {
-          ...createBaseFields(data, selectedUser),
-        },
+        where,
+        update: createUpdateBaseFields(data, selectedUser),
       })
     }
 
@@ -60,9 +79,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       const RenderPropsType = await RenderPropsTypeOGM()
 
       const exists = await RenderPropsType.find({
-        where: {
-          name: data.name,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -71,7 +88,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
         return await RenderPropsType.create({
           input: [
             {
-              ...createBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUser),
             },
           ],
         })
@@ -84,9 +101,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       const ReactNodeType = await ReactNodeTypeOGM()
 
       const exists = await ReactNodeType.find({
-        where: {
-          name: data.name,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -95,7 +110,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
         return await ReactNodeType.create({
           input: [
             {
-              ...createBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUser),
             },
           ],
         })
@@ -108,9 +123,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       const EnumType = await EnumTypeOGM()
 
       const exists = await EnumType.find({
-        where: {
-          id: data.id,
-        },
+        where,
       })
 
       if (!exists.length) {
@@ -119,14 +132,10 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
         return EnumType.create({
           input: [
             {
-              ...createBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUser),
               allowedValues: {
-                create: data.allowedValues?.map((value) => ({
-                  node: {
-                    id: value.id,
-                    name: value.name,
-                    value: value.value,
-                  },
+                create: data.allowedValues.map((value) => ({
+                  node: makeAllowedValuesNodeInput(value),
                 })),
               },
             },
@@ -137,18 +146,12 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       console.log(`Updating ${data.name} [${data.kind}]...`)
 
       return EnumType.update({
-        where: {
-          id: data.id,
-        },
+        where,
         update: {
-          ...createBaseFields(data, selectedUser),
-          allowedValues: data.allowedValues?.map((value) => ({
+          ...createCreateBaseFields(data, selectedUser),
+          allowedValues: data.allowedValues.map((value) => ({
             update: {
-              node: {
-                id: value.id,
-                name: value.name,
-                value: value.value,
-              },
+              node: omit(makeAllowedValuesNodeInput(value), 'id'),
             },
           })),
         },
@@ -159,9 +162,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       const InterfaceType = await InterfaceTypeOGM()
 
       const exists = await InterfaceType.find({
-        where: {
-          id: data.id,
-        },
+        where,
       })
 
       /**
@@ -173,7 +174,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
         await InterfaceType.create({
           input: [
             {
-              ...createBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUser),
             },
           ],
         })
@@ -185,9 +186,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       console.log(`Disconnect all fields for ${data.name}`)
 
       await InterfaceType.update({
-        where: {
-          id: data.id,
-        },
+        where,
         update: {
           fields: [
             {
