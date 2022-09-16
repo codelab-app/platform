@@ -1,6 +1,5 @@
-import { IAtomExport } from '@codelab/shared/abstract/core'
+import { BaseUniqueWhere, IAtomExport } from '@codelab/shared/abstract/core'
 import { upsertAtom } from '../../repository/atom.repo'
-import { BaseUniqueWhere } from '../../repository/type.repo'
 
 export const importAtoms = async (
   atoms: Array<IAtomExport> = [],

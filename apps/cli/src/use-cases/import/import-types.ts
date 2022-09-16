@@ -1,6 +1,6 @@
-import { ITypeExport } from '@codelab/shared/abstract/core'
+import { BaseUniqueWhere, ITypeExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
-import { BaseUniqueWhere, upsertType } from '../../repository/type.repo'
+import { upsertType } from '../../repository/type.repo'
 
 export const importTypes = async (
   types: Array<ITypeExport> = [],

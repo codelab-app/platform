@@ -52,16 +52,19 @@ export const parseCsvData = async (
         continue
       }
 
-      await fieldRepository.upsertField({
-        interfaceTypeId: atom?.api?.id,
-        fieldTypeId: field.fieldType,
-        field: {
-          id: field.id,
-          name: field.name,
-          key: field.key,
-          description: field.description,
+      await fieldRepository.upsertField(
+        {
+          interfaceTypeId: atom?.api?.id,
+          fieldTypeId: field.fieldType,
+          field: {
+            id: field.id,
+            name: field.name,
+            key: field.key,
+            description: field.description,
+          },
         },
-      })
+        { key: field.key },
+      )
     }
   }
 }

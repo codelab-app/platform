@@ -1,4 +1,4 @@
-export * from './base/node.interface'
+export * from './base'
 export * from './domain/action'
 export * from './domain/admin'
 export * from './domain/app'
