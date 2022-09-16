@@ -14,7 +14,10 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   execTimeout: 60000,
   pageLoadTimeout: 60000,
   experimentalSessionAndOrigin: false,
-  projectId: '86p5h3',
+  // Old Cypress.io project ID but too expensive
+  // projectId: '86p5h3',
+  // New currents.dev alternative
+  projectId: 'PsL4yR',
   env: {},
   // numTestsKeptInMemory: 1,
   retries: {

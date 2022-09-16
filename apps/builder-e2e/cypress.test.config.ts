@@ -14,7 +14,7 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   execTimeout: 15000,
   pageLoadTimeout: 15000,
   experimentalSessionAndOrigin: false,
-  projectId: '37q6ed',
+  // projectId: '37q6ed',
   env: {},
   retries: {
     runMode: 1,

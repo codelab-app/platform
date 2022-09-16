@@ -3,6 +3,18 @@
   "sourceRoot": "apps/builder-e2e/src",
   "projectType": "application",
   "targets": {
+    "currents": {
+      "executor": "@codelabai/nx:currents",
+      "options": {
+        "cypressExecutor": "e2e"
+      },
+      // Need this empty block to forward the configurations
+      "configurations": {
+        "ci": {},
+        "test": {},
+        "dev": {}
+      }
+    },
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
