@@ -1,6 +1,5 @@
 import { generateOgmTypes } from '@codelab/backend/adapter/neo4j'
 import { spawn } from 'child_process'
-import dotenv from 'dotenv'
 import execa from 'execa'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -10,6 +9,11 @@ import path from 'path'
 import { CommandModule } from 'yargs'
 import { Env } from '../../shared/utils/env'
 import { Tasks } from '../../shared/utils/tasks'
+
+/**
+ * We require this since execCommand creates a new process and any env set before that doesn't apply
+ */
+const NX_TEST = 'npx env-cmd -f .env.test nx'
 
 export const execCommand = (command: string) => {
   try {
@@ -35,20 +39,6 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           demandOption: true,
         },
       })
-      // Load different env based on stage
-      .middleware(({ stage }) => {
-        if (process.env.CI) {
-          return
-        }
-
-        if (stage === Env.Test) {
-          dotenv.config({ path: '.env.test', override: true })
-        }
-
-        if (stage === Env.Dev) {
-          dotenv.config({ path: '.env', override: true })
-        }
-      })
       .command(
         Tasks.Build,
         'Build projects',
@@ -57,11 +47,13 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           if (env === Env.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            execCommand(`npx nx build builder -c test`)
-            execCommand(`npx nx affected:build -c test`)
+            // execCommand(`${NX_TEST} build builder -c test`)
+            execCommand(`${NX_TEST} affected:build -c test`)
           }
 
-          // Can't use in CI since cli hasn't been built yet
+          if (env === Env.CI) {
+            execCommand('npx nx affected:build -c ci --verbose')
+          }
         },
       )
       .command(
@@ -70,15 +62,14 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            execCommand(
-              `npx nx affected:test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color --parallel=3`,
-            )
+            // Added since many times can't find production build of next during push
+            // Maybe related? https://github.com/nrwl/nx/issues/2839
+            // execCommand(`${NX_TEST} build builder -c test`)
+            execCommand(`${NX_TEST} affected:build -c test`)
           }
 
           if (env === Env.CI) {
-            execCommand(
-              `npx nx affected:test --testPathPattern="[^i].spec.ts" --color --parallel=4`,
-            )
+            execCommand('npx nx affected:build -c ci --verbose')
           }
         },
       )
@@ -88,8 +79,8 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            const startServer = `npx nx serve-test builder -c test`
-            const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && npx nx test builder -c test`
+            const startServer = `${NX_TEST} serve-test builder -c test`
+            const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && ${NX_TEST} test builder -c test`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               stdio: 'inherit',
@@ -241,11 +232,11 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ env }) => {
           if (env === Env.Test) {
-            execCommand(`npx nx run builder-e2e:currents -c test --verbose`)
+            execCommand(`${NX_TEST} run builder-e2e:e2e:test --verbose`)
           }
 
           if (env === Env.CI) {
-            execCommand(`npx nx run builder-e2e:currents -c ci --verbose`)
+            execCommand(`npx nx run builder-e2e:currents:ci --verbose`)
           }
         },
       )
