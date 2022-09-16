@@ -1,7 +1,6 @@
-import { ITypeService } from '@codelab/shared/abstract/core'
+import { IInterfaceType, ITypeService } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/router'
 import { useAsync } from 'react-use'
-import { InterfaceType } from '../../../store'
 
 export const useCurrentInterfaceId = () => {
   const { query } = useRouter()
@@ -20,18 +19,16 @@ export const useCurrentInterfaceId = () => {
 export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   const interfaceId = useCurrentInterfaceId()
 
-  const { loading, error } = useAsync(
-    (id: string) =>
-      // We need the whole graph, not just the interface, because we need to reference all the field types
-      typeService.getInterfaceAndDescendants(id),
-    [interfaceId],
-  )
+  const { loading, error } = useAsync(() => {
+    // We need the whole graph, not just the interface, because we need to reference all the field types
+    return typeService.getInterfaceAndDescendants(interfaceId)
+  }, [interfaceId])
 
   return {
     loading,
     error,
     type: interfaceId
-      ? (typeService.type(interfaceId) as InterfaceType)
+      ? (typeService.type(interfaceId) as IInterfaceType)
       : undefined,
   }
 }
