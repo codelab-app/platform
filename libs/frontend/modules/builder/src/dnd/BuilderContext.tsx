@@ -3,7 +3,6 @@ import {
   IBuilderService,
   IElementService,
   IElementTree,
-  IRenderService,
 } from '@codelab/shared/abstract/core'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
@@ -20,11 +19,13 @@ export const BuilderContext = observer<
   PropsWithChildren<{
     elementService: IElementService
     builderService: IBuilderService
+    elementTree?: IElementTree
   }>
->(({ children, elementService, builderService }) => {
+>(({ children, elementService, builderService, elementTree }) => {
   const { onDragEnd, onDragStart } = useBuilderDnd(
     builderService,
     elementService,
+    elementTree,
   )
 
   return (

@@ -12,8 +12,10 @@ export const DraggableGetComponentItem = ({
   component,
 }: DraggableGetComponentItemProps) => {
   const createElementInput = useMemo(() => {
-    // TBC
-    return {}
+    return {
+      name: component.name,
+      atomId: component.id,
+    }
   }, [component])
 
   const { attributes, listeners, setNodeRef } = useCreateElementDraggable(

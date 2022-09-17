@@ -171,6 +171,7 @@ PageBuilder.Layout = observer((page) => {
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
   const activeElementTree = builderService.activeElementTree
+  const pageTree = pageBuilderRenderer?.pageTree?.current
 
   useEffect(() => {
     userService.user?.setCurAppId(appId)
@@ -181,6 +182,7 @@ PageBuilder.Layout = observer((page) => {
     <BuilderContext
       builderService={builderService}
       elementService={elementService}
+      elementTree={pageTree}
     >
       <DashboardTemplate
         ConfigPane={observer(() => (
