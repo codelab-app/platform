@@ -52,7 +52,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       element.renderComponentType?.current.api.id
 
     const { value: interfaceType, loading } = useAsync(
-      (id: string) => typeService.getInterfaceAndDescendants(id),
+      () => typeService.getInterfaceAndDescendants(apiId!),
       [apiId],
     )
 
