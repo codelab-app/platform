@@ -75,8 +75,6 @@ export class Store
       this._storeActions,
     )
 
-    console.log(this._storeActions)
-
     for (const key of keys(this._storeActions)) {
       state[key].run = createActionFn(state[key].action, state)
     }
