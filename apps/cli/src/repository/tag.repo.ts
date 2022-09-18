@@ -1,6 +1,7 @@
 import { TagOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
+import { BaseUniqueWhere } from './type.repo'
 
 export const connectChildTagToParent = async (tag: ITagExport) => {
   const connectChildren =
@@ -27,16 +28,15 @@ export const connectChildTagToParent = async (tag: ITagExport) => {
   return Tag.update(updateInput)
 }
 
-export const createOrUpdateTag = async (
+export const upsertTag = async (
   tag: ITagExport,
   selectedUser: string,
+  where: BaseUniqueWhere = (_tag: ITagExport) => ({ name: _tag.name }),
 ) => {
   const Tag = await TagOGM()
 
   const existingName = await Tag.find({
-    where: {
-      name: tag.name,
-    },
+    where,
   })
 
   const baseInput: Pick<OGM_TYPES.TagCreateInput, 'owner'> = {

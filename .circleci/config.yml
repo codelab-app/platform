@@ -133,7 +133,7 @@ commands:
   install-package:
     steps:
       - restore_cache:
-          name: 'Restore Yarn Cache'
+          name: 'Restore Cache'
           keys:
             - dep-cache-{{ checksum "yarn.lock" }}
           # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
@@ -167,7 +167,7 @@ jobs:
           command: npx nx affected:build -c ci --exclude=landing --verbose
       - save_cache:
           name: 'Save Cache'
-          key: dep-cache-staging-{{ checksum "yarn.lock" }}
+          key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
             - ~/project/dist/apps/builder/.next/cache
@@ -256,7 +256,7 @@ jobs:
   notify-success:
     <<: *executor-params
     steps:
-      - setup-workspace
+      #      - setup-workspace
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE

@@ -277,7 +277,6 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
       .demandCommand(1, 'Please provide a task'),
   handler: () => {
-    console.log('Tasks handler')
     //
   },
 }

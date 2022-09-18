@@ -1,7 +1,4 @@
-import { IAtomExport } from '@codelab/shared/abstract/core'
-import { searchRelatedParentName } from './utils'
-
-const atomNamesByTag: Record<string, Array<string>> = {
+export const antComponentsByCategory: Record<string, Array<string>> = {
   General: ['Button', 'Icon', 'Typography'],
   Layout: ['Divider', 'Grid', 'Layout', 'Space'],
   Navigation: [
@@ -66,38 +63,4 @@ const atomNamesByTag: Record<string, Array<string>> = {
     'Skeleton',
   ],
   Other: ['Anchor', 'BackTop'],
-}
-
-export const antTagNames = Object.keys(atomNamesByTag)
-
-const antdCompNames = antTagNames.flatMap((tag) => atomNamesByTag[tag])
-
-export const addAntdTags = (atoms: Array<IAtomExport>) => {
-  return atoms.map((atom) => {
-    const name = atom.name
-
-    if (!name.includes('AntDesign')) {
-      return atom
-    }
-
-    const nameWithoutAntDesign = name.replace('AntDesign', '')
-
-    const relatedParentName = searchRelatedParentName(
-      nameWithoutAntDesign,
-      antdCompNames,
-    )
-
-    const foundTag = antTagNames.find((tag) =>
-      atomNamesByTag[tag].includes(relatedParentName || nameWithoutAntDesign),
-    )
-
-    if (!foundTag) {
-      console.log(`[Import antd atoms] No tags assign for ${name}`)
-    }
-
-    return {
-      ...atom,
-      tags: foundTag ? [{ name: foundTag }] : [{ name: 'Other' }],
-    }
-  })
 }
