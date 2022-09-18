@@ -2,8 +2,6 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldButton,
   CreateFieldModal,
-  DefaultValueButton,
-  DefaultValueModal,
   DeleteFieldModal,
   FieldsTable,
   UpdateFieldModal,
@@ -48,7 +46,6 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
             <CreateFieldModal typeService={typeService} />
             <UpdateFieldModal typeService={typeService} />
             <DeleteFieldModal typeService={typeService} />
-            <DefaultValueModal type={type} typeService={typeService} />
           </>
         )}
 
@@ -75,11 +72,6 @@ const Header = observer(() => {
   const interfaceType = typeService.type(interfaceId)
 
   const headerButtons = [
-    <DefaultValueButton
-      interfaceId={interfaceId}
-      key={0}
-      typeService={typeService}
-    />,
     <CreateFieldButton
       interfaceId={interfaceId}
       key={1}
