@@ -3868,7 +3868,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.17.8":
+"@babel/runtime@npm:^7.1.2":
   version: 7.19.0
   resolution: "@babel/runtime@npm:7.19.0"
   dependencies:
@@ -13693,7 +13693,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
-    cypress: 10.7.0
+    cypress: 10.8.0
     cypress-nextjs-auth0: 2.1.0
     cz-customizable: 6.3.0
     dotenv: 15.0.0
@@ -13753,7 +13753,7 @@ __metadata:
     mobx-react-lite: 3.4.0
     mobx-utils: 6.0.5
     morphext: 2.4.7
-    neo4j-driver: 5.0.0
+    neo4j-driver: 4.4.9
     next: 12.2.5
     next-auth: 4.3.4
     next-compose-plugins: 2.2.1
@@ -14989,7 +14989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:*, cypress@npm:10.7.0":
+"cypress@npm:*":
   version: 10.7.0
   resolution: "cypress@npm:10.7.0"
   dependencies:
@@ -15038,6 +15038,58 @@ __metadata:
   bin:
     cypress: bin/cypress
   checksum: ef8a5ae54f3404f7926e1e248ba7a27c7f66e654a9603bf9df6366731d8dd75455f6ec9cc34d7e55e1a8c3cb8e0e36ce59add81b7b14466f2063cfe45e6c00f4
+  languageName: node
+  linkType: hard
+
+"cypress@npm:10.8.0":
+  version: 10.8.0
+  resolution: "cypress@npm:10.8.0"
+  dependencies:
+    "@cypress/request": ^2.88.10
+    "@cypress/xvfb": ^1.2.4
+    "@types/node": ^14.14.31
+    "@types/sinonjs__fake-timers": 8.1.1
+    "@types/sizzle": ^2.3.2
+    arch: ^2.2.0
+    blob-util: ^2.0.2
+    bluebird: ^3.7.2
+    buffer: ^5.6.0
+    cachedir: ^2.3.0
+    chalk: ^4.1.0
+    check-more-types: ^2.24.0
+    cli-cursor: ^3.1.0
+    cli-table3: ~0.6.1
+    commander: ^5.1.0
+    common-tags: ^1.8.0
+    dayjs: ^1.10.4
+    debug: ^4.3.2
+    enquirer: ^2.3.6
+    eventemitter2: 6.4.7
+    execa: 4.1.0
+    executable: ^4.1.1
+    extract-zip: 2.0.1
+    figures: ^3.2.0
+    fs-extra: ^9.1.0
+    getos: ^3.2.1
+    is-ci: ^3.0.0
+    is-installed-globally: ~0.4.0
+    lazy-ass: ^1.6.0
+    listr2: ^3.8.3
+    lodash: ^4.17.21
+    log-symbols: ^4.0.0
+    minimist: ^1.2.6
+    ospath: ^1.2.2
+    pretty-bytes: ^5.6.0
+    proxy-from-env: 1.0.0
+    request-progress: ^3.0.0
+    semver: ^7.3.2
+    supports-color: ^8.1.1
+    tmp: ~0.2.1
+    untildify: ^4.0.0
+    yauzl: ^2.10.0
+  bin:
+    cypress: bin/cypress
+  checksum: c052690049980e7721e6fca563b724fde839d87d83c1478dfe26ce7d230992717c2c4028e7157bfb39ec274473e51929f49e5aab6a23c2b25cde2a439b1c3cf9
   languageName: node
   linkType: hard
 
@@ -17061,6 +17113,13 @@ __metadata:
   version: 5.0.1
   resolution: "event-target-shim@npm:5.0.1"
   checksum: 1ffe3bb22a6d51bdeb6bf6f7cf97d2ff4a74b017ad12284cc9e6a279e727dc30a5de6bb613e5596ff4dc3e517841339ad09a7eec44266eccb1aa201a30448166
+  languageName: node
+  linkType: hard
+
+"eventemitter2@npm:6.4.7":
+  version: 6.4.7
+  resolution: "eventemitter2@npm:6.4.7"
+  checksum: 1b36a77e139d6965ebf3a36c01fa00c089ae6b80faa1911e52888f40b3a7057b36a2cc45dcd1ad87cda3798fe7b97a0aabcbb8175a8b96092a23bb7d0f039e66
   languageName: node
   linkType: hard
 
@@ -23771,33 +23830,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"neo4j-driver-bolt-connection@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "neo4j-driver-bolt-connection@npm:5.0.0"
+"neo4j-driver-bolt-connection@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "neo4j-driver-bolt-connection@npm:4.4.9"
   dependencies:
     buffer: ^6.0.3
-    neo4j-driver-core: ^5.0.0
+    neo4j-driver-core: ^4.4.9
     string_decoder: ^1.3.0
-  checksum: e7e5097242610227a8dc5e988789652399d2055c820322b385ad80350c21a0822868e506abd67cd8a8cb6aa35469f7368cb74f81fcb30a128e30b5f267d47747
+  checksum: 65564770f68fd85b4521675bf27c6b8e5d8df15863082db963c4dd2e05f37a9954437ce50229b1fc8c1686d6714213285724c632a9ca878d75214ab424ec863b
   languageName: node
   linkType: hard
 
-"neo4j-driver-core@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "neo4j-driver-core@npm:5.0.0"
-  checksum: d976b17e6fca84a084ac985a556da0690eca2104ae569b65d99afa0b62832372aaff2cc72c14aaceaadc6d5ce05d14cf8e9858ac6f6b1a4d976dfcf16baa41dd
+"neo4j-driver-core@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "neo4j-driver-core@npm:4.4.9"
+  checksum: 875903cfd2964a1db7493ecfc6b01a4f88df472cb4f44c734146556978d7190ef113c8301cbdbba8fbeaee7788d5fe272bd20f4599b267a433d2db74da04c05e
   languageName: node
   linkType: hard
 
-"neo4j-driver@npm:5.0.0":
-  version: 5.0.0
-  resolution: "neo4j-driver@npm:5.0.0"
+"neo4j-driver@npm:4.4.9":
+  version: 4.4.9
+  resolution: "neo4j-driver@npm:4.4.9"
   dependencies:
-    "@babel/runtime": ^7.17.8
-    neo4j-driver-bolt-connection: ^5.0.0
-    neo4j-driver-core: ^5.0.0
-    rxjs: ^7.5.5
-  checksum: 7815159b9dc61bf47f57dcd0936dc8d5229be0349e81e0263b1a3eeb1d54d432a6293b78455b821ff3021a4fd138f16753b132e2eb07fc43eda4899c3a86a395
+    "@babel/runtime": ^7.5.5
+    neo4j-driver-bolt-connection: ^4.4.9
+    neo4j-driver-core: ^4.4.9
+    rxjs: ^6.6.3
+  checksum: 36e4ad513cdcaba8ee90671fae9a46ed078cf1c1d7c0671b027e5616b1f411883f867caa405b945199fdfdcb7c3414e1cc1d0b2d15a16e203d8e831be75f7fd4
   languageName: node
   linkType: hard
 
