@@ -3868,7 +3868,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.17.8":
+"@babel/runtime@npm:^7.1.2":
   version: 7.19.0
   resolution: "@babel/runtime@npm:7.19.0"
   dependencies:
@@ -13753,7 +13753,7 @@ __metadata:
     mobx-react-lite: 3.4.0
     mobx-utils: 6.0.5
     morphext: 2.4.7
-    neo4j-driver: 5.0.0
+    neo4j-driver: 4.4.9
     next: 12.2.5
     next-auth: 4.3.4
     next-compose-plugins: 2.2.1
@@ -23830,33 +23830,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"neo4j-driver-bolt-connection@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "neo4j-driver-bolt-connection@npm:5.0.0"
+"neo4j-driver-bolt-connection@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "neo4j-driver-bolt-connection@npm:4.4.9"
   dependencies:
     buffer: ^6.0.3
-    neo4j-driver-core: ^5.0.0
+    neo4j-driver-core: ^4.4.9
     string_decoder: ^1.3.0
-  checksum: e7e5097242610227a8dc5e988789652399d2055c820322b385ad80350c21a0822868e506abd67cd8a8cb6aa35469f7368cb74f81fcb30a128e30b5f267d47747
+  checksum: 65564770f68fd85b4521675bf27c6b8e5d8df15863082db963c4dd2e05f37a9954437ce50229b1fc8c1686d6714213285724c632a9ca878d75214ab424ec863b
   languageName: node
   linkType: hard
 
-"neo4j-driver-core@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "neo4j-driver-core@npm:5.0.0"
-  checksum: d976b17e6fca84a084ac985a556da0690eca2104ae569b65d99afa0b62832372aaff2cc72c14aaceaadc6d5ce05d14cf8e9858ac6f6b1a4d976dfcf16baa41dd
+"neo4j-driver-core@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "neo4j-driver-core@npm:4.4.9"
+  checksum: 875903cfd2964a1db7493ecfc6b01a4f88df472cb4f44c734146556978d7190ef113c8301cbdbba8fbeaee7788d5fe272bd20f4599b267a433d2db74da04c05e
   languageName: node
   linkType: hard
 
-"neo4j-driver@npm:5.0.0":
-  version: 5.0.0
-  resolution: "neo4j-driver@npm:5.0.0"
+"neo4j-driver@npm:4.4.9":
+  version: 4.4.9
+  resolution: "neo4j-driver@npm:4.4.9"
   dependencies:
-    "@babel/runtime": ^7.17.8
-    neo4j-driver-bolt-connection: ^5.0.0
-    neo4j-driver-core: ^5.0.0
-    rxjs: ^7.5.5
-  checksum: 7815159b9dc61bf47f57dcd0936dc8d5229be0349e81e0263b1a3eeb1d54d432a6293b78455b821ff3021a4fd138f16753b132e2eb07fc43eda4899c3a86a395
+    "@babel/runtime": ^7.5.5
+    neo4j-driver-bolt-connection: ^4.4.9
+    neo4j-driver-core: ^4.4.9
+    rxjs: ^6.6.3
+  checksum: 36e4ad513cdcaba8ee90671fae9a46ed078cf1c1d7c0671b027e5616b1f411883f867caa405b945199fdfdcb7c3414e1cc1d0b2d15a16e203d8e831be75f7fd4
   languageName: node
   linkType: hard
 
