@@ -132,7 +132,12 @@ export class AtomService
     const createApiNode = (atom: ICreateAtomDTO) => ({
       id: v4(),
       name: `${atom.name} API`,
-      owner: connectOwner(atom.owner),
+      owner: {
+        connect: {
+          where: { node: { auth0Id: atom.owner } },
+          edge: { data: '{}' },
+        },
+      },
     })
 
     const connectTags = (atom: ICreateAtomDTO) => {

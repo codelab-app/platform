@@ -4,7 +4,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import {
@@ -28,7 +28,7 @@ describe('Store', () => {
               name: IPrimitiveTypeKind.Integer,
               primitiveKind: IPrimitiveTypeKind.Integer,
               kind: ITypeKind.PrimitiveType,
-              owner: connectOwner(userId),
+              owner: connectTypeOwner(userId),
             },
           },
           ITypeKind.PrimitiveType,

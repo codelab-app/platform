@@ -153,6 +153,14 @@ export type ActionTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type ActionTypeConnectOrCreateWhere = {
+  node: ActionTypeUniqueWhere;
+};
+
+export type ActionTypeConnectWhere = {
+  node: ActionTypeWhere;
+};
+
 export type ActionTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -174,6 +182,11 @@ export type ActionTypeEdge = {
   node: ActionType;
 };
 
+export type ActionTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type ActionTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -189,7 +202,33 @@ export type ActionTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<ActionTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<ActionTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type ActionTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ActionTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type ActionTypeOwnerNodeAggregationWhereInput = {
@@ -269,6 +308,10 @@ export type ActionTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type ActionTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type ActionTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -278,7 +321,13 @@ export type ActionTypeUpdateInput = {
 export type ActionTypeUserOwnerAggregationSelection = {
   __typename?: 'ActionTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<ActionTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<ActionTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type ActionTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'ActionTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type ActionTypeUserOwnerNodeAggregateSelection = {
@@ -344,6 +393,8 @@ export type ActionsPipeLineSort = {
 
 export type ActionsPipeLineUpdateInput = {
   orders?: InputMaybe<Array<Scalars['String']>>;
+  orders_POP?: InputMaybe<Scalars['Int']>;
+  orders_PUSH?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type ActionsPipeLineWhere = {
@@ -361,6 +412,24 @@ export type AnyActionWhere = {
   CustomAction?: InputMaybe<CustomActionWhere>;
   PipelineAction?: InputMaybe<PipelineActionWhere>;
   ResourceAction?: InputMaybe<ResourceActionWhere>;
+};
+
+export type AnyType = ActionType | AppType | ArrayType | CodeMirrorType | ElementType | EnumType | InterfaceType | LambdaType | PageType | PrimitiveType | ReactNodeType | RenderPropsType | UnionType;
+
+export type AnyTypeWhere = {
+  ActionType?: InputMaybe<ActionTypeWhere>;
+  AppType?: InputMaybe<AppTypeWhere>;
+  ArrayType?: InputMaybe<ArrayTypeWhere>;
+  CodeMirrorType?: InputMaybe<CodeMirrorTypeWhere>;
+  ElementType?: InputMaybe<ElementTypeWhere>;
+  EnumType?: InputMaybe<EnumTypeWhere>;
+  InterfaceType?: InputMaybe<InterfaceTypeWhere>;
+  LambdaType?: InputMaybe<LambdaTypeWhere>;
+  PageType?: InputMaybe<PageTypeWhere>;
+  PrimitiveType?: InputMaybe<PrimitiveTypeWhere>;
+  ReactNodeType?: InputMaybe<ReactNodeTypeWhere>;
+  RenderPropsType?: InputMaybe<RenderPropsTypeWhere>;
+  UnionType?: InputMaybe<UnionTypeWhere>;
 };
 
 export type App = WithOwner & {
@@ -1069,6 +1138,14 @@ export type AppTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type AppTypeConnectOrCreateWhere = {
+  node: AppTypeUniqueWhere;
+};
+
+export type AppTypeConnectWhere = {
+  node: AppTypeWhere;
+};
+
 export type AppTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -1090,6 +1167,11 @@ export type AppTypeEdge = {
   node: AppType;
 };
 
+export type AppTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type AppTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1105,7 +1187,33 @@ export type AppTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<AppTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<AppTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type AppTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AppTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<AppTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type AppTypeOwnerNodeAggregationWhereInput = {
@@ -1185,6 +1293,10 @@ export type AppTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type AppTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type AppTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -1194,7 +1306,13 @@ export type AppTypeUpdateInput = {
 export type AppTypeUserOwnerAggregationSelection = {
   __typename?: 'AppTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<AppTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<AppTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type AppTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'AppTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type AppTypeUserOwnerNodeAggregateSelection = {
@@ -1360,7 +1478,7 @@ export type ArrayType = TypeBase & WithDescendants & {
   __typename?: 'ArrayType';
   descendantTypesIds: Array<Scalars['ID']>;
   id: Scalars['ID'];
-  itemType: TypeBase;
+  itemType: AnyType;
   itemTypeConnection: ArrayTypeItemTypeConnection;
   kind: TypeKind;
   name: Scalars['String'];
@@ -1376,8 +1494,8 @@ export type ArrayType = TypeBase & WithDescendants & {
  */
 export type ArrayTypeItemTypeArgs = {
   directed?: InputMaybe<Scalars['Boolean']>;
-  options?: InputMaybe<TypeBaseOptions>;
-  where?: InputMaybe<TypeBaseWhere>;
+  options?: InputMaybe<QueryOptions>;
+  where?: InputMaybe<AnyTypeWhere>;
 };
 
 
@@ -1389,7 +1507,6 @@ export type ArrayTypeItemTypeConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   directed?: InputMaybe<Scalars['Boolean']>;
   first?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Array<ArrayTypeItemTypeConnectionSort>>;
   where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>;
 };
 
@@ -1435,29 +1552,38 @@ export type ArrayTypeAggregateSelection = {
 };
 
 export type ArrayTypeConnectInput = {
-  itemType?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>;
+  itemType?: InputMaybe<ArrayTypeItemTypeConnectInput>;
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
 };
 
 export type ArrayTypeConnectOrCreateInput = {
+  itemType?: InputMaybe<ArrayTypeItemTypeConnectOrCreateInput>;
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
+};
+
+export type ArrayTypeConnectOrCreateWhere = {
+  node: ArrayTypeUniqueWhere;
+};
+
+export type ArrayTypeConnectWhere = {
+  node: ArrayTypeWhere;
 };
 
 export type ArrayTypeCreateInput = {
   id: Scalars['ID'];
-  itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>;
+  itemType?: InputMaybe<ArrayTypeItemTypeCreateInput>;
   kind?: TypeKind;
   name: Scalars['String'];
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
 
 export type ArrayTypeDeleteInput = {
-  itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>;
+  itemType?: InputMaybe<ArrayTypeItemTypeDeleteInput>;
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
 };
 
 export type ArrayTypeDisconnectInput = {
-  itemType?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>;
+  itemType?: InputMaybe<ArrayTypeItemTypeDisconnectInput>;
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
 };
 
@@ -1467,9 +1593,256 @@ export type ArrayTypeEdge = {
   node: ArrayType;
 };
 
-export type ArrayTypeItemTypeConnectFieldInput = {
-  connect?: InputMaybe<TypeBaseConnectInput>;
-  where?: InputMaybe<TypeBaseConnectWhere>;
+export type ArrayTypeItemTypeActionTypeConnectFieldInput = {
+  connect?: InputMaybe<ActionTypeConnectInput>;
+  where?: InputMaybe<ActionTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeActionTypeConnectOrCreateFieldInputOnCreate;
+  where: ActionTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeActionTypeConnectOrCreateFieldInputOnCreate = {
+  node: ActionTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeActionTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeActionTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeActionTypeConnectionWhere>>;
+  node?: InputMaybe<ActionTypeWhere>;
+  node_NOT?: InputMaybe<ActionTypeWhere>;
+};
+
+export type ArrayTypeItemTypeActionTypeCreateFieldInput = {
+  node: ActionTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeActionTypeDeleteFieldInput = {
+  delete?: InputMaybe<ActionTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeActionTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ActionTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeActionTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeActionTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeActionTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeActionTypeUpdateConnectionInput = {
+  node?: InputMaybe<ActionTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeActionTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeActionTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeActionTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeActionTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeActionTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeActionTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeAppTypeConnectFieldInput = {
+  connect?: InputMaybe<AppTypeConnectInput>;
+  where?: InputMaybe<AppTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeAppTypeConnectOrCreateFieldInputOnCreate;
+  where: AppTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeAppTypeConnectOrCreateFieldInputOnCreate = {
+  node: AppTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeAppTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeAppTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeAppTypeConnectionWhere>>;
+  node?: InputMaybe<AppTypeWhere>;
+  node_NOT?: InputMaybe<AppTypeWhere>;
+};
+
+export type ArrayTypeItemTypeAppTypeCreateFieldInput = {
+  node: AppTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeAppTypeDeleteFieldInput = {
+  delete?: InputMaybe<AppTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeAppTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<AppTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeAppTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeAppTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeAppTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeAppTypeUpdateConnectionInput = {
+  node?: InputMaybe<AppTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeAppTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeAppTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeAppTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeAppTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeAppTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeAppTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeArrayTypeConnectFieldInput = {
+  connect?: InputMaybe<ArrayTypeConnectInput>;
+  where?: InputMaybe<ArrayTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInputOnCreate;
+  where: ArrayTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInputOnCreate = {
+  node: ArrayTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeArrayTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeArrayTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeArrayTypeConnectionWhere>>;
+  node?: InputMaybe<ArrayTypeWhere>;
+  node_NOT?: InputMaybe<ArrayTypeWhere>;
+};
+
+export type ArrayTypeItemTypeArrayTypeCreateFieldInput = {
+  node: ArrayTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeArrayTypeDeleteFieldInput = {
+  delete?: InputMaybe<ArrayTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeArrayTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ArrayTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeArrayTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeArrayTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeArrayTypeUpdateConnectionInput = {
+  node?: InputMaybe<ArrayTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeArrayTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeArrayTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeArrayTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeArrayTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeArrayTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput = {
+  connect?: InputMaybe<CodeMirrorTypeConnectInput>;
+  where?: InputMaybe<CodeMirrorTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate;
+  where: CodeMirrorTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate = {
+  node: CodeMirrorTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>>;
+  node?: InputMaybe<CodeMirrorTypeWhere>;
+  node_NOT?: InputMaybe<CodeMirrorTypeWhere>;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput = {
+  node: CodeMirrorTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput = {
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeUpdateConnectionInput = {
+  node?: InputMaybe<CodeMirrorTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeCodeMirrorTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeConnectInput = {
+  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeConnectFieldInput>;
+  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeConnectFieldInput>;
+  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectFieldInput>;
+  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput>;
+  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeConnectFieldInput>;
+  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectFieldInput>;
+  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectFieldInput>;
+  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectFieldInput>;
+  PageType?: InputMaybe<ArrayTypeItemTypePageTypeConnectFieldInput>;
+  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectFieldInput>;
+  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectFieldInput>;
+  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectFieldInput>;
+  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectFieldInput>;
+};
+
+export type ArrayTypeItemTypeConnectOrCreateInput = {
+  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput>;
+  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput>;
+  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput>;
+  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput>;
+  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput>;
+  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput>;
+  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput>;
+  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput>;
+  PageType?: InputMaybe<ArrayTypeItemTypePageTypeConnectOrCreateFieldInput>;
+  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput>;
+  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput>;
+  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput>;
+  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput>;
 };
 
 export type ArrayTypeItemTypeConnection = {
@@ -1479,53 +1852,606 @@ export type ArrayTypeItemTypeConnection = {
   totalCount: Scalars['Int'];
 };
 
-export type ArrayTypeItemTypeConnectionSort = {
-  node?: InputMaybe<TypeBaseSort>;
-};
-
 export type ArrayTypeItemTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>;
-  OR?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>;
-  node?: InputMaybe<TypeBaseWhere>;
-  node_NOT?: InputMaybe<TypeBaseWhere>;
+  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>;
+  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>;
+  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>;
+  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>;
+  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>;
+  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>;
+  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>;
+  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>;
+  PageType?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>;
+  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>;
+  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>;
+  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>;
+  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>;
 };
 
 export type ArrayTypeItemTypeCreateFieldInput = {
-  node: TypeBaseCreateInput;
+  ActionType?: InputMaybe<Array<ArrayTypeItemTypeActionTypeCreateFieldInput>>;
+  AppType?: InputMaybe<Array<ArrayTypeItemTypeAppTypeCreateFieldInput>>;
+  ArrayType?: InputMaybe<Array<ArrayTypeItemTypeArrayTypeCreateFieldInput>>;
+  CodeMirrorType?: InputMaybe<Array<ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput>>;
+  ElementType?: InputMaybe<Array<ArrayTypeItemTypeElementTypeCreateFieldInput>>;
+  EnumType?: InputMaybe<Array<ArrayTypeItemTypeEnumTypeCreateFieldInput>>;
+  InterfaceType?: InputMaybe<Array<ArrayTypeItemTypeInterfaceTypeCreateFieldInput>>;
+  LambdaType?: InputMaybe<Array<ArrayTypeItemTypeLambdaTypeCreateFieldInput>>;
+  PageType?: InputMaybe<Array<ArrayTypeItemTypePageTypeCreateFieldInput>>;
+  PrimitiveType?: InputMaybe<Array<ArrayTypeItemTypePrimitiveTypeCreateFieldInput>>;
+  ReactNodeType?: InputMaybe<Array<ArrayTypeItemTypeReactNodeTypeCreateFieldInput>>;
+  RenderPropsType?: InputMaybe<Array<ArrayTypeItemTypeRenderPropsTypeCreateFieldInput>>;
+  UnionType?: InputMaybe<Array<ArrayTypeItemTypeUnionTypeCreateFieldInput>>;
 };
 
-export type ArrayTypeItemTypeDeleteFieldInput = {
-  delete?: InputMaybe<TypeBaseDeleteInput>;
-  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>;
+export type ArrayTypeItemTypeCreateInput = {
+  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeFieldInput>;
+  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeFieldInput>;
+  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeFieldInput>;
+  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeFieldInput>;
+  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeFieldInput>;
+  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeFieldInput>;
+  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeFieldInput>;
+  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeFieldInput>;
+  PageType?: InputMaybe<ArrayTypeItemTypePageTypeFieldInput>;
+  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeFieldInput>;
+  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeFieldInput>;
+  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeFieldInput>;
+  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeFieldInput>;
 };
 
-export type ArrayTypeItemTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<TypeBaseDisconnectInput>;
-  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>;
+export type ArrayTypeItemTypeDeleteInput = {
+  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeDeleteFieldInput>;
+  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeDeleteFieldInput>;
+  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeDeleteFieldInput>;
+  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput>;
+  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeDeleteFieldInput>;
+  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeDeleteFieldInput>;
+  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDeleteFieldInput>;
+  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeDeleteFieldInput>;
+  PageType?: InputMaybe<ArrayTypeItemTypePageTypeDeleteFieldInput>;
+  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDeleteFieldInput>;
+  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDeleteFieldInput>;
+  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput>;
+  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeDeleteFieldInput>;
 };
 
-export type ArrayTypeItemTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>;
-  create?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>;
+export type ArrayTypeItemTypeDisconnectInput = {
+  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeDisconnectFieldInput>;
+  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeDisconnectFieldInput>;
+  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeDisconnectFieldInput>;
+  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput>;
+  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeDisconnectFieldInput>;
+  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeDisconnectFieldInput>;
+  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput>;
+  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeDisconnectFieldInput>;
+  PageType?: InputMaybe<ArrayTypeItemTypePageTypeDisconnectFieldInput>;
+  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput>;
+  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput>;
+  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput>;
+  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeDisconnectFieldInput>;
+};
+
+export type ArrayTypeItemTypeElementTypeConnectFieldInput = {
+  connect?: InputMaybe<ElementTypeConnectInput>;
+  where?: InputMaybe<ElementTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeElementTypeConnectOrCreateFieldInputOnCreate;
+  where: ElementTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeElementTypeConnectOrCreateFieldInputOnCreate = {
+  node: ElementTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeElementTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeElementTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeElementTypeConnectionWhere>>;
+  node?: InputMaybe<ElementTypeWhere>;
+  node_NOT?: InputMaybe<ElementTypeWhere>;
+};
+
+export type ArrayTypeItemTypeElementTypeCreateFieldInput = {
+  node: ElementTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeElementTypeDeleteFieldInput = {
+  delete?: InputMaybe<ElementTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeElementTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ElementTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeElementTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeElementTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeElementTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeElementTypeUpdateConnectionInput = {
+  node?: InputMaybe<ElementTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeElementTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeElementTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeElementTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeElementTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeElementTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeElementTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeEnumTypeConnectFieldInput = {
+  connect?: InputMaybe<EnumTypeConnectInput>;
+  where?: InputMaybe<EnumTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInputOnCreate;
+  where: EnumTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInputOnCreate = {
+  node: EnumTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeEnumTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeEnumTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeEnumTypeConnectionWhere>>;
+  node?: InputMaybe<EnumTypeWhere>;
+  node_NOT?: InputMaybe<EnumTypeWhere>;
+};
+
+export type ArrayTypeItemTypeEnumTypeCreateFieldInput = {
+  node: EnumTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeEnumTypeDeleteFieldInput = {
+  delete?: InputMaybe<EnumTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeEnumTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<EnumTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeEnumTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeEnumTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeEnumTypeUpdateConnectionInput = {
+  node?: InputMaybe<EnumTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeEnumTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeEnumTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeEnumTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeEnumTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeEnumTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeConnectFieldInput = {
+  connect?: InputMaybe<InterfaceTypeConnectInput>;
+  where?: InputMaybe<InterfaceTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInputOnCreate;
+  where: InterfaceTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInputOnCreate = {
+  node: InterfaceTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeInterfaceTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeInterfaceTypeConnectionWhere>>;
+  node?: InputMaybe<InterfaceTypeWhere>;
+  node_NOT?: InputMaybe<InterfaceTypeWhere>;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeCreateFieldInput = {
+  node: InterfaceTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeDeleteFieldInput = {
+  delete?: InputMaybe<InterfaceTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeInterfaceTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeUpdateConnectionInput = {
+  node?: InputMaybe<InterfaceTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeInterfaceTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeInterfaceTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeInterfaceTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeLambdaTypeConnectFieldInput = {
+  connect?: InputMaybe<LambdaTypeConnectInput>;
+  where?: InputMaybe<LambdaTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInputOnCreate;
+  where: LambdaTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInputOnCreate = {
+  node: LambdaTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeLambdaTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeLambdaTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeLambdaTypeConnectionWhere>>;
+  node?: InputMaybe<LambdaTypeWhere>;
+  node_NOT?: InputMaybe<LambdaTypeWhere>;
+};
+
+export type ArrayTypeItemTypeLambdaTypeCreateFieldInput = {
+  node: LambdaTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeLambdaTypeDeleteFieldInput = {
+  delete?: InputMaybe<LambdaTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeLambdaTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<LambdaTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeLambdaTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeLambdaTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeLambdaTypeUpdateConnectionInput = {
+  node?: InputMaybe<LambdaTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeLambdaTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeLambdaTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeLambdaTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeLambdaTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeLambdaTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypePageTypeConnectFieldInput = {
+  connect?: InputMaybe<PageTypeConnectInput>;
+  where?: InputMaybe<PageTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypePageTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypePageTypeConnectOrCreateFieldInputOnCreate;
+  where: PageTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypePageTypeConnectOrCreateFieldInputOnCreate = {
+  node: PageTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypePageTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypePageTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypePageTypeConnectionWhere>>;
+  node?: InputMaybe<PageTypeWhere>;
+  node_NOT?: InputMaybe<PageTypeWhere>;
+};
+
+export type ArrayTypeItemTypePageTypeCreateFieldInput = {
+  node: PageTypeCreateInput;
+};
+
+export type ArrayTypeItemTypePageTypeDeleteFieldInput = {
+  delete?: InputMaybe<PageTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypePageTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<PageTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypePageTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypePageTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypePageTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypePageTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypePageTypeUpdateConnectionInput = {
+  node?: InputMaybe<PageTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypePageTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypePageTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypePageTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypePageTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypePageTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypePageTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypePageTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeConnectFieldInput = {
+  connect?: InputMaybe<PrimitiveTypeConnectInput>;
+  where?: InputMaybe<PrimitiveTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInputOnCreate;
+  where: PrimitiveTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInputOnCreate = {
+  node: PrimitiveTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypePrimitiveTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypePrimitiveTypeConnectionWhere>>;
+  node?: InputMaybe<PrimitiveTypeWhere>;
+  node_NOT?: InputMaybe<PrimitiveTypeWhere>;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeCreateFieldInput = {
+  node: PrimitiveTypeCreateInput;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeDeleteFieldInput = {
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<PrimitiveTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypePrimitiveTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeUpdateConnectionInput = {
+  node?: InputMaybe<PrimitiveTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypePrimitiveTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypePrimitiveTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypePrimitiveTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeConnectFieldInput = {
+  connect?: InputMaybe<ReactNodeTypeConnectInput>;
+  where?: InputMaybe<ReactNodeTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInputOnCreate;
+  where: ReactNodeTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInputOnCreate = {
+  node: ReactNodeTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeReactNodeTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeReactNodeTypeConnectionWhere>>;
+  node?: InputMaybe<ReactNodeTypeWhere>;
+  node_NOT?: InputMaybe<ReactNodeTypeWhere>;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeCreateFieldInput = {
+  node: ReactNodeTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeDeleteFieldInput = {
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ReactNodeTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeReactNodeTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeUpdateConnectionInput = {
+  node?: InputMaybe<ReactNodeTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeReactNodeTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeReactNodeTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeReactNodeTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>;
 };
 
 export type ArrayTypeItemTypeRelationship = {
   __typename?: 'ArrayTypeItemTypeRelationship';
   cursor: Scalars['String'];
-  node: TypeBase;
+  node: AnyType;
 };
 
-export type ArrayTypeItemTypeUpdateConnectionInput = {
-  node?: InputMaybe<TypeBaseUpdateInput>;
+export type ArrayTypeItemTypeRenderPropsTypeConnectFieldInput = {
+  connect?: InputMaybe<RenderPropsTypeConnectInput>;
+  where?: InputMaybe<RenderPropsTypeConnectWhere>;
 };
 
-export type ArrayTypeItemTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>;
-  create?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>;
-  delete?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>;
-  disconnect?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>;
-  update?: InputMaybe<ArrayTypeItemTypeUpdateConnectionInput>;
-  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>;
+export type ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate;
+  where: RenderPropsTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate = {
+  node: RenderPropsTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>>;
+  node?: InputMaybe<RenderPropsTypeWhere>;
+  node_NOT?: InputMaybe<RenderPropsTypeWhere>;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeCreateFieldInput = {
+  node: RenderPropsTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput = {
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeUpdateConnectionInput = {
+  node?: InputMaybe<RenderPropsTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeRenderPropsTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeUnionTypeConnectFieldInput = {
+  connect?: InputMaybe<UnionTypeConnectInput>;
+  where?: InputMaybe<UnionTypeConnectWhere>;
+};
+
+export type ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInputOnCreate;
+  where: UnionTypeConnectOrCreateWhere;
+};
+
+export type ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInputOnCreate = {
+  node: UnionTypeOnCreateInput;
+};
+
+export type ArrayTypeItemTypeUnionTypeConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeItemTypeUnionTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<ArrayTypeItemTypeUnionTypeConnectionWhere>>;
+  node?: InputMaybe<UnionTypeWhere>;
+  node_NOT?: InputMaybe<UnionTypeWhere>;
+};
+
+export type ArrayTypeItemTypeUnionTypeCreateFieldInput = {
+  node: UnionTypeCreateInput;
+};
+
+export type ArrayTypeItemTypeUnionTypeDeleteFieldInput = {
+  delete?: InputMaybe<UnionTypeDeleteInput>;
+  where?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeUnionTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<UnionTypeDisconnectInput>;
+  where?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeUnionTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeUnionTypeCreateFieldInput>;
+};
+
+export type ArrayTypeItemTypeUnionTypeUpdateConnectionInput = {
+  node?: InputMaybe<UnionTypeUpdateInput>;
+};
+
+export type ArrayTypeItemTypeUnionTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput>;
+  create?: InputMaybe<ArrayTypeItemTypeUnionTypeCreateFieldInput>;
+  delete?: InputMaybe<ArrayTypeItemTypeUnionTypeDeleteFieldInput>;
+  disconnect?: InputMaybe<ArrayTypeItemTypeUnionTypeDisconnectFieldInput>;
+  update?: InputMaybe<ArrayTypeItemTypeUnionTypeUpdateConnectionInput>;
+  where?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>;
+};
+
+export type ArrayTypeItemTypeUpdateInput = {
+  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeUpdateFieldInput>;
+  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeUpdateFieldInput>;
+  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeUpdateFieldInput>;
+  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeUpdateFieldInput>;
+  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeUpdateFieldInput>;
+  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeUpdateFieldInput>;
+  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeUpdateFieldInput>;
+  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeUpdateFieldInput>;
+  PageType?: InputMaybe<ArrayTypeItemTypePageTypeUpdateFieldInput>;
+  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeUpdateFieldInput>;
+  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeUpdateFieldInput>;
+  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeUpdateFieldInput>;
+  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeUpdateFieldInput>;
+};
+
+export type ArrayTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type ArrayTypeOptions = {
@@ -1543,7 +2469,33 @@ export type ArrayTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<ArrayTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<ArrayTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type ArrayTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ArrayTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ArrayTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type ArrayTypeOwnerNodeAggregationWhereInput = {
@@ -1624,9 +2576,13 @@ export type ArrayTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type ArrayTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type ArrayTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
-  itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>;
+  itemType?: InputMaybe<ArrayTypeItemTypeUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
 };
@@ -1634,7 +2590,13 @@ export type ArrayTypeUpdateInput = {
 export type ArrayTypeUserOwnerAggregationSelection = {
   __typename?: 'ArrayTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<ArrayTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<ArrayTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type ArrayTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'ArrayTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type ArrayTypeUserOwnerNodeAggregateSelection = {
@@ -2573,6 +3535,14 @@ export type CodeMirrorTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type CodeMirrorTypeConnectOrCreateWhere = {
+  node: CodeMirrorTypeUniqueWhere;
+};
+
+export type CodeMirrorTypeConnectWhere = {
+  node: CodeMirrorTypeWhere;
+};
+
 export type CodeMirrorTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -2595,6 +3565,11 @@ export type CodeMirrorTypeEdge = {
   node: CodeMirrorType;
 };
 
+export type CodeMirrorTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type CodeMirrorTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2610,7 +3585,33 @@ export type CodeMirrorTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<CodeMirrorTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<CodeMirrorTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type CodeMirrorTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<CodeMirrorTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<CodeMirrorTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type CodeMirrorTypeOwnerNodeAggregationWhereInput = {
@@ -2691,6 +3692,10 @@ export type CodeMirrorTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type CodeMirrorTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type CodeMirrorTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   language?: InputMaybe<CodeMirrorLanguage>;
@@ -2701,7 +3706,13 @@ export type CodeMirrorTypeUpdateInput = {
 export type CodeMirrorTypeUserOwnerAggregationSelection = {
   __typename?: 'CodeMirrorTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<CodeMirrorTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<CodeMirrorTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type CodeMirrorTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'CodeMirrorTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type CodeMirrorTypeUserOwnerNodeAggregateSelection = {
@@ -3600,7 +4611,11 @@ export type CreateInfoSort = {
 export type CreateInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>;
   nodesCreated?: InputMaybe<Scalars['Int']>;
+  nodesCreated_DECREMENT?: InputMaybe<Scalars['Int']>;
+  nodesCreated_INCREMENT?: InputMaybe<Scalars['Int']>;
   relationshipsCreated?: InputMaybe<Scalars['Int']>;
+  relationshipsCreated_DECREMENT?: InputMaybe<Scalars['Int']>;
+  relationshipsCreated_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type CreateInfoWhere = {
@@ -4034,7 +5049,11 @@ export type DeleteInfoSort = {
 export type DeleteInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>;
   nodesDeleted?: InputMaybe<Scalars['Int']>;
+  nodesDeleted_DECREMENT?: InputMaybe<Scalars['Int']>;
+  nodesDeleted_INCREMENT?: InputMaybe<Scalars['Int']>;
   relationshipsDeleted?: InputMaybe<Scalars['Int']>;
+  relationshipsDeleted_DECREMENT?: InputMaybe<Scalars['Int']>;
+  relationshipsDeleted_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type DeleteInfoWhere = {
@@ -7539,6 +8558,14 @@ export type ElementTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type ElementTypeConnectOrCreateWhere = {
+  node: ElementTypeUniqueWhere;
+};
+
+export type ElementTypeConnectWhere = {
+  node: ElementTypeWhere;
+};
+
 export type ElementTypeCreateInput = {
   elementKind: ElementTypeKind;
   id: Scalars['ID'];
@@ -7572,6 +8599,11 @@ export enum ElementTypeKind {
   ExcludeDescendantsElements = 'ExcludeDescendantsElements'
 }
 
+export type ElementTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type ElementTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -7587,7 +8619,33 @@ export type ElementTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<ElementTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<ElementTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type ElementTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ElementTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type ElementTypeOwnerNodeAggregationWhereInput = {
@@ -7668,6 +8726,10 @@ export type ElementTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type ElementTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type ElementTypeUpdateInput = {
   elementKind?: InputMaybe<ElementTypeKind>;
   id?: InputMaybe<Scalars['ID']>;
@@ -7678,7 +8740,13 @@ export type ElementTypeUpdateInput = {
 export type ElementTypeUserOwnerAggregationSelection = {
   __typename?: 'ElementTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<ElementTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<ElementTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type ElementTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'ElementTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type ElementTypeUserOwnerNodeAggregateSelection = {
@@ -8245,7 +9313,33 @@ export type EnumTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<EnumTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<EnumTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type EnumTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<EnumTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<EnumTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type EnumTypeOwnerNodeAggregationWhereInput = {
@@ -8340,7 +9434,13 @@ export type EnumTypeUpdateInput = {
 export type EnumTypeUserOwnerAggregationSelection = {
   __typename?: 'EnumTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<EnumTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<EnumTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type EnumTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'EnumTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type EnumTypeUserOwnerNodeAggregateSelection = {
@@ -9695,7 +10795,33 @@ export type InterfaceTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<InterfaceTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<InterfaceTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type InterfaceTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<InterfaceTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<InterfaceTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type InterfaceTypeOwnerNodeAggregationWhereInput = {
@@ -9792,7 +10918,13 @@ export type InterfaceTypeUpdateInput = {
 export type InterfaceTypeUserOwnerAggregationSelection = {
   __typename?: 'InterfaceTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<InterfaceTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<InterfaceTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type InterfaceTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'InterfaceTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type InterfaceTypeUserOwnerNodeAggregateSelection = {
@@ -9912,6 +11044,14 @@ export type LambdaTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type LambdaTypeConnectOrCreateWhere = {
+  node: LambdaTypeUniqueWhere;
+};
+
+export type LambdaTypeConnectWhere = {
+  node: LambdaTypeWhere;
+};
+
 export type LambdaTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -9933,6 +11073,11 @@ export type LambdaTypeEdge = {
   node: LambdaType;
 };
 
+export type LambdaTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type LambdaTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -9948,7 +11093,33 @@ export type LambdaTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<LambdaTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<LambdaTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type LambdaTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<LambdaTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<LambdaTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type LambdaTypeOwnerNodeAggregationWhereInput = {
@@ -10028,6 +11199,10 @@ export type LambdaTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type LambdaTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type LambdaTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -10037,7 +11212,13 @@ export type LambdaTypeUpdateInput = {
 export type LambdaTypeUserOwnerAggregationSelection = {
   __typename?: 'LambdaTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<LambdaTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<LambdaTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type LambdaTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'LambdaTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type LambdaTypeUserOwnerNodeAggregateSelection = {
@@ -10985,6 +12166,37 @@ export type MutationUpsertFieldArgs = {
   interfaceTypeId: Scalars['ID'];
 };
 
+export type OwnedBy = {
+  data: Scalars['String'];
+};
+
+export type OwnedByCreateInput = {
+  data?: Scalars['String'];
+};
+
+export type OwnedBySort = {
+  data?: InputMaybe<SortDirection>;
+};
+
+export type OwnedByUpdateInput = {
+  data?: InputMaybe<Scalars['String']>;
+};
+
+export type OwnedByWhere = {
+  AND?: InputMaybe<Array<OwnedByWhere>>;
+  OR?: InputMaybe<Array<OwnedByWhere>>;
+  data?: InputMaybe<Scalars['String']>;
+  data_CONTAINS?: InputMaybe<Scalars['String']>;
+  data_ENDS_WITH?: InputMaybe<Scalars['String']>;
+  data_IN?: InputMaybe<Array<Scalars['String']>>;
+  data_NOT?: InputMaybe<Scalars['String']>;
+  data_NOT_CONTAINS?: InputMaybe<Scalars['String']>;
+  data_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>;
+  data_NOT_IN?: InputMaybe<Array<Scalars['String']>>;
+  data_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>;
+  data_STARTS_WITH?: InputMaybe<Scalars['String']>;
+};
+
 export type Page = {
   __typename?: 'Page';
   app: App;
@@ -11587,6 +12799,14 @@ export type PageTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type PageTypeConnectOrCreateWhere = {
+  node: PageTypeUniqueWhere;
+};
+
+export type PageTypeConnectWhere = {
+  node: PageTypeWhere;
+};
+
 export type PageTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -11608,6 +12828,11 @@ export type PageTypeEdge = {
   node: PageType;
 };
 
+export type PageTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type PageTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -11623,7 +12848,33 @@ export type PageTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<PageTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<PageTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type PageTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PageTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<PageTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type PageTypeOwnerNodeAggregationWhereInput = {
@@ -11703,6 +12954,10 @@ export type PageTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type PageTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type PageTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -11712,7 +12967,13 @@ export type PageTypeUpdateInput = {
 export type PageTypeUserOwnerAggregationSelection = {
   __typename?: 'PageTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<PageTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<PageTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type PageTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'PageTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type PageTypeUserOwnerNodeAggregateSelection = {
@@ -11842,6 +13103,8 @@ export type ParentOfElementSort = {
 
 export type ParentOfElementUpdateInput = {
   order?: InputMaybe<Scalars['Int']>;
+  order_DECREMENT?: InputMaybe<Scalars['Int']>;
+  order_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type ParentOfElementWhere = {
@@ -12394,6 +13657,14 @@ export type PrimitiveTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type PrimitiveTypeConnectOrCreateWhere = {
+  node: PrimitiveTypeUniqueWhere;
+};
+
+export type PrimitiveTypeConnectWhere = {
+  node: PrimitiveTypeWhere;
+};
+
 export type PrimitiveTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -12423,6 +13694,11 @@ export enum PrimitiveTypeKind {
   String = 'String'
 }
 
+export type PrimitiveTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type PrimitiveTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -12438,7 +13714,33 @@ export type PrimitiveTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<PrimitiveTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<PrimitiveTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type PrimitiveTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PrimitiveTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<PrimitiveTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
@@ -12519,6 +13821,12 @@ export type PrimitiveTypeSort = {
   primitiveKind?: InputMaybe<SortDirection>;
 };
 
+export type PrimitiveTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  primitiveKind?: InputMaybe<PrimitiveTypeKind>;
+};
+
 export type PrimitiveTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -12529,7 +13837,13 @@ export type PrimitiveTypeUpdateInput = {
 export type PrimitiveTypeUserOwnerAggregationSelection = {
   __typename?: 'PrimitiveTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<PrimitiveTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<PrimitiveTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type PrimitiveTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'PrimitiveTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
@@ -14331,6 +15645,14 @@ export type ReactNodeTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type ReactNodeTypeConnectOrCreateWhere = {
+  node: ReactNodeTypeUniqueWhere;
+};
+
+export type ReactNodeTypeConnectWhere = {
+  node: ReactNodeTypeWhere;
+};
+
 export type ReactNodeTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -14352,6 +15674,11 @@ export type ReactNodeTypeEdge = {
   node: ReactNodeType;
 };
 
+export type ReactNodeTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type ReactNodeTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -14367,7 +15694,33 @@ export type ReactNodeTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<ReactNodeTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<ReactNodeTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type ReactNodeTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ReactNodeTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ReactNodeTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
@@ -14447,6 +15800,10 @@ export type ReactNodeTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type ReactNodeTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type ReactNodeTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -14456,7 +15813,13 @@ export type ReactNodeTypeUpdateInput = {
 export type ReactNodeTypeUserOwnerAggregationSelection = {
   __typename?: 'ReactNodeTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<ReactNodeTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<ReactNodeTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type ReactNodeTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'ReactNodeTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
@@ -14599,6 +15962,14 @@ export type RenderPropsTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
 };
 
+export type RenderPropsTypeConnectOrCreateWhere = {
+  node: RenderPropsTypeUniqueWhere;
+};
+
+export type RenderPropsTypeConnectWhere = {
+  node: RenderPropsTypeWhere;
+};
+
 export type RenderPropsTypeCreateInput = {
   id: Scalars['ID'];
   kind?: TypeKind;
@@ -14620,6 +15991,11 @@ export type RenderPropsTypeEdge = {
   node: RenderPropsType;
 };
 
+export type RenderPropsTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type RenderPropsTypeOptions = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -14635,7 +16011,33 @@ export type RenderPropsTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<RenderPropsTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<RenderPropsTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type RenderPropsTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<RenderPropsTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<RenderPropsTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type RenderPropsTypeOwnerNodeAggregationWhereInput = {
@@ -14715,6 +16117,10 @@ export type RenderPropsTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type RenderPropsTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type RenderPropsTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -14724,7 +16130,13 @@ export type RenderPropsTypeUpdateInput = {
 export type RenderPropsTypeUserOwnerAggregationSelection = {
   __typename?: 'RenderPropsTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<RenderPropsTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<RenderPropsTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type RenderPropsTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'RenderPropsTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type RenderPropsTypeUserOwnerNodeAggregateSelection = {
@@ -17427,7 +18839,11 @@ export type TagGraphOptionsSort = {
 
 export type TagGraphOptionsUpdateInput = {
   limit?: InputMaybe<Scalars['Int']>;
+  limit_DECREMENT?: InputMaybe<Scalars['Int']>;
+  limit_INCREMENT?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Scalars['Int']>;
+  sort_DECREMENT?: InputMaybe<Scalars['Int']>;
+  sort_INCREMENT?: InputMaybe<Scalars['Int']>;
 };
 
 export type TagGraphOptionsWhere = {
@@ -17994,11 +19410,13 @@ export type TypeBaseOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<TypeBaseOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<TypeBaseOwnerNodeAggregationWhereInput>;
 };
 
 export type TypeBaseOwnerConnectFieldInput = {
   connect?: InputMaybe<UserConnectInput>;
+  edge: OwnedByCreateInput;
   where?: InputMaybe<UserConnectWhere>;
 };
 
@@ -18008,6 +19426,7 @@ export type TypeBaseOwnerConnectOrCreateFieldInput = {
 };
 
 export type TypeBaseOwnerConnectOrCreateFieldInputOnCreate = {
+  edge: OwnedByCreateInput;
   node: UserOnCreateInput;
 };
 
@@ -18019,17 +19438,21 @@ export type TypeBaseOwnerConnection = {
 };
 
 export type TypeBaseOwnerConnectionSort = {
+  edge?: InputMaybe<OwnedBySort>;
   node?: InputMaybe<UserSort>;
 };
 
 export type TypeBaseOwnerConnectionWhere = {
   AND?: InputMaybe<Array<TypeBaseOwnerConnectionWhere>>;
   OR?: InputMaybe<Array<TypeBaseOwnerConnectionWhere>>;
+  edge?: InputMaybe<OwnedByWhere>;
+  edge_NOT?: InputMaybe<OwnedByWhere>;
   node?: InputMaybe<UserWhere>;
   node_NOT?: InputMaybe<UserWhere>;
 };
 
 export type TypeBaseOwnerCreateFieldInput = {
+  edge: OwnedByCreateInput;
   node: UserCreateInput;
 };
 
@@ -18041,6 +19464,31 @@ export type TypeBaseOwnerDeleteFieldInput = {
 export type TypeBaseOwnerDisconnectFieldInput = {
   disconnect?: InputMaybe<UserDisconnectInput>;
   where?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+};
+
+export type TypeBaseOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TypeBaseOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<TypeBaseOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type TypeBaseOwnerFieldInput = {
@@ -18115,13 +19563,15 @@ export type TypeBaseOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
-export type TypeBaseOwnerRelationship = {
+export type TypeBaseOwnerRelationship = OwnedBy & {
   __typename?: 'TypeBaseOwnerRelationship';
   cursor: Scalars['String'];
+  data: Scalars['String'];
   node: User;
 };
 
 export type TypeBaseOwnerUpdateConnectionInput = {
+  edge?: InputMaybe<OwnedByUpdateInput>;
   node?: InputMaybe<UserUpdateInput>;
 };
 
@@ -18284,7 +19734,7 @@ export type UnionType = TypeBase & WithDescendants & {
   owner: User;
   ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
-  typesOfUnionType: Array<TypeBase>;
+  typesOfUnionType: Array<AnyType>;
   typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection;
 };
 
@@ -18317,8 +19767,8 @@ export type UnionTypeOwnerConnectionArgs = {
 /** Allows picking one of a set of types */
 export type UnionTypeTypesOfUnionTypeArgs = {
   directed?: InputMaybe<Scalars['Boolean']>;
-  options?: InputMaybe<TypeBaseOptions>;
-  where?: InputMaybe<TypeBaseWhere>;
+  options?: InputMaybe<QueryOptions>;
+  where?: InputMaybe<AnyTypeWhere>;
 };
 
 
@@ -18327,7 +19777,6 @@ export type UnionTypeTypesOfUnionTypeConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   directed?: InputMaybe<Scalars['Boolean']>;
   first?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionSort>>;
   where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
 };
 
@@ -18340,11 +19789,20 @@ export type UnionTypeAggregateSelection = {
 
 export type UnionTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeConnectInput>;
 };
 
 export type UnionTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeConnectOrCreateInput>;
+};
+
+export type UnionTypeConnectOrCreateWhere = {
+  node: UnionTypeUniqueWhere;
+};
+
+export type UnionTypeConnectWhere = {
+  node: UnionTypeWhere;
 };
 
 export type UnionTypeCreateInput = {
@@ -18352,23 +19810,28 @@ export type UnionTypeCreateInput = {
   kind?: TypeKind;
   name: Scalars['String'];
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
-  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeFieldInput>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeCreateInput>;
 };
 
 export type UnionTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeDeleteInput>;
 };
 
 export type UnionTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeDisconnectInput>;
 };
 
 export type UnionTypeEdge = {
   __typename?: 'UnionTypeEdge';
   cursor: Scalars['String'];
   node: UnionType;
+};
+
+export type UnionTypeOnCreateInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type UnionTypeOptions = {
@@ -18386,7 +19849,33 @@ export type UnionTypeOwnerAggregateInput = {
   count_GTE?: InputMaybe<Scalars['Int']>;
   count_LT?: InputMaybe<Scalars['Int']>;
   count_LTE?: InputMaybe<Scalars['Int']>;
+  edge?: InputMaybe<UnionTypeOwnerEdgeAggregationWhereInput>;
   node?: InputMaybe<UnionTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type UnionTypeOwnerEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UnionTypeOwnerEdgeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<UnionTypeOwnerEdgeAggregationWhereInput>>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>;
+  data_EQUAL?: InputMaybe<Scalars['String']>;
+  data_GT?: InputMaybe<Scalars['Int']>;
+  data_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>;
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>;
+  data_LT?: InputMaybe<Scalars['Int']>;
+  data_LTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>;
 };
 
 export type UnionTypeOwnerNodeAggregationWhereInput = {
@@ -18457,7 +19946,7 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
 
 export type UnionTypeRelationInput = {
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeCreateFieldInput>;
 };
 
 /** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
@@ -18467,9 +19956,256 @@ export type UnionTypeSort = {
   name?: InputMaybe<SortDirection>;
 };
 
-export type UnionTypeTypesOfUnionTypeConnectFieldInput = {
-  connect?: InputMaybe<TypeBaseConnectInput>;
-  where?: InputMaybe<TypeBaseConnectWhere>;
+export type UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<ActionTypeConnectInput>>;
+  where?: InputMaybe<ActionTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInputOnCreate;
+  where: ActionTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInputOnCreate = {
+  node: ActionTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>>;
+  node?: InputMaybe<ActionTypeWhere>;
+  node_NOT?: InputMaybe<ActionTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput = {
+  node: ActionTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeDeleteFieldInput = {
+  delete?: InputMaybe<ActionTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ActionTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeUpdateConnectionInput = {
+  node?: InputMaybe<ActionTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<AppTypeConnectInput>>;
+  where?: InputMaybe<AppTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInputOnCreate;
+  where: AppTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInputOnCreate = {
+  node: AppTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>>;
+  node?: InputMaybe<AppTypeWhere>;
+  node_NOT?: InputMaybe<AppTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput = {
+  node: AppTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput = {
+  delete?: InputMaybe<AppTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<AppTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput = {
+  node?: InputMaybe<AppTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<ArrayTypeConnectInput>>;
+  where?: InputMaybe<ArrayTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate;
+  where: ArrayTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate = {
+  node: ArrayTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>>;
+  node?: InputMaybe<ArrayTypeWhere>;
+  node_NOT?: InputMaybe<ArrayTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput = {
+  node: ArrayTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput = {
+  delete?: InputMaybe<ArrayTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ArrayTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeUpdateConnectionInput = {
+  node?: InputMaybe<ArrayTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<CodeMirrorTypeConnectInput>>;
+  where?: InputMaybe<CodeMirrorTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate;
+  where: CodeMirrorTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate = {
+  node: CodeMirrorTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>>;
+  node?: InputMaybe<CodeMirrorTypeWhere>;
+  node_NOT?: InputMaybe<CodeMirrorTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput = {
+  node: CodeMirrorTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput = {
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput = {
+  node?: InputMaybe<CodeMirrorTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeConnectInput = {
+  ActionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput>>;
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput>>;
+  ArrayType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput>>;
+  CodeMirrorType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput>>;
+  ElementType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput>>;
+  EnumType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput>>;
+  InterfaceType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput>>;
+  LambdaType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput>>;
+  PageType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>>;
+  PrimitiveType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput>>;
+  ReactNodeType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput>>;
+  RenderPropsType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput>>;
+  UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeConnectOrCreateInput = {
+  ActionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput>>;
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput>>;
+  ArrayType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput>>;
+  CodeMirrorType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput>>;
+  ElementType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput>>;
+  EnumType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput>>;
+  InterfaceType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput>>;
+  LambdaType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput>>;
+  PageType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput>>;
+  PrimitiveType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput>>;
+  ReactNodeType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput>>;
+  RenderPropsType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput>>;
+  UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput>>;
 };
 
 export type UnionTypeTypesOfUnionTypeConnection = {
@@ -18479,66 +20215,625 @@ export type UnionTypeTypesOfUnionTypeConnection = {
   totalCount: Scalars['Int'];
 };
 
-export type UnionTypeTypesOfUnionTypeConnectionSort = {
-  node?: InputMaybe<TypeBaseSort>;
-};
-
 export type UnionTypeTypesOfUnionTypeConnectionWhere = {
-  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>;
-  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>;
-  node?: InputMaybe<TypeBaseWhere>;
-  node_NOT?: InputMaybe<TypeBaseWhere>;
+  ActionType?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>;
+  AppType?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>;
+  ArrayType?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>;
+  CodeMirrorType?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>;
+  ElementType?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>;
+  EnumType?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>;
+  InterfaceType?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>;
+  LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>;
+  PageType?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>;
+  PrimitiveType?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>;
+  ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>;
+  RenderPropsType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>;
+  UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>;
 };
 
 export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
-  node: TypeBaseCreateInput;
+  ActionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput>>;
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>;
+  ArrayType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput>>;
+  CodeMirrorType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>>;
+  ElementType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput>>;
+  EnumType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput>>;
+  InterfaceType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput>>;
+  LambdaType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput>>;
+  PageType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>>;
+  PrimitiveType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput>>;
+  ReactNodeType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput>>;
+  RenderPropsType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput>>;
+  UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput>>;
 };
 
-export type UnionTypeTypesOfUnionTypeDeleteFieldInput = {
-  delete?: InputMaybe<TypeBaseDeleteInput>;
-  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+export type UnionTypeTypesOfUnionTypeCreateInput = {
+  ActionType?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeFieldInput>;
+  AppType?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeFieldInput>;
+  ArrayType?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeFieldInput>;
+  CodeMirrorType?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput>;
+  ElementType?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeFieldInput>;
+  EnumType?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeFieldInput>;
+  InterfaceType?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput>;
+  LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeFieldInput>;
+  PageType?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeFieldInput>;
+  PrimitiveType?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput>;
+  ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput>;
+  RenderPropsType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeFieldInput>;
+  UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeFieldInput>;
 };
 
-export type UnionTypeTypesOfUnionTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<TypeBaseDisconnectInput>;
-  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+export type UnionTypeTypesOfUnionTypeDeleteInput = {
+  ActionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeDeleteFieldInput>>;
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput>>;
+  ArrayType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput>>;
+  CodeMirrorType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput>>;
+  ElementType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput>>;
+  EnumType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput>>;
+  InterfaceType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput>>;
+  LambdaType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput>>;
+  PageType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput>>;
+  PrimitiveType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeDeleteFieldInput>>;
+  ReactNodeType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput>>;
+  RenderPropsType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput>>;
+  UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput>>;
 };
 
-export type UnionTypeTypesOfUnionTypeFieldInput = {
-  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>;
-  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>;
+export type UnionTypeTypesOfUnionTypeDisconnectInput = {
+  ActionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeDisconnectFieldInput>>;
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput>>;
+  ArrayType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput>>;
+  CodeMirrorType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput>>;
+  ElementType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput>>;
+  EnumType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput>>;
+  InterfaceType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput>>;
+  LambdaType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput>>;
+  PageType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput>>;
+  PrimitiveType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeDisconnectFieldInput>>;
+  ReactNodeType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput>>;
+  RenderPropsType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput>>;
+  UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<ElementTypeConnectInput>>;
+  where?: InputMaybe<ElementTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInputOnCreate;
+  where: ElementTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInputOnCreate = {
+  node: ElementTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>>;
+  node?: InputMaybe<ElementTypeWhere>;
+  node_NOT?: InputMaybe<ElementTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput = {
+  node: ElementTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput = {
+  delete?: InputMaybe<ElementTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ElementTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput = {
+  node?: InputMaybe<ElementTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<EnumTypeConnectInput>>;
+  where?: InputMaybe<EnumTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate;
+  where: EnumTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate = {
+  node: EnumTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>>;
+  node?: InputMaybe<EnumTypeWhere>;
+  node_NOT?: InputMaybe<EnumTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput = {
+  node: EnumTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput = {
+  delete?: InputMaybe<EnumTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<EnumTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeUpdateConnectionInput = {
+  node?: InputMaybe<EnumTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeConnectInput>>;
+  where?: InputMaybe<InterfaceTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate;
+  where: InterfaceTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate = {
+  node: InterfaceTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>>;
+  node?: InputMaybe<InterfaceTypeWhere>;
+  node_NOT?: InputMaybe<InterfaceTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput = {
+  node: InterfaceTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput = {
+  delete?: InputMaybe<InterfaceTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput = {
+  node?: InputMaybe<InterfaceTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<LambdaTypeConnectInput>>;
+  where?: InputMaybe<LambdaTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInputOnCreate;
+  where: LambdaTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInputOnCreate = {
+  node: LambdaTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>>;
+  node?: InputMaybe<LambdaTypeWhere>;
+  node_NOT?: InputMaybe<LambdaTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput = {
+  node: LambdaTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput = {
+  delete?: InputMaybe<LambdaTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<LambdaTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput = {
+  node?: InputMaybe<LambdaTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<PageTypeConnectInput>>;
+  where?: InputMaybe<PageTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInputOnCreate;
+  where: PageTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInputOnCreate = {
+  node: PageTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>>;
+  node?: InputMaybe<PageTypeWhere>;
+  node_NOT?: InputMaybe<PageTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeCreateFieldInput = {
+  node: PageTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput = {
+  delete?: InputMaybe<PageTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<PageTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput = {
+  node?: InputMaybe<PageTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<PrimitiveTypeConnectInput>>;
+  where?: InputMaybe<PrimitiveTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInputOnCreate;
+  where: PrimitiveTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInputOnCreate = {
+  node: PrimitiveTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>>;
+  node?: InputMaybe<PrimitiveTypeWhere>;
+  node_NOT?: InputMaybe<PrimitiveTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput = {
+  node: PrimitiveTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeDeleteFieldInput = {
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<PrimitiveTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeUpdateConnectionInput = {
+  node?: InputMaybe<PrimitiveTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<ReactNodeTypeConnectInput>>;
+  where?: InputMaybe<ReactNodeTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInputOnCreate;
+  where: ReactNodeTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInputOnCreate = {
+  node: ReactNodeTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>>;
+  node?: InputMaybe<ReactNodeTypeWhere>;
+  node_NOT?: InputMaybe<ReactNodeTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput = {
+  node: ReactNodeTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput = {
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<ReactNodeTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateConnectionInput = {
+  node?: InputMaybe<ReactNodeTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>;
 };
 
 export type UnionTypeTypesOfUnionTypeRelationship = {
   __typename?: 'UnionTypeTypesOfUnionTypeRelationship';
   cursor: Scalars['String'];
-  node: TypeBase;
+  node: AnyType;
 };
 
-export type UnionTypeTypesOfUnionTypeUpdateConnectionInput = {
-  node?: InputMaybe<TypeBaseUpdateInput>;
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<RenderPropsTypeConnectInput>>;
+  where?: InputMaybe<RenderPropsTypeConnectWhere>;
 };
 
-export type UnionTypeTypesOfUnionTypeUpdateFieldInput = {
-  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>;
-  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>;
-  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>>;
-  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>>;
-  update?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateConnectionInput>;
-  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate;
+  where: RenderPropsTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate = {
+  node: RenderPropsTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>>;
+  node?: InputMaybe<RenderPropsTypeWhere>;
+  node_NOT?: InputMaybe<RenderPropsTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput = {
+  node: RenderPropsTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput = {
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateConnectionInput = {
+  node?: InputMaybe<RenderPropsTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeConnectInput>>;
+  where?: InputMaybe<UnionTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput = {
+  onCreate: UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInputOnCreate;
+  where: UnionTypeConnectOrCreateWhere;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInputOnCreate = {
+  node: UnionTypeOnCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>>;
+  node?: InputMaybe<UnionTypeWhere>;
+  node_NOT?: InputMaybe<UnionTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput = {
+  node: UnionTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput = {
+  delete?: InputMaybe<UnionTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<UnionTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeUpdateConnectionInput = {
+  node?: InputMaybe<UnionTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUpdateInput = {
+  ActionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput>>;
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput>>;
+  ArrayType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput>>;
+  CodeMirrorType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput>>;
+  ElementType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput>>;
+  EnumType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput>>;
+  InterfaceType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput>>;
+  LambdaType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput>>;
+  PageType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput>>;
+  PrimitiveType?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeUpdateFieldInput>>;
+  ReactNodeType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput>>;
+  RenderPropsType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateFieldInput>>;
+  UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput>>;
+};
+
+export type UnionTypeUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type UnionTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateInput>;
 };
 
 export type UnionTypeUserOwnerAggregationSelection = {
   __typename?: 'UnionTypeUserOwnerAggregationSelection';
   count: Scalars['Int'];
+  edge?: Maybe<UnionTypeUserOwnerEdgeAggregateSelection>;
   node?: Maybe<UnionTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type UnionTypeUserOwnerEdgeAggregateSelection = {
+  __typename?: 'UnionTypeUserOwnerEdgeAggregateSelection';
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type UnionTypeUserOwnerNodeAggregateSelection = {
@@ -21590,7 +23885,7 @@ export type EnumTypeFragment = (
 export type FieldFragment = { __typename?: 'InterfaceTypeFieldsRelationship', id: string, key: string, name?: string | null, description?: string | null, fieldType: { __typename?: 'ActionType', id: string } | { __typename?: 'AppType', id: string } | { __typename?: 'ArrayType', id: string } | { __typename?: 'CodeMirrorType', id: string } | { __typename?: 'ElementType', id: string } | { __typename?: 'EnumType', id: string } | { __typename?: 'InterfaceType', id: string } | { __typename?: 'LambdaType', id: string } | { __typename?: 'PageType', id: string } | { __typename?: 'PrimitiveType', id: string } | { __typename?: 'ReactNodeType', id: string } | { __typename?: 'RenderPropsType', id: string } | { __typename?: 'UnionType', id: string } };
 
 export type InterfaceTypeFragment = (
-  { __typename?: 'InterfaceType', fieldsConnection: { __typename?: 'InterfaceTypeFieldsConnection', edges: Array<(
+  { __typename?: 'InterfaceType', ownerConnection: { __typename?: 'TypeBaseOwnerConnection', edges: Array<{ __typename?: 'TypeBaseOwnerRelationship', data: string }> }, fieldsConnection: { __typename?: 'InterfaceTypeFieldsConnection', edges: Array<(
       { __typename?: 'InterfaceTypeFieldsRelationship' }
       & FieldFragment
     )> } }

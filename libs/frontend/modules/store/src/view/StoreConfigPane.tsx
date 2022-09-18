@@ -45,8 +45,8 @@ export const StoreConfigPane = observer<StoreConfigPaneProps>(
             context={{
               builderState: { componentId: undefined },
             }}
-            initialValue={store.state.values}
             interfaceType={api as Maybe<IInterfaceType>}
+            model={store.state.values}
             onSubmit={onSubmit}
           />
         </div>

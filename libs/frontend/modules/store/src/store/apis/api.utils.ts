@@ -18,6 +18,7 @@ import {
   IUpdateActionInput,
   IUpdateStoreDTO,
 } from '@codelab/shared/abstract/core'
+import { connectTypeOwner } from '@codelab/shared/data'
 import { capitalize, keys } from 'lodash'
 import { v4 } from 'uuid'
 
@@ -59,9 +60,7 @@ export const makeStoreCreateInput = (
   const interfaceCreateInput: InterfaceTypeCreateInput = {
     id: v4(),
     name: `${capitalize(name)} State`,
-    owner: {
-      connect: { where: { node: { auth0Id } } },
-    },
+    owner: connectTypeOwner(auth0Id),
   }
 
   return {

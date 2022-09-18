@@ -2,6 +2,7 @@ import {
   CodeMirrorLanguage,
   ElementTypeKind,
 } from '@codelab/shared/abstract/codegen'
+import { IPropData } from '../prop'
 import { TypeFragment } from './fragments'
 import {
   IEnumTypeExport,
@@ -24,12 +25,14 @@ export interface IBaseTypeDTO {
   allowedValues?: Array<IEnumTypeValue>
   unionTypeIds?: Array<string>
   arrayTypeId?: string
+  interfaceDefaults?: { data: IPropData; auth0Id: string }
 }
 
 /**
  * Create
  */
-export interface ICreateTypeDTO extends IBaseTypeDTO {
+export interface ICreateTypeDTO
+  extends Omit<IBaseTypeDTO, 'interfaceDefaults'> {
   auth0Id: string
 }
 

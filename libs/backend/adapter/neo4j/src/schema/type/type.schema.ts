@@ -57,8 +57,11 @@ export const typeSchema = gql`
     owner: User!
       @relationship(
         type: "OWNED_BY",
+        # used by interfaceType to store default values
+        properties: "OwnedBy",
         direction: OUT
       )
+    
     # Any type could be used a field for some interface
 #    fieldFor: [TypeBase!]!
 #      @relationship(
@@ -123,7 +126,7 @@ export const typeSchema = gql`
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
-    itemType: TypeBase!
+    itemType: AnyType!
       @relationship(
         type: "ARRAY_ITEM_TYPE",
         direction: OUT,
@@ -139,11 +142,16 @@ export const typeSchema = gql`
     name: String! @unique
     owner: User!
     descendantTypesIds: [ID!]!
-    typesOfUnionType: [TypeBase!]!
+    typesOfUnionType: [AnyType!]!
       @relationship(
         type: "UNION_TYPE_CHILD",
         direction: OUT,
       )
+  }
+
+  
+  interface OwnedBy @relationshipProperties {
+    data: String! @default(value: "{}")
   }
 
   """
@@ -342,4 +350,17 @@ export const typeSchema = gql`
 
 
 
+  union AnyType = PrimitiveType | 
+                  ArrayType | 
+                  UnionType | 
+                  InterfaceType | 
+                  ElementType | 
+                  RenderPropsType | 
+                  ReactNodeType | 
+                  EnumType | 
+                  LambdaType | 
+                  PageType | 
+                  AppType | 
+                  ActionType | 
+                  CodeMirrorType
 `

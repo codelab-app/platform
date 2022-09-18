@@ -1,7 +1,7 @@
 import { ComponentOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectId } from '@codelab/shared/data'
+import { connectId, connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 export const createComponent = async (
@@ -29,7 +29,7 @@ export const createComponent = async (
                   id: v4(),
                   name: `${component.name} API`,
                   kind: ITypeKind.InterfaceType,
-                  owner: { connect: { where: { node: { id: selectedUser } } } },
+                  owner: connectTypeOwner(selectedUser),
                 },
               },
             },

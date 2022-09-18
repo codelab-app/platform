@@ -5,8 +5,10 @@ import {
 } from '@codelab/shared/abstract/core'
 import {
   makeAllowedValuesCreateInput,
+  makeArrayTypeDisconnectInput,
   makeItemTypeCreateInput,
   makeTypesOfUnionTypeCreateInput,
+  makeTypesOfUnionTypeDisconnectInput,
 } from '@codelab/shared/data'
 
 export const updateTypeInputFactory = (
@@ -26,14 +28,22 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.ArrayType
           ? makeItemTypeCreateInput(type)
           : undefined,
+      owner:
+        type.kind === ITypeKind.InterfaceType
+          ? {
+              connect: {
+                where: { node: { auth0Id: type.interfaceDefaults?.auth0Id } },
+                edge: {
+                  data: JSON.stringify(type.interfaceDefaults?.data || '{}'),
+                },
+              },
+            }
+          : undefined,
       typesOfUnionType:
         type.kind === ITypeKind.UnionType
-          ? [makeTypesOfUnionTypeCreateInput(type)]
+          ? makeTypesOfUnionTypeCreateInput(type)
           : undefined,
-      // fields:
-      //   type.kind === ITypeKind.InterfaceType
-      //     ? [makeFieldsCreateInput(type)]
-      //     : undefined,
+
       allowedValues:
         type.kind === ITypeKind.EnumType
           ? [makeAllowedValuesCreateInput(type)]
@@ -42,19 +52,11 @@ export const updateTypeInputFactory = (
     disconnect: {
       itemType:
         type.kind === ITypeKind.ArrayType && type.arrayTypeId
-          ? { where: { node: { id_NOT: type.arrayTypeId } } }
+          ? makeArrayTypeDisconnectInput(type)
           : undefined,
       typesOfUnionType:
         type.kind === ITypeKind.UnionType
-          ? [
-              {
-                where: {
-                  node: {
-                    id_NOT_IN: type.unionTypeIds?.map((id) => id),
-                  },
-                },
-              },
-            ]
+          ? makeTypesOfUnionTypeDisconnectInput(type)
           : undefined,
       // fields:
       //   type.kind === ITypeKind.InterfaceType

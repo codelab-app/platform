@@ -19,10 +19,12 @@ export const useCurrentInterfaceId = () => {
 export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   const interfaceId = useCurrentInterfaceId()
 
-  const { loading, error } = useAsync(() => {
-    // We need the whole graph, not just the interface, because we need to reference all the field types
-    return typeService.getInterfaceAndDescendants(interfaceId)
-  }, [interfaceId])
+  const { loading, error } = useAsync(
+    () =>
+      // We need the whole graph, not just the interface, because we need to reference all the field types
+      typeService.getInterfaceAndDescendants(interfaceId),
+    [interfaceId],
+  )
 
   return {
     loading,

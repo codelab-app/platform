@@ -12,10 +12,11 @@ import {
   IAppService,
   ICreateAppDTO,
   IPageBuilderAppProps,
+  ITypeKind,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/data'
+import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -186,7 +187,8 @@ export class AppService
                 node: {
                   id: v4(),
                   name: `${app.name} Store API`,
-                  owner: connectOwner(app.auth0Id),
+                  kind: ITypeKind.InterfaceType,
+                  owner: connectTypeOwner(app.auth0Id),
                 },
               },
             },
