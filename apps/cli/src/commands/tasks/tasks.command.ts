@@ -47,15 +47,17 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           if (env === Env.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            // execCommand(`${NX_TEST} build builder -c test`)
+            execCommand(`${NX_TEST} build builder -c test`)
             execCommand(`${NX_TEST} affected:build -c test`)
           }
 
+          // Can't use in CI since cli hasn't been built yet
           if (env === Env.CI) {
-            execCommand('npx nx affected:build -c ci --verbose')
+            throw new Error('Cant use in CI')
           }
         },
       )
+      //
       .command(
         Tasks.Unit,
         'Run unit tests',
@@ -65,11 +67,15 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // execCommand(`${NX_TEST} build builder -c test`)
-            execCommand(`${NX_TEST} affected:build -c test`)
+            execCommand(
+              `${NX_TEST} affected:test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color --parallel=3`,
+            )
           }
 
           if (env === Env.CI) {
-            execCommand('npx nx affected:build -c ci --verbose')
+            execCommand(
+              'npx nx affected:test --testPathPattern="[^i].spec.ts" --color --parallel=4',
+            )
           }
         },
       )
