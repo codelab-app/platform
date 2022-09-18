@@ -24,6 +24,7 @@ import {
   IStoreService,
   ITypeService,
 } from '@codelab/shared/abstract/core'
+import { propSafeStringify } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
@@ -100,7 +101,7 @@ export const EditorPaneBuilder = observer(
                 `}
                 singleLine={false}
                 title="Current props"
-                value={JSON.stringify(appStore.state, null, '\t') ?? '{'}
+                value={propSafeStringify(appStore.state) ?? '{}'}
               />
             </TabPane>
           </Tabs>
