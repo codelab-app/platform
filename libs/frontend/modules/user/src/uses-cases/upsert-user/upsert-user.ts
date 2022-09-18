@@ -8,7 +8,7 @@ import { Auth0SessionUser } from '@codelab/shared/abstract/core'
  */
 export const upsertUser = async (
   User: OGM_TYPES.UserModel,
-  user: Auth0SessionUser,
+  user: Pick<Auth0SessionUser, 'sub' | 'email' | 'nickname'>,
 ) => {
   if (user) {
     const [existing] = await User.find({
@@ -44,10 +44,14 @@ export const upsertUser = async (
           ],
         })
 
+        return users[0]
+
         // console.log('Created', users)
       } catch (e) {
         // console.error(e)
       }
     }
   }
+
+  return null
 }

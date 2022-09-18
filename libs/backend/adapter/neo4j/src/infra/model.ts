@@ -42,8 +42,8 @@ export const AppOGM = async (options?: OGMOptions) =>
 
 let atomInst: OGM_TYPES.AtomModel
 
-export const AtomOGM = async () =>
-  await getOgmInstance<'Atom'>(atomInst, 'Atom')
+export const AtomOGM = async (options?: OGMOptions) =>
+  await getOgmInstance<'Atom'>(options?.reinitialize ? null : atomInst, 'Atom')
 
 let elementInst: OGM_TYPES.ElementModel
 

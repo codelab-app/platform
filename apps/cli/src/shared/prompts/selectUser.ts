@@ -6,7 +6,7 @@ export const selectUserPrompt = async () => {
 
   return {
     type: 'list',
-    name: 'selectedUser',
+    name: 'selectedUserId',
     message: 'Select which user to be owner of the app',
     choices: users.map((user) => ({
       name: user.email,

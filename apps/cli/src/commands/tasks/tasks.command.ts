@@ -7,6 +7,7 @@ import gitChangedFiles from 'git-changed-files'
 import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import { CommandModule } from 'yargs'
+import { getEnvOptions } from '../../shared/command'
 import { Env } from '../../shared/utils/env'
 import { Tasks } from '../../shared/utils/tasks'
 
@@ -31,14 +32,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
   describe: 'Run tasks',
   builder: (yargv) =>
     yargv
-      .options({
-        env: {
-          type: 'string',
-          choices: Object.values(Env),
-          describe: 'Used to load proper `.env`',
-          demandOption: true,
-        },
-      })
+      .options(getEnvOptions([Env.Dev, Env.Test, Env.CI]))
       .command(
         Tasks.Build,
         'Build projects',

@@ -1,26 +1,13 @@
 import fs from 'fs'
-import inquirer from 'inquirer'
 import * as path from 'path'
 
-export const saveExportFile = async (data: object, file?: string) => {
-  /**
-   * Export info, file path etc
-   */
-  const { outputPath } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'outputPath',
-      message: 'Enter a path to export to, relative to ./data',
-      default: file ?? `${Date.now()}.json`,
-      // default: `user-data-${Date.now()}.json`,
-    },
-  ])
-
-  if (!outputPath.endsWith('.json')) {
+export const saveExportFile = async (data: object, outputFilePath: string) => {
+  if (!outputFilePath.endsWith('.json')) {
     throw new Error('Output path must end with .json')
   }
 
   const json = JSON.stringify(data, null, 2)
-  const exportPath = path.resolve('data', outputPath)
+  const exportPath = path.resolve('data', outputFilePath)
+
   fs.writeFileSync(exportPath, json)
 }

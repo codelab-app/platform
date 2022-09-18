@@ -44,7 +44,7 @@ export const appendAntdAtomTags = (
     )
 
     if (!foundCategory) {
-      console.log(`[Import antd atoms] No tgs assign for ${name}`)
+      console.log(`[Appending Tags]: No tags found for ${name}`)
     }
 
     return {

@@ -17,5 +17,10 @@ export const importSeedData = async (
   // ID's must be in sync
   await importTypes(types, selectedUser, (type) => ({ id: type.id }))
 
-  await importAtoms(atoms, selectedUser, (atom) => ({ id: atom.id }))
+  await importAtoms({
+    atoms,
+    userId: selectedUser,
+    atomWhere: (atom) => ({ id: atom.id }),
+    tagWhere: (tag) => ({ id: tag.id }),
+  })
 }

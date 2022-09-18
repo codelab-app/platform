@@ -7,7 +7,11 @@ import {
 } from '@codelab/backend/adapter/neo4j'
 import { fieldRepository } from '@codelab/backend/application'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
+import {
+  BaseUniqueWhereCallback,
+  connectTypeId,
+  makeAllowedValuesNodeInput,
+} from '@codelab/shared/data'
 import { omit } from 'lodash'
 
 const createCreateBaseFields = (data: ITypeExport, selectedUser: string) => ({
@@ -24,14 +28,6 @@ const createUpdateBaseFields = (data: ITypeExport, selectedUser: string) => ({
   owner: connectTypeId(selectedUser),
 })
 
-export type BaseUniqueWhere =
-  | {
-      id: string
-    }
-  | {
-      name: string
-    }
-
 /**
  * For import/export we require ID
  *
@@ -40,7 +36,7 @@ export type BaseUniqueWhere =
 export const upsertType = async (
   data: ITypeExport,
   selectedUser: string,
-  where: BaseUniqueWhere,
+  where: BaseUniqueWhereCallback<ITypeExport>,
 ) => {
   switch (data.__typename) {
     case ITypeKind.PrimitiveType: {
@@ -51,7 +47,7 @@ export const upsertType = async (
       }
 
       const exists = await PrimitiveType.find({
-        where,
+        where: where(data),
       })
 
       if (!exists.length) {
@@ -70,7 +66,7 @@ export const upsertType = async (
       console.log(`Updating ${data.name} [${data.kind}]...`)
 
       return await PrimitiveType.update({
-        where,
+        where: where(data),
         update: createUpdateBaseFields(data, selectedUser),
       })
     }
@@ -79,7 +75,7 @@ export const upsertType = async (
       const RenderPropsType = await RenderPropsTypeOGM()
 
       const exists = await RenderPropsType.find({
-        where,
+        where: where(data),
       })
 
       if (!exists.length) {
@@ -101,7 +97,7 @@ export const upsertType = async (
       const ReactNodeType = await ReactNodeTypeOGM()
 
       const exists = await ReactNodeType.find({
-        where,
+        where: where(data),
       })
 
       if (!exists.length) {
@@ -123,7 +119,7 @@ export const upsertType = async (
       const EnumType = await EnumTypeOGM()
 
       const exists = await EnumType.find({
-        where,
+        where: where(data),
       })
 
       if (!exists.length) {
@@ -146,7 +142,7 @@ export const upsertType = async (
       console.log(`Updating ${data.name} [${data.kind}]...`)
 
       return EnumType.update({
-        where,
+        where: where(data),
         update: {
           ...createCreateBaseFields(data, selectedUser),
           allowedValues: data.allowedValues.map((value) => ({
@@ -162,7 +158,7 @@ export const upsertType = async (
       const InterfaceType = await InterfaceTypeOGM()
 
       const exists = await InterfaceType.find({
-        where,
+        where: where(data),
       })
 
       /**
@@ -186,7 +182,7 @@ export const upsertType = async (
       console.log(`Disconnect all fields for ${data.name}`)
 
       await InterfaceType.update({
-        where,
+        where: where(data),
         update: {
           fields: [
             {

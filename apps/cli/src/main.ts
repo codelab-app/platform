@@ -10,7 +10,8 @@ import { parseCommand } from './commands/parse/parse.command'
 import { resetCommand } from './commands/reset/reset.command'
 import { scrapeCommand } from './commands/scrape/scrape.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
-import { Stage } from './shared/utils/env'
+import { getEnvOptions, setEnvMiddleware } from './shared/command'
+import { Env } from './shared/utils/env'
 
 dotenv.config({ path: '.env' })
 
@@ -26,33 +27,8 @@ void yargs(hideBin(process.argv))
    */
   .command('data', 'Import / export / reset', (argv) =>
     argv
-      .options({
-        stage: {
-          alias: 's',
-          describe: 'The deployment environment',
-          demandOption: true,
-          default: Stage.Dev,
-          type: 'string',
-          choices: Object.values(Stage),
-        },
-      })
-      // Load different env based on stage
-      .middleware(({ stage }) => {
-        if (process.env.CI) {
-          return
-        }
-
-        // Load prod env only if not CI
-        if (stage === Stage.Prod) {
-          dotenv.config({ path: '.env.prod', override: true })
-          // console.log(process.env.NEO4J_URI)
-        }
-
-        if (stage === Stage.Dev) {
-          dotenv.config({ path: '.env', override: true })
-          // console.log(process.env.NEO4J_URI)
-        }
-      })
+      .options(getEnvOptions([Env.Dev, Env.Test, Env.Prod]))
+      .middleware(setEnvMiddleware)
       .command(resetCommand)
       .command(importCommand)
       .command(exportCommand)

@@ -14,7 +14,9 @@ export const importTags = async (
     cLog(tag)
     console.log('\n')
 
-    return upsertTag(tag, selectedUser)
+    return upsertTag(tag, selectedUser, (whereTag: ITagExport) => ({
+      name: whereTag.name,
+    }))
   })
 
   await Promise.all(createTagsOperations)

@@ -10,21 +10,7 @@ export enum Env {
 
   // Remote on CircleCi
   CI = 'ci',
-}
 
-/**
- * This is the deployment environment.
- */
-export enum Stage {
   // Vercel remote
   Prod = 'prod',
-
-  // // Vercel remote
-  // Staging = 'staging',
-
-  // // Local test flow, exists in memory only
-  // Test = 'test',
-
-  // Local
-  Dev = 'dev',
 }
