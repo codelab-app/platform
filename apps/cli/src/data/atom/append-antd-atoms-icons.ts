@@ -14,7 +14,9 @@ export const getAntdIconNames = () => {
   return iconNames.map((name) => name.replace('.svg', ''))
 }
 
-export const addAntdAtomIcons = (atoms: Array<IAtomExport>) => {
+export const appendAntdAtomIcons = (
+  atoms: Array<IAtomExport>,
+): Array<IAtomExport> => {
   const antdIconNames = getAntdIconNames()
 
   const atomsWithIcon = atoms.map((atom) => {

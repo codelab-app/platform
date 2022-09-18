@@ -1,5 +1,5 @@
-import { flow } from 'lodash'
-import { addAntdAtomIcons } from './add-antd-atoms-icons'
-import { addAntdTags } from './add-antd-tags'
+import { pipe } from 'ramda'
+import { appendAntdAtomTags } from './append-antd-atom-tags'
+import { appendAntdAtomIcons } from './append-antd-atoms-icons'
 
-export const antdAtomsFactory = flow(addAntdTags, addAntdAtomIcons)
+export const antdAtomsFactory = pipe(appendAntdAtomTags, appendAntdAtomIcons)
