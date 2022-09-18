@@ -164,7 +164,7 @@ jobs:
       - run:
           name: 'Build CI'
           # Can't use `yarn cli` doesn't exist yet
-          command: npx nx affected:build -c ci --exclude=landing --verbose
+          command: npx nx run-many --target=build --projects=builder,cli -c ci --verbose
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-{{ checksum "yarn.lock" }}
