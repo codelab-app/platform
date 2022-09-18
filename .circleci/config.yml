@@ -256,7 +256,7 @@ jobs:
   notify-success:
     <<: *executor-params
     steps:
-      - setup-workspace
+      #      - setup-workspace
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE
