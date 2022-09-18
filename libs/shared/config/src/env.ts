@@ -1,7 +1,5 @@
 import * as env from 'env-var'
 
-export const isServer = typeof window === 'undefined'
-
 interface Config {
   api: {
     origin: string

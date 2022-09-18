@@ -1,7 +1,7 @@
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
-import { seedFilePath } from './config'
+import { defaultSeedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
 // import { antdAtomsFactory } from '../../data/atom'
 // import { __seedAtomData, __seedTagData } from './import-seed-data'
@@ -40,7 +40,7 @@ export const importCommand: CommandModule<any, unknown> = {
      * Seed atoms & types for the project
      */
     if (confirmImportSeedData) {
-      await importSeedData(selectedUser, seedFilePath)
+      await importSeedData(selectedUser, defaultSeedFilePath)
     }
 
     // If we specified a file for import

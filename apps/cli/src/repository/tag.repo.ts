@@ -1,7 +1,7 @@
 import { TagOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
-import { BaseUniqueWhere } from './type.repo'
+import { BaseUniqueWhereCallback } from '@codelab/shared/data'
 
 export const connectChildTagToParent = async (tag: ITagExport) => {
   const connectChildren =
@@ -31,32 +31,34 @@ export const connectChildTagToParent = async (tag: ITagExport) => {
 export const upsertTag = async (
   tag: ITagExport,
   selectedUser: string,
-  where: BaseUniqueWhere = (_tag: ITagExport) => ({ name: _tag.name }),
+  where: BaseUniqueWhereCallback<ITagExport>,
 ) => {
   const Tag = await TagOGM()
 
-  const existingName = await Tag.find({
-    where,
+  console.log(`[Finding Tag]: with ${where}`)
+
+  const existingTag = await Tag.find({
+    where: where(tag),
   })
 
   const baseInput: Pick<OGM_TYPES.TagCreateInput, 'owner'> = {
     owner: { connect: { where: { node: { id: selectedUser } } } },
   }
 
-  if (!existingName.length) {
-    console.log(`Creating ${tag.name}...`)
+  if (!existingTag.length) {
+    console.log(`[Creating Tag]: ${tag.name}`)
 
-    const createInput = {
+    const createInput: OGM_TYPES.TagCreateInput = {
       ...baseInput,
       name: tag.name,
       id: tag.id,
     }
 
     return Tag.create({
-      input: [createInput as any],
+      input: [createInput],
     })
   } else {
-    console.log(`Updating ${tag.name} id...`)
+    console.log(`[Updating Tag]: ${tag.name}`)
 
     const updateInput: any = {
       ...baseInput,
