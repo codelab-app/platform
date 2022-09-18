@@ -9,12 +9,11 @@ import {
   ITypeKind,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
-import { merge, values } from 'lodash'
 
 const makeAllTypes = (input: IPropData) =>
-  values(ITypeKind)
+  Object.values(ITypeKind)
     .map((kind) => ({ [kind]: input }))
-    .reduce(merge, {})
+    .reduce((all, current) => ({ ...all, ...current }), {})
 
 /**
  * We use IUpdateTypeDTO since auth0Id isn't required here
