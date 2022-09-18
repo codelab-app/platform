@@ -5,8 +5,10 @@ import {
 } from '@codelab/shared/abstract/core'
 import {
   makeAllowedValuesCreateInput,
+  makeArrayTypeDisconnectInput,
   makeItemTypeCreateInput,
   makeTypesOfUnionTypeCreateInput,
+  makeTypesOfUnionTypeDisconnectInput,
 } from '@codelab/shared/data'
 
 export const updateTypeInputFactory = (
@@ -46,14 +48,6 @@ export const updateTypeInputFactory = (
         type.kind === ITypeKind.EnumType
           ? [makeAllowedValuesCreateInput(type)]
           : undefined,
-      owner: {
-        connect: {
-          where: { node: { auth0Id: type.interfaceDefaults?.auth0Id } },
-          edge: {
-            data: JSON.stringify(type.interfaceDefaults?.data),
-          },
-        },
-      },
     },
     disconnect: {
       itemType:
