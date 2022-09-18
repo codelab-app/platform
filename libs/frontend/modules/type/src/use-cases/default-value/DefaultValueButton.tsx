@@ -17,10 +17,10 @@ export const DefaultValueButton = ({
   <Button
     icon={<FormOutlined />}
     onClick={() => {
-      typeService.defaultValueModal.open(
+      typeService.interfaceDefaultsModal.open(
         typeRef(interfaceId) as Ref<IInterfaceType>,
       )
     }}
     size="small"
-  ></Button>
+  />
 )
