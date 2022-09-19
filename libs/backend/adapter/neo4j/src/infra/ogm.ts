@@ -6,8 +6,13 @@ import { getDriver } from './driver'
 // Keep a single OGM instance if possible
 let ogm: OGM<OGM_TYPES.ModelMap>
 
-export const getOgm = async () => {
-  if (!ogm) {
+export const getOgm = async ({
+  reinitialize = false,
+}: {
+  reinitialize?: boolean
+}) => {
+  // Re-create ogm if we want to re-initialize
+  if (!ogm || reinitialize) {
     ogm = new OGM({
       typeDefs,
       driver: getDriver(),

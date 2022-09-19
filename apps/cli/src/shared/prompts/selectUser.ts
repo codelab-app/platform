@@ -5,7 +5,7 @@ export interface SelectUserAnswer {
 }
 
 export const selectUserPrompt = async () => {
-  const User = await UserOGM({ reinitialize: true })
+  const User = await UserOGM()
   const users = await User.find()
 
   return {
