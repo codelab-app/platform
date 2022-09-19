@@ -1,5 +1,9 @@
 import { UserOGM } from '@codelab/backend/adapter/neo4j'
 
+export interface SelectUserAnswer {
+  selectedUserId: string
+}
+
 export const selectUserPrompt = async () => {
   const User = await UserOGM({ reinitialize: true })
   const users = await User.find()

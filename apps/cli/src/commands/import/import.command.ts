@@ -3,8 +3,6 @@ import yargs, { CommandModule } from 'yargs'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { defaultSeedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
-// import { antdAtomsFactory } from '../../data/atom'
-// import { __seedAtomData, __seedTagData } from './import-seed-data'
 import { importUserData } from './import-user-data'
 
 /**
@@ -21,7 +19,7 @@ export const importCommand: CommandModule<any, unknown> = {
    * @param file File for the user data
    */
   handler: async () => {
-    const { selectedUser, confirmImportSeedData, confirmImportUserData } =
+    const { selectedUserId, confirmImportSeedData, confirmImportUserData } =
       await inquirer.prompt([
         await selectUserPrompt(),
         {
@@ -40,7 +38,7 @@ export const importCommand: CommandModule<any, unknown> = {
      * Seed atoms & types for the project
      */
     if (confirmImportSeedData) {
-      await importSeedData(selectedUser, defaultSeedFilePath)
+      await importSeedData(selectedUserId, defaultSeedFilePath)
     }
 
     // If we specified a file for import
@@ -53,12 +51,8 @@ export const importCommand: CommandModule<any, unknown> = {
         },
       ])
 
-      await importUserData(userDataFilePath, selectedUser)
+      await importUserData(userDataFilePath, selectedUserId)
     }
-
-    // Only used by admin
-    // await __seedTagData(selectedUser)
-    // await __seedAtomData(selectedUser, antdAtomsFactory)
 
     yargs.exit(0, null!)
   },

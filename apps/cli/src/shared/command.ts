@@ -6,10 +6,6 @@ type GetEnvOptions = (environments: Array<Env>) => {
   env: Options
 }
 
-export interface EnvOption {
-  env: Env
-}
-
 /**
  * Options used locally
  */
@@ -19,6 +15,7 @@ export const getEnvOptions: GetEnvOptions = (environments) => ({
     choices: environments,
     describe: 'Used to load proper `.env`',
     demandOption: true,
+    default: Env.Dev,
   },
 })
 

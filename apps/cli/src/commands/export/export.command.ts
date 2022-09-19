@@ -115,7 +115,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
     }
 
     if (userDataFilePath) {
-      const { selectedUser, selectedApp } = await inquirer.prompt([
+      const { selectedUserId, selectedApp } = await inquirer.prompt([
         await selectUserPrompt(),
         {
           type: 'list',
@@ -134,7 +134,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
 
       await saveExportFile(
         exportedUserData,
-        `${selectedUser.username}-${Date.now()}.json`,
+        `${selectedUserId}-${Date.now()}.json`,
       )
     }
 
