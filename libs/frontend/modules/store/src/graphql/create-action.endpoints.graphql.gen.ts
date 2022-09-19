@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { Action_CodeAction_Fragment, Action_ApiAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
+import { Action_ApiAction_Fragment, Action_CodeAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';

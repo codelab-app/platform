@@ -2123,6 +2123,219 @@ export type ActionTypeUserOwnerNodeAggregateSelection = {
   username: StringAggregateSelectionNonNullable;
 };
 
+export type ApiAction = ActionBase & {
+  __typename?: "ApiAction";
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  type: ActionKind;
+  store: Store;
+  storeAggregate?: Maybe<ApiActionStoreStoreAggregationSelection>;
+  /** Response handlers */
+  successAction: AnyAction;
+  errorAction: AnyAction;
+  /** Resource to fetch data from */
+  resource: Resource;
+  resourceAggregate?: Maybe<ApiActionResourceResourceAggregationSelection>;
+  config: Prop;
+  configAggregate?: Maybe<ApiActionPropConfigAggregationSelection>;
+  storeConnection: ActionBaseStoreConnection;
+  successActionConnection: ApiActionSuccessActionConnection;
+  errorActionConnection: ApiActionErrorActionConnection;
+  resourceConnection: ApiActionResourceConnection;
+  configConnection: ApiActionConfigConnection;
+};
+
+export type ApiActionStoreArgs = {
+  where?: InputMaybe<StoreWhere>;
+  options?: InputMaybe<StoreOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionStoreAggregateArgs = {
+  where?: InputMaybe<StoreWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionSuccessActionArgs = {
+  options?: InputMaybe<QueryOptions>;
+  where?: InputMaybe<AnyActionWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionErrorActionArgs = {
+  options?: InputMaybe<QueryOptions>;
+  where?: InputMaybe<AnyActionWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionResourceArgs = {
+  where?: InputMaybe<ResourceWhere>;
+  options?: InputMaybe<ResourceOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionResourceAggregateArgs = {
+  where?: InputMaybe<ResourceWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionConfigArgs = {
+  where?: InputMaybe<PropWhere>;
+  options?: InputMaybe<PropOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionConfigAggregateArgs = {
+  where?: InputMaybe<PropWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionStoreConnectionArgs = {
+  where?: InputMaybe<ActionBaseStoreConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ActionBaseStoreConnectionSort>>;
+};
+
+export type ApiActionSuccessActionConnectionArgs = {
+  where?: InputMaybe<ApiActionSuccessActionConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionErrorActionConnectionArgs = {
+  where?: InputMaybe<ApiActionErrorActionConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ApiActionResourceConnectionArgs = {
+  where?: InputMaybe<ApiActionResourceConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ApiActionResourceConnectionSort>>;
+};
+
+export type ApiActionConfigConnectionArgs = {
+  where?: InputMaybe<ApiActionConfigConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ApiActionConfigConnectionSort>>;
+};
+
+export type ApiActionAggregateSelection = {
+  __typename?: "ApiActionAggregateSelection";
+  count: Scalars["Int"];
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+};
+
+export type ApiActionConfigConnection = {
+  __typename?: "ApiActionConfigConnection";
+  edges: Array<ApiActionConfigRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ApiActionConfigRelationship = {
+  __typename?: "ApiActionConfigRelationship";
+  cursor: Scalars["String"];
+  node: Prop;
+};
+
+export type ApiActionEdge = {
+  __typename?: "ApiActionEdge";
+  cursor: Scalars["String"];
+  node: ApiAction;
+};
+
+export type ApiActionErrorActionConnection = {
+  __typename?: "ApiActionErrorActionConnection";
+  edges: Array<ApiActionErrorActionRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ApiActionErrorActionRelationship = {
+  __typename?: "ApiActionErrorActionRelationship";
+  cursor: Scalars["String"];
+  node: AnyAction;
+};
+
+export type ApiActionPropConfigAggregationSelection = {
+  __typename?: "ApiActionPropConfigAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ApiActionPropConfigNodeAggregateSelection>;
+};
+
+export type ApiActionPropConfigNodeAggregateSelection = {
+  __typename?: "ApiActionPropConfigNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  data: StringAggregateSelectionNonNullable;
+};
+
+export type ApiActionResourceConnection = {
+  __typename?: "ApiActionResourceConnection";
+  edges: Array<ApiActionResourceRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ApiActionResourceRelationship = {
+  __typename?: "ApiActionResourceRelationship";
+  cursor: Scalars["String"];
+  node: Resource;
+};
+
+export type ApiActionResourceResourceAggregationSelection = {
+  __typename?: "ApiActionResourceResourceAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ApiActionResourceResourceNodeAggregateSelection>;
+};
+
+export type ApiActionResourceResourceNodeAggregateSelection = {
+  __typename?: "ApiActionResourceResourceNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+};
+
+export type ApiActionsConnection = {
+  __typename?: "ApiActionsConnection";
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+  edges: Array<ApiActionEdge>;
+};
+
+export type ApiActionStoreStoreAggregationSelection = {
+  __typename?: "ApiActionStoreStoreAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ApiActionStoreStoreNodeAggregateSelection>;
+};
+
+export type ApiActionStoreStoreNodeAggregateSelection = {
+  __typename?: "ApiActionStoreStoreNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+};
+
+export type ApiActionSuccessActionConnection = {
+  __typename?: "ApiActionSuccessActionConnection";
+  edges: Array<ApiActionSuccessActionRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ApiActionSuccessActionRelationship = {
+  __typename?: "ApiActionSuccessActionRelationship";
+  cursor: Scalars["String"];
+  node: AnyAction;
+};
+
 export type App = WithOwner & {
   __typename?: "App";
   id: Scalars["ID"];
@@ -2650,6 +2863,70 @@ export type AtomTagTagsNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable;
 };
 
+export type CodeAction = ActionBase & {
+  __typename?: "CodeAction";
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  /** Code to run when action is triggered */
+  code: Scalars["String"];
+  type: ActionKind;
+  store: Store;
+  storeAggregate?: Maybe<CodeActionStoreStoreAggregationSelection>;
+  storeConnection: ActionBaseStoreConnection;
+};
+
+export type CodeActionStoreArgs = {
+  where?: InputMaybe<StoreWhere>;
+  options?: InputMaybe<StoreOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type CodeActionStoreAggregateArgs = {
+  where?: InputMaybe<StoreWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type CodeActionStoreConnectionArgs = {
+  where?: InputMaybe<ActionBaseStoreConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ActionBaseStoreConnectionSort>>;
+};
+
+export type CodeActionAggregateSelection = {
+  __typename?: "CodeActionAggregateSelection";
+  count: Scalars["Int"];
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  code: StringAggregateSelectionNonNullable;
+};
+
+export type CodeActionEdge = {
+  __typename?: "CodeActionEdge";
+  cursor: Scalars["String"];
+  node: CodeAction;
+};
+
+export type CodeActionsConnection = {
+  __typename?: "CodeActionsConnection";
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+  edges: Array<CodeActionEdge>;
+};
+
+export type CodeActionStoreStoreAggregationSelection = {
+  __typename?: "CodeActionStoreStoreAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<CodeActionStoreStoreNodeAggregateSelection>;
+};
+
+export type CodeActionStoreStoreNodeAggregateSelection = {
+  __typename?: "CodeActionStoreStoreNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+};
+
 /** Allows editing the value using a code mirror editor */
 export type CodeMirrorType = TypeBase & {
   __typename?: "CodeMirrorType";
@@ -2895,6 +3172,12 @@ export type CreateActionTypesMutationResponse = {
   actionTypes: Array<ActionType>;
 };
 
+export type CreateApiActionsMutationResponse = {
+  __typename?: "CreateApiActionsMutationResponse";
+  info: CreateInfo;
+  apiActions: Array<ApiAction>;
+};
+
 export type CreateAppsMutationResponse = {
   __typename?: "CreateAppsMutationResponse";
   info: CreateInfo;
@@ -2919,6 +3202,12 @@ export type CreateAtomsMutationResponse = {
   atoms: Array<Atom>;
 };
 
+export type CreateCodeActionsMutationResponse = {
+  __typename?: "CreateCodeActionsMutationResponse";
+  info: CreateInfo;
+  codeActions: Array<CodeAction>;
+};
+
 export type CreateCodeMirrorTypesMutationResponse = {
   __typename?: "CreateCodeMirrorTypesMutationResponse";
   info: CreateInfo;
@@ -2935,12 +3224,6 @@ export type CreateCreateInfosMutationResponse = {
   __typename?: "CreateCreateInfosMutationResponse";
   info: CreateInfo;
   createInfos: Array<CreateInfo>;
-};
-
-export type CreateCodeActionsMutationResponse = {
-  __typename?: "CreateCodeActionsMutationResponse";
-  info: CreateInfo;
-  codeActions: Array<CodeAction>;
 };
 
 export type CreateDeleteInfosMutationResponse = {
@@ -3073,12 +3356,6 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
 };
 
-export type CreateApiActionsMutationResponse = {
-  __typename?: "CreateApiActionsMutationResponse";
-  info: CreateInfo;
-  apiActions: Array<ApiAction>;
-};
-
 export type CreateResourcesMutationResponse = {
   __typename?: "CreateResourcesMutationResponse";
   info: CreateInfo;
@@ -3137,70 +3414,6 @@ export type CreateVercelProjectDomainDataMutationResponse = {
   __typename?: "CreateVercelProjectDomainDataMutationResponse";
   info: CreateInfo;
   vercelProjectDomainData: Array<VercelProjectDomainData>;
-};
-
-export type CodeAction = ActionBase & {
-  __typename?: "CodeAction";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  /** Code to run when action is triggered */
-  code: Scalars["String"];
-  type: ActionKind;
-  store: Store;
-  storeAggregate?: Maybe<CodeActionStoreStoreAggregationSelection>;
-  storeConnection: ActionBaseStoreConnection;
-};
-
-export type CodeActionStoreArgs = {
-  where?: InputMaybe<StoreWhere>;
-  options?: InputMaybe<StoreOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type CodeActionStoreAggregateArgs = {
-  where?: InputMaybe<StoreWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type CodeActionStoreConnectionArgs = {
-  where?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ActionBaseStoreConnectionSort>>;
-};
-
-export type CodeActionAggregateSelection = {
-  __typename?: "CodeActionAggregateSelection";
-  count: Scalars["Int"];
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-  code: StringAggregateSelectionNonNullable;
-};
-
-export type CodeActionEdge = {
-  __typename?: "CodeActionEdge";
-  cursor: Scalars["String"];
-  node: CodeAction;
-};
-
-export type CodeActionsConnection = {
-  __typename?: "CodeActionsConnection";
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-  edges: Array<CodeActionEdge>;
-};
-
-export type CodeActionStoreStoreAggregationSelection = {
-  __typename?: "CodeActionStoreStoreAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<CodeActionStoreStoreNodeAggregateSelection>;
-};
-
-export type CodeActionStoreStoreNodeAggregateSelection = {
-  __typename?: "CodeActionStoreStoreNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
 };
 
 export type DeleteInfo = {
@@ -5490,219 +5703,6 @@ export type ResourceOwnerConnectionArgs = {
   sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>;
 };
 
-export type ApiAction = ActionBase & {
-  __typename?: "ApiAction";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  type: ActionKind;
-  store: Store;
-  storeAggregate?: Maybe<ApiActionStoreStoreAggregationSelection>;
-  /** Response handlers */
-  successAction: AnyAction;
-  errorAction: AnyAction;
-  /** Resource to fetch data from */
-  resource: Resource;
-  resourceAggregate?: Maybe<ApiActionResourceResourceAggregationSelection>;
-  config: Prop;
-  configAggregate?: Maybe<ApiActionPropConfigAggregationSelection>;
-  storeConnection: ActionBaseStoreConnection;
-  successActionConnection: ApiActionSuccessActionConnection;
-  errorActionConnection: ApiActionErrorActionConnection;
-  resourceConnection: ApiActionResourceConnection;
-  configConnection: ApiActionConfigConnection;
-};
-
-export type ApiActionStoreArgs = {
-  where?: InputMaybe<StoreWhere>;
-  options?: InputMaybe<StoreOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionStoreAggregateArgs = {
-  where?: InputMaybe<StoreWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionSuccessActionArgs = {
-  options?: InputMaybe<QueryOptions>;
-  where?: InputMaybe<AnyActionWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionErrorActionArgs = {
-  options?: InputMaybe<QueryOptions>;
-  where?: InputMaybe<AnyActionWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionResourceArgs = {
-  where?: InputMaybe<ResourceWhere>;
-  options?: InputMaybe<ResourceOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionResourceAggregateArgs = {
-  where?: InputMaybe<ResourceWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionConfigArgs = {
-  where?: InputMaybe<PropWhere>;
-  options?: InputMaybe<PropOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionConfigAggregateArgs = {
-  where?: InputMaybe<PropWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionStoreConnectionArgs = {
-  where?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ActionBaseStoreConnectionSort>>;
-};
-
-export type ApiActionSuccessActionConnectionArgs = {
-  where?: InputMaybe<ApiActionSuccessActionConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionErrorActionConnectionArgs = {
-  where?: InputMaybe<ApiActionErrorActionConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type ApiActionResourceConnectionArgs = {
-  where?: InputMaybe<ApiActionResourceConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ApiActionResourceConnectionSort>>;
-};
-
-export type ApiActionConfigConnectionArgs = {
-  where?: InputMaybe<ApiActionConfigConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ApiActionConfigConnectionSort>>;
-};
-
-export type ApiActionAggregateSelection = {
-  __typename?: "ApiActionAggregateSelection";
-  count: Scalars["Int"];
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-};
-
-export type ApiActionConfigConnection = {
-  __typename?: "ApiActionConfigConnection";
-  edges: Array<ApiActionConfigRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ApiActionConfigRelationship = {
-  __typename?: "ApiActionConfigRelationship";
-  cursor: Scalars["String"];
-  node: Prop;
-};
-
-export type ApiActionEdge = {
-  __typename?: "ApiActionEdge";
-  cursor: Scalars["String"];
-  node: ApiAction;
-};
-
-export type ApiActionErrorActionConnection = {
-  __typename?: "ApiActionErrorActionConnection";
-  edges: Array<ApiActionErrorActionRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ApiActionErrorActionRelationship = {
-  __typename?: "ApiActionErrorActionRelationship";
-  cursor: Scalars["String"];
-  node: AnyAction;
-};
-
-export type ApiActionPropConfigAggregationSelection = {
-  __typename?: "ApiActionPropConfigAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<ApiActionPropConfigNodeAggregateSelection>;
-};
-
-export type ApiActionPropConfigNodeAggregateSelection = {
-  __typename?: "ApiActionPropConfigNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  data: StringAggregateSelectionNonNullable;
-};
-
-export type ApiActionResourceConnection = {
-  __typename?: "ApiActionResourceConnection";
-  edges: Array<ApiActionResourceRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ApiActionResourceRelationship = {
-  __typename?: "ApiActionResourceRelationship";
-  cursor: Scalars["String"];
-  node: Resource;
-};
-
-export type ApiActionResourceResourceAggregationSelection = {
-  __typename?: "ApiActionResourceResourceAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<ApiActionResourceResourceNodeAggregateSelection>;
-};
-
-export type ApiActionResourceResourceNodeAggregateSelection = {
-  __typename?: "ApiActionResourceResourceNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-};
-
-export type ApiActionsConnection = {
-  __typename?: "ApiActionsConnection";
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-  edges: Array<ApiActionEdge>;
-};
-
-export type ApiActionStoreStoreAggregationSelection = {
-  __typename?: "ApiActionStoreStoreAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<ApiActionStoreStoreNodeAggregateSelection>;
-};
-
-export type ApiActionStoreStoreNodeAggregateSelection = {
-  __typename?: "ApiActionStoreStoreNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-};
-
-export type ApiActionSuccessActionConnection = {
-  __typename?: "ApiActionSuccessActionConnection";
-  edges: Array<ApiActionSuccessActionRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ApiActionSuccessActionRelationship = {
-  __typename?: "ApiActionSuccessActionRelationship";
-  cursor: Scalars["String"];
-  node: AnyAction;
-};
-
 export type ResourceAggregateSelection = {
   __typename?: "ResourceAggregateSelection";
   count: Scalars["Int"];
@@ -6302,6 +6302,12 @@ export type UpdateActionTypesMutationResponse = {
   actionTypes: Array<ActionType>;
 };
 
+export type UpdateApiActionsMutationResponse = {
+  __typename?: "UpdateApiActionsMutationResponse";
+  info: UpdateInfo;
+  apiActions: Array<ApiAction>;
+};
+
 export type UpdateAppsMutationResponse = {
   __typename?: "UpdateAppsMutationResponse";
   info: UpdateInfo;
@@ -6326,6 +6332,12 @@ export type UpdateAtomsMutationResponse = {
   atoms: Array<Atom>;
 };
 
+export type UpdateCodeActionsMutationResponse = {
+  __typename?: "UpdateCodeActionsMutationResponse";
+  info: UpdateInfo;
+  codeActions: Array<CodeAction>;
+};
+
 export type UpdateCodeMirrorTypesMutationResponse = {
   __typename?: "UpdateCodeMirrorTypesMutationResponse";
   info: UpdateInfo;
@@ -6342,12 +6354,6 @@ export type UpdateCreateInfosMutationResponse = {
   __typename?: "UpdateCreateInfosMutationResponse";
   info: UpdateInfo;
   createInfos: Array<CreateInfo>;
-};
-
-export type UpdateCodeActionsMutationResponse = {
-  __typename?: "UpdateCodeActionsMutationResponse";
-  info: UpdateInfo;
-  codeActions: Array<CodeAction>;
 };
 
 export type UpdateDeleteInfosMutationResponse = {
@@ -6459,12 +6465,6 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: "UpdateResetDatabaseMutationResponsesMutationResponse";
   info: UpdateInfo;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
-};
-
-export type UpdateApiActionsMutationResponse = {
-  __typename?: "UpdateApiActionsMutationResponse";
-  info: UpdateInfo;
-  apiActions: Array<ApiAction>;
 };
 
 export type UpdateResourcesMutationResponse = {
@@ -7144,6 +7144,680 @@ export type AnyTypeWhere = {
   AppType?: InputMaybe<AppTypeWhere>;
   ActionType?: InputMaybe<ActionTypeWhere>;
   CodeMirrorType?: InputMaybe<CodeMirrorTypeWhere>;
+};
+
+export type ApiActionConfigAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ApiActionConfigAggregateInput>>;
+  OR?: InputMaybe<Array<ApiActionConfigAggregateInput>>;
+  node?: InputMaybe<ApiActionConfigNodeAggregationWhereInput>;
+};
+
+export type ApiActionConfigConnectFieldInput = {
+  where?: InputMaybe<PropConnectWhere>;
+};
+
+export type ApiActionConfigConnectionSort = {
+  node?: InputMaybe<PropSort>;
+};
+
+export type ApiActionConfigConnectionWhere = {
+  AND?: InputMaybe<Array<ApiActionConfigConnectionWhere>>;
+  OR?: InputMaybe<Array<ApiActionConfigConnectionWhere>>;
+  node?: InputMaybe<PropWhere>;
+  node_NOT?: InputMaybe<PropWhere>;
+};
+
+export type ApiActionConfigConnectOrCreateFieldInput = {
+  where: PropConnectOrCreateWhere;
+  onCreate: ApiActionConfigConnectOrCreateFieldInputOnCreate;
+};
+
+export type ApiActionConfigConnectOrCreateFieldInputOnCreate = {
+  node: PropOnCreateInput;
+};
+
+export type ApiActionConfigCreateFieldInput = {
+  node: PropCreateInput;
+};
+
+export type ApiActionConfigDeleteFieldInput = {
+  where?: InputMaybe<ApiActionConfigConnectionWhere>;
+};
+
+export type ApiActionConfigDisconnectFieldInput = {
+  where?: InputMaybe<ApiActionConfigConnectionWhere>;
+};
+
+export type ApiActionConfigFieldInput = {
+  create?: InputMaybe<ApiActionConfigCreateFieldInput>;
+  connect?: InputMaybe<ApiActionConfigConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>;
+};
+
+export type ApiActionConfigNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ApiActionConfigNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ApiActionConfigNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  data_EQUAL?: InputMaybe<Scalars["String"]>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_GT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_GTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_LT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_LTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ApiActionConfigUpdateConnectionInput = {
+  node?: InputMaybe<PropUpdateInput>;
+};
+
+export type ApiActionConfigUpdateFieldInput = {
+  where?: InputMaybe<ApiActionConfigConnectionWhere>;
+  update?: InputMaybe<ApiActionConfigUpdateConnectionInput>;
+  connect?: InputMaybe<ApiActionConfigConnectFieldInput>;
+  disconnect?: InputMaybe<ApiActionConfigDisconnectFieldInput>;
+  create?: InputMaybe<ApiActionConfigCreateFieldInput>;
+  delete?: InputMaybe<ApiActionConfigDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>;
+};
+
+export type ApiActionConnectInput = {
+  store?: InputMaybe<ActionBaseStoreConnectFieldInput>;
+  successAction?: InputMaybe<ApiActionSuccessActionConnectInput>;
+  errorAction?: InputMaybe<ApiActionErrorActionConnectInput>;
+  resource?: InputMaybe<ApiActionResourceConnectFieldInput>;
+  config?: InputMaybe<ApiActionConfigConnectFieldInput>;
+};
+
+export type ApiActionConnectOrCreateInput = {
+  store?: InputMaybe<ActionBaseStoreConnectOrCreateFieldInput>;
+  successAction?: InputMaybe<ApiActionSuccessActionConnectOrCreateInput>;
+  errorAction?: InputMaybe<ApiActionErrorActionConnectOrCreateInput>;
+  resource?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>;
+  config?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>;
+};
+
+export type ApiActionConnectOrCreateWhere = {
+  node: ApiActionUniqueWhere;
+};
+
+export type ApiActionConnectWhere = {
+  node: ApiActionWhere;
+};
+
+export type ApiActionCreateInput = {
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  type?: ActionKind;
+  store?: InputMaybe<ActionBaseStoreFieldInput>;
+  successAction?: InputMaybe<ApiActionSuccessActionCreateInput>;
+  errorAction?: InputMaybe<ApiActionErrorActionCreateInput>;
+  resource?: InputMaybe<ApiActionResourceFieldInput>;
+  config?: InputMaybe<ApiActionConfigFieldInput>;
+};
+
+export type ApiActionDeleteInput = {
+  store?: InputMaybe<ActionBaseStoreDeleteFieldInput>;
+  successAction?: InputMaybe<ApiActionSuccessActionDeleteInput>;
+  errorAction?: InputMaybe<ApiActionErrorActionDeleteInput>;
+  resource?: InputMaybe<ApiActionResourceDeleteFieldInput>;
+  config?: InputMaybe<ApiActionConfigDeleteFieldInput>;
+};
+
+export type ApiActionDisconnectInput = {
+  store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>;
+  successAction?: InputMaybe<ApiActionSuccessActionDisconnectInput>;
+  errorAction?: InputMaybe<ApiActionErrorActionDisconnectInput>;
+  resource?: InputMaybe<ApiActionResourceDisconnectFieldInput>;
+  config?: InputMaybe<ApiActionConfigDisconnectFieldInput>;
+};
+
+export type ApiActionErrorActionApiActionConnectFieldInput = {
+  where?: InputMaybe<ApiActionConnectWhere>;
+  connect?: InputMaybe<ApiActionConnectInput>;
+};
+
+export type ApiActionErrorActionApiActionConnectionWhere = {
+  OR?: InputMaybe<Array<ApiActionErrorActionApiActionConnectionWhere>>;
+  AND?: InputMaybe<Array<ApiActionErrorActionApiActionConnectionWhere>>;
+  node?: InputMaybe<ApiActionWhere>;
+  node_NOT?: InputMaybe<ApiActionWhere>;
+};
+
+export type ApiActionErrorActionApiActionConnectOrCreateFieldInput = {
+  where: ApiActionConnectOrCreateWhere;
+  onCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate;
+};
+
+export type ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate = {
+  node: ApiActionOnCreateInput;
+};
+
+export type ApiActionErrorActionApiActionCreateFieldInput = {
+  node: ApiActionCreateInput;
+};
+
+export type ApiActionErrorActionApiActionDeleteFieldInput = {
+  where?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
+  delete?: InputMaybe<ApiActionDeleteInput>;
+};
+
+export type ApiActionErrorActionApiActionDisconnectFieldInput = {
+  where?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
+  disconnect?: InputMaybe<ApiActionDisconnectInput>;
+};
+
+export type ApiActionErrorActionApiActionFieldInput = {
+  create?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>;
+  connect?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionErrorActionApiActionUpdateConnectionInput = {
+  node?: InputMaybe<ApiActionUpdateInput>;
+};
+
+export type ApiActionErrorActionApiActionUpdateFieldInput = {
+  where?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
+  update?: InputMaybe<ApiActionErrorActionApiActionUpdateConnectionInput>;
+  connect?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>;
+  disconnect?: InputMaybe<ApiActionErrorActionApiActionDisconnectFieldInput>;
+  create?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>;
+  delete?: InputMaybe<ApiActionErrorActionApiActionDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionErrorActionCodeActionConnectFieldInput = {
+  where?: InputMaybe<CodeActionConnectWhere>;
+  connect?: InputMaybe<CodeActionConnectInput>;
+};
+
+export type ApiActionErrorActionCodeActionConnectionWhere = {
+  OR?: InputMaybe<Array<ApiActionErrorActionCodeActionConnectionWhere>>;
+  AND?: InputMaybe<Array<ApiActionErrorActionCodeActionConnectionWhere>>;
+  node?: InputMaybe<CodeActionWhere>;
+  node_NOT?: InputMaybe<CodeActionWhere>;
+};
+
+export type ApiActionErrorActionCodeActionConnectOrCreateFieldInput = {
+  where: CodeActionConnectOrCreateWhere;
+  onCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate;
+};
+
+export type ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate = {
+  node: CodeActionOnCreateInput;
+};
+
+export type ApiActionErrorActionCodeActionCreateFieldInput = {
+  node: CodeActionCreateInput;
+};
+
+export type ApiActionErrorActionCodeActionDeleteFieldInput = {
+  where?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
+  delete?: InputMaybe<CodeActionDeleteInput>;
+};
+
+export type ApiActionErrorActionCodeActionDisconnectFieldInput = {
+  where?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
+  disconnect?: InputMaybe<CodeActionDisconnectInput>;
+};
+
+export type ApiActionErrorActionCodeActionFieldInput = {
+  create?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>;
+  connect?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionErrorActionCodeActionUpdateConnectionInput = {
+  node?: InputMaybe<CodeActionUpdateInput>;
+};
+
+export type ApiActionErrorActionCodeActionUpdateFieldInput = {
+  where?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
+  update?: InputMaybe<ApiActionErrorActionCodeActionUpdateConnectionInput>;
+  connect?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>;
+  disconnect?: InputMaybe<ApiActionErrorActionCodeActionDisconnectFieldInput>;
+  create?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>;
+  delete?: InputMaybe<ApiActionErrorActionCodeActionDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionErrorActionConnectInput = {
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>;
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>;
+};
+
+export type ApiActionErrorActionConnectionWhere = {
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
+};
+
+export type ApiActionErrorActionConnectOrCreateInput = {
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>;
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionErrorActionCreateFieldInput = {
+  CodeAction?: InputMaybe<
+    Array<ApiActionErrorActionCodeActionCreateFieldInput>
+  >;
+  ApiAction?: InputMaybe<Array<ApiActionErrorActionApiActionCreateFieldInput>>;
+};
+
+export type ApiActionErrorActionCreateInput = {
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionFieldInput>;
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionFieldInput>;
+};
+
+export type ApiActionErrorActionDeleteInput = {
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionDeleteFieldInput>;
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionDeleteFieldInput>;
+};
+
+export type ApiActionErrorActionDisconnectInput = {
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionDisconnectFieldInput>;
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionDisconnectFieldInput>;
+};
+
+export type ApiActionErrorActionUpdateInput = {
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionUpdateFieldInput>;
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionUpdateFieldInput>;
+};
+
+export type ApiActionOnCreateInput = {
+  id: Scalars["ID"];
+  name: Scalars["String"];
+};
+
+export type ApiActionOptions = {
+  /** Specify one or more ApiActionSort objects to sort ApiActions by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ApiActionSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ApiActionRelationInput = {
+  store?: InputMaybe<ActionBaseStoreCreateFieldInput>;
+  successAction?: InputMaybe<ApiActionSuccessActionCreateFieldInput>;
+  errorAction?: InputMaybe<ApiActionErrorActionCreateFieldInput>;
+  resource?: InputMaybe<ApiActionResourceCreateFieldInput>;
+  config?: InputMaybe<ApiActionConfigCreateFieldInput>;
+};
+
+export type ApiActionResourceAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ApiActionResourceAggregateInput>>;
+  OR?: InputMaybe<Array<ApiActionResourceAggregateInput>>;
+  node?: InputMaybe<ApiActionResourceNodeAggregationWhereInput>;
+};
+
+export type ApiActionResourceConnectFieldInput = {
+  where?: InputMaybe<ResourceConnectWhere>;
+  connect?: InputMaybe<ResourceConnectInput>;
+};
+
+export type ApiActionResourceConnectionSort = {
+  node?: InputMaybe<ResourceSort>;
+};
+
+export type ApiActionResourceConnectionWhere = {
+  AND?: InputMaybe<Array<ApiActionResourceConnectionWhere>>;
+  OR?: InputMaybe<Array<ApiActionResourceConnectionWhere>>;
+  node?: InputMaybe<ResourceWhere>;
+  node_NOT?: InputMaybe<ResourceWhere>;
+};
+
+export type ApiActionResourceConnectOrCreateFieldInput = {
+  where: ResourceConnectOrCreateWhere;
+  onCreate: ApiActionResourceConnectOrCreateFieldInputOnCreate;
+};
+
+export type ApiActionResourceConnectOrCreateFieldInputOnCreate = {
+  node: ResourceOnCreateInput;
+};
+
+export type ApiActionResourceCreateFieldInput = {
+  node: ResourceCreateInput;
+};
+
+export type ApiActionResourceDeleteFieldInput = {
+  where?: InputMaybe<ApiActionResourceConnectionWhere>;
+  delete?: InputMaybe<ResourceDeleteInput>;
+};
+
+export type ApiActionResourceDisconnectFieldInput = {
+  where?: InputMaybe<ApiActionResourceConnectionWhere>;
+  disconnect?: InputMaybe<ResourceDisconnectInput>;
+};
+
+export type ApiActionResourceFieldInput = {
+  create?: InputMaybe<ApiActionResourceCreateFieldInput>;
+  connect?: InputMaybe<ApiActionResourceConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>;
+};
+
+export type ApiActionResourceNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ApiActionResourceNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ApiActionResourceNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ApiActionResourceUpdateConnectionInput = {
+  node?: InputMaybe<ResourceUpdateInput>;
+};
+
+export type ApiActionResourceUpdateFieldInput = {
+  where?: InputMaybe<ApiActionResourceConnectionWhere>;
+  update?: InputMaybe<ApiActionResourceUpdateConnectionInput>;
+  connect?: InputMaybe<ApiActionResourceConnectFieldInput>;
+  disconnect?: InputMaybe<ApiActionResourceDisconnectFieldInput>;
+  create?: InputMaybe<ApiActionResourceCreateFieldInput>;
+  delete?: InputMaybe<ApiActionResourceDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>;
+};
+
+/** Fields to sort ApiActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ApiActionSort object. */
+export type ApiActionSort = {
+  id?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+  type?: InputMaybe<SortDirection>;
+};
+
+export type ApiActionStoreAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ApiActionStoreAggregateInput>>;
+  OR?: InputMaybe<Array<ApiActionStoreAggregateInput>>;
+  node?: InputMaybe<ApiActionStoreNodeAggregationWhereInput>;
+};
+
+export type ApiActionStoreNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ApiActionStoreNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ApiActionStoreNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ApiActionSuccessActionApiActionConnectFieldInput = {
+  where?: InputMaybe<ApiActionConnectWhere>;
+  connect?: InputMaybe<ApiActionConnectInput>;
+};
+
+export type ApiActionSuccessActionApiActionConnectionWhere = {
+  OR?: InputMaybe<Array<ApiActionSuccessActionApiActionConnectionWhere>>;
+  AND?: InputMaybe<Array<ApiActionSuccessActionApiActionConnectionWhere>>;
+  node?: InputMaybe<ApiActionWhere>;
+  node_NOT?: InputMaybe<ApiActionWhere>;
+};
+
+export type ApiActionSuccessActionApiActionConnectOrCreateFieldInput = {
+  where: ApiActionConnectOrCreateWhere;
+  onCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate;
+};
+
+export type ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate = {
+  node: ApiActionOnCreateInput;
+};
+
+export type ApiActionSuccessActionApiActionCreateFieldInput = {
+  node: ApiActionCreateInput;
+};
+
+export type ApiActionSuccessActionApiActionDeleteFieldInput = {
+  where?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
+  delete?: InputMaybe<ApiActionDeleteInput>;
+};
+
+export type ApiActionSuccessActionApiActionDisconnectFieldInput = {
+  where?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
+  disconnect?: InputMaybe<ApiActionDisconnectInput>;
+};
+
+export type ApiActionSuccessActionApiActionFieldInput = {
+  create?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>;
+  connect?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionSuccessActionApiActionUpdateConnectionInput = {
+  node?: InputMaybe<ApiActionUpdateInput>;
+};
+
+export type ApiActionSuccessActionApiActionUpdateFieldInput = {
+  where?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
+  update?: InputMaybe<ApiActionSuccessActionApiActionUpdateConnectionInput>;
+  connect?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>;
+  disconnect?: InputMaybe<ApiActionSuccessActionApiActionDisconnectFieldInput>;
+  create?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>;
+  delete?: InputMaybe<ApiActionSuccessActionApiActionDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionSuccessActionCodeActionConnectFieldInput = {
+  where?: InputMaybe<CodeActionConnectWhere>;
+  connect?: InputMaybe<CodeActionConnectInput>;
+};
+
+export type ApiActionSuccessActionCodeActionConnectionWhere = {
+  OR?: InputMaybe<Array<ApiActionSuccessActionCodeActionConnectionWhere>>;
+  AND?: InputMaybe<Array<ApiActionSuccessActionCodeActionConnectionWhere>>;
+  node?: InputMaybe<CodeActionWhere>;
+  node_NOT?: InputMaybe<CodeActionWhere>;
+};
+
+export type ApiActionSuccessActionCodeActionConnectOrCreateFieldInput = {
+  where: CodeActionConnectOrCreateWhere;
+  onCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate;
+};
+
+export type ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate =
+  {
+    node: CodeActionOnCreateInput;
+  };
+
+export type ApiActionSuccessActionCodeActionCreateFieldInput = {
+  node: CodeActionCreateInput;
+};
+
+export type ApiActionSuccessActionCodeActionDeleteFieldInput = {
+  where?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
+  delete?: InputMaybe<CodeActionDeleteInput>;
+};
+
+export type ApiActionSuccessActionCodeActionDisconnectFieldInput = {
+  where?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
+  disconnect?: InputMaybe<CodeActionDisconnectInput>;
+};
+
+export type ApiActionSuccessActionCodeActionFieldInput = {
+  create?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>;
+  connect?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionSuccessActionCodeActionUpdateConnectionInput = {
+  node?: InputMaybe<CodeActionUpdateInput>;
+};
+
+export type ApiActionSuccessActionCodeActionUpdateFieldInput = {
+  where?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
+  update?: InputMaybe<ApiActionSuccessActionCodeActionUpdateConnectionInput>;
+  connect?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>;
+  disconnect?: InputMaybe<ApiActionSuccessActionCodeActionDisconnectFieldInput>;
+  create?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>;
+  delete?: InputMaybe<ApiActionSuccessActionCodeActionDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionSuccessActionConnectInput = {
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>;
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>;
+};
+
+export type ApiActionSuccessActionConnectionWhere = {
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
+};
+
+export type ApiActionSuccessActionConnectOrCreateInput = {
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>;
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>;
+};
+
+export type ApiActionSuccessActionCreateFieldInput = {
+  CodeAction?: InputMaybe<
+    Array<ApiActionSuccessActionCodeActionCreateFieldInput>
+  >;
+  ApiAction?: InputMaybe<
+    Array<ApiActionSuccessActionApiActionCreateFieldInput>
+  >;
+};
+
+export type ApiActionSuccessActionCreateInput = {
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionFieldInput>;
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionFieldInput>;
+};
+
+export type ApiActionSuccessActionDeleteInput = {
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionDeleteFieldInput>;
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionDeleteFieldInput>;
+};
+
+export type ApiActionSuccessActionDisconnectInput = {
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionDisconnectFieldInput>;
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionDisconnectFieldInput>;
+};
+
+export type ApiActionSuccessActionUpdateInput = {
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionUpdateFieldInput>;
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionUpdateFieldInput>;
+};
+
+export type ApiActionUniqueWhere = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type ApiActionUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  type?: InputMaybe<ActionKind>;
+  store?: InputMaybe<ActionBaseStoreUpdateFieldInput>;
+  successAction?: InputMaybe<ApiActionSuccessActionUpdateInput>;
+  errorAction?: InputMaybe<ApiActionErrorActionUpdateInput>;
+  resource?: InputMaybe<ApiActionResourceUpdateFieldInput>;
+  config?: InputMaybe<ApiActionConfigUpdateFieldInput>;
+};
+
+export type ApiActionWhere = {
+  OR?: InputMaybe<Array<ApiActionWhere>>;
+  AND?: InputMaybe<Array<ApiActionWhere>>;
+  id?: InputMaybe<Scalars["ID"]>;
+  id_NOT?: InputMaybe<Scalars["ID"]>;
+  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  name_NOT?: InputMaybe<Scalars["String"]>;
+  name_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  type?: InputMaybe<ActionKind>;
+  type_NOT?: InputMaybe<ActionKind>;
+  type_IN?: InputMaybe<Array<ActionKind>>;
+  type_NOT_IN?: InputMaybe<Array<ActionKind>>;
+  store?: InputMaybe<StoreWhere>;
+  store_NOT?: InputMaybe<StoreWhere>;
+  storeAggregate?: InputMaybe<ApiActionStoreAggregateInput>;
+  resource?: InputMaybe<ResourceWhere>;
+  resource_NOT?: InputMaybe<ResourceWhere>;
+  resourceAggregate?: InputMaybe<ApiActionResourceAggregateInput>;
+  config?: InputMaybe<PropWhere>;
+  config_NOT?: InputMaybe<PropWhere>;
+  configAggregate?: InputMaybe<ApiActionConfigAggregateInput>;
+  storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>;
+  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>;
+  successActionConnection?: InputMaybe<ApiActionSuccessActionConnectionWhere>;
+  successActionConnection_NOT?: InputMaybe<ApiActionSuccessActionConnectionWhere>;
+  errorActionConnection?: InputMaybe<ApiActionErrorActionConnectionWhere>;
+  errorActionConnection_NOT?: InputMaybe<ApiActionErrorActionConnectionWhere>;
+  resourceConnection?: InputMaybe<ApiActionResourceConnectionWhere>;
+  resourceConnection_NOT?: InputMaybe<ApiActionResourceConnectionWhere>;
+  configConnection?: InputMaybe<ApiActionConfigConnectionWhere>;
+  configConnection_NOT?: InputMaybe<ApiActionConfigConnectionWhere>;
 };
 
 export type AppConnectInput = {
@@ -9347,6 +10021,156 @@ export type AtomWhere = {
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>;
 };
 
+export type CodeActionConnectInput = {
+  store?: InputMaybe<ActionBaseStoreConnectFieldInput>;
+};
+
+export type CodeActionConnectOrCreateInput = {
+  store?: InputMaybe<ActionBaseStoreConnectOrCreateFieldInput>;
+};
+
+export type CodeActionConnectOrCreateWhere = {
+  node: CodeActionUniqueWhere;
+};
+
+export type CodeActionConnectWhere = {
+  node: CodeActionWhere;
+};
+
+export type CodeActionCreateInput = {
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  code: Scalars["String"];
+  type?: ActionKind;
+  store?: InputMaybe<ActionBaseStoreFieldInput>;
+};
+
+export type CodeActionDeleteInput = {
+  store?: InputMaybe<ActionBaseStoreDeleteFieldInput>;
+};
+
+export type CodeActionDisconnectInput = {
+  store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>;
+};
+
+export type CodeActionOnCreateInput = {
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  code: Scalars["String"];
+};
+
+export type CodeActionOptions = {
+  /** Specify one or more CodeActionSort objects to sort CodeActions by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<CodeActionSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+export type CodeActionRelationInput = {
+  store?: InputMaybe<ActionBaseStoreCreateFieldInput>;
+};
+
+/** Fields to sort CodeActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one CodeActionSort object. */
+export type CodeActionSort = {
+  id?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+  code?: InputMaybe<SortDirection>;
+  type?: InputMaybe<SortDirection>;
+};
+
+export type CodeActionStoreAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<CodeActionStoreAggregateInput>>;
+  OR?: InputMaybe<Array<CodeActionStoreAggregateInput>>;
+  node?: InputMaybe<CodeActionStoreNodeAggregationWhereInput>;
+};
+
+export type CodeActionStoreNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<CodeActionStoreNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<CodeActionStoreNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type CodeActionUniqueWhere = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type CodeActionUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  code?: InputMaybe<Scalars["String"]>;
+  type?: InputMaybe<ActionKind>;
+  store?: InputMaybe<ActionBaseStoreUpdateFieldInput>;
+};
+
+export type CodeActionWhere = {
+  OR?: InputMaybe<Array<CodeActionWhere>>;
+  AND?: InputMaybe<Array<CodeActionWhere>>;
+  id?: InputMaybe<Scalars["ID"]>;
+  id_NOT?: InputMaybe<Scalars["ID"]>;
+  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  name_NOT?: InputMaybe<Scalars["String"]>;
+  name_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  code?: InputMaybe<Scalars["String"]>;
+  code_NOT?: InputMaybe<Scalars["String"]>;
+  code_IN?: InputMaybe<Array<Scalars["String"]>>;
+  code_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  code_CONTAINS?: InputMaybe<Scalars["String"]>;
+  code_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  code_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  code_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  code_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  code_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  type?: InputMaybe<ActionKind>;
+  type_NOT?: InputMaybe<ActionKind>;
+  type_IN?: InputMaybe<Array<ActionKind>>;
+  type_NOT_IN?: InputMaybe<Array<ActionKind>>;
+  store?: InputMaybe<StoreWhere>;
+  store_NOT?: InputMaybe<StoreWhere>;
+  storeAggregate?: InputMaybe<CodeActionStoreAggregateInput>;
+  storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>;
+  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>;
+};
+
 export type CodeMirrorTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
 };
@@ -10165,156 +10989,6 @@ export type CreateInfoWhere = {
   relationshipsCreated_LTE?: InputMaybe<Scalars["Int"]>;
   relationshipsCreated_GT?: InputMaybe<Scalars["Int"]>;
   relationshipsCreated_GTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type CodeActionConnectInput = {
-  store?: InputMaybe<ActionBaseStoreConnectFieldInput>;
-};
-
-export type CodeActionConnectOrCreateInput = {
-  store?: InputMaybe<ActionBaseStoreConnectOrCreateFieldInput>;
-};
-
-export type CodeActionConnectOrCreateWhere = {
-  node: CodeActionUniqueWhere;
-};
-
-export type CodeActionConnectWhere = {
-  node: CodeActionWhere;
-};
-
-export type CodeActionCreateInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  code: Scalars["String"];
-  type?: ActionKind;
-  store?: InputMaybe<ActionBaseStoreFieldInput>;
-};
-
-export type CodeActionDeleteInput = {
-  store?: InputMaybe<ActionBaseStoreDeleteFieldInput>;
-};
-
-export type CodeActionDisconnectInput = {
-  store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>;
-};
-
-export type CodeActionOnCreateInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  code: Scalars["String"];
-};
-
-export type CodeActionOptions = {
-  /** Specify one or more CodeActionSort objects to sort CodeActions by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<CodeActionSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-export type CodeActionRelationInput = {
-  store?: InputMaybe<ActionBaseStoreCreateFieldInput>;
-};
-
-/** Fields to sort CodeActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one CodeActionSort object. */
-export type CodeActionSort = {
-  id?: InputMaybe<SortDirection>;
-  name?: InputMaybe<SortDirection>;
-  code?: InputMaybe<SortDirection>;
-  type?: InputMaybe<SortDirection>;
-};
-
-export type CodeActionStoreAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<CodeActionStoreAggregateInput>>;
-  OR?: InputMaybe<Array<CodeActionStoreAggregateInput>>;
-  node?: InputMaybe<CodeActionStoreNodeAggregationWhereInput>;
-};
-
-export type CodeActionStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<CodeActionStoreNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<CodeActionStoreNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type CodeActionUniqueWhere = {
-  id?: InputMaybe<Scalars["ID"]>;
-};
-
-export type CodeActionUpdateInput = {
-  id?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  code?: InputMaybe<Scalars["String"]>;
-  type?: InputMaybe<ActionKind>;
-  store?: InputMaybe<ActionBaseStoreUpdateFieldInput>;
-};
-
-export type CodeActionWhere = {
-  OR?: InputMaybe<Array<CodeActionWhere>>;
-  AND?: InputMaybe<Array<CodeActionWhere>>;
-  id?: InputMaybe<Scalars["ID"]>;
-  id_NOT?: InputMaybe<Scalars["ID"]>;
-  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  name_NOT?: InputMaybe<Scalars["String"]>;
-  name_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  code?: InputMaybe<Scalars["String"]>;
-  code_NOT?: InputMaybe<Scalars["String"]>;
-  code_IN?: InputMaybe<Array<Scalars["String"]>>;
-  code_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  code_CONTAINS?: InputMaybe<Scalars["String"]>;
-  code_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  code_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  code_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  code_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  code_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  type?: InputMaybe<ActionKind>;
-  type_NOT?: InputMaybe<ActionKind>;
-  type_IN?: InputMaybe<Array<ActionKind>>;
-  type_NOT_IN?: InputMaybe<Array<ActionKind>>;
-  store?: InputMaybe<StoreWhere>;
-  store_NOT?: InputMaybe<StoreWhere>;
-  storeAggregate?: InputMaybe<CodeActionStoreAggregateInput>;
-  storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>;
 };
 
 export type DeleteInfoCreateInput = {
@@ -17220,698 +17894,6 @@ export type ResetDatabaseMutationResponseWhere = {
   success_NOT?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type ApiActionConfigAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<ApiActionConfigAggregateInput>>;
-  OR?: InputMaybe<Array<ApiActionConfigAggregateInput>>;
-  node?: InputMaybe<ApiActionConfigNodeAggregationWhereInput>;
-};
-
-export type ApiActionConfigConnectFieldInput = {
-  where?: InputMaybe<PropConnectWhere>;
-};
-
-export type ApiActionConfigConnectionSort = {
-  node?: InputMaybe<PropSort>;
-};
-
-export type ApiActionConfigConnectionWhere = {
-  AND?: InputMaybe<Array<ApiActionConfigConnectionWhere>>;
-  OR?: InputMaybe<Array<ApiActionConfigConnectionWhere>>;
-  node?: InputMaybe<PropWhere>;
-  node_NOT?: InputMaybe<PropWhere>;
-};
-
-export type ApiActionConfigConnectOrCreateFieldInput = {
-  where: PropConnectOrCreateWhere;
-  onCreate: ApiActionConfigConnectOrCreateFieldInputOnCreate;
-};
-
-export type ApiActionConfigConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput;
-};
-
-export type ApiActionConfigCreateFieldInput = {
-  node: PropCreateInput;
-};
-
-export type ApiActionConfigDeleteFieldInput = {
-  where?: InputMaybe<ApiActionConfigConnectionWhere>;
-};
-
-export type ApiActionConfigDisconnectFieldInput = {
-  where?: InputMaybe<ApiActionConfigConnectionWhere>;
-};
-
-export type ApiActionConfigFieldInput = {
-  create?: InputMaybe<ApiActionConfigCreateFieldInput>;
-  connect?: InputMaybe<ApiActionConfigConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>;
-};
-
-export type ApiActionConfigNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ApiActionConfigNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ApiActionConfigNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  data_EQUAL?: InputMaybe<Scalars["String"]>;
-  data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  data_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  data_GT?: InputMaybe<Scalars["Int"]>;
-  data_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  data_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  data_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  data_GTE?: InputMaybe<Scalars["Int"]>;
-  data_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  data_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  data_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  data_LT?: InputMaybe<Scalars["Int"]>;
-  data_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  data_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  data_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  data_LTE?: InputMaybe<Scalars["Int"]>;
-  data_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  data_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  data_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ApiActionConfigUpdateConnectionInput = {
-  node?: InputMaybe<PropUpdateInput>;
-};
-
-export type ApiActionConfigUpdateFieldInput = {
-  where?: InputMaybe<ApiActionConfigConnectionWhere>;
-  update?: InputMaybe<ApiActionConfigUpdateConnectionInput>;
-  connect?: InputMaybe<ApiActionConfigConnectFieldInput>;
-  disconnect?: InputMaybe<ApiActionConfigDisconnectFieldInput>;
-  create?: InputMaybe<ApiActionConfigCreateFieldInput>;
-  delete?: InputMaybe<ApiActionConfigDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>;
-};
-
-export type ApiActionConnectInput = {
-  store?: InputMaybe<ActionBaseStoreConnectFieldInput>;
-  successAction?: InputMaybe<ApiActionSuccessActionConnectInput>;
-  errorAction?: InputMaybe<ApiActionErrorActionConnectInput>;
-  resource?: InputMaybe<ApiActionResourceConnectFieldInput>;
-  config?: InputMaybe<ApiActionConfigConnectFieldInput>;
-};
-
-export type ApiActionConnectOrCreateInput = {
-  store?: InputMaybe<ActionBaseStoreConnectOrCreateFieldInput>;
-  successAction?: InputMaybe<ApiActionSuccessActionConnectOrCreateInput>;
-  errorAction?: InputMaybe<ApiActionErrorActionConnectOrCreateInput>;
-  resource?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>;
-  config?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>;
-};
-
-export type ApiActionConnectOrCreateWhere = {
-  node: ApiActionUniqueWhere;
-};
-
-export type ApiActionConnectWhere = {
-  node: ApiActionWhere;
-};
-
-export type ApiActionCreateInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  type?: ActionKind;
-  store?: InputMaybe<ActionBaseStoreFieldInput>;
-  successAction?: InputMaybe<ApiActionSuccessActionCreateInput>;
-  errorAction?: InputMaybe<ApiActionErrorActionCreateInput>;
-  resource?: InputMaybe<ApiActionResourceFieldInput>;
-  config?: InputMaybe<ApiActionConfigFieldInput>;
-};
-
-export type ApiActionDeleteInput = {
-  store?: InputMaybe<ActionBaseStoreDeleteFieldInput>;
-  successAction?: InputMaybe<ApiActionSuccessActionDeleteInput>;
-  errorAction?: InputMaybe<ApiActionErrorActionDeleteInput>;
-  resource?: InputMaybe<ApiActionResourceDeleteFieldInput>;
-  config?: InputMaybe<ApiActionConfigDeleteFieldInput>;
-};
-
-export type ApiActionDisconnectInput = {
-  store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>;
-  successAction?: InputMaybe<ApiActionSuccessActionDisconnectInput>;
-  errorAction?: InputMaybe<ApiActionErrorActionDisconnectInput>;
-  resource?: InputMaybe<ApiActionResourceDisconnectFieldInput>;
-  config?: InputMaybe<ApiActionConfigDisconnectFieldInput>;
-};
-
-export type ApiActionErrorActionConnectInput = {
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>;
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>;
-};
-
-export type ApiActionErrorActionConnectionWhere = {
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
-};
-
-export type ApiActionErrorActionConnectOrCreateInput = {
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>;
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionErrorActionCreateFieldInput = {
-  CodeAction?: InputMaybe<
-    Array<ApiActionErrorActionCodeActionCreateFieldInput>
-  >;
-  ApiAction?: InputMaybe<
-    Array<ApiActionErrorActionApiActionCreateFieldInput>
-  >;
-};
-
-export type ApiActionErrorActionCreateInput = {
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionFieldInput>;
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionFieldInput>;
-};
-
-export type ApiActionErrorActionCodeActionConnectFieldInput = {
-  where?: InputMaybe<CodeActionConnectWhere>;
-  connect?: InputMaybe<CodeActionConnectInput>;
-};
-
-export type ApiActionErrorActionCodeActionConnectionWhere = {
-  OR?: InputMaybe<Array<ApiActionErrorActionCodeActionConnectionWhere>>;
-  AND?: InputMaybe<Array<ApiActionErrorActionCodeActionConnectionWhere>>;
-  node?: InputMaybe<CodeActionWhere>;
-  node_NOT?: InputMaybe<CodeActionWhere>;
-};
-
-export type ApiActionErrorActionCodeActionConnectOrCreateFieldInput = {
-  where: CodeActionConnectOrCreateWhere;
-  onCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: CodeActionOnCreateInput;
-  };
-
-export type ApiActionErrorActionCodeActionCreateFieldInput = {
-  node: CodeActionCreateInput;
-};
-
-export type ApiActionErrorActionCodeActionDeleteFieldInput = {
-  where?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
-  delete?: InputMaybe<CodeActionDeleteInput>;
-};
-
-export type ApiActionErrorActionCodeActionDisconnectFieldInput = {
-  where?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
-  disconnect?: InputMaybe<CodeActionDisconnectInput>;
-};
-
-export type ApiActionErrorActionCodeActionFieldInput = {
-  create?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>;
-  connect?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionErrorActionCodeActionUpdateConnectionInput = {
-  node?: InputMaybe<CodeActionUpdateInput>;
-};
-
-export type ApiActionErrorActionCodeActionUpdateFieldInput = {
-  where?: InputMaybe<ApiActionErrorActionCodeActionConnectionWhere>;
-  update?: InputMaybe<ApiActionErrorActionCodeActionUpdateConnectionInput>;
-  connect?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>;
-  disconnect?: InputMaybe<ApiActionErrorActionCodeActionDisconnectFieldInput>;
-  create?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>;
-  delete?: InputMaybe<ApiActionErrorActionCodeActionDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionErrorActionDeleteInput = {
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionDeleteFieldInput>;
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionDeleteFieldInput>;
-};
-
-export type ApiActionErrorActionDisconnectInput = {
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionDisconnectFieldInput>;
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionDisconnectFieldInput>;
-};
-
-export type ApiActionErrorActionApiActionConnectFieldInput = {
-  where?: InputMaybe<ApiActionConnectWhere>;
-  connect?: InputMaybe<ApiActionConnectInput>;
-};
-
-export type ApiActionErrorActionApiActionConnectionWhere = {
-  OR?: InputMaybe<
-    Array<ApiActionErrorActionApiActionConnectionWhere>
-  >;
-  AND?: InputMaybe<
-    Array<ApiActionErrorActionApiActionConnectionWhere>
-  >;
-  node?: InputMaybe<ApiActionWhere>;
-  node_NOT?: InputMaybe<ApiActionWhere>;
-};
-
-export type ApiActionErrorActionApiActionConnectOrCreateFieldInput = {
-  where: ApiActionConnectOrCreateWhere;
-  onCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: ApiActionOnCreateInput;
-  };
-
-export type ApiActionErrorActionApiActionCreateFieldInput = {
-  node: ApiActionCreateInput;
-};
-
-export type ApiActionErrorActionApiActionDeleteFieldInput = {
-  where?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
-  delete?: InputMaybe<ApiActionDeleteInput>;
-};
-
-export type ApiActionErrorActionApiActionDisconnectFieldInput = {
-  where?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
-  disconnect?: InputMaybe<ApiActionDisconnectInput>;
-};
-
-export type ApiActionErrorActionApiActionFieldInput = {
-  create?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>;
-  connect?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionErrorActionApiActionUpdateConnectionInput = {
-  node?: InputMaybe<ApiActionUpdateInput>;
-};
-
-export type ApiActionErrorActionApiActionUpdateFieldInput = {
-  where?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>;
-  update?: InputMaybe<ApiActionErrorActionApiActionUpdateConnectionInput>;
-  connect?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>;
-  disconnect?: InputMaybe<ApiActionErrorActionApiActionDisconnectFieldInput>;
-  create?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>;
-  delete?: InputMaybe<ApiActionErrorActionApiActionDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionErrorActionUpdateInput = {
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionUpdateFieldInput>;
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionUpdateFieldInput>;
-};
-
-export type ApiActionOnCreateInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
-};
-
-export type ApiActionOptions = {
-  /** Specify one or more ApiActionSort objects to sort ApiActions by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ApiActionSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ApiActionRelationInput = {
-  store?: InputMaybe<ActionBaseStoreCreateFieldInput>;
-  successAction?: InputMaybe<ApiActionSuccessActionCreateFieldInput>;
-  errorAction?: InputMaybe<ApiActionErrorActionCreateFieldInput>;
-  resource?: InputMaybe<ApiActionResourceCreateFieldInput>;
-  config?: InputMaybe<ApiActionConfigCreateFieldInput>;
-};
-
-export type ApiActionResourceAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<ApiActionResourceAggregateInput>>;
-  OR?: InputMaybe<Array<ApiActionResourceAggregateInput>>;
-  node?: InputMaybe<ApiActionResourceNodeAggregationWhereInput>;
-};
-
-export type ApiActionResourceConnectFieldInput = {
-  where?: InputMaybe<ResourceConnectWhere>;
-  connect?: InputMaybe<ResourceConnectInput>;
-};
-
-export type ApiActionResourceConnectionSort = {
-  node?: InputMaybe<ResourceSort>;
-};
-
-export type ApiActionResourceConnectionWhere = {
-  AND?: InputMaybe<Array<ApiActionResourceConnectionWhere>>;
-  OR?: InputMaybe<Array<ApiActionResourceConnectionWhere>>;
-  node?: InputMaybe<ResourceWhere>;
-  node_NOT?: InputMaybe<ResourceWhere>;
-};
-
-export type ApiActionResourceConnectOrCreateFieldInput = {
-  where: ResourceConnectOrCreateWhere;
-  onCreate: ApiActionResourceConnectOrCreateFieldInputOnCreate;
-};
-
-export type ApiActionResourceConnectOrCreateFieldInputOnCreate = {
-  node: ResourceOnCreateInput;
-};
-
-export type ApiActionResourceCreateFieldInput = {
-  node: ResourceCreateInput;
-};
-
-export type ApiActionResourceDeleteFieldInput = {
-  where?: InputMaybe<ApiActionResourceConnectionWhere>;
-  delete?: InputMaybe<ResourceDeleteInput>;
-};
-
-export type ApiActionResourceDisconnectFieldInput = {
-  where?: InputMaybe<ApiActionResourceConnectionWhere>;
-  disconnect?: InputMaybe<ResourceDisconnectInput>;
-};
-
-export type ApiActionResourceFieldInput = {
-  create?: InputMaybe<ApiActionResourceCreateFieldInput>;
-  connect?: InputMaybe<ApiActionResourceConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>;
-};
-
-export type ApiActionResourceNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ApiActionResourceNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ApiActionResourceNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ApiActionResourceUpdateConnectionInput = {
-  node?: InputMaybe<ResourceUpdateInput>;
-};
-
-export type ApiActionResourceUpdateFieldInput = {
-  where?: InputMaybe<ApiActionResourceConnectionWhere>;
-  update?: InputMaybe<ApiActionResourceUpdateConnectionInput>;
-  connect?: InputMaybe<ApiActionResourceConnectFieldInput>;
-  disconnect?: InputMaybe<ApiActionResourceDisconnectFieldInput>;
-  create?: InputMaybe<ApiActionResourceCreateFieldInput>;
-  delete?: InputMaybe<ApiActionResourceDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>;
-};
-
-/** Fields to sort ApiActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ApiActionSort object. */
-export type ApiActionSort = {
-  id?: InputMaybe<SortDirection>;
-  name?: InputMaybe<SortDirection>;
-  type?: InputMaybe<SortDirection>;
-};
-
-export type ApiActionStoreAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<ApiActionStoreAggregateInput>>;
-  OR?: InputMaybe<Array<ApiActionStoreAggregateInput>>;
-  node?: InputMaybe<ApiActionStoreNodeAggregationWhereInput>;
-};
-
-export type ApiActionStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ApiActionStoreNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ApiActionStoreNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ApiActionSuccessActionConnectInput = {
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>;
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>;
-};
-
-export type ApiActionSuccessActionConnectionWhere = {
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
-};
-
-export type ApiActionSuccessActionConnectOrCreateInput = {
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>;
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionSuccessActionCreateFieldInput = {
-  CodeAction?: InputMaybe<
-    Array<ApiActionSuccessActionCodeActionCreateFieldInput>
-  >;
-  ApiAction?: InputMaybe<
-    Array<ApiActionSuccessActionApiActionCreateFieldInput>
-  >;
-};
-
-export type ApiActionSuccessActionCreateInput = {
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionFieldInput>;
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionFieldInput>;
-};
-
-export type ApiActionSuccessActionCodeActionConnectFieldInput = {
-  where?: InputMaybe<CodeActionConnectWhere>;
-  connect?: InputMaybe<CodeActionConnectInput>;
-};
-
-export type ApiActionSuccessActionCodeActionConnectionWhere = {
-  OR?: InputMaybe<
-    Array<ApiActionSuccessActionCodeActionConnectionWhere>
-  >;
-  AND?: InputMaybe<
-    Array<ApiActionSuccessActionCodeActionConnectionWhere>
-  >;
-  node?: InputMaybe<CodeActionWhere>;
-  node_NOT?: InputMaybe<CodeActionWhere>;
-};
-
-export type ApiActionSuccessActionCodeActionConnectOrCreateFieldInput = {
-  where: CodeActionConnectOrCreateWhere;
-  onCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: CodeActionOnCreateInput;
-  };
-
-export type ApiActionSuccessActionCodeActionCreateFieldInput = {
-  node: CodeActionCreateInput;
-};
-
-export type ApiActionSuccessActionCodeActionDeleteFieldInput = {
-  where?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
-  delete?: InputMaybe<CodeActionDeleteInput>;
-};
-
-export type ApiActionSuccessActionCodeActionDisconnectFieldInput = {
-  where?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
-  disconnect?: InputMaybe<CodeActionDisconnectInput>;
-};
-
-export type ApiActionSuccessActionCodeActionFieldInput = {
-  create?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>;
-  connect?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionSuccessActionCodeActionUpdateConnectionInput = {
-  node?: InputMaybe<CodeActionUpdateInput>;
-};
-
-export type ApiActionSuccessActionCodeActionUpdateFieldInput = {
-  where?: InputMaybe<ApiActionSuccessActionCodeActionConnectionWhere>;
-  update?: InputMaybe<ApiActionSuccessActionCodeActionUpdateConnectionInput>;
-  connect?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>;
-  disconnect?: InputMaybe<ApiActionSuccessActionCodeActionDisconnectFieldInput>;
-  create?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>;
-  delete?: InputMaybe<ApiActionSuccessActionCodeActionDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionSuccessActionDeleteInput = {
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionDeleteFieldInput>;
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionDeleteFieldInput>;
-};
-
-export type ApiActionSuccessActionDisconnectInput = {
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionDisconnectFieldInput>;
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionDisconnectFieldInput>;
-};
-
-export type ApiActionSuccessActionApiActionConnectFieldInput = {
-  where?: InputMaybe<ApiActionConnectWhere>;
-  connect?: InputMaybe<ApiActionConnectInput>;
-};
-
-export type ApiActionSuccessActionApiActionConnectionWhere = {
-  OR?: InputMaybe<
-    Array<ApiActionSuccessActionApiActionConnectionWhere>
-  >;
-  AND?: InputMaybe<
-    Array<ApiActionSuccessActionApiActionConnectionWhere>
-  >;
-  node?: InputMaybe<ApiActionWhere>;
-  node_NOT?: InputMaybe<ApiActionWhere>;
-};
-
-export type ApiActionSuccessActionApiActionConnectOrCreateFieldInput =
-  {
-    where: ApiActionConnectOrCreateWhere;
-    onCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate;
-  };
-
-export type ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: ApiActionOnCreateInput;
-  };
-
-export type ApiActionSuccessActionApiActionCreateFieldInput = {
-  node: ApiActionCreateInput;
-};
-
-export type ApiActionSuccessActionApiActionDeleteFieldInput = {
-  where?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
-  delete?: InputMaybe<ApiActionDeleteInput>;
-};
-
-export type ApiActionSuccessActionApiActionDisconnectFieldInput = {
-  where?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
-  disconnect?: InputMaybe<ApiActionDisconnectInput>;
-};
-
-export type ApiActionSuccessActionApiActionFieldInput = {
-  create?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>;
-  connect?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionSuccessActionApiActionUpdateConnectionInput = {
-  node?: InputMaybe<ApiActionUpdateInput>;
-};
-
-export type ApiActionSuccessActionApiActionUpdateFieldInput = {
-  where?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>;
-  update?: InputMaybe<ApiActionSuccessActionApiActionUpdateConnectionInput>;
-  connect?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>;
-  disconnect?: InputMaybe<ApiActionSuccessActionApiActionDisconnectFieldInput>;
-  create?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>;
-  delete?: InputMaybe<ApiActionSuccessActionApiActionDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>;
-};
-
-export type ApiActionSuccessActionUpdateInput = {
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionUpdateFieldInput>;
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionUpdateFieldInput>;
-};
-
-export type ApiActionUniqueWhere = {
-  id?: InputMaybe<Scalars["ID"]>;
-};
-
-export type ApiActionUpdateInput = {
-  id?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  type?: InputMaybe<ActionKind>;
-  store?: InputMaybe<ActionBaseStoreUpdateFieldInput>;
-  successAction?: InputMaybe<ApiActionSuccessActionUpdateInput>;
-  errorAction?: InputMaybe<ApiActionErrorActionUpdateInput>;
-  resource?: InputMaybe<ApiActionResourceUpdateFieldInput>;
-  config?: InputMaybe<ApiActionConfigUpdateFieldInput>;
-};
-
-export type ApiActionWhere = {
-  OR?: InputMaybe<Array<ApiActionWhere>>;
-  AND?: InputMaybe<Array<ApiActionWhere>>;
-  id?: InputMaybe<Scalars["ID"]>;
-  id_NOT?: InputMaybe<Scalars["ID"]>;
-  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  name_NOT?: InputMaybe<Scalars["String"]>;
-  name_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  type?: InputMaybe<ActionKind>;
-  type_NOT?: InputMaybe<ActionKind>;
-  type_IN?: InputMaybe<Array<ActionKind>>;
-  type_NOT_IN?: InputMaybe<Array<ActionKind>>;
-  store?: InputMaybe<StoreWhere>;
-  store_NOT?: InputMaybe<StoreWhere>;
-  storeAggregate?: InputMaybe<ApiActionStoreAggregateInput>;
-  resource?: InputMaybe<ResourceWhere>;
-  resource_NOT?: InputMaybe<ResourceWhere>;
-  resourceAggregate?: InputMaybe<ApiActionResourceAggregateInput>;
-  config?: InputMaybe<PropWhere>;
-  config_NOT?: InputMaybe<PropWhere>;
-  configAggregate?: InputMaybe<ApiActionConfigAggregateInput>;
-  storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  successActionConnection?: InputMaybe<ApiActionSuccessActionConnectionWhere>;
-  successActionConnection_NOT?: InputMaybe<ApiActionSuccessActionConnectionWhere>;
-  errorActionConnection?: InputMaybe<ApiActionErrorActionConnectionWhere>;
-  errorActionConnection_NOT?: InputMaybe<ApiActionErrorActionConnectionWhere>;
-  resourceConnection?: InputMaybe<ApiActionResourceConnectionWhere>;
-  resourceConnection_NOT?: InputMaybe<ApiActionResourceConnectionWhere>;
-  configConnection?: InputMaybe<ApiActionConfigConnectionWhere>;
-  configConnection_NOT?: InputMaybe<ApiActionConfigConnectionWhere>;
-};
-
 export type ResourceConfigAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
@@ -18193,37 +18175,63 @@ export type ResourceWhere = {
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>;
 };
 
-export type StoreActionsConnectInput = {
-  CodeAction?: InputMaybe<Array<StoreActionsCodeActionConnectFieldInput>>;
-  ApiAction?: InputMaybe<
-    Array<StoreActionsApiActionConnectFieldInput>
-  >;
+export type StoreActionsApiActionConnectFieldInput = {
+  where?: InputMaybe<ApiActionConnectWhere>;
+  connect?: InputMaybe<Array<ApiActionConnectInput>>;
 };
 
-export type StoreActionsConnectionWhere = {
-  CodeAction?: InputMaybe<StoreActionsCodeActionConnectionWhere>;
-  ApiAction?: InputMaybe<StoreActionsApiActionConnectionWhere>;
+export type StoreActionsApiActionConnectionWhere = {
+  OR?: InputMaybe<Array<StoreActionsApiActionConnectionWhere>>;
+  AND?: InputMaybe<Array<StoreActionsApiActionConnectionWhere>>;
+  node?: InputMaybe<ApiActionWhere>;
+  node_NOT?: InputMaybe<ApiActionWhere>;
 };
 
-export type StoreActionsConnectOrCreateInput = {
-  CodeAction?: InputMaybe<
-    Array<StoreActionsCodeActionConnectOrCreateFieldInput>
-  >;
-  ApiAction?: InputMaybe<
+export type StoreActionsApiActionConnectOrCreateFieldInput = {
+  where: ApiActionConnectOrCreateWhere;
+  onCreate: StoreActionsApiActionConnectOrCreateFieldInputOnCreate;
+};
+
+export type StoreActionsApiActionConnectOrCreateFieldInputOnCreate = {
+  node: ApiActionOnCreateInput;
+};
+
+export type StoreActionsApiActionCreateFieldInput = {
+  node: ApiActionCreateInput;
+};
+
+export type StoreActionsApiActionDeleteFieldInput = {
+  where?: InputMaybe<StoreActionsApiActionConnectionWhere>;
+  delete?: InputMaybe<ApiActionDeleteInput>;
+};
+
+export type StoreActionsApiActionDisconnectFieldInput = {
+  where?: InputMaybe<StoreActionsApiActionConnectionWhere>;
+  disconnect?: InputMaybe<ApiActionDisconnectInput>;
+};
+
+export type StoreActionsApiActionFieldInput = {
+  create?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>;
+  connect?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<
     Array<StoreActionsApiActionConnectOrCreateFieldInput>
   >;
 };
 
-export type StoreActionsCreateFieldInput = {
-  CodeAction?: InputMaybe<Array<StoreActionsCodeActionCreateFieldInput>>;
-  ApiAction?: InputMaybe<
-    Array<StoreActionsApiActionCreateFieldInput>
-  >;
+export type StoreActionsApiActionUpdateConnectionInput = {
+  node?: InputMaybe<ApiActionUpdateInput>;
 };
 
-export type StoreActionsCreateInput = {
-  CodeAction?: InputMaybe<StoreActionsCodeActionFieldInput>;
-  ApiAction?: InputMaybe<StoreActionsApiActionFieldInput>;
+export type StoreActionsApiActionUpdateFieldInput = {
+  where?: InputMaybe<StoreActionsApiActionConnectionWhere>;
+  update?: InputMaybe<StoreActionsApiActionUpdateConnectionInput>;
+  connect?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>;
+  disconnect?: InputMaybe<Array<StoreActionsApiActionDisconnectFieldInput>>;
+  create?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>;
+  delete?: InputMaybe<Array<StoreActionsApiActionDeleteFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsApiActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type StoreActionsCodeActionConnectFieldInput = {
@@ -18285,88 +18293,46 @@ export type StoreActionsCodeActionUpdateFieldInput = {
   >;
 };
 
+export type StoreActionsConnectInput = {
+  CodeAction?: InputMaybe<Array<StoreActionsCodeActionConnectFieldInput>>;
+  ApiAction?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>;
+};
+
+export type StoreActionsConnectionWhere = {
+  CodeAction?: InputMaybe<StoreActionsCodeActionConnectionWhere>;
+  ApiAction?: InputMaybe<StoreActionsApiActionConnectionWhere>;
+};
+
+export type StoreActionsConnectOrCreateInput = {
+  CodeAction?: InputMaybe<
+    Array<StoreActionsCodeActionConnectOrCreateFieldInput>
+  >;
+  ApiAction?: InputMaybe<Array<StoreActionsApiActionConnectOrCreateFieldInput>>;
+};
+
+export type StoreActionsCreateFieldInput = {
+  CodeAction?: InputMaybe<Array<StoreActionsCodeActionCreateFieldInput>>;
+  ApiAction?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>;
+};
+
+export type StoreActionsCreateInput = {
+  CodeAction?: InputMaybe<StoreActionsCodeActionFieldInput>;
+  ApiAction?: InputMaybe<StoreActionsApiActionFieldInput>;
+};
+
 export type StoreActionsDeleteInput = {
   CodeAction?: InputMaybe<Array<StoreActionsCodeActionDeleteFieldInput>>;
-  ApiAction?: InputMaybe<
-    Array<StoreActionsApiActionDeleteFieldInput>
-  >;
+  ApiAction?: InputMaybe<Array<StoreActionsApiActionDeleteFieldInput>>;
 };
 
 export type StoreActionsDisconnectInput = {
-  CodeAction?: InputMaybe<
-    Array<StoreActionsCodeActionDisconnectFieldInput>
-  >;
-  ApiAction?: InputMaybe<
-    Array<StoreActionsApiActionDisconnectFieldInput>
-  >;
-};
-
-export type StoreActionsApiActionConnectFieldInput = {
-  where?: InputMaybe<ApiActionConnectWhere>;
-  connect?: InputMaybe<Array<ApiActionConnectInput>>;
-};
-
-export type StoreActionsApiActionConnectionWhere = {
-  OR?: InputMaybe<Array<StoreActionsApiActionConnectionWhere>>;
-  AND?: InputMaybe<Array<StoreActionsApiActionConnectionWhere>>;
-  node?: InputMaybe<ApiActionWhere>;
-  node_NOT?: InputMaybe<ApiActionWhere>;
-};
-
-export type StoreActionsApiActionConnectOrCreateFieldInput = {
-  where: ApiActionConnectOrCreateWhere;
-  onCreate: StoreActionsApiActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type StoreActionsApiActionConnectOrCreateFieldInputOnCreate = {
-  node: ApiActionOnCreateInput;
-};
-
-export type StoreActionsApiActionCreateFieldInput = {
-  node: ApiActionCreateInput;
-};
-
-export type StoreActionsApiActionDeleteFieldInput = {
-  where?: InputMaybe<StoreActionsApiActionConnectionWhere>;
-  delete?: InputMaybe<ApiActionDeleteInput>;
-};
-
-export type StoreActionsApiActionDisconnectFieldInput = {
-  where?: InputMaybe<StoreActionsApiActionConnectionWhere>;
-  disconnect?: InputMaybe<ApiActionDisconnectInput>;
-};
-
-export type StoreActionsApiActionFieldInput = {
-  create?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>;
-  connect?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsApiActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type StoreActionsApiActionUpdateConnectionInput = {
-  node?: InputMaybe<ApiActionUpdateInput>;
-};
-
-export type StoreActionsApiActionUpdateFieldInput = {
-  where?: InputMaybe<StoreActionsApiActionConnectionWhere>;
-  update?: InputMaybe<StoreActionsApiActionUpdateConnectionInput>;
-  connect?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>;
-  disconnect?: InputMaybe<
-    Array<StoreActionsApiActionDisconnectFieldInput>
-  >;
-  create?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>;
-  delete?: InputMaybe<Array<StoreActionsApiActionDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsApiActionConnectOrCreateFieldInput>
-  >;
+  CodeAction?: InputMaybe<Array<StoreActionsCodeActionDisconnectFieldInput>>;
+  ApiAction?: InputMaybe<Array<StoreActionsApiActionDisconnectFieldInput>>;
 };
 
 export type StoreActionsUpdateInput = {
   CodeAction?: InputMaybe<Array<StoreActionsCodeActionUpdateFieldInput>>;
-  ApiAction?: InputMaybe<
-    Array<StoreActionsApiActionUpdateFieldInput>
-  >;
+  ApiAction?: InputMaybe<Array<StoreActionsApiActionUpdateFieldInput>>;
 };
 
 export type StoreApiAggregateInput = {
