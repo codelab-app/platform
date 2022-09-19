@@ -42,7 +42,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand(`${NX_TEST} build builder -c test`)
-            execCommand(`${NX_TEST} affected:build -c test`)
+            execCommand(`${NX_TEST} affected:build --exclude=landing -c test`)
           }
 
           // Can't use in CI since cli hasn't been built yet
