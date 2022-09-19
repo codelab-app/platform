@@ -45,8 +45,6 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
   describe:
     'Parse Ant Design scraped CSV files and insert to application as types',
   handler: async ({ email }) => {
-    console.log('----------')
-
     const User = await UserOGM({ reinitialize: true })
 
     const selectedUserId = email
@@ -56,6 +54,8 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
     if (!selectedUserId) {
       throw new Error('User not found!')
     }
+
+    console.log('------------------ABC--------------------')
 
     /**
      * (1) First all our base types first

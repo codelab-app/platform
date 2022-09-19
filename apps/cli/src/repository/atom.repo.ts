@@ -69,7 +69,7 @@ export const upsertAtom = async (
     }
   }
 
-  console.log(`Updating ${atom.name}...`)
+  // console.log(`Updating ${atom.name}...`)
 
   return await Atom.update({
     where: {

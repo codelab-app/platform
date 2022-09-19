@@ -15,13 +15,13 @@ export const importAtoms = async ({
   atomWhere,
   tagWhere,
 }: ImportAtoms) => {
-  console.log('Importing atoms...')
+  // console.log('Importing atoms...')
 
   for (const atom of atoms) {
     /**
      * Here we only deal with connecting/disconnecting tags, actual tags are created before this
      */
-    console.log(`Upserting atom: ${atom.name}`)
+    // console.log(`Upserting atom: ${atom.name}`)
     await upsertAtom(atom, userId, atomWhere, tagWhere)
   }
 }

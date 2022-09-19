@@ -63,7 +63,7 @@ export const upsertType = async (
         })
       }
 
-      console.log(`Updating ${data.name} [${data.kind}]...`)
+      // console.log(`Updating ${data.name} [${data.kind}]...`)
 
       return await PrimitiveType.update({
         where: where(data),

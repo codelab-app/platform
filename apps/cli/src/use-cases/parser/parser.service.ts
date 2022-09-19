@@ -77,7 +77,9 @@ export class ParserService {
       }),
     )
 
-    // console.log('customType:', customType)
+    if (customType.length > 0) {
+      console.log('customType:', customType)
+    }
 
     const filteredFields = fields.filter((field): field is ICreateFieldDTO => {
       return Boolean(field.fieldType)

@@ -5,6 +5,8 @@ import { ParserService } from '../../use-cases/parser/parser.service'
  * This function generates new data, so we upsert by name instead of ID
  */
 export const parseAndImportInterface = async (selectedUser: string) => {
+  console.log('---------PARSE AND IMPORT--------------------')
+
   // Then seed all atom api's
   const parser = new ParserService(selectedUser)
   const parsedData = await parser.extractFields()
