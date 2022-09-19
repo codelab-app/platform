@@ -83,6 +83,8 @@ export class AtomService
 
   @modelAction
   writeCache(atom: IAtomDTO) {
+    console.debug('AtomService.writeCache', atom)
+
     const tagService = getTagService(this)
 
     atom.tags.map((tag) => tagService.writeCache(tag))

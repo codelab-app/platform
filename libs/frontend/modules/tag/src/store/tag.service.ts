@@ -237,6 +237,8 @@ export class TagService
 
   @modelAction
   writeCache = (tag: ITagDTO) => {
+    console.debug('TagService.writeCache', tag)
+
     let tagModel = this.tags.get(tag.id)
 
     if (!tagModel) {

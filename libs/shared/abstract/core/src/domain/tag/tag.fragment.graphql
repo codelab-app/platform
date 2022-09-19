@@ -8,15 +8,9 @@ fragment Tag on Tag {
     id
   }
   isRoot
-  # children {
-  #   id
-  #   name
-  # }
-  # childrenConnection {
-  #   edges {
-  #     node {
-  #       ...Tag
-  #     }
-  #   }
-  # }
+}
+
+fragment TagPreview on Tag {
+  id
+  name
 }

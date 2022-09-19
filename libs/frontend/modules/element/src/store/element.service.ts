@@ -92,6 +92,8 @@ export class ElementService
 
   @modelAction
   private writeAtomsCache(elements: Array<IElementDTO>) {
+    console.debug('ElementService.writeAtomsCache', elements)
+
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
 
@@ -116,6 +118,7 @@ export class ElementService
 
   @modelAction
   public writeCache = (element: IElementDTO): IElement => {
+    console.debug('ElementService.writeCache', element)
     this.writeAtomsCache([element])
     this.writeComponentsCache([element])
 
