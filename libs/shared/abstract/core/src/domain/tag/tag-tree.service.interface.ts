@@ -2,14 +2,6 @@ import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { TagFragment } from './tag.fragment.graphql.gen'
 
-// from graph-ql
-export interface IGraphQLTagNode {
-  id: string
-  label: string
-  children: Array<string>
-  isRoot?: boolean
-}
-
 export interface ITagTreeNode {
   id: string
   label: string

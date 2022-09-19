@@ -36,7 +36,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
     submitData: AddHookToElementMutationInput,
   ) => {
     const { typeId, ...configObj } = submitData
-    const type = atomService.atom(typeId)?.type
+    const type = atomService.atoms.get(typeId)?.type
     const config = JSON.stringify(configObj)
 
     return type ? { elementId, type, config } : undefined

@@ -1,9 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
+import { TagFragment } from '../tag/tag.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
-export type AtomFragment = { icon?: string | null, id: string, name: string, type: Types.AtomType, tags: Array<{ id: string, name: string }>, api: { id: string, name: string } };
+import { TagFragmentDoc } from '../tag/tag.fragment.graphql.gen';
+export type AtomFragment = { icon?: string | null, id: string, name: string, type: Types.AtomType, tags: Array<TagFragment>, api: { id: string, name: string } };
 
 export const AtomFragmentDoc = gql`
     fragment Atom on Atom {
@@ -12,15 +14,14 @@ export const AtomFragmentDoc = gql`
   name
   type
   tags {
-    id
-    name
+    ...Tag
   }
   api {
     id
     name
   }
 }
-    `;
+    ${TagFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 

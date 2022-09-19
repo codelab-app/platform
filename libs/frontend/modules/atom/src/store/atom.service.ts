@@ -1,3 +1,4 @@
+import { getTagService } from '@codelab/frontend/modules/tag'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import type {
@@ -7,7 +8,7 @@ import type {
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/shared/abstract/core'
-import { connectId, connectOwner } from '@codelab/shared/data'
+import { connectId } from '@codelab/shared/data'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -31,7 +32,7 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 @model('@codelab/AtomService')
 export class AtomService
   extends Model({
-    _atoms: prop(() => objectMap<IAtom>()),
+    atoms: prop(() => objectMap<IAtom>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AtomModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),
@@ -39,15 +40,6 @@ export class AtomService
   })
   implements IAtomService
 {
-  @computed
-  get atoms() {
-    return [...this._atoms.values()]
-  }
-
-  atom(id: string) {
-    return this._atoms.get(id)
-  }
-
   @modelFlow
   @transaction
   update = _async(function* (
@@ -84,15 +76,24 @@ export class AtomService
     return atom
   })
 
+  @computed
+  get atomsList() {
+    return Array.from(this.atoms.values())
+  }
+
   @modelAction
   writeCache(atom: IAtomDTO) {
-    let atomModel = this.atom(atom.id)
+    const tagService = getTagService(this)
+
+    atom.tags.map((tag) => tagService.writeCache(tag))
+
+    let atomModel = this.atoms.get(atom.id)
 
     if (atomModel) {
       atomModel.writeCache(atom)
     } else {
       atomModel = Atom.hydrate(atom)
-      this._atoms.set(atom.id, atomModel)
+      this.atoms.set(atom.id, atomModel)
     }
 
     return atomModel
@@ -103,19 +104,14 @@ export class AtomService
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
-    return atoms.map((atom) => {
-      const atomModel = Atom.hydrate(atom)
-      this._atoms.set(atom.id, atomModel)
-
-      return atomModel
-    })
+    return atoms.map((atom) => this.writeCache(atom))
   })
 
   @modelFlow
   @transaction
   getOne = _async(function* (this: AtomService, id: string) {
-    if (this._atoms.has(id)) {
-      return this._atoms.get(id)
+    if (this.atoms.has(id)) {
+      return this.atoms.get(id)
     }
 
     const all = yield* _await(this.getAll({ id }))
@@ -173,7 +169,7 @@ export class AtomService
     return atoms.map((atom) => {
       const atomModel = Atom.hydrate(atom)
 
-      this._atoms.set(atomModel.id, atomModel)
+      this.atoms.set(atomModel.id, atomModel)
 
       return atomModel
     })
@@ -183,8 +179,8 @@ export class AtomService
   @transaction
   deleteMany = _async(function* (this: IAtomService, ids: Array<string>) {
     for (const id of ids) {
-      if (this._atoms.has(id)) {
-        this._atoms.delete(id)
+      if (this.atoms.has(id)) {
+        this.atoms.delete(id)
       }
     }
 
@@ -203,10 +199,10 @@ export class AtomService
   @modelFlow
   @transaction
   delete = _async(function* (this: IAtomService, id: string) {
-    const existing = throwIfUndefined(this._atoms.get(id))
+    const existing = throwIfUndefined(this.atoms.get(id))
 
     if (existing) {
-      this._atoms.delete(id)
+      this.atoms.delete(id)
     }
 
     const { deleteAtoms } = yield* _await(

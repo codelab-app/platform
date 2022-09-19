@@ -10,30 +10,21 @@ export const ConfigPaneComponentTabContainer = observer(() => {
    * TODO:
    * handle component
    */
-  const {
-    atomService,
-    // componentService,
-    builderService,
-    tagService,
-  } = useStore()
+  const { atomService, builderService } = useStore()
+  const { loading } = useAsync(() => atomService.getAll(), [])
 
-  const { loading: isLoadingAtoms } = useAsync(() => atomService.getAll(), [])
+  // const { loading: isLoadingUseCaseTags } = useAsync(
+  //   () => tagService.getAll(),
+  //   [],
+  // )
 
-  const { loading: isLoadingUseCaseTags } = useAsync(
-    () => tagService.getAll(),
-    [],
-  )
-
-  // eslint-disable-next-line no-inline-comments
-  const isLoading = isLoadingAtoms || isLoadingUseCaseTags // isLoadingComponents
-
-  if (isLoading) {
+  if (loading) {
     return <Spin />
   }
 
   return (
     <ComponentsGroupedByTag
-      componentsGroupedByTag={builderService.componentsGroupedByTag}
+      componentsGroupedByCategory={builderService.componentsGroupedByCategory}
     />
   )
 })

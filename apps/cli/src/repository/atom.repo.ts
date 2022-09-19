@@ -1,6 +1,6 @@
 import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IAtomExport } from '@codelab/shared/abstract/core'
+import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
 import {
   BaseUniqueWhereCallback,
   connectId,
@@ -14,12 +14,13 @@ import { v4 } from 'uuid'
 export const upsertAtom = async (
   atom: IAtomExport,
   userId: string,
-  where: BaseUniqueWhereCallback<IAtomExport>,
+  atomWhere: BaseUniqueWhereCallback<IAtomExport>,
+  tagWhere: BaseUniqueWhereCallback<ITagExport>,
 ) => {
   const Atom = await AtomOGM()
 
   const existingAtom = await Atom.find({
-    where: where(atom),
+    where: atomWhere(atom),
   })
 
   const baseInput = {
@@ -42,18 +43,7 @@ export const upsertAtom = async (
   }
 
   const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] =
-    atom.tags?.map((tag) => {
-      if (tag.id) {
-        return {
-          where: { node: { id: tag.id } },
-        }
-      }
-
-      // for programmatic API __seedData
-      return {
-        where: { node: { name: tag.name } },
-      }
-    }) || []
+    atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
   const createInput: OGM_TYPES.AtomCreateInput = {
     ...baseInput,

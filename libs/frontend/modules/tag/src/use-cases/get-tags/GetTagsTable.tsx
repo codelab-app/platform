@@ -25,9 +25,7 @@ interface GetTagsTableProps {
 
 export const GetTagsTable = observer<GetTagsTableProps>(
   ({ tagService, loading }) => {
-    const dataSource: Array<TagRecord> = Array.from(
-      tagService.tags.values(),
-    ).map((tag) => ({
+    const dataSource: Array<TagRecord> = tagService.tagsList.map((tag) => ({
       key: tag.id,
       id: tag.id,
       name: tag.name,

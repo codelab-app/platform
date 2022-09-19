@@ -16,9 +16,8 @@ export interface IAtomService
     IQueryService<IAtom, AtomWhere>,
     Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'>,
     ICacheService<IAtomDTO, IAtom> {
-  _atoms: ObjectMap<IAtom>
-  atom(id: string): Maybe<IAtom>
-  atoms: Array<IAtom>
+  atoms: ObjectMap<IAtom>
+  atomsList: Array<IAtom>
   deleteManyModal: IModalService<Array<Ref<IAtom>>, { atoms: Array<IAtom> }>
   deleteMany(atoms: Array<IAtomRef>): any
 

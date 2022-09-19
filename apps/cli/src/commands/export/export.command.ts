@@ -10,6 +10,7 @@ interface ExportProps {
   seedData?: string
   userData?: string
   skipUserData?: boolean
+  skipSeedData?: boolean
 }
 
 /**
@@ -58,63 +59,64 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
     const App = await AppOGM({ reinitialize: true })
     const apps = await App.find()
 
-    const seedDataFilePath: string | null = skipSeedData
-      ? null
-      : seedData ??
-        (
-          await inquirer.prompt([
-            {
-              type: 'confirm',
-              name: 'confirm',
-              default: false,
-              message: 'Would you like to export seed data?',
-            },
-          ])
-        ).confirm
+    const shouldSkipSeedData: boolean =
+      skipSeedData !== undefined
+        ? skipSeedData
+        : !(
+            await inquirer.prompt([
+              {
+                type: 'confirm',
+                name: 'confirm',
+                default: false,
+                message: 'Would you like to export seed data?',
+              },
+            ])
+          ).confirm
 
-    const userDataFilePath: string | null = skipUserData
-      ? null
-      : userData ??
-        (
-          await inquirer.prompt([
-            {
-              type: 'confirm',
-              name: 'confirm',
-              default: false,
-              message: 'Would you like to export user data?',
-            },
-          ])
-        ).confirm
+    const shouldSkipUserData: boolean =
+      skipUserData !== undefined
+        ? skipUserData
+        : !(
+            await inquirer.prompt([
+              {
+                type: 'confirm',
+                name: 'confirm',
+                default: false,
+                message: 'Would you like to export user data?',
+              },
+            ])
+          ).confirm
 
     // Exit early if no apps to export
-    if (userDataFilePath && !apps.length) {
+    if (!shouldSkipUserData && !apps.length) {
       console.log('No app exists')
       yargs.exit(0, null!)
     }
 
-    if (seedDataFilePath) {
+    if (!shouldSkipSeedData) {
       const exportedSeedData = await exportSeedData()
 
       /**
        * Export info, file path etc
        */
       const outputFilePath =
-        seedDataFilePath ??
-        (
-          await inquirer.prompt([
-            {
-              type: 'input',
-              name: 'outputFilePath',
-              message: 'Enter a path to export to, relative to ./data',
-              default: `user-data-${Date.now()}.json`,
-            },
-          ])
-        ).outputFilePath
+        seedData !== undefined
+          ? seedData
+          : (
+              await inquirer.prompt([
+                {
+                  type: 'input',
+                  name: 'outputFilePath',
+                  message: 'Enter a path to export to, relative to ./data',
+                  default: `seed-data.json`,
+                },
+              ])
+            ).outputFilePath
 
       await saveExportFile(exportedSeedData, outputFilePath)
     }
 
-    if (userDataFilePath) {
+    if (!shouldSkipUserData) {
       const { selectedUserId, selectedApp } = await inquirer.prompt([
         await selectUserPrompt(),
         {
