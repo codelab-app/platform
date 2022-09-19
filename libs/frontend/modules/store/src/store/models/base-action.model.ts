@@ -10,7 +10,6 @@ export const createBaseAction = <T extends IActionKind>(type: T) =>
     extends Model({
       id: idProp,
       name: prop<string>(),
-      runOnInit: prop<boolean>(),
       type: prop<T>(() => type),
       storeId: prop<string>(),
     })
@@ -18,7 +17,6 @@ export const createBaseAction = <T extends IActionKind>(type: T) =>
 
 export const updateBaseAction = (self: IActionBase, data: IActionDTO) => {
   self.name = data.name
-  self.runOnInit = data.runOnInit
   self.storeId = data.store.id
   self.type = data.type
 

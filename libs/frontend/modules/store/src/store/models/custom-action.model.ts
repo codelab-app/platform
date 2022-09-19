@@ -14,7 +14,6 @@ const hydrate = (action: ICustomActionDTO): ICustomAction => {
     id: action.id,
     name: action.name,
     code: action.code,
-    runOnInit: action.runOnInit,
     storeId: action.store.id,
     type: action.type,
   })

@@ -11,7 +11,6 @@ export type IResourceActionConfig = IProp<
 export interface IActionBaseDTO {
   id: string
   name: string
-  runOnInit: boolean
   storeId: string
   type: IActionKind
 

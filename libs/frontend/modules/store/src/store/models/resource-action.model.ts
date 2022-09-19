@@ -34,7 +34,6 @@ const hydrate = (action: IResourceActionDTO): IResourceAction => {
   return new ResourceAction({
     id: action.id,
     name: action.name,
-    runOnInit: action.runOnInit,
     storeId: action.store.id,
     type: action.type,
     config: Prop.hydrate(action.config) as IResourceActionConfig,
