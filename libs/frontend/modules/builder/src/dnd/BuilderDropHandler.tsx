@@ -6,6 +6,7 @@ import React, { PropsWithChildren, useMemo } from 'react'
 import tw from 'twin.macro'
 import { BuilderDropId } from './BuilderDropId'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
+import { shouldCreateElementAsFirstChild } from './utils'
 
 interface BuilderDropHandlerProps {
   element: IElement
@@ -37,12 +38,20 @@ export const BuilderDropHandler = observer<
   )
 
   const { collisions } = useDndContext()
-  const dropPosition = collisions?.[0]?.data?.['dropPosition']
+  const nearestCollision = collisions?.[0]?.data
+  const dropPosition = nearestCollision?.['dropPosition']
 
   const createElementInput = useMemo(() => {
-    // TBC
-    return {}
-  }, [element])
+    if (shouldCreateElementAsFirstChild(dropPosition)) {
+      return {
+        parentElementId: element.id,
+      }
+    }
+
+    return {
+      prevSiblingId: element.id,
+    }
+  }, [element, dropPosition])
 
   const { setNodeRef, isOver } = useCreateElementDroppable(
     droppableId,
