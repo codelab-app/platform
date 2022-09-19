@@ -1,3 +1,3 @@
-import { ResourceActionFragment } from '../../fragments'
+import { ApiActionFragment } from '../../fragments'
 
-export type IResourceActionDTO = ResourceActionFragment
+export type IApiActionDTO = ApiActionFragment

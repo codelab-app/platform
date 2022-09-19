@@ -1,19 +1,19 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { ActionBase_CustomAction_Fragment, ActionBase_PipelineAction_Fragment, ActionBase_ResourceAction_Fragment } from './action-base.fragment.graphql.gen';
+import { ActionBase_ApiAction_Fragment, ActionBase_CodeAction_Fragment } from './action-base.fragment.graphql.gen';
 import { ResourceFragment } from '../../resource/resource.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
 import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen';
 import { ResourceFragmentDoc } from '../../resource/resource.fragment.graphql.gen';
-export type ResourceActionFragment = (
-  { successAction: ActionBase_CustomAction_Fragment | ActionBase_PipelineAction_Fragment | ActionBase_ResourceAction_Fragment, errorAction: ActionBase_CustomAction_Fragment | ActionBase_PipelineAction_Fragment | ActionBase_ResourceAction_Fragment, resource: ResourceFragment, config: { id: string, data: string } }
-  & ActionBase_ResourceAction_Fragment
+export type ApiActionFragment = (
+  { successAction: ActionBase_ApiAction_Fragment | ActionBase_CodeAction_Fragment, errorAction: ActionBase_ApiAction_Fragment | ActionBase_CodeAction_Fragment, resource: ResourceFragment, config: { id: string, data: string } }
+  & ActionBase_ApiAction_Fragment
 );
 
-export const ResourceActionFragmentDoc = gql`
-    fragment ResourceAction on ResourceAction {
+export const ApiActionFragmentDoc = gql`
+    fragment ApiAction on ApiAction {
   ...ActionBase
   successAction {
     ...ActionBase

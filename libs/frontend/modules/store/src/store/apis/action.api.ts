@@ -1,10 +1,5 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
 import {
-  CustomActionCreateInput,
-  PipelineActionCreateInput,
-  ResourceActionCreateInput,
-} from '@codelab/shared/abstract/codegen'
-import {
   IActionDTO,
   IActionKind,
   IAnyActionWhere,
@@ -35,6 +30,13 @@ type GetActionsReturnType = Promise<
   Array<UnboxArray<GetActionsQuery[keyof GetActionsQuery]>>
 >
 
+type CreateActions = Record<
+  IActionKind,
+  (
+    input: ICreateActionInput | Array<ICreateActionInput>,
+  ) => Promise<Array<IActionDTO>>
+>
+
 type UpdateActionsRecord = Record<
   IActionKind,
   (vars: {
@@ -61,68 +63,33 @@ export const getActionsByStore = async (
   return flatten(Object.values(result) as any)
 }
 
-const createCustomAction = (input: CustomActionCreateInput) =>
-  _createActionApi
-    .CreateCustomActions({ input })
-    .then((r) => r.createCustomActions.customActions)
+export const createActionApi: CreateActions = {
+  [IActionKind.CodeAction]: (input) =>
+    _createActionApi
+      .CreateCodeActions({ input: input as any })
+      .then((response) => response.createCodeActions.codeActions),
 
-const createResourceAction = (input: ResourceActionCreateInput) =>
-  _createActionApi
-    .CreateResourceActions({ input })
-    .then((r) => r.createResourceActions.resourceActions)
-
-const createPipelineAction = (input: PipelineActionCreateInput) =>
-  _createActionApi
-    .CreatePipelineActions({ input })
-    .then((r) => r.createPipelineActions.pipelineActions)
-
-export const createActionApi = async (actionsDTOs: Array<ICreateActionInput>) =>
-  Promise.all(
-    actionsDTOs.map((input) => {
-      if (input.type === IActionKind.CustomAction) {
-        return createCustomAction(input as CustomActionCreateInput)
-      }
-
-      if (input.type === IActionKind.ResourceAction) {
-        return createResourceAction(input as ResourceActionCreateInput)
-      }
-
-      if (input.type === IActionKind.PipelineAction) {
-        return createPipelineAction(input as PipelineActionCreateInput)
-      }
-
-      throw new Error('Unknown action type')
-    }),
-  ).then((r) => r.flat())
+  [IActionKind.ApiAction]: (input) =>
+    _createActionApi
+      .CreateApiActions({ input })
+      .then((response) => response.createApiActions.apiActions),
+}
 
 export const updateActionApi: UpdateActionsRecord = {
-  [IActionKind.CustomAction]: (vars) =>
+  [IActionKind.CodeAction]: (vars) =>
     _updateActionApi
-      .UpdateCustomActions(vars)
-      .then((response) => response.updateCustomActions.customActions),
+      .UpdateCodeActions(vars)
+      .then((response) => response.updateCodeActions.codeActions),
 
-  [IActionKind.ResourceAction]: (vars) =>
+  [IActionKind.ApiAction]: (vars) =>
     _updateActionApi
-      .UpdateResourceActions(vars)
-      .then((response) => response.updateResourceActions.resourceActions),
-
-  [IActionKind.PipelineAction]: (vars) =>
-    _updateActionApi
-      .UpdatePipelineActions(vars)
-      .then((response) => response.updatePipelineActions.pipelineActions),
+      .UpdateApiActions(vars)
+      .then((response) => response.updateApiActions.apiActions),
 }
 
 export const deleteActionApi: DeleteActionsRecord = {
-  [IActionKind.CustomAction]: (vars) =>
-    _deleteActionApi
-      .DeleteCustomActions(vars)
-      .then((r) => r.deleteCustomActions),
-  [IActionKind.ResourceAction]: (vars) =>
-    _deleteActionApi
-      .DeleteResourceActions(vars)
-      .then((r) => r.deleteResourceActions),
-  [IActionKind.PipelineAction]: (vars) =>
-    _deleteActionApi
-      .DeletePipelineActions(vars)
-      .then((r) => r.deletePipelineActions),
+  [IActionKind.CodeAction]: (vars) =>
+    _deleteActionApi.DeleteCodeActions(vars).then((r) => r.deleteCodeActions),
+  [IActionKind.ApiAction]: (vars) =>
+    _deleteActionApi.DeleteApiActions(vars).then((r) => r.deleteApiActions),
 }

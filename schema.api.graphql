@@ -1,7 +1,6 @@
 interface ActionBase {
   id: ID!
   name: String!
-  runOnInit: Boolean!
   store: Store!
   storeConnection: ActionBaseStoreConnection!
   type: ActionKind!
@@ -79,19 +78,14 @@ input ActionBaseStoreUpdateFieldInput {
 
 enum ActionKind {
   """
-  Action with custom code
-  """
-  CustomAction
-
-  """
-  Represents a list of actions that runs in a certain order
-  """
-  PipelineAction
-
-  """
   Action responsible for fetching data from a resource
   """
-  ResourceAction
+  ApiAction
+
+  """
+  Action with custom code
+  """
+  CodeAction
 }
 
 """
@@ -376,37 +370,11 @@ type ActionTypesConnection {
   totalCount: Int!
 }
 
-interface ActionsPipeLine {
-  orders: [String!]
-}
-
-input ActionsPipeLineCreateInput {
-  orders: [String!]
-}
-
-input ActionsPipeLineSort {
-  orders: SortDirection
-}
-
-input ActionsPipeLineUpdateInput {
-  orders: [String!]
-}
-
-input ActionsPipeLineWhere {
-  AND: [ActionsPipeLineWhere!]
-  OR: [ActionsPipeLineWhere!]
-  orders: [String!]
-  orders_INCLUDES: String
-  orders_NOT: [String!]
-  orders_NOT_INCLUDES: String
-}
-
-union AnyAction = CustomAction | PipelineAction | ResourceAction
+union AnyAction = ApiAction | CodeAction
 
 input AnyActionWhere {
-  CustomAction: CustomActionWhere
-  PipelineAction: PipelineActionWhere
-  ResourceAction: ResourceActionWhere
+  ApiAction: ApiActionWhere
+  CodeAction: CodeActionWhere
 }
 
 union AnyType =
@@ -438,6 +406,852 @@ input AnyTypeWhere {
   ReactNodeType: ReactNodeTypeWhere
   RenderPropsType: RenderPropsTypeWhere
   UnionType: UnionTypeWhere
+}
+
+type ApiAction implements ActionBase {
+  config(
+    directed: Boolean = true
+    options: PropOptions
+    where: PropWhere
+  ): Prop!
+  configAggregate(
+    directed: Boolean = true
+    where: PropWhere
+  ): ApiActionPropConfigAggregationSelection
+  configConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ApiActionConfigConnectionSort!]
+    where: ApiActionConfigConnectionWhere
+  ): ApiActionConfigConnection!
+  errorAction(
+    directed: Boolean = true
+    options: QueryOptions
+    where: AnyActionWhere
+  ): AnyAction!
+  errorActionConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    where: ApiActionErrorActionConnectionWhere
+  ): ApiActionErrorActionConnection!
+  id: ID!
+  name: String!
+
+  """
+  Resource to fetch data from
+  """
+  resource(
+    directed: Boolean = true
+    options: ResourceOptions
+    where: ResourceWhere
+  ): Resource!
+  resourceAggregate(
+    directed: Boolean = true
+    where: ResourceWhere
+  ): ApiActionResourceResourceAggregationSelection
+  resourceConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ApiActionResourceConnectionSort!]
+    where: ApiActionResourceConnectionWhere
+  ): ApiActionResourceConnection!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store!
+  storeAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): ApiActionStoreStoreAggregationSelection
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ActionBaseStoreConnectionSort!]
+    where: ActionBaseStoreConnectionWhere
+  ): ActionBaseStoreConnection!
+
+  """
+  Response handlers
+  """
+  successAction(
+    directed: Boolean = true
+    options: QueryOptions
+    where: AnyActionWhere
+  ): AnyAction!
+  successActionConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    where: ApiActionSuccessActionConnectionWhere
+  ): ApiActionSuccessActionConnection!
+  type: ActionKind!
+}
+
+type ApiActionAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ApiActionConfigAggregateInput {
+  AND: [ApiActionConfigAggregateInput!]
+  OR: [ApiActionConfigAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ApiActionConfigNodeAggregationWhereInput
+}
+
+input ApiActionConfigConnectFieldInput {
+  where: PropConnectWhere
+}
+
+input ApiActionConfigConnectOrCreateFieldInput {
+  onCreate: ApiActionConfigConnectOrCreateFieldInputOnCreate!
+  where: PropConnectOrCreateWhere!
+}
+
+input ApiActionConfigConnectOrCreateFieldInputOnCreate {
+  node: PropOnCreateInput!
+}
+
+type ApiActionConfigConnection {
+  edges: [ApiActionConfigRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ApiActionConfigConnectionSort {
+  node: PropSort
+}
+
+input ApiActionConfigConnectionWhere {
+  AND: [ApiActionConfigConnectionWhere!]
+  OR: [ApiActionConfigConnectionWhere!]
+  node: PropWhere
+  node_NOT: PropWhere
+}
+
+input ApiActionConfigCreateFieldInput {
+  node: PropCreateInput!
+}
+
+input ApiActionConfigDeleteFieldInput {
+  where: ApiActionConfigConnectionWhere
+}
+
+input ApiActionConfigDisconnectFieldInput {
+  where: ApiActionConfigConnectionWhere
+}
+
+input ApiActionConfigFieldInput {
+  connect: ApiActionConfigConnectFieldInput
+  connectOrCreate: ApiActionConfigConnectOrCreateFieldInput
+  create: ApiActionConfigCreateFieldInput
+}
+
+input ApiActionConfigNodeAggregationWhereInput {
+  AND: [ApiActionConfigNodeAggregationWhereInput!]
+  OR: [ApiActionConfigNodeAggregationWhereInput!]
+  data_AVERAGE_EQUAL: Float
+  data_AVERAGE_GT: Float
+  data_AVERAGE_GTE: Float
+  data_AVERAGE_LT: Float
+  data_AVERAGE_LTE: Float
+  data_EQUAL: String
+  data_GT: Int
+  data_GTE: Int
+  data_LONGEST_EQUAL: Int
+  data_LONGEST_GT: Int
+  data_LONGEST_GTE: Int
+  data_LONGEST_LT: Int
+  data_LONGEST_LTE: Int
+  data_LT: Int
+  data_LTE: Int
+  data_SHORTEST_EQUAL: Int
+  data_SHORTEST_GT: Int
+  data_SHORTEST_GTE: Int
+  data_SHORTEST_LT: Int
+  data_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+type ApiActionConfigRelationship {
+  cursor: String!
+  node: Prop!
+}
+
+input ApiActionConfigUpdateConnectionInput {
+  node: PropUpdateInput
+}
+
+input ApiActionConfigUpdateFieldInput {
+  connect: ApiActionConfigConnectFieldInput
+  connectOrCreate: ApiActionConfigConnectOrCreateFieldInput
+  create: ApiActionConfigCreateFieldInput
+  delete: ApiActionConfigDeleteFieldInput
+  disconnect: ApiActionConfigDisconnectFieldInput
+  update: ApiActionConfigUpdateConnectionInput
+  where: ApiActionConfigConnectionWhere
+}
+
+input ApiActionConnectInput {
+  config: ApiActionConfigConnectFieldInput
+  errorAction: ApiActionErrorActionConnectInput
+  resource: ApiActionResourceConnectFieldInput
+  store: ActionBaseStoreConnectFieldInput
+  successAction: ApiActionSuccessActionConnectInput
+}
+
+input ApiActionConnectOrCreateInput {
+  config: ApiActionConfigConnectOrCreateFieldInput
+  errorAction: ApiActionErrorActionConnectOrCreateInput
+  resource: ApiActionResourceConnectOrCreateFieldInput
+  store: ActionBaseStoreConnectOrCreateFieldInput
+  successAction: ApiActionSuccessActionConnectOrCreateInput
+}
+
+input ApiActionConnectOrCreateWhere {
+  node: ApiActionUniqueWhere!
+}
+
+input ApiActionConnectWhere {
+  node: ApiActionWhere!
+}
+
+input ApiActionCreateInput {
+  config: ApiActionConfigFieldInput
+  errorAction: ApiActionErrorActionCreateInput
+  id: ID!
+  name: String!
+  resource: ApiActionResourceFieldInput
+  store: ActionBaseStoreFieldInput
+  successAction: ApiActionSuccessActionCreateInput
+  type: ActionKind! = ApiAction
+}
+
+input ApiActionDeleteInput {
+  config: ApiActionConfigDeleteFieldInput
+  errorAction: ApiActionErrorActionDeleteInput
+  resource: ApiActionResourceDeleteFieldInput
+  store: ActionBaseStoreDeleteFieldInput
+  successAction: ApiActionSuccessActionDeleteInput
+}
+
+input ApiActionDisconnectInput {
+  config: ApiActionConfigDisconnectFieldInput
+  errorAction: ApiActionErrorActionDisconnectInput
+  resource: ApiActionResourceDisconnectFieldInput
+  store: ActionBaseStoreDisconnectFieldInput
+  successAction: ApiActionSuccessActionDisconnectInput
+}
+
+type ApiActionEdge {
+  cursor: String!
+  node: ApiAction!
+}
+
+input ApiActionErrorActionApiActionConnectFieldInput {
+  connect: ApiActionConnectInput
+  where: ApiActionConnectWhere
+}
+
+input ApiActionErrorActionApiActionConnectOrCreateFieldInput {
+  onCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate!
+  where: ApiActionConnectOrCreateWhere!
+}
+
+input ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate {
+  node: ApiActionOnCreateInput!
+}
+
+input ApiActionErrorActionApiActionConnectionWhere {
+  AND: [ApiActionErrorActionApiActionConnectionWhere!]
+  OR: [ApiActionErrorActionApiActionConnectionWhere!]
+  node: ApiActionWhere
+  node_NOT: ApiActionWhere
+}
+
+input ApiActionErrorActionApiActionCreateFieldInput {
+  node: ApiActionCreateInput!
+}
+
+input ApiActionErrorActionApiActionDeleteFieldInput {
+  delete: ApiActionDeleteInput
+  where: ApiActionErrorActionApiActionConnectionWhere
+}
+
+input ApiActionErrorActionApiActionDisconnectFieldInput {
+  disconnect: ApiActionDisconnectInput
+  where: ApiActionErrorActionApiActionConnectionWhere
+}
+
+input ApiActionErrorActionApiActionFieldInput {
+  connect: ApiActionErrorActionApiActionConnectFieldInput
+  connectOrCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInput
+  create: ApiActionErrorActionApiActionCreateFieldInput
+}
+
+input ApiActionErrorActionApiActionUpdateConnectionInput {
+  node: ApiActionUpdateInput
+}
+
+input ApiActionErrorActionApiActionUpdateFieldInput {
+  connect: ApiActionErrorActionApiActionConnectFieldInput
+  connectOrCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInput
+  create: ApiActionErrorActionApiActionCreateFieldInput
+  delete: ApiActionErrorActionApiActionDeleteFieldInput
+  disconnect: ApiActionErrorActionApiActionDisconnectFieldInput
+  update: ApiActionErrorActionApiActionUpdateConnectionInput
+  where: ApiActionErrorActionApiActionConnectionWhere
+}
+
+input ApiActionErrorActionCodeActionConnectFieldInput {
+  connect: CodeActionConnectInput
+  where: CodeActionConnectWhere
+}
+
+input ApiActionErrorActionCodeActionConnectOrCreateFieldInput {
+  onCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate!
+  where: CodeActionConnectOrCreateWhere!
+}
+
+input ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate {
+  node: CodeActionOnCreateInput!
+}
+
+input ApiActionErrorActionCodeActionConnectionWhere {
+  AND: [ApiActionErrorActionCodeActionConnectionWhere!]
+  OR: [ApiActionErrorActionCodeActionConnectionWhere!]
+  node: CodeActionWhere
+  node_NOT: CodeActionWhere
+}
+
+input ApiActionErrorActionCodeActionCreateFieldInput {
+  node: CodeActionCreateInput!
+}
+
+input ApiActionErrorActionCodeActionDeleteFieldInput {
+  delete: CodeActionDeleteInput
+  where: ApiActionErrorActionCodeActionConnectionWhere
+}
+
+input ApiActionErrorActionCodeActionDisconnectFieldInput {
+  disconnect: CodeActionDisconnectInput
+  where: ApiActionErrorActionCodeActionConnectionWhere
+}
+
+input ApiActionErrorActionCodeActionFieldInput {
+  connect: ApiActionErrorActionCodeActionConnectFieldInput
+  connectOrCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
+  create: ApiActionErrorActionCodeActionCreateFieldInput
+}
+
+input ApiActionErrorActionCodeActionUpdateConnectionInput {
+  node: CodeActionUpdateInput
+}
+
+input ApiActionErrorActionCodeActionUpdateFieldInput {
+  connect: ApiActionErrorActionCodeActionConnectFieldInput
+  connectOrCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
+  create: ApiActionErrorActionCodeActionCreateFieldInput
+  delete: ApiActionErrorActionCodeActionDeleteFieldInput
+  disconnect: ApiActionErrorActionCodeActionDisconnectFieldInput
+  update: ApiActionErrorActionCodeActionUpdateConnectionInput
+  where: ApiActionErrorActionCodeActionConnectionWhere
+}
+
+input ApiActionErrorActionConnectInput {
+  ApiAction: ApiActionErrorActionApiActionConnectFieldInput
+  CodeAction: ApiActionErrorActionCodeActionConnectFieldInput
+}
+
+input ApiActionErrorActionConnectOrCreateInput {
+  ApiAction: ApiActionErrorActionApiActionConnectOrCreateFieldInput
+  CodeAction: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
+}
+
+type ApiActionErrorActionConnection {
+  edges: [ApiActionErrorActionRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ApiActionErrorActionConnectionWhere {
+  ApiAction: ApiActionErrorActionApiActionConnectionWhere
+  CodeAction: ApiActionErrorActionCodeActionConnectionWhere
+}
+
+input ApiActionErrorActionCreateFieldInput {
+  ApiAction: [ApiActionErrorActionApiActionCreateFieldInput!]
+  CodeAction: [ApiActionErrorActionCodeActionCreateFieldInput!]
+}
+
+input ApiActionErrorActionCreateInput {
+  ApiAction: ApiActionErrorActionApiActionFieldInput
+  CodeAction: ApiActionErrorActionCodeActionFieldInput
+}
+
+input ApiActionErrorActionDeleteInput {
+  ApiAction: ApiActionErrorActionApiActionDeleteFieldInput
+  CodeAction: ApiActionErrorActionCodeActionDeleteFieldInput
+}
+
+input ApiActionErrorActionDisconnectInput {
+  ApiAction: ApiActionErrorActionApiActionDisconnectFieldInput
+  CodeAction: ApiActionErrorActionCodeActionDisconnectFieldInput
+}
+
+type ApiActionErrorActionRelationship {
+  cursor: String!
+  node: AnyAction!
+}
+
+input ApiActionErrorActionUpdateInput {
+  ApiAction: ApiActionErrorActionApiActionUpdateFieldInput
+  CodeAction: ApiActionErrorActionCodeActionUpdateFieldInput
+}
+
+input ApiActionOnCreateInput {
+  id: ID!
+  name: String!
+}
+
+input ApiActionOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ApiActionSort objects to sort ApiActions by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ApiActionSort!]
+}
+
+type ApiActionPropConfigAggregationSelection {
+  count: Int!
+  node: ApiActionPropConfigNodeAggregateSelection
+}
+
+type ApiActionPropConfigNodeAggregateSelection {
+  data: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+}
+
+input ApiActionRelationInput {
+  config: ApiActionConfigCreateFieldInput
+  errorAction: ApiActionErrorActionCreateFieldInput
+  resource: ApiActionResourceCreateFieldInput
+  store: ActionBaseStoreCreateFieldInput
+  successAction: ApiActionSuccessActionCreateFieldInput
+}
+
+input ApiActionResourceAggregateInput {
+  AND: [ApiActionResourceAggregateInput!]
+  OR: [ApiActionResourceAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ApiActionResourceNodeAggregationWhereInput
+}
+
+input ApiActionResourceConnectFieldInput {
+  connect: ResourceConnectInput
+  where: ResourceConnectWhere
+}
+
+input ApiActionResourceConnectOrCreateFieldInput {
+  onCreate: ApiActionResourceConnectOrCreateFieldInputOnCreate!
+  where: ResourceConnectOrCreateWhere!
+}
+
+input ApiActionResourceConnectOrCreateFieldInputOnCreate {
+  node: ResourceOnCreateInput!
+}
+
+type ApiActionResourceConnection {
+  edges: [ApiActionResourceRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ApiActionResourceConnectionSort {
+  node: ResourceSort
+}
+
+input ApiActionResourceConnectionWhere {
+  AND: [ApiActionResourceConnectionWhere!]
+  OR: [ApiActionResourceConnectionWhere!]
+  node: ResourceWhere
+  node_NOT: ResourceWhere
+}
+
+input ApiActionResourceCreateFieldInput {
+  node: ResourceCreateInput!
+}
+
+input ApiActionResourceDeleteFieldInput {
+  delete: ResourceDeleteInput
+  where: ApiActionResourceConnectionWhere
+}
+
+input ApiActionResourceDisconnectFieldInput {
+  disconnect: ResourceDisconnectInput
+  where: ApiActionResourceConnectionWhere
+}
+
+input ApiActionResourceFieldInput {
+  connect: ApiActionResourceConnectFieldInput
+  connectOrCreate: ApiActionResourceConnectOrCreateFieldInput
+  create: ApiActionResourceCreateFieldInput
+}
+
+input ApiActionResourceNodeAggregationWhereInput {
+  AND: [ApiActionResourceNodeAggregationWhereInput!]
+  OR: [ApiActionResourceNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ApiActionResourceRelationship {
+  cursor: String!
+  node: Resource!
+}
+
+type ApiActionResourceResourceAggregationSelection {
+  count: Int!
+  node: ApiActionResourceResourceNodeAggregateSelection
+}
+
+type ApiActionResourceResourceNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ApiActionResourceUpdateConnectionInput {
+  node: ResourceUpdateInput
+}
+
+input ApiActionResourceUpdateFieldInput {
+  connect: ApiActionResourceConnectFieldInput
+  connectOrCreate: ApiActionResourceConnectOrCreateFieldInput
+  create: ApiActionResourceCreateFieldInput
+  delete: ApiActionResourceDeleteFieldInput
+  disconnect: ApiActionResourceDisconnectFieldInput
+  update: ApiActionResourceUpdateConnectionInput
+  where: ApiActionResourceConnectionWhere
+}
+
+"""
+Fields to sort ApiActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ApiActionSort object.
+"""
+input ApiActionSort {
+  id: SortDirection
+  name: SortDirection
+  type: SortDirection
+}
+
+input ApiActionStoreAggregateInput {
+  AND: [ApiActionStoreAggregateInput!]
+  OR: [ApiActionStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ApiActionStoreNodeAggregationWhereInput
+}
+
+input ApiActionStoreNodeAggregationWhereInput {
+  AND: [ApiActionStoreNodeAggregationWhereInput!]
+  OR: [ApiActionStoreNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ApiActionStoreStoreAggregationSelection {
+  count: Int!
+  node: ApiActionStoreStoreNodeAggregateSelection
+}
+
+type ApiActionStoreStoreNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ApiActionSuccessActionApiActionConnectFieldInput {
+  connect: ApiActionConnectInput
+  where: ApiActionConnectWhere
+}
+
+input ApiActionSuccessActionApiActionConnectOrCreateFieldInput {
+  onCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate!
+  where: ApiActionConnectOrCreateWhere!
+}
+
+input ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate {
+  node: ApiActionOnCreateInput!
+}
+
+input ApiActionSuccessActionApiActionConnectionWhere {
+  AND: [ApiActionSuccessActionApiActionConnectionWhere!]
+  OR: [ApiActionSuccessActionApiActionConnectionWhere!]
+  node: ApiActionWhere
+  node_NOT: ApiActionWhere
+}
+
+input ApiActionSuccessActionApiActionCreateFieldInput {
+  node: ApiActionCreateInput!
+}
+
+input ApiActionSuccessActionApiActionDeleteFieldInput {
+  delete: ApiActionDeleteInput
+  where: ApiActionSuccessActionApiActionConnectionWhere
+}
+
+input ApiActionSuccessActionApiActionDisconnectFieldInput {
+  disconnect: ApiActionDisconnectInput
+  where: ApiActionSuccessActionApiActionConnectionWhere
+}
+
+input ApiActionSuccessActionApiActionFieldInput {
+  connect: ApiActionSuccessActionApiActionConnectFieldInput
+  connectOrCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
+  create: ApiActionSuccessActionApiActionCreateFieldInput
+}
+
+input ApiActionSuccessActionApiActionUpdateConnectionInput {
+  node: ApiActionUpdateInput
+}
+
+input ApiActionSuccessActionApiActionUpdateFieldInput {
+  connect: ApiActionSuccessActionApiActionConnectFieldInput
+  connectOrCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
+  create: ApiActionSuccessActionApiActionCreateFieldInput
+  delete: ApiActionSuccessActionApiActionDeleteFieldInput
+  disconnect: ApiActionSuccessActionApiActionDisconnectFieldInput
+  update: ApiActionSuccessActionApiActionUpdateConnectionInput
+  where: ApiActionSuccessActionApiActionConnectionWhere
+}
+
+input ApiActionSuccessActionCodeActionConnectFieldInput {
+  connect: CodeActionConnectInput
+  where: CodeActionConnectWhere
+}
+
+input ApiActionSuccessActionCodeActionConnectOrCreateFieldInput {
+  onCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate!
+  where: CodeActionConnectOrCreateWhere!
+}
+
+input ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate {
+  node: CodeActionOnCreateInput!
+}
+
+input ApiActionSuccessActionCodeActionConnectionWhere {
+  AND: [ApiActionSuccessActionCodeActionConnectionWhere!]
+  OR: [ApiActionSuccessActionCodeActionConnectionWhere!]
+  node: CodeActionWhere
+  node_NOT: CodeActionWhere
+}
+
+input ApiActionSuccessActionCodeActionCreateFieldInput {
+  node: CodeActionCreateInput!
+}
+
+input ApiActionSuccessActionCodeActionDeleteFieldInput {
+  delete: CodeActionDeleteInput
+  where: ApiActionSuccessActionCodeActionConnectionWhere
+}
+
+input ApiActionSuccessActionCodeActionDisconnectFieldInput {
+  disconnect: CodeActionDisconnectInput
+  where: ApiActionSuccessActionCodeActionConnectionWhere
+}
+
+input ApiActionSuccessActionCodeActionFieldInput {
+  connect: ApiActionSuccessActionCodeActionConnectFieldInput
+  connectOrCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
+  create: ApiActionSuccessActionCodeActionCreateFieldInput
+}
+
+input ApiActionSuccessActionCodeActionUpdateConnectionInput {
+  node: CodeActionUpdateInput
+}
+
+input ApiActionSuccessActionCodeActionUpdateFieldInput {
+  connect: ApiActionSuccessActionCodeActionConnectFieldInput
+  connectOrCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
+  create: ApiActionSuccessActionCodeActionCreateFieldInput
+  delete: ApiActionSuccessActionCodeActionDeleteFieldInput
+  disconnect: ApiActionSuccessActionCodeActionDisconnectFieldInput
+  update: ApiActionSuccessActionCodeActionUpdateConnectionInput
+  where: ApiActionSuccessActionCodeActionConnectionWhere
+}
+
+input ApiActionSuccessActionConnectInput {
+  ApiAction: ApiActionSuccessActionApiActionConnectFieldInput
+  CodeAction: ApiActionSuccessActionCodeActionConnectFieldInput
+}
+
+input ApiActionSuccessActionConnectOrCreateInput {
+  ApiAction: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
+  CodeAction: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
+}
+
+type ApiActionSuccessActionConnection {
+  edges: [ApiActionSuccessActionRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ApiActionSuccessActionConnectionWhere {
+  ApiAction: ApiActionSuccessActionApiActionConnectionWhere
+  CodeAction: ApiActionSuccessActionCodeActionConnectionWhere
+}
+
+input ApiActionSuccessActionCreateFieldInput {
+  ApiAction: [ApiActionSuccessActionApiActionCreateFieldInput!]
+  CodeAction: [ApiActionSuccessActionCodeActionCreateFieldInput!]
+}
+
+input ApiActionSuccessActionCreateInput {
+  ApiAction: ApiActionSuccessActionApiActionFieldInput
+  CodeAction: ApiActionSuccessActionCodeActionFieldInput
+}
+
+input ApiActionSuccessActionDeleteInput {
+  ApiAction: ApiActionSuccessActionApiActionDeleteFieldInput
+  CodeAction: ApiActionSuccessActionCodeActionDeleteFieldInput
+}
+
+input ApiActionSuccessActionDisconnectInput {
+  ApiAction: ApiActionSuccessActionApiActionDisconnectFieldInput
+  CodeAction: ApiActionSuccessActionCodeActionDisconnectFieldInput
+}
+
+type ApiActionSuccessActionRelationship {
+  cursor: String!
+  node: AnyAction!
+}
+
+input ApiActionSuccessActionUpdateInput {
+  ApiAction: ApiActionSuccessActionApiActionUpdateFieldInput
+  CodeAction: ApiActionSuccessActionCodeActionUpdateFieldInput
+}
+
+input ApiActionUniqueWhere {
+  id: ID
+}
+
+input ApiActionUpdateInput {
+  config: ApiActionConfigUpdateFieldInput
+  errorAction: ApiActionErrorActionUpdateInput
+  id: ID
+  name: String
+  resource: ApiActionResourceUpdateFieldInput
+  store: ActionBaseStoreUpdateFieldInput
+  successAction: ApiActionSuccessActionUpdateInput
+}
+
+input ApiActionWhere {
+  AND: [ApiActionWhere!]
+  OR: [ApiActionWhere!]
+  config: PropWhere
+  configAggregate: ApiActionConfigAggregateInput
+  configConnection: ApiActionConfigConnectionWhere
+  configConnection_NOT: ApiActionConfigConnectionWhere
+  config_NOT: PropWhere
+  errorActionConnection: ApiActionErrorActionConnectionWhere
+  errorActionConnection_NOT: ApiActionErrorActionConnectionWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  resource: ResourceWhere
+  resourceAggregate: ApiActionResourceAggregateInput
+  resourceConnection: ApiActionResourceConnectionWhere
+  resourceConnection_NOT: ApiActionResourceConnectionWhere
+  resource_NOT: ResourceWhere
+  store: StoreWhere
+  storeAggregate: ApiActionStoreAggregateInput
+  storeConnection: ActionBaseStoreConnectionWhere
+  storeConnection_NOT: ActionBaseStoreConnectionWhere
+  store_NOT: StoreWhere
+  successActionConnection: ApiActionSuccessActionConnectionWhere
+  successActionConnection_NOT: ApiActionSuccessActionConnectionWhere
+  type: ActionKind
+  type_IN: [ActionKind!]
+  type_NOT: ActionKind
+  type_NOT_IN: [ActionKind!]
+}
+
+type ApiActionsConnection {
+  edges: [ApiActionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type App implements WithOwner {
@@ -3419,6 +4233,214 @@ type AtomsConnection {
   totalCount: Int!
 }
 
+type CodeAction implements ActionBase {
+  """
+  Code to run when action is triggered
+  """
+  code: String!
+  id: ID!
+  name: String!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store!
+  storeAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): CodeActionStoreStoreAggregationSelection
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ActionBaseStoreConnectionSort!]
+    where: ActionBaseStoreConnectionWhere
+  ): ActionBaseStoreConnection!
+  type: ActionKind!
+}
+
+type CodeActionAggregateSelection {
+  code: StringAggregateSelectionNonNullable!
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input CodeActionConnectInput {
+  store: ActionBaseStoreConnectFieldInput
+}
+
+input CodeActionConnectOrCreateInput {
+  store: ActionBaseStoreConnectOrCreateFieldInput
+}
+
+input CodeActionConnectOrCreateWhere {
+  node: CodeActionUniqueWhere!
+}
+
+input CodeActionConnectWhere {
+  node: CodeActionWhere!
+}
+
+input CodeActionCreateInput {
+  code: String!
+  id: ID!
+  name: String!
+  store: ActionBaseStoreFieldInput
+  type: ActionKind! = CodeAction
+}
+
+input CodeActionDeleteInput {
+  store: ActionBaseStoreDeleteFieldInput
+}
+
+input CodeActionDisconnectInput {
+  store: ActionBaseStoreDisconnectFieldInput
+}
+
+type CodeActionEdge {
+  cursor: String!
+  node: CodeAction!
+}
+
+input CodeActionOnCreateInput {
+  code: String!
+  id: ID!
+  name: String!
+}
+
+input CodeActionOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more CodeActionSort objects to sort CodeActions by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [CodeActionSort!]
+}
+
+input CodeActionRelationInput {
+  store: ActionBaseStoreCreateFieldInput
+}
+
+"""
+Fields to sort CodeActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one CodeActionSort object.
+"""
+input CodeActionSort {
+  code: SortDirection
+  id: SortDirection
+  name: SortDirection
+  type: SortDirection
+}
+
+input CodeActionStoreAggregateInput {
+  AND: [CodeActionStoreAggregateInput!]
+  OR: [CodeActionStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: CodeActionStoreNodeAggregationWhereInput
+}
+
+input CodeActionStoreNodeAggregationWhereInput {
+  AND: [CodeActionStoreNodeAggregationWhereInput!]
+  OR: [CodeActionStoreNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type CodeActionStoreStoreAggregationSelection {
+  count: Int!
+  node: CodeActionStoreStoreNodeAggregateSelection
+}
+
+type CodeActionStoreStoreNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input CodeActionUniqueWhere {
+  id: ID
+}
+
+input CodeActionUpdateInput {
+  code: String
+  id: ID
+  name: String
+  store: ActionBaseStoreUpdateFieldInput
+}
+
+input CodeActionWhere {
+  AND: [CodeActionWhere!]
+  OR: [CodeActionWhere!]
+  code: String
+  code_CONTAINS: String
+  code_ENDS_WITH: String
+  code_IN: [String!]
+  code_NOT: String
+  code_NOT_CONTAINS: String
+  code_NOT_ENDS_WITH: String
+  code_NOT_IN: [String!]
+  code_NOT_STARTS_WITH: String
+  code_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  store: StoreWhere
+  storeAggregate: CodeActionStoreAggregateInput
+  storeConnection: ActionBaseStoreConnectionWhere
+  storeConnection_NOT: ActionBaseStoreConnectionWhere
+  store_NOT: StoreWhere
+  type: ActionKind
+  type_IN: [ActionKind!]
+  type_NOT: ActionKind
+  type_NOT_IN: [ActionKind!]
+}
+
+type CodeActionsConnection {
+  edges: [CodeActionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 enum CodeMirrorLanguage {
   Css
   CssInJs
@@ -4381,6 +5403,11 @@ type CreateActionTypesMutationResponse {
   info: CreateInfo!
 }
 
+type CreateApiActionsMutationResponse {
+  apiActions: [ApiAction!]!
+  info: CreateInfo!
+}
+
 type CreateAppTypesMutationResponse {
   appTypes: [AppType!]!
   info: CreateInfo!
@@ -4401,6 +5428,11 @@ type CreateAtomsMutationResponse {
   info: CreateInfo!
 }
 
+type CreateCodeActionsMutationResponse {
+  codeActions: [CodeAction!]!
+  info: CreateInfo!
+}
+
 type CreateCodeMirrorTypesMutationResponse {
   codeMirrorTypes: [CodeMirrorType!]!
   info: CreateInfo!
@@ -4413,11 +5445,6 @@ type CreateComponentsMutationResponse {
 
 type CreateCreateInfosMutationResponse {
   createInfos: [CreateInfo!]!
-  info: CreateInfo!
-}
-
-type CreateCustomActionsMutationResponse {
-  customActions: [CustomAction!]!
   info: CreateInfo!
 }
 
@@ -4567,11 +5594,6 @@ type CreatePagesMutationResponse {
   pages: [Page!]!
 }
 
-type CreatePipelineActionsMutationResponse {
-  info: CreateInfo!
-  pipelineActions: [PipelineAction!]!
-}
-
 type CreatePrimitiveTypesMutationResponse {
   info: CreateInfo!
   primitiveTypes: [PrimitiveType!]!
@@ -4600,11 +5622,6 @@ type CreateRenderPropsTypesMutationResponse {
 type CreateResetDatabaseMutationResponsesMutationResponse {
   info: CreateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
-}
-
-type CreateResourceActionsMutationResponse {
-  info: CreateInfo!
-  resourceActions: [ResourceAction!]!
 }
 
 type CreateResourcesMutationResponse {
@@ -4650,221 +5667,6 @@ type CreateVercelDomainConfigDataMutationResponse {
 type CreateVercelProjectDomainDataMutationResponse {
   info: CreateInfo!
   vercelProjectDomainData: [VercelProjectDomainData!]!
-}
-
-type CustomAction implements ActionBase {
-  """
-  Code to run when action is triggered
-  """
-  code: String!
-  id: ID!
-  name: String!
-  runOnInit: Boolean!
-  store(
-    directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): Store!
-  storeAggregate(
-    directed: Boolean = true
-    where: StoreWhere
-  ): CustomActionStoreStoreAggregationSelection
-  storeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ActionBaseStoreConnectionSort!]
-    where: ActionBaseStoreConnectionWhere
-  ): ActionBaseStoreConnection!
-  type: ActionKind!
-}
-
-type CustomActionAggregateSelection {
-  code: StringAggregateSelectionNonNullable!
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input CustomActionConnectInput {
-  store: ActionBaseStoreConnectFieldInput
-}
-
-input CustomActionConnectOrCreateInput {
-  store: ActionBaseStoreConnectOrCreateFieldInput
-}
-
-input CustomActionConnectOrCreateWhere {
-  node: CustomActionUniqueWhere!
-}
-
-input CustomActionConnectWhere {
-  node: CustomActionWhere!
-}
-
-input CustomActionCreateInput {
-  code: String!
-  id: ID!
-  name: String!
-  runOnInit: Boolean! = false
-  store: ActionBaseStoreFieldInput
-  type: ActionKind! = CustomAction
-}
-
-input CustomActionDeleteInput {
-  store: ActionBaseStoreDeleteFieldInput
-}
-
-input CustomActionDisconnectInput {
-  store: ActionBaseStoreDisconnectFieldInput
-}
-
-type CustomActionEdge {
-  cursor: String!
-  node: CustomAction!
-}
-
-input CustomActionOnCreateInput {
-  code: String!
-  id: ID!
-  name: String!
-  runOnInit: Boolean! = false
-}
-
-input CustomActionOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more CustomActionSort objects to sort CustomActions by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [CustomActionSort!]
-}
-
-input CustomActionRelationInput {
-  store: ActionBaseStoreCreateFieldInput
-}
-
-"""
-Fields to sort CustomActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one CustomActionSort object.
-"""
-input CustomActionSort {
-  code: SortDirection
-  id: SortDirection
-  name: SortDirection
-  runOnInit: SortDirection
-  type: SortDirection
-}
-
-input CustomActionStoreAggregateInput {
-  AND: [CustomActionStoreAggregateInput!]
-  OR: [CustomActionStoreAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: CustomActionStoreNodeAggregationWhereInput
-}
-
-input CustomActionStoreNodeAggregationWhereInput {
-  AND: [CustomActionStoreNodeAggregationWhereInput!]
-  OR: [CustomActionStoreNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type CustomActionStoreStoreAggregationSelection {
-  count: Int!
-  node: CustomActionStoreStoreNodeAggregateSelection
-}
-
-type CustomActionStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input CustomActionUniqueWhere {
-  id: ID
-}
-
-input CustomActionUpdateInput {
-  code: String
-  id: ID
-  name: String
-  runOnInit: Boolean
-  store: ActionBaseStoreUpdateFieldInput
-}
-
-input CustomActionWhere {
-  AND: [CustomActionWhere!]
-  OR: [CustomActionWhere!]
-  code: String
-  code_CONTAINS: String
-  code_ENDS_WITH: String
-  code_IN: [String!]
-  code_NOT: String
-  code_NOT_CONTAINS: String
-  code_NOT_ENDS_WITH: String
-  code_NOT_IN: [String!]
-  code_NOT_STARTS_WITH: String
-  code_STARTS_WITH: String
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  runOnInit: Boolean
-  runOnInit_NOT: Boolean
-  store: StoreWhere
-  storeAggregate: CustomActionStoreAggregateInput
-  storeConnection: ActionBaseStoreConnectionWhere
-  storeConnection_NOT: ActionBaseStoreConnectionWhere
-  store_NOT: StoreWhere
-  type: ActionKind
-  type_IN: [ActionKind!]
-  type_NOT: ActionKind
-  type_NOT_IN: [ActionKind!]
-}
-
-type CustomActionsConnection {
-  edges: [CustomActionEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
 }
 
 type DeleteInfo {
@@ -10897,12 +11699,18 @@ type Mutation {
   createActionTypes(
     input: [ActionTypeCreateInput!]!
   ): CreateActionTypesMutationResponse!
+  createApiActions(
+    input: [ApiActionCreateInput!]!
+  ): CreateApiActionsMutationResponse!
   createAppTypes(input: [AppTypeCreateInput!]!): CreateAppTypesMutationResponse!
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
   createArrayTypes(
     input: [ArrayTypeCreateInput!]!
   ): CreateArrayTypesMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
+  createCodeActions(
+    input: [CodeActionCreateInput!]!
+  ): CreateCodeActionsMutationResponse!
   createCodeMirrorTypes(
     input: [CodeMirrorTypeCreateInput!]!
   ): CreateCodeMirrorTypesMutationResponse!
@@ -10912,9 +11720,6 @@ type Mutation {
   createCreateInfos(
     input: [CreateInfoCreateInput!]!
   ): CreateCreateInfosMutationResponse!
-  createCustomActions(
-    input: [CustomActionCreateInput!]!
-  ): CreateCustomActionsMutationResponse!
   createDeleteInfos(
     input: [DeleteInfoCreateInput!]!
   ): CreateDeleteInfosMutationResponse!
@@ -10941,9 +11746,6 @@ type Mutation {
     input: [PageTypeCreateInput!]!
   ): CreatePageTypesMutationResponse!
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
-  createPipelineActions(
-    input: [PipelineActionCreateInput!]!
-  ): CreatePipelineActionsMutationResponse!
   createPrimitiveTypes(
     input: [PrimitiveTypeCreateInput!]!
   ): CreatePrimitiveTypesMutationResponse!
@@ -10960,9 +11762,6 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
-  createResourceActions(
-    input: [ResourceActionCreateInput!]!
-  ): CreateResourceActionsMutationResponse!
   createResources(
     input: [ResourceCreateInput!]!
   ): CreateResourcesMutationResponse!
@@ -10988,6 +11787,10 @@ type Mutation {
     delete: ActionTypeDeleteInput
     where: ActionTypeWhere
   ): DeleteInfo!
+  deleteApiActions(
+    delete: ApiActionDeleteInput
+    where: ApiActionWhere
+  ): DeleteInfo!
   deleteAppTypes(delete: AppTypeDeleteInput, where: AppTypeWhere): DeleteInfo!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
   deleteArrayTypes(
@@ -10995,6 +11798,10 @@ type Mutation {
     where: ArrayTypeWhere
   ): DeleteInfo!
   deleteAtoms(delete: AtomDeleteInput, where: AtomWhere): DeleteInfo!
+  deleteCodeActions(
+    delete: CodeActionDeleteInput
+    where: CodeActionWhere
+  ): DeleteInfo!
   deleteCodeMirrorTypes(
     delete: CodeMirrorTypeDeleteInput
     where: CodeMirrorTypeWhere
@@ -11004,10 +11811,6 @@ type Mutation {
     where: ComponentWhere
   ): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
-  deleteCustomActions(
-    delete: CustomActionDeleteInput
-    where: CustomActionWhere
-  ): DeleteInfo!
   deleteDeleteInfos(where: DeleteInfoWhere): DeleteInfo!
   deleteDomain(id: String!): DeleteInfo!
   deleteDomains(delete: DomainDeleteInput, where: DomainWhere): DeleteInfo!
@@ -11038,10 +11841,6 @@ type Mutation {
     where: PageTypeWhere
   ): DeleteInfo!
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
-  deletePipelineActions(
-    delete: PipelineActionDeleteInput
-    where: PipelineActionWhere
-  ): DeleteInfo!
   deletePrimitiveTypes(
     delete: PrimitiveTypeDeleteInput
     where: PrimitiveTypeWhere
@@ -11061,10 +11860,6 @@ type Mutation {
   ): DeleteInfo!
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
-  ): DeleteInfo!
-  deleteResourceActions(
-    delete: ResourceActionDeleteInput
-    where: ResourceActionWhere
   ): DeleteInfo!
   deleteResources(
     delete: ResourceDeleteInput
@@ -11093,6 +11888,15 @@ type Mutation {
     update: ActionTypeUpdateInput
     where: ActionTypeWhere
   ): UpdateActionTypesMutationResponse!
+  updateApiActions(
+    connect: ApiActionConnectInput
+    connectOrCreate: ApiActionConnectOrCreateInput
+    create: ApiActionRelationInput
+    delete: ApiActionDeleteInput
+    disconnect: ApiActionDisconnectInput
+    update: ApiActionUpdateInput
+    where: ApiActionWhere
+  ): UpdateApiActionsMutationResponse!
   updateAppTypes(
     connect: AppTypeConnectInput
     connectOrCreate: AppTypeConnectOrCreateInput
@@ -11129,6 +11933,15 @@ type Mutation {
     update: AtomUpdateInput
     where: AtomWhere
   ): UpdateAtomsMutationResponse!
+  updateCodeActions(
+    connect: CodeActionConnectInput
+    connectOrCreate: CodeActionConnectOrCreateInput
+    create: CodeActionRelationInput
+    delete: CodeActionDeleteInput
+    disconnect: CodeActionDisconnectInput
+    update: CodeActionUpdateInput
+    where: CodeActionWhere
+  ): UpdateCodeActionsMutationResponse!
   updateCodeMirrorTypes(
     connect: CodeMirrorTypeConnectInput
     connectOrCreate: CodeMirrorTypeConnectOrCreateInput
@@ -11151,15 +11964,6 @@ type Mutation {
     update: CreateInfoUpdateInput
     where: CreateInfoWhere
   ): UpdateCreateInfosMutationResponse!
-  updateCustomActions(
-    connect: CustomActionConnectInput
-    connectOrCreate: CustomActionConnectOrCreateInput
-    create: CustomActionRelationInput
-    delete: CustomActionDeleteInput
-    disconnect: CustomActionDisconnectInput
-    update: CustomActionUpdateInput
-    where: CustomActionWhere
-  ): UpdateCustomActionsMutationResponse!
   updateDeleteInfos(
     update: DeleteInfoUpdateInput
     where: DeleteInfoWhere
@@ -11255,15 +12059,6 @@ type Mutation {
     update: PageUpdateInput
     where: PageWhere
   ): UpdatePagesMutationResponse!
-  updatePipelineActions(
-    connect: PipelineActionConnectInput
-    connectOrCreate: PipelineActionConnectOrCreateInput
-    create: PipelineActionRelationInput
-    delete: PipelineActionDeleteInput
-    disconnect: PipelineActionDisconnectInput
-    update: PipelineActionUpdateInput
-    where: PipelineActionWhere
-  ): UpdatePipelineActionsMutationResponse!
   updatePrimitiveTypes(
     connect: PrimitiveTypeConnectInput
     connectOrCreate: PrimitiveTypeConnectOrCreateInput
@@ -11308,15 +12103,6 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
-  updateResourceActions(
-    connect: ResourceActionConnectInput
-    connectOrCreate: ResourceActionConnectOrCreateInput
-    create: ResourceActionRelationInput
-    delete: ResourceActionDeleteInput
-    disconnect: ResourceActionDisconnectInput
-    update: ResourceActionUpdateInput
-    where: ResourceActionWhere
-  ): UpdateResourceActionsMutationResponse!
   updateResources(
     connect: ResourceConnectInput
     connectOrCreate: ResourceConnectOrCreateInput
@@ -12317,475 +13103,6 @@ input ParentOfElementWhere {
   order_LTE: Int
   order_NOT: Int
   order_NOT_IN: [Int]
-}
-
-type PipelineAction implements ActionBase {
-  """
-  List of actions to run in order
-  """
-  actions(
-    directed: Boolean = true
-    options: QueryOptions
-    where: AnyActionWhere
-  ): [AnyAction!]!
-  actionsConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [PipelineActionActionsConnectionSort!]
-    where: PipelineActionActionsConnectionWhere
-  ): PipelineActionActionsConnection!
-  id: ID!
-  name: String!
-  runOnInit: Boolean!
-  store(
-    directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): Store!
-  storeAggregate(
-    directed: Boolean = true
-    where: StoreWhere
-  ): PipelineActionStoreStoreAggregationSelection
-  storeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ActionBaseStoreConnectionSort!]
-    where: ActionBaseStoreConnectionWhere
-  ): ActionBaseStoreConnection!
-  type: ActionKind!
-}
-
-input PipelineActionActionsConnectInput {
-  CustomAction: [PipelineActionActionsCustomActionConnectFieldInput!]
-  PipelineAction: [PipelineActionActionsPipelineActionConnectFieldInput!]
-  ResourceAction: [PipelineActionActionsResourceActionConnectFieldInput!]
-}
-
-input PipelineActionActionsConnectOrCreateInput {
-  CustomAction: [PipelineActionActionsCustomActionConnectOrCreateFieldInput!]
-  PipelineAction: [PipelineActionActionsPipelineActionConnectOrCreateFieldInput!]
-  ResourceAction: [PipelineActionActionsResourceActionConnectOrCreateFieldInput!]
-}
-
-type PipelineActionActionsConnection {
-  edges: [PipelineActionActionsRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input PipelineActionActionsConnectionSort {
-  edge: ActionsPipeLineSort
-}
-
-input PipelineActionActionsConnectionWhere {
-  CustomAction: PipelineActionActionsCustomActionConnectionWhere
-  PipelineAction: PipelineActionActionsPipelineActionConnectionWhere
-  ResourceAction: PipelineActionActionsResourceActionConnectionWhere
-}
-
-input PipelineActionActionsCreateFieldInput {
-  CustomAction: [PipelineActionActionsCustomActionCreateFieldInput!]
-  PipelineAction: [PipelineActionActionsPipelineActionCreateFieldInput!]
-  ResourceAction: [PipelineActionActionsResourceActionCreateFieldInput!]
-}
-
-input PipelineActionActionsCreateInput {
-  CustomAction: PipelineActionActionsCustomActionFieldInput
-  PipelineAction: PipelineActionActionsPipelineActionFieldInput
-  ResourceAction: PipelineActionActionsResourceActionFieldInput
-}
-
-input PipelineActionActionsCustomActionConnectFieldInput {
-  connect: [CustomActionConnectInput!]
-  edge: ActionsPipeLineCreateInput
-  where: CustomActionConnectWhere
-}
-
-input PipelineActionActionsCustomActionConnectOrCreateFieldInput {
-  onCreate: PipelineActionActionsCustomActionConnectOrCreateFieldInputOnCreate!
-  where: CustomActionConnectOrCreateWhere!
-}
-
-input PipelineActionActionsCustomActionConnectOrCreateFieldInputOnCreate {
-  edge: ActionsPipeLineCreateInput
-  node: CustomActionOnCreateInput!
-}
-
-input PipelineActionActionsCustomActionConnectionWhere {
-  AND: [PipelineActionActionsCustomActionConnectionWhere!]
-  OR: [PipelineActionActionsCustomActionConnectionWhere!]
-  edge: ActionsPipeLineWhere
-  edge_NOT: ActionsPipeLineWhere
-  node: CustomActionWhere
-  node_NOT: CustomActionWhere
-}
-
-input PipelineActionActionsCustomActionCreateFieldInput {
-  edge: ActionsPipeLineCreateInput
-  node: CustomActionCreateInput!
-}
-
-input PipelineActionActionsCustomActionDeleteFieldInput {
-  delete: CustomActionDeleteInput
-  where: PipelineActionActionsCustomActionConnectionWhere
-}
-
-input PipelineActionActionsCustomActionDisconnectFieldInput {
-  disconnect: CustomActionDisconnectInput
-  where: PipelineActionActionsCustomActionConnectionWhere
-}
-
-input PipelineActionActionsCustomActionFieldInput {
-  connect: [PipelineActionActionsCustomActionConnectFieldInput!]
-  connectOrCreate: [PipelineActionActionsCustomActionConnectOrCreateFieldInput!]
-  create: [PipelineActionActionsCustomActionCreateFieldInput!]
-}
-
-input PipelineActionActionsCustomActionUpdateConnectionInput {
-  edge: ActionsPipeLineUpdateInput
-  node: CustomActionUpdateInput
-}
-
-input PipelineActionActionsCustomActionUpdateFieldInput {
-  connect: [PipelineActionActionsCustomActionConnectFieldInput!]
-  connectOrCreate: [PipelineActionActionsCustomActionConnectOrCreateFieldInput!]
-  create: [PipelineActionActionsCustomActionCreateFieldInput!]
-  delete: [PipelineActionActionsCustomActionDeleteFieldInput!]
-  disconnect: [PipelineActionActionsCustomActionDisconnectFieldInput!]
-  update: PipelineActionActionsCustomActionUpdateConnectionInput
-  where: PipelineActionActionsCustomActionConnectionWhere
-}
-
-input PipelineActionActionsDeleteInput {
-  CustomAction: [PipelineActionActionsCustomActionDeleteFieldInput!]
-  PipelineAction: [PipelineActionActionsPipelineActionDeleteFieldInput!]
-  ResourceAction: [PipelineActionActionsResourceActionDeleteFieldInput!]
-}
-
-input PipelineActionActionsDisconnectInput {
-  CustomAction: [PipelineActionActionsCustomActionDisconnectFieldInput!]
-  PipelineAction: [PipelineActionActionsPipelineActionDisconnectFieldInput!]
-  ResourceAction: [PipelineActionActionsResourceActionDisconnectFieldInput!]
-}
-
-input PipelineActionActionsPipelineActionConnectFieldInput {
-  connect: [PipelineActionConnectInput!]
-  edge: ActionsPipeLineCreateInput
-  where: PipelineActionConnectWhere
-}
-
-input PipelineActionActionsPipelineActionConnectOrCreateFieldInput {
-  onCreate: PipelineActionActionsPipelineActionConnectOrCreateFieldInputOnCreate!
-  where: PipelineActionConnectOrCreateWhere!
-}
-
-input PipelineActionActionsPipelineActionConnectOrCreateFieldInputOnCreate {
-  edge: ActionsPipeLineCreateInput
-  node: PipelineActionOnCreateInput!
-}
-
-input PipelineActionActionsPipelineActionConnectionWhere {
-  AND: [PipelineActionActionsPipelineActionConnectionWhere!]
-  OR: [PipelineActionActionsPipelineActionConnectionWhere!]
-  edge: ActionsPipeLineWhere
-  edge_NOT: ActionsPipeLineWhere
-  node: PipelineActionWhere
-  node_NOT: PipelineActionWhere
-}
-
-input PipelineActionActionsPipelineActionCreateFieldInput {
-  edge: ActionsPipeLineCreateInput
-  node: PipelineActionCreateInput!
-}
-
-input PipelineActionActionsPipelineActionDeleteFieldInput {
-  delete: PipelineActionDeleteInput
-  where: PipelineActionActionsPipelineActionConnectionWhere
-}
-
-input PipelineActionActionsPipelineActionDisconnectFieldInput {
-  disconnect: PipelineActionDisconnectInput
-  where: PipelineActionActionsPipelineActionConnectionWhere
-}
-
-input PipelineActionActionsPipelineActionFieldInput {
-  connect: [PipelineActionActionsPipelineActionConnectFieldInput!]
-  connectOrCreate: [PipelineActionActionsPipelineActionConnectOrCreateFieldInput!]
-  create: [PipelineActionActionsPipelineActionCreateFieldInput!]
-}
-
-input PipelineActionActionsPipelineActionUpdateConnectionInput {
-  edge: ActionsPipeLineUpdateInput
-  node: PipelineActionUpdateInput
-}
-
-input PipelineActionActionsPipelineActionUpdateFieldInput {
-  connect: [PipelineActionActionsPipelineActionConnectFieldInput!]
-  connectOrCreate: [PipelineActionActionsPipelineActionConnectOrCreateFieldInput!]
-  create: [PipelineActionActionsPipelineActionCreateFieldInput!]
-  delete: [PipelineActionActionsPipelineActionDeleteFieldInput!]
-  disconnect: [PipelineActionActionsPipelineActionDisconnectFieldInput!]
-  update: PipelineActionActionsPipelineActionUpdateConnectionInput
-  where: PipelineActionActionsPipelineActionConnectionWhere
-}
-
-type PipelineActionActionsRelationship implements ActionsPipeLine {
-  cursor: String!
-  node: AnyAction!
-  orders: [String!]
-}
-
-input PipelineActionActionsResourceActionConnectFieldInput {
-  connect: [ResourceActionConnectInput!]
-  edge: ActionsPipeLineCreateInput
-  where: ResourceActionConnectWhere
-}
-
-input PipelineActionActionsResourceActionConnectOrCreateFieldInput {
-  onCreate: PipelineActionActionsResourceActionConnectOrCreateFieldInputOnCreate!
-  where: ResourceActionConnectOrCreateWhere!
-}
-
-input PipelineActionActionsResourceActionConnectOrCreateFieldInputOnCreate {
-  edge: ActionsPipeLineCreateInput
-  node: ResourceActionOnCreateInput!
-}
-
-input PipelineActionActionsResourceActionConnectionWhere {
-  AND: [PipelineActionActionsResourceActionConnectionWhere!]
-  OR: [PipelineActionActionsResourceActionConnectionWhere!]
-  edge: ActionsPipeLineWhere
-  edge_NOT: ActionsPipeLineWhere
-  node: ResourceActionWhere
-  node_NOT: ResourceActionWhere
-}
-
-input PipelineActionActionsResourceActionCreateFieldInput {
-  edge: ActionsPipeLineCreateInput
-  node: ResourceActionCreateInput!
-}
-
-input PipelineActionActionsResourceActionDeleteFieldInput {
-  delete: ResourceActionDeleteInput
-  where: PipelineActionActionsResourceActionConnectionWhere
-}
-
-input PipelineActionActionsResourceActionDisconnectFieldInput {
-  disconnect: ResourceActionDisconnectInput
-  where: PipelineActionActionsResourceActionConnectionWhere
-}
-
-input PipelineActionActionsResourceActionFieldInput {
-  connect: [PipelineActionActionsResourceActionConnectFieldInput!]
-  connectOrCreate: [PipelineActionActionsResourceActionConnectOrCreateFieldInput!]
-  create: [PipelineActionActionsResourceActionCreateFieldInput!]
-}
-
-input PipelineActionActionsResourceActionUpdateConnectionInput {
-  edge: ActionsPipeLineUpdateInput
-  node: ResourceActionUpdateInput
-}
-
-input PipelineActionActionsResourceActionUpdateFieldInput {
-  connect: [PipelineActionActionsResourceActionConnectFieldInput!]
-  connectOrCreate: [PipelineActionActionsResourceActionConnectOrCreateFieldInput!]
-  create: [PipelineActionActionsResourceActionCreateFieldInput!]
-  delete: [PipelineActionActionsResourceActionDeleteFieldInput!]
-  disconnect: [PipelineActionActionsResourceActionDisconnectFieldInput!]
-  update: PipelineActionActionsResourceActionUpdateConnectionInput
-  where: PipelineActionActionsResourceActionConnectionWhere
-}
-
-input PipelineActionActionsUpdateInput {
-  CustomAction: [PipelineActionActionsCustomActionUpdateFieldInput!]
-  PipelineAction: [PipelineActionActionsPipelineActionUpdateFieldInput!]
-  ResourceAction: [PipelineActionActionsResourceActionUpdateFieldInput!]
-}
-
-type PipelineActionAggregateSelection {
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input PipelineActionConnectInput {
-  actions: PipelineActionActionsConnectInput
-  store: ActionBaseStoreConnectFieldInput
-}
-
-input PipelineActionConnectOrCreateInput {
-  actions: PipelineActionActionsConnectOrCreateInput
-  store: ActionBaseStoreConnectOrCreateFieldInput
-}
-
-input PipelineActionConnectOrCreateWhere {
-  node: PipelineActionUniqueWhere!
-}
-
-input PipelineActionConnectWhere {
-  node: PipelineActionWhere!
-}
-
-input PipelineActionCreateInput {
-  actions: PipelineActionActionsCreateInput
-  id: ID!
-  name: String!
-  runOnInit: Boolean! = false
-  store: ActionBaseStoreFieldInput
-  type: ActionKind! = PipelineAction
-}
-
-input PipelineActionDeleteInput {
-  actions: PipelineActionActionsDeleteInput
-  store: ActionBaseStoreDeleteFieldInput
-}
-
-input PipelineActionDisconnectInput {
-  actions: PipelineActionActionsDisconnectInput
-  store: ActionBaseStoreDisconnectFieldInput
-}
-
-type PipelineActionEdge {
-  cursor: String!
-  node: PipelineAction!
-}
-
-input PipelineActionOnCreateInput {
-  id: ID!
-  name: String!
-  runOnInit: Boolean! = false
-}
-
-input PipelineActionOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more PipelineActionSort objects to sort PipelineActions by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [PipelineActionSort!]
-}
-
-input PipelineActionRelationInput {
-  actions: PipelineActionActionsCreateFieldInput
-  store: ActionBaseStoreCreateFieldInput
-}
-
-"""
-Fields to sort PipelineActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one PipelineActionSort object.
-"""
-input PipelineActionSort {
-  id: SortDirection
-  name: SortDirection
-  runOnInit: SortDirection
-  type: SortDirection
-}
-
-input PipelineActionStoreAggregateInput {
-  AND: [PipelineActionStoreAggregateInput!]
-  OR: [PipelineActionStoreAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: PipelineActionStoreNodeAggregationWhereInput
-}
-
-input PipelineActionStoreNodeAggregationWhereInput {
-  AND: [PipelineActionStoreNodeAggregationWhereInput!]
-  OR: [PipelineActionStoreNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type PipelineActionStoreStoreAggregationSelection {
-  count: Int!
-  node: PipelineActionStoreStoreNodeAggregateSelection
-}
-
-type PipelineActionStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input PipelineActionUniqueWhere {
-  id: ID
-}
-
-input PipelineActionUpdateInput {
-  actions: PipelineActionActionsUpdateInput
-  id: ID
-  name: String
-  runOnInit: Boolean
-  store: ActionBaseStoreUpdateFieldInput
-}
-
-input PipelineActionWhere {
-  AND: [PipelineActionWhere!]
-  OR: [PipelineActionWhere!]
-  actionsConnection_ALL: PipelineActionActionsConnectionWhere
-  actionsConnection_NONE: PipelineActionActionsConnectionWhere
-  actionsConnection_SINGLE: PipelineActionActionsConnectionWhere
-  actionsConnection_SOME: PipelineActionActionsConnectionWhere
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  runOnInit: Boolean
-  runOnInit_NOT: Boolean
-  store: StoreWhere
-  storeAggregate: PipelineActionStoreAggregateInput
-  storeConnection: ActionBaseStoreConnectionWhere
-  storeConnection_NOT: ActionBaseStoreConnectionWhere
-  store_NOT: StoreWhere
-  type: ActionKind
-  type_IN: [ActionKind!]
-  type_NOT: ActionKind
-  type_NOT_IN: [ActionKind!]
-}
-
-type PipelineActionsConnection {
-  edges: [PipelineActionEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
 }
 
 """
@@ -13892,6 +14209,14 @@ type Query {
     sort: [ActionTypeSort]
     where: ActionTypeWhere
   ): ActionTypesConnection!
+  apiActions(options: ApiActionOptions, where: ApiActionWhere): [ApiAction!]!
+  apiActionsAggregate(where: ApiActionWhere): ApiActionAggregateSelection!
+  apiActionsConnection(
+    after: String
+    first: Int
+    sort: [ApiActionSort]
+    where: ApiActionWhere
+  ): ApiActionsConnection!
   appTypes(options: AppTypeOptions, where: AppTypeWhere): [AppType!]!
   appTypesAggregate(where: AppTypeWhere): AppTypeAggregateSelection!
   appTypesConnection(
@@ -13924,6 +14249,17 @@ type Query {
     sort: [AtomSort]
     where: AtomWhere
   ): AtomsConnection!
+  codeActions(
+    options: CodeActionOptions
+    where: CodeActionWhere
+  ): [CodeAction!]!
+  codeActionsAggregate(where: CodeActionWhere): CodeActionAggregateSelection!
+  codeActionsConnection(
+    after: String
+    first: Int
+    sort: [CodeActionSort]
+    where: CodeActionWhere
+  ): CodeActionsConnection!
   codeMirrorTypes(
     options: CodeMirrorTypeOptions
     where: CodeMirrorTypeWhere
@@ -13956,19 +14292,6 @@ type Query {
     sort: [CreateInfoSort]
     where: CreateInfoWhere
   ): CreateInfosConnection!
-  customActions(
-    options: CustomActionOptions
-    where: CustomActionWhere
-  ): [CustomAction!]!
-  customActionsAggregate(
-    where: CustomActionWhere
-  ): CustomActionAggregateSelection!
-  customActionsConnection(
-    after: String
-    first: Int
-    sort: [CustomActionSort]
-    where: CustomActionWhere
-  ): CustomActionsConnection!
   deleteInfos(
     options: DeleteInfoOptions
     where: DeleteInfoWhere
@@ -14087,19 +14410,6 @@ type Query {
     sort: [PageSort]
     where: PageWhere
   ): PagesConnection!
-  pipelineActions(
-    options: PipelineActionOptions
-    where: PipelineActionWhere
-  ): [PipelineAction!]!
-  pipelineActionsAggregate(
-    where: PipelineActionWhere
-  ): PipelineActionAggregateSelection!
-  pipelineActionsConnection(
-    after: String
-    first: Int
-    sort: [PipelineActionSort]
-    where: PipelineActionWhere
-  ): PipelineActionsConnection!
   primitiveTypes(
     options: PrimitiveTypeOptions
     where: PrimitiveTypeWhere
@@ -14173,19 +14483,6 @@ type Query {
     sort: [ResetDatabaseMutationResponseSort]
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponsesConnection!
-  resourceActions(
-    options: ResourceActionOptions
-    where: ResourceActionWhere
-  ): [ResourceAction!]!
-  resourceActionsAggregate(
-    where: ResourceActionWhere
-  ): ResourceActionAggregateSelection!
-  resourceActionsConnection(
-    after: String
-    first: Int
-    sort: [ResourceActionSort]
-    where: ResourceActionWhere
-  ): ResourceActionsConnection!
   resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
   resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
   resourcesConnection(
@@ -14950,985 +15247,6 @@ type Resource implements WithOwner {
   type: ResourceType!
 }
 
-type ResourceAction implements ActionBase {
-  config(
-    directed: Boolean = true
-    options: PropOptions
-    where: PropWhere
-  ): Prop!
-  configAggregate(
-    directed: Boolean = true
-    where: PropWhere
-  ): ResourceActionPropConfigAggregationSelection
-  configConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ResourceActionConfigConnectionSort!]
-    where: ResourceActionConfigConnectionWhere
-  ): ResourceActionConfigConnection!
-  errorAction(
-    directed: Boolean = true
-    options: QueryOptions
-    where: AnyActionWhere
-  ): AnyAction!
-  errorActionConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    where: ResourceActionErrorActionConnectionWhere
-  ): ResourceActionErrorActionConnection!
-  id: ID!
-  name: String!
-
-  """
-  Resource to fetch data from
-  """
-  resource(
-    directed: Boolean = true
-    options: ResourceOptions
-    where: ResourceWhere
-  ): Resource!
-  resourceAggregate(
-    directed: Boolean = true
-    where: ResourceWhere
-  ): ResourceActionResourceResourceAggregationSelection
-  resourceConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ResourceActionResourceConnectionSort!]
-    where: ResourceActionResourceConnectionWhere
-  ): ResourceActionResourceConnection!
-  runOnInit: Boolean!
-  store(
-    directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): Store!
-  storeAggregate(
-    directed: Boolean = true
-    where: StoreWhere
-  ): ResourceActionStoreStoreAggregationSelection
-  storeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ActionBaseStoreConnectionSort!]
-    where: ActionBaseStoreConnectionWhere
-  ): ActionBaseStoreConnection!
-
-  """
-  Response handlers
-  """
-  successAction(
-    directed: Boolean = true
-    options: QueryOptions
-    where: AnyActionWhere
-  ): AnyAction!
-  successActionConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    where: ResourceActionSuccessActionConnectionWhere
-  ): ResourceActionSuccessActionConnection!
-  type: ActionKind!
-}
-
-type ResourceActionAggregateSelection {
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input ResourceActionConfigAggregateInput {
-  AND: [ResourceActionConfigAggregateInput!]
-  OR: [ResourceActionConfigAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ResourceActionConfigNodeAggregationWhereInput
-}
-
-input ResourceActionConfigConnectFieldInput {
-  where: PropConnectWhere
-}
-
-input ResourceActionConfigConnectOrCreateFieldInput {
-  onCreate: ResourceActionConfigConnectOrCreateFieldInputOnCreate!
-  where: PropConnectOrCreateWhere!
-}
-
-input ResourceActionConfigConnectOrCreateFieldInputOnCreate {
-  node: PropOnCreateInput!
-}
-
-type ResourceActionConfigConnection {
-  edges: [ResourceActionConfigRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ResourceActionConfigConnectionSort {
-  node: PropSort
-}
-
-input ResourceActionConfigConnectionWhere {
-  AND: [ResourceActionConfigConnectionWhere!]
-  OR: [ResourceActionConfigConnectionWhere!]
-  node: PropWhere
-  node_NOT: PropWhere
-}
-
-input ResourceActionConfigCreateFieldInput {
-  node: PropCreateInput!
-}
-
-input ResourceActionConfigDeleteFieldInput {
-  where: ResourceActionConfigConnectionWhere
-}
-
-input ResourceActionConfigDisconnectFieldInput {
-  where: ResourceActionConfigConnectionWhere
-}
-
-input ResourceActionConfigFieldInput {
-  connect: ResourceActionConfigConnectFieldInput
-  connectOrCreate: ResourceActionConfigConnectOrCreateFieldInput
-  create: ResourceActionConfigCreateFieldInput
-}
-
-input ResourceActionConfigNodeAggregationWhereInput {
-  AND: [ResourceActionConfigNodeAggregationWhereInput!]
-  OR: [ResourceActionConfigNodeAggregationWhereInput!]
-  data_AVERAGE_EQUAL: Float
-  data_AVERAGE_GT: Float
-  data_AVERAGE_GTE: Float
-  data_AVERAGE_LT: Float
-  data_AVERAGE_LTE: Float
-  data_EQUAL: String
-  data_GT: Int
-  data_GTE: Int
-  data_LONGEST_EQUAL: Int
-  data_LONGEST_GT: Int
-  data_LONGEST_GTE: Int
-  data_LONGEST_LT: Int
-  data_LONGEST_LTE: Int
-  data_LT: Int
-  data_LTE: Int
-  data_SHORTEST_EQUAL: Int
-  data_SHORTEST_GT: Int
-  data_SHORTEST_GTE: Int
-  data_SHORTEST_LT: Int
-  data_SHORTEST_LTE: Int
-  id_EQUAL: ID
-}
-
-type ResourceActionConfigRelationship {
-  cursor: String!
-  node: Prop!
-}
-
-input ResourceActionConfigUpdateConnectionInput {
-  node: PropUpdateInput
-}
-
-input ResourceActionConfigUpdateFieldInput {
-  connect: ResourceActionConfigConnectFieldInput
-  connectOrCreate: ResourceActionConfigConnectOrCreateFieldInput
-  create: ResourceActionConfigCreateFieldInput
-  delete: ResourceActionConfigDeleteFieldInput
-  disconnect: ResourceActionConfigDisconnectFieldInput
-  update: ResourceActionConfigUpdateConnectionInput
-  where: ResourceActionConfigConnectionWhere
-}
-
-input ResourceActionConnectInput {
-  config: ResourceActionConfigConnectFieldInput
-  errorAction: ResourceActionErrorActionConnectInput
-  resource: ResourceActionResourceConnectFieldInput
-  store: ActionBaseStoreConnectFieldInput
-  successAction: ResourceActionSuccessActionConnectInput
-}
-
-input ResourceActionConnectOrCreateInput {
-  config: ResourceActionConfigConnectOrCreateFieldInput
-  errorAction: ResourceActionErrorActionConnectOrCreateInput
-  resource: ResourceActionResourceConnectOrCreateFieldInput
-  store: ActionBaseStoreConnectOrCreateFieldInput
-  successAction: ResourceActionSuccessActionConnectOrCreateInput
-}
-
-input ResourceActionConnectOrCreateWhere {
-  node: ResourceActionUniqueWhere!
-}
-
-input ResourceActionConnectWhere {
-  node: ResourceActionWhere!
-}
-
-input ResourceActionCreateInput {
-  config: ResourceActionConfigFieldInput
-  errorAction: ResourceActionErrorActionCreateInput
-  id: ID!
-  name: String!
-  resource: ResourceActionResourceFieldInput
-  runOnInit: Boolean! = false
-  store: ActionBaseStoreFieldInput
-  successAction: ResourceActionSuccessActionCreateInput
-  type: ActionKind! = ResourceAction
-}
-
-input ResourceActionDeleteInput {
-  config: ResourceActionConfigDeleteFieldInput
-  errorAction: ResourceActionErrorActionDeleteInput
-  resource: ResourceActionResourceDeleteFieldInput
-  store: ActionBaseStoreDeleteFieldInput
-  successAction: ResourceActionSuccessActionDeleteInput
-}
-
-input ResourceActionDisconnectInput {
-  config: ResourceActionConfigDisconnectFieldInput
-  errorAction: ResourceActionErrorActionDisconnectInput
-  resource: ResourceActionResourceDisconnectFieldInput
-  store: ActionBaseStoreDisconnectFieldInput
-  successAction: ResourceActionSuccessActionDisconnectInput
-}
-
-type ResourceActionEdge {
-  cursor: String!
-  node: ResourceAction!
-}
-
-input ResourceActionErrorActionConnectInput {
-  CustomAction: ResourceActionErrorActionCustomActionConnectFieldInput
-  PipelineAction: ResourceActionErrorActionPipelineActionConnectFieldInput
-  ResourceAction: ResourceActionErrorActionResourceActionConnectFieldInput
-}
-
-input ResourceActionErrorActionConnectOrCreateInput {
-  CustomAction: ResourceActionErrorActionCustomActionConnectOrCreateFieldInput
-  PipelineAction: ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput
-  ResourceAction: ResourceActionErrorActionResourceActionConnectOrCreateFieldInput
-}
-
-type ResourceActionErrorActionConnection {
-  edges: [ResourceActionErrorActionRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ResourceActionErrorActionConnectionWhere {
-  CustomAction: ResourceActionErrorActionCustomActionConnectionWhere
-  PipelineAction: ResourceActionErrorActionPipelineActionConnectionWhere
-  ResourceAction: ResourceActionErrorActionResourceActionConnectionWhere
-}
-
-input ResourceActionErrorActionCreateFieldInput {
-  CustomAction: [ResourceActionErrorActionCustomActionCreateFieldInput!]
-  PipelineAction: [ResourceActionErrorActionPipelineActionCreateFieldInput!]
-  ResourceAction: [ResourceActionErrorActionResourceActionCreateFieldInput!]
-}
-
-input ResourceActionErrorActionCreateInput {
-  CustomAction: ResourceActionErrorActionCustomActionFieldInput
-  PipelineAction: ResourceActionErrorActionPipelineActionFieldInput
-  ResourceAction: ResourceActionErrorActionResourceActionFieldInput
-}
-
-input ResourceActionErrorActionCustomActionConnectFieldInput {
-  connect: CustomActionConnectInput
-  where: CustomActionConnectWhere
-}
-
-input ResourceActionErrorActionCustomActionConnectOrCreateFieldInput {
-  onCreate: ResourceActionErrorActionCustomActionConnectOrCreateFieldInputOnCreate!
-  where: CustomActionConnectOrCreateWhere!
-}
-
-input ResourceActionErrorActionCustomActionConnectOrCreateFieldInputOnCreate {
-  node: CustomActionOnCreateInput!
-}
-
-input ResourceActionErrorActionCustomActionConnectionWhere {
-  AND: [ResourceActionErrorActionCustomActionConnectionWhere!]
-  OR: [ResourceActionErrorActionCustomActionConnectionWhere!]
-  node: CustomActionWhere
-  node_NOT: CustomActionWhere
-}
-
-input ResourceActionErrorActionCustomActionCreateFieldInput {
-  node: CustomActionCreateInput!
-}
-
-input ResourceActionErrorActionCustomActionDeleteFieldInput {
-  delete: CustomActionDeleteInput
-  where: ResourceActionErrorActionCustomActionConnectionWhere
-}
-
-input ResourceActionErrorActionCustomActionDisconnectFieldInput {
-  disconnect: CustomActionDisconnectInput
-  where: ResourceActionErrorActionCustomActionConnectionWhere
-}
-
-input ResourceActionErrorActionCustomActionFieldInput {
-  connect: ResourceActionErrorActionCustomActionConnectFieldInput
-  connectOrCreate: ResourceActionErrorActionCustomActionConnectOrCreateFieldInput
-  create: ResourceActionErrorActionCustomActionCreateFieldInput
-}
-
-input ResourceActionErrorActionCustomActionUpdateConnectionInput {
-  node: CustomActionUpdateInput
-}
-
-input ResourceActionErrorActionCustomActionUpdateFieldInput {
-  connect: ResourceActionErrorActionCustomActionConnectFieldInput
-  connectOrCreate: ResourceActionErrorActionCustomActionConnectOrCreateFieldInput
-  create: ResourceActionErrorActionCustomActionCreateFieldInput
-  delete: ResourceActionErrorActionCustomActionDeleteFieldInput
-  disconnect: ResourceActionErrorActionCustomActionDisconnectFieldInput
-  update: ResourceActionErrorActionCustomActionUpdateConnectionInput
-  where: ResourceActionErrorActionCustomActionConnectionWhere
-}
-
-input ResourceActionErrorActionDeleteInput {
-  CustomAction: ResourceActionErrorActionCustomActionDeleteFieldInput
-  PipelineAction: ResourceActionErrorActionPipelineActionDeleteFieldInput
-  ResourceAction: ResourceActionErrorActionResourceActionDeleteFieldInput
-}
-
-input ResourceActionErrorActionDisconnectInput {
-  CustomAction: ResourceActionErrorActionCustomActionDisconnectFieldInput
-  PipelineAction: ResourceActionErrorActionPipelineActionDisconnectFieldInput
-  ResourceAction: ResourceActionErrorActionResourceActionDisconnectFieldInput
-}
-
-input ResourceActionErrorActionPipelineActionConnectFieldInput {
-  connect: PipelineActionConnectInput
-  where: PipelineActionConnectWhere
-}
-
-input ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput {
-  onCreate: ResourceActionErrorActionPipelineActionConnectOrCreateFieldInputOnCreate!
-  where: PipelineActionConnectOrCreateWhere!
-}
-
-input ResourceActionErrorActionPipelineActionConnectOrCreateFieldInputOnCreate {
-  node: PipelineActionOnCreateInput!
-}
-
-input ResourceActionErrorActionPipelineActionConnectionWhere {
-  AND: [ResourceActionErrorActionPipelineActionConnectionWhere!]
-  OR: [ResourceActionErrorActionPipelineActionConnectionWhere!]
-  node: PipelineActionWhere
-  node_NOT: PipelineActionWhere
-}
-
-input ResourceActionErrorActionPipelineActionCreateFieldInput {
-  node: PipelineActionCreateInput!
-}
-
-input ResourceActionErrorActionPipelineActionDeleteFieldInput {
-  delete: PipelineActionDeleteInput
-  where: ResourceActionErrorActionPipelineActionConnectionWhere
-}
-
-input ResourceActionErrorActionPipelineActionDisconnectFieldInput {
-  disconnect: PipelineActionDisconnectInput
-  where: ResourceActionErrorActionPipelineActionConnectionWhere
-}
-
-input ResourceActionErrorActionPipelineActionFieldInput {
-  connect: ResourceActionErrorActionPipelineActionConnectFieldInput
-  connectOrCreate: ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput
-  create: ResourceActionErrorActionPipelineActionCreateFieldInput
-}
-
-input ResourceActionErrorActionPipelineActionUpdateConnectionInput {
-  node: PipelineActionUpdateInput
-}
-
-input ResourceActionErrorActionPipelineActionUpdateFieldInput {
-  connect: ResourceActionErrorActionPipelineActionConnectFieldInput
-  connectOrCreate: ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput
-  create: ResourceActionErrorActionPipelineActionCreateFieldInput
-  delete: ResourceActionErrorActionPipelineActionDeleteFieldInput
-  disconnect: ResourceActionErrorActionPipelineActionDisconnectFieldInput
-  update: ResourceActionErrorActionPipelineActionUpdateConnectionInput
-  where: ResourceActionErrorActionPipelineActionConnectionWhere
-}
-
-type ResourceActionErrorActionRelationship {
-  cursor: String!
-  node: AnyAction!
-}
-
-input ResourceActionErrorActionResourceActionConnectFieldInput {
-  connect: ResourceActionConnectInput
-  where: ResourceActionConnectWhere
-}
-
-input ResourceActionErrorActionResourceActionConnectOrCreateFieldInput {
-  onCreate: ResourceActionErrorActionResourceActionConnectOrCreateFieldInputOnCreate!
-  where: ResourceActionConnectOrCreateWhere!
-}
-
-input ResourceActionErrorActionResourceActionConnectOrCreateFieldInputOnCreate {
-  node: ResourceActionOnCreateInput!
-}
-
-input ResourceActionErrorActionResourceActionConnectionWhere {
-  AND: [ResourceActionErrorActionResourceActionConnectionWhere!]
-  OR: [ResourceActionErrorActionResourceActionConnectionWhere!]
-  node: ResourceActionWhere
-  node_NOT: ResourceActionWhere
-}
-
-input ResourceActionErrorActionResourceActionCreateFieldInput {
-  node: ResourceActionCreateInput!
-}
-
-input ResourceActionErrorActionResourceActionDeleteFieldInput {
-  delete: ResourceActionDeleteInput
-  where: ResourceActionErrorActionResourceActionConnectionWhere
-}
-
-input ResourceActionErrorActionResourceActionDisconnectFieldInput {
-  disconnect: ResourceActionDisconnectInput
-  where: ResourceActionErrorActionResourceActionConnectionWhere
-}
-
-input ResourceActionErrorActionResourceActionFieldInput {
-  connect: ResourceActionErrorActionResourceActionConnectFieldInput
-  connectOrCreate: ResourceActionErrorActionResourceActionConnectOrCreateFieldInput
-  create: ResourceActionErrorActionResourceActionCreateFieldInput
-}
-
-input ResourceActionErrorActionResourceActionUpdateConnectionInput {
-  node: ResourceActionUpdateInput
-}
-
-input ResourceActionErrorActionResourceActionUpdateFieldInput {
-  connect: ResourceActionErrorActionResourceActionConnectFieldInput
-  connectOrCreate: ResourceActionErrorActionResourceActionConnectOrCreateFieldInput
-  create: ResourceActionErrorActionResourceActionCreateFieldInput
-  delete: ResourceActionErrorActionResourceActionDeleteFieldInput
-  disconnect: ResourceActionErrorActionResourceActionDisconnectFieldInput
-  update: ResourceActionErrorActionResourceActionUpdateConnectionInput
-  where: ResourceActionErrorActionResourceActionConnectionWhere
-}
-
-input ResourceActionErrorActionUpdateInput {
-  CustomAction: ResourceActionErrorActionCustomActionUpdateFieldInput
-  PipelineAction: ResourceActionErrorActionPipelineActionUpdateFieldInput
-  ResourceAction: ResourceActionErrorActionResourceActionUpdateFieldInput
-}
-
-input ResourceActionOnCreateInput {
-  id: ID!
-  name: String!
-  runOnInit: Boolean! = false
-}
-
-input ResourceActionOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more ResourceActionSort objects to sort ResourceActions by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [ResourceActionSort!]
-}
-
-type ResourceActionPropConfigAggregationSelection {
-  count: Int!
-  node: ResourceActionPropConfigNodeAggregateSelection
-}
-
-type ResourceActionPropConfigNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-}
-
-input ResourceActionRelationInput {
-  config: ResourceActionConfigCreateFieldInput
-  errorAction: ResourceActionErrorActionCreateFieldInput
-  resource: ResourceActionResourceCreateFieldInput
-  store: ActionBaseStoreCreateFieldInput
-  successAction: ResourceActionSuccessActionCreateFieldInput
-}
-
-input ResourceActionResourceAggregateInput {
-  AND: [ResourceActionResourceAggregateInput!]
-  OR: [ResourceActionResourceAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ResourceActionResourceNodeAggregationWhereInput
-}
-
-input ResourceActionResourceConnectFieldInput {
-  connect: ResourceConnectInput
-  where: ResourceConnectWhere
-}
-
-input ResourceActionResourceConnectOrCreateFieldInput {
-  onCreate: ResourceActionResourceConnectOrCreateFieldInputOnCreate!
-  where: ResourceConnectOrCreateWhere!
-}
-
-input ResourceActionResourceConnectOrCreateFieldInputOnCreate {
-  node: ResourceOnCreateInput!
-}
-
-type ResourceActionResourceConnection {
-  edges: [ResourceActionResourceRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ResourceActionResourceConnectionSort {
-  node: ResourceSort
-}
-
-input ResourceActionResourceConnectionWhere {
-  AND: [ResourceActionResourceConnectionWhere!]
-  OR: [ResourceActionResourceConnectionWhere!]
-  node: ResourceWhere
-  node_NOT: ResourceWhere
-}
-
-input ResourceActionResourceCreateFieldInput {
-  node: ResourceCreateInput!
-}
-
-input ResourceActionResourceDeleteFieldInput {
-  delete: ResourceDeleteInput
-  where: ResourceActionResourceConnectionWhere
-}
-
-input ResourceActionResourceDisconnectFieldInput {
-  disconnect: ResourceDisconnectInput
-  where: ResourceActionResourceConnectionWhere
-}
-
-input ResourceActionResourceFieldInput {
-  connect: ResourceActionResourceConnectFieldInput
-  connectOrCreate: ResourceActionResourceConnectOrCreateFieldInput
-  create: ResourceActionResourceCreateFieldInput
-}
-
-input ResourceActionResourceNodeAggregationWhereInput {
-  AND: [ResourceActionResourceNodeAggregationWhereInput!]
-  OR: [ResourceActionResourceNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type ResourceActionResourceRelationship {
-  cursor: String!
-  node: Resource!
-}
-
-type ResourceActionResourceResourceAggregationSelection {
-  count: Int!
-  node: ResourceActionResourceResourceNodeAggregateSelection
-}
-
-type ResourceActionResourceResourceNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input ResourceActionResourceUpdateConnectionInput {
-  node: ResourceUpdateInput
-}
-
-input ResourceActionResourceUpdateFieldInput {
-  connect: ResourceActionResourceConnectFieldInput
-  connectOrCreate: ResourceActionResourceConnectOrCreateFieldInput
-  create: ResourceActionResourceCreateFieldInput
-  delete: ResourceActionResourceDeleteFieldInput
-  disconnect: ResourceActionResourceDisconnectFieldInput
-  update: ResourceActionResourceUpdateConnectionInput
-  where: ResourceActionResourceConnectionWhere
-}
-
-"""
-Fields to sort ResourceActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceActionSort object.
-"""
-input ResourceActionSort {
-  id: SortDirection
-  name: SortDirection
-  runOnInit: SortDirection
-  type: SortDirection
-}
-
-input ResourceActionStoreAggregateInput {
-  AND: [ResourceActionStoreAggregateInput!]
-  OR: [ResourceActionStoreAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ResourceActionStoreNodeAggregationWhereInput
-}
-
-input ResourceActionStoreNodeAggregationWhereInput {
-  AND: [ResourceActionStoreNodeAggregationWhereInput!]
-  OR: [ResourceActionStoreNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type ResourceActionStoreStoreAggregationSelection {
-  count: Int!
-  node: ResourceActionStoreStoreNodeAggregateSelection
-}
-
-type ResourceActionStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input ResourceActionSuccessActionConnectInput {
-  CustomAction: ResourceActionSuccessActionCustomActionConnectFieldInput
-  PipelineAction: ResourceActionSuccessActionPipelineActionConnectFieldInput
-  ResourceAction: ResourceActionSuccessActionResourceActionConnectFieldInput
-}
-
-input ResourceActionSuccessActionConnectOrCreateInput {
-  CustomAction: ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput
-  PipelineAction: ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput
-  ResourceAction: ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput
-}
-
-type ResourceActionSuccessActionConnection {
-  edges: [ResourceActionSuccessActionRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ResourceActionSuccessActionConnectionWhere {
-  CustomAction: ResourceActionSuccessActionCustomActionConnectionWhere
-  PipelineAction: ResourceActionSuccessActionPipelineActionConnectionWhere
-  ResourceAction: ResourceActionSuccessActionResourceActionConnectionWhere
-}
-
-input ResourceActionSuccessActionCreateFieldInput {
-  CustomAction: [ResourceActionSuccessActionCustomActionCreateFieldInput!]
-  PipelineAction: [ResourceActionSuccessActionPipelineActionCreateFieldInput!]
-  ResourceAction: [ResourceActionSuccessActionResourceActionCreateFieldInput!]
-}
-
-input ResourceActionSuccessActionCreateInput {
-  CustomAction: ResourceActionSuccessActionCustomActionFieldInput
-  PipelineAction: ResourceActionSuccessActionPipelineActionFieldInput
-  ResourceAction: ResourceActionSuccessActionResourceActionFieldInput
-}
-
-input ResourceActionSuccessActionCustomActionConnectFieldInput {
-  connect: CustomActionConnectInput
-  where: CustomActionConnectWhere
-}
-
-input ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput {
-  onCreate: ResourceActionSuccessActionCustomActionConnectOrCreateFieldInputOnCreate!
-  where: CustomActionConnectOrCreateWhere!
-}
-
-input ResourceActionSuccessActionCustomActionConnectOrCreateFieldInputOnCreate {
-  node: CustomActionOnCreateInput!
-}
-
-input ResourceActionSuccessActionCustomActionConnectionWhere {
-  AND: [ResourceActionSuccessActionCustomActionConnectionWhere!]
-  OR: [ResourceActionSuccessActionCustomActionConnectionWhere!]
-  node: CustomActionWhere
-  node_NOT: CustomActionWhere
-}
-
-input ResourceActionSuccessActionCustomActionCreateFieldInput {
-  node: CustomActionCreateInput!
-}
-
-input ResourceActionSuccessActionCustomActionDeleteFieldInput {
-  delete: CustomActionDeleteInput
-  where: ResourceActionSuccessActionCustomActionConnectionWhere
-}
-
-input ResourceActionSuccessActionCustomActionDisconnectFieldInput {
-  disconnect: CustomActionDisconnectInput
-  where: ResourceActionSuccessActionCustomActionConnectionWhere
-}
-
-input ResourceActionSuccessActionCustomActionFieldInput {
-  connect: ResourceActionSuccessActionCustomActionConnectFieldInput
-  connectOrCreate: ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput
-  create: ResourceActionSuccessActionCustomActionCreateFieldInput
-}
-
-input ResourceActionSuccessActionCustomActionUpdateConnectionInput {
-  node: CustomActionUpdateInput
-}
-
-input ResourceActionSuccessActionCustomActionUpdateFieldInput {
-  connect: ResourceActionSuccessActionCustomActionConnectFieldInput
-  connectOrCreate: ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput
-  create: ResourceActionSuccessActionCustomActionCreateFieldInput
-  delete: ResourceActionSuccessActionCustomActionDeleteFieldInput
-  disconnect: ResourceActionSuccessActionCustomActionDisconnectFieldInput
-  update: ResourceActionSuccessActionCustomActionUpdateConnectionInput
-  where: ResourceActionSuccessActionCustomActionConnectionWhere
-}
-
-input ResourceActionSuccessActionDeleteInput {
-  CustomAction: ResourceActionSuccessActionCustomActionDeleteFieldInput
-  PipelineAction: ResourceActionSuccessActionPipelineActionDeleteFieldInput
-  ResourceAction: ResourceActionSuccessActionResourceActionDeleteFieldInput
-}
-
-input ResourceActionSuccessActionDisconnectInput {
-  CustomAction: ResourceActionSuccessActionCustomActionDisconnectFieldInput
-  PipelineAction: ResourceActionSuccessActionPipelineActionDisconnectFieldInput
-  ResourceAction: ResourceActionSuccessActionResourceActionDisconnectFieldInput
-}
-
-input ResourceActionSuccessActionPipelineActionConnectFieldInput {
-  connect: PipelineActionConnectInput
-  where: PipelineActionConnectWhere
-}
-
-input ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput {
-  onCreate: ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInputOnCreate!
-  where: PipelineActionConnectOrCreateWhere!
-}
-
-input ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInputOnCreate {
-  node: PipelineActionOnCreateInput!
-}
-
-input ResourceActionSuccessActionPipelineActionConnectionWhere {
-  AND: [ResourceActionSuccessActionPipelineActionConnectionWhere!]
-  OR: [ResourceActionSuccessActionPipelineActionConnectionWhere!]
-  node: PipelineActionWhere
-  node_NOT: PipelineActionWhere
-}
-
-input ResourceActionSuccessActionPipelineActionCreateFieldInput {
-  node: PipelineActionCreateInput!
-}
-
-input ResourceActionSuccessActionPipelineActionDeleteFieldInput {
-  delete: PipelineActionDeleteInput
-  where: ResourceActionSuccessActionPipelineActionConnectionWhere
-}
-
-input ResourceActionSuccessActionPipelineActionDisconnectFieldInput {
-  disconnect: PipelineActionDisconnectInput
-  where: ResourceActionSuccessActionPipelineActionConnectionWhere
-}
-
-input ResourceActionSuccessActionPipelineActionFieldInput {
-  connect: ResourceActionSuccessActionPipelineActionConnectFieldInput
-  connectOrCreate: ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput
-  create: ResourceActionSuccessActionPipelineActionCreateFieldInput
-}
-
-input ResourceActionSuccessActionPipelineActionUpdateConnectionInput {
-  node: PipelineActionUpdateInput
-}
-
-input ResourceActionSuccessActionPipelineActionUpdateFieldInput {
-  connect: ResourceActionSuccessActionPipelineActionConnectFieldInput
-  connectOrCreate: ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput
-  create: ResourceActionSuccessActionPipelineActionCreateFieldInput
-  delete: ResourceActionSuccessActionPipelineActionDeleteFieldInput
-  disconnect: ResourceActionSuccessActionPipelineActionDisconnectFieldInput
-  update: ResourceActionSuccessActionPipelineActionUpdateConnectionInput
-  where: ResourceActionSuccessActionPipelineActionConnectionWhere
-}
-
-type ResourceActionSuccessActionRelationship {
-  cursor: String!
-  node: AnyAction!
-}
-
-input ResourceActionSuccessActionResourceActionConnectFieldInput {
-  connect: ResourceActionConnectInput
-  where: ResourceActionConnectWhere
-}
-
-input ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput {
-  onCreate: ResourceActionSuccessActionResourceActionConnectOrCreateFieldInputOnCreate!
-  where: ResourceActionConnectOrCreateWhere!
-}
-
-input ResourceActionSuccessActionResourceActionConnectOrCreateFieldInputOnCreate {
-  node: ResourceActionOnCreateInput!
-}
-
-input ResourceActionSuccessActionResourceActionConnectionWhere {
-  AND: [ResourceActionSuccessActionResourceActionConnectionWhere!]
-  OR: [ResourceActionSuccessActionResourceActionConnectionWhere!]
-  node: ResourceActionWhere
-  node_NOT: ResourceActionWhere
-}
-
-input ResourceActionSuccessActionResourceActionCreateFieldInput {
-  node: ResourceActionCreateInput!
-}
-
-input ResourceActionSuccessActionResourceActionDeleteFieldInput {
-  delete: ResourceActionDeleteInput
-  where: ResourceActionSuccessActionResourceActionConnectionWhere
-}
-
-input ResourceActionSuccessActionResourceActionDisconnectFieldInput {
-  disconnect: ResourceActionDisconnectInput
-  where: ResourceActionSuccessActionResourceActionConnectionWhere
-}
-
-input ResourceActionSuccessActionResourceActionFieldInput {
-  connect: ResourceActionSuccessActionResourceActionConnectFieldInput
-  connectOrCreate: ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput
-  create: ResourceActionSuccessActionResourceActionCreateFieldInput
-}
-
-input ResourceActionSuccessActionResourceActionUpdateConnectionInput {
-  node: ResourceActionUpdateInput
-}
-
-input ResourceActionSuccessActionResourceActionUpdateFieldInput {
-  connect: ResourceActionSuccessActionResourceActionConnectFieldInput
-  connectOrCreate: ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput
-  create: ResourceActionSuccessActionResourceActionCreateFieldInput
-  delete: ResourceActionSuccessActionResourceActionDeleteFieldInput
-  disconnect: ResourceActionSuccessActionResourceActionDisconnectFieldInput
-  update: ResourceActionSuccessActionResourceActionUpdateConnectionInput
-  where: ResourceActionSuccessActionResourceActionConnectionWhere
-}
-
-input ResourceActionSuccessActionUpdateInput {
-  CustomAction: ResourceActionSuccessActionCustomActionUpdateFieldInput
-  PipelineAction: ResourceActionSuccessActionPipelineActionUpdateFieldInput
-  ResourceAction: ResourceActionSuccessActionResourceActionUpdateFieldInput
-}
-
-input ResourceActionUniqueWhere {
-  id: ID
-}
-
-input ResourceActionUpdateInput {
-  config: ResourceActionConfigUpdateFieldInput
-  errorAction: ResourceActionErrorActionUpdateInput
-  id: ID
-  name: String
-  resource: ResourceActionResourceUpdateFieldInput
-  runOnInit: Boolean
-  store: ActionBaseStoreUpdateFieldInput
-  successAction: ResourceActionSuccessActionUpdateInput
-}
-
-input ResourceActionWhere {
-  AND: [ResourceActionWhere!]
-  OR: [ResourceActionWhere!]
-  config: PropWhere
-  configAggregate: ResourceActionConfigAggregateInput
-  configConnection: ResourceActionConfigConnectionWhere
-  configConnection_NOT: ResourceActionConfigConnectionWhere
-  config_NOT: PropWhere
-  errorActionConnection: ResourceActionErrorActionConnectionWhere
-  errorActionConnection_NOT: ResourceActionErrorActionConnectionWhere
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  resource: ResourceWhere
-  resourceAggregate: ResourceActionResourceAggregateInput
-  resourceConnection: ResourceActionResourceConnectionWhere
-  resourceConnection_NOT: ResourceActionResourceConnectionWhere
-  resource_NOT: ResourceWhere
-  runOnInit: Boolean
-  runOnInit_NOT: Boolean
-  store: StoreWhere
-  storeAggregate: ResourceActionStoreAggregateInput
-  storeConnection: ActionBaseStoreConnectionWhere
-  storeConnection_NOT: ActionBaseStoreConnectionWhere
-  store_NOT: StoreWhere
-  successActionConnection: ResourceActionSuccessActionConnectionWhere
-  successActionConnection_NOT: ResourceActionSuccessActionConnectionWhere
-  type: ActionKind
-  type_IN: [ActionKind!]
-  type_NOT: ActionKind
-  type_NOT_IN: [ActionKind!]
-}
-
-type ResourceActionsConnection {
-  edges: [ResourceActionEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 type ResourceAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
@@ -16331,16 +15649,124 @@ type Store {
   name: String!
 }
 
+input StoreActionsApiActionConnectFieldInput {
+  connect: [ApiActionConnectInput!]
+  where: ApiActionConnectWhere
+}
+
+input StoreActionsApiActionConnectOrCreateFieldInput {
+  onCreate: StoreActionsApiActionConnectOrCreateFieldInputOnCreate!
+  where: ApiActionConnectOrCreateWhere!
+}
+
+input StoreActionsApiActionConnectOrCreateFieldInputOnCreate {
+  node: ApiActionOnCreateInput!
+}
+
+input StoreActionsApiActionConnectionWhere {
+  AND: [StoreActionsApiActionConnectionWhere!]
+  OR: [StoreActionsApiActionConnectionWhere!]
+  node: ApiActionWhere
+  node_NOT: ApiActionWhere
+}
+
+input StoreActionsApiActionCreateFieldInput {
+  node: ApiActionCreateInput!
+}
+
+input StoreActionsApiActionDeleteFieldInput {
+  delete: ApiActionDeleteInput
+  where: StoreActionsApiActionConnectionWhere
+}
+
+input StoreActionsApiActionDisconnectFieldInput {
+  disconnect: ApiActionDisconnectInput
+  where: StoreActionsApiActionConnectionWhere
+}
+
+input StoreActionsApiActionFieldInput {
+  connect: [StoreActionsApiActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsApiActionConnectOrCreateFieldInput!]
+  create: [StoreActionsApiActionCreateFieldInput!]
+}
+
+input StoreActionsApiActionUpdateConnectionInput {
+  node: ApiActionUpdateInput
+}
+
+input StoreActionsApiActionUpdateFieldInput {
+  connect: [StoreActionsApiActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsApiActionConnectOrCreateFieldInput!]
+  create: [StoreActionsApiActionCreateFieldInput!]
+  delete: [StoreActionsApiActionDeleteFieldInput!]
+  disconnect: [StoreActionsApiActionDisconnectFieldInput!]
+  update: StoreActionsApiActionUpdateConnectionInput
+  where: StoreActionsApiActionConnectionWhere
+}
+
+input StoreActionsCodeActionConnectFieldInput {
+  connect: [CodeActionConnectInput!]
+  where: CodeActionConnectWhere
+}
+
+input StoreActionsCodeActionConnectOrCreateFieldInput {
+  onCreate: StoreActionsCodeActionConnectOrCreateFieldInputOnCreate!
+  where: CodeActionConnectOrCreateWhere!
+}
+
+input StoreActionsCodeActionConnectOrCreateFieldInputOnCreate {
+  node: CodeActionOnCreateInput!
+}
+
+input StoreActionsCodeActionConnectionWhere {
+  AND: [StoreActionsCodeActionConnectionWhere!]
+  OR: [StoreActionsCodeActionConnectionWhere!]
+  node: CodeActionWhere
+  node_NOT: CodeActionWhere
+}
+
+input StoreActionsCodeActionCreateFieldInput {
+  node: CodeActionCreateInput!
+}
+
+input StoreActionsCodeActionDeleteFieldInput {
+  delete: CodeActionDeleteInput
+  where: StoreActionsCodeActionConnectionWhere
+}
+
+input StoreActionsCodeActionDisconnectFieldInput {
+  disconnect: CodeActionDisconnectInput
+  where: StoreActionsCodeActionConnectionWhere
+}
+
+input StoreActionsCodeActionFieldInput {
+  connect: [StoreActionsCodeActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsCodeActionConnectOrCreateFieldInput!]
+  create: [StoreActionsCodeActionCreateFieldInput!]
+}
+
+input StoreActionsCodeActionUpdateConnectionInput {
+  node: CodeActionUpdateInput
+}
+
+input StoreActionsCodeActionUpdateFieldInput {
+  connect: [StoreActionsCodeActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsCodeActionConnectOrCreateFieldInput!]
+  create: [StoreActionsCodeActionCreateFieldInput!]
+  delete: [StoreActionsCodeActionDeleteFieldInput!]
+  disconnect: [StoreActionsCodeActionDisconnectFieldInput!]
+  update: StoreActionsCodeActionUpdateConnectionInput
+  where: StoreActionsCodeActionConnectionWhere
+}
+
 input StoreActionsConnectInput {
-  CustomAction: [StoreActionsCustomActionConnectFieldInput!]
-  PipelineAction: [StoreActionsPipelineActionConnectFieldInput!]
-  ResourceAction: [StoreActionsResourceActionConnectFieldInput!]
+  ApiAction: [StoreActionsApiActionConnectFieldInput!]
+  CodeAction: [StoreActionsCodeActionConnectFieldInput!]
 }
 
 input StoreActionsConnectOrCreateInput {
-  CustomAction: [StoreActionsCustomActionConnectOrCreateFieldInput!]
-  PipelineAction: [StoreActionsPipelineActionConnectOrCreateFieldInput!]
-  ResourceAction: [StoreActionsResourceActionConnectOrCreateFieldInput!]
+  ApiAction: [StoreActionsApiActionConnectOrCreateFieldInput!]
+  CodeAction: [StoreActionsCodeActionConnectOrCreateFieldInput!]
 }
 
 type StoreActionsConnection {
@@ -16350,143 +15776,28 @@ type StoreActionsConnection {
 }
 
 input StoreActionsConnectionWhere {
-  CustomAction: StoreActionsCustomActionConnectionWhere
-  PipelineAction: StoreActionsPipelineActionConnectionWhere
-  ResourceAction: StoreActionsResourceActionConnectionWhere
+  ApiAction: StoreActionsApiActionConnectionWhere
+  CodeAction: StoreActionsCodeActionConnectionWhere
 }
 
 input StoreActionsCreateFieldInput {
-  CustomAction: [StoreActionsCustomActionCreateFieldInput!]
-  PipelineAction: [StoreActionsPipelineActionCreateFieldInput!]
-  ResourceAction: [StoreActionsResourceActionCreateFieldInput!]
+  ApiAction: [StoreActionsApiActionCreateFieldInput!]
+  CodeAction: [StoreActionsCodeActionCreateFieldInput!]
 }
 
 input StoreActionsCreateInput {
-  CustomAction: StoreActionsCustomActionFieldInput
-  PipelineAction: StoreActionsPipelineActionFieldInput
-  ResourceAction: StoreActionsResourceActionFieldInput
-}
-
-input StoreActionsCustomActionConnectFieldInput {
-  connect: [CustomActionConnectInput!]
-  where: CustomActionConnectWhere
-}
-
-input StoreActionsCustomActionConnectOrCreateFieldInput {
-  onCreate: StoreActionsCustomActionConnectOrCreateFieldInputOnCreate!
-  where: CustomActionConnectOrCreateWhere!
-}
-
-input StoreActionsCustomActionConnectOrCreateFieldInputOnCreate {
-  node: CustomActionOnCreateInput!
-}
-
-input StoreActionsCustomActionConnectionWhere {
-  AND: [StoreActionsCustomActionConnectionWhere!]
-  OR: [StoreActionsCustomActionConnectionWhere!]
-  node: CustomActionWhere
-  node_NOT: CustomActionWhere
-}
-
-input StoreActionsCustomActionCreateFieldInput {
-  node: CustomActionCreateInput!
-}
-
-input StoreActionsCustomActionDeleteFieldInput {
-  delete: CustomActionDeleteInput
-  where: StoreActionsCustomActionConnectionWhere
-}
-
-input StoreActionsCustomActionDisconnectFieldInput {
-  disconnect: CustomActionDisconnectInput
-  where: StoreActionsCustomActionConnectionWhere
-}
-
-input StoreActionsCustomActionFieldInput {
-  connect: [StoreActionsCustomActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsCustomActionConnectOrCreateFieldInput!]
-  create: [StoreActionsCustomActionCreateFieldInput!]
-}
-
-input StoreActionsCustomActionUpdateConnectionInput {
-  node: CustomActionUpdateInput
-}
-
-input StoreActionsCustomActionUpdateFieldInput {
-  connect: [StoreActionsCustomActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsCustomActionConnectOrCreateFieldInput!]
-  create: [StoreActionsCustomActionCreateFieldInput!]
-  delete: [StoreActionsCustomActionDeleteFieldInput!]
-  disconnect: [StoreActionsCustomActionDisconnectFieldInput!]
-  update: StoreActionsCustomActionUpdateConnectionInput
-  where: StoreActionsCustomActionConnectionWhere
+  ApiAction: StoreActionsApiActionFieldInput
+  CodeAction: StoreActionsCodeActionFieldInput
 }
 
 input StoreActionsDeleteInput {
-  CustomAction: [StoreActionsCustomActionDeleteFieldInput!]
-  PipelineAction: [StoreActionsPipelineActionDeleteFieldInput!]
-  ResourceAction: [StoreActionsResourceActionDeleteFieldInput!]
+  ApiAction: [StoreActionsApiActionDeleteFieldInput!]
+  CodeAction: [StoreActionsCodeActionDeleteFieldInput!]
 }
 
 input StoreActionsDisconnectInput {
-  CustomAction: [StoreActionsCustomActionDisconnectFieldInput!]
-  PipelineAction: [StoreActionsPipelineActionDisconnectFieldInput!]
-  ResourceAction: [StoreActionsResourceActionDisconnectFieldInput!]
-}
-
-input StoreActionsPipelineActionConnectFieldInput {
-  connect: [PipelineActionConnectInput!]
-  where: PipelineActionConnectWhere
-}
-
-input StoreActionsPipelineActionConnectOrCreateFieldInput {
-  onCreate: StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate!
-  where: PipelineActionConnectOrCreateWhere!
-}
-
-input StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate {
-  node: PipelineActionOnCreateInput!
-}
-
-input StoreActionsPipelineActionConnectionWhere {
-  AND: [StoreActionsPipelineActionConnectionWhere!]
-  OR: [StoreActionsPipelineActionConnectionWhere!]
-  node: PipelineActionWhere
-  node_NOT: PipelineActionWhere
-}
-
-input StoreActionsPipelineActionCreateFieldInput {
-  node: PipelineActionCreateInput!
-}
-
-input StoreActionsPipelineActionDeleteFieldInput {
-  delete: PipelineActionDeleteInput
-  where: StoreActionsPipelineActionConnectionWhere
-}
-
-input StoreActionsPipelineActionDisconnectFieldInput {
-  disconnect: PipelineActionDisconnectInput
-  where: StoreActionsPipelineActionConnectionWhere
-}
-
-input StoreActionsPipelineActionFieldInput {
-  connect: [StoreActionsPipelineActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsPipelineActionConnectOrCreateFieldInput!]
-  create: [StoreActionsPipelineActionCreateFieldInput!]
-}
-
-input StoreActionsPipelineActionUpdateConnectionInput {
-  node: PipelineActionUpdateInput
-}
-
-input StoreActionsPipelineActionUpdateFieldInput {
-  connect: [StoreActionsPipelineActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsPipelineActionConnectOrCreateFieldInput!]
-  create: [StoreActionsPipelineActionCreateFieldInput!]
-  delete: [StoreActionsPipelineActionDeleteFieldInput!]
-  disconnect: [StoreActionsPipelineActionDisconnectFieldInput!]
-  update: StoreActionsPipelineActionUpdateConnectionInput
-  where: StoreActionsPipelineActionConnectionWhere
+  ApiAction: [StoreActionsApiActionDisconnectFieldInput!]
+  CodeAction: [StoreActionsCodeActionDisconnectFieldInput!]
 }
 
 type StoreActionsRelationship {
@@ -16494,65 +15805,9 @@ type StoreActionsRelationship {
   node: AnyAction!
 }
 
-input StoreActionsResourceActionConnectFieldInput {
-  connect: [ResourceActionConnectInput!]
-  where: ResourceActionConnectWhere
-}
-
-input StoreActionsResourceActionConnectOrCreateFieldInput {
-  onCreate: StoreActionsResourceActionConnectOrCreateFieldInputOnCreate!
-  where: ResourceActionConnectOrCreateWhere!
-}
-
-input StoreActionsResourceActionConnectOrCreateFieldInputOnCreate {
-  node: ResourceActionOnCreateInput!
-}
-
-input StoreActionsResourceActionConnectionWhere {
-  AND: [StoreActionsResourceActionConnectionWhere!]
-  OR: [StoreActionsResourceActionConnectionWhere!]
-  node: ResourceActionWhere
-  node_NOT: ResourceActionWhere
-}
-
-input StoreActionsResourceActionCreateFieldInput {
-  node: ResourceActionCreateInput!
-}
-
-input StoreActionsResourceActionDeleteFieldInput {
-  delete: ResourceActionDeleteInput
-  where: StoreActionsResourceActionConnectionWhere
-}
-
-input StoreActionsResourceActionDisconnectFieldInput {
-  disconnect: ResourceActionDisconnectInput
-  where: StoreActionsResourceActionConnectionWhere
-}
-
-input StoreActionsResourceActionFieldInput {
-  connect: [StoreActionsResourceActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsResourceActionConnectOrCreateFieldInput!]
-  create: [StoreActionsResourceActionCreateFieldInput!]
-}
-
-input StoreActionsResourceActionUpdateConnectionInput {
-  node: ResourceActionUpdateInput
-}
-
-input StoreActionsResourceActionUpdateFieldInput {
-  connect: [StoreActionsResourceActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsResourceActionConnectOrCreateFieldInput!]
-  create: [StoreActionsResourceActionCreateFieldInput!]
-  delete: [StoreActionsResourceActionDeleteFieldInput!]
-  disconnect: [StoreActionsResourceActionDisconnectFieldInput!]
-  update: StoreActionsResourceActionUpdateConnectionInput
-  where: StoreActionsResourceActionConnectionWhere
-}
-
 input StoreActionsUpdateInput {
-  CustomAction: [StoreActionsCustomActionUpdateFieldInput!]
-  PipelineAction: [StoreActionsPipelineActionUpdateFieldInput!]
-  ResourceAction: [StoreActionsResourceActionUpdateFieldInput!]
+  ApiAction: [StoreActionsApiActionUpdateFieldInput!]
+  CodeAction: [StoreActionsCodeActionUpdateFieldInput!]
 }
 
 type StoreAggregateSelection {
@@ -19287,6 +18542,11 @@ type UpdateActionTypesMutationResponse {
   info: UpdateInfo!
 }
 
+type UpdateApiActionsMutationResponse {
+  apiActions: [ApiAction!]!
+  info: UpdateInfo!
+}
+
 type UpdateAppTypesMutationResponse {
   appTypes: [AppType!]!
   info: UpdateInfo!
@@ -19307,6 +18567,11 @@ type UpdateAtomsMutationResponse {
   info: UpdateInfo!
 }
 
+type UpdateCodeActionsMutationResponse {
+  codeActions: [CodeAction!]!
+  info: UpdateInfo!
+}
+
 type UpdateCodeMirrorTypesMutationResponse {
   codeMirrorTypes: [CodeMirrorType!]!
   info: UpdateInfo!
@@ -19319,11 +18584,6 @@ type UpdateComponentsMutationResponse {
 
 type UpdateCreateInfosMutationResponse {
   createInfos: [CreateInfo!]!
-  info: UpdateInfo!
-}
-
-type UpdateCustomActionsMutationResponse {
-  customActions: [CustomAction!]!
   info: UpdateInfo!
 }
 
@@ -19396,11 +18656,6 @@ type UpdatePagesMutationResponse {
   pages: [Page!]!
 }
 
-type UpdatePipelineActionsMutationResponse {
-  info: UpdateInfo!
-  pipelineActions: [PipelineAction!]!
-}
-
 type UpdatePrimitiveTypesMutationResponse {
   info: UpdateInfo!
   primitiveTypes: [PrimitiveType!]!
@@ -19429,11 +18684,6 @@ type UpdateRenderPropsTypesMutationResponse {
 type UpdateResetDatabaseMutationResponsesMutationResponse {
   info: UpdateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
-}
-
-type UpdateResourceActionsMutationResponse {
-  info: UpdateInfo!
-  resourceActions: [ResourceAction!]!
 }
 
 type UpdateResourcesMutationResponse {

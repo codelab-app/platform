@@ -1,6 +1,6 @@
 import { actionSelectionProperties } from '@codelab/backend/adapter/neo4j'
 
-export const exportResourceActionSelectionSet = `
+export const exportApiActionSelectionSet = `
  {
   ${actionSelectionProperties}
   successAction {
@@ -22,25 +22,11 @@ export const exportResourceActionSelectionSet = `
 const edgeSelectionProperties = `
   orders
   node {
-    ... on CustomAction {
+    ... on CodeAction {
       id
     }
-    ... on ResourceAction {
-      id
-    }
-    ... on PipelineAction {
+    ... on ApiAction {
       id
     }
   }
-`
-
-export const exportPipelineActionSelectionSet = `
- {
-  ${actionSelectionProperties}
-  actionsConnection {
-    edges {
-      ${edgeSelectionProperties}
-    }
-  }
- }
 `

@@ -50,20 +50,15 @@ let elementInst: OGM_TYPES.ElementModel
 export const ElementOGM = async () =>
   await getOgmInstance<'Element'>(elementInst, 'Element')
 
-let customActionInst: OGM_TYPES.CustomActionModel
+let codeActionInst: OGM_TYPES.CodeActionModel
 
-export const CustomActionOGM = async () =>
-  await getOgmInstance<'CustomAction'>(customActionInst, 'CustomAction')
+export const CodeActionOGM = async () =>
+  await getOgmInstance<'CodeAction'>(codeActionInst, 'CodeAction')
 
-let resourceActionInst: OGM_TYPES.ResourceActionModel
+let apiActionInst: OGM_TYPES.ApiActionModel
 
-export const ResourceActionOGM = async () =>
-  await getOgmInstance<'ResourceAction'>(resourceActionInst, 'ResourceAction')
-
-let pipelineActionInst: OGM_TYPES.PipelineActionModel
-
-export const PipelineActionOGM = async () =>
-  await getOgmInstance<'PipelineAction'>(pipelineActionInst, 'PipelineAction')
+export const ApiActionOGM = async () =>
+  await getOgmInstance<'ApiAction'>(apiActionInst, 'ApiAction')
 
 let storeInst: OGM_TYPES.StoreModel
 

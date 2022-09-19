@@ -44,9 +44,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
       type: 'string',
       autoFocus: true,
     },
-    runOnInit: {
-      type: 'boolean',
-    },
     type: {
       type: 'string',
       enum: Object.values(IActionKind),

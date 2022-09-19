@@ -1,12 +1,12 @@
-mutation UpdateCustomActions(
-  $connect: CustomActionConnectInput
-  $create: CustomActionRelationInput
-  $delete: CustomActionDeleteInput
-  $disconnect: CustomActionDisconnectInput
-  $update: CustomActionUpdateInput
-  $where: CustomActionWhere
+mutation UpdateCodeActions(
+  $connect: CodeActionConnectInput
+  $create: CodeActionRelationInput
+  $delete: CodeActionDeleteInput
+  $disconnect: CodeActionDisconnectInput
+  $update: CodeActionUpdateInput
+  $where: CodeActionWhere
 ) {
-  updateCustomActions(
+  updateCodeActions(
     update: $update
     where: $where
     connect: $connect
@@ -14,21 +14,21 @@ mutation UpdateCustomActions(
     delete: $delete
     disconnect: $disconnect
   ) {
-    customActions {
+    codeActions {
       ...Action
     }
   }
 }
 
-mutation UpdateResourceActions(
-  $connect: ResourceActionConnectInput
-  $create: ResourceActionRelationInput
-  $delete: ResourceActionDeleteInput
-  $disconnect: ResourceActionDisconnectInput
-  $update: ResourceActionUpdateInput
-  $where: ResourceActionWhere
+mutation UpdateApiActions(
+  $connect: ApiActionConnectInput
+  $create: ApiActionRelationInput
+  $delete: ApiActionDeleteInput
+  $disconnect: ApiActionDisconnectInput
+  $update: ApiActionUpdateInput
+  $where: ApiActionWhere
 ) {
-  updateResourceActions(
+  updateApiActions(
     update: $update
     where: $where
     connect: $connect
@@ -36,29 +36,7 @@ mutation UpdateResourceActions(
     delete: $delete
     disconnect: $disconnect
   ) {
-    resourceActions {
-      ...Action
-    }
-  }
-}
-
-mutation UpdatePipelineActions(
-  $connect: PipelineActionConnectInput
-  $create: PipelineActionRelationInput
-  $delete: PipelineActionDeleteInput
-  $disconnect: PipelineActionDisconnectInput
-  $update: PipelineActionUpdateInput
-  $where: PipelineActionWhere
-) {
-  updatePipelineActions(
-    update: $update
-    where: $where
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-  ) {
-    pipelineActions {
+    apiActions {
       ...Action
     }
   }

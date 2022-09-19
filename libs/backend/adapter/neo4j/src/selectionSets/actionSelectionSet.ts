@@ -2,10 +2,9 @@ export const actionSelectionProperties = `
   id
   name
   type
-  runOnInit
 `
 
-export const customActionSelectionSet = `
+export const codeActionSelectionSet = `
  {
   ${actionSelectionProperties}
   code

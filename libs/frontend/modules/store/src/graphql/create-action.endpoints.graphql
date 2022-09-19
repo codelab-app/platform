@@ -1,22 +1,14 @@
-mutation CreateCustomActions($input: [CustomActionCreateInput!]!) {
-  createCustomActions(input: $input) {
-    customActions {
+mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {
+  createCodeActions(input: $input) {
+    codeActions {
       ...Action
     }
   }
 }
 
-mutation CreateResourceActions($input: [ResourceActionCreateInput!]!) {
-  createResourceActions(input: $input) {
-    resourceActions {
-      ...Action
-    }
-  }
-}
-
-mutation CreatePipelineActions($input: [PipelineActionCreateInput!]!) {
-  createPipelineActions(input: $input) {
-    pipelineActions {
+mutation CreateApiActions($input: [ApiActionCreateInput!]!) {
+  createApiActions(input: $input) {
+    apiActions {
       ...Action
     }
   }

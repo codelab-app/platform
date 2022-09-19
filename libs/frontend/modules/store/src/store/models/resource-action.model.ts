@@ -3,11 +3,11 @@ import { resourceRef } from '@codelab/frontend/modules/resource'
 import { tryParse } from '@codelab/frontend/shared/utils'
 import type {
   IAnyAction,
+  IApiAction,
+  IApiActionConfig,
+  IApiActionDTO,
   IGraphQLActionConfig,
   IResource,
-  IResourceAction,
-  IResourceActionConfig,
-  IResourceActionDTO,
   IRestActionConfig,
 } from '@codelab/shared/abstract/core'
 import {
@@ -28,36 +28,35 @@ import {
 import { actionRef } from './action.ref'
 import { createBaseAction, updateBaseAction } from './base-action.model'
 
-const hydrate = (action: IResourceActionDTO): IResourceAction => {
-  assertIsActionKind(action.type, IActionKind.ResourceAction)
+const hydrate = (action: IApiActionDTO): IApiAction => {
+  assertIsActionKind(action.type, IActionKind.ApiAction)
 
-  return new ResourceAction({
+  return new ApiAction({
     id: action.id,
     name: action.name,
-    runOnInit: action.runOnInit,
     storeId: action.store.id,
     type: action.type,
-    config: Prop.hydrate(action.config) as IResourceActionConfig,
+    config: Prop.hydrate(action.config) as IApiActionConfig,
     resource: resourceRef(action.resource.id),
     successAction: actionRef(action.successAction.id),
     errorAction: actionRef(action.errorAction.id),
   })
 }
 
-@model('@codelab/ResourceAction')
-export class ResourceAction
-  extends ExtendedModel(createBaseAction(IActionKind.ResourceAction), {
+@model('@codelab/ApiAction')
+export class ApiAction
+  extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
     resource: prop<Ref<IResource>>(),
-    config: prop<IResourceActionConfig>(),
+    config: prop<IApiActionConfig>(),
     successAction: prop<Ref<IAnyAction>>(),
     errorAction: prop<Ref<IAnyAction>>(),
   })
-  implements IResourceAction
+  implements IApiAction
 {
   static hydrate = hydrate
 
   @modelAction
-  writeCache(action: IResourceActionDTO) {
+  writeCache(action: IApiActionDTO) {
     updateBaseAction(this, action)
 
     this.resource = resourceRef(action.resource.id)

@@ -1,38 +1,21 @@
 import * as cg from '@codelab/shared/abstract/codegen'
-import {
-  CustomActionCreateInput,
-  PipelineActionCreateInput,
-  ResourceActionCreateInput,
-} from '@codelab/shared/abstract/codegen'
-
-export interface IUpdateActionArgs {
-  update: IUpdateActionInput
-  disconnect?: IDisconnectActionInput
-  connect?: IConnectActionInput
-  delete?: IDeleteActionInput
-}
 
 export type ICreateActionInput =
-  | CustomActionCreateInput
-  | ResourceActionCreateInput
-  | PipelineActionCreateInput
+  | cg.CodeActionCreateInput
+  | cg.ApiActionCreateInput
 
 export type IUpdateActionInput =
-  | cg.CustomActionUpdateInput
-  | cg.ResourceActionUpdateInput
-  | cg.PipelineActionUpdateInput
+  | cg.CodeActionUpdateInput
+  | cg.ApiActionUpdateInput
 
 export type IConnectActionInput =
-  | cg.CustomActionConnectInput
-  | cg.ResourceActionConnectInput
-  | cg.PipelineActionConnectInput
+  | cg.CodeActionConnectInput
+  | cg.ApiActionConnectInput
 
 export type IDisconnectActionInput =
-  | cg.CustomActionDisconnectInput
-  | cg.ResourceActionDisconnectInput
-  | cg.PipelineActionDisconnectInput
+  | cg.CodeActionDisconnectInput
+  | cg.ApiActionDisconnectInput
 
 export type IDeleteActionInput =
-  | cg.CustomActionDeleteInput
-  | cg.ResourceActionDeleteInput
-  | cg.PipelineActionDeleteInput
+  | cg.CodeActionDeleteInput
+  | cg.ApiActionDeleteInput

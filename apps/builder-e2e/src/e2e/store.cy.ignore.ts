@@ -113,7 +113,7 @@ describe('Store', () => {
 
         cy.getModal().setFormFieldValue({
           label: 'Type',
-          value: IActionKind.CustomAction,
+          value: IActionKind.CodeAction,
           type: FIELD_TYPE.SELECT,
         })
 

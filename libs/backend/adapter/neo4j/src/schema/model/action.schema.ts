@@ -5,32 +5,25 @@ export const actionSchema = gql`
     """
     Action with custom code
     """
-    CustomAction
+    CodeAction
 
     """
     Action responsible for fetching data from a resource
     """
-    ResourceAction
-
-    """
-    Represents a list of actions that runs in a certain order
-    """
-    PipelineAction
+    ApiAction
   }
 
   interface ActionBase {
     id: ID! @id(autogenerate: false)
     name: String!
     type: ActionKind! @readonly
-    runOnInit: Boolean! @default(value: false)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
   }
 
-  type CustomAction implements ActionBase {
+  type CodeAction implements ActionBase {
     id: ID!
     name: String!
-    type: ActionKind! @default(value: CustomAction)
-    runOnInit: Boolean! @default(value: false)
+    type: ActionKind! @default(value: CodeAction)
     store: Store!
 
     """
@@ -39,11 +32,10 @@ export const actionSchema = gql`
     code: String!
   }
 
-  type ResourceAction implements ActionBase {
+  type ApiAction implements ActionBase {
     id: ID!
     name: String!
-    type: ActionKind! @default(value: ResourceAction)
-    runOnInit: Boolean! @default(value: false)
+    type: ActionKind! @default(value: ApiAction)
     store: Store!
 
     """
@@ -60,29 +52,5 @@ export const actionSchema = gql`
     config: Prop! @relationship(type: "ACTION_CONFIG", direction: OUT)
   }
 
-  interface ActionsPipeLine @relationshipProperties {
-    # use array because the same action could repeat
-    # use String instead of Int due to : https://github.com/neo4j/graphql/issues/167
-    orders: [String!]
-  }
-
-  type PipelineAction implements ActionBase {
-    id: ID!
-    name: String!
-    type: ActionKind! @default(value: PipelineAction)
-    runOnInit: Boolean! @default(value: false)
-    store: Store!
-
-    """
-    List of actions to run in order
-    """
-    actions: [AnyAction!]!
-      @relationship(
-        type: "ACTION_PIPELINE"
-        properties: "ActionsPipeLine"
-        direction: OUT
-      )
-  }
-
-  union AnyAction = PipelineAction | ResourceAction | CustomAction
+  union AnyAction = ApiAction | CodeAction
 `

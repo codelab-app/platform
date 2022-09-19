@@ -1,129 +1,71 @@
 import {
-  CustomActionOGM,
-  customActionSelectionSet,
-  PipelineActionOGM,
-  ResourceActionOGM,
+  ApiActionOGM,
+  CodeActionOGM,
+  codeActionSelectionSet,
 } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IActionExport, IActionKind } from '@codelab/shared/abstract/core'
-import {
-  exportPipelineActionSelectionSet,
-  exportResourceActionSelectionSet,
-} from '../selectionSets/actionSelectionSet'
+import { exportApiActionSelectionSet } from '../selectionSets/actionSelectionSet'
 
 export const importActions = async (
   actions: Array<IActionExport>,
   storeId: string,
 ) => {
-  const CustomAction = await CustomActionOGM()
-  const ResourceAction = await ResourceActionOGM()
-  const PipelineAction = await PipelineActionOGM()
-  const customActions: Array<OGM_TYPES.CustomAction> = []
-  const resourceActions: Array<OGM_TYPES.ResourceAction> = []
-  const pipelineActions: Array<OGM_TYPES.PipelineAction> = []
+  const CodeAction = await CodeActionOGM()
+  const ApiAction = await ApiActionOGM()
+  const codeActions: Array<OGM_TYPES.CodeAction> = []
+  const apiActions: Array<OGM_TYPES.ApiAction> = []
 
   for (const action of actions) {
-    if (action.type === IActionKind.CustomAction) {
-      customActions.push(action as OGM_TYPES.CustomAction)
-    } else if (action.type === IActionKind.PipelineAction) {
-      pipelineActions.push(action as OGM_TYPES.PipelineAction)
-    } else if (action.type === IActionKind.ResourceAction) {
-      resourceActions.push(action as OGM_TYPES.ResourceAction)
+    if (action.type === IActionKind.CodeAction) {
+      codeActions.push(action as OGM_TYPES.CodeAction)
+    } else if (action.type === IActionKind.ApiAction) {
+      apiActions.push(action as OGM_TYPES.ApiAction)
     } else {
       throw new Error(`Unknown action type : ${action.type}`)
     }
   }
 
-  console.log('Creating CustomActions...')
+  console.log('Creating CodeActions...')
 
-  await CustomAction.create({
-    input: customActions.map((action) => ({
+  await CodeAction.create({
+    input: codeActions.map((action) => ({
       code: action.code,
       id: action.id,
       name: action.name,
-      runOnInit: action.runOnInit,
       type: action.type,
       store: { connect: { where: { node: { id: storeId } } } },
     })),
   })
 
-  console.log('Creating ResourceActions...')
+  console.log('Creating ApiActions...')
 
-  await ResourceAction.create({
-    input: resourceActions.map((action) => ({
+  await ApiAction.create({
+    input: apiActions.map((action) => ({
       resource: { connect: { where: { node: { id: action.resource.id } } } },
       id: action.id,
       name: action.name,
-      runOnInit: action.runOnInit,
       type: action.type,
       config: { create: { node: { data: action.config.data } } },
       store: { connect: { where: { node: { id: storeId } } } },
     })),
   })
 
-  console.log('Creating PipelineActions...')
+  console.log('Updating ApiActions...')
 
-  await PipelineAction.create({
-    input: pipelineActions.map((action) => ({
-      id: action.id,
-      name: action.name,
-      runOnInit: action.runOnInit,
-      type: action.type,
-      store: { connect: { where: { node: { id: storeId } } } },
-    })),
-  })
-
-  console.log('Updating ResourceActions...')
-
-  for (const r of resourceActions) {
-    await ResourceAction.update({
+  for (const r of apiActions) {
+    await ApiAction.update({
       where: { id: r.id },
       update: {
         errorAction: {
-          ResourceAction: {
+          ApiAction: {
             connect: { where: { node: { id: r.errorAction.id } } },
           },
         },
         successAction: {
-          ResourceAction: {
+          ApiAction: {
             connect: { where: { node: { id: r.successAction.id } } },
           },
-        },
-      },
-    })
-  }
-
-  console.log('Updating PipelineActions...')
-
-  for (const p of pipelineActions) {
-    await PipelineAction.update({
-      where: { id: p.id },
-      update: {
-        actions: {
-          CustomAction: [
-            {
-              connect: p.actionsConnection.edges.map((e) => ({
-                where: { node: { id: e.node.id } },
-                edge: { orders: e.orders },
-              })),
-            },
-          ],
-          ResourceAction: [
-            {
-              connect: p.actionsConnection.edges.map((e) => ({
-                where: { node: { id: e.node.id } },
-                edge: { orders: e.orders },
-              })),
-            },
-          ],
-          PipelineAction: [
-            {
-              connect: p.actionsConnection.edges.map((e) => ({
-                where: { node: { id: e.node.id } },
-                edge: { orders: e.orders },
-              })),
-            },
-          ],
         },
       },
     })
@@ -133,24 +75,18 @@ export const importActions = async (
 export const exportActions = async (
   storeId: string,
 ): Promise<Array<IActionExport>> => {
-  const CustomAction = await CustomActionOGM()
-  const ResourceAction = await ResourceActionOGM()
-  const PipelineAction = await PipelineActionOGM()
+  const CodeAction = await CodeActionOGM()
+  const ApiAction = await ApiActionOGM()
 
-  const customActions = await CustomAction.find({
+  const codeActions = await CodeAction.find({
     where: { store: { id: storeId } },
-    selectionSet: customActionSelectionSet,
+    selectionSet: codeActionSelectionSet,
   })
 
-  const resourceActions = await ResourceAction.find({
+  const apiActions = await ApiAction.find({
     where: { store: { id: storeId } },
-    selectionSet: exportResourceActionSelectionSet,
+    selectionSet: exportApiActionSelectionSet,
   })
 
-  const pipelineActions = await PipelineAction.find({
-    where: { store: { id: storeId } },
-    selectionSet: exportPipelineActionSelectionSet,
-  })
-
-  return [...customActions, ...pipelineActions, ...resourceActions]
+  return [...codeActions, ...apiActions]
 }

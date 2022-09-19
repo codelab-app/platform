@@ -1,54 +1,38 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { Action_CustomAction_Fragment, Action_PipelineAction_Fragment, Action_ResourceAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
+import { Action_ApiAction_Fragment, Action_CodeAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
 import { ActionFragmentDoc } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
-export type CreateCustomActionsMutationVariables = Types.Exact<{
-  input: Array<Types.CustomActionCreateInput> | Types.CustomActionCreateInput;
+export type CreateCodeActionsMutationVariables = Types.Exact<{
+  input: Array<Types.CodeActionCreateInput> | Types.CodeActionCreateInput;
 }>;
 
 
-export type CreateCustomActionsMutation = { createCustomActions: { customActions: Array<Action_CustomAction_Fragment> } };
+export type CreateCodeActionsMutation = { createCodeActions: { codeActions: Array<Action_CodeAction_Fragment> } };
 
-export type CreateResourceActionsMutationVariables = Types.Exact<{
-  input: Array<Types.ResourceActionCreateInput> | Types.ResourceActionCreateInput;
+export type CreateApiActionsMutationVariables = Types.Exact<{
+  input: Array<Types.ApiActionCreateInput> | Types.ApiActionCreateInput;
 }>;
 
 
-export type CreateResourceActionsMutation = { createResourceActions: { resourceActions: Array<Action_ResourceAction_Fragment> } };
-
-export type CreatePipelineActionsMutationVariables = Types.Exact<{
-  input: Array<Types.PipelineActionCreateInput> | Types.PipelineActionCreateInput;
-}>;
+export type CreateApiActionsMutation = { createApiActions: { apiActions: Array<Action_ApiAction_Fragment> } };
 
 
-export type CreatePipelineActionsMutation = { createPipelineActions: { pipelineActions: Array<Action_PipelineAction_Fragment> } };
-
-
-export const CreateCustomActionsDocument = gql`
-    mutation CreateCustomActions($input: [CustomActionCreateInput!]!) {
-  createCustomActions(input: $input) {
-    customActions {
+export const CreateCodeActionsDocument = gql`
+    mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {
+  createCodeActions(input: $input) {
+    codeActions {
       ...Action
     }
   }
 }
     ${ActionFragmentDoc}`;
-export const CreateResourceActionsDocument = gql`
-    mutation CreateResourceActions($input: [ResourceActionCreateInput!]!) {
-  createResourceActions(input: $input) {
-    resourceActions {
-      ...Action
-    }
-  }
-}
-    ${ActionFragmentDoc}`;
-export const CreatePipelineActionsDocument = gql`
-    mutation CreatePipelineActions($input: [PipelineActionCreateInput!]!) {
-  createPipelineActions(input: $input) {
-    pipelineActions {
+export const CreateApiActionsDocument = gql`
+    mutation CreateApiActions($input: [ApiActionCreateInput!]!) {
+  createApiActions(input: $input) {
+    apiActions {
       ...Action
     }
   }
@@ -62,14 +46,11 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    CreateCustomActions(variables: CreateCustomActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateCustomActionsMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateCustomActionsMutation>(CreateCustomActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateCustomActions', 'mutation');
+    CreateCodeActions(variables: CreateCodeActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateCodeActionsMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateCodeActionsMutation>(CreateCodeActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateCodeActions', 'mutation');
     },
-    CreateResourceActions(variables: CreateResourceActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateResourceActionsMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateResourceActionsMutation>(CreateResourceActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateResourceActions', 'mutation');
-    },
-    CreatePipelineActions(variables: CreatePipelineActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreatePipelineActionsMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreatePipelineActionsMutation>(CreatePipelineActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreatePipelineActions', 'mutation');
+    CreateApiActions(variables: CreateApiActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateApiActionsMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateApiActionsMutation>(CreateApiActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateApiActions', 'mutation');
     }
   };
 }

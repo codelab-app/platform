@@ -1,3 +1,3 @@
-import { CustomActionFragment } from '../../fragments'
+import { CodeActionFragment } from '../../fragments'
 
-export type ICustomActionDTO = CustomActionFragment
+export type ICodeActionDTO = CodeActionFragment

@@ -1,14 +1,13 @@
 import { getResourceService } from '@codelab/frontend/modules/resource'
-import { getStoreService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
   ActionFragment,
   IActionDTO,
   IActionService,
   IAnyAction,
+  IApiActionDTO,
   ICreateActionDTO,
   ICreateActionInput,
-  IResourceActionDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -35,7 +34,7 @@ import {
   makeActionUpdateInput,
   updateActionApi,
 } from './apis'
-import { Action, actionRef } from './models'
+import { Action } from './models'
 
 @model('@codelab/ActionService')
 export class ActionService
@@ -102,8 +101,8 @@ export class ActionService
     const resourceService = getResourceService(this)
 
     const resources = actions
-      .filter((action) => action.__typename === IActionKind.ResourceAction)
-      .map((action) => (action as IResourceActionDTO).resource)
+      .filter((action) => action.__typename === IActionKind.ApiAction)
+      .map((action) => (action as IApiActionDTO).resource)
 
     return resources.map((resource) => resourceService.writeCache(resource))
   }
@@ -144,14 +143,20 @@ export class ActionService
     this: ActionService,
     data: Array<ICreateActionDTO>,
   ) {
-    const storeService = getStoreService(this)
-
     const input: Array<ICreateActionInput> = data.map((action) =>
       makeActionCreateInput(action),
     )
 
     const createdActions: Array<ActionFragment> = yield* _await(
-      createActionApi(input),
+      Promise.all(
+        input.map((action) => {
+          if (!action.type) {
+            throw new Error('Action type must be provided')
+          }
+
+          return createActionApi[action.type](action)
+        }),
+      ).then((res) => res.flat()),
     )
 
     if (!createdActions?.length) {
@@ -161,11 +166,6 @@ export class ActionService
 
     return createdActions.map((action) => {
       const actionModel = Action.create(action)
-
-      // add action to store
-      storeService
-        .store(actionModel.storeId)
-        ?.actions.push(actionRef(actionModel))
 
       this.actions.set(action.id, actionModel)
 

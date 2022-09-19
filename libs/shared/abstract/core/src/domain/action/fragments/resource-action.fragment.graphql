@@ -1,4 +1,4 @@
-fragment ResourceAction on ResourceAction {
+fragment ApiAction on ApiAction {
   ...ActionBase
   successAction {
     ...ActionBase

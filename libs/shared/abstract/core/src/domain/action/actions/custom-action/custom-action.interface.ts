@@ -1,11 +1,11 @@
 import { ICacheService } from '../../../../service'
 import { IActionBase } from '../../action-base.interface'
 import { IActionKind } from '../../action-kind.enum'
-import { ICustomActionDTO } from './custom-action.dto.interface'
+import { ICodeActionDTO } from './custom-action.dto.interface'
 
-export interface ICustomAction
+export interface ICodeAction
   extends IActionBase,
-    ICacheService<ICustomActionDTO, ICustomAction> {
-  type: IActionKind.CustomAction
+    ICacheService<ICodeActionDTO, ICodeAction> {
+  type: IActionKind.CodeAction
   code: string
 }
