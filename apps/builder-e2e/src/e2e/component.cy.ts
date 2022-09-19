@@ -166,7 +166,7 @@ describe('Component CRUD', () => {
 
       // the 1 is on the element tree
       cy.findAllByText(NEW_COMP_NAME).should('have.length', 2)
-      cy.findAllByText(NEW_COMP_NAME).eq(1).click()
+      cy.findAllByText(NEW_COMP_NAME).eq(1).click({ force: true })
 
       // the 2 is the component builder tree
       cy.findAllByText(NEW_COMP_NAME).should('have.length', 3)

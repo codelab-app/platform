@@ -50,11 +50,7 @@ export const Builder = observer<BuilderProps>(
       deleteModal,
     })
 
-    const handleContainerClick = useBuilderRootClickHandler({
-      set_selectedNode,
-    })
-
-    const elementId = elementTree?.root?.id
+    const handleContainerClick = useBuilderRootClickHandler()
     const elementsList = elementTree?.elementsList
 
     return (

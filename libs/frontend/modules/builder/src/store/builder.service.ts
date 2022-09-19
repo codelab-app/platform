@@ -37,14 +37,21 @@ export class BuilderService
   extends Model({
     activeTree: prop<RendererTab>(RendererTab.Page).withSetter(),
 
-    _selectedNode: prop<Nullable<Ref<INode>>>(null),
+    /**
+     * select a node would add it to expand list
+     * sometimes, it's not neccessary to expand the node. E.g:
+     *   - when deleting a node because that node needs to be expanded to delete
+     *   - clear node selection
+     */
+    _selectedNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
     _hoveredNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
 
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
 
     activeBuilderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
 
-    expandedNodeIds: prop<Array<string>>(() => []).withSetter(),
+    expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
+    expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
 
     // configPaneWidth: prop(0),
   })
@@ -114,38 +121,58 @@ export class BuilderService
     return this._hoveredNode?.current ?? null
   }
 
+  findNodesToExpand = (
+    selectedNode: INode,
+    alreadyExpandedNodeIds: Array<string>,
+  ): Array<string> => {
+    /**
+     * If we delete an element, the whole tree collapses. Instead,
+     * we want to show the sibling or parent as selected.
+     */
+    const pathResult = this.activeElementTree?.getPathFromRoot(selectedNode)
+    const expandedSet = new Set(alreadyExpandedNodeIds)
+
+    // go through each node of the path and keep track of all nodes that need to get expanded
+    const toExpand = pathResult
+      ?.filter((el) => !expandedSet.has(el.id))
+      .map((el) => {
+        return el.id
+      })
+
+    return toExpand ?? []
+  }
+
   @modelAction
-  set_selectedNode(node: Nullable<Ref<INode>>) {
+  selectComponentTreeNode(node: Nullable<Ref<INode>>) {
     this._selectedNode = node
 
     if (!node) {
       return
     }
 
-    const findNodesToExpand = (
-      selectedNode: INode,
-      alreadyExpandedNodeIds: Array<string>,
-    ): Array<string> => {
-      /**
-       * If we delete an element, the whole tree collapses. Instead,
-       * we want to show the sibling or parent as selected.
-       */
-      const pathResult = this.activeElementTree?.getPathFromRoot(selectedNode)
-      const expandedSet = new Set(alreadyExpandedNodeIds)
+    this.expandedComponentTreeNodeIds = [
+      ...this.expandedComponentTreeNodeIds,
+      ...this.findNodesToExpand(
+        node.current,
+        this.expandedComponentTreeNodeIds,
+      ),
+    ]
+  }
 
-      // go through each node of the path and keep track of all nodes that need to get expanded
-      const toExpand = pathResult
-        ?.filter((el) => !expandedSet.has(el.id))
-        .map((el) => {
-          return el.id
-        })
+  @modelAction
+  selectPageElementTreeNode(node: Nullable<Ref<INode>>) {
+    this._selectedNode = node
 
-      return toExpand ?? []
+    if (!node) {
+      return
     }
 
-    this.expandedNodeIds = [
-      ...this.expandedNodeIds,
-      ...findNodesToExpand(node.current, this.expandedNodeIds),
+    this.expandedPageElementTreeNodeIds = [
+      ...this.expandedPageElementTreeNodeIds,
+      ...this.findNodesToExpand(
+        node.current,
+        this.expandedPageElementTreeNodeIds,
+      ),
     ]
   }
 

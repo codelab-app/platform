@@ -8,7 +8,7 @@ import { AutoFields } from 'uniforms-antd'
 import { elementRef } from '../../../store'
 import { DeleteElementData, deleteElementSchema } from './deleteElementSchema'
 
-type DeleteElementModalProps = {
+interface DeleteElementModalProps {
   elementService: IElementService
   builderService: IBuilderService
 }

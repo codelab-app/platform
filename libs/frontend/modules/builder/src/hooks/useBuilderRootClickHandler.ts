@@ -3,14 +3,9 @@ import {
   DATASET_COMPONENT_ID,
   DATASET_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
-import { IBuilderService } from '@codelab/shared/abstract/core'
 import { MouseEventHandler } from 'react'
 
-type UseBuilderRootClickHandlerProps = Pick<IBuilderService, 'set_selectedNode'>
-
-export const useBuilderRootClickHandler = ({
-  set_selectedNode,
-}: UseBuilderRootClickHandlerProps) => {
+export const useBuilderRootClickHandler = () => {
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
     // be able to capture clicks on elements like disabled antd buttons and other ones that are designed not to emit clicks
