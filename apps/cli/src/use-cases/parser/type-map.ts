@@ -3,13 +3,14 @@ import {
   PrimitiveTypeOGM,
   ReactNodeTypeOGM,
   RenderPropsTypeOGM,
+  UnionTypeOGM,
 } from '@codelab/backend/adapter/neo4j'
 import {
   IAtomExport,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectId, connectTypeId } from '@codelab/shared/data'
+import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { AntdDesignApi } from './ant-design'
@@ -35,6 +36,31 @@ export const getTypeForApi = async (
   const ReactNodeType = await ReactNodeTypeOGM()
   const RenderPropsType = await RenderPropsTypeOGM()
   const EnumType = await EnumTypeOGM()
+  const UnionType = await UnionTypeOGM()
+
+  // if (apiField.isUnion) {
+  //   const [unionType] = await UnionType.find({
+  //     where: {
+  //       name: ITypeKind.UnionType,
+  //     },
+  //   })
+
+  //   return {
+  //     existingId: unionType.id,
+  //   }
+  // }
+
+  // if (apiField.type.indexOf('|') > -1) {
+  //   const [unionType] = await UnionType.find({
+  //     where: {
+  //       name: ITypeKind.UnionType,
+  //     },
+  //   })
+
+  //   return {
+  //     existingId: unionType.id,
+  //   }
+  // }
 
   if (apiField.isEnum) {
     const enumValues = apiField.type.split('|').map((v) => v.trim())
@@ -115,6 +141,8 @@ export const getTypeForApi = async (
     }
   }
 
+  // console.log(apiField)
+
   switch (type) {
     case 'boolean': {
       const [booleanType] = await PrimitiveType.find({
@@ -157,10 +185,11 @@ export const getTypeForApi = async (
     }
 
     default: {
-      console.log(
-        `Could not transform fields for Atom [${atom.type}]`,
-        apiField,
-      )
+      // console.log(
+      //   `Could not transform fields for Atom [${atom.type}]`,
+      //   apiField,
+      // )
+      // console.log('ALO ALoO')
 
       return null
     }

@@ -48,6 +48,7 @@ export class ParserService {
 
   private async handleCsv(data: Array<AntdDesignApi>, file: string) {
     const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
+    const customType = [] as Array<string>
 
     if (!atomType) {
       return
@@ -60,15 +61,23 @@ export class ParserService {
     }
 
     const fields: Array<ICreateFieldDTO> = await Promise.all(
-      data.map(async (field) => ({
-        id: v4(),
-        key: field.property,
-        name: pascalCaseToWords(field.property),
-        description: field.description,
-        fieldType:
-          (await getTypeForApi(field, atom, this.userId))?.existingId ?? '',
-      })),
+      data.map(async (field) => {
+        if (field.type.includes('|') && !customType.includes(field.type)) {
+          customType.push(field.type)
+        }
+
+        return {
+          id: v4(),
+          key: field.property,
+          name: pascalCaseToWords(field.property),
+          description: field.description,
+          fieldType:
+            (await getTypeForApi(field, atom, this.userId))?.existingId ?? '',
+        }
+      }),
     )
+
+    // console.log('customType:', customType)
 
     const filteredFields = fields.filter((field): field is ICreateFieldDTO => {
       return Boolean(field.fieldType)

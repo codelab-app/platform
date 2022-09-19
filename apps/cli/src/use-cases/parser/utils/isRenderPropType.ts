@@ -1,6 +1,8 @@
 const findArrowFnReturnReactNode = /^\(.+\).+=>.+ReactNode$/
 const findES5FnReturnReactNode = /^function(.+): ReactNode$/
 
+export const isUnionTypeRegex = /^|$/
+
 export const isReactNodeTypeRegex = /^ReactNode$/
 
 const renderPropsRegexes = [

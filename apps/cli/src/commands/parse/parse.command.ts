@@ -45,6 +45,8 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
   describe:
     'Parse Ant Design scraped CSV files and insert to application as types',
   handler: async ({ email }) => {
+    console.log('----------')
+
     const User = await UserOGM({ reinitialize: true })
 
     const selectedUserId = email

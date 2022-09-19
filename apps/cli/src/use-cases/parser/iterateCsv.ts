@@ -23,6 +23,7 @@ export const iterateCsvs = async (
             results.map((api) => ({
               ...api,
               isEnum: JSON.parse(api.isEnum as any),
+              isUnion: true,
             })),
             file,
           )
