@@ -60,7 +60,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
     return Promise.all([store.atomService.getAll(), store.tagService.getAll()])
   }, [])
 
-  const atomsData: Array<AtomRecord> = store.atomService.atoms.map((a) => ({
+  const atomsData: Array<AtomRecord> = store.atomService.atomsList.map((a) => ({
     id: a.id,
     type: a.type,
     apiId: a.api.id,

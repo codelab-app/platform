@@ -1,1 +1,1 @@
-export const componentTagName = 'Component'
+export const COMPONENT_TAG_NAME = 'Component'

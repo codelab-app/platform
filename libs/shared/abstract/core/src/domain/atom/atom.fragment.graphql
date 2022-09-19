@@ -4,8 +4,7 @@ fragment Atom on Atom {
   name
   type
   tags {
-    id
-    name
+    ...Tag
   }
   api {
     id

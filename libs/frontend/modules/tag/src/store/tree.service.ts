@@ -1,7 +1,7 @@
 import {
   ICacheService,
-  IGraphQLTagNode,
   ITagDTO,
+  ITagNode,
   ITagTreeNode,
   ITagTreeService,
   TagFragment,
@@ -52,10 +52,10 @@ export const nodeRef = rootRef<Node>('@codelab/NodeRef', {
 })
 
 @model('@codelab/TreeService')
-export class TreeService<TNode extends IGraphQLTagNode, TEdge>
+export class TreeService<TNode extends ITagNode, TEdge>
   extends Model(<
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    TNode extends IGraphQLTagNode,
+    TNode extends ITagNode,
     // eslint-disable-next-line @typescript-eslint/no-shadow
     TEdge,
   >() => ({
@@ -70,11 +70,7 @@ export class TreeService<TNode extends IGraphQLTagNode, TEdge>
   /**
    * Only use this to initialize TreeService class, convert GraphQL data to Tree
    */
-  static init<TNode extends IGraphQLTagNode>({
-    nodes,
-  }: {
-    nodes: Array<TNode>
-  }) {
+  static init<TNode extends ITagNode>({ nodes }: { nodes: Array<TNode> }) {
     const sortedNode = nodes.sort((a, b) => {
       if (a.children.length > b.children.length) {
         return 1

@@ -2,7 +2,6 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { TagWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTagDTO,
-  IGraphQLTagNode,
   ITag,
   ITagDTO,
   ITagGraphDTO,
@@ -10,6 +9,7 @@ import type {
   ITagTreeNode,
   IUpdateTagDTO,
 } from '@codelab/shared/abstract/core'
+import { ITagNode } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
@@ -57,7 +57,7 @@ export class TagService
 
   @computed
   get tagsSelectOptions() {
-    return Array.from(this.tags.values()).map((tag) => ({
+    return this.tagsList.map((tag) => ({
       label: tag.name,
       value: tag.id,
     }))
@@ -197,6 +197,11 @@ export class TagService
       (yield* _await(this.deleteMany(checkedTags.map((tag) => tag.id))))
   })
 
+  @computed
+  get tagsList() {
+    return Array.from(this.tags.values())
+  }
+
   @modelFlow
   @transaction
   getTagGraphs = _async(function* (this: TagService) {
@@ -204,7 +209,7 @@ export class TagService
 
     this.tagGraphs = tagGraphs
 
-    const makeupResponse: Array<IGraphQLTagNode> =
+    const makeupResponse: Array<ITagNode> =
       this.tagGraphs?.map((tag: ITagGraphDTO) => ({
         id: tag.id,
         label: tag.name,
@@ -212,7 +217,7 @@ export class TagService
         isRoot: Boolean(tag.isRoot),
       })) || []
 
-    const treeService = TreeService.init<IGraphQLTagNode>({
+    const treeService = TreeService.init<ITagNode>({
       nodes: makeupResponse,
     })
 
@@ -237,7 +242,7 @@ export class TagService
     if (!tagModel) {
       tagModel = Tag.hydrate(tag)
     } else {
-      // tagModel = tagModel.writeCache(tag)
+      tagModel = tagModel.writeCache(tag)
     }
 
     this.tags.set(tag.id, tagModel)

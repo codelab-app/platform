@@ -1,6 +1,14 @@
-import { IGraphQLTagNode, ITag, ITagDTO } from '@codelab/shared/abstract/core'
+import { ITag, ITagDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
-import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
+import {
+  detach,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+  rootRef,
+} from 'mobx-keystone'
 
 const hydrate = (tag: ITagDTO) => {
   return new Tag({
@@ -17,7 +25,7 @@ export class Tag
     name: prop<string>(),
     children: prop<Array<string>>(),
   })
-  implements IGraphQLTagNode, ITag
+  implements ITag
 {
   @computed
   get label() {
@@ -25,6 +33,14 @@ export class Tag
   }
 
   static hydrate = hydrate
+
+  @modelAction
+  writeCache(tag: ITagDTO) {
+    this.name = tag.name
+    this.children = tag.children.map((child) => child.id)
+
+    return this
+  }
 }
 
 export const tagRef = rootRef<Tag>('@codelab/TagRef', {

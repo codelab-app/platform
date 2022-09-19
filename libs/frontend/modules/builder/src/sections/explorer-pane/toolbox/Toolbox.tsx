@@ -66,10 +66,9 @@ export const Toolbox = observer<ToolboxProps>(
     useEffect(() => {
       return autorun(() => {
         const componentsList = componentService.components
-        const atomsList = atomService.atoms
 
         const toolboxItems: Array<ToolboxItemProps> = [
-          ...atomsList.map(atomToolboxItemFactory),
+          ...atomService.atomsList.map(atomToolboxItemFactory),
           ...[...componentsList.values()].map(componentToolboxItemFactory),
         ]
 

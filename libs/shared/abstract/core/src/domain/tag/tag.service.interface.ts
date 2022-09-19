@@ -36,6 +36,7 @@ export interface ITagService
   updateModal: IModalService<Ref<ITagTreeNode>, { tag?: ITagTreeNode }>
   deleteMany(ids: Array<ITagRef>): Promise<Array<ITag>>
   tags: ObjectMap<ITag>
+  tagsList: Array<ITag>
   tag(id: string): Maybe<ITag>
   tagsSelectOptions: Array<LabeledValue>
   selectedOption: LabeledValue

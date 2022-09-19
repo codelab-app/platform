@@ -4,7 +4,6 @@ import { getTagService } from '@codelab/frontend/modules/tag'
 import {
   BuilderDragData,
   BuilderTab,
-  IBuilderComponent,
   IBuilderService,
   INode,
   isComponent,
@@ -12,9 +11,9 @@ import {
   RendererTab,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { componentTagName } from '@codelab/shared/data'
+import { COMPONENT_TAG_NAME } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
-import { groupBy } from 'lodash'
+import { chain } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -22,7 +21,6 @@ import {
   findParent,
   Frozen,
   getRefsResolvingTo,
-  getSnapshot,
   Model,
   model,
   modelAction,
@@ -75,55 +73,37 @@ export class BuilderService
     )
   })
 
+  /**
+   * Get all components that have `Component` tag
+   */
   get componentTagNames() {
     const tagService = getTagService(this)
 
     // all component tags are marked under the component tag
-    const componentTag = Array.from(tagService.tags.values()).find(
-      (tag) => tag.name === componentTagName,
-    )
-
-    if (!componentTag) {
-      return []
-    }
-
-    return componentTag.children
-      .map((id) => tagService.tag(id))
+    return Array.from(tagService.tags.values())
+      .filter((tag) => tag.name === COMPONENT_TAG_NAME)
+      .flatMap((tag) => tag.children.map((id) => tagService.tag(id)))
       .map((tag) => tag?.name)
       .filter(isNonNullable)
   }
 
-  get componentsGroupedByTag() {
+  /**
+   * Each component has a category tag
+   */
+  get componentsGroupedByCategory() {
     const atomService = getAtomService(this)
-    // const componentService = getComponentService(this)
 
     // atoms are internal components while components are created by users
-    const components = [
-      ...atomService.atoms,
-      // ...[...componentService.components.values()],
-    ]
-
-    const componentsWithTag = components
-      .map((component) => {
-        // components can be atom -> filter only the component tag from atom tags
-        const tag = component.tags.find((tagRef) =>
-          this.componentTagNames.includes(String(tagRef.maybeCurrent?.name)),
-        )
-
-        return {
-          ...getSnapshot(component),
-          tag,
-        }
-      })
-      // if no tag = atoms used for some other purposes
-      .filter((component): component is IBuilderComponent =>
-        Boolean(component.tag),
+    return chain([...atomService.atoms.values()])
+      .filter((component) => Boolean(component.tags))
+      .groupBy(
+        (component) =>
+          // Here we assume each atom only has one category tag
+          component.tags?.filter(
+            (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
+          )[0]?.maybeCurrent?.name,
       )
-
-    return groupBy<IBuilderComponent>(
-      componentsWithTag,
-      (component) => component.tag?.maybeCurrent?.name,
-    )
+      .value()
   }
 
   @computed

@@ -1,5 +1,5 @@
 import { IAtomExport } from '@codelab/shared/abstract/core'
-import { componentTagName } from '@codelab/shared/data'
+import { COMPONENT_TAG_NAME } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { antComponentsByCategory } from './antd-components.data'
 import { searchRelatedParentName } from './utils'
@@ -13,7 +13,7 @@ const antdComponents = Object.values(antComponentsByCategory).flat()
  */
 const componentTag = {
   id: v4(),
-  name: componentTagName,
+  name: COMPONENT_TAG_NAME,
   children: [],
 }
 

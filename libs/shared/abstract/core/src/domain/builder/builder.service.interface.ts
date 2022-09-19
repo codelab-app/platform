@@ -6,7 +6,6 @@ import { IAtom } from '../atom'
 import { IComponent } from '../component'
 import { IElementTree } from '../element'
 import { IStateTreeNode, RendererTab } from '../render'
-import { ITag } from '../tag'
 import { BuilderDragData } from './builder.interface'
 import { BuilderTab } from './builder-tab.interface'
 import { INode } from './node.interface'
@@ -17,7 +16,7 @@ export interface StateModalProperties {
 
 // TBC: | IComponent
 export type IBuilderComponent = IAtom & {
-  tag: Ref<ITag>
+  // tag: Ref<ITag>
 }
 
 export interface IBuilderService {
@@ -40,7 +39,7 @@ export interface IBuilderService {
    */
   activeComponent: Nullable<IComponent>
   componentTagNames: Array<string>
-  componentsGroupedByTag: Record<string, Array<IBuilderComponent>>
+  componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
 
   getPageBuilder({
     appId,

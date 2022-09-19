@@ -65,7 +65,7 @@ export const ConfigPane = observer<MetaPaneProps>(
         <Tabs defaultActiveKey={selectedNode.id + '_tab2'} size="small">
           <Tabs.TabPane
             destroyInactiveTabPane
-            key="tab1"
+            key="inspector"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
@@ -132,12 +132,12 @@ export const ConfigPane = observer<MetaPaneProps>(
           </Tabs.TabPane>
           <Tabs.TabPane
             destroyInactiveTabPane
-            key="tab2"
+            key="component"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
                 <CodeSandboxOutlined />
-                Component{' '}
+                Component
               </div>
             }
           >
