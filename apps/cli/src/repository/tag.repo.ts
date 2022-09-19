@@ -36,6 +36,7 @@ export const upsertTag = async (
   const Tag = await TagOGM()
 
   console.log(`[Finding Tag]: with ${where}`)
+  console.log(tag)
 
   const existingTag = await Tag.find({
     where: where(tag),
