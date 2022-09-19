@@ -93,16 +93,15 @@ export class ElementTree
   @modelAction
   addElements(elements: Array<IElement>) {
     // filter elements that are already on the tree
-    const isElementNotInTree = (element: IElement) =>
-      this._elements.some((_element) => _element.id !== element.id)
+    const newElements = elements.filter(
+      (element) => !this.elementService.element(element.id),
+    )
 
-    const newElements = elements.filter(isElementNotInTree)
-
-    // add reference to new element
-    newElements.forEach((element) => this._elements.push(elementRef(element)))
-
-    // validate component meta data
     newElements.forEach((element) => {
+      // add reference to new element
+      this._elements.push(elementRef(element))
+
+      // validate component meta data
       if (element.renderComponentType?.current) {
         const componentId = element.renderComponentType?.current.id
         const component = this.componentService.components.get(componentId)

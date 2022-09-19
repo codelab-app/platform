@@ -8,6 +8,7 @@
       "options": {
         "cypressExecutor": "e2e"
       },
+      // Need this empty block to forward the configurations
       "configurations": {
         "ci": {},
         "test": {},
