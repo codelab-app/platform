@@ -4,9 +4,7 @@ import { IActionKind } from './action-kind.enum'
 import { IGraphQLActionConfig, IRestActionConfig } from './actions'
 import { ActionFragment } from './fragments'
 
-export type IResourceActionConfig = IProp<
-  IRestActionConfig | IGraphQLActionConfig
->
+export type IApiActionConfig = IProp<IRestActionConfig | IGraphQLActionConfig>
 
 export interface IActionBaseDTO {
   id: string
@@ -30,4 +28,4 @@ export type IUpdateActionDTO = IActionBaseDTO
 
 export type IActionDTO = ActionFragment
 
-export type IActionExport = OGM_TYPES.CustomAction | OGM_TYPES.ResourceAction
+export type IActionExport = OGM_TYPES.CodeAction | OGM_TYPES.ApiAction

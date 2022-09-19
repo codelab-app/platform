@@ -17,7 +17,7 @@ import {
   IUpdateActionInput,
 } from '@codelab/shared/abstract/core'
 import { connectTypeOwner } from '@codelab/shared/data'
-import { capitalize, keys } from 'lodash'
+import { capitalize } from 'lodash'
 import { v4 } from 'uuid'
 
 export const makeStoreCreateInput = (
@@ -47,31 +47,31 @@ export const makeActionCreateInput = (
     type: action.type,
     store: { connect: { where: { node: { id: action.storeId } } } },
 
-    code: action.type === IActionKind.CustomAction ? action.code : undefined,
+    code: action.type === IActionKind.CodeAction ? action.code : undefined,
 
     config:
-      action.type === IActionKind.ResourceAction
+      action.type === IActionKind.ApiAction
         ? { create: { node: { data: JSON.stringify(action.config || {}) } } }
         : undefined,
 
     resource:
-      action.type === IActionKind.ResourceAction
+      action.type === IActionKind.ApiAction
         ? { connect: { where: { node: { id: action.resourceId } } } }
         : undefined,
 
     errorAction:
-      action.type === IActionKind.ResourceAction && action.errorActionId
+      action.type === IActionKind.ApiAction && action.errorActionId
         ? {
-            ResourceAction: {
+            ApiAction: {
               connect: { where: { node: { id: action.errorActionId } } },
             },
           }
         : undefined,
 
     successAction:
-      action.type === IActionKind.ResourceAction && action.successActionId
+      action.type === IActionKind.ApiAction && action.successActionId
         ? {
-            ResourceAction: {
+            ApiAction: {
               connect: { where: { node: { id: action.successActionId } } },
             },
           }
@@ -92,32 +92,32 @@ export const makeActionUpdateInput = (
       name: input.name,
 
       resource:
-        input.type === IActionKind.ResourceAction
+        input.type === IActionKind.ApiAction
           ? { connect: { where: { node: { id: input.resourceId } } } }
           : undefined,
 
       config:
-        input.type === IActionKind.ResourceAction
+        input.type === IActionKind.ApiAction
           ? { update: { node: { data: JSON.stringify(input.config) } } }
           : undefined,
       errorAction:
-        input.type === IActionKind.ResourceAction
+        input.type === IActionKind.ApiAction
           ? {
-              ResourceAction: {
+              ApiAction: {
                 connect: { where: { node: { id: input.errorActionId } } },
               },
             }
           : undefined,
       successAction:
-        input.type === IActionKind.ResourceAction
+        input.type === IActionKind.ApiAction
           ? {
-              ResourceAction: {
+              ApiAction: {
                 connect: { where: { node: { id: input.successActionId } } },
               },
             }
           : undefined,
 
-      code: input.type === IActionKind.CustomAction ? input.code : undefined,
+      code: input.type === IActionKind.CodeAction ? input.code : undefined,
     },
   }
 }

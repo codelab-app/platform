@@ -1,3 +1,3 @@
-import { ICustomAction, IResourceAction } from './actions'
+import { IApiAction, ICodeAction } from './actions'
 
-export type IAnyAction = ICustomAction | IResourceAction
+export type IAnyAction = ICodeAction | IApiAction

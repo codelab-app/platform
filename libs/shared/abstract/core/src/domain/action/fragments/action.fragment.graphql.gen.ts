@@ -1,39 +1,39 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { ActionBase_CustomAction_Fragment, ActionBase_ResourceAction_Fragment } from './action-base.fragment.graphql.gen';
-import { CustomActionFragment } from './custom-action.fragment.graphql.gen';
-import { ResourceActionFragment } from './resource-action.fragment.graphql.gen';
+import { ActionBase_CodeAction_Fragment, ActionBase_ApiAction_Fragment } from './action-base.fragment.graphql.gen';
+import { CodeActionFragment } from './custom-action.fragment.graphql.gen';
+import { ApiActionFragment } from './resource-action.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
 import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen';
-import { CustomActionFragmentDoc } from './custom-action.fragment.graphql.gen';
-import { ResourceActionFragmentDoc } from './resource-action.fragment.graphql.gen';
-export type Action_CustomAction_Fragment = (
-  ActionBase_CustomAction_Fragment
-  & CustomActionFragment
+import { CodeActionFragmentDoc } from './custom-action.fragment.graphql.gen';
+import { ApiActionFragmentDoc } from './resource-action.fragment.graphql.gen';
+export type Action_CodeAction_Fragment = (
+  CodeActionFragment
+  & ActionBase_CodeAction_Fragment
 );
 
-export type Action_ResourceAction_Fragment = (
-  ActionBase_ResourceAction_Fragment
-  & ResourceActionFragment
+export type Action_ApiAction_Fragment = (
+  ApiActionFragment
+  & ActionBase_ApiAction_Fragment
 );
 
-export type ActionFragment = Action_CustomAction_Fragment | Action_ResourceAction_Fragment;
+export type ActionFragment = Action_CodeAction_Fragment | Action_ApiAction_Fragment;
 
 export const ActionFragmentDoc = gql`
     fragment Action on ActionBase {
   ...ActionBase
-  ... on CustomAction {
-    ...CustomAction
+  ... on CodeAction {
+    ...CodeAction
   }
-  ... on ResourceAction {
-    ...ResourceAction
+  ... on ApiAction {
+    ...ApiAction
   }
 }
     ${ActionBaseFragmentDoc}
-${CustomActionFragmentDoc}
-${ResourceActionFragmentDoc}`;
+${CodeActionFragmentDoc}
+${ApiActionFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 

@@ -1,19 +1,19 @@
 import {
   IActionDTO,
   IActionKind,
-  ICustomAction,
-  IResourceAction,
+  IApiAction,
+  ICodeAction,
 } from '@codelab/shared/abstract/core'
-import { CustomAction } from './custom-action.model'
-import { ResourceAction } from './resource-action.model'
+import { CodeAction } from './custom-action.model'
+import { ApiAction } from './resource-action.model'
 
 const createActionFactory = (action: IActionDTO) => {
   switch (action.__typename) {
-    case IActionKind.CustomAction:
-      return CustomAction.hydrate(action)
+    case IActionKind.CodeAction:
+      return CodeAction.hydrate(action)
 
-    case IActionKind.ResourceAction:
-      return ResourceAction.hydrate(action)
+    case IActionKind.ApiAction:
+      return ApiAction.hydrate(action)
 
     default:
       throw new Error(`unknown action kind: ${action.name}`)
@@ -22,19 +22,19 @@ const createActionFactory = (action: IActionDTO) => {
 
 const writeActionCacheFactory = (
   action: IActionDTO,
-  actionModel: ICustomAction | IResourceAction,
+  actionModel: ICodeAction | IApiAction,
 ) => {
   if (
-    action.__typename === IActionKind.CustomAction &&
+    action.__typename === IActionKind.CodeAction &&
     // used for linting
-    actionModel.type === IActionKind.CustomAction
+    actionModel.type === IActionKind.CodeAction
   ) {
     return actionModel.writeCache(action)
   }
 
   if (
-    action.__typename === IActionKind.ResourceAction &&
-    actionModel.type === IActionKind.ResourceAction
+    action.__typename === IActionKind.ApiAction &&
+    actionModel.type === IActionKind.ApiAction
   ) {
     return actionModel.writeCache(action)
   }

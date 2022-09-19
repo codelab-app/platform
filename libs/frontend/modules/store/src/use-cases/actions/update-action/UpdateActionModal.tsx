@@ -40,24 +40,24 @@ export const UpdateActionModal = observer<{
     id: updateAction?.id,
 
     config:
-      updateAction?.type === IActionKind.ResourceAction
+      updateAction?.type === IActionKind.ApiAction
         ? updateAction.config?.values
         : undefined,
     resourceId:
-      updateAction?.type === IActionKind.ResourceAction
+      updateAction?.type === IActionKind.ApiAction
         ? updateAction.resource?.id
         : undefined,
     successActionId:
-      updateAction?.type === IActionKind.ResourceAction
+      updateAction?.type === IActionKind.ApiAction
         ? updateAction.successAction?.id
         : undefined,
     errorActionId:
-      updateAction?.type === IActionKind.ResourceAction
+      updateAction?.type === IActionKind.ApiAction
         ? updateAction.errorAction.id
         : undefined,
 
     code:
-      updateAction?.type === IActionKind.CustomAction
+      updateAction?.type === IActionKind.CodeAction
         ? updateAction.code
         : undefined,
   }
@@ -91,16 +91,16 @@ export const UpdateActionModal = observer<{
           ]}
         />
 
-        {/** Custom Action */}
+        {/** Code Action */}
         <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => c.model.type === IActionKind.CustomAction}
+          condition={(c) => c.model.type === IActionKind.CodeAction}
         >
           <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
-        {/** Resource Action */}
+        {/** Api Action */}
         <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => c.model.type === IActionKind.ResourceAction}
+          condition={(c) => c.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
 

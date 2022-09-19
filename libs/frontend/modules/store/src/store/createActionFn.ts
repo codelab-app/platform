@@ -8,11 +8,11 @@ import { set } from 'lodash'
  */
 export const createActionFn = (action: IAnyAction, context: any) => {
   switch (action.type) {
-    case IActionKind.CustomAction:
+    case IActionKind.CodeAction:
       // eslint-disable-next-line no-eval
       return eval(`(${action.code})`).bind(context)
 
-    case IActionKind.ResourceAction:
+    case IActionKind.ApiAction:
       return (...args: Array<any>) =>
         action
           .run()

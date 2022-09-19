@@ -6,9 +6,9 @@ import type {
   IActionDTO,
   IActionService,
   IAnyAction,
+  IApiActionDTO,
   ICreateActionDTO,
   ICreateActionInput,
-  IResourceActionDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -102,8 +102,8 @@ export class ActionService
     const resourceService = getResourceService(this)
 
     const resources = actions
-      .filter((action) => action.__typename === IActionKind.ResourceAction)
-      .map((action) => (action as IResourceActionDTO).resource)
+      .filter((action) => action.__typename === IActionKind.ApiAction)
+      .map((action) => (action as IApiActionDTO).resource)
 
     return resources.map((resource) => resourceService.writeCache(resource))
   }

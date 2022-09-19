@@ -5,12 +5,12 @@ export const actionSchema = gql`
     """
     Action with custom code
     """
-    CustomAction
+    CodeAction
 
     """
     Action responsible for fetching data from a resource
     """
-    ResourceAction
+    ApiAction
   }
 
   interface ActionBase {
@@ -20,10 +20,10 @@ export const actionSchema = gql`
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
   }
 
-  type CustomAction implements ActionBase {
+  type CodeAction implements ActionBase {
     id: ID!
     name: String!
-    type: ActionKind! @default(value: CustomAction)
+    type: ActionKind! @default(value: CodeAction)
     store: Store!
 
     """
@@ -32,10 +32,10 @@ export const actionSchema = gql`
     code: String!
   }
 
-  type ResourceAction implements ActionBase {
+  type ApiAction implements ActionBase {
     id: ID!
     name: String!
-    type: ActionKind! @default(value: ResourceAction)
+    type: ActionKind! @default(value: ApiAction)
     store: Store!
 
     """
@@ -52,5 +52,5 @@ export const actionSchema = gql`
     config: Prop! @relationship(type: "ACTION_CONFIG", direction: OUT)
   }
 
-  union AnyAction = ResourceAction | CustomAction
+  union AnyAction = ApiAction | CodeAction
 `

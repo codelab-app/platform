@@ -1,9 +1,9 @@
 fragment Action on ActionBase {
   ...ActionBase
-  ... on CustomAction {
-    ...CustomAction
+  ... on CodeAction {
+    ...CodeAction
   }
-  ... on ResourceAction {
-    ...ResourceAction
+  ... on ApiAction {
+    ...ApiAction
   }
 }

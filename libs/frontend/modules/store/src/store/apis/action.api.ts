@@ -61,15 +61,16 @@ export const getActionsByStore = async (
   return flatten(Object.values(result) as any)
 }
 
-const createCustomAction = (input: CustomActionCreateInput) =>
-  _createActionApi
-    .CreateCustomActions({ input })
-    .then((r) => r.createCustomActions.customActions)
-
-  [IActionKind.ResourceAction]: (input) =>
+export const createActionApi: CreateActions = {
+  [IActionKind.CodeAction]: (input) =>
     _createActionApi
-      .CreateResourceActions({ input })
-      .then((response) => response.createResourceActions.resourceActions),
+      .CreateCodeActions({ input: input as any })
+      .then((response) => response.createCodeActions.codeActions),
+
+  [IActionKind.ApiAction]: (input) =>
+    _createActionApi
+      .CreateApiActions({ input })
+      .then((response) => response.createApiActions.apiActions),
 }
 
 export const createActionApi = async (actionsDTOs: Array<ICreateActionInput>) =>
@@ -92,24 +93,20 @@ export const createActionApi = async (actionsDTOs: Array<ICreateActionInput>) =>
   ).then((r) => r.flat())
 
 export const updateActionApi: UpdateActionsRecord = {
-  [IActionKind.CustomAction]: (vars) =>
+  [IActionKind.CodeAction]: (vars) =>
     _updateActionApi
-      .UpdateCustomActions(vars)
-      .then((response) => response.updateCustomActions.customActions),
+      .UpdateCodeActions(vars)
+      .then((response) => response.updateCodeActions.codeActions),
 
-  [IActionKind.ResourceAction]: (vars) =>
+  [IActionKind.ApiAction]: (vars) =>
     _updateActionApi
-      .UpdateResourceActions(vars)
-      .then((response) => response.updateResourceActions.resourceActions),
+      .UpdateApiActions(vars)
+      .then((response) => response.updateApiActions.apiActions),
 }
 
 export const deleteActionApi: DeleteActionsRecord = {
-  [IActionKind.CustomAction]: (vars) =>
-    _deleteActionApi
-      .DeleteCustomActions(vars)
-      .then((r) => r.deleteCustomActions),
-  [IActionKind.ResourceAction]: (vars) =>
-    _deleteActionApi
-      .DeleteResourceActions(vars)
-      .then((r) => r.deleteResourceActions),
+  [IActionKind.CodeAction]: (vars) =>
+    _deleteActionApi.DeleteCodeActions(vars).then((r) => r.deleteCodeActions),
+  [IActionKind.ApiAction]: (vars) =>
+    _deleteActionApi.DeleteApiActions(vars).then((r) => r.deleteApiActions),
 }

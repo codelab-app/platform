@@ -13,21 +13,21 @@ export interface IUpdateActionArgs {
 }
 
 export type ICreateActionInput =
-  | cg.CustomActionCreateInput
-  | cg.ResourceActionCreateInput
+  | cg.CodeActionCreateInput
+  | cg.ApiActionCreateInput
 
 export type IUpdateActionInput =
-  | cg.CustomActionUpdateInput
-  | cg.ResourceActionUpdateInput
+  | cg.CodeActionUpdateInput
+  | cg.ApiActionUpdateInput
 
 export type IConnectActionInput =
-  | cg.CustomActionConnectInput
-  | cg.ResourceActionConnectInput
+  | cg.CodeActionConnectInput
+  | cg.ApiActionConnectInput
 
 export type IDisconnectActionInput =
-  | cg.CustomActionDisconnectInput
-  | cg.ResourceActionDisconnectInput
+  | cg.CodeActionDisconnectInput
+  | cg.ApiActionDisconnectInput
 
 export type IDeleteActionInput =
-  | cg.CustomActionDeleteInput
-  | cg.ResourceActionDeleteInput
+  | cg.CodeActionDeleteInput
+  | cg.ApiActionDeleteInput

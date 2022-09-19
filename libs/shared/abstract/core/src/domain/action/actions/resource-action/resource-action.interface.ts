@@ -1,18 +1,18 @@
 import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../../../service'
 import { IResource } from '../../../resource'
-import { IResourceActionConfig } from '../../action.dto.interface'
+import { IApiActionConfig } from '../../action.dto.interface'
 import { IAnyAction } from '../../action.interface'
 import { IActionBase } from '../../action-base.interface'
 import { IActionKind } from '../../action-kind.enum'
-import { IResourceActionDTO } from './resource-action.dto.interface'
+import { IApiActionDTO } from './resource-action.dto.interface'
 
-export interface IResourceAction
+export interface IApiAction
   extends IActionBase,
-    ICacheService<IResourceActionDTO, IResourceAction> {
-  type: IActionKind.ResourceAction
+    ICacheService<IApiActionDTO, IApiAction> {
+  type: IActionKind.ApiAction
   resource: Ref<IResource>
-  config: IResourceActionConfig
+  config: IApiActionConfig
   successAction: Ref<IAnyAction>
   errorAction: Ref<IAnyAction>
   run: () => Promise<any>

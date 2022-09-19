@@ -1,12 +1,12 @@
-mutation DeleteCustomActions($where: CustomActionWhere!) {
-  deleteCustomActions(where: $where) {
+mutation DeleteCodeActions($where: CodeActionWhere!) {
+  deleteCodeActions(where: $where) {
     nodesDeleted
     relationshipsDeleted
   }
 }
 
-mutation DeleteResourceActions($where: ResourceActionWhere!) {
-  deleteResourceActions(where: $where) {
+mutation DeleteApiActions($where: ApiActionWhere!) {
+  deleteApiActions(where: $where) {
     nodesDeleted
     relationshipsDeleted
   }

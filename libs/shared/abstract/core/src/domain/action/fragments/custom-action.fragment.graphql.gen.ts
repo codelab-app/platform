@@ -1,17 +1,17 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { ActionBase_CustomAction_Fragment, ActionBase_ResourceAction_Fragment } from './action-base.fragment.graphql.gen';
+import { ActionBase_CodeAction_Fragment, ActionBase_ApiAction_Fragment } from './action-base.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
 import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen';
-export type CustomActionFragment = (
+export type CodeActionFragment = (
   { code: string }
-  & ActionBase_CustomAction_Fragment
+  & ActionBase_CodeAction_Fragment
 );
 
-export const CustomActionFragmentDoc = gql`
-    fragment CustomAction on CustomAction {
+export const CodeActionFragmentDoc = gql`
+    fragment CodeAction on CodeAction {
   ...ActionBase
   code
 }

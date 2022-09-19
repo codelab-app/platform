@@ -16,10 +16,7 @@ import { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
-const defaultCustomAction = `function run() {
-    // insert your code here 
-    // this.count += 2; 
-}`
+const defaultCodeAction = `// ex: this.count = this.count + 1`
 
 export const CreateActionModal = observer<{
   actionService: IActionService
@@ -50,7 +47,7 @@ export const CreateActionModal = observer<{
       <ModalForm.Form<ICreateActionDTO>
         model={{
           storeId: store.id,
-          code: defaultCustomAction,
+          code: defaultCodeAction,
           actionsIds: [],
           config: {
             body: '{}',
@@ -78,16 +75,16 @@ export const CreateActionModal = observer<{
           ]}
         />
 
-        {/** Custom Action */}
+        {/** Code Action */}
         <DisplayIfField<ICreateActionDTO>
-          condition={(c) => c.model.type === IActionKind.CustomAction}
+          condition={(c) => c.model.type === IActionKind.CodeAction}
         >
           <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
-        {/** Resource Action */}
+        {/** Api Action */}
         <DisplayIfField<ICreateActionDTO>
-          condition={(c) => c.model.type === IActionKind.ResourceAction}
+          condition={(c) => c.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
 

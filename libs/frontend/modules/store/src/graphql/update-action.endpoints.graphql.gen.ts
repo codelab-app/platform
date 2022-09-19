@@ -1,38 +1,38 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { Action_CustomAction_Fragment, Action_ResourceAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
+import { Action_CodeAction_Fragment, Action_ApiAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
 import { ActionFragmentDoc } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
-export type UpdateCustomActionsMutationVariables = Types.Exact<{
-  connect?: Types.InputMaybe<Types.CustomActionConnectInput>;
-  create?: Types.InputMaybe<Types.CustomActionRelationInput>;
-  delete?: Types.InputMaybe<Types.CustomActionDeleteInput>;
-  disconnect?: Types.InputMaybe<Types.CustomActionDisconnectInput>;
-  update?: Types.InputMaybe<Types.CustomActionUpdateInput>;
-  where?: Types.InputMaybe<Types.CustomActionWhere>;
+export type UpdateCodeActionsMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.CodeActionConnectInput>;
+  create?: Types.InputMaybe<Types.CodeActionRelationInput>;
+  delete?: Types.InputMaybe<Types.CodeActionDeleteInput>;
+  disconnect?: Types.InputMaybe<Types.CodeActionDisconnectInput>;
+  update?: Types.InputMaybe<Types.CodeActionUpdateInput>;
+  where?: Types.InputMaybe<Types.CodeActionWhere>;
 }>;
 
 
-export type UpdateCustomActionsMutation = { updateCustomActions: { customActions: Array<Action_CustomAction_Fragment> } };
+export type UpdateCodeActionsMutation = { updateCodeActions: { codeActions: Array<Action_CodeAction_Fragment> } };
 
-export type UpdateResourceActionsMutationVariables = Types.Exact<{
-  connect?: Types.InputMaybe<Types.ResourceActionConnectInput>;
-  create?: Types.InputMaybe<Types.ResourceActionRelationInput>;
-  delete?: Types.InputMaybe<Types.ResourceActionDeleteInput>;
-  disconnect?: Types.InputMaybe<Types.ResourceActionDisconnectInput>;
-  update?: Types.InputMaybe<Types.ResourceActionUpdateInput>;
-  where?: Types.InputMaybe<Types.ResourceActionWhere>;
+export type UpdateApiActionsMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.ApiActionConnectInput>;
+  create?: Types.InputMaybe<Types.ApiActionRelationInput>;
+  delete?: Types.InputMaybe<Types.ApiActionDeleteInput>;
+  disconnect?: Types.InputMaybe<Types.ApiActionDisconnectInput>;
+  update?: Types.InputMaybe<Types.ApiActionUpdateInput>;
+  where?: Types.InputMaybe<Types.ApiActionWhere>;
 }>;
 
 
-export type UpdateResourceActionsMutation = { updateResourceActions: { resourceActions: Array<Action_ResourceAction_Fragment> } };
+export type UpdateApiActionsMutation = { updateApiActions: { apiActions: Array<Action_ApiAction_Fragment> } };
 
 
-export const UpdateCustomActionsDocument = gql`
-    mutation UpdateCustomActions($connect: CustomActionConnectInput, $create: CustomActionRelationInput, $delete: CustomActionDeleteInput, $disconnect: CustomActionDisconnectInput, $update: CustomActionUpdateInput, $where: CustomActionWhere) {
-  updateCustomActions(
+export const UpdateCodeActionsDocument = gql`
+    mutation UpdateCodeActions($connect: CodeActionConnectInput, $create: CodeActionRelationInput, $delete: CodeActionDeleteInput, $disconnect: CodeActionDisconnectInput, $update: CodeActionUpdateInput, $where: CodeActionWhere) {
+  updateCodeActions(
     update: $update
     where: $where
     connect: $connect
@@ -40,15 +40,15 @@ export const UpdateCustomActionsDocument = gql`
     delete: $delete
     disconnect: $disconnect
   ) {
-    customActions {
+    codeActions {
       ...Action
     }
   }
 }
     ${ActionFragmentDoc}`;
-export const UpdateResourceActionsDocument = gql`
-    mutation UpdateResourceActions($connect: ResourceActionConnectInput, $create: ResourceActionRelationInput, $delete: ResourceActionDeleteInput, $disconnect: ResourceActionDisconnectInput, $update: ResourceActionUpdateInput, $where: ResourceActionWhere) {
-  updateResourceActions(
+export const UpdateApiActionsDocument = gql`
+    mutation UpdateApiActions($connect: ApiActionConnectInput, $create: ApiActionRelationInput, $delete: ApiActionDeleteInput, $disconnect: ApiActionDisconnectInput, $update: ApiActionUpdateInput, $where: ApiActionWhere) {
+  updateApiActions(
     update: $update
     where: $where
     connect: $connect
@@ -56,7 +56,7 @@ export const UpdateResourceActionsDocument = gql`
     delete: $delete
     disconnect: $disconnect
   ) {
-    resourceActions {
+    apiActions {
       ...Action
     }
   }
@@ -70,11 +70,11 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    UpdateCustomActions(variables?: UpdateCustomActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateCustomActionsMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateCustomActionsMutation>(UpdateCustomActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateCustomActions', 'mutation');
+    UpdateCodeActions(variables?: UpdateCodeActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateCodeActionsMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateCodeActionsMutation>(UpdateCodeActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateCodeActions', 'mutation');
     },
-    UpdateResourceActions(variables?: UpdateResourceActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateResourceActionsMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateResourceActionsMutation>(UpdateResourceActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateResourceActions', 'mutation');
+    UpdateApiActions(variables?: UpdateApiActionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateApiActionsMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateApiActionsMutation>(UpdateApiActionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateApiActions', 'mutation');
     }
   };
 }

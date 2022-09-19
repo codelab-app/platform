@@ -1,16 +1,16 @@
 import {
   assertIsActionKind,
   IActionKind,
-  ICustomAction,
-  ICustomActionDTO,
+  ICodeAction,
+  ICodeActionDTO,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction, updateBaseAction } from './base-action.model'
 
-const hydrate = (action: ICustomActionDTO): ICustomAction => {
-  assertIsActionKind(action.type, IActionKind.CustomAction)
+const hydrate = (action: ICodeActionDTO): ICodeAction => {
+  assertIsActionKind(action.type, IActionKind.CodeAction)
 
-  return new CustomAction({
+  return new CodeAction({
     id: action.id,
     name: action.name,
     code: action.code,
@@ -19,17 +19,17 @@ const hydrate = (action: ICustomActionDTO): ICustomAction => {
   })
 }
 
-@model('@codelab/CustomAction')
-export class CustomAction
-  extends ExtendedModel(createBaseAction(IActionKind.CustomAction), {
+@model('@codelab/CodeAction')
+export class CodeAction
+  extends ExtendedModel(createBaseAction(IActionKind.CodeAction), {
     code: prop<string>(),
   })
-  implements ICustomAction
+  implements ICodeAction
 {
   static hydrate = hydrate
 
   @modelAction
-  writeCache = (data: ICustomActionDTO) => {
+  writeCache = (data: ICodeActionDTO) => {
     updateBaseAction(this, data)
 
     this.code = data.code

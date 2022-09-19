@@ -4,7 +4,7 @@ export const actionSelectionProperties = `
   type
 `
 
-export const customActionSelectionSet = `
+export const codeActionSelectionSet = `
  {
   ${actionSelectionProperties}
   code
