@@ -6,13 +6,16 @@ import {
 import {
   CreateElementModal,
   DeleteElementModal,
+  elementRef,
 } from '@codelab/frontend/modules/element'
+import { componentRef } from '@codelab/frontend/presenter/container'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import {
   BuilderTab,
   IActionService,
   IAtomService,
+  IBuilderDataNode,
   IBuilderService,
   IComponentService,
   IElementService,
@@ -21,6 +24,7 @@ import {
   RendererTab,
 } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
+import { EventDataNode } from 'antd/lib/tree'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
@@ -113,11 +117,14 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             <BuilderTree
               className="page-builder"
               elementTree={pageTree}
-              expandedNodeIds={builderService.expandedNodeIds}
+              expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
+              selectTreeNode={builderService.selectPageElementTreeNode.bind(
+                builderService,
+              )}
               setActiveTree={() =>
                 builderService.setActiveTree(RendererTab.Page)
               }
-              setExpandedNodeIds={builderService.setExpandedNodeIds.bind(
+              setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
                 builderService,
               )}
               treeData={antdTree}
@@ -130,11 +137,14 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           {antdTree && (
             <BuilderTree
               elementTree={componentTree ?? null}
-              expandedNodeIds={builderService.expandedNodeIds}
+              expandedNodeIds={builderService.expandedComponentTreeNodeIds}
+              selectTreeNode={builderService.selectComponentTreeNode.bind(
+                builderService,
+              )}
               setActiveTree={() =>
                 builderService.setActiveTree(RendererTab.Component)
               }
-              setExpandedNodeIds={builderService.setExpandedNodeIds.bind(
+              setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(
                 builderService,
               )}
               treeData={componentsAntdTree}

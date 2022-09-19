@@ -102,7 +102,7 @@ const PageBuilder: CodelabPage = observer(() => {
     const pageRootElement = elementService.element(page.rootElement.id)
 
     if (pageRootElement) {
-      builderService.set_selectedNode(elementRef(pageRootElement))
+      builderService.selectPageElementTreeNode(elementRef(pageRootElement))
     }
 
     store.setInitialState(

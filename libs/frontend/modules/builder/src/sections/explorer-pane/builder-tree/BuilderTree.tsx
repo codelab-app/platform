@@ -5,11 +5,14 @@ import {
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
   IElementTree,
+  INode,
 } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
+import { EventDataNode } from 'antd/lib/tree'
 import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { Ref } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
 import { antdTreeStyle } from './antdTree.styles'
 import { BuilderTreeItemTitle } from './BuilderTreeItem-Title'
@@ -25,6 +28,7 @@ interface BuilderTreeProps {
   elementTree: IElementTree | null
   setActiveTree: () => void
   setExpandedNodeIds: (ids: Array<string>) => void
+  selectTreeNode(node: Nullable<Ref<INode>>): void
   expandedNodeIds: Array<string>
 }
 
@@ -39,10 +43,27 @@ export const BuilderTree = observer<BuilderTreeProps>(
     setActiveTree,
     setExpandedNodeIds,
     expandedNodeIds,
+    selectTreeNode,
   }) => {
     const { elementService, builderService, componentService } = useStore()
     const selectedNode = builderService.selectedNode
     const { isMoving, handleDrop } = useElementTreeDrop(elementService)
+
+    const selectComponentNode = (node: EventDataNode<IBuilderDataNode>) => {
+      const component = componentService.components.get(node.key.toString())
+
+      if (component) {
+        selectTreeNode(componentRef(component))
+      }
+    }
+
+    const selectElementNode = (node: EventDataNode<IBuilderDataNode>) => {
+      const element = elementService.elements.get(node.key.toString())
+
+      if (element) {
+        selectTreeNode(elementRef(element))
+      }
+    }
 
     return (
       <AntdTree<IBuilderDataNode>
@@ -85,19 +106,12 @@ export const BuilderTree = observer<BuilderTreeProps>(
             return
           }
 
-          const dataNode = node as unknown as IBuilderDataNode
-
-          if (dataNode.type === COMPONENT_NODE_TYPE) {
-            const component = componentService.components.get(id.toString())
-
-            component &&
-              builderService.set_selectedNode(componentRef(component))
+          if (node.type === COMPONENT_NODE_TYPE) {
+            selectComponentNode(node)
           }
 
-          if (dataNode.type === ELEMENT_NODE_TYPE) {
-            const element = elementService.elements.get(id.toString())
-
-            element && builderService.set_selectedNode(elementRef(element))
+          if (node.type === ELEMENT_NODE_TYPE) {
+            selectElementNode(node)
           }
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
