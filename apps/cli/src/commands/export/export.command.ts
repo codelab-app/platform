@@ -56,7 +56,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
       },
     }),
   handler: async ({ skipSeedData, skipUserData, seedData, userData }) => {
-    const App = await AppOGM({ reinitialize: true })
+    const App = await AppOGM()
     const apps = await App.find()
 
     const shouldSkipSeedData: boolean =

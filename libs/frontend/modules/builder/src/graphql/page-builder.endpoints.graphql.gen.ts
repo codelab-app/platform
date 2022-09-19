@@ -1,8 +1,19 @@
 import * as Types from '@codelab/shared/abstract/codegen'
-
-import { PageBuilderAppFragment } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
-import { ComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
-import { StoreFragment } from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
+import {
+  PageBuilderAppFragment,
+  PageBuilderAppFragmentDoc,
+} from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
+import {
+  ComponentFragment,
+  ComponentFragmentDoc,
+} from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
+import {
+  StoreFragment,
+  StoreFragmentDoc,
+} from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -17,21 +28,16 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
+  TypeFragmentDoc,
 } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
-import { PageBuilderAppFragmentDoc } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
-import { ComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
-import { StoreFragmentDoc } from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
-import { TypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
+
 export type GetPageBuilderQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
   pageId: Types.Scalars['ID']
   typeIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
-export type GetPageBuilderQuery = {
+export interface GetPageBuilderQuery {
   apps: Array<PageBuilderAppFragment>
   stores: Array<StoreFragment>
   components: Array<ComponentFragment>
@@ -141,4 +147,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

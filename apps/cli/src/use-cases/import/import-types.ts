@@ -5,7 +5,7 @@ import { upsertType } from '../../repository/type.repo'
 
 export const importTypes = async (
   types: Array<ITypeExport> = [],
-  selectedUser: string,
+  selectedUserId: string,
   where: BaseUniqueWhereCallback<ITypeExport>,
 ) => {
   console.log('Importing types...\n')
@@ -15,6 +15,6 @@ export const importTypes = async (
     console.log(`Upserting ${type.name}:`)
     cLog(type)
     console.log('\n')
-    await upsertType(type, selectedUser, where)
+    await upsertType(type, selectedUserId, where)
   }
 }

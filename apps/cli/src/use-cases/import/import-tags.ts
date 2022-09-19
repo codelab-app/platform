@@ -22,7 +22,7 @@ export const importTags = async (
   await Promise.all(createTagsOperations)
 
   const syncTagsOperations = tags.map((tag) => {
-    console.log(`Link Tag ${tag.name}:`)
+    console.log(`Link Tag ${tag.name}:`, tag)
     console.log('\n')
 
     return connectChildTagToParent(tag)

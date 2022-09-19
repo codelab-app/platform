@@ -1,7 +1,6 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
-import dotenv from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
@@ -13,8 +12,6 @@ import { tasksCommand } from './commands/tasks/tasks.command'
 import { getEnvOptions, setEnvMiddleware } from './shared/command'
 import { Env } from './shared/utils/env'
 
-dotenv.config({ path: '.env' })
-
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
  *
@@ -22,13 +19,13 @@ dotenv.config({ path: '.env' })
  */
 void yargs(hideBin(process.argv))
   .scriptName('cli')
+  .options(getEnvOptions([Env.Dev, Env.Test, Env.Prod]))
+  .middleware(setEnvMiddleware)
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */
   .command('data', 'Import / export / reset', (argv) =>
     argv
-      .options(getEnvOptions([Env.Dev, Env.Test, Env.Prod]))
-      .middleware(setEnvMiddleware)
       .command(resetCommand)
       .command(importCommand)
       .command(exportCommand)

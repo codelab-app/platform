@@ -3,7 +3,7 @@ import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../service'
 import { ITag } from '../tag'
 import { IAnyType } from '../type'
-import { IAtomDTO } from './atom.dto.interface'
+import { IAtomDTO, IAtomPreviewDTO } from './atom.dto.interface'
 import { IAtomType } from './atom-type.enum'
 
 export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
@@ -17,6 +17,6 @@ export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
 
 export type IAtomRef = string
 
-export const isAtomDTO = (atom: Nullish<IAtomDTO>): atom is IAtomDTO => {
+export const isAtomDTO = (atom: Nullish<IAtomPreviewDTO>): atom is IAtomDTO => {
   return atom !== undefined && atom !== null
 }

@@ -8,7 +8,7 @@ fragment Element on Element {
     ...Component
   }
   renderAtomType {
-    ...Atom
+    ...AtomPreview
   }
   prevSibling {
     id

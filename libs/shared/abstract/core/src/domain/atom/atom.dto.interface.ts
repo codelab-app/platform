@@ -1,7 +1,7 @@
 import { ITagExport, ITagRef } from '../tag'
 import { IInterfaceTypeRef } from '../type'
 import { IAuth0Id } from '../user'
-import { AtomFragment } from './atom.fragment.graphql.gen'
+import { AtomFragment, AtomPreviewFragment } from './atom.fragment.graphql.gen'
 import { IAtomType } from './atom-type.enum'
 
 export interface ICreateAtomDTO {
@@ -22,6 +22,8 @@ export interface ICreateAtomDTO {
 export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>
 
 export type IAtomDTO = AtomFragment
+
+export type IAtomPreviewDTO = AtomPreviewFragment
 
 export interface IAtomExport {
   icon?: string

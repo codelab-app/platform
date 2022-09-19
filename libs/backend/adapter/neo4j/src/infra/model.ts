@@ -1,11 +1,6 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { getOgm } from './ogm'
 
-interface OGMOptions {
-  // Re-initialize OGM model so we use new env
-  reinitialize: true
-}
-
 /**
  * If we pass in ogm, let's use that instead of cached instance.
  *
@@ -17,7 +12,7 @@ const getOgmInstance = async <ModelKey extends keyof OGM_TYPES.ModelMap>(
 ) => {
   // return (inst ??= (await getOgm()).model(name))
   if (!inst) {
-    const ogm = await getOgm()
+    const ogm = await getOgm({})
 
     return ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
   }
@@ -32,18 +27,17 @@ export const DomainOGM = async () =>
 
 let userInst: OGM_TYPES.UserModel
 
-export const UserOGM = async (options?: OGMOptions) =>
-  await getOgmInstance<'User'>(options?.reinitialize ? null : userInst, 'User')
+export const UserOGM = async () =>
+  await getOgmInstance<'User'>(userInst, 'User')
 
 let appInst: OGM_TYPES.AppModel
 
-export const AppOGM = async (options?: OGMOptions) =>
-  await getOgmInstance<'App'>(options?.reinitialize ? null : appInst, 'App')
+export const AppOGM = async () => await getOgmInstance<'App'>(appInst, 'App')
 
 let atomInst: OGM_TYPES.AtomModel
 
-export const AtomOGM = async (options?: OGMOptions) =>
-  await getOgmInstance<'Atom'>(options?.reinitialize ? null : atomInst, 'Atom')
+export const AtomOGM = async () =>
+  await getOgmInstance<'Atom'>(atomInst, 'Atom')
 
 let elementInst: OGM_TYPES.ElementModel
 
@@ -67,11 +61,8 @@ export const StoreOGM = async () =>
 
 let resourceInst: OGM_TYPES.ResourceModel
 
-export const ResourceOGM = async (options?: OGMOptions) =>
-  await getOgmInstance<'Resource'>(
-    options?.reinitialize ? null : resourceInst,
-    'Resource',
-  )
+export const ResourceOGM = async () =>
+  await getOgmInstance<'Resource'>(resourceInst, 'Resource')
 
 let pageInst: OGM_TYPES.PageModel
 
