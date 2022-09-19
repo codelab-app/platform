@@ -1,3 +1,3 @@
-import { ICustomAction, IPipelineAction, IResourceAction } from './actions'
+import { ICustomAction, IResourceAction } from './actions'
 
-export type IAnyAction = ICustomAction | IResourceAction | IPipelineAction
+export type IAnyAction = ICustomAction | IResourceAction

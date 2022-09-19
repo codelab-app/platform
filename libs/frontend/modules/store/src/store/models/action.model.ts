@@ -2,20 +2,15 @@ import {
   IActionDTO,
   IActionKind,
   ICustomAction,
-  IPipelineAction,
   IResourceAction,
 } from '@codelab/shared/abstract/core'
 import { CustomAction } from './custom-action.model'
-import { PipelineAction } from './pipeline-action.model'
 import { ResourceAction } from './resource-action.model'
 
 const createActionFactory = (action: IActionDTO) => {
   switch (action.__typename) {
     case IActionKind.CustomAction:
       return CustomAction.hydrate(action)
-
-    case IActionKind.PipelineAction:
-      return PipelineAction.hydrate(action)
 
     case IActionKind.ResourceAction:
       return ResourceAction.hydrate(action)
@@ -27,7 +22,7 @@ const createActionFactory = (action: IActionDTO) => {
 
 const writeActionCacheFactory = (
   action: IActionDTO,
-  actionModel: ICustomAction | IPipelineAction | IResourceAction,
+  actionModel: ICustomAction | IResourceAction,
 ) => {
   if (
     action.__typename === IActionKind.CustomAction &&
@@ -40,13 +35,6 @@ const writeActionCacheFactory = (
   if (
     action.__typename === IActionKind.ResourceAction &&
     actionModel.type === IActionKind.ResourceAction
-  ) {
-    return actionModel.writeCache(action)
-  }
-
-  if (
-    action.__typename === IActionKind.PipelineAction &&
-    actionModel.type === IActionKind.PipelineAction
   ) {
     return actionModel.writeCache(action)
   }

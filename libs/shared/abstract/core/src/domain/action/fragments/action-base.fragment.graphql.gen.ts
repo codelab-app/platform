@@ -3,13 +3,11 @@ import * as Types from '@codelab/shared/abstract/codegen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
-export type ActionBase_CustomAction_Fragment = { __typename: 'CustomAction', id: string, name: string, type: Types.ActionKind, runOnInit: boolean, store: { id: string, name: string } };
+export type ActionBase_CustomAction_Fragment = { __typename: 'CustomAction', id: string, name: string, type: Types.ActionKind, store: { id: string, name: string } };
 
-export type ActionBase_PipelineAction_Fragment = { __typename: 'PipelineAction', id: string, name: string, type: Types.ActionKind, runOnInit: boolean, store: { id: string, name: string } };
+export type ActionBase_ResourceAction_Fragment = { __typename: 'ResourceAction', id: string, name: string, type: Types.ActionKind, store: { id: string, name: string } };
 
-export type ActionBase_ResourceAction_Fragment = { __typename: 'ResourceAction', id: string, name: string, type: Types.ActionKind, runOnInit: boolean, store: { id: string, name: string } };
-
-export type ActionBaseFragment = ActionBase_CustomAction_Fragment | ActionBase_PipelineAction_Fragment | ActionBase_ResourceAction_Fragment;
+export type ActionBaseFragment = ActionBase_CustomAction_Fragment | ActionBase_ResourceAction_Fragment;
 
 export const ActionBaseFragmentDoc = gql`
     fragment ActionBase on ActionBase {
@@ -21,7 +19,6 @@ export const ActionBaseFragmentDoc = gql`
     name
   }
   type
-  runOnInit
 }
     `;
 

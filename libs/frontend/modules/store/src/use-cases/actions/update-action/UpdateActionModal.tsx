@@ -11,7 +11,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'
-import { AutoField, AutoFields, ListField, ListItemField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { updateActionSchema } from './updateActionSchema'
 
 export const UpdateActionModal = observer<{
@@ -35,15 +35,9 @@ export const UpdateActionModal = observer<{
 
   const model = {
     storeId: updateAction?.storeId,
-    runOnInit: updateAction?.runOnInit,
     name: updateAction?.name,
     type: updateAction?.type,
     id: updateAction?.id,
-
-    actionsIds:
-      updateAction?.type === IActionKind.PipelineAction
-        ? updateAction.actionsSorted.map((a) => a.id)
-        : undefined,
 
     config:
       updateAction?.type === IActionKind.ResourceAction
@@ -142,21 +136,6 @@ export const UpdateActionModal = observer<{
             <AutoField name="config.headers" />
             <AutoField name="config.responseType" />
           </DisplayIfField>
-        </DisplayIfField>
-
-        {/** Pipeline Action */}
-        <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => c.model.type === IActionKind.PipelineAction}
-        >
-          <ListField label="Actions" name="actionsIds">
-            <ListItemField name="$">
-              <SelectAction
-                actionService={actionService}
-                name=""
-                storeId={updateAction?.storeId as string}
-              />
-            </ListItemField>
-          </ListField>
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>

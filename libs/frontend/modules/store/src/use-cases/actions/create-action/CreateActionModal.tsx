@@ -13,7 +13,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'
-import { AutoField, AutoFields, ListField, ListItemField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
 const defaultCustomAction = `function run() {
@@ -123,21 +123,6 @@ export const CreateActionModal = observer<{
             <AutoField name="config.headers" />
             <AutoField name="config.responseType" />
           </DisplayIfField>
-        </DisplayIfField>
-
-        {/** Pipeline Action */}
-        <DisplayIfField<ICreateActionDTO>
-          condition={(c) => c.model.type === IActionKind.PipelineAction}
-        >
-          <ListField label="Actions" name="actionsIds">
-            <ListItemField name="$">
-              <SelectAction
-                actionService={actionService}
-                name=""
-                storeId={store.id}
-              />
-            </ListItemField>
-          </ListField>
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>

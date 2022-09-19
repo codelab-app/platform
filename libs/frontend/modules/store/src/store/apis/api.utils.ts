@@ -20,36 +20,6 @@ import { connectTypeOwner } from '@codelab/shared/data'
 import { capitalize, keys } from 'lodash'
 import { v4 } from 'uuid'
 
-interface ActionsOrders {
-  [key: string]: Array<string>
-}
-
-const makePipelineActionsUpdateInput = (actionsOrders: ActionsOrders) => [
-  {
-    disconnect: [{ where: {} }],
-    connect: keys(actionsOrders).map((id) => ({
-      where: { node: { id } },
-      edge: { orders: actionsOrders[id] },
-    })),
-  },
-]
-
-const makePipelineActionsCreateInput = (actionsOrders: ActionsOrders) => ({
-  connect: keys(actionsOrders).map((id) => ({
-    where: { node: { id } },
-    edge: { orders: actionsOrders[id] },
-  })),
-})
-
-const groupActionsOrders = (actionsIds: Array<string>) =>
-  actionsIds.reduce(
-    (all, current, index) => ({
-      ...all,
-      [current]: [String(index)].concat(all[current] || []),
-    }),
-    {} as ActionsOrders,
-  )
-
 export const makeStoreCreateInput = (
   input: ICreateStoreDTO,
 ): StoreCreateInput => {
@@ -71,12 +41,9 @@ export const makeStoreCreateInput = (
 export const makeActionCreateInput = (
   action: ICreateActionDTO,
 ): ICreateActionInput => {
-  const actionsOrders = groupActionsOrders(action.actionsIds || [])
-
   return {
     id: v4(),
     name: action.name,
-    runOnInit: action.runOnInit,
     type: action.type,
     store: { connect: { where: { node: { id: action.storeId } } } },
 
@@ -109,15 +76,6 @@ export const makeActionCreateInput = (
             },
           }
         : undefined,
-
-    actions:
-      action.type === IActionKind.PipelineAction
-        ? {
-            CustomAction: makePipelineActionsCreateInput(actionsOrders),
-            PipelineAction: makePipelineActionsCreateInput(actionsOrders),
-            ResourceAction: makePipelineActionsCreateInput(actionsOrders),
-          }
-        : undefined,
   }
 }
 
@@ -128,13 +86,10 @@ export const makeActionUpdateInput = (
   where: IAnyActionWhere
   update: IUpdateActionInput
 } => {
-  const actionsOrders = groupActionsOrders(input.actionsIds || [])
-
   return {
     where: { id: action.id },
     update: {
       name: input.name,
-      runOnInit: input.runOnInit,
 
       resource:
         input.type === IActionKind.ResourceAction
@@ -162,22 +117,7 @@ export const makeActionUpdateInput = (
             }
           : undefined,
 
-      actions:
-        action.type === IActionKind.PipelineAction
-          ? {
-              CustomAction: makePipelineActionsUpdateInput(actionsOrders),
-              PipelineAction: makePipelineActionsUpdateInput(actionsOrders),
-              ResourceAction: makePipelineActionsUpdateInput(actionsOrders),
-            }
-          : undefined,
       code: input.type === IActionKind.CustomAction ? input.code : undefined,
     },
   }
 }
-
-/* [
-      {
-        disconnect: [{ where: {} }],
-        connect: [{ where: { node: { id_IN: input.actionsIds } } }] ?? [],
-      },
-    ] */

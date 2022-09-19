@@ -60,11 +60,6 @@ let resourceActionInst: OGM_TYPES.ResourceActionModel
 export const ResourceActionOGM = async () =>
   await getOgmInstance<'ResourceAction'>(resourceActionInst, 'ResourceAction')
 
-let pipelineActionInst: OGM_TYPES.PipelineActionModel
-
-export const PipelineActionOGM = async () =>
-  await getOgmInstance<'PipelineAction'>(pipelineActionInst, 'PipelineAction')
-
 let storeInst: OGM_TYPES.StoreModel
 
 export const StoreOGM = async () =>

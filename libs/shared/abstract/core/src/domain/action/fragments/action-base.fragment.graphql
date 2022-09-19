@@ -7,5 +7,4 @@ fragment ActionBase on ActionBase {
     name
   }
   type
-  runOnInit
 }

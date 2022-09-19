@@ -13,11 +13,3 @@ mutation CreateResourceActions($input: [ResourceActionCreateInput!]!) {
     }
   }
 }
-
-mutation CreatePipelineActions($input: [PipelineActionCreateInput!]!) {
-  createPipelineActions(input: $input) {
-    pipelineActions {
-      ...Action
-    }
-  }
-}

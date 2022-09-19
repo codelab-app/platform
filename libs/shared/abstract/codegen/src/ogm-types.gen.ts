@@ -122,9 +122,6 @@ export type Query = {
   resourceActions: Array<ResourceAction>;
   resourceActionsAggregate: ResourceActionAggregateSelection;
   resourceActionsConnection: ResourceActionsConnection;
-  pipelineActions: Array<PipelineAction>;
-  pipelineActionsAggregate: PipelineActionAggregateSelection;
-  pipelineActionsConnection: PipelineActionsConnection;
   resources: Array<Resource>;
   resourcesAggregate: ResourceAggregateSelection;
   resourcesConnection: ResourcesConnection;
@@ -656,22 +653,6 @@ export type QueryResourceActionsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ResourceActionSort>>>;
 };
 
-export type QueryPipelineActionsArgs = {
-  where?: InputMaybe<PipelineActionWhere>;
-  options?: InputMaybe<PipelineActionOptions>;
-};
-
-export type QueryPipelineActionsAggregateArgs = {
-  where?: InputMaybe<PipelineActionWhere>;
-};
-
-export type QueryPipelineActionsConnectionArgs = {
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  where?: InputMaybe<PipelineActionWhere>;
-  sort?: InputMaybe<Array<InputMaybe<PipelineActionSort>>>;
-};
-
 export type QueryResourcesArgs = {
   where?: InputMaybe<ResourceWhere>;
   options?: InputMaybe<ResourceOptions>;
@@ -863,9 +844,6 @@ export type Mutation = {
   createResourceActions: CreateResourceActionsMutationResponse;
   deleteResourceActions: DeleteInfo;
   updateResourceActions: UpdateResourceActionsMutationResponse;
-  createPipelineActions: CreatePipelineActionsMutationResponse;
-  deletePipelineActions: DeleteInfo;
-  updatePipelineActions: UpdatePipelineActionsMutationResponse;
   createResources: CreateResourcesMutationResponse;
   deleteResources: DeleteInfo;
   updateResources: UpdateResourcesMutationResponse;
@@ -1474,25 +1452,6 @@ export type MutationUpdateResourceActionsArgs = {
   connectOrCreate?: InputMaybe<ResourceActionConnectOrCreateInput>;
 };
 
-export type MutationCreatePipelineActionsArgs = {
-  input: Array<PipelineActionCreateInput>;
-};
-
-export type MutationDeletePipelineActionsArgs = {
-  where?: InputMaybe<PipelineActionWhere>;
-  delete?: InputMaybe<PipelineActionDeleteInput>;
-};
-
-export type MutationUpdatePipelineActionsArgs = {
-  where?: InputMaybe<PipelineActionWhere>;
-  update?: InputMaybe<PipelineActionUpdateInput>;
-  connect?: InputMaybe<PipelineActionConnectInput>;
-  disconnect?: InputMaybe<PipelineActionDisconnectInput>;
-  create?: InputMaybe<PipelineActionRelationInput>;
-  delete?: InputMaybe<PipelineActionDeleteInput>;
-  connectOrCreate?: InputMaybe<PipelineActionConnectOrCreateInput>;
-};
-
 export type MutationCreateResourcesArgs = {
   input: Array<ResourceCreateInput>;
 };
@@ -1575,8 +1534,6 @@ export enum ActionKind {
   CustomAction = "CustomAction",
   /** Action responsible for fetching data from a resource */
   ResourceAction = "ResourceAction",
-  /** Represents a list of actions that runs in a certain order */
-  PipelineAction = "PipelineAction",
 }
 
 export enum AtomType {
@@ -2007,7 +1964,7 @@ export enum TypeKind {
   ActionType = "ActionType",
 }
 
-export type AnyAction = PipelineAction | ResourceAction | CustomAction;
+export type AnyAction = ResourceAction | CustomAction;
 
 export type AnyType =
   | PrimitiveType
@@ -2029,12 +1986,7 @@ export type ActionBase = {
   storeConnection: ActionBaseStoreConnection;
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit: Scalars["Boolean"];
   type: ActionKind;
-};
-
-export type ActionsPipeLine = {
-  orders?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type Field = {
@@ -3085,12 +3037,6 @@ export type CreatePageTypesMutationResponse = {
   pageTypes: Array<PageType>;
 };
 
-export type CreatePipelineActionsMutationResponse = {
-  __typename?: "CreatePipelineActionsMutationResponse";
-  info: CreateInfo;
-  pipelineActions: Array<PipelineAction>;
-};
-
 export type CreatePrimitiveTypesMutationResponse = {
   __typename?: "CreatePrimitiveTypesMutationResponse";
   info: CreateInfo;
@@ -3197,7 +3143,6 @@ export type CustomAction = ActionBase & {
   __typename?: "CustomAction";
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit: Scalars["Boolean"];
   /** Code to run when action is triggered */
   code: Scalars["String"];
   type: ActionKind;
@@ -5010,99 +4955,6 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
   username: StringAggregateSelectionNonNullable;
 };
 
-export type PipelineAction = ActionBase & {
-  __typename?: "PipelineAction";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  runOnInit: Scalars["Boolean"];
-  type: ActionKind;
-  store: Store;
-  storeAggregate?: Maybe<PipelineActionStoreStoreAggregationSelection>;
-  /** List of actions to run in order */
-  actions: Array<AnyAction>;
-  storeConnection: ActionBaseStoreConnection;
-  actionsConnection: PipelineActionActionsConnection;
-};
-
-export type PipelineActionStoreArgs = {
-  where?: InputMaybe<StoreWhere>;
-  options?: InputMaybe<StoreOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type PipelineActionStoreAggregateArgs = {
-  where?: InputMaybe<StoreWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type PipelineActionActionsArgs = {
-  options?: InputMaybe<QueryOptions>;
-  where?: InputMaybe<AnyActionWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type PipelineActionStoreConnectionArgs = {
-  where?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ActionBaseStoreConnectionSort>>;
-};
-
-export type PipelineActionActionsConnectionArgs = {
-  where?: InputMaybe<PipelineActionActionsConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<PipelineActionActionsConnectionSort>>;
-};
-
-export type PipelineActionActionsConnection = {
-  __typename?: "PipelineActionActionsConnection";
-  edges: Array<PipelineActionActionsRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type PipelineActionActionsRelationship = ActionsPipeLine & {
-  __typename?: "PipelineActionActionsRelationship";
-  cursor: Scalars["String"];
-  node: AnyAction;
-  orders?: Maybe<Array<Scalars["String"]>>;
-};
-
-export type PipelineActionAggregateSelection = {
-  __typename?: "PipelineActionAggregateSelection";
-  count: Scalars["Int"];
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-};
-
-export type PipelineActionEdge = {
-  __typename?: "PipelineActionEdge";
-  cursor: Scalars["String"];
-  node: PipelineAction;
-};
-
-export type PipelineActionsConnection = {
-  __typename?: "PipelineActionsConnection";
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-  edges: Array<PipelineActionEdge>;
-};
-
-export type PipelineActionStoreStoreAggregationSelection = {
-  __typename?: "PipelineActionStoreStoreAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<PipelineActionStoreStoreNodeAggregateSelection>;
-};
-
-export type PipelineActionStoreStoreNodeAggregateSelection = {
-  __typename?: "PipelineActionStoreStoreNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-};
-
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = TypeBase & {
   __typename?: "PrimitiveType";
@@ -5642,7 +5494,6 @@ export type ResourceAction = ActionBase & {
   __typename?: "ResourceAction";
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit: Scalars["Boolean"];
   type: ActionKind;
   store: Store;
   storeAggregate?: Maybe<ResourceActionStoreStoreAggregationSelection>;
@@ -6574,12 +6425,6 @@ export type UpdatePageTypesMutationResponse = {
   pageTypes: Array<PageType>;
 };
 
-export type UpdatePipelineActionsMutationResponse = {
-  __typename?: "UpdatePipelineActionsMutationResponse";
-  info: UpdateInfo;
-  pipelineActions: Array<PipelineAction>;
-};
-
 export type UpdatePrimitiveTypesMutationResponse = {
   __typename?: "UpdatePrimitiveTypesMutationResponse";
   info: UpdateInfo;
@@ -7058,29 +6903,6 @@ export type ActionBaseStoreUpdateFieldInput = {
   connectOrCreate?: InputMaybe<ActionBaseStoreConnectOrCreateFieldInput>;
 };
 
-export type ActionsPipeLineCreateInput = {
-  orders?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-export type ActionsPipeLineSort = {
-  orders?: InputMaybe<SortDirection>;
-};
-
-export type ActionsPipeLineUpdateInput = {
-  orders?: InputMaybe<Array<Scalars["String"]>>;
-  orders_POP?: InputMaybe<Scalars["Int"]>;
-  orders_PUSH?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-export type ActionsPipeLineWhere = {
-  OR?: InputMaybe<Array<ActionsPipeLineWhere>>;
-  AND?: InputMaybe<Array<ActionsPipeLineWhere>>;
-  orders?: InputMaybe<Array<Scalars["String"]>>;
-  orders_NOT?: InputMaybe<Array<Scalars["String"]>>;
-  orders_INCLUDES?: InputMaybe<Scalars["String"]>;
-  orders_NOT_INCLUDES?: InputMaybe<Scalars["String"]>;
-};
-
 export type ActionTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
 };
@@ -7304,7 +7126,6 @@ export type ActionTypeWhere = {
 };
 
 export type AnyActionWhere = {
-  PipelineAction?: InputMaybe<PipelineActionWhere>;
   ResourceAction?: InputMaybe<ResourceActionWhere>;
   CustomAction?: InputMaybe<CustomActionWhere>;
 };
@@ -10365,7 +10186,6 @@ export type CustomActionConnectWhere = {
 export type CustomActionCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit?: Scalars["Boolean"];
   code: Scalars["String"];
   type?: ActionKind;
   store?: InputMaybe<ActionBaseStoreFieldInput>;
@@ -10382,7 +10202,6 @@ export type CustomActionDisconnectInput = {
 export type CustomActionOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit?: Scalars["Boolean"];
   code: Scalars["String"];
 };
 
@@ -10401,7 +10220,6 @@ export type CustomActionRelationInput = {
 export type CustomActionSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
-  runOnInit?: InputMaybe<SortDirection>;
   code?: InputMaybe<SortDirection>;
   type?: InputMaybe<SortDirection>;
 };
@@ -10450,7 +10268,6 @@ export type CustomActionUniqueWhere = {
 export type CustomActionUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
   code?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<ActionKind>;
   store?: InputMaybe<ActionBaseStoreUpdateFieldInput>;
@@ -10479,8 +10296,6 @@ export type CustomActionWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  runOnInit_NOT?: InputMaybe<Scalars["Boolean"]>;
   code?: InputMaybe<Scalars["String"]>;
   code_NOT?: InputMaybe<Scalars["String"]>;
   code_IN?: InputMaybe<Array<Scalars["String"]>>;
@@ -16049,479 +15864,6 @@ export type ParentOfElementWhere = {
   order_GTE?: InputMaybe<Scalars["Int"]>;
 };
 
-export type PipelineActionActionsConnectInput = {
-  CustomAction?: InputMaybe<
-    Array<PipelineActionActionsCustomActionConnectFieldInput>
-  >;
-  ResourceAction?: InputMaybe<
-    Array<PipelineActionActionsResourceActionConnectFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionConnectFieldInput>
-  >;
-};
-
-export type PipelineActionActionsConnectionSort = {
-  edge?: InputMaybe<ActionsPipeLineSort>;
-};
-
-export type PipelineActionActionsConnectionWhere = {
-  CustomAction?: InputMaybe<PipelineActionActionsCustomActionConnectionWhere>;
-  ResourceAction?: InputMaybe<PipelineActionActionsResourceActionConnectionWhere>;
-  PipelineAction?: InputMaybe<PipelineActionActionsPipelineActionConnectionWhere>;
-};
-
-export type PipelineActionActionsConnectOrCreateInput = {
-  CustomAction?: InputMaybe<
-    Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>
-  >;
-  ResourceAction?: InputMaybe<
-    Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsCreateFieldInput = {
-  CustomAction?: InputMaybe<
-    Array<PipelineActionActionsCustomActionCreateFieldInput>
-  >;
-  ResourceAction?: InputMaybe<
-    Array<PipelineActionActionsResourceActionCreateFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsCreateInput = {
-  CustomAction?: InputMaybe<PipelineActionActionsCustomActionFieldInput>;
-  ResourceAction?: InputMaybe<PipelineActionActionsResourceActionFieldInput>;
-  PipelineAction?: InputMaybe<PipelineActionActionsPipelineActionFieldInput>;
-};
-
-export type PipelineActionActionsCustomActionConnectFieldInput = {
-  where?: InputMaybe<CustomActionConnectWhere>;
-  connect?: InputMaybe<Array<CustomActionConnectInput>>;
-  edge?: InputMaybe<ActionsPipeLineCreateInput>;
-};
-
-export type PipelineActionActionsCustomActionConnectionWhere = {
-  OR?: InputMaybe<Array<PipelineActionActionsCustomActionConnectionWhere>>;
-  AND?: InputMaybe<Array<PipelineActionActionsCustomActionConnectionWhere>>;
-  node?: InputMaybe<CustomActionWhere>;
-  node_NOT?: InputMaybe<CustomActionWhere>;
-  edge?: InputMaybe<ActionsPipeLineWhere>;
-  edge_NOT?: InputMaybe<ActionsPipeLineWhere>;
-};
-
-export type PipelineActionActionsCustomActionConnectOrCreateFieldInput = {
-  where: CustomActionConnectOrCreateWhere;
-  onCreate: PipelineActionActionsCustomActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type PipelineActionActionsCustomActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: CustomActionOnCreateInput;
-    edge?: InputMaybe<ActionsPipeLineCreateInput>;
-  };
-
-export type PipelineActionActionsCustomActionCreateFieldInput = {
-  node: CustomActionCreateInput;
-  edge?: InputMaybe<ActionsPipeLineCreateInput>;
-};
-
-export type PipelineActionActionsCustomActionDeleteFieldInput = {
-  where?: InputMaybe<PipelineActionActionsCustomActionConnectionWhere>;
-  delete?: InputMaybe<CustomActionDeleteInput>;
-};
-
-export type PipelineActionActionsCustomActionDisconnectFieldInput = {
-  where?: InputMaybe<PipelineActionActionsCustomActionConnectionWhere>;
-  disconnect?: InputMaybe<CustomActionDisconnectInput>;
-};
-
-export type PipelineActionActionsCustomActionFieldInput = {
-  create?: InputMaybe<Array<PipelineActionActionsCustomActionCreateFieldInput>>;
-  connect?: InputMaybe<
-    Array<PipelineActionActionsCustomActionConnectFieldInput>
-  >;
-  connectOrCreate?: InputMaybe<
-    Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsCustomActionUpdateConnectionInput = {
-  edge?: InputMaybe<ActionsPipeLineUpdateInput>;
-  node?: InputMaybe<CustomActionUpdateInput>;
-};
-
-export type PipelineActionActionsCustomActionUpdateFieldInput = {
-  where?: InputMaybe<PipelineActionActionsCustomActionConnectionWhere>;
-  update?: InputMaybe<PipelineActionActionsCustomActionUpdateConnectionInput>;
-  connect?: InputMaybe<
-    Array<PipelineActionActionsCustomActionConnectFieldInput>
-  >;
-  disconnect?: InputMaybe<
-    Array<PipelineActionActionsCustomActionDisconnectFieldInput>
-  >;
-  create?: InputMaybe<Array<PipelineActionActionsCustomActionCreateFieldInput>>;
-  delete?: InputMaybe<Array<PipelineActionActionsCustomActionDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<
-    Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsDeleteInput = {
-  CustomAction?: InputMaybe<
-    Array<PipelineActionActionsCustomActionDeleteFieldInput>
-  >;
-  ResourceAction?: InputMaybe<
-    Array<PipelineActionActionsResourceActionDeleteFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionDeleteFieldInput>
-  >;
-};
-
-export type PipelineActionActionsDisconnectInput = {
-  CustomAction?: InputMaybe<
-    Array<PipelineActionActionsCustomActionDisconnectFieldInput>
-  >;
-  ResourceAction?: InputMaybe<
-    Array<PipelineActionActionsResourceActionDisconnectFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionDisconnectFieldInput>
-  >;
-};
-
-export type PipelineActionActionsPipelineActionConnectFieldInput = {
-  where?: InputMaybe<PipelineActionConnectWhere>;
-  connect?: InputMaybe<Array<PipelineActionConnectInput>>;
-  edge?: InputMaybe<ActionsPipeLineCreateInput>;
-};
-
-export type PipelineActionActionsPipelineActionConnectionWhere = {
-  OR?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectionWhere>>;
-  AND?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectionWhere>>;
-  node?: InputMaybe<PipelineActionWhere>;
-  node_NOT?: InputMaybe<PipelineActionWhere>;
-  edge?: InputMaybe<ActionsPipeLineWhere>;
-  edge_NOT?: InputMaybe<ActionsPipeLineWhere>;
-};
-
-export type PipelineActionActionsPipelineActionConnectOrCreateFieldInput = {
-  where: PipelineActionConnectOrCreateWhere;
-  onCreate: PipelineActionActionsPipelineActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type PipelineActionActionsPipelineActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: PipelineActionOnCreateInput;
-    edge?: InputMaybe<ActionsPipeLineCreateInput>;
-  };
-
-export type PipelineActionActionsPipelineActionCreateFieldInput = {
-  node: PipelineActionCreateInput;
-  edge?: InputMaybe<ActionsPipeLineCreateInput>;
-};
-
-export type PipelineActionActionsPipelineActionDeleteFieldInput = {
-  where?: InputMaybe<PipelineActionActionsPipelineActionConnectionWhere>;
-  delete?: InputMaybe<PipelineActionDeleteInput>;
-};
-
-export type PipelineActionActionsPipelineActionDisconnectFieldInput = {
-  where?: InputMaybe<PipelineActionActionsPipelineActionConnectionWhere>;
-  disconnect?: InputMaybe<PipelineActionDisconnectInput>;
-};
-
-export type PipelineActionActionsPipelineActionFieldInput = {
-  create?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionCreateFieldInput>
-  >;
-  connect?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionConnectFieldInput>
-  >;
-  connectOrCreate?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsPipelineActionUpdateConnectionInput = {
-  edge?: InputMaybe<ActionsPipeLineUpdateInput>;
-  node?: InputMaybe<PipelineActionUpdateInput>;
-};
-
-export type PipelineActionActionsPipelineActionUpdateFieldInput = {
-  where?: InputMaybe<PipelineActionActionsPipelineActionConnectionWhere>;
-  update?: InputMaybe<PipelineActionActionsPipelineActionUpdateConnectionInput>;
-  connect?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionConnectFieldInput>
-  >;
-  disconnect?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionDisconnectFieldInput>
-  >;
-  create?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionCreateFieldInput>
-  >;
-  delete?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionDeleteFieldInput>
-  >;
-  connectOrCreate?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsResourceActionConnectFieldInput = {
-  where?: InputMaybe<ResourceActionConnectWhere>;
-  connect?: InputMaybe<Array<ResourceActionConnectInput>>;
-  edge?: InputMaybe<ActionsPipeLineCreateInput>;
-};
-
-export type PipelineActionActionsResourceActionConnectionWhere = {
-  OR?: InputMaybe<Array<PipelineActionActionsResourceActionConnectionWhere>>;
-  AND?: InputMaybe<Array<PipelineActionActionsResourceActionConnectionWhere>>;
-  node?: InputMaybe<ResourceActionWhere>;
-  node_NOT?: InputMaybe<ResourceActionWhere>;
-  edge?: InputMaybe<ActionsPipeLineWhere>;
-  edge_NOT?: InputMaybe<ActionsPipeLineWhere>;
-};
-
-export type PipelineActionActionsResourceActionConnectOrCreateFieldInput = {
-  where: ResourceActionConnectOrCreateWhere;
-  onCreate: PipelineActionActionsResourceActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type PipelineActionActionsResourceActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: ResourceActionOnCreateInput;
-    edge?: InputMaybe<ActionsPipeLineCreateInput>;
-  };
-
-export type PipelineActionActionsResourceActionCreateFieldInput = {
-  node: ResourceActionCreateInput;
-  edge?: InputMaybe<ActionsPipeLineCreateInput>;
-};
-
-export type PipelineActionActionsResourceActionDeleteFieldInput = {
-  where?: InputMaybe<PipelineActionActionsResourceActionConnectionWhere>;
-  delete?: InputMaybe<ResourceActionDeleteInput>;
-};
-
-export type PipelineActionActionsResourceActionDisconnectFieldInput = {
-  where?: InputMaybe<PipelineActionActionsResourceActionConnectionWhere>;
-  disconnect?: InputMaybe<ResourceActionDisconnectInput>;
-};
-
-export type PipelineActionActionsResourceActionFieldInput = {
-  create?: InputMaybe<
-    Array<PipelineActionActionsResourceActionCreateFieldInput>
-  >;
-  connect?: InputMaybe<
-    Array<PipelineActionActionsResourceActionConnectFieldInput>
-  >;
-  connectOrCreate?: InputMaybe<
-    Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsResourceActionUpdateConnectionInput = {
-  edge?: InputMaybe<ActionsPipeLineUpdateInput>;
-  node?: InputMaybe<ResourceActionUpdateInput>;
-};
-
-export type PipelineActionActionsResourceActionUpdateFieldInput = {
-  where?: InputMaybe<PipelineActionActionsResourceActionConnectionWhere>;
-  update?: InputMaybe<PipelineActionActionsResourceActionUpdateConnectionInput>;
-  connect?: InputMaybe<
-    Array<PipelineActionActionsResourceActionConnectFieldInput>
-  >;
-  disconnect?: InputMaybe<
-    Array<PipelineActionActionsResourceActionDisconnectFieldInput>
-  >;
-  create?: InputMaybe<
-    Array<PipelineActionActionsResourceActionCreateFieldInput>
-  >;
-  delete?: InputMaybe<
-    Array<PipelineActionActionsResourceActionDeleteFieldInput>
-  >;
-  connectOrCreate?: InputMaybe<
-    Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type PipelineActionActionsUpdateInput = {
-  CustomAction?: InputMaybe<
-    Array<PipelineActionActionsCustomActionUpdateFieldInput>
-  >;
-  ResourceAction?: InputMaybe<
-    Array<PipelineActionActionsResourceActionUpdateFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<PipelineActionActionsPipelineActionUpdateFieldInput>
-  >;
-};
-
-export type PipelineActionConnectInput = {
-  store?: InputMaybe<ActionBaseStoreConnectFieldInput>;
-  actions?: InputMaybe<PipelineActionActionsConnectInput>;
-};
-
-export type PipelineActionConnectOrCreateInput = {
-  store?: InputMaybe<ActionBaseStoreConnectOrCreateFieldInput>;
-  actions?: InputMaybe<PipelineActionActionsConnectOrCreateInput>;
-};
-
-export type PipelineActionConnectOrCreateWhere = {
-  node: PipelineActionUniqueWhere;
-};
-
-export type PipelineActionConnectWhere = {
-  node: PipelineActionWhere;
-};
-
-export type PipelineActionCreateInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  runOnInit?: Scalars["Boolean"];
-  type?: ActionKind;
-  store?: InputMaybe<ActionBaseStoreFieldInput>;
-  actions?: InputMaybe<PipelineActionActionsCreateInput>;
-};
-
-export type PipelineActionDeleteInput = {
-  store?: InputMaybe<ActionBaseStoreDeleteFieldInput>;
-  actions?: InputMaybe<PipelineActionActionsDeleteInput>;
-};
-
-export type PipelineActionDisconnectInput = {
-  store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>;
-  actions?: InputMaybe<PipelineActionActionsDisconnectInput>;
-};
-
-export type PipelineActionOnCreateInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  runOnInit?: Scalars["Boolean"];
-};
-
-export type PipelineActionOptions = {
-  /** Specify one or more PipelineActionSort objects to sort PipelineActions by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<PipelineActionSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-export type PipelineActionRelationInput = {
-  store?: InputMaybe<ActionBaseStoreCreateFieldInput>;
-  actions?: InputMaybe<PipelineActionActionsCreateFieldInput>;
-};
-
-/** Fields to sort PipelineActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one PipelineActionSort object. */
-export type PipelineActionSort = {
-  id?: InputMaybe<SortDirection>;
-  name?: InputMaybe<SortDirection>;
-  runOnInit?: InputMaybe<SortDirection>;
-  type?: InputMaybe<SortDirection>;
-};
-
-export type PipelineActionStoreAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<PipelineActionStoreAggregateInput>>;
-  OR?: InputMaybe<Array<PipelineActionStoreAggregateInput>>;
-  node?: InputMaybe<PipelineActionStoreNodeAggregationWhereInput>;
-};
-
-export type PipelineActionStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<PipelineActionStoreNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<PipelineActionStoreNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type PipelineActionUniqueWhere = {
-  id?: InputMaybe<Scalars["ID"]>;
-};
-
-export type PipelineActionUpdateInput = {
-  id?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  type?: InputMaybe<ActionKind>;
-  store?: InputMaybe<ActionBaseStoreUpdateFieldInput>;
-  actions?: InputMaybe<PipelineActionActionsUpdateInput>;
-};
-
-export type PipelineActionWhere = {
-  OR?: InputMaybe<Array<PipelineActionWhere>>;
-  AND?: InputMaybe<Array<PipelineActionWhere>>;
-  id?: InputMaybe<Scalars["ID"]>;
-  id_NOT?: InputMaybe<Scalars["ID"]>;
-  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  name_NOT?: InputMaybe<Scalars["String"]>;
-  name_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  runOnInit_NOT?: InputMaybe<Scalars["Boolean"]>;
-  type?: InputMaybe<ActionKind>;
-  type_NOT?: InputMaybe<ActionKind>;
-  type_IN?: InputMaybe<Array<ActionKind>>;
-  type_NOT_IN?: InputMaybe<Array<ActionKind>>;
-  store?: InputMaybe<StoreWhere>;
-  store_NOT?: InputMaybe<StoreWhere>;
-  storeAggregate?: InputMaybe<PipelineActionStoreAggregateInput>;
-  storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>;
-  /** @deprecated Use `actionsConnection_SOME` instead. */
-  actionsConnection?: InputMaybe<PipelineActionActionsConnectionWhere>;
-  /** @deprecated Use `actionsConnection_NONE` instead. */
-  actionsConnection_NOT?: InputMaybe<PipelineActionActionsConnectionWhere>;
-  actionsConnection_ALL?: InputMaybe<PipelineActionActionsConnectionWhere>;
-  actionsConnection_NONE?: InputMaybe<PipelineActionActionsConnectionWhere>;
-  actionsConnection_SINGLE?: InputMaybe<PipelineActionActionsConnectionWhere>;
-  actionsConnection_SOME?: InputMaybe<PipelineActionActionsConnectionWhere>;
-};
-
 export type PrimitiveTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
 };
@@ -17998,7 +17340,6 @@ export type ResourceActionConnectWhere = {
 export type ResourceActionCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit?: Scalars["Boolean"];
   type?: ActionKind;
   store?: InputMaybe<ActionBaseStoreFieldInput>;
   successAction?: InputMaybe<ResourceActionSuccessActionCreateInput>;
@@ -18026,19 +17367,16 @@ export type ResourceActionDisconnectInput = {
 export type ResourceActionErrorActionConnectInput = {
   CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionConnectFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionConnectFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionConnectFieldInput>;
 };
 
 export type ResourceActionErrorActionConnectionWhere = {
   CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionConnectionWhere>;
   ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionConnectionWhere>;
-  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>;
 };
 
 export type ResourceActionErrorActionConnectOrCreateInput = {
   CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionConnectOrCreateFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionConnectOrCreateFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput>;
 };
 
 export type ResourceActionErrorActionCreateFieldInput = {
@@ -18048,15 +17386,11 @@ export type ResourceActionErrorActionCreateFieldInput = {
   ResourceAction?: InputMaybe<
     Array<ResourceActionErrorActionResourceActionCreateFieldInput>
   >;
-  PipelineAction?: InputMaybe<
-    Array<ResourceActionErrorActionPipelineActionCreateFieldInput>
-  >;
 };
 
 export type ResourceActionErrorActionCreateInput = {
   CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionFieldInput>;
 };
 
 export type ResourceActionErrorActionCustomActionConnectFieldInput = {
@@ -18118,73 +17452,11 @@ export type ResourceActionErrorActionCustomActionUpdateFieldInput = {
 export type ResourceActionErrorActionDeleteInput = {
   CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionDeleteFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionDeleteFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionDeleteFieldInput>;
 };
 
 export type ResourceActionErrorActionDisconnectInput = {
   CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionDisconnectFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionDisconnectFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionDisconnectFieldInput>;
-};
-
-export type ResourceActionErrorActionPipelineActionConnectFieldInput = {
-  where?: InputMaybe<PipelineActionConnectWhere>;
-  connect?: InputMaybe<PipelineActionConnectInput>;
-};
-
-export type ResourceActionErrorActionPipelineActionConnectionWhere = {
-  OR?: InputMaybe<
-    Array<ResourceActionErrorActionPipelineActionConnectionWhere>
-  >;
-  AND?: InputMaybe<
-    Array<ResourceActionErrorActionPipelineActionConnectionWhere>
-  >;
-  node?: InputMaybe<PipelineActionWhere>;
-  node_NOT?: InputMaybe<PipelineActionWhere>;
-};
-
-export type ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput = {
-  where: PipelineActionConnectOrCreateWhere;
-  onCreate: ResourceActionErrorActionPipelineActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type ResourceActionErrorActionPipelineActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: PipelineActionOnCreateInput;
-  };
-
-export type ResourceActionErrorActionPipelineActionCreateFieldInput = {
-  node: PipelineActionCreateInput;
-};
-
-export type ResourceActionErrorActionPipelineActionDeleteFieldInput = {
-  where?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>;
-  delete?: InputMaybe<PipelineActionDeleteInput>;
-};
-
-export type ResourceActionErrorActionPipelineActionDisconnectFieldInput = {
-  where?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>;
-  disconnect?: InputMaybe<PipelineActionDisconnectInput>;
-};
-
-export type ResourceActionErrorActionPipelineActionFieldInput = {
-  create?: InputMaybe<ResourceActionErrorActionPipelineActionCreateFieldInput>;
-  connect?: InputMaybe<ResourceActionErrorActionPipelineActionConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput>;
-};
-
-export type ResourceActionErrorActionPipelineActionUpdateConnectionInput = {
-  node?: InputMaybe<PipelineActionUpdateInput>;
-};
-
-export type ResourceActionErrorActionPipelineActionUpdateFieldInput = {
-  where?: InputMaybe<ResourceActionErrorActionPipelineActionConnectionWhere>;
-  update?: InputMaybe<ResourceActionErrorActionPipelineActionUpdateConnectionInput>;
-  connect?: InputMaybe<ResourceActionErrorActionPipelineActionConnectFieldInput>;
-  disconnect?: InputMaybe<ResourceActionErrorActionPipelineActionDisconnectFieldInput>;
-  create?: InputMaybe<ResourceActionErrorActionPipelineActionCreateFieldInput>;
-  delete?: InputMaybe<ResourceActionErrorActionPipelineActionDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ResourceActionErrorActionPipelineActionConnectOrCreateFieldInput>;
 };
 
 export type ResourceActionErrorActionResourceActionConnectFieldInput = {
@@ -18250,13 +17522,11 @@ export type ResourceActionErrorActionResourceActionUpdateFieldInput = {
 export type ResourceActionErrorActionUpdateInput = {
   CustomAction?: InputMaybe<ResourceActionErrorActionCustomActionUpdateFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionErrorActionResourceActionUpdateFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionErrorActionPipelineActionUpdateFieldInput>;
 };
 
 export type ResourceActionOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit?: Scalars["Boolean"];
 };
 
 export type ResourceActionOptions = {
@@ -18374,7 +17644,6 @@ export type ResourceActionResourceUpdateFieldInput = {
 export type ResourceActionSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
-  runOnInit?: InputMaybe<SortDirection>;
   type?: InputMaybe<SortDirection>;
 };
 
@@ -18418,19 +17687,16 @@ export type ResourceActionStoreNodeAggregationWhereInput = {
 export type ResourceActionSuccessActionConnectInput = {
   CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionConnectFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionConnectFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectFieldInput>;
 };
 
 export type ResourceActionSuccessActionConnectionWhere = {
   CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionConnectionWhere>;
   ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionConnectionWhere>;
-  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>;
 };
 
 export type ResourceActionSuccessActionConnectOrCreateInput = {
   CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionConnectOrCreateFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionConnectOrCreateFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput>;
 };
 
 export type ResourceActionSuccessActionCreateFieldInput = {
@@ -18440,15 +17706,11 @@ export type ResourceActionSuccessActionCreateFieldInput = {
   ResourceAction?: InputMaybe<
     Array<ResourceActionSuccessActionResourceActionCreateFieldInput>
   >;
-  PipelineAction?: InputMaybe<
-    Array<ResourceActionSuccessActionPipelineActionCreateFieldInput>
-  >;
 };
 
 export type ResourceActionSuccessActionCreateInput = {
   CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionFieldInput>;
 };
 
 export type ResourceActionSuccessActionCustomActionConnectFieldInput = {
@@ -18514,74 +17776,11 @@ export type ResourceActionSuccessActionCustomActionUpdateFieldInput = {
 export type ResourceActionSuccessActionDeleteInput = {
   CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionDeleteFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionDeleteFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionDeleteFieldInput>;
 };
 
 export type ResourceActionSuccessActionDisconnectInput = {
   CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionDisconnectFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionDisconnectFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionDisconnectFieldInput>;
-};
-
-export type ResourceActionSuccessActionPipelineActionConnectFieldInput = {
-  where?: InputMaybe<PipelineActionConnectWhere>;
-  connect?: InputMaybe<PipelineActionConnectInput>;
-};
-
-export type ResourceActionSuccessActionPipelineActionConnectionWhere = {
-  OR?: InputMaybe<
-    Array<ResourceActionSuccessActionPipelineActionConnectionWhere>
-  >;
-  AND?: InputMaybe<
-    Array<ResourceActionSuccessActionPipelineActionConnectionWhere>
-  >;
-  node?: InputMaybe<PipelineActionWhere>;
-  node_NOT?: InputMaybe<PipelineActionWhere>;
-};
-
-export type ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput =
-  {
-    where: PipelineActionConnectOrCreateWhere;
-    onCreate: ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInputOnCreate;
-  };
-
-export type ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: PipelineActionOnCreateInput;
-  };
-
-export type ResourceActionSuccessActionPipelineActionCreateFieldInput = {
-  node: PipelineActionCreateInput;
-};
-
-export type ResourceActionSuccessActionPipelineActionDeleteFieldInput = {
-  where?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>;
-  delete?: InputMaybe<PipelineActionDeleteInput>;
-};
-
-export type ResourceActionSuccessActionPipelineActionDisconnectFieldInput = {
-  where?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>;
-  disconnect?: InputMaybe<PipelineActionDisconnectInput>;
-};
-
-export type ResourceActionSuccessActionPipelineActionFieldInput = {
-  create?: InputMaybe<ResourceActionSuccessActionPipelineActionCreateFieldInput>;
-  connect?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput>;
-};
-
-export type ResourceActionSuccessActionPipelineActionUpdateConnectionInput = {
-  node?: InputMaybe<PipelineActionUpdateInput>;
-};
-
-export type ResourceActionSuccessActionPipelineActionUpdateFieldInput = {
-  where?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectionWhere>;
-  update?: InputMaybe<ResourceActionSuccessActionPipelineActionUpdateConnectionInput>;
-  connect?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectFieldInput>;
-  disconnect?: InputMaybe<ResourceActionSuccessActionPipelineActionDisconnectFieldInput>;
-  create?: InputMaybe<ResourceActionSuccessActionPipelineActionCreateFieldInput>;
-  delete?: InputMaybe<ResourceActionSuccessActionPipelineActionDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ResourceActionSuccessActionPipelineActionConnectOrCreateFieldInput>;
 };
 
 export type ResourceActionSuccessActionResourceActionConnectFieldInput = {
@@ -18648,7 +17847,6 @@ export type ResourceActionSuccessActionResourceActionUpdateFieldInput = {
 export type ResourceActionSuccessActionUpdateInput = {
   CustomAction?: InputMaybe<ResourceActionSuccessActionCustomActionUpdateFieldInput>;
   ResourceAction?: InputMaybe<ResourceActionSuccessActionResourceActionUpdateFieldInput>;
-  PipelineAction?: InputMaybe<ResourceActionSuccessActionPipelineActionUpdateFieldInput>;
 };
 
 export type ResourceActionUniqueWhere = {
@@ -18658,7 +17856,6 @@ export type ResourceActionUniqueWhere = {
 export type ResourceActionUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
   type?: InputMaybe<ActionKind>;
   store?: InputMaybe<ActionBaseStoreUpdateFieldInput>;
   successAction?: InputMaybe<ResourceActionSuccessActionUpdateInput>;
@@ -18690,8 +17887,6 @@ export type ResourceActionWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  runOnInit_NOT?: InputMaybe<Scalars["Boolean"]>;
   type?: InputMaybe<ActionKind>;
   type_NOT?: InputMaybe<ActionKind>;
   type_IN?: InputMaybe<Array<ActionKind>>;
@@ -19003,15 +18198,11 @@ export type StoreActionsConnectInput = {
   ResourceAction?: InputMaybe<
     Array<StoreActionsResourceActionConnectFieldInput>
   >;
-  PipelineAction?: InputMaybe<
-    Array<StoreActionsPipelineActionConnectFieldInput>
-  >;
 };
 
 export type StoreActionsConnectionWhere = {
   CustomAction?: InputMaybe<StoreActionsCustomActionConnectionWhere>;
   ResourceAction?: InputMaybe<StoreActionsResourceActionConnectionWhere>;
-  PipelineAction?: InputMaybe<StoreActionsPipelineActionConnectionWhere>;
 };
 
 export type StoreActionsConnectOrCreateInput = {
@@ -19021,9 +18212,6 @@ export type StoreActionsConnectOrCreateInput = {
   ResourceAction?: InputMaybe<
     Array<StoreActionsResourceActionConnectOrCreateFieldInput>
   >;
-  PipelineAction?: InputMaybe<
-    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
-  >;
 };
 
 export type StoreActionsCreateFieldInput = {
@@ -19031,15 +18219,11 @@ export type StoreActionsCreateFieldInput = {
   ResourceAction?: InputMaybe<
     Array<StoreActionsResourceActionCreateFieldInput>
   >;
-  PipelineAction?: InputMaybe<
-    Array<StoreActionsPipelineActionCreateFieldInput>
-  >;
 };
 
 export type StoreActionsCreateInput = {
   CustomAction?: InputMaybe<StoreActionsCustomActionFieldInput>;
   ResourceAction?: InputMaybe<StoreActionsResourceActionFieldInput>;
-  PipelineAction?: InputMaybe<StoreActionsPipelineActionFieldInput>;
 };
 
 export type StoreActionsCustomActionConnectFieldInput = {
@@ -19106,9 +18290,6 @@ export type StoreActionsDeleteInput = {
   ResourceAction?: InputMaybe<
     Array<StoreActionsResourceActionDeleteFieldInput>
   >;
-  PipelineAction?: InputMaybe<
-    Array<StoreActionsPipelineActionDeleteFieldInput>
-  >;
 };
 
 export type StoreActionsDisconnectInput = {
@@ -19117,70 +18298,6 @@ export type StoreActionsDisconnectInput = {
   >;
   ResourceAction?: InputMaybe<
     Array<StoreActionsResourceActionDisconnectFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<StoreActionsPipelineActionDisconnectFieldInput>
-  >;
-};
-
-export type StoreActionsPipelineActionConnectFieldInput = {
-  where?: InputMaybe<PipelineActionConnectWhere>;
-  connect?: InputMaybe<Array<PipelineActionConnectInput>>;
-};
-
-export type StoreActionsPipelineActionConnectionWhere = {
-  OR?: InputMaybe<Array<StoreActionsPipelineActionConnectionWhere>>;
-  AND?: InputMaybe<Array<StoreActionsPipelineActionConnectionWhere>>;
-  node?: InputMaybe<PipelineActionWhere>;
-  node_NOT?: InputMaybe<PipelineActionWhere>;
-};
-
-export type StoreActionsPipelineActionConnectOrCreateFieldInput = {
-  where: PipelineActionConnectOrCreateWhere;
-  onCreate: StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate;
-};
-
-export type StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate = {
-  node: PipelineActionOnCreateInput;
-};
-
-export type StoreActionsPipelineActionCreateFieldInput = {
-  node: PipelineActionCreateInput;
-};
-
-export type StoreActionsPipelineActionDeleteFieldInput = {
-  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>;
-  delete?: InputMaybe<PipelineActionDeleteInput>;
-};
-
-export type StoreActionsPipelineActionDisconnectFieldInput = {
-  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>;
-  disconnect?: InputMaybe<PipelineActionDisconnectInput>;
-};
-
-export type StoreActionsPipelineActionFieldInput = {
-  create?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>;
-  connect?: InputMaybe<Array<StoreActionsPipelineActionConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
-  >;
-};
-
-export type StoreActionsPipelineActionUpdateConnectionInput = {
-  node?: InputMaybe<PipelineActionUpdateInput>;
-};
-
-export type StoreActionsPipelineActionUpdateFieldInput = {
-  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>;
-  update?: InputMaybe<StoreActionsPipelineActionUpdateConnectionInput>;
-  connect?: InputMaybe<Array<StoreActionsPipelineActionConnectFieldInput>>;
-  disconnect?: InputMaybe<
-    Array<StoreActionsPipelineActionDisconnectFieldInput>
-  >;
-  create?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>;
-  delete?: InputMaybe<Array<StoreActionsPipelineActionDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
   >;
 };
 
@@ -19249,9 +18366,6 @@ export type StoreActionsUpdateInput = {
   CustomAction?: InputMaybe<Array<StoreActionsCustomActionUpdateFieldInput>>;
   ResourceAction?: InputMaybe<
     Array<StoreActionsResourceActionUpdateFieldInput>
-  >;
-  PipelineAction?: InputMaybe<
-    Array<StoreActionsPipelineActionUpdateFieldInput>
   >;
 };
 
@@ -25173,80 +24287,6 @@ export interface IntAggregateInputNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface PipelineActionAggregateSelectionInput {
-  count?: boolean;
-  id?: IdAggregateInputNonNullable;
-  name?: StringAggregateInputNonNullable;
-}
-
-export declare class PipelineActionModel {
-  public find(args?: {
-    where?: PipelineActionWhere;
-
-    options?: PipelineActionOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<PipelineAction[]>;
-  public create(args: {
-    input: PipelineActionCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreatePipelineActionsMutationResponse>;
-  public update(args: {
-    where?: PipelineActionWhere;
-    update?: PipelineActionUpdateInput;
-    connect?: PipelineActionConnectInput;
-    disconnect?: PipelineActionDisconnectInput;
-    create?: PipelineActionCreateInput;
-    connectOrCreate?: PipelineActionConnectOrCreateInput;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdatePipelineActionsMutationResponse>;
-  public delete(args: {
-    where?: PipelineActionWhere;
-    delete?: PipelineActionDeleteInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: PipelineActionWhere;
-
-    aggregate: PipelineActionAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<PipelineActionAggregateSelection>;
-}
-
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface ResourceAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -25614,7 +24654,6 @@ export interface ModelMap {
   Store: StoreModel;
   CustomAction: CustomActionModel;
   ResourceAction: ResourceActionModel;
-  PipelineAction: PipelineActionModel;
   Resource: ResourceModel;
   VercelDomainConfigData: VercelDomainConfigDataModel;
   VercelProjectDomainData: VercelProjectDomainDataModel;

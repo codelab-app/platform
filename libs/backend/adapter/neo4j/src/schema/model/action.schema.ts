@@ -11,18 +11,12 @@ export const actionSchema = gql`
     Action responsible for fetching data from a resource
     """
     ResourceAction
-
-    """
-    Represents a list of actions that runs in a certain order
-    """
-    PipelineAction
   }
 
   interface ActionBase {
     id: ID! @id(autogenerate: false)
     name: String!
     type: ActionKind! @readonly
-    runOnInit: Boolean! @default(value: false)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
   }
 
@@ -30,7 +24,6 @@ export const actionSchema = gql`
     id: ID!
     name: String!
     type: ActionKind! @default(value: CustomAction)
-    runOnInit: Boolean! @default(value: false)
     store: Store!
 
     """
@@ -43,7 +36,6 @@ export const actionSchema = gql`
     id: ID!
     name: String!
     type: ActionKind! @default(value: ResourceAction)
-    runOnInit: Boolean! @default(value: false)
     store: Store!
 
     """
@@ -60,29 +52,5 @@ export const actionSchema = gql`
     config: Prop! @relationship(type: "ACTION_CONFIG", direction: OUT)
   }
 
-  interface ActionsPipeLine @relationshipProperties {
-    # use array because the same action could repeat
-    # use String instead of Int due to : https://github.com/neo4j/graphql/issues/167
-    orders: [String!]
-  }
-
-  type PipelineAction implements ActionBase {
-    id: ID!
-    name: String!
-    type: ActionKind! @default(value: PipelineAction)
-    runOnInit: Boolean! @default(value: false)
-    store: Store!
-
-    """
-    List of actions to run in order
-    """
-    actions: [AnyAction!]!
-      @relationship(
-        type: "ACTION_PIPELINE"
-        properties: "ActionsPipeLine"
-        direction: OUT
-      )
-  }
-
-  union AnyAction = PipelineAction | ResourceAction | CustomAction
+  union AnyAction = ResourceAction | CustomAction
 `

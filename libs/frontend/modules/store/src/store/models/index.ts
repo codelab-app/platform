@@ -1,6 +1,5 @@
 export * from './action.model'
 export * from './action.ref'
 export * from './custom-action.model'
-export * from './pipeline-action.model'
 export * from './resource-action.model'
 export * from './store.model'

@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen';
 
-import { Action_CustomAction_Fragment, Action_PipelineAction_Fragment, Action_ResourceAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
+import { Action_CustomAction_Fragment, Action_ResourceAction_Fragment } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
 import { gql } from 'graphql-tag';
@@ -10,7 +10,7 @@ export type GetActionsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetActionsQuery = { customActions: Array<Action_CustomAction_Fragment>, resourceActions: Array<Action_ResourceAction_Fragment>, pipelineActions: Array<Action_PipelineAction_Fragment> };
+export type GetActionsQuery = { customActions: Array<Action_CustomAction_Fragment>, resourceActions: Array<Action_ResourceAction_Fragment> };
 
 
 export const GetActionsDocument = gql`
@@ -19,9 +19,6 @@ export const GetActionsDocument = gql`
     ...Action
   }
   resourceActions(where: {store: {id: $storeId}}) {
-    ...Action
-  }
-  pipelineActions(where: {store: {id: $storeId}}) {
     ...Action
   }
 }

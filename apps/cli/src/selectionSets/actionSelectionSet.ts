@@ -28,19 +28,5 @@ const edgeSelectionProperties = `
     ... on ResourceAction {
       id
     }
-    ... on PipelineAction {
-      id
-    }
   }
-`
-
-export const exportPipelineActionSelectionSet = `
- {
-  ${actionSelectionProperties}
-  actionsConnection {
-    edges {
-      ${edgeSelectionProperties}
-    }
-  }
- }
 `

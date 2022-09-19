@@ -11,10 +11,3 @@ mutation DeleteResourceActions($where: ResourceActionWhere!) {
     relationshipsDeleted
   }
 }
-
-mutation DeletePipelineActions($where: PipelineActionWhere!) {
-  deletePipelineActions(where: $where) {
-    nodesDeleted
-    relationshipsDeleted
-  }
-}

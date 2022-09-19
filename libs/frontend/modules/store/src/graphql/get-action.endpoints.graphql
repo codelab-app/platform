@@ -5,7 +5,4 @@ query GetActions($storeId: ID) {
   resourceActions(where: { store: { id: $storeId } }) {
     ...Action
   }
-  pipelineActions(where: { store: { id: $storeId } }) {
-    ...Action
-  }
 }

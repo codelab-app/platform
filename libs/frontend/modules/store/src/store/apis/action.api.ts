@@ -66,15 +66,11 @@ const createCustomAction = (input: CustomActionCreateInput) =>
     .CreateCustomActions({ input })
     .then((r) => r.createCustomActions.customActions)
 
-const createResourceAction = (input: ResourceActionCreateInput) =>
-  _createActionApi
-    .CreateResourceActions({ input })
-    .then((r) => r.createResourceActions.resourceActions)
-
-const createPipelineAction = (input: PipelineActionCreateInput) =>
-  _createActionApi
-    .CreatePipelineActions({ input })
-    .then((r) => r.createPipelineActions.pipelineActions)
+  [IActionKind.ResourceAction]: (input) =>
+    _createActionApi
+      .CreateResourceActions({ input })
+      .then((response) => response.createResourceActions.resourceActions),
+}
 
 export const createActionApi = async (actionsDTOs: Array<ICreateActionInput>) =>
   Promise.all(
@@ -105,11 +101,6 @@ export const updateActionApi: UpdateActionsRecord = {
     _updateActionApi
       .UpdateResourceActions(vars)
       .then((response) => response.updateResourceActions.resourceActions),
-
-  [IActionKind.PipelineAction]: (vars) =>
-    _updateActionApi
-      .UpdatePipelineActions(vars)
-      .then((response) => response.updatePipelineActions.pipelineActions),
 }
 
 export const deleteActionApi: DeleteActionsRecord = {
@@ -121,8 +112,4 @@ export const deleteActionApi: DeleteActionsRecord = {
     _deleteActionApi
       .DeleteResourceActions(vars)
       .then((r) => r.deleteResourceActions),
-  [IActionKind.PipelineAction]: (vars) =>
-    _deleteActionApi
-      .DeletePipelineActions(vars)
-      .then((r) => r.deletePipelineActions),
 }

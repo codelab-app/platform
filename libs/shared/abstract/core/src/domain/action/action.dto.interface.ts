@@ -31,7 +31,4 @@ export type IUpdateActionDTO = IActionBaseDTO
 
 export type IActionDTO = ActionFragment
 
-export type IActionExport =
-  | OGM_TYPES.CustomAction
-  | OGM_TYPES.ResourceAction
-  | OGM_TYPES.PipelineAction
+export type IActionExport = OGM_TYPES.CustomAction | OGM_TYPES.ResourceAction
