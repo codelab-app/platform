@@ -174,10 +174,6 @@ PageBuilder.Layout = observer((page) => {
   // should be defined by the time, components list renders
   const pageTree = pageBuilderRenderer?.pageTree?.current
 
-  if (!pageTree) {
-    throw new Error('Missing page tree')
-  }
-
   useEffect(() => {
     userService.user?.setCurAppId(appId)
     userService.user?.setCurPageId(pageId)

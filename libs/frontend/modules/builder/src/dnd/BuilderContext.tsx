@@ -19,7 +19,7 @@ export const BuilderContext = observer<
   PropsWithChildren<{
     elementService: IElementService
     builderService: IBuilderService
-    elementTree: IElementTree
+    elementTree?: IElementTree
   }>
 >(({ children, elementService, builderService, elementTree }) => {
   const { onDragEnd, onDragStart } = useBuilderDnd(

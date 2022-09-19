@@ -20,7 +20,7 @@ export interface UseBuilderDnd {
 export const useBuilderDnd = (
   builderService: IBuilderService,
   elementService: IElementService,
-  elementTree: IElementTree,
+  elementTree?: IElementTree,
 ): UseBuilderDnd => {
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
@@ -55,6 +55,12 @@ export const useBuilderDnd = (
       const createElementInput = {
         ...data.createElementInput,
         ...overData.createElementInput,
+      }
+
+      if (!elementTree) {
+        console.error('Element Tree is missing')
+
+        return
       }
 
       // drop position = 1, add as children
