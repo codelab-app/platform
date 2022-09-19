@@ -1,10 +1,5 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
 import {
-  CustomActionCreateInput,
-  PipelineActionCreateInput,
-  ResourceActionCreateInput,
-} from '@codelab/shared/abstract/codegen'
-import {
   IActionDTO,
   IActionKind,
   IAnyActionWhere,
@@ -33,6 +28,13 @@ const _updateActionApi = getUpdateSdk(client)
 
 type GetActionsReturnType = Promise<
   Array<UnboxArray<GetActionsQuery[keyof GetActionsQuery]>>
+>
+
+type CreateActions = Record<
+  IActionKind,
+  (
+    input: ICreateActionInput | Array<ICreateActionInput>,
+  ) => Promise<Array<IActionDTO>>
 >
 
 type UpdateActionsRecord = Record<
@@ -72,25 +74,6 @@ export const createActionApi: CreateActions = {
       .CreateApiActions({ input })
       .then((response) => response.createApiActions.apiActions),
 }
-
-export const createActionApi = async (actionsDTOs: Array<ICreateActionInput>) =>
-  Promise.all(
-    actionsDTOs.map((input) => {
-      if (input.type === IActionKind.CustomAction) {
-        return createCustomAction(input as CustomActionCreateInput)
-      }
-
-      if (input.type === IActionKind.ResourceAction) {
-        return createResourceAction(input as ResourceActionCreateInput)
-      }
-
-      if (input.type === IActionKind.PipelineAction) {
-        return createPipelineAction(input as PipelineActionCreateInput)
-      }
-
-      throw new Error('Unknown action type')
-    }),
-  ).then((r) => r.flat())
 
 export const updateActionApi: UpdateActionsRecord = {
   [IActionKind.CodeAction]: (vars) =>

@@ -17297,15 +17297,6 @@ export type StoreAppConnectionArgs = {
   where?: InputMaybe<StoreAppConnectionWhere>;
 };
 
-
-export type StoreStateConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  directed?: InputMaybe<Scalars['Boolean']>;
-  first?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Array<StoreStateConnectionSort>>;
-  where?: InputMaybe<StoreStateConnectionWhere>;
-};
-
 export type StoreActionsApiActionConnectFieldInput = {
   connect?: InputMaybe<Array<ApiActionConnectInput>>;
   where?: InputMaybe<ApiActionConnectWhere>;
@@ -23158,10 +23149,7 @@ export type ResourceFragment = { __typename: 'Resource', id: string, name: strin
     & PropFragment
   ) };
 
-export type StoreFragment = { __typename?: 'Store', id: string, name: string, stateApi: { __typename?: 'InterfaceType', id: string, name: string }, state: (
-    { __typename?: 'Prop' }
-    & PropFragment
-  ), actions: Array<(
+export type StoreFragment = { __typename?: 'Store', id: string, name: string, api: { __typename?: 'InterfaceType', id: string, name: string }, actions: Array<(
     { __typename?: 'ApiAction' }
     & Action_ApiAction_Fragment
   ) | (

@@ -65,7 +65,7 @@ export const typeSchema = gql`
         properties: "OwnedBy",
         direction: OUT
       )
-    
+
     # Any type could be used a field for some interface
 #    fieldFor: [TypeBase!]!
 #      @relationship(
@@ -153,7 +153,7 @@ export const typeSchema = gql`
       )
   }
 
-  
+
   interface OwnedBy @relationshipProperties {
     data: String! @default(value: "{}")
   }
@@ -353,19 +353,18 @@ export const typeSchema = gql`
     CssInJs
   }
 
-  union AnyType = PrimitiveType | 
-                  ArrayType | 
-                  UnionType | 
-                  InterfaceType | 
-                  ElementType | 
-                  RenderPropsType | 
-                  ReactNodeType | 
-                  EnumType | 
-                  LambdaType | 
-                  PageType | 
-                  AppType | 
-                  ActionType | 
-                  CodeMirrorType
-
-
+  union AnyType =
+    PrimitiveType |
+    ArrayType |
+    UnionType |
+    InterfaceType |
+    ElementType |
+    RenderPropsType |
+    ReactNodeType |
+    EnumType |
+    LambdaType |
+    PageType |
+    AppType |
+    ActionType |
+    CodeMirrorType
 `

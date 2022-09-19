@@ -1,16 +1,4 @@
 import * as cg from '@codelab/shared/abstract/codegen'
-import {
-  CustomActionCreateInput,
-  PipelineActionCreateInput,
-  ResourceActionCreateInput,
-} from '@codelab/shared/abstract/codegen'
-
-export interface IUpdateActionArgs {
-  update: IUpdateActionInput
-  disconnect?: IDisconnectActionInput
-  connect?: IConnectActionInput
-  delete?: IDeleteActionInput
-}
 
 export type ICreateActionInput =
   | cg.CodeActionCreateInput
