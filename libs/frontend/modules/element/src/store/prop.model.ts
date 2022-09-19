@@ -1,5 +1,6 @@
 import type { IProp, IPropData, IPropDTO } from '@codelab/shared/abstract/core'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
+import { omit } from 'lodash'
 import { computed } from 'mobx'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -23,6 +24,11 @@ export class Prop
   @modelAction
   set(key: string, value: any) {
     this.data = frozen(mergeProps(this.data, { [key]: value }))
+  }
+
+  @modelAction
+  delete(key: string) {
+    this.data = frozen(omit(this.data, key))
   }
 
   get(key: string) {

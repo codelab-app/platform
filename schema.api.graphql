@@ -207,6 +207,26 @@ input ActionTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input ActionTypeOwnerNodeAggregationWhereInput {
@@ -306,6 +326,7 @@ type ActionTypeUserOwnerAggregationSelection {
 
 type ActionTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type ActionTypeUserOwnerNodeAggregateSelection {
@@ -1137,6 +1158,26 @@ input AppTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input AppTypeOwnerNodeAggregationWhereInput {
@@ -1236,6 +1277,7 @@ type AppTypeUserOwnerAggregationSelection {
 
 type AppTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type AppTypeUserOwnerNodeAggregateSelection {
@@ -2397,6 +2439,26 @@ input ArrayTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input ArrayTypeOwnerNodeAggregationWhereInput {
@@ -2498,6 +2560,7 @@ type ArrayTypeUserOwnerAggregationSelection {
 
 type ArrayTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type ArrayTypeUserOwnerNodeAggregateSelection {
@@ -3480,6 +3543,26 @@ input CodeMirrorTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input CodeMirrorTypeOwnerNodeAggregationWhereInput {
@@ -3581,6 +3664,7 @@ type CodeMirrorTypeUserOwnerAggregationSelection {
 
 type CodeMirrorTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type CodeMirrorTypeUserOwnerNodeAggregateSelection {
@@ -8198,6 +8282,26 @@ input ElementTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input ElementTypeOwnerNodeAggregationWhereInput {
@@ -8299,6 +8403,7 @@ type ElementTypeUserOwnerAggregationSelection {
 
 type ElementTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type ElementTypeUserOwnerNodeAggregateSelection {
@@ -8869,6 +8974,26 @@ input EnumTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input EnumTypeOwnerNodeAggregationWhereInput {
@@ -8970,6 +9095,7 @@ type EnumTypeUserOwnerAggregationSelection {
 
 type EnumTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type EnumTypeUserOwnerNodeAggregateSelection {
@@ -10283,6 +10409,26 @@ input InterfaceTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input InterfaceTypeOwnerNodeAggregationWhereInput {
@@ -10386,6 +10532,7 @@ type InterfaceTypeUserOwnerAggregationSelection {
 
 type InterfaceTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type InterfaceTypeUserOwnerNodeAggregateSelection {
@@ -10577,6 +10724,26 @@ input LambdaTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input LambdaTypeOwnerNodeAggregationWhereInput {
@@ -10676,6 +10843,7 @@ type LambdaTypeUserOwnerAggregationSelection {
 
 type LambdaTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type LambdaTypeUserOwnerNodeAggregateSelection {
@@ -11210,18 +11378,22 @@ type Mutation {
 
 interface OwnedBy {
   data: String!
+  value: String
 }
 
 input OwnedByCreateInput {
   data: String! = "{}"
+  value: String
 }
 
 input OwnedBySort {
   data: SortDirection
+  value: SortDirection
 }
 
 input OwnedByUpdateInput {
   data: String
+  value: String
 }
 
 input OwnedByWhere {
@@ -11237,6 +11409,16 @@ input OwnedByWhere {
   data_NOT_IN: [String!]
   data_NOT_STARTS_WITH: String
   data_STARTS_WITH: String
+  value: String
+  value_CONTAINS: String
+  value_ENDS_WITH: String
+  value_IN: [String]
+  value_NOT: String
+  value_NOT_CONTAINS: String
+  value_NOT_ENDS_WITH: String
+  value_NOT_IN: [String]
+  value_NOT_STARTS_WITH: String
+  value_STARTS_WITH: String
 }
 
 type Page {
@@ -11876,6 +12058,26 @@ input PageTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input PageTypeOwnerNodeAggregationWhereInput {
@@ -11975,6 +12177,7 @@ type PageTypeUserOwnerAggregationSelection {
 
 type PageTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type PageTypeUserOwnerNodeAggregateSelection {
@@ -12707,6 +12910,26 @@ input PrimitiveTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input PrimitiveTypeOwnerNodeAggregationWhereInput {
@@ -12810,6 +13033,7 @@ type PrimitiveTypeUserOwnerAggregationSelection {
 
 type PrimitiveTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type PrimitiveTypeUserOwnerNodeAggregateSelection {
@@ -14182,6 +14406,26 @@ input ReactNodeTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input ReactNodeTypeOwnerNodeAggregationWhereInput {
@@ -14281,6 +14525,7 @@ type ReactNodeTypeUserOwnerAggregationSelection {
 
 type ReactNodeTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type ReactNodeTypeUserOwnerNodeAggregateSelection {
@@ -14451,6 +14696,26 @@ input RenderPropsTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input RenderPropsTypeOwnerNodeAggregationWhereInput {
@@ -14550,6 +14815,7 @@ type RenderPropsTypeUserOwnerAggregationSelection {
 
 type RenderPropsTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type RenderPropsTypeUserOwnerNodeAggregateSelection {
@@ -16033,6 +16299,22 @@ type Store {
     first: Int
     where: StoreActionsConnectionWhere
   ): StoreActionsConnection!
+  api(
+    directed: Boolean = true
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  ): InterfaceType!
+  apiAggregate(
+    directed: Boolean = true
+    where: InterfaceTypeWhere
+  ): StoreInterfaceTypeApiAggregationSelection
+  apiConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreApiConnectionSort!]
+    where: StoreApiConnectionWhere
+  ): StoreApiConnection!
   app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
   appAggregate(
     directed: Boolean = true
@@ -16047,34 +16329,6 @@ type Store {
   ): StoreAppConnection!
   id: ID!
   name: String!
-  state(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
-  stateAggregate(
-    directed: Boolean = true
-    where: PropWhere
-  ): StorePropStateAggregationSelection
-  stateApi(
-    directed: Boolean = true
-    options: InterfaceTypeOptions
-    where: InterfaceTypeWhere
-  ): InterfaceType!
-  stateApiAggregate(
-    directed: Boolean = true
-    where: InterfaceTypeWhere
-  ): StoreInterfaceTypeStateApiAggregationSelection
-  stateApiConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [StoreStateApiConnectionSort!]
-    where: StoreStateApiConnectionWhere
-  ): StoreStateApiConnection!
-  stateConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [StoreStateConnectionSort!]
-    where: StoreStateConnectionWhere
-  ): StoreStateConnection!
 }
 
 input StoreActionsConnectInput {
@@ -16307,6 +16561,113 @@ type StoreAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
+input StoreApiAggregateInput {
+  AND: [StoreApiAggregateInput!]
+  OR: [StoreApiAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: StoreApiNodeAggregationWhereInput
+}
+
+input StoreApiConnectFieldInput {
+  connect: InterfaceTypeConnectInput
+  where: InterfaceTypeConnectWhere
+}
+
+input StoreApiConnectOrCreateFieldInput {
+  onCreate: StoreApiConnectOrCreateFieldInputOnCreate!
+  where: InterfaceTypeConnectOrCreateWhere!
+}
+
+input StoreApiConnectOrCreateFieldInputOnCreate {
+  node: InterfaceTypeOnCreateInput!
+}
+
+type StoreApiConnection {
+  edges: [StoreApiRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreApiConnectionSort {
+  node: InterfaceTypeSort
+}
+
+input StoreApiConnectionWhere {
+  AND: [StoreApiConnectionWhere!]
+  OR: [StoreApiConnectionWhere!]
+  node: InterfaceTypeWhere
+  node_NOT: InterfaceTypeWhere
+}
+
+input StoreApiCreateFieldInput {
+  node: InterfaceTypeCreateInput!
+}
+
+input StoreApiDeleteFieldInput {
+  delete: InterfaceTypeDeleteInput
+  where: StoreApiConnectionWhere
+}
+
+input StoreApiDisconnectFieldInput {
+  disconnect: InterfaceTypeDisconnectInput
+  where: StoreApiConnectionWhere
+}
+
+input StoreApiFieldInput {
+  connect: StoreApiConnectFieldInput
+  connectOrCreate: StoreApiConnectOrCreateFieldInput
+  create: StoreApiCreateFieldInput
+}
+
+input StoreApiNodeAggregationWhereInput {
+  AND: [StoreApiNodeAggregationWhereInput!]
+  OR: [StoreApiNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type StoreApiRelationship {
+  cursor: String!
+  node: InterfaceType!
+}
+
+input StoreApiUpdateConnectionInput {
+  node: InterfaceTypeUpdateInput
+}
+
+input StoreApiUpdateFieldInput {
+  connect: StoreApiConnectFieldInput
+  connectOrCreate: StoreApiConnectOrCreateFieldInput
+  create: StoreApiCreateFieldInput
+  delete: StoreApiDeleteFieldInput
+  disconnect: StoreApiDisconnectFieldInput
+  update: StoreApiUpdateConnectionInput
+  where: StoreApiConnectionWhere
+}
+
 input StoreAppAggregateInput {
   AND: [StoreAppAggregateInput!]
   OR: [StoreAppAggregateInput!]
@@ -16447,16 +16808,14 @@ input StoreAppUpdateFieldInput {
 
 input StoreConnectInput {
   actions: StoreActionsConnectInput
+  api: StoreApiConnectFieldInput
   app: StoreAppConnectFieldInput
-  state: StoreStateConnectFieldInput
-  stateApi: StoreStateApiConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
   actions: StoreActionsConnectOrCreateInput
+  api: StoreApiConnectOrCreateFieldInput
   app: StoreAppConnectOrCreateFieldInput
-  state: StoreStateConnectOrCreateFieldInput
-  stateApi: StoreStateApiConnectOrCreateFieldInput
 }
 
 input StoreConnectOrCreateWhere {
@@ -16469,25 +16828,22 @@ input StoreConnectWhere {
 
 input StoreCreateInput {
   actions: StoreActionsCreateInput
+  api: StoreApiFieldInput
   app: StoreAppFieldInput
   id: ID!
   name: String!
-  state: StoreStateFieldInput
-  stateApi: StoreStateApiFieldInput
 }
 
 input StoreDeleteInput {
   actions: StoreActionsDeleteInput
+  api: StoreApiDeleteFieldInput
   app: StoreAppDeleteFieldInput
-  state: StoreStateDeleteFieldInput
-  stateApi: StoreStateApiDeleteFieldInput
 }
 
 input StoreDisconnectInput {
   actions: StoreActionsDisconnectInput
+  api: StoreApiDisconnectFieldInput
   app: StoreAppDisconnectFieldInput
-  state: StoreStateDisconnectFieldInput
-  stateApi: StoreStateApiDisconnectFieldInput
 }
 
 type StoreEdge {
@@ -16495,12 +16851,12 @@ type StoreEdge {
   node: Store!
 }
 
-type StoreInterfaceTypeStateApiAggregationSelection {
+type StoreInterfaceTypeApiAggregationSelection {
   count: Int!
-  node: StoreInterfaceTypeStateApiNodeAggregateSelection
+  node: StoreInterfaceTypeApiNodeAggregateSelection
 }
 
-type StoreInterfaceTypeStateApiNodeAggregateSelection {
+type StoreInterfaceTypeApiNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -16520,21 +16876,10 @@ input StoreOptions {
   sort: [StoreSort!]
 }
 
-type StorePropStateAggregationSelection {
-  count: Int!
-  node: StorePropStateNodeAggregateSelection
-}
-
-type StorePropStateNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-}
-
 input StoreRelationInput {
   actions: StoreActionsCreateFieldInput
+  api: StoreApiCreateFieldInput
   app: StoreAppCreateFieldInput
-  state: StoreStateCreateFieldInput
-  stateApi: StoreStateApiCreateFieldInput
 }
 
 """
@@ -16545,228 +16890,16 @@ input StoreSort {
   name: SortDirection
 }
 
-input StoreStateAggregateInput {
-  AND: [StoreStateAggregateInput!]
-  OR: [StoreStateAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: StoreStateNodeAggregationWhereInput
-}
-
-input StoreStateApiAggregateInput {
-  AND: [StoreStateApiAggregateInput!]
-  OR: [StoreStateApiAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: StoreStateApiNodeAggregationWhereInput
-}
-
-input StoreStateApiConnectFieldInput {
-  connect: InterfaceTypeConnectInput
-  where: InterfaceTypeConnectWhere
-}
-
-input StoreStateApiConnectOrCreateFieldInput {
-  onCreate: StoreStateApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input StoreStateApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
-}
-
-type StoreStateApiConnection {
-  edges: [StoreStateApiRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input StoreStateApiConnectionSort {
-  node: InterfaceTypeSort
-}
-
-input StoreStateApiConnectionWhere {
-  AND: [StoreStateApiConnectionWhere!]
-  OR: [StoreStateApiConnectionWhere!]
-  node: InterfaceTypeWhere
-  node_NOT: InterfaceTypeWhere
-}
-
-input StoreStateApiCreateFieldInput {
-  node: InterfaceTypeCreateInput!
-}
-
-input StoreStateApiDeleteFieldInput {
-  delete: InterfaceTypeDeleteInput
-  where: StoreStateApiConnectionWhere
-}
-
-input StoreStateApiDisconnectFieldInput {
-  disconnect: InterfaceTypeDisconnectInput
-  where: StoreStateApiConnectionWhere
-}
-
-input StoreStateApiFieldInput {
-  connect: StoreStateApiConnectFieldInput
-  connectOrCreate: StoreStateApiConnectOrCreateFieldInput
-  create: StoreStateApiCreateFieldInput
-}
-
-input StoreStateApiNodeAggregationWhereInput {
-  AND: [StoreStateApiNodeAggregationWhereInput!]
-  OR: [StoreStateApiNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type StoreStateApiRelationship {
-  cursor: String!
-  node: InterfaceType!
-}
-
-input StoreStateApiUpdateConnectionInput {
-  node: InterfaceTypeUpdateInput
-}
-
-input StoreStateApiUpdateFieldInput {
-  connect: StoreStateApiConnectFieldInput
-  connectOrCreate: StoreStateApiConnectOrCreateFieldInput
-  create: StoreStateApiCreateFieldInput
-  delete: StoreStateApiDeleteFieldInput
-  disconnect: StoreStateApiDisconnectFieldInput
-  update: StoreStateApiUpdateConnectionInput
-  where: StoreStateApiConnectionWhere
-}
-
-input StoreStateConnectFieldInput {
-  where: PropConnectWhere
-}
-
-input StoreStateConnectOrCreateFieldInput {
-  onCreate: StoreStateConnectOrCreateFieldInputOnCreate!
-  where: PropConnectOrCreateWhere!
-}
-
-input StoreStateConnectOrCreateFieldInputOnCreate {
-  node: PropOnCreateInput!
-}
-
-type StoreStateConnection {
-  edges: [StoreStateRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input StoreStateConnectionSort {
-  node: PropSort
-}
-
-input StoreStateConnectionWhere {
-  AND: [StoreStateConnectionWhere!]
-  OR: [StoreStateConnectionWhere!]
-  node: PropWhere
-  node_NOT: PropWhere
-}
-
-input StoreStateCreateFieldInput {
-  node: PropCreateInput!
-}
-
-input StoreStateDeleteFieldInput {
-  where: StoreStateConnectionWhere
-}
-
-input StoreStateDisconnectFieldInput {
-  where: StoreStateConnectionWhere
-}
-
-input StoreStateFieldInput {
-  connect: StoreStateConnectFieldInput
-  connectOrCreate: StoreStateConnectOrCreateFieldInput
-  create: StoreStateCreateFieldInput
-}
-
-input StoreStateNodeAggregationWhereInput {
-  AND: [StoreStateNodeAggregationWhereInput!]
-  OR: [StoreStateNodeAggregationWhereInput!]
-  data_AVERAGE_EQUAL: Float
-  data_AVERAGE_GT: Float
-  data_AVERAGE_GTE: Float
-  data_AVERAGE_LT: Float
-  data_AVERAGE_LTE: Float
-  data_EQUAL: String
-  data_GT: Int
-  data_GTE: Int
-  data_LONGEST_EQUAL: Int
-  data_LONGEST_GT: Int
-  data_LONGEST_GTE: Int
-  data_LONGEST_LT: Int
-  data_LONGEST_LTE: Int
-  data_LT: Int
-  data_LTE: Int
-  data_SHORTEST_EQUAL: Int
-  data_SHORTEST_GT: Int
-  data_SHORTEST_GTE: Int
-  data_SHORTEST_LT: Int
-  data_SHORTEST_LTE: Int
-  id_EQUAL: ID
-}
-
-type StoreStateRelationship {
-  cursor: String!
-  node: Prop!
-}
-
-input StoreStateUpdateConnectionInput {
-  node: PropUpdateInput
-}
-
-input StoreStateUpdateFieldInput {
-  connect: StoreStateConnectFieldInput
-  connectOrCreate: StoreStateConnectOrCreateFieldInput
-  create: StoreStateCreateFieldInput
-  delete: StoreStateDeleteFieldInput
-  disconnect: StoreStateDisconnectFieldInput
-  update: StoreStateUpdateConnectionInput
-  where: StoreStateConnectionWhere
-}
-
 input StoreUniqueWhere {
   id: ID
 }
 
 input StoreUpdateInput {
   actions: StoreActionsUpdateInput
+  api: StoreApiUpdateFieldInput
   app: StoreAppUpdateFieldInput
   id: ID
   name: String
-  state: StoreStateUpdateFieldInput
-  stateApi: StoreStateApiUpdateFieldInput
 }
 
 input StoreWhere {
@@ -16776,6 +16909,11 @@ input StoreWhere {
   actionsConnection_NONE: StoreActionsConnectionWhere
   actionsConnection_SINGLE: StoreActionsConnectionWhere
   actionsConnection_SOME: StoreActionsConnectionWhere
+  api: InterfaceTypeWhere
+  apiAggregate: StoreApiAggregateInput
+  apiConnection: StoreApiConnectionWhere
+  apiConnection_NOT: StoreApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
   app: AppWhere
   appAggregate: StoreAppAggregateInput
   appConnection: StoreAppConnectionWhere
@@ -16801,16 +16939,6 @@ input StoreWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  state: PropWhere
-  stateAggregate: StoreStateAggregateInput
-  stateApi: InterfaceTypeWhere
-  stateApiAggregate: StoreStateApiAggregateInput
-  stateApiConnection: StoreStateApiConnectionWhere
-  stateApiConnection_NOT: StoreStateApiConnectionWhere
-  stateApi_NOT: InterfaceTypeWhere
-  stateConnection: StoreStateConnectionWhere
-  stateConnection_NOT: StoreStateConnectionWhere
-  state_NOT: PropWhere
 }
 
 type StoresConnection {
@@ -17731,6 +17859,26 @@ input TypeBaseOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input TypeBaseOwnerFieldInput {
@@ -17809,6 +17957,7 @@ type TypeBaseOwnerRelationship implements OwnedBy {
   cursor: String!
   data: String!
   node: User!
+  value: String
 }
 
 input TypeBaseOwnerUpdateConnectionInput {
@@ -18103,6 +18252,26 @@ input UnionTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
 }
 
 input UnionTypeOwnerNodeAggregationWhereInput {
@@ -19059,6 +19228,7 @@ type UnionTypeUserOwnerAggregationSelection {
 
 type UnionTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
+  value: StringAggregateSelectionNullable!
 }
 
 type UnionTypeUserOwnerNodeAggregateSelection {
@@ -20103,6 +20273,7 @@ input UserTagsUpdateFieldInput {
 
 input UserTypesConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: OwnedByCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -20113,17 +20284,21 @@ type UserTypesConnection {
 }
 
 input UserTypesConnectionSort {
+  edge: OwnedBySort
   node: TypeBaseSort
 }
 
 input UserTypesConnectionWhere {
   AND: [UserTypesConnectionWhere!]
   OR: [UserTypesConnectionWhere!]
+  edge: OwnedByWhere
+  edge_NOT: OwnedByWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input UserTypesCreateFieldInput {
+  edge: OwnedByCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -20142,12 +20317,15 @@ input UserTypesFieldInput {
   create: [UserTypesCreateFieldInput!]
 }
 
-type UserTypesRelationship {
+type UserTypesRelationship implements OwnedBy {
   cursor: String!
+  data: String!
   node: TypeBase!
+  value: String
 }
 
 input UserTypesUpdateConnectionInput {
+  edge: OwnedByUpdateInput
   node: TypeBaseUpdateInput
 }
 

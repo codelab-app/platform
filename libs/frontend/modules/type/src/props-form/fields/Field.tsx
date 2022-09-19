@@ -1,6 +1,7 @@
 import {
   IAnyActionType,
   IArrayType,
+  ICodeMirrorType,
   IEnumType,
   IField,
   IFieldDTO,
@@ -87,6 +88,17 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
 
   if (isOfTypeKind<IField<IEnumType>>(field, ITypeKind.EnumType)) {
     return <SelectEnumField field={field} form={form} />
+  }
+
+  if (isOfTypeKind<IField<ICodeMirrorType>>(field, ITypeKind.CodeMirrorType)) {
+    return (
+      <CodeMirrorField
+        context={context}
+        field={field}
+        form={form}
+        language={field.type.current.language}
+      />
+    )
   }
 
   return <CodeMirrorField context={context} field={field} form={form} />

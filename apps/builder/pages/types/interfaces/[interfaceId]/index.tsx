@@ -16,7 +16,6 @@ import {
   ContentSection,
   pageBuilderMenuItem,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -75,7 +74,7 @@ const Header = observer(() => {
   const headerButtons = [
     <CreateFieldButton
       interfaceId={interfaceId}
-      key={0}
+      key={1}
       typeService={typeService}
     />,
   ]
@@ -109,7 +108,6 @@ InterfaceDetailPage.Layout = observer((page) => {
               userService.user?.curAppId,
               userService.user?.curPageId,
             ),
-            storeMenuItem(userService.user?.curAppId),
             resourceMenuItem,
           ]}
           secondaryItems={adminMenuItems}

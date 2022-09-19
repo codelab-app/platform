@@ -50,7 +50,6 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           componentTree,
           null,
           appStore,
-          null,
           true,
         )
       })()

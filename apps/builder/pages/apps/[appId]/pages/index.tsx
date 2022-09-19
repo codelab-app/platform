@@ -11,7 +11,6 @@ import {
   appMenuItem,
   pageBuilderMenuItem,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -60,7 +59,6 @@ Pages.Layout = observer((page) => {
               userService.user?.curAppId,
               userService.user?.curPageId,
             ),
-            storeMenuItem(appId),
             resourceMenuItem,
           ]}
           secondaryItems={adminMenuItems}

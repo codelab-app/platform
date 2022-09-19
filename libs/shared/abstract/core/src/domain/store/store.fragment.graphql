@@ -1,12 +1,9 @@
 fragment Store on Store {
   id
   name
-  stateApi {
+  api {
     id
     name
-  }
-  state {
-    ...Prop
   }
   actions {
     ...Action

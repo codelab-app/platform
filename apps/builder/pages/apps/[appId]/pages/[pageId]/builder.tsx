@@ -8,7 +8,6 @@ import {
 } from '@codelab/frontend/modules/builder'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
-import { createMobxState } from '@codelab/frontend/modules/store'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -20,13 +19,13 @@ import {
   appMenuItem,
   pageBuilderMenuItem,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { merge } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -43,9 +42,9 @@ const PageBuilder: CodelabPage = observer(() => {
     builderService,
   } = useStore()
 
-  const router = useRouter()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
+  const router = useRouter()
 
   const { loading, value, error } = useAsync(async () => {
     const {
@@ -106,16 +105,20 @@ const PageBuilder: CodelabPage = observer(() => {
       builderService.set_selectedNode(elementRef(pageRootElement))
     }
 
+    store.setInitialState(
+      appService.appsList.map((a) => a.toJson).reduce(merge, {}),
+    )
+
     const renderer = await builderRenderService.addRenderer(
       pageId,
       pageElementTree,
       null,
       store,
-      createMobxState(store, [app], [page], router),
       true,
     )
 
     return {
+      app,
       page,
       pageElementTree,
       providerTree: null,
@@ -160,14 +163,14 @@ PageBuilder.Layout = observer((page) => {
     typeService,
     builderRenderService,
     actionService,
-    appRenderService,
+    storeService,
+    resourceService,
   } = useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
   const activeElementTree = builderService.activeElementTree
-  const pageTree = pageBuilderRenderer?.pageTree?.current
 
   useEffect(() => {
     userService.user?.setCurAppId(appId)
@@ -200,7 +203,18 @@ PageBuilder.Layout = observer((page) => {
           </>
         ))}
         EditorPane={observer(({ resizable }) => (
-          <EditorPaneBuilder resizable={resizable} />
+          <>
+            {pageBuilderRenderer?.appStore?.current && (
+              <EditorPaneBuilder
+                actionService={actionService}
+                appStore={pageBuilderRenderer.appStore.current}
+                resizable={resizable}
+                resourceService={resourceService}
+                storeService={storeService}
+                typeService={typeService}
+              />
+            )}
+          </>
         ))}
         ExplorerPane={observer(() => (
           <BuilderExplorerPane
@@ -224,7 +238,6 @@ PageBuilder.Layout = observer((page) => {
               appMenuItem,
               allPagesMenuItem(appId),
               pageBuilderMenuItem(appId, pageId),
-              storeMenuItem(appId),
               resourceMenuItem,
             ]}
             secondaryItems={adminMenuItems}

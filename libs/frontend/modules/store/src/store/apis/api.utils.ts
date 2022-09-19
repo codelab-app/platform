@@ -5,7 +5,6 @@
 import {
   InterfaceTypeCreateInput,
   StoreCreateInput,
-  StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import {
   IActionKind,
@@ -16,7 +15,6 @@ import {
   ICreateStoreDTO,
   IUpdateActionDTO,
   IUpdateActionInput,
-  IUpdateStoreDTO,
 } from '@codelab/shared/abstract/core'
 import { connectTypeOwner } from '@codelab/shared/data'
 import { capitalize, keys } from 'lodash'
@@ -66,19 +64,7 @@ export const makeStoreCreateInput = (
   return {
     id: v4(),
     name,
-    state: { create: { node: { data: '{}' } } },
-    stateApi: { create: { node: interfaceCreateInput } },
-  }
-}
-
-export const makeStoreUpdateInput = (
-  input: IUpdateStoreDTO,
-): StoreUpdateInput => {
-  const { name, state } = input
-
-  return {
-    name,
-    state: { update: { node: { data: state } }, where: {} },
+    api: { create: { node: interfaceCreateInput } },
   }
 }
 

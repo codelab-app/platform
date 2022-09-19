@@ -22,7 +22,7 @@ import {
 } from 'mobx-keystone'
 import { deleteStoreInput } from '../utils'
 import { getActionService } from './action.service'
-import { makeStoreCreateInput, makeStoreUpdateInput, storeApi } from './apis'
+import { makeStoreCreateInput, storeApi } from './apis'
 import { Store } from './models'
 import { StoreModalService } from './store-modal.service'
 
@@ -57,9 +57,7 @@ export class StoreService
   private async fetchStatesApis(stores: Array<IStoreDTO>) {
     const typeService = getTypeService(this)
 
-    return await typeService.getAllWithDescendants(
-      stores.map((x) => x.stateApi.id),
-    )
+    return await typeService.getAllWithDescendants(stores.map((x) => x.api.id))
   }
 
   @modelAction
@@ -119,12 +117,12 @@ export class StoreService
   update = _async(function* (
     this: StoreService,
     store: IStore,
-    input: IUpdateStoreDTO,
+    { name }: IUpdateStoreDTO,
   ) {
     const { updateStores } = yield* _await(
       storeApi.UpdateStores({
         where: { id: store.id },
-        update: makeStoreUpdateInput(input),
+        update: { name },
       }),
     )
 

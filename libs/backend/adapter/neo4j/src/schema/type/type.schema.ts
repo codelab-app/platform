@@ -48,6 +48,10 @@ export const typeSchema = gql`
       @cypher(statement: """${getTypeReferences}""")
   }
 
+  interface OwnedBy @relationshipProperties {
+    value: String
+  }
+
   interface TypeBase
   {
     id: ID! @id(autogenerate: false)
@@ -164,6 +168,7 @@ export const typeSchema = gql`
     owner: User!
     fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
+
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
@@ -348,8 +353,6 @@ export const typeSchema = gql`
     CssInJs
   }
 
-
-
   union AnyType = PrimitiveType | 
                   ArrayType | 
                   UnionType | 
@@ -363,4 +366,6 @@ export const typeSchema = gql`
                   AppType | 
                   ActionType | 
                   CodeMirrorType
+
+
 `

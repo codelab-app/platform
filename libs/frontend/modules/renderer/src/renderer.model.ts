@@ -24,6 +24,7 @@ import type {
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { flatMap, isEmpty, isString } from 'lodash'
+import { computed } from 'mobx'
 import {
   detach,
   frozen,
@@ -56,7 +57,6 @@ const init = (
   pageTree: IElementTree,
   appStore: IStore,
   appTree?: Nullable<IElementTree>,
-  platformState?: any,
   isBuilder?: boolean,
   set_selectedNode?: IBuilderService['set_selectedNode'],
 ) => {
@@ -89,8 +89,6 @@ const init = (
       global: frozen(isBuilder ? builderGlobals : {}),
     }),
   })
-
-  renderer.setPlatformState(platformState)
 
   return renderer
 }
@@ -165,22 +163,9 @@ export class Renderer
   )
   implements IRenderer
 {
-  platformState?: any
-
-  /**
-   * Like init, but skips the type fetching
-   * Useful if you're sure that all types are already fetched
-   * or for unit testing
-   */
   @modelAction
-  setPlatformState(platformState?: any) {
-    this.platformState = platformState
-  }
-
-  @modelAction
-  initForce(pageTree: IElementTree, platformState?: any) {
+  initForce(pageTree: IElementTree) {
     this.pageTree = elementTreeRef(pageTree)
-    this.platformState = platformState
   }
 
   renderRoot() {
@@ -240,7 +225,7 @@ export class Renderer
       )
     }
 
-    createActionFn(action, this.platformState)()
+    createActionFn(action, this.state)()
   }
 
   getPostAction = (element: IElement) => {
@@ -257,7 +242,12 @@ export class Renderer
       )
     }
 
-    return createActionFn(action, this.platformState)
+    return createActionFn(action, this.state)
+  }
+
+  @computed
+  get state() {
+    return this.appStore?.current.state
   }
 
   /**
@@ -389,16 +379,16 @@ export class Renderer
   }
 
   private replaceStateInProps = (props: IPropData) => {
-    if (!this.platformState) {
+    if (!this.state) {
       return props
     }
 
     props = mapDeep(
       props,
       // value mapper
-      (v, k) => (isString(v) ? getState(v, this.platformState) : v),
+      (v, k) => (isString(v) ? getState(v, this.state) : v),
       // key mapper
-      (v, k) => (isString(k) ? getState(k, this.platformState) : k),
+      (v, k) => (isString(k) ? getState(k, this.state) : k),
     )
 
     return props

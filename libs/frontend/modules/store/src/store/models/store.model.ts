@@ -1,14 +1,13 @@
-import { Prop } from '@codelab/frontend/modules/element'
-import { getTypeService, InterfaceType } from '@codelab/frontend/modules/type'
+import { getTypeService } from '@codelab/frontend/modules/type'
 import {
   IAnyAction,
-  IProp,
+  IInterfaceType,
   IPropData,
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
 import { keys, merge } from 'lodash'
-import { makeAutoObservable } from 'mobx'
+import { computed } from 'mobx'
 import {
   detach,
   idProp,
@@ -22,13 +21,12 @@ import {
 import { createActionFn } from '../createActionFn'
 import { actionRef } from './action.ref'
 
-export const hydrate = ({ actions, id, name, state, stateApi }: IStoreDTO) =>
+export const hydrate = ({ actions, id, name, api }: IStoreDTO) =>
   new Store({
     id,
     name,
     actions: actions.map((action) => actionRef(action.id)),
-    state: Prop.hydrate(state),
-    stateApiId: stateApi.id,
+    apiId: api.id,
   })
 
 @model('@codelab/Store')
@@ -37,46 +35,48 @@ export class Store
     id: idProp,
     name: prop<string>(),
     actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
-    state: prop<IProp>(),
-    stateApiId: prop<string>().withSetter(),
+    apiId: prop<string>().withSetter(),
+    initialState: prop<IPropData>(() => ({})).withSetter(),
   }))
   implements IStore
 {
   @modelAction
-  writeCache({ id, name, actions, state, stateApi }: IStoreDTO) {
+  writeCache({ id, name, actions, api }: IStoreDTO) {
     this.id = id
     this.name = name
     this.actions = actions.map((a) => actionRef(a.id))
-    this.stateApiId = stateApi.id
-    this.state.writeCache(state)
+    this.apiId = api.id
 
     return this
   }
 
-  @modelAction
-  toMobxObservable(globals: IPropData = {}) {
+  @computed
+  get _api() {
     const typeService = getTypeService(this)
-    const stateApi = typeService.type(this.stateApiId) as InterfaceType
 
-    const storeState = [...stateApi.fields.values()].map((field) => ({
-      [field.key]: this.state.values[field.key],
-    }))
+    return typeService.type(this.apiId) as IInterfaceType
+  }
 
-    const storeActions = this.actions.map((action) => ({
-      [action.current.name]: {
-        action: action.current,
-        isAction: true,
-      },
-    }))
+  @computed
+  get _storeActions() {
+    return this.actions
+      .map((action) => ({
+        [action.current.name]: { action: action.current },
+      }))
+      .reduce(merge, {})
+  }
 
-    const state = makeAutoObservable(
-      merge({}, ...storeState, ...storeActions, globals),
+  @computed
+  get state() {
+    const state: IPropData = merge(
+      {},
+      this.initialState,
+      this._api.defaults,
+      this._storeActions,
     )
 
-    for (const key of keys(state)) {
-      if (state[key]?.isAction) {
-        state[key].run = createActionFn(state[key].action, state)
-      }
+    for (const key of keys(this._storeActions)) {
+      state[key].run = createActionFn(state[key].action, state)
     }
 
     return state

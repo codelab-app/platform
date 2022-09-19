@@ -13,17 +13,13 @@ export interface GetStateTreeProps {
 
 export const GetStateList = observer<GetStateTreeProps>(
   ({ store, typeService }) => {
-    const api = typeService.type(store.stateApiId) as Maybe<InterfaceType>
+    const api = typeService.type(store.apiId) as Maybe<InterfaceType>
 
     return (
       <List
         dataSource={api?.fieldList}
         renderItem={(field) => (
-          <GetStateItem
-            field={field}
-            storeApiId={store.stateApiId}
-            typeService={typeService}
-          />
+          <GetStateItem field={field} store={store} typeService={typeService} />
         )}
         size="small"
       />

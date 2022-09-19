@@ -4,16 +4,8 @@ import type {
   IRenderer,
   IStore,
 } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import {
-  AnyModel,
-  Model,
-  model,
-  modelAction,
-  ModelClass,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
 
 /**
@@ -30,7 +22,6 @@ export class BaseRenderer
    * @param id - App or page id
    * @param pageTree
    * @param appTree
-   * @param platformState
    */
   @modelAction
   initRenderer(
@@ -38,16 +29,9 @@ export class BaseRenderer
     pageTree: IElementTree,
     appStore: IStore,
     appTree: Nullable<IElementTree>,
-    platformState?: Nullish<ModelClass<AnyModel>>,
     isBuilder?: boolean,
   ) {
-    const renderer = Renderer.init(
-      pageTree,
-      appStore,
-      appTree,
-      platformState,
-      isBuilder,
-    )
+    const renderer = Renderer.init(pageTree, appStore, appTree, isBuilder)
 
     this.renderers.set(id, renderer)
 

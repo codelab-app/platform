@@ -3,7 +3,9 @@ import styled from '@emotion/styled'
 import { Button } from 'antd'
 
 export const editorStyles = css`
-  width: 85%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 `
 
 export const ExpandButton = styled(Button)`
@@ -16,6 +18,8 @@ export const ExpandButton = styled(Button)`
 
 export const containerStyles = css`
   position: relative;
+  overflow: hidden;
+  width: 100%;
 
   // Can be improved by selecting the styled component, but need to figure out how to config jest to load emotion
   .CodeMirrorInput--btnExpand {

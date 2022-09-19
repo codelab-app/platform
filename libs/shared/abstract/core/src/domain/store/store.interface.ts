@@ -1,16 +1,21 @@
 import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../service'
 import { IAnyAction } from '../action'
-import { IProp } from '../prop'
+import { IPropData } from '../prop'
+import { IInterfaceType } from '../type'
 import { IStoreDTO } from './store.dto.interface'
 
 export interface IStore extends ICacheService<IStoreDTO, IStore> {
   id: string
   name: string
-  stateApiId: string
-  state: IProp
+  apiId: string
+  _api: IInterfaceType
   actions: Array<Ref<IAnyAction>>
-  toMobxObservable(globals?: any): any
+  _storeActions: { [name: string]: { action: IAnyAction; run: any } }
+  state: IPropData
+
+  initialState: IPropData
+  setInitialState(initialState: IPropData): void
 }
 
 export type IStoreRef = string

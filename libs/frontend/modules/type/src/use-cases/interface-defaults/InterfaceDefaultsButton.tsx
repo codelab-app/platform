@@ -22,5 +22,5 @@ export const InterfaceDefaultsButton = ({
       )
     }}
     size="small"
-  ></Button>
+  />
 )

@@ -2,6 +2,7 @@ import { ExpandAltOutlined } from '@ant-design/icons'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import { EditorView, ViewUpdate } from '@codemirror/view'
+import { SerializedStyles } from '@emotion/react'
 import { ReactCodeMirrorProps, useCodeMirror } from '@uiw/react-codemirror'
 import { merge } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
@@ -10,20 +11,22 @@ import { containerStyles, editorStyles, ExpandButton } from './styles'
 
 export interface CodeMirrorInputProps
   extends Omit<ReactCodeMirrorProps, 'title'> {
-  value: string
+  value?: string
   onChange: (value: string) => void
   onSave?: (value: string) => void
   expandable?: boolean
   singleLine?: boolean
+  overrideStyles?: SerializedStyles
   title?: Nullish<string>
 }
 
 export const CodeMirrorInput = ({
-  value,
+  value = '',
   onChange,
   onSave,
   expandable,
   title,
+  overrideStyles,
   ...props
 }: CodeMirrorInputProps) => {
   const editor = useRef<HTMLDivElement | null>(null)
@@ -44,12 +47,14 @@ export const CodeMirrorInput = ({
   ) =>
     merge(
       {
+        ...props,
         container: editorRef.current,
         basicSetup: false,
         value,
-        onChange,
         onUpdate,
-        ...props,
+        onChange: (v: string, view: ViewUpdate) => {
+          onChange(v)
+        },
       },
       overWriteOpts,
     )
@@ -68,7 +73,7 @@ export const CodeMirrorInput = ({
   }
 
   return (
-    <div css={[containerStyles]}>
+    <div css={[containerStyles, overrideStyles]}>
       <div css={editorStyles} ref={editor} />
       {expandable && (
         <React.Fragment>

@@ -50,8 +50,6 @@ export class AppService
    */
   @modelAction
   load = ({ app, pageId }: IPageBuilderAppProps) => {
-    console.debug('AppService.load', { app, pageId })
-
     const elementService = getElementService(this)
     const pageService = getPageService(this)
     const storeService = getStoreService(this)
@@ -177,12 +175,7 @@ export class AppService
           node: {
             id: v4(),
             name: `${app.name} Store`,
-            state: {
-              create: {
-                node: { data: '{}' },
-              },
-            },
-            stateApi: {
+            api: {
               create: {
                 node: {
                   id: v4(),

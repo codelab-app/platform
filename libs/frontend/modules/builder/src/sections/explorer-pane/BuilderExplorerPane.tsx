@@ -27,11 +27,9 @@ import React, { useCallback, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
-import { MobxStateContainer } from './mobx-state/MobxStateContainer'
 import { Toolbox } from './toolbox/Toolbox'
 
 const paneTitles: Record<BuilderTab, string> = {
-  [BuilderTab.MobxState]: 'Mobx State',
   [BuilderTab.Toolbox]: 'Toolbox',
   [BuilderTab.Tree]: 'Page',
 }
@@ -142,12 +140,6 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               treeData={componentsAntdTree}
             />
           )}
-        </DisplayIf>
-        <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-          <MobxStateContainer
-            builderService={builderService}
-            renderer={pageBuilderRenderer}
-          />
         </DisplayIf>
         <DisplayIf condition={builderTab === BuilderTab.Toolbox}>
           <Toolbox

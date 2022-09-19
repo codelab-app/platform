@@ -6,19 +6,19 @@ import { CodeMirrorEditor, CodeMirrorEditorProps } from '../../codeMirror'
 type CodeMirrorFieldProps = FieldProps<
   string,
   CodeMirrorEditorProps,
-  { inputRef?: Ref<typeof CodeMirrorEditor> }
+  { inputRef?: Ref<HTMLDivElement> }
 >
 
 export const CodeMirrorField = (mainProps?: Partial<CodeMirrorEditorProps>) =>
   connectField<CodeMirrorFieldProps>(
     (baseProps) => {
-      const merged = { ...baseProps, ...mainProps }
+      const merged = { ...mainProps, ...baseProps }
 
       return (
         <Form.Item label={baseProps.label ?? ''}>
           <CodeMirrorEditor
             height="150px"
-            value={merged.value || ''}
+            value={merged.value}
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...merged}
           />
