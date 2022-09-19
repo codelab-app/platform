@@ -24,7 +24,6 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { IElementTree } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { merge } from 'lodash'
 import { observer } from 'mobx-react-lite'
@@ -173,7 +172,11 @@ PageBuilder.Layout = observer((page) => {
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
   const activeElementTree = builderService.activeElementTree
   // should be defined by the time, components list renders
-  const pageTree = pageBuilderRenderer?.pageTree?.current as IElementTree
+  const pageTree = pageBuilderRenderer?.pageTree?.current
+
+  if (!pageTree) {
+    throw new Error('Missing page tree')
+  }
 
   useEffect(() => {
     userService.user?.setCurAppId(appId)

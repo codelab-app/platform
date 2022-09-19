@@ -33,10 +33,6 @@ export const useBuilderDnd = (
     [builderService],
   )
 
-  if (!elementTree) {
-    console.warn('[useBuilderDnd] No element tree found')
-  }
-
   const onDragEnd = useCallback(
     async (e: DragEndEvent) => {
       const data = e.active.data.current as Maybe<BuilderDragData>
@@ -62,7 +58,7 @@ export const useBuilderDnd = (
       }
 
       // drop position = 1, add as children
-      let element: IElement | null = null
+      let element: IElement
 
       if (shouldCreateElementAsFirstChild(dropPosition)) {
         element = await elementService.createElementAsFirstChild(
@@ -74,9 +70,7 @@ export const useBuilderDnd = (
         )
       }
 
-      if (elementTree) {
-        elementTree.buildTree([element])
-      }
+      elementTree.buildTree([element])
     },
     [builderService, elementService, elementTree],
   )
