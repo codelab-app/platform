@@ -185,7 +185,9 @@ export class Element
   get parentElement() {
     // parent - first child (this)
     const getParentElement = (element: IElement) => {
-      return this.elementService.element(String(element.parentId))
+      if (element.parentId) {
+        return this.elementService.element(element.parentId)
+      }
     }
 
     const thisParentElementFromId = getParentElement(this)
