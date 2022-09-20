@@ -101,6 +101,8 @@ export class ElementService
       .map((element) => element.renderAtomType)
       .filter(isAtomDTO)
 
+    console.log(atoms)
+
     return atoms.map((atom) => atomService.writeCache(atom))
   }
 
