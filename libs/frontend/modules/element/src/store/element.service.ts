@@ -417,9 +417,6 @@ parent
 
     // Attach to parent
     if (targetElement.parentElement) {
-      updateElementInputs.push(
-        element.makeAttachToParentInput(targetElement.parentElement.id),
-      )
       updateElementCacheFns.push(
         element.attachToParent(targetElement.parentElement.id),
       )
@@ -595,12 +592,12 @@ element is new parentElement's first child
       const elementModel = this.writeCache(createdElement)
 
       if (elementTree) {
-        elementTree.buildTree([elementModel])
+        elementTree.addElements([elementModel])
       }
 
       oldToNewIdMap.set(element.id, elementModel.id)
 
-      for (const child of element.childrenSorted) {
+      for (const child of element.children) {
         await recursiveDuplicate(child, elementModel.id)
       }
 
@@ -661,11 +658,8 @@ element is new parentElement's first child
     // 2. Attach a Component to the Element and detach it from the parent
     const parentId = element.parentElement.id
 
-    element.parentElement.removeChild(element)
-
     yield* _await(
       this.patchElement(element, {
-        parentElement: { disconnect: { where: {} } },
         parentComponent: {
           create: {
             node: {
@@ -712,7 +706,7 @@ element is new parentElement's first child
     )
 
     if (elementTree) {
-      elementTree.buildTree([newElement])
+      elementTree.addElements([newElement])
     }
   })
 

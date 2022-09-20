@@ -76,7 +76,7 @@ export const useBuilderDnd = (
         )
       }
 
-      elementTree.buildTree([element])
+      elementTree.addElements([element])
     },
     [builderService, elementService, elementTree],
   )

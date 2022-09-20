@@ -94,6 +94,7 @@ export const importElementInitial = async (
 /**
  * Updates the imported element with prop map bindings, parent/children connections and props after we have imported all the elements, so we can reference them
  */
+// TODO: update CLI to support the new elment-parent structure
 export const updateImportedElement = async (
   element: OGM_TYPES.Element,
 ): Promise<void> => {
@@ -114,15 +115,6 @@ export const updateImportedElement = async (
     update: {
       parentComponent: element.parentComponent
         ? { connect: { where: { node: { id: element.parentComponent.id } } } }
-        : undefined,
-      parentElement: element.parentElement
-        ? {
-            disconnect: { where: {} },
-            connect: {
-              edge: { order: element.parentElementConnection?.edges[0].order },
-              where: { node: { id: element.parentElement.id } },
-            },
-          }
         : undefined,
       renderComponentType: element.renderComponentType
         ? {

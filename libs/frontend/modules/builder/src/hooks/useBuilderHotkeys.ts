@@ -26,8 +26,7 @@ export const useBuilderHotkeys = ({
     'del,backspace',
     () => {
       if (selectedNode) {
-        const isRootElement =
-          isElement(selectedNode) && !selectedNode.parentElement
+        const isRootElement = isElement(selectedNode) && selectedNode.isRoot
 
         if (!isRootElement) {
           deleteModal.open(elementRef(selectedNode.id))

@@ -32,16 +32,12 @@ export type ElementFragment = {
   renderAtomType?: AtomPreviewFragment | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
-  parentElement?: { id: string } | null
   parentComponent?: ComponentFragment | null
   parent?: { id: string } | null
   firstChild?: { id: string } | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
-  parentElementConnection: {
-    edges: Array<{ node: { id: string; name?: string | null } }>
-  }
 }
 
 export const ElementFragmentDoc = gql`
@@ -61,9 +57,6 @@ export const ElementFragmentDoc = gql`
       id
     }
     nextSibling {
-      id
-    }
-    parentElement {
       id
     }
     parentComponent {
@@ -89,14 +82,6 @@ export const ElementFragmentDoc = gql`
       ...PropMapBinding
     }
     propTransformationJs
-    parentElementConnection {
-      edges {
-        node {
-          id
-          name
-        }
-      }
-    }
   }
   ${ComponentFragmentDoc}
   ${AtomPreviewFragmentDoc}

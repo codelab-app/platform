@@ -59,7 +59,7 @@ export const CreatePropMapBindingModal = observer(
       elementTree.elementsList.map((e) => ({
         value: e.id,
         label: e.label,
-        childrenIds: e.childrenSorted.map((c) => c.id),
+        childrenIds: e.children.map((c) => c.id),
       }))
 
     return (
