@@ -1,7 +1,7 @@
 mutation CreateComponents($input: [ComponentCreateInput!]!) {
   createComponents(input: $input) {
     components {
-      ...Component
+      ...RenderedComponent
     }
   }
 }
@@ -28,6 +28,6 @@ mutation UpdateComponents(
 
 query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
   components(options: $options, where: $where) {
-    ...Component
+    ...RenderedComponent
   }
 }

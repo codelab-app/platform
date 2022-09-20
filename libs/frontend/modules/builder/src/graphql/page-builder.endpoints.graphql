@@ -3,7 +3,7 @@ query GetPageBuilder($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
     ...PageBuilderApp
   }
   components {
-    ...Component
+    ...RenderedComponent
   }
   #TODO: need to re-use this below somehow, maybe create a top level field resolver
   primitiveTypes(where: { id_IN: $typeIds }) {

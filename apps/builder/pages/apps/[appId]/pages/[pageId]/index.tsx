@@ -29,7 +29,6 @@ const PageRenderer: CodelabPage<any> = observer(() => {
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
-  const router = useRouter()
 
   const { loading, value, error } = useAsync(async () => {
     /**
@@ -70,10 +69,6 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       owner: { auth0Id: userService.auth0Id },
     })
 
-    const componentsWithElementTree = await componentService.loadComponentTrees(
-      components,
-    )
-
     /**
      *
      * load all types
@@ -101,7 +96,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       providerTree: null,
       appStore,
       renderer,
-      components: componentsWithElementTree,
+      components,
       types,
     }
   }, [])

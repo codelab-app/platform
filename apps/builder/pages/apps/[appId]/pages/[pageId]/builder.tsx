@@ -44,7 +44,6 @@ const PageBuilder: CodelabPage = observer(() => {
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
-  const router = useRouter()
 
   const { loading, value, error } = useAsync(async () => {
     const {
@@ -87,12 +86,12 @@ const PageBuilder: CodelabPage = observer(() => {
       codeMirrorTypes,
     })
 
-    const hydratedComponents = components.map((component) =>
-      componentService.writeCache(component),
-    )
+    const hydratedComponentsWithElementTree = components.map((component) => {
+      const componentModel = componentService.writeCache(component)
+      componentService.loadComponentTree(componentModel, component)
 
-    const hydratedComponentsWithElementTree =
-      await componentService.loadComponentTrees(hydratedComponents)
+      return componentModel
+    })
 
     /**
      *

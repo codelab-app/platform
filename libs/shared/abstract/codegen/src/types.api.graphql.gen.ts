@@ -21101,7 +21101,7 @@ export type GetPageBuilderQueryVariables = Exact<{
 export type GetPageBuilderQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  components: Array<{ __typename?: 'Component' } & ComponentFragment>
+  components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
   primitiveTypes: Array<
     { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
   >
@@ -21137,7 +21137,7 @@ export type CreateComponentsMutation = {
   __typename?: 'Mutation'
   createComponents: {
     __typename?: 'CreateComponentsMutationResponse'
-    components: Array<{ __typename?: 'Component' } & ComponentFragment>
+    components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
   }
 }
 
@@ -21171,7 +21171,7 @@ export type GetComponentsQueryVariables = Exact<{
 
 export type GetComponentsQuery = {
   __typename?: 'Query'
-  components: Array<{ __typename?: 'Component' } & ComponentFragment>
+  components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
 }
 
 export type GetDomainQueryVariables = Exact<{
@@ -22658,6 +22658,14 @@ export type AtomPreviewFragment = {
   tags: Array<{ __typename?: 'Tag' } & TagPreviewFragment>
   api: { __typename?: 'InterfaceType'; id: string; name: string }
 }
+
+export type RenderedComponentFragment = {
+  __typename?: 'Component'
+  rootElement: {
+    __typename?: 'Element'
+    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+  } & ElementFragment
+} & ComponentFragment
 
 export type ComponentFragment = {
   __typename?: 'Component'

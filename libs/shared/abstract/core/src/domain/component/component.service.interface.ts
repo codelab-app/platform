@@ -8,13 +8,13 @@ import {
   IQueryService,
 } from '../../service'
 import { IBuilderDataNode } from '../../ui'
-import { IAuth0Id } from '../user'
 import {
   IComponentDTO,
   ICreateComponentDTO,
   IUpdateComponentDTO,
 } from './component.dto.interface'
 import { IComponent } from './component.model.interface'
+import { RenderedComponentFragment } from './component-render.fragment.graphql.gen'
 
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,
@@ -24,5 +24,8 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
-  loadComponentTrees(components: Array<IComponent>): Promise<any>
+  loadComponentTree(
+    component: IComponent,
+    componentFragment: RenderedComponentFragment,
+  ): void
 }

@@ -1,19 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
-import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
-import {
-  PageBuilderAppFragment,
-  PageBuilderAppFragmentDoc,
-} from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
-import {
-  ComponentFragment,
-  ComponentFragmentDoc,
-} from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
-import {
-  StoreFragment,
-  StoreFragmentDoc,
-} from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
+
+import { PageBuilderAppFragment } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { RenderedComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -28,19 +16,22 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-  TypeFragmentDoc,
 } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
+import { PageBuilderAppFragmentDoc } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { RenderedComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
+import { TypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type GetPageBuilderQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
   pageId: Types.Scalars['ID']
   typeIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
-export interface GetPageBuilderQuery {
+export type GetPageBuilderQuery = {
   apps: Array<PageBuilderAppFragment>
-  stores: Array<StoreFragment>
-  components: Array<ComponentFragment>
+  components: Array<RenderedComponentFragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
@@ -61,11 +52,8 @@ export const GetPageBuilderDocument = gql`
     apps(where: { id: $appId }) {
       ...PageBuilderApp
     }
-    stores {
-      ...Store
-    }
     components {
-      ...Component
+      ...RenderedComponent
     }
     primitiveTypes(where: { id_IN: $typeIds }) {
       ...Type
@@ -108,8 +96,7 @@ export const GetPageBuilderDocument = gql`
     }
   }
   ${PageBuilderAppFragmentDoc}
-  ${StoreFragmentDoc}
-  ${ComponentFragmentDoc}
+  ${RenderedComponentFragmentDoc}
   ${TypeFragmentDoc}
 `
 
@@ -147,5 +134,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

@@ -1,13 +1,14 @@
 import { COMPONENT_TREE_CONTAINER } from '@codelab/frontend/abstract/core'
-import { Element, elementRef } from '@codelab/frontend/modules/element'
 import {
-  elementServiceContext,
+  getComponentService,
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { ComponentWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ComponentWhere,
+  RenderedComponentFragment,
+} from '@codelab/shared/abstract/codegen'
 import type {
-  IAuth0Id,
   IBuilderDataNode,
   IComponent,
   IComponentDTO,
@@ -57,6 +58,11 @@ export class ComponentService
   }
 
   @computed
+  get componentService() {
+    return getComponentService(this)
+  }
+
+  @computed
   get componentAntdNode(): IBuilderDataNode {
     return {
       key: COMPONENT_TREE_CONTAINER,
@@ -82,31 +88,31 @@ export class ComponentService
     }
   }
 
-  @modelFlow
-  loadComponentTrees = _async(function* (
+  @modelAction
+  loadComponentTree = function (
     this: ComponentService,
-    components: Array<IComponent>,
+    component: IComponent,
+    componentFragment: RenderedComponentFragment,
   ) {
-    return yield* _await(
-      Promise.all(
-        components.map(async (component) => {
-          const componentTree = await component.initTree(
-            component.rootElementId,
-          )
+    const elements = [
+      componentFragment.rootElement,
+      ...componentFragment.rootElement.descendantElements,
+    ]
 
-          /**
-           * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
-           *
-           * Need to manually set as a workaround
-           */
-          elementServiceContext.apply(
-            () => componentTree,
-            getElementService(this),
-          )
-        }),
-      ),
+    const hydratedElements = elements.map((element) =>
+      this.elementService.writeCache(element),
     )
-  })
+
+    const rootElement = this.elementService.element(
+      componentFragment.rootElement.id,
+    )
+
+    if (!rootElement) {
+      throw new Error('No root element found')
+    }
+
+    component.initTreeV2(rootElement, hydratedElements)
+  }
 
   @modelFlow
   @transaction
@@ -120,7 +126,7 @@ export class ComponentService
         } else {
           const componentModel = Component.hydrate(component)
           this.components.set(component.id, componentModel)
-          void componentModel.initTree(component.rootElement.id)
+          this.loadComponentTree(componentModel, component)
 
           return componentModel
         }
@@ -165,12 +171,7 @@ export class ComponentService
     const componentModel = Component.hydrate(component)
 
     this.components.set(component.id, componentModel)
-
-    // const componentElements = yield* _await(
-    //   this.elementService.getTree(component.rootElement.id),
-    // )
-
-    yield* _await(componentModel.initTree(component.rootElement.id))
+    this.loadComponentTree(componentModel, component)
 
     return [componentModel]
   })
