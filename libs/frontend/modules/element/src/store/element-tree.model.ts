@@ -11,6 +11,7 @@ import {
   Model,
   model,
   modelAction,
+  objectMap,
   prop,
   Ref,
   rootRef,
@@ -25,7 +26,11 @@ import { elementRef } from './element.ref'
  */
 const init = (rootElement: IElement, elements: Array<IElement> = []) => {
   return new ElementTree({
-    _elements: elements.map((element) => elementRef(element)),
+    _elements: elements.reduce((elementMap, element) => {
+      elementMap.set(element.id, elementRef(element))
+
+      return elementMap
+    }, objectMap<Ref<IElement>>()),
     _root: elementRef(rootElement),
   })
 }
@@ -41,7 +46,7 @@ const init = (rootElement: IElement, elements: Array<IElement> = []) => {
 export class ElementTree
   extends Model({
     id: idProp,
-    _elements: prop<Array<Ref<IElement>>>(() => []),
+    _elements: prop(() => objectMap<Ref<IElement>>()),
     /** The root tree element */
     _root: prop<Nullable<Ref<IElement>>>(null).withSetter(),
   })
@@ -79,7 +84,7 @@ export class ElementTree
   }
 
   element(id: string) {
-    return this.elementsList?.find((element) => element.id === id)
+    return this._elements.get(id)?.maybeCurrent
   }
 
   @computed
@@ -92,14 +97,9 @@ export class ElementTree
    */
   @modelAction
   addElements(elements: Array<IElement>) {
-    // filter elements that are already on the tree
-    const newElements = elements.filter(
-      (element) => !this.elementService.element(element.id),
-    )
-
-    newElements.forEach((element) => {
-      // add reference to new element
-      this._elements.push(elementRef(element))
+    elements.forEach((element) => {
+      // add reference to new/existing element
+      this._elements.set(element.id, elementRef(element))
 
       // validate component meta data
       if (element.renderComponentType?.current) {

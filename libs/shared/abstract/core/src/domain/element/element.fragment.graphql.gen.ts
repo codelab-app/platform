@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ComponentFragment } from '../component/component.fragment.graphql.gen'
-import { AtomFragment } from '../atom/atom.fragment.graphql.gen'
+import { AtomPreviewFragment } from '../atom/atom.fragment.graphql.gen'
 import {
   PropFragment,
   PropMapBindingFragment,
@@ -11,7 +11,7 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ComponentFragmentDoc } from '../component/component.fragment.graphql.gen'
-import { AtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
+import { AtomPreviewFragmentDoc } from '../atom/atom.fragment.graphql.gen'
 import {
   PropFragmentDoc,
   PropMapBindingFragmentDoc,
@@ -29,7 +29,7 @@ export type ElementFragment = {
   postRenderActionId?: string | null
   propTransformationJs?: string | null
   renderComponentType?: ComponentFragment | null
-  renderAtomType?: AtomFragment | null
+  renderAtomType?: AtomPreviewFragment | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: ComponentFragment | null
@@ -51,7 +51,7 @@ export const ElementFragmentDoc = gql`
       ...Component
     }
     renderAtomType {
-      ...Atom
+      ...AtomPreview
     }
     prevSibling {
       id
@@ -84,17 +84,11 @@ export const ElementFragmentDoc = gql`
     propTransformationJs
   }
   ${ComponentFragmentDoc}
-  ${AtomFragmentDoc}
+  ${AtomPreviewFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-) => Promise<T>
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
