@@ -182,25 +182,26 @@ export class Element
   }
 
   @computed
-  get parentElementFromId() {
-    if (this.parentId) {
-      return this.elementService.element(this.parentId)
-    }
-  }
-
-  @computed
   get parentElement() {
     // parent - first child (this)
-    if (this.parentElementFromId) {
-      return this.parentElementFromId
+    const getParentElement = (element: IElement) => {
+      return this.elementService.element(String(element.parentId))
+    }
+
+    const thisParentElementFromId = getParentElement(this)
+
+    if (thisParentElementFromId) {
+      return thisParentElementFromId
     }
 
     // parent - first child - prev sibling 1 ... prev sibling n - element (this)
     let traveledNode = this.prevSibling
 
     while (traveledNode) {
-      if (traveledNode.parentElementFromId) {
-        return traveledNode.parentElementFromId
+      const travledNodeParentElement = getParentElement(traveledNode)
+
+      if (travledNodeParentElement) {
+        return travledNodeParentElement
       }
 
       // keep traversing backward

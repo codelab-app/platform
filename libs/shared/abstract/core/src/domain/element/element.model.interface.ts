@@ -39,7 +39,6 @@ export interface IElement
   hooks: Array<IHook>
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
-  parentElementFromId: Maybe<IElement>
   propMapBindings: ObjectMap<IPropMapBinding>
   parentComponent: Nullable<Ref<IComponent>>
   label: string
