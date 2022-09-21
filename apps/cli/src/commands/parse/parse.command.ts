@@ -34,18 +34,21 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
       .middleware(async ({ env }) => {
         // Perform upsert here
         if (env === Env.Test) {
-          await upsertUser({
-            auth0Id: v4(),
-            email: Config().auth0.cypress_username!,
-            username: 'Codelab',
-            roles: [Role.Admin],
-          })
+          await upsertUser(
+            {
+              auth0Id: v4(),
+              email: Config().auth0.cypress_username!,
+              username: 'Codelab',
+              roles: [Role.Admin],
+            },
+            (user) => ({ email: user.email }),
+          )
         }
       }),
   describe:
     'Parse Ant Design scraped CSV files and insert to application as types',
   handler: async ({ email }) => {
-    const User = await UserOGM({ reinitialize: true })
+    const User = await UserOGM()
 
     const selectedUserId = email
       ? (await User.find({ where: { email } }))[0]?.id

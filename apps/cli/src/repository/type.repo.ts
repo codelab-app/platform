@@ -12,20 +12,21 @@ import {
   connectTypeId,
   makeAllowedValuesNodeInput,
 } from '@codelab/shared/data'
+import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 
-const createCreateBaseFields = (data: ITypeExport, selectedUser: string) => ({
+const createCreateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
   id: data.id,
-  ...createUpdateBaseFields(data, selectedUser),
+  ...createUpdateBaseFields(data, selectedUserId),
 })
 
 /**
  * During update we don't want to change the ID
  */
-const createUpdateBaseFields = (data: ITypeExport, selectedUser: string) => ({
+const createUpdateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
   name: data.name,
   kind: data.kind,
-  owner: connectTypeId(selectedUser),
+  owner: connectTypeId(selectedUserId),
 })
 
 /**
@@ -35,7 +36,7 @@ const createUpdateBaseFields = (data: ITypeExport, selectedUser: string) => ({
  */
 export const upsertType = async (
   data: ITypeExport,
-  selectedUser: string,
+  selectedUserId: string,
   where: BaseUniqueWhereCallback<ITypeExport>,
 ) => {
   switch (data.__typename) {
@@ -56,7 +57,7 @@ export const upsertType = async (
         return await PrimitiveType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUserId),
               primitiveKind: data.primitiveKind,
             },
           ],
@@ -65,9 +66,11 @@ export const upsertType = async (
 
       // console.log(`Updating ${data.name} [${data.kind}]...`)
 
+      cLog(createUpdateBaseFields(data, selectedUserId))
+
       return await PrimitiveType.update({
         where: where(data),
-        update: createUpdateBaseFields(data, selectedUser),
+        update: createUpdateBaseFields(data, selectedUserId),
       })
     }
 
@@ -84,7 +87,7 @@ export const upsertType = async (
         return await RenderPropsType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUserId),
             },
           ],
         })
@@ -106,7 +109,7 @@ export const upsertType = async (
         return await ReactNodeType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUserId),
             },
           ],
         })
@@ -128,7 +131,7 @@ export const upsertType = async (
         return EnumType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUserId),
               allowedValues: {
                 create: data.allowedValues.map((value) => ({
                   node: makeAllowedValuesNodeInput(value),
@@ -144,7 +147,7 @@ export const upsertType = async (
       return EnumType.update({
         where: where(data),
         update: {
-          ...createCreateBaseFields(data, selectedUser),
+          ...createCreateBaseFields(data, selectedUserId),
           allowedValues: data.allowedValues.map((value) => ({
             update: {
               node: omit(makeAllowedValuesNodeInput(value), 'id'),
@@ -170,7 +173,7 @@ export const upsertType = async (
         await InterfaceType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUser),
+              ...createCreateBaseFields(data, selectedUserId),
             },
           ],
         })

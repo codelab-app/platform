@@ -1,5 +1,4 @@
 import { COMPONENT_TREE_CONTAINER } from '@codelab/frontend/abstract/core'
-import { Element, elementRef } from '@codelab/frontend/modules/element'
 import {
   elementServiceContext,
   getElementService,
@@ -7,7 +6,6 @@ import {
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import type {
-  IAuth0Id,
   IBuilderDataNode,
   IComponent,
   IComponentDTO,
@@ -87,12 +85,6 @@ export class ComponentService
     this: ComponentService,
     components: Array<IComponent>,
   ) {
-    const rootElement = new Element({
-      id: 'components',
-      name: 'Components',
-      owner: '',
-    })
-
     return yield* _await(
       Promise.all(
         components.map(async (component) => {
@@ -109,14 +101,6 @@ export class ComponentService
             () => componentTree,
             getElementService(this),
           )
-
-          // Append this to rootComponentNode
-          if (componentTree?.root) {
-            rootElement.addChild(
-              componentTree.root.id,
-              elementRef(componentTree.root),
-            )
-          }
         }),
       ),
     )

@@ -33,29 +33,26 @@ export class ElementTreeService
     const elementService = getElementService(this)
     const elements = yield* _await(elementService.getDescendants(rootElementId))
 
-    /**
-     * Here we need to add to elementService
-     */
     elements.forEach((element) => {
       elementService.elements.set(element.id, element)
     })
 
-    if (!this.elementTree) {
-      this.elementTree = ElementTree.init(elements)
+    const rootElement = elementService.element(rootElementId)
 
-      return this.elementTree
+    if (!rootElement) {
+      throw new Error('root element not found')
     }
 
-    this.elementTree.buildTree(elements)
+    this.elementTree = ElementTree.init(rootElement, elements)
 
     return this.elementTree
   })
 
   /**
-   * @param elements All elements are assumed to be cached before being used here
+   * @param elements  All elements are assumed to be cached before being used here
    */
   @modelAction
-  initTreeV2 = (elements: Array<IElement>) => {
+  initTreeV2 = (rootElement: IElement, elements: Array<IElement>) => {
     console.debug('ElementTreeService.initTreeV2', elements)
 
     const elementService = getElementService(this)
@@ -64,13 +61,7 @@ export class ElementTreeService
       elementService.elements.set(element.id, element)
     })
 
-    if (!this.elementTree) {
-      this.elementTree = ElementTree.init(elements)
-
-      return this.elementTree
-    }
-
-    this.elementTree.buildTree(elements)
+    this.elementTree = ElementTree.init(rootElement, elements)
 
     return this.elementTree
   }

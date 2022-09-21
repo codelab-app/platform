@@ -51,5 +51,5 @@ export type IElementDTO = ElementFragment
 
 export type IElementExport = Pick<
   OGM_TYPES.Element,
-  'id' | 'name' | 'parentElement' | 'renderAtomType'
+  'id' | 'name' | 'parent' | 'renderAtomType'
 >

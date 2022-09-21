@@ -1,5 +1,5 @@
 import { IAuth0Id } from '../user'
-import { TagFragment } from './tag.fragment.graphql.gen'
+import { TagPreviewFragment } from './tag.fragment.graphql.gen'
 import type { ITag, ITagRef } from './tag.model.interface'
 
 export interface ICreateTagDTO {
@@ -12,9 +12,12 @@ export interface IUpdateTagDTO {
   name: string
 }
 
-export type ITagDTO = TagFragment
+export type ITagDTO = TagPreviewFragment & {
+  children?: Array<{ id: string }>
+}
 
 export type ITagGraphDTO = ITagDTO & {
+  isRoot: boolean
   descendants: Array<ITagRef>
 }
 

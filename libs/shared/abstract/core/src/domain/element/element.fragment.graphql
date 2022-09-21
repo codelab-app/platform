@@ -8,15 +8,12 @@ fragment Element on Element {
     ...Component
   }
   renderAtomType {
-    ...Atom
+    ...AtomPreview
   }
   prevSibling {
     id
   }
   nextSibling {
-    id
-  }
-  parentElement {
     id
   }
   parentComponent {
@@ -42,12 +39,4 @@ fragment Element on Element {
     ...PropMapBinding
   }
   propTransformationJs
-  parentElementConnection {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
 }

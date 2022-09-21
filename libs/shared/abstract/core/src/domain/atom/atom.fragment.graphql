@@ -11,3 +11,17 @@ fragment Atom on Atom {
     name
   }
 }
+
+fragment AtomPreview on Atom {
+  icon
+  id
+  name
+  type
+  tags {
+    ...TagPreview
+  }
+  api {
+    id
+    name
+  }
+}

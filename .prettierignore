@@ -3,4 +3,4 @@ dist
 yarn-error.log
 yarn.lock
 .yarn
-**/*.gen.ts
+#**/*.gen.ts

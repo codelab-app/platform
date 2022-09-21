@@ -4,10 +4,9 @@ import { ITagExport } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/data'
 
 export const connectChildTagToParent = async (tag: ITagExport) => {
-  const connectChildren =
-    tag.children?.map((childrenTag) => ({
-      where: { node: { id: childrenTag.id } },
-    })) || []
+  const connectChildren = tag.children?.map((childrenTag) => ({
+    where: { node: { id: childrenTag.id } },
+  }))
 
   const connectParent = tag.parent?.id
     ? {
@@ -17,15 +16,16 @@ export const connectChildTagToParent = async (tag: ITagExport) => {
 
   const Tag = await TagOGM()
 
-  const updateInput = {
+  const input = {
     where: { id: tag.id },
     connect: {
-      children: connectChildren,
+      children: connectChildren?.length ? connectChildren : undefined,
       parent: connectParent,
     },
   }
+  // console.log(input)
 
-  return Tag.update(updateInput)
+  return Tag.update(input)
 }
 
 export const upsertTag = async (
@@ -36,7 +36,6 @@ export const upsertTag = async (
   const Tag = await TagOGM()
 
   console.log(`[Finding Tag]: with ${where}`)
-  console.log(tag)
 
   const existingTag = await Tag.find({
     where: where(tag),

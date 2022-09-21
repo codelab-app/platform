@@ -122,7 +122,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       customCss: '',
       guiCss: '',
       atom: atomRef(data.textAtom.id),
-      component: componentRef(data.componentToRender),
+      parentComponent: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
         data: frozen({
@@ -210,7 +210,9 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [data.componentRootElement.id, data.componentRootElement],
         ]),
       }),
-      pageElementTree: ElementTree.init([data.componentRootElement]),
+      pageElementTree: ElementTree.init(data.componentRootElement, [
+        data.componentRootElement,
+      ]),
     })
 
     data.renderer = data.rootStore.renderer

@@ -50,6 +50,8 @@ export class AppService
    */
   @modelAction
   load = ({ app, pageId }: IPageBuilderAppProps) => {
+    console.debug('AppService.load', app, pageId)
+
     const elementService = getElementService(this)
     const pageService = getPageService(this)
     const storeService = getStoreService(this)
@@ -78,7 +80,13 @@ export class AppService
       elementService.writeCache(element),
     )
 
-    const pageElementTree = pageModel.initTreeV2(pageElements)
+    const rootElement = elementService.element(page.rootElement.id)
+
+    if (!rootElement) {
+      throw new Error('No root element found')
+    }
+
+    const pageElementTree = pageModel.initTreeV2(rootElement, pageElements)
 
     return {
       pageElementTree,

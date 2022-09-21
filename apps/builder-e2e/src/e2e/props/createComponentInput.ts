@@ -1,8 +1,6 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import {
   AtomCreateInput,
   AtomType,
-  ComponentCreateInput,
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -119,61 +117,62 @@ export const createTextAtomInput = (ownerId: string): AtomCreateInput => ({
  */
 export const listItemComponentName = 'ListItem'
 
-export const createComponentInput = (
-  userId: string,
-  textAtomId: string,
-  listItemId: string,
-): ComponentCreateInput => ({
-  name: listItemComponentName,
-  owner: { connect: { where: { node: { auth0Id: userId } } } },
-  rootElement: {
-    create: {
-      node: {
-        name: ROOT_ELEMENT_NAME,
-        propMapBindings: {
-          create: [
-            {
-              node: {
-                sourceKey: 'value',
-                targetKey: 'text',
-                element: {
-                  connect: { where: { node: { name: ROOT_ELEMENT_NAME } } },
-                },
-                targetElement: {
-                  connect: { where: { node: { name: 'List Item Text' } } },
-                },
-              },
-            },
-          ],
-        },
-        children: {
-          create: [
-            {
-              node: {
-                name: 'List Item',
-                atom: { connect: { where: { node: { id: listItemId } } } },
-                children: {
-                  create: [
-                    {
-                      node: {
-                        name: 'List Item Text',
-                        atom: {
-                          connect: { where: { node: { id: textAtomId } } },
-                        },
-                      },
-                      edge: { order: 1 },
-                    },
-                  ],
-                },
-              },
-              edge: { order: 1 },
-            },
-          ],
-        },
-      },
-    },
-  },
-})
+// TODO: this util isn't used anywhere. Fix types later if requires
+// export const createComponentInput = (
+//   userId: string,
+//   textAtomId: string,
+//   listItemId: string,
+// ): ComponentCreateInput => ({
+//   name: listItemComponentName,
+//   owner: { connect: { where: { node: { auth0Id: userId } } } },
+//   rootElement: {
+//     create: {
+//       node: {
+//         name: ROOT_ELEMENT_NAME,
+//         propMapBindings: {
+//           create: [
+//             {
+//               node: {
+//                 sourceKey: 'value',
+//                 targetKey: 'text',
+//                 element: {
+//                   connect: { where: { node: { name: ROOT_ELEMENT_NAME } } },
+//                 },
+//                 targetElement: {
+//                   connect: { where: { node: { name: 'List Item Text' } } },
+//                 },
+//               },
+//             },
+//           ],
+//         },
+//         children: {
+//           create: [
+//             {
+//               node: {
+//                 name: 'List Item',
+//                 atom: { connect: { where: { node: { id: listItemId } } } },
+//                 children: {
+//                   create: [
+//                     {
+//                       node: {
+//                         name: 'List Item Text',
+//                         atom: {
+//                           connect: { where: { node: { id: textAtomId } } },
+//                         },
+//                       },
+//                       edge: { order: 1 },
+//                     },
+//                   ],
+//                 },
+//               },
+//               edge: { order: 1 },
+//             },
+//           ],
+//         },
+//       },
+//     },
+//   },
+// })
 
 export const listElementName = 'List'
 export const listDataSource = [{ value: 'test1' }, { value: 'test2' }]
@@ -187,36 +186,36 @@ export const createListElementInput = (
   props: {
     create: { node: { data: JSON.stringify({ dataSource: listDataSource }) } },
   },
-  parentElement: { connect: { where: { node: { id: rootElementId } } } },
 })
 
 export const reactNodeTextComponentName = 'Text'
 export const reactNodeTextProp = { text: 'React Node' }
 
-export const createTextReactNodeComponentInput = (
-  userId: string,
-  textAtomId: string,
-): ComponentCreateInput => ({
-  name: reactNodeTextComponentName,
-  owner: { connect: { where: { node: { auth0Id: userId } } } },
-  rootElement: {
-    create: {
-      node: {
-        name: ROOT_ELEMENT_NAME,
-        children: {
-          create: [
-            {
-              node: {
-                name: `React Node Text`,
-                atom: { connect: { where: { node: { id: textAtomId } } } },
-                props: {
-                  create: { node: { data: JSON.stringify(reactNodeTextProp) } },
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
-})
+// TODO: this util isn't used anywhere. Fix types later if requires
+// export const createTextReactNodeComponentInput = (
+//   userId: string,
+//   textAtomId: string,
+// ): ComponentCreateInput => ({
+//   name: reactNodeTextComponentName,
+//   owner: { connect: { where: { node: { auth0Id: userId } } } },
+//   rootElement: {
+//     create: {
+//       node: {
+//         name: ROOT_ELEMENT_NAME,
+//         children: {
+//           create: [
+//             {
+//               node: {
+//                 name: `React Node Text`,
+//                 atom: { connect: { where: { node: { id: textAtomId } } } },
+//                 props: {
+//                   create: { node: { data: JSON.stringify(reactNodeTextProp) } },
+//                 },
+//               },
+//             },
+//           ],
+//         },
+//       },
+//     },
+//   },
+// })

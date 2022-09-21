@@ -26,7 +26,6 @@ export const makeCreateInput = (
 ): ElementCreateInput => {
   const {
     id = v4(),
-    parentElementId,
     renderComponentTypeId,
     atomId,
     name,
@@ -44,14 +43,6 @@ export const makeCreateInput = (
     ? { connect: { where: { node: { id: atomId } } } }
     : undefined
 
-  const parentElement: ElementCreateInput['parentElement'] = parentElementId
-    ? {
-        connect: {
-          where: { node: { id: parentElementId } },
-        },
-      }
-    : undefined
-
   // Always create props
   const props: ElementCreateInput['props'] = {
     create: { node: { data: propsData ?? JSON.stringify({}) } },
@@ -60,7 +51,6 @@ export const makeCreateInput = (
   return {
     renderComponentType,
     renderAtomType,
-    parentElement,
     props,
     postRenderActionId,
     preRenderActionId,
@@ -87,20 +77,11 @@ export const makeDuplicateInput = (
     ? { create: { node: { data: element.props.jsonString } } }
     : undefined
 
-  const parentElement: ElementCreateInput['parentElement'] = {
-    connect: {
-      where: {
-        node: { id: parentId },
-      },
-    },
-  }
-
   return {
     id: v4(),
     renderComponentType,
     renderAtomType,
     props,
-    parentElement,
     propTransformationJs: element.propTransformationJs,
     renderIfPropKey: element.renderIfPropKey,
     renderForEachPropKey: element.renderForEachPropKey,

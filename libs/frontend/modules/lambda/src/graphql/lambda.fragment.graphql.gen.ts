@@ -1,9 +1,15 @@
 import * as Types from '@codelab/shared/abstract/codegen'
-
 import { gql } from 'graphql-request'
-export type LambdaFragment = { id: string; name: string; body: string }
 
-export type LambdaPayloadFragment = { payload: string }
+export interface LambdaFragment {
+  id: string
+  name: string
+  body: string
+}
+
+export interface LambdaPayloadFragment {
+  payload: string
+}
 
 export const LambdaFragmentDoc = gql`
   fragment Lambda on Lambda {

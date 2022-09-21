@@ -11,7 +11,7 @@ import ReactQuill from './ReactQuill'
 
 export const CUSTOM_TEXT_PROP_KEY = 'customText'
 
-export type UpdateRichTextFormProps = {
+export interface UpdateRichTextFormProps {
   elementService: IElementService
   element: IElement
   trackPromises?: UseTrackLoadingPromises
@@ -44,8 +44,8 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
     )
 
     const inEditMode = useCallback(
-      () => element.children.size === 0,
-      [element.children.size],
+      () => element.children.length === 0,
+      [element.children.length],
     )
 
     const onSubmit = (data: IPropData) => {
@@ -74,7 +74,7 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
             modules={modules}
             onChange={(newCustomText) => {
               setValue(newCustomText)
-              onSubmit({
+              void onSubmit({
                 ...element.props?.values,
                 [CUSTOM_TEXT_PROP_KEY]: newCustomText,
               })

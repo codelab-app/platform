@@ -8,7 +8,7 @@ export interface ExportAppData {
 }
 
 export const exportApps = async ({ appIds }: ExportAppWhere) => {
-  const App = await AppOGM({ reinitialize: true })
+  const App = await AppOGM()
   const where = appIds ? { id_IN: appIds } : {}
 
   const apps = await App.find({

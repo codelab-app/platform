@@ -23,7 +23,7 @@ export class Tag
   extends Model({
     id: idProp,
     name: prop<string>(),
-    children: prop<Array<string>>(),
+    children: prop<Array<string>>(() => []),
   })
   implements ITag
 {
@@ -37,7 +37,7 @@ export class Tag
   @modelAction
   writeCache(tag: ITagDTO) {
     this.name = tag.name
-    this.children = tag.children.map((child) => child.id)
+    this.children = tag?.children?.map((child) => child.id) ?? []
 
     return this
   }

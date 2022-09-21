@@ -9,10 +9,6 @@ export const elementSelectionSet = `{
     ${componentSelectionSet}
   renderComponentType
     ${componentSelectionSet}
-  parentElement {
-    id
-    name
-  }
   renderAtomType {
     id
     name
@@ -72,13 +68,4 @@ export const elementSelectionSet = `{
   propTransformationJs
   preRenderActionId
   postRenderActionId
-  parentElementConnection {
-    edges {
-      node {
-        id
-        name
-      }
-      order
-    }
-  }
 }`

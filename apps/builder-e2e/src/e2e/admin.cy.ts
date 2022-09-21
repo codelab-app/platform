@@ -12,10 +12,10 @@ describe.skip('Admin', () => {
       cy.exec('yarn cli parse --env test --email cypress@codelab.ai', {
         timeout: 30000,
       })
-      cy.exec(
-        'yarn cli data export --env test --seedData ./data/seed-data-test.json',
-        { timeout: 30000 },
-      )
+      // cy.exec(
+      //   'yarn cli data export --env test --seedData ./data/seed-data-test.json',
+      //   { timeout: 30000 },
+      // )
 
       // cy.readFile('./src/data/import-data.json').then((payload) => {
       //   cy.importAdminData(JSON.stringify(payload)).then((success: any) => {
