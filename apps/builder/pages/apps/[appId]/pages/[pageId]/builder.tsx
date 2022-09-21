@@ -28,7 +28,6 @@ import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { merge } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useAsync } from 'react-use'
 
@@ -40,11 +39,11 @@ const PageBuilder: CodelabPage = observer(() => {
     builderRenderService,
     elementService,
     builderService,
+    pageService,
   } = useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
-  const router = useRouter()
 
   const { loading, value, error } = useAsync(async () => {
     const {
@@ -64,14 +63,14 @@ const PageBuilder: CodelabPage = observer(() => {
       appTypes,
       actionTypes,
       codeMirrorTypes,
-    } = await builderService.getPageBuilder({ appId, pageId })
+    } = await pageService.getRenderedPage(appId, pageId)
 
-    const { pageElementTree, app, page, store } = appService.load({
+    const { pageElementTree, page, store } = appService.load({
       app: apps[0],
       pageId,
     })
 
-    const types = typeService.load({
+    typeService.load({
       primitiveTypes,
       arrayTypes,
       unionTypes,
@@ -87,12 +86,9 @@ const PageBuilder: CodelabPage = observer(() => {
       codeMirrorTypes,
     })
 
-    const hydratedComponents = components.map((component) =>
-      componentService.writeCache(component),
+    components.map((component) =>
+      componentService.loadRenderedComponentTree(component),
     )
-
-    const hydratedComponentsWithElementTree =
-      await componentService.loadComponentTrees(hydratedComponents)
 
     /**
      *
@@ -118,13 +114,9 @@ const PageBuilder: CodelabPage = observer(() => {
     )
 
     return {
-      app,
-      page,
       pageElementTree,
-      providerTree: null,
       store,
-      types,
-      components: hydratedComponentsWithElementTree,
+      page,
       renderer,
     }
   }, [])

@@ -1,4 +1,7 @@
-import { PageWhere } from '@codelab/shared/abstract/codegen'
+import {
+  GetRenderedPageQuery,
+  PageWhere,
+} from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -22,4 +25,5 @@ export interface IPageService
   pagesList: Array<IPage>
   page(id: string): Maybe<IPage>
   pagesByApp(appId: string): Array<IPage>
+  getRenderedPage(appId: string, pageId: string): Promise<GetRenderedPageQuery>
 }

@@ -1,16 +1,18 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { RenderedComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { ComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { RenderedComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { ComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>
 
 export type CreateComponentsMutation = {
-  createComponents: { components: Array<ComponentFragment> }
+  createComponents: { components: Array<RenderedComponentFragment> }
 }
 
 export type DeleteComponentsMutationVariables = Types.Exact<{
@@ -42,11 +44,11 @@ export const CreateComponentsDocument = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
     createComponents(input: $input) {
       components {
-        ...Component
+        ...RenderedComponent
       }
     }
   }
-  ${ComponentFragmentDoc}
+  ${RenderedComponentFragmentDoc}
 `
 export const DeleteComponentsDocument = gql`
   mutation DeleteComponents(

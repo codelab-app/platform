@@ -23,6 +23,5 @@ export interface IElementTree {
 export interface IElementTreeService {
   elementTree: IElementTree
   setElementTree(t: IElementTree): void
-  initTree(rootElementId: string): Promise<IElementTree>
-  initTreeV2(rootElement: IElement, elements: Array<IElement>): IElementTree
+  initTree(rootElement: IElement, elements: Array<IElement>): IElementTree
 }

@@ -21092,43 +21092,6 @@ export type UpdateAtomsMutation = {
   }
 }
 
-export type GetPageBuilderQueryVariables = Exact<{
-  appId: Scalars['ID']
-  pageId: Scalars['ID']
-  typeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
-}>
-
-export type GetPageBuilderQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  components: Array<{ __typename?: 'Component' } & ComponentFragment>
-  primitiveTypes: Array<
-    { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
-  >
-  arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
-  unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
-  interfaceTypes: Array<
-    { __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment
-  >
-  elementTypes: Array<
-    { __typename?: 'ElementType' } & Type_ElementType_Fragment
-  >
-  renderPropsTypes: Array<
-    { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
-  >
-  reactNodeTypes: Array<
-    { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
-  >
-  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
-  lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
-  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
-  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
-  actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
-  codeMirrorTypes: Array<
-    { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
-  >
-}
-
 export type CreateComponentsMutationVariables = Exact<{
   input: Array<ComponentCreateInput> | ComponentCreateInput
 }>
@@ -21137,7 +21100,7 @@ export type CreateComponentsMutation = {
   __typename?: 'Mutation'
   createComponents: {
     __typename?: 'CreateComponentsMutationResponse'
-    components: Array<{ __typename?: 'Component' } & ComponentFragment>
+    components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
   }
 }
 
@@ -21398,6 +21361,43 @@ export type GetPagesQueryVariables = Exact<{
 export type GetPagesQuery = {
   __typename?: 'Query'
   pages: Array<{ __typename?: 'Page' } & PageFragment>
+}
+
+export type GetRenderedPageQueryVariables = Exact<{
+  appId: Scalars['ID']
+  pageId: Scalars['ID']
+  typeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
+}>
+
+export type GetRenderedPageQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
+  components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
+  primitiveTypes: Array<
+    { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
+  >
+  arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+  unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+  interfaceTypes: Array<
+    { __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment
+  >
+  elementTypes: Array<
+    { __typename?: 'ElementType' } & Type_ElementType_Fragment
+  >
+  renderPropsTypes: Array<
+    { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
+  >
+  reactNodeTypes: Array<
+    { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
+  >
+  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+  lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+  actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+  codeMirrorTypes: Array<
+    { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
+  >
 }
 
 export type GetResourcesQueryVariables = Exact<{
@@ -22658,6 +22658,14 @@ export type AtomPreviewFragment = {
   tags: Array<{ __typename?: 'Tag' } & TagPreviewFragment>
   api: { __typename?: 'InterfaceType'; id: string; name: string }
 }
+
+export type RenderedComponentFragment = {
+  __typename?: 'Component'
+  rootElement: {
+    __typename?: 'Element'
+    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+  } & ElementFragment
+} & ComponentFragment
 
 export type ComponentFragment = {
   __typename?: 'Component'

@@ -1,7 +1,7 @@
 mutation CreateComponents($input: [ComponentCreateInput!]!) {
   createComponents(input: $input) {
     components {
-      ...Component
+      ...RenderedComponent
     }
   }
 }
