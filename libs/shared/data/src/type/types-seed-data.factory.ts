@@ -11,15 +11,6 @@ import { v4 } from 'uuid'
 
 type CreateSeedTypes = (ids?: Array<string>) => Array<ITypeExport>
 
-export const buttonInterfaceId = v4()
-
-export const buttonAtomId = v4()
-
-export const stringTypeId = v4()
-export const booleanTypeId = v4()
-export const floatTypeId = v4()
-export const integerTypeId = v4()
-
 export const createSeedTypesData: CreateSeedTypes = ([
   stringId = v4(),
   booleanId = v4(),

@@ -26,13 +26,13 @@ export type IAtomDTO = AtomFragment
 export type IAtomPreviewDTO = AtomPreviewFragment
 
 export interface IAtomExport {
-  icon?: string
+  icon?: string | null
   id: string
   name: string
   type: IAtomType
   api?: {
-    id: string | undefined
-  }
+    id: string
+  } | null
   tags?: Array<ITagExport>
 }
 

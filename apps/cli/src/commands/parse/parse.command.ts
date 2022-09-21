@@ -5,14 +5,13 @@ import { createSeedTypesData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import { CommandModule } from 'yargs'
-import { antdAtomsFactory } from '../../data/atom'
 import { upsertUser } from '../../repository/user.repo'
 import { getEnvOptions } from '../../shared/command'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTypes } from '../../use-cases/import/import-types'
-import { createAntDesignAtomsData } from '../../use-cases/parser/ant-design'
+import { createAntDesignAtomsData } from '../../use-cases/parser/data/ant-design.data'
 import { parseAndImportInterface } from './parse-and-import-interface'
 
 interface ParseProps {
@@ -66,10 +65,10 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
     }))
 
     /**
-     * (2) Then import all atoms
+     * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
-      atoms: antdAtomsFactory(await createAntDesignAtomsData()),
+      atoms: await createAntDesignAtomsData(),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,

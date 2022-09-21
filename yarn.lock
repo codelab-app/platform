@@ -13847,6 +13847,7 @@ __metadata:
     next-with-less: 2.0.5
     node-fetch: 3.1.0
     nx: 14.7.5
+    object-typed: ^1.0.0
     postcss: 8.4.16
     postcss-import: 14.1.0
     prettier: 2.7.0
@@ -24529,6 +24530,13 @@ __metadata:
   version: 0.4.0
   resolution: "object-keys@npm:0.4.0"
   checksum: 1be3ebe9b48c0d5eda8e4a30657d887a748cb42435e0e2eaf49faf557bdd602cd2b7558b8ce90a4eb2b8592d16b875a1900bce859cbb0f35b21c67e11a45313c
+  languageName: node
+  linkType: hard
+
+"object-typed@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "object-typed@npm:1.0.0"
+  checksum: cbdac7646525f79fa072964c33c464e717286f165ef5b8a867e3a3ad9e6fdbdd45a717d8c8b02ec5af5a751e7d3891d8fc2191d1cb23aa207f40277b49ecd8d0
   languageName: node
   linkType: hard
 

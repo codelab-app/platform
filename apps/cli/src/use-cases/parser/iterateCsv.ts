@@ -1,7 +1,7 @@
 import csv from 'csv-parser'
 import fs from 'fs'
 import path from 'path'
-import { AntdDesignApi } from './ant-design'
+import { AntdDesignApi } from './data/ant-design.data'
 
 export const iterateCsvs = async (
   folder: string,

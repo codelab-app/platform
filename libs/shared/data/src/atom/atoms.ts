@@ -30,17 +30,11 @@ export const createAtomsData: CreateAtoms = (
     id: v4(),
     name: IAtomType.AntDesignGridCol,
     type: IAtomType.AntDesignGridCol,
-    api: {
-      id: undefined,
-    },
   },
   {
     id: v4(),
     name: IAtomType.AntDesignGridRow,
     type: IAtomType.AntDesignGridRow,
-    api: {
-      id: undefined,
-    },
   },
 ]
 

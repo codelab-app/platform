@@ -9,10 +9,10 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectId, connectTypeId } from '@codelab/shared/data'
+import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { AntdDesignApi } from './ant-design'
+import { AntdDesignApi } from './data/ant-design.data'
 import {
   isReactNodeTypeRegex,
   isRenderPropType,

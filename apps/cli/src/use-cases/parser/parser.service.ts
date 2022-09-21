@@ -1,8 +1,8 @@
 import { IAtomExport, ICreateFieldDTO } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { AntdDesignApi, createAntDesignAtomsData } from './ant-design'
-import { csvNameToAtomTypeMap } from './csvNameToAtomTypeMap'
+import { AntdDesignApi, createAntDesignAtomsData } from './data/ant-design.data'
+import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
 import { iterateCsvs } from './iterateCsv'
 import { getTypeForApi } from './type-map'
 
