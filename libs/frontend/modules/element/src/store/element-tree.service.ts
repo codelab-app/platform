@@ -4,15 +4,7 @@ import {
   IElementTree,
   IElementTreeService,
 } from '@codelab/shared/abstract/core'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-} from 'mobx-keystone'
+import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { ElementTree } from './element-tree.model'
 
 /**
@@ -25,35 +17,12 @@ export class ElementTreeService
   })
   implements IElementTreeService
 {
-  @modelFlow
-  initTree = _async(function* (
-    this: ElementTreeService,
-    rootElementId: string,
-  ) {
-    const elementService = getElementService(this)
-    const elements = yield* _await(elementService.getDescendants(rootElementId))
-
-    elements.forEach((element) => {
-      elementService.elements.set(element.id, element)
-    })
-
-    const rootElement = elementService.element(rootElementId)
-
-    if (!rootElement) {
-      throw new Error('root element not found')
-    }
-
-    this.elementTree = ElementTree.init(rootElement, elements)
-
-    return this.elementTree
-  })
-
   /**
    * @param elements  All elements are assumed to be cached before being used here
    */
   @modelAction
-  initTreeV2 = (rootElement: IElement, elements: Array<IElement>) => {
-    console.debug('ElementTreeService.initTreeV2', elements)
+  initTree = (rootElement: IElement, elements: Array<IElement>) => {
+    console.debug('ElementTreeService.initTree', elements)
 
     const elementService = getElementService(this)
 

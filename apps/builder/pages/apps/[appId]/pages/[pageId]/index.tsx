@@ -12,7 +12,6 @@ import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { useAsync } from 'react-use'
 
@@ -21,83 +20,70 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     pageService,
     appService,
     typeService,
-    componentService,
-    storeService,
-    userService,
     appRenderService,
+    componentService,
   } = useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
   const { loading, value, error } = useAsync(async () => {
-    /**
-     * load all apps to provide them to mobxState
-     */
-    const apps = await appService.getAll()
-    const app = appService.app(appId)
+    const {
+      apps,
+      components,
+      // Can't change shape in GraphQL so we have to use this structure
+      primitiveTypes,
+      arrayTypes,
+      unionTypes,
+      interfaceTypes,
+      elementTypes,
+      renderPropsTypes,
+      reactNodeTypes,
+      enumTypes,
+      lambdaTypes,
+      pageTypes,
+      appTypes,
+      actionTypes,
+      codeMirrorTypes,
+    } = await pageService.getRenderedPage(appId, pageId)
 
-    if (!app) {
-      throw new Error('Missing app')
-    }
-
-    /**
-     * load app store
-     */
-    const appStore = await storeService.getOne(app.store.id)
-
-    if (!appStore) {
-      throw new Error('App store not found')
-    }
-
-    /**
-     * load all pages to provide them to mobxState
-     * */
-    const pages = await pageService.getAll()
-    const page = pageService.page(pageId)
-
-    if (!page) {
-      throw new Error('Page not found')
-    }
-
-    /**
-     *
-     * components are needed to build pageElementTree
-     *
-     */
-    const components = await componentService.getAll({
-      owner: { auth0Id: userService.auth0Id },
+    const { pageElementTree, page, store } = appService.load({
+      app: apps[0],
+      pageId,
     })
 
-    /**
-     *
-     * load all types
-     *
-     */
-    const types = await typeService.getAll()
-    /**
-     *
-     * page Element tree
-     *
-     */
-    const pageElementTree = await page.initTree(page.rootElement.id)
+    typeService.load({
+      primitiveTypes,
+      arrayTypes,
+      unionTypes,
+      interfaceTypes,
+      elementTypes,
+      renderPropsTypes,
+      reactNodeTypes,
+      enumTypes,
+      lambdaTypes,
+      pageTypes,
+      appTypes,
+      actionTypes,
+      codeMirrorTypes,
+    })
+
+    components.map((component) =>
+      componentService.loadRenderedComponentTree(component),
+    )
 
     const renderer = await appRenderService.addRenderer(
       pageId,
       pageElementTree,
       null,
-      appStore,
+      store,
       false,
     )
 
     return {
       page,
       pageElementTree,
-      providerTree: null,
-      appStore,
       renderer,
-      components,
-      types,
     }
   }, [])
 

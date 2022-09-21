@@ -28,6 +28,6 @@ mutation UpdateComponents(
 
 query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
   components(options: $options, where: $where) {
-    ...RenderedComponent
+    ...Component
   }
 }

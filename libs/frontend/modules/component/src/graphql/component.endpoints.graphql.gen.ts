@@ -38,9 +38,7 @@ export type GetComponentsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ComponentWhere>
 }>
 
-export type GetComponentsQuery = {
-  components: Array<RenderedComponentFragment>
-}
+export type GetComponentsQuery = { components: Array<ComponentFragment> }
 
 export const CreateComponentsDocument = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
@@ -78,10 +76,10 @@ export const UpdateComponentsDocument = gql`
 export const GetComponentsDocument = gql`
   query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
     components(options: $options, where: $where) {
-      ...RenderedComponent
+      ...Component
     }
   }
-  ${RenderedComponentFragmentDoc}
+  ${ComponentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

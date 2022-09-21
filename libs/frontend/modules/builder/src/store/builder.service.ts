@@ -16,21 +16,16 @@ import { isNonNullable } from '@codelab/shared/utils'
 import { chain } from 'lodash'
 import { computed } from 'mobx'
 import {
-  _async,
-  _await,
   findParent,
   Frozen,
   getRefsResolvingTo,
   Model,
   model,
   modelAction,
-  modelFlow,
   modelTypeKey,
   prop,
   Ref,
-  transaction,
 } from 'mobx-keystone'
-import { pageBuilderApi } from './builder.api'
 
 @model('@codelab/BuilderService')
 export class BuilderService
@@ -57,27 +52,6 @@ export class BuilderService
   })
   implements IBuilderService
 {
-  /**
-   * This function fetches all data required for the page in a single API call.
-   *
-   * Getting `App`, `Page`, `Store` is easy and works with default GraphQL API
-   *
-   * Getting `Element` is a bit trickier, since we only get the rootElementId from Page query, we would need a custom resolver to get descendant elements
-   */
-  @modelFlow
-  @transaction
-  getPageBuilder = _async(function* (
-    this: BuilderService,
-    { appId, pageId }: { appId: string; pageId: string },
-  ) {
-    return yield* _await(
-      pageBuilderApi.GetPageBuilder({
-        appId,
-        pageId,
-      }),
-    )
-  })
-
   /**
    * Get all components that have `Component` tag
    */

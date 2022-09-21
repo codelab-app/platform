@@ -48,18 +48,17 @@ export class ComponentService
   })
   implements IComponentService
 {
+  loadRenderedComponentTree(
+    renderedComponentFragment: RenderedComponentFragment,
+  ) {
+    const componentModel = this.writeCache(renderedComponentFragment)
+    componentModel.loadComponentTree(renderedComponentFragment)
+
+    return componentModel
+  }
+
   component(id: string) {
     return this.components.get(id)
-  }
-
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  get componentService() {
-    return getComponentService(this)
   }
 
   @computed
@@ -88,32 +87,6 @@ export class ComponentService
     }
   }
 
-  @modelAction
-  loadComponentTree = function (
-    this: ComponentService,
-    component: IComponent,
-    componentFragment: RenderedComponentFragment,
-  ) {
-    const elements = [
-      componentFragment.rootElement,
-      ...componentFragment.rootElement.descendantElements,
-    ]
-
-    const hydratedElements = elements.map((element) =>
-      this.elementService.writeCache(element),
-    )
-
-    const rootElement = this.elementService.element(
-      componentFragment.rootElement.id,
-    )
-
-    if (!rootElement) {
-      throw new Error('No root element found')
-    }
-
-    component.initTreeV2(rootElement, hydratedElements)
-  }
-
   @modelFlow
   @transaction
   getAll = _async(function* (this: ComponentService, where?: ComponentWhere) {
@@ -126,7 +99,9 @@ export class ComponentService
         } else {
           const componentModel = Component.hydrate(component)
           this.components.set(component.id, componentModel)
-          this.loadComponentTree(componentModel, component)
+          // are used by CRUD general components
+          // so not contain rendered component
+          // componentModel.loadComponentTree(component)
 
           return componentModel
         }
@@ -171,7 +146,7 @@ export class ComponentService
     const componentModel = Component.hydrate(component)
 
     this.components.set(component.id, componentModel)
-    this.loadComponentTree(componentModel, component)
+    componentModel.loadComponentTree(component)
 
     return [componentModel]
   })

@@ -24,8 +24,13 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
-  loadComponentTree(
-    component: IComponent,
-    componentFragment: RenderedComponentFragment,
+  /**
+term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
+component
+  rootElement
+    decendantElements
+   */
+  loadRenderedComponentTree(
+    renderedComponentFragment: RenderedComponentFragment,
   ): void
 }
