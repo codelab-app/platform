@@ -80,8 +80,10 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
 
   if (isOfTypeKind<IField<IPrimitiveType>>(field, ITypeKind.PrimitiveType)) {
     return field.type.current.primitiveKind === IPrimitiveTypeKind.Boolean ? (
+      // ok
       <CheckboxField field={field} form={form} />
     ) : (
+      // ok
       <CodeMirrorField context={context} field={field} form={form} />
     )
   }

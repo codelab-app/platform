@@ -27,6 +27,8 @@ export const InterfaceForm = observer(
     onSubmitSuccess,
     submitRef,
     setIsLoading,
+    autosave,
+    context,
   }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
     const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
@@ -34,7 +36,7 @@ export const InterfaceForm = observer(
     useEffect(
       () =>
         autorun(() => {
-          const typeTreeSchema = transformer.transform(interfaceType)
+          const typeTreeSchema = transformer.transform(interfaceType, context)
           setFormSchema(
             mergeDeepRight(initialSchemaRef.current, typeTreeSchema),
           )
@@ -46,8 +48,11 @@ export const InterfaceForm = observer(
       return null
     }
 
+    console.log('InterfaceForm', autosave)
+
     return (
       <Form
+        autosave={autosave}
         model={model}
         onChange={onChange}
         onSubmit={handleFormSubmit<DeepPartial<TData>, TResponse>(

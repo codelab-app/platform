@@ -111,7 +111,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           />
         </div>
 
-        <Tabs defaultActiveKey="tab1" size="small">
+        <Tabs defaultActiveKey="tab2" size="small">
           <Tabs.TabPane
             key="tab1"
             style={{ overflow: 'auto', maxHeight: '100%' }}
@@ -135,11 +135,13 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
               {isElement(selectedNode) &&
               (selectedNode.atom || selectedNode.renderComponentType) ? (
                 <>
-                  <UpdateRichTextForm
-                    element={selectedNode}
-                    elementService={elementService}
-                    trackPromises={trackPromises}
-                  />
+                  <div css={tw`mb-5`}>
+                    <UpdateRichTextForm
+                      element={selectedNode}
+                      elementService={elementService}
+                      trackPromises={trackPromises}
+                    />
+                  </div>
                   <UpdateElementPropsForm
                     actionList={actionService.actionsList}
                     autocomplete={renderService.state}

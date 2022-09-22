@@ -26,6 +26,5 @@ export interface IPropDataByElementId {
 export interface IPropsFieldContext {
   autocomplete?: IPropData
   builderState: IBuilderState
-
   actionList?: Array<IAnyAction>
 }

@@ -1,25 +1,15 @@
 import { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
+import { SetIsLoading } from '@codelab/frontend/view/components'
 import {
-  connectUniformSubmitRef,
-  handleFormSubmit,
-  SetIsLoading,
-} from '@codelab/frontend/view/components'
-import {
-  IField,
   IInterfaceType,
   IPropData,
   IPropsFieldContext,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { css } from '@emotion/react'
 import { CSSInterpolation } from '@emotion/serialize'
-import { Form } from 'antd'
-import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect } from 'react'
-import { DeepPartial, useForm } from 'react-hook-form'
-import { Subscription } from 'react-hook-form/dist/utils/createSubject'
-import { PropsFields } from './PropsFields'
+import React from 'react'
+import { InterfaceForm } from '../interface-form'
 
 export interface PropsFormProps extends SubmitRef {
   interfaceType?: IInterfaceType
@@ -49,27 +39,11 @@ export const PropsForm = observer<PropsFormProps>(
     cssString,
     onSubmitSuccess,
   }) => {
-    const form = useForm({ defaultValues: model })
-    const { handleSubmit, watch } = form
+    console.log({ model })
 
-    const fields: Array<IField> = interfaceType
-      ? [...interfaceType.fields.values()]
-      : []
-
-    const debouncedSave = useCallback(
-      debounce(() => handleSubmit(onSubmit)(), 500),
-      [onSubmit],
-    )
-
-    useEffect(() => {
-      let subscription: Nullish<Subscription> = null
-
-      if (autosave) {
-        subscription = watch(debouncedSave)
-      }
-
-      return () => subscription?.unsubscribe()
-    }, [watch, debouncedSave])
+    if (!interfaceType) {
+      return null
+    }
 
     return (
       <div
@@ -77,23 +51,14 @@ export const PropsForm = observer<PropsFormProps>(
           ${cssString}
         `}
       >
-        <Form
-          layout="vertical"
-          noValidate
-          onFinish={() =>
-            handleFormSubmit<DeepPartial<IPropData>, IPropData>(
-              onSubmit,
-              setIsLoading,
-              onSubmitSuccess,
-              onSubmitError,
-            )(form.getValues())
-          }
-          ref={connectUniformSubmitRef(submitRef)}
-        >
-          {fields.map((field) => (
-            <PropsFields context={context} field={field} form={form} />
-          ))}
-        </Form>
+        <InterfaceForm
+          autosave={autosave}
+          context={context}
+          interfaceType={interfaceType}
+          model={model || {}}
+          onSubmit={onSubmit}
+          onSubmitSuccess={onSubmitSuccess}
+        />
       </div>
     )
   },

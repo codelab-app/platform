@@ -6,6 +6,7 @@ import { codeMirrorTypeUiProperties } from './codeMirrorTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
 import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
 import { pageTypeUiProperties } from './pageTypeUiProperties'
+import { primativeTypeUiPropertiesFactory } from './primativeUiProperties'
 import { selectComponentUiProperties } from './selectComponentUiProperties'
 import { unionTypeUiProperties } from './unionTypeUiProperties'
 
@@ -18,23 +19,23 @@ type UniformsPropertiesContainer = Partial<{
 // Register ui properties for new types here
 const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.UnionType]: unionTypeUiProperties,
-
   [ITypeKind.ReactNodeType]: selectComponentUiProperties,
   [ITypeKind.RenderPropsType]: selectComponentUiProperties,
   [ITypeKind.ElementType]: elementTypeUiProperties,
   [ITypeKind.CodeMirrorType]: codeMirrorTypeUiProperties,
+  [ITypeKind.PrimitiveType]: primativeTypeUiPropertiesFactory,
   [ITypeKind.LambdaType]: lambdaTypeUiProperties,
   [ITypeKind.AppType]: appTypeUiProperties,
   [ITypeKind.ActionType]: actionTypeUiProperties,
   [ITypeKind.PageType]: pageTypeUiProperties,
 }
 
-export const getUiProperties = (type: IAnyType) => {
+export const getUiProperties = (type: IAnyType, context) => {
   const fn: UiPropertiesFn | undefined = uiPropertiesContainer[type.kind] as any
 
   if (!fn) {
     return {}
   }
 
-  return fn(type)
+  return fn(type, context)
 }

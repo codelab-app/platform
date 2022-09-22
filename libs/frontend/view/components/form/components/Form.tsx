@@ -28,6 +28,8 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
       setBridge(schema instanceof Bridge ? schema : createBridge(schema))
     }, [schema])
 
+    console.log('render form', autosave)
+
     return (
       <div
         css={css`
@@ -41,6 +43,8 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={(formData) => {
+            console.log({ formData })
+
             const result = onSubmit(formData as TData)
 
             if (!result) {

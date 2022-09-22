@@ -20,6 +20,7 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
+import { UiPropertiesContext } from './types'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
@@ -42,7 +43,7 @@ const primitives = {
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  transform(type: IAnyType) {
+  transform(type: IAnyType, context: UiPropertiesContext) {
     switch (type.kind) {
       case ITypeKind.AppType:
         return this.fromAppType(type)
@@ -59,7 +60,7 @@ export class TypeSchemaFactory {
       case ITypeKind.ReactNodeType:
         return this.fromReactNodeType(type)
       case ITypeKind.CodeMirrorType:
-        return this.fromCodeMirrorType(type)
+        return this.fromCodeMirrorType(type, context)
       case ITypeKind.ElementType:
         return this.fromElementType(type)
       case ITypeKind.EnumType:
@@ -156,7 +157,7 @@ export class TypeSchemaFactory {
   }
 
   fromCodeMirrorType(type: ICodeMirrorType): JsonSchema {
-    return this.simpleReferenceType(type)
+    return this.simpleReferenceType(type, context)
   }
 
   fromLambdaType(type: ILambdaType): JsonSchema {
@@ -168,7 +169,7 @@ export class TypeSchemaFactory {
   }
 
   fromElementType(type: IElementType): JsonSchema {
-    return this.transformReactElementType(type)
+    return this.transformReactElementType(type, context)
   }
 
   fromPrimitiveType(type: IPrimitiveType): JsonSchema {
@@ -177,8 +178,8 @@ export class TypeSchemaFactory {
     return { type: primitives[type.primitiveKind], ...extra }
   }
 
-  fromEnumType(type: IEnumType): JsonSchema {
-    const extra = this.getExtraProperties(type)
+  fromEnumType(type: IEnumType, context?: any): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
 
     const uniforms = {
       options: type.allowedValues?.map((v) => ({
@@ -200,8 +201,8 @@ export class TypeSchemaFactory {
    * Handles the reference types without any extra properties
    * Produces a 'string' type
    */
-  private simpleReferenceType(type: IAnyType): JsonSchema {
-    const extra = this.getExtraProperties(type)
+  private simpleReferenceType(type: IAnyType, context?: any): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
 
     return { type: 'string', ...extra } as const
   }
@@ -234,8 +235,9 @@ export class TypeSchemaFactory {
    */
   private transformReactElementType(
     type: IElementType | IReactNodeType | IRenderPropsType,
+    context,
   ): JsonSchema {
-    const extra = this.getExtraProperties(type)
+    const extra = this.getExtraProperties(type, context)
 
     const properties = TypeSchemaFactory.schemaForTypedValue(
       type.id,
