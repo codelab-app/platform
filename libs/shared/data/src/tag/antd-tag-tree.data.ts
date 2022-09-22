@@ -5,7 +5,7 @@ export type TagNode = string | { [key: string]: Array<TagNode> }
 /**
  * This contains hierarchical tag data for Ant Design
  */
-export const antdTagTree: Record<string, Array<TagNode>> = {
+export const antdTagTree: Partial<Record<AntdTag, Array<TagNode>>> = {
   [AntdTag.General]: [
     AntdTag.Button,
     AntdTag.Icon,
@@ -20,6 +20,8 @@ export const antdTagTree: Record<string, Array<TagNode>> = {
   [AntdTag.Layout]: [
     AntdTag.Divider,
     AntdTag.Grid,
+    AntdTag.Row,
+    AntdTag.Col,
     AntdTag.LayoutSider,
     AntdTag.Space,
   ],
@@ -31,7 +33,7 @@ export const antdTagTree: Record<string, Array<TagNode>> = {
         AntdTag.BreadcrumbSeparator,
       ],
     },
-    AntdTag.Dropdown,
+    { [AntdTag.Dropdown]: [AntdTag.DropdownButton] },
     AntdTag.Menu,
     AntdTag.Pagination,
     AntdTag.PageHeader,
@@ -52,10 +54,10 @@ export const antdTagTree: Record<string, Array<TagNode>> = {
     },
     AntdTag.Input,
     AntdTag.InputNumber,
-    AntdTag.Mentions,
-    AntdTag.Radio,
+    { [AntdTag.Mentions]: [AntdTag.MentionsOption] },
+    { [AntdTag.Radio]: [AntdTag.RadioGroup] },
     AntdTag.Rate,
-    AntdTag.Select,
+    { [AntdTag.Select]: [AntdTag.SelectOption] },
     AntdTag.Slider,
     AntdTag.Switch,
     AntdTag.TimePicker,
@@ -67,21 +69,21 @@ export const antdTagTree: Record<string, Array<TagNode>> = {
     AntdTag.Avatar,
     AntdTag.Badge,
     AntdTag.Comment,
-    AntdTag.Collapse,
+    { [AntdTag.Collapse]: [AntdTag.CollapsePanel] },
     AntdTag.Carousel,
-    AntdTag.Card,
+    { [AntdTag.Card]: [AntdTag.CardGrid, AntdTag.CardMeta] },
     AntdTag.Calendar,
-    AntdTag.Descriptions,
+    { [AntdTag.Descriptions]: [AntdTag.DescriptionsItem] },
     AntdTag.Empty,
     AntdTag.Image,
-    AntdTag.List,
+    { [AntdTag.List]: [{ [AntdTag.ListItem]: [AntdTag.ListItemMeta] }] },
     AntdTag.Popover,
     AntdTag.Statistic,
     AntdTag.Tree,
     AntdTag.Tooltip,
-    AntdTag.Timeline,
+    { [AntdTag.Timeline]: [AntdTag.TimelineItem] },
     AntdTag.Tag,
-    AntdTag.Tabs,
+    { [AntdTag.Tabs]: [AntdTag.TabsTabPane] },
     AntdTag.Table,
   ],
   [AntdTag.Feedback]: [
@@ -99,5 +101,6 @@ export const antdTagTree: Record<string, Array<TagNode>> = {
   [AntdTag.Other]: [
     { [AntdTag.Anchor]: [AntdTag.AnchorLink] },
     AntdTag.BackTop,
+    AntdTag.ConfigProvider,
   ],
 }
