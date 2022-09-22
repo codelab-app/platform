@@ -58,8 +58,6 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
       throw new Error('User not found!')
     }
 
-    console.log('------------------ABC--------------------')
-
     /**
      * (1) First all our base types first
      */

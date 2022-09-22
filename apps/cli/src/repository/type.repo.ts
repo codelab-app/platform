@@ -64,7 +64,7 @@ export const upsertType = async (
         })
       }
 
-      // console.log(`Updating ${data.name} [${data.kind}]...`)
+      console.log(`Updating ${data.name} [${data.kind}]...`)
 
       cLog(createUpdateBaseFields(data, selectedUserId))
 

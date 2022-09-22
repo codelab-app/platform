@@ -9,7 +9,6 @@ export interface AntdDesignApi {
   default: string
   version: string
   isEnum: boolean
-  isUnion: boolean
 }
 
 interface ComponentData {
@@ -106,15 +105,6 @@ export class ScraperService {
                           child?.textContent === '"|"' ||
                           child?.textContent === '|',
                       ),
-                    isUnion:
-                      // typeTdChildren.length > 0 &&
-                      // typeTdChildren.some(
-                      //   (child) =>
-                      //     ((child as HTMLElement).tagName !== 'CODE' &&
-                      //       child?.textContent?.indexOf('"|"')) !== -1 ||
-                      //     child?.textContent?.indexOf('|') !== -1,
-                      // ),
-                      true,
                   }
                 })
             )

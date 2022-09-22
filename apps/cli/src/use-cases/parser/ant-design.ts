@@ -9,7 +9,6 @@ export interface AntdDesignApi {
   default: string
   version: string
   isEnum: boolean
-  isUnion: boolean
 }
 
 /**

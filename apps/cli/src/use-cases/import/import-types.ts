@@ -12,8 +12,7 @@ export const importTypes = async (
   for (const type of types) {
     console.log('\n---------------------\n')
     console.log(`Upserting ${type.name}:`)
-    cLog(type)
     console.log('\n')
-    await upsertType(type, selectedUser, where)
+    await upsertType(type, selectedUserId, where)
   }
 }
