@@ -86,7 +86,7 @@ export class AppService
       throw new Error('No root element found')
     }
 
-    const pageElementTree = pageModel.initTreeV2(rootElement, pageElements)
+    const pageElementTree = pageModel.initTree(rootElement, pageElements)
 
     return {
       pageElementTree,

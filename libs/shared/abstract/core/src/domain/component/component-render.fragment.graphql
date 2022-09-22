@@ -1,0 +1,9 @@
+fragment RenderedComponent on Component {
+  ...Component
+  rootElement {
+    ...Element
+    descendantElements {
+      ...Element
+    }
+  }
+}

@@ -46,6 +46,31 @@ export class PageService
   })
   implements IPageService
 {
+  /**
+This function fetches all data required for the rendered page in a single API call.
+  Getting `App`, `Page`, `Store` is easy and works with default GraphQL API
+  Getting `Element` is a bit trickier, since we only get the rootElementId from Page query, we would need a custom resolver to get descendant elements
+  
+term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
+page/component
+  rootElement
+    decendantElements
+   */
+  @modelFlow
+  @transaction
+  getRenderedPage = _async(function* (
+    this: PageService,
+    appId: string,
+    pageId: string,
+  ) {
+    return yield* _await(
+      pageApi.GetRenderedPage({
+        appId,
+        pageId,
+      }),
+    )
+  })
+
   @computed
   get pagesList() {
     return [...this.pages.values()]
