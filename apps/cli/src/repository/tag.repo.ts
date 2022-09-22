@@ -2,6 +2,7 @@ import { TagOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/data'
+import { logTask } from '../shared/utils/log-task'
 
 export const connectChildTagToParent = async (tag: ITagExport) => {
   const connectChildren = tag.children?.map((childrenTag) => ({
@@ -35,8 +36,6 @@ export const upsertTag = async (
 ) => {
   const Tag = await TagOGM()
 
-  console.log(`[Finding Tag]: with ${where}`)
-
   const existingTag = await Tag.find({
     where: where(tag),
   })
@@ -46,7 +45,7 @@ export const upsertTag = async (
   }
 
   if (!existingTag.length) {
-    console.log(`[Creating Tag]: ${tag.name}`)
+    logTask('Created Task', tag.name)
 
     const createInput: OGM_TYPES.TagCreateInput = {
       ...baseInput,
@@ -54,11 +53,15 @@ export const upsertTag = async (
       id: tag.id,
     }
 
-    return Tag.create({
-      input: [createInput],
-    })
+    try {
+      return Tag.create({
+        input: [createInput],
+      })
+    } catch (e) {
+      console.error(e)
+    }
   } else {
-    console.log(`[Updating Tag]: ${tag.name}`)
+    logTask('Updating Tag', tag.name)
 
     const updateInput: any = {
       ...baseInput,
@@ -70,4 +73,6 @@ export const upsertTag = async (
       update: updateInput,
     })
   }
+
+  return
 }

@@ -6,7 +6,7 @@ import { ITagService } from '@codelab/shared/abstract/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { nodeRef } from '../../store'
+import { tagRef } from '../../store'
 
 export interface TagRecord {
   id: string
@@ -45,11 +45,11 @@ export const GetTagsTable = observer<GetTagsTableProps>(
           <Space size="middle">
             <ListItemEditButton
               onClick={() => {
-                tagService.updateModal.open(nodeRef(tag.id))
+                tagService.updateModal.open(tagRef(tag.id))
               }}
             />
             <ListItemDeleteButton
-              onClick={() => tagService.deleteManyModal.open([nodeRef(tag.id)])}
+              onClick={() => tagService.deleteManyModal.open([tagRef(tag.id)])}
             />
           </Space>
         ),

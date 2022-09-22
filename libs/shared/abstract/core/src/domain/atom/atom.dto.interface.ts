@@ -26,14 +26,12 @@ export type IAtomDTO = AtomFragment
 export type IAtomPreviewDTO = AtomPreviewFragment
 
 export interface IAtomExport {
-  icon?: string
+  icon?: string | null
   id: string
   name: string
   type: IAtomType
-  api?: {
-    id: string | undefined
+  api: {
+    id: string
   }
-  tags?: Array<ITagExport>
+  tags: Array<ITagExport>
 }
-
-// export type IAtomExport = Pick<OGM_TYPES.Atom, 'id' | 'name' | 'type' | 'api'>

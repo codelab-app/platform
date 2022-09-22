@@ -15,26 +15,47 @@ describe('Tag CRUD', () => {
 
         cy.createTag({
           id: v4(),
-          name: updateData.tagName1,
+          name: updateData.tag_0,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         })
 
+        /**
+         * Delete
+         *
+         * Parent 1 - Tag 1
+         * Tag 2
+         */
         cy.createTag({
           id: v4(),
-          name: deleteData.table.tagName2,
-          owner: { connect: { where: { node: { auth0Id: userId } } } },
-        })
-
-        cy.createTag({
-          id: v4(),
-          name: deleteData.table.parentTagName1,
+          name: deleteData.table.tag_0,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         }).then((value) => {
           const parentId = value[0].id
 
           cy.createTag({
             id: v4(),
-            name: deleteData.table.tagName1,
+            name: deleteData.table.tag_0_0,
+            parent: { connect: { where: { node: { id: parentId } } } },
+            owner: { connect: { where: { node: { auth0Id: userId } } } },
+          })
+        })
+
+        /**
+         * Delete tag
+         *
+         * Tag-0 -> Tag-0_0
+         * Tag-0_1
+         */
+        cy.createTag({
+          id: v4(),
+          name: deleteData.tree.tag_0,
+          owner: { connect: { where: { node: { auth0Id: userId } } } },
+        }).then((value) => {
+          const parentId = value[0].id
+
+          cy.createTag({
+            id: v4(),
+            name: deleteData.tree.tag_0_0,
             parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },
           })
@@ -42,29 +63,20 @@ describe('Tag CRUD', () => {
 
         cy.createTag({
           id: v4(),
-          name: deleteData.tree.parentTagName1,
+          name: deleteData.table.tag_0_1,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
-        }).then((value) => {
-          const parentId = value[0].id
-
-          cy.createTag({
-            id: v4(),
-            name: deleteData.tree.tagName1,
-            parent: { connect: { where: { node: { id: parentId } } } },
-            owner: { connect: { where: { node: { auth0Id: userId } } } },
-          })
         })
 
         cy.createTag({
           id: v4(),
-          name: deleteData.tree.parentTagName2,
+          name: deleteData.tree.tag_1,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         }).then((value) => {
           const parentId = value[0].id
 
           cy.createTag({
             id: v4(),
-            name: deleteData.tree.tagName2,
+            name: deleteData.tree.tag_1_0,
             parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },
           })
@@ -87,16 +99,16 @@ describe('Tag CRUD', () => {
     }
 
     it('should be able to create a tag', () => {
-      cy.createTagByUI(createData.parentTagName1)
-      testCreate(createData.parentTagName1)
+      cy.createTagByUI(createData.tag_0)
+      testCreate(createData.tag_0)
     })
 
     it('should be able to create a tag with parent', () => {
       cy.createTagByUI(
-        createData.tagName1,
+        createData.tag_0_0,
         // createData.parentTagName1
       )
-      testCreate(createData.tagName1, createData.parentTagName1)
+      testCreate(createData.tag_0_0, createData.tag_0)
     })
   })
 
@@ -104,41 +116,41 @@ describe('Tag CRUD', () => {
     it('should be able to update tag name using edit button in the table', () => {
       cy.searchTableRow({
         header: 'Name',
-        row: new RegExp(`^${updateData.tagName1}$`),
+        row: new RegExp(`^${updateData.tag_0}$`),
       })
         .getButton({ icon: 'edit' })
         .click()
       cy.getModal()
         .findByLabelText('Name')
-        .should('have.value', updateData.tagName1)
+        .should('have.value', updateData.tag_0)
       cy.getModal()
         .findByLabelText('Name')
         .clear()
-        .type(updateData.updatedTagName1)
+        .type(updateData.updated_tag_0)
       cy.getModal()
         .getModalAction(/Update Tag/)
         .click()
 
       cy.getModal().should('not.exist')
 
-      cy.getTable().findByText(updateData.tagName1).should('not.exist')
-      cy.getTable().findByText(updateData.updatedTagName1).should('exist')
+      cy.getTable().findByText(updateData.tag_0).should('not.exist')
+      cy.getTable().findByText(updateData.updated_tag_0).should('exist')
     })
   })
 
   describe('delete', () => {
     describe('table', () => {
       it('should be able to delete a tag with parent', () => {
-        cy.getTable().findAllByText(deleteData.table.tagName1).should('exist')
-        cy.deleteTagInTableByUI(deleteData.table.parentTagName1)
+        cy.getTable().findAllByText(deleteData.table.tag_0_0).should('exist')
+        cy.deleteTagInTableByUI(deleteData.table.tag_0)
 
         cy.getTable()
-          .findAllByText(deleteData.table.tagName1)
+          .findAllByText(deleteData.table.tag_0_0)
           .should('not.exist')
       })
 
       it('should be able to delete a tag', () => {
-        cy.deleteTagInTableByUI(deleteData.table.tagName2)
+        cy.deleteTagInTableByUI(deleteData.table.tag_0_1)
       })
     })
 
@@ -155,21 +167,21 @@ describe('Tag CRUD', () => {
       }
 
       it('should be able to delete a tag inside its parent', () => {
-        cy.toggleTreeNodeSwitcher(deleteData.tree.parentTagName1)
-        cy.getTreeNode(deleteData.tree.tagName1).should('exist')
-        deleteTagNodeInTree(deleteData.tree.tagName1)
+        cy.toggleTreeNodeSwitcher(deleteData.tree.tag_0)
+        cy.getTreeNode(deleteData.tree.tag_0_0).should('exist')
+        deleteTagNodeInTree(deleteData.tree.tag_0_0)
       })
 
       it('should be able to delete a tag', () => {
-        deleteTagNodeInTree(deleteData.tree.parentTagName1)
+        deleteTagNodeInTree(deleteData.tree.tag_0)
       })
 
       it('should be able to delete a tag with parent', () => {
-        cy.toggleTreeNodeSwitcher(deleteData.tree.parentTagName2)
-        cy.getTreeNode(deleteData.tree.parentTagName2).should('exist')
-        cy.getTreeNode(deleteData.tree.tagName2).should('exist')
-        deleteTagNodeInTree(deleteData.tree.parentTagName2)
-        cy.getTreeNode(deleteData.tree.tagName2).should('not.exist')
+        cy.toggleTreeNodeSwitcher(deleteData.tree.tag_1)
+        cy.getTreeNode(deleteData.tree.tag_1).should('exist')
+        cy.getTreeNode(deleteData.tree.tag_1_0).should('exist')
+        deleteTagNodeInTree(deleteData.tree.tag_1)
+        cy.getTreeNode(deleteData.tree.tag_1_0).should('not.exist')
       })
     })
   })

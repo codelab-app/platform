@@ -1,18 +1,18 @@
 import { UserOGM } from '@codelab/backend/adapter/neo4j'
 import { Role } from '@codelab/shared/abstract/codegen'
 import { Config } from '@codelab/shared/config'
-import { createSeedTypesData } from '@codelab/shared/data'
+import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import { CommandModule } from 'yargs'
-import { antdAtomsFactory } from '../../data/atom'
 import { upsertUser } from '../../repository/user.repo'
 import { getEnvOptions } from '../../shared/command'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
+import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
-import { createAntDesignAtomsData } from '../../use-cases/parser/ant-design'
+import { createAntDesignAtomsData } from '../../use-cases/parser/data/ant-design.data'
 import { parseAndImportInterface } from './parse-and-import-interface'
 
 interface ParseProps {
@@ -66,10 +66,15 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
     }))
 
     /**
-     * (2) Then import all atoms
+     * (2) Import tag tree
+     */
+    await importTags(createTagSeedData(), selectedUserId)
+
+    /**
+     * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
-      atoms: antdAtomsFactory(await createAntDesignAtomsData()),
+      atoms: await createAntDesignAtomsData(),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,

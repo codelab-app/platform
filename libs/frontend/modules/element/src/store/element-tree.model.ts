@@ -52,10 +52,6 @@ export class ElementTree
   })
   implements IElementTree
 {
-  protected onAttachedToRootStore(rootStore: object) {
-    // this.buildTree(this._elements.map((element) => element.current))
-  }
-
   /**
    * All elements within the tree
    */

@@ -188,6 +188,8 @@ export class Element
       if (element.parentId) {
         return this.elementService.element(element.parentId)
       }
+
+      return
     }
 
     const thisParentElementFromId = getParentElement(this)
@@ -210,7 +212,7 @@ export class Element
       traveledNode = traveledNode.prevSibling
     }
 
-    return undefined
+    return
   }
 
   @modelAction

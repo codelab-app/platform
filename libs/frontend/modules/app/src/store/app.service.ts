@@ -212,9 +212,14 @@ export class AppService
     }
 
     return apps.map((app) => {
-      const appModel = App.hydrate(app)
+      let appModel = this.apps.get(app.id)
 
-      this.apps.set(appModel.id, appModel)
+      if (!appModel) {
+        appModel = App.hydrate(app)
+        this.apps.set(appModel.id, appModel)
+      } else {
+        appModel = appModel.writeCache(app)
+      }
 
       return appModel
     })

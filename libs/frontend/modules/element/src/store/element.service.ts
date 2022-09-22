@@ -101,6 +101,8 @@ export class ElementService
       .map((element) => element.renderAtomType)
       .filter(isAtomDTO)
 
+    console.log(atoms)
+
     return atoms.map((atom) => atomService.writeCache(atom))
   }
 
@@ -276,7 +278,6 @@ Detaches element from an element tree. Will perform 3 conditional checks to see 
     }
 
     /**
-
 parent
   prev
   element

@@ -6,7 +6,8 @@ import {
   connectId,
   connectTypeId,
 } from '@codelab/shared/data'
-import { v4 } from 'uuid'
+import { logTask } from '../shared/utils/log-task'
+import { getApiName } from '../use-cases/parser/data/ant-design.data'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import
@@ -28,53 +29,61 @@ export const upsertAtom = async (
     name: atom.name,
     type: atom.type,
     icon: atom.icon,
-    // Create an interface if not existing
-    api: atom.api?.id
-      ? connectId(atom.api?.id)
-      : {
-          create: {
-            node: {
-              id: v4(),
-              name: `${atom.name} API`,
-              owner: connectTypeId(userId),
-            },
-          },
-        },
   }
 
   const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] =
     atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
-  const createInput: OGM_TYPES.AtomCreateInput = {
-    ...baseInput,
-    tags: { connect: connectTags },
-  }
-
-  const updateInput: OGM_TYPES.AtomUpdateInput = {
-    ...baseInput,
-    tags: [{ connect: connectTags }],
-  }
-
   if (!existingAtom.length) {
-    console.log(`Creating ${atom.name}...`)
+    const createInput: OGM_TYPES.AtomCreateInput = {
+      ...baseInput,
+      // Always re-create the API if atom is missing
+      api: {
+        create: {
+          node: {
+            id: atom.api.id,
+            name: getApiName(atom.name),
+            owner: connectTypeId(userId),
+          },
+        },
+      },
+      tags: { connect: connectTags },
+    }
 
     try {
+      logTask('Created Atom', atom.name)
+
       return await Atom.create({
         input: [createInput],
       })
     } catch (e) {
       console.error(e)
+    }
+  } else {
+    if (!atom.api?.id) {
+      throw new Error('API is missing even though atom exists')
+    }
 
-      return
+    const updateInput: OGM_TYPES.AtomUpdateInput = {
+      ...baseInput,
+      // Assume the API exists
+      api: connectId(atom.api?.id),
+      tags: [{ connect: connectTags }],
+    }
+
+    logTask('Updated Atom', atom.name)
+
+    try {
+      return await Atom.update({
+        where: {
+          id: atom.id,
+        },
+        update: updateInput,
+      })
+    } catch (e) {
+      console.error(e)
     }
   }
 
-  console.log(`Updating ${atom.name}...`)
-
-  return await Atom.update({
-    where: {
-      id: atom.id,
-    },
-    update: updateInput,
-  })
+  return
 }

@@ -18,10 +18,6 @@ export const CreateTagModal = observer<{
     return tagService.create([input])
   }
 
-  // const options = tagService.getAll.map((tag) => ({
-  //   label: tag.name,
-  //   value: tag.id,
-  // }))
   const options = tagService.tagsSelectOptions
   const defaultOption = tagService.selectedOption
   const closeModal = () => tagService.createModal.close()

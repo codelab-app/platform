@@ -1,20 +1,9 @@
 import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
-import { TagFragment } from './tag.fragment.graphql.gen'
-
-export interface ITagTreeNode {
-  id: string
-  label: string
-  children: ObjectMap<ITagTreeNode>
-  isRoot?: boolean
-}
+import { ITag } from './tag.model.interface'
 
 export interface ITagTreeService {
-  roots: ObjectMap<ITagTreeNode>
-  nodes: ObjectMap<Ref<ITagTreeNode>>
-  // static init({ nodes }: { nodes: Array<any> }): ITagTreeService
-  addNodesFromFragments(data: Array<TagFragment>): void
-  delete(id: string): void
-  updateNodeFromFragment(tagFragment: TagFragment): void
-  generateTreeDataNodes(): Array<DataNode>
+  roots: ObjectMap<Ref<ITag>>
+  addRoots(tags: Array<ITag>): void
+  antdTreeData: Array<DataNode>
 }

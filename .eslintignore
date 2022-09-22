@@ -9,6 +9,4 @@ public
 *.d.ts
 *.mp4
 *.log
-!.*
-**/deprecated
 **/*.gen.ts

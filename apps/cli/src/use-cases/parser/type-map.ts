@@ -9,10 +9,11 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectId, connectTypeId } from '@codelab/shared/data'
+import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { AntdDesignApi } from './ant-design'
+import { logTask } from '../../shared/utils/log-task'
+import { AntdDesignApi } from './data/ant-design.data'
 import {
   isReactNodeTypeRegex,
   isRenderPropType,
@@ -30,6 +31,8 @@ export const getTypeForApi = async (
   atom: IAtomExport,
   userId: string,
 ): Promise<TypeRef> => {
+  logTask('Get Type For API', atom.name, apiField)
+
   const type = apiField.type.trim()
   const PrimitiveType = await PrimitiveTypeOGM()
   const ReactNodeType = await ReactNodeTypeOGM()
@@ -59,30 +62,35 @@ export const getTypeForApi = async (
 
       console.log(`Creating enum ${enumName}`)
 
-      const {
-        enumTypes: [enumType],
-      } = await EnumType.create({
-        input: [
-          {
-            id: v4(),
-            name: enumName,
-            kind: ITypeKind.EnumType,
-            allowedValues: {
-              create: enumValues.map((value) => ({
-                node: {
-                  id: v4(),
-                  value,
-                  name: pascalCaseToWords(value),
-                },
-              })),
+      try {
+        const {
+          enumTypes: [enumType],
+        } = await EnumType.create({
+          input: [
+            {
+              id: v4(),
+              name: enumName,
+              kind: ITypeKind.EnumType,
+              allowedValues: {
+                create: enumValues.map((value) => ({
+                  node: {
+                    id: v4(),
+                    value,
+                    name: pascalCaseToWords(value),
+                  },
+                })),
+              },
+              owner: connectTypeId(userId),
             },
-            owner: connectTypeId(userId),
-          },
-        ],
-      })
+          ],
+        })
 
-      return {
-        existingId: enumType.id,
+        return {
+          existingId: enumType.id,
+        }
+      } catch (e) {
+        console.error(e)
+        throw new Error()
       }
     }
 

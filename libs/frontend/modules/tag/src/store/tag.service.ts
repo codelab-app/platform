@@ -4,19 +4,15 @@ import type {
   ICreateTagDTO,
   ITag,
   ITagDTO,
-  ITagGraphDTO,
   ITagService,
-  ITagTreeNode,
+  ITagTreeService,
   IUpdateTagDTO,
 } from '@codelab/shared/abstract/core'
-import { ITagNode } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
-  createContext,
   Model,
   model,
   modelAction,
@@ -30,18 +26,13 @@ import { v4 } from 'uuid'
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
-import { TreeService } from './tree.service'
+import { TagTreeService } from './tag-tree.service'
 
 @model('@codelab/TagService')
 export class TagService
   extends Model({
     tags: prop(() => objectMap<ITag>()),
-    loadingAntdTreeDataNode: prop(false),
-    antdTreeDataNode: prop<Array<DataNode>>(() => []),
-    tagGraphs: prop<Array<any>>(() => []),
-    treeService: prop<TreeService<any, any>>(() =>
-      TreeService.init({ nodes: [] }),
-    ),
+    treeService: prop<ITagTreeService>(() => TagTreeService.init([])),
     selectedTag: prop<Nullish<Ref<ITag>>>(null).withSetter(),
     checkedTags: prop<Array<Ref<ITag>>>(() => []).withSetter(),
 
@@ -51,6 +42,15 @@ export class TagService
   })
   implements ITagService
 {
+  /**
+   * To load all tags & initialize the tree
+   */
+  @modelFlow
+  loadTagTree = _async(function* (this: TagService) {
+    const tags = yield* _await(this.getAll())
+    this.treeService = TagTreeService.init(tags)
+  })
+
   tag(id: string) {
     return this.tags.get(id)
   }
@@ -106,23 +106,39 @@ export class TagService
       throw new Error('Tag was not created')
     }
 
-    this.treeService.addNodesFromFragments(tags)
-    this.antdTreeDataNode = this.treeService.generateTreeDataNodes()
+    const otherTagIdsToUpdate = [
+      ...tags
+        .map((tag) => tag.parent?.id)
+        .filter((tag): tag is string => Boolean(tag)),
+    ]
 
-    return tags.map((tag) => {
-      const tagModel = Tag.hydrate(tag)
+    const tagsToUpdate = yield* _await(
+      this.getAll({ id_IN: otherTagIdsToUpdate }),
+    )
 
-      this.tags.set(tagModel.id, tagModel)
+    const tagModels = [...tags, ...tagsToUpdate].map((tag) => {
+      let tagModel = this.tags.get(tag.id)
+
+      if (!tagModel) {
+        tagModel = Tag.hydrate(tag)
+        this.tags.set(tagModel.id, tagModel)
+      } else {
+        tagModel = tagModel.writeCache(tag)
+      }
 
       return tagModel
     })
+
+    this.treeService.addRoots(tagModels)
+
+    return tagModels
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: TagService,
-    tag: ITagTreeNode,
+    tag: ITag,
     input: IUpdateTagDTO,
   ) {
     const {
@@ -143,8 +159,6 @@ export class TagService
     const tagModel = Tag.hydrate(updatedTag)
 
     this.tags.set(tag.id, tagModel)
-    this.treeService.updateNodeFromFragment(updatedTag)
-    this.antdTreeDataNode = this.treeService.generateTreeDataNodes()
 
     return tagModel
   })
@@ -153,26 +167,18 @@ export class TagService
   @transaction
   deleteMany = _async(function* (this: TagService, ids: Array<string>) {
     const descendantsIds: Array<string> = []
+    const tags = yield* _await(this.getAll({ id_IN: ids }))
 
-    const tagsToDelete = ids
-      .map((id) => this.tags.get(id))
-      .filter((x): x is Tag => !x)
+    for (const tag of tags) {
+      // Remove parent
+      this.tags.delete(tag.id)
 
-    for (const id of ids) {
-      if (this.tags.has(id)) {
-        const DescendantsOfTag = yield* _await(this.getTagDescendants(id))
-        DescendantsOfTag?.forEach((descendantsId) => {
-          descendantsIds.push(descendantsId)
-          this.tags.delete(descendantsId)
-          this.treeService.delete(id)
-        })
-
-        this.tags.delete(id)
-        this.treeService.delete(id)
-      }
+      // Remove descendants
+      tag.descendants.forEach((descendant) => {
+        descendantsIds.push(descendant.id)
+        this.tags.delete(descendant.id)
+      })
     }
-
-    this.antdTreeDataNode = this.treeService.generateTreeDataNodes()
 
     const { deleteTags } = yield* _await(
       tagApi.DeleteTags({ where: { id_IN: [...ids, ...descendantsIds] } }),
@@ -183,7 +189,7 @@ export class TagService
       throw new Error('App was not deleted')
     }
 
-    return tagsToDelete
+    return []
   })
 
   @modelFlow
@@ -201,31 +207,6 @@ export class TagService
   get tagsList() {
     return Array.from(this.tags.values())
   }
-
-  @modelFlow
-  @transaction
-  getTagGraphs = _async(function* (this: TagService) {
-    const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
-
-    this.tagGraphs = tagGraphs
-
-    const makeupResponse: Array<ITagNode> =
-      this.tagGraphs?.map((tag: ITagGraphDTO) => ({
-        id: tag.id,
-        label: tag.name,
-        children: tag.descendants,
-        isRoot: Boolean(tag.isRoot),
-      })) || []
-
-    const treeService = TreeService.init<ITagNode>({
-      nodes: makeupResponse,
-    })
-
-    this.antdTreeDataNode = treeService.generateTreeDataNodes()
-    this.treeService = treeService
-
-    return tagGraphs
-  })
 
   @modelFlow
   @transaction
@@ -251,28 +232,4 @@ export class TagService
 
     return tagModel
   }
-
-  @modelFlow
-  @transaction
-  getTagDescendants = _async(function* (this: TagService, tagId: string) {
-    const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
-
-    const tagWithDescendants = tagGraphs.find(
-      (tagGraph) => tagGraph.id === tagId,
-    )
-
-    return tagWithDescendants?.descendants
-  })
-}
-
-export const tagServiceContext = createContext<TagService>()
-
-export const getTagService = (thisModel: any) => {
-  const tagStore = tagServiceContext.get(thisModel)
-
-  if (!tagStore) {
-    throw new Error('tagServiceContext is not defined')
-  }
-
-  return tagStore
 }

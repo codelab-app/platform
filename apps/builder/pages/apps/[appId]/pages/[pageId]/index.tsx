@@ -113,7 +113,7 @@ PageRenderer.Layout = observer((page) => {
       Header={observer(() => (
         <PageDetailHeader pageService={store.pageService} />
       ))}
-      headerHeight={38}
+      headerHeight={48}
     >
       {page.children}
     </DashboardTemplate>

@@ -7,6 +7,7 @@ import {
   model,
   modelAction,
   prop,
+  Ref,
   rootRef,
 } from 'mobx-keystone'
 
@@ -14,7 +15,9 @@ const hydrate = (tag: ITagDTO) => {
   return new Tag({
     id: tag.id,
     name: tag.name,
-    children: tag?.children?.map((child) => child.id),
+    isRoot: tag.isRoot ?? false,
+    children: tag?.children?.map((child) => tagRef(child.id)),
+    descendants: tag.descendants.map((descendant) => tagRef(descendant.id)),
   })
 }
 
@@ -23,7 +26,9 @@ export class Tag
   extends Model({
     id: idProp,
     name: prop<string>(),
-    children: prop<Array<string>>(() => []),
+    isRoot: prop<boolean>(),
+    children: prop<Array<Ref<ITag>>>(() => []),
+    descendants: prop<Array<Ref<ITag>>>(() => []),
   })
   implements ITag
 {
@@ -35,15 +40,28 @@ export class Tag
   static hydrate = hydrate
 
   @modelAction
-  writeCache(tag: ITagDTO) {
+  writeCache(tag: ITagDTO): ITag {
     this.name = tag.name
-    this.children = tag?.children?.map((child) => child.id) ?? []
+    this.children = tag?.children?.map((child) => tagRef(child.id))
+    this.descendants = tag.descendants.map((descendant) =>
+      tagRef(descendant.id),
+    )
+    this.isRoot = tag.isRoot ?? false
 
     return this
   }
+
+  @computed
+  get antdNode() {
+    return {
+      key: this.id,
+      title: this.name,
+      children: this.children.map((child) => child.current.antdNode),
+    }
+  }
 }
 
-export const tagRef = rootRef<Tag>('@codelab/TagRef', {
+export const tagRef = rootRef<ITag>('@codelab/TagRef', {
   onResolvedValueChange(ref, newTag, oldTag) {
     if (oldTag && !newTag) {
       detach(ref)
