@@ -30,10 +30,8 @@ export interface IAtomExport {
   id: string
   name: string
   type: IAtomType
-  api?: {
+  api: {
     id: string
-  } | null
-  tags?: Array<ITagExport>
+  }
+  tags: Array<ITagExport>
 }
-
-// export type IAtomExport = Pick<OGM_TYPES.Atom, 'id' | 'name' | 'type' | 'api'>

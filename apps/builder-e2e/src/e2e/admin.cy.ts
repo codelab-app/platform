@@ -1,4 +1,4 @@
-describe('Admin', () => {
+describe.skip('Admin', () => {
   before(() => {
     cy.resetDatabase()
     cy.login()

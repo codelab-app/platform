@@ -278,7 +278,6 @@ Detaches element from an element tree. Will perform 3 conditional checks to see 
     }
 
     /**
-
 parent
   prev
   element

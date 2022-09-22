@@ -9,7 +9,7 @@ interface AtomData {
   /**
    * Name of the tag to assign
    */
-  tag: string | null
+  tag: string
 
   /**
    * Name of the icon file

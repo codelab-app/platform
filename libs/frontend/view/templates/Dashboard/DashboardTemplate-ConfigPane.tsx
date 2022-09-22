@@ -25,6 +25,7 @@ export const DashboardTemplateConfigPane = ({
         ...resizable.containerProps.style,
         // marginLeft: mainPaneMarginLeft,
         // paddingLeft: sidebarNavMarginLeft,
+        // Add 8 for header padding
         top: `${defaultHeaderHeight}px`,
       }}
     >

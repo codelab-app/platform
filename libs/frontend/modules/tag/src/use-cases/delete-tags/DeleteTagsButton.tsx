@@ -4,7 +4,7 @@ import { ITagService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { nodeRef } from '../../store'
+import { tagRef } from '../../store'
 
 export const DeleteTagsButton = observer<
   { tagService: ITagService } & Omit<DeleteButtonProps, 'ids'>
@@ -17,7 +17,7 @@ export const DeleteTagsButton = observer<
       disabled={disabled}
       icon={<DeleteOutlined />}
       onClick={() =>
-        tagService.deleteManyModal.open(ids.map((id) => nodeRef(id)))
+        tagService.deleteManyModal.open(ids.map((id) => tagRef(id)))
       }
       type="primary"
     >

@@ -25,7 +25,7 @@ export const createAntDesignAtomsData = async () =>
 type ExistingAtomMap = Map<string, OGM_TYPES.Atom>
 
 /**
- * Create new seed data from atom types
+ * Create new seed data from atom types, we specify the data we want, the upsert resolution will happen later
  */
 export const createAtomsSeedData = (
   atomMap: ExistingAtomMap,
@@ -33,13 +33,22 @@ export const createAtomsSeedData = (
   const atomsCreateInput: Array<IAtomExport> = ObjectTyped.keys(
     antdAtomData,
   ).map((name) => {
+    // const atom = atomMap.get(name)
+    const atomData = antdAtomData[name]
+
+    if (!atomData) {
+      throw new Error(`Missing data for: ${name}`)
+    }
+
     return {
-      id: atomMap.get(name)?.id ?? v4(),
+      id: v4(),
       name: name,
-      icon: antdAtomData[name]?.icon ?? null,
+      icon: atomData.icon ?? null,
       type: IAtomType[name],
+      // Here we specify the data we want to create, the merge resolution will take place later on
+      tags: [{ id: v4(), name: atomData.tag }],
       api: {
-        id: atomMap.get(name)?.api.id ?? v4(),
+        id: v4(),
       },
     }
   })

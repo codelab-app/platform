@@ -61,7 +61,7 @@ export class BuilderService
     // all component tags are marked under the component tag
     return Array.from(tagService.tags.values())
       .filter((tag) => tag.name === COMPONENT_TAG_NAME)
-      .flatMap((tag) => tag.children.map((id) => tagService.tag(id)))
+      .flatMap((tag) => tag.children.map(({ id }) => tagService.tag(id)))
       .map((tag) => tag?.name)
       .filter(isNonNullable)
   }

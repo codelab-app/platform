@@ -1,11 +1,11 @@
 import { AntdTag } from './antd-tags.data'
 
-type TagNode = Array<string | { [key: string]: TagNode }>
+export type TagNode = string | { [key: string]: Array<TagNode> }
 
 /**
  * This contains hierarchical tag data for Ant Design
  */
-export const antdTagTree: Record<string, TagNode> = {
+export const antdTagTree: Record<string, Array<TagNode>> = {
   [AntdTag.General]: [
     AntdTag.Button,
     AntdTag.Icon,

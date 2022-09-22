@@ -65,6 +65,11 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
     }))
 
     /**
+     * (2) Import tag tree
+     */
+    // await importTags()
+
+    /**
      * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
