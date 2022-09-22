@@ -1,7 +1,7 @@
 import { UserOGM } from '@codelab/backend/adapter/neo4j'
 import { Role } from '@codelab/shared/abstract/codegen'
 import { Config } from '@codelab/shared/config'
-import { createTagSeedData } from '@codelab/shared/data'
+import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import { CommandModule } from 'yargs'
@@ -11,6 +11,7 @@ import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
+import { importTypes } from '../../use-cases/import/import-types'
 import { createAntDesignAtomsData } from '../../use-cases/parser/data/ant-design.data'
 import { parseAndImportInterface } from './parse-and-import-interface'
 
@@ -60,9 +61,9 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
     /**
      * (1) First all our base types first
      */
-    // await importTypes(createSeedTypesData(), selectedUserId, (type) => ({
-    //   name: type.name,
-    // }))
+    await importTypes(createSeedTypesData(), selectedUserId, (type) => ({
+      name: type.name,
+    }))
 
     /**
      * (2) Import tag tree

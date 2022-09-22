@@ -1,5 +1,9 @@
 export const logTask = (task: string, label: string, data?: object) => {
-  console.debug(`[${task}`, label, data)
+  if (data) {
+    return console.debug(`[${task}]:`, label, data)
+  }
+
+  return console.debug(`[${task}]:`, label)
 }
 
 export const logSection = (task: string) => {

@@ -14,6 +14,8 @@ export const fieldRepository = {
   upsertField: async (
     args: MutationUpsertFieldArgs,
   ): Promise<OGM_TYPES.InterfaceType> => {
+    console.log('Upsert Field', args)
+
     const session = getDriver().session()
     const InterfaceType = await InterfaceTypeOGM()
 
@@ -25,22 +27,27 @@ export const fieldRepository = {
        *
        * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
        */
-      await InterfaceType.update({
-        where: {
-          id: args.interfaceTypeId,
-        },
-        disconnect: {
-          fields: [
-            {
-              where: {
-                edge: {
-                  id: args.field.id,
+      try {
+        await InterfaceType.update({
+          where: {
+            id: args.interfaceTypeId,
+          },
+          disconnect: {
+            fields: [
+              {
+                where: {
+                  edge: {
+                    id: args.field.id,
+                  },
                 },
               },
-            },
-          ],
-        },
-      })
+            ],
+          },
+        })
+      } catch (e) {
+        console.error(e)
+        throw new Error('Upsert field failed')
+      }
 
       await session.writeTransaction((tx) => tx.run(connectField, args))
 
@@ -50,6 +57,8 @@ export const fieldRepository = {
           id: args.interfaceTypeId,
         },
       })
+
+      console.log(updatedInterfaceType)
 
       return merge(updatedInterfaceType, {
         fieldsConnection: {

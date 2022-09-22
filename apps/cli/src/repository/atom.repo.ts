@@ -7,6 +7,7 @@ import {
   connectTypeId,
 } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
+import { getApiName } from '../use-cases/parser/data/ant-design.data'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import
@@ -41,7 +42,7 @@ export const upsertAtom = async (
         create: {
           node: {
             id: atom.api.id,
-            name: `${atom.name} API`,
+            name: getApiName(atom.name),
             owner: connectTypeId(userId),
           },
         },
