@@ -1,5 +1,4 @@
 import { ITagExport } from '@codelab/shared/abstract/core'
-import { isObject } from 'lodash'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 import { antdTagTree, TagNode } from './antd-tag-tree.data'
@@ -17,7 +16,7 @@ const parseTagNode = (node: TagNode, parent: string | null): TagNodeData => {
   }
 
   // Meaning have children
-  if (isObject(node)) {
+  if (node instanceof Object) {
     const [name, values] = Object.entries(node)[0]
 
     return {
