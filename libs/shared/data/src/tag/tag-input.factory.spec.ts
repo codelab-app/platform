@@ -1,5 +1,5 @@
 import { AntdTag } from './antd-tags.data'
-import { createTagSeedData, createTagTreeData } from './tag-input.factory'
+import { createTagTreeData, flattenTagTree } from './tag-input.factory'
 
 describe('Tag Parser', () => {
   it('can generate tag tree data', () => {
@@ -22,7 +22,7 @@ describe('Tag Parser', () => {
   })
 
   it('can flatten tag tree data', () => {
-    const tags = createTagSeedData()
+    const tags = createTagTreeData().flatMap((node) => flattenTagTree(node))
     const tagsNameList = tags.map((tag) => tag.name)
 
     // Assert that all names have been processed as a flat list

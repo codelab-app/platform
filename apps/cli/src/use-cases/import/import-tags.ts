@@ -1,20 +1,17 @@
 import { ITagExport } from '@codelab/shared/abstract/core'
-import { cLog } from '@codelab/shared/utils'
 import { connectChildTagToParent, upsertTag } from '../../repository/tag.repo'
+import { logSection, logTask } from '../../shared/utils/log-task'
 
 export const importTags = async (
   tags: Array<ITagExport> = [],
-  selectedUser: string,
+  selectedUserId: string,
 ) => {
-  console.log('Importing tag...\n')
+  logSection('Importing Tags')
 
   const createTagsOperations = tags.map((tag) => {
-    console.log('\n---------------------\n')
-    console.log(`Upserting ${tag.name}:`)
-    cLog(tag)
-    console.log('\n')
+    logTask('Upserting Tag', tag.name)
 
-    return upsertTag(tag, selectedUser, (whereTag: ITagExport) => ({
+    return upsertTag(tag, selectedUserId, (whereTag: ITagExport) => ({
       name: whereTag.name,
     }))
   })
@@ -22,8 +19,7 @@ export const importTags = async (
   await Promise.all(createTagsOperations)
 
   const syncTagsOperations = tags.map((tag) => {
-    console.log(`Link Tag ${tag.name}:`, tag)
-    console.log('\n')
+    logTask('Linking Tag', tag.name, tag)
 
     return connectChildTagToParent(tag)
   })

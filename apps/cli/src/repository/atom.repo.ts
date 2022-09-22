@@ -6,6 +6,7 @@ import {
   connectId,
   connectTypeId,
 } from '@codelab/shared/data'
+import { logTask } from '../shared/utils/log-task'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import
@@ -33,8 +34,6 @@ export const upsertAtom = async (
     atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
   if (!existingAtom.length) {
-    console.log(`Creating ${atom.name}...`)
-
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
       // Always re-create the API if atom is missing
@@ -51,17 +50,15 @@ export const upsertAtom = async (
     }
 
     try {
+      logTask('Created Atom', atom.name)
+
       return await Atom.create({
         input: [createInput],
       })
     } catch (e) {
       console.error(e)
-
-      return
     }
   } else {
-    console.log(`Updating ${atom.name}...`)
-
     if (!atom.api?.id) {
       throw new Error('API is missing even though atom exists')
     }
@@ -73,11 +70,19 @@ export const upsertAtom = async (
       tags: [{ connect: connectTags }],
     }
 
-    return await Atom.update({
-      where: {
-        id: atom.id,
-      },
-      update: updateInput,
-    })
+    logTask('Updated Atom', atom.name)
+
+    try {
+      return await Atom.update({
+        where: {
+          id: atom.id,
+        },
+        update: updateInput,
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
+
+  return
 }
