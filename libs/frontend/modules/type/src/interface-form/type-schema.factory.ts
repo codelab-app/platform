@@ -20,6 +20,7 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
+import { SelectField } from './fields'
 import { UiPropertiesContext } from './types'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
@@ -186,15 +187,16 @@ export class TypeSchemaFactory {
     return { type: primitives[type.primitiveKind], ...extra }
   }
 
-  fromEnumType(type: IEnumType, context?: any): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
+  fromEnumType(type: IEnumType): JsonSchema {
+    const extra = this.getExtraProperties(type)
 
     const uniforms = {
       options: type.allowedValues?.map((v) => ({
         value: v.id,
         label: v.name || v.value,
       })),
-      ...extra?.uniforms,
+      showSearch: true,
+      optionFilterProp: 'label',
     }
 
     return {

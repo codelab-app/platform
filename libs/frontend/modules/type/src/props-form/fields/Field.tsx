@@ -18,10 +18,6 @@ import React from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { ArrayField } from './ArrayField'
 // import { CheckboxField } from './CheckboxField'
-import { CodeMirrorField } from './CodeMirrorField'
-import { SelectActionField } from './SelectActionField'
-import { SelectComponentField } from './SelectComponentField'
-import { SelectEnumField } from './SelectEnumField'
 
 export interface FieldProps {
   field: IFieldDTO
@@ -47,17 +43,6 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
     )
   }
 
-  if (
-    isOfTypeKind<IField<IReactNodeType>>(field, ITypeKind.ReactNodeType) ||
-    isOfTypeKind<IField<IRenderPropsType>>(field, ITypeKind.RenderPropsType)
-  ) {
-    return <SelectComponentField context={context} field={field} form={form} />
-  }
-
-  if (isOfTypeKind<IField<IAnyActionType>>(field, ITypeKind.ActionType)) {
-    return <SelectActionField context={context} field={field} form={form} />
-  }
-
   if (isOfTypeKind<IField<IInterfaceType>>(field, ITypeKind.InterfaceType)) {
     return (
       <>
@@ -77,21 +62,4 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
       </>
     )
   }
-
-  if (isOfTypeKind<IField<IEnumType>>(field, ITypeKind.EnumType)) {
-    return <SelectEnumField field={field} form={form} />
-  }
-
-  if (isOfTypeKind<IField<ICodeMirrorType>>(field, ITypeKind.CodeMirrorType)) {
-    return (
-      <CodeMirrorField
-        context={context}
-        field={field}
-        form={form}
-        language={field.type.current.language}
-      />
-    )
-  }
-
-  return <CodeMirrorField context={context} field={field} form={form} />
 })
