@@ -4,11 +4,17 @@ import { IField, IFieldRef } from './field'
 import { FieldFragment } from './fragments'
 import { IInterfaceTypeRef } from './types'
 
+interface ValidationRule {
+  name: string
+  value: string
+}
+
 export interface ICreateFieldDTO {
   id: IFieldRef
   key: string
   name?: Nullish<string>
   description?: Nullish<string>
+  rules?: Nullish<Array<ValidationRule>>
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
 }

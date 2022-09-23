@@ -3,6 +3,7 @@ fragment Field on InterfaceTypeFieldsRelationship {
   key
   name
   description
+  validationSchema
   fieldType: node {
     ... on TypeBase {
       id

@@ -9,6 +9,18 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
     key: { type: 'string', autoFocus: true },
     name: { type: 'string', nullable: true },
     description: { type: 'string', nullable: true },
+    rules: {
+      type: 'array',
+      nullable: true,
+      items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          value: { type: 'string' },
+        },
+        required: ['name', 'value'],
+      },
+    },
     /**
      * TODO: Refactor to match interface
      * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better

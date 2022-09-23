@@ -284,6 +284,16 @@ export class TypeService
         id: data.id,
         key: data.key,
         name: data.name,
+        validationSchema: JSON.stringify(
+          data.rules?.reduce((acc, rule) => {
+            const { name, value } = rule
+
+            return {
+              ...acc,
+              [name]: value,
+            }
+          }, {}),
+        ),
       },
     }
 

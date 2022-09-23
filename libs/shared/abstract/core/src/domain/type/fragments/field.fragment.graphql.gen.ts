@@ -8,6 +8,7 @@ export type FieldFragment = {
   key: string
   name?: string | null
   description?: string | null
+  validationSchema?: string | null
   fieldType:
     | { id: string }
     | { id: string }
@@ -30,6 +31,7 @@ export const FieldFragmentDoc = gql`
     key
     name
     description
+    validationSchema
     fieldType: node {
       ... on TypeBase {
         id
