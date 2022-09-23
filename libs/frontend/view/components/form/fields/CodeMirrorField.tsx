@@ -9,23 +9,30 @@ type CodeMirrorFieldProps = FieldProps<
   { inputRef?: Ref<HTMLDivElement> }
 >
 
-export const CodeMirrorField = (mainProps?: Partial<CodeMirrorEditorProps>) =>
-  connectField<CodeMirrorFieldProps>(
-    (baseProps) => {
-      const merged = { ...mainProps, ...baseProps }
+export const CodeMirrorField = (mainProps?: Partial<CodeMirrorEditorProps>) => {
+  const Component = React.memo(
+    connectField<CodeMirrorFieldProps>(
+      (baseProps) => {
+        const merged = { ...mainProps, ...baseProps }
 
-      return (
-        <Form.Item label={baseProps.label ?? ''}>
-          <CodeMirrorEditor
-            height="150px"
-            value={merged.value}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...merged}
-          />
-        </Form.Item>
-      )
-    },
-    {
-      kind: 'leaf',
-    },
+        return (
+          <Form.Item label={baseProps.label ?? ''}>
+            <CodeMirrorEditor
+              height="150px"
+              value={merged.value}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...merged}
+            />
+          </Form.Item>
+        )
+      },
+      {
+        kind: 'leaf',
+      },
+    ),
   )
+
+  Component.displayName = 'CodeMirrorField'
+
+  return Component
+}

@@ -26,7 +26,10 @@ export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
-  extraProperties?: (type: IAnyType) => JsonSchema
+  extraProperties?: (
+    type: IAnyType,
+    context?: UiPropertiesContext,
+  ) => JsonSchema
 }
 
 // I'm not sure what the difference is, but I'm keeping it like it is for now
@@ -43,7 +46,7 @@ const primitives = {
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  transform(type: IAnyType, context: UiPropertiesContext) {
+  transform(type: IAnyType, context?: UiPropertiesContext) {
     switch (type.kind) {
       case ITypeKind.AppType:
         return this.fromAppType(type)
@@ -156,7 +159,10 @@ export class TypeSchemaFactory {
     return this.transformReactElementType(type)
   }
 
-  fromCodeMirrorType(type: ICodeMirrorType): JsonSchema {
+  fromCodeMirrorType(
+    type: ICodeMirrorType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     return this.simpleReferenceType(type, context)
   }
 
@@ -169,10 +175,12 @@ export class TypeSchemaFactory {
   }
 
   fromElementType(type: IElementType): JsonSchema {
-    return this.transformReactElementType(type, context)
+    return this.transformReactElementType(type)
   }
 
   fromPrimitiveType(type: IPrimitiveType): JsonSchema {
+    console.log('fromPrimitiveType', type)
+
     const extra = this.getExtraProperties(type)
 
     return { type: primitives[type.primitiveKind], ...extra }
@@ -201,7 +209,10 @@ export class TypeSchemaFactory {
    * Handles the reference types without any extra properties
    * Produces a 'string' type
    */
-  private simpleReferenceType(type: IAnyType, context?: any): JsonSchema {
+  private simpleReferenceType(
+    type: IAnyType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
 
     return { type: 'string', ...extra } as const
@@ -235,9 +246,8 @@ export class TypeSchemaFactory {
    */
   private transformReactElementType(
     type: IElementType | IReactNodeType | IRenderPropsType,
-    context,
   ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
+    const extra = this.getExtraProperties(type)
 
     const properties = TypeSchemaFactory.schemaForTypedValue(
       type.id,
@@ -248,7 +258,7 @@ export class TypeSchemaFactory {
     return { type: 'object', properties, uniforms: nullUniforms, label: '' }
   }
 
-  private getExtraProperties(type: IAnyType) {
-    return this.options?.extraProperties?.(type) || undefined
+  private getExtraProperties(type: IAnyType, context?: UiPropertiesContext) {
+    return this.options?.extraProperties?.(type, context) || undefined
   }
 }

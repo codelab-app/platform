@@ -7,41 +7,6 @@ import {
 import { Completion } from '@codemirror/autocomplete'
 import { capitalize, isArray, isObjectLike } from 'lodash'
 
-export const typeOptions = (
-  type: IAnyType,
-  reactNodeOptions: Array<{ label: string; detail: string }> = [],
-): Array<Completion> => {
-  if (
-    type.kind === ITypeKind.PrimitiveType &&
-    type.primitiveKind === IPrimitiveTypeKind.Boolean
-  ) {
-    return [
-      {
-        label: 'true',
-        type: 'primitive',
-      },
-      {
-        label: 'false',
-        type: 'primitive',
-      },
-    ]
-  }
-
-  if (type.kind === ITypeKind.ReactNodeType) {
-    return reactNodeOptions
-  }
-
-  if (type.kind === ITypeKind.EnumType) {
-    return type.allowedValues.map((av) => ({
-      type: 'variable',
-      label: av.value,
-      detail: av.name ?? undefined,
-    }))
-  }
-
-  return []
-}
-
 export const stateOptions = (
   context: IPropData = {},
   parentKey = '',

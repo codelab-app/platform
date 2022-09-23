@@ -17,7 +17,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { ArrayField } from './ArrayField'
-import { CheckboxField } from './CheckboxField'
+// import { CheckboxField } from './CheckboxField'
 import { CodeMirrorField } from './CodeMirrorField'
 import { SelectActionField } from './SelectActionField'
 import { SelectComponentField } from './SelectComponentField'
@@ -75,16 +75,6 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
           />
         ))}
       </>
-    )
-  }
-
-  if (isOfTypeKind<IField<IPrimitiveType>>(field, ITypeKind.PrimitiveType)) {
-    return field.type.current.primitiveKind === IPrimitiveTypeKind.Boolean ? (
-      // ok
-      <CheckboxField field={field} form={form} />
-    ) : (
-      // ok
-      <CodeMirrorField context={context} field={field} form={form} />
     )
   }
 

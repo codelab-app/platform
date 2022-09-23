@@ -9,14 +9,14 @@ import { css } from '@emotion/react'
 import { CSSInterpolation } from '@emotion/serialize'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { InterfaceForm } from '../interface-form'
+import { InterfaceForm, UiPropertiesContext } from '../interface-form'
 
 export interface PropsFormProps extends SubmitRef {
   interfaceType?: IInterfaceType
   model?: IPropData
   onSubmit: (values: IPropData) => Promise<IPropData | void>
   autosave?: boolean
-  context?: IPropsFieldContext
+  context?: UiPropertiesContext
   setIsLoading?: SetIsLoading
   cssString?: CSSInterpolation
   onSubmitError?: FormProps<IPropData, IPropData>['onSubmitError']
@@ -39,8 +39,6 @@ export const PropsForm = observer<PropsFormProps>(
     cssString,
     onSubmitSuccess,
   }) => {
-    console.log({ model })
-
     if (!interfaceType) {
       return null
     }

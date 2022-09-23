@@ -36,7 +36,7 @@ const languageExtension = {
   [CodeMirrorLanguage.Graphql]: [StreamLanguage.define(graphql)],
 }
 
-export const CodeMirrorEditor = (props: CodeMirrorEditorProps) => {
+export const CodeMirrorEditor = React.memo((props: CodeMirrorEditorProps) => {
   const { language, extensions = [], expandable = true } = props
   const basicExtensions = defaultExtensions(props)
 
@@ -52,6 +52,6 @@ export const CodeMirrorEditor = (props: CodeMirrorEditorProps) => {
       extensions={mergedExtension}
     />
   )
-}
+})
 
 CodeMirrorEditor.displayName = 'CodeMirrorEditor'

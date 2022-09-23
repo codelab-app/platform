@@ -19,9 +19,16 @@ export type InterfaceFormProps<TData> = Assign<
 
 export type UiPropertiesFn<TType extends IAnyType = IAnyType> = (
   type: TType,
+  context?: UiPropertiesContext,
 ) => Record<string, any>
 
+/**
+ * for custom parameters to typeSchema transformer
+ */
 export interface UiPropertiesContext {
-  // for code mirror
+  /**
+   * used by uiProperties
+   * for code mirror
+   */
   autocomplete: IPropData
 }
