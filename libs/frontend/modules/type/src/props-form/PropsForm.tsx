@@ -23,7 +23,6 @@ import { PropsFields } from './PropsFields'
 
 export interface PropsFormProps extends SubmitRef {
   interfaceType?: IInterfaceType
-  autoSave?: boolean
   model?: IPropData
   onSubmit: (values: IPropData) => Promise<IPropData | void>
   autosave?: boolean
