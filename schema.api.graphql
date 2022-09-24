@@ -3786,6 +3786,7 @@ enum AtomType {
   AntDesignBadge
   AntDesignBreadcrumb
   AntDesignBreadcrumbItem
+  AntDesignBreadcrumbSeparator
   AntDesignButton
   AntDesignCalendar
   AntDesignCard
@@ -3794,6 +3795,7 @@ enum AtomType {
   AntDesignCarousel
   AntDesignCascader
   AntDesignCheckbox
+  AntDesignCheckboxGroup
   AntDesignCollapse
   AntDesignCollapsePanel
   AntDesignComment
@@ -3804,11 +3806,14 @@ enum AtomType {
   AntDesignDivider
   AntDesignDrawer
   AntDesignDropdown
+  AntDesignDropdownButton
   AntDesignEmpty
   AntDesignForm
+  AntDesignFormErrorList
   AntDesignFormItem
   AntDesignFormItemHook
   AntDesignFormList
+  AntDesignFormProvider
   AntDesignGridCol
   AntDesignGridRow
   AntDesignIcon
@@ -3830,7 +3835,9 @@ enum AtomType {
   AntDesignMenuItem
   AntDesignMenuItemGroup
   AntDesignMenuSubMenu
+  AntDesignMessage
   AntDesignModal
+  AntDesignNotification
   AntDesignPageContainer
   AntDesignPageHeader
   AntDesignPagination
@@ -3847,6 +3854,7 @@ enum AtomType {
   AntDesignRglContainer
   AntDesignRglItem
   AntDesignRglResponsiveContainer
+  AntDesignSegmented
   AntDesignSelect
   AntDesignSelectOption
   AntDesignSkeleton

@@ -7,7 +7,7 @@ export const saveExportFile = async (data: object, outputFilePath: string) => {
   }
 
   const json = JSON.stringify(data, null, 2)
-  const exportPath = path.resolve('data', outputFilePath)
+  const exportPath = path.resolve('./', outputFilePath)
 
   fs.writeFileSync(exportPath, json)
 }

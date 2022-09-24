@@ -70,6 +70,8 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
      */
     await importTags(createTagSeedData(), selectedUserId)
 
+    // cLog(await createAntDesignAtomsData())
+
     /**
      * (3) Then import all atoms, and assign tags
      */

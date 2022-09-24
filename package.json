@@ -233,6 +233,7 @@
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
     "cypress": "10.8.0",
+    "cypress-jest-adapter": "^0.1.1",
     "cypress-nextjs-auth0": "2.1.0",
     "cz-customizable": "6.3.0",
     "dotenv": "15.0.0",
@@ -269,6 +270,7 @@
     "json-schema": "0.4.0",
     "jwt-decode": "3.1.2",
     "lint-staged": "12.4.1",
+    "local-cypress": "^1.2.6",
     "madge": "5.0.1",
     "next-compose-plugins": "2.2.1",
     "next-with-less": "2.0.5",
@@ -288,6 +290,7 @@
     "why-is-node-running": "2.2.0"
   },
   "resolutions": {
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "cypress@10.8.0": "patch:cypress@npm:10.8.0#.yarn/patches/cypress-npm-10.8.0-960e94f4f4"
   }
 }

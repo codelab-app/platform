@@ -107,7 +107,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
                 {
                   type: 'input',
                   name: 'outputFilePath',
-                  message: 'Enter a path to export to, relative to ./data',
+                  message: 'Enter a path to export to, relative to ./',
                   default: `seed-data.json`,
                 },
               ])

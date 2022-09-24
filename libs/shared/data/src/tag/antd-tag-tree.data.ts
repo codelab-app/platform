@@ -78,6 +78,7 @@ export const antdTagTree: Partial<Record<AntdTag, Array<TagNode>>> = {
     AntdTag.Image,
     { [AntdTag.List]: [{ [AntdTag.ListItem]: [AntdTag.ListItemMeta] }] },
     AntdTag.Popover,
+    AntdTag.Segmented,
     AntdTag.Statistic,
     AntdTag.Tree,
     AntdTag.Tooltip,

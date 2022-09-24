@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import 'cypress-nextjs-auth0'
+import 'cypress-jest-adapter'
 // import '@hon2a/cypress-antd/lib/register'
 import './commands'
 import './antd/register'
