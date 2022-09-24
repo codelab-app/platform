@@ -1,6 +1,9 @@
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
+import {
+  PrimitiveTypeKind,
+  TypeBaseWhere,
+} from '@codelab/shared/abstract/codegen'
 import type {
   IAnyType,
   ICreateFieldDTO,
@@ -78,6 +81,16 @@ export class TypeService
 
   type(id: string) {
     return this.types.get(id)
+  }
+
+  primitiveKind(id: string): Nullable<PrimitiveTypeKind> {
+    const type = this.type(id)
+
+    if (type?.kind === ITypeKind.PrimitiveType) {
+      return type.primitiveKind
+    }
+
+    return null
   }
 
   /**
@@ -276,6 +289,17 @@ export class TypeService
     interfaceTypeId: IInterfaceTypeRef,
     data: ICreateFieldDTO,
   ) {
+    const primitiveKind = this.primitiveKind(data.fieldType)
+
+    const typeSpecificValidationRules =
+      primitiveKind === 'String'
+        ? { type: 'string', ...data.stringValidationRules }
+        : primitiveKind === 'Integer'
+        ? { type: 'integer', ...data.integerValidationRules }
+        : primitiveKind === 'Float'
+        ? { type: 'number', ...data.floatValidationRules }
+        : {}
+
     const input = {
       interfaceTypeId,
       fieldTypeId: data.fieldType,
@@ -284,16 +308,10 @@ export class TypeService
         id: data.id,
         key: data.key,
         name: data.name,
-        validationSchema: JSON.stringify(
-          data.rules?.reduce((acc, rule) => {
-            const { name, value } = rule
-
-            return {
-              ...acc,
-              [name]: value,
-            }
-          }, {}),
-        ),
+        validationSchema: JSON.stringify({
+          ...data.generalValidationRules,
+          ...typeSpecificValidationRules,
+        }),
       },
     }
 

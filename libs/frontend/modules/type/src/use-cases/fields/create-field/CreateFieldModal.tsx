@@ -13,9 +13,19 @@ export interface CreateFieldModalProps {
   typeService: ITypeService
 }
 
+const generateDefaultFormData = () => ({
+  id: v4(),
+  key: '',
+  fieldType: '',
+})
+
 export const CreateFieldModal = observer<CreateFieldModalProps>(
   ({ typeService }) => {
     const closeModal = () => typeService.fieldCreateModal.close()
+
+    const [data, setData] = React.useState<ICreateFieldDTO>(
+      generateDefaultFormData(),
+    )
 
     return (
       <ModalForm.Modal
@@ -27,7 +37,20 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
       >
         <ModalForm.Form<ICreateFieldDTO>
           model={{
-            id: v4(),
+            ...data,
+          }}
+          onChange={(key, value) => {
+            setData((prev) => {
+              // TODO: definetly improve this (works for only 1 level of nesting)
+              const rootKey = key.split('.')[0]
+              const nestedKey = key.split('.')[1]
+
+              const valueToSet = nestedKey
+                ? { ...(prev as any)[rootKey], [nestedKey]: value }
+                : value
+
+              return { ...prev, [rootKey]: valueToSet }
+            })
           }}
           onSubmit={(input) =>
             typeService.addField(
@@ -39,15 +62,43 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             title: 'Error while creating field',
             type: 'error',
           })}
-          onSubmitSuccess={closeModal}
+          onSubmitSuccess={() => {
+            setData(generateDefaultFormData())
+            closeModal()
+          }}
           schema={createFieldSchema}
         >
-          <AutoFields omitFields={['fieldType']} />
+          <AutoFields
+            omitFields={[
+              'fieldType',
+              'generalValidationRules',
+              'stringValidationRules',
+              'integerValidationRules',
+              'floatValidationRules',
+            ]}
+          />
           <TypeSelect
             label="Type"
             name="fieldType"
             types={typeService.typesList}
           />
+
+          <AutoFields fields={['generalValidationRules']} />
+
+          {data.fieldType &&
+            typeService.primitiveKind(data.fieldType) === 'String' && (
+              <AutoFields fields={['stringValidationRules']} />
+            )}
+
+          {data.fieldType &&
+            typeService.primitiveKind(data.fieldType) === 'Integer' && (
+              <AutoFields fields={['integerValidationRules']} />
+            )}
+
+          {data.fieldType &&
+            typeService.primitiveKind(data.fieldType) === 'Float' && (
+              <AutoFields fields={['floatValidationRules']} />
+            )}
         </ModalForm.Form>
       </ModalForm.Modal>
     )
