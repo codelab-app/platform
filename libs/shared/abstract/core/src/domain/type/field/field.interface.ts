@@ -14,6 +14,7 @@ export interface IField<T extends IAnyType = IAnyType>
   description: Nullish<string>
   key: string
   type: Ref<T>
+  validationSchema: Nullish<string>
 }
 
 export type IFieldRef = string

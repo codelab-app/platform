@@ -16,7 +16,8 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
         type: 'object',
         properties: {
           name: { type: 'string' },
-          value: { type: 'string' },
+          // TODO: Accept types other than number based on the validation key
+          value: { type: 'number' },
         },
         required: ['name', 'value'],
       },

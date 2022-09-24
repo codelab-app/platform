@@ -17,14 +17,15 @@ import {
 import { typeRef } from './union-type.model'
 
 const hydrate = (data: IFieldProps) => {
-  const { id, key, name, description, fieldType } = data
+  const { id, key, name, description, fieldType, validationSchema } = data
 
   return new Field({
     id,
-    type: typeRef(fieldType.id),
     name,
     description,
     key,
+    type: typeRef(fieldType.id),
+    validationSchema,
   })
 }
 
@@ -37,6 +38,7 @@ export class Field
     description: prop<Nullish<string>>(),
     key: prop<string>(),
     type: prop<Ref<IAnyType>>(),
+    validationSchema: prop<Nullish<string>>(),
   }))
   implements IField
 {
@@ -47,6 +49,7 @@ export class Field
     this.description = fragment.description
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
+    this.validationSchema = fragment.validationSchema
 
     return this
   }

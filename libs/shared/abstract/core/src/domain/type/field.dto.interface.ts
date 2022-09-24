@@ -6,7 +6,7 @@ import { IInterfaceTypeRef } from './types'
 
 interface ValidationRule {
   name: string
-  value: string
+  value: number
 }
 
 export interface ICreateFieldDTO {
