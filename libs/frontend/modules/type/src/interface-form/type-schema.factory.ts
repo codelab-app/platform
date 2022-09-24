@@ -20,7 +20,6 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
-import { SelectField } from './fields'
 import { UiPropertiesContext } from './types'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
@@ -42,6 +41,13 @@ const primitives = {
   [PrimitiveTypeKind.Integer]: 'integer' as const,
   [PrimitiveTypeKind.Float]: 'number' as const,
   [PrimitiveTypeKind.Boolean]: 'boolean' as const,
+}
+
+const primitivesDefaults = {
+  [PrimitiveTypeKind.Boolean]: false,
+  [PrimitiveTypeKind.Float]: 0.0,
+  [PrimitiveTypeKind.Integer]: 0,
+  [PrimitiveTypeKind.String]: '',
 }
 
 export class TypeSchemaFactory {
@@ -180,11 +186,13 @@ export class TypeSchemaFactory {
   }
 
   fromPrimitiveType(type: IPrimitiveType): JsonSchema {
-    console.log('fromPrimitiveType', type)
-
     const extra = this.getExtraProperties(type)
 
-    return { type: primitives[type.primitiveKind], ...extra }
+    return {
+      type: primitives[type.primitiveKind],
+      ...extra,
+      default: primitivesDefaults[type.primitiveKind],
+    }
   }
 
   fromEnumType(type: IEnumType): JsonSchema {

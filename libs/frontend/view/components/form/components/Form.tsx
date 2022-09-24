@@ -19,6 +19,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
     model,
     onChangeModel,
     onChange,
+    submitField,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
     const [bridge, setBridge] = useState(
       schema instanceof Bridge ? schema : createBridge(schema),
@@ -27,8 +28,6 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
     useEffect(() => {
       setBridge(schema instanceof Bridge ? schema : createBridge(schema))
     }, [schema])
-
-    console.log('render form', autosave)
 
     return (
       <div
@@ -43,8 +42,6 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={(formData) => {
-            console.log({ formData })
-
             const result = onSubmit(formData as TData)
 
             if (!result) {
@@ -65,6 +62,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           }}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
+          submitField={submitField}
         >
           {children}
         </AutoForm>

@@ -1,17 +1,19 @@
 import { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import { SetIsLoading } from '@codelab/frontend/view/components'
 import {
-  IInterfaceType,
-  IPropData,
-  IPropsFieldContext,
-} from '@codelab/shared/abstract/core'
+  handleFormSubmit,
+  SetIsLoading,
+} from '@codelab/frontend/view/components'
+import { IInterfaceType, IPropData } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { CSSInterpolation } from '@emotion/serialize'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { DeepPartial } from 'utility-types'
 import { InterfaceForm, UiPropertiesContext } from '../interface-form'
 
-export interface PropsFormProps extends SubmitRef {
+export interface PropsFormProps
+  extends SubmitRef,
+    Pick<FormProps<any>, 'submitField'> {
   interfaceType?: IInterfaceType
   model?: IPropData
   onSubmit: (values: IPropData) => Promise<IPropData | void>
@@ -38,6 +40,7 @@ export const PropsForm = observer<PropsFormProps>(
     onSubmitError,
     cssString,
     onSubmitSuccess,
+    submitField,
   }) => {
     if (!interfaceType) {
       return null
@@ -54,8 +57,15 @@ export const PropsForm = observer<PropsFormProps>(
           context={context}
           interfaceType={interfaceType}
           model={model || {}}
-          onSubmit={onSubmit}
+          onSubmit={handleFormSubmit<DeepPartial<IPropData>, IPropData>(
+            onSubmit,
+            setIsLoading,
+            onSubmitSuccess,
+            onSubmitError,
+          )}
           onSubmitSuccess={onSubmitSuccess}
+          submitField={submitField}
+          submitRef={submitRef}
         />
       </div>
     )

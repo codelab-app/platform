@@ -32,10 +32,8 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
 
 export const getUiProperties = (
   type: IAnyType,
-  context: UiPropertiesContext,
+  context?: UiPropertiesContext,
 ) => {
-  console.log('getUiProperties', type.kind)
-
   const fn: UiPropertiesFn | undefined = uiPropertiesContainer[type.kind] as any
 
   if (!fn) {

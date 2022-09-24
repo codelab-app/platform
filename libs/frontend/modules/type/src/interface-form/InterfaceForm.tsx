@@ -1,4 +1,5 @@
 import { Form, handleFormSubmit } from '@codelab/frontend/view/components'
+import { Button } from 'antd'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'
@@ -29,6 +30,7 @@ export const InterfaceForm = observer(
     setIsLoading,
     autosave,
     context,
+    submitField,
   }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
     const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
@@ -48,8 +50,6 @@ export const InterfaceForm = observer(
       return null
     }
 
-    console.log('InterfaceForm', autosave)
-
     return (
       <Form
         autosave={autosave}
@@ -64,6 +64,7 @@ export const InterfaceForm = observer(
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={formSchema}
+        submitField={submitField}
         submitRef={submitRef}
       >
         {children}

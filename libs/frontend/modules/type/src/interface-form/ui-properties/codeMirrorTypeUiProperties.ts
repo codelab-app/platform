@@ -1,6 +1,6 @@
 import {
   CodeMirrorField,
-  stateOptions,
+  createAutoCompleteOptions,
 } from '@codelab/frontend/view/components'
 import { ICodeMirrorType } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
@@ -13,7 +13,7 @@ export const codeMirrorTypeUiProperties: UiPropertiesFn<ICodeMirrorType> = (
     uniforms: {
       component: CodeMirrorField({
         language: type.language,
-        customOptions: stateOptions(context?.autocomplete),
+        customOptions: createAutoCompleteOptions(context?.autocomplete),
       }),
     },
   }

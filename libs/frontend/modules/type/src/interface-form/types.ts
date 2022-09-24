@@ -30,5 +30,5 @@ export interface UiPropertiesContext {
    * used by uiProperties
    * for code mirror
    */
-  autocomplete: IPropData
+  autocomplete?: IPropData
 }
