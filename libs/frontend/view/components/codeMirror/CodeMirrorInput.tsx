@@ -74,7 +74,10 @@ export const CodeMirrorInput = ({
 
   return (
     <div css={[containerStyles, overrideStyles]}>
+      {/* The Editor */}
       <div css={editorStyles} ref={editor} />
+
+      {/* The Expanded Editor */}
       {expandable && (
         <React.Fragment>
           <ExpandButton

@@ -205,6 +205,7 @@ export class TypeSchemaFactory {
       })),
       showSearch: true,
       optionFilterProp: 'label',
+      ...extra?.uniforms,
     }
 
     return {

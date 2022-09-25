@@ -17,7 +17,7 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorEditorProps>) => {
 
         /**
          * TODO: should interpret type
-         * number should be read as string
+         * number should be read as number
          * currently, everything is interpreted as string
          */
         return (

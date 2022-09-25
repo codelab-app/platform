@@ -1,7 +1,4 @@
-import {
-  CodeMirrorField,
-  createAutoCompleteOptions,
-} from '@codelab/frontend/view/components'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
 import {
   IAnyType,
   IPrimitiveType,
@@ -11,18 +8,30 @@ import { UiPropertiesFn } from '../types'
 
 export const primativeTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
   type: IAnyType,
-  context: any,
 ) => {
   // TODO: default is a checkbox, could have a dynamic input to apply data binding expression
   if (type.name === IPrimitiveTypeKind.Boolean) {
     return {}
   }
 
+  if (type.name === IPrimitiveTypeKind.String) {
+    return {
+      uniforms: {
+        component: CodeMirrorField(),
+      },
+    }
+  }
+
+  /**
+   * for float, integer
+   * default height is 150px
+   *
+   * change to auto to make it one line
+   * since most numbers are oneline?
+   */
   return {
     uniforms: {
-      component: CodeMirrorField({
-        customOptions: createAutoCompleteOptions(context?.autocomplete),
-      }),
+      component: CodeMirrorField({ height: 'auto' }),
     },
   }
 }
