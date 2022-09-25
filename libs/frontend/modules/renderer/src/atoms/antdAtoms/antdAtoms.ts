@@ -36,12 +36,16 @@ export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignAutoComplete]: dynamic(
     () => import('antd/lib/auto-complete'),
   ),
+  [IAtomType.AntDesignCascader]: dynamic(() => import('antd/lib/cascader')),
   [IAtomType.AntDesignButton]: dynamic(() => import('antd/lib/button')),
   [IAtomType.AntDesignBreadcrumb]: dynamic(() => import('antd/lib/breadcrumb')),
   [IAtomType.AntDesignBreadcrumbItem]: dynamic(() =>
     import('antd/lib/breadcrumb').then((mod) => mod.default.Item),
   ),
   [IAtomType.AntDesignDropdown]: dynamic(() => import('antd/lib/dropdown')),
+  [IAtomType.AntDesignDropdownButton]: dynamic(
+    () => import('antd/lib/dropdown') as any,
+  ),
   [IAtomType.AntDesignForm]: dynamic(() => import('antd/lib/form')),
   [IAtomType.AntDesignFormItem]: dynamic(
     () => import('antd/lib/form/FormItem'),
@@ -49,7 +53,16 @@ export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignFormList]: dynamic(
     () => import('antd/lib/form/FormList'),
   ),
+  [IAtomType.AntDesignFormErrorList]: dynamic(
+    () => import('antd/lib/form/ErrorList'),
+  ),
+  [IAtomType.AntDesignFormProvider]: dynamic(
+    () => import('antd/lib/form/context') as any,
+  ),
   [IAtomType.AntDesignCheckbox]: dynamic(() => import('antd/lib/checkbox')),
+  [IAtomType.AntDesignCheckboxGroup]: dynamic(() =>
+    import('antd/lib/checkbox').then((mod) => mod.default.Group),
+  ),
   [IAtomType.AntDesignInput]: dynamic(() => import('antd/lib/input')),
   [IAtomType.AntDesignInputNumber]: dynamic(
     () => import('antd/lib/input-number'),
@@ -63,6 +76,9 @@ export const antdAtoms: AtomsRecord = {
     () => import('react-grid-layout'),
   ),
   [IAtomType.AntDesignModal]: dynamic(() => import('antd/lib/modal')),
+  [IAtomType.AntDesignNotification]: dynamic(
+    () => import('antd/lib/notification') as any,
+  ),
   [IAtomType.AntDesignRadioGroup]: dynamic(
     () => import('antd/lib/radio/group'),
   ),
@@ -103,6 +119,9 @@ export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignTag]: dynamic(() => import('antd/lib/tag')),
   [IAtomType.AntDesignTree]: dynamic(() => import('antd/lib/tree')),
   [IAtomType.AntDesignDrawer]: dynamic(() => import('antd/lib/drawer')),
+  [IAtomType.AntDesignMessage]: dynamic(
+    () => import('antd/lib/message') as any,
+  ),
   [IAtomType.AntDesignProgress]: dynamic(
     () => import('antd/lib/progress') as any,
   ),
@@ -126,6 +145,9 @@ export const antdAtoms: AtomsRecord = {
   ),
   [IAtomType.AntDesignTimePicker]: dynamic(
     () => import('antd/lib/time-picker'),
+  ),
+  [IAtomType.AntDesignTransfer]: dynamic(
+    () => import('antd/lib/transfer') as any,
   ),
   [IAtomType.AntDesignUpload]: dynamic(() => import('antd/lib/upload')),
   [IAtomType.AntDesignSteps]: dynamic(() => import('antd/lib/steps')),
@@ -160,6 +182,7 @@ export const antdAtoms: AtomsRecord = {
     import('antd/lib/layout').then((mod) => mod.default.Footer),
   ),
   [IAtomType.AntDesignPopover]: dynamic(() => import('antd/lib/popover')),
+  [IAtomType.AntDesignSegmented]: dynamic(() => import('antd/lib/segmented')),
   [IAtomType.AntDesignTable]: dynamic(() => import('antd/lib/table')),
   [IAtomType.AntDesignImage]: dynamic(() => import('antd/lib/image')),
 }
