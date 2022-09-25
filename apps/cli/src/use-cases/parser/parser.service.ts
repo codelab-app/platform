@@ -1,8 +1,8 @@
 import { IAtomExport, ICreateFieldDTO } from '@codelab/shared/abstract/core'
+import { csvNameToAtomTypeMap } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { AntdDesignApi, createAntDesignAtomsData } from './data/ant-design.data'
-import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
 import { iterateCsvs } from './iterateCsv'
 import { getTypeForApi } from './type-map'
 
@@ -47,9 +47,11 @@ export class ParserService {
   }
 
   private async handleCsv(data: Array<AntdDesignApi>, file: string) {
-    const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
+    const atomType = csvNameToAtomTypeMap.get(file.replace('.csv', ''))
 
     if (!atomType) {
+      console.log('Missing atom data for file', file)
+
       return
     }
 

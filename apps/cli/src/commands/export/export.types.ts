@@ -9,7 +9,6 @@ import {
 export interface ExportedData {
   apps: Array<IAppExport>
   atoms: Array<IAtomExport>
-  // atoms: Array<OGM_TYPES.Atom>
   types: Array<ITypeExport>
   resources: Array<IResourceExport>
   tags: Array<ITagExport>

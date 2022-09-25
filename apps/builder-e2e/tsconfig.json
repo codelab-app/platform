@@ -5,18 +5,21 @@
     "strict": true,
     "outDir": "../../dist/out-tsc",
     "allowJs": true,
+    // https://github.com/cypress-io/cypress/issues/22059
     "types": [
       "cypress",
       "node",
+      "cypress-jest-adapter",
+      "jest",
       "worker-loader",
       "@testing-library/express",
       "cypress-nextjs-auth0"
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
+    "cypress.ci.config.ts",
     "cypress.test.config.ts",
-    "cypress.ci.config.ts"
+    "src/**/*.ts",
+    "src/**/*.js"
   ]
 }

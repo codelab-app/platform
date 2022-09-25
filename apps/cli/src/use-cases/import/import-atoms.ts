@@ -1,7 +1,7 @@
 import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/data'
 import { upsertAtom } from '../../repository/atom.repo'
-import { logSection, logTask } from '../../shared/utils/log-task'
+import { logSection } from '../../shared/utils/log-task'
 
 interface ImportAtoms {
   atoms: Array<IAtomExport>
@@ -22,7 +22,6 @@ export const importAtoms = async ({
     /**
      * Here we only deal with connecting/disconnecting tags, actual tags are created before this
      */
-    logTask('Upserting Atom', atom.name)
     await upsertAtom(atom, userId, atomWhere, tagWhere)
   }
 }

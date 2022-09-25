@@ -82,6 +82,7 @@ export enum AntdTag {
   ListItem = 'List.Item',
   ListItemMeta = 'List.Item.Meta',
   Popover = 'Popover',
+  Segmented = 'Segmented',
   Statistic = 'Statistic',
   Tree = 'Tree',
   Tooltip = 'Tooltip',

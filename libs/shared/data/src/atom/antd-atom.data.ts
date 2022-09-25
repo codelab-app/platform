@@ -5,7 +5,7 @@ interface AtomData {
   /**
    * File name of the CSV file containing the scraped API data for the Ant Design component
    */
-  file: string
+  file: string | null
   /**
    * Name of the tag to assign
    */
@@ -75,7 +75,12 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     tag: AntdTag.BreadcrumbItem,
     icon: AntdTag.Breadcrumb,
   },
-  // 'Breadcrumb--Breadcrumb.Separator': IAtomType.AntDesignBreadcrumb,
+  [IAtomType.AntDesignBreadcrumbSeparator]: {
+    // file: 'Breadcrumb--Breadcrumb.Separator',
+    file: null,
+    tag: AntdTag.BreadcrumbSeparator,
+    icon: AntdTag.Breadcrumb,
+  },
   [IAtomType.AntDesignButton]: {
     file: 'Button',
     tag: AntdTag.Button,
@@ -101,11 +106,31 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     tag: AntdTag.CardMeta,
     icon: AntdTag.Card,
   },
-  // 'Cascader--showSearch': IAtomType.AntDesignCascader,
+  [IAtomType.AntDesignAutoComplete]: {
+    file: null,
+    tag: AntdTag.AutoComplete,
+    icon: AntdTag.AutoComplete,
+  },
+  [IAtomType.AntDesignCascader]: {
+    // file: Cascader--showSearch',
+    file: null,
+    tag: AntdTag.Cascader,
+    icon: AntdTag.Cascader,
+  },
   [IAtomType.AntDesignCheckbox]: {
     file: 'Checkbox--Props',
     tag: AntdTag.Checkbox,
     icon: AntdTag.Checkbox,
+  },
+  [IAtomType.AntDesignCheckboxGroup]: {
+    file: 'Checkbox--Props',
+    tag: AntdTag.CheckboxGroup,
+    icon: AntdTag.Checkbox,
+  },
+  [IAtomType.AntDesignCarousel]: {
+    file: null,
+    tag: AntdTag.Carousel,
+    icon: AntdTag.Carousel,
   },
   [IAtomType.AntDesignCollapse]: {
     file: 'Collapse',
@@ -158,12 +183,22 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     tag: AntdTag.Drawer,
     icon: AntdTag.Drawer,
   },
+  [IAtomType.AntDesignMessage]: {
+    file: null,
+    tag: AntdTag.Message,
+    icon: AntdTag.Message,
+  },
   [IAtomType.AntDesignDropdown]: {
     file: 'Dropdown',
     tag: AntdTag.Dropdown,
     icon: AntdTag.Dropdown,
   },
-  // 'Dropdown--Dropdown.Button': IAtomType.AntDesignDropdown,
+  [IAtomType.AntDesignDropdownButton]: {
+    // file: 'Dropdown--Dropdown.Button',
+    file: null,
+    tag: AntdTag.DropdownButton,
+    icon: AntdTag.Dropdown,
+  },
   [IAtomType.AntDesignEmpty]: {
     file: 'Empty',
     tag: AntdTag.Empty,
@@ -172,6 +207,26 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
   [IAtomType.AntDesignForm]: {
     file: 'Form',
     tag: AntdTag.Form,
+    icon: AntdTag.Form,
+  },
+  [IAtomType.AntDesignFormItem]: {
+    file: 'Form--Item',
+    tag: AntdTag.FormItem,
+    icon: AntdTag.Form,
+  },
+  [IAtomType.AntDesignFormList]: {
+    file: null,
+    tag: AntdTag.FormList,
+    icon: AntdTag.Form,
+  },
+  [IAtomType.AntDesignFormErrorList]: {
+    file: null,
+    tag: AntdTag.FormErrorList,
+    icon: AntdTag.Form,
+  },
+  [IAtomType.AntDesignFormProvider]: {
+    file: null,
+    tag: AntdTag.FormProvider,
     icon: AntdTag.Form,
   },
   // 'Form--FormInstance': IAtomType.AntDesignForm,
@@ -197,6 +252,11 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     tag: AntdTag.Input,
     icon: AntdTag.Input,
   },
+  [IAtomType.AntDesignInputNumber]: {
+    file: null,
+    tag: AntdTag.InputNumber,
+    icon: AntdTag.InputNumber,
+  },
   // 'Input--Input.TextArea': IAtomType.AntDesignInput,
   [IAtomType.AntDesignLayout]: {
     file: 'Layout',
@@ -220,7 +280,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
   },
   [IAtomType.AntDesignListItemMeta]: {
     file: 'List--List.Item.Meta',
-    tag: AntdTag.ListItem,
+    tag: AntdTag.ListItemMeta,
     icon: AntdTag.ListItem,
   },
   // 'List--List grid props': IAtomType.AntDesignList,
@@ -260,6 +320,16 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     tag: AntdTag.Popover,
     icon: AntdTag.Popover,
   },
+  [IAtomType.AntDesignSegmented]: {
+    file: 'Popover',
+    tag: AntdTag.Segmented,
+    icon: AntdTag.Segmented,
+  },
+  [IAtomType.AntDesignStatistic]: {
+    file: null,
+    tag: AntdTag.Statistic,
+    icon: AntdTag.Statistic,
+  },
   [IAtomType.AntDesignProgress]: {
     file: 'Progress--type=circle',
     tag: AntdTag.Progress,
@@ -274,6 +344,11 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     file: 'Radio--RadioGroup',
     tag: AntdTag.RadioGroup,
     icon: AntdTag.RadioGroup,
+  },
+  [IAtomType.AntDesignRate]: {
+    file: null,
+    tag: AntdTag.Rate,
+    icon: AntdTag.Rate,
   },
   [IAtomType.AntDesignResult]: {
     file: 'Result',
@@ -300,6 +375,21 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     file: 'Slider--range',
     tag: AntdTag.Slider,
     icon: AntdTag.Slider,
+  },
+  [IAtomType.AntDesignSwitch]: {
+    file: null,
+    tag: AntdTag.Switch,
+    icon: AntdTag.Switch,
+  },
+  [IAtomType.AntDesignTimePicker]: {
+    file: null,
+    tag: AntdTag.TimePicker,
+    icon: AntdTag.TimePicker,
+  },
+  [IAtomType.AntDesignTransfer]: {
+    file: null,
+    tag: AntdTag.Transfer,
+    icon: AntdTag.Transfer,
   },
   [IAtomType.AntDesignSpace]: {
     file: 'Space',
@@ -410,10 +500,10 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     tag: AntdTag.Modal,
     icon: AntdTag.Modal,
   },
-  [IAtomType.AntDesignFormItem]: {
-    file: 'Form--Item',
-    tag: AntdTag.FormItem,
-    icon: AntdTag.FormItem,
+  [IAtomType.AntDesignNotification]: {
+    file: null,
+    tag: AntdTag.Notification,
+    icon: AntdTag.Notification,
   },
 
   //
@@ -440,3 +530,10 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
   //   icon: null,
   // },
 }
+
+/**
+ * Used for CSV file mapping to atomType
+ */
+export const csvNameToAtomTypeMap = new Map(
+  Object.entries(antdAtomData).map(([atomType, atom]) => [atom.file, atomType]),
+)

@@ -1,57 +1,124 @@
+import { UserOGM } from '@codelab/backend/adapter/neo4j'
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+import {
+  assignUserOption,
+  ExportProps,
+  seedDataPathOption,
+  skipSeedDataOption,
+  skipUserDataOption,
+  upsertUserMiddleware,
+  userDataPathOption,
+} from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
-import { defaultSeedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
 import { importUserData } from './import-user-data'
+
+type ImportProps = ExportProps & {
+  email?: string
+}
 
 /**
  * Imports seed data and/or user data.
  *
  * User data includes apps, user type, resources
  */
-export const importCommand: CommandModule<any, unknown> = {
+export const importCommand: CommandModule<ImportProps, ImportProps> = {
   command: 'import',
   describe: 'Import user data',
+  builder: (argv) =>
+    argv
+      .options({
+        ...assignUserOption,
+        ...skipUserDataOption,
+        ...skipSeedDataOption,
+        ...userDataPathOption,
+        ...seedDataPathOption,
+      })
+      .middleware(upsertUserMiddleware),
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
   /**
    *
    * @param file File for the user data
    */
-  handler: async () => {
-    const { selectedUserId, confirmImportSeedData, confirmImportUserData } =
-      await inquirer.prompt([
-        await selectUserPrompt(),
-        {
-          type: 'confirm',
-          name: 'confirmImportSeedData',
-          message: 'Do you want to import seed data',
-        },
-        {
-          type: 'confirm',
-          name: 'confirmImportUserData',
-          message: 'Do you want to import user data',
-        },
-      ])
+  handler: async ({
+    email,
+    seedDataPath,
+    userDataPath,
+    skipSeedData,
+    skipUserData,
+  }) => {
+    const User = await UserOGM()
+
+    const selectedUserId = email
+      ? (await User.find({ where: { email } }))[0]?.id
+      : (await inquirer.prompt([await selectUserPrompt()])).selectedUserId
+
+    const shouldSkipSeedData: boolean =
+      skipSeedData !== undefined
+        ? skipSeedData
+        : !(
+            await inquirer.prompt([
+              {
+                type: 'confirm',
+                name: 'confirm',
+                default: false,
+                message: 'Would you like to import seed data?',
+              },
+            ])
+          ).confirm
+
+    const shouldSkipUserData: boolean =
+      skipUserData !== undefined
+        ? skipUserData
+        : !(
+            await inquirer.prompt([
+              {
+                type: 'confirm',
+                name: 'confirm',
+                default: false,
+                message: 'Would you like to import user data?',
+              },
+            ])
+          ).confirm
 
     /**
      * Seed atoms & types for the project
      */
-    if (confirmImportSeedData) {
-      await importSeedData(selectedUserId, defaultSeedFilePath)
+    if (!shouldSkipSeedData) {
+      const inputFilePath =
+        seedDataPath !== undefined
+          ? seedDataPath
+          : (
+              await inquirer.prompt([
+                {
+                  type: 'input',
+                  name: 'inputFilePath',
+                  message: 'Enter a path to import from, relative to ./',
+                  default: './data/seed-data.json',
+                },
+              ])
+            ).inputFilePath
+
+      await importSeedData(selectedUserId, inputFilePath)
     }
 
     // If we specified a file for import
-    if (confirmImportUserData) {
-      const { userDataFilePath } = await inquirer.prompt([
-        {
-          type: 'input',
-          name: 'userDataFilePath',
-          message: 'What is the file path to the user data',
-        },
-      ])
+    if (!shouldSkipUserData) {
+      const inputFilePath =
+        seedDataPath !== undefined
+          ? seedDataPath
+          : (
+              await inquirer.prompt([
+                {
+                  type: 'input',
+                  name: 'inputFilePath',
+                  message: 'Enter a path to import from, relative to ./',
+                },
+              ])
+            ).inputFilePath
 
-      await importUserData(userDataFilePath, selectedUserId)
+      await importUserData(inputFilePath, selectedUserId)
     }
 
     yargs.exit(0, null!)

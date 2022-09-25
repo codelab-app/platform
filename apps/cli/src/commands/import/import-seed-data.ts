@@ -1,3 +1,4 @@
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
@@ -13,9 +14,17 @@ export const importSeedData = async (
 
   await importTags(tags, selectedUser)
 
-  // Type must be seeded first, so atom can reference it
-  // ID's must be in sync
-  await importTypes(types, selectedUser, (type) => ({ id: type.id }))
+  /**
+   * Type must be seeded first, so atom can reference it
+   */
+  await importTypes(
+    /**
+     * Don't create interfaces here, since our atom create logic also creates the interface
+     */
+    types.filter((type) => type.kind !== ITypeKind.InterfaceType),
+    selectedUser,
+    (type) => ({ id: type.id }),
+  )
 
   await importAtoms({
     atoms,
