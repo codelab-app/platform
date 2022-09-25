@@ -18,6 +18,8 @@ export const upsertAtom = async (
   atomWhere: BaseUniqueWhereCallback<IAtomExport>,
   tagWhere: BaseUniqueWhereCallback<ITagExport>,
 ) => {
+  logTask('Upserting Atom', atom.name)
+
   const Atom = await AtomOGM()
 
   const existingAtom = await Atom.find({
@@ -38,6 +40,7 @@ export const upsertAtom = async (
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
       // Always re-create the API if atom is missing
+      //
       api: {
         create: {
           node: {
@@ -51,13 +54,14 @@ export const upsertAtom = async (
     }
 
     try {
-      logTask('Created Atom', atom.name)
+      logTask('Created Atom', atom.name, createInput)
 
       return await Atom.create({
         input: [createInput],
       })
     } catch (e) {
       console.error(e)
+      throw new Error('Create atom failed')
     }
   } else {
     if (!atom.api?.id) {
@@ -82,6 +86,7 @@ export const upsertAtom = async (
       })
     } catch (e) {
       console.error(e)
+      throw new Error('Update atom failed')
     }
   }
 

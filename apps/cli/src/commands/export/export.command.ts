@@ -1,17 +1,17 @@
 import { AppOGM } from '@codelab/backend/adapter/neo4j'
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+import {
+  ExportProps,
+  seedDataPathOption,
+  skipSeedDataOption,
+  skipUserDataOption,
+  userDataPathOption,
+} from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { exportSeedData } from '../../use-cases/export/export-seed-data'
 import { exportUserData } from '../../use-cases/export/export-user-data'
 import { saveExportFile } from '../../use-cases/export/save-export-file'
-
-interface ExportProps {
-  seedData?: string
-  userData?: string
-  skipUserData?: boolean
-  skipSeedData?: boolean
-}
 
 /**
  * Entry point for all export. Show users a list of questions such as
@@ -31,31 +31,17 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
   // },
   builder: (argv) =>
     argv.options({
-      skipUserData: {
-        // alias: 's',
-        describe: 'Skip user data',
-        type: 'boolean',
-      },
-      skipSeedData: {
-        // alias: 's',
-        describe: 'Skip seed data',
-        type: 'boolean',
-      },
-      userData: {
-        alias: 'user',
-        describe: 'File path of the user data to be exported',
-        // demandOption: true,
-        type: 'string',
-      },
-      seedData: {
-        alias: 'seed',
-        describe: 'File path of the seed data to be exported',
-        // demandOption: true,
-        type: 'string',
-        // default: defaultSeedFilePath,
-      },
+      ...skipUserDataOption,
+      ...skipSeedDataOption,
+      ...userDataPathOption,
+      ...seedDataPathOption,
     }),
-  handler: async ({ skipSeedData, skipUserData, seedData, userData }) => {
+  handler: async ({
+    skipSeedData,
+    skipUserData,
+    seedDataPath,
+    userDataPath,
+  }) => {
     const App = await AppOGM()
     const apps = await App.find()
 
@@ -100,15 +86,15 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
        * Export info, file path etc
        */
       const outputFilePath =
-        seedData !== undefined
-          ? seedData
+        seedDataPath !== undefined
+          ? seedDataPath
           : (
               await inquirer.prompt([
                 {
                   type: 'input',
                   name: 'outputFilePath',
                   message: 'Enter a path to export to, relative to ./',
-                  default: `seed-data.json`,
+                  default: './data/seed-data.json',
                 },
               ])
             ).outputFilePath
