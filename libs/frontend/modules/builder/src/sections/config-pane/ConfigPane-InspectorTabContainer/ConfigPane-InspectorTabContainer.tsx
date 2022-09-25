@@ -112,7 +112,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           />
         </div>
 
-        <Tabs defaultActiveKey={tabNames.props} size="small">
+        <Tabs defaultActiveKey={tabNames.node} size="small">
           <Tabs.TabPane
             key={tabNames.node}
             style={{ overflow: 'auto', maxHeight: '100%' }}
