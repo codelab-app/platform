@@ -13,7 +13,7 @@ export const stringType = new PrimitiveType({
   ownerId: '',
 })
 
-export const stringTypeExpectedSchema = { type: 'string' }
+export const stringTypeExpectedSchema = { type: 'string', default: '' }
 
 export const intType = new PrimitiveType({
   id: v4(),
@@ -23,7 +23,7 @@ export const intType = new PrimitiveType({
   ownerId: '',
 })
 
-export const intTypeExpectedSchema = { type: 'integer' }
+export const intTypeExpectedSchema = { type: 'integer', default: 0 }
 
 export const unionType = new UnionType({
   id: v4(),
@@ -96,7 +96,11 @@ interfaceWithUnionField.updateFieldCache({
 export const interfaceWithUnionExpectedSchema = {
   type: 'object',
   properties: {
-    stringField: { ...stringTypeExpectedSchema, label: 'String field' },
+    stringField: {
+      ...stringTypeExpectedSchema,
+      label: 'String field',
+      default: '',
+    },
     unionField: {
       ...unionTypeExpectedSchema,
       label: 'union field',
