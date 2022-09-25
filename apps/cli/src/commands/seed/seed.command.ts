@@ -9,15 +9,15 @@ import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
-import { createAntDesignAtomsData } from '../../use-cases/parser/data/ant-design.data'
+import { createAntDesignAtomsData } from '../../use-cases/seed/data/ant-design.data'
 import { parseAndImportInterface } from './parse-and-import-interface'
 
 interface ParseProps {
   email?: string
 }
 
-export const parseCommand: CommandModule<ParseProps, ParseProps> = {
-  command: 'parse',
+export const seedCommand: CommandModule<ParseProps, ParseProps> = {
+  command: 'seed',
   builder: (argv) =>
     argv
       .options({
@@ -26,7 +26,7 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
       })
       .middleware(upsertUserMiddleware),
   describe:
-    'Parse Ant Design scraped CSV files and insert to application as types',
+    'Parse Ant Design scraped CSV files and seed to application as types',
   handler: async ({ email }) => {
     const User = await UserOGM()
 

@@ -7,7 +7,7 @@ import {
   connectTypeId,
 } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
-import { getApiName } from '../use-cases/parser/data/ant-design.data'
+import { getApiName } from '../use-cases/seed/data/ant-design.data'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import

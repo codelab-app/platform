@@ -1,6 +1,6 @@
 import { fieldRepository } from '@codelab/backend/application'
 import { logSection } from '../../shared/utils/log-task'
-import { ParserService } from '../../use-cases/parser/parser.service'
+import { ParserService } from '../../use-cases/seed/parser.service'
 
 /**
  * This function generates new data, so we upsert by name instead of ID
