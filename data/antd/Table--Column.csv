@@ -1,11 +1,11 @@
 "property","description","type","default","version","isEnum"
-"align","The specify which way that column is aligned","left | right | center","left","",false
+"align","The specify which way that column is aligned","left | right | center","left","",true
 "className","The className of this column","string","-","",false
 "colSpan","Span of this column's title","number","-","",false
 "dataIndex","Display field of the data record, support nest path by string array","string | string[]","-","",false
 "defaultFilteredValue","Default filtered values","string[]","-","",false
 "filterResetToDefaultFilteredValue","click the reset button, whether to restore the default filter","boolean","false","",false
-"defaultSortOrder","Default order of sorted values","ascend | descend","-","",false
+"defaultSortOrder","Default order of sorted values","ascend | descend","-","",true
 "ellipsis","The ellipsis cell content, not working with sorter and filters for now.
 tableLayout would be fixed when ellipsis is true or { showTitle?: boolean }","boolean | {showTitle?: boolean }","false","showTitle: 4.3.0",false
 "filterDropdown","Customized filter overlay","ReactNode | (props: FilterDropdownProps) => ReactNode","-","",false

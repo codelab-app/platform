@@ -15,6 +15,7 @@ import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { AntdDesignApi } from './ant-design'
 import {
+  findUnionType,
   isReactNodeTypeRegex,
   isRenderPropType,
 } from './utils/isRenderPropType'
@@ -49,6 +50,28 @@ const checkInterfaceType = (value: string) => {
   return value.includes('{')
 }
 
+// const handleCreateInterface = async (value: any) => {
+//   for await (const { atom, fields } of value) {
+//     for await (const field of fields) {
+//       if (!atom?.api?.id) {
+//         continue
+//       }
+
+//       await fieldRepository.upsertField({
+//         interfaceTypeId: atom?.api?.id,
+//         fieldTypeId: field.fieldType,
+//         field: {
+//           id: field.id,
+//           name: field.name,
+//           key: field.key,
+//           description: field.description,
+//         },
+//       })
+
+//     }
+//   }
+// }
+
 export const getTypeForApi = async (
   apiField: AntdDesignApi,
   atom: IAtomExport,
@@ -68,19 +91,12 @@ export const getTypeForApi = async (
     let key: any
     let value: any
 
-    if (
-      data[0] == '{' &&
-      data[1] == ' ' &&
-      !data.includes('?') &&
-      !data.includes('.') &&
-      !data.includes(';') &&
-      !data.includes('[')
-    ) {
+    if (data[0] == '{' && data[1] == ' ') {
       const lastIndex = data.split('').findIndex((va: string) => va == ':')
       key = data.split('').slice(2, lastIndex).join('')
       value = data
         .split('')
-        .slice(lastIndex, data.length - 2)
+        .slice(lastIndex + 2, data.length - 2)
         .join('')
     }
 
@@ -90,22 +106,6 @@ export const getTypeForApi = async (
       return value
     }
   }
-
-  const isEnumType =
-    values.includes('small') ||
-    values.includes('warning') ||
-    values.includes('success') ||
-    values.includes('right') ||
-    values.includes('center') ||
-    values.includes('circle') ||
-    values.includes('horizontal') ||
-    values.includes('top') ||
-    values.includes('hover') ||
-    values.includes('line') ||
-    values.includes('tags') ||
-    values.includes('light') ||
-    values.includes('date') ||
-    values.includes('header')
 
   // Async function to connect Union Type
   const connectUnionType = async (data: Array<string>) => {
@@ -127,7 +127,7 @@ export const getTypeForApi = async (
         apiField.property,
       )} Union API`
 
-      console.log(`Creating union ${unionName}`)
+      // console.log(`Creating union ${unionName}`)
 
       const {
         unionTypes: [unionType],
@@ -164,61 +164,6 @@ export const getTypeForApi = async (
   }
 
   // Check and Create Enum Type
-  if (isBaseCondition) {
-    let enumValues = [] as Array<any>
-
-    if (isEnumType) {
-      enumValues = [...enumValues, ...values]
-
-      const [existingEnum] = await EnumType.find({
-        where: {
-          AND: [
-            {
-              name: `${atom.name} ${pascalCaseToWords(
-                apiField.property,
-              )} Enum API`,
-            },
-          ],
-        },
-      })
-
-      if (!existingEnum) {
-        const enumName = `${atom.name} ${pascalCaseToWords(
-          apiField.property,
-        )} Enum API`
-
-        console.log(`Creating enum ${enumName}`)
-
-        const {
-          enumTypes: [enumType],
-        } = await EnumType.create({
-          input: [
-            {
-              id: v4(),
-              name: enumName,
-              kind: ITypeKind.EnumType,
-              allowedValues: {
-                create: enumValues.map((value) => ({
-                  node: {
-                    id: v4(),
-                    value,
-                    name: pascalCaseToWords(value),
-                  },
-                })),
-              },
-              owner: connectTypeId(userId),
-            },
-          ],
-        })
-
-        return {
-          existingId: enumType.id,
-        }
-      }
-    }
-  }
-
-  // Check and Create Enum Type
   if (apiField.isEnum) {
     /**
      * Check if enum has been created already
@@ -240,7 +185,7 @@ export const getTypeForApi = async (
         apiField.property,
       )} Enum API`
 
-      console.log(`Creating enum ${enumName}`)
+      // console.log(`Creating enum ${enumName}`)
 
       const {
         enumTypes: [enumType],
@@ -299,8 +244,20 @@ export const getTypeForApi = async (
     }
   }
 
+  const a = values
+    .filter(checkInterfaceType)
+    .map((value) => getKeyObjInUnion(value, 'union'))
+
   // Check and Create Complex Union Type
-  if (isComplexUnion) {
+  if (isComplexUnion && !findUnionType.test(type) && a.includes('number')) {
+    values
+      .filter(checkInterfaceType)
+      .map((value) => console.log('aaaa', getKeyObjInUnion(value, 'union')))
+
+    values.filter(checkInterfaceType).map((value) => console.log('bbb', value))
+
+    values.map((value) => console.log('ccccc', getKeyObjInUnion(value, 'aaaa')))
+
     const [existingUnion] = await UnionType.find({
       where: {
         AND: [
@@ -317,8 +274,6 @@ export const getTypeForApi = async (
       const unionName = `${atom.name} ${pascalCaseToWords(
         apiField.property,
       )} Union API`
-
-      console.log(`Creating union ${unionName}`)
 
       const {
         unionTypes: [unionType],
@@ -339,29 +294,31 @@ export const getTypeForApi = async (
                 })),
               },
               InterfaceType: {
-                create: values.filter(checkInterfaceType).map((value) => ({
+                create: values.map((value) => ({
                   node: {
                     id: v4(),
-                    // name: pascalCaseToWords(value),
                     name: `${atom.name} ${getKeyObjInUnion(value, 'name')} API`,
                     kind: ITypeKind.InterfaceType,
                     owner: connectTypeId(userId),
-                    // fields: {
-                    //   create: values.filter(checkInterfaceType).map((item) => ({
-                    //     node: {
-                    //       PrimitiveType: {
-                    //         id: v4(),
-                    //         name: `${getKeyObjInUnion(item, 'none')}`,
-                    //         // kind: ITypeKind.PrimitiveType,
-                    //         primitiveKind: checkPrimitiveType(item),
-                    //       },
-                    //     },
-                    //     edge: {
-                    //       id: v4() + 1,
-                    //       key: 'string',
-                    //     },
-                    //   })),
-                    // },
+                    fields: {
+                      create: values.map((item) => ({
+                        node: {
+                          PrimitiveType: {
+                            id: v4(),
+                            name: `${getKeyObjInUnion(item, 'none')}`,
+                            // kind: ITypeKind.PrimitiveType,
+                            primitiveKind: checkPrimitiveType(
+                              getKeyObjInUnion(item, 'none'),
+                            ),
+                          },
+                        },
+                        edge: {
+                          id: v4(),
+                          key: `${getKeyObjInUnion(item, 'name')}`,
+                          name: `${pascalCaseToWords(value)}`,
+                        },
+                      })),
+                    },
                   },
                 })),
               },
@@ -437,12 +394,12 @@ export const getTypeForApi = async (
     }
 
     default: {
-      // if (!(isComplexUnion || isReactNodeTypeRegex.test(type) || isEnumType)) {
-      //   console.log(
-      //     `Could not transform fields for Atom [${atom.type}]`,
-      //     apiField,
-      //   )
-      // }
+      if (!(isComplexUnion || isReactNodeTypeRegex.test(type))) {
+        // console.log(
+        //   `Could not transform fields for Atom [${atom.type}]`,
+        //   apiField,
+        // )
+      }
 
       return null
     }

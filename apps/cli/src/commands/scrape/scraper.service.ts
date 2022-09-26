@@ -84,8 +84,10 @@ export class ScraperService {
                 .filter((tableValues) => tableValues.length >= 4)
                 .map((tableValues) => {
                   const typeTdChildren = Array.from(
-                    tableValues[2].childNodes,
+                    tableValues[2].children,
                   ) as Array<Node>
+
+                  const textTdContent = tableValues[2].textContent as string
 
                   return {
                     [_tableKeys[0]]: tableValues[0].innerText,
@@ -98,13 +100,11 @@ export class ScraperService {
                     // if all children of type are in code blocks, we can say that the whole
                     // props in of enum type
                     isEnum:
-                      typeTdChildren.length > 0 &&
+                      typeTdChildren.length > 1 &&
                       typeTdChildren.every(
-                        (child) =>
-                          (child as HTMLElement).tagName === 'CODE' ||
-                          child?.textContent === '"|"' ||
-                          child?.textContent === '|',
-                      ),
+                        (child) => (child as HTMLElement).tagName === 'CODE',
+                      ) &&
+                      !/(function|=>|<)/g.test(textTdContent),
                   }
                 })
             )

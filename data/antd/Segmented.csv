@@ -4,5 +4,5 @@
 "disabled","Disable all segments","boolean","false","",false
 "onChange","The callback function that is triggered when the state changes","function(value: string | number)","","",false
 "options","Set children optional","string[] | number[] | Array<{ label: ReactNode value: string icon? ReactNode disabled?: boolean className?: string }>","[]","",false
-"size","The size of the Segmented.","large | middle | small","-","",false
+"size","The size of the Segmented.","large | middle | small","-","",true
 "value","Currently selected value","string | number","","",false

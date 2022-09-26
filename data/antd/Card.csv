@@ -9,7 +9,7 @@
 "headStyle","Inline style to apply to the card head","CSSProperties","-","",false
 "hoverable","Lift up when hovering card","boolean","false","",false
 "loading","Shows a loading indicator while the contents of the card are being fetched","boolean","false","",false
-"size","Size of card","default | small","default","",false
+"size","Size of card","default | small","default","",true
 "tabBarExtraContent","Extra content in tab bar","ReactNode","-","",false
 "tabList","List of TabPane's head","Array<{key: string, tab: ReactNode}>","-","",false
 "tabProps","Tabs","-","-","",false

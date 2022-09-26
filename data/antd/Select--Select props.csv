@@ -25,19 +25,19 @@ LabeledValue | LabeledValue[]","-","",false
 "maxTagPlaceholder","Placeholder for not showing tags","ReactNode | function(omittedValues)","-","",false
 "maxTagTextLength","Max tag text length to show","number","-","",false
 "menuItemSelectedIcon","The custom menuItemSelected icon with multiple options","ReactNode","-","",false
-"mode","Set mode of Select","multiple | tags","-","",false
+"mode","Set mode of Select","multiple | tags","-","",true
 "notFoundContent","Specify content to show when no result matches","ReactNode","Not Found","",false
 "open","Controlled open state of dropdown","boolean","-","",false
 "optionFilterProp","Which prop value of option will be used for filter if filterOption is true. If options is set, it should be set to label","string","value","",false
 "optionLabelProp","Which prop value of option will render as content of select. Example","string","children","",false
 "options","Select options. Will get better perf than jsx definition","{ label, value }[]","-","",false
 "placeholder","Placeholder of select","ReactNode","-","",false
-"placement","The position where the selection box pops up","bottomLeft bottomRight topLeft topRight","bottomLeft","",false
+"placement","The position where the selection box pops up","bottomLeft bottomRight topLeft topRight","bottomLeft","",true
 "removeIcon","The custom remove icon","ReactNode","-","",false
 "searchValue","The current input ""search"" text","string","-","",false
 "showArrow","Whether to show the drop-down arrow","boolean","true(for single select), false(for multiple select)","",false
 "showSearch","Whether select is searchable","boolean","single: false, multple: true","",false
-"size","Size of Select input","large | middle | small","middle","",false
+"size","Size of Select input","large | middle | small","middle","",true
 "status","Set validation status","'error' | 'warning'","-","4.19.0",false
 "suffixIcon","The custom suffix icon","ReactNode","-","",false
 "tagRender","Customize tag render, only applies when mode is set to multiple or tags","(props) => ReactNode","-","",false

@@ -14,7 +14,7 @@
 "showTitle","Show page item's title","boolean","true","",false
 "showTotal","To display the total number and range","function(total, range)","-","",false
 "simple","Whether to use simple mode","boolean","-","",false
-"size","Specify the size of Pagination, can be set to small","default | small","default","",false
+"size","Specify the size of Pagination, can be set to small","default | small","default","",true
 "total","Total number of data items","number","0","",false
 "onChange","Called when the page number or pageSize is changed, and it takes the resulting page number and pageSize as its arguments","function(page, pageSize)","-","",false
 "onShowSizeChange","Called when pageSize is changed","function(current, size)","-","",false

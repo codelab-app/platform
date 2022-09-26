@@ -8,13 +8,13 @@
 "moreIcon","The custom icon of ellipsis","ReactNode","<EllipsisOutlined />","4.14.0",false
 "popupClassName","className for more dropdown.","string","-","4.21.0",false
 "renderTabBar","Replace the TabBar","(props: DefaultTabBarProps, DefaultTabBar: React.ComponentClass) => React.ReactElement","-","",false
-"size","Preset tab bar size","large | default | small","default","",false
+"size","Preset tab bar size","large | default | small","default","",true
 "tabBarExtraContent","Extra content in tab bar","ReactNode | {left?: ReactNode, right?: ReactNode}","-","object: 4.6.0",false
 "tabBarGutter","The gap between tabs","number","-","",false
 "tabBarStyle","Tab bar style object","CSSProperties","-","",false
-"tabPosition","Position of tabs","top | right | bottom \","left","top",false
+"tabPosition","Position of tabs","top | right | bottom \","left","top",true
 "destroyInactiveTabPane","Whether destroy inactive TabPane when change tab","boolean","false","",false
-"type","Basic style of tabs","line | card | editable-card","line","",false
+"type","Basic style of tabs","line | card | editable-card","line","",true
 "onChange","Callback executed when active tab is changed","function(activeKey) {}","-","",false
 "onEdit","Callback executed when tab is added or removed. Only works while type=""editable-card""","(action === 'add' ? event : targetKey, action): void","-","",false
 "onTabClick","Callback executed when tab is clicked","function(key: string, event: MouseEvent)","-","",false
