@@ -31,7 +31,14 @@ export const primativeTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
    */
   return {
     uniforms: {
-      component: CodeMirrorField({ height: 'auto' }),
+      component: CodeMirrorField({
+        height: 'auto',
+        onChange: (value, uniformsOnChange) => {
+          const castedValue = Number(value)
+          // pass the original value back if not a number
+          uniformsOnChange(castedValue || value)
+        },
+      }),
     },
   }
 }
