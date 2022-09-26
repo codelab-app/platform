@@ -1,4 +1,5 @@
 import { ICacheService } from '../../service'
+import { IAnyAction } from '../action'
 import { IPropData } from '../prop'
 import { IInterfaceType } from '../type'
 import { IStoreDTO } from './store.dto.interface'
@@ -8,7 +9,8 @@ export interface IStore extends ICacheService<IStoreDTO, IStore> {
   name: string
   apiId: string
   _api: IInterfaceType
-  _actions: IPropData
+  actions: Array<IAnyAction>
+  _actionsRunners: IPropData
 
   state: IPropData
   _state: IPropData

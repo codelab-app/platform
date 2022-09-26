@@ -44,7 +44,7 @@ export class Store
   get state() {
     const state: IPropData = merge(
       { ...this._api.defaults },
-      { ...this._actions },
+      { ...this._actionsRunners },
       { ...this._state },
     )
 
@@ -68,11 +68,15 @@ export class Store
   }
 
   @computed
-  get _actions() {
+  get actions() {
     const actionService = getActionService(this)
 
-    return actionService.actionsList
-      .filter((a) => a.storeId === this.id)
+    return actionService.actionsList.filter((a) => a.storeId === this.id)
+  }
+
+  @computed
+  get _actionsRunners() {
+    return this.actions
       .map((a) => ({
         [a.name]: {
           run: a.createRunner(this._state, this.updateState.bind(this)),
