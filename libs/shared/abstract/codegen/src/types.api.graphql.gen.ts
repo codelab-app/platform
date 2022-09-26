@@ -22340,11 +22340,6 @@ export type ActionFragment =
   | Action_ApiAction_Fragment
   | Action_CodeAction_Fragment
 
-export type CodeActionFragment = {
-  __typename?: 'CodeAction'
-  code: string
-} & ActionBase_CodeAction_Fragment
-
 export type ApiActionFragment = {
   __typename?: 'ApiAction'
   successAction:
@@ -22356,6 +22351,11 @@ export type ApiActionFragment = {
   resource: { __typename?: 'Resource' } & ResourceFragment
   config: { __typename?: 'Prop'; id: string; data: string }
 } & ActionBase_ApiAction_Fragment
+
+export type CodeActionFragment = {
+  __typename?: 'CodeAction'
+  code: string
+} & ActionBase_CodeAction_Fragment
 
 export type RedirectedAppFragment = {
   __typename?: 'App'
@@ -22533,6 +22533,7 @@ export type ResourceFragment = {
   name: string
   type: ResourceType
   config: { __typename?: 'Prop' } & PropFragment
+  owner: { __typename?: 'User'; id: string }
 }
 
 export type StoreFragment = {
