@@ -74,33 +74,33 @@ export const CodeMirrorInput = observer(
       expand((curIsExpand) => !curIsExpand)
     }
 
+    return (
+      <div css={[containerStyles, overrideStyles]}>
+        {/* The Editor */}
+        <div css={editorStyles} ref={editor} />
 
-  return (
-    <div css={[containerStyles, overrideStyles]}>
-      {/* The Editor */}
-      <div css={editorStyles} ref={editor} />
-
-      {/* The Expanded Editor */}
-      {expandable && (
-        <React.Fragment>
-          <ExpandButton
-            className="CodeMirrorInput--btnExpand"
-            icon={<ExpandAltOutlined width="12px" />}
-            onClick={toggleExpand}
-            size="small"
-            type="primary"
-          />
-          <CodeMirrorModal
-            closeModal={toggleExpand}
-            onChange={onChange}
-            onSave={onSave}
-            setupFactory={setupFactory}
-            title={title}
-            value={value}
-            visible={isExpand}
-          />
-        </React.Fragment>
-      )}
-    </div>
-  )
-}
+        {/* The Expanded Editor */}
+        {expandable && (
+          <React.Fragment>
+            <ExpandButton
+              className="CodeMirrorInput--btnExpand"
+              icon={<ExpandAltOutlined width="12px" />}
+              onClick={toggleExpand}
+              size="small"
+              type="primary"
+            />
+            <CodeMirrorModal
+              closeModal={toggleExpand}
+              onChange={onChange}
+              onSave={onSave}
+              setupFactory={setupFactory}
+              title={title}
+              value={value}
+              visible={isExpand}
+            />
+          </React.Fragment>
+        )}
+      </div>
+    )
+  },
+)
