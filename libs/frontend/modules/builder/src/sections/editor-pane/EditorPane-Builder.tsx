@@ -101,7 +101,7 @@ export const EditorPaneBuilder = observer(
                 `}
                 singleLine={false}
                 title="Current props"
-                value={propSafeStringify(appStore.state.data)}
+                value={propSafeStringify(appStore.state)}
               />
             </TabPane>
           </Tabs>

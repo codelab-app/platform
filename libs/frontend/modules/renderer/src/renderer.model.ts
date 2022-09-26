@@ -216,9 +216,9 @@ export class Renderer
     const action = actionService.action(element.preRenderActionId)
 
     if (!action) {
-      throw new Error(
-        `Pre render action not found for element ${element.label}`,
-      )
+      console.warn(`Pre render action not found for element ${element.label}`)
+
+      return () => undefined
     }
 
     return this.state[action.name].run()
@@ -233,9 +233,9 @@ export class Renderer
     const action = actionService.action(element.postRenderActionId)
 
     if (!action) {
-      throw new Error(
-        `Post render action not found for element ${element.label}`,
-      )
+      console.warn(`Post render action not found for element ${element.label}`)
+
+      return () => undefined
     }
 
     return this.state[action.name].run
@@ -243,7 +243,7 @@ export class Renderer
 
   @computed
   get state() {
-    return this.appStore?.current.state['data'] || {}
+    return this.appStore?.current.state || {}
   }
 
   /**

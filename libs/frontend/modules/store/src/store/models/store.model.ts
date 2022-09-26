@@ -1,6 +1,5 @@
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
-  IAnyAction,
   IInterfaceType,
   IPropData,
   IStore,
@@ -10,22 +9,19 @@ import { merge } from 'lodash'
 import { computed } from 'mobx'
 import {
   detach,
-  frozen,
   idProp,
   Model,
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
-import { actionRef } from './action.ref'
+import { getActionService } from '../action.service'
 
 export const hydrate = ({ actions, id, name, api }: IStoreDTO) =>
   new Store({
     id,
     name,
-    actions: actions.map((action) => actionRef(action.id)),
     apiId: api.id,
   })
 
@@ -34,27 +30,31 @@ export class Store
   extends Model(() => ({
     id: idProp,
     name: prop<string>(),
-    actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
     apiId: prop<string>().withSetter(),
-    state: prop<IPropData>(() => frozen<IPropData>({})),
+    _state: prop<IPropData>(() => ({})),
   }))
   implements IStore
 {
   @modelAction
-  setState(data: IPropData) {
-    this.state = frozen(data)
-  }
-
-  @modelAction
   updateState(data: IPropData) {
-    this.state = frozen(merge(this.state.data, data))
+    this._state = merge(this._state, data)
+  }
+
+  @computed
+  get state() {
+    const state: IPropData = merge(
+      { ...this._api.defaults },
+      { ...this._actions },
+      { ...this._state },
+    )
+
+    return state
   }
 
   @modelAction
-  writeCache({ id, name, actions, api }: IStoreDTO) {
+  writeCache({ id, name, api }: IStoreDTO) {
     this.id = id
     this.name = name
-    this.actions = actions.map((a) => actionRef(a.id))
     this.apiId = api.id
 
     return this
@@ -68,11 +68,14 @@ export class Store
   }
 
   @computed
-  get _storeActions() {
-    return this.actions
+  get _actions() {
+    const actionService = getActionService(this)
+
+    return actionService.actionsList
+      .filter((a) => a.storeId === this.id)
       .map((a) => ({
-        [a.current.name]: {
-          run: a.current.createRunner(this.state, this.updateState.bind(this)),
+        [a.name]: {
+          run: a.createRunner(this._state, this.updateState.bind(this)),
         },
       }))
       .reduce(merge, {})

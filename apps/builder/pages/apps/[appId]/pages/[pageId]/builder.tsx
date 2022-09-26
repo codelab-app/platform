@@ -105,12 +105,8 @@ const PageBuilder: CodelabPage = observer(() => {
       builderService.selectPageElementTreeNode(elementRef(pageRootElement))
     }
 
-    store.setState(
-      merge(
-        appService.appsList.map((a) => a.toJson).reduce(merge, {}),
-        { ...store._api.defaults },
-        { ...store._storeActions },
-      ),
+    store.updateState(
+      appService.appsList.map((a) => a.toJson).reduce(merge, {}),
     )
 
     const renderer = await builderRenderService.addRenderer(
