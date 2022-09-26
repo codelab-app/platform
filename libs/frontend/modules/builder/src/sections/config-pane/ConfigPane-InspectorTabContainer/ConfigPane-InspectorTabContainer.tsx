@@ -38,6 +38,7 @@ import tw from 'twin.macro'
 import { usePropCompletion } from '../../../hooks'
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
+import { tabNames } from './data'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -111,11 +112,13 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           />
         </div>
 
-        <Tabs defaultActiveKey="tab1" size="small">
+        <Tabs defaultActiveKey={tabNames.node} size="small">
           <Tabs.TabPane
-            key="tab1"
+            key={tabNames.node}
             style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab={<TooltipIcon icon={<NodeIndexOutlined />} title="Node" />}
+            tab={
+              <TooltipIcon icon={<NodeIndexOutlined />} title={tabNames.node} />
+            }
           >
             <UpdateElementContent
               key={selectedNode.id}
@@ -126,26 +129,26 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
 
           <Tabs.TabPane
             destroyInactiveTabPane
-            key="tab2"
+            key={tabNames.props}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             // needed to update props if we change them in the prop inspector tab
-            tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
+            tab={
+              <TooltipIcon icon={<SettingOutlined />} title={tabNames.props} />
+            }
           >
             <div key={selectedNode.id}>
               {isElement(selectedNode) &&
               (selectedNode.atom || selectedNode.renderComponentType) ? (
                 <>
-                  <UpdateRichTextForm
-                    element={selectedNode}
-                    elementService={elementService}
-                    trackPromises={trackPromises}
-                  />
+                  <div css={tw`mb-5`}>
+                    <UpdateRichTextForm
+                      element={selectedNode}
+                      elementService={elementService}
+                      trackPromises={trackPromises}
+                    />
+                  </div>
                   <UpdateElementPropsForm
-                    actionList={actionService.actionsList}
                     autocomplete={renderService.state}
-                    builderState={{
-                      componentId: builderService.activeComponent?.id,
-                    }}
                     element={selectedNode}
                     elementService={elementService}
                     trackPromises={trackPromises}
@@ -160,9 +163,14 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key="tab3"
+            key={tabNames.css}
             style={{ overflow: 'visible' }}
-            tab={<TooltipIcon icon={<FormatPainterOutlined />} title="CSS" />}
+            tab={
+              <TooltipIcon
+                icon={<FormatPainterOutlined />}
+                title={tabNames.css}
+              />
+            }
           >
             {isElement(selectedNode) && selectedNode.atom ? (
               <ElementCssEditor
@@ -190,10 +198,13 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           {/* </Tabs.TabPane> */}
 
           <Tabs.TabPane
-            key="tab5"
+            key={tabNames.propsInsepctor}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
-              <TooltipIcon icon={<CodeOutlined />} title="Props Inspector" />
+              <TooltipIcon
+                icon={<CodeOutlined />}
+                title={tabNames.propsInsepctor}
+              />
             }
           >
             {isElement(selectedNode) && (
@@ -207,9 +218,11 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key="tab6"
+            key={tabNames.propsMap}
             style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab={<TooltipIcon icon={<SwapOutlined />} title="Props Map" />}
+            tab={
+              <TooltipIcon icon={<SwapOutlined />} title={tabNames.propsMap} />
+            }
           >
             {isElement(selectedNode) ? (
               <PropMapBindingSection
@@ -227,12 +240,12 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key="tab7"
+            key={tabNames.propsTransformation}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <TooltipIcon
                 icon={<FunctionOutlined />}
-                title="Props Transformation"
+                title={tabNames.propsTransformation}
               />
             }
           >

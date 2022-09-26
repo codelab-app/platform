@@ -11,9 +11,10 @@ export const editorStyles = css`
 export const ExpandButton = styled(Button)`
   position: absolute !important;
   bottom: 2px;
-  left: 2px;
+  right: 2px;
   width: 20px;
   height: 20px;
+  opacity: 0.5;
 `
 
 export const containerStyles = css`

@@ -20,12 +20,16 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
+import { UiPropertiesContext } from './types'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
-  extraProperties?: (type: IAnyType) => JsonSchema
+  extraProperties?: (
+    type: IAnyType,
+    context?: UiPropertiesContext,
+  ) => JsonSchema
 }
 
 // I'm not sure what the difference is, but I'm keeping it like it is for now
@@ -39,10 +43,17 @@ const primitives = {
   [PrimitiveTypeKind.Boolean]: 'boolean' as const,
 }
 
+const primitivesDefaults = {
+  [PrimitiveTypeKind.Boolean]: false,
+  [PrimitiveTypeKind.Float]: 0.0,
+  [PrimitiveTypeKind.Integer]: 0,
+  [PrimitiveTypeKind.String]: '',
+}
+
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  transform(type: IAnyType) {
+  transform(type: IAnyType, context?: UiPropertiesContext) {
     switch (type.kind) {
       case ITypeKind.AppType:
         return this.fromAppType(type)
@@ -59,7 +70,7 @@ export class TypeSchemaFactory {
       case ITypeKind.ReactNodeType:
         return this.fromReactNodeType(type)
       case ITypeKind.CodeMirrorType:
-        return this.fromCodeMirrorType(type)
+        return this.fromCodeMirrorType(type, context)
       case ITypeKind.ElementType:
         return this.fromElementType(type)
       case ITypeKind.EnumType:
@@ -155,8 +166,11 @@ export class TypeSchemaFactory {
     return this.transformReactElementType(type)
   }
 
-  fromCodeMirrorType(type: ICodeMirrorType): JsonSchema {
-    return this.simpleReferenceType(type)
+  fromCodeMirrorType(
+    type: ICodeMirrorType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.simpleReferenceType(type, context)
   }
 
   fromLambdaType(type: ILambdaType): JsonSchema {
@@ -174,7 +188,11 @@ export class TypeSchemaFactory {
   fromPrimitiveType(type: IPrimitiveType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
-    return { type: primitives[type.primitiveKind], ...extra }
+    return {
+      type: primitives[type.primitiveKind],
+      ...extra,
+      default: primitivesDefaults[type.primitiveKind],
+    }
   }
 
   fromEnumType(type: IEnumType): JsonSchema {
@@ -185,6 +203,8 @@ export class TypeSchemaFactory {
         value: v.id,
         label: v.name || v.value,
       })),
+      showSearch: true,
+      optionFilterProp: 'label',
       ...extra?.uniforms,
     }
 
@@ -200,8 +220,11 @@ export class TypeSchemaFactory {
    * Handles the reference types without any extra properties
    * Produces a 'string' type
    */
-  private simpleReferenceType(type: IAnyType): JsonSchema {
-    const extra = this.getExtraProperties(type)
+  private simpleReferenceType(
+    type: IAnyType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
 
     return { type: 'string', ...extra } as const
   }
@@ -246,7 +269,7 @@ export class TypeSchemaFactory {
     return { type: 'object', properties, uniforms: nullUniforms, label: '' }
   }
 
-  private getExtraProperties(type: IAnyType) {
-    return this.options?.extraProperties?.(type) || undefined
+  private getExtraProperties(type: IAnyType, context?: UiPropertiesContext) {
+    return this.options?.extraProperties?.(type, context) || undefined
   }
 }
