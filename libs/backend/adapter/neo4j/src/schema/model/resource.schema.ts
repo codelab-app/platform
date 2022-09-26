@@ -16,4 +16,22 @@ export const resourceSchema = gql`
     config: Prop! @relationship(type: "RESOURCE_CONFIG", direction: OUT)
     owner: User!
   }
+
+    extend type Resource
+    @auth(
+      rules: [
+        { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
+        {
+          operations: [UPDATE, CREATE, DELETE]
+          roles: ["User"]
+          where: { owner: { auth0Id: "$jwt.sub" } }
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+        {
+          operations: [UPDATE, CREATE, DELETE]
+          roles: ["Admin"]
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+      ]
+    )  
 `
