@@ -37,17 +37,6 @@ export type GetTagsQueryVariables = Types.Exact<{
 
 export type GetTagsQuery = { tags: Array<TagFragment> }
 
-export type GetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never }>
-
-export type GetTagGraphsQuery = {
-  tagGraphs: Array<{
-    id: string
-    isRoot: boolean
-    name: string
-    descendants: Array<string>
-  }>
-}
-
 export const CreateTagsDocument = gql`
   mutation CreateTags($input: [TagCreateInput!]!) {
     createTags(input: $input) {
@@ -82,16 +71,6 @@ export const GetTagsDocument = gql`
     }
   }
   ${TagFragmentDoc}
-`
-export const GetTagGraphsDocument = gql`
-  query GetTagGraphs {
-    tagGraphs {
-      id
-      isRoot
-      name
-      descendants
-    }
-  }
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -164,20 +143,6 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetTags',
-        'query',
-      )
-    },
-    GetTagGraphs(
-      variables?: GetTagGraphsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetTagGraphsQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetTagGraphsQuery>(GetTagGraphsDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'GetTagGraphs',
         'query',
       )
     },

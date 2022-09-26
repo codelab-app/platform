@@ -1,4 +1,0 @@
-# Ignore all other exported json files
-*.json
-!mui-atoms-v2.json
-!seed-data.json

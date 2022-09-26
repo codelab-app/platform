@@ -55,7 +55,7 @@ export class App
   }
 
   @modelAction
-  public writeCache(data: IAppDTO): IApp {
+  public writeCache(data: IAppDTO) {
     this.id = data.id
     this.ownerId = data.owner?.id
     this.setName(data.name)

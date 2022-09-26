@@ -25,12 +25,3 @@ query GetTags($options: TagOptions, $where: TagWhere) {
     ...Tag
   }
 }
-
-query GetTagGraphs {
-  tagGraphs {
-    id
-    isRoot
-    name
-    descendants
-  }
-}

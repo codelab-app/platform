@@ -10,9 +10,8 @@ const getOgmInstance = async <ModelKey extends keyof OGM_TYPES.ModelMap>(
   inst: OGM_TYPES.ModelMap[ModelKey] | null,
   name: keyof OGM_TYPES.ModelMap,
 ) => {
-  // return (inst ??= (await getOgm()).model(name))
   if (!inst) {
-    const ogm = await getOgm({})
+    const ogm = await getOgm()
 
     return ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
   }

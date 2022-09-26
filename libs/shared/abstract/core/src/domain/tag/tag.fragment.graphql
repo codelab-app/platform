@@ -8,6 +8,9 @@ fragment Tag on Tag {
     id
   }
   isRoot
+  descendants {
+    id
+  }
 }
 
 fragment TagPreview on Tag {

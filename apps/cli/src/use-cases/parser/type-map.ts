@@ -13,7 +13,8 @@ import {
 import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { AntdDesignApi } from './ant-design'
+import { logTask } from '../../shared/utils/log-task'
+import { AntdDesignApi } from './data/ant-design.data'
 import {
   findUnionType,
   isReactNodeTypeRegex,
@@ -77,13 +78,15 @@ export const getTypeForApi = async (
   atom: IAtomExport,
   userId: string,
 ): Promise<TypeRef> => {
+  logTask('Get Type For API', atom.name, apiField)
+
   const type = apiField.type.trim()
   const PrimitiveType = await PrimitiveTypeOGM()
   const ReactNodeType = await ReactNodeTypeOGM()
   const RenderPropsType = await RenderPropsTypeOGM()
   const EnumType = await EnumTypeOGM()
   const UnionType = await UnionTypeOGM()
-  const values = apiField.type.split('|').map((value) => value.trim())
+  const values = apiField.type.split('|').map((value: string) => value.trim())
   const isBaseCondition = apiField.type.indexOf('|') > -1
   const isComplexUnion = isBaseCondition && apiField.type.indexOf('{') > -1
 
@@ -196,7 +199,7 @@ export const getTypeForApi = async (
             name: enumName,
             kind: ITypeKind.EnumType,
             allowedValues: {
-              create: values.map((value) => ({
+              create: values.map((value: string) => ({
                 node: {
                   id: v4(),
                   value,
@@ -246,17 +249,23 @@ export const getTypeForApi = async (
 
   const a = values
     .filter(checkInterfaceType)
-    .map((value) => getKeyObjInUnion(value, 'union'))
+    .map((value: string) => getKeyObjInUnion(value, 'union'))
 
   // Check and Create Complex Union Type
   if (isComplexUnion && !findUnionType.test(type) && a.includes('number')) {
     values
       .filter(checkInterfaceType)
-      .map((value) => console.log('aaaa', getKeyObjInUnion(value, 'union')))
+      .map((value: string) =>
+        console.log('aaaa', getKeyObjInUnion(value, 'union')),
+      )
 
-    values.filter(checkInterfaceType).map((value) => console.log('bbb', value))
+    values
+      .filter(checkInterfaceType)
+      .map((value: string) => console.log('bbb', value))
 
-    values.map((value) => console.log('ccccc', getKeyObjInUnion(value, 'aaaa')))
+    values.map((value: string) =>
+      console.log('ccccc', getKeyObjInUnion(value, 'aaaa')),
+    )
 
     const [existingUnion] = await UnionType.find({
       where: {
@@ -285,7 +294,7 @@ export const getTypeForApi = async (
             kind: ITypeKind.UnionType,
             typesOfUnionType: {
               PrimitiveType: {
-                connect: values.filter(checkType).map((value) => ({
+                connect: values.filter(checkType).map((value: string) => ({
                   where: {
                     node: {
                       name: checkPrimitiveType(value),
@@ -294,14 +303,14 @@ export const getTypeForApi = async (
                 })),
               },
               InterfaceType: {
-                create: values.map((value) => ({
+                create: values.map((value: string) => ({
                   node: {
                     id: v4(),
                     name: `${atom.name} ${getKeyObjInUnion(value, 'name')} API`,
                     kind: ITypeKind.InterfaceType,
                     owner: connectTypeId(userId),
                     fields: {
-                      create: values.map((item) => ({
+                      create: values.map((item: string) => ({
                         node: {
                           PrimitiveType: {
                             id: v4(),

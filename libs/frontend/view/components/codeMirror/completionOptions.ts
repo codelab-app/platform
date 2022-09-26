@@ -1,48 +1,9 @@
-import {
-  IAnyType,
-  IPrimitiveTypeKind,
-  IPropData,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Completion } from '@codemirror/autocomplete'
 import { capitalize, isArray, isObjectLike } from 'lodash'
 
-export const typeOptions = (
-  type: IAnyType,
-  reactNodeOptions: Array<{ label: string; detail: string }> = [],
-): Array<Completion> => {
-  if (
-    type.kind === ITypeKind.PrimitiveType &&
-    type.primitiveKind === IPrimitiveTypeKind.Boolean
-  ) {
-    return [
-      {
-        label: 'true',
-        type: 'primitive',
-      },
-      {
-        label: 'false',
-        type: 'primitive',
-      },
-    ]
-  }
-
-  if (type.kind === ITypeKind.ReactNodeType) {
-    return reactNodeOptions
-  }
-
-  if (type.kind === ITypeKind.EnumType) {
-    return type.allowedValues.map((av) => ({
-      type: 'variable',
-      label: av.value,
-      detail: av.name ?? undefined,
-    }))
-  }
-
-  return []
-}
-
-export const stateOptions = (
+// for making autocomplete of code mirror
+export const createAutoCompleteOptions = (
   context: IPropData = {},
   parentKey = '',
 ): Array<Completion> =>
@@ -54,15 +15,17 @@ export const stateOptions = (
     }
 
     if (isArray(value)) {
+      // [item1, item2 ...] = value
       const children = value.flatMap((v, index) =>
-        stateOptions(v, `${key}.${index}`),
+        // [...autoComplete of item1 [option1,2...], ...autoComplete of item2, ...]
+        createAutoCompleteOptions(v, `${key}.${index}`),
       )
 
       return [option, ...children]
     }
 
     if (isObjectLike(value)) {
-      return [option, ...stateOptions(value, key)]
+      return [option, ...createAutoCompleteOptions(value, key)]
     }
 
     return [option]

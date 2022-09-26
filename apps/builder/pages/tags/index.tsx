@@ -31,7 +31,12 @@ import { useAsync } from 'react-use'
 
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { tagService, userService } = useStore()
-  const { loading } = useAsync(() => tagService.getAll(), [])
+
+  const { loading } = useAsync(() => {
+    tagService.loadTagTree()
+
+    return Promise.resolve()
+  }, [])
 
   return (
     <>

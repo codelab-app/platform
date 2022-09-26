@@ -1,6 +1,4 @@
 import { ICacheService } from '../../service'
-import { IAnyAction } from '../action'
-import { IBuilderState } from '../builder'
 import { IElement } from '../element'
 import { IPropDTO } from './prop.dto.interface'
 
@@ -25,7 +23,4 @@ export interface IPropDataByElementId {
 
 export interface IPropsFieldContext {
   autocomplete?: IPropData
-  builderState: IBuilderState
-
-  actionList?: Array<IAnyAction>
 }

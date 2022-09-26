@@ -1,6 +1,7 @@
 import { DomainOGM } from '@codelab/backend/adapter/neo4j'
 import { PROJECT_NOT_FOUND, vercelApis } from '@codelab/backend/adapter/vercel'
 import { IDomainExport } from '@codelab/shared/abstract/core'
+import { logTask } from '../shared/utils/log-task'
 
 /**
  * If response is 200, we log error & return false
@@ -69,6 +70,8 @@ export const createDomainIfNotExist = async (domain: IDomainExport) => {
 
     return
   }
+
+  logTask('Create Domain', domain.name, domain)
 
   await Domain.create({
     input: [

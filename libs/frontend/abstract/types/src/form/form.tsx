@@ -39,7 +39,12 @@ export type FormProps<TData, TResponse = unknown> = {
   // We require the model since update & delete requires them
   Pick<AutoFormProps<TData>, 'model'> &
   // Then these are additional options
-  Partial<Pick<AutoFormProps<TData>, 'autosave' | 'onChange' | 'onChangeModel'>>
+  Partial<
+    Pick<
+      AutoFormProps<TData>,
+      'autosave' | 'onChange' | 'onChangeModel' | 'submitField'
+    >
+  >
 
 /**
  * Use this to be able to hide the submit button and get a controller, which can trigger form submit.

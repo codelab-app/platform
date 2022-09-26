@@ -92,12 +92,6 @@ export type Query = {
   tags: Array<Tag>;
   tagsAggregate: TagAggregateSelection;
   tagsConnection: TagsConnection;
-  tagGraphOptions: Array<TagGraphOptions>;
-  tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection;
-  tagGraphOptionsConnection: TagGraphOptionsConnection;
-  tagGraphs: Array<TagGraph>;
-  tagGraphsAggregate: TagGraphAggregateSelection;
-  tagGraphsConnection: TagGraphsConnection;
   elements: Array<Element>;
   elementsAggregate: ElementAggregateSelection;
   elementsConnection: ElementsConnection;
@@ -498,33 +492,6 @@ export type QueryTagsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<TagSort>>>;
 };
 
-export type QueryTagGraphOptionsArgs = {
-  where?: InputMaybe<TagGraphOptionsWhere>;
-  options?: InputMaybe<TagGraphOptionsOptions>;
-};
-
-export type QueryTagGraphOptionsAggregateArgs = {
-  where?: InputMaybe<TagGraphOptionsWhere>;
-};
-
-export type QueryTagGraphOptionsConnectionArgs = {
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  where?: InputMaybe<TagGraphOptionsWhere>;
-  sort?: InputMaybe<Array<InputMaybe<TagGraphOptionsSort>>>;
-};
-
-export type QueryTagGraphsAggregateArgs = {
-  where?: InputMaybe<TagGraphWhere>;
-};
-
-export type QueryTagGraphsConnectionArgs = {
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  where?: InputMaybe<TagGraphWhere>;
-  sort?: InputMaybe<Array<InputMaybe<TagGraphSort>>>;
-};
-
 export type QueryElementsArgs = {
   where?: InputMaybe<ElementWhere>;
   options?: InputMaybe<ElementOptions>;
@@ -814,12 +781,6 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse;
   deleteTags: DeleteInfo;
   updateTags: UpdateTagsMutationResponse;
-  createTagGraphOptions: CreateTagGraphOptionsMutationResponse;
-  deleteTagGraphOptions: DeleteInfo;
-  updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse;
-  createTagGraphs: CreateTagGraphsMutationResponse;
-  deleteTagGraphs: DeleteInfo;
-  updateTagGraphs: UpdateTagGraphsMutationResponse;
   createElements: CreateElementsMutationResponse;
   deleteElements: DeleteInfo;
   updateElements: UpdateElementsMutationResponse;
@@ -1280,32 +1241,6 @@ export type MutationUpdateTagsArgs = {
   connectOrCreate?: InputMaybe<TagConnectOrCreateInput>;
 };
 
-export type MutationCreateTagGraphOptionsArgs = {
-  input: Array<TagGraphOptionsCreateInput>;
-};
-
-export type MutationDeleteTagGraphOptionsArgs = {
-  where?: InputMaybe<TagGraphOptionsWhere>;
-};
-
-export type MutationUpdateTagGraphOptionsArgs = {
-  where?: InputMaybe<TagGraphOptionsWhere>;
-  update?: InputMaybe<TagGraphOptionsUpdateInput>;
-};
-
-export type MutationCreateTagGraphsArgs = {
-  input: Array<TagGraphCreateInput>;
-};
-
-export type MutationDeleteTagGraphsArgs = {
-  where?: InputMaybe<TagGraphWhere>;
-};
-
-export type MutationUpdateTagGraphsArgs = {
-  where?: InputMaybe<TagGraphWhere>;
-  update?: InputMaybe<TagGraphUpdateInput>;
-};
-
 export type MutationCreateElementsArgs = {
   input: Array<ElementCreateInput>;
 };
@@ -1555,6 +1490,7 @@ export enum AtomType {
   AntDesignBadge = "AntDesignBadge",
   AntDesignBreadcrumb = "AntDesignBreadcrumb",
   AntDesignBreadcrumbItem = "AntDesignBreadcrumbItem",
+  AntDesignBreadcrumbSeparator = "AntDesignBreadcrumbSeparator",
   AntDesignButton = "AntDesignButton",
   AntDesignCalendar = "AntDesignCalendar",
   AntDesignCard = "AntDesignCard",
@@ -1563,6 +1499,7 @@ export enum AtomType {
   AntDesignCarousel = "AntDesignCarousel",
   AntDesignCascader = "AntDesignCascader",
   AntDesignCheckbox = "AntDesignCheckbox",
+  AntDesignCheckboxGroup = "AntDesignCheckboxGroup",
   AntDesignCollapse = "AntDesignCollapse",
   AntDesignCollapsePanel = "AntDesignCollapsePanel",
   AntDesignComment = "AntDesignComment",
@@ -1572,12 +1509,16 @@ export enum AtomType {
   AntDesignDescriptionsItem = "AntDesignDescriptionsItem",
   AntDesignDivider = "AntDesignDivider",
   AntDesignDrawer = "AntDesignDrawer",
+  AntDesignMessage = "AntDesignMessage",
   AntDesignDropdown = "AntDesignDropdown",
+  AntDesignDropdownButton = "AntDesignDropdownButton",
   AntDesignEmpty = "AntDesignEmpty",
   AntDesignForm = "AntDesignForm",
   AntDesignFormItem = "AntDesignFormItem",
   AntDesignFormItemHook = "AntDesignFormItemHook",
   AntDesignFormList = "AntDesignFormList",
+  AntDesignFormErrorList = "AntDesignFormErrorList",
+  AntDesignFormProvider = "AntDesignFormProvider",
   AntDesignGridCol = "AntDesignGridCol",
   AntDesignGridRow = "AntDesignGridRow",
   AntDesignIcon = "AntDesignIcon",
@@ -1599,11 +1540,13 @@ export enum AtomType {
   AntDesignMenuItemGroup = "AntDesignMenuItemGroup",
   AntDesignMenuSubMenu = "AntDesignMenuSubMenu",
   AntDesignModal = "AntDesignModal",
+  AntDesignNotification = "AntDesignNotification",
   AntDesignPageHeader = "AntDesignPageHeader",
   AntDesignPageContainer = "AntDesignPageContainer",
   AntDesignPagination = "AntDesignPagination",
   AntDesignPopconfirm = "AntDesignPopconfirm",
   AntDesignPopover = "AntDesignPopover",
+  AntDesignSegmented = "AntDesignSegmented",
   AntDesignProgress = "AntDesignProgress",
   AntDesignProvider = "AntDesignProvider",
   AntDesignRglContainer = "AntDesignRglContainer",
@@ -3364,18 +3307,6 @@ export type CreateStoresMutationResponse = {
   stores: Array<Store>;
 };
 
-export type CreateTagGraphOptionsMutationResponse = {
-  __typename?: "CreateTagGraphOptionsMutationResponse";
-  info: CreateInfo;
-  tagGraphOptions: Array<TagGraphOptions>;
-};
-
-export type CreateTagGraphsMutationResponse = {
-  __typename?: "CreateTagGraphsMutationResponse";
-  info: CreateInfo;
-  tagGraphs: Array<TagGraph>;
-};
-
 export type CreateTagsMutationResponse = {
   __typename?: "CreateTagsMutationResponse";
   info: CreateInfo;
@@ -4582,14 +4513,6 @@ export type IntAggregateSelectionNonNullable = {
   min: Scalars["Int"];
   average: Scalars["Float"];
   sum: Scalars["Int"];
-};
-
-export type IntAggregateSelectionNullable = {
-  __typename?: "IntAggregateSelectionNullable";
-  max?: Maybe<Scalars["Int"]>;
-  min?: Maybe<Scalars["Int"]>;
-  average?: Maybe<Scalars["Float"]>;
-  sum?: Maybe<Scalars["Int"]>;
 };
 
 /** Represents an object type with multiple fields */
@@ -5802,6 +5725,7 @@ export type Tag = {
   id: Scalars["ID"];
   name: Scalars["String"];
   isRoot?: Maybe<Scalars["Boolean"]>;
+  descendants: Array<Tag>;
   parent?: Maybe<Tag>;
   parentAggregate?: Maybe<TagTagParentAggregationSelection>;
   children: Array<Tag>;
@@ -5894,60 +5818,6 @@ export type TagEdge = {
   __typename?: "TagEdge";
   cursor: Scalars["String"];
   node: Tag;
-};
-
-export type TagGraph = {
-  __typename?: "TagGraph";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  descendants: Array<Scalars["ID"]>;
-  isRoot: Scalars["Boolean"];
-};
-
-export type TagGraphAggregateSelection = {
-  __typename?: "TagGraphAggregateSelection";
-  count: Scalars["Int"];
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-};
-
-export type TagGraphEdge = {
-  __typename?: "TagGraphEdge";
-  cursor: Scalars["String"];
-  node: TagGraph;
-};
-
-export type TagGraphOptions = {
-  __typename?: "TagGraphOptions";
-  sort?: Maybe<Scalars["Int"]>;
-  limit?: Maybe<Scalars["Int"]>;
-};
-
-export type TagGraphOptionsAggregateSelection = {
-  __typename?: "TagGraphOptionsAggregateSelection";
-  count: Scalars["Int"];
-  sort: IntAggregateSelectionNullable;
-  limit: IntAggregateSelectionNullable;
-};
-
-export type TagGraphOptionsConnection = {
-  __typename?: "TagGraphOptionsConnection";
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-  edges: Array<TagGraphOptionsEdge>;
-};
-
-export type TagGraphOptionsEdge = {
-  __typename?: "TagGraphOptionsEdge";
-  cursor: Scalars["String"];
-  node: TagGraphOptions;
-};
-
-export type TagGraphsConnection = {
-  __typename?: "TagGraphsConnection";
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-  edges: Array<TagGraphEdge>;
 };
 
 export type TagOwnerConnection = {
@@ -6351,18 +6221,6 @@ export type UpdateStoresMutationResponse = {
   __typename?: "UpdateStoresMutationResponse";
   info: UpdateInfo;
   stores: Array<Store>;
-};
-
-export type UpdateTagGraphOptionsMutationResponse = {
-  __typename?: "UpdateTagGraphOptionsMutationResponse";
-  info: UpdateInfo;
-  tagGraphOptions: Array<TagGraphOptions>;
-};
-
-export type UpdateTagGraphsMutationResponse = {
-  __typename?: "UpdateTagGraphsMutationResponse";
-  info: UpdateInfo;
-  tagGraphs: Array<TagGraph>;
 };
 
 export type UpdateTagsMutationResponse = {
@@ -18061,108 +17919,6 @@ export type TagDisconnectInput = {
   owner?: InputMaybe<TagOwnerDisconnectFieldInput>;
 };
 
-export type TagGraphCreateInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  descendants: Array<Scalars["ID"]>;
-  isRoot: Scalars["Boolean"];
-};
-
-export type TagGraphOptionsCreateInput = {
-  sort?: InputMaybe<Scalars["Int"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-};
-
-export type TagGraphOptionsOptions = {
-  /** Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<TagGraphOptionsSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-/** Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object. */
-export type TagGraphOptionsSort = {
-  sort?: InputMaybe<SortDirection>;
-  limit?: InputMaybe<SortDirection>;
-};
-
-export type TagGraphOptionsUpdateInput = {
-  sort?: InputMaybe<Scalars["Int"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  sort_INCREMENT?: InputMaybe<Scalars["Int"]>;
-  sort_DECREMENT?: InputMaybe<Scalars["Int"]>;
-  limit_INCREMENT?: InputMaybe<Scalars["Int"]>;
-  limit_DECREMENT?: InputMaybe<Scalars["Int"]>;
-};
-
-export type TagGraphOptionsWhere = {
-  OR?: InputMaybe<Array<TagGraphOptionsWhere>>;
-  AND?: InputMaybe<Array<TagGraphOptionsWhere>>;
-  sort?: InputMaybe<Scalars["Int"]>;
-  sort_NOT?: InputMaybe<Scalars["Int"]>;
-  sort_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  sort_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  sort_LT?: InputMaybe<Scalars["Int"]>;
-  sort_LTE?: InputMaybe<Scalars["Int"]>;
-  sort_GT?: InputMaybe<Scalars["Int"]>;
-  sort_GTE?: InputMaybe<Scalars["Int"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  limit_NOT?: InputMaybe<Scalars["Int"]>;
-  limit_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  limit_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  limit_LT?: InputMaybe<Scalars["Int"]>;
-  limit_LTE?: InputMaybe<Scalars["Int"]>;
-  limit_GT?: InputMaybe<Scalars["Int"]>;
-  limit_GTE?: InputMaybe<Scalars["Int"]>;
-};
-
-/** Fields to sort TagGraphs by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphSort object. */
-export type TagGraphSort = {
-  id?: InputMaybe<SortDirection>;
-  name?: InputMaybe<SortDirection>;
-  isRoot?: InputMaybe<SortDirection>;
-};
-
-export type TagGraphUpdateInput = {
-  id?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  descendants?: InputMaybe<Array<Scalars["ID"]>>;
-  isRoot?: InputMaybe<Scalars["Boolean"]>;
-  descendants_POP?: InputMaybe<Scalars["Int"]>;
-  descendants_PUSH?: InputMaybe<Array<Scalars["ID"]>>;
-};
-
-export type TagGraphWhere = {
-  OR?: InputMaybe<Array<TagGraphWhere>>;
-  AND?: InputMaybe<Array<TagGraphWhere>>;
-  id?: InputMaybe<Scalars["ID"]>;
-  id_NOT?: InputMaybe<Scalars["ID"]>;
-  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  name_NOT?: InputMaybe<Scalars["String"]>;
-  name_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  descendants?: InputMaybe<Array<Scalars["ID"]>>;
-  descendants_NOT?: InputMaybe<Array<Scalars["ID"]>>;
-  descendants_INCLUDES?: InputMaybe<Scalars["ID"]>;
-  descendants_NOT_INCLUDES?: InputMaybe<Scalars["ID"]>;
-  isRoot?: InputMaybe<Scalars["Boolean"]>;
-  isRoot_NOT?: InputMaybe<Scalars["Boolean"]>;
-};
-
 export type TagOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -22767,154 +22523,6 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface TagGraphOptionsAggregateSelectionInput {
-  count?: boolean;
-  sort?: IntAggregateInputNullable;
-  limit?: IntAggregateInputNullable;
-}
-
-export declare class TagGraphOptionsModel {
-  public find(args?: {
-    where?: TagGraphOptionsWhere;
-
-    options?: TagGraphOptionsOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<TagGraphOptions[]>;
-  public create(args: {
-    input: TagGraphOptionsCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateTagGraphOptionsMutationResponse>;
-  public update(args: {
-    where?: TagGraphOptionsWhere;
-    update?: TagGraphOptionsUpdateInput;
-
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateTagGraphOptionsMutationResponse>;
-  public delete(args: {
-    where?: TagGraphOptionsWhere;
-
-    context?: any;
-    rootValue?: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: TagGraphOptionsWhere;
-
-    aggregate: TagGraphOptionsAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<TagGraphOptionsAggregateSelection>;
-}
-
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface TagGraphAggregateSelectionInput {
-  count?: boolean;
-  id?: IdAggregateInputNonNullable;
-  name?: StringAggregateInputNonNullable;
-}
-
-export declare class TagGraphModel {
-  public find(args?: {
-    where?: TagGraphWhere;
-
-    options?: TagGraphOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<TagGraph[]>;
-  public create(args: {
-    input: TagGraphCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateTagGraphsMutationResponse>;
-  public update(args: {
-    where?: TagGraphWhere;
-    update?: TagGraphUpdateInput;
-
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateTagGraphsMutationResponse>;
-  public delete(args: {
-    where?: TagGraphWhere;
-
-    context?: any;
-    rootValue?: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: TagGraphWhere;
-
-    aggregate: TagGraphAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<TagGraphAggregateSelection>;
-}
-
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface ElementAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22990,12 +22598,6 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface PropAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -23056,12 +22658,6 @@ export interface StringAggregateInputNullable {
   longest?: boolean;
 }
 export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
@@ -23136,12 +22732,6 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface HookAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -23204,12 +22794,6 @@ export interface StringAggregateInputNullable {
   longest?: boolean;
 }
 export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
@@ -23283,12 +22867,6 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface StoreAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -23352,12 +22930,6 @@ export interface StringAggregateInputNullable {
   longest?: boolean;
 }
 export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
@@ -23432,12 +23004,6 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface ApiActionAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -23501,12 +23067,6 @@ export interface StringAggregateInputNullable {
   longest?: boolean;
 }
 export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
@@ -23580,12 +23140,6 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface VercelDomainConfigDataAggregateSelectionInput {
   count?: boolean;
 }
@@ -23644,12 +23198,6 @@ export interface StringAggregateInputNullable {
   longest?: boolean;
 }
 export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
@@ -23718,12 +23266,6 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface DomainAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -23787,12 +23329,6 @@ export interface StringAggregateInputNullable {
   longest?: boolean;
 }
 export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
@@ -23869,8 +23405,6 @@ export interface ModelMap {
   ActionType: ActionTypeModel;
   CodeMirrorType: CodeMirrorTypeModel;
   Tag: TagModel;
-  TagGraphOptions: TagGraphOptionsModel;
-  TagGraph: TagGraphModel;
   Element: ElementModel;
   Prop: PropModel;
   PropMapBinding: PropMapBindingModel;

@@ -1,23 +1,25 @@
 export const createData = {
-  tagName1: 'TestCreateData-Tree-Entity1',
-  parentTagName1: 'TestCreateData-Tree-Paren1',
+  // Parent
+  tag_0: 'Create-Tag-0',
+  // Child
+  tag_0_0: 'Create-Tag-0-0',
 }
 
 export const updateData = {
-  tagName1: 'TestUpdateData-Tree-Entity1',
-  updatedTagName1: 'TestUpdateData-Tree-UpdatedEntity1',
+  tag_0: 'Update-Tag-0',
+  updated_tag_0: 'Updated-Tag-0',
 }
 
 export const deleteData = {
   tree: {
-    tagName1: 'TestDeleteData-Tree-Entity1',
-    parentTagName1: 'TestDeleteData-Tree-Parent1',
-    tagName2: 'TestDeleteData-Tree-Entity2',
-    parentTagName2: 'TestDeleteData-Tree-Parent2 ',
+    tag_0: 'Delete-Tree-Tag-0',
+    tag_0_0: 'Delete-Tree-Tag-0-0',
+    tag_1: 'Delete-Tree-Tag-1',
+    tag_1_0: 'Delete-Tree-Tag-1-0',
   },
   table: {
-    tagName1: 'TestDeleteData-Table-Entity1',
-    parentTagName1: 'TestDeleteData-Table-Parent1',
-    tagName2: 'TestDeleteData-Table-Entity2',
+    tag_0_0: 'Delete-Tag-0-0',
+    tag_0: 'Delete-Tag-0',
+    tag_0_1: 'Delete-Tag-0-1',
   },
 }

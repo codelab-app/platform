@@ -9,6 +9,7 @@ export type TagFragment = {
   isRoot?: boolean | null
   parent?: { id: string } | null
   children: Array<{ id: string }>
+  descendants: Array<{ id: string }>
 }
 
 export type TagPreviewFragment = { id: string; name: string }
@@ -24,6 +25,9 @@ export const TagFragmentDoc = gql`
       id
     }
     isRoot
+    descendants {
+      id
+    }
   }
 `
 export const TagPreviewFragmentDoc = gql`

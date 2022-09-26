@@ -3,9 +3,10 @@ import {
   addVercelDomain,
   createDomainIfNotExist,
 } from '../../repository/domain.repo'
+import { logSection } from '../../shared/utils/log-task'
 
 export const importDomains = async (domain: IDomainExport) => {
-  console.log('Importing domains...')
+  logSection('Importing Domains')
 
   const newDomainAdded = await addVercelDomain(domain)
 

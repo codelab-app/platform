@@ -13,6 +13,7 @@ export const ModalPropsForm = observer((props: ModalPropsFormProps) => {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       setIsLoading={setIsLoading}
+      submitField={React.Fragment}
       submitRef={submitRef}
     />
   )

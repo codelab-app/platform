@@ -3786,6 +3786,7 @@ enum AtomType {
   AntDesignBadge
   AntDesignBreadcrumb
   AntDesignBreadcrumbItem
+  AntDesignBreadcrumbSeparator
   AntDesignButton
   AntDesignCalendar
   AntDesignCard
@@ -3794,6 +3795,7 @@ enum AtomType {
   AntDesignCarousel
   AntDesignCascader
   AntDesignCheckbox
+  AntDesignCheckboxGroup
   AntDesignCollapse
   AntDesignCollapsePanel
   AntDesignComment
@@ -3804,11 +3806,14 @@ enum AtomType {
   AntDesignDivider
   AntDesignDrawer
   AntDesignDropdown
+  AntDesignDropdownButton
   AntDesignEmpty
   AntDesignForm
+  AntDesignFormErrorList
   AntDesignFormItem
   AntDesignFormItemHook
   AntDesignFormList
+  AntDesignFormProvider
   AntDesignGridCol
   AntDesignGridRow
   AntDesignIcon
@@ -3830,7 +3835,9 @@ enum AtomType {
   AntDesignMenuItem
   AntDesignMenuItemGroup
   AntDesignMenuSubMenu
+  AntDesignMessage
   AntDesignModal
+  AntDesignNotification
   AntDesignPageContainer
   AntDesignPageHeader
   AntDesignPagination
@@ -3847,6 +3854,7 @@ enum AtomType {
   AntDesignRglContainer
   AntDesignRglItem
   AntDesignRglResponsiveContainer
+  AntDesignSegmented
   AntDesignSelect
   AntDesignSelectOption
   AntDesignSkeleton
@@ -5632,11 +5640,6 @@ type CreateResourcesMutationResponse {
 type CreateStoresMutationResponse {
   info: CreateInfo!
   stores: [Store!]!
-}
-
-type CreateTagGraphOptionsMutationResponse {
-  info: CreateInfo!
-  tagGraphOptions: [TagGraphOptions!]!
 }
 
 type CreateTagsMutationResponse {
@@ -10153,13 +10156,6 @@ type IntAggregateSelectionNonNullable {
   sum: Int!
 }
 
-type IntAggregateSelectionNullable {
-  average: Float
-  max: Int
-  min: Int
-  sum: Int
-}
-
 """
 Represents an object type with multiple fields
 """
@@ -11074,9 +11070,6 @@ type Mutation {
     input: [ResourceCreateInput!]!
   ): CreateResourcesMutationResponse!
   createStores(input: [StoreCreateInput!]!): CreateStoresMutationResponse!
-  createTagGraphOptions(
-    input: [TagGraphOptionsCreateInput!]!
-  ): CreateTagGraphOptionsMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -11174,7 +11167,6 @@ type Mutation {
     where: ResourceWhere
   ): DeleteInfo!
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
-  deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(
@@ -11429,10 +11421,6 @@ type Mutation {
     update: StoreUpdateInput
     where: StoreWhere
   ): UpdateStoresMutationResponse!
-  updateTagGraphOptions(
-    update: TagGraphOptionsUpdateInput
-    where: TagGraphOptionsWhere
-  ): UpdateTagGraphOptionsMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -13778,20 +13766,6 @@ type Query {
     sort: [StoreSort]
     where: StoreWhere
   ): StoresConnection!
-  tagGraphOptions(
-    options: TagGraphOptionsOptions
-    where: TagGraphOptionsWhere
-  ): [TagGraphOptions!]!
-  tagGraphOptionsAggregate(
-    where: TagGraphOptionsWhere
-  ): TagGraphOptionsAggregateSelection!
-  tagGraphOptionsConnection(
-    after: String
-    first: Int
-    sort: [TagGraphOptionsSort]
-    where: TagGraphOptionsWhere
-  ): TagGraphOptionsConnection!
-  tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   tagsConnection(
@@ -15508,6 +15482,7 @@ type Tag {
     sort: [TagChildrenConnectionSort!]
     where: TagChildrenConnectionWhere
   ): TagChildrenConnection!
+  descendants: [Tag!]!
   id: ID!
   isRoot: Boolean
   name: String!
@@ -15693,84 +15668,6 @@ input TagDisconnectInput {
 type TagEdge {
   cursor: String!
   node: Tag!
-}
-
-type TagGraph {
-  descendants: [ID!]!
-  id: ID!
-  isRoot: Boolean!
-  name: String!
-}
-
-type TagGraphOptions {
-  limit: Int
-  sort: Int
-}
-
-type TagGraphOptionsAggregateSelection {
-  count: Int!
-  limit: IntAggregateSelectionNullable!
-  sort: IntAggregateSelectionNullable!
-}
-
-type TagGraphOptionsConnection {
-  edges: [TagGraphOptionsEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input TagGraphOptionsCreateInput {
-  limit: Int
-  sort: Int
-}
-
-type TagGraphOptionsEdge {
-  cursor: String!
-  node: TagGraphOptions!
-}
-
-input TagGraphOptionsOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [TagGraphOptionsSort!]
-}
-
-"""
-Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object.
-"""
-input TagGraphOptionsSort {
-  limit: SortDirection
-  sort: SortDirection
-}
-
-input TagGraphOptionsUpdateInput {
-  limit: Int
-  sort: Int
-}
-
-input TagGraphOptionsWhere {
-  AND: [TagGraphOptionsWhere!]
-  OR: [TagGraphOptionsWhere!]
-  limit: Int
-  limit_GT: Int
-  limit_GTE: Int
-  limit_IN: [Int]
-  limit_LT: Int
-  limit_LTE: Int
-  limit_NOT: Int
-  limit_NOT_IN: [Int]
-  sort: Int
-  sort_GT: Int
-  sort_GTE: Int
-  sort_IN: [Int]
-  sort_LT: Int
-  sort_LTE: Int
-  sort_NOT: Int
-  sort_NOT_IN: [Int]
 }
 
 input TagOnCreateInput {
@@ -17973,11 +17870,6 @@ type UpdateResourcesMutationResponse {
 type UpdateStoresMutationResponse {
   info: UpdateInfo!
   stores: [Store!]!
-}
-
-type UpdateTagGraphOptionsMutationResponse {
-  info: UpdateInfo!
-  tagGraphOptions: [TagGraphOptions!]!
 }
 
 type UpdateTagsMutationResponse {

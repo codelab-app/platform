@@ -3954,6 +3954,7 @@ export enum AtomType {
   AntDesignBadge = 'AntDesignBadge',
   AntDesignBreadcrumb = 'AntDesignBreadcrumb',
   AntDesignBreadcrumbItem = 'AntDesignBreadcrumbItem',
+  AntDesignBreadcrumbSeparator = 'AntDesignBreadcrumbSeparator',
   AntDesignButton = 'AntDesignButton',
   AntDesignCalendar = 'AntDesignCalendar',
   AntDesignCard = 'AntDesignCard',
@@ -3962,6 +3963,7 @@ export enum AtomType {
   AntDesignCarousel = 'AntDesignCarousel',
   AntDesignCascader = 'AntDesignCascader',
   AntDesignCheckbox = 'AntDesignCheckbox',
+  AntDesignCheckboxGroup = 'AntDesignCheckboxGroup',
   AntDesignCollapse = 'AntDesignCollapse',
   AntDesignCollapsePanel = 'AntDesignCollapsePanel',
   AntDesignComment = 'AntDesignComment',
@@ -3972,11 +3974,14 @@ export enum AtomType {
   AntDesignDivider = 'AntDesignDivider',
   AntDesignDrawer = 'AntDesignDrawer',
   AntDesignDropdown = 'AntDesignDropdown',
+  AntDesignDropdownButton = 'AntDesignDropdownButton',
   AntDesignEmpty = 'AntDesignEmpty',
   AntDesignForm = 'AntDesignForm',
+  AntDesignFormErrorList = 'AntDesignFormErrorList',
   AntDesignFormItem = 'AntDesignFormItem',
   AntDesignFormItemHook = 'AntDesignFormItemHook',
   AntDesignFormList = 'AntDesignFormList',
+  AntDesignFormProvider = 'AntDesignFormProvider',
   AntDesignGridCol = 'AntDesignGridCol',
   AntDesignGridRow = 'AntDesignGridRow',
   AntDesignIcon = 'AntDesignIcon',
@@ -3998,7 +4003,9 @@ export enum AtomType {
   AntDesignMenuItem = 'AntDesignMenuItem',
   AntDesignMenuItemGroup = 'AntDesignMenuItemGroup',
   AntDesignMenuSubMenu = 'AntDesignMenuSubMenu',
+  AntDesignMessage = 'AntDesignMessage',
   AntDesignModal = 'AntDesignModal',
+  AntDesignNotification = 'AntDesignNotification',
   AntDesignPageContainer = 'AntDesignPageContainer',
   AntDesignPageHeader = 'AntDesignPageHeader',
   AntDesignPagination = 'AntDesignPagination',
@@ -4015,6 +4022,7 @@ export enum AtomType {
   AntDesignRglContainer = 'AntDesignRglContainer',
   AntDesignRglItem = 'AntDesignRglItem',
   AntDesignRglResponsiveContainer = 'AntDesignRglResponsiveContainer',
+  AntDesignSegmented = 'AntDesignSegmented',
   AntDesignSelect = 'AntDesignSelect',
   AntDesignSelectOption = 'AntDesignSelectOption',
   AntDesignSkeleton = 'AntDesignSkeleton',
@@ -5866,12 +5874,6 @@ export type CreateStoresMutationResponse = {
   __typename?: 'CreateStoresMutationResponse'
   info: CreateInfo
   stores: Array<Store>
-}
-
-export type CreateTagGraphOptionsMutationResponse = {
-  __typename?: 'CreateTagGraphOptionsMutationResponse'
-  info: CreateInfo
-  tagGraphOptions: Array<TagGraphOptions>
 }
 
 export type CreateTagsMutationResponse = {
@@ -10604,14 +10606,6 @@ export type IntAggregateSelectionNonNullable = {
   sum: Scalars['Int']
 }
 
-export type IntAggregateSelectionNullable = {
-  __typename?: 'IntAggregateSelectionNullable'
-  average?: Maybe<Scalars['Float']>
-  max?: Maybe<Scalars['Int']>
-  min?: Maybe<Scalars['Int']>
-  sum?: Maybe<Scalars['Int']>
-}
-
 /** Represents an object type with multiple fields */
 export type InterfaceType = TypeBase &
   WithDescendants & {
@@ -11529,7 +11523,6 @@ export type Mutation = {
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   createResources: CreateResourcesMutationResponse
   createStores: CreateStoresMutationResponse
-  createTagGraphOptions: CreateTagGraphOptionsMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
@@ -11566,7 +11559,6 @@ export type Mutation = {
   deleteResetDatabaseMutationResponses: DeleteInfo
   deleteResources: DeleteInfo
   deleteStores: DeleteInfo
-  deleteTagGraphOptions: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
@@ -11604,7 +11596,6 @@ export type Mutation = {
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
   updateResources: UpdateResourcesMutationResponse
   updateStores: UpdateStoresMutationResponse
-  updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
@@ -11731,10 +11722,6 @@ export type MutationCreateResourcesArgs = {
 
 export type MutationCreateStoresArgs = {
   input: Array<StoreCreateInput>
-}
-
-export type MutationCreateTagGraphOptionsArgs = {
-  input: Array<TagGraphOptionsCreateInput>
 }
 
 export type MutationCreateTagsArgs = {
@@ -11904,10 +11891,6 @@ export type MutationDeleteResourcesArgs = {
 export type MutationDeleteStoresArgs = {
   delete?: InputMaybe<StoreDeleteInput>
   where?: InputMaybe<StoreWhere>
-}
-
-export type MutationDeleteTagGraphOptionsArgs = {
-  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type MutationDeleteTagsArgs = {
@@ -12209,11 +12192,6 @@ export type MutationUpdateStoresArgs = {
   disconnect?: InputMaybe<StoreDisconnectInput>
   update?: InputMaybe<StoreUpdateInput>
   where?: InputMaybe<StoreWhere>
-}
-
-export type MutationUpdateTagGraphOptionsArgs = {
-  update?: InputMaybe<TagGraphOptionsUpdateInput>
-  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type MutationUpdateTagsArgs = {
@@ -14425,10 +14403,6 @@ export type Query = {
   stores: Array<Store>
   storesAggregate: StoreAggregateSelection
   storesConnection: StoresConnection
-  tagGraphOptions: Array<TagGraphOptions>
-  tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection
-  tagGraphOptionsConnection: TagGraphOptionsConnection
-  tagGraphs: Array<TagGraph>
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
   tagsConnection: TagsConnection
@@ -14920,22 +14894,6 @@ export type QueryStoresConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<StoreSort>>>
   where?: InputMaybe<StoreWhere>
-}
-
-export type QueryTagGraphOptionsArgs = {
-  options?: InputMaybe<TagGraphOptionsOptions>
-  where?: InputMaybe<TagGraphOptionsWhere>
-}
-
-export type QueryTagGraphOptionsAggregateArgs = {
-  where?: InputMaybe<TagGraphOptionsWhere>
-}
-
-export type QueryTagGraphOptionsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<TagGraphOptionsSort>>>
-  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type QueryTagsArgs = {
@@ -16816,6 +16774,7 @@ export type Tag = {
   children: Array<Tag>
   childrenAggregate?: Maybe<TagTagChildrenAggregationSelection>
   childrenConnection: TagChildrenConnection
+  descendants: Array<Tag>
   id: Scalars['ID']
   isRoot?: Maybe<Scalars['Boolean']>
   name: Scalars['String']
@@ -17044,84 +17003,6 @@ export type TagEdge = {
   __typename?: 'TagEdge'
   cursor: Scalars['String']
   node: Tag
-}
-
-export type TagGraph = {
-  __typename?: 'TagGraph'
-  descendants: Array<Scalars['ID']>
-  id: Scalars['ID']
-  isRoot: Scalars['Boolean']
-  name: Scalars['String']
-}
-
-export type TagGraphOptions = {
-  __typename?: 'TagGraphOptions'
-  limit?: Maybe<Scalars['Int']>
-  sort?: Maybe<Scalars['Int']>
-}
-
-export type TagGraphOptionsAggregateSelection = {
-  __typename?: 'TagGraphOptionsAggregateSelection'
-  count: Scalars['Int']
-  limit: IntAggregateSelectionNullable
-  sort: IntAggregateSelectionNullable
-}
-
-export type TagGraphOptionsConnection = {
-  __typename?: 'TagGraphOptionsConnection'
-  edges: Array<TagGraphOptionsEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type TagGraphOptionsCreateInput = {
-  limit?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Scalars['Int']>
-}
-
-export type TagGraphOptionsEdge = {
-  __typename?: 'TagGraphOptionsEdge'
-  cursor: Scalars['String']
-  node: TagGraphOptions
-}
-
-export type TagGraphOptionsOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<TagGraphOptionsSort>>
-}
-
-/** Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object. */
-export type TagGraphOptionsSort = {
-  limit?: InputMaybe<SortDirection>
-  sort?: InputMaybe<SortDirection>
-}
-
-export type TagGraphOptionsUpdateInput = {
-  limit?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Scalars['Int']>
-}
-
-export type TagGraphOptionsWhere = {
-  AND?: InputMaybe<Array<TagGraphOptionsWhere>>
-  OR?: InputMaybe<Array<TagGraphOptionsWhere>>
-  limit?: InputMaybe<Scalars['Int']>
-  limit_GT?: InputMaybe<Scalars['Int']>
-  limit_GTE?: InputMaybe<Scalars['Int']>
-  limit_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
-  limit_LT?: InputMaybe<Scalars['Int']>
-  limit_LTE?: InputMaybe<Scalars['Int']>
-  limit_NOT?: InputMaybe<Scalars['Int']>
-  limit_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
-  sort?: InputMaybe<Scalars['Int']>
-  sort_GT?: InputMaybe<Scalars['Int']>
-  sort_GTE?: InputMaybe<Scalars['Int']>
-  sort_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
-  sort_LT?: InputMaybe<Scalars['Int']>
-  sort_LTE?: InputMaybe<Scalars['Int']>
-  sort_NOT?: InputMaybe<Scalars['Int']>
-  sort_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
 }
 
 export type TagOnCreateInput = {
@@ -19713,12 +19594,6 @@ export type UpdateStoresMutationResponse = {
   stores: Array<Store>
 }
 
-export type UpdateTagGraphOptionsMutationResponse = {
-  __typename?: 'UpdateTagGraphOptionsMutationResponse'
-  info: UpdateInfo
-  tagGraphOptions: Array<TagGraphOptions>
-}
-
 export type UpdateTagsMutationResponse = {
   __typename?: 'UpdateTagsMutationResponse'
   info: UpdateInfo
@@ -21636,19 +21511,6 @@ export type GetTagsQuery = {
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
 }
 
-export type GetTagGraphsQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetTagGraphsQuery = {
-  __typename?: 'Query'
-  tagGraphs: Array<{
-    __typename?: 'TagGraph'
-    id: string
-    isRoot: boolean
-    name: string
-    descendants: Array<string>
-  }>
-}
-
 export type CreatePrimitiveTypesMutationVariables = Exact<{
   input: Array<PrimitiveTypeCreateInput> | PrimitiveTypeCreateInput
 }>
@@ -22775,6 +22637,7 @@ export type TagFragment = {
   isRoot?: boolean | null
   parent?: { __typename?: 'Tag'; id: string } | null
   children: Array<{ __typename?: 'Tag'; id: string }>
+  descendants: Array<{ __typename?: 'Tag'; id: string }>
 }
 
 export type TagPreviewFragment = {

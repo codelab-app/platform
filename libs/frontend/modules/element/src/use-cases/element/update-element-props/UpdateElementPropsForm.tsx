@@ -5,8 +5,6 @@ import {
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import {
-  IAnyAction,
-  IBuilderState,
   IElement,
   IElementService,
   IPropData,
@@ -26,10 +24,7 @@ export interface UpdateElementPropsFormProps {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   autocomplete?: IPropData
-  builderState: IBuilderState
   userService: IUserService
-
-  actionList?: Array<IAnyAction>
 }
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
@@ -37,10 +32,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     elementService,
     element,
     trackPromises,
-    builderState,
     typeService,
     autocomplete,
-    actionList,
     userService,
   }) => {
     const { trackPromise } = trackPromises ?? {}
@@ -78,12 +71,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
           <Row gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
-                autoSave
-                context={{ autocomplete, builderState, actionList }}
+                autosave
+                context={{ autocomplete }}
                 interfaceType={interfaceType}
                 key={element.id}
                 model={initialPropsRef.current}
                 onSubmit={onSubmit}
+                submitField={React.Fragment}
               />
             </Col>
             <Col span={24}>

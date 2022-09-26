@@ -1,28 +1,40 @@
-import { getTagGraphs } from '@codelab/backend/adapter/neo4j'
-import { TagGraph } from '@codelab/shared/abstract/codegen'
-import { RxTransaction } from 'neo4j-driver'
-import { Observable } from 'rxjs'
-import { map, reduce } from 'rxjs/operators'
+import {
+  tagDescendants,
+  TagOGM,
+  tagSelectionSet,
+} from '@codelab/backend/adapter/neo4j'
+import { Element } from '@codelab/shared/abstract/codegen'
+import { Node, Transaction } from 'neo4j-driver'
 
 export const tagRepository = {
-  getTagGraphs: (txn: RxTransaction): Observable<Array<TagGraph>> =>
-    txn
-      .run(getTagGraphs)
-      .records()
-      .pipe(
-        map((record) => {
-          const tag = record.get(0)
-          const descendants = record.get(1)
+  /**
+   * Used for field resolver on element
+   */
+  getDescendants: async (
+    txn: Transaction,
+    rootId: string,
+  ): Promise<Array<Element>> => {
+    const TagModel = await TagOGM()
+    /**
+     * We can still use the same query, but we get ID from context instead
+     */
+    const { records } = await txn.run(tagDescendants, { rootId })
 
-          const tagGraph = {
-            ...tag,
-            descendants,
-          }
+    const descendants = (
+      await Promise.all(
+        records[0].get(0).map(async (descendant: Node) => {
+          const id = descendant.properties.id
 
-          return tagGraph
+          const tag = await TagModel.find({
+            where: { id },
+            selectionSet: tagSelectionSet,
+          })
+
+          return tag
         }),
-        reduce<any>((tagGraphs, tagGraph) => {
-          return [...tagGraphs, tagGraph]
-        }, []),
-      ),
+      )
+    ).flat()
+
+    return descendants
+  },
 }

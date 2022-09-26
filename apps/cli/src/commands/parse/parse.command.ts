@@ -1,18 +1,15 @@
 import { UserOGM } from '@codelab/backend/adapter/neo4j'
-import { Role } from '@codelab/shared/abstract/codegen'
-import { Config } from '@codelab/shared/config'
-import { createSeedTypesData } from '@codelab/shared/data'
+import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
-import { v4 } from 'uuid'
 import { CommandModule } from 'yargs'
-import { antdAtomsFactory } from '../../data/atom'
-import { upsertUser } from '../../repository/user.repo'
 import { getEnvOptions } from '../../shared/command'
+import { assignUserOption, upsertUserMiddleware } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
+import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
-import { createAntDesignAtomsData } from '../../use-cases/parser/ant-design'
+import { createAntDesignAtomsData } from '../../use-cases/parser/data/ant-design.data'
 import { parseAndImportInterface } from './parse-and-import-interface'
 
 interface ParseProps {
@@ -25,26 +22,9 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
     argv
       .options({
         ...getEnvOptions([Env.Dev, Env.Test]),
-        email: {
-          alias: 'e',
-          describe: 'Email of the user to assign to',
-          type: 'string',
-        },
+        ...assignUserOption,
       })
-      .middleware(async ({ env }) => {
-        // Perform upsert here
-        if (env === Env.Test) {
-          await upsertUser(
-            {
-              auth0Id: v4(),
-              email: Config().auth0.cypress_username!,
-              username: 'Codelab',
-              roles: [Role.Admin],
-            },
-            (user) => ({ email: user.email }),
-          )
-        }
-      }),
+      .middleware(upsertUserMiddleware),
   describe:
     'Parse Ant Design scraped CSV files and insert to application as types',
   handler: async ({ email }) => {
@@ -66,10 +46,17 @@ export const parseCommand: CommandModule<ParseProps, ParseProps> = {
     }))
 
     /**
-     * (2) Then import all atoms
+     * (2) Import tag tree
+     */
+    await importTags(createTagSeedData(), selectedUserId)
+
+    // cLog(await createAntDesignAtomsData())
+
+    /**
+     * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
-      atoms: antdAtomsFactory(await createAntDesignAtomsData()),
+      atoms: await createAntDesignAtomsData(),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,
