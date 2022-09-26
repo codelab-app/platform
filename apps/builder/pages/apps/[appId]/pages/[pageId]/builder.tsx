@@ -40,6 +40,7 @@ const PageBuilder: CodelabPage = observer(() => {
     elementService,
     builderService,
     pageService,
+    resourceService,
   } = useStore()
 
   const appId = useCurrentAppId()
@@ -49,6 +50,7 @@ const PageBuilder: CodelabPage = observer(() => {
     const {
       apps,
       components,
+      resources,
       // Can't change shape in GraphQL so we have to use this structure
       primitiveTypes,
       arrayTypes,
@@ -90,6 +92,8 @@ const PageBuilder: CodelabPage = observer(() => {
       componentService.loadRenderedComponentTree(component),
     )
 
+    resources.map((resource) => resourceService.writeCache(resource))
+
     /**
      *
      * page Element tree
@@ -101,8 +105,12 @@ const PageBuilder: CodelabPage = observer(() => {
       builderService.selectPageElementTreeNode(elementRef(pageRootElement))
     }
 
-    store.setInitialState(
-      appService.appsList.map((a) => a.toJson).reduce(merge, {}),
+    store.setState(
+      merge(
+        appService.appsList.map((a) => a.toJson).reduce(merge, {}),
+        { ...store._api.defaults },
+        { ...store._storeActions },
+      ),
     )
 
     const renderer = await builderRenderService.addRenderer(

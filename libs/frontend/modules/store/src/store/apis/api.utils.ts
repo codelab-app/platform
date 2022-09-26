@@ -63,6 +63,7 @@ export const makeActionCreateInput = (
       action.type === IActionKind.ApiAction && action.errorActionId
         ? {
             ApiAction: connectNode(action.errorActionId),
+            CodeAction: connectNode(action.errorActionId),
           }
         : undefined,
 
@@ -70,6 +71,7 @@ export const makeActionCreateInput = (
       action.type === IActionKind.ApiAction && action.successActionId
         ? {
             ApiAction: connectNode(action.successActionId),
+            CodeAction: connectNode(action.successActionId),
           }
         : undefined,
   }

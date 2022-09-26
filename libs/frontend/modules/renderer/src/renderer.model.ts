@@ -1,10 +1,6 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/modules/element'
-import {
-  createActionFn,
-  getActionService,
-  getState,
-} from '@codelab/frontend/modules/store'
+import { getActionService, getState } from '@codelab/frontend/modules/store'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
   getElementService,
@@ -225,7 +221,7 @@ export class Renderer
       )
     }
 
-    createActionFn(action, this.state)()
+    return this.state[action.name].run()
   }
 
   getPostAction = (element: IElement) => {
@@ -242,12 +238,12 @@ export class Renderer
       )
     }
 
-    return createActionFn(action, this.state)
+    return this.state[action.name].run
   }
 
   @computed
   get state() {
-    return this.appStore?.current.state
+    return this.appStore?.current.state['data'] || {}
   }
 
   /**

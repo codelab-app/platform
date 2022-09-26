@@ -5,6 +5,7 @@ import { EditorView, ViewUpdate } from '@codemirror/view'
 import { SerializedStyles } from '@emotion/react'
 import { ReactCodeMirrorProps, useCodeMirror } from '@uiw/react-codemirror'
 import { merge } from 'lodash'
+import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
 import { CodeMirrorModal, CodeMirrorModalProps } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
@@ -20,57 +21,59 @@ export interface CodeMirrorInputProps
   title?: Nullish<string>
 }
 
-export const CodeMirrorInput = ({
-  value = '',
-  onChange,
-  onSave,
-  expandable,
-  title,
-  overrideStyles,
-  ...props
-}: CodeMirrorInputProps) => {
-  const editor = useRef<HTMLDivElement | null>(null)
-  const [isExpand, expand] = useState(false)
+export const CodeMirrorInput = observer(
+  ({
+    value = '',
+    onChange,
+    onSave,
+    expandable,
+    title,
+    overrideStyles,
+    ...props
+  }: CodeMirrorInputProps) => {
+    const editor = useRef<HTMLDivElement | null>(null)
+    const [isExpand, expand] = useState(false)
 
-  const toggleCompletion = (start: boolean, view: EditorView) =>
-    start ? startCompletion(view) : closeCompletion(view)
+    const toggleCompletion = (start: boolean, view: EditorView) =>
+      start ? startCompletion(view) : closeCompletion(view)
 
-  const onUpdate = (viewUpdate: ViewUpdate) => {
-    if (viewUpdate.focusChanged) {
-      toggleCompletion(viewUpdate.view.hasFocus, viewUpdate.view)
+    const onUpdate = (viewUpdate: ViewUpdate) => {
+      if (viewUpdate.focusChanged) {
+        toggleCompletion(viewUpdate.view.hasFocus, viewUpdate.view)
+      }
     }
-  }
 
-  const setupFactory: CodeMirrorModalProps['setupFactory'] = (
-    editorRef,
-    overWriteOpts?,
-  ) =>
-    merge(
-      {
-        ...props,
-        container: editorRef.current,
-        basicSetup: false,
-        value,
-        onUpdate,
-        onChange: (v: string, view: ViewUpdate) => {
-          onChange(v)
+    const setupFactory: CodeMirrorModalProps['setupFactory'] = (
+      editorRef,
+      overWriteOpts?,
+    ) =>
+      merge(
+        {
+          ...props,
+          container: editorRef.current,
+          basicSetup: false,
+          value,
+          onUpdate,
+          onChange: (v: string, view: ViewUpdate) => {
+            onChange(v)
+          },
         },
-      },
-      overWriteOpts,
-    )
+        overWriteOpts,
+      )
 
-  const { setContainer } = useCodeMirror(setupFactory(editor))
+    const { setContainer } = useCodeMirror(setupFactory(editor))
 
-  useEffect(() => {
-    if (editor.current) {
-      setContainer(editor.current)
+    useEffect(() => {
+      if (editor.current) {
+        setContainer(editor.current)
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const toggleExpand = () => {
+      expand((curIsExpand) => !curIsExpand)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
-  const toggleExpand = () => {
-    expand((curIsExpand) => !curIsExpand)
-  }
 
   return (
     <div css={[containerStyles, overrideStyles]}>

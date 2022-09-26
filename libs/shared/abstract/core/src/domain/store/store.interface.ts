@@ -12,10 +12,9 @@ export interface IStore extends ICacheService<IStoreDTO, IStore> {
   _api: IInterfaceType
   actions: Array<Ref<IAnyAction>>
   _storeActions: { [name: string]: { action: IAnyAction; run: any } }
-  state: IPropData
 
-  initialState: IPropData
-  setInitialState(initialState: IPropData): void
+  state: IPropData
+  setState(initialState: IPropData): void
 }
 
 export type IStoreRef = string

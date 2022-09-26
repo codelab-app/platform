@@ -7,6 +7,7 @@ import type {
   IApiActionConfig,
   IApiActionDTO,
   IGraphQLActionConfig,
+  IPropData,
   IResource,
   IRestActionConfig,
 } from '@codelab/shared/abstract/core'
@@ -54,6 +55,36 @@ export class ApiAction
   implements IApiAction
 {
   static hydrate = hydrate
+
+  @modelAction
+  createRunner(context: IPropData, updateState: (state: IPropData) => void) {
+    const successAction = this.successAction.current
+    const errorAction = this.errorAction.current
+    const runPromise = this.run()
+
+    const runner = (...args: Array<any>) =>
+      runPromise
+        .then((response) => {
+          updateState({ [this.name]: { response } })
+
+          if (successAction) {
+            return successAction.createRunner(context, updateState)(...args)
+          }
+
+          return response
+        })
+        .catch((error) => {
+          updateState({ [this.name]: { error } })
+
+          if (errorAction) {
+            return errorAction.createRunner(context, updateState)(...args)
+          }
+
+          return error
+        })
+
+    return runner.bind(this)
+  }
 
   @modelAction
   writeCache(action: IApiActionDTO) {

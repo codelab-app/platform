@@ -17,6 +17,7 @@ const hydrate = (resource: IResourceDTO) =>
     name: resource.name,
     type: resource.type,
     config: Prop.hydrate(resource.config) as IResourceConfig,
+    ownerId: resource.owner.id,
   })
 
 @model('@codelab/Resource')
@@ -26,6 +27,7 @@ export class Resource
     name: prop<string>(),
     config: prop<IResourceConfig>(),
     type: prop<IResourceType>(),
+    ownerId: prop<string>(),
   }))
   implements IResource
 {

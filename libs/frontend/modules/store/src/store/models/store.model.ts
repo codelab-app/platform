@@ -6,10 +6,11 @@ import {
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
-import { keys, merge } from 'lodash'
+import { merge } from 'lodash'
 import { computed } from 'mobx'
 import {
   detach,
+  frozen,
   idProp,
   Model,
   model,
@@ -18,7 +19,6 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { createActionFn } from '../createActionFn'
 import { actionRef } from './action.ref'
 
 export const hydrate = ({ actions, id, name, api }: IStoreDTO) =>
@@ -36,10 +36,20 @@ export class Store
     name: prop<string>(),
     actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
     apiId: prop<string>().withSetter(),
-    initialState: prop<IPropData>(() => ({})).withSetter(),
+    state: prop<IPropData>(() => frozen<IPropData>({})),
   }))
   implements IStore
 {
+  @modelAction
+  setState(data: IPropData) {
+    this.state = frozen(data)
+  }
+
+  @modelAction
+  updateState(data: IPropData) {
+    this.state = frozen(merge(this.state.data, data))
+  }
+
   @modelAction
   writeCache({ id, name, actions, api }: IStoreDTO) {
     this.id = id
@@ -60,26 +70,12 @@ export class Store
   @computed
   get _storeActions() {
     return this.actions
-      .map((action) => ({
-        [action.current.name]: { action: action.current },
+      .map((a) => ({
+        [a.current.name]: {
+          run: a.current.createRunner(this.state, this.updateState.bind(this)),
+        },
       }))
       .reduce(merge, {})
-  }
-
-  @computed
-  get state() {
-    const state: IPropData = merge(
-      {},
-      this.initialState,
-      this._api.defaults,
-      this._storeActions,
-    )
-
-    for (const key of keys(this._storeActions)) {
-      state[key].run = createActionFn(state[key].action, state)
-    }
-
-    return state
   }
 
   static hydrate = hydrate
