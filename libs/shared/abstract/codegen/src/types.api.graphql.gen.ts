@@ -21152,6 +21152,7 @@ export type GetRenderedPageQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
   components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
   primitiveTypes: Array<
     { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
   >
