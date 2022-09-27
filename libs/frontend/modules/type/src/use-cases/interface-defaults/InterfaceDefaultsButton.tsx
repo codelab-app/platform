@@ -13,14 +13,19 @@ export interface InterfaceDefaultsButtonProps {
 export const InterfaceDefaultsButton = ({
   interfaceId,
   typeService,
-}: InterfaceDefaultsButtonProps) => (
-  <Button
-    icon={<FormOutlined />}
-    onClick={() => {
-      typeService.interfaceDefaultsModal.open(
-        typeRef(interfaceId) as Ref<IInterfaceType>,
-      )
-    }}
-    size="small"
-  />
-)
+}: InterfaceDefaultsButtonProps) => {
+  const type = typeService.type(interfaceId) as IInterfaceType
+
+  return (
+    <Button
+      disabled={!type.fieldList?.length}
+      icon={<FormOutlined />}
+      onClick={() => {
+        typeService.interfaceDefaultsModal.open(
+          typeRef(interfaceId) as Ref<IInterfaceType>,
+        )
+      }}
+      size="small"
+    />
+  )
+}
