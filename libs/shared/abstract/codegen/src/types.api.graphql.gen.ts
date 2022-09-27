@@ -21795,6 +21795,29 @@ export type DeleteFieldMutation = {
   }
 }
 
+export type GetTypesTestQueryVariables = Exact<{
+  options?: InputMaybe<TypeBaseQueryOptions>
+}>
+
+export type GetTypesTestQuery = {
+  __typename?: 'Query'
+  types: Array<
+    | ({ __typename?: 'ActionType' } & Type_ActionType_Fragment)
+    | ({ __typename?: 'AppType' } & Type_AppType_Fragment)
+    | ({ __typename?: 'ArrayType' } & Type_ArrayType_Fragment)
+    | ({ __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment)
+    | ({ __typename?: 'ElementType' } & Type_ElementType_Fragment)
+    | ({ __typename?: 'EnumType' } & Type_EnumType_Fragment)
+    | ({ __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment)
+    | ({ __typename?: 'LambdaType' } & Type_LambdaType_Fragment)
+    | ({ __typename?: 'PageType' } & Type_PageType_Fragment)
+    | ({ __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment)
+    | ({ __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment)
+    | ({ __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment)
+    | ({ __typename?: 'UnionType' } & Type_UnionType_Fragment)
+  >
+}
+
 export type GetTypesQueryVariables = Exact<{
   ids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
 }>
