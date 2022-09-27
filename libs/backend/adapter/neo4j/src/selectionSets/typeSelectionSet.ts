@@ -54,7 +54,7 @@ export const exportInterfaceTypeSelectionSet = `{
       key
       name
       description
-      validationSchema
+      validationRules
       node {
         ${exportBaseSelection}
       }
@@ -75,7 +75,7 @@ export const interfaceTypeSelectionSet = `{
       key
       name
       description
-      validationSchema
+      validationRules
       node {
         ${exportBaseSelection}
       }

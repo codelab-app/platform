@@ -12,7 +12,7 @@ MERGE (interfaceType)-
       key: $field.key,
       name: coalesce($field.name, ""),
       description: coalesce($field.description, ""),
-      validationSchema: coalesce($field.validationSchema, "")
+      validationRules: coalesce($field.validationRules, "")
     }
   ]->(fieldType)
 

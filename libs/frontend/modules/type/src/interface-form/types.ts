@@ -4,7 +4,7 @@ import {
   IAnyType,
   IInterfaceType,
   IPropData,
-  IValidationSchema,
+  IValidationRules,
 } from '@codelab/shared/abstract/core'
 import { Assign } from 'utility-types'
 
@@ -32,5 +32,5 @@ export interface UiPropertiesContext {
    * for code mirror
    */
   autocomplete?: IPropData
-  validationSchema?: IValidationSchema
+  validationRules?: IValidationRules
 }

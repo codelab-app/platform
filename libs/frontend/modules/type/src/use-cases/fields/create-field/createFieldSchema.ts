@@ -14,7 +14,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
     key: { type: 'string', autoFocus: true },
     name: { type: 'string', nullable: true },
     description: { type: 'string', nullable: true },
-    validationSchema: {
+    validationRules: {
       type: 'object',
       nullable: true,
       properties: {
@@ -105,5 +105,5 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
      */
     fieldType: { type: 'string', nullable: true },
   },
-  required: ['id', 'key', 'fieldType', 'validationSchema'],
+  required: ['id', 'key', 'fieldType', 'validationRules'],
 }

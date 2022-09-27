@@ -10045,7 +10045,7 @@ export type Field = {
   id: Scalars['ID']
   key: Scalars['String']
   name?: Maybe<Scalars['String']>
-  validationSchema?: Maybe<Scalars['String']>
+  validationRules?: Maybe<Scalars['String']>
 }
 
 export type FieldCreateInput = {
@@ -10053,7 +10053,7 @@ export type FieldCreateInput = {
   id: Scalars['ID']
   key: Scalars['String']
   name?: InputMaybe<Scalars['String']>
-  validationSchema?: InputMaybe<Scalars['String']>
+  validationRules?: InputMaybe<Scalars['String']>
 }
 
 export type FieldSort = {
@@ -10061,7 +10061,7 @@ export type FieldSort = {
   id?: InputMaybe<SortDirection>
   key?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-  validationSchema?: InputMaybe<SortDirection>
+  validationRules?: InputMaybe<SortDirection>
 }
 
 export type FieldUpdateInput = {
@@ -10069,7 +10069,7 @@ export type FieldUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   key?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
-  validationSchema?: InputMaybe<Scalars['String']>
+  validationRules?: InputMaybe<Scalars['String']>
 }
 
 export type FieldWhere = {
@@ -10115,16 +10115,16 @@ export type FieldWhere = {
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  validationSchema?: InputMaybe<Scalars['String']>
-  validationSchema_CONTAINS?: InputMaybe<Scalars['String']>
-  validationSchema_ENDS_WITH?: InputMaybe<Scalars['String']>
-  validationSchema_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  validationSchema_NOT?: InputMaybe<Scalars['String']>
-  validationSchema_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  validationSchema_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  validationSchema_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  validationSchema_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  validationSchema_STARTS_WITH?: InputMaybe<Scalars['String']>
+  validationRules?: InputMaybe<Scalars['String']>
+  validationRules_CONTAINS?: InputMaybe<Scalars['String']>
+  validationRules_ENDS_WITH?: InputMaybe<Scalars['String']>
+  validationRules_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  validationRules_NOT?: InputMaybe<Scalars['String']>
+  validationRules_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  validationRules_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  validationRules_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  validationRules_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  validationRules_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type Hook = {
@@ -11027,7 +11027,7 @@ export type InterfaceTypeFieldsRelationship = Field & {
   key: Scalars['String']
   name?: Maybe<Scalars['String']>
   node: TypeBase
-  validationSchema?: Maybe<Scalars['String']>
+  validationRules?: Maybe<Scalars['String']>
 }
 
 export type InterfaceTypeFieldsUpdateConnectionInput = {
@@ -22616,7 +22616,7 @@ export type FieldFragment = {
   key: string
   name?: string | null
   description?: string | null
-  validationSchema?: string | null
+  validationRules?: string | null
   fieldType:
     | { __typename?: 'ActionType'; id: string }
     | { __typename?: 'AppType'; id: string }

@@ -99,9 +99,9 @@ export class TypeSchemaFactory {
   fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: IField) => ({
       ...this.transform(field.type.current, {
-        validationSchema: field.validationSchema ?? undefined,
+        validationRules: field.validationRules ?? undefined,
       }),
-      ...field?.validationSchema?.general,
+      ...field?.validationRules?.general,
       label: field.name || pascalCaseToWords(field.key),
     })
 
@@ -123,7 +123,7 @@ export class TypeSchemaFactory {
       properties: [...type.fields.values()].reduce(makeFieldProperties, {}),
       required: [...type.fields.values()]
         .map((field) =>
-          field.validationSchema?.general.nullable ? undefined : field.key,
+          field.validationRules?.general.nullable ? undefined : field.key,
         )
         .filter(Boolean) as Array<string>,
     }
@@ -203,17 +203,17 @@ export class TypeSchemaFactory {
     switch (type.primitiveKind) {
       case PrimitiveTypeKind.String:
         validation = {
-          ...context?.validationSchema?.string,
+          ...context?.validationRules?.string,
         }
         break
       case PrimitiveTypeKind.Float:
         validation = {
-          ...context?.validationSchema?.float,
+          ...context?.validationRules?.float,
         }
         break
       case PrimitiveTypeKind.Integer:
         validation = {
-          ...context?.validationSchema?.integer,
+          ...context?.validationRules?.integer,
         }
         break
     }

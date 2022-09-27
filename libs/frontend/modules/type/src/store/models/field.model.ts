@@ -2,7 +2,7 @@ import type {
   IAnyType,
   IField,
   IFieldProps,
-  IValidationSchema,
+  IValidationRules,
 } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -24,10 +24,10 @@ const hydrate = (data: IFieldProps) => {
     name,
     description,
     fieldType,
-    validationSchema: schemaStr,
+    validationRules: schemaStr,
   } = data
 
-  const validationSchema = JSON.parse(schemaStr || '{}')
+  const validationRules = JSON.parse(schemaStr || '{}')
 
   return new Field({
     id,
@@ -35,7 +35,7 @@ const hydrate = (data: IFieldProps) => {
     description,
     key,
     type: typeRef(fieldType.id),
-    validationSchema,
+    validationRules,
   })
 }
 
@@ -48,7 +48,7 @@ export class Field
     description: prop<Nullish<string>>(),
     key: prop<string>(),
     type: prop<Ref<IAnyType>>(),
-    validationSchema: prop<IValidationSchema>(),
+    validationRules: prop<IValidationRules>(),
   }))
   implements IField
 {
@@ -59,7 +59,7 @@ export class Field
     this.description = fragment.description
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
-    this.validationSchema = JSON.parse(fragment.validationSchema || '{}')
+    this.validationRules = JSON.parse(fragment.validationRules || '{}')
 
     return this
   }

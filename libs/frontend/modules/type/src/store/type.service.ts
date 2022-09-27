@@ -297,7 +297,7 @@ export class TypeService
         id: data.id,
         key: data.key,
         name: data.name,
-        validationSchema: JSON.stringify(data.validationSchema),
+        validationRules: JSON.stringify(data.validationRules),
       },
     }
 
@@ -332,7 +332,7 @@ export class TypeService
         description: data.description,
         key: data.key,
         name: data.name,
-        validationSchema: JSON.stringify(data.validationSchema),
+        validationRules: JSON.stringify(data.validationRules),
       },
     }
 

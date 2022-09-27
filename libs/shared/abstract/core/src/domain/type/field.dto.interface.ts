@@ -40,7 +40,7 @@ export interface INumberValidationRules {
   [NumberValidationRules.MultipleOf]?: Nullish<number>
 }
 
-export interface IValidationSchema {
+export interface IValidationRules {
   general: IGeneralValidationRules
   string?: Nullish<IStringValidationRules>
   float?: Nullish<INumberValidationRules>
@@ -52,7 +52,7 @@ export interface ICreateFieldDTO {
   key: string
   name?: Nullish<string>
   description?: Nullish<string>
-  validationSchema: IValidationSchema
+  validationRules: IValidationRules
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
 }

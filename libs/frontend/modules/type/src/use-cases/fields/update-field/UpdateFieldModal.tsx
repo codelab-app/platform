@@ -28,11 +28,11 @@ export const UpdateFieldModal = observer<{
       key: field.key,
       fieldType: field.type.id,
       description: field.description,
-      validationSchema: field.validationSchema,
+      validationRules: field.validationRules,
     })
   }, [
     typeService.fieldUpdateModal.field,
-    typeService.fieldUpdateModal.field?.validationSchema,
+    typeService.fieldUpdateModal.field?.validationRules,
   ])
 
   if (!model) {
@@ -57,18 +57,18 @@ export const UpdateFieldModal = observer<{
 
             const newVal: IUpdateFieldDTO = {
               ...prev,
-              validationSchema: {
+              validationRules: {
                 general: {
-                  ...prev.validationSchema.general,
+                  ...prev.validationRules.general,
                 },
                 string: {
-                  ...prev.validationSchema.string,
+                  ...prev.validationRules.string,
                 },
                 float: {
-                  ...prev.validationSchema.float,
+                  ...prev.validationRules.float,
                 },
                 integer: {
-                  ...prev.validationSchema.integer,
+                  ...prev.validationRules.integer,
                 },
               },
             }
@@ -99,21 +99,21 @@ export const UpdateFieldModal = observer<{
           types={typeService.typesList}
         />
 
-        <AutoFields fields={['validationSchema.general']} />
+        <AutoFields fields={['validationRules.general']} />
 
         {model.fieldType &&
           typeService.primitiveKind(model.fieldType) === 'String' && (
-            <AutoFields fields={['validationSchema.string']} />
+            <AutoFields fields={['validationRules.string']} />
           )}
 
         {model.fieldType &&
           typeService.primitiveKind(model.fieldType) === 'Integer' && (
-            <AutoFields fields={['validationSchema.integer']} />
+            <AutoFields fields={['validationRules.integer']} />
           )}
 
         {model.fieldType &&
           typeService.primitiveKind(model.fieldType) === 'Float' && (
-            <AutoFields fields={['validationSchema.float']} />
+            <AutoFields fields={['validationRules.float']} />
           )}
       </ModalForm.Form>
     </ModalForm.Modal>

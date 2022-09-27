@@ -1,7 +1,7 @@
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../../service'
-import { IFieldProps, IValidationSchema } from '../field.dto.interface'
+import { IFieldProps, IValidationRules } from '../field.dto.interface'
 import type { IAnyType } from '../types'
 
 export interface IField<T extends IAnyType = IAnyType>
@@ -14,7 +14,7 @@ export interface IField<T extends IAnyType = IAnyType>
   description: Nullish<string>
   key: string
   type: Ref<T>
-  validationSchema: IValidationSchema
+  validationRules: IValidationRules
 }
 
 export type IFieldRef = string
