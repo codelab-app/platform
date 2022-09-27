@@ -102,12 +102,14 @@ export const makeActionUpdateInput = (
         input.type === IActionKind.ApiAction
           ? {
               ApiAction: connectNode(input.errorActionId),
+              CodeAction: connectNode(input.errorActionId),
             }
           : undefined,
       successAction:
         input.type === IActionKind.ApiAction
           ? {
               ApiAction: connectNode(input.successActionId),
+              CodeAction: connectNode(input.successActionId),
             }
           : undefined,
 
