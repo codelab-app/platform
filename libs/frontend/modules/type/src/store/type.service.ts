@@ -289,18 +289,6 @@ export class TypeService
     interfaceTypeId: IInterfaceTypeRef,
     data: ICreateFieldDTO,
   ) {
-    // TODO: make code DRY (same code used in updateField)
-    const primitiveKind = this.primitiveKind(data.fieldType)
-
-    const validationSchemaType =
-      primitiveKind === 'String'
-        ? { type: 'string' }
-        : primitiveKind === 'Integer'
-        ? { type: 'integer' }
-        : primitiveKind === 'Float'
-        ? { type: 'number' }
-        : {}
-
     const input = {
       interfaceTypeId,
       fieldTypeId: data.fieldType,
@@ -310,7 +298,6 @@ export class TypeService
         key: data.key,
         name: data.name,
         validationSchema: JSON.stringify({
-          ...validationSchemaType,
           ...data.validationSchema,
         }),
       },
@@ -338,16 +325,6 @@ export class TypeService
     assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
 
     const field = throwIfUndefined(interfaceType.field(data.id))
-    const primitiveKind = this.primitiveKind(data.fieldType)
-
-    const validationSchemaType =
-      primitiveKind === 'String'
-        ? { type: 'string' }
-        : primitiveKind === 'Integer'
-        ? { type: 'integer' }
-        : primitiveKind === 'Float'
-        ? { type: 'number' }
-        : {}
 
     const input = {
       interfaceTypeId,
@@ -358,7 +335,6 @@ export class TypeService
         key: data.key,
         name: data.name,
         validationSchema: JSON.stringify({
-          ...validationSchemaType,
           ...data.validationSchema,
         }),
       },

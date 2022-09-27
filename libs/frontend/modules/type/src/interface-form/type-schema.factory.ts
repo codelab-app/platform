@@ -99,6 +99,7 @@ export class TypeSchemaFactory {
   fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: IField) => ({
       ...this.transform(field.type.current),
+      ...JSON.parse(field.validationSchema || '{}'),
       label: field.name || pascalCaseToWords(field.key),
     })
 
