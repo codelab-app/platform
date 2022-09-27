@@ -33,6 +33,11 @@ export const typeSchema = gql`
     label: String!
   }
 
+  input TypeBaseQueryOptions {
+    limit: Int
+    offset: Int
+  }
+
   type Query {
     """
     Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
@@ -46,9 +51,17 @@ export const typeSchema = gql`
     """
     getTypeReferences(typeId: ID!): [TypeReference!]
       @cypher(statement: """${getTypeReferences}""")
+
+    types(
+      options: TypeBaseQueryOptions
+    ): [TypeBase!]!
   }
 
-  interface TypeBase
+  interface OwnedBy @relationshipProperties {
+    value: String
+  }
+
+    interface TypeBase
   {
     id: ID! @id(autogenerate: false)
     kind: TypeKind! @readonly

@@ -13757,6 +13757,7 @@ type Query {
     sort: [TypeReferenceSort]
     where: TypeReferenceWhere
   ): TypeReferencesConnection!
+  types(options: TypeBaseQueryOptions): [TypeBase!]!
   unionTypes(options: UnionTypeOptions, where: UnionTypeWhere): [UnionType!]!
   unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
   unionTypesConnection(
@@ -16311,6 +16312,11 @@ input TypeBaseOwnerUpdateFieldInput {
   disconnect: TypeBaseOwnerDisconnectFieldInput
   update: TypeBaseOwnerUpdateConnectionInput
   where: TypeBaseOwnerConnectionWhere
+}
+
+input TypeBaseQueryOptions {
+  limit: Int
+  offset: Int
 }
 
 """

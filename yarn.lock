@@ -9450,6 +9450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.136":
+  version: 4.14.185
+  resolution: "@types/lodash@npm:4.14.185"
+  checksum: f81d13da5ecab110ca9c5c7cc2bedc3c9802a6acf668576aecd1b8f4b134ed81d06c15f1e600fb08f05975098280a0d97d30cddfc2cb39ec1c6b56e971ca53b3
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.167":
   version: 4.14.182
   resolution: "@types/lodash@npm:4.14.182"
@@ -9529,6 +9536,13 @@ __metadata:
   version: 10.17.60
   resolution: "@types/node@npm:10.17.60"
   checksum: 2cdb3a77d071ba8513e5e8306fa64bf50e3c3302390feeaeff1fd325dd25c8441369715dfc8e3701011a72fed5958c7dfa94eb9239a81b3c286caa4d97db6eef
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^12.6.1":
+  version: 12.20.55
+  resolution: "@types/node@npm:12.20.55"
+  checksum: e4f86785f4092706e0d3b0edff8dca5a13b45627e4b36700acd8dfe6ad53db71928c8dee914d4276c7fd3b6ccd829aa919811c9eb708a2c8e4c6eb3701178c37
   languageName: node
   linkType: hard
 
@@ -13752,6 +13766,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
+    cypher-query-builder: ^6.0.4
     cypress: 10.8.0
     cypress-jest-adapter: ^0.1.1
     cypress-nextjs-auth0: 2.1.0
@@ -15037,6 +15052,21 @@ __metadata:
   version: 1.0.1
   resolution: "cyclist@npm:1.0.1"
   checksum: 3cc2fdeb358599ca0ea96f5ecf2fc530ccab7ed1f8aa1a894aebfacd2009281bd7380cb9b30db02a18cdd00b3ed1d7ce81a3b11fe56e33a6a0fe4424dc592fbe
+  languageName: node
+  linkType: hard
+
+"cypher-query-builder@npm:^6.0.4":
+  version: 6.0.4
+  resolution: "cypher-query-builder@npm:6.0.4"
+  dependencies:
+    "@types/lodash": ^4.14.136
+    "@types/node": ^12.6.1
+    lodash: ^4.17.15
+    neo4j-driver: ^4.1.2
+    node-cleanup: ^2.1.2
+    rxjs: ^6.5.2
+    tslib: ^1.10.0
+  checksum: 700a8e38f6861d6d4d93cc3af419e1826515f7c213dfc8a2376f5d28801db502da534bc5e2738654407c5124022297cbc4c841eb5b70103da42b135da99de8f2
   languageName: node
   linkType: hard
 
@@ -24171,6 +24201,13 @@ __metadata:
   dependencies:
     node-gyp: latest
   checksum: 2369986bb0881ccd9ef6bacdf39550e07e089a9c8ede1cbc5fc7712d8e2faa4d50da0e487e333d4125f8c7a616c730131d1091676c9d499af1d74560756b4a18
+  languageName: node
+  linkType: hard
+
+"node-cleanup@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "node-cleanup@npm:2.1.2"
+  checksum: 584cdc3e42560a998b4579f91ed8f936b27011628f3102e5a1093205f0691cdf8d899287d1f2e4d2071ea4ab1d615810bad6dbe2b988ef173a1cbaa76d8165b3
   languageName: node
   linkType: hard
 
