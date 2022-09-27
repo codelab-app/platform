@@ -14398,6 +14398,7 @@ export type Query = {
   typeReferences: Array<TypeReference>
   typeReferencesAggregate: TypeReferenceAggregateSelection
   typeReferencesConnection: TypeReferencesConnection
+  types: Array<TypeBase>
   unionTypes: Array<UnionType>
   unionTypesAggregate: UnionTypeAggregateSelection
   unionTypesConnection: UnionTypesConnection
@@ -14915,6 +14916,10 @@ export type QueryTypeReferencesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<TypeReferenceSort>>>
   where?: InputMaybe<TypeReferenceWhere>
+}
+
+export type QueryTypesArgs = {
+  options?: InputMaybe<TypeBaseQueryOptions>
 }
 
 export type QueryUnionTypesArgs = {
@@ -17666,6 +17671,11 @@ export type TypeBaseOwnerUpdateFieldInput = {
   disconnect?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
   update?: InputMaybe<TypeBaseOwnerUpdateConnectionInput>
   where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+}
+
+export type TypeBaseQueryOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort TypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeBaseSort object. */

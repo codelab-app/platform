@@ -1,3 +1,9 @@
+query GetTypes2($options: TypeBaseQueryOptions) {
+  types(options: $options) {
+    id
+  }
+}
+
 query GetTypes($ids: [ID!]) {
   primitiveTypes(where: { id_IN: $ids }) {
     ...Type
