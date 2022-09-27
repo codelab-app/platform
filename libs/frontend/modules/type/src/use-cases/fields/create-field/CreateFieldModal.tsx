@@ -42,14 +42,20 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           onChange={(key, value) => {
             setData((prev) => {
               // TODO: definetly improve this (works for only 1 level of nesting)
-              const rootKey = key.split('.')[0]
-              const nestedKey = key.split('.')[1]
 
-              const valueToSet = nestedKey
-                ? { ...(prev as any)[rootKey], [nestedKey]: value }
-                : value
+              if (key.split('.')[0] === 'validationSchema') {
+                const nestedKey = key.split('.')[1]
 
-              return { ...prev, [rootKey]: valueToSet }
+                return {
+                  ...prev,
+                  validationSchema: {
+                    ...prev.validationSchema,
+                    [nestedKey]: value,
+                  },
+                }
+              }
+
+              return { ...prev, [key]: value }
             })
           }}
           onSubmit={(input) =>
@@ -68,36 +74,50 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           }}
           schema={createFieldSchema}
         >
-          <AutoFields
-            omitFields={[
-              'fieldType',
-              'generalValidationRules',
-              'stringValidationRules',
-              'integerValidationRules',
-              'floatValidationRules',
-            ]}
-          />
+          <AutoFields omitFields={['fieldType', 'validationSchema']} />
           <TypeSelect
             label="Type"
             name="fieldType"
             types={typeService.typesList}
           />
 
-          <AutoFields fields={['generalValidationRules']} />
+          <AutoFields fields={['validationSchema.nullable']} />
 
           {data.fieldType &&
             typeService.primitiveKind(data.fieldType) === 'String' && (
-              <AutoFields fields={['stringValidationRules']} />
+              <AutoFields
+                fields={[
+                  'validationSchema.minLength',
+                  'validationSchema.maxLength',
+                  'validationSchema.pattern',
+                ]}
+              />
             )}
 
           {data.fieldType &&
             typeService.primitiveKind(data.fieldType) === 'Integer' && (
-              <AutoFields fields={['integerValidationRules']} />
+              <AutoFields
+                fields={[
+                  'validationSchema.minimum',
+                  'validationSchema.maximum',
+                  'validationSchema.exclusiveMaximum',
+                  'validationSchema.exclusiveMinimum',
+                  'validationSchema.multipleOf',
+                ]}
+              />
             )}
 
           {data.fieldType &&
             typeService.primitiveKind(data.fieldType) === 'Float' && (
-              <AutoFields fields={['floatValidationRules']} />
+              <AutoFields
+                fields={[
+                  'validationSchema.minimum',
+                  'validationSchema.maximum',
+                  'validationSchema.exclusiveMaximum',
+                  'validationSchema.exclusiveMinimum',
+                  'validationSchema.multipleOf',
+                ]}
+              />
             )}
         </ModalForm.Form>
       </ModalForm.Modal>

@@ -9,37 +9,14 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
     key: { type: 'string', autoFocus: true },
     name: { type: 'string', nullable: true },
     description: { type: 'string', nullable: true },
-    generalValidationRules: {
+    validationSchema: {
       type: 'object',
       nullable: true,
       properties: {
         nullable: { type: 'boolean', nullable: true },
-      },
-    },
-    stringValidationRules: {
-      type: 'object',
-      nullable: true,
-      properties: {
         minLength: { type: 'integer', nullable: true, minimum: 0 },
         maxLength: { type: 'integer', nullable: true, minimum: 0 },
         pattern: { type: 'string', nullable: true },
-      },
-    },
-    integerValidationRules: {
-      type: 'object',
-      nullable: true,
-      properties: {
-        maximum: { type: 'integer', nullable: true },
-        minimum: { type: 'integer', nullable: true },
-        exclusiveMaximum: { type: 'integer', nullable: true },
-        exclusiveMinimum: { type: 'integer', nullable: true },
-        multipleOf: { type: 'integer', nullable: true },
-      },
-    },
-    floatValidationRules: {
-      type: 'object',
-      nullable: true,
-      properties: {
         maximum: { type: 'number', nullable: true },
         minimum: { type: 'number', nullable: true },
         exclusiveMaximum: { type: 'number', nullable: true },

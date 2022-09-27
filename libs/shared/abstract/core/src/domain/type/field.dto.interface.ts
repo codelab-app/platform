@@ -4,17 +4,14 @@ import { IField, IFieldRef } from './field'
 import { FieldFragment } from './fragments'
 import { IInterfaceTypeRef } from './types'
 
-interface generalValidationRules {
+interface validationSchema {
+  // General validation rules
   nullable?: Nullish<boolean>
-}
-
-interface StringValidationRules {
+  // String validation rules
   minLength?: Nullish<number>
   maxLength?: Nullish<number>
   pattern?: Nullish<string>
-}
-
-interface IntegerValidationRules {
+  // Number validation rules
   maximum?: Nullish<number>
   minimum?: Nullish<number>
   exclusiveMaximum?: Nullish<number>
@@ -22,17 +19,12 @@ interface IntegerValidationRules {
   multipleOf?: Nullish<number>
 }
 
-type FloatValidationRules = IntegerValidationRules
-
 export interface ICreateFieldDTO {
   id: IFieldRef
   key: string
   name?: Nullish<string>
   description?: Nullish<string>
-  generalValidationRules?: Nullish<generalValidationRules>
-  stringValidationRules?: Nullish<StringValidationRules>
-  integerValidationRules?: Nullish<IntegerValidationRules>
-  floatValidationRules?: Nullish<FloatValidationRules>
+  validationSchema?: Nullish<validationSchema>
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
 }
