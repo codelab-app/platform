@@ -20,7 +20,7 @@ export const parseAndImportInterface = async (selectedUser: string) => {
         continue
       }
 
-      console.log(atom)
+      // console.log(atom)
 
       await fieldRepository.upsertField({
         interfaceTypeId: atom?.api?.id,
