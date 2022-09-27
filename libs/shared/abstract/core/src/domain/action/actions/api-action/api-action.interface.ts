@@ -15,5 +15,4 @@ export interface IApiAction
   config: IApiActionConfig
   successAction: Ref<IAnyAction>
   errorAction: Ref<IAnyAction>
-  run: () => Promise<any>
 }
