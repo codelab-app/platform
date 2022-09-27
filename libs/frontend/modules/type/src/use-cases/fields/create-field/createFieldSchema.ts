@@ -1,4 +1,9 @@
-import { ICreateFieldDTO } from '@codelab/shared/abstract/core'
+import {
+  GeneralValidationRules,
+  ICreateFieldDTO,
+  NumberValidationRules,
+  StringValidationRules,
+} from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
@@ -13,16 +18,86 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
       type: 'object',
       nullable: true,
       properties: {
-        nullable: { type: 'boolean', nullable: true },
-        minLength: { type: 'integer', nullable: true, minimum: 0 },
-        maxLength: { type: 'integer', nullable: true, minimum: 0 },
-        pattern: { type: 'string', nullable: true },
-        maximum: { type: 'number', nullable: true },
-        minimum: { type: 'number', nullable: true },
-        exclusiveMaximum: { type: 'number', nullable: true },
-        exclusiveMinimum: { type: 'number', nullable: true },
-        multipleOf: { type: 'number', nullable: true },
+        general: {
+          type: 'object',
+          nullable: false,
+          properties: {
+            [GeneralValidationRules.Nullable]: {
+              type: 'boolean',
+              nullable: false,
+            },
+          },
+          required: [GeneralValidationRules.Nullable],
+        },
+        string: {
+          type: 'object',
+          nullable: true,
+          properties: {
+            [StringValidationRules.MinLength]: {
+              type: 'integer',
+              nullable: true,
+            },
+            [StringValidationRules.MaxLength]: {
+              type: 'integer',
+              nullable: true,
+            },
+            [StringValidationRules.Pattern]: { type: 'string', nullable: true },
+          },
+        },
+        float: {
+          type: 'object',
+          nullable: true,
+          properties: {
+            [NumberValidationRules.Minimum]: {
+              type: 'number',
+              nullable: true,
+            },
+            [NumberValidationRules.Maximum]: {
+              type: 'number',
+              nullable: true,
+            },
+            [NumberValidationRules.ExclusiveMinimum]: {
+              type: 'number',
+              nullable: true,
+            },
+            [NumberValidationRules.ExclusiveMaximum]: {
+              type: 'number',
+              nullable: true,
+            },
+            [NumberValidationRules.MultipleOf]: {
+              type: 'number',
+              nullable: true,
+            },
+          },
+        },
+        integer: {
+          type: 'object',
+          nullable: true,
+          properties: {
+            [NumberValidationRules.Minimum]: {
+              type: 'integer',
+              nullable: true,
+            },
+            [NumberValidationRules.Maximum]: {
+              type: 'integer',
+              nullable: true,
+            },
+            [NumberValidationRules.ExclusiveMinimum]: {
+              type: 'integer',
+              nullable: true,
+            },
+            [NumberValidationRules.ExclusiveMaximum]: {
+              type: 'integer',
+              nullable: true,
+            },
+            [NumberValidationRules.MultipleOf]: {
+              type: 'integer',
+              nullable: true,
+            },
+          },
+        },
       },
+      required: ['general'],
     },
     /**
      * TODO: Refactor to match interface
@@ -30,5 +105,5 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
      */
     fieldType: { type: 'string', nullable: true },
   },
-  required: ['id', 'key', 'fieldType'],
+  required: ['id', 'key', 'fieldType', 'validationSchema'],
 }

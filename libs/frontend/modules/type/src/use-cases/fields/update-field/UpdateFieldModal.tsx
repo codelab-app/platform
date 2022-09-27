@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { createFieldSchema } from '../create-field'
+import { createFieldSchema, modifyNestedKey } from '../create-field'
 
 export const UpdateFieldModal = observer<{
   typeService: ITypeService
@@ -22,15 +22,13 @@ export const UpdateFieldModal = observer<{
       return
     }
 
-    const validationSchema = JSON.parse(field.validationSchema || '{}')
-
     setModel({
       id: field.id,
       name: field.name,
       key: field.key,
       fieldType: field.type.id,
       description: field.description,
-      validationSchema: { ...validationSchema },
+      validationSchema: field.validationSchema,
     })
   }, [
     typeService.fieldUpdateModal.field,
@@ -53,25 +51,31 @@ export const UpdateFieldModal = observer<{
         model={model}
         onChange={(key, value) => {
           setModel((prev) => {
-            // TODO: definetly improve this (works for only 1 level of nesting)
-
             if (!prev) {
               return prev
             }
 
-            if (key.split('.')[0] === 'validationSchema') {
-              const nestedKey = key.split('.')[1]
-
-              return {
-                ...prev,
-                validationSchema: {
-                  ...prev.validationSchema,
-                  [nestedKey]: value,
+            const newVal: IUpdateFieldDTO = {
+              ...prev,
+              validationSchema: {
+                general: {
+                  ...prev.validationSchema.general,
                 },
-              }
+                string: {
+                  ...prev.validationSchema.string,
+                },
+                float: {
+                  ...prev.validationSchema.float,
+                },
+                integer: {
+                  ...prev.validationSchema.integer,
+                },
+              },
             }
 
-            return { ...prev, [key]: value }
+            modifyNestedKey(newVal, key.split('.'), value)
+
+            return newVal
           })
         }}
         onSubmit={(input) =>
@@ -95,43 +99,21 @@ export const UpdateFieldModal = observer<{
           types={typeService.typesList}
         />
 
-        <AutoFields fields={['validationSchema.nullable']} />
+        <AutoFields fields={['validationSchema.general']} />
 
         {model.fieldType &&
           typeService.primitiveKind(model.fieldType) === 'String' && (
-            <AutoFields
-              fields={[
-                'validationSchema.minLength',
-                'validationSchema.maxLength',
-                'validationSchema.pattern',
-              ]}
-            />
+            <AutoFields fields={['validationSchema.string']} />
           )}
 
         {model.fieldType &&
           typeService.primitiveKind(model.fieldType) === 'Integer' && (
-            <AutoFields
-              fields={[
-                'validationSchema.minimum',
-                'validationSchema.maximum',
-                'validationSchema.exclusiveMaximum',
-                'validationSchema.exclusiveMinimum',
-                'validationSchema.multipleOf',
-              ]}
-            />
+            <AutoFields fields={['validationSchema.integer']} />
           )}
 
         {model.fieldType &&
           typeService.primitiveKind(model.fieldType) === 'Float' && (
-            <AutoFields
-              fields={[
-                'validationSchema.minimum',
-                'validationSchema.maximum',
-                'validationSchema.exclusiveMaximum',
-                'validationSchema.exclusiveMinimum',
-                'validationSchema.multipleOf',
-              ]}
-            />
+            <AutoFields fields={['validationSchema.float']} />
           )}
       </ModalForm.Form>
     </ModalForm.Modal>

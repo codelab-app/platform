@@ -4,19 +4,47 @@ import { IField, IFieldRef } from './field'
 import { FieldFragment } from './fragments'
 import { IInterfaceTypeRef } from './types'
 
-interface validationSchema {
-  // General validation rules
-  nullable?: Nullish<boolean>
-  // String validation rules
-  minLength?: Nullish<number>
-  maxLength?: Nullish<number>
-  pattern?: Nullish<string>
-  // Number validation rules
-  maximum?: Nullish<number>
-  minimum?: Nullish<number>
-  exclusiveMaximum?: Nullish<number>
-  exclusiveMinimum?: Nullish<number>
-  multipleOf?: Nullish<number>
+export enum GeneralValidationRules {
+  Nullable = 'nullable',
+}
+
+export enum StringValidationRules {
+  MinLength = 'minLength',
+  MaxLength = 'maxLength',
+  Pattern = 'pattern',
+}
+
+export enum NumberValidationRules {
+  Maximum = 'maximum',
+  Minimum = 'minimum',
+  ExclusiveMaximum = 'exclusiveMaximum',
+  ExclusiveMinimum = 'exclusiveMinimum',
+  MultipleOf = 'multipleOf',
+}
+
+export interface IGeneralValidationRules {
+  [GeneralValidationRules.Nullable]: boolean
+}
+
+export interface IStringValidationRules {
+  [StringValidationRules.MinLength]?: Nullish<number>
+  [StringValidationRules.MaxLength]?: Nullish<number>
+  [StringValidationRules.Pattern]?: Nullish<string>
+}
+
+export interface INumberValidationRules {
+  [NumberValidationRules.Minimum]?: Nullish<number>
+  [NumberValidationRules.Maximum]?: Nullish<number>
+  [NumberValidationRules.ExclusiveMinimum]?: Nullish<number>
+  [NumberValidationRules.ExclusiveMaximum]?: Nullish<number>
+  [NumberValidationRules.MultipleOf]?: Nullish<number>
+}
+
+export interface IValidationSchema {
+  general: IGeneralValidationRules
+  string?: Nullish<IStringValidationRules>
+  float?: Nullish<INumberValidationRules>
+  integer?: Nullish<INumberValidationRules>
 }
 
 export interface ICreateFieldDTO {
@@ -24,7 +52,7 @@ export interface ICreateFieldDTO {
   key: string
   name?: Nullish<string>
   description?: Nullish<string>
-  validationSchema?: Nullish<validationSchema>
+  validationSchema: IValidationSchema
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
 }
