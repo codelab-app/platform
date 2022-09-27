@@ -1,6 +1,6 @@
-query GetTypes2($options: TypeBaseQueryOptions) {
+query GetTypesTest($options: TypeBaseQueryOptions) {
   types(options: $options) {
-    id
+    ...Type
   }
 }
 

@@ -95,7 +95,7 @@ export const UnionTypeOGM = async () =>
 let arrayInst: OGM_TYPES.ArrayTypeModel
 
 export const ArrayTypeOGM = async () =>
-  await getOgmInstance<'ArrayType'>(arrayInst, 'PrimitiveType')
+  await getOgmInstance<'ArrayType'>(arrayInst, 'ArrayType')
 
 let enumInst: OGM_TYPES.EnumTypeModel
 

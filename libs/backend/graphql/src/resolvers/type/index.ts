@@ -11,9 +11,14 @@ export const typeResolver: IResolvers = {
   Query: {
     types: withReadTransactionResolver(types),
   },
+  AnyType: {
+    __resolveType(obj: AnyType) {
+      return obj.kind || obj.__typename
+    },
+  },
   TypeBase: {
     __resolveType(obj: AnyType) {
-      return obj.kind
+      return obj.kind || obj.__typename
     },
   },
 }

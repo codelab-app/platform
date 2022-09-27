@@ -10,7 +10,7 @@ const exportBaseSelection = `
   name
 `
 
-const baseSelection = `
+export const baseSelection = `
   __typename
   id
   kind
