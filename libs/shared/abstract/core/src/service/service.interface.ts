@@ -20,24 +20,27 @@ export interface ICRUDModalService<
   Metadata = never,
   Properties extends object = never,
 > {
-  createModal: IModalService
-  updateModal: IModalService<Metadata, Properties>
-  deleteModal: IModalService<Metadata, Properties>
+  createModal: IEntityModalService
+  updateModal: IEntityModalService<Metadata, Properties>
+  deleteModal: IEntityModalService<Metadata, Properties>
 }
 
 /**
  * Used for base modal, since a class can only implement an object type or intersection of object types with statically known members
  */
-export interface IBaseModalService<Metadata = never> {
+export interface IModalService<Metadata = never> {
   isOpen: boolean
   metadata?: Metadata | null
   open(...args: Metadata extends never ? [] : [Metadata]): void
   close(): void
 }
 
-export type IModalService<
+export type IEntityModalService<
   Metadata = never,
   Properties extends object = Record<string, any>,
-> = IBaseModalService<Metadata> & {
-  [K in keyof Properties]: Properties[K]
+> = IModalService<Metadata> & {
+  /**
+   * All properties must be partial, since we don't know whether user has opened (and set) the metadata yet
+   */
+  [K in keyof Properties]?: Properties[K]
 }

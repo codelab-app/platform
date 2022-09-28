@@ -27,4 +27,7 @@ fragment RenderAtom on Atom {
     id
     name
   }
+  allowedChildren {
+    id
+  }
 }

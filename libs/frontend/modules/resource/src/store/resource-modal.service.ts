@@ -2,7 +2,7 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   CreateResourceData,
   CreateResourceProperties,
-  IModalService,
+  IEntityModalService,
   IResource,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -14,7 +14,7 @@ export class CreateResourceModalService
     modelClass<ModalService<CreateResourceData>>(ModalService),
     {},
   )
-  implements IModalService<CreateResourceData, CreateResourceProperties>
+  implements IEntityModalService<CreateResourceData, CreateResourceProperties>
 {
   @computed
   get type() {
@@ -28,7 +28,7 @@ export class ResourceModalService
     modelClass<ModalService<Ref<IResource>>>(ModalService),
     {},
   )
-  implements IModalService<Ref<IResource>>
+  implements IEntityModalService<Ref<IResource>>
 {
   @computed
   get resource() {

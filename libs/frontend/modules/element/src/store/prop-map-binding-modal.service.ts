@@ -1,6 +1,6 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
-  IModalService,
+  IEntityModalService,
   PropMapData,
   PropMapProperties,
 } from '@codelab/shared/abstract/core'
@@ -10,7 +10,7 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/PropMapBindingModalService')
 export class PropMapBindingModalService
   extends ExtendedModel(modelClass<ModalService<PropMapData>>(ModalService), {})
-  implements IModalService<PropMapData, PropMapProperties>
+  implements IEntityModalService<PropMapData, PropMapProperties>
 {
   @computed
   get propMapBinding() {

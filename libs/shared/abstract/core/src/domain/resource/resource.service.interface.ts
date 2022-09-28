@@ -5,7 +5,7 @@ import {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
-  IModalService,
+  IEntityModalService,
   IQueryService,
 } from '../../service'
 import {
@@ -34,7 +34,7 @@ export interface IResourceService
       ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
       'createModal'
     > {
-  createModal: IModalService<CreateResourceData, { type?: IResourceType }>
+  createModal: IEntityModalService<CreateResourceData, { type?: IResourceType }>
   resource(resource: IResourceRef): Maybe<IResource>
   resourceList: Array<IResource>
   deleteResource(id: string): Promise<{ nodesDeleted: number }>

@@ -8,7 +8,7 @@ import {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
-  IModalService,
+  IEntityModalService,
   IQueryService,
 } from '../../service'
 import {
@@ -34,7 +34,7 @@ export interface CreateElementData {
 }
 
 export interface CreateElementProperties {
-  parentElement?: IElement
+  parentElement: IElement
 }
 
 export interface PropMapData {
@@ -58,15 +58,17 @@ export interface IElementService
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'
     > {
-  // elementTree: IElementTree
+  createModal: IEntityModalService<
+    CreateElementData,
+    { parentElement: IElement }
+  >
   elements: ObjectMap<IElement>
-  createModal: IModalService<CreateElementData, { parentElement: IElement }>
-  createPropMapBindingModal: IModalService<
+  createPropMapBindingModal: IEntityModalService<
     Ref<IElement>,
     { element: Maybe<IElement> }
   >
-  updatePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
-  deletePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
+  updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
+  deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
 
   // moveElement(
   //   targetElementId: IElementRef,

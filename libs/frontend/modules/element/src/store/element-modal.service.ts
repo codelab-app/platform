@@ -1,11 +1,10 @@
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   CreateElementData,
   CreateElementProperties,
   IElement,
-  IModalService,
+  IEntityModalService,
 } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 
@@ -15,11 +14,11 @@ export class CreateElementModalService
     modelClass<ModalService<CreateElementData>>(ModalService),
     {},
   )
-  implements IModalService<CreateElementData, CreateElementProperties>
+  implements IEntityModalService<CreateElementData, CreateElementProperties>
 {
   @computed
   get parentElement() {
-    return throwIfUndefined(this.metadata?.parentElement?.current)
+    return this.metadata?.parentElement?.current
   }
 }
 
@@ -29,7 +28,7 @@ export class ElementModalService
     modelClass<ModalService<Ref<IElement>>>(ModalService),
     {},
   )
-  implements IModalService<Ref<IElement>, { element: Maybe<IElement> }>
+  implements IEntityModalService<Ref<IElement>, { element: IElement }>
 {
   @computed
   get element() {

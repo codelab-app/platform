@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { IComponent, IModalService } from '@codelab/shared/abstract/core'
+import { IComponent, IEntityModalService } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
@@ -11,7 +11,8 @@ export class ComponentModalService
     modelClass<ModalService<Ref<Component>>>(ModalService),
     {},
   )
-  implements IModalService<Ref<IComponent>, { component: Maybe<IComponent> }>
+  implements
+    IEntityModalService<Ref<IComponent>, { component: Maybe<IComponent> }>
 {
   @computed
   get component() {

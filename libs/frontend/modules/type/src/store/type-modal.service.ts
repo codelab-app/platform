@@ -1,8 +1,8 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   IAnyType,
+  IEntityModalService,
   IInterfaceType,
-  IModalService,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -14,7 +14,7 @@ export class TypeModalService
     modelClass<ModalService<Ref<IAnyType>>>(ModalService),
     {},
   )
-  implements IModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }>
+  implements IEntityModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }>
 {
   @computed
   get type() {
@@ -29,7 +29,10 @@ export class InterfaceTypeModalService
     {},
   )
   implements
-    IModalService<Ref<IInterfaceType>, { interface: Maybe<IInterfaceType> }>
+    IEntityModalService<
+      Ref<IInterfaceType>,
+      { interface: Maybe<IInterfaceType> }
+    >
 {
   @computed
   get interface() {

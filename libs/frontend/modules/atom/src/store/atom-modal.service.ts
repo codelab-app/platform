@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { IAtom, IModalService } from '@codelab/shared/abstract/core'
+import { IAtom, IEntityModalService } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
@@ -7,7 +7,7 @@ import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 @model('@codelab/AtomModalService')
 export class AtomModalService
   extends ExtendedModel(modelClass<ModalService<Ref<IAtom>>>(ModalService), {})
-  implements IModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>
+  implements IEntityModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>
 {
   @computed
   get atom() {
@@ -21,7 +21,7 @@ export class AtomsModalService
     modelClass<ModalService<Array<Ref<IAtom>>>>(ModalService),
     {},
   )
-  implements IModalService<Array<Ref<IAtom>>, { atoms: Array<IAtom> }>
+  implements IEntityModalService<Array<Ref<IAtom>>, { atoms: Array<IAtom> }>
 {
   @computed
   get atoms() {

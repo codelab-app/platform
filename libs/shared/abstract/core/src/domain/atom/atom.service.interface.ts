@@ -5,7 +5,7 @@ import {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
-  IModalService,
+  IEntityModalService,
   IQueryService,
 } from '../../service'
 import { IAtomDTO, ICreateAtomDTO, IUpdateAtomDTO } from './atom.dto.interface'
@@ -18,7 +18,10 @@ export interface IAtomService
     ICacheService<IAtomDTO, IAtom> {
   atoms: ObjectMap<IAtom>
   atomsList: Array<IAtom>
-  deleteManyModal: IModalService<Array<Ref<IAtom>>, { atoms: Array<IAtom> }>
+  deleteManyModal: IEntityModalService<
+    Array<Ref<IAtom>>,
+    { atoms: Array<IAtom> }
+  >
   deleteMany(atoms: Array<IAtomRef>): any
 
   selectedIds: ArraySet<string>

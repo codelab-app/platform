@@ -75,8 +75,12 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const parentElement = elementService.createModal.parentElement
 
+    if (!parentElement) {
+      return null
+    }
+
     const model = {
-      parentElementId: parentElement?.id || undefined,
+      parentElementId: parentElement.id,
       owner: userService.user?.auth0Id,
     }
 
@@ -119,13 +123,13 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             ]}
           />
           <AutoField
-            component={observer((props) => (
+            component={(props: UniformSelectFieldProps) => (
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
-                {...(props as any)}
+                {...props}
                 allElementOptions={selectParentElementOptions}
               />
-            ))}
+            )}
             name="parentElementId"
           />
           <SelectLinkElement

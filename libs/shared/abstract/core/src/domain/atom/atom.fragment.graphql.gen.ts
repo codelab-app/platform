@@ -28,6 +28,7 @@ export type RenderAtomFragment = {
   type: Types.AtomType
   tags: Array<TagPreviewFragment>
   api: { id: string; name: string }
+  allowedChildren: Array<{ id: string }>
 }
 
 export const AtomFragmentDoc = gql`
@@ -61,6 +62,9 @@ export const RenderAtomFragmentDoc = gql`
     api {
       id
       name
+    }
+    allowedChildren {
+      id
     }
   }
   ${TagPreviewFragmentDoc}

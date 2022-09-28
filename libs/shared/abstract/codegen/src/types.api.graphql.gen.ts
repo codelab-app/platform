@@ -5869,7 +5869,11 @@ export type CreateInfoSort = {
 export type CreateInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>
   nodesCreated?: InputMaybe<Scalars['Int']>
+  nodesCreated_DECREMENT?: InputMaybe<Scalars['Int']>
+  nodesCreated_INCREMENT?: InputMaybe<Scalars['Int']>
   relationshipsCreated?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_DECREMENT?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_INCREMENT?: InputMaybe<Scalars['Int']>
 }
 
 export type CreateInfoWhere = {
@@ -6062,7 +6066,11 @@ export type DeleteInfoSort = {
 export type DeleteInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>
   nodesDeleted?: InputMaybe<Scalars['Int']>
+  nodesDeleted_DECREMENT?: InputMaybe<Scalars['Int']>
+  nodesDeleted_INCREMENT?: InputMaybe<Scalars['Int']>
   relationshipsDeleted?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_DECREMENT?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_INCREMENT?: InputMaybe<Scalars['Int']>
 }
 
 export type DeleteInfoWhere = {
@@ -22401,6 +22409,7 @@ export type RenderAtomFragment = {
   type: AtomType
   tags: Array<{ __typename?: 'Tag' } & TagPreviewFragment>
   api: { __typename?: 'InterfaceType'; id: string; name: string }
+  allowedChildren: Array<{ __typename?: 'Atom'; id: string }>
 }
 
 export type RenderedComponentFragment = {

@@ -5644,7 +5644,11 @@ input CreateInfoSort {
 input CreateInfoUpdateInput {
   bookmark: String
   nodesCreated: Int
+  nodesCreated_DECREMENT: Int
+  nodesCreated_INCREMENT: Int
   relationshipsCreated: Int
+  relationshipsCreated_DECREMENT: Int
+  relationshipsCreated_INCREMENT: Int
 }
 
 input CreateInfoWhere {
@@ -5820,7 +5824,11 @@ input DeleteInfoSort {
 input DeleteInfoUpdateInput {
   bookmark: String
   nodesDeleted: Int
+  nodesDeleted_DECREMENT: Int
+  nodesDeleted_INCREMENT: Int
   relationshipsDeleted: Int
+  relationshipsDeleted_DECREMENT: Int
+  relationshipsDeleted_INCREMENT: Int
 }
 
 input DeleteInfoWhere {
