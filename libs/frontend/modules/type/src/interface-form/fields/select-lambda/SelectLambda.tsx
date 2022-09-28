@@ -1,9 +1,9 @@
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
-import { HTMLFieldProps } from 'uniforms'
-import { SelectField, SelectFieldProps } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 // import { useGetLambdasForSelectQuery } from '../../../store/typeEndpoints'
 
-export type SelectLambdaProps = HTMLFieldProps<string, SelectFieldProps>
+export type SelectLambdaProps = UniformSelectFieldProps
 
 export const SelectLambda = ({ name }: SelectLambdaProps) => {
   // const { data: lambdas, isLoading } = useGetLambdasForSelectQuery()

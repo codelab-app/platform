@@ -1,10 +1,10 @@
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { HTMLFieldProps } from 'uniforms'
-import { SelectField, SelectFieldProps } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectComponentProps = HTMLFieldProps<string, SelectFieldProps> & {
+export type SelectComponentProps = UniformSelectFieldProps & {
   activeComponentId: string
 }
 
