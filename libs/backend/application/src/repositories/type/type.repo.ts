@@ -9,79 +9,80 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/codegen'
 import { node, Query, relation } from 'cypher-query-builder'
-import { Transaction } from 'neo4j-driver'
+import { int, Record, Transaction } from 'neo4j-driver'
+import cypher from './test.cypher'
 
 export const typeRepository = {
-  getTypes: async (
+  typesOfTypePage: async (
     txn: Transaction,
     params: QueryTypesArgs,
   ): Promise<Array<TypeBase>> => {
     const { options } = params
-    const { limit, offset } = options || {}
-    let query = new Query()
-    const arrayTypeOGM = await ArrayTypeOGM()
-    const primativeTypeOGM = await PrimitiveTypeOGM()
+    const { limit = 10, offset = 0 } = options || {}
 
-    const typeQueries: any = {
-      [TypeKind.PrimitiveType]: {
-        ogm: primativeTypeOGM,
-        selectionSet: `{${baseSelection} primitiveKind}`,
-      },
-      [TypeKind.ArrayType]: {
-        ogm: arrayTypeOGM,
-        selectionSet: `
-        {
-                    ${baseSelection}
-            itemType {
-            ... on TypeBase {
-                id
-                name
-                __typename
-              }
-            }
+    const { records } = await txn.run(cypher, {
+      limit: int(Number(limit)),
+      skip: int(Number(offset)),
+    })
+
+    const withOwner = (data: any, record: Record) => {
+      const owner = record.get('owner')?.properties
+
+      if (!owner) {
+        throw new Error('owner not found')
+      }
+
+      return {
+        ...data,
+        owner,
+      }
+    }
+
+    const baseMapper = (record: Record) => {
+      const type = record.get('type').properties
+
+      return {
+        ...type,
+        __typename: 'TypesPageTypeBase',
+      }
+    }
+
+    const recordMappper = {
+      [TypeKind.EnumType]: (record: Record) => {
+        const type = baseMapper(record)
+
+        const allowedValues = (record.get('collect(allowedValues)') || []).map(
+          (type) => type.properties,
+        )
+
+        return {
+          ...type,
+          allowedValues,
+          __typename: 'TypesPageEnumType',
         }
-        `,
+      },
+      [TypeKind.UnionType]: (record: Record) => {
+        const type = baseMapper(record)
+
+        const unionTypes = (record.get('collect(unionTypes)') || []).map(
+          (type) => type.properties,
+        )
+
+        return {
+          ...type,
+          typesOfUnionTypeIds: unionTypes.map((type) => type.id),
+          __typename: 'TypesPageUnionType',
+        }
       },
     }
 
-    query = query
-      .match([
-        node('type', 'Type'),
-        relation('either', 'ownedBy', 'OWNED_BY'),
-        node('owner', 'User'),
-      ])
-      .return(['type'])
+    const data = records.map((record) => {
+      const kind = record.get('type').properties.kind
+      const mapper = recordMappper[kind] || baseMapper
 
-    const { query: cypherQuery, params: cypherParams } =
-      query.buildQueryObject()
-
-    const { records } = await txn.run(cypherQuery, cypherParams)
-    const baseTypes = records.map((r) => r.get(0).properties)
-
-    const resolvedTypeRequests = baseTypes.map((type) => {
-      const kind = type.kind
-      const typeQuery = typeQueries[kind]
-      // console.log({
-      //   typeQuery,
-      //   kind,
-      //   type,
-      // })
-
-      if (!typeQuery) {
-        return Promise.resolve(type)
-      }
-
-      const { ogm, selectionSet } = typeQuery
-
-      return ogm.find({ where: { id: type.id }, selectionSet: selectionSet })
+      return withOwner(mapper(record), record)
     })
 
-    const resolvedType = await Promise.all(resolvedTypeRequests)
-    console.log(JSON.stringify(resolvedType, null, 2))
-
-    const t = resolvedType.map((t) => t[0])
-    // console.log({ t })
-
-    return t
+    return data
   },
 }

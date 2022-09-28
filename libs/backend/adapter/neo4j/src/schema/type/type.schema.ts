@@ -33,7 +33,8 @@ export const typeSchema = gql`
     label: String!
   }
 
-  input TypeBaseQueryOptions {
+
+  input TypesOfTypesPageOptions {
     limit: Int
     offset: Int
   }
@@ -52,9 +53,9 @@ export const typeSchema = gql`
     getTypeReferences(typeId: ID!): [TypeReference!]
       @cypher(statement: """${getTypeReferences}""")
 
-    types(
-      options: TypeBaseQueryOptions
-    ): [TypeBase!]!
+   typesOfTypesPage(
+    options: TypesOfTypesPageOptions
+   ): [TypesPageAnyType!]!
   }
 
   interface OwnedBy @relationshipProperties {
@@ -83,6 +84,33 @@ export const typeSchema = gql`
 #        properties: "Field"
 #      )
   }
+  
+ type TypesPageEnumType implements TypeBase {
+   id: ID!
+   kind: TypeKind!
+   name: String! @unique
+   owner: User!
+   allowedValues: [EnumTypeValue!]!
+ }
+
+
+ type TypesPageUnionType implements TypeBase {
+   id: ID!
+   kind: TypeKind! 
+   name: String! @unique
+   owner: User!
+   typesOfUnionTypeIds: [String!]!
+ }
+
+ type TypesPageTypeBase implements TypeBase {
+   id: ID!
+   kind: TypeKind! 
+   name: String! @unique
+   owner: User!
+ } 
+
+ union TypesPageAnyType = TypesPageEnumType | TypesPageUnionType | TypesPageTypeBase 
+
 
   # https://github.com/neo4j/graphql/issues/1105
  extend interface TypeBase

@@ -13,6 +13,9 @@ import {
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
+  Type_TypesPageEnumType_Fragment,
+  Type_TypesPageTypeBase_Fragment,
+  Type_TypesPageUnionType_Fragment,
   Type_UnionType_Fragment,
 } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../../shared/abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
@@ -21,25 +24,39 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
-export type GetTypesTestQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.TypeBaseQueryOptions>
+export type GetTypesOfTypesPageQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.TypesOfTypesPageOptions>
 }>
 
-export type GetTypesTestQuery = {
-  types: Array<
-    | Type_ActionType_Fragment
-    | Type_AppType_Fragment
-    | Type_ArrayType_Fragment
-    | Type_CodeMirrorType_Fragment
-    | Type_ElementType_Fragment
-    | Type_EnumType_Fragment
-    | Type_InterfaceType_Fragment
-    | Type_LambdaType_Fragment
-    | Type_PageType_Fragment
-    | Type_PrimitiveType_Fragment
-    | Type_ReactNodeType_Fragment
-    | Type_RenderPropsType_Fragment
-    | Type_UnionType_Fragment
+export type GetTypesOfTypesPageQuery = {
+  typesOfTypesPage: Array<
+    | {
+        __typename: 'TypesPageEnumType'
+        id: string
+        name: string
+        kind: Types.TypeKind
+        owner: { id: string }
+        allowedValues: Array<{
+          id: string
+          name?: string | null
+          value: string
+        }>
+      }
+    | {
+        __typename: 'TypesPageTypeBase'
+        id: string
+        name: string
+        kind: Types.TypeKind
+        owner: { id: string }
+      }
+    | {
+        __typename: 'TypesPageUnionType'
+        typesOfUnionTypeIds: Array<string>
+        id: string
+        name: string
+        kind: Types.TypeKind
+        owner: { id: string }
+      }
   >
 }
 
@@ -172,13 +189,30 @@ export type GetCodeMirrorTypesQuery = {
   types: Array<Type_CodeMirrorType_Fragment>
 }
 
-export const GetTypesTestDocument = gql`
-  query GetTypesTest($options: TypeBaseQueryOptions) {
-    types(options: $options) {
-      ...Type
+export const GetTypesOfTypesPageDocument = gql`
+  query GetTypesOfTypesPage($options: TypesOfTypesPageOptions) {
+    typesOfTypesPage(options: $options) {
+      ... on TypeBase {
+        ... on TypesPageUnionType {
+          typesOfUnionTypeIds
+        }
+        ... on TypesPageEnumType {
+          allowedValues {
+            id
+            name
+            value
+          }
+        }
+        id
+        name
+        kind
+        owner {
+          id
+        }
+        __typename
+      }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const GetTypesDocument = gql`
   query GetTypes($ids: [ID!]) {
@@ -377,17 +411,18 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    GetTypesTest(
-      variables?: GetTypesTestQueryVariables,
+    GetTypesOfTypesPage(
+      variables?: GetTypesOfTypesPageQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetTypesTestQuery> {
+    ): Promise<GetTypesOfTypesPageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetTypesTestQuery>(GetTypesTestDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'GetTypesTest',
+          client.request<GetTypesOfTypesPageQuery>(
+            GetTypesOfTypesPageDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetTypesOfTypesPage',
         'query',
       )
     },

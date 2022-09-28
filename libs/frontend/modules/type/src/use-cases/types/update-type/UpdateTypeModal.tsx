@@ -40,8 +40,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           : undefined,
       unionTypeIds:
         typeToUpdate?.kind === ITypeKind.UnionType
-          ? typeToUpdate?.typesOfUnionType?.map((t) => t.id) ?? []
-          : undefined,
+          ? typeToUpdate?.typesOfUnionTypeIds,
     }
 
     if (!typeToUpdate) {

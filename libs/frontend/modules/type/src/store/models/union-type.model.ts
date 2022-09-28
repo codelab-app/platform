@@ -21,7 +21,7 @@ const hydrate = ({
   id,
   kind,
   name,
-  typesOfUnionType,
+  typesOfUnionTypeIds,
   owner,
 }: IUnionTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)
@@ -30,7 +30,7 @@ const hydrate = ({
     id,
     kind,
     name,
-    typesOfUnionType: typesOfUnionType.map((t) => typeRef(t.id)),
+    typesOfUnionTypeIds,
     ownerId: owner?.id,
   })
 }
@@ -38,10 +38,32 @@ const hydrate = ({
 @model('@codelab/UnionType')
 export class UnionType
   extends ExtendedModel(createTypeBase(ITypeKind.UnionType), {
-    typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
+    typesOfUnionTypeIds: prop<string>(),
+    // typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
   })
   implements IUnionType
 {
+  // @computed
+  // get children(): Array<IElement> {
+  //   const firstChild = this.firstChild
+
+  //   if (!firstChild) {
+  //     return []
+  //   }
+
+  //   const results = []
+  //   let currentTraveledNode: Maybe<IElement> = firstChild
+
+  //   // parent = el1 -> el2 -> el3 -> end
+  //   // given el1, travel next using next sibling until next = no more next sibling
+  //   while (currentTraveledNode) {
+  //     results.push(currentTraveledNode)
+  //     currentTraveledNode = currentTraveledNode.nextSibling
+  //   }
+
+  //   return results
+  // }
+
   @modelAction
   writeCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
@@ -50,7 +72,7 @@ export class UnionType
       throw new Error('Invalid UnionType')
     }
 
-    this.typesOfUnionType = fragment.typesOfUnionType.map((t) => typeRef(t.id))
+    this.typesOfUnionTypeIds = fragment.typesOfUnionTypeIds
 
     return this
   }

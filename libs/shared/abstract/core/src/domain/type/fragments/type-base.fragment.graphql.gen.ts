@@ -99,6 +99,30 @@ export type TypeBase_RenderPropsType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
+export type TypeBase_TypesPageEnumType_Fragment = {
+  __typename: 'TypesPageEnumType'
+  kind: Types.TypeKind
+  id: string
+  name: string
+  owner: { id: string; auth0Id: string }
+}
+
+export type TypeBase_TypesPageTypeBase_Fragment = {
+  __typename: 'TypesPageTypeBase'
+  kind: Types.TypeKind
+  id: string
+  name: string
+  owner: { id: string; auth0Id: string }
+}
+
+export type TypeBase_TypesPageUnionType_Fragment = {
+  __typename: 'TypesPageUnionType'
+  kind: Types.TypeKind
+  id: string
+  name: string
+  owner: { id: string; auth0Id: string }
+}
+
 export type TypeBase_UnionType_Fragment = {
   __typename: 'UnionType'
   kind: Types.TypeKind
@@ -120,6 +144,9 @@ export type TypeBaseFragment =
   | TypeBase_PrimitiveType_Fragment
   | TypeBase_ReactNodeType_Fragment
   | TypeBase_RenderPropsType_Fragment
+  | TypeBase_TypesPageEnumType_Fragment
+  | TypeBase_TypesPageTypeBase_Fragment
+  | TypeBase_TypesPageUnionType_Fragment
   | TypeBase_UnionType_Fragment
 
 export const TypeBaseFragmentDoc = gql`
