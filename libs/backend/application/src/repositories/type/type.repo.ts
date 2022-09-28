@@ -74,9 +74,18 @@ export const typeRepository = {
           __typename: 'TypesPageUnionType',
         }
       },
+      [TypeKind.ArrayType]: (record: Record) => {
+        const type = baseMapper(record)
+        const itemType = record.get('itemType').properties
+
+        return {
+          ...type,
+          itemType: withOwner(itemType, record),
+        }
+      },
     }
 
-    const data = records.map((record) => {
+    const data = records.flatMap((record) => {
       const kind = record.get('type').properties.kind
       const mapper = recordMappper[kind] || baseMapper
 

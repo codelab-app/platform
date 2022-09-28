@@ -11,20 +11,14 @@ import { createTypeBase } from './base-type.model'
 import { typeRef } from './union-type.model'
 
 const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
-  const itemId = fragment.itemType.id
-  const itemType = typeRef(itemId)
-
-  if (!itemType) {
-    throw new Error('Item type is invalid')
-  }
-
+  const itemTypeId = fragment.itemType?.id
   assertIsTypeKind(fragment.kind, ITypeKind.ArrayType)
 
   return new ArrayType({
     id: fragment.id,
     kind: fragment.kind,
     name: fragment.name,
-    itemType,
+    itemTypeId,
     ownerId: fragment.owner.id,
   })
 }
@@ -32,7 +26,7 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
 @model('@codelab/ArrayType')
 export class ArrayType
   extends ExtendedModel(createTypeBase(ITypeKind.ArrayType), {
-    itemType: prop<Ref<IAnyType>>(),
+    itemTypeId: prop<string>(),
   })
   implements IArrayType
 {
