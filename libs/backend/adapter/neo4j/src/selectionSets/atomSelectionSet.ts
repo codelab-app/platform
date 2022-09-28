@@ -13,5 +13,6 @@ export const atomSelectionSet = `{
   }
   allowedChildren {
     id
+    name
   }
 }`

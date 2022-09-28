@@ -67,7 +67,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       name: atom.name,
       tags: atom.tags.map((tag) => tag.current),
       library: getLibrary(atom.type),
-      allowedChildren: atom.allowedChildren.map((child) => child.current),
+      allowedChildren: atom.allowedChildren,
     }),
   )
 

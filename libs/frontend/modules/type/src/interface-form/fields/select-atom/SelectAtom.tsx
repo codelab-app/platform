@@ -44,11 +44,25 @@ export const useGetAllAtoms = () => {
 }
 
 export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
+  console.log(parent?.allowedChildren)
+
+  const allowedChildrenIds = parent?.allowedChildren.map((child) => child.id)
   const { atomOptions, isLoading, error: queryError } = useGetAllAtoms()
 
-  const filteredOptions = atomOptions.filter((atom) => {
-    return true
+  /**
+   * Sort for now before data is added
+   */
+  const filteredOptions = atomOptions.sort((a, b) => {
+    if (allowedChildrenIds?.includes(a.value)) {
+      return -1
+    }
+
+    return 1
   })
+
+  // const filteredOptions = atomOptions.filter((atom) => {
+  //   return allowedChildrenIds?.includes(atom.value)
+  // })
 
   return (
     <SelectField

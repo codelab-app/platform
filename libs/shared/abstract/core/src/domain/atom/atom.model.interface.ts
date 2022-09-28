@@ -13,7 +13,12 @@ export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
   tags: Array<Ref<ITag>>
   api: Ref<IAnyType>
   allowCustomTextInjection: boolean
-  allowedChildren: Array<Ref<IAtom>>
+  /**
+   * We don't need Ref here, only need id to filter the select options. Making it Ref requires dependency resolution that makes it more difficult.
+   *
+   * We store preview data here so we can more easily display the tags in the atoms table
+   */
+  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
 }
 
 export type IAtomRef = string

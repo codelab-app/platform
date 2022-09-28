@@ -34,7 +34,9 @@ export const UpdateAtomModal = observer<{
     name: atom?.name,
     type: atom?.type,
     tags: atom?.tags.map((tag) => tag.id),
-    allowedChildren: atom?.allowedChildren.map((child) => child.id),
+    allowedChildren: atom?.allowedChildren.map(
+      (allowedChild) => allowedChild.id,
+    ),
   }
 
   const tagListOption = tagService.tagsSelectOptions

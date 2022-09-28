@@ -12,6 +12,7 @@ fragment Atom on Atom {
   }
   allowedChildren {
     id
+    name
   }
 }
 
@@ -29,5 +30,6 @@ fragment RenderAtom on Atom {
   }
   allowedChildren {
     id
+    name
   }
 }

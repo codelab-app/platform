@@ -18,7 +18,7 @@ export type AtomFragment = {
   type: Types.AtomType
   tags: Array<TagFragment>
   api: { id: string; name: string }
-  allowedChildren: Array<{ id: string }>
+  allowedChildren: Array<{ id: string; name: string }>
 }
 
 export type RenderAtomFragment = {
@@ -28,7 +28,7 @@ export type RenderAtomFragment = {
   type: Types.AtomType
   tags: Array<TagPreviewFragment>
   api: { id: string; name: string }
-  allowedChildren: Array<{ id: string }>
+  allowedChildren: Array<{ id: string; name: string }>
 }
 
 export const AtomFragmentDoc = gql`
@@ -46,6 +46,7 @@ export const AtomFragmentDoc = gql`
     }
     allowedChildren {
       id
+      name
     }
   }
   ${TagFragmentDoc}
@@ -65,6 +66,7 @@ export const RenderAtomFragmentDoc = gql`
     }
     allowedChildren {
       id
+      name
     }
   }
   ${TagPreviewFragmentDoc}
