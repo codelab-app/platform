@@ -1,5 +1,6 @@
 import { UserOGM } from '@codelab/backend/adapter/neo4j'
 import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
+import { cLog } from '@codelab/shared/utils'
 import inquirer from 'inquirer'
 import { CommandModule } from 'yargs'
 import { getEnvOptions } from '../../shared/command'
@@ -44,6 +45,8 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     await importTypes(createSeedTypesData(), selectedUserId, (type) => ({
       name: type.name,
     }))
+
+    cLog('createTagSeedData', createTagSeedData())
 
     /**
      * (2) Import tag tree

@@ -3,7 +3,6 @@ import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode, whereNodeId } from '@codelab/shared/data'
-import { cLog } from '@codelab/shared/utils'
 import { logTask } from '../shared/utils/log-task'
 
 /**
@@ -26,7 +25,7 @@ export const connectChildTagToParent = async (
     },
   }
 
-  cLog(input)
+  // cLog(input)
 
   try {
     await Tag.update(input)
@@ -74,7 +73,6 @@ export const upsertTag = async (
 
     const updateInput: OGM_TYPES.TagUpdateInput = {
       ...baseInput,
-      id: tag.id,
     }
 
     try {
