@@ -1,5 +1,5 @@
 import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
-import { BaseUniqueWhereCallback } from '@codelab/shared/data'
+import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { upsertAtom } from '../../repository/atom.repo'
 import { logSection } from '../../shared/utils/log-task'
 

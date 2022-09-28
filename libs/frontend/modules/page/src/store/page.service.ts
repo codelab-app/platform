@@ -8,6 +8,7 @@ import {
   IPageService,
   IUpdatePageDTO,
 } from '@codelab/shared/abstract/core'
+import { connectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -50,7 +51,7 @@ export class PageService
 This function fetches all data required for the rendered page in a single API call.
   Getting `App`, `Page`, `Store` is easy and works with default GraphQL API
   Getting `Element` is a bit trickier, since we only get the rootElementId from Page query, we would need a custom resolver to get descendant elements
-  
+
 term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
 page/component
   rootElement
@@ -96,7 +97,7 @@ page/component
         update: {
           name,
           slug: slugify(slug),
-          app: { connect: { where: { node: { id: appId } } } },
+          app: connectNode(appId),
         },
         where: { id: page.id },
       }),
@@ -151,7 +152,7 @@ page/component
       id: page.id ?? v4(),
       name: page.name,
       slug: slugify(page.slug),
-      app: { connect: { where: { node: { id: page.appId } } } },
+      app: connectNode(page.appId),
       rootElement: {
         create: {
           node: {

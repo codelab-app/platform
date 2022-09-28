@@ -30,7 +30,7 @@ import { IElementTree } from './element-tree.interface.model'
  * Used for modal input
  */
 export interface CreateElementData {
-  parentElement?: Ref<IElement>
+  parentElement: Ref<IElement>
 }
 
 export interface CreateElementProperties {
@@ -55,7 +55,7 @@ export interface IElementService
     ICacheService<IElementDTO, IElement>,
     Omit<IQueryService<IElement, ElementWhere>, 'getOne'>,
     Omit<
-      ICRUDModalService<Ref<IElement>, { element: Maybe<IElement> }>,
+      ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'
     > {
   // elementTree: IElementTree

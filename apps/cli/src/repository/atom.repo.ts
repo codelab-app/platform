@@ -1,11 +1,8 @@
 import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
-import {
-  BaseUniqueWhereCallback,
-  connectId,
-  connectTypeId,
-} from '@codelab/shared/data'
+import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import { connectNode, connectTypeId } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 import { getApiName } from '../use-cases/seed/data/ant-design.data'
 
@@ -71,7 +68,7 @@ export const upsertAtom = async (
     const updateInput: OGM_TYPES.AtomUpdateInput = {
       ...baseInput,
       // Assume the API exists
-      api: connectId(atom.api?.id),
+      api: connectNode(atom.api?.id),
       tags: [{ connect: connectTags }],
     }
 

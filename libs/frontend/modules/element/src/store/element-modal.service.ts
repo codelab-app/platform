@@ -1,4 +1,4 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   CreateElementData,
   CreateElementProperties,
@@ -19,7 +19,7 @@ export class CreateElementModalService
 {
   @computed
   get parentElement() {
-    return this.metadata?.parentElement?.current
+    return throwIfUndefined(this.metadata?.parentElement?.current)
   }
 }
 

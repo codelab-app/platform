@@ -1,9 +1,10 @@
 import { ResourceOGM } from '@codelab/backend/adapter/neo4j'
 import { IResourceExport } from '@codelab/shared/abstract/core'
+import { connectNode } from '@codelab/shared/data'
 
 export const createResource = async (
   resource: IResourceExport,
-  selectedUser: string,
+  selectedUserId: string,
 ) => {
   const Resource = await ResourceOGM()
 
@@ -11,7 +12,7 @@ export const createResource = async (
     id: resource.id,
     name: resource.name,
     type: resource.type,
-    owner: { connect: { where: { node: { id: selectedUser } } } },
+    owner: connectNode(selectedUserId),
     config: {
       create: { node: { data: resource.config.data } },
     },

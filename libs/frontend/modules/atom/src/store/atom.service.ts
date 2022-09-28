@@ -8,7 +8,12 @@ import type {
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/shared/abstract/core'
-import { connectId } from '@codelab/shared/data'
+import {
+  connectNode,
+  connectNodes,
+  connectTypeOwner,
+  disconnectNodes,
+} from '@codelab/shared/data'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -24,7 +29,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
@@ -48,18 +52,20 @@ export class AtomService
     { name, type, tags }: IUpdateAtomDTO,
   ) {
     const existingTagIds = atom.tags.map((tag) => tag.id)
-    const connect = makeTagConnectData(difference(tags, existingTagIds))
-
-    const disconnect = makeTagConnectData(
-      difference(existingTagIds, tags || []),
-    )
+    const tagsToConnect = difference(tags, existingTagIds)
+    const tagsToDisconnect = difference(existingTagIds, tags || [])
 
     const { updateAtoms } = yield* _await(
       atomApi.UpdateAtoms({
         update: {
           name,
           type,
-          tags: [{ connect, disconnect }],
+          tags: [
+            {
+              ...connectNodes(tagsToConnect),
+              ...disconnectNodes(tagsToDisconnect),
+            },
+          ],
         },
         where: { id: atom.id },
       }),
@@ -130,12 +136,7 @@ export class AtomService
     const createApiNode = (atom: ICreateAtomDTO) => ({
       id: v4(),
       name: `${atom.name} API`,
-      owner: {
-        connect: {
-          where: { node: { auth0Id: atom.owner } },
-          edge: { data: '{}' },
-        },
-      },
+      owner: connectTypeOwner(atom.owner),
     })
 
     const connectTags = (atom: ICreateAtomDTO) => {
@@ -146,7 +147,7 @@ export class AtomService
 
     const connectOrCreateApi = (atom: ICreateAtomDTO) =>
       atom.api
-        ? connectId(atom.api)
+        ? connectNode(atom.api)
         : {
             create: { node: createApiNode(atom) },
           }

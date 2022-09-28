@@ -17,7 +17,7 @@
     "build": "nx run-many --all --target=build",
     "build:test": "npx env-cmd -f .env.test nx build builder -c test",
     "test": "nx run-many --all --target=test --parallel=3",
-    "lint": "nx workspace-lint && nx run-many --all --target=lint",
+    "lint": "nx workspace-lint && nx run-many --all --target=lint --parallel=5",
     "nx": "nx",
     "update": "nx migrate @nrwl/workspace",
     "dep-graph": "nx dep-graph --watch",

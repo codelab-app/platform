@@ -48,23 +48,6 @@ export const createAtomsData: CreateAtoms = (
   },
 ]
 
-export const connectOwner = (auth0Id: string) => {
-  return { connect: { where: { node: { auth0Id: auth0Id } } } }
-}
-
-export const connectTypeOwner = (auth0Id: string) => {
-  return {
-    connect: {
-      where: { node: { auth0Id } },
-      edge: { data: '{}' },
-    },
-  }
-}
-
-export const connectId = (id?: string) => {
-  return { connect: id ? { where: { node: { id } } } : undefined }
-}
-
 export const connectTypeId = (id?: string) => {
   return {
     connect: id
@@ -74,8 +57,4 @@ export const connectTypeId = (id?: string) => {
         }
       : undefined,
   }
-}
-
-export const disconnectId = (id?: string) => {
-  return { disconnect: id ? { where: { node: { id } } } : undefined }
 }

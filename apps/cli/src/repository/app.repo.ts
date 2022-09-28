@@ -6,6 +6,7 @@ import {
 } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAppExport } from '@codelab/shared/abstract/core'
+import { connectNode } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import { v4 } from 'uuid'
@@ -16,7 +17,7 @@ import { exportActions, importActions } from './action.repo'
 import { createComponent } from './component.repo'
 import { importElementInitial, updateImportedElement } from './element.repo'
 
-export const createApp = async (app: IAppExport, selectedUser: string) => {
+export const createApp = async (app: IAppExport, selectedUserId: string) => {
   cLog(omit(app, ['pages']))
 
   const App = await AppOGM()
@@ -26,12 +27,12 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
 
   for (const { elements, components } of pages) {
     for (const element of elements) {
-      await importElementInitial(element, selectedUser)
+      await importElementInitial(element, selectedUserId)
     }
 
     // components should be created after their root elements
     for (const component of components) {
-      await createComponent(component, selectedUser)
+      await createComponent(component, selectedUserId)
     }
 
     for (const element of elements) {
@@ -73,11 +74,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
       {
         id: app.store.id,
         name: app.store.name,
-        api: {
-          connect: {
-            where: { node: { id: app.store.api.id } },
-          },
-        },
+        api: connectNode(app.store.api.id),
       },
     ],
   })
@@ -95,20 +92,16 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
       {
         id: app.id,
         name: app.name,
-        owner: { connect: { where: { node: { id: selectedUser } } } },
+        owner: connectNode(selectedUserId),
         slug: app.slug,
-        store: { connect: { where: { node: { id: appStore.id } } } },
+        store: connectNode(appStore.id),
         pages: {
           create: app.pages.map((page) => ({
             node: {
               id: page.id ?? v4(),
               name: page.name,
               slug: page.slug,
-              rootElement: {
-                connect: {
-                  where: { node: { id: page.rootElement.id } },
-                },
-              },
+              rootElement: connectNode(page.rootElement.id),
             },
           })),
         },

@@ -1,27 +1,18 @@
 import { TagOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
-import { BaseUniqueWhereCallback } from '@codelab/shared/data'
+import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import { connectNode, whereNodeId } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 
 export const connectChildTagToParent = async (tag: ITagExport) => {
-  const connectChildren = tag.children?.map((childrenTag) => ({
-    where: { node: { id: childrenTag.id } },
-  }))
-
-  const connectParent = tag.parent?.id
-    ? {
-        where: { node: { id: tag.parent?.id } },
-      }
-    : undefined
-
   const Tag = await TagOGM()
 
   const input = {
     where: { id: tag.id },
     connect: {
-      children: connectChildren?.length ? connectChildren : undefined,
-      parent: connectParent,
+      children: tag.children?.map((childTag) => whereNodeId(childTag.id)),
+      parent: whereNodeId(tag.parent?.id),
     },
   }
   // console.log(input)
@@ -31,7 +22,7 @@ export const connectChildTagToParent = async (tag: ITagExport) => {
 
 export const upsertTag = async (
   tag: ITagExport,
-  selectedUser: string,
+  selectedUserId: string,
   where: BaseUniqueWhereCallback<ITagExport>,
 ) => {
   const Tag = await TagOGM()
@@ -41,7 +32,7 @@ export const upsertTag = async (
   })
 
   const baseInput: Pick<OGM_TYPES.TagCreateInput, 'owner'> = {
-    owner: { connect: { where: { node: { id: selectedUser } } } },
+    owner: connectNode(selectedUserId),
   }
 
   if (!existingTag.length) {

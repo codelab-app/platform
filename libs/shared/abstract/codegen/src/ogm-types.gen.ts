@@ -2689,8 +2689,11 @@ export type Atom = {
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>;
   api: InterfaceType;
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>;
+  allowedChildren: Array<Atom>;
+  allowedChildrenAggregate?: Maybe<AtomAtomAllowedChildrenAggregationSelection>;
   tagsConnection: AtomTagsConnection;
   apiConnection: AtomApiConnection;
+  allowedChildrenConnection: AtomAllowedChildrenConnection;
 };
 
 export type AtomTagsArgs = {
@@ -2715,6 +2718,17 @@ export type AtomApiAggregateArgs = {
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
+export type AtomAllowedChildrenArgs = {
+  where?: InputMaybe<AtomWhere>;
+  options?: InputMaybe<AtomOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type AtomAllowedChildrenAggregateArgs = {
+  where?: InputMaybe<AtomWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
 export type AtomTagsConnectionArgs = {
   where?: InputMaybe<AtomTagsConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
@@ -2731,12 +2745,33 @@ export type AtomApiConnectionArgs = {
   sort?: InputMaybe<Array<AtomApiConnectionSort>>;
 };
 
+export type AtomAllowedChildrenConnectionArgs = {
+  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<AtomAllowedChildrenConnectionSort>>;
+};
+
 export type AtomAggregateSelection = {
   __typename?: "AtomAggregateSelection";
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
   icon: StringAggregateSelectionNullable;
+};
+
+export type AtomAllowedChildrenConnection = {
+  __typename?: "AtomAllowedChildrenConnection";
+  edges: Array<AtomAllowedChildrenRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type AtomAllowedChildrenRelationship = {
+  __typename?: "AtomAllowedChildrenRelationship";
+  cursor: Scalars["String"];
+  node: Atom;
 };
 
 export type AtomApiConnection = {
@@ -2750,6 +2785,19 @@ export type AtomApiRelationship = {
   __typename?: "AtomApiRelationship";
   cursor: Scalars["String"];
   node: InterfaceType;
+};
+
+export type AtomAtomAllowedChildrenAggregationSelection = {
+  __typename?: "AtomAtomAllowedChildrenAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<AtomAtomAllowedChildrenNodeAggregateSelection>;
+};
+
+export type AtomAtomAllowedChildrenNodeAggregateSelection = {
+  __typename?: "AtomAtomAllowedChildrenNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  icon: StringAggregateSelectionNullable;
 };
 
 export type AtomEdge = {
@@ -9418,6 +9466,126 @@ export type ArrayTypeWhere = {
   itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>;
 };
 
+export type AtomAllowedChildrenAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<AtomAllowedChildrenAggregateInput>>;
+  OR?: InputMaybe<Array<AtomAllowedChildrenAggregateInput>>;
+  node?: InputMaybe<AtomAllowedChildrenNodeAggregationWhereInput>;
+};
+
+export type AtomAllowedChildrenConnectFieldInput = {
+  where?: InputMaybe<AtomConnectWhere>;
+  connect?: InputMaybe<Array<AtomConnectInput>>;
+};
+
+export type AtomAllowedChildrenConnectionSort = {
+  node?: InputMaybe<AtomSort>;
+};
+
+export type AtomAllowedChildrenConnectionWhere = {
+  AND?: InputMaybe<Array<AtomAllowedChildrenConnectionWhere>>;
+  OR?: InputMaybe<Array<AtomAllowedChildrenConnectionWhere>>;
+  node?: InputMaybe<AtomWhere>;
+  node_NOT?: InputMaybe<AtomWhere>;
+};
+
+export type AtomAllowedChildrenConnectOrCreateFieldInput = {
+  where: AtomConnectOrCreateWhere;
+  onCreate: AtomAllowedChildrenConnectOrCreateFieldInputOnCreate;
+};
+
+export type AtomAllowedChildrenConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput;
+};
+
+export type AtomAllowedChildrenCreateFieldInput = {
+  node: AtomCreateInput;
+};
+
+export type AtomAllowedChildrenDeleteFieldInput = {
+  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  delete?: InputMaybe<AtomDeleteInput>;
+};
+
+export type AtomAllowedChildrenDisconnectFieldInput = {
+  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  disconnect?: InputMaybe<AtomDisconnectInput>;
+};
+
+export type AtomAllowedChildrenFieldInput = {
+  create?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>;
+  connect?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
+  >;
+};
+
+export type AtomAllowedChildrenNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomAllowedChildrenNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<AtomAllowedChildrenNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_EQUAL?: InputMaybe<Scalars["String"]>;
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  icon_GT?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  icon_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_LT?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  icon_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type AtomAllowedChildrenUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>;
+};
+
+export type AtomAllowedChildrenUpdateFieldInput = {
+  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  update?: InputMaybe<AtomAllowedChildrenUpdateConnectionInput>;
+  connect?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>;
+  disconnect?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>;
+  create?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>;
+  delete?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
+  >;
+};
+
 export type AtomApiAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
@@ -9517,11 +9685,15 @@ export type AtomApiUpdateFieldInput = {
 export type AtomConnectInput = {
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>;
   api?: InputMaybe<AtomApiConnectFieldInput>;
+  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>;
 };
 
 export type AtomConnectOrCreateInput = {
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>;
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>;
+  allowedChildren?: InputMaybe<
+    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
+  >;
 };
 
 export type AtomConnectOrCreateWhere = {
@@ -9539,16 +9711,19 @@ export type AtomCreateInput = {
   type: AtomType;
   tags?: InputMaybe<AtomTagsFieldInput>;
   api?: InputMaybe<AtomApiFieldInput>;
+  allowedChildren?: InputMaybe<AtomAllowedChildrenFieldInput>;
 };
 
 export type AtomDeleteInput = {
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>;
   api?: InputMaybe<AtomApiDeleteFieldInput>;
+  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>;
 };
 
 export type AtomDisconnectInput = {
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>;
   api?: InputMaybe<AtomApiDisconnectFieldInput>;
+  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>;
 };
 
 export type AtomOnCreateInput = {
@@ -9567,6 +9742,7 @@ export type AtomOptions = {
 export type AtomRelationInput = {
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>;
   api?: InputMaybe<AtomApiCreateFieldInput>;
+  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>;
 };
 
 /** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
@@ -9686,6 +9862,7 @@ export type AtomUpdateInput = {
   type?: InputMaybe<AtomType>;
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>;
   api?: InputMaybe<AtomApiUpdateFieldInput>;
+  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenUpdateFieldInput>>;
 };
 
 export type AtomWhere = {
@@ -9741,6 +9918,19 @@ export type AtomWhere = {
   api?: InputMaybe<InterfaceTypeWhere>;
   api_NOT?: InputMaybe<InterfaceTypeWhere>;
   apiAggregate?: InputMaybe<AtomApiAggregateInput>;
+  /** @deprecated Use `allowedChildren_SOME` instead. */
+  allowedChildren?: InputMaybe<AtomWhere>;
+  /** @deprecated Use `allowedChildren_NONE` instead. */
+  allowedChildren_NOT?: InputMaybe<AtomWhere>;
+  allowedChildrenAggregate?: InputMaybe<AtomAllowedChildrenAggregateInput>;
+  /** Return Atoms where all of the related Atoms match this filter */
+  allowedChildren_ALL?: InputMaybe<AtomWhere>;
+  /** Return Atoms where none of the related Atoms match this filter */
+  allowedChildren_NONE?: InputMaybe<AtomWhere>;
+  /** Return Atoms where one of the related Atoms match this filter */
+  allowedChildren_SINGLE?: InputMaybe<AtomWhere>;
+  /** Return Atoms where some of the related Atoms match this filter */
+  allowedChildren_SOME?: InputMaybe<AtomWhere>;
   /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<AtomTagsConnectionWhere>;
   /** @deprecated Use `tagsConnection_NONE` instead. */
@@ -9751,6 +9941,14 @@ export type AtomWhere = {
   tagsConnection_SOME?: InputMaybe<AtomTagsConnectionWhere>;
   apiConnection?: InputMaybe<AtomApiConnectionWhere>;
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>;
+  /** @deprecated Use `allowedChildrenConnection_SOME` instead. */
+  allowedChildrenConnection?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  /** @deprecated Use `allowedChildrenConnection_NONE` instead. */
+  allowedChildrenConnection_NOT?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  allowedChildrenConnection_ALL?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  allowedChildrenConnection_NONE?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  allowedChildrenConnection_SINGLE?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
+  allowedChildrenConnection_SOME?: InputMaybe<AtomAllowedChildrenConnectionWhere>;
 };
 
 export type CodeActionConnectInput = {

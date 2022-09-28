@@ -136,6 +136,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             component={(props: UniformSelectFieldProps) => (
               <SelectAtom
                 error={props.error}
+                label={props.label}
                 name={props.name}
                 parent={parentElement?.atom?.maybeCurrent}
               />

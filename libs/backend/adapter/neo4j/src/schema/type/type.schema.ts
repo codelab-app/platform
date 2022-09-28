@@ -48,10 +48,6 @@ export const typeSchema = gql`
       @cypher(statement: """${getTypeReferences}""")
   }
 
-  interface OwnedBy @relationshipProperties {
-    value: String
-  }
-
   interface TypeBase
   {
     id: ID! @id(autogenerate: false)
@@ -61,7 +57,7 @@ export const typeSchema = gql`
     owner: User!
       @relationship(
         type: "OWNED_BY",
-        # used by interfaceType to store default values
+        # used by interfaceType to store default values for prop data
         properties: "OwnedBy",
         direction: OUT
       )
@@ -154,6 +150,9 @@ export const typeSchema = gql`
   }
 
 
+  """
+  The idea is that admin create interfaces and can assign a default value to be used by the interface
+  """
   interface OwnedBy @relationshipProperties {
     data: String! @default(value: "{}")
   }

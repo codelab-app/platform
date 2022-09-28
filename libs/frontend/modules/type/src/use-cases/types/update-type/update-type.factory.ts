@@ -4,6 +4,7 @@ import {
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
 import {
+  connectTypeOwner,
   makeAllowedValuesCreateInput,
   makeArrayTypeDisconnectInput,
   makeItemTypeCreateInput,
@@ -30,14 +31,7 @@ export const updateTypeInputFactory = (
           : undefined,
       owner:
         type.kind === ITypeKind.InterfaceType
-          ? {
-              connect: {
-                where: { node: { auth0Id: type.interfaceDefaults?.auth0Id } },
-                edge: {
-                  data: JSON.stringify(type.interfaceDefaults?.data || '{}'),
-                },
-              },
-            }
+          ? connectTypeOwner(type.interfaceDefaults?.auth0Id)
           : undefined,
       typesOfUnionType:
         type.kind === ITypeKind.UnionType

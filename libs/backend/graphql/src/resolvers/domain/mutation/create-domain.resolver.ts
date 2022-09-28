@@ -2,6 +2,7 @@ import { DomainOGM, domainSelection } from '@codelab/backend/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/adapter/vercel'
 import { GraphQLRequestContext } from '@codelab/backend/application'
 import { CreateDomainMutationInput } from '@codelab/shared/abstract/codegen'
+import { connectNode } from '@codelab/shared/data'
 import { IFieldResolver } from '@graphql-tools/utils'
 import { v4 } from 'uuid'
 import { handleAPIError } from '../../utils/handleAPIError'
@@ -42,7 +43,7 @@ export const createDomain: IFieldResolver<
         {
           name,
           id: v4(),
-          app: { connect: { where: { node: { id: appId } } } },
+          app: connectNode(appId),
         },
       ],
     })
