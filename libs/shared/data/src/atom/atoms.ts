@@ -18,6 +18,7 @@ export const createAtomsData: CreateAtoms = (
       id: buttonInterfaceId,
     },
     tags: [],
+    allowedChildren: [],
   },
   {
     id: textId ?? v4(),
@@ -27,6 +28,7 @@ export const createAtomsData: CreateAtoms = (
       id: textInterfaceId,
     },
     tags: [],
+    allowedChildren: [],
   },
   {
     id: v4(),
@@ -36,6 +38,7 @@ export const createAtomsData: CreateAtoms = (
       id: v4(),
     },
     tags: [],
+    allowedChildren: [],
   },
   {
     id: v4(),
@@ -45,6 +48,7 @@ export const createAtomsData: CreateAtoms = (
       id: v4(),
     },
     tags: [],
+    allowedChildren: [],
   },
 ]
 

@@ -10,11 +10,9 @@ import type {
 } from '@codelab/shared/abstract/core'
 import {
   connectNode,
-  connectNodes,
   connectTypeOwner,
-  disconnectNodes,
+  reconnectNodes,
 } from '@codelab/shared/data'
-import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -49,23 +47,19 @@ export class AtomService
   update = _async(function* (
     this: AtomService,
     atom: Atom,
-    { name, type, tags }: IUpdateAtomDTO,
+    { name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
   ) {
-    const existingTagIds = atom.tags.map((tag) => tag.id)
-    const tagsToConnect = difference(tags, existingTagIds)
-    const tagsToDisconnect = difference(existingTagIds, tags || [])
+    const allowedChildrenIds = allowedChildren?.map(
+      (allowedChild) => allowedChild,
+    )
 
     const { updateAtoms } = yield* _await(
       atomApi.UpdateAtoms({
         update: {
           name,
           type,
-          tags: [
-            {
-              ...connectNodes(tagsToConnect),
-              ...disconnectNodes(tagsToDisconnect),
-            },
-          ],
+          allowedChildren: [reconnectNodes(allowedChildrenIds)],
+          tags: [reconnectNodes(tags)],
         },
         where: { id: atom.id },
       }),

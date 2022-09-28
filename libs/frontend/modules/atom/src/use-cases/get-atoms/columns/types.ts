@@ -1,4 +1,5 @@
 import {
+  IAtom,
   IAtomService,
   IAtomType,
   IInterfaceTypeRef,
@@ -12,7 +13,7 @@ export interface AtomLibrary {
 }
 
 export interface AllowedChildrenColumnProps {
-  allowedChildren: any
+  allowedChildren: Array<Ref<IAtom>>
 }
 
 export interface AtomRecord {
@@ -22,21 +23,20 @@ export interface AtomRecord {
   tags: Array<ITag>
   apiId: IInterfaceTypeRef
   library: AtomLibrary
+  allowedChildren: Array<IAtom>
 }
 
-export interface LibraryColumnProps {
-  library: AtomLibrary
-}
-
-export interface PropsColumnProps {
-  atom: AtomRecord
-}
-
-export interface ActionColumnProps {
-  atom: AtomRecord
+export type ActionColumnProps = {
   atomService: IAtomService
-}
+} & AtomRecordProps
 
 export interface TagsColumnProps {
   tags: Array<Ref<ITag>>
+}
+
+/**
+ * Passed as 2nd argument in table render function, shared across columns
+ */
+export interface AtomRecordProps {
+  atom: AtomRecord
 }

@@ -46,8 +46,6 @@ export const useGetAllAtoms = () => {
 export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
   const { atomOptions, isLoading, error: queryError } = useGetAllAtoms()
 
-  console.log(parent)
-
   const filteredOptions = atomOptions.filter((atom) => {
     return true
   })

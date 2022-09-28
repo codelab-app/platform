@@ -1,6 +1,6 @@
 import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { upsertAtom } from '../../repository/atom.repo'
+import { assignAllowedChildren, upsertAtom } from '../../repository/atom.repo'
 import { logSection } from '../../shared/utils/log-task'
 
 interface ImportAtoms {
@@ -23,5 +23,15 @@ export const importAtoms = async ({
      * Here we only deal with connecting/disconnecting tags, actual tags are created before this
      */
     await upsertAtom(atom, userId, atomWhere, tagWhere)
+  }
+
+  /**
+   * Here we assign allowedChildren, since all atoms must be created first
+   */
+  for (const atom of atoms) {
+    /**
+     * Here we only deal with connecting/disconnecting tags, actual tags are created before this
+     */
+    await assignAllowedChildren(atom)
   }
 }

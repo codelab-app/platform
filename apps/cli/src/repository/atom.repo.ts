@@ -2,7 +2,7 @@ import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { connectNode, connectTypeId } from '@codelab/shared/data'
+import { connectNode, connectNodes, connectTypeId } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 import { getApiName } from '../use-cases/seed/data/ant-design.data'
 
@@ -37,7 +37,6 @@ export const upsertAtom = async (
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
       // Always re-create the API if atom is missing
-      //
       api: {
         create: {
           node: {
@@ -86,6 +85,23 @@ export const upsertAtom = async (
       throw new Error('Update atom failed')
     }
   }
+}
 
-  return
+export const assignAllowedChildren = async (atom: IAtomExport) => {
+  const Atom = await AtomOGM()
+  const allowedChildrenIds = atom.allowedChildren.map((child) => child.id)
+
+  try {
+    return await Atom.update({
+      where: {
+        id: atom.id,
+      },
+      update: {
+        allowedChildren: [connectNodes(allowedChildrenIds)],
+      },
+    })
+  } catch (e) {
+    console.error(e)
+    throw new Error('Update atom failed')
+  }
 }

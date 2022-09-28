@@ -16,6 +16,12 @@ export const reconnectNode = (id: string | null | undefined) => ({
   disconnect: { where: {} },
 })
 
+export const reconnectNodes = (ids: Array<string> | undefined) => ({
+  ...connectNodes(ids),
+  // Empty where means all
+  disconnect: [{ where: {} }],
+})
+
 export const connectNodeBy = (
   key: string,
   value: string | null | undefined,

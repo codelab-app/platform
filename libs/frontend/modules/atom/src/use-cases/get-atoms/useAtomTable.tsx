@@ -50,12 +50,10 @@ export const useAtomTable = (atomService: IAtomService) => {
     },
     {
       title: 'Allowed',
-      dataIndex: 'allowed',
-      key: 'allowed',
+      dataIndex: 'allowedChildren',
+      key: 'allowedChildren',
       onHeaderCell: headerCellProps,
       render: (allowedChildren) => {
-        console.log(allowedChildren)
-
         return <AllowedChildrenColumn allowedChildren={allowedChildren} />
       },
     },

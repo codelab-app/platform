@@ -1940,7 +1940,6 @@ export type Field = {
 };
 
 export type OwnedBy = {
-  value?: Maybe<Scalars["String"]>;
   data: Scalars["String"];
 };
 
@@ -2050,7 +2049,6 @@ export type ActionTypeUserOwnerAggregationSelection = {
 
 export type ActionTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "ActionTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -2529,7 +2527,6 @@ export type AppTypeUserOwnerAggregationSelection = {
 
 export type AppTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "AppTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -2667,7 +2664,6 @@ export type ArrayTypeUserOwnerAggregationSelection = {
 
 export type ArrayTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "ArrayTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -2977,7 +2973,6 @@ export type CodeMirrorTypeUserOwnerAggregationSelection = {
 
 export type CodeMirrorTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "CodeMirrorTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -4183,7 +4178,6 @@ export type ElementTypeUserOwnerAggregationSelection = {
 
 export type ElementTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "ElementTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -4336,7 +4330,6 @@ export type EnumTypeUserOwnerAggregationSelection = {
 
 export type EnumTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "EnumTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -4714,7 +4707,6 @@ export type InterfaceTypeUserOwnerAggregationSelection = {
 
 export type InterfaceTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "InterfaceTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -4788,7 +4780,6 @@ export type LambdaTypeUserOwnerAggregationSelection = {
 
 export type LambdaTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "LambdaTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -5001,7 +4992,6 @@ export type PageTypeUserOwnerAggregationSelection = {
 
 export type PageTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "PageTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -5076,7 +5066,6 @@ export type PrimitiveTypeUserOwnerAggregationSelection = {
 
 export type PrimitiveTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "PrimitiveTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -5348,7 +5337,6 @@ export type ReactNodeTypeUserOwnerAggregationSelection = {
 
 export type ReactNodeTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "ReactNodeTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -5462,7 +5450,6 @@ export type RenderPropsTypeUserOwnerAggregationSelection = {
 
 export type RenderPropsTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "RenderPropsTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -5950,7 +5937,6 @@ export type TypeBaseOwnerRelationship = OwnedBy & {
   __typename?: "TypeBaseOwnerRelationship";
   cursor: Scalars["String"];
   node: User;
-  value?: Maybe<Scalars["String"]>;
   data: Scalars["String"];
 };
 
@@ -6076,7 +6062,6 @@ export type UnionTypeUserOwnerAggregationSelection = {
 
 export type UnionTypeUserOwnerEdgeAggregateSelection = {
   __typename?: "UnionTypeUserOwnerEdgeAggregateSelection";
-  value: StringAggregateSelectionNullable;
   data: StringAggregateSelectionNonNullable;
 };
 
@@ -6561,7 +6546,6 @@ export type UserTypesRelationship = OwnedBy & {
   __typename?: "UserTypesRelationship";
   cursor: Scalars["String"];
   node: TypeBase;
-  value?: Maybe<Scalars["String"]>;
   data: Scalars["String"];
 };
 
@@ -6741,26 +6725,6 @@ export type ActionTypeOwnerAggregateInput = {
 export type ActionTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<ActionTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<ActionTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -8116,26 +8080,6 @@ export type AppTypeOwnerAggregateInput = {
 export type AppTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<AppTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<AppTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -9298,26 +9242,6 @@ export type ArrayTypeOwnerAggregateInput = {
 export type ArrayTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<ArrayTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<ArrayTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -10160,26 +10084,6 @@ export type CodeMirrorTypeOwnerAggregateInput = {
 export type CodeMirrorTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<CodeMirrorTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<CodeMirrorTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -13043,26 +12947,6 @@ export type ElementTypeOwnerAggregateInput = {
 export type ElementTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<ElementTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -13593,26 +13477,6 @@ export type EnumTypeOwnerAggregateInput = {
 export type EnumTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<EnumTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<EnumTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -14702,26 +14566,6 @@ export type InterfaceTypeOwnerAggregateInput = {
 export type InterfaceTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<InterfaceTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<InterfaceTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -14957,26 +14801,6 @@ export type LambdaTypeOwnerAggregateInput = {
 export type LambdaTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<LambdaTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<LambdaTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -15122,33 +14946,20 @@ export type LambdaTypeWhere = {
 };
 
 export type OwnedByCreateInput = {
-  value?: InputMaybe<Scalars["String"]>;
   data?: Scalars["String"];
 };
 
 export type OwnedBySort = {
-  value?: InputMaybe<SortDirection>;
   data?: InputMaybe<SortDirection>;
 };
 
 export type OwnedByUpdateInput = {
-  value?: InputMaybe<Scalars["String"]>;
   data?: InputMaybe<Scalars["String"]>;
 };
 
 export type OwnedByWhere = {
   OR?: InputMaybe<Array<OwnedByWhere>>;
   AND?: InputMaybe<Array<OwnedByWhere>>;
-  value?: InputMaybe<Scalars["String"]>;
-  value_NOT?: InputMaybe<Scalars["String"]>;
-  value_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  value_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  value_CONTAINS?: InputMaybe<Scalars["String"]>;
-  value_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  value_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  value_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  value_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  value_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   data?: InputMaybe<Scalars["String"]>;
   data_NOT?: InputMaybe<Scalars["String"]>;
   data_IN?: InputMaybe<Array<Scalars["String"]>>;
@@ -15632,26 +15443,6 @@ export type PageTypeOwnerAggregateInput = {
 export type PageTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<PageTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<PageTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -15912,26 +15703,6 @@ export type PrimitiveTypeOwnerAggregateInput = {
 export type PrimitiveTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<PrimitiveTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<PrimitiveTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -16796,26 +16567,6 @@ export type ReactNodeTypeOwnerAggregateInput = {
 export type ReactNodeTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<ReactNodeTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<ReactNodeTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -17018,26 +16769,6 @@ export type RenderPropsTypeOwnerAggregateInput = {
 export type RenderPropsTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<RenderPropsTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<RenderPropsTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -18625,26 +18356,6 @@ export type TypeBaseOwnerDisconnectFieldInput = {
 export type TypeBaseOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<TypeBaseOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<TypeBaseOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
@@ -18913,26 +18624,6 @@ export type UnionTypeOwnerAggregateInput = {
 export type UnionTypeOwnerEdgeAggregationWhereInput = {
   AND?: InputMaybe<Array<UnionTypeOwnerEdgeAggregationWhereInput>>;
   OR?: InputMaybe<Array<UnionTypeOwnerEdgeAggregationWhereInput>>;
-  value_EQUAL?: InputMaybe<Scalars["String"]>;
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  value_GT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  value_GTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  value_LT?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  value_LTE?: InputMaybe<Scalars["Int"]>;
-  value_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  value_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  value_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
   data_EQUAL?: InputMaybe<Scalars["String"]>;
   data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
   data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;

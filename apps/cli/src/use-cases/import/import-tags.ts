@@ -1,4 +1,5 @@
 import { ITagExport } from '@codelab/shared/abstract/core'
+import { cLog } from '@codelab/shared/utils'
 import { connectChildTagToParent, upsertTag } from '../../repository/tag.repo'
 import { logSection, logTask } from '../../shared/utils/log-task'
 
@@ -16,7 +17,9 @@ export const importTags = async (
     }))
   })
 
-  await Promise.all(createTagsOperations)
+  const existingTags = await Promise.all(createTagsOperations)
+
+  cLog('Existing tags', existingTags)
 
   const syncTagsOperations = tags.map((tag) => {
     logTask('Linking Tag', tag.name, tag)

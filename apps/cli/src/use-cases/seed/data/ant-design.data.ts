@@ -67,6 +67,17 @@ export const createAtomsSeedData = (data: ExistingData): Array<IAtomExport> => {
         id: atomApiId,
         name: getApiName(name),
       },
+      allowedChildren:
+        atomData.allowedChildren?.map((child) => {
+          // Get the id of the existing atom by name
+          const allowedAtom = data.atoms.get(child)?.id
+
+          if (!allowedAtom) {
+            throw new Error('Allowed atom not found')
+          }
+
+          return { id: allowedAtom }
+        }) ?? [],
     }
   })
 

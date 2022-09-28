@@ -1,10 +1,19 @@
+import { Space, Tag } from 'antd'
 import React from 'react'
-import { AllowedChildrenColumnProps } from './types'
+import { AtomRecord } from './types'
 
 export const AllowedChildrenColumn = ({
   allowedChildren,
-}: AllowedChildrenColumnProps) => {
-  console.log(allowedChildren)
-
-  return <div></div>
+}: Pick<AtomRecord, 'allowedChildren'>) => {
+  return (
+    <Space>
+      {allowedChildren?.map((atom) => {
+        return (
+          <Tag color="magenta" key={atom?.id}>
+            {atom?.name}
+          </Tag>
+        )
+      })}
+    </Space>
+  )
 }

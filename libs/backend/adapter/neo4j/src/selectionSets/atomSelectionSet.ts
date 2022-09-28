@@ -10,4 +10,7 @@ export const atomSelectionSet = `
     tags {
       id
     }
+    allowedChildren {
+      id
+    }
   }`

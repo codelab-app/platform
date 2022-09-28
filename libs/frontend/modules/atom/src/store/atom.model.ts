@@ -27,6 +27,7 @@ const hydrate = (atom: IAtomDTO) => {
     type: atom.type,
     api: typeRef(atom.api.id) as Ref<InterfaceType>,
     tags: atom.tags.map((tag) => tagRef(tag.id)),
+    allowedChildren: atom.allowedChildren.map((child) => atomRef(child.id)),
   })
 }
 

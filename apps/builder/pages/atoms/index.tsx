@@ -59,14 +59,17 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
     return Promise.all([store.atomService.getAll(), store.tagService.getAll()])
   }, [])
 
-  const atomsData: Array<AtomRecord> = store.atomService.atomsList.map((a) => ({
-    id: a.id,
-    type: a.type,
-    apiId: a.api.id,
-    name: a.name,
-    tags: a.tags.map((tag) => tag.current),
-    library: getLibrary(a.type),
-  }))
+  const atomsData: Array<AtomRecord> = store.atomService.atomsList.map(
+    (atom) => ({
+      id: atom.id,
+      type: atom.type,
+      apiId: atom.api.id,
+      name: atom.name,
+      tags: atom.tags.map((tag) => tag.current),
+      library: getLibrary(atom.type),
+      allowedChildren: atom.allowedChildren.map((child) => child.current),
+    }),
+  )
 
   return (
     <>

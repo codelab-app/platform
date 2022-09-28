@@ -36,4 +36,5 @@ export interface IAtomExport {
     id: string
   }
   tags: Array<ITagExport>
+  allowedChildren: Array<{ id: string }>
 }
