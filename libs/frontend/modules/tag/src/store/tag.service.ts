@@ -222,13 +222,12 @@ export class TagService
 
     let tagModel = this.tags.get(tag.id)
 
-    if (!tagModel) {
-      tagModel = Tag.hydrate(tag)
-    } else {
+    if (tagModel) {
       tagModel = tagModel.writeCache(tag)
+    } else {
+      tagModel = Tag.hydrate(tag)
+      this.tags.set(tag.id, tagModel)
     }
-
-    this.tags.set(tag.id, tagModel)
 
     return tagModel
   }

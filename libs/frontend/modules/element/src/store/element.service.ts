@@ -101,8 +101,6 @@ export class ElementService
       .map((element) => element.renderAtomType)
       .filter(isAtomDTO)
 
-    console.log(atoms)
-
     return atoms.map((atom) => atomService.writeCache(atom))
   }
 
@@ -124,14 +122,14 @@ export class ElementService
     this.writeAtomsCache([element])
     this.writeComponentsCache([element])
 
-    if (this.elements.has(element.id)) {
-      const elementModel = this.elements.get(element.id)!
+    let elementModel = this.elements.get(element.id)
 
-      return elementModel.writeCache(element)
+    if (elementModel) {
+      elementModel.writeCache(element)
+    } else {
+      elementModel = Element.hydrate(element)
+      this.elements.set(element.id, elementModel)
     }
-
-    const elementModel = Element.hydrate(element)
-    this.elements.set(element.id, elementModel)
 
     return elementModel
   }

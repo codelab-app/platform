@@ -1,11 +1,16 @@
-import { filterNotHookType } from '@codelab/shared/abstract/core'
+import { filterNotHookType, IElement } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
+export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps> & {
+  /**
+   * Used for atom validation
+   */
+  parent: IElement
+}
 
 /**
  * @returns { data, isLoading, error }
@@ -35,7 +40,7 @@ export const useGetAllAtoms = () => {
   }
 }
 
-export const SelectAtom = ({ name, error }: SelectAtomProps) => {
+export const SelectAtom = ({ name, error, parent }: SelectAtomProps) => {
   const { atomOptions, isLoading, error: queryError } = useGetAllAtoms()
 
   return (

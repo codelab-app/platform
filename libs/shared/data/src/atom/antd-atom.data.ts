@@ -15,6 +15,10 @@ interface AtomData {
    * Name of the icon file
    */
   icon?: string | null
+  /**
+   * Which atoms are allowed to be used as children
+   */
+  allowedChildren?: Array<IAtomType>
 }
 
 const antDesignIconPrefix = 'assets/atoms/antd'
@@ -208,11 +212,18 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     file: 'Form',
     tag: AntdTag.Form,
     icon: AntdTag.Form,
+    allowedChildren: [IAtomType.AntDesignFormItem],
   },
   [IAtomType.AntDesignFormItem]: {
     file: 'Form--Item',
     tag: AntdTag.FormItem,
     icon: AntdTag.Form,
+    allowedChildren: [
+      IAtomType.AntDesignInput,
+      IAtomType.AntDesignButton,
+      IAtomType.AntDesignCheckbox,
+      IAtomType.AntDesignRadioGroup,
+    ],
   },
   [IAtomType.AntDesignFormList]: {
     file: null,

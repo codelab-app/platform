@@ -37,8 +37,9 @@ export class Atom
     name: prop<string>(),
     icon: prop<string | null | undefined>(),
     type: prop<IAtomType>(),
-    tags: prop<Array<Ref<ITag>>>(),
+    tags: prop<Array<Ref<ITag>>>(() => []),
     api: prop<Ref<InterfaceType>>(),
+    allowedChildren: prop<Array<Ref<IAtom>>>(() => []),
   })
   implements IAtom
 {
@@ -60,6 +61,9 @@ export class Atom
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
     this.tags = atom.tags.map((tag) => tagRef(tag.id))
     this.icon = atom.icon
+    this.allowedChildren = atom.allowedChildren.map((child) =>
+      atomRef(child.id),
+    )
 
     return this
   }

@@ -43,6 +43,14 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
       nullable: true,
       showSearch: true,
     },
+    allowedChildren: {
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+      nullable: true,
+      showSearch: true,
+    },
   },
   required: ['name', 'type'],
 } as const

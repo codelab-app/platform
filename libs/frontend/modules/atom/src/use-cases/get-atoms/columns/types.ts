@@ -11,6 +11,10 @@ export interface AtomLibrary {
   color: string
 }
 
+export interface AllowedChildrenColumnProps {
+  allowedChildren: any
+}
+
 export interface AtomRecord {
   id: string
   name: string

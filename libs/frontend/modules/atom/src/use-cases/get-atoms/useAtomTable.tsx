@@ -9,6 +9,7 @@ import {
 import { arraySet } from 'mobx-keystone'
 import React from 'react'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
+import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
 import { AtomRecord } from './columns/types'
 
 const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {
@@ -46,6 +47,17 @@ export const useAtomTable = (atomService: IAtomService) => {
       key: 'tags',
       onHeaderCell: headerCellProps,
       render: (tags) => <TagsColumn tags={tags} />,
+    },
+    {
+      title: 'Allowed',
+      dataIndex: 'allowed',
+      key: 'allowed',
+      onHeaderCell: headerCellProps,
+      render: (allowedChildren) => {
+        console.log(allowedChildren)
+
+        return <AllowedChildrenColumn allowedChildren={allowedChildren} />
+      },
     },
     {
       title: 'Props API',

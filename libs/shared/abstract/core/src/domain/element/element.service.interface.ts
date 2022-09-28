@@ -60,7 +60,7 @@ export interface IElementService
     > {
   // elementTree: IElementTree
   elements: ObjectMap<IElement>
-  createModal: IModalService<CreateElementData, { parentElement?: IElement }>
+  createModal: IModalService<CreateElementData, { parentElement: IElement }>
   createPropMapBindingModal: IModalService<
     Ref<IElement>,
     { element: Maybe<IElement> }

@@ -10,9 +10,12 @@ fragment Atom on Atom {
     id
     name
   }
+  allowedChildren {
+    id
+  }
 }
 
-fragment AtomPreview on Atom {
+fragment RenderAtom on Atom {
   icon
   id
   name

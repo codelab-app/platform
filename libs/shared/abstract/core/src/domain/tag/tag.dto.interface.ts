@@ -1,3 +1,4 @@
+import { Required } from 'utility-types'
 import { IAuth0Id } from '../user'
 import { TagFragment } from './tag.fragment.graphql.gen'
 import type { ITag } from './tag.model.interface'
@@ -12,7 +13,7 @@ export interface IUpdateTagDTO {
   name: string
 }
 
-export type ITagDTO = TagFragment
+export type ITagDTO = Required<Partial<TagFragment>, 'id' | 'name'>
 
 export interface ITagExport {
   id: string

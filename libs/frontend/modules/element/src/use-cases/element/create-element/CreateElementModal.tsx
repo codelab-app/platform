@@ -16,6 +16,7 @@ import {
   IRenderService,
   IUserService,
 } from '@codelab/shared/abstract/core'
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -131,7 +132,16 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             allElementOptions={selectChildrenElementOptions}
             name="prevSiblingId"
           />
-          <AutoField component={SelectAtom} name="atomId" />
+          <AutoField
+            component={(props: UniformSelectFieldProps) => (
+              <SelectAtom
+                error={props.error}
+                name={props.name}
+                parent={parentElement?.atom?.maybeCurrent}
+              />
+            )}
+            name="atomId"
+          />
           <AutoField
             activeComponentId={builderService.activeComponent?.id}
             component={SelectComponent}
