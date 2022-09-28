@@ -109,6 +109,13 @@ export const typeSchema = gql`
    owner: User!
  } 
 
+  type TypesPageArrayType implements TypeBase {
+   id: ID!
+   kind: TypeKind! 
+   name: String! @unique
+   owner: User!
+ } 
+
  union TypesPageAnyType = TypesPageEnumType | TypesPageUnionType | TypesPageTypeBase 
 
 
