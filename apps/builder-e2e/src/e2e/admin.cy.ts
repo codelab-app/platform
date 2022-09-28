@@ -73,10 +73,10 @@ describe('Admin', () => {
     cy.resetDatabase()
   })
 
-  describe('parse', () => {
-    it('should parse Ant Design CSV data & export', () => {
-      cy.log('yarn cli parse')
-        .exec('yarn cli parse --env test --email cypress@codelab.ai', {
+  describe('seed', () => {
+    it('should seed Ant Design CSV data & export', () => {
+      cy.log('yarn cli seed')
+        .exec('yarn cli seed --env test --email cypress@codelab.ai', {
           timeout: 30000,
         })
         .its('stdout')
@@ -88,7 +88,7 @@ describe('Admin', () => {
     })
 
     /**
-     * Importing from file should result in the same data as parse
+     * Importing from file should result in the same data as seed
      */
     it('should import Ant Design data', () => {
       cy.resetDatabase()
