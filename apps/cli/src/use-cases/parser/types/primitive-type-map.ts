@@ -21,6 +21,8 @@ export const checkPrimitiveType = (value: string) => {
   }
 }
 
+const allPrimitives = ['number', 'string', 'boolean']
+
 type TypeRef = {
   existingId: string
 } | null
@@ -33,6 +35,18 @@ export const getPrimitiveTypeForApi = async (
 ): Promise<TypeRef> => {
   const PrimitiveType = await PrimitiveTypeOGM()
   const UnionType = await UnionTypeOGM()
+
+  const containsPrimitives: boolean = values.every((x) =>
+    allPrimitives.includes(x),
+  )
+
+  const checkPrimitiveOfUnionType = (data: Array<string>) => {
+    if (containsPrimitives && data.length > 1) {
+      return connectUnionType(data)
+    } else {
+      return null
+    }
+  }
 
   // Async function to connect Union Type
   /**
@@ -100,7 +114,10 @@ export const getPrimitiveTypeForApi = async (
     }
   }
 
-  // Check and Create Simple Union Type or Primitive Type
+  //
+  await checkPrimitiveOfUnionType(values)
+
+  // Check and Create Primitive Type
   switch (apiField.type) {
     case 'boolean': {
       const [booleanType] = await PrimitiveType.find({
@@ -126,22 +143,6 @@ export const getPrimitiveTypeForApi = async (
       }
     }
 
-    case 'number | string': {
-      return connectUnionType(values)
-    }
-
-    case 'string | boolean': {
-      return connectUnionType(values)
-    }
-
-    case 'boolean | number': {
-      return connectUnionType(values)
-    }
-
-    case 'string | number': {
-      return connectUnionType(values)
-    }
-
     // eslint-disable-next-line no-fallthrough
     case 'string': {
       const [stringType] = await PrimitiveType.find({
@@ -156,10 +157,10 @@ export const getPrimitiveTypeForApi = async (
     }
 
     default: {
-      //   console.log(
-      //     `Could not transform fields for Atom [${atom.type}]`,
-      //     apiField,
-      //   )
+      console.log(
+        `Could not transform fields for Atom [${atom.type}]`,
+        apiField,
+      )
 
       return null
     }

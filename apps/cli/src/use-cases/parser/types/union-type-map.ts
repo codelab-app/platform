@@ -51,15 +51,15 @@ export const getUnionTypeForApi = async (
   //     .filter(checkInterfaceType)
   //     .map((value: string) => getKeyObjInUnion(value, 'union'))
 
-  values
-    .filter(checkInterfaceType)
-    .map((value: string) =>
-      console.log('aaaa', getKeyObjInUnion(value, 'union')),
-    )
+  // values
+  //   .filter(checkInterfaceType)
+  //   .map((value: string) =>
+  //     console.log('aaaa', getKeyObjInUnion(value, 'union')),
+  //   )
 
-  values
-    .filter(checkInterfaceType)
-    .map((value: string) => console.log('bbb', value))
+  // values
+  //   .filter(checkInterfaceType)
+  //   .map((value: string) => console.log('bbb', value))
 
   // values.map((value: string) =>
   //   console.log('ccccc', getKeyObjInUnion(value, 'aaaa')),
@@ -109,27 +109,27 @@ export const getUnionTypeForApi = async (
                     name: `${atom.name} ${getKeyObjInUnion(value, 'name')} API`,
                     kind: ITypeKind.InterfaceType,
                     owner: connectTypeId(userId),
-                    fields: {
-                      create: values
-                        .filter(checkInterfaceType)
-                        .map((item: string) => ({
-                          node: {
-                            PrimitiveType: {
-                              id: v4(),
-                              name: `${getKeyObjInUnion(item, 'name')}`,
-                              kind: ITypeKind.PrimitiveType,
-                              primitiveKind: checkPrimitiveType(
-                                getKeyObjInUnion(item, 'none'),
-                              ),
-                            },
-                          },
-                          edge: {
-                            id: v4(),
-                            key: `${getKeyObjInUnion(item, 'name')}`,
-                            name: `${pascalCaseToWords(value)}`,
-                          },
-                        })),
-                    },
+                    // fields: {
+                    //   create: values
+                    //     .filter(checkInterfaceType)
+                    //     .map((item: string) => ({
+                    //       node: {
+                    //         PrimitiveType: {
+                    //           id: v4(),
+                    //           name: `${getKeyObjInUnion(item, 'name')}`,
+                    //           kind: ITypeKind.PrimitiveType,
+                    //           primitiveKind: checkPrimitiveType(
+                    //             getKeyObjInUnion(item, 'none'),
+                    //           ),
+                    //         },
+                    //       },
+                    //       edge: {
+                    //         id: v4(),
+                    //         key: `${getKeyObjInUnion(item, 'name')}`,
+                    //         name: `${pascalCaseToWords(value)}`,
+                    //       },
+                    //     })),
+                    // },
                   },
                 })),
             },

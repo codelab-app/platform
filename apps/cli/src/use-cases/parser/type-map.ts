@@ -28,8 +28,8 @@ export const getTypeForApi = async (
   logTask('Get Type For API', atom.name, apiField)
 
   const values = apiField.type.split('|').map((value: string) => value.trim())
-  const isBaseCondition = apiField.type.indexOf('|') > -1
-  const isComplexUnion = isBaseCondition && apiField.type.indexOf('{') > -1
+  const isBaseCondition = apiField.type.includes('|')
+  const isComplexUnion = isBaseCondition && apiField.type.includes('{')
 
   // Check if type is Enum Type
   if (apiField.isEnum) {
