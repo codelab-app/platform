@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
+import { SortableItem } from './SortableItem'
 import {
   childrenAreEmpty,
   extractValidProps,
@@ -86,10 +87,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
-    // If we have an array, wrap it in a fragment
-    return Array.isArray(Children)
-      ? React.createElement(Fragment, {}, Children)
-      : Children
+    // return CustomDraggableElement({ element, elementService, children: Children })
+    return React.createElement(Fragment, {
+      children: SortableItem({ element, children: Children }),
+    })
   },
 )
 

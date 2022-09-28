@@ -6,20 +6,23 @@ import {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { Renderer, RendererProps } from '@codelab/frontend/domain/renderer'
+import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
+import { SortableContext } from '@dnd-kit/sortable/dist/components/SortableContext'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ElementDropHandlers } from '../../dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
+import { useBuilderPageDnd } from '../../hooks/useBuilderPageDnd'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
 
 type BuilderProps = {
   elementTree: IElementTree
+  elementService: IElementService
 } & Pick<
   IBuilderService,
   'set_hoveredNode' | 'currentDragData' | 'selectedNode' | 'set_selectedNode'
-> &
-  Pick<IElementService, 'deleteModal'> & {
+> & {
     rendererProps: RendererProps
   }
 
@@ -33,9 +36,9 @@ export const Builder = observer<BuilderProps>(
     set_hoveredNode,
     selectedNode,
     elementTree,
-    deleteModal,
     set_selectedNode,
     rendererProps,
+    elementService,
   }) => {
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
       currentDragData,
@@ -45,11 +48,19 @@ export const Builder = observer<BuilderProps>(
     useBuilderHotkeys({
       selectedNode,
       set_selectedNode,
-      deleteModal,
+      deleteModal: elementService.deleteModal,
     })
 
     const handleContainerClick = useBuilderRootClickHandler()
     const elementsList = elementTree?.elementsList
+
+    const {
+      draggedElement,
+      handleDragMove,
+      handleDragStart,
+      handleDrop,
+      sensors,
+    } = useBuilderPageDnd(elementService)
 
     return (
       <StyledBuilderContainer
@@ -65,7 +76,22 @@ export const Builder = observer<BuilderProps>(
           <ElementDropHandlers elementsList={elementsList} />
         ) : null}
 
-        <Renderer renderRoot={rendererProps.renderRoot} />
+        <DndContext
+          collisionDetection={pointerWithin}
+          onDragEnd={handleDrop}
+          onDragMove={handleDragMove}
+          onDragStart={handleDragStart}
+          sensors={sensors}
+        >
+          <SortableContext items={elementsList.map((e) => e.id)}>
+            <Renderer renderRoot={rendererProps.renderRoot} />
+          </SortableContext>
+          <DragOverlay>
+            {draggedElement
+              ? draggedElement.data.current?.renderDragOverlay()
+              : null}
+          </DragOverlay>
+        </DndContext>
 
         {/* <BuilderHoverOverlay /> */}
         {/* <BuilderClickOverlay /> */}

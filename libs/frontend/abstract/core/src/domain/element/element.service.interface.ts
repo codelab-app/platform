@@ -25,6 +25,7 @@ import {
 } from './element.dto.interface'
 import { IElement, IElementRef } from './element.model.interface'
 import { IElementTree } from './element-tree.interface.model'
+// import { DropPosition } from 'libs/frontend/modules/renderer/src/element/CustomDraggableElement'
 
 /**
  * Used for modal input
@@ -91,6 +92,11 @@ export interface IElementService
   moveElementAsNextSibling(props: {
     elementId: string
     targetElementId: string
+  }): Promise<void>
+  handleElementDrop(props: {
+    droppedElementId: string
+    targetElementId: string
+    // dropPosition: DropPosition
   }): Promise<void>
   duplicateElement(
     target: IElement,

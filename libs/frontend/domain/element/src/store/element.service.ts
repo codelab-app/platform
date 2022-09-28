@@ -333,10 +333,73 @@ parent
       return
     }
 
+    if (targetElement.nextSiblingId === elementId) {
+      return
+    }
+
     yield* _await(this.detachElementFromElementTree(elementId))
 
     yield* _await(
       this.attachElementAsNextSibling({ elementId, targetElementId }),
+    )
+  })
+
+  /**
+   * Moves dropped element to before or after of the target element based on the drop position
+   */
+  @modelFlow
+  @transaction
+  handleElementDrop = _async(function* (
+    this: ElementService,
+    {
+      droppedElementId,
+      targetElementId,
+    }: Parameters<IElementService['handleElementDrop']>[0],
+  ) {
+    const droppedElement = this.element(droppedElementId)
+    const targetElement = this.element(targetElementId)
+
+    if (!droppedElement || !targetElement) {
+      return
+    }
+
+    // TODO: impl
+    const dropPosition = 'after'
+
+    // targetElement - [droppedElement]
+    if (dropPosition === 'after') {
+      return yield* _await(
+        this.moveElementAsNextSibling({
+          elementId: droppedElementId,
+          targetElementId,
+        }),
+      )
+    }
+
+    // Dropped element is already prev sibling of the target element
+    if (
+      targetElement.prevSiblingId &&
+      targetElement.prevSiblingId === droppedElementId
+    ) {
+      return
+    }
+
+    // targetElement->prevSibling - [droppedElement] - targetElement
+    if (targetElement.prevSiblingId) {
+      return yield* _await(
+        this.moveElementAsNextSibling({
+          elementId: droppedElementId,
+          targetElementId: targetElement.prevSiblingId,
+        }),
+      )
+    }
+
+    // parent->firstChild->[droppedElement] - targetElement
+    yield* _await(
+      this.moveElementAsFirstChild({
+        elementId: droppedElementId,
+        parentElementId: targetElement.parentId!,
+      }),
     )
   })
 

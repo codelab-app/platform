@@ -4606,6 +4606,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dnd-kit/sortable@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "@dnd-kit/sortable@npm:7.0.1"
+  dependencies:
+    "@dnd-kit/utilities": ^3.2.0
+    tslib: ^2.0.0
+  peerDependencies:
+    "@dnd-kit/core": ^6.0.4
+    react: ">=16.8.0"
+  checksum: b8b5ae504d57d6afb847c3ac8a865a3623c5915f4f0dd767017a17e6d1d36e144b74f6f90a17c07d5f8ddc83395a2db8bb90c420f017aee15bd88538b6f3f226
+  languageName: node
+  linkType: hard
+
 "@dnd-kit/utilities@npm:^3.2.0":
   version: 3.2.0
   resolution: "@dnd-kit/utilities@npm:3.2.0"
@@ -13684,6 +13697,7 @@ __metadata:
     "@currents/cli": ^2.1.1
     "@currents/nx": ^0.0.5
     "@dnd-kit/core": 6.0.5
+    "@dnd-kit/sortable": ^7.0.1
     "@emotion/babel-plugin": 11.10.0
     "@emotion/babel-preset-css-prop": 11.2.0
     "@emotion/eslint-plugin": 11.7.0
