@@ -1,6 +1,12 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ICreateFieldDTO, ITypeService } from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import {
+  ICreateFieldDTO,
+  ITypeService,
+  IValidationRules,
+} from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -18,11 +24,6 @@ const generateDefaultFormModel = () =>
     id: v4(),
     key: '',
     fieldType: '',
-    validationRules: {
-      general: {
-        nullable: true,
-      },
-    },
   } as ICreateFieldDTO)
 
 // TODO: Find a better place for this function
@@ -37,6 +38,31 @@ export const modifyNestedKey = (
     return obj
   } else {
     return modifyNestedKey(obj[is[0]], is.slice(1), value)
+  }
+}
+
+export const filterValidationRules = (
+  rules: Nullish<IValidationRules>,
+  primitiveKind: Nullish<Omit<PrimitiveTypeKind, 'Boolean'>>,
+) => {
+  if (!rules) {
+    return {}
+  }
+
+  const { general } = rules
+
+  const rest =
+    primitiveKind === 'String'
+      ? { String: rules.String }
+      : primitiveKind === 'Float'
+      ? { Float: rules.Float }
+      : primitiveKind === 'Integer'
+      ? { Integer: rules.Integer }
+      : {}
+
+  return {
+    general,
+    ...rest,
   }
 }
 
@@ -66,16 +92,16 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
                 ...prev,
                 validationRules: {
                   general: {
-                    ...prev.validationRules.general,
+                    ...prev?.validationRules?.general,
                   },
-                  string: {
-                    ...prev.validationRules.string,
+                  [PrimitiveTypeKind.String]: {
+                    ...prev?.validationRules?.String,
                   },
-                  float: {
-                    ...prev.validationRules.float,
+                  [PrimitiveTypeKind.Float]: {
+                    ...prev?.validationRules?.Float,
                   },
-                  integer: {
-                    ...prev.validationRules.integer,
+                  [PrimitiveTypeKind.Integer]: {
+                    ...prev?.validationRules?.Integer,
                   },
                 },
               }
@@ -88,7 +114,13 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           onSubmit={(input) =>
             typeService.addField(
               typeService.fieldCreateModal?.interface?.id as string,
-              input,
+              {
+                ...input,
+                validationRules: filterValidationRules(
+                  input.validationRules,
+                  typeService.primitiveKind(input.fieldType),
+                ),
+              },
             )
           }
           onSubmitError={createNotificationHandler({
@@ -112,17 +144,17 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
 
           {model.fieldType &&
             typeService.primitiveKind(model.fieldType) === 'String' && (
-              <AutoFields fields={['validationRules.string']} />
+              <AutoFields fields={['validationRules.String']} />
             )}
 
           {model.fieldType &&
             typeService.primitiveKind(model.fieldType) === 'Integer' && (
-              <AutoFields fields={['validationRules.integer']} />
+              <AutoFields fields={['validationRules.Integer']} />
             )}
 
           {model.fieldType &&
             typeService.primitiveKind(model.fieldType) === 'Float' && (
-              <AutoFields fields={['validationRules.float']} />
+              <AutoFields fields={['validationRules.Float']} />
             )}
         </ModalForm.Form>
       </ModalForm.Modal>

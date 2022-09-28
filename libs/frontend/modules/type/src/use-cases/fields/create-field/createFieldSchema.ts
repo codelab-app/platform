@@ -1,3 +1,4 @@
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   GeneralValidationRules,
   ICreateFieldDTO,
@@ -20,16 +21,15 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
       properties: {
         general: {
           type: 'object',
-          nullable: false,
+          nullable: true,
           properties: {
             [GeneralValidationRules.Nullable]: {
               type: 'boolean',
-              nullable: false,
+              nullable: true,
             },
           },
-          required: [GeneralValidationRules.Nullable],
         },
-        string: {
+        [PrimitiveTypeKind.String]: {
           type: 'object',
           nullable: true,
           properties: {
@@ -44,7 +44,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
             [StringValidationRules.Pattern]: { type: 'string', nullable: true },
           },
         },
-        float: {
+        [PrimitiveTypeKind.Float]: {
           type: 'object',
           nullable: true,
           properties: {
@@ -70,7 +70,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
             },
           },
         },
-        integer: {
+        [PrimitiveTypeKind.Integer]: {
           type: 'object',
           nullable: true,
           properties: {
@@ -97,7 +97,6 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
           },
         },
       },
-      required: ['general'],
     },
     /**
      * TODO: Refactor to match interface
@@ -105,5 +104,5 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
      */
     fieldType: { type: 'string', nullable: true },
   },
-  required: ['id', 'key', 'fieldType', 'validationRules'],
+  required: ['id', 'key', 'fieldType'],
 }

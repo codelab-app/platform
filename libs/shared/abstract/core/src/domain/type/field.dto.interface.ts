@@ -1,4 +1,4 @@
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { IField, IFieldRef } from './field'
 import { FieldFragment } from './fragments'
@@ -23,7 +23,7 @@ export enum NumberValidationRules {
 }
 
 export interface IGeneralValidationRules {
-  [GeneralValidationRules.Nullable]: boolean
+  [GeneralValidationRules.Nullable]?: Nullish<boolean>
 }
 
 export interface IStringValidationRules {
@@ -41,10 +41,10 @@ export interface INumberValidationRules {
 }
 
 export interface IValidationRules {
-  general: IGeneralValidationRules
-  string?: Nullish<IStringValidationRules>
-  float?: Nullish<INumberValidationRules>
-  integer?: Nullish<INumberValidationRules>
+  general?: Nullish<IGeneralValidationRules>
+  [PrimitiveTypeKind.String]?: Nullish<IStringValidationRules>
+  [PrimitiveTypeKind.Float]?: Nullish<INumberValidationRules>
+  [PrimitiveTypeKind.Integer]?: Nullish<INumberValidationRules>
 }
 
 export interface ICreateFieldDTO {
@@ -52,7 +52,7 @@ export interface ICreateFieldDTO {
   key: string
   name?: Nullish<string>
   description?: Nullish<string>
-  validationRules: IValidationRules
+  validationRules?: Nullish<IValidationRules>
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
 }

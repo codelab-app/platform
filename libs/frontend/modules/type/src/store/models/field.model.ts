@@ -48,7 +48,7 @@ export class Field
     description: prop<Nullish<string>>(),
     key: prop<string>(),
     type: prop<Ref<IAnyType>>(),
-    validationRules: prop<IValidationRules>(),
+    validationRules: prop<Nullish<IValidationRules>>(),
   }))
   implements IField
 {

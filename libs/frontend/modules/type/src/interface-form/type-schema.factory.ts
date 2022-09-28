@@ -123,7 +123,9 @@ export class TypeSchemaFactory {
       properties: [...type.fields.values()].reduce(makeFieldProperties, {}),
       required: [...type.fields.values()]
         .map((field) =>
-          field.validationRules?.general.nullable ? undefined : field.key,
+          field.validationRules?.general?.nullable === false
+            ? field.key
+            : undefined,
         )
         .filter(Boolean) as Array<string>,
     }
@@ -203,17 +205,17 @@ export class TypeSchemaFactory {
     switch (type.primitiveKind) {
       case PrimitiveTypeKind.String:
         validation = {
-          ...context?.validationRules?.string,
+          ...context?.validationRules?.String,
         }
         break
       case PrimitiveTypeKind.Float:
         validation = {
-          ...context?.validationRules?.float,
+          ...context?.validationRules?.Float,
         }
         break
       case PrimitiveTypeKind.Integer:
         validation = {
-          ...context?.validationRules?.integer,
+          ...context?.validationRules?.Integer,
         }
         break
     }

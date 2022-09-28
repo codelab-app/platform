@@ -22,8 +22,14 @@ interface ValidationRuleTag {
   value: string | number | boolean
 }
 
-const getValidationRuleTagsArray = (validationRules: IValidationRules) => {
+const getValidationRuleTagsArray = (
+  validationRules: Nullish<IValidationRules>,
+) => {
   const rules: Array<ValidationRuleTag> = []
+
+  if (!validationRules) {
+    return rules
+  }
 
   Object.entries(validationRules).forEach(([_, ruleCategory]) => {
     Object.entries(ruleCategory).forEach(([key, value]) => {
