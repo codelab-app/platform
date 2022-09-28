@@ -10,15 +10,23 @@ import { useTypesTable } from './useGetTypesTable'
 export const GetTypesTable = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const { columns, rowSelection } = useTypesTable(typeService)
-    const { loading, value } = useAsync(() => typeService.getAll(), [])
-    useEffect(() => {
-      const fn = async () => {
-        const api = await getTypeApi.GetTypesTest()
-        console.log({ api })
-      }
 
-      fn()
-    }, [])
+    const { loading, value } = useAsync(
+      () => typeService.getTypesOfTypesPage(),
+      [],
+    )
+
+    console.log({ value })
+
+    // useEffect(() => {
+    //   const fn = async () => {
+
+    //     // const api = await getTypeApi.GetTypesTest()
+    //     // console.log({ api })
+    //   }
+
+    //   fn()
+    // }, [])
 
     // Manually build the data for the table because Table is not reactive and
     // this way we ensure it will get re-rendered properly on updates

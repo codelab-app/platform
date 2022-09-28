@@ -1,1 +1,1 @@
-export * from './types.resolver'
+export * from './typesOfTypesPage.resolver'

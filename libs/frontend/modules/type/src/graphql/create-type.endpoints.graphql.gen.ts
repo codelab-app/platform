@@ -13,6 +13,9 @@ import {
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
+  Type_TypesPageEnumType_Fragment,
+  Type_TypesPageTypeBase_Fragment,
+  Type_TypesPageUnionType_Fragment,
   Type_UnionType_Fragment,
 } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'

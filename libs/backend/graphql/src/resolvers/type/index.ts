@@ -2,23 +2,23 @@ import { withReadTransactionResolver } from '@codelab/backend/adapter/neo4j'
 import { AnyType } from '@codelab/shared/abstract/codegen'
 import { IResolvers } from '@graphql-tools/utils'
 import { upsertField } from './mutation'
-import { types } from './query'
+import { typesOfTypesPage } from './query'
 
 export const typeResolver: IResolvers = {
   Mutation: {
     upsertField,
   },
   Query: {
-    types: withReadTransactionResolver(types),
+    typesOfTypesPage: withReadTransactionResolver(typesOfTypesPage),
   },
-  AnyType: {
+  // AnyType: {
+  //   __resolveType(obj: AnyType) {
+  //     return obj.kind || obj.__typename
+  //   },
+  // },
+  TypesPageAnyType: {
     __resolveType(obj: AnyType) {
-      return obj.kind || obj.__typename
-    },
-  },
-  TypeBase: {
-    __resolveType(obj: AnyType) {
-      return obj.kind || obj.__typename
+      return obj.__typename
     },
   },
 }

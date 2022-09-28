@@ -134,6 +134,27 @@ export class TypeService
 
   @modelFlow
   @transaction
+  getTypesOfTypesPage = _async(function* (this: TypeService) {
+    const { typesOfTypesPage } = yield* _await(getTypeApi.GetTypesOfTypesPage())
+
+    typesOfTypesPage.map((type) => {
+      try {
+        const typeModel = typeFactory(type)
+        console.log({ typeModel })
+
+        this.types.set(type.id, typeModel)
+
+        return typeModel
+      } catch (err) {
+        console.log({ err })
+      }
+    })
+
+    return typesOfTypesPage
+  })
+
+  @modelFlow
+  @transaction
   getAll = _async(function* (this: TypeService, where?: TypeBaseWhere) {
     const ids = where?.id_IN ?? undefined
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
