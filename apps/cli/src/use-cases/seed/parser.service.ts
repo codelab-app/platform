@@ -94,6 +94,11 @@ export class ParserService {
         key: field.property,
         name: pascalCaseToWords(field.property),
         description: field.description,
+        validationRules: {
+          general: {
+            nullable: true,
+          },
+        },
         fieldType:
           (await getTypeForApi(field, atom, this.userId))?.existingId ?? '',
       })),
