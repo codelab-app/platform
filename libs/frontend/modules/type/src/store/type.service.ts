@@ -1,6 +1,9 @@
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
+import {
+  PrimitiveTypeKind,
+  TypeBaseWhere,
+} from '@codelab/shared/abstract/codegen'
 import type {
   IAnyType,
   ICreateFieldDTO,
@@ -78,6 +81,16 @@ export class TypeService
 
   type(id: string) {
     return this.types.get(id)
+  }
+
+  primitiveKind(id: string): Nullable<PrimitiveTypeKind> {
+    const type = this.type(id)
+
+    if (type?.kind === ITypeKind.PrimitiveType) {
+      return type.primitiveKind
+    }
+
+    return null
   }
 
   /**
@@ -284,6 +297,7 @@ export class TypeService
         id: data.id,
         key: data.key,
         name: data.name,
+        validationRules: JSON.stringify(data.validationRules),
       },
     }
 
@@ -318,6 +332,7 @@ export class TypeService
         description: data.description,
         key: data.key,
         name: data.name,
+        validationRules: JSON.stringify(data.validationRules),
       },
     }
 

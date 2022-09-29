@@ -2,6 +2,7 @@ import type {
   IAnyType,
   IField,
   IFieldProps,
+  IValidationRules,
 } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -17,14 +18,24 @@ import {
 import { typeRef } from './union-type.model'
 
 const hydrate = (data: IFieldProps) => {
-  const { id, key, name, description, fieldType } = data
+  const {
+    id,
+    key,
+    name,
+    description,
+    fieldType,
+    validationRules: schemaStr,
+  } = data
+
+  const validationRules = JSON.parse(schemaStr || '{}')
 
   return new Field({
     id,
-    type: typeRef(fieldType.id),
     name,
     description,
     key,
+    type: typeRef(fieldType.id),
+    validationRules,
   })
 }
 
@@ -37,6 +48,7 @@ export class Field
     description: prop<Nullish<string>>(),
     key: prop<string>(),
     type: prop<Ref<IAnyType>>(),
+    validationRules: prop<Nullish<IValidationRules>>(),
   }))
   implements IField
 {
@@ -47,6 +59,7 @@ export class Field
     this.description = fragment.description
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
+    this.validationRules = JSON.parse(fragment.validationRules || '{}')
 
     return this
   }

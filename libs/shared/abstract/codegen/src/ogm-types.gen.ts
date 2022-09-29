@@ -1937,6 +1937,7 @@ export type Field = {
   key: Scalars["String"];
   name?: Maybe<Scalars["String"]>;
   description?: Maybe<Scalars["String"]>;
+  validationRules?: Maybe<Scalars["String"]>;
 };
 
 export type OwnedBy = {
@@ -4689,6 +4690,7 @@ export type InterfaceTypeFieldsRelationship = Field & {
   key: Scalars["String"];
   name?: Maybe<Scalars["String"]>;
   description?: Maybe<Scalars["String"]>;
+  validationRules?: Maybe<Scalars["String"]>;
 };
 
 export type InterfaceTypesConnection = {
@@ -13837,6 +13839,7 @@ export type FieldCreateInput = {
   id: Scalars["ID"];
   key: Scalars["String"];
   name?: InputMaybe<Scalars["String"]>;
+  validationRules?: InputMaybe<Scalars["String"]>;
 };
 
 export type FieldSort = {
@@ -13844,6 +13847,7 @@ export type FieldSort = {
   key?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   description?: InputMaybe<SortDirection>;
+  validationRules?: InputMaybe<SortDirection>;
 };
 
 export type FieldUpdateInput = {
@@ -13851,6 +13855,7 @@ export type FieldUpdateInput = {
   key?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
   description?: InputMaybe<Scalars["String"]>;
+  validationRules?: InputMaybe<Scalars["String"]>;
 };
 
 export type FieldWhere = {
@@ -13896,6 +13901,16 @@ export type FieldWhere = {
   description_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   description_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   description_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  validationRules?: InputMaybe<Scalars["String"]>;
+  validationRules_NOT?: InputMaybe<Scalars["String"]>;
+  validationRules_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  validationRules_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  validationRules_CONTAINS?: InputMaybe<Scalars["String"]>;
+  validationRules_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  validationRules_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  validationRules_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  validationRules_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  validationRules_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
 };
 
 export type HookConfigAggregateInput = {

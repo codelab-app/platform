@@ -121,4 +121,5 @@ export const interfaceWithUnionExpectedSchema = {
       ],
     },
   },
+  required: [],
 }

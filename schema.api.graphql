@@ -9610,6 +9610,7 @@ interface Field {
   id: ID!
   key: String!
   name: String
+  validationRules: String
 }
 
 input FieldCreateInput {
@@ -9617,6 +9618,7 @@ input FieldCreateInput {
   id: ID!
   key: String!
   name: String
+  validationRules: String
 }
 
 input FieldSort {
@@ -9624,6 +9626,7 @@ input FieldSort {
   id: SortDirection
   key: SortDirection
   name: SortDirection
+  validationRules: SortDirection
 }
 
 input FieldUpdateInput {
@@ -9631,6 +9634,7 @@ input FieldUpdateInput {
   id: ID
   key: String
   name: String
+  validationRules: String
 }
 
 input FieldWhere {
@@ -9676,6 +9680,16 @@ input FieldWhere {
   name_NOT_IN: [String]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  validationRules: String
+  validationRules_CONTAINS: String
+  validationRules_ENDS_WITH: String
+  validationRules_IN: [String]
+  validationRules_NOT: String
+  validationRules_NOT_CONTAINS: String
+  validationRules_NOT_ENDS_WITH: String
+  validationRules_NOT_IN: [String]
+  validationRules_NOT_STARTS_WITH: String
+  validationRules_STARTS_WITH: String
 }
 
 type Hook {
@@ -10517,6 +10531,7 @@ type InterfaceTypeFieldsRelationship implements Field {
   key: String!
   name: String
   node: TypeBase!
+  validationRules: String
 }
 
 input InterfaceTypeFieldsUpdateConnectionInput {
