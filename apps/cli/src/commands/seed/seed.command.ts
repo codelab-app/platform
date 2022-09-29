@@ -67,7 +67,11 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     })
 
     /**
-     * (3) Then parse and import the Ant Design interfaces
+     * (4) Assign allowedChildren
+     */
+
+    /**
+     * (5) Then parse and import the Ant Design interfaces
      */
     await parseAndImportInterface(selectedUserId)
 

@@ -1,6 +1,10 @@
 import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
+import {
+  ExistingData,
+  IAtomImport,
+  ITagExport,
+} from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode, connectNodes, connectTypeId } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
@@ -10,9 +14,9 @@ import { getApiName } from '../use-cases/seed/data/ant-design.data'
  * We upsert by ID so we can easily change the names by re-running import
  */
 export const upsertAtom = async (
-  atom: IAtomExport,
+  atom: IAtomImport,
   userId: string,
-  atomWhere: BaseUniqueWhereCallback<IAtomExport>,
+  atomWhere: BaseUniqueWhereCallback<IAtomImport>,
   tagWhere: BaseUniqueWhereCallback<ITagExport>,
 ) => {
   logTask('Upserting Atom', atom.name)
@@ -87,9 +91,12 @@ export const upsertAtom = async (
   }
 }
 
-export const assignAllowedChildren = async (atom: IAtomExport) => {
+export const assignAllowedChildren = async (
+  atom: IAtomImport,
+  data: ExistingData,
+) => {
   const Atom = await AtomOGM()
-  const allowedChildrenIds = atom.allowedChildren.map((child) => child.id)
+  const allowedChildrenIds = atom.allowedChildren(data).map((child) => child.id)
 
   try {
     return await Atom.update({

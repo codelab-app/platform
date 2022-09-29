@@ -2,18 +2,18 @@ import {
   InterfaceTypeOGM,
   interfaceTypeSelectionSet,
 } from '@codelab/backend/adapter/neo4j'
-import { IAtomExport, ICreateFieldDTO } from '@codelab/shared/abstract/core'
+import {
+  AntdDesignApi,
+  ApiData,
+  IAtomImport,
+  ICreateFieldDTO,
+} from '@codelab/shared/abstract/core'
 import { csvNameToAtomTypeMap } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { AntdDesignApi, createAntDesignAtomsData } from './data/ant-design.data'
+import { createAntDesignAtomsData } from './data/ant-design.data'
 import { iterateCsvs } from './iterateCsv'
 import { getTypeForApi } from './type-map'
-
-interface ApiData {
-  fields: Array<ICreateFieldDTO>
-  atom: IAtomExport
-}
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
@@ -28,7 +28,7 @@ export class ParserService {
    *
    * Map of atom type to export data
    */
-  private atoms: Promise<Map<string, IAtomExport>>
+  private atoms: Promise<Map<string, IAtomImport>>
 
   public apis: Array<ApiData> = []
 

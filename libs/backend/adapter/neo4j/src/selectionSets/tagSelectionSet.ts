@@ -1,5 +1,4 @@
-export const tagSelectionSet = `
-{
+export const tagSelectionSet = `{
   id
   name
   parent {
@@ -8,5 +7,4 @@ export const tagSelectionSet = `
   children {
     id
   }
-}
-`
+}`

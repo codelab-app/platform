@@ -6,20 +6,14 @@ import {
   TagOGM,
   tagSelectionSet,
 } from '@codelab/backend/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IAtomExport, IAtomType } from '@codelab/shared/abstract/core'
+import {
+  ExistingData,
+  IAtomImport,
+  IAtomType,
+} from '@codelab/shared/abstract/core'
 import { antdAtomData } from '@codelab/shared/data'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
-
-export interface AntdDesignApi {
-  property: string
-  description: string
-  type: string
-  default: string
-  version: string
-  isEnum: boolean
-}
 
 export const getApiName = (name: string) => {
   return `${name} API`
@@ -33,19 +27,11 @@ export const getApiName = (name: string) => {
 export const createAntDesignAtomsData = async () =>
   createAtomsSeedData(await createExistingData())
 
-interface ExistingData {
-  atoms: Map<string, OGM_TYPES.Atom>
-  tags: Map<string, OGM_TYPES.Tag>
-  api: Map<string, OGM_TYPES.InterfaceType>
-}
-
 /**
  * Create new seed data from atom types, we specify the data we want, the upsert resolution will happen later
  */
-export const createAtomsSeedData = (data: ExistingData): Array<IAtomExport> => {
-  const atomsCreateInput: Array<IAtomExport> = ObjectTyped.keys(
-    antdAtomData,
-  ).map((name) => {
+export const createAtomsSeedData = (data: ExistingData): Array<IAtomImport> => {
+  return ObjectTyped.keys(antdAtomData).map((name) => {
     const atomData = antdAtomData[name]
 
     if (!atomData) {
@@ -67,21 +53,33 @@ export const createAtomsSeedData = (data: ExistingData): Array<IAtomExport> => {
         id: atomApiId,
         name: getApiName(name),
       },
-      allowedChildren:
-        atomData.allowedChildren?.map((child) => {
-          // Get the id of the existing atom by name
-          const allowedAtom = data.atoms.get(child)?.id
+      // allowedChildren: createAllowedChildren(antdAtomData[name]),
+      /**
+       * Hard to make this re-useable, lookup may be keyed by id or name
+       * @param newData
+       */
+      allowedChildren: (newData: ExistingData) => {
+        const newAtomData = antdAtomData[name]
 
-          if (!allowedAtom) {
-            throw new Error('Allowed atom not found')
-          }
+        if (!atomData) {
+          throw new Error(`Missing data for: ${name}`)
+        }
 
-          return { id: allowedAtom }
-        }) ?? [],
+        return (
+          newAtomData?.allowedChildren?.map((child) => {
+            // Get the id of the existing atom by name
+            const allowedAtom = newData.atoms.get(child)?.id
+
+            if (!allowedAtom) {
+              throw new Error('Allowed atom not found')
+            }
+
+            return { id: allowedAtom, type: child }
+          }) ?? []
+        )
+      },
     }
   })
-
-  return atomsCreateInput
 }
 
 /**
@@ -96,6 +94,12 @@ export const createExistingData = async (): Promise<ExistingData> => {
       selectionSet: atomSelectionSet,
     })
   ).map((atom) => [atom.name, atom] as const)
+
+  const existingAtomsById = (
+    await Atom.find({
+      selectionSet: atomSelectionSet,
+    })
+  ).map((atom) => [atom.id, atom] as const)
 
   // Tag
   const Tag = await TagOGM()
@@ -118,6 +122,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   return {
     tags: new Map(existingTags),
     atoms: new Map(existingAtoms),
+    atomsById: new Map(existingAtomsById),
     api: new Map(existingInterfaceTypes),
   }
 }

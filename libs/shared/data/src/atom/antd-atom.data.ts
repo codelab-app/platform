@@ -1,7 +1,7 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { AntdTag } from '../tag/antd-tags.data'
 
-interface AtomData {
+export interface AtomSeedData {
   /**
    * File name of the CSV file containing the scraped API data for the Ant Design component
    */
@@ -28,7 +28,7 @@ const antDesignIconPrefix = 'assets/atoms/antd'
  */
 // TODO: remove the partial in key
 // https://www.learn-codes.net/javascript/typescript-typescript-types-key-value-enum/
-export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
+export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   //
   // Antd:
   //

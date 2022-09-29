@@ -1,4 +1,4 @@
-import { ExportedData } from '../../commands/export/export.types'
+import { ExportedData } from '@codelab/shared/abstract/core'
 import { exportAtoms } from './export-atoms'
 import { exportSeedTypes } from './export-seed-types'
 import { exportTags } from './export-tags'

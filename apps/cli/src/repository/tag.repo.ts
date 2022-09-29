@@ -1,4 +1,4 @@
-import { TagOGM, tagSelectionSet } from '@codelab/backend/adapter/neo4j'
+import { TagOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
@@ -51,7 +51,7 @@ export const upsertTag = async (
   }
 
   if (!existingTag.length) {
-    logTask('Created Task', tag.name)
+    logTask('Created Tag', tag.name)
 
     const createInput: OGM_TYPES.TagCreateInput = {
       ...baseInput,
@@ -62,7 +62,6 @@ export const upsertTag = async (
     try {
       await Tag.create({
         input: [createInput],
-        selectionSet: tagSelectionSet,
       })
     } catch (e) {
       console.error(e)

@@ -22398,7 +22398,12 @@ export type AtomFragment = {
   type: AtomType
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType'; id: string; name: string }
-  allowedChildren: Array<{ __typename?: 'Atom'; id: string; name: string }>
+  allowedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
 }
 
 export type RenderAtomFragment = {
@@ -22409,7 +22414,12 @@ export type RenderAtomFragment = {
   type: AtomType
   tags: Array<{ __typename?: 'Tag' } & TagPreviewFragment>
   api: { __typename?: 'InterfaceType'; id: string; name: string }
-  allowedChildren: Array<{ __typename?: 'Atom'; id: string; name: string }>
+  allowedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
 }
 
 export type RenderedComponentFragment = {

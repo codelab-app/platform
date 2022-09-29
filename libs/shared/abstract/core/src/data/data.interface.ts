@@ -1,10 +1,8 @@
-import {
-  IAppExport,
-  IAtomExport,
-  IResourceExport,
-  ITagExport,
-  ITypeExport,
-} from '@codelab/shared/abstract/core'
+import { IResourceExport } from '../domain/resource'
+import { ITypeExport } from '../domain/type'
+import { IAppExport } from './app.interface'
+import { IAtomExport } from './atom.interface'
+import { ITagExport } from './tag.interface'
 
 export interface ExportedData {
   apps: Array<IAppExport>
