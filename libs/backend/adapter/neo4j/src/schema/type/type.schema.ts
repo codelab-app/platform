@@ -33,7 +33,6 @@ export const typeSchema = gql`
     label: String!
   }
 
-
   input TypesOfTypesPageOptions {
     limit: Int
     offset: Int
@@ -55,11 +54,7 @@ export const typeSchema = gql`
 
    typesOfTypesPage(
     options: TypesOfTypesPageOptions
-   ): [TypesPageAnyType!]!
-  }
-
-  interface OwnedBy @relationshipProperties {
-    value: String
+   ):TypesOfTypesPageReturn!
   }
 
     interface TypeBase
@@ -84,16 +79,6 @@ export const typeSchema = gql`
 #        properties: "Field"
 #      )
   }
-  
- type TypesPageEnumType implements TypeBase {
-   id: ID!
-   kind: TypeKind!
-   name: String! @unique
-   owner: User!
-   allowedValues: [EnumTypeValue!]!
- }
-
-
  type TypesPageUnionType implements TypeBase {
    id: ID!
    kind: TypeKind! 
@@ -109,14 +94,13 @@ export const typeSchema = gql`
    owner: User!
  } 
 
-  type TypesPageArrayType implements TypeBase {
-   id: ID!
-   kind: TypeKind! 
-   name: String! @unique
-   owner: User!
- } 
+ union TypesPageAnyType = EnumType | PrimitiveType | TypesPageUnionType | TypesPageTypeBase 
 
- union TypesPageAnyType = TypesPageEnumType | TypesPageUnionType | TypesPageTypeBase 
+ type TypesOfTypesPageReturn {
+  items: [TypesPageAnyType!]!
+  totalCount: Int!
+ }
+
 
 
   # https://github.com/neo4j/graphql/issues/1105

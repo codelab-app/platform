@@ -5758,9 +5758,9 @@ type CreateTypeReferencesMutationResponse {
   typeReferences: [TypeReference!]!
 }
 
-type CreateTypesPageEnumTypesMutationResponse {
+type CreateTypesOfTypesPageReturnsMutationResponse {
   info: CreateInfo!
-  typesPageEnumTypes: [TypesPageEnumType!]!
+  typesOfTypesPageReturns: [TypesOfTypesPageReturn!]!
 }
 
 type CreateTypesPageTypeBasesMutationResponse {
@@ -11130,9 +11130,9 @@ type Mutation {
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
   ): CreateTypeReferencesMutationResponse!
-  createTypesPageEnumTypes(
-    input: [TypesPageEnumTypeCreateInput!]!
-  ): CreateTypesPageEnumTypesMutationResponse!
+  createTypesOfTypesPageReturns(
+    input: [TypesOfTypesPageReturnCreateInput!]!
+  ): CreateTypesOfTypesPageReturnsMutationResponse!
   createTypesPageTypeBases(
     input: [TypesPageTypeBaseCreateInput!]!
   ): CreateTypesPageTypeBasesMutationResponse!
@@ -11234,10 +11234,7 @@ type Mutation {
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
-  deleteTypesPageEnumTypes(
-    delete: TypesPageEnumTypeDeleteInput
-    where: TypesPageEnumTypeWhere
-  ): DeleteInfo!
+  deleteTypesOfTypesPageReturns(where: TypesOfTypesPageReturnWhere): DeleteInfo!
   deleteTypesPageTypeBases(
     delete: TypesPageTypeBaseDeleteInput
     where: TypesPageTypeBaseWhere
@@ -11511,15 +11508,10 @@ type Mutation {
     update: TypeReferenceUpdateInput
     where: TypeReferenceWhere
   ): UpdateTypeReferencesMutationResponse!
-  updateTypesPageEnumTypes(
-    connect: TypesPageEnumTypeConnectInput
-    connectOrCreate: TypesPageEnumTypeConnectOrCreateInput
-    create: TypesPageEnumTypeRelationInput
-    delete: TypesPageEnumTypeDeleteInput
-    disconnect: TypesPageEnumTypeDisconnectInput
-    update: TypesPageEnumTypeUpdateInput
-    where: TypesPageEnumTypeWhere
-  ): UpdateTypesPageEnumTypesMutationResponse!
+  updateTypesOfTypesPageReturns(
+    update: TypesOfTypesPageReturnUpdateInput
+    where: TypesOfTypesPageReturnWhere
+  ): UpdateTypesOfTypesPageReturnsMutationResponse!
   updateTypesPageTypeBases(
     connect: TypesPageTypeBaseConnectInput
     connectOrCreate: TypesPageTypeBaseConnectOrCreateInput
@@ -13835,20 +13827,20 @@ type Query {
     sort: [TypeReferenceSort]
     where: TypeReferenceWhere
   ): TypeReferencesConnection!
-  typesOfTypesPage(options: TypesOfTypesPageOptions): [TypesPageAnyType!]!
-  typesPageEnumTypes(
-    options: TypesPageEnumTypeOptions
-    where: TypesPageEnumTypeWhere
-  ): [TypesPageEnumType!]!
-  typesPageEnumTypesAggregate(
-    where: TypesPageEnumTypeWhere
-  ): TypesPageEnumTypeAggregateSelection!
-  typesPageEnumTypesConnection(
+  typesOfTypesPage(options: TypesOfTypesPageOptions): TypesOfTypesPageReturn!
+  typesOfTypesPageReturns(
+    options: TypesOfTypesPageReturnOptions
+    where: TypesOfTypesPageReturnWhere
+  ): [TypesOfTypesPageReturn!]!
+  typesOfTypesPageReturnsAggregate(
+    where: TypesOfTypesPageReturnWhere
+  ): TypesOfTypesPageReturnAggregateSelection!
+  typesOfTypesPageReturnsConnection(
     after: String
     first: Int
-    sort: [TypesPageEnumTypeSort]
-    where: TypesPageEnumTypeWhere
-  ): TypesPageEnumTypesConnection!
+    sort: [TypesOfTypesPageReturnSort]
+    where: TypesOfTypesPageReturnWhere
+  ): TypesOfTypesPageReturnsConnection!
   typesPageTypeBases(
     options: TypesPageTypeBaseOptions
     where: TypesPageTypeBaseWhere
@@ -16147,7 +16139,6 @@ input TypeBaseCreateInput {
   PrimitiveType: PrimitiveTypeCreateInput
   ReactNodeType: ReactNodeTypeCreateInput
   RenderPropsType: RenderPropsTypeCreateInput
-  TypesPageEnumType: TypesPageEnumTypeCreateInput
   TypesPageTypeBase: TypesPageTypeBaseCreateInput
   TypesPageUnionType: TypesPageUnionTypeCreateInput
   UnionType: UnionTypeCreateInput
@@ -16176,7 +16167,6 @@ input TypeBaseImplementationsConnectInput {
   PrimitiveType: [PrimitiveTypeConnectInput!]
   ReactNodeType: [ReactNodeTypeConnectInput!]
   RenderPropsType: [RenderPropsTypeConnectInput!]
-  TypesPageEnumType: [TypesPageEnumTypeConnectInput!]
   TypesPageTypeBase: [TypesPageTypeBaseConnectInput!]
   TypesPageUnionType: [TypesPageUnionTypeConnectInput!]
   UnionType: [UnionTypeConnectInput!]
@@ -16195,7 +16185,6 @@ input TypeBaseImplementationsDeleteInput {
   PrimitiveType: [PrimitiveTypeDeleteInput!]
   ReactNodeType: [ReactNodeTypeDeleteInput!]
   RenderPropsType: [RenderPropsTypeDeleteInput!]
-  TypesPageEnumType: [TypesPageEnumTypeDeleteInput!]
   TypesPageTypeBase: [TypesPageTypeBaseDeleteInput!]
   TypesPageUnionType: [TypesPageUnionTypeDeleteInput!]
   UnionType: [UnionTypeDeleteInput!]
@@ -16214,7 +16203,6 @@ input TypeBaseImplementationsDisconnectInput {
   PrimitiveType: [PrimitiveTypeDisconnectInput!]
   ReactNodeType: [ReactNodeTypeDisconnectInput!]
   RenderPropsType: [RenderPropsTypeDisconnectInput!]
-  TypesPageEnumType: [TypesPageEnumTypeDisconnectInput!]
   TypesPageTypeBase: [TypesPageTypeBaseDisconnectInput!]
   TypesPageUnionType: [TypesPageUnionTypeDisconnectInput!]
   UnionType: [UnionTypeDisconnectInput!]
@@ -16233,7 +16221,6 @@ input TypeBaseImplementationsUpdateInput {
   PrimitiveType: PrimitiveTypeUpdateInput
   ReactNodeType: ReactNodeTypeUpdateInput
   RenderPropsType: RenderPropsTypeUpdateInput
-  TypesPageEnumType: TypesPageEnumTypeUpdateInput
   TypesPageTypeBase: TypesPageTypeBaseUpdateInput
   TypesPageUnionType: TypesPageUnionTypeUpdateInput
   UnionType: UnionTypeUpdateInput
@@ -16252,7 +16239,6 @@ input TypeBaseImplementationsWhere {
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
   RenderPropsType: RenderPropsTypeWhere
-  TypesPageEnumType: TypesPageEnumTypeWhere
   TypesPageTypeBase: TypesPageTypeBaseWhere
   TypesPageUnionType: TypesPageUnionTypeWhere
   UnionType: UnionTypeWhere
@@ -16601,253 +16587,72 @@ input TypesOfTypesPageOptions {
   offset: Int
 }
 
-union TypesPageAnyType =
-    TypesPageEnumType
-  | TypesPageTypeBase
-  | TypesPageUnionType
-
-type TypesPageEnumType implements TypeBase {
-  allowedValues: [EnumTypeValue!]!
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): TypesPageEnumTypeUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+type TypesOfTypesPageReturn {
+  items: [TypesPageAnyType!]!
+  totalCount: Int!
 }
 
-type TypesPageEnumTypeAggregateSelection {
+type TypesOfTypesPageReturnAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  totalCount: IntAggregateSelectionNonNullable!
 }
 
-input TypesPageEnumTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+input TypesOfTypesPageReturnCreateInput {
+  totalCount: Int!
 }
 
-input TypesPageEnumTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
-}
-
-input TypesPageEnumTypeCreateInput {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner: TypeBaseOwnerFieldInput
-}
-
-input TypesPageEnumTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
-}
-
-input TypesPageEnumTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
-}
-
-type TypesPageEnumTypeEdge {
+type TypesOfTypesPageReturnEdge {
   cursor: String!
-  node: TypesPageEnumType!
+  node: TypesOfTypesPageReturn!
 }
 
-input TypesPageEnumTypeOptions {
+input TypesOfTypesPageReturnOptions {
   limit: Int
   offset: Int
 
   """
-  Specify one or more TypesPageEnumTypeSort objects to sort TypesPageEnumTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  Specify one or more TypesOfTypesPageReturnSort objects to sort TypesOfTypesPageReturns by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [TypesPageEnumTypeSort!]
-}
-
-input TypesPageEnumTypeOwnerAggregateInput {
-  AND: [TypesPageEnumTypeOwnerAggregateInput!]
-  OR: [TypesPageEnumTypeOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  edge: TypesPageEnumTypeOwnerEdgeAggregationWhereInput
-  node: TypesPageEnumTypeOwnerNodeAggregationWhereInput
-}
-
-input TypesPageEnumTypeOwnerEdgeAggregationWhereInput {
-  AND: [TypesPageEnumTypeOwnerEdgeAggregationWhereInput!]
-  OR: [TypesPageEnumTypeOwnerEdgeAggregationWhereInput!]
-  data_AVERAGE_EQUAL: Float
-  data_AVERAGE_GT: Float
-  data_AVERAGE_GTE: Float
-  data_AVERAGE_LT: Float
-  data_AVERAGE_LTE: Float
-  data_EQUAL: String
-  data_GT: Int
-  data_GTE: Int
-  data_LONGEST_EQUAL: Int
-  data_LONGEST_GT: Int
-  data_LONGEST_GTE: Int
-  data_LONGEST_LT: Int
-  data_LONGEST_LTE: Int
-  data_LT: Int
-  data_LTE: Int
-  data_SHORTEST_EQUAL: Int
-  data_SHORTEST_GT: Int
-  data_SHORTEST_GTE: Int
-  data_SHORTEST_LT: Int
-  data_SHORTEST_LTE: Int
-}
-
-input TypesPageEnumTypeOwnerNodeAggregationWhereInput {
-  AND: [TypesPageEnumTypeOwnerNodeAggregationWhereInput!]
-  OR: [TypesPageEnumTypeOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_EQUAL: Float
-  auth0Id_AVERAGE_GT: Float
-  auth0Id_AVERAGE_GTE: Float
-  auth0Id_AVERAGE_LT: Float
-  auth0Id_AVERAGE_LTE: Float
-  auth0Id_EQUAL: String
-  auth0Id_GT: Int
-  auth0Id_GTE: Int
-  auth0Id_LONGEST_EQUAL: Int
-  auth0Id_LONGEST_GT: Int
-  auth0Id_LONGEST_GTE: Int
-  auth0Id_LONGEST_LT: Int
-  auth0Id_LONGEST_LTE: Int
-  auth0Id_LT: Int
-  auth0Id_LTE: Int
-  auth0Id_SHORTEST_EQUAL: Int
-  auth0Id_SHORTEST_GT: Int
-  auth0Id_SHORTEST_GTE: Int
-  auth0Id_SHORTEST_LT: Int
-  auth0Id_SHORTEST_LTE: Int
-  email_AVERAGE_EQUAL: Float
-  email_AVERAGE_GT: Float
-  email_AVERAGE_GTE: Float
-  email_AVERAGE_LT: Float
-  email_AVERAGE_LTE: Float
-  email_EQUAL: String
-  email_GT: Int
-  email_GTE: Int
-  email_LONGEST_EQUAL: Int
-  email_LONGEST_GT: Int
-  email_LONGEST_GTE: Int
-  email_LONGEST_LT: Int
-  email_LONGEST_LTE: Int
-  email_LT: Int
-  email_LTE: Int
-  email_SHORTEST_EQUAL: Int
-  email_SHORTEST_GT: Int
-  email_SHORTEST_GTE: Int
-  email_SHORTEST_LT: Int
-  email_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  username_AVERAGE_EQUAL: Float
-  username_AVERAGE_GT: Float
-  username_AVERAGE_GTE: Float
-  username_AVERAGE_LT: Float
-  username_AVERAGE_LTE: Float
-  username_EQUAL: String
-  username_GT: Int
-  username_GTE: Int
-  username_LONGEST_EQUAL: Int
-  username_LONGEST_GT: Int
-  username_LONGEST_GTE: Int
-  username_LONGEST_LT: Int
-  username_LONGEST_LTE: Int
-  username_LT: Int
-  username_LTE: Int
-  username_SHORTEST_EQUAL: Int
-  username_SHORTEST_GT: Int
-  username_SHORTEST_GTE: Int
-  username_SHORTEST_LT: Int
-  username_SHORTEST_LTE: Int
-}
-
-input TypesPageEnumTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  sort: [TypesOfTypesPageReturnSort!]
 }
 
 """
-Fields to sort TypesPageEnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesPageEnumTypeSort object.
+Fields to sort TypesOfTypesPageReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesOfTypesPageReturnSort object.
 """
-input TypesPageEnumTypeSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
+input TypesOfTypesPageReturnSort {
+  totalCount: SortDirection
 }
 
-input TypesPageEnumTypeUpdateInput {
-  id: ID
-  name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+input TypesOfTypesPageReturnUpdateInput {
+  totalCount: Int
+  totalCount_DECREMENT: Int
+  totalCount_INCREMENT: Int
 }
 
-type TypesPageEnumTypeUserOwnerAggregationSelection {
-  count: Int!
-  edge: TypesPageEnumTypeUserOwnerEdgeAggregateSelection
-  node: TypesPageEnumTypeUserOwnerNodeAggregateSelection
+input TypesOfTypesPageReturnWhere {
+  AND: [TypesOfTypesPageReturnWhere!]
+  OR: [TypesOfTypesPageReturnWhere!]
+  totalCount: Int
+  totalCount_GT: Int
+  totalCount_GTE: Int
+  totalCount_IN: [Int!]
+  totalCount_LT: Int
+  totalCount_LTE: Int
+  totalCount_NOT: Int
+  totalCount_NOT_IN: [Int!]
 }
 
-type TypesPageEnumTypeUserOwnerEdgeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  value: StringAggregateSelectionNullable!
-}
-
-type TypesPageEnumTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
-}
-
-input TypesPageEnumTypeWhere {
-  AND: [TypesPageEnumTypeWhere!]
-  OR: [TypesPageEnumTypeWhere!]
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind!]
-  kind_NOT: TypeKind
-  kind_NOT_IN: [TypeKind!]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: TypesPageEnumTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
-}
-
-type TypesPageEnumTypesConnection {
-  edges: [TypesPageEnumTypeEdge!]!
+type TypesOfTypesPageReturnsConnection {
+  edges: [TypesOfTypesPageReturnEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
+
+union TypesPageAnyType =
+    EnumType
+  | PrimitiveType
+  | TypesPageTypeBase
+  | TypesPageUnionType
 
 type TypesPageTypeBase implements TypeBase {
   id: ID!
@@ -16946,26 +16751,6 @@ input TypesPageTypeBaseOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
-  value_AVERAGE_EQUAL: Float
-  value_AVERAGE_GT: Float
-  value_AVERAGE_GTE: Float
-  value_AVERAGE_LT: Float
-  value_AVERAGE_LTE: Float
-  value_EQUAL: String
-  value_GT: Int
-  value_GTE: Int
-  value_LONGEST_EQUAL: Int
-  value_LONGEST_GT: Int
-  value_LONGEST_GTE: Int
-  value_LONGEST_LT: Int
-  value_LONGEST_LTE: Int
-  value_LT: Int
-  value_LTE: Int
-  value_SHORTEST_EQUAL: Int
-  value_SHORTEST_GT: Int
-  value_SHORTEST_GTE: Int
-  value_SHORTEST_LT: Int
-  value_SHORTEST_LTE: Int
 }
 
 input TypesPageTypeBaseOwnerNodeAggregationWhereInput {
@@ -17061,7 +16846,6 @@ type TypesPageTypeBaseUserOwnerAggregationSelection {
 
 type TypesPageTypeBaseUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
-  value: StringAggregateSelectionNullable!
 }
 
 type TypesPageTypeBaseUserOwnerNodeAggregateSelection {
@@ -17210,26 +16994,6 @@ input TypesPageUnionTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
-  value_AVERAGE_EQUAL: Float
-  value_AVERAGE_GT: Float
-  value_AVERAGE_GTE: Float
-  value_AVERAGE_LT: Float
-  value_AVERAGE_LTE: Float
-  value_EQUAL: String
-  value_GT: Int
-  value_GTE: Int
-  value_LONGEST_EQUAL: Int
-  value_LONGEST_GT: Int
-  value_LONGEST_GTE: Int
-  value_LONGEST_LT: Int
-  value_LONGEST_LTE: Int
-  value_LT: Int
-  value_LTE: Int
-  value_SHORTEST_EQUAL: Int
-  value_SHORTEST_GT: Int
-  value_SHORTEST_GTE: Int
-  value_SHORTEST_LT: Int
-  value_SHORTEST_LTE: Int
 }
 
 input TypesPageUnionTypeOwnerNodeAggregationWhereInput {
@@ -17316,6 +17080,8 @@ input TypesPageUnionTypeUpdateInput {
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
   typesOfUnionTypeIds: [String!]
+  typesOfUnionTypeIds_POP: Int
+  typesOfUnionTypeIds_PUSH: [String!]
 }
 
 type TypesPageUnionTypeUserOwnerAggregationSelection {
@@ -17326,7 +17092,6 @@ type TypesPageUnionTypeUserOwnerAggregationSelection {
 
 type TypesPageUnionTypeUserOwnerEdgeAggregateSelection {
   data: StringAggregateSelectionNonNullable!
-  value: StringAggregateSelectionNullable!
 }
 
 type TypesPageUnionTypeUserOwnerNodeAggregateSelection {
@@ -17510,26 +17275,6 @@ input UnionTypeOwnerEdgeAggregationWhereInput {
   data_SHORTEST_GTE: Int
   data_SHORTEST_LT: Int
   data_SHORTEST_LTE: Int
-  value_AVERAGE_EQUAL: Float
-  value_AVERAGE_GT: Float
-  value_AVERAGE_GTE: Float
-  value_AVERAGE_LT: Float
-  value_AVERAGE_LTE: Float
-  value_EQUAL: String
-  value_GT: Int
-  value_GTE: Int
-  value_LONGEST_EQUAL: Int
-  value_LONGEST_GT: Int
-  value_LONGEST_GTE: Int
-  value_LONGEST_LT: Int
-  value_LONGEST_LTE: Int
-  value_LT: Int
-  value_LTE: Int
-  value_SHORTEST_EQUAL: Int
-  value_SHORTEST_GT: Int
-  value_SHORTEST_GTE: Int
-  value_SHORTEST_LT: Int
-  value_SHORTEST_LTE: Int
 }
 
 input UnionTypeOwnerNodeAggregationWhereInput {
@@ -18708,9 +18453,9 @@ type UpdateTypeReferencesMutationResponse {
   typeReferences: [TypeReference!]!
 }
 
-type UpdateTypesPageEnumTypesMutationResponse {
+type UpdateTypesOfTypesPageReturnsMutationResponse {
   info: UpdateInfo!
-  typesPageEnumTypes: [TypesPageEnumType!]!
+  typesOfTypesPageReturns: [TypesOfTypesPageReturn!]!
 }
 
 type UpdateTypesPageTypeBasesMutationResponse {

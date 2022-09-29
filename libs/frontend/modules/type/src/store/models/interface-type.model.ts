@@ -34,10 +34,10 @@ const hydrate = ({
     name,
     ownerId: owner.id,
     ownerAuthId: owner.auth0Id,
-    defaults: JSON.parse(ownerConnection.edges[0]?.data || '{}'),
+    defaults: {},
   })
 
-  for (const edge of fieldsConnection.edges) {
+  for (const edge of fieldsConnection?.edges || []) {
     interfaceType.updateFieldCache(edge)
   }
 

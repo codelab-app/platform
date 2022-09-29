@@ -13,7 +13,6 @@ import {
   TypeBase_PrimitiveType_Fragment,
   TypeBase_ReactNodeType_Fragment,
   TypeBase_RenderPropsType_Fragment,
-  TypeBase_TypesPageEnumType_Fragment,
   TypeBase_TypesPageTypeBase_Fragment,
   TypeBase_TypesPageUnionType_Fragment,
   TypeBase_UnionType_Fragment,

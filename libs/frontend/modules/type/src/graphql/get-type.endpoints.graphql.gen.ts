@@ -13,7 +13,6 @@ import {
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
-  Type_TypesPageEnumType_Fragment,
   Type_TypesPageTypeBase_Fragment,
   Type_TypesPageUnionType_Fragment,
   Type_UnionType_Fragment,
@@ -29,35 +28,46 @@ export type GetTypesOfTypesPageQueryVariables = Types.Exact<{
 }>
 
 export type GetTypesOfTypesPageQuery = {
-  typesOfTypesPage: Array<
-    | {
-        __typename: 'TypesPageEnumType'
-        id: string
-        name: string
-        kind: Types.TypeKind
-        owner: { id: string }
-        allowedValues: Array<{
+  typesOfTypesPage: {
+    totalCount: number
+    items: Array<
+      | {
+          __typename: 'EnumType'
           id: string
-          name?: string | null
-          value: string
-        }>
-      }
-    | {
-        __typename: 'TypesPageTypeBase'
-        id: string
-        name: string
-        kind: Types.TypeKind
-        owner: { id: string }
-      }
-    | {
-        __typename: 'TypesPageUnionType'
-        typesOfUnionTypeIds: Array<string>
-        id: string
-        name: string
-        kind: Types.TypeKind
-        owner: { id: string }
-      }
-  >
+          name: string
+          kind: Types.TypeKind
+          owner: { id: string }
+          allowedValues: Array<{
+            id: string
+            name?: string | null
+            value: string
+          }>
+        }
+      | {
+          __typename: 'PrimitiveType'
+          primitiveKind: Types.PrimitiveTypeKind
+          id: string
+          name: string
+          kind: Types.TypeKind
+          owner: { id: string }
+        }
+      | {
+          __typename: 'TypesPageTypeBase'
+          id: string
+          name: string
+          kind: Types.TypeKind
+          owner: { id: string }
+        }
+      | {
+          __typename: 'TypesPageUnionType'
+          typesOfUnionTypeIds: Array<string>
+          id: string
+          name: string
+          kind: Types.TypeKind
+          owner: { id: string }
+        }
+    >
+  }
 }
 
 export type GetTypesQueryVariables = Types.Exact<{
@@ -192,24 +202,30 @@ export type GetCodeMirrorTypesQuery = {
 export const GetTypesOfTypesPageDocument = gql`
   query GetTypesOfTypesPage($options: TypesOfTypesPageOptions) {
     typesOfTypesPage(options: $options) {
-      ... on TypeBase {
-        ... on TypesPageUnionType {
-          typesOfUnionTypeIds
-        }
-        ... on TypesPageEnumType {
-          allowedValues {
-            id
-            name
-            value
+      totalCount
+      items {
+        ... on TypeBase {
+          ... on TypesPageUnionType {
+            typesOfUnionTypeIds
           }
-        }
-        id
-        name
-        kind
-        owner {
+          ... on PrimitiveType {
+            primitiveKind
+          }
+          ... on EnumType {
+            allowedValues {
+              id
+              name
+              value
+            }
+          }
           id
+          name
+          kind
+          owner {
+            id
+          }
+          __typename
         }
-        __typename
       }
     }
   }

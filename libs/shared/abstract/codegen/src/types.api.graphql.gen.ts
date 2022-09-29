@@ -5998,10 +5998,10 @@ export type CreateTypeReferencesMutationResponse = {
   typeReferences: Array<TypeReference>
 }
 
-export type CreateTypesPageEnumTypesMutationResponse = {
-  __typename?: 'CreateTypesPageEnumTypesMutationResponse'
+export type CreateTypesOfTypesPageReturnsMutationResponse = {
+  __typename?: 'CreateTypesOfTypesPageReturnsMutationResponse'
   info: CreateInfo
-  typesPageEnumTypes: Array<TypesPageEnumType>
+  typesOfTypesPageReturns: Array<TypesOfTypesPageReturn>
 }
 
 export type CreateTypesPageTypeBasesMutationResponse = {
@@ -11588,7 +11588,7 @@ export type Mutation = {
   createStores: CreateStoresMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
-  createTypesPageEnumTypes: CreateTypesPageEnumTypesMutationResponse
+  createTypesOfTypesPageReturns: CreateTypesOfTypesPageReturnsMutationResponse
   createTypesPageTypeBases: CreateTypesPageTypeBasesMutationResponse
   createTypesPageUnionTypes: CreateTypesPageUnionTypesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
@@ -11627,7 +11627,7 @@ export type Mutation = {
   deleteStores: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
-  deleteTypesPageEnumTypes: DeleteInfo
+  deleteTypesOfTypesPageReturns: DeleteInfo
   deleteTypesPageTypeBases: DeleteInfo
   deleteTypesPageUnionTypes: DeleteInfo
   deleteUnionTypes: DeleteInfo
@@ -11667,7 +11667,7 @@ export type Mutation = {
   updateStores: UpdateStoresMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
-  updateTypesPageEnumTypes: UpdateTypesPageEnumTypesMutationResponse
+  updateTypesOfTypesPageReturns: UpdateTypesOfTypesPageReturnsMutationResponse
   updateTypesPageTypeBases: UpdateTypesPageTypeBasesMutationResponse
   updateTypesPageUnionTypes: UpdateTypesPageUnionTypesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
@@ -11804,8 +11804,8 @@ export type MutationCreateTypeReferencesArgs = {
   input: Array<TypeReferenceCreateInput>
 }
 
-export type MutationCreateTypesPageEnumTypesArgs = {
-  input: Array<TypesPageEnumTypeCreateInput>
+export type MutationCreateTypesOfTypesPageReturnsArgs = {
+  input: Array<TypesOfTypesPageReturnCreateInput>
 }
 
 export type MutationCreateTypesPageTypeBasesArgs = {
@@ -11986,9 +11986,8 @@ export type MutationDeleteTypeReferencesArgs = {
   where?: InputMaybe<TypeReferenceWhere>
 }
 
-export type MutationDeleteTypesPageEnumTypesArgs = {
-  delete?: InputMaybe<TypesPageEnumTypeDeleteInput>
-  where?: InputMaybe<TypesPageEnumTypeWhere>
+export type MutationDeleteTypesOfTypesPageReturnsArgs = {
+  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
 export type MutationDeleteTypesPageTypeBasesArgs = {
@@ -12308,14 +12307,9 @@ export type MutationUpdateTypeReferencesArgs = {
   where?: InputMaybe<TypeReferenceWhere>
 }
 
-export type MutationUpdateTypesPageEnumTypesArgs = {
-  connect?: InputMaybe<TypesPageEnumTypeConnectInput>
-  connectOrCreate?: InputMaybe<TypesPageEnumTypeConnectOrCreateInput>
-  create?: InputMaybe<TypesPageEnumTypeRelationInput>
-  delete?: InputMaybe<TypesPageEnumTypeDeleteInput>
-  disconnect?: InputMaybe<TypesPageEnumTypeDisconnectInput>
-  update?: InputMaybe<TypesPageEnumTypeUpdateInput>
-  where?: InputMaybe<TypesPageEnumTypeWhere>
+export type MutationUpdateTypesOfTypesPageReturnsArgs = {
+  update?: InputMaybe<TypesOfTypesPageReturnUpdateInput>
+  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
 export type MutationUpdateTypesPageTypeBasesArgs = {
@@ -14482,10 +14476,10 @@ export type Query = {
   typeReferences: Array<TypeReference>
   typeReferencesAggregate: TypeReferenceAggregateSelection
   typeReferencesConnection: TypeReferencesConnection
-  typesOfTypesPage: Array<TypesPageAnyType>
-  typesPageEnumTypes: Array<TypesPageEnumType>
-  typesPageEnumTypesAggregate: TypesPageEnumTypeAggregateSelection
-  typesPageEnumTypesConnection: TypesPageEnumTypesConnection
+  typesOfTypesPage: TypesOfTypesPageReturn
+  typesOfTypesPageReturns: Array<TypesOfTypesPageReturn>
+  typesOfTypesPageReturnsAggregate: TypesOfTypesPageReturnAggregateSelection
+  typesOfTypesPageReturnsConnection: TypesOfTypesPageReturnsConnection
   typesPageTypeBases: Array<TypesPageTypeBase>
   typesPageTypeBasesAggregate: TypesPageTypeBaseAggregateSelection
   typesPageTypeBasesConnection: TypesPageTypeBasesConnection
@@ -15015,20 +15009,20 @@ export type QueryTypesOfTypesPageArgs = {
   options?: InputMaybe<TypesOfTypesPageOptions>
 }
 
-export type QueryTypesPageEnumTypesArgs = {
-  options?: InputMaybe<TypesPageEnumTypeOptions>
-  where?: InputMaybe<TypesPageEnumTypeWhere>
+export type QueryTypesOfTypesPageReturnsArgs = {
+  options?: InputMaybe<TypesOfTypesPageReturnOptions>
+  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
-export type QueryTypesPageEnumTypesAggregateArgs = {
-  where?: InputMaybe<TypesPageEnumTypeWhere>
+export type QueryTypesOfTypesPageReturnsAggregateArgs = {
+  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
-export type QueryTypesPageEnumTypesConnectionArgs = {
+export type QueryTypesOfTypesPageReturnsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<TypesPageEnumTypeSort>>>
-  where?: InputMaybe<TypesPageEnumTypeWhere>
+  sort?: InputMaybe<Array<InputMaybe<TypesOfTypesPageReturnSort>>>
+  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
 export type QueryTypesPageTypeBasesArgs = {
@@ -17531,7 +17525,6 @@ export type TypeBaseCreateInput = {
   PrimitiveType?: InputMaybe<PrimitiveTypeCreateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeCreateInput>
   RenderPropsType?: InputMaybe<RenderPropsTypeCreateInput>
-  TypesPageEnumType?: InputMaybe<TypesPageEnumTypeCreateInput>
   TypesPageTypeBase?: InputMaybe<TypesPageTypeBaseCreateInput>
   TypesPageUnionType?: InputMaybe<TypesPageUnionTypeCreateInput>
   UnionType?: InputMaybe<UnionTypeCreateInput>
@@ -17560,7 +17553,6 @@ export type TypeBaseImplementationsConnectInput = {
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeConnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeConnectInput>>
   RenderPropsType?: InputMaybe<Array<RenderPropsTypeConnectInput>>
-  TypesPageEnumType?: InputMaybe<Array<TypesPageEnumTypeConnectInput>>
   TypesPageTypeBase?: InputMaybe<Array<TypesPageTypeBaseConnectInput>>
   TypesPageUnionType?: InputMaybe<Array<TypesPageUnionTypeConnectInput>>
   UnionType?: InputMaybe<Array<UnionTypeConnectInput>>
@@ -17579,7 +17571,6 @@ export type TypeBaseImplementationsDeleteInput = {
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeDeleteInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDeleteInput>>
   RenderPropsType?: InputMaybe<Array<RenderPropsTypeDeleteInput>>
-  TypesPageEnumType?: InputMaybe<Array<TypesPageEnumTypeDeleteInput>>
   TypesPageTypeBase?: InputMaybe<Array<TypesPageTypeBaseDeleteInput>>
   TypesPageUnionType?: InputMaybe<Array<TypesPageUnionTypeDeleteInput>>
   UnionType?: InputMaybe<Array<UnionTypeDeleteInput>>
@@ -17598,7 +17589,6 @@ export type TypeBaseImplementationsDisconnectInput = {
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeDisconnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDisconnectInput>>
   RenderPropsType?: InputMaybe<Array<RenderPropsTypeDisconnectInput>>
-  TypesPageEnumType?: InputMaybe<Array<TypesPageEnumTypeDisconnectInput>>
   TypesPageTypeBase?: InputMaybe<Array<TypesPageTypeBaseDisconnectInput>>
   TypesPageUnionType?: InputMaybe<Array<TypesPageUnionTypeDisconnectInput>>
   UnionType?: InputMaybe<Array<UnionTypeDisconnectInput>>
@@ -17617,7 +17607,6 @@ export type TypeBaseImplementationsUpdateInput = {
   PrimitiveType?: InputMaybe<PrimitiveTypeUpdateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeUpdateInput>
   RenderPropsType?: InputMaybe<RenderPropsTypeUpdateInput>
-  TypesPageEnumType?: InputMaybe<TypesPageEnumTypeUpdateInput>
   TypesPageTypeBase?: InputMaybe<TypesPageTypeBaseUpdateInput>
   TypesPageUnionType?: InputMaybe<TypesPageUnionTypeUpdateInput>
   UnionType?: InputMaybe<UnionTypeUpdateInput>
@@ -17636,7 +17625,6 @@ export type TypeBaseImplementationsWhere = {
   PrimitiveType?: InputMaybe<PrimitiveTypeWhere>
   ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
   RenderPropsType?: InputMaybe<RenderPropsTypeWhere>
-  TypesPageEnumType?: InputMaybe<TypesPageEnumTypeWhere>
   TypesPageTypeBase?: InputMaybe<TypesPageTypeBaseWhere>
   TypesPageUnionType?: InputMaybe<TypesPageUnionTypeWhere>
   UnionType?: InputMaybe<UnionTypeWhere>
@@ -17976,265 +17964,71 @@ export type TypesOfTypesPageOptions = {
   offset?: InputMaybe<Scalars['Int']>
 }
 
-export type TypesPageAnyType =
-  | TypesPageEnumType
-  | TypesPageTypeBase
-  | TypesPageUnionType
-
-export type TypesPageEnumType = TypeBase & {
-  __typename?: 'TypesPageEnumType'
-  allowedValues: Array<EnumTypeValue>
-  id: Scalars['ID']
-  kind: TypeKind
-  name: Scalars['String']
-  owner: User
-  ownerAggregate?: Maybe<TypesPageEnumTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
+export type TypesOfTypesPageReturn = {
+  __typename?: 'TypesOfTypesPageReturn'
+  items: Array<TypesPageAnyType>
+  totalCount: Scalars['Int']
 }
 
-export type TypesPageEnumTypeOwnerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<UserOptions>
-  where?: InputMaybe<UserWhere>
-}
-
-export type TypesPageEnumTypeOwnerAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<UserWhere>
-}
-
-export type TypesPageEnumTypeOwnerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
-  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
-
-export type TypesPageEnumTypeAggregateSelection = {
-  __typename?: 'TypesPageEnumTypeAggregateSelection'
+export type TypesOfTypesPageReturnAggregateSelection = {
+  __typename?: 'TypesOfTypesPageReturnAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
+  totalCount: IntAggregateSelectionNonNullable
 }
 
-export type TypesPageEnumTypeConnectInput = {
-  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+export type TypesOfTypesPageReturnCreateInput = {
+  totalCount: Scalars['Int']
 }
 
-export type TypesPageEnumTypeConnectOrCreateInput = {
-  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
-}
-
-export type TypesPageEnumTypeCreateInput = {
-  id: Scalars['ID']
-  kind: TypeKind
-  name: Scalars['String']
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
-
-export type TypesPageEnumTypeDeleteInput = {
-  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
-}
-
-export type TypesPageEnumTypeDisconnectInput = {
-  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
-}
-
-export type TypesPageEnumTypeEdge = {
-  __typename?: 'TypesPageEnumTypeEdge'
+export type TypesOfTypesPageReturnEdge = {
+  __typename?: 'TypesOfTypesPageReturnEdge'
   cursor: Scalars['String']
-  node: TypesPageEnumType
+  node: TypesOfTypesPageReturn
 }
 
-export type TypesPageEnumTypeOptions = {
+export type TypesOfTypesPageReturnOptions = {
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more TypesPageEnumTypeSort objects to sort TypesPageEnumTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<TypesPageEnumTypeSort>>
+  /** Specify one or more TypesOfTypesPageReturnSort objects to sort TypesOfTypesPageReturns by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<TypesOfTypesPageReturnSort>>
 }
 
-export type TypesPageEnumTypeOwnerAggregateInput = {
-  AND?: InputMaybe<Array<TypesPageEnumTypeOwnerAggregateInput>>
-  OR?: InputMaybe<Array<TypesPageEnumTypeOwnerAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  edge?: InputMaybe<TypesPageEnumTypeOwnerEdgeAggregationWhereInput>
-  node?: InputMaybe<TypesPageEnumTypeOwnerNodeAggregationWhereInput>
+/** Fields to sort TypesOfTypesPageReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesOfTypesPageReturnSort object. */
+export type TypesOfTypesPageReturnSort = {
+  totalCount?: InputMaybe<SortDirection>
 }
 
-export type TypesPageEnumTypeOwnerEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<TypesPageEnumTypeOwnerEdgeAggregationWhereInput>>
-  OR?: InputMaybe<Array<TypesPageEnumTypeOwnerEdgeAggregationWhereInput>>
-  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  data_EQUAL?: InputMaybe<Scalars['String']>
-  data_GT?: InputMaybe<Scalars['Int']>
-  data_GTE?: InputMaybe<Scalars['Int']>
-  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  data_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  data_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  data_LT?: InputMaybe<Scalars['Int']>
-  data_LTE?: InputMaybe<Scalars['Int']>
-  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+export type TypesOfTypesPageReturnUpdateInput = {
+  totalCount?: InputMaybe<Scalars['Int']>
+  totalCount_DECREMENT?: InputMaybe<Scalars['Int']>
+  totalCount_INCREMENT?: InputMaybe<Scalars['Int']>
 }
 
-export type TypesPageEnumTypeOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<TypesPageEnumTypeOwnerNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<TypesPageEnumTypeOwnerNodeAggregationWhereInput>>
-  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
-  auth0Id_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  email_EQUAL?: InputMaybe<Scalars['String']>
-  email_GT?: InputMaybe<Scalars['Int']>
-  email_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  email_LT?: InputMaybe<Scalars['Int']>
-  email_LTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  username_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  username_EQUAL?: InputMaybe<Scalars['String']>
-  username_GT?: InputMaybe<Scalars['Int']>
-  username_GTE?: InputMaybe<Scalars['Int']>
-  username_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  username_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  username_LT?: InputMaybe<Scalars['Int']>
-  username_LTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+export type TypesOfTypesPageReturnWhere = {
+  AND?: InputMaybe<Array<TypesOfTypesPageReturnWhere>>
+  OR?: InputMaybe<Array<TypesOfTypesPageReturnWhere>>
+  totalCount?: InputMaybe<Scalars['Int']>
+  totalCount_GT?: InputMaybe<Scalars['Int']>
+  totalCount_GTE?: InputMaybe<Scalars['Int']>
+  totalCount_IN?: InputMaybe<Array<Scalars['Int']>>
+  totalCount_LT?: InputMaybe<Scalars['Int']>
+  totalCount_LTE?: InputMaybe<Scalars['Int']>
+  totalCount_NOT?: InputMaybe<Scalars['Int']>
+  totalCount_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
 }
 
-export type TypesPageEnumTypeRelationInput = {
-  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
-}
-
-/** Fields to sort TypesPageEnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesPageEnumTypeSort object. */
-export type TypesPageEnumTypeSort = {
-  id?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-}
-
-export type TypesPageEnumTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type TypesPageEnumTypeUserOwnerAggregationSelection = {
-  __typename?: 'TypesPageEnumTypeUserOwnerAggregationSelection'
-  count: Scalars['Int']
-  edge?: Maybe<TypesPageEnumTypeUserOwnerEdgeAggregateSelection>
-  node?: Maybe<TypesPageEnumTypeUserOwnerNodeAggregateSelection>
-}
-
-export type TypesPageEnumTypeUserOwnerEdgeAggregateSelection = {
-  __typename?: 'TypesPageEnumTypeUserOwnerEdgeAggregateSelection'
-  data: StringAggregateSelectionNonNullable
-  value: StringAggregateSelectionNullable
-}
-
-export type TypesPageEnumTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'TypesPageEnumTypeUserOwnerNodeAggregateSelection'
-  auth0Id: StringAggregateSelectionNonNullable
-  email: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
-  username: StringAggregateSelectionNonNullable
-}
-
-export type TypesPageEnumTypeWhere = {
-  AND?: InputMaybe<Array<TypesPageEnumTypeWhere>>
-  OR?: InputMaybe<Array<TypesPageEnumTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  kind?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  name?: InputMaybe<Scalars['String']>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<TypesPageEnumTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-}
-
-export type TypesPageEnumTypesConnection = {
-  __typename?: 'TypesPageEnumTypesConnection'
-  edges: Array<TypesPageEnumTypeEdge>
+export type TypesOfTypesPageReturnsConnection = {
+  __typename?: 'TypesOfTypesPageReturnsConnection'
+  edges: Array<TypesOfTypesPageReturnEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
+
+export type TypesPageAnyType =
+  | EnumType
+  | PrimitiveType
+  | TypesPageTypeBase
+  | TypesPageUnionType
 
 export type TypesPageTypeBase = TypeBase & {
   __typename?: 'TypesPageTypeBase'
@@ -18343,26 +18137,6 @@ export type TypesPageTypeBaseOwnerEdgeAggregationWhereInput = {
   data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   data_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  value_EQUAL?: InputMaybe<Scalars['String']>
-  value_GT?: InputMaybe<Scalars['Int']>
-  value_GTE?: InputMaybe<Scalars['Int']>
-  value_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  value_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  value_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  value_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  value_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  value_LT?: InputMaybe<Scalars['Int']>
-  value_LTE?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type TypesPageTypeBaseOwnerNodeAggregationWhereInput = {
@@ -18458,7 +18232,6 @@ export type TypesPageTypeBaseUserOwnerAggregationSelection = {
 export type TypesPageTypeBaseUserOwnerEdgeAggregateSelection = {
   __typename?: 'TypesPageTypeBaseUserOwnerEdgeAggregateSelection'
   data: StringAggregateSelectionNonNullable
-  value: StringAggregateSelectionNullable
 }
 
 export type TypesPageTypeBaseUserOwnerNodeAggregateSelection = {
@@ -18619,26 +18392,6 @@ export type TypesPageUnionTypeOwnerEdgeAggregationWhereInput = {
   data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   data_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  value_EQUAL?: InputMaybe<Scalars['String']>
-  value_GT?: InputMaybe<Scalars['Int']>
-  value_GTE?: InputMaybe<Scalars['Int']>
-  value_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  value_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  value_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  value_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  value_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  value_LT?: InputMaybe<Scalars['Int']>
-  value_LTE?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type TypesPageUnionTypeOwnerNodeAggregationWhereInput = {
@@ -18723,6 +18476,8 @@ export type TypesPageUnionTypeUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
   typesOfUnionTypeIds?: InputMaybe<Array<Scalars['String']>>
+  typesOfUnionTypeIds_POP?: InputMaybe<Scalars['Int']>
+  typesOfUnionTypeIds_PUSH?: InputMaybe<Array<Scalars['String']>>
 }
 
 export type TypesPageUnionTypeUserOwnerAggregationSelection = {
@@ -18735,7 +18490,6 @@ export type TypesPageUnionTypeUserOwnerAggregationSelection = {
 export type TypesPageUnionTypeUserOwnerEdgeAggregateSelection = {
   __typename?: 'TypesPageUnionTypeUserOwnerEdgeAggregateSelection'
   data: StringAggregateSelectionNonNullable
-  value: StringAggregateSelectionNullable
 }
 
 export type TypesPageUnionTypeUserOwnerNodeAggregateSelection = {
@@ -18939,26 +18693,6 @@ export type UnionTypeOwnerEdgeAggregationWhereInput = {
   data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   data_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  value_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  value_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  value_EQUAL?: InputMaybe<Scalars['String']>
-  value_GT?: InputMaybe<Scalars['Int']>
-  value_GTE?: InputMaybe<Scalars['Int']>
-  value_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  value_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  value_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  value_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  value_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  value_LT?: InputMaybe<Scalars['Int']>
-  value_LTE?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  value_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UnionTypeOwnerNodeAggregationWhereInput = {
@@ -20515,10 +20249,10 @@ export type UpdateTypeReferencesMutationResponse = {
   typeReferences: Array<TypeReference>
 }
 
-export type UpdateTypesPageEnumTypesMutationResponse = {
-  __typename?: 'UpdateTypesPageEnumTypesMutationResponse'
+export type UpdateTypesOfTypesPageReturnsMutationResponse = {
+  __typename?: 'UpdateTypesOfTypesPageReturnsMutationResponse'
   info: UpdateInfo
-  typesPageEnumTypes: Array<TypesPageEnumType>
+  typesOfTypesPageReturns: Array<TypesOfTypesPageReturn>
 }
 
 export type UpdateTypesPageTypeBasesMutationResponse = {
@@ -22813,36 +22547,48 @@ export type GetTypesOfTypesPageQueryVariables = Exact<{
 
 export type GetTypesOfTypesPageQuery = {
   __typename?: 'Query'
-  typesOfTypesPage: Array<
-    | {
-        __typename: 'TypesPageEnumType'
-        id: string
-        name: string
-        kind: TypeKind
-        owner: { __typename?: 'User'; id: string }
-        allowedValues: Array<{
-          __typename?: 'EnumTypeValue'
+  typesOfTypesPage: {
+    __typename?: 'TypesOfTypesPageReturn'
+    totalCount: number
+    items: Array<
+      | {
+          __typename: 'EnumType'
           id: string
-          name?: string | null
-          value: string
-        }>
-      }
-    | {
-        __typename: 'TypesPageTypeBase'
-        id: string
-        name: string
-        kind: TypeKind
-        owner: { __typename?: 'User'; id: string }
-      }
-    | {
-        __typename: 'TypesPageUnionType'
-        typesOfUnionTypeIds: Array<string>
-        id: string
-        name: string
-        kind: TypeKind
-        owner: { __typename?: 'User'; id: string }
-      }
-  >
+          name: string
+          kind: TypeKind
+          owner: { __typename?: 'User'; id: string }
+          allowedValues: Array<{
+            __typename?: 'EnumTypeValue'
+            id: string
+            name?: string | null
+            value: string
+          }>
+        }
+      | {
+          __typename: 'PrimitiveType'
+          primitiveKind: PrimitiveTypeKind
+          id: string
+          name: string
+          kind: TypeKind
+          owner: { __typename?: 'User'; id: string }
+        }
+      | {
+          __typename: 'TypesPageTypeBase'
+          id: string
+          name: string
+          kind: TypeKind
+          owner: { __typename?: 'User'; id: string }
+        }
+      | {
+          __typename: 'TypesPageUnionType'
+          typesOfUnionTypeIds: Array<string>
+          id: string
+          name: string
+          kind: TypeKind
+          owner: { __typename?: 'User'; id: string }
+        }
+    >
+  }
 }
 
 export type GetTypesQueryVariables = Exact<{
@@ -23692,7 +23438,6 @@ export type FieldFragment = {
     | { __typename?: 'PrimitiveType'; id: string }
     | { __typename?: 'ReactNodeType'; id: string }
     | { __typename?: 'RenderPropsType'; id: string }
-    | { __typename?: 'TypesPageEnumType'; id: string }
     | { __typename?: 'TypesPageTypeBase'; id: string }
     | { __typename?: 'TypesPageUnionType'; id: string }
     | { __typename?: 'UnionType'; id: string }
@@ -23829,14 +23574,6 @@ type TypeBase_RenderPropsType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_TypesPageEnumType_Fragment = {
-  __typename: 'TypesPageEnumType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
 type TypeBase_TypesPageTypeBase_Fragment = {
   __typename: 'TypesPageTypeBase'
   kind: TypeKind
@@ -23874,7 +23611,6 @@ export type TypeBaseFragment =
   | TypeBase_PrimitiveType_Fragment
   | TypeBase_ReactNodeType_Fragment
   | TypeBase_RenderPropsType_Fragment
-  | TypeBase_TypesPageEnumType_Fragment
   | TypeBase_TypesPageTypeBase_Fragment
   | TypeBase_TypesPageUnionType_Fragment
   | TypeBase_UnionType_Fragment
@@ -23938,10 +23674,6 @@ type Type_RenderPropsType_Fragment = {
 } & TypeBase_RenderPropsType_Fragment &
   RenderPropsTypeFragment
 
-type Type_TypesPageEnumType_Fragment = {
-  __typename?: 'TypesPageEnumType'
-} & TypeBase_TypesPageEnumType_Fragment
-
 type Type_TypesPageTypeBase_Fragment = {
   __typename?: 'TypesPageTypeBase'
 } & TypeBase_TypesPageTypeBase_Fragment
@@ -23968,7 +23700,6 @@ export type TypeFragment =
   | Type_PrimitiveType_Fragment
   | Type_ReactNodeType_Fragment
   | Type_RenderPropsType_Fragment
-  | Type_TypesPageEnumType_Fragment
   | Type_TypesPageTypeBase_Fragment
   | Type_TypesPageUnionType_Fragment
   | Type_UnionType_Fragment

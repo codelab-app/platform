@@ -13,7 +13,6 @@ import {
   TypeBase_PrimitiveType_Fragment,
   TypeBase_ReactNodeType_Fragment,
   TypeBase_RenderPropsType_Fragment,
-  TypeBase_TypesPageEnumType_Fragment,
   TypeBase_TypesPageTypeBase_Fragment,
   TypeBase_TypesPageUnionType_Fragment,
   TypeBase_UnionType_Fragment,
@@ -80,9 +79,6 @@ export type Type_ReactNodeType_Fragment = TypeBase_ReactNodeType_Fragment
 export type Type_RenderPropsType_Fragment = TypeBase_RenderPropsType_Fragment &
   RenderPropsTypeFragment
 
-export type Type_TypesPageEnumType_Fragment =
-  TypeBase_TypesPageEnumType_Fragment
-
 export type Type_TypesPageTypeBase_Fragment =
   TypeBase_TypesPageTypeBase_Fragment
 
@@ -105,7 +101,6 @@ export type TypeFragment =
   | Type_PrimitiveType_Fragment
   | Type_ReactNodeType_Fragment
   | Type_RenderPropsType_Fragment
-  | Type_TypesPageEnumType_Fragment
   | Type_TypesPageTypeBase_Fragment
   | Type_TypesPageUnionType_Fragment
   | Type_UnionType_Fragment
