@@ -1,10 +1,6 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/modules/element'
-import {
-  createActionFn,
-  getActionService,
-  getState,
-} from '@codelab/frontend/modules/store'
+import { getActionService, getState } from '@codelab/frontend/modules/store'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
   getElementService,
@@ -220,12 +216,12 @@ export class Renderer
     const action = actionService.action(element.preRenderActionId)
 
     if (!action) {
-      throw new Error(
-        `Pre render action not found for element ${element.label}`,
-      )
+      console.warn(`Pre render action not found for element ${element.label}`)
+
+      return () => undefined
     }
 
-    createActionFn(action, this.state)()
+    return this.state[action.name].run()
   }
 
   getPostAction = (element: IElement) => {
@@ -237,17 +233,17 @@ export class Renderer
     const action = actionService.action(element.postRenderActionId)
 
     if (!action) {
-      throw new Error(
-        `Post render action not found for element ${element.label}`,
-      )
+      console.warn(`Post render action not found for element ${element.label}`)
+
+      return () => undefined
     }
 
-    return createActionFn(action, this.state)
+    return this.state[action.name].run
   }
 
   @computed
   get state() {
-    return this.appStore?.current.state
+    return this.appStore?.current.state || {}
   }
 
   /**

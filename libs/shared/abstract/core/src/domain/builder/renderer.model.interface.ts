@@ -13,7 +13,7 @@ export interface IRenderer {
   appStore: Nullable<Ref<IStore>>
   pageTree: Nullable<Ref<IElementTree>>
   debugMode: boolean
-  state?: IPropData
+  state: IPropData
   renderIntermediateElement(
     element: IElement,
     extraProps?: IPropData,

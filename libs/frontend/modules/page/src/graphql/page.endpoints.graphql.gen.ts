@@ -2,6 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageFragment } from '../../../../../shared/abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { PageBuilderAppFragment } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { ResourceFragment } from '../../../../../shared/abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { RenderedComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
@@ -23,6 +24,7 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../../../../../shared/abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { PageBuilderAppFragmentDoc } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../../../../../shared/abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { RenderedComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
@@ -65,6 +67,7 @@ export type GetRenderedPageQueryVariables = Types.Exact<{
 export type GetRenderedPageQuery = {
   apps: Array<PageBuilderAppFragment>
   components: Array<RenderedComponentFragment>
+  resources: Array<ResourceFragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
@@ -123,6 +126,9 @@ export const GetRenderedPageDocument = gql`
     components {
       ...RenderedComponent
     }
+    resources {
+      ...Resource
+    }
     primitiveTypes(where: { id_IN: $typeIds }) {
       ...Type
     }
@@ -165,6 +171,7 @@ export const GetRenderedPageDocument = gql`
   }
   ${PageBuilderAppFragmentDoc}
   ${RenderedComponentFragmentDoc}
+  ${ResourceFragmentDoc}
   ${TypeFragmentDoc}
 `
 

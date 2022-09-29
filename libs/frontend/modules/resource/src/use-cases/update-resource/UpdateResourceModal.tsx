@@ -33,6 +33,7 @@ export const UpdateResourceModal = observer<{
         name: updateResource.name,
         config: updateResource.config.values,
         type: updateResource.type,
+        auth0Id: updateResource.ownerId,
       }
     : {}
 

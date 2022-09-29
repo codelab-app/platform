@@ -3,6 +3,7 @@ import {
   IActionKind,
   ICodeAction,
   ICodeActionDTO,
+  IPropData,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction, updateBaseAction } from './base-action.model'
@@ -27,6 +28,12 @@ export class CodeAction
   implements ICodeAction
 {
   static hydrate = hydrate
+
+  @modelAction
+  createRunner(context: IPropData) {
+    // eslint-disable-next-line no-eval
+    return eval(`(${this.code})`).bind(context)
+  }
 
   @modelAction
   writeCache = (data: ICodeActionDTO) => {

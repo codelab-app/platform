@@ -1,12 +1,11 @@
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
-  IAnyAction,
   IInterfaceType,
   IPropData,
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
-import { keys, merge } from 'lodash'
+import { merge } from 'lodash'
 import { computed } from 'mobx'
 import {
   detach,
@@ -15,17 +14,14 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
-import { createActionFn } from '../createActionFn'
-import { actionRef } from './action.ref'
+import { getActionService } from '../action.service'
 
 export const hydrate = ({ actions, id, name, api }: IStoreDTO) =>
   new Store({
     id,
     name,
-    actions: actions.map((action) => actionRef(action.id)),
     apiId: api.id,
   })
 
@@ -34,17 +30,31 @@ export class Store
   extends Model(() => ({
     id: idProp,
     name: prop<string>(),
-    actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
     apiId: prop<string>().withSetter(),
-    initialState: prop<IPropData>(() => ({})).withSetter(),
+    _state: prop<IPropData>(() => ({})),
   }))
   implements IStore
 {
   @modelAction
-  writeCache({ id, name, actions, api }: IStoreDTO) {
+  updateState(data: IPropData) {
+    this._state = merge(this._state, data)
+  }
+
+  @computed
+  get state() {
+    const state: IPropData = merge(
+      { ...this._api.defaults },
+      { ...this._actionsRunners },
+      { ...this._state },
+    )
+
+    return state
+  }
+
+  @modelAction
+  writeCache({ id, name, api }: IStoreDTO) {
     this.id = id
     this.name = name
-    this.actions = actions.map((a) => actionRef(a.id))
     this.apiId = api.id
 
     return this
@@ -58,28 +68,21 @@ export class Store
   }
 
   @computed
-  get _storeActions() {
-    return this.actions
-      .map((action) => ({
-        [action.current.name]: { action: action.current },
-      }))
-      .reduce(merge, {})
+  get actions() {
+    const actionService = getActionService(this)
+
+    return actionService.actionsList.filter((a) => a.storeId === this.id)
   }
 
   @computed
-  get state() {
-    const state: IPropData = merge(
-      {},
-      this.initialState,
-      this._api.defaults,
-      this._storeActions,
-    )
-
-    for (const key of keys(this._storeActions)) {
-      state[key].run = createActionFn(state[key].action, state)
-    }
-
-    return state
+  get _actionsRunners() {
+    return this.actions
+      .map((a) => ({
+        [a.name]: {
+          run: a.createRunner(this._state, this.updateState.bind(this)),
+        },
+      }))
+      .reduce(merge, {})
   }
 
   static hydrate = hydrate

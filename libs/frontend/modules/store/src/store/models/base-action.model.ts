@@ -13,7 +13,7 @@ export const createBaseAction = <T extends IActionKind>(type: T) =>
       type: prop<T>(() => type),
       storeId: prop<string>(),
     })
-    implements IActionBase {}
+    implements Omit<IActionBase, 'createRunner'> {}
 
 export const updateBaseAction = (self: IActionBase, data: IActionDTO) => {
   self.name = data.name
