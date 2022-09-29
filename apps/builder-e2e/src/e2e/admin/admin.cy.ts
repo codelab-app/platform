@@ -1,6 +1,6 @@
 import { exportAndAssert, importData, seedData } from './assert'
 
-describe('Admin', () => {
+describe.skip('Admin', () => {
   before(() => {
     cy.resetDatabase()
   })
