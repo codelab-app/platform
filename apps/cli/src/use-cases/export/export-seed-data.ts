@@ -20,6 +20,18 @@ export const exportSeedData = async () => {
       ),
     }))
 
+  // We'll want to sort the data so diff is minimized
+  const sortedAtomsData = atomsData
+    // Sort by atom name
+    .sort((a, b) => a.name.localeCompare(b.name))
+    // Sort the allowed children data as well
+    .map((atom) => ({
+      ...atom,
+      allowedChildren: atom.allowedChildren.sort((a, b) =>
+        a.name.localeCompare(b.name),
+      ),
+    }))
+
   const seedData: Omit<
     ExportedData,
     'apps' | 'stores' | 'resources' | 'domains'

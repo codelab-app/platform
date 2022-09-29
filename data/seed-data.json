@@ -8783,10 +8783,10 @@
             "name": "Component Disabled",
             "description": "Config antd component disabled",
             "node": {
-              "__typename": "PrimitiveType",
-              "id": "03cee16e-d0b7-4ea3-ba93-ff4c8a1f3a7e",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
+              "__typename": "RenderPropsType",
+              "id": "d8066d71-263d-4299-bf8e-7d4f3ce5ebed",
+              "kind": "RenderPropsType",
+              "name": "RenderPropsType"
             }
           },
           {
@@ -8838,6 +8838,18 @@
             }
           },
           {
+            "id": "83d2578b-4994-4b3d-a0b3-d687ee07b908",
+            "key": "componentDisabled",
+            "name": "Component Disabled",
+            "description": "Config antd component disabled",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "03cee16e-d0b7-4ea3-ba93-ff4c8a1f3a7e",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            }
+          },
+          {
             "id": "d86e88c6-3096-45d8-af8b-d4a074fc5d3d",
             "key": "iconPrefixCls",
             "name": "Icon Prefix Cls",
@@ -8860,7 +8872,17 @@
               "kind": "PrimitiveType",
               "name": "String"
             }
-          },
+          }
+        ]
+      }
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "53d9318c-0256-4cd9-afc6-924ac1c7f055",
+      "kind": "InterfaceType",
+      "name": "AntDesignDatePicker API",
+      "ownerConnection": {
+        "edges": [
           {
             "id": "7337a2fe-b6af-4e33-b67a-d7cc64253cb6",
             "key": "iconPrefixCls",
@@ -9256,10 +9278,10 @@
             "name": "Render Extra Footer",
             "description": "Render extra footer in panel",
             "node": {
-              "__typename": "RenderPropsType",
-              "id": "d8066d71-263d-4299-bf8e-7d4f3ce5ebed",
-              "kind": "RenderPropsType",
-              "name": "RenderPropsType"
+              "__typename": "PrimitiveType",
+              "id": "03cee16e-d0b7-4ea3-ba93-ff4c8a1f3a7e",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
             }
           },
           {
@@ -9268,10 +9290,10 @@
             "name": "Render Extra Footer",
             "description": "Render extra footer in panel",
             "node": {
-              "__typename": "RenderPropsType",
-              "id": "d8066d71-263d-4299-bf8e-7d4f3ce5ebed",
-              "kind": "RenderPropsType",
-              "name": "RenderPropsType"
+              "__typename": "PrimitiveType",
+              "id": "03cee16e-d0b7-4ea3-ba93-ff4c8a1f3a7e",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
             }
           },
           {
