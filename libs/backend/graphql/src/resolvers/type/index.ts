@@ -11,11 +11,6 @@ export const typeResolver: IResolvers = {
   Query: {
     typesOfTypesPage: withReadTransactionResolver(typesOfTypesPage),
   },
-  // AnyType: {
-  //   __resolveType(obj: AnyType) {
-  //     return obj.kind || obj.__typename
-  //   },
-  // },
   TypesPageAnyType: {
     __resolveType(obj: AnyType) {
       return obj.__typename

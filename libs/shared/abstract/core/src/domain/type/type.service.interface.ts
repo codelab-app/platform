@@ -27,6 +27,12 @@ export interface ITypeService
     IQueryService<IAnyType, TypeBaseWhere>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
+
+  typeIdsOfTypesPage: Array<string>
+  typesOfTypesPage: Array<IAnyType>
+  totalcountTypesOfTypesPage: number
+  getTypesOfTypesPage(page: number, pageSize: number): Promise<void>
+
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
   typesList: Array<IAnyType>

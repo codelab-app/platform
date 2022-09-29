@@ -117,7 +117,7 @@ export const DashboardTemplate = observer(
             style={{
               zIndex: 50,
               height: '100vh',
-              positio: 'fixed',
+              position: 'fixed',
               top: 0,
               left: 0,
               bottom: 0,

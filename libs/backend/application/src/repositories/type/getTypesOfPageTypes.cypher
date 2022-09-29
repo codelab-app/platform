@@ -6,5 +6,6 @@ optional match (type)-[:ALLOWED_VALUE]->(allowedValues:EnumTypeValue)
 
 return type,owner,itemType,collect(unionTypes),collect(allowedValues)
 
+order by type.id
 skip $skip
 limit $limit

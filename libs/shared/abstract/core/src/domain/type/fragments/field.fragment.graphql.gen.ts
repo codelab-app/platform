@@ -24,7 +24,6 @@ export type FieldFragment = {
     | { id: string }
     | { id: string }
     | { id: string }
-    | { id: string }
 }
 
 export const FieldFragmentDoc = gql`
