@@ -1,4 +1,5 @@
 import {
+  DragPosition,
   IAuth0Id,
   IComponentDTO,
   ICreateElementDTO,
@@ -354,6 +355,7 @@ parent
     {
       droppedElementId,
       targetElementId,
+      dragPosition,
     }: Parameters<IElementService['handleElementDrop']>[0],
   ) {
     const droppedElement = this.element(droppedElementId)
@@ -363,11 +365,10 @@ parent
       return
     }
 
-    // TODO: impl
-    const dropPosition = 'after'
+    console.log('dragposition ', dragPosition)
 
     // targetElement - [droppedElement]
-    if (dropPosition === 'after') {
+    if (dragPosition === DragPosition.After) {
       return yield* _await(
         this.moveElementAsNextSibling({
           elementId: droppedElementId,

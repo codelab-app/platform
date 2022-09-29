@@ -11,9 +11,7 @@ import { SortableContext } from '@dnd-kit/sortable/dist/components/SortableConte
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ElementDropHandlers } from '../../dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
-import { useBuilderPageDnd } from '../../hooks/useBuilderPageDnd'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
 
 type BuilderProps = {
@@ -52,15 +50,6 @@ export const Builder = observer<BuilderProps>(
     })
 
     const handleContainerClick = useBuilderRootClickHandler()
-    const elementsList = elementTree?.elementsList
-
-    const {
-      draggedElement,
-      handleDragMove,
-      handleDragStart,
-      handleDrop,
-      sensors,
-    } = useBuilderPageDnd(elementService)
 
     return (
       <StyledBuilderContainer
@@ -72,26 +61,11 @@ export const Builder = observer<BuilderProps>(
       >
         {/* TBC */}
         {/* {elementId ? <BuilderDropHandler elementId={elementId} /> : null} */}
-        {elementsList ? (
+        {/* {elementsList ? (
           <ElementDropHandlers elementsList={elementsList} />
-        ) : null}
+        ) : null} */}
 
-        <DndContext
-          collisionDetection={pointerWithin}
-          onDragEnd={handleDrop}
-          onDragMove={handleDragMove}
-          onDragStart={handleDragStart}
-          sensors={sensors}
-        >
-          <SortableContext items={elementsList.map((e) => e.id)}>
-            <Renderer renderRoot={rendererProps.renderRoot} />
-          </SortableContext>
-          <DragOverlay>
-            {draggedElement
-              ? draggedElement.data.current?.renderDragOverlay()
-              : null}
-          </DragOverlay>
-        </DndContext>
+        <Renderer renderRoot={rendererProps.renderRoot} />
 
         {/* <BuilderHoverOverlay /> */}
         {/* <BuilderClickOverlay /> */}

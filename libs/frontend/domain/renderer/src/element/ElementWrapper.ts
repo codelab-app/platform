@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
-import { SortableItem } from './SortableItem'
+import { BuilderPageDraggableElement } from './BuilderPageDraggableElement'
 import {
   childrenAreEmpty,
   extractValidProps,
@@ -87,9 +87,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
-    // return CustomDraggableElement({ element, elementService, children: Children })
     return React.createElement(Fragment, {
-      children: SortableItem({ element, children: Children }),
+      children: BuilderPageDraggableElement({ element, children: Children }),
     })
   },
 )

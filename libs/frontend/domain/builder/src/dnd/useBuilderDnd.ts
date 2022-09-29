@@ -1,6 +1,7 @@
 import {
   BuilderDndType,
   BuilderDragData,
+  BuilderDropData,
   IBuilderService,
   IElement,
   IElementService,
@@ -15,6 +16,7 @@ import { shouldCreateElementAsFirstChild } from './utils'
 export interface UseBuilderDnd {
   onDragStart: (data: DragStartEvent) => void
   onDragEnd: (data: DragEndEvent) => void
+  // sensors: ReturnType<typeof useSensors>
 }
 
 export const useBuilderDnd = (
@@ -22,9 +24,20 @@ export const useBuilderDnd = (
   elementService: IElementService,
   elementTree?: IElementTree,
 ): UseBuilderDnd => {
+  // const sensors = useSensors(
+  //   useSensor(PointerSensor, {
+  //     activationConstraint: {
+  //       delay: 100,
+  //       tolerance: 5,
+  //     },
+  //   }),
+  // )
+
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
       const data = e.active.data.current as Maybe<BuilderDragData>
+
+      console.log('onDragStart', data)
 
       if (data?.type === BuilderDndType.CreateElement) {
         builderService.setCurrentDragData(frozen(data))
@@ -35,27 +48,40 @@ export const useBuilderDnd = (
 
   const onDragEnd = useCallback(
     async (e: DragEndEvent) => {
+      console.log('onDragEnd', e)
+
       const data = e.active.data.current as Maybe<BuilderDragData>
-      const overData = e.over?.data.current as Maybe<BuilderDragData>
+      const overData = e.over?.data.current as Maybe<BuilderDropData>
       const collisions = e.collisions
       const nearestCollision = collisions?.[0]?.data
       const dropPosition = nearestCollision?.['dropPosition']
+      const dragPosition = e.over?.data.current?.dragPosition
+
+      // TODO: REFACTOR WHOLE
+
+      // const shouldCreate =
+      //   data?.type === BuilderDndType.CreateElement &&
+      //   overData?.type === BuilderDndType.CreateElement &&
+      //   (data?.createElementInput || overData?.createElementInput)
 
       const shouldCreate =
         data?.type === BuilderDndType.CreateElement &&
-        overData?.type === BuilderDndType.CreateElement &&
-        (data?.createElementInput || overData?.createElementInput)
+        data?.createElementInput !== undefined
+
+      const shouldMove = data?.type === BuilderDndType.MoveElement
 
       builderService.setCurrentDragData(null)
 
-      if (!shouldCreate) {
-        return
-      }
+      console.log('over', overData, 'active', data)
 
-      const createElementInput = {
-        ...data.createElementInput,
-        ...overData.createElementInput,
-      }
+      // if (!shouldCreate) {
+      //   return
+      // }
+
+      // const createElementInput = {
+      //   ...data.createElementInput,
+      //   ...overData.createElementInput,
+      // }
 
       if (!elementTree) {
         console.error('Element Tree is missing')
@@ -66,17 +92,37 @@ export const useBuilderDnd = (
       // drop position = 1, add as children
       let element: IElement
 
-      if (shouldCreateElementAsFirstChild(dropPosition)) {
-        element = await elementService.createElementAsFirstChild(
-          createElementInput,
-        )
-      } else {
-        element = await elementService.createElementAsNextSibling(
-          createElementInput,
-        )
-      }
+      if (
+        data?.type === BuilderDndType.CreateElement &&
+        data?.createElementInput !== undefined
+      ) {
+        console.log('shouldCreate dat ===> ', data.createElementInput)
 
-      elementTree.addElements([element])
+        if (shouldCreateElementAsFirstChild(dropPosition)) {
+          element = await elementService.createElementAsFirstChild(
+            data.createElementInput,
+          )
+        } else {
+          element = await elementService.createElementAsNextSibling(
+            data.createElementInput,
+          )
+        }
+
+        elementTree.addElements([element])
+      } else if (shouldMove) {
+        const droppedElementId = e.active.id.toString()
+        const targetElementId = e.over?.id.toString()
+
+        if (!droppedElementId || !targetElementId) {
+          return
+        }
+
+        await elementService.handleElementDrop({
+          droppedElementId,
+          targetElementId,
+          dragPosition,
+        })
+      }
     },
     [builderService, elementService, elementTree],
   )
