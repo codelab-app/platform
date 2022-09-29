@@ -68,13 +68,13 @@ export const createAtomsSeedData = (data: ExistingData): Array<IAtomImport> => {
         return (
           newAtomData?.allowedChildren?.map((child) => {
             // Get the id of the existing atom by name
-            const allowedAtom = newData.atoms.get(child)?.id
+            const existingAtom = newData.atoms.get(child)
 
-            if (!allowedAtom) {
+            if (!existingAtom) {
               throw new Error('Allowed atom not found')
             }
 
-            return { id: allowedAtom, type: child }
+            return { id: existingAtom.id, name: existingAtom.name }
           }) ?? []
         )
       },

@@ -4,16 +4,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { IPropData } from '../prop'
 import { TypeFragment } from './fragments'
-import {
-  IEnumTypeExport,
-  IEnumTypeValue,
-  IInterfaceTypeExport,
-  IPrimitiveTypeExport,
-  IPrimitiveTypeKind,
-  IReactNodeTypeExport,
-  IRenderPropsTypeExport,
-  ITypeKind,
-} from './types'
+import { IEnumTypeValue, IPrimitiveTypeKind, ITypeKind } from './types'
 
 export interface IBaseTypeDTO {
   id: string
@@ -42,11 +33,3 @@ export interface ICreateTypeDTO
 export type IUpdateTypeDTO = IBaseTypeDTO
 
 export type ITypeDTO = TypeFragment
-
-// Uses OGM types
-export type ITypeExport =
-  | IPrimitiveTypeExport
-  | IEnumTypeExport
-  | IInterfaceTypeExport
-  | IReactNodeTypeExport
-  | IRenderPropsTypeExport

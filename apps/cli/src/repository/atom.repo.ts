@@ -1,4 +1,4 @@
-import { AtomOGM } from '@codelab/backend/adapter/neo4j'
+import { AtomOGM, InterfaceTypeOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
   ExistingData,
@@ -38,6 +38,18 @@ export const upsertAtom = async (
     atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
   if (!existingAtom.length) {
+    const InterfaceType = await InterfaceTypeOGM()
+
+    const interfaceType = (
+      await InterfaceType.find({
+        where: {
+          id: atom.api.id,
+        },
+      })
+    )[0]
+
+    // upsertType()
+
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
       // Always re-create the API if atom is missing

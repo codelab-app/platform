@@ -15,8 +15,8 @@ export interface IAtomExport {
   tags: Array<ITagExport>
   allowedChildren: Array<{
     id: string
-    // Used for lookup since ID may be out of sync
-    // type: string
+    // Used for sorting export data
+    name: string
   }>
 }
 

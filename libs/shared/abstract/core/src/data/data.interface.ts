@@ -1,8 +1,8 @@
 import { IResourceExport } from '../domain/resource'
-import { ITypeExport } from '../domain/type'
 import { IAppExport } from './app.interface'
 import { IAtomExport } from './atom.interface'
 import { ITagExport } from './tag.interface'
+import { ITypeExport } from './type.interface'
 
 export interface ExportedData {
   apps: Array<IAppExport>

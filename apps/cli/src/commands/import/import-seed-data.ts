@@ -1,8 +1,4 @@
-import {
-  ExistingData,
-  ExportedData,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ExistingData, ExportedData } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
@@ -28,6 +24,7 @@ export const importSeedData = async (
 
           return {
             id: existingAtom.id,
+            name: existingAtom.name,
           }
         })
       },
@@ -41,7 +38,8 @@ export const importSeedData = async (
     /**
      * Don't create interfaces here, since our atom create logic also creates the interface
      */
-    types.filter((type) => type.kind !== ITypeKind.InterfaceType),
+    // types.filter((type) => type.kind !== ITypeKind.InterfaceType),
+    types,
     selectedUser,
     (type) => ({ id: type.id }),
   )
