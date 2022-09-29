@@ -11,7 +11,7 @@ export const importTypes = async (
   logSection('Importing Types')
 
   for (const type of types) {
-    logTask('Upserting type', type.name)
+    logTask('Upserting Type', type.name)
     await upsertType(type, userId, where)
   }
 }

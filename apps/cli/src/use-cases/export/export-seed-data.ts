@@ -1,12 +1,12 @@
 import { ExportedData } from '@codelab/shared/abstract/core'
 import { exportAtoms } from './export-atoms'
-import { exportSeedTypes } from './export-seed-types'
 import { exportTags } from './export-tags'
+import { exportTypes } from './export-types'
 
 export const exportSeedData = async () => {
   const atomsData = await exportAtoms()
   const tagsData = await exportTags()
-  const seedTypesData = await exportSeedTypes()
+  const seedTypesData = await exportTypes()
 
   // We'll want to sort the data so diff is minimized
   const sortedAtomsData = atomsData

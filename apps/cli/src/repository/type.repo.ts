@@ -11,7 +11,7 @@ import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
-import { logTask } from '../shared/utils/log-task'
+import { logSection, logTask } from '../shared/utils/log-task'
 
 const createCreateBaseFields = (data: ITypeExport, userId: string) => ({
   id: data.id,
@@ -166,7 +166,7 @@ export const upsertType = async (
        * First create the interface
        */
       if (!exists.length) {
-        console.log(`Creating ${type.name} [${type.kind}]...`)
+        logTask(`Create Interface ${type.kind}`, type.name)
 
         await InterfaceType.create({
           input: [
@@ -180,7 +180,7 @@ export const upsertType = async (
       /**
        * For handling fields, we first disconnect everything
        */
-      console.log(`Disconnect all fields for ${type.name}`)
+      logTask('Disconnect All Fields', type.name)
 
       await InterfaceType.update({
         where: where(type),
@@ -202,9 +202,11 @@ export const upsertType = async (
       /**
        * Then connect everything again
        */
+      logSection('Connect Fields')
+
       logTask('Connect Fields', type.name, type)
 
-      for (const edge of type.fieldsConnection.edges) {
+      for await (const edge of type.fieldsConnection.edges) {
         const args = {
           interfaceTypeId: type.id,
           fieldTypeId: edge.node.id,
@@ -216,6 +218,7 @@ export const upsertType = async (
           },
         }
 
+        logTask('Connect Field', edge.key, type)
         await fieldRepository.upsertField(args)
       }
     }

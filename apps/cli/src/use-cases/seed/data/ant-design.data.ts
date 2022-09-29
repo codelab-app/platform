@@ -10,6 +10,8 @@ import {
   ExistingData,
   IAtomImport,
   IAtomType,
+  IInterfaceTypeExport,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { antdAtomData } from '@codelab/shared/data'
 import { ObjectTyped } from 'object-typed'
@@ -20,12 +22,28 @@ export const getApiName = (name: string) => {
 }
 
 /**
- * Map hardcoded atom enums to data
- *
- * Replace existing atom id & atom api with database ids
+ * We need to create interface separately, our atom creation logic only links to existing interfaces
  */
-export const createAntDesignAtomsData = async () =>
-  createAtomsSeedData(await createExistingData())
+export const createAntDesignInterfaceData = (
+  data: ExistingData,
+): Array<IInterfaceTypeExport> => {
+  return ObjectTyped.keys(antdAtomData).map((name) => {
+    const atomApiId = data.api.get(getApiName(name))?.id ?? v4()
+
+    return {
+      __typename: ITypeKind.InterfaceType,
+      id: atomApiId,
+      name: getApiName(name),
+      kind: ITypeKind.InterfaceType,
+      fieldsConnection: {
+        edges: [],
+      },
+      ownerConnection: {
+        edges: [],
+      },
+    }
+  })
+}
 
 /**
  * Create new seed data from atom types, we specify the data we want, the upsert resolution will happen later

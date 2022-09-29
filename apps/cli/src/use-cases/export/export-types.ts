@@ -14,7 +14,7 @@ import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport } from '@codelab/shared/abstract/core'
 import { sortInterfaceTypesFields } from './get-type'
 
-export const exportSeedTypes = async (): Promise<Array<ITypeExport>> => {
+export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * Export all primitive types
    */

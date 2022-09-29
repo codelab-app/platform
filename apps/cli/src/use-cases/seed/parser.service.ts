@@ -5,13 +5,14 @@ import {
 import {
   AntdDesignApi,
   ApiData,
+  ExistingData,
   IAtomImport,
   ICreateFieldDTO,
 } from '@codelab/shared/abstract/core'
 import { csvNameToAtomTypeMap } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { createAntDesignAtomsData } from './data/ant-design.data'
+import { createAtomsSeedData } from './data/ant-design.data'
 import { iterateCsvs } from './iterateCsv'
 import { getTypeForApi } from './type-map'
 
@@ -28,16 +29,14 @@ export class ParserService {
    *
    * Map of atom type to export data
    */
-  private atoms: Promise<Map<string, IAtomImport>>
+  private atoms: Map<string, IAtomImport>
 
   public apis: Array<ApiData> = []
 
-  private userId: string
-
-  constructor(userId: string) {
+  constructor(private userId: string, existingData: ExistingData) {
     this.userId = userId
-    this.atoms = createAntDesignAtomsData().then(
-      (data) => new Map(data.map((atom) => [atom.type, atom])),
+    this.atoms = new Map(
+      createAtomsSeedData(existingData).map((atom) => [atom.type, atom]),
     )
   }
 
@@ -86,6 +85,8 @@ export class ParserService {
         ]),
       ),
     )
+
+    console.debug(existingFieldsMap)
 
     const fields: Array<ICreateFieldDTO> = await Promise.all(
       data.map(async (field) => ({

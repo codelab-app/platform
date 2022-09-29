@@ -130,6 +130,9 @@
       "@codelab/shared/adapter/auth0": [
         "libs/shared/adapter/auth0/src/index.ts"
       ],
+      "@codelab/shared/adapter/logging": [
+        "libs/shared/adapter/logging/src/index.ts"
+      ],
       "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data": ["libs/shared/data/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"]

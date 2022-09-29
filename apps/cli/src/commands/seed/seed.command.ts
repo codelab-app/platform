@@ -9,8 +9,12 @@ import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
-import { createAntDesignAtomsData } from '../../use-cases/seed/data/ant-design.data'
-import { parseAndImportInterface } from './parse-and-import-interface'
+import {
+  createAntDesignInterfaceData,
+  createAtomsSeedData,
+  createExistingData,
+} from '../../use-cases/seed/data/ant-design.data'
+import { parseAndImportFields } from './parse-and-import-fields'
 
 interface ParseProps {
   email?: string
@@ -39,24 +43,32 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     }
 
     /**
-     * (1) First all our base types first
+     * (1) First all our types first
      */
-    await importTypes(createSeedTypesData(), selectedUserId, (type) => ({
-      name: type.name,
-    }))
+    await importTypes(
+      [
+        // Import base types first
+        ...createSeedTypesData(),
+        // Then interfaces
+        ...createAntDesignInterfaceData(await createExistingData()),
+      ],
+      selectedUserId,
+      (type) => ({
+        name: type.name,
+      }),
+    )
 
     /**
      * (2) Import tag tree
      */
     await importTags(createTagSeedData(), selectedUserId)
 
-    // cLog(await createAntDesignAtomsData())
-
     /**
      * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
-      atoms: await createAntDesignAtomsData(),
+      // We need to refetch data here, since the previous steps may have created interfaces
+      atoms: createAtomsSeedData(await createExistingData()),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,
@@ -67,13 +79,9 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     })
 
     /**
-     * (4) Assign allowedChildren
+     * (4) Then parse and import the Ant Design interfaces
      */
-
-    /**
-     * (5) Then parse and import the Ant Design interfaces
-     */
-    await parseAndImportInterface(selectedUserId)
+    await parseAndImportFields(selectedUserId)
 
     return process.exit(0)
   },

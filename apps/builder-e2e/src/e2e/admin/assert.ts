@@ -11,14 +11,16 @@ import { antdTagTree } from '../../../../../libs/shared/data/src/tag/antd-tag-tr
 import { AntdTag } from '../../../../../libs/shared/data/src/tag/antd-tags.data'
 
 export const seedData = () => {
-  cy.log('yarn cli seed')
-    .exec('yarn cli seed --env test --email cypress@codelab.ai', {
+  cy.log('yarn cli seed').exec(
+    'yarn cli seed --env test --email cypress@codelab.ai',
+    {
       timeout: 30000,
-    })
-    .its('stdout')
-    .then((res) => {
-      cy.log(res)
-    })
+    },
+  )
+  // .its('stdout')
+  // .then((res) => {
+  //   cy.log(res)
+  // })
 }
 
 const DEFAULT_SEED_FILE_PATH = './src/data/seed-data-test.json'
@@ -53,10 +55,6 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
     )} --skipUserData --skipSeedData false`,
     { timeout: 30000 },
   )
-
-  cy.exec('ls')
-    .its('stdout')
-    .then((res) => cy.log(res))
 
   return cy.readFile(file).then((payload: ExportedData) => {
     const { atoms, tags, types } = payload

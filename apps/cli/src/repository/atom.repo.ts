@@ -4,14 +4,10 @@ import {
   ExistingData,
   IAtomImport,
   ITagExport,
-  ITypeExport,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode, connectNodes } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
-import { getApiName } from '../use-cases/seed/data/ant-design.data'
-import { upsertType } from './type.repo'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import
@@ -41,29 +37,11 @@ export const upsertAtom = async (
     atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
   if (!existingAtom.length) {
-    /**
-     * Perform an upsert for the interface type, so we can always connect during atom creation
-     */
-    await upsertType(
-      {
-        __typename: ITypeKind.InterfaceType,
-        id: atom.api.id,
-        name: getApiName(atom.name),
-        kind: ITypeKind.InterfaceType,
-        fieldsConnection: {
-          edges: [],
-        },
-        ownerConnection: {
-          edges: [],
-        },
-      },
-      userId,
-      (type: ITypeExport) => ({ id: type.id }),
-    )
-
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
-      // Connect here since we upsert interface type earlier
+      /**
+       * We assume interface has been created in a previous step
+       */
       api: connectNode(atom.api.id),
       tags: { connect: connectTags },
     }

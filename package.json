@@ -140,6 +140,7 @@
     "voca": "1.4.0",
     "wait-on": "6.0.0",
     "why-is-node-running": "2.2.0",
+    "winston": "^3.8.2",
     "yargs": "17.5.1",
     "zod": "3.18.0"
   },
