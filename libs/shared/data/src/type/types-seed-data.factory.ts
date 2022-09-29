@@ -5,10 +5,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-// type CreatePrimitiveTypes = (
-//   ids?: Array<string>,
-// ) => Array<Omit<ICreateTypeDTO, 'auth0Id'>>
-
 type CreateSeedTypes = (ids?: Array<string>) => Array<ITypeExport>
 
 export const createSeedTypesData: CreateSeedTypes = ([

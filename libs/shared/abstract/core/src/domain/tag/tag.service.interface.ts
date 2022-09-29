@@ -6,7 +6,7 @@ import {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
-  IModalService,
+  IEntityModalService,
   IQueryService,
 } from '../../service'
 import { ICreateTagDTO, ITagDTO, IUpdateTagDTO } from './tag.dto.interface'
@@ -28,8 +28,8 @@ export interface ITagService
    * Properties
    */
   update(existing: ITag, data: IUpdateTagDTO): Promise<ITag>
-  deleteManyModal: IModalService<Array<Ref<ITag>>, { tags: Array<ITag> }>
-  updateModal: IModalService<Ref<ITag>, { tag?: ITag }>
+  deleteManyModal: IEntityModalService<Array<Ref<ITag>>, { tags: Array<ITag> }>
+  updateModal: IEntityModalService<Ref<ITag>, { tag?: ITag }>
   deleteMany(ids: Array<ITagRef>): Promise<Array<ITag>>
   tags: ObjectMap<ITag>
   tagsList: Array<ITag>

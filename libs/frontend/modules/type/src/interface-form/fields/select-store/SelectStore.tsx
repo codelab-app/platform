@@ -1,11 +1,11 @@
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { HTMLFieldProps } from 'uniforms'
-import { SelectField, SelectFieldProps } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectStoreProps = HTMLFieldProps<string, SelectFieldProps> & {
+export type SelectStoreProps = UniformSelectFieldProps & {
   where: StoreWhere
 }
 

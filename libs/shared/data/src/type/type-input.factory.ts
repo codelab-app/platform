@@ -9,6 +9,7 @@ import {
   ITypeKind,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
+import { connectNode } from '../shared'
 
 const makeAllTypes = (input: IPropData) =>
   Object.values(ITypeKind)
@@ -53,9 +54,7 @@ export const makeAllowedValuesNodeInput = (value: IEnumTypeValue) => {
 }
 
 export const makeItemTypeCreateInput = (type: IUpdateTypeDTO) => {
-  return type.arrayTypeId
-    ? makeAllTypes({ connect: { where: { node: { id: type.arrayTypeId } } } })
-    : {}
+  return type.arrayTypeId ? makeAllTypes(connectNode(type.arrayTypeId)) : {}
 }
 
 // export const makeFieldsCreateInput = (type: ICreateTypeDTO) => {

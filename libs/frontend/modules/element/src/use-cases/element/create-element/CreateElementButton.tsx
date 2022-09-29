@@ -6,7 +6,7 @@ import React from 'react'
 import { elementRef } from '../../../store'
 
 export type CreateElementButtonProps = {
-  parentElementId?: string
+  parentElementId: string
 } & Pick<IElementService, 'createModal'>
 
 export const CreateElementButton = observer<CreateElementButtonProps>(
@@ -16,9 +16,7 @@ export const CreateElementButton = observer<CreateElementButtonProps>(
         icon={<PlusOutlined data-testid="create-page-element-button" />}
         onClick={() => {
           return createModal.open({
-            parentElement: parentElementId
-              ? elementRef(parentElementId)
-              : undefined,
+            parentElement: elementRef(parentElementId),
           })
         }}
         size="small"

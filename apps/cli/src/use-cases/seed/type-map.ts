@@ -5,30 +5,27 @@ import {
   RenderPropsTypeOGM,
 } from '@codelab/backend/adapter/neo4j'
 import {
-  IAtomExport,
+  AntdDesignApi,
+  IAtomImport,
   IPrimitiveTypeKind,
   ITypeKind,
+  TypeRef,
 } from '@codelab/shared/abstract/core'
 import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { logTask } from '../../shared/utils/log-task'
-import { AntdDesignApi } from './data/ant-design.data'
 import {
   isReactNodeTypeRegex,
   isRenderPropType,
 } from './utils/isRenderPropType'
-
-type TypeRef = {
-  existingId: string
-} | null
 
 /**
  * Return existing type ref, or return create data for enums
  */
 export const getTypeForApi = async (
   apiField: AntdDesignApi,
-  atom: IAtomExport,
+  atom: IAtomImport,
   userId: string,
 ): Promise<TypeRef> => {
   logTask('Get Type For API', atom.name, apiField)

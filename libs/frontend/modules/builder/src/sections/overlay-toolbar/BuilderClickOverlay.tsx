@@ -58,8 +58,9 @@ export const BuilderClickOverlay = observer<{
             e.stopPropagation()
 
             elementService.createModal.open({
+              // TODO: null!
               parentElement: selectedNode?.renderComponentType
-                ? undefined
+                ? null!
                 : elementRef(selectedNode.id),
             })
           }}

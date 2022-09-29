@@ -19,7 +19,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { cssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { connectId, disconnectId } from '@codelab/shared/data'
+import { connectNode, disconnectNode } from '@codelab/shared/data'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
@@ -555,8 +555,8 @@ export class Element
 
     return makeUpdateElementInput(parentElement, {
       firstChild: {
-        ...connectId(this.id),
-        ...disconnectId(parentElement.firstChild?.id),
+        ...connectNode(this.id),
+        ...disconnectNode(parentElement.firstChild?.id),
       },
     })
   }
@@ -570,8 +570,8 @@ export class Element
 
     if (this.parentElement.firstChildId === this.id) {
       parentElementChanges.firstChild = {
-        ...disconnectId(this.id),
-        ...connectId(this.nextSibling?.id),
+        ...disconnectNode(this.id),
+        ...connectNode(this.nextSibling?.id),
       }
     }
 
@@ -587,9 +587,9 @@ export class Element
     return makeUpdateElementInput(this.prevSibling, {
       nextSibling: {
         // disconnect element
-        ...disconnectId(this.id),
+        ...disconnectNode(this.id),
         // connect next sibling
-        ...connectId(this.nextSibling?.id),
+        ...connectNode(this.nextSibling?.id),
       },
     })
   }
@@ -603,9 +603,9 @@ export class Element
     return makeUpdateElementInput(this.nextSibling, {
       prevSibling: {
         // detach element
-        ...disconnectId(this.id),
+        ...disconnectNode(this.id),
         // attach prev sibling
-        ...connectId(this.prevSibling?.id),
+        ...connectNode(this.prevSibling?.id),
       },
     })
   }
@@ -622,9 +622,9 @@ export class Element
     return makeUpdateElementInput(sibling, {
       nextSibling: {
         // sibling detaches
-        ...disconnectId(sibling.nextSibling?.id),
+        ...disconnectNode(sibling.nextSibling?.id),
         // appends element
-        ...connectId(this?.id),
+        ...connectNode(this?.id),
       },
     })
   }
@@ -641,9 +641,9 @@ export class Element
     return makeUpdateElementInput(sibling, {
       prevSibling: {
         // sibling detaches its prev sibling
-        ...disconnectId(sibling.prevSibling?.id),
+        ...disconnectNode(sibling.prevSibling?.id),
         // sibling prepends element
-        ...connectId(this?.id),
+        ...connectNode(this?.id),
       },
     })
   }

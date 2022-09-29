@@ -1,8 +1,8 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
+  IEntityModalService,
   IFieldModalMetadata,
   IFieldModalProperties,
-  IModalService,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
@@ -13,7 +13,7 @@ export class FieldModalService
     modelClass<ModalService<IFieldModalMetadata>>(ModalService),
     {},
   )
-  implements IModalService<IFieldModalMetadata, IFieldModalProperties>
+  implements IEntityModalService<IFieldModalMetadata, IFieldModalProperties>
 {
   @computed
   get interface() {

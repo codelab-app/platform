@@ -37,7 +37,7 @@ const parseTagNode = (node: TagNode, parent: string | null): TagNodeData => {
 /**
  * Generate parent/children by inference via object nested relationship
  */
-export const createTagTreeData = () =>
+export const createTagTreeData = (): Array<TagNodeData> =>
   ObjectTyped.entries(antdTagTree).flatMap(([tagKey, tagNode]) => [
     parseTagNode({ [tagKey]: tagNode ?? [] }, null),
   ])

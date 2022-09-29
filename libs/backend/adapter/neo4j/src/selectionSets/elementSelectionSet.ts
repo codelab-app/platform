@@ -1,3 +1,4 @@
+import { atomSelectionSet } from './atomSelectionSet'
 import { componentSelectionSet } from './componentSelectionSet'
 
 export const elementSelectionSet = `{
@@ -9,19 +10,8 @@ export const elementSelectionSet = `{
     ${componentSelectionSet}
   renderComponentType
     ${componentSelectionSet}
-  renderAtomType {
-    id
-    name
-    type
-    api {
-      id
-      name
-    }
-    tags {
-      id
-      name
-    }
-  }
+  renderAtomType
+    ${atomSelectionSet}
   parent {
     id
   }

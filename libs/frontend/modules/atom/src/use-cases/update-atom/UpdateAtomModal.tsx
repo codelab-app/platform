@@ -1,3 +1,4 @@
+import { SelectAtom } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import {
@@ -33,6 +34,9 @@ export const UpdateAtomModal = observer<{
     name: atom?.name,
     type: atom?.type,
     tags: atom?.tags.map((tag) => tag.id),
+    allowedChildren: atom?.allowedChildren.map(
+      (allowedChild) => allowedChild.id,
+    ),
   }
 
   const tagListOption = tagService.tagsSelectOptions
@@ -50,7 +54,7 @@ export const UpdateAtomModal = observer<{
         onSubmitSuccess={closeModal}
         schema={updateAtomSchema}
       >
-        <AutoFields omitFields={['tags']} />
+        <AutoFields omitFields={['tags', 'allowedChildren']} />
         <SelectField
           label="Connect Tag"
           mode="multiple"
@@ -59,6 +63,15 @@ export const UpdateAtomModal = observer<{
           options={tagListOption}
           showSearch={true}
         />
+        <SelectAtom label="Allowed Children" name="allowedChildren" />
+        {/* <SelectField */}
+        {/*  label="Allowed Children" */}
+        {/*  mode="multiple" */}
+        {/*  name="allowedChildren" */}
+        {/*  optionFilterProp="label" */}
+        {/*  options={tagListOption} */}
+        {/*  showSearch={true} */}
+        {/*/ > */}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

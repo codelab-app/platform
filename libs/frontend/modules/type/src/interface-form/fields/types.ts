@@ -1,4 +1,3 @@
-import { HTMLFieldProps } from 'uniforms'
-import { SelectFieldProps } from 'uniforms-antd'
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 
-export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
+export type SelectAtomProps = UniformSelectFieldProps

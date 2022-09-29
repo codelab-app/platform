@@ -4,7 +4,7 @@ import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,
   ICRUDService,
-  IModalService,
+  IEntityModalService,
   IQueryService,
 } from '../../service'
 import { IField, IFieldRef } from './field'
@@ -30,16 +30,22 @@ export interface ITypeService
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
   typesList: Array<IAnyType>
-  fieldCreateModal: IModalService<
+  fieldCreateModal: IEntityModalService<
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
-  interfaceDefaultsModal: IModalService<
+  interfaceDefaultsModal: IEntityModalService<
     Ref<IAnyType>,
     { type: Maybe<IAnyType> }
   >
-  fieldUpdateModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
-  fieldDeleteModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
+  fieldUpdateModal: IEntityModalService<
+    IFieldModalMetadata,
+    IFieldModalProperties
+  >
+  fieldDeleteModal: IEntityModalService<
+    IFieldModalMetadata,
+    IFieldModalProperties
+  >
   addField(
     interfaceTypeId: IInterfaceTypeRef,
     data: ICreateFieldDTO,

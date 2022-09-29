@@ -5,6 +5,7 @@ import {
 } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IActionExport, IActionKind } from '@codelab/shared/abstract/core'
+import { connectNode } from '@codelab/shared/data'
 import { exportApiActionSelectionSet } from '../selectionSets/actionSelectionSet'
 
 export const importActions = async (
@@ -34,7 +35,7 @@ export const importActions = async (
       id: action.id,
       name: action.name,
       type: action.type,
-      store: { connect: { where: { node: { id: storeId } } } },
+      store: connectNode(storeId),
     })),
   })
 
@@ -42,12 +43,12 @@ export const importActions = async (
 
   await ApiAction.create({
     input: apiActions.map((action) => ({
-      resource: { connect: { where: { node: { id: action.resource.id } } } },
+      resource: connectNode(action.resource.id),
       id: action.id,
       name: action.name,
       type: action.type,
       config: { create: { node: { data: action.config.data } } },
-      store: { connect: { where: { node: { id: storeId } } } },
+      store: connectNode(storeId),
     })),
   })
 
@@ -58,14 +59,10 @@ export const importActions = async (
       where: { id: r.id },
       update: {
         errorAction: {
-          ApiAction: {
-            connect: { where: { node: { id: r.errorAction.id } } },
-          },
+          ApiAction: connectNode(r.errorAction.id),
         },
         successAction: {
-          ApiAction: {
-            connect: { where: { node: { id: r.successAction.id } } },
-          },
+          ApiAction: connectNode(r.successAction.id),
         },
       },
     })

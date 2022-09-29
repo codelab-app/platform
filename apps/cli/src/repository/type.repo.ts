@@ -7,11 +7,8 @@ import {
 } from '@codelab/backend/adapter/neo4j'
 import { fieldRepository } from '@codelab/backend/application'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
-import {
-  BaseUniqueWhereCallback,
-  connectTypeId,
-  makeAllowedValuesNodeInput,
-} from '@codelab/shared/data'
+import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 

@@ -1,39 +1,45 @@
 import { TagOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
-import { BaseUniqueWhereCallback } from '@codelab/shared/data'
+import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import { connectNode, whereNodeId } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 
-export const connectChildTagToParent = async (tag: ITagExport) => {
-  const connectChildren = tag.children?.map((childrenTag) => ({
-    where: { node: { id: childrenTag.id } },
-  }))
-
-  const connectParent = tag.parent?.id
-    ? {
-        where: { node: { id: tag.parent?.id } },
-      }
-    : undefined
-
+/**
+ * Used for seeding only, will overwrite existing data
+ */
+export const connectChildTagToParent = async (
+  tag: ITagExport,
+): Promise<void> => {
   const Tag = await TagOGM()
 
   const input = {
     where: { id: tag.id },
     connect: {
-      children: connectChildren?.length ? connectChildren : undefined,
-      parent: connectParent,
+      children: tag.children?.map((childTag) => whereNodeId(childTag.id)),
+      parent: whereNodeId(tag.parent?.id),
+    },
+    disconnect: {
+      children: [{ where: {} }],
+      parent: { where: {} },
     },
   }
-  // console.log(input)
 
-  return Tag.update(input)
+  // cLog(input)
+
+  try {
+    await Tag.update(input)
+  } catch (e) {
+    console.error(e)
+    throw new Error('Error connecting tag to parent')
+  }
 }
 
 export const upsertTag = async (
   tag: ITagExport,
-  selectedUser: string,
+  selectedUserId: string,
   where: BaseUniqueWhereCallback<ITagExport>,
-) => {
+): Promise<void> => {
   const Tag = await TagOGM()
 
   const existingTag = await Tag.find({
@@ -41,11 +47,11 @@ export const upsertTag = async (
   })
 
   const baseInput: Pick<OGM_TYPES.TagCreateInput, 'owner'> = {
-    owner: { connect: { where: { node: { id: selectedUser } } } },
+    owner: connectNode(selectedUserId),
   }
 
   if (!existingTag.length) {
-    logTask('Created Task', tag.name)
+    logTask('Created Tag', tag.name)
 
     const createInput: OGM_TYPES.TagCreateInput = {
       ...baseInput,
@@ -54,25 +60,28 @@ export const upsertTag = async (
     }
 
     try {
-      return Tag.create({
+      await Tag.create({
         input: [createInput],
       })
     } catch (e) {
       console.error(e)
+      throw new Error('Tag create failed')
     }
   } else {
     logTask('Updating Tag', tag.name)
 
-    const updateInput: any = {
+    const updateInput: OGM_TYPES.TagUpdateInput = {
       ...baseInput,
-      id: tag.id,
     }
 
-    return Tag.update({
-      where: { name: tag.name },
-      update: updateInput,
-    })
+    try {
+      await Tag.update({
+        where: { name: tag.name },
+        update: updateInput,
+      })
+    } catch (e) {
+      console.error(e)
+      throw new Error('Tag update failed')
+    }
   }
-
-  return
 }

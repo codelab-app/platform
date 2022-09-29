@@ -16,7 +16,9 @@ export const importTags = async (
     }))
   })
 
-  await Promise.all(createTagsOperations)
+  const existingTags = await Promise.all(createTagsOperations)
+
+  // cLog('Existing tags', existingTags)
 
   const syncTagsOperations = tags.map((tag) => {
     logTask('Linking Tag', tag.name, tag)

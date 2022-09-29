@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ElementTypeKind } from '@codelab/shared/abstract/core'
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { difference } from 'lodash'
 import React from 'react'
-import { HTMLFieldProps } from 'uniforms'
-import { SelectField, SelectFieldProps } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 
 export interface SelectElementOption {
   label: string
@@ -12,7 +12,7 @@ export interface SelectElementOption {
   childrenIds?: Array<string>
 }
 
-export type SelectElementProps = HTMLFieldProps<string, SelectFieldProps> & {
+export type SelectElementProps = UniformSelectFieldProps & {
   kind: ElementTypeKind
   allElementOptions: Array<SelectElementOption>
   targetElementId?: string

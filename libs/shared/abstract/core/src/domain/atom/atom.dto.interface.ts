@@ -1,7 +1,8 @@
-import { ITagExport, ITagRef } from '../tag'
+import { ITagRef } from '../tag'
 import { IInterfaceTypeRef } from '../type'
 import { IAuth0Id } from '../user'
-import { AtomFragment, AtomPreviewFragment } from './atom.fragment.graphql.gen'
+import { AtomFragment, RenderAtomFragment } from './atom.fragment.graphql.gen'
+import type { IAtomRef } from './atom.model.interface'
 import { IAtomType } from './atom-type.enum'
 
 export interface ICreateAtomDTO {
@@ -17,21 +18,11 @@ export interface ICreateAtomDTO {
 
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined
+  allowedChildren?: Array<IAtomRef>
 }
 
 export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>
 
 export type IAtomDTO = AtomFragment
 
-export type IAtomPreviewDTO = AtomPreviewFragment
-
-export interface IAtomExport {
-  icon?: string | null
-  id: string
-  name: string
-  type: IAtomType
-  api: {
-    id: string
-  }
-  tags: Array<ITagExport>
-}
+export type IRenderAtomDTO = RenderAtomFragment

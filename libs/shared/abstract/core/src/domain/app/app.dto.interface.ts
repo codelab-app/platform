@@ -1,7 +1,3 @@
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IDomainExport } from '../domain'
-import { IPageExport } from '../page'
-import { IStoreExport } from '../store'
 import {
   AppPreviewFragment,
   PageBuilderAppFragment,
@@ -24,10 +20,4 @@ export type IAppDTO = AppPreviewFragment
 export interface IPageBuilderAppProps {
   app: PageBuilderAppFragment
   pageId: string
-}
-
-export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
-  pages: Array<IPageExport>
-  store: IStoreExport
-  domains: Array<IDomainExport>
 }

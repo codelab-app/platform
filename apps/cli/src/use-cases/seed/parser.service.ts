@@ -1,15 +1,19 @@
-import { IAtomExport, ICreateFieldDTO } from '@codelab/shared/abstract/core'
+import {
+  InterfaceTypeOGM,
+  interfaceTypeSelectionSet,
+} from '@codelab/backend/adapter/neo4j'
+import {
+  AntdDesignApi,
+  ApiData,
+  IAtomImport,
+  ICreateFieldDTO,
+} from '@codelab/shared/abstract/core'
 import { csvNameToAtomTypeMap } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { AntdDesignApi, createAntDesignAtomsData } from './data/ant-design.data'
+import { createAntDesignAtomsData } from './data/ant-design.data'
 import { iterateCsvs } from './iterateCsv'
 import { getTypeForApi } from './type-map'
-
-interface ApiData {
-  fields: Array<ICreateFieldDTO>
-  atom: IAtomExport
-}
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
@@ -24,7 +28,7 @@ export class ParserService {
    *
    * Map of atom type to export data
    */
-  private _atoms: Promise<Map<string, IAtomExport>>
+  private atoms: Promise<Map<string, IAtomImport>>
 
   public apis: Array<ApiData> = []
 
@@ -32,15 +36,15 @@ export class ParserService {
 
   constructor(userId: string) {
     this.userId = userId
-    this._atoms = createAntDesignAtomsData().then(
+    this.atoms = createAntDesignAtomsData().then(
       (data) => new Map(data.map((atom) => [atom.type, atom])),
     )
   }
 
   /**
-   * Extract data to be used for seeding
+   * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
-  async extractFields() {
+  async extractMappedFields() {
     await iterateCsvs(this.antdDataFolder, await this.handleCsv.bind(this))
 
     return this.apis
@@ -55,15 +59,38 @@ export class ParserService {
       return
     }
 
-    const atom = (await this._atoms).get(atomType)
+    const atom = (await this.atoms).get(atomType)
 
     if (!atom) {
       return
     }
 
+    /**
+     * Here we need to fetch
+     */
+    const InterfaceType = await InterfaceTypeOGM()
+
+    /**
+     * Key by composite key with interfaceId & fieldKey
+     */
+    const interfaceTypes = await InterfaceType.find({
+      selectionSet: interfaceTypeSelectionSet,
+    })
+
+    const existingFieldsMap = new Map(
+      // Create Array<[ref, field]>
+      interfaceTypes.flatMap((interfaceType) =>
+        interfaceType.fieldsConnection.edges.map((field) => [
+          `${interfaceType.id}-${field.key}`,
+          field,
+        ]),
+      ),
+    )
+
     const fields: Array<ICreateFieldDTO> = await Promise.all(
       data.map(async (field) => ({
-        id: v4(),
+        id:
+          existingFieldsMap.get(`${atom.api.id}-${field.property}`)?.id ?? v4(),
         key: field.property,
         name: pascalCaseToWords(field.property),
         description: field.description,

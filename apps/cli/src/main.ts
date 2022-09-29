@@ -5,9 +5,9 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
 import { importCommand } from './commands/import/import.command'
-import { parseCommand } from './commands/parse/parse.command'
 import { resetCommand } from './commands/reset/reset.command'
 import { scrapeCommand } from './commands/scrape/scrape.command'
+import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { getEnvOptions, setEnvMiddleware } from './shared/command'
 import { Env } from './shared/utils/env'
@@ -46,7 +46,7 @@ void yargs(hideBin(process.argv))
    * - Basic Types
    * - Atoms & interfaces
    */
-  .command(parseCommand)
+  .command(seedCommand)
 
   /**
    * TS Parser

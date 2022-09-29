@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { IAnyAction, IModalService } from '@codelab/shared/abstract/core'
+import { IAnyAction, IEntityModalService } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
@@ -10,7 +10,8 @@ export class ActionModalService
     modelClass<ModalService<Ref<IAnyAction>>>(ModalService),
     {},
   )
-  implements IModalService<Ref<IAnyAction>, { action: Maybe<IAnyAction> }>
+  implements
+    IEntityModalService<Ref<IAnyAction>, { action: Maybe<IAnyAction> }>
 {
   @computed
   get action() {

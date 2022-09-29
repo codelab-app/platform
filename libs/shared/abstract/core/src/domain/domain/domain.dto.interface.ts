@@ -11,11 +11,3 @@ export type IDomainDTO = DomainFragment
 export interface IUpdateDomainDTO extends ICreateDomainDTO {
   id: string
 }
-
-export interface IDomainExport {
-  id: string
-  name: string
-  app: {
-    id: string
-  }
-}

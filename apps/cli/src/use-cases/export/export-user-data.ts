@@ -1,7 +1,4 @@
-import {
-  ExportAppWhere,
-  ExportedData,
-} from '../../commands/export/export.types'
+import { ExportAppWhere, ExportedData } from '@codelab/shared/abstract/core'
 import { exportApps } from './export-apps'
 import { exportResources } from './export-resources'
 import { exportUserTypes } from './export-user-types'

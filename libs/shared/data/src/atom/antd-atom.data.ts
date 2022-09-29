@@ -1,7 +1,7 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { AntdTag } from '../tag/antd-tags.data'
 
-interface AtomData {
+export interface AtomSeedData {
   /**
    * File name of the CSV file containing the scraped API data for the Ant Design component
    */
@@ -15,6 +15,10 @@ interface AtomData {
    * Name of the icon file
    */
   icon?: string | null
+  /**
+   * Which atoms are allowed to be used as children
+   */
+  allowedChildren?: Array<IAtomType>
 }
 
 const antDesignIconPrefix = 'assets/atoms/antd'
@@ -24,7 +28,7 @@ const antDesignIconPrefix = 'assets/atoms/antd'
  */
 // TODO: remove the partial in key
 // https://www.learn-codes.net/javascript/typescript-typescript-types-key-value-enum/
-export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
+export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   //
   // Antd:
   //
@@ -208,11 +212,18 @@ export const antdAtomData: Partial<Record<IAtomType, AtomData>> = {
     file: 'Form',
     tag: AntdTag.Form,
     icon: AntdTag.Form,
+    allowedChildren: [IAtomType.AntDesignFormItem],
   },
   [IAtomType.AntDesignFormItem]: {
     file: 'Form--Item',
     tag: AntdTag.FormItem,
     icon: AntdTag.Form,
+    allowedChildren: [
+      IAtomType.AntDesignInput,
+      IAtomType.AntDesignButton,
+      IAtomType.AntDesignCheckbox,
+      IAtomType.AntDesignRadioGroup,
+    ],
   },
   [IAtomType.AntDesignFormList]: {
     file: null,
