@@ -7,7 +7,7 @@ import { getReactNodeTypeForApi } from './types/react-node-type-map'
 import { getRenderPropTypeForApi } from './types/render-prop-type'
 import { getUnionTypeForApi } from './types/union-type-map'
 import {
-  findUnionType,
+  findPrimitiveType,
   isReactNodeTypeRegex,
   isRenderPropType,
 } from './utils/isRenderPropType'
@@ -29,7 +29,6 @@ export const getTypeForApi = async (
 
   const values = apiField.type.split('|').map((value: string) => value.trim())
   const isBaseCondition = apiField.type.includes('|')
-  const isComplexUnion = isBaseCondition && apiField.type.includes('{')
 
   // Check if type is Enum Type
   if (apiField.isEnum) {
@@ -47,9 +46,15 @@ export const getTypeForApi = async (
   }
 
   // Check if type is Complex Union Type
-  if (isComplexUnion && !findUnionType.test(apiField.type)) {
+  if (isBaseCondition) {
     return await getUnionTypeForApi(apiField, atom, userId, values)
   }
 
-  return await getPrimitiveTypeForApi(apiField, atom, userId, values)
+  if (findPrimitiveType.test(apiField.type)) {
+    console.log({ values })
+
+    return await getPrimitiveTypeForApi(apiField, atom, values)
+  } else {
+    return null
+  }
 }
