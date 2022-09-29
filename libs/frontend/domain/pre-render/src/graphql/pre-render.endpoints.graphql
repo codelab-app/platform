@@ -1,0 +1,33 @@
+mutation CreatePreRenders($input: [PreRenderCreateInput!]!) {
+  createPreRenders(input: $input) {
+    preRenders {
+      ...PreRender
+    }
+  }
+}
+
+mutation DeletePreRenders(
+  $where: PreRenderWhere
+  $delete: PreRenderDeleteInput
+) {
+  deletePreRenders(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}
+
+mutation UpdatePreRenders(
+  $where: PreRenderWhere
+  $update: PreRenderUpdateInput
+) {
+  updatePreRenders(where: $where, update: $update) {
+    preRenders {
+      ...PreRender
+    }
+  }
+}
+
+query GetPreRenders($options: PreRenderOptions, $where: PreRenderWhere) {
+  preRenders(options: $options, where: $where) {
+    ...PreRender
+  }
+}

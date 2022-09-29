@@ -11,7 +11,7 @@ import { Component } from './component.model'
 @model('@codelab/ComponentModalService')
 export class ComponentModalService
   extends ExtendedModel(
-    modelClass<ModalService<Ref<Component>>>(ModalService),
+    modelClass<ModalService<Ref<IComponent>>>(ModalService),
     {},
   )
   implements

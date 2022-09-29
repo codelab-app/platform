@@ -1,25 +1,21 @@
 import { IComponentService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
+import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { deleteComponentSchema } from './deleteComponentSchema'
-import { DeleteComponentInput } from './types'
 
 export const DeleteComponentModal = observer<{
   componentService: IComponentService
 }>(({ componentService }) => {
   const closeModal = () => componentService.deleteModal.close()
+  const component = componentService.deleteModal.component
 
-  const onSubmit = ({ componentId }: DeleteComponentInput) =>
-    componentService.delete(componentId)
-
-  if (!componentService.deleteModal.component) {
+  if (!component) {
     return null
   }
 
-  const model = { componentId: componentService.deleteModal.component.id }
+  const onSubmit = () => componentService.delete(component.id)
 
   return (
     <ModalForm.Modal
@@ -27,20 +23,17 @@ export const DeleteComponentModal = observer<{
       onCancel={closeModal}
       visible={componentService.deleteModal.isOpen}
     >
-      <ModalForm.Form<DeleteComponentInput>
-        model={model}
+      <ModalForm.Form
+        model={{ id: component.id }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while deleting component',
         })}
         onSubmitSuccess={closeModal}
-        schema={deleteComponentSchema}
+        schema={emptyJsonSchema}
       >
-        <h4>
-          Are you sure you want to delete component "
-          {componentService.deleteModal.component.name}"?
-        </h4>
-        <AutoFields omitFields={['componentId']} />
+        <h4>Are you sure you want to delete component "{component.name}"?</h4>
+        <AutoFields omitFields={['id']} />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

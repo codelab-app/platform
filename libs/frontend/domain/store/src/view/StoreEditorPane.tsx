@@ -7,12 +7,15 @@ import {
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { InterfaceDefaultsButton, typeRef } from '@codelab/frontend/domain/type'
-import { useResizable } from '@codelab/frontend/view/components'
+import {
+  EditorPaneHeader,
+  useResizable,
+} from '@codelab/frontend/view/components'
 import { Button, Row } from 'antd'
 import { motion } from 'framer-motion'
 import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import React, { PropsWithChildren, ReactNode } from 'react'
+import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
 import { GetActionsList, GetStateList } from '../use-cases'
 
@@ -43,20 +46,6 @@ const ResizableColumn = ({ children }: PropsWithChildren) => {
     </motion.div>
   )
 }
-
-interface HeaderProps {
-  extra?: ReactNode
-}
-
-const Header = ({ children, extra }: PropsWithChildren<HeaderProps>) => (
-  <Row
-    css={tw`px-2 pt-2 border-solid border-0 border-b border-b-gray-300`}
-    justify="space-between"
-  >
-    <h3>{children}</h3>
-    <div>{extra}</div>
-  </Row>
-)
 
 export const StoreEditorPane = observer<StoreEditorPaneProps>(
   ({ typeService, actionService, appStore, storeService }) => {
@@ -96,14 +85,18 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
     return (
       <Row css={tw`h-full`} wrap={false}>
         <ResizableColumn>
-          <Header extra={[editDefaultStateButton, ' ', createStateFieldButton]}>
+          <EditorPaneHeader
+            extra={[editDefaultStateButton, ' ', createStateFieldButton]}
+          >
             State
-          </Header>
+          </EditorPaneHeader>
           <GetStateList store={appStore} typeService={typeService} />
         </ResizableColumn>
 
         <motion.div css={tw`flex-1  h-full`}>
-          <Header extra={createActionButton}>Actions</Header>
+          <EditorPaneHeader extra={createActionButton}>
+            Actions
+          </EditorPaneHeader>
           <GetActionsList actionService={actionService} store={appStore} />
         </motion.div>
       </Row>

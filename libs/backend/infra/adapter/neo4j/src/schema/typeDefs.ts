@@ -10,6 +10,7 @@ import { domainSchema } from './model/domain.schema'
 import { elementSchema } from './model/element.schema'
 import { hookSchema } from './model/hook.schema'
 import { pageSchema } from './model/page.schema'
+import { preRenderSchema } from './model/pre-render.schema'
 import { propSchema } from './model/prop.schema'
 import { resourceSchema } from './model/resource.schema'
 import { storeSchema } from './model/store.schema'
@@ -18,6 +19,7 @@ import { userSchema } from './model/user.schema'
 import { fieldSchema, typeSchema } from './type'
 
 export const typeDefs = print(gql`
+  ${preRenderSchema}
   ${adminSchema}
   ${commonSchema}
   ${adminSchema}

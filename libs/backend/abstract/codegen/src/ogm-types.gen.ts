@@ -27,6 +27,9 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query'
   baseTypes: Array<BaseType>
+  preRenders: Array<PreRender>
+  preRendersAggregate: PreRenderAggregateSelection
+  preRendersConnection: PreRendersConnection
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
   resetDatabaseMutationResponsesConnection: ResetDatabaseMutationResponsesConnection
@@ -149,6 +152,22 @@ export type Query = {
 export type QueryBaseTypesArgs = {
   where?: InputMaybe<BaseTypeWhere>
   options?: InputMaybe<BaseTypeOptions>
+}
+
+export type QueryPreRendersArgs = {
+  where?: InputMaybe<PreRenderWhere>
+  options?: InputMaybe<PreRenderOptions>
+}
+
+export type QueryPreRendersAggregateArgs = {
+  where?: InputMaybe<PreRenderWhere>
+}
+
+export type QueryPreRendersConnectionArgs = {
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  where?: InputMaybe<PreRenderWhere>
+  sort?: InputMaybe<Array<InputMaybe<PreRenderSort>>>
 }
 
 export type QueryResetDatabaseMutationResponsesArgs = {
@@ -753,6 +772,9 @@ export type Mutation = {
   createDomain: Domain
   updateDomain: Domain
   deleteDomain: DeleteInfo
+  createPreRenders: CreatePreRendersMutationResponse
+  deletePreRenders: DeleteInfo
+  updatePreRenders: UpdatePreRendersMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   deleteResetDatabaseMutationResponses: DeleteInfo
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
@@ -883,6 +905,25 @@ export type MutationUpdateDomainArgs = {
 
 export type MutationDeleteDomainArgs = {
   id: Scalars['String']
+}
+
+export type MutationCreatePreRendersArgs = {
+  input: Array<PreRenderCreateInput>
+}
+
+export type MutationDeletePreRendersArgs = {
+  where?: InputMaybe<PreRenderWhere>
+  delete?: InputMaybe<PreRenderDeleteInput>
+}
+
+export type MutationUpdatePreRendersArgs = {
+  where?: InputMaybe<PreRenderWhere>
+  update?: InputMaybe<PreRenderUpdateInput>
+  connect?: InputMaybe<PreRenderConnectInput>
+  disconnect?: InputMaybe<PreRenderDisconnectInput>
+  create?: InputMaybe<PreRenderRelationInput>
+  delete?: InputMaybe<PreRenderDeleteInput>
+  connectOrCreate?: InputMaybe<PreRenderConnectOrCreateInput>
 }
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
@@ -1937,6 +1978,13 @@ export enum ElementTypeKind {
   ChildrenOnly = 'ChildrenOnly',
   DescendantsOnly = 'DescendantsOnly',
   ExcludeDescendantsElements = 'ExcludeDescendantsElements',
+}
+
+export enum PreRenderType {
+  GetServerSideProps = 'GetServerSideProps',
+  GetInitialProps = 'GetInitialProps',
+  GetStaticPaths = 'GetStaticPaths',
+  GetStaticProps = 'GetStaticProps',
 }
 
 export enum PrimitiveTypeKind {
@@ -3455,6 +3503,12 @@ export type CreatePageTypesMutationResponse = {
   __typename?: 'CreatePageTypesMutationResponse'
   info: CreateInfo
   pageTypes: Array<PageType>
+}
+
+export type CreatePreRendersMutationResponse = {
+  __typename?: 'CreatePreRendersMutationResponse'
+  info: CreateInfo
+  preRenders: Array<PreRender>
 }
 
 export type CreatePrimitiveTypesMutationResponse = {
@@ -4996,8 +5050,11 @@ export type Page = {
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
   app: App
   appAggregate?: Maybe<PageAppAppAggregationSelection>
+  preRender: Array<PreRender>
+  preRenderAggregate?: Maybe<PagePreRenderPreRenderAggregationSelection>
   rootElementConnection: PageRootElementConnection
   appConnection: PageAppConnection
+  preRenderConnection: PagePreRenderConnection
 }
 
 export type PageRootElementArgs = {
@@ -5022,6 +5079,17 @@ export type PageAppAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
+export type PagePreRenderArgs = {
+  where?: InputMaybe<PreRenderWhere>
+  options?: InputMaybe<PreRenderOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type PagePreRenderAggregateArgs = {
+  where?: InputMaybe<PreRenderWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
 export type PageRootElementConnectionArgs = {
   where?: InputMaybe<PageRootElementConnectionWhere>
   first?: InputMaybe<Scalars['Int']>
@@ -5036,6 +5104,14 @@ export type PageAppConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   sort?: InputMaybe<Array<PageAppConnectionSort>>
+}
+
+export type PagePreRenderConnectionArgs = {
+  where?: InputMaybe<PagePreRenderConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<PagePreRenderConnectionSort>>
 }
 
 export type PageAggregateSelection = {
@@ -5104,6 +5180,31 @@ export type PageInfo = {
   hasPreviousPage: Scalars['Boolean']
   startCursor?: Maybe<Scalars['String']>
   endCursor?: Maybe<Scalars['String']>
+}
+
+export type PagePreRenderConnection = {
+  __typename?: 'PagePreRenderConnection'
+  edges: Array<PagePreRenderRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type PagePreRenderPreRenderAggregationSelection = {
+  __typename?: 'PagePreRenderPreRenderAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<PagePreRenderPreRenderNodeAggregateSelection>
+}
+
+export type PagePreRenderPreRenderNodeAggregateSelection = {
+  __typename?: 'PagePreRenderPreRenderNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  code: StringAggregateSelectionNonNullable
+}
+
+export type PagePreRenderRelationship = {
+  __typename?: 'PagePreRenderRelationship'
+  cursor: Scalars['String']
+  node: PreRender
 }
 
 export type PageRootElementConnection = {
@@ -5197,6 +5298,81 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   username: StringAggregateSelectionNonNullable
+}
+
+export type PreRender = {
+  __typename?: 'PreRender'
+  id: Scalars['ID']
+  code: Scalars['String']
+  type: PreRenderType
+  page: Page
+  pageAggregate?: Maybe<PreRenderPagePageAggregationSelection>
+  pageConnection: PreRenderPageConnection
+}
+
+export type PreRenderPageArgs = {
+  where?: InputMaybe<PageWhere>
+  options?: InputMaybe<PageOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type PreRenderPageAggregateArgs = {
+  where?: InputMaybe<PageWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type PreRenderPageConnectionArgs = {
+  where?: InputMaybe<PreRenderPageConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<PreRenderPageConnectionSort>>
+}
+
+export type PreRenderAggregateSelection = {
+  __typename?: 'PreRenderAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  code: StringAggregateSelectionNonNullable
+}
+
+export type PreRenderEdge = {
+  __typename?: 'PreRenderEdge'
+  cursor: Scalars['String']
+  node: PreRender
+}
+
+export type PreRenderPageConnection = {
+  __typename?: 'PreRenderPageConnection'
+  edges: Array<PreRenderPageRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type PreRenderPagePageAggregationSelection = {
+  __typename?: 'PreRenderPagePageAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<PreRenderPagePageNodeAggregateSelection>
+}
+
+export type PreRenderPagePageNodeAggregateSelection = {
+  __typename?: 'PreRenderPagePageNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+  slug: StringAggregateSelectionNonNullable
+}
+
+export type PreRenderPageRelationship = {
+  __typename?: 'PreRenderPageRelationship'
+  cursor: Scalars['String']
+  node: Page
+}
+
+export type PreRendersConnection = {
+  __typename?: 'PreRendersConnection'
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+  edges: Array<PreRenderEdge>
 }
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
@@ -6400,6 +6576,12 @@ export type UpdatePageTypesMutationResponse = {
   __typename?: 'UpdatePageTypesMutationResponse'
   info: UpdateInfo
   pageTypes: Array<PageType>
+}
+
+export type UpdatePreRendersMutationResponse = {
+  __typename?: 'UpdatePreRendersMutationResponse'
+  info: UpdateInfo
+  preRenders: Array<PreRender>
 }
 
 export type UpdatePrimitiveTypesMutationResponse = {
@@ -15899,6 +16081,7 @@ export type PageAppUpdateFieldInput = {
 export type PageConnectInput = {
   rootElement?: InputMaybe<PageRootElementConnectFieldInput>
   app?: InputMaybe<PageAppConnectFieldInput>
+  preRender?: InputMaybe<Array<PagePreRenderConnectFieldInput>>
 }
 
 export type PageConnectOrCreateInput = {
@@ -15920,16 +16103,19 @@ export type PageCreateInput = {
   slug: Scalars['String']
   rootElement?: InputMaybe<PageRootElementFieldInput>
   app?: InputMaybe<PageAppFieldInput>
+  preRender?: InputMaybe<PagePreRenderFieldInput>
 }
 
 export type PageDeleteInput = {
   rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
   app?: InputMaybe<PageAppDeleteFieldInput>
+  preRender?: InputMaybe<Array<PagePreRenderDeleteFieldInput>>
 }
 
 export type PageDisconnectInput = {
   rootElement?: InputMaybe<PageRootElementDisconnectFieldInput>
   app?: InputMaybe<PageAppDisconnectFieldInput>
+  preRender?: InputMaybe<Array<PagePreRenderDisconnectFieldInput>>
 }
 
 export type PageOnCreateInput = {
@@ -15945,9 +16131,95 @@ export type PageOptions = {
   offset?: InputMaybe<Scalars['Int']>
 }
 
+export type PagePreRenderAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PagePreRenderAggregateInput>>
+  OR?: InputMaybe<Array<PagePreRenderAggregateInput>>
+  node?: InputMaybe<PagePreRenderNodeAggregationWhereInput>
+}
+
+export type PagePreRenderConnectFieldInput = {
+  where?: InputMaybe<PreRenderConnectWhere>
+  connect?: InputMaybe<Array<PreRenderConnectInput>>
+}
+
+export type PagePreRenderConnectionSort = {
+  node?: InputMaybe<PreRenderSort>
+}
+
+export type PagePreRenderConnectionWhere = {
+  AND?: InputMaybe<Array<PagePreRenderConnectionWhere>>
+  OR?: InputMaybe<Array<PagePreRenderConnectionWhere>>
+  node?: InputMaybe<PreRenderWhere>
+  node_NOT?: InputMaybe<PreRenderWhere>
+}
+
+export type PagePreRenderCreateFieldInput = {
+  node: PreRenderCreateInput
+}
+
+export type PagePreRenderDeleteFieldInput = {
+  where?: InputMaybe<PagePreRenderConnectionWhere>
+  delete?: InputMaybe<PreRenderDeleteInput>
+}
+
+export type PagePreRenderDisconnectFieldInput = {
+  where?: InputMaybe<PagePreRenderConnectionWhere>
+  disconnect?: InputMaybe<PreRenderDisconnectInput>
+}
+
+export type PagePreRenderFieldInput = {
+  create?: InputMaybe<Array<PagePreRenderCreateFieldInput>>
+  connect?: InputMaybe<Array<PagePreRenderConnectFieldInput>>
+}
+
+export type PagePreRenderNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PagePreRenderNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PagePreRenderNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  code_EQUAL?: InputMaybe<Scalars['String']>
+  code_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  code_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  code_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  code_GT?: InputMaybe<Scalars['Int']>
+  code_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  code_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  code_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  code_GTE?: InputMaybe<Scalars['Int']>
+  code_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  code_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  code_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  code_LT?: InputMaybe<Scalars['Int']>
+  code_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  code_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  code_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  code_LTE?: InputMaybe<Scalars['Int']>
+  code_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  code_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  code_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type PagePreRenderUpdateConnectionInput = {
+  node?: InputMaybe<PreRenderUpdateInput>
+}
+
+export type PagePreRenderUpdateFieldInput = {
+  where?: InputMaybe<PagePreRenderConnectionWhere>
+  update?: InputMaybe<PagePreRenderUpdateConnectionInput>
+  connect?: InputMaybe<Array<PagePreRenderConnectFieldInput>>
+  disconnect?: InputMaybe<Array<PagePreRenderDisconnectFieldInput>>
+  create?: InputMaybe<Array<PagePreRenderCreateFieldInput>>
+  delete?: InputMaybe<Array<PagePreRenderDeleteFieldInput>>
+}
+
 export type PageRelationInput = {
   rootElement?: InputMaybe<PageRootElementCreateFieldInput>
   app?: InputMaybe<PageAppCreateFieldInput>
+  preRender?: InputMaybe<Array<PagePreRenderCreateFieldInput>>
 }
 
 export type PageRootElementAggregateInput = {
@@ -16405,6 +16677,7 @@ export type PageUpdateInput = {
   slug?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   app?: InputMaybe<PageAppUpdateFieldInput>
+  preRender?: InputMaybe<Array<PagePreRenderUpdateFieldInput>>
 }
 
 export type PageWhere = {
@@ -16446,10 +16719,233 @@ export type PageWhere = {
   app?: InputMaybe<AppWhere>
   app_NOT?: InputMaybe<AppWhere>
   appAggregate?: InputMaybe<PageAppAggregateInput>
+  /** @deprecated Use `preRender_SOME` instead. */
+  preRender?: InputMaybe<PreRenderWhere>
+  /** @deprecated Use `preRender_NONE` instead. */
+  preRender_NOT?: InputMaybe<PreRenderWhere>
+  preRenderAggregate?: InputMaybe<PagePreRenderAggregateInput>
+  /** Return Pages where all of the related PreRenders match this filter */
+  preRender_ALL?: InputMaybe<PreRenderWhere>
+  /** Return Pages where none of the related PreRenders match this filter */
+  preRender_NONE?: InputMaybe<PreRenderWhere>
+  /** Return Pages where one of the related PreRenders match this filter */
+  preRender_SINGLE?: InputMaybe<PreRenderWhere>
+  /** Return Pages where some of the related PreRenders match this filter */
+  preRender_SOME?: InputMaybe<PreRenderWhere>
   rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
   rootElementConnection_NOT?: InputMaybe<PageRootElementConnectionWhere>
   appConnection?: InputMaybe<PageAppConnectionWhere>
   appConnection_NOT?: InputMaybe<PageAppConnectionWhere>
+  /** @deprecated Use `preRenderConnection_SOME` instead. */
+  preRenderConnection?: InputMaybe<PagePreRenderConnectionWhere>
+  /** @deprecated Use `preRenderConnection_NONE` instead. */
+  preRenderConnection_NOT?: InputMaybe<PagePreRenderConnectionWhere>
+  preRenderConnection_ALL?: InputMaybe<PagePreRenderConnectionWhere>
+  preRenderConnection_NONE?: InputMaybe<PagePreRenderConnectionWhere>
+  preRenderConnection_SINGLE?: InputMaybe<PagePreRenderConnectionWhere>
+  preRenderConnection_SOME?: InputMaybe<PagePreRenderConnectionWhere>
+}
+
+export type PreRenderConnectInput = {
+  page?: InputMaybe<PreRenderPageConnectFieldInput>
+}
+
+export type PreRenderConnectOrCreateInput = {
+  page?: InputMaybe<PreRenderPageConnectOrCreateFieldInput>
+}
+
+export type PreRenderConnectWhere = {
+  node: PreRenderWhere
+}
+
+export type PreRenderCreateInput = {
+  id: Scalars['ID']
+  code: Scalars['String']
+  type: PreRenderType
+  page?: InputMaybe<PreRenderPageFieldInput>
+}
+
+export type PreRenderDeleteInput = {
+  page?: InputMaybe<PreRenderPageDeleteFieldInput>
+}
+
+export type PreRenderDisconnectInput = {
+  page?: InputMaybe<PreRenderPageDisconnectFieldInput>
+}
+
+export type PreRenderOptions = {
+  /** Specify one or more PreRenderSort objects to sort PreRenders by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<PreRenderSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+}
+
+export type PreRenderPageAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PreRenderPageAggregateInput>>
+  OR?: InputMaybe<Array<PreRenderPageAggregateInput>>
+  node?: InputMaybe<PreRenderPageNodeAggregationWhereInput>
+}
+
+export type PreRenderPageConnectFieldInput = {
+  where?: InputMaybe<PageConnectWhere>
+  connect?: InputMaybe<PageConnectInput>
+}
+
+export type PreRenderPageConnectionSort = {
+  node?: InputMaybe<PageSort>
+}
+
+export type PreRenderPageConnectionWhere = {
+  AND?: InputMaybe<Array<PreRenderPageConnectionWhere>>
+  OR?: InputMaybe<Array<PreRenderPageConnectionWhere>>
+  node?: InputMaybe<PageWhere>
+  node_NOT?: InputMaybe<PageWhere>
+}
+
+export type PreRenderPageConnectOrCreateFieldInput = {
+  where: PageConnectOrCreateWhere
+  onCreate: PreRenderPageConnectOrCreateFieldInputOnCreate
+}
+
+export type PreRenderPageConnectOrCreateFieldInputOnCreate = {
+  node: PageOnCreateInput
+}
+
+export type PreRenderPageCreateFieldInput = {
+  node: PageCreateInput
+}
+
+export type PreRenderPageDeleteFieldInput = {
+  where?: InputMaybe<PreRenderPageConnectionWhere>
+  delete?: InputMaybe<PageDeleteInput>
+}
+
+export type PreRenderPageDisconnectFieldInput = {
+  where?: InputMaybe<PreRenderPageConnectionWhere>
+  disconnect?: InputMaybe<PageDisconnectInput>
+}
+
+export type PreRenderPageFieldInput = {
+  create?: InputMaybe<PreRenderPageCreateFieldInput>
+  connect?: InputMaybe<PreRenderPageConnectFieldInput>
+  connectOrCreate?: InputMaybe<PreRenderPageConnectOrCreateFieldInput>
+}
+
+export type PreRenderPageNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PreRenderPageNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PreRenderPageNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  slug_EQUAL?: InputMaybe<Scalars['String']>
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  slug_GT?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  slug_GTE?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  slug_LT?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  slug_LTE?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type PreRenderPageUpdateConnectionInput = {
+  node?: InputMaybe<PageUpdateInput>
+}
+
+export type PreRenderPageUpdateFieldInput = {
+  where?: InputMaybe<PreRenderPageConnectionWhere>
+  update?: InputMaybe<PreRenderPageUpdateConnectionInput>
+  connect?: InputMaybe<PreRenderPageConnectFieldInput>
+  disconnect?: InputMaybe<PreRenderPageDisconnectFieldInput>
+  create?: InputMaybe<PreRenderPageCreateFieldInput>
+  delete?: InputMaybe<PreRenderPageDeleteFieldInput>
+  connectOrCreate?: InputMaybe<PreRenderPageConnectOrCreateFieldInput>
+}
+
+export type PreRenderRelationInput = {
+  page?: InputMaybe<PreRenderPageCreateFieldInput>
+}
+
+/** Fields to sort PreRenders by. The order in which sorts are applied is not guaranteed when specifying many fields in one PreRenderSort object. */
+export type PreRenderSort = {
+  id?: InputMaybe<SortDirection>
+  code?: InputMaybe<SortDirection>
+  type?: InputMaybe<SortDirection>
+}
+
+export type PreRenderUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  code?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<PreRenderType>
+  page?: InputMaybe<PreRenderPageUpdateFieldInput>
+}
+
+export type PreRenderWhere = {
+  OR?: InputMaybe<Array<PreRenderWhere>>
+  AND?: InputMaybe<Array<PreRenderWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  code?: InputMaybe<Scalars['String']>
+  code_NOT?: InputMaybe<Scalars['String']>
+  code_IN?: InputMaybe<Array<Scalars['String']>>
+  code_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  code_CONTAINS?: InputMaybe<Scalars['String']>
+  code_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  code_STARTS_WITH?: InputMaybe<Scalars['String']>
+  code_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  code_ENDS_WITH?: InputMaybe<Scalars['String']>
+  code_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<PreRenderType>
+  type_NOT?: InputMaybe<PreRenderType>
+  type_IN?: InputMaybe<Array<PreRenderType>>
+  type_NOT_IN?: InputMaybe<Array<PreRenderType>>
+  page?: InputMaybe<PageWhere>
+  page_NOT?: InputMaybe<PageWhere>
+  pageAggregate?: InputMaybe<PreRenderPageAggregateInput>
+  pageConnection?: InputMaybe<PreRenderPageConnectionWhere>
+  pageConnection_NOT?: InputMaybe<PreRenderPageConnectionWhere>
 }
 
 export type PrimitiveTypeConnectInput = {
@@ -21478,6 +21974,72 @@ export type WithOwnerOwnerUpdateFieldInput = {
   connectOrCreate?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
 }
 
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface PreRenderAggregateSelectionInput {
+  count?: boolean
+  id?: IdAggregateInputNonNullable
+  code?: StringAggregateInputNonNullable
+}
+
+export declare class PreRenderModel {
+  public find(args?: {
+    where?: PreRenderWhere
+
+    options?: PreRenderOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<PreRender[]>
+  public create(args: {
+    input: PreRenderCreateInput[]
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreatePreRendersMutationResponse>
+  public update(args: {
+    where?: PreRenderWhere
+    update?: PreRenderUpdateInput
+    connect?: PreRenderConnectInput
+    disconnect?: PreRenderDisconnectInput
+    create?: PreRenderCreateInput
+    connectOrCreate?: PreRenderConnectOrCreateInput
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdatePreRendersMutationResponse>
+  public delete(args: {
+    where?: PreRenderWhere
+    delete?: PreRenderDeleteInput
+    context?: any
+    rootValue?: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+  public aggregate(args: {
+    where?: PreRenderWhere
+
+    aggregate: PreRenderAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<PreRenderAggregateSelection>
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
 export interface ResetDatabaseMutationResponseAggregateSelectionInput {
   count?: boolean
 }
@@ -23936,6 +24498,7 @@ export declare class DeleteInfoModel {
 }
 
 export interface ModelMap {
+  PreRender: PreRenderModel
   ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel
   User: UserModel
   App: AppModel

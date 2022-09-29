@@ -60,6 +60,9 @@
       "@codelab/frontend/domain/component": [
         "libs/frontend/domain/component/src/index.ts"
       ],
+      "@codelab/frontend/domain/pre-render": [
+        "libs/frontend/domain/pre-render/src/index.ts"
+      ],
       "@codelab/frontend/domain/domain": [
         "libs/frontend/domain/domain/src/index.ts"
       ],

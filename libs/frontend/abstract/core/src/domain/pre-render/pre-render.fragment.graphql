@@ -1,0 +1,8 @@
+fragment PreRender on PreRender {
+  id
+  code
+  page {
+    id
+  }
+  type
+}

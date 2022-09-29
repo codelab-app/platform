@@ -1,6 +1,17 @@
-import { CodeOutlined, DatabaseOutlined } from '@ant-design/icons'
+import {
+  CodeOutlined,
+  CodeSandboxOutlined,
+  DatabaseOutlined,
+} from '@ant-design/icons'
+import {
+  CreatePreRenderModal,
+  DeletePreRenderModal,
+  PreRenderEditorPane,
+  UpdatePreRenderModal,
+} from '@codelab/frontend/domain/pre-render'
 import {
   IActionService,
+  IPreRenderService,
   IResourceService,
   IStore,
   IStoreService,
@@ -38,6 +49,7 @@ interface EditorPaneBuilderProps {
   actionService: IActionService
   storeService: IStoreService
   typeService: ITypeService
+  preRenderService: IPreRenderService
   resourceService: IResourceService
   appStore: IStore
 }
@@ -60,6 +72,7 @@ export const EditorPaneBuilder = observer(
     storeService,
     typeService,
     resourceService,
+    preRenderService,
   }: EditorPaneBuilderProps) => {
     return (
       <>
@@ -104,6 +117,17 @@ export const EditorPaneBuilder = observer(
                 value={propSafeStringify(appStore.state)}
               />
             </TabPane>
+            <TabPane
+              key="pre-render"
+              tab={
+                <div>
+                  <CodeSandboxOutlined title="PreRender" />
+                  PreRender
+                </div>
+              }
+            >
+              <PreRenderEditorPane preRenderService={preRenderService} />
+            </TabPane>
           </Tabs>
         </Container>
         <CreateFieldModal typeService={typeService} />
@@ -120,6 +144,10 @@ export const EditorPaneBuilder = observer(
           resourceService={resourceService}
         />
         <DeleteActionsModal actionService={actionService} />
+
+        <CreatePreRenderModal preRenderService={preRenderService} />
+        <UpdatePreRenderModal preRenderService={preRenderService} />
+        <DeletePreRenderModal preRenderService={preRenderService} />
       </>
     )
   },
