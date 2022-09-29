@@ -10,9 +10,7 @@ export const exportSeedData = async () => {
 
   // We'll want to sort the data so diff is minimized
   const sortedAtomsData = atomsData
-    // Sort by atom name
-    .sort((a, b) => a.name.localeCompare(b.name))
-    // Sort the allowed children data as well
+    // Sort nested properties, since we can't do this with OGM
     .map((atom) => ({
       ...atom,
       allowedChildren: atom.allowedChildren.sort((a, b) =>
@@ -38,7 +36,7 @@ export const exportSeedData = async () => {
   > = {
     atoms: sortedAtomsData,
     types: seedTypesData,
-    tags: tagsData,
+    tags: sortedTagsData,
   }
 
   return seedData

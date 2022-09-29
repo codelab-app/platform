@@ -1,4 +1,5 @@
 import { AtomOGM, atomSelectionSet } from '@codelab/backend/adapter/neo4j'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAtomExport } from '@codelab/shared/abstract/core'
 
 export const exportAtoms = async (): Promise<Array<IAtomExport>> => {
@@ -6,5 +7,8 @@ export const exportAtoms = async (): Promise<Array<IAtomExport>> => {
 
   return (await Atom.find({
     selectionSet: atomSelectionSet,
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
   })) as Array<IAtomExport>
 }

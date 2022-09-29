@@ -11,6 +11,7 @@ import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
+import { logTask } from '../shared/utils/log-task'
 
 const createCreateBaseFields = (data: ITypeExport, userId: string) => ({
   id: data.id,
@@ -201,7 +202,7 @@ export const upsertType = async (
       /**
        * Then connect everything again
        */
-      console.log(`Connecting fields for ${type.name}`)
+      logTask('Connect Fields', type.name, type)
 
       for (const edge of type.fieldsConnection.edges) {
         const args = {
@@ -214,8 +215,6 @@ export const upsertType = async (
             key: edge.key,
           },
         }
-
-        console.log('Upserting field...', args)
 
         await fieldRepository.upsertField(args)
       }
