@@ -12,18 +12,18 @@ import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 
-const createCreateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
+const createCreateBaseFields = (data: ITypeExport, userId: string) => ({
   id: data.id,
-  ...createUpdateBaseFields(data, selectedUserId),
+  ...createUpdateBaseFields(data, userId),
 })
 
 /**
  * During update we don't want to change the ID
  */
-const createUpdateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
+const createUpdateBaseFields = (data: ITypeExport, userId: string) => ({
   name: data.name,
   kind: data.kind,
-  owner: connectTypeId(selectedUserId),
+  owner: connectTypeId(userId),
 })
 
 /**
@@ -32,42 +32,42 @@ const createUpdateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
  * For parsing we require name, since this generates new data and could replace old data
  */
 export const upsertType = async (
-  data: ITypeExport,
-  selectedUserId: string,
+  type: ITypeExport,
+  userId: string,
   where: BaseUniqueWhereCallback<ITypeExport>,
 ) => {
-  switch (data.__typename) {
+  switch (type.__typename) {
     case ITypeKind.PrimitiveType: {
       const PrimitiveType = await PrimitiveTypeOGM()
 
-      if (!data.primitiveKind) {
+      if (!type.primitiveKind) {
         throw new Error('Missing primitiveKind')
       }
 
       const exists = await PrimitiveType.find({
-        where: where(data),
+        where: where(type),
       })
 
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return await PrimitiveType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
-              primitiveKind: data.primitiveKind,
+              ...createCreateBaseFields(type, userId),
+              primitiveKind: type.primitiveKind,
             },
           ],
         })
       }
 
-      console.log(`Updating ${data.name} [${data.kind}]...`)
+      console.log(`Updating ${type.name} [${type.kind}]...`)
 
-      cLog(createUpdateBaseFields(data, selectedUserId))
+      cLog(createUpdateBaseFields(type, userId))
 
       return await PrimitiveType.update({
-        where: where(data),
-        update: createUpdateBaseFields(data, selectedUserId),
+        where: where(type),
+        update: createUpdateBaseFields(type, userId),
       })
     }
 
@@ -75,16 +75,16 @@ export const upsertType = async (
       const RenderPropsType = await RenderPropsTypeOGM()
 
       const exists = await RenderPropsType.find({
-        where: where(data),
+        where: where(type),
       })
 
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return await RenderPropsType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
             },
           ],
         })
@@ -97,16 +97,16 @@ export const upsertType = async (
       const ReactNodeType = await ReactNodeTypeOGM()
 
       const exists = await ReactNodeType.find({
-        where: where(data),
+        where: where(type),
       })
 
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return await ReactNodeType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
             },
           ],
         })
@@ -119,18 +119,18 @@ export const upsertType = async (
       const EnumType = await EnumTypeOGM()
 
       const exists = await EnumType.find({
-        where: where(data),
+        where: where(type),
       })
 
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return EnumType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
               allowedValues: {
-                create: data.allowedValues.map((value) => ({
+                create: type.allowedValues.map((value) => ({
                   node: makeAllowedValuesNodeInput(value),
                 })),
               },
@@ -139,13 +139,13 @@ export const upsertType = async (
         })
       }
 
-      console.log(`Updating ${data.name} [${data.kind}]...`)
+      console.log(`Updating ${type.name} [${type.kind}]...`)
 
       return EnumType.update({
-        where: where(data),
+        where: where(type),
         update: {
-          ...createCreateBaseFields(data, selectedUserId),
-          allowedValues: data.allowedValues.map((value) => ({
+          ...createCreateBaseFields(type, userId),
+          allowedValues: type.allowedValues.map((value) => ({
             update: {
               node: omit(makeAllowedValuesNodeInput(value), 'id'),
             },
@@ -158,19 +158,19 @@ export const upsertType = async (
       const InterfaceType = await InterfaceTypeOGM()
 
       const exists = await InterfaceType.find({
-        where: where(data),
+        where: where(type),
       })
 
       /**
        * First create the interface
        */
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         await InterfaceType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
             },
           ],
         })
@@ -179,10 +179,10 @@ export const upsertType = async (
       /**
        * For handling fields, we first disconnect everything
        */
-      console.log(`Disconnect all fields for ${data.name}`)
+      console.log(`Disconnect all fields for ${type.name}`)
 
       await InterfaceType.update({
-        where: where(data),
+        where: where(type),
         update: {
           fields: [
             {
@@ -201,11 +201,11 @@ export const upsertType = async (
       /**
        * Then connect everything again
        */
-      console.log(`Connecting fields for ${data.name}`)
+      console.log(`Connecting fields for ${type.name}`)
 
-      for (const edge of data.fieldsConnection.edges) {
+      for (const edge of type.fieldsConnection.edges) {
         const args = {
-          interfaceTypeId: data.id,
+          interfaceTypeId: type.id,
           fieldTypeId: edge.node.id,
           field: {
             id: edge.id,

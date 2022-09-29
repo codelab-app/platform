@@ -4,7 +4,7 @@ import { connectNode } from '@codelab/shared/data'
 
 export const createResource = async (
   resource: IResourceExport,
-  selectedUserId: string,
+  userId: string,
 ) => {
   const Resource = await ResourceOGM()
 
@@ -12,7 +12,7 @@ export const createResource = async (
     id: resource.id,
     name: resource.name,
     type: resource.type,
-    owner: connectNode(selectedUserId),
+    owner: connectNode(userId),
     config: {
       create: { node: { data: resource.config.data } },
     },

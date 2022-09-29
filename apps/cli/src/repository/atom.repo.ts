@@ -1,14 +1,17 @@
-import { AtomOGM, InterfaceTypeOGM } from '@codelab/backend/adapter/neo4j'
+import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
   ExistingData,
   IAtomImport,
   ITagExport,
+  ITypeExport,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { connectNode, connectNodes, connectTypeId } from '@codelab/shared/data'
+import { connectNode, connectNodes } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 import { getApiName } from '../use-cases/seed/data/ant-design.data'
+import { upsertType } from './type.repo'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import
@@ -38,30 +41,30 @@ export const upsertAtom = async (
     atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
   if (!existingAtom.length) {
-    const InterfaceType = await InterfaceTypeOGM()
-
-    const interfaceType = (
-      await InterfaceType.find({
-        where: {
-          id: atom.api.id,
+    /**
+     * Perform an upsert for the interface type, so we can always connect during atom creation
+     */
+    await upsertType(
+      {
+        __typename: ITypeKind.InterfaceType,
+        id: atom.api.id,
+        name: getApiName(atom.name),
+        kind: ITypeKind.InterfaceType,
+        fieldsConnection: {
+          edges: [],
         },
-      })
-    )[0]
-
-    // upsertType()
+        ownerConnection: {
+          edges: [],
+        },
+      },
+      userId,
+      (type: ITypeExport) => ({ id: type.id }),
+    )
 
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
-      // Always re-create the API if atom is missing
-      api: {
-        create: {
-          node: {
-            id: atom.api.id,
-            name: getApiName(atom.name),
-            owner: connectTypeId(userId),
-          },
-        },
-      },
+      // Connect here since we upsert interface type earlier
+      api: connectNode(atom.api.id),
       tags: { connect: connectTags },
     }
 

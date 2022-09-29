@@ -5,13 +5,13 @@ import { logSection, logTask } from '../../shared/utils/log-task'
 
 export const importTypes = async (
   types: Array<ITypeExport> = [],
-  selectedUserId: string,
+  userId: string,
   where: BaseUniqueWhereCallback<ITypeExport>,
 ) => {
   logSection('Importing Types')
 
   for (const type of types) {
     logTask('Upserting type', type.name)
-    await upsertType(type, selectedUserId, where)
+    await upsertType(type, userId, where)
   }
 }

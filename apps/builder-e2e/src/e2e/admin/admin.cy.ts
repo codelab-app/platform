@@ -1,6 +1,6 @@
 import { exportAndAssert, importData, seedData } from './assert'
 
-describe.skip('Admin', () => {
+describe('Admin', () => {
   before(() => {
     cy.resetDatabase()
   })
@@ -30,7 +30,7 @@ describe.skip('Admin', () => {
     /**
      * Importing from file should result in the same data as seed
      */
-    it.skip('should import Ant Design data', () => {
+    it('should import Ant Design data', () => {
       cy.resetDatabase()
 
       importData()
@@ -42,12 +42,12 @@ describe.skip('Admin', () => {
       )
     })
 
-    // it('should import data twice without changing the database', () => {
-    //   importData()
-    //
-    //   return exportAndAssert().then((payload) => {
-    //     expect(payload).toEqual(initialPayload)
-    //   })
-    // })
+    it('should import data twice without changing the database', () => {
+      importData()
+
+      return exportAndAssert().then((payload) => {
+        expect(payload).toEqual(initialPayload)
+      })
+    })
   })
 })

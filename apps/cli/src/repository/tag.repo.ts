@@ -37,7 +37,7 @@ export const connectChildTagToParent = async (
 
 export const upsertTag = async (
   tag: ITagExport,
-  selectedUserId: string,
+  userId: string,
   where: BaseUniqueWhereCallback<ITagExport>,
 ): Promise<void> => {
   const Tag = await TagOGM()
@@ -47,7 +47,7 @@ export const upsertTag = async (
   })
 
   const baseInput: Pick<OGM_TYPES.TagCreateInput, 'owner'> = {
-    owner: connectNode(selectedUserId),
+    owner: connectNode(userId),
   }
 
   if (!existingTag.length) {
