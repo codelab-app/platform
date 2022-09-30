@@ -58,12 +58,19 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
    */
   const EnumType = await EnumTypeOGM()
 
-  const enumTypes = await EnumType.find({
-    selectionSet: exportEnumTypeSelectionSet,
-    options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
-    },
-  })
+  const enumTypes = (
+    await EnumType.find({
+      selectionSet: exportEnumTypeSelectionSet,
+      options: {
+        sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      },
+    })
+  ).map((type) => ({
+    ...type,
+    allowedValues: type.allowedValues?.sort((a, b) =>
+      a.key?.localeCompare(b.key),
+    ),
+  }))
 
   /**
    * Get all interfaces that are connected to atoms, here we don't do dependent types since Ant Design atoms don't have them (at least I haven't seen any)

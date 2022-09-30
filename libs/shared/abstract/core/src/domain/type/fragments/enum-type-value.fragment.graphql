@@ -1,5 +1,5 @@
 fragment EnumTypeValue on EnumTypeValue {
   id
-  name
+  key
   value
 }

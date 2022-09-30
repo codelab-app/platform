@@ -9450,26 +9450,26 @@ export type EnumTypeAllowedValuesNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  key_EQUAL?: InputMaybe<Scalars['String']>
+  key_GT?: InputMaybe<Scalars['Int']>
+  key_GTE?: InputMaybe<Scalars['Int']>
+  key_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  key_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  key_LT?: InputMaybe<Scalars['Int']>
+  key_LTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   value_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   value_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   value_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -9561,7 +9561,7 @@ export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
   __typename?: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  key: StringAggregateSelectionNonNullable
   value: StringAggregateSelectionNonNullable
 }
 
@@ -9729,7 +9729,7 @@ export type EnumTypeValue = {
   enumTypeAggregate?: Maybe<EnumTypeValueEnumTypeEnumTypeAggregationSelection>
   enumTypeConnection: EnumTypeValueEnumTypeConnection
   id: Scalars['ID']
-  name?: Maybe<Scalars['String']>
+  key: Scalars['String']
   value: Scalars['String']
 }
 
@@ -9756,7 +9756,7 @@ export type EnumTypeValueAggregateSelection = {
   __typename?: 'EnumTypeValueAggregateSelection'
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  key: StringAggregateSelectionNonNullable
   value: StringAggregateSelectionNonNullable
 }
 
@@ -9775,7 +9775,7 @@ export type EnumTypeValueConnectWhere = {
 export type EnumTypeValueCreateInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeFieldInput>
   id: Scalars['ID']
-  name?: InputMaybe<Scalars['String']>
+  key: Scalars['String']
   value: Scalars['String']
 }
 
@@ -9928,14 +9928,14 @@ export type EnumTypeValueRelationInput = {
 /** Fields to sort EnumTypeValues by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeValueSort object. */
 export type EnumTypeValueSort = {
   id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
+  key?: InputMaybe<SortDirection>
   value?: InputMaybe<SortDirection>
 }
 
 export type EnumTypeValueUpdateInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
 }
 
@@ -9957,16 +9957,16 @@ export type EnumTypeValueWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key?: InputMaybe<Scalars['String']>
+  key_CONTAINS?: InputMaybe<Scalars['String']>
+  key_ENDS_WITH?: InputMaybe<Scalars['String']>
+  key_IN?: InputMaybe<Array<Scalars['String']>>
+  key_NOT?: InputMaybe<Scalars['String']>
+  key_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  key_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  key_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  key_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key_STARTS_WITH?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
   value_CONTAINS?: InputMaybe<Scalars['String']>
   value_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -22603,7 +22603,7 @@ export type ElementTypeFragment = {
 export type EnumTypeValueFragment = {
   __typename?: 'EnumTypeValue'
   id: string
-  name?: string | null
+  key: string
   value: string
 }
 

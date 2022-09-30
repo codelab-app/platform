@@ -70,7 +70,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
      * Create Array<[ref, field]>
      */
     interfaceTypes
-      .map((interfaceType) =>
+      .flatMap((interfaceType) =>
         interfaceType.fieldsConnection.edges.map((field) => ({
           /**
            * Key by composite key with interfaceName & fieldKey

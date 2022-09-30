@@ -1,5 +1,4 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { merge } from 'lodash'
 import { AntdTag } from '../tag/antd-tags.data'
 
 export interface AtomSeedData {
@@ -546,7 +545,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
 /**
  * Used for CSV file mapping to atomType
  */
-export const atomTypeKeyByFileName = Object.entries(antdAtomData)
-  //
-  .map(([atomType, atom]) => ({ [atom.file ?? '']: atomType }))
-  .reduce(merge, {})
+export const atomTypeKeyByFileName = Object.entries(antdAtomData).reduce(
+  (record, [atomType, atom]) => ({ ...record, [atom.file ?? '']: atomType }),
+  {},
+)

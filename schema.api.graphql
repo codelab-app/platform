@@ -9015,26 +9015,26 @@ input EnumTypeAllowedValuesNodeAggregationWhereInput {
   AND: [EnumTypeAllowedValuesNodeAggregationWhereInput!]
   OR: [EnumTypeAllowedValuesNodeAggregationWhereInput!]
   id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
+  key_AVERAGE_EQUAL: Float
+  key_AVERAGE_GT: Float
+  key_AVERAGE_GTE: Float
+  key_AVERAGE_LT: Float
+  key_AVERAGE_LTE: Float
+  key_EQUAL: String
+  key_GT: Int
+  key_GTE: Int
+  key_LONGEST_EQUAL: Int
+  key_LONGEST_GT: Int
+  key_LONGEST_GTE: Int
+  key_LONGEST_LT: Int
+  key_LONGEST_LTE: Int
+  key_LT: Int
+  key_LTE: Int
+  key_SHORTEST_EQUAL: Int
+  key_SHORTEST_GT: Int
+  key_SHORTEST_GTE: Int
+  key_SHORTEST_LT: Int
+  key_SHORTEST_LTE: Int
   value_AVERAGE_EQUAL: Float
   value_AVERAGE_GT: Float
   value_AVERAGE_GTE: Float
@@ -9122,7 +9122,7 @@ type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
 
 type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  key: StringAggregateSelectionNonNullable!
   value: StringAggregateSelectionNonNullable!
 }
 
@@ -9304,14 +9304,14 @@ type EnumTypeValue {
     where: EnumTypeValueEnumTypeConnectionWhere
   ): EnumTypeValueEnumTypeConnection!
   id: ID!
-  name: String
+  key: String!
   value: String!
 }
 
 type EnumTypeValueAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  key: StringAggregateSelectionNonNullable!
   value: StringAggregateSelectionNonNullable!
 }
 
@@ -9330,7 +9330,7 @@ input EnumTypeValueConnectWhere {
 input EnumTypeValueCreateInput {
   enumType: EnumTypeValueEnumTypeFieldInput
   id: ID!
-  name: String
+  key: String!
   value: String!
 }
 
@@ -9483,14 +9483,14 @@ Fields to sort EnumTypeValues by. The order in which sorts are applied is not gu
 """
 input EnumTypeValueSort {
   id: SortDirection
-  name: SortDirection
+  key: SortDirection
   value: SortDirection
 }
 
 input EnumTypeValueUpdateInput {
   enumType: EnumTypeValueEnumTypeUpdateFieldInput
   id: ID
-  name: String
+  key: String
   value: String
 }
 
@@ -9512,16 +9512,16 @@ input EnumTypeValueWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
+  key: String
+  key_CONTAINS: String
+  key_ENDS_WITH: String
+  key_IN: [String!]
+  key_NOT: String
+  key_NOT_CONTAINS: String
+  key_NOT_ENDS_WITH: String
+  key_NOT_IN: [String!]
+  key_NOT_STARTS_WITH: String
+  key_STARTS_WITH: String
   value: String
   value_CONTAINS: String
   value_ENDS_WITH: String

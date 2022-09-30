@@ -72,8 +72,8 @@ export const getTypeForApi = async (
                 create: enumValues.map((value) => ({
                   node: {
                     id: v4(),
-                    value,
-                    name: pascalCaseToWords(value),
+                    key: value,
+                    value: pascalCaseToWords(value),
                   },
                 })),
               },

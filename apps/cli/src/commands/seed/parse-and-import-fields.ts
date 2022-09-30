@@ -1,5 +1,6 @@
 import { fieldRepository } from '@codelab/backend/application'
 import { ExistingData } from '@codelab/shared/abstract/core'
+import { logger } from '@codelab/shared/adapter/logging'
 import { logSection } from '../../shared/utils/log-task'
 import { ParserService } from '../../use-cases/seed/parser.service'
 
@@ -20,6 +21,8 @@ export const parseAndImportFields = async (
 
   for await (const [atom, fields] of fieldDataByApiName.entries()) {
     for await (const field of fields) {
+      logger.info('Upsert Field', { field })
+
       await fieldRepository.upsertField({
         interfaceTypeId: atom?.api?.id,
         fieldTypeId: field.fieldType,

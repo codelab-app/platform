@@ -283,7 +283,7 @@ export const typeSchema = gql`
   type EnumTypeValue {
     enumType: EnumType @relationship(type: "ALLOWED_VALUE", direction: IN)
     id: ID!
-    name: String
+    key: String!
     value: String!
   }
 

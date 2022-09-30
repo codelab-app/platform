@@ -1,10 +1,9 @@
-import { Nullish } from '@codelab/shared/abstract/types'
 import { IBaseType } from '../base-type'
 import { ITypeKind } from '../base-type/type-kind.enum'
 
 export interface IEnumTypeValue {
   id: string
-  name?: Nullish<string>
+  key: string
   value: string
 }
 

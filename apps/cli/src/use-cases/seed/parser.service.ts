@@ -6,7 +6,7 @@ import {
   ICreateFieldDTO,
 } from '@codelab/shared/abstract/core'
 import { atomTypeKeyByFileName } from '@codelab/shared/data'
-import { cLog, pascalCaseToWords } from '@codelab/shared/utils'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { merge } from 'lodash'
 import { v4 } from 'uuid'
 import { createAntdAtomData } from './data/ant-design-atom.data'
@@ -24,7 +24,8 @@ export class ParserService {
   private readonly atoms: { [atomName: string]: IAtomImport }
 
   constructor(private userId: string, private existingData: ExistingData) {
-    cLog('Existing Data', existingData)
+    // cLog('Existing Data', existingData)
+    // logger.info('Existing Data', existingData)
 
     this.atoms = createAntdAtomData(existingData)
       .map((atom) => ({
@@ -72,7 +73,11 @@ export class ParserService {
           const fieldType =
             (await getTypeForApi(field, atom, this.userId))?.existingId ?? ''
 
-          // console.log('fieldType', fieldType)
+          // logger.info('Field Type', {
+          //   existingField,
+          //   name: `${atom.api.name}-${field.property}`,
+          //   fieldType,
+          // })
 
           return {
             id: existingField ? existingField.id : v4(),
