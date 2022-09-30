@@ -1,4 +1,4 @@
-fragment TypeBase on IBaseType {
+fragment BaseType on IBaseType {
   # Need this to narrow down type on frontend
   __typename
   kind

@@ -1,35 +1,35 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
-  TypeBase_ActionType_Fragment,
-  TypeBase_AppType_Fragment,
-  TypeBase_ArrayType_Fragment,
-  TypeBase_BaseType_Fragment,
-  TypeBase_CodeMirrorType_Fragment,
-  TypeBase_ElementType_Fragment,
-  TypeBase_EnumType_Fragment,
-  TypeBase_InterfaceType_Fragment,
-  TypeBase_LambdaType_Fragment,
-  TypeBase_PageType_Fragment,
-  TypeBase_PrimitiveType_Fragment,
-  TypeBase_ReactNodeType_Fragment,
-  TypeBase_RenderPropsType_Fragment,
-  TypeBase_UnionType_Fragment,
+  BaseType_ActionType_Fragment,
+  BaseType_AppType_Fragment,
+  BaseType_ArrayType_Fragment,
+  BaseType_BaseType_Fragment,
+  BaseType_CodeMirrorType_Fragment,
+  BaseType_ElementType_Fragment,
+  BaseType_EnumType_Fragment,
+  BaseType_InterfaceType_Fragment,
+  BaseType_LambdaType_Fragment,
+  BaseType_PageType_Fragment,
+  BaseType_PrimitiveType_Fragment,
+  BaseType_ReactNodeType_Fragment,
+  BaseType_RenderPropsType_Fragment,
+  BaseType_UnionType_Fragment,
 } from './type-base.fragment.graphql.gen'
 import { FieldFragment } from './field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
+import { BaseTypeFragmentDoc } from './type-base.fragment.graphql.gen'
 import { FieldFragmentDoc } from './field.fragment.graphql.gen'
 export type InterfaceTypeFragment = {
   ownerConnection: { edges: Array<{ data: string }> }
   fieldsConnection: { edges: Array<FieldFragment> }
-} & TypeBase_InterfaceType_Fragment
+} & BaseType_InterfaceType_Fragment
 
 export const InterfaceTypeFragmentDoc = gql`
   fragment InterfaceType on InterfaceType {
-    ...TypeBase
+    ...BaseType
     ownerConnection {
       edges {
         data
@@ -41,7 +41,7 @@ export const InterfaceTypeFragmentDoc = gql`
       }
     }
   }
-  ${TypeBaseFragmentDoc}
+  ${BaseTypeFragmentDoc}
   ${FieldFragmentDoc}
 `
 

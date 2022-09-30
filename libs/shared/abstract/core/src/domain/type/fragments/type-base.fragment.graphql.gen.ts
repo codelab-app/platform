@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-export type TypeBase_ActionType_Fragment = {
+export type BaseType_ActionType_Fragment = {
   __typename: 'ActionType'
   kind: Types.TypeKind
   id: string
@@ -11,7 +11,7 @@ export type TypeBase_ActionType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_AppType_Fragment = {
+export type BaseType_AppType_Fragment = {
   __typename: 'AppType'
   kind: Types.TypeKind
   id: string
@@ -19,7 +19,7 @@ export type TypeBase_AppType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_ArrayType_Fragment = {
+export type BaseType_ArrayType_Fragment = {
   __typename: 'ArrayType'
   kind: Types.TypeKind
   id: string
@@ -27,7 +27,7 @@ export type TypeBase_ArrayType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_BaseType_Fragment = {
+export type BaseType_BaseType_Fragment = {
   __typename: 'BaseType'
   kind: Types.TypeKind
   id: string
@@ -35,7 +35,7 @@ export type TypeBase_BaseType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_CodeMirrorType_Fragment = {
+export type BaseType_CodeMirrorType_Fragment = {
   __typename: 'CodeMirrorType'
   kind: Types.TypeKind
   id: string
@@ -43,7 +43,7 @@ export type TypeBase_CodeMirrorType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_ElementType_Fragment = {
+export type BaseType_ElementType_Fragment = {
   __typename: 'ElementType'
   kind: Types.TypeKind
   id: string
@@ -51,7 +51,7 @@ export type TypeBase_ElementType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_EnumType_Fragment = {
+export type BaseType_EnumType_Fragment = {
   __typename: 'EnumType'
   kind: Types.TypeKind
   id: string
@@ -59,7 +59,7 @@ export type TypeBase_EnumType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_InterfaceType_Fragment = {
+export type BaseType_InterfaceType_Fragment = {
   __typename: 'InterfaceType'
   kind: Types.TypeKind
   id: string
@@ -67,7 +67,7 @@ export type TypeBase_InterfaceType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_LambdaType_Fragment = {
+export type BaseType_LambdaType_Fragment = {
   __typename: 'LambdaType'
   kind: Types.TypeKind
   id: string
@@ -75,7 +75,7 @@ export type TypeBase_LambdaType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_PageType_Fragment = {
+export type BaseType_PageType_Fragment = {
   __typename: 'PageType'
   kind: Types.TypeKind
   id: string
@@ -83,7 +83,7 @@ export type TypeBase_PageType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_PrimitiveType_Fragment = {
+export type BaseType_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
   kind: Types.TypeKind
   id: string
@@ -91,7 +91,7 @@ export type TypeBase_PrimitiveType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_ReactNodeType_Fragment = {
+export type BaseType_ReactNodeType_Fragment = {
   __typename: 'ReactNodeType'
   kind: Types.TypeKind
   id: string
@@ -99,7 +99,7 @@ export type TypeBase_ReactNodeType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_RenderPropsType_Fragment = {
+export type BaseType_RenderPropsType_Fragment = {
   __typename: 'RenderPropsType'
   kind: Types.TypeKind
   id: string
@@ -107,7 +107,7 @@ export type TypeBase_RenderPropsType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_UnionType_Fragment = {
+export type BaseType_UnionType_Fragment = {
   __typename: 'UnionType'
   kind: Types.TypeKind
   id: string
@@ -115,24 +115,24 @@ export type TypeBase_UnionType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBaseFragment =
-  | TypeBase_ActionType_Fragment
-  | TypeBase_AppType_Fragment
-  | TypeBase_ArrayType_Fragment
-  | TypeBase_BaseType_Fragment
-  | TypeBase_CodeMirrorType_Fragment
-  | TypeBase_ElementType_Fragment
-  | TypeBase_EnumType_Fragment
-  | TypeBase_InterfaceType_Fragment
-  | TypeBase_LambdaType_Fragment
-  | TypeBase_PageType_Fragment
-  | TypeBase_PrimitiveType_Fragment
-  | TypeBase_ReactNodeType_Fragment
-  | TypeBase_RenderPropsType_Fragment
-  | TypeBase_UnionType_Fragment
+export type BaseTypeFragment =
+  | BaseType_ActionType_Fragment
+  | BaseType_AppType_Fragment
+  | BaseType_ArrayType_Fragment
+  | BaseType_BaseType_Fragment
+  | BaseType_CodeMirrorType_Fragment
+  | BaseType_ElementType_Fragment
+  | BaseType_EnumType_Fragment
+  | BaseType_InterfaceType_Fragment
+  | BaseType_LambdaType_Fragment
+  | BaseType_PageType_Fragment
+  | BaseType_PrimitiveType_Fragment
+  | BaseType_ReactNodeType_Fragment
+  | BaseType_RenderPropsType_Fragment
+  | BaseType_UnionType_Fragment
 
-export const TypeBaseFragmentDoc = gql`
-  fragment TypeBase on IBaseType {
+export const BaseTypeFragmentDoc = gql`
+  fragment BaseType on IBaseType {
     __typename
     kind
     id

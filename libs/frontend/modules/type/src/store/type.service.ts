@@ -1,9 +1,5 @@
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import {
-  BaseTypeWhere,
-  PrimitiveTypeKind,
-} from '@codelab/shared/abstract/codegen'
 import type {
   IAnyType,
   ICreateFieldDTO,
@@ -147,7 +143,7 @@ export class TypeService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
+  getAll = _async(function* (this: TypeService, where?: BaseTypeWhereg) {
     const ids = where?.id_IN ?? undefined
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))

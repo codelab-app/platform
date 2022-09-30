@@ -1,5 +1,5 @@
 fragment UnionType on UnionType {
-  ...TypeBase
+  ...BaseType
   typesOfUnionType {
     ... on IBaseType {
       id

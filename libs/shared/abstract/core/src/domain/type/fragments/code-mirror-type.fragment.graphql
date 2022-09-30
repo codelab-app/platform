@@ -1,4 +1,4 @@
 fragment CodeMirrorType on CodeMirrorType {
-  ...TypeBase
+  ...BaseType
   language
 }

@@ -4382,18 +4382,8 @@ type BaseType implements IBaseType {
   ): IBaseTypeOwnerConnection!
 }
 
-type BaseTypeAggregateSelection {
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
 input BaseTypeConnectInput {
   owner: IBaseTypeOwnerConnectFieldInput
-}
-
-input BaseTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input BaseTypeConnectOrCreateWhere {
@@ -4417,11 +4407,6 @@ input BaseTypeDeleteInput {
 
 input BaseTypeDisconnectInput {
   owner: IBaseTypeOwnerDisconnectFieldInput
-}
-
-type BaseTypeEdge {
-  cursor: String!
-  node: BaseType!
 }
 
 input BaseTypeOnCreateInput {
@@ -4542,10 +4527,6 @@ input BaseTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LTE: Int
 }
 
-input BaseTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
-}
-
 """
 Fields to sort BaseTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one BaseTypeSort object.
 """
@@ -4615,12 +4596,6 @@ input BaseTypeWhere {
   ownerConnection: IBaseTypeOwnerConnectionWhere
   ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
-}
-
-type BaseTypesConnection {
-  edges: [BaseTypeEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
 }
 
 type CodeAction implements ActionBase {
@@ -5797,11 +5772,6 @@ type CreateAtomsMutationResponse {
   info: CreateInfo!
 }
 
-type CreateBaseTypesMutationResponse {
-  baseTypes: [BaseType!]!
-  info: CreateInfo!
-}
-
 type CreateCodeActionsMutationResponse {
   codeActions: [CodeAction!]!
   info: CreateInfo!
@@ -5854,6 +5824,11 @@ type CreateEnumTypeValuesMutationResponse {
 
 type CreateEnumTypesMutationResponse {
   enumTypes: [EnumType!]!
+  info: CreateInfo!
+}
+
+type CreateGetBaseTypesReturnsMutationResponse {
+  getBaseTypesReturns: [GetBaseTypesReturn!]!
   info: CreateInfo!
 }
 
@@ -6020,11 +5995,6 @@ type CreateTagsMutationResponse {
 type CreateTypeReferencesMutationResponse {
   info: CreateInfo!
   typeReferences: [TypeReference!]!
-}
-
-type CreateTypesOfTypesPageReturnsMutationResponse {
-  info: CreateInfo!
-  typesOfTypesPageReturns: [TypesOfTypesPageReturn!]!
 }
 
 type CreateUnionTypesMutationResponse {
@@ -9961,6 +9931,72 @@ input FieldWhere {
   validationRules_STARTS_WITH: String
 }
 
+input GetBaseTypesOptions {
+  limit: Int
+  offset: Int
+}
+
+type GetBaseTypesReturn {
+  items: [BaseType!]!
+  totalCount: Int!
+}
+
+type GetBaseTypesReturnAggregateSelection {
+  count: Int!
+  totalCount: IntAggregateSelectionNonNullable!
+}
+
+input GetBaseTypesReturnCreateInput {
+  totalCount: Int!
+}
+
+type GetBaseTypesReturnEdge {
+  cursor: String!
+  node: GetBaseTypesReturn!
+}
+
+input GetBaseTypesReturnOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more GetBaseTypesReturnSort objects to sort GetBaseTypesReturns by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [GetBaseTypesReturnSort!]
+}
+
+"""
+Fields to sort GetBaseTypesReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypesReturnSort object.
+"""
+input GetBaseTypesReturnSort {
+  totalCount: SortDirection
+}
+
+input GetBaseTypesReturnUpdateInput {
+  totalCount: Int
+  totalCount_DECREMENT: Int
+  totalCount_INCREMENT: Int
+}
+
+input GetBaseTypesReturnWhere {
+  AND: [GetBaseTypesReturnWhere!]
+  OR: [GetBaseTypesReturnWhere!]
+  totalCount: Int
+  totalCount_GT: Int
+  totalCount_GTE: Int
+  totalCount_IN: [Int!]
+  totalCount_LT: Int
+  totalCount_LTE: Int
+  totalCount_NOT: Int
+  totalCount_NOT_IN: [Int!]
+}
+
+type GetBaseTypesReturnsConnection {
+  edges: [GetBaseTypesReturnEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Hook {
   config(
     directed: Boolean = true
@@ -11589,9 +11625,6 @@ type Mutation {
     input: [ArrayTypeCreateInput!]!
   ): CreateArrayTypesMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
-  createBaseTypes(
-    input: [BaseTypeCreateInput!]!
-  ): CreateBaseTypesMutationResponse!
   createCodeActions(
     input: [CodeActionCreateInput!]!
   ): CreateCodeActionsMutationResponse!
@@ -11619,6 +11652,9 @@ type Mutation {
   createEnumTypes(
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
+  createGetBaseTypesReturns(
+    input: [GetBaseTypesReturnCreateInput!]!
+  ): CreateGetBaseTypesReturnsMutationResponse!
   createHooks(input: [HookCreateInput!]!): CreateHooksMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
@@ -11654,9 +11690,6 @@ type Mutation {
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
   ): CreateTypeReferencesMutationResponse!
-  createTypesOfTypesPageReturns(
-    input: [TypesOfTypesPageReturnCreateInput!]!
-  ): CreateTypesOfTypesPageReturnsMutationResponse!
   createUnionTypes(
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
@@ -11682,10 +11715,6 @@ type Mutation {
     where: ArrayTypeWhere
   ): DeleteInfo!
   deleteAtoms(delete: AtomDeleteInput, where: AtomWhere): DeleteInfo!
-  deleteBaseTypes(
-    delete: BaseTypeDeleteInput
-    where: BaseTypeWhere
-  ): DeleteInfo!
   deleteCodeActions(
     delete: CodeActionDeleteInput
     where: CodeActionWhere
@@ -11715,6 +11744,7 @@ type Mutation {
     delete: EnumTypeDeleteInput
     where: EnumTypeWhere
   ): DeleteInfo!
+  deleteGetBaseTypesReturns(where: GetBaseTypesReturnWhere): DeleteInfo!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
@@ -11756,7 +11786,6 @@ type Mutation {
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
-  deleteTypesOfTypesPageReturns(where: TypesOfTypesPageReturnWhere): DeleteInfo!
   deleteUnionTypes(
     delete: UnionTypeDeleteInput
     where: UnionTypeWhere
@@ -11821,15 +11850,6 @@ type Mutation {
     update: AtomUpdateInput
     where: AtomWhere
   ): UpdateAtomsMutationResponse!
-  updateBaseTypes(
-    connect: BaseTypeConnectInput
-    connectOrCreate: BaseTypeConnectOrCreateInput
-    create: BaseTypeRelationInput
-    delete: BaseTypeDeleteInput
-    disconnect: BaseTypeDisconnectInput
-    update: BaseTypeUpdateInput
-    where: BaseTypeWhere
-  ): UpdateBaseTypesMutationResponse!
   updateCodeActions(
     connect: CodeActionConnectInput
     connectOrCreate: CodeActionConnectOrCreateInput
@@ -11911,6 +11931,10 @@ type Mutation {
     update: EnumTypeUpdateInput
     where: EnumTypeWhere
   ): UpdateEnumTypesMutationResponse!
+  updateGetBaseTypesReturns(
+    update: GetBaseTypesReturnUpdateInput
+    where: GetBaseTypesReturnWhere
+  ): UpdateGetBaseTypesReturnsMutationResponse!
   updateHooks(
     connect: HookConnectInput
     connectOrCreate: HookConnectOrCreateInput
@@ -12031,10 +12055,6 @@ type Mutation {
     update: TypeReferenceUpdateInput
     where: TypeReferenceWhere
   ): UpdateTypeReferencesMutationResponse!
-  updateTypesOfTypesPageReturns(
-    update: TypesOfTypesPageReturnUpdateInput
-    where: TypesOfTypesPageReturnWhere
-  ): UpdateTypesOfTypesPageReturnsMutationResponse!
   updateUnionTypes(
     connect: UnionTypeConnectInput
     connectOrCreate: UnionTypeConnectOrCreateInput
@@ -14061,14 +14081,7 @@ type Query {
     sort: [AtomSort]
     where: AtomWhere
   ): AtomsConnection!
-  baseTypes(options: BaseTypeOptions, where: BaseTypeWhere): [BaseType!]!
-  baseTypesAggregate(where: BaseTypeWhere): BaseTypeAggregateSelection!
-  baseTypesConnection(
-    after: String
-    first: Int
-    sort: [BaseTypeSort]
-    where: BaseTypeWhere
-  ): BaseTypesConnection!
+  baseTypes(options: GetBaseTypesOptions): GetBaseTypesReturn!
   codeActions(
     options: CodeActionOptions
     where: CodeActionWhere
@@ -14171,6 +14184,19 @@ type Query {
     sort: [EnumTypeSort]
     where: EnumTypeWhere
   ): EnumTypesConnection!
+  getBaseTypesReturns(
+    options: GetBaseTypesReturnOptions
+    where: GetBaseTypesReturnWhere
+  ): [GetBaseTypesReturn!]!
+  getBaseTypesReturnsAggregate(
+    where: GetBaseTypesReturnWhere
+  ): GetBaseTypesReturnAggregateSelection!
+  getBaseTypesReturnsConnection(
+    after: String
+    first: Int
+    sort: [GetBaseTypesReturnSort]
+    where: GetBaseTypesReturnWhere
+  ): GetBaseTypesReturnsConnection!
 
   """
   Returns a list of all Type and Atom entities that reference the type with the given id
@@ -14340,19 +14366,6 @@ type Query {
     sort: [TypeReferenceSort]
     where: TypeReferenceWhere
   ): TypeReferencesConnection!
-  typesOfTypesPageReturns(
-    options: TypesOfTypesPageReturnOptions
-    where: TypesOfTypesPageReturnWhere
-  ): [TypesOfTypesPageReturn!]!
-  typesOfTypesPageReturnsAggregate(
-    where: TypesOfTypesPageReturnWhere
-  ): TypesOfTypesPageReturnAggregateSelection!
-  typesOfTypesPageReturnsConnection(
-    after: String
-    first: Int
-    sort: [TypesOfTypesPageReturnSort]
-    where: TypesOfTypesPageReturnWhere
-  ): TypesOfTypesPageReturnsConnection!
   unionTypes(options: UnionTypeOptions, where: UnionTypeWhere): [UnionType!]!
   unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
   unionTypesConnection(
@@ -16687,67 +16700,6 @@ type TypeReferencesConnection {
   totalCount: Int!
 }
 
-type TypesOfTypesPageReturn {
-  items: [BaseType!]!
-  totalCount: Int!
-}
-
-type TypesOfTypesPageReturnAggregateSelection {
-  count: Int!
-  totalCount: IntAggregateSelectionNonNullable!
-}
-
-input TypesOfTypesPageReturnCreateInput {
-  totalCount: Int!
-}
-
-type TypesOfTypesPageReturnEdge {
-  cursor: String!
-  node: TypesOfTypesPageReturn!
-}
-
-input TypesOfTypesPageReturnOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more TypesOfTypesPageReturnSort objects to sort TypesOfTypesPageReturns by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [TypesOfTypesPageReturnSort!]
-}
-
-"""
-Fields to sort TypesOfTypesPageReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesOfTypesPageReturnSort object.
-"""
-input TypesOfTypesPageReturnSort {
-  totalCount: SortDirection
-}
-
-input TypesOfTypesPageReturnUpdateInput {
-  totalCount: Int
-  totalCount_DECREMENT: Int
-  totalCount_INCREMENT: Int
-}
-
-input TypesOfTypesPageReturnWhere {
-  AND: [TypesOfTypesPageReturnWhere!]
-  OR: [TypesOfTypesPageReturnWhere!]
-  totalCount: Int
-  totalCount_GT: Int
-  totalCount_GTE: Int
-  totalCount_IN: [Int!]
-  totalCount_LT: Int
-  totalCount_LTE: Int
-  totalCount_NOT: Int
-  totalCount_NOT_IN: [Int!]
-}
-
-type TypesOfTypesPageReturnsConnection {
-  edges: [TypesOfTypesPageReturnEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 """
 Allows picking one of a set of types
 """
@@ -17917,11 +17869,6 @@ type UpdateAtomsMutationResponse {
   info: UpdateInfo!
 }
 
-type UpdateBaseTypesMutationResponse {
-  baseTypes: [BaseType!]!
-  info: UpdateInfo!
-}
-
 type UpdateCodeActionsMutationResponse {
   codeActions: [CodeAction!]!
   info: UpdateInfo!
@@ -17975,6 +17922,11 @@ type UpdateEnumTypeValuesMutationResponse {
 
 type UpdateEnumTypesMutationResponse {
   enumTypes: [EnumType!]!
+  info: UpdateInfo!
+}
+
+type UpdateGetBaseTypesReturnsMutationResponse {
+  getBaseTypesReturns: [GetBaseTypesReturn!]!
   info: UpdateInfo!
 }
 
@@ -18059,11 +18011,6 @@ type UpdateTagsMutationResponse {
 type UpdateTypeReferencesMutationResponse {
   info: UpdateInfo!
   typeReferences: [TypeReference!]!
-}
-
-type UpdateTypesOfTypesPageReturnsMutationResponse {
-  info: UpdateInfo!
-  typesOfTypesPageReturns: [TypesOfTypesPageReturn!]!
 }
 
 type UpdateUnionTypesMutationResponse {

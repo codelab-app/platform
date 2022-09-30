@@ -4554,19 +4554,8 @@ export type BaseTypeOwnerConnectionArgs = {
   where?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
-export type BaseTypeAggregateSelection = {
-  __typename?: 'BaseTypeAggregateSelection'
-  count: Scalars['Int']
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-}
-
 export type BaseTypeConnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
-}
-
-export type BaseTypeConnectOrCreateInput = {
-  owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
 export type BaseTypeConnectOrCreateWhere = {
@@ -4590,12 +4579,6 @@ export type BaseTypeDeleteInput = {
 
 export type BaseTypeDisconnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
-}
-
-export type BaseTypeEdge = {
-  __typename?: 'BaseTypeEdge'
-  cursor: Scalars['String']
-  node: BaseType
 }
 
 export type BaseTypeOnCreateInput = {
@@ -4713,10 +4696,6 @@ export type BaseTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type BaseTypeRelationInput = {
-  owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
-}
-
 /** Fields to sort BaseTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one BaseTypeSort object. */
 export type BaseTypeSort = {
   id?: InputMaybe<SortDirection>
@@ -4787,13 +4766,6 @@ export type BaseTypeWhere = {
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
-}
-
-export type BaseTypesConnection = {
-  __typename?: 'BaseTypesConnection'
-  edges: Array<BaseTypeEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
 }
 
 export type CodeAction = ActionBase & {
@@ -6025,12 +5997,6 @@ export type CreateAtomsMutationResponse = {
   info: CreateInfo
 }
 
-export type CreateBaseTypesMutationResponse = {
-  __typename?: 'CreateBaseTypesMutationResponse'
-  baseTypes: Array<BaseType>
-  info: CreateInfo
-}
-
 export type CreateCodeActionsMutationResponse = {
   __typename?: 'CreateCodeActionsMutationResponse'
   codeActions: Array<CodeAction>
@@ -6093,6 +6059,12 @@ export type CreateEnumTypeValuesMutationResponse = {
 export type CreateEnumTypesMutationResponse = {
   __typename?: 'CreateEnumTypesMutationResponse'
   enumTypes: Array<EnumType>
+  info: CreateInfo
+}
+
+export type CreateGetBaseTypesReturnsMutationResponse = {
+  __typename?: 'CreateGetBaseTypesReturnsMutationResponse'
+  getBaseTypesReturns: Array<GetBaseTypesReturn>
   info: CreateInfo
 }
 
@@ -6273,12 +6245,6 @@ export type CreateTypeReferencesMutationResponse = {
   __typename?: 'CreateTypeReferencesMutationResponse'
   info: CreateInfo
   typeReferences: Array<TypeReference>
-}
-
-export type CreateTypesOfTypesPageReturnsMutationResponse = {
-  __typename?: 'CreateTypesOfTypesPageReturnsMutationResponse'
-  info: CreateInfo
-  typesOfTypesPageReturns: Array<TypesOfTypesPageReturn>
 }
 
 export type CreateUnionTypesMutationResponse = {
@@ -10410,6 +10376,71 @@ export type FieldWhere = {
   validationRules_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
+export type GetBaseTypesOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+}
+
+export type GetBaseTypesReturn = {
+  __typename?: 'GetBaseTypesReturn'
+  items: Array<BaseType>
+  totalCount: Scalars['Int']
+}
+
+export type GetBaseTypesReturnAggregateSelection = {
+  __typename?: 'GetBaseTypesReturnAggregateSelection'
+  count: Scalars['Int']
+  totalCount: IntAggregateSelectionNonNullable
+}
+
+export type GetBaseTypesReturnCreateInput = {
+  totalCount: Scalars['Int']
+}
+
+export type GetBaseTypesReturnEdge = {
+  __typename?: 'GetBaseTypesReturnEdge'
+  cursor: Scalars['String']
+  node: GetBaseTypesReturn
+}
+
+export type GetBaseTypesReturnOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more GetBaseTypesReturnSort objects to sort GetBaseTypesReturns by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<GetBaseTypesReturnSort>>
+}
+
+/** Fields to sort GetBaseTypesReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypesReturnSort object. */
+export type GetBaseTypesReturnSort = {
+  totalCount?: InputMaybe<SortDirection>
+}
+
+export type GetBaseTypesReturnUpdateInput = {
+  totalCount?: InputMaybe<Scalars['Int']>
+  totalCount_DECREMENT?: InputMaybe<Scalars['Int']>
+  totalCount_INCREMENT?: InputMaybe<Scalars['Int']>
+}
+
+export type GetBaseTypesReturnWhere = {
+  AND?: InputMaybe<Array<GetBaseTypesReturnWhere>>
+  OR?: InputMaybe<Array<GetBaseTypesReturnWhere>>
+  totalCount?: InputMaybe<Scalars['Int']>
+  totalCount_GT?: InputMaybe<Scalars['Int']>
+  totalCount_GTE?: InputMaybe<Scalars['Int']>
+  totalCount_IN?: InputMaybe<Array<Scalars['Int']>>
+  totalCount_LT?: InputMaybe<Scalars['Int']>
+  totalCount_LTE?: InputMaybe<Scalars['Int']>
+  totalCount_NOT?: InputMaybe<Scalars['Int']>
+  totalCount_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+}
+
+export type GetBaseTypesReturnsConnection = {
+  __typename?: 'GetBaseTypesReturnsConnection'
+  edges: Array<GetBaseTypesReturnEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
 export type Hook = {
   __typename?: 'Hook'
   config: Prop
@@ -12094,7 +12125,6 @@ export type Mutation = {
   createApps: CreateAppsMutationResponse
   createArrayTypes: CreateArrayTypesMutationResponse
   createAtoms: CreateAtomsMutationResponse
-  createBaseTypes: CreateBaseTypesMutationResponse
   createCodeActions: CreateCodeActionsMutationResponse
   createCodeMirrorTypes: CreateCodeMirrorTypesMutationResponse
   createComponents: CreateComponentsMutationResponse
@@ -12106,6 +12136,7 @@ export type Mutation = {
   createElements: CreateElementsMutationResponse
   createEnumTypeValues: CreateEnumTypeValuesMutationResponse
   createEnumTypes: CreateEnumTypesMutationResponse
+  createGetBaseTypesReturns: CreateGetBaseTypesReturnsMutationResponse
   createHooks: CreateHooksMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
@@ -12121,7 +12152,6 @@ export type Mutation = {
   createStores: CreateStoresMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
-  createTypesOfTypesPageReturns: CreateTypesOfTypesPageReturnsMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
   createUsers: CreateUsersMutationResponse
   createVercelDomainConfigData: CreateVercelDomainConfigDataMutationResponse
@@ -12132,7 +12162,6 @@ export type Mutation = {
   deleteApps: DeleteInfo
   deleteArrayTypes: DeleteInfo
   deleteAtoms: DeleteInfo
-  deleteBaseTypes: DeleteInfo
   deleteCodeActions: DeleteInfo
   deleteCodeMirrorTypes: DeleteInfo
   deleteComponents: DeleteInfo
@@ -12144,6 +12173,7 @@ export type Mutation = {
   deleteElements: DeleteInfo
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
+  deleteGetBaseTypesReturns: DeleteInfo
   deleteHooks: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
@@ -12159,7 +12189,6 @@ export type Mutation = {
   deleteStores: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
-  deleteTypesOfTypesPageReturns: DeleteInfo
   deleteUnionTypes: DeleteInfo
   deleteUsers: DeleteInfo
   deleteVercelDomainConfigData: DeleteInfo
@@ -12171,7 +12200,6 @@ export type Mutation = {
   updateApps: UpdateAppsMutationResponse
   updateArrayTypes: UpdateArrayTypesMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
-  updateBaseTypes: UpdateBaseTypesMutationResponse
   updateCodeActions: UpdateCodeActionsMutationResponse
   updateCodeMirrorTypes: UpdateCodeMirrorTypesMutationResponse
   updateComponents: UpdateComponentsMutationResponse
@@ -12183,6 +12211,7 @@ export type Mutation = {
   updateElements: UpdateElementsMutationResponse
   updateEnumTypeValues: UpdateEnumTypeValuesMutationResponse
   updateEnumTypes: UpdateEnumTypesMutationResponse
+  updateGetBaseTypesReturns: UpdateGetBaseTypesReturnsMutationResponse
   updateHooks: UpdateHooksMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
@@ -12198,7 +12227,6 @@ export type Mutation = {
   updateStores: UpdateStoresMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
-  updateTypesOfTypesPageReturns: UpdateTypesOfTypesPageReturnsMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
   updateVercelDomainConfigData: UpdateVercelDomainConfigDataMutationResponse
   updateVercelProjectDomainData: UpdateVercelProjectDomainDataMutationResponse
@@ -12227,10 +12255,6 @@ export type MutationCreateArrayTypesArgs = {
 
 export type MutationCreateAtomsArgs = {
   input: Array<AtomCreateInput>
-}
-
-export type MutationCreateBaseTypesArgs = {
-  input: Array<BaseTypeCreateInput>
 }
 
 export type MutationCreateCodeActionsArgs = {
@@ -12275,6 +12299,10 @@ export type MutationCreateEnumTypeValuesArgs = {
 
 export type MutationCreateEnumTypesArgs = {
   input: Array<EnumTypeCreateInput>
+}
+
+export type MutationCreateGetBaseTypesReturnsArgs = {
+  input: Array<GetBaseTypesReturnCreateInput>
 }
 
 export type MutationCreateHooksArgs = {
@@ -12337,10 +12365,6 @@ export type MutationCreateTypeReferencesArgs = {
   input: Array<TypeReferenceCreateInput>
 }
 
-export type MutationCreateTypesOfTypesPageReturnsArgs = {
-  input: Array<TypesOfTypesPageReturnCreateInput>
-}
-
 export type MutationCreateUnionTypesArgs = {
   input: Array<UnionTypeCreateInput>
 }
@@ -12385,11 +12409,6 @@ export type MutationDeleteArrayTypesArgs = {
 export type MutationDeleteAtomsArgs = {
   delete?: InputMaybe<AtomDeleteInput>
   where?: InputMaybe<AtomWhere>
-}
-
-export type MutationDeleteBaseTypesArgs = {
-  delete?: InputMaybe<BaseTypeDeleteInput>
-  where?: InputMaybe<BaseTypeWhere>
 }
 
 export type MutationDeleteCodeActionsArgs = {
@@ -12442,6 +12461,10 @@ export type MutationDeleteEnumTypeValuesArgs = {
 export type MutationDeleteEnumTypesArgs = {
   delete?: InputMaybe<EnumTypeDeleteInput>
   where?: InputMaybe<EnumTypeWhere>
+}
+
+export type MutationDeleteGetBaseTypesReturnsArgs = {
+  where?: InputMaybe<GetBaseTypesReturnWhere>
 }
 
 export type MutationDeleteHooksArgs = {
@@ -12514,10 +12537,6 @@ export type MutationDeleteTagsArgs = {
 
 export type MutationDeleteTypeReferencesArgs = {
   where?: InputMaybe<TypeReferenceWhere>
-}
-
-export type MutationDeleteTypesOfTypesPageReturnsArgs = {
-  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
 export type MutationDeleteUnionTypesArgs = {
@@ -12596,16 +12615,6 @@ export type MutationUpdateAtomsArgs = {
   disconnect?: InputMaybe<AtomDisconnectInput>
   update?: InputMaybe<AtomUpdateInput>
   where?: InputMaybe<AtomWhere>
-}
-
-export type MutationUpdateBaseTypesArgs = {
-  connect?: InputMaybe<BaseTypeConnectInput>
-  connectOrCreate?: InputMaybe<BaseTypeConnectOrCreateInput>
-  create?: InputMaybe<BaseTypeRelationInput>
-  delete?: InputMaybe<BaseTypeDeleteInput>
-  disconnect?: InputMaybe<BaseTypeDisconnectInput>
-  update?: InputMaybe<BaseTypeUpdateInput>
-  where?: InputMaybe<BaseTypeWhere>
 }
 
 export type MutationUpdateCodeActionsArgs = {
@@ -12700,6 +12709,11 @@ export type MutationUpdateEnumTypesArgs = {
   disconnect?: InputMaybe<EnumTypeDisconnectInput>
   update?: InputMaybe<EnumTypeUpdateInput>
   where?: InputMaybe<EnumTypeWhere>
+}
+
+export type MutationUpdateGetBaseTypesReturnsArgs = {
+  update?: InputMaybe<GetBaseTypesReturnUpdateInput>
+  where?: InputMaybe<GetBaseTypesReturnWhere>
 }
 
 export type MutationUpdateHooksArgs = {
@@ -12835,11 +12849,6 @@ export type MutationUpdateTagsArgs = {
 export type MutationUpdateTypeReferencesArgs = {
   update?: InputMaybe<TypeReferenceUpdateInput>
   where?: InputMaybe<TypeReferenceWhere>
-}
-
-export type MutationUpdateTypesOfTypesPageReturnsArgs = {
-  update?: InputMaybe<TypesOfTypesPageReturnUpdateInput>
-  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
 export type MutationUpdateUnionTypesArgs = {
@@ -14904,9 +14913,7 @@ export type Query = {
   atoms: Array<Atom>
   atomsAggregate: AtomAggregateSelection
   atomsConnection: AtomsConnection
-  baseTypes: Array<BaseType>
-  baseTypesAggregate: BaseTypeAggregateSelection
-  baseTypesConnection: BaseTypesConnection
+  baseTypes: GetBaseTypesReturn
   codeActions: Array<CodeAction>
   codeActionsAggregate: CodeActionAggregateSelection
   codeActionsConnection: CodeActionsConnection
@@ -14937,6 +14944,9 @@ export type Query = {
   enumTypes: Array<EnumType>
   enumTypesAggregate: EnumTypeAggregateSelection
   enumTypesConnection: EnumTypesConnection
+  getBaseTypesReturns: Array<GetBaseTypesReturn>
+  getBaseTypesReturnsAggregate: GetBaseTypesReturnAggregateSelection
+  getBaseTypesReturnsConnection: GetBaseTypesReturnsConnection
   /**
    * Returns a list of all Type and Atom entities that reference the type with the given id
    * This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
@@ -14989,9 +14999,6 @@ export type Query = {
   typeReferences: Array<TypeReference>
   typeReferencesAggregate: TypeReferenceAggregateSelection
   typeReferencesConnection: TypeReferencesConnection
-  typesOfTypesPageReturns: Array<TypesOfTypesPageReturn>
-  typesOfTypesPageReturnsAggregate: TypesOfTypesPageReturnAggregateSelection
-  typesOfTypesPageReturnsConnection: TypesOfTypesPageReturnsConnection
   unionTypes: Array<UnionType>
   unionTypesAggregate: UnionTypeAggregateSelection
   unionTypesConnection: UnionTypesConnection
@@ -15103,19 +15110,7 @@ export type QueryAtomsConnectionArgs = {
 }
 
 export type QueryBaseTypesArgs = {
-  options?: InputMaybe<BaseTypeOptions>
-  where?: InputMaybe<BaseTypeWhere>
-}
-
-export type QueryBaseTypesAggregateArgs = {
-  where?: InputMaybe<BaseTypeWhere>
-}
-
-export type QueryBaseTypesConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<BaseTypeSort>>>
-  where?: InputMaybe<BaseTypeWhere>
+  options?: InputMaybe<GetBaseTypesOptions>
 }
 
 export type QueryCodeActionsArgs = {
@@ -15276,6 +15271,22 @@ export type QueryEnumTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<EnumTypeSort>>>
   where?: InputMaybe<EnumTypeWhere>
+}
+
+export type QueryGetBaseTypesReturnsArgs = {
+  options?: InputMaybe<GetBaseTypesReturnOptions>
+  where?: InputMaybe<GetBaseTypesReturnWhere>
+}
+
+export type QueryGetBaseTypesReturnsAggregateArgs = {
+  where?: InputMaybe<GetBaseTypesReturnWhere>
+}
+
+export type QueryGetBaseTypesReturnsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InputMaybe<GetBaseTypesReturnSort>>>
+  where?: InputMaybe<GetBaseTypesReturnWhere>
 }
 
 export type QueryGetTypeReferencesArgs = {
@@ -15525,22 +15536,6 @@ export type QueryTypeReferencesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<TypeReferenceSort>>>
   where?: InputMaybe<TypeReferenceWhere>
-}
-
-export type QueryTypesOfTypesPageReturnsArgs = {
-  options?: InputMaybe<TypesOfTypesPageReturnOptions>
-  where?: InputMaybe<TypesOfTypesPageReturnWhere>
-}
-
-export type QueryTypesOfTypesPageReturnsAggregateArgs = {
-  where?: InputMaybe<TypesOfTypesPageReturnWhere>
-}
-
-export type QueryTypesOfTypesPageReturnsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<TypesOfTypesPageReturnSort>>>
-  where?: InputMaybe<TypesOfTypesPageReturnWhere>
 }
 
 export type QueryUnionTypesArgs = {
@@ -18059,66 +18054,6 @@ export type TypeReferencesConnection = {
   totalCount: Scalars['Int']
 }
 
-export type TypesOfTypesPageReturn = {
-  __typename?: 'TypesOfTypesPageReturn'
-  items: Array<BaseType>
-  totalCount: Scalars['Int']
-}
-
-export type TypesOfTypesPageReturnAggregateSelection = {
-  __typename?: 'TypesOfTypesPageReturnAggregateSelection'
-  count: Scalars['Int']
-  totalCount: IntAggregateSelectionNonNullable
-}
-
-export type TypesOfTypesPageReturnCreateInput = {
-  totalCount: Scalars['Int']
-}
-
-export type TypesOfTypesPageReturnEdge = {
-  __typename?: 'TypesOfTypesPageReturnEdge'
-  cursor: Scalars['String']
-  node: TypesOfTypesPageReturn
-}
-
-export type TypesOfTypesPageReturnOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more TypesOfTypesPageReturnSort objects to sort TypesOfTypesPageReturns by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<TypesOfTypesPageReturnSort>>
-}
-
-/** Fields to sort TypesOfTypesPageReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesOfTypesPageReturnSort object. */
-export type TypesOfTypesPageReturnSort = {
-  totalCount?: InputMaybe<SortDirection>
-}
-
-export type TypesOfTypesPageReturnUpdateInput = {
-  totalCount?: InputMaybe<Scalars['Int']>
-  totalCount_DECREMENT?: InputMaybe<Scalars['Int']>
-  totalCount_INCREMENT?: InputMaybe<Scalars['Int']>
-}
-
-export type TypesOfTypesPageReturnWhere = {
-  AND?: InputMaybe<Array<TypesOfTypesPageReturnWhere>>
-  OR?: InputMaybe<Array<TypesOfTypesPageReturnWhere>>
-  totalCount?: InputMaybe<Scalars['Int']>
-  totalCount_GT?: InputMaybe<Scalars['Int']>
-  totalCount_GTE?: InputMaybe<Scalars['Int']>
-  totalCount_IN?: InputMaybe<Array<Scalars['Int']>>
-  totalCount_LT?: InputMaybe<Scalars['Int']>
-  totalCount_LTE?: InputMaybe<Scalars['Int']>
-  totalCount_NOT?: InputMaybe<Scalars['Int']>
-  totalCount_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
-}
-
-export type TypesOfTypesPageReturnsConnection = {
-  __typename?: 'TypesOfTypesPageReturnsConnection'
-  edges: Array<TypesOfTypesPageReturnEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
 /** Allows picking one of a set of types */
 export type UnionType = IBaseType &
   WithDescendants & {
@@ -19658,12 +19593,6 @@ export type UpdateAtomsMutationResponse = {
   info: UpdateInfo
 }
 
-export type UpdateBaseTypesMutationResponse = {
-  __typename?: 'UpdateBaseTypesMutationResponse'
-  baseTypes: Array<BaseType>
-  info: UpdateInfo
-}
-
 export type UpdateCodeActionsMutationResponse = {
   __typename?: 'UpdateCodeActionsMutationResponse'
   codeActions: Array<CodeAction>
@@ -19727,6 +19656,12 @@ export type UpdateEnumTypeValuesMutationResponse = {
 export type UpdateEnumTypesMutationResponse = {
   __typename?: 'UpdateEnumTypesMutationResponse'
   enumTypes: Array<EnumType>
+  info: UpdateInfo
+}
+
+export type UpdateGetBaseTypesReturnsMutationResponse = {
+  __typename?: 'UpdateGetBaseTypesReturnsMutationResponse'
+  getBaseTypesReturns: Array<GetBaseTypesReturn>
   info: UpdateInfo
 }
 
@@ -19827,12 +19762,6 @@ export type UpdateTypeReferencesMutationResponse = {
   __typename?: 'UpdateTypeReferencesMutationResponse'
   info: UpdateInfo
   typeReferences: Array<TypeReference>
-}
-
-export type UpdateTypesOfTypesPageReturnsMutationResponse = {
-  __typename?: 'UpdateTypesOfTypesPageReturnsMutationResponse'
-  info: UpdateInfo
-  typesOfTypesPageReturns: Array<TypesOfTypesPageReturn>
 }
 
 export type UpdateUnionTypesMutationResponse = {
@@ -22998,11 +22927,11 @@ export type TagPreviewFragment = {
 
 export type ActionTypeFragment = {
   __typename?: 'ActionType'
-} & TypeBase_ActionType_Fragment
+} & BaseType_ActionType_Fragment
 
 export type AppTypeFragment = {
   __typename?: 'AppType'
-} & TypeBase_AppType_Fragment
+} & BaseType_AppType_Fragment
 
 export type ArrayTypeFragment = {
   __typename?: 'ArrayType'
@@ -23020,17 +22949,17 @@ export type ArrayTypeFragment = {
     | { __typename?: 'ReactNodeType'; id: string; name: string }
     | { __typename?: 'RenderPropsType'; id: string; name: string }
     | { __typename?: 'UnionType'; id: string; name: string }
-} & TypeBase_ArrayType_Fragment
+} & BaseType_ArrayType_Fragment
 
 export type CodeMirrorTypeFragment = {
   __typename?: 'CodeMirrorType'
   language: CodeMirrorLanguage
-} & TypeBase_CodeMirrorType_Fragment
+} & BaseType_CodeMirrorType_Fragment
 
 export type ElementTypeFragment = {
   __typename?: 'ElementType'
   elementKind: ElementTypeKind
-} & TypeBase_ElementType_Fragment
+} & BaseType_ElementType_Fragment
 
 export type EnumTypeValueFragment = {
   __typename?: 'EnumTypeValue'
@@ -23042,7 +22971,7 @@ export type EnumTypeValueFragment = {
 export type EnumTypeFragment = {
   __typename?: 'EnumType'
   allowedValues: Array<{ __typename?: 'EnumTypeValue' } & EnumTypeValueFragment>
-} & TypeBase_EnumType_Fragment
+} & BaseType_EnumType_Fragment
 
 export type FieldFragment = {
   __typename?: 'InterfaceTypeFieldsRelationship'
@@ -23066,30 +22995,30 @@ export type InterfaceTypeFragment = {
       { __typename?: 'InterfaceTypeFieldsRelationship' } & FieldFragment
     >
   }
-} & TypeBase_InterfaceType_Fragment
+} & BaseType_InterfaceType_Fragment
 
 export type LambdaTypeFragment = {
   __typename?: 'LambdaType'
-} & TypeBase_LambdaType_Fragment
+} & BaseType_LambdaType_Fragment
 
 export type PageTypeFragment = {
   __typename?: 'PageType'
-} & TypeBase_PageType_Fragment
+} & BaseType_PageType_Fragment
 
 export type PrimitiveTypeFragment = {
   __typename?: 'PrimitiveType'
   primitiveKind: PrimitiveTypeKind
-} & TypeBase_PrimitiveType_Fragment
+} & BaseType_PrimitiveType_Fragment
 
 export type ReactNodeTypeFragment = {
   __typename?: 'ReactNodeType'
-} & TypeBase_ReactNodeType_Fragment
+} & BaseType_ReactNodeType_Fragment
 
 export type RenderPropsTypeFragment = {
   __typename?: 'RenderPropsType'
-} & TypeBase_RenderPropsType_Fragment
+} & BaseType_RenderPropsType_Fragment
 
-type TypeBase_ActionType_Fragment = {
+type BaseType_ActionType_Fragment = {
   __typename: 'ActionType'
   kind: TypeKind
   id: string
@@ -23097,7 +23026,7 @@ type TypeBase_ActionType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_AppType_Fragment = {
+type BaseType_AppType_Fragment = {
   __typename: 'AppType'
   kind: TypeKind
   id: string
@@ -23105,7 +23034,7 @@ type TypeBase_AppType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_ArrayType_Fragment = {
+type BaseType_ArrayType_Fragment = {
   __typename: 'ArrayType'
   kind: TypeKind
   id: string
@@ -23113,7 +23042,7 @@ type TypeBase_ArrayType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_BaseType_Fragment = {
+type BaseType_BaseType_Fragment = {
   __typename: 'BaseType'
   kind: TypeKind
   id: string
@@ -23121,7 +23050,7 @@ type TypeBase_BaseType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_CodeMirrorType_Fragment = {
+type BaseType_CodeMirrorType_Fragment = {
   __typename: 'CodeMirrorType'
   kind: TypeKind
   id: string
@@ -23129,7 +23058,7 @@ type TypeBase_CodeMirrorType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_ElementType_Fragment = {
+type BaseType_ElementType_Fragment = {
   __typename: 'ElementType'
   kind: TypeKind
   id: string
@@ -23137,7 +23066,7 @@ type TypeBase_ElementType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_EnumType_Fragment = {
+type BaseType_EnumType_Fragment = {
   __typename: 'EnumType'
   kind: TypeKind
   id: string
@@ -23145,7 +23074,7 @@ type TypeBase_EnumType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_InterfaceType_Fragment = {
+type BaseType_InterfaceType_Fragment = {
   __typename: 'InterfaceType'
   kind: TypeKind
   id: string
@@ -23153,7 +23082,7 @@ type TypeBase_InterfaceType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_LambdaType_Fragment = {
+type BaseType_LambdaType_Fragment = {
   __typename: 'LambdaType'
   kind: TypeKind
   id: string
@@ -23161,7 +23090,7 @@ type TypeBase_LambdaType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_PageType_Fragment = {
+type BaseType_PageType_Fragment = {
   __typename: 'PageType'
   kind: TypeKind
   id: string
@@ -23169,7 +23098,7 @@ type TypeBase_PageType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_PrimitiveType_Fragment = {
+type BaseType_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
   kind: TypeKind
   id: string
@@ -23177,7 +23106,7 @@ type TypeBase_PrimitiveType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_ReactNodeType_Fragment = {
+type BaseType_ReactNodeType_Fragment = {
   __typename: 'ReactNodeType'
   kind: TypeKind
   id: string
@@ -23185,7 +23114,7 @@ type TypeBase_ReactNodeType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_RenderPropsType_Fragment = {
+type BaseType_RenderPropsType_Fragment = {
   __typename: 'RenderPropsType'
   kind: TypeKind
   id: string
@@ -23193,7 +23122,7 @@ type TypeBase_RenderPropsType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-type TypeBase_UnionType_Fragment = {
+type BaseType_UnionType_Fragment = {
   __typename: 'UnionType'
   kind: TypeKind
   id: string
@@ -23201,88 +23130,88 @@ type TypeBase_UnionType_Fragment = {
   owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
-export type TypeBaseFragment =
-  | TypeBase_ActionType_Fragment
-  | TypeBase_AppType_Fragment
-  | TypeBase_ArrayType_Fragment
-  | TypeBase_BaseType_Fragment
-  | TypeBase_CodeMirrorType_Fragment
-  | TypeBase_ElementType_Fragment
-  | TypeBase_EnumType_Fragment
-  | TypeBase_InterfaceType_Fragment
-  | TypeBase_LambdaType_Fragment
-  | TypeBase_PageType_Fragment
-  | TypeBase_PrimitiveType_Fragment
-  | TypeBase_ReactNodeType_Fragment
-  | TypeBase_RenderPropsType_Fragment
-  | TypeBase_UnionType_Fragment
+export type BaseTypeFragment =
+  | BaseType_ActionType_Fragment
+  | BaseType_AppType_Fragment
+  | BaseType_ArrayType_Fragment
+  | BaseType_BaseType_Fragment
+  | BaseType_CodeMirrorType_Fragment
+  | BaseType_ElementType_Fragment
+  | BaseType_EnumType_Fragment
+  | BaseType_InterfaceType_Fragment
+  | BaseType_LambdaType_Fragment
+  | BaseType_PageType_Fragment
+  | BaseType_PrimitiveType_Fragment
+  | BaseType_ReactNodeType_Fragment
+  | BaseType_RenderPropsType_Fragment
+  | BaseType_UnionType_Fragment
 
 type Type_ActionType_Fragment = {
   __typename?: 'ActionType'
-} & TypeBase_ActionType_Fragment &
+} & BaseType_ActionType_Fragment &
   ActionTypeFragment
 
 type Type_AppType_Fragment = {
   __typename?: 'AppType'
-} & TypeBase_AppType_Fragment &
+} & BaseType_AppType_Fragment &
   AppTypeFragment
 
 type Type_ArrayType_Fragment = {
   __typename?: 'ArrayType'
-} & TypeBase_ArrayType_Fragment &
+} & BaseType_ArrayType_Fragment &
   ArrayTypeFragment
 
 type Type_BaseType_Fragment = {
   __typename?: 'BaseType'
-} & TypeBase_BaseType_Fragment
+} & BaseType_BaseType_Fragment
 
 type Type_CodeMirrorType_Fragment = {
   __typename?: 'CodeMirrorType'
-} & TypeBase_CodeMirrorType_Fragment &
+} & BaseType_CodeMirrorType_Fragment &
   CodeMirrorTypeFragment
 
 type Type_ElementType_Fragment = {
   __typename?: 'ElementType'
-} & TypeBase_ElementType_Fragment &
+} & BaseType_ElementType_Fragment &
   ElementTypeFragment
 
 type Type_EnumType_Fragment = {
   __typename?: 'EnumType'
-} & TypeBase_EnumType_Fragment &
+} & BaseType_EnumType_Fragment &
   EnumTypeFragment
 
 type Type_InterfaceType_Fragment = {
   __typename?: 'InterfaceType'
-} & TypeBase_InterfaceType_Fragment &
+} & BaseType_InterfaceType_Fragment &
   InterfaceTypeFragment
 
 type Type_LambdaType_Fragment = {
   __typename?: 'LambdaType'
-} & TypeBase_LambdaType_Fragment &
+} & BaseType_LambdaType_Fragment &
   LambdaTypeFragment
 
 type Type_PageType_Fragment = {
   __typename?: 'PageType'
-} & TypeBase_PageType_Fragment &
+} & BaseType_PageType_Fragment &
   PageTypeFragment
 
 type Type_PrimitiveType_Fragment = {
   __typename?: 'PrimitiveType'
-} & TypeBase_PrimitiveType_Fragment &
+} & BaseType_PrimitiveType_Fragment &
   PrimitiveTypeFragment
 
 type Type_ReactNodeType_Fragment = {
   __typename?: 'ReactNodeType'
-} & TypeBase_ReactNodeType_Fragment
+} & BaseType_ReactNodeType_Fragment
 
 type Type_RenderPropsType_Fragment = {
   __typename?: 'RenderPropsType'
-} & TypeBase_RenderPropsType_Fragment &
+} & BaseType_RenderPropsType_Fragment &
   RenderPropsTypeFragment
 
 type Type_UnionType_Fragment = {
   __typename?: 'UnionType'
-} & TypeBase_UnionType_Fragment &
+} & BaseType_UnionType_Fragment &
   UnionTypeFragment
 
 export type TypeFragment =
@@ -23318,7 +23247,7 @@ export type UnionTypeFragment = {
     | { __typename?: 'RenderPropsType'; id: string; name: string }
     | { __typename?: 'UnionType'; id: string; name: string }
   >
-} & TypeBase_UnionType_Fragment
+} & BaseType_UnionType_Fragment
 
 export type UserFragment = {
   __typename?: 'User'
