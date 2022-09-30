@@ -27,6 +27,14 @@ export type TypeBase_ArrayType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
+export type TypeBase_BaseType_Fragment = {
+  __typename: 'BaseType'
+  kind: Types.TypeKind
+  id: string
+  name: string
+  owner: { id: string; auth0Id: string }
+}
+
 export type TypeBase_CodeMirrorType_Fragment = {
   __typename: 'CodeMirrorType'
   kind: Types.TypeKind
@@ -99,22 +107,6 @@ export type TypeBase_RenderPropsType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
-export type TypeBase_TypesPageTypeBase_Fragment = {
-  __typename: 'TypesPageTypeBase'
-  kind: Types.TypeKind
-  id: string
-  name: string
-  owner: { id: string; auth0Id: string }
-}
-
-export type TypeBase_TypesPageUnionType_Fragment = {
-  __typename: 'TypesPageUnionType'
-  kind: Types.TypeKind
-  id: string
-  name: string
-  owner: { id: string; auth0Id: string }
-}
-
 export type TypeBase_UnionType_Fragment = {
   __typename: 'UnionType'
   kind: Types.TypeKind
@@ -127,6 +119,7 @@ export type TypeBaseFragment =
   | TypeBase_ActionType_Fragment
   | TypeBase_AppType_Fragment
   | TypeBase_ArrayType_Fragment
+  | TypeBase_BaseType_Fragment
   | TypeBase_CodeMirrorType_Fragment
   | TypeBase_ElementType_Fragment
   | TypeBase_EnumType_Fragment
@@ -136,12 +129,10 @@ export type TypeBaseFragment =
   | TypeBase_PrimitiveType_Fragment
   | TypeBase_ReactNodeType_Fragment
   | TypeBase_RenderPropsType_Fragment
-  | TypeBase_TypesPageTypeBase_Fragment
-  | TypeBase_TypesPageUnionType_Fragment
   | TypeBase_UnionType_Fragment
 
 export const TypeBaseFragmentDoc = gql`
-  fragment TypeBase on TypeBase {
+  fragment TypeBase on IBaseType {
     __typename
     kind
     id

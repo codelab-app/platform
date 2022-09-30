@@ -4,6 +4,7 @@ import {
   TypeBase_ActionType_Fragment,
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
+  TypeBase_BaseType_Fragment,
   TypeBase_CodeMirrorType_Fragment,
   TypeBase_ElementType_Fragment,
   TypeBase_EnumType_Fragment,
@@ -13,8 +14,6 @@ import {
   TypeBase_PrimitiveType_Fragment,
   TypeBase_ReactNodeType_Fragment,
   TypeBase_RenderPropsType_Fragment,
-  TypeBase_TypesPageTypeBase_Fragment,
-  TypeBase_TypesPageUnionType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './type-base.fragment.graphql.gen'
 import { FieldFragment } from './field.fragment.graphql.gen'

@@ -1,34 +1,3 @@
-# update
-query GetTypesOfTypesPage($options: TypesOfTypesPageOptions) {
-  typesOfTypesPage(options: $options) {
-    totalCount
-    items {
-      ... on TypeBase {
-        ... on TypesPageUnionType {
-          typesOfUnionTypeIds
-        }
-        ... on PrimitiveType {
-          primitiveKind
-        }
-        ... on EnumType {
-          allowedValues {
-            id
-            name
-            value
-          }
-        }
-        id
-        name
-        kind
-        owner {
-          id
-        }
-        __typename
-      }
-    }
-  }
-}
-
 query GetTypes($ids: [ID!]) {
   primitiveTypes(where: { id_IN: $ids }) {
     ...Type

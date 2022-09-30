@@ -17,7 +17,7 @@ import {
 } from './models'
 
 export const typeFactory = (type: ITypeDTO) => {
-  switch (type.kind) {
+  switch (type.__typename) {
     case ITypeKind.AppType:
       return AppType.hydrate(type)
 

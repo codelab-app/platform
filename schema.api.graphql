@@ -91,7 +91,7 @@ enum ActionKind {
 """
 Allows picking a action from the list of actions
 """
-type ActionType implements TypeBase {
+type ActionType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -104,9 +104,9 @@ type ActionType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type ActionTypeAggregateSelection {
@@ -116,11 +116,11 @@ type ActionTypeAggregateSelection {
 }
 
 input ActionTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input ActionTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input ActionTypeConnectOrCreateWhere {
@@ -135,15 +135,15 @@ input ActionTypeCreateInput {
   id: ID!
   kind: TypeKind! = ActionType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input ActionTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input ActionTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type ActionTypeEdge {
@@ -270,7 +270,7 @@ input ActionTypeOwnerNodeAggregationWhereInput {
 }
 
 input ActionTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -289,7 +289,7 @@ input ActionTypeUniqueWhere {
 input ActionTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type ActionTypeUserOwnerAggregationSelection {
@@ -338,8 +338,8 @@ input ActionTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: ActionTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -1841,7 +1841,7 @@ input AppStoreUpdateFieldInput {
 """
 Allows picking a app from the list of apps
 """
-type AppType implements TypeBase {
+type AppType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -1854,9 +1854,9 @@ type AppType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type AppTypeAggregateSelection {
@@ -1866,11 +1866,11 @@ type AppTypeAggregateSelection {
 }
 
 input AppTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input AppTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input AppTypeConnectOrCreateWhere {
@@ -1885,15 +1885,15 @@ input AppTypeCreateInput {
   id: ID!
   kind: TypeKind! = AppType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input AppTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input AppTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type AppTypeEdge {
@@ -2020,7 +2020,7 @@ input AppTypeOwnerNodeAggregationWhereInput {
 }
 
 input AppTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -2039,7 +2039,7 @@ input AppTypeUniqueWhere {
 input AppTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type AppTypeUserOwnerAggregationSelection {
@@ -2088,8 +2088,8 @@ input AppTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: AppTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -2230,7 +2230,7 @@ type AppsConnection {
 ArrayType Allows defining a variable number of items of a given type.
 Contains a reference to another type which is the array item type.
 """
-type ArrayType implements TypeBase & WithDescendants {
+type ArrayType implements IBaseType & WithDescendants {
   descendantTypesIds: [ID!]!
   id: ID!
   itemType(
@@ -2255,9 +2255,9 @@ type ArrayType implements TypeBase & WithDescendants {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type ArrayTypeAggregateSelection {
@@ -2268,12 +2268,12 @@ type ArrayTypeAggregateSelection {
 
 input ArrayTypeConnectInput {
   itemType: ArrayTypeItemTypeConnectInput
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input ArrayTypeConnectOrCreateInput {
   itemType: ArrayTypeItemTypeConnectOrCreateInput
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input ArrayTypeConnectOrCreateWhere {
@@ -2289,17 +2289,17 @@ input ArrayTypeCreateInput {
   itemType: ArrayTypeItemTypeCreateInput
   kind: TypeKind! = ArrayType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input ArrayTypeDeleteInput {
   itemType: ArrayTypeItemTypeDeleteInput
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input ArrayTypeDisconnectInput {
   itemType: ArrayTypeItemTypeDisconnectInput
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type ArrayTypeEdge {
@@ -3281,7 +3281,7 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
 
 input ArrayTypeRelationInput {
   itemType: ArrayTypeItemTypeCreateFieldInput
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -3301,7 +3301,7 @@ input ArrayTypeUpdateInput {
   id: ID
   itemType: ArrayTypeItemTypeUpdateInput
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type ArrayTypeUserOwnerAggregationSelection {
@@ -3352,8 +3352,8 @@ input ArrayTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: ArrayTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -4364,6 +4364,265 @@ type AtomsConnection {
   totalCount: Int!
 }
 
+type BaseType implements IBaseType {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): BaseTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
+}
+
+type BaseTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input BaseTypeConnectInput {
+  owner: IBaseTypeOwnerConnectFieldInput
+}
+
+input BaseTypeConnectOrCreateInput {
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+}
+
+input BaseTypeConnectOrCreateWhere {
+  node: BaseTypeUniqueWhere!
+}
+
+input BaseTypeConnectWhere {
+  node: BaseTypeWhere!
+}
+
+input BaseTypeCreateInput {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: IBaseTypeOwnerFieldInput
+}
+
+input BaseTypeDeleteInput {
+  owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+input BaseTypeDisconnectInput {
+  owner: IBaseTypeOwnerDisconnectFieldInput
+}
+
+type BaseTypeEdge {
+  cursor: String!
+  node: BaseType!
+}
+
+input BaseTypeOnCreateInput {
+  id: ID!
+  name: String!
+}
+
+input BaseTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more BaseTypeSort objects to sort BaseTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [BaseTypeSort!]
+}
+
+input BaseTypeOwnerAggregateInput {
+  AND: [BaseTypeOwnerAggregateInput!]
+  OR: [BaseTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  edge: BaseTypeOwnerEdgeAggregationWhereInput
+  node: BaseTypeOwnerNodeAggregationWhereInput
+}
+
+input BaseTypeOwnerEdgeAggregationWhereInput {
+  AND: [BaseTypeOwnerEdgeAggregationWhereInput!]
+  OR: [BaseTypeOwnerEdgeAggregationWhereInput!]
+  data_AVERAGE_EQUAL: Float
+  data_AVERAGE_GT: Float
+  data_AVERAGE_GTE: Float
+  data_AVERAGE_LT: Float
+  data_AVERAGE_LTE: Float
+  data_EQUAL: String
+  data_GT: Int
+  data_GTE: Int
+  data_LONGEST_EQUAL: Int
+  data_LONGEST_GT: Int
+  data_LONGEST_GTE: Int
+  data_LONGEST_LT: Int
+  data_LONGEST_LTE: Int
+  data_LT: Int
+  data_LTE: Int
+  data_SHORTEST_EQUAL: Int
+  data_SHORTEST_GT: Int
+  data_SHORTEST_GTE: Int
+  data_SHORTEST_LT: Int
+  data_SHORTEST_LTE: Int
+}
+
+input BaseTypeOwnerNodeAggregationWhereInput {
+  AND: [BaseTypeOwnerNodeAggregationWhereInput!]
+  OR: [BaseTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
+}
+
+input BaseTypeRelationInput {
+  owner: IBaseTypeOwnerCreateFieldInput
+}
+
+"""
+Fields to sort BaseTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one BaseTypeSort object.
+"""
+input BaseTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  name: SortDirection
+}
+
+input BaseTypeUniqueWhere {
+  id: ID
+  name: String
+}
+
+input BaseTypeUpdateInput {
+  id: ID
+  name: String
+  owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type BaseTypeUserOwnerAggregationSelection {
+  count: Int!
+  edge: BaseTypeUserOwnerEdgeAggregateSelection
+  node: BaseTypeUserOwnerNodeAggregateSelection
+}
+
+type BaseTypeUserOwnerEdgeAggregateSelection {
+  data: StringAggregateSelectionNonNullable!
+}
+
+type BaseTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
+}
+
+input BaseTypeWhere {
+  AND: [BaseTypeWhere!]
+  OR: [BaseTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: BaseTypeOwnerAggregateInput
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+type BaseTypesConnection {
+  edges: [BaseTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type CodeAction implements ActionBase {
   """
   Code to run when action is triggered
@@ -4584,7 +4843,7 @@ enum CodeMirrorLanguage {
 """
 Allows editing the value using a code mirror editor
 """
-type CodeMirrorType implements TypeBase {
+type CodeMirrorType implements IBaseType {
   id: ID!
   kind: TypeKind!
   language: CodeMirrorLanguage!
@@ -4598,9 +4857,9 @@ type CodeMirrorType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type CodeMirrorTypeAggregateSelection {
@@ -4610,11 +4869,11 @@ type CodeMirrorTypeAggregateSelection {
 }
 
 input CodeMirrorTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input CodeMirrorTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input CodeMirrorTypeConnectOrCreateWhere {
@@ -4630,15 +4889,15 @@ input CodeMirrorTypeCreateInput {
   kind: TypeKind! = CodeMirrorType
   language: CodeMirrorLanguage!
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input CodeMirrorTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input CodeMirrorTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type CodeMirrorTypeEdge {
@@ -4765,7 +5024,7 @@ input CodeMirrorTypeOwnerNodeAggregationWhereInput {
 }
 
 input CodeMirrorTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -4786,7 +5045,7 @@ input CodeMirrorTypeUpdateInput {
   id: ID
   language: CodeMirrorLanguage
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type CodeMirrorTypeUserOwnerAggregationSelection {
@@ -4839,8 +5098,8 @@ input CodeMirrorTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: CodeMirrorTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -5538,6 +5797,11 @@ type CreateAtomsMutationResponse {
   info: CreateInfo!
 }
 
+type CreateBaseTypesMutationResponse {
+  baseTypes: [BaseType!]!
+  info: CreateInfo!
+}
+
 type CreateCodeActionsMutationResponse {
   codeActions: [CodeAction!]!
   info: CreateInfo!
@@ -5761,16 +6025,6 @@ type CreateTypeReferencesMutationResponse {
 type CreateTypesOfTypesPageReturnsMutationResponse {
   info: CreateInfo!
   typesOfTypesPageReturns: [TypesOfTypesPageReturn!]!
-}
-
-type CreateTypesPageTypeBasesMutationResponse {
-  info: CreateInfo!
-  typesPageTypeBases: [TypesPageTypeBase!]!
-}
-
-type CreateTypesPageUnionTypesMutationResponse {
-  info: CreateInfo!
-  typesPageUnionTypes: [TypesPageUnionType!]!
 }
 
 type CreateUnionTypesMutationResponse {
@@ -8415,7 +8669,7 @@ Comparison between different element types:
 - ReactNodeType: Component select box, results it 'ReactNode' value
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
-type ElementType implements TypeBase {
+type ElementType implements IBaseType {
   """
   Allows scoping the type of element to only descendants, children or all elements
   """
@@ -8432,9 +8686,9 @@ type ElementType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type ElementTypeAggregateSelection {
@@ -8444,11 +8698,11 @@ type ElementTypeAggregateSelection {
 }
 
 input ElementTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input ElementTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input ElementTypeConnectOrCreateWhere {
@@ -8464,15 +8718,15 @@ input ElementTypeCreateInput {
   id: ID!
   kind: TypeKind! = ElementType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input ElementTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input ElementTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type ElementTypeEdge {
@@ -8621,7 +8875,7 @@ input ElementTypeOwnerNodeAggregationWhereInput {
 }
 
 input ElementTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -8642,7 +8896,7 @@ input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type ElementTypeUserOwnerAggregationSelection {
@@ -8695,8 +8949,8 @@ input ElementTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: ElementTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -8934,7 +9188,7 @@ Allows choosing one of a set of allowed values.
 The value gets passed to the render pipe as a Enum Type Value id.
 The actual value must be de-referenced by the id.
 """
-type EnumType implements TypeBase {
+type EnumType implements IBaseType {
   allowedValues(
     directed: Boolean = true
     options: EnumTypeValueOptions
@@ -8963,9 +9217,9 @@ type EnumType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type EnumTypeAggregateSelection {
@@ -9092,11 +9346,11 @@ input EnumTypeAllowedValuesUpdateFieldInput {
 
 input EnumTypeConnectInput {
   allowedValues: [EnumTypeAllowedValuesConnectFieldInput!]
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input EnumTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input EnumTypeConnectOrCreateWhere {
@@ -9112,17 +9366,17 @@ input EnumTypeCreateInput {
   id: ID!
   kind: TypeKind! = EnumType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input EnumTypeDeleteInput {
   allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input EnumTypeDisconnectInput {
   allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type EnumTypeEdge {
@@ -9261,7 +9515,7 @@ input EnumTypeOwnerNodeAggregationWhereInput {
 
 input EnumTypeRelationInput {
   allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -9281,7 +9535,7 @@ input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type EnumTypeUserOwnerAggregationSelection {
@@ -9609,8 +9863,8 @@ input EnumTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: EnumTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -10241,6 +10495,92 @@ type HooksConnection {
   totalCount: Int!
 }
 
+interface IBaseType {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
+}
+
+input IBaseTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+  edge: OwnedByCreateInput!
+  where: UserConnectWhere
+}
+
+input IBaseTypeOwnerConnectOrCreateFieldInput {
+  onCreate: IBaseTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input IBaseTypeOwnerConnectOrCreateFieldInputOnCreate {
+  edge: OwnedByCreateInput!
+  node: UserOnCreateInput!
+}
+
+type IBaseTypeOwnerConnection {
+  edges: [IBaseTypeOwnerRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input IBaseTypeOwnerConnectionSort {
+  edge: OwnedBySort
+  node: UserSort
+}
+
+input IBaseTypeOwnerConnectionWhere {
+  AND: [IBaseTypeOwnerConnectionWhere!]
+  OR: [IBaseTypeOwnerConnectionWhere!]
+  edge: OwnedByWhere
+  edge_NOT: OwnedByWhere
+  node: UserWhere
+  node_NOT: UserWhere
+}
+
+input IBaseTypeOwnerCreateFieldInput {
+  edge: OwnedByCreateInput!
+  node: UserCreateInput!
+}
+
+input IBaseTypeOwnerDeleteFieldInput {
+  delete: UserDeleteInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
+input IBaseTypeOwnerDisconnectFieldInput {
+  disconnect: UserDisconnectInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
+input IBaseTypeOwnerFieldInput {
+  connect: IBaseTypeOwnerConnectFieldInput
+  connectOrCreate: IBaseTypeOwnerConnectOrCreateFieldInput
+  create: IBaseTypeOwnerCreateFieldInput
+}
+
+type IBaseTypeOwnerRelationship implements OwnedBy {
+  cursor: String!
+  data: String!
+  node: User!
+}
+
+input IBaseTypeOwnerUpdateConnectionInput {
+  edge: OwnedByUpdateInput
+  node: UserUpdateInput
+}
+
+input IBaseTypeOwnerUpdateFieldInput {
+  connect: IBaseTypeOwnerConnectFieldInput
+  connectOrCreate: IBaseTypeOwnerConnectOrCreateFieldInput
+  create: IBaseTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: IBaseTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 type IDAggregateSelectionNonNullable {
   longest: ID!
   shortest: ID!
@@ -10256,7 +10596,7 @@ type IntAggregateSelectionNonNullable {
 """
 Represents an object type with multiple fields
 """
-type InterfaceType implements TypeBase & WithDescendants {
+type InterfaceType implements IBaseType & WithDescendants {
   apiOfAtoms(
     directed: Boolean = true
     options: AtomOptions
@@ -10274,12 +10614,16 @@ type InterfaceType implements TypeBase & WithDescendants {
     where: InterfaceTypeApiOfAtomsConnectionWhere
   ): InterfaceTypeApiOfAtomsConnection!
   descendantTypesIds: [ID!]!
-  fieldFor: [TypeBase!]!
+  fieldFor: [BaseType!]!
   fields(
     directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
+    options: BaseTypeOptions
+    where: BaseTypeWhere
+  ): [BaseType!]!
+  fieldsAggregate(
+    directed: Boolean = true
+    where: BaseTypeWhere
+  ): InterfaceTypeBaseTypeFieldsAggregationSelection
   fieldsConnection(
     after: String
     directed: Boolean = true
@@ -10299,9 +10643,9 @@ type InterfaceType implements TypeBase & WithDescendants {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type InterfaceTypeAggregateSelection {
@@ -10448,15 +10792,35 @@ type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
+type InterfaceTypeBaseTypeFieldsAggregationSelection {
+  count: Int!
+  edge: InterfaceTypeBaseTypeFieldsEdgeAggregateSelection
+  node: InterfaceTypeBaseTypeFieldsNodeAggregateSelection
+}
+
+type InterfaceTypeBaseTypeFieldsEdgeAggregateSelection {
+  description: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  key: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  validationRules: StringAggregateSelectionNullable!
+}
+
+type InterfaceTypeBaseTypeFieldsNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
 input InterfaceTypeConnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input InterfaceTypeConnectOrCreateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  fields: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input InterfaceTypeConnectOrCreateWhere {
@@ -10473,19 +10837,19 @@ input InterfaceTypeCreateInput {
   id: ID!
   kind: TypeKind! = InterfaceType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input InterfaceTypeDeleteInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input InterfaceTypeDisconnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
   fields: [InterfaceTypeFieldsDisconnectFieldInput!]
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type InterfaceTypeEdge {
@@ -10493,10 +10857,32 @@ type InterfaceTypeEdge {
   node: InterfaceType!
 }
 
+input InterfaceTypeFieldsAggregateInput {
+  AND: [InterfaceTypeFieldsAggregateInput!]
+  OR: [InterfaceTypeFieldsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  edge: InterfaceTypeFieldsEdgeAggregationWhereInput
+  node: InterfaceTypeFieldsNodeAggregationWhereInput
+}
+
 input InterfaceTypeFieldsConnectFieldInput {
-  connect: TypeBaseConnectInput
+  connect: [BaseTypeConnectInput!]
   edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
+  where: BaseTypeConnectWhere
+}
+
+input InterfaceTypeFieldsConnectOrCreateFieldInput {
+  onCreate: InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate!
+  where: BaseTypeConnectOrCreateWhere!
+}
+
+input InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate {
+  edge: FieldCreateInput!
+  node: BaseTypeOnCreateInput!
 }
 
 type InterfaceTypeFieldsConnection {
@@ -10507,7 +10893,7 @@ type InterfaceTypeFieldsConnection {
 
 input InterfaceTypeFieldsConnectionSort {
   edge: FieldSort
-  node: TypeBaseSort
+  node: BaseTypeSort
 }
 
 input InterfaceTypeFieldsConnectionWhere {
@@ -10515,28 +10901,141 @@ input InterfaceTypeFieldsConnectionWhere {
   OR: [InterfaceTypeFieldsConnectionWhere!]
   edge: FieldWhere
   edge_NOT: FieldWhere
-  node: TypeBaseWhere
-  node_NOT: TypeBaseWhere
+  node: BaseTypeWhere
+  node_NOT: BaseTypeWhere
 }
 
 input InterfaceTypeFieldsCreateFieldInput {
   edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
+  node: BaseTypeCreateInput!
 }
 
 input InterfaceTypeFieldsDeleteFieldInput {
-  delete: TypeBaseDeleteInput
+  delete: BaseTypeDeleteInput
   where: InterfaceTypeFieldsConnectionWhere
 }
 
 input InterfaceTypeFieldsDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
+  disconnect: BaseTypeDisconnectInput
   where: InterfaceTypeFieldsConnectionWhere
+}
+
+input InterfaceTypeFieldsEdgeAggregationWhereInput {
+  AND: [InterfaceTypeFieldsEdgeAggregationWhereInput!]
+  OR: [InterfaceTypeFieldsEdgeAggregationWhereInput!]
+  description_AVERAGE_EQUAL: Float
+  description_AVERAGE_GT: Float
+  description_AVERAGE_GTE: Float
+  description_AVERAGE_LT: Float
+  description_AVERAGE_LTE: Float
+  description_EQUAL: String
+  description_GT: Int
+  description_GTE: Int
+  description_LONGEST_EQUAL: Int
+  description_LONGEST_GT: Int
+  description_LONGEST_GTE: Int
+  description_LONGEST_LT: Int
+  description_LONGEST_LTE: Int
+  description_LT: Int
+  description_LTE: Int
+  description_SHORTEST_EQUAL: Int
+  description_SHORTEST_GT: Int
+  description_SHORTEST_GTE: Int
+  description_SHORTEST_LT: Int
+  description_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  key_AVERAGE_EQUAL: Float
+  key_AVERAGE_GT: Float
+  key_AVERAGE_GTE: Float
+  key_AVERAGE_LT: Float
+  key_AVERAGE_LTE: Float
+  key_EQUAL: String
+  key_GT: Int
+  key_GTE: Int
+  key_LONGEST_EQUAL: Int
+  key_LONGEST_GT: Int
+  key_LONGEST_GTE: Int
+  key_LONGEST_LT: Int
+  key_LONGEST_LTE: Int
+  key_LT: Int
+  key_LTE: Int
+  key_SHORTEST_EQUAL: Int
+  key_SHORTEST_GT: Int
+  key_SHORTEST_GTE: Int
+  key_SHORTEST_LT: Int
+  key_SHORTEST_LTE: Int
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  validationRules_AVERAGE_EQUAL: Float
+  validationRules_AVERAGE_GT: Float
+  validationRules_AVERAGE_GTE: Float
+  validationRules_AVERAGE_LT: Float
+  validationRules_AVERAGE_LTE: Float
+  validationRules_EQUAL: String
+  validationRules_GT: Int
+  validationRules_GTE: Int
+  validationRules_LONGEST_EQUAL: Int
+  validationRules_LONGEST_GT: Int
+  validationRules_LONGEST_GTE: Int
+  validationRules_LONGEST_LT: Int
+  validationRules_LONGEST_LTE: Int
+  validationRules_LT: Int
+  validationRules_LTE: Int
+  validationRules_SHORTEST_EQUAL: Int
+  validationRules_SHORTEST_GT: Int
+  validationRules_SHORTEST_GTE: Int
+  validationRules_SHORTEST_LT: Int
+  validationRules_SHORTEST_LTE: Int
 }
 
 input InterfaceTypeFieldsFieldInput {
   connect: [InterfaceTypeFieldsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldsCreateFieldInput!]
+}
+
+input InterfaceTypeFieldsNodeAggregationWhereInput {
+  AND: [InterfaceTypeFieldsNodeAggregationWhereInput!]
+  OR: [InterfaceTypeFieldsNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
 }
 
 type InterfaceTypeFieldsRelationship implements Field {
@@ -10545,17 +11044,18 @@ type InterfaceTypeFieldsRelationship implements Field {
   id: ID!
   key: String!
   name: String
-  node: TypeBase!
+  node: BaseType!
   validationRules: String
 }
 
 input InterfaceTypeFieldsUpdateConnectionInput {
   edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
+  node: BaseTypeUpdateInput
 }
 
 input InterfaceTypeFieldsUpdateFieldInput {
   connect: [InterfaceTypeFieldsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldsCreateFieldInput!]
   delete: [InterfaceTypeFieldsDeleteFieldInput!]
   disconnect: [InterfaceTypeFieldsDisconnectFieldInput!]
@@ -10684,7 +11184,7 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
 input InterfaceTypeRelationInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -10705,7 +11205,7 @@ input InterfaceTypeUpdateInput {
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type InterfaceTypeUserOwnerAggregationSelection {
@@ -10753,10 +11253,31 @@ input InterfaceTypeWhere {
   Return InterfaceTypes where some of the related Atoms match this filter
   """
   apiOfAtoms_SOME: AtomWhere
+  fieldsAggregate: InterfaceTypeFieldsAggregateInput
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SOME: InterfaceTypeFieldsConnectionWhere
+
+  """
+  Return InterfaceTypes where all of the related BaseTypes match this filter
+  """
+  fields_ALL: BaseTypeWhere
+
+  """
+  Return InterfaceTypes where none of the related BaseTypes match this filter
+  """
+  fields_NONE: BaseTypeWhere
+
+  """
+  Return InterfaceTypes where one of the related BaseTypes match this filter
+  """
+  fields_SINGLE: BaseTypeWhere
+
+  """
+  Return InterfaceTypes where some of the related BaseTypes match this filter
+  """
+  fields_SOME: BaseTypeWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10783,8 +11304,8 @@ input InterfaceTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: InterfaceTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -10797,7 +11318,7 @@ type InterfaceTypesConnection {
 """
 Allows picking a lambda
 """
-type LambdaType implements TypeBase {
+type LambdaType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -10810,9 +11331,9 @@ type LambdaType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type LambdaTypeAggregateSelection {
@@ -10822,11 +11343,11 @@ type LambdaTypeAggregateSelection {
 }
 
 input LambdaTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input LambdaTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input LambdaTypeConnectOrCreateWhere {
@@ -10841,15 +11362,15 @@ input LambdaTypeCreateInput {
   id: ID!
   kind: TypeKind! = LambdaType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input LambdaTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input LambdaTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type LambdaTypeEdge {
@@ -10976,7 +11497,7 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
 }
 
 input LambdaTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -10995,7 +11516,7 @@ input LambdaTypeUniqueWhere {
 input LambdaTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type LambdaTypeUserOwnerAggregationSelection {
@@ -11044,8 +11565,8 @@ input LambdaTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: LambdaTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -11068,6 +11589,9 @@ type Mutation {
     input: [ArrayTypeCreateInput!]!
   ): CreateArrayTypesMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
+  createBaseTypes(
+    input: [BaseTypeCreateInput!]!
+  ): CreateBaseTypesMutationResponse!
   createCodeActions(
     input: [CodeActionCreateInput!]!
   ): CreateCodeActionsMutationResponse!
@@ -11133,12 +11657,6 @@ type Mutation {
   createTypesOfTypesPageReturns(
     input: [TypesOfTypesPageReturnCreateInput!]!
   ): CreateTypesOfTypesPageReturnsMutationResponse!
-  createTypesPageTypeBases(
-    input: [TypesPageTypeBaseCreateInput!]!
-  ): CreateTypesPageTypeBasesMutationResponse!
-  createTypesPageUnionTypes(
-    input: [TypesPageUnionTypeCreateInput!]!
-  ): CreateTypesPageUnionTypesMutationResponse!
   createUnionTypes(
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
@@ -11164,6 +11682,10 @@ type Mutation {
     where: ArrayTypeWhere
   ): DeleteInfo!
   deleteAtoms(delete: AtomDeleteInput, where: AtomWhere): DeleteInfo!
+  deleteBaseTypes(
+    delete: BaseTypeDeleteInput
+    where: BaseTypeWhere
+  ): DeleteInfo!
   deleteCodeActions(
     delete: CodeActionDeleteInput
     where: CodeActionWhere
@@ -11235,14 +11757,6 @@ type Mutation {
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteTypesOfTypesPageReturns(where: TypesOfTypesPageReturnWhere): DeleteInfo!
-  deleteTypesPageTypeBases(
-    delete: TypesPageTypeBaseDeleteInput
-    where: TypesPageTypeBaseWhere
-  ): DeleteInfo!
-  deleteTypesPageUnionTypes(
-    delete: TypesPageUnionTypeDeleteInput
-    where: TypesPageUnionTypeWhere
-  ): DeleteInfo!
   deleteUnionTypes(
     delete: UnionTypeDeleteInput
     where: UnionTypeWhere
@@ -11307,6 +11821,15 @@ type Mutation {
     update: AtomUpdateInput
     where: AtomWhere
   ): UpdateAtomsMutationResponse!
+  updateBaseTypes(
+    connect: BaseTypeConnectInput
+    connectOrCreate: BaseTypeConnectOrCreateInput
+    create: BaseTypeRelationInput
+    delete: BaseTypeDeleteInput
+    disconnect: BaseTypeDisconnectInput
+    update: BaseTypeUpdateInput
+    where: BaseTypeWhere
+  ): UpdateBaseTypesMutationResponse!
   updateCodeActions(
     connect: CodeActionConnectInput
     connectOrCreate: CodeActionConnectOrCreateInput
@@ -11512,24 +12035,6 @@ type Mutation {
     update: TypesOfTypesPageReturnUpdateInput
     where: TypesOfTypesPageReturnWhere
   ): UpdateTypesOfTypesPageReturnsMutationResponse!
-  updateTypesPageTypeBases(
-    connect: TypesPageTypeBaseConnectInput
-    connectOrCreate: TypesPageTypeBaseConnectOrCreateInput
-    create: TypesPageTypeBaseRelationInput
-    delete: TypesPageTypeBaseDeleteInput
-    disconnect: TypesPageTypeBaseDisconnectInput
-    update: TypesPageTypeBaseUpdateInput
-    where: TypesPageTypeBaseWhere
-  ): UpdateTypesPageTypeBasesMutationResponse!
-  updateTypesPageUnionTypes(
-    connect: TypesPageUnionTypeConnectInput
-    connectOrCreate: TypesPageUnionTypeConnectOrCreateInput
-    create: TypesPageUnionTypeRelationInput
-    delete: TypesPageUnionTypeDeleteInput
-    disconnect: TypesPageUnionTypeDisconnectInput
-    update: TypesPageUnionTypeUpdateInput
-    where: TypesPageUnionTypeWhere
-  ): UpdateTypesPageUnionTypesMutationResponse!
   updateUnionTypes(
     connect: UnionTypeConnectInput
     connectOrCreate: UnionTypeConnectOrCreateInput
@@ -12112,7 +12617,7 @@ input PageSort {
 """
 Allows picking a page from the list of pages
 """
-type PageType implements TypeBase {
+type PageType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -12125,9 +12630,9 @@ type PageType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type PageTypeAggregateSelection {
@@ -12137,11 +12642,11 @@ type PageTypeAggregateSelection {
 }
 
 input PageTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input PageTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input PageTypeConnectOrCreateWhere {
@@ -12156,15 +12661,15 @@ input PageTypeCreateInput {
   id: ID!
   kind: TypeKind! = PageType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input PageTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input PageTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type PageTypeEdge {
@@ -12291,7 +12796,7 @@ input PageTypeOwnerNodeAggregationWhereInput {
 }
 
 input PageTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -12310,7 +12815,7 @@ input PageTypeUniqueWhere {
 input PageTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type PageTypeUserOwnerAggregationSelection {
@@ -12359,8 +12864,8 @@ input PageTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: PageTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -12436,7 +12941,7 @@ type PagesConnection {
 """
 Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
 """
-type PrimitiveType implements TypeBase {
+type PrimitiveType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -12449,9 +12954,9 @@ type PrimitiveType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
   primitiveKind: PrimitiveTypeKind!
 }
 
@@ -12462,11 +12967,11 @@ type PrimitiveTypeAggregateSelection {
 }
 
 input PrimitiveTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input PrimitiveTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input PrimitiveTypeConnectOrCreateWhere {
@@ -12481,16 +12986,16 @@ input PrimitiveTypeCreateInput {
   id: ID!
   kind: TypeKind! = PrimitiveType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
   primitiveKind: PrimitiveTypeKind!
 }
 
 input PrimitiveTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input PrimitiveTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type PrimitiveTypeEdge {
@@ -12624,7 +13129,7 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
 }
 
 input PrimitiveTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -12646,7 +13151,7 @@ input PrimitiveTypeUniqueWhere {
 input PrimitiveTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
   primitiveKind: PrimitiveTypeKind
 }
 
@@ -12696,8 +13201,8 @@ input PrimitiveTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: PrimitiveTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
   primitiveKind: PrimitiveTypeKind
   primitiveKind_IN: [PrimitiveTypeKind!]
@@ -13556,6 +14061,14 @@ type Query {
     sort: [AtomSort]
     where: AtomWhere
   ): AtomsConnection!
+  baseTypes(options: BaseTypeOptions, where: BaseTypeWhere): [BaseType!]!
+  baseTypesAggregate(where: BaseTypeWhere): BaseTypeAggregateSelection!
+  baseTypesConnection(
+    after: String
+    first: Int
+    sort: [BaseTypeSort]
+    where: BaseTypeWhere
+  ): BaseTypesConnection!
   codeActions(
     options: CodeActionOptions
     where: CodeActionWhere
@@ -13827,7 +14340,6 @@ type Query {
     sort: [TypeReferenceSort]
     where: TypeReferenceWhere
   ): TypeReferencesConnection!
-  typesOfTypesPage(options: TypesOfTypesPageOptions): TypesOfTypesPageReturn!
   typesOfTypesPageReturns(
     options: TypesOfTypesPageReturnOptions
     where: TypesOfTypesPageReturnWhere
@@ -13841,32 +14353,6 @@ type Query {
     sort: [TypesOfTypesPageReturnSort]
     where: TypesOfTypesPageReturnWhere
   ): TypesOfTypesPageReturnsConnection!
-  typesPageTypeBases(
-    options: TypesPageTypeBaseOptions
-    where: TypesPageTypeBaseWhere
-  ): [TypesPageTypeBase!]!
-  typesPageTypeBasesAggregate(
-    where: TypesPageTypeBaseWhere
-  ): TypesPageTypeBaseAggregateSelection!
-  typesPageTypeBasesConnection(
-    after: String
-    first: Int
-    sort: [TypesPageTypeBaseSort]
-    where: TypesPageTypeBaseWhere
-  ): TypesPageTypeBasesConnection!
-  typesPageUnionTypes(
-    options: TypesPageUnionTypeOptions
-    where: TypesPageUnionTypeWhere
-  ): [TypesPageUnionType!]!
-  typesPageUnionTypesAggregate(
-    where: TypesPageUnionTypeWhere
-  ): TypesPageUnionTypeAggregateSelection!
-  typesPageUnionTypesConnection(
-    after: String
-    first: Int
-    sort: [TypesPageUnionTypeSort]
-    where: TypesPageUnionTypeWhere
-  ): TypesPageUnionTypesConnection!
   unionTypes(options: UnionTypeOptions, where: UnionTypeWhere): [UnionType!]!
   unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
   unionTypesConnection(
@@ -13926,7 +14412,7 @@ Comparison between different element types:
 - ReactNodeType: Component select box, results it 'ReactNode' value
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
-type ReactNodeType implements TypeBase {
+type ReactNodeType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -13939,9 +14425,9 @@ type ReactNodeType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type ReactNodeTypeAggregateSelection {
@@ -13951,11 +14437,11 @@ type ReactNodeTypeAggregateSelection {
 }
 
 input ReactNodeTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input ReactNodeTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input ReactNodeTypeConnectOrCreateWhere {
@@ -13970,15 +14456,15 @@ input ReactNodeTypeCreateInput {
   id: ID!
   kind: TypeKind! = ReactNodeType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input ReactNodeTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input ReactNodeTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type ReactNodeTypeEdge {
@@ -14105,7 +14591,7 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
 }
 
 input ReactNodeTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -14124,7 +14610,7 @@ input ReactNodeTypeUniqueWhere {
 input ReactNodeTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type ReactNodeTypeUserOwnerAggregationSelection {
@@ -14173,8 +14659,8 @@ input ReactNodeTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: ReactNodeTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -14195,7 +14681,7 @@ Comparison between different element types:
 - ReactNodeType: Component select box, results it 'ReactNode' value
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
-type RenderPropsType implements TypeBase {
+type RenderPropsType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -14208,9 +14694,9 @@ type RenderPropsType implements TypeBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
 }
 
 type RenderPropsTypeAggregateSelection {
@@ -14220,11 +14706,11 @@ type RenderPropsTypeAggregateSelection {
 }
 
 input RenderPropsTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input RenderPropsTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
 input RenderPropsTypeConnectOrCreateWhere {
@@ -14239,15 +14725,15 @@ input RenderPropsTypeCreateInput {
   id: ID!
   kind: TypeKind! = RenderPropsType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
 }
 
 input RenderPropsTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input RenderPropsTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
 type RenderPropsTypeEdge {
@@ -14374,7 +14860,7 @@ input RenderPropsTypeOwnerNodeAggregationWhereInput {
 }
 
 input RenderPropsTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
@@ -14393,7 +14879,7 @@ input RenderPropsTypeUniqueWhere {
 input RenderPropsTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
 }
 
 type RenderPropsTypeUserOwnerAggregationSelection {
@@ -14442,8 +14928,8 @@ input RenderPropsTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: RenderPropsTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
@@ -16103,387 +16589,6 @@ type TagsConnection {
   totalCount: Int!
 }
 
-interface TypeBase {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
-}
-
-input TypeBaseConnectInput {
-  _on: TypeBaseImplementationsConnectInput
-  owner: TypeBaseOwnerConnectFieldInput
-}
-
-input TypeBaseConnectWhere {
-  node: TypeBaseWhere!
-}
-
-input TypeBaseCreateInput {
-  ActionType: ActionTypeCreateInput
-  AppType: AppTypeCreateInput
-  ArrayType: ArrayTypeCreateInput
-  CodeMirrorType: CodeMirrorTypeCreateInput
-  ElementType: ElementTypeCreateInput
-  EnumType: EnumTypeCreateInput
-  InterfaceType: InterfaceTypeCreateInput
-  LambdaType: LambdaTypeCreateInput
-  PageType: PageTypeCreateInput
-  PrimitiveType: PrimitiveTypeCreateInput
-  ReactNodeType: ReactNodeTypeCreateInput
-  RenderPropsType: RenderPropsTypeCreateInput
-  TypesPageTypeBase: TypesPageTypeBaseCreateInput
-  TypesPageUnionType: TypesPageUnionTypeCreateInput
-  UnionType: UnionTypeCreateInput
-}
-
-input TypeBaseDeleteInput {
-  _on: TypeBaseImplementationsDeleteInput
-  owner: TypeBaseOwnerDeleteFieldInput
-}
-
-input TypeBaseDisconnectInput {
-  _on: TypeBaseImplementationsDisconnectInput
-  owner: TypeBaseOwnerDisconnectFieldInput
-}
-
-input TypeBaseImplementationsConnectInput {
-  ActionType: [ActionTypeConnectInput!]
-  AppType: [AppTypeConnectInput!]
-  ArrayType: [ArrayTypeConnectInput!]
-  CodeMirrorType: [CodeMirrorTypeConnectInput!]
-  ElementType: [ElementTypeConnectInput!]
-  EnumType: [EnumTypeConnectInput!]
-  InterfaceType: [InterfaceTypeConnectInput!]
-  LambdaType: [LambdaTypeConnectInput!]
-  PageType: [PageTypeConnectInput!]
-  PrimitiveType: [PrimitiveTypeConnectInput!]
-  ReactNodeType: [ReactNodeTypeConnectInput!]
-  RenderPropsType: [RenderPropsTypeConnectInput!]
-  TypesPageTypeBase: [TypesPageTypeBaseConnectInput!]
-  TypesPageUnionType: [TypesPageUnionTypeConnectInput!]
-  UnionType: [UnionTypeConnectInput!]
-}
-
-input TypeBaseImplementationsDeleteInput {
-  ActionType: [ActionTypeDeleteInput!]
-  AppType: [AppTypeDeleteInput!]
-  ArrayType: [ArrayTypeDeleteInput!]
-  CodeMirrorType: [CodeMirrorTypeDeleteInput!]
-  ElementType: [ElementTypeDeleteInput!]
-  EnumType: [EnumTypeDeleteInput!]
-  InterfaceType: [InterfaceTypeDeleteInput!]
-  LambdaType: [LambdaTypeDeleteInput!]
-  PageType: [PageTypeDeleteInput!]
-  PrimitiveType: [PrimitiveTypeDeleteInput!]
-  ReactNodeType: [ReactNodeTypeDeleteInput!]
-  RenderPropsType: [RenderPropsTypeDeleteInput!]
-  TypesPageTypeBase: [TypesPageTypeBaseDeleteInput!]
-  TypesPageUnionType: [TypesPageUnionTypeDeleteInput!]
-  UnionType: [UnionTypeDeleteInput!]
-}
-
-input TypeBaseImplementationsDisconnectInput {
-  ActionType: [ActionTypeDisconnectInput!]
-  AppType: [AppTypeDisconnectInput!]
-  ArrayType: [ArrayTypeDisconnectInput!]
-  CodeMirrorType: [CodeMirrorTypeDisconnectInput!]
-  ElementType: [ElementTypeDisconnectInput!]
-  EnumType: [EnumTypeDisconnectInput!]
-  InterfaceType: [InterfaceTypeDisconnectInput!]
-  LambdaType: [LambdaTypeDisconnectInput!]
-  PageType: [PageTypeDisconnectInput!]
-  PrimitiveType: [PrimitiveTypeDisconnectInput!]
-  ReactNodeType: [ReactNodeTypeDisconnectInput!]
-  RenderPropsType: [RenderPropsTypeDisconnectInput!]
-  TypesPageTypeBase: [TypesPageTypeBaseDisconnectInput!]
-  TypesPageUnionType: [TypesPageUnionTypeDisconnectInput!]
-  UnionType: [UnionTypeDisconnectInput!]
-}
-
-input TypeBaseImplementationsUpdateInput {
-  ActionType: ActionTypeUpdateInput
-  AppType: AppTypeUpdateInput
-  ArrayType: ArrayTypeUpdateInput
-  CodeMirrorType: CodeMirrorTypeUpdateInput
-  ElementType: ElementTypeUpdateInput
-  EnumType: EnumTypeUpdateInput
-  InterfaceType: InterfaceTypeUpdateInput
-  LambdaType: LambdaTypeUpdateInput
-  PageType: PageTypeUpdateInput
-  PrimitiveType: PrimitiveTypeUpdateInput
-  ReactNodeType: ReactNodeTypeUpdateInput
-  RenderPropsType: RenderPropsTypeUpdateInput
-  TypesPageTypeBase: TypesPageTypeBaseUpdateInput
-  TypesPageUnionType: TypesPageUnionTypeUpdateInput
-  UnionType: UnionTypeUpdateInput
-}
-
-input TypeBaseImplementationsWhere {
-  ActionType: ActionTypeWhere
-  AppType: AppTypeWhere
-  ArrayType: ArrayTypeWhere
-  CodeMirrorType: CodeMirrorTypeWhere
-  ElementType: ElementTypeWhere
-  EnumType: EnumTypeWhere
-  InterfaceType: InterfaceTypeWhere
-  LambdaType: LambdaTypeWhere
-  PageType: PageTypeWhere
-  PrimitiveType: PrimitiveTypeWhere
-  ReactNodeType: ReactNodeTypeWhere
-  RenderPropsType: RenderPropsTypeWhere
-  TypesPageTypeBase: TypesPageTypeBaseWhere
-  TypesPageUnionType: TypesPageUnionTypeWhere
-  UnionType: UnionTypeWhere
-}
-
-input TypeBaseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more TypeBaseSort objects to sort TypeBases by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [TypeBaseSort]
-}
-
-input TypeBaseOwnerAggregateInput {
-  AND: [TypeBaseOwnerAggregateInput!]
-  OR: [TypeBaseOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  edge: TypeBaseOwnerEdgeAggregationWhereInput
-  node: TypeBaseOwnerNodeAggregationWhereInput
-}
-
-input TypeBaseOwnerConnectFieldInput {
-  connect: UserConnectInput
-  edge: OwnedByCreateInput!
-  where: UserConnectWhere
-}
-
-input TypeBaseOwnerConnectOrCreateFieldInput {
-  onCreate: TypeBaseOwnerConnectOrCreateFieldInputOnCreate!
-  where: UserConnectOrCreateWhere!
-}
-
-input TypeBaseOwnerConnectOrCreateFieldInputOnCreate {
-  edge: OwnedByCreateInput!
-  node: UserOnCreateInput!
-}
-
-type TypeBaseOwnerConnection {
-  edges: [TypeBaseOwnerRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input TypeBaseOwnerConnectionSort {
-  edge: OwnedBySort
-  node: UserSort
-}
-
-input TypeBaseOwnerConnectionWhere {
-  AND: [TypeBaseOwnerConnectionWhere!]
-  OR: [TypeBaseOwnerConnectionWhere!]
-  edge: OwnedByWhere
-  edge_NOT: OwnedByWhere
-  node: UserWhere
-  node_NOT: UserWhere
-}
-
-input TypeBaseOwnerCreateFieldInput {
-  edge: OwnedByCreateInput!
-  node: UserCreateInput!
-}
-
-input TypeBaseOwnerDeleteFieldInput {
-  delete: UserDeleteInput
-  where: TypeBaseOwnerConnectionWhere
-}
-
-input TypeBaseOwnerDisconnectFieldInput {
-  disconnect: UserDisconnectInput
-  where: TypeBaseOwnerConnectionWhere
-}
-
-input TypeBaseOwnerEdgeAggregationWhereInput {
-  AND: [TypeBaseOwnerEdgeAggregationWhereInput!]
-  OR: [TypeBaseOwnerEdgeAggregationWhereInput!]
-  data_AVERAGE_EQUAL: Float
-  data_AVERAGE_GT: Float
-  data_AVERAGE_GTE: Float
-  data_AVERAGE_LT: Float
-  data_AVERAGE_LTE: Float
-  data_EQUAL: String
-  data_GT: Int
-  data_GTE: Int
-  data_LONGEST_EQUAL: Int
-  data_LONGEST_GT: Int
-  data_LONGEST_GTE: Int
-  data_LONGEST_LT: Int
-  data_LONGEST_LTE: Int
-  data_LT: Int
-  data_LTE: Int
-  data_SHORTEST_EQUAL: Int
-  data_SHORTEST_GT: Int
-  data_SHORTEST_GTE: Int
-  data_SHORTEST_LT: Int
-  data_SHORTEST_LTE: Int
-}
-
-input TypeBaseOwnerFieldInput {
-  connect: TypeBaseOwnerConnectFieldInput
-  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
-  create: TypeBaseOwnerCreateFieldInput
-}
-
-input TypeBaseOwnerNodeAggregationWhereInput {
-  AND: [TypeBaseOwnerNodeAggregationWhereInput!]
-  OR: [TypeBaseOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_EQUAL: Float
-  auth0Id_AVERAGE_GT: Float
-  auth0Id_AVERAGE_GTE: Float
-  auth0Id_AVERAGE_LT: Float
-  auth0Id_AVERAGE_LTE: Float
-  auth0Id_EQUAL: String
-  auth0Id_GT: Int
-  auth0Id_GTE: Int
-  auth0Id_LONGEST_EQUAL: Int
-  auth0Id_LONGEST_GT: Int
-  auth0Id_LONGEST_GTE: Int
-  auth0Id_LONGEST_LT: Int
-  auth0Id_LONGEST_LTE: Int
-  auth0Id_LT: Int
-  auth0Id_LTE: Int
-  auth0Id_SHORTEST_EQUAL: Int
-  auth0Id_SHORTEST_GT: Int
-  auth0Id_SHORTEST_GTE: Int
-  auth0Id_SHORTEST_LT: Int
-  auth0Id_SHORTEST_LTE: Int
-  email_AVERAGE_EQUAL: Float
-  email_AVERAGE_GT: Float
-  email_AVERAGE_GTE: Float
-  email_AVERAGE_LT: Float
-  email_AVERAGE_LTE: Float
-  email_EQUAL: String
-  email_GT: Int
-  email_GTE: Int
-  email_LONGEST_EQUAL: Int
-  email_LONGEST_GT: Int
-  email_LONGEST_GTE: Int
-  email_LONGEST_LT: Int
-  email_LONGEST_LTE: Int
-  email_LT: Int
-  email_LTE: Int
-  email_SHORTEST_EQUAL: Int
-  email_SHORTEST_GT: Int
-  email_SHORTEST_GTE: Int
-  email_SHORTEST_LT: Int
-  email_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  username_AVERAGE_EQUAL: Float
-  username_AVERAGE_GT: Float
-  username_AVERAGE_GTE: Float
-  username_AVERAGE_LT: Float
-  username_AVERAGE_LTE: Float
-  username_EQUAL: String
-  username_GT: Int
-  username_GTE: Int
-  username_LONGEST_EQUAL: Int
-  username_LONGEST_GT: Int
-  username_LONGEST_GTE: Int
-  username_LONGEST_LT: Int
-  username_LONGEST_LTE: Int
-  username_LT: Int
-  username_LTE: Int
-  username_SHORTEST_EQUAL: Int
-  username_SHORTEST_GT: Int
-  username_SHORTEST_GTE: Int
-  username_SHORTEST_LT: Int
-  username_SHORTEST_LTE: Int
-}
-
-type TypeBaseOwnerRelationship implements OwnedBy {
-  cursor: String!
-  data: String!
-  node: User!
-}
-
-input TypeBaseOwnerUpdateConnectionInput {
-  edge: OwnedByUpdateInput
-  node: UserUpdateInput
-}
-
-input TypeBaseOwnerUpdateFieldInput {
-  connect: TypeBaseOwnerConnectFieldInput
-  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
-  create: TypeBaseOwnerCreateFieldInput
-  delete: TypeBaseOwnerDeleteFieldInput
-  disconnect: TypeBaseOwnerDisconnectFieldInput
-  update: TypeBaseOwnerUpdateConnectionInput
-  where: TypeBaseOwnerConnectionWhere
-}
-
-"""
-Fields to sort TypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeBaseSort object.
-"""
-input TypeBaseSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
-}
-
-input TypeBaseUpdateInput {
-  _on: TypeBaseImplementationsUpdateInput
-  id: ID
-  name: String
-  owner: TypeBaseOwnerUpdateFieldInput
-}
-
-input TypeBaseWhere {
-  _on: TypeBaseImplementationsWhere
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind!]
-  kind_NOT: TypeKind
-  kind_NOT_IN: [TypeKind!]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: TypeBaseOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
-}
-
 enum TypeKind {
   ActionType
   AppType
@@ -16582,13 +16687,8 @@ type TypeReferencesConnection {
   totalCount: Int!
 }
 
-input TypesOfTypesPageOptions {
-  limit: Int
-  offset: Int
-}
-
 type TypesOfTypesPageReturn {
-  items: [TypesPageAnyType!]!
+  items: [BaseType!]!
   totalCount: Int!
 }
 
@@ -16648,507 +16748,10 @@ type TypesOfTypesPageReturnsConnection {
   totalCount: Int!
 }
 
-union TypesPageAnyType =
-    EnumType
-  | PrimitiveType
-  | TypesPageTypeBase
-  | TypesPageUnionType
-
-type TypesPageTypeBase implements TypeBase {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): TypesPageTypeBaseUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
-}
-
-type TypesPageTypeBaseAggregateSelection {
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input TypesPageTypeBaseConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
-}
-
-input TypesPageTypeBaseConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
-}
-
-input TypesPageTypeBaseCreateInput {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner: TypeBaseOwnerFieldInput
-}
-
-input TypesPageTypeBaseDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
-}
-
-input TypesPageTypeBaseDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
-}
-
-type TypesPageTypeBaseEdge {
-  cursor: String!
-  node: TypesPageTypeBase!
-}
-
-input TypesPageTypeBaseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more TypesPageTypeBaseSort objects to sort TypesPageTypeBases by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [TypesPageTypeBaseSort!]
-}
-
-input TypesPageTypeBaseOwnerAggregateInput {
-  AND: [TypesPageTypeBaseOwnerAggregateInput!]
-  OR: [TypesPageTypeBaseOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  edge: TypesPageTypeBaseOwnerEdgeAggregationWhereInput
-  node: TypesPageTypeBaseOwnerNodeAggregationWhereInput
-}
-
-input TypesPageTypeBaseOwnerEdgeAggregationWhereInput {
-  AND: [TypesPageTypeBaseOwnerEdgeAggregationWhereInput!]
-  OR: [TypesPageTypeBaseOwnerEdgeAggregationWhereInput!]
-  data_AVERAGE_EQUAL: Float
-  data_AVERAGE_GT: Float
-  data_AVERAGE_GTE: Float
-  data_AVERAGE_LT: Float
-  data_AVERAGE_LTE: Float
-  data_EQUAL: String
-  data_GT: Int
-  data_GTE: Int
-  data_LONGEST_EQUAL: Int
-  data_LONGEST_GT: Int
-  data_LONGEST_GTE: Int
-  data_LONGEST_LT: Int
-  data_LONGEST_LTE: Int
-  data_LT: Int
-  data_LTE: Int
-  data_SHORTEST_EQUAL: Int
-  data_SHORTEST_GT: Int
-  data_SHORTEST_GTE: Int
-  data_SHORTEST_LT: Int
-  data_SHORTEST_LTE: Int
-}
-
-input TypesPageTypeBaseOwnerNodeAggregationWhereInput {
-  AND: [TypesPageTypeBaseOwnerNodeAggregationWhereInput!]
-  OR: [TypesPageTypeBaseOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_EQUAL: Float
-  auth0Id_AVERAGE_GT: Float
-  auth0Id_AVERAGE_GTE: Float
-  auth0Id_AVERAGE_LT: Float
-  auth0Id_AVERAGE_LTE: Float
-  auth0Id_EQUAL: String
-  auth0Id_GT: Int
-  auth0Id_GTE: Int
-  auth0Id_LONGEST_EQUAL: Int
-  auth0Id_LONGEST_GT: Int
-  auth0Id_LONGEST_GTE: Int
-  auth0Id_LONGEST_LT: Int
-  auth0Id_LONGEST_LTE: Int
-  auth0Id_LT: Int
-  auth0Id_LTE: Int
-  auth0Id_SHORTEST_EQUAL: Int
-  auth0Id_SHORTEST_GT: Int
-  auth0Id_SHORTEST_GTE: Int
-  auth0Id_SHORTEST_LT: Int
-  auth0Id_SHORTEST_LTE: Int
-  email_AVERAGE_EQUAL: Float
-  email_AVERAGE_GT: Float
-  email_AVERAGE_GTE: Float
-  email_AVERAGE_LT: Float
-  email_AVERAGE_LTE: Float
-  email_EQUAL: String
-  email_GT: Int
-  email_GTE: Int
-  email_LONGEST_EQUAL: Int
-  email_LONGEST_GT: Int
-  email_LONGEST_GTE: Int
-  email_LONGEST_LT: Int
-  email_LONGEST_LTE: Int
-  email_LT: Int
-  email_LTE: Int
-  email_SHORTEST_EQUAL: Int
-  email_SHORTEST_GT: Int
-  email_SHORTEST_GTE: Int
-  email_SHORTEST_LT: Int
-  email_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  username_AVERAGE_EQUAL: Float
-  username_AVERAGE_GT: Float
-  username_AVERAGE_GTE: Float
-  username_AVERAGE_LT: Float
-  username_AVERAGE_LTE: Float
-  username_EQUAL: String
-  username_GT: Int
-  username_GTE: Int
-  username_LONGEST_EQUAL: Int
-  username_LONGEST_GT: Int
-  username_LONGEST_GTE: Int
-  username_LONGEST_LT: Int
-  username_LONGEST_LTE: Int
-  username_LT: Int
-  username_LTE: Int
-  username_SHORTEST_EQUAL: Int
-  username_SHORTEST_GT: Int
-  username_SHORTEST_GTE: Int
-  username_SHORTEST_LT: Int
-  username_SHORTEST_LTE: Int
-}
-
-input TypesPageTypeBaseRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
-}
-
-"""
-Fields to sort TypesPageTypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesPageTypeBaseSort object.
-"""
-input TypesPageTypeBaseSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
-}
-
-input TypesPageTypeBaseUpdateInput {
-  id: ID
-  name: String
-  owner: TypeBaseOwnerUpdateFieldInput
-}
-
-type TypesPageTypeBaseUserOwnerAggregationSelection {
-  count: Int!
-  edge: TypesPageTypeBaseUserOwnerEdgeAggregateSelection
-  node: TypesPageTypeBaseUserOwnerNodeAggregateSelection
-}
-
-type TypesPageTypeBaseUserOwnerEdgeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-}
-
-type TypesPageTypeBaseUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
-}
-
-input TypesPageTypeBaseWhere {
-  AND: [TypesPageTypeBaseWhere!]
-  OR: [TypesPageTypeBaseWhere!]
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind!]
-  kind_NOT: TypeKind
-  kind_NOT_IN: [TypeKind!]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: TypesPageTypeBaseOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
-}
-
-type TypesPageTypeBasesConnection {
-  edges: [TypesPageTypeBaseEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-type TypesPageUnionType implements TypeBase {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): TypesPageUnionTypeUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
-  typesOfUnionTypeIds: [String!]!
-}
-
-type TypesPageUnionTypeAggregateSelection {
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input TypesPageUnionTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
-}
-
-input TypesPageUnionTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
-}
-
-input TypesPageUnionTypeCreateInput {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner: TypeBaseOwnerFieldInput
-  typesOfUnionTypeIds: [String!]!
-}
-
-input TypesPageUnionTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
-}
-
-input TypesPageUnionTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
-}
-
-type TypesPageUnionTypeEdge {
-  cursor: String!
-  node: TypesPageUnionType!
-}
-
-input TypesPageUnionTypeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more TypesPageUnionTypeSort objects to sort TypesPageUnionTypes by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [TypesPageUnionTypeSort!]
-}
-
-input TypesPageUnionTypeOwnerAggregateInput {
-  AND: [TypesPageUnionTypeOwnerAggregateInput!]
-  OR: [TypesPageUnionTypeOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  edge: TypesPageUnionTypeOwnerEdgeAggregationWhereInput
-  node: TypesPageUnionTypeOwnerNodeAggregationWhereInput
-}
-
-input TypesPageUnionTypeOwnerEdgeAggregationWhereInput {
-  AND: [TypesPageUnionTypeOwnerEdgeAggregationWhereInput!]
-  OR: [TypesPageUnionTypeOwnerEdgeAggregationWhereInput!]
-  data_AVERAGE_EQUAL: Float
-  data_AVERAGE_GT: Float
-  data_AVERAGE_GTE: Float
-  data_AVERAGE_LT: Float
-  data_AVERAGE_LTE: Float
-  data_EQUAL: String
-  data_GT: Int
-  data_GTE: Int
-  data_LONGEST_EQUAL: Int
-  data_LONGEST_GT: Int
-  data_LONGEST_GTE: Int
-  data_LONGEST_LT: Int
-  data_LONGEST_LTE: Int
-  data_LT: Int
-  data_LTE: Int
-  data_SHORTEST_EQUAL: Int
-  data_SHORTEST_GT: Int
-  data_SHORTEST_GTE: Int
-  data_SHORTEST_LT: Int
-  data_SHORTEST_LTE: Int
-}
-
-input TypesPageUnionTypeOwnerNodeAggregationWhereInput {
-  AND: [TypesPageUnionTypeOwnerNodeAggregationWhereInput!]
-  OR: [TypesPageUnionTypeOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_EQUAL: Float
-  auth0Id_AVERAGE_GT: Float
-  auth0Id_AVERAGE_GTE: Float
-  auth0Id_AVERAGE_LT: Float
-  auth0Id_AVERAGE_LTE: Float
-  auth0Id_EQUAL: String
-  auth0Id_GT: Int
-  auth0Id_GTE: Int
-  auth0Id_LONGEST_EQUAL: Int
-  auth0Id_LONGEST_GT: Int
-  auth0Id_LONGEST_GTE: Int
-  auth0Id_LONGEST_LT: Int
-  auth0Id_LONGEST_LTE: Int
-  auth0Id_LT: Int
-  auth0Id_LTE: Int
-  auth0Id_SHORTEST_EQUAL: Int
-  auth0Id_SHORTEST_GT: Int
-  auth0Id_SHORTEST_GTE: Int
-  auth0Id_SHORTEST_LT: Int
-  auth0Id_SHORTEST_LTE: Int
-  email_AVERAGE_EQUAL: Float
-  email_AVERAGE_GT: Float
-  email_AVERAGE_GTE: Float
-  email_AVERAGE_LT: Float
-  email_AVERAGE_LTE: Float
-  email_EQUAL: String
-  email_GT: Int
-  email_GTE: Int
-  email_LONGEST_EQUAL: Int
-  email_LONGEST_GT: Int
-  email_LONGEST_GTE: Int
-  email_LONGEST_LT: Int
-  email_LONGEST_LTE: Int
-  email_LT: Int
-  email_LTE: Int
-  email_SHORTEST_EQUAL: Int
-  email_SHORTEST_GT: Int
-  email_SHORTEST_GTE: Int
-  email_SHORTEST_LT: Int
-  email_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  username_AVERAGE_EQUAL: Float
-  username_AVERAGE_GT: Float
-  username_AVERAGE_GTE: Float
-  username_AVERAGE_LT: Float
-  username_AVERAGE_LTE: Float
-  username_EQUAL: String
-  username_GT: Int
-  username_GTE: Int
-  username_LONGEST_EQUAL: Int
-  username_LONGEST_GT: Int
-  username_LONGEST_GTE: Int
-  username_LONGEST_LT: Int
-  username_LONGEST_LTE: Int
-  username_LT: Int
-  username_LTE: Int
-  username_SHORTEST_EQUAL: Int
-  username_SHORTEST_GT: Int
-  username_SHORTEST_GTE: Int
-  username_SHORTEST_LT: Int
-  username_SHORTEST_LTE: Int
-}
-
-input TypesPageUnionTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
-}
-
-"""
-Fields to sort TypesPageUnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypesPageUnionTypeSort object.
-"""
-input TypesPageUnionTypeSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
-}
-
-input TypesPageUnionTypeUpdateInput {
-  id: ID
-  name: String
-  owner: TypeBaseOwnerUpdateFieldInput
-  typesOfUnionTypeIds: [String!]
-  typesOfUnionTypeIds_POP: Int
-  typesOfUnionTypeIds_PUSH: [String!]
-}
-
-type TypesPageUnionTypeUserOwnerAggregationSelection {
-  count: Int!
-  edge: TypesPageUnionTypeUserOwnerEdgeAggregateSelection
-  node: TypesPageUnionTypeUserOwnerNodeAggregateSelection
-}
-
-type TypesPageUnionTypeUserOwnerEdgeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-}
-
-type TypesPageUnionTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
-}
-
-input TypesPageUnionTypeWhere {
-  AND: [TypesPageUnionTypeWhere!]
-  OR: [TypesPageUnionTypeWhere!]
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind!]
-  kind_NOT: TypeKind
-  kind_NOT_IN: [TypeKind!]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: TypesPageUnionTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
-  typesOfUnionTypeIds: [String!]
-  typesOfUnionTypeIds_INCLUDES: String
-  typesOfUnionTypeIds_NOT: [String!]
-  typesOfUnionTypeIds_NOT_INCLUDES: String
-}
-
-type TypesPageUnionTypesConnection {
-  edges: [TypesPageUnionTypeEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 """
 Allows picking one of a set of types
 """
-type UnionType implements TypeBase & WithDescendants {
+type UnionType implements IBaseType & WithDescendants {
   descendantTypesIds: [ID!]!
   id: ID!
   kind: TypeKind!
@@ -17162,9 +16765,9 @@ type UnionType implements TypeBase & WithDescendants {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
   typesOfUnionType(
     directed: Boolean = true
     options: QueryOptions
@@ -17185,12 +16788,12 @@ type UnionTypeAggregateSelection {
 }
 
 input UnionTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: IBaseTypeOwnerConnectFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeConnectInput
 }
 
 input UnionTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeConnectOrCreateInput
 }
 
@@ -17206,17 +16809,17 @@ input UnionTypeCreateInput {
   id: ID!
   kind: TypeKind! = UnionType
   name: String!
-  owner: TypeBaseOwnerFieldInput
+  owner: IBaseTypeOwnerFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeCreateInput
 }
 
 input UnionTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: IBaseTypeOwnerDeleteFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeDeleteInput
 }
 
 input UnionTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeDisconnectInput
 }
 
@@ -17344,7 +16947,7 @@ input UnionTypeOwnerNodeAggregationWhereInput {
 }
 
 input UnionTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: IBaseTypeOwnerCreateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeCreateFieldInput
 }
 
@@ -18219,7 +17822,7 @@ input UnionTypeUniqueWhere {
 input UnionTypeUpdateInput {
   id: ID
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: IBaseTypeOwnerUpdateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeUpdateInput
 }
 
@@ -18269,8 +17872,8 @@ input UnionTypeWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: UnionTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
   typesOfUnionTypeConnection_ALL: UnionTypeTypesOfUnionTypeConnectionWhere
   typesOfUnionTypeConnection_NONE: UnionTypeTypesOfUnionTypeConnectionWhere
@@ -18311,6 +17914,11 @@ type UpdateArrayTypesMutationResponse {
 
 type UpdateAtomsMutationResponse {
   atoms: [Atom!]!
+  info: UpdateInfo!
+}
+
+type UpdateBaseTypesMutationResponse {
+  baseTypes: [BaseType!]!
   info: UpdateInfo!
 }
 
@@ -18458,16 +18066,6 @@ type UpdateTypesOfTypesPageReturnsMutationResponse {
   typesOfTypesPageReturns: [TypesOfTypesPageReturn!]!
 }
 
-type UpdateTypesPageTypeBasesMutationResponse {
-  info: UpdateInfo!
-  typesPageTypeBases: [TypesPageTypeBase!]!
-}
-
-type UpdateTypesPageUnionTypesMutationResponse {
-  info: UpdateInfo!
-  typesPageUnionTypes: [TypesPageUnionType!]!
-}
-
 type UpdateUnionTypesMutationResponse {
   info: UpdateInfo!
   unionTypes: [UnionType!]!
@@ -18546,9 +18144,13 @@ type User {
   ): UserTagsConnection!
   types(
     directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
+    options: BaseTypeOptions
+    where: BaseTypeWhere
+  ): [BaseType!]!
+  typesAggregate(
+    directed: Boolean = true
+    where: BaseTypeWhere
+  ): UserBaseTypeTypesAggregationSelection
   typesConnection(
     after: String
     directed: Boolean = true
@@ -18703,6 +18305,21 @@ input UserAppsUpdateFieldInput {
   disconnect: [UserAppsDisconnectFieldInput!]
   update: UserAppsUpdateConnectionInput
   where: UserAppsConnectionWhere
+}
+
+type UserBaseTypeTypesAggregationSelection {
+  count: Int!
+  edge: UserBaseTypeTypesEdgeAggregateSelection
+  node: UserBaseTypeTypesNodeAggregateSelection
+}
+
+type UserBaseTypeTypesEdgeAggregateSelection {
+  data: StringAggregateSelectionNonNullable!
+}
+
+type UserBaseTypeTypesNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 type UserComponentComponentsAggregationSelection {
@@ -19278,10 +18895,32 @@ input UserTagsUpdateFieldInput {
   where: UserTagsConnectionWhere
 }
 
+input UserTypesAggregateInput {
+  AND: [UserTypesAggregateInput!]
+  OR: [UserTypesAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  edge: UserTypesEdgeAggregationWhereInput
+  node: UserTypesNodeAggregationWhereInput
+}
+
 input UserTypesConnectFieldInput {
-  connect: TypeBaseConnectInput
+  connect: [BaseTypeConnectInput!]
   edge: OwnedByCreateInput!
-  where: TypeBaseConnectWhere
+  where: BaseTypeConnectWhere
+}
+
+input UserTypesConnectOrCreateFieldInput {
+  onCreate: UserTypesConnectOrCreateFieldInputOnCreate!
+  where: BaseTypeConnectOrCreateWhere!
+}
+
+input UserTypesConnectOrCreateFieldInputOnCreate {
+  edge: OwnedByCreateInput!
+  node: BaseTypeOnCreateInput!
 }
 
 type UserTypesConnection {
@@ -19292,7 +18931,7 @@ type UserTypesConnection {
 
 input UserTypesConnectionSort {
   edge: OwnedBySort
-  node: TypeBaseSort
+  node: BaseTypeSort
 }
 
 input UserTypesConnectionWhere {
@@ -19300,43 +18939,96 @@ input UserTypesConnectionWhere {
   OR: [UserTypesConnectionWhere!]
   edge: OwnedByWhere
   edge_NOT: OwnedByWhere
-  node: TypeBaseWhere
-  node_NOT: TypeBaseWhere
+  node: BaseTypeWhere
+  node_NOT: BaseTypeWhere
 }
 
 input UserTypesCreateFieldInput {
   edge: OwnedByCreateInput!
-  node: TypeBaseCreateInput!
+  node: BaseTypeCreateInput!
 }
 
 input UserTypesDeleteFieldInput {
-  delete: TypeBaseDeleteInput
+  delete: BaseTypeDeleteInput
   where: UserTypesConnectionWhere
 }
 
 input UserTypesDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
+  disconnect: BaseTypeDisconnectInput
   where: UserTypesConnectionWhere
+}
+
+input UserTypesEdgeAggregationWhereInput {
+  AND: [UserTypesEdgeAggregationWhereInput!]
+  OR: [UserTypesEdgeAggregationWhereInput!]
+  data_AVERAGE_EQUAL: Float
+  data_AVERAGE_GT: Float
+  data_AVERAGE_GTE: Float
+  data_AVERAGE_LT: Float
+  data_AVERAGE_LTE: Float
+  data_EQUAL: String
+  data_GT: Int
+  data_GTE: Int
+  data_LONGEST_EQUAL: Int
+  data_LONGEST_GT: Int
+  data_LONGEST_GTE: Int
+  data_LONGEST_LT: Int
+  data_LONGEST_LTE: Int
+  data_LT: Int
+  data_LTE: Int
+  data_SHORTEST_EQUAL: Int
+  data_SHORTEST_GT: Int
+  data_SHORTEST_GTE: Int
+  data_SHORTEST_LT: Int
+  data_SHORTEST_LTE: Int
 }
 
 input UserTypesFieldInput {
   connect: [UserTypesConnectFieldInput!]
+  connectOrCreate: [UserTypesConnectOrCreateFieldInput!]
   create: [UserTypesCreateFieldInput!]
+}
+
+input UserTypesNodeAggregationWhereInput {
+  AND: [UserTypesNodeAggregationWhereInput!]
+  OR: [UserTypesNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
 }
 
 type UserTypesRelationship implements OwnedBy {
   cursor: String!
   data: String!
-  node: TypeBase!
+  node: BaseType!
 }
 
 input UserTypesUpdateConnectionInput {
   edge: OwnedByUpdateInput
-  node: TypeBaseUpdateInput
+  node: BaseTypeUpdateInput
 }
 
 input UserTypesUpdateFieldInput {
   connect: [UserTypesConnectFieldInput!]
+  connectOrCreate: [UserTypesConnectOrCreateFieldInput!]
   create: [UserTypesCreateFieldInput!]
   delete: [UserTypesDeleteFieldInput!]
   disconnect: [UserTypesDisconnectFieldInput!]
@@ -19499,10 +19191,31 @@ input UserWhere {
   Return Users where some of the related Tags match this filter
   """
   tags_SOME: TagWhere
+  typesAggregate: UserTypesAggregateInput
   typesConnection_ALL: UserTypesConnectionWhere
   typesConnection_NONE: UserTypesConnectionWhere
   typesConnection_SINGLE: UserTypesConnectionWhere
   typesConnection_SOME: UserTypesConnectionWhere
+
+  """
+  Return Users where all of the related BaseTypes match this filter
+  """
+  types_ALL: BaseTypeWhere
+
+  """
+  Return Users where none of the related BaseTypes match this filter
+  """
+  types_NONE: BaseTypeWhere
+
+  """
+  Return Users where one of the related BaseTypes match this filter
+  """
+  types_SINGLE: BaseTypeWhere
+
+  """
+  Return Users where some of the related BaseTypes match this filter
+  """
+  types_SOME: BaseTypeWhere
   username: String
   username_CONTAINS: String
   username_ENDS_WITH: String

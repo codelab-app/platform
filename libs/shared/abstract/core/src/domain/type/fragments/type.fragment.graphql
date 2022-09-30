@@ -1,4 +1,4 @@
-fragment Type on TypeBase {
+fragment Type on IBaseType {
   ...TypeBase
   ...ArrayType
   ...UnionType

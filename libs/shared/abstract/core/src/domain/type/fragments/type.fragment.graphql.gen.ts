@@ -4,6 +4,7 @@ import {
   TypeBase_ActionType_Fragment,
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
+  TypeBase_BaseType_Fragment,
   TypeBase_CodeMirrorType_Fragment,
   TypeBase_ElementType_Fragment,
   TypeBase_EnumType_Fragment,
@@ -13,8 +14,6 @@ import {
   TypeBase_PrimitiveType_Fragment,
   TypeBase_ReactNodeType_Fragment,
   TypeBase_RenderPropsType_Fragment,
-  TypeBase_TypesPageTypeBase_Fragment,
-  TypeBase_TypesPageUnionType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './type-base.fragment.graphql.gen'
 import { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
@@ -53,6 +52,8 @@ export type Type_AppType_Fragment = TypeBase_AppType_Fragment & AppTypeFragment
 export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
   ArrayTypeFragment
 
+export type Type_BaseType_Fragment = TypeBase_BaseType_Fragment
+
 export type Type_CodeMirrorType_Fragment = TypeBase_CodeMirrorType_Fragment &
   CodeMirrorTypeFragment
 
@@ -79,12 +80,6 @@ export type Type_ReactNodeType_Fragment = TypeBase_ReactNodeType_Fragment
 export type Type_RenderPropsType_Fragment = TypeBase_RenderPropsType_Fragment &
   RenderPropsTypeFragment
 
-export type Type_TypesPageTypeBase_Fragment =
-  TypeBase_TypesPageTypeBase_Fragment
-
-export type Type_TypesPageUnionType_Fragment =
-  TypeBase_TypesPageUnionType_Fragment
-
 export type Type_UnionType_Fragment = TypeBase_UnionType_Fragment &
   UnionTypeFragment
 
@@ -92,6 +87,7 @@ export type TypeFragment =
   | Type_ActionType_Fragment
   | Type_AppType_Fragment
   | Type_ArrayType_Fragment
+  | Type_BaseType_Fragment
   | Type_CodeMirrorType_Fragment
   | Type_ElementType_Fragment
   | Type_EnumType_Fragment
@@ -101,12 +97,10 @@ export type TypeFragment =
   | Type_PrimitiveType_Fragment
   | Type_ReactNodeType_Fragment
   | Type_RenderPropsType_Fragment
-  | Type_TypesPageTypeBase_Fragment
-  | Type_TypesPageUnionType_Fragment
   | Type_UnionType_Fragment
 
 export const TypeFragmentDoc = gql`
-  fragment Type on TypeBase {
+  fragment Type on IBaseType {
     ...TypeBase
     ...ArrayType
     ...UnionType

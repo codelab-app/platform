@@ -1,7 +1,7 @@
 import {
+  BaseTypeWhere,
   GetTypesQuery,
   PrimitiveTypeKind,
-  TypeBaseWhere,
 } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
@@ -28,15 +28,9 @@ export interface IFieldModalProperties {
 
 export interface ITypeService
   extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
-    IQueryService<IAnyType, TypeBaseWhere>,
+    IQueryService<IAnyType, BaseTypeWhere>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
-
-  typeIdsOfTypesPage: Array<string>
-  typesOfTypesPage: Array<IAnyType>
-  totalcountTypesOfTypesPage: number
-  getTypesOfTypesPage(page: number, pageSize: number): Promise<void>
-
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
   primitiveKind(id: string): Nullable<PrimitiveTypeKind>

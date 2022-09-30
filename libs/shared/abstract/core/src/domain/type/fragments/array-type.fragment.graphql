@@ -1,7 +1,7 @@
 fragment ArrayType on ArrayType {
   ...TypeBase
   itemType {
-    ... on TypeBase {
+    ... on IBaseType {
       id
       name
     }

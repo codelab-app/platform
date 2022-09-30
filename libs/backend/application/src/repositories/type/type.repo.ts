@@ -1,32 +1,13 @@
-import {
-  TypeBase,
-  TypeKind,
-  TypesPageAnyType,
-} from '@codelab/shared/abstract/codegen'
-import { int, Node, Record as Neo4jRecord, Transaction } from 'neo4j-driver'
-import countTypesOfPageTypesCypher from './countPageTypesOfPageType.cypher'
-import getTypesOfPageTypesCypher from './getTypesOfPageTypes.cypher'
-import { TypesOfTypePage } from './types'
+import { countBaseTypes, getBaseTypes } from '@codelab/backend/adapter/neo4j'
+import { BaseType } from '@codelab/shared/abstract/codegen'
+import { int, Record, Transaction } from 'neo4j-driver'
+import { GetBaseTypesRecord } from './types'
 
 export const typeRepository = {
-  /**
-   * totalCountTypes
-   *   txt
-   * count skip
-   *
-   * format and return the value
-   * number
-   */
-  countTypesOfTypePage: async (
-    txn: Transaction,
-    offset = 0,
-  ): Promise<number> => {
-    const { records: countTypesRecords } = await txn.run(
-      countTypesOfPageTypesCypher,
-      {
-        skip: int(Number(offset)),
-      },
-    )
+  countBaseTypes: async (txn: Transaction, offset = 0): Promise<number> => {
+    const { records: countTypesRecords } = await txn.run(countBaseTypes, {
+      skip: int(Number(offset)),
+    })
 
     const totalCountNeo4j = countTypesRecords[0].get('count(type)')
     const totalCount = int(totalCountNeo4j).toNumber()
@@ -34,27 +15,22 @@ export const typeRepository = {
     return totalCount
   },
 
-  /**
-   * run cypher
-   * record mapper
-   * EnumType
-   */
-  typesOfTypePage: async (
+  baseTypes: async (
     txn: Transaction,
     params: any,
-  ): Promise<Array<TypesPageAnyType>> => {
+  ): Promise<Array<BaseType>> => {
     const { options } = params
     const { limit = 10, offset = 0 } = options || {}
 
-    const { records: getTypesRecords } = await txn.run(
-      getTypesOfPageTypesCypher,
-      {
-        limit: int(Number(limit)),
-        skip: int(Number(offset)),
-      },
-    )
+    const { records: getTypesRecords } = await txn.run(getBaseTypes, {
+      limit: int(Number(limit)),
+      skip: int(Number(offset)),
+    })
 
-    const withOwner = (data: TypeBase, record: Neo4jRecord) => {
+    const withOwner = (
+      data: BaseType,
+      record: Record<GetBaseTypesRecord>,
+    ): BaseType => {
       const owner = record.get('owner')?.properties
 
       if (!owner) {
@@ -67,7 +43,7 @@ export const typeRepository = {
       }
     }
 
-    const dataMapper = (record: Neo4jRecord<TypesOfTypePage>) => {
+    const dataMapper = (record: Record<GetBaseTypesRecord>): BaseType => {
       const type = record.get('type').properties
 
       return {
@@ -76,11 +52,10 @@ export const typeRepository = {
       }
     }
 
-    // remove
     const items = getTypesRecords.flatMap((record) => {
       return withOwner(
-        dataMapper(record as Neo4jRecord<TypesOfTypePage>),
-        record,
+        dataMapper(record as Record<GetBaseTypesRecord>),
+        record as Record<GetBaseTypesRecord>,
       )
     })
 

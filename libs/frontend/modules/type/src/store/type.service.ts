@@ -1,8 +1,8 @@
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
+  BaseTypeWhere,
   PrimitiveTypeKind,
-  TypeBaseWhere,
 } from '@codelab/shared/abstract/codegen'
 import type {
   IAnyType,
@@ -18,8 +18,6 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { isNonNullable } from '@codelab/shared/utils'
-import { isNonNullType } from 'graphql'
 import { flatMap, mapKeys, merge, omit } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -45,7 +43,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType, typeRef } from './models'
+import type { AnyType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -56,10 +54,6 @@ import {
 export class TypeService
   extends Model({
     types: prop(() => objectMap<AnyType>()),
-
-    // id
-    typeIdsOfTypesPage: prop<Array<string>>(),
-    totalcountTypesOfTypesPage: prop<number>(),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -75,14 +69,6 @@ export class TypeService
   })
   implements ITypeService
 {
-  // computed to typ
-  @computed
-  get typesOfTypesPage() {
-    return this.typeIdsOfTypesPage
-      .map((id) => this.type(id))
-      .filter(isNonNullable)
-  }
-
   @computed
   get typesList() {
     return [...this.types.values()]
@@ -161,46 +147,7 @@ export class TypeService
 
   @modelFlow
   @transaction
-  /**
-   * nghia
-   * pize size
-   */
-  getTypesOfTypesPage = _async(function* (
-    this: TypeService,
-    page = 1,
-    pageSize = 10,
-  ) {
-    // skkp items of page - 1
-    const offset = (page - 1) * pageSize
-    const limit = pageSize
-
-    const {
-      typesOfTypesPage: { items, totalCount },
-    } = yield* _await(
-      getTypeApi.GetTypesOfTypesPage({
-        options: {
-          offset,
-          limit,
-        },
-      }),
-    )
-
-    this.totalcountTypesOfTypesPage = totalCount
-
-    // set count
-    // items
-    // this.typeIdsOfTypesPage = items.map((type) => {
-    //   const typeModel = typeFactory(type)
-
-    //   this.types.set(type.id, typeModel)
-
-    //   return typeModel.id
-    // })
-  })
-
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: TypeService, where?: TypeBaseWhere) {
+  getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
     const ids = where?.id_IN ?? undefined
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))
