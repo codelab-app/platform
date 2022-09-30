@@ -1,6 +1,5 @@
 import { fieldRepository } from '@codelab/backend/application'
 import { ExistingData } from '@codelab/shared/abstract/core'
-import { cLog } from '@codelab/shared/utils'
 import { logSection } from '../../shared/utils/log-task'
 import { createExistingData } from '../../use-cases/seed/data/existing.data'
 import { ParserService } from '../../use-cases/seed/parser.service'
@@ -19,11 +18,8 @@ export const parseAndImportFields = async (
   const fieldDataByApiName = await parser.extractFieldDataByApiName()
 
   logSection('Import Interface')
-  cLog(existingData)
 
   for await (const [atom, fields] of fieldDataByApiName.entries()) {
-    // logger.info('Import Field', { atom, fields })
-
     for await (const field of fields) {
       await fieldRepository.upsertField({
         interfaceTypeId: atom?.api?.id,

@@ -10,7 +10,7 @@ import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
-import { logSection, logTask } from '../shared/utils/log-task'
+import { logTask } from '../shared/utils/log-task'
 
 const createCreateBaseFields = (data: ITypeExport, userId: string) => ({
   id: data.id,
@@ -62,7 +62,7 @@ export const upsertType = async (
           })
         } catch (e) {
           console.error(e)
-          process.exit(0)
+          throw new Error('Create primitive failed')
         }
       }
 
@@ -179,24 +179,6 @@ export const upsertType = async (
             },
           ],
         })
-      }
-
-      logSection('Upsert Fields')
-
-      for await (const edge of type.fieldsConnection.edges) {
-        const args = {
-          interfaceTypeId: type.id,
-          fieldTypeId: edge.node.id,
-          field: {
-            id: edge.id,
-            name: edge.name,
-            description: edge.description,
-            key: edge.key,
-          },
-        }
-
-        logTask('Upsert Field', edge.key, type)
-        // await fieldRepository.upsertField(args)
       }
     }
   }

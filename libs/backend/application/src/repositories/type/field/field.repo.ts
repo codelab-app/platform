@@ -8,7 +8,6 @@ import {
   MutationUpsertFieldArgs,
   OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
-import { logger } from '@codelab/shared/adapter/logging'
 import { merge } from 'lodash'
 
 export const fieldRepository = {
@@ -58,9 +57,6 @@ export const fieldRepository = {
           id: args.interfaceTypeId,
         },
       })
-
-      logger.log('Args', args)
-      logger.log('Updated InterfaceType', updatedInterfaceType)
 
       return merge(updatedInterfaceType, {
         fieldsConnection: {
