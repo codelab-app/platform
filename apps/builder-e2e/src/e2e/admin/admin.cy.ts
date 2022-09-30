@@ -12,7 +12,7 @@ describe('Admin', () => {
   /**
    * Can be used as parameter into `exportAndAssert` to see output as file
    */
-  const filePath = './src/data/seed-data-test-2.json'
+  const filePath = './src/data/seed-data-2.test.json'
 
   describe('seed', () => {
     it('should seed Ant Design CSV data & export', () => {
@@ -26,7 +26,7 @@ describe('Admin', () => {
     it('should be able to seed twice without changing the database', () => {
       seedData()
 
-      return exportAndAssert(filePath).then((payload) => {
+      return exportAndAssert().then((payload) => {
         expect(payload).toEqual(initialPayload)
       })
     })
@@ -39,11 +39,9 @@ describe('Admin', () => {
 
       importData()
 
-      return exportAndAssert('./src/data/seed-data-test-2.json').then(
-        (payload) => {
-          expect(payload).toEqual(initialPayload)
-        },
-      )
+      return exportAndAssert().then((payload) => {
+        expect(payload).toEqual(initialPayload)
+      })
     })
 
     it('should import data twice without changing the database', () => {

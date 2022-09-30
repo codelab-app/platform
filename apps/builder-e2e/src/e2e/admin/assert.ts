@@ -23,7 +23,7 @@ export const seedData = () => {
   // })
 }
 
-const DEFAULT_SEED_FILE_PATH = './src/data/seed-data-test.json'
+const DEFAULT_SEED_FILE_PATH = './src/data/seed-data.test.json'
 const getFullPath = (file: string) => path.join('apps/builder-e2e', file)
 
 export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
