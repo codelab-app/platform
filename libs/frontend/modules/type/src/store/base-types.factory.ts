@@ -22,7 +22,6 @@ import {
   UnionType,
 } from './models'
 
-// name
 export const baseTypesFactory = (type: BaseTypeFragment) => {
   // this is just a fallback
   // except __typename, all fallback properties should be refeched later

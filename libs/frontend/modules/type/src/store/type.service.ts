@@ -61,6 +61,9 @@ export class TypeService
 
     getTypesTableTypeIds: prop<Array<string>>(() => []),
     getTypesTableTotalCount: prop<number>(0),
+
+    isTypeDepdenciesLoading: prop<boolean>(),
+
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
     deleteModal: prop(() => new TypeModalService({})),
@@ -86,16 +89,20 @@ export class TypeService
   @transaction
   queryGetTypesTableTypes = _async(function* (
     this: TypeService,
-    /**
-     */
     page = 1,
     pageSize = 10,
   ) {
-    const previousPage = page - 1 || 0
+    const previousPage = page - 1
     const offset = previousPage * pageSize
     const limit = pageSize
 
     yield* _await(this.getBaseTypes({ options: { offset, limit } }))
+
+    this.isTypeDepdenciesLoading = true
+
+    yield* _await(this.getAll({ id_IN: this.getTypesTableTypeIds }))
+
+    this.isTypeDepdenciesLoading = false
   })
 
   @modelFlow
@@ -330,6 +337,7 @@ export class TypeService
   //
   // The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
+  //
   @modelFlow
   @transaction
   addField = _async(function* (

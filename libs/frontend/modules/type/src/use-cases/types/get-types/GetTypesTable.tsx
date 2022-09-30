@@ -15,8 +15,6 @@ export const GetTypesTable = observer<{ typeService: ITypeService }>(
       [],
     )
 
-    console.log({ loading })
-
     useEffect(() => {
       queryGetTypesTableTypes(1, 10).catch((err) => {
         console.error('Unable to fetch types', err)

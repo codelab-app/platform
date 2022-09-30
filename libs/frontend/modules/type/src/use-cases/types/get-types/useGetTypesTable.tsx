@@ -1,6 +1,7 @@
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { ITypeService } from '@codelab/shared/abstract/core'
+import { Skeleton } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import { TableRowSelection } from 'antd/lib/table/interface'
 import { arraySet } from 'mobx-keystone'
@@ -29,9 +30,13 @@ export const useTypesTable = (typeService: ITypeService) => {
       key: 'action',
       onHeaderCell: headerCellProps,
       width: 100,
-      render: (text, record) => (
-        <ActionColumn type={record} typeService={typeService} />
-      ),
+      render: (record) => {
+        if (typeService.isTypeDepdenciesLoading) {
+          return <Skeleton paragraph={false} />
+        }
+
+        return <ActionColumn type={record} typeService={typeService} />
+      },
     },
   ]
 

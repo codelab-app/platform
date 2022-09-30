@@ -73,4 +73,5 @@ export interface ITypeService
   getTypesTableTypes: Array<IAnyType>
   getTypesTableTotalCount: number
   queryGetTypesTableTypes(page: number, pageSize: number): Promise<void>
+  isTypeDepdenciesLoading: boolean
 }
