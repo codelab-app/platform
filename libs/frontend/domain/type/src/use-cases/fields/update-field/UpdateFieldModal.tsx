@@ -3,16 +3,13 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Nullable } from '@codelab/shared/abstract/types'
+import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import {
-  createFieldSchema,
-  filterValidationRules,
-  modifyNestedKey,
-} from '../create-field'
+import { createFieldSchema, filterValidationRules } from '../create-field'
 
 export const UpdateFieldModal = observer<{
   typeService: ITypeService
@@ -55,33 +52,7 @@ export const UpdateFieldModal = observer<{
       <ModalForm.Form<IUpdateFieldDTO>
         model={model}
         onChange={(key, value) => {
-          setModel((prev) => {
-            if (!prev) {
-              return prev
-            }
-
-            const newVal: IUpdateFieldDTO = {
-              ...prev,
-              validationRules: {
-                general: {
-                  ...prev?.validationRules?.general,
-                },
-                [PrimitiveTypeKind.String]: {
-                  ...prev?.validationRules?.String,
-                },
-                [PrimitiveTypeKind.Float]: {
-                  ...prev?.validationRules?.Float,
-                },
-                [PrimitiveTypeKind.Integer]: {
-                  ...prev?.validationRules?.Integer,
-                },
-              },
-            }
-
-            modifyNestedKey(newVal, key.split('.'), value)
-
-            return newVal
-          })
+          setModel((prev) => prev && _.set(_.cloneDeep(prev), key, value))
         }}
         onSubmit={(input) =>
           typeService.updateField(
@@ -113,18 +84,27 @@ export const UpdateFieldModal = observer<{
         <AutoFields fields={['validationRules.general']} />
 
         {model.fieldType &&
-          typeService.primitiveKind(model.fieldType) === 'String' && (
-            <AutoFields fields={['validationRules.String']} />
+          typeService.primitiveKind(model.fieldType) ===
+            PrimitiveTypeKind.String && (
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.String}`]}
+            />
           )}
 
         {model.fieldType &&
-          typeService.primitiveKind(model.fieldType) === 'Integer' && (
-            <AutoFields fields={['validationRules.Integer']} />
+          typeService.primitiveKind(model.fieldType) ===
+            PrimitiveTypeKind.Integer && (
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
+            />
           )}
 
         {model.fieldType &&
-          typeService.primitiveKind(model.fieldType) === 'Float' && (
-            <AutoFields fields={['validationRules.Float']} />
+          typeService.primitiveKind(model.fieldType) ===
+            PrimitiveTypeKind.Float && (
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.Float}`]}
+            />
           )}
       </ModalForm.Form>
     </ModalForm.Modal>

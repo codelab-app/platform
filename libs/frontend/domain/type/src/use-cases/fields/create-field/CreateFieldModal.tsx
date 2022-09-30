@@ -7,6 +7,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
+import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -25,22 +26,6 @@ const generateDefaultFormModel = () =>
     key: '',
     fieldType: '',
   } as ICreateFieldDTO)
-
-// TODO: Find a better place for this function
-export const modifyNestedKey = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  obj: any,
-  is: Array<string>,
-  value: object,
-): object => {
-  if (is.length === 1 && value !== undefined) {
-    return (obj[is[0]] = value)
-  } else if (is.length === 0) {
-    return obj
-  } else {
-    return modifyNestedKey(obj[is[0]], is.slice(1), value)
-  }
-}
 
 export const filterValidationRules = (
   rules: Nullish<IValidationRules>,
@@ -88,29 +73,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             ...model,
           }}
           onChange={(key, value) => {
-            setModel((prev) => {
-              const newVal: ICreateFieldDTO = {
-                ...prev,
-                validationRules: {
-                  general: {
-                    ...prev?.validationRules?.general,
-                  },
-                  [PrimitiveTypeKind.String]: {
-                    ...prev?.validationRules?.String,
-                  },
-                  [PrimitiveTypeKind.Float]: {
-                    ...prev?.validationRules?.Float,
-                  },
-                  [PrimitiveTypeKind.Integer]: {
-                    ...prev?.validationRules?.Integer,
-                  },
-                },
-              }
-
-              modifyNestedKey(newVal, key.split('.'), value)
-
-              return newVal
-            })
+            setModel((prev) => _.set(_.cloneDeep(prev), key, value))
           }}
           onSubmit={(input) =>
             typeService.addField(
@@ -144,18 +107,27 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           <AutoFields fields={['validationRules.general']} />
 
           {model.fieldType &&
-            typeService.primitiveKind(model.fieldType) === 'String' && (
-              <AutoFields fields={['validationRules.String']} />
+            typeService.primitiveKind(model.fieldType) ===
+              PrimitiveTypeKind.String && (
+              <AutoFields
+                fields={[`validationRules.${PrimitiveTypeKind.String}`]}
+              />
             )}
 
           {model.fieldType &&
-            typeService.primitiveKind(model.fieldType) === 'Integer' && (
-              <AutoFields fields={['validationRules.Integer']} />
+            typeService.primitiveKind(model.fieldType) ===
+              PrimitiveTypeKind.Integer && (
+              <AutoFields
+                fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
+              />
             )}
 
           {model.fieldType &&
-            typeService.primitiveKind(model.fieldType) === 'Float' && (
-              <AutoFields fields={['validationRules.Float']} />
+            typeService.primitiveKind(model.fieldType) ===
+              PrimitiveTypeKind.Float && (
+              <AutoFields
+                fields={[`validationRules.${PrimitiveTypeKind.Float}`]}
+              />
             )}
         </ModalForm.Form>
       </ModalForm.Modal>
