@@ -19,11 +19,11 @@ export const ToolboxItem = ({
 }: {
   toolboxItem: ToolboxItemProps
 }) => {
-  const { attributes, listeners, setNodeRef } = useCreateElementDraggable(
-    toolboxItem.id,
-    toolboxItem.createElementInputFactory(),
-    toolboxItem,
-  )
+  const { attributes, listeners, setNodeRef } = useCreateElementDraggable({
+    id: toolboxItem.id,
+    createElementInput: toolboxItem.createElementInputFactory(),
+    component: toolboxItem,
+  })
 
   return (
     <div css={tw`border-gray-300 p-2 border flex items-center justify-between`}>
