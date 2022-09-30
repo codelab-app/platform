@@ -7,7 +7,7 @@ import {
   IUserService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -21,6 +21,34 @@ export const CreateTypeModal = observer<{
 }>(({ typeService, userService }) => {
   const closeModal = () => typeService.createModal.close()
   const user = userService?.user
+  useEffect(() => {
+    console.log('rerender')
+  }, [])
+
+  const onSubmit = async (data: ICreateTypeDTO) => {
+    const { getTypesTableCurrentPage, getTypesTablePageSize } = typeService
+
+    // Here we want to append ids to enum
+    const input = {
+      ...data,
+      allowedValues: data.allowedValues?.map((val) => ({
+        ...val,
+        id: v4(),
+      })),
+    }
+
+    await typeService.create([input])
+
+    /**
+     * typeService.create writes into cache
+     * if modal is opened -> bug: modal input values are cleared
+     * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait unitl it finishesp
+     */
+    void typeService.queryGetTypesTableTypes(
+      getTypesTableCurrentPage,
+      getTypesTablePageSize,
+    )
+  }
 
   return (
     <ModalForm.Modal
@@ -35,18 +63,7 @@ export const CreateTypeModal = observer<{
           id: v4(),
           auth0Id: user?.auth0Id,
         }}
-        onSubmit={(data) => {
-          // Here we want to append ids to enum
-          const input = {
-            ...data,
-            allowedValues: data.allowedValues?.map((val) => ({
-              ...val,
-              id: v4(),
-            })),
-          }
-
-          return typeService.create([input])
-        }}
+        onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating type',
           type: 'error',
@@ -72,14 +89,6 @@ export const CreateTypeModal = observer<{
 
         <DisplayIfKind kind={ITypeKind.EnumType}>
           <AutoField name="allowedValues" />
-        </DisplayIfKind>
-
-        <DisplayIfKind kind={ITypeKind.ArrayType}>
-          <TypeSelect
-            label="Array item type"
-            name="arrayTypeId"
-            types={typeService.typesList}
-          />
         </DisplayIfKind>
 
         <DisplayIfKind kind={ITypeKind.ElementType}>

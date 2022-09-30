@@ -61,8 +61,10 @@ export class TypeService
 
     getTypesTableTypeIds: prop<Array<string>>(() => []),
     getTypesTableTotalCount: prop<number>(0),
-
     isTypeDepdenciesLoading: prop<boolean>(),
+
+    getTypesTableCurrentPage: prop<number>(1),
+    getTypesTablePageSize: prop<number>(10),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -92,9 +94,18 @@ export class TypeService
     page = 1,
     pageSize = 10,
   ) {
+    this.getTypesTableCurrentPage = page
+    this.getTypesTablePageSize = pageSize
+
     const previousPage = page - 1
     const offset = previousPage * pageSize
     const limit = pageSize
+    console.log({
+      page,
+      pageSize,
+      offset,
+      limit,
+    })
 
     yield* _await(this.getBaseTypes({ options: { offset, limit } }))
 
@@ -289,6 +300,9 @@ export class TypeService
   create = _async(function* (
     this: TypeService,
     data: Array<ICreateTypeDTO> = [],
+    /**
+     *
+     */
   ) {
     if (!data.length) {
       return []
@@ -297,6 +311,10 @@ export class TypeService
     const input = createTypeFactory(data)
     const types = yield* _await(createTypeApi[data[0].kind](input))
 
+    /**
+     get [page,pageSize]
+     */
+
     if (!types.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Type was not created')
@@ -304,7 +322,6 @@ export class TypeService
 
     return types.map((type) => {
       const typeModel = typeFactory(type)
-
       this.types.set(type.id, typeModel)
 
       return typeModel

@@ -25,6 +25,9 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
           onSubmit={async () => {
+            const { getTypesTableCurrentPage, getTypesTablePageSize } =
+              typeService
+
             const kind = typeToDelete?.kind
 
             if (!kind) {
@@ -48,9 +51,19 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
               )
             }
 
-            const r = await typeService.delete(typeToDelete.id)
+            await typeService.delete(typeToDelete.id)
 
-            return r
+            /**
+             * typeService.create writes into cache
+             * if modal is opened -> bug: modal input values are cleared
+             *
+             * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait unitl it finishesp
+             */
+
+            void typeService.queryGetTypesTableTypes(
+              getTypesTableCurrentPage,
+              getTypesTablePageSize,
+            )
           }}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting type',
