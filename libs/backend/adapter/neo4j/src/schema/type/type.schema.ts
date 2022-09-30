@@ -57,7 +57,8 @@ export const typeSchema = gql`
    ):TypesOfTypesPageReturn!
   }
 
-    interface TypeBase
+  # ITypebase
+    interface ITypeBase
   {
     id: ID! @id(autogenerate: false)
     kind: TypeKind! @readonly
@@ -70,16 +71,8 @@ export const typeSchema = gql`
         properties: "OwnedBy",
         direction: OUT
       )
-
-    # Any type could be used a field for some interface
-#    fieldFor: [TypeBase!]!
-#      @relationship(
-#        type: "INTERFACE_FIELD"
-#        direction: IN
-#        properties: "Field"
-#      )
   }
- type TypesPageUnionType implements TypeBase {
+ type TypesPageUnionType implements ITypeBase {
    id: ID!
    kind: TypeKind! 
    name: String! @unique
@@ -87,24 +80,24 @@ export const typeSchema = gql`
    typesOfUnionTypeIds: [String!]!
  }
 
- type TypesPageTypeBase implements TypeBase {
+ # typebase
+ type TypeBase implements ITypeBase {
    id: ID!
    kind: TypeKind! 
    name: String! @unique
    owner: User!
  } 
 
- union TypesPageAnyType = EnumType | PrimitiveType | TypesPageUnionType | TypesPageTypeBase 
 
  type TypesOfTypesPageReturn {
-  items: [TypesPageAnyType!]!
+  items: [TypeBase!]!
   totalCount: Int!
  }
 
 
 
   # https://github.com/neo4j/graphql/issues/1105
- extend interface TypeBase
+ extend interface ITypeBase
  @auth(
    rules: [
      {
@@ -131,7 +124,7 @@ export const typeSchema = gql`
   """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
   """
-  type PrimitiveType implements TypeBase @node(additionalLabels: ["Type"])  {
+  type PrimitiveType implements ITypeBase @node(additionalLabels: ["Type"])  {
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
@@ -152,7 +145,7 @@ export const typeSchema = gql`
   ArrayType Allows defining a variable number of items of a given type.
   Contains a reference to another type which is the array item type.
   """
-  type ArrayType implements TypeBase & WithDescendants @node(additionalLabels: ["Type"]) {
+  type ArrayType implements ITypeBase & WithDescendants @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: ArrayType)
     name: String!
@@ -168,7 +161,7 @@ export const typeSchema = gql`
   """
   Allows picking one of a set of types
   """
-  type UnionType implements TypeBase & WithDescendants @node(additionalLabels: ["Type"]) {
+  type UnionType implements ITypeBase & WithDescendants @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
@@ -192,7 +185,7 @@ export const typeSchema = gql`
   """
   Represents an object type with multiple fields
   """
-  type InterfaceType implements TypeBase & WithDescendants @node(additionalLabels: ["Type"]) {
+  type InterfaceType implements ITypeBase & WithDescendants @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
@@ -226,7 +219,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ElementType implements TypeBase @node(additionalLabels: ["Type"])  {
+  type ElementType implements ITypeBase @node(additionalLabels: ["Type"])  {
     id: ID!
     kind: TypeKind! @default(value: ElementType)
     name: String!
@@ -249,7 +242,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type RenderPropsType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type RenderPropsType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: RenderPropsType)
     name: String!
@@ -267,7 +260,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ReactNodeType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type ReactNodeType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
     name: String!
@@ -299,7 +292,7 @@ export const typeSchema = gql`
   The value gets passed to the render pipe as a Enum Type Value id.
   The actual value must be de-referenced by the id.
   """
-  type EnumType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type EnumType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: EnumType)
     name: String!
@@ -322,7 +315,7 @@ export const typeSchema = gql`
   """
   Allows picking a lambda
   """
-  type LambdaType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type LambdaType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: LambdaType)
     name: String!
@@ -333,7 +326,7 @@ export const typeSchema = gql`
   """
   Allows picking a page from the list of pages
   """
-  type PageType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type PageType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: PageType)
     name: String!
@@ -344,7 +337,7 @@ export const typeSchema = gql`
   """
   Allows picking a app from the list of apps
   """
-  type AppType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type AppType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: AppType)
     name: String!
@@ -352,10 +345,11 @@ export const typeSchema = gql`
 #    fieldFor: [TypeBase!]!
   }
 
+  # implemnets ITypebase
   """
   Allows picking a action from the list of actions
   """
-  type ActionType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type ActionType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: ActionType)
     name: String!
@@ -366,7 +360,7 @@ export const typeSchema = gql`
   """
   Allows editing the value using a code mirror editor
   """
-  type CodeMirrorType implements TypeBase @node(additionalLabels: ["Type"]) {
+  type CodeMirrorType implements ITypeBase @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: CodeMirrorType)
     name: String!

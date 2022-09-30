@@ -67,71 +67,21 @@ export const typeRepository = {
       }
     }
 
-    const baseMapper = (record: Neo4jRecord<TypesOfTypePage>) => {
+    const dataMapper = (record: Neo4jRecord<TypesOfTypePage>) => {
       const type = record.get('type').properties
 
       return {
         ...type,
-        __typename: 'TypesPageTypeBase',
+        __typename: 'Typebase',
       }
     }
 
-    const recordMappper: Partial<
-      Record<
-        Partial<TypeKind>,
-        (record: Neo4jRecord<TypesOfTypePage>) => TypesPageAnyType
-      >
-    > = {
-      [TypeKind.PrimitiveType]: (record) => {
-        const type = baseMapper(record)
-
-        return {
-          ...type,
-          __typename: type.kind,
-        }
-      },
-      [TypeKind.EnumType]: (record) => {
-        const type = baseMapper(record)
-
-        const allowedValues = (record.get('collect(allowedValues)') || []).map(
-          (node: Node) => node.properties,
-        )
-
-        return {
-          ...type,
-          allowedValues,
-          __typename: type.kind,
-        }
-      },
-      [TypeKind.UnionType]: (record) => {
-        const type = baseMapper(record)
-
-        const unionTypes = (record.get('collect(unionTypes)') || []).map(
-          (node: Node) => node.properties,
-        )
-
-        return {
-          ...type,
-          typesOfUnionTypeIds: unionTypes.map((unionType: any) => unionType.id),
-          __typename: 'TypesPageUnionType',
-        }
-      },
-      [TypeKind.ArrayType]: (record) => {
-        const type = baseMapper(record)
-        const itemType = record.get('itemType').properties
-
-        return {
-          ...type,
-          itemType: withOwner(itemType, record),
-        }
-      },
-    }
-
+    // remove
     const items = getTypesRecords.flatMap((record) => {
-      const kind = record.get('type').properties.kind as TypeKind
-      const mapper = recordMappper[kind] || baseMapper
-
-      return withOwner(mapper(record as Neo4jRecord<TypesOfTypePage>), record)
+      return withOwner(
+        dataMapper(record as Neo4jRecord<TypesOfTypePage>),
+        record,
+      )
     })
 
     return items
