@@ -18,6 +18,7 @@ export const createAtomsData: CreateAtoms = (
       id: buttonInterfaceId,
     },
     tags: [],
+    allowedChildren: [],
   },
   {
     id: textId ?? v4(),
@@ -27,6 +28,7 @@ export const createAtomsData: CreateAtoms = (
       id: textInterfaceId,
     },
     tags: [],
+    allowedChildren: [],
   },
   {
     id: v4(),
@@ -36,6 +38,7 @@ export const createAtomsData: CreateAtoms = (
       id: v4(),
     },
     tags: [],
+    allowedChildren: [],
   },
   {
     id: v4(),
@@ -45,25 +48,9 @@ export const createAtomsData: CreateAtoms = (
       id: v4(),
     },
     tags: [],
+    allowedChildren: [],
   },
 ]
-
-export const connectOwner = (auth0Id: string) => {
-  return { connect: { where: { node: { auth0Id: auth0Id } } } }
-}
-
-export const connectTypeOwner = (auth0Id: string) => {
-  return {
-    connect: {
-      where: { node: { auth0Id } },
-      edge: { data: '{}' },
-    },
-  }
-}
-
-export const connectId = (id?: string) => {
-  return { connect: id ? { where: { node: { id } } } : undefined }
-}
 
 export const connectTypeId = (id?: string) => {
   return {
@@ -74,8 +61,4 @@ export const connectTypeId = (id?: string) => {
         }
       : undefined,
   }
-}
-
-export const disconnectId = (id?: string) => {
-  return { disconnect: id ? { where: { node: { id } } } : undefined }
 }

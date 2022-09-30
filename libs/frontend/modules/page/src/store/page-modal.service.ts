@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { IModalService, IPage } from '@codelab/shared/abstract/core'
+import { IEntityModalService, IPage } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
@@ -7,7 +7,7 @@ import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 @model('@codelab/PageModalService')
 export class PageModalService
   extends ExtendedModel(modelClass<ModalService<Ref<IPage>>>(ModalService), {})
-  implements IModalService<Ref<IPage>, { page: Maybe<IPage> }>
+  implements IEntityModalService<Ref<IPage>, { page: Maybe<IPage> }>
 {
   @computed
   get page() {

@@ -1,4 +1,3 @@
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IProp } from '../prop'
 import { IActionKind } from './action-kind.enum'
 import { IGraphQLActionConfig, IRestActionConfig } from './actions'
@@ -27,5 +26,3 @@ export type ICreateActionDTO = IActionBaseDTO
 export type IUpdateActionDTO = IActionBaseDTO
 
 export type IActionDTO = ActionFragment
-
-export type IActionExport = OGM_TYPES.CodeAction | OGM_TYPES.ApiAction

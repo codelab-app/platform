@@ -1,10 +1,10 @@
 import {
+  IAtomDTO,
   IAtomService,
   IAtomType,
   IInterfaceTypeRef,
   ITag,
 } from '@codelab/shared/abstract/core'
-import { Ref } from 'mobx-keystone'
 
 export interface AtomLibrary {
   name: string
@@ -18,21 +18,16 @@ export interface AtomRecord {
   tags: Array<ITag>
   apiId: IInterfaceTypeRef
   library: AtomLibrary
+  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
 }
 
-export interface LibraryColumnProps {
-  library: AtomLibrary
-}
-
-export interface PropsColumnProps {
-  atom: AtomRecord
-}
-
-export interface ActionColumnProps {
-  atom: AtomRecord
+export type ActionColumnProps = {
   atomService: IAtomService
-}
+} & AtomRecordProps
 
-export interface TagsColumnProps {
-  tags: Array<Ref<ITag>>
+/**
+ * Passed as 2nd argument in table render function, shared across columns
+ */
+export interface AtomRecordProps {
+  atom: AtomRecord
 }

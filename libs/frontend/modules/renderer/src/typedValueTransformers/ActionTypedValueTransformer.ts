@@ -47,7 +47,7 @@ export class ActionTypedValueTransformer
 
     const action = this.renderer.appStore?.current.actions.find(
       (a) => a.id === actionId,
-    )?.current
+    )
 
     if (!action) {
       // this shouldn't happen, we check in canHandleValue

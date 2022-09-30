@@ -11,7 +11,8 @@ MERGE (interfaceType)-
       id: $field.id,
       key: $field.key,
       name: coalesce($field.name, ""),
-      description: coalesce($field.description, "")
+      description: coalesce($field.description, ""),
+      validationRules: coalesce($field.validationRules, "")
     }
   ]->(fieldType)
 

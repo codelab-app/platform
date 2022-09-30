@@ -119,7 +119,15 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           component={SelectComponent}
           name="renderComponentTypeId"
         />
-        <AutoField component={SelectAtom} name="atomId" />
+        <AutoField
+          component={SelectAtom}
+          // component={(props) => {
+          //   console.log(props)
+          //
+          //   return <SelectAtom />
+          // }}
+          name="atomId"
+        />
         <AutoCompleteField
           name="renderIfPropKey"
           onSearch={handlePropSearch}

@@ -4,7 +4,7 @@ import {
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectNode, connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 /**
@@ -181,7 +181,7 @@ export const createListElementInput = (
   listAtomId: string,
   rootElementId: string,
 ) => ({
-  atom: { connect: { where: { node: { id: listAtomId } } } },
+  atom: connectNode(listAtomId),
   name: listElementName,
   props: {
     create: { node: { data: JSON.stringify({ dataSource: listDataSource }) } },

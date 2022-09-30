@@ -17,11 +17,6 @@ const baseSelection = `
   name
   owner
     ${userSelectionSet}
-  ownerConnection {
-    edges {
-      value
-    }
-  }
 `
 
 export const exportPrimitiveTypeSelectionSet = `{
@@ -59,6 +54,7 @@ export const exportInterfaceTypeSelectionSet = `{
       key
       name
       description
+      validationRules
       node {
         ${exportBaseSelection}
       }
@@ -79,6 +75,7 @@ export const interfaceTypeSelectionSet = `{
       key
       name
       description
+      validationRules
       node {
         ${exportBaseSelection}
       }

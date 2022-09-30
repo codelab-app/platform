@@ -1,5 +1,6 @@
 import { ElementOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { connectNode } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
@@ -38,28 +39,14 @@ export const importElementInitial = async (
         {
           id: element.id ?? v4(),
           name: element.name,
-          /*
-          owner: {
-            connect: {
-              where: {
-                node: {
-                  id: userId,
-                },
-              },
-            },
-          },
-         */
+          // owner: connectNode(userId),
           customCss: element.customCss,
           guiCss: element.guiCss,
 
           preRenderActionId: element.preRenderActionId,
           postRenderActionId: element.postRenderActionId,
 
-          renderAtomType: element.renderAtomType
-            ? {
-                connect: { where: { node: { id: element.renderAtomType.id } } },
-              }
-            : undefined,
+          renderAtomType: connectNode(element.renderAtomType?.id),
           props: element.props
             ? {
                 create: { node: { data: element.props.data } },
@@ -113,16 +100,8 @@ export const updateImportedElement = async (
   await Elements.update({
     where: { id: element.id },
     update: {
-      parentComponent: element.parentComponent
-        ? { connect: { where: { node: { id: element.parentComponent.id } } } }
-        : undefined,
-      renderComponentType: element.renderComponentType
-        ? {
-            connect: {
-              where: { node: { id: element.renderComponentType.id } },
-            },
-          }
-        : undefined,
+      parentComponent: connectNode(element.parentComponent?.id),
+      renderComponentType: connectNode(element.renderComponentType?.id),
       props: element.props
         ? {
             update: { node: { data: element.props.data } },
@@ -134,15 +113,7 @@ export const updateImportedElement = async (
             node: {
               sourceKey: pmb.sourceKey,
               targetKey: pmb.targetKey,
-              targetElement: pmb.targetElement
-                ? {
-                    connect: {
-                      where: {
-                        node: { id: pmb.targetElement.id },
-                      },
-                    },
-                  }
-                : undefined,
+              targetElement: connectNode(pmb.targetElement?.id),
             },
           },
         ],

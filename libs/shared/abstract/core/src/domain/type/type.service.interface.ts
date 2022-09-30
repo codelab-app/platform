@@ -1,10 +1,14 @@
-import { GetTypesQuery, TypeBaseWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
+import {
+  GetTypesQuery,
+  PrimitiveTypeKind,
+  TypeBaseWhere,
+} from '@codelab/shared/abstract/codegen'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,
   ICRUDService,
-  IModalService,
+  IEntityModalService,
   IQueryService,
 } from '../../service'
 import { IField, IFieldRef } from './field'
@@ -29,17 +33,24 @@ export interface ITypeService
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
+  primitiveKind(id: string): Nullable<PrimitiveTypeKind>
   typesList: Array<IAnyType>
-  fieldCreateModal: IModalService<
+  fieldCreateModal: IEntityModalService<
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
-  interfaceDefaultsModal: IModalService<
+  interfaceDefaultsModal: IEntityModalService<
     Ref<IAnyType>,
     { type: Maybe<IAnyType> }
   >
-  fieldUpdateModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
-  fieldDeleteModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
+  fieldUpdateModal: IEntityModalService<
+    IFieldModalMetadata,
+    IFieldModalProperties
+  >
+  fieldDeleteModal: IEntityModalService<
+    IFieldModalMetadata,
+    IFieldModalProperties
+  >
   addField(
     interfaceTypeId: IInterfaceTypeRef,
     data: ICreateFieldDTO,

@@ -1,29 +1,47 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeService, IUpdateFieldDTO } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { createFieldSchema } from '../create-field'
+import {
+  createFieldSchema,
+  filterValidationRules,
+  modifyNestedKey,
+} from '../create-field'
 
 export const UpdateFieldModal = observer<{
   typeService: ITypeService
 }>(({ typeService }) => {
   const closeModal = () => typeService.fieldUpdateModal.close()
-  const field = typeService.fieldUpdateModal.field
+  const [model, setModel] = useState<Nullable<IUpdateFieldDTO>>(null)
 
-  if (!field) {
+  useEffect(() => {
+    const field = typeService.fieldUpdateModal.field
+
+    if (!field) {
+      return
+    }
+
+    setModel({
+      id: field.id,
+      name: field.name,
+      key: field.key,
+      fieldType: field.type.id,
+      description: field.description,
+      validationRules: field.validationRules,
+    })
+  }, [
+    typeService.fieldUpdateModal.field,
+    typeService.fieldUpdateModal.field?.validationRules,
+  ])
+
+  if (!model) {
     return null
-  }
-
-  const model = {
-    id: field.id,
-    name: field.name,
-    key: field.key,
-    fieldType: field.type.id ?? '',
-    description: field.description,
   }
 
   return (
@@ -36,11 +54,46 @@ export const UpdateFieldModal = observer<{
     >
       <ModalForm.Form<IUpdateFieldDTO>
         model={model}
+        onChange={(key, value) => {
+          setModel((prev) => {
+            if (!prev) {
+              return prev
+            }
+
+            const newVal: IUpdateFieldDTO = {
+              ...prev,
+              validationRules: {
+                general: {
+                  ...prev?.validationRules?.general,
+                },
+                [PrimitiveTypeKind.String]: {
+                  ...prev?.validationRules?.String,
+                },
+                [PrimitiveTypeKind.Float]: {
+                  ...prev?.validationRules?.Float,
+                },
+                [PrimitiveTypeKind.Integer]: {
+                  ...prev?.validationRules?.Integer,
+                },
+              },
+            }
+
+            modifyNestedKey(newVal, key.split('.'), value)
+
+            return newVal
+          })
+        }}
         onSubmit={(input) =>
           typeService.updateField(
             typeService.fieldUpdateModal?.interface?.id as string,
-            field.key,
-            input,
+            model.key,
+            {
+              ...input,
+              validationRules: filterValidationRules(
+                input.validationRules,
+                typeService.primitiveKind(input.fieldType),
+              ),
+            },
           )
         }
         onSubmitError={createNotificationHandler({
@@ -56,6 +109,23 @@ export const UpdateFieldModal = observer<{
           name="fieldType"
           types={typeService.typesList}
         />
+
+        <AutoFields fields={['validationRules.general']} />
+
+        {model.fieldType &&
+          typeService.primitiveKind(model.fieldType) === 'String' && (
+            <AutoFields fields={['validationRules.String']} />
+          )}
+
+        {model.fieldType &&
+          typeService.primitiveKind(model.fieldType) === 'Integer' && (
+            <AutoFields fields={['validationRules.Integer']} />
+          )}
+
+        {model.fieldType &&
+          typeService.primitiveKind(model.fieldType) === 'Float' && (
+            <AutoFields fields={['validationRules.Float']} />
+          )}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

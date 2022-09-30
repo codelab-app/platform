@@ -4,8 +4,8 @@ import {
   IApiAction,
   ICodeAction,
 } from '@codelab/shared/abstract/core'
-import { CodeAction } from './custom-action.model'
-import { ApiAction } from './resource-action.model'
+import { ApiAction } from './api-action.model'
+import { CodeAction } from './code-action.model'
 
 const createActionFactory = (action: IActionDTO) => {
   switch (action.__typename) {

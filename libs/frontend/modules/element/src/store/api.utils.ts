@@ -7,6 +7,7 @@ import {
   IElement,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
+import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 //
@@ -34,23 +35,14 @@ export const makeCreateInput = (
     propsData,
   } = input
 
-  const renderComponentType: ElementCreateInput['renderComponentType'] =
-    renderComponentTypeId
-      ? { connect: { where: { node: { id: renderComponentTypeId } } } }
-      : undefined
-
-  const renderAtomType: ElementCreateInput['renderAtomType'] = atomId
-    ? { connect: { where: { node: { id: atomId } } } }
-    : undefined
-
   // Always create props
   const props: ElementCreateInput['props'] = {
     create: { node: { data: propsData ?? JSON.stringify({}) } },
   }
 
   return {
-    renderComponentType,
-    renderAtomType,
+    renderComponentType: connectNode(renderComponentTypeId),
+    renderAtomType: connectNode(atomId),
     props,
     postRenderActionId,
     preRenderActionId,
@@ -64,23 +56,14 @@ export const makeDuplicateInput = (
   parentId: string,
   userId: string,
 ): ElementCreateInput => {
-  const renderComponentType: ElementCreateInput['renderComponentType'] =
-    element.renderComponentType
-      ? { connect: { where: { node: { id: element.renderComponentType.id } } } }
-      : undefined
-
-  const renderAtomType: ElementCreateInput['renderAtomType'] = element.atom
-    ? { connect: { where: { node: { id: element.atom.id } } } }
-    : undefined
-
   const props: ElementCreateInput['props'] = element.props
     ? { create: { node: { data: element.props.jsonString } } }
     : undefined
 
   return {
     id: v4(),
-    renderComponentType,
-    renderAtomType,
+    renderComponentType: connectNode(element.renderComponentType?.id),
+    renderAtomType: connectNode(element.atom?.id),
     props,
     propTransformationJs: element.propTransformationJs,
     renderIfPropKey: element.renderIfPropKey,
@@ -94,19 +77,8 @@ export const makeDuplicateInput = (
 export const makeUpdateInput = (
   input: IUpdateElementDTO,
 ): ElementUpdateInput => {
-  const renderAtomType = input.atomId
-    ? {
-        disconnect: { where: {} },
-        connect: { where: { node: { id: input.atomId } } },
-      }
-    : { disconnect: { where: {} } }
-
-  const renderComponentType = input.renderComponentTypeId
-    ? {
-        disconnect: { where: {} },
-        connect: { where: { node: { id: input.renderComponentTypeId } } },
-      }
-    : { disconnect: { where: {} } }
+  const renderAtomType = reconnectNode(input.atomId)
+  const renderComponentType = reconnectNode(input.renderComponentTypeId)
 
   return {
     name: input.name,

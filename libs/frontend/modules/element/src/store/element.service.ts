@@ -22,7 +22,12 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { connectTypeOwner } from '@codelab/shared/data'
+import {
+  connectNode,
+  connectOwner,
+  connectTypeOwner,
+  reconnectNode,
+} from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import {
@@ -101,8 +106,6 @@ export class ElementService
       .map((element) => element.renderAtomType)
       .filter(isAtomDTO)
 
-    console.log(atoms)
-
     return atoms.map((atom) => atomService.writeCache(atom))
   }
 
@@ -124,14 +127,14 @@ export class ElementService
     this.writeAtomsCache([element])
     this.writeComponentsCache([element])
 
-    if (this.elements.has(element.id)) {
-      const elementModel = this.elements.get(element.id)!
+    let elementModel = this.elements.get(element.id)
 
-      return elementModel.writeCache(element)
+    if (elementModel) {
+      elementModel.writeCache(element)
+    } else {
+      elementModel = Element.hydrate(element)
+      this.elements.set(element.id, elementModel)
     }
-
-    const elementModel = Element.hydrate(element)
-    this.elements.set(element.id, elementModel)
 
     return elementModel
   }
@@ -666,10 +669,8 @@ element is new parentElement's first child
             node: {
               id: v4(),
               name: element.label,
-              owner: { connect: { where: { node: { auth0Id } } } },
-              rootElement: {
-                connect: { where: { node: { id: element.id } } },
-              },
+              owner: connectOwner(auth0Id),
+              rootElement: connectNode(element.id),
               api: {
                 create: {
                   node: {
@@ -727,16 +728,8 @@ element is new parentElement's first child
         input: {
           sourceKey: createInput.sourceKey.trim(),
           targetKey: createInput.targetKey.trim(),
-          element: {
-            connect: { where: { node: { id: element.id } } },
-          },
-          targetElement: createInput.targetElementId
-            ? {
-                connect: {
-                  where: { node: { id: createInput.targetElementId } },
-                },
-              }
-            : undefined,
+          element: connectNode(element.id),
+          targetElement: connectNode(createInput.targetElementId),
         },
       }),
     )
@@ -770,10 +763,7 @@ element is new parentElement's first child
         update: {
           sourceKey: updateData.sourceKey,
           targetKey: updateData.targetKey,
-          targetElement: {
-            connect: { where: { node: { id: updateData.targetElementId } } },
-            disconnect: { where: {} },
-          },
+          targetElement: reconnectNode(updateData.targetElementId),
         },
       }),
     )

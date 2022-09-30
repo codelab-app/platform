@@ -7,6 +7,7 @@ import { StreamLanguage } from '@codemirror/language'
 import { linter, lintGutter } from '@codemirror/lint'
 import { graphql } from 'codemirror-graphql/cm6-legacy/mode'
 import * as eslint from 'eslint-linter-browserify'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
 import { defaultExtensions } from './setup'
@@ -36,7 +37,7 @@ const languageExtension = {
   [CodeMirrorLanguage.Graphql]: [StreamLanguage.define(graphql)],
 }
 
-export const CodeMirrorEditor = (props: CodeMirrorEditorProps) => {
+export const CodeMirrorEditor = observer((props: CodeMirrorEditorProps) => {
   const { language, extensions = [], expandable = true } = props
   const basicExtensions = defaultExtensions(props)
 
@@ -52,6 +53,6 @@ export const CodeMirrorEditor = (props: CodeMirrorEditorProps) => {
       extensions={mergedExtension}
     />
   )
-}
+})
 
 CodeMirrorEditor.displayName = 'CodeMirrorEditor'

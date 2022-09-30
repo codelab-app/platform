@@ -16,7 +16,10 @@ import { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
-const defaultCodeAction = `// ex: this.count = this.count + 1`
+const defaultCodeAction = `function run() {
+    // insert your code here 
+    // this.count += 2; 
+}`
 
 export const CreateActionModal = observer<{
   actionService: IActionService

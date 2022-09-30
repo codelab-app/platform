@@ -8,8 +8,11 @@ import type {
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/shared/abstract/core'
-import { connectId } from '@codelab/shared/data'
-import { difference } from 'lodash'
+import {
+  connectNode,
+  connectTypeOwner,
+  reconnectNodes,
+} from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -24,7 +27,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
@@ -45,13 +47,10 @@ export class AtomService
   update = _async(function* (
     this: AtomService,
     atom: Atom,
-    { name, type, tags }: IUpdateAtomDTO,
+    { name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
   ) {
-    const existingTagIds = atom.tags.map((tag) => tag.id)
-    const connect = makeTagConnectData(difference(tags, existingTagIds))
-
-    const disconnect = makeTagConnectData(
-      difference(existingTagIds, tags || []),
+    const allowedChildrenIds = allowedChildren?.map(
+      (allowedChild) => allowedChild,
     )
 
     const { updateAtoms } = yield* _await(
@@ -59,7 +58,8 @@ export class AtomService
         update: {
           name,
           type,
-          tags: [{ connect, disconnect }],
+          allowedChildren: [reconnectNodes(allowedChildrenIds)],
+          tags: [reconnectNodes(tags)],
         },
         where: { id: atom.id },
       }),
@@ -130,12 +130,7 @@ export class AtomService
     const createApiNode = (atom: ICreateAtomDTO) => ({
       id: v4(),
       name: `${atom.name} API`,
-      owner: {
-        connect: {
-          where: { node: { auth0Id: atom.owner } },
-          edge: { data: '{}' },
-        },
-      },
+      owner: connectTypeOwner(atom.owner),
     })
 
     const connectTags = (atom: ICreateAtomDTO) => {
@@ -146,7 +141,7 @@ export class AtomService
 
     const connectOrCreateApi = (atom: ICreateAtomDTO) =>
       atom.api
-        ? connectId(atom.api)
+        ? connectNode(atom.api)
         : {
             create: { node: createApiNode(atom) },
           }

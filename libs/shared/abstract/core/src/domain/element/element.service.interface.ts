@@ -8,7 +8,7 @@ import {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
-  IModalService,
+  IEntityModalService,
   IQueryService,
 } from '../../service'
 import {
@@ -30,11 +30,11 @@ import { IElementTree } from './element-tree.interface.model'
  * Used for modal input
  */
 export interface CreateElementData {
-  parentElement?: Ref<IElement>
+  parentElement: Ref<IElement>
 }
 
 export interface CreateElementProperties {
-  parentElement?: IElement
+  parentElement: IElement
 }
 
 export interface PropMapData {
@@ -55,18 +55,20 @@ export interface IElementService
     ICacheService<IElementDTO, IElement>,
     Omit<IQueryService<IElement, ElementWhere>, 'getOne'>,
     Omit<
-      ICRUDModalService<Ref<IElement>, { element: Maybe<IElement> }>,
+      ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'
     > {
-  // elementTree: IElementTree
+  createModal: IEntityModalService<
+    CreateElementData,
+    { parentElement: IElement }
+  >
   elements: ObjectMap<IElement>
-  createModal: IModalService<CreateElementData, { parentElement?: IElement }>
-  createPropMapBindingModal: IModalService<
+  createPropMapBindingModal: IEntityModalService<
     Ref<IElement>,
     { element: Maybe<IElement> }
   >
-  updatePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
-  deletePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
+  updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
+  deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
 
   // moveElement(
   //   targetElementId: IElementRef,

@@ -1,15 +1,13 @@
 import { Tag } from 'antd'
 import React from 'react'
-import { TagsColumnProps } from './types'
+import { AtomRecord } from './types'
 
-const GEEK_BLUE_COLOR = 'geekblue'
-
-export const TagsColumn = ({ tags }: TagsColumnProps) => {
+export const TagsColumn = ({ tags }: Pick<AtomRecord, 'tags'>) => {
   return (
     <div>
-      {tags?.map((tag: any) => {
+      {tags?.map((tag) => {
         return (
-          <Tag color={GEEK_BLUE_COLOR} key={tag?.id}>
+          <Tag color="geekblue" key={tag?.id}>
             {tag?.name}
           </Tag>
         )

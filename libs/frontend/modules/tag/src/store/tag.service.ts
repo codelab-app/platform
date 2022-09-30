@@ -9,6 +9,7 @@ import type {
   IUpdateTagDTO,
 } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
+import { connectNode, connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -78,18 +79,8 @@ export class TagService
       return {
         id: v4(),
         name: tag.name,
-        owner: { connect: { where: { node: { auth0Id: tag.auth0Id } } } },
-        parent: {
-          connect: tag.parentTagId
-            ? {
-                where: {
-                  node: {
-                    id: tag.parentTagId,
-                  },
-                },
-              }
-            : null,
-        },
+        owner: connectOwner(tag.auth0Id),
+        parent: connectNode(tag.parentTagId),
       }
     })
 
@@ -222,13 +213,12 @@ export class TagService
 
     let tagModel = this.tags.get(tag.id)
 
-    if (!tagModel) {
-      tagModel = Tag.hydrate(tag)
-    } else {
+    if (tagModel) {
       tagModel = tagModel.writeCache(tag)
+    } else {
+      tagModel = Tag.hydrate(tag)
+      this.tags.set(tag.id, tagModel)
     }
-
-    this.tags.set(tag.id, tagModel)
 
     return tagModel
   }

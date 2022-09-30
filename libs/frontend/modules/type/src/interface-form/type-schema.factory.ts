@@ -66,7 +66,7 @@ export class TypeSchemaFactory {
       case ITypeKind.RenderPropsType:
         return this.fromRenderPropsType(type)
       case ITypeKind.PrimitiveType:
-        return this.fromPrimitiveType(type)
+        return this.fromPrimitiveType(type, context)
       case ITypeKind.ReactNodeType:
         return this.fromReactNodeType(type)
       case ITypeKind.CodeMirrorType:
@@ -98,7 +98,10 @@ export class TypeSchemaFactory {
 
   fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: IField) => ({
-      ...this.transform(field.type.current),
+      ...this.transform(field.type.current, {
+        validationRules: field.validationRules ?? undefined,
+      }),
+      ...field?.validationRules?.general,
       label: field.name || pascalCaseToWords(field.key),
     })
 
@@ -118,6 +121,13 @@ export class TypeSchemaFactory {
       ...extra,
       type: 'object',
       properties: [...type.fields.values()].reduce(makeFieldProperties, {}),
+      required: [...type.fields.values()]
+        .map((field) =>
+          field.validationRules?.general?.nullable === false
+            ? field.key
+            : undefined,
+        )
+        .filter(Boolean) as Array<string>,
     }
   }
 
@@ -185,11 +195,34 @@ export class TypeSchemaFactory {
     return this.transformReactElementType(type)
   }
 
-  fromPrimitiveType(type: IPrimitiveType): JsonSchema {
+  fromPrimitiveType(
+    type: IPrimitiveType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     const extra = this.getExtraProperties(type)
+    let validation = {}
+
+    switch (type.primitiveKind) {
+      case PrimitiveTypeKind.String:
+        validation = {
+          ...context?.validationRules?.String,
+        }
+        break
+      case PrimitiveTypeKind.Float:
+        validation = {
+          ...context?.validationRules?.Float,
+        }
+        break
+      case PrimitiveTypeKind.Integer:
+        validation = {
+          ...context?.validationRules?.Integer,
+        }
+        break
+    }
 
     return {
       type: primitives[type.primitiveKind],
+      ...validation,
       ...extra,
       default: primitivesDefaults[type.primitiveKind],
     }

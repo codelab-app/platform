@@ -1,6 +1,7 @@
 import { DomainOGM } from '@codelab/backend/adapter/neo4j'
 import { PROJECT_NOT_FOUND, vercelApis } from '@codelab/backend/adapter/vercel'
 import { IDomainExport } from '@codelab/shared/abstract/core'
+import { connectNode } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 
 /**
@@ -78,9 +79,7 @@ export const createDomainIfNotExist = async (domain: IDomainExport) => {
       {
         id: domain.id,
         name: domain.name,
-        app: {
-          connect: { where: { node: { id: domain.app.id } } },
-        },
+        app: connectNode(domain.app.id),
       },
     ],
   })

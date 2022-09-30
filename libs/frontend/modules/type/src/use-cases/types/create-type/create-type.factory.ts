@@ -4,6 +4,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import {
+  connectTypeOwner,
   makeAllowedValuesCreateInput,
   makeItemTypeCreateInput,
   makeTypesOfUnionTypeCreateInput,
@@ -15,12 +16,7 @@ export const createTypeFactory = (
   return types.map((type) => ({
     id: type.id,
     name: type.name,
-    owner: {
-      connect: {
-        where: { node: { auth0Id: type.auth0Id } },
-        edge: { data: '{}' },
-      },
-    },
+    owner: connectTypeOwner(type.auth0Id),
     primitiveKind:
       type.kind === ITypeKind.PrimitiveType ? type.primitiveKind : undefined,
     language:

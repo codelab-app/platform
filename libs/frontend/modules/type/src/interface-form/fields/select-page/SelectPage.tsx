@@ -1,11 +1,11 @@
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { HTMLFieldProps } from 'uniforms'
-import { SelectField, SelectFieldProps } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectPageProps = HTMLFieldProps<string, SelectFieldProps>
+export type SelectPageProps = UniformSelectFieldProps
 
 export const SelectPage = ({ name, error }: SelectPageProps) => {
   const router = useRouter()

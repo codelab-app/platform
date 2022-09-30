@@ -1,14 +1,7 @@
-import { IAtomExport, ITagExport } from '@codelab/shared/abstract/core'
-import { BaseUniqueWhereCallback } from '@codelab/shared/data'
-import { upsertAtom } from '../../repository/atom.repo'
+import { ImportAtoms } from '@codelab/shared/abstract/core'
+import { assignAllowedChildren, upsertAtom } from '../../repository/atom.repo'
 import { logSection } from '../../shared/utils/log-task'
-
-interface ImportAtoms {
-  atoms: Array<IAtomExport>
-  userId: string
-  atomWhere: BaseUniqueWhereCallback<IAtomExport>
-  tagWhere: BaseUniqueWhereCallback<ITagExport>
-}
+import { createExistingData } from '../seed/data/ant-design.data'
 
 export const importAtoms = async ({
   atoms = [],
@@ -23,5 +16,15 @@ export const importAtoms = async ({
      * Here we only deal with connecting/disconnecting tags, actual tags are created before this
      */
     await upsertAtom(atom, userId, atomWhere, tagWhere)
+  }
+
+  /**
+   * Here we assign allowedChildren, since all atoms must be created first
+   */
+  for (const atom of atoms) {
+    /**
+     * We fetch existing data again so we have all the atoms for allowedChildren assignment
+     */
+    await assignAllowedChildren(atom, await createExistingData())
   }
 }

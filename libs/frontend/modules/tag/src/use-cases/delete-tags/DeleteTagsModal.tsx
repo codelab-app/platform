@@ -10,7 +10,10 @@ import { DeleteTagsData, deleteTagsSchema } from './deleteTagsSchema'
 export const DeleteTagsModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {
     const tags = tagService.deleteManyModal.tags
-    const onSubmit = () => tagService.deleteMany(tags.map((tag) => tag.id))
+
+    const onSubmit = () =>
+      tagService.deleteMany(tags?.map((tag) => tag.id) ?? [])
+
     const closeModal = () => tagService.deleteManyModal.close()
 
     return (
@@ -30,7 +33,7 @@ export const DeleteTagsModal = observer<{ tagService: ITagService }>(
           schema={deleteTagsSchema}
         >
           Are you sure you want to delete{' '}
-          {tags.map((tag) => tag.name).join(', ')}
+          {tags?.map((tag) => tag.name).join(', ')}
           ?
           <AutoFields omitFields={['ids']} />
           <ListField hidden={true} itemProps={{}} name="ids" />

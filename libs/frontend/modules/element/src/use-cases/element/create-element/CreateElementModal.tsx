@@ -16,6 +16,7 @@ import {
   IRenderService,
   IUserService,
 } from '@codelab/shared/abstract/core'
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -74,8 +75,12 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const parentElement = elementService.createModal.parentElement
 
+    if (!parentElement) {
+      return null
+    }
+
     const model = {
-      parentElementId: parentElement?.id || undefined,
+      parentElementId: parentElement.id,
       owner: userService.user?.auth0Id,
     }
 
@@ -118,20 +123,30 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             ]}
           />
           <AutoField
-            component={observer((props) => (
+            component={(props: UniformSelectFieldProps) => (
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
-                {...(props as any)}
+                {...props}
                 allElementOptions={selectParentElementOptions}
               />
-            ))}
+            )}
             name="parentElementId"
           />
           <SelectLinkElement
             allElementOptions={selectChildrenElementOptions}
             name="prevSiblingId"
           />
-          <AutoField component={SelectAtom} name="atomId" />
+          <AutoField
+            component={(props: UniformSelectFieldProps) => (
+              <SelectAtom
+                error={props.error}
+                label={props.label}
+                name={props.name}
+                parent={parentElement?.atom?.maybeCurrent}
+              />
+            )}
+            name="atomId"
+          />
           <AutoField
             activeComponentId={builderService.activeComponent?.id}
             component={SelectComponent}

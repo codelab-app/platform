@@ -3,13 +3,6 @@ import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 
 /**
- * Used by `dynamic(() => import('@package/name').then(mod => mod.name))`
- *
- * Some components like Icon need to be destructured
- */
-export type ModuleMapperFn<T = unknown> = (mod: T) => any
-
-/**
  * This is our representation of what kind of ReactComponent to use
  */
 export type IComponentType = React.ComponentType<any> | Nullable<string>
