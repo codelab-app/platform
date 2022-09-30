@@ -59,12 +59,7 @@ export class TypeService
   extends Model({
     types: prop(() => objectMap<AnyType>()),
 
-    /**
-typeIdsOfGetTypesTable
-totalCountOfBaseTypes
-     */
-
-    getTypesTableTypeIds: prop<Array<string>>(),
+    getTypesTableTypeIds: prop<Array<string>>(() => []),
     getTypesTableTotalCount: prop<number>(0),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -87,20 +82,6 @@ totalCountOfBaseTypes
       .filter(isNonNullable)
   }
 
-  /**
-  @computed
-  get typesOfTypesPage() {
-    return this.typeIdsOfTypesPage
-      .map((id) => this.type(id))
-      .filter(isNonNullable)
-  }
-   */
-
-  /**
-   
-page
-pageSize
-   */
   @modelFlow
   @transaction
   queryGetTypesTableTypes = _async(function* (
@@ -114,7 +95,7 @@ pageSize
     const offset = previousPage * pageSize
     const limit = pageSize
 
-    yield _await(this.getBaseTypes({ options: { offset, limit } }))
+    yield* _await(this.getBaseTypes({ options: { offset, limit } }))
   })
 
   @modelFlow
@@ -123,19 +104,17 @@ pageSize
     this: TypeService,
     args: QueryBaseTypesArgs,
   ) {
-    /**
-  pass data
-     */
-
     const {
       baseTypes: { totalCount, items },
     } = yield* _await(getTypeApi.GetBaseTypes(args))
 
     this.getTypesTableTotalCount = totalCount
 
-    items.forEach((type) => {
+    this.getTypesTableTypeIds = items.map((type) => {
       const typeModel = baseTypesFactory(type)
       this.types.set(type.id, typeModel)
+
+      return typeModel.id
     })
   })
 
@@ -351,7 +330,6 @@ pageSize
   //
   // The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
-  //
   @modelFlow
   @transaction
   addField = _async(function* (
