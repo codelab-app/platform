@@ -44,7 +44,7 @@ describe('Admin', () => {
       })
     })
 
-    it.skip('should import data twice without changing the database', () => {
+    it('should import data twice without changing the database', () => {
       importData()
 
       return exportAndAssert(filePath).then((payload) => {
