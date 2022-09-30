@@ -72,7 +72,7 @@ export class ParserService {
           const fieldType =
             (await getTypeForApi(field, atom, this.userId))?.existingId ?? ''
 
-          console.log('fieldType', fieldType)
+          // console.log('fieldType', fieldType)
 
           return {
             id: existingField ? existingField.id : v4(),
