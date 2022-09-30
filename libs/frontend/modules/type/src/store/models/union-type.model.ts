@@ -21,6 +21,9 @@ const hydrate = ({
   id,
   kind,
   name,
+  /**
+   * []
+   */
   typesOfUnionType,
   owner,
 }: IUnionTypeDTO) => {

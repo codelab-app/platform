@@ -1,5 +1,11 @@
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import {
+  BaseTypeOptions,
+  BaseTypeWhere,
+  PrimitiveTypeKind,
+  QueryBaseTypesArgs,
+} from '@codelab/shared/abstract/codegen'
 import type {
   IAnyType,
   ICreateFieldDTO,
@@ -14,6 +20,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { isNonNullable } from '@codelab/shared/utils'
 import { flatMap, mapKeys, merge, omit } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -38,6 +45,7 @@ import {
   getTypeApi,
   updateTypeApi,
 } from './apis/type.api'
+import { baseTypesFactory } from './base-types.factory'
 import { FieldModalService } from './field.service'
 import type { AnyType } from './models'
 import { typeFactory } from './type.factory'
@@ -51,6 +59,13 @@ export class TypeService
   extends Model({
     types: prop(() => objectMap<AnyType>()),
 
+    /**
+typeIdsOfGetTypesTable
+totalCountOfBaseTypes
+     */
+
+    getTypesTableTypeIds: prop<Array<string>>(),
+    getTypesTableTotalCount: prop<number>(0),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
     deleteModal: prop(() => new TypeModalService({})),
@@ -65,6 +80,65 @@ export class TypeService
   })
   implements ITypeService
 {
+  @computed
+  get getTypesTableTypes() {
+    return this.getTypesTableTypeIds
+      .map((id) => this.type(id))
+      .filter(isNonNullable)
+  }
+
+  /**
+  @computed
+  get typesOfTypesPage() {
+    return this.typeIdsOfTypesPage
+      .map((id) => this.type(id))
+      .filter(isNonNullable)
+  }
+   */
+
+  /**
+   
+page
+pageSize
+   */
+  @modelFlow
+  @transaction
+  queryGetTypesTableTypes = _async(function* (
+    this: TypeService,
+    /**
+     */
+    page = 1,
+    pageSize = 10,
+  ) {
+    const previousPage = page - 1 || 0
+    const offset = previousPage * pageSize
+    const limit = pageSize
+
+    yield _await(this.getBaseTypes({ options: { offset, limit } }))
+  })
+
+  @modelFlow
+  @transaction
+  private getBaseTypes = _async(function* (
+    this: TypeService,
+    args: QueryBaseTypesArgs,
+  ) {
+    /**
+  pass data
+     */
+
+    const {
+      baseTypes: { totalCount, items },
+    } = yield* _await(getTypeApi.GetBaseTypes(args))
+
+    this.getTypesTableTotalCount = totalCount
+
+    items.forEach((type) => {
+      const typeModel = baseTypesFactory(type)
+      this.types.set(type.id, typeModel)
+    })
+  })
+
   @computed
   get typesList() {
     return [...this.types.values()]
@@ -143,7 +217,7 @@ export class TypeService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeService, where?: BaseTypeWhereg) {
+  getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
     const ids = where?.id_IN ?? undefined
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))

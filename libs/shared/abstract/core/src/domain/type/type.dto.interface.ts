@@ -33,3 +33,4 @@ export interface ICreateTypeDTO
 export type IUpdateTypeDTO = IBaseTypeDTO
 
 export type ITypeDTO = TypeFragment
+// base types

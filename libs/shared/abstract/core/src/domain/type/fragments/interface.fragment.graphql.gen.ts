@@ -15,12 +15,12 @@ import {
   BaseType_ReactNodeType_Fragment,
   BaseType_RenderPropsType_Fragment,
   BaseType_UnionType_Fragment,
-} from './type-base.fragment.graphql.gen'
+} from './base-type.fragment.graphql.gen'
 import { FieldFragment } from './field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { BaseTypeFragmentDoc } from './type-base.fragment.graphql.gen'
+import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 import { FieldFragmentDoc } from './field.fragment.graphql.gen'
 export type InterfaceTypeFragment = {
   ownerConnection: { edges: Array<{ data: string }> }

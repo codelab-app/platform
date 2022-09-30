@@ -68,4 +68,8 @@ export interface ITypeService
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
   load(types: GetTypesQuery): Array<IAnyType>
+
+  getTypesTableTypeIds: Array<string>
+  getTypesTableTypes: Array<IAnyType>
+  getTypesTableTotalCount: number
 }

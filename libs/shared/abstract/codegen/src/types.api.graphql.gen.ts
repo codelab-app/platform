@@ -22146,6 +22146,19 @@ export type DeleteFieldMutation = {
   }
 }
 
+export type GetBaseTypesQueryVariables = Exact<{
+  options?: InputMaybe<GetBaseTypesOptions>
+}>
+
+export type GetBaseTypesQuery = {
+  __typename?: 'Query'
+  baseTypes: {
+    __typename?: 'GetBaseTypesReturn'
+    totalCount: number
+    items: Array<{ __typename?: 'BaseType' } & BaseType_BaseType_Fragment>
+  }
+}
+
 export type GetTypesQueryVariables = Exact<{
   ids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
 }>
@@ -22951,73 +22964,6 @@ export type ArrayTypeFragment = {
     | { __typename?: 'UnionType'; id: string; name: string }
 } & BaseType_ArrayType_Fragment
 
-export type CodeMirrorTypeFragment = {
-  __typename?: 'CodeMirrorType'
-  language: CodeMirrorLanguage
-} & BaseType_CodeMirrorType_Fragment
-
-export type ElementTypeFragment = {
-  __typename?: 'ElementType'
-  elementKind: ElementTypeKind
-} & BaseType_ElementType_Fragment
-
-export type EnumTypeValueFragment = {
-  __typename?: 'EnumTypeValue'
-  id: string
-  name?: string | null
-  value: string
-}
-
-export type EnumTypeFragment = {
-  __typename?: 'EnumType'
-  allowedValues: Array<{ __typename?: 'EnumTypeValue' } & EnumTypeValueFragment>
-} & BaseType_EnumType_Fragment
-
-export type FieldFragment = {
-  __typename?: 'InterfaceTypeFieldsRelationship'
-  id: string
-  key: string
-  name?: string | null
-  description?: string | null
-  validationRules?: string | null
-  fieldType: { __typename?: 'BaseType'; id: string }
-}
-
-export type InterfaceTypeFragment = {
-  __typename?: 'InterfaceType'
-  ownerConnection: {
-    __typename?: 'IBaseTypeOwnerConnection'
-    edges: Array<{ __typename?: 'IBaseTypeOwnerRelationship'; data: string }>
-  }
-  fieldsConnection: {
-    __typename?: 'InterfaceTypeFieldsConnection'
-    edges: Array<
-      { __typename?: 'InterfaceTypeFieldsRelationship' } & FieldFragment
-    >
-  }
-} & BaseType_InterfaceType_Fragment
-
-export type LambdaTypeFragment = {
-  __typename?: 'LambdaType'
-} & BaseType_LambdaType_Fragment
-
-export type PageTypeFragment = {
-  __typename?: 'PageType'
-} & BaseType_PageType_Fragment
-
-export type PrimitiveTypeFragment = {
-  __typename?: 'PrimitiveType'
-  primitiveKind: PrimitiveTypeKind
-} & BaseType_PrimitiveType_Fragment
-
-export type ReactNodeTypeFragment = {
-  __typename?: 'ReactNodeType'
-} & BaseType_ReactNodeType_Fragment
-
-export type RenderPropsTypeFragment = {
-  __typename?: 'RenderPropsType'
-} & BaseType_RenderPropsType_Fragment
-
 type BaseType_ActionType_Fragment = {
   __typename: 'ActionType'
   kind: TypeKind
@@ -23145,6 +23091,73 @@ export type BaseTypeFragment =
   | BaseType_ReactNodeType_Fragment
   | BaseType_RenderPropsType_Fragment
   | BaseType_UnionType_Fragment
+
+export type CodeMirrorTypeFragment = {
+  __typename?: 'CodeMirrorType'
+  language: CodeMirrorLanguage
+} & BaseType_CodeMirrorType_Fragment
+
+export type ElementTypeFragment = {
+  __typename?: 'ElementType'
+  elementKind: ElementTypeKind
+} & BaseType_ElementType_Fragment
+
+export type EnumTypeValueFragment = {
+  __typename?: 'EnumTypeValue'
+  id: string
+  name?: string | null
+  value: string
+}
+
+export type EnumTypeFragment = {
+  __typename?: 'EnumType'
+  allowedValues: Array<{ __typename?: 'EnumTypeValue' } & EnumTypeValueFragment>
+} & BaseType_EnumType_Fragment
+
+export type FieldFragment = {
+  __typename?: 'InterfaceTypeFieldsRelationship'
+  id: string
+  key: string
+  name?: string | null
+  description?: string | null
+  validationRules?: string | null
+  fieldType: { __typename?: 'BaseType'; id: string }
+}
+
+export type InterfaceTypeFragment = {
+  __typename?: 'InterfaceType'
+  ownerConnection: {
+    __typename?: 'IBaseTypeOwnerConnection'
+    edges: Array<{ __typename?: 'IBaseTypeOwnerRelationship'; data: string }>
+  }
+  fieldsConnection: {
+    __typename?: 'InterfaceTypeFieldsConnection'
+    edges: Array<
+      { __typename?: 'InterfaceTypeFieldsRelationship' } & FieldFragment
+    >
+  }
+} & BaseType_InterfaceType_Fragment
+
+export type LambdaTypeFragment = {
+  __typename?: 'LambdaType'
+} & BaseType_LambdaType_Fragment
+
+export type PageTypeFragment = {
+  __typename?: 'PageType'
+} & BaseType_PageType_Fragment
+
+export type PrimitiveTypeFragment = {
+  __typename?: 'PrimitiveType'
+  primitiveKind: PrimitiveTypeKind
+} & BaseType_PrimitiveType_Fragment
+
+export type ReactNodeTypeFragment = {
+  __typename?: 'ReactNodeType'
+} & BaseType_ReactNodeType_Fragment
+
+export type RenderPropsTypeFragment = {
+  __typename?: 'RenderPropsType'
+} & BaseType_RenderPropsType_Fragment
 
 type Type_ActionType_Fragment = {
   __typename?: 'ActionType'

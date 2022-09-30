@@ -16,6 +16,9 @@ const hydrate = ({
   id,
   kind,
   name,
+  /**
+   nullable
+   */
   elementKind,
   owner,
 }: IElementTypeDTO): ElementType => {

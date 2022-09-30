@@ -15,7 +15,7 @@ import {
   BaseType_ReactNodeType_Fragment,
   BaseType_RenderPropsType_Fragment,
   BaseType_UnionType_Fragment,
-} from './type-base.fragment.graphql.gen'
+} from './base-type.fragment.graphql.gen'
 import { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
 import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
 import { EnumTypeFragment } from './enum-type.fragment.graphql.gen'
@@ -31,7 +31,7 @@ import { ActionTypeFragment } from './action-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { BaseTypeFragmentDoc } from './type-base.fragment.graphql.gen'
+import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 import { ArrayTypeFragmentDoc } from './array-type.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
 import { EnumTypeFragmentDoc } from './enum-type.fragment.graphql.gen'
