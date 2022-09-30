@@ -11,7 +11,6 @@ import {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import { DragPosition } from '../builder'
 import {
   ICreatePropMapBindingDTO,
   IPropMapBinding,
@@ -93,11 +92,6 @@ export interface IElementService
   moveElementAsNextSibling(props: {
     elementId: string
     targetElementId: string
-  }): Promise<void>
-  handleElementDrop(props: {
-    droppedElementId: string
-    targetElementId: string
-    dragPosition: DragPosition
   }): Promise<void>
   duplicateElement(
     target: IElement,

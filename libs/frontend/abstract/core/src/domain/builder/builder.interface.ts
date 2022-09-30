@@ -28,8 +28,8 @@ export enum BuilderDndType {
 }
 
 export enum DragPosition {
-  Before,
-  After,
+  Before = 'Before',
+  After = 'After',
 }
 
 /**

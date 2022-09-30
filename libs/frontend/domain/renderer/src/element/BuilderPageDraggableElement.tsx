@@ -34,19 +34,12 @@ export const BuilderPageDraggableElement = ({
     },
   })
 
-  // useCreateElementDraggable({
-  //   id: element.id,
-  //   type: BuilderDndType.MoveElement,
-  //   overlayRenderer: () => <div tw="opacity-40">{children}</div>,
-  // })
-
   // Create a droppable for the element
   const {
     setNodeRef: droppableNodeRefSetter,
     isOver,
     over,
   } = useDroppable({ id: element.id })
-  // useCreateElementDroppable(element.id)
 
   const calcDragPosition = () => {
     if (!isOver) {
@@ -60,8 +53,7 @@ export const BuilderPageDraggableElement = ({
     return DragPosition.After
   }
 
-  // TODO: refactor
-  if (over) {
+  if (isOver && over) {
     const dragData: BuilderDropData = {
       dragPosition: elY < elH / 2 ? DragPosition.Before : DragPosition.After,
     }
@@ -72,9 +64,9 @@ export const BuilderPageDraggableElement = ({
     }
   }
 
+  // Set node ref for both draggable element and mouse hook
   const setDroppableNodeRef = (ref: any) => {
     droppableNodeRefSetter(ref)
-    // TODO: fin a way to use dnd-kit node ref
     droppableNodeRef.current = ref
   }
 

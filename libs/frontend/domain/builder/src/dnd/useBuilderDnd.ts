@@ -1,22 +1,26 @@
 import {
   BuilderDndType,
   BuilderDragData,
-  BuilderDropData,
   IBuilderService,
-  IElement,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
+import {
+  DragEndEvent,
+  DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'
 import { useCallback } from 'react'
-import { shouldCreateElementAsFirstChild } from './utils'
+import { useDndDropHandler } from './useDndDropHandlers'
 
 export interface UseBuilderDnd {
   onDragStart: (data: DragStartEvent) => void
   onDragEnd: (data: DragEndEvent) => void
-  // sensors: ReturnType<typeof useSensors>
+  sensors: ReturnType<typeof useSensors>
 }
 
 export const useBuilderDnd = (
@@ -24,20 +28,23 @@ export const useBuilderDnd = (
   elementService: IElementService,
   elementTree?: IElementTree,
 ): UseBuilderDnd => {
-  // const sensors = useSensors(
-  //   useSensor(PointerSensor, {
-  //     activationConstraint: {
-  //       delay: 100,
-  //       tolerance: 5,
-  //     },
-  //   }),
-  // )
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 5,
+      },
+    }),
+  )
+
+  const { handleCreateElement, handleMoveElement } = useDndDropHandler(
+    elementService,
+    elementTree,
+  )
 
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
       const data = e.active.data.current as Maybe<BuilderDragData>
-
-      console.log('onDragStart', data)
 
       if (data?.type === BuilderDndType.CreateElement) {
         builderService.setCurrentDragData(frozen(data))
@@ -47,22 +54,8 @@ export const useBuilderDnd = (
   )
 
   const onDragEnd = useCallback(
-    async (e: DragEndEvent) => {
-      console.log('onDragEnd', e)
-
-      const data = e.active.data.current as Maybe<BuilderDragData>
-      const overData = e.over?.data.current as Maybe<BuilderDropData>
-      const collisions = e.collisions
-      const nearestCollision = collisions?.[0]?.data
-      const dropPosition = nearestCollision?.['dropPosition']
-      const dragPosition = e.over?.data.current?.dragPosition
-
-      // TODO: REFACTOR WHOLE
-
-      // const shouldCreate =
-      //   data?.type === BuilderDndType.CreateElement &&
-      //   overData?.type === BuilderDndType.CreateElement &&
-      //   (data?.createElementInput || overData?.createElementInput)
+    async (event: DragEndEvent) => {
+      const data = event.active.data.current as Maybe<BuilderDragData>
 
       const shouldCreate =
         data?.type === BuilderDndType.CreateElement &&
@@ -72,60 +65,14 @@ export const useBuilderDnd = (
 
       builderService.setCurrentDragData(null)
 
-      console.log('over', overData, 'active', data)
-
-      // if (!shouldCreate) {
-      //   return
-      // }
-
-      // const createElementInput = {
-      //   ...data.createElementInput,
-      //   ...overData.createElementInput,
-      // }
-
-      if (!elementTree) {
-        console.error('Element Tree is missing')
-
-        return
-      }
-
-      // drop position = 1, add as children
-      let element: IElement
-
-      if (
-        data?.type === BuilderDndType.CreateElement &&
-        data?.createElementInput !== undefined
-      ) {
-        console.log('shouldCreate dat ===> ', data.createElementInput)
-
-        if (shouldCreateElementAsFirstChild(dropPosition)) {
-          element = await elementService.createElementAsFirstChild(
-            data.createElementInput,
-          )
-        } else {
-          element = await elementService.createElementAsNextSibling(
-            data.createElementInput,
-          )
-        }
-
-        elementTree.addElements([element])
+      if (shouldCreate) {
+        await handleCreateElement(event)
       } else if (shouldMove) {
-        const droppedElementId = e.active.id.toString()
-        const targetElementId = e.over?.id.toString()
-
-        if (!droppedElementId || !targetElementId) {
-          return
-        }
-
-        await elementService.handleElementDrop({
-          droppedElementId,
-          targetElementId,
-          dragPosition,
-        })
+        await handleMoveElement(event)
       }
     },
     [builderService, elementService, elementTree],
   )
 
-  return { onDragStart, onDragEnd }
+  return { onDragStart, onDragEnd, sensors }
 }

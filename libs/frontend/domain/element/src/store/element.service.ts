@@ -1,5 +1,4 @@
 import {
-  DragPosition,
   IAuth0Id,
   IComponentDTO,
   ICreateElementDTO,
@@ -342,65 +341,6 @@ parent
 
     yield* _await(
       this.attachElementAsNextSibling({ elementId, targetElementId }),
-    )
-  })
-
-  /**
-   * Moves dropped element to before or after of the target element based on the drop position
-   */
-  @modelFlow
-  @transaction
-  handleElementDrop = _async(function* (
-    this: ElementService,
-    {
-      droppedElementId,
-      targetElementId,
-      dragPosition,
-    }: Parameters<IElementService['handleElementDrop']>[0],
-  ) {
-    const droppedElement = this.element(droppedElementId)
-    const targetElement = this.element(targetElementId)
-
-    if (!droppedElement || !targetElement) {
-      return
-    }
-
-    console.log('dragposition ', dragPosition)
-
-    // targetElement - [droppedElement]
-    if (dragPosition === DragPosition.After) {
-      return yield* _await(
-        this.moveElementAsNextSibling({
-          elementId: droppedElementId,
-          targetElementId,
-        }),
-      )
-    }
-
-    // Dropped element is already prev sibling of the target element
-    if (
-      targetElement.prevSiblingId &&
-      targetElement.prevSiblingId === droppedElementId
-    ) {
-      return
-    }
-
-    // targetElement->prevSibling - [droppedElement] - targetElement
-    if (targetElement.prevSiblingId) {
-      return yield* _await(
-        this.moveElementAsNextSibling({
-          elementId: droppedElementId,
-          targetElementId: targetElement.prevSiblingId,
-        }),
-      )
-    }
-
-    // parent->firstChild->[droppedElement] - targetElement
-    yield* _await(
-      this.moveElementAsFirstChild({
-        elementId: droppedElementId,
-        parentElementId: targetElement.parentId!,
-      }),
     )
   })
 

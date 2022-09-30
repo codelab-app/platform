@@ -19,7 +19,7 @@ export const BuilderContext = observer<
     elementTree?: IElementTree
   }>
 >(({ children, elementService, builderService, elementTree }) => {
-  const { onDragEnd, onDragStart } = useBuilderDnd(
+  const { onDragEnd, onDragStart, sensors } = useBuilderDnd(
     builderService,
     elementService,
     elementTree,
@@ -46,6 +46,7 @@ export const BuilderContext = observer<
         setDraggedElement(e.active)
         onDragStart(e)
       }}
+      sensors={sensors}
     >
       {children}
 

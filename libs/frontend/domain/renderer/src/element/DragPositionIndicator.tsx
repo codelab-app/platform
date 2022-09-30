@@ -8,37 +8,24 @@ export interface DragPositionIndicatorProps {
 export const DragPositionIndicator = ({
   dragPosition,
 }: DragPositionIndicatorProps) => {
+  const classes = () => {
+    if (dragPosition === DragPosition.Before) {
+      return 'dragged before'
+    } else if (dragPosition === DragPosition.After) {
+      return 'dragged after'
+    }
+
+    return ''
+  }
+
   // TODO: refactor -> remove inline css and refactor class
   return (
-    <div
-      className={
-        dragPosition === DragPosition.Before
-          ? 'before'
-          : dragPosition === DragPosition.After
-          ? 'after'
-          : ''
-      }
-      tw="absolute inset-0"
-    >
-      {/* <span
-        style={{
-          // display: dragPosition === undefined ? 'none' : 'inline-block',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          background: 'red',
-          zIndex: 1,
-        }}
-      >
-        drag here
-      </span> */}
-
+    <div className={classes()} tw="absolute inset-0">
       <style jsx>{`
-        .before:before {
+        .dragged::before {
           content: 'drag here';
           position: absolute;
           text-align: center;
-          top: 0;
           left: 0;
           right: 0;
           height: 8px;
@@ -46,17 +33,11 @@ export const DragPositionIndicator = ({
           border-radius: 6px;
           z-index: 1;
         }
-        .after:after {
-          content: 'drag here';
-          text-align: center;
-          position: absolute;
+        .dragged.after::before {
           bottom: 0;
-          left: 0;
-          right: 0;
-          height: 8px;
-          background: cyan;
-          border-radius: 6px;
-          z-index: 1;
+        }
+        .dragged.before::before {
+          top: 0;
         }
       `}</style>
     </div>
