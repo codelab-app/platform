@@ -5,7 +5,6 @@ import {
   ReactNodeTypeOGM,
   RenderPropsTypeOGM,
 } from '@codelab/backend/adapter/neo4j'
-import { fieldRepository } from '@codelab/backend/application'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
@@ -52,14 +51,19 @@ export const upsertType = async (
       if (!exists.length) {
         console.log(`Creating ${type.name} [${type.kind}]...`)
 
-        return await PrimitiveType.create({
-          input: [
-            {
-              ...createCreateBaseFields(type, userId),
-              primitiveKind: type.primitiveKind,
-            },
-          ],
-        })
+        try {
+          return await PrimitiveType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+                primitiveKind: type.primitiveKind,
+              },
+            ],
+          })
+        } catch (e) {
+          console.error(e)
+          process.exit(0)
+        }
       }
 
       console.log(`Updating ${type.name} [${type.kind}]...`)
@@ -177,34 +181,7 @@ export const upsertType = async (
         })
       }
 
-      /**
-       * For handling fields, we first disconnect everything
-       */
-      logTask('Disconnect All Fields', type.name)
-
-      await InterfaceType.update({
-        where: where(type),
-        update: {
-          fields: [
-            {
-              disconnect: [
-                {
-                  // https://neo4j.com/docs/graphql-manual/current/mutations/delete/#_nested_delete
-                  // Need to check if disconnect works the same
-                  where: {},
-                },
-              ],
-            },
-          ],
-        },
-      })
-
-      /**
-       * Then connect everything again
-       */
-      logSection('Connect Fields')
-
-      logTask('Connect Fields', type.name, type)
+      logSection('Upsert Fields')
 
       for await (const edge of type.fieldsConnection.edges) {
         const args = {
@@ -218,8 +195,8 @@ export const upsertType = async (
           },
         }
 
-        logTask('Connect Field', edge.key, type)
-        await fieldRepository.upsertField(args)
+        logTask('Upsert Field', edge.key, type)
+        // await fieldRepository.upsertField(args)
       }
     }
   }

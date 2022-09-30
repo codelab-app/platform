@@ -9,11 +9,9 @@ import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
-import {
-  createAntDesignInterfaceData,
-  createAtomsSeedData,
-  createExistingData,
-} from '../../use-cases/seed/data/ant-design.data'
+import { createAntDesignApiData } from '../../use-cases/seed/data/ant-design-api.data'
+import { createAntdAtomData } from '../../use-cases/seed/data/ant-design-atom.data'
+import { createExistingData } from '../../use-cases/seed/data/existing.data'
 import { parseAndImportFields } from './parse-and-import-fields'
 
 interface ParseProps {
@@ -50,7 +48,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
         // Import base types first
         ...createSeedTypesData(),
         // Then interfaces
-        ...createAntDesignInterfaceData(await createExistingData()),
+        ...createAntDesignApiData(await createExistingData()),
       ],
       selectedUserId,
       (type) => ({
@@ -63,12 +61,14 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
      */
     await importTags(createTagSeedData(), selectedUserId)
 
+    const existingData = await createExistingData()
+
     /**
      * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
       // We need to refetch data here, since the previous steps may have created interfaces
-      atoms: createAtomsSeedData(await createExistingData()),
+      atoms: createAntdAtomData(existingData),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,
@@ -81,7 +81,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     /**
      * (4) Then parse and import the Ant Design interfaces
      */
-    await parseAndImportFields(selectedUserId)
+    await parseAndImportFields(selectedUserId, existingData)
 
     return process.exit(0)
   },

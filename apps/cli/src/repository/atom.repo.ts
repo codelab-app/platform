@@ -22,9 +22,11 @@ export const upsertAtom = async (
 
   const Atom = await AtomOGM()
 
-  const existingAtom = await Atom.find({
-    where: atomWhere(atom),
-  })
+  const existingAtom = (
+    await Atom.find({
+      where: atomWhere(atom),
+    })
+  )[0]
 
   const baseInput = {
     id: atom.id,
@@ -36,7 +38,7 @@ export const upsertAtom = async (
   const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] =
     atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
-  if (!existingAtom.length) {
+  if (!existingAtom) {
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
       /**
@@ -64,17 +66,15 @@ export const upsertAtom = async (
     const updateInput: OGM_TYPES.AtomUpdateInput = {
       ...baseInput,
       // Assume the API exists
-      api: connectNode(atom.api?.id),
+      api: connectNode(existingAtom.api?.id),
       tags: [{ connect: connectTags }],
     }
 
-    logTask('Updated Atom', atom.name)
+    logTask('Updating Atom', atom.name)
 
     try {
       return await Atom.update({
-        where: {
-          id: atom.id,
-        },
+        where: atomWhere(atom),
         update: updateInput,
       })
     } catch (e) {

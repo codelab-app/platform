@@ -1,6 +1,10 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IBaseTypeExportFields } from '../domain/type'
 
+export type TypeRef = {
+  existingId: string
+} | null
+
 export type IRenderPropsTypeExport = Pick<
   OGM_TYPES.RenderPropsType,
   IBaseTypeExportFields

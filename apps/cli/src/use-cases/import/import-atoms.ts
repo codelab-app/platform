@@ -1,7 +1,7 @@
 import { ImportAtoms } from '@codelab/shared/abstract/core'
 import { assignAllowedChildren, upsertAtom } from '../../repository/atom.repo'
 import { logSection } from '../../shared/utils/log-task'
-import { createExistingData } from '../seed/data/ant-design.data'
+import { createExistingData } from '../seed/data/existing.data'
 
 export const importAtoms = async ({
   atoms = [],
@@ -19,12 +19,17 @@ export const importAtoms = async ({
   }
 
   /**
+   * Refetch atoms here so we can assign below
+   */
+  const existingData = await createExistingData()
+
+  /**
    * Here we assign allowedChildren, since all atoms must be created first
    */
   for (const atom of atoms) {
     /**
      * We fetch existing data again so we have all the atoms for allowedChildren assignment
      */
-    await assignAllowedChildren(atom, await createExistingData())
+    await assignAllowedChildren(atom, existingData)
   }
 }

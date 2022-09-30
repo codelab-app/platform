@@ -1,8 +1,4 @@
-import {
-  ExistingData,
-  ExportedData,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ExistingData, ExportedData } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importTags } from '../../use-cases/import/import-tags'
@@ -20,7 +16,7 @@ export const importSeedData = async (
       ...atom,
       allowedChildren: (data: ExistingData) => {
         return atom.allowedChildren.map((child) => {
-          const existingAtom = data.atomsById.get(child.id)
+          const existingAtom = data.atomsById[child.id]
 
           if (!existingAtom) {
             throw new Error('Missing atom')
@@ -38,22 +34,14 @@ export const importSeedData = async (
   /**
    * Type must be seeded first, so atom can reference it
    */
-  await importTypes(
-    /**
-     * Don't create interfaces here, since our atom create logic also creates the interface
-     */
-    types.filter((type) => type.kind !== ITypeKind.InterfaceType),
-    // types,
-    selectedUser,
-    (type) => ({ id: type.id }),
-  )
+  await importTypes(types, selectedUser, (type) => ({ name: type.name }))
 
   await importTags(tags, selectedUser)
 
   await importAtoms({
     atoms: mappedAtoms,
     userId: selectedUser,
-    atomWhere: (atom) => ({ id: atom.id }),
-    tagWhere: (tag) => ({ id: tag.id }),
+    atomWhere: (atom) => ({ name: atom.name }),
+    tagWhere: (tag) => ({ name: tag.name }),
   })
 }

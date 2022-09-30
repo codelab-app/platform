@@ -1,6 +1,10 @@
 import { IAtomExport, IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
+export const getApiName = (name: string) => {
+  return `${name} API`
+}
+
 type CreateAtoms = (
   atomIds?: Array<string>,
   interfaceIds?: Array<string>,
@@ -16,6 +20,7 @@ export const createAtomsData: CreateAtoms = (
     type: IAtomType.AntDesignButton,
     api: {
       id: buttonInterfaceId,
+      name: getApiName(IAtomType.AntDesignButton),
     },
     tags: [],
     allowedChildren: [],
@@ -26,6 +31,7 @@ export const createAtomsData: CreateAtoms = (
     type: IAtomType.AntDesignTypographyText,
     api: {
       id: textInterfaceId,
+      name: getApiName(IAtomType.AntDesignTypographyText),
     },
     tags: [],
     allowedChildren: [],
@@ -36,6 +42,7 @@ export const createAtomsData: CreateAtoms = (
     type: IAtomType.AntDesignGridCol,
     api: {
       id: v4(),
+      name: getApiName(IAtomType.AntDesignGridCol),
     },
     tags: [],
     allowedChildren: [],
@@ -46,6 +53,7 @@ export const createAtomsData: CreateAtoms = (
     type: IAtomType.AntDesignGridRow,
     api: {
       id: v4(),
+      name: getApiName(IAtomType.AntDesignGridRow),
     },
     tags: [],
     allowedChildren: [],

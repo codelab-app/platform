@@ -9,6 +9,10 @@ describe('Admin', () => {
    * Used to compare future payload to see diff
    */
   let initialPayload = {}
+  /**
+   * Can be used as parameter into `exportAndAssert` to see output as file
+   */
+  const filePath = './src/data/seed-data-test-2.json'
 
   describe('seed', () => {
     it('should seed Ant Design CSV data & export', () => {
@@ -22,17 +26,15 @@ describe('Admin', () => {
     it('should be able to seed twice without changing the database', () => {
       seedData()
 
-      return exportAndAssert('./src/data/seed-data-test-2.json').then(
-        (payload) => {
-          expect(payload).toEqual(initialPayload)
-        },
-      )
+      return exportAndAssert(filePath).then((payload) => {
+        expect(payload).toEqual(initialPayload)
+      })
     })
 
     /**
      * Importing from file should result in the same data as seed
      */
-    it.skip('should import Ant Design data', () => {
+    it('should import Ant Design data', () => {
       cy.resetDatabase()
 
       importData()
@@ -44,7 +46,7 @@ describe('Admin', () => {
       )
     })
 
-    it.skip('should import data twice without changing the database', () => {
+    it('should import data twice without changing the database', () => {
       importData()
 
       return exportAndAssert().then((payload) => {

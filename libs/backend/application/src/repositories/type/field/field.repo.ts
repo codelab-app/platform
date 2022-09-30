@@ -8,6 +8,7 @@ import {
   MutationUpsertFieldArgs,
   OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
+import { logger } from '@codelab/shared/adapter/logging'
 import { merge } from 'lodash'
 
 export const fieldRepository = {
@@ -19,36 +20,36 @@ export const fieldRepository = {
     const session = getDriver().session()
     const InterfaceType = await InterfaceTypeOGM()
 
+    /**
+     * To implement upsert, we disconnect field first, then re-connect them each time.
+     *
+     * Save us from having to create additional cypher queries
+     *
+     * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
+     */
     try {
-      /**
-       * To implement upsert, we disconnect field first, then re-connect them each time.
-       *
-       * Save us from having to create additional cypher queries
-       *
-       * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
-       */
-      try {
-        await InterfaceType.update({
-          where: {
-            id: args.interfaceTypeId,
-          },
-          disconnect: {
-            fields: [
-              {
-                where: {
-                  edge: {
-                    id: args.field.id,
-                  },
+      await InterfaceType.update({
+        where: {
+          id: args.interfaceTypeId,
+        },
+        disconnect: {
+          fields: [
+            {
+              where: {
+                edge: {
+                  id: args.field.id,
                 },
               },
-            ],
-          },
-        })
-      } catch (e) {
-        console.error(e)
-        throw new Error('Upsert field failed')
-      }
+            },
+          ],
+        },
+      })
+    } catch (e) {
+      console.error(e)
+      throw new Error('Upsert field failed')
+    }
 
+    try {
       await session.writeTransaction((tx) => tx.run(connectField, args))
 
       const [updatedInterfaceType] = await InterfaceType.find({
@@ -58,7 +59,8 @@ export const fieldRepository = {
         },
       })
 
-      console.log(updatedInterfaceType)
+      logger.log('Args', args)
+      logger.log('Updated InterfaceType', updatedInterfaceType)
 
       return merge(updatedInterfaceType, {
         fieldsConnection: {

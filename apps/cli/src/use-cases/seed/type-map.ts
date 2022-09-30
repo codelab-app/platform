@@ -5,7 +5,7 @@ import {
   RenderPropsTypeOGM,
 } from '@codelab/backend/adapter/neo4j'
 import {
-  AntdDesignApi,
+  AntdDesignField,
   IAtomImport,
   IPrimitiveTypeKind,
   ITypeKind,
@@ -24,7 +24,7 @@ import {
  * Return existing type ref, or return create data for enums
  */
 export const getTypeForApi = async (
-  apiField: AntdDesignApi,
+  apiField: AntdDesignField,
   atom: IAtomImport,
   userId: string,
 ): Promise<TypeRef> => {
