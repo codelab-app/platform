@@ -5,11 +5,13 @@ import {
   IAtomImport,
   ICreateFieldDTO,
 } from '@codelab/shared/abstract/core'
-import { csvNameToAtomTypeMap, getApiName } from '@codelab/shared/data'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { atomTypeKeyByFileName } from '@codelab/shared/data'
+import { cLog, pascalCaseToWords } from '@codelab/shared/utils'
+import { merge } from 'lodash'
 import { v4 } from 'uuid'
 import { createAntdAtomData } from './data/ant-design-atom.data'
 import { readCsvFiles } from './read-csv-files'
+import { getTypeForApi } from './type-map'
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
@@ -21,14 +23,14 @@ export class ParserService {
 
   private readonly atoms: { [atomName: string]: IAtomImport }
 
-  constructor(private existingData: ExistingData) {
-    this.atoms = createAntdAtomData(existingData).reduce(
-      (record, atom) => ({
-        ...record,
+  constructor(private userId: string, private existingData: ExistingData) {
+    cLog('Existing Data', existingData)
+
+    this.atoms = createAntdAtomData(existingData)
+      .map((atom) => ({
         [atom.name]: atom,
-      }),
-      {},
-    )
+      }))
+      .reduce(merge, {})
   }
 
   /**
@@ -46,7 +48,7 @@ export class ParserService {
     const parsedApiData: FieldDataByAtom = new Map()
 
     for (const [file, antdDesignFields] of Object.entries(fieldsByFile)) {
-      const atomName = csvNameToAtomTypeMap.get(file.replace('.csv', ''))
+      const atomName = atomTypeKeyByFileName[file.replace('.csv', '')]
 
       if (!atomName) {
         console.log('Missing atom data for file', file)
@@ -62,22 +64,40 @@ export class ParserService {
         continue
       }
 
-      const fields: Array<ICreateFieldDTO> = antdDesignFields.map((field) => {
-        const existingField =
-          this.existingData.fields[`${getApiName(atomName)}-${field.property}`]
+      const fields: Array<ICreateFieldDTO> = await Promise.all(
+        antdDesignFields.map(async (field) => {
+          const existingField =
+            this.existingData.fields[`${atom.api.name}-${field.property}`]
 
-        const existingApi = this.existingData.api[getApiName(atomName)]
+          const fieldType =
+            (await getTypeForApi(field, atom, this.userId))?.existingId ?? ''
 
-        return {
-          id: existingField ? existingField.id : v4(),
-          key: field.property,
-          name: pascalCaseToWords(field.property),
-          description: field.description,
-          fieldType: existingApi?.id,
-        }
-      })
+          console.log('fieldType', fieldType)
 
-      parsedApiData.set(atom, fields)
+          return {
+            id: existingField ? existingField.id : v4(),
+            key: field.property,
+            name: pascalCaseToWords(field.property),
+            description: field.description,
+            // Return empty string for filtering later
+            fieldType,
+            // Set default validation rules
+            validationRules: {
+              general: {
+                nullable: true,
+              },
+            },
+          }
+        }),
+      )
+
+      const filteredFields = fields.filter(
+        (field): field is ICreateFieldDTO => {
+          return Boolean(field.fieldType)
+        },
+      )
+
+      parsedApiData.set(atom, filteredFields)
     }
 
     return parsedApiData

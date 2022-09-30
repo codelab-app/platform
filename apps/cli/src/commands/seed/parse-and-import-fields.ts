@@ -1,20 +1,19 @@
 import { fieldRepository } from '@codelab/backend/application'
 import { ExistingData } from '@codelab/shared/abstract/core'
 import { logSection } from '../../shared/utils/log-task'
-import { createExistingData } from '../../use-cases/seed/data/existing.data'
 import { ParserService } from '../../use-cases/seed/parser.service'
 
 /**
  * This function generates new data, so we upsert by name instead of ID
  */
 export const parseAndImportFields = async (
-  selectedUser: string,
+  userId: string,
   existingData: ExistingData,
 ) => {
   logSection('Parse Interface')
 
   // Then seed all atom api's
-  const parser = new ParserService(await createExistingData())
+  const parser = new ParserService(userId, existingData)
   const fieldDataByApiName = await parser.extractFieldDataByApiName()
 
   logSection('Import Interface')

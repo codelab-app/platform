@@ -61,14 +61,12 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
      */
     await importTags(createTagSeedData(), selectedUserId)
 
-    const existingData = await createExistingData()
-
     /**
      * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
       // We need to refetch data here, since the previous steps may have created interfaces
-      atoms: createAntdAtomData(existingData),
+      atoms: createAntdAtomData(await createExistingData()),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,
@@ -81,7 +79,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     /**
      * (4) Then parse and import the Ant Design interfaces
      */
-    await parseAndImportFields(selectedUserId, existingData)
+    await parseAndImportFields(selectedUserId, await createExistingData())
 
     return process.exit(0)
   },

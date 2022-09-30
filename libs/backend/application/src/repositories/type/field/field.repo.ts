@@ -26,27 +26,27 @@ export const fieldRepository = {
      *
      * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
      */
-    try {
-      await InterfaceType.update({
-        where: {
-          id: args.interfaceTypeId,
-        },
-        disconnect: {
-          fields: [
-            {
-              where: {
-                edge: {
-                  id: args.field.id,
-                },
-              },
-            },
-          ],
-        },
-      })
-    } catch (e) {
-      console.error(e)
-      throw new Error('Upsert field failed')
-    }
+    // try {
+    //   await InterfaceType.update({
+    //     where: {
+    //       id: args.interfaceTypeId,
+    //     },
+    //     disconnect: {
+    //       fields: [
+    //         {
+    //           where: {
+    //             edge: {
+    //               id: args.field.id,
+    //             },
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   })
+    // } catch (e) {
+    //   console.error(e)
+    //   throw new Error('Upsert field failed')
+    // }
 
     try {
       await session.writeTransaction((tx) => tx.run(connectField, args))

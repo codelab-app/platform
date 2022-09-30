@@ -26,7 +26,7 @@ describe('Admin', () => {
     it('should be able to seed twice without changing the database', () => {
       seedData()
 
-      return exportAndAssert().then((payload) => {
+      return exportAndAssert(filePath).then((payload) => {
         expect(payload).toEqual(initialPayload)
       })
     })
@@ -34,7 +34,7 @@ describe('Admin', () => {
     /**
      * Importing from file should result in the same data as seed
      */
-    it('should import Ant Design data', () => {
+    it.skip('should import Ant Design data', () => {
       cy.resetDatabase()
 
       importData()

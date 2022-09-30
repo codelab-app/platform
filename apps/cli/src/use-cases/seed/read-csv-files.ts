@@ -17,7 +17,13 @@ export const readCsvFiles = async (
     const stream = fs
       .createReadStream(path.resolve(folder, file))
       .pipe(csv())
-      .on('data', (chunk) => fields.push(chunk))
+      .on('data', (chunk) =>
+        fields.push({
+          ...chunk,
+          // Convert string to boolean
+          isEnum: JSON.parse(`${chunk.isEnum}`),
+        }),
+      )
 
     // https://stackoverflow.com/questions/37837132/how-to-wait-for-a-stream-to-finish-piping-nodejs
     // Wait for the stream

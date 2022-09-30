@@ -7,7 +7,7 @@ import {
   tagSelectionSet,
 } from '@codelab/backend/adapter/neo4j'
 import { ExistingData } from '@codelab/shared/abstract/core'
-import { logger } from '@codelab/shared/adapter/logging'
+import { merge } from 'lodash'
 
 /**
  * Create a map of current data for upserting id's
@@ -23,15 +23,13 @@ export const createExistingData = async (): Promise<ExistingData> => {
     selectionSet: atomSelectionSet,
   })
 
-  const existingAtoms = atoms.reduce(
-    (record, atom) => ({ ...record, [atom.name]: atom }),
-    {},
-  )
+  const atomsKeyByName = atoms
+    .map((atom) => ({ [atom.name]: atom }))
+    .reduce(merge, {})
 
-  const existingAtomsById = atoms.reduce(
-    (record, atom) => ({ ...record, [atom.id]: atom }),
-    {},
-  )
+  const atomsKeyById = atoms
+    .map((atom) => ({ [atom.id]: atom }))
+    .reduce(merge, {})
 
   //
   // Tag
@@ -39,11 +37,13 @@ export const createExistingData = async (): Promise<ExistingData> => {
 
   const Tag = await TagOGM()
 
-  const existingTags = (
+  const tagsKeyByName = (
     await Tag.find({
       selectionSet: tagSelectionSet,
     })
-  ).reduce((record, tag) => ({ ...record, [tag.name]: tag }), {})
+  )
+    .map((tag) => ({ [tag.name]: tag }))
+    .reduce(merge, {})
 
   //
   // InterfaceType
@@ -51,43 +51,43 @@ export const createExistingData = async (): Promise<ExistingData> => {
 
   const InterfaceType = await InterfaceTypeOGM()
 
-  const existingInterfaceTypes = await InterfaceType.find({
+  const interfaceTypes = await InterfaceType.find({
     selectionSet: interfaceTypeSelectionSet,
   })
 
-  const interfaceTypes = existingInterfaceTypes.reduce(
-    (record, type) => ({ ...record, [type.name]: type }),
-    {},
-  )
+  const interfaceTypesKeyByName = interfaceTypes
+    .map((type) => ({
+      [type.name]: type,
+    }))
+    .reduce(merge, {})
 
   //
   // Fields
   //
 
-  const existingFieldsMap =
+  const fieldsKeyByCompositeKey =
     /**
      * Create Array<[ref, field]>
      */
-    existingInterfaceTypes.reduce(
-      (record, interfaceType) =>
+    interfaceTypes
+      .map((interfaceType) =>
         interfaceType.fieldsConnection.edges.map((field) => ({
-          ...record,
           /**
            * Key by composite key with interfaceName & fieldKey
            */
           [`${interfaceType.name}-${field.key}`]: field,
         })),
-      {},
-    )
+      )
+      .reduce(merge, {})
 
-  logger.info('Existing InterfaceType', existingInterfaceTypes)
-  logger.info('Existing Fields', existingFieldsMap)
+  // logger.info('Existing InterfaceType', interfaceTypes)
+  // logger.info('Existing Fields', fieldsKeyByCompositeKey)
 
   return {
-    tags: existingTags,
-    atoms: existingAtoms,
-    atomsById: existingAtomsById,
-    api: interfaceTypes,
-    fields: existingFieldsMap,
+    tags: tagsKeyByName,
+    atoms: atomsKeyByName,
+    atomsById: atomsKeyById,
+    api: interfaceTypesKeyByName,
+    fields: fieldsKeyByCompositeKey,
   }
 }
