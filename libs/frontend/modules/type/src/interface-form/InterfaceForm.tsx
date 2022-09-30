@@ -3,7 +3,6 @@ import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'
 import React, { useEffect, useRef, useState } from 'react'
-import { DeepPartial } from 'uniforms'
 import { TypeSchemaFactory } from '../store'
 import { InterfaceFormProps } from './types'
 import { getUiProperties } from './ui-properties'
@@ -54,7 +53,7 @@ export const InterfaceForm = observer(
         autosave={autosave}
         model={model}
         onChange={onChange}
-        onSubmit={handleFormSubmit<DeepPartial<TData>, TResponse>(
+        onSubmit={handleFormSubmit<TData, TResponse>(
           onSubmit as any,
           setIsLoading,
           onSubmitSuccess as any,

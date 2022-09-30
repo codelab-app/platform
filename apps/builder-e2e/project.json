@@ -52,7 +52,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "parallel": true,
         "readyWhen": "READY"
@@ -86,7 +86,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "nx run builder:serve-test:dev",
+              "command": "nx run serve-test builder -c test",
               "forwardAllArgs": false
             }
           ]

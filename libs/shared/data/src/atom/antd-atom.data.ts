@@ -542,10 +542,16 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   // },
 }
 
+interface AtomTypeKeyByFileName {
+  [fileName: string]: IAtomType
+}
+
 /**
  * Used for CSV file mapping to atomType
  */
-export const atomTypeKeyByFileName = Object.entries(antdAtomData).reduce(
+export const atomTypeKeyByFileName: AtomTypeKeyByFileName = Object.entries(
+  antdAtomData,
+).reduce(
   (record, [atomType, atom]) => ({ ...record, [atom.file ?? '']: atomType }),
   {},
 )
