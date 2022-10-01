@@ -1,9 +1,7 @@
 import {
   ExportedData,
   IAtomType,
-  IInterfaceTypeExport,
   ITagExport,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { difference } from 'lodash'
 import * as path from 'path'
@@ -14,7 +12,7 @@ export const seedData = () => {
   cy.log('yarn cli seed').exec(
     'yarn cli seed --env test --email cypress@codelab.ai',
     {
-      timeout: 30000,
+      timeout: 60000,
     },
   )
   // .its('stdout')
@@ -31,20 +29,7 @@ export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
     `yarn cli data import --env test --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false --email cypress@codelab.ai`,
-    { timeout: 30000 },
-  )
-}
-
-export const getFieldsCount = (payload: ExportedData) => {
-  return (
-    payload.types
-      // Get only interface types
-      .filter(
-        (type): type is IInterfaceTypeExport =>
-          type.__typename === ITypeKind.InterfaceType,
-      )
-      // Get all the fields
-      .map((type) => type.fieldsConnection.edges).length
+    { timeout: 60000 },
   )
 }
 
@@ -53,7 +38,7 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
     `yarn cli data export --env test --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false`,
-    { timeout: 30000 },
+    { timeout: 60000 },
   )
 
   return cy.readFile(file).then((payload: ExportedData) => {

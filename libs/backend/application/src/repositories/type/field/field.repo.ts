@@ -14,7 +14,7 @@ export const fieldRepository = {
   upsertField: async (
     args: MutationUpsertFieldArgs,
   ): Promise<OGM_TYPES.InterfaceType> => {
-    console.log('Upsert Field', args)
+    // console.log('Upsert Field', args)
 
     const session = getDriver().session()
     const InterfaceType = await InterfaceTypeOGM()
