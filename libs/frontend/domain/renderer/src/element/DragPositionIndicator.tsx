@@ -20,7 +20,7 @@ export const DragPositionIndicator = ({
 
   // TODO: refactor -> remove inline css and refactor class
   return (
-    <div className={classes()} tw="absolute inset-0">
+    <div className={classes()}>
       <style jsx>{`
         .dragged::before {
           content: 'drag here';

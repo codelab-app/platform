@@ -6,7 +6,7 @@ export const DraggedElementOverlay = (
   return React.createElement('div', {
     children,
     style: {
-      opacity: 0.5,
+      opacity: 0.3,
     },
   })
 }

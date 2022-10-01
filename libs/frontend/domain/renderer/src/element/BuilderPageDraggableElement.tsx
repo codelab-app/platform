@@ -4,9 +4,11 @@ import {
   DragPosition,
   IElement,
 } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React from 'react'
 import { useMouse } from 'react-use'
+import { DraggedElementOverlay } from './DraggedElementOverlay'
 import { DragPositionIndicator } from './DragPositionIndicator'
 
 export interface SortableItemProps {
@@ -30,7 +32,7 @@ export const BuilderPageDraggableElement = ({
     id: element.id,
     data: {
       type: BuilderDndType.MoveElement,
-      overlayRenderer: () => <div tw="opacity-40">{children}</div>,
+      overlayRenderer: () => DraggedElementOverlay(children),
     },
   })
 
@@ -65,13 +67,13 @@ export const BuilderPageDraggableElement = ({
   }
 
   // Set node ref for both draggable element and mouse hook
-  const setDroppableNodeRef = (ref: any) => {
+  const setDroppableNodeRef = (ref: Nullable<HTMLElement>) => {
     droppableNodeRefSetter(ref)
     droppableNodeRef.current = ref
   }
 
   return (
-    <div ref={setDroppableNodeRef} tw="relative">
+    <div ref={setDroppableNodeRef} style={{ position: 'relative' }}>
       <DragPositionIndicator dragPosition={calcDragPosition()} />
       <div
         ref={draggableNodeRefSetter}
