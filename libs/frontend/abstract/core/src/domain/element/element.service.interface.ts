@@ -25,7 +25,6 @@ import {
 } from './element.dto.interface'
 import { IElement, IElementRef } from './element.model.interface'
 import { IElementTree } from './element-tree.interface.model'
-// import { DropPosition } from 'libs/frontend/modules/renderer/src/element/CustomDraggableElement'
 
 /**
  * Used for modal input

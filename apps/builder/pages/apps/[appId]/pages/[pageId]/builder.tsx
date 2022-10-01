@@ -126,11 +126,6 @@ const PageBuilder: CodelabPage = observer(() => {
   }, [])
 
   return (
-    // <BuilderContext
-    //   builderService={builderService}
-    //   elementService={elementService}
-    //   elementTree={value?.renderer.pageTree?.current}
-    // >
     <>
       <Head>
         <title>{value?.page?.name} | Builder | Codelab</title>
