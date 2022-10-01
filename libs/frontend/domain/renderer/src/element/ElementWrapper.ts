@@ -87,6 +87,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
+    // root element is not draggable
+    if (!element.parentElement) {
+      return React.createElement(Fragment, {}, Children)
+    }
+
     return React.createElement(Fragment, {
       children: BuilderPageDraggableElement({ element, children: Children }),
     })
