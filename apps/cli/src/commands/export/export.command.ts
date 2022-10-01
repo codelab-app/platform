@@ -1,4 +1,4 @@
-import { AppOGM } from '@codelab/backend/adapter/neo4j'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import {
@@ -42,7 +42,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
     seedDataPath,
     userDataPath,
   }) => {
-    const App = await AppOGM()
+    const App = await Repository.instance.App
     const apps = await App.find()
 
     const shouldSkipSeedData: boolean =

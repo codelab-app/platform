@@ -1,6 +1,9 @@
-import { DomainOGM, domainSelection } from '@codelab/backend/adapter/neo4j'
-import { vercelApis } from '@codelab/backend/adapter/vercel'
 import { GraphQLRequestContext } from '@codelab/backend/application'
+import {
+  domainSelection,
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import { CreateDomainMutationInput } from '@codelab/shared/abstract/codegen'
 import { connectNode } from '@codelab/shared/data'
 import { IFieldResolver } from '@graphql-tools/utils'
@@ -31,9 +34,9 @@ export const createDomain: IFieldResolver<
     await handleAPIError(res, 'addDomain - Vercel')
 
     // create domain on ogm
-    const domainOgm = await DomainOGM()
+    const Domain = await Repository.instance.Domain
 
-    const { domains } = await domainOgm.create({
+    const { domains } = await Domain.create({
       selectionSet: `{
         domains {
           ${domainSelection}

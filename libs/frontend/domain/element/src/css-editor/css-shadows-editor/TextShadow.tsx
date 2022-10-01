@@ -1,6 +1,7 @@
-import { cssMap, IElement } from '@codelab/shared/abstract/core'
+import { CssMap, IElement } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
+import { ObjectTyped } from 'object-typed'
 import React, { useEffect } from 'react'
 import { CssPropEditorItem } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
@@ -13,7 +14,7 @@ import {
 
 interface TextShadowEditorProps {
   element: IElement
-  guiCssObj: cssMap
+  guiCssObj: CssMap
 }
 
 interface BooleanProp {
@@ -150,7 +151,7 @@ export const TextShadow = observer(
 
     return (
       <>
-        {Object.values(textShadowState).map((property) =>
+        {ObjectTyped.values(textShadowState).map((property) =>
           property.type === 'boolean' ? (
             <CssPropEditorItem
               checked={property.value}

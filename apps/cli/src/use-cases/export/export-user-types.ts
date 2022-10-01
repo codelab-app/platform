@@ -2,8 +2,8 @@ import {
   exportInterfaceTypeSelectionSet,
   getDriver,
   getTypeDescendantsOGM,
-  InterfaceTypeOGM,
-} from '@codelab/backend/adapter/neo4j'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 
@@ -22,7 +22,7 @@ export const exportUserTypes = async (): Promise<Array<ITypeExport>> => {
    *
    * Go through each interface, then grab all descendant ids of it
    */
-  const InterfaceType = await InterfaceTypeOGM()
+  const InterfaceType = await Repository.instance.InterfaceType
 
   const interfaceTypes = await InterfaceType.find({
     where: {

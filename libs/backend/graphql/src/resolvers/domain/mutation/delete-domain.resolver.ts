@@ -1,6 +1,6 @@
-import { DomainOGM } from '@codelab/backend/adapter/neo4j'
-import { vercelApis } from '@codelab/backend/adapter/vercel'
 import { GraphQLRequestContext } from '@codelab/backend/application'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import { IFieldResolver } from '@graphql-tools/utils'
 import { handleAPIError } from '../../utils/handleAPIError'
 import { domainNotFoundError } from '../domain.error'
@@ -12,9 +12,9 @@ export const deleteDomain: IFieldResolver<
   { id: string }
 > = async (_, { id }, { req }) => {
   try {
-    const domainOgm = await DomainOGM()
+    const Domain = await Repository.instance.Domain
 
-    const domains = await domainOgm.find({
+    const domains = await Domain.find({
       where: { id },
       selectionSet: `{
       app {
@@ -36,7 +36,7 @@ export const deleteDomain: IFieldResolver<
 
     await handleAPIError(res, 'deleteDomain - Vercel')
 
-    return await domainOgm.delete({
+    return await Domain.delete({
       where: { name: domain.name },
     })
   } catch (err) {

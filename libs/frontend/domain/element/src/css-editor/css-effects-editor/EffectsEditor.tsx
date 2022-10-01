@@ -1,4 +1,4 @@
-import { cssMap, IElement } from '@codelab/shared/abstract/core'
+import { CssMap, IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
@@ -6,7 +6,7 @@ import { extractCssNumber, updateGuiCssProperty } from '../utils'
 
 interface EffectsEditorProps {
   element: IElement
-  guiCssObj: cssMap
+  guiCssObj: CssMap
 }
 
 const effects = [

@@ -1,8 +1,8 @@
 import {
+  Repository,
   tagDescendants,
-  TagOGM,
   tagSelectionSet,
-} from '@codelab/backend/adapter/neo4j'
+} from '@codelab/backend/infra/adapter/neo4j'
 import { Element } from '@codelab/shared/abstract/codegen'
 import { Node, Transaction } from 'neo4j-driver'
 
@@ -14,7 +14,7 @@ export const tagRepository = {
     txn: Transaction,
     rootId: string,
   ): Promise<Array<Element>> => {
-    const TagModel = await TagOGM()
+    const Tag = await Repository.instance.Tag
     /**
      * We can still use the same query, but we get ID from context instead
      */
@@ -25,7 +25,7 @@ export const tagRepository = {
         records[0].get(0).map(async (descendant: Node) => {
           const id = descendant.properties.id
 
-          const tag = await TagModel.find({
+          const tag = await Tag.find({
             where: { id },
             selectionSet: tagSelectionSet,
           })

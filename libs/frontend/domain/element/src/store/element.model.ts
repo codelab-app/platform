@@ -17,7 +17,7 @@ import type {
   IPropDataByElementId,
   IPropMapBinding,
 } from '@codelab/shared/abstract/core'
-import { cssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
+import { CssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
@@ -222,7 +222,7 @@ export class Element
   }
 
   @modelAction
-  appendToGuiCss(css: cssMap) {
+  appendToGuiCss(css: CssMap) {
     const curGuiCss = JSON.parse(this.guiCss || '{}')
     const newGuiCss = { ...curGuiCss, ...css }
     this.guiCss = JSON.stringify(newGuiCss)

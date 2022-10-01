@@ -1,6 +1,7 @@
-import { cssMap, IElement } from '@codelab/shared/abstract/core'
+import { CssMap, IElement } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
+import { ObjectTyped } from 'object-typed'
 import React, { useEffect } from 'react'
 import { CssPropEditorItem } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
@@ -13,7 +14,7 @@ import {
 
 interface BoxShadowEditorProps {
   element: IElement
-  guiCssObj: cssMap
+  guiCssObj: CssMap
 }
 
 interface BooleanProp {
@@ -186,7 +187,8 @@ export const BoxShadow = observer(
 
     return (
       <>
-        {Object.values(boxShadowState).map((property) =>
+        {/* Object.values lost typing for no reason */}
+        {ObjectTyped.values(boxShadowState).map((property) =>
           property.type === 'boolean' ? (
             <CssPropEditorItem
               checked={property.value}

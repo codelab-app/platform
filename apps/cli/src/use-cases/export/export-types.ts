@@ -1,15 +1,11 @@
 import {
-  EnumTypeOGM,
   exportEnumTypeSelectionSet,
   exportInterfaceTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
   exportRenderPropsTypeSelectionSet,
-  InterfaceTypeOGM,
-  PrimitiveTypeOGM,
-  ReactNodeTypeOGM,
-  RenderPropsTypeOGM,
-} from '@codelab/backend/adapter/neo4j'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport } from '@codelab/shared/abstract/core'
 import { sortInterfaceTypesFields } from './get-type'
@@ -18,7 +14,7 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * Export all primitive types
    */
-  const PrimitiveType = await PrimitiveTypeOGM()
+  const PrimitiveType = await Repository.instance.PrimitiveType
 
   const primitiveTypes = await PrimitiveType.find({
     selectionSet: exportPrimitiveTypeSelectionSet,
@@ -30,7 +26,7 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * React Node Type
    */
-  const ReactNodeType = await ReactNodeTypeOGM()
+  const ReactNodeType = await Repository.instance.ReactNodeType
 
   // Only 1 here
   const reactNodeTypes = await ReactNodeType.find({
@@ -43,7 +39,7 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * Render Props Type
    */
-  const RenderPropsType = await RenderPropsTypeOGM()
+  const RenderPropsType = await Repository.instance.RenderPropsType
 
   // Only 1 here
   const renderPropsTypes = await RenderPropsType.find({
@@ -56,7 +52,7 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * Enum
    */
-  const EnumType = await EnumTypeOGM()
+  const EnumType = await Repository.instance.EnumType
 
   const enumTypes = (
     await EnumType.find({
@@ -77,7 +73,7 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
    *
    * We will go through dependent types for user interfaces however
    */
-  const InterfaceType = await InterfaceTypeOGM()
+  const InterfaceType = await Repository.instance.InterfaceType
 
   const interfaceTypes = await InterfaceType.find({
     where: {

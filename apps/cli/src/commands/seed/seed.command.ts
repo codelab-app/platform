@@ -1,4 +1,4 @@
-import { UserOGM } from '@codelab/backend/adapter/neo4j'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
 import { CommandModule } from 'yargs'
@@ -31,7 +31,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
   describe:
     'Parse Ant Design scraped CSV files and seed to application as types',
   handler: async ({ email }) => {
-    const User = await UserOGM()
+    const User = await Repository.instance.User
 
     const selectedUserId = email
       ? (await User.find({ where: { email } }))[0]?.id

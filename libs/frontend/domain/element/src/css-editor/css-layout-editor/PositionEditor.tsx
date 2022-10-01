@@ -1,4 +1,4 @@
-import { cssMap, IElement } from '@codelab/shared/abstract/core'
+import { CssMap, IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CssPropValueSelector } from '../components'
@@ -11,7 +11,7 @@ import {
 
 interface PositionEditorProps {
   element: IElement
-  guiCssObj: cssMap
+  guiCssObj: CssMap
 }
 
 const defaultUnits = ['auto', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw']

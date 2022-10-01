@@ -21,7 +21,7 @@ export interface IElementContainer {
   rootElementId: string
 }
 
-export interface cssMap {
+export interface CssMap {
   [prop: string]: string
 }
 
@@ -91,7 +91,7 @@ export interface IElement
   }
   executePropTransformJs(props: IPropData): IPropData
 
-  appendToGuiCss(css: cssMap): void
+  appendToGuiCss(css: CssMap): void
   deleteFromGuiCss(propNames: Array<string>): void
 }
 

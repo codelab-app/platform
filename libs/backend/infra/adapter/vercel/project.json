@@ -1,13 +1,13 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/adapter/neo4j/src",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/infra/adapter/vercel/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/adapter/neo4j/**/*.ts"]
+        "lintFilePatterns": ["libs/backend/infra/adapter/vercel/**/*.ts"]
       }
     }
   },

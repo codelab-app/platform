@@ -1,4 +1,4 @@
-import { ComponentOGM } from '@codelab/backend/adapter/neo4j'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNode, connectTypeOwner } from '@codelab/shared/data'
@@ -8,7 +8,7 @@ export const createComponent = async (
   component: OGM_TYPES.Component,
   selectedUser: string,
 ): Promise<OGM_TYPES.Component> => {
-  const Component = await ComponentOGM()
+  const Component = await Repository.instance.Component
 
   const {
     components: [newComponent],

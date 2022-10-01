@@ -1,4 +1,4 @@
-import { AtomOGM } from '@codelab/backend/adapter/neo4j'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
   ExistingData,
@@ -20,7 +20,7 @@ export const upsertAtom = async (
 ) => {
   logTask('Upserting Atom', atom.name)
 
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
 
   const existingAtom = (
     await Atom.find({
@@ -88,7 +88,7 @@ export const assignAllowedChildren = async (
   atom: IAtomImport,
   data: ExistingData,
 ) => {
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
   const allowedChildrenIds = atom.allowedChildren(data).map((child) => child.id)
 
   try {

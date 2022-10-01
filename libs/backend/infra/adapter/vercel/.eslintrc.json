@@ -1,11 +1,11 @@
 {
-  "extends": ["../../../../.eslintrc.json"],
+  "extends": ["../../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/backend/adapter/neo4j/tsconfig.*?.json"]
+        "project": ["libs/backend/infra/adapter/vercel/tsconfig.*?.json"]
       },
       "rules": {}
     },

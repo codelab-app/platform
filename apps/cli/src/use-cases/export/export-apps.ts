@@ -1,4 +1,7 @@
-import { AppOGM, appSelectionSet } from '@codelab/backend/adapter/neo4j'
+import {
+  appSelectionSet,
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { ExportAppWhere, IAppExport } from '@codelab/shared/abstract/core'
 import { getApp } from '../../repository/app.repo'
 
@@ -7,7 +10,7 @@ export interface ExportAppData {
 }
 
 export const exportApps = async ({ appIds }: ExportAppWhere) => {
-  const App = await AppOGM()
+  const App = await Repository.instance.App
   const where = appIds ? { id_IN: appIds } : {}
 
   const apps = await App.find({

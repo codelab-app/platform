@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
-  cssMap,
+  CssMap,
   IElement,
   IElementService,
 } from '@codelab/shared/abstract/core'
@@ -42,7 +42,7 @@ export const ElementCssEditor = observer(
   }: ElementCssEditorInternalProps) => {
     const { trackPromise } = trackPromises ?? {}
 
-    const [guiCssObj, setGuiCssObj] = useState<cssMap>(
+    const [guiCssObj, setGuiCssObj] = useState<CssMap>(
       JSON.parse(element.guiCss ?? '{}'),
     )
 

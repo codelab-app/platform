@@ -1,8 +1,7 @@
 import {
-  ApiActionOGM,
-  CodeActionOGM,
   codeActionSelectionSet,
-} from '@codelab/backend/adapter/neo4j'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IActionExport, IActionKind } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/data'
@@ -12,8 +11,8 @@ export const importActions = async (
   actions: Array<IActionExport>,
   storeId: string,
 ) => {
-  const CodeAction = await CodeActionOGM()
-  const ApiAction = await ApiActionOGM()
+  const CodeAction = await Repository.instance.CodeAction
+  const ApiAction = await Repository.instance.ApiAction
   const codeActions: Array<OGM_TYPES.CodeAction> = []
   const apiActions: Array<OGM_TYPES.ApiAction> = []
 
@@ -72,8 +71,8 @@ export const importActions = async (
 export const exportActions = async (
   storeId: string,
 ): Promise<Array<IActionExport>> => {
-  const CodeAction = await CodeActionOGM()
-  const ApiAction = await ApiActionOGM()
+  const CodeAction = await Repository.instance.CodeAction
+  const ApiAction = await Repository.instance.ApiAction
 
   const codeActions = await CodeAction.find({
     where: { store: { id: storeId } },

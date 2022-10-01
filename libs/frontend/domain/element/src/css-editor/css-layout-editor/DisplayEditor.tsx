@@ -1,4 +1,4 @@
-import { cssMap, IElement } from '@codelab/shared/abstract/core'
+import { CssMap, IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CssPropValueSelector } from '../components'
@@ -7,7 +7,7 @@ import { updateGuiCssProperty } from '../utils'
 
 interface DisplayEditorProps {
   element: IElement
-  guiCssObj: cssMap
+  guiCssObj: CssMap
 }
 
 const props = [

@@ -1,11 +1,7 @@
 import {
-  EnumTypeOGM,
   exportEnumTypeSelectionSet,
-  InterfaceTypeOGM,
-  PrimitiveTypeOGM,
-  ReactNodeTypeOGM,
-  RenderPropsTypeOGM,
-} from '@codelab/backend/adapter/neo4j'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
@@ -40,7 +36,7 @@ export const upsertType = async (
 ) => {
   switch (type.__typename) {
     case ITypeKind.PrimitiveType: {
-      const PrimitiveType = await PrimitiveTypeOGM()
+      const PrimitiveType = await Repository.instance.PrimitiveType
 
       if (!type.primitiveKind) {
         throw new Error('Missing primitiveKind')
@@ -79,7 +75,7 @@ export const upsertType = async (
     }
 
     case ITypeKind.RenderPropsType: {
-      const RenderPropsType = await RenderPropsTypeOGM()
+      const RenderPropsType = await Repository.instance.RenderPropsType
 
       const exists = await RenderPropsType.find({
         where: where(type),
@@ -101,7 +97,7 @@ export const upsertType = async (
     }
 
     case ITypeKind.ReactNodeType: {
-      const ReactNodeType = await ReactNodeTypeOGM()
+      const ReactNodeType = await Repository.instance.ReactNodeType
 
       const exists = await ReactNodeType.find({
         where: where(type),
@@ -123,7 +119,7 @@ export const upsertType = async (
     }
 
     case ITypeKind.EnumType: {
-      const EnumType = await EnumTypeOGM()
+      const EnumType = await Repository.instance.EnumType
 
       const enumType = (
         await EnumType.find({
@@ -179,7 +175,7 @@ export const upsertType = async (
     }
 
     case ITypeKind.InterfaceType: {
-      const InterfaceType = await InterfaceTypeOGM()
+      const InterfaceType = await Repository.instance.InterfaceType
 
       const exists = await InterfaceType.find({
         where: where(type),

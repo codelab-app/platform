@@ -1,4 +1,4 @@
-import { vercelApis } from '@codelab/backend/adapter/vercel'
+import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import { IDomain } from '@codelab/shared/abstract/core'
 import { handleAPIError } from '../../utils/handleAPIError'
 

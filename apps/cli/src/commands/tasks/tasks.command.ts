@@ -1,4 +1,4 @@
-import { generateOgmTypes } from '@codelab/backend/adapter/neo4j'
+import { generateOgmTypes } from '@codelab/backend/infra/adapter/neo4j'
 import { spawn } from 'child_process'
 import execa from 'execa'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

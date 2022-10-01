@@ -1,9 +1,7 @@
 import {
-  AppOGM,
-  PageOGM,
   pageSelectionSet,
-  StoreOGM,
-} from '@codelab/backend/adapter/neo4j'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAppExport } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/data'
@@ -20,8 +18,8 @@ import { importElementInitial, updateImportedElement } from './element.repo'
 export const createApp = async (app: IAppExport, userId: string) => {
   cLog(omit(app, ['pages']))
 
-  const App = await AppOGM()
-  const Store = await StoreOGM()
+  const App = await Repository.instance.App
+  const Store = await Repository.instance.Store
   const { pages } = app
   await validate(pages)
 
@@ -116,7 +114,7 @@ export const createApp = async (app: IAppExport, userId: string) => {
  * Gather all pages, elements and components
  */
 export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
-  const Page = await PageOGM()
+  const Page = await Repository.instance.Page
   const actions = await exportActions(app.store.id)
 
   const pages = await Page.find({

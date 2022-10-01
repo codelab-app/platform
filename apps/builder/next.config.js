@@ -3,7 +3,7 @@ const withPlugins = require('next-compose-plugins')
 const withLess = require('next-with-less')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
 
 /** Allows importing cypher files */
