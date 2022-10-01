@@ -74,7 +74,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "nx run serve-test builder -c test"
+              "command": "nx serve-test builder -c test"
             }
           ]
         },

@@ -39,7 +39,7 @@ describe('Admin', () => {
 
       importData()
 
-      return exportAndAssert(filePath).then((payload) => {
+      return exportAndAssert().then((payload) => {
         expect(payload).toEqual(initialPayload)
       })
     })

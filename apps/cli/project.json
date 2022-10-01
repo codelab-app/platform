@@ -3,16 +3,14 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
+      "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/cli",
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
         "assets": ["apps/cli/src/assets"],
-        "webpackConfig": "apps/cli/webpack.config.js",
-        "target": "node",
-        "compiler": "tsc"
+        "webpackConfig": "apps/cli/webpack.config.js"
       },
       "configurations": {
         "test": {},
