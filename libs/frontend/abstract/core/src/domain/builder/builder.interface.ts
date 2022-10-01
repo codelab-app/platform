@@ -14,13 +14,8 @@ export interface BuilderDragData {
 }
 
 export interface BuilderDropData {
-  dragPosition: DragPosition
+  dragPosition?: DragPosition
 }
-
-// export type BuilderDropData = Pick<
-//   BuilderDragData,
-//   'type' | 'createElementInput'
-// >
 
 export enum BuilderDndType {
   CreateElement = 'CreateElement',

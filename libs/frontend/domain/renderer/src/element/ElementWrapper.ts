@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
-import { BuilderPageDraggableElement } from './BuilderPageDraggableElement'
+import { DraggableElement } from './DraggableElement'
 import {
   childrenAreEmpty,
   extractValidProps,
@@ -93,7 +93,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     }
 
     return React.createElement(Fragment, {
-      children: BuilderPageDraggableElement({ element, children: Children }),
+      children: DraggableElement({ element, children: Children }),
     })
   },
 )

@@ -59,12 +59,6 @@ export const Builder = observer<BuilderProps>(
         onMouseLeave={handleMouseLeave}
         onMouseOver={handleMouseOver}
       >
-        {/* TBC */}
-        {/* {elementId ? <BuilderDropHandler elementId={elementId} /> : null} */}
-        {/* {elementsList ? (
-          <ElementDropHandlers elementsList={elementsList} />
-        ) : null} */}
-
         <Renderer renderRoot={rendererProps.renderRoot} />
 
         {/* <BuilderHoverOverlay /> */}
