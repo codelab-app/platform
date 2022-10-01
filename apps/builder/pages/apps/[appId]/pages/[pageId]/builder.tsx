@@ -5,9 +5,9 @@ import {
   BuilderTabs,
   ConfigPane,
   EditorPaneBuilder,
-} from '@codelab/frontend/modules/builder'
-import { elementRef } from '@codelab/frontend/modules/element'
-import { PageDetailHeader } from '@codelab/frontend/modules/page'
+} from '@codelab/frontend/domain/builder'
+import { elementRef } from '@codelab/frontend/domain/element'
+import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useCurrentPageId,

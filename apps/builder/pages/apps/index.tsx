@@ -7,7 +7,7 @@ import {
   GetAppsList,
   ImportAppButton,
   UpdateAppModal,
-} from '@codelab/frontend/modules/app'
+} from '@codelab/frontend/domain/app'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,

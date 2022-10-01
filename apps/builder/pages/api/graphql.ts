@@ -7,7 +7,7 @@ import { getDriver, getSchema, UserOGM } from '@codelab/backend/adapter/neo4j'
 import { NextApiRequest } from '@codelab/backend/application'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { resolvers } from '@codelab/backend/graphql'
-import { upsertUser } from '@codelab/frontend/modules/user'
+import { upsertUser } from '@codelab/frontend/domain/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Config } from '@codelab/shared/config'

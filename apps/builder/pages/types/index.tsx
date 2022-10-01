@@ -6,7 +6,7 @@ import {
   GetTypesTable,
   InterfaceDefaultsModal,
   UpdateTypeModal,
-} from '@codelab/frontend/modules/type'
+} from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,

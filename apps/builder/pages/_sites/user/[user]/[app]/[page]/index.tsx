@@ -1,6 +1,6 @@
 import { AppPagePageProps } from '@codelab/frontend/abstract/types'
+import { Renderer } from '@codelab/frontend/domain/renderer'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
-import { Renderer } from '@codelab/frontend/modules/renderer'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'

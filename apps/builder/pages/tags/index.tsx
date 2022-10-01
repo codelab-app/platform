@@ -7,7 +7,7 @@ import {
   GetTagsTable,
   GetTagsTree,
   UpdateTagModal,
-} from '@codelab/frontend/modules/tag'
+} from '@codelab/frontend/domain/tag'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,

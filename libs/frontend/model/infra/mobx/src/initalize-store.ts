@@ -1,6 +1,5 @@
-import { UserService } from '@codelab/frontend/modules/user'
+import { UserService } from '@codelab/frontend/domain/user'
 import {
-  Auth0SessionUser,
   IPageProps,
   IRootStore,
   JWT_CLAIMS,

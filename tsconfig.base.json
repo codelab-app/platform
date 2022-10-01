@@ -35,65 +35,61 @@
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
+      "@codelab/frontend/domain/admin": [
+        "libs/frontend/domain/admin/src/index.ts"
+      ],
+      "@codelab/frontend/domain/app": ["libs/frontend/domain/app/src/index.ts"],
+      "@codelab/frontend/domain/atom": [
+        "libs/frontend/domain/atom/src/index.ts"
+      ],
+      "@codelab/frontend/domain/builder": [
+        "libs/frontend/domain/builder/src/index.ts"
+      ],
+      "@codelab/frontend/domain/component": [
+        "libs/frontend/domain/component/src/index.ts"
+      ],
+      "@codelab/frontend/domain/domain": [
+        "libs/frontend/domain/domain/src/index.ts"
+      ],
+      "@codelab/frontend/domain/element": [
+        "libs/frontend/domain/element/src/index.ts"
+      ],
+      "@codelab/frontend/domain/lambda": [
+        "libs/frontend/domain/lambda/src/index.ts"
+      ],
+      "@codelab/frontend/domain/page": [
+        "libs/frontend/domain/page/src/index.ts"
+      ],
+      "@codelab/frontend/domain/prop": [
+        "libs/frontend/domain/prop/src/index.ts"
+      ],
+      "@codelab/frontend/domain/renderer": [
+        "libs/frontend/domain/renderer/src/index.ts"
+      ],
+      "@codelab/frontend/domain/resource": [
+        "libs/frontend/domain/resource/src/index.ts"
+      ],
+      "@codelab/frontend/domain/store": [
+        "libs/frontend/domain/store/src/index.ts"
+      ],
+      "@codelab/frontend/domain/style": [
+        "libs/frontend/domain/style/src/index.ts"
+      ],
+      "@codelab/frontend/domain/tag": ["libs/frontend/domain/tag/src/index.ts"],
+      "@codelab/frontend/domain/type": [
+        "libs/frontend/domain/type/src/index.ts"
+      ],
+      "@codelab/frontend/domain/user": [
+        "libs/frontend/domain/user/src/index.ts"
+      ],
       "@codelab/frontend/model/infra/graphql": [
         "libs/frontend/model/infra/graphql/src/index.ts"
       ],
       "@codelab/frontend/model/infra/mobx": [
         "libs/frontend/model/infra/mobx/src/index.ts"
       ],
-      "@codelab/frontend/modules/admin": [
-        "libs/frontend/modules/admin/src/index.ts"
-      ],
-      "@codelab/frontend/modules/app": [
-        "libs/frontend/modules/app/src/index.ts"
-      ],
-      "@codelab/frontend/modules/atom": [
-        "libs/frontend/modules/atom/src/index.ts"
-      ],
-      "@codelab/frontend/modules/builder": [
-        "libs/frontend/modules/builder/src/index.ts"
-      ],
-      "@codelab/frontend/modules/component": [
-        "libs/frontend/modules/component/src/index.ts"
-      ],
-      "@codelab/frontend/modules/domain": [
-        "libs/frontend/modules/domain/src/index.ts"
-      ],
-      "@codelab/frontend/modules/element": [
-        "libs/frontend/modules/element/src/index.ts"
-      ],
-      "@codelab/frontend/modules/lambda": [
-        "libs/frontend/modules/lambda/src/index.ts"
-      ],
-      "@codelab/frontend/modules/page": [
-        "libs/frontend/modules/page/src/index.ts"
-      ],
-      "@codelab/frontend/modules/prop": [
-        "libs/frontend/modules/prop/src/index.ts"
-      ],
       "@codelab/frontend/modules/props": [
         "libs/frontend/modules/prop/src/index.ts"
-      ],
-      "@codelab/frontend/modules/renderer": [
-        "libs/frontend/modules/renderer/src/index.ts"
-      ],
-      "@codelab/frontend/modules/resource": [
-        "libs/frontend/modules/resource/src/index.ts"
-      ],
-      "@codelab/frontend/modules/store": [
-        "libs/frontend/modules/store/src/index.ts"
-      ],
-      "@codelab/frontend/modules/style": [
-        "libs/frontend/modules/style/src/index.ts"
-      ],
-      "@codelab/frontend/modules/tag": [
-        "libs/frontend/modules/tag/src/index.ts"
-      ],
-      "@codelab/frontend/modules/type": [
-        "libs/frontend/modules/type/src/index.ts"
-      ],
-      "@codelab/frontend/modules/user": [
-        "libs/frontend/modules/user/src/index.ts"
       ],
       "@codelab/frontend/platform/atoms": [
         "libs/frontend/platform/atoms/src/index.ts"
