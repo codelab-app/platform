@@ -1,4 +1,4 @@
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement } from '@codelab/frontend/abstract/core'
 import { List } from 'antd'
 import React from 'react'
 import { HooksListItem } from './HooksListItem'

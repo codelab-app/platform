@@ -1,6 +1,6 @@
 import { InterfaceForm } from '@codelab/frontend/domain/type'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
+import { IAtomService, ITypeService } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'

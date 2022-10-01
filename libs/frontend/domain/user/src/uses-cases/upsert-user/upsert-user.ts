@@ -1,5 +1,5 @@
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import { Auth0SessionUser } from '@codelab/frontend/abstract/core'
 
 /**
  * Create user using OGM, used by Next.js serverless for first time logins.

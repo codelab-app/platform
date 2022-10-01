@@ -5,7 +5,7 @@ import {
   IElement,
   IElementService,
   IElementTree,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'

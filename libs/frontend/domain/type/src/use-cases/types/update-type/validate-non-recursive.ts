@@ -1,4 +1,4 @@
-import { IUpdateTypeDTO } from '@codelab/shared/abstract/core'
+import { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
 import { typeApi } from '../../../store'
 
 const getInnerTypeIds = (submitData: IUpdateTypeDTO) => [

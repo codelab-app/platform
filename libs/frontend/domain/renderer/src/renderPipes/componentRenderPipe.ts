@@ -1,16 +1,14 @@
 import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
-} from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/presenter/container'
-import {
   IComponent,
   IElement,
   IPropData,
   IRenderer,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'

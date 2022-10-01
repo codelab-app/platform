@@ -1,4 +1,4 @@
-import { MoveData } from '@codelab/shared/abstract/core'
+import { MoveData } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export const moveElementSchema: JSONSchemaType<MoveData> = {

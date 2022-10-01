@@ -3,7 +3,7 @@ import type {
   IField,
   IFieldProps,
   IValidationRules,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,

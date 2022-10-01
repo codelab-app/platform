@@ -1,9 +1,3 @@
-import { COMPONENT_TREE_CONTAINER } from '@codelab/frontend/abstract/core'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import {
-  ComponentWhere,
-  RenderedComponentFragment,
-} from '@codelab/shared/abstract/codegen'
 import type {
   IBuilderDataNode,
   IComponent,
@@ -11,8 +5,16 @@ import type {
   IComponentService,
   ICreateComponentDTO,
   IUpdateComponentDTO,
-} from '@codelab/shared/abstract/core'
-import { COMPONENT_NODE_TYPE } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import {
+  COMPONENT_NODE_TYPE,
+  COMPONENT_TREE_CONTAINER,
+} from '@codelab/frontend/abstract/core'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import {
+  ComponentWhere,
+  RenderedComponentFragment,
+} from '@codelab/shared/abstract/codegen'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {

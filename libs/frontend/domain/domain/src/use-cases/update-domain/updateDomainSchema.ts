@@ -1,4 +1,4 @@
-import { IUpdateDomainDTO } from '@codelab/shared/abstract/core'
+import { IUpdateDomainDTO } from '@codelab/frontend/abstract/core'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 

@@ -1,12 +1,12 @@
-import { elementRef } from '@codelab/frontend/domain/element'
-import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
   IElementTree,
   INode,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/domain/element'
+import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import { EventDataNode } from 'antd/lib/tree'

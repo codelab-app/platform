@@ -1,9 +1,9 @@
+import { IDomainExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import {
   PROJECT_NOT_FOUND,
   vercelApis,
 } from '@codelab/backend/infra/adapter/vercel'
-import { IDomainExport } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 

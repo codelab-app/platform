@@ -1,11 +1,11 @@
-import { useCurrentAppId } from '@codelab/frontend/presenter/container'
-import { useNotify } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
 import {
   IDomainService,
   IUpdateDomainDTO,
   IUserService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { useCurrentAppId } from '@codelab/frontend/presenter/container'
+import { useNotify } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

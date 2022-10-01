@@ -7,6 +7,18 @@ import {
   SwapOutlined,
 } from '@ant-design/icons'
 import {
+  IActionService,
+  IAtomService,
+  IBuilderService,
+  IElementService,
+  IElementTree,
+  INode,
+  IRenderer,
+  isElement,
+  ITypeService,
+  IUserService,
+} from '@codelab/frontend/abstract/core'
+import {
   ElementCssEditor,
   PropMapBindingSection,
   UpdateElementPropsForm,
@@ -18,18 +30,6 @@ import {
   UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import {
-  IActionService,
-  IAtomService,
-  IBuilderService,
-  IElementService,
-  IElementTree,
-  INode,
-  IRenderer,
-  isElement,
-  ITypeService,
-  IUserService,
-} from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'

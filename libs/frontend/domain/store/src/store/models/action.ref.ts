@@ -1,4 +1,4 @@
-import { IAnyAction } from '@codelab/shared/abstract/core'
+import { IAnyAction } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const actionRef = rootRef<IAnyAction>('@codelab/ActionRef', {

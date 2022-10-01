@@ -1,10 +1,10 @@
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   GeneralValidationRules,
   ICreateFieldDTO,
   NumberValidationRules,
   StringValidationRules,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
 export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {

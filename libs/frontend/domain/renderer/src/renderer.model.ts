@@ -1,11 +1,3 @@
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
-import { getActionService, getState } from '@codelab/frontend/domain/store'
-import { getTypeService } from '@codelab/frontend/domain/type'
-import {
-  getElementService,
-  storeRef,
-} from '@codelab/frontend/presenter/container'
 import type {
   IBuilderService,
   IElement,
@@ -16,7 +8,15 @@ import type {
   IRenderPipe,
   IStore,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
+import { getActionService, getState } from '@codelab/frontend/domain/store'
+import { getTypeService } from '@codelab/frontend/domain/type'
+import {
+  getElementService,
+  storeRef,
+} from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'

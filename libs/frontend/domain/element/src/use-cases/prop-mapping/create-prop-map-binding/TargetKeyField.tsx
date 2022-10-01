@@ -1,6 +1,6 @@
 import { getTypeApi } from '@codelab/frontend/domain/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { IElementService } from '@codelab/shared/abstract/core'
+import { IElementService } from '@codelab/frontend/abstract/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
 import { observer } from 'mobx-react-lite'

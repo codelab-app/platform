@@ -1,10 +1,10 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
 import {
   IAppService,
   ICreateAppDTO,
   IUserService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

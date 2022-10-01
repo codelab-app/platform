@@ -1,13 +1,13 @@
-import { getTagService } from '@codelab/frontend/domain/tag'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import type {
   IAtom,
   IAtomDTO,
   IAtomService,
   ICreateAtomDTO,
   IUpdateAtomDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { getTagService } from '@codelab/frontend/domain/tag'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   connectNode,
   connectTypeOwner,

@@ -1,11 +1,10 @@
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import {
   AntdDesignField,
   IAtomImport,
-  IPrimitiveTypeKind,
-  ITypeKind,
   TypeRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'

@@ -1,7 +1,7 @@
+import { ITypeService, IUpdateFieldDTO } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { ITypeService, IUpdateFieldDTO } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'

@@ -1,12 +1,12 @@
-import { SelectAction } from '@codelab/frontend/domain/type'
-import { CodeMirrorField } from '@codelab/frontend/view/components'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   HttpMethod,
   HttpResponseType,
   IActionKind,
   ICreateActionDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { SelectAction } from '@codelab/frontend/domain/type'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'

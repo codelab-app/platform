@@ -1,10 +1,10 @@
-import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   IInterfaceType,
   IPropData,
   IStore,
   IStoreDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {

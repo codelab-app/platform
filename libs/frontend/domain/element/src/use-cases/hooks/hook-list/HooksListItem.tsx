@@ -1,4 +1,4 @@
-import { IHook } from '@codelab/shared/abstract/core'
+import { IHook } from '@codelab/frontend/abstract/core'
 import { List } from 'antd'
 import { ReactNode } from 'react'
 import tw from 'twin.macro'

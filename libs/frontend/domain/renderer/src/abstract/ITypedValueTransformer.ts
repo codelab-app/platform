@@ -2,7 +2,7 @@ import {
   IBaseRenderPipe,
   ITypeKind,
   TypedValue,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 
 /**
  * Transforms a typed value prop to a specific value

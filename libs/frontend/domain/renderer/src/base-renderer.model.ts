@@ -3,7 +3,7 @@ import type {
   IElementTree,
   IRenderer,
   IStore,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from './renderer.model'

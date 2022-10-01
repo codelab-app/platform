@@ -1,4 +1,3 @@
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAnyActionType,
   IAnyType,
@@ -16,7 +15,8 @@ import {
   IRenderPropsType,
   ITypeKind,
   IUnionType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'

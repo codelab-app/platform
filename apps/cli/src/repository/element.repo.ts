@@ -1,5 +1,5 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { connectNode } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'

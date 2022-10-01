@@ -2,7 +2,7 @@ import {
   filterNotHookType,
   IAtomType,
   IUpdateAtomDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {

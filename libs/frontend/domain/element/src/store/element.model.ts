@@ -1,10 +1,3 @@
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import { atomRef } from '@codelab/frontend/domain/atom'
-import {
-  componentRef,
-  getElementService,
-} from '@codelab/frontend/presenter/container'
-import { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type {
   IAtom,
   IComponent,
@@ -16,8 +9,18 @@ import type {
   IPropData,
   IPropDataByElementId,
   IPropMapBinding,
-} from '@codelab/shared/abstract/core'
-import { CssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import {
+  CssMap,
+  DATA_ELEMENT_ID,
+  ELEMENT_NODE_TYPE,
+} from '@codelab/frontend/abstract/core'
+import { atomRef } from '@codelab/frontend/domain/atom'
+import {
+  componentRef,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
+import { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'

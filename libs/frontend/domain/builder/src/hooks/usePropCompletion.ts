@@ -2,7 +2,7 @@ import {
   IElementRef,
   IPropData,
   IRenderer,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import isObjectLike from 'lodash/isObjectLike'
 

@@ -4,7 +4,7 @@ import {
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { IElement, IElementService } from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

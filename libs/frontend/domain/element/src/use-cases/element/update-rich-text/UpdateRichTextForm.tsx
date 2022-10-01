@@ -3,7 +3,7 @@ import {
   IElement,
   IElementService,
   IPropData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'

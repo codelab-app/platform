@@ -1,4 +1,4 @@
-import { IDomainExport } from '@codelab/shared/abstract/core'
+import { IDomainExport } from '@codelab/backend/abstract/core'
 import {
   addVercelDomain,
   createDomainIfNotExist,

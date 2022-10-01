@@ -1,4 +1,4 @@
-import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
+import { IAtomService, ITypeService } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 
 export interface ElementHookSectionProps {

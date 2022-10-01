@@ -1,4 +1,4 @@
-import { IAtomService } from '@codelab/shared/abstract/core'
+import { IAtomService } from '@codelab/frontend/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

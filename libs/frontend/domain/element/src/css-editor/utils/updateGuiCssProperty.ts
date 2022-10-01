@@ -1,4 +1,4 @@
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement } from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 
 export const updateGuiCssProperty =

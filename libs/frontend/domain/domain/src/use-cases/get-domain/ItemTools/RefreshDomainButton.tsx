@@ -1,7 +1,7 @@
 import { SyncOutlined } from '@ant-design/icons'
+import { IDomain } from '@codelab/frontend/abstract/core'
 import { useCurrentApp } from '@codelab/frontend/domain/app'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { IDomain } from '@codelab/shared/abstract/core'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

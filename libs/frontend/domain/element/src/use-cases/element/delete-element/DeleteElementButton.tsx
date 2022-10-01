@@ -1,4 +1,4 @@
-import { IElement, IElementService } from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

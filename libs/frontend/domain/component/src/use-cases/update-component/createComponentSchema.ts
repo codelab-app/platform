@@ -1,4 +1,4 @@
-import { IUpdateComponentDTO } from '@codelab/shared/abstract/core'
+import { IUpdateComponentDTO } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export const updateComponentSchema: JSONSchemaType<IUpdateComponentDTO> = {

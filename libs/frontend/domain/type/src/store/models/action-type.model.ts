@@ -1,8 +1,8 @@
 import type {
   IAnyActionType,
   IAnyActionTypeDTO,
-} from '@codelab/shared/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { createTypeBase } from './base-type.model'
 

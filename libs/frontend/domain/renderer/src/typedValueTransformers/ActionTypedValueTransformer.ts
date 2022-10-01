@@ -1,4 +1,4 @@
-import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
+import { ITypeKind, TypedValue } from '@codelab/frontend/abstract/core'
 import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'

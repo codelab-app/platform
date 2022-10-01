@@ -1,9 +1,10 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import { IActionExport } from '@codelab/backend/abstract/core'
 import {
   codeActionSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IActionExport, IActionKind } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/frontend/abstract/core'
 import { connectNode } from '@codelab/shared/data'
 import { exportApiActionSelectionSet } from '../selectionSets/actionSelectionSet'
 

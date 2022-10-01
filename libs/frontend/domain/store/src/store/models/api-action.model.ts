@@ -1,6 +1,3 @@
-import { Prop } from '@codelab/frontend/domain/element'
-import { resourceRef } from '@codelab/frontend/domain/resource'
-import { tryParse } from '@codelab/frontend/shared/utils'
 import {
   assertIsActionKind,
   IActionKind,
@@ -13,7 +10,10 @@ import {
   IResource,
   IResourceType,
   IRestActionConfig,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { Prop } from '@codelab/frontend/domain/element'
+import { resourceRef } from '@codelab/frontend/domain/resource'
+import { tryParse } from '@codelab/frontend/shared/utils'
 import { Method } from 'axios'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { actionRef } from './action.ref'

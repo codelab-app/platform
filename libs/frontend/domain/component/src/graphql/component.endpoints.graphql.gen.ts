@@ -1,17 +1,26 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { RenderedComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
-import { ComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
+
+
+
+
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { RenderedComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component-render.fragment.graphql.gen'
-import { ComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
+import {
+  ComponentFragment,
+  ComponentFragmentDoc,
+} from '../../../../abstract/core/src/domain/component/component.fragment.graphql.gen'
+import {
+  RenderedComponentFragment,
+  RenderedComponentFragmentDoc,
+} from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
+
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>
 
-export type CreateComponentsMutation = {
+export interface CreateComponentsMutation {
   createComponents: { components: Array<RenderedComponentFragment> }
 }
 
@@ -20,7 +29,7 @@ export type DeleteComponentsMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.ComponentDeleteInput>
 }>
 
-export type DeleteComponentsMutation = {
+export interface DeleteComponentsMutation {
   deleteComponents: { nodesDeleted: number }
 }
 
@@ -29,7 +38,7 @@ export type UpdateComponentsMutationVariables = Types.Exact<{
   update?: Types.InputMaybe<Types.ComponentUpdateInput>
 }>
 
-export type UpdateComponentsMutation = {
+export interface UpdateComponentsMutation {
   updateComponents: { components: Array<ComponentFragment> }
 }
 
@@ -38,7 +47,9 @@ export type GetComponentsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ComponentWhere>
 }>
 
-export type GetComponentsQuery = { components: Array<ComponentFragment> }
+export interface GetComponentsQuery {
+  components: Array<ComponentFragment>
+}
 
 export const CreateComponentsDocument = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
@@ -160,4 +171,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

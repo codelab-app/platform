@@ -2,7 +2,7 @@ import {
   ICreateAppDTO,
   ICreateElementDTO,
   ICreatePageDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 
 export const appData: Pick<ICreateAppDTO, 'id' | 'name'> = {

@@ -1,8 +1,8 @@
+import { IElement, IElementTree } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
 } from '@codelab/frontend/presenter/container'
-import { IElement, IElementTree } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {

@@ -1,5 +1,5 @@
+import { IComponentService } from '@codelab/frontend/abstract/core'
 import { Spinner } from '@codelab/frontend/view/components'
-import { IComponentService } from '@codelab/shared/abstract/core'
 import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

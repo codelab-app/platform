@@ -1,5 +1,3 @@
-import { getResourceService } from '@codelab/frontend/domain/resource'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
   ActionFragment,
   IActionDTO,
@@ -9,8 +7,10 @@ import type {
   ICreateActionDTO,
   ICreateActionInput,
   IUpdateActionDTO,
-} from '@codelab/shared/abstract/core'
-import { IActionKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { IActionKind } from '@codelab/frontend/abstract/core'
+import { getResourceService } from '@codelab/frontend/domain/resource'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,

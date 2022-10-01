@@ -1,4 +1,4 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/frontend/abstract/core'
 import { CreateTypeOptions } from './TypeSelect'
 
 /**

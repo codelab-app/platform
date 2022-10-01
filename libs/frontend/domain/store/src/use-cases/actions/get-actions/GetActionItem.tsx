@@ -1,9 +1,9 @@
 import { FileOutlined } from '@ant-design/icons'
+import { IActionService, IAnyAction } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
-import { IActionService, IAnyAction } from '@codelab/shared/abstract/core'
 import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

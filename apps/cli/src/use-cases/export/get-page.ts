@@ -1,8 +1,8 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   componentSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { uuidRegex } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import flatten from 'lodash/flatten'

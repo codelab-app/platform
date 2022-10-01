@@ -1,8 +1,12 @@
 import {
+  IElement,
+  ITypeKind,
+  TypedValue,
+} from '@codelab/frontend/abstract/core'
+import {
   getComponentService,
   getElementService,
 } from '@codelab/frontend/presenter/container'
-import { IElement, ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'

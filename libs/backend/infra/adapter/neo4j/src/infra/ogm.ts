@@ -1,4 +1,4 @@
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { OGM } from '@neo4j/graphql-ogm'
 import { typeDefs } from '../schema'
 import { getDriver } from './driver'

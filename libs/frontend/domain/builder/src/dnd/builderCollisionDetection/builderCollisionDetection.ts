@@ -1,4 +1,7 @@
-import { BuilderDndType, BuilderDragData } from '@codelab/shared/abstract/core'
+import {
+  BuilderDndType,
+  BuilderDragData,
+} from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import {
   CollisionDetection,
@@ -58,7 +61,7 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
     /**
 Given rect width
 | x% = add as descendant |  y% = add as children |
-Check for interected rect 
+Check for interected rect
  */
     ;(el0.data as Record<string, any>)['dropPosition'] = calcDropPosition(
       collisionRect,

@@ -1,4 +1,4 @@
-import { IElementType } from '@codelab/shared/abstract/core'
+import { IElementType } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '../fields'
 import { UiPropertiesFn } from '../types'
 

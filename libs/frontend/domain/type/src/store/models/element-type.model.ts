@@ -2,12 +2,12 @@ import type {
   IElementType,
   IElementTypeDTO,
   ITypeDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import {
   assertIsTypeKind,
   ElementTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'

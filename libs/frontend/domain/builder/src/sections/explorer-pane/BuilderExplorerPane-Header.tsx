@@ -1,10 +1,10 @@
-import { CreateElementButton } from '@codelab/frontend/domain/element'
 import {
   BuilderTab,
   IBuilderService,
   IElement,
   IElementService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { CreateElementButton } from '@codelab/frontend/domain/element'
 import { Nullable } from '@codelab/shared/abstract/types'
 import Input from 'antd/lib/input'
 import { observer } from 'mobx-react-lite'

@@ -1,6 +1,6 @@
+import { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
 import { makeCreateInput } from '@codelab/frontend/domain/element'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
 import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 

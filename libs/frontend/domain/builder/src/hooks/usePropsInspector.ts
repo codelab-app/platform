@@ -1,10 +1,10 @@
-import { notify } from '@codelab/frontend/shared/utils'
 import {
   IElement,
   IElementService,
   IPropData,
   IRenderer,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { notify } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { autorun } from 'mobx'

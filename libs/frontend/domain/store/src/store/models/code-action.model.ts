@@ -4,7 +4,7 @@ import {
   ICodeAction,
   ICodeActionDTO,
   IPropData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction, updateBaseAction } from './base-action.model'
 

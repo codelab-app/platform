@@ -1,4 +1,4 @@
-import { ICreateTagDTO } from '@codelab/shared/abstract/core'
+import { ICreateTagDTO } from '@codelab/frontend/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 

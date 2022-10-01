@@ -9,7 +9,7 @@ import {
   CssMap,
   IElement,
   IElementService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Col, Collapse, Row } from 'antd'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'

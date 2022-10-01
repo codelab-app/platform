@@ -3,8 +3,8 @@ import type {
   IArrayType,
   IArrayTypeDTO,
   ITypeDTO,
-} from '@codelab/shared/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'

@@ -1,3 +1,11 @@
+import {
+  IApp,
+  IAppDTO,
+  IAppService,
+  ICreateAppDTO,
+  IPageBuilderAppProps,
+  IUpdateAppDTO,
+} from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { deleteStoreInput } from '@codelab/frontend/domain/store'
 import {
@@ -6,15 +14,7 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
-import {
-  IApp,
-  IAppDTO,
-  IAppService,
-  ICreateAppDTO,
-  IPageBuilderAppProps,
-  ITypeKind,
-  IUpdateAppDTO,
-} from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'

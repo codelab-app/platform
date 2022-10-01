@@ -1,4 +1,4 @@
-import { IResourceService } from '@codelab/shared/abstract/core'
+import { IResourceService } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'

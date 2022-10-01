@@ -2,7 +2,7 @@ import {
   SelectChildElement,
   SelectElementProps,
 } from '@codelab/frontend/domain/type'
-import { ICreateElementDTO } from '@codelab/shared/abstract/core'
+import { ICreateElementDTO } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useForm } from 'uniforms'
 import { AutoField } from 'uniforms-antd'

@@ -1,5 +1,8 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { IResourceService, IResourceType } from '@codelab/shared/abstract/core'
+import {
+  IResourceService,
+  IResourceType,
+} from '@codelab/frontend/abstract/core'
 import { Button, Dropdown, Menu } from 'antd'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'

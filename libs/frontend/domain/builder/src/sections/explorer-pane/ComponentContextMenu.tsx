@@ -1,6 +1,6 @@
+import { IComponent, IComponentService } from '@codelab/frontend/abstract/core'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
-import { IComponent, IComponentService } from '@codelab/shared/abstract/core'
 import { Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

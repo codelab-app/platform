@@ -1,8 +1,5 @@
-import {
-  IPrimitiveTypeKind,
-  ITypeExport,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeExport } from '@codelab/backend/abstract/core'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 type CreateSeedTypes = (ids?: Array<string>) => Array<ITypeExport>

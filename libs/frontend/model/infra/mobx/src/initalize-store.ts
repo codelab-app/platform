@@ -1,9 +1,9 @@
-import { UserService } from '@codelab/frontend/domain/user'
 import {
   IPageProps,
   IRootStore,
   JWT_CLAIMS,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { UserService } from '@codelab/frontend/domain/user'
 import { fromSnapshot, registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
 

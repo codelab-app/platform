@@ -1,9 +1,9 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   IEntityModalService,
   IFieldModalMetadata,
   IFieldModalProperties,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 

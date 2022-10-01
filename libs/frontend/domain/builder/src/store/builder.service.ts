@@ -1,6 +1,3 @@
-import { getAtomService } from '@codelab/frontend/domain/atom'
-import { Element, elementRef } from '@codelab/frontend/domain/element'
-import { getTagService } from '@codelab/frontend/domain/tag'
 import {
   BuilderDragData,
   BuilderTab,
@@ -9,7 +6,10 @@ import {
   isComponent,
   isElement,
   RendererTab,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
+import { Element, elementRef } from '@codelab/frontend/domain/element'
+import { getTagService } from '@codelab/frontend/domain/tag'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { COMPONENT_TAG_NAME } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'

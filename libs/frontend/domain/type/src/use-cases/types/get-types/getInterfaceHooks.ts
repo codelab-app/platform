@@ -1,4 +1,4 @@
-import { IInterfaceType, ITypeService } from '@codelab/shared/abstract/core'
+import { IInterfaceType, ITypeService } from '@codelab/frontend/abstract/core'
 import { useRouter } from 'next/router'
 import { useAsync } from 'react-use'
 

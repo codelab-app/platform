@@ -1,4 +1,3 @@
-import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import {
   IBuilderService,
   IComponentService,
@@ -8,7 +7,8 @@ import {
   IRenderService,
   IStore,
   RendererTab,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { Alert, Layout, Spin, Tabs } from 'antd'
 import { Content, Header } from 'antd/lib/layout/layout'

@@ -1,8 +1,5 @@
-import {
-  ExistingData,
-  IAtomImport,
-  IAtomType,
-} from '@codelab/shared/abstract/core'
+import { ExistingData, IAtomImport } from '@codelab/backend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtomData, getApiName } from '@codelab/shared/data'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'

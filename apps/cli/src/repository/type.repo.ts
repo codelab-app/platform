@@ -1,8 +1,9 @@
+import { ITypeExport } from '@codelab/backend/abstract/core'
 import {
   exportEnumTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'

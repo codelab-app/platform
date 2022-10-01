@@ -18,6 +18,6 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "../../../shared/abstract/core/src/domain/atom/atom.fragment.graphql.gen.ts"
+    "../../abstract/core/src/domain/atom/atom.fragment.graphql.gen.ts"
   ]
 }

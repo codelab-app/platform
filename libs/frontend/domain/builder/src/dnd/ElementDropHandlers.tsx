@@ -1,6 +1,6 @@
+import { IElement } from '@codelab/frontend/abstract/core'
 import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
 import { HoverOverlay } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useCreateElementDroppable } from './useCreateElementDroppable'

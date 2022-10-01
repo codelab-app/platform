@@ -1,6 +1,6 @@
+import { ITagService } from '@codelab/frontend/abstract/core'
 import { CheckedKeys } from '@codelab/frontend/abstract/types'
 import { Spinner } from '@codelab/frontend/view/components'
-import { ITagService } from '@codelab/shared/abstract/core'
 import { Tree, TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

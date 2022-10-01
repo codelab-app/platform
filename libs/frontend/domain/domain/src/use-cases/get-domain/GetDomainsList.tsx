@@ -1,6 +1,6 @@
+import { IDomainService } from '@codelab/frontend/abstract/core'
 import { DisplayIf, ErrorBoundary } from '@codelab/frontend/view/components'
 import { padding, threeGridCol } from '@codelab/frontend/view/style'
-import { IDomainService } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

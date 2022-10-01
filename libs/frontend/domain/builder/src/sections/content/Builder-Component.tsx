@@ -4,7 +4,7 @@ import {
   IElementService,
   IRenderService,
   IStore,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { JSXElementConstructor, useEffect } from 'react'
 import { BaseBuilderProps } from './BaseBuilder'

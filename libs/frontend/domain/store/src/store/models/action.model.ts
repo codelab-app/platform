@@ -3,7 +3,7 @@ import {
   IActionKind,
   IApiAction,
   ICodeAction,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { ApiAction } from './api-action.model'
 import { CodeAction } from './code-action.model'
 

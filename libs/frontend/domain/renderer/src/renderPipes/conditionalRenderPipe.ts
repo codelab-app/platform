@@ -3,7 +3,7 @@ import {
   IPropData,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import get from 'lodash/get'
 import isString from 'lodash/isString'
 import { ExtendedModel, model, prop } from 'mobx-keystone'

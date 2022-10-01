@@ -1,3 +1,4 @@
+import { ExistingData } from '@codelab/backend/abstract/core'
 import {
   atomSelectionSet,
   exportEnumTypeSelectionSet,
@@ -8,7 +9,6 @@ import {
   Repository,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { ExistingData } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 
 /**

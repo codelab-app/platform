@@ -1,4 +1,4 @@
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/frontend/abstract/core'
 import { MaybeArray } from '@codelab/shared/abstract/types'
 
 export type IInput = IPropData

@@ -1,19 +1,28 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { UserFragment } from '../../../../../shared/abstract/core/src/domain/user/user.fragment.graphql.gen'
+
+
+
+
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { UserFragmentDoc } from '../../../../../shared/abstract/core/src/domain/user/user.fragment.graphql.gen'
+import {
+  UserFragment,
+  UserFragmentDoc,
+} from '../../../../abstract/core/src/domain/user/user.fragment.graphql.gen'
+
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 
-export type GetUsersQuery = { users: Array<UserFragment> }
+export interface GetUsersQuery {
+  users: Array<UserFragment>
+}
 
 export type CreateUserMutationVariables = Types.Exact<{
   input: Array<Types.UserCreateInput> | Types.UserCreateInput
 }>
 
-export type CreateUserMutation = {
+export interface CreateUserMutation {
   createUsers: { users: Array<{ id: string; email: string }> }
 }
 
@@ -83,4 +92,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

@@ -1,4 +1,4 @@
-import { IUpdateActionDTO } from '@codelab/shared/abstract/core'
+import { IUpdateActionDTO } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { createActionSchema } from '../create-action'
 

@@ -1,4 +1,4 @@
-import { IActionService, IStore } from '@codelab/shared/abstract/core'
+import { IActionService, IStore } from '@codelab/frontend/abstract/core'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

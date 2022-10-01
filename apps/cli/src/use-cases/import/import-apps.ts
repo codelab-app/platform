@@ -1,4 +1,4 @@
-import { IAppExport } from '@codelab/shared/abstract/core'
+import { IAppExport } from '@codelab/backend/abstract/core'
 import { createApp } from '../../repository/app.repo'
 import { logSection, logTask } from '../../shared/utils/log-task'
 import { importDomains } from './import-domains'

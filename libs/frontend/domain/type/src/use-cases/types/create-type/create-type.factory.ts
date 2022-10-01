@@ -2,7 +2,7 @@ import {
   ICreateTypeDTO,
   ICreateTypeInput,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import {
   connectTypeOwner,
   makeAllowedValuesCreateInput,

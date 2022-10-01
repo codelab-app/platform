@@ -3,7 +3,7 @@ import {
   IBuilderComponent,
   ICreateElementDTO,
   IElementRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { useDraggable } from '@dnd-kit/core'
 
 export const useCreateElementDraggable = (

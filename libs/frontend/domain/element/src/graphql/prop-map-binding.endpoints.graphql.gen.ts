@@ -1,17 +1,24 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { PropMapBindingFragment } from '../../../../../shared/abstract/core/src/domain/prop/prop.fragment.graphql.gen'
+
+
+
+
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { PropMapBindingFragmentDoc } from '../../../../../shared/abstract/core/src/domain/prop/prop.fragment.graphql.gen'
+import {
+  PropMapBindingFragment,
+  PropMapBindingFragmentDoc,
+} from '../../../../abstract/core/src/domain/prop/prop.fragment.graphql.gen'
+
 export type CreatePropMapBindingsMutationVariables = Types.Exact<{
   input:
     | Array<Types.PropMapBindingCreateInput>
     | Types.PropMapBindingCreateInput
 }>
 
-export type CreatePropMapBindingsMutation = {
+export interface CreatePropMapBindingsMutation {
   createPropMapBindings: { propMapBindings: Array<PropMapBindingFragment> }
 }
 
@@ -20,7 +27,7 @@ export type UpdatePropMapBindingsMutationVariables = Types.Exact<{
   update: Types.PropMapBindingUpdateInput
 }>
 
-export type UpdatePropMapBindingsMutation = {
+export interface UpdatePropMapBindingsMutation {
   updatePropMapBindings: { propMapBindings: Array<PropMapBindingFragment> }
 }
 
@@ -28,7 +35,7 @@ export type DeletePropMapBindingsMutationVariables = Types.Exact<{
   where: Types.PropMapBindingWhere
 }>
 
-export type DeletePropMapBindingsMutation = {
+export interface DeletePropMapBindingsMutation {
   deletePropMapBindings: { nodesDeleted: number }
 }
 
@@ -37,7 +44,7 @@ export type GetPropMapBindingsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PropMapBindingWhere>
 }>
 
-export type GetPropMapBindingsQuery = {
+export interface GetPropMapBindingsQuery {
   propMapBindings: Array<PropMapBindingFragment>
 }
 
@@ -162,4 +169,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

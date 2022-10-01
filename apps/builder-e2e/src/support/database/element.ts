@@ -1,8 +1,8 @@
+import { IElementDTO } from '@codelab/frontend/abstract/core'
 import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { IElementDTO } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import {
   CreateElementsDocument,

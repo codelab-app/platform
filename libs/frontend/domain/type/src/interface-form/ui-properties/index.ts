@@ -1,4 +1,4 @@
-import { IAnyType, ITypeKind, ITypeOf } from '@codelab/shared/abstract/core'
+import { IAnyType, ITypeKind, ITypeOf } from '@codelab/frontend/abstract/core'
 import { UiPropertiesContext, UiPropertiesFn } from '../types'
 import { actionTypeUiProperties } from './actionTypeUiProperties'
 import { appTypeUiProperties } from './appTypeUiProperties'

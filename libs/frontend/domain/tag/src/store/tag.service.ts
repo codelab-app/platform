@@ -1,5 +1,3 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
-import { TagWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTagDTO,
   ITag,
@@ -7,7 +5,9 @@ import type {
   ITagService,
   ITagTreeService,
   IUpdateTagDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { ModalService } from '@codelab/frontend/shared/utils'
+import { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'

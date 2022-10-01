@@ -1,10 +1,4 @@
 import { CodeSandboxOutlined, EditOutlined } from '@ant-design/icons'
-import { UpdateComponentForm } from '@codelab/frontend/domain/component'
-import {
-  DeleteElementButton,
-  MoveElementForm,
-  UpdateElementForm,
-} from '@codelab/frontend/domain/element'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
@@ -17,7 +11,13 @@ import {
   IRenderer,
   ITypeService,
   IUserService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { UpdateComponentForm } from '@codelab/frontend/domain/component'
+import {
+  DeleteElementButton,
+  MoveElementForm,
+  UpdateElementForm,
+} from '@codelab/frontend/domain/element'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

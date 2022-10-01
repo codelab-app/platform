@@ -1,5 +1,5 @@
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
-import { ITypeService } from '@codelab/shared/abstract/core'
+import { ITypeService } from '@codelab/frontend/abstract/core'
 import { createContext } from 'mobx-keystone'
 
 export const typeServiceContext = createContext<ITypeService>()

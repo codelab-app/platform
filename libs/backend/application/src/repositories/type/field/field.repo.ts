@@ -1,13 +1,11 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   connectField,
   getDriver,
   interfaceTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import {
-  MutationUpsertFieldArgs,
-  OGM_TYPES,
-} from '@codelab/shared/abstract/codegen'
+import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
 import merge from 'lodash/merge'
 
 export const fieldRepository = {

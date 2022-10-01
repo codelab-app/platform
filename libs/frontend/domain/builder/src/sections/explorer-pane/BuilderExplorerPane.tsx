@@ -1,4 +1,15 @@
 import {
+  BuilderTab,
+  IActionService,
+  IAtomService,
+  IBuilderService,
+  IComponentService,
+  IElementService,
+  IRenderService,
+  IUserService,
+  RendererTab,
+} from '@codelab/frontend/abstract/core'
+import {
   CreateComponentButton,
   CreateComponentModal,
   DeleteComponentModal,
@@ -9,17 +20,6 @@ import {
 } from '@codelab/frontend/domain/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
-import {
-  BuilderTab,
-  IActionService,
-  IAtomService,
-  IBuilderService,
-  IComponentService,
-  IElementService,
-  IRenderService,
-  IUserService,
-  RendererTab,
-} from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import debounce from 'lodash/debounce'
 import { observer } from 'mobx-react-lite'

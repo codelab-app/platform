@@ -1,12 +1,12 @@
 import {
-  ElementCreateInput,
-  ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import {
   ICreateElementDTO,
   IElement,
   IUpdateElementDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import {
+  ElementCreateInput,
+  ElementUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 

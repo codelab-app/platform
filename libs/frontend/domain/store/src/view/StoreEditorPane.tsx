@@ -1,13 +1,13 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { InterfaceDefaultsButton, typeRef } from '@codelab/frontend/domain/type'
-import { useResizable } from '@codelab/frontend/view/components'
 import {
   IActionService,
   IInterfaceType,
   IStore,
   IStoreService,
   ITypeService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { InterfaceDefaultsButton, typeRef } from '@codelab/frontend/domain/type'
+import { useResizable } from '@codelab/frontend/view/components'
 import { Button, Row } from 'antd'
 import { motion } from 'framer-motion'
 import { Ref } from 'mobx-keystone'

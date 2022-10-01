@@ -2,7 +2,7 @@ import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   INode,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { DataNode } from 'antd/lib/tree'

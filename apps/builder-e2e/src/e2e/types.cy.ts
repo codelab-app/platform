@@ -1,5 +1,5 @@
+import { ITypeKind } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
 
 // Primitive Type use case

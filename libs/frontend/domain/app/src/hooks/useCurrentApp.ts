@@ -1,5 +1,5 @@
+import { IAppService } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
-import { IAppService } from '@codelab/shared/abstract/core'
 import { useAsync } from 'react-use'
 
 export const useCurrentApp = (appService: IAppService) => {

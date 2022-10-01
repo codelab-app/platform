@@ -3,7 +3,7 @@ import {
   IElement,
   IElementService,
   TypedValue,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 
 export const getRootElement = (

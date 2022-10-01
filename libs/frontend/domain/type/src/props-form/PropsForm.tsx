@@ -1,9 +1,9 @@
+import { IInterfaceType, IPropData } from '@codelab/frontend/abstract/core'
 import { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import {
   handleFormSubmit,
   SetIsLoading,
 } from '@codelab/frontend/view/components'
-import { IInterfaceType, IPropData } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { CSSInterpolation } from '@emotion/serialize'
 import { observer } from 'mobx-react-lite'

@@ -1,6 +1,6 @@
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import { IElement, IElementService } from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import TextArea from 'antd/lib/input/TextArea'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'

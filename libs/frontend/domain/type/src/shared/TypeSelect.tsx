@@ -1,4 +1,4 @@
-import { IAnyType } from '@codelab/shared/abstract/core'
+import { IAnyType } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'

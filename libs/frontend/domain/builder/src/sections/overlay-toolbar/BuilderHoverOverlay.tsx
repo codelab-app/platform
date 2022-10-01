@@ -1,6 +1,6 @@
+import { IBuilderService, isElement } from '@codelab/frontend/abstract/core'
 import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
 import { HoverOverlay } from '@codelab/frontend/view/components'
-import { IBuilderService, isElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 

@@ -1,10 +1,3 @@
-import { getAtomService } from '@codelab/frontend/domain/atom'
-import { getComponentService } from '@codelab/frontend/presenter/container'
-import {
-  ElementCreateInput,
-  ElementUpdateInput,
-  ElementWhere,
-} from '@codelab/shared/abstract/codegen'
 import {
   IAuth0Id,
   IComponentDTO,
@@ -20,7 +13,14 @@ import {
   ITypeKind,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
+import { getComponentService } from '@codelab/frontend/presenter/container'
+import {
+  ElementCreateInput,
+  ElementUpdateInput,
+  ElementWhere,
+} from '@codelab/shared/abstract/codegen'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNode,

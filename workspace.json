@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "backend-abstract-codegen": "libs/backend/abstract/codegen",
+    "backend-abstract-core": "libs/backend/abstract/core",
     "backend-application": "libs/backend/application",
     "backend-graphql": "libs/backend/graphql",
     "backend-infra-adapter-neo4j": "libs/backend/infra/adapter/neo4j",

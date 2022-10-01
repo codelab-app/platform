@@ -2,7 +2,7 @@ import {
   IElement,
   IElementService,
   IElementTree,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import React from 'react'
 import tw from 'twin.macro'
 import {

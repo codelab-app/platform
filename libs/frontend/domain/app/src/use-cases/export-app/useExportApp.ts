@@ -1,5 +1,5 @@
+import { AppFragment } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
-import { AppFragment } from '@codelab/shared/abstract/core'
 import fileDownload from 'js-file-download'
 import { useCallback, useEffect, useState } from 'react'
 import sanitizeFilename from 'sanitize-filename'

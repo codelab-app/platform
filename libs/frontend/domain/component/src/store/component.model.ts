@@ -1,12 +1,12 @@
-import { ElementTreeService } from '@codelab/frontend/domain/element'
-import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
-import { getElementService } from '@codelab/frontend/presenter/container'
-import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import {
   COMPONENT_NODE_TYPE,
   IComponent,
   IComponentDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { ElementTreeService } from '@codelab/frontend/domain/element'
+import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
+import { getElementService } from '@codelab/frontend/presenter/container'
+import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import {
   ExtendedModel,
   idProp,

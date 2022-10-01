@@ -3,7 +3,7 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-import { IResource, IResourceService } from '@codelab/shared/abstract/core'
+import { IResource, IResourceService } from '@codelab/frontend/abstract/core'
 import { Button, Dropdown, Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'

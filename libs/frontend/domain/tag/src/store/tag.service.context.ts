@@ -1,4 +1,4 @@
-import { ITagService } from '@codelab/shared/abstract/core'
+import { ITagService } from '@codelab/frontend/abstract/core'
 import { createContext } from 'mobx-keystone'
 
 export const tagServiceContext = createContext<ITagService>()

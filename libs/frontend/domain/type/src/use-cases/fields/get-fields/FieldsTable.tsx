@@ -3,7 +3,7 @@ import {
   IInterfaceType,
   ITypeService,
   IValidationRules,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Button, Divider, Space, Table, TableColumnProps, Tag } from 'antd'
 import { Observer, observer } from 'mobx-react-lite'

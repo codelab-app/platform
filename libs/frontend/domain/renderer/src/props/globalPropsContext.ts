@@ -1,4 +1,4 @@
-import { IPropDataByElementId } from '@codelab/shared/abstract/core'
+import { IPropDataByElementId } from '@codelab/frontend/abstract/core'
 import React, { createContext, ReactElement } from 'react'
 
 /**

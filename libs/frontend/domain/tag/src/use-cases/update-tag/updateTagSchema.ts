@@ -1,4 +1,4 @@
-import { IUpdateTagDTO } from '@codelab/shared/abstract/core'
+import { IUpdateTagDTO } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export const updateTagSchema: JSONSchemaType<IUpdateTagDTO> = {

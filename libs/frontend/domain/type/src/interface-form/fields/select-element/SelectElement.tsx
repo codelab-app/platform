@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { ElementTypeKind } from '@codelab/shared/abstract/core'
+import { ElementTypeKind } from '@codelab/frontend/abstract/core'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import difference from 'lodash/difference'
 import React from 'react'

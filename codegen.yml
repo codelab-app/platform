@@ -51,7 +51,7 @@ generates:
       extension: .graphql.gen.ts
       baseTypesPath: ~@codelab/shared/abstract/codegen
       # This forces us to export fragment types, we want to export our own DTO naming instead
-      # importAllFragmentsFrom: ~@codelab/shared/abstract/core
+      # importAllFragmentsFrom: ~@codelab/frontend/abstract/core
     plugins:
       - typescript-operations
       - typescript-graphql-request

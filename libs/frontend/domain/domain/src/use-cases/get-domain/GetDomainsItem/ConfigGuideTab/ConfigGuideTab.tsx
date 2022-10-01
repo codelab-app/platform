@@ -1,4 +1,4 @@
-import { IDomain } from '@codelab/shared/abstract/core'
+import { IDomain } from '@codelab/frontend/abstract/core'
 import { Alert, Tabs } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'

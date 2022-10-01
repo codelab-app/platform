@@ -8,7 +8,7 @@ import {
   ICreatePropMapBindingDTO,
   IElementService,
   IElementTree,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'

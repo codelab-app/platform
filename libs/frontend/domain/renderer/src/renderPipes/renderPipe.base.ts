@@ -1,5 +1,5 @@
+import { IBaseRenderPipe, IRenderer } from '@codelab/frontend/abstract/core'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { IBaseRenderPipe, IRenderer } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { findParent, idProp, Model, model } from 'mobx-keystone'
 

@@ -1,8 +1,8 @@
+import { ExportAppWhere, IAppExport } from '@codelab/backend/abstract/core'
 import {
   appSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { ExportAppWhere, IAppExport } from '@codelab/shared/abstract/core'
 import { getApp } from '../../repository/app.repo'
 
 export interface ExportAppData {

@@ -1,4 +1,4 @@
-import { IRenderPipe } from '@codelab/shared/abstract/core'
+import { IRenderPipe } from '@codelab/frontend/abstract/core'
 import { AtomRenderPipe } from './atomRenderPipe'
 import { ComponentRenderPipe } from './componentRenderPipe'
 import { ConditionalRenderPipe } from './conditionalRenderPipe'

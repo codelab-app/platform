@@ -1,4 +1,4 @@
-import { IBuilderService } from '@codelab/shared/abstract/core'
+import { IBuilderService } from '@codelab/frontend/abstract/core'
 import { MenuProps } from 'antd'
 
 type BuilderMenuItemProps = Pick<IBuilderService, 'setActiveBuilderTab'>

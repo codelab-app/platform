@@ -1,8 +1,8 @@
+import { IResourceDTO } from '@codelab/frontend/abstract/core'
 import {
   ResourceCreateInput,
   ResourceType,
 } from '@codelab/shared/abstract/codegen'
-import { IResourceDTO } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import { CreateResourcesDocument } from 'libs/frontend/domain/resource/src/graphql/resource.endpoints.graphql.gen'
 import { v4 } from 'uuid'

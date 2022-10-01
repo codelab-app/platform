@@ -3,10 +3,6 @@
 //
 
 import {
-  InterfaceTypeCreateInput,
-  StoreCreateInput,
-} from '@codelab/shared/abstract/codegen'
-import {
   IActionKind,
   IAnyAction,
   IAnyActionWhere,
@@ -15,7 +11,11 @@ import {
   ICreateStoreDTO,
   IUpdateActionDTO,
   IUpdateActionInput,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import {
+  InterfaceTypeCreateInput,
+  StoreCreateInput,
+} from '@codelab/shared/abstract/codegen'
 import { connectNode, connectTypeOwner } from '@codelab/shared/data'
 import capitalize from 'lodash/capitalize'
 import { v4 } from 'uuid'

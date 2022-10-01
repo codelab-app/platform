@@ -5,11 +5,11 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/shared/abstract/core/**/*.ts"]
-      },
-      "outputs": ["{options.outputFile}"]
+      }
     }
   },
-  "tags": ["type:abstract"]
+  "tags": ["scope:shared", "type:abstract"]
 }

@@ -1,4 +1,4 @@
-import { ICreatePageDTO } from '@codelab/shared/abstract/core'
+import { ICreatePageDTO } from '@codelab/frontend/abstract/core'
 import { hideField } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 

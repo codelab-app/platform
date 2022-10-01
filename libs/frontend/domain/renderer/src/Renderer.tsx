@@ -1,5 +1,7 @@
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import { IRenderer } from '@codelab/shared/abstract/core'
+import {
+  IRenderer,
+  ROOT_RENDER_CONTAINER_ID,
+} from '@codelab/frontend/abstract/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

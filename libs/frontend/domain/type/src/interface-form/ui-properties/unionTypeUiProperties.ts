@@ -1,4 +1,4 @@
-import { IUnionType } from '@codelab/shared/abstract/core'
+import { IUnionType } from '@codelab/frontend/abstract/core'
 import { SelectUnionTypeValue } from '../fields/select-union-type-value/SelectUnionTypeValue'
 import { UiPropertiesFn } from '../types'
 

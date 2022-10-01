@@ -1,13 +1,11 @@
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
-} from '@codelab/frontend/abstract/core'
-import { Renderer, RendererProps } from '@codelab/frontend/domain/renderer'
-import {
   IBuilderService,
   IElementService,
   IElementTree,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { Renderer, RendererProps } from '@codelab/frontend/domain/renderer'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

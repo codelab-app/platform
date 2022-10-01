@@ -6,7 +6,7 @@ import {
   IElementService,
   IElementTree,
   MoveData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'

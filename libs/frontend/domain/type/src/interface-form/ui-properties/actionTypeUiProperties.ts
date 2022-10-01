@@ -1,4 +1,4 @@
-import { IAnyActionType } from '@codelab/shared/abstract/core'
+import { IAnyActionType } from '@codelab/frontend/abstract/core'
 import { SelectAction } from '../fields'
 import { UiPropertiesFn } from '../types'
 

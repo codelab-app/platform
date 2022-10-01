@@ -1,22 +1,31 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ResourceFragment } from '../../../../../shared/abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+
+
+
+
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ResourceFragmentDoc } from '../../../../../shared/abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import {
+  ResourceFragment,
+  ResourceFragmentDoc,
+} from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+
 export type GetResourcesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ResourceOptions>
   where?: Types.InputMaybe<Types.ResourceWhere>
 }>
 
-export type GetResourcesQuery = { resources: Array<ResourceFragment> }
+export interface GetResourcesQuery {
+  resources: Array<ResourceFragment>
+}
 
 export type CreateResourcesMutationVariables = Types.Exact<{
   input: Array<Types.ResourceCreateInput> | Types.ResourceCreateInput
 }>
 
-export type CreateResourcesMutation = {
+export interface CreateResourcesMutation {
   createResources: { resources: Array<ResourceFragment> }
 }
 
@@ -25,7 +34,7 @@ export type UpdateResourceMutationVariables = Types.Exact<{
   update?: Types.InputMaybe<Types.ResourceUpdateInput>
 }>
 
-export type UpdateResourceMutation = {
+export interface UpdateResourceMutation {
   updateResources: { resources: Array<ResourceFragment> }
 }
 
@@ -33,7 +42,7 @@ export type DeleteResourcesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ResourceWhere>
 }>
 
-export type DeleteResourcesMutation = {
+export interface DeleteResourcesMutation {
   deleteResources: { nodesDeleted: number }
 }
 
@@ -151,4 +160,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

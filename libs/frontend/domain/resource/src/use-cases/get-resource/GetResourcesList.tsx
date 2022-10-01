@@ -1,6 +1,6 @@
+import { IResourceService } from '@codelab/frontend/abstract/core'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { threeGridCol } from '@codelab/frontend/view/style'
-import { IResourceService } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

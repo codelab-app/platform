@@ -1,8 +1,8 @@
 import {
   DATA_GRID,
+  IAtomType,
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
 import { AtomCustomizer, AtomCustomizerFn } from '../types'
 
 const antDesignRglItemFn: AtomCustomizerFn = ({ node, props }) => ({

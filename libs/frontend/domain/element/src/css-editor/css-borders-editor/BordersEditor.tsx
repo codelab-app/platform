@@ -1,4 +1,4 @@
-import { CssMap, IElement } from '@codelab/shared/abstract/core'
+import { CssMap, IElement } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CssPropValueSelector } from '../components'

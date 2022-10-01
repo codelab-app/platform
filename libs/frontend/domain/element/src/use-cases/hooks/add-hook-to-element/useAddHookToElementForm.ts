@@ -1,5 +1,5 @@
+import { IAtomService, ITypeService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useAsync } from 'react-use'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'

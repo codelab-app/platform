@@ -1,11 +1,14 @@
 import { FileOutlined } from '@ant-design/icons'
-import { PROVIDER_TREE_PAGE_NAME } from '@codelab/frontend/abstract/core'
+import {
+  IPage,
+  IPageService,
+  PROVIDER_TREE_PAGE_NAME,
+} from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
-import { IPage, IPageService } from '@codelab/shared/abstract/core'
 import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'

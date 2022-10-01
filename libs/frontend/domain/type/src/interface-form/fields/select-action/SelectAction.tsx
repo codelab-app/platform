@@ -1,4 +1,4 @@
-import { IActionService } from '@codelab/shared/abstract/core'
+import { IActionService } from '@codelab/frontend/abstract/core'
 import React from 'react'
 import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'

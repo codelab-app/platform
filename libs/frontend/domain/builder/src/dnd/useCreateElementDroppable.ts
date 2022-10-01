@@ -3,7 +3,7 @@ import {
   BuilderDropData,
   ICreateElementDTO,
   IElementRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 
 export const useCreateElementDroppable = (

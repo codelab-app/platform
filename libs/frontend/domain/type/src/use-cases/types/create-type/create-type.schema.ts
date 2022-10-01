@@ -1,10 +1,10 @@
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   ElementTypeKind,
   ICreateTypeDTO,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'

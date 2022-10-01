@@ -1,4 +1,4 @@
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { JWT_CLAIMS } from '@codelab/frontend/abstract/core'
 import { Config } from '@codelab/shared/config'
 import { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'

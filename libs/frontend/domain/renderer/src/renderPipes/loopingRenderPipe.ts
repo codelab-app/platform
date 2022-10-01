@@ -3,7 +3,7 @@ import {
   IPropData,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import { ExtendedModel, model, prop } from 'mobx-keystone'

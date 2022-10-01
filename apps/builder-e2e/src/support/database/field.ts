@@ -1,5 +1,5 @@
+import { IFieldProps } from '@codelab/frontend/abstract/core'
 import { FieldCreateInput } from '@codelab/shared/abstract/codegen'
-import { IFieldProps } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import { UpsertFieldDocument } from 'libs/frontend/domain/type/src/graphql/field.endpoints.graphql.gen'
 

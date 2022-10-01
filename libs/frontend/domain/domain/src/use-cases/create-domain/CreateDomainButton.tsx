@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { IDomainService } from '@codelab/shared/abstract/core'
+import { IDomainService } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'

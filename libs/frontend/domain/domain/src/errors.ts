@@ -1,8 +1,8 @@
+import { DOMAIN_GRAPHQL_ERROR_CODES } from '@codelab/frontend/abstract/core'
 import {
   extractFirstGraphQlErrorCode,
   UseNotifyReturnType,
 } from '@codelab/frontend/shared/utils'
-import { DOMAIN_GRAPHQL_ERROR_CODES } from '@codelab/shared/abstract/core'
 
 export const handleDomainExistError = (
   error: any,

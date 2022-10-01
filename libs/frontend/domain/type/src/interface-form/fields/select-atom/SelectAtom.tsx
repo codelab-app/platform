@@ -1,4 +1,4 @@
-import { filterNotHookType, IAtom } from '@codelab/shared/abstract/core'
+import { filterNotHookType, IAtom } from '@codelab/frontend/abstract/core'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { useQuery } from 'react-query'

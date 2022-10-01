@@ -3,7 +3,7 @@ import {
   IActionKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'

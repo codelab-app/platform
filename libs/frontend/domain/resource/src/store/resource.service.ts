@@ -1,14 +1,14 @@
 import type {
-  ResourceCreateInput,
-  ResourceWhere,
-} from '@codelab/shared/abstract/codegen'
-import type {
   ICreateResourceDTO,
   IResource,
   IResourceDTO,
   IResourceService,
   IUpdateResourceDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import type {
+  ResourceCreateInput,
+  ResourceWhere,
+} from '@codelab/shared/abstract/codegen'
 import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {

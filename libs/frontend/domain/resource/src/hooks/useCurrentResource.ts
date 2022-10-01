@@ -1,5 +1,5 @@
+import { IResourceService } from '@codelab/frontend/abstract/core'
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
-import { IResourceService } from '@codelab/shared/abstract/core'
 import { useAsync } from 'react-use'
 
 export const useCurrentResource = (resourcesService: IResourceService) => {

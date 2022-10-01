@@ -1,9 +1,9 @@
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import {
   IBuilderService,
   IElementService,
   IElementTree,
-} from '@codelab/shared/abstract/core'
+  ROOT_RENDER_CONTAINER_ID,
+} from '@codelab/frontend/abstract/core'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'

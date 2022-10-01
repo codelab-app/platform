@@ -1,4 +1,4 @@
-import { CssMap, IElement } from '@codelab/shared/abstract/core'
+import { CssMap, IElement } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ColorPicker } from '../components/ColorPicker'

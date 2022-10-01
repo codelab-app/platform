@@ -4,7 +4,7 @@ import {
   EllipsisOutlined,
   GlobalOutlined,
 } from '@ant-design/icons'
-import { IApp, IAppService } from '@codelab/shared/abstract/core'
+import { IApp, IAppService } from '@codelab/frontend/abstract/core'
 import { Button, Dropdown, Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'

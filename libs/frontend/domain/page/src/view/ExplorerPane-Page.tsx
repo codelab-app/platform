@@ -1,6 +1,6 @@
+import { IPageService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
-import { IPageService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRouter } from 'next/router'
 import {

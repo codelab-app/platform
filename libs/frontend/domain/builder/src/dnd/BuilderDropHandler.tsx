@@ -1,4 +1,4 @@
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement } from '@codelab/frontend/abstract/core'
 import { useDndContext } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { observer } from 'mobx-react-lite'

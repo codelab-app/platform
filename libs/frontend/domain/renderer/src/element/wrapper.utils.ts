@@ -1,7 +1,7 @@
 import {
   IPropDataByElementId,
   IRenderOutput,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isEmpty } from 'ramda'
 import React, { Fragment, ReactElement } from 'react'

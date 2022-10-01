@@ -1,5 +1,5 @@
+import { IRenderOutput, TypedValue } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/domain/element'
-import { IRenderOutput, TypedValue } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setupTest'
 

@@ -3,7 +3,7 @@ import {
   IElementService,
   IElementTree,
   IRenderer,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Builder } from './Builder'

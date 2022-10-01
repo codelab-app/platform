@@ -1,8 +1,8 @@
 /// <reference types='jest'/>
 
+import { IRootStore } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
 import { createRootStore } from '@codelab/frontend/model/infra/mobx'
-import { IRootStore } from '@codelab/shared/abstract/core'
 import {
   isRootStore,
   registerRootStore,

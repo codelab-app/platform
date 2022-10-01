@@ -1,4 +1,4 @@
-import { IBaseType, ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import { IBaseType, ITypeDTO, ITypeKind } from '@codelab/frontend/abstract/core'
 import { idProp, Model, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 

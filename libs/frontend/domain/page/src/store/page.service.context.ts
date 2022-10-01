@@ -1,4 +1,4 @@
-import { IPageService } from '@codelab/shared/abstract/core'
+import { IPageService } from '@codelab/frontend/abstract/core'
 import { createContext } from 'mobx-keystone'
 
 export const pageServiceContext = createContext<IPageService>()

@@ -1,4 +1,4 @@
-import { ITag, ITagDTO } from '@codelab/shared/abstract/core'
+import { ITag, ITagDTO } from '@codelab/frontend/abstract/core'
 import { computed } from 'mobx'
 import {
   detach,

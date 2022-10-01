@@ -1,5 +1,5 @@
 import { notify } from '@codelab/frontend/shared/utils'
-// import { ExportAppSchema } from '@codelab/shared/abstract/core'
+// import { ExportAppSchema } from '@codelab/frontend/abstract/core'
 import { Upload } from 'antd'
 import type { RcFile } from 'antd/es/upload'
 

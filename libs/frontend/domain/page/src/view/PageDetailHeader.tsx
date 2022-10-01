@@ -1,10 +1,10 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
+import { IPageService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useCurrentAppId,
   useCurrentPageId,
 } from '@codelab/frontend/presenter/container'
-import { IPageService } from '@codelab/shared/abstract/core'
 import { Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'

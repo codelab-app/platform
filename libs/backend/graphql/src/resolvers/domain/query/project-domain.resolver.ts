@@ -1,5 +1,5 @@
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import { IDomain } from '@codelab/shared/abstract/core'
+import { IDomain } from '@codelab/frontend/abstract/core'
 import { handleAPIError } from '../../utils/handleAPIError'
 
 export const projectDomain = async (parent: IDomain) => {

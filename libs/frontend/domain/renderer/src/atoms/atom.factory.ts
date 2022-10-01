@@ -1,9 +1,9 @@
 import {
   BUILDER_NONE_CLASS_NAME,
   DATA_ELEMENT_ID,
+  IPropData,
 } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
-import { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { allPropsCustomizer, getAtom } from './atoms'
 import { AtomFactoryInput, AtomFactoryResult } from './types'

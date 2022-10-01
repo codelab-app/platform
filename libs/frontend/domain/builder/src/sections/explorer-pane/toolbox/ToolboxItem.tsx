@@ -1,5 +1,5 @@
 import { DragOutlined } from '@ant-design/icons'
-import { ICreateElementDTO } from '@codelab/shared/abstract/core'
+import { ICreateElementDTO } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'

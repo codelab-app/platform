@@ -1,3 +1,5 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import { ITypeExport } from '@codelab/backend/abstract/core'
 import {
   exportEnumTypeSelectionSet,
   exportInterfaceTypeSelectionSet,
@@ -6,8 +8,6 @@ import {
   exportRenderPropsTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { ITypeExport } from '@codelab/shared/abstract/core'
 import { sortInterfaceTypesFields } from './get-type'
 
 export const exportTypes = async (): Promise<Array<ITypeExport>> => {

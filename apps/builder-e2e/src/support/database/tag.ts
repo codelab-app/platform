@@ -1,5 +1,5 @@
+import { ITagDTO } from '@codelab/frontend/abstract/core'
 import { TagCreateInput } from '@codelab/shared/abstract/codegen'
-import { ITagDTO } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import { CreateTagsDocument } from 'libs/frontend/domain/tag/src/graphql/tag.endpoints.graphql.gen'
 

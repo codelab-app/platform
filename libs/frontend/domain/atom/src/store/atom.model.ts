@@ -1,11 +1,7 @@
+import type { IAtom, IAtomDTO, ITag } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
-import type {
-  IAtom,
-  IAtomDTO,
-  IAtomType,
-  ITag,
-} from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   detach,

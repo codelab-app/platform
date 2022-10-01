@@ -1,9 +1,9 @@
-import { elementRef } from '@codelab/frontend/domain/element'
 import {
   IBuilderService,
   IElementService,
   isElement,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/domain/element'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<

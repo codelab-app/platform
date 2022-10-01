@@ -1,4 +1,4 @@
-import { IElementService, IElementTree } from '@codelab/shared/abstract/core'
+import { IElementService, IElementTree } from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { TreeProps } from 'antd/lib/tree'
 import {

@@ -1,4 +1,4 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/frontend/abstract/core'
 import dynamic from 'next/dynamic'
 import { AtomsRecord } from '../types'
 

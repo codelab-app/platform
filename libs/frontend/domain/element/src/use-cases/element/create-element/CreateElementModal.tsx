@@ -15,7 +15,7 @@ import {
   IElementTree,
   IRenderService,
   IUserService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

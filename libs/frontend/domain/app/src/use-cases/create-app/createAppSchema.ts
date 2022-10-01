@@ -1,4 +1,4 @@
-import { ICreateAppDTO } from '@codelab/shared/abstract/core'
+import { ICreateAppDTO } from '@codelab/frontend/abstract/core'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 

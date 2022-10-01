@@ -1,11 +1,12 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import { ITypeExport } from '@codelab/backend/abstract/core'
 import {
   exportInterfaceTypeSelectionSet,
   getDriver,
   getTypeDescendantsOGM,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 
 interface Descendant {
   id: string

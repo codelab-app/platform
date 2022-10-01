@@ -1,9 +1,9 @@
+import { IDomain, IDomainDTO } from '@codelab/frontend/abstract/core'
 import {
   VercelDomainConfigData,
   VercelProjectDomainData,
   // VercelProjectDomainData,
 } from '@codelab/shared/abstract/codegen'
-import { IDomain, IDomainDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 const hydrate = (domain: IDomainDTO) => {

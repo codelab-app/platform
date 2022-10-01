@@ -1,5 +1,5 @@
+import { IResourceExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { IResourceExport } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/data'
 
 export const createResource = async (

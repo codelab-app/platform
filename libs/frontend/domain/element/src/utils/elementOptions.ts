@@ -1,4 +1,4 @@
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement } from '@codelab/frontend/abstract/core'
 
 export const mapElementOption = (element: IElement) => ({
   value: element.id,

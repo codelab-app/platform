@@ -1,6 +1,6 @@
 import { NextApiRequest } from '@codelab/backend/application'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { isAdminSession } from '@codelab/shared/abstract/core'
+import { isAdminSession } from '@codelab/frontend/abstract/core'
 import {
   AuthenticationError,
   ForbiddenError,

@@ -1,13 +1,13 @@
 import { useUser } from '@auth0/nextjs-auth0'
-import { elementRef } from '@codelab/frontend/domain/element'
-import { componentRef, useStore } from '@codelab/frontend/presenter/container'
-import { Key } from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
   IElementTree,
   RendererTab,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/domain/element'
+import { componentRef, useStore } from '@codelab/frontend/presenter/container'
+import { Key } from '@codelab/frontend/view/components'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

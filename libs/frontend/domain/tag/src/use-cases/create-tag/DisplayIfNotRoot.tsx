@@ -1,5 +1,5 @@
+import { ICreateTagDTO } from '@codelab/frontend/abstract/core'
 import { DisplayIfField } from '@codelab/frontend/view/components'
-import { ICreateTagDTO } from '@codelab/shared/abstract/core'
 import React from 'react'
 
 export const DisplayIfNotRoot = ({

@@ -3,7 +3,7 @@ import type {
   IExtraElementProps,
   IPropData,
   IPropDataByElementId,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import {
   Frozen,

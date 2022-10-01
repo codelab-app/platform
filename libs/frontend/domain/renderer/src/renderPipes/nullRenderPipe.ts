@@ -3,7 +3,7 @@ import {
   IPropData,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'

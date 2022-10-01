@@ -1,4 +1,4 @@
-import { IBuilderService } from '@codelab/shared/abstract/core'
+import { IBuilderService } from '@codelab/frontend/abstract/core'
 import { Typography } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'

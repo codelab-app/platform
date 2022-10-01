@@ -1,4 +1,4 @@
-import { IBuilderComponent } from '@codelab/shared/abstract/core'
+import { IBuilderComponent } from '@codelab/frontend/abstract/core'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'

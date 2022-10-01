@@ -1,9 +1,3 @@
-import { getElementService } from '@codelab/frontend/presenter/container'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import {
-  PrimitiveTypeKind,
-  TypeBaseWhere,
-} from '@codelab/shared/abstract/codegen'
 import type {
   IAnyType,
   ICreateFieldDTO,
@@ -15,8 +9,14 @@ import type {
   ITypeService,
   IUpdateFieldDTO,
   IUpdateTypeDTO,
-} from '@codelab/shared/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/presenter/container'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import {
+  PrimitiveTypeKind,
+  TypeBaseWhere,
+} from '@codelab/shared/abstract/codegen'
 import { Nullable } from '@codelab/shared/abstract/types'
 import flatMap from 'lodash/flatMap'
 import mapKeys from 'lodash/mapKeys'

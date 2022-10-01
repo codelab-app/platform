@@ -3,7 +3,7 @@ import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { JSXElementConstructor, PropsWithChildren } from 'react'

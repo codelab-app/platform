@@ -1,5 +1,5 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { IRepository } from '@codelab/backend/infra/ports'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { getOgm } from './ogm'
 
 export class Repository implements IRepository {

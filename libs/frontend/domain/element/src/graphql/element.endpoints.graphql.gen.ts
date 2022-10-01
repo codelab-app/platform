@@ -1,15 +1,22 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ElementFragment } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
+
+
+
+
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ElementFragmentDoc } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
+import {
+  ElementFragment,
+  ElementFragmentDoc,
+} from '../../../../abstract/core/src/domain/element/element.fragment.graphql.gen'
+
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput
 }>
 
-export type CreateElementsMutation = {
+export interface CreateElementsMutation {
   createElements: { elements: Array<ElementFragment> }
 }
 
@@ -18,7 +25,7 @@ export type DeleteElementsMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.ElementDeleteInput>
 }>
 
-export type DeleteElementsMutation = {
+export interface DeleteElementsMutation {
   deleteElements: { nodesDeleted: number }
 }
 
@@ -27,7 +34,7 @@ export type UpdateElementsMutationVariables = Types.Exact<{
   update?: Types.InputMaybe<Types.ElementUpdateInput>
 }>
 
-export type UpdateElementsMutation = {
+export interface UpdateElementsMutation {
   updateElements: { elements: Array<ElementFragment> }
 }
 
@@ -36,7 +43,7 @@ export type MoveElementsMutationVariables = Types.Exact<{
   update?: Types.InputMaybe<Types.ElementUpdateInput>
 }>
 
-export type MoveElementsMutation = {
+export interface MoveElementsMutation {
   updateElements: { elements: Array<ElementFragment> }
 }
 
@@ -45,14 +52,16 @@ export type GetElementsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
 }>
 
-export type GetElementsQuery = { elements: Array<ElementFragment> }
+export interface GetElementsQuery {
+  elements: Array<ElementFragment>
+}
 
 export type GetElementTreeQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ElementOptions>
   where?: Types.InputMaybe<Types.ElementWhere>
 }>
 
-export type GetElementTreeQuery = {
+export interface GetElementTreeQuery {
   elementTrees: Array<
     { descendantElements: Array<ElementFragment> } & ElementFragment
   >
@@ -223,4 +232,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

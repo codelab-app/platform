@@ -1,5 +1,12 @@
 import { CodeOutlined, DatabaseOutlined } from '@ant-design/icons'
 import {
+  IActionService,
+  IResourceService,
+  IStore,
+  IStoreService,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
+import {
   CreateActionModal,
   DeleteActionsModal,
   StoreEditorPane,
@@ -17,13 +24,6 @@ import {
   UseResizable,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import {
-  IActionService,
-  IResourceService,
-  IStore,
-  IStoreService,
-  ITypeService,
-} from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'

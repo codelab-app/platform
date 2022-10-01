@@ -1,10 +1,10 @@
-import { Spinner } from '@codelab/frontend/view/components'
 import {
   IAtom,
   IAtomService,
   IComponent,
   IComponentService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { Spinner } from '@codelab/frontend/view/components'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import Fuse from 'fuse.js'

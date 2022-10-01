@@ -1,4 +1,5 @@
-import { IAtomExport, IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomExport } from '@codelab/backend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const getApiName = (name: string) => {

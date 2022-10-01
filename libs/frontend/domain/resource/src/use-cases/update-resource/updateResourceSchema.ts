@@ -1,4 +1,4 @@
-import { IUpdateResourceDTO } from '@codelab/shared/abstract/core'
+import { IUpdateResourceDTO } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { createResourceSchema } from '../create-resource'
 

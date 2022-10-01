@@ -1,15 +1,15 @@
 import { FileOutlined } from '@ant-design/icons'
-import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
-import {
-  ListItemDeleteButton,
-  ListItemEditButton,
-} from '@codelab/frontend/view/components'
 import {
   IField,
   IInterfaceType,
   IStore,
   ITypeService,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
+import {
+  ListItemDeleteButton,
+  ListItemEditButton,
+} from '@codelab/frontend/view/components'
 import { List, Space } from 'antd'
 import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'

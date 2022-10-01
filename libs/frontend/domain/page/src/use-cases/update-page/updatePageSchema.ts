@@ -1,4 +1,4 @@
-import { IUpdatePageDTO } from '@codelab/shared/abstract/core'
+import { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export const updatePageSchema: JSONSchemaType<IUpdatePageDTO> = {

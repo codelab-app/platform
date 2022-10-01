@@ -1,5 +1,5 @@
+import { ICreateTypeDTO, ITypeKind } from '@codelab/frontend/abstract/core'
 import { DisplayIfField } from '@codelab/frontend/view/components'
-import { ICreateTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
 

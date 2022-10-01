@@ -1,4 +1,4 @@
-import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
+import { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 

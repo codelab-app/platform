@@ -1,11 +1,11 @@
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { DomainWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateDomainDTO,
   IDomainDTO,
   IDomainService,
   IUpdateDomainDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { DomainWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
   _async,

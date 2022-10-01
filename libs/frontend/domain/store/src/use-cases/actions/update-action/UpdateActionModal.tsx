@@ -1,13 +1,13 @@
-import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import {
   IActionKind,
   IActionService,
   IResourceService,
   IResourceType,
   IUpdateActionDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'

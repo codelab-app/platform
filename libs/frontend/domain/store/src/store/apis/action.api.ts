@@ -1,4 +1,3 @@
-import { client } from '@codelab/frontend/model/infra/graphql'
 import {
   IActionDTO,
   IActionKind,
@@ -8,7 +7,8 @@ import {
   IDeleteActionInput,
   IDisconnectActionInput,
   IUpdateActionInput,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { client } from '@codelab/frontend/model/infra/graphql'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { Maybe } from 'graphql/jsutils/Maybe'
 import flatten from 'lodash/flatten'

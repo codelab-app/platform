@@ -1,10 +1,10 @@
-import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
 import type {
   IElement,
   IPropData,
   IPropMapBinding,
   IPropMapBindingDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import get from 'lodash/get'
 import isObjectLike from 'lodash/isObjectLike'

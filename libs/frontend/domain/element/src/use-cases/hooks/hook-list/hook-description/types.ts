@@ -4,7 +4,7 @@ import {
   IQueryLambdaHookConfig,
   IRecoilStateHookConfig,
   IRouterHookConfig,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 
 export interface LambdaDescriptionProps {
   config: IQueryLambdaHookConfig

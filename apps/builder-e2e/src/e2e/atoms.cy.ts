@@ -1,4 +1,4 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/frontend/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
 
 const atomName = 'Button'

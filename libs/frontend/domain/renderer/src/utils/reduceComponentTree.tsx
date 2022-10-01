@@ -1,4 +1,4 @@
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/frontend/abstract/core'
 import { jsx } from '@emotion/react'
 import React, { ComponentProps, ComponentType, PropsWithChildren } from 'react'
 

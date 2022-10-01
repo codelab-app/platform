@@ -1,4 +1,8 @@
-import type { IProp, IPropData, IPropDTO } from '@codelab/shared/abstract/core'
+import type {
+  IProp,
+  IPropData,
+  IPropDTO,
+} from '@codelab/frontend/abstract/core'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'

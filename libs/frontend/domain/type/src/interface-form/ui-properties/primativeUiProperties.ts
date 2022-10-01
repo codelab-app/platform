@@ -1,9 +1,9 @@
-import { CodeMirrorField } from '@codelab/frontend/view/components'
 import {
   IAnyType,
   IPrimitiveType,
   IPrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { UiPropertiesFn } from '../types'
 
 export const primativeTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (

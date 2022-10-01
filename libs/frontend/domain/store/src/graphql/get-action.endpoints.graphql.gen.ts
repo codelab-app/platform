@@ -1,18 +1,23 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  Action_ApiAction_Fragment,
-  Action_CodeAction_Fragment,
-} from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
+
+
+
+
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ActionFragmentDoc } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
+import {
+  Action_ApiAction_Fragment,
+  Action_CodeAction_Fragment,
+  ActionFragmentDoc,
+} from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
+
 export type GetActionsQueryVariables = Types.Exact<{
   storeId?: Types.InputMaybe<Types.Scalars['ID']>
 }>
 
-export type GetActionsQuery = {
+export interface GetActionsQuery {
   codeActions: Array<Action_CodeAction_Fragment>
   apiActions: Array<Action_ApiAction_Fragment>
 }
@@ -62,4 +67,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

@@ -1,12 +1,12 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { elementRef } from '@codelab/frontend/domain/element'
-import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
-import { ClickOverlay } from '@codelab/frontend/view/components'
 import {
   IBuilderService,
   IElementService,
   isElement,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/domain/element'
+import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
+import { ClickOverlay } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

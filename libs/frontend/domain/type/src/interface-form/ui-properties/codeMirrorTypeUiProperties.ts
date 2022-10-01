@@ -1,8 +1,8 @@
+import { ICodeMirrorType } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,
 } from '@codelab/frontend/view/components'
-import { ICodeMirrorType } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
 
 export const codeMirrorTypeUiProperties: UiPropertiesFn<ICodeMirrorType> = (

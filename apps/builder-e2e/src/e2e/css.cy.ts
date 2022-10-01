@@ -1,4 +1,4 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/frontend/abstract/core'
 import { connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'

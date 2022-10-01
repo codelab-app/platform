@@ -16,7 +16,7 @@ import {
   IElementService,
   IUpdateBaseElementDTO,
   IUpdateElementDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'

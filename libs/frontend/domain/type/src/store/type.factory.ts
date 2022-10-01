@@ -1,5 +1,5 @@
+import { ITypeDTO, ITypeKind } from '@codelab/frontend/abstract/core'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
-import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   ActionType,
   AppType,

@@ -1,6 +1,6 @@
+import { IAtomService } from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { IAtomService } from '@codelab/shared/abstract/core'
 import { TableColumnProps } from 'antd'
 import {
   TablePaginationConfig,

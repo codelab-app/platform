@@ -1,7 +1,3 @@
-import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import { ResourceType } from '@codelab/shared/abstract/codegen'
 import {
   HttpMethod,
   IActionKind,
@@ -9,7 +5,11 @@ import {
   ICreateActionDTO,
   IResourceService,
   IStore,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
+import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
+import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'
@@ -17,8 +17,8 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
 const defaultCodeAction = `function run() {
-    // insert your code here 
-    // this.count += 2; 
+    // insert your code here
+    // this.count += 2;
 }`
 
 export const CreateActionModal = observer<{
