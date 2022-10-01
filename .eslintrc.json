@@ -43,6 +43,7 @@
         //            "enforceForRenamedProperties": false
         //          }
         //        ],
+        "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",
         "react/jsx-sort-props": "error",

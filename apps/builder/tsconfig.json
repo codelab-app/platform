@@ -33,9 +33,7 @@
     "index.d.ts",
     "middleware.ts",
     "**/*.js",
-    "**/*.jsx",
-    "../../postcss.config.js",
-    "next.config.js"
+    "**/*.jsx"
   ],
   "exclude": [
     "node_modules",
@@ -48,10 +46,5 @@
     "**/*.test.js",
     "**/*.spec.jsx",
     "**/*.test.jsx"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.spec.json"
-    }
   ]
 }
