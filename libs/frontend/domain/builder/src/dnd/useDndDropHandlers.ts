@@ -97,7 +97,6 @@ export const useDndDropHandler = (
     } else {
       // targetElementPrev->[draggedElement]->targetElement
       if (targetElement.prevSibling) {
-        console.log('nex sib')
         await elementService.moveElementAsNextSibling({
           elementId: draggedElementId,
           targetElementId: targetElement.prevSibling.id,
