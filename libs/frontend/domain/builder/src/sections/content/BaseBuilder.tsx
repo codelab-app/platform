@@ -20,9 +20,8 @@ export const BaseBuilder = observer<BaseBuilderProps>(
     return (
       <Builder
         currentDragData={builderService.currentDragData}
-        // deleteModal={elementService.deleteModal}
+        deleteModal={elementService.deleteModal}
         // handleElementDrop={elementService.handleElementDrop}
-        elementService={elementService}
         elementTree={elementTree}
         key={renderer.pageTree?.current.root?.id}
         rendererProps={{

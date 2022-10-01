@@ -16,14 +16,13 @@ import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandl
 
 type BuilderProps = {
   elementTree: IElementTree
-  elementService: IElementService
 } & Pick<
   IBuilderService,
   'set_hoveredNode' | 'currentDragData' | 'selectedNode' | 'set_selectedNode'
-> & {
+> &
+  Pick<IElementService, 'deleteModal'> & {
     rendererProps: RendererProps
   }
-
 /**
  * Generic builder used for both Component & Element
  */
@@ -34,9 +33,9 @@ export const Builder = observer<BuilderProps>(
     set_hoveredNode,
     selectedNode,
     elementTree,
+    deleteModal,
     set_selectedNode,
     rendererProps,
-    elementService,
   }) => {
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
       currentDragData,
@@ -46,7 +45,7 @@ export const Builder = observer<BuilderProps>(
     useBuilderHotkeys({
       selectedNode,
       set_selectedNode,
-      deleteModal: elementService.deleteModal,
+      deleteModal,
     })
 
     const handleContainerClick = useBuilderRootClickHandler()

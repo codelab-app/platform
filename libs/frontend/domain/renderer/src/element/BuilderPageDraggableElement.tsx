@@ -11,12 +11,15 @@ import { calcDragPosition } from './draggableElement.util'
 import { DraggedElementOverlay } from './DraggedElementOverlay'
 import { DragPositionIndicator } from './DragPositionIndicator'
 
-export interface SortableItemProps {
+export interface DraggableElementProps {
   element: IElement
   children: React.ReactElement | Array<React.ReactElement>
 }
 
-export const DraggableElement = ({ element, children }: SortableItemProps) => {
+export const DraggableElement = ({
+  element,
+  children,
+}: DraggableElementProps) => {
   const droppableNodeRef = React.useRef<any>(null)
   const { elY, elH } = useMouse(droppableNodeRef)
 

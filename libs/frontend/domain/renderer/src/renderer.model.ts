@@ -260,7 +260,6 @@ export class Renderer
       element,
       extraProps,
       postAction: this.getPostAction(element),
-      elementService: getElementService(this),
     }
 
     return React.createElement(ElementWrapper, wrapperProps)
