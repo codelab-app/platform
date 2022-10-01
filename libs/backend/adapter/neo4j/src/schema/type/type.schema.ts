@@ -99,7 +99,7 @@ export const typeSchema = gql`
   """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
   """
-  type PrimitiveType implements TypeBase  {
+  type PrimitiveType implements TypeBase {
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
@@ -283,7 +283,7 @@ export const typeSchema = gql`
   type EnumTypeValue {
     enumType: EnumType @relationship(type: "ALLOWED_VALUE", direction: IN)
     id: ID!
-    name: String
+    key: String!
     value: String!
   }
 

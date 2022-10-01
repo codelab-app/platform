@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'shared-data',
-  preset: '../../../jest.preset.js',
+  preset: '../../../jest.preset.ts',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',

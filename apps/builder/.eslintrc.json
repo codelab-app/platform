@@ -1,22 +1,23 @@
 {
   "extends": [
     "plugin:@nrwl/nx/react-typescript",
-    "../../.eslintrc.json",
-    "plugin:@next/next/recommended"
+    "next",
+    "next/core-web-vitals",
+    "../../.eslintrc.json"
   ],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["apps/builder/tsconfig.*?.json"]
+        "project": ["apps/builder/tsconfig(.*)?.json"]
       },
       "rules": {
         "@next/next/no-html-link-for-pages": ["error", "apps/builder/pages"],
         "jsx-a11y/anchor-is-valid": "off",
         "react/jsx-no-useless-fragment": "off",
-        "react/no-unescaped-entities": "off",
-        "react/display-name": "off"
+        "react/display-name": "off",
+        "react-hooks/rules-of-hooks": "off"
       }
     },
     {
@@ -28,6 +29,9 @@
       "rules": {}
     }
   ],
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off"
+  },
   "env": {
     "jest": true
   }

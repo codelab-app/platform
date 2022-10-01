@@ -10,7 +10,7 @@
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
         "assets": ["apps/cli/src/assets"],
-        "webpackConfig": ["apps/cli/webpack.config.js"]
+        "webpackConfig": "apps/cli/webpack.config.js"
       },
       "configurations": {
         "test": {},

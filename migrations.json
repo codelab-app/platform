@@ -1,12 +1,28 @@
 {
   "migrations": [
     {
+      "version": "14.8.0-beta.0",
+      "description": "Migrates from @nrwl/workspace:run-commands to @nrwl/workspace:run-commands",
       "cli": "nx",
-      "version": "14.7.0-beta.0",
-      "description": "Update Cypress if using v10 to support latest component testing features",
-      "factory": "./src/migrations/update-14-7-0/update-cypress-version-if-10",
-      "package": "@nrwl/cypress",
-      "name": "update-cypress-if-v10"
+      "implementation": "./src/migrations/update-14-8-0/change-run-commands-executor",
+      "package": "@nrwl/workspace",
+      "name": "14-8-0-change-run-commands-executor"
+    },
+    {
+      "cli": "nx",
+      "version": "14.7.6-beta.1",
+      "description": "Update usages of webpack executors to @nrwl/webpack",
+      "factory": "./src/migrations/update-14-7-6/update-webpack-executor",
+      "package": "@nrwl/node",
+      "name": "update-webpack-executor"
+    },
+    {
+      "cli": "nx",
+      "version": "14.7.6-beta.1",
+      "description": "Update usages of webpack executors to @nrwl/webpack",
+      "factory": "./src/migrations/update-14-7-6/update-webpack-executor",
+      "package": "@nrwl/web",
+      "name": "update-webpack-executor"
     }
   ]
 }

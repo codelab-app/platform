@@ -7,10 +7,13 @@ import { assignUserOption, upsertUserMiddleware } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Env } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
+import { importFields } from '../../use-cases/import/import-fields'
 import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
-import { createAntDesignAtomsData } from '../../use-cases/seed/data/ant-design.data'
-import { parseAndImportInterface } from './parse-and-import-interface'
+import { createAntDesignApiData } from '../../use-cases/seed/data/ant-design-api.data'
+import { createAntdAtomData } from '../../use-cases/seed/data/ant-design-atom.data'
+import { createExistingData } from '../../use-cases/seed/data/existing.data'
+import { parseFields } from './parse-and-import-fields'
 
 interface ParseProps {
   email?: string
@@ -39,24 +42,32 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     }
 
     /**
-     * (1) First all our base types first
+     * (1) First all our types first
      */
-    await importTypes(createSeedTypesData(), selectedUserId, (type) => ({
-      name: type.name,
-    }))
+    await importTypes(
+      [
+        // Import base types first
+        ...createSeedTypesData(),
+        // Then interfaces
+        ...createAntDesignApiData(await createExistingData()),
+      ],
+      selectedUserId,
+      (type) => ({
+        name: type.name,
+      }),
+    )
 
     /**
      * (2) Import tag tree
      */
     await importTags(createTagSeedData(), selectedUserId)
 
-    // cLog(await createAntDesignAtomsData())
-
     /**
      * (3) Then import all atoms, and assign tags
      */
     await importAtoms({
-      atoms: await createAntDesignAtomsData(),
+      // We need to re-fetch data here, since the previous steps may have created interfaces
+      atoms: createAntdAtomData(await createExistingData()),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,
@@ -67,13 +78,14 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     })
 
     /**
-     * (4) Assign allowedChildren
+     * (4) Then parse and import the Ant Design interfaces
      */
+    const parsedData = await parseFields(
+      selectedUserId,
+      await createExistingData(),
+    )
 
-    /**
-     * (5) Then parse and import the Ant Design interfaces
-     */
-    await parseAndImportInterface(selectedUserId)
+    await importFields(parsedData)
 
     return process.exit(0)
   },

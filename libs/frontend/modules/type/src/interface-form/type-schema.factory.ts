@@ -234,7 +234,7 @@ export class TypeSchemaFactory {
     const uniforms = {
       options: type.allowedValues?.map((v) => ({
         value: v.id,
-        label: v.name || v.value,
+        label: v.key,
       })),
       showSearch: true,
       optionFilterProp: 'label',

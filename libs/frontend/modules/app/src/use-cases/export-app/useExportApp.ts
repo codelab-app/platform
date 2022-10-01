@@ -20,7 +20,6 @@ export const useExportApp = (app: AppFragment) => {
         sanitizeFilename(`${app.name}.codelab.json`),
       )
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exportData, hasExported])
 
   useEffect(() => {

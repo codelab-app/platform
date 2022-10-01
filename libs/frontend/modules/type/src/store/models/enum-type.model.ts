@@ -5,7 +5,6 @@ import type {
   ITypeDTO,
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   ExtendedModel,
   idProp,
@@ -17,32 +16,26 @@ import {
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const hydrateEnumValue = (fragment: IEnumTypeValueDTO): EnumTypeValue =>
+const hydrateEnumValue = (fragment: IEnumTypeValueDTO) =>
   new EnumTypeValue({
     ...fragment,
-    name: fragment.name,
+    key: fragment.key,
   })
 
 @model('@codelab/EnumTypeValue')
 export class EnumTypeValue extends Model({
   id: idProp,
-  name: prop<Nullish<string>>(),
+  key: prop<string>(),
   value: prop<string>(),
 }) {
   get label() {
-    return this.name || this.value
+    return this.key
   }
 
   public static hydrate = hydrateEnumValue
 }
 
-const hydrate = ({
-  id,
-  allowedValues,
-  kind,
-  name,
-  owner,
-}: IEnumTypeDTO): EnumType => {
+const hydrate = ({ id, allowedValues, kind, name, owner }: IEnumTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({

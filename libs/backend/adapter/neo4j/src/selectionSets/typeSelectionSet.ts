@@ -36,7 +36,7 @@ export const exportEnumTypeSelectionSet = `{
   ${exportBaseSelection}
   allowedValues {
     id
-    name
+    key
     value
   }
 }`

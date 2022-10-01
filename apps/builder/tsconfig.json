@@ -31,19 +31,13 @@
     "**/*.graphql",
     "next-env.d.ts",
     "index.d.ts",
+    "middleware.ts",
     "**/*.js",
-    "**/*.jsx",
-    "../../postcss.config.js",
-    ".storybook/main.js",
-    ".storybook/preview.js"
+    "**/*.jsx"
   ],
   "exclude": [
     "node_modules",
     "jest.config.ts",
-    "**/*.stories.ts",
-    "**/*.stories.js",
-    "**/*.stories.jsx",
-    "**/*.stories.tsx",
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/*.spec.tsx",
@@ -52,10 +46,5 @@
     "**/*.test.js",
     "**/*.spec.jsx",
     "**/*.test.jsx"
-  ],
-  "references": [
-    {
-      "path": "./.storybook/tsconfig.json"
-    }
   ]
 }

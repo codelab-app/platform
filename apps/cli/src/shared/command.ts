@@ -19,7 +19,7 @@ export const getEnvOptions: GetEnvOptions = (environments) => ({
   },
 })
 
-export const setEnvMiddleware: MiddlewareFunction<{ env: unknown }> = async ({
+export const setMiddleware: MiddlewareFunction<{ env: unknown }> = async ({
   env,
 }) => {
   if (process.env.CI) {

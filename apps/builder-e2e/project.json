@@ -52,7 +52,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "parallel": true,
         "readyWhen": "READY"
@@ -64,19 +64,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "nx serve-test builder -c dev",
-              "forwardAllArgs": false
-            }
-          ]
-        },
-        "ci": {
-          "commands": [
-            {
-              "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
-            },
-            {
-              "command": "nx serve-test builder -c ci",
-              "forwardAllArgs": false
+              "command": "nx serve-test builder -c dev"
             }
           ]
         },
@@ -86,8 +74,17 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "nx run builder:serve-test:dev",
-              "forwardAllArgs": false
+              "command": "nx serve-test builder -c test"
+            }
+          ]
+        },
+        "ci": {
+          "commands": [
+            {
+              "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
+            },
+            {
+              "command": "nx serve-test builder -c ci"
             }
           ]
         }

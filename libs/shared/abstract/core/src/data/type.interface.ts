@@ -1,6 +1,10 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IBaseTypeExportFields } from '../domain/type'
 
+export type TypeRef = {
+  existingId: string
+} | null
+
 export type IRenderPropsTypeExport = Pick<
   OGM_TYPES.RenderPropsType,
   IBaseTypeExportFields
@@ -15,9 +19,13 @@ export type IReactNodeTypeExport = Pick<
 
 export type IInterfaceTypeExport = Pick<
   OGM_TYPES.InterfaceType,
-  IBaseTypeExportFields | 'fields' | 'fieldsConnection' | 'ownerConnection'
+  IBaseTypeExportFields
 > &
-  Required<Pick<OGM_TYPES.InterfaceType, '__typename'>>
+  Required<Pick<OGM_TYPES.InterfaceType, '__typename'>> & {
+    // We don't want meta data here
+    fieldsConnection: Pick<OGM_TYPES.InterfaceTypeFieldsConnection, 'edges'>
+    ownerConnection: Pick<OGM_TYPES.TypeBaseOwnerConnection, 'edges'>
+  }
 
 export type IEnumTypeExport = Pick<
   OGM_TYPES.EnumType,

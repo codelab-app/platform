@@ -19,36 +19,36 @@ export const fieldRepository = {
     const session = getDriver().session()
     const InterfaceType = await InterfaceTypeOGM()
 
+    /**
+     * To implement upsert, we disconnect field first, then re-connect them each time.
+     *
+     * Save us from having to create additional cypher queries
+     *
+     * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
+     */
     try {
-      /**
-       * To implement upsert, we disconnect field first, then re-connect them each time.
-       *
-       * Save us from having to create additional cypher queries
-       *
-       * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
-       */
-      try {
-        await InterfaceType.update({
-          where: {
-            id: args.interfaceTypeId,
-          },
-          disconnect: {
-            fields: [
-              {
-                where: {
-                  edge: {
-                    id: args.field.id,
-                  },
+      await InterfaceType.update({
+        where: {
+          id: args.interfaceTypeId,
+        },
+        disconnect: {
+          fields: [
+            {
+              where: {
+                edge: {
+                  id: args.field.id,
                 },
               },
-            ],
-          },
-        })
-      } catch (e) {
-        console.error(e)
-        throw new Error('Upsert field failed')
-      }
+            },
+          ],
+        },
+      })
+    } catch (e) {
+      console.error(e)
+      throw new Error('Upsert field failed')
+    }
 
+    try {
       await session.writeTransaction((tx) => tx.run(connectField, args))
 
       const [updatedInterfaceType] = await InterfaceType.find({
@@ -57,8 +57,6 @@ export const fieldRepository = {
           id: args.interfaceTypeId,
         },
       })
-
-      console.log(updatedInterfaceType)
 
       return merge(updatedInterfaceType, {
         fieldsConnection: {

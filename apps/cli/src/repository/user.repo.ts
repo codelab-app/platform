@@ -28,7 +28,7 @@ export const upsertUser = async (
         auth0Id: user.auth0Id,
         email: user.email,
         username: user.username,
-        roles: [],
+        roles: user.roles,
       },
     })
 
@@ -42,7 +42,7 @@ export const upsertUser = async (
           auth0Id: user.auth0Id,
           email: user.email,
           username: user.email,
-          roles: [],
+          roles: user.roles,
         },
       ],
     })

@@ -66,13 +66,12 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
         properties: {
           id: {
             type: 'string',
-            // value: v4(),
             nullable: true,
             uniforms: {
               component: () => null,
             },
           },
-          name: { type: 'string', nullable: true },
+          key: { type: 'string' },
           value: { type: 'string' },
         },
         required: [

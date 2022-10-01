@@ -17,7 +17,7 @@ import { exportActions, importActions } from './action.repo'
 import { createComponent } from './component.repo'
 import { importElementInitial, updateImportedElement } from './element.repo'
 
-export const createApp = async (app: IAppExport, selectedUserId: string) => {
+export const createApp = async (app: IAppExport, userId: string) => {
   cLog(omit(app, ['pages']))
 
   const App = await AppOGM()
@@ -27,12 +27,12 @@ export const createApp = async (app: IAppExport, selectedUserId: string) => {
 
   for (const { elements, components } of pages) {
     for (const element of elements) {
-      await importElementInitial(element, selectedUserId)
+      await importElementInitial(element, userId)
     }
 
     // components should be created after their root elements
     for (const component of components) {
-      await createComponent(component, selectedUserId)
+      await createComponent(component, userId)
     }
 
     for (const element of elements) {
@@ -92,7 +92,7 @@ export const createApp = async (app: IAppExport, selectedUserId: string) => {
       {
         id: app.id,
         name: app.name,
-        owner: connectNode(selectedUserId),
+        owner: connectNode(userId),
         slug: app.slug,
         store: connectNode(appStore.id),
         pages: {

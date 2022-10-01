@@ -70,7 +70,7 @@ export const updateTypeSchema: JSONSchemaType<
               component: () => null,
             },
           },
-          name: { type: 'string', nullable: true },
+          key: { type: 'string' },
           value: { type: 'string' },
         },
         required: ['id', 'value'],

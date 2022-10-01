@@ -11,6 +11,10 @@ export interface IAtomExport {
   type: IAtomType
   api: {
     id: string
+    /**
+     * Used for composite key lookup (along with field key), we can't depend on ID since it may be outdated
+     */
+    name: string
   }
   tags: Array<ITagExport>
   allowedChildren: Array<{
