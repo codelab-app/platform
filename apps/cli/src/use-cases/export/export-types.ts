@@ -67,8 +67,8 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
     })
   ).map((type) => ({
     ...type,
-    allowedValues: type.allowedValues?.sort((a, b) =>
-      a.key?.localeCompare(b.key),
+    allowedValues: type.allowedValues.sort((a, b) =>
+      a.key.toString().localeCompare(b.key),
     ),
   }))
 

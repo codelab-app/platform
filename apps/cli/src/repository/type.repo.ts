@@ -1,5 +1,6 @@
 import {
   EnumTypeOGM,
+  exportEnumTypeSelectionSet,
   InterfaceTypeOGM,
   PrimitiveTypeOGM,
   ReactNodeTypeOGM,
@@ -10,6 +11,7 @@ import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
+import { v4 } from 'uuid'
 import { logTask } from '../shared/utils/log-task'
 
 const createCreateBaseFields = (data: ITypeExport, userId: string) => ({
@@ -123,11 +125,14 @@ export const upsertType = async (
     case ITypeKind.EnumType: {
       const EnumType = await EnumTypeOGM()
 
-      const exists = await EnumType.find({
-        where: where(type),
-      })
+      const enumType = (
+        await EnumType.find({
+          where: where(type),
+          selectionSet: exportEnumTypeSelectionSet,
+        })
+      )[0]
 
-      if (!exists.length) {
+      if (!enumType) {
         console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return EnumType.create({
@@ -144,17 +149,31 @@ export const upsertType = async (
         })
       }
 
-      console.log(`Updating ${type.name} [${type.kind}]...`)
+      console.log(`Updating ${type.name} [${type.kind}]...`, enumType)
 
       return EnumType.update({
         where: where(type),
         update: {
-          ...createCreateBaseFields(type, userId),
-          allowedValues: type.allowedValues.map((value) => ({
-            update: {
-              node: omit(makeAllowedValuesNodeInput(value), 'id'),
-            },
-          })),
+          ...createUpdateBaseFields(type, userId),
+          allowedValues: type.allowedValues.map((enumTypeValue) => {
+            const existingAllowedValue = enumType.allowedValues.find(
+              (x) => x.key === enumTypeValue.key,
+            )
+
+            return {
+              where: {
+                node: {
+                  // This shouldn't happen, unless the enums went missing
+                  id: existingAllowedValue?.id ?? v4(),
+                },
+              },
+              update: {
+                node: {
+                  ...omit(makeAllowedValuesNodeInput(enumTypeValue), 'id'),
+                },
+              },
+            }
+          }),
         },
       })
     }
