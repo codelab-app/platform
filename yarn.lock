@@ -6962,12 +6962,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/bundle-analyzer@npm:12.0.7":
-  version: 12.0.7
-  resolution: "@next/bundle-analyzer@npm:12.0.7"
+"@next/bundle-analyzer@npm:12.3.1":
+  version: 12.3.1
+  resolution: "@next/bundle-analyzer@npm:12.3.1"
   dependencies:
     webpack-bundle-analyzer: 4.3.0
-  checksum: 4d08449adc8ed21e22f8a93db150d51194d26b7bf5cd1d21875514929c6ba7150a15024c6168e2ac50b54e9ea9ac49db3e99be9b961d3e90dda6645396e0e31c
+  checksum: 2bf2bf9aff9e0fc9fbeefae83be3f12e4c3aa8a689b49ba33d1931d42768b317d1da5d45a91835a8cb0bc615afc5e5b48aba5ce63a74089779531648749fe9d7
   languageName: node
   linkType: hard
 
@@ -13700,7 +13700,7 @@ __metadata:
     "@neo4j/graphql": 3.8.0
     "@neo4j/graphql-ogm": 3.8.0
     "@neo4j/graphql-plugin-auth": 1.1.0
-    "@next/bundle-analyzer": 12.0.7
+    "@next/bundle-analyzer": 12.3.1
     "@nrwl/cli": 14.7.5
     "@nrwl/cypress": 14.7.5
     "@nrwl/devkit": 14.7.5
