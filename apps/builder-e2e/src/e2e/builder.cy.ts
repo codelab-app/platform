@@ -141,6 +141,38 @@ describe('Elements CRUD', () => {
         cy.getModal().should('not.exist', { timeout: 10000 })
       })
     })
+    it('should be able to view props', () => {
+      cy.getSider()
+        .find('.ant-page-header-heading')
+        .getButton({ icon: 'plus' })
+        .click()
+
+      cy.getModal().findByLabelText('Name').type(ELEMENT_TEXT)
+
+      cy.getModal().setFormFieldValue({
+        label: 'Parent element',
+        value: ROOT_ELEMENT_NAME,
+        type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal().setFormFieldValue({
+        label: 'Atom',
+        value: IAtomType.AntDesignTypographyText,
+        type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal()
+        .getModalAction(/Create/)
+        .click()
+      cy.getModal().should('not.exist', { timeout: 10000 })
+
+      cy.contains(/Text.*/).click()
+
+      cy.get(`[aria-label="setting"]`).click()
+
+      cy.findByText('Custom Text').should('exist')
+      cy.findByText(/Edit.*API/).should('exist')
+    })
   })
 
   describe(`update`, () => {

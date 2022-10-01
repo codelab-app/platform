@@ -1,4 +1,4 @@
-import { TagWhere } from '@codelab/shared/abstract/codegen'
+import { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { LabeledValue } from 'antd/es/select'
 import { ObjectMap, Ref } from 'mobx-keystone'
@@ -18,7 +18,7 @@ export interface ITagService
       ICRUDService<ITag, ICreateTagDTO, IUpdateTagDTO>,
       'delete' | 'update'
     >,
-    Omit<IQueryService<ITag, TagWhere>, 'getOne'>,
+    Omit<IQueryService<ITag, TagWhere, TagOptions>, 'getOne'>,
     ICacheService<ITagDTO, ITag>,
     Omit<
       ICRUDModalService<Ref<ITag>, { tag: Maybe<ITag> }>,

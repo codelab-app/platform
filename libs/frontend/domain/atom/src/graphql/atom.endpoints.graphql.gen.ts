@@ -29,7 +29,7 @@ export type GetAtomsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AtomOptions>
 }>
 
-export type GetAtomsQuery = { atoms: Array<AtomFragment> }
+export type GetAtomsQuery = { atoms: Array<AtomFragment>, atomsAggregate: { count: number; }; }
 
 export type UpdateAtomsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AtomWhere>
@@ -64,6 +64,9 @@ export const DeleteAtomsDocument = gql`
 `
 export const GetAtomsDocument = gql`
   query GetAtoms($where: AtomWhere, $options: AtomOptions) {
+    atomsAggregate {
+      count
+    }
     atoms(where: $where, options: $options) {
       ...Atom
     }

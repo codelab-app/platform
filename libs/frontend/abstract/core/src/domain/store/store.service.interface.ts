@@ -1,4 +1,4 @@
-import { StoreWhere } from '@codelab/shared/abstract/codegen'
+import { StoreOptions, StoreWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -16,7 +16,7 @@ import { IStore } from './store.interface'
 
 export interface IStoreService
   extends ICRUDService<IStore, ICreateStoreDTO, IUpdateStoreDTO>,
-    IQueryService<IStore, StoreWhere>,
+    IQueryService<IStore, StoreWhere, StoreOptions>,
     ICacheService<IStoreDTO, IStore>,
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   stores: ObjectMap<IStore>

@@ -1,4 +1,8 @@
-import { BaseTypeWhere, GetTypesQuery } from '@codelab/shared/abstract/codegen'
+import {
+  BaseTypeOptions,
+  BaseTypeWhere,
+  GetTypesQuery,
+} from '@codelab/shared/abstract/codegen'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
@@ -25,7 +29,7 @@ export interface IFieldModalProperties {
 
 export interface ITypeService
   extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
-    IQueryService<IAnyType, BaseTypeWhere>,
+    IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
