@@ -1,8 +1,16 @@
 import {
   AtomOGM,
   atomSelectionSet,
+  EnumTypeOGM,
+  exportEnumTypeSelectionSet,
+  exportPrimitiveTypeSelectionSet,
+  exportReactNodeTypeSelectionSet,
+  exportRenderPropsTypeSelectionSet,
   InterfaceTypeOGM,
   interfaceTypeSelectionSet,
+  PrimitiveTypeOGM,
+  ReactNodeTypeOGM,
+  RenderPropsTypeOGM,
   TagOGM,
   tagSelectionSet,
 } from '@codelab/backend/adapter/neo4j'
@@ -62,6 +70,74 @@ export const createExistingData = async (): Promise<ExistingData> => {
     .reduce(merge, {})
 
   //
+  // PrimitiveType
+  //
+
+  const PrimitiveType = await PrimitiveTypeOGM()
+
+  const primitiveTypes = await PrimitiveType.find({
+    selectionSet: exportPrimitiveTypeSelectionSet,
+  })
+
+  //
+  // ReactNodeType
+  //
+
+  const ReactNodeType = await ReactNodeTypeOGM()
+
+  const reactNodeTypes = await ReactNodeType.find({
+    selectionSet: exportReactNodeTypeSelectionSet,
+  })
+
+  //
+  // RenderPropsType
+  //
+
+  const RenderPropsType = await RenderPropsTypeOGM()
+
+  const renderPropsType = await RenderPropsType.find({
+    selectionSet: exportRenderPropsTypeSelectionSet,
+  })
+
+  //
+  // EnumType
+  //
+
+  const EnumType = await EnumTypeOGM()
+
+  const enumTypes = await EnumType.find({
+    selectionSet: exportEnumTypeSelectionSet,
+  })
+
+  //
+  // Combined Types
+  //
+
+  const typesKeyByName = [
+    ...interfaceTypes,
+    ...primitiveTypes,
+    ...reactNodeTypes,
+    ...renderPropsType,
+    ...enumTypes,
+  ]
+    .map((type) => ({
+      [type.name]: type,
+    }))
+    .reduce(merge, {})
+
+  const typesKeyById = [
+    ...interfaceTypes,
+    ...primitiveTypes,
+    ...reactNodeTypes,
+    ...renderPropsType,
+    ...enumTypes,
+  ]
+    .map((type) => ({
+      [type.id]: type,
+    }))
+    .reduce(merge, {})
+
+  //
   // Fields
   //
 
@@ -89,5 +165,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
     atomsById: atomsKeyById,
     api: interfaceTypesKeyByName,
     fields: fieldsKeyByCompositeKey,
+    types: typesKeyByName,
+    typesById: typesKeyById,
   }
 }

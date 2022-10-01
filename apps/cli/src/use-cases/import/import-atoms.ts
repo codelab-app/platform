@@ -19,7 +19,7 @@ export const importAtoms = async ({
   }
 
   /**
-   * Refetch atoms here so we can assign below
+   * Re-fetch atoms here so since we added above, so we can assign below
    */
   const existingData = await createExistingData()
 

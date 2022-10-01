@@ -1,8 +1,13 @@
 import { ExistingData, ExportedData } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import { importAtoms } from '../../use-cases/import/import-atoms'
+import {
+  createImportFieldsData,
+  importFields,
+} from '../../use-cases/import/import-fields'
 import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
+import { createExistingData } from '../../use-cases/seed/data/existing.data'
 
 export const importSeedData = async (
   selectedUser: string,
@@ -44,4 +49,6 @@ export const importSeedData = async (
     atomWhere: (atom) => ({ name: atom.name }),
     tagWhere: (tag) => ({ name: tag.name }),
   })
+
+  await importFields(createImportFieldsData(types, await createExistingData()))
 }

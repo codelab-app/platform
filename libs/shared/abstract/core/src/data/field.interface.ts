@@ -1,10 +1,14 @@
+import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
 import { ICreateFieldDTO } from '../domain/type'
-import { IAtomImport } from './atom.interface'
 
 /**
  * The final output shape of the parser
  */
-export type FieldDataByAtom = Map<IAtomImport, Array<ICreateFieldDTO>>
+export interface FieldDataKeyByApiId {
+  [apiId: string]: Array<ICreateFieldDTO>
+}
+
+export type IFieldImport = MutationUpsertFieldArgs
 
 /**
  * Data output of parser service

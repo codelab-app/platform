@@ -6,4 +6,6 @@ export interface ExistingData {
   tags: { [tagName: string]: OGM_TYPES.Tag }
   fields: { [fieldCompositeKey: string]: OGM_TYPES.Field }
   api: { [interfaceTypeName: string]: OGM_TYPES.InterfaceType }
+  types: { [typeName: string]: OGM_TYPES.TypeBase }
+  typesById: { [typeName: string]: OGM_TYPES.TypeBase }
 }
