@@ -2,7 +2,7 @@ import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomDTO } from '@codelab/shared/abstract/core'
 import { MaybeArray } from '@codelab/shared/abstract/types'
 import { print } from 'graphql'
-import { CreateAtomsDocument } from '../../../../../libs/frontend/modules/atom/src/graphql/atom.endpoints.graphql.gen'
+import { CreateAtomsDocument } from 'libs/frontend/domain/atom/src/graphql/atom.endpoints.graphql.gen'
 
 export const createAtomRequestId = 'CreateAtom'
 

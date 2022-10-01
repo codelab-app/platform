@@ -2,8 +2,8 @@ import { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAppDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
 import { print } from 'graphql'
+import { CreateAppsDocument } from 'libs/frontend/domain/app/src/graphql/app.endpoints.graphql.gen'
 import { v4 } from 'uuid'
-import { CreateAppsDocument } from '../../../../../libs/frontend/modules/app/src/graphql/app.endpoints.graphql.gen'
 
 export const createAppInput = (userId: string): AppCreateInput => {
   const appId = v4()

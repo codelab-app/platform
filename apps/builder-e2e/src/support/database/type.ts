@@ -15,7 +15,7 @@ import {
   CreateReactNodeTypesDocument,
   CreateRenderPropsTypesDocument,
   CreateUnionTypesDocument,
-} from '../../../../../libs/frontend/modules/type/src/graphql/create-type.endpoints.graphql.gen'
+} from 'libs/frontend/domain/type/src/graphql/create-type.endpoints.graphql.gen'
 
 const createTypeQuery: { [key in ITypeKind]: DocumentNode } = {
   [ITypeKind.PrimitiveType]: CreatePrimitiveTypesDocument,
