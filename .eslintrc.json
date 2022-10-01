@@ -12,7 +12,8 @@
     "prettier",
     "jest",
     "jest-formatting",
-    "simple-import-sort"
+    "simple-import-sort",
+    "lodash"
   ],
   "env": {
     "jest/globals": true
@@ -21,6 +22,7 @@
     "plugin:prettier/recommended",
     "plugin:jest/recommended",
     "plugin:jest/style"
+    //    "plugin:lodash/recommended"
   ],
   "overrides": [
     {
@@ -43,6 +45,7 @@
         //            "enforceForRenamedProperties": false
         //          }
         //        ],
+        "lodash/import-scope": ["error", "member"],
         "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",

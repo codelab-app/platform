@@ -140,6 +140,7 @@
     "voca": "1.4.0",
     "wait-on": "6.0.0",
     "why-is-node-running": "2.2.0",
+    "winston": "^3.8.2",
     "yargs": "17.5.1",
     "zod": "3.18.0"
   },
@@ -253,6 +254,7 @@
     "eslint-plugin-jest-formatting": "3.1.0",
     "eslint-plugin-jsdoc": "39.2.9",
     "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-lodash": "^7.4.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.31.1",
     "eslint-plugin-react-hooks": "4.6.0",

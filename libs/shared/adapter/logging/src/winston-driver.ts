@@ -3,7 +3,7 @@ import { inspect } from 'util'
 import { createLogger, format, transports } from 'winston'
 
 export const logger = createLogger({
-  level: 'info',
+  // level: 'info',
   // https://betterstack.com/community/guides/logging/how-to-install-setup-and-use-winston-and-morgan-to-log-node-js-applications/#formatting-your-log-messages
   format: format.combine(
     // splat(),
