@@ -45,7 +45,7 @@
         //            "enforceForRenamedProperties": false
         //          }
         //        ],
-        "lodash/import-scope": ["error", "member"],
+        "lodash/import-scope": ["error", "method"],
         "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",

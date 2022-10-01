@@ -10,7 +10,7 @@ import {
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import { EventDataNode } from 'antd/lib/tree'
-import { has } from 'lodash'
+import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import React, { Ref } from 'react'
 import { useElementTreeDrop } from '../../../hooks'

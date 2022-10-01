@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ElementTypeKind } from '@codelab/shared/abstract/core'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import { difference } from 'lodash'
+import difference from 'lodash/difference'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
+import { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 export interface SelectElementOption {
   label: string
@@ -74,14 +75,14 @@ export const SelectElement = ({
 
   return (
     <SelectField
+      {...(props as SelectFieldProps)}
+      disabled={
+        disableWhenOneOpt && (elements.length === 1 || !elements.length)
+      }
       name={name}
       optionFilterProp="label"
       options={elements}
       showSearch
-      {...(props as any)}
-      disabled={
-        disableWhenOneOpt && (elements.length === 1 || !elements.length)
-      }
     />
   )
 }

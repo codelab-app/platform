@@ -199,7 +199,7 @@
     "@types/js-cookie": "3.0.1",
     "@types/json2csv": "5.0.3",
     "@types/jwt-decode": "3.1.0",
-    "@types/lodash": "4.14.178",
+    "@types/lodash": "4.14.186",
     "@types/node": "18.7.14",
     "@types/prettier": "2.4.4",
     "@types/ramda": "0.27.64",
@@ -293,6 +293,6 @@
   },
   "resolutions": {
     "rxjs": "^6.6.3",
-    "cypress@10.8.0": "patch:cypress@npm:10.8.0#.yarn/patches/cypress-npm-10.8.0-960e94f4f4"
+    "cypress@10.9.0": "patch:cypress@npm:10.9.0#.yarn/patches/cypress-npm-10.9.0-7807fe85fd"
   }
 }

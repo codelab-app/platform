@@ -4,7 +4,7 @@ import {
   IRenderer,
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
-import { isObjectLike } from 'lodash'
+import isObjectLike from 'lodash/isObjectLike'
 
 /**
  * Provides a callback that takes in a search input value and a target element id

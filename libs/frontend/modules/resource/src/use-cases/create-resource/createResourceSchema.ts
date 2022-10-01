@@ -6,7 +6,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
-import { keys } from 'lodash'
+import keys from 'lodash/keys'
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
   title: 'Create Resource',

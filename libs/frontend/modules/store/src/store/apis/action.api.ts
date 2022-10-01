@@ -11,7 +11,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { Maybe } from 'graphql/jsutils/Maybe'
-import { flatten } from 'lodash'
+import flatten from 'lodash/flatten'
 import { getSdk as getCreateSdk } from '../../graphql/create-action.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-action.endpoints.graphql.gen'
 import {

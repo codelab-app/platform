@@ -8,7 +8,7 @@ import {
   MutationUpsertFieldArgs,
   OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 
 export const fieldRepository = {
   upsertField: async (

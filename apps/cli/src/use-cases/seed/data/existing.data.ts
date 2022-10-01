@@ -15,7 +15,7 @@ import {
   tagSelectionSet,
 } from '@codelab/backend/adapter/neo4j'
 import { ExistingData } from '@codelab/shared/abstract/core'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 
 /**
  * Create a map of current data for upserting id's

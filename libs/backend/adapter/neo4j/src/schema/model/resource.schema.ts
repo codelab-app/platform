@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-micro'
-import { values } from 'lodash'
+import values from 'lodash/values'
 
 enum ResourceType {
   GraphQL = 'GraphQL',
@@ -33,5 +33,5 @@ export const resourceSchema = gql`
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }
       ]
-    )  
+    )
 `

@@ -1,6 +1,6 @@
 import { IResource, IResourceService } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
-import { capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../view'

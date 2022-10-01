@@ -10,7 +10,7 @@ import {
   IUpdateTypeInput,
 } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
-import { flatten } from 'lodash'
+import flatten from 'lodash/flatten'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.graphql.gen'
 import {

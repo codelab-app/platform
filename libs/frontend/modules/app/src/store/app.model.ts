@@ -2,7 +2,7 @@ import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { pageRef } from '@codelab/frontend/modules/page'
 import { storeRef } from '@codelab/frontend/presenter/container'
 import { IApp, IAppDTO, IPage, IStore } from '@codelab/shared/abstract/core'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
   detach,

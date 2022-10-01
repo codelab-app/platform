@@ -29,7 +29,7 @@ import {
   reconnectNode,
 } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import {
   _async,
   _await,

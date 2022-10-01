@@ -1,5 +1,5 @@
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
-import { isString } from 'lodash'
+import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'

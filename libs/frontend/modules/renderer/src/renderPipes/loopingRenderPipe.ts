@@ -5,7 +5,7 @@ import {
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
-import { get } from 'lodash'
+import get from 'lodash/get'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'

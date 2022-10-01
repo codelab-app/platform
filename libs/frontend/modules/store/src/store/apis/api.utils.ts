@@ -17,7 +17,7 @@ import {
   IUpdateActionInput,
 } from '@codelab/shared/abstract/core'
 import { connectNode, connectTypeOwner } from '@codelab/shared/data'
-import { capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 import { v4 } from 'uuid'
 
 export const makeStoreCreateInput = (

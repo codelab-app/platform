@@ -6,7 +6,9 @@ import type {
   IPropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { get, isObjectLike, set } from 'lodash'
+import get from 'lodash/get'
+import isObjectLike from 'lodash/isObjectLike'
+import set from 'lodash/set'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { elementRef } from './element.ref'
 

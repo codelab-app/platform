@@ -3,7 +3,7 @@ import {
   IAtomType,
   ITagExport,
 } from '@codelab/shared/abstract/core'
-import { difference } from 'lodash'
+import difference from 'lodash/difference'
 import * as path from 'path'
 import { antdTagTree } from '../../../../../libs/shared/data/src/tag/antd-tag-tree.data'
 import { AntdTag } from '../../../../../libs/shared/data/src/tag/antd-tags.data'

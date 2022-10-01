@@ -25,7 +25,7 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'

@@ -1,10 +1,8 @@
-import {
-  isArray,
-  isFunction,
-  isObjectLike,
-  isPlainObject,
-  pickBy,
-} from 'lodash'
+import isArray from 'lodash/isArray'
+import isFunction from 'lodash/isFunction'
+import isObjectLike from 'lodash/isObjectLike'
+import isPlainObject from 'lodash/isPlainObject'
+import pickBy from 'lodash/pickBy'
 import React from 'react'
 
 export const propSafeStringify = (props: any, maskFunctions = true) => {

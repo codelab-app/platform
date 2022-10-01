@@ -10,7 +10,7 @@ import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { v4 } from 'uuid'
 import { logTask } from '../shared/utils/log-task'
 

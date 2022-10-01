@@ -5,7 +5,7 @@ import {
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
   detach,

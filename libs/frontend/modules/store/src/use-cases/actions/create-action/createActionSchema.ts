@@ -9,7 +9,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
-import { keys } from 'lodash'
+import keys from 'lodash/keys'
 
 export const codeMirrorTypescriptOptions = {
   editorOptions: { language: CodeMirrorLanguage.Typescript },

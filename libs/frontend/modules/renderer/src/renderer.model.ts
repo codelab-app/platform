@@ -19,7 +19,9 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
-import { flatMap, isEmpty, isString } from 'lodash'
+import flatMap from 'lodash/flatMap'
+import isEmpty from 'lodash/isEmpty'
+import isString from 'lodash/isString'
 import { computed } from 'mobx'
 import {
   detach,

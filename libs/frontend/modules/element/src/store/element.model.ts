@@ -21,7 +21,8 @@ import { cssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
-import { attempt, isError } from 'lodash'
+import attempt from 'lodash/attempt'
+import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import {
   findParent,

@@ -13,7 +13,7 @@ import {
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { COMPONENT_TAG_NAME } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
-import { chain } from 'lodash'
+import chain from 'lodash/chain'
 import { computed } from 'mobx'
 import {
   findParent,

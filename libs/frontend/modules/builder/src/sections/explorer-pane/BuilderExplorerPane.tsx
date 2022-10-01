@@ -6,16 +6,13 @@ import {
 import {
   CreateElementModal,
   DeleteElementModal,
-  elementRef,
 } from '@codelab/frontend/modules/element'
-import { componentRef } from '@codelab/frontend/presenter/container'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import {
   BuilderTab,
   IActionService,
   IAtomService,
-  IBuilderDataNode,
   IBuilderService,
   IComponentService,
   IElementService,
@@ -24,8 +21,7 @@ import {
   RendererTab,
 } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
-import { EventDataNode } from 'antd/lib/tree'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
 import tw from 'twin.macro'

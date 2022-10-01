@@ -18,7 +18,10 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { flatMap, mapKeys, merge, omit } from 'lodash'
+import flatMap from 'lodash/flatMap'
+import mapKeys from 'lodash/mapKeys'
+import merge from 'lodash/merge'
+import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import {
   _async,

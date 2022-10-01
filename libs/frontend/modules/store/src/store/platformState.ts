@@ -3,7 +3,8 @@ import {
   STATE_PATH_TEMPLATE_REGEX,
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
-import { get, isString } from 'lodash'
+import get from 'lodash/get'
+import isString from 'lodash/isString'
 
 const matchesTemplate = (str: string): boolean =>
   isString(str) &&
