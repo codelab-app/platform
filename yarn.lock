@@ -8957,15 +8957,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/cypress@npm:8.0.2":
-  version: 8.0.2
-  resolution: "@testing-library/cypress@npm:8.0.2"
+"@testing-library/cypress@npm:8.0.3":
+  version: 8.0.3
+  resolution: "@testing-library/cypress@npm:8.0.3"
   dependencies:
     "@babel/runtime": ^7.14.6
     "@testing-library/dom": ^8.1.0
   peerDependencies:
-    cypress: ^2.1.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 41561f68d3cb72348791734984510b5c3a5294ddb4d09f4f06be4c44cefccc67453de49c876de382794f3dd1232d2e8a7a44da198fa24e83902ad799bc7eac3b
+    cypress: ^2.1.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+  checksum: 319f6c7297f85e5673882a71009b5d5b576006f986d87a6ca6f2f8c679d96d9779f3ddbc01654b5a943407fa91192814f250835ce01f153e33ef24818cf1bf20
   languageName: node
   linkType: hard
 
@@ -13834,7 +13834,7 @@ __metadata:
     "@react-hook/window-size": 3.0.7
     "@storybook/core-server": 6.5.9
     "@svgr/webpack": 6.2.0
-    "@testing-library/cypress": 8.0.2
+    "@testing-library/cypress": 8.0.3
     "@testing-library/dom": 8.13.0
     "@testing-library/jest-dom": 5.16.5
     "@testing-library/react": 13.4.0
@@ -13895,7 +13895,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
-    cypress: 10.8.0
+    cypress: 10.9.0
     cypress-jest-adapter: ^0.1.1
     cypress-nextjs-auth0: 2.1.0
     cz-customizable: 6.3.0
@@ -15240,7 +15240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:*, cypress@npm:10.8.0":
+"cypress@npm:*":
   version: 10.8.0
   resolution: "cypress@npm:10.8.0"
   dependencies:
@@ -15292,9 +15292,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@patch:cypress@npm:10.8.0#.yarn/patches/cypress-npm-10.8.0-960e94f4f4::locator=codelab%40workspace%3A.":
-  version: 10.8.0
-  resolution: "cypress@patch:cypress@npm%3A10.8.0#.yarn/patches/cypress-npm-10.8.0-960e94f4f4::version=10.8.0&hash=13cd81&locator=codelab%40workspace%3A."
+"cypress@npm:10.9.0":
+  version: 10.9.0
+  resolution: "cypress@npm:10.9.0"
   dependencies:
     "@cypress/request": ^2.88.10
     "@cypress/xvfb": ^1.2.4
@@ -15340,7 +15340,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 419ff5b13666249409e9a4a8ca6b905e2c6b0f46318dabb33e7773bcdb8da6c6d0a7837a68d68d966db2fdd513be47bfe2322afce82820bcdeadcd3cd49fba7c
+  checksum: 79e3dccbb82d0b0c92bb8888682766a9738374f473cf2e9a04825a6b3dbe4420c57948cabaf757af0929192a8e61b7f08b32d7f6ee0c3cddf2736cf4f408edc1
   languageName: node
   linkType: hard
 
