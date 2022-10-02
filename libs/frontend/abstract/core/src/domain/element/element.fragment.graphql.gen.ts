@@ -1,10 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
-
 import { ComponentFragment } from '../component/component.fragment.graphql.gen'
 import { RenderAtomFragment } from '../atom/atom.fragment.graphql.gen'
 import {

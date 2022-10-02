@@ -1,22 +1,15 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
+import { HookFragment } from '../../../../abstract/core/src/domain/hook/hook.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  HookFragment,
-  HookFragmentDoc,
-} from '../../../../abstract/core/src/domain/hook/hook.fragment.graphql.gen'
-
+import { HookFragmentDoc } from '../../../../abstract/core/src/domain/hook/hook.fragment.graphql.gen'
 export type CreateHooksMutationVariables = Types.Exact<{
   input: Array<Types.HookCreateInput> | Types.HookCreateInput
 }>
 
-export interface CreateHooksMutation {
+export type CreateHooksMutation = {
   createHooks: { hooks: Array<HookFragment> }
 }
 
@@ -24,9 +17,7 @@ export type DeleteHooksMutationVariables = Types.Exact<{
   where: Types.HookWhere
 }>
 
-export interface DeleteHooksMutation {
-  deleteHooks: { nodesDeleted: number }
-}
+export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } }
 
 export const CreateHooksDocument = gql`
   mutation CreateHooks($input: [HookCreateInput!]!) {
@@ -93,5 +84,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

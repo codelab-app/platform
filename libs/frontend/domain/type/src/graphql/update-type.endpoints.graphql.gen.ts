@@ -1,12 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
-import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -21,9 +14,11 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-  TypeFragmentDoc,
 } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
+import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.PrimitiveTypeConnectInput>
   create?: Types.InputMaybe<Types.PrimitiveTypeRelationInput>
@@ -33,7 +28,7 @@ export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PrimitiveTypeWhere>
 }>
 
-export interface UpdatePrimitiveTypesMutation {
+export type UpdatePrimitiveTypesMutation = {
   types: { types: Array<Type_PrimitiveType_Fragment> }
 }
 
@@ -46,7 +41,7 @@ export type UpdateArrayTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ArrayTypeWhere>
 }>
 
-export interface UpdateArrayTypesMutation {
+export type UpdateArrayTypesMutation = {
   types: { types: Array<Type_ArrayType_Fragment> }
 }
 
@@ -59,7 +54,7 @@ export type UpdateUnionTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.UnionTypeWhere>
 }>
 
-export interface UpdateUnionTypesMutation {
+export type UpdateUnionTypesMutation = {
   types: { types: Array<Type_UnionType_Fragment> }
 }
 
@@ -72,7 +67,7 @@ export type UpdateInterfaceTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.InterfaceTypeWhere>
 }>
 
-export interface UpdateInterfaceTypesMutation {
+export type UpdateInterfaceTypesMutation = {
   types: { types: Array<Type_InterfaceType_Fragment> }
 }
 
@@ -85,7 +80,7 @@ export type UpdateReactNodeTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ReactNodeTypeWhere>
 }>
 
-export interface UpdateReactNodeTypesMutation {
+export type UpdateReactNodeTypesMutation = {
   types: { types: Array<Type_ReactNodeType_Fragment> }
 }
 
@@ -98,7 +93,7 @@ export type UpdateElementTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementTypeWhere>
 }>
 
-export interface UpdateElementTypesMutation {
+export type UpdateElementTypesMutation = {
   types: { types: Array<Type_ElementType_Fragment> }
 }
 
@@ -111,7 +106,7 @@ export type UpdateRenderPropsTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.RenderPropsTypeWhere>
 }>
 
-export interface UpdateRenderPropsTypesMutation {
+export type UpdateRenderPropsTypesMutation = {
   types: { types: Array<Type_RenderPropsType_Fragment> }
 }
 
@@ -124,7 +119,7 @@ export type UpdateEnumTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.EnumTypeWhere>
 }>
 
-export interface UpdateEnumTypesMutation {
+export type UpdateEnumTypesMutation = {
   types: { types: Array<Type_EnumType_Fragment> }
 }
 
@@ -137,7 +132,7 @@ export type UpdateLambdaTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.LambdaTypeWhere>
 }>
 
-export interface UpdateLambdaTypesMutation {
+export type UpdateLambdaTypesMutation = {
   types: { types: Array<Type_LambdaType_Fragment> }
 }
 
@@ -150,7 +145,7 @@ export type UpdatePageTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageTypeWhere>
 }>
 
-export interface UpdatePageTypesMutation {
+export type UpdatePageTypesMutation = {
   types: { types: Array<Type_PageType_Fragment> }
 }
 
@@ -163,7 +158,7 @@ export type UpdateAppTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AppTypeWhere>
 }>
 
-export interface UpdateAppTypesMutation {
+export type UpdateAppTypesMutation = {
   types: { types: Array<Type_AppType_Fragment> }
 }
 
@@ -176,7 +171,7 @@ export type UpdateActionTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ActionTypeWhere>
 }>
 
-export interface UpdateActionTypesMutation {
+export type UpdateActionTypesMutation = {
   types: { types: Array<Type_ActionType_Fragment> }
 }
 
@@ -189,7 +184,7 @@ export type UpdateCodeMirrorTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.CodeMirrorTypeWhere>
 }>
 
-export interface UpdateCodeMirrorTypesMutation {
+export type UpdateCodeMirrorTypesMutation = {
   types: { types: Array<Type_CodeMirrorType_Fragment> }
 }
 
@@ -720,5 +715,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

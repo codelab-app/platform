@@ -1,10 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen'
+
+import { AppFragment } from '../app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { AppFragment, AppFragmentDoc } from '../app/app.fragment.graphql.gen'
-
-export interface UserFragment {
+import { AppFragmentDoc } from '../app/app.fragment.graphql.gen'
+export type UserFragment = {
   id: string
   username: string
   email: string
@@ -45,5 +46,4 @@ export function getSdk(
 ) {
   return {}
 }
-
 export type Sdk = ReturnType<typeof getSdk>

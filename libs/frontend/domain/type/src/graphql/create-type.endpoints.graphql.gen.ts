@@ -1,12 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
-import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -21,14 +14,16 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-  TypeFragmentDoc,
 } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
+import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type CreatePrimitiveTypesMutationVariables = Types.Exact<{
   input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput
 }>
 
-export interface CreatePrimitiveTypesMutation {
+export type CreatePrimitiveTypesMutation = {
   types: { types: Array<Type_PrimitiveType_Fragment> }
 }
 
@@ -36,7 +31,7 @@ export type CreateArrayTypesMutationVariables = Types.Exact<{
   input: Array<Types.ArrayTypeCreateInput> | Types.ArrayTypeCreateInput
 }>
 
-export interface CreateArrayTypesMutation {
+export type CreateArrayTypesMutation = {
   types: { types: Array<Type_ArrayType_Fragment> }
 }
 
@@ -44,7 +39,7 @@ export type CreateUnionTypesMutationVariables = Types.Exact<{
   input: Array<Types.UnionTypeCreateInput> | Types.UnionTypeCreateInput
 }>
 
-export interface CreateUnionTypesMutation {
+export type CreateUnionTypesMutation = {
   types: { types: Array<Type_UnionType_Fragment> }
 }
 
@@ -52,7 +47,7 @@ export type CreateInterfaceTypesMutationVariables = Types.Exact<{
   input: Array<Types.InterfaceTypeCreateInput> | Types.InterfaceTypeCreateInput
 }>
 
-export interface CreateInterfaceTypesMutation {
+export type CreateInterfaceTypesMutation = {
   types: { types: Array<Type_InterfaceType_Fragment> }
 }
 
@@ -60,7 +55,7 @@ export type CreateElementTypesMutationVariables = Types.Exact<{
   input: Array<Types.ElementTypeCreateInput> | Types.ElementTypeCreateInput
 }>
 
-export interface CreateElementTypesMutation {
+export type CreateElementTypesMutation = {
   types: { types: Array<Type_ElementType_Fragment> }
 }
 
@@ -70,7 +65,7 @@ export type CreateRenderPropsTypesMutationVariables = Types.Exact<{
     | Types.RenderPropsTypeCreateInput
 }>
 
-export interface CreateRenderPropsTypesMutation {
+export type CreateRenderPropsTypesMutation = {
   types: { types: Array<Type_RenderPropsType_Fragment> }
 }
 
@@ -78,7 +73,7 @@ export type CreateReactNodeTypesMutationVariables = Types.Exact<{
   input: Array<Types.ReactNodeTypeCreateInput> | Types.ReactNodeTypeCreateInput
 }>
 
-export interface CreateReactNodeTypesMutation {
+export type CreateReactNodeTypesMutation = {
   types: { types: Array<Type_ReactNodeType_Fragment> }
 }
 
@@ -86,7 +81,7 @@ export type CreateEnumTypesMutationVariables = Types.Exact<{
   input: Array<Types.EnumTypeCreateInput> | Types.EnumTypeCreateInput
 }>
 
-export interface CreateEnumTypesMutation {
+export type CreateEnumTypesMutation = {
   types: { types: Array<Type_EnumType_Fragment> }
 }
 
@@ -94,7 +89,7 @@ export type CreateLambdaTypesMutationVariables = Types.Exact<{
   input: Array<Types.LambdaTypeCreateInput> | Types.LambdaTypeCreateInput
 }>
 
-export interface CreateLambdaTypesMutation {
+export type CreateLambdaTypesMutation = {
   types: { types: Array<Type_LambdaType_Fragment> }
 }
 
@@ -102,7 +97,7 @@ export type CreatePageTypesMutationVariables = Types.Exact<{
   input: Array<Types.PageTypeCreateInput> | Types.PageTypeCreateInput
 }>
 
-export interface CreatePageTypesMutation {
+export type CreatePageTypesMutation = {
   types: { types: Array<Type_PageType_Fragment> }
 }
 
@@ -110,7 +105,7 @@ export type CreateAppTypesMutationVariables = Types.Exact<{
   input: Array<Types.AppTypeCreateInput> | Types.AppTypeCreateInput
 }>
 
-export interface CreateAppTypesMutation {
+export type CreateAppTypesMutation = {
   types: { types: Array<Type_AppType_Fragment> }
 }
 
@@ -118,7 +113,7 @@ export type CreateActionTypesMutationVariables = Types.Exact<{
   input: Array<Types.ActionTypeCreateInput> | Types.ActionTypeCreateInput
 }>
 
-export interface CreateActionTypesMutation {
+export type CreateActionTypesMutation = {
   types: { types: Array<Type_ActionType_Fragment> }
 }
 
@@ -128,7 +123,7 @@ export type CreateCodeMirrorTypesMutationVariables = Types.Exact<{
     | Types.CodeMirrorTypeCreateInput
 }>
 
-export interface CreateCodeMirrorTypesMutation {
+export type CreateCodeMirrorTypesMutation = {
   types: { types: Array<Type_CodeMirrorType_Fragment> }
 }
 
@@ -477,5 +472,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

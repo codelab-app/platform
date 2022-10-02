@@ -1,33 +1,24 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
+import { InterfaceTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  InterfaceTypeFragment,
-  InterfaceTypeFragmentDoc,
-} from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
-
+import { InterfaceTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 export type UpsertFieldMutationVariables = Types.Exact<{
   interfaceTypeId: Types.Scalars['ID']
   fieldTypeId: Types.Scalars['ID']
   field: Types.FieldCreateInput
 }>
 
-export interface UpsertFieldMutation {
-  upsertField: InterfaceTypeFragment
-}
+export type UpsertFieldMutation = { upsertField: InterfaceTypeFragment }
 
 export type DeleteFieldMutationVariables = Types.Exact<{
   interfaceId: Types.Scalars['ID']
   where: Types.FieldWhere
 }>
 
-export interface DeleteFieldMutation {
+export type DeleteFieldMutation = {
   updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
 }
 
@@ -108,5 +99,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

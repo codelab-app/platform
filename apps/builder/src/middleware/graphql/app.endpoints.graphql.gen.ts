@@ -1,36 +1,29 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
+import {
+  RedirectedAppFragment,
+  AppPreviewFragment,
+} from '../../../../../libs/frontend/abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
-  AppPreviewFragment,
-  AppPreviewFragmentDoc,
-  RedirectedAppFragment,
   RedirectedAppFragmentDoc,
+  AppPreviewFragmentDoc,
 } from '../../../../../libs/frontend/abstract/core/src/domain/app/app.fragment.graphql.gen'
-
 export type GetRedirectedAppsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppOptions>
   where?: Types.InputMaybe<Types.AppWhere>
 }>
 
-export interface GetRedirectedAppsQuery {
-  apps: Array<RedirectedAppFragment>
-}
+export type GetRedirectedAppsQuery = { apps: Array<RedirectedAppFragment> }
 
 export type GetAppsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppOptions>
   where?: Types.InputMaybe<Types.AppWhere>
 }>
 
-export interface GetAppsQuery {
-  apps: Array<AppPreviewFragment>
-}
+export type GetAppsQuery = { apps: Array<AppPreviewFragment> }
 
 export const GetRedirectedAppsDocument = gql`
   query GetRedirectedApps($options: AppOptions, $where: AppWhere) {
@@ -97,5 +90,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

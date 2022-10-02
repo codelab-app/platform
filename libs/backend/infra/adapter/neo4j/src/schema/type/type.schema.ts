@@ -1,4 +1,4 @@
-import { __AtomType } from '@codelab/shared/abstract/core'
+import { __ElementTypeKind } from '@codelab/shared/abstract/core'
 import { gql } from 'apollo-server-micro'
 import {
   getTypeDescendants,
@@ -7,7 +7,7 @@ import {
 } from '../../cypher/type'
 
 const elementTypeTypeKindSchema = `enum ElementTypeKind {
-  ${Object.values(__AtomType).join('\n')}
+  ${Object.values(__ElementTypeKind).join('\n')}
 }`
 
 export const typeSchema = gql`

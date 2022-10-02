@@ -1,52 +1,41 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
+import {
+  TagFragment,
+  TagPreviewFragment,
+} from '../../../../abstract/core/src/domain/tag/tag.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
-  TagFragment,
   TagFragmentDoc,
-  TagPreviewFragment,
   TagPreviewFragmentDoc,
 } from '../../../../abstract/core/src/domain/tag/tag.fragment.graphql.gen'
-
 export type CreateTagsMutationVariables = Types.Exact<{
   input: Array<Types.TagCreateInput> | Types.TagCreateInput
 }>
 
-export interface CreateTagsMutation {
-  createTags: { tags: Array<TagFragment> }
-}
+export type CreateTagsMutation = { createTags: { tags: Array<TagFragment> } }
 
 export type UpdateTagsMutationVariables = Types.Exact<{
   where: Types.TagWhere
   update: Types.TagUpdateInput
 }>
 
-export interface UpdateTagsMutation {
-  updateTags: { tags: Array<TagFragment> }
-}
+export type UpdateTagsMutation = { updateTags: { tags: Array<TagFragment> } }
 
 export type DeleteTagsMutationVariables = Types.Exact<{
   where: Types.TagWhere
 }>
 
-export interface DeleteTagsMutation {
-  deleteTags: { nodesDeleted: number }
-}
+export type DeleteTagsMutation = { deleteTags: { nodesDeleted: number } }
 
 export type GetTagsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.TagOptions>
   where?: Types.InputMaybe<Types.TagWhere>
 }>
 
-export interface GetTagsQuery {
-  tags: Array<TagFragment>
-}
+export type GetTagsQuery = { tags: Array<TagFragment> }
 
 export const CreateTagsDocument = gql`
   mutation CreateTags($input: [TagCreateInput!]!) {
@@ -159,5 +148,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

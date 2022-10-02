@@ -1,16 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
-import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
-import {
-  ReactNodeTypeFragment,
-  ReactNodeTypeFragmentDoc,
-} from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -25,14 +14,18 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-  TypeFragmentDoc,
 } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-
+import { ReactNodeTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
+import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
+import { ReactNodeTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 export type GetTypesQueryVariables = Types.Exact<{
   ids?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
-export interface GetTypesQuery {
+export type GetTypesQuery = {
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
@@ -52,7 +45,7 @@ export type GetDescendantsQueryVariables = Types.Exact<{
   ids?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
-export interface GetDescendantsQuery {
+export type GetDescendantsQuery = {
   arrayTypes: Array<{ descendantTypesIds: Array<string> }>
   unionTypes: Array<{ descendantTypesIds: Array<string> }>
   interfaceTypes: Array<{ descendantTypesIds: Array<string> }>
@@ -63,7 +56,7 @@ export type GetPrimitiveTypesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PrimitiveTypeWhere>
 }>
 
-export interface GetPrimitiveTypesQuery {
+export type GetPrimitiveTypesQuery = {
   types: Array<Type_PrimitiveType_Fragment>
 }
 
@@ -72,25 +65,21 @@ export type GetArrayTypesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ArrayTypeWhere>
 }>
 
-export interface GetArrayTypesQuery {
-  types: Array<Type_ArrayType_Fragment>
-}
+export type GetArrayTypesQuery = { types: Array<Type_ArrayType_Fragment> }
 
 export type GetUnionTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.UnionTypeOptions>
   where?: Types.InputMaybe<Types.UnionTypeWhere>
 }>
 
-export interface GetUnionTypesQuery {
-  types: Array<Type_UnionType_Fragment>
-}
+export type GetUnionTypesQuery = { types: Array<Type_UnionType_Fragment> }
 
 export type GetInterfaceTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.InterfaceTypeOptions>
   where?: Types.InputMaybe<Types.InterfaceTypeWhere>
 }>
 
-export interface GetInterfaceTypesQuery {
+export type GetInterfaceTypesQuery = {
   types: Array<Type_InterfaceType_Fragment>
 }
 
@@ -99,16 +88,14 @@ export type GetElementTypesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementTypeWhere>
 }>
 
-export interface GetElementTypesQuery {
-  types: Array<Type_ElementType_Fragment>
-}
+export type GetElementTypesQuery = { types: Array<Type_ElementType_Fragment> }
 
 export type GetRenderPropsTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.RenderPropsTypeOptions>
   where?: Types.InputMaybe<Types.RenderPropsTypeWhere>
 }>
 
-export interface GetRenderPropsTypesQuery {
+export type GetRenderPropsTypesQuery = {
   types: Array<Type_RenderPropsType_Fragment>
 }
 
@@ -117,61 +104,49 @@ export type GetReactNodeTypesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ReactNodeTypeWhere>
 }>
 
-export interface GetReactNodeTypesQuery {
-  types: Array<ReactNodeTypeFragment>
-}
+export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> }
 
 export type GetEnumTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.EnumTypeOptions>
   where?: Types.InputMaybe<Types.EnumTypeWhere>
 }>
 
-export interface GetEnumTypesQuery {
-  types: Array<Type_EnumType_Fragment>
-}
+export type GetEnumTypesQuery = { types: Array<Type_EnumType_Fragment> }
 
 export type GetLambdaTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.LambdaTypeOptions>
   where?: Types.InputMaybe<Types.LambdaTypeWhere>
 }>
 
-export interface GetLambdaTypesQuery {
-  types: Array<Type_LambdaType_Fragment>
-}
+export type GetLambdaTypesQuery = { types: Array<Type_LambdaType_Fragment> }
 
 export type GetPageTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.PageTypeOptions>
   where?: Types.InputMaybe<Types.PageTypeWhere>
 }>
 
-export interface GetPageTypesQuery {
-  types: Array<Type_PageType_Fragment>
-}
+export type GetPageTypesQuery = { types: Array<Type_PageType_Fragment> }
 
 export type GetAppTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppTypeOptions>
   where?: Types.InputMaybe<Types.AppTypeWhere>
 }>
 
-export interface GetAppTypesQuery {
-  types: Array<Type_AppType_Fragment>
-}
+export type GetAppTypesQuery = { types: Array<Type_AppType_Fragment> }
 
 export type GetActionTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ActionTypeOptions>
   where?: Types.InputMaybe<Types.ActionTypeWhere>
 }>
 
-export interface GetActionTypesQuery {
-  types: Array<Type_ActionType_Fragment>
-}
+export type GetActionTypesQuery = { types: Array<Type_ActionType_Fragment> }
 
 export type GetCodeMirrorTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.CodeMirrorTypeOptions>
   where?: Types.InputMaybe<Types.CodeMirrorTypeWhere>
 }>
 
-export interface GetCodeMirrorTypesQuery {
+export type GetCodeMirrorTypesQuery = {
   types: Array<Type_CodeMirrorType_Fragment>
 }
 
@@ -593,5 +568,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

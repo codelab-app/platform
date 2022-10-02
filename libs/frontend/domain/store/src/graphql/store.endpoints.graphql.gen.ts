@@ -1,22 +1,15 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
+import { StoreFragment } from '../../../../abstract/core/src/domain/store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  StoreFragment,
-  StoreFragmentDoc,
-} from '../../../../abstract/core/src/domain/store/store.fragment.graphql.gen'
-
+import { StoreFragmentDoc } from '../../../../abstract/core/src/domain/store/store.fragment.graphql.gen'
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
 }>
 
-export interface CreateStoresMutation {
+export type CreateStoresMutation = {
   createStores: {
     info: { nodesCreated: number; relationshipsCreated: number }
     stores: Array<StoreFragment>
@@ -28,25 +21,21 @@ export type DeleteStoresMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.StoreDeleteInput>
 }>
 
-export interface DeleteStoresMutation {
-  deleteStores: { nodesDeleted: number }
-}
+export type DeleteStoresMutation = { deleteStores: { nodesDeleted: number } }
 
 export type GetStoresQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.StoreWhere>
   options?: Types.InputMaybe<Types.StoreOptions>
 }>
 
-export interface GetStoresQuery {
-  stores: Array<StoreFragment>
-}
+export type GetStoresQuery = { stores: Array<StoreFragment> }
 
 export type UpdateStoresMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.StoreWhere>
   update?: Types.InputMaybe<Types.StoreUpdateInput>
 }>
 
-export interface UpdateStoresMutation {
+export type UpdateStoresMutation = {
   updateStores: { stores: Array<StoreFragment> }
 }
 
@@ -168,5 +157,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

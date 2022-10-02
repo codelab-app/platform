@@ -1,10 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
-
 import { PageFragment } from '../page/page.fragment.graphql.gen'
 import { ElementFragment } from '../element/element.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'

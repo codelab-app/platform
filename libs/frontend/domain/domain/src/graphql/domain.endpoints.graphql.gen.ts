@@ -1,49 +1,34 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
+import { DomainFragment } from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  DomainFragment,
-  DomainFragmentDoc,
-} from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
-
+import { DomainFragmentDoc } from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
 export type GetDomainQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.DomainOptions>
   where?: Types.InputMaybe<Types.DomainWhere>
 }>
 
-export interface GetDomainQuery {
-  domains: Array<DomainFragment>
-}
+export type GetDomainQuery = { domains: Array<DomainFragment> }
 
 export type CreateDomainMutationVariables = Types.Exact<{
   input: Types.CreateDomainMutationInput
 }>
 
-export interface CreateDomainMutation {
-  createDomain: DomainFragment
-}
+export type CreateDomainMutation = { createDomain: DomainFragment }
 
 export type UpdateDomainMutationVariables = Types.Exact<{
   input: Types.UpdateDomainMutationInput
 }>
 
-export interface UpdateDomainMutation {
-  updateDomain: DomainFragment
-}
+export type UpdateDomainMutation = { updateDomain: DomainFragment }
 
 export type DeleteDomainMutationVariables = Types.Exact<{
   id: Types.Scalars['String']
 }>
 
-export interface DeleteDomainMutation {
-  deleteDomain: { nodesDeleted: number }
-}
+export type DeleteDomainMutation = { deleteDomain: { nodesDeleted: number } }
 
 export const GetDomainDocument = gql`
   query GetDomain($options: DomainOptions, $where: DomainWhere) {
@@ -155,5 +140,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

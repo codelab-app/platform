@@ -1,10 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
-
 import {
   TagFragment,
   TagPreviewFragment,

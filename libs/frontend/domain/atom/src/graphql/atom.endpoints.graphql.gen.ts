@@ -1,22 +1,15 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
+import { AtomFragment } from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  AtomFragment,
-  AtomFragmentDoc,
-} from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
-
+import { AtomFragmentDoc } from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
 export type CreateAtomsMutationVariables = Types.Exact<{
   input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
 }>
 
-export interface CreateAtomsMutation {
+export type CreateAtomsMutation = {
   createAtoms: {
     info: { nodesCreated: number; relationshipsCreated: number }
     atoms: Array<AtomFragment>
@@ -27,7 +20,7 @@ export type DeleteAtomsMutationVariables = Types.Exact<{
   where: Types.AtomWhere
 }>
 
-export interface DeleteAtomsMutation {
+export type DeleteAtomsMutation = {
   deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
@@ -36,16 +29,14 @@ export type GetAtomsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AtomOptions>
 }>
 
-export interface GetAtomsQuery {
-  atoms: Array<AtomFragment>
-}
+export type GetAtomsQuery = { atoms: Array<AtomFragment> }
 
 export type UpdateAtomsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AtomWhere>
   update?: Types.InputMaybe<Types.AtomUpdateInput>
 }>
 
-export interface UpdateAtomsMutation {
+export type UpdateAtomsMutation = {
   updateAtoms: { atoms: Array<AtomFragment> }
 }
 
@@ -165,5 +156,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

@@ -1,28 +1,9 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
-import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
-import {
-  PageBuilderAppFragment,
-  PageBuilderAppFragmentDoc,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
-import {
-  RenderedComponentFragment,
-  RenderedComponentFragmentDoc,
-} from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
-import {
-  PageFragment,
-  PageFragmentDoc,
-} from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
-import {
-  ResourceFragment,
-  ResourceFragmentDoc,
-} from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import { PageFragment } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
+import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -37,14 +18,20 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-  TypeFragmentDoc,
 } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
+import { PageFragmentDoc } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
+import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
+import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
 
-export interface CreatePagesMutation {
+export type CreatePagesMutation = {
   createPages: { pages: Array<PageFragment> }
 }
 
@@ -53,16 +40,14 @@ export type DeletePagesMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.PageDeleteInput>
 }>
 
-export interface DeletePagesMutation {
-  deletePages: { nodesDeleted: number }
-}
+export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
 
 export type UpdatePagesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
   update?: Types.InputMaybe<Types.PageUpdateInput>
 }>
 
-export interface UpdatePagesMutation {
+export type UpdatePagesMutation = {
   updatePages: { pages: Array<PageFragment> }
 }
 
@@ -71,9 +56,7 @@ export type GetPagesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
 }>
 
-export interface GetPagesQuery {
-  pages: Array<PageFragment>
-}
+export type GetPagesQuery = { pages: Array<PageFragment> }
 
 export type GetRenderedPageQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
@@ -81,7 +64,7 @@ export type GetRenderedPageQueryVariables = Types.Exact<{
   typeIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
-export interface GetRenderedPageQuery {
+export type GetRenderedPageQuery = {
   apps: Array<PageBuilderAppFragment>
   components: Array<RenderedComponentFragment>
   resources: Array<ResourceFragment>
@@ -282,5 +265,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

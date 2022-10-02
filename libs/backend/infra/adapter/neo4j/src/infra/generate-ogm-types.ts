@@ -8,7 +8,7 @@ import { getOgm } from './ogm'
 export const generateOgmTypes = async () => {
   const outFile = path.resolve(
     process.cwd(),
-    'libs/shared/abstract/codegen',
+    'libs/backend/abstract/codegen',
     'src/ogm-types.gen.ts',
   )
 
