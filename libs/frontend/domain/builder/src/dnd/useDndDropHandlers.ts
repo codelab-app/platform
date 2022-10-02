@@ -78,7 +78,7 @@ export const useDndDropHandler = (
     const targetElementId = event.over?.id?.toString()
     const dragPosition = event.over?.data.current?.dragPosition
 
-    if (!targetElementId) {
+    if (!targetElementId || targetElementId === draggedElementId) {
       return
     }
 
