@@ -1,8 +1,9 @@
-import { IAtomType, ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import {
   AppCreateInput,
   AtomCreateInput,
 } from '@codelab/shared/abstract/codegen'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectTypeOwner, createAtomsData } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'

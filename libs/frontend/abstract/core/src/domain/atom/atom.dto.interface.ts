@@ -1,9 +1,9 @@
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { ITagRef } from '../tag'
 import { IInterfaceTypeRef } from '../type'
 import { IAuth0Id } from '../user'
 import { AtomFragment, RenderAtomFragment } from './atom.fragment.graphql.gen'
 import type { IAtomRef } from './atom.model.interface'
-import { IAtomType } from '../../../../../../shared/abstract/core/src/atom-type.enum'
 
 export interface ICreateAtomDTO {
   /**

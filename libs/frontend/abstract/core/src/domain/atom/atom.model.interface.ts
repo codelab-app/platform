@@ -1,10 +1,10 @@
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../service'
 import { ITag } from '../tag'
 import { IAnyType } from '../type'
 import { IAtomDTO, IRenderAtomDTO } from './atom.dto.interface'
-import { IAtomType } from '../../../../../../shared/abstract/core/src/atom-type.enum'
 
 export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
   name: string

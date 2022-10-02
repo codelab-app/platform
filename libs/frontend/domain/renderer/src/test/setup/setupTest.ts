@@ -1,6 +1,6 @@
 /// <reference types='jest'/>
 
-import { IAtomType, ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
 import { Component, ComponentService } from '@codelab/frontend/domain/component'
 import {
@@ -24,6 +24,7 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { Renderer } from '../../renderer.model'
@@ -186,7 +187,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         ]),
       }),
       atomService: new AtomService({
-        _atoms: objectMap([
+        atoms: objectMap([
           [data.divAtom.id, data.divAtom],
           [data.textAtom.id, data.textAtom],
         ]),
