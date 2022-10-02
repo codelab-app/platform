@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 import {
   IActionKind,
   IPrimitiveTypeKind,

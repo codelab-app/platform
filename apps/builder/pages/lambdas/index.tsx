@@ -5,7 +5,7 @@ import {
   DeleteLambdaModal,
   GetLambdasTable,
   UpdateLambdaModal,
-} from '@codelab/frontend/modules/lambda'
+} from '@codelab/frontend/domain/lambda'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,

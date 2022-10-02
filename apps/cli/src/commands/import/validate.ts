@@ -1,10 +1,10 @@
-import { AtomOGM } from '@codelab/backend/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IPageExport } from '@codelab/shared/abstract/core'
-import { flatMap } from 'lodash'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import { IPageExport } from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import flatMap from 'lodash/flatMap'
 
 export const validate = async (pages: Array<IPageExport>) => {
-  const Atoms = await AtomOGM()
+  const Atoms = await Repository.instance.Atom
 
   let allAtomIds = flatMap(
     pages,

@@ -1,14 +1,14 @@
 import {
+  IEnumTypeValue,
+  IPropData,
+  IUpdateTypeDTO,
+} from '@codelab/frontend/abstract/core'
+import {
   ArrayTypeItemTypeDisconnectInput,
   UnionTypeTypesOfUnionTypeDisconnectInput,
   UnionTypeTypesOfUnionTypeUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import {
-  IEnumTypeValue,
-  IPropData,
-  ITypeKind,
-  IUpdateTypeDTO,
-} from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNode } from '../shared'
 
 const makeAllTypes = (input: IPropData) =>

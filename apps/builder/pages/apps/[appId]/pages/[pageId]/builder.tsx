@@ -5,9 +5,9 @@ import {
   BuilderTabs,
   ConfigPane,
   EditorPaneBuilder,
-} from '@codelab/frontend/modules/builder'
-import { elementRef } from '@codelab/frontend/modules/element'
-import { PageDetailHeader } from '@codelab/frontend/modules/page'
+} from '@codelab/frontend/domain/builder'
+import { elementRef } from '@codelab/frontend/domain/element'
+import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -25,7 +25,7 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'

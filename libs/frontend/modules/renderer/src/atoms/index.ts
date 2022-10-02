@@ -1,6 +1,0 @@
-export * from './antdAtoms'
-export * from './atom.factory'
-export * from './atoms'
-export * from './codelabAtoms'
-export * from './htmlAtoms'
-export * from './muiAtoms'

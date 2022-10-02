@@ -7,13 +7,13 @@ import {
   DeleteAtomsModal,
   GetAtomsTable,
   UpdateAtomModal,
-} from '@codelab/frontend/modules/atom'
+} from '@codelab/frontend/domain/atom'
 import {
   antdAtoms,
   codelabAtoms,
   htmlAtoms,
   muiAtoms,
-} from '@codelab/frontend/modules/renderer'
+} from '@codelab/frontend/domain/renderer'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,

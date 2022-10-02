@@ -1,4 +1,4 @@
-import { IComponent, IComponentService } from '@codelab/shared/abstract/core'
+import { IComponent, IComponentService } from '@codelab/frontend/abstract/core'
 import { createContext, detach, rootRef } from 'mobx-keystone'
 
 /**

@@ -3,14 +3,14 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   RedirectedAppFragment,
   AppPreviewFragment,
-} from '../../../../../libs/shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../../libs/frontend/abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
   RedirectedAppFragmentDoc,
   AppPreviewFragmentDoc,
-} from '../../../../../libs/shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../../libs/frontend/abstract/core/src/domain/app/app.fragment.graphql.gen'
 export type GetRedirectedAppsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppOptions>
   where?: Types.InputMaybe<Types.AppWhere>

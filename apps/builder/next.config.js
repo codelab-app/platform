@@ -1,12 +1,9 @@
-const util = require('util')
 const { withNx } = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
 const withLess = require('next-with-less')
 
-const cLog = (obj) => console.log(util.inspect(obj, false, null, true))
-
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
 
 /** Allows importing cypher files */
@@ -41,7 +38,7 @@ module.exports = withPlugins(
         lessLoaderOptions: {},
       },
     ],
-    // withBundleAnalyzer,
+    withBundleAnalyzer,
     withRawCypherFiles,
   ],
   withNx({

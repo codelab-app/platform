@@ -1,14 +1,12 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   connectField,
   getDriver,
-  InterfaceTypeOGM,
   interfaceTypeSelectionSet,
-} from '@codelab/backend/adapter/neo4j'
-import {
-  MutationUpsertFieldArgs,
-  OGM_TYPES,
-} from '@codelab/shared/abstract/codegen'
-import { merge } from 'lodash'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
+import merge from 'lodash/merge'
 
 export const fieldRepository = {
   upsertField: async (
@@ -17,7 +15,7 @@ export const fieldRepository = {
     // console.log('Upsert Field', args)
 
     const session = getDriver().session()
-    const InterfaceType = await InterfaceTypeOGM()
+    const InterfaceType = await Repository.instance.InterfaceType
 
     /**
      * To implement upsert, we disconnect field first, then re-connect them each time.

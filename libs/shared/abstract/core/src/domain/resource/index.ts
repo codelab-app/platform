@@ -1,6 +1,0 @@
-export * from './graphql-resource-config.interface'
-export * from './resource.dto.interface'
-export * from './resource.model.interface'
-export * from './resource.service.interface'
-export * from './resource-type.enum'
-export * from './rest-resource-config.interface'

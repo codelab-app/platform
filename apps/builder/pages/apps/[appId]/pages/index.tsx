@@ -1,6 +1,6 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { useCurrentApp } from '@codelab/frontend/modules/app'
-import { ExplorerPanePage } from '@codelab/frontend/modules/page'
+import { useCurrentApp } from '@codelab/frontend/domain/app'
+import { ExplorerPanePage } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useStore,

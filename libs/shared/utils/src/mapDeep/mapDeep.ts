@@ -1,4 +1,7 @@
-import { isArray, isObjectLike, map, toPairsIn } from 'lodash'
+import isArray from 'lodash/isArray'
+import isObjectLike from 'lodash/isObjectLike'
+import map from 'lodash/map'
+import toPairsIn from 'lodash/toPairsIn'
 import { isServer } from '../env'
 import { IInput, IKeyMapper, IOutput, IValueMapper, Key } from './abstract'
 

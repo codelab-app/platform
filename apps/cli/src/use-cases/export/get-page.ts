@@ -1,21 +1,22 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
-  ComponentOGM,
   componentSelectionSet,
-} from '@codelab/backend/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { uuidRegex } from '@codelab/shared/utils'
-import { flatMap, flatten } from 'lodash'
+import flatMap from 'lodash/flatMap'
+import flatten from 'lodash/flatten'
 import { getElementAndDescendants } from './get-element'
 
 export const getPageData = async (page: OGM_TYPES.Page) => {
-  const Component = await ComponentOGM()
+  const Component = await Repository.instance.Component
   const elements = await getElementAndDescendants(page.rootElement.id)
 
   const componentIds = flatMap(elements, (e) => [
     e.parentComponent?.id,
     e.renderComponentType?.id,
     ...(e.props?.data.match(uuidRegex) || []),
-  ]).filter(Boolean) as Array<string>
+  ]).filter((x): x is string => Boolean(x))
 
   const components = await Component.find({
     where: { id_IN: componentIds },

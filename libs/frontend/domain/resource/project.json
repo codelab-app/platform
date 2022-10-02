@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/domain/resource/src",
+  "projectType": "library",
+  "tags": ["layer:domain:frontend", "scope:frontend"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/domain/resource/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/frontend/domain/resource"],
+      "options": {
+        "jestConfig": "libs/frontend/domain/resource/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

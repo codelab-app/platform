@@ -1,4 +1,4 @@
-import { ITagExport } from '@codelab/shared/abstract/core'
+import { ITagExport } from '@codelab/backend/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 import { antdTagTree, TagNode } from './antd-tag-tree.data'

@@ -1,4 +1,4 @@
-import { ExistingData, ExportedData } from '@codelab/shared/abstract/core'
+import { ExistingData, ExportedData } from '@codelab/backend/abstract/core'
 import fs from 'fs'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import {

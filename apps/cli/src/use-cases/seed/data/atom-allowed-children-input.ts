@@ -1,4 +1,4 @@
-import { ExistingData } from '@codelab/shared/abstract/core'
+import { ExistingData } from '@codelab/backend/abstract/core'
 import { AtomSeedData } from '@codelab/shared/data'
 
 /**

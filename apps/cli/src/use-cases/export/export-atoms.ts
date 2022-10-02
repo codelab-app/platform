@@ -1,9 +1,12 @@
-import { AtomOGM, atomSelectionSet } from '@codelab/backend/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IAtomExport } from '@codelab/shared/abstract/core'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import { IAtomExport } from '@codelab/backend/abstract/core'
+import {
+  atomSelectionSet,
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 
 export const exportAtoms = async (): Promise<Array<IAtomExport>> => {
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
 
   return (await Atom.find({
     selectionSet: atomSelectionSet,

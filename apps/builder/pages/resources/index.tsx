@@ -5,7 +5,7 @@ import {
   DeleteResourceModal,
   GetResourcesList,
   UpdateResourceModal,
-} from '@codelab/frontend/modules/resource'
+} from '@codelab/frontend/domain/resource'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,

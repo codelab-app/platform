@@ -1,4 +1,4 @@
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/frontend/abstract/core'
 import { List as AntList, ListProps } from 'antd'
 import React from 'react'
 

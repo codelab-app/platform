@@ -1,6 +1,6 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { PageDetailHeader } from '@codelab/frontend/modules/page'
-import { Renderer } from '@codelab/frontend/modules/renderer'
+import { PageDetailHeader } from '@codelab/frontend/domain/page'
+import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
   useCurrentAppId,
   useCurrentPageId,

@@ -1,5 +1,5 @@
-import { ElementOGM } from '@codelab/backend/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { connectNode } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
@@ -21,7 +21,7 @@ export const importElementInitial = async (
   element: OGM_TYPES.Element,
   userId: string,
 ): Promise<OGM_TYPES.Element> => {
-  const Element = await ElementOGM()
+  const Element = await Repository.instance.Element
 
   const existing = await Element.find({
     where: {
@@ -85,7 +85,7 @@ export const importElementInitial = async (
 export const updateImportedElement = async (
   element: OGM_TYPES.Element,
 ): Promise<void> => {
-  const Elements = await ElementOGM()
+  const Element = await Repository.instance.Element
 
   if (element.props) {
     // replace all references in props
@@ -97,7 +97,7 @@ export const updateImportedElement = async (
     // }
   }
 
-  await Elements.update({
+  await Element.update({
     where: { id: element.id },
     update: {
       parentComponent: connectNode(element.parentComponent?.id),

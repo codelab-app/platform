@@ -6,8 +6,6 @@
     "types": ["@fancyapps/ui", "jest", "node"],
     "jsx": "react",
     "allowJs": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "isolatedModules": false,
     "strict": true,
     "noImplicitReturns": true,

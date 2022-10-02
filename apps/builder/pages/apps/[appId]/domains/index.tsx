@@ -1,12 +1,12 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { useCurrentApp } from '@codelab/frontend/modules/app'
+import { useCurrentApp } from '@codelab/frontend/domain/app'
 import {
   CreateDomainButton,
   CreateDomainModal,
   DeleteDomainModal,
   GetDomainsList,
   UpdateDomainModal,
-} from '@codelab/frontend/modules/domain'
+} from '@codelab/frontend/domain/domain'
 import {
   useCurrentAppId,
   useStore,

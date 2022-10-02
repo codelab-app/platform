@@ -1,4 +1,4 @@
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { stateAtomFamily } from './stateAtomFamily'

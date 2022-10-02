@@ -1,10 +1,6 @@
-import { UserService } from '@codelab/frontend/modules/user'
-import {
-  Auth0SessionUser,
-  IPageProps,
-  IRootStore,
-  JWT_CLAIMS,
-} from '@codelab/shared/abstract/core'
+import { IPageProps, IRootStore } from '@codelab/frontend/abstract/core'
+import { UserService } from '@codelab/frontend/domain/user'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { fromSnapshot, registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
 

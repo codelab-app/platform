@@ -1,7 +1,7 @@
 import {
   AntdDesignField,
   AntDesignFieldsByFile,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/backend/abstract/core'
 import csv from 'csv-parser'
 import fs from 'fs'
 import path from 'path'

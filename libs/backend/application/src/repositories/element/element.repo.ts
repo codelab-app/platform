@@ -1,9 +1,8 @@
 import {
-  ElementOGM,
   elementSelectionSet,
   getDescendantsCypher,
-} from '@codelab/backend/adapter/neo4j'
-import { Element } from '@codelab/shared/abstract/codegen'
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { Node, Transaction } from 'neo4j-driver'
 
 export const elementRepository = {
@@ -14,7 +13,7 @@ export const elementRepository = {
     txn: Transaction,
     rootId: string,
   ): Promise<Array<Element>> => {
-    const ElementModel = await ElementOGM()
+    const Element = await Repository.instance.Element
     /**
      * We can still use the same query, but we get ID from context instead
      */
@@ -25,7 +24,7 @@ export const elementRepository = {
         records[0].get(0).map((descendant: Node) => {
           const id = descendant.properties.id
 
-          const element = ElementModel.find({
+          const element = Element.find({
             where: { id },
             selectionSet: elementSelectionSet,
           })

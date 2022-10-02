@@ -1,21 +1,15 @@
+import { ExistingData } from '@codelab/backend/abstract/core'
 import {
-  AtomOGM,
   atomSelectionSet,
-  EnumTypeOGM,
   exportEnumTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
   exportRenderPropsTypeSelectionSet,
-  InterfaceTypeOGM,
   interfaceTypeSelectionSet,
-  PrimitiveTypeOGM,
-  ReactNodeTypeOGM,
-  RenderPropsTypeOGM,
-  TagOGM,
+  Repository,
   tagSelectionSet,
-} from '@codelab/backend/adapter/neo4j'
-import { ExistingData } from '@codelab/shared/abstract/core'
-import { merge } from 'lodash'
+} from '@codelab/backend/infra/adapter/neo4j'
+import merge from 'lodash/merge'
 
 /**
  * Create a map of current data for upserting id's
@@ -25,7 +19,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // Atom
   //
 
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
 
   const atoms = await Atom.find({
     selectionSet: atomSelectionSet,
@@ -43,7 +37,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // Tag
   //
 
-  const Tag = await TagOGM()
+  const Tag = await Repository.instance.Tag
 
   const tagsKeyByName = (
     await Tag.find({
@@ -57,7 +51,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // InterfaceType
   //
 
-  const InterfaceType = await InterfaceTypeOGM()
+  const InterfaceType = await Repository.instance.InterfaceType
 
   const interfaceTypes = await InterfaceType.find({
     selectionSet: interfaceTypeSelectionSet,
@@ -73,7 +67,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // PrimitiveType
   //
 
-  const PrimitiveType = await PrimitiveTypeOGM()
+  const PrimitiveType = await Repository.instance.PrimitiveType
 
   const primitiveTypes = await PrimitiveType.find({
     selectionSet: exportPrimitiveTypeSelectionSet,
@@ -83,7 +77,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // ReactNodeType
   //
 
-  const ReactNodeType = await ReactNodeTypeOGM()
+  const ReactNodeType = await Repository.instance.ReactNodeType
 
   const reactNodeTypes = await ReactNodeType.find({
     selectionSet: exportReactNodeTypeSelectionSet,
@@ -93,7 +87,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // RenderPropsType
   //
 
-  const RenderPropsType = await RenderPropsTypeOGM()
+  const RenderPropsType = await Repository.instance.RenderPropsType
 
   const renderPropsType = await RenderPropsType.find({
     selectionSet: exportRenderPropsTypeSelectionSet,
@@ -103,7 +97,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // EnumType
   //
 
-  const EnumType = await EnumTypeOGM()
+  const EnumType = await Repository.instance.EnumType
 
   const enumTypes = await EnumType.find({
     selectionSet: exportEnumTypeSelectionSet,

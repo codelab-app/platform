@@ -4,11 +4,9 @@
     "jsx": "preserve",
     "allowJs": true,
     "jsxImportSource": "@emotion/react",
-    "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
     "lib": ["es2021"],
-    "allowSyntheticDefaultImports": true,
     "types": [
       "node",
       "worker-loader",
@@ -23,7 +21,8 @@
     "isolatedModules": true,
     "incremental": true,
     "module": "esnext",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "esModuleInterop": true
   },
   "include": [
     "**/*.ts",
@@ -36,7 +35,6 @@
     "**/*.jsx"
   ],
   "exclude": [
-    "node_modules",
     "jest.config.ts",
     "**/*.spec.ts",
     "**/*.test.ts",

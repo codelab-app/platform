@@ -3,11 +3,11 @@ import {
   ExistingData,
   FieldDataKeyByApiId,
   IAtomImport,
-  ICreateFieldDTO,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/backend/abstract/core'
+import { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
 import { atomTypeKeyByFileName } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 import { createAntdAtomData } from './data/ant-design-atom.data'
 import { readCsvFiles } from './read-csv-files'

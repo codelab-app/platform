@@ -1,16 +1,10 @@
 import {
-  EnumTypeOGM,
-  PrimitiveTypeOGM,
-  ReactNodeTypeOGM,
-  RenderPropsTypeOGM,
-} from '@codelab/backend/adapter/neo4j'
-import {
   AntdDesignField,
   IAtomImport,
-  IPrimitiveTypeKind,
-  ITypeKind,
   TypeRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
@@ -31,10 +25,10 @@ export const getTypeForApi = async (
   logTask('Get Type For API', atom.name, apiField)
 
   const type = apiField.type.trim()
-  const PrimitiveType = await PrimitiveTypeOGM()
-  const ReactNodeType = await ReactNodeTypeOGM()
-  const RenderPropsType = await RenderPropsTypeOGM()
-  const EnumType = await EnumTypeOGM()
+  const PrimitiveType = await Repository.instance.PrimitiveType
+  const ReactNodeType = await Repository.instance.ReactNodeType
+  const RenderPropsType = await Repository.instance.RenderPropsType
+  const EnumType = await Repository.instance.EnumType
 
   if (apiField.isEnum) {
     const enumValues = apiField.type.split('|').map((v) => v.trim())

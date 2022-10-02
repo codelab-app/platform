@@ -1,5 +1,5 @@
 import type { Callback } from '@codelab/frontend/abstract/types'
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction'
 import { ArrayOrSingle } from 'ts-essentials'
 
 export const callbackWithParams = <T, TCb extends Callback<T> = Callback<T>>(

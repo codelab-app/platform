@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { IconDefinition } from '@fortawesome/pro-light-svg-icons'
+import type { IconDefinition } from '@fortawesome/pro-light-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Card } from 'antd'
 import React from 'react'

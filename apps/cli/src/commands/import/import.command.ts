@@ -1,4 +1,4 @@
-import { UserOGM } from '@codelab/backend/adapter/neo4j'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import {
@@ -48,7 +48,7 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
     skipSeedData,
     skipUserData,
   }) => {
-    const User = await UserOGM()
+    const User = await Repository.instance.User
 
     const selectedUserId = email
       ? (await User.find({ where: { email } }))[0]?.id

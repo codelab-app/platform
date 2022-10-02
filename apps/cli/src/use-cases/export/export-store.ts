@@ -1,7 +1,10 @@
-import { StoreOGM, storeSelectionSet } from '@codelab/backend/adapter/neo4j'
+import {
+  Repository,
+  storeSelectionSet,
+} from '@codelab/backend/infra/adapter/neo4j'
 
 export const exportStore = async () => {
-  const Store = await StoreOGM()
+  const Store = await Repository.instance.Store
 
   const stores = await Store.find({
     selectionSet: storeSelectionSet,

@@ -8466,24 +8466,9 @@ type ElementTypeEdge {
 }
 
 enum ElementTypeKind {
-  """
-  Pick any element in the current tree
-  """
   AllElements
-
-  """
-  Pick any element from the children of the current element
-  """
   ChildrenOnly
-
-  """
-  Pick any element from the descendants of the current element
-  """
   DescendantsOnly
-
-  """
-  Pick parents and siblings of parents of elements (used to move element)
-  """
   ExcludeDescendantsElements
 }
 

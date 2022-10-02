@@ -1,5 +1,6 @@
+import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { TypeBaseCreateInput } from '@codelab/shared/abstract/codegen'
-import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { DocumentNode, print } from 'graphql'
 import {
   CreateActionTypesDocument,
@@ -15,7 +16,7 @@ import {
   CreateReactNodeTypesDocument,
   CreateRenderPropsTypesDocument,
   CreateUnionTypesDocument,
-} from '../../../../../libs/frontend/modules/type/src/graphql/create-type.endpoints.graphql.gen'
+} from 'libs/frontend/domain/type/src/graphql/create-type.endpoints.graphql.gen'
 
 const createTypeQuery: { [key in ITypeKind]: DocumentNode } = {
   [ITypeKind.PrimitiveType]: CreatePrimitiveTypesDocument,

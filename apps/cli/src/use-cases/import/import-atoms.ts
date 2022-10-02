@@ -1,4 +1,4 @@
-import { ImportAtoms } from '@codelab/shared/abstract/core'
+import { ImportAtoms } from '@codelab/backend/abstract/core'
 import { assignAllowedChildren, upsertAtom } from '../../repository/atom.repo'
 import { logSection } from '../../shared/utils/log-task'
 import { createExistingData } from '../seed/data/existing.data'

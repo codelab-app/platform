@@ -1,10 +1,10 @@
-import { AtomOGM } from '@codelab/backend/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   ExistingData,
   IAtomImport,
   ITagExport,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode, connectNodes } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
@@ -20,7 +20,7 @@ export const upsertAtom = async (
 ) => {
   logTask('Upserting Atom', atom.name)
 
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
 
   const existingAtom = (
     await Atom.find({
@@ -88,7 +88,7 @@ export const assignAllowedChildren = async (
   atom: IAtomImport,
   data: ExistingData,
 ) => {
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
   const allowedChildrenIds = atom.allowedChildren(data).map((child) => child.id)
 
   try {

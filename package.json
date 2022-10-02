@@ -1,7 +1,7 @@
 {
   "name": "codelab",
   "engines": {
-    "node": "^12.20.0 || ^14.15.0 || >=16.10.0",
+    "node": ">=16.14.0",
     "npm": "please-use-yarn",
     "pnpm": "please-use-yarn"
   },
@@ -65,7 +65,6 @@
     "@neo4j/graphql-ogm": "3.8.0",
     "@neo4j/graphql-plugin-auth": "1.1.0",
     "@next/bundle-analyzer": "12.0.7",
-    "@nrwl/next": "14.6.4",
     "@react-hook/size": "2.1.2",
     "@react-hook/window-size": "3.0.7",
     "@storybook/core-server": "6.5.9",
@@ -117,7 +116,7 @@
     "react-helmet": "6.1.0",
     "react-hook-form": "7.30.0",
     "react-hotkeys-hook": "3.4.4",
-    "react-query": "3.39.0",
+    "react-query": "3.39.2",
     "react-quill": "2.0.0",
     "react-resizable": "3.0.4",
     "react-responsive": "9.0.0-beta.10",
@@ -140,6 +139,7 @@
     "voca": "1.4.0",
     "wait-on": "6.0.0",
     "why-is-node-running": "2.2.0",
+    "winston": "^3.8.2",
     "yargs": "17.5.1",
     "zod": "3.18.0"
   },
@@ -198,7 +198,7 @@
     "@types/js-cookie": "3.0.1",
     "@types/json2csv": "5.0.3",
     "@types/jwt-decode": "3.1.0",
-    "@types/lodash": "4.14.178",
+    "@types/lodash": "4.14.186",
     "@types/node": "18.7.14",
     "@types/prettier": "2.4.4",
     "@types/ramda": "0.27.64",
@@ -245,7 +245,7 @@
     "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "8.5.0",
     "eslint-import-resolver-node": "0.3.6",
-    "eslint-import-resolver-typescript": "2.7.1",
+    "eslint-import-resolver-typescript": "3.5.1",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-deprecate-import": "2.0.0",
     "eslint-plugin-import": "2.26.0",
@@ -253,6 +253,7 @@
     "eslint-plugin-jest-formatting": "3.1.0",
     "eslint-plugin-jsdoc": "39.2.9",
     "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-lodash": "^7.4.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.31.1",
     "eslint-plugin-react-hooks": "4.6.0",
@@ -291,6 +292,6 @@
   },
   "resolutions": {
     "rxjs": "^6.6.3",
-    "cypress@10.8.0": "patch:cypress@npm:10.8.0#.yarn/patches/cypress-npm-10.8.0-960e94f4f4"
+    "cypress@10.9.0": "patch:cypress@npm:10.9.0#.yarn/patches/cypress-npm-10.9.0-7807fe85fd"
   }
 }
