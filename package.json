@@ -1,7 +1,7 @@
 {
   "name": "codelab",
   "engines": {
-    "node": "^12.20.0 || ^14.15.0 || >=16.10.0",
+    "node": ">=16.14.0",
     "npm": "please-use-yarn",
     "pnpm": "please-use-yarn"
   },
@@ -245,7 +245,7 @@
     "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "8.5.0",
     "eslint-import-resolver-node": "0.3.6",
-    "eslint-import-resolver-typescript": "2.7.1",
+    "eslint-import-resolver-typescript": "3.5.1",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-deprecate-import": "2.0.0",
     "eslint-plugin-import": "2.26.0",

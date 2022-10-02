@@ -21,9 +21,29 @@
   "extends": [
     "plugin:prettier/recommended",
     "plugin:jest/recommended",
-    "plugin:jest/style"
+    "plugin:jest/style",
+    // Only enable for projects like cypress & specs
+    // Typescript adds support to import for ts files
+    "plugin:import/recommended",
+    "plugin:import/typescript"
     //    "plugin:lodash/recommended"
   ],
+  // Used for import plugin
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": ["**/tsconfig.lib.json"]
+        //        "project": ["libs/frontend/domain/renderer/tsconfig.lib.json"]
+      },
+      "node": {
+        "project": ["**/tsconfig.lib.json"]
+        //        "project": ["libs/frontend/domain/renderer/tsconfig.lib.json"]
+      }
+    }
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -256,7 +276,8 @@
         "simple-import-sort/exports": "error",
         "import/newline-after-import": "error",
         "import/first": "error",
-        "import/no-cycle": "error",
+        // SUPER SLOW!
+        "import/no-cycle": "off",
         "import/no-duplicates": "error",
         "prettier/prettier": [
           "error",
@@ -466,6 +487,11 @@
         "react/jsx-props-no-spreading": "off"
       }
     },
+    //    {
+    //      "files": ["*.spec.ts"],
+    //      "extends": ["plugin:import/recommended"],
+    //      "rules": {}
+    //    },
     //    {
     //      "files": ["*.jsx", "*.tsx"],
     //      "extends": ["plugin:react-hooks/recommended"]

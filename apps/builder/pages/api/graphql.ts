@@ -1,7 +1,6 @@
 /**
  * This file is under `api` code so can import backend code
  */
-import { NextApiRequest } from '@codelab/backend/abstract/types'
 import { resolvers } from '@codelab/backend/graphql'
 import {
   getDriver,

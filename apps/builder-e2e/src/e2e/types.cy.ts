@@ -1,11 +1,10 @@
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
 const primitiveTypeKind = ITypeKind.PrimitiveType
-const primitiveTypePrimitiveKind = PrimitiveTypeKind.String
+const primitiveTypePrimitiveKind = IPrimitiveTypeKind.String
 // Enum Type use case
 const enumTypeName = 'COLORS'
 const enumTypeKind = 'EnumType'
