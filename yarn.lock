@@ -13879,7 +13879,7 @@ __metadata:
     react-helmet: 6.1.0
     react-hook-form: 7.30.0
     react-hotkeys-hook: 3.4.4
-    react-query: 3.39.0
+    react-query: 3.39.2
     react-quill: 2.0.0
     react-resizable: 3.0.4
     react-responsive: 9.0.0-beta.10
@@ -27837,9 +27837,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:3.39.0":
-  version: 3.39.0
-  resolution: "react-query@npm:3.39.0"
+"react-query@npm:3.39.2":
+  version: 3.39.2
+  resolution: "react-query@npm:3.39.2"
   dependencies:
     "@babel/runtime": ^7.5.5
     broadcast-channel: ^3.4.1
@@ -27851,7 +27851,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 18fd745ef86375c73496d6bcffdd4a6d02b48feb1e63c05bcb1881406a91ecf776543d0751b776a6ff6ffddd3d7bf31973a37df8e4eb72d1626c41b815396aef
+  checksum: 83b199e66af28ab67ec4d22e51da42f02447186623db926b75d27a1c09a3383da6ddc9e5b83d82578fac7abdba7e6f265aecbffdb91db61981950d3d59409346
   languageName: node
   linkType: hard
 
