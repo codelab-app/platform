@@ -8,6 +8,7 @@
     "moduleResolution": "node",
     "strict": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
     "resolveJsonModule": true,

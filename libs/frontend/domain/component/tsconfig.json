@@ -5,8 +5,6 @@
     "jsxImportSource": "@emotion/react",
     "allowJs": true,
     "module": "commonjs",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,

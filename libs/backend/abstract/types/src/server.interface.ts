@@ -1,5 +1,5 @@
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
-import { NextApiRequest as OriginalNextApiRequest } from 'next'
+import type { NextApiRequest as OriginalNextApiRequest } from 'next'
 
 export interface GraphQLRequestContext {
   user?: Auth0SessionUser

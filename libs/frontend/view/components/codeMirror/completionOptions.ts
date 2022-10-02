@@ -1,5 +1,5 @@
 import { IPropData } from '@codelab/frontend/abstract/core'
-import { Completion } from '@codemirror/autocomplete'
+import type { Completion } from '@codemirror/autocomplete'
 import capitalize from 'lodash/capitalize'
 import isArray from 'lodash/isArray'
 import isObjectLike from 'lodash/isObjectLike'

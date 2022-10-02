@@ -19,28 +19,31 @@
     "jest/globals": true
   },
   "extends": [
-    "plugin:prettier/recommended",
-    "plugin:jest/recommended",
-    "plugin:jest/style",
+    "plugin:prettier/recommended"
+    // "plugin:jest/recommended",
+    // "plugin:jest/style"
     // Only enable for projects like cypress & specs
     // Typescript adds support to import for ts files
-    "plugin:import/recommended",
-    "plugin:import/typescript"
+    //    "plugin:import/recommended",
+    //    "plugin:import/typescript"
     //    "plugin:lodash/recommended"
   ],
   // Used for import plugin
   "settings": {
+    "extensions": [".js", ".jsx", ".ts", ".tsx"],
+    // Can't resolve for some reason
+    "import/ignore": ["react-query"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       "typescript": {
-        "project": ["**/tsconfig.lib.json"]
-        //        "project": ["libs/frontend/domain/renderer/tsconfig.lib.json"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "project": ["**/tsconfig.lib.json", "**/tsconfig.spec.json"]
       },
       "node": {
-        "project": ["**/tsconfig.lib.json"]
-        //        "project": ["libs/frontend/domain/renderer/tsconfig.lib.json"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "project": ["**/tsconfig.lib.json", "**/tsconfig.spec.json"]
       }
     }
   },
@@ -48,23 +51,22 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        //        "max-params": [
-        //          "error",
-        //          {
-        //            "max": 6
-        //          }
-        //        ],
-        //        "unused-imports/no-unused-imports-ts": "error",
-        //        "prefer-destructuring": [
-        //          "error",
-        //          {
-        //            "array": true,
-        //            "object": true
-        //          },
-        //          {
-        //            "enforceForRenamedProperties": false
-        //          }
-        //        ],
+        // "max-params": [
+        //   "error",
+        //   {
+        //     "max": 6
+        //   }
+        // ],
+        // "prefer-destructuring": [
+        //   "error",
+        //   {
+        //     "array": true,
+        //     "object": true
+        //   },
+        //   {
+        //     "enforceForRenamedProperties": false
+        //   }
+        // ],
         "lodash/import-scope": ["error", "method"],
         "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
@@ -274,7 +276,12 @@
           }
         ],
         "simple-import-sort/exports": "error",
+        //
+        // Custom import rules
+        //
         "import/newline-after-import": "error",
+        "import/no-unresolved": "error",
+        "import/named": "error",
         "import/first": "error",
         // SUPER SLOW!
         "import/no-cycle": "off",

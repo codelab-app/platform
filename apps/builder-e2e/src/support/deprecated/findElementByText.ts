@@ -1,4 +1,4 @@
-import { Matcher, SelectorMatcherOptions } from '@testing-library/dom'
+import type { Matcher, SelectorMatcherOptions } from '@testing-library/dom'
 import { CypressElementTag, ElementTagName } from './types'
 import { wrapSubject } from './utils'
 

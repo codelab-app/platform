@@ -7,7 +7,6 @@
     "strict": true,
     "noPropertyAccessFromIndexSignature": false,
     "types": ["node", "@emotion/react/types/css-prop"],
-    "esModuleInterop": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },

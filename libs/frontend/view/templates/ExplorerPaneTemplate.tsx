@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
+import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import styled from '@emotion/styled'
 import { PageHeader, PageHeaderProps } from 'antd'
 import React from 'react'

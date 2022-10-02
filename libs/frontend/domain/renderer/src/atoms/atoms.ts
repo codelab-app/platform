@@ -1,8 +1,8 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { antdAtoms, antdPropsCustomizer } from './antdAtoms'
-import { codelabAtoms } from './codelabAtoms'
-import { htmlAtoms, htmlPropsCustomizer } from './htmlAtoms'
-import { muiAtoms, muiPropsCustomizer } from './muiAtoms'
+import { antdAtoms, antdPropsCustomizer } from './antd'
+import { codelabAtoms } from './codelab'
+import { htmlAtoms, htmlPropsCustomizer } from './html'
+import { muiAtoms, muiPropsCustomizer } from './mui'
 import { AtomCustomizer, AtomsRecord, IComponentType } from './types'
 
 // Add new atom records here

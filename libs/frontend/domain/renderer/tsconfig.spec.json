@@ -14,7 +14,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "strict": true,
-    "esModuleInterop": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },

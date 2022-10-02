@@ -1,4 +1,3 @@
-import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { JSONSchemaType } from 'ajv'
 
 export interface CreateLambdaData {
@@ -17,16 +16,17 @@ export const createLambdaSchema: JSONSchemaType<CreateLambdaData> = {
     body: {
       type: 'string',
       uniforms: {
-        component: monacoFieldFactory({
-          editorOptions: {
-            language: 'javascript',
-          },
-          containerProps: {
-            style: {
-              height: '240px',
-            },
-          },
-        }),
+        component: () => null,
+        // component: monacoFieldFactory({
+        //   editorOptions: {
+        //     language: 'javascript',
+        //   },
+        //   containerProps: {
+        //     style: {
+        //       height: '240px',
+        //     },
+        //   },
+        // }),
       },
     },
   },

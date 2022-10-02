@@ -4,7 +4,6 @@
     "jsxImportSource": "@emotion/react",
     "outDir": "../../../../dist/out-tsc",
     "types": ["node", "twin"],
-    "esModuleInterop": true,
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true

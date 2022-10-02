@@ -1,4 +1,4 @@
-import { CyHttpMessages } from 'cypress/types/net-stubbing'
+import type { CyHttpMessages } from 'cypress/types/net-stubbing'
 import { CypressCommand } from '../types'
 
 const interceptGraphQL = (

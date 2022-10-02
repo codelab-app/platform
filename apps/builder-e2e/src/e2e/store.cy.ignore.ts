@@ -1,9 +1,8 @@
-/* eslint-disable jest/expect-expect */
 import {
   IActionKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/shared/abstract/core'
 import { connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'

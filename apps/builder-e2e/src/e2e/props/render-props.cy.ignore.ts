@@ -1,12 +1,10 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
+import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import {
-  createComponentInput,
   createListAtomInput,
   createListElementInput,
   createListItemAtomInput,
   createTextAtomInput,
-  createTextReactNodeComponentInput,
   headerFieldName,
   listDataSource,
   listElementName,
@@ -33,10 +31,9 @@ const componentsInputs = (
    *   - ListItem - Component
    *     - Text
    */
-
-  createComponentInput(userId, textAtomId, listItemAtomId),
+  // createComponentInput(userId, textAtomId, listItemAtomId),
   // create test component with text prop = 'React Node"
-  createTextReactNodeComponentInput(userId, textAtomId),
+  // createTextReactNodeComponentInput(userId, textAtomId),
 ]
 
 describe('Render props', () => {

@@ -1,6 +1,6 @@
 import { TagWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import { LabeledValue } from 'antd/es/select'
+import type { LabeledValue } from 'antd/es/select'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICacheService,

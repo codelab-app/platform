@@ -1,5 +1,5 @@
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
-import { Completion, CompletionSource } from '@codemirror/autocomplete'
+import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { css } from '@codemirror/lang-css'
 import { esLint, javascript } from '@codemirror/lang-javascript'
 import { json } from '@codemirror/lang-json'

@@ -1,16 +1,12 @@
 {
-  "extends": [
-    "../../.eslintrc.json",
-    "plugin:cypress/recommended",
-    "plugin:import/recommended"
-  ],
+  "extends": ["plugin:cypress/recommended", "../../.eslintrc.json"],
   "plugins": [],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["apps/builder-e2e/tsconfig.json"]
+        "project": ["apps/builder-e2e/tsconfig(.*)?.json"]
       },
       "rules": {
         "jest/valid-expect": "off",

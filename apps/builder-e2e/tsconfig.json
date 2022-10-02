@@ -4,7 +4,6 @@
     "sourceMap": false,
     "strict": true,
     "outDir": "../../dist/out-tsc",
-    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     // https://github.com/cypress-io/cypress/issues/22059
     "types": [
