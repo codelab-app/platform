@@ -5,7 +5,7 @@ import type {
   IPropData,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/frontend/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   ExtendedModel,

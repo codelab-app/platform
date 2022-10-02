@@ -8,9 +8,9 @@ import type {
   ICreateActionInput,
   IUpdateActionDTO,
 } from '@codelab/frontend/abstract/core'
-import { IActionKind } from '@codelab/frontend/abstract/core'
 import { getResourceService } from '@codelab/frontend/domain/resource'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,

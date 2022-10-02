@@ -5,20 +5,14 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   assertIsTypeKind,
-  ElementTypeKind,
+  IElementTypeKind,
   ITypeKind,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const hydrate = ({
-  id,
-  kind,
-  name,
-  elementKind,
-  owner,
-}: IElementTypeDTO): ElementType => {
+const hydrate = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ElementType)
 
   return new ElementType({
@@ -33,7 +27,7 @@ const hydrate = ({
 @model('@codelab/ElementType')
 export class ElementType
   extends ExtendedModel(createTypeBase(ITypeKind.ElementType), {
-    elementKind: prop<ElementTypeKind>(),
+    elementKind: prop<IElementTypeKind>(),
   })
   implements IElementType
 {

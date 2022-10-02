@@ -1,4 +1,4 @@
-import { IAtomType } from '@codelab/frontend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms, antdPropsCustomizer } from './antdAtoms'
 import { codelabAtoms } from './codelabAtoms'
 import { htmlAtoms, htmlPropsCustomizer } from './htmlAtoms'

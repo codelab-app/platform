@@ -1,6 +1,9 @@
-import { IRole } from '@codelab/shared/abstract/core'
+import {
+  Auth0SessionUser,
+  IRole,
+  JWT_CLAIMS,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { Auth0SessionUser, JWT_CLAIMS } from './jwt.interface'
 import { IUser } from './user.interface'
 
 export const isAdmin = (user: Nullish<IUser>): user is IUser & boolean => {

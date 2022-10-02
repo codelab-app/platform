@@ -1,8 +1,9 @@
 import {
-  CodeMirrorLanguage,
-  ElementTypeKind,
-} from '@codelab/shared/abstract/codegen'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+  ICodeMirrorLanguage,
+  IElementTypeKind,
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { IPropData } from '../prop'
 import { TypeFragment } from './fragments'
 import { IEnumTypeValue } from './types'
@@ -12,8 +13,8 @@ export interface IBaseTypeDTO {
   name: string
   kind: ITypeKind
   primitiveKind?: IPrimitiveTypeKind
-  elementKind?: ElementTypeKind
-  language?: CodeMirrorLanguage
+  elementKind?: IElementTypeKind
+  language?: ICodeMirrorLanguage
   allowedValues?: Array<IEnumTypeValue>
   unionTypeIds?: Array<string>
   arrayTypeId?: string

@@ -1,15 +1,15 @@
 /**
  * This file is under `api` code so can import backend code
  */
-import { NextApiRequest } from '@codelab/backend/application'
+import { NextApiRequest } from '@codelab/backend/abstract/types'
 import { resolvers } from '@codelab/backend/graphql'
 import {
   getDriver,
   getSchema,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { Auth0SessionUser } from '@codelab/frontend/abstract/core'
 import { upsertUser } from '@codelab/frontend/domain/user'
+import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Config } from '@codelab/shared/config'
 import { ApolloServer } from 'apollo-server-micro'

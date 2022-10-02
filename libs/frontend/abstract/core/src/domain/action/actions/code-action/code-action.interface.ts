@@ -1,6 +1,6 @@
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { ICacheService } from '../../../../service'
 import { IActionBase } from '../../action-base.interface'
-import { IActionKind } from '../../action-kind.enum'
 import { ICodeActionDTO } from './code-action.dto.interface'
 
 export interface ICodeAction

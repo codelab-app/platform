@@ -1,8 +1,8 @@
 import {
   ICreateTypeDTO,
   ICreateTypeInput,
-  ITypeKind,
 } from '@codelab/frontend/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectTypeOwner,
   makeAllowedValuesCreateInput,

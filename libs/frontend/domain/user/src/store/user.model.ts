@@ -1,6 +1,6 @@
 import type { IApp, IUser, IUserDTO } from '@codelab/frontend/abstract/core'
-import { IRole } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/domain/app'
+import { IRole } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import {
   detach,

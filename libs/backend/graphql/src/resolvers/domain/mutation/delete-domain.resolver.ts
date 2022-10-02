@@ -1,4 +1,4 @@
-import { GraphQLRequestContext } from '@codelab/backend/application'
+import { GraphQLRequestContext } from '@codelab/backend/abstract/types'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import { IFieldResolver } from '@graphql-tools/utils'

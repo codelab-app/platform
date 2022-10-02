@@ -4,11 +4,11 @@ import {
   IDeleteTypeInput,
   IDisconnectTypeInput,
   ITypeDTO,
-  ITypeKind,
   ITypeWhere,
   IUpdateTypeInput,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import flatten from 'lodash/flatten'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'

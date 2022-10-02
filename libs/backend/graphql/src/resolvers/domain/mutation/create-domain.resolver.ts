@@ -1,4 +1,4 @@
-import { GraphQLRequestContext } from '@codelab/backend/application'
+import { GraphQLRequestContext } from '@codelab/backend/abstract/types'
 import {
   domainSelection,
   Repository,

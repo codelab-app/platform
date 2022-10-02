@@ -1,6 +1,6 @@
 /// <reference types='jest'/>
-import { ITypeKind } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 import { InterfaceType, PrimitiveType, typeRef, UnionType } from '../models'

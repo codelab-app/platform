@@ -1,11 +1,12 @@
 import { RightCircleOutlined } from '@ant-design/icons'
-import { ITypeKind, ITypeService } from '@codelab/frontend/abstract/core'
+import { ITypeService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   DisplayIf,
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'

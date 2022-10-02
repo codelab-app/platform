@@ -4,7 +4,7 @@ import type {
   IUnionType,
   IUnionTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/frontend/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   detach,
   ExtendedModel,

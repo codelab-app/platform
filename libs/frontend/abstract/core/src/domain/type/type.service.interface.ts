@@ -1,8 +1,5 @@
-import {
-  GetTypesQuery,
-  PrimitiveTypeKind,
-  TypeBaseWhere,
-} from '@codelab/shared/abstract/codegen'
+import { GetTypesQuery, TypeBaseWhere } from '@codelab/shared/abstract/codegen'
+import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -33,7 +30,7 @@ export interface ITypeService
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
-  primitiveKind(id: string): Nullable<PrimitiveTypeKind>
+  primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   typesList: Array<IAnyType>
   fieldCreateModal: IEntityModalService<
     Ref<IInterfaceType>,

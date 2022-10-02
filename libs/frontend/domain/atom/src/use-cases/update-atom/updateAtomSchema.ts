@@ -1,8 +1,8 @@
 import {
   filterNotHookType,
-  IAtomType,
   IUpdateAtomDTO,
 } from '@codelab/frontend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
@@ -30,9 +30,7 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
     },
     type: {
       type: 'string',
-      enum: Object.keys(IAtomType).filter(
-        filterNotHookType,
-      ) as Array<IAtomType>,
+      enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
     },
     tags: {

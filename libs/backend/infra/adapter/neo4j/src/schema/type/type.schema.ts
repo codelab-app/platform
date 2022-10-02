@@ -1,9 +1,14 @@
+import { __AtomType } from '@codelab/shared/abstract/core'
 import { gql } from 'apollo-server-micro'
 import {
   getTypeDescendants,
   getTypeReferences,
   isTypeDescendantOf,
 } from '../../cypher/type'
+
+const elementTypeTypeKindSchema = `enum ElementTypeKind {
+  ${Object.values(__AtomType).join('\n')}
+}`
 
 export const typeSchema = gql`
   enum TypeKind {
@@ -243,24 +248,7 @@ export const typeSchema = gql`
 #    fieldFor: [TypeBase!]!
   }
 
-  enum ElementTypeKind {
-    """
-    Pick any element in the current tree
-    """
-    AllElements
-    """
-    Pick any element from the descendants of the current element
-    """
-    DescendantsOnly
-    """
-    Pick any element from the children of the current element
-    """
-    ChildrenOnly
-    """
-    Pick parents and siblings of parents of elements (used to move element)
-    """
-    ExcludeDescendantsElements
-  }
+  ${elementTypeTypeKindSchema}
 
   """
   Allows choosing one of a set of allowed values.

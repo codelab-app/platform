@@ -1,5 +1,5 @@
 import { Claims } from '@auth0/nextjs-auth0'
-import { IRole } from '@codelab/shared/abstract/core'
+import { IRole } from './role.enum'
 
 export interface CodelabApiClaims extends Claims {
   email: string

@@ -3,7 +3,6 @@
 //
 
 import {
-  IActionKind,
   IAnyAction,
   IAnyActionWhere,
   ICreateActionDTO,
@@ -16,6 +15,7 @@ import {
   InterfaceTypeCreateInput,
   StoreCreateInput,
 } from '@codelab/shared/abstract/codegen'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNode, connectTypeOwner } from '@codelab/shared/data'
 import capitalize from 'lodash/capitalize'
 import { v4 } from 'uuid'

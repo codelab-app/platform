@@ -1,8 +1,8 @@
-import { ITag } from '@codelab/frontend/abstract/core'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 
 export interface ITagExport {
   id: string
   name: string
-  children?: Array<Pick<ITag, 'id'>>
-  parent?: Pick<ITag, 'id'>
+  children?: Array<Pick<OGM_TYPES.Tag, 'id'>>
+  parent?: Pick<OGM_TYPES.Tag, 'id'>
 }

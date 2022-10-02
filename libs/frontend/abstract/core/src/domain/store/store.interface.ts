@@ -8,7 +8,6 @@ export interface IStore extends ICacheService<IStoreDTO, IStore> {
   name: string
   apiId: string
   actions: Array<IAnyAction>
-
   state: IPropData
   updateState(initialState: IPropData): void
 }

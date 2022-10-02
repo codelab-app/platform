@@ -1,4 +1,3 @@
-export * from './jwt.interface'
 export * from './roles'
 export * from './user.dto.interface'
 export * from './user.interface'

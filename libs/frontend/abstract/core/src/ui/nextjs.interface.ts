@@ -1,7 +1,7 @@
+import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { SnapshotOutOfModel } from 'mobx-keystone/src/snapshot/SnapshotOf'
 import { AppProps } from 'next/app'
 import { Overwrite } from 'utility-types'
-import { Auth0SessionUser } from '../domain/user'
 
 /**
  * Used by `_app.tsx`

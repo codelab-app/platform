@@ -1,4 +1,5 @@
 import { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import {
@@ -14,7 +15,6 @@ import {
   IUpdateResourceDTO,
 } from './resource.dto.interface'
 import { IResource, IResourceRef } from './resource.model.interface'
-import { IResourceType } from './resource-type.enum'
 
 export interface CreateResourceData {
   type?: IResourceType

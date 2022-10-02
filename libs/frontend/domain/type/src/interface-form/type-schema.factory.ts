@@ -13,10 +13,10 @@ import {
   IPrimitiveType,
   IReactNodeType,
   IRenderPropsType,
-  ITypeKind,
   IUnionType,
 } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'

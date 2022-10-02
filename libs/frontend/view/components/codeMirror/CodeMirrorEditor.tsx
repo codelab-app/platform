@@ -1,4 +1,4 @@
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { css } from '@codemirror/lang-css'
 import { esLint, javascript } from '@codemirror/lang-javascript'
@@ -13,28 +13,28 @@ import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
 import { defaultExtensions } from './setup'
 
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
-  language?: CodeMirrorLanguage
+  language?: ICodeMirrorLanguage
   defaultSource?: CompletionSource
   defaultOptions?: Array<Completion>
   customOptions?: Array<Completion>
 }
 
 const languageExtension = {
-  [CodeMirrorLanguage.Css]: [css()],
-  [CodeMirrorLanguage.Javascript]: [
+  [ICodeMirrorLanguage.Css]: [css()],
+  [ICodeMirrorLanguage.Javascript]: [
     lintGutter(),
     linter(esLint(new eslint.Linter())),
     javascript(),
   ],
-  [CodeMirrorLanguage.Typescript]: [
+  [ICodeMirrorLanguage.Typescript]: [
     lintGutter(),
     linter(esLint(new eslint.Linter())),
     javascript({ typescript: true }),
   ],
-  [CodeMirrorLanguage.Json]: [json()],
-  [CodeMirrorLanguage.CssInJs]: [css()],
+  [ICodeMirrorLanguage.Json]: [json()],
+  [ICodeMirrorLanguage.CssInJs]: [css()],
   // once https://github.com/graphql/graphiql/pull/2620 is merged will add full support for graphql
-  [CodeMirrorLanguage.Graphql]: [StreamLanguage.define(graphql)],
+  [ICodeMirrorLanguage.Graphql]: [StreamLanguage.define(graphql)],
 }
 
 export const CodeMirrorEditor = observer((props: CodeMirrorEditorProps) => {

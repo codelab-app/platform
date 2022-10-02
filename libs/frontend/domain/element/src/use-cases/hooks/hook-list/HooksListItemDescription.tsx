@@ -1,4 +1,5 @@
-import { IAtomType, IHook } from '@codelab/frontend/abstract/core'
+import { IHook } from '@codelab/frontend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import {
   GraphqlDescription,

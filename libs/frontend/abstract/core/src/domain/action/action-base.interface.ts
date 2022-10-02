@@ -1,5 +1,5 @@
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { IPropData } from '../prop'
-import { IActionKind } from './action-kind.enum'
 
 export interface IActionBase {
   id: IActionRef

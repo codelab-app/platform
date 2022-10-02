@@ -1,5 +1,5 @@
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { IProp } from '../prop'
-import { IActionKind } from './action-kind.enum'
 import { IGraphQLActionConfig, IRestActionConfig } from './actions'
 import { ActionFragment } from './fragments'
 

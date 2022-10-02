@@ -1,4 +1,4 @@
-import { NextApiRequest } from '@codelab/backend/application'
+import { NextApiRequest } from '@codelab/backend/abstract/types'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { isAdminSession } from '@codelab/frontend/abstract/core'
 import {

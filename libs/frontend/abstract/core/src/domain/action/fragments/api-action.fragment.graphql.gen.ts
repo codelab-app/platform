@@ -1,20 +1,17 @@
 import * as Types from '@codelab/shared/abstract/codegen'
-
-
-
-
-
-
-import {
-  ActionBase_ApiAction_Fragment,
-  ActionBase_CodeAction_Fragment,
-} from './action-base.fragment.graphql.gen'
-import { ResourceFragment } from '../../resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen'
-import { ResourceFragmentDoc } from '../../resource/resource.fragment.graphql.gen'
+import {
+  ResourceFragment,
+  ResourceFragmentDoc,
+} from '../../resource/resource.fragment.graphql.gen'
+import {
+  ActionBase_ApiAction_Fragment,
+  ActionBase_CodeAction_Fragment,
+  ActionBaseFragmentDoc,
+} from './action-base.fragment.graphql.gen'
+
 export type ApiActionFragment = {
   successAction: ActionBase_ApiAction_Fragment | ActionBase_CodeAction_Fragment
   errorAction: ActionBase_ApiAction_Fragment | ActionBase_CodeAction_Fragment
@@ -61,4 +58,5 @@ export function getSdk(
 ) {
   return {}
 }
+
 export type Sdk = ReturnType<typeof getSdk>

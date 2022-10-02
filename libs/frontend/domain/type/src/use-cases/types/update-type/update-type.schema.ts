@@ -1,10 +1,10 @@
+import { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
 import {
-  ElementTypeKind,
+  ICodeMirrorLanguage,
+  IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
-  IUpdateTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/abstract/core'
 import { hideField } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
@@ -50,12 +50,12 @@ export const updateTypeSchema: JSONSchemaType<
     elementKind: {
       type: 'string',
       nullable: true,
-      enum: Object.values(ElementTypeKind),
+      enum: Object.values(IElementTypeKind),
     },
     language: {
       type: 'string',
       nullable: true,
-      enum: Object.values(CodeMirrorLanguage),
+      enum: Object.values(ICodeMirrorLanguage),
     },
     allowedValues: {
       type: 'array',

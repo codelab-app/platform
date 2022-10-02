@@ -1,11 +1,11 @@
 import {
   ICreateResourceDTO,
   IResourceService,
-  IResourceType,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -43,7 +43,7 @@ export const CreateResourceModal = observer<{
          *  GraphQL Resource Config Form
          */}
         <DisplayIfField<ICreateResourceDTO>
-          condition={(c) => c.model.type === IResourceType.GraphQL}
+          condition={(context) => context.model.type === IResourceType.GraphQL}
         >
           <AutoField name="config.url" />
           <AutoField name="config.headers" />
@@ -53,7 +53,7 @@ export const CreateResourceModal = observer<{
          *  Rest Resource Config Form
          */}
         <DisplayIfField<ICreateResourceDTO>
-          condition={(c) => c.model.type === IResourceType.Rest}
+          condition={(context) => context.model.type === IResourceType.Rest}
         >
           <AutoField name="config.url" />
           <AutoField name="config.headers" />

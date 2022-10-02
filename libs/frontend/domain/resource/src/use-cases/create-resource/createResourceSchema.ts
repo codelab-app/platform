@@ -1,12 +1,9 @@
-import {
-  ICreateResourceDTO,
-  IResourceType,
-} from '@codelab/frontend/abstract/core'
+import { ICreateResourceDTO } from '@codelab/frontend/abstract/core'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
-import keys from 'lodash/keys'
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
   title: 'Create Resource',
@@ -18,7 +15,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
     },
     type: {
       type: 'string',
-      enum: keys(IResourceType) as Array<IResourceType>,
+      enum: Object.values(IResourceType),
       showSearch: true,
     },
     config: {

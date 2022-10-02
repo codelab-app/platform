@@ -1,5 +1,5 @@
 import { Ref } from 'mobx-keystone'
-import { INodeType } from '../../base/node.interface'
+import { INodeType } from '../../base'
 import { ICacheService } from '../../service'
 import { IElementTreeService } from '../element'
 import { IAnyType } from '../type'

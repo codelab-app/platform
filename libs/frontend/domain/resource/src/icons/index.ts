@@ -1,4 +1,4 @@
-import { IResourceType } from '@codelab/frontend/abstract/core'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { ReactComponent as GraphQlSvg } from './graphql.svg'
 import { ReactComponent as RestSvg } from './rest.svg'
 

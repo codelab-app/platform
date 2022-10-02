@@ -1,5 +1,5 @@
-import { IAtomType } from '@codelab/frontend/abstract/core'
 import { AppCreateInput } from '@codelab/shared/abstract/codegen'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectTypeOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'

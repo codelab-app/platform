@@ -10,13 +10,14 @@ import type {
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
 import {
-  PrimitiveTypeKind,
-  TypeBaseWhere,
-} from '@codelab/shared/abstract/codegen'
+  assertIsTypeKind,
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import flatMap from 'lodash/flatMap'
 import mapKeys from 'lodash/mapKeys'
@@ -86,7 +87,7 @@ export class TypeService
     return this.types.get(id)
   }
 
-  primitiveKind(id: string): Nullable<PrimitiveTypeKind> {
+  primitiveKind(id: string): Nullable<IPrimitiveTypeKind> {
     const type = this.type(id)
 
     if (type?.kind === ITypeKind.PrimitiveType) {

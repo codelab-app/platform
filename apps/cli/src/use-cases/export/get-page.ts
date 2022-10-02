@@ -16,7 +16,7 @@ export const getPageData = async (page: OGM_TYPES.Page) => {
     e.parentComponent?.id,
     e.renderComponentType?.id,
     ...(e.props?.data.match(uuidRegex) || []),
-  ]).filter(Boolean) as Array<string>
+  ]).filter((x): x is string => Boolean(x))
 
   const components = await Component.find({
     where: { id_IN: componentIds },

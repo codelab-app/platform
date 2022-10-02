@@ -4,7 +4,7 @@ import {
   codeActionSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { IActionKind } from '@codelab/frontend/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/data'
 import { exportApiActionSelectionSet } from '../selectionSets/actionSelectionSet'
 

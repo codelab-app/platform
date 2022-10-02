@@ -1,8 +1,5 @@
-import {
-  IDTokenPayload,
-  IUserDTO,
-  JWT_CLAIMS,
-} from '@codelab/frontend/abstract/core'
+import { IUserDTO } from '@codelab/frontend/abstract/core'
+import { IDTokenPayload, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { Config } from '@codelab/shared/config'
 import axios, { AxiosRequestConfig } from 'axios'
 import fs from 'fs'

@@ -1,4 +1,5 @@
-import { IAtomType, IPropData } from '@codelab/frontend/abstract/core'
+import { IPropData } from '@codelab/frontend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 

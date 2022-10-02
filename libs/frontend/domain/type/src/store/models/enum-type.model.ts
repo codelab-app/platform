@@ -4,7 +4,7 @@ import type {
   IEnumTypeValueDTO,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/frontend/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   ExtendedModel,
   idProp,

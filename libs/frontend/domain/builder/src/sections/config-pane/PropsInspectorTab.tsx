@@ -4,7 +4,7 @@ import {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { CodeMirrorEditor } from '@codelab/frontend/view/components'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import Button from 'antd/lib/button'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -44,7 +44,7 @@ const PropsInspectorTab = observer(
         <h3 css={tw`text-gray-700`}>Current props</h3>
         <CodeMirrorEditor
           height="150px"
-          language={CodeMirrorLanguage.Json}
+          language={ICodeMirrorLanguage.Json}
           onChange={() => undefined}
           readOnly
           title="Current props"
@@ -54,7 +54,7 @@ const PropsInspectorTab = observer(
         <h3 css={tw`text-gray-700`}>Element props</h3>
         <CodeMirrorEditor
           height="150px"
-          language={CodeMirrorLanguage.Json}
+          language={ICodeMirrorLanguage.Json}
           // persistedProps is state variable which means
           // it takes time to be updated by onChange
           onChange={(v: string) => onChange(v)}

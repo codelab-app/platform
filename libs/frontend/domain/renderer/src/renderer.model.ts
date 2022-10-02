@@ -7,7 +7,6 @@ import type {
   IRenderOutput,
   IRenderPipe,
   IStore,
-  ITypeKind,
 } from '@codelab/frontend/abstract/core'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
@@ -17,6 +16,7 @@ import {
   getElementService,
   storeRef,
 } from '@codelab/frontend/presenter/container'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'

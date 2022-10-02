@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { ElementTypeKind } from '@codelab/frontend/abstract/core'
+import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import difference from 'lodash/difference'
 import React from 'react'
@@ -14,7 +14,7 @@ export interface SelectElementOption {
 }
 
 export type SelectElementProps = UniformSelectFieldProps & {
-  kind: ElementTypeKind
+  kind: IElementTypeKind
   allElementOptions: Array<SelectElementOption>
   targetElementId?: string
   disableWhenOneOpt?: boolean
@@ -44,23 +44,23 @@ export const SelectElement = ({
     elements = allElementOptions
   } else {
     switch (kind) {
-      case ElementTypeKind.AllElements:
+      case IElementTypeKind.AllElements:
         elements = allElementOptions
         break
 
-      case ElementTypeKind.ChildrenOnly: {
+      case IElementTypeKind.ChildrenOnly: {
         elements = getElementChildren(targetElement, elementMap)
 
         break
       }
 
-      case ElementTypeKind.DescendantsOnly: {
+      case IElementTypeKind.DescendantsOnly: {
         elements = getDescendants(targetElement, elementMap)
 
         break
       }
 
-      case ElementTypeKind.ExcludeDescendantsElements:
+      case IElementTypeKind.ExcludeDescendantsElements:
         elements = difference(
           allElementOptions,
           getDescendants(targetElement, elementMap),
@@ -111,36 +111,39 @@ const getDescendants = (
 }
 
 export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
-  <SelectElement kind={ElementTypeKind.ChildrenOnly} {...props} />
+  <SelectElement kind={IElementTypeKind.ChildrenOnly} {...props} />
 )
 
 export const SelectExcludeDescendantsElements = (
   props: Omit<SelectElementProps, 'kind'>,
 ) => (
-  <SelectElement kind={ElementTypeKind.ExcludeDescendantsElements} {...props} />
+  <SelectElement
+    kind={IElementTypeKind.ExcludeDescendantsElements}
+    {...props}
+  />
 )
 
 export const SelectDescendantElement = (
   props: Omit<SelectElementProps, 'kind'>,
 ) => {
-  return <SelectElement kind={ElementTypeKind.DescendantsOnly} {...props} />
+  return <SelectElement kind={IElementTypeKind.DescendantsOnly} {...props} />
 }
 
 export const SelectAnyElement = (props: Omit<SelectElementProps, 'kind'>) => (
-  <SelectElement kind={ElementTypeKind.AllElements} {...props} />
+  <SelectElement kind={IElementTypeKind.AllElements} {...props} />
 )
 
-export const getSelectElementComponent = (kind: ElementTypeKind) => {
+export const getSelectElementComponent = (kind: IElementTypeKind) => {
   switch (kind) {
-    case ElementTypeKind.AllElements:
+    case IElementTypeKind.AllElements:
       return SelectAnyElement
-    case ElementTypeKind.DescendantsOnly:
+    case IElementTypeKind.DescendantsOnly:
       return SelectDescendantElement
-    case ElementTypeKind.ChildrenOnly:
+    case IElementTypeKind.ChildrenOnly:
       return SelectChildElement
-    case ElementTypeKind.ExcludeDescendantsElements:
+    case IElementTypeKind.ExcludeDescendantsElements:
       return SelectExcludeDescendantsElements
     default:
-      throw new Error(`ElementTypeKind ${kind} not recognized`)
+      throw new Error(`IElementTypeKind ${kind} not recognized`)
   }
 }

@@ -1,9 +1,9 @@
 import {
   IActionDTO,
-  IActionKind,
   IApiAction,
   ICodeAction,
 } from '@codelab/frontend/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { ApiAction } from './api-action.model'
 import { CodeAction } from './code-action.model'
 

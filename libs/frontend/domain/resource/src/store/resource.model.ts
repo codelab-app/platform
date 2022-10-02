@@ -2,10 +2,10 @@ import {
   IResource,
   IResourceConfig,
   IResourceDTO,
-  IResourceType,
 } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/element'
 import { tryParse } from '@codelab/frontend/shared/utils'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import { computed } from 'mobx'

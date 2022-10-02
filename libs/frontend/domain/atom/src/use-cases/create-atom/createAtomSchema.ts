@@ -5,7 +5,6 @@ import {
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
-import { ObjectTyped } from 'object-typed'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
   title: 'Create Atom',
@@ -37,7 +36,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
     },
     type: {
       type: 'string',
-      enum: ObjectTyped.values(IAtomType).filter(filterNotHookType),
+      enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
     },
     tags: {

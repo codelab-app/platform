@@ -1,6 +1,5 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IElementTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { IBaseType } from '../base-type'
-import { ElementTypeKind } from './element-type.enum'
 
 /**
  * Allows picking an element from the current tree
@@ -19,5 +18,5 @@ import { ElementTypeKind } from './element-type.enum'
  */
 export interface IElementType extends IBaseType {
   kind: ITypeKind.ElementType
-  elementKind: ElementTypeKind
+  elementKind: IElementTypeKind
 }

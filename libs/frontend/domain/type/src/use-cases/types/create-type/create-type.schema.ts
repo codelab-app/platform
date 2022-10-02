@@ -1,10 +1,10 @@
+import { ICreateTypeDTO } from '@codelab/frontend/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
-  ElementTypeKind,
-  ICreateTypeDTO,
+  IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/frontend/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
@@ -51,7 +51,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
     elementKind: {
       type: 'string',
       nullable: true,
-      enum: Object.values(ElementTypeKind),
+      enum: Object.values(IElementTypeKind),
     },
     language: {
       type: 'string',

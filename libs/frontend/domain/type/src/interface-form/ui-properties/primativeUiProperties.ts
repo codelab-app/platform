@@ -1,12 +1,9 @@
-import {
-  IAnyType,
-  IPrimitiveType,
-  IPrimitiveTypeKind,
-} from '@codelab/frontend/abstract/core'
+import { IAnyType, IPrimitiveType } from '@codelab/frontend/abstract/core'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
+import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
 
-export const primativeTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
+export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
   type: IAnyType,
 ) => {
   // TODO: default is a checkbox, could have a dynamic input to apply data binding expression

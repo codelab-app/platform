@@ -10,7 +10,6 @@ import {
   IElementTree,
   IInterfaceType,
   isAtomDTO,
-  ITypeKind,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
@@ -21,6 +20,7 @@ import {
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNode,
@@ -116,7 +116,7 @@ export class ElementService
 
     const components = elements
       .map((v) => v.parentComponent || v.renderComponentType)
-      .filter(Boolean) as Array<IComponentDTO>
+      .filter((component): component is IComponentDTO => Boolean(component))
 
     components.map((component) => componentService.writeCache(component))
   }
