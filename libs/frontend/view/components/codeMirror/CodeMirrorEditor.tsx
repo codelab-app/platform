@@ -1,12 +1,11 @@
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { css } from '@codemirror/lang-css'
-import { esLint, javascript } from '@codemirror/lang-javascript'
+import { javascript } from '@codemirror/lang-javascript'
 import { json } from '@codemirror/lang-json'
 import { StreamLanguage } from '@codemirror/language'
-import { linter, lintGutter } from '@codemirror/lint'
+import { lintGutter } from '@codemirror/lint'
 import { graphql } from 'codemirror-graphql/cm6-legacy/mode'
-import * as eslint from 'eslint-linter-browserify'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
@@ -23,12 +22,12 @@ const languageExtension = {
   [ICodeMirrorLanguage.Css]: [css()],
   [ICodeMirrorLanguage.Javascript]: [
     lintGutter(),
-    linter(esLint(new eslint.Linter())),
+    // linter(esLint(new eslint.Linter())),
     javascript(),
   ],
   [ICodeMirrorLanguage.Typescript]: [
     lintGutter(),
-    linter(esLint(new eslint.Linter())),
+    // linter(esLint(new eslint.Linter())),
     javascript({ typescript: true }),
   ],
   [ICodeMirrorLanguage.Json]: [json()],
