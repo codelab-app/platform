@@ -168,11 +168,7 @@ describe('Elements CRUD', () => {
 
       cy.contains(/Text.*/).click()
 
-      cy.intercept('/api/graphql').as('graphql')
-
       cy.get(`[aria-label="setting"]`).click()
-
-      cy.wait(['@graphql', '@graphql'])
 
       cy.findByText('Custom Text').should('exist')
       cy.findByText(/Edit.*API/).should('exist')
