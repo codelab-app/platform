@@ -5,7 +5,7 @@ fragment Field on InterfaceTypeFieldsRelationship {
   description
   validationRules
   fieldType: node {
-    ... on TypeBase {
+    ... on IBaseType {
       id
     }
   }

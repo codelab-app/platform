@@ -15,7 +15,7 @@ export const userSchema = gql`
     auth0Id: String! @unique
     email: String!
     username: String! @unique
-    types: [TypeBase!]!
+    types: [BaseType!]!
       @relationship(type: "OWNED_BY", direction: IN, properties: "OwnedBy")
     apps: [App!]! @relationship(type: "OWNED_BY", direction: IN)
     elements: [Element!]! @relationship(type: "OWNED_BY", direction: IN)

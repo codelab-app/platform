@@ -1,5 +1,5 @@
 fragment EnumType on EnumType {
-  ...TypeBase
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }

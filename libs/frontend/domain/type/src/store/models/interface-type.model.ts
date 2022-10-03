@@ -15,7 +15,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 import { Field } from './field.model'
 
 const hydrate = ({
@@ -46,7 +46,7 @@ const hydrate = ({
 
 @model('@codelab/InterfaceType')
 export class InterfaceType
-  extends ExtendedModel(createTypeBase(ITypeKind.InterfaceType), {
+  extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
     fields: prop(() => objectMap<Field>()),
     ownerAuthId: prop<string>(),
     defaults: prop<IPropData>(),

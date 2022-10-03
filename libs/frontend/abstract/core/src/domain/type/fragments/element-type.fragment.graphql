@@ -1,4 +1,4 @@
 fragment ElementType on ElementType {
-  ...TypeBase
+  ...BaseType
   elementKind
 }

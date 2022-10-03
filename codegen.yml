@@ -25,22 +25,22 @@ generates:
       - schema-ast
 
   # Generate Typescript types to be imported by other generators
-  #  libs/shared/abstract/codegen/src/types.api.graphql.gen.ts:
-  #    documents:
-  #      - '{apps,libs}/**/*.graphql'
-  #    plugins:
-  #      - typescript
-  #      # We want to generate another copy in `shared` folder so our interfaces can access this
-  #      #
-  #      # This will be a duplicate copy of operation types from the `near-operation-file` plugin
-  #      - typescript-operations
-  #    #      - typed-document-node
-  #    config:
-  #      #      constEnums: true
-  #      inlineFragmentTypes: combine
-  #      namingConvention:
-  #        enumValues: keep
-  #  #        dedupeFragments: true
+  libs/shared/abstract/codegen/src/types.api.graphql.gen.ts:
+    documents:
+      - '{apps,libs}/**/*.graphql'
+    plugins:
+      - typescript
+      # We want to generate another copy in `shared` folder so our interfaces can access this
+      #
+      # This will be a duplicate copy of operation types from the `near-operation-file` plugin
+      - typescript-operations
+    #      - typed-document-node
+    config:
+      #      constEnums: true
+      inlineFragmentTypes: combine
+      namingConvention:
+        enumValues: keep
+  #        dedupeFragments: true
 
   # This somehow generates for web-e2e as well, even if ./libs
   ./:

@@ -1,7 +1,7 @@
 import type { IAppType, IAppTypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
   assertIsTypeKind(kind, ITypeKind.AppType)
@@ -16,7 +16,7 @@ const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
 
 @model('@codelab/AppType')
 export class AppType
-  extends ExtendedModel(createTypeBase(ITypeKind.AppType), {})
+  extends ExtendedModel(createBaseType(ITypeKind.AppType), {})
   implements IAppType
 {
   // @modelAction

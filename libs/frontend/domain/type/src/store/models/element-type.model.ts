@@ -10,7 +10,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ElementType)
@@ -26,7 +26,7 @@ const hydrate = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
 
 @model('@codelab/ElementType')
 export class ElementType
-  extends ExtendedModel(createTypeBase(ITypeKind.ElementType), {
+  extends ExtendedModel(createBaseType(ITypeKind.ElementType), {
     elementKind: prop<IElementTypeKind>(),
   })
   implements IElementType
