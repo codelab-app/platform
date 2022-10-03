@@ -1,5 +1,0 @@
-"property","description","type","default","version","isEnum"
-"color","Set the circle's color to blue, red, green, gray or other custom colors","string","blue",,false
-"dot","Customize timeline dot","ReactNode","-",,false
-"label","Set the label","ReactNode","-",,false
-"position","Customize node position","left | right","-",,false

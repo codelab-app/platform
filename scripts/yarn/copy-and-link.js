@@ -4,7 +4,15 @@ const path = require('path')
 /**
  * To keep application & libs in their current location, while moving into another git repository, we will need to create a symlink from submodule to target location
  */
-const foldersToLink = ['apps/builder-e2e', 'apps/cli']
+const foldersToLink = [
+  '.github',
+  '.infra',
+  '.husky',
+  'apps/builder-e2e',
+  'apps/cli',
+  'data',
+]
+
 const projectRoot = path.resolve(__dirname, '../..')
 const gitSubModuleRoot = path.resolve(__dirname, '../../.infra')
 

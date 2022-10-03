@@ -1,6 +1,0 @@
-"property","description","type","default","version","isEnum"
-"format","The Mime Type of the text","'text/plain' | 'text/html'","-","4.21.0",false
-"icon","Custom copy icon: [copyIcon, copiedIcon]","[ReactNode, ReactNode]","-","4.6.0",false
-"text","The text to copy","string","-","",false
-"tooltips","Custom tooltip text, hide when it is false","[ReactNode, ReactNode]","[Copy, Copied]","4.4.0",false
-"onCopy","Called when copied text","function","-","",false

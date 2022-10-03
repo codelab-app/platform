@@ -1,8 +1,0 @@
-"property","description","type","default","version","isEnum"
-"crossOrigin","CORS settings attributes","'anonymous' | 'use-credentials' | ''","-","4.20.0",false
-"name","File name","string","-","-",false
-"percent","Upload progress percent","number","-","-",false
-"status","Upload status. Show different style when configured","error | success | done | uploading | removed","-","-",false
-"thumbUrl","Thumb image url","string","-","-",false
-"uid","unique id. Will auto generate when not provided","string","-","-",false
-"url","Download url","string","-","-",false

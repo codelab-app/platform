@@ -57,7 +57,10 @@ Thumbs.db
 .vercel
 
 # Below are moved to git-submodules
-.github
-.infra
-apps/cli
-apps/builder-e2e
+/.github
+/.infra
+/.husky
+/apps/cli
+/apps/builder-e2e
+/data
+# /scripts
