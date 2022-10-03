@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "setup": "./scripts/yarn/setup.sh",
-    "postinstall": "./scripts/yarn/postinstall.sh",
+    "postinstall": "./scripts/yarn/postinstall.sh && husky install",
     "serve:test": "npx env-cmd -f .env.test nx serve web -c test",
     "e2e": "env-cmd -f .env.test nx e2e builder-e2e -c dev",
     "cli": "node dist/apps/cli/main.js",
@@ -290,7 +290,8 @@
     "typescript": "4.7.3",
     "utility-types": "3.10.0",
     "wait-on": "6.0.0",
-    "why-is-node-running": "2.2.0"
+    "why-is-node-running": "2.2.0",
+    "husky": "^8.0.0"
   },
   "resolutions": {
     "rxjs": "^6.6.3",
