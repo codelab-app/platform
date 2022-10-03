@@ -2,10 +2,9 @@ import {
   countBaseTypes,
   getBaseTypes,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { BaseType, QueryBaseTypesArgs } from '@codelab/shared/abstract/codegen'
 import { int, Record, Transaction } from 'neo4j-driver'
 import { GetBaseTypesRecord } from './types'
-
-type BaseType = any
 
 export const typeRepository = {
   countBaseTypes: async (txn: Transaction, offset = 0): Promise<number> => {
@@ -21,7 +20,7 @@ export const typeRepository = {
 
   baseTypes: async (
     txn: Transaction,
-    params: any,
+    params: QueryBaseTypesArgs,
   ): Promise<Array<BaseType>> => {
     const { options } = params
     const { limit = 10, offset = 0 } = options || {}
@@ -35,11 +34,7 @@ export const typeRepository = {
       data: BaseType,
       record: Record<GetBaseTypesRecord>,
     ): BaseType => {
-      const owner = record.get('owner')?.properties
-
-      if (!owner) {
-        throw new Error('owner not found')
-      }
+      const owner = record.get('owner').properties
 
       return {
         ...data,
@@ -56,7 +51,7 @@ export const typeRepository = {
       }
     }
 
-    const items = getTypesRecords.flatMap((record) => {
+    const items = getTypesRecords.map((record) => {
       return withOwner(
         dataMapper(record as Record<GetBaseTypesRecord>),
         record as Record<GetBaseTypesRecord>,
