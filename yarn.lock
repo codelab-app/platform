@@ -13843,7 +13843,7 @@ __metadata:
     graphql-iso-date: 3.6.1
     graphql-request: 4.1.0
     graphql-type-json: 0.3.2
-    husky: 8.0.1
+    husky: ^8.0.0
     immutable: ^4.1.0
     inquirer: 8.2.2
     is-git-dirty: ^2.0.1
@@ -19985,7 +19985,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:8.0.1":
+"husky@npm:^8.0.0":
   version: 8.0.1
   resolution: "husky@npm:8.0.1"
   bin:
