@@ -21941,6 +21941,14 @@ export type PageFragment = {
   rootElement: { __typename?: 'Element'; id: string; name?: string | null }
 }
 
+export type PreRenderFragment = {
+  __typename?: 'PreRender'
+  id: string
+  code: string
+  type: PreRenderType
+  page: { __typename?: 'Page'; id: string }
+}
+
 export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
 
 export type PropMapBindingFragment = {

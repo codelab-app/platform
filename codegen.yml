@@ -25,6 +25,7 @@ generates:
       - schema-ast
 
   # Generate Typescript types to be imported by other generators
+  # Generate Typescript types to be imported by other generators
   libs/shared/abstract/codegen/src/types.api.graphql.gen.ts:
     documents:
       - '{apps,libs}/**/*.graphql'
@@ -39,7 +40,6 @@ generates:
       inlineFragmentTypes: combine
       namingConvention:
         enumValues: keep
-  #        dedupeFragments: true
 
   # This somehow generates for web-e2e as well, even if ./libs
   ./:
