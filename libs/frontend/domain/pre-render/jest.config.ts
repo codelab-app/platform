@@ -1,6 +1,6 @@
 /* eslint-disable */
 module.exports = {
-  displayName: 'frontend-modules-pre-render',
+  displayName: 'frontend-domain-pre-render',
 
   globals: {
     'ts-jest': {
@@ -14,6 +14,6 @@ module.exports = {
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/frontend/modules/pre-render',
+  coverageDirectory: '../../../../coverage/libs/frontend/domain/pre-render',
   preset: '../../../../jest.preset.ts',
 }

@@ -1,10 +1,10 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { Form } from '@codelab/frontend/view/components'
 import {
   IPreRender,
   IPreRenderService,
   IUpdatePreRenderDTO,
 } from '@codelab/frontend/abstract/core'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { Form } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

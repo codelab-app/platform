@@ -40,7 +40,7 @@ export const connectOwner = (auth0Id: string | undefined) => {
 export const connectTypeOwner = (auth0Id: string | undefined) => {
   return {
     connect: auth0Id
-      ? { ...whereNode('auth0Id', auth0Id), edge: {} }
+      ? { ...whereNode('auth0Id', auth0Id), edge: { data: '{}' } }
       : undefined,
   }
 }

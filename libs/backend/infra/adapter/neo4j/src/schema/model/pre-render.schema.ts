@@ -10,6 +10,7 @@ export const preRenderSchema = gql`
 
   type PreRender {
     id: ID!
+    name: String!
     code: String!
     page: Page! @relationship(type: "PAGE_PRE_RENDER", direction: OUT)
     type: PreRenderType!

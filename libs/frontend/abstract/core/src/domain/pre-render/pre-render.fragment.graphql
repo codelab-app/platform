@@ -1,8 +1,10 @@
 fragment PreRender on PreRender {
   id
+  name
   code
   page {
     id
+    name
   }
   type
 }

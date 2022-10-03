@@ -13056,9 +13056,9 @@ export type Page = {
   appConnection: PageAppConnection
   id: Scalars['ID']
   name: Scalars['String']
-  preRender: Array<PreRender>
-  preRenderAggregate?: Maybe<PagePreRenderPreRenderAggregationSelection>
-  preRenderConnection: PagePreRenderConnection
+  preRenders: Array<PreRender>
+  preRendersAggregate?: Maybe<PagePreRenderPreRendersAggregationSelection>
+  preRendersConnection: PagePreRendersConnection
   rootElement: Element
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
   rootElementConnection: PageRootElementConnection
@@ -13084,23 +13084,23 @@ export type PageAppConnectionArgs = {
   where?: InputMaybe<PageAppConnectionWhere>
 }
 
-export type PagePreRenderArgs = {
+export type PagePreRendersArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<PreRenderOptions>
   where?: InputMaybe<PreRenderWhere>
 }
 
-export type PagePreRenderAggregateArgs = {
+export type PagePreRendersAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   where?: InputMaybe<PreRenderWhere>
 }
 
-export type PagePreRenderConnectionArgs = {
+export type PagePreRendersConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<PagePreRenderConnectionSort>>
-  where?: InputMaybe<PagePreRenderConnectionWhere>
+  sort?: InputMaybe<Array<PagePreRendersConnectionSort>>
+  where?: InputMaybe<PagePreRendersConnectionWhere>
 }
 
 export type PageRootElementArgs = {
@@ -13274,7 +13274,7 @@ export type PageAppUpdateFieldInput = {
 
 export type PageConnectInput = {
   app?: InputMaybe<PageAppConnectFieldInput>
-  preRender?: InputMaybe<Array<PagePreRenderConnectFieldInput>>
+  preRenders?: InputMaybe<Array<PagePreRendersConnectFieldInput>>
   rootElement?: InputMaybe<PageRootElementConnectFieldInput>
 }
 
@@ -13295,20 +13295,20 @@ export type PageCreateInput = {
   app?: InputMaybe<PageAppFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
-  preRender?: InputMaybe<PagePreRenderFieldInput>
+  preRenders?: InputMaybe<PagePreRendersFieldInput>
   rootElement?: InputMaybe<PageRootElementFieldInput>
   slug: Scalars['String']
 }
 
 export type PageDeleteInput = {
   app?: InputMaybe<PageAppDeleteFieldInput>
-  preRender?: InputMaybe<Array<PagePreRenderDeleteFieldInput>>
+  preRenders?: InputMaybe<Array<PagePreRendersDeleteFieldInput>>
   rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
 }
 
 export type PageDisconnectInput = {
   app?: InputMaybe<PageAppDisconnectFieldInput>
-  preRender?: InputMaybe<Array<PagePreRenderDisconnectFieldInput>>
+  preRenders?: InputMaybe<Array<PagePreRendersDisconnectFieldInput>>
   rootElement?: InputMaybe<PageRootElementDisconnectFieldInput>
 }
 
@@ -13359,62 +13359,75 @@ export type PageOptions = {
   sort?: InputMaybe<Array<PageSort>>
 }
 
-export type PagePreRenderAggregateInput = {
-  AND?: InputMaybe<Array<PagePreRenderAggregateInput>>
-  OR?: InputMaybe<Array<PagePreRenderAggregateInput>>
+export type PagePreRenderPreRendersAggregationSelection = {
+  __typename?: 'PagePreRenderPreRendersAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<PagePreRenderPreRendersNodeAggregateSelection>
+}
+
+export type PagePreRenderPreRendersNodeAggregateSelection = {
+  __typename?: 'PagePreRenderPreRendersNodeAggregateSelection'
+  code: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type PagePreRendersAggregateInput = {
+  AND?: InputMaybe<Array<PagePreRendersAggregateInput>>
+  OR?: InputMaybe<Array<PagePreRendersAggregateInput>>
   count?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<PagePreRenderNodeAggregationWhereInput>
+  node?: InputMaybe<PagePreRendersNodeAggregationWhereInput>
 }
 
-export type PagePreRenderConnectFieldInput = {
+export type PagePreRendersConnectFieldInput = {
   connect?: InputMaybe<Array<PreRenderConnectInput>>
   where?: InputMaybe<PreRenderConnectWhere>
 }
 
-export type PagePreRenderConnection = {
-  __typename?: 'PagePreRenderConnection'
-  edges: Array<PagePreRenderRelationship>
+export type PagePreRendersConnection = {
+  __typename?: 'PagePreRendersConnection'
+  edges: Array<PagePreRendersRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type PagePreRenderConnectionSort = {
+export type PagePreRendersConnectionSort = {
   node?: InputMaybe<PreRenderSort>
 }
 
-export type PagePreRenderConnectionWhere = {
-  AND?: InputMaybe<Array<PagePreRenderConnectionWhere>>
-  OR?: InputMaybe<Array<PagePreRenderConnectionWhere>>
+export type PagePreRendersConnectionWhere = {
+  AND?: InputMaybe<Array<PagePreRendersConnectionWhere>>
+  OR?: InputMaybe<Array<PagePreRendersConnectionWhere>>
   node?: InputMaybe<PreRenderWhere>
   node_NOT?: InputMaybe<PreRenderWhere>
 }
 
-export type PagePreRenderCreateFieldInput = {
+export type PagePreRendersCreateFieldInput = {
   node: PreRenderCreateInput
 }
 
-export type PagePreRenderDeleteFieldInput = {
+export type PagePreRendersDeleteFieldInput = {
   delete?: InputMaybe<PreRenderDeleteInput>
-  where?: InputMaybe<PagePreRenderConnectionWhere>
+  where?: InputMaybe<PagePreRendersConnectionWhere>
 }
 
-export type PagePreRenderDisconnectFieldInput = {
+export type PagePreRendersDisconnectFieldInput = {
   disconnect?: InputMaybe<PreRenderDisconnectInput>
-  where?: InputMaybe<PagePreRenderConnectionWhere>
+  where?: InputMaybe<PagePreRendersConnectionWhere>
 }
 
-export type PagePreRenderFieldInput = {
-  connect?: InputMaybe<Array<PagePreRenderConnectFieldInput>>
-  create?: InputMaybe<Array<PagePreRenderCreateFieldInput>>
+export type PagePreRendersFieldInput = {
+  connect?: InputMaybe<Array<PagePreRendersConnectFieldInput>>
+  create?: InputMaybe<Array<PagePreRendersCreateFieldInput>>
 }
 
-export type PagePreRenderNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<PagePreRenderNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<PagePreRenderNodeAggregationWhereInput>>
+export type PagePreRendersNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PagePreRendersNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PagePreRendersNodeAggregationWhereInput>>
   code_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   code_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   code_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -13436,42 +13449,50 @@ export type PagePreRenderNodeAggregationWhereInput = {
   code_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   code_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type PagePreRenderPreRenderAggregationSelection = {
-  __typename?: 'PagePreRenderPreRenderAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<PagePreRenderPreRenderNodeAggregateSelection>
-}
-
-export type PagePreRenderPreRenderNodeAggregateSelection = {
-  __typename?: 'PagePreRenderPreRenderNodeAggregateSelection'
-  code: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
-}
-
-export type PagePreRenderRelationship = {
-  __typename?: 'PagePreRenderRelationship'
+export type PagePreRendersRelationship = {
+  __typename?: 'PagePreRendersRelationship'
   cursor: Scalars['String']
   node: PreRender
 }
 
-export type PagePreRenderUpdateConnectionInput = {
+export type PagePreRendersUpdateConnectionInput = {
   node?: InputMaybe<PreRenderUpdateInput>
 }
 
-export type PagePreRenderUpdateFieldInput = {
-  connect?: InputMaybe<Array<PagePreRenderConnectFieldInput>>
-  create?: InputMaybe<Array<PagePreRenderCreateFieldInput>>
-  delete?: InputMaybe<Array<PagePreRenderDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<PagePreRenderDisconnectFieldInput>>
-  update?: InputMaybe<PagePreRenderUpdateConnectionInput>
-  where?: InputMaybe<PagePreRenderConnectionWhere>
+export type PagePreRendersUpdateFieldInput = {
+  connect?: InputMaybe<Array<PagePreRendersConnectFieldInput>>
+  create?: InputMaybe<Array<PagePreRendersCreateFieldInput>>
+  delete?: InputMaybe<Array<PagePreRendersDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<PagePreRendersDisconnectFieldInput>>
+  update?: InputMaybe<PagePreRendersUpdateConnectionInput>
+  where?: InputMaybe<PagePreRendersConnectionWhere>
 }
 
 export type PageRelationInput = {
   app?: InputMaybe<PageAppCreateFieldInput>
-  preRender?: InputMaybe<Array<PagePreRenderCreateFieldInput>>
+  preRenders?: InputMaybe<Array<PagePreRendersCreateFieldInput>>
   rootElement?: InputMaybe<PageRootElementCreateFieldInput>
 }
 
@@ -14013,7 +14034,7 @@ export type PageUpdateInput = {
   app?: InputMaybe<PageAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  preRender?: InputMaybe<Array<PagePreRenderUpdateFieldInput>>
+  preRenders?: InputMaybe<Array<PagePreRendersUpdateFieldInput>>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   slug?: InputMaybe<Scalars['String']>
 }
@@ -14046,19 +14067,19 @@ export type PageWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  preRenderAggregate?: InputMaybe<PagePreRenderAggregateInput>
-  preRenderConnection_ALL?: InputMaybe<PagePreRenderConnectionWhere>
-  preRenderConnection_NONE?: InputMaybe<PagePreRenderConnectionWhere>
-  preRenderConnection_SINGLE?: InputMaybe<PagePreRenderConnectionWhere>
-  preRenderConnection_SOME?: InputMaybe<PagePreRenderConnectionWhere>
+  preRendersAggregate?: InputMaybe<PagePreRendersAggregateInput>
+  preRendersConnection_ALL?: InputMaybe<PagePreRendersConnectionWhere>
+  preRendersConnection_NONE?: InputMaybe<PagePreRendersConnectionWhere>
+  preRendersConnection_SINGLE?: InputMaybe<PagePreRendersConnectionWhere>
+  preRendersConnection_SOME?: InputMaybe<PagePreRendersConnectionWhere>
   /** Return Pages where all of the related PreRenders match this filter */
-  preRender_ALL?: InputMaybe<PreRenderWhere>
+  preRenders_ALL?: InputMaybe<PreRenderWhere>
   /** Return Pages where none of the related PreRenders match this filter */
-  preRender_NONE?: InputMaybe<PreRenderWhere>
+  preRenders_NONE?: InputMaybe<PreRenderWhere>
   /** Return Pages where one of the related PreRenders match this filter */
-  preRender_SINGLE?: InputMaybe<PreRenderWhere>
+  preRenders_SINGLE?: InputMaybe<PreRenderWhere>
   /** Return Pages where some of the related PreRenders match this filter */
-  preRender_SOME?: InputMaybe<PreRenderWhere>
+  preRenders_SOME?: InputMaybe<PreRenderWhere>
   rootElement?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
   rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
@@ -14087,6 +14108,7 @@ export type PreRender = {
   __typename?: 'PreRender'
   code: Scalars['String']
   id: Scalars['ID']
+  name: Scalars['String']
   page: Page
   pageAggregate?: Maybe<PreRenderPagePageAggregationSelection>
   pageConnection: PreRenderPageConnection
@@ -14117,6 +14139,7 @@ export type PreRenderAggregateSelection = {
   code: StringAggregateSelectionNonNullable
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type PreRenderConnectInput = {
@@ -14134,6 +14157,7 @@ export type PreRenderConnectWhere = {
 export type PreRenderCreateInput = {
   code: Scalars['String']
   id: Scalars['ID']
+  name: Scalars['String']
   page?: InputMaybe<PreRenderPageFieldInput>
   type: PreRenderType
 }
@@ -14309,6 +14333,7 @@ export type PreRenderRelationInput = {
 export type PreRenderSort = {
   code?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
 }
 
@@ -14322,6 +14347,7 @@ export enum PreRenderType {
 export type PreRenderUpdateInput = {
   code?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
   page?: InputMaybe<PreRenderPageUpdateFieldInput>
   type?: InputMaybe<PreRenderType>
 }
@@ -14349,6 +14375,16 @@ export type PreRenderWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
   page?: InputMaybe<PageWhere>
   pageAggregate?: InputMaybe<PreRenderPageAggregateInput>
   pageConnection?: InputMaybe<PreRenderPageConnectionWhere>
@@ -21829,6 +21865,7 @@ export type PageBuilderAppFragment = {
       __typename?: 'Element'
       descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
     } & ElementFragment
+    preRenders: Array<{ __typename?: 'PreRender' } & PreRenderFragment>
     app: { __typename?: 'App'; id: string }
   }>
   store: { __typename?: 'Store' } & StoreFragment
@@ -21939,14 +21976,16 @@ export type PageFragment = {
   slug: string
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  preRenders: Array<{ __typename?: 'PreRender'; id: string }>
 }
 
 export type PreRenderFragment = {
   __typename?: 'PreRender'
   id: string
+  name: string
   code: string
   type: PreRenderType
-  page: { __typename?: 'Page'; id: string }
+  page: { __typename?: 'Page'; id: string; name: string }
 }
 
 export type PropFragment = { __typename?: 'Prop'; id: string; data: string }

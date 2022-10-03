@@ -3,6 +3,7 @@ import { PreRenderFragment } from './pre-render.fragment.graphql.gen'
 
 export interface ICreatePreRenderDTO {
   id?: string
+  name: string
   pageId: string
   code: string
   type: IPreRenderType

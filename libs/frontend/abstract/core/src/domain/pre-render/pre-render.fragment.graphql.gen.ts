@@ -5,17 +5,20 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type PreRenderFragment = {
   id: string
+  name: string
   code: string
   type: Types.PreRenderType
-  page: { id: string }
+  page: { id: string; name: string }
 }
 
 export const PreRenderFragmentDoc = gql`
   fragment PreRender on PreRender {
     id
+    name
     code
     page {
       id
+      name
     }
     type
   }

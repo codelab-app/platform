@@ -1,6 +1,12 @@
+import {
+  ICreatePreRenderDTO,
+  IPreRender,
+  IPreRenderDTO,
+  IPreRenderService,
+  IUpdatePreRenderDTO,
+} from '@codelab/frontend/abstract/core'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PreRenderWhere } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
@@ -16,13 +22,6 @@ import { mapCreateInput } from './api.utils'
 import { preRenderApi } from './pre-render.api'
 import { PreRender } from './pre-render.model'
 import { PreRenderModalService } from './pre-render-modal.service'
-import {
-  ICreatePreRenderDTO,
-  IPreRender,
-  IPreRenderDTO,
-  IPreRenderService,
-  IUpdatePreRenderDTO,
-} from '@codelab/frontend/abstract/core'
 
 /**
  * PreRender service will use ref from ElementService
@@ -105,12 +104,12 @@ export class PreRenderService
   @transaction
   update = _async(function* (
     this: PreRenderService,
-    preRender: IEntity,
-    { type, code }: IUpdatePreRenderDTO,
+    preRender: IPreRender,
+    { type, code, name }: IUpdatePreRenderDTO,
   ) {
     const { updatePreRenders } = yield* _await(
       preRenderApi.UpdatePreRenders({
-        update: { code, type },
+        update: { code, type, name },
         where: { id: preRender.id },
       }),
     )
@@ -119,15 +118,9 @@ export class PreRenderService
       throw new Error('Failed to update preRender')
     }
 
-    const preRenderModel = this.preRenders.get(preRender.id)
+    preRender.writeCache(updatePreRenders.preRenders[0])
 
-    if (!preRenderModel) {
-      throw new Error('Updated preRender not found ')
-    }
-
-    preRenderModel.writeCache(updatePreRenders.preRenders[0])
-
-    return preRenderModel
+    return preRender
   })
 
   @modelFlow

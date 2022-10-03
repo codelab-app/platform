@@ -1,13 +1,5 @@
-import { IPreRender, IPreRenderService } from '@codelab/frontend/abstract/core'
-import { createContext, detach, rootRef } from 'mobx-keystone'
-
-export const preRenderRef = rootRef<IPreRender>('@codelab/PreRenderRef', {
-  onResolvedValueChange(ref, newPreRender, oldPreRender) {
-    if (oldPreRender && !newPreRender) {
-      detach(ref)
-    }
-  },
-})
+import { IPreRenderService } from '@codelab/frontend/abstract/core'
+import { createContext } from 'mobx-keystone'
 
 export const preRenderServiceContext = createContext<IPreRenderService>()
 

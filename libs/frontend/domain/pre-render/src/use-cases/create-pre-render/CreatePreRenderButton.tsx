@@ -14,5 +14,7 @@ export const CreatePreRenderButton = observer<{
     key={0}
     onClick={() => preRenderService.createModal.open()}
     size="small"
+    title="Add PreRender"
+    type="primary"
   />
 ))

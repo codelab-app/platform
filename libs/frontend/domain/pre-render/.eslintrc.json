@@ -1,17 +1,18 @@
 {
-  "extends": "../../../../.eslintrc.json",
+  "extends": ["../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/modules/pre-render/tsconfig.*?.json"]
+        "project": ["libs/frontend/domain/pre-render/tsconfig.*?.json"]
       },
       "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "rules": {},
+      "extends": ["plugin:@nrwl/nx/react"]
     },
     {
       "files": ["*.js", "*.jsx"],

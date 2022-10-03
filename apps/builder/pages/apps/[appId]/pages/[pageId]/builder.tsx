@@ -231,6 +231,7 @@ PageBuilder.Layout = observer((page) => {
               <EditorPaneBuilder
                 actionService={actionService}
                 appStore={pageBuilderRenderer.appStore.current}
+                pageId={pageId}
                 preRenderService={preRenderService}
                 resizable={resizable}
                 resourceService={resourceService}

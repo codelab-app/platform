@@ -10,9 +10,14 @@ import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { createPreRenderSchema } from './createPreRenderSchema'
 
+const defaultCode = `function run(ctx) {
+    // insert your code here
+}`
+
 export const CreatePreRenderModal = observer<{
   preRenderService: IPreRenderService
-}>(({ preRenderService }) => {
+  pageId: string
+}>(({ preRenderService, pageId }) => {
   const handleSubmit = (data: ICreatePreRenderDTO) => {
     return preRenderService.create([data])
   }
@@ -25,13 +30,16 @@ export const CreatePreRenderModal = observer<{
 
   return (
     <ModalForm.Modal
-      okText="Create preRender"
+      okText="Create PreRender"
       onCancel={closeModal}
       title={<span css={tw`font-semibold`}>Create preRender</span>}
       visible={preRenderService.createModal.isOpen}
     >
       <ModalForm.Form<ICreatePreRenderDTO>
-        model={{}}
+        model={{
+          code: defaultCode,
+          pageId,
+        }}
         onSubmit={handleSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}

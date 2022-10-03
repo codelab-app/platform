@@ -8,9 +8,10 @@ export interface IPage
   extends IEntity,
     IElementTreeService,
     ICacheService<IPageDTO, IPage> {
-  app: { id: string }
+  app: IEntity
   name: string
   slug: string
   toJson: IPropData
-  rootElement: { id: string }
+  rootElement: IEntity
+  preRenders: Array<IEntity>
 }

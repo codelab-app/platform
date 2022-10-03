@@ -1,26 +1,6 @@
 import { IUpdatePreRenderDTO } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
+import { createPreRenderSchema } from '../create-pre-render'
 
-export const updatePreRenderSchema: JSONSchemaType<IUpdatePreRenderDTO> = {
-  title: 'Create Component Input',
-  type: 'object',
-  properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-    },
-    code: {
-      autoFocus: true,
-      type: 'string',
-    },
-    pageId: {
-      autoFocus: true,
-      type: 'string',
-    },
-    type: {
-      autoFocus: true,
-      type: 'string',
-    },
-  },
-  required: [],
-}
+export const updatePreRenderSchema: JSONSchemaType<IUpdatePreRenderDTO> =
+  createPreRenderSchema

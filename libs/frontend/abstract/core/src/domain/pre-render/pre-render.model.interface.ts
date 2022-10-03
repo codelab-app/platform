@@ -6,6 +6,7 @@ import { IPreRenderDTO } from './pre-render.dto.interface'
 export interface IPreRender
   extends IEntity,
     ICacheService<IPreRenderDTO, IPreRender> {
+  name: string
   code: string
   page: IEntity
   type: IPreRenderType

@@ -6,12 +6,13 @@ import { v4 } from 'uuid'
 export const mapCreateInput = (
   input: ICreatePreRenderDTO,
 ): PreRenderCreateInput => {
-  const { id = v4(), code, pageId, type } = input
+  const { id = v4(), code, pageId, name, type } = input
 
   return {
     id,
     page: connectNode(pageId),
     type,
+    name,
     code,
   }
 }

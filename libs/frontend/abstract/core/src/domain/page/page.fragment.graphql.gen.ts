@@ -9,6 +9,7 @@ export type PageFragment = {
   slug: string
   app: { id: string }
   rootElement: { id: string; name?: string | null }
+  preRenders: Array<{ id: string }>
 }
 
 export const PageFragmentDoc = gql`
@@ -22,6 +23,9 @@ export const PageFragmentDoc = gql`
     rootElement {
       id
       name
+    }
+    preRenders {
+      id
     }
   }
 `

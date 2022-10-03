@@ -4,12 +4,6 @@ import {
   DatabaseOutlined,
 } from '@ant-design/icons'
 import {
-  CreatePreRenderModal,
-  DeletePreRenderModal,
-  PreRenderEditorPane,
-  UpdatePreRenderModal,
-} from '@codelab/frontend/domain/pre-render'
-import {
   IActionService,
   IPreRenderService,
   IResourceService,
@@ -17,6 +11,12 @@ import {
   IStoreService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
+import {
+  CreatePreRenderModal,
+  DeletePreRenderModal,
+  PreRenderEditorPane,
+  UpdatePreRenderModal,
+} from '@codelab/frontend/domain/pre-render'
 import {
   CreateActionModal,
   DeleteActionsModal,
@@ -52,6 +52,7 @@ interface EditorPaneBuilderProps {
   preRenderService: IPreRenderService
   resourceService: IResourceService
   appStore: IStore
+  pageId: string
 }
 
 const Container = styled.div`
@@ -73,6 +74,7 @@ export const EditorPaneBuilder = observer(
     typeService,
     resourceService,
     preRenderService,
+    pageId,
   }: EditorPaneBuilderProps) => {
     return (
       <>
@@ -126,7 +128,10 @@ export const EditorPaneBuilder = observer(
                 </div>
               }
             >
-              <PreRenderEditorPane preRenderService={preRenderService} />
+              <PreRenderEditorPane
+                pageId={pageId}
+                preRenderService={preRenderService}
+              />
             </TabPane>
           </Tabs>
         </Container>
@@ -145,7 +150,10 @@ export const EditorPaneBuilder = observer(
         />
         <DeleteActionsModal actionService={actionService} />
 
-        <CreatePreRenderModal preRenderService={preRenderService} />
+        <CreatePreRenderModal
+          pageId={pageId}
+          preRenderService={preRenderService}
+        />
         <UpdatePreRenderModal preRenderService={preRenderService} />
         <DeletePreRenderModal preRenderService={preRenderService} />
       </>

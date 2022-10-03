@@ -1,9 +1,9 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
 import {
   IPreRenderService,
   IUpdatePreRenderDTO,
 } from '@codelab/frontend/abstract/core'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -19,16 +19,12 @@ export const UpdatePreRenderModal = observer<{
     return null
   }
 
-  const handleSubmit = (input: IUpdatePreRenderDTO) => {
-    if (!updatedPreRender) {
-      throw new Error('PreRenderService.updateModal.preRender is null')
-    }
-
-    return preRenderService.update(updatedPreRender, input)
-  }
+  const onSubmit = (input: IUpdatePreRenderDTO) =>
+    preRenderService.update(updatedPreRender, input)
 
   const model = {
     code: updatedPreRender.code,
+    name: updatedPreRender.name,
     type: updatedPreRender.type,
     pageId: updatedPreRender.page.id,
     id: updatedPreRender.id,
@@ -45,7 +41,7 @@ export const UpdatePreRenderModal = observer<{
     >
       <ModalForm.Form<IUpdatePreRenderDTO>
         model={model}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating PreRender',
           type: 'error',

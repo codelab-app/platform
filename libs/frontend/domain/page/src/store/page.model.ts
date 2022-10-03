@@ -11,6 +11,7 @@ const hydrate = (page: IPageDTO) => {
     name: page.name,
     slug: page.slug,
     rootElement: { id: page.rootElement.id },
+    preRenders: page.preRenders,
     app: { id: page.app.id },
   })
 }
@@ -23,6 +24,7 @@ export class Page
     name: prop<string>().withSetter(),
     slug: prop<string>(),
     rootElement: prop<IEntity>(),
+    preRenders: prop<Array<IEntity>>(),
   })
   implements IPage
 {
@@ -43,6 +45,7 @@ export class Page
     this.setName(page.name)
     this.rootElement = page.rootElement
     this.app = page.app
+    this.preRenders = page.preRenders
 
     return this
   }

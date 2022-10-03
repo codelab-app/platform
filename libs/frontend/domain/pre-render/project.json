@@ -1,22 +1,22 @@
 {
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/modules/pre-render/src",
+  "sourceRoot": "libs/frontend/domain/pre-render/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/modules/pre-render/**/*.{ts,tsx,js,jsx}"
+          "libs/frontend/domain/pre-render/**/*.{ts,tsx,js,jsx}"
         ]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/frontend/modules/pre-render"],
+      "outputs": ["coverage/libs/frontend/domain/pre-render"],
       "options": {
-        "jestConfig": "libs/frontend/modules/pre-render/jest.config.ts",
+        "jestConfig": "libs/frontend/domain/pre-render/jest.config.ts",
         "passWithNoTests": true
       }
     }
