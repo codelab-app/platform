@@ -8,7 +8,8 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "postinstall": "./scripts/postinstall.sh",
+    "setup": "./scripts/yarn/setup.sh",
+    "postinstall": "./scripts/yarn/postinstall.sh",
     "serve:test": "npx env-cmd -f .env.test nx serve web -c test",
     "e2e": "env-cmd -f .env.test nx e2e builder-e2e -c dev",
     "cli": "node dist/apps/cli/main.js",

@@ -10,12 +10,16 @@ const gitSubModuleRoot = path.resolve(__dirname, '../../.infra')
 
 /**
  * (1) Symlink back to git submodule
+ *
+ * On CircleCI symlinks are not preserved https://discuss.circleci.com/t/2-0-persist-to-workspace-does-not-preserve-symlinks/14338
  */
 foldersToLink
   // Symlink each folder
-  .forEach(([oldApp, newApp]) => {
-    const existingPath = path.resolve(gitSubModuleRoot, oldApp)
-    const newPath = path.resolve(projectRoot, newApp)
+  .forEach((app) => {
+    const existingPath = path.resolve(gitSubModuleRoot, app)
+    const newPath = path.resolve(projectRoot, app)
 
-    fs.symlink(existingPath, newPath, 'dir')
+    console.log(`[Running]: ln -s ${existingPath} ${newPath}`)
+
+    fs.symlink(existingPath, newPath, () => null)
   })

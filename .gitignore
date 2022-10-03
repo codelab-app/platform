@@ -55,3 +55,9 @@ Thumbs.db
 # Next.js
 .next
 .vercel
+
+# Below are moved to git-submodules
+.github
+.infra
+apps/cli
+apps/builder-e2e

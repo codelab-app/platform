@@ -12,8 +12,4 @@ public
 **/*.gen.ts
 jest.config.ts
 
-# Below are moved to git-submodules
-.github
-apps/cli
-apps/builder-e2e
 
