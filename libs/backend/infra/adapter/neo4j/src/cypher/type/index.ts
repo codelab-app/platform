@@ -1,4 +1,3 @@
-import countBaseTypes from './countBaseTypes.cypher'
 import connectField from './field/connectField.cypher'
 import getBaseTypes from './getBaseTypes.cypher'
 import getTypeDescendants from './getTypeDescendants.cypher'
@@ -8,7 +7,6 @@ import isTypeDescendantOf from './isTypeDescendantOf.cypher'
 
 export {
   connectField,
-  countBaseTypes,
   getBaseTypes,
   getTypeDescendants,
   getTypeDescendantsOGM,

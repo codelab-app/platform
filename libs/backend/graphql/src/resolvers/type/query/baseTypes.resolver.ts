@@ -9,13 +9,5 @@ export const baseTypes: IFieldResolver<
   undefined,
   QueryBaseTypesArgs
 > = (_, args) => async (txn: Transaction) => {
-  const [items, totalCount] = await Promise.all([
-    typeRepository.baseTypes(txn, args),
-    typeRepository.countBaseTypes(txn, args?.options?.offset || 0),
-  ])
-
-  return {
-    items,
-    totalCount,
-  }
+  return typeRepository.baseTypes(txn, args)
 }

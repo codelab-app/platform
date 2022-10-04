@@ -1,27 +1,17 @@
+import { getBaseTypes } from '@codelab/backend/infra/adapter/neo4j'
 import {
-  countBaseTypes,
-  getBaseTypes,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { BaseType, QueryBaseTypesArgs } from '@codelab/shared/abstract/codegen'
+  BaseType,
+  GetBaseTypesReturn,
+  QueryBaseTypesArgs,
+} from '@codelab/shared/abstract/codegen'
 import { int, Record, Transaction } from 'neo4j-driver'
 import { GetBaseTypesRecord } from './types'
 
 export const typeRepository = {
-  countBaseTypes: async (txn: Transaction, offset = 0): Promise<number> => {
-    const { records: countTypesRecords } = await txn.run(countBaseTypes, {
-      skip: int(Number(offset)),
-    })
-
-    const totalCountNeo4j = countTypesRecords[0].get('count(type)')
-    const totalCount = int(totalCountNeo4j).toNumber()
-
-    return totalCount
-  },
-
   baseTypes: async (
     txn: Transaction,
     params: QueryBaseTypesArgs,
-  ): Promise<Array<BaseType>> => {
+  ): Promise<GetBaseTypesReturn> => {
     const { options } = params
     const { limit = 10, offset = 0 } = options || {}
 
@@ -29,6 +19,9 @@ export const typeRepository = {
       limit: int(Number(limit)),
       skip: int(Number(offset)),
     })
+
+    const totalCountRecord = getTypesRecords[0]?.get('totalCount')
+    const totalCount = totalCountRecord ? int(totalCountRecord).toNumber() : 0
 
     const withOwner = (
       data: BaseType,
@@ -58,6 +51,9 @@ export const typeRepository = {
       )
     })
 
-    return items
+    return {
+      items,
+      totalCount,
+    }
   },
 }
