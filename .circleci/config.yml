@@ -46,7 +46,7 @@ executor-config: &executor-config
 version: 2.1
 
 orbs:
-  slack: circleci/slack@4.4.2
+  slack: circleci/slack@4.10.1
   node: circleci/node@4.7.0
   nx: nrwl/nx@1.6.0
   queue: eddiewebb/queue@1.7.0
@@ -256,81 +256,10 @@ jobs:
   notify-success:
     <<: *executor-params
     steps:
-      #      - setup-workspace
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE
-          custom: |
-            {
-            	"text": "CircleCI job succeeded!",
-            	"blocks": [
-            		{
-            			"type": "header",
-            			"text": {
-            				"type": "plain_text",
-            				"text": "Job Succeeded. :white_check_mark:",
-            				"emoji": true
-            			}
-            		},
-            		{
-            			"type": "section",
-            			"fields": [
-            				{
-            					"type": "mrkdwn",
-            					"text": "*Job*: ${CIRCLE_JOB}"
-            				}
-            			]
-            		},
-            		{
-            			"type": "section",
-            			"fields": [
-            				{
-            					"type": "mrkdwn",
-            					"text": "*Project*:\n $CIRCLE_PROJECT_REPONAME"
-            				},
-            				{
-            					"type": "mrkdwn",
-            					"text": "*Branch*:\n $CIRCLE_BRANCH"
-                            },
-                            {
-            					"type": "mrkdwn",
-            					"text": "*Commit*:\n $CIRCLE_SHA1"
-            				},
-            				{
-            					"type": "mrkdwn",
-            					"text": "*Author*:\n $CIRCLE_USERNAME"
-            				}
-            			],
-            			"accessory": {
-            				"type": "image",
-            				"image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
-            				"alt_text": "CircleCI logo"
-            			}
-            		},
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Mentions*:\n $SLACK_PARAM_MENTIONS"
-                    }
-                  ]
-                },
-            		{
-            			"type": "actions",
-            			"elements": [
-            				{
-            					"type": "button",
-            					"text": {
-            						"type": "plain_text",
-            						"text": "View Job"
-            					},
-            					"url": "${CIRCLE_BUILD_URL}"
-            				}
-            			]
-            		}
-            	]
-            }
+          template: basic_success_1
 
 workflows:
   app-pr:

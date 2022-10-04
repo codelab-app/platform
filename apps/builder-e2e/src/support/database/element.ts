@@ -1,13 +1,13 @@
+import { IElementDTO } from '@codelab/frontend/abstract/core'
 import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { IElementDTO } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import {
   CreateElementsDocument,
   UpdateElementsDocument,
-} from '../../../../../libs/frontend/modules/element/src/graphql/element.endpoints.graphql.gen'
+} from 'libs/frontend/domain/element/src/graphql/element.endpoints.graphql.gen'
 
 export const createElement = (input: ElementCreateInput) =>
   cy

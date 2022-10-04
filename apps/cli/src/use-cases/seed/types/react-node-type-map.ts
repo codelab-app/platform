@@ -1,14 +1,9 @@
-import { ReactNodeTypeOGM } from '@codelab/backend/adapter/neo4j'
+import { TypeRef } from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 
-// import { PrimitiveTypeKind } from
-
-type TypeRef = {
-  existingId: string
-} | null
-
 export const getReactNodeTypeForApi = async (): Promise<TypeRef> => {
-  const ReactNodeType = await ReactNodeTypeOGM()
+  const ReactNodeType = await Repository.instance.ReactNodeType
 
   const [renderNodeType] = await ReactNodeType.find({
     where: {

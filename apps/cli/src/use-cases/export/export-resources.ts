@@ -1,13 +1,13 @@
+import { IResourceExport } from '@codelab/backend/abstract/core'
 import {
-  ResourceOGM,
+  Repository,
   resourceSelectionSet,
-} from '@codelab/backend/adapter/neo4j'
-import { IResourceExport } from '@codelab/shared/abstract/core'
+} from '@codelab/backend/infra/adapter/neo4j'
 
 export const exportResources = async (): Promise<Array<IResourceExport>> => {
-  const Store = await ResourceOGM()
+  const Resource = await Repository.instance.Resource
 
-  return await Store.find({
+  return await Resource.find({
     selectionSet: resourceSelectionSet,
   })
 }

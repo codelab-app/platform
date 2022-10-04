@@ -1,6 +1,6 @@
-import { AppOGM } from '@codelab/backend/adapter/neo4j'
-import { NextApiRequest } from '@codelab/backend/application'
-import { isAdminSession } from '@codelab/shared/abstract/core'
+import { NextApiRequest } from '@codelab/backend/abstract/types'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { isAdminSession } from '@codelab/frontend/abstract/core'
 import {
   AuthenticationError,
   ForbiddenError,
@@ -20,9 +20,9 @@ export const validateDomainAuth = async (
     return
   }
 
-  const appOgm = await AppOGM()
+  const App = await Repository.instance.App
 
-  const apps = await appOgm.find({
+  const apps = await App.find({
     where: { id: appId },
     selectionSet: `{
       owner {

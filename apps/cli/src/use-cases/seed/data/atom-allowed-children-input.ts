@@ -1,4 +1,4 @@
-import { ExistingData } from '@codelab/shared/abstract/core'
+import { ExistingData } from '@codelab/backend/abstract/core'
 import { AtomSeedData } from '@codelab/shared/data'
 
 /**
@@ -12,7 +12,7 @@ export const createAllowedChildren =
     return (
       atomData?.allowedChildren?.map((child) => {
         // Get the id of the existing atom by name
-        const allowedAtom = newData.atoms.get(child)?.id
+        const allowedAtom = newData.atoms[child]?.id
 
         if (!allowedAtom) {
           throw new Error('Allowed atom not found')

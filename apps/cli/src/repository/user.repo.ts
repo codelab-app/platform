@@ -1,4 +1,4 @@
-import { UserOGM } from '@codelab/backend/adapter/neo4j'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { UserCreateInput } from '@codelab/shared/abstract/codegen'
 
 type UserUniqueWhereCallback = (user: UserCreateInput) =>
@@ -13,7 +13,7 @@ export const upsertUser = async (
   user: UserCreateInput,
   where: UserUniqueWhereCallback,
 ) => {
-  const User = await UserOGM()
+  const User = await Repository.instance.User
 
   const [existing] = await User.find({
     where: where(user),
@@ -28,7 +28,7 @@ export const upsertUser = async (
         auth0Id: user.auth0Id,
         email: user.email,
         username: user.username,
-        roles: [],
+        roles: user.roles,
       },
     })
 
@@ -42,7 +42,7 @@ export const upsertUser = async (
           auth0Id: user.auth0Id,
           email: user.email,
           username: user.email,
-          roles: [],
+          roles: user.roles,
         },
       ],
     })

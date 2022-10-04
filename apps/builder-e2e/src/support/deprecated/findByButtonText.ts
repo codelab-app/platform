@@ -1,5 +1,5 @@
 import { SelectorMatcherOptions } from '@testing-library/cypress'
-import { ByRoleOptions } from '@testing-library/dom'
+import type { ByRoleOptions } from '@testing-library/dom'
 import { CypressElement } from './types'
 import { wrapSubject } from './utils'
 

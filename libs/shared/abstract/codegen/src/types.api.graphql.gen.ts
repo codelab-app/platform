@@ -8887,13 +8887,9 @@ export type ElementTypeEdge = {
 }
 
 export enum ElementTypeKind {
-  /** Pick any element in the current tree */
   AllElements = 'AllElements',
-  /** Pick any element from the children of the current element */
   ChildrenOnly = 'ChildrenOnly',
-  /** Pick any element from the descendants of the current element */
   DescendantsOnly = 'DescendantsOnly',
-  /** Pick parents and siblings of parents of elements (used to move element) */
   ExcludeDescendantsElements = 'ExcludeDescendantsElements',
 }
 
@@ -9450,26 +9446,26 @@ export type EnumTypeAllowedValuesNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  key_EQUAL?: InputMaybe<Scalars['String']>
+  key_GT?: InputMaybe<Scalars['Int']>
+  key_GTE?: InputMaybe<Scalars['Int']>
+  key_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  key_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  key_LT?: InputMaybe<Scalars['Int']>
+  key_LTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   value_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   value_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   value_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -9561,7 +9557,7 @@ export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
   __typename?: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  key: StringAggregateSelectionNonNullable
   value: StringAggregateSelectionNonNullable
 }
 
@@ -9729,7 +9725,7 @@ export type EnumTypeValue = {
   enumTypeAggregate?: Maybe<EnumTypeValueEnumTypeEnumTypeAggregationSelection>
   enumTypeConnection: EnumTypeValueEnumTypeConnection
   id: Scalars['ID']
-  name?: Maybe<Scalars['String']>
+  key: Scalars['String']
   value: Scalars['String']
 }
 
@@ -9756,7 +9752,7 @@ export type EnumTypeValueAggregateSelection = {
   __typename?: 'EnumTypeValueAggregateSelection'
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  key: StringAggregateSelectionNonNullable
   value: StringAggregateSelectionNonNullable
 }
 
@@ -9775,7 +9771,7 @@ export type EnumTypeValueConnectWhere = {
 export type EnumTypeValueCreateInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeFieldInput>
   id: Scalars['ID']
-  name?: InputMaybe<Scalars['String']>
+  key: Scalars['String']
   value: Scalars['String']
 }
 
@@ -9928,14 +9924,14 @@ export type EnumTypeValueRelationInput = {
 /** Fields to sort EnumTypeValues by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeValueSort object. */
 export type EnumTypeValueSort = {
   id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
+  key?: InputMaybe<SortDirection>
   value?: InputMaybe<SortDirection>
 }
 
 export type EnumTypeValueUpdateInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
 }
 
@@ -9957,16 +9953,16 @@ export type EnumTypeValueWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key?: InputMaybe<Scalars['String']>
+  key_CONTAINS?: InputMaybe<Scalars['String']>
+  key_ENDS_WITH?: InputMaybe<Scalars['String']>
+  key_IN?: InputMaybe<Array<Scalars['String']>>
+  key_NOT?: InputMaybe<Scalars['String']>
+  key_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  key_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  key_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  key_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key_STARTS_WITH?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
   value_CONTAINS?: InputMaybe<Scalars['String']>
   value_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -20773,6 +20769,596 @@ export type GetAppsQuery = {
   apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
 }
 
+type ActionBase_ApiAction_Fragment = {
+  __typename: 'ApiAction'
+  id: string
+  name: string
+  type: ActionKind
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+type ActionBase_CodeAction_Fragment = {
+  __typename: 'CodeAction'
+  id: string
+  name: string
+  type: ActionKind
+  store: { __typename?: 'Store'; id: string; name: string }
+}
+
+export type ActionBaseFragment =
+  | ActionBase_ApiAction_Fragment
+  | ActionBase_CodeAction_Fragment
+
+type Action_ApiAction_Fragment = {
+  __typename?: 'ApiAction'
+} & ApiActionFragment &
+  ActionBase_ApiAction_Fragment
+
+type Action_CodeAction_Fragment = {
+  __typename?: 'CodeAction'
+} & CodeActionFragment &
+  ActionBase_CodeAction_Fragment
+
+export type ActionFragment =
+  | Action_ApiAction_Fragment
+  | Action_CodeAction_Fragment
+
+export type ApiActionFragment = {
+  __typename?: 'ApiAction'
+  successAction:
+    | ({ __typename?: 'ApiAction' } & ActionBase_ApiAction_Fragment)
+    | ({ __typename?: 'CodeAction' } & ActionBase_CodeAction_Fragment)
+  errorAction:
+    | ({ __typename?: 'ApiAction' } & ActionBase_ApiAction_Fragment)
+    | ({ __typename?: 'CodeAction' } & ActionBase_CodeAction_Fragment)
+  resource: { __typename?: 'Resource' } & ResourceFragment
+  config: { __typename?: 'Prop'; id: string; data: string }
+} & ActionBase_ApiAction_Fragment
+
+export type CodeActionFragment = {
+  __typename?: 'CodeAction'
+  code: string
+} & ActionBase_CodeAction_Fragment
+
+export type RedirectedAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; username: string }
+}
+
+export type AppPreviewFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{ __typename?: 'Page' } & PageFragment>
+  store: { __typename?: 'Store'; id: string }
+}
+
+export type AppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{ __typename?: 'Page' } & PageFragment>
+  store: { __typename?: 'Store'; id: string }
+}
+
+export type PageBuilderAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User'; id: string }
+  pages: Array<{
+    __typename?: 'Page'
+    id: string
+    name: string
+    slug: string
+    rootElement: {
+      __typename?: 'Element'
+      descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+    } & ElementFragment
+    app: { __typename?: 'App'; id: string }
+  }>
+  store: { __typename?: 'Store' } & StoreFragment
+}
+
+export type AtomFragment = {
+  __typename?: 'Atom'
+  icon?: string | null
+  id: string
+  name: string
+  type: AtomType
+  tags: Array<{ __typename?: 'Tag' } & TagFragment>
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+  allowedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+}
+
+export type RenderAtomFragment = {
+  __typename?: 'Atom'
+  icon?: string | null
+  id: string
+  name: string
+  type: AtomType
+  tags: Array<{ __typename?: 'Tag' } & TagPreviewFragment>
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+  allowedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+}
+
+export type RenderedComponentFragment = {
+  __typename?: 'Component'
+  rootElement: {
+    __typename?: 'Element'
+    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+  } & ElementFragment
+} & ComponentFragment
+
+export type ComponentFragment = {
+  __typename?: 'Component'
+  id: string
+  name: string
+  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+}
+
+export type DomainFragment = {
+  __typename?: 'Domain'
+  id: string
+  name: string
+  app: { __typename?: 'App'; id: string }
+  domainConfig: {
+    __typename?: 'VercelDomainConfigData'
+    misconfigured: boolean
+  }
+  projectDomain: { __typename?: 'VercelProjectDomainData'; verified: boolean }
+}
+
+export type ElementFragment = {
+  __typename: 'Element'
+  id: string
+  name?: string | null
+  customCss?: string | null
+  guiCss?: string | null
+  renderForEachPropKey?: string | null
+  renderIfPropKey?: string | null
+  preRenderActionId?: string | null
+  postRenderActionId?: string | null
+  propTransformationJs?: string | null
+  renderComponentType?:
+    | ({ __typename?: 'Component' } & ComponentFragment)
+    | null
+  renderAtomType?: ({ __typename?: 'Atom' } & RenderAtomFragment) | null
+  prevSibling?: { __typename?: 'Element'; id: string } | null
+  nextSibling?: { __typename?: 'Element'; id: string } | null
+  parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null
+  parent?: { __typename?: 'Element'; id: string } | null
+  firstChild?: { __typename?: 'Element'; id: string } | null
+  props?: ({ __typename?: 'Prop' } & PropFragment) | null
+  hooks: Array<{ __typename?: 'Hook' } & HookFragment>
+  propMapBindings: Array<
+    { __typename?: 'PropMapBinding' } & PropMapBindingFragment
+  >
+}
+
+export type HookPropFragment = { __typename?: 'Prop'; id: string; data: string }
+
+export type HookFragment = {
+  __typename?: 'Hook'
+  id: string
+  type: AtomType
+  config: { __typename?: 'Prop' } & HookPropFragment
+  element: { __typename?: 'Element'; id: string; name?: string | null }
+}
+
+export type PageFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  slug: string
+  app: { __typename?: 'App'; id: string }
+  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+}
+
+export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
+
+export type PropMapBindingFragment = {
+  __typename?: 'PropMapBinding'
+  id: string
+  sourceKey: string
+  targetKey: string
+  element: { __typename?: 'Element'; id: string; name?: string | null }
+  targetElement?: {
+    __typename?: 'Element'
+    id: string
+    name?: string | null
+  } | null
+}
+
+export type ResourceFragment = {
+  __typename: 'Resource'
+  id: string
+  name: string
+  type: ResourceType
+  config: { __typename?: 'Prop' } & PropFragment
+  owner: { __typename?: 'User'; id: string }
+}
+
+export type StoreFragment = {
+  __typename?: 'Store'
+  id: string
+  name: string
+  api: { __typename?: 'InterfaceType'; id: string; name: string }
+  actions: Array<
+    | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
+    | ({ __typename?: 'CodeAction' } & Action_CodeAction_Fragment)
+  >
+}
+
+export type TagFragment = {
+  __typename?: 'Tag'
+  id: string
+  name: string
+  isRoot?: boolean | null
+  parent?: { __typename?: 'Tag'; id: string } | null
+  children: Array<{ __typename?: 'Tag'; id: string }>
+  descendants: Array<{ __typename?: 'Tag'; id: string }>
+}
+
+export type TagPreviewFragment = {
+  __typename?: 'Tag'
+  id: string
+  name: string
+}
+
+export type ActionTypeFragment = {
+  __typename?: 'ActionType'
+} & TypeBase_ActionType_Fragment
+
+export type AppTypeFragment = {
+  __typename?: 'AppType'
+} & TypeBase_AppType_Fragment
+
+export type ArrayTypeFragment = {
+  __typename?: 'ArrayType'
+  itemType:
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+} & TypeBase_ArrayType_Fragment
+
+export type CodeMirrorTypeFragment = {
+  __typename?: 'CodeMirrorType'
+  language: CodeMirrorLanguage
+} & TypeBase_CodeMirrorType_Fragment
+
+export type ElementTypeFragment = {
+  __typename?: 'ElementType'
+  elementKind: ElementTypeKind
+} & TypeBase_ElementType_Fragment
+
+export type EnumTypeValueFragment = {
+  __typename?: 'EnumTypeValue'
+  id: string
+  key: string
+  value: string
+}
+
+export type EnumTypeFragment = {
+  __typename?: 'EnumType'
+  allowedValues: Array<{ __typename?: 'EnumTypeValue' } & EnumTypeValueFragment>
+} & TypeBase_EnumType_Fragment
+
+export type FieldFragment = {
+  __typename?: 'InterfaceTypeFieldsRelationship'
+  id: string
+  key: string
+  name?: string | null
+  description?: string | null
+  validationRules?: string | null
+  fieldType:
+    | { __typename?: 'ActionType'; id: string }
+    | { __typename?: 'AppType'; id: string }
+    | { __typename?: 'ArrayType'; id: string }
+    | { __typename?: 'CodeMirrorType'; id: string }
+    | { __typename?: 'ElementType'; id: string }
+    | { __typename?: 'EnumType'; id: string }
+    | { __typename?: 'InterfaceType'; id: string }
+    | { __typename?: 'LambdaType'; id: string }
+    | { __typename?: 'PageType'; id: string }
+    | { __typename?: 'PrimitiveType'; id: string }
+    | { __typename?: 'ReactNodeType'; id: string }
+    | { __typename?: 'RenderPropsType'; id: string }
+    | { __typename?: 'UnionType'; id: string }
+}
+
+export type InterfaceTypeFragment = {
+  __typename?: 'InterfaceType'
+  ownerConnection: {
+    __typename?: 'TypeBaseOwnerConnection'
+    edges: Array<{ __typename?: 'TypeBaseOwnerRelationship'; data: string }>
+  }
+  fieldsConnection: {
+    __typename?: 'InterfaceTypeFieldsConnection'
+    edges: Array<
+      { __typename?: 'InterfaceTypeFieldsRelationship' } & FieldFragment
+    >
+  }
+} & TypeBase_InterfaceType_Fragment
+
+export type LambdaTypeFragment = {
+  __typename?: 'LambdaType'
+} & TypeBase_LambdaType_Fragment
+
+export type PageTypeFragment = {
+  __typename?: 'PageType'
+} & TypeBase_PageType_Fragment
+
+export type PrimitiveTypeFragment = {
+  __typename?: 'PrimitiveType'
+  primitiveKind: PrimitiveTypeKind
+} & TypeBase_PrimitiveType_Fragment
+
+export type ReactNodeTypeFragment = {
+  __typename?: 'ReactNodeType'
+} & TypeBase_ReactNodeType_Fragment
+
+export type RenderPropsTypeFragment = {
+  __typename?: 'RenderPropsType'
+} & TypeBase_RenderPropsType_Fragment
+
+type TypeBase_ActionType_Fragment = {
+  __typename: 'ActionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_AppType_Fragment = {
+  __typename: 'AppType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_CodeMirrorType_Fragment = {
+  __typename: 'CodeMirrorType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ElementType_Fragment = {
+  __typename: 'ElementType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_EnumType_Fragment = {
+  __typename: 'EnumType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_LambdaType_Fragment = {
+  __typename: 'LambdaType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_PageType_Fragment = {
+  __typename: 'PageType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_PrimitiveType_Fragment = {
+  __typename: 'PrimitiveType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_ReactNodeType_Fragment = {
+  __typename: 'ReactNodeType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_RenderPropsType_Fragment = {
+  __typename: 'RenderPropsType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+type TypeBase_UnionType_Fragment = {
+  __typename: 'UnionType'
+  kind: TypeKind
+  id: string
+  name: string
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
+}
+
+export type TypeBaseFragment =
+  | TypeBase_ActionType_Fragment
+  | TypeBase_AppType_Fragment
+  | TypeBase_ArrayType_Fragment
+  | TypeBase_CodeMirrorType_Fragment
+  | TypeBase_ElementType_Fragment
+  | TypeBase_EnumType_Fragment
+  | TypeBase_InterfaceType_Fragment
+  | TypeBase_LambdaType_Fragment
+  | TypeBase_PageType_Fragment
+  | TypeBase_PrimitiveType_Fragment
+  | TypeBase_ReactNodeType_Fragment
+  | TypeBase_RenderPropsType_Fragment
+  | TypeBase_UnionType_Fragment
+
+type Type_ActionType_Fragment = {
+  __typename?: 'ActionType'
+} & TypeBase_ActionType_Fragment &
+  ActionTypeFragment
+
+type Type_AppType_Fragment = {
+  __typename?: 'AppType'
+} & TypeBase_AppType_Fragment &
+  AppTypeFragment
+
+type Type_ArrayType_Fragment = {
+  __typename?: 'ArrayType'
+} & TypeBase_ArrayType_Fragment &
+  ArrayTypeFragment
+
+type Type_CodeMirrorType_Fragment = {
+  __typename?: 'CodeMirrorType'
+} & TypeBase_CodeMirrorType_Fragment &
+  CodeMirrorTypeFragment
+
+type Type_ElementType_Fragment = {
+  __typename?: 'ElementType'
+} & TypeBase_ElementType_Fragment &
+  ElementTypeFragment
+
+type Type_EnumType_Fragment = {
+  __typename?: 'EnumType'
+} & TypeBase_EnumType_Fragment &
+  EnumTypeFragment
+
+type Type_InterfaceType_Fragment = {
+  __typename?: 'InterfaceType'
+} & TypeBase_InterfaceType_Fragment &
+  InterfaceTypeFragment
+
+type Type_LambdaType_Fragment = {
+  __typename?: 'LambdaType'
+} & TypeBase_LambdaType_Fragment &
+  LambdaTypeFragment
+
+type Type_PageType_Fragment = {
+  __typename?: 'PageType'
+} & TypeBase_PageType_Fragment &
+  PageTypeFragment
+
+type Type_PrimitiveType_Fragment = {
+  __typename?: 'PrimitiveType'
+} & TypeBase_PrimitiveType_Fragment &
+  PrimitiveTypeFragment
+
+type Type_ReactNodeType_Fragment = {
+  __typename?: 'ReactNodeType'
+} & TypeBase_ReactNodeType_Fragment
+
+type Type_RenderPropsType_Fragment = {
+  __typename?: 'RenderPropsType'
+} & TypeBase_RenderPropsType_Fragment &
+  RenderPropsTypeFragment
+
+type Type_UnionType_Fragment = {
+  __typename?: 'UnionType'
+} & TypeBase_UnionType_Fragment &
+  UnionTypeFragment
+
+export type TypeFragment =
+  | Type_ActionType_Fragment
+  | Type_AppType_Fragment
+  | Type_ArrayType_Fragment
+  | Type_CodeMirrorType_Fragment
+  | Type_ElementType_Fragment
+  | Type_EnumType_Fragment
+  | Type_InterfaceType_Fragment
+  | Type_LambdaType_Fragment
+  | Type_PageType_Fragment
+  | Type_PrimitiveType_Fragment
+  | Type_ReactNodeType_Fragment
+  | Type_RenderPropsType_Fragment
+  | Type_UnionType_Fragment
+
+export type UnionTypeFragment = {
+  __typename?: 'UnionType'
+  typesOfUnionType: Array<
+    | { __typename?: 'ActionType'; id: string; name: string }
+    | { __typename?: 'AppType'; id: string; name: string }
+    | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'CodeMirrorType'; id: string; name: string }
+    | { __typename?: 'ElementType'; id: string; name: string }
+    | { __typename?: 'EnumType'; id: string; name: string }
+    | { __typename?: 'InterfaceType'; id: string; name: string }
+    | { __typename?: 'LambdaType'; id: string; name: string }
+    | { __typename?: 'PageType'; id: string; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; name: string }
+    | { __typename?: 'RenderPropsType'; id: string; name: string }
+    | { __typename?: 'UnionType'; id: string; name: string }
+  >
+} & TypeBase_UnionType_Fragment
+
+export type UserFragment = {
+  __typename?: 'User'
+  id: string
+  username: string
+  email: string
+  auth0Id: string
+  roles: Array<Role>
+  apps: Array<{ __typename?: 'App' } & AppFragment>
+}
+
 export type ResetDatabaseMutationVariables = Exact<{ [key: string]: never }>
 
 export type ResetDatabaseMutation = {
@@ -22305,594 +22891,4 @@ export type CreateUserMutation = {
     __typename?: 'CreateUsersMutationResponse'
     users: Array<{ __typename?: 'User'; id: string; email: string }>
   }
-}
-
-type ActionBase_ApiAction_Fragment = {
-  __typename: 'ApiAction'
-  id: string
-  name: string
-  type: ActionKind
-  store: { __typename?: 'Store'; id: string; name: string }
-}
-
-type ActionBase_CodeAction_Fragment = {
-  __typename: 'CodeAction'
-  id: string
-  name: string
-  type: ActionKind
-  store: { __typename?: 'Store'; id: string; name: string }
-}
-
-export type ActionBaseFragment =
-  | ActionBase_ApiAction_Fragment
-  | ActionBase_CodeAction_Fragment
-
-type Action_ApiAction_Fragment = {
-  __typename?: 'ApiAction'
-} & ApiActionFragment &
-  ActionBase_ApiAction_Fragment
-
-type Action_CodeAction_Fragment = {
-  __typename?: 'CodeAction'
-} & CodeActionFragment &
-  ActionBase_CodeAction_Fragment
-
-export type ActionFragment =
-  | Action_ApiAction_Fragment
-  | Action_CodeAction_Fragment
-
-export type ApiActionFragment = {
-  __typename?: 'ApiAction'
-  successAction:
-    | ({ __typename?: 'ApiAction' } & ActionBase_ApiAction_Fragment)
-    | ({ __typename?: 'CodeAction' } & ActionBase_CodeAction_Fragment)
-  errorAction:
-    | ({ __typename?: 'ApiAction' } & ActionBase_ApiAction_Fragment)
-    | ({ __typename?: 'CodeAction' } & ActionBase_CodeAction_Fragment)
-  resource: { __typename?: 'Resource' } & ResourceFragment
-  config: { __typename?: 'Prop'; id: string; data: string }
-} & ActionBase_ApiAction_Fragment
-
-export type CodeActionFragment = {
-  __typename?: 'CodeAction'
-  code: string
-} & ActionBase_CodeAction_Fragment
-
-export type RedirectedAppFragment = {
-  __typename?: 'App'
-  id: string
-  name: string
-  slug: string
-  owner: { __typename?: 'User'; username: string }
-}
-
-export type AppPreviewFragment = {
-  __typename?: 'App'
-  id: string
-  name: string
-  slug: string
-  owner: { __typename?: 'User'; id: string }
-  pages: Array<{ __typename?: 'Page' } & PageFragment>
-  store: { __typename?: 'Store'; id: string }
-}
-
-export type AppFragment = {
-  __typename?: 'App'
-  id: string
-  name: string
-  slug: string
-  owner: { __typename?: 'User'; id: string }
-  pages: Array<{ __typename?: 'Page' } & PageFragment>
-  store: { __typename?: 'Store'; id: string }
-}
-
-export type PageBuilderAppFragment = {
-  __typename?: 'App'
-  id: string
-  name: string
-  slug: string
-  owner: { __typename?: 'User'; id: string }
-  pages: Array<{
-    __typename?: 'Page'
-    id: string
-    name: string
-    slug: string
-    rootElement: {
-      __typename?: 'Element'
-      descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
-    } & ElementFragment
-    app: { __typename?: 'App'; id: string }
-  }>
-  store: { __typename?: 'Store' } & StoreFragment
-}
-
-export type AtomFragment = {
-  __typename?: 'Atom'
-  icon?: string | null
-  id: string
-  name: string
-  type: AtomType
-  tags: Array<{ __typename?: 'Tag' } & TagFragment>
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
-  allowedChildren: Array<{
-    __typename?: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-  }>
-}
-
-export type RenderAtomFragment = {
-  __typename?: 'Atom'
-  icon?: string | null
-  id: string
-  name: string
-  type: AtomType
-  tags: Array<{ __typename?: 'Tag' } & TagPreviewFragment>
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
-  allowedChildren: Array<{
-    __typename?: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-  }>
-}
-
-export type RenderedComponentFragment = {
-  __typename?: 'Component'
-  rootElement: {
-    __typename?: 'Element'
-    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
-  } & ElementFragment
-} & ComponentFragment
-
-export type ComponentFragment = {
-  __typename?: 'Component'
-  id: string
-  name: string
-  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
-}
-
-export type DomainFragment = {
-  __typename?: 'Domain'
-  id: string
-  name: string
-  app: { __typename?: 'App'; id: string }
-  domainConfig: {
-    __typename?: 'VercelDomainConfigData'
-    misconfigured: boolean
-  }
-  projectDomain: { __typename?: 'VercelProjectDomainData'; verified: boolean }
-}
-
-export type ElementFragment = {
-  __typename: 'Element'
-  id: string
-  name?: string | null
-  customCss?: string | null
-  guiCss?: string | null
-  renderForEachPropKey?: string | null
-  renderIfPropKey?: string | null
-  preRenderActionId?: string | null
-  postRenderActionId?: string | null
-  propTransformationJs?: string | null
-  renderComponentType?:
-    | ({ __typename?: 'Component' } & ComponentFragment)
-    | null
-  renderAtomType?: ({ __typename?: 'Atom' } & RenderAtomFragment) | null
-  prevSibling?: { __typename?: 'Element'; id: string } | null
-  nextSibling?: { __typename?: 'Element'; id: string } | null
-  parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null
-  parent?: { __typename?: 'Element'; id: string } | null
-  firstChild?: { __typename?: 'Element'; id: string } | null
-  props?: ({ __typename?: 'Prop' } & PropFragment) | null
-  hooks: Array<{ __typename?: 'Hook' } & HookFragment>
-  propMapBindings: Array<
-    { __typename?: 'PropMapBinding' } & PropMapBindingFragment
-  >
-}
-
-export type HookPropFragment = { __typename?: 'Prop'; id: string; data: string }
-
-export type HookFragment = {
-  __typename?: 'Hook'
-  id: string
-  type: AtomType
-  config: { __typename?: 'Prop' } & HookPropFragment
-  element: { __typename?: 'Element'; id: string; name?: string | null }
-}
-
-export type PageFragment = {
-  __typename?: 'Page'
-  id: string
-  name: string
-  slug: string
-  app: { __typename?: 'App'; id: string }
-  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
-}
-
-export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
-
-export type PropMapBindingFragment = {
-  __typename?: 'PropMapBinding'
-  id: string
-  sourceKey: string
-  targetKey: string
-  element: { __typename?: 'Element'; id: string; name?: string | null }
-  targetElement?: {
-    __typename?: 'Element'
-    id: string
-    name?: string | null
-  } | null
-}
-
-export type ResourceFragment = {
-  __typename: 'Resource'
-  id: string
-  name: string
-  type: ResourceType
-  config: { __typename?: 'Prop' } & PropFragment
-  owner: { __typename?: 'User'; id: string }
-}
-
-export type StoreFragment = {
-  __typename?: 'Store'
-  id: string
-  name: string
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
-  actions: Array<
-    | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
-    | ({ __typename?: 'CodeAction' } & Action_CodeAction_Fragment)
-  >
-}
-
-export type TagFragment = {
-  __typename?: 'Tag'
-  id: string
-  name: string
-  isRoot?: boolean | null
-  parent?: { __typename?: 'Tag'; id: string } | null
-  children: Array<{ __typename?: 'Tag'; id: string }>
-  descendants: Array<{ __typename?: 'Tag'; id: string }>
-}
-
-export type TagPreviewFragment = {
-  __typename?: 'Tag'
-  id: string
-  name: string
-}
-
-export type ActionTypeFragment = {
-  __typename?: 'ActionType'
-} & TypeBase_ActionType_Fragment
-
-export type AppTypeFragment = {
-  __typename?: 'AppType'
-} & TypeBase_AppType_Fragment
-
-export type ArrayTypeFragment = {
-  __typename?: 'ArrayType'
-  itemType:
-    | { __typename?: 'ActionType'; id: string; name: string }
-    | { __typename?: 'AppType'; id: string; name: string }
-    | { __typename?: 'ArrayType'; id: string; name: string }
-    | { __typename?: 'CodeMirrorType'; id: string; name: string }
-    | { __typename?: 'ElementType'; id: string; name: string }
-    | { __typename?: 'EnumType'; id: string; name: string }
-    | { __typename?: 'InterfaceType'; id: string; name: string }
-    | { __typename?: 'LambdaType'; id: string; name: string }
-    | { __typename?: 'PageType'; id: string; name: string }
-    | { __typename?: 'PrimitiveType'; id: string; name: string }
-    | { __typename?: 'ReactNodeType'; id: string; name: string }
-    | { __typename?: 'RenderPropsType'; id: string; name: string }
-    | { __typename?: 'UnionType'; id: string; name: string }
-} & TypeBase_ArrayType_Fragment
-
-export type CodeMirrorTypeFragment = {
-  __typename?: 'CodeMirrorType'
-  language: CodeMirrorLanguage
-} & TypeBase_CodeMirrorType_Fragment
-
-export type ElementTypeFragment = {
-  __typename?: 'ElementType'
-  elementKind: ElementTypeKind
-} & TypeBase_ElementType_Fragment
-
-export type EnumTypeValueFragment = {
-  __typename?: 'EnumTypeValue'
-  id: string
-  name?: string | null
-  value: string
-}
-
-export type EnumTypeFragment = {
-  __typename?: 'EnumType'
-  allowedValues: Array<{ __typename?: 'EnumTypeValue' } & EnumTypeValueFragment>
-} & TypeBase_EnumType_Fragment
-
-export type FieldFragment = {
-  __typename?: 'InterfaceTypeFieldsRelationship'
-  id: string
-  key: string
-  name?: string | null
-  description?: string | null
-  validationRules?: string | null
-  fieldType:
-    | { __typename?: 'ActionType'; id: string }
-    | { __typename?: 'AppType'; id: string }
-    | { __typename?: 'ArrayType'; id: string }
-    | { __typename?: 'CodeMirrorType'; id: string }
-    | { __typename?: 'ElementType'; id: string }
-    | { __typename?: 'EnumType'; id: string }
-    | { __typename?: 'InterfaceType'; id: string }
-    | { __typename?: 'LambdaType'; id: string }
-    | { __typename?: 'PageType'; id: string }
-    | { __typename?: 'PrimitiveType'; id: string }
-    | { __typename?: 'ReactNodeType'; id: string }
-    | { __typename?: 'RenderPropsType'; id: string }
-    | { __typename?: 'UnionType'; id: string }
-}
-
-export type InterfaceTypeFragment = {
-  __typename?: 'InterfaceType'
-  ownerConnection: {
-    __typename?: 'TypeBaseOwnerConnection'
-    edges: Array<{ __typename?: 'TypeBaseOwnerRelationship'; data: string }>
-  }
-  fieldsConnection: {
-    __typename?: 'InterfaceTypeFieldsConnection'
-    edges: Array<
-      { __typename?: 'InterfaceTypeFieldsRelationship' } & FieldFragment
-    >
-  }
-} & TypeBase_InterfaceType_Fragment
-
-export type LambdaTypeFragment = {
-  __typename?: 'LambdaType'
-} & TypeBase_LambdaType_Fragment
-
-export type PageTypeFragment = {
-  __typename?: 'PageType'
-} & TypeBase_PageType_Fragment
-
-export type PrimitiveTypeFragment = {
-  __typename?: 'PrimitiveType'
-  primitiveKind: PrimitiveTypeKind
-} & TypeBase_PrimitiveType_Fragment
-
-export type ReactNodeTypeFragment = {
-  __typename?: 'ReactNodeType'
-} & TypeBase_ReactNodeType_Fragment
-
-export type RenderPropsTypeFragment = {
-  __typename?: 'RenderPropsType'
-} & TypeBase_RenderPropsType_Fragment
-
-type TypeBase_ActionType_Fragment = {
-  __typename: 'ActionType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_AppType_Fragment = {
-  __typename: 'AppType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_ArrayType_Fragment = {
-  __typename: 'ArrayType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_CodeMirrorType_Fragment = {
-  __typename: 'CodeMirrorType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_ElementType_Fragment = {
-  __typename: 'ElementType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_EnumType_Fragment = {
-  __typename: 'EnumType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_InterfaceType_Fragment = {
-  __typename: 'InterfaceType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_LambdaType_Fragment = {
-  __typename: 'LambdaType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_PageType_Fragment = {
-  __typename: 'PageType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_PrimitiveType_Fragment = {
-  __typename: 'PrimitiveType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_ReactNodeType_Fragment = {
-  __typename: 'ReactNodeType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_RenderPropsType_Fragment = {
-  __typename: 'RenderPropsType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-type TypeBase_UnionType_Fragment = {
-  __typename: 'UnionType'
-  kind: TypeKind
-  id: string
-  name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
-}
-
-export type TypeBaseFragment =
-  | TypeBase_ActionType_Fragment
-  | TypeBase_AppType_Fragment
-  | TypeBase_ArrayType_Fragment
-  | TypeBase_CodeMirrorType_Fragment
-  | TypeBase_ElementType_Fragment
-  | TypeBase_EnumType_Fragment
-  | TypeBase_InterfaceType_Fragment
-  | TypeBase_LambdaType_Fragment
-  | TypeBase_PageType_Fragment
-  | TypeBase_PrimitiveType_Fragment
-  | TypeBase_ReactNodeType_Fragment
-  | TypeBase_RenderPropsType_Fragment
-  | TypeBase_UnionType_Fragment
-
-type Type_ActionType_Fragment = {
-  __typename?: 'ActionType'
-} & TypeBase_ActionType_Fragment &
-  ActionTypeFragment
-
-type Type_AppType_Fragment = {
-  __typename?: 'AppType'
-} & TypeBase_AppType_Fragment &
-  AppTypeFragment
-
-type Type_ArrayType_Fragment = {
-  __typename?: 'ArrayType'
-} & TypeBase_ArrayType_Fragment &
-  ArrayTypeFragment
-
-type Type_CodeMirrorType_Fragment = {
-  __typename?: 'CodeMirrorType'
-} & TypeBase_CodeMirrorType_Fragment &
-  CodeMirrorTypeFragment
-
-type Type_ElementType_Fragment = {
-  __typename?: 'ElementType'
-} & TypeBase_ElementType_Fragment &
-  ElementTypeFragment
-
-type Type_EnumType_Fragment = {
-  __typename?: 'EnumType'
-} & TypeBase_EnumType_Fragment &
-  EnumTypeFragment
-
-type Type_InterfaceType_Fragment = {
-  __typename?: 'InterfaceType'
-} & TypeBase_InterfaceType_Fragment &
-  InterfaceTypeFragment
-
-type Type_LambdaType_Fragment = {
-  __typename?: 'LambdaType'
-} & TypeBase_LambdaType_Fragment &
-  LambdaTypeFragment
-
-type Type_PageType_Fragment = {
-  __typename?: 'PageType'
-} & TypeBase_PageType_Fragment &
-  PageTypeFragment
-
-type Type_PrimitiveType_Fragment = {
-  __typename?: 'PrimitiveType'
-} & TypeBase_PrimitiveType_Fragment &
-  PrimitiveTypeFragment
-
-type Type_ReactNodeType_Fragment = {
-  __typename?: 'ReactNodeType'
-} & TypeBase_ReactNodeType_Fragment
-
-type Type_RenderPropsType_Fragment = {
-  __typename?: 'RenderPropsType'
-} & TypeBase_RenderPropsType_Fragment &
-  RenderPropsTypeFragment
-
-type Type_UnionType_Fragment = {
-  __typename?: 'UnionType'
-} & TypeBase_UnionType_Fragment &
-  UnionTypeFragment
-
-export type TypeFragment =
-  | Type_ActionType_Fragment
-  | Type_AppType_Fragment
-  | Type_ArrayType_Fragment
-  | Type_CodeMirrorType_Fragment
-  | Type_ElementType_Fragment
-  | Type_EnumType_Fragment
-  | Type_InterfaceType_Fragment
-  | Type_LambdaType_Fragment
-  | Type_PageType_Fragment
-  | Type_PrimitiveType_Fragment
-  | Type_ReactNodeType_Fragment
-  | Type_RenderPropsType_Fragment
-  | Type_UnionType_Fragment
-
-export type UnionTypeFragment = {
-  __typename?: 'UnionType'
-  typesOfUnionType: Array<
-    | { __typename?: 'ActionType'; id: string; name: string }
-    | { __typename?: 'AppType'; id: string; name: string }
-    | { __typename?: 'ArrayType'; id: string; name: string }
-    | { __typename?: 'CodeMirrorType'; id: string; name: string }
-    | { __typename?: 'ElementType'; id: string; name: string }
-    | { __typename?: 'EnumType'; id: string; name: string }
-    | { __typename?: 'InterfaceType'; id: string; name: string }
-    | { __typename?: 'LambdaType'; id: string; name: string }
-    | { __typename?: 'PageType'; id: string; name: string }
-    | { __typename?: 'PrimitiveType'; id: string; name: string }
-    | { __typename?: 'ReactNodeType'; id: string; name: string }
-    | { __typename?: 'RenderPropsType'; id: string; name: string }
-    | { __typename?: 'UnionType'; id: string; name: string }
-  >
-} & TypeBase_UnionType_Fragment
-
-export type UserFragment = {
-  __typename?: 'User'
-  id: string
-  username: string
-  email: string
-  auth0Id: string
-  roles: Array<Role>
-  apps: Array<{ __typename?: 'App' } & AppFragment>
 }

@@ -1,16 +1,16 @@
 import 'isomorphic-fetch'
-import { ExportedData } from '@codelab/shared/abstract/core'
+import { ExportedData } from '@codelab/backend/abstract/core'
 import fs from 'fs'
 import path from 'path'
 import { importApps } from '../../use-cases/import/import-apps'
 import { importResources } from '../../use-cases/import/import-resources'
 import { importTypes } from '../../use-cases/import/import-types'
 
-export const importUserData = async (file: string, selectedUserId: string) => {
+export const importUserData = async (file: string, userId: string) => {
   const json = fs.readFileSync(path.resolve(process.cwd(), file), 'utf8')
   const { apps, atoms, types, resources } = JSON.parse(json) as ExportedData
 
-  await importTypes(types, selectedUserId, (type) => ({ id: type.id }))
+  await importTypes(types, userId, (type) => ({ id: type.id }))
 
   // await importAtoms({
   //   atoms,
@@ -19,7 +19,7 @@ export const importUserData = async (file: string, selectedUserId: string) => {
   //   tagWhere: (tag) => ({ id: tag.id }),
   // })
 
-  await importResources(resources, selectedUserId)
+  await importResources(resources, userId)
 
-  await importApps(apps, selectedUserId)
+  await importApps(apps, userId)
 }

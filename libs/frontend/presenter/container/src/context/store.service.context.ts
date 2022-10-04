@@ -1,4 +1,4 @@
-import { IStore, IStoreService } from '@codelab/shared/abstract/core'
+import { IStore, IStoreService } from '@codelab/frontend/abstract/core'
 import { createContext, detach, rootRef } from 'mobx-keystone'
 
 /**

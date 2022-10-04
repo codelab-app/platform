@@ -1,14 +1,13 @@
-import { AtomOGM, InterfaceTypeOGM } from '@codelab/backend/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   ExistingData,
   IAtomImport,
   ITagExport,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { connectNode, connectNodes, connectTypeId } from '@codelab/shared/data'
+import { connectNode, connectNodes } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
-import { getApiName } from '../use-cases/seed/data/ant-design.data'
 
 /**
  * We upsert by ID so we can easily change the names by re-running import
@@ -21,11 +20,13 @@ export const upsertAtom = async (
 ) => {
   logTask('Upserting Atom', atom.name)
 
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
 
-  const existingAtom = await Atom.find({
-    where: atomWhere(atom),
-  })
+  const existingAtom = (
+    await Atom.find({
+      where: atomWhere(atom),
+    })
+  )[0]
 
   const baseInput = {
     id: atom.id,
@@ -37,31 +38,13 @@ export const upsertAtom = async (
   const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] =
     atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
 
-  if (!existingAtom.length) {
-    const InterfaceType = await InterfaceTypeOGM()
-
-    const interfaceType = (
-      await InterfaceType.find({
-        where: {
-          id: atom.api.id,
-        },
-      })
-    )[0]
-
-    // upsertType()
-
+  if (!existingAtom) {
     const createInput: OGM_TYPES.AtomCreateInput = {
       ...baseInput,
-      // Always re-create the API if atom is missing
-      api: {
-        create: {
-          node: {
-            id: atom.api.id,
-            name: getApiName(atom.name),
-            owner: connectTypeId(userId),
-          },
-        },
-      },
+      /**
+       * We assume interface has been created in a previous step
+       */
+      api: connectNode(atom.api.id),
       tags: { connect: connectTags },
     }
 
@@ -83,17 +66,15 @@ export const upsertAtom = async (
     const updateInput: OGM_TYPES.AtomUpdateInput = {
       ...baseInput,
       // Assume the API exists
-      api: connectNode(atom.api?.id),
+      api: connectNode(existingAtom.api?.id),
       tags: [{ connect: connectTags }],
     }
 
-    logTask('Updated Atom', atom.name)
+    logTask('Updating Atom', atom.name)
 
     try {
       return await Atom.update({
-        where: {
-          id: atom.id,
-        },
+        where: atomWhere(atom),
         update: updateInput,
       })
     } catch (e) {
@@ -107,7 +88,7 @@ export const assignAllowedChildren = async (
   atom: IAtomImport,
   data: ExistingData,
 ) => {
-  const Atom = await AtomOGM()
+  const Atom = await Repository.instance.Atom
   const allowedChildrenIds = atom.allowedChildren(data).map((child) => child.id)
 
   try {

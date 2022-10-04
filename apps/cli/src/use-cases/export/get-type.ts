@@ -1,4 +1,4 @@
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 
 export const sortInterfaceTypesFields = (
   interfaceTypes: Array<OGM_TYPES.InterfaceType>,

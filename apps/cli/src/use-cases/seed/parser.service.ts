@@ -1,116 +1,110 @@
 import {
-  InterfaceTypeOGM,
-  interfaceTypeSelectionSet,
-} from '@codelab/backend/adapter/neo4j'
-import {
-  AntdDesignApi,
-  ApiData,
+  AntDesignFieldsByFile,
+  ExistingData,
+  FieldDataKeyByApiId,
   IAtomImport,
-  ICreateFieldDTO,
-} from '@codelab/shared/abstract/core'
-import { csvNameToAtomTypeMap } from '@codelab/shared/data'
+} from '@codelab/backend/abstract/core'
+import { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
+import { atomTypeKeyByFileName } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
+import merge from 'lodash/merge'
 import { v4 } from 'uuid'
-import { createAntDesignAtomsData } from './data/ant-design.data'
-import { iterateCsvs } from './iterateCsv'
+import { createAntdAtomData } from './data/ant-design-atom.data'
+import { readCsvFiles } from './read-csv-files'
 import { getTypeForApi } from './type-map'
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
+ *
+ * We don't map the existing ids here
  */
 export class ParserService {
   private antdDataFolder = `${process.cwd()}/data/antd/`
 
-  private customComponentsDataFolder = `${process.cwd()}/data/customComponents/`
+  private readonly atoms: { [atomName: string]: IAtomImport }
 
-  /**
-   * An array of future created atoms, we first build out the pipeline, then call it with input data later
-   *
-   * Map of atom type to export data
-   */
-  private atoms: Promise<Map<string, IAtomImport>>
+  constructor(private userId: string, private existingData: ExistingData) {
+    // cLog('Existing Data', existingData)
+    // logger.info('Existing Data', existingData)
 
-  public apis: Array<ApiData> = []
-
-  private userId: string
-
-  constructor(userId: string) {
-    this.userId = userId
-    this.atoms = createAntDesignAtomsData().then(
-      (data) => new Map(data.map((atom) => [atom.type, atom])),
-    )
+    this.atoms = createAntdAtomData(existingData)
+      .map((atom) => ({
+        [atom.name]: atom,
+      }))
+      .reduce(merge, {})
   }
 
   /**
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
-  async extractMappedFields() {
-    await iterateCsvs(this.antdDataFolder, await this.handleCsv.bind(this))
+  async extractFieldData(): Promise<FieldDataKeyByApiId> {
+    const csvData = await readCsvFiles(this.antdDataFolder)
 
-    return this.apis
+    return this.transform(csvData)
   }
 
-  private async handleCsv(data: Array<AntdDesignApi>, file: string) {
-    const atomType = csvNameToAtomTypeMap.get(file.replace('.csv', ''))
+  private async transform(
+    fieldsByFile: AntDesignFieldsByFile,
+  ): Promise<FieldDataKeyByApiId> {
+    const fieldDataKeyByApiId: FieldDataKeyByApiId = {}
 
-    if (!atomType) {
-      console.log('Missing atom data for file', file)
+    for (const [file, antdDesignFields] of Object.entries(fieldsByFile)) {
+      const atomName = atomTypeKeyByFileName[file.replace('.csv', '')]
 
-      return
-    }
+      if (!atomName) {
+        console.log('Missing atom data for file', file)
 
-    const atom = (await this.atoms).get(atomType)
+        continue
+      }
 
-    if (!atom) {
-      return
-    }
+      const atom = (await this.atoms)[atomName]
 
-    /**
-     * Here we need to fetch
-     */
-    const InterfaceType = await InterfaceTypeOGM()
+      if (!atom) {
+        console.log('Atom data not found', atomName)
 
-    /**
-     * Key by composite key with interfaceId & fieldKey
-     */
-    const interfaceTypes = await InterfaceType.find({
-      selectionSet: interfaceTypeSelectionSet,
-    })
+        continue
+      }
 
-    const existingFieldsMap = new Map(
-      // Create Array<[ref, field]>
-      interfaceTypes.flatMap((interfaceType) =>
-        interfaceType.fieldsConnection.edges.map((field) => [
-          `${interfaceType.id}-${field.key}`,
-          field,
-        ]),
-      ),
-    )
+      const fields: Array<ICreateFieldDTO> = await Promise.all(
+        antdDesignFields.map(async (field) => {
+          const existingField =
+            this.existingData.fields[`${atom.api.name}-${field.property}`]
 
-    const fields: Array<ICreateFieldDTO> = await Promise.all(
-      data.map(async (field) => ({
-        id:
-          existingFieldsMap.get(`${atom.api.id}-${field.property}`)?.id ?? v4(),
-        key: field.property,
-        name: pascalCaseToWords(field.property),
-        description: field.description,
-        validationRules: {
-          general: {
-            nullable: true,
-          },
+          const fieldType =
+            (await getTypeForApi(field, atom, this.userId))?.existingId ?? ''
+
+          // logger.info('Field Type', {
+          //   existingField,
+          //   name: `${atom.api.name}-${field.property}`,
+          //   fieldType,
+          // })
+
+          return {
+            id: existingField ? existingField.id : v4(),
+            key: field.property,
+            name: pascalCaseToWords(field.property),
+            description: field.description,
+            // Return empty string for filtering later
+            fieldType,
+            // Set default validation rules
+            validationRules: {
+              general: {
+                nullable: true,
+              },
+            },
+          }
+        }),
+      )
+
+      const filteredFields = fields.filter(
+        (field): field is ICreateFieldDTO => {
+          return Boolean(field.fieldType)
         },
-        fieldType:
-          (await getTypeForApi(field, atom, this.userId))?.existingId ?? '',
-      })),
-    )
+      )
 
-    const filteredFields = fields.filter((field): field is ICreateFieldDTO => {
-      return Boolean(field.fieldType)
-    })
+      Object.assign(fieldDataKeyByApiId, { [atom.api.id]: filteredFields })
+    }
 
-    this.apis.push({
-      fields: filteredFields,
-      atom,
-    })
+    return fieldDataKeyByApiId
   }
 }

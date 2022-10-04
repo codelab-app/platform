@@ -4,7 +4,7 @@ import {
   STATE_PATH_TEMPLATE_START_REGEX,
   WORD_BEFORE_DOT_REGEX,
 } from '@codelab/frontend/abstract/core'
-import {
+import type {
   Completion,
   CompletionContext,
   CompletionSource,

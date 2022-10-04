@@ -1,19 +1,16 @@
-import { PrimitiveTypeOGM } from '@codelab/backend/adapter/neo4j'
 import {
-  AntdDesignApi,
+  AntdDesignField,
   IAtomImport,
-  IPrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
-
-type TypeRef = {
-  existingId: string
-} | null
+  TypeRef,
+} from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 
 export const getPrimitiveTypeForApi = async (
-  apiField: AntdDesignApi,
+  apiField: AntdDesignField,
   atom: IAtomImport,
 ): Promise<TypeRef> => {
-  const PrimitiveType = await PrimitiveTypeOGM()
+  const PrimitiveType = await Repository.instance.PrimitiveType
 
   // Check and Create Primitive Type
   switch (apiField.type) {
@@ -55,14 +52,10 @@ export const getPrimitiveTypeForApi = async (
     }
 
     default: {
-      // console.log('=========')
-
-      // console.log(
-      //   `Could not transform fields for Atom [${atom.type}]`,
-      //   apiField,
-      // )
-
-      // console.log('=========')
+      console.log(
+        `Could not transform fields for Atom [${atom.type}]`,
+        apiField,
+      )
 
       return null
     }

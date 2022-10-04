@@ -1,10 +1,9 @@
+import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 import {
   autocompletion,
   closeBrackets,
   closeBracketsKeymap,
-  Completion,
   completionKeymap,
-  CompletionSource,
 } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import {
@@ -17,7 +16,8 @@ import {
 } from '@codemirror/language'
 import { lintKeymap } from '@codemirror/lint'
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
-import { EditorState, Extension } from '@codemirror/state'
+import type { Extension } from '@codemirror/state'
+import { EditorState } from '@codemirror/state'
 import {
   crosshairCursor,
   drawSelection,

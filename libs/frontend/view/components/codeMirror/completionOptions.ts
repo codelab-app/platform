@@ -1,6 +1,8 @@
-import { IPropData } from '@codelab/shared/abstract/core'
-import { Completion } from '@codemirror/autocomplete'
-import { capitalize, isArray, isObjectLike } from 'lodash'
+import { IPropData } from '@codelab/frontend/abstract/core'
+import type { Completion } from '@codemirror/autocomplete'
+import capitalize from 'lodash/capitalize'
+import isArray from 'lodash/isArray'
+import isObjectLike from 'lodash/isObjectLike'
 
 // for making autocomplete of code mirror
 export const createAutoCompleteOptions = (

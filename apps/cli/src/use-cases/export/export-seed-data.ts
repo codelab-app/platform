@@ -1,23 +1,28 @@
-import { ExportedData } from '@codelab/shared/abstract/core'
+import { ExportedData } from '@codelab/backend/abstract/core'
 import { exportAtoms } from './export-atoms'
-import { exportSeedTypes } from './export-seed-types'
 import { exportTags } from './export-tags'
+import { exportTypes } from './export-types'
 
 export const exportSeedData = async () => {
   const atomsData = await exportAtoms()
   const tagsData = await exportTags()
-  const seedTypesData = await exportSeedTypes()
+  const seedTypesData = await exportTypes()
 
   // We'll want to sort the data so diff is minimized
   const sortedAtomsData = atomsData
-    // Sort by atom name
-    .sort((a, b) => a.name.localeCompare(b.name))
-    // Sort the allowed children data as well
+    // Sort nested properties, since we can't do this with OGM
     .map((atom) => ({
       ...atom,
       allowedChildren: atom.allowedChildren.sort((a, b) =>
         a.name.localeCompare(b.name),
       ),
+    }))
+
+  const sortedTagsData = tagsData
+    // Sort children values
+    .map((tag) => ({
+      ...tag,
+      children: tag.children?.sort((a, b) => a.id.localeCompare(b.id)),
     }))
 
   const seedData: Omit<
@@ -26,7 +31,7 @@ export const exportSeedData = async () => {
   > = {
     atoms: sortedAtomsData,
     types: seedTypesData,
-    tags: tagsData,
+    tags: sortedTagsData,
   }
 
   return seedData

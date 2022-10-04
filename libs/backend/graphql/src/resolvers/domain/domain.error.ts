@@ -1,4 +1,4 @@
-import { DOMAIN_GRAPHQL_ERROR_CODES } from '@codelab/shared/abstract/core'
+import { DOMAIN_GRAPHQL_ERROR_CODES } from '@codelab/frontend/abstract/core'
 import { ApolloError } from 'apollo-server-micro'
 
 export const domainExistsError = new ApolloError(

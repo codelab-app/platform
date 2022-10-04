@@ -1,18 +1,17 @@
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
 const primitiveTypeKind = ITypeKind.PrimitiveType
-const primitiveTypePrimitiveKind = PrimitiveTypeKind.String
+const primitiveTypePrimitiveKind = IPrimitiveTypeKind.String
 // Enum Type use case
 const enumTypeName = 'COLORS'
 const enumTypeKind = 'EnumType'
 
 const enumTypeAllowedValues = [
-  { name: 'BLACK', value: '0' },
-  { name: 'WHITE', value: '1' },
+  { key: 'BLACK', value: '0' },
+  { key: 'WHITE', value: '1' },
 ]
 
 // Array Type use case
@@ -87,7 +86,7 @@ describe('Types CRUD', () => {
         cy.findByRole('button', { name: /plus-square/ }).click()
 
         // Can't use setFormFieldValue since it doesn't take previous subject
-        cy.getModal().findAllByLabelText('Name').last().type(enumItem.name)
+        cy.getModal().findAllByLabelText('Key').last().type(enumItem.key)
         cy.getModal().findAllByLabelText('Value').last().type(enumItem.value)
       })
 

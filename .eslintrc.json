@@ -7,42 +7,68 @@
     "import",
     "unused-imports",
     "react",
-    "react-hooks",
+    //    "react-hooks",
     "@emotion",
     "prettier",
     "jest",
     "jest-formatting",
-    "simple-import-sort"
+    "simple-import-sort",
+    "lodash"
   ],
   "env": {
     "jest/globals": true
   },
   "extends": [
-    "plugin:prettier/recommended",
-    "plugin:jest/recommended",
-    "plugin:jest/style"
+    "plugin:prettier/recommended"
+    // "plugin:jest/recommended",
+    // "plugin:jest/style"
+    // Only enable for projects like cypress & specs
+    // Typescript adds support to import for ts files
+    //    "plugin:import/recommended",
+    //    "plugin:import/typescript"
+    //    "plugin:lodash/recommended"
   ],
+  // Used for import plugin
+  "settings": {
+    "extensions": [".js", ".jsx", ".ts", ".tsx"],
+    // Can't resolve for some reason
+    "import/ignore": ["react-query"],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "project": ["**/tsconfig.lib.json", "**/tsconfig.spec.json"]
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "project": ["**/tsconfig.lib.json", "**/tsconfig.spec.json"]
+      }
+    }
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        //        "max-params": [
-        //          "error",
-        //          {
-        //            "max": 6
-        //          }
-        //        ],
-        //        "unused-imports/no-unused-imports-ts": "error",
-        //        "prefer-destructuring": [
-        //          "error",
-        //          {
-        //            "array": true,
-        //            "object": true
-        //          },
-        //          {
-        //            "enforceForRenamedProperties": false
-        //          }
-        //        ],
+        // "max-params": [
+        //   "error",
+        //   {
+        //     "max": 6
+        //   }
+        // ],
+        // "prefer-destructuring": [
+        //   "error",
+        //   {
+        //     "array": true,
+        //     "object": true
+        //   },
+        //   {
+        //     "enforceForRenamedProperties": false
+        //   }
+        // ],
+        "lodash/import-scope": ["error", "method"],
+        "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",
         "react/jsx-sort-props": "error",
@@ -250,9 +276,15 @@
           }
         ],
         "simple-import-sort/exports": "error",
+        //
+        // Custom import rules
+        //
         "import/newline-after-import": "error",
+        "import/no-unresolved": "error",
+        "import/named": "error",
         "import/first": "error",
-        "import/no-cycle": "error",
+        // SUPER SLOW!
+        "import/no-cycle": "off",
         "import/no-duplicates": "error",
         "prettier/prettier": [
           "error",
@@ -462,6 +494,11 @@
         "react/jsx-props-no-spreading": "off"
       }
     },
+    //    {
+    //      "files": ["*.spec.ts"],
+    //      "extends": ["plugin:import/recommended"],
+    //      "rules": {}
+    //    },
     //    {
     //      "files": ["*.jsx", "*.tsx"],
     //      "extends": ["plugin:react-hooks/recommended"]

@@ -9,7 +9,7 @@ import { resetCommand } from './commands/reset/reset.command'
 import { scrapeCommand } from './commands/scrape/scrape.command'
 import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
-import { getEnvOptions, setEnvMiddleware } from './shared/command'
+import { getEnvOptions, setMiddleware } from './shared/command'
 import { Env } from './shared/utils/env'
 
 /**
@@ -20,7 +20,7 @@ import { Env } from './shared/utils/env'
 void yargs(hideBin(process.argv))
   .scriptName('cli')
   .options(getEnvOptions([Env.Dev, Env.Test, Env.Prod]))
-  .middleware(setEnvMiddleware)
+  .middleware(setMiddleware)
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */

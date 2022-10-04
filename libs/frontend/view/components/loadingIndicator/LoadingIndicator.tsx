@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Spin from 'antd/lib/spin'
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction'
 import React, { CSSProperties } from 'react'
 import { LoadingData } from './useTrackLoadingPromises'
 

@@ -1,12 +1,9 @@
-import { RenderPropsTypeOGM } from '@codelab/backend/adapter/neo4j'
+import { TypeRef } from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 
-type TypeRef = {
-  existingId: string
-} | null
-
 export const getRenderPropTypeForApi = async (): Promise<TypeRef> => {
-  const RenderPropsType = await RenderPropsTypeOGM()
+  const RenderPropsType = await Repository.instance.RenderPropsType
 
   const [renderPropsType] = await RenderPropsType.find({
     where: {

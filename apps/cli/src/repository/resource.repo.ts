@@ -1,18 +1,18 @@
-import { ResourceOGM } from '@codelab/backend/adapter/neo4j'
-import { IResourceExport } from '@codelab/shared/abstract/core'
+import { IResourceExport } from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { connectNode } from '@codelab/shared/data'
 
 export const createResource = async (
   resource: IResourceExport,
-  selectedUserId: string,
+  userId: string,
 ) => {
-  const Resource = await ResourceOGM()
+  const Resource = await Repository.instance.Resource
 
   const input = {
     id: resource.id,
     name: resource.name,
     type: resource.type,
-    owner: connectNode(selectedUserId),
+    owner: connectNode(userId),
     config: {
       create: { node: { data: resource.config.data } },
     },

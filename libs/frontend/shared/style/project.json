@@ -1,7 +1,6 @@
 {
   "sourceRoot": "libs/frontend/shared/style/src",
   "projectType": "library",
-  "tags": ["scope:shared"],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -10,5 +9,6 @@
         "lintFilePatterns": ["libs/frontend/shared/style/**/*.{ts,tsx,js,jsx}"]
       }
     }
-  }
+  },
+  "tags": ["scope:frontend"]
 }

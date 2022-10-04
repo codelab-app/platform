@@ -1,10 +1,10 @@
-import { UnionTypeOGM } from '@codelab/backend/adapter/neo4j'
 import {
-  AntdDesignApi,
+  AntdDesignField,
   IAtomImport,
-  IPrimitiveTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+  TypeRef,
+} from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectTypeId } from '@codelab/shared/data'
 import { capitalizeFirstLetter, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
@@ -18,12 +18,7 @@ const checkType = (value: string) => {
   return value === 'boolean' || value === 'number' || value === 'string'
 }
 
-const checkInterfaceType = (value: string) => {
-  return value.includes('}') || value.includes('{')
-}
-
 const allPrimitives = ['number', 'string', 'boolean']
-// check Interface Type using Regex
 
 // Function to check PrimitiveType of value
 const checkPrimitiveType = (value: string) => {
@@ -45,17 +40,13 @@ const checkPrimitiveType = (value: string) => {
   }
 }
 
-type TypeRef = {
-  existingId: string
-} | null
-
 export const getUnionTypeForApi = async (
-  apiField: AntdDesignApi,
+  apiField: AntdDesignField,
   atom: IAtomImport,
   userId: string,
   values: Array<string>,
 ): Promise<TypeRef> => {
-  const UnionType = await UnionTypeOGM()
+  const UnionType = await Repository.instance.UnionType
 
   const containsPrimitives: boolean = values.every((x) =>
     allPrimitives.includes(x),
@@ -253,7 +244,7 @@ export const getUnionTypeForApi = async (
   } else if (containsPrimitives) {
     return connectUnionType(values)
   } else {
-    // console.log(`Could not transform fields for Atom [${atom.type}]`, apiField)
+    console.log(`Could not transform fields for Atom [${atom.type}]`, apiField)
 
     return null
   }

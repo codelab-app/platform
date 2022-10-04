@@ -1,8 +1,10 @@
 import {
-  AntdDesignApi,
+  AntdDesignField,
   IAtomImport,
   TypeRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/backend/abstract/core'
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { logTask } from '../../shared/utils/log-task'
 import { getEnumTypeForApi } from './types/enum-type-map'
 import { getPrimitiveTypeForApi } from './types/primitive-type-map'
 import { getReactNodeTypeForApi } from './types/react-node-type-map'
@@ -19,11 +21,11 @@ import {
  */
 
 export const getTypeForApi = async (
-  apiField: AntdDesignApi,
+  apiField: AntdDesignField,
   atom: IAtomImport,
   userId: string,
 ): Promise<TypeRef> => {
-  // logTask('Get Type For API', atom.name, apiField)
+  logTask('Get Type For API', atom.name, apiField)
 
   const values = apiField.type.split('|').map((value: string) => value.trim())
   const isUnionType = apiField.type.includes('|')
@@ -51,7 +53,7 @@ export const getTypeForApi = async (
   if (findPrimitiveType.test(apiField.type)) {
     return await getPrimitiveTypeForApi(apiField, atom)
   } else {
-    // console.log(`Could not transform fields for Atom [${atom.type}]`, apiField)
+    console.log(`Could not transform fields for Atom [${atom.type}]`, apiField)
 
     return null
   }

@@ -6,7 +6,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["apps/builder-e2e/tsconfig.json"]
+        "project": ["apps/builder-e2e/tsconfig(.*)?.json"]
       },
       "rules": {
         "jest/valid-expect": "off",

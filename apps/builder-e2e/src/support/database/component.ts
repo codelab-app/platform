@@ -1,8 +1,8 @@
+import { IComponentDTO } from '@codelab/frontend/abstract/core'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { IComponentDTO } from '@codelab/shared/abstract/core'
 import { MaybeArray } from '@codelab/shared/abstract/types'
 import { print } from 'graphql'
-import { CreateComponentsDocument } from '../../../../../libs/frontend/modules/component/src/graphql/component.endpoints.graphql.gen'
+import { CreateComponentsDocument } from 'libs/frontend/domain/component/src/graphql/component.endpoints.graphql.gen'
 
 export const createComponent = (input: MaybeArray<ComponentCreateInput>) =>
   cy

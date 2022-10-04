@@ -1,13 +1,14 @@
 /**
  * This file is under `api` code so can import backend code
  */
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { getDriver, getSchema, UserOGM } from '@codelab/backend/adapter/neo4j'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { NextApiRequest } from '@codelab/backend/application'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { NextApiRequest } from '@codelab/backend/abstract/types'
 import { resolvers } from '@codelab/backend/graphql'
-import { upsertUser } from '@codelab/frontend/modules/user'
+import {
+  getDriver,
+  getSchema,
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { upsertUser } from '@codelab/frontend/domain/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Config } from '@codelab/shared/config'
@@ -104,8 +105,9 @@ const handler: NextApiHandler = async (req, res) => {
   // TODO: should think of a way so we don't need to call this everytime
   if (session?.user && Config().dev.upsert_user_middleware) {
     const user = session.user as Auth0SessionUser
+    const User = await Repository.instance.User
 
-    await upsertUser(await UserOGM(), user)
+    await upsertUser(User, user)
   }
 
   /**

@@ -1,6 +1,6 @@
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/frontend/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { mergeWith } from 'lodash'
+import mergeWith from 'lodash/mergeWith'
 
 type PropsArray = Array<Nullish<IPropData>>
 

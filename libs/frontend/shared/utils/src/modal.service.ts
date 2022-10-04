@@ -1,4 +1,4 @@
-import { IModalService } from '@codelab/shared/abstract/core'
+import { IModalService } from '@codelab/frontend/abstract/core'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 @model('@codelab/ModalService')

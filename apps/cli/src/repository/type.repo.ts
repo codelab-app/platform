@@ -1,29 +1,28 @@
+import { ITypeExport } from '@codelab/backend/abstract/core'
 import {
-  EnumTypeOGM,
-  InterfaceTypeOGM,
-  PrimitiveTypeOGM,
-  ReactNodeTypeOGM,
-  RenderPropsTypeOGM,
-} from '@codelab/backend/adapter/neo4j'
-import { fieldRepository } from '@codelab/backend/application'
-import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
+  exportEnumTypeSelectionSet,
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
+import { v4 } from 'uuid'
+import { logTask } from '../shared/utils/log-task'
 
-const createCreateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
+const createCreateBaseFields = (data: ITypeExport, userId: string) => ({
   id: data.id,
-  ...createUpdateBaseFields(data, selectedUserId),
+  ...createUpdateBaseFields(data, userId),
 })
 
 /**
  * During update we don't want to change the ID
  */
-const createUpdateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
+const createUpdateBaseFields = (data: ITypeExport, userId: string) => ({
   name: data.name,
   kind: data.kind,
-  owner: connectTypeId(selectedUserId),
+  owner: connectTypeId(userId),
 })
 
 /**
@@ -32,59 +31,64 @@ const createUpdateBaseFields = (data: ITypeExport, selectedUserId: string) => ({
  * For parsing we require name, since this generates new data and could replace old data
  */
 export const upsertType = async (
-  data: ITypeExport,
-  selectedUserId: string,
+  type: ITypeExport,
+  userId: string,
   where: BaseUniqueWhereCallback<ITypeExport>,
 ) => {
-  switch (data.__typename) {
+  switch (type.__typename) {
     case ITypeKind.PrimitiveType: {
-      const PrimitiveType = await PrimitiveTypeOGM()
+      const PrimitiveType = await Repository.instance.PrimitiveType
 
-      if (!data.primitiveKind) {
+      if (!type.primitiveKind) {
         throw new Error('Missing primitiveKind')
       }
 
       const exists = await PrimitiveType.find({
-        where: where(data),
+        where: where(type),
       })
 
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
-        return await PrimitiveType.create({
-          input: [
-            {
-              ...createCreateBaseFields(data, selectedUserId),
-              primitiveKind: data.primitiveKind,
-            },
-          ],
-        })
+        try {
+          return await PrimitiveType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+                primitiveKind: type.primitiveKind,
+              },
+            ],
+          })
+        } catch (e) {
+          console.error(e)
+          throw new Error('Create primitive failed')
+        }
       }
 
-      console.log(`Updating ${data.name} [${data.kind}]...`)
+      console.log(`Updating ${type.name} [${type.kind}]...`)
 
-      cLog(createUpdateBaseFields(data, selectedUserId))
+      cLog(createUpdateBaseFields(type, userId))
 
       return await PrimitiveType.update({
-        where: where(data),
-        update: createUpdateBaseFields(data, selectedUserId),
+        where: where(type),
+        update: createUpdateBaseFields(type, userId),
       })
     }
 
     case ITypeKind.RenderPropsType: {
-      const RenderPropsType = await RenderPropsTypeOGM()
+      const RenderPropsType = await Repository.instance.RenderPropsType
 
       const exists = await RenderPropsType.find({
-        where: where(data),
+        where: where(type),
       })
 
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return await RenderPropsType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
             },
           ],
         })
@@ -94,19 +98,19 @@ export const upsertType = async (
     }
 
     case ITypeKind.ReactNodeType: {
-      const ReactNodeType = await ReactNodeTypeOGM()
+      const ReactNodeType = await Repository.instance.ReactNodeType
 
       const exists = await ReactNodeType.find({
-        where: where(data),
+        where: where(type),
       })
 
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return await ReactNodeType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
             },
           ],
         })
@@ -116,21 +120,24 @@ export const upsertType = async (
     }
 
     case ITypeKind.EnumType: {
-      const EnumType = await EnumTypeOGM()
+      const EnumType = await Repository.instance.EnumType
 
-      const exists = await EnumType.find({
-        where: where(data),
-      })
+      const enumType = (
+        await EnumType.find({
+          where: where(type),
+          selectionSet: exportEnumTypeSelectionSet,
+        })
+      )[0]
 
-      if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+      if (!enumType) {
+        console.log(`Creating ${type.name} [${type.kind}]...`)
 
         return EnumType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
               allowedValues: {
-                create: data.allowedValues.map((value) => ({
+                create: type.allowedValues.map((value) => ({
                   node: makeAllowedValuesNodeInput(value),
                 })),
               },
@@ -139,85 +146,55 @@ export const upsertType = async (
         })
       }
 
-      console.log(`Updating ${data.name} [${data.kind}]...`)
+      console.log(`Updating ${type.name} [${type.kind}]...`, enumType)
 
       return EnumType.update({
-        where: where(data),
+        where: where(type),
         update: {
-          ...createCreateBaseFields(data, selectedUserId),
-          allowedValues: data.allowedValues.map((value) => ({
-            update: {
-              node: omit(makeAllowedValuesNodeInput(value), 'id'),
-            },
-          })),
+          ...createUpdateBaseFields(type, userId),
+          allowedValues: type.allowedValues.map((enumTypeValue) => {
+            const existingAllowedValue = enumType.allowedValues.find(
+              (x) => x.key === enumTypeValue.key,
+            )
+
+            return {
+              where: {
+                node: {
+                  // This shouldn't happen, unless the enums went missing
+                  id: existingAllowedValue?.id ?? v4(),
+                },
+              },
+              update: {
+                node: {
+                  ...omit(makeAllowedValuesNodeInput(enumTypeValue), 'id'),
+                },
+              },
+            }
+          }),
         },
       })
     }
 
     case ITypeKind.InterfaceType: {
-      const InterfaceType = await InterfaceTypeOGM()
+      const InterfaceType = await Repository.instance.InterfaceType
 
       const exists = await InterfaceType.find({
-        where: where(data),
+        where: where(type),
       })
 
       /**
        * First create the interface
        */
       if (!exists.length) {
-        console.log(`Creating ${data.name} [${data.kind}]...`)
+        logTask(`Create Interface ${type.kind}`, type.name)
 
         await InterfaceType.create({
           input: [
             {
-              ...createCreateBaseFields(data, selectedUserId),
+              ...createCreateBaseFields(type, userId),
             },
           ],
         })
-      }
-
-      /**
-       * For handling fields, we first disconnect everything
-       */
-      console.log(`Disconnect all fields for ${data.name}`)
-
-      await InterfaceType.update({
-        where: where(data),
-        update: {
-          fields: [
-            {
-              disconnect: [
-                {
-                  // https://neo4j.com/docs/graphql-manual/current/mutations/delete/#_nested_delete
-                  // Need to check if disconnect works the same
-                  where: {},
-                },
-              ],
-            },
-          ],
-        },
-      })
-
-      /**
-       * Then connect everything again
-       */
-      console.log(`Connecting fields for ${data.name}`)
-
-      for (const edge of data.fieldsConnection.edges) {
-        const args = {
-          interfaceTypeId: data.id,
-          fieldTypeId: edge.node.id,
-          field: {
-            id: edge.id,
-            name: edge.name,
-            description: edge.description,
-            key: edge.key,
-          },
-        }
-
-        console.log('Upserting field...', args)
-
-        await fieldRepository.upsertField(args)
       }
     }
   }

@@ -1,4 +1,4 @@
-import { IResourceExport } from '@codelab/shared/abstract/core'
+import { IResourceExport } from '@codelab/backend/abstract/core'
 import { createResource } from '../../repository/resource.repo'
 import { logSection, logTask } from '../../shared/utils/log-task'
 

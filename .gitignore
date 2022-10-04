@@ -4,11 +4,7 @@
 .env.*
 !.env.example
 !.env.test.example
-nx-cloud.env
 
-*.pem
-
-#
 .yarn/*
 #!.yarn/cache
 !.yarn/patches
@@ -45,9 +41,6 @@ node_modules/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-**/*.log
-
-
 # misc
 .sass-cache
 connect.lock
@@ -59,7 +52,6 @@ coverage/
 .DS_Store
 Thumbs.db
 
-.vercel
-
 # Next.js
 .next
+.vercel
