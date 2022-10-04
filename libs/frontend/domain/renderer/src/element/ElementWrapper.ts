@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react'
 import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
 import { DraggableElement } from './DraggableElement'
@@ -87,14 +88,35 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
-    // root element is not draggable
-    if (!element.parentElement) {
-      return React.createElement(Fragment, {}, Children)
-    }
+    // If we have an array, wrap it in a fragment
 
-    return React.createElement(Fragment, {
-      children: DraggableElement({ element, children: Children }),
-    })
+    return React.createElement(
+      ErrorBoundary,
+      {
+        fallbackRender: ({ error }) =>
+          React.createElement(
+            'div',
+            {},
+            `Error at ${element.name}: ${error.message}`,
+          ),
+        onError(error, info) {
+          console.log('An error is thrown!')
+          console.log(error)
+          console.log(info)
+          // element.setErrorMessage(`Something went wrong: ${error.message}`)
+        },
+        resetKeys: [renderOutputs],
+        onResetKeysChange: (prev, next) => {
+          console.log('onResetKeysChange of ', element.name)
+          console.log(prev)
+          console.log(next)
+          // element.setErrorMessage(null)
+        },
+      },
+      Array.isArray(Children)
+        ? React.createElement(Fragment, {}, Children)
+        : Children,
+    )
   },
 )
 
