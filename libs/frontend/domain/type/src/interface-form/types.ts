@@ -8,8 +8,8 @@ import { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import { SetIsLoading } from '@codelab/frontend/view/components'
 import { Assign } from 'utility-types'
 
-export type InterfaceFormProps<TData> = Assign<
-  Omit<FormProps<TData>, 'schema'>,
+export type InterfaceFormProps<TData, TResponse> = Assign<
+  Omit<FormProps<TData, TResponse>, 'schema'>,
   {
     interfaceType: IInterfaceType
     initialSchema?: object

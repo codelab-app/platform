@@ -29,10 +29,7 @@ export const usePropCompletion = (renderService: IRenderer) => {
     const allRenderedProps = Array.isArray(renderOutput)
       ? renderOutput
           .map((r) => r.props)
-          .reduce(
-            (acc, next) => mergeProps(acc ?? {}, next ?? {}),
-            {} as IPropData,
-          )
+          .reduce((acc, next) => mergeProps(acc, next), {} as IPropData)
       : renderOutput.props
 
     const keys: Array<string> = []

@@ -33,7 +33,7 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ renderService, element, extraProps, postAction }) => {
+  ({ renderService, element, extraProps = {}, postAction }) => {
     const globalPropsContext = useContext(GlobalPropsContext)
     const globalProps = globalPropsContext?.[element.id]
 

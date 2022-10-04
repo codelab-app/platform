@@ -4,7 +4,8 @@ import isString from 'lodash/isString'
 import { AsyncState } from 'react-use/lib/useAsyncFn'
 
 export const extractErrorMessage = (
-  e: AsyncState<unknown> | string | ApolloError,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  e: AsyncState<unknown> | string | ApolloError | Error | undefined | any,
 ): string => {
   if (!e) {
     return ''

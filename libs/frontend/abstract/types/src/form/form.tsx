@@ -6,17 +6,19 @@ import { ArrayOrSingle } from 'ts-essentials'
 import { AutoFormProps, Bridge } from 'uniforms'
 import { Callback } from '../utils'
 
+export type VoidCallback<TInput> = ArrayOrSingle<Callback<TInput, void>>
+
 export type FormProps<TData, TResponse = unknown> = {
   cssString?: CSSInterpolation
   /**
    * Called after a successful submit
    */
-  onSubmitSuccess?: ArrayOrSingle<Callback<TData, void>>
+  onSubmitSuccess?: VoidCallback<TResponse>
 
   /**
-   * Called after a failed submit
+   * Called after a failed submit, the input is unknown error
    */
-  onSubmitError?: ArrayOrSingle<Callback<TResponse, void>>
+  onSubmitError?: VoidCallback<unknown>
 
   /**
    * Don't use `DeepPartial` even Uniform uses it

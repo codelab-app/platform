@@ -190,7 +190,7 @@ export class AtomService
       throw new Error('Atom was not deleted')
     }
 
-    return deleteAtoms
+    return [...this.atoms.values()].filter((atom) => atom.id in ids)
   })
 
   @modelFlow

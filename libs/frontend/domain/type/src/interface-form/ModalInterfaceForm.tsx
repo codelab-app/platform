@@ -4,7 +4,7 @@ import { InterfaceForm } from './InterfaceForm'
 import { InterfaceFormProps } from './types'
 
 type ModalInterfaceFormProps = React.PropsWithChildren<
-  InterfaceFormProps<unknown>
+  InterfaceFormProps<unknown, unknown>
 >
 
 export const ModalInterfaceForm = (props: ModalInterfaceFormProps) => {

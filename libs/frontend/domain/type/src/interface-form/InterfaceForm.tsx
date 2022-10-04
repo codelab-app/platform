@@ -30,7 +30,7 @@ export const InterfaceForm = observer(
     autosave,
     context,
     submitField,
-  }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
+  }: React.PropsWithChildren<InterfaceFormProps<TData, TResponse>>) => {
     const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
 

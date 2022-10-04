@@ -327,9 +327,11 @@ jobs:
   notify-failure:
     <<: *executor-params
     steps:
-      - swissknife/wait_for_workflow:
-          workflow-name: ^(app-pr|app)$
-          max-wait-time: '1500'
+      - swissknife/wait_for_job:
+          job-name: ^(install-and-build-workspace|lint|unit|e2e)$
+      # - swissknife/wait_for_workflow:
+      #     workflow-name: ^(app-pr|app)$
+      #     max-wait-time: '1500'
       - slack/notify:
           event: fail
           channel: $SLACK_CHANNEL_UPDATE

@@ -15,7 +15,8 @@ export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
 }
 
 export interface IPropData {
-  [key: string]: object
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
 }
 
 export interface IPropDataByElementId {

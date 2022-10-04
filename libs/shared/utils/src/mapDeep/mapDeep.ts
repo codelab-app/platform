@@ -1,21 +1,24 @@
+import { IPropData } from '@codelab/frontend/abstract/core'
 import isArray from 'lodash/isArray'
 import isObjectLike from 'lodash/isObjectLike'
 import map from 'lodash/map'
 import toPairsIn from 'lodash/toPairsIn'
+import { modelTypeKey } from 'mobx-keystone'
+import { Key } from 'react'
 import { isServer } from '../env'
-import { IInput, IKeyMapper, IOutput, IValueMapper, Key } from './abstract'
+import { IKeyMapper, IOutput, IValueMapper } from './abstract'
 
-const isReactNode = (obj: IInput) => Boolean(obj['$$typeof'])
-const isMobxModel = (obj: IInput) => Boolean(obj['$modelType'])
+const isReactNode = (obj: IPropData) => Boolean(obj['$$typeof'])
+const isMobxModel = (obj: IPropData) => Boolean(obj[modelTypeKey])
 
-const isHtmlNode = (obj: IInput) =>
+const isHtmlNode = (obj: IPropData) =>
   isServer ? false : obj instanceof HTMLElement
 
-const isCyclic = (obj: IInput) =>
+const isCyclic = (obj: IPropData) =>
   isReactNode(obj) || isMobxModel(obj) || isHtmlNode(obj)
 
 export const mapDeep = (
-  obj: IInput,
+  obj: IPropData,
   valueMapper: IValueMapper,
   keyMapper: IKeyMapper = (v, k) => k,
   key: Key = '',

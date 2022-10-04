@@ -3,9 +3,11 @@ import React, { Ref } from 'react'
 import { connectField, FieldProps } from 'uniforms'
 import { CodeMirrorEditor, CodeMirrorEditorProps } from '../../codeMirror'
 
-type MainPropsOnChange = (
-  value: string,
-  uniformsOnChange: (value: string | undefined) => void,
+export type OnChangeValue = string | undefined
+
+export type MainPropsOnChange = (
+  value: OnChangeValue,
+  uniformsOnChange: (value: OnChangeValue) => void,
 ) => void
 
 type CodeMirrorFieldProps = Omit<CodeMirrorEditorProps, 'onChange'> & {
@@ -26,7 +28,7 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
       (baseProps) => {
         const merged = { ...mainProps, ...baseProps }
 
-        const mainPropsOnChange = (value: string) => {
+        const mainPropsOnChange = (value: OnChangeValue) => {
           mainProps?.onChange && mainProps.onChange(value, baseProps.onChange)
         }
 

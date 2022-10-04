@@ -7,5 +7,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 export interface ITypedValueTransformer extends IBaseRenderPipe {
   canHandleTypeKind(typeKind: ITypeKind): boolean
   canHandleValue(value: TypedValue<unknown>): boolean
-  transform(typedValue: TypedValue<unknown>, typeKind: ITypeKind): unknown
+  // TODO: Create better typing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transform(typedValue: TypedValue<unknown>, typeKind: ITypeKind): any
 }

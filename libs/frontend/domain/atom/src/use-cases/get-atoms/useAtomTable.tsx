@@ -1,8 +1,8 @@
 import { IAtomService } from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { TableColumnProps } from 'antd'
 import {
+  ColumnType,
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
@@ -28,13 +28,13 @@ export const useAtomTable = (atomService: IAtomService) => {
   // const tagTreeData = tagTree.getAntdTrees()
   // const filterTreeData = makeFilterData(tagTreeData)
 
-  const columns: Array<TableColumnProps<AtomRecord>> = [
+  const columns: Array<ColumnType<AtomRecord>> = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('name'),
+      ...useColumnSearchProps<AtomRecord>('name'),
     },
     {
       title: 'Library',

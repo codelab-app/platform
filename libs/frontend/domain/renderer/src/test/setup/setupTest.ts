@@ -52,7 +52,7 @@ interface TestingData {
 
 // Clone everything so that we don't get conflicts between different test files
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
-  const data: Partial<TestingData> = {}
+  const data: TestingData = {} as TestingData
 
   beforeEach(() => {
     const ownerId = v4()

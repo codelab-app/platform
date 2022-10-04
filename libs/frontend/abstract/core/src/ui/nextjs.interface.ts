@@ -1,13 +1,12 @@
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
-import { SnapshotOutOfModel } from 'mobx-keystone/src/snapshot/SnapshotOf'
 import { AppProps } from 'next/app'
 import { Overwrite } from 'utility-types'
 
 /**
  * Used by `_app.tsx`
  */
-export type IAppProps = Overwrite<
-  AppProps<unknown>,
+export type IAppProps<T = unknown> = Overwrite<
+  AppProps<T>,
   {
     pageProps: IPageProps
   }

@@ -1,5 +1,6 @@
 import { SubmitController } from '@codelab/frontend/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { Schema } from 'ajv'
 import Ajv, { JSONSchemaType } from 'ajv'
 import addFormats from 'ajv-formats'
 import { MutableRefObject } from 'react'
@@ -21,7 +22,7 @@ export const connectUniformSubmitRef =
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 addFormats(ajv)
 
-export const createValidator = <T = unknown>(schema: unknown) => {
+export const createValidator = (schema: Schema) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
