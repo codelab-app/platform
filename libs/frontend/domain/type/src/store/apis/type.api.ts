@@ -8,9 +8,18 @@ import {
   IUpdateTypeInput,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
+import * as Types from '@codelab/shared/abstract/codegen'
+import {
+  CodeMirrorTypeCreateInput,
+  ElementTypeCreateInput,
+  PrimitiveTypeCreateInput,
+  ReactNodeTypeCreateInput,
+} from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import flatten from 'lodash/flatten'
+import { ObjectTyped } from 'object-typed'
+import { ArrayOrSingle } from 'ts-essentials'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.graphql.gen'
 import {
@@ -44,7 +53,9 @@ export const createTypeApi: CreateTypesRecord = {
     _createApi.CreateActionTypes({ input }).then((r) => r.types.types),
   [ITypeKind.PrimitiveType]: (input) =>
     _createApi
-      .CreatePrimitiveTypes({ input: input as any })
+      .CreatePrimitiveTypes({
+        input: input as ArrayOrSingle<PrimitiveTypeCreateInput>,
+      })
       .then((r) => r.types.types),
   [ITypeKind.ArrayType]: (input) =>
     _createApi.CreateArrayTypes({ input }).then((r) => r.types.types),
@@ -58,19 +69,25 @@ export const createTypeApi: CreateTypesRecord = {
     _createApi.CreateLambdaTypes({ input }).then((r) => r.types.types),
   [ITypeKind.ElementType]: (input) =>
     _createApi
-      .CreateElementTypes({ input: input as any })
+      .CreateElementTypes({
+        input: input as ArrayOrSingle<ElementTypeCreateInput>,
+      })
       .then((r) => r.types.types),
   [ITypeKind.RenderPropsType]: (input) =>
     _createApi.CreateRenderPropsTypes({ input }).then((r) => r.types.types),
   [ITypeKind.ReactNodeType]: (input) =>
     _createApi
-      .CreateReactNodeTypes({ input: input as any })
+      .CreateReactNodeTypes({
+        input: input as ArrayOrSingle<ReactNodeTypeCreateInput>,
+      })
       .then((r) => r.types.types),
   [ITypeKind.UnionType]: (input) =>
     _createApi.CreateUnionTypes({ input }).then((r) => r.types.types),
   [ITypeKind.CodeMirrorType]: (input) =>
     _createApi
-      .CreateCodeMirrorTypes({ input: input as any })
+      .CreateCodeMirrorTypes({
+        input: input as ArrayOrSingle<CodeMirrorTypeCreateInput>,
+      })
       .then((r) => r.types.types),
   [ITypeKind.PageType]: (input) =>
     _createApi.CreatePageTypes({ input }).then((r) => r.types.types),
@@ -81,9 +98,37 @@ export const getTypeApi = getGetSdk(client)
 export const getAllTypes = async (
   ids?: Array<string>,
 ): Promise<Array<UnboxArray<GetTypesQuery[keyof GetTypesQuery]>>> => {
-  const allResults = await getTypeApi.GetTypes({ ids })
+  const {
+    primitiveTypes,
+    arrayTypes,
+    unionTypes,
+    interfaceTypes,
+    elementTypes,
+    renderPropsTypes,
+    reactNodeTypes,
+    enumTypes,
+    lambdaTypes,
+    pageTypes,
+    appTypes,
+    actionTypes,
+    codeMirrorTypes,
+  } = await getTypeApi.GetTypes({ ids })
 
-  return flatten(Object.values(allResults) as any)
+  return [
+    ...primitiveTypes,
+    ...arrayTypes,
+    ...unionTypes,
+    ...interfaceTypes,
+    ...elementTypes,
+    ...renderPropsTypes,
+    ...reactNodeTypes,
+    ...enumTypes,
+    ...lambdaTypes,
+    ...pageTypes,
+    ...appTypes,
+    ...actionTypes,
+    ...codeMirrorTypes,
+  ]
 }
 
 //

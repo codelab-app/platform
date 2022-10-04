@@ -12,7 +12,7 @@
       "cypress-jest-adapter",
       "jest",
       "worker-loader",
-      "@testing-library/express",
+      // "@testing-library/express",
       "cypress-nextjs-auth0"
     ]
   },

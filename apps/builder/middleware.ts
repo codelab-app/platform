@@ -65,7 +65,7 @@ export default async function middleware(req: NextRequest) {
       hostname,
       pathname,
     })
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err)
 
     return NextResponse.next()

@@ -24,7 +24,7 @@ export interface ElementWrapperProps {
    */
   extraProps?: IPropData
 
-  postAction?: Nullish<() => any>
+  postAction?: Nullish<() => unknown>
 }
 
 /**

@@ -22,7 +22,7 @@ const columns = [
   {
     title: 'Value',
     dataIndex: 'value',
-    render: (_: any, { value }: { value: string }) => {
+    render: (_: unknown, { value }: { value: string }) => {
       return <Typography.Text copyable>{value}</Typography.Text>
     },
   },

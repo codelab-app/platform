@@ -7,7 +7,7 @@ import { Overwrite } from 'utility-types'
  * Used by `_app.tsx`
  */
 export type IAppProps = Overwrite<
-  AppProps<any>,
+  AppProps<unknown>,
   {
     pageProps: IPageProps
   }
@@ -17,15 +17,15 @@ export type IAppProps = Overwrite<
  * The `props` used by each page component
  */
 export interface IPageProps {
-  storeSnapshot?: SnapshotOutOfModel<any>
+  // storeSnapshot?: SnapshotOutOfModel<any>
   user?: Auth0SessionUser
-  snapshot?: {
-    // rootStore: SnapshotOutOfModel<any>
-    appService: SnapshotOutOfModel<any>
-    pageService: SnapshotOutOfModel<any>
-    atomService: SnapshotOutOfModel<any>
-    elementService: SnapshotOutOfModel<any>
-    pageElementTree: SnapshotOutOfModel<any>
-    builderService: SnapshotOutOfModel<any>
-  }
+  // snapshot?: {
+  // rootStore: SnapshotOutOfModel<any>
+  // appService: SnapshotOutOfModel<any>
+  // pageService: SnapshotOutOfModel<any>
+  // atomService: SnapshotOutOfModel<any>
+  // elementService: SnapshotOutOfModel<any>
+  // pageElementTree: SnapshotOutOfModel<any>
+  // builderService: SnapshotOutOfModel<any>
+  // }
 }

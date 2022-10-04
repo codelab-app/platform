@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 
 export const handleDomainExistError = (
-  error: any,
+  error: unknown,
   onError: UseNotifyReturnType['onError'],
 ) => {
   if (

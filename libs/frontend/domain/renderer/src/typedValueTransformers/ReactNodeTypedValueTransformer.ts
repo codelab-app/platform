@@ -32,7 +32,7 @@ export class ReactNodeTypedValueTransformer
     return typeKind === ITypeKind.ReactNodeType
   }
 
-  canHandleValue(value: TypedValue<any>): boolean {
+  canHandleValue(value: TypedValue<unknown>): boolean {
     const componentService = getComponentService(this)
     const elementService = getElementService(this)
 
@@ -42,7 +42,7 @@ export class ReactNodeTypedValueTransformer
     )
   }
 
-  public transform(value: TypedValue<any>): any {
+  public transform(value: TypedValue<unknown>) {
     const componentService = getComponentService(this)
     const elementService = getElementService(this)
     const rootElement = getRootElement(value, componentService, elementService)

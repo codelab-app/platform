@@ -44,7 +44,7 @@ export const antdAtoms: AtomsRecord = {
   ),
   [IAtomType.AntDesignDropdown]: dynamic(() => import('antd/lib/dropdown')),
   [IAtomType.AntDesignDropdownButton]: dynamic(
-    () => import('antd/lib/dropdown') as any,
+    () => import('antd/lib/dropdown'),
   ),
   [IAtomType.AntDesignForm]: dynamic(() => import('antd/lib/form')),
   [IAtomType.AntDesignFormItem]: dynamic(
@@ -57,7 +57,7 @@ export const antdAtoms: AtomsRecord = {
     () => import('antd/lib/form/ErrorList'),
   ),
   [IAtomType.AntDesignFormProvider]: dynamic(
-    () => import('antd/lib/form/context') as any,
+    () => import('antd/lib/form/context') as never,
   ),
   [IAtomType.AntDesignCheckbox]: dynamic(() => import('antd/lib/checkbox')),
   [IAtomType.AntDesignCheckboxGroup]: dynamic(() =>
@@ -77,14 +77,16 @@ export const antdAtoms: AtomsRecord = {
   ),
   [IAtomType.AntDesignModal]: dynamic(() => import('antd/lib/modal')),
   [IAtomType.AntDesignNotification]: dynamic(
-    () => import('antd/lib/notification') as any,
+    () => import('antd/lib/notification') as never,
   ),
   [IAtomType.AntDesignRadioGroup]: dynamic(
     () => import('antd/lib/radio/group'),
   ),
   [IAtomType.AntDesignRadio]: dynamic(() => import('antd/lib/radio')),
   [IAtomType.AntDesignRate]: dynamic(() => import('antd/lib/rate')),
-  [IAtomType.AntDesignSlider]: dynamic(() => import('antd/lib/slider') as any),
+  [IAtomType.AntDesignSlider]: dynamic(
+    () => import('antd/lib/slider') as never,
+  ),
   [IAtomType.AntDesignSwitch]: dynamic(() => import('antd/lib/switch')),
   [IAtomType.AntDesignSpace]: dynamic(() => import('antd/lib/space')),
   [IAtomType.AntDesignDatePicker]: dynamic(
@@ -120,11 +122,9 @@ export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignTree]: dynamic(() => import('antd/lib/tree')),
   [IAtomType.AntDesignDrawer]: dynamic(() => import('antd/lib/drawer')),
   [IAtomType.AntDesignMessage]: dynamic(
-    () => import('antd/lib/message') as any,
+    () => import('antd/lib/message') as never,
   ),
-  [IAtomType.AntDesignProgress]: dynamic(
-    () => import('antd/lib/progress') as any,
-  ),
+  [IAtomType.AntDesignProgress]: dynamic(() => import('antd/lib/progress')),
   [IAtomType.AntDesignResult]: dynamic(() => import('antd/lib/result')),
   [IAtomType.AntDesignSpin]: dynamic(() => import('antd/lib/spin')),
   [IAtomType.AntDesignSkeleton]: dynamic(() => import('antd/lib/skeleton')),
@@ -147,7 +147,7 @@ export const antdAtoms: AtomsRecord = {
     () => import('antd/lib/time-picker'),
   ),
   [IAtomType.AntDesignTransfer]: dynamic(
-    () => import('antd/lib/transfer') as any,
+    () => import('antd/lib/transfer') as never,
   ),
   [IAtomType.AntDesignUpload]: dynamic(() => import('antd/lib/upload')),
   [IAtomType.AntDesignSteps]: dynamic(() => import('antd/lib/steps')),

@@ -37,7 +37,7 @@ export interface IModalService<Metadata = never> {
 
 export type IEntityModalService<
   Metadata = never,
-  Properties extends object = Record<string, any>,
+  Properties extends object = Record<string, unknown>,
 > = IModalService<Metadata> & {
   /**
    * All properties must be partial, since we don't know whether user has opened (and set) the metadata yet

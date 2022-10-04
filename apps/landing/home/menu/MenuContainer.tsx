@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useState } from 'react'
 import Sticky, { StatusCode } from 'react-stickynode'
 import tw from 'twin.macro'
 
-export const CodelabMenuContainer = ({ children }: PropsWithChildren<any>) => {
+export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {
   // 0 STATUS_ORIGINAL
   // 1 STATUS_RELEASED
   // 2 STATUS_FIXED

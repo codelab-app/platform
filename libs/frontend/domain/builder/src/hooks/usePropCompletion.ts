@@ -29,12 +29,16 @@ export const usePropCompletion = (renderService: IRenderer) => {
     const allRenderedProps = Array.isArray(renderOutput)
       ? renderOutput
           .map((r) => r.props)
-          .reduce((acc, next) => mergeProps(acc, next), {} as IPropData)
+          .reduce(
+            (acc, next) => mergeProps(acc ?? {}, next ?? {}),
+            {} as IPropData,
+          )
       : renderOutput.props
 
     const keys: Array<string> = []
-    const visited: Array<any> = []
+    const visited: Array<unknown> = []
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const visitProp = (prop: any, key: string) => {
       if (!prop) {
         return

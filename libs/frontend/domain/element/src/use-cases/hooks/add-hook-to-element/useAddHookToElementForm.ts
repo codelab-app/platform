@@ -8,7 +8,7 @@ type UseAddHookToElementForm = (
   elementId: string,
   typeService: ITypeService,
   atomService: IAtomService,
-) => any & InterfaceProps
+) => InterfaceProps
 
 export const useAddHookToElementForm: UseAddHookToElementForm = (
   elementId,
@@ -69,7 +69,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
   // }
 
   return {
-    onChange: (key: string, value: any) => {
+    onChange: (key: string, value: unknown) => {
       // if (key === 'typeId') {
       //   setSelectedType({ selectedType: value })
       //   fetchInterface({ apiOfAtoms_SOME: { id: value } })

@@ -13,7 +13,10 @@ import { InterfaceForm, UiPropertiesContext } from '../interface-form'
 
 export interface PropsFormProps
   extends SubmitRef,
-    Pick<FormProps<any>, 'submitField'> {
+    Pick<
+      FormProps<IPropData>,
+      'submitField' | 'onSubmitError' | 'onSubmitSuccess'
+    > {
   interfaceType?: IInterfaceType
   model?: IPropData
   onSubmit: (values: IPropData) => Promise<IPropData | void>
@@ -21,8 +24,6 @@ export interface PropsFormProps
   context?: UiPropertiesContext
   setIsLoading?: SetIsLoading
   cssString?: CSSInterpolation
-  onSubmitError?: FormProps<IPropData, IPropData>['onSubmitError']
-  onSubmitSuccess?: FormProps<IPropData, IPropData>['onSubmitSuccess']
 }
 
 /**

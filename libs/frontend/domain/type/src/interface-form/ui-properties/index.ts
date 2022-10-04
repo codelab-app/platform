@@ -35,7 +35,9 @@ export const getUiProperties = (
   type: IAnyType,
   context?: UiPropertiesContext,
 ) => {
-  const fn: UiPropertiesFn | undefined = uiPropertiesContainer[type.kind] as any
+  const fn: UiPropertiesFn | undefined = uiPropertiesContainer[
+    type.kind
+  ] as UiPropertiesFn
 
   if (!fn) {
     return {}

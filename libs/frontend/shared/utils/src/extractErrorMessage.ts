@@ -1,8 +1,11 @@
 import { ApolloError } from 'apollo-server-micro'
 import isObjectLike from 'lodash/isObjectLike'
 import isString from 'lodash/isString'
+import { AsyncState } from 'react-use/lib/useAsyncFn'
 
-export const extractErrorMessage = (e: any): string => {
+export const extractErrorMessage = (
+  e: AsyncState<unknown> | string | ApolloError,
+): string => {
   if (!e) {
     return ''
   }
@@ -18,38 +21,35 @@ export const extractErrorMessage = (e: any): string => {
   }
 
   if (isObjectLike(e)) {
-    if (e.error) {
+    if (e?.error) {
       return extractErrorMessage(e.error)
     }
 
-    if (e.errors) {
-      return extractErrorMessage(e.errors)
-    }
-
-    if (e.response) {
-      return extractErrorMessage(e.response)
-    }
-
-    if (e.data) {
-      return extractErrorMessage(e.data)
-    }
-
-    if (e.message) {
-      return extractErrorMessage(e.message)
-    }
+    // if (e.errors) {
+    //   return extractErrorMessage(e.errors)
+    // }
+    //
+    // if (e.response) {
+    //   return extractErrorMessage(e.response)
+    // }
+    //
+    // if (e.data) {
+    //   return extractErrorMessage(e.data)
+    // }
+    //
+    // if (e.message) {
+    //   return extractErrorMessage(e.message)
+    // }
 
     if (e instanceof ApolloError) {
-      return e.graphQLErrors[0].extensions
-        ? `[${e.message}]: ${
-            (e.graphQLErrors[0].extensions.response as any)?.error
-          }`
-        : e.message
-    }
-
-    if (e.extensions) {
       return e.extensions
         ? `[${e.extensions.response.message}]: ${e.extensions.response.error}`
         : e.message
+      // return e.graphQLErrors[0].extensions
+      //   ? `[${e.message}]: ${
+      //       (e.graphQLErrors[0].extensions.response as any)?.error
+      //     }`
+      //   : e.message
     }
   }
 

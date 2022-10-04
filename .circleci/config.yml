@@ -1,3 +1,6 @@
+# Parallel Slack notification https://github.com/CircleCI-Public/slack-orb/issues/305
+# https://support.circleci.com/hc/en-us/articles/360047082992-Send-slack-notification-at-end-of-workflow
+
 filters-pr: &filters-pr
   filters:
     branches:
@@ -50,6 +53,7 @@ orbs:
   node: circleci/node@4.7.0
   nx: nrwl/nx@1.6.0
   queue: eddiewebb/queue@1.7.0
+  swissknife: roopakv/swissknife@0.69.0
 
 executors:
   machine-ubuntu:
@@ -141,13 +145,6 @@ commands:
           name: 'Install NPM Packages'
           command: yarn install --immutable
 
-  notify-failure:
-    steps:
-      - slack/notify:
-          event: fail
-          channel: $SLACK_CHANNEL_UPDATE
-          template: basic_fail_1
-
 jobs:
   install-and-build-workspace:
     <<: *executor-params
@@ -177,7 +174,6 @@ jobs:
           paths:
             - project/node_modules
             - project/dist
-      - notify-failure
 
   lint:
     <<: *executor-params
@@ -195,7 +191,6 @@ jobs:
       - run:
           name: 'Commitlint'
           command: yarn cli tasks commitlint --env ci
-      - notify-failure
 
   unit:
     <<: *executor-params
@@ -209,7 +204,6 @@ jobs:
       # Upload test results
       - store_test_results:
           path: /tmp/test-reports
-      - notify-failure
 
   integration:
     <<: *executor-params
@@ -218,7 +212,6 @@ jobs:
       - run:
           name: 'Run Integration Tests'
           command: yarn cli tasks int --env ci
-      - notify-failure
 
   e2e:
     <<: *executor-params
@@ -251,7 +244,6 @@ jobs:
       - store_artifacts:
           path: ~/project/apps/builder-e2e/src/screenshots
           destination: cypress/screenshots
-      - notify-failure
 
   notify-success:
     <<: *executor-params
@@ -259,30 +251,124 @@ jobs:
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE
-          template: basic_success_1
+          # template: basic_success_1
+          custom: |
+            {
+            	"text": "CircleCI job succeeded!",
+            	"blocks": [
+            		{
+            			"type": "header",
+            			"text": {
+            				"type": "plain_text",
+            				"text": "Job Succeeded. :white_check_mark:",
+            				"emoji": true
+            			}
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Job*: ${CIRCLE_JOB}"
+            				}
+            			]
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Project*:\n $CIRCLE_PROJECT_REPONAME"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Branch*:\n $CIRCLE_BRANCH"
+                            },
+                            {
+            					"type": "mrkdwn",
+            					"text": "*Commit*:\n $CIRCLE_SHA1"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Author*:\n $CIRCLE_USERNAME"
+            				}
+            			],
+            			"accessory": {
+            				"type": "image",
+            				"image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
+            				"alt_text": "CircleCI logo"
+            			}
+            		},
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Mentions*:\n $SLACK_PARAM_MENTIONS"
+                    }
+                  ]
+                },
+            		{
+            			"type": "actions",
+            			"elements": [
+            				{
+            					"type": "button",
+            					"text": {
+            						"type": "plain_text",
+            						"text": "View Job"
+            					},
+            					"url": "${CIRCLE_BUILD_URL}"
+            				}
+            			]
+            		}
+            	]
+            }
+
+  notify-failure:
+    <<: *executor-params
+    steps:
+      - swissknife/wait_for_workflow:
+          workflow-name: ^(app-pr|app)$
+          max-wait-time: '1500'
+      - slack/notify:
+          event: fail
+          channel: $SLACK_CHANNEL_UPDATE
+          template: basic_fail_1
 
 workflows:
   app-pr:
     jobs:
-      - install-and-build-workspace:
+      - notify-failure:
           <<: *filters-pr
+          context: CI
+          e: docker-node
+      - install-and-build-workspace:
+          <<:
+            - *filters-pr
+            # - *slack-post-step
           # Can't build with machine image, causes build issues
           e: docker-node
           context: CI
       - lint:
-          <<: *filters-pr
+          <<:
+            - *filters-pr
+            # - *slack-post-step
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
-          <<: *filters-pr
+          <<:
+            - *filters-pr
+            # - *slack-post-step
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - e2e:
-          <<: *filters-pr
+          <<:
+            - *filters-pr
+            # - *slack-post-step
           e: docker-node-neo4j
           context: CI
           requires:

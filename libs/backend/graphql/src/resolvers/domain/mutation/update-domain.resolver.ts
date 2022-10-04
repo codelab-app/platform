@@ -1,3 +1,4 @@
+import { NextApiRequest } from '@codelab/backend/abstract/types'
 import {
   domainSelection,
   Repository,
@@ -5,13 +6,14 @@ import {
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import { UpdateDomainMutationInput } from '@codelab/shared/abstract/codegen'
 import { IFieldResolver } from '@graphql-tools/utils'
+import { Context } from '@neo4j/graphql/dist/types'
 import { handleAPIError } from '../../utils/handleAPIError'
 import { domainExistsError } from '../domain.error'
 import { validateDomainAuth } from '../domain.validation'
 
 export const updateDomain: IFieldResolver<
-  any,
-  any,
+  unknown,
+  Context,
   { input: UpdateDomainMutationInput }
 > = async (_, args, { req }) => {
   try {

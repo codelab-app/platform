@@ -8,10 +8,12 @@ import {
   IUpdateActionInput,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
+import { CodeActionCreateInput } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { Maybe } from 'graphql/jsutils/Maybe'
 import flatten from 'lodash/flatten'
+import { ArrayOrSingle } from 'ts-essentials'
 import { getSdk as getCreateSdk } from '../../graphql/create-action.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-action.endpoints.graphql.gen'
 import {
@@ -58,15 +60,17 @@ type DeleteActionsRecord = Record<
 export const getActionsByStore = async (
   storeId: Maybe<string>,
 ): GetActionsReturnType => {
-  const result = await getActionApi.GetActions({ storeId })
+  const { codeActions, apiActions } = await getActionApi.GetActions({ storeId })
 
-  return flatten(Object.values(result) as any)
+  return [...codeActions, ...apiActions]
 }
 
 export const createActionApi: CreateActions = {
   [IActionKind.CodeAction]: (input) =>
     _createActionApi
-      .CreateCodeActions({ input: input as any })
+      .CreateCodeActions({
+        input: input as ArrayOrSingle<CodeActionCreateInput>,
+      })
       .then((response) => response.createCodeActions.codeActions),
 
   [IActionKind.ApiAction]: (input) =>

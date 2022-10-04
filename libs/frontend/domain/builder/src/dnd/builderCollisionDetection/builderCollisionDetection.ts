@@ -3,6 +3,7 @@ import {
   BuilderDragData,
 } from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
+import type { Data } from '@dnd-kit/core'
 import {
   CollisionDetection,
   DroppableContainer,
@@ -53,17 +54,14 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
   if (elementsSortedByIntersectY?.[0]?.data) {
     const el0 = elementsSortedByIntersectY[0]
 
-    const { droppableContainer, collisionRect } = el0.data as Record<
-      string,
-      any
-    >
+    const { droppableContainer, collisionRect } = el0.data as Data
 
     /**
 Given rect width
 | x% = add as descendant |  y% = add as children |
 Check for interected rect
  */
-    ;(el0.data as Record<string, any>)['dropPosition'] = calcDropPosition(
+    ;(el0.data as Data)['dropPosition'] = calcDropPosition(
       collisionRect,
       droppableContainer.rect.current,
     )

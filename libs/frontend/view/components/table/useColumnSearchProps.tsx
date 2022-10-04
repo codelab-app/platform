@@ -1,6 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
+import type { FilterConfirmProps } from 'antd/es/table/interface'
 import React, { useRef, useState } from 'react'
 
 export const useColumnSearchProps = (dataIndex: string) => {
@@ -13,7 +14,7 @@ export const useColumnSearchProps = (dataIndex: string) => {
 
   const handleSearch = (
     selectedKeys: Array<React.Key>,
-    confirm: (params?: any) => void,
+    confirm: (params: FilterConfirmProps) => void,
   ) => {
     confirm({ closeDropdown: false })
     setState({
@@ -99,5 +100,5 @@ export const useColumnSearchProps = (dataIndex: string) => {
         setTimeout(() => searchInputRef?.current?.select(), 100)
       }
     },
-  } as TableColumnProps<any>
+  } as TableColumnProps<object>
 }

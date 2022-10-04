@@ -22,7 +22,7 @@ import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
 import { UiPropertiesContext } from './types'
 
-export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
+export type JsonSchema = JSONSchema7 & { uniforms?: object; label?: string }
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
@@ -272,7 +272,7 @@ export class TypeSchemaFactory {
     typeLabel: Maybe<string>,
   ): { [key: string]: JsonSchema } {
     return {
-      value: valueSchema as any,
+      value: valueSchema,
       type: {
         type: 'string',
         uniforms: blankUniforms,

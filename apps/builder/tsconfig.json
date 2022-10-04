@@ -7,13 +7,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
     "lib": ["es2021"],
-    "types": [
-      "node",
-      "worker-loader",
-      "@fancyapps/ui",
-      "cypher",
-      "eslint-linter-browserify"
-    ],
+    "types": ["node", "worker-loader", "@fancyapps/ui", "cypher"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,

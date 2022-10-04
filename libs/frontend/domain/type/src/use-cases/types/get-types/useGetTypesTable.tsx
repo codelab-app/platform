@@ -9,7 +9,7 @@ import { TypeRecord } from './columns'
 import { ActionColumn } from './columns/ActionColumn'
 
 export const useTypesTable = (typeService: ITypeService) => {
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<object> = [
     {
       title: 'Name',
       dataIndex: 'name',

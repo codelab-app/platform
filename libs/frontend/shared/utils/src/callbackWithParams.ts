@@ -2,9 +2,12 @@ import type { Callback } from '@codelab/frontend/abstract/types'
 import isFunction from 'lodash/isFunction'
 import { ArrayOrSingle } from 'ts-essentials'
 
-export const callbackWithParams = <T, TCb extends Callback<T> = Callback<T>>(
+export const callbackWithParams = <
+  TIn,
+  TCb extends Callback<TIn, void> = Callback<TIn, void>,
+>(
   callbacks: ArrayOrSingle<TCb> = [],
-  param: T,
+  param: TIn,
 ) => {
   const callbacksArray = Array.isArray(callbacks) ? callbacks : [callbacks]
 

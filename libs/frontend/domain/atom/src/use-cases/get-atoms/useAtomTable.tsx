@@ -12,7 +12,10 @@ import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
 import { AtomRecord } from './columns/types'
 
-const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {
+const onLibraryFilter = (
+  value: string | number | boolean,
+  atom: AtomRecord,
+): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
   const search = value.toString().toLowerCase()
 

@@ -6,6 +6,6 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
  */
 export interface ITypedValueTransformer extends IBaseRenderPipe {
   canHandleTypeKind(typeKind: ITypeKind): boolean
-  canHandleValue(value: TypedValue<any>): boolean
-  transform(typedValue: TypedValue<any>, typeKind: ITypeKind): any
+  canHandleValue(value: TypedValue<unknown>): boolean
+  transform(typedValue: TypedValue<unknown>, typeKind: ITypeKind): unknown
 }

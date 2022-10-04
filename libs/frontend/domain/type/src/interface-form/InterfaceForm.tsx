@@ -1,4 +1,5 @@
 import { Form, handleFormSubmit } from '@codelab/frontend/view/components'
+import { JSONSchemaType } from 'ajv'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'
@@ -38,7 +39,7 @@ export const InterfaceForm = observer(
         autorun(() => {
           const typeTreeSchema = transformer.transform(interfaceType, context)
           setFormSchema(
-            mergeDeepRight(initialSchemaRef.current, typeTreeSchema),
+            mergeDeepRight(initialSchemaRef?.current ?? {}, typeTreeSchema),
           )
         }),
       [interfaceType],
@@ -54,14 +55,14 @@ export const InterfaceForm = observer(
         model={model}
         onChange={onChange}
         onSubmit={handleFormSubmit<TData, TResponse>(
-          onSubmit as any,
+          onSubmit,
           setIsLoading,
-          onSubmitSuccess as any,
-          onSubmitError as any,
+          onSubmitSuccess,
+          onSubmitError,
         )}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
-        schema={formSchema}
+        schema={formSchema as JSONSchemaType<unknown>}
         submitField={submitField}
         submitRef={submitRef}
       >

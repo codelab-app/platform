@@ -30,11 +30,7 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createRootStore = ({
-  user,
-  servicesFromSnapshot = {},
-  init = true,
-}: RootStoreData) => {
+export const createRootStore = ({ user }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore extends Model({
     userService: prop(() => UserService.init(user)).withSetter(),
@@ -70,9 +66,9 @@ export const createRootStore = ({
     }
   }
 
-  if (!init) {
-    return
-  }
+  // if (!init) {
+  //   return
+  // }
 
-  return new RootStore(servicesFromSnapshot) as any as IRootStore
+  return new RootStore({}) as IRootStore
 }

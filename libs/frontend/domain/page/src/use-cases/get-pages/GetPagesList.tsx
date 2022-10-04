@@ -21,12 +21,12 @@ export const GetPagesList = observer<{ pageService: IPageService }>(
 
     // pageService.pagesList doesn't filter by app
     const pagesList = pageService.pagesByApp(appId)
-    const results = pagesList.concat([{ name: PROVIDER_TREE_PAGE_NAME }] as any)
+    // const results = pagesList.concat([{ name: PROVIDER_TREE_PAGE_NAME }])
 
     return (
       <Spinner isLoading={loading}>
         <List
-          dataSource={results}
+          dataSource={pagesList}
           renderItem={(page) => (
             <GetPagesItem key={page.id} page={page} pageService={pageService} />
           )}

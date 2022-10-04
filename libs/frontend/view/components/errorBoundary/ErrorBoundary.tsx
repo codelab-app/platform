@@ -20,20 +20,20 @@ export class ErrorBoundary extends React.Component<
 > {
   override state: ErrorState
 
-  constructor(props: any) {
+  constructor(props: PropsWithChildren<ErrorBoundaryProps>) {
     super(props)
 
     // Define a state variable to track whether is an error or not
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(error: any) {
+  static getDerivedStateFromError(error: unknown) {
     // Update state so the next render will show the fallback UI
 
     return { hasError: true }
   }
 
-  override componentDidCatch(error: any, errorInfo: any) {
+  override componentDidCatch(error: unknown, errorInfo: unknown) {
     // You can use your own error logging service here
     console.log({ error, errorInfo })
   }

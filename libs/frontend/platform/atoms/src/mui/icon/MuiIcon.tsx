@@ -1,6 +1,6 @@
 import * as MuiIcons from '@mui/icons-material'
 import { IconProps } from '@mui/material/Icon'
-import React from 'react'
+import React, { FunctionComponent, ReactElement } from 'react'
 
 interface MuiIconProp extends IconProps {
   /**
@@ -15,7 +15,9 @@ export const MuiIcon = ({ name, ...props }: MuiIconProp) => {
   }
 
   return React.createElement(
-    MuiIcons[name as keyof typeof MuiIcons] as any,
+    MuiIcons[name as keyof typeof MuiIcons] as (
+      props: IconProps,
+    ) => ReactElement,
     props,
   )
 }

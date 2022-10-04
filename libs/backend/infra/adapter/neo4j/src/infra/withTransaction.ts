@@ -3,10 +3,10 @@ import { Transaction } from 'neo4j-driver'
 import { getDriver } from './driver'
 
 export type ITxnResolver<
-  TParent = any,
-  TContext = any,
-  TArgs = Record<string, any>,
-  TReturn = any,
+  TParent = unknown,
+  TContext = unknown,
+  TArgs = Record<string, unknown>,
+  TReturn = unknown,
 > = IFieldResolver<
   TParent,
   TContext,
@@ -47,10 +47,10 @@ export const withWriteTransaction = async <T>(
 }
 
 export const withReadTransactionResolver = <
-  TParent = any,
-  TArgs = Record<string, any>,
-  TContext = Record<string, any>,
-  TReturn = any,
+  TParent = unknown,
+  TArgs = Record<string, unknown>,
+  TContext = Record<string, unknown>,
+  TReturn = unknown,
 >(
   txnResolver: ITxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {
@@ -65,10 +65,10 @@ export const withReadTransactionResolver = <
 }
 
 export const withWriteTransactionResolver = <
-  TParent = any,
-  TArgs = Record<string, any>,
-  TContext = Record<string, any>,
-  TReturn = any,
+  TParent = unknown,
+  TArgs = Record<string, unknown>,
+  TContext = Record<string, unknown>,
+  TReturn = unknown,
 >(
   txnResolver: ITxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {

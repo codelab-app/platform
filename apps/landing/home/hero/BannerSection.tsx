@@ -19,6 +19,7 @@ export const BannerSection = () => {
   useEffect(() => {
     window.jQuery = $
     window.Morphtext = require('node_modules/morphext/dist/morphext.min.js')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;($(jsRotatingRef.current!) as any).Morphext({
       // The [in] animation type. Refer to Animate.css for a list of available animations.
       animation: 'animate__animated animate__fadeIn',

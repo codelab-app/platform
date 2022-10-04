@@ -5,7 +5,7 @@ import { CodeMirrorEditor, CodeMirrorEditorProps } from '../../codeMirror'
 
 type MainPropsOnChange = (
   value: string,
-  uniformsOnChange: (value: any) => void,
+  uniformsOnChange: (value: string | undefined) => void,
 ) => void
 
 type CodeMirrorFieldProps = Omit<CodeMirrorEditorProps, 'onChange'> & {

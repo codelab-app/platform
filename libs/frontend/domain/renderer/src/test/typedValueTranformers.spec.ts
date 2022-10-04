@@ -1,6 +1,7 @@
 import { IRenderOutput, TypedValue } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/domain/element'
 import { render } from '@testing-library/react'
+import { ReactElement } from 'react'
 import { setupTestForRenderer } from './setup/setupTest'
 
 describe('RenderService', () => {
@@ -16,8 +17,12 @@ describe('RenderService', () => {
     })
   })
 
+  interface CustomProps {
+    someNode: (args?: unknown) => ReactElement
+  }
+
   // TODO figure out why ReactNodeType doesn't work in this test
-  it.skip('should render props when kind is ReactNodeType', async () => {
+  it('should render props when kind is ReactNodeType', async () => {
     const extraProps = {
       someNode: {
         type: data.reactNodeType.id,
@@ -30,8 +35,8 @@ describe('RenderService', () => {
       extraProps,
     ) as IRenderOutput
 
-    const { someNode } = props as any
-    const { findByText } = render(someNode)
+    const { someNode } = props as CustomProps
+    const { findByText } = render(someNode())
 
     expect(
       await findByText(data.componentRootElement.props?.get('text')),
@@ -51,7 +56,7 @@ describe('RenderService', () => {
       extraProps,
     ) as IRenderOutput
 
-    const { someNode } = props as any
+    const { someNode } = props as CustomProps
     const { findByText } = render(someNode())
 
     expect(
@@ -74,7 +79,7 @@ describe('RenderService', () => {
       extraProps,
     ) as IRenderOutput
 
-    const { someNode } = props as any
+    const { someNode } = props as CustomProps
 
     const { findByText } = render(
       someNode({ [CUSTOM_TEXT_PROP_KEY]: 'new text' }),

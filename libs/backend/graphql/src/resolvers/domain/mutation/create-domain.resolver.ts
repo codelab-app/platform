@@ -13,7 +13,7 @@ import { domainExistsError } from '../domain.error'
 import { validateDomainAuth } from '../domain.validation'
 
 export const createDomain: IFieldResolver<
-  any,
+  unknown,
   GraphQLRequestContext,
   { input: CreateDomainMutationInput }
 > = async (_, args, { req }) => {

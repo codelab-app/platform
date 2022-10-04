@@ -7,7 +7,7 @@ import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 
 export const connectUniformSubmitRef =
   (submitRef: Maybe<MutableRefObject<Maybe<SubmitController>>>) =>
-  (r: Nullish<{ submit: () => any }>) => {
+  (r: Nullish<{ submit: () => unknown }>) => {
     if (submitRef && r) {
       // eslint-disable-next-line no-param-reassign
       submitRef.current = {
@@ -21,7 +21,7 @@ export const connectUniformSubmitRef =
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 addFormats(ajv)
 
-export const createValidator = <T = unknown>(schema: any) => {
+export const createValidator = <T = unknown>(schema: unknown) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
@@ -34,5 +34,5 @@ export const createValidator = <T = unknown>(schema: any) => {
 export const createBridge = <T = unknown>(schema: JSONSchemaType<T>) => {
   const schemaValidator = createValidator(schema)
 
-  return new JSONSchemaBridge(schema as any, schemaValidator)
+  return new JSONSchemaBridge(schema, schemaValidator)
 }

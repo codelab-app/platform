@@ -6,12 +6,16 @@ import { DeepPartial } from 'uniforms'
 
 export type SetIsLoading = (isLoading: boolean) => void
 
+type OnSubmitSuccess<TIn> = (values: TIn) => void
+
+type OnSubmitError = (error: unknown) => void
+
 export const handleFormSubmit =
   <TData, TResponse>(
-    onSubmit: (values: TData) => any | Promise<any>,
+    onSubmit: (values: TData) => unknown | Promise<unknown>,
     setIsLoading?: SetIsLoading,
-    onSubmitSuccess?: ArrayOrSingle<(values: Awaited<TData>) => void>,
-    onSubmitError?: ArrayOrSingle<(err: any) => void>,
+    onSubmitSuccess?: ArrayOrSingle<OnSubmitSuccess<TData>>,
+    onSubmitError?: ArrayOrSingle<OnSubmitError>,
   ) =>
   async (formData: DeepPartial<TData>) => {
     setIsLoading?.(true)
@@ -21,10 +25,13 @@ export const handleFormSubmit =
 
       setIsLoading?.(false)
 
-      await callbackWithParams(onSubmitSuccess, results as any)
+      await callbackWithParams<TData, OnSubmitSuccess<TData>>(
+        onSubmitSuccess,
+        results as TData,
+      )
 
       return results
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err)
 
       setIsLoading?.(false)

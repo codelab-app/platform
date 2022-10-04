@@ -10,11 +10,11 @@ import { MenuMobile } from './menu/MobileMenu'
 
 export type HomeTemplateProps = React.PropsWithChildren
 
-const Header = ({ children }: PropsWithChildren<any>) => {
+const Header = ({ children }: PropsWithChildren) => {
   return <header>{children}</header>
 }
 
-const Layout = ({ children }: PropsWithChildren<any>) => {
+const Layout = ({ children }: PropsWithChildren) => {
   const isMenuOpen = useRecoilValue(menuState)
 
   return (
@@ -24,7 +24,7 @@ const Layout = ({ children }: PropsWithChildren<any>) => {
   )
 }
 
-const Content = ({ children }: PropsWithChildren<any>) => {
+const Content = ({ children }: PropsWithChildren) => {
   return <section>{children}</section>
 }
 

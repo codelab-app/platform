@@ -11,7 +11,7 @@ import Image from 'next/image'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
 
-export const Footer = ({ children }: PropsWithChildren<any>) => {
+export const Footer = ({ children }: PropsWithChildren) => {
   return (
     <footer css={tw`bg-slate-700`}>
       <Row

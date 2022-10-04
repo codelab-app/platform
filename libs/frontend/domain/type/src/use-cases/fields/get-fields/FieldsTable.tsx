@@ -33,7 +33,7 @@ const getValidationRuleTagsArray = (
 
   Object.entries(validationRules).forEach(([_, ruleCategory]) => {
     Object.entries(ruleCategory).forEach(([key, value]) => {
-      rules.push({ key, value: value as any })
+      rules.push({ key, value: value as string | number | boolean })
     })
   })
 

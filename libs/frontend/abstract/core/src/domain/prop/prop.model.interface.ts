@@ -1,20 +1,21 @@
+import { Frozen } from 'mobx-keystone'
 import { ICacheService } from '../../service'
 import { IElement } from '../element'
 import { IPropDTO } from './prop.dto.interface'
 
 export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   id: string
-  data: T
+  data: Frozen<T>
   jsonString: string
   values: T
 
-  set(key: string, value: any): void
+  set(key: string, value: object): void
   delete(key: string): void
-  get(key: string): any
+  get(key: string): object
 }
 
 export interface IPropData {
-  [key: string]: any
+  [key: string]: object
 }
 
 export interface IPropDataByElementId {

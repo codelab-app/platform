@@ -3,7 +3,7 @@ import { createContext } from 'mobx-keystone'
 
 export const pageServiceContext = createContext<IPageService>()
 
-export const getPageService = (self: any) => {
+export const getPageService = (self: object) => {
   const pageService = pageServiceContext.get(self)
 
   if (!pageService) {
