@@ -70,6 +70,10 @@ export const InputNumberWithUnits = ({
         max={max}
         min={min}
         onChange={(e) => {
+          if (!e) {
+            return
+          }
+
           onValueChange?.(e)
           onChange?.(e, unit)
           setValue(e)

@@ -72,7 +72,7 @@
     "@uiw/react-codemirror": "4.11.6",
     "ajv": "8.8.2",
     "animate.css": "4.1.1",
-    "antd": "4.22.8",
+    "antd": "4.23.4",
     "apollo-server-micro": "3.6.7",
     "auth0": "2.40.0",
     "axios": "0.24.0",

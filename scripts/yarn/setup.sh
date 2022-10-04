@@ -10,8 +10,4 @@ git submodule update --init --recursive
 # Then link those files to our main project
 node ./scripts/yarn/copy-and-link.js
 
-# Install
-yarn
-
-nx build cli
 

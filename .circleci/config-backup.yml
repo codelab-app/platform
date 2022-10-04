@@ -1,0 +1,23 @@
+# https://discuss.circleci.com/t/intro-to-dynamic-config-via-setup-workflows/39868
+#
+# CircleCI doesn't allow custom config paths
+version: 2.1
+setup: true
+orbs:
+  continuation: circleci/continuation@0.1.2
+
+jobs:
+  setup:
+    executor: continuation/default
+    steps:
+      - checkout
+      - run:
+          name: 'Setup Git Sub-modules'
+          command: git submodule update --init --recursive
+      - continuation/continue:
+          configuration_path: .infra/.circleci/config.yml
+
+workflows:
+  setup:
+    jobs:
+      - setup

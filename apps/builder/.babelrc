@@ -14,14 +14,14 @@
   ],
   "plugins": [
     "@emotion",
-    "macros",
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "style": true
-      }
-    ]
+    "macros"
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "antd",
+    //     "style": true
+    //   }
+    // ]
   ],
   "env": {
     "development": {

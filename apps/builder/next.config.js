@@ -27,9 +27,9 @@ const withRawCypherFiles = (nextConfig = {}) => {
   })
 }
 
-const lessVarsFilePath = path.resolve(
-  './apps/builder/src/styles/antd-variables.less',
-)
+// const lessVarsFilePath = path.resolve(
+//   './apps/builder/src/styles/antd-variables.less',
+// )
 
 /*
  * Next.js doesn't work well with LESS so we use CSS instead.
@@ -38,46 +38,46 @@ const lessVarsFilePath = path.resolve(
 module.exports = withPlugins(
   [
     // withTM,
-    [
-      // https://www.npmjs.com/package/next-plugin-antd-less
-      withAntdLess,
-      {
-        // modifyVars: { '@primary-color': '#04f' },
-        lessVarsFilePath,
-        lessVarsFilePathAppendToEndOfContent: false,
-        cssLoaderOptions: {
-          mode: 'local',
-          localIdentName:
-            process.NODE_ENV === 'development'
-              ? '[local]--[hash:base64:4]'
-              : '[hash:base64:8]',
-          exportLocalsConvention: 'camelCase',
-          exportOnlyLocals: false,
-          // getLocalIdent: (context, localIdentName, localName, options) => {
-          //   return 'whatever_random_class_name'
-          // },
-        },
-        nextjs: {
-          // default false, for easy to debug on PROD mode
-          localIdentNameFollowDev: true,
-        },
-      },
-    ],
-    // This approach requires importing less file into _app.tsx, which creates a large bundle size
     // [
-    //   withLess,
+    //   // https://www.npmjs.com/package/next-plugin-antd-less
+    //   withAntdLess,
     //   {
-    //     lessLoaderOptions: {},
+    //     // modifyVars: { '@primary-color': '#04f' },
+    //     lessVarsFilePath,
+    //     lessVarsFilePathAppendToEndOfContent: false,
+    //     cssLoaderOptions: {
+    //       mode: 'local',
+    //       localIdentName:
+    //         process.NODE_ENV === 'development'
+    //           ? '[local]--[hash:base64:4]'
+    //           : '[hash:base64:8]',
+    //       exportLocalsConvention: 'camelCase',
+    //       exportOnlyLocals: false,
+    //       // getLocalIdent: (context, localIdentName, localName, options) => {
+    //       //   return 'whatever_random_class_name'
+    //       // },
+    //     },
+    //     nextjs: {
+    //       // default false, for easy to debug on PROD mode
+    //       localIdentNameFollowDev: true,
+    //     },
     //   },
     // ],
+    // This approach requires importing less file into _app.tsx, which creates a large bundle size
+    [
+      withLess,
+      {
+        lessLoaderOptions: {},
+      },
+    ],
     withBundleAnalyzer,
     withRawCypherFiles,
   ],
   withNx({
     nx: { svgr: true },
     // https://github.com/vercel/next.js/issues/9830
-    experimental: {
-      css: true,
-    },
+    // experimental: {
+    //   css: true,
+    // },
   }),
 )
