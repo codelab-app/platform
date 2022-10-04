@@ -52,28 +52,36 @@ export const getUnionTypeForApi = async (
     allPrimitives.includes(x),
   )
 
-  const getKeyObjInUnion = (data: string, choose: string) => {
+  const getDataOfInterface = (interfaceData: string, choose: string) => {
     // Initialize "key" variable to get the property, the "value" variable to get type of property
-    let key: any
-    let value: any
 
-    // If string have not comma
-    if (!data.includes(',')) {
-      const hasColon = /[:]/
-      // Remove opening and closing braces
-      const dataSlice = data.slice(1, data.length - 1)
+    // if string is undefined
+    if (!interfaceData) {
+      console.log(`Can't get values from interface value ${interfaceData}`)
 
-      // Get "key" is a element[0]
-      key = dataSlice.split(hasColon)[0].trim()
-
-      // Get "value" is a element[0]
-      value = dataSlice.split(hasColon)[1].trim()
+      return ''
     }
 
-    if (choose === 'name') {
-      return key
+    // if string have not comma
+    if (interfaceData.includes(',')) {
+      console.log(`Can't get values from interface value ${interfaceData}`)
+
+      return ''
     } else {
-      return value
+      const hasColon = /[:]/
+      const dataSlice = interfaceData.slice(1, interfaceData.length - 1)
+      const temp = dataSlice.split(hasColon)
+      const theObj = {} as any
+
+      for (let i = 0; i < temp.length; i += 2) {
+        theObj[temp[i].trim()] = temp[i + 1]
+      }
+
+      if (choose === 'key') {
+        return Object.keys(theObj).toString()
+      } else {
+        return Object.values(theObj).toString()
+      }
     }
   }
 
@@ -150,7 +158,7 @@ export const getUnionTypeForApi = async (
     values
       .filter((item: string) => item.match(isInterfaceTypeRegex))
       .map((item: string) => {
-        getKeyObjInUnion(item, 'name')
+        getDataOfInterface(item, 'name')
       })
 
     const [existingUnion] = await UnionType.find({
@@ -197,7 +205,7 @@ export const getUnionTypeForApi = async (
                       name: `${atom.name} ${pascalCaseToWords(
                         apiField.property,
                       )} ${capitalizeFirstLetter(
-                        getKeyObjInUnion(value, 'name'),
+                        getDataOfInterface(value, 'key'),
                       )} API`,
                       kind: ITypeKind.InterfaceType,
                       owner: connectTypeId(userId),
@@ -209,16 +217,16 @@ export const getUnionTypeForApi = async (
                           .map((item: string) => ({
                             edge: {
                               id: v4(),
-                              key: `${getKeyObjInUnion(item, 'name')}`,
+                              key: `${getDataOfInterface(item, 'key')}`,
                               name: `${capitalizeFirstLetter(
-                                getKeyObjInUnion(item, 'name'),
+                                getDataOfInterface(value, 'key'),
                               )}`,
                             },
                             where: {
                               node: {
                                 // kind: checkTypeKind(item),
                                 name: checkPrimitiveType(
-                                  getKeyObjInUnion(item, 'none'),
+                                  getDataOfInterface(item, 'none'),
                                 ),
                               },
                             },
