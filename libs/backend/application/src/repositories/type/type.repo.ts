@@ -1,11 +1,9 @@
 import { getBaseTypes } from '@codelab/backend/infra/adapter/neo4j'
 import {
-  BaseType,
   GetBaseTypesReturn,
   QueryBaseTypesArgs,
 } from '@codelab/shared/abstract/codegen'
-import { int, Record, Transaction } from 'neo4j-driver'
-import { GetBaseTypesRecord } from './types'
+import { int, Transaction } from 'neo4j-driver'
 
 export const typeRepository = {
   baseTypes: async (
@@ -23,32 +21,15 @@ export const typeRepository = {
     const totalCountRecord = getTypesRecords[0]?.get('totalCount')
     const totalCount = totalCountRecord ? int(totalCountRecord).toNumber() : 0
 
-    const withOwner = (
-      data: BaseType,
-      record: Record<GetBaseTypesRecord>,
-    ): BaseType => {
+    const items = getTypesRecords.map((record) => {
+      const type = record.get('type').properties
       const owner = record.get('owner').properties
 
       return {
-        ...data,
-        owner,
-      }
-    }
-
-    const dataMapper = (record: Record<GetBaseTypesRecord>): BaseType => {
-      const type = record.get('type').properties
-
-      return {
         ...type,
+        owner,
         __typename: 'BaseType',
       }
-    }
-
-    const items = getTypesRecords.map((record) => {
-      return withOwner(
-        dataMapper(record as Record<GetBaseTypesRecord>),
-        record as Record<GetBaseTypesRecord>,
-      )
     })
 
     return {
