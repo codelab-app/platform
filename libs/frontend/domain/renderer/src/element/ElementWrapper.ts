@@ -93,24 +93,13 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     return React.createElement(
       ErrorBoundary,
       {
-        fallbackRender: ({ error }) =>
-          React.createElement(
-            'div',
-            {},
-            `Error at ${element.name}: ${error.message}`,
-          ),
-        onError(error, info) {
-          console.log('An error is thrown!')
-          console.log(error)
-          console.log(info)
-          // element.setErrorMessage(`Something went wrong: ${error.message}`)
+        fallbackRender: () => null,
+        onError({ message, stack }) {
+          element.setRenderingError({ message, stack })
         },
         resetKeys: [renderOutputs],
-        onResetKeysChange: (prev, next) => {
-          console.log('onResetKeysChange of ', element.name)
-          console.log(prev)
-          console.log(next)
-          // element.setErrorMessage(null)
+        onResetKeysChange: () => {
+          element.setRenderingError(null)
         },
       },
       Array.isArray(Children)

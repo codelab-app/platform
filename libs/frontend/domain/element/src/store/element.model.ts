@@ -9,6 +9,8 @@ import type {
   IPropData,
   IPropDataByElementId,
   IPropMapBinding,
+  RenderingError,
+  renderingMetadata,
 } from '@codelab/frontend/abstract/core'
 import {
   CssMap,
@@ -95,6 +97,7 @@ export const hydrate = ({
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
+    renderingMetadata: null,
     parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     renderComponentType: renderComponentType
       ? componentRef(renderComponentType.id)
@@ -144,6 +147,7 @@ export class Element
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
+    renderingMetadata: prop<Nullable<renderingMetadata>>(),
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
@@ -246,6 +250,28 @@ export class Element
     })
 
     this.guiCss = JSON.stringify(curGuiCss)
+  }
+
+  @modelAction
+  setRenderingError(error: Nullish<RenderingError>) {
+    this.renderingMetadata = {
+      error,
+    }
+  }
+
+  @computed
+  get ancestorError() {
+    const parent = this.parentElement
+
+    if (!parent) {
+      return null
+    }
+
+    if (parent.renderingMetadata?.error) {
+      return parent.renderingMetadata.error
+    }
+
+    return parent.ancestorError
   }
 
   /**
