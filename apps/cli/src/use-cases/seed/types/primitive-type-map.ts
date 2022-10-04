@@ -12,11 +12,8 @@ type TypeRef = {
 export const getPrimitiveTypeForApi = async (
   apiField: AntdDesignApi,
   atom: IAtomImport,
-  values: Array<string>,
 ): Promise<TypeRef> => {
   const PrimitiveType = await PrimitiveTypeOGM()
-
-  console.log({ values })
 
   // Check and Create Primitive Type
   switch (apiField.type) {
@@ -58,10 +55,14 @@ export const getPrimitiveTypeForApi = async (
     }
 
     default: {
-      console.log(
-        `Could not transform fields for Atom [${atom.type}]`,
-        apiField,
-      )
+      // console.log('=========')
+
+      // console.log(
+      //   `Could not transform fields for Atom [${atom.type}]`,
+      //   apiField,
+      // )
+
+      // console.log('=========')
 
       return null
     }

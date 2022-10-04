@@ -6,19 +6,24 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { connectTypeId } from '@codelab/shared/data'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { capitalizeFirstLetter, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { findUnionType } from '../utils/isRenderPropType'
+import {
+  findUnionType,
+  isHasAngleBracket,
+  isInterfaceTypeRegex,
+} from '../utils/isRenderPropType'
 
 const checkType = (value: string) => {
   return value === 'boolean' || value === 'number' || value === 'string'
 }
 
 const checkInterfaceType = (value: string) => {
-  return value.includes('{')
+  return value.includes('}') || value.includes('{')
 }
 
 const allPrimitives = ['number', 'string', 'boolean']
+// check Interface Type using Regex
 
 // Function to check PrimitiveType of value
 const checkPrimitiveType = (value: string) => {
@@ -56,6 +61,31 @@ export const getUnionTypeForApi = async (
     allPrimitives.includes(x),
   )
 
+  const getKeyObjInUnion = (data: string, choose: string) => {
+    // Initialize "key" variable to get the property, the "value" variable to get type of property
+    let key: any
+    let value: any
+
+    // If string have not comma
+    if (!data.includes(',')) {
+      const hasColon = /[:]/
+      // Remove opening and closing braces
+      const dataSlice = data.slice(1, data.length - 1)
+
+      // Get "key" is a element[0]
+      key = dataSlice.split(hasColon)[0].trim()
+
+      // Get "value" is a element[0]
+      value = dataSlice.split(hasColon)[1].trim()
+    }
+
+    if (choose === 'name') {
+      return key
+    } else {
+      return value
+    }
+  }
+
   // Async function to connect Union Type
   /**
    *This is a function to create Union Type, but it's a Union Type of Primitive Type
@@ -84,7 +114,7 @@ export const getUnionTypeForApi = async (
         apiField.property,
       )} Union API`
 
-      // console.log(`Creating union ${unionName}`)
+      console.log(`Creating union ${unionName}`)
 
       // create Union Type
       const {
@@ -122,53 +152,16 @@ export const getUnionTypeForApi = async (
     }
   }
 
-  const checkPrimitiveOfUnionType = (data: Array<string>) => {
-    if (containsPrimitives) {
-      return connectUnionType(data)
-    } else {
-      return null
-    }
-  }
+  if (
+    isHasAngleBracket.test(apiField.type) &&
+    !findUnionType.test(apiField.type)
+  ) {
+    values
+      .filter((item: string) => item.match(isInterfaceTypeRegex))
+      .map((item: string) => {
+        getKeyObjInUnion(item, 'name')
+      })
 
-  //
-  await checkPrimitiveOfUnionType(values)
-
-  const isInterfaceTypeRegex = /^\{.+.}$/
-
-  const getKeyObjInUnion = (data: string, choose: string) => {
-    let key: any
-    let value: any
-
-    if (isInterfaceTypeRegex.test(data)) {
-      const dataSlice = data.slice(1, data.length - 1)
-
-      // console.log({ dataSlice })
-
-      if (dataSlice.includes(',')) {
-        const valuesSplit = dataSlice.split(',').forEach((s: string) => {
-          const interfaceValues = s.trim()
-
-          if (interfaceValues.includes(':')) {
-            key = interfaceValues.split(':')[0]
-            value = interfaceValues.split(':')[1]
-          }
-        })
-      } else {
-        const valuesSplit = dataSlice.split(':')
-
-        key = valuesSplit[0]
-        value = valuesSplit[1]
-      }
-    }
-
-    if (choose === 'name') {
-      return key
-    } else {
-      return value
-    }
-  }
-
-  if (apiField.type.includes('{') && !findUnionType.test(apiField.type)) {
     const [existingUnion] = await UnionType.find({
       where: {
         AND: [
@@ -206,24 +199,29 @@ export const getUnionTypeForApi = async (
               },
               InterfaceType: {
                 create: values
-                  .filter(checkInterfaceType)
+                  .filter((item: string) => item.match(isInterfaceTypeRegex))
                   .map((value: string) => ({
                     node: {
                       id: v4(),
-                      name: `${atom.name} ${getKeyObjInUnion(
-                        value,
-                        'name',
+                      name: `${atom.name} ${pascalCaseToWords(
+                        apiField.property,
+                      )} ${capitalizeFirstLetter(
+                        getKeyObjInUnion(value, 'name'),
                       )} API`,
                       kind: ITypeKind.InterfaceType,
                       owner: connectTypeId(userId),
                       fields: {
                         connect: values
-                          .filter(checkInterfaceType)
+                          .filter((item: string) =>
+                            item.match(isInterfaceTypeRegex),
+                          )
                           .map((item: string) => ({
                             edge: {
                               id: v4(),
                               key: `${getKeyObjInUnion(item, 'name')}`,
-                              name: getKeyObjInUnion(item, 'name'),
+                              name: `${capitalizeFirstLetter(
+                                getKeyObjInUnion(item, 'name'),
+                              )}`,
                             },
                             where: {
                               node: {
@@ -252,7 +250,11 @@ export const getUnionTypeForApi = async (
     return {
       existingId: existingUnion.id,
     }
+  } else if (containsPrimitives) {
+    return connectUnionType(values)
   } else {
+    // console.log(`Could not transform fields for Atom [${atom.type}]`, apiField)
+
     return null
   }
 }

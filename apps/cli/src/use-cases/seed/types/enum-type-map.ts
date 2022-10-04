@@ -8,8 +8,6 @@ import { connectTypeId } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
-// import { PrimitiveTypeKind } from
-
 type TypeRef = {
   existingId: string
 } | null

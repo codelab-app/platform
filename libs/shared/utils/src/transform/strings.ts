@@ -24,7 +24,7 @@ export const pascalCaseToWords = (input: string) =>
     .trim()
 
 export const capitalizeFirstLetter = (value: string) =>
-  value.charAt(0).toUpperCase() + value.slice(1)
+  value?.charAt(0).toUpperCase() + value?.slice(1)
 
 export const startsWithCapital = (word: string) =>
   word.charAt(0) === word.charAt(0).toUpperCase()

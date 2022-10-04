@@ -3,7 +3,6 @@ import {
   IAtomImport,
   TypeRef,
 } from '@codelab/shared/abstract/core'
-import { logTask } from '../../shared/utils/log-task'
 import { getEnumTypeForApi } from './types/enum-type-map'
 import { getPrimitiveTypeForApi } from './types/primitive-type-map'
 import { getReactNodeTypeForApi } from './types/react-node-type-map'
@@ -24,10 +23,10 @@ export const getTypeForApi = async (
   atom: IAtomImport,
   userId: string,
 ): Promise<TypeRef> => {
-  logTask('Get Type For API', atom.name, apiField)
+  // logTask('Get Type For API', atom.name, apiField)
 
   const values = apiField.type.split('|').map((value: string) => value.trim())
-  const isBaseCondition = apiField.type.includes('|')
+  const isUnionType = apiField.type.includes('|')
 
   // Check if type is Enum Type
   if (apiField.isEnum) {
@@ -45,15 +44,15 @@ export const getTypeForApi = async (
   }
 
   // Check if type is Complex Union Type
-  if (isBaseCondition) {
+  if (isUnionType && !apiField.isEnum) {
     return await getUnionTypeForApi(apiField, atom, userId, values)
   }
 
   if (findPrimitiveType.test(apiField.type)) {
-    console.log({ values })
-
-    return await getPrimitiveTypeForApi(apiField, atom, values)
+    return await getPrimitiveTypeForApi(apiField, atom)
   } else {
+    // console.log(`Could not transform fields for Atom [${atom.type}]`, apiField)
+
     return null
   }
 }
