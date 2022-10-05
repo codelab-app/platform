@@ -1,14 +1,14 @@
 # Parallel Slack notification https://github.com/CircleCI-Public/slack-orb/issues/305
 # https://support.circleci.com/hc/en-us/articles/360047082992-Send-slack-notification-at-end-of-workflow
 
-slack-fail-post-step: &slack-fail-post-step
-  post-steps:
-    #    - swissknife/wait_for_job:
-    #        job-name: install-and-build-workspace,lint,unit,e2e,codegen
-    - slack/notify:
-        event: fail
-        channel: $SLACK_CHANNEL_UPDATE
-        template: basic_fail_1
+#slack-fail-post-step: &slack-fail-post-step
+#  post-steps:
+#    #    - swissknife/wait_for_job:
+#    #        job-name: install-and-build-workspace,lint,unit,e2e,codegen
+#    - slack/notify:
+#        event: fail
+#        channel: $SLACK_CHANNEL_UPDATE
+#        template: basic_fail_1
 
 filters-pr: &filters-pr
   filters:
@@ -22,12 +22,18 @@ filters-master: &filters-master
       only:
         - master
 
+# Each job select which custom executor to use
 executor-params: &executor-params
   parameters:
     e:
       type: executor
       default: machine-ubuntu
   executor: << parameters.e >>
+
+infra-executor: &infra-executor
+  executor: terraform/default
+  environment:
+    TF_WORKSPACE: builder-prod
 
 executor-config: &executor-config
   environment:
@@ -66,6 +72,7 @@ orbs:
   nx: nrwl/nx@1.6.0
   queue: eddiewebb/queue@1.7.0
   swissknife: roopakv/swissknife@0.69.0
+  terraform: circleci/terraform@3.1.0
 
 executors:
   machine-ubuntu:
@@ -258,6 +265,30 @@ jobs:
           path: ~/project/apps/builder-e2e/src/screenshots
           destination: cypress/screenshots
 
+  plan:
+    <<: *infra-executor
+    steps:
+      - checkout
+      - run: ls
+      - run: ls terraform
+      - terraform/init:
+          path: terraform
+      - terraform/validate:
+          path: terraform
+      - terraform/fmt:
+          path: terraform
+      - terraform/plan:
+          path: terraform
+
+  apply:
+    <<: *infra-executor
+    steps:
+      - checkout
+      - terraform/apply:
+          path: terraform
+      - terraform/destroy:
+          path: terraform
+
   notify-success:
     <<: *executor-params
     steps:
@@ -379,20 +410,30 @@ workflows:
           e: docker-node
           requires:
             - install-and-build-workspace
-      - e2e:
+      #      - e2e:
+      #          <<:
+      #            - *filters-pr
+      #          e: docker-node-neo4j
+      #          requires:
+      #            - install-and-build-workspace
+      - plan:
           <<:
             - *filters-pr
-          e: docker-node-neo4j
+      - apply:
+          <<:
+            - *filters-pr
+          type: approval
           requires:
-            - install-and-build-workspace
+            - plan
       - notify-success:
           <<: *filters-pr
           e: docker-node
           requires:
+            - plan
             - lint
             - codegen
             - unit
-            - e2e
+  #            - e2e
 
   app:
     jobs:
