@@ -1,4 +1,7 @@
-import { BuilderDndType, IBuilderComponent } from '@codelab/frontend/abstract/core'
+import {
+  BuilderDndType,
+  IBuilderComponent,
+} from '@codelab/frontend/abstract/core'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'

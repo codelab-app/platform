@@ -20,7 +20,7 @@ export const DraggableElement = ({
   element,
   children,
 }: DraggableElementProps) => {
-  const droppableNodeRef = React.useRef<any>(null)
+  const droppableNodeRef = React.useRef<Nullable<HTMLElement>>(null)
   const { elY, elH } = useMouse(droppableNodeRef)
 
   // Create a draggable for the element
