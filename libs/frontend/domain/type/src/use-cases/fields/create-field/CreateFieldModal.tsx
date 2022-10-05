@@ -7,7 +7,8 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
-import _ from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
+import set from 'lodash/set'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -73,7 +74,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             ...model,
           }}
           onChange={(key, value) => {
-            setModel((prev) => _.set(_.cloneDeep(prev), key, value))
+            setModel((prev) => set(cloneDeep(prev), key, value))
           }}
           onSubmit={(input) =>
             typeService.addField(
