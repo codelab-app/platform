@@ -183,7 +183,7 @@ jobs:
     steps:
       - setup-workspace
       - run:
-          name: 'Run Lint on Workspace'
+          name: 'Run Lint on Repository'
           command: yarn cli tasks lint --env ci
       - run:
           name: 'GraphQL Codegen'
