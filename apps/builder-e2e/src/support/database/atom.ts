@@ -1,12 +1,12 @@
 import { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
-import { MaybeArray } from '@codelab/shared/abstract/types'
 import { print } from 'graphql'
 import { CreateAtomsDocument } from 'libs/frontend/domain/atom/src/graphql/atom.endpoints.graphql.gen'
+import { ArrayOrSingle } from 'ts-essentials'
 
 export const createAtomRequestId = 'CreateAtom'
 
-export const createAtom = (input: MaybeArray<AtomCreateInput>) =>
+export const createAtom = (input: ArrayOrSingle<AtomCreateInput>) =>
   cy
     .graphqlRequest(
       {

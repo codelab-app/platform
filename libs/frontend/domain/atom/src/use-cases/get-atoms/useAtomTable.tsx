@@ -1,8 +1,8 @@
 import { IAtomService } from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { TableColumnProps } from 'antd'
 import {
+  ColumnType,
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
@@ -12,7 +12,10 @@ import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
 import { AtomRecord } from './columns/types'
 
-const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {
+const onLibraryFilter = (
+  value: string | number | boolean,
+  atom: AtomRecord,
+): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
   const search = value.toString().toLowerCase()
 
@@ -25,13 +28,13 @@ export const useAtomTable = (atomService: IAtomService) => {
   // const tagTreeData = tagTree.getAntdTrees()
   // const filterTreeData = makeFilterData(tagTreeData)
 
-  const columns: Array<TableColumnProps<AtomRecord>> = [
+  const columns: Array<ColumnType<AtomRecord>> = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('name'),
+      ...useColumnSearchProps<AtomRecord>('name'),
     },
     {
       title: 'Library',

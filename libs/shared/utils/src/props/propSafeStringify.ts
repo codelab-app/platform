@@ -5,11 +5,11 @@ import isPlainObject from 'lodash/isPlainObject'
 import pickBy from 'lodash/pickBy'
 import React from 'react'
 
-export const propSafeStringify = (props: any, maskFunctions = true) => {
+export const propSafeStringify = (props: object, maskFunctions = true) => {
   const obj = pickBy(props, (value, key) => !key.startsWith('_'))
-  const cache = new WeakMap<any, boolean>()
+  const cache = new WeakMap<object, boolean>()
 
-  const replacer = (key: string, value: any) => {
+  const replacer = (key: string, value: object) => {
     if (key === 'children' && isObjectLike(value)) {
       return
     }

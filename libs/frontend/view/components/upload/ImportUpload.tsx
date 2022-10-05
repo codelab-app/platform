@@ -5,7 +5,7 @@ import type { UploadProgressEvent } from 'rc-upload/es/interface'
 import React, { useState } from 'react'
 
 export interface ImportUploadProps {
-  fetchFn: (data: any) => Promise<any>
+  fetchFn: (data: unknown) => Promise<unknown>
 }
 
 export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
@@ -28,7 +28,7 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
       await fetchFn(text)
         .then(() => {
           if (onSuccess) {
-            onSuccess({}, {} as any)
+            onSuccess({}, {} as XMLHttpRequest)
           }
         })
         .catch()

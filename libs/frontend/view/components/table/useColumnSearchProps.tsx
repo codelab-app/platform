@@ -1,9 +1,12 @@
 import { SearchOutlined } from '@ant-design/icons'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
+import type { FilterConfirmProps } from 'antd/es/table/interface'
 import React, { useRef, useState } from 'react'
 
-export const useColumnSearchProps = (dataIndex: string) => {
+export const useColumnSearchProps = <RecordType extends object>(
+  dataIndex: keyof RecordType,
+) => {
   const [state, setState] = useState({
     searchText: '',
     searchedColumn: '',
@@ -13,12 +16,12 @@ export const useColumnSearchProps = (dataIndex: string) => {
 
   const handleSearch = (
     selectedKeys: Array<React.Key>,
-    confirm: (params?: any) => void,
+    confirm: (params: FilterConfirmProps) => void,
   ) => {
     confirm({ closeDropdown: false })
     setState({
       searchText: selectedKeys[0] as string,
-      searchedColumn: dataIndex,
+      searchedColumn: dataIndex.toString(),
     })
   }
 
@@ -44,7 +47,7 @@ export const useColumnSearchProps = (dataIndex: string) => {
             handleSearch(selectedKeys, confirm)
           }}
           onPressEnter={() => handleSearch(selectedKeys, confirm)}
-          placeholder={`Search ${dataIndex}`}
+          placeholder={`Search ${dataIndex.toString()}`}
           ref={(node) => {
             searchInputRef.current = node
           }}
@@ -88,16 +91,13 @@ export const useColumnSearchProps = (dataIndex: string) => {
       <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
     onFilter: (value, record) =>
-      record[dataIndex]
-        ? record[dataIndex]
-            .toString()
-            .toLowerCase()
-            .includes((value as string).toLowerCase())
-        : '',
+      `${record[dataIndex]}`
+        .toLowerCase()
+        .includes((value as string).toLowerCase()) ?? '',
     onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInputRef?.current?.select(), 100)
       }
     },
-  } as TableColumnProps<any>
+  } as TableColumnProps<RecordType>
 }

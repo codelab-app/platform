@@ -51,7 +51,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
             return result
               .then((r) => {
                 if (r) {
-                  callbackWithParams(onSubmitSuccess, r as any)
+                  callbackWithParams(onSubmitSuccess, r)
                 }
               })
               .catch((err) => {

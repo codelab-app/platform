@@ -6,6 +6,7 @@ import React from 'react'
 /**
  * This is our representation of what kind of ReactComponent to use
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type IComponentType = React.ComponentType<any> | Nullable<string>
 
 export type AtomsRecord = Partial<Record<IAtomType, IComponentType>>

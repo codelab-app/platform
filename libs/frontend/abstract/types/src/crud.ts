@@ -1,4 +1,4 @@
-export interface DeleteButtonProps<TEntity = any> {
+export interface DeleteButtonProps<TEntity = unknown> {
   ids: Array<string>
   entity?: TEntity
   disabled?: boolean

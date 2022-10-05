@@ -37,6 +37,7 @@ export interface IModalService<Metadata = never> {
 
 export type IEntityModalService<
   Metadata = never,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Properties extends object = Record<string, any>,
 > = IModalService<Metadata> & {
   /**

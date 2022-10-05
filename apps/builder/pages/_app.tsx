@@ -6,7 +6,7 @@ import 'react-quill/dist/quill.snow.css'
 import '../src/styles/quill.snow.override.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0'
-import { IAppProps } from '@codelab/frontend/abstract/core'
+import { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { StoreProvider } from '@codelab/frontend/presenter/container'
@@ -26,7 +26,7 @@ import { slickCssFix } from '../src/styles/slick/Slick'
  */
 const queryClient = new QueryClient()
 
-const App = ({ pageProps, Component }: IAppProps) => {
+const App = ({ pageProps, Component }: IAppProps<IPageProps>) => {
   const store = useMemo(() => initializeStore(pageProps), [])
 
   const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =

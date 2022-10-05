@@ -28,6 +28,8 @@ import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import {
+  AnyModel,
+  AnyModelProp,
   findParent,
   getRefsResolvingTo,
   idProp,
@@ -39,6 +41,8 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+import { BaseModel } from 'mobx-keystone/src/model/BaseModel'
+import { ModelProps } from 'mobx-keystone/src/modelShared/prop'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
 import { Prop } from './prop.model'
@@ -107,8 +111,8 @@ export const getElementTree = (element: IElement): Maybe<IElementTree> => {
   const refs = getRefsResolvingTo<IElement>(element, elementRef)
 
   return [...refs.values()].reduce((prev, node) => {
-    const elementTree = findParent(node, (parent: any) => {
-      return parent?.[modelTypeKey] === '@codelab/ElementTree'
+    const elementTree = findParent(node, (parent) => {
+      return (parent as AnyModel)?.[modelTypeKey] === '@codelab/ElementTree'
     })
 
     return elementTree ? elementTree : prev

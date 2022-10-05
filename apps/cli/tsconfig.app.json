@@ -4,13 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "module": "ESNext",
     "strict": true,
-    "types": [
-      "node",
-      "worker-loader",
-      "@fancyapps/ui",
-      "cypher",
-      "eslint-linter-browserify"
-    ],
+    "types": ["node", "worker-loader", "@fancyapps/ui", "cypher"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "preserve",

@@ -29,7 +29,9 @@ const hydrate = (action: IApiActionDTO): IApiAction => {
     name: action.name,
     storeId: action.store.id,
     type: action.type,
-    config: Prop.hydrate(action.config) as IApiActionConfig,
+    // TODO: fix up type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    config: Prop.hydrate(action.config) as any,
     resource: resourceRef(action.resource.id),
     successAction: actionRef(action.successAction.id),
     errorAction: actionRef(action.errorAction.id),
@@ -77,7 +79,7 @@ export class ApiAction
     const resource = this.resource.current
     const config = this.config.values
 
-    const runner = (...args: Array<any>) => {
+    const runner = (...args: Array<unknown>) => {
       const fetchPromise =
         resource.type === IResourceType.GraphQL
           ? graphqlFetch(resource, config as IGraphQLActionConfig)

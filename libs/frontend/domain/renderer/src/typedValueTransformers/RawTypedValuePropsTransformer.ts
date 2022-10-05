@@ -43,11 +43,11 @@ export class RawTypedValuePropsTransformer
     return this.handledKinds.has(kind)
   }
 
-  canHandleValue(value: TypedValue<any>): boolean {
+  canHandleValue(value: TypedValue<unknown>): boolean {
     return true
   }
 
-  public transform(props: TypedValue<any>, typeKind: ITypeKind): any {
+  public transform(props: TypedValue<unknown>, typeKind: ITypeKind) {
     if (!props?.value) {
       return props
     }

@@ -105,7 +105,7 @@ export class ScraperService {
                         (child) => (child as HTMLElement).tagName === 'CODE',
                       ) &&
                       !/(function|=>|<)/g.test(textTdContent),
-                  }
+                  } as unknown as AntdDesignApi
                 })
             )
           }
@@ -124,9 +124,7 @@ export class ScraperService {
             return [
               {
                 name: _pageName,
-                props: extractPropsFromTable(
-                  tables[0] as HTMLTableElement,
-                ) as any,
+                props: extractPropsFromTable(tables[0] as HTMLTableElement),
               },
             ]
           }
@@ -162,7 +160,7 @@ export class ScraperService {
 
             return {
               name,
-              props: extractPropsFromTable(table as HTMLTableElement) as any,
+              props: extractPropsFromTable(table as HTMLTableElement),
             }
           })
         },

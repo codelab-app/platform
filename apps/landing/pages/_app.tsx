@@ -6,12 +6,11 @@ import '../styles/antd-theme.less'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { IAppProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { css, Global } from '@emotion/react'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ConfigProvider } from 'antd'
-import React, { PropsWithChildren, useMemo } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 // import { slickCssFix } from '../src/styles/slick/Slick'
@@ -22,14 +21,8 @@ import { GlobalStyles } from 'twin.macro'
  */
 
 const App = ({ pageProps, Component }: IAppProps) => {
-  const store = useMemo(
-    () => initializeStore(pageProps),
-    [pageProps.snapshot, pageProps.user],
-  )
-
-  const {
-    Layout = ({ children }: PropsWithChildren<unknown>) => <>{children}</>,
-  } = Component as CodelabPage<unknown>
+  const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
+    Component as CodelabPage
 
   return (
     <RecoilRoot>

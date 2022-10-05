@@ -12,7 +12,7 @@ import { withGlobalPropsProvider } from '../props/globalPropsContext'
  * Fragments can only have the `key` prop
  */
 export const extractValidProps = (
-  ReactComponent: any,
+  ReactComponent: unknown,
   renderOutput: IRenderOutput,
 ) =>
   ReactComponent === Fragment
@@ -25,10 +25,13 @@ export const extractValidProps = (
 export const withMaybeGlobalPropsProvider = (
   renderOutput: IRenderOutput,
   globalProps: IPropDataByElementId,
-) =>
-  isEmpty(renderOutput.globalProps)
+) => {
+  const mergedProps = mergeProps(globalProps, renderOutput.globalProps)
+
+  return isEmpty(renderOutput.globalProps)
     ? noWrapper()
-    : withGlobalPropsProvider(mergeProps(globalProps, renderOutput.globalProps))
+    : withGlobalPropsProvider(mergedProps as IPropDataByElementId)
+}
 
 export const getReactComponent = (renderOutput: IRenderOutput) =>
   // Render the atom if it exists, otherwise use fragment
@@ -42,7 +45,7 @@ export const makeCustomTextContainer = (customText: string) =>
     },
   })
 
-export const childrenAreEmpty = (children: any) =>
+export const childrenAreEmpty = (children: unknown) =>
   !children || (Array.isArray(children) && !children.length)
 
 export const noWrapper = () => (children: ReactElement) => children

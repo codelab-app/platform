@@ -1,10 +1,12 @@
-import type { Callback } from '@codelab/frontend/abstract/types'
+import type { VoidCallback } from '@codelab/frontend/abstract/types'
 import isFunction from 'lodash/isFunction'
-import { ArrayOrSingle } from 'ts-essentials'
 
-export const callbackWithParams = <T, TCb extends Callback<T> = Callback<T>>(
-  callbacks: ArrayOrSingle<TCb> = [],
-  param: T,
+export const callbackWithParams = <
+  TIn,
+  TCb extends VoidCallback<TIn> = VoidCallback<TIn>,
+>(
+  callbacks: TCb,
+  param: TIn,
 ) => {
   const callbacksArray = Array.isArray(callbacks) ? callbacks : [callbacks]
 

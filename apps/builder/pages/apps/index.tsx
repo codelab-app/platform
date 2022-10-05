@@ -5,7 +5,6 @@ import {
   CreateAppModal,
   DeleteAppModal,
   GetAppsList,
-  ImportAppButton,
   UpdateAppModal,
 } from '@codelab/frontend/domain/app'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -30,10 +29,6 @@ import React from 'react'
 import { useAsync } from 'react-use'
 
 const items: MenuProps['items'] = [
-  {
-    key: '1',
-    icon: <ImportAppButton />,
-  },
   {
     key: '0',
     icon: (

@@ -26,32 +26,31 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
       }
     : undefined
 
-  if (pageProps?.storeSnapshot) {
-    createRootStore({
-      servicesFromSnapshot: {},
-      user,
-      init: false,
-    })
+  // if (pageProps?.storeSnapshot) {
+  //   createRootStore({
+  //     servicesFromSnapshot: {},
+  //     user,
+  //     init: false,
+  //   })
+  //
+  //   const storeFromSnapshot = fromSnapshot(pageProps?.storeSnapshot)
+  //
+  //   return storeFromSnapshot
+  // }
 
-    const storeFromSnapshot = fromSnapshot(pageProps?.storeSnapshot)
+  // const servicesSnapshot = pageProps?.snapshot || {}
+  // const servicesFromSnapshot: any = {}
 
-    return storeFromSnapshot
-  }
-
-  const servicesSnapshot = pageProps?.snapshot || {}
-  const servicesFromSnapshot: any = {}
-
-  Object.entries(servicesSnapshot).map(([key, snapshot]) => {
-    const snapshotValue = fromSnapshot(snapshot)
-    servicesFromSnapshot[key] = snapshotValue
-  })
+  // Object.entries(servicesSnapshot).map(([key, snapshot]) => {
+  //   const snapshotValue = fromSnapshot(snapshot)
+  //   servicesFromSnapshot[key] = snapshotValue
+  // })
 
   // Create the store once in the client
   if (!_store) {
     _store = createRootStore({
-      servicesFromSnapshot,
       user,
-    }) as IRootStore
+    })
 
     registerRootStore(_store as IRootStore)
   }

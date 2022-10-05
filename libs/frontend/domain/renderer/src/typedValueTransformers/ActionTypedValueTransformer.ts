@@ -28,7 +28,7 @@ export class ActionTypedValueTransformer
     return kind === ITypeKind.ActionType
   }
 
-  canHandleValue(value: TypedValue<any>): boolean {
+  canHandleValue(value: TypedValue<unknown>): boolean {
     return (
       isString(value.value) &&
       Boolean(
@@ -39,7 +39,7 @@ export class ActionTypedValueTransformer
     )
   }
 
-  public transform(props: TypedValue<any>): any {
+  public transform(props: TypedValue<unknown>) {
     const actionId = props?.value
 
     if (!isString(actionId)) {

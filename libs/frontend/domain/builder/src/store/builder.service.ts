@@ -16,6 +16,7 @@ import { isNonNullable } from '@codelab/shared/utils'
 import chain from 'lodash/chain'
 import { computed } from 'mobx'
 import {
+  AnyModel,
   findParent,
   Frozen,
   getRefsResolvingTo,
@@ -176,8 +177,8 @@ export class BuilderService
       const refs = getRefsResolvingTo(this.selectedNode, elementRef)
 
       return [...refs.values()].reduce((prev, node) => {
-        const component = findParent(node, (parent: any) => {
-          return parent?.[modelTypeKey] === '@codelab/Component'
+        const component = findParent(node, (parent) => {
+          return (parent as AnyModel)?.[modelTypeKey] === '@codelab/Component'
         })
 
         return component ? component : prev

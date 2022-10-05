@@ -3,7 +3,7 @@ import { createContext } from 'mobx-keystone'
 
 export const userServiceContext = createContext<IUserService>()
 
-export const getUserService = (self: any) => {
+export const getUserService = (self: object) => {
   const userService = userServiceContext.get(self)
 
   if (!userService) {

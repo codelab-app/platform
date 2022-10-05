@@ -14,8 +14,8 @@ import React from 'react'
 import tw from 'twin.macro'
 
 export interface ContextMenuProps {
-  onClick?: () => any
-  onBlur?: () => any
+  onClick?: () => unknown
+  onBlur?: () => unknown
 }
 
 export type ElementContextMenuProps = {

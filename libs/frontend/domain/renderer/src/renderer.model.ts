@@ -395,8 +395,8 @@ export class Renderer
   /**
    * Applies all the type transformers to the props
    */
-  private applyPropTypeTransformers = (props: IPropData): IPropData =>
-    mapDeep(props, (value, key) => {
+  private applyPropTypeTransformers = (props: IPropData) =>
+    mapDeep(props, (value) => {
       if (!isTypedValue(value)) {
         return value
       }
@@ -417,6 +417,8 @@ export class Renderer
 
         return propTransformer.transform(value, typeKind)
       }
+
+      return {}
     })
 
   private getTypeKindById(typeId: string): ITypeKind | undefined {

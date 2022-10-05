@@ -22,7 +22,7 @@ export interface IAtomService
     Array<Ref<IAtom>>,
     { atoms: Array<IAtom> }
   >
-  deleteMany(atoms: Array<IAtomRef>): any
+  deleteMany(atoms: Array<IAtomRef>): Promise<Array<IAtom>>
 
   selectedIds: ArraySet<string>
   setSelectedIds(arraySet: ArraySet<string>): void

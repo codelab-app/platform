@@ -1,4 +1,8 @@
-import { IEntityModalService, ITag } from '@codelab/frontend/abstract/core'
+import {
+  IEntityModalService,
+  ITag,
+  ITagDTO,
+} from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
@@ -6,7 +10,7 @@ import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 @model('@codelab/TagModalService')
 export class TagModalService
   extends ExtendedModel(modelClass<ModalService<Ref<ITag>>>(ModalService), {})
-  implements IEntityModalService<Ref<ITag>, { tag?: any }>
+  implements IEntityModalService<Ref<ITag>, { tag?: ITagDTO }>
 {
   @computed
   get tag() {

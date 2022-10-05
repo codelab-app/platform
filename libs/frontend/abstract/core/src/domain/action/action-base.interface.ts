@@ -10,7 +10,7 @@ export interface IActionBase {
   createRunner: (
     ctx: IPropData,
     updateState: (state: IPropData) => void,
-  ) => (...args: Array<any>) => any
+  ) => (...args: Array<unknown>) => unknown
 }
 
 export type IActionRef = string

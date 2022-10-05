@@ -84,7 +84,7 @@ const handler: NextApiHandler = async (req, res) => {
      * Requires `headers.cookie` to be set by client
      */
     session = await auth0Instance.getSession(req, res)
-    ;(req as any).user = session?.user
+    Object.assign(req, { user: session?.user })
 
     accessToken = (await auth0Instance.getAccessToken(req, res)).accessToken
   } catch (e) {

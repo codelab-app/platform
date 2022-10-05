@@ -5,6 +5,6 @@ export type MaybePromise<T> = T | Promise<T>
 /**
  * Match the promise behavior of TOut with TIn
  */
-export type InferPromise<TIn, TOut> = TIn extends PromiseLike<any>
+export type InferPromise<TIn, TOut> = TIn extends PromiseLike<unknown>
   ? Promise<TOut>
   : TOut
