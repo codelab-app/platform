@@ -11,11 +11,12 @@ export const typeRepository = {
     params: QueryBaseTypesArgs,
   ): Promise<GetBaseTypesReturn> => {
     const { options } = params
-    const { limit = 10, offset = 0 } = options || {}
+    const limit = options?.limit ?? 10
+    const offset = options?.offset ?? 0
 
     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
-      limit: int(Number(limit)),
-      skip: int(Number(offset)),
+      limit: int(limit),
+      skip: int(offset),
     })
 
     const totalCountRecord = getTypesRecords[0]?.get('totalCount')

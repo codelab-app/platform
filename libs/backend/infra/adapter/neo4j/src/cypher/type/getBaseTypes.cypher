@@ -1,9 +1,9 @@
-match(type:Type)
-with count(type) - $limit as totalCount
+MATCH(type:Type)
+WITH count(type) - $limit as totalCount
 
-match(type:Type)-[:OWNED_BY]-(owner:User)
-return type,owner,totalCount
+MATCH(type:Type)-[:OWNED_BY]-(owner:User)
+RETURN type, owner, totalCount
 
-order by type.id
-skip $skip
-limit $limit
+ORDER by type.id
+SKIP $skip
+LIMIT $limit

@@ -62,9 +62,9 @@ export const typeSchema = gql`
     getTypeReferences(typeId: ID!): [TypeReference!]
       @cypher(statement: """${getTypeReferences}""")
 
-   baseTypes(
-    options: GetBaseTypesOptions
-   ):GetBaseTypesReturn!
+    baseTypes(
+      options: GetBaseTypesOptions
+    ): GetBaseTypesReturn!
   }
 
     interface IBaseType
@@ -85,10 +85,10 @@ export const typeSchema = gql`
  # for defining returning data only
  type BaseType implements IBaseType @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
    id: ID!
-   kind: TypeKind! 
+   kind: TypeKind!
    name: String! @unique
    owner: User!
- } 
+ }
 
   # https://github.com/neo4j/graphql/issues/1105
  extend interface IBaseType

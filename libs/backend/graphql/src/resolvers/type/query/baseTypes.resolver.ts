@@ -6,7 +6,7 @@ import { Transaction } from 'neo4j-driver'
 
 export const baseTypes: IFieldResolver<
   GraphQLRequestContext,
-  undefined,
+  unknown,
   QueryBaseTypesArgs
 > = (_, args) => async (txn: Transaction) => {
   return typeRepository.baseTypes(txn, args)
