@@ -5,10 +5,10 @@ import { Overwrite } from 'utility-types'
 /**
  * Used by `_app.tsx`
  */
-export type IAppProps<T = unknown> = Overwrite<
+export type IAppProps<T = object> = Overwrite<
   AppProps<T>,
   {
-    pageProps: IPageProps
+    pageProps: T
   }
 >
 
