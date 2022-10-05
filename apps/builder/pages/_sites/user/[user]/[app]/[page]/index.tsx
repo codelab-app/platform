@@ -144,7 +144,6 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
   // components are needed to build pageElementTree
   // therefore they must be loaded first
   // This requires a current userId to work
-  // await componentService.loadComponentTree()
   return {
     props: {
       appId: app.id,

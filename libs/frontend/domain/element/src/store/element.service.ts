@@ -1,5 +1,4 @@
 import {
-  IAtomService,
   IAuth0Id,
   IComponentDTO,
   ICreateElementDTO,
@@ -9,17 +8,14 @@ import {
   IElementRef,
   IElementService,
   IElementTree,
-  IInterfaceType,
   isAtomDTO,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
-import { getAtomService } from '@codelab/frontend/domain/atom'
 import {
   PropMapBinding,
   PropMapBindingModalService,
 } from '@codelab/frontend/domain/prop'
-import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -27,12 +23,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import {
-  connectNode,
-  connectOwner,
-  connectTypeOwner,
-  reconnectNode,
-} from '@codelab/shared/data'
+import { connectNode, connectOwner, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
@@ -138,8 +129,6 @@ export class ElementService
   @modelAction
   public writeCache = (element: IElementDTO): IElement => {
     console.debug('ElementService.writeCache', element)
-    this.writeAtomsCache([element])
-    this.writeComponentsCache([element])
 
     let elementModel = this.elements.get(element.id)
 
@@ -718,7 +707,7 @@ element is new parentElement's first child
                     fields: {},
                     kind: ITypeKind.InterfaceType,
                     apiOfAtoms: {},
-                    owner: connectTypeOwner(auth0Id),
+                    owner: connectOwner(auth0Id),
                   },
                 },
               },
@@ -731,9 +720,6 @@ element is new parentElement's first child
     if (!element.parentComponent) {
       throw new Error('Could not find component')
     }
-
-    // 3. Load component so we can use reference
-    const componentService = getComponentService(this)
 
     // 3. Make an intermediate element with instance of the Component
     const [newElement] = yield* _await(
@@ -847,16 +833,52 @@ element is new parentElement's first child
    */
   @modelFlow
   @transaction
-  removeDeletedPropDataFromElements = _async(function* (
+  updateAtomPropKey = _async(function* (
     this: ElementService,
-    interfaceType: IInterfaceType,
-    propKey: string,
+    atomApiId: string,
+    oldKey: string,
+    newKey: string,
   ) {
-    const elementsThatUseTheProp = yield* _await(
-      this.getAll({ renderAtomType: { api: { id: interfaceType.id } } }),
+    if (oldKey === newKey) {
+      return
+    }
+
+    const elements = yield* _await(
+      this.getAll({ renderAtomType: { api: { id: atomApiId } } }),
     )
 
-    const promises = elementsThatUseTheProp.map((element) => {
+    const promises = elements.map((element) => {
+      const updatedProps = {
+        ...omit(element.props?.data, oldKey),
+        [newKey]: element.props?.values[oldKey],
+      }
+
+      return this.patchElement(element, {
+        props: {
+          update: {
+            node: {
+              data: JSON.stringify(updatedProps),
+            },
+          },
+        },
+      })
+    })
+
+    yield* _await(Promise.all(promises))
+  })
+
+  @modelFlow
+  @transaction
+  deleteAtomPropKey = _async(function* (
+    this: ElementService,
+    atomApiId: string,
+    propKey: string,
+  ) {
+    const elements = yield* _await(
+      this.getAll({ renderAtomType: { api: { id: atomApiId } } }),
+    )
+
+    const promises = elements.map((element) => {
       const updatedProps = omit(element.props?.data, propKey)
 
       return this.patchElement(element, {

@@ -1,5 +1,5 @@
 import { IFieldResolver } from '@graphql-tools/utils'
-import { Transaction } from 'neo4j-driver'
+import { ManagedTransaction } from 'neo4j-driver'
 import { getDriver } from './driver'
 
 export type ITxnResolver<
@@ -11,10 +11,10 @@ export type ITxnResolver<
   TParent,
   TContext,
   TArgs,
-  (txn: Transaction) => Promise<TReturn>
+  (txn: ManagedTransaction) => Promise<TReturn>
 >
 
-type TransactionWork<T> = (txn: Transaction) => Promise<T> | T
+type TransactionWork<T> = (txn: ManagedTransaction) => Promise<T> | T
 
 export const withReadTransaction = async <T>(
   readTransaction: TransactionWork<T>,
@@ -23,7 +23,7 @@ export const withReadTransaction = async <T>(
   const session = driver.session()
 
   return session
-    .readTransaction((txn) => readTransaction(txn))
+    .executeRead((txn) => readTransaction(txn))
     .catch((error) => {
       console.error(error)
       throw error
@@ -38,7 +38,7 @@ export const withWriteTransaction = async <T>(
   const session = driver.session()
 
   return session
-    .writeTransaction((txn) => writeTransaction(txn))
+    .executeWrite((txn) => writeTransaction(txn))
     .catch((error) => {
       console.error(error)
       throw error

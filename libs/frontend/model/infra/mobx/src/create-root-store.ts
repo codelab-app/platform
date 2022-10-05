@@ -30,6 +30,7 @@ import {
   ActionService,
   actionServiceContext,
   StoreService,
+  storeServiceContext,
 } from '@codelab/frontend/domain/store'
 import { TagService, tagServiceContext } from '@codelab/frontend/domain/tag'
 import {

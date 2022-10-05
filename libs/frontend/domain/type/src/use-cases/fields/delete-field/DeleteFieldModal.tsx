@@ -1,4 +1,4 @@
-import { ITypeService } from '@codelab/frontend/abstract/core'
+import { IElementService, ITypeService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
@@ -12,16 +12,24 @@ import { AutoFields } from 'uniforms-antd'
 
 interface DeleteFieldModalProps {
   typeService: ITypeService
+  elementService: IElementService
 }
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
-  ({ typeService }) => {
+  ({ typeService, elementService }) => {
     const closeModal = () => typeService.fieldDeleteModal.close()
     const { field } = typeService.fieldDeleteModal
+    const interfaceId = typeService.fieldDeleteModal.interface?.id
 
-    if (!field) {
+    if (!field || !interfaceId) {
       return null
     }
+
+    const onSubmit = () =>
+      Promise.all([
+        typeService.deleteField(interfaceId, field.id),
+        elementService.deletedAtomPropKey(interfaceId, field.key),
+      ])
 
     return (
       <ModalForm.Modal
@@ -34,12 +42,7 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
       >
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
-          onSubmit={(input) => {
-            return typeService.deleteField(
-              typeService.fieldDeleteModal.interface?.id as string,
-              field.id,
-            )
-          }}
+          onSubmit={onSubmit}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting field',
             type: 'error',

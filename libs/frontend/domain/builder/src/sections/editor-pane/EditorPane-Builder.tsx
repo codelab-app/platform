@@ -1,6 +1,7 @@
 import { CodeOutlined, DatabaseOutlined } from '@ant-design/icons'
 import {
   IActionService,
+  IElementService,
   IResourceService,
   IStore,
   IStoreService,
@@ -15,7 +16,6 @@ import {
 import {
   CreateFieldModal,
   DeleteFieldModal,
-  InterfaceDefaultsModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
@@ -37,6 +37,7 @@ interface EditorPaneBuilderProps {
   resizable: UseResizable
   actionService: IActionService
   storeService: IStoreService
+  elementService: IElementService
   typeService: ITypeService
   resourceService: IResourceService
   appStore: IStore
@@ -58,6 +59,7 @@ export const EditorPaneBuilder = observer(
     actionService,
     appStore,
     storeService,
+    elementService,
     typeService,
     resourceService,
   }: EditorPaneBuilderProps) => {
@@ -107,9 +109,14 @@ export const EditorPaneBuilder = observer(
           </Tabs>
         </Container>
         <CreateFieldModal typeService={typeService} />
-        <UpdateFieldModal typeService={typeService} />
-        <DeleteFieldModal typeService={typeService} />
-        <InterfaceDefaultsModal typeService={typeService} />
+        <UpdateFieldModal
+          elementService={elementService}
+          typeService={typeService}
+        />
+        <DeleteFieldModal
+          elementService={elementService}
+          typeService={typeService}
+        />
         <CreateActionModal
           actionService={actionService}
           resourceService={resourceService}

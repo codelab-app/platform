@@ -32,9 +32,12 @@ export interface RenderingError {
 
 // Metadata obtained from the renderer
 // regarding the element's rendering
-export interface renderingMetadata {
+export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
+// we need { id, name } for component.
+// we don't use Ref to break element ---> component dependency
+export type IComponentMeta = Pick<IComponent, 'id' | 'name'>
 
 export interface IElement
   extends INodeType<ELEMENT_NODE_TYPE>,
@@ -43,15 +46,16 @@ export interface IElement
   isRoot: boolean
   owner: Nullable<IAuth0Id>
   name: Nullable<string>
+  renderingMetadata: Nullable<RenderingMetadata>
   customCss: Nullable<string>
   guiCss: Nullable<string>
-  props?: Nullable<IProp>
+  props: Nullable<IProp>
   atom: Nullable<Ref<IAtom>>
   hooks: Array<IHook>
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
   propMapBindings: ObjectMap<IPropMapBinding>
-  parentComponent: Nullable<Ref<IComponent>>
+  parentComponent: Nullable<IComponentMeta>
   label: string
   propTransformationJs: Nullable<string>
   preRenderActionId: Nullish<string>
@@ -59,9 +63,8 @@ export interface IElement
   children: Array<IElement>
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
-  renderComponentType: Nullable<Ref<IComponent>>
-  renderingMetadata: Nullable<renderingMetadata>
   ancestorError: Nullish<RenderingError>
+  renderComponentType: Nullable<IComponentMeta>
   antdNode: IBuilderDataNode
   leftHandDescendants: Array<IElement>
   descendants: Array<IElement>

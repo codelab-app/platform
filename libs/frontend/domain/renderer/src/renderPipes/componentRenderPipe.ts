@@ -20,7 +20,11 @@ export class ComponentRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    const component = element.renderComponentType?.current
+    const componentService = getComponentService(this)
+
+    const component = element.renderComponentType?.id
+      ? componentService.component(element.renderComponentType.id)
+      : undefined
 
     if (!component) {
       return this.next.render(element, props)

@@ -73,8 +73,6 @@ export const interfaceWithUnionField = new InterfaceType({
   name: 'Interface with union field',
   kind: ITypeKind.InterfaceType,
   ownerId: '',
-  defaults: {},
-  ownerAuthId: '',
 })
 
 interfaceWithUnionField.updateFieldCache({

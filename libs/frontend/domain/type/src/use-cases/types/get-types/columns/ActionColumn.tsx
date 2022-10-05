@@ -2,17 +2,14 @@ import { RightCircleOutlined } from '@ant-design/icons'
 import { ITypeService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
-  DisplayIf,
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
 import { typeRef } from '../../../../store'
-import { InterfaceDefaultsButton } from '../../../interface-defaults'
 import { TypeRecord } from './types'
 
 interface ActionColumnProps {
@@ -32,12 +29,6 @@ export const ActionColumn = observer<ActionColumnProps>(
           </Link>
         ) : null}
 
-        <DisplayIf condition={type.typeKind === ITypeKind.InterfaceType}>
-          <InterfaceDefaultsButton
-            interfaceId={type.id}
-            typeService={typeService}
-          />
-        </DisplayIf>
         <ListItemEditButton
           onClick={() => typeService.updateModal.open(typeRef(type.id))}
         />

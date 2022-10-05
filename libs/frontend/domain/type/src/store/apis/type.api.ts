@@ -1,8 +1,8 @@
 import {
-  IConnectTypeInput,
+  IconnectOwnerInput,
   ICreateTypeInput,
   IDeleteTypeInput,
-  IDisconnectTypeInput,
+  IDisconnectOwnerInput,
   ITypeDTO,
   ITypeWhere,
   IUpdateTypeInput,
@@ -139,8 +139,8 @@ type UpdateTypesRecord = Record<
     where: ITypeWhere
     update?: IUpdateTypeInput
     delete?: IDeleteTypeInput
-    disconnect?: IDisconnectTypeInput
-    connect?: IConnectTypeInput
+    disconnect?: IDisconnectOwnerInput
+    connect?: IconnectOwnerInput
   }) => Promise<Array<ITypeDTO>>
 >
 

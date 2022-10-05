@@ -1,18 +1,16 @@
-import type {
+import {
   IAtom,
   IAtomDTO,
   IAtomService,
   ICreateAtomDTO,
+  IElementDTO,
+  isAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import {
-  connectNode,
-  connectTypeOwner,
-  reconnectNodes,
-} from '@codelab/shared/data'
+import { connectNode, connectOwner, reconnectNodes } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -85,6 +83,15 @@ export class AtomService
   }
 
   @modelAction
+  public writeCacheFromElements(elements: Array<IElementDTO>) {
+    const atoms = elements
+      .map((element) => element.renderAtomType)
+      .filter(isAtomDTO)
+
+    return atoms.map((atom) => this.writeCache(atom))
+  }
+
+  @modelAction
   writeCache(atom: IAtomDTO) {
     console.debug('AtomService.writeCache', atom)
 
@@ -141,7 +148,7 @@ export class AtomService
     const createApiNode = (atom: ICreateAtomDTO) => ({
       id: v4(),
       name: `${atom.name} API`,
-      owner: connectTypeOwner(atom.owner),
+      owner: connectOwner(atom.owner),
     })
 
     const connectTags = (atom: ICreateAtomDTO) => {

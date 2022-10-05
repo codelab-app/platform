@@ -64,11 +64,6 @@ export const exportInterfaceTypeSelectionSet = `{
 
 export const interfaceTypeSelectionSet = `{
   ${baseSelection}
-  ownerConnection {
-    edges {
-      data
-    }
-  }
   fieldsConnection {
     edges {
       id

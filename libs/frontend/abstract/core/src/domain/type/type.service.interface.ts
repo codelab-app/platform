@@ -42,10 +42,7 @@ export interface ITypeService
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
-  interfaceDefaultsModal: IEntityModalService<
-    Ref<IAnyType>,
-    { type: Maybe<IAnyType> }
-  >
+
   fieldUpdateModal: IEntityModalService<
     IFieldModalMetadata,
     IFieldModalProperties

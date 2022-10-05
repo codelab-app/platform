@@ -1,3 +1,4 @@
+import { Nullish } from '@codelab/shared/abstract/types'
 import { Frozen } from 'mobx-keystone'
 import { ICacheService } from '../../service'
 import { IElement } from '../element'
@@ -12,6 +13,10 @@ export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   set(key: string, value: object): void
   delete(key: string): void
   get(key: string): object
+}
+
+export const isPropDTO = (prop: Nullish<IPropDTO>): prop is IPropDTO => {
+  return prop !== undefined && prop !== null
 }
 
 export interface IPropData {

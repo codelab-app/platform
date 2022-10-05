@@ -3,17 +3,22 @@ import {
   IComponent,
   IComponentDTO,
 } from '@codelab/frontend/abstract/core'
-import { ElementTreeService } from '@codelab/frontend/domain/element'
+import { getAtomService } from '@codelab/frontend/domain/atom'
+import {
+  ElementTreeService,
+  getElementService,
+} from '@codelab/frontend/domain/element'
 import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import {
+  detach,
   ExtendedModel,
   idProp,
   model,
   modelAction,
   prop,
   Ref,
+  rootRef,
 } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
@@ -51,22 +56,24 @@ export class Component
     return this
   }
 
-  get elementService() {
-    return getElementService(this)
-  }
-
+  @modelAction
   @modelAction
   loadComponentTree(renderedComponentFragment: RenderedComponentFragment) {
+    const elementService = getElementService(this)
+    const atomService = getAtomService(this)
+
     const elements = [
       renderedComponentFragment.rootElement,
       ...renderedComponentFragment.rootElement.descendantElements,
     ]
 
+    atomService.writeCacheFromElements(elements)
+
     const hydratedElements = elements.map((element) =>
-      this.elementService.writeCache(element),
+      elementService.writeCache(element),
     )
 
-    const rootElement = this.elementService.element(
+    const rootElement = elementService.element(
       renderedComponentFragment.rootElement.id,
     )
 
@@ -77,3 +84,11 @@ export class Component
     this.initTree(rootElement, hydratedElements)
   }
 }
+
+export const componentRef = rootRef<IComponent>('@codelab/ComponentRef', {
+  onResolvedValueChange(ref, newComponent, oldComponent) {
+    if (oldComponent && !newComponent) {
+      detach(ref)
+    }
+  },
+})

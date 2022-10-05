@@ -1,8 +1,4 @@
-import {
-  IComponentService,
-  IElement,
-  IElementService,
-} from '@codelab/frontend/abstract/core'
+import { IComponentService } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const componentServiceRef = rootRef<IComponentService>(

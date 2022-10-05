@@ -73,13 +73,7 @@ export const typeSchema = gql`
     kind: TypeKind! @readonly
     name: String!
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
-    owner: User!
-      @relationship(
-        type: "OWNED_BY",
-        # used by interfaceType to store default values for prop data
-        properties: "OwnedBy",
-        direction: OUT
-      )
+    owner: User! @relationship( type: "OWNED_BY", direction: OUT )
   }
 
  # for defining returning data only
@@ -168,12 +162,6 @@ export const typeSchema = gql`
   }
 
 
-  """
-  The idea is that admin create interfaces and can assign a default value to be used by the interface
-  """
-  interface OwnedBy @relationshipProperties {
-    data: String! @default(value: "{}")
-  }
 
   """
   Represents an object type with multiple fields
@@ -185,7 +173,7 @@ export const typeSchema = gql`
     owner: User!
     fieldFor: [IBaseType!]!
     descendantTypesIds: [ID!]!
-
+    
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(

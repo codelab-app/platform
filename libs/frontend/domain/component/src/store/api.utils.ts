@@ -1,7 +1,7 @@
 import { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
 import { makeCreateInput } from '@codelab/frontend/domain/element'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 export const mapCreateInput = (
@@ -20,7 +20,7 @@ export const mapCreateInput = (
       node: {
         id: v4(),
         name: `${name} API`,
-        owner: connectTypeOwner(auth0Id),
+        owner: connectOwner(auth0Id),
       },
     },
   }

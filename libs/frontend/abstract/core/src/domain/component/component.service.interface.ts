@@ -11,6 +11,7 @@ import {
   IQueryService,
 } from '../../service'
 import { IBuilderDataNode } from '../../ui'
+import { IElementDTO } from '../element'
 import {
   IComponentDTO,
   ICreateComponentDTO,
@@ -36,4 +37,5 @@ component
   loadRenderedComponentTree(
     renderedComponentFragment: RenderedComponentFragment,
   ): void
+  writeCacheFromElements(element: Array<IElementDTO>): Array<IComponent>
 }

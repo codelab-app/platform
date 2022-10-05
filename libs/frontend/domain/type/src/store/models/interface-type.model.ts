@@ -3,7 +3,6 @@ import type {
   IFieldProps,
   IInterfaceType,
   IInterfaceTypeDTO,
-  IPropData,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
@@ -25,7 +24,6 @@ const hydrate = ({
   kind,
   name,
   fieldsConnection,
-  ownerConnection,
   owner,
 }: IInterfaceTypeDTO): InterfaceType => {
   assertIsTypeKind(kind, ITypeKind.InterfaceType)
@@ -35,8 +33,6 @@ const hydrate = ({
     kind,
     name,
     ownerId: owner.id,
-    ownerAuthId: owner.auth0Id,
-    defaults: JSON.parse(ownerConnection.edges[0]?.data || '{}'),
   })
 
   for (const edge of fieldsConnection.edges) {
@@ -50,8 +46,6 @@ const hydrate = ({
 export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
     fields: prop(() => objectMap<IField>()),
-    ownerAuthId: prop<string>(),
-    defaults: prop<IPropData>(),
   })
   implements IInterfaceType
 {
@@ -101,7 +95,6 @@ export class InterfaceType
       }
     }
 
-    this.defaults = JSON.parse(fragment.ownerConnection.edges[0]?.data || '{}')
     // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
     //
     // for (const [key, field] of this.fields) {

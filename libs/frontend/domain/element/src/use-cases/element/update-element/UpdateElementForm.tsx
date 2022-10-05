@@ -1,4 +1,12 @@
 import {
+  IActionService,
+  IBuilderService,
+  IElement,
+  IElementService,
+  IUpdateBaseElementDTO,
+  IUpdateElementDTO,
+} from '@codelab/frontend/abstract/core'
+import {
   SelectAction,
   SelectAtom,
   SelectComponent,
@@ -9,14 +17,6 @@ import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import {
-  IActionService,
-  IBuilderService,
-  IElement,
-  IElementService,
-  IUpdateBaseElementDTO,
-  IUpdateElementDTO,
-} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'

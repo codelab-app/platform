@@ -10,6 +10,7 @@ import {
   IActionService,
   IAtomService,
   IBuilderService,
+  IComponentService,
   IElementService,
   IElementTree,
   INode,
@@ -62,6 +63,7 @@ export interface MetaPaneBuilderProps {
   elementService: IElementService
   actionService: IActionService
   userService: IUserService
+  componentService: IComponentService
 }
 
 interface TooltipIconProps {
@@ -93,6 +95,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
     builderService,
     renderService,
     elementService,
+    componentService,
   }) => {
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
@@ -135,6 +138,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                 </div>
                 <UpdateElementPropsForm
                   autocomplete={renderService.state}
+                  componentService={componentService}
                   element={selectedNode}
                   elementService={elementService}
                   trackPromises={trackPromises}

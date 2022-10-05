@@ -4,7 +4,6 @@ import {
   CreateTypeModal,
   DeleteTypeModal,
   GetTypesTable,
-  InterfaceDefaultsModal,
   UpdateTypeModal,
 } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -62,7 +61,6 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <CreateTypeModal typeService={typeService} userService={userService} />
       <DeleteTypeModal typeService={typeService} />
       <UpdateTypeModal typeService={typeService} />
-      <InterfaceDefaultsModal typeService={typeService} />
       <ContentSection>
         <GetTypesTable typeService={typeService} />
       </ContentSection>

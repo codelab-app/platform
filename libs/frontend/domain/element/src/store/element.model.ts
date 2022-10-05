@@ -1,6 +1,6 @@
 import type {
   IAtom,
-  IComponent,
+  IComponentMeta,
   IElement,
   IElementDTO,
   IElementTree,
@@ -10,7 +10,7 @@ import type {
   IPropDataByElementId,
   IPropMapBinding,
   RenderingError,
-  renderingMetadata,
+  RenderingMetadata,
 } from '@codelab/frontend/abstract/core'
 import {
   CssMap,
@@ -18,11 +18,7 @@ import {
   ELEMENT_NODE_TYPE,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
-import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
-import {
-  componentRef,
-  getElementService,
-} from '@codelab/frontend/presenter/container'
+import { PropMapBinding, propRef } from '@codelab/frontend/domain/prop'
 import { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
@@ -45,6 +41,7 @@ import {
 } from 'mobx-keystone'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
+import { getElementService } from './element.service.context'
 
 type TransformFn = (props: IPropData) => IPropData
 
@@ -86,15 +83,13 @@ export const hydrate = ({
     atom: renderAtomType ? atomRef(renderAtomType.id) : null,
     preRenderActionId,
     postRenderActionId,
-    props: props ? Prop.hydrate(props) : null,
+    props: props?.id ? propRef(props.id) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
     renderingMetadata: null,
-    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
-    renderComponentType: renderComponentType
-      ? componentRef(renderComponentType.id)
-      : null,
+    parentComponent: parentComponent ? parentComponent : null,
+    renderComponentType: renderComponentType ? renderComponentType : null,
     propMapBindings: objectMap(
       propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)]),
     ),
@@ -138,14 +133,14 @@ export class Element
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
-    renderingMetadata: prop<Nullable<renderingMetadata>>(null),
+    renderingMetadata: prop<Nullable<RenderingMetadata>>(),
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
-    parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    parentComponent: prop<Nullable<IComponentMeta>>(null).withSetter(),
 
     // Marks the element as an instance of a specific component
-    renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    renderComponentType: prop<Nullable<IComponentMeta>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
   })
   implements IElement
@@ -333,8 +328,8 @@ export class Element
       (this.atom?.current
         ? pascalCaseToWords(this.atom.current.type)
         : undefined) ||
-      this.parentComponent?.current.name ||
-      this.renderComponentType?.current.name ||
+      this.parentComponent?.name ||
+      this.renderComponentType?.name ||
       ''
     )
   }
@@ -374,7 +369,7 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-      children: !this.renderComponentType?.current
+      children: !this.renderComponentType
         ? this.children.map((child) => child.antdNode)
         : [],
     }
@@ -719,6 +714,7 @@ export class Element
     renderAtomType,
     renderComponentType,
     hooks,
+    parentComponent,
     propMapBindings,
     props,
     propTransformationJs,
@@ -742,7 +738,7 @@ export class Element
 
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
-    this.props = props ? new Prop({ id: props.id }) : null
+    this.props = props?.id ? propRef(props.id) : null
     this.parentId = parent?.id ?? null
 
     this.nextSiblingId = nextSibling?.id ?? null
@@ -750,7 +746,7 @@ export class Element
     this.firstChildId = firstChild?.id ?? null
 
     if (props) {
-      this.props?.writeCache(props)
+      this.props?.current.writeCache(props)
     } else {
       this.props = null
     }
@@ -763,12 +759,8 @@ export class Element
       }
     }
 
-    this.parentComponent = renderComponentType
-      ? componentRef(renderComponentType.id)
-      : null
-    this.renderComponentType = renderComponentType
-      ? componentRef(renderComponentType.id)
-      : null
+    this.parentComponent = parentComponent || null
+    this.renderComponentType = renderComponentType || null
 
     return this
   }

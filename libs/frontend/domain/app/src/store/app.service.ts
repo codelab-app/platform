@@ -9,17 +9,19 @@ import {
   IStoreService,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
+import { getComponentService } from '@codelab/frontend/domain/component'
+import { getElementService } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
-import { deleteStoreInput } from '@codelab/frontend/domain/store'
 import {
-  getElementService,
+  deleteStoreInput,
   getStoreService,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/domain/store'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -86,6 +88,9 @@ export class AppService
     }
 
     const elements = [page.rootElement, ...page.rootElement.descendantElements]
+
+    atomService.writeCacheFromElements(elements)
+    componentService.writeCacheFromElements(elements)
 
     const pageElements = elements.map((element) =>
       this.elementService.writeCache(element),
@@ -199,7 +204,7 @@ export class AppService
                   id: v4(),
                   name: `${app.name} Store API`,
                   kind: ITypeKind.InterfaceType,
-                  owner: connectTypeOwner(app.auth0Id),
+                  owner: connectOwner(app.auth0Id),
                 },
               },
             },

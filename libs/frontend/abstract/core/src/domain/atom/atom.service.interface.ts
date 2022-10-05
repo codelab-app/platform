@@ -8,6 +8,7 @@ import {
   IEntityModalService,
   IQueryService,
 } from '../../service'
+import { IElementDTO } from '../element'
 import { IAtomDTO, ICreateAtomDTO, IUpdateAtomDTO } from './atom.dto.interface'
 import { IAtom, IAtomRef } from './atom.model.interface'
 
@@ -27,4 +28,5 @@ export interface IAtomService
 
   selectedIds: ArraySet<string>
   setSelectedIds(arraySet: ArraySet<string>): void
+  writeCacheFromElements(elements: Array<IElementDTO>): Array<IAtom>
 }

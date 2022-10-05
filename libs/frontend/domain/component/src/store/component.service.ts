@@ -1,14 +1,14 @@
-import type {
+import {
+  COMPONENT_NODE_TYPE,
+  COMPONENT_TREE_CONTAINER,
   IBuilderDataNode,
   IComponent,
   IComponentDTO,
   IComponentService,
   ICreateComponentDTO,
+  IElementDTO,
+  isComponentDTO,
   IUpdateComponentDTO,
-} from '@codelab/frontend/abstract/core'
-import {
-  COMPONENT_NODE_TYPE,
-  COMPONENT_TREE_CONTAINER,
 } from '@codelab/frontend/abstract/core'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
@@ -101,7 +101,6 @@ export class ComponentService
           this.components.set(component.id, componentModel)
           // are used by CRUD general components
           // so not contain rendered component
-          // componentModel.loadComponentTree(component)
 
           return componentModel
         }
@@ -207,6 +206,15 @@ export class ComponentService
 
     return existing
   })
+
+  @modelAction
+  public writeCacheFromElements(elements: Array<IElementDTO>) {
+    const components = elements
+      .map((v) => v.parentComponent || v.renderComponentType)
+      .filter(isComponentDTO)
+
+    return components.map((component) => this.writeCache(component))
+  }
 
   @modelAction
   writeCache(componentFragment: IComponentDTO) {

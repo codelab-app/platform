@@ -40,7 +40,7 @@ export const withRxWriteTransactions = async <T>(
   const session = driver.rxSession()
 
   return session
-    .writeTransaction((txn) => writeTransaction(txn))
+    .executeWrite((txn) => writeTransaction(txn))
     .toPromise()
     .catch((error) => {
       console.error(error)

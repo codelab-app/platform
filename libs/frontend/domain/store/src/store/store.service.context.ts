@@ -1,17 +1,5 @@
-import { IStore, IStoreService } from '@codelab/frontend/abstract/core'
-import { createContext, detach, rootRef } from 'mobx-keystone'
-
-/**
- * Moved here because of dependency issue.
- */
-
-export const storeRef = rootRef<IStore>('@codelab/StoreRef', {
-  onResolvedValueChange(ref, newStore, oldStore) {
-    if (oldStore && !newStore) {
-      detach(ref)
-    }
-  },
-})
+import { IStoreService } from '@codelab/frontend/abstract/core'
+import { createContext } from 'mobx-keystone'
 
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const storeServiceContext = createContext<IStoreService>()

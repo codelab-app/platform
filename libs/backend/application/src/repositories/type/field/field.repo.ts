@@ -47,7 +47,7 @@ export const fieldRepository = {
     // }
 
     try {
-      await session.writeTransaction((tx) => tx.run(connectField, args))
+      await session.executeWrite((tx) => tx.run(connectField, args))
 
       const [updatedInterfaceType] = await InterfaceType.find({
         selectionSet: interfaceTypeSelectionSet,

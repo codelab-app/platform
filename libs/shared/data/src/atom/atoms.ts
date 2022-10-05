@@ -60,13 +60,3 @@ export const createAtomsData: CreateAtoms = (
     allowedChildren: [],
   },
 ]
-
-export const connectNode = (id?: string) => {
-  return {
-    connect: id
-      ? {
-          where: { node: { id } },
-        }
-      : undefined,
-  }
-}

@@ -65,7 +65,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     const emptyInterface = new InterfaceType({
       name: 'Empty interface',
-      ownerAuthId: '',
       defaults: {},
       ownerId,
     })

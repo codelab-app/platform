@@ -47,8 +47,14 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
         {type?.kind === ITypeKind.InterfaceType && (
           <>
             <CreateFieldModal typeService={typeService} />
-            <UpdateFieldModal typeService={typeService} />
-            <DeleteFieldModal typeService={typeService} />
+            <UpdateFieldModal
+              elementService={elementService}
+              typeService={typeService}
+            />
+            <DeleteFieldModal
+              elementService={elementService}
+              typeService={typeService}
+            />
           </>
         )}
 

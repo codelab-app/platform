@@ -2,16 +2,13 @@ import type {
   IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
-  IElementService,
   IFieldRef,
   IInterfaceTypeRef,
-  IPropService,
   ITypeDTO,
   ITypeService,
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -20,9 +17,6 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import mapKeys from 'lodash/mapKeys'
-import merge from 'lodash/merge'
-import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import {
   _async,
@@ -35,7 +29,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
@@ -70,24 +63,9 @@ export class TypeService
     fieldCreateModal: prop(() => new InterfaceTypeModalService({})),
     fieldUpdateModal: prop(() => new FieldModalService({})),
     fieldDeleteModal: prop(() => new FieldModalService({})),
-
-    interfaceDefaultsModal: prop(() => new TypeModalService({})),
-
-    // _propService: prop<Ref<IPropService>>(),
-    // _elementService: prop<Ref<IElementService>>(),
   })
   implements ITypeService
 {
-  // @computed
-  // get propService() {
-  //   return this._propService.current
-  // }
-  //
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
   @computed
   get typesList() {
     return [...this.types.values()]
@@ -324,11 +302,10 @@ export class TypeService
       },
     }
 
-    yield* _await(fieldApi.UpsertField(input))
-
-    const interfaceType = yield* _await(
-      this.updateDefaults(interfaceTypeId, data.key, null),
-    )
+    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
+    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
+    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
+    interfaceType.writeCache(upsertField)
 
     return interfaceType
   })
@@ -360,9 +337,6 @@ export class TypeService
     }
 
     const { upsertField } = yield* _await(fieldApi.UpsertField(input))
-
-    yield* _await(this.updateDefaults(interfaceTypeId, data.key, field.key))
-
     const updatedField = upsertField.fieldsConnection.edges[0]
 
     if (!updatedField) {
@@ -372,47 +346,6 @@ export class TypeService
     field.writeCache(updatedField)
 
     return field
-  })
-
-  @modelFlow
-  @transaction
-  updateDefaults = _async(function* (
-    this: TypeService,
-    interfaceId: string,
-    addedKey: Nullable<string>,
-    removedKey: Nullable<string>,
-  ) {
-    const interfaceType = throwIfUndefined(this.type(interfaceId))
-    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
-
-    let data = {}
-
-    if (addedKey && removedKey) {
-      // update key
-      data = mapKeys(interfaceType.defaults, (value, key) =>
-        key === removedKey ? addedKey : key,
-      )
-    } else if (addedKey) {
-      // add key
-      data = merge(interfaceType.defaults, { [addedKey]: null })
-    } else if (removedKey) {
-      // remove key
-      data = omit(interfaceType.defaults, [removedKey])
-    }
-
-    const updateInput = {
-      id: interfaceType.id,
-      kind: interfaceType.kind,
-      name: interfaceType.name,
-      interfaceDefaults: {
-        auth0Id: interfaceType.ownerAuthId,
-        data,
-      },
-    }
-
-    yield* _await(this.update(interfaceType, updateInput))
-
-    return interfaceType
   })
 
   @modelFlow
@@ -434,15 +367,6 @@ export class TypeService
 
     const input = { where: { id: fieldId }, interfaceId }
     const res = yield* _await(fieldApi.DeleteField(input))
-
-    yield* _await(this.updateDefaults(interfaceId, null, field.key))
-
-    yield* _await(
-      this.elementService.removeDeletedPropDataFromElements(
-        interfaceType,
-        field.key,
-      ),
-    )
 
     // Returns current edges, not deleted edges
     // const deletedField =

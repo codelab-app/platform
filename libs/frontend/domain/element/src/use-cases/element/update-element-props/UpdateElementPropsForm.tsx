@@ -1,4 +1,5 @@
 import {
+  IComponentService,
   IElement,
   IElementService,
   IPropData,
@@ -25,6 +26,7 @@ export interface UpdateElementPropsFormProps {
   trackPromises?: UseTrackLoadingPromises
   autocomplete?: IPropData
   userService: IUserService
+  componentService: IComponentService
 }
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
@@ -35,16 +37,18 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     typeService,
     autocomplete,
     userService,
+    componentService,
   }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     console.log(element.props)
 
-    const initialPropsRef = useRef(element?.props?.values ?? {})
+    const initialPropsRef = useRef(element.props?.values ?? {})
 
     const apiId =
       element.atom?.current.api.id ||
-      element.renderComponentType?.current.api.id
+      (element.renderComponentType?.id &&
+        componentService.component(element.renderComponentType.id)?.api.id)
 
     const { value: interfaceType, loading } = useAsync(
       () => typeService.getInterfaceAndDescendants(apiId!),

@@ -6,7 +6,7 @@ import {
   IStoreService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { InterfaceDefaultsButton, typeRef } from '@codelab/frontend/domain/type'
+import { typeRef } from '@codelab/frontend/domain/type'
 import { useResizable } from '@codelab/frontend/view/components'
 import { Button, Row } from 'antd'
 import { motion } from 'framer-motion'
@@ -74,13 +74,6 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
       />
     )
 
-    const editDefaultStateButton = (
-      <InterfaceDefaultsButton
-        interfaceId={appStore.apiId}
-        typeService={typeService}
-      />
-    )
-
     const createActionButton = (
       <Button
         icon={<PlusOutlined />}
@@ -96,9 +89,7 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
     return (
       <Row css={tw`h-full`} wrap={false}>
         <ResizableColumn>
-          <Header extra={[editDefaultStateButton, ' ', createStateFieldButton]}>
-            State
-          </Header>
+          <Header extra={[createStateFieldButton]}>State</Header>
           <GetStateList store={appStore} typeService={typeService} />
         </ResizableColumn>
 
