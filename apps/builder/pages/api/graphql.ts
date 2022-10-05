@@ -1,7 +1,10 @@
 /**
  * This file is under `api` code so can import backend code
  */
-import { NextApiRequest } from '@codelab/backend/abstract/types'
+import {
+  GraphQLRequestContext,
+  NextApiRequest,
+} from '@codelab/backend/abstract/types'
 import { resolvers } from '@codelab/backend/graphql'
 import {
   getDriver,
@@ -27,7 +30,7 @@ const startServer = neoSchema
   .then(async (schema) => {
     apolloServer = new ApolloServer({
       schema,
-      context: ({ req }: { req: NextApiRequest }) => {
+      context: ({ req }: { req: NextApiRequest }): GraphQLRequestContext => {
         const user = req.user
 
         return {

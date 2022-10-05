@@ -6,7 +6,7 @@ import type {
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
   assertIsTypeKind(kind, ITypeKind.LambdaType)
@@ -21,7 +21,7 @@ const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
 
 @model('@codelab/LambdaType')
 export class LambdaType
-  extends ExtendedModel(createTypeBase(ITypeKind.LambdaType), {})
+  extends ExtendedModel(createBaseType(ITypeKind.LambdaType), {})
   implements ILambdaType
 {
   @modelAction

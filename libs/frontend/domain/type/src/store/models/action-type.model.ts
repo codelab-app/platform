@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({ id, kind, name, owner }: IAnyActionTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ActionType)
@@ -14,7 +14,7 @@ const hydrate = ({ id, kind, name, owner }: IAnyActionTypeDTO) => {
 
 @model('@codelab/ActionType')
 export class ActionType
-  extends ExtendedModel(createTypeBase(ITypeKind.ActionType), {})
+  extends ExtendedModel(createBaseType(ITypeKind.ActionType), {})
   implements IAnyActionType
 {
   public static hydrate = hydrate

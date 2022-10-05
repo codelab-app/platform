@@ -1,6 +1,15 @@
 # Parallel Slack notification https://github.com/CircleCI-Public/slack-orb/issues/305
 # https://support.circleci.com/hc/en-us/articles/360047082992-Send-slack-notification-at-end-of-workflow
 
+slack-fail-post-step: &slack-fail-post-step
+  post-steps:
+    #    - swissknife/wait_for_job:
+    #        job-name: install-and-build-workspace,lint,unit,e2e,codegen
+    - slack/notify:
+        event: fail
+        channel: $SLACK_CHANNEL_UPDATE
+        template: basic_fail_1
+
 filters-pr: &filters-pr
   filters:
     branches:
@@ -22,7 +31,10 @@ executor-params: &executor-params
 
 executor-config: &executor-config
   environment:
-    DOCKER_TAG_VERSION: 0.02
+    # Application
+    NEO4J_URI: bolt://127.0.0.1:7687
+    NEO4J_USER: neo4j
+    NEO4J_PASSWORD: test
     # CircleCI
     GITHUB_ANTON_M: antonmihaylov
     SLACK_ANTON_M: <@U01HWRY2USE>
@@ -42,7 +54,7 @@ executor-config: &executor-config
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
     NODE_OPTIONS: --max_old_space_size=16384
-    NODE_ENV: production
+    #    NODE_ENV: production
     CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
   working_directory: ~/project
 
@@ -161,7 +173,7 @@ jobs:
       - run:
           name: 'Build CI'
           # Can't use `yarn cli` doesn't exist yet
-          command: npx nx run-many --target=build --projects=builder,cli -c ci --verbose
+          command: npx nx run-many --target=build --projects=builder,cli,landing --parallel=3 -c ci --verbose
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-{{ checksum "yarn.lock" }}
@@ -183,14 +195,19 @@ jobs:
     steps:
       - setup-workspace
       - run:
-          name: 'Run Lint on Workspace'
+          name: 'Run Lint on Repository'
           command: yarn cli tasks lint --env ci
-      - run:
-          name: 'GraphQL Codegen'
-          command: yarn cli tasks codegen --env ci
       - run:
           name: 'Commitlint'
           command: yarn cli tasks commitlint --env ci
+
+  codegen:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - run:
+          name: 'GraphQL Codegen'
+          command: yarn cli tasks codegen --env ci
 
   unit:
     <<: *executor-params
@@ -217,10 +234,6 @@ jobs:
     <<: *executor-params
     # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
     parallelism: 4
-    environment:
-      NEO4J_URI: bolt://127.0.0.1:7687
-      NEO4J_USER: neo4j
-      NEO4J_PASSWORD: test
     steps:
       - queue/until_front_of_line:
           consider-branch: false
@@ -328,11 +341,7 @@ jobs:
     <<: *executor-params
     steps:
       - swissknife/wait_for_job:
-          job-name: install-and-build-workspace,lint,unit,e2e
-      #          job-name: ^(install-and-build-workspace|lint|unit|e2e)$
-      # - swissknife/wait_for_workflow:
-      #     workflow-name: ^(app-pr|app)$
-      #     max-wait-time: '1500'
+          job-name: install-and-build-workspace,lint,unit,e2e,codegen
       - slack/notify:
           event: fail
           channel: $SLACK_CHANNEL_UPDATE
@@ -341,47 +350,47 @@ jobs:
 workflows:
   app-pr:
     jobs:
-      - notify-failure:
-          <<: *filters-pr
-          context: CI
-          e: docker-node
+      # This doesn't actually have access to Slack errors, must be at end of step
+      #      - notify-failure:
+      #          <<: *filters-pr
+      #          context: CI
+      #          e: docker-node
       - install-and-build-workspace:
           <<:
             - *filters-pr
-            # - *slack-post-step
           # Can't build with machine image, causes build issues
           e: docker-node
           context: CI
       - lint:
           <<:
             - *filters-pr
-            # - *slack-post-step
           e: docker-node
-          context: CI
+          requires:
+            - install-and-build-workspace
+      - codegen:
+          <<:
+            - *filters-pr
+          e: docker-node
           requires:
             - install-and-build-workspace
       - unit:
           <<:
             - *filters-pr
-            # - *slack-post-step
           e: docker-node
-          context: CI
           requires:
             - install-and-build-workspace
       - e2e:
           <<:
             - *filters-pr
-            # - *slack-post-step
           e: docker-node-neo4j
-          context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
           <<: *filters-pr
-          context: CI
           e: docker-node
           requires:
             - lint
+            - codegen
             - unit
             - e2e
 
@@ -390,22 +399,18 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-master
           e: docker-node
-          context: CI
       - lint:
           <<: *filters-master
           e: docker-node
-          context: CI
           requires:
             - install-and-build-workspace
       - unit:
           <<: *filters-master
           e: docker-node
-          context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
           <<: *filters-master
-          context: CI
           e: docker-node
           requires:
             - lint

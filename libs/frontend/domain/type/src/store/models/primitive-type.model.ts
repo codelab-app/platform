@@ -7,7 +7,7 @@ import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({
   id,
@@ -29,7 +29,7 @@ const hydrate = ({
 
 @model('@codelab/PrimitiveType')
 export class PrimitiveType
-  extends ExtendedModel(createTypeBase(ITypeKind.PrimitiveType), {
+  extends ExtendedModel(createBaseType(ITypeKind.PrimitiveType), {
     primitiveKind: prop<PrimitiveTypeKind>(),
   })
   implements IPrimitiveType

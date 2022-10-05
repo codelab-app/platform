@@ -12,7 +12,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
+import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import {
   assertIsTypeKind,
   IPrimitiveTypeKind,
@@ -151,7 +151,7 @@ export class TypeService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeService, where?: TypeBaseWhere) {
+  getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
     const ids = where?.id_IN ?? undefined
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))

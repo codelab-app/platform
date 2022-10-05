@@ -1,5 +1,5 @@
-fragment Type on TypeBase {
-  ...TypeBase
+fragment Type on IBaseType {
+  ...BaseType
   ...ArrayType
   ...UnionType
   ...EnumType

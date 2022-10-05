@@ -14,7 +14,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrateEnumValue = (fragment: IEnumTypeValueDTO) =>
   new EnumTypeValue({
@@ -49,7 +49,7 @@ const hydrate = ({ id, allowedValues, kind, name, owner }: IEnumTypeDTO) => {
 
 @model('@codelab/EnumType')
 export class EnumType
-  extends ExtendedModel(createTypeBase(ITypeKind.EnumType), {
+  extends ExtendedModel(createBaseType(ITypeKind.EnumType), {
     allowedValues: prop<Array<EnumTypeValue>>(() => []),
   })
   implements IEnumType

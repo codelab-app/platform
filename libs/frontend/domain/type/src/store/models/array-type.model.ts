@@ -7,7 +7,7 @@ import type {
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'
 
 const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
@@ -31,7 +31,7 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
 
 @model('@codelab/ArrayType')
 export class ArrayType
-  extends ExtendedModel(createTypeBase(ITypeKind.ArrayType), {
+  extends ExtendedModel(createBaseType(ITypeKind.ArrayType), {
     itemType: prop<Ref<IAnyType>>(),
   })
   implements IArrayType

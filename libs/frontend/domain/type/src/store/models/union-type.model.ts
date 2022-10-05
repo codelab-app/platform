@@ -15,7 +15,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({
   id,
@@ -37,7 +37,7 @@ const hydrate = ({
 
 @model('@codelab/UnionType')
 export class UnionType
-  extends ExtendedModel(createTypeBase(ITypeKind.UnionType), {
+  extends ExtendedModel(createBaseType(ITypeKind.UnionType), {
     typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
   })
   implements IUnionType
