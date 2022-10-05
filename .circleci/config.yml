@@ -186,11 +186,16 @@ jobs:
           name: 'Run Lint on Repository'
           command: yarn cli tasks lint --env ci
       - run:
-          name: 'GraphQL Codegen'
-          command: yarn cli tasks codegen --env ci
-      - run:
           name: 'Commitlint'
           command: yarn cli tasks commitlint --env ci
+
+  codegen:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - run:
+          name: 'GraphQL Codegen'
+          command: yarn cli tasks codegen --env ci
 
   unit:
     <<: *executor-params
@@ -328,7 +333,7 @@ jobs:
     <<: *executor-params
     steps:
       - swissknife/wait_for_job:
-          job-name: install-and-build-workspace,lint,unit,e2e
+          job-name: install-and-build-workspace,lint,unit,e2e,codegen
       - slack/notify:
           event: fail
           channel: $SLACK_CHANNEL_UPDATE
@@ -344,14 +349,19 @@ workflows:
       - install-and-build-workspace:
           <<:
             - *filters-pr
-            # - *slack-post-step
           # Can't build with machine image, causes build issues
           e: docker-node
           context: CI
       - lint:
           <<:
             - *filters-pr
-            # - *slack-post-step
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - codegen:
+          <<:
+            - *filters-pr
           e: docker-node
           context: CI
           requires:
@@ -359,7 +369,6 @@ workflows:
       - unit:
           <<:
             - *filters-pr
-            # - *slack-post-step
           e: docker-node
           context: CI
           requires:
@@ -367,7 +376,6 @@ workflows:
       - e2e:
           <<:
             - *filters-pr
-            # - *slack-post-step
           e: docker-node-neo4j
           context: CI
           requires:
@@ -378,6 +386,7 @@ workflows:
           e: docker-node
           requires:
             - lint
+            - codegen
             - unit
             - e2e
 
