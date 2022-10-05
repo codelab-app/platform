@@ -1,4 +1,4 @@
-import { DragPosition } from '@codelab/shared/abstract/core'
+import { DragPosition } from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 
 export const calcDragPosition = (

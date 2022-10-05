@@ -5,7 +5,7 @@ import {
   ICreateElementDTO,
   IElementService,
   IElementTree,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent } from '@dnd-kit/core'
 

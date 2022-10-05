@@ -2,7 +2,7 @@ import {
   BuilderDndType,
   BuilderDropData,
   IElement,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React from 'react'
@@ -17,7 +17,7 @@ export interface SortableItemProps {
 }
 
 export const DraggableElement = ({ element, children }: SortableItemProps) => {
-  const droppableNodeRef = React.useRef<any>(null)
+  const droppableNodeRef = React.useRef<Nullable<HTMLElement>>(null)
   const { elY, elH } = useMouse(droppableNodeRef)
 
   // Create a draggable for the element

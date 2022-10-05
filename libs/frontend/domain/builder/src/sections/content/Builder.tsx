@@ -6,8 +6,6 @@ import {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { Renderer, RendererProps } from '@codelab/frontend/domain/renderer'
-import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
-import { SortableContext } from '@dnd-kit/sortable/dist/components/SortableContext'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
