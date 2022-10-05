@@ -3,8 +3,8 @@
 
 slack-fail-post-step: &slack-fail-post-step
   post-steps:
-    - swissknife/wait_for_job:
-        job-name: install-and-build-workspace,lint,unit,e2e,codegen
+    #    - swissknife/wait_for_job:
+    #        job-name: install-and-build-workspace,lint,unit,e2e,codegen
     - slack/notify:
         event: fail
         channel: $SLACK_CHANNEL_UPDATE
@@ -351,6 +351,7 @@ jobs:
 workflows:
   app-pr:
     jobs:
+      # This doesn't actually have access to Slack errors, must be at end of step
       #      - notify-failure:
       #          <<: *filters-pr
       #          context: CI
@@ -358,14 +359,14 @@ workflows:
       - install-and-build-workspace:
           <<:
             - *filters-pr
-            - *slack-fail-post-step
+          #            - *slack-fail-post-step
           # Can't build with machine image, causes build issues
           e: docker-node
           context: CI
       - lint:
           <<:
             - *filters-pr
-            - *slack-fail-post-step
+          #            - *slack-fail-post-step
           e: docker-node
           context: CI
           requires:
@@ -373,7 +374,7 @@ workflows:
       - codegen:
           <<:
             - *filters-pr
-            - *slack-fail-post-step
+          #            - *slack-fail-post-step
           e: docker-node
           context: CI
           requires:
@@ -381,7 +382,7 @@ workflows:
       - unit:
           <<:
             - *filters-pr
-            - *slack-fail-post-step
+          #            - *slack-fail-post-step
           e: docker-node
           context: CI
           requires:
@@ -389,7 +390,7 @@ workflows:
       - e2e:
           <<:
             - *filters-pr
-            - *slack-fail-post-step
+          #            - *slack-fail-post-step
           e: docker-node-neo4j
           context: CI
           requires:
