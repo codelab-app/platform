@@ -1,6 +1,15 @@
 # Parallel Slack notification https://github.com/CircleCI-Public/slack-orb/issues/305
 # https://support.circleci.com/hc/en-us/articles/360047082992-Send-slack-notification-at-end-of-workflow
 
+slack-fail-post-step: &slack-fail-post-step
+  post-steps:
+    #    - swissknife/wait_for_job:
+    #        job-name: install-and-build-workspace,lint,unit,e2e,codegen
+    - slack/notify:
+        event: fail
+        channel: $SLACK_CHANNEL_UPDATE
+        template: basic_fail_1
+
 filters-pr: &filters-pr
   filters:
     branches:
@@ -183,14 +192,19 @@ jobs:
     steps:
       - setup-workspace
       - run:
-          name: 'Run Lint on Workspace'
+          name: 'Run Lint on Repository'
           command: yarn cli tasks lint --env ci
-      - run:
-          name: 'GraphQL Codegen'
-          command: yarn cli tasks codegen --env ci
       - run:
           name: 'Commitlint'
           command: yarn cli tasks commitlint --env ci
+
+  codegen:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - run:
+          name: 'GraphQL Codegen'
+          command: yarn cli tasks codegen --env ci
 
   unit:
     <<: *executor-params
@@ -328,11 +342,7 @@ jobs:
     <<: *executor-params
     steps:
       - swissknife/wait_for_job:
-          job-name: install-and-build-workspace,lint,unit,e2e
-      #          job-name: ^(install-and-build-workspace|lint|unit|e2e)$
-      # - swissknife/wait_for_workflow:
-      #     workflow-name: ^(app-pr|app)$
-      #     max-wait-time: '1500'
+          job-name: install-and-build-workspace,lint,unit,e2e,codegen
       - slack/notify:
           event: fail
           channel: $SLACK_CHANNEL_UPDATE
@@ -341,21 +351,30 @@ jobs:
 workflows:
   app-pr:
     jobs:
-      - notify-failure:
-          <<: *filters-pr
-          context: CI
-          e: docker-node
+      # This doesn't actually have access to Slack errors, must be at end of step
+      #      - notify-failure:
+      #          <<: *filters-pr
+      #          context: CI
+      #          e: docker-node
       - install-and-build-workspace:
           <<:
             - *filters-pr
-            # - *slack-post-step
+          #            - *slack-fail-post-step
           # Can't build with machine image, causes build issues
           e: docker-node
           context: CI
       - lint:
           <<:
             - *filters-pr
-            # - *slack-post-step
+          #            - *slack-fail-post-step
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - codegen:
+          <<:
+            - *filters-pr
+          #            - *slack-fail-post-step
           e: docker-node
           context: CI
           requires:
@@ -363,7 +382,7 @@ workflows:
       - unit:
           <<:
             - *filters-pr
-            # - *slack-post-step
+          #            - *slack-fail-post-step
           e: docker-node
           context: CI
           requires:
@@ -371,7 +390,7 @@ workflows:
       - e2e:
           <<:
             - *filters-pr
-            # - *slack-post-step
+          #            - *slack-fail-post-step
           e: docker-node-neo4j
           context: CI
           requires:
@@ -382,6 +401,7 @@ workflows:
           e: docker-node
           requires:
             - lint
+            - codegen
             - unit
             - e2e
 

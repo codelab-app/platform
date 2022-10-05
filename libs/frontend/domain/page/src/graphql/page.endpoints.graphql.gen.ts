@@ -8,6 +8,7 @@ import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
+  Type_BaseType_Fragment,
   Type_CodeMirrorType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,

@@ -38,6 +38,16 @@ export const typeSchema = gql`
     label: String!
   }
 
+  input GetBaseTypesOptions {
+    limit: Int
+    offset: Int
+  }
+
+  type GetBaseTypesReturn {
+    items: [BaseType!]!
+    totalCount: Int!
+  }
+
   type Query {
     """
     Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
@@ -51,9 +61,13 @@ export const typeSchema = gql`
     """
     getTypeReferences(typeId: ID!): [TypeReference!]
       @cypher(statement: """${getTypeReferences}""")
+
+    baseTypes(
+      options: GetBaseTypesOptions
+    ): GetBaseTypesReturn!
   }
 
-  interface TypeBase
+    interface IBaseType
   {
     id: ID! @id(autogenerate: false)
     kind: TypeKind! @readonly
@@ -66,18 +80,18 @@ export const typeSchema = gql`
         properties: "OwnedBy",
         direction: OUT
       )
-
-    # Any type could be used a field for some interface
-#    fieldFor: [TypeBase!]!
-#      @relationship(
-#        type: "INTERFACE_FIELD"
-#        direction: IN
-#        properties: "Field"
-#      )
   }
 
+ # for defining returning data only
+ type BaseType implements IBaseType @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
+   id: ID!
+   kind: TypeKind!
+   name: String! @unique
+   owner: User!
+ }
+
   # https://github.com/neo4j/graphql/issues/1105
- extend interface TypeBase
+ extend interface IBaseType
  @auth(
    rules: [
      {
@@ -104,12 +118,12 @@ export const typeSchema = gql`
   """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
   """
-  type PrimitiveType implements TypeBase {
+  type PrimitiveType implements IBaseType @node(additionalLabels: ["Type"])  {
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
   }
@@ -125,7 +139,7 @@ export const typeSchema = gql`
   ArrayType Allows defining a variable number of items of a given type.
   Contains a reference to another type which is the array item type.
   """
-  type ArrayType implements TypeBase & WithDescendants {
+  type ArrayType implements IBaseType & WithDescendants @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: ArrayType)
     name: String!
@@ -141,7 +155,7 @@ export const typeSchema = gql`
   """
   Allows picking one of a set of types
   """
-  type UnionType implements TypeBase & WithDescendants {
+  type UnionType implements IBaseType & WithDescendants @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
@@ -165,12 +179,12 @@ export const typeSchema = gql`
   """
   Represents an object type with multiple fields
   """
-  type InterfaceType implements TypeBase & WithDescendants {
+  type InterfaceType implements IBaseType & WithDescendants @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+    fieldFor: [BaseType!]!
     descendantTypesIds: [ID!]!
 
     # List of atoms that have this interface as their api type
@@ -181,7 +195,7 @@ export const typeSchema = gql`
       )
     # Fields are defined as a set of list to other types
     # The field data is stored as relationship properties
-    fields: [TypeBase!]!
+    fields: [BaseType!]!
       @relationship(
         type: "INTERFACE_FIELD"
         direction: OUT
@@ -199,12 +213,12 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ElementType implements TypeBase {
+  type ElementType implements IBaseType @node(additionalLabels: ["Type"])  {
     id: ID!
     kind: TypeKind! @default(value: ElementType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -222,12 +236,12 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type RenderPropsType implements TypeBase {
+  type RenderPropsType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: RenderPropsType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
   }
 
   """
@@ -240,12 +254,12 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ReactNodeType implements TypeBase {
+  type ReactNodeType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
   }
 
   ${elementTypeTypeKindSchema}
@@ -255,12 +269,12 @@ export const typeSchema = gql`
   The value gets passed to the render pipe as a Enum Type Value id.
   The actual value must be de-referenced by the id.
   """
-  type EnumType implements TypeBase {
+  type EnumType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: EnumType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
     allowedValues: [EnumTypeValue!]!
       @relationship(
         type: "ALLOWED_VALUE",
@@ -278,56 +292,56 @@ export const typeSchema = gql`
   """
   Allows picking a lambda
   """
-  type LambdaType implements TypeBase {
+  type LambdaType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: LambdaType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
   }
 
   """
   Allows picking a page from the list of pages
   """
-  type PageType implements TypeBase {
+  type PageType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: PageType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
   }
 
   """
   Allows picking a app from the list of apps
   """
-  type AppType implements TypeBase {
+  type AppType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: AppType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
   }
 
   """
   Allows picking a action from the list of actions
   """
-  type ActionType implements TypeBase {
+  type ActionType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: ActionType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
   }
 
   """
   Allows editing the value using a code mirror editor
   """
-  type CodeMirrorType implements TypeBase {
+  type CodeMirrorType implements IBaseType @node(additionalLabels: ["Type"]) {
     id: ID!
     kind: TypeKind! @default(value: CodeMirrorType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
+#    fieldFor: [BaseType!]!
     language: CodeMirrorLanguage!
   }
 

@@ -249,7 +249,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (env === Env.CI) {
-            execCommand(`npx nx affected:lint`)
+            execCommand(`npx nx affected:lint --parallel=6`)
             execCommand(`npx prettier --check ./**/*.{graphql,yaml,json}`)
             execCommand(
               `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,

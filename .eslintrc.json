@@ -281,8 +281,6 @@
         // Custom import rules
         //
         "import/newline-after-import": "error",
-        "import/no-unresolved": "error",
-        "import/named": "error",
         "import/first": "error",
         // SUPER SLOW!
         "import/no-cycle": "off",
@@ -445,6 +443,13 @@
       }
     },
     {
+      "files": ["*.spec.ts", "*.spec.tsx"],
+      "rules": {
+        "import/no-unresolved": "error",
+        "import/named": "error"
+      }
+    },
+    {
       "files": ["*.ts", "*.tsx"],
       "extends": [
         "plugin:@nrwl/nx/typescript",
@@ -495,15 +500,6 @@
         "react/jsx-props-no-spreading": "off"
       }
     },
-    //    {
-    //      "files": ["*.spec.ts"],
-    //      "extends": ["plugin:import/recommended"],
-    //      "rules": {}
-    //    },
-    //    {
-    //      "files": ["*.jsx", "*.tsx"],
-    //      "extends": ["plugin:react-hooks/recommended"]
-    //    },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],

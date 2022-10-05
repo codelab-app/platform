@@ -7,7 +7,7 @@ import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({
   id,
@@ -29,7 +29,7 @@ const hydrate = ({
 
 @model('@codelab/CodeMirrorType')
 export class CodeMirrorType
-  extends ExtendedModel(createTypeBase(ITypeKind.CodeMirrorType), {
+  extends ExtendedModel(createBaseType(ITypeKind.CodeMirrorType), {
     language: prop<CodeMirrorLanguage>(),
   })
   implements ICodeMirrorType

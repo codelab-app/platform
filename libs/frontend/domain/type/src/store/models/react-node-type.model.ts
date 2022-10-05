@@ -6,7 +6,7 @@ import type {
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { createTypeBase } from './base-type.model'
+import { createBaseType } from './base-type.model'
 
 const hydrate = ({
   id,
@@ -26,7 +26,7 @@ const hydrate = ({
 
 @model('@codelab/ReactNodeType')
 export class ReactNodeType
-  extends ExtendedModel(createTypeBase(ITypeKind.ReactNodeType), {})
+  extends ExtendedModel(createBaseType(ITypeKind.ReactNodeType), {})
   implements IReactNodeType
 {
   @modelAction

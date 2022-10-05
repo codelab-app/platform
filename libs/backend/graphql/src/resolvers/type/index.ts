@@ -1,9 +1,13 @@
+import { withReadTransactionResolver } from '@codelab/backend/infra/adapter/neo4j'
 import { IResolvers } from '@graphql-tools/utils'
-import { upsertField } from './upsert-field.resolver'
+import { upsertField } from './mutation'
+import { baseTypes } from './query'
 
 export const typeResolver: IResolvers = {
   Mutation: {
     upsertField,
   },
-  Query: {},
+  Query: {
+    baseTypes: withReadTransactionResolver(baseTypes),
+  },
 }

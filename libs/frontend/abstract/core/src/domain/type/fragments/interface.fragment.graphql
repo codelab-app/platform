@@ -1,5 +1,5 @@
 fragment InterfaceType on InterfaceType {
-  ...TypeBase
+  ...BaseType
   ownerConnection {
     edges {
       data

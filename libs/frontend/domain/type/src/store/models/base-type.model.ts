@@ -3,7 +3,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { idProp, Model, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 
-export const createTypeBase = <T extends ITypeKind>(typeKind: T) => {
+export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
   return class
     extends Model({
       id: idProp,

@@ -1933,9 +1933,13 @@ export enum CodeMirrorLanguage {
 }
 
 export enum ElementTypeKind {
+  /** Pick any element in the current tree */
   AllElements = 'AllElements',
-  ChildrenOnly = 'ChildrenOnly',
+  /** Pick any element from the descendants of the current element */
   DescendantsOnly = 'DescendantsOnly',
+  /** Pick any element from the children of the current element */
+  ChildrenOnly = 'ChildrenOnly',
+  /** Pick parents and siblings of parents of elements (used to move element) */
   ExcludeDescendantsElements = 'ExcludeDescendantsElements',
 }
 

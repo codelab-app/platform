@@ -1,5 +1,5 @@
 import { ITypeDTO } from '@codelab/frontend/abstract/core'
-import { TypeBaseCreateInput } from '@codelab/shared/abstract/codegen'
+import { BaseTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { DocumentNode, print } from 'graphql'
 import {
@@ -34,7 +34,7 @@ const createTypeQuery: { [key in ITypeKind]: DocumentNode } = {
   [ITypeKind.ActionType]: CreateActionTypesDocument,
 }
 
-export const createType = (input: TypeBaseCreateInput, typeKind: ITypeKind) =>
+export const createType = (input: BaseTypeCreateInput, typeKind: ITypeKind) =>
   cy
     .graphqlRequest({
       query: print(createTypeQuery[typeKind]),
