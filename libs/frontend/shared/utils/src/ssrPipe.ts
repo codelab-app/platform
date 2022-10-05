@@ -2,12 +2,12 @@
  * https://frontend-devops.com/blog/pipe-serverside-props-in-nextjs
  */
 
-type PipedGetServerSideProps = (arg?: any) => Promise<any> | any
+type PipedGetServerSideProps = (arg?: unknown) => Promise<unknown> | unknown
 
 export const ssrPipe =
   (...functions: Array<PipedGetServerSideProps>) =>
   async (
-    input: any,
+    input: unknown,
   ): Promise<{
     props: Record<string, unknown>
   }> => {

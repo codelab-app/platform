@@ -3,9 +3,9 @@ import { Fancybox as NativeFancybox } from '@fancyapps/ui/dist/fancybox.umd.js'
 import React, { useEffect } from 'react'
 
 interface FancyboxProps {
-  options?: Record<string, any>
+  options?: Record<string, unknown>
   delegate?: string
-  children: any
+  children: unknown
 }
 
 export const Fancybox = ({
@@ -17,7 +17,7 @@ export const Fancybox = ({
     NativeFancybox.bind(delegate, {
       ...options,
       on: {
-        '*': (event: any, fancybox: any, slide: any) => {
+        '*': (event: unknown, fancybox: unknown, slide: unknown) => {
           console.log(`event: ${event}`)
         },
       },

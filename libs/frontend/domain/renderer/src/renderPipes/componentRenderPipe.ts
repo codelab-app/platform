@@ -48,7 +48,7 @@ export class ComponentRenderPipe
   }
 
   private static makeOverrideProps(props: IPropData, component: IComponent) {
-    const { key, [DATA_ELEMENT_ID]: id, ...overrideProps } = { ...props } as any
+    const { ...overrideProps } = { ...props }
 
     return {
       [DATA_COMPONENT_ID]: component.id,

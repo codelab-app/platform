@@ -1,3 +1,4 @@
+import { IUser } from '@codelab/frontend/abstract/core'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   DashboardTemplate,
@@ -12,12 +13,12 @@ const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
   // const { data } = useGetUsersQuery()
   const data = { users: [] }
 
-  const dataSource = data?.users?.map((user: any) => ({
+  const dataSource = data?.users?.map((user: IUser) => ({
     id: user?.id,
     key: user?.id,
   }))
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<object> = [
     {
       title: 'Id',
       dataIndex: 'id',

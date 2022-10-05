@@ -46,7 +46,7 @@ export class DomainService
     }
 
     return domains.map((domain) => {
-      const domainModel = Domain.hydrate(domain as any)
+      const domainModel = Domain.hydrate(domain)
 
       this.domains.set(domain.id, domainModel)
 
@@ -91,7 +91,7 @@ export class DomainService
       throw new Error('Domain was not created')
     }
 
-    const domainModel = Domain.hydrate(domain as any)
+    const domainModel = Domain.hydrate(domain)
     this.domains.set(domainModel.id, domainModel)
   })
 
@@ -115,7 +115,7 @@ export class DomainService
   @transaction
   update = _async(function* (this: DomainService, input: IUpdateDomainDTO) {
     const { updateDomain } = yield* _await(domainApis.UpdateDomain({ input }))
-    const domainModel = Domain.hydrate(updateDomain as any)
+    const domainModel = Domain.hydrate(updateDomain)
 
     this.domains.set(updateDomain.id, domainModel)
   })

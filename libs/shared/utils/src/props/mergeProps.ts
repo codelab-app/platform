@@ -1,10 +1,9 @@
 import { IPropData } from '@codelab/frontend/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import mergeWith from 'lodash/mergeWith'
 
-type PropsArray = Array<Nullish<IPropData>>
+type PropsArray = Array<IPropData | undefined | null>
 
-const propsCustomizer = (value: any, srcValue: any, key: string) => {
+const propsCustomizer = (value: string, srcValue: string, key: string) => {
   if (key === 'className') {
     return `${value || ''} ${srcValue || ''}`
   }
@@ -20,7 +19,7 @@ const propsCustomizer = (value: any, srcValue: any, key: string) => {
  */
 
 export const mergeProps = (...propsArray: PropsArray): IPropData => {
-  return propsArray.reduce<IPropData>((mergedProps, nextProps) => {
+  return propsArray.reduce<IPropData>((mergedProps = {}, nextProps = {}) => {
     return mergeWith(mergedProps, nextProps, propsCustomizer)
   }, {})
 }

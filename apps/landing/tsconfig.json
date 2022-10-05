@@ -5,7 +5,7 @@
     "jsxImportSource": "@emotion/react",
     "allowJs": true,
     "emitDecoratorMetadata": false,
-    "types": ["@fancyapps/ui", "eslint-linter-browserify"],
+    "types": ["@fancyapps/ui"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,

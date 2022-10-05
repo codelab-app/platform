@@ -28,7 +28,7 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
       e.stopPropagation()
     }
 
-    const Wrapper = ({ children }: PropsWithChildren<any>) => (
+    const Wrapper = ({ children }: PropsWithChildren) => (
       <div css={tw`inset-0`} onClick={onClick}>
         {children}
       </div>

@@ -22,7 +22,7 @@ export interface IRenderer {
   extraElementProps: IExtraElementProps
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
   runPreAction(element: IElement): void
-  getPostAction(element: IElement): Nullish<() => any>
+  getPostAction(element: IElement): Nullish<() => unknown>
   renderElement(element: IElement, extraProps?: IPropData): ReactElement
   initForce(pageTree: IElementTree): void
 }

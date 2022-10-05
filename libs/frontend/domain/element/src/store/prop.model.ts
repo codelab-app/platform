@@ -6,7 +6,15 @@ import type {
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
-import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import {
+  Frozen,
+  frozen,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+} from 'mobx-keystone'
 
 const hydrate = ({ id, data }: IPropDTO): IProp => {
   return new Prop({ id, data: frozen(JSON.parse(data)) })
@@ -26,8 +34,8 @@ export class Prop
   }
 
   @modelAction
-  set(key: string, value: any) {
-    this.data = frozen(mergeProps(this.data, { [key]: value }))
+  set(key: string, value: object) {
+    this.data = frozen(mergeProps(this.data.data, { [key]: value }))
   }
 
   @modelAction

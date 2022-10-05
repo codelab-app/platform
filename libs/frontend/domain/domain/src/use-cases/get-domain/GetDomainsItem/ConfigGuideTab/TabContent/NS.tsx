@@ -20,7 +20,7 @@ const columns = [
     title: 'Intended Nameservers',
     dataIndex: 'intendedNameservers',
     render: (
-      _: any,
+      _: unknown,
       { intendedNameservers }: { intendedNameservers: Array<string> },
     ) => {
       return <NS copyable nameServers={intendedNameservers} />
@@ -29,7 +29,7 @@ const columns = [
   {
     title: 'Current Nameservers',
     dataIndex: 'nameservers',
-    render: (_: any, { nameServers }: { nameServers: Array<string> }) => {
+    render: (_: unknown, { nameServers }: { nameServers: Array<string> }) => {
       return <NS copyable={false} nameServers={nameServers} />
     },
   },

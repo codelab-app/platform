@@ -5,7 +5,7 @@ import React, { CSSProperties } from 'react'
 import { LoadingData } from './useTrackLoadingPromises'
 
 interface LoadIndicatorProps extends LoadingData {
-  renderErrored?: (error: any) => React.ReactElement
+  renderErrored?: (error: unknown) => React.ReactElement
   renderLoading?: () => React.ReactElement
   renderNotLoading?: () => React.ReactElement
   style?: CSSProperties | ((state: LoadingData) => CSSProperties)

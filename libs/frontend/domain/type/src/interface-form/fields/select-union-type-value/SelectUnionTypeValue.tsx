@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { usePrevious } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'

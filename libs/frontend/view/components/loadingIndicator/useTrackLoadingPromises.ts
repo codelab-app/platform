@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from 'react'
 
 export interface LoadingData {
   isLoading: boolean
-  error: any
+  error: unknown
 }
 
 export interface UseTrackLoadingPromises extends LoadingData {
-  trackPromise: (promise: Promise<any>) => void
+  trackPromise: (promise: Promise<unknown>) => void
 }
 
 /**
@@ -18,14 +18,14 @@ export const useTrackLoadingPromises = (): UseTrackLoadingPromises => {
     error: undefined,
   })
 
-  const [promises, setPromises] = useState<Array<Promise<any>>>([])
+  const [promises, setPromises] = useState<Array<Promise<unknown>>>([])
 
   useEffect(() => {
     setState((s) => ({ ...s, loading: promises.length !== 0 }))
   }, [promises.length])
 
   const trackPromise = useCallback(
-    (promise: Promise<any>) => {
+    (promise: Promise<unknown>) => {
       setPromises((prev) => [...prev, promise])
       setState((s) => ({ ...s, isErrored: false }))
 

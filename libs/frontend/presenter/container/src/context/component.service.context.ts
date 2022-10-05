@@ -18,7 +18,7 @@ export const componentRef = rootRef<IComponent>('@codelab/ComponentRef', {
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const componentServiceContext = createContext<IComponentService>()
 
-export const getComponentService = (self: any) => {
+export const getComponentService = (self: object) => {
   const componentService = componentServiceContext.get(self)
 
   if (!componentService) {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import isFunction from 'lodash/isFunction'
 import React from 'react'
 import { useRecoilState } from 'recoil'
@@ -6,7 +7,7 @@ import { StateProps } from './StateProps'
 
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
 const eventSafeStringify = (e: any) => {
-  const obj: Record<string, any> = {}
+  const obj: Record<string, unknown> = {}
 
   for (const k in e) {
     obj[k] = e[k]
@@ -41,9 +42,9 @@ export const State = ({
   ...props
 }: React.PropsWithChildren<StateProps> & Record<string, any>) => {
   const [state, setState] = useRecoilState(stateAtomFamily(identifier))
-  const executeLambda: any = () => Promise.resolve()
+  const executeLambda = (args: unknown) => Promise.resolve()
 
-  const childProps: Record<string, any> = {
+  const childProps: Record<string, unknown> = {
     // Pass all props down to the children, so that we can stack State elements
     ...props,
   }
@@ -53,7 +54,7 @@ export const State = ({
   }
 
   if (eventKey) {
-    childProps[eventKey] = (e: any) => {
+    childProps[eventKey] = (e: unknown) => {
       // Call the lambda if we have one
       if (setterLambda) {
         executeLambda({
@@ -64,19 +65,19 @@ export const State = ({
             },
           },
         })
-          .then((r: any) => {
-            const payload = r.data?.executeLambda?.payload
-
-            if (payload !== undefined) {
-              try {
-                const newState = JSON.parse(payload)
-                setState(newState)
-              } catch (err) {
-                console.error('Error while updating state ', err)
-              }
-            }
-          })
-          .catch((err: any) => console.error(err))
+          // .then((r: unknown) => {
+          //   const payload = r.data?.executeLambda?.payload
+          //
+          //   if (payload !== undefined) {
+          //     try {
+          //       const newState = JSON.parse(payload)
+          //       setState(newState)
+          //     } catch (err) {
+          //       console.error('Error while updating state ', err)
+          //     }
+          //   }
+          // })
+          .catch((err: unknown) => console.error(err))
       } else {
         // If not - directly set the state
         setState(e)
@@ -91,8 +92,8 @@ export const State = ({
 
   return (
     <>
-      {React.Children.map(children, (child) =>
-        child ? React.cloneElement(child as any, childProps) : null,
+      {React.Children.map(children, (child: any) =>
+        child ? React.cloneElement(child, childProps) : null,
       )}
     </>
   )

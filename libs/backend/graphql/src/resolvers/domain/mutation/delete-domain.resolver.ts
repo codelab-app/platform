@@ -7,7 +7,7 @@ import { domainNotFoundError } from '../domain.error'
 import { validateDomainAuth } from '../domain.validation'
 
 export const deleteDomain: IFieldResolver<
-  any,
+  unknown,
   GraphQLRequestContext,
   { id: string }
 > = async (_, { id }, { req }) => {

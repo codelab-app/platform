@@ -1,6 +1,5 @@
 export * from './assert'
 export * from './collections'
-export * from './comparison'
 export * from './entity'
 export * from './env'
 export * from './filter/isNonNullable'

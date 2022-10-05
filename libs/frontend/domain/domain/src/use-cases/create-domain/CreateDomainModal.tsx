@@ -30,7 +30,7 @@ export const CreateDomainModal = observer<{
   const closeModal = () => domainService.createModal.close()
   const { onError } = useNotify({}, {})
 
-  const onSubmitError = (error: any) => {
+  const onSubmitError = (error: unknown) => {
     if (!handleDomainExistError(error, onError)) {
       onError('Error while adding app domain')
     }

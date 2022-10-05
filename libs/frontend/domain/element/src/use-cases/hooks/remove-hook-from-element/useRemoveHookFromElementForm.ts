@@ -26,7 +26,7 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
     ],
     model: {},
     actionType: 'DELETE',
-    entity: {} as any,
+    entity: {},
     onSubmitSuccess: () => {
       //
     },

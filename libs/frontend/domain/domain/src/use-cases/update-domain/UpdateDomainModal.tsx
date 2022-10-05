@@ -35,7 +35,7 @@ export const UpdateDomainModal = observer<{
 
   const { onError } = useNotify({}, {})
 
-  const onSubmitError = (error: any) => {
+  const onSubmitError = (error: unknown) => {
     if (!handleDomainExistError(error, onError)) {
       onError('Error while updating app domain')
     }

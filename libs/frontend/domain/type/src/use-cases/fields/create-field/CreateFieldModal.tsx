@@ -28,10 +28,11 @@ const generateDefaultFormModel = () =>
 
 // TODO: Find a better place for this function
 export const modifyNestedKey = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   obj: any,
   is: Array<string>,
-  value: any,
-): any => {
+  value: object,
+): object => {
   if (is.length === 1 && value !== undefined) {
     return (obj[is[0]] = value)
   } else if (is.length === 0) {

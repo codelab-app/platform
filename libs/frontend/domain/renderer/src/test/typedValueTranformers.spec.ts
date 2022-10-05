@@ -30,11 +30,12 @@ describe('RenderService', () => {
       extraProps,
     ) as IRenderOutput
 
-    const { someNode } = props as any
-    const { findByText } = render(someNode)
+    const { findByText } = render(props?.['someNode'])
 
     expect(
-      await findByText(data.componentRootElement.props?.get('text')),
+      await findByText(
+        data.componentRootElement.props?.get('text').toString() ?? '',
+      ),
     ).toBeInTheDocument()
   })
 
@@ -51,12 +52,12 @@ describe('RenderService', () => {
       extraProps,
     ) as IRenderOutput
 
-    const { someNode } = props as any
-    const { findByText } = render(someNode())
+    const { findByText } = render(props?.['someNode']())
 
     expect(
       await findByText(
-        data.componentRootElement.props?.get(CUSTOM_TEXT_PROP_KEY),
+        data.componentRootElement.props?.get(CUSTOM_TEXT_PROP_KEY).toString() ??
+          '',
       ),
     ).toBeInTheDocument()
   })
@@ -74,10 +75,8 @@ describe('RenderService', () => {
       extraProps,
     ) as IRenderOutput
 
-    const { someNode } = props as any
-
     const { findByText } = render(
-      someNode({ [CUSTOM_TEXT_PROP_KEY]: 'new text' }),
+      props?.['someNode']({ [CUSTOM_TEXT_PROP_KEY]: 'new text' }),
     )
 
     expect(await findByText('new text')).toBeInTheDocument()

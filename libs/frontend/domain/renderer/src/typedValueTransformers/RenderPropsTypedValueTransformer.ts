@@ -32,7 +32,7 @@ export class RenderPropsTypedValueTransformer
     return typeKind === ITypeKind.RenderPropsType
   }
 
-  canHandleValue(value: TypedValue<any>): boolean {
+  canHandleValue(value: TypedValue<unknown>): boolean {
     const componentService = getComponentService(this)
     const elementService = getElementService(this)
 
@@ -42,7 +42,7 @@ export class RenderPropsTypedValueTransformer
     )
   }
 
-  public transform(value: TypedValue<any>): any {
+  public transform(value: TypedValue<unknown>) {
     const componentService = getComponentService(this)
     const elementService = getElementService(this)
     const rootElement = getRootElement(value, componentService, elementService)
@@ -55,7 +55,7 @@ export class RenderPropsTypedValueTransformer
   }
 
   private makeRenderProp(element: IElement) {
-    return (renderPropArgs: Array<any>) =>
+    return (renderPropArgs: Array<unknown>) =>
       this.renderer.renderElement(element, renderPropArgs)
   }
 }

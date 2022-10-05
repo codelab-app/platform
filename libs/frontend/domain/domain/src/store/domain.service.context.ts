@@ -3,7 +3,7 @@ import { DomainService } from './domain.service'
 
 export const domainServiceContext = createContext<DomainService>()
 
-export const getDomainService = (self: any) => {
+export const getDomainService = (self: object) => {
   const domainService = domainServiceContext.get(self)
 
   if (!domainService) {

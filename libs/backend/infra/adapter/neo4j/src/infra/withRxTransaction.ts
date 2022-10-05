@@ -4,10 +4,10 @@ import { Observable } from 'rxjs'
 import { getDriver } from './driver'
 
 export type IRxTxnResolver<
-  TParent = any,
-  TContext = any,
-  TArgs = Record<string, any>,
-  TReturn = any,
+  TParent = unknown,
+  TContext = unknown,
+  TArgs = Record<string, unknown>,
+  TReturn = unknown,
 > = IFieldResolver<
   TParent,
   TContext,
@@ -50,10 +50,10 @@ export const withRxWriteTransactions = async <T>(
 }
 
 export const withRxReadTransactionResolver = <
-  TParent = any,
-  TArgs = Record<string, any>,
-  TContext = Record<string, any>,
-  TReturn = any,
+  TParent = unknown,
+  TArgs = Record<string, unknown>,
+  TContext = Record<string, unknown>,
+  TReturn = unknown,
 >(
   rxTxnResolver: IRxTxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {
@@ -68,10 +68,10 @@ export const withRxReadTransactionResolver = <
 }
 
 export const withRxWriteTransactionResolver = <
-  TParent = any,
-  TArgs = Record<string, any>,
-  TContext = Record<string, any>,
-  TReturn = any,
+  TParent = unknown,
+  TArgs = Record<string, unknown>,
+  TContext = Record<string, unknown>,
+  TReturn = unknown,
 >(
   rxTxnResolver: IRxTxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {

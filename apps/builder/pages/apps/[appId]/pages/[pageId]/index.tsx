@@ -15,7 +15,7 @@ import Head from 'next/head'
 import React from 'react'
 import { useAsync } from 'react-use'
 
-const PageRenderer: CodelabPage<any> = observer(() => {
+const PageRenderer: CodelabPage = observer(() => {
   const {
     pageService,
     appService,

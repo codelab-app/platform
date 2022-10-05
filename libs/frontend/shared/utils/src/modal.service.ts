@@ -4,7 +4,7 @@ import { Model, model, modelAction, prop } from 'mobx-keystone'
 @model('@codelab/ModalService')
 export class ModalService<
     TMetadata = never,
-    Properties extends object = Record<string, any>,
+    Properties extends object = Record<string, unknown>,
   >
   extends Model(<
     // eslint-disable-next-line @typescript-eslint/no-shadow

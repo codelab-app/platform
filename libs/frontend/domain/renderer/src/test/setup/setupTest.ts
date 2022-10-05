@@ -35,22 +35,24 @@ import {
 } from '../../renderPipes/renderPipe.factory'
 import { RenderTestRootStore } from './renderTestRootStore'
 
+interface TestingData {
+  rootStore: RenderTestRootStore
+  renderer: Renderer
+  componentToRender: Component
+  componentRootElement: Element
+  elementToRender: Element
+  elementToRender02: Element
+  componentInstanceElementToRender: Element
+  renderPropsType: AnyType
+  reactNodeType: AnyType
+  primitiveType: AnyType
+  divAtom: Atom
+  textAtom: Atom
+}
+
 // Clone everything so that we don't get conflicts between different test files
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
-  const data: {
-    rootStore: RenderTestRootStore
-    renderer: Renderer
-    componentToRender: Component
-    componentRootElement: Element
-    elementToRender: Element
-    elementToRender02: Element
-    componentInstanceElementToRender: Element
-    renderPropsType: AnyType
-    reactNodeType: AnyType
-    primitiveType: AnyType
-    divAtom: Atom
-    textAtom: Atom
-  } = {} as any
+  const data: TestingData = {} as TestingData
 
   beforeEach(() => {
     const ownerId = v4()

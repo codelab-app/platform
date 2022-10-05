@@ -7,7 +7,7 @@ import {
 import { Nullish } from '@codelab/shared/abstract/types'
 
 export const getRootElement = (
-  payload: TypedValue<any>,
+  payload: TypedValue<unknown>,
   componentService: IComponentService,
   elementService: IElementService,
 ): Nullish<IElement> => {
@@ -16,7 +16,7 @@ export const getRootElement = (
   }
 
   // .id is for backward compatibility
-  const id = (payload as any).id || payload.value
+  const id = payload.value
 
   if (typeof id !== 'string') {
     return null

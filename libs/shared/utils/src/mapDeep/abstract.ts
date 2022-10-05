@@ -1,8 +1,7 @@
 import { IPropData } from '@codelab/frontend/abstract/core'
-import { MaybeArray } from '@codelab/shared/abstract/types'
+import { Key } from 'react'
+import { ArrayOrSingle } from 'ts-essentials'
 
-export type IInput = IPropData
-export type IOutput = MaybeArray<IInput>
-export type Key = string | number
-export type IValueMapper = (value: IInput, key: Key) => IOutput
-export type IKeyMapper = (value: IInput, key: Key) => Key
+export type IOutput = ArrayOrSingle<IPropData>
+export type IValueMapper = (value: IPropData, key: Key) => IOutput
+export type IKeyMapper = (value: IPropData, key: Key) => Key

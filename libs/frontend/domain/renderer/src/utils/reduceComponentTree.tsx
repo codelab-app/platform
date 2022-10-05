@@ -2,7 +2,7 @@ import { IPropData } from '@codelab/frontend/abstract/core'
 import { jsx } from '@emotion/react'
 import React, { ComponentProps, ComponentType, PropsWithChildren } from 'react'
 
-const ChildrenRender = ({ children }: PropsWithChildren<any>): JSX.Element => (
+const ChildrenRender = ({ children }: PropsWithChildren): JSX.Element => (
   <>{children}</>
 )
 

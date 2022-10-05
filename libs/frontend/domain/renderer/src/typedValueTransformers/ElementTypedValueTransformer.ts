@@ -27,14 +27,14 @@ export class ElementTypedValueTransformer
     return kind === ITypeKind.ElementType
   }
 
-  canHandleValue(value: TypedValue<any>): boolean {
+  canHandleValue(value: TypedValue<unknown>): boolean {
     return (
       typeof value.value === 'string' &&
       Boolean(this.renderer.pageTree?.current.element(value.value))
     )
   }
 
-  public transform(props: TypedValue<any>): any {
+  public transform(props: TypedValue<unknown>) {
     const elementId = props?.value
 
     if (typeof elementId !== 'string') {

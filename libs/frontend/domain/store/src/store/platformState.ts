@@ -14,7 +14,7 @@ const matchesTemplate = (str: string): boolean =>
 const stripExpression = (expression: string) =>
   expression.substring(2, expression.length - 2)
 
-export const getState = (value: string, state: unknown): any => {
+export const getState = (value: string, state: unknown) => {
   if (!matchesTemplate(value)) {
     return value
   }

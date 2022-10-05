@@ -72,6 +72,7 @@
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",
         "react/jsx-sort-props": "error",
+        "react/no-unknown-property": ["error", { "ignore": ["css"] }],
         "jest/expect-expect": "off",
         "react/jsx-props-no-spreading": [
           "error",
@@ -454,7 +455,7 @@
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/consistent-type-assertions": "error",
-        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/ban-types": [
           "error",
           {
