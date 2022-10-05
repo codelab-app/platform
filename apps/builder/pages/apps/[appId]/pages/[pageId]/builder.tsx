@@ -8,7 +8,7 @@ import {
 } from '@codelab/frontend/domain/builder'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
-import { preRenderApi } from '@codelab/frontend/domain/pre-render'
+import { getPreRenderServerSideProps } from '@codelab/frontend/domain/pre-render'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -25,7 +25,6 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { IPreRenderType } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
@@ -151,26 +150,7 @@ const PageBuilder: CodelabPage = observer(() => {
 })
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired({
-  getServerSideProps: async (context) => {
-    const pageId = context.params?.pageId
-
-    if (!pageId) {
-      return { props: {} }
-    }
-
-    const { preRenders } = await preRenderApi.GetPreRenders({
-      where: {
-        page: { id: pageId as string },
-        type: IPreRenderType.GetServerSideProps,
-      },
-    })
-
-    for (const p of preRenders) {
-      eval(`(${p.code})`)(context)
-    }
-
-    return { props: {} }
-  },
+  getServerSideProps: getPreRenderServerSideProps,
 })
 
 PageBuilder.Layout = observer((page) => {
