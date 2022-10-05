@@ -328,7 +328,8 @@ jobs:
     <<: *executor-params
     steps:
       - swissknife/wait_for_job:
-          job-name: ^(install-and-build-workspace|lint|unit|e2e)$
+          job-name: install-and-build-workspace,lint,unit,e2e
+      #          job-name: ^(install-and-build-workspace|lint|unit|e2e)$
       # - swissknife/wait_for_workflow:
       #     workflow-name: ^(app-pr|app)$
       #     max-wait-time: '1500'
