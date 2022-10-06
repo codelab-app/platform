@@ -31,7 +31,7 @@ executor-params: &executor-params
   executor: << parameters.e >>
 
 infra-executor: &infra-executor
-  executor: terraform/default
+  executor: terraform
   environment:
     TF_WORKSPACE: builder-prod
 
@@ -75,6 +75,11 @@ orbs:
   terraform: circleci/terraform@3.1.0
 
 executors:
+  # https://github.com/CircleCI-Public/terraform-orb/issues/48#issuecomment-952318485
+  # Terraform orb install has issues, so we use our own image
+  terraform:
+    docker:
+      - image: hashicorp/terraform:1.3.1
   machine-ubuntu:
     <<: *executor-config
     machine:
@@ -269,25 +274,39 @@ jobs:
     <<: *infra-executor
     steps:
       - checkout
-      - run: ls
-      - run: ls terraform
-      - terraform/init:
-          path: terraform
-      - terraform/validate:
-          path: terraform
-      - terraform/fmt:
-          path: terraform
-      - terraform/plan:
-          path: terraform
+      - run:
+          command: |
+            echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
+          name: Create .terraformrc file locally
+      - run:
+          name: "Terraform Format"
+          command: terraform -chdir=terraform fmt
+      - run:
+          name: "Terraform Init"
+          command: terraform -chdir=terraform init
+      - run:
+          name: "Terraform Validate"
+          command: terraform -chdir=terraform validate
+      - run:
+          name: "Terraform Plan"
+          command: terraform -chdir=terraform plan
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/terraform/.terraform
 
   apply:
     <<: *infra-executor
     steps:
       - checkout
-      - terraform/apply:
-          path: terraform
-      - terraform/destroy:
-          path: terraform
+      - attach_workspace:
+          at: ..
+      - run:
+          name: 'Terraform Apply'
+          command: terraform -chdir=terraform apply
+      - run:
+          name: 'Terraform Apply'
+          command: terraform -chdir=terraform destroy
 
   notify-success:
     <<: *executor-params
@@ -387,44 +406,41 @@ workflows:
       #          context: CI
       #          e: docker-node
       - install-and-build-workspace:
-          <<:
-            - *filters-pr
+          <<: *filters-pr
           # Can't build with machine image, causes build issues
           e: docker-node
           context: CI
       - lint:
-          <<:
-            - *filters-pr
+          <<: *filters-pr
           e: docker-node
           requires:
             - install-and-build-workspace
       - codegen:
-          <<:
-            - *filters-pr
+          <<: *filters-pr
           e: docker-node
           requires:
             - install-and-build-workspace
       - unit:
-          <<:
-            - *filters-pr
+          <<: *filters-pr
           e: docker-node
           requires:
             - install-and-build-workspace
-      #      - e2e:
-      #          <<:
-      #            - *filters-pr
-      #          e: docker-node-neo4j
-      #          requires:
-      #            - install-and-build-workspace
+      - e2e:
+          <<: *filters-pr
+          e: docker-node-neo4j
+          requires:
+            - install-and-build-workspace
       - plan:
-          <<:
-            - *filters-pr
-      - apply:
-          <<:
-            - *filters-pr
+          <<: *filters-pr
+      - hold-apply:
+          <<: *filters-pr
           type: approval
           requires:
             - plan
+      - apply:
+          <<: *filters-pr
+          requires:
+            - hold-apply
       - notify-success:
           <<: *filters-pr
           e: docker-node
@@ -433,7 +449,7 @@ workflows:
             - lint
             - codegen
             - unit
-  #            - e2e
+            - e2e
 
   app:
     jobs:
