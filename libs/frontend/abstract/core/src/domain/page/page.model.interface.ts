@@ -13,5 +13,4 @@ export interface IPage
   slug: string
   toJson: IPropData
   rootElement: IEntity
-  preRenders: Array<IEntity>
 }

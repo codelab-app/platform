@@ -8,8 +8,6 @@ export const pageSchema = gql`
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
     app: App! @relationship(type: "PAGES", direction: IN)
-    preRenders: [PreRender!]!
-      @relationship(type: "PAGE_PRE_RENDER", direction: IN)
   }
 
   extend type Page

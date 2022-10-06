@@ -54,9 +54,6 @@ fragment PageBuilderApp on App {
         ...Element
       }
     }
-    preRenders {
-      ...PreRender
-    }
     app {
       id
     }

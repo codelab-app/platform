@@ -19,7 +19,6 @@
     "frontend-domain-atom": "libs/frontend/domain/atom",
     "frontend-domain-builder": "libs/frontend/domain/builder",
     "frontend-domain-component": "libs/frontend/domain/component",
-    "frontend-domain-pre-render": "libs/frontend/domain/pre-render",
     "frontend-domain-domain": "libs/frontend/domain/domain",
     "frontend-domain-element": "libs/frontend/domain/element",
     "frontend-domain-lambda": "libs/frontend/domain/lambda",

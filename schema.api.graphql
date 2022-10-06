@@ -5947,11 +5947,6 @@ type CreatePagesMutationResponse {
   pages: [Page!]!
 }
 
-type CreatePreRendersMutationResponse {
-  info: CreateInfo!
-  preRenders: [PreRender!]!
-}
-
 type CreatePrimitiveTypesMutationResponse {
   info: CreateInfo!
   primitiveTypes: [PrimitiveType!]!
@@ -11768,9 +11763,6 @@ type Mutation {
     input: [PageTypeCreateInput!]!
   ): CreatePageTypesMutationResponse!
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
-  createPreRenders(
-    input: [PreRenderCreateInput!]!
-  ): CreatePreRendersMutationResponse!
   createPrimitiveTypes(
     input: [PrimitiveTypeCreateInput!]!
   ): CreatePrimitiveTypesMutationResponse!
@@ -11864,10 +11856,6 @@ type Mutation {
     where: PageTypeWhere
   ): DeleteInfo!
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
-  deletePreRenders(
-    delete: PreRenderDeleteInput
-    where: PreRenderWhere
-  ): DeleteInfo!
   deletePrimitiveTypes(
     delete: PrimitiveTypeDeleteInput
     where: PrimitiveTypeWhere
@@ -12089,15 +12077,6 @@ type Mutation {
     update: PageUpdateInput
     where: PageWhere
   ): UpdatePagesMutationResponse!
-  updatePreRenders(
-    connect: PreRenderConnectInput
-    connectOrCreate: PreRenderConnectOrCreateInput
-    create: PreRenderRelationInput
-    delete: PreRenderDeleteInput
-    disconnect: PreRenderDisconnectInput
-    update: PreRenderUpdateInput
-    where: PreRenderWhere
-  ): UpdatePreRendersMutationResponse!
   updatePrimitiveTypes(
     connect: PrimitiveTypeConnectInput
     connectOrCreate: PrimitiveTypeConnectOrCreateInput
@@ -12243,22 +12222,6 @@ type Page {
   ): PageAppConnection!
   id: ID!
   name: String!
-  preRenders(
-    directed: Boolean = true
-    options: PreRenderOptions
-    where: PreRenderWhere
-  ): [PreRender!]!
-  preRendersAggregate(
-    directed: Boolean = true
-    where: PreRenderWhere
-  ): PagePreRenderPreRendersAggregationSelection
-  preRendersConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [PagePreRendersConnectionSort!]
-    where: PagePreRendersConnectionWhere
-  ): PagePreRendersConnection!
   rootElement(
     directed: Boolean = true
     options: ElementOptions
@@ -12425,7 +12388,6 @@ input PageAppUpdateFieldInput {
 
 input PageConnectInput {
   app: PageAppConnectFieldInput
-  preRenders: [PagePreRendersConnectFieldInput!]
   rootElement: PageRootElementConnectFieldInput
 }
 
@@ -12446,20 +12408,17 @@ input PageCreateInput {
   app: PageAppFieldInput
   id: ID!
   name: String!
-  preRenders: PagePreRendersFieldInput
   rootElement: PageRootElementFieldInput
   slug: String!
 }
 
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
-  preRenders: [PagePreRendersDeleteFieldInput!]
   rootElement: PageRootElementDeleteFieldInput
 }
 
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
-  preRenders: [PagePreRendersDisconnectFieldInput!]
   rootElement: PageRootElementDisconnectFieldInput
 }
 
@@ -12511,136 +12470,8 @@ input PageOptions {
   sort: [PageSort!]
 }
 
-type PagePreRenderPreRendersAggregationSelection {
-  count: Int!
-  node: PagePreRenderPreRendersNodeAggregateSelection
-}
-
-type PagePreRenderPreRendersNodeAggregateSelection {
-  code: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input PagePreRendersAggregateInput {
-  AND: [PagePreRendersAggregateInput!]
-  OR: [PagePreRendersAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: PagePreRendersNodeAggregationWhereInput
-}
-
-input PagePreRendersConnectFieldInput {
-  connect: [PreRenderConnectInput!]
-  where: PreRenderConnectWhere
-}
-
-type PagePreRendersConnection {
-  edges: [PagePreRendersRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input PagePreRendersConnectionSort {
-  node: PreRenderSort
-}
-
-input PagePreRendersConnectionWhere {
-  AND: [PagePreRendersConnectionWhere!]
-  OR: [PagePreRendersConnectionWhere!]
-  node: PreRenderWhere
-  node_NOT: PreRenderWhere
-}
-
-input PagePreRendersCreateFieldInput {
-  node: PreRenderCreateInput!
-}
-
-input PagePreRendersDeleteFieldInput {
-  delete: PreRenderDeleteInput
-  where: PagePreRendersConnectionWhere
-}
-
-input PagePreRendersDisconnectFieldInput {
-  disconnect: PreRenderDisconnectInput
-  where: PagePreRendersConnectionWhere
-}
-
-input PagePreRendersFieldInput {
-  connect: [PagePreRendersConnectFieldInput!]
-  create: [PagePreRendersCreateFieldInput!]
-}
-
-input PagePreRendersNodeAggregationWhereInput {
-  AND: [PagePreRendersNodeAggregationWhereInput!]
-  OR: [PagePreRendersNodeAggregationWhereInput!]
-  code_AVERAGE_EQUAL: Float
-  code_AVERAGE_GT: Float
-  code_AVERAGE_GTE: Float
-  code_AVERAGE_LT: Float
-  code_AVERAGE_LTE: Float
-  code_EQUAL: String
-  code_GT: Int
-  code_GTE: Int
-  code_LONGEST_EQUAL: Int
-  code_LONGEST_GT: Int
-  code_LONGEST_GTE: Int
-  code_LONGEST_LT: Int
-  code_LONGEST_LTE: Int
-  code_LT: Int
-  code_LTE: Int
-  code_SHORTEST_EQUAL: Int
-  code_SHORTEST_GT: Int
-  code_SHORTEST_GTE: Int
-  code_SHORTEST_LT: Int
-  code_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type PagePreRendersRelationship {
-  cursor: String!
-  node: PreRender!
-}
-
-input PagePreRendersUpdateConnectionInput {
-  node: PreRenderUpdateInput
-}
-
-input PagePreRendersUpdateFieldInput {
-  connect: [PagePreRendersConnectFieldInput!]
-  create: [PagePreRendersCreateFieldInput!]
-  delete: [PagePreRendersDeleteFieldInput!]
-  disconnect: [PagePreRendersDisconnectFieldInput!]
-  update: PagePreRendersUpdateConnectionInput
-  where: PagePreRendersConnectionWhere
-}
-
 input PageRelationInput {
   app: PageAppCreateFieldInput
-  preRenders: [PagePreRendersCreateFieldInput!]
   rootElement: PageRootElementCreateFieldInput
 }
 
@@ -13169,7 +13000,6 @@ input PageUpdateInput {
   app: PageAppUpdateFieldInput
   id: ID
   name: String
-  preRenders: [PagePreRendersUpdateFieldInput!]
   rootElement: PageRootElementUpdateFieldInput
   slug: String
 }
@@ -13202,31 +13032,6 @@ input PageWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  preRendersAggregate: PagePreRendersAggregateInput
-  preRendersConnection_ALL: PagePreRendersConnectionWhere
-  preRendersConnection_NONE: PagePreRendersConnectionWhere
-  preRendersConnection_SINGLE: PagePreRendersConnectionWhere
-  preRendersConnection_SOME: PagePreRendersConnectionWhere
-
-  """
-  Return Pages where all of the related PreRenders match this filter
-  """
-  preRenders_ALL: PreRenderWhere
-
-  """
-  Return Pages where none of the related PreRenders match this filter
-  """
-  preRenders_NONE: PreRenderWhere
-
-  """
-  Return Pages where one of the related PreRenders match this filter
-  """
-  preRenders_SINGLE: PreRenderWhere
-
-  """
-  Return Pages where some of the related PreRenders match this filter
-  """
-  preRenders_SOME: PreRenderWhere
   rootElement: ElementWhere
   rootElementAggregate: PageRootElementAggregateInput
   rootElementConnection: PageRootElementConnectionWhere
@@ -13246,292 +13051,6 @@ input PageWhere {
 
 type PagesConnection {
   edges: [PageEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-type PreRender {
-  code: String!
-  id: ID!
-  name: String!
-  page(directed: Boolean = true, options: PageOptions, where: PageWhere): Page!
-  pageAggregate(
-    directed: Boolean = true
-    where: PageWhere
-  ): PreRenderPagePageAggregationSelection
-  pageConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [PreRenderPageConnectionSort!]
-    where: PreRenderPageConnectionWhere
-  ): PreRenderPageConnection!
-  type: PreRenderType!
-}
-
-type PreRenderAggregateSelection {
-  code: StringAggregateSelectionNonNullable!
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input PreRenderConnectInput {
-  page: PreRenderPageConnectFieldInput
-}
-
-input PreRenderConnectOrCreateInput {
-  page: PreRenderPageConnectOrCreateFieldInput
-}
-
-input PreRenderConnectWhere {
-  node: PreRenderWhere!
-}
-
-input PreRenderCreateInput {
-  code: String!
-  id: ID!
-  name: String!
-  page: PreRenderPageFieldInput
-  type: PreRenderType!
-}
-
-input PreRenderDeleteInput {
-  page: PreRenderPageDeleteFieldInput
-}
-
-input PreRenderDisconnectInput {
-  page: PreRenderPageDisconnectFieldInput
-}
-
-type PreRenderEdge {
-  cursor: String!
-  node: PreRender!
-}
-
-input PreRenderOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more PreRenderSort objects to sort PreRenders by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [PreRenderSort!]
-}
-
-input PreRenderPageAggregateInput {
-  AND: [PreRenderPageAggregateInput!]
-  OR: [PreRenderPageAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: PreRenderPageNodeAggregationWhereInput
-}
-
-input PreRenderPageConnectFieldInput {
-  connect: PageConnectInput
-  where: PageConnectWhere
-}
-
-input PreRenderPageConnectOrCreateFieldInput {
-  onCreate: PreRenderPageConnectOrCreateFieldInputOnCreate!
-  where: PageConnectOrCreateWhere!
-}
-
-input PreRenderPageConnectOrCreateFieldInputOnCreate {
-  node: PageOnCreateInput!
-}
-
-type PreRenderPageConnection {
-  edges: [PreRenderPageRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input PreRenderPageConnectionSort {
-  node: PageSort
-}
-
-input PreRenderPageConnectionWhere {
-  AND: [PreRenderPageConnectionWhere!]
-  OR: [PreRenderPageConnectionWhere!]
-  node: PageWhere
-  node_NOT: PageWhere
-}
-
-input PreRenderPageCreateFieldInput {
-  node: PageCreateInput!
-}
-
-input PreRenderPageDeleteFieldInput {
-  delete: PageDeleteInput
-  where: PreRenderPageConnectionWhere
-}
-
-input PreRenderPageDisconnectFieldInput {
-  disconnect: PageDisconnectInput
-  where: PreRenderPageConnectionWhere
-}
-
-input PreRenderPageFieldInput {
-  connect: PreRenderPageConnectFieldInput
-  connectOrCreate: PreRenderPageConnectOrCreateFieldInput
-  create: PreRenderPageCreateFieldInput
-}
-
-input PreRenderPageNodeAggregationWhereInput {
-  AND: [PreRenderPageNodeAggregationWhereInput!]
-  OR: [PreRenderPageNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-  slug_AVERAGE_EQUAL: Float
-  slug_AVERAGE_GT: Float
-  slug_AVERAGE_GTE: Float
-  slug_AVERAGE_LT: Float
-  slug_AVERAGE_LTE: Float
-  slug_EQUAL: String
-  slug_GT: Int
-  slug_GTE: Int
-  slug_LONGEST_EQUAL: Int
-  slug_LONGEST_GT: Int
-  slug_LONGEST_GTE: Int
-  slug_LONGEST_LT: Int
-  slug_LONGEST_LTE: Int
-  slug_LT: Int
-  slug_LTE: Int
-  slug_SHORTEST_EQUAL: Int
-  slug_SHORTEST_GT: Int
-  slug_SHORTEST_GTE: Int
-  slug_SHORTEST_LT: Int
-  slug_SHORTEST_LTE: Int
-}
-
-type PreRenderPagePageAggregationSelection {
-  count: Int!
-  node: PreRenderPagePageNodeAggregateSelection
-}
-
-type PreRenderPagePageNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
-}
-
-type PreRenderPageRelationship {
-  cursor: String!
-  node: Page!
-}
-
-input PreRenderPageUpdateConnectionInput {
-  node: PageUpdateInput
-}
-
-input PreRenderPageUpdateFieldInput {
-  connect: PreRenderPageConnectFieldInput
-  connectOrCreate: PreRenderPageConnectOrCreateFieldInput
-  create: PreRenderPageCreateFieldInput
-  delete: PreRenderPageDeleteFieldInput
-  disconnect: PreRenderPageDisconnectFieldInput
-  update: PreRenderPageUpdateConnectionInput
-  where: PreRenderPageConnectionWhere
-}
-
-input PreRenderRelationInput {
-  page: PreRenderPageCreateFieldInput
-}
-
-"""
-Fields to sort PreRenders by. The order in which sorts are applied is not guaranteed when specifying many fields in one PreRenderSort object.
-"""
-input PreRenderSort {
-  code: SortDirection
-  id: SortDirection
-  name: SortDirection
-  type: SortDirection
-}
-
-enum PreRenderType {
-  GetInitialProps
-  GetServerSideProps
-  GetStaticPaths
-  GetStaticProps
-}
-
-input PreRenderUpdateInput {
-  code: String
-  id: ID
-  name: String
-  page: PreRenderPageUpdateFieldInput
-  type: PreRenderType
-}
-
-input PreRenderWhere {
-  AND: [PreRenderWhere!]
-  OR: [PreRenderWhere!]
-  code: String
-  code_CONTAINS: String
-  code_ENDS_WITH: String
-  code_IN: [String!]
-  code_NOT: String
-  code_NOT_CONTAINS: String
-  code_NOT_ENDS_WITH: String
-  code_NOT_IN: [String!]
-  code_NOT_STARTS_WITH: String
-  code_STARTS_WITH: String
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  page: PageWhere
-  pageAggregate: PreRenderPageAggregateInput
-  pageConnection: PreRenderPageConnectionWhere
-  pageConnection_NOT: PreRenderPageConnectionWhere
-  page_NOT: PageWhere
-  type: PreRenderType
-  type_IN: [PreRenderType!]
-  type_NOT: PreRenderType
-  type_NOT_IN: [PreRenderType!]
-}
-
-type PreRendersConnection {
-  edges: [PreRenderEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -14834,14 +14353,6 @@ type Query {
     sort: [PageSort]
     where: PageWhere
   ): PagesConnection!
-  preRenders(options: PreRenderOptions, where: PreRenderWhere): [PreRender!]!
-  preRendersAggregate(where: PreRenderWhere): PreRenderAggregateSelection!
-  preRendersConnection(
-    after: String
-    first: Int
-    sort: [PreRenderSort]
-    where: PreRenderWhere
-  ): PreRendersConnection!
   primitiveTypes(
     options: PrimitiveTypeOptions
     where: PrimitiveTypeWhere
@@ -18547,11 +18058,6 @@ type UpdatePageTypesMutationResponse {
 type UpdatePagesMutationResponse {
   info: UpdateInfo!
   pages: [Page!]!
-}
-
-type UpdatePreRendersMutationResponse {
-  info: UpdateInfo!
-  preRenders: [PreRender!]!
 }
 
 type UpdatePrimitiveTypesMutationResponse {

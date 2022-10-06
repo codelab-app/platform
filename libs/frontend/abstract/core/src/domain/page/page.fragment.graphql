@@ -9,7 +9,4 @@ fragment Page on Page {
     id
     name
   }
-  preRenders {
-    id
-  }
 }

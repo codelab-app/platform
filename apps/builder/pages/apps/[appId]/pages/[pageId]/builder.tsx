@@ -8,7 +8,6 @@ import {
 } from '@codelab/frontend/domain/builder'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
-import { getPreRenderServerSideProps } from '@codelab/frontend/domain/pre-render'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -149,9 +148,7 @@ const PageBuilder: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired({
-  getServerSideProps: getPreRenderServerSideProps,
-})
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 PageBuilder.Layout = observer((page) => {
   const {
@@ -163,7 +160,6 @@ PageBuilder.Layout = observer((page) => {
     builderRenderService,
     actionService,
     resourceService,
-    preRenderService,
   } = useStore()
 
   const { appService, typeService } = userService
@@ -212,7 +208,6 @@ PageBuilder.Layout = observer((page) => {
                 actionService={actionService}
                 appStore={pageBuilderRenderer.appStore.current}
                 pageId={pageId}
-                preRenderService={preRenderService}
                 resizable={resizable}
                 resourceService={resourceService}
                 storeService={appService.storeService}

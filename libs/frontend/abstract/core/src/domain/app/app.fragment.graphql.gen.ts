@@ -2,14 +2,12 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageFragment } from '../page/page.fragment.graphql.gen'
 import { ElementFragment } from '../element/element.fragment.graphql.gen'
-import { PreRenderFragment } from '../pre-render/pre-render.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
 import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
-import { PreRenderFragmentDoc } from '../pre-render/pre-render.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type RedirectedAppFragment = {
   id: string
@@ -48,7 +46,6 @@ export type PageBuilderAppFragment = {
     rootElement: {
       descendantElements: Array<ElementFragment>
     } & ElementFragment
-    preRenders: Array<PreRenderFragment>
     app: { id: string }
   }>
   store: StoreFragment
@@ -116,9 +113,6 @@ export const PageBuilderAppFragmentDoc = gql`
           ...Element
         }
       }
-      preRenders {
-        ...PreRender
-      }
       app {
         id
       }
@@ -128,7 +122,6 @@ export const PageBuilderAppFragmentDoc = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${PreRenderFragmentDoc}
   ${StoreFragmentDoc}
 `
 
