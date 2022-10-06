@@ -1,4 +1,5 @@
 import type {
+  IField,
   IFieldProps,
   IInterfaceType,
   IInterfaceTypeDTO,
@@ -28,6 +29,8 @@ const hydrate = ({
 }: IInterfaceTypeDTO): InterfaceType => {
   assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
+  console.log(fieldsConnection)
+
   const interfaceType = new InterfaceType({
     id,
     kind,
@@ -47,7 +50,7 @@ const hydrate = ({
 @model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
-    fields: prop(() => objectMap<Field>()),
+    fields: prop(() => objectMap<IField>()),
     ownerAuthId: prop<string>(),
     defaults: prop<IPropData>(),
   })
@@ -58,7 +61,7 @@ export class InterfaceType
     return [...this.fields.values()]
   }
 
-  field(id: string): Field | undefined {
+  field(id: string) {
     return this.fields.get(id)
   }
 
@@ -72,7 +75,7 @@ export class InterfaceType
   }
 
   @modelAction
-  deleteFieldLocal(field: Field) {
+  deleteFieldLocal(field: IField) {
     this.fields.delete(field.id)
   }
 

@@ -10520,8 +10520,157 @@ interface IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
+}
+
+input IBaseTypeConnectInput {
+  _on: IBaseTypeImplementationsConnectInput
+  owner: IBaseTypeOwnerConnectFieldInput
+}
+
+input IBaseTypeConnectWhere {
+  node: IBaseTypeWhere!
+}
+
+input IBaseTypeCreateInput {
+  ActionType: ActionTypeCreateInput
+  AppType: AppTypeCreateInput
+  ArrayType: ArrayTypeCreateInput
+  BaseType: BaseTypeCreateInput
+  CodeMirrorType: CodeMirrorTypeCreateInput
+  ElementType: ElementTypeCreateInput
+  EnumType: EnumTypeCreateInput
+  InterfaceType: InterfaceTypeCreateInput
+  LambdaType: LambdaTypeCreateInput
+  PageType: PageTypeCreateInput
+  PrimitiveType: PrimitiveTypeCreateInput
+  ReactNodeType: ReactNodeTypeCreateInput
+  RenderPropsType: RenderPropsTypeCreateInput
+  UnionType: UnionTypeCreateInput
+}
+
+input IBaseTypeDeleteInput {
+  _on: IBaseTypeImplementationsDeleteInput
+  owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+input IBaseTypeDisconnectInput {
+  _on: IBaseTypeImplementationsDisconnectInput
+  owner: IBaseTypeOwnerDisconnectFieldInput
+}
+
+input IBaseTypeImplementationsConnectInput {
+  ActionType: [ActionTypeConnectInput!]
+  AppType: [AppTypeConnectInput!]
+  ArrayType: [ArrayTypeConnectInput!]
+  BaseType: [BaseTypeConnectInput!]
+  CodeMirrorType: [CodeMirrorTypeConnectInput!]
+  ElementType: [ElementTypeConnectInput!]
+  EnumType: [EnumTypeConnectInput!]
+  InterfaceType: [InterfaceTypeConnectInput!]
+  LambdaType: [LambdaTypeConnectInput!]
+  PageType: [PageTypeConnectInput!]
+  PrimitiveType: [PrimitiveTypeConnectInput!]
+  ReactNodeType: [ReactNodeTypeConnectInput!]
+  RenderPropsType: [RenderPropsTypeConnectInput!]
+  UnionType: [UnionTypeConnectInput!]
+}
+
+input IBaseTypeImplementationsDeleteInput {
+  ActionType: [ActionTypeDeleteInput!]
+  AppType: [AppTypeDeleteInput!]
+  ArrayType: [ArrayTypeDeleteInput!]
+  BaseType: [BaseTypeDeleteInput!]
+  CodeMirrorType: [CodeMirrorTypeDeleteInput!]
+  ElementType: [ElementTypeDeleteInput!]
+  EnumType: [EnumTypeDeleteInput!]
+  InterfaceType: [InterfaceTypeDeleteInput!]
+  LambdaType: [LambdaTypeDeleteInput!]
+  PageType: [PageTypeDeleteInput!]
+  PrimitiveType: [PrimitiveTypeDeleteInput!]
+  ReactNodeType: [ReactNodeTypeDeleteInput!]
+  RenderPropsType: [RenderPropsTypeDeleteInput!]
+  UnionType: [UnionTypeDeleteInput!]
+}
+
+input IBaseTypeImplementationsDisconnectInput {
+  ActionType: [ActionTypeDisconnectInput!]
+  AppType: [AppTypeDisconnectInput!]
+  ArrayType: [ArrayTypeDisconnectInput!]
+  BaseType: [BaseTypeDisconnectInput!]
+  CodeMirrorType: [CodeMirrorTypeDisconnectInput!]
+  ElementType: [ElementTypeDisconnectInput!]
+  EnumType: [EnumTypeDisconnectInput!]
+  InterfaceType: [InterfaceTypeDisconnectInput!]
+  LambdaType: [LambdaTypeDisconnectInput!]
+  PageType: [PageTypeDisconnectInput!]
+  PrimitiveType: [PrimitiveTypeDisconnectInput!]
+  ReactNodeType: [ReactNodeTypeDisconnectInput!]
+  RenderPropsType: [RenderPropsTypeDisconnectInput!]
+  UnionType: [UnionTypeDisconnectInput!]
+}
+
+input IBaseTypeImplementationsUpdateInput {
+  ActionType: ActionTypeUpdateInput
+  AppType: AppTypeUpdateInput
+  ArrayType: ArrayTypeUpdateInput
+  BaseType: BaseTypeUpdateInput
+  CodeMirrorType: CodeMirrorTypeUpdateInput
+  ElementType: ElementTypeUpdateInput
+  EnumType: EnumTypeUpdateInput
+  InterfaceType: InterfaceTypeUpdateInput
+  LambdaType: LambdaTypeUpdateInput
+  PageType: PageTypeUpdateInput
+  PrimitiveType: PrimitiveTypeUpdateInput
+  ReactNodeType: ReactNodeTypeUpdateInput
+  RenderPropsType: RenderPropsTypeUpdateInput
+  UnionType: UnionTypeUpdateInput
+}
+
+input IBaseTypeImplementationsWhere {
+  ActionType: ActionTypeWhere
+  AppType: AppTypeWhere
+  ArrayType: ArrayTypeWhere
+  BaseType: BaseTypeWhere
+  CodeMirrorType: CodeMirrorTypeWhere
+  ElementType: ElementTypeWhere
+  EnumType: EnumTypeWhere
+  InterfaceType: InterfaceTypeWhere
+  LambdaType: LambdaTypeWhere
+  PageType: PageTypeWhere
+  PrimitiveType: PrimitiveTypeWhere
+  ReactNodeType: ReactNodeTypeWhere
+  RenderPropsType: RenderPropsTypeWhere
+  UnionType: UnionTypeWhere
+}
+
+input IBaseTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more IBaseTypeSort objects to sort IBaseTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [IBaseTypeSort]
+}
+
+input IBaseTypeOwnerAggregateInput {
+  AND: [IBaseTypeOwnerAggregateInput!]
+  OR: [IBaseTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  edge: IBaseTypeOwnerEdgeAggregationWhereInput
+  node: IBaseTypeOwnerNodeAggregationWhereInput
 }
 
 input IBaseTypeOwnerConnectFieldInput {
@@ -10575,10 +10724,101 @@ input IBaseTypeOwnerDisconnectFieldInput {
   where: IBaseTypeOwnerConnectionWhere
 }
 
+input IBaseTypeOwnerEdgeAggregationWhereInput {
+  AND: [IBaseTypeOwnerEdgeAggregationWhereInput!]
+  OR: [IBaseTypeOwnerEdgeAggregationWhereInput!]
+  data_AVERAGE_EQUAL: Float
+  data_AVERAGE_GT: Float
+  data_AVERAGE_GTE: Float
+  data_AVERAGE_LT: Float
+  data_AVERAGE_LTE: Float
+  data_EQUAL: String
+  data_GT: Int
+  data_GTE: Int
+  data_LONGEST_EQUAL: Int
+  data_LONGEST_GT: Int
+  data_LONGEST_GTE: Int
+  data_LONGEST_LT: Int
+  data_LONGEST_LTE: Int
+  data_LT: Int
+  data_LTE: Int
+  data_SHORTEST_EQUAL: Int
+  data_SHORTEST_GT: Int
+  data_SHORTEST_GTE: Int
+  data_SHORTEST_LT: Int
+  data_SHORTEST_LTE: Int
+}
+
 input IBaseTypeOwnerFieldInput {
   connect: IBaseTypeOwnerConnectFieldInput
   connectOrCreate: IBaseTypeOwnerConnectOrCreateFieldInput
   create: IBaseTypeOwnerCreateFieldInput
+}
+
+input IBaseTypeOwnerNodeAggregationWhereInput {
+  AND: [IBaseTypeOwnerNodeAggregationWhereInput!]
+  OR: [IBaseTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 type IBaseTypeOwnerRelationship implements OwnedBy {
@@ -10600,6 +10840,55 @@ input IBaseTypeOwnerUpdateFieldInput {
   disconnect: IBaseTypeOwnerDisconnectFieldInput
   update: IBaseTypeOwnerUpdateConnectionInput
   where: IBaseTypeOwnerConnectionWhere
+}
+
+"""
+Fields to sort IBaseTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one IBaseTypeSort object.
+"""
+input IBaseTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  name: SortDirection
+}
+
+input IBaseTypeUpdateInput {
+  _on: IBaseTypeImplementationsUpdateInput
+  id: ID
+  name: String
+  owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+input IBaseTypeWhere {
+  _on: IBaseTypeImplementationsWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: IBaseTypeOwnerAggregateInput
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type IDAggregateSelectionNonNullable {
@@ -10635,16 +10924,12 @@ type InterfaceType implements IBaseType & WithDescendants {
     where: InterfaceTypeApiOfAtomsConnectionWhere
   ): InterfaceTypeApiOfAtomsConnection!
   descendantTypesIds: [ID!]!
-  fieldFor: [BaseType!]!
+  fieldFor: [IBaseType!]!
   fields(
     directed: Boolean = true
-    options: BaseTypeOptions
-    where: BaseTypeWhere
-  ): [BaseType!]!
-  fieldsAggregate(
-    directed: Boolean = true
-    where: BaseTypeWhere
-  ): InterfaceTypeBaseTypeFieldsAggregationSelection
+    options: IBaseTypeOptions
+    where: IBaseTypeWhere
+  ): [IBaseType!]!
   fieldsConnection(
     after: String
     directed: Boolean = true
@@ -10813,25 +11098,6 @@ type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
-type InterfaceTypeBaseTypeFieldsAggregationSelection {
-  count: Int!
-  edge: InterfaceTypeBaseTypeFieldsEdgeAggregateSelection
-  node: InterfaceTypeBaseTypeFieldsNodeAggregateSelection
-}
-
-type InterfaceTypeBaseTypeFieldsEdgeAggregateSelection {
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
-}
-
-type InterfaceTypeBaseTypeFieldsNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
 input InterfaceTypeConnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
@@ -10840,7 +11106,6 @@ input InterfaceTypeConnectInput {
 
 input InterfaceTypeConnectOrCreateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
-  fields: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -10878,32 +11143,10 @@ type InterfaceTypeEdge {
   node: InterfaceType!
 }
 
-input InterfaceTypeFieldsAggregateInput {
-  AND: [InterfaceTypeFieldsAggregateInput!]
-  OR: [InterfaceTypeFieldsAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  edge: InterfaceTypeFieldsEdgeAggregationWhereInput
-  node: InterfaceTypeFieldsNodeAggregationWhereInput
-}
-
 input InterfaceTypeFieldsConnectFieldInput {
-  connect: [BaseTypeConnectInput!]
+  connect: IBaseTypeConnectInput
   edge: FieldCreateInput!
-  where: BaseTypeConnectWhere
-}
-
-input InterfaceTypeFieldsConnectOrCreateFieldInput {
-  onCreate: InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate!
-  where: BaseTypeConnectOrCreateWhere!
-}
-
-input InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate {
-  edge: FieldCreateInput!
-  node: BaseTypeOnCreateInput!
+  where: IBaseTypeConnectWhere
 }
 
 type InterfaceTypeFieldsConnection {
@@ -10914,7 +11157,7 @@ type InterfaceTypeFieldsConnection {
 
 input InterfaceTypeFieldsConnectionSort {
   edge: FieldSort
-  node: BaseTypeSort
+  node: IBaseTypeSort
 }
 
 input InterfaceTypeFieldsConnectionWhere {
@@ -10922,141 +11165,28 @@ input InterfaceTypeFieldsConnectionWhere {
   OR: [InterfaceTypeFieldsConnectionWhere!]
   edge: FieldWhere
   edge_NOT: FieldWhere
-  node: BaseTypeWhere
-  node_NOT: BaseTypeWhere
+  node: IBaseTypeWhere
+  node_NOT: IBaseTypeWhere
 }
 
 input InterfaceTypeFieldsCreateFieldInput {
   edge: FieldCreateInput!
-  node: BaseTypeCreateInput!
+  node: IBaseTypeCreateInput!
 }
 
 input InterfaceTypeFieldsDeleteFieldInput {
-  delete: BaseTypeDeleteInput
+  delete: IBaseTypeDeleteInput
   where: InterfaceTypeFieldsConnectionWhere
 }
 
 input InterfaceTypeFieldsDisconnectFieldInput {
-  disconnect: BaseTypeDisconnectInput
+  disconnect: IBaseTypeDisconnectInput
   where: InterfaceTypeFieldsConnectionWhere
-}
-
-input InterfaceTypeFieldsEdgeAggregationWhereInput {
-  AND: [InterfaceTypeFieldsEdgeAggregationWhereInput!]
-  OR: [InterfaceTypeFieldsEdgeAggregationWhereInput!]
-  description_AVERAGE_EQUAL: Float
-  description_AVERAGE_GT: Float
-  description_AVERAGE_GTE: Float
-  description_AVERAGE_LT: Float
-  description_AVERAGE_LTE: Float
-  description_EQUAL: String
-  description_GT: Int
-  description_GTE: Int
-  description_LONGEST_EQUAL: Int
-  description_LONGEST_GT: Int
-  description_LONGEST_GTE: Int
-  description_LONGEST_LT: Int
-  description_LONGEST_LTE: Int
-  description_LT: Int
-  description_LTE: Int
-  description_SHORTEST_EQUAL: Int
-  description_SHORTEST_GT: Int
-  description_SHORTEST_GTE: Int
-  description_SHORTEST_LT: Int
-  description_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  key_AVERAGE_EQUAL: Float
-  key_AVERAGE_GT: Float
-  key_AVERAGE_GTE: Float
-  key_AVERAGE_LT: Float
-  key_AVERAGE_LTE: Float
-  key_EQUAL: String
-  key_GT: Int
-  key_GTE: Int
-  key_LONGEST_EQUAL: Int
-  key_LONGEST_GT: Int
-  key_LONGEST_GTE: Int
-  key_LONGEST_LT: Int
-  key_LONGEST_LTE: Int
-  key_LT: Int
-  key_LTE: Int
-  key_SHORTEST_EQUAL: Int
-  key_SHORTEST_GT: Int
-  key_SHORTEST_GTE: Int
-  key_SHORTEST_LT: Int
-  key_SHORTEST_LTE: Int
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-  validationRules_AVERAGE_EQUAL: Float
-  validationRules_AVERAGE_GT: Float
-  validationRules_AVERAGE_GTE: Float
-  validationRules_AVERAGE_LT: Float
-  validationRules_AVERAGE_LTE: Float
-  validationRules_EQUAL: String
-  validationRules_GT: Int
-  validationRules_GTE: Int
-  validationRules_LONGEST_EQUAL: Int
-  validationRules_LONGEST_GT: Int
-  validationRules_LONGEST_GTE: Int
-  validationRules_LONGEST_LT: Int
-  validationRules_LONGEST_LTE: Int
-  validationRules_LT: Int
-  validationRules_LTE: Int
-  validationRules_SHORTEST_EQUAL: Int
-  validationRules_SHORTEST_GT: Int
-  validationRules_SHORTEST_GTE: Int
-  validationRules_SHORTEST_LT: Int
-  validationRules_SHORTEST_LTE: Int
 }
 
 input InterfaceTypeFieldsFieldInput {
   connect: [InterfaceTypeFieldsConnectFieldInput!]
-  connectOrCreate: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldsCreateFieldInput!]
-}
-
-input InterfaceTypeFieldsNodeAggregationWhereInput {
-  AND: [InterfaceTypeFieldsNodeAggregationWhereInput!]
-  OR: [InterfaceTypeFieldsNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
 }
 
 type InterfaceTypeFieldsRelationship implements Field {
@@ -11065,18 +11195,17 @@ type InterfaceTypeFieldsRelationship implements Field {
   id: ID!
   key: String!
   name: String
-  node: BaseType!
+  node: IBaseType!
   validationRules: String
 }
 
 input InterfaceTypeFieldsUpdateConnectionInput {
   edge: FieldUpdateInput
-  node: BaseTypeUpdateInput
+  node: IBaseTypeUpdateInput
 }
 
 input InterfaceTypeFieldsUpdateFieldInput {
   connect: [InterfaceTypeFieldsConnectFieldInput!]
-  connectOrCreate: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldsCreateFieldInput!]
   delete: [InterfaceTypeFieldsDeleteFieldInput!]
   disconnect: [InterfaceTypeFieldsDisconnectFieldInput!]
@@ -11274,31 +11403,10 @@ input InterfaceTypeWhere {
   Return InterfaceTypes where some of the related Atoms match this filter
   """
   apiOfAtoms_SOME: AtomWhere
-  fieldsAggregate: InterfaceTypeFieldsAggregateInput
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SOME: InterfaceTypeFieldsConnectionWhere
-
-  """
-  Return InterfaceTypes where all of the related BaseTypes match this filter
-  """
-  fields_ALL: BaseTypeWhere
-
-  """
-  Return InterfaceTypes where none of the related BaseTypes match this filter
-  """
-  fields_NONE: BaseTypeWhere
-
-  """
-  Return InterfaceTypes where one of the related BaseTypes match this filter
-  """
-  fields_SINGLE: BaseTypeWhere
-
-  """
-  Return InterfaceTypes where some of the related BaseTypes match this filter
-  """
-  fields_SOME: BaseTypeWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

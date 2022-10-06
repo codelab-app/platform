@@ -411,6 +411,22 @@ jobs:
           template: basic_fail_1
 
 workflows:
+  infra-pr:
+    jobs:
+      - plan:
+          <<: *filters-pr
+          e: terraform
+      - hold-apply:
+          <<: *filters-pr
+          type: approval
+          requires:
+            - plan
+      - apply:
+          <<: *filters-pr
+          e: terraform
+          requires:
+            - hold-apply
+
   app-pr:
     jobs:
       # This doesn't actually have access to Slack errors, must be at end of step
@@ -445,24 +461,10 @@ workflows:
           size: medium
           requires:
             - install-and-build-workspace
-      - plan:
-          <<: *filters-pr
-          e: terraform
-      - hold-apply:
-          <<: *filters-pr
-          type: approval
-          requires:
-            - plan
-      - apply:
-          <<: *filters-pr
-          e: terraform
-          requires:
-            - hold-apply
       - notify-success:
           <<: *filters-pr
           e: docker-node
           requires:
-            - plan
             - lint
             - codegen
             - unit

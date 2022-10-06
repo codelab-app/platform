@@ -123,7 +123,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
     owner: User!
-#    fieldFor: [BaseType!]!
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
   }
@@ -184,7 +183,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
     owner: User!
-    fieldFor: [BaseType!]!
+    fieldFor: [IBaseType!]!
     descendantTypesIds: [ID!]!
 
     # List of atoms that have this interface as their api type
@@ -195,7 +194,7 @@ export const typeSchema = gql`
       )
     # Fields are defined as a set of list to other types
     # The field data is stored as relationship properties
-    fields: [BaseType!]!
+    fields: [IBaseType!]!
       @relationship(
         type: "INTERFACE_FIELD"
         direction: OUT
@@ -218,7 +217,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ElementType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -241,7 +239,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: RenderPropsType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
   }
 
   """
@@ -259,7 +256,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ReactNodeType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
   }
 
   ${elementTypeTypeKindSchema}
@@ -274,7 +270,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: EnumType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
     allowedValues: [EnumTypeValue!]!
       @relationship(
         type: "ALLOWED_VALUE",
@@ -297,7 +292,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: LambdaType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
   }
 
   """
@@ -308,7 +302,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: PageType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
   }
 
   """
@@ -319,7 +312,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: AppType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
   }
 
   """
@@ -330,7 +322,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ActionType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
   }
 
   """
@@ -341,7 +332,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: CodeMirrorType)
     name: String!
     owner: User!
-#    fieldFor: [BaseType!]!
     language: CodeMirrorLanguage!
   }
 

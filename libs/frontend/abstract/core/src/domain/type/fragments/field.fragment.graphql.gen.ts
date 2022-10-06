@@ -9,7 +9,21 @@ export type FieldFragment = {
   name?: string | null
   description?: string | null
   validationRules?: string | null
-  fieldType: { id: string }
+  fieldType:
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
 }
 
 export const FieldFragmentDoc = gql`

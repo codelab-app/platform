@@ -4,7 +4,7 @@ import { FIELD_TYPE } from '../support/antd/form'
 // Primitive Type use case
 const primitiveTypeName = 'Text'
 const primitiveTypeKind = ITypeKind.PrimitiveType
-const primitiveTypePrimitiveKind = IPrimitiveTypeKind.String
+const stringPrimitiveType = IPrimitiveTypeKind.String
 // Enum Type use case
 const enumTypeName = 'COLORS'
 const enumTypeKind = 'EnumType'
@@ -56,7 +56,7 @@ describe('Types CRUD', () => {
       cy.getModal().setFormFieldValue({
         label: 'Primitive kind',
         type: FIELD_TYPE.SELECT,
-        value: primitiveTypePrimitiveKind,
+        value: stringPrimitiveType,
       })
 
       cy.getModal()
@@ -181,6 +181,16 @@ describe('Types CRUD', () => {
       cy.getModal()
         .getModalAction(/Create/)
         .click()
+
+      cy.searchTableRow({
+        header: 'Key',
+        row: fieldName,
+      }).should('exist')
+
+      cy.searchTableRow({
+        header: 'Kind',
+        row: primitiveTypeKind,
+      })
     })
   })
 
