@@ -22,18 +22,23 @@ filters-master: &filters-master
       only:
         - master
 
+resource-class: &resource-class
+  parameters:
+    size:
+      type: string
+      default: small
+
 # Each job select which custom executor to use
-executor-params: &executor-params
+executor-params: &executor-params #  <<: *resource-class
   parameters:
     e:
       type: executor
       default: machine-ubuntu
+    size:
+      type: string
+      default: small
   executor: << parameters.e >>
-
-infra-executor: &infra-executor
-  executor: terraform
-  environment:
-    TF_WORKSPACE: builder-prod
+  resource_class: << parameters.size >>
 
 executor-config: &executor-config
   environment:
@@ -78,21 +83,28 @@ executors:
   # https://github.com/CircleCI-Public/terraform-orb/issues/48#issuecomment-952318485
   # Terraform orb install has issues, so we use our own image
   terraform:
+    <<: *resource-class
+    environment:
+      TF_WORKSPACE: builder-prod
     docker:
       - image: hashicorp/terraform:1.3.1
   machine-ubuntu:
-    <<: *executor-config
+    <<:
+      - *executor-config
+      - *resource-class
     machine:
       docker_layer_caching: true
       image: ubuntu-2004:2022.04.1
-    resource_class: large
   docker-node:
-    <<: *executor-config
+    <<:
+      - *executor-config
+      - *resource-class
     docker:
       - image: cimg/node:16.15.1-browsers
-    resource_class: large
   docker-node-neo4j:
-    <<: *executor-config
+    <<:
+      - *executor-config
+      - *resource-class
     # Docker containers work on a merged networking stack, the second container should make it available in localhost
     # https://discuss.circleci.com/t/whats-the-docker-hostname-for-the-second-container/20101
     docker:
@@ -104,7 +116,6 @@ executors:
           NEO4J_AUTH: neo4j/test
           NEO4JLABS_PLUGINS: '["apoc"]'
         command: ['neo4j', 'start']
-    resource_class: large
 
 commands:
   setup-workspace:
@@ -271,41 +282,46 @@ jobs:
           destination: cypress/screenshots
 
   plan:
-    <<: *infra-executor
+    <<: *executor-params
     steps:
       - checkout
       - run:
           command: |
             echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
           name: Create .terraformrc file locally
+      - run: terraform --version
       - run:
-          name: "Terraform Format"
+          name: 'Terraform Format'
           command: terraform -chdir=terraform fmt
       - run:
-          name: "Terraform Init"
+          name: 'Terraform Init'
           command: terraform -chdir=terraform init
       - run:
-          name: "Terraform Validate"
+          name: 'Terraform Validate'
           command: terraform -chdir=terraform validate
       - run:
-          name: "Terraform Plan"
+          name: 'Terraform Plan'
           command: terraform -chdir=terraform plan
       - persist_to_workspace:
           root: ~/
           paths:
+            - .terraformrc
             - project/terraform/.terraform
 
   apply:
-    <<: *infra-executor
+    <<: *executor-params
     steps:
       - checkout
       - attach_workspace:
           at: ..
+      - run: |
+          ls
+          ls terraform
       - run:
           name: 'Terraform Apply'
-          command: terraform -chdir=terraform apply
+          command: terraform -chdir=terraform apply -auto-approve
       - run:
-          name: 'Terraform Apply'
+          name: 'Terraform Destroy'
           command: terraform -chdir=terraform destroy
 
   notify-success:
@@ -405,51 +421,56 @@ workflows:
       #          <<: *filters-pr
       #          context: CI
       #          e: docker-node
-      - install-and-build-workspace:
-          <<: *filters-pr
-          # Can't build with machine image, causes build issues
-          e: docker-node
-          context: CI
-      - lint:
-          <<: *filters-pr
-          e: docker-node
-          requires:
-            - install-and-build-workspace
-      - codegen:
-          <<: *filters-pr
-          e: docker-node
-          requires:
-            - install-and-build-workspace
-      - unit:
-          <<: *filters-pr
-          e: docker-node
-          requires:
-            - install-and-build-workspace
-      - e2e:
-          <<: *filters-pr
-          e: docker-node-neo4j
-          requires:
-            - install-and-build-workspace
+      #      - install-and-build-workspace:
+      #          <<: *filters-pr
+      #          # Can't build with machine image, causes build issues
+      #          e: docker-node
+      #          context: CI
+      #      - lint:
+      #          <<: *filters-pr
+      #          e: docker-node
+      #          requires:
+      #            - install-and-build-workspace
+      #      - codegen:
+      #          <<: *filters-pr
+      #          e: docker-node
+      #          requires:
+      #            - install-and-build-workspace
+      #      - unit:
+      #          <<: *filters-pr
+      #          e: docker-node
+      #          requires:
+      #            - install-and-build-workspace
+      #      - e2e:
+      #          <<: *filters-pr
+      #          e: docker-node-neo4j
+      #          requires:
+      #            - install-and-build-workspace
       - plan:
           <<: *filters-pr
+          e: terraform
+          size: small
       - hold-apply:
           <<: *filters-pr
+          size: small
           type: approval
           requires:
             - plan
       - apply:
           <<: *filters-pr
+          e: terraform
+          size: small
           requires:
             - hold-apply
-      - notify-success:
-          <<: *filters-pr
-          e: docker-node
-          requires:
-            - plan
-            - lint
-            - codegen
-            - unit
-            - e2e
+  #      - notify-success:
+  #          <<: *filters-pr
+  #          e: docker-node
+  #          requires:
+  #            - plan
+  #            - lint
+  #            - codegen
+  #            - unit
+  #            - e2e
 
   app:
     jobs:
