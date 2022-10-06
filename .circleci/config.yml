@@ -314,15 +314,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: ..
-      - run: |
-          ls
-          ls terraform
       - run:
           name: 'Terraform Apply'
           command: terraform -chdir=terraform apply -auto-approve
-      - run:
-          name: 'Terraform Destroy'
-          command: terraform -chdir=terraform destroy
+  #      - run:
+  #          name: 'Terraform Destroy'
+  #          command: terraform -chdir=terraform destroy
 
   notify-success:
     <<: *executor-params
@@ -421,56 +418,53 @@ workflows:
       #          <<: *filters-pr
       #          context: CI
       #          e: docker-node
-      #      - install-and-build-workspace:
-      #          <<: *filters-pr
-      #          # Can't build with machine image, causes build issues
-      #          e: docker-node
-      #          context: CI
-      #      - lint:
-      #          <<: *filters-pr
-      #          e: docker-node
-      #          requires:
-      #            - install-and-build-workspace
-      #      - codegen:
-      #          <<: *filters-pr
-      #          e: docker-node
-      #          requires:
-      #            - install-and-build-workspace
-      #      - unit:
-      #          <<: *filters-pr
-      #          e: docker-node
-      #          requires:
-      #            - install-and-build-workspace
-      #      - e2e:
-      #          <<: *filters-pr
-      #          e: docker-node-neo4j
-      #          requires:
-      #            - install-and-build-workspace
+      - install-and-build-workspace:
+          <<: *filters-pr
+          # Can't build with machine image, causes build issues
+          e: docker-node
+          context: CI
+      - lint:
+          <<: *filters-pr
+          e: docker-node
+          requires:
+            - install-and-build-workspace
+      - codegen:
+          <<: *filters-pr
+          e: docker-node
+          requires:
+            - install-and-build-workspace
+      - unit:
+          <<: *filters-pr
+          e: docker-node
+          requires:
+            - install-and-build-workspace
+      - e2e:
+          <<: *filters-pr
+          e: docker-node-neo4j
+          requires:
+            - install-and-build-workspace
       - plan:
           <<: *filters-pr
           e: terraform
-          size: small
       - hold-apply:
           <<: *filters-pr
-          size: small
           type: approval
           requires:
             - plan
       - apply:
           <<: *filters-pr
           e: terraform
-          size: small
           requires:
             - hold-apply
-  #      - notify-success:
-  #          <<: *filters-pr
-  #          e: docker-node
-  #          requires:
-  #            - plan
-  #            - lint
-  #            - codegen
-  #            - unit
-  #            - e2e
+      - notify-success:
+          <<: *filters-pr
+          e: docker-node
+          requires:
+            - plan
+            - lint
+            - codegen
+            - unit
+            - e2e
 
   app:
     jobs:
