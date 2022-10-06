@@ -6,7 +6,7 @@ export interface ICreatePageDTO {
   slug: string
   // Allow us to specify rootElementId
   rootElementId?: string
-
+  getServerSideProps?: string
   name: string
   appId: string
   auth0Id: IAuth0Id

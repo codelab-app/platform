@@ -7,7 +7,7 @@ import {
   EditorPaneBuilder,
 } from '@codelab/frontend/domain/builder'
 import { elementRef } from '@codelab/frontend/domain/element'
-import { PageDetailHeader } from '@codelab/frontend/domain/page'
+import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -148,7 +148,9 @@ const PageBuilder: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired({
+  getServerSideProps: Page.getServerSideProps,
+})
 
 PageBuilder.Layout = observer((page) => {
   const {

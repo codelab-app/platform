@@ -8,6 +8,7 @@ export const pageSchema = gql`
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
     app: App! @relationship(type: "PAGES", direction: IN)
+    getServerSideProps: String
   }
 
   extend type Page

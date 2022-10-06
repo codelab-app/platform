@@ -1,4 +1,6 @@
 import { ICreatePageDTO } from '@codelab/frontend/abstract/core'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { hideField } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 
@@ -30,6 +32,13 @@ export const createPageSchema: JSONSchemaType<ICreatePageDTO> = {
     },
     appId: {
       type: 'string',
+    },
+    getServerSideProps: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
+      },
     },
   },
   required: ['name', 'slug'],

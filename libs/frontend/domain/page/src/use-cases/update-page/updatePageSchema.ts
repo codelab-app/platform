@@ -1,4 +1,6 @@
 import { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
 export const updatePageSchema: JSONSchemaType<IUpdatePageDTO> = {
@@ -14,6 +16,13 @@ export const updatePageSchema: JSONSchemaType<IUpdatePageDTO> = {
     },
     slug: {
       type: 'string',
+    },
+    getServerSideProps: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
+      },
     },
   },
   required: ['name', 'slug'],

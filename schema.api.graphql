@@ -1573,6 +1573,7 @@ type AppPagePagesAggregationSelection {
 }
 
 type AppPagePagesNodeAggregateSelection {
+  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
   slug: StringAggregateSelectionNonNullable!
@@ -1643,6 +1644,26 @@ input AppPagesFieldInput {
 input AppPagesNodeAggregationWhereInput {
   AND: [AppPagesNodeAggregationWhereInput!]
   OR: [AppPagesNodeAggregationWhereInput!]
+  getServerSideProps_AVERAGE_EQUAL: Float
+  getServerSideProps_AVERAGE_GT: Float
+  getServerSideProps_AVERAGE_GTE: Float
+  getServerSideProps_AVERAGE_LT: Float
+  getServerSideProps_AVERAGE_LTE: Float
+  getServerSideProps_EQUAL: String
+  getServerSideProps_GT: Int
+  getServerSideProps_GTE: Int
+  getServerSideProps_LONGEST_EQUAL: Int
+  getServerSideProps_LONGEST_GT: Int
+  getServerSideProps_LONGEST_GTE: Int
+  getServerSideProps_LONGEST_LT: Int
+  getServerSideProps_LONGEST_LTE: Int
+  getServerSideProps_LT: Int
+  getServerSideProps_LTE: Int
+  getServerSideProps_SHORTEST_EQUAL: Int
+  getServerSideProps_SHORTEST_GT: Int
+  getServerSideProps_SHORTEST_GTE: Int
+  getServerSideProps_SHORTEST_LT: Int
+  getServerSideProps_SHORTEST_LTE: Int
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -7440,6 +7461,26 @@ input ElementPageFieldInput {
 input ElementPageNodeAggregationWhereInput {
   AND: [ElementPageNodeAggregationWhereInput!]
   OR: [ElementPageNodeAggregationWhereInput!]
+  getServerSideProps_AVERAGE_EQUAL: Float
+  getServerSideProps_AVERAGE_GT: Float
+  getServerSideProps_AVERAGE_GTE: Float
+  getServerSideProps_AVERAGE_LT: Float
+  getServerSideProps_AVERAGE_LTE: Float
+  getServerSideProps_EQUAL: String
+  getServerSideProps_GT: Int
+  getServerSideProps_GTE: Int
+  getServerSideProps_LONGEST_EQUAL: Int
+  getServerSideProps_LONGEST_GT: Int
+  getServerSideProps_LONGEST_GTE: Int
+  getServerSideProps_LONGEST_LT: Int
+  getServerSideProps_LONGEST_LTE: Int
+  getServerSideProps_LT: Int
+  getServerSideProps_LTE: Int
+  getServerSideProps_SHORTEST_EQUAL: Int
+  getServerSideProps_SHORTEST_GT: Int
+  getServerSideProps_SHORTEST_GTE: Int
+  getServerSideProps_SHORTEST_LT: Int
+  getServerSideProps_SHORTEST_LTE: Int
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -7489,6 +7530,7 @@ type ElementPagePageAggregationSelection {
 }
 
 type ElementPagePageNodeAggregateSelection {
+  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
   slug: StringAggregateSelectionNonNullable!
@@ -12220,6 +12262,7 @@ type Page {
     sort: [PageAppConnectionSort!]
     where: PageAppConnectionWhere
   ): PageAppConnection!
+  getServerSideProps: String
   id: ID!
   name: String!
   rootElement(
@@ -12243,6 +12286,7 @@ type Page {
 
 type PageAggregateSelection {
   count: Int!
+  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
   slug: StringAggregateSelectionNonNullable!
@@ -12406,6 +12450,7 @@ input PageConnectWhere {
 
 input PageCreateInput {
   app: PageAppFieldInput
+  getServerSideProps: String
   id: ID!
   name: String!
   rootElement: PageRootElementFieldInput
@@ -12455,6 +12500,7 @@ type PageInfo {
 }
 
 input PageOnCreateInput {
+  getServerSideProps: String
   id: ID!
   name: String!
   slug: String!
@@ -12726,6 +12772,7 @@ input PageRootElementUpdateFieldInput {
 Fields to sort Pages by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageSort object.
 """
 input PageSort {
+  getServerSideProps: SortDirection
   id: SortDirection
   name: SortDirection
   slug: SortDirection
@@ -12998,6 +13045,7 @@ input PageUniqueWhere {
 
 input PageUpdateInput {
   app: PageAppUpdateFieldInput
+  getServerSideProps: String
   id: ID
   name: String
   rootElement: PageRootElementUpdateFieldInput
@@ -13012,6 +13060,16 @@ input PageWhere {
   appConnection: PageAppConnectionWhere
   appConnection_NOT: PageAppConnectionWhere
   app_NOT: AppWhere
+  getServerSideProps: String
+  getServerSideProps_CONTAINS: String
+  getServerSideProps_ENDS_WITH: String
+  getServerSideProps_IN: [String]
+  getServerSideProps_NOT: String
+  getServerSideProps_NOT_CONTAINS: String
+  getServerSideProps_NOT_ENDS_WITH: String
+  getServerSideProps_NOT_IN: [String]
+  getServerSideProps_NOT_STARTS_WITH: String
+  getServerSideProps_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

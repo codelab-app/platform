@@ -1,4 +1,4 @@
-import { IEntity } from '@codelab/shared/abstract/types'
+import { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { ICacheService } from '../../service'
 import { IElementTreeService } from '../element'
 import { IPropData } from '../prop'
@@ -13,4 +13,5 @@ export interface IPage
   slug: string
   toJson: IPropData
   rootElement: IEntity
+  getServerSideProps: Nullish<string>
 }

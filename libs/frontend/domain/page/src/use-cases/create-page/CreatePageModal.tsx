@@ -7,11 +7,19 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { createPageSchema } from './createPageSchema'
 
+const getServerSideProps = `async function (context) {
+  return {
+    props: {},
+    redirect: undefined,
+    notFound: false,
+  }
+}`
+
 export const CreatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const currentAppId = useCurrentAppId()
     const isOpen = pageService.createModal.isOpen
-    const model = { appId: currentAppId }
+    const model = { appId: currentAppId, getServerSideProps }
     const onSubmit = (data: ICreatePageDTO) => pageService.create([data])
 
     const onSubmitError = createNotificationHandler({

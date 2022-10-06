@@ -1,9 +1,30 @@
-import type { IPageDTO } from '@codelab/frontend/abstract/core'
+import type { IPageDTO, IPropData } from '@codelab/frontend/abstract/core'
 import { IPage } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
+import { pageApi } from './page.api'
+
+const getServerSideProps = async (context: IPropData) => {
+  const id = context.params?.pageId as string
+
+  const {
+    pages: [page],
+  } = await pageApi.GetPages({ where: { id } })
+
+  if (!page || !page.getServerSideProps) {
+    return { props: {} }
+  }
+
+  const {
+    props = {},
+    notFound = false,
+    redirect = undefined,
+  } = await eval(`(${page.getServerSideProps})`)(context)
+
+  return { props, notFound, redirect }
+}
 
 const hydrate = (page: IPageDTO) => {
   return new Page({
@@ -11,6 +32,7 @@ const hydrate = (page: IPageDTO) => {
     name: page.name,
     slug: page.slug,
     rootElement: { id: page.rootElement.id },
+    getServerSideProps: page.getServerSideProps,
     app: { id: page.app.id },
   })
 }
@@ -23,6 +45,7 @@ export class Page
     name: prop<string>().withSetter(),
     slug: prop<string>(),
     rootElement: prop<IEntity>(),
+    getServerSideProps: prop<Nullish<string>>(),
   })
   implements IPage
 {
@@ -43,9 +66,12 @@ export class Page
     this.setName(page.name)
     this.rootElement = page.rootElement
     this.app = page.app
+    this.getServerSideProps = page.getServerSideProps
 
     return this
   }
 
   static hydrate = hydrate
+
+  static getServerSideProps = getServerSideProps
 }
