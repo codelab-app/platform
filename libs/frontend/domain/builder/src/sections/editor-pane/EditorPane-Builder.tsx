@@ -40,7 +40,6 @@ interface EditorPaneBuilderProps {
   typeService: ITypeService
   resourceService: IResourceService
   appStore: IStore
-  pageId: string
 }
 
 const Container = styled.div`
@@ -61,7 +60,6 @@ export const EditorPaneBuilder = observer(
     storeService,
     typeService,
     resourceService,
-    pageId,
   }: EditorPaneBuilderProps) => {
     return (
       <>
