@@ -203,6 +203,7 @@ jobs:
           paths:
             - ~/.yarn
             - ~/project/dist/apps/builder/.next/cache
+            - ~/project/dist/apps/landing/.next/cache
             - ~/project/node_modules
       - persist_to_workspace:
           root: ~/
