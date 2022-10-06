@@ -9,18 +9,18 @@ import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,
   ICRUDService,
+  IPaginationService,
   IQueryService,
-  ITableService,
 } from '../../service'
 import { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
-import { ITypeRecord } from './type.record.interface'
 import { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
 
 export interface ITypeService
-  extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
+  extends Omit<IPaginationService<IAnyType>, 'getByPage'>,
+    ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
-    ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }>,
-    ITableService<ITypeRecord> {
+    ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
+  getBaseTypesOfPage(page: number, pageSize: number): Promise<void>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>

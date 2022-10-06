@@ -40,7 +40,6 @@ export class ArrayType
       throw new Error('Invalid ArrayType')
     }
 
-    const itemId = fragment.itemType.id
     this.itemType = fragment.itemType as unknown as Ref<IAnyType>
 
     return this

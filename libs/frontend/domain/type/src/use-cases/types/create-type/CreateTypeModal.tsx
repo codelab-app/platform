@@ -22,6 +22,26 @@ export const CreateTypeModal = observer<{
   const closeModal = () => typeService.createModal.close()
   const user = userService.user
 
+  const onSubmit = async (data: ICreateTypeDTO) => {
+    // Here we want to append ids to enum
+    const input = {
+      ...data,
+      allowedValues: data.allowedValues?.map((val) => ({
+        ...val,
+        id: v4(),
+      })),
+    }
+
+    await typeService.create([input])
+
+    /**
+     * typeService.create writes into cache
+     * if modal is opened -> bug: modal input values are cleared
+     * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait unitl it finishesp
+     */
+    void typeService.refetchCurrentPage().then(() => undefined)
+  }
+
   return (
     <ModalForm.Modal
       className="create-type-modal"
@@ -35,20 +55,7 @@ export const CreateTypeModal = observer<{
           id: v4(),
           auth0Id: user?.auth0Id,
         }}
-        onSubmit={(data) => {
-          console.log(data)
-
-          // Here we want to append ids to enum
-          const input = {
-            ...data,
-            allowedValues: data.allowedValues?.map((val) => ({
-              ...val,
-              id: v4(),
-            })),
-          }
-
-          return typeService.create([input])
-        }}
+        onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating type',
           type: 'error',
