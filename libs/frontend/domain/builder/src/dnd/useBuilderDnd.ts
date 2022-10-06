@@ -31,7 +31,7 @@ export const useBuilderDnd = (
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        // Elements like checkboxes, inputs, etc. won't be interactable without a delay
+        // Elements like checkboxes, inputs, etc. won't be interactive without a delay
         delay: 100,
         tolerance: 5,
       },

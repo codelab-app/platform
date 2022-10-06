@@ -16,7 +16,7 @@ export interface UseBuilderPageDndProps {
 }
 
 export const useBuilderPageDnd = (elementService: IElementService) => {
-  const [draggedElement, setDraggedLement] = useState<Nullable<Active>>(null)
+  const [draggedElement, setDraggedElement] = useState<Nullable<Active>>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -28,7 +28,7 @@ export const useBuilderPageDnd = (elementService: IElementService) => {
   )
 
   const handleDragStart = (event: DragStartEvent) => {
-    setDraggedLement(event.active)
+    setDraggedElement(event.active)
   }
 
   const handleDragMove = (event: DragMoveEvent) => {
@@ -41,7 +41,7 @@ export const useBuilderPageDnd = (elementService: IElementService) => {
     const draggedElementId = event.active.id
     const targetElementId = event.over?.id
 
-    setDraggedLement(null)
+    setDraggedElement(null)
 
     if (
       !draggedElementId ||
@@ -53,12 +53,12 @@ export const useBuilderPageDnd = (elementService: IElementService) => {
 
     console.log('element: ', draggedElementId, 'target: ', targetElementId)
 
-    await elementService.handleElementDrop({
-      droppedElementId: draggedElementId.toString(),
-      targetElementId: targetElementId.toString(),
-      // TODO: to be implemented
-      //   dropPosition: DropPosition.After,
-    })
+    // await elementService.handleElementDrop({
+    //   droppedElementId: draggedElementId.toString(),
+    //   targetElementId: targetElementId.toString(),
+    //   // TODO: to be implemented
+    //   //   dropPosition: DropPosition.After,
+    // })
   }
 
   return {
@@ -67,6 +67,6 @@ export const useBuilderPageDnd = (elementService: IElementService) => {
     handleDragStart,
     handleDragMove,
     draggedElement,
-    setDraggedLement,
+    setDraggedElement,
   }
 }
