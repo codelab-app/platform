@@ -1,3 +1,12 @@
+query GetBaseTypes($options: GetBaseTypesOptions) {
+  baseTypes(options: $options) {
+    totalCount
+    items {
+      ...BaseType
+    }
+  }
+}
+
 query GetTypes($ids: [ID!]) {
   primitiveTypes(where: { id_IN: $ids }) {
     ...Type

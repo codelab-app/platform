@@ -22836,13 +22836,17 @@ export type UpdateFieldsMutation = {
   }
 }
 
-export type DeleteFieldsMutationVariables = Exact<{
-  where: FieldWhere
+export type GetBaseTypesQueryVariables = Exact<{
+  options?: InputMaybe<GetBaseTypesOptions>
 }>
 
-export type DeleteFieldsMutation = {
-  __typename?: 'Mutation'
-  deleteFields: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+export type GetBaseTypesQuery = {
+  __typename?: 'Query'
+  baseTypes: {
+    __typename?: 'GetBaseTypesReturn'
+    totalCount: number
+    items: Array<{ __typename?: 'BaseType' } & BaseType_BaseType_Fragment>
+  }
 }
 
 export type GetTypesQueryVariables = Exact<{

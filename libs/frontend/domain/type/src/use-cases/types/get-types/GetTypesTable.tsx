@@ -1,32 +1,53 @@
 import {
+  IAnyType,
   IFieldService,
-  ITypeRecord,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { Table } from 'antd'
+import { Table, TablePaginationConfig } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { useAsync } from 'react-use'
 import scrollIntoView from 'scroll-into-view'
 import { NestedTypeTable } from './NestedTypeTable'
 import { useTypesTable } from './useGetTypesTable'
+import { useGetTypesTableData } from './useGetTypesTableData'
 
 const SCROLL_ROW_CLASS_NAME = 'scroll-row'
-const DEFAULT_PAGE_SIZE = 10
-const DEFAULT_PAGE = 1
 
 export const GetTypesTable = observer<{
   typeId?: string
   typeService: ITypeService
   fieldService: IFieldService
 }>(({ typeId, typeService, fieldService }) => {
-  const { columns, rowSelection } = useTypesTable(typeService, fieldService)
-  const { loading } = useAsync(() => typeService.getAll(), [])
-  const [curTypeId] = React.useState(typeId)
-  const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_PAGE_SIZE)
-  const [currentPage, setCurrentPage] = React.useState(DEFAULT_PAGE)
+  const {
+    pageSize,
+    currentLoadedPage,
+    refetchCurrentPage,
+    totalEntitiesCount,
+    entitiesOfCurrentPage,
+  } = typeService
+
+  const { isLoadingBaseTypes, isloadingTypeDependencies, changePage } =
+    useGetTypesTableData(typeService)
+
+  const { columns, rowSelection } = useTypesTable({
+    typeService,
+    isloadingTypeDependencies,
+    fieldService,
+  })
+
+  useEffect(() => {
+    void typeService.refetchCurrentPage().catch(() => undefined)
+  }, [])
+
+  const onPageChange = ({
+    current: newPage,
+    pageSize: newPageSize,
+  }: TablePaginationConfig) => {
+    return changePage(newPage || currentLoadedPage, newPageSize || pageSize)
+  }
+
   const [rowClassReady, setRowClassReady] = React.useState(false)
   const router = useRouter()
 
@@ -34,16 +55,28 @@ export const GetTypesTable = observer<{
    * Change the current page to the page containing the current type
    */
   useEffect(() => {
-    if (curTypeId) {
-      const curTypeRecord = typeService.data.find(
-        (t) => t.id === curTypeId,
-      ) as ITypeRecord
+    const findPageOfCurrentType = () => {
+      const currentType = entitiesOfCurrentPage.find(
+        (t: IAnyType) => t.id === typeId,
+      )
 
-      const curTypeRowNo = typeService.data.indexOf(curTypeRecord) + 1
-      const pageContainingRow = Math.ceil(curTypeRowNo / rowsPerPage)
-      setCurrentPage(pageContainingRow)
+      if (!currentType) {
+        return
+      }
+
+      return Math.ceil(
+        (entitiesOfCurrentPage.indexOf(currentType) + 1) / pageSize,
+      )
     }
-  }, [curTypeId, rowsPerPage, typeService.data])
+
+    if (typeId) {
+      const page = findPageOfCurrentType()
+
+      if (page) {
+        changePage(page, pageSize).catch(() => undefined)
+      }
+    }
+  }, [typeId, pageSize, entitiesOfCurrentPage])
 
   /**
    * Scroll to the current type to make sure it is visible
@@ -58,7 +91,7 @@ export const GetTypesTable = observer<{
         },
       })
     }
-  }, [curTypeId, rowsPerPage, rowClassReady, currentPage])
+  }, [typeId, pageSize, rowClassReady, entitiesOfCurrentPage])
 
   /**
    * remove current type id from url
@@ -70,11 +103,11 @@ export const GetTypesTable = observer<{
   }, [router, typeId])
 
   return (
-    <Table<ITypeRecord>
+    <Table<IAnyType>
       columns={columns}
-      dataSource={typeService.data}
+      dataSource={entitiesOfCurrentPage}
       expandable={{
-        defaultExpandedRowKeys: [curTypeId ?? ''],
+        defaultExpandedRowKeys: [typeId ?? ''],
         expandedRowRender: (type) => (
           <NestedTypeTable
             fieldService={fieldService}
@@ -83,20 +116,16 @@ export const GetTypesTable = observer<{
           />
         ),
       }}
-      loading={loading}
-      onChange={(pagination) => {
-        setRowsPerPage(pagination.pageSize || rowsPerPage)
-        setCurrentPage(pagination.current || currentPage)
-      }}
+      loading={isLoadingBaseTypes}
+      onChange={onPageChange}
       pagination={{
         position: ['bottomCenter'],
-        pageSize: rowsPerPage,
-        current: currentPage,
+        pageSize,
+        current: currentLoadedPage,
+        total: totalEntitiesCount,
       }}
       rowClassName={(record) => {
-        if (record.id === curTypeId) {
-          // This is used to support scrolling into the
-          // current type to make sure it is visible
+        if (record.id === typeId) {
           setRowClassReady(true)
 
           return SCROLL_ROW_CLASS_NAME

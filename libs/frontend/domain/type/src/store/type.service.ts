@@ -11,6 +11,7 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -42,6 +43,10 @@ export class TypeService
   extends Model({
     id: idProp,
     types: prop(() => objectMap<IAnyType>()),
+    entityIdsOfcurrentLoadedPage: prop<Array<string>>(() => []),
+    totalEntitiesCount: prop<number>(0),
+    pageSize: prop<number>(10),
+    currentLoadedPage: prop<number>(1),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -52,13 +57,54 @@ export class TypeService
   implements ITypeService
 {
   @computed
-  get data() {
-    return [...this.types.values()].map((t) => ({
-      id: t.id,
-      name: t.name,
-      typeKind: t.kind,
-    }))
+  get entitiesOfCurrentPage() {
+    return this.entityIdsOfcurrentLoadedPage
+      .map((id) => this.type(id))
+      .filter(isNonNullable)
   }
+
+  @modelFlow
+  @transaction
+  refetchCurrentPage = _async(function* (this: TypeService) {
+    return yield* _await(
+      this.getBaseTypesOfPage(this.currentLoadedPage, this.pageSize),
+    )
+  })
+
+  @modelFlow
+  @transaction
+  getBaseTypesOfPage = _async(function* (
+    this: TypeService,
+    page = 1,
+    pageSize = 10,
+  ) {
+    this.currentLoadedPage = page
+    this.pageSize = pageSize
+
+    const previousPage = page - 1
+    // skip entities to page -1
+    const offset = previousPage * pageSize
+    const limit = pageSize
+
+    const {
+      baseTypes: { totalCount, items },
+    } = yield* _await(
+      getTypeApi.GetBaseTypes({
+        options: {
+          offset,
+          limit,
+        },
+      }),
+    )
+
+    this.totalEntitiesCount = totalCount
+    this.entityIdsOfcurrentLoadedPage = items.map((type) => {
+      const typeModel = baseTypesFactory(type)
+      this.types.set(type.id, typeModel)
+
+      return typeModel.id
+    })
+  })
 
   @computed
   private get elementService() {

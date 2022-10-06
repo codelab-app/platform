@@ -10,14 +10,20 @@ export interface ICacheService<CreateDTO, Entity> {
   writeCache(data: CreateDTO): Entity
 }
 
-export interface ITableService<RecordType extends object> {
-  // columns(): Array<ColumnProps<RecordType>>
-  data: Array<RecordType>
-}
-
 export interface IQueryService<Entity, EntityWhere, EntityOptions> {
   getOne(id: string): Promise<Maybe<Entity>>
   getAll(where?: EntityWhere, options?: EntityOptions): Promise<Array<Entity>>
+}
+
+export interface IPaginationService<Entity> {
+  entityIdsOfcurrentLoadedPage: Array<string>
+  entitiesOfCurrentPage: Array<Entity>
+  totalEntitiesCount: number
+  pageSize: number
+  currentLoadedPage: number
+
+  getByPage(page: number, pageSize: number): Promise<void>
+  refetchCurrentPage(): Promise<void>
 }
 
 export interface ICRUDModalService<

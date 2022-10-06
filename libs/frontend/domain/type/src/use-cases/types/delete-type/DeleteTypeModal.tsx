@@ -15,6 +15,35 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
     const closeModal = () => typeService.deleteModal.close()
     const typeToDelete = typeService.deleteModal.type
 
+    const onSubmit = async () => {
+      if (!typeToDelete?.kind) {
+        throw new Error('useDeleteTypeForm: TypeKind is not defined')
+      }
+
+      // Make sure this type is not referenced anywhere else or the data may become corrupt
+      const { getTypeReferences } = await typeApi.GetTypeReferences({
+        typeId: typeToDelete.id,
+      })
+
+      if (getTypeReferences?.length) {
+        const allRefs = getTypeReferences.map((r) => `${r.name} (${r.label})`)
+        const label = Array.from(new Set(allRefs)).join(', ')
+
+        throw new Error(`Can't delete typed since it's referenced in ${label}`)
+      }
+
+      await typeService.delete([typeToDelete.id])
+
+      /**
+       * typeService.delete writes into cache
+       * if modal is opened -> bug: modal input values are cleared
+       *
+       * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait unitl it finished
+       */
+
+      void typeService.refetchCurrentPage().then(() => undefined)
+    }
+
     return (
       <ModalForm.Modal
         okText="Delete"
@@ -24,32 +53,7 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
       >
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
-          onSubmit={async () => {
-            const kind = typeToDelete?.kind
-
-            if (!kind) {
-              throw new Error('useDeleteTypeForm: TypeKind is not defined')
-            }
-
-            // Make sure this type is not referenced anywhere else or the data may become corrupt
-            const { getTypeReferences } = await typeApi.GetTypeReferences({
-              typeId: typeToDelete.id,
-            })
-
-            if (getTypeReferences?.length) {
-              const allRefs = getTypeReferences.map(
-                (r) => `${r.name} (${r.label})`,
-              )
-
-              const label = Array.from(new Set(allRefs)).join(', ')
-
-              throw new Error(
-                `Can't delete typed since it's referenced in ${label}`,
-              )
-            }
-
-            return typeService.delete([typeToDelete.id])
-          }}
+          onSubmit={onSubmit}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting type',
             type: 'error',
