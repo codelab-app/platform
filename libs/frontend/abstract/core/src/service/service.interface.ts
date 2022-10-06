@@ -16,6 +16,16 @@ export interface IQueryService<Entity, EntityWhere> {
   getAll(where?: EntityWhere): Promise<Array<Entity>>
 }
 
+export interface IPaginationService<Entity> {
+  entityIdsOfCurrentPage: Array<string>
+  entitiesOfCurrentPage: Array<Entity>
+  totalEntitiesCount: number
+  pageSize: number
+  currentPage: number
+
+  getPaginationData(page: number, pageSize: number): Promise<void>
+}
+
 export interface ICRUDModalService<
   Metadata = never,
   Properties extends object = never,

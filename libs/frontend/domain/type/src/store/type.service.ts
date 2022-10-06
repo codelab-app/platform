@@ -11,13 +11,14 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
+import { AnyType, BaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import {
   assertIsTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { isNonNullable } from '@codelab/shared/utils'
 import mapKeys from 'lodash/mapKeys'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
@@ -44,6 +45,7 @@ import {
   getTypeApi,
   updateTypeApi,
 } from './apis/type.api'
+import { baseTypesFactory } from './base-types.factory'
 import { FieldModalService } from './field.service'
 import { typeFactory } from './type.factory'
 import {
@@ -55,6 +57,10 @@ import {
 export class TypeService
   extends Model({
     types: prop(() => objectMap<IAnyType>()),
+    entityIdsOfCurrentPage: prop<Array<string>>(() => []),
+    totalEntitiesCount: prop<number>(0),
+    pageSize: prop<number>(10),
+    currentPage: prop<number>(1),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -70,6 +76,48 @@ export class TypeService
   })
   implements ITypeService
 {
+  @computed
+  get entitiesOfCurrentPage() {
+    return this.entityIdsOfCurrentPage
+      .map((id) => this.type(id))
+      .filter(isNonNullable)
+  }
+
+  @modelFlow
+  @transaction
+  getPaginationData = _async(function* (
+    this: TypeService,
+    page = 1,
+    pageSize = 10,
+  ) {
+    this.currentPage = page
+    this.pageSize = pageSize
+
+    const previousPage = page - 1
+    // skip entities to page -1
+    const offset = previousPage * pageSize
+    const limit = pageSize
+
+    const {
+      baseTypes: { totalCount, items },
+    } = yield* _await(
+      getTypeApi.GetBaseTypes({
+        options: {
+          offset,
+          limit,
+        },
+      }),
+    )
+
+    this.totalEntitiesCount = totalCount
+    this.entityIdsOfCurrentPage = items.map((type) => {
+      const typeModel = baseTypesFactory(type)
+      this.types.set(type.id, typeModel)
+
+      return typeModel.id
+    })
+  })
+
   @computed
   get typesList() {
     return [...this.types.values()]
@@ -262,7 +310,6 @@ export class TypeService
 
     return types.map((type) => {
       const typeModel = typeFactory(type)
-
       this.types.set(type.id, typeModel)
 
       return typeModel

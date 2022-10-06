@@ -7,7 +7,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -22,6 +22,28 @@ export const CreateTypeModal = observer<{
   const closeModal = () => typeService.createModal.close()
   const user = userService?.user
 
+  const onSubmit = async (data: ICreateTypeDTO) => {
+    const { currentPage, pageSize } = typeService
+
+    // Here we want to append ids to enum
+    const input = {
+      ...data,
+      allowedValues: data.allowedValues?.map((val) => ({
+        ...val,
+        id: v4(),
+      })),
+    }
+
+    await typeService.create([input])
+
+    /**
+     * typeService.create writes into cache
+     * if modal is opened -> bug: modal input values are cleared
+     * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait unitl it finishesp
+     */
+    void typeService.getPaginationData(currentPage, pageSize)
+  }
+
   return (
     <ModalForm.Modal
       className="create-type-modal"
@@ -35,18 +57,7 @@ export const CreateTypeModal = observer<{
           id: v4(),
           auth0Id: user?.auth0Id,
         }}
-        onSubmit={(data) => {
-          // Here we want to append ids to enum
-          const input = {
-            ...data,
-            allowedValues: data.allowedValues?.map((val) => ({
-              ...val,
-              id: v4(),
-            })),
-          }
-
-          return typeService.create([input])
-        }}
+        onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating type',
           type: 'error',

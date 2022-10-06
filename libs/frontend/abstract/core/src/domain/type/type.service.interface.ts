@@ -1,5 +1,5 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
+  AnyType,
   BaseTypeWhere,
   GetTypesQuery,
   PrimitiveTypeKind,
@@ -7,10 +7,12 @@ import {
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
+import { Entity } from 'rc-tree/lib/interface'
 import {
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
+  IPaginationService,
   IQueryService,
 } from '../../service'
 import { IField, IFieldRef } from './field'
@@ -29,7 +31,8 @@ export interface IFieldModalProperties {
 }
 
 export interface ITypeService
-  extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
+  extends IPaginationService<IAnyType>,
+    ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
     IQueryService<IAnyType, BaseTypeWhere>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>

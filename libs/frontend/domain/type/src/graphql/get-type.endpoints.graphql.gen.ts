@@ -1,6 +1,22 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
+  BaseType_ActionType_Fragment,
+  BaseType_AppType_Fragment,
+  BaseType_ArrayType_Fragment,
+  BaseType_BaseType_Fragment,
+  BaseType_CodeMirrorType_Fragment,
+  BaseType_ElementType_Fragment,
+  BaseType_EnumType_Fragment,
+  BaseType_InterfaceType_Fragment,
+  BaseType_LambdaType_Fragment,
+  BaseType_PageType_Fragment,
+  BaseType_PrimitiveType_Fragment,
+  BaseType_ReactNodeType_Fragment,
+  BaseType_RenderPropsType_Fragment,
+  BaseType_UnionType_Fragment,
+} from '../../../../abstract/core/src/domain/type/fragments/base-type.fragment.graphql.gen'
+import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
@@ -20,8 +36,17 @@ import { ReactNodeTypeFragment } from '../../../../abstract/core/src/domain/type
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { BaseTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/base-type.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
+export type GetBaseTypesQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.GetBaseTypesOptions>
+}>
+
+export type GetBaseTypesQuery = {
+  baseTypes: { totalCount: number; items: Array<BaseType_BaseType_Fragment> }
+}
+
 export type GetTypesQueryVariables = Types.Exact<{
   ids?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
@@ -151,6 +176,17 @@ export type GetCodeMirrorTypesQuery = {
   types: Array<Type_CodeMirrorType_Fragment>
 }
 
+export const GetBaseTypesDocument = gql`
+  query GetBaseTypes($options: GetBaseTypesOptions) {
+    baseTypes(options: $options) {
+      totalCount
+      items {
+        ...BaseType
+      }
+    }
+  }
+  ${BaseTypeFragmentDoc}
+`
 export const GetTypesDocument = gql`
   query GetTypes($ids: [ID!]) {
     primitiveTypes(where: { id_IN: $ids }) {
@@ -348,6 +384,20 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
+    GetBaseTypes(
+      variables?: GetBaseTypesQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetBaseTypesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetBaseTypesQuery>(GetBaseTypesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetBaseTypes',
+        'query',
+      )
+    },
     GetTypes(
       variables?: GetTypesQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
