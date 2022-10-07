@@ -49,7 +49,6 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
         },
       )
-      //
       .command(
         Tasks.Unit,
         'Run unit tests',
@@ -127,7 +126,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (env === Env.CI) {
             const startServer = `nx serve-test builder -c ci`
-            const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test builder --verbose -c ci`
+            const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test builder -c ci --verbose`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               stdio: 'inherit',
