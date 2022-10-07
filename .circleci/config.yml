@@ -64,8 +64,8 @@ executor-config: &executor-config
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
-#    NODE_OPTIONS: --max_old_space_size=16384
-    #    NODE_ENV: production
+    NODE_OPTIONS: --max_old_space_size=8192
+#    NODE_ENV: production
     CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
   working_directory: ~/project
 
