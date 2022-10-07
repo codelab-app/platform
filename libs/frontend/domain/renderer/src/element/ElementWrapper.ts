@@ -25,7 +25,6 @@ export interface ElementWrapperProps {
    * Props passed in from outside the component
    */
   extraProps?: IPropData
-
   postAction?: Nullish<() => unknown>
 }
 
@@ -88,7 +87,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
-    // If we have an array, wrap it in a fragment
+    // root element is not draggable
+    // assume root element doesn't have error
+    if (!element.parentElement) {
+      return React.createElement(Fragment, {}, Children)
+    }
 
     return React.createElement(
       ErrorBoundary,
@@ -102,9 +105,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           element.setRenderingError(null)
         },
       },
+      // If we have an array, wrap it in a fragment
       Array.isArray(Children)
-        ? React.createElement(Fragment, {}, Children)
-        : Children,
+        ? React.createElement(
+            Fragment,
+            {},
+            DraggableElement({ children: Children, element }),
+          )
+        : DraggableElement({ children: Children, element }),
     )
   },
 )
