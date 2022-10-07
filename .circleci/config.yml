@@ -445,6 +445,7 @@ workflows:
       - lint:
           <<: *filters-pr
           e: docker-node
+          size: medium
           requires:
             - install-and-build-workspace
       - codegen:
