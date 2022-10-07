@@ -67,6 +67,7 @@ export class ScraperService {
         continue
       }
 
+      console.log('\n-----------------------------------')
       console.log(`Fetching [${pagesCount}/${urls.length}] ${componentPage}...`)
       await page.goto(url)
 

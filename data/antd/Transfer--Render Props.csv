@@ -1,5 +1,5 @@
 "property","description","type","default","version","isEnum"
-"direction","List render direction","left | right","",,false
+"direction","List render direction","left | right","",,true
 "disabled","Disable list or not","boolean","",,false
 "filteredItems","Filtered items","RecordType[]","",,false
 "selectedKeys","Selected items","string[]","",,false
