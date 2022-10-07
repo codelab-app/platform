@@ -4,12 +4,9 @@ import {
   IElementTree,
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
-import { DndContext, DragOverlay } from '@dnd-kit/core'
+import { Active, DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
-import tw from 'twin.macro'
-import { GetComponentItem } from '../sections/config-pane/ConfigPane-ComponentTabContainer/GetComponentItem'
-import { builderCollisionDetection } from './builderCollisionDetection'
 import { useBuilderDnd } from './useBuilderDnd'
 
 /**
@@ -22,10 +19,14 @@ export const BuilderContext = observer<
     elementTree?: IElementTree
   }>
 >(({ children, elementService, builderService, elementTree }) => {
-  const { onDragEnd, onDragStart } = useBuilderDnd(
+  const { onDragEnd, onDragStart, sensors } = useBuilderDnd(
     builderService,
     elementService,
     elementTree,
+  )
+
+  const [draggedElement, setDraggedElement] = React.useState<Active | null>(
+    null,
   )
 
   return (
@@ -37,25 +38,20 @@ export const BuilderContext = observer<
           return e.contains(renderRoot)
         },
       }}
-      collisionDetection={builderCollisionDetection}
+      collisionDetection={pointerWithin}
       onDragEnd={(e) => {
         onDragEnd(e)
       }}
       onDragStart={(e) => {
+        setDraggedElement(e.active)
         onDragStart(e)
       }}
+      sensors={sensors}
     >
       {children}
 
       <DragOverlay dropAnimation={null}>
-        {builderService.currentDragData ? (
-          <div css={tw`p-2 text-sm border-gray-200 border w-[300px]`}>
-            <GetComponentItem
-              component={builderService.currentDragData.data}
-              css={tw`opacity-40`}
-            />
-          </div>
-        ) : null}
+        {draggedElement && draggedElement.data.current?.overlayRenderer()}
       </DragOverlay>
     </DndContext>
   )

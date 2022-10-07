@@ -2,19 +2,25 @@ import {
   BuilderDndType,
   BuilderDragData,
   IBuilderService,
-  IElement,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
+import {
+  DragEndEvent,
+  DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'
 import { useCallback } from 'react'
-import { shouldCreateElementAsFirstChild } from './utils'
+import { useDndDropHandler } from './useDndDropHandlers'
 
 export interface UseBuilderDnd {
   onDragStart: (data: DragStartEvent) => void
   onDragEnd: (data: DragEndEvent) => void
+  sensors: ReturnType<typeof useSensors>
 }
 
 export const useBuilderDnd = (
@@ -22,6 +28,21 @@ export const useBuilderDnd = (
   elementService: IElementService,
   elementTree?: IElementTree,
 ): UseBuilderDnd => {
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        // Elements like checkboxes, inputs, etc. won't be interactive without a delay
+        delay: 100,
+        tolerance: 5,
+      },
+    }),
+  )
+
+  const { handleCreateElement, handleMoveElement } = useDndDropHandler(
+    elementService,
+    elementTree,
+  )
+
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
       const data = e.active.data.current as Maybe<BuilderDragData>
@@ -34,52 +55,25 @@ export const useBuilderDnd = (
   )
 
   const onDragEnd = useCallback(
-    async (e: DragEndEvent) => {
-      const data = e.active.data.current as Maybe<BuilderDragData>
-      const overData = e.over?.data.current as Maybe<BuilderDragData>
-      const collisions = e.collisions
-      const nearestCollision = collisions?.[0]?.data
-      const dropPosition = nearestCollision?.['dropPosition']
+    async (event: DragEndEvent) => {
+      const data = event.active.data.current as Maybe<BuilderDragData>
 
       const shouldCreate =
         data?.type === BuilderDndType.CreateElement &&
-        overData?.type === BuilderDndType.CreateElement &&
-        (data?.createElementInput || overData?.createElementInput)
+        data?.createElementInput !== undefined
+
+      const shouldMove = data?.type === BuilderDndType.MoveElement
 
       builderService.setCurrentDragData(null)
 
-      if (!shouldCreate) {
-        return
+      if (shouldCreate) {
+        await handleCreateElement(event)
+      } else if (shouldMove) {
+        await handleMoveElement(event)
       }
-
-      const createElementInput = {
-        ...data.createElementInput,
-        ...overData.createElementInput,
-      }
-
-      if (!elementTree) {
-        console.error('Element Tree is missing')
-
-        return
-      }
-
-      // drop position = 1, add as children
-      let element: IElement
-
-      if (shouldCreateElementAsFirstChild(dropPosition)) {
-        element = await elementService.createElementAsFirstChild(
-          createElementInput,
-        )
-      } else {
-        element = await elementService.createElementAsNextSibling(
-          createElementInput,
-        )
-      }
-
-      elementTree.addElements([element])
     },
     [builderService, elementService, elementTree],
   )
 
-  return { onDragStart, onDragEnd }
+  return { onDragStart, onDragEnd, sensors }
 }

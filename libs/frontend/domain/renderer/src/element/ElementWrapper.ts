@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
+import { DraggableElement } from './DraggableElement'
 import {
   childrenAreEmpty,
   extractValidProps,
@@ -86,10 +87,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
-    // If we have an array, wrap it in a fragment
-    return Array.isArray(Children)
-      ? React.createElement(Fragment, {}, Children)
-      : Children
+    // root element is not draggable
+    if (!element.parentElement) {
+      return React.createElement(Fragment, {}, Children)
+    }
+
+    return React.createElement(Fragment, {
+      children: DraggableElement({ element, children: Children }),
+    })
   },
 )
 

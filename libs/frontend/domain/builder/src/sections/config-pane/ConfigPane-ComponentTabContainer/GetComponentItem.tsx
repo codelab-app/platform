@@ -1,4 +1,7 @@
-import { IBuilderComponent } from '@codelab/frontend/abstract/core'
+import {
+  BuilderDndType,
+  IBuilderComponent,
+} from '@codelab/frontend/abstract/core'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
@@ -18,11 +21,15 @@ export const DraggableGetComponentItem = ({
     }
   }, [component])
 
-  const { attributes, listeners, setNodeRef } = useCreateElementDraggable(
-    component.id,
+  const { attributes, listeners, setNodeRef } = useCreateElementDraggable({
+    id: component.id,
     createElementInput,
     component,
-  )
+    overlayRenderer: () => (
+      <GetComponentItem component={component} tw="opacity-40" />
+    ),
+    type: BuilderDndType.CreateElement,
+  })
 
   return (
     <div

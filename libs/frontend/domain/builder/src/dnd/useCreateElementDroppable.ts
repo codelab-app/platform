@@ -8,15 +8,12 @@ import { useDroppable } from '@dnd-kit/core'
 
 export const useCreateElementDroppable = (
   id: IElementRef,
-  input: ICreateElementDTO,
+  input?: ICreateElementDTO,
 ) => {
-  const data: BuilderDropData = {
-    type: BuilderDndType.CreateElement,
-    createElementInput: input,
-  }
-
   return useDroppable({
     id,
-    data,
+    data: {
+      createElementInput: input,
+    },
   })
 }

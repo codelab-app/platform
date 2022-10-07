@@ -9,7 +9,6 @@ import { Renderer, RendererProps } from '@codelab/frontend/domain/renderer'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ElementDropHandlers } from '../../dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
 
@@ -22,7 +21,6 @@ type BuilderProps = {
   Pick<IElementService, 'deleteModal'> & {
     rendererProps: RendererProps
   }
-
 /**
  * Generic builder used for both Component & Element
  */
@@ -49,7 +47,6 @@ export const Builder = observer<BuilderProps>(
     })
 
     const handleContainerClick = useBuilderRootClickHandler()
-    const elementsList = elementTree?.elementsList
 
     return (
       <StyledBuilderContainer
@@ -59,12 +56,6 @@ export const Builder = observer<BuilderProps>(
         onMouseLeave={handleMouseLeave}
         onMouseOver={handleMouseOver}
       >
-        {/* TBC */}
-        {/* {elementId ? <BuilderDropHandler elementId={elementId} /> : null} */}
-        {elementsList ? (
-          <ElementDropHandlers elementsList={elementsList} />
-        ) : null}
-
         <Renderer renderRoot={rendererProps.renderRoot} />
 
         {/* <BuilderHoverOverlay /> */}

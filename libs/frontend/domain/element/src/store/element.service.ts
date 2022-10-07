@@ -333,6 +333,10 @@ parent
       return
     }
 
+    if (targetElement.nextSiblingId === elementId) {
+      return
+    }
+
     yield* _await(this.detachElementFromElementTree(elementId))
 
     yield* _await(
