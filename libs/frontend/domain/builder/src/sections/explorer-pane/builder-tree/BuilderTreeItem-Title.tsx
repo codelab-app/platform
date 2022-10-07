@@ -1,10 +1,11 @@
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   INode,
 } from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { Dropdown } from 'antd'
+import { Col, Dropdown, Row, Tooltip } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
@@ -50,6 +51,12 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       const atomMeta = atomName ? `(${atomName})` : undefined
       const meta = componentMeta || atomMeta || ''
 
+      const errorMessage = element.renderingMetadata?.error
+        ? `Error: ${element.renderingMetadata.error.message}`
+        : element.ancestorError
+        ? `Something went wrong in a parent element`
+        : undefined
+
       return (
         <BuilderDropHandler element={element}>
           <ItemTitleStyle node={data}>
@@ -71,11 +78,28 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
               trigger={['contextMenu']}
               visible={contextMenuItemId === element.id}
             >
-              <div
-                css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}
-              >
-                {element.label} <span css={tw`text-xs`}>{meta}</span>
-              </div>
+              <Row>
+                <Col span={18}>
+                  <div
+                    css={
+                      isComponentInstance ? tw`text-blue-400` : `text-gray-400`
+                    }
+                  >
+                    {element.label} <span css={tw`text-xs`}>{meta}</span>
+                  </div>
+                </Col>
+                <Col span={6}>
+                  <Row justify="end">
+                    <Col>
+                      {errorMessage && (
+                        <Tooltip placement="right" title={errorMessage}>
+                          <ExclamationCircleOutlined style={{ color: 'red' }} />
+                        </Tooltip>
+                      )}
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
             </Dropdown>
           </ItemTitleStyle>
         </BuilderDropHandler>

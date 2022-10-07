@@ -25,6 +25,17 @@ export interface CssMap {
   [prop: string]: string
 }
 
+export interface RenderingError {
+  message: string
+  stack: Maybe<string>
+}
+
+// Metadata obtained from the renderer
+// regarding the element's rendering
+export interface renderingMetadata {
+  error: Nullish<RenderingError>
+}
+
 export interface IElement
   extends INodeType<ELEMENT_NODE_TYPE>,
     ICacheService<IElementDTO, IElement> {
@@ -49,6 +60,8 @@ export interface IElement
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
   renderComponentType: Nullable<Ref<IComponent>>
+  renderingMetadata: Nullable<renderingMetadata>
+  ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
   leftHandDescendants: Array<IElement>
   descendants: Array<IElement>
@@ -93,6 +106,8 @@ export interface IElement
 
   appendToGuiCss(css: CssMap): void
   deleteFromGuiCss(propNames: Array<string>): void
+
+  setRenderingError(error: Nullish<RenderingError>): void
 }
 
 export type IElementRef = string

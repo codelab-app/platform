@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react'
 import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
 import { DraggableElement } from './DraggableElement'
@@ -24,7 +25,6 @@ export interface ElementWrapperProps {
    * Props passed in from outside the component
    */
   extraProps?: IPropData
-
   postAction?: Nullish<() => unknown>
 }
 
@@ -88,13 +88,32 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     })
 
     // root element is not draggable
+    // assume root element doesn't have error
     if (!element.parentElement) {
       return React.createElement(Fragment, {}, Children)
     }
 
-    return React.createElement(Fragment, {
-      children: DraggableElement({ element, children: Children }),
-    })
+    return React.createElement(
+      ErrorBoundary,
+      {
+        fallbackRender: () => null,
+        onError({ message, stack }) {
+          element.setRenderingError({ message, stack })
+        },
+        resetKeys: [renderOutputs],
+        onResetKeysChange: () => {
+          element.setRenderingError(null)
+        },
+      },
+      // If we have an array, wrap it in a fragment
+      Array.isArray(Children)
+        ? React.createElement(
+            Fragment,
+            {},
+            DraggableElement({ children: Children, element }),
+          )
+        : DraggableElement({ children: Children, element }),
+    )
   },
 )
 
