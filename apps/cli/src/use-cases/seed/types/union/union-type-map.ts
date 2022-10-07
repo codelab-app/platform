@@ -1,7 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { logger } from '@codelab/shared/adapter/logging'
-import { connectTypeId } from '@codelab/shared/data'
+import { connectNode } from '@codelab/shared/data'
 import { capitalizeFirstLetter, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { isInterfaceTypeRegex } from '../../utils/matchers'
@@ -123,7 +123,7 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
                           field.property,
                         )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
                         kind: ITypeKind.InterfaceType,
-                        owner: connectTypeId(userId),
+                        owner: connectNode(userId),
                         fields: {
                           connect: values
                             .filter((type: string) =>
@@ -168,7 +168,7 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
                   }),
               },
             },
-            owner: connectTypeId(userId),
+            owner: connectNode(userId),
           },
         ],
       })

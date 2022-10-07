@@ -61,12 +61,11 @@ export const createAtomsData: CreateAtoms = (
   },
 ]
 
-export const connectTypeId = (id?: string) => {
+export const connectNode = (id?: string) => {
   return {
     connect: id
       ? {
           where: { node: { id } },
-          edge: { data: '{}' },
         }
       : undefined,
   }
