@@ -455,6 +455,7 @@ workflows:
       - unit:
           <<: *filters-pr
           e: docker-node
+          size: medium
           requires:
             - install-and-build-workspace
       - e2e:
