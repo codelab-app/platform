@@ -11,7 +11,7 @@ import {
   Prop,
 } from '@codelab/frontend/domain/element'
 import {
-  AnyType,
+  AnyTypeModel,
   InterfaceType,
   PrimitiveType,
   ReactNodeType,
@@ -43,9 +43,9 @@ interface TestingData {
   elementToRender: Element
   elementToRender02: Element
   componentInstanceElementToRender: Element
-  renderPropsType: AnyType
-  reactNodeType: AnyType
-  primitiveType: AnyType
+  renderPropsType: AnyTypeModel
+  reactNodeType: AnyTypeModel
+  primitiveType: AnyTypeModel
   divAtom: Atom
   textAtom: Atom
 }
@@ -179,7 +179,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       typeService: new TypeService({
         types: objectMap([
           [data.primitiveType.id, data.primitiveType],
-          [data.renderPropsType.id, data.renderPropsType as AnyType],
+          [data.renderPropsType.id, data.renderPropsType as AnyTypeModel],
           [data.reactNodeType.id, data.reactNodeType],
         ]),
       }),

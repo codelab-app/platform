@@ -12,7 +12,7 @@ import { ReactNodeType } from './react-node-type.model'
 import { RenderPropsType } from './render-props-type.model'
 import { UnionType } from './union-type.model'
 
-export type AnyType =
+export type AnyTypeModel =
   | AppType
   | ActionType
   | ArrayType

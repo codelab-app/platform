@@ -49,7 +49,6 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
         },
       )
-      //
       .command(
         Tasks.Unit,
         'Run unit tests',
@@ -60,13 +59,13 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // execCommand(`${NX_TEST} build builder -c test`)
             execCommand(
-              `${NX_TEST} affected:test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color --parallel=3`,
+              `${NX_TEST} affected --target=test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color`,
             )
           }
 
           if (env === Env.CI) {
             execCommand(
-              'npx nx affected:test --testPathPattern="[^i].spec.ts" --color --parallel=4',
+              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --verbose',
             )
           }
         },
@@ -249,7 +248,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (env === Env.CI) {
-            execCommand(`npx nx affected:lint --parallel=6`)
+            execCommand(`npx nx affected --target=lint --parallel=3`)
             execCommand(`npx prettier --check ./**/*.{graphql,yaml,json}`)
             execCommand(
               `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,

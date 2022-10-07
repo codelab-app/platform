@@ -1,10 +1,8 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import type {
   IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
   IFieldRef,
-  IInterfaceType,
   IInterfaceTypeRef,
   ITypeDTO,
   ITypeService,
@@ -20,7 +18,6 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import flatMap from 'lodash/flatMap'
 import mapKeys from 'lodash/mapKeys'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
@@ -48,7 +45,6 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import type { AnyType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -58,7 +54,7 @@ import {
 @model('@codelab/TypeService')
 export class TypeService
   extends Model({
-    types: prop(() => objectMap<AnyType>()),
+    types: prop(() => objectMap<IAnyType>()),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -111,7 +107,7 @@ export class TypeService
   }
 
   @modelAction
-  addTypeLocal(type: AnyType) {
+  addTypeLocal(type: IAnyType) {
     this.types.set(type.id, type)
   }
 
@@ -157,6 +153,8 @@ export class TypeService
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))
 
+    console.log(types)
+
     return types.map((type) => {
       const typeModel = typeFactory(type)
 
@@ -189,11 +187,20 @@ export class TypeService
       return []
     }
 
-    const descendants = yield* _await(getTypeApi.GetDescendants({ ids }))
+    const { arrayTypes, unionTypes, interfaceTypes } = yield* _await(
+      getTypeApi.GetDescendants({ ids }),
+    )
 
-    const allDescendantIds = Object.values(descendants).reduce(
-      (acc, v) => [...acc, ...flatMap(v, (item) => item.descendantTypesIds)],
-      [] as Array<string>,
+    const allDescendantIds = [
+      ...arrayTypes,
+      ...unionTypes,
+      ...interfaceTypes,
+    ].reduce<Array<string>>(
+      (descendantIds, { descendantTypesIds }) => [
+        ...descendantIds,
+        ...descendantTypesIds.flat(),
+      ],
+      [],
     )
 
     // remove duplicates
@@ -225,7 +232,9 @@ export class TypeService
       throw new Error('Type is not an interface')
     }
 
-    return interfaceType as IInterfaceType
+    console.log(interfaceType)
+
+    return interfaceType
   })
 
   /*
