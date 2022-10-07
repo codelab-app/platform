@@ -13,7 +13,8 @@ import { getTagService } from '@codelab/frontend/domain/tag'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { COMPONENT_TAG_NAME } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
-import chain from 'lodash/chain'
+// eslint-disable-next-line lodash/import-scope
+import { chain } from 'lodash'
 import { computed } from 'mobx'
 import {
   AnyModel,

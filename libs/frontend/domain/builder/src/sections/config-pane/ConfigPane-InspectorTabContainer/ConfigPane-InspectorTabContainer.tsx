@@ -38,7 +38,7 @@ import tw from 'twin.macro'
 import { usePropCompletion } from '../../../hooks'
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
-import { tabNames } from './data'
+import { TAB_NAMES } from './data'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -86,14 +86,13 @@ const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
 
 export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
   ({
+    userService,
     UpdateElementContent,
+    typeService,
     elementTree,
     builderService,
-    typeService,
     renderService,
     elementService,
-    actionService,
-    userService,
   }) => {
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
@@ -103,75 +102,59 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
       return null
     }
 
-    return (
-      <TabContainer>
-        <div css={tw`absolute bottom-0 right-0 m-8`}>
-          <LoadingIndicator
-            error={trackPromises.error}
-            isLoading={trackPromises.isLoading}
+    const tabItems = [
+      {
+        key: TAB_NAMES.Node,
+        label: (
+          <TooltipIcon icon={<NodeIndexOutlined />} title={TAB_NAMES.Node} />
+        ),
+        children: (
+          <UpdateElementContent
+            key={selectedNode.id}
+            node={selectedNode}
+            trackPromises={trackPromises}
           />
-        </div>
-
-        <Tabs defaultActiveKey={tabNames.node} size="small">
-          <Tabs.TabPane
-            key={tabNames.node}
-            style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab={
-              <TooltipIcon icon={<NodeIndexOutlined />} title={tabNames.node} />
-            }
-          >
-            <UpdateElementContent
-              key={selectedNode.id}
-              node={selectedNode}
-              trackPromises={trackPromises}
-            />
-          </Tabs.TabPane>
-
-          <Tabs.TabPane
-            destroyInactiveTabPane
-            key={tabNames.props}
-            style={{ overflow: 'auto', maxHeight: '100%' }}
-            // needed to update props if we change them in the prop inspector tab
-            tab={
-              <TooltipIcon icon={<SettingOutlined />} title={tabNames.props} />
-            }
-          >
-            <div key={selectedNode.id}>
-              {isElement(selectedNode) &&
-              (selectedNode.atom || selectedNode.renderComponentType) ? (
-                <>
-                  <div css={tw`mb-5`}>
-                    <UpdateRichTextForm
-                      element={selectedNode}
-                      elementService={elementService}
-                      trackPromises={trackPromises}
-                    />
-                  </div>
-                  <UpdateElementPropsForm
-                    autocomplete={renderService.state}
+        ),
+      },
+      {
+        key: TAB_NAMES.Props,
+        label: (
+          <TooltipIcon icon={<SettingOutlined />} title={TAB_NAMES.Props} />
+        ),
+        children: (
+          <div key={selectedNode.id}>
+            {isElement(selectedNode) &&
+            (selectedNode.atom || selectedNode.renderComponentType) ? (
+              <>
+                <div css={tw`mb-5`}>
+                  <UpdateRichTextForm
                     element={selectedNode}
                     elementService={elementService}
                     trackPromises={trackPromises}
-                    typeService={typeService}
-                    userService={userService}
                   />
-                </>
-              ) : (
-                `Add an atom or a component to this element to edit its props`
-              )}
-            </div>
-          </Tabs.TabPane>
-
-          <Tabs.TabPane
-            key={tabNames.css}
-            style={{ overflow: 'visible' }}
-            tab={
-              <TooltipIcon
-                icon={<FormatPainterOutlined />}
-                title={tabNames.css}
-              />
-            }
-          >
+                </div>
+                <UpdateElementPropsForm
+                  autocomplete={renderService.state}
+                  element={selectedNode}
+                  elementService={elementService}
+                  trackPromises={trackPromises}
+                  typeService={typeService}
+                  userService={userService}
+                />
+              </>
+            ) : (
+              `Add an atom or a component to this element to edit its props`
+            )}
+          </div>
+        ),
+      },
+      {
+        key: TAB_NAMES.CSS,
+        label: (
+          <TooltipIcon icon={<FormatPainterOutlined />} title={TAB_NAMES.CSS} />
+        ),
+        children: (
+          <>
             {isElement(selectedNode) && selectedNode.atom ? (
               <ElementCssEditor
                 element={selectedNode}
@@ -182,31 +165,19 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             ) : (
               `Add an atom to this page element to edit its CSS`
             )}
-          </Tabs.TabPane>
-
-          {/* <Tabs.TabPane */}
-          {/*  key={selectedNode.id + '_tab4'} */}
-          {/*  style={{ overflow: 'auto', maxHeight: '100%' }} */}
-          {/*  tab="Hooks" */}
-          {/* > */}
-          {/*  <ElementHookSection */}
-          {/*    atomService={atomService} */}
-          {/*    elementId={selectedNode.id} */}
-          {/*    key={selectedNode.id} */}
-          {/*    typeService={typeService} */}
-          {/*  /> */}
-          {/* </Tabs.TabPane> */}
-
-          <Tabs.TabPane
-            key={tabNames.propsInsepctor}
-            style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab={
-              <TooltipIcon
-                icon={<CodeOutlined />}
-                title={tabNames.propsInsepctor}
-              />
-            }
-          >
+          </>
+        ),
+      },
+      {
+        key: TAB_NAMES.PropsInspector,
+        label: (
+          <TooltipIcon
+            icon={<CodeOutlined />}
+            title={TAB_NAMES.PropsInspector}
+          />
+        ),
+        children: (
+          <>
             {isElement(selectedNode) && (
               <PropsInspectorTab
                 element={selectedNode}
@@ -215,15 +186,16 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                 renderer={renderService}
               />
             )}
-          </Tabs.TabPane>
-
-          <Tabs.TabPane
-            key={tabNames.propsMap}
-            style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab={
-              <TooltipIcon icon={<SwapOutlined />} title={tabNames.propsMap} />
-            }
-          >
+          </>
+        ),
+      },
+      {
+        key: TAB_NAMES.PropsMap,
+        label: (
+          <TooltipIcon icon={<SwapOutlined />} title={TAB_NAMES.PropsMap} />
+        ),
+        children: (
+          <>
             {isElement(selectedNode) ? (
               <PropMapBindingSection
                 element={selectedNode}
@@ -237,18 +209,19 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                 }
               />
             ) : null}
-          </Tabs.TabPane>
-
-          <Tabs.TabPane
-            key={tabNames.propsTransformation}
-            style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab={
-              <TooltipIcon
-                icon={<FunctionOutlined />}
-                title={tabNames.propsTransformation}
-              />
-            }
-          >
+          </>
+        ),
+      },
+      {
+        key: TAB_NAMES.PropsTransformation,
+        label: (
+          <TooltipIcon
+            icon={<FunctionOutlined />}
+            title={TAB_NAMES.PropsTransformation}
+          />
+        ),
+        children: (
+          <>
             {isElement(selectedNode) ? (
               <UpdateElementPropTransformationForm
                 element={selectedNode}
@@ -257,8 +230,32 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                 trackPromises={trackPromises}
               />
             ) : null}
-          </Tabs.TabPane>
-        </Tabs>
+          </>
+        ),
+      },
+    ]
+
+    return (
+      <TabContainer>
+        <div css={tw`absolute bottom-0 right-0 m-8`}>
+          <LoadingIndicator
+            error={trackPromises.error}
+            isLoading={trackPromises.isLoading}
+          />
+        </div>
+        <Tabs defaultActiveKey={TAB_NAMES.Node} items={tabItems} size="small" />
+
+        {/* <Tabs.TabPane */}
+        {/*  key={selectedNode.id + '_tab4'} */}
+        {/*  tab="Hooks" */}
+        {/* > */}
+        {/*  <ElementHookSection */}
+        {/*    atomService={atomService} */}
+        {/*    elementId={selectedNode.id} */}
+        {/*    key={selectedNode.id} */}
+        {/*    typeService={typeService} */}
+        {/*  /> */}
+        {/* </Tabs.TabPane> */}
       </TabContainer>
     )
   },

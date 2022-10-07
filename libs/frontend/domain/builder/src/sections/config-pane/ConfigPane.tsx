@@ -64,7 +64,7 @@ export const ConfigPane = observer<MetaPaneProps>(
           <Tabs.TabPane
             destroyInactiveTabPane
             key="inspector"
-            style={{ overflow: 'auto', maxHeight: '100%' }}
+            // style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
                 <EditOutlined />
@@ -74,9 +74,7 @@ export const ConfigPane = observer<MetaPaneProps>(
           >
             <ConfigPaneInspectorTabContainer
               UpdateElementContent={observer(({ node, trackPromises }) => {
-                /**
-                 * The builder tree nodes could be a component as well, in which case we would show the form for components
-                 */
+                // The builder tree nodes could be a component as well, in which case we would show the form for components
                 return (
                   <>
                     {node.__nodeType === ELEMENT_NODE_TYPE ? (
@@ -131,7 +129,7 @@ export const ConfigPane = observer<MetaPaneProps>(
           <Tabs.TabPane
             destroyInactiveTabPane
             key="component"
-            style={{ overflow: 'auto', maxHeight: '100%' }}
+            // style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
                 <CodeSandboxOutlined />
