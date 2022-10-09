@@ -13,10 +13,7 @@ export interface ICacheService<CreateDTO, Entity> {
 
 export interface IQueryService<Entity, EntityWhere, EntityOptions> {
   getOne(id: string): Promise<Maybe<Entity>>
-  getAll(
-    where?: EntityWhere,
-    options?: EntityOptions,
-  ): Promise<Array<Entity> | { items: Array<Entity>; count: number }>
+  getAll(where?: EntityWhere, options?: EntityOptions): Promise<Array<Entity>>
 }
 
 export interface ICRUDModalService<

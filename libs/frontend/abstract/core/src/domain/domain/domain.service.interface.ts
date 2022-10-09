@@ -1,4 +1,4 @@
-import { DomainWhere } from '@codelab/shared/abstract/codegen'
+import { DomainOptions, DomainWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -19,7 +19,10 @@ export interface IDomainService
       ICRUDService<IDomain, ICreateDomainDTO, ICreateDomainDTO>,
       'update' | 'create'
     >,
-    Omit<IQueryService<IDomain, DomainWhere>, 'getAll' | 'getOne'>,
+    Omit<
+      IQueryService<IDomain, DomainWhere, DomainOptions>,
+      'getAll' | 'getOne'
+    >,
     ICacheService<IDomainDTO, IDomain>,
     ICRUDModalService<Ref<IDomain>, { domain: Maybe<IDomain> }> {
   domains: ObjectMap<IDomain>

@@ -115,10 +115,7 @@ export class AtomService
 
     this.count = atomsAggregate.count
 
-    return {
-      items: atoms.map((atom) => this.writeCache(atom)),
-      count: atomsAggregate.count,
-    }
+    return atoms.map((atom) => this.writeCache(atom))
   })
 
   @modelFlow
@@ -128,9 +125,9 @@ export class AtomService
       return this.atoms.get(id)
     }
 
-    const { items } = yield* _await(this.getAll({ id }))
+    const all = yield* _await(this.getAll({ id }))
 
-    return items[0]
+    return all[0]
   })
 
   /**
