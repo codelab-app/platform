@@ -7,6 +7,7 @@ import { v4 } from 'uuid'
 import { isInterfaceTypeRegex } from '../../utils/matchers'
 import { extractObjectFromString } from '../../utils/parser'
 import {
+  containsInterfaceType,
   FieldTypeRef,
   isPrimitivePredicate,
   unionContainsInterfaceType,
