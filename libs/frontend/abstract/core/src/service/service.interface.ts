@@ -11,9 +11,12 @@ export interface ICacheService<CreateDTO, Entity> {
   writeCache(data: CreateDTO): Entity
 }
 
-export interface IQueryService<Entity, EntityWhere> {
+export interface IQueryService<Entity, EntityWhere, EntityOptions> {
   getOne(id: string): Promise<Maybe<Entity>>
-  getAll(where?: EntityWhere): Promise<Array<Entity>>
+  getAll(
+    where?: EntityWhere,
+    options?: EntityOptions,
+  ): Promise<Array<Entity> | { items: Array<Entity>; count: number }>
 }
 
 export interface ICRUDModalService<

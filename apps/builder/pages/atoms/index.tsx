@@ -56,7 +56,10 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   }, [])
 
   const { value, loading } = useAsync(async () => {
-    return Promise.all([store.atomService.getAll(), store.tagService.getAll()])
+    return Promise.all([
+      store.atomService.getAll(undefined, { limit: 25, offset: 0 }),
+      store.tagService.getAll(),
+    ])
   }, [])
 
   const atomsData: Array<AtomRecord> = store.atomService.atomsList.map(
