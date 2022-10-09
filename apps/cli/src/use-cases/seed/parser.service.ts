@@ -92,6 +92,7 @@ export class ParserService {
                 nullable: true,
               },
             },
+            defaultValues: null,
           }
         }),
       )

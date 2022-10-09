@@ -7,13 +7,14 @@ import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import {
-  Frozen,
+  detach,
   frozen,
   idProp,
   Model,
   model,
   modelAction,
   prop,
+  rootRef,
 } from 'mobx-keystone'
 
 const hydrate = ({ id, data }: IPropDTO): IProp => {
@@ -67,3 +68,11 @@ export class Prop
     return propSafeStringify(this.values)
   }
 }
+
+export const propRef = rootRef<IProp>('@codelab/PropRef', {
+  onResolvedValueChange(ref, newProp, oldProp) {
+    if (oldProp && !newProp) {
+      detach(ref)
+    }
+  },
+})

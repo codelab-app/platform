@@ -2010,6 +2010,7 @@ export type Field = {
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   validationRules?: Maybe<Scalars['String']>
+  defaultValues: Prop
 }
 
 export type IBaseType = {
@@ -4883,6 +4884,7 @@ export type InterfaceTypeFieldsRelationship = Field & {
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   validationRules?: Maybe<Scalars['String']>
+  defaultValues: Prop
 }
 
 export type InterfaceTypesConnection = {
@@ -14249,6 +14251,7 @@ export type FieldCreateInput = {
   key: Scalars['String']
   name?: InputMaybe<Scalars['String']>
   validationRules?: InputMaybe<Scalars['String']>
+  defaultValues?: InputMaybe<Scalars['String']>
 }
 
 export type FieldSort = {
@@ -14257,6 +14260,7 @@ export type FieldSort = {
   name?: InputMaybe<SortDirection>
   description?: InputMaybe<SortDirection>
   validationRules?: InputMaybe<SortDirection>
+  defaultValues?: InputMaybe<SortDirection>
 }
 
 export type FieldUpdateInput = {

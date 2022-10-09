@@ -34,6 +34,8 @@ export const InterfaceForm = observer(
     const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
 
+    console.log(model)
+
     useEffect(
       () =>
         autorun(() => {

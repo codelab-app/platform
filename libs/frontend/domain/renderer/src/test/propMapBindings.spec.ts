@@ -1,5 +1,6 @@
 import { IRenderOutput } from '@codelab/frontend/abstract/core'
-import { elementRef, PropMapBinding } from '@codelab/frontend/domain/element'
+import { elementRef } from '@codelab/frontend/domain/element'
+import { PropMapBinding } from '@codelab/frontend/domain/prop'
 import { v4 } from 'uuid'
 import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
@@ -11,7 +12,7 @@ describe('PropMapBindings', () => {
     const pmb = new PropMapBinding({
       id: v4(),
       sourceKey: 'parentProp',
-      targetElement: elementRef(data.elementToRender02),
+      targetElementId: elementRef(data.elementToRender02),
       targetKey: 'childProp',
     })
 
@@ -38,7 +39,7 @@ describe('PropMapBindings', () => {
     const pmb = new PropMapBinding({
       id: v4(),
       sourceKey: 'parentProp',
-      targetElement: null,
+      targetElementId: null,
       targetKey: 'parentProp2',
     })
 

@@ -79,7 +79,7 @@ export const FieldsTable = observer<FieldsTableProps>(
         onHeaderCell: headerCellProps,
       },
       {
-        title: 'Validation Rules',
+        title: 'Validation',
         dataIndex: 'ruleName',
         key: 'ruleName',
         onHeaderCell: headerCellProps,
@@ -104,6 +104,15 @@ export const FieldsTable = observer<FieldsTableProps>(
               </Tag>
             )
           }),
+      },
+      {
+        title: 'Default',
+        dataIndex: 'defaultValues',
+        key: 'defaultValues',
+        onHeaderCell: headerCellProps,
+        render: () => {
+          return <div>value</div>
+        },
       },
       {
         title: 'Action',

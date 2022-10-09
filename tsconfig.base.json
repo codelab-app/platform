@@ -99,9 +99,6 @@
       "@codelab/frontend/model/infra/mobx": [
         "libs/frontend/model/infra/mobx/src/index.ts"
       ],
-      "@codelab/frontend/modules/props": [
-        "libs/frontend/modules/prop/src/index.ts"
-      ],
       "@codelab/frontend/platform/atoms": [
         "libs/frontend/platform/atoms/src/index.ts"
       ],

@@ -3,29 +3,19 @@ import {
   IAtomImport,
   TypeRef,
 } from '@codelab/backend/abstract/core'
-
-const findArrowFnReturnReactNode = /^\(.+\).+=>.+ReactNode$/
-const findES5FnReturnReactNode = /^function(.+): ReactNode$/
-
-export const findUnionType = /(function|=>|<|[?.;]|[[]])/
-
-export const findPrimitiveType = /(boolean|number|string|integer)/
-
-export const isInterfaceTypeRegex = /^\{.+.}$/
-
-export const isHasAngleBracket = /{/
-
-export const isReactNodeTypeRegex = /^ReactNode$/
-
-const renderPropsRegexes = [
-  findArrowFnReturnReactNode,
-  findES5FnReturnReactNode,
-]
+import {
+  containsInterfaceTypeRegex,
+  isPrimitiveTypesRegex,
+  reactNodeTypeRegex,
+  renderPropsRegexes,
+  skippedTypeRegex,
+} from './matchers'
 
 interface UnionTypeArgs {
   field: AntdDesignField
   atom: IAtomImport
   userId: string
+  // These are the split values after processing field.types
   values: Array<string>
 }
 
@@ -41,12 +31,20 @@ export const isRenderPropType: IsTypePredicate = (field) => {
 }
 
 export const isPrimitivePredicate: IsTypePredicate = (field) =>
-  findPrimitiveType.test(field.type)
+  isPrimitiveTypesRegex.test(field.type)
 
 export const isEnumType: IsTypePredicate<'isEnum'> = (field) => field.isEnum
 
 export const isUnionType: IsTypePredicate<'type' | 'isEnum'> = (field) =>
   field.type.includes('|') && !field.isEnum
 
+/**
+ * See if `boolean | { loading: true }` contains a nested interface
+ */
+export const containsInterfaceType: IsTypePredicate = (field) =>
+  containsInterfaceTypeRegex.test(field.type) &&
+  // We don't want to parse edge cases yet
+  !skippedTypeRegex.test(field.type)
+
 export const isReactNodeType: IsTypePredicate = (field) =>
-  isReactNodeTypeRegex.test(field.type)
+  reactNodeTypeRegex.test(field.type)

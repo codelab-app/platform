@@ -1,9 +1,4 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import {
-  BaseTypeWhere,
-  GetTypesQuery,
-  PrimitiveTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import { BaseTypeWhere, GetTypesQuery } from '@codelab/shared/abstract/codegen'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'

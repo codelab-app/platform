@@ -1,6 +1,6 @@
 import { IPropData } from '@codelab/frontend/abstract/core'
 import { List as AntList, ListProps } from 'antd'
-import React, { ReactNode } from 'react'
+import React from 'react'
 
 export const Text = (props: IPropData) => {
   return React.createElement('div', props)

@@ -1,8 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import {
+  PropFragment,
+  PropMapBindingFragment,
+} from '../../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import {
+  PropFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from '../../prop/prop.fragment.graphql.gen'
 export type FieldFragment = {
   id: string
   key: string
@@ -24,6 +32,7 @@ export type FieldFragment = {
     | { id: string }
     | { id: string }
     | { id: string }
+  defaultValues: PropFragment
 }
 
 export const FieldFragmentDoc = gql`
@@ -38,7 +47,11 @@ export const FieldFragmentDoc = gql`
         id
       }
     }
+    defaultValues {
+      ...Prop
+    }
   }
+  ${PropFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

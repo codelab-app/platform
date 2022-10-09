@@ -29,7 +29,7 @@ import { pageApi } from './page.api'
 import { Page } from './page.model'
 import { PageModalService } from './page-modal.service'
 
-export const pageRef = rootRef<Page>('@codelab/PageRef', {
+export const pageRef = rootRef<IPage>('@codelab/PageRef', {
   onResolvedValueChange(ref, newPage, oldPage) {
     if (oldPage && !newPage) {
       detach(ref)

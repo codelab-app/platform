@@ -1,6 +1,6 @@
 import * as MuiIcons from '@mui/icons-material'
 import { IconProps } from '@mui/material/Icon'
-import React, { FunctionComponent, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 
 interface MuiIconProp extends IconProps {
   /**

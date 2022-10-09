@@ -14,6 +14,10 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import {
+  PropMapBinding,
+  PropMapBindingModalService,
+} from '@codelab/frontend/domain/prop'
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   ElementCreateInput,
@@ -54,8 +58,6 @@ import {
   CreateElementModalService,
   ElementModalService,
 } from './element-modal.service'
-import { PropMapBinding } from './prop-map-binding.model'
-import { PropMapBindingModalService } from './prop-map-binding-modal.service'
 
 /**
  * We will have a single ElementService that contains all elements from
@@ -636,8 +638,8 @@ element is new parentElement's first child
         yield* _await(
           this.createPropMapBinding(duplicated, {
             elementId: newId,
-            targetElementId: propMapBinding.targetElement
-              ? oldToNewIdMap.get(propMapBinding.targetElement.id)
+            targetElementId: propMapBinding.targetElementId
+              ? oldToNewIdMap.get(propMapBinding.targetElementId)
               : undefined,
             targetKey: propMapBinding.targetKey,
             sourceKey: propMapBinding.sourceKey,

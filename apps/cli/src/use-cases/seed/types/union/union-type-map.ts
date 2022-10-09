@@ -1,55 +1,50 @@
-import {
-  AntdDesignField,
-  IAtomImport,
-  TypeRef,
-} from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectTypeId } from '@codelab/shared/data'
 import { capitalizeFirstLetter, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
+import { isInterfaceTypeRegex } from '../../utils/matchers'
+import { extractObjectFromString } from '../../utils/parser'
 import {
+  containsInterfaceType,
   FieldTypeRef,
-  findUnionType,
-  isHasAngleBracket,
-  isInterfaceTypeRegex,
   isPrimitivePredicate,
 } from '../../utils/type-predicates'
-import { allPrimitives, mapPrimitiveType } from '../primitive/map-primitive'
+import { mapPrimitiveType } from '../primitive/map-primitive'
 import { connectUnionType } from './connect-union'
 
-const getDataOfInterface = (interfaceData: string, choose: string) => {
-  // Initialize "key" variable to get the property, the "value" variable to get type of property
-
-  // if string is undefined
-  if (!interfaceData) {
-    console.log(`Can't get values from interface value ${interfaceData}`)
-
-    return ''
-  }
-
-  // if string have not comma
-  if (interfaceData.includes(',')) {
-    console.log(`Can't get values from interface value ${interfaceData}`)
-
-    return ''
-  } else {
-    const hasColon = /[:]/
-    const dataSlice = interfaceData.slice(1, interfaceData.length - 1)
-    const temp = dataSlice.split(hasColon)
-    const theObj: Record<string, unknown> = {}
-
-    for (let i = 0; i < temp.length; i += 2) {
-      theObj[temp[i].trim()] = temp[i + 1]
-    }
-
-    if (choose === 'key') {
-      return Object.keys(theObj).toString()
-    } else {
-      return Object.values(theObj).toString()
-    }
-  }
-}
+/**
+ *
+ * Take a type of `boolean | { inkBar: boolean, tabPane: boolean }`, interfaceString is `{ inkBar: boolean, tabPane: boolean }`
+ *
+ * @param interfaceString E.G. { key: boolean, key2: string }
+ * @param choose
+ */
+// const convertObjectStringToObject = (interfaceString: string) => {
+//   console.log('Interface Data', interfaceString)
+//   // Initialize "key" variable to get the property, the "value" variable to get type of property
+//
+//   // if string is undefined
+//   if (!interfaceString || interfaceString.includes(',')) {
+//     console.log(`Can't get values from interface value ${interfaceString}`)
+//
+//     return {}
+//   }
+//
+//   const hasColon = /:/
+//   const dataSlice = interfaceString.slice(1, interfaceString.length - 1)
+//   const temp = dataSlice.split(hasColon)
+//   const theObj: Record<string, unknown> = {}
+//
+//   for (let i = 0; i < temp.length; i += 2) {
+//     theObj[temp[i].trim()] = temp[i + 1]
+//   }
+//
+//   return {
+//     keys: Object.entries(theObj).toString(),
+//     values: Object.values(theObj).toString(),
+//   }
+// }
 
 export const getUnionTypeForApi: FieldTypeRef = async ({
   field,
@@ -59,12 +54,15 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
 }) => {
   const UnionType = await Repository.instance.UnionType
 
-  if (isHasAngleBracket.test(field.type) && !findUnionType.test(field.type)) {
-    values
-      .filter((item: string) => item.match(isInterfaceTypeRegex))
-      .map((item: string) => {
-        getDataOfInterface(item, 'name')
-      })
+  /**
+   * If we have a nested interface type
+   */
+  if (containsInterfaceType(field)) {
+    // values
+    //   .filter((item) => item.match(isInterfaceTypeRegex))
+    //   .map((item) => {
+    //     extractObjectFromString(item, 'name')
+    //   })
 
     const [existingUnion] = await UnionType.find({
       where: {
@@ -110,7 +108,8 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
                       name: `${atom.name} ${pascalCaseToWords(
                         field.property,
                       )} ${capitalizeFirstLetter(
-                        getDataOfInterface(value, 'key'),
+                        // TODO: Need to add case for multiple keys
+                        Object.keys(extractObjectFromString(value))[0],
                       )} API`,
                       kind: ITypeKind.InterfaceType,
                       owner: connectTypeId(userId),
@@ -122,16 +121,20 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
                           .map((item: string) => ({
                             edge: {
                               id: v4(),
-                              key: `${getDataOfInterface(item, 'key')}`,
-                              name: `${capitalizeFirstLetter(
-                                getDataOfInterface(value, 'key'),
-                              )}`,
+                              key: Object.keys(
+                                extractObjectFromString(item),
+                              )[0],
+                              name: capitalizeFirstLetter(
+                                Object.keys(extractObjectFromString(value))[0],
+                              ),
                             },
                             where: {
                               node: {
                                 // kind: checkTypeKind(item),
                                 name: mapPrimitiveType(
-                                  getDataOfInterface(item, 'none'),
+                                  Object.values(
+                                    extractObjectFromString(item),
+                                  )[0],
                                 ),
                               },
                             },

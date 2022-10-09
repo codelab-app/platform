@@ -153,8 +153,6 @@ export class TypeService
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))
 
-    console.log(types)
-
     return types.map((type) => {
       const typeModel = typeFactory(type)
 

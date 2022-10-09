@@ -1,14 +1,14 @@
 import {
+  IElementService,
+  IElementTree,
+  IUpdatePropMapBindingDTO,
+} from '@codelab/frontend/abstract/core'
+import {
   SelectDescendantElement,
   SelectElementOption,
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
-import {
-  IElementService,
-  IElementTree,
-  IUpdatePropMapBindingDTO,
-} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
@@ -62,7 +62,7 @@ export const UpdatePropMapBindingModal =
             model={{
               sourceKey: pmb?.sourceKey,
               targetKey: pmb?.targetKey,
-              targetElementId: pmb?.targetElement?.id,
+              targetElementId: pmb?.targetElementId?.id,
             }}
             onSubmit={(data) => {
               if (!pmb || !element) {

@@ -1,15 +1,15 @@
+import { IElement, IElementService } from '@codelab/frontend/abstract/core'
+import { propMapBindingRef } from '@codelab/frontend/domain/prop'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef } from '../../../store'
-import { propMapBindingRef } from '../../../store/prop-map-binding.ref'
 
 export interface PropMapBindingsTableProps {
   elementService: IElementService
@@ -79,7 +79,7 @@ export const PropMapBindingsTable = observer<PropMapBindingsTableProps>(
     ).map((pmb) => ({
       id: pmb.id,
       sourceKey: pmb.sourceKey,
-      targetElementName: pmb.targetElement?.current.label ?? '',
+      targetElementName: pmb.targetElementId?.current.label ?? '',
       targetKey: pmb.targetKey,
     }))
 

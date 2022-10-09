@@ -29,8 +29,6 @@ const hydrate = ({
 }: IInterfaceTypeDTO): InterfaceType => {
   assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
-  console.log(fieldsConnection)
-
   const interfaceType = new InterfaceType({
     id,
     kind,

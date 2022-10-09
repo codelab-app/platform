@@ -10286,6 +10286,7 @@ export type EnumTypesConnection = {
 }
 
 export type Field = {
+  defaultValues: Prop
   description?: Maybe<Scalars['String']>
   id: Scalars['ID']
   key: Scalars['String']
@@ -10294,6 +10295,7 @@ export type Field = {
 }
 
 export type FieldCreateInput = {
+  defaultValues?: InputMaybe<Scalars['String']>
   description?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   key: Scalars['String']
@@ -10302,6 +10304,7 @@ export type FieldCreateInput = {
 }
 
 export type FieldSort = {
+  defaultValues?: InputMaybe<SortDirection>
   description?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   key?: InputMaybe<SortDirection>
@@ -11712,6 +11715,7 @@ export type InterfaceTypeFieldsFieldInput = {
 export type InterfaceTypeFieldsRelationship = Field & {
   __typename?: 'InterfaceTypeFieldsRelationship'
   cursor: Scalars['String']
+  defaultValues: Prop
   description?: Maybe<Scalars['String']>
   id: Scalars['ID']
   key: Scalars['String']
@@ -21698,6 +21702,7 @@ export type FieldFragment = {
     | { __typename?: 'ReactNodeType'; id: string }
     | { __typename?: 'RenderPropsType'; id: string }
     | { __typename?: 'UnionType'; id: string }
+  defaultValues: { __typename?: 'Prop' } & PropFragment
 }
 
 export type InterfaceTypeFragment = {
