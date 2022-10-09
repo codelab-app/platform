@@ -111,6 +111,15 @@ export class ElementTree
     return this
   }
 
+  @modelAction
+  removeElements(elements: Array<IElement>) {
+    elements.forEach((element) => {
+      this._elements.delete(element.id)
+    })
+
+    return this
+  }
+
   getPathFromRoot(selectedElement: IElement): Array<IElement> {
     const path = []
     let current: IElement | undefined = selectedElement

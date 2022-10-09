@@ -135,8 +135,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
               elementContextMenuProps={{
                 createModal: elementService.createModal,
                 deleteModal: elementService.deleteModal,
-                duplicateElement:
-                  elementService.duplicateElement.bind(elementService),
+                cloneElement: elementService.cloneElement.bind(elementService),
                 convertElementToComponent:
                   elementService.convertElementToComponent.bind(elementService),
                 elementTree,

@@ -603,16 +603,12 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
-  duplicateElement = _async(function* (
+  cloneElement = _async(function* (
     this: ElementService,
-    targetElement: Element,
-    auth0Id: IAuth0Id,
-    elementTree: IElementTree | null,
+    targetElement: IElement,
+    targetParent: IElement,
   ) {
-    if (!targetElement.parentElement) {
-      throw new Error("Can't duplicate root element")
-    }
-
+    const createdElements = new Array<IElement>()
     const oldToNewIdMap = new Map<string, string>()
 
     const recursiveDuplicate = async (element: IElement, parent: IElement) => {
@@ -643,6 +639,9 @@ element is new parentElement's first child
         })
       }
 
+      oldToNewIdMap.set(element.id, elementModel.id)
+      createdElements.push(elementModel)
+
       // re-attach the prop map bindings now that we have the new ids
       for (const propMapBinding of element.propMapBindings.values()) {
         await this.createPropMapBinding(elementModel, {
@@ -655,12 +654,6 @@ element is new parentElement's first child
         })
       }
 
-      if (elementTree) {
-        elementTree.addElements([elementModel])
-      }
-
-      oldToNewIdMap.set(element.id, elementModel.id)
-
       for (const child of element.children) {
         await recursiveDuplicate(child, elementModel)
       }
@@ -668,9 +661,9 @@ element is new parentElement's first child
       return elementModel
     }
 
-    yield* _await(
-      recursiveDuplicate(targetElement, targetElement.parentElement),
-    )
+    yield* _await(recursiveDuplicate(targetElement, targetParent))
+
+    return createdElements
   })
 
   @modelFlow

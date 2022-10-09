@@ -87,6 +87,7 @@ export interface IElementService
     elementId: string
     targetElementId: string
   }): Promise<void>
+  detachElementFromElementTree(elemenId: string): Promise<void>
   moveElementAsFirstChild(props: {
     elementId: string
     parentElementId: string
@@ -95,11 +96,10 @@ export interface IElementService
     elementId: string
     targetElementId: string
   }): Promise<void>
-  duplicateElement(
+  cloneElement(
     target: IElement,
-    auth0Id: IAuth0Id,
-    elementTree: IElementTree | null,
-  ): Promise<void>
+    targetParent: IElement,
+  ): Promise<Array<IElement>>
   convertElementToComponent(
     element: IElement,
     auth0Id: IAuth0Id,
