@@ -53,11 +53,7 @@ export const makeCreateInput = (
   }
 }
 
-export const makeDuplicateInput = (
-  element: IElement,
-  parentId: string,
-  userId: string,
-): ElementCreateInput => {
+export const makeDuplicateInput = (element: IElement): ElementCreateInput => {
   const props: ElementCreateInput['props'] = element.props
     ? { create: { node: { data: element.props.jsonString } } }
     : undefined
