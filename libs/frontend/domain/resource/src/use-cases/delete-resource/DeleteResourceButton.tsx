@@ -16,7 +16,9 @@ export const DeleteResourceButton = observer<DeleteResourceButton>(
       danger
       disabled={disabled}
       icon={<DeleteOutlined />}
-      onClick={() => resourceService.deleteModal.open(resourceRef(ids[0]))}
+      onClick={() =>
+        ids[0] && resourceService.deleteModal.open(resourceRef(ids[0]))
+      }
       size="small"
     />
   ),

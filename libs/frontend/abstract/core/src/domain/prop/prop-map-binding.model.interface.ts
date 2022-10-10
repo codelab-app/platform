@@ -1,4 +1,3 @@
-import { Nullable } from '@codelab/shared/abstract/types'
 import { ICacheService } from '../../service'
 import { IElementRef } from '../element'
 import { IPropData } from './prop.model.interface'
@@ -9,6 +8,6 @@ export interface IPropMapBinding
   id: string
   sourceKey: string
   targetKey: string
-  targetElementId: Nullable<IElementRef>
+  targetElementId: IElementRef
   applyBindings(sourceProps: IPropData): IPropData
 }

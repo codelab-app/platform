@@ -4,7 +4,7 @@ import { typeDefs } from '../schema'
 import { getDriver } from './driver'
 
 // Keep a single OGM instance if possible
-let ogm: OGM<OGM_TYPES.ModelMap>
+let ogm: OGM<OGM_TYPES.ModelMap> | undefined
 
 export const getOgm = async () => {
   if (!ogm) {

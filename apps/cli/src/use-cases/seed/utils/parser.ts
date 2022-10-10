@@ -23,7 +23,7 @@ export const extractObjectFromString = (object: string): object => {
         const key = keyValueData[0]
         const value = keyValueData[1]
 
-        return { [key]: value }
+        return { [`${key}`]: value }
       })
       .reduce(merge) ?? {}
   )

@@ -96,12 +96,12 @@ const parseTextShadow = (textShadow: Nullish<string>): TextShadowState => {
   // extract the rest of the values (the numbers)
   const [offsetX, offsetY, blurRadius] = textShadow.split(' ')
   // separate the numbers from the units
-  const offsetXNumber = extractCssNumber(offsetX)
-  const offsetXUnit = extractCssUnit(offsetX)
-  const offsetYNumber = extractCssNumber(offsetY)
-  const offsetYUnit = extractCssUnit(offsetY)
-  const blurRadiusNumber = extractCssNumber(blurRadius)
-  const blurRadiusUnit = extractCssUnit(blurRadius)
+  const offsetXNumber = extractCssNumber(offsetX ?? '')
+  const offsetXUnit = extractCssUnit(offsetX ?? '')
+  const offsetYNumber = extractCssNumber(offsetY ?? '')
+  const offsetYUnit = extractCssUnit(offsetY ?? '')
+  const blurRadiusNumber = extractCssNumber(blurRadius ?? '')
+  const blurRadiusUnit = extractCssUnit(blurRadius ?? '')
 
   return {
     textShadow: { ...props.textShadow, value: true },
@@ -172,41 +172,39 @@ export const TextShadow = observer(
                 <></>
               }
             </CssPropEditorItem>
-          ) : textShadowState['textShadow'] ? (
-            property.type === 'input-number-with-unit' ? (
-              <InputNumberWithUnits
-                currentUnit={property.unit}
-                currentValue={property.value}
-                disabled={property.unit === 'unset'}
-                name={property.name}
-                onChange={(value, unit) =>
-                  setTextShadowState({
-                    ...textShadowState,
-                    [property.name]: {
-                      ...textShadowState[property.name],
-                      value,
-                      unit,
-                    },
-                  })
-                }
-                units={property.units ?? []}
-              />
-            ) : (
-              <ColorPicker
-                currentValue={property.value}
-                name={property.name}
-                onChange={(value) =>
-                  setTextShadowState({
-                    ...textShadowState,
-                    [property.name]: {
-                      ...textShadowState[property.name],
-                      value,
-                    },
-                  })
-                }
-              />
-            )
-          ) : null,
+          ) : property.type === 'input-number-with-unit' ? (
+            <InputNumberWithUnits
+              currentUnit={property.unit}
+              currentValue={property.value}
+              disabled={property.unit === 'unset'}
+              name={property.name}
+              onChange={(value, unit) =>
+                setTextShadowState({
+                  ...textShadowState,
+                  [property.name]: {
+                    ...textShadowState[property.name],
+                    value,
+                    unit,
+                  },
+                })
+              }
+              units={property.units}
+            />
+          ) : (
+            <ColorPicker
+              currentValue={property.value}
+              name={property.name}
+              onChange={(value) =>
+                setTextShadowState({
+                  ...textShadowState,
+                  [property.name]: {
+                    ...textShadowState[property.name],
+                    value,
+                  },
+                })
+              }
+            />
+          ),
         )}
       </>
     )

@@ -36,7 +36,9 @@ export const isPrimitivePredicate: IsTypePredicate = (field) =>
 export const isEnumType: IsTypePredicate<'isEnum'> = (field) => field.isEnum
 
 export const isUnionType: IsTypePredicate<'type' | 'isEnum'> = (field) =>
-  field.type.includes('|') && !field.isEnum
+  field.type.includes('|') &&
+  !field.isEnum &&
+  !skippedTypeRegex.test(field.type)
 
 /**
  * See if `boolean | { loading: true }` contains a nested interface

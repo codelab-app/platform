@@ -3,7 +3,7 @@ import {
   IResourceConfig,
   IResourceDTO,
 } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/element'
+import { Prop } from '@codelab/frontend/domain/prop'
 import { tryParse } from '@codelab/frontend/shared/utils'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import axios from 'axios'

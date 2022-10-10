@@ -69,7 +69,7 @@ export class ComponentService
       selectable: false,
       children: [...this.components.values()].map((component) => {
         const elementTree = component.elementTree
-        const dataNode = elementTree?.root?.antdNode
+        const dataNode = elementTree.root?.antdNode
 
         return {
           key: component.id,
@@ -135,7 +135,7 @@ export class ComponentService
       }),
     )
 
-    if (!components.length) {
+    if (!components[0]) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Component was not created')
     }
@@ -156,14 +156,16 @@ export class ComponentService
     component: IEntity,
     { name }: IUpdateComponentDTO,
   ) {
-    const { updateComponents } = yield* _await(
+    const {
+      updateComponents: { components },
+    } = yield* _await(
       componentApi.UpdateComponents({
         update: { name },
         where: { id: component.id },
       }),
     )
 
-    if (!component) {
+    if (!components[0]) {
       throw new Error('Failed to update component')
     }
 
@@ -173,7 +175,7 @@ export class ComponentService
       throw new Error('Updated component not found ')
     }
 
-    componentModel.writeCache(updateComponents.components[0])
+    componentModel.writeCache(components[0])
 
     return componentModel
   })

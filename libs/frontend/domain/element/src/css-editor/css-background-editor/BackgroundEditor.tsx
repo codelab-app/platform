@@ -32,7 +32,7 @@ export const BackgroundEditor = observer(
     return (
       <ColorPicker
         checked={checked}
-        currentValue={guiCssObj['background']}
+        currentValue={guiCssObj['background'] ?? ''}
         disabled={!checked}
         enableCheckbox={true}
         name="background"

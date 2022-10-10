@@ -175,14 +175,21 @@ export class ElementService
       elementApi.GetElementTree({ where: { id: rootId } }),
     )
 
-    const elements = [elementTrees[0], ...elementTrees[0].descendantElements]
+    if (!elementTrees[0]) {
+      return []
+    }
+
+    const elements = [
+      elementTrees[0],
+      ...(elementTrees[0]?.descendantElements ?? []),
+    ]
 
     return elements.map((element) => this.writeCache(element))
   })
 
   @modelAction
   element(id: string) {
-    return this.elements?.get(id)
+    return this.elements.get(id)
   }
 
   @modelFlow
@@ -379,6 +386,11 @@ parent
     }
 
     const [element] = yield* _await(this.create([data]))
+
+    if (!element) {
+      throw new Error('Create element failed')
+    }
+
     yield* _await(
       this.attachElementAsFirstChild({
         elementId: element.id,
@@ -396,6 +408,11 @@ parent
     data: ICreateElementDTO,
   ) {
     const [element] = yield* _await(this.create([data]))
+
+    if (!element) {
+      throw new Error('Create element failed')
+    }
+
     yield* _await(
       this.attachElementAsNextSibling({
         elementId: element.id,
@@ -531,6 +548,10 @@ element is new parentElement's first child
     const { elementTrees } = yield* _await(
       elementApi.GetElementTree({ where: { id: root } }),
     )
+
+    if (!elementTrees[0]) {
+      return []
+    }
 
     const idsToDelete = [
       elementTrees[0].id,
@@ -713,9 +734,11 @@ element is new parentElement's first child
       ]),
     )
 
-    if (elementTree) {
-      elementTree.addElements([newElement])
+    if (!newElement) {
+      return
     }
+
+    elementTree.addElements([newElement])
   })
 
   @modelFlow

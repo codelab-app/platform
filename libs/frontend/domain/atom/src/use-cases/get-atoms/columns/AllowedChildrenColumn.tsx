@@ -7,10 +7,10 @@ export const AllowedChildrenColumn = ({
 }: Pick<AtomRecord, 'allowedChildren'>) => {
   return (
     <Space wrap>
-      {allowedChildren?.map((atom) => {
+      {allowedChildren.map((atom) => {
         return (
-          <Tag color="magenta" key={atom?.id}>
-            {atom?.name}
+          <Tag color="magenta" key={atom.id}>
+            {atom.name}
           </Tag>
         )
       })}

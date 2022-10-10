@@ -38,12 +38,12 @@ export const createAntdAtomData = (data: ExistingData): Array<IAtomImport> => {
       allowedChildren: (newData: ExistingData) => {
         const newAtomData = antdAtomData[name]
 
-        if (!atomData) {
+        if (!newAtomData) {
           throw new Error(`Missing data for: ${name}`)
         }
 
         return (
-          newAtomData?.allowedChildren?.map((child) => {
+          newAtomData.allowedChildren?.map((child) => {
             // Get the id of the existing atom by name
             const existingAtom = newData.atoms[child]
 

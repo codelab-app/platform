@@ -17,11 +17,11 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
    */
   const user = pageProps?.user?.sub
     ? {
-        id: pageProps?.user?.sub,
-        auth0Id: pageProps?.user?.sub,
-        roles: pageProps?.user?.[JWT_CLAIMS]?.roles ?? [],
-        email: pageProps?.user?.email,
-        username: pageProps?.user?.nickname,
+        id: pageProps.user.sub,
+        auth0Id: pageProps.user.sub,
+        roles: pageProps.user[JWT_CLAIMS].roles,
+        email: pageProps.user.email,
+        username: pageProps.user.nickname,
         apps: [],
       }
     : undefined
@@ -60,7 +60,7 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
      * need to replace the instance because
      * set user prop on the service doesn't work
      *
-     * Nghia: I think mobx keystone does some internal initializations behind the scence, and we can't set nested service data until the process is done
+     * Nghia: I think mobx keystone does some internal initializations behind the scene, and we can't set nested service data until the process is done
      */
     _store.setUserService(UserService.init(user))
   }

@@ -44,10 +44,6 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           onSubmit={(formData) => {
             const result = onSubmit(formData as TData)
 
-            if (!result) {
-              return result
-            }
-
             return result
               .then((r) => {
                 if (r) {

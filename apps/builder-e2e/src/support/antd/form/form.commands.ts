@@ -308,7 +308,7 @@ export const scrollSelectDropdown = (
   getSelectDropdown(options)
     .find('.rc-virtual-list-holder', options)
     .then(($el) =>
-      $el[0].scrollTo({ top: scrollToToVerticalPosition(scrollTo) }),
+      $el[0]?.scrollTo({ top: scrollToToVerticalPosition(scrollTo) }),
     )
 }
 
@@ -505,9 +505,7 @@ export const setFormFieldValue = (
       return
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
-      getInput().then(
-        setInputValue(subject, isNumber(value) ? String(value) : value, opts),
-      )
+      getInput().then(setInputValue(subject, String(value), opts))
 
       return
     case FIELD_TYPE.SELECT:
@@ -551,7 +549,7 @@ export const setFormFieldValue = (
 
       return
     case FIELD_TYPE.RADIO:
-      if (isArray(value) || value === undefined) {
+      if (isArray(value)) {
         throw new Error('Select `value` must be a `Label`.')
       }
 

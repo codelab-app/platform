@@ -10286,7 +10286,7 @@ export type EnumTypesConnection = {
 }
 
 export type Field = {
-  defaultValues: Prop
+  defaultValues?: Maybe<Prop>
   description?: Maybe<Scalars['String']>
   id: Scalars['ID']
   key: Scalars['String']
@@ -11715,7 +11715,7 @@ export type InterfaceTypeFieldsFieldInput = {
 export type InterfaceTypeFieldsRelationship = Field & {
   __typename?: 'InterfaceTypeFieldsRelationship'
   cursor: Scalars['String']
-  defaultValues: Prop
+  defaultValues?: Maybe<Prop>
   description?: Maybe<Scalars['String']>
   id: Scalars['ID']
   key: Scalars['String']
@@ -21702,7 +21702,7 @@ export type FieldFragment = {
     | { __typename?: 'ReactNodeType'; id: string }
     | { __typename?: 'RenderPropsType'; id: string }
     | { __typename?: 'UnionType'; id: string }
-  defaultValues: { __typename?: 'Prop' } & PropFragment
+  defaultValues?: ({ __typename?: 'Prop' } & PropFragment) | null
 }
 
 export type InterfaceTypeFragment = {
@@ -22127,56 +22127,6 @@ export type DeleteHooksMutation = {
   deleteHooks: { __typename?: 'DeleteInfo'; nodesDeleted: number }
 }
 
-export type CreatePropMapBindingsMutationVariables = Exact<{
-  input: Array<PropMapBindingCreateInput> | PropMapBindingCreateInput
-}>
-
-export type CreatePropMapBindingsMutation = {
-  __typename?: 'Mutation'
-  createPropMapBindings: {
-    __typename?: 'CreatePropMapBindingsMutationResponse'
-    propMapBindings: Array<
-      { __typename?: 'PropMapBinding' } & PropMapBindingFragment
-    >
-  }
-}
-
-export type UpdatePropMapBindingsMutationVariables = Exact<{
-  where: PropMapBindingWhere
-  update: PropMapBindingUpdateInput
-}>
-
-export type UpdatePropMapBindingsMutation = {
-  __typename?: 'Mutation'
-  updatePropMapBindings: {
-    __typename?: 'UpdatePropMapBindingsMutationResponse'
-    propMapBindings: Array<
-      { __typename?: 'PropMapBinding' } & PropMapBindingFragment
-    >
-  }
-}
-
-export type DeletePropMapBindingsMutationVariables = Exact<{
-  where: PropMapBindingWhere
-}>
-
-export type DeletePropMapBindingsMutation = {
-  __typename?: 'Mutation'
-  deletePropMapBindings: { __typename?: 'DeleteInfo'; nodesDeleted: number }
-}
-
-export type GetPropMapBindingsQueryVariables = Exact<{
-  options?: InputMaybe<PropMapBindingOptions>
-  where?: InputMaybe<PropMapBindingWhere>
-}>
-
-export type GetPropMapBindingsQuery = {
-  __typename?: 'Query'
-  propMapBindings: Array<
-    { __typename?: 'PropMapBinding' } & PropMapBindingFragment
-  >
-}
-
 export type CreatePagesMutationVariables = Exact<{
   input: Array<PageCreateInput> | PageCreateInput
 }>
@@ -22257,6 +22207,56 @@ export type GetRenderedPageQuery = {
   actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
   codeMirrorTypes: Array<
     { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
+  >
+}
+
+export type CreatePropMapBindingsMutationVariables = Exact<{
+  input: Array<PropMapBindingCreateInput> | PropMapBindingCreateInput
+}>
+
+export type CreatePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  createPropMapBindings: {
+    __typename?: 'CreatePropMapBindingsMutationResponse'
+    propMapBindings: Array<
+      { __typename?: 'PropMapBinding' } & PropMapBindingFragment
+    >
+  }
+}
+
+export type UpdatePropMapBindingsMutationVariables = Exact<{
+  where: PropMapBindingWhere
+  update: PropMapBindingUpdateInput
+}>
+
+export type UpdatePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  updatePropMapBindings: {
+    __typename?: 'UpdatePropMapBindingsMutationResponse'
+    propMapBindings: Array<
+      { __typename?: 'PropMapBinding' } & PropMapBindingFragment
+    >
+  }
+}
+
+export type DeletePropMapBindingsMutationVariables = Exact<{
+  where: PropMapBindingWhere
+}>
+
+export type DeletePropMapBindingsMutation = {
+  __typename?: 'Mutation'
+  deletePropMapBindings: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetPropMapBindingsQueryVariables = Exact<{
+  options?: InputMaybe<PropMapBindingOptions>
+  where?: InputMaybe<PropMapBindingWhere>
+}>
+
+export type GetPropMapBindingsQuery = {
+  __typename?: 'Query'
+  propMapBindings: Array<
+    { __typename?: 'PropMapBinding' } & PropMapBindingFragment
   >
 }
 

@@ -21,7 +21,7 @@ export const elementRepository = {
 
     const descendants = (
       await Promise.all(
-        records[0].get(0).map((descendant: Node) => {
+        records[0]?.get(0).map((descendant: Node) => {
           const id = descendant.properties.id
 
           const element = Element.find({

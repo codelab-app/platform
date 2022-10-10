@@ -42,10 +42,10 @@ const Index = (props: AppPagePageProps) => {
   return (
     <>
       <Head>
-        <title>{page?.name}</title>
+        <title>{page.name}</title>
       </Head>
 
-      {page.elementTree && renderer ? (
+      {renderer ? (
         <Renderer renderRoot={renderer.renderRoot.bind(renderer)} />
       ) : null}
     </>
@@ -124,12 +124,10 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`Page ${pageSlug} of App ${appSlug} Not found`)
   }
 
-  const appStore = app?.store?.id
-    ? await storeService.getOne(app.store.id)
-    : null
+  const appStore = app.store.id ? await storeService.getOne(app.store.id) : null
 
   if (appStore?.apiId) {
-    typeService.types.get(appStore?.apiId)
+    typeService.types.get(appStore.apiId)
   }
 
   // components are needed to build pageElementTree
@@ -138,9 +136,9 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
   // await componentService.loadComponentTree()
   return {
     props: {
-      appId: app?.id,
+      appId: app.id,
       pageId: page.id,
-      storeId: app?.store?.id,
+      storeId: app.store.id,
     },
     revalidate: 10,
   }

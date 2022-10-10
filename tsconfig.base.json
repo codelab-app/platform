@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
+    "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "importHelpers": true,
     "target": "es2015",

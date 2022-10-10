@@ -20,7 +20,7 @@ export const PageDetailHeader = observer<{ pageService: IPageService }>(
       (p) => p.app.id === currentAppId,
     )
 
-    const currentPage = pagesList?.find((x) => x?.id === pageId)
+    const currentPage = pagesList.find((x) => x.id === pageId)
     const isBuilder = router.pathname === PageType.PageBuilder
 
     const switchPreviewMode = () => {
@@ -35,9 +35,9 @@ export const PageDetailHeader = observer<{ pageService: IPageService }>(
         icon: <FileOutlined />,
         key: 'sub1',
         title: currentPage?.name,
-        children: pagesList?.map((page) => ({
+        children: pagesList.map((page) => ({
           key: page.id,
-          label: <span>{page?.name}</span>,
+          label: <span>{page.name}</span>,
           onClick: () =>
             router.push(
               {

@@ -51,7 +51,7 @@ export const Builder = observer<BuilderProps>(
     return (
       <StyledBuilderContainer
         id={BUILDER_CONTAINER_ID}
-        key={elementTree?.id}
+        key={elementTree.id}
         onClick={handleContainerClick}
         onMouseLeave={handleMouseLeave}
         onMouseOver={handleMouseOver}

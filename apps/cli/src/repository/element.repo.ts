@@ -37,7 +37,7 @@ export const importElementInitial = async (
     } = await Element.create({
       input: [
         {
-          id: element.id ?? v4(),
+          id: element.id,
           name: element.name,
           // owner: connectNode(userId),
           customCss: element.customCss,
@@ -59,6 +59,10 @@ export const importElementInitial = async (
       ],
     })
 
+    if (!newElement) {
+      throw new Error('Element not created')
+    }
+
     return newElement
   }
 
@@ -74,6 +78,10 @@ export const importElementInitial = async (
       name: element.name,
     },
   })
+
+  if (!newElement) {
+    throw new Error('Element not created')
+  }
 
   return newElement
 }

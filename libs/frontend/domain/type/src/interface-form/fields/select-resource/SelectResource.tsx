@@ -10,11 +10,10 @@ export interface SelectResourcesProps {
 
 export const SelectResource = observer<SelectResourcesProps>(
   ({ name, resourceService }) => {
-    const options =
-      resourceService.resourceList?.map((resource) => ({
-        label: resource.name,
-        value: resource.id,
-      })) ?? []
+    const options = resourceService.resourceList.map((resource) => ({
+      label: resource.name,
+      value: resource.id,
+    }))
 
     return (
       <SelectField

@@ -35,14 +35,8 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
           onSubmit={(input) => {
-            if (!field) {
-              throw new Error(
-                'fieldDeleteModal.field is not defined, set it when opening the modal',
-              )
-            }
-
             return typeService.deleteField(
-              typeService.fieldDeleteModal?.interface?.id as string,
+              typeService.fieldDeleteModal.interface?.id as string,
               field.id,
             )
           }}
@@ -54,7 +48,7 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
           schema={emptyJsonSchema}
         >
           <h4>
-            Are you sure you want to delete field "{field?.name ?? field.key}"?
+            Are you sure you want to delete field "{field.name ?? field.key}"?
           </h4>
           <AutoFields />
         </ModalForm.Form>

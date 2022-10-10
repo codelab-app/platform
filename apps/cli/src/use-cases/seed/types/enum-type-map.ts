@@ -54,6 +54,10 @@ export const getEnumTypeForApi: FieldTypeRef = async ({
         ],
       })
 
+      if (!enumType) {
+        throw new Error('Failed to create enum')
+      }
+
       return {
         existingId: enumType.id,
       }

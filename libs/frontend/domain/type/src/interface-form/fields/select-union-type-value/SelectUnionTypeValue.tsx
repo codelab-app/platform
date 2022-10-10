@@ -14,7 +14,7 @@ export interface SelectUnionTypeValueProps {
 }
 
 const makeSelectOptions = (oneOf: Array<any>) => {
-  if (!oneOf?.length) {
+  if (!oneOf.length) {
     return []
   }
 
@@ -25,10 +25,6 @@ const makeSelectOptions = (oneOf: Array<any>) => {
 }
 
 const getTypeFromOneOf = (oneOf: Array<any>, typeId: string) => {
-  if (!oneOf) {
-    return undefined
-  }
-
   if (!typeId) {
     return oneOf[0]
   }

@@ -90,6 +90,10 @@ export class ActionService
       updateActionApi[action.type](updateInput),
     )
 
+    if (!updatedAction) {
+      throw new Error('Update action failed')
+    }
+
     const actionModel = Action.create(updatedAction)
     this.actions.set(updatedAction.id, actionModel)
 
@@ -159,7 +163,7 @@ export class ActionService
       ).then((res) => res.flat()),
     )
 
-    if (!createdActions?.length) {
+    if (!createdActions.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Action was not created')
     }

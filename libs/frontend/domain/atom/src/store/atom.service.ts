@@ -49,7 +49,7 @@ export class AtomService
     atom: Atom,
     { name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
   ) {
-    const allowedChildrenIds = allowedChildren?.map(
+    const allowedChildrenIds = allowedChildren.map(
       (allowedChild) => allowedChild,
     )
 
@@ -65,9 +65,9 @@ export class AtomService
       }),
     )
 
-    const updatedAtom = updateAtoms?.atoms[0]
+    const updatedAtom = updateAtoms.atoms[0]
 
-    if (!atom) {
+    if (!updatedAtom) {
       throw new Error('Failed to update atom')
     }
 
@@ -147,7 +147,7 @@ export class AtomService
           }
 
     const input = data.map((atom) => ({
-      id: atom?.id ?? v4(),
+      id: atom.id ?? v4(),
       name: atom.name,
       type: atom.type,
       tags: { connect: connectTags(atom) },
@@ -196,11 +196,13 @@ export class AtomService
   @modelFlow
   @transaction
   delete = _async(function* (this: IAtomService, id: string) {
-    const existing = throwIfUndefined(this.atoms.get(id))
+    const existing = this.atoms.get(id)
 
-    if (existing) {
-      this.atoms.delete(id)
+    if (!existing) {
+      throw new Error('Atom not found')
     }
+
+    this.atoms.delete(id)
 
     const { deleteAtoms } = yield* _await(
       atomApi.DeleteAtoms({ where: { id } }),

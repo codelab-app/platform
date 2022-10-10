@@ -80,7 +80,7 @@ export class BuilderService
       .groupBy(
         (component) =>
           // Here we assume each atom only has one category tag
-          component.tags?.filter(
+          component.tags.filter(
             (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
           )[0]?.maybeCurrent?.name,
       )
@@ -179,7 +179,7 @@ export class BuilderService
 
       return [...refs.values()].reduce((prev, node) => {
         const component = findParent(node, (parent) => {
-          return (parent as AnyModel)?.[modelTypeKey] === '@codelab/Component'
+          return (parent as AnyModel)[modelTypeKey] === '@codelab/Component'
         })
 
         return component ? component : prev

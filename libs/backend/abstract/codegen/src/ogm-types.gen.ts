@@ -2010,7 +2010,7 @@ export type Field = {
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   validationRules?: Maybe<Scalars['String']>
-  defaultValues: Prop
+  defaultValues?: Maybe<Prop>
 }
 
 export type IBaseType = {
@@ -4884,7 +4884,7 @@ export type InterfaceTypeFieldsRelationship = Field & {
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   validationRules?: Maybe<Scalars['String']>
-  defaultValues: Prop
+  defaultValues?: Maybe<Prop>
 }
 
 export type InterfaceTypesConnection = {

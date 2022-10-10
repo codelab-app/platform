@@ -39,7 +39,7 @@ const hydrate = (data: IFieldProps) => {
     key,
     type: typeRef(fieldType.id),
     validationRules,
-    defaultValues: propRef(defaultValues.id),
+    defaultValues: propRef(defaultValues?.id ?? ''),
   })
 }
 
@@ -65,7 +65,7 @@ export class Field
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
     this.validationRules = JSON.parse(fragment.validationRules || '{}')
-    this.defaultValues = propRef(fragment.defaultValues.id)
+    this.defaultValues = propRef(fragment.defaultValues?.id ?? '')
 
     return this
   }

@@ -23,7 +23,7 @@ export const validateNonRecursive = async (
       ),
     )
 
-    if (results.some((result) => Boolean(result?.isTypeDescendantOf))) {
+    if (results.some((result) => Boolean(result.isTypeDescendantOf))) {
       throw new Error(
         'Cannot update type because it will cause a circular dependency',
       )

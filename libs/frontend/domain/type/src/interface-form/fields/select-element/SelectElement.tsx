@@ -90,7 +90,12 @@ export const SelectElement = ({
 const getElementChildren = (
   el: SelectElementOption,
   elementMap: Record<string, SelectElementOption>,
-) => el.childrenIds?.map((childId) => elementMap[childId]) || []
+) =>
+  el.childrenIds
+    ?.map((childId) => elementMap[childId])
+    .filter((selectElementOption): selectElementOption is SelectElementOption =>
+      Boolean(selectElementOption),
+    ) ?? []
 
 const getDescendants = (
   element: SelectElementOption,

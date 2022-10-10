@@ -13,11 +13,7 @@ export const useOnClickOutside = (
 
   useEffect(() => {
     const listener: OnClickHandler = (e) => {
-      if (
-        !ref.current ||
-        !handlerCb ||
-        ref.current.contains(e.target as Node)
-      ) {
+      if (!ref.current || ref.current.contains(e.target as Node)) {
         return
       }
 

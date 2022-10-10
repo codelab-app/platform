@@ -68,6 +68,10 @@ export const connectUnionType: FieldTypeRef = async ({
       ],
     })
 
+    if (!unionType) {
+      throw new Error('Union type not created')
+    }
+
     return {
       existingId: unionType.id,
     }

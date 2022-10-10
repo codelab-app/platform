@@ -25,7 +25,7 @@ export const mapDeep = (
 ): IOutput => {
   obj = valueMapper(obj, key)
 
-  return !obj || isCyclic(obj)
+  return isCyclic(obj)
     ? obj
     : isArray(obj)
     ? map(obj, (innerObj, index) =>

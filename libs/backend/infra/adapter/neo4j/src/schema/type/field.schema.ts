@@ -18,7 +18,7 @@ export const fieldSchema = gql`
     name: String
     description: String
     validationRules: String
-    defaultValues: Prop!
+    defaultValues: Prop
   }
 
   ${sdl}

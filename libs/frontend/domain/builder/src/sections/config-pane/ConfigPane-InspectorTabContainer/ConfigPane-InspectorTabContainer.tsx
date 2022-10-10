@@ -203,9 +203,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                 elementTree={elementTree}
                 key={selectedNode.id}
                 providePropCompletion={(searchValue) =>
-                  selectedNode
-                    ? providePropCompletion(searchValue, selectedNode.id)
-                    : []
+                  providePropCompletion(searchValue, selectedNode.id)
                 }
               />
             ) : null}

@@ -19,7 +19,7 @@ export const UpdateDomainModal = observer<{
   const domain = domainService.updateModal.domain
   const currentAppId = useCurrentAppId()
 
-  if (!domain || !domain?.id) {
+  if (!domain || !domain.id) {
     return null
   }
 
@@ -29,7 +29,7 @@ export const UpdateDomainModal = observer<{
 
   const closeModal = () => domainService.updateModal.close()
 
-  if (!userService?.user) {
+  if (!userService.user) {
     throw new Error('Missing user for update app')
   }
 
@@ -42,7 +42,7 @@ export const UpdateDomainModal = observer<{
   }
 
   const model: IUpdateDomainDTO = {
-    name: domain?.name,
+    name: domain.name,
     appId: currentAppId,
     id: domain.id,
   }

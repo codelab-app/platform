@@ -18,7 +18,7 @@ export class CreateElementModalService
 {
   @computed
   get parentElement() {
-    return this.metadata?.parentElement?.current
+    return this.metadata?.parentElement.current
   }
 }
 

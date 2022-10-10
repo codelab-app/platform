@@ -43,7 +43,7 @@ const hydrate = ({ id, allowedValues, kind, name, owner }: IEnumTypeDTO) => {
     kind,
     name,
     allowedValues: allowedValues.map(EnumTypeValue.hydrate),
-    ownerId: owner?.id,
+    ownerId: owner.id,
   })
 }
 
@@ -62,8 +62,7 @@ export class EnumType
       throw new Error('Incorrect EnumType')
     }
 
-    this.allowedValues =
-      fragment.allowedValues?.map(EnumTypeValue.hydrate) ?? []
+    this.allowedValues = fragment.allowedValues.map(EnumTypeValue.hydrate)
 
     return this
   }

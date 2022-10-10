@@ -8,8 +8,8 @@ import {
   Element,
   ElementService,
   ElementTree,
-  Prop,
 } from '@codelab/frontend/domain/element'
+import { Prop } from '@codelab/frontend/domain/prop'
 import {
   AnyTypeModel,
   InterfaceType,

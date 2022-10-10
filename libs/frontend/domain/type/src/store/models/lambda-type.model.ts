@@ -15,7 +15,7 @@ const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
     id,
     kind,
     name,
-    ownerId: owner?.id,
+    ownerId: owner.id,
   })
 }
 

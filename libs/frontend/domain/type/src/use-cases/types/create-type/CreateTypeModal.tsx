@@ -20,7 +20,7 @@ export const CreateTypeModal = observer<{
   userService: IUserService
 }>(({ typeService, userService }) => {
   const closeModal = () => typeService.createModal.close()
-  const user = userService?.user
+  const user = userService.user
 
   return (
     <ModalForm.Modal

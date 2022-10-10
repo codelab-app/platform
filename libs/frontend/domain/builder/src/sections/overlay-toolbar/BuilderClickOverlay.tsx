@@ -49,7 +49,7 @@ export const BuilderClickOverlay = observer<{
     <StyledOverlayContainer className="click-overlay-toolbar">
       <span>
         {selectedNode.name}{' '}
-        {selectedNode.atom ? `(${selectedNode.atom?.current.name})` : ''}
+        {selectedNode.atom ? `(${selectedNode.atom.current.name})` : ''}
       </span>
       <StyledOverlayButtonGroup>
         <Button
@@ -59,7 +59,7 @@ export const BuilderClickOverlay = observer<{
 
             elementService.createModal.open({
               // TODO: null!
-              parentElement: selectedNode?.renderComponentType
+              parentElement: selectedNode.renderComponentType
                 ? null!
                 : elementRef(selectedNode.id),
             })

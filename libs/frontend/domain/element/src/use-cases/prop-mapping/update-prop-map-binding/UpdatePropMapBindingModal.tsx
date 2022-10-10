@@ -62,7 +62,7 @@ export const UpdatePropMapBindingModal =
             model={{
               sourceKey: pmb?.sourceKey,
               targetKey: pmb?.targetKey,
-              targetElementId: pmb?.targetElementId?.id,
+              targetElementId: pmb?.targetElementId,
             }}
             onSubmit={(data) => {
               if (!pmb || !element) {

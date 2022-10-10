@@ -184,10 +184,10 @@ export class Renderer
    * Takes the provider tree and wrap it around our root element
    */
   private renderWithProviders(rootElement: ReactElement) {
-    const providerRoot = this.appTree?.current?.root
+    const providerRoot = this.appTree?.current.root
 
     const providerElements = providerRoot
-      ? [providerRoot, ...(providerRoot?.leftHandDescendants ?? [])]
+      ? [providerRoot, ...providerRoot.leftHandDescendants]
       : []
 
     const providerOutputsMaybeArray = providerElements.map((element) =>
@@ -302,11 +302,7 @@ export class Renderer
           }
     }
 
-    if (!this.renderPipe) {
-      throw new Error('RenderPipe not set!')
-    }
-
-    const output = this.renderPipe?.render(element, props)
+    const output = this.renderPipe.render(element, props)
 
     return mapOutput(output, appendGlobalProps)
   }
@@ -328,7 +324,7 @@ export class Renderer
         return undefined
       }
 
-      const children = element.children?.map((child) =>
+      const children = element.children.map((child) =>
         this.renderElement(child),
       )
 
@@ -377,10 +373,6 @@ export class Renderer
   }
 
   private replaceStateInProps = (props: IPropData) => {
-    if (!this.state) {
-      return props
-    }
-
     props = mapDeep(
       props,
       // value mapper

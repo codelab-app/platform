@@ -23,7 +23,7 @@ const hydrate = ({
     kind,
     name,
     language,
-    ownerId: owner?.id,
+    ownerId: owner.id,
   })
 }
 

@@ -16,7 +16,9 @@ export const ComponentsGroupedByTag = ({
       {tags.map((tag) => (
         <React.Fragment key={tag}>
           <Typography.Title level={4}>{tag}</Typography.Title>
-          <GetComponentsList components={componentsGroupedByCategory[tag]} />
+          <GetComponentsList
+            components={componentsGroupedByCategory[tag] ?? []}
+          />
         </React.Fragment>
       ))}
     </div>

@@ -20,14 +20,18 @@ export const redirectExternalDomain = async ({
 
   const app = apps[0]
 
-  if (app?.owner.username) {
+  if (!app) {
+    throw new Error('Missing app')
+  }
+
+  if (app.owner.username) {
     const url = new URL(
       `/_sites/user/${app.owner.username}/${app.slug}${pathname}`,
       redirectedDomainUrl,
     )
 
     console.log('redirectExternalDomain', {
-      owner: app?.owner.username,
+      owner: app.owner.username,
       redirectedUrl: JSON.stringify(url),
       hostname,
     })

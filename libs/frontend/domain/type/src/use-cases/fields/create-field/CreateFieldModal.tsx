@@ -78,7 +78,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           }}
           onSubmit={(input) =>
             typeService.addField(
-              typeService.fieldCreateModal?.interface?.id as string,
+              typeService.fieldCreateModal.interface?.id as string,
               {
                 ...input,
                 validationRules: filterValidationRules(

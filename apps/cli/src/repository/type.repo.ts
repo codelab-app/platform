@@ -39,10 +39,6 @@ export const upsertType = async (
     case ITypeKind.PrimitiveType: {
       const PrimitiveType = await Repository.instance.PrimitiveType
 
-      if (!type.primitiveKind) {
-        throw new Error('Missing primitiveKind')
-      }
-
       const exists = await PrimitiveType.find({
         where: where(type),
       })

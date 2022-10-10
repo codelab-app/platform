@@ -117,14 +117,14 @@ const parseBoxShadow = (boxShadow: Nullish<string>): BoxShadowState => {
   // extract the rest of the values (the numbers)
   const [offsetX, offsetY, blurRadius, spreadRadius] = boxShadow.split(' ')
   // separate the numbers from the units
-  const offsetXNumber = extractCssNumber(offsetX)
-  const offsetXUnit = extractCssUnit(offsetX)
-  const offsetYNumber = extractCssNumber(offsetY)
-  const offsetYUnit = extractCssUnit(offsetY)
-  const blurRadiusNumber = extractCssNumber(blurRadius)
-  const blurRadiusUnit = extractCssUnit(blurRadius)
-  const spreadRadiusNumber = extractCssNumber(spreadRadius)
-  const spreadRadiusUnit = extractCssUnit(spreadRadius)
+  const offsetXNumber = extractCssNumber(offsetX ?? '')
+  const offsetXUnit = extractCssUnit(offsetX ?? '')
+  const offsetYNumber = extractCssNumber(offsetY ?? '')
+  const offsetYUnit = extractCssUnit(offsetY ?? '')
+  const blurRadiusNumber = extractCssNumber(blurRadius ?? '')
+  const blurRadiusUnit = extractCssUnit(blurRadius ?? '')
+  const spreadRadiusNumber = extractCssNumber(spreadRadius ?? '')
+  const spreadRadiusUnit = extractCssUnit(spreadRadius ?? '')
 
   return {
     boxShadow: { ...props.boxShadow, value: true },
@@ -209,41 +209,39 @@ export const BoxShadow = observer(
                 <></>
               }
             </CssPropEditorItem>
-          ) : boxShadowState['boxShadow'] ? (
-            property.type === 'input-number-with-unit' ? (
-              <InputNumberWithUnits
-                currentUnit={property.unit}
-                currentValue={property.value}
-                disabled={property.unit === 'unset'}
-                name={property.name}
-                onChange={(value, unit) =>
-                  setBoxShadowState({
-                    ...boxShadowState,
-                    [property.name]: {
-                      ...boxShadowState[property.name],
-                      value,
-                      unit,
-                    },
-                  })
-                }
-                units={property.units ?? []}
-              />
-            ) : (
-              <ColorPicker
-                currentValue={property.value}
-                name={property.name}
-                onChange={(value) =>
-                  setBoxShadowState({
-                    ...boxShadowState,
-                    [property.name]: {
-                      ...boxShadowState[property.name],
-                      value,
-                    },
-                  })
-                }
-              />
-            )
-          ) : null,
+          ) : property.type === 'input-number-with-unit' ? (
+            <InputNumberWithUnits
+              currentUnit={property.unit}
+              currentValue={property.value}
+              disabled={property.unit === 'unset'}
+              name={property.name}
+              onChange={(value, unit) =>
+                setBoxShadowState({
+                  ...boxShadowState,
+                  [property.name]: {
+                    ...boxShadowState[property.name],
+                    value,
+                    unit,
+                  },
+                })
+              }
+              units={property.units}
+            />
+          ) : (
+            <ColorPicker
+              currentValue={property.value}
+              name={property.name}
+              onChange={(value) =>
+                setBoxShadowState({
+                  ...boxShadowState,
+                  [property.name]: {
+                    ...boxShadowState[property.name],
+                    value,
+                  },
+                })
+              }
+            />
+          ),
         )}
       </>
     )

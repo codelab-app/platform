@@ -11,6 +11,10 @@ export const getReactNodeTypeForApi: FieldTypeRef = async () => {
     },
   })
 
+  if (!renderNodeType) {
+    throw new Error('Render node type not found')
+  }
+
   return {
     existingId: renderNodeType.id,
   }

@@ -12,7 +12,7 @@ describe('PropMapBindings', () => {
     const pmb = new PropMapBinding({
       id: v4(),
       sourceKey: 'parentProp',
-      targetElementId: elementRef(data.elementToRender02),
+      targetElementId: data.elementToRender02.id,
       targetKey: 'childProp',
     })
 
@@ -39,7 +39,7 @@ describe('PropMapBindings', () => {
     const pmb = new PropMapBinding({
       id: v4(),
       sourceKey: 'parentProp',
-      targetElementId: null,
+      targetElementId: '',
       targetKey: 'parentProp2',
     })
 

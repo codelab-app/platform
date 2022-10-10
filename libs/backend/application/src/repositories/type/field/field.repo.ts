@@ -60,7 +60,7 @@ export const fieldRepository = {
 
       return merge(updatedInterfaceType, {
         fieldsConnection: {
-          edges: updatedInterfaceType.fieldsConnection.edges.map((edge) => ({
+          edges: updatedInterfaceType?.fieldsConnection.edges.map((edge) => ({
             node: {
               __resolveType: edge.node.kind,
             },

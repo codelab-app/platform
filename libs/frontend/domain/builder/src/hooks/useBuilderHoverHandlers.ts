@@ -20,7 +20,7 @@ export const useBuilderHoverHandlers = ({
       return
     }
 
-    const target = e.target as HTMLElement
+    const target = e.target as HTMLElement | undefined
 
     if (!target) {
       set_hoveredNode(null)

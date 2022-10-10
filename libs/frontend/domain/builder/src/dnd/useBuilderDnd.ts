@@ -60,7 +60,7 @@ export const useBuilderDnd = (
 
       const shouldCreate =
         data?.type === BuilderDndType.CreateElement &&
-        data?.createElementInput !== undefined
+        data.createElementInput !== undefined
 
       const shouldMove = data?.type === BuilderDndType.MoveElement
 

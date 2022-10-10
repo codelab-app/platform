@@ -21,7 +21,7 @@ const hydrate = (component: IComponentDTO) => {
     id: component.id,
     name: component.name,
     rootElementId: component.rootElement.id,
-    ownerId: component.owner?.id,
+    ownerId: component.owner.id,
     api: typeRef(component.api.id) as Ref<InterfaceType>,
   })
 }
@@ -45,7 +45,7 @@ export class Component
   writeCache(fragment: IComponentDTO) {
     this.setName(fragment.name)
     this.rootElementId = fragment.rootElement.id
-    this.ownerId = fragment.owner?.id
+    this.ownerId = fragment.owner.id
     this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
 
     return this

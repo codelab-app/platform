@@ -2,7 +2,11 @@ import { insertBracket, startCompletion } from '@codemirror/autocomplete'
 import { EditorView } from '@codemirror/view'
 
 const getTextBeforeCursor = (view: EditorView): string => {
-  const selectionFrom = view.state.selection.ranges[0].from
+  const selectionFrom = view.state.selection.ranges[0]?.from
+
+  if (!selectionFrom) {
+    return ''
+  }
 
   return view.state.doc.sliceString(selectionFrom - 1, selectionFrom)
 }

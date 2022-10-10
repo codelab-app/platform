@@ -41,15 +41,11 @@ export const InterfaceForm = observer(
         autorun(() => {
           const typeTreeSchema = transformer.transform(interfaceType, context)
           setFormSchema(
-            mergeDeepRight(initialSchemaRef?.current ?? {}, typeTreeSchema),
+            mergeDeepRight(initialSchemaRef.current ?? {}, typeTreeSchema),
           )
         }),
       [interfaceType],
     )
-
-    if (!formSchema) {
-      return null
-    }
 
     return (
       <Form

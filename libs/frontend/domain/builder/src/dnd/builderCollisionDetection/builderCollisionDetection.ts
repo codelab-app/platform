@@ -51,7 +51,7 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
     droppableContainers: rectIntersectingContainers,
   })
 
-  if (elementsSortedByIntersectY?.[0]?.data) {
+  if (elementsSortedByIntersectY[0]?.data) {
     const el0 = elementsSortedByIntersectY[0]
 
     const { droppableContainer, collisionRect } = el0.data as Data

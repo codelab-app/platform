@@ -13,11 +13,6 @@ import { AtomFactoryInput, AtomFactoryResult } from './types'
  */
 export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
   const { atomType, node, props } = input
-
-  if (!atomType || !node) {
-    return [null, {}]
-  }
-
   /**
    * Get ReactComponent by atomType, this takes in a module mapper to resolve the ReactComponent
    */

@@ -19,8 +19,8 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       return this
     }
 
-    toString() {
-      return `{ ${this.name}: ${this.kind} }`
-    }
+    // toString() {
+    //   return `{ ${this.name}: ${this.kind} }`
+    // }
   }
 }

@@ -14,6 +14,10 @@ export const getPrimitiveTypeForApi: FieldTypeRef = async ({ field, atom }) => {
         },
       })
 
+      if (!booleanType) {
+        throw new Error('Boolean type not found')
+      }
+
       return {
         existingId: booleanType.id,
       }
@@ -25,6 +29,10 @@ export const getPrimitiveTypeForApi: FieldTypeRef = async ({ field, atom }) => {
           name: IPrimitiveTypeKind.Float,
         },
       })
+
+      if (!floatType) {
+        throw new Error('Boolean type not found')
+      }
 
       return {
         existingId: floatType.id,
@@ -38,6 +46,10 @@ export const getPrimitiveTypeForApi: FieldTypeRef = async ({ field, atom }) => {
           name: IPrimitiveTypeKind.String,
         },
       })
+
+      if (!stringType) {
+        throw new Error('Primitive type not found')
+      }
 
       return {
         existingId: stringType.id,

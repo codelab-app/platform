@@ -9830,7 +9830,7 @@ type EnumTypesConnection {
 }
 
 interface Field {
-  defaultValues: Prop!
+  defaultValues: Prop
   description: String
   id: ID!
   key: String!
@@ -11194,7 +11194,7 @@ input InterfaceTypeFieldsFieldInput {
 
 type InterfaceTypeFieldsRelationship implements Field {
   cursor: String!
-  defaultValues: Prop!
+  defaultValues: Prop
   description: String
   id: ID!
   key: String!

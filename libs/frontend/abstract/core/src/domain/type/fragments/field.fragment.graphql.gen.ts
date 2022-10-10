@@ -32,7 +32,7 @@ export type FieldFragment = {
     | { id: string }
     | { id: string }
     | { id: string }
-  defaultValues: PropFragment
+  defaultValues?: PropFragment | null
 }
 
 export const FieldFragmentDoc = gql`

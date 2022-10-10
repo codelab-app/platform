@@ -15,12 +15,12 @@ export default async function middleware(req: NextRequest) {
     process.env.NEXT_PUBLIC_ROOT_DOMAINS?.split(',') || []
 
   const matchedPublicDomains = publicRootDomains.find((domain) =>
-    hostname?.includes(domain),
+    hostname.includes(domain),
   )
 
   // vercel domain is for previewing, dev only
   const vercelURL = String(process.env.VERCEL_URL)
-  const matchedVercelDomain = hostname?.includes(vercelURL)
+  const matchedVercelDomain = hostname.includes(vercelURL)
   const isRootHostName = Boolean(matchedPublicDomains)
   const { pathname } = req.nextUrl
   const isApi = pathname.includes('api')

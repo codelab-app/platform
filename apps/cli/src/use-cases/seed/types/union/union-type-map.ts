@@ -1,5 +1,6 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { logger } from '@codelab/shared/adapter/logging'
 import { connectTypeId } from '@codelab/shared/data'
 import { capitalizeFirstLetter, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
@@ -46,24 +47,27 @@ import { connectUnionType } from './connect-union'
 //   }
 // }
 
+/**
+ *
+ * @param field
+ * @param atom
+ * @param userId
+ * @param values the is array of types for union (currently we filtered it to primitive types only)
+ */
 export const getUnionTypeForApi: FieldTypeRef = async ({
   field,
   atom,
   userId,
   values,
 }) => {
+  logger.info('Get Union Type', values)
+
   const UnionType = await Repository.instance.UnionType
 
   /**
    * If we have a nested interface type
    */
   if (containsInterfaceType(field)) {
-    // values
-    //   .filter((item) => item.match(isInterfaceTypeRegex))
-    //   .map((item) => {
-    //     extractObjectFromString(item, 'name')
-    //   })
-
     const [existingUnion] = await UnionType.find({
       where: {
         AND: [
@@ -102,52 +106,76 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
               InterfaceType: {
                 create: values
                   .filter((item: string) => item.match(isInterfaceTypeRegex))
-                  .map((value: string) => ({
-                    node: {
-                      id: v4(),
-                      name: `${atom.name} ${pascalCaseToWords(
-                        field.property,
-                      )} ${capitalizeFirstLetter(
-                        // TODO: Need to add case for multiple keys
-                        Object.keys(extractObjectFromString(value))[0],
-                      )} API`,
-                      kind: ITypeKind.InterfaceType,
-                      owner: connectTypeId(userId),
-                      fields: {
-                        connect: values
-                          .filter((item: string) =>
-                            item.match(isInterfaceTypeRegex),
-                          )
-                          .map((item: string) => ({
-                            edge: {
-                              id: v4(),
-                              key: Object.keys(
-                                extractObjectFromString(item),
-                              )[0],
-                              name: capitalizeFirstLetter(
-                                Object.keys(extractObjectFromString(value))[0],
-                              ),
-                            },
-                            where: {
-                              node: {
-                                // kind: checkTypeKind(item),
-                                name: mapPrimitiveType(
-                                  Object.values(
-                                    extractObjectFromString(item),
-                                  )[0],
-                                ),
-                              },
-                            },
-                          })),
+                  .map((interfaceType: string) => {
+                    // TODO: Need to add case for multiple keys
+                    const interfaceTypeName = Object.keys(
+                      extractObjectFromString(interfaceType),
+                    )[0]
+
+                    if (!interfaceTypeName) {
+                      throw new Error('Invalid interface type name')
+                    }
+
+                    return {
+                      node: {
+                        id: v4(),
+                        name: `${atom.name} ${pascalCaseToWords(
+                          field.property,
+                        )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
+                        kind: ITypeKind.InterfaceType,
+                        owner: connectTypeId(userId),
+                        fields: {
+                          connect: values
+                            .filter((type: string) =>
+                              type.match(isInterfaceTypeRegex),
+                            )
+                            .map((item: string) => {
+                              const typeId = v4()
+
+                              const typeName = Object.keys(
+                                extractObjectFromString(interfaceType),
+                              )[0]
+
+                              if (!typeName) {
+                                throw new Error('missing type name')
+                              }
+
+                              const existingTypeName = mapPrimitiveType(
+                                Object.values(extractObjectFromString(item))[0],
+                              )
+
+                              if (!existingTypeName) {
+                                throw new Error('Field type not found')
+                              }
+
+                              return {
+                                edge: {
+                                  id: typeId,
+                                  key: typeName,
+                                  name: capitalizeFirstLetter(typeName),
+                                },
+                                where: {
+                                  node: {
+                                    // Connect to our primitive type by name
+                                    name: existingTypeName,
+                                  },
+                                },
+                              }
+                            }),
+                        },
                       },
-                    },
-                  })),
+                    }
+                  }),
               },
             },
             owner: connectTypeId(userId),
           },
         ],
       })
+
+      if (!unionType) {
+        throw new Error('Union type creation failed')
+      }
 
       return {
         existingId: unionType.id,

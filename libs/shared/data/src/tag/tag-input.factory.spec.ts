@@ -5,7 +5,7 @@ describe('Tag Parser', () => {
   it('can generate tag tree data', () => {
     const data = createTagTreeData()
     // Pick the most nested and assert
-    const generalTagNode = data.find((node) => node?.name === AntdTag.General)
+    const generalTagNode = data.find((node) => node.name === AntdTag.General)
 
     // Assert root node
     expect(generalTagNode?.parent).toBeNull()
@@ -13,12 +13,12 @@ describe('Tag Parser', () => {
     expect(generalTagNode?.children).toHaveLength(3)
 
     // Assert leaf node
-    const typographyNode = generalTagNode?.children?.[2]
+    const typographyNode = generalTagNode?.children[2]
 
     expect(typographyNode?.children).toHaveLength(3)
-    expect(typographyNode?.children?.[0].name).toBe(AntdTag.TypographyText)
-    expect(typographyNode?.children?.[1].name).toBe(AntdTag.TypographyTitle)
-    expect(typographyNode?.children?.[2].name).toBe(AntdTag.TypographyParagraph)
+    expect(typographyNode?.children[0]?.name).toBe(AntdTag.TypographyText)
+    expect(typographyNode?.children[1]?.name).toBe(AntdTag.TypographyTitle)
+    expect(typographyNode?.children[2]?.name).toBe(AntdTag.TypographyParagraph)
   })
 
   it('can flatten tag tree data', () => {

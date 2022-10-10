@@ -11,7 +11,7 @@ export const isAdmin = (user: Nullish<IUser>): user is IUser & boolean => {
 }
 
 export const isAdminSession = (session: Auth0SessionUser) => {
-  return session[JWT_CLAIMS]?.roles?.includes(IRole.Admin)
+  return session[JWT_CLAIMS].roles.includes(IRole.Admin)
 }
 
 export const isUser = (user: Nullish<IUser>): user is IUser & boolean => {

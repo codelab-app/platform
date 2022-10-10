@@ -11,6 +11,10 @@ export const getRenderPropTypeForApi: FieldTypeRef = async () => {
     },
   })
 
+  if (!renderPropsType) {
+    throw new Error('Render props type not found')
+  }
+
   return {
     existingId: renderPropsType.id,
   }

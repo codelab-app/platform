@@ -23,15 +23,15 @@ export const UpdateAppModal = observer<{
   const onSubmit = (input: IUpdateAppDTO) => appService.update(app, input)
   const closeModal = () => appService.updateModal.close()
 
-  if (!userService?.user) {
+  if (!userService.user) {
     throw new Error('Missing user for update app')
   }
 
   const model = {
-    name: app?.name,
+    name: app.name,
     slug: app.slug,
-    ownerId: userService?.user.auth0Id,
-    storeId: app?.store?.id,
+    ownerId: userService.user.auth0Id,
+    storeId: app.store.id,
   }
 
   return (

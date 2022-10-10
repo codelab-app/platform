@@ -103,9 +103,9 @@ page/component
       }),
     )
 
-    const updatedPage = updatePages?.pages[0]
+    const updatedPage = updatePages.pages[0]
 
-    if (!page) {
+    if (!updatedPage) {
       throw new Error('Failed to update page')
     }
 
@@ -188,11 +188,13 @@ page/component
   @modelFlow
   @transaction
   delete = _async(function* (this: PageService, id: string) {
-    const existing = throwIfUndefined(this.pages.get(id))
+    const existing = this.pages.get(id)
 
-    if (existing) {
-      this.pages.delete(id)
+    if (!existing) {
+      throw new Error('Page not found')
     }
+
+    this.pages.delete(id)
 
     const { deletePages } = yield* _await(
       pageApi.DeletePages({ where: { id } }),

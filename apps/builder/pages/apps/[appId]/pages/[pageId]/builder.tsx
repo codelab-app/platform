@@ -67,6 +67,10 @@ const PageBuilder: CodelabPage = observer(() => {
       codeMirrorTypes,
     } = await pageService.getRenderedPage(appId, pageId)
 
+    if (!apps[0]) {
+      return
+    }
+
     const { pageElementTree, page, store } = appService.load({
       app: apps[0],
       pageId,
@@ -128,7 +132,7 @@ const PageBuilder: CodelabPage = observer(() => {
   return (
     <>
       <Head>
-        <title>{value?.page?.name} | Builder | Codelab</title>
+        <title>{value?.page.name} | Builder | Codelab</title>
       </Head>
 
       <BuilderTabs
@@ -193,7 +197,7 @@ PageBuilder.Layout = observer((page) => {
                 elementService={elementService}
                 // The element tree changes depending on whether a page or a component is selected
                 elementTree={activeElementTree}
-                key={pageBuilderRenderer?.pageTree?.current.root?.id}
+                key={pageBuilderRenderer.pageTree?.current.root?.id}
                 renderService={pageBuilderRenderer}
                 typeService={typeService}
                 userService={userService}

@@ -96,9 +96,7 @@ export const hydrate = ({
       ? componentRef(renderComponentType.id)
       : null,
     propMapBindings: objectMap(
-      propMapBindings
-        ? propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)])
-        : [],
+      propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)]),
     ),
   })
 }
@@ -108,7 +106,7 @@ export const getElementTree = (element: IElement): Maybe<IElementTree> => {
 
   return [...refs.values()].reduce((prev, node) => {
     const elementTree = findParent(node, (parent) => {
-      return (parent as AnyModel)?.[modelTypeKey] === '@codelab/ElementTree'
+      return (parent as AnyModel)[modelTypeKey] === '@codelab/ElementTree'
     })
 
     return elementTree ? elementTree : prev
@@ -331,12 +329,12 @@ export class Element
   get label() {
     return (
       this.name ||
-      this.atom?.current?.name ||
+      this.atom?.current.name ||
       (this.atom?.current
-        ? pascalCaseToWords(this.atom?.current.type)
+        ? pascalCaseToWords(this.atom.current.type)
         : undefined) ||
-      this.parentComponent?.current?.name ||
-      this.renderComponentType?.current?.name ||
+      this.parentComponent?.current.name ||
+      this.renderComponentType?.current.name ||
       ''
     )
   }
@@ -651,7 +649,7 @@ export class Element
         // sibling detaches
         ...disconnectNode(sibling.nextSibling?.id),
         // appends element
-        ...connectNode(this?.id),
+        ...connectNode(this.id),
       },
     })
   }
@@ -670,7 +668,7 @@ export class Element
         // sibling detaches its prev sibling
         ...disconnectNode(sibling.prevSibling?.id),
         // sibling prepends element
-        ...connectNode(this?.id),
+        ...connectNode(this.id),
       },
     })
   }
