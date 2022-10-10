@@ -10,6 +10,9 @@ export interface ICreateComponentDTO {
 
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined
+
+  // Allow for connection to existing element
+  rootElementId?: string | undefined
 }
 
 export type IUpdateComponentDTO = Omit<

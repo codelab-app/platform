@@ -65,12 +65,16 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
       )
     }
 
-    const onConvert = () => {
+    const onConvert = async () => {
       if (!user?.sub) {
         return
       }
 
-      return convertElementToComponent(element, user.sub, elementTree)
+      const createdElement = await convertElementToComponent(element, user.sub)
+
+      if (createdElement) {
+        elementTree?.addElements([createdElement])
+      }
     }
 
     const onEditComponent = () => {

@@ -7,11 +7,21 @@ import { v4 } from 'uuid'
 export const mapCreateInput = (
   input: ICreateComponentDTO,
 ): ComponentCreateInput => {
-  const { id = v4(), name, auth0Id } = input
+  const { id = v4(), name, auth0Id, rootElementId } = input
 
-  const rootElement: ComponentCreateInput['rootElement'] = {
+  const createRootElement: ComponentCreateInput['rootElement'] = {
     create: {
       node: makeCreateInput({ name }),
+    },
+  }
+
+  const connectRootElement: ComponentCreateInput['rootElement'] = {
+    connect: {
+      where: {
+        node: {
+          id: rootElementId,
+        },
+      },
     },
   }
 
@@ -28,7 +38,7 @@ export const mapCreateInput = (
   return {
     id,
     name,
-    rootElement,
+    rootElement: rootElementId ? connectRootElement : createRootElement,
     api,
     owner: connectOwner(auth0Id),
   }

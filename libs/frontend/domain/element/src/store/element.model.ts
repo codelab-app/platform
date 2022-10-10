@@ -718,6 +718,7 @@ export class Element
     guiCss,
     renderAtomType,
     renderComponentType,
+    parentComponent,
     hooks,
     propMapBindings,
     props,
@@ -763,8 +764,8 @@ export class Element
       }
     }
 
-    this.parentComponent = renderComponentType
-      ? componentRef(renderComponentType.id)
+    this.parentComponent = parentComponent
+      ? componentRef(parentComponent.id)
       : null
     this.renderComponentType = renderComponentType
       ? componentRef(renderComponentType.id)

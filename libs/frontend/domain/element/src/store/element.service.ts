@@ -8,7 +8,6 @@ import {
   IElementDTO,
   IElementRef,
   IElementService,
-  IElementTree,
   IInterfaceType,
   isAtomDTO,
   IUpdateElementDTO,
@@ -25,14 +24,8 @@ import {
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import {
-  connectNode,
-  connectOwner,
-  connectTypeOwner,
-  reconnectNode,
-} from '@codelab/shared/data'
+import { IEntity } from '@codelab/shared/abstract/types'
+import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
@@ -672,60 +665,43 @@ element is new parentElement's first child
     this: ElementService,
     element: Element,
     auth0Id: IAuth0Id,
-    elementTree: Nullable<IElementTree>,
   ) {
     if (!element.parentElement) {
       throw new Error("Can't convert root element")
     }
 
-    if (!elementTree) {
-      throw new Error('Element is not attached to a tree')
-    }
-
-    // 2. Attach a Component to the Element and detach it from the parent
-    const parentId = element.parentElement.id
-
-    yield* _await(
-      this.patchElement(element, {
-        parentComponent: {
-          create: {
-            node: {
-              id: v4(),
-              name: element.label,
-              owner: connectOwner(auth0Id),
-              rootElement: connectNode(element.id),
-              api: {
-                create: {
-                  node: {
-                    id: v4(),
-                    name: `${element.label} API`,
-                    fields: {},
-                    kind: ITypeKind.InterfaceType,
-                    apiOfAtoms: {},
-                    owner: connectTypeOwner(auth0Id),
-                  },
-                },
-              },
-            },
-          },
-        },
-      }),
-    )
-
-    if (!element.parentComponent) {
-      throw new Error('Could not find component')
-    }
-
-    // 3. Load component so we can use reference
+    const name = element.label
+    const elementId = element.id
+    const parentElement = element.parentElement
+    const prevSibling = element.prevSibling
     const componentService = getComponentService(this)
 
-    // 3. Make an intermediate element with instance of the Component
+    // 1. create the component with predefined root element
+    const [createdComponent] = yield* _await(
+      componentService.create([
+        {
+          auth0Id,
+          id: v4(),
+          name,
+          rootElementId: elementId,
+        },
+      ]),
+    )
+
+    if (!createdComponent) {
+      return
+    }
+
+    // 2. detach the element from the element tree
+    yield* _await(this.detachElementFromElementTree(elementId))
+
+    // 3. create a new element as an instance of the component
     const [newElement] = yield* _await(
       this.create([
         {
-          name: element.label,
-          renderComponentTypeId: element.parentComponent.id,
-          parentElementId: parentId,
+          name,
+          renderComponentTypeId: createdComponent?.id,
+          parentElementId: parentElement.id,
         },
       ]),
     )
@@ -734,7 +710,24 @@ element is new parentElement's first child
       return
     }
 
-    elementTree.addElements([newElement])
+    // 4. attach the new element to the element tree
+    if (!prevSibling) {
+      yield* _await(
+        this.attachElementAsFirstChild({
+          elementId: newElement.id,
+          parentElementId: parentElement.id,
+        }),
+      )
+    } else {
+      yield* _await(
+        this.attachElementAsNextSibling({
+          elementId: newElement.id,
+          targetElementId: prevSibling.id,
+        }),
+      )
+    }
+
+    return newElement
   })
 
   @modelFlow
