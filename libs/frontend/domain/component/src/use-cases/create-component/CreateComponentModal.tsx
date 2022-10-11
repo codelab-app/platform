@@ -34,7 +34,7 @@ export const CreateComponentModal = observer<{
       title={<span css={tw`font-semibold`}>Create component</span>}
       visible={componentService.createModal.isOpen}
     >
-      <ModalForm.Form<ICreateComponentDTO>
+      <ModalForm.Form<Omit<ICreateComponentDTO, 'rootElementId'>>
         model={{
           auth0Id: user?.auth0Id,
         }}

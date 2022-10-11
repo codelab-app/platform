@@ -1,7 +1,9 @@
 import { IUpdateComponentDTO } from '@codelab/frontend/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export const updateComponentSchema: JSONSchemaType<IUpdateComponentDTO> = {
+export const updateComponentSchema: JSONSchemaType<
+  Omit<IUpdateComponentDTO, 'rootElementId'>
+> = {
   title: 'Create Component Input',
   type: 'object',
   properties: {

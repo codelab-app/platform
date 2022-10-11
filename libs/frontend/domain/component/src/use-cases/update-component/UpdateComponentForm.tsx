@@ -28,7 +28,7 @@ export const UpdateComponentForm = observer<UpdateComponentFormProps>(
     }
 
     return (
-      <Form<IUpdateComponentDTO>
+      <Form<Omit<IUpdateComponentDTO, 'rootElementId'>>
         autosave
         model={model}
         onSubmit={onSubmit}
