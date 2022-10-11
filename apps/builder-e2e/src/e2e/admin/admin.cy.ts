@@ -26,7 +26,7 @@ describe('Admin', () => {
     it('should be able to seed twice without changing the database', () => {
       seedData()
 
-      return exportAndAssert(filePath).then((payload) => {
+      return exportAndAssert().then((payload) => {
         expect(payload).toEqual(initialPayload)
       })
     })
