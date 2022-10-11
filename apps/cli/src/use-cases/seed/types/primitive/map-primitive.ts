@@ -4,7 +4,7 @@ export const allPrimitives = ['number', 'string', 'boolean']
 
 // Function to check PrimitiveType of value
 export const mapPrimitiveType = (value: string) => {
-  switch (value.trim()) {
+  switch (value) {
     case 'boolean':
       return IPrimitiveTypeKind.Boolean
     case 'string':
@@ -16,7 +16,7 @@ export const mapPrimitiveType = (value: string) => {
     case 'integer':
       return IPrimitiveTypeKind.Integer
     default:
-      console.log(`Not Found Type Of [${value}]`)
+      console.log(`Type not found: [${value}]`)
 
       return null
   }

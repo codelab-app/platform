@@ -3,16 +3,17 @@ const es5FnReturnReactNode = /^function(.+): ReactNode$/
 /**
  * These are used to match for types we want to ignore for union types
  */
-const arrayTypeRegex = /\[.+\]|<.+>/
-const functionTypeRegex = /function|=>/
+const arrayTypeRegex = /(\[.+\]|<.+>)/
+
+export const functionTypeRegex = /(function|=>)/
 
 export const unionTypeRegex = /(function|=>|<|[?.;]|[[]])/
 
-export const skippedTypeRegex = new RegExp(
-  `/${arrayTypeRegex}|${functionTypeRegex}/`,
-)
+// export const skippedTypeRegex = new RegExp(
+//   `/${arrayTypeRegex}|${functionTypeRegex}/`,
+// )
 
-export const isPrimitiveTypesRegex = /(boolean|number|string|integer)/
+export const isPrimitiveTypesRegex = /^(boolean|number|string|integer)$/
 
 export const containsInterfaceTypeRegex = /\{.+\}/
 

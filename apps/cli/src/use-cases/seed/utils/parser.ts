@@ -1,3 +1,5 @@
+import { AntdDesignField } from '@codelab/backend/abstract/core'
+import { stripQuotes } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { stripBracketsRegex } from './matchers'
 
@@ -27,4 +29,18 @@ export const extractObjectFromString = (object: string): object => {
       })
       .reduce(merge) ?? {}
   )
+}
+
+/**
+ * Convert type string to array of types
+ *
+ * "'error' | 'warning'" -> ['error', 'warning']
+ */
+export const parseAntDesignTypeValues = (
+  field: Pick<AntdDesignField, 'type'>,
+) => {
+  const processedField = stripQuotes(field.type)
+  const values = processedField.split('|').map((value) => value.trim())
+
+  return values
 }

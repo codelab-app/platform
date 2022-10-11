@@ -15,6 +15,8 @@ export const toTitleCase = (value: string) => v.titleCase(value)
 
 export const toKebabCase = (value: string) => v.chain(value).kebabCase().value()
 
+export const stripQuotes = (value: string) => value.replace(/['"]/g, '')
+
 export const pascalCaseToWords = (input: string) =>
   input
     // insert a space before all caps

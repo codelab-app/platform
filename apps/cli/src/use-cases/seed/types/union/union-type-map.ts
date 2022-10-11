@@ -7,9 +7,9 @@ import { v4 } from 'uuid'
 import { isInterfaceTypeRegex } from '../../utils/matchers'
 import { extractObjectFromString } from '../../utils/parser'
 import {
-  containsInterfaceType,
   FieldTypeRef,
   isPrimitivePredicate,
+  unionContainsInterfaceType,
 } from '../../utils/type-predicates'
 import { mapPrimitiveType } from '../primitive/map-primitive'
 import { connectUnionType } from './connect-union'
@@ -67,7 +67,7 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
   /**
    * If we have a nested interface type
    */
-  if (containsInterfaceType(field)) {
+  if (unionContainsInterfaceType(values)) {
     const [existingUnion] = await UnionType.find({
       where: {
         AND: [
@@ -94,7 +94,7 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
             typesOfUnionType: {
               PrimitiveType: {
                 connect: values
-                  .filter((type) => isPrimitivePredicate({ type }))
+                  .filter((type) => isPrimitivePredicate([type]))
                   .map((value: string) => ({
                     where: {
                       node: {
@@ -187,9 +187,10 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
     }
   }
 
-  if (isPrimitivePredicate(field)) {
-    return connectUnionType({ field: field, atom, userId, values })
-  }
+  // Not needed here, we connect union type above
+  // if (isPrimitivePredicate(values)) {
+  //   return connectUnionType({ field: field, atom, userId, values })
+  // }
 
   console.log(`Could not transform fields for Atom [${atom.type}]`, field)
 

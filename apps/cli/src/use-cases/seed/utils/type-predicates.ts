@@ -5,10 +5,10 @@ import {
 } from '@codelab/backend/abstract/core'
 import {
   containsInterfaceTypeRegex,
+  functionTypeRegex,
   isPrimitiveTypesRegex,
   reactNodeTypeRegex,
   renderPropsRegexes,
-  skippedTypeRegex,
 } from './matchers'
 
 interface UnionTypeArgs {
@@ -21,32 +21,84 @@ interface UnionTypeArgs {
 
 export type FieldTypeRef = (args: UnionTypeArgs) => Promise<TypeRef>
 
-export type IsTypePredicate<Keys extends keyof AntdDesignField = 'type'> = (
-  apiField: Pick<AntdDesignField, Keys>,
-) => boolean
+/**
+ * We must check on parsed values as opposed to field.type
+ *
+ * We reduce each predicate by multiplying all elements in an array
+ */
+export type IsTypePredicates = (values: UnionTypeArgs['values']) => boolean
 
-// ReactNode is also render props
-export const isRenderPropType: IsTypePredicate = (field) => {
-  return renderPropsRegexes.some((regex) => regex.test(field.type))
+export const isPrimitivePredicate: IsTypePredicates = (values) => {
+  if (values.length !== 1) {
+    return false
+  }
+
+  return isPrimitiveTypesRegex.test(values[0] ?? '')
 }
 
-export const isPrimitivePredicate: IsTypePredicate = (field) =>
-  isPrimitiveTypesRegex.test(field.type)
+/**
+ * Some enum fields in Ant Design docs don't have CODE block, but uses `'` instead, so we can't rely on `isEnum` anymore
+ *
+ * Input.status = 'error' | 'warning'
+ *
+ * @param field
+ */
+export const isEnumType: IsTypePredicates = (values) => {
+  console.log(values)
 
-export const isEnumType: IsTypePredicate<'isEnum'> = (field) => field.isEnum
+  // Enum type must have more than 1 item
+  if (values.length <= 1) {
+    return false
+  }
 
-export const isUnionType: IsTypePredicate<'type' | 'isEnum'> = (field) =>
-  field.type.includes('|') &&
-  !field.isEnum &&
-  !skippedTypeRegex.test(field.type)
+  return values.reduce((passes, value) => {
+    return !functionTypeRegex.test(value) && passes
+  }, true)
+}
+
+export const isUnionType: IsTypePredicates = (values) => {
+  // Union type must have more than 1 item
+  if (values.length <= 1) {
+    return false
+  }
+
+  return values.reduce((passes, value) => {
+    return !functionTypeRegex.test(value) && passes
+  }, true)
+}
+
+export const isReactNodeType: IsTypePredicates = (values) => {
+  if (values.length !== 1) {
+    return false
+  }
+
+  return reactNodeTypeRegex.test(values[0] ?? '')
+}
+
+// ReactNode is also render props
+export const isRenderPropType: IsTypePredicates = (values) => {
+  if (values.length !== 1) {
+    return false
+  }
+
+  return renderPropsRegexes.some((regex) => regex.test(values[0] ?? ''))
+}
 
 /**
  * See if `boolean | { loading: true }` contains a nested interface
  */
-export const containsInterfaceType: IsTypePredicate = (field) =>
-  containsInterfaceTypeRegex.test(field.type) &&
-  // We don't want to parse edge cases yet
-  !skippedTypeRegex.test(field.type)
+export const unionContainsInterfaceType: IsTypePredicates = (values) => {
+  if (values.length <= 1) {
+    return false
+  }
 
-export const isReactNodeType: IsTypePredicate = (field) =>
-  reactNodeTypeRegex.test(field.type)
+  return values.reduce((passes, value) => {
+    // We use `||` since we only need 1 to have a nested interface
+    return (
+      containsInterfaceTypeRegex.test(value) ||
+      // We don't want to parse edge cases yet
+      !functionTypeRegex.test(value) ||
+      passes
+    )
+  }, true)
+}

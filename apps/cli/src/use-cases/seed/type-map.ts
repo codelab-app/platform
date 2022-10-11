@@ -9,6 +9,7 @@ import { getPrimitiveTypeForApi } from './types/primitive-type-map'
 import { getReactNodeTypeForApi } from './types/react-node-type-map'
 import { getRenderPropTypeForApi } from './types/render-prop-type'
 import { getUnionTypeForApi } from './types/union/union-type-map'
+import { parseAntDesignTypeValues } from './utils/parser'
 import {
   isEnumType,
   isPrimitivePredicate,
@@ -26,28 +27,26 @@ export const getTypeForApi = async (
   atom: IAtomImport,
   userId: string,
 ): Promise<TypeRef> => {
-  logTask('Get Type For API', atom.name, field)
+  const args = { field, atom, userId, values: parseAntDesignTypeValues(field) }
+  logTask('Get Type For API', atom.name, args)
 
-  const values = field.type.split('|').map((value) => value.trim())
-  const args = { field, atom, userId, values }
-
-  if (isEnumType(field)) {
+  if (isEnumType(args.values)) {
     return await getEnumTypeForApi(args)
   }
 
-  if (isReactNodeType(field)) {
+  if (isReactNodeType(args.values)) {
     return await getReactNodeTypeForApi(args)
   }
 
-  if (isRenderPropType(field)) {
+  if (isRenderPropType(args.values)) {
     return await getRenderPropTypeForApi(args)
   }
 
-  if (isUnionType(field)) {
+  if (isUnionType(args.values)) {
     return await getUnionTypeForApi(args)
   }
 
-  if (isPrimitivePredicate(field)) {
+  if (isPrimitivePredicate(args.values)) {
     return await getPrimitiveTypeForApi(args)
   }
 

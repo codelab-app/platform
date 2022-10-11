@@ -1579,6 +1579,895 @@
     },
     {
       "__typename": "EnumType",
+      "id": "52c2eae9-df9b-4909-bb49-4471f987f1e8",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Cross Origin Enum",
+      "allowedValues": [
+        {
+          "id": "ee09f1c8-2e6c-4bfd-bdac-0b33fc8a4da9",
+          "key": "",
+          "value": ""
+        },
+        {
+          "id": "ebf54171-e6f1-4238-bc47-6a02b5138e98",
+          "key": "anonymous",
+          "value": "Anonymous"
+        },
+        {
+          "id": "aa6a4eeb-c645-45fe-83a0-93ca9f6389b4",
+          "key": "use-credentials",
+          "value": "Use-credentials"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "4e9d80d5-7d7e-4108-8c91-2360c4fdec05",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Draggable Enum",
+      "allowedValues": [
+        {
+          "id": "36201d9c-d890-4dbc-a935-c1e31df37bbb",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "4215e516-86bb-46ff-8da7-a4917968f1a1",
+          "key": "false",
+          "value": "False"
+        },
+        {
+          "id": "f6ce5695-7819-4a61-bcff-4c58479adaf9",
+          "key": "true",
+          "value": "True"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "12e20349-2422-4dac-a9be-ad151bcc2d1c",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Shape Enum",
+      "allowedValues": [
+        {
+          "id": "a7b66d63-6234-4bc9-8f9a-4b209fa9bc7d",
+          "key": "circle",
+          "value": "Circle"
+        },
+        {
+          "id": "2cc16926-2b4c-46dd-b3b7-3903653633f1",
+          "key": "square",
+          "value": "Square"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "098377bc-b0c6-418e-9e81-e25e79a72f9b",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Size Enum",
+      "allowedValues": [
+        {
+          "id": "2361d09c-2114-4d7d-ad85-90a80a764aa0",
+          "key": "{ xs: number, sm: number, ...}",
+          "value": "{ xs: number, sm: number, ...}"
+        },
+        {
+          "id": "ca4ed62a-5746-4052-833e-086ca5509788",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "5bdc1ff5-6eee-46c2-97e8-ebf9ceaa789f",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "1c4ce827-1424-4d5d-9389-078ab4cfb860",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "3a94082c-4dc5-4fd3-a31a-e59a565ecbe6",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "af6aca40-ee89-4cd3-9526-7ea08898bcaf",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Src Enum",
+      "allowedValues": [
+        {
+          "id": "db344c2e-7f66-4c76-9fa4-0f820243a545",
+          "key": "ReactNode",
+          "value": "React Node"
+        },
+        {
+          "id": "c69134c4-a82f-4f44-8acc-fc0961a6599e",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f8a8d648-bf23-4cdc-b453-650ffab8d9ec",
+      "kind": "EnumType",
+      "name": "AntDesignBadge Size Enum",
+      "allowedValues": [
+        {
+          "id": "14c77342-0dd6-4154-b1e4-cbf3753a3c67",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "46ca4767-2839-43a3-84bb-5b65b43e1e9b",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d641a490-74b4-4a16-89b2-e0bec879a4d3",
+      "kind": "EnumType",
+      "name": "AntDesignBadge Status Enum",
+      "allowedValues": [
+        {
+          "id": "b558baff-a110-45d0-97ae-fe705f35cab9",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "5c8fa308-89db-41f2-b5b9-17c7c2c5fca5",
+          "key": "error",
+          "value": "Error"
+        },
+        {
+          "id": "cf36b525-a8b9-416e-9c97-976d4439468c",
+          "key": "processing",
+          "value": "Processing"
+        },
+        {
+          "id": "f6ea803f-518a-4b3e-a929-28dab7b9ba59",
+          "key": "success",
+          "value": "Success"
+        },
+        {
+          "id": "e7f88432-9c31-4fd2-a4b2-b5004cd2dc2a",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e4a6f17d-a7d4-4a8a-ab65-a3f13460e8bf",
+      "kind": "EnumType",
+      "name": "AntDesignButton Loading Enum",
+      "allowedValues": [
+        {
+          "id": "ac89b34d-b1d3-408d-a550-0989babc2ca1",
+          "key": "{ delay: number }",
+          "value": "{ delay: number }"
+        },
+        {
+          "id": "e3ddc554-1396-42c8-8c53-f4353dc89244",
+          "key": "boolean",
+          "value": "Boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0e378fa9-84ba-4399-bc07-4db3a8b6291a",
+      "kind": "EnumType",
+      "name": "AntDesignButton Shape Enum",
+      "allowedValues": [
+        {
+          "id": "a69d0c4c-69dc-493f-a893-33fbf8391f69",
+          "key": "circle",
+          "value": "Circle"
+        },
+        {
+          "id": "69f4d2c0-7ddf-4f1f-b4a5-a7b5a3f2f51e",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "962c9189-bfa7-41d2-9874-e14e333d557e",
+          "key": "round",
+          "value": "Round"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f0dfc502-a320-4f04-952d-628cd339613a",
+      "kind": "EnumType",
+      "name": "AntDesignButton Size Enum",
+      "allowedValues": [
+        {
+          "id": "15d3d858-496a-4ac0-9fa1-bed653c472d3",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "44878f06-5e89-4f84-b7ae-c399409a9789",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "689488c2-87dd-4512-a35c-a97d4e9f0f0c",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "5d1d49a3-1b66-4b51-ae69-05efc34ec499",
+      "kind": "EnumType",
+      "name": "AntDesignCalendar Mode Enum",
+      "allowedValues": [
+        {
+          "id": "99f47a9a-758c-44a2-b3ca-b7f5e14b9eb5",
+          "key": "month",
+          "value": "Month"
+        },
+        {
+          "id": "6ce0dda8-f082-4e4c-9459-ba9338a93dd6",
+          "key": "year",
+          "value": "Year"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ff2e43c0-c9d3-4b9b-92a5-2f04707f9d8f",
+      "kind": "EnumType",
+      "name": "AntDesignCard Size Enum",
+      "allowedValues": [
+        {
+          "id": "93583c29-296a-4b37-a944-2e2bc1ea1da3",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "a7adcb3a-1948-41ad-81b6-f99cb9c4ef89",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "898f083b-c4ea-4a39-b605-999a7016a992",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Active Key Enum",
+      "allowedValues": [
+        {
+          "id": "3d07ef77-c763-4bec-bbad-d1701d08c20e",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "d5191842-1bd8-41f8-9523-34de913ccd38",
+          "key": "string\nnumber[]",
+          "value": "String\nnumber[]"
+        },
+        {
+          "id": "620d3b49-19f2-4446-bdce-ba4aa25aaf96",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "25f28338-de55-4b99-aca8-f134c1ecceb9",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Collapsible Enum",
+      "allowedValues": [
+        {
+          "id": "099f10b5-dab0-4567-9c47-b1dd5b0da258",
+          "key": "disabled",
+          "value": "Disabled"
+        },
+        {
+          "id": "da26d99f-803e-481d-b7e4-248bdf7d0b9f",
+          "key": "header",
+          "value": "Header"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "6aac70cd-cd72-48f8-af1c-09df9b555232",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Default Active Key Enum",
+      "allowedValues": [
+        {
+          "id": "6b6dec41-e844-4d8e-8fc9-20948df891a5",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "0e94b433-a339-4ecb-87e9-04ba82838d59",
+          "key": "string\nnumber[]",
+          "value": "String\nnumber[]"
+        },
+        {
+          "id": "6e76b233-dd68-459c-8baa-55045cc38978",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0b286389-7c6c-45fa-97de-afecfa3edfde",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Expand Icon Position Enum",
+      "allowedValues": [
+        {
+          "id": "37132182-8ebd-4451-82f9-2ceb4d853d30",
+          "key": "end",
+          "value": "End"
+        },
+        {
+          "id": "0698808c-8793-4243-8388-a46a7cb898e7",
+          "key": "start",
+          "value": "Start"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "2c0dbc2d-0cdc-4b9f-a026-453ff1c311e5",
+      "kind": "EnumType",
+      "name": "AntDesignCollapsePanel Collapsible Enum",
+      "allowedValues": [
+        {
+          "id": "a677aed7-fb19-43c7-aa0a-45d13c8f4853",
+          "key": "disabled",
+          "value": "Disabled"
+        },
+        {
+          "id": "ad47c83d-7ffb-4ead-bf51-88a340758d62",
+          "key": "header",
+          "value": "Header"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c7266bbd-a101-4636-89eb-1ae1a06af536",
+      "kind": "EnumType",
+      "name": "AntDesignCollapsePanel Key Enum",
+      "allowedValues": [
+        {
+          "id": "95b4a8cc-7e20-4e97-9c4f-a51526f7f27d",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "fb8dcaee-1956-4bda-b55e-39c75f8b6303",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7a9f7cb5-bc34-4f81-8e22-4906b954b54b",
+      "kind": "EnumType",
+      "name": "AntDesignConfigProvider Component Size Enum",
+      "allowedValues": [
+        {
+          "id": "b753922d-7ed9-41e8-a074-913b7d6d1337",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "93ca58db-595c-4903-b31c-a2cee3e62f0e",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "60a6e6f5-2a1a-4127-916a-33e85dd71d05",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ac3b2bc3-30b3-4af4-8b89-1a5db5c21503",
+      "kind": "EnumType",
+      "name": "AntDesignConfigProvider Direction Enum",
+      "allowedValues": [
+        {
+          "id": "6668588b-571d-4f46-8814-f6d34453cf1e",
+          "key": "ltr",
+          "value": "Ltr"
+        },
+        {
+          "id": "44758b53-2509-499d-8171-f0acb81319f6",
+          "key": "rtl",
+          "value": "Rtl"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d898f4ef-9732-457d-bb9d-29152ce7f913",
+      "kind": "EnumType",
+      "name": "AntDesignConfigProvider Dropdown Match Select Width Enum",
+      "allowedValues": [
+        {
+          "id": "28ea1bd6-6cce-4e49-a21a-932abb6660eb",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "2d4a1282-3f64-4260-bc95-bfd2a21ca28e",
+          "key": "number",
+          "value": "Number"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "fb20c822-2d70-4f33-80f8-09157507ccf8",
+      "kind": "EnumType",
+      "name": "AntDesignConfigProvider Form Enum",
+      "allowedValues": [
+        {
+          "id": "66b2472e-68f5-43aa-bed1-cf969a36b376",
+          "key": "{ validateMessages?: ValidateMessages, requiredMark?: boolean",
+          "value": "{ validate Messages?:  Validate Messages, required Mark?: boolean"
+        },
+        {
+          "id": "46f41811-2468-481d-9438-3d50d541334d",
+          "key": "optional }",
+          "value": "Optional }"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "88caaaa2-8cef-41f1-aac5-461f0ef033df",
+      "kind": "EnumType",
+      "name": "AntDesignConfigProvider Space Enum",
+      "allowedValues": [
+        {
+          "id": "f88ace6f-c672-42d6-972f-d4f1eac1f825",
+          "key": "{ size: small",
+          "value": "{ size: small"
+        },
+        {
+          "id": "745e5b16-073e-45f8-94a7-80d73451b84c",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "0d6d6629-aad4-4ff5-97b9-16d2c52ca0d3",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "1de0a188-6ab0-41e2-8cda-a20337907884",
+          "key": "number }",
+          "value": "Number }"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0bd27da1-7b5b-438c-ac1a-20c3fcba3969",
+      "kind": "EnumType",
+      "name": "AntDesignDatePicker Show Time Enum",
+      "allowedValues": [
+        {
+          "id": "0e49b4f5-b09e-467a-9640-ab21eabc7989",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "3136192c-302b-41f9-ba9f-82a623dc6c0c",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ca7c80a9-d0c8-4ba8-b834-f1378ac9c440",
+      "kind": "EnumType",
+      "name": "AntDesignDescriptions Layout Enum",
+      "allowedValues": [
+        {
+          "id": "f7b34187-eb61-4d1e-987b-a6f4e9d5fcd0",
+          "key": "horizontal",
+          "value": "Horizontal"
+        },
+        {
+          "id": "ddc2bec6-19a4-4029-8a3c-f4a9f19867bf",
+          "key": "vertical",
+          "value": "Vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ec5b6bd6-1e1f-4bc0-956f-9c1868859c48",
+      "kind": "EnumType",
+      "name": "AntDesignDescriptions Size Enum",
+      "allowedValues": [
+        {
+          "id": "82547b01-8cc5-4d95-98d4-540c9ec13c1d",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "f2dd5680-5f2f-4c8c-918b-b0bc44d2658e",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "f998d466-1429-4953-ac84-f425efc58e0e",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a913b3c1-a286-4fae-a5e7-ab5429555b85",
+      "kind": "EnumType",
+      "name": "AntDesignDivider Orientation Enum",
+      "allowedValues": [
+        {
+          "id": "742a0988-c2f6-413d-9638-c0106f45acaf",
+          "key": "center",
+          "value": "Center"
+        },
+        {
+          "id": "693f78b2-a834-42ba-875d-6bf8a874d6c7",
+          "key": "left",
+          "value": "Left"
+        },
+        {
+          "id": "1a3b4de1-89c2-463e-8bd7-2149b82034ed",
+          "key": "right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d6e3f677-e8de-4111-add8-6a4586eff82b",
+      "kind": "EnumType",
+      "name": "AntDesignDivider Orientation Margin Enum",
+      "allowedValues": [
+        {
+          "id": "3b008cdc-b129-460d-b1ca-fcbfb810eb7d",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "bd9140dc-6585-40d2-8bcf-97cece8b04d5",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b6c05359-1942-462a-8105-b38ccaaa2000",
+      "kind": "EnumType",
+      "name": "AntDesignDivider Type Enum",
+      "allowedValues": [
+        {
+          "id": "6e3cb0af-43af-4f84-af35-0b4bda473ebc",
+          "key": "horizontal",
+          "value": "Horizontal"
+        },
+        {
+          "id": "b9ae3408-eb01-44c7-bb01-c1952a94f945",
+          "key": "vertical",
+          "value": "Vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "aa24c759-c2ab-4aa2-adab-494cf3d1344f",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Height Enum",
+      "allowedValues": [
+        {
+          "id": "4b6d0557-b079-4dc3-a655-57cd6db3e7e2",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "bb0c96bd-4b1b-4d42-b5d5-76e0e62b53e8",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3eb69332-628a-464d-9827-ca592a0fdacd",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Placement Enum",
+      "allowedValues": [
+        {
+          "id": "73457daf-eb49-48ba-a65b-64230292671e",
+          "key": "bottom",
+          "value": "Bottom"
+        },
+        {
+          "id": "74aaef02-363d-41e9-9aca-68d6c2bf608e",
+          "key": "left",
+          "value": "Left"
+        },
+        {
+          "id": "d7eb9e86-340b-4aa7-b26a-498fe4c94d8a",
+          "key": "right",
+          "value": "Right"
+        },
+        {
+          "id": "89db6119-eaa8-4246-b48e-994db7f8e35b",
+          "key": "top",
+          "value": "Top"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "4a197745-6b40-43c1-9fd0-45e027c96a6f",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Push Enum",
+      "allowedValues": [
+        {
+          "id": "c3020427-e49c-4f19-bee0-91409ee749aa",
+          "key": "{ distance: string",
+          "value": "{ distance: string"
+        },
+        {
+          "id": "1cf0021c-97c1-45f8-9422-09f82f4ef4d0",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "691e1546-a01c-436f-9e2d-50aa83814a52",
+          "key": "number }",
+          "value": "Number }"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d63047fc-2470-4e84-aa0f-2aafe97a0a0b",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Size Enum",
+      "allowedValues": [
+        {
+          "id": "f9d0d4d0-ee63-409c-8cc7-29a1c6254231",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "a936104a-7403-49cf-9fa3-4b55706634f3",
+          "key": "large",
+          "value": "Large"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7cce54b7-3f07-44c9-a18d-639b388c2204",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Width Enum",
+      "allowedValues": [
+        {
+          "id": "27d454ae-5646-4dd9-9f73-a27a45426e15",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "4fbbbd12-1700-48be-9274-bcbc19152d4a",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "6201bec7-201d-434c-8469-c962ec434ec0",
+      "kind": "EnumType",
+      "name": "AntDesignDropdown Arrow Enum",
+      "allowedValues": [
+        {
+          "id": "44e99a31-cfe0-46d9-b201-24182b1a22cd",
+          "key": "{ pointAtCenter: boolean }",
+          "value": "{ point At Center: boolean }"
+        },
+        {
+          "id": "03154dac-c05e-4d48-b443-f4973c178bc7",
+          "key": "boolean",
+          "value": "Boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9fd333a7-776a-4c23-9f51-df1122608657",
+      "kind": "EnumType",
+      "name": "AntDesignDropdown Trigger Enum",
+      "allowedValues": [
+        {
+          "id": "0ce60b7a-6da2-47b6-a71f-0b6169e8be58",
+          "key": "Array<click",
+          "value": "Array<click"
+        },
+        {
+          "id": "6948b467-546a-4b2e-8de4-33aced90f359",
+          "key": "contextMenu>",
+          "value": "Context Menu>"
+        },
+        {
+          "id": "b72a0ce8-64a6-465a-bc22-4e068e215059",
+          "key": "hover",
+          "value": "Hover"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ef8be2a9-d5f6-4e66-9586-795470d11a3c",
+      "kind": "EnumType",
+      "name": "AntDesignForm Component Enum",
+      "allowedValues": [
+        {
+          "id": "1fa677a6-adcf-4cd5-9aeb-f25ce95db355",
+          "key": "ComponentType",
+          "value": "Component Type"
+        },
+        {
+          "id": "af71550c-3bf6-4a5a-a53f-8667b038d2ec",
+          "key": "false",
+          "value": "False"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "2e15e23e-f415-4b9d-a2a0-efb1c2c1743a",
+      "kind": "EnumType",
+      "name": "AntDesignForm Label Align Enum",
+      "allowedValues": [
+        {
+          "id": "f8d09f34-f623-4e92-9fec-3a6f2e2ad8a7",
+          "key": "left",
+          "value": "Left"
+        },
+        {
+          "id": "3ecd71dc-cad1-493c-a571-e5cb54c2fffd",
+          "key": "right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "2e371bcc-9150-446a-aacf-d22483538c7a",
+      "kind": "EnumType",
+      "name": "AntDesignForm Layout Enum",
+      "allowedValues": [
+        {
+          "id": "4c6c093e-cef6-4507-9564-c2df535c6e1c",
+          "key": "horizontal",
+          "value": "Horizontal"
+        },
+        {
+          "id": "b0fc920d-03e4-490a-a123-5ecd4ab72277",
+          "key": "inline",
+          "value": "Inline"
+        },
+        {
+          "id": "44e2bba4-79c5-4cb4-884b-43e97f9af232",
+          "key": "vertical",
+          "value": "Vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "dfe38191-e3f7-4d71-ba0a-5ba4f022e77d",
+      "kind": "EnumType",
+      "name": "AntDesignForm Required Mark Enum",
+      "allowedValues": [
+        {
+          "id": "82669fc5-f9d5-497c-bbcf-ea125ba4cf07",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "51401d12-f1cd-4f99-a19f-e2cee24d88e0",
+          "key": "optional",
+          "value": "Optional"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "8273178c-354a-4a38-bb9e-1a835a9e8dac",
+      "kind": "EnumType",
+      "name": "AntDesignForm Scroll To First Error Enum",
+      "allowedValues": [
+        {
+          "id": "f6b1a4b3-75e4-42fc-aac5-8368c3e1bc4c",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "e3dbfeb4-3320-4e9c-88b2-7405291d1481",
+          "key": "Options",
+          "value": "Options"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7d27ea1e-5929-4eb7-9c56-2410d0429ee4",
+      "kind": "EnumType",
+      "name": "AntDesignForm Size Enum",
+      "allowedValues": [
+        {
+          "id": "414bb694-5930-4fcf-8355-8efde9d7055d",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "4e12eb8b-1022-4a2b-b162-1204989e9648",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "c2b0a4ab-98fa-4ce6-824f-92caba0e16d8",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "50bb4308-1e06-41c7-b789-20d185aeaca0",
+      "kind": "EnumType",
+      "name": "AntDesignForm Validate Trigger Enum",
+      "allowedValues": [
+        {
+          "id": "b1ba5569-ff9f-42d1-8843-ae56d606aefd",
+          "key": "string",
+          "value": "String"
+        },
+        {
+          "id": "6ad0605b-f683-4d63-8f2e-321dd7f4ff0b",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
       "id": "da7e6dad-2927-470f-919f-ca67e49bffb1",
       "kind": "EnumType",
       "name": "AntDesignFormItem Label Align Enum",
@@ -1610,6 +2499,639 @@
     },
     {
       "__typename": "EnumType",
+      "id": "f5ba0308-b658-4473-9599-0ff55ab889be",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Flex Enum",
+      "allowedValues": [
+        {
+          "id": "91570d39-cf03-4eac-9c15-0097b4c47c8a",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "cce21f29-5366-444b-843b-a17992755b0f",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "5ec4f2e3-af13-4a92-a5c7-9c026de0fcf3",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Lg Enum",
+      "allowedValues": [
+        {
+          "id": "9410860c-65ed-4019-9516-1aa81e8856a5",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "4fce49f0-4521-46a4-9f00-9fe39469fcd9",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "eedd18dc-81b6-4beb-bc7a-c18272169f95",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Md Enum",
+      "allowedValues": [
+        {
+          "id": "8486d8ab-7fef-43f4-adcd-32ad593e46ea",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "344b88de-f783-410a-88b0-6600886df373",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ded6e578-5139-4d85-a712-b9b337eb43a0",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Sm Enum",
+      "allowedValues": [
+        {
+          "id": "10b2a893-ff13-4440-82b1-2ca9cb702108",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "9d87a320-b872-466c-b094-1b848e9387b0",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c5eae811-da9b-479a-82f7-9d09bc0e75da",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Xl Enum",
+      "allowedValues": [
+        {
+          "id": "77485bba-a4dc-4553-af07-322dc58d533a",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "5b937baf-10d2-4eed-a244-abb3974eec1d",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0b63ccc7-5283-4623-aff1-de0fa9cd8664",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Xs Enum",
+      "allowedValues": [
+        {
+          "id": "0a1f2574-8de8-4bfb-9dd4-bc90fa9a70f3",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "1a0d025a-b880-4131-ab28-d216f3782faa",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ca519d11-d836-4e86-a870-70a97c3763f1",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Xxl Enum",
+      "allowedValues": [
+        {
+          "id": "938d494f-3dd8-40b8-ae5c-34c75e945ddd",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "33827012-a20a-4590-955f-86b03047ee7f",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d8038e75-d8b4-4680-b828-ab3c40bae4bb",
+      "kind": "EnumType",
+      "name": "AntDesignGridRow Align Enum",
+      "allowedValues": [
+        {
+          "id": "9860bfdc-4afd-4ffe-81a3-3a9b96849fc6",
+          "key": "bottom",
+          "value": "Bottom"
+        },
+        {
+          "id": "b9564c68-6336-46c1-9c28-473cf485713c",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "b6abf633-80ee-458d-8659-a88e648fb480",
+          "key": "top",
+          "value": "Top"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "103b55d6-bedd-43d1-b9ff-9e74f7d0fa14",
+      "kind": "EnumType",
+      "name": "AntDesignGridRow Gutter Enum",
+      "allowedValues": [
+        {
+          "id": "42d2a4af-028b-488f-ac97-8f40bda02f33",
+          "key": "array",
+          "value": "Array"
+        },
+        {
+          "id": "fe8d7d30-8333-47d2-8cf5-8ac4f1ab07ef",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "1211c4b1-1988-48b8-8f22-06f909995ac9",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "5fdf9b01-756a-4d1d-984c-c0840514e89a",
+      "kind": "EnumType",
+      "name": "AntDesignGridRow Justify Enum",
+      "allowedValues": [
+        {
+          "id": "7f8e976c-fbef-4a6e-9521-0f1205bb0322",
+          "key": "center",
+          "value": "Center"
+        },
+        {
+          "id": "3b879738-0d71-4fca-a84f-a1c41159ce77",
+          "key": "end",
+          "value": "End"
+        },
+        {
+          "id": "60c318b0-93c1-4a0c-9329-cccaa4720f23",
+          "key": "space-around",
+          "value": "Space-around"
+        },
+        {
+          "id": "8d4d71ff-2b5a-43a9-ad9a-937a71a28639",
+          "key": "space-between",
+          "value": "Space-between"
+        },
+        {
+          "id": "f9384166-a948-43d0-b6bf-d225b23395e5",
+          "key": "space-evenly",
+          "value": "Space-evenly"
+        },
+        {
+          "id": "54336e53-6a4f-4b1d-a5f1-3ec20163f165",
+          "key": "start",
+          "value": "Start"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "718e7602-c66f-4465-93ba-eb4ee6a1c014",
+      "kind": "EnumType",
+      "name": "AntDesignImage Height Enum",
+      "allowedValues": [
+        {
+          "id": "646887ac-cc73-4154-b690-3db12d03d974",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "4e921773-5bf7-4440-85de-8ef07467b2b7",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0b77fb71-66c0-4761-acb9-5d77c5a92736",
+      "kind": "EnumType",
+      "name": "AntDesignImage Preview Enum",
+      "allowedValues": [
+        {
+          "id": "008f8579-4471-4b3f-af7f-6f5c57d55b43",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "b4a097ce-5074-4196-96b1-9d2b20636846",
+          "key": "previewType",
+          "value": "Preview Type"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "456ab24f-3dec-427f-b70e-652c05d2ecbe",
+      "kind": "EnumType",
+      "name": "AntDesignImage Width Enum",
+      "allowedValues": [
+        {
+          "id": "75644583-e83f-4e36-99d2-11c5a27cd207",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "ea14aff9-1d28-4bfc-b9b1-332e6ca1c799",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "85565f57-4f02-4ece-a7ed-edcad96d1d61",
+      "kind": "EnumType",
+      "name": "AntDesignInput Allow Clear Enum",
+      "allowedValues": [
+        {
+          "id": "9ec6c3f1-f4e0-4e02-b11c-2fbe580426bc",
+          "key": "{ clearIcon: ReactNode }",
+          "value": "{ clear Icon:  React Node }"
+        },
+        {
+          "id": "5b2d5f97-b389-4b04-9a25-48a31fe1c560",
+          "key": "boolean",
+          "value": "Boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "fdc06db6-6292-49fd-8190-2ebab2690ee8",
+      "kind": "EnumType",
+      "name": "AntDesignInput Size Enum",
+      "allowedValues": [
+        {
+          "id": "84c967d1-30ed-4fa2-b3ef-3f31efa1c53e",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "21b3ea1c-afe8-4b7d-b1ef-02b044e345d1",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "2d7946c7-3ba0-4346-875a-c13f5d1e1359",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c15b10ba-e7f3-437a-be6b-b25d00af9370",
+      "kind": "EnumType",
+      "name": "AntDesignInput Status Enum",
+      "allowedValues": [
+        {
+          "id": "acaa5f04-0840-45c4-b08b-aefb0696fed5",
+          "key": "error",
+          "value": "Error"
+        },
+        {
+          "id": "34cba7d7-6833-496e-acb5-aaf8fd0a42ff",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "08c8b9d8-cf77-4819-84a8-2a5c5fe8df51",
+      "kind": "EnumType",
+      "name": "AntDesignLayoutSider Breakpoint Enum",
+      "allowedValues": [
+        {
+          "id": "1a0f7ec4-afa9-45db-9099-ecac35e60be2",
+          "key": "lg",
+          "value": "Lg"
+        },
+        {
+          "id": "26dbc81b-0062-4e22-9e32-545ebe2af2fa",
+          "key": "md",
+          "value": "Md"
+        },
+        {
+          "id": "2e6210b9-6b95-4412-a069-8f241029e1a0",
+          "key": "sm",
+          "value": "Sm"
+        },
+        {
+          "id": "32d11b49-5b8f-479e-a2ae-3bc719089693",
+          "key": "xl",
+          "value": "Xl"
+        },
+        {
+          "id": "5c822701-0a33-4f90-9f24-740615635fbc",
+          "key": "xs",
+          "value": "Xs"
+        },
+        {
+          "id": "2c203497-e0ea-4fa7-925c-fd327e4f9ed7",
+          "key": "xxl",
+          "value": "Xxl"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "76deb70c-4c0a-42e6-a04e-2a17d0d3cf06",
+      "kind": "EnumType",
+      "name": "AntDesignLayoutSider Theme Enum",
+      "allowedValues": [
+        {
+          "id": "750b5f68-8dea-47b1-91fc-01d04936f4a0",
+          "key": "dark",
+          "value": "Dark"
+        },
+        {
+          "id": "8375a910-c729-41bf-9367-ffc8e55aba8a",
+          "key": "light",
+          "value": "Light"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e31be61f-7d9f-4b8b-9416-5497acceaf24",
+      "kind": "EnumType",
+      "name": "AntDesignLayoutSider Width Enum",
+      "allowedValues": [
+        {
+          "id": "bb6fd803-71c7-4de4-b362-20f54c188a2b",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "784e2775-5df9-4534-8612-aca3fb825bc6",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "00fe9626-61ec-4bb0-b35d-2c5ac59a7647",
+      "kind": "EnumType",
+      "name": "AntDesignList Item Layout Enum",
+      "allowedValues": [
+        {
+          "id": "797662a1-e0fb-4b4c-b18e-e78fa241a44e",
+          "key": "horizontal",
+          "value": "Horizontal"
+        },
+        {
+          "id": "eeb9d7eb-5177-42b0-b450-b02546f73375",
+          "key": "vertical",
+          "value": "Vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "1d231790-99ca-4b4a-a214-8ef681f7019a",
+      "kind": "EnumType",
+      "name": "AntDesignList Loading Enum",
+      "allowedValues": [
+        {
+          "id": "c3f1d565-5e00-4f3f-b9b8-9ef62b19d38b",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "11a1a4de-d042-4f16-8406-c3c91c9a2db1",
+          "key": "SpinProps (more)",
+          "value": "Spin Props (more)"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "cf52f7a2-43a0-4307-84e4-0994338e40ab",
+      "kind": "EnumType",
+      "name": "AntDesignList Pagination Enum",
+      "allowedValues": [
+        {
+          "id": "5ca6e174-1da7-4ae6-afd3-c539fb61ae6c",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "b0b6d5b0-2539-4b3a-aae9-cc78212b7082",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e56ed16d-ca2a-434f-a353-4c21ca67c8eb",
+      "kind": "EnumType",
+      "name": "AntDesignList Size Enum",
+      "allowedValues": [
+        {
+          "id": "31182713-accf-43ca-b902-b2e573a874c5",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "99f526f5-00ba-460b-871f-f00b4d084c75",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "46775955-0ab3-4682-ac0d-e3f08617c71b",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "60ad8703-76dc-4dc2-bf8c-6340a23917c6",
+      "kind": "EnumType",
+      "name": "AntDesignMentions Auto Size Enum",
+      "allowedValues": [
+        {
+          "id": "ec344b4c-51d7-479c-8e6c-ea6232e07803",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "d1f2d05c-94fe-4041-985c-61fbd5c627a7",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ef05591e-9059-4ea9-8ce8-80ce08ccc7e2",
+      "kind": "EnumType",
+      "name": "AntDesignMentions Placement Enum",
+      "allowedValues": [
+        {
+          "id": "2656176a-27d4-4c84-b049-2413388cfea7",
+          "key": "bottom",
+          "value": "Bottom"
+        },
+        {
+          "id": "82ac877f-5f3b-4974-9262-8ac85eb05271",
+          "key": "top",
+          "value": "Top"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "6c8e80c0-6733-44c0-be83-f8cd1d86b9e5",
+      "kind": "EnumType",
+      "name": "AntDesignMentions Prefix Enum",
+      "allowedValues": [
+        {
+          "id": "ebc50bb9-c67e-408f-93e8-07b957584ab0",
+          "key": "string",
+          "value": "String"
+        },
+        {
+          "id": "0f7a7c73-4532-433c-807d-09a44170c5e0",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "39d1c68f-fe6d-4c61-ada7-84431489d898",
+      "kind": "EnumType",
+      "name": "AntDesignMentions Status Enum",
+      "allowedValues": [
+        {
+          "id": "d4845db1-52c3-4aa2-b2f5-38e5c1520144",
+          "key": "error",
+          "value": "Error"
+        },
+        {
+          "id": "c0957bc0-f695-4dad-8f55-f1d0844dc0c2",
+          "key": "success",
+          "value": "Success"
+        },
+        {
+          "id": "912817e2-2614-40b4-ad20-b97f1562da95",
+          "key": "validating",
+          "value": "Validating"
+        },
+        {
+          "id": "d9b8ada2-655d-4922-a740-e33937bb2f6b",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "98d31952-e4b0-41c3-91e9-b7dfc08d8faf",
+      "kind": "EnumType",
+      "name": "AntDesignMenu Mode Enum",
+      "allowedValues": [
+        {
+          "id": "7b057441-067c-4000-8497-848fe9eac8c4",
+          "key": "horizontal",
+          "value": "Horizontal"
+        },
+        {
+          "id": "6657b94c-fbe6-4121-9d07-adf6a5079d3a",
+          "key": "inline",
+          "value": "Inline"
+        },
+        {
+          "id": "7d76a562-a962-44e3-b760-6be82b34dd6e",
+          "key": "vertical",
+          "value": "Vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "46c19983-70dc-49e0-8c54-f49008d5d392",
+      "kind": "EnumType",
+      "name": "AntDesignMenu Theme Enum",
+      "allowedValues": [
+        {
+          "id": "2f04d19b-be1f-421d-ba71-7980a23dd9a4",
+          "key": "dark",
+          "value": "Dark"
+        },
+        {
+          "id": "d4813557-01cc-4bd7-bb7f-2743eacc234d",
+          "key": "light",
+          "value": "Light"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "02800725-5324-435d-b970-8b1edb35051a",
+      "kind": "EnumType",
+      "name": "AntDesignMenu Trigger Sub Menu Action Enum",
+      "allowedValues": [
+        {
+          "id": "ece867aa-cec4-4755-b150-85c7d85e2544",
+          "key": "click",
+          "value": "Click"
+        },
+        {
+          "id": "cc3e5e24-bb3e-4857-91a5-59bed40c3135",
+          "key": "hover",
+          "value": "Hover"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "58b40b97-fb0d-45ad-872f-9fa310b6daa9",
+      "kind": "EnumType",
+      "name": "AntDesignPageHeader Back Icon Enum",
+      "allowedValues": [
+        {
+          "id": "1cd69646-b0f4-4ba3-9227-53db05ba341c",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "a5fb627a-bcb8-4943-8b93-2c28c4e0a4c3",
+          "key": "ReactNode",
+          "value": "React Node"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
       "id": "ce5e02a5-7d08-446c-bccf-ef7d3f9e5caf",
       "kind": "EnumType",
       "name": "AntDesignPageHeader Breadcrumb Render Enum",
@@ -1618,6 +3140,1307 @@
           "id": "2d937641-2adb-4921-a8a6-1c8406b1d7b7",
           "key": "(props, originBreadcrumb)=> ReactNode",
           "value": "(props, origin Breadcrumb)=>  React Node"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3f3ad05d-ac85-416c-8c82-fd6e27e8762f",
+      "kind": "EnumType",
+      "name": "AntDesignPageHeader Tags Enum",
+      "allowedValues": [
+        {
+          "id": "564bf7ee-7c9e-470b-a840-d3f280f66f54",
+          "key": "Tag",
+          "value": "Tag"
+        },
+        {
+          "id": "d0b79ee0-ebfb-4eb5-bee4-40998970773a",
+          "key": "Tag[]",
+          "value": "Tag[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a2ee7f48-5c7c-428c-b21e-8ea3ce3003d2",
+      "kind": "EnumType",
+      "name": "AntDesignPagination Show Quick Jumper Enum",
+      "allowedValues": [
+        {
+          "id": "5bdc302c-d553-42af-8d8f-4dcfaf87b01f",
+          "key": "{ goButton: ReactNode }",
+          "value": "{ go Button:  React Node }"
+        },
+        {
+          "id": "6cbdb640-f581-4cb9-8f25-e9621641f4c0",
+          "key": "boolean",
+          "value": "Boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "181b2022-b84e-4f3e-a55e-995e99ab08c0",
+      "kind": "EnumType",
+      "name": "AntDesignPagination Size Enum",
+      "allowedValues": [
+        {
+          "id": "2a0aa07b-e454-4971-a022-f8eb0859af33",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "59444387-1985-4a32-bd2c-7a5c271926a6",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b6256318-f4ee-45ab-a22d-c3ec23b1c7d4",
+      "kind": "EnumType",
+      "name": "AntDesignProgress Stroke Color Enum",
+      "allowedValues": [
+        {
+          "id": "2e661209-7ff5-4699-8948-9ac7d53ac425",
+          "key": "object",
+          "value": "Object"
+        },
+        {
+          "id": "28776af5-51f0-4471-ad73-9f91a3917c4e",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3117d989-0cc8-4e98-955e-945f457d5859",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Button Style Enum",
+      "allowedValues": [
+        {
+          "id": "bd9c07b4-7a67-4257-b8ea-170b361a23ef",
+          "key": "outline",
+          "value": "Outline"
+        },
+        {
+          "id": "64d851d2-5afd-44dc-b253-443c467da3fc",
+          "key": "solid",
+          "value": "Solid"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3d64157f-8a35-4a99-b0a0-6e18bc71a8f6",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Option Type Enum",
+      "allowedValues": [
+        {
+          "id": "8446fbe4-be6d-436d-a4df-4d3677d7f7c6",
+          "key": "button",
+          "value": "Button"
+        },
+        {
+          "id": "57a3b35a-62ba-4ae7-904b-9b24e0faa5b3",
+          "key": "default",
+          "value": "Default"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b4aa02f2-f521-43e7-8c31-fa4d083fdbaa",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Options Enum",
+      "allowedValues": [
+        {
+          "id": "1ba4030f-8e9a-48d4-a6c4-6bca8ec45528",
+          "key": "Array<{ label: string value: string disabled?: boolean }>",
+          "value": "Array<{ label: string value: string disabled?: boolean }>"
+        },
+        {
+          "id": "6c4fc6ac-572b-4aea-b04e-52d6ae945ae3",
+          "key": "number[]",
+          "value": "Number[]"
+        },
+        {
+          "id": "b35a019b-5fd3-47f2-a947-182c47852155",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "98ac2ea9-bcdc-4193-bbe4-5ff476632ec1",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Size Enum",
+      "allowedValues": [
+        {
+          "id": "0eae1fcf-eddf-40af-9376-c80ba96a4fa0",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "19234bc0-5edd-49c1-923d-6b234a3a4fff",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "6b66d128-e3e6-4258-b755-733a8680ae40",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d2f9fb4e-fc0d-4ab7-b0ff-8a099ce32ef0",
+      "kind": "EnumType",
+      "name": "AntDesignResult Status Enum",
+      "allowedValues": [
+        {
+          "id": "24ab434f-5e5f-4607-84e5-0f6c2d5b19fa",
+          "key": "403",
+          "value": "403"
+        },
+        {
+          "id": "19993369-5283-4c42-a0e3-34c471eb3807",
+          "key": "404",
+          "value": "404"
+        },
+        {
+          "id": "22024ca3-4e94-40e5-881d-3df941b471ed",
+          "key": "500",
+          "value": "500"
+        },
+        {
+          "id": "68a0d7ae-937f-47b6-b596-f15ecccee9c8",
+          "key": "error",
+          "value": "Error"
+        },
+        {
+          "id": "3fb68259-9a5d-4910-8ea0-5a40f185bf55",
+          "key": "info",
+          "value": "Info"
+        },
+        {
+          "id": "c76af3a3-7af2-4a24-8a08-b64d89d2f0c6",
+          "key": "success",
+          "value": "Success"
+        },
+        {
+          "id": "3bf9c187-00d3-40d0-823e-bea7519e33cc",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d03ca5d5-110e-43fd-8965-dc8f3445330f",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Default Value Enum",
+      "allowedValues": [
+        {
+          "id": "463ba1c2-62a0-400b-9c8c-a38cc48a7dc6",
+          "key": "LabeledValue[]",
+          "value": "Labeled Value[]"
+        },
+        {
+          "id": "62d31c4c-fe84-47b7-8645-e8dca78bb321",
+          "key": "number[]\nLabeledValue",
+          "value": "Number[]\n Labeled Value"
+        },
+        {
+          "id": "aef011dc-1544-43c2-a4c1-391c2f83400c",
+          "key": "string",
+          "value": "String"
+        },
+        {
+          "id": "15841a6b-d89b-4924-90d8-e71d32e408a8",
+          "key": "string[]\nnumber",
+          "value": "String[]\nnumber"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "6f36c8b2-a9ea-4c3e-b3f2-f1aa8f17f121",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Dropdown Match Select Width Enum",
+      "allowedValues": [
+        {
+          "id": "75c2df35-5531-46db-89b9-3290d9e73811",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "24ed2395-6680-4a4a-999e-24f6fa88ab19",
+          "key": "number",
+          "value": "Number"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "14073747-b6be-41c2-a152-d331ebba4fa8",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Max Tag Count Enum",
+      "allowedValues": [
+        {
+          "id": "1f53b6ac-e04b-421c-81f4-e9a2f5ec2c4d",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "7d65a729-a311-477a-a51b-3de3ac4e1746",
+          "key": "responsive",
+          "value": "Responsive"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a49c080d-c238-4e24-b0a6-0e0d09d8727d",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Mode Enum",
+      "allowedValues": [
+        {
+          "id": "184c1291-5ca9-4fe0-9c66-61e8e22d4a2c",
+          "key": "multiple",
+          "value": "Multiple"
+        },
+        {
+          "id": "8a80ca53-17d2-4596-9fb7-cfdcc3ebcbbd",
+          "key": "tags",
+          "value": "Tags"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0c3fac8e-459c-4ea6-aecc-a388031a3bd8",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Size Enum",
+      "allowedValues": [
+        {
+          "id": "dd3cf8a3-e4d3-4f6d-8d29-c252bdd08011",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "18bda961-e78a-43ed-a0e5-d350ccb80e05",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "21010442-7443-4450-9263-e617b4f1295b",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "541bfe12-f4de-44d3-aeec-a17f556bae1f",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Status Enum",
+      "allowedValues": [
+        {
+          "id": "80f98c2d-63fc-4129-9ce2-2de47363df94",
+          "key": "error",
+          "value": "Error"
+        },
+        {
+          "id": "c9cd640e-d620-4e28-a498-f806d73f6cab",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ac816112-3669-4376-985d-d4214c300e89",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Value Enum",
+      "allowedValues": [
+        {
+          "id": "8fd559b5-cda2-483a-bcfb-322e69ee86ee",
+          "key": "LabeledValue[]",
+          "value": "Labeled Value[]"
+        },
+        {
+          "id": "8e3ee9f2-9938-4a46-9a60-963daf5b45a6",
+          "key": "number[]\nLabeledValue",
+          "value": "Number[]\n Labeled Value"
+        },
+        {
+          "id": "1eec6998-749d-4f98-bd79-36e7a67c3c22",
+          "key": "string",
+          "value": "String"
+        },
+        {
+          "id": "4feb9813-adaa-4c43-8bd8-e8ff85bb8637",
+          "key": "string[]\nnumber",
+          "value": "String[]\nnumber"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "152687c1-dbc9-42c5-9818-7f8d3a206fce",
+      "kind": "EnumType",
+      "name": "AntDesignSelectOption Value Enum",
+      "allowedValues": [
+        {
+          "id": "806305e4-d055-49e4-94ff-c349daed1a8d",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "d8cc005c-37b4-4838-a40e-ea514087f32c",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a621de84-e57e-4f92-8943-0545f778386f",
+      "kind": "EnumType",
+      "name": "AntDesignSkeleton Avatar Enum",
+      "allowedValues": [
+        {
+          "id": "5bda1d67-1d78-4d8f-8d28-55b63b8a4837",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "6efe1c1d-5a85-4349-ae1e-94b5d6a08e68",
+          "key": "SkeletonAvatarProps",
+          "value": "Skeleton Avatar Props"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b8b2e1ed-4a13-49d5-aa58-23dc5747c344",
+      "kind": "EnumType",
+      "name": "AntDesignSkeleton Paragraph Enum",
+      "allowedValues": [
+        {
+          "id": "f095bcd5-1906-4cea-8829-b29d64884f56",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "197439ba-5fa2-439b-bc17-dd4712a6d3d8",
+          "key": "SkeletonParagraphProps",
+          "value": "Skeleton Paragraph Props"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e082b048-bfba-45e6-991c-416f59b78d0a",
+      "kind": "EnumType",
+      "name": "AntDesignSkeleton Title Enum",
+      "allowedValues": [
+        {
+          "id": "5ba10f14-6e9e-41db-9df2-ef4542dbeac6",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "6a5950a1-fc6e-47f6-8001-90d2370e69e7",
+          "key": "SkeletonTitleProps",
+          "value": "Skeleton Title Props"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f64f9227-b651-49fc-8346-b1eb22644b94",
+      "kind": "EnumType",
+      "name": "AntDesignSpace Align Enum",
+      "allowedValues": [
+        {
+          "id": "b4a274d0-8ae2-4f23-aaf9-c2734bac91a8",
+          "key": "baseline",
+          "value": "Baseline"
+        },
+        {
+          "id": "74f2aafa-b751-41f4-9f2c-a7005abc70da",
+          "key": "center",
+          "value": "Center"
+        },
+        {
+          "id": "888e133c-9cf8-41c8-877a-fdb66852c0a8",
+          "key": "end",
+          "value": "End"
+        },
+        {
+          "id": "75be5636-9408-4817-b80a-9df76b74ab57",
+          "key": "start",
+          "value": "Start"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "5cbcbcf5-f38b-4aa4-bac6-7cc5d7434f5f",
+      "kind": "EnumType",
+      "name": "AntDesignSpace Direction Enum",
+      "allowedValues": [
+        {
+          "id": "b13b9b93-2379-4dce-a1c9-1a72d2247e44",
+          "key": "horizontal",
+          "value": "Horizontal"
+        },
+        {
+          "id": "dea5c048-6cfa-4f55-8c47-76a69c16d05a",
+          "key": "vertical",
+          "value": "Vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "6834002f-0a46-444e-9f0a-f512ac66ec92",
+      "kind": "EnumType",
+      "name": "AntDesignSpace Size Enum",
+      "allowedValues": [
+        {
+          "id": "26058ad7-6fa5-4035-a73e-c3cf04b66743",
+          "key": "Size",
+          "value": "Size"
+        },
+        {
+          "id": "c199070d-5b20-45b7-b8e5-32d4f5fb1c8b",
+          "key": "Size[]",
+          "value": "Size[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "31fcf9fd-fe36-4f7d-89a6-957a3eedf69a",
+      "kind": "EnumType",
+      "name": "AntDesignTable Loading Enum",
+      "allowedValues": [
+        {
+          "id": "6098ccc1-d15a-4458-ad9c-70d0e8ea3c1e",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "a527d851-6442-4350-849e-d527c71b6cfa",
+          "key": "Spin Props",
+          "value": "Spin  Props"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c5b1823a-f647-4ce2-ad9f-52adb039a76a",
+      "kind": "EnumType",
+      "name": "AntDesignTable Show Sorter Tooltip Enum",
+      "allowedValues": [
+        {
+          "id": "73470b2f-53f4-4c7c-8394-0966ce03afb4",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "816123e3-15aa-48d1-87c8-6d5b8da98ae5",
+          "key": "Tooltip props",
+          "value": "Tooltip props"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a5cd169a-5a06-49a1-b54f-99244c718e64",
+      "kind": "EnumType",
+      "name": "AntDesignTable Size Enum",
+      "allowedValues": [
+        {
+          "id": "9533aee6-939e-4a61-bbd5-b812648d15a9",
+          "key": "default",
+          "value": "Default"
+        },
+        {
+          "id": "5dbf0ebe-d61d-4b01-bfe4-5814b3cf42bd",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "aacbfdfa-93ce-48ee-b33a-00caeaa15a0c",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c189c5fc-bba7-4af0-a2c9-697ac9980290",
+      "kind": "EnumType",
+      "name": "AntDesignTable Table Layout Enum",
+      "allowedValues": [
+        {
+          "id": "db14ce92-144f-4e8e-8869-2e3dac976eee",
+          "key": "-",
+          "value": "-"
+        },
+        {
+          "id": "40ef0444-2c60-4d3f-a4ff-ddd288e9940b",
+          "key": "auto",
+          "value": "Auto"
+        },
+        {
+          "id": "064a6ff2-14c2-41a5-b312-008e8bbeecd3",
+          "key": "fixed",
+          "value": "Fixed"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "823fcb88-64d5-4485-b4b7-0a20b1d740d0",
+      "kind": "EnumType",
+      "name": "AntDesignTabs Animated Enum",
+      "allowedValues": [
+        {
+          "id": "ae1187d5-e88d-409a-8577-7447133aa0a7",
+          "key": "{ inkBar: boolean, tabPane: boolean }",
+          "value": "{ ink Bar: boolean, tab Pane: boolean }"
+        },
+        {
+          "id": "534e23fa-4dfb-4509-8940-740daabb47d9",
+          "key": "boolean",
+          "value": "Boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9e09f421-3686-442b-9eaa-0becfa2a21e8",
+      "kind": "EnumType",
+      "name": "AntDesignTabs Size Enum",
+      "allowedValues": [
+        {
+          "id": "0e8a67bd-d780-4de0-a6cf-ea101703e01a",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "f8c13dc8-af70-4a04-b137-5ffc3e4c4ae6",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "2453fbb7-9f82-4bc8-8770-f61571d937e8",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "dda0caaa-bb18-417c-8a78-039a4d57296e",
+      "kind": "EnumType",
+      "name": "AntDesignTabs Tab Bar Extra Content Enum",
+      "allowedValues": [
+        {
+          "id": "c2829d85-592d-4e70-aaf1-3335c231afb4",
+          "key": "{left?: ReactNode, right?: ReactNode}",
+          "value": "{left?:  React Node, right?:  React Node}"
+        },
+        {
+          "id": "da092b4f-c99c-4ab1-8a8f-4f04fc64c3c2",
+          "key": "ReactNode",
+          "value": "React Node"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "58c00fcc-72ed-42c6-9c02-9fc6ab122a1a",
+      "kind": "EnumType",
+      "name": "AntDesignTabs Tab Position Enum",
+      "allowedValues": [
+        {
+          "id": "64ac0e19-5720-46cd-b3b4-15ba79445773",
+          "key": "bottom \\",
+          "value": "Bottom \\"
+        },
+        {
+          "id": "fc46ab02-95ab-40db-9ef3-4b4b21940100",
+          "key": "right",
+          "value": "Right"
+        },
+        {
+          "id": "a582264d-2aa6-42f9-b5b5-dd6f1a3a72e4",
+          "key": "top",
+          "value": "Top"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "2095635b-3517-4e43-99b3-671adb1a5d90",
+      "kind": "EnumType",
+      "name": "AntDesignTabs Type Enum",
+      "allowedValues": [
+        {
+          "id": "d5c068f9-a8a1-439d-af9f-5d093b5d0436",
+          "key": "card",
+          "value": "Card"
+        },
+        {
+          "id": "dddb4883-9ad9-44ff-8d7b-7a32afc5c7b2",
+          "key": "editable-card",
+          "value": "Editable-card"
+        },
+        {
+          "id": "b68e0110-ff0c-41d0-bf44-18d93f8702d1",
+          "key": "line",
+          "value": "Line"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "25c5866b-6261-43b6-91f2-329fc445e31b",
+      "kind": "EnumType",
+      "name": "AntDesignTimeline Mode Enum",
+      "allowedValues": [
+        {
+          "id": "6a8636ef-f434-4118-af12-0edac78b97a6",
+          "key": "alternate",
+          "value": "Alternate"
+        },
+        {
+          "id": "1324be2d-9993-4e10-9611-32e98b6b35fc",
+          "key": "left",
+          "value": "Left"
+        },
+        {
+          "id": "b853d02a-ad23-4105-95e7-be72968f0d9f",
+          "key": "right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "27e650af-10d8-4838-98be-f22d058a51cf",
+      "kind": "EnumType",
+      "name": "AntDesignTimeline Pending Enum",
+      "allowedValues": [
+        {
+          "id": "0a77a1ec-0770-401a-980e-bf09dd73de07",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "be6d60f0-42a4-46c6-88b0-ee04bad3afda",
+          "key": "ReactNode",
+          "value": "React Node"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c3d646d7-47c8-4cfd-8a27-ca6ed9d1cfa4",
+      "kind": "EnumType",
+      "name": "AntDesignTimelineItem Position Enum",
+      "allowedValues": [
+        {
+          "id": "f07e7afe-71c7-4049-9887-a1e73b24e8f8",
+          "key": "left",
+          "value": "Left"
+        },
+        {
+          "id": "a2326e7c-8f0f-41a1-a9c8-df757b79d7da",
+          "key": "right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0b00aaea-f52d-4810-b556-ca72fd965f16",
+      "kind": "EnumType",
+      "name": "AntDesignTooltip Destroy Tooltip On Hide Enum",
+      "allowedValues": [
+        {
+          "id": "f62ceb4c-1220-4339-8792-178516f66e6f",
+          "key": "{ keepParent?: boolean }",
+          "value": "{ keep Parent?: boolean }"
+        },
+        {
+          "id": "4f62d4b9-41e0-46c1-b897-f444bae60e48",
+          "key": "boolean",
+          "value": "Boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c6cc834b-9239-4912-b272-997911052b01",
+      "kind": "EnumType",
+      "name": "AntDesignTooltip Trigger Enum",
+      "allowedValues": [
+        {
+          "id": "0f85d1e2-75c4-4fa3-87f2-209f9aa9de83",
+          "key": "Array<string>",
+          "value": "Array<string>"
+        },
+        {
+          "id": "dc6ce73d-7db6-46b7-9d4a-f69306da19e5",
+          "key": "click",
+          "value": "Click"
+        },
+        {
+          "id": "45868386-0c76-4720-b3e2-8687bbc12584",
+          "key": "contextMenu",
+          "value": "Context Menu"
+        },
+        {
+          "id": "86c9e2f8-c75b-419e-825f-d56413d58285",
+          "key": "focus",
+          "value": "Focus"
+        },
+        {
+          "id": "97fd65d4-5c75-4439-a022-d773b0154aaf",
+          "key": "hover",
+          "value": "Hover"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "01da44fb-e200-4394-8561-99b0dd041562",
+      "kind": "EnumType",
+      "name": "AntDesignTree Checked Keys Enum",
+      "allowedValues": [
+        {
+          "id": "7ea5597e-6059-4ff1-9e72-0adc653257e0",
+          "key": "{checked: string[], halfChecked: string[]}",
+          "value": "{checked: string[], half Checked: string[]}"
+        },
+        {
+          "id": "22259e89-82aa-4f1f-9174-8f4878dd0972",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b9968e9f-d037-4664-a878-508129ddeda6",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Default Value Enum",
+      "allowedValues": [
+        {
+          "id": "828f05ad-1ebc-4ee9-955c-6f0b96510ce0",
+          "key": "string",
+          "value": "String"
+        },
+        {
+          "id": "b7704a48-ecda-4570-8633-2d7829579ff7",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "44da4805-3cbe-4762-bb0b-1c083c6c4bde",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Dropdown Match Select Width Enum",
+      "allowedValues": [
+        {
+          "id": "45db33b7-9c75-44db-9e4b-de3c760f4f67",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "5b4bb466-5b92-414b-978f-62e19a3dc2e8",
+          "key": "number",
+          "value": "Number"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b3af3140-430e-4522-ae5b-7b86bc6ff2f5",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Max Tag Count Enum",
+      "allowedValues": [
+        {
+          "id": "2bd694f0-b029-4bf6-966b-1439203b551e",
+          "key": "number",
+          "value": "Number"
+        },
+        {
+          "id": "b48f58ad-99d8-455e-b29e-bcb614feef4b",
+          "key": "responsive",
+          "value": "Responsive"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c3123ccc-079d-4b21-8b3d-c0a8c71d342b",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Show Checked Strategy Enum",
+      "allowedValues": [
+        {
+          "id": "65ab7f6d-967f-4aa4-a0a1-43c323730843",
+          "key": "TreeSelect.SHOW_ALL",
+          "value": "Tree Select. S H O W_ A L L"
+        },
+        {
+          "id": "07bb6bde-5654-4199-a904-b8582da3885d",
+          "key": "TreeSelect.SHOW_CHILD",
+          "value": "Tree Select. S H O W_ C H I L D"
+        },
+        {
+          "id": "bbcb3b64-dc3c-4e00-8100-4ff12204ce26",
+          "key": "TreeSelect.SHOW_PARENT",
+          "value": "Tree Select. S H O W_ P A R E N T"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "46ee5839-5adf-41f4-96c1-3da2510b5138",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Size Enum",
+      "allowedValues": [
+        {
+          "id": "98d53c9c-e364-4768-ab36-9d386c8195e2",
+          "key": "large",
+          "value": "Large"
+        },
+        {
+          "id": "b9acd463-3543-47bf-9770-0e593dc8c263",
+          "key": "middle",
+          "value": "Middle"
+        },
+        {
+          "id": "2ec24474-47d3-4d21-a7fc-4ce20eadc060",
+          "key": "small",
+          "value": "Small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e26ef136-1f94-45b4-9e0d-ab10f172e33a",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Status Enum",
+      "allowedValues": [
+        {
+          "id": "c3afae08-4266-43fa-bbec-604d741d0b66",
+          "key": "error",
+          "value": "Error"
+        },
+        {
+          "id": "8650d7bf-c7b7-4434-a067-e3994368400c",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e685930f-7371-4259-95b5-4f9df4f5197a",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Tree Data Simple Mode Enum",
+      "allowedValues": [
+        {
+          "id": "8b9229d6-a805-4b26-a380-ffea555cc076",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "3779454e-a570-41d3-b13d-16ac30f22d2c",
+          "key": "object<{ id: string, pId: string, rootPId: string }>",
+          "value": "Object<{ id: string, p Id: string, root P Id: string }>"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9d17e92a-1efe-49dc-8879-72528f89ef18",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Tree Expand Action Enum",
+      "allowedValues": [
+        {
+          "id": "0e5c9351-17cf-4534-9211-7736f4bf3874",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "ddc8e060-1db4-45c5-8264-e594e6e8c246",
+          "key": "string",
+          "value": "String"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b706d305-ef5e-4a0a-87e3-abba08802f3b",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Tree Line Enum",
+      "allowedValues": [
+        {
+          "id": "25b3668b-9842-4712-9675-51e35e6992d7",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "93fe29cd-19c2-41cd-aea4-133604373651",
+          "key": "object",
+          "value": "Object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "226394a3-cd6f-4cc6-a7b7-8ad324738317",
+      "kind": "EnumType",
+      "name": "AntDesignTreeSelect Value Enum",
+      "allowedValues": [
+        {
+          "id": "3c77220e-5d54-49ad-829c-dcf35efcd245",
+          "key": "string",
+          "value": "String"
+        },
+        {
+          "id": "87a620b8-5505-408e-84b8-0a0f169a5ed0",
+          "key": "string[]",
+          "value": "String[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d3a56c9f-0b67-4d79-bf2f-d223971222a0",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Copyable Enum",
+      "allowedValues": [
+        {
+          "id": "e7f1ec86-d0bb-485c-b78a-bd8f26576943",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "b3ee9f64-9c7c-436d-b98e-e3f71dd06050",
+          "key": "copyable",
+          "value": "Copyable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f801e3fd-6bfb-4eb0-9ceb-f7afb56a5c41",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Editable Enum",
+      "allowedValues": [
+        {
+          "id": "227a3147-edb5-43fb-abcc-6bf6db0fac6a",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "34825891-95f4-443f-80e9-53af8b0340fa",
+          "key": "editable",
+          "value": "Editable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "8b494f77-2b5b-4512-93a5-b54f04159f68",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Ellipsis Enum",
+      "allowedValues": [
+        {
+          "id": "0b11bcbf-26f2-4403-b983-1f8e013e4594",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "d4fb84ed-f9ba-4133-82a9-7af92617784c",
+          "key": "ellipsis",
+          "value": "Ellipsis"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "080a322c-d89a-45b1-ace9-32f9dc806fef",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Type Enum",
+      "allowedValues": [
+        {
+          "id": "62a5ec3c-e2f9-4511-b9bf-c629ba02ffec",
+          "key": "danger",
+          "value": "Danger"
+        },
+        {
+          "id": "aae69639-c1ab-4d3e-9ca7-71afa1326b13",
+          "key": "secondary",
+          "value": "Secondary"
+        },
+        {
+          "id": "710238dc-98e8-40ff-94e8-3d81f8171bee",
+          "key": "success",
+          "value": "Success"
+        },
+        {
+          "id": "9927f0fc-fa84-4e6b-b375-8559d10caa54",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a46aefac-24c9-4dca-8313-68b521a1cf5f",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyText Copyable Enum",
+      "allowedValues": [
+        {
+          "id": "32d5b218-0a46-4288-a193-cbc2d8f4fce6",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "2f919f8c-6e88-4d11-8365-51178db9e685",
+          "key": "copyable",
+          "value": "Copyable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f8271b62-b9fb-40e1-b8da-4e11dc60de10",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyText Editable Enum",
+      "allowedValues": [
+        {
+          "id": "96c15bfa-9305-413c-a7f8-aa85a0a973b3",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "fb797756-87b3-4c6f-8a38-ce01414df9c8",
+          "key": "editable",
+          "value": "Editable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3fbe4d7c-3011-4f34-be45-0967341dc7fd",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyText Ellipsis Enum",
+      "allowedValues": [
+        {
+          "id": "9c18975c-a759-401e-9384-ce94eba2e393",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "886ccfc1-5154-4103-bd02-374b3d1f6945",
+          "key": "Omit<ellipsis, expandable",
+          "value": "Omit<ellipsis, expandable"
+        },
+        {
+          "id": "491cae07-d944-4f22-8a0b-10c6689433b0",
+          "key": "onExpand>",
+          "value": "On Expand>"
+        },
+        {
+          "id": "86dd6ca3-0f11-4cc8-972e-a16a16842157",
+          "key": "rows",
+          "value": "Rows"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b47651b2-0f09-407b-9f0b-1d1b791f5769",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyText Type Enum",
+      "allowedValues": [
+        {
+          "id": "26f1667d-6536-4f03-9ff1-f0ee23a6e2d0",
+          "key": "danger",
+          "value": "Danger"
+        },
+        {
+          "id": "aec6d67b-9b96-4a8e-870a-de41a1a684b8",
+          "key": "secondary",
+          "value": "Secondary"
+        },
+        {
+          "id": "94c6549f-c630-45b8-90eb-f8fa3c7739eb",
+          "key": "success",
+          "value": "Success"
+        },
+        {
+          "id": "cf422ba6-fb2e-436a-9bff-16a8d228ea27",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "169fa338-b3cf-4b70-878b-a71c0eeecaf2",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Copyable Enum",
+      "allowedValues": [
+        {
+          "id": "ea92a8ce-8500-416a-9d40-372c807fe2f9",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "b10dcfb0-c205-4d18-b7f7-d75f304c0ea0",
+          "key": "copyable",
+          "value": "Copyable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "928c847c-553e-4d73-b612-b06e10d2dd8e",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Editable Enum",
+      "allowedValues": [
+        {
+          "id": "06793e2b-7b6e-40e0-a8b1-f259f1563710",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "08bdbc4a-6163-43cb-a511-0592d8b7c43f",
+          "key": "editable",
+          "value": "Editable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "eb36c17f-1eac-49bb-85ee-0971abc77cba",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Ellipsis Enum",
+      "allowedValues": [
+        {
+          "id": "9f613b3a-63f6-4a7c-a798-bc080130760d",
+          "key": "boolean",
+          "value": "Boolean"
+        },
+        {
+          "id": "69caa7f9-658b-4977-b461-e44c85179b28",
+          "key": "ellipsis",
+          "value": "Ellipsis"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c5b57caa-15fe-4435-8d86-8d48b7a16268",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Type Enum",
+      "allowedValues": [
+        {
+          "id": "cce9cd1f-4dae-40a3-a30c-645b11e8fa39",
+          "key": "danger",
+          "value": "Danger"
+        },
+        {
+          "id": "4a249fdc-8759-4607-b530-b8e88138e50a",
+          "key": "secondary",
+          "value": "Secondary"
+        },
+        {
+          "id": "a108be85-2a84-4d03-9e6d-74be38896da7",
+          "key": "success",
+          "value": "Success"
+        },
+        {
+          "id": "f3f88943-187d-47af-953f-9f2a916e5bc3",
+          "key": "warning",
+          "value": "Warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a9ab9ba3-5d87-44c9-910d-2fc328c62514",
+      "kind": "EnumType",
+      "name": "AntDesignUpload Cross Origin Enum",
+      "allowedValues": [
+        {
+          "id": "c1485364-346e-47ea-85eb-ae528efad873",
+          "key": "",
+          "value": ""
+        },
+        {
+          "id": "742bfb05-349e-4520-9f71-ff3d093b1d35",
+          "key": "anonymous",
+          "value": "Anonymous"
+        },
+        {
+          "id": "befe895c-539c-4b50-a0e0-460dfd1a8452",
+          "key": "use-credentials",
+          "value": "Use-credentials"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f3606cc3-121a-4d59-9e10-60b3853211bf",
+      "kind": "EnumType",
+      "name": "AntDesignUpload Status Enum",
+      "allowedValues": [
+        {
+          "id": "292ef3dd-6859-43e0-9dbe-064a311a86d3",
+          "key": "done",
+          "value": "Done"
+        },
+        {
+          "id": "ee598eb8-7024-4460-ae3d-8afcede8b359",
+          "key": "error",
+          "value": "Error"
+        },
+        {
+          "id": "38d57607-5582-46ee-8c05-36d20f21157e",
+          "key": "removed",
+          "value": "Removed"
+        },
+        {
+          "id": "a1ad622d-7ea2-460d-a889-fdd059e78351",
+          "key": "success",
+          "value": "Success"
+        },
+        {
+          "id": "b85ceb19-b0b6-4124-8298-8294188cec61",
+          "key": "uploading",
+          "value": "Uploading"
         }
       ]
     },
@@ -1889,6 +4712,32 @@
             }
           },
           {
+            "id": "5aa73508-0be3-46e6-a954-e07a6876891c",
+            "key": "crossOrigin",
+            "name": "Cross Origin",
+            "description": "CORS settings attributes",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "52c2eae9-df9b-4909-bb49-4471f987f1e8",
+              "kind": "EnumType",
+              "name": "AntDesignAvatar Cross Origin Enum"
+            }
+          },
+          {
+            "id": "9e6d67ae-22f7-4132-9214-9fe6a0feea0c",
+            "key": "draggable",
+            "name": "Draggable",
+            "description": "Whether the picture is allowed to be dragged",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "4e9d80d5-7d7e-4108-8c91-2360c4fdec05",
+              "kind": "EnumType",
+              "name": "AntDesignAvatar Draggable Enum"
+            }
+          },
+          {
             "id": "09969f9a-7255-4330-9f67-aaec5f9cf393",
             "key": "gap",
             "name": "Gap",
@@ -1912,6 +4761,45 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "0bc9a9fe-63c1-4f3b-8cec-3356dad08532",
+            "key": "shape",
+            "name": "Shape",
+            "description": "The shape of avatar",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "12e20349-2422-4dac-a9be-ad151bcc2d1c",
+              "kind": "EnumType",
+              "name": "AntDesignAvatar Shape Enum"
+            }
+          },
+          {
+            "id": "eaff9d5a-f187-4720-87c4-647a1ebe100f",
+            "key": "size",
+            "name": "Size",
+            "description": "The size of the avatar",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "098377bc-b0c6-418e-9e81-e25e79a72f9b",
+              "kind": "EnumType",
+              "name": "AntDesignAvatar Size Enum"
+            }
+          },
+          {
+            "id": "e41903cf-4680-4f12-9d1f-361c59060f1a",
+            "key": "src",
+            "name": "Src",
+            "description": "The address of the image for an image avatar or image element",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "af6aca40-ee89-4cd3-9526-7ea08898bcaf",
+              "kind": "EnumType",
+              "name": "AntDesignAvatar Src Enum"
             }
           },
           {
@@ -2050,6 +4938,32 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "f6679700-ef65-4afb-9bc7-b1a492744d56",
+            "key": "size",
+            "name": "Size",
+            "description": "If count is set, size sets the size of badge",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "f8a8d648-bf23-4cdc-b453-650ffab8d9ec",
+              "kind": "EnumType",
+              "name": "AntDesignBadge Size Enum"
+            }
+          },
+          {
+            "id": "15f42477-379c-44ff-aac8-f6dd4ca52058",
+            "key": "status",
+            "name": "Status",
+            "description": "Set Badge as a status dot",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d641a490-74b4-4a16-89b2-e0bec879a4d3",
+              "kind": "EnumType",
+              "name": "AntDesignBadge Status Enum"
             }
           },
           {
@@ -2289,6 +5203,45 @@
             }
           },
           {
+            "id": "1428778f-6fdf-44ad-b277-bd4ee6a92f6b",
+            "key": "loading",
+            "name": "Loading",
+            "description": "Set the loading status of button",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "e4a6f17d-a7d4-4a8a-ab65-a3f13460e8bf",
+              "kind": "EnumType",
+              "name": "AntDesignButton Loading Enum"
+            }
+          },
+          {
+            "id": "d562a30c-6bd6-4c12-9b86-8ed7db76654b",
+            "key": "shape",
+            "name": "Shape",
+            "description": "Can be set button shape",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "0e378fa9-84ba-4399-bc07-4db3a8b6291a",
+              "kind": "EnumType",
+              "name": "AntDesignButton Shape Enum"
+            }
+          },
+          {
+            "id": "8a87b971-3add-4a0b-9b0e-8613cff27455",
+            "key": "size",
+            "name": "Size",
+            "description": "Set the size of button",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "f0dfc502-a320-4f04-952d-628cd339613a",
+              "kind": "EnumType",
+              "name": "AntDesignButton Size Enum"
+            }
+          },
+          {
             "id": "4cf4e263-084f-4fe9-adc6-39a65c304621",
             "key": "target",
             "name": "Target",
@@ -2368,6 +5321,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "8b6577b8-21c2-49fd-aee6-6766bd1de38d",
+            "key": "mode",
+            "name": "Mode",
+            "description": "The display mode of the calendar",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "5d1d49a3-1b66-4b51-ae69-05efc34ec499",
+              "kind": "EnumType",
+              "name": "AntDesignCalendar Mode Enum"
             }
           },
           {
@@ -2502,6 +5468,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "2ac173a1-5e2d-4352-92ea-69f7cdc29425",
+            "key": "size",
+            "name": "Size",
+            "description": "Size of card",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ff2e43c0-c9d3-4b9b-92a5-2f04707f9d8f",
+              "kind": "EnumType",
+              "name": "AntDesignCard Size Enum"
             }
           },
           {
@@ -2816,6 +5795,19 @@
             }
           },
           {
+            "id": "659856e4-d060-4258-ab28-f6490f457376",
+            "key": "activeKey",
+            "name": "Active Key",
+            "description": "Key of the active panel",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "898f083b-c4ea-4a39-b605-999a7016a992",
+              "kind": "EnumType",
+              "name": "AntDesignCollapse Active Key Enum"
+            }
+          },
+          {
             "id": "fe789f27-8e48-4962-acce-161055b3d790",
             "key": "bordered",
             "name": "Bordered",
@@ -2826,6 +5818,32 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "cfd87063-f863-42ca-8494-a627b5f1013d",
+            "key": "collapsible",
+            "name": "Collapsible",
+            "description": "Specify whether the panels of children be collapsible or the trigger area of collapsible",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "25f28338-de55-4b99-aca8-f134c1ecceb9",
+              "kind": "EnumType",
+              "name": "AntDesignCollapse Collapsible Enum"
+            }
+          },
+          {
+            "id": "e0d757fd-2777-482c-99cb-4d3a8d55779f",
+            "key": "defaultActiveKey",
+            "name": "Default Active Key",
+            "description": "Key of the initial active panel",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "6aac70cd-cd72-48f8-af1c-09df9b555232",
+              "kind": "EnumType",
+              "name": "AntDesignCollapse Default Active Key Enum"
             }
           },
           {
@@ -2852,6 +5870,19 @@
               "id": "649eed05-347a-407a-8a9e-7d27b6a49aad",
               "kind": "RenderPropsType",
               "name": "RenderPropsType"
+            }
+          },
+          {
+            "id": "9b079e6f-3284-4a79-bfd6-d83bf574144c",
+            "key": "expandIconPosition",
+            "name": "Expand Icon Position",
+            "description": "Set expand icon position",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "0b286389-7c6c-45fa-97de-afecfa3edfde",
+              "kind": "EnumType",
+              "name": "AntDesignCollapse Expand Icon Position Enum"
             }
           },
           {
@@ -2884,6 +5915,19 @@
       },
       "fieldsConnection": {
         "edges": [
+          {
+            "id": "cff6a0bc-6e7a-4bf2-9af9-6fe4e2016cd3",
+            "key": "collapsible",
+            "name": "Collapsible",
+            "description": "Specify whether the panel be collapsible or the trigger area of collapsible",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "2c0dbc2d-0cdc-4b9f-a026-453ff1c311e5",
+              "kind": "EnumType",
+              "name": "AntDesignCollapsePanel Collapsible Enum"
+            }
+          },
           {
             "id": "f79c6f12-a0c1-4a57-a396-bed674373153",
             "key": "extra",
@@ -2921,6 +5965,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "e09c26d5-4bc9-49b5-9ee2-9972bfe7eca7",
+            "key": "key",
+            "name": "Key",
+            "description": "Unique key identifying the panel from among its siblings",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c7266bbd-a101-4636-89eb-1ae1a06af536",
+              "kind": "EnumType",
+              "name": "AntDesignCollapsePanel Key Enum"
             }
           },
           {
@@ -3075,6 +6132,58 @@
             }
           },
           {
+            "id": "f2594c1b-219a-4008-ae59-edf7d30f35ad",
+            "key": "componentSize",
+            "name": "Component Size",
+            "description": "Config antd component size",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "7a9f7cb5-bc34-4f81-8e22-4906b954b54b",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Component Size Enum"
+            }
+          },
+          {
+            "id": "4b659f9b-57c7-41b4-b2be-aaa0ebcd7141",
+            "key": "direction",
+            "name": "Direction",
+            "description": "Set direction of layout. See demo",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ac3b2bc3-30b3-4af4-8b89-1a5db5c21503",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Direction Enum"
+            }
+          },
+          {
+            "id": "bf88a136-ee10-47bb-b577-51cb3c32ea53",
+            "key": "dropdownMatchSelectWidth",
+            "name": "Dropdown Match Select Width",
+            "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d898f4ef-9732-457d-bb9d-29152ce7f913",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Dropdown Match Select Width Enum"
+            }
+          },
+          {
+            "id": "96a9151e-f483-4aad-b236-8a621e778594",
+            "key": "form",
+            "name": "Form",
+            "description": "Set Form common props",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "fb20c822-2d70-4f33-80f8-09157507ccf8",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Form Enum"
+            }
+          },
+          {
             "id": "b33e0658-b822-46c1-80a7-f2d5affd5656",
             "key": "iconPrefixCls",
             "name": "Icon Prefix Cls",
@@ -3111,6 +6220,19 @@
               "id": "649eed05-347a-407a-8a9e-7d27b6a49aad",
               "kind": "RenderPropsType",
               "name": "RenderPropsType"
+            }
+          },
+          {
+            "id": "cfee5b67-c6e4-4f6a-8ced-20b172fbf33d",
+            "key": "space",
+            "name": "Space",
+            "description": "Set Space size, ref Space",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "88caaaa2-8cef-41f1-aac5-461f0ef033df",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Space Enum"
             }
           },
           {
@@ -3167,6 +6289,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "722177ba-699c-4e7f-8a96-17c0684baeb1",
+            "key": "showTime",
+            "name": "Show Time",
+            "description": "To provide an additional time selection",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "0bd27da1-7b5b-438c-ac1a-20c3fcba3969",
+              "kind": "EnumType",
+              "name": "AntDesignDatePicker Show Time Enum"
             }
           },
           {
@@ -3249,6 +6384,32 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "2b05ad80-1d48-449e-8db1-c4ab3b92bc51",
+            "key": "layout",
+            "name": "Layout",
+            "description": "Define description layout",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ca7c80a9-d0c8-4ba8-b834-f1378ac9c440",
+              "kind": "EnumType",
+              "name": "AntDesignDescriptions Layout Enum"
+            }
+          },
+          {
+            "id": "e78ce4ba-91c3-4e59-a172-b6279b473c61",
+            "key": "size",
+            "name": "Size",
+            "description": "Set the size of the list. Can be set to middle,small, or not filled",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ec5b6bd6-1e1f-4bc0-956f-9c1868859c48",
+              "kind": "EnumType",
+              "name": "AntDesignDescriptions Size Enum"
             }
           },
           {
@@ -3364,6 +6525,32 @@
             }
           },
           {
+            "id": "7c9c4cd1-2237-4d57-8d93-fbff3deaefd5",
+            "key": "orientation",
+            "name": "Orientation",
+            "description": "The position of title inside divider",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "a913b3c1-a286-4fae-a5e7-ab5429555b85",
+              "kind": "EnumType",
+              "name": "AntDesignDivider Orientation Enum"
+            }
+          },
+          {
+            "id": "e12cca23-d681-420b-a47a-3d6bdb4505f5",
+            "key": "orientationMargin",
+            "name": "Orientation Margin",
+            "description": "The margin-left/right between the title and its closest border, while the orientation must be left or right",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d6e3f677-e8de-4111-add8-6a4586eff82b",
+              "kind": "EnumType",
+              "name": "AntDesignDivider Orientation Margin Enum"
+            }
+          },
+          {
             "id": "e12cca23-d681-420b-a47a-3d6bdb4505f5",
             "key": "orientationMargin",
             "name": "Orientation Margin",
@@ -3387,6 +6574,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "f0c8dc75-55f5-4b6e-8790-b68a3c49c460",
+            "key": "type",
+            "name": "Type",
+            "description": "The direction type of divider",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b6c05359-1942-462a-8105-b38ccaaa2000",
+              "kind": "EnumType",
+              "name": "AntDesignDivider Type Enum"
             }
           }
         ]
@@ -3517,6 +6717,19 @@
             "description": "Placement is top or bottom, height of the Drawer dialog",
             "validationRules": "",
             "node": {
+              "__typename": "EnumType",
+              "id": "aa24c759-c2ab-4aa2-adab-494cf3d1344f",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Height Enum"
+            }
+          },
+          {
+            "id": "07d2cd0a-728d-43b9-a991-308ecad5f29e",
+            "key": "height",
+            "name": "Height",
+            "description": "Placement is top or bottom, height of the Drawer dialog",
+            "validationRules": "",
+            "node": {
               "__typename": "PrimitiveType",
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
@@ -3576,6 +6789,45 @@
             }
           },
           {
+            "id": "86e2b92f-a1be-4d56-8dc2-475269d27d2c",
+            "key": "placement",
+            "name": "Placement",
+            "description": "The placement of the Drawer",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "3eb69332-628a-464d-9827-ca592a0fdacd",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Placement Enum"
+            }
+          },
+          {
+            "id": "260a4cae-7df7-4511-a88d-1b37a4a3b9db",
+            "key": "push",
+            "name": "Push",
+            "description": "Nested drawers push behavior",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "4a197745-6b40-43c1-9fd0-45e027c96a6f",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Push Enum"
+            }
+          },
+          {
+            "id": "94f75a9b-52e5-4ee2-9e19-8e6a9eead8a5",
+            "key": "size",
+            "name": "Size",
+            "description": "presetted size of drawer, default 378px and large 736px",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d63047fc-2470-4e84-aa0f-2aafe97a0a0b",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Size Enum"
+            }
+          },
+          {
             "id": "f75e5555-48fe-4121-a454-39b0aedbaa24",
             "key": "title",
             "name": "Title",
@@ -3586,6 +6838,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "2d4348bf-bd51-40f5-96d0-f766014190f7",
+            "key": "width",
+            "name": "Width",
+            "description": "Width of the Drawer dialog",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "7cce54b7-3f07-44c9-a18d-639b388c2204",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Width Enum"
             }
           },
           {
@@ -3631,6 +6896,19 @@
       },
       "fieldsConnection": {
         "edges": [
+          {
+            "id": "6f4dcad8-cd7e-486b-a79c-4dd6c879340b",
+            "key": "arrow",
+            "name": "Arrow",
+            "description": "Whether the dropdown arrow should be visible",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "6201bec7-201d-434c-8469-c962ec434ec0",
+              "kind": "EnumType",
+              "name": "AntDesignDropdown Arrow Enum"
+            }
+          },
           {
             "id": "bb59e4e8-eca7-438f-9f0f-9024af87167f",
             "key": "autoFocus",
@@ -3707,6 +6985,19 @@
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
               "name": "String"
+            }
+          },
+          {
+            "id": "33d7062c-d5d3-4f2f-8903-b6d53673752f",
+            "key": "trigger",
+            "name": "Trigger",
+            "description": "The trigger mode which executes the dropdown action. Note that hover can't be used on touchscreens",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "9fd333a7-776a-4c23-9f51-df1122608657",
+              "kind": "EnumType",
+              "name": "AntDesignDropdown Trigger Enum"
             }
           }
         ]
@@ -3799,6 +7090,19 @@
             }
           },
           {
+            "id": "e7e3bc3a-6fbd-425e-bde4-e493e649a17a",
+            "key": "component",
+            "name": "Component",
+            "description": "Set the Form rendering element. Do not create a DOM node for false",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ef8be2a9-d5f6-4e66-9586-795470d11a3c",
+              "kind": "EnumType",
+              "name": "AntDesignForm Component Enum"
+            }
+          },
+          {
             "id": "df659dde-32b8-4375-849d-988a6f8f14da",
             "key": "disabled",
             "name": "Disabled",
@@ -3812,6 +7116,19 @@
             }
           },
           {
+            "id": "ee2093de-a3cd-487d-ac0e-88c8b2c82402",
+            "key": "labelAlign",
+            "name": "Label Align",
+            "description": "The text align of label of all items",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "2e15e23e-f415-4b9d-a2a0-efb1c2c1743a",
+              "kind": "EnumType",
+              "name": "AntDesignForm Label Align Enum"
+            }
+          },
+          {
             "id": "680637b4-a3b6-4ea1-9590-d2f629d5abfa",
             "key": "labelWrap",
             "name": "Label Wrap",
@@ -3822,6 +7139,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "cfd0fe81-967a-48f2-b530-fc1b32cffe16",
+            "key": "layout",
+            "name": "Layout",
+            "description": "Form layout",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "2e371bcc-9150-446a-aacf-d22483538c7a",
+              "kind": "EnumType",
+              "name": "AntDesignForm Layout Enum"
             }
           },
           {
@@ -3848,6 +7178,58 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "7eebc5c8-6f92-4fff-b2e1-563b1cd0ac0f",
+            "key": "requiredMark",
+            "name": "Required Mark",
+            "description": "Required mark style. Can use required mark or optional mark. You can not config to single Form.Item since this is a Form level config",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "dfe38191-e3f7-4d71-ba0a-5ba4f022e77d",
+              "kind": "EnumType",
+              "name": "AntDesignForm Required Mark Enum"
+            }
+          },
+          {
+            "id": "87e84085-b45c-4a50-8252-80e323aef3a9",
+            "key": "scrollToFirstError",
+            "name": "Scroll To First Error",
+            "description": "Auto scroll to first failed field when submit",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "8273178c-354a-4a38-bb9e-1a835a9e8dac",
+              "kind": "EnumType",
+              "name": "AntDesignForm Scroll To First Error Enum"
+            }
+          },
+          {
+            "id": "d35756fa-bb30-4616-8d3e-5e8a44b73f87",
+            "key": "size",
+            "name": "Size",
+            "description": "Set field component size (antd components only)",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "7d27ea1e-5929-4eb7-9c56-2410d0429ee4",
+              "kind": "EnumType",
+              "name": "AntDesignForm Size Enum"
+            }
+          },
+          {
+            "id": "4cbb0618-eebf-4939-bb10-f9652a8c18d8",
+            "key": "validateTrigger",
+            "name": "Validate Trigger",
+            "description": "Config field validate trigger",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "50bb4308-1e06-41c7-b789-20d185aeaca0",
+              "kind": "EnumType",
+              "name": "AntDesignForm Validate Trigger Enum"
             }
           }
         ]
@@ -4025,6 +7407,19 @@
               "kind": "EnumType",
               "name": "AntDesignFormItem Trigger Enum"
             }
+          },
+          {
+            "id": "660cfe67-b682-4ea7-afa2-c0d6d649cdbe",
+            "key": "trigger",
+            "name": "Trigger",
+            "description": "When to collect the value of children node.",
+            "validationRules": "",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
+              "kind": "PrimitiveType",
+              "name": "String"
+            }
           }
         ]
       }
@@ -4082,10 +7477,49 @@
             "description": "Flex layout style",
             "validationRules": "",
             "node": {
+              "__typename": "EnumType",
+              "id": "f5ba0308-b658-4473-9599-0ff55ab889be",
+              "kind": "EnumType",
+              "name": "AntDesignGridCol Flex Enum"
+            }
+          },
+          {
+            "id": "71cbcd50-954e-4108-af23-6691aab45921",
+            "key": "flex",
+            "name": "Flex",
+            "description": "Flex layout style",
+            "validationRules": "",
+            "node": {
               "__typename": "PrimitiveType",
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
               "name": "String"
+            }
+          },
+          {
+            "id": "ada9572d-db69-4f56-a384-49c7d9a91117",
+            "key": "lg",
+            "name": "Lg",
+            "description": "screen ≥ 992px, could be a span value or an object containing above props",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "5ec4f2e3-af13-4a92-a5c7-9c026de0fcf3",
+              "kind": "EnumType",
+              "name": "AntDesignGridCol Lg Enum"
+            }
+          },
+          {
+            "id": "6ee584b1-b9ad-4693-9147-27bba46669f9",
+            "key": "md",
+            "name": "Md",
+            "description": "screen ≥ 768px, could be a span value or an object containing above props",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "eedd18dc-81b6-4beb-bc7a-c18272169f95",
+              "kind": "EnumType",
+              "name": "AntDesignGridCol Md Enum"
             }
           },
           {
@@ -4141,6 +7575,19 @@
             }
           },
           {
+            "id": "0d49ddc2-7e64-43e7-9aff-1002d442e361",
+            "key": "sm",
+            "name": "Sm",
+            "description": "screen ≥ 576px, could be a span value or an object containing above props",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ded6e578-5139-4d85-a712-b9b337eb43a0",
+              "kind": "EnumType",
+              "name": "AntDesignGridCol Sm Enum"
+            }
+          },
+          {
             "id": "31cd44fc-74a9-48b0-b882-caa7ceed0911",
             "key": "span",
             "name": "Span",
@@ -4151,6 +7598,45 @@
               "id": "629fa92b-a39d-4a13-b96a-a425ff11dadb",
               "kind": "PrimitiveType",
               "name": "Float"
+            }
+          },
+          {
+            "id": "08d2a50c-0bf9-4b27-b780-f4be47c19ee4",
+            "key": "xl",
+            "name": "Xl",
+            "description": "screen ≥ 1200px, could be a span value or an object containing above props",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c5eae811-da9b-479a-82f7-9d09bc0e75da",
+              "kind": "EnumType",
+              "name": "AntDesignGridCol Xl Enum"
+            }
+          },
+          {
+            "id": "b249457a-f4ce-4865-bce3-5b33fb21a521",
+            "key": "xs",
+            "name": "Xs",
+            "description": "screen < 576px and also default setting, could be a span value or an object containing above props",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "0b63ccc7-5283-4623-aff1-de0fa9cd8664",
+              "kind": "EnumType",
+              "name": "AntDesignGridCol Xs Enum"
+            }
+          },
+          {
+            "id": "3e0ad8e0-bebe-423f-803c-8387477610f1",
+            "key": "xxl",
+            "name": "Xxl",
+            "description": "screen ≥ 1600px, could be a span value or an object containing above props",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ca519d11-d836-4e86-a870-70a97c3763f1",
+              "kind": "EnumType",
+              "name": "AntDesignGridCol Xxl Enum"
             }
           }
         ]
@@ -4170,6 +7656,45 @@
       },
       "fieldsConnection": {
         "edges": [
+          {
+            "id": "e1300d44-7505-4cff-ad8d-ca518c9dbdec",
+            "key": "align",
+            "name": "Align",
+            "description": "Vertical alignment",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d8038e75-d8b4-4680-b828-ab3c40bae4bb",
+              "kind": "EnumType",
+              "name": "AntDesignGridRow Align Enum"
+            }
+          },
+          {
+            "id": "31c47d93-21ec-4295-8d75-003fc562fc0d",
+            "key": "gutter",
+            "name": "Gutter",
+            "description": "Spacing between grids, could be a number or a object like { xs: 8, sm: 16, md: 24}. Or you can use array to make horizontal and vertical spacing work at the same time [horizontal, vertical]",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "103b55d6-bedd-43d1-b9ff-9e74f7d0fa14",
+              "kind": "EnumType",
+              "name": "AntDesignGridRow Gutter Enum"
+            }
+          },
+          {
+            "id": "f874893b-c415-4b66-8d56-71c3eeef5945",
+            "key": "justify",
+            "name": "Justify",
+            "description": "Horizontal arrangement",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "5fdf9b01-756a-4d1d-984c-c0840514e89a",
+              "kind": "EnumType",
+              "name": "AntDesignGridRow Justify Enum"
+            }
+          },
           {
             "id": "84340311-4dfe-49c5-b6c1-e9b9adf94cc6",
             "key": "wrap",
@@ -4289,6 +7814,19 @@
             "description": "Image height",
             "validationRules": "",
             "node": {
+              "__typename": "EnumType",
+              "id": "718e7602-c66f-4465-93ba-eb4ee6a1c014",
+              "kind": "EnumType",
+              "name": "AntDesignImage Height Enum"
+            }
+          },
+          {
+            "id": "30133797-f040-4fb1-a88a-f97537f2fbbd",
+            "key": "height",
+            "name": "Height",
+            "description": "Image height",
+            "validationRules": "",
+            "node": {
               "__typename": "PrimitiveType",
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
@@ -4306,6 +7844,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "b679e964-7e87-4edf-8e13-ced2e9ee1490",
+            "key": "preview",
+            "name": "Preview",
+            "description": "preview config, disabled when false",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "0b77fb71-66c0-4761-acb9-5d77c5a92736",
+              "kind": "EnumType",
+              "name": "AntDesignImage Preview Enum"
             }
           },
           {
@@ -4332,6 +7883,19 @@
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
               "name": "String"
+            }
+          },
+          {
+            "id": "def52e2d-52d0-4df2-a613-6b18615f18c3",
+            "key": "width",
+            "name": "Width",
+            "description": "Image width",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "456ab24f-3dec-427f-b70e-652c05d2ecbe",
+              "kind": "EnumType",
+              "name": "AntDesignImage Width Enum"
             }
           },
           {
@@ -4388,6 +7952,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "04e6decb-782d-423d-a982-fc8fda146bd0",
+            "key": "allowClear",
+            "name": "Allow Clear",
+            "description": "If allow to remove input content with clear icon",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "85565f57-4f02-4ece-a7ed-edcad96d1d61",
+              "kind": "EnumType",
+              "name": "AntDesignInput Allow Clear Enum"
             }
           },
           {
@@ -4466,6 +8043,32 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "ebb16843-1ae4-470d-899d-c41b7c419565",
+            "key": "size",
+            "name": "Size",
+            "description": "The size of the input box. Note: in the context of a form, the middle size is used",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "fdc06db6-6292-49fd-8190-2ebab2690ee8",
+              "kind": "EnumType",
+              "name": "AntDesignInput Size Enum"
+            }
+          },
+          {
+            "id": "e19c6514-e228-4f10-bdeb-788486fdb8ae",
+            "key": "status",
+            "name": "Status",
+            "description": "Set validation status",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c15b10ba-e7f3-437a-be6b-b25d00af9370",
+              "kind": "EnumType",
+              "name": "AntDesignInput Status Enum"
             }
           },
           {
@@ -4584,6 +8187,19 @@
       "fieldsConnection": {
         "edges": [
           {
+            "id": "4f4eec19-0d11-485b-a128-5f35b687adee",
+            "key": "breakpoint",
+            "name": "Breakpoint",
+            "description": "Breakpoints of the responsive layout",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "08c8b9d8-cf77-4819-84a8-2a5c5fe8df51",
+              "kind": "EnumType",
+              "name": "AntDesignLayoutSider Breakpoint Enum"
+            }
+          },
+          {
             "id": "a945d2b0-9110-4a6e-abbc-5b2e77a63378",
             "key": "className",
             "name": "Class Name",
@@ -4662,6 +8278,19 @@
             }
           },
           {
+            "id": "ccdb93fe-6435-41e2-b6f8-4cce8cdbbbdd",
+            "key": "theme",
+            "name": "Theme",
+            "description": "Color theme of the sidebar",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "76deb70c-4c0a-42e6-a04e-2a17d0d3cf06",
+              "kind": "EnumType",
+              "name": "AntDesignLayoutSider Theme Enum"
+            }
+          },
+          {
             "id": "bb0a2c3f-3357-413e-8b61-fc1e784c5111",
             "key": "trigger",
             "name": "Trigger",
@@ -4672,6 +8301,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "0eb2804a-1c14-458f-a65d-4c3c22a5b4f0",
+            "key": "width",
+            "name": "Width",
+            "description": "Width of the sidebar",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "e31be61f-7d9f-4b8b-9416-5497acceaf24",
+              "kind": "EnumType",
+              "name": "AntDesignLayoutSider Width Enum"
             }
           },
           {
@@ -4744,6 +8386,19 @@
             }
           },
           {
+            "id": "f02cffd4-45fc-4647-aba7-fbeac30667d7",
+            "key": "itemLayout",
+            "name": "Item Layout",
+            "description": "The layout of list",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "00fe9626-61ec-4bb0-b35d-2c5ac59a7647",
+              "kind": "EnumType",
+              "name": "AntDesignList Item Layout Enum"
+            }
+          },
+          {
             "id": "5d878fe6-169b-444b-8a79-1e981c0b1b28",
             "key": "loadMore",
             "name": "Load More",
@@ -4757,6 +8412,32 @@
             }
           },
           {
+            "id": "4f3c8cfe-5c3d-44fc-a88c-d00c760b2fa8",
+            "key": "loading",
+            "name": "Loading",
+            "description": "Shows a loading indicator while the contents of the list are being fetched",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "1d231790-99ca-4b4a-a214-8ef681f7019a",
+              "kind": "EnumType",
+              "name": "AntDesignList Loading Enum"
+            }
+          },
+          {
+            "id": "71bccea4-6a67-4b25-b6f0-226c4f41af17",
+            "key": "pagination",
+            "name": "Pagination",
+            "description": "Pagination config, hide it by setting it to false",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "cf52f7a2-43a0-4307-84e4-0994338e40ab",
+              "kind": "EnumType",
+              "name": "AntDesignList Pagination Enum"
+            }
+          },
+          {
             "id": "3be1d33b-7589-4a22-8254-36188309ce90",
             "key": "renderItem",
             "name": "Render Item",
@@ -4767,6 +8448,19 @@
               "id": "649eed05-347a-407a-8a9e-7d27b6a49aad",
               "kind": "RenderPropsType",
               "name": "RenderPropsType"
+            }
+          },
+          {
+            "id": "54895c0d-bec6-4516-a1cb-6b13a1cf7a90",
+            "key": "size",
+            "name": "Size",
+            "description": "Size of list",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "e56ed16d-ca2a-434f-a353-4c21ca67c8eb",
+              "kind": "EnumType",
+              "name": "AntDesignList Size Enum"
             }
           },
           {
@@ -4899,6 +8593,19 @@
             }
           },
           {
+            "id": "2e55334a-aead-4215-bd04-7df3a81857d7",
+            "key": "autoSize",
+            "name": "Auto Size",
+            "description": "Textarea height autosize feature, can be set to true | false or an object { minRows: 2, maxRows: 6 }",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "60ad8703-76dc-4dc2-bf8c-6340a23917c6",
+              "kind": "EnumType",
+              "name": "AntDesignMentions Auto Size Enum"
+            }
+          },
+          {
             "id": "5d0a72ff-05c9-46e3-bc1e-3b2a6c448076",
             "key": "defaultValue",
             "name": "Default Value",
@@ -4925,6 +8632,32 @@
             }
           },
           {
+            "id": "797e4a76-4916-4b1c-84ca-c9ad49d54470",
+            "key": "placement",
+            "name": "Placement",
+            "description": "Set popup placement",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ef05591e-9059-4ea9-8ce8-80ce08ccc7e2",
+              "kind": "EnumType",
+              "name": "AntDesignMentions Placement Enum"
+            }
+          },
+          {
+            "id": "f6078c38-d619-4933-a140-b70c0bdecd14",
+            "key": "prefix",
+            "name": "Prefix",
+            "description": "Set trigger prefix keyword",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "6c8e80c0-6733-44c0-be83-f8cd1d86b9e5",
+              "kind": "EnumType",
+              "name": "AntDesignMentions Prefix Enum"
+            }
+          },
+          {
             "id": "b0b06ca7-0b4e-444a-a883-19698a9b3218",
             "key": "split",
             "name": "Split",
@@ -4935,6 +8668,19 @@
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
               "name": "String"
+            }
+          },
+          {
+            "id": "8c0dae87-d1a1-44f3-99bf-dbb98756e6f5",
+            "key": "status",
+            "name": "Status",
+            "description": "Set validation status",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "39d1c68f-fe6d-4c61-ada7-84431489d898",
+              "kind": "EnumType",
+              "name": "AntDesignMentions Status Enum"
             }
           },
           {
@@ -5050,6 +8796,19 @@
             }
           },
           {
+            "id": "e041398a-b15c-4ba5-a7d9-cd61de5fc615",
+            "key": "mode",
+            "name": "Mode",
+            "description": "Type of menu",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "98d31952-e4b0-41c3-91e9-b7dfc08d8faf",
+              "kind": "EnumType",
+              "name": "AntDesignMenu Mode Enum"
+            }
+          },
+          {
             "id": "c6577993-978a-4b7a-bea0-a5e018328b5a",
             "key": "multiple",
             "name": "Multiple",
@@ -5112,6 +8871,32 @@
               "id": "629fa92b-a39d-4a13-b96a-a425ff11dadb",
               "kind": "PrimitiveType",
               "name": "Float"
+            }
+          },
+          {
+            "id": "7f7adf1a-5b86-400f-8b5e-ef33574916b9",
+            "key": "theme",
+            "name": "Theme",
+            "description": "Color theme of the menu",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "46c19983-70dc-49e0-8c54-f49008d5d392",
+              "kind": "EnumType",
+              "name": "AntDesignMenu Theme Enum"
+            }
+          },
+          {
+            "id": "2688fee0-bbef-4470-ae12-9c7f894cd19d",
+            "key": "triggerSubMenuAction",
+            "name": "Trigger Sub Menu Action",
+            "description": "Which action can trigger submenu open/close",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "02800725-5324-435d-b970-8b1edb35051a",
+              "kind": "EnumType",
+              "name": "AntDesignMenu Trigger Sub Menu Action Enum"
             }
           }
         ]
@@ -5285,6 +9070,19 @@
       "fieldsConnection": {
         "edges": [
           {
+            "id": "27dcb206-fcf8-405a-8232-fe593b8c46ec",
+            "key": "backIcon",
+            "name": "Back Icon",
+            "description": "Custom back icon, if false the back icon will not be displayed",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "58b40b97-fb0d-45ad-872f-9fa310b6daa9",
+              "kind": "EnumType",
+              "name": "AntDesignPageHeader Back Icon Enum"
+            }
+          },
+          {
             "id": "a365e7d8-8db1-47eb-b00e-b252ec44ba6a",
             "key": "breadcrumbRender",
             "name": "Breadcrumb Render",
@@ -5347,6 +9145,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "ef3348ce-cfca-4146-b14e-53a3641d5002",
+            "key": "tags",
+            "name": "Tags",
+            "description": "Tag list next to title",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "3f3ad05d-ac85-416c-8c82-fd6e27e8762f",
+              "kind": "EnumType",
+              "name": "AntDesignPageHeader Tags Enum"
             }
           },
           {
@@ -5497,6 +9308,19 @@
             }
           },
           {
+            "id": "87f645b2-3d95-4481-b7bb-bc01ba3bb575",
+            "key": "showQuickJumper",
+            "name": "Show Quick Jumper",
+            "description": "Determine whether you can jump to pages directly",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "a2ee7f48-5c7c-428c-b21e-8ea3ce3003d2",
+              "kind": "EnumType",
+              "name": "AntDesignPagination Show Quick Jumper Enum"
+            }
+          },
+          {
             "id": "298a5b05-10aa-48dc-a243-051ffda0fa09",
             "key": "showSizeChanger",
             "name": "Show Size Changer",
@@ -5533,6 +9357,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "94d99179-37db-4412-b09f-bc1d369549a4",
+            "key": "size",
+            "name": "Size",
+            "description": "Specify the size of Pagination, can be set to small",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "181b2022-b84e-4f3e-a55e-995e99ab08c0",
+              "kind": "EnumType",
+              "name": "AntDesignPagination Size Enum"
             }
           },
           {
@@ -5677,6 +9514,19 @@
       "fieldsConnection": {
         "edges": [
           {
+            "id": "7ddb8d81-28ad-4062-aedd-07556ec09b1e",
+            "key": "strokeColor",
+            "name": "Stroke Color",
+            "description": "The color of circular progress, render linear-gradient when passing an object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b6256318-f4ee-45ab-a22d-c3ec23b1c7d4",
+              "kind": "EnumType",
+              "name": "AntDesignProgress Stroke Color Enum"
+            }
+          },
+          {
             "id": "99da3e5a-ea25-4d81-8436-94bb8d72ccc7",
             "key": "strokeWidth",
             "name": "Stroke Width",
@@ -5789,6 +9639,19 @@
       "fieldsConnection": {
         "edges": [
           {
+            "id": "b85365bf-482f-4695-9f61-8e54b04340bc",
+            "key": "buttonStyle",
+            "name": "Button Style",
+            "description": "The style type of radio button",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "3117d989-0cc8-4e98-955e-945f457d5859",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Button Style Enum"
+            }
+          },
+          {
             "id": "7ecc96ca-e4fa-4eea-bb93-c7de42c5bc5e",
             "key": "disabled",
             "name": "Disabled",
@@ -5812,6 +9675,45 @@
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
               "name": "String"
+            }
+          },
+          {
+            "id": "3ec66034-2f70-43d1-9360-4f22420d510e",
+            "key": "optionType",
+            "name": "Option Type",
+            "description": "Set Radio optionType",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "3d64157f-8a35-4a99-b0a0-6e18bc71a8f6",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Option Type Enum"
+            }
+          },
+          {
+            "id": "870fafce-5726-48f8-91af-ddb4bd11962e",
+            "key": "options",
+            "name": "Options",
+            "description": "Set children optional",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b4aa02f2-f521-43e7-8c31-fa4d083fdbaa",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Options Enum"
+            }
+          },
+          {
+            "id": "788c0000-4821-4db2-9a99-c826f6f12f06",
+            "key": "size",
+            "name": "Size",
+            "description": "The size of radio button style",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "98ac2ea9-bcdc-4193-bbe4-5ff476632ec1",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Size Enum"
             }
           }
         ]
@@ -5871,6 +9773,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "66227567-67e6-4aa4-b463-cf810c9e8118",
+            "key": "status",
+            "name": "Status",
+            "description": "Result status, decide icons and colors",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d2f9fb4e-fc0d-4ab7-b0ff-8a099ce32ef0",
+              "kind": "EnumType",
+              "name": "AntDesignResult Status Enum"
             }
           },
           {
@@ -6024,6 +9939,19 @@
             }
           },
           {
+            "id": "88a2e4fb-d217-4caa-8eeb-d731242255e2",
+            "key": "defaultValue",
+            "name": "Default Value",
+            "description": "Initial selected option",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d03ca5d5-110e-43fd-8965-dc8f3445330f",
+              "kind": "EnumType",
+              "name": "AntDesignSelect Default Value Enum"
+            }
+          },
+          {
             "id": "b3772ca7-0be6-435f-9099-c71ceedb35ea",
             "key": "disabled",
             "name": "Disabled",
@@ -6034,6 +9962,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "4b893b8a-bd64-4cc8-a8d7-fa8af513b27f",
+            "key": "dropdownMatchSelectWidth",
+            "name": "Dropdown Match Select Width",
+            "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "6f36c8b2-a9ea-4c3e-b3f2-f1aa8f17f121",
+              "kind": "EnumType",
+              "name": "AntDesignSelect Dropdown Match Select Width Enum"
             }
           },
           {
@@ -6089,6 +10030,19 @@
             }
           },
           {
+            "id": "dfd140dc-567e-4613-bdec-c2bf7be5f1a6",
+            "key": "maxTagCount",
+            "name": "Max Tag Count",
+            "description": "Max tag count to show. responsive will cost render performance",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "14073747-b6be-41c2-a152-d331ebba4fa8",
+              "kind": "EnumType",
+              "name": "AntDesignSelect Max Tag Count Enum"
+            }
+          },
+          {
             "id": "c0348606-779e-47a7-b956-881d1f202e44",
             "key": "maxTagTextLength",
             "name": "Max Tag Text Length",
@@ -6112,6 +10066,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "8e3e8da8-2044-43ea-b865-82ca693d6d26",
+            "key": "mode",
+            "name": "Mode",
+            "description": "Set mode of Select",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "a49c080d-c238-4e24-b0a6-0e0d09d8727d",
+              "kind": "EnumType",
+              "name": "AntDesignSelect Mode Enum"
             }
           },
           {
@@ -6245,6 +10212,32 @@
             }
           },
           {
+            "id": "4cc8d42d-c753-4d16-a722-6e02a9e30a3c",
+            "key": "size",
+            "name": "Size",
+            "description": "Size of Select input",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "0c3fac8e-459c-4ea6-aecc-a388031a3bd8",
+              "kind": "EnumType",
+              "name": "AntDesignSelect Size Enum"
+            }
+          },
+          {
+            "id": "efce6aaf-4fad-4873-9cc2-45f42737a592",
+            "key": "status",
+            "name": "Status",
+            "description": "Set validation status",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "541bfe12-f4de-44d3-aeec-a17f556bae1f",
+              "kind": "EnumType",
+              "name": "AntDesignSelect Status Enum"
+            }
+          },
+          {
             "id": "f4034c11-acaf-48bd-8d4e-aea41e8f8dd2",
             "key": "suffixIcon",
             "name": "Suffix Icon",
@@ -6268,6 +10261,19 @@
               "id": "649eed05-347a-407a-8a9e-7d27b6a49aad",
               "kind": "RenderPropsType",
               "name": "RenderPropsType"
+            }
+          },
+          {
+            "id": "742b6f4d-141b-4c06-a2d8-0b0891bf6269",
+            "key": "value",
+            "name": "Value",
+            "description": "Current selected option (considered as a immutable array)",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "ac816112-3669-4376-985d-d4214c300e89",
+              "kind": "EnumType",
+              "name": "AntDesignSelect Value Enum"
             }
           },
           {
@@ -6346,6 +10352,19 @@
             "description": "Default to filter with this property",
             "validationRules": "",
             "node": {
+              "__typename": "EnumType",
+              "id": "152687c1-dbc9-42c5-9818-7f8d3a206fce",
+              "kind": "EnumType",
+              "name": "AntDesignSelectOption Value Enum"
+            }
+          },
+          {
+            "id": "53ee6783-f814-480e-9c9e-423b24430887",
+            "key": "value",
+            "name": "Value",
+            "description": "Default to filter with this property",
+            "validationRules": "",
+            "node": {
               "__typename": "PrimitiveType",
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
@@ -6383,6 +10402,19 @@
             }
           },
           {
+            "id": "46e4a913-ca3c-44f8-8ad4-b3bd18b22805",
+            "key": "avatar",
+            "name": "Avatar",
+            "description": "Show avatar placeholder",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "a621de84-e57e-4f92-8943-0545f778386f",
+              "kind": "EnumType",
+              "name": "AntDesignSkeleton Avatar Enum"
+            }
+          },
+          {
             "id": "a60e0b73-ac6b-470d-b75c-49b66b31b632",
             "key": "loading",
             "name": "Loading",
@@ -6396,6 +10428,19 @@
             }
           },
           {
+            "id": "a0f56826-b984-42dc-b029-ede052e5006d",
+            "key": "paragraph",
+            "name": "Paragraph",
+            "description": "Show paragraph placeholder",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b8b2e1ed-4a13-49d5-aa58-23dc5747c344",
+              "kind": "EnumType",
+              "name": "AntDesignSkeleton Paragraph Enum"
+            }
+          },
+          {
             "id": "d87cf17a-6e96-4108-9c43-1b77ff345819",
             "key": "round",
             "name": "Round",
@@ -6406,6 +10451,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "c0e0ac89-cdef-4623-8f59-269f82780b94",
+            "key": "title",
+            "name": "Title",
+            "description": "Show title placeholder",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "e082b048-bfba-45e6-991c-416f59b78d0a",
+              "kind": "EnumType",
+              "name": "AntDesignSkeleton Title Enum"
             }
           }
         ]
@@ -6455,6 +10513,45 @@
       },
       "fieldsConnection": {
         "edges": [
+          {
+            "id": "ab8b2cae-3f56-4211-a6da-e8593c2b5ad4",
+            "key": "align",
+            "name": "Align",
+            "description": "Align items",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "f64f9227-b651-49fc-8346-b1eb22644b94",
+              "kind": "EnumType",
+              "name": "AntDesignSpace Align Enum"
+            }
+          },
+          {
+            "id": "411dd4bc-43e5-44c2-8db9-e6d1592c1ae2",
+            "key": "direction",
+            "name": "Direction",
+            "description": "The space direction",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "5cbcbcf5-f38b-4aa4-bac6-7cc5d7434f5f",
+              "kind": "EnumType",
+              "name": "AntDesignSpace Direction Enum"
+            }
+          },
+          {
+            "id": "7bb21d76-1542-4d1e-90a4-bd733c5b42f5",
+            "key": "size",
+            "name": "Size",
+            "description": "The space size",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "6834002f-0a46-444e-9f0a-f512ac66ec92",
+              "kind": "EnumType",
+              "name": "AntDesignSpace Size Enum"
+            }
+          },
           {
             "id": "f872e479-2009-4d60-8019-959f8c93e325",
             "key": "split",
@@ -6868,6 +10965,19 @@
             }
           },
           {
+            "id": "df80b9ad-7796-4ac7-b2f5-bf2c92b54e5e",
+            "key": "loading",
+            "name": "Loading",
+            "description": "Loading status of table",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "31fcf9fd-fe36-4f7d-89a6-957a3eedf69a",
+              "kind": "EnumType",
+              "name": "AntDesignTable Loading Enum"
+            }
+          },
+          {
             "id": "d7f772ea-6373-4e28-ba77-1f0161e226d6",
             "key": "showHeader",
             "name": "Show Header",
@@ -6881,6 +10991,32 @@
             }
           },
           {
+            "id": "37d75b12-4bd3-47bc-b59d-c88febe0e62c",
+            "key": "showSorterTooltip",
+            "name": "Show Sorter Tooltip",
+            "description": "The header show next sorter direction tooltip. It will be set as the property of Tooltip if its type is object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c5b1823a-f647-4ce2-ad9f-52adb039a76a",
+              "kind": "EnumType",
+              "name": "AntDesignTable Show Sorter Tooltip Enum"
+            }
+          },
+          {
+            "id": "0b16b1cf-1b18-4162-a93b-21b6796e8080",
+            "key": "size",
+            "name": "Size",
+            "description": "Size of table",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "a5cd169a-5a06-49a1-b54f-99244c718e64",
+              "kind": "EnumType",
+              "name": "AntDesignTable Size Enum"
+            }
+          },
+          {
             "id": "665d987d-dff7-4a45-9a81-0c1122bed06b",
             "key": "summary",
             "name": "Summary",
@@ -6891,6 +11027,19 @@
               "id": "649eed05-347a-407a-8a9e-7d27b6a49aad",
               "kind": "RenderPropsType",
               "name": "RenderPropsType"
+            }
+          },
+          {
+            "id": "276c6e35-8438-431e-927a-229769a94413",
+            "key": "tableLayout",
+            "name": "Table Layout",
+            "description": "The table-layout attribute of table element",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c189c5fc-bba7-4af0-a2c9-697ac9980290",
+              "kind": "EnumType",
+              "name": "AntDesignTable Table Layout Enum"
             }
           }
         ]
@@ -6934,6 +11083,19 @@
               "id": "09dddeee-6313-4f28-8003-78485ff615e5",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
+            }
+          },
+          {
+            "id": "2c6bd3b7-b48a-4f61-a835-f1d530ffb170",
+            "key": "animated",
+            "name": "Animated",
+            "description": "Whether to change tabs with animation. Only works while tabPosition=\"top\"",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "823fcb88-64d5-4485-b4b7-0a20b1d740d0",
+              "kind": "EnumType",
+              "name": "AntDesignTabs Animated Enum"
             }
           },
           {
@@ -7015,6 +11177,32 @@
             }
           },
           {
+            "id": "625c19dc-852e-4d44-916f-70c395203edf",
+            "key": "size",
+            "name": "Size",
+            "description": "Preset tab bar size",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "9e09f421-3686-442b-9eaa-0becfa2a21e8",
+              "kind": "EnumType",
+              "name": "AntDesignTabs Size Enum"
+            }
+          },
+          {
+            "id": "6ed8ab75-2949-44c2-bf4b-9817d8028bc5",
+            "key": "tabBarExtraContent",
+            "name": "Tab Bar Extra Content",
+            "description": "Extra content in tab bar",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "dda0caaa-bb18-417c-8a78-039a4d57296e",
+              "kind": "EnumType",
+              "name": "AntDesignTabs Tab Bar Extra Content Enum"
+            }
+          },
+          {
             "id": "6fb0cbf8-9756-4edc-8429-1c1d47b10cf6",
             "key": "tabBarGutter",
             "name": "Tab Bar Gutter",
@@ -7025,6 +11213,32 @@
               "id": "629fa92b-a39d-4a13-b96a-a425ff11dadb",
               "kind": "PrimitiveType",
               "name": "Float"
+            }
+          },
+          {
+            "id": "fac2f035-d4ed-4a59-9336-779ecd4ae082",
+            "key": "tabPosition",
+            "name": "Tab Position",
+            "description": "Position of tabs",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "58c00fcc-72ed-42c6-9c02-9fc6ab122a1a",
+              "kind": "EnumType",
+              "name": "AntDesignTabs Tab Position Enum"
+            }
+          },
+          {
+            "id": "db5a88c3-4b5e-4479-81e7-bb6470bd68cc",
+            "key": "type",
+            "name": "Type",
+            "description": "Basic style of tabs",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "2095635b-3517-4e43-99b3-671adb1a5d90",
+              "kind": "EnumType",
+              "name": "AntDesignTabs Type Enum"
             }
           }
         ]
@@ -7212,6 +11426,32 @@
       "fieldsConnection": {
         "edges": [
           {
+            "id": "c2fcadee-dbd9-44f5-8eaf-fa3e1bff5699",
+            "key": "mode",
+            "name": "Mode",
+            "description": "By sending alternate the timeline will distribute the nodes to the left and right",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "25c5866b-6261-43b6-91f2-329fc445e31b",
+              "kind": "EnumType",
+              "name": "AntDesignTimeline Mode Enum"
+            }
+          },
+          {
+            "id": "563ee949-3aee-4ad3-b9dc-c326ea70b619",
+            "key": "pending",
+            "name": "Pending",
+            "description": "Set the last ghost node's existence or its content",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "27e650af-10d8-4838-98be-f22d058a51cf",
+              "kind": "EnumType",
+              "name": "AntDesignTimeline Pending Enum"
+            }
+          },
+          {
             "id": "1d3f7428-da74-4632-bcdd-4c7229b2d1f8",
             "key": "pendingDot",
             "name": "Pending Dot",
@@ -7292,6 +11532,19 @@
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
             }
+          },
+          {
+            "id": "4d1c5a1a-0dce-485e-b272-068e5b038c7a",
+            "key": "position",
+            "name": "Position",
+            "description": "Customize node position",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c3d646d7-47c8-4cfd-8a27-ca6ed9d1cfa4",
+              "kind": "EnumType",
+              "name": "AntDesignTimelineItem Position Enum"
+            }
           }
         ]
       }
@@ -7363,6 +11616,19 @@
             }
           },
           {
+            "id": "b5eea260-6513-46e2-aea8-d009b6da0076",
+            "key": "destroyTooltipOnHide",
+            "name": "Destroy Tooltip On Hide",
+            "description": "Whether destroy tooltip when hidden, parent container of tooltip will be destroyed when keepParent is false",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "0b00aaea-f52d-4810-b556-ca72fd965f16",
+              "kind": "EnumType",
+              "name": "AntDesignTooltip Destroy Tooltip On Hide Enum"
+            }
+          },
+          {
             "id": "36d82707-f0c4-458a-9504-80bb37eb7687",
             "key": "mouseEnterDelay",
             "name": "Mouse Enter Delay",
@@ -7425,6 +11691,19 @@
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
               "name": "String"
+            }
+          },
+          {
+            "id": "84840b4b-b441-4f43-8812-02e870a4d2fa",
+            "key": "trigger",
+            "name": "Trigger",
+            "description": "Tooltip trigger mode. Could be multiple by passing an array",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c6cc834b-9239-4912-b272-997911052b01",
+              "kind": "EnumType",
+              "name": "AntDesignTooltip Trigger Enum"
             }
           },
           {
@@ -7523,6 +11802,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "9e94f093-a258-4bbb-8154-5bcf405c7145",
+            "key": "checkedKeys",
+            "name": "Checked Keys",
+            "description": "(Controlled) Specifies the keys of the checked treeNodes (PS: When this specifies the key of a treeNode which is also a parent treeNode, all the children treeNodes of will be checked; and vice versa, when it specifies the key of a treeNode which is a child treeNode, its parent treeNode will also be checked. When checkable and checkStrictly is true, its object has checked and halfChecked property. Regardless of whether the child or parent treeNode is checked, they won't impact each other",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "01da44fb-e200-4394-8561-99b0dd041562",
+              "kind": "EnumType",
+              "name": "AntDesignTree Checked Keys Enum"
             }
           },
           {
@@ -7712,6 +12004,19 @@
             }
           },
           {
+            "id": "a2422089-8199-49c5-b8cc-696bc2fa625d",
+            "key": "defaultValue",
+            "name": "Default Value",
+            "description": "To set the initial selected treeNode(s)",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b9968e9f-d037-4664-a878-508129ddeda6",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Default Value Enum"
+            }
+          },
+          {
             "id": "7fe91fc4-5761-4032-b758-18edf73354d2",
             "key": "disabled",
             "name": "Disabled",
@@ -7722,6 +12027,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "e779ec3a-b7e5-497b-a03d-7ae9648ad5ee",
+            "key": "dropdownMatchSelectWidth",
+            "name": "Dropdown Match Select Width",
+            "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "44da4805-3cbe-4762-bb0b-1c083c6c4bde",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Dropdown Match Select Width Enum"
             }
           },
           {
@@ -7761,6 +12079,19 @@
               "id": "629fa92b-a39d-4a13-b96a-a425ff11dadb",
               "kind": "PrimitiveType",
               "name": "Float"
+            }
+          },
+          {
+            "id": "fed1dd1a-eae9-4ddb-9b21-b78327b17a99",
+            "key": "maxTagCount",
+            "name": "Max Tag Count",
+            "description": "Max tag count to show. responsive will cost render performance",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b3af3140-430e-4522-ae5b-7b86bc6ff2f5",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Max Tag Count Enum"
             }
           },
           {
@@ -7842,6 +12173,19 @@
             }
           },
           {
+            "id": "7e7ce09b-ecf9-47fe-bb34-34e88e62d7e2",
+            "key": "showCheckedStrategy",
+            "name": "Show Checked Strategy",
+            "description": "The way show selected item in box when treeCheckable set. Default: just show child nodes. TreeSelect.SHOW_ALL: show all checked treeNodes (include parent treeNode). TreeSelect.SHOW_PARENT: show checked treeNodes (just show parent treeNode)",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c3123ccc-079d-4b21-8b3d-c0a8c71d342b",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Show Checked Strategy Enum"
+            }
+          },
+          {
             "id": "f0e5464d-35c8-4b9d-b5da-4551a7d21977",
             "key": "showSearch",
             "name": "Show Search",
@@ -7852,6 +12196,32 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "ce67e0f6-6e00-4e4e-8e9d-8a332701e440",
+            "key": "size",
+            "name": "Size",
+            "description": "To set the size of the select input",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "46ee5839-5adf-41f4-96c1-3da2510b5138",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Size Enum"
+            }
+          },
+          {
+            "id": "d6351c5d-c351-4cf3-82bc-25c67d16b5dc",
+            "key": "status",
+            "name": "Status",
+            "description": "Set validation status",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "e26ef136-1f94-45b4-9e0d-ab10f172e33a",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Status Enum"
             }
           },
           {
@@ -7907,6 +12277,19 @@
             }
           },
           {
+            "id": "edad3c19-57e5-4607-b337-d4cd92b45e89",
+            "key": "treeDataSimpleMode",
+            "name": "Tree Data Simple Mode",
+            "description": "Enable simple mode of treeData. Changes the treeData schema to: [{id:1, pId:0, value:'1', title:\"test1\",...},...] where pId is parent node's id). It is possible to replace the default id and pId keys by providing object to treeDataSimpleMode",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "e685930f-7371-4259-95b5-4f9df4f5197a",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Tree Data Simple Mode Enum"
+            }
+          },
+          {
             "id": "9297a2d5-b3d5-4c06-877a-2b6cb7c23a99",
             "key": "treeDefaultExpandAll",
             "name": "Tree Default Expand All",
@@ -7920,6 +12303,19 @@
             }
           },
           {
+            "id": "5bb81f10-dbeb-46da-9999-708d4188769e",
+            "key": "treeExpandAction",
+            "name": "Tree Expand Action",
+            "description": "Tree title open logic when click, optional: false | click | doubleClick",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "9d17e92a-1efe-49dc-8879-72528f89ef18",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Tree Expand Action Enum"
+            }
+          },
+          {
             "id": "d4b5b696-3119-4503-82d8-e509cdb8052b",
             "key": "treeIcon",
             "name": "Tree Icon",
@@ -7930,6 +12326,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "db84d605-1b92-450b-825d-de9534cd1a51",
+            "key": "treeLine",
+            "name": "Tree Line",
+            "description": "Show the line. Ref Tree - showLine",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b706d305-ef5e-4a0a-87e3-abba08802f3b",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Tree Line Enum"
             }
           },
           {
@@ -7956,6 +12365,19 @@
               "id": "8ec439dd-ad35-4fb1-9453-4d67ac69041b",
               "kind": "PrimitiveType",
               "name": "String"
+            }
+          },
+          {
+            "id": "e038927e-51d3-436a-80fe-0cfc7ad90c24",
+            "key": "value",
+            "name": "Value",
+            "description": "To set the current selected treeNode(s)",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "226394a3-cd6f-4cc6-a7b7-8ad324738317",
+              "kind": "EnumType",
+              "name": "AntDesignTreeSelect Value Enum"
             }
           },
           {
@@ -8002,6 +12424,19 @@
             }
           },
           {
+            "id": "bbae25ac-d1c4-4298-9757-7e5e84e659bf",
+            "key": "copyable",
+            "name": "Copyable",
+            "description": "Whether to be copyable, customize it via setting an object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "d3a56c9f-0b67-4d79-bf2f-d223971222a0",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyParagraph Copyable Enum"
+            }
+          },
+          {
             "id": "e3d09707-4ad8-49a3-956d-5383545be6af",
             "key": "delete",
             "name": "Delete",
@@ -8025,6 +12460,32 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "2cfc38b9-4dfb-4309-9b76-f0de09c9189c",
+            "key": "editable",
+            "name": "Editable",
+            "description": "If editable. Can control edit state when is object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "f801e3fd-6bfb-4eb0-9ceb-f7afb56a5c41",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyParagraph Editable Enum"
+            }
+          },
+          {
+            "id": "01e25830-e166-421c-95cb-455c6b9dc9c4",
+            "key": "ellipsis",
+            "name": "Ellipsis",
+            "description": "Display ellipsis when text overflows, can configure rows and expandable by using object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "8b494f77-2b5b-4512-93a5-b54f04159f68",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyParagraph Ellipsis Enum"
             }
           },
           {
@@ -8064,6 +12525,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "c6b6fafa-4687-440c-b9f6-d1ee32ade01f",
+            "key": "type",
+            "name": "Type",
+            "description": "Content type",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "080a322c-d89a-45b1-ace9-32f9dc806fef",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyParagraph Type Enum"
             }
           },
           {
@@ -8110,6 +12584,19 @@
             }
           },
           {
+            "id": "13fbf4fb-e556-4ae5-9d96-369583cb3296",
+            "key": "copyable",
+            "name": "Copyable",
+            "description": "Whether to be copyable, customize it via setting an object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "a46aefac-24c9-4dca-8313-68b521a1cf5f",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyText Copyable Enum"
+            }
+          },
+          {
             "id": "7395b4e2-1da4-4e66-81ee-496b3e44732a",
             "key": "delete",
             "name": "Delete",
@@ -8133,6 +12620,32 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "3652ab31-fe45-49bf-8e7e-34be95d8a9be",
+            "key": "editable",
+            "name": "Editable",
+            "description": "If editable. Can control edit state when is object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "f8271b62-b9fb-40e1-b8da-4e11dc60de10",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyText Editable Enum"
+            }
+          },
+          {
+            "id": "88f206c8-ed75-4030-823f-d9cbac0b9456",
+            "key": "ellipsis",
+            "name": "Ellipsis",
+            "description": "Display ellipsis when text overflows，can't configure expandable、rows and onExpand by using object. Diff with Typography.Paragraph, Text do not have 100% width style which means it will fix width on the first ellipsis. If you want to have responsive ellipsis, please set width manually",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "3fbe4d7c-3011-4f34-be45-0967341dc7fd",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyText Ellipsis Enum"
             }
           },
           {
@@ -8188,6 +12701,19 @@
             }
           },
           {
+            "id": "ee03b3a6-9748-429b-98dd-cdb450629a26",
+            "key": "type",
+            "name": "Type",
+            "description": "Content type",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "b47651b2-0f09-407b-9f0b-1d1b791f5769",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyText Type Enum"
+            }
+          },
+          {
             "id": "1077c1b3-e3a9-47fb-b683-98b1a006ca1b",
             "key": "underline",
             "name": "Underline",
@@ -8231,6 +12757,19 @@
             }
           },
           {
+            "id": "76c65cc7-0a6d-4fb6-8f0f-95658a54ad76",
+            "key": "copyable",
+            "name": "Copyable",
+            "description": "Whether to be copyable, customize it via setting an object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "169fa338-b3cf-4b70-878b-a71c0eeecaf2",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyTitle Copyable Enum"
+            }
+          },
+          {
             "id": "dba1be65-baec-4c76-b664-7c2dde0269ef",
             "key": "delete",
             "name": "Delete",
@@ -8257,6 +12796,32 @@
             }
           },
           {
+            "id": "7d78d306-2aab-47bf-9b7b-8cdf7ca74ede",
+            "key": "editable",
+            "name": "Editable",
+            "description": "If editable. Can control edit state when is object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "928c847c-553e-4d73-b612-b06e10d2dd8e",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyTitle Editable Enum"
+            }
+          },
+          {
+            "id": "f6418b3c-13f5-4534-a3c1-b0e5c46d557a",
+            "key": "ellipsis",
+            "name": "Ellipsis",
+            "description": "Display ellipsis when text overflows, can configure rows and expandable by using object",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "eb36c17f-1eac-49bb-85ee-0971abc77cba",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyTitle Ellipsis Enum"
+            }
+          },
+          {
             "id": "602d9cfa-48d2-4c53-86a1-aa409ad39e4c",
             "key": "italic",
             "name": "Italic",
@@ -8280,6 +12845,19 @@
               "id": "0d47ed45-0e38-4175-9085-2319e602d05d",
               "kind": "PrimitiveType",
               "name": "Boolean"
+            }
+          },
+          {
+            "id": "d56b0895-6999-4629-b707-f8c8d45c559e",
+            "key": "type",
+            "name": "Type",
+            "description": "Content type",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "c5b57caa-15fe-4435-8d86-8d48b7a16268",
+              "kind": "EnumType",
+              "name": "AntDesignTypographyTitle Type Enum"
             }
           },
           {
@@ -8313,6 +12891,19 @@
       "fieldsConnection": {
         "edges": [
           {
+            "id": "862ceff1-3efa-4ab4-be6b-a75abc4ff339",
+            "key": "crossOrigin",
+            "name": "Cross Origin",
+            "description": "CORS settings attributes",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "a9ab9ba3-5d87-44c9-910d-2fc328c62514",
+              "kind": "EnumType",
+              "name": "AntDesignUpload Cross Origin Enum"
+            }
+          },
+          {
             "id": "eb9d7655-1ffe-4d8e-9283-b4629c6c664a",
             "key": "name",
             "name": "Name",
@@ -8336,6 +12927,19 @@
               "id": "629fa92b-a39d-4a13-b96a-a425ff11dadb",
               "kind": "PrimitiveType",
               "name": "Float"
+            }
+          },
+          {
+            "id": "dba25aab-02fa-4a08-8cf6-8ffa24796a41",
+            "key": "status",
+            "name": "Status",
+            "description": "Upload status. Show different style when configured",
+            "validationRules": "",
+            "node": {
+              "__typename": "EnumType",
+              "id": "f3606cc3-121a-4d59-9e10-60b3853211bf",
+              "kind": "EnumType",
+              "name": "AntDesignUpload Status Enum"
             }
           },
           {
