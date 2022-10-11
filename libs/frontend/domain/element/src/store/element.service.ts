@@ -676,7 +676,10 @@ element is new parentElement's first child
     const prevSibling = element.prevSibling
     const componentService = getComponentService(this)
 
-    // 1. create the component with predefined root element
+    // 1. detach the element from the element tree
+    yield* _await(this.detachElementFromElementTree(elementId))
+
+    // 2. create the component with predefined root element
     const [createdComponent] = yield* _await(
       componentService.create([
         {
@@ -688,46 +691,25 @@ element is new parentElement's first child
       ]),
     )
 
-    if (!createdComponent) {
-      return
-    }
-
-    // 2. detach the element from the element tree
-    yield* _await(this.detachElementFromElementTree(elementId))
-
     // 3. create a new element as an instance of the component
-    const [newElement] = yield* _await(
-      this.create([
-        {
+    if (!prevSibling) {
+      return yield* _await(
+        this.createElementAsFirstChild({
           name,
           renderComponentTypeId: createdComponent?.id,
           parentElementId: parentElement.id,
-        },
-      ]),
+        }),
+      )
+    }
+
+    return yield* _await(
+      this.createElementAsNextSibling({
+        name,
+        renderComponentTypeId: createdComponent?.id,
+        parentElementId: parentElement.id,
+        prevSiblingId: prevSibling.id,
+      }),
     )
-
-    if (!newElement) {
-      return
-    }
-
-    // 4. attach the new element to the element tree
-    if (!prevSibling) {
-      yield* _await(
-        this.attachElementAsFirstChild({
-          elementId: newElement.id,
-          parentElementId: parentElement.id,
-        }),
-      )
-    } else {
-      yield* _await(
-        this.attachElementAsNextSibling({
-          elementId: newElement.id,
-          targetElementId: prevSibling.id,
-        }),
-      )
-    }
-
-    return newElement
   })
 
   @modelFlow
