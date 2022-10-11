@@ -18,11 +18,14 @@ const appCache = 'appCache'
 const uidCache = 'uidCache'
 
 const clickEditor = () => {
+  cy.get('[aria-label="format-painter"]').click()
+  cy.getSpinner().should('not.exist')
+
   return (
     cy
       // https://stackoverflow.com/questions/58833459/cypresserror-timed-out-retrying-cy-click-failed-because-this-element-is-deta
-      .get('.cm-editor')
-      .should('be.visible')
+      .get('[role="textbox"]')
+      // .should('be.visible')
       // .click({ force: true })
       // .trigger('click')
       .click({ force: true })
@@ -100,9 +103,6 @@ describe('CSS CRUD', () => {
     it('should be able to add some css styling', () => {
       cy.getSpinner().should('not.exist')
       cy.findByText(elementName).click()
-
-      cy.get('[aria-label="format-painter"]').click()
-      cy.getSpinner().should('not.exist')
 
       clickEditor().clear().type(createBackgroundColorStyle(backgroundColor1))
 
