@@ -13,6 +13,6 @@ export const importResources = async (
 
     logTask('Imported Resource', resource.name)
 
-    console.info(`Imported resource with id ${importedResource.id}`)
+    console.info(`Imported resource with id ${importedResource?.id}`)
   }
 }

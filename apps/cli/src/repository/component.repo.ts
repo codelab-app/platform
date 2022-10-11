@@ -15,12 +15,12 @@ export const createComponent = async (
   } = await Component.create({
     input: [
       {
-        id: component.id ?? v4(),
+        id: component.id,
         name: component.name,
         owner: connectNode(selectedUser),
         rootElement: connectNode(component.rootElement.id),
-        api: component.api?.id
-          ? connectNode(component.api?.id)
+        api: component.api.id
+          ? connectNode(component.api.id)
           : {
               create: {
                 node: {
@@ -34,6 +34,10 @@ export const createComponent = async (
       },
     ],
   })
+
+  if (!newComponent) {
+    throw new Error('Component not created')
+  }
 
   return newComponent
 }

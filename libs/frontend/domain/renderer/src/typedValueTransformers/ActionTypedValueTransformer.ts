@@ -40,7 +40,7 @@ export class ActionTypedValueTransformer
   }
 
   public transform(props: TypedValue<unknown>) {
-    const actionId = props?.value
+    const actionId = props.value
 
     if (!isString(actionId)) {
       return props

@@ -138,7 +138,7 @@ export class StoreService
   @modelFlow
   @transaction
   delete = _async(function* (this: StoreService, storeId: string) {
-    const existing = throwIfUndefined(this.stores.get(storeId))
+    const existing = this.stores.get(storeId)
 
     if (!existing) {
       throw new Error('Deleted store not found')

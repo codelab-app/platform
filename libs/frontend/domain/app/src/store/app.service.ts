@@ -71,10 +71,7 @@ export class AppService
       throw new Error('Missing page')
     }
 
-    const elements = [
-      page.rootElement,
-      ...(page.rootElement.descendantElements ?? []),
-    ]
+    const elements = [page.rootElement, ...page.rootElement.descendantElements]
 
     const pageElements = elements.map((element) =>
       elementService.writeCache(element),

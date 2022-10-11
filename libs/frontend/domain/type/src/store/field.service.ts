@@ -17,11 +17,11 @@ export class FieldModalService
 {
   @computed
   get interface() {
-    return this.metadata?.interface?.current
+    return this.metadata?.interface.current
   }
 
   @computed
   get field() {
-    return this.metadata?.field?.current
+    return this.metadata?.field.current
   }
 }

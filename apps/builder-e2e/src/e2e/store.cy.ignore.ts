@@ -38,7 +38,7 @@ describe('Store', () => {
       .then((apps) => {
         const app = apps[0]
 
-        cy.visit(`/apps/${app?.id}/pages`)
+        cy.visit(`/apps/${app.id}/pages`)
         cy.getSpinner().should('not.exist')
         cy.findByText('Store').click()
         cy.url({ timeout: 10000 }).should('include', 'store')

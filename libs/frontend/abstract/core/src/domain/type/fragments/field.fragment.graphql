@@ -9,4 +9,7 @@ fragment Field on InterfaceTypeFieldsRelationship {
       id
     }
   }
+  defaultValues {
+    ...Prop
+  }
 }

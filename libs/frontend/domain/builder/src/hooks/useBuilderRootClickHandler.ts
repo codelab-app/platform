@@ -12,9 +12,9 @@ export const useBuilderRootClickHandler = () => {
 
     // Go up the dom tree to find a element with a node id
     const visit = (element: HTMLElement) => {
-      const elementId = element.dataset?.[DATASET_ELEMENT_ID]
+      const elementId = element.dataset[DATASET_ELEMENT_ID]
       // Don't allow selection of elements withing a componentId
-      const componentId = element.dataset?.[DATASET_COMPONENT_ID]
+      const componentId = element.dataset[DATASET_COMPONENT_ID]
 
       if (elementId && !componentId) {
         // setSelectedTreeNode(elementId)

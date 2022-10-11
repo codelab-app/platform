@@ -1,12 +1,4 @@
 import {
-  SelectAction,
-  SelectAnyElement,
-  SelectAtom,
-  SelectComponent,
-} from '@codelab/frontend/domain/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
-import {
   IActionService,
   IBuilderService,
   IComponentService,
@@ -16,6 +8,14 @@ import {
   IRenderService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import {
+  SelectAction,
+  SelectAnyElement,
+  SelectAtom,
+  SelectComponent,
+} from '@codelab/frontend/domain/type'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

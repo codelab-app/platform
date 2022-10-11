@@ -14,6 +14,10 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import {
+  PropMapBinding,
+  PropMapBindingModalService,
+} from '@codelab/frontend/domain/prop'
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   ElementCreateInput,
@@ -54,8 +58,6 @@ import {
   CreateElementModalService,
   ElementModalService,
 } from './element-modal.service'
-import { PropMapBinding } from './prop-map-binding.model'
-import { PropMapBindingModalService } from './prop-map-binding-modal.service'
 
 /**
  * We will have a single ElementService that contains all elements from
@@ -173,14 +175,21 @@ export class ElementService
       elementApi.GetElementTree({ where: { id: rootId } }),
     )
 
-    const elements = [elementTrees[0], ...elementTrees[0].descendantElements]
+    if (!elementTrees[0]) {
+      return []
+    }
+
+    const elements = [
+      elementTrees[0],
+      ...(elementTrees[0]?.descendantElements ?? []),
+    ]
 
     return elements.map((element) => this.writeCache(element))
   })
 
   @modelAction
   element(id: string) {
-    return this.elements?.get(id)
+    return this.elements.get(id)
   }
 
   @modelFlow
@@ -377,6 +386,11 @@ parent
     }
 
     const [element] = yield* _await(this.create([data]))
+
+    if (!element) {
+      throw new Error('Create element failed')
+    }
+
     yield* _await(
       this.attachElementAsFirstChild({
         elementId: element.id,
@@ -394,6 +408,11 @@ parent
     data: ICreateElementDTO,
   ) {
     const [element] = yield* _await(this.create([data]))
+
+    if (!element) {
+      throw new Error('Create element failed')
+    }
+
     yield* _await(
       this.attachElementAsNextSibling({
         elementId: element.id,
@@ -530,6 +549,10 @@ element is new parentElement's first child
       elementApi.GetElementTree({ where: { id: root } }),
     )
 
+    if (!elementTrees[0]) {
+      return []
+    }
+
     const idsToDelete = [
       elementTrees[0].id,
       ...elementTrees[0].descendantElements.map((element) => element.id),
@@ -636,8 +659,8 @@ element is new parentElement's first child
         yield* _await(
           this.createPropMapBinding(duplicated, {
             elementId: newId,
-            targetElementId: propMapBinding.targetElement
-              ? oldToNewIdMap.get(propMapBinding.targetElement.id)
+            targetElementId: propMapBinding.targetElementId
+              ? oldToNewIdMap.get(propMapBinding.targetElementId)
               : undefined,
             targetKey: propMapBinding.targetKey,
             sourceKey: propMapBinding.sourceKey,
@@ -711,9 +734,11 @@ element is new parentElement's first child
       ]),
     )
 
-    if (elementTree) {
-      elementTree.addElements([newElement])
+    if (!newElement) {
+      return
     }
+
+    elementTree.addElements([newElement])
   })
 
   @modelFlow

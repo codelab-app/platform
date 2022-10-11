@@ -16,7 +16,7 @@ const hydrate = (tag: ITagDTO) => {
     id: tag.id,
     name: tag.name,
     isRoot: tag.isRoot ?? false,
-    children: tag?.children?.map((child) => tagRef(child.id)),
+    children: tag.children?.map((child) => tagRef(child.id)),
     descendants: tag.descendants?.map((descendant) => tagRef(descendant.id)),
   })
 }
@@ -42,7 +42,7 @@ export class Tag
   @modelAction
   writeCache(tag: ITagDTO): ITag {
     this.name = tag.name
-    this.children = tag?.children?.map((child) => tagRef(child.id)) ?? []
+    this.children = tag.children?.map((child) => tagRef(child.id)) ?? []
     this.descendants =
       tag.descendants?.map((descendant) => tagRef(descendant.id)) ?? []
     this.isRoot = tag.isRoot ?? false

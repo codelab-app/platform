@@ -41,7 +41,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
           <title>{type?.name ? `${type.name} | ` : ''}Codelab</title>
         </Head>
 
-        {type && type.kind === ITypeKind.InterfaceType && (
+        {type?.kind === ITypeKind.InterfaceType && (
           <>
             <CreateFieldModal typeService={typeService} />
             <UpdateFieldModal typeService={typeService} />

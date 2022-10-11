@@ -13,12 +13,11 @@ export const GetTypesTable = observer<{ typeService: ITypeService }>(
 
     // Manually build the data for the table because Table is not reactive and
     // this way we ensure it will get re-rendered properly on updates
-    const dataSource: Array<TypeRecord> =
-      typeService.typesList?.map((t) => ({
-        id: t.id,
-        name: t.name,
-        typeKind: t.kind,
-      })) ?? []
+    const dataSource: Array<TypeRecord> = typeService.typesList.map((t) => ({
+      id: t.id,
+      name: t.name,
+      typeKind: t.kind,
+    }))
 
     return (
       <Table<TypeRecord>

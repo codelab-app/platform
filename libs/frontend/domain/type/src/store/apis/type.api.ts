@@ -8,7 +8,6 @@ import {
   IUpdateTypeInput,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
-import * as Types from '@codelab/shared/abstract/codegen'
 import {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,
@@ -17,8 +16,6 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
-import flatten from 'lodash/flatten'
-import { ObjectTyped } from 'object-typed'
 import { ArrayOrSingle } from 'ts-essentials'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.graphql.gen'

@@ -17,7 +17,7 @@ export const GetAppsList = observer<{ appService: IAppService }>(
 
     return (
       <ErrorBoundary>
-        <DisplayIf condition={!appList || !appList.length}>
+        <DisplayIf condition={!appList.length}>
           <Empty description="No apps found" imageStyle={emptyImageStyle}>
             <CreateAppButton appService={appService}>
               Create Now
@@ -26,7 +26,7 @@ export const GetAppsList = observer<{ appService: IAppService }>(
         </DisplayIf>
 
         <Row gutter={[padding.sm, padding.sm]}>
-          {appList?.map((app) => (
+          {appList.map((app) => (
             // eslint-disable-next-line react/jsx-props-no-spreading
             <Col key={app.id} {...threeGridCol}>
               <GetAppsItem app={app} appService={appService} />

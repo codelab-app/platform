@@ -35,7 +35,9 @@ export const makeCreateInput = (
     propsData,
   } = input
 
-  // Always create props
+  /**
+   * Here we'll want to set default value based on the interface
+   */
   const props: ElementCreateInput['props'] = {
     create: { node: { data: propsData ?? JSON.stringify({}) } },
   }

@@ -56,6 +56,7 @@ export interface ICreateFieldDTO {
   validationRules?: Nullish<IValidationRules>
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
+  defaultValues: Nullish<string>
 }
 
 export type IUpdateFieldDTO = ICreateFieldDTO

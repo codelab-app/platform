@@ -1,23 +1,19 @@
 import type {
-  IElement,
+  IElementRef,
   IPropData,
   IPropMapBinding,
   IPropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
 import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import get from 'lodash/get'
 import isObjectLike from 'lodash/isObjectLike'
 import set from 'lodash/set'
-import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
-import { elementRef } from './element.ref'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const hydrate = (fragment: IPropMapBindingDTO) => {
   return new PropMapBinding({
     id: fragment.id,
-    targetElement: fragment.targetElement
-      ? elementRef(fragment.targetElement.id)
-      : null,
+    targetElementId: fragment.targetElement ? fragment.targetElement.id : '',
     sourceKey: fragment.sourceKey,
     targetKey: fragment.targetKey,
   })
@@ -28,7 +24,7 @@ export class PropMapBinding
   extends Model({
     id: idProp,
     // if null -> target is current element
-    targetElement: prop<Nullable<Ref<IElement>>>(),
+    targetElementId: prop<IElementRef>(),
     // '*' binds all incoming props
     sourceKey: prop<string>(),
     // '*' spreads all props
@@ -41,9 +37,9 @@ export class PropMapBinding
     this.id = fragment.id
     this.sourceKey = fragment.sourceKey
     this.targetKey = fragment.targetKey
-    this.targetElement = fragment.targetElement
-      ? elementRef(fragment.targetElement.id)
-      : null
+    this.targetElementId = fragment.targetElement
+      ? fragment.targetElement.id
+      : ''
 
     return this
   }

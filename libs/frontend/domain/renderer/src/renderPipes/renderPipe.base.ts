@@ -24,7 +24,7 @@ export class BaseRenderPipe
   get renderer() {
     return throwIfUndefined(
       findParent<IRenderer>(this, (parent) => {
-        return (parent as AnyModel)?.[modelTypeKey] === '@codelab/Renderer'
+        return (parent as AnyModel)[modelTypeKey] === '@codelab/Renderer'
       }),
     )
   }

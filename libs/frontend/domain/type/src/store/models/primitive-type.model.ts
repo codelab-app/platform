@@ -23,7 +23,7 @@ const hydrate = ({
     kind,
     name,
     primitiveKind,
-    ownerId: owner?.id,
+    ownerId: owner.id,
   })
 }
 

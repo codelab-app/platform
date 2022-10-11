@@ -48,7 +48,7 @@ export class RawTypedValuePropsTransformer
   }
 
   public transform(props: TypedValue<unknown>, typeKind: ITypeKind) {
-    if (!props?.value) {
+    if (!props.value) {
       return props
     }
 

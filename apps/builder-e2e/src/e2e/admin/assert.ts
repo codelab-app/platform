@@ -9,7 +9,7 @@ export const seedData = () => {
   cy.log('yarn cli seed').exec(
     'yarn cli seed --env test --email cypress@codelab.ai',
     {
-      timeout: 60000,
+      timeout: 90000,
     },
   )
   // .its('stdout')
@@ -26,7 +26,7 @@ export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
     `yarn cli data import --env test --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false --email cypress@codelab.ai`,
-    { timeout: 60000 },
+    { timeout: 90000 },
   )
 }
 
@@ -35,7 +35,7 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
     `yarn cli data export --env test --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false`,
-    { timeout: 60000 },
+    { timeout: 90000 },
   )
 
   return cy.readFile(file).then((payload: ExportedData) => {

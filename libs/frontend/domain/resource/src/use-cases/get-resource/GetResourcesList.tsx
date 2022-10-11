@@ -22,7 +22,7 @@ export const GetResourcesList = observer<{ resourceService: IResourceService }>(
 
     return (
       <Spinner isLoading={loading}>
-        <DisplayIf condition={!resourceList || !resourceList.length}>
+        <DisplayIf condition={!resourceList.length}>
           <Empty description="No resources found" imageStyle={{ height: 60 }}>
             <div style={buttonContainerStyle}>
               <CreateResourceButton resourceService={resourceService} />

@@ -1,7 +1,4 @@
-import {
-  IPageService,
-  PROVIDER_TREE_PAGE_NAME,
-} from '@codelab/frontend/abstract/core'
+import { IPageService } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { Spinner } from '@codelab/frontend/view/components'
 import { List } from 'antd'

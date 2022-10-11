@@ -51,7 +51,7 @@ export const CodeMirrorModal = ({
   }, [visible])
 
   const onOk = () => {
-    onChange && onChange(internalValue || '')
+    onChange(internalValue || '')
     onSave && onSave(internalValue || '')
     closeModal()
   }

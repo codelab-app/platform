@@ -16,7 +16,7 @@ export const SelectAtomTypeHook = ({ name, error }: SelectAtomProps) => {
   )
 
   const componentOptions =
-    data?.atoms?.map((atom) => ({
+    data?.atoms.map((atom) => ({
       label: atom.name,
       value: atom.id,
     })) ?? []

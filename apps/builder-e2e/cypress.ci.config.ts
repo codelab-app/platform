@@ -10,9 +10,9 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   screenshotsFolder: './src/screenshots',
   chromeWebSecurity: false,
   defaultCommandTimeout: 30000,
-  responseTimeout: 60000,
-  execTimeout: 60000,
-  pageLoadTimeout: 60000,
+  responseTimeout: 30000,
+  execTimeout: 30000,
+  pageLoadTimeout: 30000,
   experimentalSessionAndOrigin: false,
   // Old Cypress.io project ID but too expensive
   // projectId: '86p5h3',

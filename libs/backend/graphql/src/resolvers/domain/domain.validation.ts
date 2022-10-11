@@ -32,13 +32,13 @@ export const validateDomainAuth = async (
      }`,
   })
 
-  const app = apps?.[0]
+  const app = apps[0]
 
   if (!app) {
     throw new UserInputError(`App ${appId} not found`)
   }
 
-  const auth0Id = req.user?.sub
+  const auth0Id = req.user.sub
 
   if (app.owner.auth0Id !== auth0Id) {
     throw new ForbiddenError('')

@@ -8,8 +8,8 @@ export const calcDropPosition = (
   collisionRect: ClientRect,
   droppableRect: ClientRect,
 ) => {
-  const left = droppableRect?.left
-  const width = droppableRect?.width
+  const left = droppableRect.left
+  const width = droppableRect.width
   const leftDragOverlayRect = collisionRect.left
   // 30%
   const addAsDescendantWidth = width * 0.2

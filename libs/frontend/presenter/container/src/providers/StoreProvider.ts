@@ -9,9 +9,5 @@ export const StoreProvider = StoreContext.Provider
 export const useStore = () => {
   const store = useContext(StoreContext)
 
-  if (!store) {
-    throw new Error('StoreProvider not found')
-  }
-
   return store
 }

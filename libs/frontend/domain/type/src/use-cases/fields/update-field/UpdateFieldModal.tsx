@@ -32,6 +32,7 @@ export const UpdateFieldModal = observer<{
       fieldType: field.type.id,
       description: field.description,
       validationRules: field.validationRules,
+      defaultValues: JSON.stringify(field.defaultValues),
     })
   }, [
     typeService.fieldUpdateModal.field,
@@ -57,7 +58,7 @@ export const UpdateFieldModal = observer<{
         }}
         onSubmit={(input) =>
           typeService.updateField(
-            typeService.fieldUpdateModal?.interface?.id as string,
+            typeService.fieldUpdateModal.interface?.id as string,
             model.key,
             {
               ...input,
@@ -75,7 +76,7 @@ export const UpdateFieldModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createFieldSchema}
       >
-        <AutoFields fields={['key', 'name', 'description']} />
+        <AutoFields fields={['key', 'name', 'description', 'defaultValues']} />
         <TypeSelect
           label="Type"
           name="fieldType"

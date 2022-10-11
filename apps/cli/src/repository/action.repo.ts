@@ -20,11 +20,13 @@ export const importActions = async (
   for (const action of actions) {
     if (action.type === IActionKind.CodeAction) {
       codeActions.push(action as OGM_TYPES.CodeAction)
-    } else if (action.type === IActionKind.ApiAction) {
-      apiActions.push(action as OGM_TYPES.ApiAction)
-    } else {
-      throw new Error(`Unknown action type : ${action.type}`)
     }
+
+    if (action.type === IActionKind.ApiAction) {
+      apiActions.push(action as OGM_TYPES.ApiAction)
+    }
+
+    throw new Error(`Unknown action type : ${action.type}`)
   }
 
   console.log('Creating CodeActions...')

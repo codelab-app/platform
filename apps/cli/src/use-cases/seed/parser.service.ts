@@ -65,21 +65,24 @@ export class ParserService {
         continue
       }
 
-      const fields: Array<ICreateFieldDTO> = await Promise.all(
-        antdDesignFields.map(async (field) => {
-          const existingField =
-            this.existingData.fields[`${atom.api.name}-${field.property}`]
+      const fields: Array<ICreateFieldDTO> = await antdDesignFields.reduce<
+        Promise<Array<ICreateFieldDTO>>
+      >(async (accFields, field) => {
+        const existingField =
+          this.existingData.fields[`${atom.api.name}-${field.property}`]
 
-          const fieldType =
-            (await getTypeForApi(field, atom, this.userId))?.existingId ?? ''
+        const fieldType =
+          (await getTypeForApi(field, atom, this.userId))?.existingId ?? ''
 
-          // logger.info('Field Type', {
-          //   existingField,
-          //   name: `${atom.api.name}-${field.property}`,
-          //   fieldType,
-          // })
+        // logger.info('Field Type', {
+        //   existingField,
+        //   name: `${atom.api.name}-${field.property}`,
+        //   fieldType,
+        // })
 
-          return {
+        return [
+          ...(await accFields),
+          {
             id: existingField ? existingField.id : v4(),
             key: field.property,
             name: pascalCaseToWords(field.property),
@@ -92,9 +95,10 @@ export class ParserService {
                 nullable: true,
               },
             },
-          }
-        }),
-      )
+            defaultValues: null,
+          },
+        ]
+      }, Promise.resolve([]))
 
       const filteredFields = fields.filter(
         (field): field is ICreateFieldDTO => {

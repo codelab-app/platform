@@ -7,6 +7,7 @@ input FieldCreateInput {
   key: String!
   name: String
   validationRules: String
+  defaultValues: String
 }
 `
 
@@ -17,6 +18,7 @@ export const fieldSchema = gql`
     name: String
     description: String
     validationRules: String
+    defaultValues: Prop
   }
 
   ${sdl}

@@ -17,7 +17,13 @@ const parseTagNode = (node: TagNode, parent: string | null): TagNodeData => {
 
   // Meaning have children
   if (node instanceof Object) {
-    const [name, values] = Object.entries(node)[0]
+    const tagNode = Object.entries(node)[0]
+
+    if (!tagNode) {
+      throw new Error('Tag node invalid')
+    }
+
+    const [name, values] = tagNode
 
     return {
       parent,
@@ -66,20 +72,18 @@ export const createTagSeedData = (): Array<ITagExport> => {
   const tagDataMap = new Map(tagData.map((tag) => [tag.name, tag]))
 
   return tagData.map((tag) => {
-    const parent = tag?.parent ? tagDataMap.get(tag?.parent) : null
+    const parent = tag.parent ? tagDataMap.get(tag.parent) : null
 
     return {
       id: tag.id,
       name: tag.name,
-      children: tag.children
-        ? tag.children.map((child) => {
-            const childTag = tagDataMap.get(child.name)
+      children: tag.children.map((child) => {
+        const childTag = tagDataMap.get(child.name)
 
-            return {
-              id: childTag ? childTag.name : v4(),
-            }
-          })
-        : [],
+        return {
+          id: childTag ? childTag.name : v4(),
+        }
+      }),
       parent: parent ? { id: parent.id } : undefined,
     }
   })

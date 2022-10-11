@@ -34,20 +34,18 @@ export const InterfaceForm = observer(
     const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
 
+    console.log(model)
+
     useEffect(
       () =>
         autorun(() => {
           const typeTreeSchema = transformer.transform(interfaceType, context)
           setFormSchema(
-            mergeDeepRight(initialSchemaRef?.current ?? {}, typeTreeSchema),
+            mergeDeepRight(initialSchemaRef.current ?? {}, typeTreeSchema),
           )
         }),
       [interfaceType],
     )
-
-    if (!formSchema) {
-      return null
-    }
 
     return (
       <Form

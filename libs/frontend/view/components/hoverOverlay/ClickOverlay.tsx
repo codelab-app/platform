@@ -1,3 +1,4 @@
+import { isServer } from '@codelab/shared/utils'
 import React from 'react'
 import { OverlayProps } from './overlay.interface'
 import { OverlayToolbar } from './OverlayToolbar'
@@ -7,7 +8,7 @@ export const ClickOverlay = ({
   content,
   getOverlayElement,
 }: OverlayProps) => {
-  if (!nodeId || !document) {
+  if (!nodeId || isServer) {
     return null
   }
 

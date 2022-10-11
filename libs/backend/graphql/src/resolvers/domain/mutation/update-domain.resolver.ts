@@ -1,4 +1,3 @@
-import { NextApiRequest } from '@codelab/backend/abstract/types'
 import {
   domainSelection,
   Repository,
@@ -27,6 +26,11 @@ export const updateDomain: IFieldResolver<
     const domains = await Domain.find({ where: { id } })
     // get old domain name
     const domain = domains[0]
+
+    if (!domain) {
+      throw new Error('Missing domain')
+    }
+
     // to rename domain, we need create new one, and delete the old one
     const createRes = await vercelApis.domain.addDomain(name)
 

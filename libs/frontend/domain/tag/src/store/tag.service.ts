@@ -186,9 +186,7 @@ export class TagService
   @modelFlow
   @transaction
   deleteCheckedTags = _async(function* (this: TagService) {
-    const checkedTags = this.checkedTags.map(
-      (checkedTag) => checkedTag?.current,
-    )
+    const checkedTags = this.checkedTags.map((checkedTag) => checkedTag.current)
 
     checkedTags.length &&
       (yield* _await(this.deleteMany(checkedTags.map((tag) => tag.id))))

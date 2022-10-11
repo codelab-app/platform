@@ -93,10 +93,10 @@ export const useColumnSearchProps = <RecordType extends object>(
     onFilter: (value, record) =>
       `${record[dataIndex]}`
         .toLowerCase()
-        .includes((value as string).toLowerCase()) ?? '',
+        .includes((value as string).toLowerCase()) || '',
     onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
-        setTimeout(() => searchInputRef?.current?.select(), 100)
+        setTimeout(() => searchInputRef.current?.select(), 100)
       }
     },
   } as TableColumnProps<RecordType>

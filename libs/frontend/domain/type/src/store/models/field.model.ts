@@ -2,8 +2,10 @@ import type {
   IAnyType,
   IField,
   IFieldProps,
+  IProp,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
+import { propRef } from '@codelab/frontend/domain/prop'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -25,6 +27,7 @@ const hydrate = (data: IFieldProps) => {
     description,
     fieldType,
     validationRules: schemaStr,
+    defaultValues,
   } = data
 
   const validationRules = JSON.parse(schemaStr || '{}')
@@ -36,6 +39,7 @@ const hydrate = (data: IFieldProps) => {
     key,
     type: typeRef(fieldType.id),
     validationRules,
+    defaultValues: propRef(defaultValues?.id ?? ''),
   })
 }
 
@@ -49,6 +53,7 @@ export class Field
     key: prop<string>(),
     type: prop<Ref<IAnyType>>(),
     validationRules: prop<Nullish<IValidationRules>>(),
+    defaultValues: prop<Ref<IProp>>(),
   }))
   implements IField
 {
@@ -60,15 +65,20 @@ export class Field
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
     this.validationRules = JSON.parse(fragment.validationRules || '{}')
+    this.defaultValues = propRef(fragment.defaultValues?.id ?? '')
 
     return this
   }
 
   @modelAction
   static hydrate = hydrate
+
+  toString(options?: { withData?: boolean }) {
+    return `\n{ ${this.key}: ${this.type.current.toString()} }`
+  }
 }
 
-export const fieldRef = rootRef<Field>('@codelab/FieldRef', {
+export const fieldRef = rootRef<IField>('@codelab/FieldRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

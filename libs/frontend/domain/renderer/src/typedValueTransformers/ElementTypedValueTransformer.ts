@@ -35,7 +35,7 @@ export class ElementTypedValueTransformer
   }
 
   public transform(props: TypedValue<unknown>) {
-    const elementId = props?.value
+    const elementId = props.value
 
     if (typeof elementId !== 'string') {
       return props

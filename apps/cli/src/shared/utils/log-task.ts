@@ -1,6 +1,6 @@
 import util from 'util'
 
-export const logTask = (task: string, label: string, data?: object) => {
+export const logTask = (task: string, label = '', data?: object) => {
   if (data) {
     return console.debug(
       `[${task}]:`,

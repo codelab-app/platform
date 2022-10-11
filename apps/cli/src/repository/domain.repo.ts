@@ -24,7 +24,7 @@ export const logAPIError = async (
 
     console.error(
       `[${requestName}] Fail to make request. Response: ${JSON.stringify(
-        parsedBody || {},
+        parsedBody,
         null,
         2,
       )}`,

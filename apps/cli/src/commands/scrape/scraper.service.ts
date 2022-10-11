@@ -67,6 +67,7 @@ export class ScraperService {
         continue
       }
 
+      console.log('\n-----------------------------------')
       console.log(`Fetching [${pagesCount}/${urls.length}] ${componentPage}...`)
       await page.goto(url)
 
@@ -84,27 +85,27 @@ export class ScraperService {
                 .filter((tableValues) => tableValues.length >= 4)
                 .map((tableValues) => {
                   const typeTdChildren = Array.from(
-                    tableValues[2].childNodes,
+                    tableValues[2]?.children ?? [],
                   ) as Array<Node>
 
+                  const textTdContent = tableValues[2]?.textContent ?? ''
+
                   return {
-                    [_tableKeys[0]]: tableValues[0].innerText,
-                    [_tableKeys[1]]: tableValues[1].innerText,
-                    [_tableKeys[2]]: tableValues[2].innerText,
-                    [_tableKeys[3]]: tableValues[3].innerText,
+                    [`${_tableKeys[0]}`]: tableValues[0]?.innerText,
+                    [`${_tableKeys[1]}`]: tableValues[1]?.innerText,
+                    [`${_tableKeys[2]}`]: tableValues[2]?.innerText,
+                    [`${_tableKeys[3]}`]: tableValues[3]?.innerText,
                     // some tables are missing version
-                    [_tableKeys[4]]: tableValues[4]?.innerText,
+                    [`${_tableKeys[4]}`]: tableValues[4]?.innerText,
                     // Enums are displayed within a code block, we can recognize them by that
                     // if all children of type are in code blocks, we can say that the whole
                     // props in of enum type
                     isEnum:
-                      typeTdChildren.length > 0 &&
+                      typeTdChildren.length > 1 &&
                       typeTdChildren.every(
-                        (child) =>
-                          (child as HTMLElement).tagName === 'CODE' ||
-                          child?.textContent === '"|"' ||
-                          child?.textContent === '|',
-                      ),
+                        (child) => (child as HTMLElement).tagName === 'CODE',
+                      ) &&
+                      !/(function|=>|<)/g.test(textTdContent),
                   } as unknown as AntdDesignApi
                 })
             )
@@ -142,9 +143,8 @@ export class ScraperService {
                 return
               }
 
-              if ((el.previousSibling as HTMLElement)?.tagName === 'H3') {
-                name = (el.previousSibling?.firstChild as HTMLElement)
-                  ?.innerText
+              if ((el.previousSibling as HTMLElement).tagName === 'H3') {
+                name = (el.previousSibling.firstChild as HTMLElement).innerText
 
                 return
               }
@@ -154,6 +154,7 @@ export class ScraperService {
 
             checkPrevSibling(table as HTMLElement, 3)
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (!name) {
               return
             }

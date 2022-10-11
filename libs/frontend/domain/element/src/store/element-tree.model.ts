@@ -58,7 +58,7 @@ export class ElementTree
   @computed
   get elementsList() {
     return this._root
-      ? [this._root.current, ...(this._root.current?.descendants ?? [])]
+      ? [this._root.current, ...this._root.current.descendants]
       : []
   }
 
@@ -99,7 +99,7 @@ export class ElementTree
 
       // validate component meta data
       if (element.renderComponentType?.current) {
-        const componentId = element.renderComponentType?.current.id
+        const componentId = element.renderComponentType.current.id
         const component = this.componentService.components.get(componentId)
 
         if (!component) {

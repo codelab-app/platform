@@ -11,10 +11,6 @@ export const getRootElement = (
   componentService: IComponentService,
   elementService: IElementService,
 ): Nullish<IElement> => {
-  if (!payload) {
-    return null
-  }
-
   // .id is for backward compatibility
   const id = payload.value
 
@@ -22,7 +18,7 @@ export const getRootElement = (
     return null
   }
 
-  const component = id ? componentService?.component(id) : undefined
+  const component = id ? componentService.component(id) : undefined
 
   if (!component) {
     return null

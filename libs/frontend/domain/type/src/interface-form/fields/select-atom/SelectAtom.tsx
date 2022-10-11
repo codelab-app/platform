@@ -29,7 +29,7 @@ export const useGetAllAtoms = () => {
 
   const atomOptions =
     data?.atoms
-      ?.filter((x) => filterNotHookType(x.type))
+      .filter((x) => filterNotHookType(x.type))
       .map((atom) => ({
         label: atom.name,
         value: atom.id,
@@ -44,8 +44,6 @@ export const useGetAllAtoms = () => {
 }
 
 export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
-  console.log(parent?.allowedChildren)
-
   const allowedChildrenIds = parent?.allowedChildren.map((child) => child.id)
   const { atomOptions, isLoading, error: queryError } = useGetAllAtoms()
 

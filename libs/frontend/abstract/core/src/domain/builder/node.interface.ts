@@ -1,8 +1,5 @@
 import { Nullish } from '@codelab/shared/abstract/types'
-import {
-  COMPONENT_NODE_TYPE,
-  ELEMENT_NODE_TYPE,
-} from '../../base/node.interface'
+import { COMPONENT_NODE_TYPE, ELEMENT_NODE_TYPE } from '../../base'
 import { IComponent } from '../component'
 import { IElement } from '../element'
 

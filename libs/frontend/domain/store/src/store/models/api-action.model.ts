@@ -8,7 +8,7 @@ import {
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/element'
+import { Prop } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
 import { tryParse } from '@codelab/frontend/shared/utils'
 import {
@@ -89,20 +89,12 @@ export class ApiAction
         .then((response) => {
           updateState({ [this.name]: { response } })
 
-          if (successAction) {
-            return successAction.createRunner(context, updateState)(...args)
-          }
-
-          return response
+          return successAction.createRunner(context, updateState)(...args)
         })
         .catch((error) => {
           updateState({ [this.name]: { error: JSON.stringify(error) } })
 
-          if (errorAction) {
-            return errorAction.createRunner(context, updateState)(...args)
-          }
-
-          return error
+          return errorAction.createRunner(context, updateState)(...args)
         })
     }
 

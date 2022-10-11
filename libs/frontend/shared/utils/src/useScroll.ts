@@ -33,9 +33,7 @@ const useScroll = () => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0)
 
   const [bodyOffset, setBodyOffset] = useState<DOMRect | SSRRect>(
-    isServer || !window.document
-      ? EmptySSRRect
-      : document.body.getBoundingClientRect(),
+    isServer ? EmptySSRRect : document.body.getBoundingClientRect(),
   )
 
   const [scrollY, setScrollY] = useState<number>(bodyOffset.top)
@@ -47,9 +45,7 @@ const useScroll = () => {
 
   const listener = () => {
     setBodyOffset(
-      isServer || !window.document
-        ? EmptySSRRect
-        : document.body.getBoundingClientRect(),
+      isServer ? EmptySSRRect : document.body.getBoundingClientRect(),
     )
     setScrollY(-bodyOffset.top)
     setScrollX(bodyOffset.left)

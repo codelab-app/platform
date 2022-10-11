@@ -29,15 +29,15 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
       kind: typeToUpdate?.kind,
       primitiveKind:
         typeToUpdate?.kind === ITypeKind.PrimitiveType
-          ? typeToUpdate?.primitiveKind
+          ? typeToUpdate.primitiveKind
           : undefined,
       allowedValues:
         typeToUpdate?.kind === ITypeKind.EnumType
-          ? typeToUpdate?.allowedValues ?? undefined
+          ? typeToUpdate.allowedValues
           : undefined,
       unionTypeIds:
         typeToUpdate?.kind === ITypeKind.UnionType
-          ? typeToUpdate?.typesOfUnionType?.map((t) => t.id) ?? []
+          ? typeToUpdate.typesOfUnionType.map((t) => t.id)
           : undefined,
     }
 

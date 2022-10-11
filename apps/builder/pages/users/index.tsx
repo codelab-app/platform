@@ -13,9 +13,9 @@ const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
   // const { data } = useGetUsersQuery()
   const data = { users: [] }
 
-  const dataSource = data?.users?.map((user: IUser) => ({
-    id: user?.id,
-    key: user?.id,
+  const dataSource = data.users.map((user: IUser) => ({
+    id: user.id,
+    key: user.id,
   }))
 
   const columns: ColumnsType<object> = [

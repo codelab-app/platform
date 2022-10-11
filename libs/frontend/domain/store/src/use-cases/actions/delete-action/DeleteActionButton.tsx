@@ -16,7 +16,9 @@ export const DeleteActionButton = observer<DeleteActionButtonProps>(
       danger
       disabled={disabled}
       icon={<DeleteOutlined />}
-      onClick={() => actionService.deleteModal.open(actionRef(ids[0]))}
+      onClick={() =>
+        ids[0] && actionService.deleteModal.open(actionRef(ids[0]))
+      }
       size="small"
     />
   ),

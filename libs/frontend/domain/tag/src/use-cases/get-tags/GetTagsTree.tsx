@@ -10,7 +10,8 @@ import { tagRef } from '../../store'
 export const GetTagsTree = observer<{ tagService: ITagService }>(
   ({ tagService }) => {
     const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-      tagService.setSelectedTag(tagRef(selectedKeys[0].toString()))
+      selectedKeys[0] &&
+        tagService.setSelectedTag(tagRef(selectedKeys[0].toString()))
     }
 
     const onCheck: TreeProps['onCheck'] = (checkedKeys, info) => {

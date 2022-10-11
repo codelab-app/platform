@@ -19,7 +19,7 @@ export const useDndDropHandler = (
   elementTree: Maybe<IElementTree>,
 ): UseDndDropHandler => {
   const handleCreateElement = async (event: DragEndEvent) => {
-    const targetElementId = event.over?.id?.toString()
+    const targetElementId = event.over?.id.toString()
     const data = event.active.data.current as Maybe<BuilderDragData>
     const overData = event.over?.data.current as Maybe<BuilderDropData>
     const dragPosition = overData?.dragPosition
@@ -37,7 +37,7 @@ export const useDndDropHandler = (
 
     const createElementDto: ICreateElementDTO = {
       ...createElementInput,
-      parentElementId: targetElement?.parentElement?.id,
+      parentElementId: targetElement.parentElement?.id,
     }
 
     if (!elementTree) {
@@ -75,7 +75,7 @@ export const useDndDropHandler = (
 
   const handleMoveElement = async (event: DragEndEvent) => {
     const draggedElementId = event.active.id.toString()
-    const targetElementId = event.over?.id?.toString()
+    const targetElementId = event.over?.id.toString()
     const dragPosition = event.over?.data.current?.dragPosition
 
     if (!targetElementId || targetElementId === draggedElementId) {

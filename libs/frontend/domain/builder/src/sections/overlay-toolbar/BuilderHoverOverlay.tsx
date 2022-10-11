@@ -14,7 +14,7 @@ export const BuilderHoverOverlay = observer<{
   }
 
   const content = `${hoveredNode.label} ${
-    hoveredNode.atom?.current ? `(${hoveredNode.atom?.current?.name})` : ''
+    hoveredNode.atom?.current ? `(${hoveredNode.atom.current.name})` : ''
   }`
 
   return (

@@ -36,7 +36,7 @@ export interface ElementWrapperProps {
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({ renderService, element, extraProps = {}, postAction }) => {
     const globalPropsContext = useContext(GlobalPropsContext)
-    const globalProps = globalPropsContext?.[element.id]
+    const globalProps = globalPropsContext[element.id]
 
     useEffect(() => {
       postAction?.()

@@ -16,11 +16,10 @@ export const SelectAction = ({
 }: SelectActionProps) => {
   const { loading, error } = useAsync(() => actionService.getAll(storeId))
 
-  const actionOptions =
-    actionService?.actionsList.map((action) => ({
-      label: action.name,
-      value: action.id,
-    })) ?? []
+  const actionOptions = actionService.actionsList.map((action) => ({
+    label: action.name,
+    value: action.id,
+  }))
 
   return (
     <SelectField

@@ -47,6 +47,10 @@ const PageRenderer: CodelabPage = observer(() => {
       codeMirrorTypes,
     } = await pageService.getRenderedPage(appId, pageId)
 
+    if (!apps[0]) {
+      return
+    }
+
     const { pageElementTree, page, store } = appService.load({
       app: apps[0],
       pageId,
@@ -90,11 +94,11 @@ const PageRenderer: CodelabPage = observer(() => {
   return (
     <>
       <Head>
-        <title>{value?.page?.name}</title>
+        <title>{value?.page.name}</title>
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {loading && <Spin />}
-      {!loading && value?.pageElementTree && value.renderer && (
+      {!loading && value?.pageElementTree && (
         <Renderer renderRoot={value.renderer.renderRoot.bind(value.renderer)} />
       )}
     </>

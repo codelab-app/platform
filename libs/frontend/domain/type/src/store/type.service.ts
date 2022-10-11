@@ -153,8 +153,6 @@ export class TypeService
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))
 
-    console.log(types)
-
     return types.map((type) => {
       const typeModel = typeFactory(type)
 
@@ -183,7 +181,7 @@ export class TypeService
     this: TypeService,
     ids: Array<string>,
   ) {
-    if (!ids?.length) {
+    if (!ids.length) {
       return []
     }
 
@@ -248,7 +246,7 @@ export class TypeService
     this: TypeService,
     data: Array<ICreateTypeDTO> = [],
   ) {
-    if (!data.length) {
+    if (!data[0]) {
       return []
     }
 
@@ -355,6 +353,10 @@ export class TypeService
     yield* _await(this.updateDefaults(interfaceTypeId, data.key, field.key))
 
     const updatedField = upsertField.fieldsConnection.edges[0]
+
+    if (!updatedField) {
+      throw new Error('Update field failed')
+    }
 
     field.writeCache(updatedField)
 

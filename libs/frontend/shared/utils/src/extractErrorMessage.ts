@@ -43,9 +43,7 @@ export const extractErrorMessage = (
     // }
 
     if (e instanceof ApolloError) {
-      return e.extensions
-        ? `[${e.extensions.response.message}]: ${e.extensions.response.error}`
-        : e.message
+      return `[${e.extensions.response.message}]: ${e.extensions.response.error}`
       // return e.graphQLErrors[0].extensions
       //   ? `[${e.message}]: ${
       //       (e.graphQLErrors[0].extensions.response as any)?.error

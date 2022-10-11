@@ -79,6 +79,10 @@ export const createApp = async (app: IAppExport, userId: string) => {
 
   console.log('Creating actions...')
 
+  if (!appStore) {
+    throw new Error('App store not created')
+  }
+
   await importActions(app.store.actions, appStore.id)
 
   console.log('Creating new app...')
@@ -96,7 +100,7 @@ export const createApp = async (app: IAppExport, userId: string) => {
         pages: {
           create: app.pages.map((page) => ({
             node: {
-              id: page.id ?? v4(),
+              id: page.id,
               name: page.name,
               slug: page.slug,
               rootElement: connectNode(page.rootElement.id),
@@ -132,7 +136,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
         slug: page.slug,
         rootElement: {
           id: page.rootElement.id,
-          name: page?.rootElement?.name ?? null,
+          name: page.rootElement.name ?? null,
         },
         elements,
         components,

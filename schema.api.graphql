@@ -9830,6 +9830,7 @@ type EnumTypesConnection {
 }
 
 interface Field {
+  defaultValues: Prop
   description: String
   id: ID!
   key: String!
@@ -9838,6 +9839,7 @@ interface Field {
 }
 
 input FieldCreateInput {
+  defaultValues: String
   description: String
   id: ID!
   key: String!
@@ -9846,6 +9848,7 @@ input FieldCreateInput {
 }
 
 input FieldSort {
+  defaultValues: SortDirection
   description: SortDirection
   id: SortDirection
   key: SortDirection
@@ -11191,6 +11194,7 @@ input InterfaceTypeFieldsFieldInput {
 
 type InterfaceTypeFieldsRelationship implements Field {
   cursor: String!
+  defaultValues: Prop
   description: String
   id: ID!
   key: String!

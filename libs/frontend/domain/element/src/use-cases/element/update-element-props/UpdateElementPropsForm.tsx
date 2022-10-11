@@ -1,9 +1,3 @@
-import { PageType } from '@codelab/frontend/abstract/types'
-import { PropsForm } from '@codelab/frontend/domain/type'
-import {
-  Spinner,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
@@ -12,6 +6,12 @@ import {
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
+import { PropsForm } from '@codelab/frontend/domain/type'
+import {
+  Spinner,
+  UseTrackLoadingPromises,
+} from '@codelab/frontend/view/components'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -38,6 +38,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
+    console.log(element.props)
+
     const initialPropsRef = useRef(element?.props?.values ?? {})
 
     const apiId =

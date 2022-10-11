@@ -20,7 +20,7 @@ const hydrate = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
     kind,
     name,
     elementKind,
-    ownerId: owner?.id,
+    ownerId: owner.id,
   })
 }
 

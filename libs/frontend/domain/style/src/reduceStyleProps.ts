@@ -1,5 +1,3 @@
-import { IPropData, IProps } from '@codelab/frontend/abstract/core'
-
 // Reduce the array of key value css props to a simple object
 // export const reduceStyleProps = (props?: Array<any>) => {
 //   return props?.reduce((prev: IPropData, prop: IPropData) => {

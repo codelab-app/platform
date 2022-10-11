@@ -17,6 +17,21 @@ const atomCache = 'atomCache'
 const appCache = 'appCache'
 const uidCache = 'uidCache'
 
+const clickEditor = () => {
+  cy.get('[aria-label="format-painter"]').click()
+  cy.getSpinner().should('not.exist')
+
+  return (
+    cy
+      // https://stackoverflow.com/questions/58833459/cypresserror-timed-out-retrying-cy-click-failed-because-this-element-is-deta
+      .get('[role="textbox"]')
+      // .should('be.visible')
+      // .click({ force: true })
+      // .trigger('click')
+      .click({ force: true })
+  )
+}
+
 describe('CSS CRUD', () => {
   before(() => {
     cy.resetDatabase()
@@ -88,13 +103,8 @@ describe('CSS CRUD', () => {
     it('should be able to add some css styling', () => {
       cy.getSpinner().should('not.exist')
       cy.findByText(elementName).click()
-      cy.get('[aria-label="format-painter"]').click()
-      cy.getSpinner().should('not.exist')
 
-      cy.get('[role="textbox"]')
-        .click({ force: true })
-        .clear()
-        .type(createBackgroundColorStyle(backgroundColor1))
+      clickEditor().clear().type(createBackgroundColorStyle(backgroundColor1))
 
       cy.get('#render-root')
         .find('.ant-btn')
@@ -104,9 +114,8 @@ describe('CSS CRUD', () => {
 
   describe('Update css', () => {
     it('should be able to update the css styling', () => {
-      cy.get('[role="textbox"]')
-        .click({ force: true })
-        .clear()
+      clickEditor()
+        .clear({ force: true })
         .type(createBackgroundColorStyle(backgroundColor2))
 
       cy.get('#render-root')
@@ -117,7 +126,7 @@ describe('CSS CRUD', () => {
 
   describe('Remove css', () => {
     it('should be able to remove the css styling', () => {
-      cy.get('[role="textbox"]').click({ force: true }).clear().type(' ')
+      clickEditor().clear({ force: true }).type(' ')
 
       cy.get('#render-root')
         .find('.ant-btn')

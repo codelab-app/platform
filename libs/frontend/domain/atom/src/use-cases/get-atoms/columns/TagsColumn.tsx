@@ -5,10 +5,10 @@ import { AtomRecord } from './types'
 export const TagsColumn = ({ tags }: Pick<AtomRecord, 'tags'>) => {
   return (
     <div>
-      {tags?.map((tag) => {
+      {tags.map((tag) => {
         return (
-          <Tag color="geekblue" key={tag?.id}>
-            {tag?.name}
+          <Tag color="geekblue" key={tag.id}>
+            {tag.name}
           </Tag>
         )
       })}

@@ -28,13 +28,9 @@ export const OverlayToolbar = ({
   containerProps: { className: containerClassName, style: containerStyle } = {},
   toolbarProps: { style: toolbarStyle, ...toolbarProps } = {},
 }: OverlayToolbarProps) => {
-  let element: Nullish<HTMLElement>
-
-  if (overlayElement) {
-    element = Object.hasOwnProperty.call(overlayElement, 'current')
-      ? (overlayElement as RefObject<HTMLElement>).current
-      : (overlayElement as HTMLElement)
-  }
+  const element = Object.hasOwnProperty.call(overlayElement, 'current')
+    ? (overlayElement as RefObject<HTMLElement>).current
+    : (overlayElement as HTMLElement)
 
   // Make sure we re-render when the element changes its size and when we scroll
   // But we don't actually care about the values, we take what we need from getBoundingClientRect

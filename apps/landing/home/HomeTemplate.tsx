@@ -18,7 +18,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   const isMenuOpen = useRecoilValue(menuState)
 
   return (
-    <div css={[isMenuOpen ?? tw`backdrop-blur`]} id="home">
+    <div css={[isMenuOpen || tw`backdrop-blur`]} id="home">
       {children}
     </div>
   )

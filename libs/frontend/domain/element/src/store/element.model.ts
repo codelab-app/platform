@@ -18,6 +18,7 @@ import {
   ELEMENT_NODE_TYPE,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
+import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
 import {
   componentRef,
   getElementService,
@@ -31,7 +32,6 @@ import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import {
   AnyModel,
-  AnyModelProp,
   findParent,
   getRefsResolvingTo,
   idProp,
@@ -43,12 +43,8 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { BaseModel } from 'mobx-keystone/src/model/BaseModel'
-import { ModelProps } from 'mobx-keystone/src/modelShared/prop'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
-import { Prop } from './prop.model'
-import { PropMapBinding } from './prop-map-binding.model'
 
 type TransformFn = (props: IPropData) => IPropData
 
@@ -62,10 +58,8 @@ export const hydrate = ({
   guiCss,
   renderAtomType,
   parent,
-
   parentComponent,
   renderComponentType,
-
   nextSibling,
   prevSibling,
   firstChild,
@@ -74,7 +68,6 @@ export const hydrate = ({
   // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
   hooks,
   propMapBindings,
-
   props,
   propTransformationJs,
   renderIfPropKey,
@@ -103,9 +96,7 @@ export const hydrate = ({
       ? componentRef(renderComponentType.id)
       : null,
     propMapBindings: objectMap(
-      propMapBindings
-        ? propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)])
-        : [],
+      propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)]),
     ),
   })
 }
@@ -115,7 +106,7 @@ export const getElementTree = (element: IElement): Maybe<IElementTree> => {
 
   return [...refs.values()].reduce((prev, node) => {
     const elementTree = findParent(node, (parent) => {
-      return (parent as AnyModel)?.[modelTypeKey] === '@codelab/ElementTree'
+      return (parent as AnyModel)[modelTypeKey] === '@codelab/ElementTree'
     })
 
     return elementTree ? elementTree : prev
@@ -214,10 +205,10 @@ export class Element
     let traveledNode = this.prevSibling
 
     while (traveledNode) {
-      const travledNodeParentElement = getParentElement(traveledNode)
+      const traveledNodeParentElement = getParentElement(traveledNode)
 
-      if (travledNodeParentElement) {
-        return travledNodeParentElement
+      if (traveledNodeParentElement) {
+        return traveledNodeParentElement
       }
 
       // keep traversing backward
@@ -338,12 +329,12 @@ export class Element
   get label() {
     return (
       this.name ||
-      this.atom?.current?.name ||
+      this.atom?.current.name ||
       (this.atom?.current
-        ? pascalCaseToWords(this.atom?.current.type)
+        ? pascalCaseToWords(this.atom.current.type)
         : undefined) ||
-      this.parentComponent?.current?.name ||
-      this.renderComponentType?.current?.name ||
+      this.parentComponent?.current.name ||
+      this.renderComponentType?.current.name ||
       ''
     )
   }
@@ -431,9 +422,9 @@ export class Element
     for (const pmb of this.propMapBindings.values()) {
       const appliedProps = pmb.applyBindings(localProps)
 
-      if (pmb.targetElement && pmb.targetElement.id !== this.id) {
-        globalProps[pmb.targetElement.id] = mergeProps(
-          globalProps[pmb.targetElement.id],
+      if (pmb.targetElementId && pmb.targetElementId !== this.id) {
+        globalProps[pmb.targetElementId] = mergeProps(
+          globalProps[pmb.targetElementId],
           appliedProps,
         )
       } else {
@@ -658,7 +649,7 @@ export class Element
         // sibling detaches
         ...disconnectNode(sibling.nextSibling?.id),
         // appends element
-        ...connectNode(this?.id),
+        ...connectNode(this.id),
       },
     })
   }
@@ -677,7 +668,7 @@ export class Element
         // sibling detaches its prev sibling
         ...disconnectNode(sibling.prevSibling?.id),
         // sibling prepends element
-        ...connectNode(this?.id),
+        ...connectNode(this.id),
       },
     })
   }

@@ -14,10 +14,6 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
   const itemId = fragment.itemType.id
   const itemType = typeRef(itemId)
 
-  if (!itemType) {
-    throw new Error('Item type is invalid')
-  }
-
   assertIsTypeKind(fragment.kind, ITypeKind.ArrayType)
 
   return new ArrayType({

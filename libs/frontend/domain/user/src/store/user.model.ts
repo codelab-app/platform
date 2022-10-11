@@ -48,13 +48,13 @@ export class User
   writeCache(data: IUserDTO) {
     this.id = data.id
     this.auth0Id = data.auth0Id
-    this.roles = data.roles ?? []
+    this.roles = data.roles
 
     return this
   }
 }
 
-export const userRef = rootRef<User>('@codelab/UserRef', {
+export const userRef = rootRef<IUser>('@codelab/UserRef', {
   onResolvedValueChange(ref, newUser, oldUser) {
     if (oldUser && !newUser) {
       detach(ref)

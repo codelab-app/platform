@@ -23,7 +23,7 @@ export const SelectComponent = ({
 
   // remove the components that refer the current component to avoid creating circular references
   // including itself
-  const filteredComponents = data?.components?.filter(
+  const filteredComponents = data?.components.filter(
     (component) =>
       component.descendantComponentIds.indexOf(activeComponentId) === -1,
   )

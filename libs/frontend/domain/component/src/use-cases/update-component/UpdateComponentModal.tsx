@@ -20,10 +20,6 @@ export const UpdateComponentModal = observer<{
   }
 
   const handleSubmit = (input: IUpdateComponentDTO) => {
-    if (!updatedComponent) {
-      throw new Error('componentStore.updateModal.component is null')
-    }
-
     return componentService.update(updatedComponent, input)
   }
 

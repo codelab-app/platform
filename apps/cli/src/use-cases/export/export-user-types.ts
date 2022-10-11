@@ -50,7 +50,9 @@ export const exportUserTypes = async (): Promise<Array<ITypeExport>> => {
     })
 
     // We pass in a single id, so only get 1 record, for each record, we want the first column
-    const descendants = [...results.records[0].values()][0] as Array<Descendant>
+    const descendants = [
+      ...(results.records[0]?.values() ?? []),
+    ][0] as Array<Descendant>
 
     // We only get interface type descendants, since other types are pushed in front of interfaces
     const interfaceDescendants = descendants.filter(

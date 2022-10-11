@@ -40,15 +40,15 @@ export const UpdateActionModal = observer<{
 
     config:
       updateAction?.type === IActionKind.ApiAction
-        ? updateAction.config?.values
+        ? updateAction.config.values
         : undefined,
     resourceId:
       updateAction?.type === IActionKind.ApiAction
-        ? updateAction.resource?.id
+        ? updateAction.resource.id
         : undefined,
     successActionId:
       updateAction?.type === IActionKind.ApiAction
-        ? updateAction.successAction?.id
+        ? updateAction.successAction.id
         : undefined,
     errorActionId:
       updateAction?.type === IActionKind.ApiAction

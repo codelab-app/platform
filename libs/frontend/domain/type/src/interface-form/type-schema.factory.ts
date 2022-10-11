@@ -90,9 +90,7 @@ export class TypeSchemaFactory {
     return {
       ...extra,
       type: 'array',
-      items: type.itemType?.current
-        ? this.transform(type.itemType?.current)
-        : undefined,
+      items: this.transform(type.itemType.current),
     }
   }
 
@@ -101,7 +99,7 @@ export class TypeSchemaFactory {
       ...this.transform(field.type.current, {
         validationRules: field.validationRules ?? undefined,
       }),
-      ...field?.validationRules?.general,
+      ...field.validationRules?.general,
       label: field.name || pascalCaseToWords(field.key),
     })
 
@@ -232,7 +230,7 @@ export class TypeSchemaFactory {
     const extra = this.getExtraProperties(type)
 
     const uniforms = {
-      options: type.allowedValues?.map((v) => ({
+      options: type.allowedValues.map((v) => ({
         value: v.id,
         label: v.key,
       })),
@@ -243,7 +241,7 @@ export class TypeSchemaFactory {
 
     return {
       type: 'string',
-      enum: type.allowedValues?.map((v) => v.id),
+      enum: type.allowedValues.map((v) => v.id),
       uniforms,
       ...extra,
     } as const

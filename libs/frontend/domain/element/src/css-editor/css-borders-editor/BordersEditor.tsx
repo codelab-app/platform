@@ -124,7 +124,7 @@ export const BordersEditor = observer(
             />
           ) : (
             <ColorPicker
-              currentValue={guiCssObj[name]}
+              currentValue={guiCssObj[name] ?? ''}
               name={name}
               onChange={updateGuiCssProperty(element, name)}
             />

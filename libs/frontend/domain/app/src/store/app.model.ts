@@ -22,7 +22,7 @@ const hydrate = (app: IAppDTO) => {
     id: app.id,
     name: app.name,
     slug: app.slug,
-    ownerId: app.owner?.id,
+    ownerId: app.owner.id,
     store,
     pages: app.pages.map((page) => pageRef(page.id)),
   })
@@ -57,7 +57,7 @@ export class App
   @modelAction
   public writeCache(data: IAppDTO) {
     this.id = data.id
-    this.ownerId = data.owner?.id
+    this.ownerId = data.owner.id
     this.setName(data.name)
     this.slug = data.slug
     this.store = storeRef(data.store.id)
@@ -67,7 +67,7 @@ export class App
   }
 }
 
-export const appRef = rootRef<App>('@codelab/AppRef', {
+export const appRef = rootRef<IApp>('@codelab/AppRef', {
   onResolvedValueChange(ref, newApp, oldApp) {
     if (oldApp && !newApp) {
       detach(ref)

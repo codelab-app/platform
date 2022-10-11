@@ -4,7 +4,10 @@ import {
   IAtomImport,
   ITagExport,
 } from '@codelab/backend/abstract/core'
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import {
+  atomSelectionSet,
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode, connectNodes } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
@@ -25,6 +28,7 @@ export const upsertAtom = async (
   const existingAtom = (
     await Atom.find({
       where: atomWhere(atom),
+      selectionSet: atomSelectionSet,
     })
   )[0]
 
@@ -35,8 +39,9 @@ export const upsertAtom = async (
     icon: atom.icon,
   }
 
-  const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] =
-    atom.tags?.map((tag) => ({ where: { node: tagWhere(tag) } })) || []
+  const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] = atom.tags.map(
+    (tag) => ({ where: { node: tagWhere(tag) } }),
+  )
 
   if (!existingAtom) {
     const createInput: OGM_TYPES.AtomCreateInput = {
@@ -59,14 +64,16 @@ export const upsertAtom = async (
       throw new Error('Create atom failed')
     }
   } else {
-    if (!atom.api?.id) {
+    console.log(existingAtom)
+
+    if (!existingAtom.api.id) {
       throw new Error('API is missing even though atom exists')
     }
 
     const updateInput: OGM_TYPES.AtomUpdateInput = {
       ...baseInput,
       // Assume the API exists
-      api: connectNode(existingAtom.api?.id),
+      api: connectNode(existingAtom.api.id),
       tags: [{ connect: connectTags }],
     }
 

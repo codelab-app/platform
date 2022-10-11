@@ -82,16 +82,8 @@ export class DomainService
       name,
     }
 
-    const { createDomain: domain } = yield* _await(
-      domainApis.CreateDomain({ input }),
-    )
-
-    if (!domain) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Domain was not created')
-    }
-
-    const domainModel = Domain.hydrate(domain)
+    const { createDomain } = yield* _await(domainApis.CreateDomain({ input }))
+    const domainModel = Domain.hydrate(createDomain)
     this.domains.set(domainModel.id, domainModel)
   })
 

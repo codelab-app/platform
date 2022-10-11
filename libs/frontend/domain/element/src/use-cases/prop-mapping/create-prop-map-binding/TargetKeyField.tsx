@@ -1,6 +1,6 @@
+import { IElementService } from '@codelab/frontend/abstract/core'
 import { getTypeApi } from '@codelab/frontend/domain/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { IElementService } from '@codelab/frontend/abstract/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
 import { observer } from 'mobx-react-lite'
@@ -59,17 +59,17 @@ const TargetKeyFieldInternal = observer<TargetKeyFieldProps>(
         void getTypeApi
           .GetInterfaceTypes({ where: { id: api.id } })
           .then((r) => {
-            if (!r.types?.length) {
+            if (!r.types.length) {
               setOptions([])
 
               return
             }
 
             setOptions(
-              r.types[0].fieldsConnection.edges.map((e) => ({
+              r.types[0]?.fieldsConnection.edges.map((e) => ({
                 label: e.key,
                 value: e.key,
-              })),
+              })) ?? [],
             )
           })
       } else {

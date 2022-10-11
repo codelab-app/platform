@@ -30,7 +30,7 @@ export class Domain
   static hydrate = hydrate
 }
 
-export const domainRef = rootRef<Domain>('@codelab/AppRef', {
+export const domainRef = rootRef<IDomain>('@codelab/AppRef', {
   onResolvedValueChange(ref, newApp, oldApp) {
     if (oldApp && !newApp) {
       detach(ref)

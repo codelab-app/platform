@@ -7,16 +7,16 @@ export const getApiName = (name: string) => {
 }
 
 type CreateAtoms = (
-  atomIds?: Array<string>,
-  interfaceIds?: Array<string>,
+  atomIds?: [string, string],
+  interfaceIds?: [string, string],
 ) => Array<IAtomExport>
 
 export const createAtomsData: CreateAtoms = (
-  [buttonId, textId] = [],
-  [buttonInterfaceId, textInterfaceId] = [],
+  [buttonId, textId] = [v4(), v4()],
+  [buttonInterfaceId, textInterfaceId] = [v4(), v4()],
 ) => [
   {
-    id: buttonId ?? v4(),
+    id: buttonId,
     name: IAtomType.AntDesignButton,
     type: IAtomType.AntDesignButton,
     api: {
@@ -27,7 +27,7 @@ export const createAtomsData: CreateAtoms = (
     allowedChildren: [],
   },
   {
-    id: textId ?? v4(),
+    id: textId,
     name: IAtomType.AntDesignTypographyText,
     type: IAtomType.AntDesignTypographyText,
     api: {

@@ -22,7 +22,7 @@ export const tagRepository = {
 
     const descendants = (
       await Promise.all(
-        records[0].get(0).map(async (descendant: Node) => {
+        records[0]?.get(0).map(async (descendant: Node) => {
           const id = descendant.properties.id
 
           const tag = await Tag.find({

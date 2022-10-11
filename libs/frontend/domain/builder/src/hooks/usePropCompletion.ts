@@ -22,10 +22,6 @@ export const usePropCompletion = (renderService: IRenderer) => {
 
     const renderOutput = renderService.renderIntermediateElement(element)
 
-    if (!renderOutput) {
-      return []
-    }
-
     const allRenderedProps = Array.isArray(renderOutput)
       ? renderOutput
           .map((r) => r.props)
