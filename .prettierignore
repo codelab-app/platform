@@ -3,3 +3,6 @@ dist
 yarn-error.log
 yarn.lock
 .yarn
+tmp
+seed-data-2.test.json
+seed-data.test.json
