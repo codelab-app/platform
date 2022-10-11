@@ -91,8 +91,8 @@ describe('Elements CRUD', () => {
       })
       .then((apps) => {
         const app = apps[0]
-        const pageId = app.pages[0].id
-        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
+        const pageId = app?.pages[0]?.id
+        cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
         cy.getSpinner().should('not.exist')
 
         // select root now so we can update its child later
@@ -141,7 +141,8 @@ describe('Elements CRUD', () => {
         cy.getModal().should('not.exist', { timeout: 10000 })
       })
     })
-    it('should be able to view props', () => {
+
+    it.skip('should be able to view props', () => {
       cy.getSider()
         .find('.ant-page-header-heading')
         .getButton({ icon: 'plus' })
