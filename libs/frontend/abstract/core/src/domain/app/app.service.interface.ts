@@ -1,4 +1,4 @@
-import { AppWhere } from '@codelab/shared/abstract/codegen'
+import { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -17,7 +17,7 @@ import { IApp, IBuilderApp } from './app.model.interface'
 
 export interface IAppService
   extends ICRUDService<IApp, ICreateAppDTO, IUpdateAppDTO>,
-    IQueryService<IApp, AppWhere>,
+    IQueryService<IApp, AppWhere, AppOptions>,
     ICacheService<IAppDTO, IApp>,
     ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
   /**

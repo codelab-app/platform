@@ -1,4 +1,7 @@
-import { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ResourceOptions,
+  ResourceWhere,
+} from '@codelab/shared/abstract/codegen'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
@@ -28,7 +31,7 @@ export interface IResourceService
       ICRUDService<IResource, ICreateResourceDTO, IUpdateResourceDTO>,
       'create' | 'update'
     >,
-    IQueryService<IResource, ResourceWhere>,
+    IQueryService<IResource, ResourceWhere, ResourceOptions>,
     ICacheService<IResourceDTO, IResource>,
     Omit<
       ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,

@@ -91,8 +91,8 @@ describe('Elements CRUD', () => {
       })
       .then((apps) => {
         const app = apps[0]
-        const pageId = app.pages[0].id
-        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
+        const pageId = app?.pages[0]?.id
+        cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
         cy.getSpinner().should('not.exist')
 
         // select root now so we can update its child later
@@ -140,6 +140,39 @@ describe('Elements CRUD', () => {
           .click()
         cy.getModal().should('not.exist', { timeout: 10000 })
       })
+    })
+
+    it.skip('should be able to view props', () => {
+      cy.getSider()
+        .find('.ant-page-header-heading')
+        .getButton({ icon: 'plus' })
+        .click()
+
+      cy.getModal().findByLabelText('Name').type(ELEMENT_TEXT)
+
+      cy.getModal().setFormFieldValue({
+        label: 'Parent element',
+        value: ROOT_ELEMENT_NAME,
+        type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal().setFormFieldValue({
+        label: 'Atom',
+        value: IAtomType.AntDesignTypographyText,
+        type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal()
+        .getModalAction(/Create/)
+        .click()
+      cy.getModal().should('not.exist', { timeout: 10000 })
+
+      cy.contains(/Text.*/).click()
+
+      cy.get(`[aria-label="setting"]`).click()
+
+      cy.findByText('Custom Text').should('exist')
+      cy.findByText(/Edit.*API/).should('exist')
     })
   })
 

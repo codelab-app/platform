@@ -1,3 +1,4 @@
+import { ApiActionOptions } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import {
@@ -16,7 +17,10 @@ import { IAnyActionWhere } from './action.where.interface'
 
 export interface IActionService
   extends ICRUDService<IAnyAction, ICreateActionDTO, IUpdateActionDTO>,
-    Omit<IQueryService<IAnyAction, IAnyActionWhere>, 'getAll'>,
+    Omit<
+      IQueryService<IAnyAction, IAnyActionWhere, ApiActionOptions>,
+      'getAll'
+    >,
     ICRUDModalService<Ref<IAnyAction>, { action: Maybe<IAnyAction> }>,
     ICacheService<IActionDTO, IAnyAction> {
   actionsList: Array<IAnyAction>

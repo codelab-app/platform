@@ -1,4 +1,5 @@
 import {
+  ElementOptions,
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
@@ -53,7 +54,7 @@ export interface IElementService
       'delete'
     >,
     ICacheService<IElementDTO, IElement>,
-    Omit<IQueryService<IElement, ElementWhere>, 'getOne'>,
+    Omit<IQueryService<IElement, ElementWhere, ElementOptions>, 'getOne'>,
     Omit<
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'

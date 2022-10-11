@@ -7,7 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { AtomWhere } from '@codelab/shared/abstract/codegen'
+import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   connectNode,
   connectTypeOwner,
@@ -35,6 +35,7 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 export class AtomService
   extends Model({
     atoms: prop(() => objectMap<IAtom>()),
+    count: prop(() => 1),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AtomModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),
@@ -103,8 +104,16 @@ export class AtomService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: AtomService, where?: AtomWhere) {
-    const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
+  getAll = _async(function* (
+    this: AtomService,
+    where?: AtomWhere,
+    options?: AtomOptions,
+  ) {
+    const { atoms, atomsAggregate } = yield* _await(
+      atomApi.GetAtoms({ where, options }),
+    )
+
+    this.count = atomsAggregate.count
 
     return atoms.map((atom) => this.writeCache(atom))
   })

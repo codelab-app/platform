@@ -89,6 +89,13 @@ export const useAtomTable = (atomService: IAtomService) => {
   const pagination: TablePaginationConfig = {
     position: ['bottomCenter'],
     defaultPageSize: 25,
+    total: atomService.count,
+    onChange: async (page: number, pageSize: number) => {
+      await atomService.getAll(undefined, {
+        limit: pageSize,
+        offset: pageSize * (page - 1),
+      })
+    },
   }
 
   return { columns, rowSelection, pagination }

@@ -1,5 +1,6 @@
 import {
   GetRenderedPageQuery,
+  PageOptions,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
@@ -15,7 +16,7 @@ import { IPage } from './page.model.interface'
 
 export interface IPageService
   extends ICRUDService<IPage, ICreatePageDTO, IUpdatePageDTO>,
-    IQueryService<IPage, PageWhere>,
+    IQueryService<IPage, PageWhere, PageOptions>,
     ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }>,
     ICacheService<IPageDTO, IPage> {
   /**

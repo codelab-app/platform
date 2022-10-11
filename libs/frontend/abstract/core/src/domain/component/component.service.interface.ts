@@ -1,4 +1,7 @@
-import { ComponentWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ComponentOptions,
+  ComponentWhere,
+} from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -18,7 +21,7 @@ import { RenderedComponentFragment } from './component-render.fragment.graphql.g
 
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,
-    IQueryService<IComponent, ComponentWhere>,
+    IQueryService<IComponent, ComponentWhere, ComponentOptions>,
     ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
     ICacheService<IComponentDTO, IComponent> {
   components: ObjectMap<IComponent>
