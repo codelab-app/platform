@@ -257,7 +257,7 @@ jobs:
   e2e:
     <<: *executor-params
     # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
-    parallelism: 4
+    parallelism: 2
     steps:
       - queue/until_front_of_line:
           consider-branch: false
@@ -462,7 +462,7 @@ workflows:
       - e2e:
           <<: *filters-pr
           e: docker-node-neo4j
-          size: medium
+          size: large
           requires:
             - install-and-build-workspace
       - notify-success:
