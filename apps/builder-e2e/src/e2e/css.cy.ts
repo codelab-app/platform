@@ -114,7 +114,9 @@ describe('CSS CRUD', () => {
 
   describe('Update css', () => {
     it('should be able to update the css styling', () => {
-      clickEditor().clear().type(createBackgroundColorStyle(backgroundColor2))
+      clickEditor()
+        .clear({ force: true })
+        .type(createBackgroundColorStyle(backgroundColor2))
 
       cy.get('#render-root')
         .find('.ant-btn')
@@ -124,7 +126,7 @@ describe('CSS CRUD', () => {
 
   describe('Remove css', () => {
     it('should be able to remove the css styling', () => {
-      clickEditor().clear().type(' ')
+      clickEditor().clear({ force: true }).type(' ')
 
       cy.get('#render-root')
         .find('.ant-btn')
