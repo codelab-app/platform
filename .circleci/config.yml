@@ -439,7 +439,7 @@ workflows:
           <<: *filters-pr
           # Can't build with machine image, causes build issues
           e: docker-node
-          size: medium
+          size: large
           context: CI
       - lint:
           <<: *filters-pr
