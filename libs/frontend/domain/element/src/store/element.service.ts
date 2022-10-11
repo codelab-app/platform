@@ -570,12 +570,13 @@ element is new parentElement's first child
         }),
       )
     } else {
-      yield* _await(
-        this.attachElementAsNextSibling({
-          elementId: element.id,
-          targetElementId: targetElement.children[0].id,
-        }),
-      )
+      targetElement.children[0]?.id &&
+        (yield* _await(
+          this.attachElementAsNextSibling({
+            elementId: element.id,
+            targetElementId: targetElement.children[0]?.id,
+          }),
+        ))
     }
 
     Element.getElementTree(element)?.removeElements([
