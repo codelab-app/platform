@@ -88,10 +88,12 @@ describe('CSS CRUD', () => {
     it('should be able to add some css styling', () => {
       cy.getSpinner().should('not.exist')
       cy.findByText(elementName).click()
+
       cy.get('[aria-label="format-painter"]').click()
       cy.getSpinner().should('not.exist')
 
       cy.get('[role="textbox"]')
+        .closest('.cm-editor')
         .click({ force: true })
         .clear()
         .type(createBackgroundColorStyle(backgroundColor1))
@@ -105,6 +107,7 @@ describe('CSS CRUD', () => {
   describe('Update css', () => {
     it('should be able to update the css styling', () => {
       cy.get('[role="textbox"]')
+        .closest('.cm-editor')
         .click({ force: true })
         .clear()
         .type(createBackgroundColorStyle(backgroundColor2))
@@ -117,7 +120,13 @@ describe('CSS CRUD', () => {
 
   describe('Remove css', () => {
     it('should be able to remove the css styling', () => {
-      cy.get('[role="textbox"]').click({ force: true }).clear().type(' ')
+      cy.get('[role="textbox"]')
+        .closest('.cm-editor')
+        .click({
+          force: true,
+        })
+        .clear()
+        .type(' ')
 
       cy.get('#render-root')
         .find('.ant-btn')
