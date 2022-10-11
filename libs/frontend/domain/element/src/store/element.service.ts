@@ -546,6 +546,51 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
+  moveElementToAnotherTree = _async(function* (
+    this: ElementService,
+    {
+      elementId,
+      targetElementId,
+    }: Parameters<IElementService['moveElementToAnotherTree']>[0],
+  ) {
+    const element = this.element(elementId)
+    const targetElement = this.element(targetElementId)
+
+    if (!targetElement || !element) {
+      return
+    }
+
+    yield* _await(this.detachElementFromElementTree(element.id))
+
+    if (targetElement.children.length === 0) {
+      yield* _await(
+        this.attachElementAsFirstChild({
+          elementId: element.id,
+          parentElementId: targetElement.id,
+        }),
+      )
+    } else {
+      yield* _await(
+        this.attachElementAsNextSibling({
+          elementId: element.id,
+          targetElementId: targetElement.children[0].id,
+        }),
+      )
+    }
+
+    Element.getElementTree(element)?.removeElements([
+      element,
+      ...element.descendants,
+    ])
+
+    Element.getElementTree(targetElement)?.addElements([
+      element,
+      ...element.descendants,
+    ])
+  })
+
+  @modelFlow
+  @transaction
   deleteElementSubgraph = _async(function* (
     this: ElementService,
     root: IElementRef,

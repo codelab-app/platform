@@ -86,6 +86,10 @@ export interface IElementService
     elementId: string
     targetElementId: string
   }): Promise<void>
+  moveElementToAnotherTree(props: {
+    elementId: string
+    targetElementId: string
+  }): Promise<void>
   detachElementFromElementTree(elemenId: string): Promise<void>
   moveElementAsFirstChild(props: {
     elementId: string

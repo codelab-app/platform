@@ -1,5 +1,6 @@
 import type {
   IAtom,
+  IBuilderDataNode,
   IComponent,
   IElement,
   IElementDTO,
@@ -369,7 +370,7 @@ export class Element
   }
 
   @computed
-  get antdNode() {
+  get antdNode(): IBuilderDataNode {
     return {
       key: this.id,
       title: this.label,
@@ -377,6 +378,7 @@ export class Element
       children: !this.renderComponentType?.current
         ? this.children.map((child) => child.antdNode)
         : [],
+      rootKey: getElementTree(this)?._root?.id ?? null,
     }
   }
 

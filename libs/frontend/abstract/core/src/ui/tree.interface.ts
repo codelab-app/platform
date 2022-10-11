@@ -13,4 +13,5 @@ export interface IBuilderDataNode extends DataNode {
   key: string | number
   title?: React.ReactNode
   children?: Array<IBuilderDataNode>
+  rootKey: string | null
 }
