@@ -1,3 +1,4 @@
+import { PropService } from '@codelab/frontend/domain/prop'
 import Ajv from 'ajv'
 import { objectMap } from 'mobx-keystone'
 import { TypeSchemaFactory } from '../../interface-form/type-schema.factory'
@@ -22,6 +23,7 @@ new TypeService({
     [intType.id, intType],
     [stringType.id, stringType],
   ]),
+  propService: new PropService({}),
 })
 
 describe('Type tree to json schema', () => {

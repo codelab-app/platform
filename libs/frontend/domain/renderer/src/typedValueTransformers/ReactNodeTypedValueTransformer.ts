@@ -43,9 +43,11 @@ export class ReactNodeTypedValueTransformer
   }
 
   public transform(value: TypedValue<unknown>) {
-    const componentService = getComponentService(this)
-    const elementService = getElementService(this)
-    const rootElement = getRootElement(value, componentService, elementService)
+    const rootElement = getRootElement(
+      value,
+      this.componentService,
+      this.elementService,
+    )
 
     if (!rootElement) {
       return value

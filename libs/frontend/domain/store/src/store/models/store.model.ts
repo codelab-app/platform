@@ -61,7 +61,7 @@ export class Store
   }
 
   @computed
-  get _api() {
+  private get _api() {
     const typeService = getTypeService(this)
 
     return typeService.type(this.apiId) as IInterfaceType

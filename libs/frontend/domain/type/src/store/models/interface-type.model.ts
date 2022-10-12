@@ -6,6 +6,7 @@ import type {
   IPropData,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
+import { Prop } from '@codelab/frontend/domain/prop'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -65,6 +66,10 @@ export class InterfaceType
 
   @modelAction
   updateFieldCache(fragment: IFieldProps): Field {
+    const propModel = Prop.hydrate(
+      fragment.defaultValues ?? { id: '', data: '{}' },
+    )
+
     const field = Field.hydrate(fragment)
 
     this.fields.set(field.id, field)

@@ -1,6 +1,12 @@
 /// <reference types='jest'/>
 
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import {
+  IAtom,
+  IComponent,
+  IElement,
+  IRenderer,
+  ROOT_ELEMENT_NAME,
+} from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
 import { Component, ComponentService } from '@codelab/frontend/domain/component'
 import {
@@ -37,17 +43,17 @@ import { RenderTestRootStore } from './renderTestRootStore'
 
 interface TestingData {
   rootStore: RenderTestRootStore
-  renderer: Renderer
-  componentToRender: Component
-  componentRootElement: Element
-  elementToRender: Element
-  elementToRender02: Element
-  componentInstanceElementToRender: Element
+  renderer: IRenderer
+  componentToRender: IComponent
+  componentRootElement: IElement
+  elementToRender: IElement
+  elementToRender02: IElement
+  componentInstanceElementToRender: IElement
   renderPropsType: AnyTypeModel
   reactNodeType: AnyTypeModel
   primitiveType: AnyTypeModel
-  divAtom: Atom
-  textAtom: Atom
+  divAtom: IAtom
+  textAtom: IAtom
 }
 
 // Clone everything so that we don't get conflicts between different test files

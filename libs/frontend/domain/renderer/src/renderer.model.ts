@@ -1,5 +1,4 @@
 import type {
-  IBuilderService,
   IElement,
   IElementTree,
   IPropData,
@@ -7,6 +6,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
   IStore,
+  RendererProps,
 } from '@codelab/frontend/abstract/core'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
@@ -51,13 +51,29 @@ import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
-const init = (
-  pageTree: IElementTree,
-  appStore: IStore,
-  appTree?: Nullable<IElementTree>,
-  isBuilder?: boolean,
-  set_selectedNode?: IBuilderService['set_selectedNode'],
-) => {
+/**
+ * Handles the logic of rendering treeElements. Takes in an optional appTree
+ *
+ * NB! call .init() and wait for it to finish before using .render()
+ *
+ * Calling .render() renders a single Element (without it's children)
+ * This ensures that each render() call can be used for a single isolated observer() - wrapped React Element
+ * and it will get re-rendered only if the source Element model is changed
+ *
+ * The renderPipe and typedValueTransformers replace the previous render pipeline.
+ * It's useful to keep them as mobx-keystone models because they can access the context of the state tree
+ * which in practice can act as a DI container, so we can get outside data in the render pipeline easily.
+ *
+ * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
+ */
+
+const init = ({
+  pageTree,
+  appStore,
+  appTree,
+  isBuilder,
+  set_selectedNode,
+}: RendererProps) => {
   /**
    * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
    */
@@ -78,7 +94,7 @@ const init = (
     href: '#',
   }
 
-  const renderer = new Renderer({
+  return new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
     appStore: storeRef(appStore),
@@ -87,25 +103,8 @@ const init = (
       global: frozen(isBuilder ? builderGlobals : {}),
     }),
   })
-
-  return renderer
 }
 
-/**
- * Handles the logic of rendering treeElements. Takes in an optional appTree
- *
- * NB! call .init() and wait for it to finish before using .render()
- *
- * Calling .render() renders a single Element (without it's children)
- * This ensures that each render() call can be used for a single isolated observer() - wrapped React Element
- * and it will get re-rendered only if the source Element model is changed
- *
- * The renderPipe and typedValueTransformers replace the previous render pipeline.
- * It's useful to keep them as mobx-keystone models because they can access the context of the state tree
- * which in practice can act as a DI container, so we can get outside data in the render pipeline easily.
- *
- * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
- */
 @model('@codelab/Renderer')
 export class Renderer
   extends Model(
@@ -162,8 +161,8 @@ export class Renderer
   implements IRenderer
 {
   @modelAction
-  initForce(pageTree: IElementTree) {
-    this.pageTree = elementTreeRef(pageTree)
+  initForce(pageElementTree: IElementTree) {
+    this.pageTree = elementTreeRef(pageElementTree)
   }
 
   renderRoot() {

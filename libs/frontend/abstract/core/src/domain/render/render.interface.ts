@@ -1,7 +1,9 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { Ref } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderer } from '../builder'
-import { IElement } from '../element'
+import { IComponentService } from '../component'
+import { IElement, IElementService } from '../element'
 import { IPropData, IPropDataByElementId } from '../prop'
 
 export enum RendererTab {
@@ -24,6 +26,8 @@ export interface IRenderOutput {
 export interface IBaseRenderPipe {
   id: string
   renderer: IRenderer
+  elementService: IElementService
+  componentService: IComponentService
 }
 
 export interface IRenderPipe extends IBaseRenderPipe {

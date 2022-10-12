@@ -7,6 +7,7 @@ import {
   ICRUDService,
   IQueryService,
 } from '../../service'
+import { ITypeService } from '../type'
 import {
   ICreateStoreDTO,
   IStoreDTO,
@@ -22,4 +23,5 @@ export interface IStoreService
   stores: ObjectMap<IStore>
   storesList: Array<IStore>
   store(id: string): Maybe<IStore>
+  typeService: ITypeService
 }

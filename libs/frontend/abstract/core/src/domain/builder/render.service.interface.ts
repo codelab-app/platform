@@ -1,19 +1,24 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 import { ObjectMap } from 'mobx-keystone'
-import { IElementTree } from '../element'
+import { IComponentService } from '../component'
+import { IElementService, IElementTree } from '../element'
 import { IStore } from '../store'
 import { IBuilderService } from './builder.service.interface'
 import { IRenderer } from './renderer.model.interface'
 
+export interface RendererProps {
+  pageTree: IElementTree
+  appStore: IStore
+  appTree?: Nullable<IElementTree>
+  isBuilder?: boolean
+  set_selectedNode?: IBuilderService['set_selectedNode']
+}
+
 export interface IRenderService {
   renderers: ObjectMap<IRenderer>
 
-  addRenderer(
-    id: string,
-    pageTree: IElementTree,
-    appTree: Nullable<IElementTree>,
-    appStore: IStore,
-    isBuilder?: boolean,
-    set_selectedNode?: IBuilderService['set_selectedNode'],
-  ): IRenderer
+  addRenderer(props: RendererProps & { id: string }): IRenderer
+
+  componentService: IComponentService
+  elementService: IElementService
 }

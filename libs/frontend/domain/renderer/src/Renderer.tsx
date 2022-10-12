@@ -6,7 +6,7 @@ import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export type RendererProps = Pick<IRenderer, 'renderRoot'>
+export type RendererRoot = Pick<IRenderer, 'renderRoot'>
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.
  *
@@ -30,7 +30,7 @@ export type RendererProps = Pick<IRenderer, 'renderRoot'>
  *
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
-export const Renderer = observer<RendererProps>(({ renderRoot }) => {
+export const Renderer = observer<RendererRoot>(({ renderRoot }) => {
   return (
     <ErrorBoundary>
       <div

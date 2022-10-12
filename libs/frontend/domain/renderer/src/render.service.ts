@@ -1,12 +1,16 @@
 import type {
   IBuilderService,
+  IComponentService,
+  IElementService,
   IElementTree,
   IRenderer,
   IRenderService,
   IStore,
+  RendererProps,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { computed } from 'mobx'
+import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
 
 @model('@codelab/RenderService')
@@ -16,30 +20,30 @@ export class RenderService
      * These are renderers for the public
      */
     renderers: prop(() => objectMap<IRenderer>()),
+
+    _elementService: prop<Ref<IElementService>>(),
+    _componentService: prop<Ref<IComponentService>>(),
   })
   implements IRenderService
 {
+  @computed
+  get elementService() {
+    return this._elementService.current
+  }
+
+  @computed
+  get componentService() {
+    return this._componentService.current
+  }
+
   @modelAction
-  addRenderer(
-    id: string,
-    pageTree: IElementTree,
-    appTree: Nullable<IElementTree>,
-    appStore: IStore,
-    isBuilder?: boolean,
-    set_selectedNode?: IBuilderService['set_selectedNode'],
-  ) {
-    const existing = this.renderers.get(id)
+  addRenderer(props: RendererProps & { id: string }) {
+    const existing = this.renderers.get(props.id)
 
     if (!existing) {
-      const renderer = Renderer.init(
-        pageTree,
-        appStore,
-        appTree,
-        isBuilder,
-        set_selectedNode,
-      )
+      const renderer = Renderer.init(props)
 
-      this.renderers.set(id, renderer)
+      this.renderers.set(props.id, renderer)
 
       return renderer
     }

@@ -2,8 +2,10 @@ import type {
   IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
+  IElementService,
   IFieldRef,
   IInterfaceTypeRef,
+  IPropService,
   ITypeDTO,
   ITypeService,
   IUpdateFieldDTO,
@@ -26,12 +28,14 @@ import {
   _async,
   _await,
   arraySet,
+  idProp,
   Model,
   model,
   modelAction,
   modelFlow,
   objectMap,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
@@ -54,6 +58,7 @@ import {
 @model('@codelab/TypeService')
 export class TypeService
   extends Model({
+    id: idProp,
     types: prop(() => objectMap<IAnyType>()),
 
     createModal: prop(() => new ModalService({})),
@@ -67,17 +72,25 @@ export class TypeService
     fieldDeleteModal: prop(() => new FieldModalService({})),
 
     interfaceDefaultsModal: prop(() => new TypeModalService({})),
+
+    // _propService: prop<Ref<IPropService>>(),
+    // _elementService: prop<Ref<IElementService>>(),
   })
   implements ITypeService
 {
-  @computed
-  get typesList() {
-    return [...this.types.values()]
-  }
-
+  // @computed
+  // get propService() {
+  //   return this._propService.current
+  // }
+  //
   @computed
   get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  get typesList() {
+    return [...this.types.values()]
   }
 
   type(id: string) {
@@ -229,8 +242,6 @@ export class TypeService
     if (interfaceType.kind !== ITypeKind.InterfaceType) {
       throw new Error('Type is not an interface')
     }
-
-    console.log(interfaceType)
 
     return interfaceType
   })
