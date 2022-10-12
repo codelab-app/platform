@@ -18,7 +18,6 @@ import {
   IPropMapBinding,
   IUpdatePropMapBindingDTO,
 } from '../prop'
-import { IInterfaceType } from '../type'
 import { IAuth0Id } from '../user'
 import {
   ICreateElementDTO,
@@ -131,8 +130,4 @@ export interface IElementService
    * Get all descendant elements
    */
   getDescendants(root: IElementRef): Promise<Array<IElement>>
-  removeDeletedPropDataFromElements(
-    interfaceType: IInterfaceType,
-    propKey: string,
-  ): Promise<void>
 }

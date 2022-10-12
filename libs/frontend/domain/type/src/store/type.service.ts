@@ -2,16 +2,13 @@ import type {
   IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
-  IElementService,
   IFieldRef,
   IInterfaceTypeRef,
-  IPropService,
   ITypeDTO,
   ITypeService,
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -35,7 +32,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
@@ -78,16 +74,6 @@ export class TypeService
   })
   implements ITypeService
 {
-  // @computed
-  // get propService() {
-  //   return this._propService.current
-  // }
-  //
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
   @computed
   get typesList() {
     return [...this.types.values()]
@@ -436,13 +422,6 @@ export class TypeService
     const res = yield* _await(fieldApi.DeleteField(input))
 
     yield* _await(this.updateDefaults(interfaceId, null, field.key))
-
-    yield* _await(
-      this.elementService.removeDeletedPropDataFromElements(
-        interfaceType,
-        field.key,
-      ),
-    )
 
     // Returns current edges, not deleted edges
     // const deletedField =
