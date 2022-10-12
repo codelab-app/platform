@@ -20,6 +20,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  idProp,
   Model,
   model,
   modelAction,
@@ -39,6 +40,7 @@ import { ComponentModalService } from './component-modal.service'
 @model('@codelab/ComponentService')
 export class ComponentService
   extends Model({
+    id: idProp,
     components: prop(() => objectMap<IComponent>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ComponentModalService({})),

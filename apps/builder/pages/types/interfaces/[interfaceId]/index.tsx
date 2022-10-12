@@ -32,7 +32,10 @@ import React from 'react'
 
 const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
   () => {
-    const { typeService } = useStore()
+    const {
+      userService: { typeService },
+    } = useStore()
+
     const { type, loading } = useGetCurrentInterfaceWithFields(typeService)
 
     return (
@@ -66,7 +69,10 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
 )
 
 const Header = observer(() => {
-  const { typeService } = useStore()
+  const {
+    userService: { typeService },
+  } = useStore()
+
   const interfaceId = useCurrentInterfaceId()
   const router = useRouter()
   const interfaceType = typeService.type(interfaceId)

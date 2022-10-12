@@ -1,5 +1,5 @@
 import { IPageProps, IRootStore } from '@codelab/frontend/abstract/core'
-import { UserService } from '@codelab/frontend/domain/user'
+import { User, UserService } from '@codelab/frontend/domain/user'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
@@ -26,26 +26,6 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
       }
     : undefined
 
-  // if (pageProps?.storeSnapshot) {
-  //   createRootStore({
-  //     servicesFromSnapshot: {},
-  //     user,
-  //     init: false,
-  //   })
-  //
-  //   const storeFromSnapshot = fromSnapshot(pageProps?.storeSnapshot)
-  //
-  //   return storeFromSnapshot
-  // }
-
-  // const servicesSnapshot = pageProps?.snapshot || {}
-  // const servicesFromSnapshot: any = {}
-
-  // Object.entries(servicesSnapshot).map(([key, snapshot]) => {
-  //   const snapshotValue = fromSnapshot(snapshot)
-  //   servicesFromSnapshot[key] = snapshotValue
-  // })
-
   // Create the store once in the client
   if (!_store) {
     _store = createRootStore({
@@ -62,7 +42,8 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
      *
      * Nghia: I think mobx keystone does some internal initializations behind the scene, and we can't set nested service data until the process is done
      */
-    _store.setUserService(UserService.init(user))
+    // _store.setUserService(UserService.init(user))
+    _store.userService.user = User.hydrate(user)
   }
 
   return _store

@@ -3,7 +3,10 @@ import {
   IAppDTO,
   IAppService,
   ICreateAppDTO,
+  IElementService,
   IPageBuilderAppProps,
+  IPageService,
+  IStoreService,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/domain/page'
@@ -27,6 +30,7 @@ import {
   modelFlow,
   objectMap,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
 import slugify from 'slugify'
@@ -42,9 +46,18 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
+
+    _elementService: prop<Ref<IElementService>>(),
+    pageService: prop<IPageService>(),
+    storeService: prop<IStoreService>(),
   })
   implements IAppService
 {
+  @computed
+  get elementService() {
+    return this._elementService.current
+  }
+
   /**
    * Aggregate root method to setup all data invariants
    */
@@ -52,18 +65,19 @@ export class AppService
   load = ({ app, pageId }: IPageBuilderAppProps) => {
     console.debug('AppService.load', app, pageId)
 
-    const elementService = getElementService(this)
-    const pageService = getPageService(this)
-    const storeService = getStoreService(this)
-    const storeModel = storeService.writeCache(app.store)
+    const storeModel = this.storeService.writeCache(app.store)
     /**
      * Need to create nested model
      */
     const appModel = this.writeCache(app)
+
     /**
      * Build the pageElementTree for page
      */
-    const pageModels = app.pages.map((page) => pageService.writeCache(page))
+    const pageModels = app.pages.map((page) =>
+      this.pageService.writeCache(page),
+    )
+
     const pageModel = pageModels.find((page) => page.id === pageId)
     const page = app.pages.find((x) => x.id === pageId)
 
@@ -74,10 +88,10 @@ export class AppService
     const elements = [page.rootElement, ...page.rootElement.descendantElements]
 
     const pageElements = elements.map((element) =>
-      elementService.writeCache(element),
+      this.elementService.writeCache(element),
     )
 
-    const rootElement = elementService.element(page.rootElement.id)
+    const rootElement = this.elementService.element(page.rootElement.id)
 
     if (!rootElement) {
       throw new Error('No root element found')
@@ -105,10 +119,9 @@ export class AppService
   @modelAction
   private updatePagesCache(apps: Array<IAppDTO>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
-    const pageService = getPageService(this)
     const pages = apps.flatMap((app) => app.pages)
 
-    pages.map((page) => pageService.writeCache(page))
+    pages.map((page) => this.pageService.writeCache(page))
   }
 
   @modelFlow
@@ -224,7 +237,6 @@ export class AppService
 
   @modelAction
   writeCache = (app: IAppDTO) => {
-    const pageService = getPageService(this)
     let appModel = this.app(app.id)
 
     if (!appModel) {
@@ -235,7 +247,7 @@ export class AppService
 
     this.apps.set(app.id, appModel)
 
-    app.pages.map((page) => pageService.writeCache(page))
+    app.pages.map((page) => this.pageService.writeCache(page))
 
     return appModel
   }
@@ -243,7 +255,6 @@ export class AppService
   @modelFlow
   @transaction
   delete = _async(function* (this: AppService, id: string) {
-    const elementService = getElementService(this)
     const app = throwIfUndefined(this.apps.get(id))
 
     const pageRootElements = app.pages.map(
@@ -256,7 +267,7 @@ export class AppService
     yield* _await(
       Promise.all(
         pageRootElements.map(async (root) => {
-          await elementService.deleteElementSubgraph(root)
+          await this.elementService.deleteElementSubgraph(root)
         }),
       ),
     )

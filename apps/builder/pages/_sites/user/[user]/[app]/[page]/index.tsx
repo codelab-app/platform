@@ -9,24 +9,29 @@ import React, { useMemo } from 'react'
 
 const Index = (props: AppPagePageProps) => {
   const store = useStore()
-  const { pageService, storeService, appService, builderRenderService } = store
+
+  const {
+    userService: { appService },
+    builderRenderService,
+  } = store
+
   const router = useRouter()
   const { pageId, storeId, appId } = props
   const app = appService.app(appId)
-  const appStore = storeService.store(storeId)
-  const page = pageService.pages.get(pageId)
+  const appStore = appService.storeService.store(storeId)
+  const page = appService.pageService.pages.get(pageId)
 
   const renderer = useMemo(() => {
     if (!page || !appStore || !app) {
       return
     }
 
-    const result = builderRenderService.addRenderer(
-      pageId,
-      page.elementTree,
-      null,
+    const result = builderRenderService.addRenderer({
+      id: pageId,
+      pageTree: page.elementTree,
+      appTree: null,
       appStore,
-    )
+    })
 
     return result
   }, [pageId])
@@ -103,7 +108,11 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
   }
 
   const store = initializeStore({})
-  const { appService, pageService, storeService, typeService } = store
+
+  const {
+    userService: { appService, typeService },
+  } = store
+
   const { app: appSlug, page: pageSlug } = context.params
 
   const apps = await appService.getAll({
@@ -116,7 +125,7 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`App with slug ${appSlug} not found`)
   }
 
-  const [page] = await pageService.getAll({
+  const [page] = await appService.pageService.getAll({
     slug: pageSlug as string,
   })
 
@@ -124,7 +133,9 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`Page ${pageSlug} of App ${appSlug} Not found`)
   }
 
-  const appStore = app.store.id ? await storeService.getOne(app.store.id) : null
+  const appStore = app.store.id
+    ? await appService.storeService.getOne(app.store.id)
+    : null
 
   if (appStore?.apiId) {
     typeService.types.get(appStore.apiId)

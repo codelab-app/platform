@@ -45,13 +45,13 @@ export const BuilderComponent = observer<BuilderComponentProps>(
 
         const componentTree = component.elementTree
 
-        await renderService.addRenderer(
-          componentId,
-          componentTree,
-          null,
+        await renderService.addRenderer({
+          id: componentId,
+          pageTree: componentTree,
+          appTree: null,
           appStore,
-          true,
-        )
+          isBuilder: true,
+        })
       })()
     }, [componentId])
 

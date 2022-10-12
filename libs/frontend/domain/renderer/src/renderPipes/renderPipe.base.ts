@@ -1,4 +1,13 @@
-import { IBaseRenderPipe, IRenderer } from '@codelab/frontend/abstract/core'
+import {
+  IBaseRenderPipe,
+  IComponentService,
+  IElementService,
+  IRenderer,
+} from '@codelab/frontend/abstract/core'
+import {
+  getComponentService,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -8,6 +17,8 @@ import {
   Model,
   model,
   modelTypeKey,
+  prop,
+  Ref,
 } from 'mobx-keystone'
 
 @model('@codelab/BaseRenderPipe')
@@ -17,6 +28,16 @@ export class BaseRenderPipe
   })
   implements IBaseRenderPipe
 {
+  @computed
+  get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  get componentService() {
+    return getComponentService(this)
+  }
+
   /**
    * The RenderService is the one that contains these pipes
    */

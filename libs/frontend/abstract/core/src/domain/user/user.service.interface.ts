@@ -1,5 +1,8 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 import { ObjectMap } from 'mobx-keystone'
+import { IAppService } from '../app'
+import { IPageService } from '../page'
+import { ITypeService } from '../type'
 import { IUser } from './user.interface'
 
 export interface IUserService {
@@ -9,4 +12,6 @@ export interface IUserService {
   auth0Id: string
 
   loadUsers(): Promise<void>
+  appService: IAppService
+  typeService: ITypeService
 }

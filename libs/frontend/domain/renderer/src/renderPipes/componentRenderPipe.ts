@@ -8,7 +8,6 @@ import {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -27,8 +26,9 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    const elementService = getElementService(this)
-    const rootElement = elementService.elements.get(component.rootElementId)
+    const rootElement = this.elementService.elements.get(
+      component.rootElementId,
+    )
 
     if (!rootElement) {
       ComponentRenderPipe.logRootElementNotFound(this.renderer, element)

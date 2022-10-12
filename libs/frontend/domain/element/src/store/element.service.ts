@@ -1,4 +1,5 @@
 import {
+  IAtomService,
   IAuth0Id,
   IComponentDTO,
   ICreateElementDTO,
@@ -34,15 +35,18 @@ import {
 } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
+  idProp,
   Model,
   model,
   modelAction,
   modelFlow,
   objectMap,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -68,6 +72,7 @@ import {
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
+    id: idProp,
     /**
      * Contains all elements
      *
@@ -82,9 +87,16 @@ export class ElementService
     createPropMapBindingModal: prop(() => new ElementModalService({})),
     updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
     deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
+
+    // _atomService: prop<Ref<IAtomService>>(),
   })
   implements IElementService
 {
+  @computed
+  get atomService() {
+    return getAtomService(this)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: ElementService, where?: ElementWhere) {
@@ -101,14 +113,14 @@ export class ElementService
   private writeAtomsCache(elements: Array<IElementDTO>) {
     console.debug('ElementService.writeAtomsCache', elements)
 
-    // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
-    const atomService = getAtomService(this)
-
     const atoms = elements
       .map((element) => element.renderAtomType)
       .filter(isAtomDTO)
 
-    return atoms.map((atom) => atomService.writeCache(atom))
+    return atoms.map((atom) =>
+      // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
+      this.atomService.writeCache(atom),
+    )
   }
 
   @modelAction
@@ -830,6 +842,9 @@ element is new parentElement's first child
     return propMapBinding
   })
 
+  /**
+   * If we change interface, the prop data should also be changed
+   */
   @modelFlow
   @transaction
   removeDeletedPropDataFromElements = _async(function* (

@@ -18,6 +18,7 @@ import {
   _async,
   _await,
   arraySet,
+  idProp,
   Model,
   model,
   modelAction,
@@ -34,6 +35,7 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 @model('@codelab/AtomService')
 export class AtomService
   extends Model({
+    id: idProp,
     atoms: prop(() => objectMap<IAtom>()),
     count: prop(() => 1),
     createModal: prop(() => new ModalService({})),

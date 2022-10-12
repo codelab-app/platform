@@ -1,13 +1,13 @@
 import {
   BuilderDragData,
   BuilderTab,
+  IAtomService,
   IBuilderService,
   INode,
   isComponent,
   isElement,
   RendererTab,
 } from '@codelab/frontend/abstract/core'
-import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Element, elementRef } from '@codelab/frontend/domain/element'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -51,6 +51,7 @@ export class BuilderService
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
 
     // configPaneWidth: prop(0),
+    atomService: prop<IAtomService>(),
   })
   implements IBuilderService
 {
@@ -72,10 +73,8 @@ export class BuilderService
    * Each component has a category tag
    */
   get componentsGroupedByCategory() {
-    const atomService = getAtomService(this)
-
     // atoms are internal components while components are created by users
-    return chain([...atomService.atoms.values()])
+    return chain([...this.atomService.atoms.values()])
       .filter((component) => Boolean(component.tags))
       .groupBy(
         (component) =>

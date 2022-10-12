@@ -1,7 +1,6 @@
 import type { IPageDTO } from '@codelab/frontend/abstract/core'
 import { IPage } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
@@ -27,11 +26,6 @@ export class Page
   })
   implements IPage
 {
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
   @computed
   get toJson() {
     return {

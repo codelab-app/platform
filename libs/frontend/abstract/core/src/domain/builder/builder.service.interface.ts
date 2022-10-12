@@ -1,6 +1,6 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, Ref } from 'mobx-keystone'
-import { IAtom } from '../atom'
+import { IAtom, IAtomService } from '../atom'
 import { IComponent } from '../component'
 import { IElementTree } from '../element'
 import { RendererTab } from '../render'
@@ -48,4 +48,6 @@ export interface IBuilderService {
   setActiveTree(tab: RendererTab): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
   setActiveBuilderTab(data: BuilderTab): void
+
+  atomService: IAtomService
 }

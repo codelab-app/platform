@@ -23,8 +23,11 @@ import Head from 'next/head'
 import React, { useEffect } from 'react'
 
 const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const store = useStore()
-  const { app } = useCurrentApp(store.appService)
+  const {
+    userService: { appService },
+  } = useStore()
+
+  const { app } = useCurrentApp(appService)
 
   return (
     <>
@@ -40,8 +43,9 @@ export default Pages
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer((page) => {
-  const { userService, pageService } = useStore()
+  const { userService } = useStore()
   const appId = useCurrentAppId()
+  const { appService } = userService
 
   useEffect(() => {
     userService.user?.setCurAppId(appId)
@@ -49,7 +53,9 @@ Pages.Layout = observer((page) => {
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => <ExplorerPanePage pageService={pageService} />}
+      ExplorerPane={() => (
+        <ExplorerPanePage pageService={appService.pageService} />
+      )}
       SidebarNavigation={() => (
         <SidebarNavigation
           primaryItems={[

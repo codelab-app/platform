@@ -33,13 +33,11 @@ import { useAsync } from 'react-use'
 
 const PageBuilder: CodelabPage = observer(() => {
   const {
-    appService,
+    userService: { appService, typeService },
     componentService,
-    typeService,
     builderRenderService,
     elementService,
     builderService,
-    pageService,
     resourceService,
   } = useStore()
 
@@ -65,7 +63,7 @@ const PageBuilder: CodelabPage = observer(() => {
       appTypes,
       actionTypes,
       codeMirrorTypes,
-    } = await pageService.getRenderedPage(appId, pageId)
+    } = await appService.pageService.getRenderedPage(appId, pageId)
 
     if (!apps[0]) {
       return
@@ -113,13 +111,13 @@ const PageBuilder: CodelabPage = observer(() => {
       appService.appsList.map((a) => a.toJson).reduce(merge, {}),
     )
 
-    const renderer = await builderRenderService.addRenderer(
-      pageId,
-      pageElementTree,
-      null,
-      store,
-      true,
-    )
+    const renderer = await builderRenderService.addRenderer({
+      id: pageId,
+      pageTree: pageElementTree,
+      appTree: null,
+      appStore: store,
+      isBuilder: true,
+    })
 
     return {
       pageElementTree,
@@ -155,18 +153,16 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 PageBuilder.Layout = observer((page) => {
   const {
     elementService,
-    pageService,
     atomService,
     componentService,
     userService,
     builderService,
-    typeService,
     builderRenderService,
     actionService,
-    storeService,
     resourceService,
   } = useStore()
 
+  const { appService, typeService } = userService
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
@@ -213,7 +209,7 @@ PageBuilder.Layout = observer((page) => {
                 appStore={pageBuilderRenderer.appStore.current}
                 resizable={resizable}
                 resourceService={resourceService}
-                storeService={storeService}
+                storeService={appService.storeService}
                 typeService={typeService}
               />
             )}
@@ -233,7 +229,7 @@ PageBuilder.Layout = observer((page) => {
           />
         ))}
         Header={observer(() => (
-          <PageDetailHeader pageService={pageService} />
+          <PageDetailHeader pageService={appService.pageService} />
         ))}
         SidebarNavigation={() => (
           <SidebarNavigation

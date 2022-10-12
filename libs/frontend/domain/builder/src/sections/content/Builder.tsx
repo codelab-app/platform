@@ -5,7 +5,7 @@ import {
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { Renderer, RendererProps } from '@codelab/frontend/domain/renderer'
+import { Renderer, RendererRoot } from '@codelab/frontend/domain/renderer'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -19,7 +19,7 @@ type BuilderProps = {
   'set_hoveredNode' | 'currentDragData' | 'selectedNode' | 'set_selectedNode'
 > &
   Pick<IElementService, 'deleteModal'> & {
-    rendererProps: RendererProps
+    rendererProps: RendererRoot
   }
 /**
  * Generic builder used for both Component & Element

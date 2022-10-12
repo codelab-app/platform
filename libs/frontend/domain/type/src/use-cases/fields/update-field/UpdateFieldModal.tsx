@@ -25,6 +25,8 @@ export const UpdateFieldModal = observer<{
       return
     }
 
+    console.log(field.defaultValues)
+
     setModel({
       id: field.id,
       name: field.name,

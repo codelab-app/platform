@@ -3,9 +3,9 @@ import {
   IStore,
   IStoreDTO,
   IStoreService,
+  ITypeService,
   IUpdateStoreDTO,
 } from '@codelab/frontend/abstract/core'
-import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
@@ -18,6 +18,7 @@ import {
   modelFlow,
   objectMap,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
 import { deleteStoreInput } from '../utils'
@@ -33,9 +34,15 @@ export class StoreService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new StoreModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
+    _typeService: prop<Ref<ITypeService>>(),
   })
   implements IStoreService
 {
+  @computed
+  get typeService() {
+    return this._typeService.current
+  }
+
   store(id: string) {
     return this.stores.get(id)
   }
@@ -55,9 +62,9 @@ export class StoreService
 
   @modelAction
   private async fetchStatesApis(stores: Array<IStoreDTO>) {
-    const typeService = getTypeService(this)
-
-    return await typeService.getAllWithDescendants(stores.map((x) => x.api.id))
+    return await this.typeService.getAllWithDescendants(
+      stores.map((x) => x.api.id),
+    )
   }
 
   @modelAction

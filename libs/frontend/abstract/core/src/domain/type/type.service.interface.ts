@@ -12,6 +12,8 @@ import {
   IEntityModalService,
   IQueryService,
 } from '../../service'
+import { IElementService } from '../element'
+import { IPropService } from '../prop'
 import { IField, IFieldRef } from './field'
 import { ICreateFieldDTO, IUpdateFieldDTO } from './field.dto.interface'
 import { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
@@ -52,6 +54,8 @@ export interface ITypeService
     IFieldModalMetadata,
     IFieldModalProperties
   >
+  // propService: IPropService
+  // elementService: IElementService
   addField(
     interfaceTypeId: IInterfaceTypeRef,
     data: ICreateFieldDTO,
