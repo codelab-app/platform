@@ -1,59 +1,30 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import {
+  IFieldRecord,
   IInterfaceType,
   ITypeService,
-  IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
-import { Button, Divider, Space, Table, TableColumnProps, Tag } from 'antd'
+import { Button, Divider, Space, Table, Tag } from 'antd'
+import { ColumnProps } from 'antd/lib/table/Column'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../store'
+import { getValidationRuleTagsArray } from './validation'
 
-export type FieldsTableProps = {
+export interface FieldsTableProps {
   interfaceType?: IInterfaceType
   isLoading: boolean
   hideActions?: boolean
-} & { typeService: ITypeService }
-
-interface ValidationRuleTag {
-  key: string
-  value: string | number | boolean
-}
-
-const getValidationRuleTagsArray = (
-  validationRules: Nullish<IValidationRules>,
-) => {
-  const rules: Array<ValidationRuleTag> = []
-
-  if (!validationRules) {
-    return rules
-  }
-
-  Object.entries(validationRules).forEach(([_, ruleCategory]) => {
-    Object.entries(ruleCategory).forEach(([key, value]) => {
-      rules.push({ key, value: value as string | number | boolean })
-    })
-  })
-
-  return rules
-}
-
-interface CellData {
-  id: string
-  name: Nullish<string>
-  description: Nullish<string>
-  key: string
-  typeKind?: string
-  validationRules?: Array<ValidationRuleTag>
+  typeService: ITypeService
 }
 
 const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 
 export const FieldsTable = observer<FieldsTableProps>(
   ({ interfaceType, isLoading, typeService, hideActions }) => {
-    const columns: Array<TableColumnProps<CellData>> = [
+    const columns: Array<ColumnProps<IFieldRecord>> = [
+      Table.EXPAND_COLUMN,
       {
         title: 'Field Name',
         dataIndex: 'name',
@@ -130,7 +101,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                       return
                     }
 
-                    typeService.fieldUpdateModal.open({
+                    typeService.fieldService.updateModal.open({
                       field: fieldRef(record.id),
                       interface: typeRef(interfaceType),
                     })
@@ -146,7 +117,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                       return
                     }
 
-                    typeService.fieldDeleteModal.open({
+                    typeService.fieldService.deleteModal.open({
                       field: fieldRef(record.id),
                       interface: typeRef(interfaceType),
                     })
@@ -161,23 +132,35 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     ]
 
-    const dataSource: Array<CellData> = [
+    const dataSource: Array<IFieldRecord> = [
       ...(interfaceType?.fields.values() ?? []),
-    ].map((f) => ({
-      id: f.id,
-      name: f.name || '',
-      key: f.key,
-      typeKind: f.type.maybeCurrent ? f.type.maybeCurrent.kind : '',
-      description: f.description || '',
-      validationRules: getValidationRuleTagsArray(f.validationRules),
+    ].map((field) => ({
+      id: field.id,
+      name: field.name || '',
+      key: field.key,
+      typeKind: field.type.maybeCurrent ? field.type.maybeCurrent.kind : '',
+      description: field.description || '',
+      validationRules: getValidationRuleTagsArray(field.validationRules),
+      dependentTypes: [],
+      type: field.type,
     }))
 
     return (
       <Table
         columns={
-          hideActions ? columns.filter((x) => x.key !== 'action') : columns
+          hideActions
+            ? columns.filter((column) => column.key !== 'action')
+            : columns
         }
         dataSource={dataSource}
+        expandable={{
+          expandedRowRender: (record) => {
+            console.log(record)
+
+            return null
+          },
+          rowExpandable: (record) => true,
+        }}
         loading={isLoading}
         pagination={{ position: ['bottomCenter'], pageSize: 25 }}
         rowKey={(f) => f.key}

@@ -6,7 +6,7 @@ import type {
   IUpdateAtomDTO,
 } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   connectNode,

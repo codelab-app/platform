@@ -55,7 +55,7 @@ export const filterValidationRules = (
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
   ({ typeService }) => {
-    const closeModal = () => typeService.fieldCreateModal.close()
+    const closeModal = () => typeService.fieldService.createModal.close()
 
     const [model, setModel] = React.useState<ICreateFieldDTO>(
       generateDefaultFormModel(),
@@ -67,27 +67,32 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         okText="Create"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Create field</span>}
-        visible={typeService.fieldCreateModal.isOpen}
+        visible={typeService.fieldService.createModal.isOpen}
       >
-        <ModalForm.Form<ICreateFieldDTO>
+        <ModalForm.Form<Omit<ICreateFieldDTO, 'interfaceTypeId'>>
           model={{
             ...model,
           }}
           onChange={(key, value) => {
             setModel((prev) => set(cloneDeep(prev), key, value))
           }}
-          onSubmit={(input) =>
-            typeService.addField(
-              typeService.fieldCreateModal.interface?.id as string,
-              {
-                ...input,
-                validationRules: filterValidationRules(
-                  input.validationRules,
-                  typeService.primitiveKind(input.fieldType),
-                ),
-              },
-            )
-          }
+          onSubmit={(input) => {
+            const interfaceTypeId =
+              typeService.fieldService.createModal.interface?.id
+
+            if (!interfaceTypeId) {
+              throw new Error('Missing interface type id')
+            }
+
+            return typeService.fieldService.upsert({
+              ...input,
+              interfaceTypeId,
+              validationRules: filterValidationRules(
+                input.validationRules,
+                typeService.primitiveKind(input.fieldType),
+              ),
+            })
+          }}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',
             type: 'error',

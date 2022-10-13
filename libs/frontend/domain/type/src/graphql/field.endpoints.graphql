@@ -9,7 +9,7 @@ mutation UpsertField(
     fieldTypeId: $fieldTypeId
     field: $field
   ) {
-    ...InterfaceType
+    ...Field
   }
 }
 

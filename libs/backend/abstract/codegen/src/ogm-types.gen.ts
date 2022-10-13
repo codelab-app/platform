@@ -749,7 +749,7 @@ export type QueryGetTypeReferencesArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  upsertField: InterfaceType
+  upsertField: Field
   createDomain: Domain
   updateDomain: Domain
   deleteDomain: DeleteInfo

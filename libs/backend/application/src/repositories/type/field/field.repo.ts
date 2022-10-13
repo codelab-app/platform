@@ -6,12 +6,11 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
-import merge from 'lodash/merge'
 
 export const fieldRepository = {
   upsertField: async (
     args: MutationUpsertFieldArgs,
-  ): Promise<OGM_TYPES.InterfaceType> => {
+  ): Promise<OGM_TYPES.Field> => {
     console.log('Upsert Field', args)
 
     const session = getDriver().session()
@@ -58,15 +57,15 @@ export const fieldRepository = {
 
       console.log('Updated', updatedInterfaceType)
 
-      return merge(updatedInterfaceType, {
-        fieldsConnection: {
-          edges: updatedInterfaceType?.fieldsConnection.edges.map((edge) => ({
-            node: {
-              __resolveType: edge.node.kind,
-            },
-          })),
-        },
-      })
+      const updatedField = updatedInterfaceType?.fieldsConnection.edges.find(
+        (field) => field.id === args.field.id,
+      )
+
+      if (!updatedField) {
+        throw new Error('Updated field not found')
+      }
+
+      return updatedField
     } finally {
       await session.close()
     }

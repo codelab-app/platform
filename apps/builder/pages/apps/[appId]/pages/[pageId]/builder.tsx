@@ -165,6 +165,7 @@ PageBuilder.Layout = observer((page) => {
   } = useStore()
 
   const { appService, typeService } = userService
+  const { fieldService } = typeService
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)

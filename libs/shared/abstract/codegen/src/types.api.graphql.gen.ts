@@ -12385,7 +12385,7 @@ export type Mutation = {
   updateUnionTypes: UpdateUnionTypesMutationResponse
   updateVercelDomainConfigData: UpdateVercelDomainConfigDataMutationResponse
   updateVercelProjectDomainData: UpdateVercelProjectDomainDataMutationResponse
-  upsertField: InterfaceType
+  upsertField: Field
 }
 
 export type MutationCreateActionTypesArgs = {
@@ -22908,7 +22908,9 @@ export type UpsertFieldMutationVariables = Exact<{
 
 export type UpsertFieldMutation = {
   __typename?: 'Mutation'
-  upsertField: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+  upsertField: {
+    __typename?: 'InterfaceTypeFieldsRelationship'
+  } & FieldFragment
 }
 
 export type DeleteFieldMutationVariables = Exact<{

@@ -28,6 +28,6 @@ export const fieldSchema = gql`
       interfaceTypeId: ID!
       fieldTypeId: ID!
       field: FieldCreateInput!
-    ): InterfaceType!
+    ): Field!
   }
 `

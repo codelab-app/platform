@@ -1,5 +1,4 @@
 import { IRenderOutput } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
 import { PropMapBinding } from '@codelab/frontend/domain/prop'
 import { v4 } from 'uuid'
 import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'

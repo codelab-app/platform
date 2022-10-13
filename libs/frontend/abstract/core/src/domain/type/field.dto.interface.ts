@@ -1,7 +1,7 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { IField, IFieldRef } from './field'
+import { IFieldRef } from './field'
 import { FieldFragment } from './fragments'
 import { IInterfaceTypeRef } from './types'
 
@@ -57,6 +57,7 @@ export interface ICreateFieldDTO {
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
   defaultValues: Nullish<string>
+  interfaceTypeId: IInterfaceTypeRef
 }
 
 export type IUpdateFieldDTO = ICreateFieldDTO
@@ -68,8 +69,6 @@ export interface IDeleteFieldDTO {
 /**
  * Props imply as input for something, in this case a model
  */
-export type IFieldProps = FieldFragment
-
-export type IFieldDTO = Omit<IField, 'writeCache'>
+export type IFieldDTO = FieldFragment
 
 export type IFieldExport = OGM_TYPES.Field

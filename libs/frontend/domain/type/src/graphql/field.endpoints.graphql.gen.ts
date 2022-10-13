@@ -1,9 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { FieldFragment } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { InterfaceTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { FieldFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 export type UpsertFieldMutationVariables = Types.Exact<{
   interfaceTypeId: Types.Scalars['ID']
@@ -11,7 +13,7 @@ export type UpsertFieldMutationVariables = Types.Exact<{
   field: Types.FieldCreateInput
 }>
 
-export type UpsertFieldMutation = { upsertField: InterfaceTypeFragment }
+export type UpsertFieldMutation = { upsertField: FieldFragment }
 
 export type DeleteFieldMutationVariables = Types.Exact<{
   interfaceId: Types.Scalars['ID']
@@ -33,10 +35,10 @@ export const UpsertFieldDocument = gql`
       fieldTypeId: $fieldTypeId
       field: $field
     ) {
-      ...InterfaceType
+      ...Field
     }
   }
-  ${InterfaceTypeFragmentDoc}
+  ${FieldFragmentDoc}
 `
 export const DeleteFieldDocument = gql`
   mutation DeleteField($interfaceId: ID!, $where: FieldWhere!) {

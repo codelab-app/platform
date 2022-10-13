@@ -7,7 +7,6 @@ import {
 import { connectNode } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
-import { v4 } from 'uuid'
 import { validate } from '../commands/import/validate'
 import type { ExportAppData } from '../use-cases/export/export-apps'
 import { getPageData } from '../use-cases/export/get-page'

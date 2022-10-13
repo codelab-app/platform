@@ -29,6 +29,7 @@ import {
 } from '@codelab/frontend/domain/store'
 import { TagService, tagServiceContext } from '@codelab/frontend/domain/tag'
 import {
+  FieldService,
   TypeService,
   typeServiceContext,
   typeServiceRef,
@@ -49,6 +50,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
   })
 
   const typeService = new TypeService({
+    fieldService: new FieldService({}),
     // _propService: propServiceRef(propService),
     // _elementService: elementServiceRef(elementService),
   })

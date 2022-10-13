@@ -1,31 +1,25 @@
-import {
-  ExistingData,
-  FieldDataKeyByApiId,
-  ITypeExport,
-} from '@codelab/backend/abstract/core'
+import { ExistingData, ITypeExport } from '@codelab/backend/abstract/core'
 import { fieldRepository } from '@codelab/backend/application'
 import { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { logSection } from '../../shared/utils/log-task'
 
-export const importFields = async (fieldDataKeyByAtom: FieldDataKeyByApiId) => {
+export const importFields = async (createFieldsDTO: Array<ICreateFieldDTO>) => {
   logSection('Import Fields')
 
-  for await (const [apiId, fields] of Object.entries(fieldDataKeyByAtom)) {
-    for await (const field of fields) {
-      // logger.info('Upsert Field', { field })
+  for await (const field of createFieldsDTO) {
+    // logger.info('Upsert Field', { field })
 
-      await fieldRepository.upsertField({
-        interfaceTypeId: apiId,
-        fieldTypeId: field.fieldType,
-        field: {
-          id: field.id,
-          name: field.name,
-          key: field.key,
-          description: field.description,
-        },
-      })
-    }
+    await fieldRepository.upsertField({
+      interfaceTypeId: field.interfaceTypeId,
+      fieldTypeId: field.fieldType,
+      field: {
+        id: field.id,
+        name: field.name,
+        key: field.key,
+        description: field.description,
+      },
+    })
   }
 }
 
@@ -35,14 +29,12 @@ export const importFields = async (fieldDataKeyByAtom: FieldDataKeyByApiId) => {
 export const createImportFieldsData = (
   types: Array<ITypeExport>,
   existingData: ExistingData,
-): FieldDataKeyByApiId => {
-  return types.reduce<FieldDataKeyByApiId>((data, type) => {
+): Array<ICreateFieldDTO> => {
+  return types.reduce<Array<ICreateFieldDTO>>((data, type) => {
     /**
      * Only deal with interfaces here, since we want the fields
      */
     if (type.__typename === ITypeKind.InterfaceType) {
-      const interfaceTypeId = type.id
-
       const fields = type.fieldsConnection.edges.map((field) => {
         const existingFieldType = existingData.types[field.node.name]
         const existingField = existingData.fields[`${type.name}-${field.key}`]
@@ -62,14 +54,15 @@ export const createImportFieldsData = (
            */
           fieldType: existingFieldType.id,
           defaultValues: null,
+          interfaceTypeId: type.id,
         }
 
         return createFieldDTO
       })
 
-      return { ...data, [interfaceTypeId]: fields }
+      return [...data, ...fields]
     }
 
     return data
-  }, {})
+  }, [])
 }

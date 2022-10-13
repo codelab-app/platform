@@ -12215,7 +12215,7 @@ type Mutation {
     field: FieldCreateInput!
     fieldTypeId: ID!
     interfaceTypeId: ID!
-  ): InterfaceType!
+  ): Field!
 }
 
 interface OwnedBy {

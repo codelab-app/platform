@@ -1,11 +1,10 @@
 import type {
   IAnyType,
   IField,
-  IFieldProps,
+  IFieldDTO,
   IProp,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { propRef } from '@codelab/frontend/domain/prop'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -19,7 +18,7 @@ import {
 } from 'mobx-keystone'
 import { typeRef } from './union-type.model'
 
-const hydrate = (data: IFieldProps) => {
+const hydrate = (data: IFieldDTO) => {
   const {
     id,
     key,
@@ -39,7 +38,8 @@ const hydrate = (data: IFieldProps) => {
     key,
     type: typeRef(fieldType.id),
     validationRules,
-    defaultValues: propRef(defaultValues?.id ?? ''),
+    // defaultValues: propRef(defaultValues?.id ?? ''),
+    defaultValues: null,
   })
 }
 
@@ -53,19 +53,20 @@ export class Field
     key: prop<string>(),
     type: prop<Ref<IAnyType>>(),
     validationRules: prop<Nullish<IValidationRules>>(),
-    defaultValues: prop<Ref<IProp>>(),
+    defaultValues: prop<Nullish<Ref<IProp>>>(null),
   }))
   implements IField
 {
   @modelAction
-  writeCache(fragment: IFieldProps) {
+  writeCache(fragment: IFieldDTO) {
     this.id = fragment.id
     this.name = fragment.name
     this.description = fragment.description
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
     this.validationRules = JSON.parse(fragment.validationRules || '{}')
-    this.defaultValues = propRef(fragment.defaultValues?.id ?? '')
+    this.defaultValues = null
+    // this.defaultValues = propRef(fragment.defaultValues?.id ?? '')
 
     return this
   }

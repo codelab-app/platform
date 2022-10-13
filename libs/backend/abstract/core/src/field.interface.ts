@@ -1,12 +1,4 @@
-import { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
 import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
-
-/**
- * The final output shape of the parser
- */
-export interface FieldDataKeyByApiId {
-  [apiId: string]: Array<ICreateFieldDTO>
-}
 
 export type IFieldImport = MutationUpsertFieldArgs
 

@@ -1,5 +1,5 @@
 import { RightCircleOutlined } from '@ant-design/icons'
-import { ITypeService } from '@codelab/frontend/abstract/core'
+import { ITypeRecord, ITypeService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   DisplayIf,
@@ -13,10 +13,9 @@ import Link from 'next/link'
 import React from 'react'
 import { typeRef } from '../../../../store'
 import { InterfaceDefaultsButton } from '../../../interface-defaults'
-import { TypeRecord } from './types'
 
 interface ActionColumnProps {
-  type: TypeRecord
+  type: ITypeRecord
   typeService: ITypeService
 }
 
@@ -24,7 +23,7 @@ export const ActionColumn = observer<ActionColumnProps>(
   ({ type, typeService }) => {
     return (
       <Space size="middle">
-        {type.typeKind === 'InterfaceType' ? (
+        {type.typeKind === ITypeKind.InterfaceType ? (
           <Link
             href={PageType.InterfaceDetail.replace('[interfaceId]', type.id)}
           >

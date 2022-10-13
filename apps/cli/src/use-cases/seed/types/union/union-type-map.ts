@@ -12,7 +12,6 @@ import {
   unionContainsInterfaceType,
 } from '../../utils/type-predicates'
 import { mapPrimitiveType } from '../primitive/map-primitive'
-import { connectUnionType } from './connect-union'
 
 /**
  *

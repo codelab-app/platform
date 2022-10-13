@@ -16,8 +16,9 @@ interface DeleteFieldModalProps {
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
   ({ typeService }) => {
-    const closeModal = () => typeService.fieldDeleteModal.close()
-    const { field } = typeService.fieldDeleteModal
+    const { fieldService } = typeService
+    const closeModal = () => fieldService.deleteModal.close()
+    const { field } = fieldService.deleteModal
 
     if (!field) {
       return null
@@ -30,13 +31,13 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
         okText="Delete"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Delete field</span>}
-        visible={typeService.fieldDeleteModal.isOpen}
+        visible={fieldService.deleteModal.isOpen}
       >
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
           onSubmit={(input) => {
-            return typeService.deleteField(
-              typeService.fieldDeleteModal.interface?.id as string,
+            return fieldService.delete(
+              fieldService.deleteModal.interface?.id as string,
               field.id,
             )
           }}

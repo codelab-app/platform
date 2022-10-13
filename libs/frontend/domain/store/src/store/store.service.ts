@@ -6,7 +6,7 @@ import {
   ITypeService,
   IUpdateStoreDTO,
 } from '@codelab/frontend/abstract/core'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {

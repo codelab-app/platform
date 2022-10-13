@@ -1,7 +1,6 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 import { ObjectMap } from 'mobx-keystone'
 import { IAppService } from '../app'
-import { IPageService } from '../page'
 import { ITypeService } from '../type'
 import { IUser } from './user.interface'
 

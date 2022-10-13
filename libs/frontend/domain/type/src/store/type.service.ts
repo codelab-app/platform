@@ -1,26 +1,18 @@
 import type {
   IAnyType,
-  ICreateFieldDTO,
   ICreateTypeDTO,
   IFieldRef,
+  IFieldService,
   IInterfaceTypeRef,
   ITypeDTO,
   ITypeService,
-  IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
-import {
-  assertIsTypeKind,
-  IPrimitiveTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import mapKeys from 'lodash/mapKeys'
-import merge from 'lodash/merge'
-import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import {
   _async,
@@ -37,7 +29,6 @@ import {
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { createTypeFactory, updateTypeInputFactory } from '../use-cases/types'
-import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
   deleteTypeApi,
@@ -45,12 +36,8 @@ import {
   getTypeApi,
   updateTypeApi,
 } from './apis/type.api'
-import { FieldModalService } from './field.service'
 import { typeFactory } from './type.factory'
-import {
-  InterfaceTypeModalService,
-  TypeModalService,
-} from './type-modal.service'
+import { TypeModalService } from './type-modal.service'
 
 @model('@codelab/TypeService')
 export class TypeService
@@ -63,13 +50,9 @@ export class TypeService
     deleteModal: prop(() => new TypeModalService({})),
 
     selectedIds: prop(() => arraySet<string>()).withSetter(),
-
-    fieldCreateModal: prop(() => new InterfaceTypeModalService({})),
-    fieldUpdateModal: prop(() => new FieldModalService({})),
-    fieldDeleteModal: prop(() => new FieldModalService({})),
-
     interfaceDefaultsModal: prop(() => new TypeModalService({})),
 
+    fieldService: prop<IFieldService>(),
     // _propService: prop<Ref<IPropService>>(),
     // _elementService: prop<Ref<IElementService>>(),
   })
@@ -80,6 +63,18 @@ export class TypeService
   //   return this._propService.current
   // }
   //
+
+  @computed
+  get data() {
+    console.log(this.types)
+
+    return [...this.types.values()].map((t) => ({
+      id: t.id,
+      name: t.name,
+      typeKind: t.kind,
+    }))
+  }
+
   @computed
   get elementService() {
     return getElementService(this)
@@ -266,13 +261,7 @@ export class TypeService
       throw new Error('Type was not created')
     }
 
-    return types.map((type) => {
-      const typeModel = typeFactory(type)
-
-      this.types.set(type.id, typeModel)
-
-      return typeModel
-    })
+    return types.map((type) => this.writeCache(type))
   })
 
   @modelFlow
@@ -296,161 +285,5 @@ export class TypeService
     }
 
     return type
-  })
-
-  //
-  // The field actions are here because if I put them in InterfaceType
-  // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
-  //
-  @modelFlow
-  @transaction
-  addField = _async(function* (
-    this: TypeService,
-    interfaceTypeId: IInterfaceTypeRef,
-    data: ICreateFieldDTO,
-  ) {
-    const input = {
-      interfaceTypeId,
-      fieldTypeId: data.fieldType,
-      field: {
-        description: data.description,
-        id: data.id,
-        key: data.key,
-        name: data.name,
-        validationRules: JSON.stringify(data.validationRules),
-      },
-    }
-
-    yield* _await(fieldApi.UpsertField(input))
-
-    const interfaceType = yield* _await(
-      this.updateDefaults(interfaceTypeId, data.key, null),
-    )
-
-    return interfaceType
-  })
-
-  @modelFlow
-  @transaction
-  updateField = _async(function* (
-    this: TypeService,
-    interfaceTypeId: IInterfaceTypeRef,
-    targetKey: IInterfaceTypeRef,
-    data: IUpdateFieldDTO,
-  ) {
-    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
-
-    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
-
-    const field = throwIfUndefined(interfaceType.field(data.id))
-
-    const input = {
-      interfaceTypeId,
-      fieldTypeId: data.fieldType,
-      field: {
-        id: data.id,
-        description: data.description,
-        key: data.key,
-        name: data.name,
-        validationRules: JSON.stringify(data.validationRules),
-      },
-    }
-
-    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
-
-    yield* _await(this.updateDefaults(interfaceTypeId, data.key, field.key))
-
-    const updatedField = upsertField.fieldsConnection.edges[0]
-
-    if (!updatedField) {
-      throw new Error('Update field failed')
-    }
-
-    field.writeCache(updatedField)
-
-    return field
-  })
-
-  @modelFlow
-  @transaction
-  updateDefaults = _async(function* (
-    this: TypeService,
-    interfaceId: string,
-    addedKey: Nullable<string>,
-    removedKey: Nullable<string>,
-  ) {
-    const interfaceType = throwIfUndefined(this.type(interfaceId))
-    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
-
-    let data = {}
-
-    if (addedKey && removedKey) {
-      // update key
-      data = mapKeys(interfaceType.defaults, (value, key) =>
-        key === removedKey ? addedKey : key,
-      )
-    } else if (addedKey) {
-      // add key
-      data = merge(interfaceType.defaults, { [addedKey]: null })
-    } else if (removedKey) {
-      // remove key
-      data = omit(interfaceType.defaults, [removedKey])
-    }
-
-    const updateInput = {
-      id: interfaceType.id,
-      kind: interfaceType.kind,
-      name: interfaceType.name,
-      interfaceDefaults: {
-        auth0Id: interfaceType.ownerAuthId,
-        data,
-      },
-    }
-
-    yield* _await(this.update(interfaceType, updateInput))
-
-    return interfaceType
-  })
-
-  @modelFlow
-  @transaction
-  deleteField = _async(function* (
-    this: TypeService,
-    interfaceId: IInterfaceTypeRef,
-    fieldId: IFieldRef,
-  ) {
-    const interfaceType = throwIfUndefined(this.type(interfaceId))
-
-    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
-
-    const field = interfaceType.field(fieldId)
-
-    if (!field) {
-      return
-    }
-
-    const input = { where: { id: fieldId }, interfaceId }
-    const res = yield* _await(fieldApi.DeleteField(input))
-
-    yield* _await(this.updateDefaults(interfaceId, null, field.key))
-
-    yield* _await(
-      this.elementService.removeDeletedPropDataFromElements(
-        interfaceType,
-        field.key,
-      ),
-    )
-
-    // Returns current edges, not deleted edges
-    // const deletedField =
-    //   res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
-    //
-    // if (!deletedField) {
-    //   throw new Error(`Failed to delete field with id ${fieldId}`)
-    // }
-
-    interfaceType.deleteFieldLocal(field)
-
-    return field
   })
 }

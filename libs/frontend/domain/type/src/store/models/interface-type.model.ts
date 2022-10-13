@@ -1,6 +1,6 @@
 import type {
   IField,
-  IFieldProps,
+  IFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
   IPropData,
@@ -65,7 +65,7 @@ export class InterfaceType
   }
 
   @modelAction
-  updateFieldCache(fragment: IFieldProps): Field {
+  updateFieldCache(fragment: IFieldDTO): Field {
     const propModel = Prop.hydrate(
       fragment.defaultValues ?? { id: '', data: '{}' },
     )

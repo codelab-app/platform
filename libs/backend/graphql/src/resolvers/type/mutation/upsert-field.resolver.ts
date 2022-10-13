@@ -1,3 +1,4 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { fieldRepository } from '@codelab/backend/application'
 import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
 import { IFieldResolver } from '@graphql-tools/utils'
@@ -5,7 +6,8 @@ import { IFieldResolver } from '@graphql-tools/utils'
 export const upsertField: IFieldResolver<
   unknown,
   unknown,
-  MutationUpsertFieldArgs
+  MutationUpsertFieldArgs,
+  Promise<OGM_TYPES.Field>
 > = async (_, args) => {
   return fieldRepository.upsertField(args)
 }

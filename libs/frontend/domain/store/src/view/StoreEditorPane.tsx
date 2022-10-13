@@ -53,7 +53,7 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
       <Button
         icon={<PlusOutlined />}
         onClick={(event: React.MouseEvent) => {
-          typeService.fieldCreateModal.open(
+          typeService.fieldService.createModal.open(
             typeRef(appStore.api.id) as Ref<IInterfaceType>,
           )
         }}

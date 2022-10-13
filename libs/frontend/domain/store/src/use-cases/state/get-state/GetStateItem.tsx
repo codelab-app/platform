@@ -24,14 +24,14 @@ export interface StateTreeItemProp {
 export const GetStateItem = observer<StateTreeItemProp>(
   ({ field, typeService, store }) => {
     const onEdit = () => {
-      typeService.fieldUpdateModal.open({
+      typeService.fieldService.updateModal.open({
         field: fieldRef(field.id),
         interface: typeRef(store.api.id) as Ref<IInterfaceType>,
       })
     }
 
     const onDelete = () => {
-      typeService.fieldDeleteModal.open({
+      typeService.fieldService.deleteModal.open({
         field: fieldRef(field.id),
         interface: typeRef(store.api.id) as Ref<IInterfaceType>,
       })
