@@ -69,8 +69,8 @@ describe('Component CRUD', () => {
       })
       .then((apps) => {
         const app = apps[0]
-        const pageId = app.pages[0].id
-        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
+        const pageId = app?.pages[0]?.id
+        cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
         cy.getSpinner().should('not.exist')
       })
   })
@@ -121,14 +121,15 @@ describe('Component CRUD', () => {
         .find('.ant-tree-switcher_close')
         .click()
 
-      cy.wait(200) // eslint-disable-line cypress/no-unnecessary-waiting
       cy.wrap(componentChildren)
         .each((child: ComponentChildData) => {
           const { name, atom } = child
           cy.get(`[title="${NEW_COMP_NAME}"]`)
             .eq(2)
             .find('.ant-dropdown-trigger')
-            .rightclick({ force: true })
+            // .rightclick({ force: true })
+            .trigger('contextmenu')
+
           cy.contains(/Add child/).click({ force: true })
 
           cy.getModal().setFormFieldValue({

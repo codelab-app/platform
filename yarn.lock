@@ -13805,7 +13805,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
-    cypress: 10.9.0
+    cypress: 10.10.0
     cypress-jest-adapter: ^0.1.1
     cypress-nextjs-auth0: 2.1.0
     cz-customizable: 6.3.0
@@ -15159,9 +15159,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:*":
-  version: 10.8.0
-  resolution: "cypress@npm:10.8.0"
+"cypress@npm:10.10.0":
+  version: 10.10.0
+  resolution: "cypress@npm:10.10.0"
   dependencies:
     "@cypress/request": ^2.88.10
     "@cypress/xvfb": ^1.2.4
@@ -15207,13 +15207,13 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: c052690049980e7721e6fca563b724fde839d87d83c1478dfe26ce7d230992717c2c4028e7157bfb39ec274473e51929f49e5aab6a23c2b25cde2a439b1c3cf9
+  checksum: 668a32534a527dba79754abbf98af176b80c539a12ec00058932ba2a19c794c7888323e59e738c30f726ad740c5451c31d02548a0cb7c1b1c8ad01c55a984ca2
   languageName: node
   linkType: hard
 
-"cypress@npm:10.9.0":
-  version: 10.9.0
-  resolution: "cypress@npm:10.9.0"
+"cypress@patch:cypress@npm%3A10.10.0#./.yarn/patches/cypress-npm-10.10.0-c25bdaa71e.patch::locator=codelab%40workspace%3A.":
+  version: 10.10.0
+  resolution: "cypress@patch:cypress@npm%3A10.10.0#./.yarn/patches/cypress-npm-10.10.0-c25bdaa71e.patch::version=10.10.0&hash=13cd81&locator=codelab%40workspace%3A."
   dependencies:
     "@cypress/request": ^2.88.10
     "@cypress/xvfb": ^1.2.4
@@ -15259,59 +15259,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 79e3dccbb82d0b0c92bb8888682766a9738374f473cf2e9a04825a6b3dbe4420c57948cabaf757af0929192a8e61b7f08b32d7f6ee0c3cddf2736cf4f408edc1
-  languageName: node
-  linkType: hard
-
-"cypress@patch:cypress@npm:10.9.0#.yarn/patches/cypress-npm-10.9.0-7807fe85fd::locator=codelab%40workspace%3A.":
-  version: 10.9.0
-  resolution: "cypress@patch:cypress@npm%3A10.9.0#.yarn/patches/cypress-npm-10.9.0-7807fe85fd::version=10.9.0&hash=13cd81&locator=codelab%40workspace%3A."
-  dependencies:
-    "@cypress/request": ^2.88.10
-    "@cypress/xvfb": ^1.2.4
-    "@types/node": ^14.14.31
-    "@types/sinonjs__fake-timers": 8.1.1
-    "@types/sizzle": ^2.3.2
-    arch: ^2.2.0
-    blob-util: ^2.0.2
-    bluebird: ^3.7.2
-    buffer: ^5.6.0
-    cachedir: ^2.3.0
-    chalk: ^4.1.0
-    check-more-types: ^2.24.0
-    cli-cursor: ^3.1.0
-    cli-table3: ~0.6.1
-    commander: ^5.1.0
-    common-tags: ^1.8.0
-    dayjs: ^1.10.4
-    debug: ^4.3.2
-    enquirer: ^2.3.6
-    eventemitter2: 6.4.7
-    execa: 4.1.0
-    executable: ^4.1.1
-    extract-zip: 2.0.1
-    figures: ^3.2.0
-    fs-extra: ^9.1.0
-    getos: ^3.2.1
-    is-ci: ^3.0.0
-    is-installed-globally: ~0.4.0
-    lazy-ass: ^1.6.0
-    listr2: ^3.8.3
-    lodash: ^4.17.21
-    log-symbols: ^4.0.0
-    minimist: ^1.2.6
-    ospath: ^1.2.2
-    pretty-bytes: ^5.6.0
-    proxy-from-env: 1.0.0
-    request-progress: ^3.0.0
-    semver: ^7.3.2
-    supports-color: ^8.1.1
-    tmp: ~0.2.1
-    untildify: ^4.0.0
-    yauzl: ^2.10.0
-  bin:
-    cypress: bin/cypress
-  checksum: 8b6a3d4a83f5b4247e50640397091b20deda45edad858ebce9cee4ad116e57d757734df17415434e818bae18d1264b358cca7af8d767f65d13e6d2e49065f84f
+  checksum: c1879aae39ef6b863897932f8a7a5b5465924beec9fc59c1dd2adb06fc1fcb0f5929f4040beb4a8194fba82d2a29453b430a50f6e81bde345b9e9ab6bac794b0
   languageName: node
   linkType: hard
 

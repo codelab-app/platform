@@ -234,7 +234,7 @@
     "concurrently": "7.0.0",
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
-    "cypress": "10.9.0",
+    "cypress": "10.10.0",
     "cypress-jest-adapter": "^0.1.1",
     "cypress-nextjs-auth0": "2.1.0",
     "cz-customizable": "6.3.0",
@@ -296,6 +296,8 @@
   },
   "resolutions": {
     "rxjs": "^6.6.3",
-    "cypress@10.9.0": "patch:cypress@npm:10.9.0#.yarn/patches/cypress-npm-10.9.0-7807fe85fd"
+    "cypress@10.9.0": "patch:cypress@npm:10.9.0#.yarn/patches/cypress-npm-10.9.0-7807fe85fd",
+    "cypress@10.10.0": "patch:cypress@npm%3A10.10.0#./.yarn/patches/cypress-npm-10.10.0-c25bdaa71e.patch",
+    "cypress@*": "patch:cypress@npm%3A10.10.0#./.yarn/patches/cypress-npm-10.10.0-c25bdaa71e.patch"
   }
 }
