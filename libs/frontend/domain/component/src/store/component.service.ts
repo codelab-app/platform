@@ -82,8 +82,10 @@ export class ComponentService
           children: [dataNode].filter((data): data is IBuilderDataNode =>
             Boolean(data),
           ),
+          rootKey: elementTree.root?.id ?? null,
         }
       }),
+      rootKey: null,
     }
   }
 

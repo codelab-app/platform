@@ -87,12 +87,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
-    // root element is not draggable
-    // assume root element doesn't have error
-    if (!element.parentElement) {
-      return React.createElement(Fragment, {}, Children)
-    }
-
     return React.createElement(
       ErrorBoundary,
       {
@@ -105,9 +99,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           element.setRenderingError(null)
         },
       },
-      // If we have an array, wrap it in a fragment
-      Array.isArray(Children)
+      // root element is not draggable
+      !element.parentElement
+        ? React.createElement(Fragment, {}, Children)
+        : Array.isArray(Children)
         ? React.createElement(
+            // Wrap array of elements with a fragment
             Fragment,
             {},
             DraggableElement({ children: Children, element }),

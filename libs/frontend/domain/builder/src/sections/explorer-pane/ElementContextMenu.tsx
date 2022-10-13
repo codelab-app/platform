@@ -24,10 +24,7 @@ export type ElementContextMenuProps = {
 } & ContextMenuProps &
   Pick<
     IElementService,
-    | 'createModal'
-    | 'deleteModal'
-    | 'duplicateElement'
-    | 'convertElementToComponent'
+    'createModal' | 'deleteModal' | 'cloneElement' | 'convertElementToComponent'
   >
 
 /**
@@ -40,7 +37,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     onBlur,
     createModal,
     deleteModal,
-    duplicateElement,
+    cloneElement,
     convertElementToComponent,
     elementTree,
   }) => {
@@ -58,20 +55,26 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
       return deleteModal.open(elementRef(element.id))
     }
 
-    const onDuplicate = () => {
-      if (!user?.sub) {
+    const onDuplicate = async () => {
+      if (!user?.sub || !element.parentElement) {
         return
       }
 
-      return duplicateElement(element, user.sub, elementTree)
+      elementTree?.addElements(
+        await cloneElement(element, element.parentElement),
+      )
     }
 
-    const onConvert = () => {
+    const onConvert = async () => {
       if (!user?.sub) {
         return
       }
 
-      return convertElementToComponent(element, user.sub, elementTree)
+      const createdElement = await convertElementToComponent(element, user.sub)
+
+      if (createdElement) {
+        elementTree?.addElements([createdElement])
+      }
     }
 
     const onEditComponent = () => {

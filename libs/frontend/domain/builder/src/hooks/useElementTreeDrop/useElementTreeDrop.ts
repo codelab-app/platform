@@ -1,4 +1,8 @@
-import { IElementService, IElementTree } from '@codelab/frontend/abstract/core'
+import {
+  IBuilderDataNode,
+  IElementService,
+  IElementTree,
+} from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { TreeProps } from 'antd/lib/tree'
 import {
@@ -16,14 +20,33 @@ export interface UseElementTreeDropProps {
  * This can be optimized by batching data changes in the API
  */
 export const useElementTreeDrop = (elementService: IElementService) => {
-  const handleDrop: TreeProps['onDrop'] = (info) => {
-    const dragNodeId = info.dragNode.key.toString()
-    const dropNodeId = info.node.key.toString()
+  const handleDrop: TreeProps<IBuilderDataNode>['onDrop'] = async (info) => {
+    const dragElementId = info.dragNode.key.toString()
+    const dropElementId = info.node.key.toString()
+    const dragRootId = info.dragNode.rootKey?.toString()
+    const dropRootId = info.node.rootKey?.toString()
+
+    // check if the dropNode lives in a different component
+    // move the element into the other component
+    if (dragRootId !== dropRootId) {
+      if (dragElementId === dragRootId) {
+        // We can't move the root because the drag component
+        // can't stay without a root element
+        return
+      }
+
+      void elementService.moveElementToAnotherTree({
+        elementId: dragElementId,
+        targetElementId: dropElementId,
+      })
+
+      return
+    }
 
     if (shouldMoveElementAsFirstChild(info)) {
       void elementService.moveElementAsFirstChild({
-        elementId: dragNodeId,
-        parentElementId: dropNodeId,
+        elementId: dragElementId,
+        parentElementId: dropElementId,
       })
 
       return
@@ -31,8 +54,8 @@ export const useElementTreeDrop = (elementService: IElementService) => {
 
     if (shouldMoveElementAsNextSibling(info)) {
       void elementService.moveElementAsNextSibling({
-        elementId: dragNodeId,
-        targetElementId: dropNodeId,
+        elementId: dragElementId,
+        targetElementId: dropElementId,
       })
     }
 

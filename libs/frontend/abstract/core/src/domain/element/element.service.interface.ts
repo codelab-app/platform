@@ -3,7 +3,7 @@ import {
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICacheService,
@@ -26,7 +26,6 @@ import {
   IUpdateElementDTO,
 } from './element.dto.interface'
 import { IElement, IElementRef } from './element.model.interface'
-import { IElementTree } from './element-tree.interface.model'
 
 /**
  * Used for modal input
@@ -87,6 +86,11 @@ export interface IElementService
     elementId: string
     targetElementId: string
   }): Promise<void>
+  moveElementToAnotherTree(props: {
+    elementId: string
+    targetElementId: string
+  }): Promise<void>
+  detachElementFromElementTree(elemenId: string): Promise<void>
   moveElementAsFirstChild(props: {
     elementId: string
     parentElementId: string
@@ -95,16 +99,14 @@ export interface IElementService
     elementId: string
     targetElementId: string
   }): Promise<void>
-  duplicateElement(
+  cloneElement(
     target: IElement,
-    auth0Id: IAuth0Id,
-    elementTree: IElementTree | null,
-  ): Promise<void>
+    targetParent: IElement,
+  ): Promise<Array<IElement>>
   convertElementToComponent(
     element: IElement,
     auth0Id: IAuth0Id,
-    elementTree: Nullable<IElementTree>,
-  ): Promise<void>
+  ): Promise<Maybe<IElement>>
   element(id: string): Maybe<IElement>
   updateElementsPropTransformationJs(
     element: IElement,

@@ -18,6 +18,7 @@ export interface IElementTree {
   getPathFromRoot(element: INode): Array<INode>
   element(id: string): Maybe<IElement>
   addElements(elements: Array<IElement>): IElementTree
+  removeElements(elements: Array<IElement>): IElementTree
 }
 
 export interface IElementTreeService {

@@ -1,5 +1,4 @@
 import {
-  IAtomService,
   IAuth0Id,
   IComponentDTO,
   ICreateElementDTO,
@@ -8,7 +7,6 @@ import {
   IElementDTO,
   IElementRef,
   IElementService,
-  IElementTree,
   IInterfaceType,
   isAtomDTO,
   IUpdateElementDTO,
@@ -25,14 +23,8 @@ import {
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import {
-  connectNode,
-  connectOwner,
-  connectTypeOwner,
-  reconnectNode,
-} from '@codelab/shared/data'
+import { IEntity } from '@codelab/shared/abstract/types'
+import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
@@ -46,7 +38,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -553,6 +544,54 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
+  moveElementToAnotherTree = _async(function* (
+    this: ElementService,
+    {
+      elementId,
+      targetElementId,
+    }: Parameters<IElementService['moveElementToAnotherTree']>[0],
+  ) {
+    const element = this.element(elementId)
+    const targetElement = this.element(targetElementId)
+
+    if (!targetElement || !element) {
+      return
+    }
+
+    yield* _await(this.detachElementFromElementTree(element.id))
+
+    const lastChildId =
+      targetElement.children[targetElement.children.length - 1]?.id
+
+    if (!lastChildId) {
+      yield* _await(
+        this.attachElementAsFirstChild({
+          elementId: element.id,
+          parentElementId: targetElement.id,
+        }),
+      )
+    } else {
+      yield* _await(
+        this.attachElementAsNextSibling({
+          elementId: element.id,
+          targetElementId: lastChildId,
+        }),
+      )
+    }
+
+    Element.getElementTree(element)?.removeElements([
+      element,
+      ...element.descendants,
+    ])
+
+    Element.getElementTree(targetElement)?.addElements([
+      element,
+      ...element.descendants,
+    ])
+  })
+
+  @modelFlow
+  @transaction
   deleteElementSubgraph = _async(function* (
     this: ElementService,
     root: IElementRef,
@@ -603,24 +642,16 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
-  duplicateElement = _async(function* (
+  cloneElement = _async(function* (
     this: ElementService,
-    targetElement: Element,
-    auth0Id: IAuth0Id,
-    elementTree: IElementTree | null,
+    targetElement: IElement,
+    targetParent: IElement,
   ) {
-    if (!targetElement.parentElement) {
-      throw new Error("Can't duplicate root element")
-    }
-
+    const createdElements = new Array<IElement>()
     const oldToNewIdMap = new Map<string, string>()
 
-    const recursiveDuplicate = async (element: IElement, parentId: string) => {
-      const createInput: ElementCreateInput = makeDuplicateInput(
-        element,
-        parentId,
-        auth0Id,
-      )
+    const recursiveDuplicate = async (element: IElement, parent: IElement) => {
+      const createInput: ElementCreateInput = makeDuplicateInput(element)
 
       const {
         createElements: {
@@ -633,23 +664,31 @@ element is new parentElement's first child
       }
 
       const elementModel = this.writeCache(createdElement)
+      const lastChildId = parent.children[parent.children.length - 1]?.id
 
-      if (elementTree) {
-        elementTree.addElements([elementModel])
+      if (!lastChildId) {
+        await this.attachElementAsFirstChild({
+          elementId: elementModel.id,
+          parentElementId: parent.id,
+        })
+      } else {
+        await this.attachElementAsNextSibling({
+          elementId: elementModel.id,
+          targetElementId: lastChildId,
+        })
       }
 
       oldToNewIdMap.set(element.id, elementModel.id)
+      createdElements.push(elementModel)
 
       for (const child of element.children) {
-        await recursiveDuplicate(child, elementModel.id)
+        await recursiveDuplicate(child, elementModel)
       }
 
       return elementModel
     }
 
-    yield* _await(
-      recursiveDuplicate(targetElement, targetElement.parentElement.id),
-    )
+    yield* _await(recursiveDuplicate(targetElement, targetParent))
 
     // re-attach the prop map bindings now that we have the new ids
     const allInputs = [targetElement, ...targetElement.descendants]
@@ -661,7 +700,7 @@ element is new parentElement's first child
         throw new Error(`Could not find new id for ${inputElement.id}`)
       }
 
-      const duplicated = elementTree?.element(newId)
+      const duplicated = createdElements.find((element) => element.id === newId)
 
       if (!duplicated) {
         throw new Error(`Could not find duplicated element ${newId}`)
@@ -680,6 +719,8 @@ element is new parentElement's first child
         )
       }
     }
+
+    return createdElements
   })
 
   @modelFlow
@@ -688,69 +729,51 @@ element is new parentElement's first child
     this: ElementService,
     element: Element,
     auth0Id: IAuth0Id,
-    elementTree: Nullable<IElementTree>,
   ) {
     if (!element.parentElement) {
       throw new Error("Can't convert root element")
     }
 
-    if (!elementTree) {
-      throw new Error('Element is not attached to a tree')
-    }
-
-    // 2. Attach a Component to the Element and detach it from the parent
-    const parentId = element.parentElement.id
-
-    yield* _await(
-      this.patchElement(element, {
-        parentComponent: {
-          create: {
-            node: {
-              id: v4(),
-              name: element.label,
-              owner: connectOwner(auth0Id),
-              rootElement: connectNode(element.id),
-              api: {
-                create: {
-                  node: {
-                    id: v4(),
-                    name: `${element.label} API`,
-                    fields: {},
-                    kind: ITypeKind.InterfaceType,
-                    apiOfAtoms: {},
-                    owner: connectTypeOwner(auth0Id),
-                  },
-                },
-              },
-            },
-          },
-        },
-      }),
-    )
-
-    if (!element.parentComponent) {
-      throw new Error('Could not find component')
-    }
-
-    // 3. Load component so we can use reference
+    const name = element.label
+    const elementId = element.id
+    const parentElement = element.parentElement
+    const prevSibling = element.prevSibling
     const componentService = getComponentService(this)
 
-    // 3. Make an intermediate element with instance of the Component
-    const [newElement] = yield* _await(
-      this.create([
+    // 1. detach the element from the element tree
+    yield* _await(this.detachElementFromElementTree(elementId))
+
+    // 2. create the component with predefined root element
+    const [createdComponent] = yield* _await(
+      componentService.create([
         {
-          name: element.label,
-          renderComponentTypeId: element.parentComponent.id,
-          parentElementId: parentId,
+          auth0Id,
+          id: v4(),
+          name,
+          rootElementId: elementId,
         },
       ]),
     )
 
-    if (!newElement) {
-      return
+    // 3. create a new element as an instance of the component
+    if (!prevSibling) {
+      return yield* _await(
+        this.createElementAsFirstChild({
+          name,
+          renderComponentTypeId: createdComponent?.id,
+          parentElementId: parentElement.id,
+        }),
+      )
     }
 
-    elementTree.addElements([newElement])
+    return yield* _await(
+      this.createElementAsNextSibling({
+        name,
+        renderComponentTypeId: createdComponent?.id,
+        parentElementId: parentElement.id,
+        prevSiblingId: prevSibling.id,
+      }),
+    )
   })
 
   @modelFlow
