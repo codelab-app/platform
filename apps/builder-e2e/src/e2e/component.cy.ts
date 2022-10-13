@@ -121,6 +121,7 @@ describe('Component CRUD', () => {
         .find('.ant-tree-switcher_close')
         .click()
 
+      cy.wait(200) // eslint-disable-line cypress/no-unnecessary-waiting
       cy.wrap(componentChildren)
         .each((child: ComponentChildData) => {
           const { name, atom } = child
