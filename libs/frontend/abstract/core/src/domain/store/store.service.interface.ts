@@ -13,7 +13,7 @@ import {
   IStoreDTO,
   IUpdateStoreDTO,
 } from './store.dto.interface'
-import { IStore } from './store.interface'
+import { IStore } from './store.model.interface'
 
 export interface IStoreService
   extends ICRUDService<IStore, ICreateStoreDTO, IUpdateStoreDTO>,
