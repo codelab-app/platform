@@ -137,10 +137,6 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     ? await appService.storeService.getOne(app.store.id)
     : null
 
-  if (appStore?.apiId) {
-    typeService.types.get(appStore.apiId)
-  }
-
   // components are needed to build pageElementTree
   // therefore they must be loaded first
   // This requires a current userId to work

@@ -1,4 +1,4 @@
-import { Ref } from 'react'
+import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../service'
 import { IAnyAction } from '../action'
 import { IPropData } from '../prop'

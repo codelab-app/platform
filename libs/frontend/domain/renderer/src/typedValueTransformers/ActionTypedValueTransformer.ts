@@ -55,6 +55,6 @@ export class ActionTypedValueTransformer
       return props
     }
 
-    return `{{${action.name}}}`
+    return `{{${action.current.name}}}`
   }
 }
