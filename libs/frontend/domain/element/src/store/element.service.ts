@@ -1,5 +1,4 @@
 import {
-  IAtomService,
   IAuth0Id,
   IComponentDTO,
   ICreateElementDTO,
@@ -39,7 +38,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -562,7 +560,10 @@ element is new parentElement's first child
 
     yield* _await(this.detachElementFromElementTree(element.id))
 
-    if (targetElement.children.length === 0) {
+    const lastChildId =
+      targetElement.children[targetElement.children.length - 1]?.id
+
+    if (!lastChildId) {
       yield* _await(
         this.attachElementAsFirstChild({
           elementId: element.id,
@@ -570,13 +571,12 @@ element is new parentElement's first child
         }),
       )
     } else {
-      targetElement.children[0]?.id &&
-        (yield* _await(
-          this.attachElementAsNextSibling({
-            elementId: element.id,
-            targetElementId: targetElement.children[0]?.id,
-          }),
-        ))
+      yield* _await(
+        this.attachElementAsNextSibling({
+          elementId: element.id,
+          targetElementId: lastChildId,
+        }),
+      )
     }
 
     Element.getElementTree(element)?.removeElements([
@@ -681,18 +681,6 @@ element is new parentElement's first child
       oldToNewIdMap.set(element.id, elementModel.id)
       createdElements.push(elementModel)
 
-      // re-attach the prop map bindings now that we have the new ids
-      for (const propMapBinding of element.propMapBindings.values()) {
-        await this.createPropMapBinding(elementModel, {
-          elementId: elementModel.id,
-          targetElementId: propMapBinding.targetElementId
-            ? oldToNewIdMap.get(propMapBinding.targetElementId)
-            : undefined,
-          targetKey: propMapBinding.targetKey,
-          sourceKey: propMapBinding.sourceKey,
-        })
-      }
-
       for (const child of element.children) {
         await recursiveDuplicate(child, elementModel)
       }
@@ -701,6 +689,36 @@ element is new parentElement's first child
     }
 
     yield* _await(recursiveDuplicate(targetElement, targetParent))
+
+    // re-attach the prop map bindings now that we have the new ids
+    const allInputs = [targetElement, ...targetElement.descendants]
+
+    for (const inputElement of allInputs) {
+      const newId = oldToNewIdMap.get(inputElement.id)
+
+      if (!newId) {
+        throw new Error(`Could not find new id for ${inputElement.id}`)
+      }
+
+      const duplicated = createdElements.find((element) => element.id === newId)
+
+      if (!duplicated) {
+        throw new Error(`Could not find duplicated element ${newId}`)
+      }
+
+      for (const propMapBinding of inputElement.propMapBindings.values()) {
+        yield* _await(
+          this.createPropMapBinding(duplicated, {
+            elementId: newId,
+            targetElementId: propMapBinding.targetElementId
+              ? oldToNewIdMap.get(propMapBinding.targetElementId)
+              : undefined,
+            targetKey: propMapBinding.targetKey,
+            sourceKey: propMapBinding.sourceKey,
+          }),
+        )
+      }
+    }
 
     return createdElements
   })
