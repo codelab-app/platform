@@ -74,7 +74,7 @@ const PageRenderer: CodelabPage = observer(() => {
       componentService.loadRenderedComponentTree(component),
     )
 
-    const renderer = await appRenderService.addRenderer({
+    const renderer = appRenderService.addRenderer({
       id: pageId,
       pageTree: pageElementTree,
       appTree: null,

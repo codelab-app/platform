@@ -1,14 +1,10 @@
 import type {
-  IBuilderService,
   IComponentService,
   IElementService,
-  IElementTree,
   IRenderer,
   IRenderService,
-  IStore,
   RendererProps,
 } from '@codelab/frontend/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
@@ -47,6 +43,8 @@ export class RenderService
 
       return renderer
     }
+
+    existing.initForce(props.pageTree)
 
     return existing
   }
