@@ -1,15 +1,9 @@
-import {
-  IElement,
-  IInterfaceType,
-  IPropData,
-  IRenderer,
-} from '@codelab/frontend/abstract/core'
+import { IElement, IPropData, IRenderer } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/domain/element'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 // eslint-disable-next-line lodash/import-scope
-import { difference, keys, values } from 'lodash'
 import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'
@@ -49,8 +43,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       postAction?.()
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    removeLeftOverPropsNotDefinedInAtomAPI(element)
 
     // Render the element to an intermediate output
     const renderOutputs = renderService.renderIntermediateElement(
@@ -122,20 +114,5 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     )
   },
 )
-
-// Removes keys from element props that are not defined in the atom API
-// This is to prevent rendering props left over after deleting it from the atom API
-const removeLeftOverPropsNotDefinedInAtomAPI = (element: IElement) => {
-  if (element.atom?.current.api.current) {
-    const atomApiInterface = element.atom.current.api.current as IInterfaceType
-    const atomApiPropsMap = atomApiInterface.fields.items
-    const atomApiPropsKeys = values(atomApiPropsMap).map((field) => field.key)
-    const elementPropsMap = element.props?.data.data
-    const elementPropsKeys = keys(elementPropsMap)
-    const keysToOmit = difference(elementPropsKeys, atomApiPropsKeys)
-
-    keysToOmit.forEach((key) => element.props?.delete(key))
-  }
-}
 
 ElementWrapper.displayName = 'ElementWrapper'
