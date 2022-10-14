@@ -20,6 +20,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
+import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
   getElementService,
@@ -74,6 +75,10 @@ export const hydrate = ({
   renderIfPropKey,
   renderForEachPropKey,
 }: Omit<IElementDTO, '__typename'>) => {
+  const apiRef = renderAtomType
+    ? (typeRef(renderAtomType.api.id) as Ref<InterfaceType>)
+    : undefined
+
   return new Element({
     id,
     name,
@@ -87,7 +92,7 @@ export const hydrate = ({
     atom: renderAtomType ? atomRef(renderAtomType.id) : null,
     preRenderActionId,
     postRenderActionId,
-    props: props ? Prop.hydrate(props) : null,
+    props: props ? Prop.hydrate({ ...props, apiRef }) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
