@@ -10,7 +10,7 @@ import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
 export const fieldRepository = {
   upsertField: async (
     args: MutationUpsertFieldArgs,
-  ): Promise<OGM_TYPES.Field> => {
+  ): Promise<OGM_TYPES.Field & { __resolveType: string }> => {
     console.log('Upsert Field', args)
 
     const session = getDriver().session()
@@ -65,7 +65,7 @@ export const fieldRepository = {
         throw new Error('Updated field not found')
       }
 
-      return updatedField
+      return { ...updatedField, __resolveType: 'Field' }
     } finally {
       await session.close()
     }
