@@ -41,7 +41,6 @@ import { User, UserService } from '@codelab/frontend/domain/user'
 import {
   componentServiceContext,
   elementServiceContext,
-  storeServiceContext,
 } from '@codelab/frontend/presenter/container'
 import { Model, model, prop } from 'mobx-keystone'
 

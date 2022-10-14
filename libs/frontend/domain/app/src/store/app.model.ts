@@ -1,7 +1,7 @@
 import { IApp, IAppDTO, IPage, IStore } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { pageRef } from '@codelab/frontend/domain/page'
-import { storeRef } from '@codelab/frontend/presenter/container'
+import { storeRef } from '@codelab/frontend/domain/store'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {

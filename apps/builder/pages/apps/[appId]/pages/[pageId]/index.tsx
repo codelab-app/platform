@@ -1,5 +1,5 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { PageDetailHeader } from '@codelab/frontend/domain/page'
+import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
   useCurrentAppId,
@@ -105,7 +105,9 @@ const PageRenderer: CodelabPage = observer(() => {
 
 export default PageRenderer
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired({})
+export const getServerSideProps = auth0Instance.withPageAuthRequired({
+  getServerSideProps: Page.getServerSideProps,
+})
 
 PageRenderer.Layout = observer((page) => {
   const {

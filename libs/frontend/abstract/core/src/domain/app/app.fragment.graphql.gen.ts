@@ -43,6 +43,7 @@ export type PageBuilderAppFragment = {
     id: string
     name: string
     slug: string
+    getServerSideProps?: string | null
     rootElement: {
       descendantElements: Array<ElementFragment>
     } & ElementFragment
@@ -107,6 +108,7 @@ export const PageBuilderAppFragmentDoc = gql`
       id
       name
       slug
+      getServerSideProps
       rootElement {
         ...Element
         descendantElements {

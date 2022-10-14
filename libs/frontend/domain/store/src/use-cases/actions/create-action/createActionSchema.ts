@@ -11,21 +11,6 @@ import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 
-export const codeMirrorTypescriptOptions = {
-  editorOptions: { language: CodeMirrorLanguage.Typescript },
-  containerProps: { style: { height: '100px' } },
-}
-
-export const codemirrorGraphQLOptions = {
-  editorOptions: { language: CodeMirrorLanguage.Graphql },
-  containerProps: { style: { height: '100px' } },
-}
-
-export const codemirrorJSONOptions = {
-  editorOptions: { language: CodeMirrorLanguage.Json },
-  containerProps: { style: { height: '100px' } },
-}
-
 export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
   title: 'Create Action',
   type: 'object',

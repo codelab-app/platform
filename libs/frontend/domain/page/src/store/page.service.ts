@@ -90,7 +90,7 @@ page/component
   update = _async(function* (
     this: PageService,
     page: IPage,
-    { name, appId, slug }: IUpdatePageDTO,
+    { name, appId, slug, getServerSideProps }: IUpdatePageDTO,
   ) {
     const { updatePages } = yield* _await(
       pageApi.UpdatePages({
@@ -98,6 +98,7 @@ page/component
           name,
           slug: slugify(slug),
           app: connectNode(appId),
+          getServerSideProps,
         },
         where: { id: page.id },
       }),
@@ -153,6 +154,7 @@ page/component
       name: page.name,
       slug: slugify(page.slug),
       app: connectNode(page.appId),
+      getServerSideProps: page.getServerSideProps,
       rootElement: {
         create: {
           node: {

@@ -48,6 +48,7 @@ fragment PageBuilderApp on App {
     id
     name
     slug
+    getServerSideProps
     rootElement {
       ...Element
       descendantElements {

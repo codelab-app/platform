@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { updateComponentSchema } from './createComponentSchema'
+import { updateComponentSchema } from './updateComponentSchema'
 
 export const UpdateComponentModal = observer<{
   componentService: IComponentService
@@ -33,7 +33,7 @@ export const UpdateComponentModal = observer<{
       title={<span css={tw`font-semibold`}>Update component</span>}
       visible={componentService.updateModal.isOpen}
     >
-      <ModalForm.Form<Omit<IUpdateComponentDTO, 'rootElementId'>>
+      <ModalForm.Form<IUpdateComponentDTO>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createNotificationHandler({

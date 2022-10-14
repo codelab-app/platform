@@ -9,12 +9,7 @@ import {
   IStoreService,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
-import { getPageService } from '@codelab/frontend/domain/page'
 import { deleteStoreInput } from '@codelab/frontend/domain/store'
-import {
-  getElementService,
-  getStoreService,
-} from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
