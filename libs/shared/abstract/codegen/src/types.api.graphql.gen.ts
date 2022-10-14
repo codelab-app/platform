@@ -21936,6 +21936,7 @@ export type GetAtomsQueryVariables = Exact<{
 export type GetAtomsQuery = {
   __typename?: 'Query'
   atoms: Array<{ __typename?: 'Atom' } & AtomFragment>
+  atomsAggregate: { __typename?: 'AtomAggregateSelection'; count: number }
 }
 
 export type UpdateAtomsMutationVariables = Exact<{

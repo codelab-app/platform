@@ -21,6 +21,9 @@ query GetAtoms($where: AtomWhere, $options: AtomOptions) {
   atoms(where: $where, options: $options) {
     ...Atom
   }
+  atomsAggregate {
+    count
+  }
 }
 
 mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {

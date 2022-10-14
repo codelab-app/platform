@@ -13,7 +13,7 @@ export interface GetStateTreeProps {
 
 export const GetStateList = observer<GetStateTreeProps>(
   ({ store, typeService }) => {
-    const api = typeService.type(store.apiId) as Maybe<InterfaceType>
+    const api = store.api.current as Maybe<InterfaceType>
 
     return (
       <List

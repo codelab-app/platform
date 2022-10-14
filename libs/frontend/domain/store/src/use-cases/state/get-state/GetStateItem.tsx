@@ -26,14 +26,14 @@ export const GetStateItem = observer<StateTreeItemProp>(
     const onEdit = () => {
       typeService.fieldUpdateModal.open({
         field: fieldRef(field.id),
-        interface: typeRef(store.apiId) as Ref<IInterfaceType>,
+        interface: typeRef(store.api.id) as Ref<IInterfaceType>,
       })
     }
 
     const onDelete = () => {
       typeService.fieldDeleteModal.open({
         field: fieldRef(field.id),
-        interface: typeRef(store.apiId) as Ref<IInterfaceType>,
+        interface: typeRef(store.api.id) as Ref<IInterfaceType>,
       })
     }
 
