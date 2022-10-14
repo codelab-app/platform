@@ -18,6 +18,9 @@ mutation DeleteAtoms($where: AtomWhere!) {
 }
 
 query GetAtoms($where: AtomWhere, $options: AtomOptions) {
+  atomsAggregate {
+    count
+  }
   atoms(where: $where, options: $options) {
     ...Atom
   }
