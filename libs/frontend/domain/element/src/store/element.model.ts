@@ -11,7 +11,7 @@ import type {
   IPropDataByElementId,
   IPropMapBinding,
   RenderingError,
-  renderingMetadata,
+  RenderingMetadata,
 } from '@codelab/frontend/abstract/core'
 import {
   CssMap,
@@ -139,7 +139,7 @@ export class Element
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
-    renderingMetadata: prop<Nullable<renderingMetadata>>(null),
+    renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement

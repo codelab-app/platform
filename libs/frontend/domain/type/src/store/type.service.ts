@@ -2,10 +2,8 @@ import type {
   IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
-  IElementService,
   IFieldRef,
   IInterfaceTypeRef,
-  IPropService,
   ITypeDTO,
   ITypeService,
   IUpdateFieldDTO,
@@ -35,7 +33,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'

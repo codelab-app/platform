@@ -1,6 +1,5 @@
 import {
   IAuth0Id,
-  IComponentDTO,
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
   IElement,
@@ -9,6 +8,7 @@ import {
   IElementService,
   IInterfaceType,
   isAtomDTO,
+  isComponentDTO,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
@@ -22,6 +22,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
   ElementWhere,
+  RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
@@ -88,6 +89,11 @@ export class ElementService
     return getAtomService(this)
   }
 
+  @computed
+  get componentService() {
+    return getComponentService(this)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: ElementService, where?: ElementWhere) {
@@ -116,14 +122,32 @@ export class ElementService
 
   @modelAction
   private writeComponentsCache(elements: Array<IElementDTO>) {
-    // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
-    const componentService = getComponentService(this)
+    console.debug('ElementService.writeComponentsCache', elements)
 
     const components = elements
       .map((v) => v.parentComponent || v.renderComponentType)
-      .filter((component): component is IComponentDTO => Boolean(component))
+      .filter(isComponentDTO)
 
-    components.map((component) => componentService.writeCache(component))
+    return components.map((component) =>
+      this.componentService.writeCache(component),
+    )
+  }
+
+  @modelAction
+  loadComponentTree(component: RenderedComponentFragment) {
+    const elements = [
+      component.rootElement,
+      ...component.rootElement.descendantElements,
+    ]
+
+    const hydratedElements = elements.map((element) => this.writeCache(element))
+    const rootElement = this.element(component.rootElement.id)
+
+    if (!rootElement) {
+      throw new Error('No root element found')
+    }
+
+    return { rootElement, hydratedElements }
   }
 
   @modelAction
@@ -738,14 +762,13 @@ element is new parentElement's first child
     const elementId = element.id
     const parentElement = element.parentElement
     const prevSibling = element.prevSibling
-    const componentService = getComponentService(this)
 
     // 1. detach the element from the element tree
     yield* _await(this.detachElementFromElementTree(elementId))
 
     // 2. create the component with predefined root element
     const [createdComponent] = yield* _await(
-      componentService.create([
+      this.componentService.create([
         {
           auth0Id,
           id: v4(),

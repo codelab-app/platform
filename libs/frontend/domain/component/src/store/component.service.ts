@@ -10,6 +10,7 @@ import {
   COMPONENT_NODE_TYPE,
   COMPONENT_TREE_CONTAINER,
 } from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   ComponentWhere,
@@ -48,11 +49,20 @@ export class ComponentService
   })
   implements IComponentService
 {
+  @computed
+  get elementService() {
+    return getElementService(this)
+  }
+
   loadRenderedComponentTree(
     renderedComponentFragment: RenderedComponentFragment,
   ) {
     const componentModel = this.writeCache(renderedComponentFragment)
-    componentModel.loadComponentTree(renderedComponentFragment)
+
+    const { rootElement, hydratedElements } =
+      this.elementService.loadComponentTree(renderedComponentFragment)
+
+    componentModel.initTree(rootElement, hydratedElements)
 
     return componentModel
   }
@@ -148,7 +158,11 @@ export class ComponentService
     const componentModel = Component.hydrate(component)
 
     this.components.set(component.id, componentModel)
-    componentModel.loadComponentTree(component)
+
+    const { rootElement, hydratedElements } =
+      this.elementService.loadComponentTree(component)
+
+    componentModel.initTree(rootElement, hydratedElements)
 
     return [componentModel]
   })

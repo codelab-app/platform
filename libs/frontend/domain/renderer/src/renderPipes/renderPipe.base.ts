@@ -1,9 +1,4 @@
-import {
-  IBaseRenderPipe,
-  IComponentService,
-  IElementService,
-  IRenderer,
-} from '@codelab/frontend/abstract/core'
+import { IBaseRenderPipe, IRenderer } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
@@ -17,8 +12,6 @@ import {
   Model,
   model,
   modelTypeKey,
-  prop,
-  Ref,
 } from 'mobx-keystone'
 
 @model('@codelab/BaseRenderPipe')

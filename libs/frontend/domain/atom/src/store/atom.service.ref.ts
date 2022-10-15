@@ -1,9 +1,4 @@
-import {
-  IAtomService,
-  IComponentService,
-  IElement,
-  IElementService,
-} from '@codelab/frontend/abstract/core'
+import { IAtomService } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const atomServiceRef = rootRef<IAtomService>('@codelab/AtomServiceRef', {

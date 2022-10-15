@@ -2,6 +2,7 @@ import {
   ElementOptions,
   ElementUpdateInput,
   ElementWhere,
+  RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
@@ -13,6 +14,7 @@ import {
   IQueryService,
 } from '../../service'
 import { IAtomService } from '../atom'
+import { IComponentService } from '../component'
 import {
   ICreatePropMapBindingDTO,
   IPropMapBinding,
@@ -72,6 +74,7 @@ export interface IElementService
   deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
 
   atomService: IAtomService
+  componentService: IComponentService
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
@@ -135,4 +138,9 @@ export interface IElementService
     interfaceType: IInterfaceType,
     propKey: string,
   ): Promise<void>
+
+  loadComponentTree(component: RenderedComponentFragment): {
+    rootElement: IElement
+    hydratedElements: Array<IElement>
+  }
 }

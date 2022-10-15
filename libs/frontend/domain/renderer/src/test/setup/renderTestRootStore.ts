@@ -7,10 +7,8 @@ import {
   IRootStore,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
-import { ComponentService } from '@codelab/frontend/domain/component'
-import { ElementService, ElementTree } from '@codelab/frontend/domain/element'
-import { TypeService, typeServiceContext } from '@codelab/frontend/domain/type'
+import { atomServiceContext } from '@codelab/frontend/domain/atom'
+import { typeServiceContext } from '@codelab/frontend/domain/type'
 import { componentServiceContext } from '@codelab/frontend/presenter/container'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 

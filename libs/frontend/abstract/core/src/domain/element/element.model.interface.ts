@@ -32,7 +32,7 @@ export interface RenderingError {
 
 // Metadata obtained from the renderer
 // regarding the element's rendering
-export interface renderingMetadata {
+export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
@@ -60,7 +60,7 @@ export interface IElement
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
   renderComponentType: Nullable<Ref<IComponent>>
-  renderingMetadata: Nullable<renderingMetadata>
+  renderingMetadata: Nullable<RenderingMetadata>
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
   leftHandDescendants: Array<IElement>

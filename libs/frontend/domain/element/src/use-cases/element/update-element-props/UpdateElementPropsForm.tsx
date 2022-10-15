@@ -40,7 +40,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     // cache it to not confuse the user when auto-saving
     console.log(element.props)
 
-    const initialPropsRef = useRef(element?.props?.values ?? {})
+    const initialPropsRef = useRef(element.props?.values ?? {})
 
     const apiId =
       element.atom?.current.api.id ||

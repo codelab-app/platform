@@ -1,11 +1,7 @@
 import { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AppService } from '@codelab/frontend/domain/app'
-import {
-  AtomService,
-  atomServiceContext,
-  atomServiceRef,
-} from '@codelab/frontend/domain/atom'
+import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
 import {
   ComponentService,
@@ -19,8 +15,8 @@ import {
   ElementService,
   elementServiceRef,
 } from '@codelab/frontend/domain/element'
-import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
-import { PropService, propServiceRef } from '@codelab/frontend/domain/prop'
+import { PageService } from '@codelab/frontend/domain/page'
+import { PropService } from '@codelab/frontend/domain/prop'
 import { RenderService } from '@codelab/frontend/domain/renderer'
 import {
   ResourceService,
