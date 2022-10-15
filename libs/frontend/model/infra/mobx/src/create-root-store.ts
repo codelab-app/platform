@@ -77,7 +77,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
   class RootStore extends Model({
     userService: prop(() => userService).withSetter(),
     // typeService: prop(() => typeService),
-    atomService: prop(() => new AtomService({})),
+    atomService: prop(() => atomService),
     tagService: prop(() => new TagService({})),
     // propService: prop(() => propService),
     adminService: prop(() => new AdminService({})),
@@ -100,7 +100,9 @@ export const createRootStore = ({ user }: RootStoreData) => {
     // storeService: prop(() => storeService),
     resourceService: prop(() => new ResourceService({})),
     elementService: prop(() => elementService),
-    builderService: prop(() => new BuilderService({ atomService })),
+    builderService: prop(
+      () => new BuilderService({ atomServiceRef: atomServiceRef(atomService) }),
+    ),
     domainService: prop(() => new DomainService({})),
   }) {
     protected onInit(): void {

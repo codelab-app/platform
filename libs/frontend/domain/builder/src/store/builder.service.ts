@@ -51,7 +51,7 @@ export class BuilderService
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
 
     // configPaneWidth: prop(0),
-    atomService: prop<IAtomService>(),
+    atomServiceRef: prop<Ref<IAtomService>>(),
   })
   implements IBuilderService
 {
@@ -74,7 +74,7 @@ export class BuilderService
    */
   get componentsGroupedByCategory() {
     // atoms are internal components while components are created by users
-    return chain([...this.atomService.atoms.values()])
+    return chain([...this.atomServiceRef.current.atoms.values()])
       .filter((component) => Boolean(component.tags))
       .groupBy(
         (component) =>
