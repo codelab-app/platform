@@ -189,7 +189,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [data.reactNodeType.id, data.reactNodeType],
         ]),
       }),
-      componentService: new ComponentService({}),
+      componentService: new ComponentService({
+        components: objectMap([
+          [data.componentToRender.id, data.componentToRender],
+        ]),
+      }),
       atomService: new AtomService({
         atoms: objectMap([
           [data.divAtom.id, data.divAtom],

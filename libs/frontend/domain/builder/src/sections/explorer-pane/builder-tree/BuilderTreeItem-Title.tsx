@@ -42,6 +42,8 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       const componentInstanceName =
         element.renderComponentType?.maybeCurrent?.name
 
+      const isComponentInstance = Boolean(element.renderComponentType)
+
       const componentMeta = componentInstanceName
         ? `(instance of ${componentInstanceName || 'a Component'})`
         : undefined

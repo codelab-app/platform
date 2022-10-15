@@ -4,7 +4,6 @@ import type {
   IPropDTO,
 } from '@codelab/frontend/abstract/core'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
-// eslint-disable-next-line lodash/import-scope
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import {

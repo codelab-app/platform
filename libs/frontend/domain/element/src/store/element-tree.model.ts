@@ -79,13 +79,13 @@ export class ElementTree
     return getElementService(this)
   }
 
+  element(id: string) {
+    return this._elements.get(id)?.maybeCurrent
+  }
+
   @computed
   get componentService() {
     return getComponentService(this)
-  }
-
-  element(id: string) {
-    return this._elements.get(id)?.maybeCurrent
   }
 
   /**
@@ -97,11 +97,14 @@ export class ElementTree
       // add reference to new/existing element
       this._elements.set(element.id, elementRef(element))
 
-      const componentId = element.renderComponentType?.id
-
       // validate component meta data
-      if (componentId && !this.componentService.components.has(componentId)) {
-        throw new Error('Missing component')
+      if (element.renderComponentType?.current) {
+        const componentId = element.renderComponentType.current.id
+        const component = this.componentService.components.get(componentId)
+
+        if (!component) {
+          throw new Error('Missing component')
+        }
       }
     })
 

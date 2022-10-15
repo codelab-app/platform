@@ -87,7 +87,7 @@ export const hydrate = ({
     atom: renderAtomType ? atomRef(renderAtomType.id) : null,
     preRenderActionId,
     postRenderActionId,
-    props: props ? Prop.hydrate({ ...props }) : null,
+    props: props ? Prop.hydrate(props) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,

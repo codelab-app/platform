@@ -440,6 +440,7 @@ export class TypeService
         field.key,
       ),
     )
+
     // Returns current edges, not deleted edges
     // const deletedField =
     //   res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
