@@ -49,5 +49,5 @@ export interface IBuilderService {
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
   setActiveBuilderTab(data: BuilderTab): void
 
-  atomService: IAtomService
+  atomServiceRef: Ref<IAtomService>
 }
