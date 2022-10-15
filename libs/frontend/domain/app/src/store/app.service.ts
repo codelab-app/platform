@@ -2,12 +2,12 @@ import {
   IApp,
   IAppDTO,
   IAppService,
-  IComponentDTO,
   IComponentService,
   ICreateAppDTO,
   IElementService,
   IPageBuilderAppProps,
   IPageService,
+  isComponentDTO,
   IStoreService,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
@@ -92,9 +92,9 @@ export class AppService
 
     const components = elements
       .map((v) => v.parentComponent || v.renderComponentType)
-      .filter((component): component is IComponentDTO => Boolean(component))
+      .filter(isComponentDTO)
 
-    const componentModels = components.map((component) =>
+    components.forEach((component) =>
       this.componentService.writeCache(component),
     )
 

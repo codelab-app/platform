@@ -1,3 +1,4 @@
+import { Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { INodeType } from '../../base'
 import { ICacheService } from '../../service'
@@ -17,3 +18,9 @@ export interface IComponent
 }
 
 export type IComponentRef = string
+
+export const isComponentDTO = (
+  component: Nullish<IComponentDTO>,
+): component is IComponentDTO => {
+  return component !== undefined && component !== null
+}
