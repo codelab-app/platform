@@ -1,12 +1,6 @@
 import { IComponent, IComponentService } from '@codelab/frontend/abstract/core'
 import { createContext, detach, rootRef } from 'mobx-keystone'
 
-/**
- * Moved here because of dependency issue.
- *
- * Component can depend on element, but not the other way around
- */
-
 export const componentRef = rootRef<IComponent>('@codelab/ComponentRef', {
   onResolvedValueChange(ref, newComponent, oldComponent) {
     if (oldComponent && !newComponent) {

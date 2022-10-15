@@ -2,6 +2,7 @@ import {
   ElementOptions,
   ElementUpdateInput,
   ElementWhere,
+  RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
@@ -130,4 +131,9 @@ export interface IElementService
    * Get all descendant elements
    */
   getDescendants(root: IElementRef): Promise<Array<IElement>>
+
+  loadComponentTree(component: RenderedComponentFragment): {
+    rootElement: IElement
+    hydratedElements: Array<IElement>
+  }
 }

@@ -1,8 +1,4 @@
 import { IElement, IElementTree } from '@codelab/frontend/abstract/core'
-import {
-  getComponentService,
-  getElementService,
-} from '@codelab/frontend/presenter/container'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -17,6 +13,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import { elementRef } from './element.ref'
+import { getElementService } from './element.service.context'
 
 /**
  * Helper method to initialize an element tree
@@ -83,11 +80,12 @@ export class ElementTree
     return this._elements.get(id)?.maybeCurrent
   }
 
+  /* 
   @computed
   get componentService() {
     return getComponentService(this)
   }
-
+ */
   /**
    * Refactored to move hydration out of this function, keep this function as only creating references for tree shape
    */
@@ -97,15 +95,15 @@ export class ElementTree
       // add reference to new/existing element
       this._elements.set(element.id, elementRef(element))
 
-      // validate component meta data
-      if (element.renderComponentType?.current) {
-        const componentId = element.renderComponentType.current.id
-        const component = this.componentService.components.get(componentId)
+      // TODO: find a way to access componentService
+      /* 
+      const componentId = element.renderComponentType?.id
 
-        if (!component) {
-          throw new Error('Missing component')
-        }
+      // validate component meta data
+      if (componentId && !this.componentService.components.get(componentId)) {
+        throw new Error('Missing component')
       }
+ */
     })
 
     return this

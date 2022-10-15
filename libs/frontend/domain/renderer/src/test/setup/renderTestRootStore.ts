@@ -7,11 +7,9 @@ import {
   IRootStore,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
-import { ComponentService } from '@codelab/frontend/domain/component'
-import { ElementService, ElementTree } from '@codelab/frontend/domain/element'
-import { TypeService, typeServiceContext } from '@codelab/frontend/domain/type'
-import { componentServiceContext } from '@codelab/frontend/presenter/container'
+import { atomServiceContext } from '@codelab/frontend/domain/atom'
+import { componentServiceContext } from '@codelab/frontend/domain/component'
+import { typeServiceContext } from '@codelab/frontend/domain/type'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
 export type IRenderTestRootStore = {

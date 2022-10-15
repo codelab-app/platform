@@ -1,6 +1,5 @@
 import {
   IAuth0Id,
-  IComponentDTO,
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
   IElement,
@@ -16,14 +15,14 @@ import {
   PropMapBinding,
   PropMapBindingModalService,
 } from '@codelab/frontend/domain/prop'
-import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   ElementCreateInput,
   ElementUpdateInput,
   ElementWhere,
+  RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { connectNode, reconnectNode } from '@codelab/shared/data'
+import { connectNode, connectOwner, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -113,22 +112,26 @@ export class ElementService
   }
 
   @modelAction
-  private writeComponentsCache(elements: Array<IElementDTO>) {
-    // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
-    const componentService = getComponentService(this)
+  loadComponentTree(component: RenderedComponentFragment) {
+    const elements = [
+      component.rootElement,
+      ...component.rootElement.descendantElements,
+    ]
 
-    const components = elements
-      .map((v) => v.parentComponent || v.renderComponentType)
-      .filter((component): component is IComponentDTO => Boolean(component))
+    const hydratedElements = elements.map((element) => this.writeCache(element))
+    const rootElement = this.element(component.rootElement.id)
 
-    components.map((component) => componentService.writeCache(component))
+    if (!rootElement) {
+      throw new Error('No root element found')
+    }
+
+    return { rootElement, hydratedElements }
   }
 
   @modelAction
   public writeCache = (element: IElementDTO): IElement => {
     console.debug('ElementService.writeCache', element)
     this.writeAtomsCache([element])
-    this.writeComponentsCache([element])
 
     let elementModel = this.elements.get(element.id)
 
@@ -736,21 +739,31 @@ element is new parentElement's first child
     const elementId = element.id
     const parentElement = element.parentElement
     const prevSibling = element.prevSibling
-    const componentService = getComponentService(this)
 
     // 1. detach the element from the element tree
     yield* _await(this.detachElementFromElementTree(elementId))
 
     // 2. create the component with predefined root element
-    const [createdComponent] = yield* _await(
-      componentService.create([
-        {
-          auth0Id,
-          id: v4(),
-          name,
-          rootElementId: elementId,
+    const {
+      updateElements: {
+        elements: [updatedElement],
+      },
+    } = yield* _await(
+      elementApi.UpdateElements({
+        where: { id: element.id },
+        update: {
+          parentComponent: {
+            create: {
+              node: {
+                owner: connectOwner(auth0Id),
+                id: v4(),
+                name,
+                rootElement: connectNode(elementId),
+              },
+            },
+          },
         },
-      ]),
+      }),
     )
 
     // 3. create a new element as an instance of the component
@@ -758,7 +771,7 @@ element is new parentElement's first child
       return yield* _await(
         this.createElementAsFirstChild({
           name,
-          renderComponentTypeId: createdComponent?.id,
+          renderComponentTypeId: updatedElement?.parentComponent?.id,
           parentElementId: parentElement.id,
         }),
       )
@@ -767,7 +780,7 @@ element is new parentElement's first child
     return yield* _await(
       this.createElementAsNextSibling({
         name,
-        renderComponentTypeId: createdComponent?.id,
+        renderComponentTypeId: updatedElement?.parentComponent?.id,
         parentElementId: parentElement.id,
         prevSiblingId: prevSibling.id,
       }),

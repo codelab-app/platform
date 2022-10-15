@@ -2,6 +2,8 @@ import {
   IApp,
   IAppDTO,
   IAppService,
+  IComponentDTO,
+  IComponentService,
   ICreateAppDTO,
   IElementService,
   IPageBuilderAppProps,
@@ -43,6 +45,7 @@ export class AppService
     deleteModal: prop(() => new AppModalService({})),
 
     _elementService: prop<Ref<IElementService>>(),
+    _componentService: prop<Ref<IComponentService>>(),
     pageService: prop<IPageService>(),
     storeService: prop<IStoreService>(),
   })
@@ -51,6 +54,11 @@ export class AppService
   @computed
   get elementService() {
     return this._elementService.current
+  }
+
+  @computed
+  get componentService() {
+    return this._componentService.current
   }
 
   /**
@@ -81,6 +89,14 @@ export class AppService
     }
 
     const elements = [page.rootElement, ...page.rootElement.descendantElements]
+
+    const components = elements
+      .map((v) => v.parentComponent || v.renderComponentType)
+      .filter((component): component is IComponentDTO => Boolean(component))
+
+    const componentModels = components.map((component) =>
+      this.componentService.writeCache(component),
+    )
 
     const pageElements = elements.map((element) =>
       this.elementService.writeCache(element),

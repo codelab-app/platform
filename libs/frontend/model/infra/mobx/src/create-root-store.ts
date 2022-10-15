@@ -1,14 +1,11 @@
 import { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AppService } from '@codelab/frontend/domain/app'
-import {
-  AtomService,
-  atomServiceContext,
-  atomServiceRef,
-} from '@codelab/frontend/domain/atom'
+import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
 import {
   ComponentService,
+  componentServiceContext,
   componentServiceRef,
 } from '@codelab/frontend/domain/component'
 import {
@@ -17,10 +14,11 @@ import {
 } from '@codelab/frontend/domain/domain'
 import {
   ElementService,
+  elementServiceContext,
   elementServiceRef,
 } from '@codelab/frontend/domain/element'
-import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
-import { PropService, propServiceRef } from '@codelab/frontend/domain/prop'
+import { PageService } from '@codelab/frontend/domain/page'
+import { PropService } from '@codelab/frontend/domain/prop'
 import { RenderService } from '@codelab/frontend/domain/renderer'
 import {
   ResourceService,
@@ -38,15 +36,12 @@ import {
   typeServiceRef,
 } from '@codelab/frontend/domain/type'
 import { User, UserService } from '@codelab/frontend/domain/user'
-import {
-  componentServiceContext,
-  elementServiceContext,
-} from '@codelab/frontend/presenter/container'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ user }: RootStoreData) => {
   const propService = new PropService({})
   const atomService = new AtomService({})
+  const componentService = new ComponentService({})
 
   const elementService = new ElementService({
     // _atomService: atomServiceRef(atomService),
@@ -65,6 +60,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
 
   const appService = new AppService({
     _elementService: elementServiceRef(elementService),
+    _componentService: componentServiceRef(componentService),
     pageService,
     storeService,
   })
@@ -74,8 +70,6 @@ export const createRootStore = ({ user }: RootStoreData) => {
     appService,
     typeService,
   })
-
-  const componentService = new ComponentService({})
 
   @model('@codelab/RootStore')
   class RootStore extends Model({

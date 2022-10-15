@@ -5,8 +5,9 @@ import {
   IElementTree,
   INode,
 } from '@codelab/frontend/abstract/core'
+import { componentRef } from '@codelab/frontend/domain/component'
 import { elementRef } from '@codelab/frontend/domain/element'
-import { componentRef, useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import { EventDataNode } from 'antd/lib/tree'

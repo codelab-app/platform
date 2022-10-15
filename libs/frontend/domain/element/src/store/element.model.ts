@@ -1,17 +1,18 @@
 import type {
   IAtom,
   IBuilderDataNode,
-  IComponent,
+  IComponentMeta,
   IElement,
   IElementDTO,
   IElementTree,
   IHook,
+  IInterfaceType,
   IProp,
   IPropData,
   IPropDataByElementId,
   IPropMapBinding,
   RenderingError,
-  renderingMetadata,
+  RenderingMetadata,
 } from '@codelab/frontend/abstract/core'
 import {
   CssMap,
@@ -20,11 +21,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
-import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
-import {
-  componentRef,
-  getElementService,
-} from '@codelab/frontend/presenter/container'
+import { typeRef } from '@codelab/frontend/domain/type'
 import { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
@@ -47,6 +44,7 @@ import {
 } from 'mobx-keystone'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
+import { getElementService } from './element.service.context'
 
 type TransformFn = (props: IPropData) => IPropData
 
@@ -76,7 +74,7 @@ export const hydrate = ({
   renderForEachPropKey,
 }: Omit<IElementDTO, '__typename'>) => {
   const apiRef = renderAtomType
-    ? (typeRef(renderAtomType.api.id) as Ref<InterfaceType>)
+    ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
     : undefined
 
   return new Element({
@@ -97,10 +95,8 @@ export const hydrate = ({
     renderIfPropKey,
     renderForEachPropKey,
     renderingMetadata: null,
-    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
-    renderComponentType: renderComponentType
-      ? componentRef(renderComponentType.id)
-      : null,
+    parentComponent: parentComponent ? parentComponent : null,
+    renderComponentType: renderComponentType ? renderComponentType : null,
     propMapBindings: objectMap(
       propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)]),
     ),
@@ -144,14 +140,14 @@ export class Element
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
-    renderingMetadata: prop<Nullable<renderingMetadata>>(null),
+    renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
-    parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    parentComponent: prop<Nullable<IComponentMeta>>(null).withSetter(),
 
     // Marks the element as an instance of a specific component
-    renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    renderComponentType: prop<Nullable<IComponentMeta>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
   })
   implements IElement
@@ -339,8 +335,8 @@ export class Element
       (this.atom?.current
         ? pascalCaseToWords(this.atom.current.type)
         : undefined) ||
-      this.parentComponent?.current.name ||
-      this.renderComponentType?.current.name ||
+      this.parentComponent?.name ||
+      this.renderComponentType?.name ||
       ''
     )
   }
@@ -380,7 +376,7 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-      children: !this.renderComponentType?.current
+      children: !this.renderComponentType
         ? this.children.map((child) => child.antdNode)
         : [],
       rootKey: getElementTree(this)?._root?.id ?? null,

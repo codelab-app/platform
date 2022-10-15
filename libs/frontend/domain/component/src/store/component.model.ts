@@ -5,16 +5,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
-import { getElementService } from '@codelab/frontend/presenter/container'
-import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
-import {
-  ExtendedModel,
-  idProp,
-  model,
-  modelAction,
-  prop,
-  Ref,
-} from 'mobx-keystone'
+import { ExtendedModel, idProp, model, prop, Ref } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
   return new Component({
@@ -49,31 +40,5 @@ export class Component
     this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
 
     return this
-  }
-
-  get elementService() {
-    return getElementService(this)
-  }
-
-  @modelAction
-  loadComponentTree(renderedComponentFragment: RenderedComponentFragment) {
-    const elements = [
-      renderedComponentFragment.rootElement,
-      ...renderedComponentFragment.rootElement.descendantElements,
-    ]
-
-    const hydratedElements = elements.map((element) =>
-      this.elementService.writeCache(element),
-    )
-
-    const rootElement = this.elementService.element(
-      renderedComponentFragment.rootElement.id,
-    )
-
-    if (!rootElement) {
-      throw new Error('No root element found')
-    }
-
-    this.initTree(rootElement, hydratedElements)
   }
 }
