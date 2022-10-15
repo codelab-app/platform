@@ -3,7 +3,6 @@ import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/domain/element'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
-// eslint-disable-next-line lodash/import-scope
 import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext, useEffect } from 'react'

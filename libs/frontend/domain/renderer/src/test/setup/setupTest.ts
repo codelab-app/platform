@@ -13,7 +13,6 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   Element,
   ElementService,
-  elementServiceContext,
   ElementTree,
 } from '@codelab/frontend/domain/element'
 import { Prop } from '@codelab/frontend/domain/prop'
@@ -26,6 +25,10 @@ import {
   typeRef,
   TypeService,
 } from '@codelab/frontend/domain/type'
+import {
+  componentRef,
+  elementServiceContext,
+} from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
@@ -124,7 +127,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       customCss: '',
       guiCss: '',
       atom: atomRef(data.textAtom.id),
-      parentComponent: data.componentToRender,
+      parentComponent: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
         data: frozen({
@@ -137,7 +140,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentInstanceElementToRender = new Element({
       id: v4(),
       name: '01',
-      renderComponentType: data.componentToRender,
+      renderComponentType: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
         data: frozen({
@@ -178,12 +181,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     }`,
     })
 
-    const componentService = new ComponentService({
-      components: objectMap([
-        [data.componentToRender.id, data.componentToRender],
-      ]),
-    })
-
     data.rootStore = new RenderTestRootStore({
       typeService: new TypeService({
         types: objectMap([
@@ -192,7 +189,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [data.reactNodeType.id, data.reactNodeType],
         ]),
       }),
-      componentService: componentService,
+      componentService: new ComponentService({}),
       atomService: new AtomService({
         atoms: objectMap([
           [data.divAtom.id, data.divAtom],

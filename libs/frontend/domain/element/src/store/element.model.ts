@@ -6,7 +6,6 @@ import type {
   IElementDTO,
   IElementTree,
   IHook,
-  IInterfaceType,
   IProp,
   IPropData,
   IPropDataByElementId,
@@ -21,7 +20,6 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
-import { typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
   getElementService,
@@ -76,10 +74,6 @@ export const hydrate = ({
   renderIfPropKey,
   renderForEachPropKey,
 }: Omit<IElementDTO, '__typename'>) => {
-  const apiRef = renderAtomType
-    ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
-    : undefined
-
   return new Element({
     id,
     name,
@@ -93,14 +87,12 @@ export const hydrate = ({
     atom: renderAtomType ? atomRef(renderAtomType.id) : null,
     preRenderActionId,
     postRenderActionId,
-    props: props ? Prop.hydrate({ ...props, apiRef }) : null,
+    props: props ? Prop.hydrate({ ...props }) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
     renderingMetadata: null,
-    parentComponent: parentComponent?.id
-      ? componentRef(parentComponent.id)
-      : null,
+    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     renderComponentType: renderComponentType
       ? componentRef(renderComponentType.id)
       : null,
@@ -383,7 +375,7 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-      children: !this.renderComponentType
+      children: !this.renderComponentType?.current
         ? this.children.map((child) => child.antdNode)
         : [],
       rootKey: getElementTree(this)?._root?.id ?? null,
@@ -774,10 +766,10 @@ export class Element
       }
     }
 
-    this.parentComponent = parentComponent?.id
+    this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)
       : null
-    this.renderComponentType = renderComponentType?.id
+    this.renderComponentType = renderComponentType
       ? componentRef(renderComponentType.id)
       : null
 

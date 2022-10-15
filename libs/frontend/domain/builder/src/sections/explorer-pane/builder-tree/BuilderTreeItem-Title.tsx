@@ -38,8 +38,9 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
     if (node?.__nodeType === ELEMENT_NODE_TYPE) {
       const element = node
       const atomName = element.atomName
-      const componentInstanceName = element.renderComponentType?.current.name
-      const isComponentInstance = Boolean(element.renderComponentType)
+
+      const componentInstanceName =
+        element.renderComponentType?.maybeCurrent?.name
 
       const componentMeta = componentInstanceName
         ? `(instance of ${componentInstanceName || 'a Component'})`

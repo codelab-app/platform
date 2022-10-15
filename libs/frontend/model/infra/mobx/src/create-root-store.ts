@@ -43,7 +43,6 @@ import { Model, model, prop } from 'mobx-keystone'
 export const createRootStore = ({ user }: RootStoreData) => {
   const propService = new PropService({})
   const atomService = new AtomService({})
-  const componentService = new ComponentService({})
 
   const elementService = new ElementService({
     // _atomService: atomServiceRef(atomService),
@@ -71,6 +70,8 @@ export const createRootStore = ({ user }: RootStoreData) => {
     appService,
     typeService,
   })
+
+  const componentService = new ComponentService({})
 
   @model('@codelab/RootStore')
   class RootStore extends Model({

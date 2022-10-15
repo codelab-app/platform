@@ -885,4 +885,35 @@ element is new parentElement's first child
 
     return propMapBinding
   })
+
+  /**
+   * If we change interface, the prop data should also be changed
+   */
+  @modelFlow
+  @transaction
+  removeDeletedPropDataFromElements = _async(function* (
+    this: ElementService,
+    interfaceType: IInterfaceType,
+    propKey: string,
+  ) {
+    const elementsThatUseTheProp = yield* _await(
+      this.getAll({ renderAtomType: { api: { id: interfaceType.id } } }),
+    )
+
+    const promises = elementsThatUseTheProp.map((element) => {
+      const updatedProps = omit(element.props?.data, propKey)
+
+      return this.patchElement(element, {
+        props: {
+          update: {
+            node: {
+              data: JSON.stringify(updatedProps),
+            },
+          },
+        },
+      })
+    })
+
+    yield* _await(Promise.all(promises))
+  })
 }

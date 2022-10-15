@@ -8,8 +8,8 @@ import {
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { atomServiceContext } from '@codelab/frontend/domain/atom'
-import { componentServiceContext } from '@codelab/frontend/domain/component'
 import { typeServiceContext } from '@codelab/frontend/domain/type'
+import { componentServiceContext } from '@codelab/frontend/presenter/container'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
 export type IRenderTestRootStore = {
