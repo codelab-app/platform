@@ -19,7 +19,7 @@ export type CreateUserMutation = {
 
 export const GetUsersDocument = gql`
   query GetUsers {
-    users: users {
+    users {
       ...User
     }
   }

@@ -27,10 +27,7 @@ export interface CreateResourceProperties {
   type?: IResourceType
 }
 export interface IResourceService
-  extends Pick<
-      ICRUDService<IResource, ICreateResourceDTO, IUpdateResourceDTO>,
-      'create' | 'update'
-    >,
+  extends ICRUDService<IResource, ICreateResourceDTO, IUpdateResourceDTO>,
     IQueryService<IResource, ResourceWhere, ResourceOptions>,
     ICacheService<IResourceDTO, IResource>,
     Omit<
@@ -40,5 +37,4 @@ export interface IResourceService
   createModal: IEntityModalService<CreateResourceData, { type?: IResourceType }>
   resource(resource: IResourceRef): Maybe<IResource>
   resourceList: Array<IResource>
-  deleteResource(id: string): Promise<{ nodesDeleted: number }>
 }

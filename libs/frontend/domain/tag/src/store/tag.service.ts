@@ -8,7 +8,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { TagWhere } from '@codelab/shared/abstract/codegen'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
@@ -92,11 +92,6 @@ export class TagService
       }),
     )
 
-    if (!tags.length) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Tag was not created')
-    }
-
     const otherTagIdsToUpdate = [
       ...tags
         .map((tag) => tag.parent?.id)
@@ -107,18 +102,9 @@ export class TagService
       this.getAll({ id_IN: otherTagIdsToUpdate }),
     )
 
-    const tagModels = [...tags, ...tagsToUpdate].map((tag) => {
-      let tagModel = this.tags.get(tag.id)
-
-      if (!tagModel) {
-        tagModel = Tag.hydrate(tag)
-        this.tags.set(tagModel.id, tagModel)
-      } else {
-        tagModel = tagModel.writeCache(tag)
-      }
-
-      return tagModel
-    })
+    const tagModels = [...tags, ...tagsToUpdate].map((tag) =>
+      this.writeCache(tag),
+    )
 
     this.treeService.addRoots(tagModels)
 
@@ -129,34 +115,24 @@ export class TagService
   @transaction
   update = _async(function* (
     this: TagService,
-    tag: ITag,
+    entity: IEntity,
     input: IUpdateTagDTO,
   ) {
     const {
       updateTags: { tags },
     } = yield* _await(
       tagApi.UpdateTags({
-        where: { id: tag.id },
+        where: { id: entity.id },
         update: { ...input },
       }),
     )
 
-    const updatedTag = tags[0]
-
-    if (!updatedTag) {
-      throw new Error('Failed to update tag')
-    }
-
-    const tagModel = Tag.hydrate(updatedTag)
-
-    this.tags.set(tag.id, tagModel)
-
-    return tagModel
+    return tags.map((tag) => this.writeCache(tag))
   })
 
   @modelFlow
   @transaction
-  deleteMany = _async(function* (this: TagService, ids: Array<string>) {
+  delete = _async(function* (this: TagService, ids: Array<string>) {
     const descendantsIds: Array<string> = []
     const tags = yield* _await(this.getAll({ id_IN: ids }))
 
@@ -171,16 +147,13 @@ export class TagService
       })
     }
 
-    const { deleteTags } = yield* _await(
+    const {
+      deleteTags: { nodesDeleted },
+    } = yield* _await(
       tagApi.DeleteTags({ where: { id_IN: [...ids, ...descendantsIds] } }),
     )
 
-    if (deleteTags.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('App was not deleted')
-    }
-
-    return []
+    return nodesDeleted
   })
 
   @modelFlow
@@ -189,7 +162,7 @@ export class TagService
     const checkedTags = this.checkedTags.map((checkedTag) => checkedTag.current)
 
     checkedTags.length &&
-      (yield* _await(this.deleteMany(checkedTags.map((tag) => tag.id))))
+      (yield* _await(this.delete(checkedTags.map((tag) => tag.id))))
   })
 
   @computed

@@ -171,7 +171,7 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    component: IEntity,
+    existingComponent: IEntity,
     { name }: IUpdateComponentDTO,
   ) {
     const {
@@ -179,49 +179,30 @@ export class ComponentService
     } = yield* _await(
       componentApi.UpdateComponents({
         update: { name },
-        where: { id: component.id },
+        where: { id: existingComponent.id },
       }),
     )
 
-    if (!components[0]) {
-      throw new Error('Failed to update component')
-    }
-
-    const componentModel = this.components.get(component.id)
-
-    if (!componentModel) {
-      throw new Error('Updated component not found ')
-    }
-
-    componentModel.writeCache(components[0])
-
-    return componentModel
+    return components.map((component) => this.writeCache(component))
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ComponentService, id: string) {
-    const existing = throwIfUndefined(this.components.get(id))
+  delete = _async(function* (this: ComponentService, ids: Array<string>) {
+    ids.forEach((id) => this.components.delete(id))
 
-    if (this.components.has(id)) {
-      this.components.delete(id)
-    }
-
-    const { deleteComponents } = yield* _await(
+    const {
+      deleteComponents: { nodesDeleted },
+    } = yield* _await(
       componentApi.DeleteComponents({
-        where: { id },
+        where: { id_IN: ids },
         delete: {
           api: {},
         },
       }),
     )
 
-    if (deleteComponents.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('Component was not deleted')
-    }
-
-    return existing
+    return nodesDeleted
   })
 
   @modelAction

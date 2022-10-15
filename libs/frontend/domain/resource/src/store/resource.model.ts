@@ -9,7 +9,15 @@ import { IResourceType } from '@codelab/shared/abstract/core'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import { computed } from 'mobx'
-import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
+import {
+  detach,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+  rootRef,
+} from 'mobx-keystone'
 
 const hydrate = (resource: IResourceDTO) =>
   new Resource({
@@ -48,6 +56,16 @@ export class Resource
   }
 
   static hydrate = hydrate
+
+  @modelAction
+  writeCache(data: IResourceDTO) {
+    this.name = data.name
+    this.config.writeCache(data.config)
+    this.type = data.type
+    this.id = data.id
+
+    return this
+  }
 }
 
 export const resourceRef = rootRef<IResource>('@codelab/ResourceRef', {

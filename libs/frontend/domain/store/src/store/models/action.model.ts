@@ -20,13 +20,13 @@ const createActionFactory = (action: IActionDTO) => {
   }
 }
 
+// used for linting
 const writeActionCacheFactory = (
   action: IActionDTO,
   actionModel: ICodeAction | IApiAction,
 ) => {
   if (
     action.__typename === IActionKind.CodeAction &&
-    // used for linting
     actionModel.type === IActionKind.CodeAction
   ) {
     return actionModel.writeCache(action)

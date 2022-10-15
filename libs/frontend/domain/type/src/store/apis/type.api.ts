@@ -38,9 +38,7 @@ const _createApi = getCreateSdk(client)
 
 type CreateTypesRecord = Record<
   ITypeKind,
-  (
-    input: ICreateTypeInput | Array<ICreateTypeInput>,
-  ) => Promise<Array<ITypeDTO>>
+  (input: Array<ICreateTypeInput>) => Promise<Array<ITypeDTO>>
 >
 
 export const createTypeApi: CreateTypesRecord = {

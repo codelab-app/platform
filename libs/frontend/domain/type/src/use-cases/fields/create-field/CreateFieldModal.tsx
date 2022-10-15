@@ -84,14 +84,16 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
               throw new Error('Missing interface type id')
             }
 
-            return typeService.fieldService.upsert({
-              ...input,
-              interfaceTypeId,
-              validationRules: filterValidationRules(
-                input.validationRules,
-                typeService.primitiveKind(input.fieldType),
-              ),
-            })
+            return typeService.fieldService.create([
+              {
+                ...input,
+                interfaceTypeId,
+                validationRules: filterValidationRules(
+                  input.validationRules,
+                  typeService.primitiveKind(input.fieldType),
+                ),
+              },
+            ])
           }}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',

@@ -5,58 +5,67 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { DomainFragmentDoc } from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
-export type GetDomainQueryVariables = Types.Exact<{
+export type GetDomainsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.DomainOptions>
   where?: Types.InputMaybe<Types.DomainWhere>
 }>
 
-export type GetDomainQuery = { domains: Array<DomainFragment> }
+export type GetDomainsQuery = { domains: Array<DomainFragment> }
 
-export type CreateDomainMutationVariables = Types.Exact<{
-  input: Types.CreateDomainMutationInput
+export type CreateDomainsMutationVariables = Types.Exact<{
+  input: Array<Types.DomainCreateInput> | Types.DomainCreateInput
 }>
 
-export type CreateDomainMutation = { createDomain: DomainFragment }
+export type CreateDomainsMutation = {
+  createDomains: { domains: Array<DomainFragment> }
+}
 
-export type UpdateDomainMutationVariables = Types.Exact<{
-  input: Types.UpdateDomainMutationInput
+export type UpdateDomainsMutationVariables = Types.Exact<{
+  where: Types.DomainWhere
+  update: Types.DomainUpdateInput
 }>
 
-export type UpdateDomainMutation = { updateDomain: DomainFragment }
+export type UpdateDomainsMutation = {
+  updateDomains: { domains: Array<DomainFragment> }
+}
 
-export type DeleteDomainMutationVariables = Types.Exact<{
-  id: Types.Scalars['String']
+export type DeleteDomainsMutationVariables = Types.Exact<{
+  where: Types.DomainWhere
 }>
 
-export type DeleteDomainMutation = { deleteDomain: { nodesDeleted: number } }
+export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
 
-export const GetDomainDocument = gql`
-  query GetDomain($options: DomainOptions, $where: DomainWhere) {
+export const GetDomainsDocument = gql`
+  query GetDomains($options: DomainOptions, $where: DomainWhere) {
     domains(options: $options, where: $where) {
       ...Domain
     }
   }
   ${DomainFragmentDoc}
 `
-export const CreateDomainDocument = gql`
-  mutation CreateDomain($input: CreateDomainMutationInput!) {
-    createDomain(input: $input) {
-      ...Domain
+export const CreateDomainsDocument = gql`
+  mutation CreateDomains($input: [DomainCreateInput!]!) {
+    createDomains(input: $input) {
+      domains {
+        ...Domain
+      }
     }
   }
   ${DomainFragmentDoc}
 `
-export const UpdateDomainDocument = gql`
-  mutation UpdateDomain($input: UpdateDomainMutationInput!) {
-    updateDomain(input: $input) {
-      ...Domain
+export const UpdateDomainsDocument = gql`
+  mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
+    updateDomains(where: $where, update: $update) {
+      domains {
+        ...Domain
+      }
     }
   }
   ${DomainFragmentDoc}
 `
-export const DeleteDomainDocument = gql`
-  mutation DeleteDomain($id: String!) {
-    deleteDomain(id: $id) {
+export const DeleteDomainsDocument = gql`
+  mutation DeleteDomains($where: DomainWhere!) {
+    deleteDomains(where: $where) {
       nodesDeleted
     }
   }
@@ -79,62 +88,62 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    GetDomain(
-      variables?: GetDomainQueryVariables,
+    GetDomains(
+      variables?: GetDomainsQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetDomainQuery> {
+    ): Promise<GetDomainsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetDomainQuery>(GetDomainDocument, variables, {
+          client.request<GetDomainsQuery>(GetDomainsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'GetDomain',
+        'GetDomains',
         'query',
       )
     },
-    CreateDomain(
-      variables: CreateDomainMutationVariables,
+    CreateDomains(
+      variables: CreateDomainsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<CreateDomainMutation> {
+    ): Promise<CreateDomainsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateDomainMutation>(
-            CreateDomainDocument,
+          client.request<CreateDomainsMutation>(
+            CreateDomainsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'CreateDomain',
+        'CreateDomains',
         'mutation',
       )
     },
-    UpdateDomain(
-      variables: UpdateDomainMutationVariables,
+    UpdateDomains(
+      variables: UpdateDomainsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<UpdateDomainMutation> {
+    ): Promise<UpdateDomainsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateDomainMutation>(
-            UpdateDomainDocument,
+          client.request<UpdateDomainsMutation>(
+            UpdateDomainsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'UpdateDomain',
+        'UpdateDomains',
         'mutation',
       )
     },
-    DeleteDomain(
-      variables: DeleteDomainMutationVariables,
+    DeleteDomains(
+      variables: DeleteDomainsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteDomainMutation> {
+    ): Promise<DeleteDomainsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteDomainMutation>(
-            DeleteDomainDocument,
+          client.request<DeleteDomainsMutation>(
+            DeleteDomainsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'DeleteDomain',
+        'DeleteDomains',
         'mutation',
       )
     },

@@ -48,9 +48,7 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
               )
             }
 
-            const r = await typeService.delete(typeToDelete.id)
-
-            return r
+            return typeService.delete([typeToDelete.id])
           }}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting type',

@@ -66,7 +66,7 @@ const TargetKeyFieldInternal = observer<TargetKeyFieldProps>(
             }
 
             setOptions(
-              r.types[0]?.fieldsConnection.edges.map((e) => ({
+              r.types[0]?.fields.map((e) => ({
                 label: e.key,
                 value: e.key,
               })) ?? [],

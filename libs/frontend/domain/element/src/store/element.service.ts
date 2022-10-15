@@ -153,6 +153,7 @@ export class ElementService
   @modelAction
   public writeCache = (element: IElementDTO): IElement => {
     console.debug('ElementService.writeCache', element)
+
     this.writeAtomsCache([element])
     this.writeComponentsCache([element])
 
@@ -182,10 +183,6 @@ export class ElementService
     const {
       createElements: { elements },
     } = yield* _await(elementApi.CreateElements({ input }))
-
-    if (!elements.length) {
-      throw new Error('No elements created')
-    }
 
     return elements.map((element) => this.writeCache(element))
   })
@@ -223,27 +220,21 @@ export class ElementService
   @transaction
   update = _async(function* (
     this: ElementService,
-    element: IEntity,
+    entity: IEntity,
     input: IUpdateElementDTO,
   ) {
     const update = makeUpdateInput(input)
 
     const {
-      updateElements: {
-        elements: [updatedElement],
-      },
+      updateElements: { elements },
     } = yield* _await(
       elementApi.UpdateElements({
-        where: { id: element.id },
+        where: { id: entity.id },
         update,
       }),
     )
 
-    if (!updatedElement) {
-      throw new Error('No elements updated')
-    }
-
-    return this.writeCache(updatedElement)
+    return elements.map((element) => this.writeCache(element))
   })
 
   @modelFlow
@@ -257,7 +248,13 @@ export class ElementService
       propTransformationJs: newPropTransformJs,
     }
 
-    return yield* _await(this.update(element, input))
+    const updatedElement = yield* _await(this.update(element, input))
+
+    if (!updatedElement[0]) {
+      throw new Error('Update element prop failed')
+    }
+
+    return updatedElement[0]
   })
 
   /**
@@ -267,38 +264,26 @@ export class ElementService
   @transaction
   patchElement = _async(function* (
     this: ElementService,
-    element: Pick<IElement, 'id'>,
+    entity: IEntity,
     input: ElementUpdateInput,
   ) {
     const {
-      updateElements: {
-        elements: [updatedElement],
-      },
+      updateElements: { elements },
     } = yield* _await(
       elementApi.UpdateElements({
-        where: { id: element.id },
+        where: { id: entity.id },
         update: input,
       }),
     )
 
-    if (!updatedElement) {
-      throw new Error('No elements updated')
-    }
-
-    const elementFromCache = this.element(element.id)
-
-    if (!elementFromCache) {
-      throw new Error('Element not found')
-    }
-
-    return elementFromCache.writeCache(updatedElement)
+    return elements.map((element) => this.writeCache(element))[0]!
   })
 
   @modelFlow
   @transaction
   detachElementFromElementTree = _async(function* (
     this: ElementService,
-    elemenId: string,
+    elementId: string,
   ) {
     /**
 Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
@@ -308,10 +293,10 @@ Detaches element from an element tree. Will perform 3 conditional checks to see 
 - Detach from prev sibling
 - Connect prev to next
      */
-    const element = this.element(elemenId)
+    const element = this.element(elementId)
 
     if (!element) {
-      console.warn(`Can't find element id ${elemenId}`)
+      console.warn(`Can't find element id ${elementId}`)
 
       return
     }

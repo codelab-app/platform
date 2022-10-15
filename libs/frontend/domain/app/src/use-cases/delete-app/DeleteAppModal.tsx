@@ -20,7 +20,7 @@ export const DeleteAppModal = observer<{ appService: IAppService }>(
         return Promise.reject('App not defined in DeleteAppModal')
       }
 
-      return appService.delete(app.id)
+      return appService.delete([app.id])
     }
 
     return (

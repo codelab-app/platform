@@ -4,8 +4,13 @@ import {
   IDomainService,
   IUpdateDomainDTO,
 } from '@codelab/frontend/abstract/core'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { DomainWhere } from '@codelab/shared/abstract/codegen'
+import { ModalService } from '@codelab/frontend/shared/utils'
+import {
+  DomainCreateInput,
+  DomainWhere,
+} from '@codelab/shared/abstract/codegen'
+import { IEntity } from '@codelab/shared/abstract/types'
+import { connectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -18,6 +23,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { domainApis } from './domain.api'
 import { Domain } from './domain.model'
 import { DomainModalService } from './domain-modal.service'
@@ -39,7 +45,7 @@ export class DomainService
     where?: DomainWhere,
     clearDomain?: boolean,
   ) {
-    const { domains } = yield* _await(domainApis.GetDomain({ where }))
+    const { domains } = yield* _await(domainApis.GetDomains({ where }))
 
     if (clearDomain) {
       this.domains.clear()
@@ -54,61 +60,75 @@ export class DomainService
     })
   })
 
-  @computed
-  get domainsList() {
-    return [...this.domains.values()]
-  }
-
   @modelAction
   writeCache = (domain: IDomainDTO) => {
     let domainModel = this.domains.get(domain.id)
 
-    if (!domainModel) {
-      domainModel = Domain.hydrate(domain)
-    }
+    domainModel = domainModel
+      ? domainModel.writeCache(domain)
+      : Domain.hydrate(domain)
 
     this.domains.set(domain.id, domainModel)
 
     return domainModel
   }
 
+  @computed
+  get domainsList() {
+    return [...this.domains.values()]
+  }
+
   @modelFlow
   @transaction
-  create = _async(function* (this: DomainService, data: ICreateDomainDTO) {
-    const { appId, name } = data
+  create = _async(function* (
+    this: DomainService,
+    data: Array<ICreateDomainDTO>,
+  ) {
+    const input: Array<DomainCreateInput> = data.map((domain) => ({
+      id: domain.id ?? v4(),
+      app: connectNode(domain.appId),
+      name: domain.name,
+    }))
 
-    const input = {
-      appId,
-      name,
-    }
+    const {
+      createDomains: { domains },
+    } = yield* _await(domainApis.CreateDomains({ input }))
 
-    const { createDomain } = yield* _await(domainApis.CreateDomain({ input }))
-    const domainModel = Domain.hydrate(createDomain)
-    this.domains.set(domainModel.id, domainModel)
+    return domains.map((domain) => this.writeCache(domain))
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: DomainService, id: string) {
-    const { deleteDomain } = yield* _await(domainApis.DeleteDomain({ id }))
-    const domain = throwIfUndefined(this.domains.get(id))
+  delete = _async(function* (this: DomainService, ids: Array<string>) {
+    ids.forEach((id) => this.domains.delete(id))
 
-    if (deleteDomain.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('Domain was not deleted')
-    }
+    const {
+      deleteDomains: { nodesDeleted },
+    } = yield* _await(domainApis.DeleteDomains({ where: { id_IN: ids } }))
 
-    this.domains.delete(id)
-
-    return domain
+    return nodesDeleted
   })
 
   @modelFlow
   @transaction
-  update = _async(function* (this: DomainService, input: IUpdateDomainDTO) {
-    const { updateDomain } = yield* _await(domainApis.UpdateDomain({ input }))
-    const domainModel = Domain.hydrate(updateDomain)
+  update = _async(function* (
+    this: DomainService,
+    entity: IEntity,
+    input: IUpdateDomainDTO,
+  ) {
+    const {
+      updateDomains: { domains },
+    } = yield* _await(
+      domainApis.UpdateDomains({
+        where: {
+          id: entity.id,
+        },
+        update: {
+          name: input.name,
+        },
+      }),
+    )
 
-    this.domains.set(updateDomain.id, domainModel)
+    return domains.map((domain) => this.writeCache(domain))
   })
 }

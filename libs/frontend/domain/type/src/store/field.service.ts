@@ -2,14 +2,17 @@ import type {
   ICreateFieldDTO,
   IField,
   IFieldDTO,
-  IFieldRef,
-  IInterfaceTypeRef,
 } from '@codelab/frontend/abstract/core'
 import { IFieldService } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import {
+  FieldCreateInput,
+  FieldUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { connectNode } from '@codelab/shared/data'
 import mapKeys from 'lodash/mapKeys'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
@@ -59,66 +62,90 @@ export class FieldService
   //
   @modelFlow
   @transaction
-  upsert = _async(function* (this: FieldService, data: ICreateFieldDTO) {
+  create = _async(function* (this: FieldService, data: Array<ICreateFieldDTO>) {
+    const input: Array<FieldCreateInput> = data.map((field) => ({
+      description: field.description,
+      id: field.id,
+      key: field.key,
+      name: field.name,
+      validationRules: JSON.stringify(field.validationRules),
+      fieldType: connectNode(field.fieldType),
+      api: connectNode(field.interfaceTypeId),
+    }))
+
     const {
-      interfaceTypeId,
-      fieldType,
-      description,
-      id,
-      key,
-      name,
-      validationRules,
-    } = data
+      createFields: { fields },
+    } = yield* _await(fieldApi.CreateFields({ input }))
 
-    const input = {
-      interfaceTypeId,
-      fieldTypeId: fieldType,
-      field: {
-        description: description,
-        id,
-        key,
-        name,
-        validationRules: JSON.stringify(validationRules),
-      },
-    }
+    // const interfaceType = yield* _await(
+    //   this.updateDefaults(interfaceTypeId, key, null),
+    // )
 
-    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
-
-    const interfaceType = yield* _await(
-      this.updateDefaults(interfaceTypeId, key, null),
-    )
-
-    return this.writeCache(upsertField)
+    return fields.map((field) => this.writeCache(field))
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (
+  update = _async(function* (
     this: FieldService,
-    interfaceId: IInterfaceTypeRef,
-    fieldId: IFieldRef,
+    existing: IField,
+    data: ICreateFieldDTO,
   ) {
-    const interfaceType = throwIfUndefined(this.typeService.type(interfaceId))
-
-    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
-
-    const field = interfaceType.field(fieldId)
-
-    if (!field) {
-      return
+    const input: FieldUpdateInput = {
+      // interfaceTypeId: field.interfaceTypeId,
+      // fieldTypeId: field.fieldType,
+      // field: {
+      description: data.description,
+      id: data.id,
+      key: data.key,
+      name: data.name,
+      validationRules: JSON.stringify(data.validationRules),
     }
 
-    const input = { where: { id: fieldId }, interfaceId }
-    const res = yield* _await(fieldApi.DeleteField(input))
-
-    yield* _await(this.updateDefaults(interfaceId, null, field.key))
-
-    yield* _await(
-      this.elementService.removeDeletedPropDataFromElements(
-        interfaceType,
-        field.key,
-      ),
+    const {
+      updateFields: { fields },
+    } = yield* _await(
+      fieldApi.UpdateFields({
+        where: {
+          id: existing.id,
+        },
+        update: input,
+      }),
     )
+
+    // const interfaceType = yield* _await(
+    //   this.updateDefaults(interfaceTypeId, key, null),
+    // )
+
+    return fields.map((field) => this.writeCache(field))
+  })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: FieldService, ids: Array<string>) {
+    // const input = { where: { id: fieldId }, interfaceId }
+    ids.forEach((id) => this.fields.delete(id))
+
+    const {
+      deleteFields: { nodesDeleted },
+    } = yield* _await(
+      fieldApi.DeleteFields({
+        where: {
+          id_IN: ids,
+        },
+      }),
+    )
+
+    return nodesDeleted
+
+    // yield* _await(this.updateDefaults(interfaceId, null, field.key))
+
+    // yield* _await(
+    //   this.elementService.removeDeletedPropDataFromElements(
+    //     interfaceType,
+    //     field.key,
+    //   ),
+    // )
 
     // Returns current edges, not deleted edges
     // const deletedField =
@@ -128,9 +155,7 @@ export class FieldService
     //   throw new Error(`Failed to delete field with id ${fieldId}`)
     // }
 
-    interfaceType.deleteFieldLocal(field)
-
-    return field
+    // interfaceType.deleteFieldLocal(field)
   })
 
   @modelAction

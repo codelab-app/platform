@@ -8,7 +8,7 @@ import { AutoFields } from 'uniforms-antd'
 export const DeleteAtomsModal = observer<{ atomService: IAtomService }>(
   ({ atomService }) => {
     const atoms = atomService.deleteManyModal.atoms ?? []
-    const onSubmit = () => atomService.deleteMany(atoms.map((atom) => atom.id))
+    const onSubmit = () => atomService.delete(atoms.map((atom) => atom.id))
     const closeModal = () => atomService.deleteManyModal.close()
 
     return (

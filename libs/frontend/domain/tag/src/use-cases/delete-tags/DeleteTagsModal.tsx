@@ -10,10 +10,7 @@ import { DeleteTagsData, deleteTagsSchema } from './deleteTagsSchema'
 export const DeleteTagsModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {
     const tags = tagService.deleteManyModal.tags
-
-    const onSubmit = () =>
-      tagService.deleteMany(tags?.map((tag) => tag.id) ?? [])
-
+    const onSubmit = () => tagService.delete(tags?.map((tag) => tag.id) ?? [])
     const closeModal = () => tagService.deleteManyModal.close()
 
     return (

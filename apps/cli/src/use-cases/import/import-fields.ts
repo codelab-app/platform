@@ -10,16 +10,18 @@ export const importFields = async (createFieldsDTO: Array<ICreateFieldDTO>) => {
   for await (const field of createFieldsDTO) {
     // logger.info('Upsert Field', { field })
 
-    await fieldRepository.upsertField({
-      interfaceTypeId: field.interfaceTypeId,
-      fieldTypeId: field.fieldType,
-      field: {
+    await fieldRepository.upsertField(
+      {
         id: field.id,
         name: field.name,
         key: field.key,
         description: field.description,
       },
-    })
+      {
+        interfaceTypeId: field.interfaceTypeId,
+        fieldTypeId: field.fieldType,
+      },
+    )
   }
 }
 
@@ -35,12 +37,12 @@ export const createImportFieldsData = (
      * Only deal with interfaces here, since we want the fields
      */
     if (type.__typename === ITypeKind.InterfaceType) {
-      const fields = type.fieldsConnection.edges.map((field) => {
-        const existingFieldType = existingData.types[field.node.name]
+      const fields = type.fields.map((field) => {
+        const existingFieldType = existingData.types[type.name]
         const existingField = existingData.fields[`${type.name}-${field.key}`]
 
         if (!existingFieldType) {
-          console.error(field.node)
+          console.error(type)
           throw new Error('Field Type should exist')
         }
 

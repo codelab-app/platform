@@ -1,23 +1,27 @@
-query GetDomain($options: DomainOptions, $where: DomainWhere) {
+query GetDomains($options: DomainOptions, $where: DomainWhere) {
   domains(options: $options, where: $where) {
     ...Domain
   }
 }
 
-mutation CreateDomain($input: CreateDomainMutationInput!) {
-  createDomain(input: $input) {
-    ...Domain
+mutation CreateDomains($input: [DomainCreateInput!]!) {
+  createDomains(input: $input) {
+    domains {
+      ...Domain
+    }
   }
 }
 
-mutation UpdateDomain($input: UpdateDomainMutationInput!) {
-  updateDomain(input: $input) {
-    ...Domain
+mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
+  updateDomains(where: $where, update: $update) {
+    domains {
+      ...Domain
+    }
   }
 }
 
-mutation DeleteDomain($id: String!) {
-  deleteDomain(id: $id) {
+mutation DeleteDomains($where: DomainWhere!) {
+  deleteDomains(where: $where) {
     nodesDeleted
   }
 }

@@ -24,7 +24,7 @@ const hydrate = ({
   id,
   kind,
   name,
-  fieldsConnection,
+  fields,
   ownerConnection,
   owner,
 }: IInterfaceTypeDTO): InterfaceType => {
@@ -39,8 +39,8 @@ const hydrate = ({
     defaults: JSON.parse(ownerConnection.edges[0]?.data || '{}'),
   })
 
-  for (const edge of fieldsConnection.edges) {
-    interfaceType.updateFieldCache(edge)
+  for (const field of fields) {
+    interfaceType.updateFieldCache(field)
   }
 
   return interfaceType
@@ -90,14 +90,14 @@ export class InterfaceType
       throw new Error('Invalid InterfaceType')
     }
 
-    for (const fieldEdge of fragment.fieldsConnection.edges) {
-      let field = this.field(fieldEdge.id)
+    for (const field of fragment.fields) {
+      let fieldModel = this.field(field.id)
 
-      if (field) {
-        field.writeCache(fieldEdge)
+      if (fieldModel) {
+        fieldModel.writeCache(field)
       } else {
-        field = this.updateFieldCache(fieldEdge)
-        this.fields.set(field.id, field)
+        fieldModel = this.updateFieldCache(field)
+        this.fields.set(field.id, fieldModel)
       }
     }
 

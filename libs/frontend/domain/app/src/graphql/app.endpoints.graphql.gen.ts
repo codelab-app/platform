@@ -65,7 +65,7 @@ export const DeleteAppsDocument = gql`
 `
 export const GetAppsDocument = gql`
   query GetApps($options: AppOptions, $where: AppWhere) {
-    apps: apps(options: $options, where: $where) {
+    apps(options: $options, where: $where) {
       ...AppPreview
     }
   }

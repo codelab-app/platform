@@ -36,6 +36,9 @@ export type Query = {
   apps: Array<App>
   appsAggregate: AppAggregateSelection
   appsConnection: AppsConnection
+  fields: Array<Field>
+  fieldsAggregate: FieldAggregateSelection
+  fieldsConnection: FieldsConnection
   atoms: Array<Atom>
   atomsAggregate: AtomAggregateSelection
   atomsConnection: AtomsConnection
@@ -125,18 +128,18 @@ export type Query = {
   resources: Array<Resource>
   resourcesAggregate: ResourceAggregateSelection
   resourcesConnection: ResourcesConnection
-  vercelDomainConfigData: Array<VercelDomainConfigData>
-  vercelDomainConfigDataAggregate: VercelDomainConfigDataAggregateSelection
-  vercelDomainConfigDataConnection: VercelDomainConfigDataConnection
-  vercelProjectDomainData: Array<VercelProjectDomainData>
-  vercelProjectDomainDataAggregate: VercelProjectDomainDataAggregateSelection
-  vercelProjectDomainDataConnection: VercelProjectDomainDataConnection
-  domains: Array<Domain>
-  domainsAggregate: DomainAggregateSelection
-  domainsConnection: DomainsConnection
   deleteInfos: Array<DeleteInfo>
   deleteInfosAggregate: DeleteInfoAggregateSelection
   deleteInfosConnection: DeleteInfosConnection
+  vercelDomainConfigs: Array<VercelDomainConfig>
+  vercelDomainConfigsAggregate: VercelDomainConfigAggregateSelection
+  vercelDomainConfigsConnection: VercelDomainConfigsConnection
+  vercelProjectDomains: Array<VercelProjectDomain>
+  vercelProjectDomainsAggregate: VercelProjectDomainAggregateSelection
+  vercelProjectDomainsConnection: VercelProjectDomainsConnection
+  domains: Array<Domain>
+  domainsAggregate: DomainAggregateSelection
+  domainsConnection: DomainsConnection
   /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
   isTypeDescendantOf?: Maybe<Scalars['Boolean']>
   /**
@@ -197,6 +200,22 @@ export type QueryAppsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   where?: InputMaybe<AppWhere>
   sort?: InputMaybe<Array<InputMaybe<AppSort>>>
+}
+
+export type QueryFieldsArgs = {
+  where?: InputMaybe<FieldWhere>
+  options?: InputMaybe<FieldOptions>
+}
+
+export type QueryFieldsAggregateArgs = {
+  where?: InputMaybe<FieldWhere>
+}
+
+export type QueryFieldsConnectionArgs = {
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  where?: InputMaybe<FieldWhere>
+  sort?: InputMaybe<Array<InputMaybe<FieldSort>>>
 }
 
 export type QueryAtomsArgs = {
@@ -674,36 +693,52 @@ export type QueryResourcesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ResourceSort>>>
 }
 
-export type QueryVercelDomainConfigDataArgs = {
-  where?: InputMaybe<VercelDomainConfigDataWhere>
-  options?: InputMaybe<VercelDomainConfigDataOptions>
+export type QueryDeleteInfosArgs = {
+  where?: InputMaybe<DeleteInfoWhere>
+  options?: InputMaybe<DeleteInfoOptions>
 }
 
-export type QueryVercelDomainConfigDataAggregateArgs = {
-  where?: InputMaybe<VercelDomainConfigDataWhere>
+export type QueryDeleteInfosAggregateArgs = {
+  where?: InputMaybe<DeleteInfoWhere>
 }
 
-export type QueryVercelDomainConfigDataConnectionArgs = {
+export type QueryDeleteInfosConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<VercelDomainConfigDataWhere>
-  sort?: InputMaybe<Array<InputMaybe<VercelDomainConfigDataSort>>>
+  where?: InputMaybe<DeleteInfoWhere>
+  sort?: InputMaybe<Array<InputMaybe<DeleteInfoSort>>>
 }
 
-export type QueryVercelProjectDomainDataArgs = {
-  where?: InputMaybe<VercelProjectDomainDataWhere>
-  options?: InputMaybe<VercelProjectDomainDataOptions>
+export type QueryVercelDomainConfigsArgs = {
+  where?: InputMaybe<VercelDomainConfigWhere>
+  options?: InputMaybe<VercelDomainConfigOptions>
 }
 
-export type QueryVercelProjectDomainDataAggregateArgs = {
-  where?: InputMaybe<VercelProjectDomainDataWhere>
+export type QueryVercelDomainConfigsAggregateArgs = {
+  where?: InputMaybe<VercelDomainConfigWhere>
 }
 
-export type QueryVercelProjectDomainDataConnectionArgs = {
+export type QueryVercelDomainConfigsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<VercelProjectDomainDataWhere>
-  sort?: InputMaybe<Array<InputMaybe<VercelProjectDomainDataSort>>>
+  where?: InputMaybe<VercelDomainConfigWhere>
+  sort?: InputMaybe<Array<InputMaybe<VercelDomainConfigSort>>>
+}
+
+export type QueryVercelProjectDomainsArgs = {
+  where?: InputMaybe<VercelProjectDomainWhere>
+  options?: InputMaybe<VercelProjectDomainOptions>
+}
+
+export type QueryVercelProjectDomainsAggregateArgs = {
+  where?: InputMaybe<VercelProjectDomainWhere>
+}
+
+export type QueryVercelProjectDomainsConnectionArgs = {
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  where?: InputMaybe<VercelProjectDomainWhere>
+  sort?: InputMaybe<Array<InputMaybe<VercelProjectDomainSort>>>
 }
 
 export type QueryDomainsArgs = {
@@ -722,22 +757,6 @@ export type QueryDomainsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<DomainSort>>>
 }
 
-export type QueryDeleteInfosArgs = {
-  where?: InputMaybe<DeleteInfoWhere>
-  options?: InputMaybe<DeleteInfoOptions>
-}
-
-export type QueryDeleteInfosAggregateArgs = {
-  where?: InputMaybe<DeleteInfoWhere>
-}
-
-export type QueryDeleteInfosConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<DeleteInfoWhere>
-  sort?: InputMaybe<Array<InputMaybe<DeleteInfoSort>>>
-}
-
 export type QueryIsTypeDescendantOfArgs = {
   parentTypeId: Scalars['ID']
   descendantTypeId: Scalars['ID']
@@ -749,10 +768,9 @@ export type QueryGetTypeReferencesArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  upsertField: Field
-  createDomain: Domain
-  updateDomain: Domain
-  deleteDomain: DeleteInfo
+  createDomains: CreateDomainsMutationResponse
+  updateDomains: UpdateDomainsMutationResponse
+  deleteDomains: DeleteInfo
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   deleteResetDatabaseMutationResponses: DeleteInfo
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
@@ -762,6 +780,9 @@ export type Mutation = {
   createApps: CreateAppsMutationResponse
   deleteApps: DeleteInfo
   updateApps: UpdateAppsMutationResponse
+  createFields: CreateFieldsMutationResponse
+  deleteFields: DeleteInfo
+  updateFields: UpdateFieldsMutationResponse
   createAtoms: CreateAtomsMutationResponse
   deleteAtoms: DeleteInfo
   updateAtoms: UpdateAtomsMutationResponse
@@ -852,37 +873,35 @@ export type Mutation = {
   createResources: CreateResourcesMutationResponse
   deleteResources: DeleteInfo
   updateResources: UpdateResourcesMutationResponse
-  createVercelDomainConfigData: CreateVercelDomainConfigDataMutationResponse
-  deleteVercelDomainConfigData: DeleteInfo
-  updateVercelDomainConfigData: UpdateVercelDomainConfigDataMutationResponse
-  createVercelProjectDomainData: CreateVercelProjectDomainDataMutationResponse
-  deleteVercelProjectDomainData: DeleteInfo
-  updateVercelProjectDomainData: UpdateVercelProjectDomainDataMutationResponse
-  createDomains: CreateDomainsMutationResponse
-  deleteDomains: DeleteInfo
-  updateDomains: UpdateDomainsMutationResponse
   createDeleteInfos: CreateDeleteInfosMutationResponse
   deleteDeleteInfos: DeleteInfo
   updateDeleteInfos: UpdateDeleteInfosMutationResponse
+  createVercelDomainConfigs: CreateVercelDomainConfigsMutationResponse
+  deleteVercelDomainConfigs: DeleteInfo
+  updateVercelDomainConfigs: UpdateVercelDomainConfigsMutationResponse
+  createVercelProjectDomains: CreateVercelProjectDomainsMutationResponse
+  deleteVercelProjectDomains: DeleteInfo
+  updateVercelProjectDomains: UpdateVercelProjectDomainsMutationResponse
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
 }
 
-export type MutationUpsertFieldArgs = {
-  interfaceTypeId: Scalars['ID']
-  fieldTypeId: Scalars['ID']
-  field: FieldCreateInput
+export type MutationCreateDomainsArgs = {
+  input: Array<DomainCreateInput>
 }
 
-export type MutationCreateDomainArgs = {
-  input?: InputMaybe<CreateDomainMutationInput>
+export type MutationUpdateDomainsArgs = {
+  where?: InputMaybe<DomainWhere>
+  update?: InputMaybe<DomainUpdateInput>
+  connect?: InputMaybe<DomainConnectInput>
+  disconnect?: InputMaybe<DomainDisconnectInput>
+  create?: InputMaybe<DomainRelationInput>
+  delete?: InputMaybe<DomainDeleteInput>
+  connectOrCreate?: InputMaybe<DomainConnectOrCreateInput>
 }
 
-export type MutationUpdateDomainArgs = {
-  input?: InputMaybe<UpdateDomainMutationInput>
-}
-
-export type MutationDeleteDomainArgs = {
-  id: Scalars['String']
+export type MutationDeleteDomainsArgs = {
+  where?: InputMaybe<DomainWhere>
+  delete?: InputMaybe<DomainDeleteInput>
 }
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
@@ -934,6 +953,25 @@ export type MutationUpdateAppsArgs = {
   create?: InputMaybe<AppRelationInput>
   delete?: InputMaybe<AppDeleteInput>
   connectOrCreate?: InputMaybe<AppConnectOrCreateInput>
+}
+
+export type MutationCreateFieldsArgs = {
+  input: Array<FieldCreateInput>
+}
+
+export type MutationDeleteFieldsArgs = {
+  where?: InputMaybe<FieldWhere>
+  delete?: InputMaybe<FieldDeleteInput>
+}
+
+export type MutationUpdateFieldsArgs = {
+  where?: InputMaybe<FieldWhere>
+  update?: InputMaybe<FieldUpdateInput>
+  connect?: InputMaybe<FieldConnectInput>
+  disconnect?: InputMaybe<FieldDisconnectInput>
+  create?: InputMaybe<FieldRelationInput>
+  delete?: InputMaybe<FieldDeleteInput>
+  connectOrCreate?: InputMaybe<FieldConnectOrCreateInput>
 }
 
 export type MutationCreateAtomsArgs = {
@@ -1482,51 +1520,6 @@ export type MutationUpdateResourcesArgs = {
   connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
 }
 
-export type MutationCreateVercelDomainConfigDataArgs = {
-  input: Array<VercelDomainConfigDataCreateInput>
-}
-
-export type MutationDeleteVercelDomainConfigDataArgs = {
-  where?: InputMaybe<VercelDomainConfigDataWhere>
-}
-
-export type MutationUpdateVercelDomainConfigDataArgs = {
-  where?: InputMaybe<VercelDomainConfigDataWhere>
-  update?: InputMaybe<VercelDomainConfigDataUpdateInput>
-}
-
-export type MutationCreateVercelProjectDomainDataArgs = {
-  input: Array<VercelProjectDomainDataCreateInput>
-}
-
-export type MutationDeleteVercelProjectDomainDataArgs = {
-  where?: InputMaybe<VercelProjectDomainDataWhere>
-}
-
-export type MutationUpdateVercelProjectDomainDataArgs = {
-  where?: InputMaybe<VercelProjectDomainDataWhere>
-  update?: InputMaybe<VercelProjectDomainDataUpdateInput>
-}
-
-export type MutationCreateDomainsArgs = {
-  input: Array<DomainCreateInput>
-}
-
-export type MutationDeleteDomainsArgs = {
-  where?: InputMaybe<DomainWhere>
-  delete?: InputMaybe<DomainDeleteInput>
-}
-
-export type MutationUpdateDomainsArgs = {
-  where?: InputMaybe<DomainWhere>
-  update?: InputMaybe<DomainUpdateInput>
-  connect?: InputMaybe<DomainConnectInput>
-  disconnect?: InputMaybe<DomainDisconnectInput>
-  create?: InputMaybe<DomainRelationInput>
-  delete?: InputMaybe<DomainDeleteInput>
-  connectOrCreate?: InputMaybe<DomainConnectOrCreateInput>
-}
-
 export type MutationCreateDeleteInfosArgs = {
   input: Array<DeleteInfoCreateInput>
 }
@@ -1538,6 +1531,32 @@ export type MutationDeleteDeleteInfosArgs = {
 export type MutationUpdateDeleteInfosArgs = {
   where?: InputMaybe<DeleteInfoWhere>
   update?: InputMaybe<DeleteInfoUpdateInput>
+}
+
+export type MutationCreateVercelDomainConfigsArgs = {
+  input: Array<VercelDomainConfigCreateInput>
+}
+
+export type MutationDeleteVercelDomainConfigsArgs = {
+  where?: InputMaybe<VercelDomainConfigWhere>
+}
+
+export type MutationUpdateVercelDomainConfigsArgs = {
+  where?: InputMaybe<VercelDomainConfigWhere>
+  update?: InputMaybe<VercelDomainConfigUpdateInput>
+}
+
+export type MutationCreateVercelProjectDomainsArgs = {
+  input: Array<VercelProjectDomainCreateInput>
+}
+
+export type MutationDeleteVercelProjectDomainsArgs = {
+  where?: InputMaybe<VercelProjectDomainWhere>
+}
+
+export type MutationUpdateVercelProjectDomainsArgs = {
+  where?: InputMaybe<VercelProjectDomainWhere>
+  update?: InputMaybe<VercelProjectDomainUpdateInput>
 }
 
 export enum ActionKind {
@@ -2002,15 +2021,6 @@ export type ActionBase = {
   id: Scalars['ID']
   name: Scalars['String']
   type: ActionKind
-}
-
-export type Field = {
-  id: Scalars['ID']
-  key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
-  validationRules?: Maybe<Scalars['String']>
-  defaultValues?: Maybe<Prop>
 }
 
 export type IBaseType = {
@@ -3394,6 +3404,12 @@ export type CreateEnumTypeValuesMutationResponse = {
   enumTypeValues: Array<EnumTypeValue>
 }
 
+export type CreateFieldsMutationResponse = {
+  __typename?: 'CreateFieldsMutationResponse'
+  info: CreateInfo
+  fields: Array<Field>
+}
+
 export type CreateGetBaseTypesReturnsMutationResponse = {
   __typename?: 'CreateGetBaseTypesReturnsMutationResponse'
   info: CreateInfo
@@ -3530,16 +3546,16 @@ export type CreateUsersMutationResponse = {
   users: Array<User>
 }
 
-export type CreateVercelDomainConfigDataMutationResponse = {
-  __typename?: 'CreateVercelDomainConfigDataMutationResponse'
+export type CreateVercelDomainConfigsMutationResponse = {
+  __typename?: 'CreateVercelDomainConfigsMutationResponse'
   info: CreateInfo
-  vercelDomainConfigData: Array<VercelDomainConfigData>
+  vercelDomainConfigs: Array<VercelDomainConfig>
 }
 
-export type CreateVercelProjectDomainDataMutationResponse = {
-  __typename?: 'CreateVercelProjectDomainDataMutationResponse'
+export type CreateVercelProjectDomainsMutationResponse = {
+  __typename?: 'CreateVercelProjectDomainsMutationResponse'
   info: CreateInfo
-  vercelProjectDomainData: Array<VercelProjectDomainData>
+  vercelProjectDomains: Array<VercelProjectDomain>
 }
 
 export type DeleteInfo = {
@@ -3574,8 +3590,8 @@ export type Domain = {
   __typename?: 'Domain'
   id: Scalars['ID']
   name: Scalars['String']
-  domainConfig: VercelDomainConfigData
-  projectDomain: VercelProjectDomainData
+  domainConfig: VercelDomainConfig
+  projectDomain: VercelProjectDomain
   app: App
   appAggregate?: Maybe<DomainAppAppAggregationSelection>
   appConnection: DomainAppConnection
@@ -4573,6 +4589,115 @@ export type EnumTypeValuesConnection = {
   edges: Array<EnumTypeValueEdge>
 }
 
+export type Field = {
+  __typename?: 'Field'
+  id: Scalars['ID']
+  key: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
+  validationRules?: Maybe<Scalars['String']>
+  defaultValues?: Maybe<Prop>
+  fieldType: IBaseType
+  api: InterfaceType
+  apiAggregate?: Maybe<FieldInterfaceTypeApiAggregationSelection>
+  fieldTypeConnection: FieldFieldTypeConnection
+  apiConnection: FieldApiConnection
+}
+
+export type FieldFieldTypeArgs = {
+  options?: InputMaybe<IBaseTypeOptions>
+  where?: InputMaybe<IBaseTypeWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type FieldApiArgs = {
+  where?: InputMaybe<InterfaceTypeWhere>
+  options?: InputMaybe<InterfaceTypeOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type FieldApiAggregateArgs = {
+  where?: InputMaybe<InterfaceTypeWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type FieldFieldTypeConnectionArgs = {
+  where?: InputMaybe<FieldFieldTypeConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<FieldFieldTypeConnectionSort>>
+}
+
+export type FieldApiConnectionArgs = {
+  where?: InputMaybe<FieldApiConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<FieldApiConnectionSort>>
+}
+
+export type FieldAggregateSelection = {
+  __typename?: 'FieldAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  key: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  description: StringAggregateSelectionNullable
+  validationRules: StringAggregateSelectionNullable
+}
+
+export type FieldApiConnection = {
+  __typename?: 'FieldApiConnection'
+  edges: Array<FieldApiRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type FieldApiRelationship = {
+  __typename?: 'FieldApiRelationship'
+  cursor: Scalars['String']
+  node: InterfaceType
+}
+
+export type FieldEdge = {
+  __typename?: 'FieldEdge'
+  cursor: Scalars['String']
+  node: Field
+}
+
+export type FieldFieldTypeConnection = {
+  __typename?: 'FieldFieldTypeConnection'
+  edges: Array<FieldFieldTypeRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type FieldFieldTypeRelationship = {
+  __typename?: 'FieldFieldTypeRelationship'
+  cursor: Scalars['String']
+  node: IBaseType
+}
+
+export type FieldInterfaceTypeApiAggregationSelection = {
+  __typename?: 'FieldInterfaceTypeApiAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<FieldInterfaceTypeApiNodeAggregateSelection>
+}
+
+export type FieldInterfaceTypeApiNodeAggregateSelection = {
+  __typename?: 'FieldInterfaceTypeApiNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type FieldsConnection = {
+  __typename?: 'FieldsConnection'
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+  edges: Array<FieldEdge>
+}
+
 export type GetBaseTypesReturn = {
   __typename?: 'GetBaseTypesReturn'
   totalCount: Scalars['Int']
@@ -4760,12 +4885,12 @@ export type InterfaceType = IBaseType &
     name: Scalars['String']
     descendantTypesIds: Array<Scalars['ID']>
     kind: TypeKind
-    fieldFor: Array<IBaseType>
     owner: User
     ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
     apiOfAtoms: Array<Atom>
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
-    fields: Array<IBaseType>
+    fields: Array<Field>
+    fieldsAggregate?: Maybe<InterfaceTypeFieldFieldsAggregationSelection>
     ownerConnection: IBaseTypeOwnerConnection
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
     fieldsConnection: InterfaceTypeFieldsConnection
@@ -4799,8 +4924,14 @@ export type InterfaceTypeApiOfAtomsAggregateArgs = {
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeFieldsArgs = {
-  options?: InputMaybe<IBaseTypeOptions>
-  where?: InputMaybe<IBaseTypeWhere>
+  where?: InputMaybe<FieldWhere>
+  options?: InputMaybe<FieldOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+/** Represents an object type with multiple fields */
+export type InterfaceTypeFieldsAggregateArgs = {
+  where?: InputMaybe<FieldWhere>
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
@@ -4870,6 +5001,21 @@ export type InterfaceTypeEdge = {
   node: InterfaceType
 }
 
+export type InterfaceTypeFieldFieldsAggregationSelection = {
+  __typename?: 'InterfaceTypeFieldFieldsAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<InterfaceTypeFieldFieldsNodeAggregateSelection>
+}
+
+export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeFieldFieldsNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  key: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  description: StringAggregateSelectionNullable
+  validationRules: StringAggregateSelectionNullable
+}
+
 export type InterfaceTypeFieldsConnection = {
   __typename?: 'InterfaceTypeFieldsConnection'
   edges: Array<InterfaceTypeFieldsRelationship>
@@ -4877,16 +5023,10 @@ export type InterfaceTypeFieldsConnection = {
   pageInfo: PageInfo
 }
 
-export type InterfaceTypeFieldsRelationship = Field & {
+export type InterfaceTypeFieldsRelationship = {
   __typename?: 'InterfaceTypeFieldsRelationship'
   cursor: Scalars['String']
-  node: IBaseType
-  id: Scalars['ID']
-  key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
-  validationRules?: Maybe<Scalars['String']>
-  defaultValues?: Maybe<Prop>
+  node: Field
 }
 
 export type InterfaceTypesConnection = {
@@ -6361,6 +6501,12 @@ export type UpdateEnumTypeValuesMutationResponse = {
   enumTypeValues: Array<EnumTypeValue>
 }
 
+export type UpdateFieldsMutationResponse = {
+  __typename?: 'UpdateFieldsMutationResponse'
+  info: UpdateInfo
+  fields: Array<Field>
+}
+
 export type UpdateGetBaseTypesReturnsMutationResponse = {
   __typename?: 'UpdateGetBaseTypesReturnsMutationResponse'
   info: UpdateInfo
@@ -6478,16 +6624,16 @@ export type UpdateUsersMutationResponse = {
   users: Array<User>
 }
 
-export type UpdateVercelDomainConfigDataMutationResponse = {
-  __typename?: 'UpdateVercelDomainConfigDataMutationResponse'
+export type UpdateVercelDomainConfigsMutationResponse = {
+  __typename?: 'UpdateVercelDomainConfigsMutationResponse'
   info: UpdateInfo
-  vercelDomainConfigData: Array<VercelDomainConfigData>
+  vercelDomainConfigs: Array<VercelDomainConfig>
 }
 
-export type UpdateVercelProjectDomainDataMutationResponse = {
-  __typename?: 'UpdateVercelProjectDomainDataMutationResponse'
+export type UpdateVercelProjectDomainsMutationResponse = {
+  __typename?: 'UpdateVercelProjectDomainsMutationResponse'
   info: UpdateInfo
-  vercelProjectDomainData: Array<VercelProjectDomainData>
+  vercelProjectDomains: Array<VercelProjectDomain>
 }
 
 export type User = {
@@ -6771,50 +6917,50 @@ export type UserTypesRelationship = OwnedBy & {
   data: Scalars['String']
 }
 
-export type VercelDomainConfigData = {
-  __typename?: 'VercelDomainConfigData'
+export type VercelDomainConfig = {
+  __typename?: 'VercelDomainConfig'
   misconfigured: Scalars['Boolean']
 }
 
-export type VercelDomainConfigDataAggregateSelection = {
-  __typename?: 'VercelDomainConfigDataAggregateSelection'
+export type VercelDomainConfigAggregateSelection = {
+  __typename?: 'VercelDomainConfigAggregateSelection'
   count: Scalars['Int']
 }
 
-export type VercelDomainConfigDataConnection = {
-  __typename?: 'VercelDomainConfigDataConnection'
+export type VercelDomainConfigEdge = {
+  __typename?: 'VercelDomainConfigEdge'
+  cursor: Scalars['String']
+  node: VercelDomainConfig
+}
+
+export type VercelDomainConfigsConnection = {
+  __typename?: 'VercelDomainConfigsConnection'
   totalCount: Scalars['Int']
   pageInfo: PageInfo
-  edges: Array<VercelDomainConfigDataEdge>
+  edges: Array<VercelDomainConfigEdge>
 }
 
-export type VercelDomainConfigDataEdge = {
-  __typename?: 'VercelDomainConfigDataEdge'
-  cursor: Scalars['String']
-  node: VercelDomainConfigData
-}
-
-export type VercelProjectDomainData = {
-  __typename?: 'VercelProjectDomainData'
+export type VercelProjectDomain = {
+  __typename?: 'VercelProjectDomain'
   verified: Scalars['Boolean']
 }
 
-export type VercelProjectDomainDataAggregateSelection = {
-  __typename?: 'VercelProjectDomainDataAggregateSelection'
+export type VercelProjectDomainAggregateSelection = {
+  __typename?: 'VercelProjectDomainAggregateSelection'
   count: Scalars['Int']
 }
 
-export type VercelProjectDomainDataConnection = {
-  __typename?: 'VercelProjectDomainDataConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<VercelProjectDomainDataEdge>
+export type VercelProjectDomainEdge = {
+  __typename?: 'VercelProjectDomainEdge'
+  cursor: Scalars['String']
+  node: VercelProjectDomain
 }
 
-export type VercelProjectDomainDataEdge = {
-  __typename?: 'VercelProjectDomainDataEdge'
-  cursor: Scalars['String']
-  node: VercelProjectDomainData
+export type VercelProjectDomainsConnection = {
+  __typename?: 'VercelProjectDomainsConnection'
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+  edges: Array<VercelProjectDomainEdge>
 }
 
 export type WithOwnerOwnerConnection = {
@@ -11200,11 +11346,6 @@ export type ComponentWhere = {
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
-export type CreateDomainMutationInput = {
-  name: Scalars['String']
-  appId: Scalars['String']
-}
-
 export type CreateInfoCreateInput = {
   bookmark?: InputMaybe<Scalars['String']>
   nodesCreated: Scalars['Int']
@@ -14289,22 +14430,202 @@ export type EnumTypeWhere = {
   allowedValuesConnection_SOME?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
 }
 
+export type FieldApiAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<FieldApiAggregateInput>>
+  OR?: InputMaybe<Array<FieldApiAggregateInput>>
+  node?: InputMaybe<FieldApiNodeAggregationWhereInput>
+}
+
+export type FieldApiConnectFieldInput = {
+  where?: InputMaybe<InterfaceTypeConnectWhere>
+  connect?: InputMaybe<InterfaceTypeConnectInput>
+}
+
+export type FieldApiConnectionSort = {
+  node?: InputMaybe<InterfaceTypeSort>
+}
+
+export type FieldApiConnectionWhere = {
+  AND?: InputMaybe<Array<FieldApiConnectionWhere>>
+  OR?: InputMaybe<Array<FieldApiConnectionWhere>>
+  node?: InputMaybe<InterfaceTypeWhere>
+  node_NOT?: InputMaybe<InterfaceTypeWhere>
+}
+
+export type FieldApiConnectOrCreateFieldInput = {
+  where: InterfaceTypeConnectOrCreateWhere
+  onCreate: FieldApiConnectOrCreateFieldInputOnCreate
+}
+
+export type FieldApiConnectOrCreateFieldInputOnCreate = {
+  node: InterfaceTypeOnCreateInput
+}
+
+export type FieldApiCreateFieldInput = {
+  node: InterfaceTypeCreateInput
+}
+
+export type FieldApiDeleteFieldInput = {
+  where?: InputMaybe<FieldApiConnectionWhere>
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
+}
+
+export type FieldApiDisconnectFieldInput = {
+  where?: InputMaybe<FieldApiConnectionWhere>
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
+}
+
+export type FieldApiFieldInput = {
+  create?: InputMaybe<FieldApiCreateFieldInput>
+  connect?: InputMaybe<FieldApiConnectFieldInput>
+  connectOrCreate?: InputMaybe<FieldApiConnectOrCreateFieldInput>
+}
+
+export type FieldApiNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<FieldApiNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<FieldApiNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type FieldApiUpdateConnectionInput = {
+  node?: InputMaybe<InterfaceTypeUpdateInput>
+}
+
+export type FieldApiUpdateFieldInput = {
+  where?: InputMaybe<FieldApiConnectionWhere>
+  update?: InputMaybe<FieldApiUpdateConnectionInput>
+  connect?: InputMaybe<FieldApiConnectFieldInput>
+  disconnect?: InputMaybe<FieldApiDisconnectFieldInput>
+  create?: InputMaybe<FieldApiCreateFieldInput>
+  delete?: InputMaybe<FieldApiDeleteFieldInput>
+  connectOrCreate?: InputMaybe<FieldApiConnectOrCreateFieldInput>
+}
+
+export type FieldConnectInput = {
+  fieldType?: InputMaybe<FieldFieldTypeConnectFieldInput>
+  api?: InputMaybe<FieldApiConnectFieldInput>
+}
+
+export type FieldConnectOrCreateInput = {
+  api?: InputMaybe<FieldApiConnectOrCreateFieldInput>
+}
+
+export type FieldConnectWhere = {
+  node: FieldWhere
+}
+
 export type FieldCreateInput = {
-  description?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   key: Scalars['String']
   name?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
   validationRules?: InputMaybe<Scalars['String']>
-  defaultValues?: InputMaybe<Scalars['String']>
+  fieldType?: InputMaybe<FieldFieldTypeFieldInput>
+  api?: InputMaybe<FieldApiFieldInput>
 }
 
+export type FieldDeleteInput = {
+  fieldType?: InputMaybe<FieldFieldTypeDeleteFieldInput>
+  api?: InputMaybe<FieldApiDeleteFieldInput>
+}
+
+export type FieldDisconnectInput = {
+  fieldType?: InputMaybe<FieldFieldTypeDisconnectFieldInput>
+  api?: InputMaybe<FieldApiDisconnectFieldInput>
+}
+
+export type FieldFieldTypeConnectFieldInput = {
+  connect?: InputMaybe<IBaseTypeConnectInput>
+  where?: InputMaybe<IBaseTypeConnectWhere>
+}
+
+export type FieldFieldTypeConnectionSort = {
+  node?: InputMaybe<IBaseTypeSort>
+}
+
+export type FieldFieldTypeConnectionWhere = {
+  AND?: InputMaybe<Array<FieldFieldTypeConnectionWhere>>
+  OR?: InputMaybe<Array<FieldFieldTypeConnectionWhere>>
+  node?: InputMaybe<IBaseTypeWhere>
+  node_NOT?: InputMaybe<IBaseTypeWhere>
+}
+
+export type FieldFieldTypeCreateFieldInput = {
+  node: IBaseTypeCreateInput
+}
+
+export type FieldFieldTypeDeleteFieldInput = {
+  delete?: InputMaybe<IBaseTypeDeleteInput>
+  where?: InputMaybe<FieldFieldTypeConnectionWhere>
+}
+
+export type FieldFieldTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<IBaseTypeDisconnectInput>
+  where?: InputMaybe<FieldFieldTypeConnectionWhere>
+}
+
+export type FieldFieldTypeFieldInput = {
+  create?: InputMaybe<FieldFieldTypeCreateFieldInput>
+  connect?: InputMaybe<FieldFieldTypeConnectFieldInput>
+}
+
+export type FieldFieldTypeUpdateConnectionInput = {
+  node?: InputMaybe<IBaseTypeUpdateInput>
+}
+
+export type FieldFieldTypeUpdateFieldInput = {
+  connect?: InputMaybe<FieldFieldTypeConnectFieldInput>
+  create?: InputMaybe<FieldFieldTypeCreateFieldInput>
+  delete?: InputMaybe<FieldFieldTypeDeleteFieldInput>
+  disconnect?: InputMaybe<FieldFieldTypeDisconnectFieldInput>
+  update?: InputMaybe<FieldFieldTypeUpdateConnectionInput>
+  where?: InputMaybe<FieldFieldTypeConnectionWhere>
+}
+
+export type FieldOptions = {
+  /** Specify one or more FieldSort objects to sort Fields by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<FieldSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+}
+
+export type FieldRelationInput = {
+  fieldType?: InputMaybe<FieldFieldTypeCreateFieldInput>
+  api?: InputMaybe<FieldApiCreateFieldInput>
+}
+
+/** Fields to sort Fields by. The order in which sorts are applied is not guaranteed when specifying many fields in one FieldSort object. */
 export type FieldSort = {
   id?: InputMaybe<SortDirection>
   key?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   description?: InputMaybe<SortDirection>
   validationRules?: InputMaybe<SortDirection>
-  defaultValues?: InputMaybe<SortDirection>
 }
 
 export type FieldUpdateInput = {
@@ -14313,6 +14634,8 @@ export type FieldUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   description?: InputMaybe<Scalars['String']>
   validationRules?: InputMaybe<Scalars['String']>
+  fieldType?: InputMaybe<FieldFieldTypeUpdateFieldInput>
+  api?: InputMaybe<FieldApiUpdateFieldInput>
 }
 
 export type FieldWhere = {
@@ -14368,6 +14691,13 @@ export type FieldWhere = {
   validationRules_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   validationRules_ENDS_WITH?: InputMaybe<Scalars['String']>
   validationRules_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  api?: InputMaybe<InterfaceTypeWhere>
+  api_NOT?: InputMaybe<InterfaceTypeWhere>
+  apiAggregate?: InputMaybe<FieldApiAggregateInput>
+  fieldTypeConnection?: InputMaybe<FieldFieldTypeConnectionWhere>
+  fieldTypeConnection_NOT?: InputMaybe<FieldFieldTypeConnectionWhere>
+  apiConnection?: InputMaybe<FieldApiConnectionWhere>
+  apiConnection_NOT?: InputMaybe<FieldApiConnectionWhere>
 }
 
 export type GetBaseTypesReturnCreateInput = {
@@ -15337,39 +15667,45 @@ export type InterfaceTypeDisconnectInput = {
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
 }
 
+export type InterfaceTypeFieldsAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<InterfaceTypeFieldsAggregateInput>>
+  OR?: InputMaybe<Array<InterfaceTypeFieldsAggregateInput>>
+  node?: InputMaybe<InterfaceTypeFieldsNodeAggregationWhereInput>
+}
+
 export type InterfaceTypeFieldsConnectFieldInput = {
-  connect?: InputMaybe<IBaseTypeConnectInput>
-  edge: FieldCreateInput
-  where?: InputMaybe<IBaseTypeConnectWhere>
+  where?: InputMaybe<FieldConnectWhere>
+  connect?: InputMaybe<Array<FieldConnectInput>>
 }
 
 export type InterfaceTypeFieldsConnectionSort = {
-  edge?: InputMaybe<FieldSort>
-  node?: InputMaybe<IBaseTypeSort>
+  node?: InputMaybe<FieldSort>
 }
 
 export type InterfaceTypeFieldsConnectionWhere = {
   AND?: InputMaybe<Array<InterfaceTypeFieldsConnectionWhere>>
   OR?: InputMaybe<Array<InterfaceTypeFieldsConnectionWhere>>
-  edge?: InputMaybe<FieldWhere>
-  edge_NOT?: InputMaybe<FieldWhere>
-  node?: InputMaybe<IBaseTypeWhere>
-  node_NOT?: InputMaybe<IBaseTypeWhere>
+  node?: InputMaybe<FieldWhere>
+  node_NOT?: InputMaybe<FieldWhere>
 }
 
 export type InterfaceTypeFieldsCreateFieldInput = {
-  node: IBaseTypeCreateInput
-  edge: FieldCreateInput
+  node: FieldCreateInput
 }
 
 export type InterfaceTypeFieldsDeleteFieldInput = {
-  delete?: InputMaybe<IBaseTypeDeleteInput>
   where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  delete?: InputMaybe<FieldDeleteInput>
 }
 
 export type InterfaceTypeFieldsDisconnectFieldInput = {
-  disconnect?: InputMaybe<IBaseTypeDisconnectInput>
   where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  disconnect?: InputMaybe<FieldDisconnectInput>
 }
 
 export type InterfaceTypeFieldsFieldInput = {
@@ -15377,18 +15713,103 @@ export type InterfaceTypeFieldsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
 }
 
+export type InterfaceTypeFieldsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<InterfaceTypeFieldsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<InterfaceTypeFieldsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  key_EQUAL?: InputMaybe<Scalars['String']>
+  key_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  key_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  key_GT?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  key_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  key_GTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  key_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  key_LT?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  key_LTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  description_EQUAL?: InputMaybe<Scalars['String']>
+  description_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  description_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  description_GT?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  description_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  description_GTE?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  description_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  description_LT?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  description_LTE?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_EQUAL?: InputMaybe<Scalars['String']>
+  validationRules_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_GT?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  validationRules_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_LT?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  validationRules_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
 export type InterfaceTypeFieldsUpdateConnectionInput = {
-  edge?: InputMaybe<FieldUpdateInput>
-  node?: InputMaybe<IBaseTypeUpdateInput>
+  node?: InputMaybe<FieldUpdateInput>
 }
 
 export type InterfaceTypeFieldsUpdateFieldInput = {
+  where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  update?: InputMaybe<InterfaceTypeFieldsUpdateConnectionInput>
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   delete?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
-  update?: InputMaybe<InterfaceTypeFieldsUpdateConnectionInput>
-  where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
 }
 
 export type InterfaceTypeOnCreateInput = {
@@ -15575,6 +15996,19 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
+  /** @deprecated Use `fields_SOME` instead. */
+  fields?: InputMaybe<FieldWhere>
+  /** @deprecated Use `fields_NONE` instead. */
+  fields_NOT?: InputMaybe<FieldWhere>
+  fieldsAggregate?: InputMaybe<InterfaceTypeFieldsAggregateInput>
+  /** Return InterfaceTypes where all of the related Fields match this filter */
+  fields_ALL?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where none of the related Fields match this filter */
+  fields_NONE?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where one of the related Fields match this filter */
+  fields_SINGLE?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where some of the related Fields match this filter */
+  fields_SOME?: InputMaybe<FieldWhere>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   /** @deprecated Use `apiOfAtomsConnection_SOME` instead. */
@@ -20491,12 +20925,6 @@ export type UnionTypeWhere = {
   typesOfUnionTypeConnection_SOME?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
 }
 
-export type UpdateDomainMutationInput = {
-  name: Scalars['String']
-  appId: Scalars['String']
-  id: Scalars['ID']
-}
-
 export type UserAppsAggregateInput = {
   count?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
@@ -21423,56 +21851,56 @@ export type UserWhere = {
   tagsConnection_SOME?: InputMaybe<UserTagsConnectionWhere>
 }
 
-export type VercelDomainConfigDataCreateInput = {
+export type VercelDomainConfigCreateInput = {
   misconfigured: Scalars['Boolean']
 }
 
-export type VercelDomainConfigDataOptions = {
-  /** Specify one or more VercelDomainConfigDataSort objects to sort VercelDomainConfigData by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<VercelDomainConfigDataSort>>
+export type VercelDomainConfigOptions = {
+  /** Specify one or more VercelDomainConfigSort objects to sort VercelDomainConfigs by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<VercelDomainConfigSort>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
 }
 
-/** Fields to sort VercelDomainConfigData by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelDomainConfigDataSort object. */
-export type VercelDomainConfigDataSort = {
+/** Fields to sort VercelDomainConfigs by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelDomainConfigSort object. */
+export type VercelDomainConfigSort = {
   misconfigured?: InputMaybe<SortDirection>
 }
 
-export type VercelDomainConfigDataUpdateInput = {
+export type VercelDomainConfigUpdateInput = {
   misconfigured?: InputMaybe<Scalars['Boolean']>
 }
 
-export type VercelDomainConfigDataWhere = {
-  OR?: InputMaybe<Array<VercelDomainConfigDataWhere>>
-  AND?: InputMaybe<Array<VercelDomainConfigDataWhere>>
+export type VercelDomainConfigWhere = {
+  OR?: InputMaybe<Array<VercelDomainConfigWhere>>
+  AND?: InputMaybe<Array<VercelDomainConfigWhere>>
   misconfigured?: InputMaybe<Scalars['Boolean']>
   misconfigured_NOT?: InputMaybe<Scalars['Boolean']>
 }
 
-export type VercelProjectDomainDataCreateInput = {
+export type VercelProjectDomainCreateInput = {
   verified: Scalars['Boolean']
 }
 
-export type VercelProjectDomainDataOptions = {
-  /** Specify one or more VercelProjectDomainDataSort objects to sort VercelProjectDomainData by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<VercelProjectDomainDataSort>>
+export type VercelProjectDomainOptions = {
+  /** Specify one or more VercelProjectDomainSort objects to sort VercelProjectDomains by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<VercelProjectDomainSort>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
 }
 
-/** Fields to sort VercelProjectDomainData by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelProjectDomainDataSort object. */
-export type VercelProjectDomainDataSort = {
+/** Fields to sort VercelProjectDomains by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelProjectDomainSort object. */
+export type VercelProjectDomainSort = {
   verified?: InputMaybe<SortDirection>
 }
 
-export type VercelProjectDomainDataUpdateInput = {
+export type VercelProjectDomainUpdateInput = {
   verified?: InputMaybe<Scalars['Boolean']>
 }
 
-export type VercelProjectDomainDataWhere = {
-  OR?: InputMaybe<Array<VercelProjectDomainDataWhere>>
-  AND?: InputMaybe<Array<VercelProjectDomainDataWhere>>
+export type VercelProjectDomainWhere = {
+  OR?: InputMaybe<Array<VercelProjectDomainWhere>>
+  AND?: InputMaybe<Array<VercelProjectDomainWhere>>
   verified?: InputMaybe<Scalars['Boolean']>
   verified_NOT?: InputMaybe<Scalars['Boolean']>
 }
@@ -21698,6 +22126,71 @@ export declare class AppModel {
     context?: any
     rootValue?: any
   }): Promise<AppAggregateSelection>
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface FieldAggregateSelectionInput {
+  count?: boolean
+  id?: IdAggregateInputNonNullable
+  key?: StringAggregateInputNonNullable
+  name?: StringAggregateInputNullable
+  description?: StringAggregateInputNullable
+  validationRules?: StringAggregateInputNullable
+}
+
+export declare class FieldModel {
+  public find(args?: {
+    where?: FieldWhere
+
+    options?: FieldOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Field[]>
+  public create(args: {
+    input: FieldCreateInput[]
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateFieldsMutationResponse>
+  public update(args: {
+    where?: FieldWhere
+    update?: FieldUpdateInput
+    connect?: FieldConnectInput
+    disconnect?: FieldDisconnectInput
+    create?: FieldCreateInput
+    connectOrCreate?: FieldConnectOrCreateInput
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateFieldsMutationResponse>
+  public delete(args: {
+    where?: FieldWhere
+    delete?: FieldDeleteInput
+    context?: any
+    rootValue?: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+  public aggregate(args: {
+    where?: FieldWhere
+
+    aggregate: FieldAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<FieldAggregateSelection>
 }
 
 export interface IdAggregateInputNonNullable {
@@ -23752,49 +24245,52 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
-export interface VercelDomainConfigDataAggregateSelectionInput {
+export interface DeleteInfoAggregateSelectionInput {
   count?: boolean
+  bookmark?: StringAggregateInputNullable
+  nodesDeleted?: IntAggregateInputNonNullable
+  relationshipsDeleted?: IntAggregateInputNonNullable
 }
 
-export declare class VercelDomainConfigDataModel {
+export declare class DeleteInfoModel {
   public find(args?: {
-    where?: VercelDomainConfigDataWhere
+    where?: DeleteInfoWhere
 
-    options?: VercelDomainConfigDataOptions
+    options?: DeleteInfoOptions
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<VercelDomainConfigData[]>
+  }): Promise<DeleteInfo[]>
   public create(args: {
-    input: VercelDomainConfigDataCreateInput[]
+    input: DeleteInfoCreateInput[]
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<CreateVercelDomainConfigDataMutationResponse>
+  }): Promise<CreateDeleteInfosMutationResponse>
   public update(args: {
-    where?: VercelDomainConfigDataWhere
-    update?: VercelDomainConfigDataUpdateInput
+    where?: DeleteInfoWhere
+    update?: DeleteInfoUpdateInput
 
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<UpdateVercelDomainConfigDataMutationResponse>
+  }): Promise<UpdateDeleteInfosMutationResponse>
   public delete(args: {
-    where?: VercelDomainConfigDataWhere
+    where?: DeleteInfoWhere
 
     context?: any
     rootValue?: any
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
   public aggregate(args: {
-    where?: VercelDomainConfigDataWhere
+    where?: DeleteInfoWhere
 
-    aggregate: VercelDomainConfigDataAggregateSelectionInput
+    aggregate: DeleteInfoAggregateSelectionInput
     context?: any
     rootValue?: any
-  }): Promise<VercelDomainConfigDataAggregateSelection>
+  }): Promise<DeleteInfoAggregateSelection>
 }
 
 export interface IdAggregateInputNonNullable {
@@ -23815,49 +24311,112 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
-export interface VercelProjectDomainDataAggregateSelectionInput {
+export interface VercelDomainConfigAggregateSelectionInput {
   count?: boolean
 }
 
-export declare class VercelProjectDomainDataModel {
+export declare class VercelDomainConfigModel {
   public find(args?: {
-    where?: VercelProjectDomainDataWhere
+    where?: VercelDomainConfigWhere
 
-    options?: VercelProjectDomainDataOptions
+    options?: VercelDomainConfigOptions
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<VercelProjectDomainData[]>
+  }): Promise<VercelDomainConfig[]>
   public create(args: {
-    input: VercelProjectDomainDataCreateInput[]
+    input: VercelDomainConfigCreateInput[]
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<CreateVercelProjectDomainDataMutationResponse>
+  }): Promise<CreateVercelDomainConfigsMutationResponse>
   public update(args: {
-    where?: VercelProjectDomainDataWhere
-    update?: VercelProjectDomainDataUpdateInput
+    where?: VercelDomainConfigWhere
+    update?: VercelDomainConfigUpdateInput
 
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<UpdateVercelProjectDomainDataMutationResponse>
+  }): Promise<UpdateVercelDomainConfigsMutationResponse>
   public delete(args: {
-    where?: VercelProjectDomainDataWhere
+    where?: VercelDomainConfigWhere
 
     context?: any
     rootValue?: any
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
   public aggregate(args: {
-    where?: VercelProjectDomainDataWhere
+    where?: VercelDomainConfigWhere
 
-    aggregate: VercelProjectDomainDataAggregateSelectionInput
+    aggregate: VercelDomainConfigAggregateSelectionInput
     context?: any
     rootValue?: any
-  }): Promise<VercelProjectDomainDataAggregateSelection>
+  }): Promise<VercelDomainConfigAggregateSelection>
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface VercelProjectDomainAggregateSelectionInput {
+  count?: boolean
+}
+
+export declare class VercelProjectDomainModel {
+  public find(args?: {
+    where?: VercelProjectDomainWhere
+
+    options?: VercelProjectDomainOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<VercelProjectDomain[]>
+  public create(args: {
+    input: VercelProjectDomainCreateInput[]
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateVercelProjectDomainsMutationResponse>
+  public update(args: {
+    where?: VercelProjectDomainWhere
+    update?: VercelProjectDomainUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateVercelProjectDomainsMutationResponse>
+  public delete(args: {
+    where?: VercelProjectDomainWhere
+
+    context?: any
+    rootValue?: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+  public aggregate(args: {
+    where?: VercelProjectDomainWhere
+
+    aggregate: VercelProjectDomainAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<VercelProjectDomainAggregateSelection>
 }
 
 export interface IdAggregateInputNonNullable {
@@ -23928,76 +24487,11 @@ export declare class DomainModel {
   }): Promise<DomainAggregateSelection>
 }
 
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
-}
-export interface DeleteInfoAggregateSelectionInput {
-  count?: boolean
-  bookmark?: StringAggregateInputNullable
-  nodesDeleted?: IntAggregateInputNonNullable
-  relationshipsDeleted?: IntAggregateInputNonNullable
-}
-
-export declare class DeleteInfoModel {
-  public find(args?: {
-    where?: DeleteInfoWhere
-
-    options?: DeleteInfoOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<DeleteInfo[]>
-  public create(args: {
-    input: DeleteInfoCreateInput[]
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateDeleteInfosMutationResponse>
-  public update(args: {
-    where?: DeleteInfoWhere
-    update?: DeleteInfoUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateDeleteInfosMutationResponse>
-  public delete(args: {
-    where?: DeleteInfoWhere
-
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-  public aggregate(args: {
-    where?: DeleteInfoWhere
-
-    aggregate: DeleteInfoAggregateSelectionInput
-    context?: any
-    rootValue?: any
-  }): Promise<DeleteInfoAggregateSelection>
-}
-
 export interface ModelMap {
   ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel
   User: UserModel
   App: AppModel
+  Field: FieldModel
   Atom: AtomModel
   CreateInfo: CreateInfoModel
   Page: PageModel
@@ -24028,8 +24522,8 @@ export interface ModelMap {
   CodeAction: CodeActionModel
   ApiAction: ApiActionModel
   Resource: ResourceModel
-  VercelDomainConfigData: VercelDomainConfigDataModel
-  VercelProjectDomainData: VercelProjectDomainDataModel
-  Domain: DomainModel
   DeleteInfo: DeleteInfoModel
+  VercelDomainConfig: VercelDomainConfigModel
+  VercelProjectDomain: VercelProjectDomainModel
+  Domain: DomainModel
 }

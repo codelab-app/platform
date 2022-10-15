@@ -5,10 +5,12 @@ import type {
   IResourceService,
   IUpdateResourceDTO,
 } from '@codelab/frontend/abstract/core'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ResourceCreateInput,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
@@ -26,17 +28,15 @@ import {
 import { v4 } from 'uuid'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
-import {
-  CreateResourceModalService,
-  ResourceModalService,
-} from './resource-modal.service'
+import { ResourceModalService } from './resource-modal.service'
 
 @model('@codelab/Resource')
 export class ResourceService
   extends Model({
     resources: prop(() => objectMap<IResource>()),
 
-    createModal: prop(() => new CreateResourceModalService({})),
+    // createModal: prop(() => new CreateResourceModalService({})),
+    createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ResourceModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
   })
@@ -56,16 +56,7 @@ export class ResourceService
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
 
-    return resources.map((resource) => {
-      if (this.resources.has(resource.id)) {
-        return this.resources.get(resource.id)!
-      }
-
-      const resourceModel = Resource.hydrate(resource)
-      this.resources.set(resource.id, resourceModel)
-
-      return resourceModel
-    })
+    return resources.map((resource) => this.writeCache(resource))
   })
 
   @modelFlow
@@ -104,29 +95,21 @@ export class ResourceService
       }),
     )
 
-    if (!resources.length) {
-      throw new Error('Resource was not created')
-    }
-
-    return resources.map((resource) => {
-      const resourceModel = Resource.hydrate(resource)
-
-      this.resources.set(resourceModel.id, resourceModel)
-
-      return resourceModel
-    })
+    return resources.map((resource) => this.writeCache(resource))
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: ResourceService,
-    resource: Resource,
+    entity: IEntity,
     input: IUpdateResourceDTO,
   ) {
     const { config, name, type } = input
 
-    const { updateResources } = yield* _await(
+    const {
+      updateResources: { resources },
+    } = yield* _await(
       resourceApi.UpdateResource({
         update: {
           name,
@@ -136,33 +119,23 @@ export class ResourceService
             where: {},
           },
         },
-        where: { id: resource.id },
+        where: { id: entity.id },
       }),
     )
 
-    const updateResource = updateResources.resources[0]
-
-    if (!updateResource) {
-      throw new Error('Failed to update resource')
-    }
-
-    const resourceModel = Resource.hydrate(updateResource)
-
-    this.resources.set(resource.id, resourceModel)
-
-    return resourceModel
+    return resources.map((resource) => this.writeCache(resource))
   })
 
   @modelFlow
   @transaction
-  deleteResource = _async(function* (this: ResourceService, id: string) {
-    this.resources.delete(id)
+  delete = _async(function* (this: ResourceService, ids: Array<string>) {
+    ids.forEach((id) => this.resources.delete(id))
 
-    const { deleteResources } = yield* _await(
-      resourceApi.DeleteResources({ where: { id } }),
-    )
+    const {
+      deleteResources: { nodesDeleted },
+    } = yield* _await(resourceApi.DeleteResources({ where: { id_IN: ids } }))
 
-    return deleteResources
+    return nodesDeleted
   })
 
   @modelAction
@@ -170,10 +143,7 @@ export class ResourceService
     let resourceModel = this.resource(resource.id)
 
     if (resourceModel) {
-      resourceModel.name = resource.name
-      resourceModel.config.writeCache(resource.config)
-      resourceModel.type = resource.type
-      resourceModel.id = resource.id
+      resourceModel.writeCache(resource)
     } else {
       resourceModel = Resource.hydrate(resource)
       this.resources.set(resourceModel.id, resourceModel)

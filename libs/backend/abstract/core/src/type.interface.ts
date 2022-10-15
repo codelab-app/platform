@@ -24,7 +24,7 @@ export type IInterfaceTypeExport = Pick<
 > &
   Required<Pick<OGM_TYPES.InterfaceType, '__typename'>> & {
     // We don't want meta data here
-    fieldsConnection: Pick<OGM_TYPES.InterfaceTypeFieldsConnection, 'edges'>
+    fields: Array<OGM_TYPES.Field>
     ownerConnection: Pick<OGM_TYPES.IBaseTypeOwnerConnection, 'edges'>
   }
 

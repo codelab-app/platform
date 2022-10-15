@@ -134,21 +134,17 @@ export class TypeService
   @transaction
   update = _async(function* (
     this: TypeService,
-    type: IAnyType,
+    entity: IAnyType,
     data: IUpdateTypeDTO,
   ) {
     const args = {
-      where: { id: type.id },
+      where: { id: entity.id },
       ...updateTypeInputFactory(data),
     }
 
-    const [updatedType] = yield* _await(updateTypeApi[type.kind](args))
+    const updatedTypes = yield* _await(updateTypeApi[entity.kind](args))
 
-    if (!updatedType) {
-      throw new Error('Type was not updated')
-    }
-
-    return this.writeCache(updatedType)
+    return updatedTypes.map((type) => this.writeCache(type))
   })
 
   @modelFlow
@@ -245,45 +241,43 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: TypeService,
-    data: Array<ICreateTypeDTO> = [],
-  ) {
-    if (!data[0]) {
-      return []
-    }
-
+  create = _async(function* (this: TypeService, data: Array<ICreateTypeDTO>) {
     const input = createTypeFactory(data)
-    const types = yield* _await(createTypeApi[data[0].kind](input))
 
-    if (!types.length) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Type was not created')
-    }
+    const types: Array<ITypeDTO> = yield* _await(
+      Promise.all(
+        input.map((type) => {
+          console.log(type)
+
+          if (!type.kind) {
+            throw new Error('Type requires a kind')
+          }
+
+          return createTypeApi[type.kind](input)
+        }),
+      ).then((res) => res.flat()),
+    )
 
     return types.map((type) => this.writeCache(type))
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: TypeService, id: string) {
-    const type = this.types.get(id)
+  delete = _async(function* (this: TypeService, ids: Array<string>) {
+    const types = ids
+      .map((id) => this.types.get(id))
+      .filter((type): type is IAnyType => Boolean(type))
 
-    if (!type) {
-      throw new Error('Type does not exist')
-    }
+    ids.forEach((id) => this.types.delete(id))
 
-    this.types.delete(id)
-
-    const { nodesDeleted } = yield* _await(
-      deleteTypeApi[type.kind]({ where: { id } }),
+    const results = yield* _await(
+      Promise.all(
+        types.map((type) =>
+          deleteTypeApi[type.kind]({ where: { id: type.id } }),
+        ),
+      ),
     )
 
-    if (nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('Type was not deleted')
-    }
-
-    return type
+    return results.reduce((total, { nodesDeleted }) => nodesDeleted + total, 0)
   })
 }

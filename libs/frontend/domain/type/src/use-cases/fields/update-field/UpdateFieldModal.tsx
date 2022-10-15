@@ -66,7 +66,7 @@ export const UpdateFieldModal = observer<{
             throw new Error('Missing interface type id')
           }
 
-          return fieldService.upsert({
+          return fieldService.update(model, {
             ...input,
             key: model.key,
             interfaceTypeId,

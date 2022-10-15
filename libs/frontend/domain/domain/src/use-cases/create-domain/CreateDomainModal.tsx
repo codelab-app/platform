@@ -24,7 +24,7 @@ export const CreateDomainModal = observer<{
   }
 
   const onSubmit = (data: ICreateDomainDTO) => {
-    return domainService.create(data)
+    return domainService.create([data])
   }
 
   const closeModal = () => domainService.createModal.close()

@@ -1,6 +1,5 @@
 import { NextApiRequest } from '@codelab/backend/abstract/types'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { isAdminSession } from '@codelab/frontend/abstract/core'
 import {
   AuthenticationError,
   ForbiddenError,
@@ -15,10 +14,10 @@ export const validateDomainAuth = async (
     throw new AuthenticationError('')
   }
 
-  // admin can access all data
-  if (isAdminSession(req.user)) {
-    return
-  }
+  // // admin can access all data
+  // if (isAdminSession(req.user)) {
+  //   return
+  // }
 
   const App = await Repository.instance.App
 

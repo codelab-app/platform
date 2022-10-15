@@ -1,7 +1,3 @@
-import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
-
-export type IFieldImport = MutationUpsertFieldArgs
-
 /**
  * Data output of parser service
  */
