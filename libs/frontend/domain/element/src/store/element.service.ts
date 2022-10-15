@@ -6,6 +6,7 @@ import {
   IElementDTO,
   IElementRef,
   IElementService,
+  IInterfaceType,
   isAtomDTO,
   isComponentDTO,
   IUpdateElementDTO,
@@ -26,6 +27,7 @@ import {
 import { IEntity } from '@codelab/shared/abstract/types'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
+import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import {
   _async,
