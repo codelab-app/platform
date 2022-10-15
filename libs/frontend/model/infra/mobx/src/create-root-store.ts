@@ -34,6 +34,10 @@ import {
   typeServiceRef,
 } from '@codelab/frontend/domain/type'
 import { User, UserService } from '@codelab/frontend/domain/user'
+import {
+  componentServiceContext,
+  elementServiceContext,
+} from '@codelab/frontend/presenter/container'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ user }: RootStoreData) => {

@@ -1,7 +1,7 @@
 import type {
   IAtom,
   IBuilderDataNode,
-  IComponentMeta,
+  IComponent,
   IElement,
   IElementDTO,
   IElementTree,
@@ -22,6 +22,10 @@ import {
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
+import {
+  componentRef,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
@@ -44,7 +48,6 @@ import {
 } from 'mobx-keystone'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
-import { getElementService } from './element.service.context'
 
 type TransformFn = (props: IPropData) => IPropData
 
@@ -95,8 +98,12 @@ export const hydrate = ({
     renderIfPropKey,
     renderForEachPropKey,
     renderingMetadata: null,
-    parentComponent: parentComponent ? parentComponent : null,
-    renderComponentType: renderComponentType ? renderComponentType : null,
+    parentComponent: parentComponent?.id
+      ? componentRef(parentComponent.id)
+      : null,
+    renderComponentType: renderComponentType
+      ? componentRef(renderComponentType.id)
+      : null,
     propMapBindings: objectMap(
       propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)]),
     ),
@@ -144,10 +151,10 @@ export class Element
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
-    parentComponent: prop<Nullable<IComponentMeta>>(null).withSetter(),
+    parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
 
     // Marks the element as an instance of a specific component
-    renderComponentType: prop<Nullable<IComponentMeta>>(null).withSetter(),
+    renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
   })
   implements IElement
@@ -335,8 +342,8 @@ export class Element
       (this.atom?.current
         ? pascalCaseToWords(this.atom.current.type)
         : undefined) ||
-      this.parentComponent?.name ||
-      this.renderComponentType?.name ||
+      this.parentComponent?.current.name ||
+      this.renderComponentType?.current.name ||
       ''
     )
   }
@@ -767,10 +774,10 @@ export class Element
       }
     }
 
-    this.parentComponent = parentComponent
+    this.parentComponent = parentComponent?.id
       ? componentRef(parentComponent.id)
       : null
-    this.renderComponentType = renderComponentType
+    this.renderComponentType = renderComponentType?.id
       ? componentRef(renderComponentType.id)
       : null
 

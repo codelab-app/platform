@@ -781,7 +781,7 @@ element is new parentElement's first child
       return yield* _await(
         this.createElementAsFirstChild({
           name,
-          renderComponentTypeId: createdComponent.id,
+          renderComponentTypeId: createdComponent?.id,
           parentElementId: parentElement.id,
         }),
       )
@@ -790,7 +790,7 @@ element is new parentElement's first child
     return yield* _await(
       this.createElementAsNextSibling({
         name,
-        renderComponentTypeId: createdComponent.id,
+        renderComponentTypeId: createdComponent?.id,
         parentElementId: parentElement.id,
         prevSiblingId: prevSibling.id,
       }),

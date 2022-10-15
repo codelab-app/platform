@@ -36,7 +36,6 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export type IComponentMeta = Pick<IComponent, 'name' | 'id'>
 export interface IElement
   extends INodeType<ELEMENT_NODE_TYPE>,
     ICacheService<IElementDTO, IElement> {
@@ -52,7 +51,7 @@ export interface IElement
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
   propMapBindings: ObjectMap<IPropMapBinding>
-  parentComponent: Nullable<IComponentMeta>
+  parentComponent: Nullable<Ref<IComponent>>
   label: string
   propTransformationJs: Nullable<string>
   preRenderActionId: Nullish<string>
@@ -60,7 +59,7 @@ export interface IElement
   children: Array<IElement>
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
-  renderComponentType: Nullable<IComponentMeta>
+  renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode

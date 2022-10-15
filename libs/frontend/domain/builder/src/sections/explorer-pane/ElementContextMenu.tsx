@@ -5,9 +5,8 @@ import {
   IElementTree,
   RendererTab,
 } from '@codelab/frontend/abstract/core'
-import { componentRef } from '@codelab/frontend/domain/component'
 import { elementRef } from '@codelab/frontend/domain/element'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
