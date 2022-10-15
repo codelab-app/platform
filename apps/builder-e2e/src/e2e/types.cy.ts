@@ -188,7 +188,7 @@ describe('Types CRUD', () => {
       }).should('exist')
 
       cy.searchTableRow({
-        header: 'Kind',
+        header: 'Type',
         row: primitiveTypeKind,
       })
     })
