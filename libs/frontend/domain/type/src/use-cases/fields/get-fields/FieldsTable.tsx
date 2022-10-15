@@ -1,15 +1,18 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import {
+  IAnyType,
   IInterfaceType,
   ITypeService,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
+import { ListItemEditButton } from '@codelab/frontend/view/components'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Button, Divider, Space, Table, TableColumnProps, Tag } from 'antd'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../store'
+import { UpdateTypeModal } from '../../types'
 
 export type FieldsTableProps = {
   interfaceType?: IInterfaceType
@@ -45,7 +48,11 @@ interface CellData {
   name: Nullish<string>
   description: Nullish<string>
   key: string
-  typeKind?: string
+  type?: {
+    id: string
+    name: string
+    kind: string
+  }
   validationRules?: Array<ValidationRuleTag>
 }
 
@@ -73,10 +80,18 @@ export const FieldsTable = observer<FieldsTableProps>(
         onHeaderCell: headerCellProps,
       },
       {
-        title: 'Kind',
-        dataIndex: 'typeKind',
-        key: 'typeKind',
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
         onHeaderCell: headerCellProps,
+        render: (type: IAnyType) => (
+          <Space>
+            {type.name} ({type.kind})
+            <ListItemEditButton
+              onClick={() => typeService.updateModal.open(typeRef(type.id))}
+            />
+          </Space>
+        ),
       },
       {
         title: 'Validation',
@@ -167,22 +182,29 @@ export const FieldsTable = observer<FieldsTableProps>(
       id: f.id,
       name: f.name || '',
       key: f.key,
-      typeKind: f.type.maybeCurrent ? f.type.maybeCurrent.kind : '',
+      type: {
+        id: f.type.maybeCurrent?.id ?? '',
+        name: f.type.maybeCurrent?.name ?? '',
+        kind: f.type.maybeCurrent?.kind ?? '',
+      },
       description: f.description || '',
       validationRules: getValidationRuleTagsArray(f.validationRules),
     }))
 
     return (
-      <Table
-        columns={
-          hideActions ? columns.filter((x) => x.key !== 'action') : columns
-        }
-        dataSource={dataSource}
-        loading={isLoading}
-        pagination={{ position: ['bottomCenter'], pageSize: 25 }}
-        rowKey={(f) => f.key}
-        size="small"
-      />
+      <>
+        <UpdateTypeModal typeService={typeService} />
+        <Table
+          columns={
+            hideActions ? columns.filter((x) => x.key !== 'action') : columns
+          }
+          dataSource={dataSource}
+          loading={isLoading}
+          pagination={{ position: ['bottomCenter'], pageSize: 25 }}
+          rowKey={(f) => f.key}
+          size="small"
+        />
+      </>
     )
   },
 )
