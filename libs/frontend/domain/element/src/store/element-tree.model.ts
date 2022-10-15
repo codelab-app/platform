@@ -80,12 +80,6 @@ export class ElementTree
     return this._elements.get(id)?.maybeCurrent
   }
 
-  /* 
-  @computed
-  get componentService() {
-    return getComponentService(this)
-  }
- */
   /**
    * Refactored to move hydration out of this function, keep this function as only creating references for tree shape
    */
