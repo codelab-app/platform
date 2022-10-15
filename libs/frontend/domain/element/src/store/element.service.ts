@@ -744,27 +744,30 @@ element is new parentElement's first child
     yield* _await(this.detachElementFromElementTree(elementId))
 
     // 2. create the component with predefined root element
-    const {
-      updateElements: {
-        elements: [updatedElement],
-      },
-    } = yield* _await(
-      elementApi.UpdateElements({
-        where: { id: element.id },
-        update: {
-          parentComponent: {
-            create: {
-              node: {
-                owner: connectOwner(auth0Id),
-                id: v4(),
-                name,
-                rootElement: connectNode(elementId),
-              },
+    // don't use componentService to avoid circular dependency
+    const updateElementInput: UpdateElementsMutationVariables = {
+      where: { id: element.id },
+      update: {
+        parentComponent: {
+          create: {
+            node: {
+              owner: connectOwner(auth0Id),
+              id: v4(),
+              name,
+              rootElement: connectNode(elementId),
             },
           },
         },
-      }),
+      },
+    }
+
+    const { updateElements } = yield* _await(
+      elementApi.UpdateElements(updateElementInput),
     )
+
+    const {
+      elements: [updatedElement],
+    } = updateElements
 
     // 3. create a new element as an instance of the component
     if (!prevSibling) {
