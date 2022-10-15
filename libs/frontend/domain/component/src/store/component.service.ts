@@ -10,7 +10,7 @@ import {
   COMPONENT_NODE_TYPE,
   COMPONENT_TREE_CONTAINER,
 } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/domain/element'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   ComponentWhere,

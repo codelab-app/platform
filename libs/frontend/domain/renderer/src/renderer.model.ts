@@ -9,17 +9,14 @@ import type {
   RendererProps,
 } from '@codelab/frontend/abstract/core'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import {
-  elementRef,
-  elementTreeRef,
-  getElementService,
-} from '@codelab/frontend/domain/element'
+import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
 import {
   getActionService,
   getState,
   storeRef,
 } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'

@@ -16,6 +16,7 @@ import {
   PropMapBinding,
   PropMapBindingModalService,
 } from '@codelab/frontend/domain/prop'
+import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -88,7 +89,7 @@ export class ElementService
 
   @computed
   get componentService() {
-    return this._componentService.current
+    return getComponentService(this)
   }
 
   @modelFlow

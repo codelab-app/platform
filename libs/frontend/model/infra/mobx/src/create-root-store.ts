@@ -5,7 +5,6 @@ import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
 import {
   ComponentService,
-  componentServiceContext,
   componentServiceRef,
 } from '@codelab/frontend/domain/component'
 import {
@@ -14,7 +13,6 @@ import {
 } from '@codelab/frontend/domain/domain'
 import {
   ElementService,
-  elementServiceContext,
   elementServiceRef,
 } from '@codelab/frontend/domain/element'
 import { PageService } from '@codelab/frontend/domain/page'

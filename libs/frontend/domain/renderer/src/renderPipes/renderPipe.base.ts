@@ -1,6 +1,8 @@
 import { IBaseRenderPipe, IRenderer } from '@codelab/frontend/abstract/core'
-import { getComponentService } from '@codelab/frontend/domain/component'
-import { getElementService } from '@codelab/frontend/domain/element'
+import {
+  getComponentService,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import {
