@@ -7,7 +7,6 @@ import {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import { IComponentService } from '../component'
 import { IElementService } from '../element'
 import { IPageService } from '../page'
 import { IStoreService } from '../store'
@@ -32,7 +31,6 @@ export interface IAppService
   appsList: Array<IApp>
   load(data: IPageBuilderAppProps): IBuilderApp
   elementService: IElementService
-  componentService: IComponentService
   pageService: IPageService
   storeService: IStoreService
 }

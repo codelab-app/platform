@@ -14,6 +14,7 @@ import {
   IQueryService,
 } from '../../service'
 import { IAtomService } from '../atom'
+import { IComponentService } from '../component'
 import {
   ICreatePropMapBindingDTO,
   IPropMapBinding,
@@ -72,6 +73,7 @@ export interface IElementService
   deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
 
   atomService: IAtomService
+  componentService: IComponentService
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,

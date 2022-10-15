@@ -7,6 +7,7 @@ import {
   IElementRef,
   IElementService,
   isAtomDTO,
+  isComponentDTO,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
@@ -22,7 +23,7 @@ import {
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { connectNode, connectOwner, reconnectNode } from '@codelab/shared/data'
+import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -85,6 +86,11 @@ export class ElementService
     return getAtomService(this)
   }
 
+  @computed
+  get componentService() {
+    return this._componentService.current
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: ElementService, where?: ElementWhere) {
@@ -112,6 +118,19 @@ export class ElementService
   }
 
   @modelAction
+  private writeComponentsCache(elements: Array<IElementDTO>) {
+    console.debug('ElementService.writeComponentsCache', elements)
+
+    const components = elements
+      .map((v) => v.parentComponent || v.renderComponentType)
+      .filter(isComponentDTO)
+
+    return components.map((component) =>
+      this.componentService.writeCache(component),
+    )
+  }
+
+  @modelAction
   loadComponentTree(component: RenderedComponentFragment) {
     const elements = [
       component.rootElement,
@@ -132,6 +151,7 @@ export class ElementService
   public writeCache = (element: IElementDTO): IElement => {
     console.debug('ElementService.writeCache', element)
     this.writeAtomsCache([element])
+    this.writeComponentsCache([element])
 
     let elementModel = this.elements.get(element.id)
 
@@ -744,37 +764,23 @@ element is new parentElement's first child
     yield* _await(this.detachElementFromElementTree(elementId))
 
     // 2. create the component with predefined root element
-    // don't use componentService to avoid circular dependency
-    const updateElementInput: UpdateElementsMutationVariables = {
-      where: { id: element.id },
-      update: {
-        parentComponent: {
-          create: {
-            node: {
-              owner: connectOwner(auth0Id),
-              id: v4(),
-              name,
-              rootElement: connectNode(elementId),
-            },
-          },
+    const [createdComponent] = yield* _await(
+      this.componentService.create([
+        {
+          auth0Id,
+          id: v4(),
+          name,
+          rootElementId: elementId,
         },
-      },
-    }
-
-    const { updateElements } = yield* _await(
-      elementApi.UpdateElements(updateElementInput),
+      ]),
     )
-
-    const {
-      elements: [updatedElement],
-    } = updateElements
 
     // 3. create a new element as an instance of the component
     if (!prevSibling) {
       return yield* _await(
         this.createElementAsFirstChild({
           name,
-          renderComponentTypeId: updatedElement?.parentComponent?.id,
+          renderComponentTypeId: createdComponent.id,
           parentElementId: parentElement.id,
         }),
       )
@@ -783,7 +789,7 @@ element is new parentElement's first child
     return yield* _await(
       this.createElementAsNextSibling({
         name,
-        renderComponentTypeId: updatedElement?.parentComponent?.id,
+        renderComponentTypeId: createdComponent.id,
         parentElementId: parentElement.id,
         prevSiblingId: prevSibling.id,
       }),

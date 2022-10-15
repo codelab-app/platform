@@ -60,7 +60,6 @@ export const createRootStore = ({ user }: RootStoreData) => {
 
   const appService = new AppService({
     _elementService: elementServiceRef(elementService),
-    _componentService: componentServiceRef(componentService),
     pageService,
     storeService,
   })
