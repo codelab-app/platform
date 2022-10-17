@@ -51,7 +51,6 @@ export const CreateActionModal = observer<{
         model={{
           storeId: store.id,
           code: defaultCodeAction,
-          actionsIds: [],
           config: {
             body: '{}',
             method: HttpMethod.GET,
