@@ -23,8 +23,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
       const data = {
         ...submitData,
         allowedValues: submitData.allowedValues?.map((val) => ({
-          key: val.key,
-          value: val.value,
+          ...val,
           id: v4(),
         })),
       }
@@ -43,7 +42,13 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           : undefined,
       allowedValues:
         typeToUpdate?.kind === ITypeKind.EnumType
-          ? typeToUpdate.allowedValues
+          ? typeToUpdate.allowedValues.map((val) => ({
+              // Convert allowedValues from mobx models to simple objects
+              // otherwise uniform won't be able to update current values
+              id: val.id,
+              key: val.key,
+              value: val.value,
+            }))
           : undefined,
       unionTypeIds:
         typeToUpdate?.kind === ITypeKind.UnionType
