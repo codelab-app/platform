@@ -48,11 +48,11 @@ export const UpdateActionModal = observer<{
         : undefined,
     successActionId:
       updateAction?.type === IActionKind.ApiAction
-        ? updateAction.successAction.id
+        ? updateAction.successAction?.id
         : undefined,
     errorActionId:
       updateAction?.type === IActionKind.ApiAction
-        ? updateAction.errorAction.id
+        ? updateAction.errorAction?.id
         : undefined,
 
     code:

@@ -422,7 +422,7 @@ export type ApiAction = ActionBase & {
   config: Prop
   configAggregate?: Maybe<ApiActionPropConfigAggregationSelection>
   configConnection: ApiActionConfigConnection
-  errorAction: AnyAction
+  errorAction?: Maybe<AnyAction>
   errorActionConnection: ApiActionErrorActionConnection
   id: Scalars['ID']
   name: Scalars['String']
@@ -434,7 +434,7 @@ export type ApiAction = ActionBase & {
   storeAggregate?: Maybe<ApiActionStoreStoreAggregationSelection>
   storeConnection: ActionBaseStoreConnection
   /** Response handlers */
-  successAction: AnyAction
+  successAction?: Maybe<AnyAction>
   successActionConnection: ApiActionSuccessActionConnection
   type: ActionKind
 }
@@ -21755,12 +21755,14 @@ export type ActionFragment =
 
 export type ApiActionFragment = {
   __typename?: 'ApiAction'
-  successAction:
+  successAction?:
     | ({ __typename?: 'ApiAction' } & ActionBase_ApiAction_Fragment)
     | ({ __typename?: 'CodeAction' } & ActionBase_CodeAction_Fragment)
-  errorAction:
+    | null
+  errorAction?:
     | ({ __typename?: 'ApiAction' } & ActionBase_ApiAction_Fragment)
     | ({ __typename?: 'CodeAction' } & ActionBase_CodeAction_Fragment)
+    | null
   resource: { __typename?: 'Resource' } & ResourceFragment
   config: { __typename?: 'Prop'; id: string; data: string }
 } & ActionBase_ApiAction_Fragment

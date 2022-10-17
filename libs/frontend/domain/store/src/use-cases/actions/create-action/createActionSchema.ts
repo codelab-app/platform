@@ -3,7 +3,6 @@ import {
   HttpResponseType,
   ICreateActionDTO,
 } from '@codelab/frontend/abstract/core'
-import { SelectAction } from '@codelab/frontend/domain/type'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -113,17 +112,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
       uniforms: {
         component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
       },
-    },
-    actionsIds: {
-      type: 'array',
-      label: 'Actions',
-      items: {
-        type: 'string',
-        label: '',
-        uniforms: { component: SelectAction },
-        nullable: true,
-      },
-      nullable: true,
     },
   },
   required: ['name', 'type', 'storeId'],

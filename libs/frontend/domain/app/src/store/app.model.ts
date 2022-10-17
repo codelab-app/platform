@@ -45,7 +45,7 @@ export class App
   @computed
   get toJson() {
     return {
-      [this.name]: {
+      [this.slug]: {
         id: this.id,
         name: this.name,
         slug: this.slug,

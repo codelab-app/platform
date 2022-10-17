@@ -61,10 +61,10 @@ export const importActions = async (
       where: { id: r.id },
       update: {
         errorAction: {
-          ApiAction: connectNode(r.errorAction.id),
+          ApiAction: connectNode(r.errorAction?.id),
         },
         successAction: {
-          ApiAction: connectNode(r.successAction.id),
+          ApiAction: connectNode(r.successAction?.id),
         },
       },
     })

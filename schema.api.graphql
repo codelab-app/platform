@@ -408,7 +408,7 @@ type ApiAction implements ActionBase {
     directed: Boolean = true
     options: QueryOptions
     where: AnyActionWhere
-  ): AnyAction!
+  ): AnyAction
   errorActionConnection(
     after: String
     directed: Boolean = true
@@ -461,7 +461,7 @@ type ApiAction implements ActionBase {
     directed: Boolean = true
     options: QueryOptions
     where: AnyActionWhere
-  ): AnyAction!
+  ): AnyAction
   successActionConnection(
     after: String
     directed: Boolean = true

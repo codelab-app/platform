@@ -48,8 +48,9 @@ export class Store
   get state() {
     const state: IPropData = merge(
       this.api.current.fields
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        ?.map((f) => ({ [f.key]: f.defaultValues?.maybeCurrent?.values }))
+        ?.map((f) => ({
+          [f.key]: this.api.current.defaults[f.key],
+        }))
         .reduce(merge, {}),
       { ...this._actionsRunners },
       { ...this._state },
