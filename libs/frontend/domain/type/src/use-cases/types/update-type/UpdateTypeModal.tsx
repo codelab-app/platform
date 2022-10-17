@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { updateTypeSchema } from './update-type.schema'
 import { validateNonRecursive } from './validate-non-recursive'
 
@@ -19,9 +20,18 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         throw new Error('Type not set for typeStore.updateModal.')
       }
 
-      await validateNonRecursive(typeToUpdate.id, submitData)
+      const data = {
+        ...submitData,
+        allowedValues: submitData.allowedValues?.map((val) => ({
+          key: val.key,
+          value: val.value,
+          id: val.id || v4(),
+        })),
+      }
 
-      return typeService.update(typeToUpdate, submitData)
+      await validateNonRecursive(typeToUpdate.id, data)
+
+      return typeService.update(typeToUpdate, data)
     }
 
     const model = {

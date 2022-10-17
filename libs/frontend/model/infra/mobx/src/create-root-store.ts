@@ -1,7 +1,11 @@
 import { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AppService } from '@codelab/frontend/domain/app'
-import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
+import {
+  AtomService,
+  atomServiceContext,
+  atomServiceRef,
+} from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
 import {
   ComponentService,
