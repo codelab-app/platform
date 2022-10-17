@@ -2152,8 +2152,8 @@ export type ApiAction = ActionBase & {
   store: Store
   storeAggregate?: Maybe<ApiActionStoreStoreAggregationSelection>
   /** Response handlers */
-  successAction: AnyAction
-  errorAction: AnyAction
+  successAction?: Maybe<AnyAction>
+  errorAction?: Maybe<AnyAction>
   /** Resource to fetch data from */
   resource: Resource
   resourceAggregate?: Maybe<ApiActionResourceResourceAggregationSelection>

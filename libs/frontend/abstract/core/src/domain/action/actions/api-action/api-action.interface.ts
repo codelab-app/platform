@@ -1,4 +1,5 @@
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../../../service'
 import { IResource } from '../../../resource'
@@ -13,6 +14,6 @@ export interface IApiAction
   type: IActionKind.ApiAction
   resource: Ref<IResource>
   config: IApiActionConfig
-  successAction: Ref<IAnyAction>
-  errorAction: Ref<IAnyAction>
+  successAction?: Nullish<Ref<IAnyAction>>
+  errorAction?: Nullish<Ref<IAnyAction>>
 }

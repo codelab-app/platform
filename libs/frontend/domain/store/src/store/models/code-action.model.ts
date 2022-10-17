@@ -30,8 +30,14 @@ export class CodeAction
 
   @modelAction
   createRunner(context: IPropData) {
-    // eslint-disable-next-line no-eval
-    return eval(`(${this.code})`).bind(context)
+    try {
+      // eslint-disable-next-line no-eval
+      return eval(`(${this.code})`).bind(context)
+    } catch (error) {
+      console.log(error)
+
+      return () => undefined
+    }
   }
 
   @modelAction

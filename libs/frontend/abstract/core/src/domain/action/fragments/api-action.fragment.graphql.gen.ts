@@ -11,8 +11,14 @@ import { gql } from 'graphql-tag'
 import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../resource/resource.fragment.graphql.gen'
 export type ApiActionFragment = {
-  successAction: ActionBase_ApiAction_Fragment | ActionBase_CodeAction_Fragment
-  errorAction: ActionBase_ApiAction_Fragment | ActionBase_CodeAction_Fragment
+  successAction?:
+    | ActionBase_ApiAction_Fragment
+    | ActionBase_CodeAction_Fragment
+    | null
+  errorAction?:
+    | ActionBase_ApiAction_Fragment
+    | ActionBase_CodeAction_Fragment
+    | null
   resource: ResourceFragment
   config: { id: string; data: string }
 } & ActionBase_ApiAction_Fragment

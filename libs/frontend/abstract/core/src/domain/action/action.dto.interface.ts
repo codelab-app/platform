@@ -17,8 +17,6 @@ export interface IActionBaseDTO {
   config?: IRestActionConfig | IGraphQLActionConfig
   successActionId?: string
   errorActionId?: string
-
-  actionsIds?: Array<string>
 }
 
 export type ICreateActionDTO = IActionBaseDTO
