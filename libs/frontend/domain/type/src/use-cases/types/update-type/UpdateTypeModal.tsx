@@ -25,7 +25,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         allowedValues: submitData.allowedValues?.map((val) => ({
           key: val.key,
           value: val.value,
-          id: val.id || v4(),
+          id: v4(),
         })),
       }
 

@@ -77,6 +77,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
         required: [
           // Does not submit for because ref not updated
           // 'id',
+          'key',
           'value',
         ],
       },
