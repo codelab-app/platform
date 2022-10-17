@@ -77,11 +77,7 @@ export class Store
 
   @computed
   get state() {
-    return merge({
-      ...this._state.values,
-      ...this._runnableActions,
-      ...this._defaultValues,
-    })
+    return merge(this._defaultValues, this._runnableActions, this._state.values)
   }
 
   @computed
@@ -108,6 +104,8 @@ export class Store
   @modelAction
   initState(apps: Array<IApp>) {
     this._state.setMany(apps.map((a) => a.toJson).reduce(merge, {}))
+    this._state.setMany(this._defaultValues)
+    this._state.setMany(this._runnableActions)
   }
 
   @modelAction
