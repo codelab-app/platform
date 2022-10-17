@@ -11,11 +11,11 @@ import { IKeyMapper, IOutput, IValueMapper } from './abstract'
 const isReactNode = (obj: IPropData) => Boolean(obj['$$typeof'])
 const isMobxModel = (obj: IPropData) => Boolean(obj[modelTypeKey])
 
-const isHtmlNode = (obj: IPropData) =>
+const isHtmlNode = (obj: unknown) =>
   isServer ? false : obj instanceof HTMLElement
 
 const isCyclic = (obj: IPropData) =>
-  isReactNode(obj) || isMobxModel(obj) || isHtmlNode(obj)
+  (isObjectLike(obj) && isReactNode(obj)) || isMobxModel(obj) || isHtmlNode(obj)
 
 export const mapDeep = (
   obj: IPropData,
@@ -23,7 +23,7 @@ export const mapDeep = (
   keyMapper: IKeyMapper = (v, k) => k,
   key: Key = '',
 ): IOutput => {
-  obj = valueMapper(obj, key)
+  obj = valueMapper(obj, key) as IOutput
 
   return isCyclic(obj)
     ? obj
@@ -45,5 +45,5 @@ export const mapDeep = (
           }
         })
         .reduce((acc, c) => ({ ...acc, ...c }), {})
-    : valueMapper(obj, '')
+    : (valueMapper(obj, '') as IPropData)
 }

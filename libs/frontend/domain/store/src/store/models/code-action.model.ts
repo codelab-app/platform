@@ -1,7 +1,7 @@
 import {
   ICodeAction,
   ICodeActionDTO,
-  IPropData,
+  IProp,
 } from '@codelab/frontend/abstract/core'
 import { assertIsActionKind, IActionKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -29,10 +29,10 @@ export class CodeAction
   static hydrate = hydrate
 
   @modelAction
-  createRunner(context: IPropData) {
+  createRunner(state: IProp) {
     try {
       // eslint-disable-next-line no-eval
-      return eval(`(${this.code})`).bind(context)
+      return eval(`(${this.code})`).bind(state.values)
     } catch (error) {
       console.log(error)
 

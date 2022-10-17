@@ -20,7 +20,6 @@ export interface IStoreService
     ICacheService<IStoreDTO, IStore>,
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   stores: ObjectMap<IStore>
-  storesList: Array<IStore>
   store(id: string): Maybe<IStore>
   // typeService: ITypeService
 }

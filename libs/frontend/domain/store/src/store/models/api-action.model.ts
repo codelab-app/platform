@@ -4,7 +4,7 @@ import {
   IApiActionConfig,
   IApiActionDTO,
   IGraphQLActionConfig,
-  IPropData,
+  IProp,
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
@@ -76,7 +76,7 @@ export class ApiAction
   static hydrate = hydrate
 
   @modelAction
-  createRunner(context: IPropData, updateState: (state: IPropData) => void) {
+  createRunner(state: IProp) {
     const successAction = this.successAction?.current
     const errorAction = this.errorAction?.current
     const resource = this.resource.current
@@ -90,14 +90,14 @@ export class ApiAction
 
       fetchPromise
         .then((response) => {
-          updateState({ [this.name]: { response } })
+          state.set(this.name, { response })
 
-          return successAction?.createRunner(context, updateState)(...args)
+          return successAction?.createRunner(state)(...args)
         })
         .catch((error) => {
-          updateState({ [this.name]: { error: JSON.stringify(error) } })
+          state.set(this.name, { error: JSON.stringify(error) })
 
-          return errorAction?.createRunner(context, updateState)(...args)
+          return errorAction?.createRunner(state)(...args)
         })
     }
 

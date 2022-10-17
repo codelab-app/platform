@@ -49,7 +49,8 @@ const Container = styled.div`
 
   .ant-tabs,
   .ant-tabs-content-holder,
-  .ant-tabs-content {
+  .ant-tabs-content,
+  .ant-tabs-tabpane {
     height: 100%;
   }
 `

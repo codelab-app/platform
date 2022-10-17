@@ -10,6 +10,7 @@ export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   values: T
 
   set(key: string, value: object): void
+  setMany(data: IPropData): void
   delete(key: string): void
   get(key: string): object
 }

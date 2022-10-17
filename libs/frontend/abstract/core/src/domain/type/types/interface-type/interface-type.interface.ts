@@ -15,6 +15,7 @@ export interface IInterfaceType extends IBaseType {
   field(id: string): Maybe<IField>
   ownerAuthId: string
   fields: Array<IField>
+  fieldList: Array<IField>
   defaults: IPropData
   deleteField(field: IField): void
   writeFieldCache(fields: Array<IFieldDTO>): void

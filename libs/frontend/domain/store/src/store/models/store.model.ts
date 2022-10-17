@@ -1,11 +1,17 @@
 import {
-  IAnyAction,
+  IApp,
   IInterfaceType,
+  IProp,
   IPropData,
   IStore,
   IStoreDTO,
+  STATE_PATH_TEMPLATE_END,
+  STATE_PATH_TEMPLATE_REGEX,
+  STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
+import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
+import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
@@ -18,14 +24,36 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { actionRef } from './action.ref'
+import { getActionService } from '../action.service'
 
-export const hydrate = ({ actions, id, name, api }: IStoreDTO) =>
+const matchesTemplate = (str: string): boolean =>
+  isString(str) &&
+  str.includes(STATE_PATH_TEMPLATE_START) &&
+  str.includes(STATE_PATH_TEMPLATE_END)
+
+const isSingleExpression = (str: string) =>
+  str.startsWith(STATE_PATH_TEMPLATE_START) &&
+  str.endsWith(STATE_PATH_TEMPLATE_END)
+
+const stripExpression = (expression: string) =>
+  expression.substring(2, expression.length - 2)
+
+const evaluateExpression = (expression: string, state: IPropData) => {
+  try {
+    // eslint-disable-next-line no-new-func
+    return new Function(`return ${stripExpression(expression)}`).call(state)
+  } catch (error) {
+    console.log(error)
+
+    return expression
+  }
+}
+
+export const hydrate = ({ id, name, api }: IStoreDTO) =>
   new Store({
     id,
     name,
     api: typeRef(api.id) as Ref<IInterfaceType>,
-    actions: actions.map((a) => actionRef(a.id)),
   })
 
 @model('@codelab/Store')
@@ -34,31 +62,10 @@ export class Store
     id: idProp,
     name: prop<string>(),
     api: prop<Ref<IInterfaceType>>().withSetter(),
-    actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
-    _state: prop<IPropData>(() => ({})),
+    _state: prop<IProp>(() => new Prop({})),
   }))
   implements IStore
 {
-  @modelAction
-  updateState(data: IPropData) {
-    this._state = merge(this._state, data)
-  }
-
-  @computed
-  get state() {
-    const state: IPropData = merge(
-      this.api.current.fieldList
-        .map((f) => ({
-          [f.key]: this.api.current.defaults[f.key],
-        }))
-        .reduce(merge, {}),
-      { ...this._actionsRunners },
-      { ...this._state },
-    )
-
-    return state
-  }
-
   @modelAction
   writeCache({ id, name, api }: IStoreDTO) {
     this.id = id
@@ -69,14 +76,59 @@ export class Store
   }
 
   @computed
-  get _actionsRunners() {
-    return this.actions
-      .map((a) => ({
-        [a.current.name]: {
-          run: a.current.createRunner(this._state, this.updateState.bind(this)),
-        },
-      }))
+  get state() {
+    return merge({
+      ...this._state.values,
+      ...this._runnableActions,
+      ...this._defaultValues,
+    })
+  }
+
+  @computed
+  get actions() {
+    return getActionService(this).actionsList.filter(
+      (x) => x.storeId === this.id,
+    )
+  }
+
+  @computed
+  get _defaultValues() {
+    return this.api.current.fieldList
+      .map((x) => ({ [x.key]: [] }))
       .reduce(merge, {})
+  }
+
+  @computed
+  get _runnableActions() {
+    return this.actions
+      .map((a) => ({ [a.name]: { run: a.createRunner(this._state) } }))
+      .reduce(merge, {})
+  }
+
+  @modelAction
+  initState(apps: Array<IApp>) {
+    this._state.setMany(apps.map((a) => a.toJson).reduce(merge, {}))
+  }
+
+  @modelAction
+  getState = (value: string) => {
+    if (!matchesTemplate(value)) {
+      return value
+    }
+
+    /**
+     * return typed value for : {{expression}}
+     */
+    if (isSingleExpression(value)) {
+      return evaluateExpression(value, this.state)
+    }
+
+    /**
+     * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
+     */
+    return value.replace(STATE_PATH_TEMPLATE_REGEX, (v) =>
+      evaluateExpression(v, this.state),
+    )
   }
 
   static hydrate = hydrate

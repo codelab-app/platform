@@ -1,5 +1,5 @@
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { IPropData } from '../prop'
+import { IProp } from '../prop'
 
 export interface IActionBase {
   id: IActionRef
@@ -7,10 +7,7 @@ export interface IActionBase {
   type: IActionKind
   storeId: string
 
-  createRunner: (
-    ctx: IPropData,
-    updateState: (state: IPropData) => void,
-  ) => (...args: Array<unknown>) => unknown
+  createRunner: (state: IProp) => (...args: Array<unknown>) => unknown
 }
 
 export type IActionRef = string
