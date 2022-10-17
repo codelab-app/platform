@@ -32,7 +32,7 @@ export class ActionTypedValueTransformer
     return (
       isString(value.value) &&
       Boolean(
-        this.renderer.appStore?.current.actions.find(
+        this.renderer.appStore.current.actions.find(
           (a) => a.id === value.value,
         ),
       )
@@ -46,7 +46,7 @@ export class ActionTypedValueTransformer
       return props
     }
 
-    const action = this.renderer.appStore?.current.actions.find(
+    const action = this.renderer.appStore.current.actions.find(
       (a) => a.id === actionId,
     )
 
@@ -55,6 +55,6 @@ export class ActionTypedValueTransformer
       return props
     }
 
-    return `{{${action.current.name}}}`
+    return `{{${action.name}}}`
   }
 }
