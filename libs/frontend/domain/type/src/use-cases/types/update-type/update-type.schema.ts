@@ -73,7 +73,10 @@ export const updateTypeSchema: JSONSchemaType<
           key: { type: 'string' },
           value: { type: 'string' },
         },
-        required: ['id', 'value'],
+        required: [
+          // 'id',
+          'value',
+        ],
       },
     },
     arrayTypeId: { type: 'string', nullable: true },
