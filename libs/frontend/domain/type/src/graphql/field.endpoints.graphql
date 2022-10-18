@@ -19,4 +19,3 @@ mutation DeleteFields($where: FieldWhere!) {
     nodesDeleted
   }
 }
-
