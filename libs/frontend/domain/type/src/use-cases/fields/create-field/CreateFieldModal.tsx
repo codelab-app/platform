@@ -12,6 +12,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import set from 'lodash/set'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -62,6 +63,8 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
     const [model, setModel] = React.useState<ICreateFieldDTO>(
       generateDefaultFormModel(),
     )
+
+    useAsync(() => typeService.getAll(), [])
 
     return (
       <ModalForm.Modal

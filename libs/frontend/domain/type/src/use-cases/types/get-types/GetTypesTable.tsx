@@ -10,8 +10,6 @@ export const GetTypesTable = observer<{ typeService: ITypeService }>(
     const { columns, rowSelection } = useTypesTable(typeService)
     const { loading, value } = useAsync(() => typeService.getAll(), [])
 
-    console.log(typeService.types)
-
     return (
       <Table<ITypeRecord>
         columns={columns}

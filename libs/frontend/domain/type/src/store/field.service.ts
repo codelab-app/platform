@@ -2,6 +2,7 @@ import type {
   ICreateFieldDTO,
   IField,
   IFieldDTO,
+  IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import { IFieldService } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
@@ -74,6 +75,14 @@ export class FieldService
     const {
       createFields: { fields },
     } = yield* _await(fieldApi.CreateFields({ input }))
+
+    for (const { interfaceTypeId } of data) {
+      const interfaceType = this.typeService.type(
+        interfaceTypeId,
+      ) as IInterfaceType
+
+      interfaceType.writeFieldCache(fields)
+    }
 
     // const interfaceType = yield* _await(
     //   this.updateDefaults(interfaceTypeId, key, null),
@@ -158,8 +167,6 @@ export class FieldService
 
   @modelAction
   writeCache(fragment: IFieldDTO) {
-    console.log(fragment)
-
     let fieldModel = this.fields.get(fragment.id)
 
     if (fieldModel) {

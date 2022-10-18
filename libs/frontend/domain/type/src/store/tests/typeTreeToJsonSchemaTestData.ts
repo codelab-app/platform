@@ -2,8 +2,20 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
+import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { InterfaceType, PrimitiveType, typeRef, UnionType } from '../models'
+import { FieldService } from '../field.service'
+import { fieldServiceContext } from '../field.service.context'
+import {
+  AnyTypeModel,
+  Field,
+  fieldRef,
+  InterfaceType,
+  PrimitiveType,
+  typeRef,
+  UnionType,
+} from '../models'
+import { TypeService } from '../type.service'
 
 export const stringType = new PrimitiveType({
   id: v4(),
@@ -68,6 +80,29 @@ export const unionTypeExpectedSchema = {
   ],
 }
 
+const stringField = new Field({
+  id: v4(),
+  name: 'String field',
+  key: 'stringField',
+  type: typeRef(stringType),
+})
+
+const unionField = new Field({
+  id: v4(),
+  name: 'union field',
+  key: 'unionField',
+  type: typeRef(unionType),
+})
+
+const fieldService = new FieldService({
+  fields: objectMap([
+    [stringField.id, stringField],
+    [unionField.id, unionField],
+  ]),
+})
+
+// fieldServiceContext.setDefault(fieldService)
+
 export const interfaceWithUnionField = new InterfaceType({
   id: v4(),
   name: 'Interface with union field',
@@ -75,24 +110,27 @@ export const interfaceWithUnionField = new InterfaceType({
   ownerId: '',
   defaults: {},
   ownerAuthId: '',
+  _fields: objectMap([
+    [stringField.id, fieldRef(stringField)],
+    [unionField.id, fieldRef(unionField)],
+  ]),
 })
 
-interfaceWithUnionField.updateFieldCache({
-  id: v4(),
-  name: 'String field',
-  key: 'stringField',
-  fieldType: {
-    id: stringType.id,
-  },
-})
+// fieldServiceContext.set(interfaceWithUnionField, fieldService)
+fieldServiceContext.apply(() => interfaceWithUnionField, fieldService)
+// fieldServiceContext.setComputed(
+//   () => interfaceWithUnionField,
+//   () => fieldService,
+// )
 
-interfaceWithUnionField.updateFieldCache({
-  id: v4(),
-  name: 'union field',
-  key: 'unionField',
-  fieldType: {
-    id: unionType.id,
-  },
+// Need a root store for references to be resolved
+new TypeService({
+  types: objectMap([
+    [unionType.id, unionType as AnyTypeModel],
+    [interfaceWithUnionField.id, interfaceWithUnionField],
+    [intType.id, intType],
+    [stringType.id, stringType],
+  ]),
 })
 
 export const interfaceWithUnionExpectedSchema = {

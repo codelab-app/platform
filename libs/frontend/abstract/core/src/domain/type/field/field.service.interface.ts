@@ -14,8 +14,8 @@ import { IInterfaceType } from '../types'
 import { IField } from './field.interface'
 
 export interface IFieldModalMetadata {
-  field: Ref<IField>
-  interface: Ref<IInterfaceType>
+  field?: Ref<IField>
+  interface?: Ref<IInterfaceType>
 }
 
 export interface IFieldModalProperties {

@@ -11,6 +11,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import set from 'lodash/set'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
+import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
@@ -45,6 +46,8 @@ export const UpdateFieldModal = observer<{
     fieldService.updateModal.field,
     fieldService.updateModal.field?.validationRules,
   ])
+
+  useAsync(() => typeService.getAll(), [])
 
   if (!model) {
     return null

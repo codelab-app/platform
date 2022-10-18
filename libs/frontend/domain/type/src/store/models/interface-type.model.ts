@@ -1,5 +1,6 @@
 import type {
   IField,
+  IFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
   IPropData,
@@ -17,7 +18,6 @@ import {
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { getFieldService } from '../field.service.context'
-import { getTypeService } from '../type.service.context'
 import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
 
@@ -46,11 +46,6 @@ export class InterfaceType
   implements IInterfaceType
 {
   @computed
-  get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
   private get fieldService() {
     return getFieldService(this)
   }
@@ -70,15 +65,10 @@ export class InterfaceType
   }
 
   @modelAction
-  writeFieldCache(fragment: ITypeDTO) {
-    if (fragment.__typename !== ITypeKind.InterfaceType) {
-      throw new Error('Invalid InterfaceType')
-    }
-
-    for (const field of fragment.fields) {
-      console.log(field, this.fieldService)
-
+  writeFieldCache(fields: Array<IFieldDTO>) {
+    for (const field of fields) {
       const fieldModel = this.fieldService.writeCache(field)
+      console.log(fieldModel)
       this._fields.set(fieldModel.id, fieldRef(fieldModel))
     }
   }
@@ -91,7 +81,7 @@ export class InterfaceType
 
     updateBaseTypeCache(this, fragment)
 
-    this.writeFieldCache(fragment)
+    this.writeFieldCache(fragment.fields)
 
     this.defaults = JSON.parse(fragment.ownerConnection.edges[0]?.data || '{}')
 

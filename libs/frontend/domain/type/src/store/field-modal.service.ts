@@ -17,11 +17,13 @@ export class FieldModalService
 {
   @computed
   get interface() {
-    return this.metadata?.interface.current
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    return this.metadata?.interface?.maybeCurrent
   }
 
   @computed
   get field() {
-    return this.metadata?.field.current
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    return this.metadata?.field?.maybeCurrent
   }
 }

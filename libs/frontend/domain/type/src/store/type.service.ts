@@ -163,7 +163,7 @@ export class TypeService
 
   @modelFlow
   @transaction
-  private getAllWithDescendants = _async(function* (
+  getAllWithDescendants = _async(function* (
     this: TypeService,
     ids: Array<string> = [],
   ) {
