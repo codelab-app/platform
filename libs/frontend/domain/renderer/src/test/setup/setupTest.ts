@@ -4,7 +4,9 @@ import {
   IAtom,
   IComponent,
   IElement,
+  IInterfaceType,
   IRenderer,
+  IStore,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
@@ -16,6 +18,7 @@ import {
   ElementTree,
 } from '@codelab/frontend/domain/element'
 import { Prop } from '@codelab/frontend/domain/prop'
+import { Store, storeRef, StoreService } from '@codelab/frontend/domain/store'
 import {
   AnyTypeModel,
   InterfaceType,
@@ -24,6 +27,7 @@ import {
   RenderPropsType,
   typeRef,
   TypeService,
+  typeServiceRef,
 } from '@codelab/frontend/domain/type'
 import {
   componentRef,
@@ -31,7 +35,7 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
+import { frozen, objectMap, Ref, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { Renderer } from '../../renderer.model'
 import { PassThroughRenderPipe } from '../../renderPipes/passThroughRenderPipe'
@@ -54,6 +58,7 @@ interface TestingData {
   primitiveType: AnyTypeModel
   divAtom: IAtom
   textAtom: IAtom
+  store: IStore
 }
 
 // Clone everything so that we don't get conflicts between different test files
@@ -68,6 +73,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       ownerAuthId: '',
       defaults: {},
       ownerId,
+    })
+
+    data.store = new Store({
+      api: typeRef(emptyInterface) as Ref<IInterfaceType>,
+      name: 'Store',
     })
 
     data.primitiveType = new PrimitiveType({
@@ -181,14 +191,20 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     }`,
     })
 
+    const typeService = new TypeService({
+      types: objectMap([
+        [data.primitiveType.id, data.primitiveType],
+        [data.renderPropsType.id, data.renderPropsType as AnyTypeModel],
+        [data.reactNodeType.id, data.reactNodeType],
+      ]),
+    })
+
     data.rootStore = new RenderTestRootStore({
-      typeService: new TypeService({
-        types: objectMap([
-          [data.primitiveType.id, data.primitiveType],
-          [data.renderPropsType.id, data.renderPropsType as AnyTypeModel],
-          [data.reactNodeType.id, data.reactNodeType],
-        ]),
+      storeService: new StoreService({
+        stores: objectMap([[data.store.id, data.store]]),
+        _typeService: typeServiceRef(typeService),
       }),
+      typeService,
       componentService: new ComponentService({
         components: objectMap([
           [data.componentToRender.id, data.componentToRender],
@@ -202,6 +218,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       }),
       renderer: new Renderer({
         debugMode: true,
+        appStore: storeRef(data.store),
         renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
       }),
       elementService: new ElementService({

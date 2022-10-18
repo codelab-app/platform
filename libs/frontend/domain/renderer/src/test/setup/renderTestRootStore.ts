@@ -5,6 +5,7 @@ import {
   IElementTree,
   IRenderer,
   IRootStore,
+  IStoreService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { atomServiceContext } from '@codelab/frontend/domain/atom'
@@ -23,6 +24,7 @@ export type IRenderTestRootStore = {
 @model('@codelab/RenderTestRootStore')
 export class RenderTestRootStore
   extends Model({
+    storeService: prop<IStoreService>(),
     typeService: prop<ITypeService>(),
     atomService: prop<IAtomService>(),
     elementService: prop<IElementService>(),

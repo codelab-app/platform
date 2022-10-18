@@ -10,7 +10,7 @@ import { IStore } from '../store'
 export interface IRenderer {
   renderRoot(): ReactElement | null
   appTree: Nullable<Ref<IElementTree>>
-  appStore: Nullable<Ref<IStore>>
+  appStore: Ref<IStore>
   pageTree: Nullable<Ref<IElementTree>>
   debugMode: boolean
   state: IPropData
