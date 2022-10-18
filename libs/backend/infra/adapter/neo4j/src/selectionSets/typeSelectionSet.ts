@@ -51,7 +51,6 @@ export const exportInterfaceTypeSelectionSet = `{
   }
   fields
     ${fieldSelectionSet}
-
 }`
 
 export const interfaceTypeSelectionSet = `{
@@ -63,5 +62,4 @@ export const interfaceTypeSelectionSet = `{
   }
   fields
     ${fieldSelectionSet}
-
 }`
