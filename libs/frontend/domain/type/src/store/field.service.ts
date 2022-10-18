@@ -56,10 +56,8 @@ export class FieldService
     return getTypeService(this)
   }
 
-  //
   // The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
-  //
   @modelFlow
   @transaction
   create = _async(function* (this: FieldService, data: Array<ICreateFieldDTO>) {

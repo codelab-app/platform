@@ -129,7 +129,7 @@ export const FieldsTable = observer<FieldsTableProps>(
           id: field.id,
           name: field.name || '',
           key: field.key,
-          typeKind: field.type.maybeCurrent ? field.type.maybeCurrent.kind : '',
+          typeKind: field.type.maybeCurrent?.kind ?? '',
           description: field.description || '',
           validationRules: getValidationRuleTagsArray(field.validationRules),
           dependentTypes: [],

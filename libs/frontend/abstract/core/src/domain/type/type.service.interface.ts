@@ -31,12 +31,8 @@ export interface ITypeService
     Ref<IAnyType>,
     { type: Maybe<IAnyType> }
   >
-
-  // propService: IPropService
-  // elementService: IElementService
-  // fieldService: IFieldService
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
-  getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
+  // getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
   load(types: GetTypesQuery): Array<IAnyType>
 }

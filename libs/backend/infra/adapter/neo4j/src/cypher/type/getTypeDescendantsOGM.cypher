@@ -7,11 +7,14 @@
 // coalesce() returns the first non-null value
 //
 
-MATCH (t:InterfaceType {id: $id})
+MATCH (type:InterfaceType {id: $id})
 
 CALL apoc.path.subgraphAll(
-  t,
-  { relationshipFilter: '>ARRAY_ITEM_TYPE|>UNION_TYPE_CHILD|>INTERFACE_FIELD' }
+  type,
+  {
+    relationshipFilter: '>ARRAY_ITEM_TYPE|>UNION_TYPE_CHILD|>INTERFACE_FIELD|>FIELD_TYPE',
+    labelFilter: '>TYPE|>FIELD'
+  }
 ) YIELD nodes
 
 RETURN [node in nodes | { id: node.id, kind: node.kind, name: node.name }]

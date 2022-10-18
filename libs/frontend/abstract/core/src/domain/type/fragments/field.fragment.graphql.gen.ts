@@ -18,20 +18,20 @@ export type FieldFragment = {
   description?: string | null
   validationRules?: string | null
   fieldType:
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
+    | { id: string; kind: Types.TypeKind }
   defaultValues?: PropFragment | null
 }
 
@@ -45,6 +45,7 @@ export const FieldFragmentDoc = gql`
     fieldType {
       ... on IBaseType {
         id
+        kind
       }
     }
     defaultValues {

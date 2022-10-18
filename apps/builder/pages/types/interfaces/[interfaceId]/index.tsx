@@ -35,8 +35,6 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
     const { userService, typeService, fieldService } = useStore()
     const { type, loading } = useGetCurrentInterfaceWithFields(typeService)
 
-    console.log(type)
-
     return (
       <>
         <Head>

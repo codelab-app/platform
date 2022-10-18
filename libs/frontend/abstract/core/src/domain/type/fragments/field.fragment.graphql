@@ -7,6 +7,7 @@ fragment Field on Field {
   fieldType {
     ... on IBaseType {
       id
+      kind
     }
   }
   defaultValues {

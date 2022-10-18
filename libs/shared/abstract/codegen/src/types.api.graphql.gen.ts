@@ -22159,20 +22159,20 @@ export type FieldFragment = {
   description?: string | null
   validationRules?: string | null
   fieldType:
-    | { __typename?: 'ActionType'; id: string }
-    | { __typename?: 'AppType'; id: string }
-    | { __typename?: 'ArrayType'; id: string }
-    | { __typename?: 'BaseType'; id: string }
-    | { __typename?: 'CodeMirrorType'; id: string }
-    | { __typename?: 'ElementType'; id: string }
-    | { __typename?: 'EnumType'; id: string }
-    | { __typename?: 'InterfaceType'; id: string }
-    | { __typename?: 'LambdaType'; id: string }
-    | { __typename?: 'PageType'; id: string }
-    | { __typename?: 'PrimitiveType'; id: string }
-    | { __typename?: 'ReactNodeType'; id: string }
-    | { __typename?: 'RenderPropsType'; id: string }
-    | { __typename?: 'UnionType'; id: string }
+    | { __typename?: 'ActionType'; id: string; kind: TypeKind }
+    | { __typename?: 'AppType'; id: string; kind: TypeKind }
+    | { __typename?: 'ArrayType'; id: string; kind: TypeKind }
+    | { __typename?: 'BaseType'; id: string; kind: TypeKind }
+    | { __typename?: 'CodeMirrorType'; id: string; kind: TypeKind }
+    | { __typename?: 'ElementType'; id: string; kind: TypeKind }
+    | { __typename?: 'EnumType'; id: string; kind: TypeKind }
+    | { __typename?: 'InterfaceType'; id: string; kind: TypeKind }
+    | { __typename?: 'LambdaType'; id: string; kind: TypeKind }
+    | { __typename?: 'PageType'; id: string; kind: TypeKind }
+    | { __typename?: 'PrimitiveType'; id: string; kind: TypeKind }
+    | { __typename?: 'ReactNodeType'; id: string; kind: TypeKind }
+    | { __typename?: 'RenderPropsType'; id: string; kind: TypeKind }
+    | { __typename?: 'UnionType'; id: string; kind: TypeKind }
   defaultValues?: ({ __typename?: 'Prop' } & PropFragment) | null
 }
 

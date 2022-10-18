@@ -35,7 +35,6 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { typeFactory } from './type.factory'
-import { typeServiceRef } from './type.service.ref'
 import { TypeModalService } from './type-modal.service'
 
 @model('@codelab/TypeService')
@@ -63,7 +62,7 @@ export class TypeService
   }
 
   @computed
-  get elementService() {
+  private get elementService() {
     return getElementService(this)
   }
 
@@ -72,10 +71,12 @@ export class TypeService
     return [...this.types.values()]
   }
 
+  @modelAction
   type(id: string) {
     return this.types.get(id)
   }
 
+  @modelAction
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind> {
     const type = this.type(id)
 
@@ -110,8 +111,10 @@ export class TypeService
     if (typeModel) {
       typeModel.writeCache(fragment)
     } else {
-      typeModel = typeFactory(fragment, typeServiceRef(this))
+      typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
+      // Write cache writes to the fields
+      typeModel.writeCache(fragment)
     }
 
     return typeModel
@@ -140,8 +143,6 @@ export class TypeService
     const ids = where?.id_IN ?? undefined
     const types = yield* _await(getAllTypes(ids))
 
-    console.log(types)
-
     return types.map((type) => {
       return this.writeCache(type)
     })
@@ -162,17 +163,15 @@ export class TypeService
 
   @modelFlow
   @transaction
-  getAllWithDescendants = _async(function* (
+  private getAllWithDescendants = _async(function* (
     this: TypeService,
-    ids: Array<string>,
+    ids: Array<string> = [],
   ) {
-    if (!ids.length) {
-      return []
-    }
-
     const { arrayTypes, unionTypes, interfaceTypes } = yield* _await(
       getTypeApi.GetDescendants({ ids }),
     )
+
+    console.log(interfaceTypes)
 
     const allDescendantIds = [
       ...arrayTypes,

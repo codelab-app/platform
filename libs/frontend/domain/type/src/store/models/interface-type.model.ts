@@ -4,7 +4,6 @@ import type {
   IInterfaceTypeDTO,
   IPropData,
   ITypeDTO,
-  ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -22,11 +21,7 @@ import { getTypeService } from '../type.service.context'
 import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
 
-const hydrate = (
-  type: IInterfaceTypeDTO,
-  typeService: Ref<ITypeService>,
-): InterfaceType => {
-  console.log(type, typeService)
+const hydrate = (type: IInterfaceTypeDTO): InterfaceType => {
   assertIsTypeKind(type.kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({
@@ -37,10 +32,6 @@ const hydrate = (
     ownerAuthId: type.owner.auth0Id,
     defaults: JSON.parse(type.ownerConnection.edges[0]?.data || '{}'),
   })
-
-  console.log(interfaceType)
-
-  interfaceType.writeFieldCache(type)
 
   return interfaceType
 }
@@ -80,15 +71,9 @@ export class InterfaceType
 
   @modelAction
   writeFieldCache(fragment: ITypeDTO) {
-    console.log(fragment)
-
     if (fragment.__typename !== ITypeKind.InterfaceType) {
       throw new Error('Invalid InterfaceType')
     }
-
-    console.log('after', this)
-
-    console.log(this.fieldService)
 
     for (const field of fragment.fields) {
       console.log(field, this.fieldService)
