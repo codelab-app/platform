@@ -108,6 +108,7 @@ export interface IElement
   deleteFromGuiCss(propNames: Array<string>): void
 
   setRenderingError(error: Nullish<RenderingError>): void
+  setRenderForEachPropKey(key: string): void
 }
 
 export type IElementRef = string

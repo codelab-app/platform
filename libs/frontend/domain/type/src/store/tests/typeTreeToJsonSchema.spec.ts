@@ -2,10 +2,9 @@ import Ajv from 'ajv'
 import { TypeSchemaFactory } from '../../interface-form/type-schema.factory'
 import {
   interfaceWithUnionExpectedSchema,
-  interfaceWithUnionField,
-  unionType,
   unionTypeExpectedSchema,
-} from './typeTreeToJsonSchemaTestData'
+} from './schema.data'
+import { interfaceWithUnionField, unionType } from './setup-store'
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 
