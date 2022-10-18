@@ -9,5 +9,26 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    // It is faster to skip typechecking.
+    // Remove if you want ts-node to do typechecking.
+    "transpileOnly": true,
+    "files": true,
+    "baseUrl": ".", // This must be specified if "paths" is.
+    "paths": {
+      "@codelab/backend/infra/adapter/neo4j": [
+        "libs/backend/infra/adapter/neo4j/src/index.ts"
+      ]
+    },
+    "compilerOptions": {
+      // compilerOptions specified here will override those declared below, but *only* in ts-node. Useful if you want ts-node and tsc to use different options with a single tsconfig.json
+      "target": "ES2016",
+      "module": "CommonJS",
+      "strict": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node"
+    }
+  }
 }

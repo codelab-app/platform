@@ -51,6 +51,7 @@ export const exportInterfaceTypeSelectionSet = `{
   }
   fields
     ${fieldSelectionSet}
+
 }`
 
 export const interfaceTypeSelectionSet = `{
@@ -60,16 +61,7 @@ export const interfaceTypeSelectionSet = `{
       data
     }
   }
-  fieldsConnection {
-    edges {
-      id
-      key
-      name
-      description
-      validationRules
-      node {
-        ${exportBaseSelection}
-      }
-    }
-  }
+  fields
+    ${fieldSelectionSet}
+
 }`

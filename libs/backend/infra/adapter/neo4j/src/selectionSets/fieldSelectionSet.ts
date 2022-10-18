@@ -1,4 +1,4 @@
-export const fieldSelectionSet = `
+export const fieldSelectionSet = `{
   id
   key
   name
@@ -13,4 +13,4 @@ export const fieldSelectionSet = `
     kind
     name
   }
-`
+}`
