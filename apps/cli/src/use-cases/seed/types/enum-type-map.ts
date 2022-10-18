@@ -1,7 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectTypeId } from '@codelab/shared/data'
-import { pascalCaseToWords, stripQuotes } from '@codelab/shared/utils'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { FieldTypeRef } from '../utils/type-predicates'
 

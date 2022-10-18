@@ -9,7 +9,7 @@ import {
   IQueryService,
 } from '../../service'
 import { IAtomDTO, ICreateAtomDTO, IUpdateAtomDTO } from './atom.dto.interface'
-import { IAtom, IAtomRef } from './atom.model.interface'
+import { IAtom } from './atom.model.interface'
 
 export interface IAtomService
   extends ICRUDService<IAtom, ICreateAtomDTO, IUpdateAtomDTO>,
@@ -23,8 +23,6 @@ export interface IAtomService
     Array<Ref<IAtom>>,
     { atoms: Array<IAtom> }
   >
-  deleteMany(atoms: Array<IAtomRef>): Promise<Array<IAtom>>
-
   selectedIds: ArraySet<string>
   setSelectedIds(arraySet: ArraySet<string>): void
 }

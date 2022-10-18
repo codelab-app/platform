@@ -10,7 +10,7 @@ export const PROJECT_NOT_FOUND = 404
  * 404 - Project not found
  */
 export const getProjectDomain = (name: string) => {
-  const url = `${projectApiUrl()}/domains/${name}${teamIdParam}`
+  const url = `${projectApiUrl()}/domains/${name}?${teamIdParam}`
 
   return fetch(url, {
     method: 'GET',

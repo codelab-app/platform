@@ -1,30 +1,12 @@
-import { PropService } from '@codelab/frontend/domain/prop'
 import Ajv from 'ajv'
-import { objectMap } from 'mobx-keystone'
 import { TypeSchemaFactory } from '../../interface-form/type-schema.factory'
-import { AnyTypeModel } from '../models'
-import { TypeService } from '../type.service'
 import {
   interfaceWithUnionExpectedSchema,
-  interfaceWithUnionField,
-  intType,
-  stringType,
-  unionType,
   unionTypeExpectedSchema,
-} from './typeTreeToJsonSchemaTestData'
+} from './schema.data'
+import { interfaceWithUnionField, unionType } from './setup-store'
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
-
-// Need a root store for references to be resolved
-new TypeService({
-  types: objectMap([
-    [unionType.id, unionType as AnyTypeModel],
-    [interfaceWithUnionField.id, interfaceWithUnionField],
-    [intType.id, intType],
-    [stringType.id, stringType],
-  ]),
-  propService: new PropService({}),
-})
 
 describe('Type tree to json schema', () => {
   const transformer = new TypeSchemaFactory()

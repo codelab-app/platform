@@ -36,13 +36,13 @@ export type FieldFragment = {
 }
 
 export const FieldFragmentDoc = gql`
-  fragment Field on InterfaceTypeFieldsRelationship {
+  fragment Field on Field {
     id
     key
     name
     description
     validationRules
-    fieldType: node {
+    fieldType {
       ... on IBaseType {
         id
       }

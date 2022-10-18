@@ -1,33 +1,15 @@
 import { gql } from 'apollo-server-micro'
 
-const sdl = `
-input FieldCreateInput {
-  description: String
-  id: ID!
-  key: String!
-  name: String
-  validationRules: String
-  defaultValues: String
-}
-`
-
 export const fieldSchema = gql`
-  interface Field @relationshipProperties {
+  type Field {
     id: ID!
     key: String!
     name: String
     description: String
     validationRules: String
     defaultValues: Prop
-  }
-
-  ${sdl}
-
-  type Mutation {
-    upsertField(
-      interfaceTypeId: ID!
-      fieldTypeId: ID!
-      field: FieldCreateInput!
-    ): InterfaceType!
+    fieldType: IBaseType! @relationship(type: "FIELD_TYPE", direction: OUT)
+    # API the field belongs to
+    api: InterfaceType! @relationship(type: "INTERFACE_FIELD", direction: IN)
   }
 `

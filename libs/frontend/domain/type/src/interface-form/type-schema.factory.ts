@@ -118,8 +118,8 @@ export class TypeSchemaFactory {
     return {
       ...extra,
       type: 'object',
-      properties: [...type.fields.values()].reduce(makeFieldProperties, {}),
-      required: [...type.fields.values()]
+      properties: type.fields.reduce(makeFieldProperties, {}),
+      required: type.fields
         .map((field) =>
           field.validationRules?.general?.nullable === false
             ? field.key

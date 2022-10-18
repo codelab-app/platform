@@ -1,12 +1,11 @@
 import type {
   IField,
-  IFieldProps,
+  IFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
   IPropData,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -15,33 +14,24 @@ import {
   modelAction,
   objectMap,
   prop,
+  Ref,
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
+import { getFieldService } from '../field.service.context'
 import { createBaseType } from './base-type.model'
-import { Field } from './field.model'
+import { fieldRef } from './field.model'
 
-const hydrate = ({
-  id,
-  kind,
-  name,
-  fieldsConnection,
-  ownerConnection,
-  owner,
-}: IInterfaceTypeDTO): InterfaceType => {
-  assertIsTypeKind(kind, ITypeKind.InterfaceType)
+const hydrate = (type: IInterfaceTypeDTO): InterfaceType => {
+  assertIsTypeKind(type.kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({
-    id,
-    kind,
-    name,
-    ownerId: owner.id,
-    ownerAuthId: owner.auth0Id,
-    defaults: JSON.parse(ownerConnection.edges[0]?.data || '{}'),
+    id: type.id,
+    kind: type.kind,
+    name: type.name,
+    ownerId: type.owner.id,
+    ownerAuthId: type.owner.auth0Id,
+    defaults: JSON.parse(type.ownerConnection.edges[0]?.data || '{}'),
   })
-
-  for (const edge of fieldsConnection.edges) {
-    interfaceType.updateFieldCache(edge)
-  }
 
   return interfaceType
 }
@@ -49,59 +39,52 @@ const hydrate = ({
 @model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
-    fields: prop(() => objectMap<IField>()),
+    _fields: prop(() => objectMap<Ref<IField>>()),
     ownerAuthId: prop<string>(),
     defaults: prop<IPropData>(),
   })
   implements IInterfaceType
 {
   @computed
-  get fieldList() {
-    return [...this.fields.values()]
+  private get fieldService() {
+    return getFieldService(this)
+  }
+
+  @computed
+  get fields() {
+    return [...this._fields.values()].map((field) => field.current)
   }
 
   field(id: string) {
-    return this.fields.get(id)
+    return this._fields.get(id)?.current
   }
 
   @modelAction
-  updateFieldCache(fragment: IFieldProps): Field {
-    const propModel = Prop.hydrate(
-      fragment.defaultValues ?? { id: '', data: '{}' },
-    )
-
-    const field = Field.hydrate(fragment)
-
-    this.fields.set(field.id, field)
-
-    return field
+  deleteField(field: IField) {
+    this._fields.delete(field.id)
   }
 
   @modelAction
-  deleteFieldLocal(field: IField) {
-    this.fields.delete(field.id)
+  writeFieldCache(fields: Array<IFieldDTO>) {
+    for (const field of fields) {
+      const fieldModel = this.fieldService.writeCache(field)
+      console.log(fieldModel)
+      this._fields.set(fieldModel.id, fieldRef(fieldModel))
+    }
   }
 
   @modelAction
   writeCache(fragment: ITypeDTO) {
-    updateBaseTypeCache(this, fragment)
-
     if (fragment.__typename !== ITypeKind.InterfaceType) {
       throw new Error('Invalid InterfaceType')
     }
 
-    for (const fieldEdge of fragment.fieldsConnection.edges) {
-      let field = this.field(fieldEdge.id)
+    updateBaseTypeCache(this, fragment)
 
-      if (field) {
-        field.writeCache(fieldEdge)
-      } else {
-        field = this.updateFieldCache(fieldEdge)
-        this.fields.set(field.id, field)
-      }
-    }
+    this.writeFieldCache(fragment.fields)
 
     this.defaults = JSON.parse(fragment.ownerConnection.edges[0]?.data || '{}')
+
     // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
     //
     // for (const [key, field] of this.fields) {

@@ -6,7 +6,7 @@ import {
   IUpdatePageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import { connectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
@@ -55,7 +55,7 @@ This function fetches all data required for the rendered page in a single API ca
 term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
 page/component
   rootElement
-    decendantElements
+    descendantElements
    */
   @modelFlow
   @transaction
@@ -89,10 +89,12 @@ page/component
   @transaction
   update = _async(function* (
     this: PageService,
-    page: IPage,
+    existingPage: IPage,
     { name, appId, slug, getServerSideProps }: IUpdatePageDTO,
   ) {
-    const { updatePages } = yield* _await(
+    const {
+      updatePages: { pages },
+    } = yield* _await(
       pageApi.UpdatePages({
         update: {
           name,
@@ -100,21 +102,11 @@ page/component
           app: connectNode(appId),
           getServerSideProps,
         },
-        where: { id: page.id },
+        where: { id: existingPage.id },
       }),
     )
 
-    const updatedPage = updatePages.pages[0]
-
-    if (!updatedPage) {
-      throw new Error('Failed to update page')
-    }
-
-    const pageModel = Page.hydrate(updatedPage)
-
-    this.pages.set(page.id, pageModel)
-
-    return pageModel
+    return pages.map((page) => this.writeCache(page))
   })
 
   @modelFlow
@@ -122,16 +114,7 @@ page/component
   getAll = _async(function* (this: PageService, where?: PageWhere) {
     const { pages } = yield* _await(pageApi.GetPages({ where }))
 
-    return pages.map((page) => {
-      if (this.pages.get(page.id)) {
-        return throwIfUndefined(this.pages.get(page.id))
-      } else {
-        const pageModel = Page.hydrate(page)
-        this.pages.set(page.id, pageModel)
-
-        return pageModel
-      }
-    })
+    return pages.map((page) => this.writeCache(page))
   })
 
   @modelFlow
@@ -173,41 +156,19 @@ page/component
       }),
     )
 
-    if (!pages.length) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Page was not created')
-    }
-
-    return pages.map((page) => {
-      const pageModel = Page.hydrate(page)
-
-      this.pages.set(pageModel.id, pageModel)
-
-      return pageModel
-    })
+    return pages.map((page) => this.writeCache(page))
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: PageService, id: string) {
-    const existing = this.pages.get(id)
+  delete = _async(function* (this: PageService, ids: Array<string>) {
+    ids.forEach((id) => this.pages.delete(id))
 
-    if (!existing) {
-      throw new Error('Page not found')
-    }
+    const {
+      deletePages: { nodesDeleted },
+    } = yield* _await(pageApi.DeletePages({ where: { id_IN: ids } }))
 
-    this.pages.delete(id)
-
-    const { deletePages } = yield* _await(
-      pageApi.DeletePages({ where: { id } }),
-    )
-
-    if (deletePages.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('Page was not deleted')
-    }
-
-    return existing
+    return nodesDeleted
   })
 
   @modelAction
@@ -215,7 +176,7 @@ page/component
     let pageModel = this.page(page.id)
 
     if (pageModel) {
-      pageModel.writeCache(page)
+      pageModel = pageModel.writeCache(page)
     } else {
       pageModel = Page.hydrate(page)
       this.pages.set(page.id, pageModel)

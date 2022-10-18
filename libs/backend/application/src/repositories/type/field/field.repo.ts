@@ -1,72 +1,52 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
-  connectField,
+  fieldSelectionSet,
   getDriver,
-  interfaceTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { MutationUpsertFieldArgs } from '@codelab/shared/abstract/codegen'
-import merge from 'lodash/merge'
+import { connectNode } from '@codelab/shared/data'
+
+interface FieldRelationshipProps {
+  interfaceTypeId: string
+  fieldTypeId: string
+}
 
 export const fieldRepository = {
   upsertField: async (
-    args: MutationUpsertFieldArgs,
-  ): Promise<OGM_TYPES.InterfaceType> => {
-    console.log('Upsert Field', args)
+    input: OGM_TYPES.FieldCreateInput,
+    { fieldTypeId, interfaceTypeId }: FieldRelationshipProps,
+  ): Promise<void> => {
+    console.log('Upsert Field', input)
 
     const session = getDriver().session()
-    const InterfaceType = await Repository.instance.InterfaceType
-
-    /**
-     * To implement upsert, we disconnect field first, then re-connect them each time.
-     *
-     * Save us from having to create additional cypher queries
-     *
-     * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
-     */
-    // try {
-    //   await InterfaceType.update({
-    //     where: {
-    //       id: args.interfaceTypeId,
-    //     },
-    //     disconnect: {
-    //       fields: [
-    //         {
-    //           where: {
-    //             edge: {
-    //               id: args.field.id,
-    //             },
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   })
-    // } catch (e) {
-    //   console.error(e)
-    //   throw new Error('Upsert field failed')
-    // }
+    const Field = await Repository.instance.Field()
 
     try {
-      await session.writeTransaction((tx) => tx.run(connectField, args))
-
-      const [updatedInterfaceType] = await InterfaceType.find({
-        selectionSet: interfaceTypeSelectionSet,
+      const existingField = await Field.find({
         where: {
-          id: args.interfaceTypeId,
+          id: input.id,
         },
+        selectionSet: fieldSelectionSet,
       })
 
-      console.log('Updated', updatedInterfaceType)
-
-      return merge(updatedInterfaceType, {
-        fieldsConnection: {
-          edges: updatedInterfaceType?.fieldsConnection.edges.map((edge) => ({
-            node: {
-              __resolveType: edge.node.kind,
+      if (!existingField[0]) {
+        await Field.create({
+          input: [
+            {
+              ...input,
+              fieldType: connectNode(fieldTypeId),
+              api: connectNode(interfaceTypeId),
             },
-          })),
-        },
-      })
+          ],
+        })
+      } else {
+        await Field.update({
+          where: {
+            id: input.id,
+          },
+          update: input,
+        })
+      }
     } finally {
       await session.close()
     }

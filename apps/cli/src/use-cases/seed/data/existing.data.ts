@@ -141,7 +141,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
      */
     interfaceTypes
       .flatMap((interfaceType) =>
-        interfaceType.fieldsConnection.edges.map((field) => ({
+        interfaceType.fields.map((field) => ({
           /**
            * Key by composite key with interfaceName & fieldKey
            */

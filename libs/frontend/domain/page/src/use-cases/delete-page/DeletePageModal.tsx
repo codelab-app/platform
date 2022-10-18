@@ -15,7 +15,7 @@ export const DeletePageModal = observer<{ pageService: IPageService }>(
       return null
     }
 
-    const onSubmit = () => pageService.delete(deletingPage.id)
+    const onSubmit = () => pageService.delete([deletingPage.id])
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while deleting page',

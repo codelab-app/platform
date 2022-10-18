@@ -1,7 +1,6 @@
 import {
   AntDesignFieldsByFile,
   ExistingData,
-  FieldDataKeyByApiId,
   IAtomImport,
 } from '@codelab/backend/abstract/core'
 import { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
@@ -37,7 +36,7 @@ export class ParserService {
   /**
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
-  async extractFieldData(): Promise<FieldDataKeyByApiId> {
+  async extractFieldData(): Promise<Array<ICreateFieldDTO>> {
     const csvData = await readCsvFiles(this.antdDataFolder)
 
     return this.transform(csvData)
@@ -45,8 +44,8 @@ export class ParserService {
 
   private async transform(
     fieldsByFile: AntDesignFieldsByFile,
-  ): Promise<FieldDataKeyByApiId> {
-    const fieldDataKeyByApiId: FieldDataKeyByApiId = {}
+  ): Promise<Array<ICreateFieldDTO>> {
+    const createFieldsDTO: Array<ICreateFieldDTO> = []
 
     for (const [file, antdDesignFields] of Object.entries(fieldsByFile)) {
       const atomName = atomTypeKeyByFileName[file.replace('.csv', '')]
@@ -96,6 +95,7 @@ export class ParserService {
               },
             },
             defaultValues: null,
+            interfaceTypeId: atom.api.id,
           },
         ]
       }, Promise.resolve([]))
@@ -106,9 +106,9 @@ export class ParserService {
         },
       )
 
-      Object.assign(fieldDataKeyByApiId, { [atom.api.id]: filteredFields })
+      createFieldsDTO.push(...filteredFields)
     }
 
-    return fieldDataKeyByApiId
+    return createFieldsDTO
   }
 }

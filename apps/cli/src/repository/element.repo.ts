@@ -2,7 +2,6 @@ import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { connectNode } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { v4 } from 'uuid'
 
 /**
  * Creates the element without prop map bindings and without parent/children connections

@@ -1,4 +1,4 @@
-import { ITypeService } from '@codelab/frontend/abstract/core'
+import { IFieldService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
@@ -11,13 +11,13 @@ import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
 interface DeleteFieldModalProps {
-  typeService: ITypeService
+  fieldService: IFieldService
 }
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
-  ({ typeService }) => {
-    const closeModal = () => typeService.fieldDeleteModal.close()
-    const { field } = typeService.fieldDeleteModal
+  ({ fieldService }) => {
+    const closeModal = () => fieldService.deleteModal.close()
+    const { field } = fieldService.deleteModal
 
     if (!field) {
       return null
@@ -30,15 +30,12 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
         okText="Delete"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Delete field</span>}
-        visible={typeService.fieldDeleteModal.isOpen}
+        visible={fieldService.deleteModal.isOpen}
       >
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
           onSubmit={(input) => {
-            return typeService.deleteField(
-              typeService.fieldDeleteModal.interface?.id as string,
-              field.id,
-            )
+            return fieldService.delete([field.id])
           }}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting field',

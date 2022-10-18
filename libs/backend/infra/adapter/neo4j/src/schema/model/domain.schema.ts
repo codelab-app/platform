@@ -1,11 +1,18 @@
 import { gql } from 'apollo-server-micro'
 
 export const domainSchema = gql`
-  type VercelDomainConfigData {
+  # Copied from generated schema
+  type DeleteInfo {
+    bookmark: String
+    nodesDeleted: Int!
+    relationshipsDeleted: Int!
+  }
+
+  type VercelDomainConfig {
     misconfigured: Boolean!
   }
 
-  type VercelProjectDomainData {
+  type VercelProjectDomain {
     verified: Boolean!
   }
 
@@ -13,30 +20,17 @@ export const domainSchema = gql`
     id: ID! @id(autogenerate: false)
     name: String!
     app: App! @relationship(type: "APP_DOMAIN", direction: OUT)
-    domainConfig: VercelDomainConfigData!
-    projectDomain: VercelProjectDomainData!
+    domainConfig: VercelDomainConfig!
+    projectDomain: VercelProjectDomain!
   }
 
-  input CreateDomainMutationInput {
-    name: String!
-    appId: String!
-  }
-
-  input UpdateDomainMutationInput {
-    name: String!
-    appId: String!
-    id: ID!
-  }
-
-  type DeleteInfo {
-    bookmark: String
-    nodesDeleted: Int!
-    relationshipsDeleted: Int!
-  }
-
+  # We need custom resolvers to interact with Vercel API, @callback doesn't work for delete
   type Mutation {
-    createDomain(input: CreateDomainMutationInput): Domain!
-    updateDomain(input: UpdateDomainMutationInput): Domain!
-    deleteDomain(id: String!): DeleteInfo!
+    createDomains(input: [DomainCreateInput!]!): CreateDomainsMutationResponse!
+    updateDomains(
+      where: DomainWhere!
+      update: DomainUpdateInput!
+    ): UpdateDomainsMutationResponse!
+    deleteDomains(id: String!): DeleteInfo!
   }
 `

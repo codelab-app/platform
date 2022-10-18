@@ -1,55 +1,59 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { InterfaceTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
+import { FieldFragment } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { InterfaceTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
-export type UpsertFieldMutationVariables = Types.Exact<{
-  interfaceTypeId: Types.Scalars['ID']
-  fieldTypeId: Types.Scalars['ID']
-  field: Types.FieldCreateInput
+import { FieldFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+export type CreateFieldsMutationVariables = Types.Exact<{
+  input: Array<Types.FieldCreateInput> | Types.FieldCreateInput
 }>
 
-export type UpsertFieldMutation = { upsertField: InterfaceTypeFragment }
+export type CreateFieldsMutation = {
+  createFields: { fields: Array<FieldFragment> }
+}
 
-export type DeleteFieldMutationVariables = Types.Exact<{
-  interfaceId: Types.Scalars['ID']
+export type UpdateFieldsMutationVariables = Types.Exact<{
+  where: Types.FieldWhere
+  update: Types.FieldUpdateInput
+}>
+
+export type UpdateFieldsMutation = {
+  updateFields: { fields: Array<FieldFragment> }
+}
+
+export type DeleteFieldsMutationVariables = Types.Exact<{
   where: Types.FieldWhere
 }>
 
-export type DeleteFieldMutation = {
-  updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
-}
+export type DeleteFieldsMutation = { deleteFields: { nodesDeleted: number } }
 
-export const UpsertFieldDocument = gql`
-  mutation UpsertField(
-    $interfaceTypeId: ID!
-    $fieldTypeId: ID!
-    $field: FieldCreateInput!
-  ) {
-    upsertField(
-      interfaceTypeId: $interfaceTypeId
-      fieldTypeId: $fieldTypeId
-      field: $field
-    ) {
-      ...InterfaceType
-    }
-  }
-  ${InterfaceTypeFragmentDoc}
-`
-export const DeleteFieldDocument = gql`
-  mutation DeleteField($interfaceId: ID!, $where: FieldWhere!) {
-    updateInterfaceTypes(
-      where: { id: $interfaceId }
-      disconnect: { fields: [{ where: { edge: $where } }] }
-    ) {
-      interfaceTypes {
-        ...InterfaceType
+export const CreateFieldsDocument = gql`
+  mutation CreateFields($input: [FieldCreateInput!]!) {
+    createFields(input: $input) {
+      fields {
+        ...Field
       }
     }
   }
-  ${InterfaceTypeFragmentDoc}
+  ${FieldFragmentDoc}
+`
+export const UpdateFieldsDocument = gql`
+  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
+    updateFields(where: $where, update: $update) {
+      fields {
+        ...Field
+      }
+    }
+  }
+  ${FieldFragmentDoc}
+`
+export const DeleteFieldsDocument = gql`
+  mutation DeleteFields($where: FieldWhere!) {
+    deleteFields(where: $where) {
+      nodesDeleted
+    }
+  }
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -69,31 +73,48 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    UpsertField(
-      variables: UpsertFieldMutationVariables,
+    CreateFields(
+      variables: CreateFieldsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<UpsertFieldMutation> {
+    ): Promise<CreateFieldsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpsertFieldMutation>(UpsertFieldDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'UpsertField',
+          client.request<CreateFieldsMutation>(
+            CreateFieldsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'CreateFields',
         'mutation',
       )
     },
-    DeleteField(
-      variables: DeleteFieldMutationVariables,
+    UpdateFields(
+      variables: UpdateFieldsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteFieldMutation> {
+    ): Promise<UpdateFieldsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteFieldMutation>(DeleteFieldDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'DeleteField',
+          client.request<UpdateFieldsMutation>(
+            UpdateFieldsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateFields',
+        'mutation',
+      )
+    },
+    DeleteFields(
+      variables: DeleteFieldsMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<DeleteFieldsMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteFieldsMutation>(
+            DeleteFieldsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DeleteFields',
         'mutation',
       )
     },

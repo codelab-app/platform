@@ -36,6 +36,8 @@ export const CreateTypeModal = observer<{
           auth0Id: user?.auth0Id,
         }}
         onSubmit={(data) => {
+          console.log(data)
+
           // Here we want to append ids to enum
           const input = {
             ...data,

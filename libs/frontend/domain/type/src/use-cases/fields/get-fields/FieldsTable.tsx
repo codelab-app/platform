@@ -1,59 +1,29 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import {
+  IFieldRecord,
+  IFieldService,
   IInterfaceType,
-  ITypeService,
-  IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
-import { Button, Divider, Space, Table, TableColumnProps, Tag } from 'antd'
+import { Button, Divider, Space, Table, Tag } from 'antd'
+import { ColumnProps } from 'antd/lib/table/Column'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../store'
+import { getValidationRuleTagsArray } from './validation'
 
-export type FieldsTableProps = {
-  interfaceType?: IInterfaceType
+export interface FieldsTableProps {
+  interfaceType: IInterfaceType
   isLoading: boolean
   hideActions?: boolean
-} & { typeService: ITypeService }
-
-interface ValidationRuleTag {
-  key: string
-  value: string | number | boolean
-}
-
-const getValidationRuleTagsArray = (
-  validationRules: Nullish<IValidationRules>,
-) => {
-  const rules: Array<ValidationRuleTag> = []
-
-  if (!validationRules) {
-    return rules
-  }
-
-  Object.entries(validationRules).forEach(([_, ruleCategory]) => {
-    Object.entries(ruleCategory).forEach(([key, value]) => {
-      rules.push({ key, value: value as string | number | boolean })
-    })
-  })
-
-  return rules
-}
-
-interface CellData {
-  id: string
-  name: Nullish<string>
-  description: Nullish<string>
-  key: string
-  typeKind?: string
-  validationRules?: Array<ValidationRuleTag>
+  fieldService: IFieldService
 }
 
 const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 
 export const FieldsTable = observer<FieldsTableProps>(
-  ({ interfaceType, isLoading, typeService, hideActions }) => {
-    const columns: Array<TableColumnProps<CellData>> = [
+  ({ interfaceType, fieldService, isLoading, hideActions }) => {
+    const columns: Array<ColumnProps<IFieldRecord>> = [
       {
         title: 'Field Name',
         dataIndex: 'name',
@@ -126,11 +96,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                 <Button
                   icon={<EditFilled />}
                   onClick={() => {
-                    if (!interfaceType) {
-                      return
-                    }
-
-                    typeService.fieldUpdateModal.open({
+                    fieldService.updateModal.open({
                       field: fieldRef(record.id),
                       interface: typeRef(interfaceType),
                     })
@@ -142,11 +108,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                   danger
                   icon={<DeleteFilled />}
                   onClick={() => {
-                    if (!interfaceType) {
-                      return
-                    }
-
-                    typeService.fieldDeleteModal.open({
+                    fieldService.deleteModal.open({
                       field: fieldRef(record.id),
                       interface: typeRef(interfaceType),
                     })
@@ -161,21 +123,27 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     ]
 
-    const dataSource: Array<CellData> = [
-      ...(interfaceType?.fields.values() ?? []),
-    ].map((f) => ({
-      id: f.id,
-      name: f.name || '',
-      key: f.key,
-      typeKind: f.type.maybeCurrent ? f.type.maybeCurrent.kind : '',
-      description: f.description || '',
-      validationRules: getValidationRuleTagsArray(f.validationRules),
-    }))
+    const dataSource: Array<IFieldRecord> = interfaceType.fields.map(
+      (field) => {
+        return {
+          id: field.id,
+          name: field.name || '',
+          key: field.key,
+          typeKind: field.type.maybeCurrent?.kind ?? '',
+          description: field.description || '',
+          validationRules: getValidationRuleTagsArray(field.validationRules),
+          dependentTypes: [],
+          type: field.type,
+        }
+      },
+    )
 
     return (
       <Table
         columns={
-          hideActions ? columns.filter((x) => x.key !== 'action') : columns
+          hideActions
+            ? columns.filter((column) => column.key !== 'action')
+            : columns
         }
         dataSource={dataSource}
         loading={isLoading}

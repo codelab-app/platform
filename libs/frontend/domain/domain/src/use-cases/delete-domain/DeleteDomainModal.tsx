@@ -18,7 +18,7 @@ export const DeleteDomainModal = observer<{
       return Promise.reject('Domain ID not defined in DeleteDomainModal')
     }
 
-    return domainService.delete(domain.id)
+    return domainService.delete([domain.id])
   }
 
   const onSubmitError = createNotificationHandler({

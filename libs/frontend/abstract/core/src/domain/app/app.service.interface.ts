@@ -7,9 +7,6 @@ import {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import { IElementService } from '../element'
-import { IPageService } from '../page'
-import { IStoreService } from '../store'
 import {
   IAppDTO,
   ICreateAppDTO,
@@ -30,7 +27,7 @@ export interface IAppService
   app(id: string): Maybe<IApp>
   appsList: Array<IApp>
   load(data: IPageBuilderAppProps): IBuilderApp
-  elementService: IElementService
-  pageService: IPageService
-  storeService: IStoreService
+  // elementService: IElementService
+  // pageService: IPageService
+  // storeService: IStoreService
 }

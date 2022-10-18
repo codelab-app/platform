@@ -29,9 +29,7 @@ import React from 'react'
 import tw from 'twin.macro'
 
 const Header = observer(() => {
-  const {
-    userService: { typeService },
-  } = useStore()
+  const { userService, typeService } = useStore()
 
   const headerButtons = [
     <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
@@ -50,8 +48,7 @@ const Header = observer(() => {
 })
 
 const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { userService } = useStore()
-  const { typeService } = userService
+  const { userService, typeService } = useStore()
 
   return (
     <>

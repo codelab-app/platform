@@ -1,5 +1,4 @@
 import type {
-  ActionFragment,
   IActionDTO,
   IActionService,
   IAnyAction,
@@ -9,7 +8,7 @@ import type {
   IUpdateActionDTO,
 } from '@codelab/frontend/abstract/core'
 import { getResourceService } from '@codelab/frontend/domain/resource'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -63,12 +62,12 @@ export class ActionService
 
   @modelAction
   writeCache(action: IActionDTO) {
+    this.updateResourceCache([action])
+
     let actionModel = this.action(action.id)
 
     if (actionModel) {
       Action.writeCache(action, actionModel)
-
-      return actionModel
     } else {
       actionModel = Action.create(action)
       this.actions.set(actionModel.id, actionModel)
@@ -81,23 +80,13 @@ export class ActionService
   @transaction
   update = _async(function* (
     this: ActionService,
-    action: IAnyAction,
+    existing: IAnyAction,
     input: IUpdateActionDTO,
   ) {
-    const updateInput = makeActionUpdateInput(action, input)
+    const updateInput = makeActionUpdateInput(existing, input)
+    const actions = yield* _await(updateActionApi[existing.type](updateInput))
 
-    const [updatedAction] = yield* _await(
-      updateActionApi[action.type](updateInput),
-    )
-
-    if (!updatedAction) {
-      throw new Error('Update action failed')
-    }
-
-    const actionModel = Action.create(updatedAction)
-    this.actions.set(updatedAction.id, actionModel)
-
-    return actionModel
+    return actions.map((action) => this.writeCache(action))
   })
 
   @modelAction
@@ -111,26 +100,12 @@ export class ActionService
     return resources.map((resource) => resourceService.writeCache(resource))
   }
 
-  @modelAction
-  public hydrateOrUpdateCache = (
-    actions: Array<IActionDTO>,
-  ): Array<IAnyAction> => {
-    this.updateResourceCache(actions)
-
-    return actions.map((action) => {
-      const actionModel = Action.create(action)
-      this.actions.set(action.id, actionModel)
-
-      return actionModel
-    })
-  }
-
   @modelFlow
   @transaction
   getAll = _async(function* (this: ActionService, storeId?: string) {
     const actions = yield* _await(getActionsByStore(storeId))
 
-    return this.hydrateOrUpdateCache(actions)
+    return actions.map((action) => this.writeCache(action))
   })
 
   @modelFlow
@@ -151,7 +126,7 @@ export class ActionService
       makeActionCreateInput(action),
     )
 
-    const createdActions: Array<ActionFragment> = yield* _await(
+    const actions: Array<IActionDTO> = yield* _await(
       Promise.all(
         input.map((action) => {
           if (!action.type) {
@@ -163,39 +138,27 @@ export class ActionService
       ).then((res) => res.flat()),
     )
 
-    if (!createdActions.length) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Action was not created')
-    }
-
-    return createdActions.map((action) => {
-      const actionModel = Action.create(action)
-
-      this.actions.set(action.id, actionModel)
-
-      return actionModel
-    })
+    return actions.map((action) => this.writeCache(action))
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ActionService, id: string) {
-    const existing = throwIfUndefined(this.actions.get(id))
+  delete = _async(function* (this: ActionService, ids: Array<string>) {
+    const actions = ids
+      .map((id) => this.actions.get(id))
+      .filter((action): action is IAnyAction => Boolean(action))
 
-    if (this.actions.has(id)) {
-      this.actions.delete(id)
-    }
+    ids.forEach((id) => this.actions.delete(id))
 
-    const { nodesDeleted } = yield* _await(
-      deleteActionApi[existing.type]({ where: { id } }),
+    const results = yield* _await(
+      Promise.all(
+        actions.map((action) =>
+          deleteActionApi[action.type]({ where: { id: action.id } }),
+        ),
+      ),
     )
 
-    if (nodesDeleted === 0) {
-      // throw error so that the actionic middleware rolls back the changes
-      throw new Error('Action was not deleted')
-    }
-
-    return existing
+    return results.reduce((total, { nodesDeleted }) => nodesDeleted + total, 0)
   })
 }
 

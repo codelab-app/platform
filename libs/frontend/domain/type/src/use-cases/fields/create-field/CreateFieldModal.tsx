@@ -1,5 +1,6 @@
 import {
   ICreateFieldDTO,
+  IFieldService,
   ITypeService,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
@@ -11,6 +12,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import set from 'lodash/set'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -19,6 +21,7 @@ import { createFieldSchema } from './createFieldSchema'
 
 export interface CreateFieldModalProps {
   typeService: ITypeService
+  fieldService: IFieldService
 }
 
 const generateDefaultFormModel = () =>
@@ -54,12 +57,14 @@ export const filterValidationRules = (
 }
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
-  ({ typeService }) => {
-    const closeModal = () => typeService.fieldCreateModal.close()
+  ({ fieldService, typeService }) => {
+    const closeModal = () => fieldService.createModal.close()
 
     const [model, setModel] = React.useState<ICreateFieldDTO>(
       generateDefaultFormModel(),
     )
+
+    useAsync(() => typeService.getAll(), [])
 
     return (
       <ModalForm.Modal
@@ -67,27 +72,33 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         okText="Create"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Create field</span>}
-        visible={typeService.fieldCreateModal.isOpen}
+        visible={fieldService.createModal.isOpen}
       >
-        <ModalForm.Form<ICreateFieldDTO>
+        <ModalForm.Form<Omit<ICreateFieldDTO, 'interfaceTypeId'>>
           model={{
             ...model,
           }}
           onChange={(key, value) => {
             setModel((prev) => set(cloneDeep(prev), key, value))
           }}
-          onSubmit={(input) =>
-            typeService.addField(
-              typeService.fieldCreateModal.interface?.id as string,
+          onSubmit={(input) => {
+            const interfaceTypeId = fieldService.createModal.interface?.id
+
+            if (!interfaceTypeId) {
+              throw new Error('Missing interface type id')
+            }
+
+            return fieldService.create([
               {
                 ...input,
+                interfaceTypeId,
                 validationRules: filterValidationRules(
                   input.validationRules,
                   typeService.primitiveKind(input.fieldType),
                 ),
               },
-            )
-          }
+            ])
+          }}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',
             type: 'error',

@@ -183,9 +183,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
     owner: User!
-    fieldFor: [IBaseType!]!
     descendantTypesIds: [ID!]!
-
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
@@ -194,11 +192,10 @@ export const typeSchema = gql`
       )
     # Fields are defined as a set of list to other types
     # The field data is stored as relationship properties
-    fields: [IBaseType!]!
+    fields: [Field!]!
       @relationship(
         type: "INTERFACE_FIELD"
         direction: OUT
-        properties: "Field"
       )
   }
 

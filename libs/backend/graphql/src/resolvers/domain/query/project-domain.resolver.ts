@@ -1,13 +1,9 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import { handleAPIError } from '../../utils/handleAPIError'
 
-export const projectDomain = async (parent: OGM_TYPES.Domain) => {
-  const name = parent.name
+export const projectDomain = async ({ name }: OGM_TYPES.Domain) => {
   const res = await vercelApis.domain.getProjectDomain(name)
-  await handleAPIError(res, 'getProjectDomain - vercel')
+  // await handleAPIError(res, 'getProjectDomain - vercel')
 
-  const body = await res.json()
-
-  return body
+  return await res.json()
 }

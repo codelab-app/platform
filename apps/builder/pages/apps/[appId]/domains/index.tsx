@@ -53,8 +53,7 @@ const DomainsPageHeader = observer(() => {
 })
 
 const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { userService, domainService } = useStore()
-  const { appService } = userService
+  const { userService, domainService, appService } = useStore()
   const appId = useCurrentAppId()
   const { app } = useCurrentApp(appService)
 

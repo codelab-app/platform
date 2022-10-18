@@ -6,7 +6,7 @@ import type {
   IUpdateAtomDTO,
 } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   connectNode,
@@ -49,14 +49,16 @@ export class AtomService
   @transaction
   update = _async(function* (
     this: AtomService,
-    atom: Atom,
+    existingAtom: IAtom,
     { name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
   ) {
     const allowedChildrenIds = allowedChildren.map(
       (allowedChild) => allowedChild,
     )
 
-    const { updateAtoms } = yield* _await(
+    const {
+      updateAtoms: { atoms },
+    } = yield* _await(
       atomApi.UpdateAtoms({
         update: {
           name,
@@ -64,19 +66,11 @@ export class AtomService
           allowedChildren: [reconnectNodes(allowedChildrenIds)],
           tags: [reconnectNodes(tags)],
         },
-        where: { id: atom.id },
+        where: { id: existingAtom.id },
       }),
     )
 
-    const updatedAtom = updateAtoms.atoms[0]
-
-    if (!updatedAtom) {
-      throw new Error('Failed to update atom')
-    }
-
-    atom.writeCache(updatedAtom)
-
-    return atom
+    return atoms.map((atom) => this.writeCache(atom))
   })
 
   @computed
@@ -88,18 +82,18 @@ export class AtomService
   writeCache(atom: IAtomDTO) {
     console.debug('AtomService.writeCache', atom)
 
-    const tagService = getTagService(this)
-
-    atom.tags.map((tag) => tagService.writeCache(tag))
-
     let atomModel = this.atoms.get(atom.id)
 
     if (atomModel) {
-      atomModel.writeCache(atom)
+      atomModel = atomModel.writeCache(atom)
     } else {
       atomModel = Atom.hydrate(atom)
       this.atoms.set(atom.id, atomModel)
     }
+
+    const tagService = getTagService(this)
+
+    atom.tags.map((tag) => tagService.writeCache(tag))
 
     return atomModel
   }
@@ -169,61 +163,18 @@ export class AtomService
       createAtoms: { atoms },
     } = yield* _await(atomApi.CreateAtoms({ input }))
 
-    if (!atoms.length) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Atom was not created')
-    }
-
-    return atoms.map((atom) => {
-      const atomModel = Atom.hydrate(atom)
-
-      this.atoms.set(atomModel.id, atomModel)
-
-      return atomModel
-    })
+    return atoms.map((atom) => this.writeCache(atom))
   })
 
   @modelFlow
   @transaction
-  deleteMany = _async(function* (this: IAtomService, ids: Array<string>) {
-    for (const id of ids) {
-      if (this.atoms.has(id)) {
-        this.atoms.delete(id)
-      }
-    }
+  delete = _async(function* (this: IAtomService, ids: Array<string>) {
+    ids.forEach((id) => this.atoms.delete(id))
 
-    const { deleteAtoms } = yield* _await(
-      atomApi.DeleteAtoms({ where: { id_IN: ids } }),
-    )
+    const {
+      deleteAtoms: { nodesDeleted },
+    } = yield* _await(atomApi.DeleteAtoms({ where: { id_IN: ids } }))
 
-    if (deleteAtoms.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('Atom was not deleted')
-    }
-
-    return [...this.atoms.values()].filter((atom) => atom.id in ids)
-  })
-
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: IAtomService, id: string) {
-    const existing = this.atoms.get(id)
-
-    if (!existing) {
-      throw new Error('Atom not found')
-    }
-
-    this.atoms.delete(id)
-
-    const { deleteAtoms } = yield* _await(
-      atomApi.DeleteAtoms({ where: { id } }),
-    )
-
-    if (deleteAtoms.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('Atom was not deleted')
-    }
-
-    return existing
+    return nodesDeleted
   })
 }

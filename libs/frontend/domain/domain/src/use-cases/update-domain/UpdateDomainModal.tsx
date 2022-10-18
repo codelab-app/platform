@@ -24,7 +24,7 @@ export const UpdateDomainModal = observer<{
   }
 
   const onSubmit = (input: IUpdateDomainDTO) => {
-    return domainService.update(input)
+    return domainService.update(domain, input)
   }
 
   const closeModal = () => domainService.updateModal.close()

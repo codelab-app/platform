@@ -1,13 +1,13 @@
 import {
   BuilderDragData,
   BuilderTab,
-  IAtomService,
   IBuilderService,
   INode,
   isComponent,
   isElement,
   RendererTab,
 } from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Element, elementRef } from '@codelab/frontend/domain/element'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -49,22 +49,29 @@ export class BuilderService
 
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
-
     // configPaneWidth: prop(0),
-    atomServiceRef: prop<Ref<IAtomService>>(),
   })
   implements IBuilderService
 {
+  @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
+  private get tagService() {
+    return getTagService(this)
+  }
+
   /**
    * Get all components that have `Component` tag
    */
+  @computed
   get componentTagNames() {
-    const tagService = getTagService(this)
-
     // all component tags are marked under the component tag
-    return Array.from(tagService.tags.values())
+    return Array.from(this.tagService.tags.values())
       .filter((tag) => tag.name === COMPONENT_TAG_NAME)
-      .flatMap((tag) => tag.children.map(({ id }) => tagService.tag(id)))
+      .flatMap((tag) => tag.children.map(({ id }) => this.tagService.tag(id)))
       .map((tag) => tag?.name)
       .filter(isNonNullable)
   }
@@ -74,7 +81,7 @@ export class BuilderService
    */
   get componentsGroupedByCategory() {
     // atoms are internal components while components are created by users
-    return chain([...this.atomServiceRef.current.atoms.values()])
+    return chain([...this.atomService.atoms.values()])
       .filter((component) => Boolean(component.tags))
       .groupBy(
         (component) =>

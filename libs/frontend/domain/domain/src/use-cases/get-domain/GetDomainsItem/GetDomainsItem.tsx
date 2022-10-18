@@ -18,7 +18,7 @@ export const GetDomainItem = observer<GetAppsItemProps>(
   ({ domain, domainService }) => {
     const {
       domainConfig: { misconfigured },
-      projectDomainData: { verified },
+      projectDomain: { verified },
     } = domain
 
     const url = `https://${domain.name}`

@@ -1,4 +1,4 @@
-import { IPropMapBinding, IPropService } from '@codelab/frontend/abstract/core'
+import { IPropService } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const propServiceRef = rootRef<IPropService>('@codelab/PropService', {

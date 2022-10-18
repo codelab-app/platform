@@ -39,6 +39,8 @@ export class Repository implements IRepository {
   //
   // Types
   //
+  private field: OGM_TYPES.FieldModel | undefined
+
   private interfaceType: OGM_TYPES.InterfaceTypeModel | undefined
 
   private primitiveType: OGM_TYPES.PrimitiveTypeModel | undefined
@@ -177,6 +179,11 @@ export class Repository implements IRepository {
   //
   // Types
   //
+
+  get Field() {
+    return async () =>
+      (this.field ??= await this.getOgmInstance<'Field'>(this.field, 'Field'))
+  }
 
   get InterfaceType() {
     return (async () =>

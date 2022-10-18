@@ -3,11 +3,12 @@ import {
   IStore,
   IStoreDTO,
   IStoreService,
-  ITypeService,
   IUpdateStoreDTO,
 } from '@codelab/frontend/abstract/core'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { getTypeService } from '@codelab/frontend/domain/type'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -18,7 +19,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { deleteStoreInput } from '../utils'
@@ -34,13 +34,12 @@ export class StoreService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new StoreModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
-    _typeService: prop<Ref<ITypeService>>(),
   })
   implements IStoreService
 {
   @computed
-  get typeService() {
-    return this._typeService.current
+  private get typeService() {
+    return getTypeService(this)
   }
 
   store(id: string) {
@@ -112,10 +111,6 @@ export class StoreService
       createStores: { stores },
     } = yield* _await(storeApi.CreateStores({ input }))
 
-    if (!stores.length) {
-      throw new Error('No stores created')
-    }
-
     return stores.map((store) => this.writeCache(store))
   })
 
@@ -123,47 +118,35 @@ export class StoreService
   @transaction
   update = _async(function* (
     this: StoreService,
-    store: IStore,
+    { id }: IEntity,
     { name }: IUpdateStoreDTO,
   ) {
-    const { updateStores } = yield* _await(
+    const {
+      updateStores: { stores },
+    } = yield* _await(
       storeApi.UpdateStores({
-        where: { id: store.id },
+        where: { id },
         update: { name },
       }),
     )
 
-    const updatedStore = updateStores.stores[0]
-
-    if (!updatedStore) {
-      throw new Error('Failed to update store')
-    }
-
-    return store.writeCache(updatedStore)
+    return stores.map((store) => this.writeCache(store))
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: StoreService, storeId: string) {
-    const existing = this.stores.get(storeId)
+  delete = _async(function* (this: StoreService, ids: Array<string>) {
+    ids.forEach((id) => this.stores.delete(id))
 
-    if (!existing) {
-      throw new Error('Deleted store not found')
-    }
-
-    const { deleteStores } = yield* _await(
+    const {
+      deleteStores: { nodesDeleted },
+    } = yield* _await(
       storeApi.DeleteStores({
-        where: { id: storeId },
+        where: { id_IN: ids },
         delete: deleteStoreInput,
       }),
     )
 
-    const { nodesDeleted } = deleteStores
-
-    if (nodesDeleted === 0) {
-      throw new Error('No stores deleted')
-    }
-
-    return existing
+    return nodesDeleted
   })
 }

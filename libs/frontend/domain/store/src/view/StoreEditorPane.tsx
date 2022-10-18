@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
 import {
   IActionService,
+  IFieldService,
   IInterfaceType,
   IStore,
   IStoreService,
@@ -21,6 +22,7 @@ import { GetActionsList, GetStateList } from '../use-cases'
 
 export interface StoreEditorPaneProps {
   typeService: ITypeService
+  fieldService: IFieldService
   actionService: IActionService
   storeService: IStoreService
   appStore: IStore
@@ -48,12 +50,12 @@ const ResizableColumn = ({ children }: PropsWithChildren) => {
 }
 
 export const StoreEditorPane = observer<StoreEditorPaneProps>(
-  ({ typeService, actionService, appStore, storeService }) => {
+  ({ typeService, fieldService, actionService, appStore, storeService }) => {
     const createStateFieldButton = (
       <Button
         icon={<PlusOutlined />}
         onClick={(event: React.MouseEvent) => {
-          typeService.fieldCreateModal.open(
+          fieldService.createModal.open(
             typeRef(appStore.api.id) as Ref<IInterfaceType>,
           )
         }}
@@ -90,7 +92,7 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
           >
             State
           </EditorPaneHeader>
-          <GetStateList store={appStore} typeService={typeService} />
+          <GetStateList fieldService={fieldService} store={appStore} />
         </ResizableColumn>
 
         <motion.div css={tw`flex-1  h-full`}>

@@ -3,14 +3,16 @@ import {
   IAppDTO,
   IAppService,
   ICreateAppDTO,
-  IElementService,
   IPageBuilderAppProps,
-  IPageService,
-  IStoreService,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
-import { deleteStoreInput } from '@codelab/frontend/domain/store'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { getPageService } from '@codelab/frontend/domain/page'
+import {
+  deleteStoreInput,
+  getStoreService,
+} from '@codelab/frontend/domain/store'
+import { getElementService } from '@codelab/frontend/presenter/container'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
@@ -25,7 +27,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import slugify from 'slugify'
@@ -41,16 +42,22 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
-
-    _elementService: prop<Ref<IElementService>>(),
-    pageService: prop<IPageService>(),
-    storeService: prop<IStoreService>(),
   })
   implements IAppService
 {
   @computed
-  get elementService() {
-    return this._elementService.current
+  private get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
+  private get pageService() {
+    return getPageService(this)
   }
 
   /**
@@ -126,19 +133,14 @@ export class AppService
 
     this.updatePagesCache(apps)
 
-    return apps.map((app) => {
-      const appModel = App.hydrate(app)
-      this.apps.set(app.id, appModel)
-
-      return appModel
-    })
+    return apps.map((app) => this.writeCache(app))
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: AppService,
-    app: IEntity,
+    entity: IEntity,
     { name, slug }: IUpdateAppDTO,
   ) {
     const {
@@ -146,21 +148,11 @@ export class AppService
     } = yield* _await(
       appApi.UpdateApps({
         update: { name, slug: slugify(slug) },
-        where: { id: app.id },
+        where: { id: entity.id },
       }),
     )
 
-    const updatedApp = apps[0]
-
-    if (!updatedApp) {
-      throw new Error('Failed to update app')
-    }
-
-    const appModel = App.hydrate(updatedApp)
-
-    this.apps.set(app.id, appModel)
-
-    return appModel
+    return apps.map((app) => this.writeCache(app))
   })
 
   @modelFlow
@@ -211,36 +203,19 @@ export class AppService
       }),
     )
 
-    if (!apps.length) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('App was not created')
-    }
-
-    return apps.map((app) => {
-      let appModel = this.apps.get(app.id)
-
-      if (!appModel) {
-        appModel = App.hydrate(app)
-        this.apps.set(appModel.id, appModel)
-      } else {
-        appModel = appModel.writeCache(app)
-      }
-
-      return appModel
-    })
+    return apps.map((app) => this.writeCache(app))
   })
 
   @modelAction
   writeCache = (app: IAppDTO) => {
     let appModel = this.app(app.id)
 
-    if (!appModel) {
-      appModel = App.hydrate(app)
+    if (appModel) {
+      appModel.writeCache(app)
     } else {
-      appModel = appModel.writeCache(app)
+      appModel = App.hydrate(app)
+      this.apps.set(app.id, appModel)
     }
-
-    this.apps.set(app.id, appModel)
 
     app.pages.map((page) => this.pageService.writeCache(page))
 
@@ -249,12 +224,13 @@ export class AppService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AppService, id: string) {
-    const app = throwIfUndefined(this.apps.get(id))
+  delete = _async(function* (this: AppService, ids: Array<string>) {
+    const pageRootElements = ids
+      .map((id) => this.apps.get(id))
+      .flatMap((app) => app?.pages.map((page) => page.current.rootElement.id))
+      .filter((id): id is string => Boolean(id))
 
-    const pageRootElements = app.pages.map(
-      (page) => page.current.rootElement.id,
-    )
+    ids.forEach((id) => this.apps.delete(id))
 
     /**
      * Delete all elements from all pages
@@ -267,9 +243,11 @@ export class AppService
       ),
     )
 
-    const { deleteApps } = yield* _await(
+    const {
+      deleteApps: { nodesDeleted },
+    } = yield* _await(
       appApi.DeleteApps({
-        where: { id },
+        where: { id_IN: ids },
         delete: {
           pages: [
             {
@@ -285,13 +263,6 @@ export class AppService
       }),
     )
 
-    if (deleteApps.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('App was not deleted')
-    }
-
-    this.apps.delete(id)
-
-    return app
+    return nodesDeleted
   })
 }

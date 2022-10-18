@@ -1,3 +1,3 @@
-export * from './create-domain.resolver'
-export * from './delete-domain.resolver'
-export * from './update-domain.resolver'
+export * from './create-domains.resolver'
+export * from './delete-domains.resolver'
+export * from './update-domains.resolver'

@@ -5818,11 +5818,6 @@ type CreateDeleteInfosMutationResponse {
   info: CreateInfo!
 }
 
-input CreateDomainMutationInput {
-  appId: String!
-  name: String!
-}
-
 type CreateDomainsMutationResponse {
   domains: [Domain!]!
   info: CreateInfo!
@@ -5845,6 +5840,11 @@ type CreateEnumTypeValuesMutationResponse {
 
 type CreateEnumTypesMutationResponse {
   enumTypes: [EnumType!]!
+  info: CreateInfo!
+}
+
+type CreateFieldsMutationResponse {
+  fields: [Field!]!
   info: CreateInfo!
 }
 
@@ -6028,14 +6028,14 @@ type CreateUsersMutationResponse {
   users: [User!]!
 }
 
-type CreateVercelDomainConfigDataMutationResponse {
+type CreateVercelDomainConfigsMutationResponse {
   info: CreateInfo!
-  vercelDomainConfigData: [VercelDomainConfigData!]!
+  vercelDomainConfigs: [VercelDomainConfig!]!
 }
 
-type CreateVercelProjectDomainDataMutationResponse {
+type CreateVercelProjectDomainsMutationResponse {
   info: CreateInfo!
-  vercelProjectDomainData: [VercelProjectDomainData!]!
+  vercelProjectDomains: [VercelProjectDomain!]!
 }
 
 type DeleteInfo {
@@ -6141,10 +6141,10 @@ type Domain {
     sort: [DomainAppConnectionSort!]
     where: DomainAppConnectionWhere
   ): DomainAppConnection!
-  domainConfig: VercelDomainConfigData!
+  domainConfig: VercelDomainConfig!
   id: ID!
   name: String!
-  projectDomain: VercelProjectDomainData!
+  projectDomain: VercelProjectDomain!
 }
 
 type DomainAggregateSelection {
@@ -9871,26 +9871,285 @@ type EnumTypesConnection {
   totalCount: Int!
 }
 
-interface Field {
+type Field {
+  api(
+    directed: Boolean = true
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  ): InterfaceType!
+  apiAggregate(
+    directed: Boolean = true
+    where: InterfaceTypeWhere
+  ): FieldInterfaceTypeApiAggregationSelection
+  apiConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [FieldApiConnectionSort!]
+    where: FieldApiConnectionWhere
+  ): FieldApiConnection!
   defaultValues: Prop
   description: String
+  fieldType(
+    directed: Boolean = true
+    options: IBaseTypeOptions
+    where: IBaseTypeWhere
+  ): IBaseType!
+  fieldTypeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [FieldFieldTypeConnectionSort!]
+    where: FieldFieldTypeConnectionWhere
+  ): FieldFieldTypeConnection!
   id: ID!
   key: String!
   name: String
   validationRules: String
+}
+
+type FieldAggregateSelection {
+  count: Int!
+  description: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  key: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  validationRules: StringAggregateSelectionNullable!
+}
+
+input FieldApiAggregateInput {
+  AND: [FieldApiAggregateInput!]
+  OR: [FieldApiAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: FieldApiNodeAggregationWhereInput
+}
+
+input FieldApiConnectFieldInput {
+  connect: InterfaceTypeConnectInput
+  where: InterfaceTypeConnectWhere
+}
+
+input FieldApiConnectOrCreateFieldInput {
+  onCreate: FieldApiConnectOrCreateFieldInputOnCreate!
+  where: InterfaceTypeConnectOrCreateWhere!
+}
+
+input FieldApiConnectOrCreateFieldInputOnCreate {
+  node: InterfaceTypeOnCreateInput!
+}
+
+type FieldApiConnection {
+  edges: [FieldApiRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input FieldApiConnectionSort {
+  node: InterfaceTypeSort
+}
+
+input FieldApiConnectionWhere {
+  AND: [FieldApiConnectionWhere!]
+  OR: [FieldApiConnectionWhere!]
+  node: InterfaceTypeWhere
+  node_NOT: InterfaceTypeWhere
+}
+
+input FieldApiCreateFieldInput {
+  node: InterfaceTypeCreateInput!
+}
+
+input FieldApiDeleteFieldInput {
+  delete: InterfaceTypeDeleteInput
+  where: FieldApiConnectionWhere
+}
+
+input FieldApiDisconnectFieldInput {
+  disconnect: InterfaceTypeDisconnectInput
+  where: FieldApiConnectionWhere
+}
+
+input FieldApiFieldInput {
+  connect: FieldApiConnectFieldInput
+  connectOrCreate: FieldApiConnectOrCreateFieldInput
+  create: FieldApiCreateFieldInput
+}
+
+input FieldApiNodeAggregationWhereInput {
+  AND: [FieldApiNodeAggregationWhereInput!]
+  OR: [FieldApiNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type FieldApiRelationship {
+  cursor: String!
+  node: InterfaceType!
+}
+
+input FieldApiUpdateConnectionInput {
+  node: InterfaceTypeUpdateInput
+}
+
+input FieldApiUpdateFieldInput {
+  connect: FieldApiConnectFieldInput
+  connectOrCreate: FieldApiConnectOrCreateFieldInput
+  create: FieldApiCreateFieldInput
+  delete: FieldApiDeleteFieldInput
+  disconnect: FieldApiDisconnectFieldInput
+  update: FieldApiUpdateConnectionInput
+  where: FieldApiConnectionWhere
+}
+
+input FieldConnectInput {
+  api: FieldApiConnectFieldInput
+  fieldType: FieldFieldTypeConnectFieldInput
+}
+
+input FieldConnectOrCreateInput {
+  api: FieldApiConnectOrCreateFieldInput
+}
+
+input FieldConnectWhere {
+  node: FieldWhere!
 }
 
 input FieldCreateInput {
-  defaultValues: String
+  api: FieldApiFieldInput
   description: String
+  fieldType: FieldFieldTypeFieldInput
   id: ID!
   key: String!
   name: String
   validationRules: String
 }
 
+input FieldDeleteInput {
+  api: FieldApiDeleteFieldInput
+  fieldType: FieldFieldTypeDeleteFieldInput
+}
+
+input FieldDisconnectInput {
+  api: FieldApiDisconnectFieldInput
+  fieldType: FieldFieldTypeDisconnectFieldInput
+}
+
+type FieldEdge {
+  cursor: String!
+  node: Field!
+}
+
+input FieldFieldTypeConnectFieldInput {
+  connect: IBaseTypeConnectInput
+  where: IBaseTypeConnectWhere
+}
+
+type FieldFieldTypeConnection {
+  edges: [FieldFieldTypeRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input FieldFieldTypeConnectionSort {
+  node: IBaseTypeSort
+}
+
+input FieldFieldTypeConnectionWhere {
+  AND: [FieldFieldTypeConnectionWhere!]
+  OR: [FieldFieldTypeConnectionWhere!]
+  node: IBaseTypeWhere
+  node_NOT: IBaseTypeWhere
+}
+
+input FieldFieldTypeCreateFieldInput {
+  node: IBaseTypeCreateInput!
+}
+
+input FieldFieldTypeDeleteFieldInput {
+  delete: IBaseTypeDeleteInput
+  where: FieldFieldTypeConnectionWhere
+}
+
+input FieldFieldTypeDisconnectFieldInput {
+  disconnect: IBaseTypeDisconnectInput
+  where: FieldFieldTypeConnectionWhere
+}
+
+input FieldFieldTypeFieldInput {
+  connect: FieldFieldTypeConnectFieldInput
+  create: FieldFieldTypeCreateFieldInput
+}
+
+type FieldFieldTypeRelationship {
+  cursor: String!
+  node: IBaseType!
+}
+
+input FieldFieldTypeUpdateConnectionInput {
+  node: IBaseTypeUpdateInput
+}
+
+input FieldFieldTypeUpdateFieldInput {
+  connect: FieldFieldTypeConnectFieldInput
+  create: FieldFieldTypeCreateFieldInput
+  delete: FieldFieldTypeDeleteFieldInput
+  disconnect: FieldFieldTypeDisconnectFieldInput
+  update: FieldFieldTypeUpdateConnectionInput
+  where: FieldFieldTypeConnectionWhere
+}
+
+type FieldInterfaceTypeApiAggregationSelection {
+  count: Int!
+  node: FieldInterfaceTypeApiNodeAggregateSelection
+}
+
+type FieldInterfaceTypeApiNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input FieldOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more FieldSort objects to sort Fields by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [FieldSort!]
+}
+
+input FieldRelationInput {
+  api: FieldApiCreateFieldInput
+  fieldType: FieldFieldTypeCreateFieldInput
+}
+
+"""
+Fields to sort Fields by. The order in which sorts are applied is not guaranteed when specifying many fields in one FieldSort object.
+"""
 input FieldSort {
-  defaultValues: SortDirection
   description: SortDirection
   id: SortDirection
   key: SortDirection
@@ -9899,7 +10158,9 @@ input FieldSort {
 }
 
 input FieldUpdateInput {
+  api: FieldApiUpdateFieldInput
   description: String
+  fieldType: FieldFieldTypeUpdateFieldInput
   id: ID
   key: String
   name: String
@@ -9909,6 +10170,11 @@ input FieldUpdateInput {
 input FieldWhere {
   AND: [FieldWhere!]
   OR: [FieldWhere!]
+  api: InterfaceTypeWhere
+  apiAggregate: FieldApiAggregateInput
+  apiConnection: FieldApiConnectionWhere
+  apiConnection_NOT: FieldApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
   description: String
   description_CONTAINS: String
   description_ENDS_WITH: String
@@ -9919,6 +10185,8 @@ input FieldWhere {
   description_NOT_IN: [String]
   description_NOT_STARTS_WITH: String
   description_STARTS_WITH: String
+  fieldTypeConnection: FieldFieldTypeConnectionWhere
+  fieldTypeConnection_NOT: FieldFieldTypeConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -9959,6 +10227,12 @@ input FieldWhere {
   validationRules_NOT_IN: [String]
   validationRules_NOT_STARTS_WITH: String
   validationRules_STARTS_WITH: String
+}
+
+type FieldsConnection {
+  edges: [FieldEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 input GetBaseTypesOptions {
@@ -10969,12 +11243,15 @@ type InterfaceType implements IBaseType & WithDescendants {
     where: InterfaceTypeApiOfAtomsConnectionWhere
   ): InterfaceTypeApiOfAtomsConnection!
   descendantTypesIds: [ID!]!
-  fieldFor: [IBaseType!]!
   fields(
     directed: Boolean = true
-    options: IBaseTypeOptions
-    where: IBaseTypeWhere
-  ): [IBaseType!]!
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): InterfaceTypeFieldFieldsAggregationSelection
   fieldsConnection(
     after: String
     directed: Boolean = true
@@ -11188,10 +11465,33 @@ type InterfaceTypeEdge {
   node: InterfaceType!
 }
 
+type InterfaceTypeFieldFieldsAggregationSelection {
+  count: Int!
+  node: InterfaceTypeFieldFieldsNodeAggregateSelection
+}
+
+type InterfaceTypeFieldFieldsNodeAggregateSelection {
+  description: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  key: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  validationRules: StringAggregateSelectionNullable!
+}
+
+input InterfaceTypeFieldsAggregateInput {
+  AND: [InterfaceTypeFieldsAggregateInput!]
+  OR: [InterfaceTypeFieldsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: InterfaceTypeFieldsNodeAggregationWhereInput
+}
+
 input InterfaceTypeFieldsConnectFieldInput {
-  connect: IBaseTypeConnectInput
-  edge: FieldCreateInput!
-  where: IBaseTypeConnectWhere
+  connect: [FieldConnectInput!]
+  where: FieldConnectWhere
 }
 
 type InterfaceTypeFieldsConnection {
@@ -11201,31 +11501,27 @@ type InterfaceTypeFieldsConnection {
 }
 
 input InterfaceTypeFieldsConnectionSort {
-  edge: FieldSort
-  node: IBaseTypeSort
+  node: FieldSort
 }
 
 input InterfaceTypeFieldsConnectionWhere {
   AND: [InterfaceTypeFieldsConnectionWhere!]
   OR: [InterfaceTypeFieldsConnectionWhere!]
-  edge: FieldWhere
-  edge_NOT: FieldWhere
-  node: IBaseTypeWhere
-  node_NOT: IBaseTypeWhere
+  node: FieldWhere
+  node_NOT: FieldWhere
 }
 
 input InterfaceTypeFieldsCreateFieldInput {
-  edge: FieldCreateInput!
-  node: IBaseTypeCreateInput!
+  node: FieldCreateInput!
 }
 
 input InterfaceTypeFieldsDeleteFieldInput {
-  delete: IBaseTypeDeleteInput
+  delete: FieldDeleteInput
   where: InterfaceTypeFieldsConnectionWhere
 }
 
 input InterfaceTypeFieldsDisconnectFieldInput {
-  disconnect: IBaseTypeDisconnectInput
+  disconnect: FieldDisconnectInput
   where: InterfaceTypeFieldsConnectionWhere
 }
 
@@ -11234,20 +11530,99 @@ input InterfaceTypeFieldsFieldInput {
   create: [InterfaceTypeFieldsCreateFieldInput!]
 }
 
-type InterfaceTypeFieldsRelationship implements Field {
+input InterfaceTypeFieldsNodeAggregationWhereInput {
+  AND: [InterfaceTypeFieldsNodeAggregationWhereInput!]
+  OR: [InterfaceTypeFieldsNodeAggregationWhereInput!]
+  description_AVERAGE_EQUAL: Float
+  description_AVERAGE_GT: Float
+  description_AVERAGE_GTE: Float
+  description_AVERAGE_LT: Float
+  description_AVERAGE_LTE: Float
+  description_EQUAL: String
+  description_GT: Int
+  description_GTE: Int
+  description_LONGEST_EQUAL: Int
+  description_LONGEST_GT: Int
+  description_LONGEST_GTE: Int
+  description_LONGEST_LT: Int
+  description_LONGEST_LTE: Int
+  description_LT: Int
+  description_LTE: Int
+  description_SHORTEST_EQUAL: Int
+  description_SHORTEST_GT: Int
+  description_SHORTEST_GTE: Int
+  description_SHORTEST_LT: Int
+  description_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  key_AVERAGE_EQUAL: Float
+  key_AVERAGE_GT: Float
+  key_AVERAGE_GTE: Float
+  key_AVERAGE_LT: Float
+  key_AVERAGE_LTE: Float
+  key_EQUAL: String
+  key_GT: Int
+  key_GTE: Int
+  key_LONGEST_EQUAL: Int
+  key_LONGEST_GT: Int
+  key_LONGEST_GTE: Int
+  key_LONGEST_LT: Int
+  key_LONGEST_LTE: Int
+  key_LT: Int
+  key_LTE: Int
+  key_SHORTEST_EQUAL: Int
+  key_SHORTEST_GT: Int
+  key_SHORTEST_GTE: Int
+  key_SHORTEST_LT: Int
+  key_SHORTEST_LTE: Int
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  validationRules_AVERAGE_EQUAL: Float
+  validationRules_AVERAGE_GT: Float
+  validationRules_AVERAGE_GTE: Float
+  validationRules_AVERAGE_LT: Float
+  validationRules_AVERAGE_LTE: Float
+  validationRules_EQUAL: String
+  validationRules_GT: Int
+  validationRules_GTE: Int
+  validationRules_LONGEST_EQUAL: Int
+  validationRules_LONGEST_GT: Int
+  validationRules_LONGEST_GTE: Int
+  validationRules_LONGEST_LT: Int
+  validationRules_LONGEST_LTE: Int
+  validationRules_LT: Int
+  validationRules_LTE: Int
+  validationRules_SHORTEST_EQUAL: Int
+  validationRules_SHORTEST_GT: Int
+  validationRules_SHORTEST_GTE: Int
+  validationRules_SHORTEST_LT: Int
+  validationRules_SHORTEST_LTE: Int
+}
+
+type InterfaceTypeFieldsRelationship {
   cursor: String!
-  defaultValues: Prop
-  description: String
-  id: ID!
-  key: String!
-  name: String
-  node: IBaseType!
-  validationRules: String
+  node: Field!
 }
 
 input InterfaceTypeFieldsUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: IBaseTypeUpdateInput
+  node: FieldUpdateInput
 }
 
 input InterfaceTypeFieldsUpdateFieldInput {
@@ -11449,10 +11824,31 @@ input InterfaceTypeWhere {
   Return InterfaceTypes where some of the related Atoms match this filter
   """
   apiOfAtoms_SOME: AtomWhere
+  fieldsAggregate: InterfaceTypeFieldsAggregateInput
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SOME: InterfaceTypeFieldsConnectionWhere
+
+  """
+  Return InterfaceTypes where all of the related Fields match this filter
+  """
+  fields_ALL: FieldWhere
+
+  """
+  Return InterfaceTypes where none of the related Fields match this filter
+  """
+  fields_NONE: FieldWhere
+
+  """
+  Return InterfaceTypes where one of the related Fields match this filter
+  """
+  fields_SINGLE: FieldWhere
+
+  """
+  Return InterfaceTypes where some of the related Fields match this filter
+  """
+  fields_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -11779,7 +12175,6 @@ type Mutation {
   createDeleteInfos(
     input: [DeleteInfoCreateInput!]!
   ): CreateDeleteInfosMutationResponse!
-  createDomain(input: CreateDomainMutationInput): Domain!
   createDomains(input: [DomainCreateInput!]!): CreateDomainsMutationResponse!
   createElementTypes(
     input: [ElementTypeCreateInput!]!
@@ -11791,6 +12186,7 @@ type Mutation {
   createEnumTypes(
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
+  createFields(input: [FieldCreateInput!]!): CreateFieldsMutationResponse!
   createGetBaseTypesReturns(
     input: [GetBaseTypesReturnCreateInput!]!
   ): CreateGetBaseTypesReturnsMutationResponse!
@@ -11833,12 +12229,12 @@ type Mutation {
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
   createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
-  createVercelDomainConfigData(
-    input: [VercelDomainConfigDataCreateInput!]!
-  ): CreateVercelDomainConfigDataMutationResponse!
-  createVercelProjectDomainData(
-    input: [VercelProjectDomainDataCreateInput!]!
-  ): CreateVercelProjectDomainDataMutationResponse!
+  createVercelDomainConfigs(
+    input: [VercelDomainConfigCreateInput!]!
+  ): CreateVercelDomainConfigsMutationResponse!
+  createVercelProjectDomains(
+    input: [VercelProjectDomainCreateInput!]!
+  ): CreateVercelProjectDomainsMutationResponse!
   deleteActionTypes(
     delete: ActionTypeDeleteInput
     where: ActionTypeWhere
@@ -11868,7 +12264,6 @@ type Mutation {
   ): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
   deleteDeleteInfos(where: DeleteInfoWhere): DeleteInfo!
-  deleteDomain(id: String!): DeleteInfo!
   deleteDomains(delete: DomainDeleteInput, where: DomainWhere): DeleteInfo!
   deleteElementTypes(
     delete: ElementTypeDeleteInput
@@ -11883,6 +12278,7 @@ type Mutation {
     delete: EnumTypeDeleteInput
     where: EnumTypeWhere
   ): DeleteInfo!
+  deleteFields(delete: FieldDeleteInput, where: FieldWhere): DeleteInfo!
   deleteGetBaseTypesReturns(where: GetBaseTypesReturnWhere): DeleteInfo!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
   deleteInterfaceTypes(
@@ -11930,10 +12326,8 @@ type Mutation {
     where: UnionTypeWhere
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-  deleteVercelDomainConfigData(where: VercelDomainConfigDataWhere): DeleteInfo!
-  deleteVercelProjectDomainData(
-    where: VercelProjectDomainDataWhere
-  ): DeleteInfo!
+  deleteVercelDomainConfigs(where: VercelDomainConfigWhere): DeleteInfo!
+  deleteVercelProjectDomains(where: VercelProjectDomainWhere): DeleteInfo!
   resetDatabase: ResetDatabaseMutationResponse
   updateActionTypes(
     connect: ActionTypeConnectInput
@@ -12024,7 +12418,6 @@ type Mutation {
     update: DeleteInfoUpdateInput
     where: DeleteInfoWhere
   ): UpdateDeleteInfosMutationResponse!
-  updateDomain(input: UpdateDomainMutationInput): Domain!
   updateDomains(
     connect: DomainConnectInput
     connectOrCreate: DomainConnectOrCreateInput
@@ -12070,6 +12463,15 @@ type Mutation {
     update: EnumTypeUpdateInput
     where: EnumTypeWhere
   ): UpdateEnumTypesMutationResponse!
+  updateFields(
+    connect: FieldConnectInput
+    connectOrCreate: FieldConnectOrCreateInput
+    create: FieldRelationInput
+    delete: FieldDeleteInput
+    disconnect: FieldDisconnectInput
+    update: FieldUpdateInput
+    where: FieldWhere
+  ): UpdateFieldsMutationResponse!
   updateGetBaseTypesReturns(
     update: GetBaseTypesReturnUpdateInput
     where: GetBaseTypesReturnWhere
@@ -12203,19 +12605,14 @@ type Mutation {
     update: UnionTypeUpdateInput
     where: UnionTypeWhere
   ): UpdateUnionTypesMutationResponse!
-  updateVercelDomainConfigData(
-    update: VercelDomainConfigDataUpdateInput
-    where: VercelDomainConfigDataWhere
-  ): UpdateVercelDomainConfigDataMutationResponse!
-  updateVercelProjectDomainData(
-    update: VercelProjectDomainDataUpdateInput
-    where: VercelProjectDomainDataWhere
-  ): UpdateVercelProjectDomainDataMutationResponse!
-  upsertField(
-    field: FieldCreateInput!
-    fieldTypeId: ID!
-    interfaceTypeId: ID!
-  ): InterfaceType!
+  updateVercelDomainConfigs(
+    update: VercelDomainConfigUpdateInput
+    where: VercelDomainConfigWhere
+  ): UpdateVercelDomainConfigsMutationResponse!
+  updateVercelProjectDomains(
+    update: VercelProjectDomainUpdateInput
+    where: VercelProjectDomainWhere
+  ): UpdateVercelProjectDomainsMutationResponse!
 }
 
 interface OwnedBy {
@@ -14339,6 +14736,14 @@ type Query {
     sort: [EnumTypeSort]
     where: EnumTypeWhere
   ): EnumTypesConnection!
+  fields(options: FieldOptions, where: FieldWhere): [Field!]!
+  fieldsAggregate(where: FieldWhere): FieldAggregateSelection!
+  fieldsConnection(
+    after: String
+    first: Int
+    sort: [FieldSort]
+    where: FieldWhere
+  ): FieldsConnection!
   getBaseTypesReturns(
     options: GetBaseTypesReturnOptions
     where: GetBaseTypesReturnWhere
@@ -14537,32 +14942,32 @@ type Query {
     sort: [UserSort]
     where: UserWhere
   ): UsersConnection!
-  vercelDomainConfigData(
-    options: VercelDomainConfigDataOptions
-    where: VercelDomainConfigDataWhere
-  ): [VercelDomainConfigData!]!
-  vercelDomainConfigDataAggregate(
-    where: VercelDomainConfigDataWhere
-  ): VercelDomainConfigDataAggregateSelection!
-  vercelDomainConfigDataConnection(
+  vercelDomainConfigs(
+    options: VercelDomainConfigOptions
+    where: VercelDomainConfigWhere
+  ): [VercelDomainConfig!]!
+  vercelDomainConfigsAggregate(
+    where: VercelDomainConfigWhere
+  ): VercelDomainConfigAggregateSelection!
+  vercelDomainConfigsConnection(
     after: String
     first: Int
-    sort: [VercelDomainConfigDataSort]
-    where: VercelDomainConfigDataWhere
-  ): VercelDomainConfigDataConnection!
-  vercelProjectDomainData(
-    options: VercelProjectDomainDataOptions
-    where: VercelProjectDomainDataWhere
-  ): [VercelProjectDomainData!]!
-  vercelProjectDomainDataAggregate(
-    where: VercelProjectDomainDataWhere
-  ): VercelProjectDomainDataAggregateSelection!
-  vercelProjectDomainDataConnection(
+    sort: [VercelDomainConfigSort]
+    where: VercelDomainConfigWhere
+  ): VercelDomainConfigsConnection!
+  vercelProjectDomains(
+    options: VercelProjectDomainOptions
+    where: VercelProjectDomainWhere
+  ): [VercelProjectDomain!]!
+  vercelProjectDomainsAggregate(
+    where: VercelProjectDomainWhere
+  ): VercelProjectDomainAggregateSelection!
+  vercelProjectDomainsConnection(
     after: String
     first: Int
-    sort: [VercelProjectDomainDataSort]
-    where: VercelProjectDomainDataWhere
-  ): VercelProjectDomainDataConnection!
+    sort: [VercelProjectDomainSort]
+    where: VercelProjectDomainWhere
+  ): VercelProjectDomainsConnection!
 }
 
 input QueryOptions {
@@ -18049,12 +18454,6 @@ type UpdateDeleteInfosMutationResponse {
   info: UpdateInfo!
 }
 
-input UpdateDomainMutationInput {
-  appId: String!
-  id: ID!
-  name: String!
-}
-
 type UpdateDomainsMutationResponse {
   domains: [Domain!]!
   info: UpdateInfo!
@@ -18077,6 +18476,11 @@ type UpdateEnumTypeValuesMutationResponse {
 
 type UpdateEnumTypesMutationResponse {
   enumTypes: [EnumType!]!
+  info: UpdateInfo!
+}
+
+type UpdateFieldsMutationResponse {
+  fields: [Field!]!
   info: UpdateInfo!
 }
 
@@ -18173,14 +18577,14 @@ type UpdateUnionTypesMutationResponse {
   unionTypes: [UnionType!]!
 }
 
-type UpdateVercelDomainConfigDataMutationResponse {
+type UpdateVercelDomainConfigsMutationResponse {
   info: UpdateInfo!
-  vercelDomainConfigData: [VercelDomainConfigData!]!
+  vercelDomainConfigs: [VercelDomainConfig!]!
 }
 
-type UpdateVercelProjectDomainDataMutationResponse {
+type UpdateVercelProjectDomainsMutationResponse {
   info: UpdateInfo!
-  vercelProjectDomainData: [VercelProjectDomainData!]!
+  vercelProjectDomains: [VercelProjectDomain!]!
 }
 
 type User {
@@ -19336,106 +19740,106 @@ type UsersConnection {
   totalCount: Int!
 }
 
-type VercelDomainConfigData {
+type VercelDomainConfig {
   misconfigured: Boolean!
 }
 
-type VercelDomainConfigDataAggregateSelection {
+type VercelDomainConfigAggregateSelection {
   count: Int!
 }
 
-type VercelDomainConfigDataConnection {
-  edges: [VercelDomainConfigDataEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input VercelDomainConfigDataCreateInput {
+input VercelDomainConfigCreateInput {
   misconfigured: Boolean!
 }
 
-type VercelDomainConfigDataEdge {
+type VercelDomainConfigEdge {
   cursor: String!
-  node: VercelDomainConfigData!
+  node: VercelDomainConfig!
 }
 
-input VercelDomainConfigDataOptions {
+input VercelDomainConfigOptions {
   limit: Int
   offset: Int
 
   """
-  Specify one or more VercelDomainConfigDataSort objects to sort VercelDomainConfigData by. The sorts will be applied in the order in which they are arranged in the array.
+  Specify one or more VercelDomainConfigSort objects to sort VercelDomainConfigs by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [VercelDomainConfigDataSort!]
+  sort: [VercelDomainConfigSort!]
 }
 
 """
-Fields to sort VercelDomainConfigData by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelDomainConfigDataSort object.
+Fields to sort VercelDomainConfigs by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelDomainConfigSort object.
 """
-input VercelDomainConfigDataSort {
+input VercelDomainConfigSort {
   misconfigured: SortDirection
 }
 
-input VercelDomainConfigDataUpdateInput {
+input VercelDomainConfigUpdateInput {
   misconfigured: Boolean
 }
 
-input VercelDomainConfigDataWhere {
-  AND: [VercelDomainConfigDataWhere!]
-  OR: [VercelDomainConfigDataWhere!]
+input VercelDomainConfigWhere {
+  AND: [VercelDomainConfigWhere!]
+  OR: [VercelDomainConfigWhere!]
   misconfigured: Boolean
   misconfigured_NOT: Boolean
 }
 
-type VercelProjectDomainData {
-  verified: Boolean!
-}
-
-type VercelProjectDomainDataAggregateSelection {
-  count: Int!
-}
-
-type VercelProjectDomainDataConnection {
-  edges: [VercelProjectDomainDataEdge!]!
+type VercelDomainConfigsConnection {
+  edges: [VercelDomainConfigEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input VercelProjectDomainDataCreateInput {
+type VercelProjectDomain {
   verified: Boolean!
 }
 
-type VercelProjectDomainDataEdge {
-  cursor: String!
-  node: VercelProjectDomainData!
+type VercelProjectDomainAggregateSelection {
+  count: Int!
 }
 
-input VercelProjectDomainDataOptions {
+input VercelProjectDomainCreateInput {
+  verified: Boolean!
+}
+
+type VercelProjectDomainEdge {
+  cursor: String!
+  node: VercelProjectDomain!
+}
+
+input VercelProjectDomainOptions {
   limit: Int
   offset: Int
 
   """
-  Specify one or more VercelProjectDomainDataSort objects to sort VercelProjectDomainData by. The sorts will be applied in the order in which they are arranged in the array.
+  Specify one or more VercelProjectDomainSort objects to sort VercelProjectDomains by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [VercelProjectDomainDataSort!]
+  sort: [VercelProjectDomainSort!]
 }
 
 """
-Fields to sort VercelProjectDomainData by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelProjectDomainDataSort object.
+Fields to sort VercelProjectDomains by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelProjectDomainSort object.
 """
-input VercelProjectDomainDataSort {
+input VercelProjectDomainSort {
   verified: SortDirection
 }
 
-input VercelProjectDomainDataUpdateInput {
+input VercelProjectDomainUpdateInput {
   verified: Boolean
 }
 
-input VercelProjectDomainDataWhere {
-  AND: [VercelProjectDomainDataWhere!]
-  OR: [VercelProjectDomainDataWhere!]
+input VercelProjectDomainWhere {
+  AND: [VercelProjectDomainWhere!]
+  OR: [VercelProjectDomainWhere!]
   verified: Boolean
   verified_NOT: Boolean
+}
+
+type VercelProjectDomainsConnection {
+  edges: [VercelProjectDomainEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 interface WithDescendants {

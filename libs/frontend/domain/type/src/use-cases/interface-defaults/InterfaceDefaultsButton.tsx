@@ -18,7 +18,7 @@ export const InterfaceDefaultsButton = ({
 
   return (
     <Button
-      disabled={!type.fieldList?.length}
+      disabled={!type.fields.length}
       icon={<FormOutlined />}
       onClick={() => {
         typeService.interfaceDefaultsModal.open(

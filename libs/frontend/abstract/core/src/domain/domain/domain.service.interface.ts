@@ -7,18 +7,12 @@ import {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import {
-  ICreateDomainDTO,
-  IDomainDTO,
-  IUpdateDomainDTO,
-} from './domain.dto.interface'
+import { ICreateDomainDTO, IDomainDTO } from './domain.dto.interface'
 import { IDomain } from './domain.model.interface'
 
 export interface IDomainService
-  extends Omit<
-      ICRUDService<IDomain, ICreateDomainDTO, ICreateDomainDTO>,
-      'update' | 'create'
-    >,
+  extends ICRUDService<IDomain, ICreateDomainDTO, ICreateDomainDTO>,
+    ICacheService<IDomainDTO, IDomain>,
     Omit<
       IQueryService<IDomain, DomainWhere, DomainOptions>,
       'getAll' | 'getOne'
@@ -32,6 +26,4 @@ export interface IDomainService
     { domain: Maybe<string> }
   >['createModal']
   getAll(where?: DomainWhere): Promise<Array<IDomain>>
-  update(input: IUpdateDomainDTO): Promise<void>
-  create(input: ICreateDomainDTO): Promise<void>
 }

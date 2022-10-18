@@ -1,7 +1,7 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
 
-export interface TypeRecord {
+export interface ITypeRecord {
+  id: string
   name: string
   typeKind: ITypeKind
-  id: string
 }

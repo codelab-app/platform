@@ -1,10 +1,18 @@
 import { IDomain, IDomainDTO } from '@codelab/frontend/abstract/core'
 import {
-  VercelDomainConfigData,
-  VercelProjectDomainData,
+  VercelDomainConfig,
+  VercelProjectDomain,
   // VercelProjectDomainData,
 } from '@codelab/shared/abstract/codegen'
-import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
+import {
+  detach,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+  rootRef,
+} from 'mobx-keystone'
 
 const hydrate = (domain: IDomainDTO) => {
   return new Domain({
@@ -12,7 +20,7 @@ const hydrate = (domain: IDomainDTO) => {
     name: domain.name,
     // app: domain.app.id,
     domainConfig: domain.domainConfig,
-    projectDomainData: domain.projectDomain,
+    projectDomain: domain.projectDomain,
   })
 }
 
@@ -22,12 +30,22 @@ export class Domain
     id: idProp,
     name: prop<string>(),
     // app: prop<IApp>(),
-    domainConfig: prop<VercelDomainConfigData>(),
-    projectDomainData: prop<VercelProjectDomainData>(),
+    domainConfig: prop<VercelDomainConfig>(),
+    projectDomain: prop<VercelProjectDomain>(),
   })
   implements IDomain
 {
   static hydrate = hydrate
+
+  @modelAction
+  public writeCache(data: IDomainDTO) {
+    this.id = data.id
+    this.name = data.name
+    this.domainConfig = data.domainConfig
+    this.projectDomain = data.projectDomain
+
+    return this
+  }
 }
 
 export const domainRef = rootRef<IDomain>('@codelab/AppRef', {

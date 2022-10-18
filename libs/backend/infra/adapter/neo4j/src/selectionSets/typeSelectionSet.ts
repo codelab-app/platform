@@ -1,3 +1,4 @@
+import { fieldSelectionSet } from './fieldSelectionSet'
 import { userSelectionSet } from './userSelectionSet'
 
 /**
@@ -48,18 +49,8 @@ export const exportInterfaceTypeSelectionSet = `{
       data
     }
   }
-  fieldsConnection {
-    edges {
-      id
-      key
-      name
-      description
-      validationRules
-      node {
-        ${exportBaseSelection}
-      }
-    }
-  }
+  fields
+    ${fieldSelectionSet}
 }`
 
 export const interfaceTypeSelectionSet = `{
@@ -69,16 +60,6 @@ export const interfaceTypeSelectionSet = `{
       data
     }
   }
-  fieldsConnection {
-    edges {
-      id
-      key
-      name
-      description
-      validationRules
-      node {
-        ${exportBaseSelection}
-      }
-    }
-  }
+  fields
+    ${fieldSelectionSet}
 }`

@@ -1,4 +1,8 @@
-import { ITypeService, IUpdateFieldDTO } from '@codelab/frontend/abstract/core'
+import {
+  IFieldService,
+  ITypeService,
+  IUpdateFieldDTO,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
@@ -7,6 +11,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import set from 'lodash/set'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
+import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
@@ -14,20 +19,21 @@ import { createFieldSchema, filterValidationRules } from '../create-field'
 
 export const UpdateFieldModal = observer<{
   typeService: ITypeService
-}>(({ typeService }) => {
-  const closeModal = () => typeService.fieldUpdateModal.close()
+  fieldService: IFieldService
+}>(({ typeService, fieldService }) => {
+  const closeModal = () => fieldService.updateModal.close()
   const [model, setModel] = useState<Nullable<IUpdateFieldDTO>>(null)
 
   useEffect(() => {
-    const field = typeService.fieldUpdateModal.field
+    const field = fieldService.updateModal.field
+    const interfaceTypeId = fieldService.updateModal.interface?.id
 
-    if (!field) {
+    if (!field || !interfaceTypeId) {
       return
     }
 
-    console.log(field.defaultValues)
-
     setModel({
+      interfaceTypeId,
       id: field.id,
       name: field.name,
       key: field.key,
@@ -37,9 +43,11 @@ export const UpdateFieldModal = observer<{
       defaultValues: JSON.stringify(field.defaultValues),
     })
   }, [
-    typeService.fieldUpdateModal.field,
-    typeService.fieldUpdateModal.field?.validationRules,
+    fieldService.updateModal.field,
+    fieldService.updateModal.field?.validationRules,
   ])
+
+  useAsync(() => typeService.getAll(), [])
 
   if (!model) {
     return null
@@ -51,26 +59,30 @@ export const UpdateFieldModal = observer<{
       okText="Update"
       onCancel={closeModal}
       title={<span css={tw`font-semibold`}>Update field</span>}
-      visible={typeService.fieldUpdateModal.isOpen}
+      visible={fieldService.updateModal.isOpen}
     >
-      <ModalForm.Form<IUpdateFieldDTO>
+      <ModalForm.Form<Omit<IUpdateFieldDTO, 'interfaceTypeId'>>
         model={model}
         onChange={(key, value) => {
           setModel((prev) => prev && set(cloneDeep(prev), key, value))
         }}
-        onSubmit={(input) =>
-          typeService.updateField(
-            typeService.fieldUpdateModal.interface?.id as string,
-            model.key,
-            {
-              ...input,
-              validationRules: filterValidationRules(
-                input.validationRules,
-                typeService.primitiveKind(input.fieldType),
-              ),
-            },
-          )
-        }
+        onSubmit={(input) => {
+          const interfaceTypeId = fieldService.updateModal.interface?.id
+
+          if (!interfaceTypeId) {
+            throw new Error('Missing interface type id')
+          }
+
+          return fieldService.update(model, {
+            ...input,
+            key: model.key,
+            interfaceTypeId,
+            validationRules: filterValidationRules(
+              input.validationRules,
+              typeService.primitiveKind(input.fieldType),
+            ),
+          })
+        }}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating field',
           type: 'error',
