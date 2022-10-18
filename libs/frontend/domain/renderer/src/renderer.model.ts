@@ -116,7 +116,7 @@ export class Renderer
       /**
        * Store attached to app, needed to access its actions
        */
-      appStore: prop<Ref<IStore>>(),
+      appStore: prop<Nullable<Ref<IStore>>>(),
 
       /**
        * The tree that's being rendered, we assume that this is properly constructed
@@ -243,7 +243,7 @@ export class Renderer
 
   @computed
   get state() {
-    return this.appStore.current.state
+    return this.appStore?.current.state || {}
   }
 
   /**
@@ -374,9 +374,10 @@ export class Renderer
     props = mapDeep(
       props,
       // value mapper
-      (v, k) => (isString(v) ? this.appStore.current.getState(v) : v),
+      (v, k) => (isString(v) ? this.appStore?.current.getState(v) : v),
       // key mapper
-      (v, k) => (isString(k) ? this.appStore.current.getState(k) : k) as string,
+      (v, k) =>
+        (isString(k) ? this.appStore?.current.getState(k) : k) as string,
     )
 
     return props
