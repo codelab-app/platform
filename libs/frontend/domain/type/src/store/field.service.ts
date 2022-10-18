@@ -160,6 +160,8 @@ export class FieldService
 
   @modelAction
   writeCache(fragment: IFieldDTO) {
+    console.log(fragment)
+
     let fieldModel = this.fields.get(fragment.id)
 
     if (fieldModel) {

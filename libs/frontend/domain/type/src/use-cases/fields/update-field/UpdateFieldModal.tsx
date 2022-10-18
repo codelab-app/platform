@@ -1,4 +1,8 @@
-import { ITypeService, IUpdateFieldDTO } from '@codelab/frontend/abstract/core'
+import {
+  IFieldService,
+  ITypeService,
+  IUpdateFieldDTO,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
@@ -14,8 +18,8 @@ import { createFieldSchema, filterValidationRules } from '../create-field'
 
 export const UpdateFieldModal = observer<{
   typeService: ITypeService
-}>(({ typeService }) => {
-  const { fieldService } = typeService
+  fieldService: IFieldService
+}>(({ typeService, fieldService }) => {
   const closeModal = () => fieldService.updateModal.close()
   const [model, setModel] = useState<Nullable<IUpdateFieldDTO>>(null)
 

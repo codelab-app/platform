@@ -1,6 +1,7 @@
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import { ITypeDTO, ITypeService } from '@codelab/frontend/abstract/core'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { Ref } from 'mobx-keystone'
 import {
   ActionType,
   AppType,
@@ -17,7 +18,7 @@ import {
   UnionType,
 } from './models'
 
-export const typeFactory = (type: ITypeDTO) => {
+export const typeFactory = (type: ITypeDTO, typeService: Ref<ITypeService>) => {
   switch (type.__typename) {
     case ITypeKind.AppType:
       return AppType.hydrate(type)
@@ -53,7 +54,7 @@ export const typeFactory = (type: ITypeDTO) => {
       return ArrayType.hydrate(type)
 
     case TypeKind.InterfaceType:
-      return InterfaceType.hydrate(type)
+      return InterfaceType.hydrate(type, typeService)
 
     case TypeKind.UnionType:
       return UnionType.hydrate(type)

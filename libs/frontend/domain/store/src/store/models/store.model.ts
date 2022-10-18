@@ -47,7 +47,7 @@ export class Store
   @computed
   get state() {
     const state: IPropData = merge(
-      this.api.current.fieldList
+      this.api.current.fields
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         ?.map((f) => ({ [f.key]: f.defaultValues?.maybeCurrent?.values }))
         .reduce(merge, {}),

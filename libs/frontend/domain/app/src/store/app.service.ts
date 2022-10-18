@@ -3,13 +3,15 @@ import {
   IAppDTO,
   IAppService,
   ICreateAppDTO,
-  IElementService,
   IPageBuilderAppProps,
-  IPageService,
-  IStoreService,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
-import { deleteStoreInput } from '@codelab/frontend/domain/store'
+import { getPageService } from '@codelab/frontend/domain/page'
+import {
+  deleteStoreInput,
+  getStoreService,
+} from '@codelab/frontend/domain/store'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -25,7 +27,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import slugify from 'slugify'
@@ -41,16 +42,22 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
-
-    _elementService: prop<Ref<IElementService>>(),
-    pageService: prop<IPageService>(),
-    storeService: prop<IStoreService>(),
   })
   implements IAppService
 {
   @computed
-  get elementService() {
-    return this._elementService.current
+  private get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
+  private get pageService() {
+    return getPageService(this)
   }
 
   /**

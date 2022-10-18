@@ -1,14 +1,19 @@
 import {
   IActionService,
   IAdminService,
+  IAppService,
   IAtomService,
   IBuilderService,
   IComponentService,
   IDomainService,
   IElementService,
+  IFieldService,
+  IPageService,
   IRenderService,
   IResourceService,
+  IStoreService,
   ITagService,
+  ITypeService,
   IUserDTO,
   IUserService,
 } from '../domain'
@@ -25,16 +30,17 @@ export interface RootStoreData {
 export interface IRootStore {
   // setUserService(userService: IUserService): void
   userService: IUserService
-  // appService: IAppService
-  // pageService: IPageService
-  // typeService: ITypeService
+  appService: IAppService
+  pageService: IPageService
+  typeService: ITypeService
+  fieldService: IFieldService
   atomService: IAtomService
   tagService: ITagService
   adminService: IAdminService
   componentService: IComponentService
   actionService: IActionService
   // propService: IPropService
-  // storeService: IStoreService
+  storeService: IStoreService
   appRenderService: IRenderService
   builderRenderService: IRenderService
   elementService: IElementService

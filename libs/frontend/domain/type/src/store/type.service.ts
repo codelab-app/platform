@@ -1,8 +1,6 @@
 import type {
   IAnyType,
   ICreateTypeDTO,
-  IFieldRef,
-  IFieldService,
   IInterfaceTypeRef,
   ITypeDTO,
   ITypeService,
@@ -37,6 +35,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { typeFactory } from './type.factory'
+import { typeServiceRef } from './type.service.ref'
 import { TypeModalService } from './type-modal.service'
 
 @model('@codelab/TypeService')
@@ -51,23 +50,11 @@ export class TypeService
 
     selectedIds: prop(() => arraySet<string>()).withSetter(),
     interfaceDefaultsModal: prop(() => new TypeModalService({})),
-
-    fieldService: prop<IFieldService>(),
-    // _propService: prop<Ref<IPropService>>(),
-    // _elementService: prop<Ref<IElementService>>(),
   })
   implements ITypeService
 {
-  // @computed
-  // get propService() {
-  //   return this._propService.current
-  // }
-  //
-
   @computed
   get data() {
-    console.log(this.types)
-
     return [...this.types.values()].map((t) => ({
       id: t.id,
       name: t.name,
@@ -123,7 +110,7 @@ export class TypeService
     if (typeModel) {
       typeModel.writeCache(fragment)
     } else {
-      typeModel = typeFactory(fragment)
+      typeModel = typeFactory(fragment, typeServiceRef(this))
       this.types.set(fragment.id, typeModel)
     }
 
@@ -151,15 +138,12 @@ export class TypeService
   @transaction
   getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
     const ids = where?.id_IN ?? undefined
-    // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))
 
+    console.log(types)
+
     return types.map((type) => {
-      const typeModel = typeFactory(type)
-
-      this.types.set(type.id, typeModel)
-
-      return typeModel
+      return this.writeCache(type)
     })
   })
 
@@ -247,8 +231,6 @@ export class TypeService
     const types: Array<ITypeDTO> = yield* _await(
       Promise.all(
         input.map((type) => {
-          console.log(type)
-
           if (!type.kind) {
             throw new Error('Type requires a kind')
           }

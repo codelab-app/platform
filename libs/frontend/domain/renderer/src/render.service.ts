@@ -1,12 +1,9 @@
 import type {
-  IComponentService,
-  IElementService,
   IRenderer,
   IRenderService,
   RendererProps,
 } from '@codelab/frontend/abstract/core'
-import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
 
 @model('@codelab/RenderService')
@@ -16,21 +13,18 @@ export class RenderService
      * These are renderers for the public
      */
     renderers: prop(() => objectMap<IRenderer>()),
-
-    _elementService: prop<Ref<IElementService>>(),
-    _componentService: prop<Ref<IComponentService>>(),
   })
   implements IRenderService
 {
-  @computed
-  get elementService() {
-    return this._elementService.current
-  }
-
-  @computed
-  get componentService() {
-    return this._componentService.current
-  }
+  // @computed
+  // get elementService() {
+  //   return this._elementService.current
+  // }
+  //
+  // @computed
+  // get componentService() {
+  //   return this._componentService.current
+  // }
 
   @modelAction
   addRenderer(props: RendererProps & { id: string }) {

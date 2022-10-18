@@ -1,8 +1,8 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import {
   IFieldRecord,
+  IFieldService,
   IInterfaceType,
-  ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { Button, Divider, Space, Table, Tag } from 'antd'
 import { ColumnProps } from 'antd/lib/table/Column'
@@ -13,18 +13,17 @@ import { fieldRef, typeRef } from '../../../store'
 import { getValidationRuleTagsArray } from './validation'
 
 export interface FieldsTableProps {
-  interfaceType?: IInterfaceType
+  interfaceType: IInterfaceType
   isLoading: boolean
   hideActions?: boolean
-  typeService: ITypeService
+  fieldService: IFieldService
 }
 
 const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 
 export const FieldsTable = observer<FieldsTableProps>(
-  ({ interfaceType, isLoading, typeService, hideActions }) => {
+  ({ interfaceType, fieldService, isLoading, hideActions }) => {
     const columns: Array<ColumnProps<IFieldRecord>> = [
-      Table.EXPAND_COLUMN,
       {
         title: 'Field Name',
         dataIndex: 'name',
@@ -97,11 +96,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                 <Button
                   icon={<EditFilled />}
                   onClick={() => {
-                    if (!interfaceType) {
-                      return
-                    }
-
-                    typeService.fieldService.updateModal.open({
+                    fieldService.updateModal.open({
                       field: fieldRef(record.id),
                       interface: typeRef(interfaceType),
                     })
@@ -113,11 +108,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                   danger
                   icon={<DeleteFilled />}
                   onClick={() => {
-                    if (!interfaceType) {
-                      return
-                    }
-
-                    typeService.fieldService.deleteModal.open({
+                    fieldService.deleteModal.open({
                       field: fieldRef(record.id),
                       interface: typeRef(interfaceType),
                     })
@@ -132,18 +123,20 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     ]
 
-    const dataSource: Array<IFieldRecord> = [
-      ...(interfaceType?.fields.values() ?? []),
-    ].map((field) => ({
-      id: field.id,
-      name: field.name || '',
-      key: field.key,
-      typeKind: field.type.maybeCurrent ? field.type.maybeCurrent.kind : '',
-      description: field.description || '',
-      validationRules: getValidationRuleTagsArray(field.validationRules),
-      dependentTypes: [],
-      type: field.type,
-    }))
+    const dataSource: Array<IFieldRecord> = interfaceType.fields.map(
+      (field) => {
+        return {
+          id: field.id,
+          name: field.name || '',
+          key: field.key,
+          typeKind: field.type.maybeCurrent ? field.type.maybeCurrent.kind : '',
+          description: field.description || '',
+          validationRules: getValidationRuleTagsArray(field.validationRules),
+          dependentTypes: [],
+          type: field.type,
+        }
+      },
+    )
 
     return (
       <Table
@@ -153,14 +146,6 @@ export const FieldsTable = observer<FieldsTableProps>(
             : columns
         }
         dataSource={dataSource}
-        expandable={{
-          expandedRowRender: (record) => {
-            console.log(record)
-
-            return null
-          },
-          rowExpandable: (record) => true,
-        }}
         loading={isLoading}
         pagination={{ position: ['bottomCenter'], pageSize: 25 }}
         rowKey={(f) => f.key}

@@ -1,5 +1,6 @@
 import {
   ICreateFieldDTO,
+  IFieldService,
   ITypeService,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
@@ -19,6 +20,7 @@ import { createFieldSchema } from './createFieldSchema'
 
 export interface CreateFieldModalProps {
   typeService: ITypeService
+  fieldService: IFieldService
 }
 
 const generateDefaultFormModel = () =>
@@ -54,8 +56,8 @@ export const filterValidationRules = (
 }
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
-  ({ typeService }) => {
-    const closeModal = () => typeService.fieldService.createModal.close()
+  ({ fieldService, typeService }) => {
+    const closeModal = () => fieldService.createModal.close()
 
     const [model, setModel] = React.useState<ICreateFieldDTO>(
       generateDefaultFormModel(),
@@ -67,7 +69,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         okText="Create"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Create field</span>}
-        visible={typeService.fieldService.createModal.isOpen}
+        visible={fieldService.createModal.isOpen}
       >
         <ModalForm.Form<Omit<ICreateFieldDTO, 'interfaceTypeId'>>
           model={{
@@ -77,14 +79,13 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             setModel((prev) => set(cloneDeep(prev), key, value))
           }}
           onSubmit={(input) => {
-            const interfaceTypeId =
-              typeService.fieldService.createModal.interface?.id
+            const interfaceTypeId = fieldService.createModal.interface?.id
 
             if (!interfaceTypeId) {
               throw new Error('Missing interface type id')
             }
 
-            return typeService.fieldService.create([
+            return fieldService.create([
               {
                 ...input,
                 interfaceTypeId,

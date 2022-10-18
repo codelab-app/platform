@@ -33,12 +33,15 @@ import { useAsync } from 'react-use'
 
 const PageBuilder: CodelabPage = observer(() => {
   const {
-    userService: { appService, typeService },
+    userService,
+    appService,
+    typeService,
     componentService,
     builderRenderService,
     elementService,
     builderService,
     resourceService,
+    pageService,
   } = useStore()
 
   const appId = useCurrentAppId()
@@ -63,7 +66,7 @@ const PageBuilder: CodelabPage = observer(() => {
       appTypes,
       actionTypes,
       codeMirrorTypes,
-    } = await appService.pageService.getRenderedPage(appId, pageId)
+    } = await pageService.getRenderedPage(appId, pageId)
 
     if (!apps[0]) {
       return
@@ -162,10 +165,13 @@ PageBuilder.Layout = observer((page) => {
     builderRenderService,
     actionService,
     resourceService,
+    appService,
+    typeService,
+    storeService,
+    pageService,
+    fieldService,
   } = useStore()
 
-  const { appService, typeService } = userService
-  const { fieldService } = typeService
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
@@ -210,9 +216,10 @@ PageBuilder.Layout = observer((page) => {
               <EditorPaneBuilder
                 actionService={actionService}
                 appStore={pageBuilderRenderer.appStore.current}
+                fieldService={fieldService}
                 resizable={resizable}
                 resourceService={resourceService}
-                storeService={appService.storeService}
+                storeService={storeService}
                 typeService={typeService}
               />
             )}
@@ -232,7 +239,7 @@ PageBuilder.Layout = observer((page) => {
           />
         ))}
         Header={observer(() => (
-          <PageDetailHeader pageService={appService.pageService} />
+          <PageDetailHeader pageService={pageService} />
         ))}
         SidebarNavigation={() => (
           <SidebarNavigation

@@ -1,11 +1,6 @@
-import {
-  IAppService,
-  ITypeService,
-  IUser,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
-import { App } from '@codelab/frontend/domain/app'
-import { Page } from '@codelab/frontend/domain/page'
+import { IUser, IUserDTO, IUserService } from '@codelab/frontend/abstract/core'
+import { App, getAppService } from '@codelab/frontend/domain/app'
+import { getPageService, Page } from '@codelab/frontend/domain/page'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -21,18 +16,18 @@ import {
 import { userApi } from './user.api'
 import { User } from './user.model'
 
-// const init = (data?: IUserDTO) => {
-//   // SSR makes it such that user may be undefined
-//   if (!data) {
-//     return new UserService({})
-//   }
-//
-//   const user = User.hydrate(data)
-//
-//   return new UserService({
-//     user,
-//   })
-// }
+const init = (data?: IUserDTO) => {
+  // SSR makes it such that user may be undefined
+  if (!data) {
+    return new UserService({})
+  }
+
+  const user = User.hydrate(data)
+
+  return new UserService({
+    user,
+  })
+}
 
 @model('@codelab/UserService')
 export class UserService
@@ -43,14 +38,22 @@ export class UserService
      * Used by getStaticPaths for custom domain routing
      */
     users: prop(() => objectMap<IUser>()),
-    appService: prop<IAppService>(),
-    typeService: prop<ITypeService>(),
   })
   implements IUserService
 {
   @computed
   get auth0Id() {
     return throwIfUndefined(this.user?.auth0Id)
+  }
+
+  @computed
+  private get appService() {
+    return getAppService(this)
+  }
+
+  @computed
+  private get pageService() {
+    return getPageService(this)
   }
 
   @modelFlow
@@ -62,7 +65,7 @@ export class UserService
         this.appService.apps.set(app.id, App.hydrate(app))
 
         app.pages.forEach((page) => {
-          this.appService.pageService.pages.set(page.id, Page.hydrate(page))
+          this.pageService.pages.set(page.id, Page.hydrate(page))
         })
       })
 
@@ -71,4 +74,6 @@ export class UserService
 
     return
   })
+
+  static init = init
 }

@@ -11,15 +11,18 @@ const Index = (props: AppPagePageProps) => {
   const store = useStore()
 
   const {
-    userService: { appService },
+    userService,
+    storeService,
+    pageService,
+    appService,
     builderRenderService,
   } = store
 
   const router = useRouter()
   const { pageId, storeId, appId } = props
   const app = appService.app(appId)
-  const appStore = appService.storeService.store(storeId)
-  const page = appService.pageService.pages.get(pageId)
+  const appStore = storeService.store(storeId)
+  const page = pageService.pages.get(pageId)
 
   const renderer = useMemo(() => {
     if (!page || !appStore || !app) {
@@ -109,9 +112,8 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
 
   const store = initializeStore({})
 
-  const {
-    userService: { appService, typeService },
-  } = store
+  const { userService, appService, typeService, pageService, storeService } =
+    store
 
   const { app: appSlug, page: pageSlug } = context.params
 
@@ -125,7 +127,7 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`App with slug ${appSlug} not found`)
   }
 
-  const [page] = await appService.pageService.getAll({
+  const [page] = await pageService.getAll({
     slug: pageSlug as string,
   })
 
@@ -133,9 +135,7 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`Page ${pageSlug} of App ${appSlug} Not found`)
   }
 
-  const appStore = app.store.id
-    ? await appService.storeService.getOne(app.store.id)
-    : null
+  const appStore = app.store.id ? await storeService.getOne(app.store.id) : null
 
   // components are needed to build pageElementTree
   // therefore they must be loaded first

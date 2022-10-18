@@ -40,9 +40,7 @@ const items: MenuProps['items'] = [
 ]
 
 const AppsPageHeader = observer(() => {
-  const {
-    userService: { appService },
-  } = useStore()
+  const { userService, appService } = useStore()
 
   const pageHeaderButtons = [
     <CreateAppButton appService={appService} key={0} />,
@@ -55,8 +53,7 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { userService } = useStore()
-  const { appService } = userService
+  const { userService, appService } = useStore()
   const { loading, error, value } = useAsync(() => appService.getAll(), [])
 
   return (

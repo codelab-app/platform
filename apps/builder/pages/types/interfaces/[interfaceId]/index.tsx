@@ -32,12 +32,10 @@ import React from 'react'
 
 const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
   () => {
-    const {
-      userService: { typeService },
-    } = useStore()
-
-    const { fieldService } = typeService
+    const { userService, typeService, fieldService } = useStore()
     const { type, loading } = useGetCurrentInterfaceWithFields(typeService)
+
+    console.log(type)
 
     return (
       <>
@@ -47,20 +45,26 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
 
         {type?.kind === ITypeKind.InterfaceType && (
           <>
-            <CreateFieldModal typeService={typeService} />
-            <UpdateFieldModal typeService={typeService} />
-            <DeleteFieldModal typeService={typeService} />
+            <CreateFieldModal
+              fieldService={fieldService}
+              typeService={typeService}
+            />
+            <UpdateFieldModal
+              fieldService={fieldService}
+              typeService={typeService}
+            />
+            <DeleteFieldModal fieldService={fieldService} />
           </>
         )}
 
         <ContentSection>
-          {loading ? (
+          {loading || !type ? (
             <Spin />
           ) : (
             <FieldsTable
+              fieldService={fieldService}
               interfaceType={type}
               isLoading={loading}
-              typeService={typeService}
             />
           )}
         </ContentSection>
@@ -70,19 +74,16 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
 )
 
 const Header = observer(() => {
-  const {
-    userService: { typeService },
-  } = useStore()
-
+  const { userService, typeService, fieldService } = useStore()
   const interfaceId = useCurrentInterfaceId()
   const router = useRouter()
   const interfaceType = typeService.type(interfaceId)
 
   const headerButtons = [
     <CreateFieldButton
+      fieldService={fieldService}
       interfaceId={interfaceId}
       key={1}
-      typeService={typeService}
     />,
   ]
 

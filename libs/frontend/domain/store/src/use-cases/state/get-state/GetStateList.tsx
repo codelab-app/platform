@@ -1,5 +1,8 @@
-import { IStore, ITypeService } from '@codelab/frontend/abstract/core'
-import { InterfaceType } from '@codelab/frontend/domain/type'
+import {
+  IFieldService,
+  IInterfaceType,
+  IStore,
+} from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/codegen'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -8,18 +11,22 @@ import { GetStateItem } from './GetStateItem'
 
 export interface GetStateTreeProps {
   store: IStore
-  typeService: ITypeService
+  fieldService: IFieldService
 }
 
 export const GetStateList = observer<GetStateTreeProps>(
-  ({ store, typeService }) => {
-    const api = store.api.current as Maybe<InterfaceType>
+  ({ store, fieldService }) => {
+    const api = store.api.current as Maybe<IInterfaceType>
 
     return (
       <List
-        dataSource={api?.fieldList}
+        dataSource={api?.fields}
         renderItem={(field) => (
-          <GetStateItem field={field} store={store} typeService={typeService} />
+          <GetStateItem
+            field={field}
+            fieldService={fieldService}
+            store={store}
+          />
         )}
         size="small"
       />

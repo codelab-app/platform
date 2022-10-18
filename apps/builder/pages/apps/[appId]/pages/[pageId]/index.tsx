@@ -17,7 +17,10 @@ import { useAsync } from 'react-use'
 
 const PageRenderer: CodelabPage = observer(() => {
   const {
-    userService: { appService, typeService },
+    userService,
+    pageService,
+    appService,
+    typeService,
     appRenderService,
     componentService,
   } = useStore()
@@ -43,7 +46,7 @@ const PageRenderer: CodelabPage = observer(() => {
       appTypes,
       actionTypes,
       codeMirrorTypes,
-    } = await appService.pageService.getRenderedPage(appId, pageId)
+    } = await pageService.getRenderedPage(appId, pageId)
 
     if (!apps[0]) {
       return
@@ -110,14 +113,12 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired({
 })
 
 PageRenderer.Layout = observer((page) => {
-  const {
-    userService: { appService },
-  } = useStore()
+  const { userService, appService, pageService } = useStore()
 
   return (
     <DashboardTemplate
       Header={observer(() => (
-        <PageDetailHeader pageService={appService.pageService} />
+        <PageDetailHeader pageService={pageService} />
       ))}
       headerHeight={48}
     >

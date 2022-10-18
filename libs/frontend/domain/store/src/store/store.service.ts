@@ -3,9 +3,9 @@ import {
   IStore,
   IStoreDTO,
   IStoreService,
-  ITypeService,
   IUpdateStoreDTO,
 } from '@codelab/frontend/abstract/core'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import { IEntity } from '@codelab/shared/abstract/types'
@@ -19,7 +19,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { deleteStoreInput } from '../utils'
@@ -35,13 +34,12 @@ export class StoreService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new StoreModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
-    _typeService: prop<Ref<ITypeService>>(),
   })
   implements IStoreService
 {
   @computed
-  get typeService() {
-    return this._typeService.current
+  private get typeService() {
+    return getTypeService(this)
   }
 
   store(id: string) {

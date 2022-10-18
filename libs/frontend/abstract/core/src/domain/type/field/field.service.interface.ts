@@ -1,7 +1,15 @@
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
-import { ICRUDService, IEntityModalService } from '../../../service'
-import { ICreateFieldDTO, IUpdateFieldDTO } from '../field.dto.interface'
+import {
+  ICacheService,
+  ICRUDService,
+  IEntityModalService,
+} from '../../../service'
+import {
+  ICreateFieldDTO,
+  IFieldDTO,
+  IUpdateFieldDTO,
+} from '../field.dto.interface'
 import { IInterfaceType } from '../types'
 import { IField } from './field.interface'
 
@@ -16,21 +24,8 @@ export interface IFieldModalProperties {
 }
 
 export interface IFieldService
-  extends ICRUDService<IField, ICreateFieldDTO, IUpdateFieldDTO> {
-  // addField(
-  //   interfaceTypeId: IInterfaceTypeRef,
-  //   data: ICreateFieldDTO,
-  // ): Promise<IInterfaceType>
-  // updateField(
-  //   interfaceTypeId: IInterfaceTypeRef,
-  //   targetKey: IInterfaceTypeRef,
-  //   data: IUpdateFieldDTO,
-  // ): Promise<IField>
-  // upsert(data: ICreateFieldDTO): Promise<IField>
-  // delete(
-  //   interfaceTypeId: IInterfaceTypeRef,
-  //   field: IFieldRef,
-  // ): Promise<Maybe<IField>>
+  extends ICRUDService<IField, ICreateFieldDTO, IUpdateFieldDTO>,
+    ICacheService<IFieldDTO, IField> {
   createModal: IEntityModalService<
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }

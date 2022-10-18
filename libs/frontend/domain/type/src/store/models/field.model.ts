@@ -74,9 +74,9 @@ export class Field
   @modelAction
   static hydrate = hydrate
 
-  toString(options?: { withData?: boolean }) {
-    return `\n{ ${this.key}: ${this.type.current.toString()} }`
-  }
+  // toString(options?: { withData?: boolean }) {
+  //   return `\n{ ${this.key}: ${this.type.current.toString()} }`
+  // }
 }
 
 export const fieldRef = rootRef<IField>('@codelab/FieldRef', {

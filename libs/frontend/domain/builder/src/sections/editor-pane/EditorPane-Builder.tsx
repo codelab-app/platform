@@ -1,6 +1,7 @@
 import { CodeOutlined, DatabaseOutlined } from '@ant-design/icons'
 import {
   IActionService,
+  IFieldService,
   IResourceService,
   IStore,
   IStoreService,
@@ -37,6 +38,7 @@ interface EditorPaneBuilderProps {
   resizable: UseResizable
   actionService: IActionService
   storeService: IStoreService
+  fieldService: IFieldService
   typeService: ITypeService
   resourceService: IResourceService
   appStore: IStore
@@ -58,6 +60,7 @@ export const EditorPaneBuilder = observer(
     actionService,
     appStore,
     storeService,
+    fieldService,
     typeService,
     resourceService,
   }: EditorPaneBuilderProps) => {
@@ -80,6 +83,7 @@ export const EditorPaneBuilder = observer(
               <StoreEditorPane
                 actionService={actionService}
                 appStore={appStore}
+                fieldService={fieldService}
                 storeService={storeService}
                 typeService={typeService}
               />
@@ -106,9 +110,15 @@ export const EditorPaneBuilder = observer(
             </TabPane>
           </Tabs>
         </Container>
-        <CreateFieldModal typeService={typeService} />
-        <UpdateFieldModal typeService={typeService} />
-        <DeleteFieldModal typeService={typeService} />
+        <CreateFieldModal
+          fieldService={fieldService}
+          typeService={typeService}
+        />
+        <UpdateFieldModal
+          fieldService={fieldService}
+          typeService={typeService}
+        />
+        <DeleteFieldModal fieldService={fieldService} />
         <InterfaceDefaultsModal typeService={typeService} />
         <CreateActionModal
           actionService={actionService}

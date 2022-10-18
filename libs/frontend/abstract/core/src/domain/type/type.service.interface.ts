@@ -13,7 +13,6 @@ import {
   IQueryService,
   ITableService,
 } from '../../service'
-import { IFieldService } from './field'
 import { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
 import { ITypeRecord } from './type.record.interface'
 import { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
@@ -35,7 +34,7 @@ export interface ITypeService
 
   // propService: IPropService
   // elementService: IElementService
-  fieldService: IFieldService
+  // fieldService: IFieldService
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>

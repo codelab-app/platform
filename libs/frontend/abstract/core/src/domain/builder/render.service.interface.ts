@@ -1,7 +1,6 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 import { ObjectMap } from 'mobx-keystone'
-import { IComponentService } from '../component'
-import { IElementService, IElementTree } from '../element'
+import { IElementTree } from '../element'
 import { IStore } from '../store'
 import { IBuilderService } from './builder.service.interface'
 import { IRenderer } from './renderer.model.interface'
@@ -16,9 +15,7 @@ export interface RendererProps {
 
 export interface IRenderService {
   renderers: ObjectMap<IRenderer>
-
   addRenderer(props: RendererProps & { id: string }): IRenderer
-
-  componentService: IComponentService
-  elementService: IElementService
+  // componentService: IComponentService
+  // elementService: IElementService
 }

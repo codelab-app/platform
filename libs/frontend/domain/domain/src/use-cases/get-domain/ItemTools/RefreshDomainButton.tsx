@@ -13,11 +13,7 @@ interface RefreshDomainButtonProps {
 
 export const RefreshDomainButton = observer(
   ({ domain }: RefreshDomainButtonProps) => {
-    const {
-      userService: { appService },
-      domainService,
-    } = useStore()
-
+    const { userService, appService, domainService } = useStore()
     const { app } = useCurrentApp(appService)
 
     const { loading, value } = useAsync(async () => {

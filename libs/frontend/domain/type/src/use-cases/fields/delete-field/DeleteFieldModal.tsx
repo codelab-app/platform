@@ -1,4 +1,4 @@
-import { ITypeService } from '@codelab/frontend/abstract/core'
+import { IFieldService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
@@ -11,12 +11,11 @@ import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
 interface DeleteFieldModalProps {
-  typeService: ITypeService
+  fieldService: IFieldService
 }
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
-  ({ typeService }) => {
-    const { fieldService } = typeService
+  ({ fieldService }) => {
     const closeModal = () => fieldService.deleteModal.close()
     const { field } = fieldService.deleteModal
 
