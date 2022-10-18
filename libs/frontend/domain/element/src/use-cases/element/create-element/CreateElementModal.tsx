@@ -88,7 +88,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const selectParentElementOptions = pageTree.elementsList
       .filter(
-        (element) => !element?.renderComponentType && !element?.parentComponent,
+        (element) => !element.renderComponentType && !element.parentComponent,
       )
       .map(mapElementOption)
 
@@ -142,7 +142,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
                 error={props.error}
                 label={props.label}
                 name={props.name}
-                parent={parentElement?.atom?.maybeCurrent}
+                parent={parentElement.atom?.maybeCurrent}
               />
             )}
             name="atomId"
@@ -152,16 +152,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             component={SelectComponent}
             name="renderComponentTypeId"
           />
-          <SelectAction
-            actionService={actionService}
-            name="preRenderActionId"
-            storeId={storeId}
-          />
-          <SelectAction
-            actionService={actionService}
-            name="postRenderActionId"
-            storeId={storeId}
-          />
+          <AutoField component={SelectAction} name="preRenderActionId" />
+          <AutoField component={SelectAction} name="postRenderActionId" />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

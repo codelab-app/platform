@@ -89,18 +89,8 @@ export const CreateActionModal = observer<{
           condition={(c) => c.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
-
-          <SelectAction
-            actionService={actionService}
-            name="successActionId"
-            storeId={store.id}
-          />
-
-          <SelectAction
-            actionService={actionService}
-            name="errorActionId"
-            storeId={store.id}
-          />
+          <AutoField component={SelectAction} name="successActionId" />
+          <AutoField component={SelectAction} name="errorActionId" />
 
           {/** GraphQL Config Form */}
           <DisplayIfField<ICreateActionDTO>

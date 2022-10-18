@@ -79,7 +79,7 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
           actionService.createModal.open()
         }}
         size="small"
-        title="Add Field"
+        title="Add Action"
         type="primary"
       />
     )

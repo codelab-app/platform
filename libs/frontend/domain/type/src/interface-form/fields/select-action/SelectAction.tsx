@@ -1,30 +1,50 @@
-import { IActionService } from '@codelab/frontend/abstract/core'
+import { useCurrentAppId } from '@codelab/frontend/presenter/container'
+import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
-import { useAsync } from 'react-use'
+import { useQuery } from 'react-query'
 import { SelectField } from 'uniforms-antd'
+import { interfaceFormApi } from '../../../store'
 
-export interface SelectActionProps {
-  name: string
-  storeId: string
-  actionService: IActionService
-}
+export type SelectActionProps = Pick<
+  UniformSelectFieldProps,
+  'label' | 'name' | 'error'
+>
 
-export const SelectAction = ({
-  name,
-  actionService,
-  storeId,
-}: SelectActionProps) => {
-  const { loading, error } = useAsync(() => actionService.getAll(storeId))
+/**
+ * @returns { data, isLoading, error,actionOptions }
+ */
+const useGetAllActions = () => {
+  const appId = useCurrentAppId()
 
-  const actionOptions = actionService.actionsList.map((action) => ({
+  const { data, isLoading, error } = useQuery(
+    'interface-form/select-action',
+    () => interfaceFormApi.InterfaceForm_GetActions({ appId }),
+  )
+
+  const actionOptions = [
+    ...(data?.apiActions || []),
+    ...(data?.codeActions || []),
+  ].map((action) => ({
     label: action.name,
     value: action.id,
   }))
 
+  return {
+    data,
+    actionOptions,
+    isLoading,
+    error,
+  }
+}
+
+export const SelectAction = ({ name, label, error }: SelectActionProps) => {
+  const { actionOptions, isLoading, error: queryError } = useGetAllActions()
+
   return (
     <SelectField
-      error={error}
-      loading={loading}
+      error={error || queryError}
+      label={label}
+      loading={isLoading}
       name={name}
       optionFilterProp="label"
       options={actionOptions}

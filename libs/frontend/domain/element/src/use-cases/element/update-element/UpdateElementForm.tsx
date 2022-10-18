@@ -139,16 +139,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           onSearch={handlePropSearch}
           options={propCompleteOptions}
         />
-        <SelectAction
-          actionService={actionService}
-          name="preRenderActionId"
-          storeId={storeId}
-        />
-        <SelectAction
-          actionService={actionService}
-          name="postRenderActionId"
-          storeId={storeId}
-        />
+        <AutoField component={SelectAction} name="preRenderActionId" />
+        <AutoField component={SelectAction} name="postRenderActionId" />
       </Form>
     )
   },

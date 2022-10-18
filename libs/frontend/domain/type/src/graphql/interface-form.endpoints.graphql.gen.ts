@@ -21,6 +21,15 @@ export type InterfaceForm_GetAtomsQuery = {
   atoms: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
+export type InterfaceForm_GetActionsQueryVariables = Types.Exact<{
+  appId?: Types.InputMaybe<Types.Scalars['ID']>
+}>
+
+export type InterfaceForm_GetActionsQuery = {
+  codeActions: Array<{ id: string; name: string }>
+  apiActions: Array<{ id: string; name: string }>
+}
+
 export type InterfaceForm_GetStoresQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.StoreOptions>
   where?: Types.InputMaybe<Types.StoreWhere>
@@ -75,6 +84,18 @@ export const InterfaceForm_GetAtomsDocument = gql`
       id
       name
       type
+    }
+  }
+`
+export const InterfaceForm_GetActionsDocument = gql`
+  query InterfaceForm_GetActions($appId: ID) {
+    codeActions(where: { store: { app: { id: $appId } } }) {
+      id
+      name
+    }
+    apiActions(where: { store: { app: { id: $appId } } }) {
+      id
+      name
     }
   }
 `
@@ -162,6 +183,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'InterfaceForm_GetAtoms',
+        'query',
+      )
+    },
+    InterfaceForm_GetActions(
+      variables?: InterfaceForm_GetActionsQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<InterfaceForm_GetActionsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<InterfaceForm_GetActionsQuery>(
+            InterfaceForm_GetActionsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'InterfaceForm_GetActions',
         'query',
       )
     },

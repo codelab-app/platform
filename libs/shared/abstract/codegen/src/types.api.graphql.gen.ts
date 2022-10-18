@@ -23569,6 +23569,16 @@ export type InterfaceForm_GetAtomsQuery = {
   }>
 }
 
+export type InterfaceForm_GetActionsQueryVariables = Exact<{
+  appId?: InputMaybe<Scalars['ID']>
+}>
+
+export type InterfaceForm_GetActionsQuery = {
+  __typename?: 'Query'
+  codeActions: Array<{ __typename?: 'CodeAction'; id: string; name: string }>
+  apiActions: Array<{ __typename?: 'ApiAction'; id: string; name: string }>
+}
+
 export type InterfaceForm_GetStoresQueryVariables = Exact<{
   options?: InputMaybe<StoreOptions>
   where?: InputMaybe<StoreWhere>

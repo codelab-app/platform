@@ -13,6 +13,17 @@ query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {
   }
 }
 
+query InterfaceForm_GetActions($appId: ID) {
+  codeActions(where: { store: { app: { id: $appId } } }) {
+    id
+    name
+  }
+  apiActions(where: { store: { app: { id: $appId } } }) {
+    id
+    name
+  }
+}
+
 query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
   stores(options: $options, where: $where) {
     id
