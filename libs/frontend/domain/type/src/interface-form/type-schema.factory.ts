@@ -231,7 +231,7 @@ export class TypeSchemaFactory {
 
     const uniforms = {
       options: type.allowedValues.map((v) => ({
-        value: v.id,
+        value: v.value,
         label: v.key,
       })),
       showSearch: true,
@@ -241,7 +241,7 @@ export class TypeSchemaFactory {
 
     return {
       type: 'string',
-      enum: type.allowedValues.map((v) => v.id),
+      enum: type.allowedValues.map((v) => v.value),
       uniforms,
       ...extra,
     } as const
