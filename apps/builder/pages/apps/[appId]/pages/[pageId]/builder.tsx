@@ -209,7 +209,7 @@ PageBuilder.Layout = observer((page) => {
         ))}
         EditorPane={observer(({ resizable }) => (
           <>
-            {pageBuilderRenderer?.appStore.current && (
+            {pageBuilderRenderer?.appStore?.current && (
               <EditorPaneBuilder
                 actionService={actionService}
                 appStore={pageBuilderRenderer.appStore.current}
@@ -231,7 +231,7 @@ PageBuilder.Layout = observer((page) => {
             elementService={elementService}
             pageId={pageId}
             renderService={builderRenderService}
-            storeId={pageBuilderRenderer?.appStore.id as string}
+            storeId={pageBuilderRenderer?.appStore?.id as string}
             userService={userService}
           />
         ))}
