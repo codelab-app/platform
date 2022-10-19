@@ -7,6 +7,7 @@ import type {
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
   ExtendedModel,
@@ -30,7 +31,6 @@ const hydrate = (type: IInterfaceTypeDTO): InterfaceType => {
     name: type.name,
     ownerId: type.owner.id,
     ownerAuthId: type.owner.auth0Id,
-    defaults: JSON.parse(type.ownerConnection.edges[0]?.data || '{}'),
   })
 
   return interfaceType
@@ -41,7 +41,6 @@ export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
     _fields: prop(() => objectMap<Ref<IField>>()),
     ownerAuthId: prop<string>(),
-    defaults: prop<IPropData>(),
   })
   implements IInterfaceType
 {
@@ -53,6 +52,16 @@ export class InterfaceType
   @computed
   get fields() {
     return [...this._fields.values()].map((field) => field.current)
+  }
+
+  @computed
+  get defaults(): IPropData {
+    return (
+      this.fields
+        // FIXME: use x.defaultValues
+        .map((x) => ({ [x.key]: [] }))
+        .reduce(merge, {})
+    )
   }
 
   field(id: string) {
@@ -82,8 +91,6 @@ export class InterfaceType
     updateBaseTypeCache(this, fragment)
 
     this.writeFieldCache(fragment.fields)
-
-    this.defaults = JSON.parse(fragment.ownerConnection.edges[0]?.data || '{}')
 
     // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
     //

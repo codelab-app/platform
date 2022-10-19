@@ -40,6 +40,11 @@ export class Prop
   }
 
   @modelAction
+  setMany(data: IPropData) {
+    this.data = frozen(mergeProps(this.data.data, data))
+  }
+
+  @modelAction
   delete(key: string) {
     this.data = frozen(omit(this.data, key))
   }

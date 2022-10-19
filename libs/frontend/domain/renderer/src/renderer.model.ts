@@ -218,7 +218,7 @@ export class Renderer
       return () => undefined
     }
 
-    return this.state[action.name].run()
+    return this.state.values[action.name].run()
   }
 
   getPostAction = (element: IElement) => {
@@ -235,7 +235,7 @@ export class Renderer
       return () => undefined
     }
 
-    return this.state[action.name].run
+    return this.state.values[action.name].run
   }
 
   @computed
@@ -371,9 +371,10 @@ export class Renderer
     props = mapDeep(
       props,
       // value mapper
-      (v, k) => (isString(v) ? this.appStore.current.getState(v) : v),
+      (v, k) => (isString(v) ? this.appStore.current.getByExpression(v) : v),
       // key mapper
-      (v, k) => (isString(k) ? this.appStore.current.getState(k) : k) as string,
+      (v, k) =>
+        (isString(k) ? this.appStore.current.getByExpression(k) : k) as string,
     )
 
     return props

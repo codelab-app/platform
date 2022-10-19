@@ -20,7 +20,6 @@ export interface IBuilderApp {
   pageElementTree: IElementTree
   app: IApp
   page: IPage
-  store: IStore
 }
 
 export type IAppRef = string

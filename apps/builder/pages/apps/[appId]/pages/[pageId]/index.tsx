@@ -54,7 +54,7 @@ const PageRenderer: CodelabPage = observer(() => {
       return
     }
 
-    const { pageElementTree, page, store } = appService.load({
+    const { pageElementTree, page } = appService.load({
       app: apps[0],
       pageId,
     })
@@ -80,6 +80,10 @@ const PageRenderer: CodelabPage = observer(() => {
     )
 
     resources.map((resource) => resourceService.writeCache(resource))
+
+    // hydrate after types and resources
+    const store = appService.storeService.writeCache(apps[0].store)
+    store.state.setMany(appService.appsJson)
 
     const renderer = appRenderService.addRenderer({
       id: pageId,

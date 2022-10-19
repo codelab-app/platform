@@ -73,7 +73,6 @@ export class AppService
   load = ({ app, pageId }: IPageBuilderAppProps) => {
     console.debug('AppService.load', app, pageId)
 
-    const storeModel = this.storeService.writeCache(app.store)
     /**
      * Need to create nested model
      */
@@ -111,7 +110,6 @@ export class AppService
       pageElementTree,
       app: appModel,
       page: pageModel,
-      store: storeModel,
     }
   }
 
