@@ -7,6 +7,7 @@ import {
   ICRUDService,
   IQueryService,
 } from '../../service'
+import { IPropData } from '../prop'
 import {
   IAppDTO,
   ICreateAppDTO,
@@ -26,6 +27,7 @@ export interface IAppService
   apps: ObjectMap<IApp>
   app(id: string): Maybe<IApp>
   appsList: Array<IApp>
+  appsJson: IPropData
   load(data: IPageBuilderAppProps): IBuilderApp
   // elementService: IElementService
   // pageService: IPageService

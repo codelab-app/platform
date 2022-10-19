@@ -163,7 +163,7 @@ export class TypeSchemaFactory {
   }
 
   fromActionType(type: IAnyActionType): JsonSchema {
-    return this.simpleReferenceType(type)
+    return this.transformTypedValueType(type)
   }
 
   fromPageType(type: IPageType): JsonSchema {
@@ -171,7 +171,7 @@ export class TypeSchemaFactory {
   }
 
   fromRenderPropsType(type: IRenderPropsType): JsonSchema {
-    return this.transformReactElementType(type)
+    return this.transformTypedValueType(type)
   }
 
   fromCodeMirrorType(
@@ -186,11 +186,11 @@ export class TypeSchemaFactory {
   }
 
   fromReactNodeType(type: IReactNodeType): JsonSchema {
-    return this.transformReactElementType(type)
+    return this.transformTypedValueType(type)
   }
 
   fromElementType(type: IElementType): JsonSchema {
-    return this.transformReactElementType(type)
+    return this.transformTypedValueType(type)
   }
 
   fromPrimitiveType(
@@ -286,8 +286,8 @@ export class TypeSchemaFactory {
    * Handles transformation of the React Element related types.
    * Produces a {@link TypedValue} shaped schema
    */
-  private transformReactElementType(
-    type: IElementType | IReactNodeType | IRenderPropsType,
+  private transformTypedValueType(
+    type: IElementType | IReactNodeType | IRenderPropsType | IAnyActionType,
   ): JsonSchema {
     const extra = this.getExtraProperties(type)
 

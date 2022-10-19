@@ -17,6 +17,7 @@ import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
+import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
   _async,
@@ -58,6 +59,11 @@ export class AppService
   @computed
   private get pageService() {
     return getPageService(this)
+  }
+
+  @computed
+  get appsJson() {
+    return this.appsList.map((a) => a.toJson).reduce(merge, {})
   }
 
   /**
