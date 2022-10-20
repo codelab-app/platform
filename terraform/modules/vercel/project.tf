@@ -16,7 +16,7 @@ resource "vercel_project" "builder" {
     repo = "codelab-app/builder"
   }
 
-  builder_command = "./scripts/vercel/builder/build.sh"
+  build_command = "./scripts/vercel/builder/build.sh"
   output_directory = "dist/apps/builder/.next"
   install_command = "./scripts/vercel/builder/install.sh"
 

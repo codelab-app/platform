@@ -1,1 +1,1 @@
-/Users/webber/Sites/Codelab/builder/terraform/modules/auth0/vars.tf
+../auth0/vars.tf

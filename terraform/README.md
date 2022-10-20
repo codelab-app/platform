@@ -24,3 +24,5 @@ Modules usually don't declare their own providers. The providers are either inhe
 
 `A module intended to be called by one or more other modules must not contain any provider blocks. A module containing its own provider configurations is not compatible with the for_each, count, and depends_on arguments that were introduced in Terraform v0.13`
 
+Must use relative symlink https://superuser.com/questions/146231/how-do-i-create-a-relative-symbolic-link-in-linux
+
