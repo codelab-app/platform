@@ -47,8 +47,8 @@ export class Store
   @computed
   get state() {
     const state: IPropData = merge(
-      this.api.current.fields
-        ?.map((f) => ({
+      this.api.current.fieldList
+        .map((f) => ({
           [f.key]: this.api.current.defaults[f.key],
         }))
         .reduce(merge, {}),
