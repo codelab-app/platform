@@ -48,7 +48,7 @@ const Header = observer(() => {
 })
 
 const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { userService, typeService } = useStore()
+  const { userService, typeService, fieldService } = useStore()
 
   return (
     <>
@@ -61,7 +61,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <UpdateTypeModal typeService={typeService} />
       <InterfaceDefaultsModal typeService={typeService} />
       <ContentSection>
-        <GetTypesTable typeService={typeService} />
+        <GetTypesTable fieldService={fieldService} typeService={typeService} />
       </ContentSection>
     </>
   )

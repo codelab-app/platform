@@ -63,6 +63,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
               fieldService={fieldService}
               interfaceType={type}
               isLoading={loading}
+              typeService={typeService}
             />
           )}
         </ContentSection>

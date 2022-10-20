@@ -11,7 +11,11 @@ export interface IFieldRecord {
   name: Nullish<string>
   description: Nullish<string>
   key: string
-  typeKind?: string
+  type?: {
+    id: string
+    name: string
+    kind: string
+  }
   validationRules?: Array<ValidationRuleTag>
   dependentTypes: Array<ITypeRecord>
 }
