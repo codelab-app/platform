@@ -10,6 +10,11 @@ terraform {
       source  = "auth0/auth0"
       version = ">= 0.37.1"
     }
+
+    vercel = {
+      source  = "vercel/vercel"
+      version = "~> 0.4"
+    }
   }
 
   cloud {

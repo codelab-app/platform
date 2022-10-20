@@ -16,7 +16,7 @@ resource "auth0_action" "assign_jwt_claims" {
       */
     exports.onExecutePostLogin = async (event, api) => {
       if (event.authorization) {
-        const namespace = '${var.codelab_domain_url}/jwt/claims';
+        const namespace = '${var.NEXT_PUBLIC_BUILDER_URL}/jwt/claims';
         const claims = {
           "roles": event?.authorization?.roles ?? []
         };

@@ -4,16 +4,13 @@ import { appApi } from './graphql/app.api'
 interface RedirectExternalDomainParams {
   hostname: string
   pathname: string
-  redirectedDomainUrl: string
+  // redirectedDomainUrl: string
 }
 
 export const redirectExternalDomain = async ({
   hostname,
   pathname,
-  redirectedDomainUrl,
 }: RedirectExternalDomainParams) => {
-  console.log({ redirectedDomainUrl })
-
   const { apps } = await appApi.GetRedirectedApps({
     where: { domains_SOME: { name_IN: [hostname] } },
   })
@@ -24,22 +21,20 @@ export const redirectExternalDomain = async ({
     throw new Error('Missing app')
   }
 
-  if (app.owner.username) {
-    const url = new URL(
-      `/_sites/user/${app.owner.username}/${app.slug}${pathname}`,
-      redirectedDomainUrl,
-    )
+  const url = new URL(
+    `/_sites/user/${app.owner.username}/${app.slug}${pathname}`,
+    hostname,
+  )
 
-    console.log('redirectExternalDomain', {
-      owner: app.owner.username,
-      redirectedUrl: JSON.stringify(url),
-      hostname,
-    })
+  console.log('redirectExternalDomain', {
+    owner: app.owner.username,
+    redirectedUrl: JSON.stringify(url),
+    hostname,
+  })
 
-    return NextResponse.rewrite(url)
-  }
+  return NextResponse.rewrite(url)
 
-  const notFoundURL = new URL('/404', redirectedDomainUrl)
-
-  return NextResponse.rewrite(notFoundURL)
+  // const notFoundURL = new URL('/404', redirectedDomainUrl)
+  //
+  // return NextResponse.rewrite(notFoundURL)
 }
