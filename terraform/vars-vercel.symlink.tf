@@ -1,1 +1,1 @@
-/Users/webber/Sites/Codelab/builder/terraform/modules/vercel/vars.tf
+modules/vercel/vars.tf
