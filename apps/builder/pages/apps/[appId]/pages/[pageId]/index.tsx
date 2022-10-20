@@ -19,6 +19,7 @@ const PageRenderer: CodelabPage = observer(() => {
   const {
     userService,
     pageService,
+    storeService,
     appService,
     typeService,
     appRenderService,
@@ -82,7 +83,7 @@ const PageRenderer: CodelabPage = observer(() => {
     resources.map((resource) => resourceService.writeCache(resource))
 
     // hydrate after types and resources
-    const store = appService.storeService.writeCache(apps[0].store)
+    const store = storeService.writeCache(apps[0].store)
     store.state.setMany(appService.appsJson)
 
     const renderer = appRenderService.addRenderer({

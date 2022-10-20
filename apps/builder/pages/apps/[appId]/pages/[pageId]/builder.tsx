@@ -32,8 +32,8 @@ import { useAsync } from 'react-use'
 
 const PageBuilder: CodelabPage = observer(() => {
   const {
-    userService,
     appService,
+    storeService,
     typeService,
     componentService,
     builderRenderService,
@@ -110,7 +110,7 @@ const PageBuilder: CodelabPage = observer(() => {
     }
 
     // hydrate after types and resources
-    const store = appService.storeService.writeCache(apps[0].store)
+    const store = storeService.writeCache(apps[0].store)
     store.state.setMany(appService.appsJson)
 
     const renderer = await builderRenderService.addRenderer({
