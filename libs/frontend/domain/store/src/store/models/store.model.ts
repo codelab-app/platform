@@ -46,12 +46,12 @@ export class Store
   onAttachedToRootStore() {
     // every time the snapshot of the configuration changes
     const reactionDisposer = reaction(
-      () => [this._actions, this._defaults],
+      () => [this._actionsRunners, this._defaults],
       () => {
         console.debug('Previous state', this.state.values)
 
-        console.debug('actions changed:', this._actions)
-        this.state.setMany(this._actions)
+        console.debug('actions changed:', this._actionsRunners)
+        this.state.setMany(this._actionsRunners)
 
         console.debug('defaults changed:', this._defaults)
         this.state.setMany(this._defaults)
@@ -89,9 +89,8 @@ export class Store
   }
 
   @computed
-  get _actions() {
+  get _actionsRunners() {
     return this.actions
-      .filter((x) => x.storeId === this.id)
       .map((a) => ({ [a.name]: { run: a.createRunner(this.state) } }))
       .reduce(merge, {})
   }
