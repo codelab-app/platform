@@ -1,6 +1,4 @@
-import { apiOrigin } from '@codelab/shared/data'
+import { graphqlApiOrigin } from '@codelab/shared/data'
 import { GraphQLClient } from 'graphql-request'
 
-const endpoint = `${apiOrigin}/api/graphql`
-
-export const client = new GraphQLClient(endpoint)
+export const client = new GraphQLClient(graphqlApiOrigin)

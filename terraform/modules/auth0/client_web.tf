@@ -3,11 +3,11 @@ resource "auth0_client" "web_client" {
   # description         = var.app_description
   app_type            = "regular_web"
   oidc_conformant     = true
-  callbacks           = ["${var.codelab_domain_url}/api/auth/callback"]
-  allowed_logout_urls = [var.codelab_domain_url]
-  allowed_origins     = [var.codelab_domain_url]
+  callbacks           = ["${var.NEXT_PUBLIC_BUILDER_URL}/api/auth/callback"]
+  allowed_logout_urls = [var.NEXT_PUBLIC_BUILDER_URL]
+  allowed_origins     = [var.NEXT_PUBLIC_BUILDER_URL]
   grant_types         = ["authorization_code", "implicit", "password", "refresh_token", "client_credentials"]
-  web_origins         = [var.codelab_domain_url]
+  web_origins         = [var.NEXT_PUBLIC_BUILDER_URL]
 
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds

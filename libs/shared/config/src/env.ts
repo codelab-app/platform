@@ -1,9 +1,10 @@
+import { isProduction } from '@codelab/shared/utils'
 import * as env from 'env-var'
 
 interface Config {
-  api: {
-    origin: string
-  }
+  // api: {
+  //   origin: string
+  // }
   neo4j: {
     uri: string
     user: string
@@ -26,11 +27,11 @@ interface Config {
 }
 
 export const Config = (): Config => ({
-  api: {
-    origin:
-      env.get('NEXT_PUBLIC_API_ORIGIN').asString() ||
-      `https://${env.get('VERCEL_URL').asString()}`,
-  },
+  // api: {
+  //   origin: isProduction
+  //     ? env.get('NEXT_PUBLIC_VERCEL_URL').required().asString()
+  //     : env.get('NEXT_PUBLIC_BUILDER_URL').required().asString(),
+  // },
   neo4j: {
     uri: env.get('NEO4J_URI').required().asString(),
     user: env.get('NEO4J_USER').required().asString(),
@@ -51,9 +52,14 @@ export const Config = (): Config => ({
     cypress_username: env.get('AUTH0_CYPRESS_USERNAME').asString(),
     cypress_password: env.get('AUTH0_CYPRESS_PASSWORD').asString(),
     audience: env.get('AUTH0_AUDIENCE').required().asUrlObject().href,
-    baseUrl: String(
-      env.get('AUTH0_BASE_URL').asString() ||
-        `https://${env.get('VERCEL_URL').asString()}`,
-    ),
+    baseUrl:
+      /**
+       * https://github.com/auth0/nextjs-auth0/issues/383
+       *
+       * Allows for Auth0 to work with Vercel preview url's, defaults NEXT_PUBLIC_BUILDER_URL
+       */
+      isProduction
+        ? env.get('NEXT_PUBLIC_VERCEL_URL').required().asString()
+        : env.get('NEXT_PUBLIC_BUILDER_URL').required().asString(),
   },
 })

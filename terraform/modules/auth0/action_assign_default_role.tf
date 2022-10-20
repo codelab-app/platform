@@ -29,14 +29,14 @@ resource "auth0_action" "assign_default_role" {
 
       const accessToken = await new ManagementClient({
         grant_type: "client_credentials",
-        domain: "${var.auth0_domain}",
+        domain: "${var.AUTH0_DOMAIN}",
         scope: 'update:users',
         clientId: "${auth0_client.machine_client.client_id}",
         clientSecret: "${auth0_client.machine_client.client_secret}"
       }).getAccessToken();
 
       const client = new ManagementClient({
-        domain: "${var.auth0_domain}",
+        domain: "${var.AUTH0_DOMAIN}",
         scope: 'update:users',
         token: accessToken
       })

@@ -3,6 +3,13 @@ import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
 
 /**
  * Edge Runtime limitations prevent us from using many libraries such as `env-var`
+ *
+ * Say the user domain is `codelab.ai`, while the project domain is `codelab.app`
+ *
+ * Take `https://codelab.ai/abc`
+ *
+ * Vercel domain `my-site-7q03y4pi5.vercel.app`
+ * Project domain `codelab.app`
  */
 export default async function middleware(req: NextRequest) {
   const hostname = req.headers.get('host')
@@ -11,63 +18,59 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  const publicRootDomains =
-    process.env.NEXT_PUBLIC_ROOT_DOMAINS?.split(',') || []
+  // If localhost, assign the host value manually
+  // If prod, get the custom domain/subdomain value by removing the root URL
+  // (in the case of "test.vercel.app", "vercel.app" is the root URL)
+  // This is only required for subdomain
+  // const currentHost =
+  //   process.env.NODE_ENV == 'production'
+  //     ? hostname.replace(`.${process.env.NEXT_PUBLIC_ROOT_URL}`, '')
+  //     : process.env.CURR_HOST
 
-  const matchedPublicDomains = publicRootDomains.find((domain) =>
-    hostname.includes(domain),
-  )
-
-  // vercel domain is for previewing, dev only
-  const vercelURL = String(process.env.VERCEL_URL)
-  const matchedVercelDomain = hostname.includes(vercelURL)
-  const isRootHostName = Boolean(matchedPublicDomains)
+  /**
+   * Check if `hostname` contains `builder-egs3r8s85-codelabai.vercel.app`, if so we don't redirect.
+   */
+  const isVercelDomain = hostname.includes(process.env.NEXT_PUBLIC_VERCEL_ENV!)
   const { pathname } = req.nextUrl
-  const isApi = pathname.includes('api')
-  const isSites = pathname.includes('_sites')
-  const isInternal = pathname.includes('_next')
-  const isFavicon = pathname.includes('favicon.ico')
+  const isApi = pathname.startsWith('/api')
+  const isSites = pathname.startsWith('/_sites')
+  const isInternal = pathname.startsWith('/_next')
+  // exclude all files in the public folder
+  const isPublic = pathname.includes('.')
+  // const isFavicon = pathname.includes('favicon.ico')
   const isLocal = hostname.includes('127.0.0.1')
-  const redirectedDomainUrl = `http://${hostname}`
 
-  // console.log('Redirect middleware', {
-  //   url: JSON.stringify(req.nextUrl),
-  //   hostname,
-  //   pathname,
-  //   redirectedDomainUrl,
-  //   publicRootDomains,
-  //   isApi,
-  //   isSites,
-  //   matchedPublicDomains,
-  //   matchedVercelDomain,
-  //   vercelURL,
-  //   isInternal,
-  //   isLocal,
-  // })
+  console.log('Redirect middleware', {
+    url: JSON.stringify(req.nextUrl),
+    'env.NEXT_PUBLIC_VERCEL_ENV': process.env.NEXT_PUBLIC_VERCEL_ENV,
+    hostname,
+    pathname,
+    isApi,
+    isSites,
+    isVercelDomain,
+    isInternal,
+    isLocal,
+  })
 
-  if (
-    isApi ||
-    isSites ||
-    isRootHostName ||
-    matchedPublicDomains ||
-    matchedVercelDomain ||
-    isInternal ||
-    isFavicon ||
-    isLocal ||
-    !redirectedDomainUrl
-  ) {
+  // Prevent security issues – users should not be able to canonically access
+  // the pages/sites folder and its respective contents. This can also be done
+  // via rewrites to a custom 404 page
+  if (isSites) {
+    return new NextResponse(null, { status: 404 })
+  }
+
+  if (isApi || isVercelDomain || isInternal || isPublic || isLocal) {
     return NextResponse.next()
   }
 
-  try {
-    return await redirectExternalDomain({
-      redirectedDomainUrl,
-      hostname,
-      pathname,
-    })
-  } catch (err: unknown) {
-    console.error(err)
-
-    return NextResponse.next()
-  }
+  return await redirectExternalDomain({
+    /**
+     * `codelab.ai`
+     */
+    hostname,
+    /**
+     * `/user/app/page`
+     */
+    pathname,
+  })
 }
