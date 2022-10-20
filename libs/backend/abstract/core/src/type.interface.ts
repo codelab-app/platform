@@ -25,7 +25,6 @@ export type IInterfaceTypeExport = Pick<
   Required<Pick<OGM_TYPES.InterfaceType, '__typename'>> & {
     // We don't want meta data here
     fields: Array<OGM_TYPES.Field>
-    ownerConnection: Pick<OGM_TYPES.IBaseTypeOwnerConnection, 'edges'>
   }
 
 export type IEnumTypeExport = Pick<

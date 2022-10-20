@@ -44,22 +44,13 @@ export const exportEnumTypeSelectionSet = `{
 
 export const exportInterfaceTypeSelectionSet = `{
   ${exportBaseSelection}
-  ownerConnection {
-    edges {
-      data
-    }
-  }
   fields
     ${fieldSelectionSet}
 }`
 
 export const interfaceTypeSelectionSet = `{
   ${baseSelection}
-  ownerConnection {
-    edges {
-      data
-    }
-  }
+
   fields
     ${fieldSelectionSet}
 }`

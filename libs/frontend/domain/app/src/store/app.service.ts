@@ -16,7 +16,7 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner, connectTypeOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/data'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
@@ -190,7 +190,7 @@ export class AppService
                   id: v4(),
                   name: `${app.name} Store API`,
                   kind: ITypeKind.InterfaceType,
-                  owner: connectTypeOwner(app.auth0Id),
+                  owner: connectOwner(app.auth0Id),
                 },
               },
             },

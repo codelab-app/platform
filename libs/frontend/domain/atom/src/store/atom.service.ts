@@ -8,11 +8,7 @@ import type {
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import {
-  connectNode,
-  connectTypeOwner,
-  reconnectNodes,
-} from '@codelab/shared/data'
+import { connectNode, connectOwner, reconnectNodes } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -135,7 +131,7 @@ export class AtomService
     const createApiNode = (atom: ICreateAtomDTO) => ({
       id: v4(),
       name: `${atom.name} API`,
-      owner: connectTypeOwner(atom.owner),
+      owner: connectOwner(atom.owner),
     })
 
     const connectTags = (atom: ICreateAtomDTO) => {

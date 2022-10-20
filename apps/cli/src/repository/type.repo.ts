@@ -5,7 +5,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { connectTypeId, makeAllowedValuesNodeInput } from '@codelab/shared/data'
+import { connectNode, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { v4 } from 'uuid'
@@ -22,7 +22,7 @@ const createCreateBaseFields = (data: ITypeExport, userId: string) => ({
 const createUpdateBaseFields = (data: ITypeExport, userId: string) => ({
   name: data.name,
   kind: data.kind,
-  owner: connectTypeId(userId),
+  owner: connectNode(userId),
 })
 
 /**

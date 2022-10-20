@@ -58,8 +58,6 @@ export const interfaceWithUnionField = new InterfaceType({
   name: 'Interface with union field',
   kind: ITypeKind.InterfaceType,
   ownerId: '',
-  defaults: {},
-  ownerAuthId: '',
   _fields: objectMap([
     [stringField.id, fieldRef(stringField)],
     [unionField.id, fieldRef(unionField)],

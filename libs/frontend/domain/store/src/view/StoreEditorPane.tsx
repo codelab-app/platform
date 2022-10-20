@@ -4,10 +4,8 @@ import {
   IFieldService,
   IInterfaceType,
   IStore,
-  IStoreService,
-  ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { InterfaceDefaultsButton, typeRef } from '@codelab/frontend/domain/type'
+import { typeRef } from '@codelab/frontend/domain/type'
 import {
   EditorPaneHeader,
   useResizable,
@@ -21,10 +19,8 @@ import tw from 'twin.macro'
 import { GetActionsList, GetStateList } from '../use-cases'
 
 export interface StoreEditorPaneProps {
-  typeService: ITypeService
   fieldService: IFieldService
   actionService: IActionService
-  storeService: IStoreService
   appStore: IStore
 }
 
@@ -50,7 +46,7 @@ const ResizableColumn = ({ children }: PropsWithChildren) => {
 }
 
 export const StoreEditorPane = observer<StoreEditorPaneProps>(
-  ({ typeService, fieldService, actionService, appStore, storeService }) => {
+  ({ fieldService, actionService, appStore }) => {
     const createStateFieldButton = (
       <Button
         icon={<PlusOutlined />}
@@ -62,13 +58,6 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
         size="small"
         title="Add Field"
         type="primary"
-      />
-    )
-
-    const editDefaultStateButton = (
-      <InterfaceDefaultsButton
-        interfaceId={appStore.api.id}
-        typeService={typeService}
       />
     )
 
@@ -87,9 +76,7 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
     return (
       <Row css={tw`h-full`} wrap={false}>
         <ResizableColumn>
-          <EditorPaneHeader
-            extra={[editDefaultStateButton, ' ', createStateFieldButton]}
-          >
+          <EditorPaneHeader extra={createStateFieldButton}>
             State
           </EditorPaneHeader>
           <GetStateList fieldService={fieldService} store={appStore} />

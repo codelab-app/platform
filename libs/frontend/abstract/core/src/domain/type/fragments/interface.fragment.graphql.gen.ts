@@ -23,18 +23,12 @@ import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 import { FieldFragmentDoc } from './field.fragment.graphql.gen'
 export type InterfaceTypeFragment = {
-  ownerConnection: { edges: Array<{ data: string }> }
   fields: Array<FieldFragment>
 } & BaseType_InterfaceType_Fragment
 
 export const InterfaceTypeFragmentDoc = gql`
   fragment InterfaceType on InterfaceType {
     ...BaseType
-    ownerConnection {
-      edges {
-        data
-      }
-    }
     fields {
       ...Field
     }

@@ -4,7 +4,6 @@ import {
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import {
-  DisplayIf,
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
@@ -14,7 +13,6 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { typeRef } from '../../../../store'
 import { CreateFieldButton } from '../../../fields'
-import { InterfaceDefaultsButton } from '../../../interface-defaults'
 
 interface ActionColumnProps {
   type: ITypeRecord
@@ -33,12 +31,6 @@ export const ActionColumn = observer<ActionColumnProps>(
           />
         ) : null}
 
-        <DisplayIf condition={type.typeKind === ITypeKind.InterfaceType}>
-          <InterfaceDefaultsButton
-            interfaceId={type.id}
-            typeService={typeService}
-          />
-        </DisplayIf>
         <ListItemEditButton
           onClick={() => typeService.updateModal.open(typeRef(type.id))}
         />

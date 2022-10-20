@@ -4449,13 +4449,6 @@
       "id": "c2ee48c0-0aa4-4c28-ab4b-decc61517ad2",
       "kind": "InterfaceType",
       "name": "AntDesignAffix API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "8cf81a5b-4dff-4ccd-a053-b492629cd675",
@@ -4492,13 +4485,6 @@
       "id": "535ef0c0-ecc4-46e6-9128-c78662d9583b",
       "kind": "InterfaceType",
       "name": "AntDesignAlert API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "7642e89d-d80d-43ce-9579-b186976b5e7f",
@@ -4535,13 +4521,6 @@
       "id": "6a86f3d3-1efc-43c9-a5b3-4765584a06ff",
       "kind": "InterfaceType",
       "name": "AntDesignAnchor API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "d2f9148a-b836-4c3d-bdd5-fc550bb054a7",
@@ -4620,13 +4599,6 @@
       "id": "67db456c-a129-4374-8020-e362e453fc32",
       "kind": "InterfaceType",
       "name": "AntDesignAnchorLink API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "eae4f98f-ce7a-4641-bf55-e0ffdc8e0a54",
@@ -4677,13 +4649,6 @@
       "id": "718ccc19-fc3c-4159-bad6-f6fee8f49a9c",
       "kind": "InterfaceType",
       "name": "AntDesignAutoComplete API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -4691,13 +4656,6 @@
       "id": "0637244b-3fc0-45f8-9101-050697696fb1",
       "kind": "InterfaceType",
       "name": "AntDesignAvatar API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "0d9b19a7-f422-41cc-81a2-aa313c24e227",
@@ -4832,13 +4790,6 @@
       "id": "951ffbb0-a5eb-4993-8df6-6158d4003272",
       "kind": "InterfaceType",
       "name": "AntDesignBackTop API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "28a0e4bc-f2be-49b5-9f97-147c3a1546fc",
@@ -4875,13 +4826,6 @@
       "id": "5f3892c5-1214-42dc-ba99-07aa02a259a3",
       "kind": "InterfaceType",
       "name": "AntDesignBadge API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "d55c685b-5b91-465a-b583-8e650fa17b65",
@@ -5016,13 +4960,6 @@
       "id": "debbaaaa-2008-47da-b4c8-b263c2cd6483",
       "kind": "InterfaceType",
       "name": "AntDesignBreadcrumb API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "765ffd19-70e7-448b-9098-75f6ffa6e85d",
@@ -5059,13 +4996,6 @@
       "id": "821e6a62-3c73-4165-b8c2-1d903acbd07f",
       "kind": "InterfaceType",
       "name": "AntDesignBreadcrumbItem API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "1d9cf940-ebbc-4827-9401-5dd26bc9ec3d",
@@ -5102,13 +5032,6 @@
       "id": "407adcd9-749b-4624-b271-9180bb62c152",
       "kind": "InterfaceType",
       "name": "AntDesignBreadcrumbSeparator API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -5116,13 +5039,6 @@
       "id": "1ce9d2d0-58f7-48d7-8436-bf4cda3083ce",
       "kind": "InterfaceType",
       "name": "AntDesignButton API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "d577e810-cd73-4d57-a4bf-2ab80a60b7d1",
@@ -5299,13 +5215,6 @@
       "id": "6b4c23fb-3028-49ce-ac9a-cdf2a1221412",
       "kind": "InterfaceType",
       "name": "AntDesignCalendar API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "a13d6664-64a3-459c-886d-925b4fdfc0c5",
@@ -5398,13 +5307,6 @@
       "id": "a6cea2f6-63d4-4ad7-9de2-b6890c3dd428",
       "kind": "InterfaceType",
       "name": "AntDesignCard API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "24c72df5-923c-4d42-8395-0c4f150462e7",
@@ -5567,13 +5469,6 @@
       "id": "e33a53d3-00d9-4637-af52-a8d9a0a4fe47",
       "kind": "InterfaceType",
       "name": "AntDesignCardGrid API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "877381ff-7bcf-4c47-8df8-d4dec981e249",
@@ -5610,13 +5505,6 @@
       "id": "a8d7cdb3-d2f6-49f2-919c-9d3f7863f1d7",
       "kind": "InterfaceType",
       "name": "AntDesignCardMeta API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "7964ab9d-303f-4c9d-ba26-d925a26a51c7",
@@ -5681,13 +5569,6 @@
       "id": "9c96175f-01ab-4221-8e7d-471e4daced53",
       "kind": "InterfaceType",
       "name": "AntDesignCarousel API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -5695,13 +5576,6 @@
       "id": "26ed2c3f-6dbd-4414-a7c1-bb2b6c3fc58c",
       "kind": "InterfaceType",
       "name": "AntDesignCascader API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -5709,13 +5583,6 @@
       "id": "d1a92529-f15b-4c08-8e32-3446c343446e",
       "kind": "InterfaceType",
       "name": "AntDesignCheckbox API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -5723,13 +5590,6 @@
       "id": "d0b45154-86e9-4942-9cd4-909e3080b6ac",
       "kind": "InterfaceType",
       "name": "AntDesignCheckboxGroup API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "fc4224b5-d50a-47b7-8954-e8607a1ec524",
@@ -5808,13 +5668,6 @@
       "id": "df80b943-139e-439f-924b-de020f89080d",
       "kind": "InterfaceType",
       "name": "AntDesignCollapse API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "a182acc4-36b6-4fb7-88bc-0f3090b43834",
@@ -5949,13 +5802,6 @@
       "id": "5213a919-b2a3-4c83-9b65-56c64368433e",
       "kind": "InterfaceType",
       "name": "AntDesignCollapsePanel API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "8fb20894-d121-46e7-aeb3-e742cb33305e",
@@ -6048,13 +5894,6 @@
       "id": "3f39a797-f6ee-49fd-97eb-e0850e6647fb",
       "kind": "InterfaceType",
       "name": "AntDesignComment API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "14e4640b-2d7a-4a98-a77b-fc472c313bbe",
@@ -6133,13 +5972,6 @@
       "id": "548cd356-19cb-464a-bae9-f26090165f3d",
       "kind": "InterfaceType",
       "name": "AntDesignConfigProvider API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "d925420a-a6c1-480b-98ba-96d27acd775c",
@@ -6302,13 +6134,6 @@
       "id": "e18c87e9-17a3-4e29-bd43-2126ff056210",
       "kind": "InterfaceType",
       "name": "AntDesignDatePicker API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "f3f4a19f-bf69-4d08-b905-8307bc4551cd",
@@ -6373,13 +6198,6 @@
       "id": "6102ebbb-e27c-4167-907b-621c570cb891",
       "kind": "InterfaceType",
       "name": "AntDesignDescriptions API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "505dbf97-f06e-49a5-8c4d-404ea1f0ef48",
@@ -6486,13 +6304,6 @@
       "id": "668f7310-1aab-4cf6-8ab0-4d524d3abcce",
       "kind": "InterfaceType",
       "name": "AntDesignDescriptionsItem API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "d87ee659-133c-4d85-bc44-abdeedc326af",
@@ -6529,13 +6340,6 @@
       "id": "3fc07a59-5dbc-4167-a9ae-0760c25bf5d6",
       "kind": "InterfaceType",
       "name": "AntDesignDivider API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "baf35eb2-76a3-4246-bd2e-be42f75aab5f",
@@ -6642,13 +6446,6 @@
       "id": "fb41f7f6-c5d8-4c23-adc5-22160d4337ef",
       "kind": "InterfaceType",
       "name": "AntDesignDrawer API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "8df9b52c-f3e0-4e8b-8761-2e3f018685c3",
@@ -6923,13 +6720,6 @@
       "id": "791a14d3-d185-4364-8be3-aa69b5b0638d",
       "kind": "InterfaceType",
       "name": "AntDesignDropdown API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "40cce4e4-f47e-4aaa-863e-148bc2e44e42",
@@ -7050,13 +6840,6 @@
       "id": "833b1e6c-3bd4-4aa4-907a-d5d553e37c65",
       "kind": "InterfaceType",
       "name": "AntDesignDropdownButton API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -7064,13 +6847,6 @@
       "id": "c40d345d-40d2-4e0d-a80a-9f58933800fe",
       "kind": "InterfaceType",
       "name": "AntDesignEmpty API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "778f7b5f-3c9f-4632-ae1f-2f30060e800a",
@@ -7107,13 +6883,6 @@
       "id": "08f7becb-a61e-49bc-a88a-71dc57a9a8ef",
       "kind": "InterfaceType",
       "name": "AntDesignForm API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "0b9d95b1-3399-4504-afd6-3a58743a0dcc",
@@ -7290,13 +7059,6 @@
       "id": "2b77302a-1fc3-4a9e-a79a-9bd9ad52fc6e",
       "kind": "InterfaceType",
       "name": "AntDesignFormErrorList API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -7304,13 +7066,6 @@
       "id": "9e1aebf1-a2b6-483f-b338-827eb4822d5b",
       "kind": "InterfaceType",
       "name": "AntDesignFormItem API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "8c97a134-11f8-47fb-bac1-8561e05c0e03",
@@ -7473,13 +7228,6 @@
       "id": "c144e5e4-0eff-4325-9a5e-a7b1a14182bd",
       "kind": "InterfaceType",
       "name": "AntDesignFormList API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -7487,13 +7235,6 @@
       "id": "8ebb81d1-8454-482e-860a-7edc1be19224",
       "kind": "InterfaceType",
       "name": "AntDesignFormProvider API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -7501,13 +7242,6 @@
       "id": "fce8bb2e-7c0f-475a-a264-7e81bc3d8dca",
       "kind": "InterfaceType",
       "name": "AntDesignGridCol API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "b69c20df-f57e-41d6-9cec-24b1c7829d7c",
@@ -7684,13 +7418,6 @@
       "id": "3f9de863-d376-430a-b774-730ea68d591b",
       "kind": "InterfaceType",
       "name": "AntDesignGridRow API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "79fef02c-1b5b-4057-b46e-af0a556f1fe3",
@@ -7755,13 +7482,6 @@
       "id": "286f3cda-c867-4879-8fc8-d754c16cb9d4",
       "kind": "InterfaceType",
       "name": "AntDesignIcon API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "0e39280e-b41f-432a-b8a8-aa41331b4af5",
@@ -7812,13 +7532,6 @@
       "id": "9c19c064-bf67-463b-94dd-df376e7aee6e",
       "kind": "InterfaceType",
       "name": "AntDesignImage API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "a4ee8469-c3ff-45a0-a8cc-efe293cf469c",
@@ -7939,13 +7652,6 @@
       "id": "540e51d6-dac9-4e86-9e19-9bde1b0aa00d",
       "kind": "InterfaceType",
       "name": "AntDesignInput API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "ef673b26-c349-4b6d-be5a-3fcbba26f8e0",
@@ -8150,13 +7856,6 @@
       "id": "a7edb76d-d70f-458d-8f77-c6b280608051",
       "kind": "InterfaceType",
       "name": "AntDesignInputNumber API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -8164,13 +7863,6 @@
       "id": "0d3e43c8-6eef-4bb6-ab19-739adc071973",
       "kind": "InterfaceType",
       "name": "AntDesignLayout API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "dde6ecea-17e1-4d71-ace8-23ee67a50494",
@@ -8207,13 +7899,6 @@
       "id": "d3792033-d9e2-434c-84ba-8e92a2846408",
       "kind": "InterfaceType",
       "name": "AntDesignLayoutSider API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "bd04f028-49e5-44cd-938c-4798be988d50",
@@ -8362,13 +8047,6 @@
       "id": "5b50f428-3cb4-45bd-85db-5dede427d415",
       "kind": "InterfaceType",
       "name": "AntDesignList API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "9607c027-ee5a-4a6c-beb1-1fa8d25fd351",
@@ -8517,13 +8195,6 @@
       "id": "8e129b62-9219-4aaf-a852-ecd3c0b72bb7",
       "kind": "InterfaceType",
       "name": "AntDesignListItem API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "6c24c754-8814-41a4-ab8f-405e7a38b5d0",
@@ -8546,13 +8217,6 @@
       "id": "3cb35152-5711-4ed7-bdc1-82927470d222",
       "kind": "InterfaceType",
       "name": "AntDesignListItemMeta API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "0ea7d6c3-c2f5-4edd-a2a2-6beacad34008",
@@ -8603,13 +8267,6 @@
       "id": "662d9c6b-a8a0-441f-82e0-cc816d73bc82",
       "kind": "InterfaceType",
       "name": "AntDesignMentions API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "bd445df3-c6de-4843-8786-ad9bb8efc4f6",
@@ -8744,13 +8401,6 @@
       "id": "3a012dd2-0676-4993-a410-9ee342fd110c",
       "kind": "InterfaceType",
       "name": "AntDesignMentionsOption API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "977e2bad-b909-499b-bf5b-eb242f187fdc",
@@ -8787,13 +8437,6 @@
       "id": "48db9aa7-bc02-459c-8fcc-cf68e41fa017",
       "kind": "InterfaceType",
       "name": "AntDesignMenu API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "7e5562ef-48d8-48e7-b7ae-975280e18437",
@@ -8956,13 +8599,6 @@
       "id": "dd766be9-ff14-4a28-b5f6-7425d057a6df",
       "kind": "InterfaceType",
       "name": "AntDesignMessage API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -8970,13 +8606,6 @@
       "id": "53806311-2aed-4cc1-b928-52b4efe36af6",
       "kind": "InterfaceType",
       "name": "AntDesignModal API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "74fb4355-70d6-4945-a915-2ce23d4113a4",
@@ -9097,13 +8726,6 @@
       "id": "cb724156-319b-441a-8b11-0792e53741dd",
       "kind": "InterfaceType",
       "name": "AntDesignNotification API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -9111,13 +8733,6 @@
       "id": "f4768ac0-812b-489a-bd83-8d3e00e59bb7",
       "kind": "InterfaceType",
       "name": "AntDesignPageHeader API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "612f3e0b-d6c9-43f1-b2e5-8223b7ab1b30",
@@ -9224,13 +8839,6 @@
       "id": "74edf573-cb31-4f11-86b3-dc08a9c88681",
       "kind": "InterfaceType",
       "name": "AntDesignPagination API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "3ce849d5-3c33-4d79-a719-0a5d786ebc99",
@@ -9435,13 +9043,6 @@
       "id": "786556f1-e024-4896-9ead-50ed55d7ccf8",
       "kind": "InterfaceType",
       "name": "AntDesignPopconfirm API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "959b8585-089f-4fa5-94ea-c5ddaa3ccf50",
@@ -9534,13 +9135,6 @@
       "id": "ca004a78-cbae-415b-8f9a-7dce3626704f",
       "kind": "InterfaceType",
       "name": "AntDesignPopover API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -9548,13 +9142,6 @@
       "id": "2311f487-3a47-4a6f-a5ec-18b1dc268fd4",
       "kind": "InterfaceType",
       "name": "AntDesignProgress API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "811976bc-616c-49c4-b41a-3fa77f390527",
@@ -9605,13 +9192,6 @@
       "id": "352f81b7-6f1c-4d35-a087-ba4ed0c71aa8",
       "kind": "InterfaceType",
       "name": "AntDesignRadio API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "6c184de5-8468-4ae2-8193-5c0502569e90",
@@ -9676,13 +9256,6 @@
       "id": "f1652da2-e7c7-4f2c-80fd-a83e2714dc7b",
       "kind": "InterfaceType",
       "name": "AntDesignRadioGroup API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "ee6a0fe4-e36c-46c0-8912-899d8c83d785",
@@ -9775,13 +9348,6 @@
       "id": "c94e0e17-558b-4685-a362-ea46da4ddf62",
       "kind": "InterfaceType",
       "name": "AntDesignRate API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -9789,13 +9355,6 @@
       "id": "6caad08d-61ea-49a1-b9d0-08f0e8d51512",
       "kind": "InterfaceType",
       "name": "AntDesignResult API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "2d918c54-c3c2-46e4-8d72-055c8a175902",
@@ -9874,13 +9433,6 @@
       "id": "7efab8c6-b7a3-4ab5-aff2-e62e3f395d3a",
       "kind": "InterfaceType",
       "name": "AntDesignSegmented API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -9888,13 +9440,6 @@
       "id": "cb56a4ce-45ee-4299-8108-77c671ffb704",
       "kind": "InterfaceType",
       "name": "AntDesignSelect API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "b7c35f27-868e-4853-8028-a4cd53e24c58",
@@ -10379,13 +9924,6 @@
       "id": "2e44b5d2-23f2-4729-8e3b-476eb6e16dec",
       "kind": "InterfaceType",
       "name": "AntDesignSelectOption API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "dc252761-c8ac-403d-8c92-4e7ca8603df7",
@@ -10450,13 +9988,6 @@
       "id": "66470556-bbe4-4b4c-a916-067aab9c5cfa",
       "kind": "InterfaceType",
       "name": "AntDesignSkeleton API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "63e7a715-d2b4-41e0-8f28-527bb30cb282",
@@ -10549,13 +10080,6 @@
       "id": "1e537309-c0a4-4bc9-8c1e-c3e8273bd3c9",
       "kind": "InterfaceType",
       "name": "AntDesignSlider API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "202f602b-ce08-461b-a585-ce1323ac5d16",
@@ -10578,13 +10102,6 @@
       "id": "e7dfedfb-6b4f-40ae-a424-2adc2dc077d3",
       "kind": "InterfaceType",
       "name": "AntDesignSpace API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "65c4ad91-fd4d-41d7-ac86-f8daf60e25ac",
@@ -10663,13 +10180,6 @@
       "id": "ef058c1e-ae19-46cf-94b1-ed45bc1299bd",
       "kind": "InterfaceType",
       "name": "AntDesignSpin API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "bed4c899-eb58-46e5-bc00-203ce5becab5",
@@ -10748,13 +10258,6 @@
       "id": "45631c0c-4434-4b0a-8394-19f79606c058",
       "kind": "InterfaceType",
       "name": "AntDesignStatistic API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -10762,13 +10265,6 @@
       "id": "0938bb22-8cf9-4f8a-9354-be2a9ef5d0ef",
       "kind": "InterfaceType",
       "name": "AntDesignSteps API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "5331b754-7bbe-4189-bfba-524af9edd247",
@@ -10917,13 +10413,6 @@
       "id": "816ee81e-27d2-4ef1-a832-2b5a46cbede2",
       "kind": "InterfaceType",
       "name": "AntDesignStepsStep API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "5e6c94f7-6429-4d1e-9e13-d59fb913bc15",
@@ -11016,13 +10505,6 @@
       "id": "64b10614-acb2-4576-b747-1d4a36c8bc0d",
       "kind": "InterfaceType",
       "name": "AntDesignSwitch API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -11030,13 +10512,6 @@
       "id": "f81d6cc7-5493-47a3-9e1b-593a27934eac",
       "kind": "InterfaceType",
       "name": "AntDesignTable API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "9e09549d-db0a-4383-b27d-51025e9886ef",
@@ -11143,13 +10618,6 @@
       "id": "4d1cbf6c-cac2-426e-b4f7-ec23da6ef312",
       "kind": "InterfaceType",
       "name": "AntDesignTabs API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "bdb42420-ca5f-4685-8e76-dff5be81105e",
@@ -11354,13 +10822,6 @@
       "id": "bdef41ad-a998-4764-b8ab-e2b57f97f200",
       "kind": "InterfaceType",
       "name": "AntDesignTabsTabPane API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "307b45f9-d853-44d2-a314-2277624a9923",
@@ -11439,13 +10900,6 @@
       "id": "a1d8e159-2366-4115-87b9-4378edbd09f6",
       "kind": "InterfaceType",
       "name": "AntDesignTag API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "c0e12136-709b-4146-8e9c-8dfb515c903e",
@@ -11510,13 +10964,6 @@
       "id": "5ba1b681-acaf-44cb-bf94-369a2baaea1f",
       "kind": "InterfaceType",
       "name": "AntDesignTimePicker API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -11524,13 +10971,6 @@
       "id": "8c4affbd-c5b9-4c2e-aeb9-45374aa32160",
       "kind": "InterfaceType",
       "name": "AntDesignTimeline API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "6a65d0f4-4dc8-4263-9403-efce442ff14c",
@@ -11595,13 +11035,6 @@
       "id": "2353dabb-36e6-457b-b9d4-cd6cbfeaf4c5",
       "kind": "InterfaceType",
       "name": "AntDesignTimelineItem API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "2e57f778-64a9-4774-91dd-e21d11d84e42",
@@ -11666,13 +11099,6 @@
       "id": "18306679-6455-46ec-a112-e833fa9a8bb0",
       "kind": "InterfaceType",
       "name": "AntDesignTooltip API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "9f80913b-83d2-4913-80d5-3421ade5a5d8",
@@ -11849,13 +11275,6 @@
       "id": "02dc8b9c-f123-4c5a-b139-2582fac76698",
       "kind": "InterfaceType",
       "name": "AntDesignTransfer API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": []
     },
     {
@@ -11863,13 +11282,6 @@
       "id": "0f2fccb1-67cf-4253-9ec6-875a4f97f825",
       "kind": "InterfaceType",
       "name": "AntDesignTree API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "09839e2e-1062-4430-a2c0-af6aa5cff8e3",
@@ -12088,13 +11500,6 @@
       "id": "d9e80877-c539-4f26-811f-e17cd5c77da2",
       "kind": "InterfaceType",
       "name": "AntDesignTreeSelect API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "f3492b91-0b95-4aca-b58d-b3642d70f591",
@@ -12565,13 +11970,6 @@
       "id": "bf5e77b1-8451-458e-95be-cd42c5ab6176",
       "kind": "InterfaceType",
       "name": "AntDesignTypographyParagraph API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "a29058a5-e8d8-4364-bf6e-f77b67c88f78",
@@ -12734,13 +12132,6 @@
       "id": "5eca222b-9a8c-4f75-8197-1e9f46e8ad13",
       "kind": "InterfaceType",
       "name": "AntDesignTypographyText API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "269733e3-0dd8-4809-aa92-63458a36126b",
@@ -12917,13 +12308,6 @@
       "id": "d144043a-8698-49c7-947e-ba3fb130406b",
       "kind": "InterfaceType",
       "name": "AntDesignTypographyTitle API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "0fe5f899-8f8f-4d9f-9321-f09e247a0923",
@@ -13072,13 +12456,6 @@
       "id": "08241c9a-97f1-4a26-bbf3-2a7501343c1f",
       "kind": "InterfaceType",
       "name": "AntDesignUpload API",
-      "ownerConnection": {
-        "edges": [
-          {
-            "data": "{}"
-          }
-        ]
-      },
       "fields": [
         {
           "id": "82c664b5-5e1d-4734-a8cc-7fb52592f079",

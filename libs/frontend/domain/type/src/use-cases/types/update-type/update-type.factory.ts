@@ -4,7 +4,6 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
-  connectTypeOwner,
   makeAllowedValuesCreateInput,
   makeArrayTypeDisconnectInput,
   makeItemTypeCreateInput,
@@ -28,10 +27,6 @@ export const updateTypeInputFactory = (
       itemType:
         type.kind === ITypeKind.ArrayType
           ? makeItemTypeCreateInput(type)
-          : undefined,
-      owner:
-        type.kind === ITypeKind.InterfaceType
-          ? connectTypeOwner(type.interfaceDefaults?.auth0Id)
           : undefined,
       typesOfUnionType:
         type.kind === ITypeKind.UnionType

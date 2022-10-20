@@ -73,11 +73,9 @@ export const typeSchema = gql`
     kind: TypeKind! @readonly
     name: String!
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
-    owner: User!
+    owner: User! 
       @relationship(
-        type: "OWNED_BY",
-        # used by interfaceType to store default values for prop data
-        properties: "OwnedBy",
+        type: "OWNED_BY", 
         direction: OUT
       )
   }

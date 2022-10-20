@@ -60,14 +60,3 @@ export const createAtomsData: CreateAtoms = (
     allowedChildren: [],
   },
 ]
-
-export const connectTypeId = (id?: string) => {
-  return {
-    connect: id
-      ? {
-          where: { node: { id } },
-          edge: { data: '{}' },
-        }
-      : undefined,
-  }
-}

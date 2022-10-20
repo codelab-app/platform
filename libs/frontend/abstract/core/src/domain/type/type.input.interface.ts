@@ -2,8 +2,8 @@ import * as cg from '@codelab/shared/abstract/codegen'
 
 export interface IUpdateTypeArgs {
   update: IUpdateTypeInput
-  disconnect?: IDisconnectTypeInput
-  connect?: IConnectTypeInput
+  disconnect?: IDisconnectNodeInput
+  connect?: IconnectNodeInput
   delete?: IDeleteTypeInput
 }
 
@@ -40,7 +40,7 @@ export type IUpdateTypeInput =
  * Connect
  */
 
-export type IConnectTypeInput =
+export type IconnectNodeInput =
   | cg.AppTypeConnectInput
   | cg.ArrayTypeConnectInput
   | cg.ElementTypeConnectInput
@@ -57,7 +57,7 @@ export type IConnectTypeInput =
 /**
  * Disconnect
  */
-export type IDisconnectTypeInput =
+export type IDisconnectNodeInput =
   | cg.AppTypeDisconnectInput
   | cg.ArrayTypeDisconnectInput
   | cg.ElementTypeDisconnectInput

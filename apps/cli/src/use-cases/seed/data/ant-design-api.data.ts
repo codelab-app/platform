@@ -22,9 +22,6 @@ export const createAntDesignApiData = (
       name: getApiName(name),
       kind: ITypeKind.InterfaceType,
       fields: [],
-      ownerConnection: {
-        edges: [],
-      },
     }
   })
 }

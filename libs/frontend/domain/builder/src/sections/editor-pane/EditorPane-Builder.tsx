@@ -4,7 +4,6 @@ import {
   IFieldService,
   IResourceService,
   IStore,
-  IStoreService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -16,7 +15,6 @@ import {
 import {
   CreateFieldModal,
   DeleteFieldModal,
-  InterfaceDefaultsModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
@@ -37,7 +35,6 @@ const { TabPane } = Tabs
 interface EditorPaneBuilderProps {
   resizable: UseResizable
   actionService: IActionService
-  storeService: IStoreService
   fieldService: IFieldService
   typeService: ITypeService
   resourceService: IResourceService
@@ -60,7 +57,6 @@ export const EditorPaneBuilder = observer(
     resizable,
     actionService,
     appStore,
-    storeService,
     fieldService,
     typeService,
     resourceService,
@@ -85,8 +81,6 @@ export const EditorPaneBuilder = observer(
                 actionService={actionService}
                 appStore={appStore}
                 fieldService={fieldService}
-                storeService={storeService}
-                typeService={typeService}
               />
             </TabPane>
             <TabPane
@@ -120,7 +114,6 @@ export const EditorPaneBuilder = observer(
           typeService={typeService}
         />
         <DeleteFieldModal fieldService={fieldService} />
-        <InterfaceDefaultsModal typeService={typeService} />
         <CreateActionModal
           actionService={actionService}
           resourceService={resourceService}

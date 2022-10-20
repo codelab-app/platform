@@ -48,7 +48,6 @@ export class TypeService
     deleteModal: prop(() => new TypeModalService({})),
 
     selectedIds: prop(() => arraySet<string>()).withSetter(),
-    interfaceDefaultsModal: prop(() => new TypeModalService({})),
   })
   implements ITypeService
 {

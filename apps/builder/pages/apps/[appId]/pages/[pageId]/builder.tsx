@@ -164,9 +164,7 @@ PageBuilder.Layout = observer((page) => {
     builderRenderService,
     actionService,
     resourceService,
-    appService,
     typeService,
-    storeService,
     pageService,
     fieldService,
   } = useStore()
@@ -218,7 +216,6 @@ PageBuilder.Layout = observer((page) => {
                 fieldService={fieldService}
                 resizable={resizable}
                 resourceService={resourceService}
-                storeService={storeService}
                 typeService={typeService}
               />
             )}

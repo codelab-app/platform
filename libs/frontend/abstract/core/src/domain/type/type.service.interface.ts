@@ -9,7 +9,6 @@ import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,
   ICRUDService,
-  IEntityModalService,
   IQueryService,
   ITableService,
 } from '../../service'
@@ -27,10 +26,6 @@ export interface ITypeService
   type(id: string): Maybe<IAnyType>
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   typesList: Array<IAnyType>
-  interfaceDefaultsModal: IEntityModalService<
-    Ref<IAnyType>,
-    { type: Maybe<IAnyType> }
-  >
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>

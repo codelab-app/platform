@@ -30,7 +30,6 @@ const hydrate = (type: IInterfaceTypeDTO): InterfaceType => {
     kind: type.kind,
     name: type.name,
     ownerId: type.owner.id,
-    ownerAuthId: type.owner.auth0Id,
   })
 
   return interfaceType
@@ -40,7 +39,6 @@ const hydrate = (type: IInterfaceTypeDTO): InterfaceType => {
 export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
     _fields: prop(() => objectMap<Ref<IField>>()),
-    ownerAuthId: prop<string>(),
   })
   implements IInterfaceType
 {
@@ -56,12 +54,9 @@ export class InterfaceType
 
   @computed
   get defaults(): IPropData {
-    return (
-      this.fields
-        // FIXME: use x.defaultValues
-        .map((x) => ({ [x.key]: [] }))
-        .reduce(merge, {})
-    )
+    return this.fields
+      .map((x) => ({ [x.key]: x.defaultValues }))
+      .reduce(merge, {})
   }
 
   field(id: string) {
