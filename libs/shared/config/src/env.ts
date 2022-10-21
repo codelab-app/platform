@@ -2,9 +2,6 @@ import { isProduction } from '@codelab/shared/utils'
 import * as env from 'env-var'
 
 interface Config {
-  // api: {
-  //   origin: string
-  // }
   neo4j: {
     uri: string
     user: string
@@ -27,11 +24,6 @@ interface Config {
 }
 
 export const Config = (): Config => ({
-  // api: {
-  //   origin: isProduction
-  //     ? env.get('NEXT_PUBLIC_VERCEL_URL').required().asString()
-  //     : env.get('NEXT_PUBLIC_BUILDER_URL').required().asString(),
-  // },
   neo4j: {
     uri: env.get('NEO4J_URI').required().asString(),
     user: env.get('NEO4J_USER').required().asString(),
@@ -58,10 +50,11 @@ export const Config = (): Config => ({
        *
        * Allows for Auth0 to work with Vercel preview url's, defaults NEXT_PUBLIC_BUILDER_URL
        *
-       * NEXT_PUBLIC_VERCEL_URL=my-site-7q03y4pi5.vercel.app
+       * VERCEL_URL=my-site-7q03y4pi5.vercel.app
        */
+      //
       isProduction
-        ? `https://${env.get('NEXT_PUBLIC_VERCEL_URL').required().asString()}`
+        ? `https://${env.get('VERCEL_URL').required().asString()}`
         : env.get('NEXT_PUBLIC_BUILDER_URL').required().asString(),
   },
 })

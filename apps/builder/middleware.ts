@@ -42,7 +42,7 @@ export default async function middleware(req: NextRequest) {
 
   console.log('Redirect middleware', {
     url: JSON.stringify(req.nextUrl),
-    'env.NEXT_PUBLIC_VERCEL_ENV': process.env.NEXT_PUBLIC_VERCEL_ENV,
+    'env.NEXT_PUBLIC_VERCEL_URL': process.env.NEXT_PUBLIC_VERCEL_URL,
     hostname,
     pathname,
     isApi,
@@ -62,6 +62,8 @@ export default async function middleware(req: NextRequest) {
   if (isApi || isVercelDomain || isInternal || isPublic || isLocal) {
     return NextResponse.next()
   }
+
+  console.log('Redirecting...')
 
   return await redirectExternalDomain({
     /**

@@ -62,6 +62,10 @@ const Index = (props: AppPagePageProps) => {
 
 export default Index
 
+/**
+ * - `getStaticPaths` requires using `getStaticProps`
+ * - `getStaticPaths` will only run during build in production, it will not be called during runtime.
+ */
 export const getStaticPaths: GetStaticPaths = async (context) => {
   console.log('getStaticPaths', `env ${process.env.NODE_ENV}`)
 
