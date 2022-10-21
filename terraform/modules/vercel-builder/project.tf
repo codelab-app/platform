@@ -1,6 +1,11 @@
-data "auth0_client" "web_client" {
-  name = "Codelab Web Client"
-}
+#data "auth0_client" "web_client" {
+#  name = "Codelab Web Client"
+#}
+
+# Cycle doesn't work
+#data "vercel_project" "builder" {
+#  name = vercel_project.builder.name
+#}
 
 # A project that is connected to a git repository.
 # Deployments will be created automatically
@@ -9,8 +14,6 @@ resource "vercel_project" "builder" {
   name      = "builder"
   framework = "nextjs"
   team_id = var.VERCEL_TEAM_ID
-
-#  depends_on = [data.auth0_client.web_client]
 
   git_repository = {
     type = "github"
@@ -43,12 +46,16 @@ resource "vercel_project" "builder" {
     {
       target = ["production"]
       key = "AUTH0_CLIENT_SECRET"
-      value = data.auth0_client.web_client.client_secret
+      # This isn't working
+#      value = data.auth0_client.web_client.client_secret
+      value = var.auth0_client_secret
     },
     {
       target = ["production"]
       key = "AUTH0_CLIENT_ID"
-      value = data.auth0_client.web_client.id
+      # This isn't working
+#      value = data.auth0_client.web_client.id
+      value = var.auth0_client_id
     },
     # Neo4j
     {
@@ -75,7 +82,11 @@ resource "vercel_project" "builder" {
     {
       target = ["production"]
       key = "VERCEL_PROJECT_ID"
-      value = vercel_project.builder.id
+      # Cannot have self-referencing ID
+      # https://github.com/hashicorp/terraform/issues/3267
+#      value = vercel_project.builder.id
+#      value = data.vercel_project.builder.id
+      value = var.VERCEL_BUILDER_PROJECT_ID
     },
     {
       target = ["production"]
