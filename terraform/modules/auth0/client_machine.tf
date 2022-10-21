@@ -1,5 +1,5 @@
 resource "auth0_client" "machine_client" {
-  name        = "Auth0 Actions"
+  name        = "Auth0 Machine Client"
   description = "A M2M client used by Auth0 Actions Flows"
   app_type    = "non_interactive"
 }
