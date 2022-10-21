@@ -45,6 +45,13 @@ resource "vercel_project" "builder" {
     },
     {
       target = ["production"]
+      key = "AUTH0_SECRET"
+      # This isn't working
+      #      value = data.auth0_client.web_client.client_secret
+      value = var.AUTH0_SECRET
+    },
+    {
+      target = ["production"]
       key = "AUTH0_CLIENT_SECRET"
       # This isn't working
 #      value = data.auth0_client.web_client.client_secret

@@ -20,6 +20,7 @@ module "vercel-builder" {
   AUTH0_M2M_CLIENT_SECRET = var.AUTH0_M2M_CLIENT_SECRET
   AUTH0_CYPRESS_PASSWORD  = var.AUTH0_CYPRESS_PASSWORD
   AUTH0_AUDIENCE          = var.AUTH0_AUDIENCE
+  AUTH0_SECRET = var.AUTH0_SECRET
 
   auth0_client_id = module.auth0.web_client.id
   auth0_client_secret = module.auth0.web_client.client_secret

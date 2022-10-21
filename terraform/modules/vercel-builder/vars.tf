@@ -17,3 +17,8 @@ variable "VERCEL_BUILDER_PROJECT_ID" {
   type        = string
   description = "Project ID of the builder project"
 }
+
+variable "AUTH0_SECRET" {
+  type = string
+  description = "Auth0 secret for creating JWT tokens"
+}
