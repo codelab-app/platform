@@ -13,6 +13,11 @@ variable "AUTH0_DOMAIN" {
   description = "Auth0 client domain, obtained from Auth0 dashboard"
 }
 
+variable "AUTH0_AUDIENCE" {
+  type        = string
+  description = "Intended recipients of the token, typically the resource server (API, in the dashboard) that a client (Application) would like to access"
+}
+
 variable "AUTH0_M2M_CLIENT_ID" {
   type        = string
   description = "Client id of the M2M client created for Terraform to provision"
