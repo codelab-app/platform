@@ -88,8 +88,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                   <Col>
                     <Link
                       href={{
-                        pathname: PageType.InterfaceDetail,
-                        query: { interfaceId: interfaceType.id },
+                        pathname: PageType.Type,
+                        query: { typeId: interfaceType.id },
                       }}
                     >
                       {`Edit ${interfaceType.name}`}

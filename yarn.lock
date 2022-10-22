@@ -9892,6 +9892,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/scroll-into-view@npm:^1.16.0":
+  version: 1.16.0
+  resolution: "@types/scroll-into-view@npm:1.16.0"
+  checksum: a054dc2b574e64f6ff57cb677b73cb4e2cc2aa4b1051df1e0ade7ac9b342b46cd30ac1032b012dd059060828a95b89b6360a5e71397f6f8559c1ad8ce3a3aeac
+  languageName: node
+  linkType: hard
+
 "@types/serve-index@npm:^1.9.1":
   version: 1.9.1
   resolution: "@types/serve-index@npm:1.9.1"
@@ -13848,6 +13855,7 @@ __metadata:
     "@types/react-slick": 0.23.10
     "@types/react-stickynode": 4.0.0
     "@types/react-syntax-highlighter": 15.5.4
+    "@types/scroll-into-view": ^1.16.0
     "@types/stringify-object": 4.0.1
     "@types/testing-library__cypress": 5.0.9
     "@types/testing-library__jest-dom": 5.14.2
@@ -13980,6 +13988,7 @@ __metadata:
     rooks: 5.11.2
     rxjs: 7.5.6
     sanitize-filename: 1.6.3
+    scroll-into-view: ^1.16.2
     slugify: 1.6.5
     stringify-object: 4.0.1
     tailwindcss: 3.1.8
@@ -29425,6 +29434,13 @@ __metadata:
   dependencies:
     compute-scroll-into-view: ^1.0.17
   checksum: 6b888404ccf68fe2f2f1da8977e1a8a0a64a7139352e02e98621a0e8be3b3db393519ee3dcfb7c32aff3c4790a36829f1be1cccc0cfb2b90a60a61caa669eee2
+  languageName: node
+  linkType: hard
+
+"scroll-into-view@npm:^1.16.2":
+  version: 1.16.2
+  resolution: "scroll-into-view@npm:1.16.2"
+  checksum: 57a434ab9e31da143c43c40bdc38039be97a8eaecb852a614bb7218e34c148f6cb0beadd230742a28d3ec6c9e479161e7527b0ccf0b7311c1664c64c40814649
   languageName: node
   linkType: hard
 
