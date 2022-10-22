@@ -1,7 +1,5 @@
-import { PlusCircleOutlined } from '@ant-design/icons'
 import {
   IFieldService,
-  IInterfaceType,
   ITypeRecord,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
@@ -12,10 +10,10 @@ import {
 } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
-import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { typeRef } from '../../../../store'
+import { CreateFieldButton } from '../../../fields'
 import { InterfaceDefaultsButton } from '../../../interface-defaults'
 
 interface ActionColumnProps {
@@ -29,12 +27,9 @@ export const ActionColumn = observer<ActionColumnProps>(
     return (
       <Space size="middle">
         {type.typeKind === ITypeKind.InterfaceType ? (
-          <PlusCircleOutlined
-            onClick={() => {
-              fieldService.createModal.open(
-                typeRef(type.id) as Ref<IInterfaceType>,
-              )
-            }}
+          <CreateFieldButton
+            fieldService={fieldService}
+            interfaceId={type.id}
           />
         ) : null}
 

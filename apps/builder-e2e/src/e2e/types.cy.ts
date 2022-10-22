@@ -152,20 +152,12 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to add fields', () => {
-      cy.searchTableRow({
-        header: 'Name',
-        row: interfaceTypeName,
-      })
-        .getIcon('right-circle')
+      cy.findByText(interfaceTypeName)
+        .closest('.ant-table-row')
+        .getButton({
+          icon: 'plus',
+        })
         .click()
-
-      cy.url({ timeout: 5000 }).should('include', 'types/interfaces')
-      cy.getSpinner().should('not.exist')
-      cy.contains('.ant-page-header', interfaceTypeName)
-
-      cy.getButton({
-        icon: 'plus',
-      }).click()
 
       cy.getModal().setFormFieldValue({
         label: 'Key',
@@ -180,6 +172,11 @@ describe('Types CRUD', () => {
 
       cy.getModal()
         .getModalAction(/Create/)
+        .click()
+
+      cy.findByText(interfaceTypeName)
+        .closest('.ant-table-row')
+        .find('.ant-table-row-expand-icon')
         .click()
 
       cy.searchTableRow({
