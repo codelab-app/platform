@@ -1,5 +1,9 @@
-import { IElement, IPropData, IRenderer } from '@codelab/frontend/abstract/core'
-import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/domain/element'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  IElement,
+  IPropData,
+  IRenderer,
+} from '@codelab/frontend/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'

@@ -4,5 +4,5 @@ import { IInterfaceType } from '../type'
 import { PropFragment } from './prop.fragment.graphql.gen'
 
 export type IPropDTO = PropFragment & {
-  apiRef: Maybe<Ref<IInterfaceType>>
+  apiRef?: Maybe<Ref<IInterfaceType>>
 }

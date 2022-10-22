@@ -1,15 +1,14 @@
-import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
+  CUSTOM_TEXT_PROP_KEY,
   IElement,
   IElementService,
   IPropData,
 } from '@codelab/frontend/abstract/core'
+import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'
 import ReactQuill from './ReactQuill'
-
-export const CUSTOM_TEXT_PROP_KEY = 'customText'
 
 export interface UpdateRichTextFormProps {
   elementService: IElementService
@@ -40,7 +39,7 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
     const { trackPromise } = trackPromises ?? {}
 
     const [value, setValue] = useState(
-      element.props?.values?.[CUSTOM_TEXT_PROP_KEY],
+      element.props?.values[CUSTOM_TEXT_PROP_KEY],
     )
 
     const inEditMode = useCallback(

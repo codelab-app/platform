@@ -6,6 +6,7 @@ import type {
   IElementDTO,
   IElementTree,
   IHook,
+  IInterfaceType,
   IProp,
   IPropData,
   IPropDataByElementId,
@@ -20,6 +21,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
+import { typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
   getElementService,
@@ -74,6 +76,10 @@ export const hydrate = ({
   renderIfPropKey,
   renderForEachPropKey,
 }: Omit<IElementDTO, '__typename'>) => {
+  const apiRef = renderAtomType
+    ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
+    : undefined
+
   return new Element({
     id,
     name,
@@ -87,7 +93,7 @@ export const hydrate = ({
     atom: renderAtomType ? atomRef(renderAtomType.id) : null,
     preRenderActionId,
     postRenderActionId,
-    props: props ? Prop.hydrate(props) : null,
+    props: props ? Prop.hydrate({ ...props, apiRef }) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
@@ -734,6 +740,12 @@ export class Element
     prevSibling,
     firstChild,
   }: Omit<IElementDTO, '__typename'>) {
+    const apiRef = renderAtomType
+      ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
+      : undefined
+
+    console.log('apiRef', apiRef)
+
     this.id = id
     this.name = name ?? null
     this.customCss = customCss ?? null
@@ -745,7 +757,7 @@ export class Element
 
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
-    this.props = props ? new Prop({ id: props.id }) : null
+    this.props = props ? Prop.hydrate({ ...props, apiRef }) : null
     this.parentId = parent?.id ?? null
 
     this.nextSiblingId = nextSibling?.id ?? null
@@ -753,7 +765,7 @@ export class Element
     this.firstChildId = firstChild?.id ?? null
 
     if (props) {
-      this.props?.writeCache(props)
+      this.props?.writeCache({ ...props, apiRef })
     } else {
       this.props = null
     }

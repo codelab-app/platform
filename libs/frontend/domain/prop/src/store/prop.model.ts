@@ -1,4 +1,5 @@
-import type {
+import {
+  CUSTOM_TEXT_PROP_KEY,
   IInterfaceType,
   IProp,
   IPropData,
@@ -42,10 +43,20 @@ export class Prop
       const apiPropsMap = this.apiRef.current.fields.items
 
       const apiPropsByKey = values(apiPropsMap)
-        .map((propModel) => ({ [propModel.key]: propModel }))
+        .map((propModel) => ({ [propModel.current.key]: propModel }))
         .reduce(merge, {})
 
-      return omitBy(this.data.data, (_, key) => !apiPropsByKey[key])
+      console.log('apiRef', this.apiRef.current.fieldsList, this.data.data)
+
+      return omitBy(this.data.data, (_, key) => {
+        // CUSTOM_TEXT_PROP_KEY is a special case, it's an element prop
+        // that is not part of the api
+        if (key === CUSTOM_TEXT_PROP_KEY) {
+          return false
+        }
+
+        return !apiPropsByKey[key]
+      })
     }
 
     return { ...this.data.data }

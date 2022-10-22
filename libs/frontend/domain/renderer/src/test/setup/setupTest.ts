@@ -1,6 +1,7 @@
 /// <reference types='jest'/>
 
 import {
+  CUSTOM_TEXT_PROP_KEY,
   IAtom,
   IComponent,
   IElement,
@@ -12,7 +13,6 @@ import {
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
 import { Component, ComponentService } from '@codelab/frontend/domain/component'
 import {
-  CUSTOM_TEXT_PROP_KEY,
   Element,
   ElementService,
   ElementTree,

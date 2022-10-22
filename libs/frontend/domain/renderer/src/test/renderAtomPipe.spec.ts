@@ -1,5 +1,5 @@
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
-import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/domain/element'
 import { render } from '@testing-library/react'
 import { AtomRenderPipe } from '../renderPipes/atomRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
