@@ -36,9 +36,11 @@ export const GetTypesTable = observer<{
   useEffect(() => {
     const findPageOfCurrentType = () =>
       Math.ceil(
-        typeService.data.indexOf(
+        (typeService.data.indexOf(
           typeService.data.find((t) => t.id === curTypeId) as ITypeRecord,
-        ) / pageSize,
+        ) +
+          1) /
+          pageSize,
       )
 
     if (curTypeId) {
