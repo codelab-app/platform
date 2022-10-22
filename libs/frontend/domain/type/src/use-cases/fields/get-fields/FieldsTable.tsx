@@ -9,6 +9,7 @@ import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Divider, Space, Table, Tag } from 'antd'
 import { ColumnProps } from 'antd/lib/table/Column'
 import { Observer, observer } from 'mobx-react-lite'
@@ -16,6 +17,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../store'
 import { NestedTypeTable } from '../../types/get-types'
+import { CreateFieldButton } from '../create-field'
 import { getValidationRuleTagsArray } from './validation'
 
 export interface FieldsTableProps {
@@ -116,6 +118,12 @@ export const FieldsTable = observer<FieldsTableProps>(
           <Observer>
             {() => (
               <Space size="middle">
+                {record.type?.kind === ITypeKind.InterfaceType ? (
+                  <CreateFieldButton
+                    fieldService={fieldService}
+                    interfaceId={record.type.id}
+                  />
+                ) : null}
                 <ListItemEditButton
                   onClick={() => {
                     fieldService.updateModal.open({
