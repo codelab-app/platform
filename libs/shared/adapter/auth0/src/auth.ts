@@ -1,6 +1,8 @@
 import { initAuth0 } from '@auth0/nextjs-auth0'
 import { Config } from '@codelab/shared/config'
 
+console.log('auth0', Config().auth0.baseUrl)
+
 /**
  * For Vercel preview, the URL provided as NEXT_PUBLIC_VERCEL_URL https://vercel.com/docs/concepts/projects/environment-variables doesn't have the correct format. It's missing `https`
  */

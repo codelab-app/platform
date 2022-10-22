@@ -1,7 +1,6 @@
 export * from './assert'
 export * from './collections'
 export * from './entity'
-export * from './env'
 export * from './filter/isNonNullable'
 export * from './logger'
 export * from './mapDeep'

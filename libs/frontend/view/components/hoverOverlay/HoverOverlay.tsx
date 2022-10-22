@@ -1,4 +1,4 @@
-import { isServer } from '@codelab/shared/utils'
+import { isServer } from '@codelab/shared/env'
 import React from 'react'
 import { OverlayProps } from './overlay.interface'
 // import { queryRenderedElementById } from '../../renderer'

@@ -1,5 +1,7 @@
+import { isCi, isProduction } from './env'
+
 const graphqlApiHost =
-  process.env.NODE_ENV === 'production'
+  isProduction && isCi
     ? `https://${process.env['NEXT_PUBLIC_VERCEL_URL']}`
     : `http://${process.env['NEXT_PUBLIC_BUILDER_HOST']}`
 

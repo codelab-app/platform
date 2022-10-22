@@ -4,7 +4,6 @@ import { appApi } from './graphql/app.api'
 interface RedirectExternalDomainParams {
   hostname: string
   pathname: string
-  // redirectedDomainUrl: string
 }
 
 export const redirectExternalDomain = async ({

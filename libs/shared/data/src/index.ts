@@ -1,6 +1,5 @@
 export * from './app'
 export * from './atom'
-export * from './graphql'
 export * from './shared'
 export * from './tag'
 export * from './type'

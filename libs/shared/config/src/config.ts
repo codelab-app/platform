@@ -1,4 +1,4 @@
-import { isCi, isProduction } from '@codelab/shared/utils'
+import { isCi, isProduction } from '@codelab/shared/env'
 import * as env from 'env-var'
 
 interface Config {
@@ -22,6 +22,9 @@ interface Config {
     baseUrl: string
   }
 }
+
+console.log('isProduction', isProduction)
+console.log('isCi', isCi)
 
 export const Config = (): Config => ({
   neo4j: {

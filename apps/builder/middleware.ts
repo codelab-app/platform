@@ -39,9 +39,9 @@ export default async function middleware(req: NextRequest) {
   // exclude all files in the public folder
   const isPublic = pathname.includes('.')
   // const isFavicon = pathname.includes('favicon.ico')
-  const isLocal = hostname.includes('127.0.0.1')
+  const isLocal = hostname.startsWith('127.0.0.1')
 
-  console.log('Redirect middleware', {
+  console.log('Middleware config', {
     url: JSON.stringify(req.nextUrl),
     'env.NEXT_PUBLIC_VERCEL_URL': process.env.NEXT_PUBLIC_VERCEL_URL,
     hostname,
@@ -54,6 +54,13 @@ export default async function middleware(req: NextRequest) {
     isLocal,
   })
 
+  /**
+   * Allow site access locally
+   */
+  if (isLocal) {
+    return NextResponse.next()
+  }
+
   // Prevent security issues – users should not be able to canonically access
   // the pages/sites folder and its respective contents. This can also be done
   // via rewrites to a custom 404 page
@@ -61,14 +68,7 @@ export default async function middleware(req: NextRequest) {
     return new NextResponse(null, { status: 404 })
   }
 
-  if (
-    isApi ||
-    isVercelDomain ||
-    isInternal ||
-    isPublic ||
-    isLocal ||
-    isHostDomain
-  ) {
+  if (isApi || isVercelDomain || isInternal || isPublic || isHostDomain) {
     return NextResponse.next()
   }
 

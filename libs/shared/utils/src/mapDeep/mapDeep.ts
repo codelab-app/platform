@@ -5,7 +5,7 @@ import map from 'lodash/map'
 import toPairsIn from 'lodash/toPairsIn'
 import { modelTypeKey } from 'mobx-keystone'
 import { Key } from 'react'
-import { isServer } from '../env'
+import { isServer } from '../../../env/src/env'
 import { IKeyMapper, IOutput, IValueMapper } from './abstract'
 
 const isReactNode = (obj: IPropData) => Boolean(obj['$$typeof'])

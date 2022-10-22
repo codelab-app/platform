@@ -1,4 +1,4 @@
-import { isServer } from '@codelab/shared/utils'
+import { isServer } from '@codelab/shared/env'
 import Cookie from 'js-cookie'
 
 export const AUTH_TOKEN_COOKIE = 'AUTH_JWT'
