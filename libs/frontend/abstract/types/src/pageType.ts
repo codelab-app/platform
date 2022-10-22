@@ -19,7 +19,6 @@ export enum PageType {
   Atom = '/atoms',
   Resources = '/resources',
   Type = '/types',
-  InterfaceDetail = '/types/interfaces/[interfaceId]',
   AtomList = '/apps/[appId]/atoms',
   AtomTypeList = '/atom-types',
   LibraryList = '/apps/[appId]/library',

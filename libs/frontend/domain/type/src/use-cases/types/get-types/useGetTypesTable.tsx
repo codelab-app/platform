@@ -1,4 +1,8 @@
-import { ITypeRecord, ITypeService } from '@codelab/frontend/abstract/core'
+import {
+  IFieldService,
+  ITypeRecord,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { ColumnsType } from 'antd/lib/table'
@@ -7,7 +11,10 @@ import { arraySet } from 'mobx-keystone'
 import React from 'react'
 import { ActionColumn } from './columns'
 
-export const useTypesTable = (typeService: ITypeService) => {
+export const useTypesTable = (
+  typeService: ITypeService,
+  fieldService: IFieldService,
+) => {
   const columns: ColumnsType<ITypeRecord> = [
     {
       title: 'Name',
@@ -29,7 +36,11 @@ export const useTypesTable = (typeService: ITypeService) => {
       onHeaderCell: headerCellProps,
       width: 100,
       render: (text, record) => (
-        <ActionColumn type={record} typeService={typeService} />
+        <ActionColumn
+          fieldService={fieldService}
+          type={record}
+          typeService={typeService}
+        />
       ),
     },
   ]

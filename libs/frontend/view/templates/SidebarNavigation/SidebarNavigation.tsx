@@ -1,4 +1,3 @@
-import { PageType } from '@codelab/frontend/abstract/types'
 import { Menu, MenuProps } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -16,11 +15,6 @@ export const transformSelectedKeys = (keys: Array<string>) => {
   const allKeys: Array<string> = []
 
   keys.forEach((key) => {
-    // Set `Type` as selected if we're on InterfaceDetail page
-    if (key === PageType.InterfaceDetail) {
-      allKeys.push(PageType.Type)
-    }
-
     allKeys.push(key)
   })
 

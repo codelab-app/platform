@@ -22,7 +22,7 @@ export const GetTypesTable = observer<{
   typeService: ITypeService
   fieldService: IFieldService
 }>(({ typeId, typeService, fieldService }) => {
-  const { columns, rowSelection } = useTypesTable(typeService)
+  const { columns, rowSelection } = useTypesTable(typeService, fieldService)
   const { loading } = useAsync(() => typeService.getAll(), [])
   const [curTypeId] = React.useState(typeId)
   const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE)

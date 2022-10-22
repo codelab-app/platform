@@ -1,6 +1,10 @@
-import { RightCircleOutlined } from '@ant-design/icons'
-import { ITypeRecord, ITypeService } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PlusCircleOutlined } from '@ant-design/icons'
+import {
+  IFieldService,
+  IInterfaceType,
+  ITypeRecord,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import {
   DisplayIf,
   ListItemDeleteButton,
@@ -8,8 +12,8 @@ import {
 } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
+import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import Link from 'next/link'
 import React from 'react'
 import { typeRef } from '../../../../store'
 import { InterfaceDefaultsButton } from '../../../interface-defaults'
@@ -17,18 +21,21 @@ import { InterfaceDefaultsButton } from '../../../interface-defaults'
 interface ActionColumnProps {
   type: ITypeRecord
   typeService: ITypeService
+  fieldService: IFieldService
 }
 
 export const ActionColumn = observer<ActionColumnProps>(
-  ({ type, typeService }) => {
+  ({ type, typeService, fieldService }) => {
     return (
       <Space size="middle">
         {type.typeKind === ITypeKind.InterfaceType ? (
-          <Link
-            href={PageType.InterfaceDetail.replace('[interfaceId]', type.id)}
-          >
-            <RightCircleOutlined />
-          </Link>
+          <PlusCircleOutlined
+            onClick={() => {
+              fieldService.createModal.open(
+                typeRef(type.id) as Ref<IInterfaceType>,
+              )
+            }}
+          />
         ) : null}
 
         <DisplayIf condition={type.typeKind === ITypeKind.InterfaceType}>

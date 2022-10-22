@@ -16,8 +16,6 @@ import React from 'react'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../store'
 import { NestedTypeTable } from '../../types/get-types'
-import { DeleteFieldModal } from '../delete-field'
-import { UpdateFieldModal } from '../update-field'
 import { getValidationRuleTagsArray } from './validation'
 
 export interface FieldsTableProps {
@@ -160,37 +158,30 @@ export const FieldsTable = observer<FieldsTableProps>(
     )
 
     return (
-      <>
-        <UpdateFieldModal
-          fieldService={fieldService}
-          typeService={typeService}
-        />
-        <DeleteFieldModal fieldService={fieldService} />
-        <Table
-          columns={
-            hideActions
-              ? columns.filter((column) => column.key !== 'action')
-              : columns
-          }
-          dataSource={dataSource}
-          expandable={{
-            indentSize: 0,
-            expandedRowRender: (record) => {
-              return record.type ? (
-                <NestedTypeTable
-                  fieldService={fieldService}
-                  typeId={record.type.id}
-                  typeService={typeService}
-                />
-              ) : null
-            },
-          }}
-          loading={isLoading}
-          pagination={{ disabled: true, hideOnSinglePage: true }}
-          rowKey={(f) => f.key}
-          size="small"
-        />
-      </>
+      <Table
+        columns={
+          hideActions
+            ? columns.filter((column) => column.key !== 'action')
+            : columns
+        }
+        dataSource={dataSource}
+        expandable={{
+          indentSize: 0,
+          expandedRowRender: (record) => {
+            return record.type ? (
+              <NestedTypeTable
+                fieldService={fieldService}
+                typeId={record.type.id}
+                typeService={typeService}
+              />
+            ) : null
+          },
+        }}
+        loading={isLoading}
+        pagination={{ disabled: true, hideOnSinglePage: true }}
+        rowKey={(f) => f.key}
+        size="small"
+      />
     )
   },
 )

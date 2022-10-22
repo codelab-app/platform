@@ -10,8 +10,8 @@ export const PropsColumn = ({ component }: PropsColumnProps) => {
   return (
     <Link
       href={{
-        pathname: PageType.InterfaceDetail,
-        query: { interfaceId: component.apiId },
+        pathname: PageType.Type,
+        query: { typeId: component.apiId },
       }}
     >
       <BlueLink>View API</BlueLink>
