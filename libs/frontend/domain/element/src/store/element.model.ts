@@ -755,7 +755,7 @@ export class Element
 
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
-    this.props = props ? Prop.hydrate({ ...props, apiRef }) : null
+    this.props = props ? new Prop({ id: props.id, apiRef }) : null
     this.parentId = parent?.id ?? null
 
     this.nextSiblingId = nextSibling?.id ?? null
