@@ -14,7 +14,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/frontend/domain/component"],
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/component"],
       "options": {
         "jestConfig": "libs/frontend/domain/component/jest.config.ts",
         "passWithNoTests": true

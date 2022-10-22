@@ -1,4 +1,4 @@
-import { isProduction } from '@codelab/shared/utils'
+import { isCi, isProduction } from '@codelab/shared/utils'
 import * as env from 'env-var'
 
 interface Config {
@@ -52,7 +52,7 @@ export const Config = (): Config => ({
        *
        * VERCEL_URL=my-site-7q03y4pi5.vercel.app
        */
-      isProduction
+      isProduction && isCi
         ? `https://${env.get('VERCEL_URL').required().asString()}`
         : `http://${env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()}`,
   },
