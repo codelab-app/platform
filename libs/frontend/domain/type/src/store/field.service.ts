@@ -133,12 +133,8 @@ export class FieldService
 
     return nodesDeleted
 
-    // yield* _await(
-    //   this.elementService.removeDeletedPropDataFromElements(
     //     interfaceType,
-    //     field.key,
-    //   ),
-    // )
+    // yield* _await(this.updateDefaults(interfaceId, null, field.key))
 
     // Returns current edges, not deleted edges
     // const deletedField =
