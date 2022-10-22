@@ -744,8 +744,6 @@ export class Element
       ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
       : undefined
 
-    console.log('apiRef', apiRef)
-
     this.id = id
     this.name = name ?? null
     this.customCss = customCss ?? null
