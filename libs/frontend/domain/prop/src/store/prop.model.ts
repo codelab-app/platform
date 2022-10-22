@@ -1,10 +1,15 @@
 import type {
+  IInterfaceType,
   IProp,
   IPropData,
   IPropDTO,
 } from '@codelab/frontend/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
+import merge from 'lodash/merge'
 import omit from 'lodash/omit'
+import omitBy from 'lodash/omitBy'
+import values from 'lodash/values'
 import { computed } from 'mobx'
 import {
   detach,
@@ -14,11 +19,12 @@ import {
   model,
   modelAction,
   prop,
+  Ref,
   rootRef,
 } from 'mobx-keystone'
 
-const hydrate = ({ id, data }: IPropDTO): IProp => {
-  return new Prop({ id, data: frozen(JSON.parse(data)) })
+const hydrate = ({ id, data, apiRef }: IPropDTO): IProp => {
+  return new Prop({ id, data: frozen(JSON.parse(data)), apiRef })
 }
 
 @model('@codelab/Prop')
@@ -26,11 +32,22 @@ export class Prop
   extends Model({
     id: idProp,
     data: prop(() => frozen<IPropData>({})),
+    apiRef: prop<Maybe<Ref<IInterfaceType>>>(),
   })
   implements IProp
 {
   @computed
   get values() {
+    if (this.apiRef) {
+      const apiPropsMap = this.apiRef.current.fields.items
+
+      const apiPropsByKey = values(apiPropsMap)
+        .map((propModel) => ({ [propModel.key]: propModel }))
+        .reduce(merge, {})
+
+      return omitBy(this.data.data, (_, key) => !apiPropsByKey[key])
+    }
+
     return { ...this.data.data }
   }
 
