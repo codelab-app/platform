@@ -1,4 +1,4 @@
-variable "NEXT_PUBLIC_BUILDER_URL" {
+variable "NEXT_PUBLIC_BUILDER_HOST" {
   type        = string
   description = "Domain of our project"
 }

@@ -45,9 +45,9 @@ exports.onExecutePostLogin = async (event, api) => {
   /**
    * Initialize client
    */
-  const hostname = new URL('${var.NEXT_PUBLIC_BUILDER_URL}').hostname
-  const endpoint = new URL('api/graphql', 'https://admin.' + hostname)
-  // const endpoint = 'https://app.codelab.ai/api/graphql'
+  const url = 'https://${var.NEXT_PUBLIC_BUILDER_HOST}'
+  const endpoint = new URL('api/graphql', url)
+  // const endpoint = 'https://admin.codelab.app/api/graphql'
 
   const graphQLClient = new GraphQLClient(endpoint, {
     headers: {

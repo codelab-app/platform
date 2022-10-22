@@ -9,7 +9,7 @@ resource "vercel_project" "landing" {
   }
 
   build_command = "./scripts/vercel/landing/build.sh"
-  output_directory = "dist/apps/builder/.next"
+  output_directory = "dist/apps/landing/.next"
   install_command = "./scripts/vercel/landing/install.sh"
 
   serverless_function_region = "sfo1"

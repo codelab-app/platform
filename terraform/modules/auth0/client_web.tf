@@ -3,11 +3,11 @@ resource "auth0_client" "web_client" {
   # description         = var.app_description
   app_type            = "regular_web"
   oidc_conformant     = true
-  callbacks           = ["${var.NEXT_PUBLIC_BUILDER_URL}/api/auth/callback"]
-  allowed_logout_urls = [var.NEXT_PUBLIC_BUILDER_URL]
-  allowed_origins     = [var.NEXT_PUBLIC_BUILDER_URL]
+  callbacks           = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}/api/auth/callback"]
+  allowed_logout_urls = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}"]
+  allowed_origins     = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}"]
   grant_types         = ["authorization_code", "implicit", "password", "refresh_token", "client_credentials"]
-  web_origins         = [var.NEXT_PUBLIC_BUILDER_URL]
+  web_origins         = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}"]
 
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds

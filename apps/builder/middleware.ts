@@ -30,7 +30,8 @@ export default async function middleware(req: NextRequest) {
   /**
    * Check if `hostname` contains `builder-egs3r8s85-codelabai.vercel.app`, if so we don't redirect.
    */
-  const isVercelDomain = hostname.includes(process.env.NEXT_PUBLIC_VERCEL_ENV!)
+  const isVercelDomain = hostname.includes(process.env.NEXT_PUBLIC_VERCEL_URL!)
+  const isHostDomain = hostname.includes(process.env.NEXT_PUBLIC_BUILDER_HOST!)
   const { pathname } = req.nextUrl
   const isApi = pathname.startsWith('/api')
   const isSites = pathname.startsWith('/_sites')
@@ -47,6 +48,7 @@ export default async function middleware(req: NextRequest) {
     pathname,
     isApi,
     isSites,
+    isHostDomain,
     isVercelDomain,
     isInternal,
     isLocal,
@@ -59,11 +61,16 @@ export default async function middleware(req: NextRequest) {
     return new NextResponse(null, { status: 404 })
   }
 
-  if (isApi || isVercelDomain || isInternal || isPublic || isLocal) {
+  if (
+    isApi ||
+    isVercelDomain ||
+    isInternal ||
+    isPublic ||
+    isLocal ||
+    isHostDomain
+  ) {
     return NextResponse.next()
   }
-
-  console.log('Redirecting...')
 
   return await redirectExternalDomain({
     /**

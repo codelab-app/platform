@@ -3,7 +3,7 @@ variable "VERCEL_API_TOKEN" {
   description = "Vercel Access Tokens are required to authenticate and use the Vercel API"
 }
 
-variable "NEXT_PUBLIC_LANDING_URL" {
+variable "NEXT_PUBLIC_LANDING_HOST" {
   type        = string
   description = "Codelab landing page URL"
 }
@@ -19,6 +19,6 @@ variable "VERCEL_BUILDER_PROJECT_ID" {
 }
 
 variable "AUTH0_SECRET" {
-  type = string
+  type        = string
   description = "Auth0 secret for creating JWT tokens"
 }

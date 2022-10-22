@@ -11,6 +11,8 @@ export const redirectExternalDomain = async ({
   hostname,
   pathname,
 }: RedirectExternalDomainParams) => {
+  console.log('Redirecting...')
+
   const { apps } = await appApi.GetRedirectedApps({
     where: { domains_SOME: { name_IN: [hostname] } },
   })

@@ -29,8 +29,8 @@ resource "vercel_project" "builder" {
   environment = [
     {
       target = ["production", "preview"]
-      key = "NEXT_PUBLIC_BUILDER_URL"
-      value = var.NEXT_PUBLIC_BUILDER_URL
+      key = "NEXT_PUBLIC_BUILDER_HOST"
+      value = var.NEXT_PUBLIC_BUILDER_HOST
     },
     # Auth0
     {

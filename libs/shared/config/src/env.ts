@@ -48,13 +48,12 @@ export const Config = (): Config => ({
       /**
        * https://github.com/auth0/nextjs-auth0/issues/383
        *
-       * Allows for Auth0 to work with Vercel preview url's, defaults NEXT_PUBLIC_BUILDER_URL
+       * Allows for Auth0 to work with Vercel preview url's, defaults NEXT_PUBLIC_BUILDER_HOST
        *
        * VERCEL_URL=my-site-7q03y4pi5.vercel.app
        */
-      //
       isProduction
         ? `https://${env.get('VERCEL_URL').required().asString()}`
-        : env.get('NEXT_PUBLIC_BUILDER_URL').required().asString(),
+        : `http://${env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()}`,
   },
 })
