@@ -40,13 +40,11 @@ export class Prop
   @computed
   get values() {
     if (this.apiRef) {
-      const apiPropsMap = this.apiRef.current.fields.items
+      const apiPropsMap = this.apiRef.current.fields
 
       const apiPropsByKey = values(apiPropsMap)
-        .map((propModel) => ({ [propModel.current.key]: propModel }))
+        .map((propModel) => ({ [propModel.key]: propModel }))
         .reduce(merge, {})
-
-      console.log('apiRef', this.apiRef.current.fieldsList, this.data.data)
 
       return omitBy(this.data.data, (_, key) => {
         // CUSTOM_TEXT_PROP_KEY is a special case, it's an element prop
