@@ -5,17 +5,16 @@ import {
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
+import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
-import cloneDeep from 'lodash/cloneDeep'
-import set from 'lodash/set'
+import pick from 'lodash/pick'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
+import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
-import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { createFieldSchema } from './createFieldSchema'
 
@@ -24,12 +23,10 @@ export interface CreateFieldModalProps {
   fieldService: IFieldService
 }
 
-const generateDefaultFormModel = () =>
-  ({
-    id: v4(),
-    key: '',
-    fieldType: '',
-  } as ICreateFieldDTO)
+type FieldCondition = (
+  typeService: ITypeService,
+  model: DeepPartial<ICreateFieldDTO>,
+) => boolean
 
 export const filterValidationRules = (
   rules: Nullish<IValidationRules>,
@@ -41,29 +38,25 @@ export const filterValidationRules = (
 
   const { general } = rules
 
-  const rest =
-    primitiveKind === 'String'
-      ? { String: rules.String }
-      : primitiveKind === 'Float'
-      ? { Float: rules.Float }
-      : primitiveKind === 'Integer'
-      ? { Integer: rules.Integer }
-      : {}
+  const rest = primitiveKind
+    ? pick(rules, primitiveKind as keyof typeof rules)
+    : {}
 
-  return {
-    general,
-    ...rest,
-  }
+  return { general, ...rest }
 }
+
+export const isString: FieldCondition = (typeService, { fieldType }) =>
+  Boolean(fieldType && typeService.primitiveKind(fieldType))
+
+export const isInteger: FieldCondition = (typeService, { fieldType }) =>
+  Boolean(fieldType && typeService.primitiveKind(fieldType))
+
+export const isFloat: FieldCondition = (typeService, { fieldType }) =>
+  Boolean(fieldType && typeService.primitiveKind(fieldType))
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
   ({ fieldService, typeService }) => {
     const closeModal = () => fieldService.createModal.close()
-
-    const [model, setModel] = React.useState<ICreateFieldDTO>(
-      generateDefaultFormModel(),
-    )
-
     useAsync(() => typeService.getAll(), [])
 
     return (
@@ -74,13 +67,8 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         title={<span css={tw`font-semibold`}>Create field</span>}
         visible={fieldService.createModal.isOpen}
       >
-        <ModalForm.Form<Omit<ICreateFieldDTO, 'interfaceTypeId'>>
-          model={{
-            ...model,
-          }}
-          onChange={(key, value) => {
-            setModel((prev) => set(cloneDeep(prev), key, value))
-          }}
+        <ModalForm.Form<ICreateFieldDTO>
+          model={{}}
           onSubmit={(input) => {
             const interfaceTypeId = fieldService.createModal.interface?.id
 
@@ -103,44 +91,39 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             title: 'Error while creating field',
             type: 'error',
           })}
-          onSubmitSuccess={() => {
-            setModel(generateDefaultFormModel())
-            closeModal()
-          }}
+          onSubmitSuccess={closeModal}
           schema={createFieldSchema}
         >
-          <AutoFields omitFields={['fieldType', 'validationRules']} />
+          <AutoFields
+            omitFields={['fieldType', 'validationRules', 'interfaceTypeId']}
+          />
           <TypeSelect
             label="Type"
             name="fieldType"
             types={typeService.typesList}
           />
-
           <AutoFields fields={['validationRules.general']} />
-
-          {model.fieldType &&
-            typeService.primitiveKind(model.fieldType) ===
-              PrimitiveTypeKind.String && (
-              <AutoFields
-                fields={[`validationRules.${PrimitiveTypeKind.String}`]}
-              />
-            )}
-
-          {model.fieldType &&
-            typeService.primitiveKind(model.fieldType) ===
-              PrimitiveTypeKind.Integer && (
-              <AutoFields
-                fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
-              />
-            )}
-
-          {model.fieldType &&
-            typeService.primitiveKind(model.fieldType) ===
-              PrimitiveTypeKind.Float && (
-              <AutoFields
-                fields={[`validationRules.${PrimitiveTypeKind.Float}`]}
-              />
-            )}
+          <DisplayIfField<ICreateFieldDTO>
+            condition={(context) => isString(typeService, context.model)}
+          >
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.String}`]}
+            />
+          </DisplayIfField>
+          <DisplayIfField<ICreateFieldDTO>
+            condition={(context) => isInteger(typeService, context.model)}
+          >
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
+            />
+          </DisplayIfField>
+          <DisplayIfField<ICreateFieldDTO>
+            condition={(context) => isFloat(typeService, context.model)}
+          >
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.Float}`]}
+            />
+          </DisplayIfField>{' '}
         </ModalForm.Form>
       </ModalForm.Modal>
     )

@@ -7,9 +7,7 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
-export const createFieldSchema: JSONSchemaType<
-  Omit<ICreateFieldDTO, 'interfaceTypeId'>
-> = {
+export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {
@@ -99,6 +97,9 @@ export const createFieldSchema: JSONSchemaType<
           },
         },
       },
+    },
+    interfaceTypeId: {
+      type: 'string',
     },
     defaultValues: { type: 'string', nullable: true },
     /**

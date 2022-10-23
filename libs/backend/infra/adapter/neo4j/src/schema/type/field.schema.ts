@@ -7,7 +7,7 @@ export const fieldSchema = gql`
     name: String
     description: String
     validationRules: String
-    defaultValues: Prop
+    defaultValues: String
     fieldType: IBaseType! @relationship(type: "FIELD_TYPE", direction: OUT)
     # API the field belongs to
     api: InterfaceType! @relationship(type: "INTERFACE_FIELD", direction: IN)
