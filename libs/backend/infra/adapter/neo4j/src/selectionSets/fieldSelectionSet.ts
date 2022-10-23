@@ -4,9 +4,7 @@ export const fieldSelectionSet = `{
   name
   description
   validationRules
-  defaultValues {
-    id
-  }
+  defaultValues
   fieldType {
     __typename
     id

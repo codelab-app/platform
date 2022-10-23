@@ -55,7 +55,7 @@ export const createImportFieldsData = (
            * Fields are imported last, so they should exist, but throw error if haven't
            */
           fieldType: existingFieldType.id,
-          defaultValues: null,
+          defaultValues: field.defaultValues,
           interfaceTypeId: type.id,
         }
 

@@ -16,7 +16,7 @@ import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../store'
-import { NestedTypeTable } from '../../types/get-types'
+import { NestedTypeTable } from '../../types'
 import { CreateFieldButton } from '../create-field'
 import { getValidationRuleTagsArray } from './validation'
 
@@ -126,18 +126,12 @@ export const FieldsTable = observer<FieldsTableProps>(
                 ) : null}
                 <ListItemEditButton
                   onClick={() => {
-                    fieldService.updateModal.open({
-                      field: fieldRef(record.id),
-                      interface: typeRef(interfaceType),
-                    })
+                    fieldService.updateModal.open(fieldRef(record.id))
                   }}
                 />
                 <ListItemDeleteButton
                   onClick={() => {
-                    fieldService.deleteModal.open({
-                      field: fieldRef(record.id),
-                      interface: typeRef(interfaceType),
-                    })
+                    fieldService.deleteModal.open(fieldRef(record.id))
                   }}
                 />
               </Space>

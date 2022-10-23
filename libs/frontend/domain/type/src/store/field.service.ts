@@ -63,6 +63,7 @@ export class FieldService
       id: field.id,
       key: field.key,
       name: field.name,
+      defaultValues: JSON.stringify(field.defaultValues),
       validationRules: JSON.stringify(field.validationRules),
       fieldType: connectNode(field.fieldType),
       api: connectNode(field.interfaceTypeId),
@@ -96,6 +97,7 @@ export class FieldService
       id: data.id,
       key: data.key,
       name: data.name,
+      defaultValues: JSON.stringify(data.defaultValues),
       validationRules: JSON.stringify(data.validationRules),
     }
 

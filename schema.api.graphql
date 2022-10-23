@@ -9671,7 +9671,7 @@ type Field {
     sort: [FieldApiConnectionSort!]
     where: FieldApiConnectionWhere
   ): FieldApiConnection!
-  defaultValues: Prop
+  defaultValues: String
   description: String
   fieldType(
     directed: Boolean = true
@@ -9693,6 +9693,7 @@ type Field {
 
 type FieldAggregateSelection {
   count: Int!
+  defaultValues: StringAggregateSelectionNullable!
   description: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   key: StringAggregateSelectionNonNullable!
@@ -9822,6 +9823,7 @@ input FieldConnectWhere {
 
 input FieldCreateInput {
   api: FieldApiFieldInput
+  defaultValues: String
   description: String
   fieldType: FieldFieldTypeFieldInput
   id: ID!
@@ -9933,6 +9935,7 @@ input FieldRelationInput {
 Fields to sort Fields by. The order in which sorts are applied is not guaranteed when specifying many fields in one FieldSort object.
 """
 input FieldSort {
+  defaultValues: SortDirection
   description: SortDirection
   id: SortDirection
   key: SortDirection
@@ -9942,6 +9945,7 @@ input FieldSort {
 
 input FieldUpdateInput {
   api: FieldApiUpdateFieldInput
+  defaultValues: String
   description: String
   fieldType: FieldFieldTypeUpdateFieldInput
   id: ID
@@ -9958,6 +9962,16 @@ input FieldWhere {
   apiConnection: FieldApiConnectionWhere
   apiConnection_NOT: FieldApiConnectionWhere
   api_NOT: InterfaceTypeWhere
+  defaultValues: String
+  defaultValues_CONTAINS: String
+  defaultValues_ENDS_WITH: String
+  defaultValues_IN: [String]
+  defaultValues_NOT: String
+  defaultValues_NOT_CONTAINS: String
+  defaultValues_NOT_ENDS_WITH: String
+  defaultValues_NOT_IN: [String]
+  defaultValues_NOT_STARTS_WITH: String
+  defaultValues_STARTS_WITH: String
   description: String
   description_CONTAINS: String
   description_ENDS_WITH: String
@@ -11220,6 +11234,7 @@ type InterfaceTypeFieldFieldsAggregationSelection {
 }
 
 type InterfaceTypeFieldFieldsNodeAggregateSelection {
+  defaultValues: StringAggregateSelectionNullable!
   description: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   key: StringAggregateSelectionNonNullable!
@@ -11282,6 +11297,26 @@ input InterfaceTypeFieldsFieldInput {
 input InterfaceTypeFieldsNodeAggregationWhereInput {
   AND: [InterfaceTypeFieldsNodeAggregationWhereInput!]
   OR: [InterfaceTypeFieldsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_EQUAL: Float
+  defaultValues_AVERAGE_GT: Float
+  defaultValues_AVERAGE_GTE: Float
+  defaultValues_AVERAGE_LT: Float
+  defaultValues_AVERAGE_LTE: Float
+  defaultValues_EQUAL: String
+  defaultValues_GT: Int
+  defaultValues_GTE: Int
+  defaultValues_LONGEST_EQUAL: Int
+  defaultValues_LONGEST_GT: Int
+  defaultValues_LONGEST_GTE: Int
+  defaultValues_LONGEST_LT: Int
+  defaultValues_LONGEST_LTE: Int
+  defaultValues_LT: Int
+  defaultValues_LTE: Int
+  defaultValues_SHORTEST_EQUAL: Int
+  defaultValues_SHORTEST_GT: Int
+  defaultValues_SHORTEST_GTE: Int
+  defaultValues_SHORTEST_LT: Int
+  defaultValues_SHORTEST_LTE: Int
   description_AVERAGE_EQUAL: Float
   description_AVERAGE_GT: Float
   description_AVERAGE_GTE: Float

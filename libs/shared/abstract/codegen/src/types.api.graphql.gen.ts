@@ -10109,7 +10109,7 @@ export type Field = {
   api: InterfaceType
   apiAggregate?: Maybe<FieldInterfaceTypeApiAggregationSelection>
   apiConnection: FieldApiConnection
-  defaultValues?: Maybe<Prop>
+  defaultValues?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   fieldType: IBaseType
   fieldTypeConnection: FieldFieldTypeConnection
@@ -10155,6 +10155,7 @@ export type FieldFieldTypeConnectionArgs = {
 export type FieldAggregateSelection = {
   __typename?: 'FieldAggregateSelection'
   count: Scalars['Int']
+  defaultValues: StringAggregateSelectionNullable
   description: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
@@ -10286,6 +10287,7 @@ export type FieldConnectWhere = {
 
 export type FieldCreateInput = {
   api?: InputMaybe<FieldApiFieldInput>
+  defaultValues?: InputMaybe<Scalars['String']>
   description?: InputMaybe<Scalars['String']>
   fieldType?: InputMaybe<FieldFieldTypeFieldInput>
   id: Scalars['ID']
@@ -10397,6 +10399,7 @@ export type FieldRelationInput = {
 
 /** Fields to sort Fields by. The order in which sorts are applied is not guaranteed when specifying many fields in one FieldSort object. */
 export type FieldSort = {
+  defaultValues?: InputMaybe<SortDirection>
   description?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   key?: InputMaybe<SortDirection>
@@ -10406,6 +10409,7 @@ export type FieldSort = {
 
 export type FieldUpdateInput = {
   api?: InputMaybe<FieldApiUpdateFieldInput>
+  defaultValues?: InputMaybe<Scalars['String']>
   description?: InputMaybe<Scalars['String']>
   fieldType?: InputMaybe<FieldFieldTypeUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
@@ -10422,6 +10426,16 @@ export type FieldWhere = {
   apiConnection?: InputMaybe<FieldApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<FieldApiConnectionWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
+  defaultValues?: InputMaybe<Scalars['String']>
+  defaultValues_CONTAINS?: InputMaybe<Scalars['String']>
+  defaultValues_ENDS_WITH?: InputMaybe<Scalars['String']>
+  defaultValues_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  defaultValues_NOT?: InputMaybe<Scalars['String']>
+  defaultValues_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  defaultValues_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  defaultValues_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  defaultValues_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  defaultValues_STARTS_WITH?: InputMaybe<Scalars['String']>
   description?: InputMaybe<Scalars['String']>
   description_CONTAINS?: InputMaybe<Scalars['String']>
   description_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -11753,6 +11767,7 @@ export type InterfaceTypeFieldFieldsAggregationSelection = {
 
 export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
   __typename?: 'InterfaceTypeFieldFieldsNodeAggregateSelection'
+  defaultValues: StringAggregateSelectionNullable
   description: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
@@ -11816,6 +11831,26 @@ export type InterfaceTypeFieldsFieldInput = {
 export type InterfaceTypeFieldsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<InterfaceTypeFieldsNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<InterfaceTypeFieldsNodeAggregationWhereInput>>
+  defaultValues_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  defaultValues_EQUAL?: InputMaybe<Scalars['String']>
+  defaultValues_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   description_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   description_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   description_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -21607,6 +21642,7 @@ export type FieldFragment = {
   name?: string | null
   description?: string | null
   validationRules?: string | null
+  defaultValues?: string | null
   fieldType:
     | { __typename?: 'ActionType'; id: string }
     | { __typename?: 'AppType'; id: string }
@@ -21622,7 +21658,7 @@ export type FieldFragment = {
     | { __typename?: 'ReactNodeType'; id: string }
     | { __typename?: 'RenderPropsType'; id: string }
     | { __typename?: 'UnionType'; id: string }
-  defaultValues?: ({ __typename?: 'Prop' } & PropFragment) | null
+  api: { __typename?: 'InterfaceType'; id: string }
 }
 
 export type InterfaceTypeFragment = {

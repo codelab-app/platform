@@ -72,7 +72,6 @@ export class InterfaceType
   writeFieldCache(fields: Array<IFieldDTO>) {
     for (const field of fields) {
       const fieldModel = this.fieldService.writeCache(field)
-      console.log(fieldModel)
       this._fields.set(fieldModel.id, fieldRef(fieldModel))
     }
   }

@@ -1,10 +1,11 @@
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { ICacheService } from '../../../service'
-import { IProp } from '../../prop'
+import { IPropData } from '../../prop'
 import { IFieldDTO, IValidationRules } from '../field.dto.interface'
-import type { IAnyType } from '../types'
+import type { IAnyType, IInterfaceType } from '../types'
 
+export type IFieldDefaultValue = IPropData | string | number | boolean
 export interface IField<T extends IAnyType = IAnyType>
   extends ICacheService<IFieldDTO, IField> {
   id: string
@@ -16,7 +17,8 @@ export interface IField<T extends IAnyType = IAnyType>
   key: string
   type: Ref<T>
   validationRules: Nullish<IValidationRules>
-  defaultValues: Nullish<Ref<IProp>>
+  defaultValues: Nullish<FieldDefaultValue>
+  api: Ref<IInterfaceType>
 }
 
 export type IFieldRef = string

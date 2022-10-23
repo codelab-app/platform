@@ -7,14 +7,15 @@ import {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import pick from 'lodash/pick'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { createFieldSchema } from './createFieldSchema'
 
@@ -46,18 +47,43 @@ export const filterValidationRules = (
 }
 
 export const isString: FieldCondition = (typeService, { fieldType }) =>
-  Boolean(fieldType && typeService.primitiveKind(fieldType))
+  Boolean(
+    fieldType &&
+      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.String,
+  )
 
 export const isInteger: FieldCondition = (typeService, { fieldType }) =>
-  Boolean(fieldType && typeService.primitiveKind(fieldType))
+  Boolean(
+    fieldType &&
+      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Integer,
+  )
 
 export const isFloat: FieldCondition = (typeService, { fieldType }) =>
-  Boolean(fieldType && typeService.primitiveKind(fieldType))
+  Boolean(
+    fieldType &&
+      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Float,
+  )
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
   ({ fieldService, typeService }) => {
     const closeModal = () => fieldService.createModal.close()
-    useAsync(() => typeService.getAll(), [])
+    const interfaceTypeId = fieldService.createModal.interface?.id
+
+    const onSubmit = (input: ICreateFieldDTO) => {
+      if (!interfaceTypeId) {
+        throw new Error('Missing interface type id')
+      }
+
+      return fieldService.create([
+        {
+          ...input,
+          validationRules: filterValidationRules(
+            input.validationRules,
+            typeService.primitiveKind(input.fieldType),
+          ),
+        },
+      ])
+    }
 
     return (
       <ModalForm.Modal
@@ -68,25 +94,11 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         visible={fieldService.createModal.isOpen}
       >
         <ModalForm.Form<ICreateFieldDTO>
-          model={{}}
-          onSubmit={(input) => {
-            const interfaceTypeId = fieldService.createModal.interface?.id
-
-            if (!interfaceTypeId) {
-              throw new Error('Missing interface type id')
-            }
-
-            return fieldService.create([
-              {
-                ...input,
-                interfaceTypeId,
-                validationRules: filterValidationRules(
-                  input.validationRules,
-                  typeService.primitiveKind(input.fieldType),
-                ),
-              },
-            ])
+          model={{
+            id: v4(),
+            interfaceTypeId,
           }}
+          onSubmit={onSubmit}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',
             type: 'error',
@@ -95,7 +107,12 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           schema={createFieldSchema}
         >
           <AutoFields
-            omitFields={['fieldType', 'validationRules', 'interfaceTypeId']}
+            omitFields={[
+              'fieldType',
+              'validationRules',
+              'interfaceTypeId',
+              'defaultValues',
+            ]}
           />
           <TypeSelect
             label="Type"
@@ -123,7 +140,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.Float}`]}
             />
-          </DisplayIfField>{' '}
+          </DisplayIfField>
         </ModalForm.Form>
       </ModalForm.Modal>
     )

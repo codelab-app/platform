@@ -1,8 +1,9 @@
-import type {
+import {
   IAnyType,
   IField,
+  IFieldDefaultValue,
   IFieldDTO,
-  IProp,
+  IInterfaceType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
@@ -18,30 +19,26 @@ import {
 } from 'mobx-keystone'
 import { typeRef } from './union-type.model'
 
-const hydrate = (data: IFieldDTO) => {
-  const {
-    id,
-    key,
-    name,
-    description,
-    fieldType,
-    validationRules: schemaStr,
-    defaultValues,
-  } = data
-
-  const validationRules = JSON.parse(schemaStr || '{}')
-
-  return new Field({
+const hydrate = ({
+  id,
+  key,
+  name,
+  description,
+  fieldType,
+  api,
+  validationRules,
+  defaultValues,
+}: IFieldDTO) =>
+  new Field({
     id,
     name,
     description,
     key,
     type: typeRef(fieldType.id),
-    validationRules,
-    // defaultValues: propRef(defaultValues?.id ?? ''),
-    defaultValues: null,
+    api: typeRef(api.id) as Ref<IInterfaceType>,
+    validationRules: JSON.parse(validationRules || '{}'),
+    defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
   })
-}
 
 @model('@codelab/Field')
 export class Field
@@ -53,7 +50,8 @@ export class Field
     key: prop<string>(),
     type: prop<Ref<IAnyType>>(),
     validationRules: prop<Nullish<IValidationRules>>(),
-    defaultValues: prop<Nullish<Ref<IProp>>>(null),
+    defaultValues: prop<Nullish<IFieldDefaultValue>>(null),
+    api: prop<Ref<IInterfaceType>>(),
   }))
   implements IField
 {
@@ -65,8 +63,9 @@ export class Field
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
     this.validationRules = JSON.parse(fragment.validationRules || '{}')
-    this.defaultValues = null
-    // this.defaultValues = propRef(fragment.defaultValues?.id ?? '')
+    this.defaultValues = fragment.defaultValues
+      ? JSON.parse(fragment.defaultValues)
+      : null
 
     return this
   }

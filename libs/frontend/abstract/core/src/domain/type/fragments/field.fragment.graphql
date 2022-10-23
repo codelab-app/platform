@@ -9,7 +9,8 @@ fragment Field on Field {
       id
     }
   }
-  defaultValues {
-    ...Prop
+  api {
+    id
   }
+  defaultValues
 }

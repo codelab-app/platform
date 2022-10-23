@@ -4550,7 +4550,7 @@ export type Field = {
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   validationRules?: Maybe<Scalars['String']>
-  defaultValues?: Maybe<Prop>
+  defaultValues?: Maybe<Scalars['String']>
   fieldType: IBaseType
   api: InterfaceType
   apiAggregate?: Maybe<FieldInterfaceTypeApiAggregationSelection>
@@ -4599,6 +4599,7 @@ export type FieldAggregateSelection = {
   name: StringAggregateSelectionNullable
   description: StringAggregateSelectionNullable
   validationRules: StringAggregateSelectionNullable
+  defaultValues: StringAggregateSelectionNullable
 }
 
 export type FieldApiConnection = {
@@ -4967,6 +4968,7 @@ export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
   name: StringAggregateSelectionNullable
   description: StringAggregateSelectionNullable
   validationRules: StringAggregateSelectionNullable
+  defaultValues: StringAggregateSelectionNullable
 }
 
 export type InterfaceTypeFieldsConnection = {
@@ -14267,6 +14269,7 @@ export type FieldCreateInput = {
   name?: InputMaybe<Scalars['String']>
   description?: InputMaybe<Scalars['String']>
   validationRules?: InputMaybe<Scalars['String']>
+  defaultValues?: InputMaybe<Scalars['String']>
   fieldType?: InputMaybe<FieldFieldTypeFieldInput>
   api?: InputMaybe<FieldApiFieldInput>
 }
@@ -14348,6 +14351,7 @@ export type FieldSort = {
   name?: InputMaybe<SortDirection>
   description?: InputMaybe<SortDirection>
   validationRules?: InputMaybe<SortDirection>
+  defaultValues?: InputMaybe<SortDirection>
 }
 
 export type FieldUpdateInput = {
@@ -14356,6 +14360,7 @@ export type FieldUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   description?: InputMaybe<Scalars['String']>
   validationRules?: InputMaybe<Scalars['String']>
+  defaultValues?: InputMaybe<Scalars['String']>
   fieldType?: InputMaybe<FieldFieldTypeUpdateFieldInput>
   api?: InputMaybe<FieldApiUpdateFieldInput>
 }
@@ -14413,6 +14418,16 @@ export type FieldWhere = {
   validationRules_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   validationRules_ENDS_WITH?: InputMaybe<Scalars['String']>
   validationRules_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  defaultValues?: InputMaybe<Scalars['String']>
+  defaultValues_NOT?: InputMaybe<Scalars['String']>
+  defaultValues_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  defaultValues_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  defaultValues_CONTAINS?: InputMaybe<Scalars['String']>
+  defaultValues_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  defaultValues_STARTS_WITH?: InputMaybe<Scalars['String']>
+  defaultValues_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  defaultValues_ENDS_WITH?: InputMaybe<Scalars['String']>
+  defaultValues_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   api?: InputMaybe<InterfaceTypeWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<FieldApiAggregateInput>
@@ -15486,6 +15501,26 @@ export type InterfaceTypeFieldsNodeAggregationWhereInput = {
   validationRules_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   validationRules_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   validationRules_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_EQUAL?: InputMaybe<Scalars['String']>
+  defaultValues_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type InterfaceTypeFieldsUpdateConnectionInput = {
@@ -21594,6 +21629,7 @@ export interface FieldAggregateSelectionInput {
   name?: StringAggregateInputNullable
   description?: StringAggregateInputNullable
   validationRules?: StringAggregateInputNullable
+  defaultValues?: StringAggregateInputNullable
 }
 
 export declare class FieldModel {

@@ -1,22 +1,19 @@
-import { PlusOutlined } from '@ant-design/icons'
 import {
   IActionService,
   IFieldService,
-  IInterfaceType,
   IStore,
 } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/domain/type'
+import { CreateFieldButton } from '@codelab/frontend/domain/type'
 import {
   EditorPaneHeader,
   useResizable,
 } from '@codelab/frontend/view/components'
-import { Button, Row } from 'antd'
+import { Row } from 'antd'
 import { motion } from 'framer-motion'
-import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
-import { GetActionsList, GetStateList } from '../use-cases'
+import { CreateActionButton, GetActionsList, GetStateList } from '../use-cases'
 
 export interface StoreEditorPaneProps {
   fieldService: IFieldService
@@ -48,29 +45,14 @@ const ResizableColumn = ({ children }: PropsWithChildren) => {
 export const StoreEditorPane = observer<StoreEditorPaneProps>(
   ({ fieldService, actionService, appStore }) => {
     const createStateFieldButton = (
-      <Button
-        icon={<PlusOutlined />}
-        onClick={(event: React.MouseEvent) => {
-          fieldService.createModal.open(
-            typeRef(appStore.api.id) as Ref<IInterfaceType>,
-          )
-        }}
-        size="small"
-        title="Add Field"
-        type="primary"
+      <CreateFieldButton
+        fieldService={fieldService}
+        interfaceId={appStore.api.current.id}
       />
     )
 
     const createActionButton = (
-      <Button
-        icon={<PlusOutlined />}
-        onClick={(event: React.MouseEvent) => {
-          actionService.createModal.open()
-        }}
-        size="small"
-        title="Add Action"
-        type="primary"
-      />
+      <CreateActionButton actionService={actionService} />
     )
 
     return (

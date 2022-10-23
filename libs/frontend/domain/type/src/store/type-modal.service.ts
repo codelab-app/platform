@@ -1,8 +1,4 @@
-import {
-  IAnyType,
-  IEntityModalService,
-  IInterfaceType,
-} from '@codelab/frontend/abstract/core'
+import { IAnyType, IEntityModalService } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -18,24 +14,6 @@ export class TypeModalService
 {
   @computed
   get type() {
-    return this.metadata?.current
-  }
-}
-
-@model('@codelab/InterfaceTypeModalService')
-export class InterfaceTypeModalService
-  extends ExtendedModel(
-    modelClass<ModalService<Ref<IInterfaceType>>>(ModalService),
-    {},
-  )
-  implements
-    IEntityModalService<
-      Ref<IInterfaceType>,
-      { interface: Maybe<IInterfaceType> }
-    >
-{
-  @computed
-  get interface() {
     return this.metadata?.current
   }
 }

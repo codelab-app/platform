@@ -11,7 +11,13 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {
-    id: { type: 'string', disabled: true },
+    id: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     key: { type: 'string', autoFocus: true },
     name: { type: 'string', nullable: true },
     description: { type: 'string', nullable: true },
@@ -100,6 +106,10 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
     },
     interfaceTypeId: {
       type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
     },
     defaultValues: { type: 'string', nullable: true },
     /**
