@@ -69,7 +69,12 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (isApi || isVercelDomain || isInternal || isPublic || isHostDomain) {
-    return NextResponse.next()
+    try {
+      return NextResponse.next()
+    } catch (e) {
+      console.error(e)
+      throw new Error('Middleware failed')
+    }
   }
 
   return await redirectExternalDomain({

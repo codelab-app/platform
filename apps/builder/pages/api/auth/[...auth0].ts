@@ -5,21 +5,24 @@ import { Config } from '@codelab/shared/config'
 export default auth0Instance.handleAuth({
   // https://github.com/auth0/nextjs-auth0/issues/383
   // https://github.com/auth0/nextjs-auth0/blob/main/examples/README.md
-  logout: async (request, response) => {
-    return auth0Instance.handleLogin(request, response, {
-      returnTo: '/',
-    })
-  },
-  login: async (request, response) => {
+  login: async (req, res) => {
     console.log(Config().auth0.baseUrl)
 
-    return auth0Instance.handleLogin(request, response, {
+    return auth0Instance.handleLogin(req, res, {
       returnTo: '/apps',
     })
   },
-  callback: async (request, response) => {
-    return auth0Instance.handleCallback(request, response, {
+  logout: async (req, res) => {
+    return auth0Instance.handleLogin(req, res, {
+      returnTo: '/',
+    })
+  },
+  callback: async (req, res) => {
+    return auth0Instance.handleCallback(req, res, {
       redirectUri: '/apps',
     })
+  },
+  profile: async (req, res) => {
+    return auth0Instance.handleProfile(req, res, {})
   },
 })
