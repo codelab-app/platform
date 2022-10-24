@@ -1,4 +1,9 @@
-import { isCi, isProduction } from '@codelab/shared/env'
+import {
+  isCi,
+  isProduction,
+  isVercel,
+  isVercelPreview,
+} from '@codelab/shared/env'
 import * as env from 'env-var'
 
 interface Config {
@@ -22,9 +27,6 @@ interface Config {
     baseUrl: string
   }
 }
-
-console.log('isProduction', isProduction)
-console.log('isCi', isCi)
 
 export const Config = (): Config => ({
   neo4j: {
@@ -51,11 +53,10 @@ export const Config = (): Config => ({
       /**
        * https://github.com/auth0/nextjs-auth0/issues/383
        *
-       * Allows for Auth0 to work with Vercel preview url's, defaults NEXT_PUBLIC_BUILDER_HOST
-       *
-       * VERCEL_URL=my-site-7q03y4pi5.vercel.app
+       * `isVercel` is runtime
+       * `isVercelPreview` is build-time
        */
-      isProduction && isCi
+      isVercel || isVercelPreview
         ? `https://${env.get('VERCEL_URL').required().asString()}`
         : `http://${env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()}`,
   },

@@ -7,3 +7,7 @@ export const isCi =
   process.env['CI'] === '1' ||
   // Others may use 'true'
   process.env['CI'] === 'true'
+
+export const isVercelPreview = process.env['VERCEL_ENV'] === 'preview'
+
+export const isVercel = process.env['VERCEL'] === '1'

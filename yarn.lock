@@ -10000,6 +10000,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/scroll-into-view@npm:^1.16.0":
+  version: 1.16.0
+  resolution: "@types/scroll-into-view@npm:1.16.0"
+  checksum: a054dc2b574e64f6ff57cb677b73cb4e2cc2aa4b1051df1e0ade7ac9b342b46cd30ac1032b012dd059060828a95b89b6360a5e71397f6f8559c1ad8ce3a3aeac
+  languageName: node
+  linkType: hard
+
 "@types/semver@npm:^7.3.12":
   version: 7.3.12
   resolution: "@types/semver@npm:7.3.12"
