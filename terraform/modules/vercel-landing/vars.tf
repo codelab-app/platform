@@ -4,6 +4,6 @@ variable "VERCEL_TEAM_ID" {
 }
 
 variable "NEXT_PUBLIC_LANDING_HOST" {
-  type = string
+  type        = string
   description = "Host name of the Codelab landing site"
 }

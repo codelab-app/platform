@@ -11,6 +11,7 @@ resource "auth0_action" "upsert_user" {
 
 const { request, gql, GraphQLClient } = require('graphql-request')
 const { ManagementClient } = require('auth0')
+const { URL } = require('url');
 
 /**
   * Handler that will be called during the execution of a PostLogin flow.
@@ -21,7 +22,7 @@ const { ManagementClient } = require('auth0')
   * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
  */
 exports.onExecutePostLogin = async (event, api) => {
-  console.log(event.user.user_id)
+  console.log(event)
 
   const loginsCount = event.stats.logins_count
 
@@ -36,7 +37,7 @@ exports.onExecutePostLogin = async (event, api) => {
   const accessToken = await new ManagementClient({
     grant_type: "client_credentials",
     // .host includes the port
-    domain: new Url('${var.AUTH0_ISSUER_BASE_URL}').hostname,
+    domain: new URL('${var.AUTH0_ISSUER_BASE_URL}').hostname,
     scope: 'update:users',
     clientId: '${auth0_client.machine_client.id}',
     clientSecret: '${auth0_client.machine_client.client_secret}'
