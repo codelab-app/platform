@@ -1,4 +1,4 @@
-import { isCi, isProduction } from './env'
+import { isCi, isProduction } from './flags'
 
 const graphqlApiHost =
   isProduction && isCi

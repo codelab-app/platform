@@ -1,8 +1,8 @@
 import dotenv from 'dotenv'
 import { MiddlewareFunction, Options } from 'yargs'
-import { Env } from './utils/env'
+import { Stage } from './utils/env'
 
-type GetEnvOptions = (environments: Array<Env>) => {
+type GetEnvOptions = (environments: Array<Stage>) => {
   env: Options
 }
 
@@ -15,7 +15,7 @@ export const getEnvOptions: GetEnvOptions = (environments) => ({
     choices: environments,
     describe: 'Used to load proper `.env`',
     demandOption: true,
-    default: Env.Dev,
+    default: Stage.Dev,
   },
 })
 
@@ -27,15 +27,15 @@ export const setMiddleware: MiddlewareFunction<{ env: unknown }> = async ({
   }
 
   // Load prod env only if not CI
-  if (env === Env.Prod) {
+  if (env === Stage.Prod) {
     dotenv.config({ path: '.env.prod', override: true })
   }
 
-  if (env === Env.Dev) {
+  if (env === Stage.Dev) {
     dotenv.config({ path: '.env', override: true })
   }
 
-  if (env === Env.Test) {
+  if (env === Stage.Test) {
     dotenv.config({ path: '.env.test', override: true })
   }
 }

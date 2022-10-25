@@ -1,7 +1,7 @@
 /**
  * This is the script environment for running processes like CI/CD
  */
-export enum Env {
+export enum Stage {
   // Local using primary port
   Dev = 'dev',
 

@@ -1,6 +1,6 @@
 // specific graphql-request bundled by esbuild, ignores node code, utilizes web api only
 // for edge run time: https://nextjs.org/docs/api-reference/edge-runtime
-import { graphqlApiOrigin } from '@codelab/shared/env'
+import { graphqlApiOrigin } from '@codelab/shared/config'
 import { DocumentNode, getOperationAST } from 'graphql'
 import { print } from 'graphql/language/printer'
 

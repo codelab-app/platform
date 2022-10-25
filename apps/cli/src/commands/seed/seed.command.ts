@@ -5,7 +5,7 @@ import { CommandModule } from 'yargs'
 import { getEnvOptions } from '../../shared/command'
 import { assignUserOption, upsertUserMiddleware } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
-import { Env } from '../../shared/utils/env'
+import { Stage } from '../../shared/utils/env'
 import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importFields } from '../../use-cases/import/import-fields'
 import { importTags } from '../../use-cases/import/import-tags'
@@ -24,7 +24,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
   builder: (argv) =>
     argv
       .options({
-        ...getEnvOptions([Env.Dev, Env.Test]),
+        ...getEnvOptions([Stage.Dev, Stage.Test]),
         ...assignUserOption,
       })
       .middleware(upsertUserMiddleware),

@@ -14,7 +14,7 @@ import {
 import { upsertUser } from '@codelab/frontend/domain/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { Config } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/env'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
@@ -106,7 +106,7 @@ const handler: NextApiHandler = async (req, res) => {
    * Check for upsert only when user exists
    */
   // TODO: should think of a way so we don't need to call this everytime
-  if (session?.user && Config().dev.upsert_user_middleware) {
+  if (session?.user && Env().dev.upsert_user_middleware) {
     const user = session.user as Auth0SessionUser
     const User = await Repository.instance.User
 

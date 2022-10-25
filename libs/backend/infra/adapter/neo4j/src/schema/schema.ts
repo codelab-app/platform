@@ -1,5 +1,5 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { Config } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/env'
 import { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
@@ -41,7 +41,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
       auth: new Neo4jGraphQLAuthJWKSPlugin({
         jwksEndpoint: new URL(
           '.well-known/jwks.json',
-          Config().auth0.issuer_base_url,
+          Env().auth0.issuer_base_url,
         ).href,
         /**
          * Use "dot path" since our roles path is nested
@@ -50,7 +50,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
          *
          * Found out that we need to `Use \\. if you have a . in the key.`
          */
-        rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
+        rolesPath: `${escapeDotPathKeys(JWT_CLAIMS.toString())}.roles`,
       }),
     },
   })

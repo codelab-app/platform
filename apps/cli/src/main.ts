@@ -10,7 +10,7 @@ import { scrapeCommand } from './commands/scrape/scrape.command'
 import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { getEnvOptions, setMiddleware } from './shared/command'
-import { Env } from './shared/utils/env'
+import { Stage } from './shared/utils/env'
 
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
@@ -19,7 +19,7 @@ import { Env } from './shared/utils/env'
  */
 void yargs(hideBin(process.argv))
   .scriptName('cli')
-  .options(getEnvOptions([Env.Dev, Env.Test, Env.Prod]))
+  .options(getEnvOptions([Stage.Dev, Stage.Test, Stage.Prod]))
   .middleware(setMiddleware)
   /**
    * These scripts could act on different deployment environment, so we group under `data`
