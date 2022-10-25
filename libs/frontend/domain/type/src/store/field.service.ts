@@ -13,7 +13,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { connectNode } from '@codelab/shared/data'
+import { connectNode, reconnectNode } from '@codelab/shared/data'
 import mapKeys from 'lodash/mapKeys'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
@@ -99,9 +99,7 @@ export class FieldService
     data: ICreateFieldDTO,
   ) {
     const input: FieldUpdateInput = {
-      // interfaceTypeId: field.interfaceTypeId,
-      // fieldTypeId: field.fieldType,
-      // field: {
+      fieldType: reconnectNode(data.fieldType),
       description: data.description,
       id: data.id,
       key: data.key,
