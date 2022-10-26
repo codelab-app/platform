@@ -9,7 +9,8 @@ import { resetCommand } from './commands/reset/reset.command'
 import { scrapeCommand } from './commands/scrape/scrape.command'
 import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
-import { getEnvOptions, setMiddleware } from './shared/command'
+import { terraformCommand } from './commands/terraform/terraform.command'
+import { getStageOptions, loadStageMiddleware } from './shared/command'
 import { Stage } from './shared/utils/env'
 
 /**
@@ -19,16 +20,23 @@ import { Stage } from './shared/utils/env'
  */
 void yargs(hideBin(process.argv))
   .scriptName('cli')
-  .options(getEnvOptions([Stage.Dev, Stage.Test, Stage.Prod]))
-  .middleware(setMiddleware)
+  // .options(getEnvOptions([Stage.Dev, Stage.Test, Stage.Prod]))
+  // .middleware(setMiddleware)
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */
   .command('data', 'Import / export / reset', (argv) =>
     argv
+      .command(seedCommand)
       .command(resetCommand)
       .command(importCommand)
       .command(exportCommand)
+      /**
+       * Here we initialize all data, data ID is created so may duplicate data
+       *
+       * - Basic Types
+       * - Atoms & interfaces
+       */
       .demandCommand(1, 'Please provide a command'),
   )
 
@@ -40,13 +48,11 @@ void yargs(hideBin(process.argv))
    * This uses puppeteer to scrape the API documentation as CSV file
    */
   .command(scrapeCommand)
+
   /**
-   * Here we initialize all data, data ID is created so may duplicate data
-   *
-   * - Basic Types
-   * - Atoms & interfaces
+   * Terraform
    */
-  .command(seedCommand)
+  .command(terraformCommand)
 
   /**
    * TS Parser

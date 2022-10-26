@@ -7,7 +7,7 @@ import * as path from 'path'
 
 export const seedData = () => {
   cy.log('yarn cli seed').exec(
-    'yarn cli seed --env test --email cypress@codelab.ai',
+    'yarn cli seed --stage test --email cypress@codelab.ai',
     {
       timeout: 90000,
     },
@@ -23,7 +23,7 @@ const getFullPath = (file: string) => path.join('apps/builder-e2e', file)
 
 export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
   cy.log('yarn cli data import').exec(
-    `yarn cli data import --env test --seedDataPath ${getFullPath(
+    `yarn cli data import --stage test --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false --email cypress@codelab.ai`,
     { timeout: 90000 },
@@ -32,7 +32,7 @@ export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
 
 export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
   cy.log('yarn cli data export').exec(
-    `yarn cli data export --env test --seedDataPath ${getFullPath(
+    `yarn cli data export --stage test --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false`,
     { timeout: 90000 },

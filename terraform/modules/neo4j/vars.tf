@@ -1,14 +1,14 @@
-variable "NEO4J_USER" {
+variable "neo4j_user" {
   type        = string
   description = "Neo4j user"
 }
 
-variable "NEO4J_PASSWORD" {
+variable "neo4j_password" {
   type        = string
   description = "Neo4j password"
 }
 
-variable "NEO4J_URI" {
+variable "neo4j_uri" {
   type        = string
   description = "Neo4j uri"
 }

@@ -15,7 +15,7 @@
     "e2e": "env-cmd -f .env.test nx e2e builder-e2e -c dev",
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
-    "codegen": "yarn cli tasks codegen --env dev",
+    "codegen": "yarn cli tasks codegen --stage dev",
     "build": "nx run-many --all --target=build",
     "build:test": "npx env-cmd -f .env.test nx build builder -c test",
     "test": "nx run-many --all --target=test --parallel=3",

@@ -3,11 +3,11 @@ resource "auth0_client" "web_client" {
   # description         = var.app_description
   app_type            = "regular_web"
   oidc_conformant     = true
-  callbacks           = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}/api/auth/callback", "https://*.vercel.app/api/auth/callback"]
-  allowed_logout_urls = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}", "https://*.vercel.app"]
-  allowed_origins     = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}", "https://*.vercel.app"]
+  callbacks           = ["https://${var.next_public_builder_host}/api/auth/callback", "https://*.vercel.app/api/auth/callback"]
+  allowed_logout_urls = ["https://${var.next_public_builder_host}", "https://*.vercel.app"]
+  allowed_origins     = ["https://${var.next_public_builder_host}", "https://*.vercel.app"]
   grant_types         = ["authorization_code", "implicit", "password", "refresh_token", "client_credentials"]
-  web_origins         = ["https://${var.NEXT_PUBLIC_BUILDER_HOST}", "https://*.vercel.app"]
+  web_origins         = ["https://${var.next_public_builder_host}", "https://*.vercel.app"]
 
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds

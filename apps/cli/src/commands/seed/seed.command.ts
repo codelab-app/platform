@@ -2,7 +2,7 @@ import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
 import { CommandModule } from 'yargs'
-import { getEnvOptions } from '../../shared/command'
+import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import { assignUserOption, upsertUserMiddleware } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Stage } from '../../shared/utils/env'
@@ -21,15 +21,15 @@ interface ParseProps {
 
 export const seedCommand: CommandModule<ParseProps, ParseProps> = {
   command: 'seed',
+  describe:
+    'Parse Ant Design scraped CSV files and seed to application as types',
   builder: (argv) =>
     argv
       .options({
-        ...getEnvOptions([Stage.Dev, Stage.Test]),
+        ...getStageOptions([Stage.Dev, Stage.Test]),
         ...assignUserOption,
       })
-      .middleware(upsertUserMiddleware),
-  describe:
-    'Parse Ant Design scraped CSV files and seed to application as types',
+      .middleware([loadStageMiddleware, upsertUserMiddleware]),
   handler: async ({ email }) => {
     const User = await Repository.instance.User
 

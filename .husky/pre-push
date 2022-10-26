@@ -1,9 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn cli tasks build --env test
-yarn cli tasks unit --env test
-#yarn cli tasks int --env test
-yarn cli tasks e2e --env test
+yarn cli tasks build --stage test
+yarn cli tasks unit --stage test
+#yarn cli tasks int --stage test
+yarn cli tasks e2e --stage test
 
 ./scripts/git.sh

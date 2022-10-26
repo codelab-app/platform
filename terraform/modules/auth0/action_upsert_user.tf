@@ -37,7 +37,7 @@ exports.onExecutePostLogin = async (event, api) => {
   const accessToken = await new ManagementClient({
     grant_type: "client_credentials",
     // .host includes the port
-    domain: new URL('${var.AUTH0_ISSUER_BASE_URL}').hostname,
+    domain: new URL('${var.auth0_issuer_base_url}').hostname,
     scope: 'update:users',
     clientId: '${auth0_client.machine_client.id}',
     clientSecret: '${auth0_client.machine_client.client_secret}'
@@ -46,7 +46,7 @@ exports.onExecutePostLogin = async (event, api) => {
   /**
    * Initialize client
    */
-  const url = 'https://${var.NEXT_PUBLIC_BUILDER_HOST}'
+  const url = 'https://${var.next_public_builder_host}'
   const endpoint = new URL('api/graphql', url)
   // const endpoint = 'https://admin.codelab.app/api/graphql'
 

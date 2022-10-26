@@ -3,39 +3,42 @@ import { MiddlewareFunction, Options } from 'yargs'
 import { Stage } from './utils/env'
 
 type GetEnvOptions = (environments: Array<Stage>) => {
-  env: Options
+  stage: Options
 }
 
 /**
  * Options used locally
  */
-export const getEnvOptions: GetEnvOptions = (environments) => ({
-  env: {
+export const getStageOptions: GetEnvOptions = (stages) => ({
+  stage: {
     type: 'string',
-    choices: environments,
-    describe: 'Used to load proper `.env`',
+    choices: stages,
+    describe: 'Stage used to load proper `.env`',
     demandOption: true,
     default: Stage.Dev,
   },
 })
 
-export const setMiddleware: MiddlewareFunction<{ env: unknown }> = async ({
-  env,
-}) => {
+/**
+ * Used locally to load env for other stages
+ */
+export const loadStageMiddleware: MiddlewareFunction<{
+  stage: unknown
+}> = async ({ stage }) => {
   if (process.env.CI) {
     return
   }
 
   // Load prod env only if not CI
-  if (env === Stage.Prod) {
+  if (stage === Stage.Prod) {
     dotenv.config({ path: '.env.prod', override: true })
   }
 
-  if (env === Stage.Dev) {
+  if (stage === Stage.Dev) {
     dotenv.config({ path: '.env', override: true })
   }
 
-  if (env === Stage.Test) {
+  if (stage === Stage.Test) {
     dotenv.config({ path: '.env.test', override: true })
   }
 }

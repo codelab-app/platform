@@ -25,7 +25,6 @@ interface Env {
     client_secret: string
     cypress_username?: string
     cypress_password?: string
-    audience: string
     baseUrl: string
   }
 }
@@ -53,7 +52,6 @@ export const Env = (): Env => ({
     client_secret: env.get('AUTH0_CLIENT_SECRET').required().asString(),
     cypress_username: env.get('AUTH0_CYPRESS_USERNAME').asString(),
     cypress_password: env.get('AUTH0_CYPRESS_PASSWORD').asString(),
-    audience: env.get('AUTH0_AUDIENCE').required().asUrlObject().href,
     baseUrl:
       /**
        * https://github.com/auth0/nextjs-auth0/issues/383
@@ -61,7 +59,7 @@ export const Env = (): Env => ({
        * `isVercel` is runtime
        * `isVercelPreview` is build-time
        */
-      isVercel || isVercelPreview
+      isVercelPreview
         ? `https://${env.get('VERCEL_URL').required().asString()}`
         : `http://${env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()}`,
   },

@@ -1,4 +1,4 @@
-# These don't come from Terraform cloud, but from outputs of another module
+# These don't come from Terraform cloud, but from outputs of another Auth0 module
 
 variable "auth0_client_id" {
   type        = string

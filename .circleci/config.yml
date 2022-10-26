@@ -85,7 +85,7 @@ executors:
   terraform:
     <<: *resource-class
     environment:
-      TF_WORKSPACE: builder-prod
+      TF_WORKSPACE: prod
     docker:
       - image: hashicorp/terraform:1.3.1
   machine-ubuntu:
@@ -220,10 +220,10 @@ jobs:
       - setup-workspace
       - run:
           name: 'Run Lint on Repository'
-          command: yarn cli tasks lint --env ci
+          command: yarn cli tasks lint --stage ci
       - run:
           name: 'Commitlint'
-          command: yarn cli tasks commitlint --env ci
+          command: yarn cli tasks commitlint --stage ci
 
   codegen:
     <<: *executor-params
@@ -231,7 +231,7 @@ jobs:
       - setup-workspace
       - run:
           name: 'GraphQL Codegen'
-          command: yarn cli tasks codegen --env ci
+          command: yarn cli tasks codegen --stage ci
 
   unit:
     <<: *executor-params
@@ -241,7 +241,7 @@ jobs:
       - setup-workspace
       - run:
           name: 'Run Unit Tests'
-          command: yarn cli tasks unit --env ci
+          command: yarn cli tasks unit --stage ci
       # Upload test results
       - store_test_results:
           path: /tmp/test-reports
@@ -252,7 +252,7 @@ jobs:
       - setup-workspace
       - run:
           name: 'Run Integration Tests'
-          command: yarn cli tasks int --env ci
+          command: yarn cli tasks int --stage ci
 
   e2e:
     <<: *executor-params
@@ -274,7 +274,7 @@ jobs:
       - run: npx cypress verify
       - run:
           name: 'Run E2E Tests'
-          command: yarn cli tasks e2e --env ci
+          command: yarn cli tasks e2e --stage ci
       - store_artifacts:
           path: ~/project/apps/builder-e2e/src/videos
           destination: cypress/videos

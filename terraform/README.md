@@ -26,3 +26,8 @@ Modules usually don't declare their own providers. The providers are either inhe
 
 Must use relative symlink https://superuser.com/questions/146231/how-do-i-create-a-relative-symbolic-link-in-linux
 
+Run `init.sh` to initialize
+
+terraform init environment/stage
+
+- In Terraform cloud set working directory from the root `environments/prod` for example, then call `terraform -chdir=environments/prod` locally

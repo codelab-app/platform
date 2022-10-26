@@ -16,7 +16,7 @@ resource "auth0_action" "assign_jwt_claims" {
       */
     exports.onExecutePostLogin = async (event, api) => {
       if (event.authorization) {
-        const namespace = 'https://${var.NEXT_PUBLIC_BUILDER_HOST}/jwt/claims';
+        const namespace = 'https://${var.next_public_builder_host}/jwt/claims';
         const claims = {
           "roles": event?.authorization?.roles ?? []
         };

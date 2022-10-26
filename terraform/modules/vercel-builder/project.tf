@@ -13,7 +13,7 @@
 resource "vercel_project" "builder" {
   name      = "builder"
   framework = "nextjs"
-  team_id   = var.VERCEL_TEAM_ID
+  team_id   = var.vercel_team_id
 
   git_repository = {
     type = "github"
@@ -30,25 +30,20 @@ resource "vercel_project" "builder" {
     {
       target = ["production", "preview"]
       key    = "NEXT_PUBLIC_BUILDER_HOST"
-      value  = var.NEXT_PUBLIC_BUILDER_HOST
+      value  = var.next_public_builder_host
     },
     # Auth0
     {
       target = ["production", "preview"]
-      key    = "AUTH0_AUDIENCE"
-      value  = var.AUTH0_AUDIENCE
-    },
-    {
-      target = ["production", "preview"]
       key    = "AUTH0_ISSUER_BASE_URL"
-      value  = var.AUTH0_ISSUER_BASE_URL
+      value  = var.auth0_issuer_base_url
     },
     {
       target = ["production", "preview"]
       key    = "AUTH0_SECRET"
       # This isn't working
       #      value = data.auth0_client.web_client.client_secret
-      value = var.AUTH0_SECRET
+      value = var.auth0_secret
     },
     {
       target = ["production", "preview"]
@@ -68,23 +63,23 @@ resource "vercel_project" "builder" {
     {
       target = ["production", "preview"]
       key    = "NEO4J_USER"
-      value  = var.NEO4J_USER
+      value  = var.neo4j_user
     },
     {
       target = ["production", "preview"]
       key    = "NEO4J_URI"
-      value  = var.NEO4J_URI
+      value  = var.neo4j_uri
     },
     {
       target = ["production", "preview"]
       key    = "NEO4J_PASSWORD"
-      value  = var.NEO4J_PASSWORD
+      value  = var.neo4j_password
     },
     # Vercel
     {
       target = ["production", "preview"]
       key    = "VERCEL_API_TOKEN"
-      value  = var.VERCEL_API_TOKEN
+      value  = var.vercel_api_token
     },
     {
       target = ["production", "preview"]
@@ -93,12 +88,12 @@ resource "vercel_project" "builder" {
       # https://github.com/hashicorp/terraform/issues/3267
       #      value = vercel_project.builder.id
       #      value = data.vercel_project.builder.id
-      value = var.VERCEL_BUILDER_PROJECT_ID
+      value = var.vercel_builder_project_id
     },
     {
       target = ["production", "preview"]
       key    = "VERCEL_TEAM_ID"
-      value  = var.VERCEL_TEAM_ID
+      value  = var.vercel_team_id
     },
   ]
 }
