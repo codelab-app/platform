@@ -17,7 +17,7 @@ export interface IField<T extends IAnyType = IAnyType>
   key: string
   type: Ref<T>
   validationRules: Nullish<IValidationRules>
-  defaultValues: Nullish<FieldDefaultValue>
+  defaultValues: Nullish<IFieldDefaultValue>
   api: Ref<IInterfaceType>
 }
 

@@ -47,6 +47,12 @@ export interface IValidationRules {
   [PrimitiveTypeKind.Float]?: Nullish<INumberValidationRules>
   [PrimitiveTypeKind.Integer]?: Nullish<INumberValidationRules>
 }
+export interface IDefaultValues {
+  [PrimitiveTypeKind.String]?: string
+  [PrimitiveTypeKind.Float]?: number
+  [PrimitiveTypeKind.Integer]?: number
+  [PrimitiveTypeKind.Boolean]?: boolean
+}
 
 export interface ICreateFieldDTO {
   id: IFieldRef
@@ -56,7 +62,7 @@ export interface ICreateFieldDTO {
   validationRules?: Nullish<IValidationRules>
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
-  defaultValues: Nullish<string>
+  defaultValues: Nullish<IDefaultValues>
   interfaceTypeId: IInterfaceTypeRef
 }
 

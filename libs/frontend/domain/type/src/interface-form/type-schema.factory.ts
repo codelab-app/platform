@@ -36,7 +36,7 @@ export interface TransformTypeOptions {
 export const blankUniforms = { component: () => null }
 export const nullUniforms = { component: null }
 
-const primitives = {
+export const primitives = {
   [PrimitiveTypeKind.String]: 'string' as const,
   [PrimitiveTypeKind.Integer]: 'integer' as const,
   [PrimitiveTypeKind.Float]: 'number' as const,
