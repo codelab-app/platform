@@ -46,22 +46,22 @@ export class Store
   onAttachedToRootStore() {
     // every time the snapshot of the configuration changes
     const reactionDisposer = reaction(
-      () => [this._actionsRunners, this._defaults],
+      () => [this._actionsRunners, this._defaultValues],
       () => {
         console.debug('Previous state', this.state.values)
 
         console.debug('actions changed:', this._actionsRunners)
         this.state.setMany(this._actionsRunners)
 
-        console.debug('defaults changed:', this._defaults)
-        this.state.setMany(this._defaults)
+        console.debug('defaults changed:', this._defaultValues)
+        this.state.setMany(this._defaultValues)
 
         console.debug('New state', this.state.values)
       },
       { fireImmediately: true },
     )
 
-    // when the model is no longer part of the root store stop saving
+    // when the model is no longer part of the root store stop
     return () => {
       reactionDisposer()
     }
@@ -84,8 +84,8 @@ export class Store
   }
 
   @computed
-  get _defaults() {
-    return this.api.current.defaults
+  get _defaultValues() {
+    return this.api.current.defaultValues
   }
 
   @computed

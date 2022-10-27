@@ -118,7 +118,8 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
     fieldType: { type: 'string', nullable: true },
     defaultValues: {
       nullable: true,
-      type: ['object', 'string', 'number', 'boolean', 'integer', 'array'],
+      // schema limitation adding object or array to type causes an error
+      type: ['string', 'number', 'boolean', 'integer'],
     },
   },
   required: ['id', 'key', 'fieldType'],

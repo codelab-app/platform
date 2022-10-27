@@ -6,6 +6,7 @@ import {
   DeleteFieldModal,
   DeleteTypeModal,
   GetTypesTable,
+  UpdateFieldModal,
   UpdateTypeModal,
   useCurrentTypeId,
 } from '@codelab/frontend/domain/type'

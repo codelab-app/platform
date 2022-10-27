@@ -1,5 +1,6 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
+import { IPropData } from '../../../prop'
 import { IField } from '../../field'
 import { IFieldDTO } from '../../field.dto.interface'
 import { IBaseType } from '../base-type'
@@ -13,6 +14,7 @@ export interface IInterfaceType extends IBaseType {
   kind: ITypeKind.InterfaceType
   field(id: string): Maybe<IField>
   fields: Array<IField>
+  defaultValues: IPropData
   deleteField(field: IField): void
   writeFieldCache(fields: Array<IFieldDTO>): void
 }
