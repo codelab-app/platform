@@ -1,7 +1,7 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { IFieldRef } from './field'
+import { IFieldDefaultValue, IFieldRef } from './field'
 import { FieldFragment } from './fragments'
 import { IInterfaceTypeRef } from './types'
 
@@ -47,12 +47,6 @@ export interface IValidationRules {
   [PrimitiveTypeKind.Float]?: Nullish<INumberValidationRules>
   [PrimitiveTypeKind.Integer]?: Nullish<INumberValidationRules>
 }
-export interface IDefaultValues {
-  [PrimitiveTypeKind.String]?: string
-  [PrimitiveTypeKind.Float]?: number
-  [PrimitiveTypeKind.Integer]?: number
-  [PrimitiveTypeKind.Boolean]?: boolean
-}
 
 export interface ICreateFieldDTO {
   id: IFieldRef
@@ -62,8 +56,8 @@ export interface ICreateFieldDTO {
   validationRules?: Nullish<IValidationRules>
   // Type of field specified by an interface id
   fieldType: IInterfaceTypeRef
-  defaultValues: Nullish<IDefaultValues>
   interfaceTypeId: IInterfaceTypeRef
+  defaultValues: Nullish<IFieldDefaultValue>
 }
 
 export type IUpdateFieldDTO = ICreateFieldDTO

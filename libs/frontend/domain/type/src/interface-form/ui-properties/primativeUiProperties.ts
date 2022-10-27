@@ -31,9 +31,9 @@ export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
       component: CodeMirrorField({
         height: 'auto',
         onChange: (value, uniformsOnChange) => {
-          // const castedValue = Number(value)
+          const castedValue = Number(value)
           // pass the original value back if not a number
-          uniformsOnChange(value)
+          uniformsOnChange(castedValue)
         },
       }),
     },

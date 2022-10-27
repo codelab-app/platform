@@ -11,9 +11,16 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { SelectDefaultValue } from '../../../interface-form'
 import { TypeSelect } from '../../../shared'
 import { createFieldSchema } from './createFieldSchema'
-import { transformInput } from './field-utils'
+import {
+  filterValidationRules,
+  isFloat,
+  isInteger,
+  isPrimitive,
+  isString,
+} from './field-utils'
 
 export interface CreateFieldModalProps {
   typeService: ITypeService
@@ -30,7 +37,12 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         throw new Error('Missing interface type id')
       }
 
-      return fieldService.create([transformInput(typeService, input)])
+      const validationRules = filterValidationRules(
+        input.validationRules,
+        typeService.primitiveKind(input.fieldType),
+      )
+
+      return fieldService.create([{ ...input, validationRules }])
     }
 
     return (
@@ -75,40 +87,26 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
               condition={({ model }) => isString(typeService, model.fieldType)}
             >
               <AutoFields
-                fields={[
-                  `validationRules.${PrimitiveTypeKind.String}`,
-                  `defaultValues.${PrimitiveTypeKind.String}`,
-                ]}
+                fields={[`validationRules.${PrimitiveTypeKind.String}`]}
               />
             </DisplayIfField>
             <DisplayIfField<ICreateFieldDTO>
               condition={({ model }) => isInteger(typeService, model.fieldType)}
             >
               <AutoFields
-                fields={[
-                  `validationRules.${PrimitiveTypeKind.Integer}`,
-                  `defaultValues.${PrimitiveTypeKind.Integer}`,
-                ]}
+                fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
               />
             </DisplayIfField>
             <DisplayIfField<ICreateFieldDTO>
               condition={({ model }) => isFloat(typeService, model.fieldType)}
             >
               <AutoFields
-                fields={[
-                  `validationRules.${PrimitiveTypeKind.Float}`,
-                  `defaultValues.${PrimitiveTypeKind.Float}`,
-                ]}
-              />
-            </DisplayIfField>
-            <DisplayIfField<ICreateFieldDTO>
-              condition={({ model }) => isBoolean(typeService, model.fieldType)}
-            >
-              <AutoFields
-                fields={[`defaultValues.${PrimitiveTypeKind.Boolean}`]}
+                fields={[`validationRules.${PrimitiveTypeKind.Float}`]}
               />
             </DisplayIfField>
           </DisplayIfField>
+
+          <SelectDefaultValue typeService={typeService} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

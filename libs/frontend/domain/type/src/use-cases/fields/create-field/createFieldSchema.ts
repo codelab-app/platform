@@ -115,33 +115,11 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
      * TODO: Refactor to match interface
      * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
      */
-    defaultValues: {
-      type: 'object',
-      nullable: true,
-      properties: {
-        [PrimitiveTypeKind.String]: {
-          type: 'string',
-          label: 'Default value',
-          nullable: true,
-        },
-        [PrimitiveTypeKind.Integer]: {
-          type: 'integer',
-          label: 'Default value',
-          nullable: true,
-        },
-        [PrimitiveTypeKind.Float]: {
-          type: 'number',
-          label: 'Default value',
-          nullable: true,
-        },
-        [PrimitiveTypeKind.Boolean]: {
-          type: 'boolean',
-          label: 'Default value',
-          nullable: true,
-        },
-      },
-    },
     fieldType: { type: 'string', nullable: true },
+    defaultValues: {
+      nullable: true,
+      type: ['object', 'string', 'number', 'boolean', 'integer', 'array'],
+    },
   },
   required: ['id', 'key', 'fieldType'],
 }

@@ -7,7 +7,6 @@ import {
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import values from 'lodash/values'
 import {
   detach,
   idProp,
@@ -38,7 +37,7 @@ const hydrate = ({
     type: typeRef(fieldType.id),
     api: typeRef(api.id) as Ref<IInterfaceType>,
     validationRules: JSON.parse(validationRules || '{}'),
-    defaultValues: defaultValues ? values(JSON.parse(defaultValues))[0] : null,
+    defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
   })
 
 @model('@codelab/Field')
@@ -65,7 +64,7 @@ export class Field
     this.type = typeRef(fragment.fieldType.id)
     this.validationRules = JSON.parse(fragment.validationRules || '{}')
     this.defaultValues = fragment.defaultValues
-      ? values(JSON.parse(fragment.defaultValues))[0]
+      ? JSON.parse(fragment.defaultValues)
       : null
 
     return this

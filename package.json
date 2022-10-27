@@ -73,7 +73,7 @@
     "@supabase/supabase-js": "^1.7.0",
     "@types/scroll-into-view": "^1.16.0",
     "@uiw/react-codemirror": "4.11.6",
-    "ajv": "8.8.2",
+    "ajv": "8.11.0",
     "animate.css": "4.1.1",
     "antd": "4.23.4",
     "apollo-server-micro": "3.6.7",
