@@ -51,7 +51,7 @@ const primitivesDefaults = {
   [PrimitiveTypeKind.String]: '',
 }
 
-class TypeSchemaFactory {
+export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
   transform(type: IAnyType, context?: UiPropertiesContext) {
