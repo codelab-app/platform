@@ -55,6 +55,6 @@ export class ActionTypedValueTransformer
       return props
     }
 
-    return `{{this.${action.name}.run}}`
+    return action.createRunner(this.renderer.appStore.current.state)
   }
 }
