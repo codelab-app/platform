@@ -11,7 +11,6 @@ export type CreateTypeOptions = (types?: Array<IAnyType>) => Array<Option>
 
 export interface TypeSelectProps {
   types: Array<IAnyType>
-  value?: string
   name: string
   label: string
   createTypeOptions?: CreateTypeOptions
@@ -21,7 +20,7 @@ const defaultCreateTypeOptions: CreateTypeOptions = (types) =>
   types?.map((t) => ({ label: t.name, value: t.id })) ?? []
 
 export const TypeSelect = observer<TypeSelectProps>(
-  ({ name, label, createTypeOptions, types, value }) => {
+  ({ name, label, createTypeOptions, types }) => {
     const typeOptions = createTypeOptions
       ? createTypeOptions(types)
       : defaultCreateTypeOptions(types)
@@ -33,7 +32,6 @@ export const TypeSelect = observer<TypeSelectProps>(
         optionFilterProp="label"
         options={typeOptions}
         showSearch
-        value={value}
       />
     )
   },

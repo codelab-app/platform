@@ -1,5 +1,7 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { Ref } from 'mobx-keystone'
 import { IBaseType } from '../base-type'
+import { IAnyType } from '../type.interface'
 
 /**
  * Allows defining a variable number of items of a given type.
@@ -8,5 +10,5 @@ import { IBaseType } from '../base-type'
  */
 export interface IArrayType extends IBaseType {
   kind: ITypeKind.ArrayType
-  itemType: { id: string; name: string }
+  itemType: Ref<IAnyType>
 }
