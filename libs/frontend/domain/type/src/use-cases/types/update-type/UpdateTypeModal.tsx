@@ -7,13 +7,18 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { TypeSelect } from '../../../shared'
+import { DisplayIfKind } from '../create-type/DisplayIfKind'
 import { updateTypeSchema } from './update-type.schema'
 import { validateNonRecursive } from './validate-non-recursive'
 
 export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const closeModal = () => typeService.updateModal.close()
+
     const typeToUpdate = typeService.updateModal.type
+      ? typeService.types.get(typeService.updateModal.type.id)
+      : null
 
     const handleSubmit = async (submitData: IUpdateTypeDTO) => {
       if (!typeToUpdate) {
@@ -88,6 +93,13 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           {typeToUpdate.kind === ITypeKind.EnumType && (
             <AutoField name="allowedValues" />
           )}
+          <DisplayIfKind kind={ITypeKind.ArrayType}>
+            <TypeSelect
+              label="Array Item Type"
+              name="arrayTypeId"
+              types={typeService.typesList}
+            />
+          </DisplayIfKind>
         </ModalForm.Form>
       </ModalForm.Modal>
     )

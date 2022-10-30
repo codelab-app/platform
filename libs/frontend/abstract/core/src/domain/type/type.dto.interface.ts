@@ -18,6 +18,7 @@ export interface IBaseTypeDTO {
   allowedValues?: Array<IEnumTypeValue>
   unionTypeIds?: Array<string>
   arrayTypeId?: string
+  itemType?: string
   interfaceDefaults?: { data: IPropData; auth0Id: string }
 }
 

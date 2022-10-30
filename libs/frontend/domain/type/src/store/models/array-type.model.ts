@@ -1,11 +1,10 @@
 import type {
-  IAnyType,
   IArrayType,
   IArrayTypeDTO,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'
@@ -20,7 +19,7 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
     id: fragment.id,
     kind: fragment.kind,
     name: fragment.name,
-    itemType,
+    itemType: fragment.itemType,
     ownerId: fragment.owner.id,
   })
 }
@@ -28,7 +27,7 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
 @model('@codelab/ArrayType')
 export class ArrayType
   extends ExtendedModel(createBaseType(ITypeKind.ArrayType), {
-    itemType: prop<Ref<IAnyType>>(),
+    itemType: prop<{ id: string; name: string }>(),
   })
   implements IArrayType
 {
@@ -41,7 +40,7 @@ export class ArrayType
     }
 
     const itemId = fragment.itemType.id
-    this.itemType = typeRef(itemId)
+    this.itemType = fragment.itemType
 
     return this
   }
