@@ -5,7 +5,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { DisplayIfKind } from '../create-type/DisplayIfKind'
@@ -67,6 +67,10 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         typeToUpdate?.kind === ITypeKind.CodeMirrorType
           ? typeToUpdate.language
           : undefined,
+      elementKind:
+        typeToUpdate?.kind === ITypeKind.ElementType
+          ? typeToUpdate.elementKind
+          : undefined,
     }
 
     if (!typeToUpdate) {
@@ -110,6 +114,9 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           </DisplayIfKind>
           <DisplayIfKind kind={ITypeKind.CodeMirrorType}>
             <AutoField label="Language" name="language" />
+          </DisplayIfKind>
+          <DisplayIfKind kind={ITypeKind.ElementType}>
+            <SelectField label="Element kind" name="elementKind" showSearch />
           </DisplayIfKind>
         </ModalForm.Form>
       </ModalForm.Modal>
