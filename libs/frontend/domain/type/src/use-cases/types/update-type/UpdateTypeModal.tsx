@@ -63,6 +63,10 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         typeToUpdate?.kind === ITypeKind.ArrayType
           ? typeToUpdate.itemType.id
           : undefined,
+      language:
+        typeToUpdate?.kind === ITypeKind.CodeMirrorType
+          ? typeToUpdate.language
+          : undefined,
     }
 
     if (!typeToUpdate) {
@@ -103,6 +107,9 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
               name="arrayTypeId"
               types={typeService.typesList}
             />
+          </DisplayIfKind>
+          <DisplayIfKind kind={ITypeKind.CodeMirrorType}>
+            <AutoField label="Language" name="language" />
           </DisplayIfKind>
         </ModalForm.Form>
       </ModalForm.Modal>
