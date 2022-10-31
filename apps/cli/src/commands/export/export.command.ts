@@ -111,7 +111,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
       ])
 
       const exportedUserData = await exportUserData({
-        appIds: [selectedApp.id],
+        appIds: [selectedApp],
       })
 
       await saveExportFile(
