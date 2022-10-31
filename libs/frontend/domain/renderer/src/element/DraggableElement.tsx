@@ -6,8 +6,7 @@ import {
 import { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React from 'react'
-import { useMouse } from 'react-use'
-import { calcDragPosition } from './draggableElement.util'
+import { calcDragPosition, useElementLayout } from './draggableElement.util'
 import { DraggedElementOverlay } from './DraggedElementOverlay'
 import { DragPositionIndicator } from './DragPositionIndicator'
 
@@ -18,7 +17,7 @@ export interface SortableItemProps {
 
 export const DraggableElement = ({ element, children }: SortableItemProps) => {
   const droppableNodeRef = React.useRef<Nullable<HTMLElement>>(null)
-  const { elY, elH } = useMouse(droppableNodeRef)
+  const elLayout = useElementLayout(droppableNodeRef)
 
   // Create a draggable for the element
   const {
@@ -43,7 +42,11 @@ export const DraggableElement = ({ element, children }: SortableItemProps) => {
   // Set dragPosition for DragEndEvent
   if (isOver && over) {
     const dragData: BuilderDropData = {
-      dragPosition: calcDragPosition(isOver, elY, elH),
+      dragPosition: calcDragPosition(
+        isOver,
+        elLayout.current.relativeMousePosition?.y ?? 0,
+        elLayout.current.size?.h ?? 0,
+      ),
     }
 
     over.data.current = {
@@ -61,7 +64,11 @@ export const DraggableElement = ({ element, children }: SortableItemProps) => {
   return (
     <div ref={setDroppableNodeRef} style={{ position: 'relative' }}>
       <DragPositionIndicator
-        dragPosition={calcDragPosition(isOver, elY, elH)}
+        dragPosition={calcDragPosition(
+          isOver,
+          elLayout.current.relativeMousePosition?.y ?? 0,
+          elLayout.current.size?.h ?? 0,
+        )}
       />
       <div
         ref={draggableNodeRefSetter}
