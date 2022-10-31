@@ -25,32 +25,28 @@ export const GetTypesTable = observer<{
   const { columns, rowSelection } = useTypesTable(typeService, fieldService)
   const { loading } = useAsync(() => typeService.getAll(), [])
   const [curTypeId] = React.useState(typeId)
-  const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE)
+  const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_PAGE_SIZE)
   const [currentPage, setCurrentPage] = React.useState(DEFAULT_PAGE)
   const [rowClassReady, setRowClassReady] = React.useState(false)
   const router = useRouter()
 
   /**
-   * Chane the current page to the page containing the current type
+   * Change the current page to the page containing the current type
    */
   useEffect(() => {
-    const findPageOfCurrentType = () =>
-      Math.ceil(
-        (typeService.data.indexOf(
-          typeService.data.find((t) => t.id === curTypeId) as ITypeRecord,
-        ) +
-          1) /
-          pageSize,
-      )
-
     if (curTypeId) {
-      const page = findPageOfCurrentType()
-      setCurrentPage(page)
+      const curTypeRecord = typeService.data.find(
+        (t) => t.id === curTypeId,
+      ) as ITypeRecord
+
+      const curTypeRowNo = typeService.data.indexOf(curTypeRecord) + 1
+      const pageContainingRow = Math.ceil(curTypeRowNo / rowsPerPage)
+      setCurrentPage(pageContainingRow)
     }
-  }, [curTypeId, pageSize, typeService.data])
+  }, [curTypeId, rowsPerPage, typeService.data])
 
   /**
-   * Scroll to the current type
+   * Scroll to the current type to make sure it is visible
    */
   useEffect(() => {
     const scrollRow = document.querySelector(`.${SCROLL_ROW_CLASS_NAME}`)
@@ -62,7 +58,7 @@ export const GetTypesTable = observer<{
         },
       })
     }
-  }, [curTypeId, pageSize, rowClassReady, currentPage])
+  }, [curTypeId, rowsPerPage, rowClassReady, currentPage])
 
   /**
    * remove current type id from url
@@ -89,16 +85,18 @@ export const GetTypesTable = observer<{
       }}
       loading={loading}
       onChange={(pagination) => {
-        setPageSize(pagination.pageSize || pageSize)
+        setRowsPerPage(pagination.pageSize || rowsPerPage)
         setCurrentPage(pagination.current || currentPage)
       }}
       pagination={{
         position: ['bottomCenter'],
-        pageSize,
+        pageSize: rowsPerPage,
         current: currentPage,
       }}
       rowClassName={(record) => {
         if (record.id === curTypeId) {
+          // This is used to support scrolling into the
+          // current type to make sure it is visible
           setRowClassReady(true)
 
           return SCROLL_ROW_CLASS_NAME
