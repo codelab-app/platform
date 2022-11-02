@@ -114,11 +114,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'postRenderActionId',
           ]}
         />
-        <AutoField
-          activeComponentId={builderService.activeComponent?.id}
-          component={SelectComponent}
-          name="renderComponentTypeId"
-        />
+        <AutoField component={SelectComponent} name="renderComponentTypeId" />
         <AutoField
           component={SelectAtom}
           // component={(props) => {

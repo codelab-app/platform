@@ -1,18 +1,15 @@
+import { useStore } from '@codelab/frontend/presenter/container'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectComponentProps = UniformSelectFieldProps & {
-  activeComponentId: string
-}
+export type SelectComponentProps = UniformSelectFieldProps
 
-export const SelectComponent = ({
-  name,
-  error,
-  activeComponentId,
-}: SelectComponentProps) => {
+export const SelectComponent = ({ name, error }: SelectComponentProps) => {
+  const { builderService } = useStore()
+
   const {
     data,
     isLoading,
@@ -25,7 +22,9 @@ export const SelectComponent = ({
   // including itself
   const filteredComponents = data?.components.filter(
     (component) =>
-      component.descendantComponentIds.indexOf(activeComponentId) === -1,
+      component.descendantComponentIds.indexOf(
+        builderService.activeComponent?.id ?? '',
+      ) === -1,
   )
 
   const componentOptions =

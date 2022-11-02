@@ -147,11 +147,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             )}
             name="atomId"
           />
-          <AutoField
-            activeComponentId={builderService.activeComponent?.id}
-            component={SelectComponent}
-            name="renderComponentTypeId"
-          />
+          <AutoField component={SelectComponent} name="renderComponentTypeId" />
           <AutoField component={SelectAction} name="preRenderActionId" />
           <AutoField component={SelectAction} name="postRenderActionId" />
         </ModalForm.Form>
