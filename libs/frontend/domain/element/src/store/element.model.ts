@@ -545,6 +545,13 @@ export class Element
       // element is first child
       if (this.parentElement.firstChildId === this.id) {
         this.parentElement.firstChildId = this.nextSiblingId
+
+        // We need to set the parent of the next sibling here, because
+        // when we compute the parentElement, we traverse up the tree until the
+        // first child, hence, the first child should always have parentId set
+        if (this.nextSibling) {
+          this.nextSibling.parentId = this.parentElement.id
+        }
       }
 
       this.parentId = null
