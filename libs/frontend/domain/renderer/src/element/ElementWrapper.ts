@@ -106,14 +106,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       // root element is not draggable
       !element.parentElement
         ? React.createElement(Fragment, {}, Children)
-        : Array.isArray(Children)
-        ? React.createElement(
-            // Wrap array of elements with a fragment
-            Fragment,
-            {},
-            DraggableElement({ children: Children, element }),
-          )
-        : DraggableElement({ children: Children, element }),
+        : React.createElement(DraggableElement, {
+            element,
+            children: Children,
+          }),
     )
   },
 )
