@@ -1,8 +1,9 @@
-Match (element:Element {id: $rootId})
+MATCH (rootElement: Element {id: $rootId})
+OPTIONAL MATCH (firstChild: Element)-[:TREE_FIRST_CHILD]->(rootElement)
 
 // For root Element, we get all descendants
 CALL apoc.path.subgraphAll(
-  element,
+  firstChild,
   { relationshipFilter: '<TREE_FIRST_CHILD|<NODE_SIBLING|RENDER_COMPONENT_TYPE' }
 ) YIELD nodes AS descendants
 
@@ -13,4 +14,4 @@ CALL apoc.path.subgraphAll(
 // }
 
 // Need to filter out root node
-RETURN [node IN descendants WHERE node.id <> element.id], element {.*}
+RETURN [node IN descendants WHERE node.id <> rootElement.id], rootElement {.*}
