@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const DraggedElementOverlay = (
+export const ElementDragOverlay = (
   children: React.ReactElement | Array<React.ReactElement>,
 ) => {
   return React.createElement('div', {

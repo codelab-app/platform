@@ -7,15 +7,18 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React from 'react'
 import { calcDragPosition, useElementLayout } from './draggableElement.util'
-import { DraggedElementOverlay } from './DraggedElementOverlay'
 import { DragPositionIndicator } from './DragPositionIndicator'
+import { ElementDragOverlay } from './ElementDragOverlay'
 
-export interface SortableItemProps {
+export interface DraggableElementProps {
   element: IElement
   children: React.ReactElement | Array<React.ReactElement>
 }
 
-export const DraggableElement = ({ element, children }: SortableItemProps) => {
+export const DraggableElement = ({
+  element,
+  children,
+}: DraggableElementProps) => {
   const droppableNodeRef = React.useRef<Nullable<HTMLElement>>(null)
   const elLayout = useElementLayout(droppableNodeRef)
 
@@ -28,7 +31,7 @@ export const DraggableElement = ({ element, children }: SortableItemProps) => {
     id: element.id,
     data: {
       type: BuilderDndType.MoveElement,
-      overlayRenderer: () => DraggedElementOverlay(children),
+      overlayRenderer: () => ElementDragOverlay(children),
     },
   })
 
