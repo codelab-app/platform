@@ -299,8 +299,6 @@
   },
   "resolutions": {
     "rxjs": "^6.6.3",
-    "cypress@10.9.0": "patch:cypress@npm:10.9.0#.yarn/patches/cypress-npm-10.9.0-7807fe85fd",
-    "cypress@10.10.0": "patch:cypress@npm%3A10.10.0#./.yarn/patches/cypress-npm-10.10.0-c25bdaa71e.patch",
-    "cypress@*": "patch:cypress@npm%3A10.10.0#./.yarn/patches/cypress-npm-10.10.0-c25bdaa71e.patch"
+    "cypress@10.10.0": "patch:cypress@npm%3A10.10.0#./.yarn/patches/cypress-npm-10.10.0-c25bdaa71e.patch"
   }
 }

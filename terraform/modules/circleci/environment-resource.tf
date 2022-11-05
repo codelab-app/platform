@@ -10,6 +10,13 @@ locals {
   organization = "codelab-app"
 }
 
+resource "circleci_environment_variable" "NEXT_PUBLIC_BUILDER_HOST" {
+  name         = "NEXT_PUBLIC_BUILDER_HOST"
+  value        = var.next_public_builder_host
+  project      = local.project_name
+  organization = local.organization
+}
+
 resource "circleci_environment_variable" "AUTH0_CLIENT_ID" {
   name         = "AUTH0_CLIENT_ID"
   value        = var.auth0_client_id

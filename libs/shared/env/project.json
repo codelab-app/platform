@@ -12,5 +12,5 @@
       }
     }
   },
-  "tags": ["scope:shared", "type:abstract"]
+  "tags": ["scope:shared"]
 }

@@ -1,4 +1,4 @@
-import { isVercel, isVercelPreview } from '@codelab/shared/config'
+import { isVercelPreview } from '@codelab/shared/config'
 import * as env from 'env-var'
 
 /**
