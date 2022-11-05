@@ -1,7 +1,6 @@
 import {
   IAnyType,
   IFieldService,
-  ITypeRecord,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
@@ -34,8 +33,8 @@ export const useTypesTable = ({
     },
     {
       title: 'Kind',
-      dataIndex: 'typeKind',
-      key: 'typeKind',
+      dataIndex: 'kind',
+      key: 'kind',
       onHeaderCell: headerCellProps,
       ...useColumnSearchProps('kind'),
     },
