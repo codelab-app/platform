@@ -1,21 +1,21 @@
 variable "NEXT_PUBLIC_BUILDER_HOST" {
-  type        = string
+  type = string
 }
 
 variable "AUTH0_ISSUER_BASE_URL" {
-  type        = string
+  type = string
 }
 
 variable "AUTH0_DOMAIN" {
-  type        = string
+  type = string
 }
 
 variable "AUTH0_M2M_CLIENT_ID" {
-  type        = string
+  type = string
 }
 
 variable "AUTH0_M2M_CLIENT_SECRET" {
-  type        = string
+  type = string
 }
 
 variable "AUTH0_CYPRESS_USERNAME" {
@@ -23,5 +23,5 @@ variable "AUTH0_CYPRESS_USERNAME" {
 }
 
 variable "AUTH0_CYPRESS_PASSWORD" {
-  type        = string
+  type = string
 }

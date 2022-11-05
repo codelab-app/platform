@@ -1,1 +1,1 @@
-../vars-neo4j.tf
+../shared/vars-neo4j.tf

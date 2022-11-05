@@ -1,6 +1,7 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
+import { config } from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
@@ -11,7 +12,10 @@ import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { terraformCommand } from './commands/terraform/terraform.command'
 import { getStageOptions, loadStageMiddleware } from './shared/command'
-import { Stage } from './shared/utils/env'
+import { Stage } from './shared/utils/stage'
+
+// Assume `.env` if no other middleware
+config({})
 
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
@@ -21,7 +25,7 @@ import { Stage } from './shared/utils/env'
 void yargs(hideBin(process.argv))
   .scriptName('cli')
   // .options(getEnvOptions([Stage.Dev, Stage.Test, Stage.Prod]))
-  // .middleware(setMiddleware)
+  // .middleware(loadStageMiddleware)
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */

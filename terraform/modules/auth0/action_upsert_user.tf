@@ -12,6 +12,7 @@ resource "auth0_action" "upsert_user" {
 const { request, gql, GraphQLClient } = require('graphql-request')
 const { ManagementClient } = require('auth0')
 const { URL } = require('url');
+const axios = require('axios');
 
 /**
   * Handler that will be called during the execution of a PostLogin flow.
@@ -26,7 +27,6 @@ exports.onExecutePostLogin = async (event, api) => {
 
   const loginsCount = event.stats.logins_count
 
-  // Try catch with create instead
   if (loginsCount > 1) {
     return
   }
@@ -34,33 +34,37 @@ exports.onExecutePostLogin = async (event, api) => {
   /**
    * Get Access Token
    */
-  const accessToken = await new ManagementClient({
-    grant_type: "client_credentials",
-    // .host includes the port
-    domain: new URL('${var.auth0_issuer_base_url}').hostname,
-    scope: 'update:users',
-    clientId: '${auth0_client.machine_client.id}',
-    clientSecret: '${auth0_client.machine_client.client_secret}'
-  }).getAccessToken();
+  const options = {
+    method: 'POST',
+    url: new URL('oauth/token', '${var.auth0_issuer_base_url}').toString(),
+    headers: { 'content-type': 'application/json' },
+    data: {
+      grant_type: 'client_credentials',
+      client_id: '${auth0_client.machine_client.id}',
+      client_secret: '${auth0_client.machine_client.client_secret}',
+      audience: new URL('api/v2/', '${var.auth0_issuer_base_url}').toString()
+    }
+  }
+
+  const { data } = await axios.request(options)
 
   /**
    * Initialize client
    */
-  const url = 'https://${var.next_public_builder_host}'
+  const url = '${local.builder_proxy_url}'
   const endpoint = new URL('api/graphql', url)
-  // const endpoint = 'https://admin.codelab.app/api/graphql'
 
-  const graphQLClient = new GraphQLClient(endpoint, {
+  const graphQLClient = new GraphQLClient(endpoint.toString(), {
     headers: {
-      authorization: 'Bearer ' + accessToken,
+      authorization: 'Bearer ' + data.access_token,
     },
   })
 
   /**
    * Create user
    */
-  const createUserGql = gql`
-    mutation CreateUser($input: [UserCreateInput!]!) {
+  const createUsersGql = gql`
+    mutation CreateUsers($input: [UserCreateInput!]!) {
       createUsers(input: $input) {
         users {
           id
@@ -81,14 +85,29 @@ exports.onExecutePostLogin = async (event, api) => {
   }
 
   try {
-    const { createUsers: [user] } = await graphQLClient.request(createUserGql, variables)
+    const { createUsers: { users } } = await graphQLClient.request(createUsersGql, variables)
 
-    console.log('User created', user)
-  } catch (e) {
-    console.error('User creation failed', e)
+    console.log('User created', users)
+  } catch (error) {
+    console.error('User creation failed', error)
   }
 
 };
     EOT
   deploy  = true
+
+  dependencies {
+    name    = "graphql-request"
+    version = "4.1.0"
+  }
+
+  dependencies {
+    name    = "auth0"
+    version = "2.44.0"
+  }
+
+  dependencies {
+    name    = "axios"
+    version = "0.24.0"
+  }
 }

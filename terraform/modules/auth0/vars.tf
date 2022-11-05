@@ -3,6 +3,13 @@ variable "next_public_builder_host" {
   description = "Domain of our project"
 }
 
+locals {
+  # This has correct protocol added
+  builder_url = startswith(var.next_public_builder_host, "127.0.0.1") ? "http://${var.next_public_builder_host}" : "https://${var.next_public_builder_host}"
+  # Used for upserting
+  builder_proxy_url = startswith(var.next_public_builder_host, "127.0.0.1") ? "https://api.codelab-dev.ngrok.io" : "https://${var.next_public_builder_host}"
+}
+
 variable "auth0_issuer_base_url" {
   type        = string
   description = "OIDC issuer URL, the endpoint of the provider we're authorizing against"
@@ -24,7 +31,7 @@ variable "auth0_m2m_client_secret" {
 }
 
 variable "auth0_cypress_username" {
-  type = string
+  type        = string
   description = "Cypress username for E2e specs"
 }
 

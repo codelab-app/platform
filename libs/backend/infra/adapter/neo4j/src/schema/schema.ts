@@ -50,7 +50,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
          *
          * Found out that we need to `Use \\. if you have a . in the key.`
          */
-        rolesPath: `${escapeDotPathKeys(JWT_CLAIMS.toString())}.roles`,
+        rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
       }),
     },
   })

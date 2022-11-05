@@ -16,7 +16,7 @@ resource "auth0_action" "assign_jwt_claims" {
       */
     exports.onExecutePostLogin = async (event, api) => {
       if (event.authorization) {
-        const namespace = 'https://${var.next_public_builder_host}/jwt/claims';
+        const namespace = 'https://api.codelab.app/jwt/claims';
         const claims = {
           "roles": event?.authorization?.roles ?? []
         };
@@ -25,17 +25,6 @@ resource "auth0_action" "assign_jwt_claims" {
         api.accessToken.setCustomClaim(namespace, claims);
       }
     };
-
-
-    /**
-      * Handler that will be invoked when this action is resuming after an external redirect. If your
-      * onExecutePostLogin function does not perform a redirect, this function can be safely ignored.
-      *
-      * @param {Event} event - Details about the user and the context in which they are logging in.
-      * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
-      */
-    // exports.onContinuePostLogin = async (event, api) => {
-    // };
     EOT
   deploy  = true
 }

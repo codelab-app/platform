@@ -1,1 +1,1 @@
-../vars-auth0.tf
+../shared/vars-auth0.tf

@@ -6,10 +6,6 @@ variable "CYPRESS_RECORD_KEY" {
   type = string
 }
 
-variable "DEV_UPSERT_USER_MIDDLEWARE" {
-  type = string
-}
-
 variable "NX_CLOUD_ACCESS_TOKEN" {
   type = string
 }

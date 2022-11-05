@@ -11,10 +11,6 @@ interface Env {
     user: string
     password: string
   }
-  dev: {
-    // Should we enable upsert user middleware for next.js
-    upsert_user_middleware: boolean
-  }
   builder: {
     host: string
   }
@@ -34,12 +30,6 @@ export const Env = (): Env => ({
     uri: env.get('NEO4J_URI').required().asString(),
     user: env.get('NEO4J_USER').required().asString(),
     password: env.get('NEO4J_PASSWORD').required().asString(),
-  },
-  dev: {
-    upsert_user_middleware: env
-      .get('DEV_UPSERT_USER_MIDDLEWARE')
-      .default('false')
-      .asBoolStrict(),
   },
   builder: {
     host: env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString(),

@@ -103,17 +103,6 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   /**
-   * Check for upsert only when user exists
-   */
-  // TODO: should think of a way so we don't need to call this everytime
-  if (session?.user && Env().dev.upsert_user_middleware) {
-    const user = session.user as Auth0SessionUser
-    const User = await Repository.instance.User
-
-    await upsertUser(User, user)
-  }
-
-  /**
    * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
    */
   if (accessToken) {

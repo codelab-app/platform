@@ -3,7 +3,7 @@ import { Env } from '@codelab/shared/env'
 import { v4 } from 'uuid'
 import { MiddlewareFunction, Options } from 'yargs'
 import { upsertUser } from '../repository/user.repo'
-import { Stage } from './utils/env'
+import { Stage } from './utils/stage'
 
 export interface ExportProps {
   seedDataPath?: string

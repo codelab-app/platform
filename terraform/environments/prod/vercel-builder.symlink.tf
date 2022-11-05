@@ -1,1 +1,0 @@
-../vars-vercel-builder.tf

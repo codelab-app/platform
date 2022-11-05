@@ -34,8 +34,8 @@ const pluginConfig = async (
   config.env.auth0CookieSecret = process.env.AUTH0_SECRET
   config.env.auth0Scope = 'openid profile email'
   config.env.auth0SessionCookieName = 'appSession'
-  config.env.auth0LogoutUrl = '/api/auth/logout'
-  config.env.auth0ReturnToUrl = '/'
+  // This is the Auth0 Management API url
+  config.env.audience = `${process.env.AUTH0_ISSUER_BASE_URL}api/v2`
   config.env.auth0Username = process.env.AUTH0_CYPRESS_USERNAME
   config.env.auth0Password = process.env.AUTH0_CYPRESS_PASSWORD
 

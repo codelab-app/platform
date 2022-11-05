@@ -8,7 +8,7 @@ import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import { CommandModule } from 'yargs'
 import { getStageOptions } from '../../shared/command'
-import { Stage } from '../../shared/utils/env'
+import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
 
 /**
