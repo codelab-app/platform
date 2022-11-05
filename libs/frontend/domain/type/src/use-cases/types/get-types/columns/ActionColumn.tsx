@@ -24,7 +24,7 @@ export const ActionColumn = observer<ActionColumnProps>(
   ({ type, typeService, fieldService }) => {
     return (
       <Space size="middle">
-        {type.typeKind === ITypeKind.InterfaceType ? (
+        {type.kind === ITypeKind.InterfaceType ? (
           <CreateFieldButton
             fieldService={fieldService}
             interfaceId={type.id}

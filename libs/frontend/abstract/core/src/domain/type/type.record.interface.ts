@@ -3,5 +3,5 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 export interface ITypeRecord {
   id: string
   name: string
-  typeKind: ITypeKind
+  kind: ITypeKind
 }

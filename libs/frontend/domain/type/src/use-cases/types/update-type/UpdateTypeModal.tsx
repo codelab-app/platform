@@ -35,7 +35,8 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
 
       await validateNonRecursive(typeToUpdate.id, data)
 
-      return typeService.update(typeToUpdate, data)
+      await typeService.update(typeToUpdate, data)
+      void typeService.refetchCurrentPage().then(() => undefined)
     }
 
     const model = {
