@@ -1,7 +1,7 @@
-import { isCi, isProduction } from './flags'
+import { isCircleCi, isProduction, isVercel } from './flags'
 
 const graphqlApiHost =
-  isProduction && isCi
+  isProduction && isVercel && !isCircleCi
     ? `https://${process.env['NEXT_PUBLIC_VERCEL_URL']}`
     : `http://${process.env['NEXT_PUBLIC_BUILDER_HOST']}`
 

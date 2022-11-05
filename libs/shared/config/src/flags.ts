@@ -11,3 +11,5 @@ export const isCi =
 export const isVercelPreview = process.env['VERCEL_ENV'] === 'preview'
 
 export const isVercel = process.env['VERCEL'] === '1'
+
+export const isCircleCi = process.env['CIRCLECI'] === 'true'
