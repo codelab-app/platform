@@ -4,12 +4,17 @@ import {
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
-import merge from 'lodash/merge'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useContext, useEffect } from 'react'
+import React, {
+  Fragment,
+  RefObject,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
@@ -42,6 +47,15 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const globalPropsContext = useContext(GlobalPropsContext)
     const globalProps = globalPropsContext[element.id]
 
+    const onRefChange = useCallback(
+      (node: Nullable<RefObject<HTMLElement>>) => {
+        if (node) {
+          element.setRef(node)
+        }
+      },
+      [],
+    )
+
     useEffect(() => {
       postAction?.()
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,13 +87,17 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         )
       }
 
+      if (renderOutput.props) {
+        renderOutput.props['forwardedRef'] = onRefChange
+      }
+
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
       const IntermediateChildren = jsx(
         ReactComponent,
         // merge because some refs are not resolved
-        merge(extraProps, extractedProps),
+        extractedProps,
         children,
       )
 
