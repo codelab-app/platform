@@ -41,23 +41,26 @@ resource "vercel_project" "builder" {
     {
       target = ["production", "preview"]
       key    = "AUTH0_SECRET"
-      # This isn't working
-      #      value = data.auth0_client.web_client.client_secret
       value = var.auth0_secret
     },
     {
       target = ["production", "preview"]
       key    = "AUTH0_CLIENT_SECRET"
       # This isn't working
-      #      value = data.auth0_client.web_client.client_secret
+      # value = data.auth0_client.web_client.client_secret
       value = var.auth0_client_secret
     },
     {
       target = ["production", "preview"]
       key    = "AUTH0_CLIENT_ID"
       # This isn't working
-      #      value = data.auth0_client.web_client.id
+      # value = data.auth0_client.web_client.id
       value = var.auth0_client_id
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_AUDIENCE"
+      value = "${var.auth0_issuer_base_url}api/v2"
     },
     # Neo4j
     {

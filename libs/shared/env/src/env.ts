@@ -16,7 +16,7 @@ interface Env {
     /**
      * This is required for `initAuth0`, it loads it behind the scenes
      */
-    audience: string
+    // audience: string
     secret: string
     client_id: string
     client_secret: string
@@ -34,7 +34,7 @@ export const Env = (): Env => ({
   },
   auth0: {
     issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
-    audience: env.get('AUTH0_AUDIENCE').required().asString(),
+    // audience: env.get('AUTH0_AUDIENCE').required().asString(),
     secret: env.get('AUTH0_SECRET').required().asString(),
     client_id: env.get('AUTH0_CLIENT_ID').required().asString(),
     client_secret: env.get('AUTH0_CLIENT_SECRET').required().asString(),

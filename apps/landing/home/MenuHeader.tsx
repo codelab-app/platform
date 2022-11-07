@@ -94,24 +94,16 @@ export const HomeMenuHeader = () => {
         triggerSubMenuAction="click"
       >
         <Menu.Item key="features">
-          <Link href={PageType.Features}>
-            <a>Features</a>
-          </Link>
+          <Link href={PageType.Features}>Features</Link>
         </Menu.Item>
         <Menu.Item key="docs">
-          <Link href={PageType.Docs}>
-            <a>Docs</a>
-          </Link>
+          <Link href={PageType.Docs}>Docs</Link>
         </Menu.Item>
         <Menu.Item key="pricing">
-          <Link href={PageType.Pricing}>
-            <a>Pricing</a>
-          </Link>
+          <Link href={PageType.Pricing}>Pricing</Link>
         </Menu.Item>
         <Menu.Item key="tutorials">
-          <Link href={PageType.Tutorials}>
-            <a>Tutorials</a>
-          </Link>
+          <Link href={PageType.Tutorials}>Tutorials</Link>
         </Menu.Item>
         {user ? authenticatedUserMenu : guestUserMenu}
       </Menu>
