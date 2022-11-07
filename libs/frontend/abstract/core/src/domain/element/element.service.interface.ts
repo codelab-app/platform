@@ -15,6 +15,7 @@ import {
 } from '../../service'
 import {
   ICreatePropMapBindingDTO,
+  IPropData,
   IPropMapBinding,
   IUpdatePropMapBindingDTO,
 } from '../prop'
@@ -63,6 +64,7 @@ export interface IElementService
     { parentElement: IElement }
   >
   elements: ObjectMap<IElement>
+  elementsJson: IPropData
   createPropMapBindingModal: IEntityModalService<
     Ref<IElement>,
     { element: Maybe<IElement> }
