@@ -4,17 +4,16 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AtomRecordProps } from './types'
 
-const BlueLink = tw.a`text-blue-700`
-
 export const PropsColumn = ({ atom }: AtomRecordProps) => {
   return (
     <Link
+      css={tw`text-blue-700`}
       href={{
         pathname: PageType.Type,
         query: { typeId: atom.apiId },
       }}
     >
-      <BlueLink>View API</BlueLink>
+      View API
     </Link>
   )
 }

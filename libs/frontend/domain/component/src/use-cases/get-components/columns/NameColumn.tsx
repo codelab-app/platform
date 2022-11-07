@@ -14,6 +14,6 @@ export const NameColumn = ({ component }: NameColumnProps) => (
       query: { componentId: component.id },
     }}
   >
-    <a>{component.name}</a>
+    {component.name}
   </Link>
 )

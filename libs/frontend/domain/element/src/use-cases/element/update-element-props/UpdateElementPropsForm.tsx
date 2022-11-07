@@ -91,6 +91,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                         pathname: PageType.Type,
                         query: { typeId: interfaceType.id },
                       }}
+                      legacyBehavior
                     >
                       {`Edit ${interfaceType.name}`}
                     </Link>

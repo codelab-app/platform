@@ -40,9 +40,7 @@ export const GetPagesItem = observer<GetPagesItemProps>(
       <List.Item style={{ paddingLeft: 0 }}>
         <Space style={{ width: '100%' }}>
           <FileOutlined />
-          <Link href={href}>
-            <a>{page.name}</a>
-          </Link>
+          <Link href={href}>{page.name}</Link>
         </Space>
         {!isProviderTreePage && (
           <Space>
