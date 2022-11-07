@@ -1,10 +1,7 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
-import {
-  useLoadRenderedPage,
-  useStore,
-} from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
