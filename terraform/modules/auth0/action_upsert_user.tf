@@ -27,9 +27,9 @@ exports.onExecutePostLogin = async (event, api) => {
 
   const loginsCount = event.stats.logins_count
 
-  if (loginsCount > 1) {
-    return
-  }
+  // if (loginsCount > 1) {
+  //  return
+  // }
 
   /**
    * Get Access Token

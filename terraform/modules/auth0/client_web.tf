@@ -9,13 +9,13 @@ resource "auth0_client" "web_client" {
   allowed_logout_urls = [
     "${local.builder_url}",
   "https://*.vercel.app"]
+  web_origins = [
+    "${local.builder_url}",
+    "https://*.vercel.app"]
   allowed_origins = [
     "${local.builder_url}",
   "https://*.vercel.app"]
   grant_types = ["authorization_code", "implicit", "password", "refresh_token", "client_credentials"]
-  web_origins = [
-    "${local.builder_url}",
-  "https://*.vercel.app"]
 
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds

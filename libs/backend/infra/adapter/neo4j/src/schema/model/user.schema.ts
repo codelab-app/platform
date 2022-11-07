@@ -35,6 +35,7 @@ export const userSchema = gql`
   #        {
   #          operations: [UPDATE, CREATE, DELETE]
   #          roles: ["Admin"]
+  #          #          where: { auth0Id: "$jwt.sub" }
   #          #          bind: { auth0Id: "$jwt.sub" }
   #        }
   #      ]

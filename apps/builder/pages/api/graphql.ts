@@ -6,15 +6,8 @@ import {
   NextApiRequest,
 } from '@codelab/backend/abstract/types'
 import { resolvers } from '@codelab/backend/graphql'
-import {
-  getDriver,
-  getSchema,
-  Repository,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { upsertUser } from '@codelab/frontend/domain/user'
-import { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import { getDriver, getSchema } from '@codelab/backend/infra/adapter/neo4j'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { Env } from '@codelab/shared/env'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
@@ -87,6 +80,8 @@ const handler: NextApiHandler = async (req, res) => {
      * Requires `headers.cookie` to be set by client
      */
     session = await auth0Instance.getSession(req, res)
+
+    console.log(session)
     Object.assign(req, { user: session?.user })
 
     accessToken = (await auth0Instance.getAccessToken(req, res)).accessToken

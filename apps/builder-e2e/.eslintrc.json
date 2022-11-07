@@ -9,6 +9,7 @@
         "project": ["apps/builder-e2e/tsconfig(.*)?.json"]
       },
       "rules": {
+        //        "@typescript-eslint/no-namespace": "off",
         "import/no-unresolved": "error",
         "import/named": "error",
         "jest/valid-expect": "off",

@@ -4,7 +4,7 @@
   "projectType": "application",
   "targets": {
     "currents": {
-      "executor": "@codelab-app/nx:currents",
+      "executor": "@currents/nx:currents",
       "options": {
         "cypressExecutor": "e2e"
       },
@@ -40,14 +40,7 @@
         "dev": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
           "devServerTarget": "builder-e2e:serve:dev",
-          "watch": true,
-          "exit": false
-        },
-        "start": {
-          "cypressConfig": "apps/builder-e2e/cypress.ci.config.ts",
-          "baseUrl": "http://127.0.0.1:3000",
-          "watch": true,
-          "exit": false
+          "watch": true
         }
       }
     },

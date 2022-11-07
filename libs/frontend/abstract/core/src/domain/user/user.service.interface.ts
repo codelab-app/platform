@@ -9,4 +9,5 @@ export interface IUserService {
   auth0Id: string
 
   loadUsers(): Promise<void>
+  setUser(user: Nullable<IUser>): void
 }

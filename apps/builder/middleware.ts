@@ -70,7 +70,7 @@ export default async function middleware(req: NextRequest) {
 
   return await redirectExternalDomain({
     /**
-     * `codelab.ai`
+     * `codelab.app` or `127.0.0.1:3000`
      */
     hostname,
     /**

@@ -32,6 +32,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
     plugins: {
       /**
        * JWK (JSON Web Key) - allows applications to retrieve public keys programmatically
+       *
        * PEM (Privacy Enhanced Mail ) - Certificate of Base 64 encoded public key certificate
        *
        * - The JWK contains the public certificate in addition to other claims about the key.
