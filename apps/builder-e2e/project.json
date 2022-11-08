@@ -58,14 +58,14 @@
               "command": "nx serve-test builder -c dev"
             },
             {
-              "command": "npx wait-on --delay 5000 'http://127.0.0.1:3001' && echo 'READY'"
+              "command": "npx wait-on --interval 1000 --delay 5000 'http://127.0.0.1:3001' && echo 'READY'"
             }
           ]
         },
         "test": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
+              "command": "npx wait-on --interval 1000  'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
               "command": "nx serve-test builder -c test"
@@ -75,7 +75,7 @@
         "ci": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
+              "command": "npx wait-on --interval 1000 'http://127.0.0.1:3000' && echo 'READY'"
             },
             {
               "command": "nx serve-test builder -c ci"
@@ -87,11 +87,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/builder-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/builder-e2e/**/*.{js,ts}"
+        ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     }
   },
   "tags": [],
-  "implicitDependencies": ["builder"]
+  "implicitDependencies": [
+    "builder"
+  ]
 }
