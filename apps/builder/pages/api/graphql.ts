@@ -6,7 +6,13 @@ import {
   NextApiRequest,
 } from '@codelab/backend/abstract/types'
 import { resolvers } from '@codelab/backend/graphql'
-import { getDriver, getSchema } from '@codelab/backend/infra/adapter/neo4j'
+import {
+  getDriver,
+  getSchema,
+  Repository,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { upsertUser } from '@codelab/frontend/domain/user'
+import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
@@ -95,6 +101,17 @@ const handler: NextApiHandler = async (req, res) => {
     ) {
       // console.error(e)
     }
+  }
+
+  if (
+    session?.user &&
+    // If localhost enable this
+    process.env['NEXT_PUBLIC_BUILDER_HOST']?.includes('127.0.0.1')
+  ) {
+    const user = session.user as Auth0SessionUser
+    const User = await Repository.instance.User
+
+    await upsertUser(User, user)
   }
 
   /**

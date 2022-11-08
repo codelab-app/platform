@@ -20,6 +20,7 @@ resource "auth0_client" "web_client" {
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds
     secret_encoded = true
+    lifetime_in_seconds = 2592000
     alg            = "RS256"
   }
 

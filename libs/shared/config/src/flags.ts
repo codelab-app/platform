@@ -2,6 +2,8 @@ export const isServer = typeof window === 'undefined'
 
 export const isProduction = process.env['NODE_ENV'] === 'production'
 
+export const isTest = process.env['NODE_ENV'] === 'test'
+
 export const isCi =
   // Vercel uses '1'
   process.env['CI'] === '1' ||

@@ -40,7 +40,8 @@
         "dev": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
           "devServerTarget": "builder-e2e:serve:dev",
-          "watch": true
+          "watch": true,
+          "exit": false
         }
       }
     },
@@ -54,10 +55,10 @@
         "dev": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
+              "command": "nx serve-test builder -c dev"
             },
             {
-              "command": "nx serve-test builder -c dev"
+              "command": "npx wait-on --delay 5000 'http://127.0.0.1:3001' && echo 'READY'"
             }
           ]
         },
