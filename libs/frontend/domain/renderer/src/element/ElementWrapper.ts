@@ -49,7 +49,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const onRefChange = useCallback(
       (node: Nullable<RefObject<HTMLElement>>) => {
-        if (node) {
+        if (!element.ref && node) {
           element.setRef(node)
         }
       },

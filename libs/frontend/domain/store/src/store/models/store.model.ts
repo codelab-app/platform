@@ -7,6 +7,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import merge from 'lodash/merge'
 import { computed, reaction } from 'mobx'
 import {
@@ -46,7 +47,7 @@ export class Store
   onAttachedToRootStore() {
     // every time the snapshot of the configuration changes
     const reactionDisposer = reaction(
-      () => [this._actionsRunners, this._defaultValues],
+      () => [this._actionsRunners, this._defaultValues, this._elementsRefs],
       () => {
         console.debug('Previous state', this.state.values)
 
@@ -55,6 +56,9 @@ export class Store
 
         console.debug('defaults changed:', this._defaultValues)
         this.state.setMany(this._defaultValues)
+
+        console.debug('elementRefs changed:', this._elementsRefs)
+        this.state.setMany(this._elementsRefs)
 
         console.debug('New state', this.state.values)
       },
@@ -86,6 +90,11 @@ export class Store
   @computed
   get _defaultValues() {
     return this.api.current.defaultValues
+  }
+
+  @computed
+  get _elementsRefs() {
+    return getElementService(this).elementsJson
   }
 
   @computed
