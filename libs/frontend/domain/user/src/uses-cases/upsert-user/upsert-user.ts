@@ -1,5 +1,5 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import { Auth0SessionUser, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
 /**
  * Create user using OGM, used by Next.js serverless for first time logins.
@@ -8,7 +8,10 @@ import { Auth0SessionUser } from '@codelab/shared/abstract/core'
  */
 export const upsertUser = async (
   User: OGM_TYPES.UserModel,
-  user: Pick<Auth0SessionUser, 'sub' | 'email' | 'nickname'>,
+  user: Pick<
+    Auth0SessionUser,
+    'sub' | 'email' | 'nickname' | typeof JWT_CLAIMS
+  >,
 ) => {
   const [existing] = await User.find({
     where: {
@@ -27,7 +30,7 @@ export const upsertUser = async (
         auth0Id: user.sub,
         email: user.email,
         username: user.nickname,
-        roles: [],
+        roles: user[JWT_CLAIMS].roles,
       },
     })
   } else {
@@ -38,7 +41,7 @@ export const upsertUser = async (
             auth0Id: user.sub,
             email: user.email,
             username: user.email,
-            roles: [],
+            roles: user[JWT_CLAIMS].roles,
           },
         ],
       })

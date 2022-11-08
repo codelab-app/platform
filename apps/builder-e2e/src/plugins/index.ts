@@ -28,7 +28,7 @@ const pluginConfig = async (
   config.env.tsConfig = 'tsconfig.json'
 
   // Remap some of the .env values, because cypress-nextjs-auth0/encrypt requires them to be with other names
-  config.env.auth0Audience = `${process.env.AUTH0_ISSUER_BASE_URL}api/v2/`
+  config.env.auth0Audience = process.env.AUTH0_AUDIENCE
   config.env.auth0Domain = process.env.AUTH0_ISSUER_BASE_URL
   config.env.auth0ClientId = process.env.AUTH0_CLIENT_ID
   config.env.auth0ClientSecret = process.env.AUTH0_CLIENT_SECRET
