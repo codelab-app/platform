@@ -95,7 +95,7 @@ export class ElementService
   }
 
   @computed
-  get elementsJson() {
+  get elementsDomRefs() {
     return [...this.elements.values()]
       .map((x) => ({ [x.id]: x.ref }))
       .reduce(merge, {})
