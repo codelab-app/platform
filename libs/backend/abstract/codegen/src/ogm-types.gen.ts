@@ -5073,6 +5073,7 @@ export type Page = {
   name: Scalars['String']
   slug: Scalars['String']
   getServerSideProps?: Maybe<Scalars['String']>
+  isProvider: Scalars['Boolean']
   rootElement: Element
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
   app: App
@@ -16037,6 +16038,7 @@ export type PageCreateInput = {
   name: Scalars['String']
   slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
+  isProvider?: Scalars['Boolean']
   rootElement?: InputMaybe<PageRootElementFieldInput>
   app?: InputMaybe<PageAppFieldInput>
 }
@@ -16056,6 +16058,7 @@ export type PageOnCreateInput = {
   name: Scalars['String']
   slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
+  isProvider?: Scalars['Boolean']
 }
 
 export type PageOptions = {
@@ -16312,6 +16315,7 @@ export type PageSort = {
   name?: InputMaybe<SortDirection>
   slug?: InputMaybe<SortDirection>
   getServerSideProps?: InputMaybe<SortDirection>
+  isProvider?: InputMaybe<SortDirection>
 }
 
 export type PageTypeConnectInput = {
@@ -16499,6 +16503,7 @@ export type PageUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   slug?: InputMaybe<Scalars['String']>
   getServerSideProps?: InputMaybe<Scalars['String']>
+  isProvider?: InputMaybe<Scalars['Boolean']>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   app?: InputMaybe<PageAppUpdateFieldInput>
 }
@@ -16546,6 +16551,8 @@ export type PageWhere = {
   getServerSideProps_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   getServerSideProps_ENDS_WITH?: InputMaybe<Scalars['String']>
   getServerSideProps_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  isProvider?: InputMaybe<Scalars['Boolean']>
+  isProvider_NOT?: InputMaybe<Scalars['Boolean']>
   rootElement?: InputMaybe<ElementWhere>
   rootElement_NOT?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>

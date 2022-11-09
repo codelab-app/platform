@@ -192,6 +192,7 @@ export class AppService
         rootElement: {
           create: { node: { id: v4(), name: ROOT_ELEMENT_NAME } },
         },
+        isProvider: true,
       }
 
       return {

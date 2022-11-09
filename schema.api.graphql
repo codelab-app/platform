@@ -12352,6 +12352,7 @@ type Page {
   ): PageAppConnection!
   getServerSideProps: String
   id: ID!
+  isProvider: Boolean!
   name: String!
   rootElement(
     directed: Boolean = true
@@ -12540,6 +12541,7 @@ input PageCreateInput {
   app: PageAppFieldInput
   getServerSideProps: String
   id: ID!
+  isProvider: Boolean! = false
   name: String!
   rootElement: PageRootElementFieldInput
   slug: String!
@@ -12590,6 +12592,7 @@ type PageInfo {
 input PageOnCreateInput {
   getServerSideProps: String
   id: ID!
+  isProvider: Boolean! = false
   name: String!
   slug: String!
 }
@@ -12862,6 +12865,7 @@ Fields to sort Pages by. The order in which sorts are applied is not guaranteed 
 input PageSort {
   getServerSideProps: SortDirection
   id: SortDirection
+  isProvider: SortDirection
   name: SortDirection
   slug: SortDirection
 }
@@ -13104,6 +13108,7 @@ input PageUpdateInput {
   app: PageAppUpdateFieldInput
   getServerSideProps: String
   id: ID
+  isProvider: Boolean
   name: String
   rootElement: PageRootElementUpdateFieldInput
   slug: String
@@ -13137,6 +13142,8 @@ input PageWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  isProvider: Boolean
+  isProvider_NOT: Boolean
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
