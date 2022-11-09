@@ -17,6 +17,7 @@ import {
   filterValidationRules,
   isFloat,
   isInteger,
+  isInterfaceType,
   isPrimitive,
   isString,
 } from '../create-field'
@@ -100,7 +101,14 @@ export const UpdateFieldModal = observer<{
             />
           </DisplayIfField>
         </DisplayIfField>
-        <SelectDefaultValue typeService={typeService} />
+
+        <DisplayIfField<IUpdateFieldDTO>
+          condition={({ model }) =>
+            !isInterfaceType(typeService, model.fieldType)
+          }
+        >
+          <SelectDefaultValue typeService={typeService} />
+        </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>
   )
