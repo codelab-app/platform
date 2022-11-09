@@ -42,6 +42,11 @@ export const isInteger: FieldCondition = (typeService, fieldType) =>
       typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Integer,
   )
 
+export const isInterfaceType: FieldCondition = (typeService, fieldType) =>
+  Boolean(
+    fieldType && typeService.type(fieldType)?.kind === ITypeKind.InterfaceType,
+  )
+
 export const isFloat: FieldCondition = (typeService, fieldType) =>
   Boolean(
     fieldType &&
