@@ -64,7 +64,7 @@ export interface IElementService
     { parentElement: IElement }
   >
   elements: ObjectMap<IElement>
-  elementsJson: IPropData
+  elementsDomRefs: IPropData
   createPropMapBindingModal: IEntityModalService<
     Ref<IElement>,
     { element: Maybe<IElement> }

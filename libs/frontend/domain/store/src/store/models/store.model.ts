@@ -94,7 +94,7 @@ export class Store
 
   @computed
   get _elementsRefs() {
-    return getElementService(this).elementsJson
+    return getElementService(this).elementsDomRefs
   }
 
   @computed
