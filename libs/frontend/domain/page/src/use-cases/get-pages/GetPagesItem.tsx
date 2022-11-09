@@ -1,9 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
-import {
-  IPage,
-  IPageService,
-  PROVIDER_TREE_PAGE_NAME,
-} from '@codelab/frontend/abstract/core'
+import { IPage, IPageService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
@@ -24,14 +20,11 @@ export interface GetPagesItemProps {
 export const GetPagesItem = observer<GetPagesItemProps>(
   ({ page, pageService }) => {
     const router = useRouter()
-    const isProviderTreePage = page.name === PROVIDER_TREE_PAGE_NAME
 
-    const href = isProviderTreePage
-      ? { pathname: PageType.AppProviderDetail, query: router.query }
-      : {
-          pathname: PageType.PageBuilder,
-          query: { ...router.query, pageId: page.id },
-        }
+    const href = {
+      pathname: PageType.PageBuilder,
+      query: { ...router.query, pageId: page.id },
+    }
 
     const onClickDelete = () => pageService.deleteModal.open(pageRef(page.id))
     const onClickEdit = () => pageService.updateModal.open(pageRef(page.id))
@@ -42,7 +35,7 @@ export const GetPagesItem = observer<GetPagesItemProps>(
           <FileOutlined />
           <Link href={href}>{page.name}</Link>
         </Space>
-        {!isProviderTreePage && (
+        {!page.isProvider && (
           <Space>
             <ListItemEditButton onClick={onClickEdit} />
             <ListItemDeleteButton onClick={onClickDelete} />

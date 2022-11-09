@@ -20,11 +20,6 @@ export const ROOT_ELEMENT_NAME = 'Body'
 
 export const COMPONENT_TREE_CONTAINER = 'components'
 
-export const ROOT_COMPONENT_ELEMENT_NAME = 'Component Root Element'
-export const PROVIDER_ROOT_ELEMENT_NAME = 'Provider Root Element'
-export const DETACHED_ROOT_ELEMENT_NAME = 'Detached Root Element'
-
-export const PROVIDER_TREE_PAGE_NAME = 'Provider Tree'
 export const STATE_PATH_TEMPLATE_START = '{{'
 export const STATE_PATH_TEMPLATE_START_REGEX = /\{\{/g
 // start bracket that is not closed with }}
