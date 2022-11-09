@@ -21409,6 +21409,7 @@ export type PageFragment = {
   name: string
   slug: string
   getServerSideProps?: string | null
+  isProvider?: boolean | null
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string; name?: string | null }
 }

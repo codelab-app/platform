@@ -14,4 +14,5 @@ export interface IPage
   toJson: IPropData
   rootElement: IEntity
   getServerSideProps: Nullish<string>
+  isProvider: boolean
 }

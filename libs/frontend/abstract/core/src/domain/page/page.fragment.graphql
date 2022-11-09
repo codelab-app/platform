@@ -10,4 +10,5 @@ fragment Page on Page {
     id
     name
   }
+  isProvider
 }
