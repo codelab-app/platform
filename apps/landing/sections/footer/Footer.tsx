@@ -21,7 +21,6 @@ export const Footer = ({ children }: PropsWithChildren) => {
           <Image
             alt="Codelab Logo"
             height={42}
-            layout="fixed"
             src="/logo-footer.svg"
             width={123}
           />

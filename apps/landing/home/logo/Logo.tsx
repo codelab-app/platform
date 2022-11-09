@@ -10,7 +10,6 @@ export const Logo = () => {
         alt="Codelab Logo"
         css={tw`hover:cursor-pointer`}
         height={42}
-        layout="fixed"
         src="/logo.svg"
         width={123}
       />
