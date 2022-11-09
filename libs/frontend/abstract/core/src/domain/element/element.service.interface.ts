@@ -13,8 +13,6 @@ import {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import { IAtomService } from '../atom'
-import { IComponentService } from '../component'
 import {
   ICreatePropMapBindingDTO,
   IPropMapBinding,
@@ -72,27 +70,16 @@ export interface IElementService
   updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
 
-  atomService: IAtomService
-  componentService: IComponentService
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
   createElementAsFirstChild(data: ICreateElementDTO): Promise<IElement>
   createElementAsNextSibling(data: ICreateElementDTO): Promise<IElement>
-  attachElementAsFirstChild(props: {
-    elementId: string
-    parentElementId: string
-  }): Promise<void>
-  attachElementAsNextSibling(props: {
-    elementId: string
-    targetElementId: string
-  }): Promise<void>
   moveElementToAnotherTree(props: {
     elementId: string
     targetElementId: string
   }): Promise<void>
-  detachElementFromElementTree(elemenId: string): Promise<void>
   moveElementAsFirstChild(props: {
     elementId: string
     parentElementId: string
@@ -129,10 +116,6 @@ export interface IElementService
     propMapBinding: IPropMapBinding,
   ): Promise<IPropMapBinding>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
-  /**
-   * Get all descendant elements
-   */
-  getDescendants(root: IElementRef): Promise<Array<IElement>>
   loadComponentTree(component: RenderedComponentFragment): {
     rootElement: IElement
     hydratedElements: Array<IElement>
