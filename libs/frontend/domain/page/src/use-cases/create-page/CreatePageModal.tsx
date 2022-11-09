@@ -1,4 +1,8 @@
-import { ICreatePageDTO, IPageService } from '@codelab/frontend/abstract/core'
+import {
+  DEFAULT_GET_SERVER_SIDE_PROPS,
+  ICreatePageDTO,
+  IPageService,
+} from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -7,19 +11,16 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { createPageSchema } from './createPageSchema'
 
-const getServerSideProps = `async function (context) {
-  return {
-    props: {},
-    redirect: undefined,
-    notFound: false,
-  }
-}`
-
 export const CreatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const currentAppId = useCurrentAppId()
     const isOpen = pageService.createModal.isOpen
-    const model = { appId: currentAppId, getServerSideProps }
+
+    const model = {
+      appId: currentAppId,
+      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+    }
+
     const onSubmit = (data: ICreatePageDTO) => pageService.create([data])
 
     const onSubmitError = createNotificationHandler({

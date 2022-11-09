@@ -1,10 +1,14 @@
 import {
+  APP_PAGE_NAME,
+  APP_PAGE_SLUG,
+  DEFAULT_GET_SERVER_SIDE_PROPS,
   IApp,
   IAppDTO,
   IAppService,
   ICreateAppDTO,
   IPageBuilderAppProps,
   IUpdateAppDTO,
+  ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/domain/page'
 import {
@@ -174,30 +178,50 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, data: Array<ICreateAppDTO>) {
-    const input: Array<AppCreateInput> = data.map((app) => ({
-      id: app.id ?? v4(),
-      name: app.name,
-      owner: connectOwner(app.auth0Id),
-      slug: slugify(app.slug),
-      store: {
-        create: {
-          node: {
-            id: v4(),
-            name: `${app.name} Store`,
-            api: {
-              create: {
-                node: {
-                  id: v4(),
-                  name: `${app.name} Store API`,
-                  kind: ITypeKind.InterfaceType,
-                  owner: connectOwner(app.auth0Id),
+    const input: Array<AppCreateInput> = data.map((app) => {
+      const appId = app.id ?? v4()
+
+      const providerPage = {
+        id: v4(),
+        name: APP_PAGE_NAME,
+        slug: APP_PAGE_SLUG,
+        getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+        app: {
+          connect: { where: { node: { id: appId } } },
+        },
+        rootElement: {
+          create: { node: { id: v4(), name: ROOT_ELEMENT_NAME } },
+        },
+      }
+
+      return {
+        id: appId,
+        name: app.name,
+        owner: connectOwner(app.auth0Id),
+        slug: slugify(app.slug),
+        store: {
+          create: {
+            node: {
+              id: v4(),
+              name: `${app.name} Store`,
+              api: {
+                create: {
+                  node: {
+                    id: v4(),
+                    name: `${app.name} Store API`,
+                    kind: ITypeKind.InterfaceType,
+                    owner: connectOwner(app.auth0Id),
+                  },
                 },
               },
             },
           },
         },
-      },
-    }))
+        pages: {
+          create: [{ node: providerPage }],
+        },
+      }
+    })
 
     const {
       createApps: { apps },
