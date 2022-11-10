@@ -18,17 +18,48 @@ import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 
+/*eslint-disable */
+const pretty = require('pino-pretty')
+const logger = require('pino')(
+  pretty({
+    colorize: true,
+  }),
+)
+const httpLogger = require('pino-http')({
+  logger,
+})
+
 const driver = getDriver()
 const neoSchema = getSchema(driver, resolvers)
 const path = '/api/graphql'
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 let apolloServer: ApolloServer
 
+const BASIC_LOGGING = {
+  requestDidStart(requestContext: any) {
+    logger.info('Processing request')
+    logger.info(requestContext.request)
+
+    // logger.info(JSON.stringify(requestContext.req.query || {}, null, 2))
+    // logger.info(JSON.stringify(requestContext.req.variables || {}, null, 2))
+
+    return {
+      willSendResponse(context: any) {
+        logger.info('Responding request')
+        logger.info(context.response)
+
+        return Promise.resolve({})
+      },
+    }
+  },
+}
+
 const startServer = neoSchema
   .getSchema()
   .then(async (schema) => {
     apolloServer = new ApolloServer({
       schema,
+      plugins: [BASIC_LOGGING as any],
       context: ({ req }: { req: NextApiRequest }): GraphQLRequestContext => {
         const user = req.user
 
@@ -64,6 +95,10 @@ const startServer = neoSchema
  * https://next-auth.js.org/tutorials/securing-pages-and-api-routes
  */
 const handler: NextApiHandler = async (req, res) => {
+  logger.info('abc')
+  httpLogger(req, res)
+  console.log('handler')
+
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
@@ -110,6 +145,7 @@ const handler: NextApiHandler = async (req, res) => {
   ) {
     const user = session.user as Auth0SessionUser
     const User = await Repository.instance.User
+    console.log('create new user', user)
 
     await upsertUser(User, user)
   }
@@ -122,6 +158,8 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   await startServer
+  console.log('test')
+
   await apolloServer.createHandler({ path })(req, res)
 }
 

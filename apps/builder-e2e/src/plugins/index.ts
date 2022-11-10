@@ -8,22 +8,48 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
+import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { upsertUser } from '@codelab/frontend/domain/user'
+import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 const encrypt = require('cypress-nextjs-auth0/encrypt')
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
+const test = async () => {
+  console.log('event test')
+
+  // const User = await Repository.instance.User
+
+  return true
+
+  // await upsertUser(User, {
+  //   email: 'cypress@codelab.app',
+  //   nickname: 'test',
+  //   sub: 'test',
+  //   'https://api.codelab.app/jwt/claims': {
+  //     roles: ['Admin', 'User'] as any,
+  //   },
+  // })
+}
+
 const pluginConfig = async (
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions,
 ) => {
+  installLogsPrinter(on, {
+    printLogsToConsole: 'always',
+    collectTestLogs: () => console.log('a'),
+    includeSuccessfulHookLogs: false,
+  })
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
   /**
    * Difficult to get this working so we can properly import using project references, instead we opt for relative to bypass this issue
    */
-  on('task', { encrypt })
+  on('task', { encrypt, test })
 
   config.env.tsConfig = 'tsconfig.json'
 

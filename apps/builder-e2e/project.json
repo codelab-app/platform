@@ -39,7 +39,7 @@
         },
         "dev": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
-          "devServerTarget": "builder-e2e:serve:dev",
+          // "devServerTarget": "builder-e2e:serve:dev",
           "watch": true,
           "exit": false
         }
