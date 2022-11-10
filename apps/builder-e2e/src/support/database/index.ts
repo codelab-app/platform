@@ -10,7 +10,7 @@ import { createResource } from './resource'
 import { createStore } from './store'
 import { createTag } from './tag'
 import { createType } from './type'
-import { getCurrentUserId } from './user'
+import { createUser, getCurrentUserId } from './user'
 
 export interface CypressDatabaseCommands {
   /** app model */
@@ -22,6 +22,7 @@ export interface CypressDatabaseCommands {
 
   /** admin model */
   resetDatabase: typeof resetDatabase
+  createUser: typeof createUser
   // importAdminData: typeof importAdminData
   // exportAdminData: typeof exportAdminData
 
@@ -52,6 +53,7 @@ export interface CypressDatabaseCommands {
 }
 
 export const databaseCommands: Array<CypressCommand> = [
+  { name: 'createUser', fn: createUser },
   { name: 'createTag', fn: createTag },
   { name: 'createApp', fn: createApp },
   { name: 'createPage', fn: createPage },
