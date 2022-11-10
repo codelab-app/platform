@@ -21299,6 +21299,7 @@ export type PageBuilderAppFragment = {
     name: string
     slug: string
     getServerSideProps?: string | null
+    isProvider: boolean
     rootElement: {
       __typename?: 'Element'
       descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
@@ -21409,7 +21410,7 @@ export type PageFragment = {
   name: string
   slug: string
   getServerSideProps?: string | null
-  isProvider?: boolean | null
+  isProvider: boolean
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string; name?: string | null }
 }

@@ -2,8 +2,7 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
-  useCurrentAppId,
-  useCurrentPageId,
+  useLoadRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
@@ -16,90 +15,36 @@ import React from 'react'
 import { useAsync } from 'react-use'
 
 const PageRenderer: CodelabPage = observer(() => {
+  const { appRenderService } = useStore()
+  const { value: pageDataValue, error: pageDataError } = useLoadRenderedPage()
+
   const {
-    userService,
-    pageService,
-    storeService,
-    appService,
-    typeService,
-    appRenderService,
-    componentService,
-    resourceService,
-  } = useStore()
-
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-
-  const { loading, value, error } = useAsync(async () => {
-    const {
-      apps,
-      components,
-      // Can't change shape in GraphQL so we have to use this structure
-      resources,
-      primitiveTypes,
-      arrayTypes,
-      unionTypes,
-      interfaceTypes,
-      elementTypes,
-      renderPropsTypes,
-      reactNodeTypes,
-      enumTypes,
-      lambdaTypes,
-      pageTypes,
-      appTypes,
-      actionTypes,
-      codeMirrorTypes,
-    } = await pageService.getRenderedPage(appId, pageId)
-
-    if (!apps[0]) {
+    loading,
+    value,
+    error: rendererError,
+  } = useAsync(async () => {
+    if (!pageDataValue) {
       return
     }
 
-    const { pageElementTree, page } = appService.load({
-      app: apps[0],
-      pageId,
-    })
-
-    typeService.load({
-      primitiveTypes,
-      arrayTypes,
-      unionTypes,
-      interfaceTypes,
-      elementTypes,
-      renderPropsTypes,
-      reactNodeTypes,
-      enumTypes,
-      lambdaTypes,
-      pageTypes,
-      appTypes,
-      actionTypes,
-      codeMirrorTypes,
-    })
-
-    components.map((component) =>
-      componentService.loadRenderedComponentTree(component),
-    )
-
-    resources.map((resource) => resourceService.writeCache(resource))
-
-    // hydrate after types and resources
-    const store = storeService.writeCache(apps[0].store)
-    store.state.setMany(appService.appsJson)
+    const { page, pageTree, appTree, appStore } = pageDataValue
 
     const renderer = appRenderService.addRenderer({
-      id: pageId,
-      pageTree: pageElementTree,
-      appTree: null,
-      appStore: store,
+      id: page.id,
+      pageTree,
+      appTree,
+      appStore,
       isBuilder: false,
     })
 
     return {
       page,
-      pageElementTree,
+      pageTree,
       renderer,
     }
-  }, [])
+  }, [pageDataValue])
+
+  const error = pageDataError || rendererError
 
   return (
     <>
@@ -108,7 +53,7 @@ const PageRenderer: CodelabPage = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {loading && <Spin />}
-      {!loading && value?.pageElementTree && (
+      {!loading && value?.pageTree && (
         <Renderer renderRoot={value.renderer.renderRoot.bind(value.renderer)} />
       )}
     </>

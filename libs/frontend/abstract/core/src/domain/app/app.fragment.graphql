@@ -44,7 +44,7 @@ fragment PageBuilderApp on App {
   owner {
     id
   }
-  pages(where: { id: $pageId }) {
+  pages(where: { OR: [{ id: $pageId }, { isProvider: true }] }) {
     id
     name
     slug
@@ -58,6 +58,7 @@ fragment PageBuilderApp on App {
     app {
       id
     }
+    isProvider
   }
   store {
     ...Store

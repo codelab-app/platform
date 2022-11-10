@@ -44,6 +44,7 @@ export type PageBuilderAppFragment = {
     name: string
     slug: string
     getServerSideProps?: string | null
+    isProvider: boolean
     rootElement: {
       descendantElements: Array<ElementFragment>
     } & ElementFragment
@@ -104,7 +105,7 @@ export const PageBuilderAppFragmentDoc = gql`
     owner {
       id
     }
-    pages(where: { id: $pageId }) {
+    pages(where: { OR: [{ id: $pageId }, { isProvider: true }] }) {
       id
       name
       slug
@@ -118,6 +119,7 @@ export const PageBuilderAppFragmentDoc = gql`
       app {
         id
       }
+      isProvider
     }
     store {
       ...Store
