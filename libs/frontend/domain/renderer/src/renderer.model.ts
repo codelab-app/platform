@@ -406,6 +406,14 @@ export class Renderer
         return propTransformer.transform(value, typeKind)
       }
 
+      /*
+       * We need to return an empty string here, if the prop cannot be transformed, otherwise
+       * the empty object will be passed as React Child, which will throw an error
+       */
+      if (typeKind === ITypeKind.ReactNodeType) {
+        return ''
+      }
+
       return {}
     })
 
