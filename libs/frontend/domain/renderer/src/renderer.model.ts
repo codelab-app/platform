@@ -157,8 +157,12 @@ export class Renderer
   implements IRenderer
 {
   @modelAction
-  initForce(pageElementTree: IElementTree) {
+  initForce(
+    pageElementTree: IElementTree,
+    appElementTree: Nullable<IElementTree>,
+  ) {
     this.pageTree = elementTreeRef(pageElementTree)
+    this.appTree = appElementTree ? elementTreeRef(appElementTree) : null
   }
 
   renderRoot() {

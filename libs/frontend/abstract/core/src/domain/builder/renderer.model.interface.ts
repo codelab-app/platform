@@ -24,5 +24,5 @@ export interface IRenderer {
   runPreAction(element: IElement): void
   getPostAction(element: IElement): Nullish<() => unknown>
   renderElement(element: IElement, extraProps?: IPropData): ReactElement
-  initForce(pageTree: IElementTree): void
+  initForce(pageTree: IElementTree, appTree?: Nullable<IElementTree>): void
 }

@@ -38,7 +38,7 @@ export class RenderService
       return renderer
     }
 
-    existing.initForce(props.pageTree)
+    existing.initForce(props.pageTree, props.appTree)
 
     return existing
   }
