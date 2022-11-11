@@ -53,13 +53,21 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     )
 
     const onSubmit = (data: IPropData) => {
-      console.log('Submitting: ', data)
+      const updateData = JSON.parse(JSON.stringify(data))
+
+      for (const key in data) {
+        if (data[key] === '') {
+          updateData[key] = undefined
+        }
+      }
+
+      console.log('Submitting: ', updateData)
 
       const promise = elementService.patchElement(element, {
         props: {
           update: {
             node: {
-              data: JSON.stringify(data),
+              data: JSON.stringify(updateData),
             },
           },
         },

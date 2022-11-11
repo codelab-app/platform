@@ -88,7 +88,6 @@ const init = ({
         set_selectedNode?.(elementRef(elementId))
       }
     },
-    href: '#',
   }
 
   return new Renderer({
