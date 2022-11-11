@@ -1,9 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-
-
-
-
 import { gql } from 'graphql-request'
 
 export interface LambdaFragment {

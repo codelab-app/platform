@@ -2,6 +2,8 @@ import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { UserCreateInput } from '@codelab/shared/abstract/codegen'
 import { IRole } from '@codelab/shared/abstract/core'
 
+console.log('test')
+
 type UserUniqueWhereCallback = (user: UserCreateInput) =>
   | {
       auth0Id: string
