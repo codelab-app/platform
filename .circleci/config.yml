@@ -447,7 +447,7 @@ workflows:
             - install-and-build-workspace
       - codegen:
           <<: *filters-pr
-          e: docker-node
+          e: docker-node-neo4j
           requires:
             - install-and-build-workspace
       - unit:

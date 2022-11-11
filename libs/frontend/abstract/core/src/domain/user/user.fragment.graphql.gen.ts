@@ -10,7 +10,7 @@ export type UserFragment = {
   username: string
   email: string
   auth0Id: string
-  roles: Array<Types.Role>
+  roles: Array<string>
   apps: Array<AppFragment>
 }
 
