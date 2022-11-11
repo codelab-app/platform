@@ -87,17 +87,11 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/builder-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/builder-e2e/**/*.{js,ts}"]
       },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": [],
-  "implicitDependencies": [
-    "builder"
-  ]
+  "implicitDependencies": ["builder"]
 }

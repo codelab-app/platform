@@ -250,7 +250,9 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(`npx nx affected --target=lint --parallel=3`)
-            execCommand(`npx prettier --check ./**/*.{graphql,yaml,json}`)
+            execCommand(
+              `npx prettier --check "./**/*.{graphql,yaml,json}" "./*.json"`,
+            )
             execCommand(
               `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
             )

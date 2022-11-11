@@ -1,8 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
+  "ignorePatterns": ["**/*"],
   "plugins": [
     "@nrwl/nx",
     "@typescript-eslint",
@@ -32,57 +30,26 @@
   ],
   // Used for import plugin
   "settings": {
-    "extensions": [
-      ".js",
-      ".jsx",
-      ".ts",
-      ".tsx"
-    ],
+    "extensions": [".js", ".jsx", ".ts", ".tsx"],
     // Can't resolve for some reason
-    "import/ignore": [
-      "react-query"
-    ],
+    "import/ignore": ["react-query"],
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       "typescript": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ],
-        "project": [
-          "**/tsconfig.lib.json",
-          "**/tsconfig.spec.json"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "project": ["**/tsconfig.lib.json", "**/tsconfig.spec.json"]
       },
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ],
-        "project": [
-          "**/tsconfig.lib.json",
-          "**/tsconfig.spec.json"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "project": ["**/tsconfig.lib.json", "**/tsconfig.spec.json"]
       }
     }
   },
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         // "max-params": [
         //   "error",
@@ -101,10 +68,7 @@
         //   }
         // ],
         //        "unused-imports/no-unused-imports-ts": "error",
-        "lodash/import-scope": [
-          "error",
-          "method"
-        ],
+        "lodash/import-scope": ["error", "method"],
         "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",
@@ -112,9 +76,7 @@
         "react/no-unknown-property": [
           "error",
           {
-            "ignore": [
-              "css"
-            ]
+            "ignore": ["css"]
           }
         ],
         "jest/expect-expect": "off",
@@ -310,9 +272,7 @@
           "error",
           "always",
           {
-            "markers": [
-              "/"
-            ],
+            "markers": ["/"],
             "block": {
               "balanced": true
             }
@@ -322,14 +282,7 @@
         "simple-import-sort/imports": [
           "error",
           {
-            "groups": [
-              [
-                "^\\u0000",
-                "^@?\\w",
-                "^[^.]",
-                "^\\."
-              ]
-            ]
+            "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
           }
         ],
         "simple-import-sort/exports": "error",
@@ -362,10 +315,7 @@
               // "type": ["concrete", "abstract"]
               {
                 "sourceTag": "type:abstract",
-                "onlyDependOnLibsWithTags": [
-                  "type:abstract",
-                  "scope:codegen"
-                ]
+                "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
               },
               // {
               //   "sourceTag": "scope:backend",
@@ -428,10 +378,7 @@
               },
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": [
-                  "scope:shared",
-                  "type:abstract"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
               },
               // {
               //   "sourceTag": "layer:domain:backend",
@@ -445,9 +392,7 @@
               // },
               {
                 "sourceTag": "scope:publishable",
-                "onlyDependOnLibsWithTags": [
-                  "scope:publishable"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:publishable"]
               }
             ]
           }
@@ -474,97 +419,47 @@
           },
           {
             "blankLine": "always",
-            "prev": [
-              "const",
-              "let",
-              "var",
-              "if",
-              "block-like"
-            ],
+            "prev": ["const", "let", "var", "if", "block-like"],
             "next": "*"
           },
           {
             "blankLine": "any",
-            "prev": [
-              "const",
-              "let",
-              "var"
-            ],
-            "next": [
-              "const",
-              "let",
-              "var",
-              "expression"
-            ]
+            "prev": ["const", "let", "var"],
+            "next": ["const", "let", "var", "expression"]
           },
           {
             "blankLine": "never",
-            "prev": [
-              "singleline-const",
-              "singleline-let",
-              "singleline-var"
-            ],
-            "next": [
-              "singleline-const",
-              "singleline-let",
-              "singleline-var"
-            ]
+            "prev": ["singleline-const", "singleline-let", "singleline-var"],
+            "next": ["singleline-const", "singleline-let", "singleline-var"]
           },
           {
             "blankLine": "always",
-            "prev": [
-              "*"
-            ],
-            "next": [
-              "multiline-const",
-              "multiline-let",
-              "multiline-var"
-            ]
+            "prev": ["*"],
+            "next": ["multiline-const", "multiline-let", "multiline-var"]
           },
           {
             "blankLine": "always",
-            "prev": [
-              "multiline-const",
-              "multiline-let",
-              "multiline-var"
-            ],
-            "next": [
-              "*"
-            ]
+            "prev": ["multiline-const", "multiline-let", "multiline-var"],
+            "next": ["*"]
           },
           {
             "blankLine": "any",
-            "prev": [
-              "cjs-import"
-            ],
-            "next": [
-              "const",
-              "let",
-              "var"
-            ]
+            "prev": ["cjs-import"],
+            "next": ["const", "let", "var"]
           }
         ],
-        "lines-between-class-members": [
-          "error",
-          "always"
-        ]
+        "lines-between-class-members": ["error", "always"]
       }
     },
     {
-      "files": [
-        "*.spec.ts",
-        "*.spec.tsx"
-      ],
+      "files": ["*.spec.ts", "*.spec.tsx"],
       "rules": {
         "import/no-unresolved": "error",
         "import/named": "error"
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "extends": [
         "plugin:@nrwl/nx/typescript",
         "plugin:jest-formatting/strict"
@@ -599,9 +494,7 @@
             }
           }
         ],
-        "@typescript-eslint/no-shadow": [
-          "error"
-        ],
+        "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/array-type": [
           "error",
           {
@@ -612,22 +505,14 @@
       }
     },
     {
-      "files": [
-        "*.stories.jsx",
-        "*.stories.tsx"
-      ],
+      "files": ["*.stories.jsx", "*.stories.tsx"],
       "rules": {
         "react/jsx-props-no-spreading": "off"
       }
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     }
     // {
