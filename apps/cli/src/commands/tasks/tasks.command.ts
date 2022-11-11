@@ -11,6 +11,8 @@ import { getStageOptions } from '../../shared/command'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
 
+console.log('test')
+
 /**
  * We require this since execCommand creates a new process and any env set before that doesn't apply
  */
