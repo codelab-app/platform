@@ -43,7 +43,7 @@ resource "auth0_action" "assign_default_role" {
 
       await client.assignRolestoUser({
         id: event.user.user_id,
-      }, { roles: ["${auth0_role.user_role.id}"] })
+      }, { roles: ["${auth0_role.user_role.id}", "${auth0_role.admin_role.id}"] })
     };
 
     /**

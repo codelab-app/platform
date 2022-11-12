@@ -74,7 +74,7 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.10.1
   node: circleci/node@4.7.0
-  nx: nrwl/nx@1.6.0
+  nx: nrwl/nx@1.6.1
   queue: eddiewebb/queue@1.7.0
   swissknife: roopakv/swissknife@0.69.0
   terraform: circleci/terraform@3.1.0
@@ -218,7 +218,6 @@ jobs:
       - install-package
       - run:
           name: 'Clear Cache'
-          # clear cache here because NX cache can get quite large, we rely on remote cache instead
           command: |
             rm -rf ~/project/node_modules/nx/.cache
       - run:
@@ -441,7 +440,6 @@ workflows:
           <<: *filters-master
           e: docker-node
           size: medium
-          context: CI
       - plan:
           <<: *filters-master
           e: terraform
@@ -463,14 +461,12 @@ workflows:
       # This doesn't actually have access to Slack errors, must be at end of step
       #      - notify-failure:
       #          <<: *filters-pr
-      #          context: CI
       #          e: docker-node
       - install-and-build-workspace:
           <<: *filters-pr
           # Can't build with machine image, causes build issues
           e: docker-node
           size: large
-          context: CI
       - lint:
           <<: *filters-pr
           e: docker-node
