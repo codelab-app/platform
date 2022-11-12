@@ -437,29 +437,21 @@ workflows:
   infra:
     jobs:
       - install-and-build-cli:
-          <<:
-            - *filters-pr
-            - *filters-master
+          <<: *filters-master
           e: docker-node
           size: medium
       - plan:
-          <<:
-            - *filters-pr
-            - *filters-master
+          <<: *filters-master
           e: terraform
           requires:
             - install-and-build-cli
       - hold-apply:
-          <<:
-            - *filters-pr
-            - *filters-master
+          <<: *filters-master
           type: approval
           requires:
             - plan
       - apply:
-          <<:
-            - *filters-pr
-            - *filters-master
+          <<: *filters-master
           e: terraform
           requires:
             - hold-apply
