@@ -38,8 +38,20 @@ export const terraformCommand: CommandModule<unknown, unknown> = {
         'terraform apply',
         (argv) => argv,
         ({ stage }) => {
+          const autoApprove = stage === Stage.Prod ? '-auto-approve' : ''
+
           return execCommand(
-            `cd terraform; export TF_WORKSPACE=${stage}; terraform -chdir=environments/${stage} apply`,
+            `cd terraform; export TF_WORKSPACE=${stage}; terraform -chdir=environments/${stage} apply ${autoApprove}`,
+          )
+        },
+      )
+      .command(
+        'validate',
+        'terraform validate',
+        (argv) => argv,
+        ({ stage }) => {
+          return execCommand(
+            `cd terraform; export TF_WORKSPACE=${stage}; terraform -chdir=environments/${stage} validate`,
           )
         },
       )

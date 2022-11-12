@@ -211,6 +211,31 @@ jobs:
             - project/node_modules
             - project/dist
 
+  install-and-build-cli:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - install-package
+      - run:
+          name: 'Clear Cache'
+          # clear cache here because NX cache can get quite large, we rely on remote cache instead
+          command: |
+            rm -rf ~/project/node_modules/nx/.cache
+      - run:
+          name: 'Build CI'
+          command: npx nx build cli --verbose -c ci
+      - save_cache:
+          name: 'Save Cache'
+          key: dep-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.yarn
+            - ~/project/node_modules
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/node_modules
+            - project/dist
+
   lint:
     <<: *executor-params
     environment:
@@ -294,13 +319,13 @@ jobs:
           command: terraform -chdir=terraform fmt
       - run:
           name: 'Terraform Init'
-          command: terraform -chdir=terraform init
+          command: yarn cli terraform --stage=prod init
       - run:
           name: 'Terraform Validate'
-          command: terraform -chdir=terraform validate
+          command: yarn cli terraform --stage=prod validate
       - run:
           name: 'Terraform Plan'
-          command: terraform -chdir=terraform plan
+          command: yarn cli terraform --stage=prod plan
       - persist_to_workspace:
           root: ~/
           paths:
@@ -315,7 +340,7 @@ jobs:
           at: ..
       - run:
           name: 'Terraform Apply'
-          command: terraform -chdir=terraform apply -auto-approve
+          command: yarn cli terraform --stage=prod y -auto-approve
   #      - run:
   #          name: 'Terraform Destroy'
   #          command: terraform -chdir=terraform destroy
@@ -410,11 +435,18 @@ jobs:
           template: basic_fail_1
 
 workflows:
-  infra-pr:
+  infra:
     jobs:
+      - install-and-build-cli:
+          <<: *filters-pr
+          e: docker-node
+          size: medium
+          context: CI
       - plan:
           <<: *filters-master
           e: terraform
+          requires:
+            - install-and-build-cli
       - hold-apply:
           <<: *filters-master
           type: approval
