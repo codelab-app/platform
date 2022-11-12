@@ -438,7 +438,7 @@ workflows:
   infra:
     jobs:
       - install-and-build-cli:
-          <<: *filters-pr
+          <<: *filters-master
           e: docker-node
           size: medium
           context: CI
