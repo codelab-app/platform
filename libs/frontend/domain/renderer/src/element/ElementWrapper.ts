@@ -8,17 +8,11 @@ import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
-import React, {
-  Fragment,
-  RefObject,
-  useCallback,
-  useContext,
-  useEffect,
-} from 'react'
+import React, { RefObject, useCallback, useContext, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
-import { DraggableElement } from './DraggableElement'
+import { DraggableElementWrapper } from './DraggableElementWrapper'
 import {
   childrenAreEmpty,
   extractValidProps,
@@ -43,7 +37,7 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ renderService, element, extraProps = {}, postAction }) => {
+  ({ renderService, element, extraProps = {}, postAction, ...rest }) => {
     const globalPropsContext = useContext(GlobalPropsContext)
     const globalProps = globalPropsContext[element.id]
 
@@ -70,7 +64,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     renderService.logRendered(element, renderOutputs)
 
     // Use mapOutput because the output may be array or a single item
-    const Children = mapOutput(renderOutputs, (renderOutput) => {
+    const Rendered = mapOutput(renderOutputs, (renderOutput) => {
       // Render the element's children
       let children = renderService.renderChildren(renderOutput)
       const hasNoChildren = childrenAreEmpty(children)
@@ -97,7 +91,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       const IntermediateChildren = jsx(
         ReactComponent,
         // merge because some refs are not resolved
-        extractedProps,
+        mergeProps(extractedProps, rest),
         children,
       )
 
@@ -121,13 +115,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           element.setRenderingError(null)
         },
       },
-      // root element is not draggable
-      !element.parentElement
-        ? React.createElement(Fragment, {}, Children)
-        : React.createElement(DraggableElement, {
-            element,
-            children: Children,
-          }),
+      React.createElement(DraggableElementWrapper, {
+        children: Rendered,
+        element,
+      }),
     )
   },
 )
