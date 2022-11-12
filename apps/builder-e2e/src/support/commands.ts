@@ -1,5 +1,6 @@
 import '@testing-library/cypress/add-commands'
 import { auth0Commands } from './auth0/auth0.register'
+import { builderCommands } from './builder'
 import { databaseCommands } from './database'
 import { UICommands } from './entities'
 import { helpersCommands } from './helpers'
@@ -9,6 +10,7 @@ const commands = [
   ...databaseCommands,
   ...UICommands,
   ...auth0Commands,
+  ...builderCommands,
 ]
 
 for (const cmd of commands) {

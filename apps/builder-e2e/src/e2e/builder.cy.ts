@@ -17,13 +17,7 @@ const ELEMENT_COL_B = 'Col B'
 const ELEMENT_TEXT = 'Text'
 const ELEMENT_BUTTON = 'Button'
 
-interface ElementData {
-  name: string
-  atom?: string
-  parentElement: string
-}
-
-const elements: Array<ElementData> = [
+const elements = [
   { name: ELEMENT_CONTAINER, parentElement: ROOT_ELEMENT_NAME },
   { name: ELEMENT_ROW, parentElement: ELEMENT_CONTAINER },
   {
@@ -106,40 +100,7 @@ describe('Elements CRUD', () => {
 
   describe('create', () => {
     it('should be able to create elements', () => {
-      cy.wrap(elements).each((element: ElementData) => {
-        const { atom, name, parentElement } = element
-
-        cy.getSider()
-          .find('.ant-page-header-heading')
-          .getButton({ icon: 'plus' })
-          .click()
-
-        cy.getModal().findByLabelText('Name').type(name)
-
-        /**
-         * We skip this if parent element is root, since it is disabled and can't be accessed
-         */
-        if (parentElement !== ROOT_ELEMENT_NAME) {
-          cy.getModal().setFormFieldValue({
-            label: 'Parent element',
-            value: parentElement,
-            type: FIELD_TYPE.SELECT,
-          })
-        }
-
-        if (atom) {
-          cy.getModal().setFormFieldValue({
-            label: 'Atom',
-            value: atom,
-            type: FIELD_TYPE.SELECT,
-          })
-        }
-
-        cy.getModal()
-          .getModalAction(/Create/)
-          .click()
-        cy.getModal().should('not.exist', { timeout: 10000 })
-      })
+      cy.createElementTree(elements)
     })
 
     it.skip('should be able to view props', () => {

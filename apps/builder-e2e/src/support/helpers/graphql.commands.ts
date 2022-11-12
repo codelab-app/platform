@@ -7,6 +7,11 @@ const interceptGraphQL = (
   cy.intercept('POST', '/api/graphql', interceptor)
 }
 
+const waitForApiCalls = () => {
+  cy.intercept('/api/*').as('graphqlQueries')
+  cy.wait('@graphqlQueries')
+}
+
 const hasOperationName = (
   req: CyHttpMessages.IncomingHttpRequest,
   operationName: string,
@@ -47,9 +52,11 @@ export const graphqlRequest = (
 export interface CypressGraphQLHelpersCommands {
   interceptGraphQL: typeof interceptGraphQL
   graphqlRequest: typeof graphqlRequest
+  waitForApiCalls: typeof waitForApiCalls
 }
 
 export const graphQLCommands: Array<CypressCommand> = [
   { name: 'interceptGraphQL', fn: interceptGraphQL },
   { name: 'graphqlRequest', fn: graphqlRequest },
+  { name: 'waitForApiCalls', fn: waitForApiCalls },
 ]
