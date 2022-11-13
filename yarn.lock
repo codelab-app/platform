@@ -9600,6 +9600,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jsonp@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@types/jsonp@npm:0.2.1"
+  checksum: 51a01a8756e59b94c457182707b85e8df191c0cb62f346c4ece4746406013f95f3515b9423ce16ee7ffbac706ea2f215d8a8c78ad3a9c591b0e1661cdb8c8821
+  languageName: node
+  linkType: hard
+
 "@types/jsonwebtoken@npm:^8.5.0":
   version: 8.5.8
   resolution: "@types/jsonwebtoken@npm:8.5.8"
@@ -14029,6 +14036,7 @@ __metadata:
     "@types/jquery": 3.5.13
     "@types/js-cookie": 3.0.1
     "@types/json2csv": 5.0.3
+    "@types/jsonp": ^0.2.1
     "@types/jwt-decode": 3.1.0
     "@types/lodash": 4.14.186
     "@types/node": 18.7.18
@@ -14130,6 +14138,7 @@ __metadata:
     js-file-download: 0.4.12
     json-schema: 0.4.0
     json2csv: 5.0.7
+    jsonp: ^0.2.1
     jsonwebtoken: 8.5.1
     jwt-decode: 3.1.2
     lint-staged: 12.4.1
@@ -14183,6 +14192,7 @@ __metadata:
     slugify: 1.6.5
     stringify-object: 4.0.1
     tailwindcss: 3.1.8
+    to-querystring: ^1.1.1
     ts-essentials: 9.1.2
     ts-jest: 28.0.8
     ts-node: 10.9.1
@@ -15671,7 +15681,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.9":
+"debug@npm:2.6.9, debug@npm:^2.1.3, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
   dependencies:
@@ -22611,6 +22621,15 @@ __metadata:
   version: 0.0.0
   resolution: "jsonify@npm:0.0.0"
   checksum: d8d4ed476c116e6987a460dcb82f22284686caae9f498ac87b0502c1765ac1522f4f450a4cad4cc368d202fd3b27a3860735140a82867fc6d558f5f199c38bce
+  languageName: node
+  linkType: hard
+
+"jsonp@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "jsonp@npm:0.2.1"
+  dependencies:
+    debug: ^2.1.3
+  checksum: 90aabd9deb3a9ba83aedf8d40e1aaff1fc29f3f3fe42985a661782498dde526a7cd9b7bec4b8721f7d0beafab9e5ccfdafd46640f7dd6c58d529a6bb5238e2b8
   languageName: node
   linkType: hard
 
@@ -31853,6 +31872,13 @@ __metadata:
   dependencies:
     kind-of: ^3.0.2
   checksum: 9425effee5b43e61d720940fa2b889623f77473d459c2ce3d4a580a4405df4403eec7be6b857455908070566352f9e2417304641ed158dda6f6a365fe3e66d70
+  languageName: node
+  linkType: hard
+
+"to-querystring@npm:^1.1.1":
+  version: 1.1.3
+  resolution: "to-querystring@npm:1.1.3"
+  checksum: 19e26a3faa1ffcedb75545ab32720da30deae15231250360dbb9935eea3ee968e4eff8aef16b8c4fc24b4063af7e788a13b1627ed8d21b9e85a668311689c63f
   languageName: node
   linkType: hard
 
