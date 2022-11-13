@@ -29,7 +29,7 @@ resource-class: &resource-class
       default: small
 
 # Each job select which custom executor to use
-executor-params: &executor-params #  <<: *resource-class
+executor-params: &executor-params
   parameters:
     e:
       type: executor
@@ -135,6 +135,30 @@ commands:
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
 
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      - run:
+          # Manually install because we can't add `yarn` to terraform orb
+          # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+          name: 'Install Terraform'
+          command: |
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            sudo apt update
+            sudo apt install terraform
+
+      #          command: |
+      #            sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+      #
+      #            wget -O- https://apt.releases.hashicorp.com/gpg | \
+      #            gpg --dearmor | \
+      #            sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+      #
+      #            gpg --no-default-keyring \
+      #            --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+      #            --fingerprint
+      #
+      #            sudo apt-get update
+      #
+      #            sudo apt-get install terraform
       - run:
           name: 'Set Node Version'
           command: |
@@ -307,11 +331,11 @@ jobs:
   plan:
     <<: *executor-params
     steps:
-      - checkout
+      - setup-workspace
       - run:
+          name: 'Create .terraformrc file locally'
           command: |
             echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
-          name: Create .terraformrc file locally
       - run: terraform --version
       - run:
           name: 'Terraform Format'
@@ -334,12 +358,12 @@ jobs:
   apply:
     <<: *executor-params
     steps:
-      - checkout
-      - attach_workspace:
-          at: ..
+      - setup-workspace
+      #      - attach_workspace:
+      #          at: ..
       - run:
           name: 'Terraform Apply'
-          command: yarn cli terraform --stage=prod y -auto-approve
+          command: yarn cli terraform --stage=prod apply
   #      - run:
   #          name: 'Terraform Destroy'
   #          command: terraform -chdir=terraform destroy
@@ -437,22 +461,22 @@ workflows:
   infra:
     jobs:
       - install-and-build-cli:
-          <<: *filters-master
+          <<: *filters-pr
           e: docker-node
           size: medium
       - plan:
-          <<: *filters-master
-          e: terraform
+          <<: *filters-pr
+          e: docker-node
           requires:
             - install-and-build-cli
       - hold-apply:
-          <<: *filters-master
+          <<: *filters-pr
           type: approval
           requires:
             - plan
       - apply:
-          <<: *filters-master
-          e: terraform
+          <<: *filters-pr
+          e: docker-node
           requires:
             - hold-apply
 
