@@ -1,4 +1,5 @@
 {
+  "name": "frontend-domain-renderer",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/domain/renderer/src",
   "projectType": "library",

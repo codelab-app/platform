@@ -1,4 +1,5 @@
 {
+  "name": "frontend-view",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/view",
   "projectType": "library",

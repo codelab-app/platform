@@ -1,4 +1,5 @@
 {
+  "name": "frontend-model-infra-mobx",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/model/infra/mobx/src",
   "projectType": "library",

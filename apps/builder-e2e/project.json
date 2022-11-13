@@ -1,4 +1,5 @@
 {
+  "name": "builder-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/builder-e2e/src",
   "projectType": "application",
@@ -39,7 +40,6 @@
         },
         "dev": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
-          // "devServerTarget": "builder-e2e:serve:dev",
           "watch": true,
           "exit": false
         }

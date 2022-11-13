@@ -1,4 +1,5 @@
 {
+  "name": "frontend-domain-page",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/domain/page/src",
   "projectType": "library",

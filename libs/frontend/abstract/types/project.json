@@ -1,4 +1,5 @@
 {
+  "name": "frontend-abstract-types",
   "sourceRoot": "libs/frontend/abstract/types/src",
   "projectType": "library",
   "targets": {

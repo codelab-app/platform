@@ -1,4 +1,5 @@
 {
+  "name": "frontend-shared-style",
   "sourceRoot": "libs/frontend/shared/style/src",
   "projectType": "library",
   "targets": {

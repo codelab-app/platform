@@ -1,4 +1,5 @@
 {
+  "name": "backend-abstract-types",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/abstract/types/src",
   "projectType": "library",

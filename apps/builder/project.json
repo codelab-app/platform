@@ -1,4 +1,5 @@
 {
+  "name": "builder",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/builder/src",
   "projectType": "application",

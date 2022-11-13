@@ -1,4 +1,5 @@
 {
+  "name": "shared-abstract-types",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/abstract/types/src",
   "projectType": "library",

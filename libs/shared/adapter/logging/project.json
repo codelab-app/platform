@@ -1,4 +1,5 @@
 {
+  "name": "shared-adapter-logging",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/adapter/logging/src",
   "projectType": "library",
