@@ -37,7 +37,7 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
     `yarn cli data export --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false`,
-    { timeout: 1000000 },
+    { timeout: 90000 },
   )
 
   return cy.readFile(file).then((payload: ExportedData) => {
