@@ -15505,11 +15505,6 @@ type ResourcesConnection {
   totalCount: Int!
 }
 
-enum Role {
-  Admin
-  User
-}
-
 enum SortDirection {
   """
   Sort by field values in ascending order.
@@ -18171,7 +18166,7 @@ type User {
   ): UserElementsConnection!
   email: String!
   id: ID!
-  roles: [Role!]!
+  roles: [String!]!
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
     directed: Boolean = true
@@ -18498,7 +18493,7 @@ input UserCreateInput {
   components: UserComponentsFieldInput
   elements: UserElementsFieldInput
   email: String!
-  roles: [Role!]!
+  roles: [String!]!
   tags: UserTagsFieldInput
   types: UserTypesFieldInput
   username: String!
@@ -18792,6 +18787,7 @@ input UserElementsUpdateFieldInput {
 input UserOnCreateInput {
   auth0Id: String!
   email: String!
+  roles: [String!]!
   username: String!
 }
 
@@ -19051,7 +19047,9 @@ input UserUpdateInput {
   components: [UserComponentsUpdateFieldInput!]
   elements: [UserElementsUpdateFieldInput!]
   email: String
-  roles: [Role!]
+  roles: [String!]
+  roles_POP: Int
+  roles_PUSH: [String!]
   tags: [UserTagsUpdateFieldInput!]
   types: [UserTypesUpdateFieldInput!]
   username: String
@@ -19165,10 +19163,10 @@ input UserWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
-  roles: [Role!]
-  roles_INCLUDES: Role
-  roles_NOT: [Role!]
-  roles_NOT_INCLUDES: Role
+  roles: [String!]
+  roles_INCLUDES: String
+  roles_NOT: [String!]
+  roles_NOT_INCLUDES: String
   tagsAggregate: UserTagsAggregateInput
   tagsConnection_ALL: UserTagsConnectionWhere
   tagsConnection_NONE: UserTagsConnectionWhere

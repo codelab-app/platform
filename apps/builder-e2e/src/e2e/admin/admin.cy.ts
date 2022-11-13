@@ -1,8 +1,22 @@
+import { IRole } from '@codelab/shared/abstract/core'
 import { exportAndAssert, importData, seedData } from './assert'
+
+// data's correctness doesn't matter here
+// just need user with test email to exist
+const createCypressUser = () =>
+  cy.createUser({
+    input: {
+      auth0Id: 'test2',
+      email: 'cypress@codelab.app',
+      username: 'cypress@codelab.app',
+      roles: [IRole.Admin, IRole.User],
+    },
+  })
 
 describe('Admin', () => {
   before(() => {
     cy.resetDatabase()
+    createCypressUser()
   })
 
   /**
@@ -12,12 +26,10 @@ describe('Admin', () => {
   /**
    * Can be used as parameter into `exportAndAssert` to see output as file
    */
-  const filePath = './src/data/seed-data-2.test.json'
 
   describe('seed', () => {
     it('should seed Ant Design CSV data & export', () => {
       seedData()
-
       exportAndAssert().then((payload) => {
         initialPayload = payload
       })
@@ -36,7 +48,7 @@ describe('Admin', () => {
      */
     it('should import Ant Design data', () => {
       cy.resetDatabase()
-
+      createCypressUser()
       importData()
 
       return exportAndAssert().then((payload) => {

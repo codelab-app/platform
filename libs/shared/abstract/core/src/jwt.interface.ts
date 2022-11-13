@@ -2,11 +2,11 @@ import { Claims } from '@auth0/nextjs-auth0'
 import { IRole } from './role.enum'
 
 export interface CodelabApiClaims extends Claims {
-  email: string
+  // email: string
   roles: Array<IRole>
 }
 
-export const JWT_CLAIMS = 'https://api.codelab.ai/jwt/claims'
+export const JWT_CLAIMS = `https://api.codelab.app/jwt/claims`
 
 /**
  * Access tokens are what the OAuth client uses to make requests to an API

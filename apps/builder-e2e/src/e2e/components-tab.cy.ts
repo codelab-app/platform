@@ -2,7 +2,7 @@ import {
   AppCreateInput,
   AtomCreateInput,
 } from '@codelab/shared/abstract/codegen'
-import { connectTypeOwner, createAtomsData } from '@codelab/shared/data'
+import { connectOwner, createAtomsData } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
 import { createPageInput } from '../support/database/page'
@@ -26,7 +26,7 @@ describe('Components Tab', () => {
                 node: {
                   id: v4(),
                   name: `${atom.name} API`,
-                  owner: userId ? connectTypeOwner(userId) : undefined,
+                  owner: userId ? connectOwner(userId) : undefined,
                 },
               },
             },

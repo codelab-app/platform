@@ -4,7 +4,7 @@
   "projectType": "application",
   "targets": {
     "currents": {
-      "executor": "@codelab-app/nx:currents",
+      "executor": "@currents/nx:currents",
       "options": {
         "cypressExecutor": "e2e"
       },
@@ -39,13 +39,7 @@
         },
         "dev": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
-          "devServerTarget": "builder-e2e:serve:dev",
-          "watch": true,
-          "exit": false
-        },
-        "start": {
-          "cypressConfig": "apps/builder-e2e/cypress.ci.config.ts",
-          "baseUrl": "http://127.0.0.1:3000",
+          // "devServerTarget": "builder-e2e:serve:dev",
           "watch": true,
           "exit": false
         }
@@ -61,17 +55,17 @@
         "dev": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
+              "command": "nx serve-test builder -c dev"
             },
             {
-              "command": "nx serve-test builder -c dev"
+              "command": "npx wait-on --interval 1000 --delay 5000 'http://127.0.0.1:3001' && echo 'READY'"
             }
           ]
         },
         "test": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
+              "command": "npx wait-on --interval 1000  'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
               "command": "nx serve-test builder -c test"
@@ -81,7 +75,7 @@
         "ci": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
+              "command": "npx wait-on --interval 1000 'http://127.0.0.1:3000' && echo 'READY'"
             },
             {
               "command": "nx serve-test builder -c ci"

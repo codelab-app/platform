@@ -3,14 +3,16 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/cli",
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
         "assets": ["apps/cli/src/assets"],
-        "webpackConfig": "apps/cli/webpack.config.js"
+        "webpackConfig": "apps/cli/webpack.config.js",
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "test": {},
@@ -43,7 +45,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/cli"],
+      "outputs": ["{workspaceRoot}/coverage/apps/cli"],
       "options": {
         "jestConfig": "apps/cli/jest.config.ts",
         "passWithNoTests": true

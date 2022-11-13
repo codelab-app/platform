@@ -16826,11 +16826,6 @@ export type ResourcesConnection = {
   totalCount: Scalars['Int']
 }
 
-export enum Role {
-  Admin = 'Admin',
-  User = 'User',
-}
-
 export enum SortDirection {
   /** Sort by field values in ascending order. */
   ASC = 'ASC',
@@ -19913,7 +19908,7 @@ export type User = {
   elementsConnection: UserElementsConnection
   email: Scalars['String']
   id: Scalars['ID']
-  roles: Array<Role>
+  roles: Array<Scalars['String']>
   tags: Array<Tag>
   tagsAggregate?: Maybe<UserTagTagsAggregationSelection>
   tagsConnection: UserTagsConnection
@@ -20324,7 +20319,7 @@ export type UserCreateInput = {
   components?: InputMaybe<UserComponentsFieldInput>
   elements?: InputMaybe<UserElementsFieldInput>
   email: Scalars['String']
-  roles: Array<Role>
+  roles: Array<Scalars['String']>
   tags?: InputMaybe<UserTagsFieldInput>
   types?: InputMaybe<UserTypesFieldInput>
   username: Scalars['String']
@@ -20623,6 +20618,7 @@ export type UserElementsUpdateFieldInput = {
 export type UserOnCreateInput = {
   auth0Id: Scalars['String']
   email: Scalars['String']
+  roles: Array<Scalars['String']>
   username: Scalars['String']
 }
 
@@ -20883,7 +20879,9 @@ export type UserUpdateInput = {
   components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
   elements?: InputMaybe<Array<UserElementsUpdateFieldInput>>
   email?: InputMaybe<Scalars['String']>
-  roles?: InputMaybe<Array<Role>>
+  roles?: InputMaybe<Array<Scalars['String']>>
+  roles_POP?: InputMaybe<Scalars['Int']>
+  roles_PUSH?: InputMaybe<Array<Scalars['String']>>
   tags?: InputMaybe<Array<UserTagsUpdateFieldInput>>
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>
   username?: InputMaybe<Scalars['String']>
@@ -20961,10 +20959,10 @@ export type UserWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  roles?: InputMaybe<Array<Role>>
-  roles_INCLUDES?: InputMaybe<Role>
-  roles_NOT?: InputMaybe<Array<Role>>
-  roles_NOT_INCLUDES?: InputMaybe<Role>
+  roles?: InputMaybe<Array<Scalars['String']>>
+  roles_INCLUDES?: InputMaybe<Scalars['String']>
+  roles_NOT?: InputMaybe<Array<Scalars['String']>>
+  roles_NOT_INCLUDES?: InputMaybe<Scalars['String']>
   tagsAggregate?: InputMaybe<UserTagsAggregateInput>
   tagsConnection_ALL?: InputMaybe<UserTagsConnectionWhere>
   tagsConnection_NONE?: InputMaybe<UserTagsConnectionWhere>
@@ -21796,7 +21794,7 @@ export type UserFragment = {
   username: string
   email: string
   auth0Id: string
-  roles: Array<Role>
+  roles: Array<string>
   apps: Array<{ __typename?: 'App' } & AppFragment>
 }
 

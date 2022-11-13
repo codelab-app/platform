@@ -1,11 +1,15 @@
 import { initAuth0 } from '@auth0/nextjs-auth0'
-import { Config } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/env'
 
 /**
  * For Vercel preview, the URL provided as NEXT_PUBLIC_VERCEL_URL https://vercel.com/docs/concepts/projects/environment-variables doesn't have the correct format. It's missing `https`
  */
 export const auth0Instance = initAuth0({
-  baseURL: Config().auth0.baseUrl,
+  secret: Env().auth0.secret,
+  baseURL: Env().auth0.base_url,
+  clientID: Env().auth0.client_id,
+  clientSecret: Env().auth0.client_secret,
+  issuerBaseURL: Env().auth0.issuer_base_url,
 })
 
 // /**

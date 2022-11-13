@@ -5,9 +5,6 @@ export const appSelectionSet = `{
   id
   name
   slug
-  rootElement {
-    id
-  }
   store {
     ${storeSelectionSet}
   }

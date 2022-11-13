@@ -139,6 +139,7 @@
       ],
       "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data": ["libs/shared/data/src/index.ts"],
+      "@codelab/shared/env": ["libs/shared/env/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },

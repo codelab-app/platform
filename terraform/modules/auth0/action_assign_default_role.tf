@@ -17,7 +17,7 @@ resource "auth0_action" "assign_default_role" {
       * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
      */
     exports.onExecutePostLogin = async (event, api) => {
-      console.log(event.user.user_id)
+      console.log(event)
 
       const loginsCount = event.stats.logins_count
 
@@ -43,9 +43,8 @@ resource "auth0_action" "assign_default_role" {
 
       await client.assignRolestoUser({
         id: event.user.user_id,
-      }, { roles: ["${auth0_role.user_role.id}"] })
+      }, { roles: ["${auth0_role.user_role.id}", "${auth0_role.admin_role.id}"] })
     };
-
 
     /**
       * Handler that will be invoked when this action is resuming after an external redirect. If your

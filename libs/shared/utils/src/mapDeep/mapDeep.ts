@@ -1,11 +1,11 @@
 import { IPropData } from '@codelab/frontend/abstract/core'
+import { isServer } from '@codelab/shared/config'
 import isArray from 'lodash/isArray'
 import isObjectLike from 'lodash/isObjectLike'
 import map from 'lodash/map'
 import toPairsIn from 'lodash/toPairsIn'
 import { modelTypeKey } from 'mobx-keystone'
 import { Key } from 'react'
-import { isServer } from '../env'
 import { IKeyMapper, IOutput, IValueMapper } from './abstract'
 
 const isReactNode = (obj: IPropData) => Boolean(obj['$$typeof'])

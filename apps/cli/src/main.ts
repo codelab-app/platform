@@ -1,6 +1,7 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
+import { config } from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
@@ -9,8 +10,12 @@ import { resetCommand } from './commands/reset/reset.command'
 import { scrapeCommand } from './commands/scrape/scrape.command'
 import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
-import { getEnvOptions, setMiddleware } from './shared/command'
-import { Env } from './shared/utils/env'
+import { terraformCommand } from './commands/terraform/terraform.command'
+import { getStageOptions, loadStageMiddleware } from './shared/command'
+import { Stage } from './shared/utils/stage'
+
+// Assume `.env` if no other middleware
+config({})
 
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
@@ -19,16 +24,23 @@ import { Env } from './shared/utils/env'
  */
 void yargs(hideBin(process.argv))
   .scriptName('cli')
-  .options(getEnvOptions([Env.Dev, Env.Test, Env.Prod]))
-  .middleware(setMiddleware)
+  // .options(getEnvOptions([Stage.Dev, Stage.Test, Stage.Prod]))
+  // .middleware(loadStageMiddleware)
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */
   .command('data', 'Import / export / reset', (argv) =>
     argv
+      .command(seedCommand)
       .command(resetCommand)
       .command(importCommand)
       .command(exportCommand)
+      /**
+       * Here we initialize all data, data ID is created so may duplicate data
+       *
+       * - Basic Types
+       * - Atoms & interfaces
+       */
       .demandCommand(1, 'Please provide a command'),
   )
 
@@ -40,13 +52,11 @@ void yargs(hideBin(process.argv))
    * This uses puppeteer to scrape the API documentation as CSV file
    */
   .command(scrapeCommand)
+
   /**
-   * Here we initialize all data, data ID is created so may duplicate data
-   *
-   * - Basic Types
-   * - Atoms & interfaces
+   * Terraform
    */
-  .command(seedCommand)
+  .command(terraformCommand)
 
   /**
    * TS Parser

@@ -1,0 +1,1 @@
+../vercel-builder/vars-auth0-output.tf

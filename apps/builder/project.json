@@ -109,7 +109,7 @@
           "runInBand": true
         }
       },
-      "outputs": ["coverage/apps/builder"]
+      "outputs": ["{workspaceRoot}/coverage/apps/builder"]
     }
   },
   "tags": ["scope:frontend"],

@@ -38,14 +38,18 @@ export const MenuDesktop = () => {
 
           {user ? (
             <li css={tw`hidden laptop:flex p-2`}>
-              <Link className="btn-primary" href="/api/auth/login">
-                <a css={tw`flex  items-center`}>Logout</a>
+              <Link
+                className="btn-primary"
+                css={tw`flex  items-center`}
+                href="/api/auth/login"
+              >
+                Logout
               </Link>
             </li>
           ) : (
             <>
               <li css={tw`tablet:w-8 laptop:w-auto laptop:flex p-2`}>
-                <Link href="/api/auth/login">
+                <Link href="/api/auth/login" legacyBehavior>
                   <Button css={tw`rounded-lg mr-2`} ghost type="primary">
                     <a
                       css={tw`hidden text-base font-semibold laptop:flex items-center`}
@@ -56,7 +60,7 @@ export const MenuDesktop = () => {
                 </Link>
               </li>
               <li css={tw`hidden laptop:flex p-2`}>
-                <Link href="/api/auth/logout">
+                <Link href="/api/auth/logout" legacyBehavior>
                   <Button css={tw`rounded-lg`} type="primary">
                     <a
                       css={tw`hidden text-base font-semibold laptop:flex items-center`}

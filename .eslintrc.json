@@ -73,8 +73,16 @@
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",
         "react/jsx-sort-props": "error",
-        "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+        "react/no-unknown-property": [
+          "error",
+          {
+            "ignore": ["css"]
+          }
+        ],
         "jest/expect-expect": "off",
+        /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
+        "@next/next/google-font-display": "off",
+        "@next/next/google-font-preconnect": "off",
         "react/jsx-props-no-spreading": [
           "error",
           {

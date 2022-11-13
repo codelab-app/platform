@@ -1970,11 +1970,6 @@ export enum ResourceType {
   Rest = 'Rest',
 }
 
-export enum Role {
-  User = 'User',
-  Admin = 'Admin',
-}
-
 export enum SortDirection {
   /** Sort by field values in ascending order. */
   Asc = 'ASC',
@@ -6555,7 +6550,7 @@ export type User = {
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
-  roles: Array<Role>
+  roles: Array<Scalars['String']>
   types: Array<BaseType>
   typesAggregate?: Maybe<UserBaseTypeTypesAggregationSelection>
   apps: Array<App>
@@ -20680,7 +20675,7 @@ export type UserCreateInput = {
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
-  roles: Array<Role>
+  roles: Array<Scalars['String']>
   types?: InputMaybe<UserTypesFieldInput>
   apps?: InputMaybe<UserAppsFieldInput>
   elements?: InputMaybe<UserElementsFieldInput>
@@ -20944,6 +20939,7 @@ export type UserOnCreateInput = {
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
+  roles: Array<Scalars['String']>
 }
 
 export type UserOptions = {
@@ -21171,7 +21167,9 @@ export type UserUpdateInput = {
   auth0Id?: InputMaybe<Scalars['String']>
   email?: InputMaybe<Scalars['String']>
   username?: InputMaybe<Scalars['String']>
-  roles?: InputMaybe<Array<Role>>
+  roles?: InputMaybe<Array<Scalars['String']>>
+  roles_POP?: InputMaybe<Scalars['Int']>
+  roles_PUSH?: InputMaybe<Array<Scalars['String']>>
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>
   apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>
   elements?: InputMaybe<Array<UserElementsUpdateFieldInput>>
@@ -21222,10 +21220,10 @@ export type UserWhere = {
   username_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   username_ENDS_WITH?: InputMaybe<Scalars['String']>
   username_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  roles?: InputMaybe<Array<Role>>
-  roles_NOT?: InputMaybe<Array<Role>>
-  roles_INCLUDES?: InputMaybe<Role>
-  roles_NOT_INCLUDES?: InputMaybe<Role>
+  roles?: InputMaybe<Array<Scalars['String']>>
+  roles_NOT?: InputMaybe<Array<Scalars['String']>>
+  roles_INCLUDES?: InputMaybe<Scalars['String']>
+  roles_NOT_INCLUDES?: InputMaybe<Scalars['String']>
   /** @deprecated Use `types_SOME` instead. */
   types?: InputMaybe<BaseTypeWhere>
   /** @deprecated Use `types_NONE` instead. */

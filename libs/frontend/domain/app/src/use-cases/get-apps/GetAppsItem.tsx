@@ -13,12 +13,7 @@ export interface GetAppsItemProps {
 
 export const GetAppsItem = observer<GetAppsItemProps>(({ app, appService }) => {
   const href = { pathname: PageType.PageList, query: { appId: app.id } }
-
-  const Title = (
-    <Link href={href}>
-      <a>{app.name}</a>
-    </Link>
-  )
+  const Title = <Link href={href}>{app.name}</Link>
 
   return (
     <Card

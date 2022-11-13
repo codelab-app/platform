@@ -1,5 +1,5 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { Config } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/env'
 import { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
@@ -32,6 +32,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
     plugins: {
       /**
        * JWK (JSON Web Key) - allows applications to retrieve public keys programmatically
+       *
        * PEM (Privacy Enhanced Mail ) - Certificate of Base 64 encoded public key certificate
        *
        * - The JWK contains the public certificate in addition to other claims about the key.
@@ -41,7 +42,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
       auth: new Neo4jGraphQLAuthJWKSPlugin({
         jwksEndpoint: new URL(
           '.well-known/jwks.json',
-          Config().auth0.issuer_base_url,
+          Env().auth0.issuer_base_url,
         ).href,
         /**
          * Use "dot path" since our roles path is nested

@@ -1,10 +1,8 @@
 // specific graphql-request bundled by esbuild, ignores node code, utilizes web api only
 // for edge run time: https://nextjs.org/docs/api-reference/edge-runtime
-import { apiOrigin } from '@codelab/shared/data'
+import { graphqlApiOrigin } from '@codelab/shared/config'
 import { DocumentNode, getOperationAST } from 'graphql'
 import { print } from 'graphql/language/printer'
-
-const endpoint = `${apiOrigin}/api/graphql`
 
 export const client = {
   request: async (
@@ -17,7 +15,7 @@ export const client = {
     const operationName = operation && operation.name?.value
     console.log({ operationName })
 
-    const data = await fetch(endpoint, {
+    const data = await fetch(graphqlApiOrigin, {
       method: 'POST',
       headers: {
         ...headers,

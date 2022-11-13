@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn cli tasks commitlint --env test $1
+yarn cli tasks commitlint --stage test $1

@@ -13,6 +13,9 @@ export const loginByAuth0Api = () => {
 
   // console.log(new URL('oauth/token', Cypress.env('auth0_domain')).href)
 
+  /**
+   * https://auth0.com/docs/api/authentication#get-token
+   */
   cy.request({
     method: 'POST',
     url: `${Cypress.env('auth0Domain')}oauth/token`,

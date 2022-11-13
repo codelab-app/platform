@@ -42,8 +42,8 @@ import { TAB_NAMES } from './data'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
+    css={tw`grid grid-cols-2 grid-rows-2 gap-4`}
     style={{ gridTemplateRows: '1fr auto' }}
-    tw="grid grid-cols-2 grid-rows-2 gap-4"
   >
     {children}
   </div>

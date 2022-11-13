@@ -1,5 +1,5 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import { Auth0SessionUser, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
 /**
  * Create user using OGM, used by Next.js serverless for first time logins.
@@ -8,7 +8,10 @@ import { Auth0SessionUser } from '@codelab/shared/abstract/core'
  */
 export const upsertUser = async (
   User: OGM_TYPES.UserModel,
-  user: Pick<Auth0SessionUser, 'sub' | 'email' | 'nickname'>,
+  user: Pick<
+    Auth0SessionUser,
+    'sub' | 'email' | 'nickname' | typeof JWT_CLAIMS
+  >,
 ) => {
   const [existing] = await User.find({
     where: {
@@ -16,8 +19,12 @@ export const upsertUser = async (
     },
   })
 
+  console.log('roles', user[JWT_CLAIMS].roles)
+
   if (existing) {
     // console.debug(`User with email ${user.email} already exists!`)
+
+    console.log('found')
 
     const { users } = await User.update({
       where: {
@@ -27,26 +34,48 @@ export const upsertUser = async (
         auth0Id: user.sub,
         email: user.email,
         username: user.nickname,
-        roles: [],
+        roles: user[JWT_CLAIMS].roles,
       },
     })
   } else {
     try {
+      console.log(
+        'create new',
+        JSON.stringify(
+          {
+            input: [
+              {
+                auth0Id: user.sub,
+                email: user.email,
+                username: user.email,
+                roles: user[JWT_CLAIMS].roles,
+              },
+            ],
+          },
+          null,
+          2,
+        ),
+      )
+
       const { users } = await User.create({
         input: [
           {
             auth0Id: user.sub,
             email: user.email,
             username: user.email,
-            roles: [],
+            roles: user[JWT_CLAIMS].roles,
           },
         ],
       })
+
+      console.log('creating new users', users)
 
       return users[0]
 
       // console.log('Created', users)
     } catch (e) {
+      console.log({ e })
+
       // console.error(e)
     }
   }

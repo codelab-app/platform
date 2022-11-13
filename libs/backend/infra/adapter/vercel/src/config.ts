@@ -1,7 +1,7 @@
 export const apiUrl = 'https://api.vercel.com'
 
 export const baseHeaders = {
-  Authorization: `Bearer ${process.env.VERCEL_AUTH_TOKEN}`,
+  Authorization: `Bearer ${process.env.VERCEL_API_TOKEN}`,
   'Content-Type': 'application/json',
 }
 

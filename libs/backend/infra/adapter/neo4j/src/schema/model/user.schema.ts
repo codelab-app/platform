@@ -19,24 +19,25 @@ export const userSchema = gql`
     apps: [App!]! @relationship(type: "OWNED_BY", direction: IN)
     elements: [Element!]! @relationship(type: "OWNED_BY", direction: IN)
     components: [Component!]! @relationship(type: "OWNED_BY", direction: IN)
-    roles: [Role!]!
+    roles: [String!]!
     tags: [Tag!]! @relationship(type: "OWNED_BY", direction: IN)
   }
 
-  extend type User
-    @auth(
-      rules: [
-        {
-          operations: [CREATE, UPDATE]
-          roles: ["User"]
-          where: { auth0Id: "$jwt.sub" }
-          bind: { auth0Id: "$jwt.sub" }
-        }
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["Admin"]
-          #          bind: { auth0Id: "$jwt.sub" }
-        }
-      ]
-    )
+  #  extend type User
+  #    @auth(
+  #      rules: [
+  #        {
+  #          operations: [CREATE, UPDATE]
+  #          roles: ["User"]
+  #          where: { auth0Id: "$jwt.sub" }
+  #          bind: { auth0Id: "$jwt.sub" }
+  #        }
+  #        {
+  #          operations: [UPDATE, CREATE, DELETE]
+  #          roles: ["Admin"]
+  #          #          where: { auth0Id: "$jwt.sub" }
+  #          #          bind: { auth0Id: "$jwt.sub" }
+  #        }
+  #      ]
+  #    )
 `

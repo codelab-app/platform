@@ -23,12 +23,6 @@ import { saveExportFile } from '../../use-cases/export/save-export-file'
 export const exportCommand: CommandModule<ExportProps, ExportProps> = {
   command: 'export',
   describe: 'Export user data',
-  // builder: (args) => {
-  //   return yargs.option('u', {
-  //     alias: 'url',
-  //     describe: 'the URL to make an HTTP request to',
-  //   })
-  // },
   builder: (argv) =>
     argv.options({
       ...skipUserDataOption,
@@ -117,7 +111,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
       ])
 
       const exportedUserData = await exportUserData({
-        appIds: [selectedApp.id],
+        appIds: [selectedApp],
       })
 
       await saveExportFile(

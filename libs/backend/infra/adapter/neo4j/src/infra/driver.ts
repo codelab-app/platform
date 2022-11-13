@@ -1,10 +1,10 @@
-import { Config } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/env'
 import neo4j, { Driver } from 'neo4j-driver'
 
 const defaultOptions = () => ({
-  uri: Config().neo4j.uri,
-  username: Config().neo4j.user,
-  password: Config().neo4j.password,
+  uri: Env().neo4j.uri,
+  username: Env().neo4j.user,
+  password: Env().neo4j.password,
 })
 
 // Keep a single driver instance if possible

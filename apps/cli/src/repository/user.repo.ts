@@ -1,5 +1,8 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { UserCreateInput } from '@codelab/shared/abstract/codegen'
+import { IRole } from '@codelab/shared/abstract/core'
+
+console.log('test')
 
 type UserUniqueWhereCallback = (user: UserCreateInput) =>
   | {
@@ -10,7 +13,7 @@ type UserUniqueWhereCallback = (user: UserCreateInput) =>
     }
 
 export const upsertUser = async (
-  user: UserCreateInput,
+  user: UserCreateInput & { roles: Array<IRole> },
   where: UserUniqueWhereCallback,
 ) => {
   const User = await Repository.instance.User

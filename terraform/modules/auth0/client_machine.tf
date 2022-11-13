@@ -1,7 +1,14 @@
 resource "auth0_client" "machine_client" {
-  name        = "Auth0 Actions"
+  name        = "Auth0 Machine Client"
   description = "A M2M client used by Auth0 Actions Flows"
   app_type    = "non_interactive"
+
+  web_origins = [
+    "${local.builder_url}",
+    "https://*.vercel.app"]
+  allowed_origins = [
+    "${local.builder_url}",
+    "https://*.vercel.app"]
 }
 
 # Allow machine client to access the scope of the management API

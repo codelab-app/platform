@@ -69,7 +69,8 @@ export class UserService
         })
       })
 
-      this.users.set(user.id, User.hydrate(user))
+      // TODO: temporarily cast user.roles to role[], because types generated in api is string[] because using roles[] makes the insertUser broken
+      this.users.set(user.id, User.hydrate(user as IUserDTO))
     })
 
     return

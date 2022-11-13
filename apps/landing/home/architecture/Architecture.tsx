@@ -18,8 +18,14 @@ export const Architecture = () => {
         <Button>Traditional Tech Stack</Button>
         <Button>Tech stack with Codelab</Button>
       </Space>
-      <Image src="/tech-stack-diagram-traditional-2x.png" width="100%" />
-      <Image src="/tech-stack-diagram-codelab-2x.png" width="100%" />
+      <Image
+        alt="Traditional Tech Stack Diagram"
+        src="/tech-stack-diagram-traditional-2x.png"
+      />
+      <Image
+        alt="Codelab Tech Stack Diagram"
+        src="/tech-stack-diagram-codelab-2x.png"
+      />
       {/* <img src="/tech-stack-diagram-traditional.png" /> */}
     </section>
   )

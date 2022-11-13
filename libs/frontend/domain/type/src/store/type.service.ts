@@ -34,6 +34,7 @@ import {
   getTypeApi,
   updateTypeApi,
 } from './apis/type.api'
+import { InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
@@ -105,6 +106,8 @@ export class TypeService
 
   @modelAction
   writeCache(fragment: ITypeDTO) {
+    console.log('TypeService.writeCache')
+
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
@@ -112,8 +115,14 @@ export class TypeService
     } else {
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
+
       // Write cache writes to the fields
-      typeModel.writeCache(fragment)
+      // if (
+      //   typeModel instanceof InterfaceType &&
+      //   fragment.__typename === 'InterfaceType'
+      // ) {
+      //   typeModel.writeFieldCache(fragment.fields)
+      // }
     }
 
     return typeModel
