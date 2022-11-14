@@ -31,6 +31,5 @@ export default defineConfig({
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
     setupNodeEvents,
-    specPattern: '**/e2e/**/component.cy.{js,jsx,ts,tsx}',
   },
 })
