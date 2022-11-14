@@ -1,5 +1,6 @@
 import { IPropData, ITypeService } from '@codelab/frontend/abstract/core'
 import { Form } from '@codelab/frontend/view/components'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import React, { useMemo } from 'react'
 import { useField } from 'uniforms'
@@ -31,9 +32,14 @@ export const SelectDefaultValue = ({
     [type?.id],
   )
 
+  const defaultValues =
+    !context.model.defaultValues && type?.kind === ITypeKind.ArrayType
+      ? []
+      : context.model.defaultValues
+
   return (
     <Form
-      model={{ defaultValues: context.model.defaultValues }}
+      model={{ defaultValues }}
       onChange={(key, value) => {
         context.onChange(key, value)
       }}
