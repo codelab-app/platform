@@ -24,6 +24,9 @@ export interface IBuilderService {
   _hoveredNode: Nullable<Ref<INode>>
   selectedNode: Nullable<INode>
   hoveredNode: Nullable<INode>
+  mainContentWidth: Nullable<number>
+  mainResizingContentWidth: Nullable<number>
+  resizingMainContent: boolean
   currentDragData: Nullable<Frozen<BuilderDragData>>
   activeElementTree: Maybe<IElementTree>
 
@@ -44,6 +47,9 @@ export interface IBuilderService {
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
   set_hoveredNode(element: Nullable<Ref<INode>>): void
   set_selectedNode(node: Nullable<Ref<INode>>): void
+  setMainContentWidth(width: Nullable<number>): void
+  setMainResizingContentWidth(width: Nullable<number>): void
+  setResizingMainContent(data: boolean): void
 
   setActiveTree(tab: RendererTab): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void

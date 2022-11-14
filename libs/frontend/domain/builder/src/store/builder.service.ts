@@ -42,7 +42,9 @@ export class BuilderService
      */
     _selectedNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
     _hoveredNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
-
+    mainContentWidth: prop<Nullable<number>>(null),
+    mainResizingContentWidth: prop<Nullable<number>>(null).withSetter(),
+    resizingMainContent: prop<boolean>(false).withSetter(),
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
 
     activeBuilderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
@@ -220,5 +222,11 @@ export class BuilderService
     }
 
     return undefined
+  }
+
+  @modelAction
+  setMainContentWidth(width: Nullable<number>) {
+    this.mainContentWidth = width
+    this.mainResizingContentWidth = width
   }
 }

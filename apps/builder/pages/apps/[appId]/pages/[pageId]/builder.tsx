@@ -235,7 +235,10 @@ PageBuilder.Layout = observer((page) => {
           />
         ))}
         Header={observer(() => (
-          <PageDetailHeader pageService={pageService} />
+          <PageDetailHeader
+            builderService={builderService}
+            pageService={pageService}
+          />
         ))}
         SidebarNavigation={() => (
           <SidebarNavigation

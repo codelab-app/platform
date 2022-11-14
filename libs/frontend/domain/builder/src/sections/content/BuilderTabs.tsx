@@ -10,10 +10,11 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { useWindowWidth } from '@react-hook/window-size'
 import { Alert, Layout, Spin, Tabs } from 'antd'
 import { Content, Header } from 'antd/lib/layout/layout'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BaseBuilder } from './BaseBuilder'
 import { BuilderComponent } from './Builder-Component'
 
@@ -41,8 +42,15 @@ export const BuilderTabs = observer<BuilderTabsProps>(
     componentService,
     builderRenderService,
   }) => {
+    const windowWidth = useWindowWidth()
+    const builderTabsRef = useRef<HTMLDivElement>(null)
+    const [builderTabsWidth, setBuilderTabsWidth] = useState(0)
+    useEffect(() => {
+      setBuilderTabsWidth(builderTabsRef.current?.clientWidth ?? 0)
+    }, [windowWidth])
+
     return (
-      <Layout style={{ height: '100%' }}>
+      <Layout ref={builderTabsRef} style={{ height: '100%' }}>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
         {isLoading && <Spin />}
         <Header style={{ background: 'rgba(0,0,0,0)', marginBottom: '5px' }}>
@@ -61,6 +69,7 @@ export const BuilderTabs = observer<BuilderTabsProps>(
             elementTree && renderer ? (
               <BaseBuilder
                 builderService={builderService}
+                builderTabsWidth={builderTabsWidth}
                 elementService={elementService}
                 elementTree={elementTree}
                 renderer={renderer}
