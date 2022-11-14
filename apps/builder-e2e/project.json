@@ -40,6 +40,7 @@
         },
         "dev": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
+          "devServerTarget": "builder-e2e:serve:dev",
           "watch": true,
           "exit": false
         }
@@ -87,11 +88,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/builder-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/builder-e2e/**/*.{js,ts}"
+        ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     }
   },
   "tags": [],
-  "implicitDependencies": ["builder"]
+  "implicitDependencies": [
+    "builder"
+  ]
 }
