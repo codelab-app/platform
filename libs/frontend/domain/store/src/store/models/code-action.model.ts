@@ -30,9 +30,15 @@ export class CodeAction
 
   @modelAction
   createRunner(state: IProp) {
+    const values = state.values
+
     try {
-      // eslint-disable-next-line no-eval
-      return eval(`(${this.code})`).bind(state.values)
+      return (...args: Array<unknown>) => {
+        // eslint-disable-next-line no-eval
+        eval(`(${this.code})`).bind(values)(...args)
+        // alter mobx with new state
+        state.setMany(values)
+      }
     } catch (error) {
       console.log(error)
 
