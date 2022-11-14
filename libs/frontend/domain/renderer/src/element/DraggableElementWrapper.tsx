@@ -1,10 +1,10 @@
 import React from 'react'
-import { DraggableElement, SortableItemProps } from './DraggableElement'
+import { DraggableElement, DraggableElementProps } from './DraggableElement'
 
 export const DraggableElementWrapper = ({
   children,
   element,
-}: SortableItemProps) => {
+}: DraggableElementProps) => {
   if (!element.parentElement) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>
