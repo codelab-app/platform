@@ -11,16 +11,13 @@ import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'
 
 const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
-  const itemId = fragment.itemType.id
-  const itemType = typeRef(itemId)
-
   assertIsTypeKind(fragment.kind, ITypeKind.ArrayType)
 
   return new ArrayType({
     id: fragment.id,
     kind: fragment.kind,
     name: fragment.name,
-    itemType,
+    itemType: typeRef(fragment.itemType.id),
     ownerId: fragment.owner.id,
   })
 }
@@ -40,8 +37,7 @@ export class ArrayType
       throw new Error('Invalid ArrayType')
     }
 
-    const itemId = fragment.itemType.id
-    this.itemType = typeRef(itemId)
+    this.itemType = typeRef(fragment.itemType.id)
 
     return this
   }

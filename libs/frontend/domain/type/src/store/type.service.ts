@@ -34,7 +34,6 @@ import {
   getTypeApi,
   updateTypeApi,
 } from './apis/type.api'
-import { InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
@@ -118,7 +117,7 @@ export class TypeService
 
       // Write cache writes to the fields
       if (
-        typeModel instanceof InterfaceType &&
+        typeModel.kind === ITypeKind.InterfaceType &&
         fragment.__typename === 'InterfaceType'
       ) {
         typeModel.writeFieldCache(fragment.fields)
