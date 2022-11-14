@@ -117,6 +117,9 @@ describe('_app page', () => {
     cy.get(`[aria-label="setting"]`).click()
     cy.findByLabelText(/Component Disabled/).click()
 
+    // After atom props are changed - need to wait for the corresponding API call
+    // which is sent to the server in order to save this change to the database.
+    // Otherwise, there is a risk that `cy.go('back')` will prevent the request from being sent
     cy.waitForApiCalls()
 
     cy.go('back')
