@@ -5,11 +5,13 @@ import { AntdTag } from 'libs/shared/data/src/tag/antd-tags.data'
 import difference from 'lodash/difference'
 import * as path from 'path'
 
+const TIMEOUT = 140000
+
 export const seedData = () => {
   cy.log('yarn cli seed').exec(
     'yarn cli data seed --stage test --email cypress@codelab.app',
     {
-      timeout: 90000,
+      timeout: TIMEOUT,
     },
   )
   // .its('stdout')
@@ -28,7 +30,7 @@ export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
     ` yarn cli data import --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false --email cypress@codelab.app`,
-    { timeout: 90000 },
+    { timeout: TIMEOUT },
   )
 }
 
@@ -37,7 +39,7 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
     `yarn cli data export --seedDataPath ${getFullPath(
       file,
     )} --skipUserData --skipSeedData false`,
-    { timeout: 90000 },
+    { timeout: TIMEOUT },
   )
 
   return cy.readFile(file).then((payload: ExportedData) => {
