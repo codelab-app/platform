@@ -18,15 +18,13 @@ export const DashboardTemplateConfigPane = ({
 }: ConfigPaneProps) => {
   return (
     <motion.div
-      css={tw`fixed top-0 right-0 bottom-0 h-full bg-white z-50 flex flex-row`}
+      css={tw`fixed top-0 right-0 bottom-0 bg-white z-50 flex flex-row`}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...resizable.containerProps}
       style={{
         ...resizable.containerProps.style,
-        // marginLeft: mainPaneMarginLeft,
-        // paddingLeft: sidebarNavMarginLeft,
-        // Add 8 for header padding
         top: `${defaultHeaderHeight}px`,
+        height: `calc(100% - ${defaultHeaderHeight}px)`,
       }}
     >
       <motion.div
