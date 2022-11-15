@@ -1,6 +1,11 @@
-import { IActionBase, IActionDTO } from '@codelab/frontend/abstract/core'
+import {
+  IActionBase,
+  IActionDTO,
+  IStore,
+} from '@codelab/frontend/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { idProp, Model, prop } from 'mobx-keystone'
+import { idProp, Model, prop, Ref } from 'mobx-keystone'
+import { storeRef } from './store.model'
 
 export const createBaseAction = <T extends IActionKind>(type: T) =>
   class
@@ -8,13 +13,13 @@ export const createBaseAction = <T extends IActionKind>(type: T) =>
       id: idProp,
       name: prop<string>(),
       type: prop<T>(() => type),
-      storeId: prop<string>(),
+      store: prop<Ref<IStore>>(),
     })
     implements Omit<IActionBase, 'createRunner'> {}
 
 export const updateBaseAction = (self: IActionBase, data: IActionDTO) => {
   self.name = data.name
-  self.storeId = data.store.id
+  self.store = storeRef(data.store.id)
   self.type = data.type
 
   return self

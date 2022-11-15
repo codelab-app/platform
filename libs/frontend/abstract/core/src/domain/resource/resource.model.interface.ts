@@ -1,6 +1,4 @@
 import { IResourceType } from '@codelab/shared/abstract/core'
-import { AxiosInstance } from 'axios'
-import { GraphQLClient } from 'graphql-request'
 import { ICacheService } from '../../service'
 import { IProp } from '../prop'
 import { IGraphQLResourceConfig } from './graphql-resource-config.interface'
@@ -17,8 +15,6 @@ export interface IResource extends ICacheService<IResourceDTO, IResource> {
   config: IResourceConfig
   type: IResourceType
   ownerId: string
-  graphqlClient: GraphQLClient
-  restClient: AxiosInstance
 }
 
 export type IResourceRef = string
