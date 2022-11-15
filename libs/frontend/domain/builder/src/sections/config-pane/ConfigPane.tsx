@@ -99,7 +99,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                           trackPromises={trackPromises}
                         />
                         <DeleteElementButton
-                          css={tw`mt-3`}
+                          css={tw`my-3`}
                           disabled={node.isRoot}
                           element={node}
                           elementService={elementService}

@@ -17,6 +17,7 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 import { useAsync } from 'react-use'
+import tw from 'twin.macro'
 
 export interface UpdateElementPropsFormProps {
   typeService: ITypeService
@@ -70,7 +71,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     return (
       <Spinner isLoading={loading}>
         {interfaceType && (
-          <Row gutter={[0, 16]}>
+          <Row css={tw`mb-5`} gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
                 autosave
