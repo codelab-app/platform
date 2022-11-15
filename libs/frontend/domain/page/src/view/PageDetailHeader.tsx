@@ -18,6 +18,7 @@ import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { mainContentWidthBreakPoint } from './constants'
 
 export type MenuItemProps = {
   hide?: boolean
@@ -76,7 +77,7 @@ export const PageDetailHeader = observer<{
       icon: <MobileOutlined />,
       key: 'mobile',
       onClick: () => {
-        builderService?.setMainContentWidth(320)
+        builderService?.setMainContentWidth(mainContentWidthBreakPoint.mobile)
       },
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,
@@ -85,7 +86,9 @@ export const PageDetailHeader = observer<{
       icon: <MobileOutlined rotate={-90} />,
       key: 'mobile-vertical',
       onClick: () => {
-        builderService?.setMainContentWidth(568)
+        builderService?.setMainContentWidth(
+          mainContentWidthBreakPoint.mobile_vertical,
+        )
       },
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,
@@ -94,7 +97,9 @@ export const PageDetailHeader = observer<{
       icon: <TabletOutlined />,
       key: 'tablet-horizontal',
       onClick: () => {
-        builderService?.setMainContentWidth(768)
+        builderService?.setMainContentWidth(
+          mainContentWidthBreakPoint.tablet_horizontal,
+        )
       },
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,
@@ -125,6 +130,7 @@ export const PageDetailHeader = observer<{
               value={builderService?.mainResizingContentWidth ?? ''}
             />
           ),
+          label: 'px',
         },
       ],
       style: { backgroundColor: 'initial' },

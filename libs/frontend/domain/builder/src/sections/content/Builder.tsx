@@ -1,3 +1,4 @@
+import { PauseOutlined } from '@ant-design/icons'
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
@@ -87,11 +88,26 @@ export const Builder = observer<BuilderProps>(
           margin: 'auto',
         }}
       >
-        <motion.div
-          css={[tw`absolute right-0 bg-transparent h-full z-10`, `width: 2px`]}
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...builderResizable.xDragHandleProps}
-        />
+        <div
+          css={[
+            tw`absolute -right-[14px] bg-transparent h-full w-[17px] z-10 `,
+          ]}
+        >
+          <motion.div
+            css={[tw`absolute left-[3px] w-[3px] h-full`]}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...builderResizable.xDragHandleProps}
+          />
+          <motion.div
+            css={[
+              tw`absolute w-[14px] h-[40px] -right-[3px] top-[50%] bg-zinc-200 flex items-center justify-center opacity-70 rounded-r`,
+            ]}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...builderResizable.xDragHandleProps}
+          >
+            <PauseOutlined />
+          </motion.div>
+        </div>
         <StyledBuilderContainer
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
@@ -119,7 +135,6 @@ const StyledBuilderResizeContainer = styled(motion.div)`
   max-width: 100%;
   background: transparent;
   //max-height: 100%;
-  overflow: scroll;
   border: 3px dotted rgba(0, 0, 0, 1);
   //margin-bottom: 400px;
 `
@@ -138,6 +153,7 @@ const StyledBuilderContainer = styled.div`
   width: 100%;
   height: 100%;
   background: transparent;
+  overflow: scroll;
   .ant-modal-mask,
   .ant-modal-wrap {
     position: absolute;

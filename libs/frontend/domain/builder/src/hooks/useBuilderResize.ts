@@ -70,8 +70,8 @@ export const useBuilderResize = ({
 
   const handleXDrag = useCallback(
     (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      clampSet(mWidth, info.delta.x, width)
       setResizingMainContent(true)
+      clampSet(mWidth, info.delta.x, width)
       setMainResizingContentWidth(Math.round(mWidth.get()))
     },
     [mWidth, width],
@@ -119,10 +119,7 @@ export const useBuilderResize = ({
         translateX: '0px !important',
         cursor: 'col-resize',
       },
-      onDragEnd: () => {
-        setIsDragging(false)
-        setMainContentWidth(Math.round(mWidth.get()))
-      },
+      onDragEnd: () => setIsDragging(false),
       onDragStart: () => setIsDragging(true),
       drag: 'x',
       ...commonDragProps,
