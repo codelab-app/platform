@@ -6,10 +6,10 @@ import React, { RefObject } from 'react'
  */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const dynamicLoader = (importPromise: LoaderComponent<any>) =>
+export const dynamicLoader = (loadingFn: () => LoaderComponent<any>) =>
   dynamic(
     async () => {
-      const result = await importPromise
+      const result = await loadingFn()
       const Component = 'default' in result ? result.default : result
 
       return React.forwardRef(
