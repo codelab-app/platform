@@ -33,7 +33,7 @@ export const UpdateActionModal = observer<{
   })
 
   const model = {
-    storeId: updateAction?.storeId,
+    storeId: updateAction?.store.current.id,
     name: updateAction?.name,
     type: updateAction?.type,
     id: updateAction?.id,

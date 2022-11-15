@@ -18,7 +18,6 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
-import isString from 'lodash/isString'
 import { computed } from 'mobx'
 import {
   detach,
@@ -363,23 +362,10 @@ export class Renderer
   private processPropsForRender = (props: IPropData, element: IElement) => {
     props = this.applyPropTypeTransformers(props)
     props = element.executePropTransformJs(props)
-    props = this.replaceStateInProps(props)
+    props = this.appStore.current.replaceStateInProps(props)
 
     const { localProps } = element.applyPropMapBindings(props)
     props = mergeProps(props, localProps)
-
-    return props
-  }
-
-  private replaceStateInProps = (props: IPropData) => {
-    props = mapDeep(
-      props,
-      // value mapper
-      (v, k) => (isString(v) ? this.appStore.current.getByExpression(v) : v),
-      // key mapper
-      (v, k) =>
-        (isString(k) ? this.appStore.current.getByExpression(k) : k) as string,
-    )
 
     return props
   }

@@ -1,6 +1,7 @@
 import {
   IInterfaceType,
   IProp,
+  IPropData,
   IStore,
   IStoreDTO,
   STATE_PATH_TEMPLATE_REGEX,
@@ -8,6 +9,8 @@ import {
 import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
+import { mapDeep } from '@codelab/shared/utils'
+import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 import { computed, reaction } from 'mobx'
 import {
@@ -83,7 +86,7 @@ export class Store
   @computed
   get actions() {
     return getActionService(this).actionsList.filter(
-      (x) => x.storeId === this.id,
+      (x) => x.store.id === this.id,
     )
   }
 
@@ -116,6 +119,19 @@ export class Store
 
       return expression
     }
+  }
+
+  @modelAction
+  public replaceStateInProps = (props: IPropData) => {
+    props = mapDeep(
+      props,
+      // value mapper
+      (v, k) => (isString(v) ? this.getByExpression(v) : v),
+      // key mapper
+      (v, k) => (isString(k) ? this.getByExpression(k) : k) as string,
+    )
+
+    return props
   }
 
   @modelAction

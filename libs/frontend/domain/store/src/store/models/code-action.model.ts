@@ -6,6 +6,7 @@ import {
 import { assertIsActionKind, IActionKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction, updateBaseAction } from './base-action.model'
+import { storeRef } from './store.model'
 
 const hydrate = (action: ICodeActionDTO): ICodeAction => {
   assertIsActionKind(action.type, IActionKind.CodeAction)
@@ -14,7 +15,7 @@ const hydrate = (action: ICodeActionDTO): ICodeAction => {
     id: action.id,
     name: action.name,
     code: action.code,
-    storeId: action.store.id,
+    store: storeRef(action.store.id),
     type: action.type,
   })
 }

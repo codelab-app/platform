@@ -4,11 +4,7 @@ import {
   IResourceDTO,
 } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
-import { tryParse } from '@codelab/frontend/shared/utils'
 import { IResourceType } from '@codelab/shared/abstract/core'
-import axios from 'axios'
-import { GraphQLClient } from 'graphql-request'
-import { computed } from 'mobx'
 import {
   detach,
   idProp,
@@ -39,22 +35,6 @@ export class Resource
   }))
   implements IResource
 {
-  @computed
-  get graphqlClient() {
-    const { headers, url } = this.config.values
-    const options = { headers: tryParse(headers) }
-
-    return new GraphQLClient(url, options)
-  }
-
-  @computed
-  get restClient() {
-    return axios.create({
-      baseURL: this.config.values.url,
-      headers: tryParse(this.config.values.headers),
-    })
-  }
-
   static hydrate = hydrate
 
   @modelAction
