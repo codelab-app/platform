@@ -5,13 +5,13 @@ import { AtomsRecord } from '../types'
 // Custom atom components
 // Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)
 export const codelabAtoms: AtomsRecord = {
-  [IAtomType.TextList]: dynamicLoader(
+  [IAtomType.TextList]: dynamicLoader(() =>
     import('@codelab/frontend/platform/atoms').then((mod) => mod.TextList),
   ),
-  [IAtomType.Text]: dynamicLoader(
+  [IAtomType.Text]: dynamicLoader(() =>
     import('@codelab/frontend/platform/atoms').then((mod) => mod.Text),
   ),
-  [IAtomType.Script]: dynamicLoader(
+  [IAtomType.Script]: dynamicLoader(() =>
     import('@codelab/frontend/platform/atoms').then((mod) => mod.CodelabScript),
   ),
   // [AtomType.State]: dynamic(
