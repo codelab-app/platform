@@ -64,7 +64,6 @@ export const ConfigPane = observer<MetaPaneProps>(
           <Tabs.TabPane
             destroyInactiveTabPane
             key="inspector"
-            // style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
                 <EditOutlined />
@@ -129,7 +128,6 @@ export const ConfigPane = observer<MetaPaneProps>(
           <Tabs.TabPane
             destroyInactiveTabPane
             key="component"
-            // style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
                 <CodeSandboxOutlined />

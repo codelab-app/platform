@@ -186,9 +186,6 @@ export const DashboardTemplate = observer(
               {ConfigPane && (
                 <DashboardTemplateConfigPane
                   ConfigPane={ConfigPane}
-                  // hasConfigPane={Boolean(ExplorerPane)}
-                  // hasSidebarNavigation={Boolean(SidebarNavigation)}
-                  // mainPaneWidth={mainPaneResizable.width}
                   resizable={metaPaneResizable}
                 />
               )}

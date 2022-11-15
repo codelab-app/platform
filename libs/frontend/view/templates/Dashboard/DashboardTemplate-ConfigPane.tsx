@@ -5,11 +5,8 @@ import { UseResizable } from '../../components'
 import { defaultHeaderHeight } from './constants'
 
 export interface ConfigPaneProps {
-  // hasSidebarNavigation: boolean
   ConfigPane: ComponentType
   resizable: UseResizable
-  // hasConfigPane: boolean
-  // mainPaneWidth: MotionValue<number>
 }
 
 export const DashboardTemplateConfigPane = ({

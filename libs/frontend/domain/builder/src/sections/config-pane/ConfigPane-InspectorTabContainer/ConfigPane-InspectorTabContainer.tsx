@@ -40,15 +40,6 @@ import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
 
-const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
-  <div
-    css={tw`grid grid-cols-2 grid-rows-2 gap-4`}
-    style={{ gridTemplateRows: '1fr auto' }}
-  >
-    {children}
-  </div>
-)
-
 export interface MetaPaneBuilderProps {
   elementTree: IElementTree
   renderService: IRenderer
@@ -153,20 +144,17 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         label: (
           <TooltipIcon icon={<FormatPainterOutlined />} title={TAB_NAMES.CSS} />
         ),
-        children: (
-          <>
-            {isElement(selectedNode) && selectedNode.atom ? (
-              <ElementCssEditor
-                element={selectedNode}
-                elementService={elementService}
-                key={selectedNode.id}
-                trackPromises={trackPromises}
-              />
-            ) : (
-              `Add an atom to this page element to edit its CSS`
-            )}
-          </>
-        ),
+        children:
+          isElement(selectedNode) && selectedNode.atom ? (
+            <ElementCssEditor
+              element={selectedNode}
+              elementService={elementService}
+              key={selectedNode.id}
+              trackPromises={trackPromises}
+            />
+          ) : (
+            `Add an atom to this page element to edit its CSS`
+          ),
       },
       {
         key: TAB_NAMES.PropsInspector,
@@ -176,17 +164,13 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             title={TAB_NAMES.PropsInspector}
           />
         ),
-        children: (
-          <>
-            {isElement(selectedNode) && (
-              <PropsInspectorTab
-                element={selectedNode}
-                elementService={elementService}
-                key={selectedNode.id}
-                renderer={renderService}
-              />
-            )}
-          </>
+        children: isElement(selectedNode) && (
+          <PropsInspectorTab
+            element={selectedNode}
+            elementService={elementService}
+            key={selectedNode.id}
+            renderer={renderService}
+          />
         ),
       },
       {
@@ -194,21 +178,17 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         label: (
           <TooltipIcon icon={<SwapOutlined />} title={TAB_NAMES.PropsMap} />
         ),
-        children: (
-          <>
-            {isElement(selectedNode) ? (
-              <PropMapBindingSection
-                element={selectedNode}
-                elementService={elementService}
-                elementTree={elementTree}
-                key={selectedNode.id}
-                providePropCompletion={(searchValue) =>
-                  providePropCompletion(searchValue, selectedNode.id)
-                }
-              />
-            ) : null}
-          </>
-        ),
+        children: isElement(selectedNode) ? (
+          <PropMapBindingSection
+            element={selectedNode}
+            elementService={elementService}
+            elementTree={elementTree}
+            key={selectedNode.id}
+            providePropCompletion={(searchValue) =>
+              providePropCompletion(searchValue, selectedNode.id)
+            }
+          />
+        ) : null,
       },
       {
         key: TAB_NAMES.PropsTransformation,
@@ -218,18 +198,14 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             title={TAB_NAMES.PropsTransformation}
           />
         ),
-        children: (
-          <>
-            {isElement(selectedNode) ? (
-              <UpdateElementPropTransformationForm
-                element={selectedNode}
-                elementService={elementService}
-                key={selectedNode.id}
-                trackPromises={trackPromises}
-              />
-            ) : null}
-          </>
-        ),
+        children: isElement(selectedNode) ? (
+          <UpdateElementPropTransformationForm
+            element={selectedNode}
+            elementService={elementService}
+            key={selectedNode.id}
+            trackPromises={trackPromises}
+          />
+        ) : null,
       },
     ]
 

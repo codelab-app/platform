@@ -197,11 +197,6 @@ PageBuilder.Layout = observer((page) => {
               resourceMenuItem,
             ]}
             secondaryItems={adminMenuItems}
-            // activeBuilderTab={builderService.activeBuilderTab}
-            // key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            // setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
-            //   builderService,
-            // )}
           />
         )}
         contentStyles={{ paddingTop: '0rem' }}
