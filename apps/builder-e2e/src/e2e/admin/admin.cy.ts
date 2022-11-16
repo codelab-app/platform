@@ -13,6 +13,8 @@ const createCypressUser = () =>
     },
   })
 
+//
+
 describe('Admin', () => {
   before(() => {
     cy.resetDatabase()
@@ -26,11 +28,12 @@ describe('Admin', () => {
   /**
    * Can be used as parameter into `exportAndAssert` to see output as file
    */
+  const filePath = './src/data/seed-data-2.test.json'
 
   describe('seed', () => {
     it('should seed Ant Design CSV data & export', () => {
       seedData()
-      exportAndAssert().then((payload) => {
+      exportAndAssert('./src/data/seed-data-0.test.json').then((payload) => {
         initialPayload = payload
       })
     })
@@ -51,7 +54,7 @@ describe('Admin', () => {
       createCypressUser()
       importData()
 
-      return exportAndAssert().then((payload) => {
+      return exportAndAssert(filePath).then((payload) => {
         expect(payload).toEqual(initialPayload)
       })
     })
