@@ -20,7 +20,7 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
     id: fragment.id,
     kind: fragment.kind,
     name: fragment.name,
-    itemType: fragment.itemType as unknown as Ref<IAnyType>,
+    itemType,
     ownerId: fragment.owner.id,
   })
 }
@@ -41,7 +41,7 @@ export class ArrayType
     }
 
     const itemId = fragment.itemType.id
-    this.itemType = fragment.itemType as unknown as Ref<IAnyType>
+    this.itemType = typeRef(itemId)
 
     return this
   }
