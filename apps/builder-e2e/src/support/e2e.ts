@@ -20,6 +20,7 @@ import 'cypress-jest-adapter'
 import './commands'
 import './antd/register'
 import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector'
+import { Env } from './env'
 
 Cypress.on('uncaught:exception', (err) => {
   const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
@@ -43,4 +44,6 @@ beforeEach(() => {
   // cy.preserveAuth0CookiesOnce()
 })
 
-installLogsCollector()
+if (Env().e2e.enableLogging) {
+  installLogsCollector()
+}
