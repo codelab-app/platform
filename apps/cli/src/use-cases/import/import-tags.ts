@@ -16,7 +16,7 @@ export const importTags = async (
     }))
   })
 
-  const existingTags = await Promise.all(createTagsOperations)
+  await Promise.all(createTagsOperations)
 
   // cLog('Existing tags', existingTags)
 

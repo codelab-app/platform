@@ -24,6 +24,8 @@ export const GetTagsTree = observer<{ tagService: ITagService }>(
 
     const { loading } = useAsync(() => tagService.getAll(), [])
 
+    console.log([...tagService.treeService.roots.values()])
+
     return (
       <Spinner isLoading={loading}>
         <Tree

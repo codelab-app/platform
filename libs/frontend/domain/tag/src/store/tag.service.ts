@@ -175,6 +175,8 @@ export class TagService
   getAll = _async(function* (this: TagService, where?: TagWhere) {
     const { tags } = yield* _await(tagApi.GetTags({ where }))
 
+    console.log(tags)
+
     return tags.map((tag) => this.writeCache(tag))
   })
 

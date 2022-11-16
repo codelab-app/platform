@@ -1,3 +1,4 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { ITagExport } from '@codelab/backend/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
@@ -77,14 +78,23 @@ export const createTagSeedData = (): Array<ITagExport> => {
     return {
       id: tag.id,
       name: tag.name,
-      children: tag.children.map((child) => {
-        const childTag = tagDataMap.get(child.name)
+      children: tag.children
+        .map((child) => {
+          const childTag = tagDataMap.get(child.name)
 
-        return {
-          id: childTag ? childTag.name : v4(),
-        }
-      }),
-      parent: parent ? { id: parent.id } : undefined,
+          if (!childTag) {
+            throw new Error('Missing child tag')
+          }
+
+          return {
+            id: childTag.id || v4(),
+            name: childTag.name,
+          }
+        })
+        .filter((child): child is Pick<OGM_TYPES.Tag, 'id' | 'name'> =>
+          Boolean(child),
+        ),
+      parent: parent ? { id: parent.id, name: parent.name } : undefined,
     }
   })
 }

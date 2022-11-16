@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="cli" type="NodeJSConfigurationType" application-parameters="data import" node-parameters="-r dotenv/config --require &quot;tsconfig-paths/register&quot; --require &quot;ts-node/register&quot;" path-to-js-file="dist/apps/cli/main.js" working-dir="$PROJECT_DIR$">
+    <envs>
+      <env name="TS_NODE_PROJECT" value="$PROJECT_DIR$/apps/cli/tsconfig.json" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>

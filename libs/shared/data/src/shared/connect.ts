@@ -22,13 +22,6 @@ export const reconnectNodes = (ids: Array<string> | undefined) => ({
   disconnect: [{ where: {} }],
 })
 
-export const connectNodeBy = (
-  key: string,
-  value: string | null | undefined,
-) => ({
-  connect: whereNode(key, value),
-})
-
 export const connectNodes = (ids: Array<string> | undefined = []) => ({
   connect: ids.map((id) => whereNodeId(id)),
 })

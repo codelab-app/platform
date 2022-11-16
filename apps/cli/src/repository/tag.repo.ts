@@ -1,8 +1,11 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { ITagExport } from '@codelab/backend/abstract/core'
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import {
+  Repository,
+  tagSelectionSet,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { connectNode, whereNodeId } from '@codelab/shared/data'
+import { connectNode, whereNode } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 
 /**
@@ -13,24 +16,50 @@ export const connectChildTagToParent = async (
 ): Promise<void> => {
   const Tag = await Repository.instance.Tag
 
+  const currentTag = (
+    await Tag.find({
+      where: {
+        name: tag.name,
+      },
+      selectionSet: tagSelectionSet,
+    })
+  )[0]
+
+  if (!currentTag) {
+    throw new Error('Missing current tag')
+  }
+
   const input = {
-    where: { id: tag.id },
+    where: { name: tag.name },
     connect: {
-      children: tag.children?.map((childTag) => whereNodeId(childTag.id)),
-      parent: whereNodeId(tag.parent?.id),
-    },
-    disconnect: {
-      children: [{ where: {} }],
-      parent: { where: {} },
+      // children: tag.children
+      //   /**
+      //    * Need to filter out existing connections
+      //    */
+      //   ?.filter((childTag) =>
+      //     currentTag.children.map((x) => x.name).includes(childTag.name),
+      //   )
+      //   .map((childTag) => whereNode('name', childTag.name)),
+
+      // If parent exist don't connect again
+      parent: currentTag.parent
+        ? undefined
+        : // eslint-disable-next-line no-inline-comments
+        // Connect only if parent exists
+        tag.parent?.name
+        ? whereNode('name', tag.parent.name)
+        : undefined,
     },
   }
 
-  // cLog(input)
+  logTask('Connect Input', tag.name, input)
 
   try {
     await Tag.update(input)
   } catch (e) {
-    console.error(e)
+    console.log(input)
+    console.log(tag.parent)
+    console.log(e)
     throw new Error('Error connecting tag to parent')
   }
 }
