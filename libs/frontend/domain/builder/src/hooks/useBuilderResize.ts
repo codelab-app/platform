@@ -78,23 +78,25 @@ export const useBuilderResize = ({
   )
 
   useEffect(() => {
-    if (width?.default && width.max && width.min) {
-      if (width.default > width.max) {
-        setMainResizingContentWidth(width.max)
-
-        return mWidth.set(width.max)
-      }
-
-      if (width.default < width.min) {
-        setMainResizingContentWidth(width.min)
-
-        return mWidth.set(width.min)
-      }
-
-      setMainContentWidth(width.default)
-
-      return mWidth.set(width.default)
+    if (!(width?.default && width.max && width.min)) {
+      return
     }
+
+    if (width.default > width.max) {
+      setMainResizingContentWidth(width.max)
+
+      return mWidth.set(width.max)
+    }
+
+    if (width.default < width.min) {
+      setMainResizingContentWidth(width.min)
+
+      return mWidth.set(width.min)
+    }
+
+    setMainContentWidth(width.default)
+
+    return mWidth.set(width.default)
   }, [width?.default, width?.max])
 
   const commonDragProps: Partial<DragHandleProps> = {
