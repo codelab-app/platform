@@ -36,6 +36,7 @@ export const SelectComponent = ({ name, error }: SelectComponentProps) => {
   return (
     <SelectField
       error={error || queryError}
+      getPopupContainer={(triggerNode) => triggerNode.parentElement}
       loading={isLoading}
       name={name}
       optionFilterProp="label"

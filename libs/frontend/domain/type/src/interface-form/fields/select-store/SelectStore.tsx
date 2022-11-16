@@ -24,6 +24,7 @@ export const SelectStore = ({ name, error, where }: SelectStoreProps) => {
   return (
     <SelectField
       error={error || queryError}
+      getPopupContainer={(triggerNode) => triggerNode.parentElement}
       loading={isLoading}
       name={name}
       optionFilterProp="label"

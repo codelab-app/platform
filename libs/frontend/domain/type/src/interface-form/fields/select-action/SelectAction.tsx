@@ -43,6 +43,7 @@ export const SelectAction = ({ name, label, error }: SelectActionProps) => {
   return (
     <SelectField
       error={error || queryError}
+      getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label={label}
       loading={isLoading}
       name={name}

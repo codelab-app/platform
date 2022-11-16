@@ -75,6 +75,7 @@ export const SelectElement = ({
 
   return (
     <SelectField
+      getPopupContainer={(triggerNode) => triggerNode.parentElement}
       {...(props as SelectFieldProps)}
       disabled={
         disableWhenOneOpt && (elements.length === 1 || !elements.length)

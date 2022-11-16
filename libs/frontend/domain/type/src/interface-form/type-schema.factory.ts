@@ -237,6 +237,7 @@ export class TypeSchemaFactory {
       })),
       showSearch: true,
       optionFilterProp: 'label',
+      getPopupContainer: (triggerNode: Element) => triggerNode.parentElement,
       ...extra?.uniforms,
     }
 

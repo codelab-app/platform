@@ -36,6 +36,7 @@ export const SelectPage = ({ name, error }: SelectPageProps) => {
   return (
     <SelectField
       error={error || queryError}
+      getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label="Page"
       loading={isLoading}
       name={name}

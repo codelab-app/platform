@@ -17,6 +17,7 @@ export const SelectResource = observer<SelectResourcesProps>(
 
     return (
       <SelectField
+        getPopupContainer={(triggerNode) => triggerNode.parentElement}
         name={name}
         optionFilterProp="label"
         options={options}

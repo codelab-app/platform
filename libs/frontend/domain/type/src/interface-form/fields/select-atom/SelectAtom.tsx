@@ -65,6 +65,7 @@ export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
   return (
     <SelectField
       error={error || queryError}
+      getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label={label}
       loading={isLoading}
       name={name}
