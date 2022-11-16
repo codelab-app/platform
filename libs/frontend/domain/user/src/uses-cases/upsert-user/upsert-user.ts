@@ -19,12 +19,8 @@ export const upsertUser = async (
     },
   })
 
-  console.log('roles', user[JWT_CLAIMS].roles)
-
   if (existing) {
     // console.debug(`User with email ${user.email} already exists!`)
-
-    console.log('found')
 
     const { users } = await User.update({
       where: {
@@ -39,24 +35,6 @@ export const upsertUser = async (
     })
   } else {
     try {
-      console.log(
-        'create new',
-        JSON.stringify(
-          {
-            input: [
-              {
-                auth0Id: user.sub,
-                email: user.email,
-                username: user.email,
-                roles: user[JWT_CLAIMS].roles,
-              },
-            ],
-          },
-          null,
-          2,
-        ),
-      )
-
       const { users } = await User.create({
         input: [
           {
@@ -67,8 +45,6 @@ export const upsertUser = async (
           },
         ],
       })
-
-      console.log('creating new users', users)
 
       return users[0]
 

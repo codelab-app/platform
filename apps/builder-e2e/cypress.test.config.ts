@@ -31,5 +31,8 @@ export default defineConfig({
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
     setupNodeEvents,
+    env: {
+      CYPRESS_ENABLE_LOGGING: false,
+    },
   },
 })

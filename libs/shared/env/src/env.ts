@@ -24,6 +24,9 @@ interface Env {
     // cypress_password?: string
     base_url: string
   }
+  next: {
+    enableAPILogging?: boolean
+  }
 }
 
 export const Env = (): Env => ({
@@ -50,5 +53,8 @@ export const Env = (): Env => ({
       isVercelPreview
         ? `https://${env.get('VERCEL_URL').required().asString()}`
         : `http://${env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()}`,
+  },
+  next: {
+    enableAPILogging: env.get('NEXT_API_ENABLE_LOGGING').asBool(),
   },
 })

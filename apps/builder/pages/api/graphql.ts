@@ -14,20 +14,13 @@ import {
 import { upsertUser } from '@codelab/frontend/domain/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { logger } from '@codelab/shared/adapter/logging'
+import { Env } from '@codelab/shared/env'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 
 /*eslint-disable */
-const pretty = require('pino-pretty')
-const logger = require('pino')(
-  pretty({
-    colorize: true,
-  }),
-)
-const httpLogger = require('pino-http')({
-  logger,
-})
 
 const driver = getDriver()
 const neoSchema = getSchema(driver, resolvers)
@@ -37,16 +30,22 @@ let apolloServer: ApolloServer
 
 const BASIC_LOGGING = {
   requestDidStart(requestContext: any) {
-    logger.info('Processing request')
-    logger.info(requestContext.request)
+    if (!Env().next.enableAPILogging) {
+      return {}
+    }
+
+    logger.info(
+      `Processing request ${JSON.stringify(requestContext.request, null, 2)}`,
+    )
 
     // logger.info(JSON.stringify(requestContext.req.query || {}, null, 2))
     // logger.info(JSON.stringify(requestContext.req.variables || {}, null, 2))
 
     return {
       willSendResponse(context: any) {
-        logger.info('Responding request')
-        logger.info(context.response)
+        logger.info(
+          `Responding request ${JSON.stringify(context.response, null, 2)}`,
+        )
 
         return Promise.resolve({})
       },
@@ -95,10 +94,6 @@ const startServer = neoSchema
  * https://next-auth.js.org/tutorials/securing-pages-and-api-routes
  */
 const handler: NextApiHandler = async (req, res) => {
-  logger.info('abc')
-  httpLogger(req, res)
-  console.log('handler')
-
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
@@ -158,7 +153,6 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   await startServer
-  console.log('test')
 
   await apolloServer.createHandler({ path })(req, res)
 }
