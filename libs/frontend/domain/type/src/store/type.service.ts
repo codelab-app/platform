@@ -117,12 +117,12 @@ export class TypeService
       this.types.set(fragment.id, typeModel)
 
       // Write cache writes to the fields
-      // if (
-      //   typeModel instanceof InterfaceType &&
-      //   fragment.__typename === 'InterfaceType'
-      // ) {
-      //   typeModel.writeFieldCache(fragment.fields)
-      // }
+      if (
+        typeModel instanceof InterfaceType &&
+        fragment.__typename === 'InterfaceType'
+      ) {
+        typeModel.writeFieldCache(fragment.fields)
+      }
     }
 
     return typeModel
