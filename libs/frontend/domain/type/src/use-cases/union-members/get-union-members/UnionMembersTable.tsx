@@ -75,7 +75,7 @@ export const UnionMembersTable = observer<UnionMembersTableProps>(
           },
         }}
         loading={isLoading}
-        pagination={{ disabled: true, hideOnSinglePage: true }}
+        pagination={{ disabled: false, hideOnSinglePage: true }}
         rowKey={(f) => f.id}
         size="small"
       />

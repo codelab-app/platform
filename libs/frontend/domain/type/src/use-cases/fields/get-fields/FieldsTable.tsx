@@ -180,7 +180,7 @@ export const FieldsTable = observer<FieldsTableProps>(
           },
         }}
         loading={isLoading}
-        pagination={{ disabled: true, hideOnSinglePage: true }}
+        pagination={{ disabled: false, hideOnSinglePage: true }}
         rowKey={(f) => f.key}
         size="small"
       />
