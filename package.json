@@ -236,7 +236,7 @@
     "concurrently": "7.0.0",
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
-    "cypress": "^11.0.0",
+    "cypress": "11.1.0",
     "cypress-jest-adapter": "^0.1.1",
     "cypress-log-to-output": "^1.1.2",
     "cypress-nextjs-auth0": "2.1.0",
@@ -302,6 +302,8 @@
     "why-is-node-running": "2.2.0"
   },
   "resolutions": {
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "cypress@11.1.0": "patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch",
+    "cypress@*": "patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch"
   }
 }
