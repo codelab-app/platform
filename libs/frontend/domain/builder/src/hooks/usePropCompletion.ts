@@ -60,6 +60,14 @@ export const usePropCompletion = (renderService: IRenderer) => {
 
       if (isObjectLike(prop)) {
         for (const innerKey in prop) {
+          if (
+            innerKey.startsWith('_') ||
+            innerKey === 'children' ||
+            innerKey.startsWith('$')
+          ) {
+            return
+          }
+
           visitProp(prop[innerKey], `${key}.${innerKey}`)
         }
       }
