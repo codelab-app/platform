@@ -166,7 +166,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
               process.exit(0)
             }
 
-            // execCommand('yarn graphql-codegen')
+            execCommand('yarn graphql-codegen')
             await generateOgmTypes()
 
             process.exit(0)
