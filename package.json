@@ -283,7 +283,7 @@
     "next-compose-plugins": "2.2.1",
     "next-plugin-antd-less": "^1.8.0",
     "next-with-less": "2.0.5",
-    "nx": "15.1.1",
+    "nx": "15.2.0",
     "pino": "^8.7.0",
     "pino-http": "^8.2.1",
     "pino-pretty": "^9.1.1",
