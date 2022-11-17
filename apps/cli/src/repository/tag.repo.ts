@@ -16,6 +16,7 @@ export const connectChildTagToParent = async (
 ): Promise<void> => {
   const Tag = await Repository.instance.Tag
 
+  // At this point, connections may be missing if it's first time
   const currentTag = (
     await Tag.find({
       where: {
@@ -31,34 +32,25 @@ export const connectChildTagToParent = async (
 
   const input = {
     where: { name: tag.name },
+    /**
+     * Reconnect the parent
+     */
     connect: {
-      // children: tag.children
-      //   /**
-      //    * Need to filter out existing connections
-      //    */
-      //   ?.filter((childTag) =>
-      //     currentTag.children.map((x) => x.name).includes(childTag.name),
-      //   )
-      //   .map((childTag) => whereNode('name', childTag.name)),
-
-      // If parent exist don't connect again
-      parent: currentTag.parent
-        ? undefined
-        : // eslint-disable-next-line no-inline-comments
-        // Connect only if parent exists
-        tag.parent?.name
-        ? whereNode('name', tag.parent.name)
-        : undefined,
+      parent: tag.parent?.name ? whereNode('name', tag.parent.name) : undefined,
     },
+    // disconnect: {
+    //   parent: { where: {} },
+    // },
   }
 
   logTask('Connect Input', tag.name, input)
+  console.log(tag)
 
   try {
     await Tag.update(input)
   } catch (e) {
+    console.log(tag)
     console.log(input)
-    console.log(tag.parent)
     console.log(e)
     throw new Error('Error connecting tag to parent')
   }
