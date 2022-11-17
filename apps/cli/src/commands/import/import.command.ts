@@ -1,6 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import {
   assignUserOption,
   ExportProps,
@@ -11,6 +12,7 @@ import {
   userDataPathOption,
 } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
+import { Stage } from '../../shared/utils/stage'
 import { importSeedData } from './import-seed-data'
 import { importUserData } from './import-user-data'
 
@@ -34,8 +36,9 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
         ...skipSeedDataOption,
         ...userDataPathOption,
         ...seedDataPathOption,
+        ...getStageOptions([Stage.Dev, Stage.Test]),
       })
-      .middleware(upsertUserMiddleware),
+      .middleware([loadStageMiddleware, upsertUserMiddleware]),
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
   /**
    *

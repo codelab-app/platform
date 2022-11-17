@@ -1,6 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import {
   ExportProps,
   seedDataPathOption,
@@ -9,6 +10,7 @@ import {
   userDataPathOption,
 } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
+import { Stage } from '../../shared/utils/stage'
 import { exportSeedData } from '../../use-cases/export/export-seed-data'
 import { exportUserData } from '../../use-cases/export/export-user-data'
 import { saveExportFile } from '../../use-cases/export/save-export-file'
@@ -24,12 +26,15 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
   command: 'export',
   describe: 'Export user data',
   builder: (argv) =>
-    argv.options({
-      ...skipUserDataOption,
-      ...skipSeedDataOption,
-      ...userDataPathOption,
-      ...seedDataPathOption,
-    }),
+    argv
+      .options({
+        ...skipUserDataOption,
+        ...skipSeedDataOption,
+        ...userDataPathOption,
+        ...seedDataPathOption,
+        ...getStageOptions([Stage.Dev, Stage.Test]),
+      })
+      .middleware([loadStageMiddleware]),
   handler: async ({
     skipSeedData,
     skipUserData,
