@@ -12,6 +12,7 @@ import {
   Spinner,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { filterEmptyStrings } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -53,21 +54,15 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     )
 
     const onSubmit = (data: IPropData) => {
-      const updateData = JSON.parse(JSON.stringify(data))
+      console.log('Submitting: ', data)
 
-      for (const key in data) {
-        if (data[key] === '') {
-          updateData[key] = undefined
-        }
-      }
-
-      console.log('Submitting: ', updateData)
+      const filteredData = filterEmptyStrings(data)
 
       const promise = elementService.patchElement(element, {
         props: {
           update: {
             node: {
-              data: JSON.stringify(updateData),
+              data: JSON.stringify(filteredData),
             },
           },
         },
