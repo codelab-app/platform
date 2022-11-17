@@ -35,8 +35,6 @@ export const PageDetailHeader = observer<{
   const pagesList = pageService.pagesList.filter(
     (p) => p.app.id === currentAppId,
   )
-    const currentLoadedPage = pagesList.find((x) => x.id === pageId)
-    const isBuilder = router.pathname === PageType.PageBuilder
 
   const currentPage = pagesList.find((x) => x.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
@@ -80,24 +78,6 @@ export const PageDetailHeader = observer<{
       key: 'mobile',
       onClick: () => {
         builderService?.setMainContentWidth(mainContentWidthBreakPoint.mobile)
-    const menuItems: MenuProps['items'] = [
-      {
-        icon: <FileOutlined />,
-        key: 'sub1',
-        title: currentLoadedPage?.name,
-        children: pagesList.map((page) => ({
-          key: page.id,
-          label: <span>{page.name}</span>,
-          onClick: () =>
-            router.push(
-              {
-                pathname: PageType.PageBuilder,
-                query: { ...router.query, pageId: page.id },
-              },
-              undefined,
-              { shallow: false },
-            ),
-        })),
       },
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,

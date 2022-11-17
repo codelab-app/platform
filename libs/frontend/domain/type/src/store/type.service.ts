@@ -27,7 +27,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
-import { createTypeFactory, updateTypeInputFactory } from '../use-cases/types'
+import { createTypeFactory, updateTypeInputFactory } from '../use-cases'
 import {
   createTypeApi,
   deleteTypeApi,
@@ -35,6 +35,8 @@ import {
   getTypeApi,
   updateTypeApi,
 } from './apis/type.api'
+import { baseTypesFactory } from './base-types.factory'
+import { InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
