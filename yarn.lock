@@ -4412,27 +4412,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@currents/cli@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "@currents/cli@npm:2.1.1"
+"@currents/cli@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@currents/cli@npm:3.0.0"
   dependencies:
-    cy2: 2.0.1
+    cy2: ^3.2.0
   bin:
     currents: bin/currents.js
     currents-prepare: bin/currents-prepare.js
-  checksum: e355cc6b6cf567b7940a1daca3a2fc7a2eb82bf913f362ddc734fffac8bd8fa6bb897d11fee7aec54948373590177fa74801a248547175b6853c9fd5c0bd6930
+    currents-reset: bin/currents-reset.js
+  checksum: a1ebb21e329fdf3b1d26e4f76aec6f5bad496a9016b4a5a923756b8efd11734ae25306199b8e47aa0eebdc362275e586024a676c2193c59ca8bf588ef7b29c82
   languageName: node
   linkType: hard
 
-"@currents/nx@npm:^0.0.7":
-  version: 0.0.7
-  resolution: "@currents/nx@npm:0.0.7"
+"@currents/nx@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@currents/nx@npm:0.1.1"
   dependencies:
     "@nrwl/devkit": "*"
     "@nrwl/linter": "*"
     "@nrwl/workspace": "*"
-    cy2: "*"
-  checksum: 035fba9afab5369e1f720d10dc7019da07bb0dda9945d03af43fc8738394a2f178fc875118d67015a0f5bd3669585476424d7826e888be15ac2051d3ad5ae8a8
+    cy2: ^3.2.0
+  checksum: d9141192c612d705abc245fe1bc9c2e2597412d0d8086175e8d9ba6201e1545bdcf29b07a11e1ab8951461a14adfa2fd8fdbdbb45f0215ac34471cdbabc0d423
   languageName: node
   linkType: hard
 
@@ -13971,8 +13972,8 @@ __metadata:
     "@codemirror/legacy-modes": 6.1.0
     "@commitlint/cli": 17.0.3
     "@commitlint/config-conventional": 17.0.3
-    "@currents/cli": ^2.1.1
-    "@currents/nx": ^0.0.7
+    "@currents/cli": ^3.0.0
+    "@currents/nx": ^0.1.1
     "@dnd-kit/core": 6.0.5
     "@emotion/babel-plugin": 11.10.0
     "@emotion/babel-preset-css-prop": 11.2.0
@@ -15426,16 +15427,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cy2@npm:*, cy2@npm:2.0.1":
-  version: 2.0.1
-  resolution: "cy2@npm:2.0.1"
+"cy2@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "cy2@npm:3.2.0"
   dependencies:
+    acorn: ^8.8.0
     debug: ^4.3.2
-    js-yaml: ^4.0.0
+    escodegen: ^2.0.0
+    estraverse: ^5.3.0
+    js-yaml: ^4.1.0
     npm-which: ^3.0.1
+    slash: 3.0.0
   bin:
     cy2: bin/cy2
-  checksum: e4b6bfe1dae4e418c030333bf2b4cf9d83c4558795807ee85a1d9435feed32a0596d7ce947d6e7d77b0e6282cb62e83e329478f76d8c4dd7509822d1becfd5d2
+  checksum: 65c43bc260f1d7436a2d72718418aedbab2996f82f459613f4c68e080790d1ec825e043281fca61765fbb57bc7e432c91958ae83c870a6db1a6abaa70e179e35
   languageName: node
   linkType: hard
 
@@ -30220,17 +30225,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"slash@npm:3.0.0, slash@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "slash@npm:3.0.0"
+  checksum: 94a93fff615f25a999ad4b83c9d5e257a7280c90a32a7cb8b4a87996e4babf322e469c42b7f649fd5796edd8687652f3fb452a86dc97a816f01113183393f11c
+  languageName: node
+  linkType: hard
+
 "slash@npm:^2.0.0":
   version: 2.0.0
   resolution: "slash@npm:2.0.0"
   checksum: 512d4350735375bd11647233cb0e2f93beca6f53441015eea241fe784d8068281c3987fbaa93e7ef1c38df68d9c60013045c92837423c69115297d6169aa85e6
-  languageName: node
-  linkType: hard
-
-"slash@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "slash@npm:3.0.0"
-  checksum: 94a93fff615f25a999ad4b83c9d5e257a7280c90a32a7cb8b4a87996e4babf322e469c42b7f649fd5796edd8687652f3fb452a86dc97a816f01113183393f11c
   languageName: node
   linkType: hard
 
