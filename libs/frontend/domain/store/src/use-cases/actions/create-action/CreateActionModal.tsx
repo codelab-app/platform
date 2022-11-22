@@ -41,6 +41,11 @@ export const CreateActionModal = observer<{
       ? resourceService.resource(c.model.resourceId)?.type
       : null
 
+  const getResourceApiUrl = (c: Context<ICreateActionDTO>) =>
+    c.model.resourceId
+      ? resourceService.resource(c.model.resourceId)?.config.get('url')
+      : null
+
   return (
     <ModalForm.Modal
       okText="Create Action"
@@ -96,7 +101,7 @@ export const CreateActionModal = observer<{
           <DisplayIfField<ICreateActionDTO>
             condition={(c) => getResourceType(c) === ResourceType.GraphQL}
           >
-            <AutoField name="config.query" />
+            <AutoField getUrl={getResourceApiUrl} name="config.query" />
             <AutoField name="config.variables" />
             <AutoField name="config.headers" />
           </DisplayIfField>

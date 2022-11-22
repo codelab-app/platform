@@ -1,4 +1,5 @@
 export * from './CodeMirrorEditor'
 export * from './CodeMirrorInput'
 export * from './completionOptions'
+export * from './extensions'
 export * from './setup'

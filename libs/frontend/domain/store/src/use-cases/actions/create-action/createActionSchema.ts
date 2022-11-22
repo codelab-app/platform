@@ -3,7 +3,10 @@ import {
   HttpResponseType,
   ICreateActionDTO,
 } from '@codelab/frontend/abstract/core'
-import { CodeMirrorField } from '@codelab/frontend/view/components'
+import {
+  CodeMirrorField,
+  CodeMirrorGraphqlField,
+} from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
@@ -56,23 +59,25 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Graphql,
-            }),
+            component: CodeMirrorGraphqlField({}),
           },
         },
         variables: {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+            component: CodeMirrorField({
+              language: CodeMirrorLanguage.Json,
+            }),
           },
         },
         body: {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+            component: CodeMirrorField({
+              language: CodeMirrorLanguage.Json,
+            }),
           },
         },
         urlSegment: {
@@ -88,14 +93,18 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+            component: CodeMirrorField({
+              language: CodeMirrorLanguage.Json,
+            }),
           },
         },
         headers: {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+            component: CodeMirrorField({
+              language: CodeMirrorLanguage.Json,
+            }),
           },
         },
         responseType: {
@@ -110,9 +119,11 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
       type: 'string',
       nullable: true,
       uniforms: {
-        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
+        component: CodeMirrorField({
+          language: CodeMirrorLanguage.Typescript,
+        }),
       },
     },
   },
   required: ['name', 'type', 'storeId'],
-} as const
+}
