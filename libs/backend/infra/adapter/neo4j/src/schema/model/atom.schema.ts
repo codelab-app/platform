@@ -19,6 +19,20 @@ export const atomSchema = gql`
       @relationship(type: "ALLOWED_CHILDREN", direction: OUT)
   }
 
+  input GetAtomsOptions {
+    limit: Int
+    offset: Int
+  }
+
+  type GetAtomsReturn {
+    items: [Atom!]!
+    totalCount: Int!
+  }
+
+  type Query {
+    getAtoms(options: GetAtomsOptions): GetAtomsReturn!
+  }
+
   extend type Atom
     @auth(
       rules: [

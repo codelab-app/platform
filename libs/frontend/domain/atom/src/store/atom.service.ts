@@ -76,6 +76,8 @@ export class AtomService
 
   @modelAction
   writeCache(atom: IAtomDTO) {
+    console.log('writing cache of ', atom)
+
     console.debug('AtomService.writeCache', atom)
 
     let atomModel = this.atoms.get(atom.id)
@@ -101,11 +103,17 @@ export class AtomService
     where?: AtomWhere,
     options?: AtomOptions,
   ) {
+    console.log('getting all atoms with where: ', where)
+    console.log('getting all atoms with options: ', options)
+
     const { atoms, atomsAggregate } = yield* _await(
-      atomApi.GetAtoms({ where, options }),
+      atomApi.GetAtoms({ options }),
     )
 
     this.count = atomsAggregate.count
+
+    console.log('atoms count: ', this.count)
+    console.log('atoms recieved: ', atoms)
 
     return atoms.map((atom) => this.writeCache(atom))
   })

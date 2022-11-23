@@ -19,6 +19,8 @@ export const elementRepository = {
      */
     const { records } = await txn.run(getDescendantsCypher, { rootId })
 
+    console.log('At element.repo executing a cypher')
+
     const descendants = (
       await Promise.all(
         records[0]?.get(0).map((descendant: Node) => {

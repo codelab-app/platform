@@ -17,6 +17,21 @@ mutation DeleteAtoms($where: AtomWhere!) {
   }
 }
 
+# query GetAllAtoms($options: GetAtomsOptions) {
+#     getAtoms(options: $options) {
+#     totalCount
+#     items {
+#       id
+#       name
+#       type
+#       api {
+#         id
+#         name
+#       }
+#     }
+#   }
+# }
+
 query GetAtoms($where: AtomWhere, $options: AtomOptions) {
   atomsAggregate {
     count
