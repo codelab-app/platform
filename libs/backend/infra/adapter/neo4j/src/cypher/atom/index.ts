@@ -1,3 +1,3 @@
-import getAtoms from './getAtoms.cypher'
+import atoms from './atoms.cypher'
 
-export { getAtoms }
+export { atoms }
