@@ -1,3 +1,4 @@
+export * from './atom'
 export * from './component'
 export * from './element'
 export * from './tag'
