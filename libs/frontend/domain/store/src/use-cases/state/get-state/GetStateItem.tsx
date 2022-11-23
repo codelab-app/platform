@@ -29,7 +29,7 @@ export const GetStateItem = observer<StateTreeItemProp>(
       <List.Item style={{ padding: 8 }}>
         <Space style={{ width: '100%' }}>
           <FileOutlined />
-          {field.name}
+          {field.name ? field.name : field.key}
         </Space>
         <Space>
           <ListItemEditButton onClick={onEdit} />
