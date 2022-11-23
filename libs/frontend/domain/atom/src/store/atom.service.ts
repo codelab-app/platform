@@ -102,7 +102,7 @@ export class AtomService
     options?: AtomOptions,
   ) {
     const { atoms, atomsAggregate } = yield* _await(
-      atomApi.GetAtoms({ options }),
+      atomApi.GetAtoms({ where, options }),
     )
 
     this.count = atomsAggregate.count
