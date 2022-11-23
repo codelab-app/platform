@@ -6971,7 +6971,6 @@ export type ActionTypeDisconnectInput = {
 export type ActionTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type ActionTypeOptions = {
@@ -7432,7 +7431,6 @@ export type ApiActionErrorActionUpdateInput = {
 export type ApiActionOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  type?: ActionKind
 }
 
 export type ApiActionOptions = {
@@ -8318,7 +8316,6 @@ export type AppTypeDisconnectInput = {
 export type AppTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type AppTypeOptions = {
@@ -9455,7 +9452,6 @@ export type ArrayTypeItemTypeUpdateInput = {
 export type ArrayTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type ArrayTypeOptions = {
@@ -9866,7 +9862,6 @@ export type AtomOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
   icon?: InputMaybe<Scalars['String']>
-  type: AtomType
 }
 
 export type AtomOptions = {
@@ -10122,7 +10117,6 @@ export type BaseTypeDisconnectInput = {
 export type BaseTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind: TypeKind
 }
 
 export type BaseTypeOptions = {
@@ -10302,7 +10296,6 @@ export type CodeActionOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
   code: Scalars['String']
-  type?: ActionKind
 }
 
 export type CodeActionOptions = {
@@ -10452,8 +10445,6 @@ export type CodeMirrorTypeDisconnectInput = {
 export type CodeMirrorTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
-  language: CodeMirrorLanguage
 }
 
 export type CodeMirrorTypeOptions = {
@@ -13306,8 +13297,6 @@ export type ElementTypeDisconnectInput = {
 export type ElementTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
-  elementKind: ElementTypeKind
 }
 
 export type ElementTypeOptions = {
@@ -13808,7 +13797,6 @@ export type EnumTypeDisconnectInput = {
 export type EnumTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type EnumTypeOptions = {
@@ -14844,7 +14832,8 @@ export type HookElementUpdateFieldInput = {
 }
 
 export type HookOnCreateInput = {
-  type: AtomType
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type HookOptions = {
@@ -15546,7 +15535,6 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
 export type InterfaceTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type InterfaceTypeOptions = {
@@ -15769,7 +15757,6 @@ export type LambdaTypeDisconnectInput = {
 export type LambdaTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type LambdaTypeOptions = {
@@ -16365,7 +16352,6 @@ export type PageTypeDisconnectInput = {
 export type PageTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type PageTypeOptions = {
@@ -16614,8 +16600,6 @@ export type PrimitiveTypeDisconnectInput = {
 export type PrimitiveTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
-  primitiveKind: PrimitiveTypeKind
 }
 
 export type PrimitiveTypeOptions = {
@@ -17454,7 +17438,6 @@ export type ReactNodeTypeDisconnectInput = {
 export type ReactNodeTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type ReactNodeTypeOptions = {
@@ -17631,7 +17614,6 @@ export type RenderPropsTypeDisconnectInput = {
 export type RenderPropsTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type RenderPropsTypeOptions = {
@@ -17933,7 +17915,6 @@ export type ResourceDisconnectInput = {
 export type ResourceOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  type: ResourceType
 }
 
 export type ResourceOptions = {
@@ -19123,7 +19104,6 @@ export type UnionTypeDisconnectInput = {
 export type UnionTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  kind?: TypeKind
 }
 
 export type UnionTypeOptions = {
