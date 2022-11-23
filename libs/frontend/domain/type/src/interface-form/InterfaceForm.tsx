@@ -1,4 +1,8 @@
-import { Form, handleFormSubmit } from '@codelab/frontend/view/components'
+import {
+  Form,
+  handleFormSubmit,
+  useFormContext,
+} from '@codelab/frontend/view/components'
 import { JSONSchemaType } from 'ajv'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
@@ -23,9 +27,9 @@ export const InterfaceForm = observer(
     submitRef,
     setIsLoading,
     autosave,
-    context,
     submitField,
   }: React.PropsWithChildren<InterfaceFormProps<TData, TResponse>>) => {
+    const context = useFormContext()
     const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
 

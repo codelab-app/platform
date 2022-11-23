@@ -25,19 +25,11 @@ export interface UpdateElementPropsFormProps {
   elementService: IElementService
   element: IElement
   trackPromises?: UseTrackLoadingPromises
-  autocomplete?: IPropData
   userService: IUserService
 }
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({
-    elementService,
-    element,
-    trackPromises,
-    typeService,
-    autocomplete,
-    userService,
-  }) => {
+  ({ elementService, element, trackPromises, typeService, userService }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     console.log(element.props)
@@ -77,7 +69,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             <Col span={24}>
               <PropsForm
                 autosave
-                context={{ autocomplete }}
                 interfaceType={interfaceType}
                 key={element.id}
                 model={initialPropsRef.current}

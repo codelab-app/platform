@@ -9,7 +9,7 @@ import { CSSInterpolation } from '@emotion/serialize'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { DeepPartial } from 'utility-types'
-import { InterfaceForm, UiPropertiesContext } from '../interface-form'
+import { InterfaceForm } from '../interface-form'
 
 export interface PropsFormProps
   extends SubmitRef,
@@ -21,7 +21,6 @@ export interface PropsFormProps
   model?: IPropData
   onSubmit: (values: IPropData) => Promise<IPropData | void>
   autosave?: boolean
-  context?: UiPropertiesContext
   setIsLoading?: SetIsLoading
   cssString?: CSSInterpolation
 }
@@ -35,7 +34,6 @@ export const PropsForm = observer<PropsFormProps>(
     model,
     onSubmit,
     autosave,
-    context,
     setIsLoading,
     submitRef,
     onSubmitError,
@@ -55,7 +53,6 @@ export const PropsForm = observer<PropsFormProps>(
       >
         <InterfaceForm
           autosave={autosave}
-          context={context}
           interfaceType={interfaceType}
           model={model || {}}
           onSubmit={handleFormSubmit<DeepPartial<IPropData>, IPropData>(
