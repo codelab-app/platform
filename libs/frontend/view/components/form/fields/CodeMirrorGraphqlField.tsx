@@ -1,4 +1,10 @@
-import { Form } from 'antd'
+import { autocompletion, closeBrackets } from '@codemirror/autocomplete'
+import { history } from '@codemirror/commands'
+import { bracketMatching, syntaxHighlighting } from '@codemirror/language'
+import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
+import { lineNumbers } from '@codemirror/view'
+import { Form, Spin } from 'antd'
+import { graphql } from 'cm6-graphql'
 import React, { Ref } from 'react'
 import { useAsync } from 'react-use'
 import { connectField, Context, FieldProps, useForm } from 'uniforms'
@@ -36,20 +42,40 @@ export const CodeMirrorGraphqlField = <T,>(
       const form = useForm<T>()
       const url = baseProps.getUrl(form)
 
-      const { value: extension } = useAsync(
+      // eslint-disable-next-line prefer-const
+      let { value: extension, loading } = useAsync(
         () => graphqlExtensionFactory(url),
         [],
       )
 
+      if (!extension) {
+        extension = [graphql()]
+      }
+
+      extension = [
+        bracketMatching(),
+        closeBrackets(),
+        history(),
+        autocompletion(),
+        lineNumbers(),
+        oneDark,
+        syntaxHighlighting(oneDarkHighlightStyle),
+        extension,
+      ]
+
       return (
         <Form.Item label={baseProps.label ?? ''}>
-          <CodeMirrorEditor
-            height="150px"
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...merged}
-            extensions={extension}
-            value={String(merged.value || merged.field?.default)}
-          />
+          {loading && <Spin />}
+          {!loading && (
+            <CodeMirrorEditor
+              height="150px"
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...merged}
+              extensions={extension}
+              overrideExtensions
+              value={String(merged.value || merged.field?.default || '')}
+            />
+          )}
         </Form.Item>
       )
     },

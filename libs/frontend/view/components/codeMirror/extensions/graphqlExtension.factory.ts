@@ -28,19 +28,14 @@ export const getRemoteSchema = async function (
 }
 
 export const graphqlExtensionFactory = async (
-  url?: string,
+  url: string,
 ): Promise<Array<Extension>> => {
   // fetch schema
-  if (url) {
-    const schema = await getRemoteSchema(url)
-    console.log('schema ', schema)
+  const schema = await getRemoteSchema(url)
 
-    if (!schema) {
-      return cm6Graphql()
-    }
-
-    return cm6Graphql(schema as GraphQLSchema)
+  if (!schema) {
+    return cm6Graphql()
   }
 
-  return cm6Graphql()
+  return cm6Graphql(schema)
 }

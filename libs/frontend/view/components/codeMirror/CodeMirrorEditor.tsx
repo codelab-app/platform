@@ -15,6 +15,7 @@ export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   defaultSource?: CompletionSource
   defaultOptions?: Array<Completion>
   customOptions?: Array<Completion>
+  overrideExtensions?: boolean
 }
 
 const languageExtension = {
@@ -36,8 +37,14 @@ const languageExtension = {
 }
 
 export const CodeMirrorEditor = observer((props: CodeMirrorEditorProps) => {
-  const { language, extensions = [], expandable = true } = props
-  const basicExtensions = defaultExtensions(props)
+  const {
+    language,
+    extensions = [],
+    expandable = true,
+    overrideExtensions = false,
+  } = props
+
+  const basicExtensions = overrideExtensions ? [] : defaultExtensions(props)
 
   const mergedExtension = language
     ? [...languageExtension[language], ...basicExtensions, ...extensions]
