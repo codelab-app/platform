@@ -5,6 +5,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm as BaseAutoForm } from 'uniforms-antd'
 import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
+import { useFormContext } from '../providers'
 
 export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
   const Form = <TData, TResponse = unknown>({
@@ -21,12 +22,16 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
     onChange,
     submitField,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
+    const context = useFormContext()
+
     const [bridge, setBridge] = useState(
-      schema instanceof Bridge ? schema : createBridge(schema),
+      schema instanceof Bridge ? schema : createBridge(schema, context),
     )
 
     useEffect(() => {
-      setBridge(schema instanceof Bridge ? schema : createBridge(schema))
+      setBridge(
+        schema instanceof Bridge ? schema : createBridge(schema, context),
+      )
     }, [schema])
 
     return (
