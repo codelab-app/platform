@@ -13,6 +13,7 @@ import { ConfigProvider } from 'antd'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
+import { Intercom } from '../home/Intercom'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 
 //
@@ -25,42 +26,45 @@ const App = ({ pageProps, Component }: IAppProps) => {
     Component as CodelabPage
 
   return (
-    <RecoilRoot>
-      <UserProvider>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <ConfigProvider>
-            <GlobalStyles />
-            <Global
-              styles={[
-                css({
-                  '#__next': {
-                    height: '100%',
-                  },
-                }),
-                css`
-                  img,
-                  svg,
-                  video,
-                  canvas,
-                  audio,
-                  iframe,
-                  embed,
-                  object {
-                    display: inline;
-                  }
-                `,
-              ]}
-            />
-            <Layout>
-              <Component
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...pageProps}
+    <>
+      <Intercom />
+      <RecoilRoot>
+        <UserProvider>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <ConfigProvider>
+              <GlobalStyles />
+              <Global
+                styles={[
+                  css({
+                    '#__next': {
+                      height: '100%',
+                    },
+                  }),
+                  css`
+                    img,
+                    svg,
+                    video,
+                    canvas,
+                    audio,
+                    iframe,
+                    embed,
+                    object {
+                      display: inline;
+                    }
+                  `,
+                ]}
               />
-            </Layout>
-          </ConfigProvider>
-        </LocalizationProvider>
-      </UserProvider>
-    </RecoilRoot>
+              <Layout>
+                <Component
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...pageProps}
+                />
+              </Layout>
+            </ConfigProvider>
+          </LocalizationProvider>
+        </UserProvider>
+      </RecoilRoot>
+    </>
   )
 }
 
