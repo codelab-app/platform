@@ -2,6 +2,7 @@ import {
   atoms,
   atomSelectionSet,
   Repository,
+  tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { Atom, GetAtomsQueryVariables } from '@codelab/shared/abstract/codegen'
 import { int, Transaction } from 'neo4j-driver'
@@ -34,7 +35,10 @@ export const atomRepository = {
           return (
             await AtomInstance.find({
               where: { id: atom.id },
-              selectionSet: atomSelectionSet,
+              selectionSet: atomSelectionSet.replace(
+                /tags {([a-z]|\s)*}/g,
+                `tags ${tagSelectionSet}`,
+              ),
             })
           )[0]
         })

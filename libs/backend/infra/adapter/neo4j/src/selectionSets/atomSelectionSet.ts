@@ -1,5 +1,3 @@
-import { tagSelectionSet } from './tagSelectionSet'
-
 export const atomSelectionSet = `{
   id
   name
@@ -9,7 +7,10 @@ export const atomSelectionSet = `{
     name
   }
   icon
-  tags ${tagSelectionSet}
+  tags {
+    id
+    name
+  }
   allowedChildren {
     id
     name
