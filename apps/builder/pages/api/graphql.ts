@@ -15,7 +15,7 @@ import { upsertUser } from '@codelab/frontend/domain/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { logger } from '@codelab/shared/adapter/logging'
-import { Env } from '@codelab/shared/env'
+import { EnvBuilder } from '@codelab/shared/env'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
@@ -30,7 +30,7 @@ let apolloServer: ApolloServer
 
 const BASIC_LOGGING = {
   requestDidStart(requestContext: any) {
-    if (!Env().next.enableAPILogging) {
+    if (!EnvBuilder().next.enableAPILogging) {
       return {}
     }
 

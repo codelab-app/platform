@@ -5,7 +5,7 @@ import * as env from 'env-var'
  * This can't be imported by Vercel due to edge middleware
  */
 
-interface Env {
+interface EnvBuilder {
   neo4j: {
     uri: string
     user: string
@@ -29,7 +29,7 @@ interface Env {
   }
 }
 
-export const Env = (): Env => ({
+export const EnvBuilder = (): EnvBuilder => ({
   neo4j: {
     uri: env.get('NEO4J_URI').required().asString(),
     user: env.get('NEO4J_USER').required().asString(),

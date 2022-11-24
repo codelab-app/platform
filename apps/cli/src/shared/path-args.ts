@@ -1,5 +1,5 @@
 import { Role } from '@codelab/shared/abstract/codegen'
-import { Env } from '@codelab/shared/env'
+import { EnvBuilder } from '@codelab/shared/env'
 import { v4 } from 'uuid'
 import { MiddlewareFunction, Options } from 'yargs'
 import { upsertUser } from '../repository/user.repo'
@@ -63,7 +63,7 @@ export const upsertUserMiddleware: MiddlewareFunction<unknown> = async ({
     await upsertUser(
       {
         auth0Id: v4(),
-        email: Env().auth0.cypress_username!,
+        email: EnvBuilder().auth0.cypress_username!,
         username: 'Codelab',
         roles: [Role.Admin],
       },

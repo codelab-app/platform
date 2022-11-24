@@ -1,5 +1,5 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { Env } from '@codelab/shared/env'
+import { EnvBuilder } from '@codelab/shared/env'
 import { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
@@ -42,7 +42,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
       auth: new Neo4jGraphQLAuthJWKSPlugin({
         jwksEndpoint: new URL(
           '.well-known/jwks.json',
-          Env().auth0.issuer_base_url,
+          EnvBuilder().auth0.issuer_base_url,
         ).href,
         /**
          * Use "dot path" since our roles path is nested
