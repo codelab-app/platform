@@ -95,6 +95,8 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
     }
 
     const autocomplete = renderService.state
+    const allowExpressions = true
+    const appStore = renderService.appStore.current
 
     const tabItems = [
       {
@@ -127,7 +129,9 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                     trackPromises={trackPromises}
                   />
                 </div>
-                <FormContextProvider value={{ autocomplete }}>
+                <FormContextProvider
+                  value={{ autocomplete, appStore, allowExpressions }}
+                >
                   <UpdateElementPropsForm
                     element={selectedNode}
                     elementService={elementService}
