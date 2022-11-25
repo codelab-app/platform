@@ -36,7 +36,6 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { baseTypesFactory } from './base-types.factory'
-import { InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
@@ -139,8 +138,6 @@ export class TypeService
    */
   @modelAction
   load = (types: GetTypesQuery) => {
-    console.debug('TypeService.cacheAll', types)
-
     const flatTypes = Object.values(types).flat()
 
     return flatTypes.map((type) => this.writeCache(type))
@@ -153,8 +150,6 @@ export class TypeService
 
   @modelAction
   writeCache(fragment: ITypeDTO) {
-    console.log('TypeService.writeCache')
-
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
@@ -225,8 +220,6 @@ export class TypeService
     const { arrayTypes, unionTypes, interfaceTypes } = yield* _await(
       getTypeApi.GetDescendants({ ids }),
     )
-
-    console.log(interfaceTypes)
 
     const allDescendantIds = [
       ...arrayTypes,

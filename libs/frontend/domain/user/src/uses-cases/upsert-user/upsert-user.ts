@@ -47,12 +47,8 @@ export const upsertUser = async (
       })
 
       return users[0]
-
-      // console.log('Created', users)
     } catch (e) {
       console.log({ e })
-
-      // console.error(e)
     }
   }
 

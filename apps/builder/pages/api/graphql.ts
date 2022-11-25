@@ -117,7 +117,6 @@ const handler: NextApiHandler = async (req, res) => {
      */
     session = await auth0Instance.getSession(req, res)
 
-    console.log(session)
     Object.assign(req, { user: session?.user })
 
     accessToken = (await auth0Instance.getAccessToken(req, res)).accessToken
@@ -140,7 +139,6 @@ const handler: NextApiHandler = async (req, res) => {
   ) {
     const user = session.user as Auth0SessionUser
     const User = await Repository.instance.User
-    console.log('Upsert user', user)
 
     await upsertUser(User, user)
   }

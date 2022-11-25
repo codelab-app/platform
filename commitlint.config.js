@@ -38,9 +38,6 @@ module.exports = {
         const startWithRegex = /^[a-z]/
         const endWithRegex = /((?<=\#)\w+\)|(\w+))$/
 
-        // console.log(startWithRegex.test(subject))
-        // console.log(endWithRegex.test(subject))
-
         /**
          * X feat(apps-builder): #1230 add some new feature
          * V feat(apps-builder): add some new feature

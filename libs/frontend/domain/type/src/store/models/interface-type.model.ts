@@ -70,8 +70,6 @@ export class InterfaceType
 
   @modelAction
   writeFieldCache(fields: Array<IFieldDTO>) {
-    console.log('writeFieldCache')
-
     for (const field of fields) {
       const fieldModel = this.fieldService.writeCache(field)
       this._fields.set(fieldModel.id, fieldRef(fieldModel))
@@ -80,8 +78,6 @@ export class InterfaceType
 
   @modelAction
   writeCache(fragment: ITypeDTO) {
-    console.log('InterfaceType.writeCache')
-
     if (fragment.__typename !== ITypeKind.InterfaceType) {
       throw new Error('Invalid InterfaceType')
     }

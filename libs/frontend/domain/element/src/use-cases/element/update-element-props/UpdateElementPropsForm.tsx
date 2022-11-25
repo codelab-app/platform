@@ -32,8 +32,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ elementService, element, trackPromises, typeService, userService }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
-    console.log(element.props)
-
     const initialPropsRef = useRef(element.props?.values ?? {})
 
     const apiId =

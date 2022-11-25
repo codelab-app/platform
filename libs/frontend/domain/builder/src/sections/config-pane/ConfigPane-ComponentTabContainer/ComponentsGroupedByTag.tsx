@@ -6,8 +6,6 @@ import { GetComponentsList } from './GetComponentsList'
 export const ComponentsGroupedByTag = ({
   componentsGroupedByCategory,
 }: Pick<IBuilderService, 'componentsGroupedByCategory'>) => {
-  console.log(componentsGroupedByCategory)
-
   const tags = Object.keys(componentsGroupedByCategory)
 
   return (

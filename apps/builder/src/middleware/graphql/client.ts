@@ -13,7 +13,6 @@ export const client = {
     const graphql = print(ast)
     const operation = getOperationAST(ast)
     const operationName = operation && operation.name?.value
-    console.log({ operationName })
 
     const data = await fetch(graphqlApiOrigin, {
       method: 'POST',
