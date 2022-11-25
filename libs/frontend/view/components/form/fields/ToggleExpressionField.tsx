@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { connectField, FieldProps } from 'uniforms'
 import { BoolField, NumField } from 'uniforms-antd'
-import { CodeMirrorEditor } from '../../codeMirror'
+import { CodeMirrorEditor, createAutoCompleteOptions } from '../../codeMirror'
 import { useFormContext } from '../providers'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
@@ -88,8 +88,12 @@ const ToggleExpression = ({
       </Space>
 
       <div>
-        {showExpressionEditor ? (
+        {showExpressionEditor && appStore ? (
           <CodeMirrorEditor
+            customOptions={createAutoCompleteOptions(
+              appStore.state.values,
+              'this',
+            )}
             language={ICodeMirrorLanguage.Javascript}
             overrideStyles={css`
               display: block;
