@@ -1,6 +1,7 @@
 import {
   atoms,
   atomSelectionSet,
+  atomsWithLimit,
   Repository,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
@@ -15,16 +16,17 @@ export const atomRepository = {
     txn: Transaction,
     params: GetAtomsQueryVariables,
   ): Promise<Array<Atom>> => {
-    const limit = params.options?.limit ?? 10
-    const offset = params.options?.offset ?? 0
+    const limit = params.options?.limit
+    const offset = params.options?.offset
+    const cypher = limit && offset ? atomsWithLimit : atoms
     const AtomInstance = await Repository.instance.Atom
 
     /**
      * We can still use the same query, but we get ID from context instead
      */
-    const { records: atomsRecords } = await txn.run(atoms, {
-      limit: int(limit),
-      skip: int(offset),
+    const { records: atomsRecords } = await txn.run(cypher, {
+      limit: limit ? int(limit) : undefined,
+      skip: offset ? int(offset) : undefined,
     })
 
     const items = await Promise.all(
