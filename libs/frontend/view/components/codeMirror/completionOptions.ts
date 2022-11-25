@@ -2,6 +2,7 @@ import { IPropData } from '@codelab/frontend/abstract/core'
 import type { Completion } from '@codemirror/autocomplete'
 import capitalize from 'lodash/capitalize'
 import isArray from 'lodash/isArray'
+import isElement from 'lodash/isElement'
 import isObjectLike from 'lodash/isObjectLike'
 
 // for making autocomplete of code mirror
@@ -26,7 +27,7 @@ export const createAutoCompleteOptions = (
       return [option, ...children]
     }
 
-    if (isObjectLike(value)) {
+    if (isObjectLike(value) && !isElement(value)) {
       return [option, ...createAutoCompleteOptions(value, key)]
     }
 
