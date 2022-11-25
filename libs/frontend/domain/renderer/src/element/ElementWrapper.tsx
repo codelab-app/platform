@@ -44,7 +44,21 @@ export interface ElementWrapperProps {
 // forward ref
 export const ElementWrapper = observer<ElementWrapperProps>(
   React.forwardRef(
-    ({ renderService, element, extraProps = {}, postAction, ...rest }, ref) => {
+    (
+      {
+        renderService,
+        element,
+        extraProps = {},
+        postAction,
+        style,
+        className,
+        onMouseDown,
+        onMouseUp,
+        onTouchEnd,
+        ...rest
+      },
+      ref,
+    ) => {
       console.log({ isRoot: extraProps.isRoot, element })
 
       const isRoot = extraProps.isRoot
@@ -112,48 +126,31 @@ export const ElementWrapper = observer<ElementWrapperProps>(
          * else children
          */
 
-        let IntermediateChildren = jsx(
+        console.log('Awesome', ReactComponent)
+
+        const IntermediateChildren = jsx(
           ReactComponent,
           // merge because some refs are not resolved
-          mergeProps(extractedProps, rest),
+          mergeProps(extractedProps, rest, {
+            style: {
+              width: '100%',
+              height: '100%',
+            },
+          }),
           children,
         )
 
         if (extraProps.isRoot) {
-          console.log({ children })
-
-          IntermediateChildren = (
-            <ReactComponent {...mergeProps(extractedProps, rest)}>
-              <GridLayout
-                layout={[
-                  {
-                    x: 0,
-                    y: 0,
-                    w: 3,
-                    h: 1,
-                    i: 'b00ffc68-c5ab-4f4b-abc3-e34bb4f30d2e',
-                  },
-                  {
-                    x: 0,
-                    y: 0,
-                    w: 3,
-                    h: 1,
-                    i: '947eeb15-145c-4869-99f7-5678e45eedb9',
-                  },
-                ]}
-              >
-                {children}
-              </GridLayout>
-            </ReactComponent>
-          )
+          return children
         }
 
-        const withMaybeProviders = withMaybeGlobalPropsProvider(
-          renderOutput,
-          globalPropsContext,
-        )
+        // const withMaybeProviders = withMaybeGlobalPropsProvider(
+        //   renderOutput,
+        //   globalPropsContext,
+        // )
 
-        return withMaybeProviders(IntermediateChildren)
+        // return withMaybeProviders(IntermediateChildren)
+        return IntermediateChildren
       })
 
       // ref
@@ -169,16 +166,31 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         onResetKeysChange: () => {
           element.setRenderingError(null)
         },
+        // key: element.id,
       }
-
-      const { style, className, onMouseDown, onMouseUp, onTouchEnd, children } =
-        rest
 
       const divProps = { style, className, onMouseDown, onMouseUp, onTouchEnd }
 
       if (isRoot) {
+        // return <div>{Rendered}</div>
+
         return (
-          <div {...bprops} ref={ref}>
+          <GridLayout
+            className="layout"
+            cols={12}
+            layout={[
+              {
+                i: 'random',
+                x: 0,
+                y: 0,
+                w: 1,
+                h: 1,
+              },
+            ]}
+            rowHeight={30}
+            width={1200}
+          >
+            {/* <div key="823df7c1-0b8f-47ea-8b42-f86db0d278bc">fun</div> */}
             {Rendered}
 
             {/* {React.createElement(
@@ -189,14 +201,24 @@ export const ElementWrapper = observer<ElementWrapperProps>(
               element,
             }),
           )} */}
-          </div>
+          </GridLayout>
         )
       }
 
+      console.log('element id', element.id)
+
       return (
-        <div {...divProps} {...bprops} ref={ref}>
-          {children}
+        <div {...divProps} {...bprops} key={element.id} ref={ref}>
           {Rendered}
+          {rest.children}
+          {/* <button
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            test
+          </button> */}
 
           {/* {React.createElement(
             ErrorBoundary,

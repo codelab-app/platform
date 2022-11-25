@@ -20,8 +20,6 @@ export class AtomRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    console.log('AtomRenderPipe')
-
     if (!element.atom?.current) {
       if (this.renderer.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
@@ -66,8 +64,6 @@ export class AtomRenderPipe
         { element: element.name },
       )
     }
-
-    console.log('RenderOutput.withAtom')
 
     return RenderOutput.withAtom({
       elementId: element.id,
