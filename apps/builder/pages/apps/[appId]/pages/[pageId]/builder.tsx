@@ -1,3 +1,5 @@
+import 'react-grid-layout/css/styles.css'
+import 'react-resizable/css/styles.css'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
@@ -8,6 +10,7 @@ import {
 } from '@codelab/frontend/domain/builder'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
+import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -80,22 +83,32 @@ const PageBuilder: CodelabPage = observer(() => {
 
   const error = pageDataError || rendererError
 
+  if (loading) {
+    return
+  }
+
+  if (!value?.renderer.renderRoot) {
+    return
+  }
+
   return (
     <>
       <Head>
-        <title>{value?.page.name} | Builder | Codelab</title>
+        <title>{value.page.name} | Builder | Codelab</title>
       </Head>
 
+      {/* <Renderer renderRoot={value.renderer.renderRoot} /> */}
+
       <BuilderTabs
-        appStore={value?.store}
+        appStore={value.store}
         builderRenderService={builderRenderService}
         builderService={builderService}
         componentService={componentService}
         elementService={elementService}
-        elementTree={value?.pageTree}
+        elementTree={value.pageTree}
         error={error?.message}
         isLoading={loading}
-        renderer={value?.renderer}
+        renderer={value.renderer}
       />
     </>
   )

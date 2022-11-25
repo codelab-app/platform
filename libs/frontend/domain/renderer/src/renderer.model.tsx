@@ -174,7 +174,9 @@ export class Renderer
       return null
     }
 
-    const rootElement = this.renderElement(root)
+    // is root
+    const rootElement = this.renderElement(root, { isRoot: true })
+    console.log({ rootElement })
 
     return this.renderWithProviders(rootElement)
   }
@@ -205,7 +207,30 @@ export class Renderer
         .filter((x): x is [ComponentType, IPropData] => Boolean(x)),
     )
 
-    return React.createElement(Providers, {}, rootElement)
+    /**
+Providers
+  RGL
+    rootElement.children
+   
+    
+          <GridLayout
+            className="layout"
+            cols={12}
+            layout={layout2}
+            rowHeight={30}
+            width={1200}
+          >
+            /* {rendererProps.renderRoot()} */
+    /* <Renderer renderRoot={rendererProps.renderRoot} /> 
+          </GridLayout>
+
+
+
+     */
+    console.log({ rootElement })
+
+    return <Providers>{rootElement}</Providers>
+    // return React.createElement(Providers, {}, rootElement)
   }
 
   runPreAction = (element: IElement) => {
@@ -259,6 +284,7 @@ export class Renderer
       element,
       extraProps,
       postAction: this.getPostAction(element),
+      // is root
     }
 
     return React.createElement(ElementWrapper, wrapperProps)

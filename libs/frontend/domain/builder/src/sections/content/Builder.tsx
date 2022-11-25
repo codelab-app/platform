@@ -11,6 +11,7 @@ import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
+import GridLayout from 'react-grid-layout'
 import tw from 'twin.macro'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
@@ -76,9 +77,38 @@ export const Builder = observer<BuilderProps>(
 
     const handleContainerClick = useBuilderRootClickHandler()
 
+    const layout = [
+      { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+      { i: 'b', x: 0, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+      { i: 'c', x: 0, y: 0, w: 1, h: 2 },
+    ]
+
     useEffect(() => {
       return setResizingMainContent(false)
     }, [])
+
+    /**
+element
+get element
+
+   i: elment: i
+   x,y: 0
+   w: 3
+   h,1
+  
+elementsList.map(e)
+     */
+    console.log('element list', elementTree.elementsList)
+
+    const layout2 = elementTree.elementsList.map((e) => ({
+      x: 0,
+      y: 0,
+      w: 3,
+      h: 1,
+      i: e.id,
+    }))
+
+    console.log({ layout2 })
 
     return (
       <StyledBuilderResizeContainer

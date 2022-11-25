@@ -45,6 +45,7 @@ export default async function middleware(req: NextRequest) {
   // Prevent security issues – users should not be able to canonically access
   // the pages/sites folder and its respective contents. This can also be done
   // via rewrites to a custom 404 page
+  return NextResponse.next()
 
   if (isSites) {
     /**
