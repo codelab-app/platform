@@ -35,8 +35,6 @@ export const containerStyles = css`
 
   // Styles taken from ant-input - to make it look similar to other fields
   box-sizing: border-box;
-  margin-top: 4px;
-  margin-bottom: 4px;
   font-variant: tabular-nums;
   list-style: none;
   font-feature-settings: 'tnum';
@@ -47,11 +45,12 @@ export const containerStyles = css`
   padding: 0 4px;
   color: rgba(0, 0, 0, 0.85);
   font-size: 14px;
+  min-height: 32px;
   line-height: 1.5715;
   background-color: #fff;
   background-image: none;
   border: 1px solid #d9d9d9;
-  border-radius: 2px;
+  border-radius: 4px;
   transition: all 0.3s;
 
   &:focus-within {

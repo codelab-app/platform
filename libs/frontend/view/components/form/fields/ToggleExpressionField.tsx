@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { css } from '@emotion/react'
 import { AutoCompleteProps, Button, Space, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
@@ -90,6 +91,9 @@ const ToggleExpression = ({
         {showExpressionEditor ? (
           <CodeMirrorEditor
             language={ICodeMirrorLanguage.Javascript}
+            overrideStyles={css`
+              display: block;
+            `}
             {...fieldProps}
             value={value}
           />
