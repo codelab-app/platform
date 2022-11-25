@@ -4,10 +4,11 @@ import {
   IElementService,
   IPropData,
 } from '@codelab/frontend/abstract/core'
+import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import ReactQuill from './ReactQuill'
 
 export interface UpdateRichTextFormProps {
@@ -47,19 +48,39 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
       [element.children.length],
     )
 
-    const onSubmit = (data: IPropData) => {
-      const promise = elementService.patchElement(element, {
-        props: {
-          update: {
-            node: {
-              data: JSON.stringify(data),
+    const onSubmit = useCallback(
+      (data: IPropData) => {
+        const promise = elementService.patchElement(element, {
+          props: {
+            update: {
+              node: {
+                data: JSON.stringify(data),
+              },
             },
           },
-        },
-      })
+        })
 
-      return trackPromise?.(promise) ?? promise
-    }
+        return trackPromise?.(promise) ?? promise
+      },
+      [element, elementService, trackPromise],
+    )
+
+    // Debounce autosave
+    const [valueDebounced, setValueDebounced] = useDebouncedState(200, {
+      ...element.props?.values,
+      [CUSTOM_TEXT_PROP_KEY]: value,
+    })
+
+    useEffect(() => {
+      setValueDebounced((prev) => ({
+        ...prev,
+        [CUSTOM_TEXT_PROP_KEY]: value,
+      }))
+    }, [value, setValueDebounced])
+
+    useEffect(() => {
+      void onSubmit(valueDebounced)
+    }, [onSubmit, valueDebounced])
 
     return element.atom?.current.allowCustomTextInjection ? (
       <Row align="middle">
@@ -73,10 +94,6 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
             modules={modules}
             onChange={(newCustomText) => {
               setValue(newCustomText)
-              void onSubmit({
-                ...element.props?.values,
-                [CUSTOM_TEXT_PROP_KEY]: newCustomText,
-              })
             }}
             theme="snow"
             value={value}
