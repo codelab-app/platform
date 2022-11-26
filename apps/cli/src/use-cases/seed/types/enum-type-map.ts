@@ -46,8 +46,8 @@ export const getEnumTypeForApi: FieldTypeRef = async ({
               create: values.map((value) => ({
                 node: {
                   id: v4(),
-                  key: value,
-                  value: pascalCaseToWords(value),
+                  key: pascalCaseToWords(value),
+                  value,
                 },
               })),
             },
