@@ -82,11 +82,6 @@ export class Prop
   }
 
   @modelAction
-  patch(data: IPropData) {
-    this.data = frozen(data)
-  }
-
-  @modelAction
   delete(key: string) {
     this.data = frozen(omit(this.data, key))
   }
