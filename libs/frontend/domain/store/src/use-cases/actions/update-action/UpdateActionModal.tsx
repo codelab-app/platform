@@ -66,6 +66,11 @@ export const UpdateActionModal = observer<{
       ? resourceService.resource(c.model.resourceId)?.type
       : null
 
+  const getResourceApiUrl = (c: Context<IUpdateActionDTO>) =>
+    c.model.resourceId
+      ? resourceService.resource(c.model.resourceId)?.config.get('url')
+      : null
+
   return (
     <ModalForm.Modal
       okText="Update Action"
@@ -109,7 +114,7 @@ export const UpdateActionModal = observer<{
           <DisplayIfField<IUpdateActionDTO>
             condition={(c) => getResourceType(c) === IResourceType.GraphQL}
           >
-            <AutoField name="config.query" />
+            <AutoField getUrl={getResourceApiUrl} name="config.query" />
             <AutoField name="config.variables" />
             <AutoField name="config.headers" />
           </DisplayIfField>
