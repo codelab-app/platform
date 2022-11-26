@@ -5,6 +5,7 @@ import {
   IApiActionDTO,
   IGraphQLActionConfig,
   IProp,
+  IPropData,
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
@@ -45,10 +46,18 @@ const hydrate = (action: IApiActionDTO): IApiAction => {
   })
 }
 
-const restFetch = (client: Axios, config: IRestActionConfig) => {
-  const data = tryParse(config.body)
-  const params = tryParse(config.queryParams)
-  const headers = tryParse(config.headers)
+const restFetch = (
+  client: Axios,
+  config: IRestActionConfig,
+  overrideConfig?: IPropData,
+) => {
+  const data = merge(tryParse(config.body), overrideConfig?.body)
+  const headers = merge(tryParse(config.headers), overrideConfig?.headers)
+
+  const params = merge(
+    tryParse(config.queryParams),
+    overrideConfig?.queryParams,
+  )
 
   return client.request({
     method: config.method as Method,
@@ -60,9 +69,13 @@ const restFetch = (client: Axios, config: IRestActionConfig) => {
   })
 }
 
-const graphqlFetch = (client: GraphQLClient, config: IGraphQLActionConfig) => {
-  const headers = tryParse(config.headers)
-  const variables = tryParse(config.variables)
+const graphqlFetch = (
+  client: GraphQLClient,
+  config: IGraphQLActionConfig,
+  overrideConfig?: IPropData,
+) => {
+  const headers = merge(tryParse(config.headers), overrideConfig?.headers)
+  const variables = merge(tryParse(config.variables), overrideConfig?.variables)
 
   return client.request(config.query, variables, headers)
 }
@@ -112,14 +125,24 @@ export class ApiAction
     const config = this.store.current.replaceStateInProps(this.config.values)
 
     const runner = (...args: Array<unknown>) => {
-      const conf = merge(config, args[0])
+      const overrideConfig = args[0] as IPropData
+      state.set(this.name, { response: null })
+      state.set(this.name, { error: null })
 
       const fetchPromise =
         resource.type === IResourceType.GraphQL
-          ? graphqlFetch(this._graphqlClient, conf as IGraphQLActionConfig)
-          : restFetch(this._restClient, conf as IRestActionConfig)
+          ? graphqlFetch(
+              this._graphqlClient,
+              config as IGraphQLActionConfig,
+              overrideConfig,
+            )
+          : restFetch(
+              this._restClient,
+              config as IRestActionConfig,
+              overrideConfig,
+            )
 
-      fetchPromise
+      return fetchPromise
         .then((response) => {
           state.set(this.name, { response })
 

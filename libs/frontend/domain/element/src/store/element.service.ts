@@ -27,7 +27,6 @@ import {
 import { IEntity } from '@codelab/shared/abstract/types'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
-import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
   _async,
@@ -92,13 +91,6 @@ export class ElementService
   @computed
   private get componentService() {
     return getComponentService(this)
-  }
-
-  @computed
-  get elementsDomRefs() {
-    return [...this.elements.values()]
-      .map((x) => ({ [x.id]: x.ref }))
-      .reduce(merge, {})
   }
 
   @modelFlow

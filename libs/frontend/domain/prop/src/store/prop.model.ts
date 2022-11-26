@@ -7,9 +7,11 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
+import get from 'lodash/get'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
 import omitBy from 'lodash/omitBy'
+import set from 'lodash/set'
 import values from 'lodash/values'
 import { computed } from 'mobx'
 import {
@@ -23,6 +25,7 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
+import { mergeDeepRight } from 'ramda'
 
 const hydrate = ({ id, data, apiRef }: IPropDTO): IProp => {
   return new Prop({ id, data: frozen(JSON.parse(data)), apiRef })
@@ -62,7 +65,8 @@ export class Prop
 
   @modelAction
   set(key: string, value: object) {
-    this.data = frozen(mergeProps(this.data.data, { [key]: value }))
+    const obj = set({}, key, value)
+    this.data = frozen(mergeDeepRight(this.data.data, obj))
   }
 
   @modelAction
@@ -71,17 +75,12 @@ export class Prop
   }
 
   @modelAction
-  patch(data: IPropData) {
-    this.data = frozen(data)
-  }
-
-  @modelAction
   delete(key: string) {
     this.data = frozen(omit(this.data, key))
   }
 
   get(key: string) {
-    return this.values[key]
+    return get(this.values, key)
   }
 
   @modelAction

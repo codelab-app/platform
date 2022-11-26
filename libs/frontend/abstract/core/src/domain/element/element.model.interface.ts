@@ -1,7 +1,6 @@
 import { UpdateElementsMutationVariables } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
-import { RefObject } from 'react'
 import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
 import { ICacheService } from '../../service'
 import { IBuilderDataNode } from '../../ui'
@@ -68,13 +67,11 @@ export interface IElement
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
-  ref: Nullish<React.RefObject<unknown>>
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
   prevSibling: Maybe<IElement>
   prevSiblingId: Nullable<string>
 
-  setRef(ref: RefObject<unknown>): void
   detachNextSibling(): () => void
   detachPrevSibling(): () => void
   detachParent(): () => void

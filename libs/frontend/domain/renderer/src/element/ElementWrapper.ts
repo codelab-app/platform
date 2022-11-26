@@ -40,11 +40,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
   ({ renderService, element, extraProps = {}, postAction, ...rest }) => {
     const globalPropsContext = useContext(GlobalPropsContext)
     const globalProps = globalPropsContext[element.id]
+    const state = renderService.appStore.current.state
 
     const onRefChange = useCallback(
       (node: Nullable<RefObject<HTMLElement>>) => {
-        if (!element.ref && node) {
-          element.setRef(node)
+        if (!state.get(element.id) && node) {
+          state.set(element.id, node)
         }
       },
       [],

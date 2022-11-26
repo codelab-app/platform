@@ -36,8 +36,6 @@ import { computed } from 'mobx'
 import {
   AnyModel,
   findParent,
-  Frozen,
-  frozen,
   getRefsResolvingTo,
   idProp,
   Model,
@@ -48,7 +46,6 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import React, { RefObject } from 'react'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
 
@@ -157,7 +154,6 @@ export class Element
     // Marks the element as an instance of a specific component
     renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
-    _ref: prop<Nullable<Frozen<React.RefObject<unknown>>>>(null),
   })
   implements IElement
 {
@@ -227,16 +223,6 @@ export class Element
     }
 
     return
-  }
-
-  @modelAction
-  setRef(ref: RefObject<unknown>) {
-    this._ref = frozen(ref)
-  }
-
-  @computed
-  get ref() {
-    return this._ref?.data
   }
 
   @modelAction
