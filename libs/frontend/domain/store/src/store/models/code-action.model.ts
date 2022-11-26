@@ -31,14 +31,13 @@ export class CodeAction
 
   @modelAction
   createRunner(state: IProp) {
-    const values = state.values
-
     try {
       return (...args: Array<unknown>) => {
+        const values = state.values
         // eslint-disable-next-line no-eval
         eval(`(${this.code})`).bind(values)(...args)
         // alter mobx with new state
-        state.setMany(values)
+        state.patch(values)
       }
     } catch (error) {
       console.log(error)
