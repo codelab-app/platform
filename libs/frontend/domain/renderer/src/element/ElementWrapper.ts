@@ -8,7 +8,7 @@ import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
-import React, { RefObject, useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
@@ -42,14 +42,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const globalProps = globalPropsContext[element.id]
     const state = renderService.appStore.current.state
 
-    const onRefChange = useCallback(
-      (node: Nullable<RefObject<HTMLElement>>) => {
-        if (!state.get(element.id) && node) {
-          state.set(element.id, node)
-        }
-      },
-      [],
-    )
+    const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
+      if (node !== null) {
+        state.setSilently(element.id, node)
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
       postAction?.()

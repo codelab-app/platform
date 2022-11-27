@@ -40,6 +40,8 @@ export class Prop
   })
   implements IProp
 {
+  private silentData: IPropData = {}
+
   @computed
   get values() {
     if (this.apiRef) {
@@ -69,6 +71,11 @@ export class Prop
     this.data = frozen(mergeDeepRight(this.data.data, obj))
   }
 
+  // set data without re-rendering
+  setSilently(key: string, value: object) {
+    this.silentData[key] = value
+  }
+
   @modelAction
   setMany(data: IPropData) {
     this.data = frozen(mergeProps(this.data.data, data))
@@ -80,7 +87,7 @@ export class Prop
   }
 
   get(key: string) {
-    return get(this.values, key)
+    return get(merge(this.values, this.silentData), key)
   }
 
   @modelAction
