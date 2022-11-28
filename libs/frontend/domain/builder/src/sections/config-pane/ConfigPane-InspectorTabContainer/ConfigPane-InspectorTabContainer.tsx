@@ -10,14 +10,17 @@ import {
   IActionService,
   IAtomService,
   IBuilderService,
+  IComponentService,
   IElementService,
   IElementTree,
   INode,
   IRenderer,
+  isComponent,
   isElement,
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import { UpdateComponentPropsForm } from '@codelab/frontend/domain/component'
 import {
   ElementCssEditor,
   PropMapBindingSection,
@@ -53,6 +56,7 @@ export interface MetaPaneBuilderProps {
   elementService: IElementService
   actionService: IActionService
   userService: IUserService
+  componentService: IComponentService
 }
 
 interface TooltipIconProps {
@@ -84,6 +88,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
     builderService,
     renderService,
     elementService,
+    componentService,
   }) => {
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
@@ -133,6 +138,15 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                   userService={userService}
                 />
               </>
+            ) : isComponent(selectedNode) ? (
+              <UpdateComponentPropsForm
+                autocomplete={renderService.state}
+                component={selectedNode}
+                componentService={componentService}
+                trackPromises={trackPromises}
+                typeService={typeService}
+                userService={userService}
+              />
             ) : (
               `Add an atom or a component to this element to edit its props`
             )}

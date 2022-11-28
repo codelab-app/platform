@@ -11,8 +11,9 @@ import {
   COMPONENT_TREE_CONTAINER,
 } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import {
+  ComponentUpdateInput,
   ComponentWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
@@ -203,6 +204,28 @@ export class ComponentService
     )
 
     return nodesDeleted
+  })
+
+  /**
+   * Directly uses generated GraphQL operations
+   */
+  @modelFlow
+  @transaction
+  public patchComponent = _async(function* (
+    this: ComponentService,
+    entity: IEntity,
+    input: ComponentUpdateInput,
+  ) {
+    const {
+      updateComponents: { components },
+    } = yield* _await(
+      componentApi.UpdateComponents({
+        where: { id: entity.id },
+        update: input,
+      }),
+    )
+
+    return components.map((component) => this.writeCache(component))[0]!
   })
 
   @modelAction

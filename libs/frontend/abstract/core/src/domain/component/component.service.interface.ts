@@ -1,5 +1,6 @@
 import {
   ComponentOptions,
+  ComponentUpdateInput,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
@@ -27,6 +28,10 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
+  patchComponent(
+    component: IComponent,
+    input: ComponentUpdateInput,
+  ): Promise<IComponent>
   /**
 term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
 component

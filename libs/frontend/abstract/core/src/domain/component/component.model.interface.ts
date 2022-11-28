@@ -1,8 +1,9 @@
-import { Nullish } from '@codelab/shared/abstract/types'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { INodeType } from '../../base'
 import { ICacheService } from '../../service'
 import { IElementTreeService } from '../element'
+import { IProp } from '../prop'
 import { IAnyType } from '../type'
 import { IComponentDTO } from './component.dto.interface'
 
@@ -15,6 +16,7 @@ export interface IComponent
   rootElementId: string
   ownerId: string
   api: Ref<IAnyType>
+  props?: Nullable<IProp>
 }
 
 export type IComponentRef = string

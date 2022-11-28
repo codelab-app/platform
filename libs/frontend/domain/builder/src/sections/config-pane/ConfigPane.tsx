@@ -118,6 +118,7 @@ export const ConfigPane = observer<MetaPaneProps>(
               actionService={actionService}
               atomService={atomService}
               builderService={builderService}
+              componentService={componentService}
               elementService={elementService}
               elementTree={elementTree}
               renderService={renderService}

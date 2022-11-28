@@ -2,9 +2,12 @@ import {
   COMPONENT_NODE_TYPE,
   IComponent,
   IComponentDTO,
+  IProp,
 } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
+import { Prop } from '@codelab/frontend/domain/prop'
 import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { ExtendedModel, idProp, model, prop, Ref } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
@@ -14,6 +17,12 @@ const hydrate = (component: IComponentDTO) => {
     rootElementId: component.rootElement.id,
     ownerId: component.owner.id,
     api: typeRef(component.api.id) as Ref<InterfaceType>,
+    props: component.props
+      ? Prop.hydrate({
+          ...component.props,
+          apiRef: typeRef(component.api.id) as Ref<InterfaceType>,
+        })
+      : null,
   })
 }
 
@@ -27,6 +36,7 @@ export class Component
     rootElementId: prop<string>().withSetter(),
     ownerId: prop<string>(),
     api: prop<Ref<InterfaceType>>(),
+    props: prop<Nullable<IProp>>(null),
   })
   implements IComponent
 {
@@ -38,6 +48,12 @@ export class Component
     this.rootElementId = fragment.rootElement.id
     this.ownerId = fragment.owner.id
     this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
+
+    if (fragment.props) {
+      this.props?.writeCache({ ...fragment.props, apiRef: this.api })
+    } else {
+      this.props = null
+    }
 
     return this
   }

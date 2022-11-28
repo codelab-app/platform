@@ -1,14 +1,21 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import {
+  PropFragment,
+} from '../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import {
+  PropFragmentDoc,
+} from '../prop/prop.fragment.graphql.gen'
 export type ComponentFragment = {
   id: string
   name: string
   rootElement: { id: string; name?: string | null }
   owner: { id: string; auth0Id: string }
   api: { id: string; name: string }
+  props?: PropFragment | null
 }
 
 export const ComponentFragmentDoc = gql`
@@ -27,7 +34,11 @@ export const ComponentFragmentDoc = gql`
       id
       name
     }
+    props {
+      ...Prop
+    }
   }
+  ${PropFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
