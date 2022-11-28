@@ -5198,6 +5198,7 @@ type ComponentElementRootElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 type ComponentInterfaceTypeApiAggregationSelection {
@@ -5534,6 +5535,26 @@ input ComponentRootElementNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type ComponentRootElementRelationship {
@@ -6454,6 +6475,7 @@ type Element {
   ): ElementRenderComponentTypeConnection!
   renderForEachPropKey: String
   renderIfPropKey: String
+  slug: String!
 }
 
 type ElementAggregateSelection {
@@ -6467,6 +6489,7 @@ type ElementAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementAtomRenderAtomTypeAggregationSelection {
@@ -6557,6 +6580,7 @@ input ElementCreateInput {
   renderComponentType: ElementRenderComponentTypeFieldInput
   renderForEachPropKey: String
   renderIfPropKey: String
+  slug: String!
 }
 
 input ElementDeleteInput {
@@ -6607,6 +6631,7 @@ type ElementElementFirstChildNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementElementNextSiblingAggregationSelection {
@@ -6624,6 +6649,7 @@ type ElementElementNextSiblingNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementElementParentAggregationSelection {
@@ -6641,6 +6667,7 @@ type ElementElementParentNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementElementPrevSiblingAggregationSelection {
@@ -6658,6 +6685,7 @@ type ElementElementPrevSiblingNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input ElementFirstChildAggregateInput {
@@ -6886,6 +6914,26 @@ input ElementFirstChildNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type ElementFirstChildRelationship {
@@ -7229,6 +7277,26 @@ input ElementNextSiblingNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type ElementNextSiblingRelationship {
@@ -7260,6 +7328,7 @@ input ElementOnCreateInput {
   propTransformationJs: String
   renderForEachPropKey: String
   renderIfPropKey: String
+  slug: String!
 }
 
 input ElementOptions {
@@ -7764,6 +7833,26 @@ input ElementParentNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type ElementParentRelationship {
@@ -8011,6 +8100,26 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type ElementPrevSiblingRelationship {
@@ -8545,6 +8654,7 @@ input ElementSort {
   propTransformationJs: SortDirection
   renderForEachPropKey: SortDirection
   renderIfPropKey: SortDirection
+  slug: SortDirection
 }
 
 """
@@ -8829,6 +8939,7 @@ input ElementUpdateInput {
   renderComponentType: ElementRenderComponentTypeUpdateFieldInput
   renderForEachPropKey: String
   renderIfPropKey: String
+  slug: String
 }
 
 input ElementWhere {
@@ -9028,6 +9139,16 @@ input ElementWhere {
   renderIfPropKey_NOT_IN: [String]
   renderIfPropKey_NOT_STARTS_WITH: String
   renderIfPropKey_STARTS_WITH: String
+  slug: String
+  slug_CONTAINS: String
+  slug_ENDS_WITH: String
+  slug_IN: [String!]
+  slug_NOT: String
+  slug_NOT_CONTAINS: String
+  slug_NOT_ENDS_WITH: String
+  slug_NOT_IN: [String!]
+  slug_NOT_STARTS_WITH: String
+  slug_STARTS_WITH: String
 }
 
 type ElementsConnection {
@@ -10408,6 +10529,7 @@ type HookElementElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input HookElementFieldInput {
@@ -10580,6 +10702,26 @@ input HookElementNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type HookElementRelationship {
@@ -12638,6 +12780,7 @@ type PageElementRootElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 """
@@ -12899,6 +13042,26 @@ input PageRootElementNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type PageRootElementRelationship {
@@ -13677,6 +13840,7 @@ type PropMapBindingElementElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input PropMapBindingElementFieldInput {
@@ -13849,6 +14013,26 @@ input PropMapBindingElementNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type PropMapBindingElementRelationship {
@@ -13871,6 +14055,7 @@ type PropMapBindingElementTargetElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input PropMapBindingElementUpdateConnectionInput {
@@ -14142,6 +14327,26 @@ input PropMapBindingTargetElementNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type PropMapBindingTargetElementRelationship {
@@ -18630,6 +18835,7 @@ type UserElementElementsNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input UserElementsAggregateInput {
@@ -18858,6 +19064,26 @@ input UserElementsNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_GTE: Int
   renderIfPropKey_SHORTEST_LT: Int
   renderIfPropKey_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type UserElementsRelationship {

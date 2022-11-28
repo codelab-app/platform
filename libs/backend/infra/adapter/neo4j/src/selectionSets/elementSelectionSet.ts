@@ -6,6 +6,7 @@ export const elementSelectionSet = `{
   name
   customCss
   guiCss
+  slug
   parentComponent
     ${componentSelectionSet}
   renderComponentType

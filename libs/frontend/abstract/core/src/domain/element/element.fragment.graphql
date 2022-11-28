@@ -2,6 +2,7 @@ fragment Element on Element {
   __typename
   id
   name
+  slug
   customCss
   guiCss
   renderComponentType {

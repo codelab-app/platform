@@ -21,6 +21,7 @@ export const elementSchema = gql`
 
     # fixedId: String!, // This could be no longer needed with neo4j
     name: String
+    slug: String!
     # Used for the css the user types it manually using the integrated code editor. This is
     # a pure css string.
     customCss: String

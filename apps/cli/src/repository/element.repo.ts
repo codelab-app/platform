@@ -38,6 +38,7 @@ export const importElementInitial = async (
         {
           id: element.id,
           name: element.name,
+          slug: element.slug,
           // owner: connectNode(userId),
           customCss: element.customCss,
           guiCss: element.guiCss,
