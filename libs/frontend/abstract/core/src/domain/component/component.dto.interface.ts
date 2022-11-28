@@ -1,6 +1,4 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { Nullable } from '@codelab/shared/abstract/types'
-import { IPropData } from '../prop'
 import { IInterfaceTypeRef } from '../type'
 import { IAuth0Id } from '../user'
 import { ComponentFragment } from './component.fragment.graphql.gen'
@@ -15,16 +13,9 @@ export interface ICreateComponentDTO {
 
   // Allow for connection to existing element
   rootElementId?: string | undefined
-
-  propsData?: string
 }
 
-export type IUpdateComponentDTO = Omit<
-  ICreateComponentDTO,
-  'id' | 'auth0Id' | 'rootElementId' | 'api'
-> & {
-  props?: Nullable<IPropData>
-}
+export type IUpdateComponentDTO = Pick<ICreateComponentDTO, 'name'>
 
 export type IComponentDTO = ComponentFragment
 

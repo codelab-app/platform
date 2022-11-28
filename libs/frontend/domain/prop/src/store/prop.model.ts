@@ -40,7 +40,7 @@ export class Prop
   @computed
   get values() {
     if (this.apiRef) {
-      const apiPropsMap = this.apiRef.current.fields
+      const apiPropsMap = this.apiRef.maybeCurrent?.fields
 
       const apiPropsByKey = values(apiPropsMap)
         .map((propModel) => ({ [propModel.key]: propModel }))

@@ -7,7 +7,7 @@ import { v4 } from 'uuid'
 export const mapCreateInput = (
   input: ICreateComponentDTO,
 ): ComponentCreateInput => {
-  const { id = v4(), name, auth0Id, rootElementId, propsData } = input
+  const { id = v4(), name, auth0Id, rootElementId } = input
 
   const createRootElement: ComponentCreateInput['rootElement'] = {
     create: {
@@ -36,7 +36,7 @@ export const mapCreateInput = (
   }
 
   const props: ComponentCreateInput['props'] = {
-    create: { node: { data: propsData ?? JSON.stringify({}) } },
+    create: { node: { data: JSON.stringify({}) } },
   }
 
   return {
