@@ -34,30 +34,29 @@ module.exports = {
       'always',
       (parsed) => {
         const subject = parsed.subject
-
-        const startWithRegex = /^[a-z]/
-        const endWithRegex = /((?<=\#)\w+\)|(\w+))$/
-
-        // console.log(startWithRegex.test(subject))
-        // console.log(endWithRegex.test(subject))
+        const startWithRegex = /^[a-z]|#\d+\s[a-z]/
+        const endWithRegex = /[a-z]$/
 
         /**
-         * X feat(apps-builder): #1230 add some new feature
          * V feat(apps-builder): add some new feature
+         * V feat(apps-builder): #1230 add some new feature
+         * X feat(apps-builder): Add some new feature
+         * X feat(apps-builder): #1234 Add some new feature
+         * X feat(apps-builder): (#1234) add some new feature
          */
         if (!startWithRegex.test(subject)) {
-          return [false, 'Subject must start with a lower case alphabet']
+          return [false, 'Subject must start with a lower case alphabet or issue number']
         }
 
         /**
-         * X feat(apps-builder): add some new feature #1230
          * V feat(apps-builder): add some new feature
-         * V feat(apps-builder): add some new feature (#1230)
+         * X feat(apps-builder): add some new feature #1230
+         * X feat(apps-builder): add some new feature (#1230)
          */
         if (!endWithRegex.test(subject)) {
           return [
             false,
-            'Subject must end with a lower case alphabet or a closing parenthesis',
+            'Subject must end with a lower case alphabet',
           ]
         }
 
