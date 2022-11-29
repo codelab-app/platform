@@ -40,6 +40,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { until } from 'ramda'
 import { v4 } from 'uuid'
 import { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import {
@@ -691,12 +692,41 @@ element is new parentElement's first child
       ) {
         const createdElements = new Array<IElement>()
         const oldToNewIdMap = new Map<string, string>()
+        const elementSlugs = [...this.elements.values()].map((e) => e.slug)
+
+        // handle slug creation where many duplicates for the same element exists
+        const createDuplicateSlug = (element: IElement) => {
+          const slug_root = `${element.slug}_duplicate`
+
+          if (!elementSlugs.includes(slug_root)) {
+            return slug_root
+          }
+
+          // find how many slug with following format `${slug_root}${index}`
+          const duplicates = elementSlugs.filter((s) => s.startsWith(slug_root))
+
+          /**
+           * Normally next_index = duplicates.length
+           * However, we need to make sure that index isn't used by user
+           */
+          const next_index = until(
+            (x: number) => !duplicates.includes(`${slug_root}${x}`),
+            (v: number) => v + 1,
+          )(duplicates.length)
+
+          return `${slug_root}${next_index}`
+        }
 
         const recursiveDuplicate = async (
           element: IElement,
           parent: IElement,
         ) => {
-          const createInput: ElementCreateInput = makeDuplicateInput(element)
+          const duplicate_slug = createDuplicateSlug(element)
+
+          const createInput: ElementCreateInput = makeDuplicateInput(
+            element,
+            duplicate_slug,
+          )
 
           const {
             createElements: {
