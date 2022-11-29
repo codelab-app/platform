@@ -22,7 +22,6 @@ export const elementSchema = gql`
     # format : pageId-slug because element slug is unique inside page.
     slug: String! @unique
     name: String
-    slug: String!
     # Used for the css the user types it manually using the integrated code editor. This is
     # a pure css string.
     customCss: String
