@@ -21,7 +21,7 @@ export class ElementTreeService
    * @param elements  All elements are assumed to be cached before being used here
    */
   @modelAction
-  initTree = (rootElement: IElement, elements: Array<IElement>) => {
+  initTree(rootElement: IElement, elements: Array<IElement>) {
     console.debug('ElementTreeService.initTree', elements)
 
     const elementService = getElementService(this)

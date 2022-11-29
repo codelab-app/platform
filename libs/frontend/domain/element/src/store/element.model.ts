@@ -158,6 +158,10 @@ export class Element
     // Marks the element as an instance of a specific component
     renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
+
+    // element origin could be a page or a component
+    // used to create unique slug for element
+    originId: prop<Maybe<string>>().withSetter(),
   })
   implements IElement
 {

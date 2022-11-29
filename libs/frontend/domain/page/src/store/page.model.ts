@@ -1,4 +1,8 @@
-import type { IPageDTO, IPropData } from '@codelab/frontend/abstract/core'
+import type {
+  IElement,
+  IPageDTO,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
 import { IPage } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { extractSlug } from '@codelab/frontend/shared/utils'
@@ -77,6 +81,15 @@ export class Page
   }
 
   static hydrate = hydrate
+
+  @modelAction
+  override initTree(rootElement: IElement, elements: Array<IElement>) {
+    super.initTree(rootElement, elements)
+
+    this.elementTree.elementsList.forEach((e) => e.setOriginId(this.id))
+
+    return this.elementTree
+  }
 
   static getServerSideProps = getServerSideProps
 }

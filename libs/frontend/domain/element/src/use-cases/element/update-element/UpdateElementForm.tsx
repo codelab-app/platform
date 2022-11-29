@@ -1,5 +1,4 @@
 import {
-  IBuilderService,
   IElement,
   IElementService,
   IUpdateBaseElementDTO,
@@ -26,23 +25,14 @@ import { updateElementSchema } from './updateElementSchema'
 
 export interface UpdateElementFormProps {
   element: IElement
-  pageId: string
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
-  builderService: IBuilderService
 }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({
-    elementService,
-    builderService,
-    element,
-    pageId,
-    trackPromises,
-    providePropCompletion,
-  }) => {
+  ({ elementService, element, trackPromises, providePropCompletion }) => {
     const { trackPromise } = trackPromises ?? {}
 
     const [propCompleteOptions, setPropCompleteOptions] = useState<
@@ -64,11 +54,10 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
 
     const onSubmit = (data: IUpdateElementDTO) => {
       const { slug } = data
-      const componentId = builderService.activeComponent?.id
 
       const input = {
         ...data,
-        slug: createSlug(slug, componentId || pageId),
+        slug: createSlug(slug, element.originId),
       }
 
       const promise = elementService.update(element, input)

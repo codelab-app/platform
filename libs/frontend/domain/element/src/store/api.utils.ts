@@ -3,6 +3,7 @@ import {
   IElement,
   IUpdateElementDTO,
 } from '@codelab/frontend/abstract/core'
+import { createSlug } from '@codelab/frontend/shared/utils'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -65,7 +66,7 @@ export const makeDuplicateInput = (element: IElement): ElementCreateInput => {
     renderComponentType: connectNode(element.renderComponentType?.id),
     renderAtomType: connectNode(element.atom?.id),
     props,
-    slug: element.slug,
+    slug: createSlug(`${element.slug}_duplicate`, element.originId),
     propTransformationJs: element.propTransformationJs,
     renderIfPropKey: element.renderIfPropKey,
     renderForEachPropKey: element.renderForEachPropKey,

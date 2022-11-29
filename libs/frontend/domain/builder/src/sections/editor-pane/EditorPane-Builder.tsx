@@ -23,7 +23,6 @@ import {
   UseResizable,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { propSafeStringify } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
@@ -100,7 +99,7 @@ export const EditorPaneBuilder = observer(
                 `}
                 singleLine={false}
                 title="Current props"
-                value={propSafeStringify(appStore.state.values)}
+                value={appStore.state.jsonString}
               />
             </TabPane>
           </Tabs>
