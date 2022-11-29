@@ -67,6 +67,7 @@ export interface IElement
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
+  slug: string
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
   prevSibling: Maybe<IElement>

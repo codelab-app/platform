@@ -151,6 +151,7 @@ PageBuilder.Layout = observer((page) => {
                 // The element tree changes depending on whether a page or a component is selected
                 elementTree={activeElementTree}
                 key={pageBuilderRenderer.pageTree?.current.root?.id}
+                pageId={pageId}
                 renderService={pageBuilderRenderer}
                 typeService={typeService}
                 userService={userService}

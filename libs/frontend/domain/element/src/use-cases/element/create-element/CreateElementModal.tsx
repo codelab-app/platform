@@ -14,7 +14,10 @@ import {
   SelectAtom,
   SelectComponent,
 } from '@codelab/frontend/domain/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  createNotificationHandler,
+  createSlug,
+} from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -34,6 +37,7 @@ interface CreateElementModalProps {
   userService: IUserService
   componentService: IComponentService
   storeId: string
+  pageId: string
 }
 
 export const CreateElementModal = observer<CreateElementModalProps>(
@@ -43,22 +47,25 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     userService,
     pageTree,
     renderService,
-    actionService,
-    storeId,
+    pageId,
   }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
-      const { prevSiblingId } = data
+      const { prevSiblingId, slug } = data
+      const componentId = builderService.activeComponent?.id
+
+      const input = {
+        ...data,
+        slug: createSlug(slug, componentId || pageId),
+      }
 
       const element = await (prevSiblingId
-        ? elementService.createElementAsNextSibling(data)
-        : elementService.createElementAsFirstChild(data))
+        ? elementService.createElementAsNextSibling(input)
+        : elementService.createElementAsFirstChild(input))
 
       // Build tree for page
       pageTree.addElements([element])
 
       // Get the component tree for the current element, so we can update the component tree
-      const componentId = builderService.activeComponent?.id
-
       if (componentId) {
         const componentTree =
           renderService.renderers.get(componentId)?.pageTree?.current

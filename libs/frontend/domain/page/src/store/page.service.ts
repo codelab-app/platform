@@ -6,7 +6,7 @@ import {
   IUpdatePageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import { connectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
@@ -23,7 +23,6 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import slugify from 'slugify'
 import { v4 } from 'uuid'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
@@ -98,7 +97,7 @@ page/component
       pageApi.UpdatePages({
         update: {
           name,
-          slug: `${appId}${slugify(slug)}`,
+          slug: createSlug(slug, appId),
           app: connectNode(appId),
           getServerSideProps,
         },
@@ -138,7 +137,7 @@ page/component
       return {
         id: pageId,
         name: page.name,
-        slug: `${page.appId}${slugify(page.slug)}`,
+        slug: createSlug(page.slug, page.appId),
         app: connectNode(page.appId),
         getServerSideProps: page.getServerSideProps,
         rootElement: {
@@ -146,7 +145,7 @@ page/component
             node: {
               id: page.rootElementId ?? v4(),
               name: ROOT_ELEMENT_NAME,
-              slug: `${pageId}${slugify(ROOT_ELEMENT_NAME)}`,
+              slug: createSlug(ROOT_ELEMENT_NAME, pageId),
             },
           },
         },

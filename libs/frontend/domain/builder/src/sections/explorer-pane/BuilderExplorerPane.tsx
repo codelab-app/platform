@@ -160,6 +160,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}
+            pageId={pageId}
             pageTree={pageTree}
             renderService={renderService}
             storeId={storeId}

@@ -1,6 +1,7 @@
 import type { IPageDTO, IPropData } from '@codelab/frontend/abstract/core'
 import { IPage } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
+import { extractSlug } from '@codelab/frontend/shared/utils'
 import { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
@@ -30,7 +31,7 @@ const hydrate = (page: IPageDTO) => {
   return new Page({
     id: page.id,
     name: page.name,
-    slug: page.slug.replace(`${page.app.id}-`, ''),
+    slug: extractSlug(page.slug),
     rootElement: { id: page.rootElement.id },
     getServerSideProps: page.getServerSideProps,
     app: { id: page.app.id },
@@ -68,7 +69,7 @@ export class Page
     this.setName(page.name)
     this.rootElement = page.rootElement
     this.app = page.app
-    this.slug = page.slug.replace(`${page.app.id}-`, '')
+    this.slug = extractSlug(page.slug)
     this.getServerSideProps = page.getServerSideProps
     this.isProvider = page.isProvider
 

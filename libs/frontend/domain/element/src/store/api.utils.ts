@@ -30,6 +30,7 @@ export const makeCreateInput = (
     renderComponentTypeId,
     atomId,
     name,
+    slug,
     postRenderActionId,
     preRenderActionId,
     propsData,
@@ -46,6 +47,7 @@ export const makeCreateInput = (
     renderComponentType: connectNode(renderComponentTypeId),
     renderAtomType: connectNode(atomId),
     props,
+    slug,
     postRenderActionId,
     preRenderActionId,
     name,
@@ -63,6 +65,7 @@ export const makeDuplicateInput = (element: IElement): ElementCreateInput => {
     renderComponentType: connectNode(element.renderComponentType?.id),
     renderAtomType: connectNode(element.atom?.id),
     props,
+    slug: element.slug,
     propTransformationJs: element.propTransformationJs,
     renderIfPropKey: element.renderIfPropKey,
     renderForEachPropKey: element.renderForEachPropKey,
@@ -81,6 +84,7 @@ export const makeUpdateInput = (
   return {
     name: input.name,
     renderAtomType,
+    slug: input.slug,
     props: {
       update: {
         node: {

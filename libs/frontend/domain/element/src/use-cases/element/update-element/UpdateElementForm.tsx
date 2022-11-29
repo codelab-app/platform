@@ -1,5 +1,4 @@
 import {
-  IActionService,
   IBuilderService,
   IElement,
   IElementService,
@@ -11,7 +10,10 @@ import {
   SelectAtom,
   SelectComponent,
 } from '@codelab/frontend/domain/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  createNotificationHandler,
+  createSlug,
+} from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
   Form,
@@ -24,12 +26,11 @@ import { updateElementSchema } from './updateElementSchema'
 
 export interface UpdateElementFormProps {
   element: IElement
+  pageId: string
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
-  builderService: IBuilderService
   elementService: IElementService
-  actionService: IActionService
-  storeId: string
+  builderService: IBuilderService
 }
 
 /** Not intended to be used in a modal */
@@ -38,8 +39,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     elementService,
     builderService,
     element,
-    actionService,
-    storeId,
+    pageId,
     trackPromises,
     providePropCompletion,
   }) => {
@@ -54,6 +54,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       id: element.id,
       atomId: element.atom?.id,
       name: element.name,
+      slug: element.slug,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfPropKey: element.renderIfPropKey,
       renderComponentTypeId: element.renderComponentType?.id,
@@ -61,7 +62,15 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       preRenderActionId: element.preRenderActionId,
     })
 
-    const onSubmit = (input: IUpdateElementDTO) => {
+    const onSubmit = (data: IUpdateElementDTO) => {
+      const { slug } = data
+      const componentId = builderService.activeComponent?.id
+
+      const input = {
+        ...data,
+        slug: createSlug(slug, componentId || pageId),
+      }
+
       const promise = elementService.update(element, input)
 
       if (trackPromise) {

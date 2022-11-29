@@ -17,6 +17,9 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       type: 'string',
       nullable: true,
     },
+    slug: {
+      type: 'string',
+    },
     parentElementId: {
       type: 'string',
       nullable: true,
@@ -60,5 +63,5 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       nullable: true,
     },
   },
-  required: [],
+  required: ['slug'],
 }

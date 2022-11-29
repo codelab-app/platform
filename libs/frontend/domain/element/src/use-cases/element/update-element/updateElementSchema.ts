@@ -15,6 +15,9 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       nullable: true,
       autoFocus: true,
     },
+    slug: {
+      type: 'string',
+    },
     renderIfPropKey: {
       type: 'string',
       nullable: true,
