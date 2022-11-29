@@ -1,6 +1,5 @@
 import { SubmitController } from '@codelab/frontend/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import { mapDeep } from '@codelab/shared/utils'
 import type { Schema } from 'ajv'
 import Ajv, { JSONSchemaType } from 'ajv'
 import addFormats from 'ajv-formats'
@@ -29,9 +28,7 @@ export const createValidator = (schema: Schema, context?: FormContextValue) => {
 
   return (model: Record<string, unknown>) => {
     const modelToValidate = context?.allowExpressions
-      ? mapDeep(model, (v) =>
-          typeof v === 'string' ? context.appStore?.getByExpression(v) : v,
-        )
+      ? context.appStore?.replaceStateInProps(model)
       : model
 
     validator(modelToValidate)
