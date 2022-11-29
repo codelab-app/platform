@@ -180,9 +180,10 @@ export class AppService
   create = _async(function* (this: AppService, data: Array<ICreateAppDTO>) {
     const input: Array<AppCreateInput> = data.map((app) => {
       const appId = app.id ?? v4()
+      const pageId = v4()
 
       const providerPage = {
-        id: v4(),
+        id: pageId,
         name: APP_PAGE_NAME,
         slug: APP_PAGE_SLUG,
         getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
@@ -190,7 +191,13 @@ export class AppService
           connect: { where: { node: { id: appId } } },
         },
         rootElement: {
-          create: { node: { id: v4(), name: ROOT_ELEMENT_NAME } },
+          create: {
+            node: {
+              id: v4(),
+              name: ROOT_ELEMENT_NAME,
+              slug: `${pageId}${slugify(ROOT_ELEMENT_NAME)}`,
+            },
+          },
         },
         isProvider: true,
       }
