@@ -132,22 +132,26 @@ page/component
   @modelFlow
   @transaction
   create = _async(function* (this: PageService, data: Array<ICreatePageDTO>) {
-    const input = data.map((page) => ({
-      id: page.id ?? v4(),
-      name: page.name,
-      slug: slugify(page.slug),
-      app: connectNode(page.appId),
-      getServerSideProps: page.getServerSideProps,
-      rootElement: {
-        create: {
-          node: {
-            id: page.rootElementId ?? v4(),
-            name: ROOT_ELEMENT_NAME,
-            slug: `${page.appId}${slugify(ROOT_ELEMENT_NAME)}`,
+    const input = data.map((page) => {
+      const pageId = page.id ?? v4()
+
+      return {
+        id: pageId,
+        name: page.name,
+        slug: `${page.appId}${slugify(page.slug)}`,
+        app: connectNode(page.appId),
+        getServerSideProps: page.getServerSideProps,
+        rootElement: {
+          create: {
+            node: {
+              id: page.rootElementId ?? v4(),
+              name: ROOT_ELEMENT_NAME,
+              slug: `${pageId}${slugify(ROOT_ELEMENT_NAME)}`,
+            },
           },
         },
-      },
-    }))
+      }
+    })
 
     const {
       createPages: { pages },
