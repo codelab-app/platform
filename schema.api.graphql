@@ -8916,6 +8916,7 @@ type ElementTypesConnection {
 
 input ElementUniqueWhere {
   id: ID
+  slug: String
 }
 
 input ElementUpdateInput {
@@ -13328,6 +13329,7 @@ type PageTypesConnection {
 
 input PageUniqueWhere {
   id: ID
+  slug: String
 }
 
 input PageUpdateInput {

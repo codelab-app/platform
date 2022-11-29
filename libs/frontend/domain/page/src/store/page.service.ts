@@ -98,7 +98,7 @@ page/component
       pageApi.UpdatePages({
         update: {
           name,
-          slug: slugify(slug),
+          slug: `${appId}${slugify(slug)}`,
           app: connectNode(appId),
           getServerSideProps,
         },
@@ -143,6 +143,7 @@ page/component
           node: {
             id: page.rootElementId ?? v4(),
             name: ROOT_ELEMENT_NAME,
+            slug: `${page.appId}${slugify(ROOT_ELEMENT_NAME)}`,
           },
         },
       },

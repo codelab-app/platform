@@ -30,7 +30,7 @@ const hydrate = (page: IPageDTO) => {
   return new Page({
     id: page.id,
     name: page.name,
-    slug: page.slug,
+    slug: page.slug.replace(`${page.app.id}-`, ''),
     rootElement: { id: page.rootElement.id },
     getServerSideProps: page.getServerSideProps,
     app: { id: page.app.id },
@@ -68,6 +68,7 @@ export class Page
     this.setName(page.name)
     this.rootElement = page.rootElement
     this.app = page.app
+    this.slug = page.slug.replace(`${page.app.id}-`, '')
     this.getServerSideProps = page.getServerSideProps
     this.isProvider = page.isProvider
 

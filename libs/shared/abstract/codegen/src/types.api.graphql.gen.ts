@@ -9341,6 +9341,7 @@ export type ElementTypesConnection = {
 
 export type ElementUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  slug?: InputMaybe<Scalars['String']>
 }
 
 export type ElementUpdateInput = {
@@ -14174,6 +14175,7 @@ export type PageTypesConnection = {
 
 export type PageUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  slug?: InputMaybe<Scalars['String']>
 }
 
 export type PageUpdateInput = {
