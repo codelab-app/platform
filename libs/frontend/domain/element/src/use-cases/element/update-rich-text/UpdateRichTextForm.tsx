@@ -66,7 +66,7 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
     )
 
     // Debounce autosave
-    const [valueDebounced, setValueDebounced] = useDebouncedState(200, {
+    const [valueDebounced, setValueDebounced] = useDebouncedState(1000, {
       ...element.props?.values,
       [CUSTOM_TEXT_PROP_KEY]: value,
     })
@@ -94,6 +94,13 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
             modules={modules}
             onChange={(newCustomText) => {
               setValue(newCustomText)
+              elementService.patchElementPropsDataDirectly(
+                element,
+                JSON.stringify({
+                  ...element.props?.values,
+                  [CUSTOM_TEXT_PROP_KEY]: newCustomText,
+                }),
+              )
             }}
             theme="snow"
             value={value}

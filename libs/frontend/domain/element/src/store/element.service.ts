@@ -24,11 +24,11 @@ import {
   ElementWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
+import { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
-import { computed } from 'mobx'
+import { computed, toJS } from 'mobx'
 import {
   _async,
   _await,
@@ -79,6 +79,7 @@ export class ElementService
     createPropMapBindingModal: prop(() => new ElementModalService({})),
     updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
     deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
+    _updatingElement: prop<Maybe<IElementDTO>>(),
 
     // _atomService: prop<Ref<IAtomService>>(),
   })
@@ -286,8 +287,29 @@ export class ElementService
       }),
     )
 
+    this._updatingElement = elements[0]!
+
     return elements.map((element) => this.writeCache(element))[0]!
   })
+
+  @modelAction
+  public patchElementPropsDataDirectly = (entity: IEntity, data: string) => {
+    let updatingEle: IElementDTO = toJS(this._updatingElement)!
+
+    if (updatingEle.id !== entity.id) {
+      return
+    }
+
+    updatingEle = {
+      ...updatingEle,
+      props: {
+        id: updatingEle.id,
+        data,
+      },
+    }
+
+    return this.writeCache(updatingEle)
+  }
 
   @modelFlow
   @transaction
