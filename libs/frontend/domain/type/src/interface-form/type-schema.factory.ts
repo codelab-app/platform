@@ -230,23 +230,7 @@ export class TypeSchemaFactory {
   fromEnumType(type: IEnumType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
-    const uniforms = {
-      options: type.allowedValues.map((v) => ({
-        value: v.value,
-        label: v.key,
-      })),
-      showSearch: true,
-      optionFilterProp: 'label',
-      getPopupContainer: (triggerNode: Element) => triggerNode.parentElement,
-      ...extra?.uniforms,
-    }
-
-    return {
-      type: 'string',
-      enum: type.allowedValues.map((v) => v.value),
-      uniforms,
-      ...extra,
-    } as const
+    return { type: 'string', ...extra } as const
   }
 
   /**

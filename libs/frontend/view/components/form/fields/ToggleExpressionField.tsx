@@ -5,7 +5,12 @@ import { AutoCompleteProps, Button, Space, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { connectField, FieldProps } from 'uniforms'
-import { BoolField, NumField } from 'uniforms-antd'
+import {
+  BoolField,
+  NumField,
+  SelectField,
+  SelectFieldProps,
+} from 'uniforms-antd'
 import { CodeMirrorEditor, createAutoCompleteOptions } from '../../codeMirror'
 import { useFormContext } from '../providers'
 
@@ -31,19 +36,16 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
     case 'boolean':
       return <BoolField {...(props as FieldProps<boolean, InnerProps>)} />
     case 'number':
-      return (
-        <NumField
-          {...(props as FieldProps<number, InnerProps>)}
-          decimal={true}
-        />
-      )
     case 'integer':
       return (
         <NumField
           {...(props as FieldProps<number, InnerProps>)}
-          decimal={false}
+          decimal={fieldProps.field.type === 'number'}
         />
       )
+    case 'string':
+      return <SelectField {...(props as SelectFieldProps)} />
+
     default:
       return null
   }

@@ -5,6 +5,7 @@ import { actionTypeUiProperties } from './actionTypeUiProperties'
 import { appTypeUiProperties } from './appTypeUiProperties'
 import { codeMirrorTypeUiProperties } from './codeMirrorTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
+import { enumTypeUiProperties } from './enumTypeUiProperties'
 import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
 import { pageTypeUiProperties } from './pageTypeUiProperties'
 import { primitiveTypeUiProperties } from './primativeUiProperties'
@@ -29,6 +30,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.AppType]: appTypeUiProperties,
   [ITypeKind.ActionType]: actionTypeUiProperties,
   [ITypeKind.PageType]: pageTypeUiProperties,
+  [ITypeKind.EnumType]: enumTypeUiProperties,
 }
 
 export const getUiProperties = (
