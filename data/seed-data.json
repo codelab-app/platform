@@ -59,7 +59,7 @@
         "id": "2aed33e6-4d47-4d15-be9c-cd18a1a632b5",
         "name": "AntDesignAnchorLink API"
       },
-      "icon": "Anchor.Link",
+      "icon": "Anchor",
       "tags": [
         {
           "id": "27c3e656-9bc5-466f-833b-a1d298a14bb9",
@@ -450,7 +450,7 @@
         "id": "708647eb-f1a5-4233-8dca-7399b9ce7ed9",
         "name": "AntDesignDescriptionsItem API"
       },
-      "icon": "Descriptions.Item",
+      "icon": "Descriptions",
       "tags": [
         {
           "id": "045b10d6-bd00-494b-a34d-94bedf4a35e5",
@@ -664,7 +664,7 @@
         "id": "b966ec73-4437-4ca8-bb69-3d0e199d11b0",
         "name": "AntDesignGridCol API"
       },
-      "icon": "Col",
+      "icon": "Grid",
       "tags": [
         {
           "id": "61e88e19-f8d5-4033-b72d-7b017c12b411",
@@ -681,7 +681,7 @@
         "id": "e47635f0-0edc-48c7-b695-c1ef7aea649f",
         "name": "AntDesignGridRow API"
       },
-      "icon": "Row",
+      "icon": "Grid",
       "tags": [
         {
           "id": "df6ba47d-e9a6-4c89-809f-e390535da66b",
@@ -783,7 +783,7 @@
         "id": "b00efb40-dd17-4ad9-a05a-3dbb07e43751",
         "name": "AntDesignLayoutSider API"
       },
-      "icon": "Layout.Sider",
+      "icon": "Layout",
       "tags": [
         {
           "id": "f18fea81-eae8-4429-9d3a-ba52c2a1a853",
@@ -817,7 +817,7 @@
         "id": "7b7b52ba-e2f4-4cdd-bc06-71528040f8fa",
         "name": "AntDesignListItem API"
       },
-      "icon": "List.Item",
+      "icon": "List",
       "tags": [
         {
           "id": "fb4d5be7-0c2c-4241-bd21-dcd4b27a553d",
@@ -834,7 +834,7 @@
         "id": "4f8b5d18-7d7d-41c5-9afb-84837030cab5",
         "name": "AntDesignListItemMeta API"
       },
-      "icon": "List.Item",
+      "icon": "List",
       "tags": [
         {
           "id": "fe33febc-2886-4cb3-a406-70a6cf96e8f8",
@@ -868,7 +868,7 @@
         "id": "44d4fe48-3c3a-486e-9284-527a118b2727",
         "name": "AntDesignMentionsOption API"
       },
-      "icon": "Mentions.Option",
+      "icon": "Mentions",
       "tags": [
         {
           "id": "baf21099-1a44-401e-8b2e-982489e62ea9",
@@ -1055,7 +1055,7 @@
         "id": "938335eb-d0da-40b8-93af-0236116d56b5",
         "name": "AntDesignRadioGroup API"
       },
-      "icon": "Radio.Group",
+      "icon": "Radio",
       "tags": [
         {
           "id": "d1439390-c7d3-4826-91df-d1d5c565ef64",
@@ -1140,7 +1140,7 @@
         "id": "9332d619-0412-493d-ae0f-61707a975bb3",
         "name": "AntDesignSelectOption API"
       },
-      "icon": "Select.Option",
+      "icon": "Select",
       "tags": [
         {
           "id": "22416bbf-a5df-40cb-b0d5-223c6d0228ec",
@@ -1259,7 +1259,7 @@
         "id": "7cc3345c-2009-4b7c-83ad-ff879a115c8c",
         "name": "AntDesignStepsStep API"
       },
-      "icon": "Steps.Step",
+      "icon": "Steps",
       "tags": [
         {
           "id": "82f41021-9fa5-41de-9308-0e86b9bf532b",
@@ -1327,7 +1327,7 @@
         "id": "095d6a90-a2e4-4222-996e-659b789877ac",
         "name": "AntDesignTabsTabPane API"
       },
-      "icon": "Tabs.TabPane",
+      "icon": "Tabs",
       "tags": [
         {
           "id": "468c6f66-d4c5-47f6-b9f4-6862f33eef62",
@@ -1395,7 +1395,7 @@
         "id": "dd47e2cf-9d9e-43ca-a992-f3c67850077d",
         "name": "AntDesignTimelineItem API"
       },
-      "icon": "Timeline.Item",
+      "icon": "Timeline",
       "tags": [
         {
           "id": "5f8d643d-a7c0-4bf8-890d-bc2b3088406a",
@@ -1480,7 +1480,7 @@
         "id": "5fac46fd-883d-44dc-817f-af55451fd5b9",
         "name": "AntDesignTypographyParagraph API"
       },
-      "icon": "Typography.Paragraph",
+      "icon": "Typography",
       "tags": [
         {
           "id": "dd831567-ab20-4949-b2a2-6f6c746c5b48",
@@ -1497,7 +1497,7 @@
         "id": "84923acc-a3df-4ae3-87a8-2cec4b45694e",
         "name": "AntDesignTypographyText API"
       },
-      "icon": "Typography.Text",
+      "icon": "Typography",
       "tags": [
         {
           "id": "b162ad32-095a-437f-ad85-addbcf2bf08d",
@@ -1514,7 +1514,7 @@
         "id": "509f98d3-6cfa-4d73-9a47-9605d73d59de",
         "name": "AntDesignTypographyTitle API"
       },
-      "icon": "Typography.Title",
+      "icon": "Typography",
       "tags": [
         {
           "id": "4f78fad2-ef6f-478b-8547-f3298ba72102",

@@ -21,7 +21,7 @@ export interface AtomSeedData {
   allowedChildren?: Array<IAtomType>
 }
 
-const antDesignIconPrefix = 'assets/atoms/antd'
+export const antDesignIconPrefix = 'assets/atoms/antd'
 
 /**
  * Assign all data that is related to the atom here
@@ -50,7 +50,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignAnchorLink]: {
     file: 'Anchor--Link Props',
     tag: AntdTag.AnchorLink,
-    icon: AntdTag.AnchorLink,
+    icon: AntdTag.Anchor,
   },
   [IAtomType.AntDesignAvatar]: {
     file: 'Avatar',
@@ -175,7 +175,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignDescriptionsItem]: {
     file: 'Descriptions--DescriptionItem',
     tag: AntdTag.DescriptionsItem,
-    icon: AntdTag.DescriptionsItem,
+    icon: AntdTag.Descriptions,
   },
   [IAtomType.AntDesignDivider]: {
     file: 'Divider',
@@ -244,12 +244,12 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignGridCol]: {
     file: 'Grid--Col',
     tag: AntdTag.Col,
-    icon: AntdTag.Col,
+    icon: AntdTag.Grid,
   },
   [IAtomType.AntDesignGridRow]: {
     file: 'Grid--Row',
     tag: AntdTag.Row,
-    icon: AntdTag.Row,
+    icon: AntdTag.Grid,
   },
   [IAtomType.AntDesignIcon]: {
     file: 'Icon--Common Icon',
@@ -277,7 +277,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignLayoutSider]: {
     file: 'Layout--Layout.Sider',
     tag: AntdTag.LayoutSider,
-    icon: AntdTag.LayoutSider,
+    icon: AntdTag.Layout,
   },
   [IAtomType.AntDesignList]: {
     file: 'List',
@@ -287,12 +287,12 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignListItem]: {
     file: 'List--List.Item',
     tag: AntdTag.ListItem,
-    icon: AntdTag.ListItem,
+    icon: AntdTag.List,
   },
   [IAtomType.AntDesignListItemMeta]: {
     file: 'List--List.Item.Meta',
     tag: AntdTag.ListItemMeta,
-    icon: AntdTag.ListItem,
+    icon: AntdTag.List,
   },
   // 'List--List grid props': IAtomType.AntDesignList,
   // 'List--pagination': IAtomType.AntDesignList,
@@ -304,7 +304,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignMentionsOption]: {
     file: 'Mentions--Option',
     tag: AntdTag.MentionsOption,
-    icon: AntdTag.MentionsOption,
+    icon: AntdTag.Mentions,
   },
   [IAtomType.AntDesignMenu]: {
     file: 'Menu',
@@ -354,7 +354,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignRadioGroup]: {
     file: 'Radio--RadioGroup',
     tag: AntdTag.RadioGroup,
-    icon: AntdTag.RadioGroup,
+    icon: AntdTag.Radio,
   },
   [IAtomType.AntDesignRate]: {
     file: null,
@@ -375,7 +375,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignSelectOption]: {
     file: 'Select--Option props',
     tag: AntdTag.SelectOption,
-    icon: AntdTag.SelectOption,
+    icon: AntdTag.Select,
   },
   [IAtomType.AntDesignSkeleton]: {
     file: 'Skeleton',
@@ -420,7 +420,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignStepsStep]: {
     file: 'Steps--Steps.Step',
     tag: AntdTag.StepsStep,
-    icon: AntdTag.StepsStep,
+    icon: AntdTag.Steps,
   },
   [IAtomType.AntDesignTable]: {
     file: 'Table',
@@ -442,7 +442,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignTabsTabPane]: {
     file: 'Tabs--Tabs.TabPane',
     tag: AntdTag.TabsTabPane,
-    icon: AntdTag.TabsTabPane,
+    icon: AntdTag.Tabs,
   },
   [IAtomType.AntDesignTag]: {
     file: 'Tag',
@@ -458,7 +458,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignTimelineItem]: {
     file: 'Timeline--Timeline.Item',
     tag: AntdTag.TimelineItem,
-    icon: AntdTag.TimelineItem,
+    icon: AntdTag.Timeline,
   },
   // 'TimePicker--RangePicker': IAtomType.AntDesignTimePicker,
   [IAtomType.AntDesignTooltip]: {
@@ -484,17 +484,17 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.AntDesignTypographyParagraph]: {
     file: 'Typography--Typography.Paragraph',
     tag: AntdTag.TypographyParagraph,
-    icon: AntdTag.TypographyParagraph,
+    icon: AntdTag.Typography,
   },
   [IAtomType.AntDesignTypographyText]: {
     file: 'Typography--Typography.Text',
     tag: AntdTag.TypographyText,
-    icon: AntdTag.TypographyText,
+    icon: AntdTag.Typography,
   },
   [IAtomType.AntDesignTypographyTitle]: {
     file: 'Typography--Typography.Title',
     tag: AntdTag.TypographyTitle,
-    icon: AntdTag.TypographyTitle,
+    icon: AntdTag.Typography,
   },
   [IAtomType.AntDesignUpload]: {
     file: 'Upload--UploadFile',
