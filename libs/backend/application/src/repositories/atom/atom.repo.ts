@@ -16,17 +16,17 @@ export const atomRepository = {
     txn: Transaction,
     params: GetAtomsQueryVariables,
   ): Promise<Array<Atom>> => {
-    const limit = params.options?.limit
-    const offset = params.options?.offset
-    const cypher = limit && offset ? atomsWithLimit : atoms
+    const cypher = params.options?.limit !== undefined ? atomsWithLimit : atoms
+    const limit = params.options?.limit ?? 0
+    const offset = params.options?.offset ?? 0
     const AtomInstance = await Repository.instance.Atom
 
     /**
      * We can still use the same query, but we get ID from context instead
      */
     const { records: atomsRecords } = await txn.run(cypher, {
-      limit: limit ? int(limit) : undefined,
-      skip: offset ? int(offset) : undefined,
+      limit: int(limit),
+      skip: int(offset),
     })
 
     const items = await Promise.all(
