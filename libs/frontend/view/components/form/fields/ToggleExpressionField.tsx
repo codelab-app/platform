@@ -7,6 +7,8 @@ import tw from 'twin.macro'
 import { connectField, FieldProps } from 'uniforms'
 import {
   BoolField,
+  ListField,
+  ListFieldProps,
   NumField,
   SelectField,
   SelectFieldProps,
@@ -16,10 +18,14 @@ import { useFormContext } from '../providers'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
 
-type Value = string | number | boolean | undefined
+type Value = string | number | boolean | undefined | Array<unknown>
 
 interface CodeMirrorFieldProps {
-  onToggle?: (value: boolean, props: CodeMirrorConnectFieldProps) => void
+  onToggle?: (
+    value: boolean,
+    props: CodeMirrorConnectFieldProps,
+    lastValue?: Value,
+  ) => void
 }
 
 type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps>
@@ -45,7 +51,8 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
       )
     case 'string':
       return <SelectField {...(props as SelectFieldProps)} />
-
+    case 'array':
+      return <ListField {...(props as ListFieldProps)} />
     default:
       return null
   }
@@ -56,15 +63,18 @@ const ToggleExpression = ({
   fieldProps,
 }: ToggleExpressionFieldProps) => {
   const { allowExpressions, appStore } = useFormContext()
-  const value = String(fieldProps.value || fieldProps.field.default)
+  const value = String(fieldProps.value ?? fieldProps.field.default)
   const isExpression = appStore?.getByExpression(value) !== value
   const [showExpressionEditor, setShowExpressionEditor] = useState(isExpression)
+  const [valueBeforeToggle, setValueBeforeToggle] = useState<Value>()
   const BaseControl = getBaseControl(fieldProps)
 
   const toggleControlClick = () => {
     setShowExpressionEditor(!showExpressionEditor)
 
-    mainProps.onToggle?.(!showExpressionEditor, fieldProps)
+    mainProps.onToggle?.(!showExpressionEditor, fieldProps, valueBeforeToggle)
+
+    setValueBeforeToggle(fieldProps.value)
   }
 
   const toggleButtonType = showExpressionEditor ? 'primary' : 'default'

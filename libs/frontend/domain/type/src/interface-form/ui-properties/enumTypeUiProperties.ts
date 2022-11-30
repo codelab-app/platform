@@ -16,11 +16,11 @@ export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
       optionFilterProp: 'label',
       getPopupContainer: (triggerNode: Element) => triggerNode.parentElement,
       component: ToggleExpressionField({
-        onToggle: (showExpression, { value, field, onChange }) => {
+        onToggle: (showExpression, { value, field, onChange }, lastValue) => {
           if (showExpression) {
-            onChange(`{{'${value ?? field.default ?? ''}'}}`)
+            onChange(lastValue ?? `{{'${value ?? field.default ?? ''}'}}`)
           } else {
-            onChange(field.default)
+            onChange(lastValue ?? field.default)
           }
         },
       }),

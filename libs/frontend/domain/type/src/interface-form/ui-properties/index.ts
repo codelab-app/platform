@@ -3,6 +3,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { UiPropertiesContext, UiPropertiesFn } from '../types'
 import { actionTypeUiProperties } from './actionTypeUiProperties'
 import { appTypeUiProperties } from './appTypeUiProperties'
+import { arrayTypeUiProperties } from './arrayTypeUiProperties'
 import { codeMirrorTypeUiProperties } from './codeMirrorTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
 import { enumTypeUiProperties } from './enumTypeUiProperties'
@@ -31,6 +32,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.ActionType]: actionTypeUiProperties,
   [ITypeKind.PageType]: pageTypeUiProperties,
   [ITypeKind.EnumType]: enumTypeUiProperties,
+  [ITypeKind.ArrayType]: arrayTypeUiProperties,
 }
 
 export const getUiProperties = (

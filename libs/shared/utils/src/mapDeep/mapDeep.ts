@@ -8,13 +8,13 @@ import { modelTypeKey } from 'mobx-keystone'
 import { Key } from 'react'
 import { IKeyMapper, IOutput, IValueMapper } from './abstract'
 
-const isReactNode = (obj: IPropData) => Boolean(obj['$$typeof'])
-const isMobxModel = (obj: IPropData) => Boolean(obj[modelTypeKey])
+const isReactNode = (obj?: IPropData) => Boolean(obj?.['$$typeof'])
+const isMobxModel = (obj?: IPropData) => Boolean(obj?.[modelTypeKey])
 
 const isHtmlNode = (obj: unknown) =>
   isServer ? false : obj instanceof HTMLElement
 
-const isCyclic = (obj: IPropData) =>
+const isCyclic = (obj?: IPropData) =>
   (isObjectLike(obj) && isReactNode(obj)) || isMobxModel(obj) || isHtmlNode(obj)
 
 export const mapDeep = (

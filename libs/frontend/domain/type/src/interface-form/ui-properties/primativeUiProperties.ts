@@ -20,11 +20,11 @@ export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
   return {
     uniforms: {
       component: ToggleExpressionField({
-        onToggle: (showExpression, { value, field, onChange }) => {
+        onToggle: (showExpression, { value, field, onChange }, lastValue) => {
           if (showExpression) {
-            onChange(`{{${value ?? field.default ?? ''}}}`)
+            onChange(lastValue ?? `{{${value ?? field.default ?? ''}}}`)
           } else {
-            onChange(field.default)
+            onChange(lastValue ?? field.default)
           }
         },
       }),
