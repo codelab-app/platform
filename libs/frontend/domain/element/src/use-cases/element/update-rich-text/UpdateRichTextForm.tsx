@@ -4,11 +4,12 @@ import {
   IElementService,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { Col, Row } from 'antd'
+import debounce from 'lodash/debounce'
+import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import ReactQuill from './ReactQuill'
 
 export interface UpdateRichTextFormProps {
@@ -65,22 +66,32 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
       [element, elementService, trackPromise],
     )
 
-    // Debounce autosave
-    const [valueDebounced, setValueDebounced] = useDebouncedState(1000, {
-      ...element.props?.values,
-      [CUSTOM_TEXT_PROP_KEY]: value,
-    })
+    const handleDebounce = useCallback(debounce(onSubmit, 1000), [])
 
-    useEffect(() => {
-      setValueDebounced((prev) => ({
-        ...prev,
-        [CUSTOM_TEXT_PROP_KEY]: value,
-      }))
-    }, [value, setValueDebounced])
+    const handleOnchange = (newCustomText: string) => {
+      setValue(newCustomText)
 
-    useEffect(() => {
-      void onSubmit(valueDebounced)
-    }, [onSubmit, valueDebounced])
+      const data = {
+        ...element.props?.values,
+        [CUSTOM_TEXT_PROP_KEY]: newCustomText,
+      }
+
+      const updatingElement = toJS(
+        elementService.fragmentElements.get(element.id),
+      )
+
+      if (updatingElement) {
+        elementService.writeCache({
+          ...updatingElement,
+          props: {
+            id: updatingElement.id,
+            data: JSON.stringify(data),
+          },
+        })
+      }
+
+      void handleDebounce(data)
+    }
 
     return element.atom?.current.allowCustomTextInjection ? (
       <Row align="middle">
@@ -92,16 +103,7 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
         <Col span={24}>
           <ReactQuill
             modules={modules}
-            onChange={(newCustomText) => {
-              setValue(newCustomText)
-              elementService.patchElementPropsDataDirectly(
-                element,
-                JSON.stringify({
-                  ...element.props?.values,
-                  [CUSTOM_TEXT_PROP_KEY]: newCustomText,
-                }),
-              )
-            }}
+            onChange={handleOnchange}
             theme="snow"
             value={value}
           />

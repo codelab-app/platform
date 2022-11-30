@@ -64,6 +64,7 @@ export interface IElementService
     { parentElement: IElement }
   >
   elements: ObjectMap<IElement>
+  fragmentElements: ObjectMap<IElementDTO>
   elementsDomRefs: IPropData
   createPropMapBindingModal: IEntityModalService<
     Ref<IElement>,
@@ -71,7 +72,6 @@ export interface IElementService
   >
   updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
-  _updatingElement: Maybe<IElementDTO>
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
@@ -118,7 +118,6 @@ export interface IElementService
     propMapBinding: IPropMapBinding,
   ): Promise<IPropMapBinding>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
-  patchElementPropsDataDirectly(element: IElement, data: string): void
   loadComponentTree(component: RenderedComponentFragment): {
     rootElement: IElement
     hydratedElements: Array<IElement>
