@@ -72,7 +72,6 @@ export class ElementService
      * - Elements that are detached
      */
     elements: prop(() => objectMap<IElement>()),
-    fragmentElements: prop(() => objectMap<IElementDTO>()),
     createModal: prop(() => new CreateElementModalService({})),
     updateModal: prop(() => new ElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
@@ -176,8 +175,6 @@ export class ElementService
       elementModel = Element.hydrate(element)
       this.elements.set(element.id, elementModel)
     }
-
-    this.fragmentElements.set(element.id, element)
 
     return elementModel
   }

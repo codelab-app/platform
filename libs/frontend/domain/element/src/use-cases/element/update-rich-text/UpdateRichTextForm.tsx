@@ -7,7 +7,6 @@ import {
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { Col, Row } from 'antd'
 import debounce from 'lodash/debounce'
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'
 import ReactQuill from './ReactQuill'
@@ -71,26 +70,18 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
     const handleOnchange = (newCustomText: string) => {
       setValue(newCustomText)
 
-      const data = {
-        ...element.props?.values,
-        [CUSTOM_TEXT_PROP_KEY]: newCustomText,
-      }
+      const currentElement = elementService.element(element.id)
 
-      const updatingElement = toJS(
-        elementService.fragmentElements.get(element.id),
-      )
-
-      if (updatingElement) {
-        elementService.writeCache({
-          ...updatingElement,
-          props: {
-            id: updatingElement.id,
-            data: JSON.stringify(data),
-          },
+      if (currentElement?.props) {
+        currentElement.props.setMany({
+          [CUSTOM_TEXT_PROP_KEY]: newCustomText,
         })
       }
 
-      void handleDebounce(data)
+      void handleDebounce({
+        ...element.props?.values,
+        [CUSTOM_TEXT_PROP_KEY]: newCustomText,
+      })
     }
 
     return element.atom?.current.allowCustomTextInjection ? (

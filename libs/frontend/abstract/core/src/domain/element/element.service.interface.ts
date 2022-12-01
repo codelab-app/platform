@@ -64,7 +64,6 @@ export interface IElementService
     { parentElement: IElement }
   >
   elements: ObjectMap<IElement>
-  fragmentElements: ObjectMap<IElementDTO>
   elementsDomRefs: IPropData
   createPropMapBindingModal: IEntityModalService<
     Ref<IElement>,
