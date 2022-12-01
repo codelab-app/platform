@@ -45,7 +45,8 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
         return (
           <Form.Item label={baseProps.label ?? ''}>
             <CodeMirrorEditor
-              height="150px"
+              height="auto"
+              maxHeight="150px"
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...merged}
               onChange={onChange}
