@@ -2,12 +2,14 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   PropFragment,
+  PropMapBindingFragment,
 } from '../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
   PropFragmentDoc,
+  PropMapBindingFragmentDoc,
 } from '../prop/prop.fragment.graphql.gen'
 export type ComponentFragment = {
   id: string
