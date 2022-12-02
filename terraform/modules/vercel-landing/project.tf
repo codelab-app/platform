@@ -37,6 +37,17 @@ resource "vercel_project" "landing" {
       target = ["production", "preview"]
       key = "NEXT_PUBLIC_INTERCOM_APP_ID"
       value = var.next_public_intercom_app_id
+    },
+    // Hotjar
+    {
+      target = ["production", "preview"]
+      key = "NEXT_PUBLIC_HOTJAR_ID"
+      value = var.next_public_hotjar_id
+    },
+    {
+      target = ["production", "preview"]
+      key = "NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION"
+      value = var.next_public_hotjar_snippet_version
     }
   ]
 }

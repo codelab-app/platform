@@ -45,5 +45,9 @@ module "vercel-landing" {
   mailchimp_server_prefix = var.MAILCHIMP_SERVER_PREFIX
 
   next_public_intercom_app_id = var.NEXT_PUBLIC_INTERCOM_APP_ID
+
+
+  next_public_hotjar_id = var.NEXT_PUBLIC_HOTJAR_ID
+  next_public_hotjar_snippet_version = var.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
 }
 

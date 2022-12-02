@@ -14,6 +14,7 @@ import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 import { Intercom } from '../home/Intercom'
+import { useHotjar } from '../hooks/useHotjar'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 
 //
@@ -24,6 +25,8 @@ import { Intercom } from '../home/Intercom'
 const App = ({ pageProps, Component }: IAppProps) => {
   const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
     Component as CodelabPage
+
+  useHotjar()
 
   return (
     <>
