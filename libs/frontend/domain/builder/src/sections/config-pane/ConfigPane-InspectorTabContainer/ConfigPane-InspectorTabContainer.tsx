@@ -130,7 +130,12 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                   />
                 </div>
                 <FormContextProvider
-                  value={{ autocomplete, appStore, allowExpressions }}
+                  value={{
+                    autocomplete,
+                    appStore,
+                    allowExpressions,
+                    elementTree,
+                  }}
                 >
                   <UpdateElementPropsForm
                     element={selectedNode}

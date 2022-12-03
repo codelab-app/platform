@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { useFormContext } from '@codelab/frontend/view/components'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import difference from 'lodash/difference'
@@ -15,7 +16,7 @@ export interface SelectElementOption {
 
 export type SelectElementProps = UniformSelectFieldProps & {
   kind: IElementTypeKind
-  allElementOptions: Array<SelectElementOption>
+  allElementOptions?: Array<SelectElementOption>
   targetElementId?: string
   disableWhenOneOpt?: boolean
 }
@@ -28,7 +29,15 @@ export const SelectElement = ({
   disableWhenOneOpt = false,
   ...props
 }: SelectElementProps) => {
+  const { elementTree } = useFormContext()
   let elements: Array<SelectElementOption>
+
+  allElementOptions ??=
+    elementTree?.elementsList.map((e) => ({
+      value: e.id,
+      label: e.label,
+      childrenIds: e.children.map((c) => c.id),
+    })) ?? []
 
   const targetElement = allElementOptions.find(
     (element) => element.value === targetElementId,
