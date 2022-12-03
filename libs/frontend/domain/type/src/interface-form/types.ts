@@ -33,4 +33,5 @@ export interface UiPropertiesContext {
    */
   autocomplete?: IPropData
   validationRules?: IValidationRules
+  fieldName?: string | null
 }

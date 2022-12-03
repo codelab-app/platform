@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
+import { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import { AutoCompleteProps, Button, Space, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
@@ -26,6 +27,9 @@ interface CodeMirrorFieldProps {
     props: CodeMirrorConnectFieldProps,
     lastValue?: Value,
   ) => void
+  getBaseControl?: (
+    fieldProps: CodeMirrorConnectFieldProps,
+  ) => EmotionJSX.Element
 }
 
 type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps>
@@ -67,7 +71,9 @@ const ToggleExpression = ({
   const isExpression = appStore?.getByExpression(value) !== value
   const [showExpressionEditor, setShowExpressionEditor] = useState(isExpression)
   const [valueBeforeToggle, setValueBeforeToggle] = useState<Value>()
-  const BaseControl = getBaseControl(fieldProps)
+
+  const BaseControl =
+    mainProps.getBaseControl?.(fieldProps) ?? getBaseControl(fieldProps)
 
   const toggleControlClick = () => {
     setShowExpressionEditor(!showExpressionEditor)

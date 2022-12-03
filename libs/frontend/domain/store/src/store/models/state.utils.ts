@@ -14,4 +14,4 @@ export const isSingleStateExpression = (str: string) =>
   str.endsWith(STATE_PATH_TEMPLATE_END)
 
 export const stripStateExpression = (expression: string) =>
-  expression.substring(2, expression.length - 2)
+  expression.substring(2, expression.length - 2).trim()

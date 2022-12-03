@@ -3,6 +3,7 @@ import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { Schema } from 'ajv'
 import Ajv, { JSONSchemaType } from 'ajv'
 import addFormats from 'ajv-formats'
+import addKeywords from 'ajv-keywords'
 import { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 import { FormContextValue } from '../providers'
@@ -22,6 +23,7 @@ export const connectUniformSubmitRef =
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 addFormats(ajv)
+addKeywords(ajv, ['typeof'])
 
 export const createValidator = (schema: Schema, context?: FormContextValue) => {
   const validator = ajv.compile(schema)

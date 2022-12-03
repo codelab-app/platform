@@ -59,7 +59,7 @@ export class TypeSchemaFactory {
       case ITypeKind.AppType:
         return this.fromAppType(type)
       case ITypeKind.ActionType:
-        return this.fromActionType(type)
+        return this.fromActionType(type, context)
       case ITypeKind.LambdaType:
         return this.fromLambdaType(type)
       case ITypeKind.PageType:
@@ -97,11 +97,12 @@ export class TypeSchemaFactory {
 
   fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: IField) => ({
+      label: field.name || pascalCaseToWords(field.key),
       ...this.transform(field.type.current, {
         validationRules: field.validationRules ?? undefined,
+        fieldName: field.name,
       }),
       ...field.validationRules?.general,
-      label: field.name || pascalCaseToWords(field.key),
     })
 
     const makeFieldProperties = (
@@ -163,8 +164,20 @@ export class TypeSchemaFactory {
     return this.simpleReferenceType(type)
   }
 
-  fromActionType(type: IAnyActionType): JsonSchema {
-    return this.transformTypedValueType(type)
+  fromActionType(
+    type: IAnyActionType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type)
+    const label = context?.fieldName ?? ''
+
+    const properties = TypeSchemaFactory.schemaForTypedValue(
+      type.id,
+      { label, ...extra },
+      '',
+    )
+
+    return { type: 'object', properties, uniforms: nullUniforms, label: '' }
   }
 
   fromPageType(type: IPageType): JsonSchema {
@@ -283,7 +296,7 @@ export class TypeSchemaFactory {
       '',
     )
 
-    return { type: 'object', properties, uniforms: nullUniforms, label: '' }
+    return { type: 'object', properties, uniforms: nullUniforms }
   }
 
   private getExtraProperties(type: IAnyType, context?: UiPropertiesContext) {
