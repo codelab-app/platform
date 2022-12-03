@@ -29,6 +29,7 @@ export interface IUpdateElementDTO {
   props?: Nullable<IPropData>
   preRenderActionId?: Nullish<string>
   postRenderActionId?: Nullish<string>
+  propTransformationJs?: Nullish<string>
 }
 
 /**

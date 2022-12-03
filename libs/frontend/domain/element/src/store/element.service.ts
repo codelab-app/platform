@@ -17,7 +17,7 @@ import {
   PropMapBindingModalService,
 } from '@codelab/frontend/domain/prop'
 import { getComponentService } from '@codelab/frontend/presenter/container'
-import { runSequentially } from '@codelab/frontend/shared/utils'
+import { createSlug, runSequentially } from '@codelab/frontend/shared/utils'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -181,7 +181,15 @@ export class ElementService
     this: ElementService,
     data: Array<ICreateElementDTO>,
   ) {
-    const input = data.map((element) => makeCreateInput(element))
+    const input = data.map((element) => {
+      const parentElement = this.elements.get(element.parentElementId as string)
+      const slug = createSlug(element.slug, parentElement?.originId)
+
+      return makeCreateInput({
+        ...element,
+        slug,
+      })
+    })
 
     const {
       createElements: { elements },
@@ -206,7 +214,7 @@ export class ElementService
       return []
     }
 
-    const elements = [
+    const elements: Array<IElementDTO> = [
       elementTrees[0],
       ...(elementTrees[0]?.descendantElements ?? []),
     ]
@@ -223,41 +231,26 @@ export class ElementService
   @transaction
   public update = _async(function* (
     this: ElementService,
-    entity: IEntity,
+    element: IElement,
     input: IUpdateElementDTO,
   ) {
-    const update = makeUpdateInput(input)
+    const slug = createSlug(input.slug, element.originId)
+
+    const update = makeUpdateInput({
+      ...input,
+      slug,
+    })
 
     const {
       updateElements: { elements },
     } = yield* _await(
       elementApi.UpdateElements({
-        where: { id: entity.id },
+        where: { id: element.id },
         update,
       }),
     )
 
-    return elements.map((element) => this.writeCache(element))
-  })
-
-  @modelFlow
-  @transaction
-  public updateElementsPropTransformationJs = _async(function* (
-    this: ElementService,
-    element: IElement,
-    newPropTransformJs: string,
-  ) {
-    const input: ElementUpdateInput = {
-      propTransformationJs: newPropTransformJs,
-    }
-
-    const updatedElement = yield* _await(this.update(element, input))
-
-    if (!updatedElement[0]) {
-      throw new Error('Update element prop failed')
-    }
-
-    return updatedElement[0]
+    return elements.map((e: IElementDTO) => this.writeCache(e))
   })
 
   /**
@@ -813,6 +806,7 @@ element is new parentElement's first child
         }
 
         const name = element.label
+        const slug = element.slug
         const elementId = element.id
         const parentElement = element.parentElement
         const prevSibling = element.prevSibling
@@ -838,6 +832,7 @@ element is new parentElement's first child
             this.create([
               {
                 name,
+                slug,
                 renderComponentTypeId: createdComponent?.id,
                 parentElementId: parentElement.id,
               },
@@ -861,6 +856,7 @@ element is new parentElement's first child
         return yield* _await(
           this.createElementAsNextSibling({
             name,
+            slug,
             renderComponentTypeId: createdComponent?.id,
             parentElementId: parentElement.id,
             prevSiblingId: prevSibling.id,

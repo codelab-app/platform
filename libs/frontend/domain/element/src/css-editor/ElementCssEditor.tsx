@@ -1,15 +1,15 @@
 import { CaretRightOutlined } from '@ant-design/icons'
+import {
+  CssMap,
+  IElement,
+  IElementService,
+} from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
   CodeMirrorEditor,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import {
-  CssMap,
-  IElement,
-  IElementService,
-} from '@codelab/frontend/abstract/core'
 import { Col, Collapse, Row } from 'antd'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'

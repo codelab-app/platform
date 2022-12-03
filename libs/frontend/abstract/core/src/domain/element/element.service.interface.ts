@@ -96,10 +96,6 @@ export interface IElementService
     auth0Id: IAuth0Id,
   ): Promise<Maybe<IElement>>
   element(id: string): Maybe<IElement>
-  updateElementsPropTransformationJs(
-    element: IElement,
-    newPropTransformJs: string,
-  ): Promise<IElement>
   createPropMapBinding(
     element: IElement,
     createInput: ICreatePropMapBindingDTO,

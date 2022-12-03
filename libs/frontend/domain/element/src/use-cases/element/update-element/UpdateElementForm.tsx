@@ -9,10 +9,7 @@ import {
   SelectAtom,
   SelectComponent,
 } from '@codelab/frontend/domain/type'
-import {
-  createNotificationHandler,
-  createSlug,
-} from '@codelab/frontend/shared/utils'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
   Form,
@@ -53,14 +50,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     })
 
     const onSubmit = (data: IUpdateElementDTO) => {
-      const { slug } = data
-
-      const input = {
-        ...data,
-        slug: createSlug(slug, element.originId),
-      }
-
-      const promise = elementService.update(element, input)
+      const promise = elementService.update(element, data)
 
       if (trackPromise) {
         trackPromise(promise)
