@@ -27,12 +27,13 @@ const PageRenderer: CodelabPage = observer(() => {
       return
     }
 
-    const { page, pageTree, appTree, appStore } = pageDataValue
+    const { page, pageTree, appTree, appStore, components } = pageDataValue
 
     const renderer = appRenderService.addRenderer({
       id: page.id,
       pageTree,
       appTree,
+      components,
       appStore,
       isBuilder: false,
     })

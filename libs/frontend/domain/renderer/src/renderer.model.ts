@@ -18,6 +18,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
+import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
   detach,
@@ -67,6 +68,7 @@ const init = ({
   pageTree,
   appStore,
   appTree,
+  components,
   isBuilder,
   set_selectedNode,
 }: RendererProps) => {
@@ -90,10 +92,15 @@ const init = ({
     href: '#',
   }
 
+  const renderComponentMeta = components
+    .map((c) => ({ [c.id]: 0 }))
+    .reduce(merge, {})
+
   return new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
     appStore: storeRef(appStore),
+    renderComponentMeta,
     extraElementProps: new ExtraElementProps({
       // pass
       global: frozen(isBuilder ? builderGlobals : {}),
@@ -142,6 +149,8 @@ export class Renderer
        * Will log the render output and render pipe info to the console
        */
       debugMode: prop(false).withSetter(),
+
+      renderComponentMeta: prop<IPropData>(() => ({})).withSetter(),
     },
     {
       toSnapshotProcessor(sn, modelInstance) {
@@ -246,11 +255,20 @@ export class Renderer
     return this.appStore.current.state
   }
 
+  @modelAction
+  updateComponentOccurrence(componentId: string) {
+    this.renderComponentMeta[componentId] += 1
+  }
+
   /**
    * Renders a single Element using the provided RenderAdapter
    */
   renderElement = (element: IElement, extraProps?: IPropData): ReactElement => {
     this.runPreAction(element)
+
+    if (element.parentComponent?.id) {
+      this.updateComponentOccurrence(element.parentComponent.id)
+    }
 
     const wrapperProps: ElementWrapperProps & { key: string } = {
       key: `element-wrapper-${element.id}`,

@@ -82,6 +82,12 @@ export const useLoadRenderedPage = () => {
     const appStore = storeService.writeCache(app.store)
     appStore.state.setMany(appService.appsJson)
 
-    return { page, pageTree, appTree, appStore }
+    return {
+      page,
+      pageTree,
+      appTree,
+      appStore,
+      components: componentService.componentList,
+    }
   }, [])
 }

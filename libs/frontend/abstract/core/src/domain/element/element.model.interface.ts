@@ -72,7 +72,7 @@ export interface IElement
   nextSiblingId: Nullable<string>
   prevSibling: Maybe<IElement>
   prevSiblingId: Nullable<string>
-  originId: Maybe<string>
+  originId: string
 
   detachNextSibling(): () => void
   detachPrevSibling(): () => void
@@ -97,6 +97,7 @@ export interface IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   setOrderInParent(order: number | null): void
   setOriginId(origin: string): void
+  setSlug(slug: string): void
   /**
    * Keeps the ref in place
    */

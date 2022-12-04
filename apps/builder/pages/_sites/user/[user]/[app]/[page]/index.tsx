@@ -13,6 +13,7 @@ const Index = (props: AppPagePageProps) => {
   const {
     userService,
     storeService,
+    componentService,
     pageService,
     appService,
     builderRenderService,
@@ -23,6 +24,7 @@ const Index = (props: AppPagePageProps) => {
   const app = appService.app(appId)
   const appStore = storeService.store(storeId)
   const page = pageService.pages.get(pageId)
+  const components = componentService.componentList
 
   const renderer = useMemo(() => {
     if (!page || !appStore || !app) {
@@ -33,6 +35,7 @@ const Index = (props: AppPagePageProps) => {
       id: pageId,
       pageTree: page.elementTree,
       appTree: null,
+      components,
       appStore,
     })
 

@@ -50,7 +50,7 @@ const PageBuilder: CodelabPage = observer(() => {
       return
     }
 
-    const { page, pageTree, appTree, appStore } = pageDataValue
+    const { page, pageTree, appTree, appStore, components } = pageDataValue
     /**
      *
      * page Element tree
@@ -66,6 +66,7 @@ const PageBuilder: CodelabPage = observer(() => {
       id: page.id,
       pageTree,
       appTree,
+      components,
       appStore,
       isBuilder: true,
     })

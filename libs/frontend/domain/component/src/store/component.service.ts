@@ -11,7 +11,7 @@ import {
   COMPONENT_TREE_CONTAINER,
 } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   ComponentWhere,
   RenderedComponentFragment,
@@ -52,6 +52,11 @@ export class ComponentService
   @computed
   get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  get componentList() {
+    return [...this.components.values()]
   }
 
   loadRenderedComponentTree(

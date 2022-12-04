@@ -20,6 +20,7 @@ export interface IRenderer {
   ): ArrayOrSingle<IRenderOutput>
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   extraElementProps: IExtraElementProps
+  renderComponentMeta: IPropData
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
   runPreAction(element: IElement): void
   getPostAction(element: IElement): Nullish<() => unknown>

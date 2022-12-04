@@ -49,6 +49,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           id: componentId,
           pageTree: componentTree,
           appTree: null,
+          components: componentService.componentList,
           appStore,
           isBuilder: true,
         })

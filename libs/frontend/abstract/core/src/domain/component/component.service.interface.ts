@@ -25,6 +25,7 @@ export interface IComponentService
     ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
     ICacheService<IComponentDTO, IComponent> {
   components: ObjectMap<IComponent>
+  componentList: Array<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
   /**
