@@ -23,7 +23,7 @@ const languageExtension = {
   [ICodeMirrorLanguage.Javascript]: [
     lintGutter(),
     // linter(esLint(new eslint.Linter())),
-    javascript(),
+    javascript({ jsx: true }),
   ],
   [ICodeMirrorLanguage.Typescript]: [
     lintGutter(),

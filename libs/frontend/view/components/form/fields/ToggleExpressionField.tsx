@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { EmotionJSX } from '@emotion/react/types/jsx-namespace'
@@ -68,7 +69,7 @@ const ToggleExpression = ({
 }: ToggleExpressionFieldProps) => {
   const { allowExpressions, appStore } = useFormContext()
   const value = String(fieldProps.value ?? fieldProps.field.default)
-  const isExpression = appStore?.getByExpression(value) !== value
+  const isExpression = hasStateExpression(value)
   const [showExpressionEditor, setShowExpressionEditor] = useState(isExpression)
   const [valueBeforeToggle, setValueBeforeToggle] = useState<Value>()
 

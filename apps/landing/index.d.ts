@@ -5,6 +5,8 @@ declare module '*.svg' {
   export default content
 }
 
+declare module '@babel/plugin-transform-react-jsx'
+
 interface Window {
   jQuery: JQueryStatic
   Morphtext: any

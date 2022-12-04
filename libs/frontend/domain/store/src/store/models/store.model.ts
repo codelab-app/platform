@@ -8,6 +8,11 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
+import {
+  evaluateExpression,
+  hasStateExpression,
+  isSingleStateExpression,
+} from '@codelab/frontend/shared/utils'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
@@ -23,11 +28,6 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import { getActionService } from '../action.service'
-import {
-  hasStateExpression,
-  isSingleStateExpression,
-  stripStateExpression,
-} from './state.utils'
 
 export const hydrate = ({ id, name, api }: IStoreDTO) =>
   new Store({
@@ -100,16 +100,7 @@ export class Store
 
   @modelAction
   private evaluateExpression(expression: string) {
-    try {
-      const code = `return ${stripStateExpression(expression)}`
-
-      // eslint-disable-next-line no-new-func
-      return new Function(code).call(this.state.values)
-    } catch (error) {
-      console.log(error)
-
-      return expression
-    }
+    return evaluateExpression(expression, this.state.values)
   }
 
   @modelAction

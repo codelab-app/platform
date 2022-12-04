@@ -3,9 +3,15 @@ import {
   getComponentService,
   getElementService,
 } from '@codelab/frontend/presenter/container'
+import {
+  hasStateExpression,
+  transpileAndEvaluateExpression,
+} from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
+import React from 'react'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
+import { antdAtoms, codelabAtoms, htmlAtoms, muiAtoms } from '../atoms/atoms'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'
 
@@ -38,11 +44,23 @@ export class RenderPropsTypedValueTransformer
 
     return (
       typeof value.value === 'string' &&
-      Boolean(getRootElement(value, componentService, elementService))
+      (Boolean(getRootElement(value, componentService, elementService)) ||
+        hasStateExpression(value.value))
     )
   }
 
-  public transform(value: TypedValue<unknown>) {
+  public transform(value: TypedValue<string>) {
+    if (hasStateExpression(value.value)) {
+      const { values } = this.renderer.appStore.current.state
+      const atoms = { ...htmlAtoms, ...codelabAtoms, ...antdAtoms, ...muiAtoms }
+
+      return transpileAndEvaluateExpression(value.value, {
+        React,
+        atoms,
+        ...values,
+      })
+    }
+
     const componentService = getComponentService(this)
     const elementService = getElementService(this)
     const rootElement = getRootElement(value, componentService, elementService)

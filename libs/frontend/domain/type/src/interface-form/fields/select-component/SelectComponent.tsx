@@ -5,9 +5,16 @@ import { useQuery } from 'react-query'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectComponentProps = UniformSelectFieldProps
+export type SelectComponentProps = Pick<
+  UniformSelectFieldProps,
+  'name' | 'label' | 'error'
+>
 
-export const SelectComponent = ({ name, error }: SelectComponentProps) => {
+export const SelectComponent = ({
+  name,
+  label,
+  error,
+}: SelectComponentProps) => {
   const { builderService } = useStore()
 
   const {
@@ -37,6 +44,7 @@ export const SelectComponent = ({ name, error }: SelectComponentProps) => {
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
+      label={label}
       loading={isLoading}
       name={name}
       optionFilterProp="label"

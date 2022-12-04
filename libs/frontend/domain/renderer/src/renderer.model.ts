@@ -400,7 +400,10 @@ export class Renderer
        * We need to return an empty string here, if the prop cannot be transformed, otherwise
        * the empty object will be passed as React Child, which will throw an error
        */
-      if (typeKind === ITypeKind.ReactNodeType) {
+      if (
+        typeKind === ITypeKind.ReactNodeType ||
+        typeKind === ITypeKind.RenderPropsType
+      ) {
         return ''
       }
 
