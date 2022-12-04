@@ -1,69 +1,50 @@
 import { SearchOutlined } from '@ant-design/icons'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
-import type { FilterConfirmProps } from 'antd/es/table/interface'
-import React, { useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-interface ColumnSearchProps<RecordType extends object> {
-  dataIndex: keyof RecordType
-  onSearch?: (searchText: string) => void
-}
-
-export const useColumnSearchProps = <RecordType extends object>({
-  dataIndex,
-  onSearch,
-}: ColumnSearchProps<RecordType>) => {
-  // const [state, setState] = useState({
-  //   searchText: '',
-  //   searchedColumn: '',
-  // })
-
+export const useColumnSearchProps = <RecordType extends object>(
+  dataIndex: keyof RecordType,
+  onSearchTextChange?: (value: string) => void,
+) => {
   const searchInputRef = useRef<null | InputRef>(null)
+  const [searchText, setSearchText] = useState('')
 
-  const handleSearch = (
-    searchText: string,
-    confirm: (params: FilterConfirmProps) => void,
-  ) => {
-    confirm({ closeDropdown: false })
-
-    // setState({
-    //   searchText,
-    //   searchedColumn: dataIndex.toString(),
-    // })
-
-    if (onSearch) {
-      // onSearch(searchText)
-    }
-  }
+  const handleSearch = useCallback(() => {
+    onSearchTextChange?.(searchText)
+  }, [searchText, onSearchTextChange])
 
   const handleReset = (clearFilters: Maybe<() => void>) => {
     if (clearFilters !== undefined) {
       clearFilters()
     }
 
-    // setState({ searchText: '', searchedColumn: '' })
+    setSearchText('')
   }
 
+  useEffect(() => {
+    handleSearch()
+  }, [searchText, onSearchTextChange, handleSearch])
+
   return {
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
+    filterDropdown: ({ setSelectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
           onChange={(e) => {
             setSelectedKeys(e.target.value ? [e.target.value] : [])
-            handleSearch(e.target.value, confirm)
+            confirm({ closeDropdown: false })
+            setSearchText(e.target.value)
           }}
-          // onPressEnter={(e) => handleSearch(e.target.value, confirm)}
+          onPressEnter={() => {
+            confirm({ closeDropdown: false })
+            handleSearch()
+          }}
           placeholder={`Search ${dataIndex.toString()}`}
           ref={(node) => {
             searchInputRef.current = node
           }}
           style={{ marginBottom: 8, display: 'block' }}
-          value={selectedKeys[0]}
+          value={searchText}
         />
         <Space>
           {/* <Button */}
@@ -76,7 +57,10 @@ export const useColumnSearchProps = <RecordType extends object>({
           {/*  Search */}
           {/* </Button> */}
           <Button
-            onClick={() => handleReset(clearFilters)}
+            onClick={() => {
+              handleReset(clearFilters)
+              confirm({ closeDropdown: true })
+            }}
             size="small"
             style={{ width: 90 }}
           >
