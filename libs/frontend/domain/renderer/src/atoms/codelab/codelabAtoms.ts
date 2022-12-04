@@ -5,6 +5,9 @@ import { AtomsRecord } from '../types'
 // Custom atom components
 // Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)
 export const codelabAtoms: AtomsRecord = {
+  [IAtomType.GridLayout]: dynamicLoader(() =>
+    import('@codelab/frontend/platform/atoms').then((mod) => mod.GridLayout),
+  ),
   [IAtomType.TextList]: dynamicLoader(() =>
     import('@codelab/frontend/platform/atoms').then((mod) => mod.TextList),
   ),

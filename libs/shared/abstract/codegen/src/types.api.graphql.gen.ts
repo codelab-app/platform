@@ -4099,6 +4099,7 @@ export enum AtomType {
   AntDesignTypographyText = 'AntDesignTypographyText',
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
+  GridLayout = 'GridLayout',
   HookGraphqlMutation = 'HookGraphqlMutation',
   HookGraphqlQuery = 'HookGraphqlQuery',
   HookQueryConfig = 'HookQueryConfig',
