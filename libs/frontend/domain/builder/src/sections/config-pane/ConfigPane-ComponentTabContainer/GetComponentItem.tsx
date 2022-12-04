@@ -2,6 +2,7 @@ import {
   BuilderDndType,
   IBuilderComponent,
 } from '@codelab/frontend/abstract/core'
+import { createSlug } from '@codelab/frontend/shared/utils'
 import { antDesignIconPrefix } from '@codelab/shared/data'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
@@ -19,6 +20,7 @@ export const DraggableGetComponentItem = ({
     return {
       name: component.name,
       atomId: component.id,
+      slug: createSlug(component.name),
     }
   }, [component])
 

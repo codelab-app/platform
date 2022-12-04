@@ -4,6 +4,7 @@ import {
   IComponent,
   IComponentService,
 } from '@codelab/frontend/abstract/core'
+import { createSlug } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
@@ -20,6 +21,7 @@ const atomToolboxItemFactory = (atom: IAtom): ToolboxItemProps => ({
   id: atom.id,
   createElementInputFactory: () => ({
     name: atom.name,
+    slug: createSlug(atom.name),
     atom: {
       atomId: atom.id,
     },
@@ -37,6 +39,7 @@ const componentToolboxItemFactory = (
     createElementInputFactory: () => ({
       name,
       componentId: id,
+      slug: createSlug(name),
     }),
   }
 }

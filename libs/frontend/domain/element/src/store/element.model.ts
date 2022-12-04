@@ -87,6 +87,7 @@ export const hydrate = ({
     name,
     customCss,
     guiCss,
+    originId: '',
     // parent of first child
     parentId: parent?.id,
     slug: extractSlug(slug),
@@ -161,7 +162,7 @@ export class Element
 
     // element origin could be a page or a component
     // used to create unique slug for element
-    originId: prop<Maybe<string>>().withSetter(),
+    originId: prop<string>().withSetter(),
   })
   implements IElement
 {

@@ -3,7 +3,7 @@ import { useDroppable } from '@dnd-kit/core'
 
 export const useCreateElementDroppable = (
   id: IElementRef,
-  input?: ICreateElementDTO,
+  input?: Omit<ICreateElementDTO, 'slug'>,
 ) => {
   return useDroppable({
     id,
