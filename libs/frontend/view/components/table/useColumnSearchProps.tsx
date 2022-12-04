@@ -1,58 +1,50 @@
 import { SearchOutlined } from '@ant-design/icons'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
-import type { FilterConfirmProps } from 'antd/es/table/interface'
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 export const useColumnSearchProps = <RecordType extends object>(
   dataIndex: keyof RecordType,
+  onSearchTextChange?: (value: string) => void,
 ) => {
-  const [state, setState] = useState({
-    searchText: '',
-    searchedColumn: '',
-  })
-
   const searchInputRef = useRef<null | InputRef>(null)
+  const [searchText, setSearchText] = useState('')
 
-  const handleSearch = (
-    selectedKeys: Array<React.Key>,
-    confirm: (params: FilterConfirmProps) => void,
-  ) => {
-    confirm({ closeDropdown: false })
-    setState({
-      searchText: selectedKeys[0] as string,
-      searchedColumn: dataIndex.toString(),
-    })
-  }
+  const handleSearch = useCallback(() => {
+    onSearchTextChange?.(searchText)
+  }, [searchText, onSearchTextChange])
 
   const handleReset = (clearFilters: Maybe<() => void>) => {
     if (clearFilters !== undefined) {
       clearFilters()
     }
 
-    setState({ searchText: '', searchedColumn: '' })
+    setSearchText('')
   }
 
+  useEffect(() => {
+    handleSearch()
+  }, [searchText, onSearchTextChange, handleSearch])
+
   return {
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
+    filterDropdown: ({ setSelectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
           onChange={(e) => {
             setSelectedKeys(e.target.value ? [e.target.value] : [])
-            handleSearch(selectedKeys, confirm)
+            confirm({ closeDropdown: false })
+            setSearchText(e.target.value)
           }}
-          onPressEnter={() => handleSearch(selectedKeys, confirm)}
+          onPressEnter={() => {
+            confirm({ closeDropdown: false })
+            handleSearch()
+          }}
           placeholder={`Search ${dataIndex.toString()}`}
           ref={(node) => {
             searchInputRef.current = node
           }}
           style={{ marginBottom: 8, display: 'block' }}
-          value={selectedKeys[0]}
+          value={searchText}
         />
         <Space>
           {/* <Button */}
@@ -65,7 +57,10 @@ export const useColumnSearchProps = <RecordType extends object>(
           {/*  Search */}
           {/* </Button> */}
           <Button
-            onClick={() => handleReset(clearFilters)}
+            onClick={() => {
+              handleReset(clearFilters)
+              confirm({ closeDropdown: true })
+            }}
             size="small"
             style={{ width: 90 }}
           >

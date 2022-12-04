@@ -1,13 +1,17 @@
 import { IAtomService } from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
+import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import { Maybe } from '@codelab/shared/abstract/types'
 import {
   ColumnType,
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
+import debounce from 'lodash/debounce'
+import isEqual from 'lodash/isEqual'
 import { arraySet } from 'mobx-keystone'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
 import { AtomRecord } from './columns/types'
@@ -23,6 +27,36 @@ const onLibraryFilter = (
 }
 
 export const useAtomTable = (atomService: IAtomService) => {
+  const [atomWhere, setAtomWhere] = useState<Maybe<AtomWhere>>(undefined)
+
+  const [atomOptions, setAtomOptions] = useState<AtomOptions>({
+    offset: 0,
+    limit: 25,
+  })
+
+  const debouncedSetAtomWhere = useCallback(
+    debounce((value: Maybe<AtomWhere>) => setAtomWhere(value), 1000),
+    [],
+  )
+
+  const debouncedSetAtomOptions = useCallback(
+    debounce((value: AtomOptions) => setAtomOptions(value), 1000),
+    [],
+  )
+
+  const nameColumnSearchProps = useColumnSearchProps<AtomRecord>(
+    'name',
+    (value) => {
+      const where = {
+        name_CONTAINS: value,
+      }
+
+      if (!isEqual(where, atomWhere)) {
+        debouncedSetAtomWhere(where)
+      }
+    },
+  )
+
   // const { data } = useGetTagGraphsQuery()
   // const tagTree = useTagTree(data?.tagGraphs)
   // const tagTreeData = tagTree.getAntdTrees()
@@ -34,7 +68,7 @@ export const useAtomTable = (atomService: IAtomService) => {
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
-      ...useColumnSearchProps<AtomRecord>('name'),
+      ...nameColumnSearchProps,
     },
     {
       title: 'Library',
@@ -91,12 +125,19 @@ export const useAtomTable = (atomService: IAtomService) => {
     defaultPageSize: 25,
     total: atomService.count,
     onChange: async (page: number, pageSize: number) => {
-      await atomService.getAll(undefined, {
+      const options = {
+        offset: (page - 1) * pageSize,
         limit: pageSize,
-        offset: pageSize * (page - 1),
-      })
+      }
+
+      if (!isEqual(options, atomOptions)) {
+        debouncedSetAtomOptions({
+          offset: (page - 1) * pageSize,
+          limit: pageSize,
+        })
+      }
     },
   }
 
-  return { columns, rowSelection, pagination }
+  return { columns, rowSelection, pagination, atomWhere, atomOptions }
 }
