@@ -1539,6 +1539,18 @@
         }
       ],
       "allowedChildren": []
+    },
+    {
+      "id": "d2b0b22f-52c2-47f1-bb17-439fa8c6913c",
+      "name": "GridLayout",
+      "type": "GridLayout",
+      "api": {
+        "id": "d30a7e1b-5d22-4ea2-922d-887b05c55d05",
+        "name": "GridLayout API"
+      },
+      "icon": null,
+      "tags": [],
+      "allowedChildren": []
     }
   ],
   "types": [
@@ -4426,6 +4438,54 @@
           "id": "3260a6c1-31ec-4d95-b5e2-f6df05692929",
           "key": "Uploading",
           "value": "uploading"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7da396dd-e591-4ee6-b4e5-215dca72ed09",
+      "kind": "EnumType",
+      "name": "GridLayout's ResizeHandle",
+      "allowedValues": [
+        {
+          "id": "e1dbe612-4a2a-4855-8dab-e1eb6061fea1",
+          "key": "e",
+          "value": "e"
+        },
+        {
+          "id": "9ab6a10f-b7ea-427e-aea9-f51cc4dd3afa",
+          "key": "n",
+          "value": "n"
+        },
+        {
+          "id": "635a2c45-4dd8-4053-aff7-843f04f0cd41",
+          "key": "ne",
+          "value": "ne"
+        },
+        {
+          "id": "02cadc63-9bcb-481b-9561-7e7612415122",
+          "key": "nw",
+          "value": "nw"
+        },
+        {
+          "id": "c0cdcfe1-79ec-48b5-bbd1-40e3f4a55604",
+          "key": "s",
+          "value": "s"
+        },
+        {
+          "id": "4301f491-5fc4-4187-a3b7-10464af64829",
+          "key": "se",
+          "value": "se"
+        },
+        {
+          "id": "1c79677f-3e21-4ec6-a2e7-bd9164e233cf",
+          "key": "sw",
+          "value": "sw"
+        },
+        {
+          "id": "eabcb54c-4419-43f8-8dd0-36868ad1a5b4",
+          "key": "w",
+          "value": "w"
         }
       ]
     },
@@ -14022,6 +14082,70 @@
             "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
             "kind": "PrimitiveType",
             "name": "String"
+          }
+        }
+      ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "d30a7e1b-5d22-4ea2-922d-887b05c55d05",
+      "kind": "InterfaceType",
+      "name": "GridLayout API",
+      "fields": [
+        {
+          "id": "fdaa743f-7175-4726-9690-ac9e5ac51084",
+          "key": "cols",
+          "name": "column",
+          "description": "Number of columns in this layout",
+          "validationRules": "{\"Integer\":{}}",
+          "defaultValues": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "cc058fd2-a53d-4b75-be64-b9a6517ef811",
+            "kind": "PrimitiveType",
+            "name": "Integer"
+          }
+        },
+        {
+          "id": "4fb1a887-92f0-4a40-9204-ec1cd1b3a5a9",
+          "key": "containerPadding",
+          "name": "containerPadding",
+          "description": "Padding inside the container `[x, y]` in px",
+          "validationRules": "{}",
+          "defaultValues": null,
+          "fieldType": {
+            "__typename": "ArrayType",
+            "id": "7109d963-b52e-4579-a905-89937f46abb4",
+            "kind": "ArrayType",
+            "name": "Integers"
+          }
+        },
+        {
+          "id": "c15c4cd7-6640-44e6-b5fa-53aebfc81c07",
+          "key": "layout",
+          "name": "layout",
+          "description": "If not provided, use data-grid props on children",
+          "validationRules": "{}",
+          "defaultValues": null,
+          "fieldType": {
+            "__typename": "ArrayType",
+            "id": "8b7e38e2-df94-43b5-b9c6-2946c11f0817",
+            "kind": "ArrayType",
+            "name": "GridLayout's Layouts"
+          }
+        },
+        {
+          "id": "4dea3989-4fb9-412a-89ce-e0cc54d19ed3",
+          "key": "margin",
+          "name": "margin",
+          "description": "Margin between items `[x, y]` in px",
+          "validationRules": "{}",
+          "defaultValues": null,
+          "fieldType": {
+            "__typename": "ArrayType",
+            "id": "7109d963-b52e-4579-a905-89937f46abb4",
+            "kind": "ArrayType",
+            "name": "Integers"
           }
         }
       ]
