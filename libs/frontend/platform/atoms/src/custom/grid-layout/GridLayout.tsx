@@ -14,9 +14,7 @@ export const GridLayout = ({
         return null
       }
 
-      const key = React.isValidElement(child)
-        ? (child as ReactElement).key
-        : v4()
+      const key = React.isValidElement(child) ? child.key : v4()
 
       return <div key={key}>{child}</div>
     })
