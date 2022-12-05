@@ -1,4 +1,5 @@
 export * from './base'
+export * from './component.interface'
 export * from './constant'
 export * from './domain'
 export * from './routing'

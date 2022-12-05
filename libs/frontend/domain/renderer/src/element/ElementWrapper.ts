@@ -63,6 +63,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     renderService.logRendered(element, renderOutputs)
 
     // Use mapOutput because the output may be array or a single item
+    console.log({ renderOutputs })
+
     const Rendered = mapOutput(renderOutputs, (renderOutput) => {
       // Render the element's children
       let children = renderService.renderChildren(renderOutput)
@@ -86,6 +88,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
+      console.log({ extractedProps })
 
       const IntermediateChildren = jsx(
         ReactComponent,
@@ -114,10 +117,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           element.setRenderingError(null)
         },
       },
-      React.createElement(DraggableElementWrapper, {
-        children: Rendered,
-        element,
-      }),
+      Rendered,
     )
   },
 )
