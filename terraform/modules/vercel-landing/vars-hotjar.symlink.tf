@@ -1,1 +1,1 @@
-terraform/modules/hotjar/vars.tf
+../hotjar/vars.tf

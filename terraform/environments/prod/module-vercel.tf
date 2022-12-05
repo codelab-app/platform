@@ -46,7 +46,6 @@ module "vercel-landing" {
 
   next_public_intercom_app_id = var.NEXT_PUBLIC_INTERCOM_APP_ID
 
-
   next_public_hotjar_id = var.NEXT_PUBLIC_HOTJAR_ID
   next_public_hotjar_snippet_version = var.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
 }
