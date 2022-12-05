@@ -1861,6 +1861,7 @@ export enum AtomType {
   Text = 'Text',
   Script = 'Script',
   State = 'State',
+  GridLayout = 'GridLayout',
   ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
   HtmlP = 'HtmlP',
