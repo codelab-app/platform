@@ -75,6 +75,14 @@ export const isReactNodeType: IsTypePredicates = (values) => {
   return reactNodeTypeRegex.test(values[0] ?? '')
 }
 
+export const isActionType: IsTypePredicates = (values) => {
+  if (values.length !== 1) {
+    return false
+  }
+
+  return functionTypeRegex.test(values[0] ?? '')
+}
+
 // ReactNode is also render props
 export const isRenderPropType: IsTypePredicates = (values) => {
   if (values.length !== 1) {

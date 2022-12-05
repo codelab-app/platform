@@ -11,8 +11,6 @@ import { scrapeCommand } from './commands/scrape/scrape.command'
 import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { terraformCommand } from './commands/terraform/terraform.command'
-import { getStageOptions, loadStageMiddleware } from './shared/command'
-import { Stage } from './shared/utils/stage'
 
 // Assume `.env` if no other middleware
 config({})
@@ -29,7 +27,7 @@ void yargs(hideBin(process.argv))
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */
-  .command('data', 'Import / export / reset', (argv) =>
+  .command('data', 'Import / export / seed / reset', (argv) =>
     argv
       .command(seedCommand)
       .command(resetCommand)

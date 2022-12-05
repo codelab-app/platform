@@ -15,12 +15,12 @@ import { ActionColumn } from './columns'
 interface UseTypesTableParams {
   typeService: ITypeService
   fieldService: IFieldService
-  isloadingTypeDependencies: boolean
+  isLoadingTypeDependencies: boolean
 }
 
 export const useTypesTable = ({
   typeService,
-  isloadingTypeDependencies,
+  isLoadingTypeDependencies,
   fieldService,
 }: UseTypesTableParams) => {
   const columns: ColumnsType<IAnyType> = [
@@ -44,7 +44,7 @@ export const useTypesTable = ({
       onHeaderCell: headerCellProps,
       width: 100,
       render: (record) => {
-        if (isloadingTypeDependencies) {
+        if (isLoadingTypeDependencies) {
           return <Skeleton paragraph={false} />
         }
 

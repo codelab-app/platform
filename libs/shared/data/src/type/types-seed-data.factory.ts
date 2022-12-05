@@ -13,28 +13,28 @@ export const createSeedTypesData: CreateSeedTypes = ([
   // PrimitiveTypes
   {
     id: stringId,
-    __typename: 'PrimitiveType',
+    __typename: ITypeKind.PrimitiveType,
     name: IPrimitiveTypeKind.String,
     kind: ITypeKind.PrimitiveType,
     primitiveKind: IPrimitiveTypeKind.String,
   },
   {
     id: booleanId,
-    __typename: 'PrimitiveType',
+    __typename: ITypeKind.PrimitiveType,
     name: IPrimitiveTypeKind.Boolean,
     kind: ITypeKind.PrimitiveType,
     primitiveKind: IPrimitiveTypeKind.Boolean,
   },
   {
     id: floatId,
-    __typename: 'PrimitiveType',
+    __typename: ITypeKind.PrimitiveType,
     name: IPrimitiveTypeKind.Float,
     kind: ITypeKind.PrimitiveType,
     primitiveKind: IPrimitiveTypeKind.Float,
   },
   {
     id: integerId,
-    __typename: 'PrimitiveType',
+    __typename: ITypeKind.PrimitiveType,
     name: IPrimitiveTypeKind.Integer,
     kind: ITypeKind.PrimitiveType,
     primitiveKind: IPrimitiveTypeKind.Integer,
@@ -42,14 +42,20 @@ export const createSeedTypesData: CreateSeedTypes = ([
   // Other types
   {
     id: v4(),
-    __typename: 'ReactNodeType',
+    __typename: ITypeKind.ReactNodeType,
     name: ITypeKind.ReactNodeType,
     kind: ITypeKind.ReactNodeType,
   },
   {
     id: v4(),
-    __typename: 'RenderPropsType',
+    __typename: ITypeKind.RenderPropsType,
     name: ITypeKind.RenderPropsType,
     kind: ITypeKind.RenderPropsType,
+  },
+  {
+    id: v4(),
+    __typename: ITypeKind.ActionType,
+    name: ITypeKind.ActionType,
+    kind: ITypeKind.ActionType,
   },
 ]

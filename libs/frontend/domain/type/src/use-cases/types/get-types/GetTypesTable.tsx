@@ -28,12 +28,12 @@ export const GetTypesTable = observer<{
     entitiesOfCurrentPage,
   } = typeService
 
-  const { isLoadingBaseTypes, isloadingTypeDependencies, changePage } =
+  const { isLoadingBaseTypes, isLoadingTypeDependencies, changePage } =
     useGetTypesTableData(typeService)
 
   const { columns, rowSelection } = useTypesTable({
     typeService,
-    isloadingTypeDependencies,
+    isLoadingTypeDependencies,
     fieldService,
   })
 

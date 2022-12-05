@@ -71,6 +71,28 @@ export const upsertType = async (
       })
     }
 
+    case ITypeKind.ActionType: {
+      const ActionType = await Repository.instance.ActionType
+
+      const exists = await ActionType.find({
+        where: where(type),
+      })
+
+      if (!exists.length) {
+        console.log(`Creating ${type.name} [${type.kind}]...`)
+
+        return await ActionType.create({
+          input: [
+            {
+              ...createCreateBaseFields(type, userId),
+            },
+          ],
+        })
+      }
+
+      return
+    }
+
     case ITypeKind.RenderPropsType: {
       const RenderPropsType = await Repository.instance.RenderPropsType
 

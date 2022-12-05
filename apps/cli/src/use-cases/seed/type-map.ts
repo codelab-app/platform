@@ -4,6 +4,7 @@ import {
   TypeRef,
 } from '@codelab/backend/abstract/core'
 import { logTask } from '../../shared/utils/log-task'
+import { getActionTypeForApi } from './types/action-type-map'
 import { getEnumTypeForApi } from './types/enum-type-map'
 import { getPrimitiveTypeForApi } from './types/primitive-type-map'
 import { getReactNodeTypeForApi } from './types/react-node-type-map'
@@ -11,6 +12,7 @@ import { getRenderPropTypeForApi } from './types/render-prop-type'
 import { getUnionTypeForApi } from './types/union/union-type-map'
 import { parseAntDesignTypeValues } from './utils/parser'
 import {
+  isActionType,
   isEnumType,
   isPrimitivePredicate,
   isReactNodeType,
@@ -48,6 +50,10 @@ export const getTypeForApi = async (
 
   if (isPrimitivePredicate(args.values)) {
     return await getPrimitiveTypeForApi(args)
+  }
+
+  if (isActionType(args.values)) {
+    return await getActionTypeForApi(args)
   }
 
   console.log(`Could not transform fields for Atom [${atom.type}]`, field)

@@ -20,7 +20,7 @@ export const useColumnSearchProps = <RecordType extends object>(
   ) => {
     confirm({ closeDropdown: false })
     setState({
-      searchText: selectedKeys[0] as string,
+      searchText: selectedKeys[0]?.toString() ?? '',
       searchedColumn: dataIndex.toString(),
     })
   }

@@ -7,19 +7,19 @@ export const useGetTypesTableData = (typeService: ITypeService) => {
     [],
   )
 
-  const [{ loading: isloadingTypeDependencies }, getBaseTypeDepdencies] =
+  const [{ loading: isLoadingTypeDependencies }, getBaseTypeDependencies] =
     useAsyncFn(typeService.getAll.bind(typeService), [])
 
   const changePage = async (page: number, pageSize: number) => {
     await getBaseTypesOfPage(page, pageSize)
-    await getBaseTypeDepdencies({
+    await getBaseTypeDependencies({
       id_IN: typeService.entityIdsOfcurrentLoadedPage,
     })
   }
 
   return {
     isLoadingBaseTypes,
-    isloadingTypeDependencies,
+    isLoadingTypeDependencies,
     changePage,
   }
 }
