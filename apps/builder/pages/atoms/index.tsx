@@ -1,7 +1,6 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   AtomLibrary,
-  AtomRecord,
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
@@ -28,8 +27,6 @@ import {
   DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -44,7 +41,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const antdAtomsKeys = useMemo(() => Object.keys(antdAtoms), [])
   const clAtomsKeys = useMemo(() => Object.keys(codelabAtoms), [])
 
-  const getLibrary = useCallback(
+  const getAtomLibrary = useCallback(
     (atomType: string): AtomLibrary => {
       return htmlAtomsKeys.includes(atomType)
         ? { name: 'HTML', color: 'orange' }
@@ -58,30 +55,6 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
     },
     [htmlAtomsKeys, antdAtomsKeys, muiAtomsKeys, clAtomsKeys],
   )
-
-  const fetchAtomsData = async (
-    where: Maybe<AtomWhere>,
-    options: Maybe<AtomOptions>,
-  ) => {
-    await Promise.all([
-      store.atomService.getAll(where, options),
-      store.tagService.getAll(),
-    ])
-
-    const atomsData: Array<AtomRecord> = store.atomService.atomsList.map(
-      (atom) => ({
-        id: atom.id,
-        type: atom.type,
-        apiId: atom.api.id,
-        name: atom.name,
-        tags: atom.tags.map((tag) => tag.current),
-        library: getLibrary(atom.type),
-        allowedChildren: atom.allowedChildren,
-      }),
-    )
-
-    return atomsData
-  }
 
   return (
     <>
@@ -102,7 +75,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <ContentSection>
         <GetAtomsTable
           atomService={store.atomService}
-          fetchAtomsData={fetchAtomsData}
+          getAtomLibrary={getAtomLibrary}
         />
       </ContentSection>
     </>

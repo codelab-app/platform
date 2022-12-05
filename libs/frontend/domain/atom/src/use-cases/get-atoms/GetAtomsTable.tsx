@@ -1,29 +1,34 @@
 import { IAtomService } from '@codelab/frontend/abstract/core'
-import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
-import { AtomRecord } from './columns'
+import { AtomLibrary, AtomRecord } from './columns'
 import { useAtomTable } from './useAtomTable'
 
 interface GetAtomsTableProps {
   atomService: IAtomService
-  fetchAtomsData: (
-    where: Maybe<AtomWhere>,
-    options: Maybe<AtomOptions>,
-  ) => Promise<Array<AtomRecord>>
+  getAtomLibrary: (atomType: string) => AtomLibrary
 }
 
 export const GetAtomsTable = observer<GetAtomsTableProps>(
-  ({ atomService, fetchAtomsData }) => {
+  ({ atomService, getAtomLibrary }) => {
     const { columns, rowSelection, pagination, atomWhere, atomOptions } =
       useAtomTable(atomService)
 
-    const { value: atomsData, loading } = useAsync(async () => {
-      return fetchAtomsData(atomWhere, atomOptions)
+    const { loading } = useAsync(async () => {
+      await atomService.getAll(atomWhere, atomOptions)
     }, [atomWhere, atomOptions])
+
+    const atomsData: Array<AtomRecord> = atomService.atomsList.map((atom) => ({
+      id: atom.id,
+      type: atom.type,
+      apiId: atom.api.id,
+      name: atom.name,
+      tags: atom.tags.map((tag) => tag.current),
+      library: getAtomLibrary(atom.type),
+      allowedChildren: atom.allowedChildren,
+    }))
 
     return (
       <Table
