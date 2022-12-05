@@ -5,6 +5,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner, createAtomsData } from '@codelab/shared/data'
+import slugify from 'slugify'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
@@ -18,32 +19,45 @@ const ELEMENT_TEXT = 'Text'
 const ELEMENT_BUTTON = 'Button'
 
 const elements = [
-  { name: ELEMENT_CONTAINER, parentElement: ROOT_ELEMENT_NAME },
-  { name: ELEMENT_ROW, parentElement: ELEMENT_CONTAINER },
+  {
+    name: ELEMENT_CONTAINER,
+    parentElement: ROOT_ELEMENT_NAME,
+    slug: slugify(ELEMENT_CONTAINER),
+  },
+  {
+    name: ELEMENT_ROW,
+    parentElement: ELEMENT_CONTAINER,
+    slug: slugify(ELEMENT_ROW),
+  },
   {
     name: ELEMENT_COL_A,
     atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
+    slug: slugify(ELEMENT_COL_A),
   },
   {
     name: ELEMENT_COL_B,
     atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
+    slug: slugify(ELEMENT_COL_B),
   },
   {
     name: ELEMENT_TEXT,
     atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_COL_A,
+    slug: slugify(ELEMENT_TEXT),
   },
   {
     name: ELEMENT_BUTTON,
     atom: IAtomType.AntDesignButton,
     parentElement: ELEMENT_COL_B,
+    slug: slugify(ELEMENT_BUTTON),
   },
   {
     name: ELEMENT_TEXT,
     atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_BUTTON,
+    slug: slugify(`${ELEMENT_TEXT}_1`),
   },
 ]
 
