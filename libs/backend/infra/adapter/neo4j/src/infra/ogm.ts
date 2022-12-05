@@ -11,6 +11,9 @@ export const getOgm = async () => {
     ogm = new OGM({
       typeDefs,
       driver: getDriver(),
+      config: {
+        enableRegex: true,
+      },
     })
 
     await ogm.init()

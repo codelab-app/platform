@@ -48,7 +48,7 @@ export const useAtomTable = (atomService: IAtomService) => {
     'name',
     (value) => {
       const where = {
-        name_CONTAINS: value,
+        name_MATCHES: `(?i).*${value}.*`,
       }
 
       if (!isEqual(where, atomWhere)) {

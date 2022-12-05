@@ -54,4 +54,7 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
         rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
       }),
     },
+    config: {
+      enableRegex: true,
+    },
   })

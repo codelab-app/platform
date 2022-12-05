@@ -285,6 +285,7 @@ input ActionTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -299,6 +300,7 @@ input ActionTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -1162,6 +1164,7 @@ input ApiActionWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -1172,6 +1175,7 @@ input ApiActionWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -2025,6 +2029,7 @@ input AppTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -2039,6 +2044,7 @@ input AppTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -2116,6 +2122,7 @@ input AppWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -2126,6 +2133,7 @@ input AppWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -2166,6 +2174,7 @@ input AppWhere {
   slug_CONTAINS: String
   slug_ENDS_WITH: String
   slug_IN: [String!]
+  slug_MATCHES: String
   slug_NOT: String
   slug_NOT_CONTAINS: String
   slug_NOT_ENDS_WITH: String
@@ -3256,6 +3265,7 @@ input ArrayTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -3272,6 +3282,7 @@ input ArrayTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -4229,6 +4240,7 @@ input AtomWhere {
   icon_CONTAINS: String
   icon_ENDS_WITH: String
   icon_IN: [String]
+  icon_MATCHES: String
   icon_NOT: String
   icon_NOT_CONTAINS: String
   icon_NOT_ENDS_WITH: String
@@ -4239,6 +4251,7 @@ input AtomWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -4249,6 +4262,7 @@ input AtomWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -4468,6 +4482,7 @@ input BaseTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -4482,6 +4497,7 @@ input BaseTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -4664,6 +4680,7 @@ input CodeActionWhere {
   code_CONTAINS: String
   code_ENDS_WITH: String
   code_IN: [String!]
+  code_MATCHES: String
   code_NOT: String
   code_NOT_CONTAINS: String
   code_NOT_ENDS_WITH: String
@@ -4674,6 +4691,7 @@ input CodeActionWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -4684,6 +4702,7 @@ input CodeActionWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -4917,6 +4936,7 @@ input CodeMirrorTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -4935,6 +4955,7 @@ input CodeMirrorTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -5578,6 +5599,7 @@ input ComponentWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -5588,6 +5610,7 @@ input ComponentWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -5767,6 +5790,7 @@ input CreateInfoWhere {
   bookmark_CONTAINS: String
   bookmark_ENDS_WITH: String
   bookmark_IN: [String]
+  bookmark_MATCHES: String
   bookmark_NOT: String
   bookmark_NOT_CONTAINS: String
   bookmark_NOT_ENDS_WITH: String
@@ -5947,6 +5971,7 @@ input DeleteInfoWhere {
   bookmark_CONTAINS: String
   bookmark_ENDS_WITH: String
   bookmark_IN: [String]
+  bookmark_MATCHES: String
   bookmark_NOT: String
   bookmark_NOT_CONTAINS: String
   bookmark_NOT_ENDS_WITH: String
@@ -6224,6 +6249,7 @@ input DomainWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -6234,6 +6260,7 @@ input DomainWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -8742,6 +8769,7 @@ input ElementTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -8756,6 +8784,7 @@ input ElementTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -8809,6 +8838,7 @@ input ElementWhere {
   customCss_CONTAINS: String
   customCss_ENDS_WITH: String
   customCss_IN: [String]
+  customCss_MATCHES: String
   customCss_NOT: String
   customCss_NOT_CONTAINS: String
   customCss_NOT_ENDS_WITH: String
@@ -8824,6 +8854,7 @@ input ElementWhere {
   guiCss_CONTAINS: String
   guiCss_ENDS_WITH: String
   guiCss_IN: [String]
+  guiCss_MATCHES: String
   guiCss_NOT: String
   guiCss_NOT_CONTAINS: String
   guiCss_NOT_ENDS_WITH: String
@@ -8859,6 +8890,7 @@ input ElementWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -8869,6 +8901,7 @@ input ElementWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -8899,6 +8932,7 @@ input ElementWhere {
   postRenderActionId_CONTAINS: String
   postRenderActionId_ENDS_WITH: String
   postRenderActionId_IN: [String]
+  postRenderActionId_MATCHES: String
   postRenderActionId_NOT: String
   postRenderActionId_NOT_CONTAINS: String
   postRenderActionId_NOT_ENDS_WITH: String
@@ -8909,6 +8943,7 @@ input ElementWhere {
   preRenderActionId_CONTAINS: String
   preRenderActionId_ENDS_WITH: String
   preRenderActionId_IN: [String]
+  preRenderActionId_MATCHES: String
   preRenderActionId_NOT: String
   preRenderActionId_NOT_CONTAINS: String
   preRenderActionId_NOT_ENDS_WITH: String
@@ -8949,6 +8984,7 @@ input ElementWhere {
   propTransformationJs_CONTAINS: String
   propTransformationJs_ENDS_WITH: String
   propTransformationJs_IN: [String]
+  propTransformationJs_MATCHES: String
   propTransformationJs_NOT: String
   propTransformationJs_NOT_CONTAINS: String
   propTransformationJs_NOT_ENDS_WITH: String
@@ -8974,6 +9010,7 @@ input ElementWhere {
   renderForEachPropKey_CONTAINS: String
   renderForEachPropKey_ENDS_WITH: String
   renderForEachPropKey_IN: [String]
+  renderForEachPropKey_MATCHES: String
   renderForEachPropKey_NOT: String
   renderForEachPropKey_NOT_CONTAINS: String
   renderForEachPropKey_NOT_ENDS_WITH: String
@@ -8984,6 +9021,7 @@ input ElementWhere {
   renderIfPropKey_CONTAINS: String
   renderIfPropKey_ENDS_WITH: String
   renderIfPropKey_IN: [String]
+  renderIfPropKey_MATCHES: String
   renderIfPropKey_NOT: String
   renderIfPropKey_NOT_CONTAINS: String
   renderIfPropKey_NOT_ENDS_WITH: String
@@ -9559,6 +9597,7 @@ input EnumTypeValueWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -9569,6 +9608,7 @@ input EnumTypeValueWhere {
   key_CONTAINS: String
   key_ENDS_WITH: String
   key_IN: [String!]
+  key_MATCHES: String
   key_NOT: String
   key_NOT_CONTAINS: String
   key_NOT_ENDS_WITH: String
@@ -9579,6 +9619,7 @@ input EnumTypeValueWhere {
   value_CONTAINS: String
   value_ENDS_WITH: String
   value_IN: [String!]
+  value_MATCHES: String
   value_NOT: String
   value_NOT_CONTAINS: String
   value_NOT_ENDS_WITH: String
@@ -9625,6 +9666,7 @@ input EnumTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -9639,6 +9681,7 @@ input EnumTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -9970,6 +10013,7 @@ input FieldWhere {
   defaultValues_CONTAINS: String
   defaultValues_ENDS_WITH: String
   defaultValues_IN: [String]
+  defaultValues_MATCHES: String
   defaultValues_NOT: String
   defaultValues_NOT_CONTAINS: String
   defaultValues_NOT_ENDS_WITH: String
@@ -9980,6 +10024,7 @@ input FieldWhere {
   description_CONTAINS: String
   description_ENDS_WITH: String
   description_IN: [String]
+  description_MATCHES: String
   description_NOT: String
   description_NOT_CONTAINS: String
   description_NOT_ENDS_WITH: String
@@ -9992,6 +10037,7 @@ input FieldWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -10002,6 +10048,7 @@ input FieldWhere {
   key_CONTAINS: String
   key_ENDS_WITH: String
   key_IN: [String!]
+  key_MATCHES: String
   key_NOT: String
   key_NOT_CONTAINS: String
   key_NOT_ENDS_WITH: String
@@ -10012,6 +10059,7 @@ input FieldWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -10022,6 +10070,7 @@ input FieldWhere {
   validationRules_CONTAINS: String
   validationRules_ENDS_WITH: String
   validationRules_IN: [String]
+  validationRules_MATCHES: String
   validationRules_NOT: String
   validationRules_NOT_CONTAINS: String
   validationRules_NOT_ENDS_WITH: String
@@ -10619,6 +10668,7 @@ input HookWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -10951,6 +11001,7 @@ input IBaseTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -10965,6 +11016,7 @@ input IBaseTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -11611,6 +11663,7 @@ input InterfaceTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -11625,6 +11678,7 @@ input InterfaceTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -11841,6 +11895,7 @@ input LambdaTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -11855,6 +11910,7 @@ input LambdaTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -13072,6 +13128,7 @@ input PageTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -13086,6 +13143,7 @@ input PageTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -13131,6 +13189,7 @@ input PageWhere {
   getServerSideProps_CONTAINS: String
   getServerSideProps_ENDS_WITH: String
   getServerSideProps_IN: [String]
+  getServerSideProps_MATCHES: String
   getServerSideProps_NOT: String
   getServerSideProps_NOT_CONTAINS: String
   getServerSideProps_NOT_ENDS_WITH: String
@@ -13141,6 +13200,7 @@ input PageWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -13153,6 +13213,7 @@ input PageWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -13168,6 +13229,7 @@ input PageWhere {
   slug_CONTAINS: String
   slug_ENDS_WITH: String
   slug_IN: [String!]
+  slug_MATCHES: String
   slug_NOT: String
   slug_NOT_CONTAINS: String
   slug_NOT_ENDS_WITH: String
@@ -13392,6 +13454,7 @@ input PrimitiveTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -13406,6 +13469,7 @@ input PrimitiveTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -14122,6 +14186,7 @@ input PropMapBindingWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -14132,6 +14197,7 @@ input PropMapBindingWhere {
   sourceKey_CONTAINS: String
   sourceKey_ENDS_WITH: String
   sourceKey_IN: [String!]
+  sourceKey_MATCHES: String
   sourceKey_NOT: String
   sourceKey_NOT_CONTAINS: String
   sourceKey_NOT_ENDS_WITH: String
@@ -14147,6 +14213,7 @@ input PropMapBindingWhere {
   targetKey_CONTAINS: String
   targetKey_ENDS_WITH: String
   targetKey_IN: [String!]
+  targetKey_MATCHES: String
   targetKey_NOT: String
   targetKey_NOT_CONTAINS: String
   targetKey_NOT_ENDS_WITH: String
@@ -14198,6 +14265,7 @@ input PropWhere {
   data_CONTAINS: String
   data_ENDS_WITH: String
   data_IN: [String!]
+  data_MATCHES: String
   data_NOT: String
   data_NOT_CONTAINS: String
   data_NOT_ENDS_WITH: String
@@ -14208,6 +14276,7 @@ input PropWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -14820,6 +14889,7 @@ input ReactNodeTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -14834,6 +14904,7 @@ input ReactNodeTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -15058,6 +15129,7 @@ input RenderPropsTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -15072,6 +15144,7 @@ input RenderPropsTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -15484,6 +15557,7 @@ input ResourceWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -15494,6 +15568,7 @@ input ResourceWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -16102,6 +16177,7 @@ input StoreWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -16112,6 +16188,7 @@ input StoreWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -16702,6 +16779,7 @@ input TagWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -16712,6 +16790,7 @@ input TagWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -16810,6 +16889,7 @@ input TypeReferenceWhere {
   label_CONTAINS: String
   label_ENDS_WITH: String
   label_IN: [String!]
+  label_MATCHES: String
   label_NOT: String
   label_NOT_CONTAINS: String
   label_NOT_ENDS_WITH: String
@@ -16820,6 +16900,7 @@ input TypeReferenceWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -17905,6 +17986,7 @@ input UnionTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -17919,6 +18001,7 @@ input UnionTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
@@ -19099,6 +19182,7 @@ input UserWhere {
   auth0Id_CONTAINS: String
   auth0Id_ENDS_WITH: String
   auth0Id_IN: [String!]
+  auth0Id_MATCHES: String
   auth0Id_NOT: String
   auth0Id_NOT_CONTAINS: String
   auth0Id_NOT_ENDS_WITH: String
@@ -19159,6 +19243,7 @@ input UserWhere {
   email_CONTAINS: String
   email_ENDS_WITH: String
   email_IN: [String!]
+  email_MATCHES: String
   email_NOT: String
   email_NOT_CONTAINS: String
   email_NOT_ENDS_WITH: String
@@ -19169,6 +19254,7 @@ input UserWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
@@ -19233,6 +19319,7 @@ input UserWhere {
   username_CONTAINS: String
   username_ENDS_WITH: String
   username_IN: [String!]
+  username_MATCHES: String
   username_NOT: String
   username_NOT_CONTAINS: String
   username_NOT_ENDS_WITH: String
