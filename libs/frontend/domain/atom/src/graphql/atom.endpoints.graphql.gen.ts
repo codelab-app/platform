@@ -67,14 +67,11 @@ export const DeleteAtomsDocument = gql`
 `
 export const GetAtomsDocument = gql`
   query GetAtoms($where: AtomWhere, $options: AtomOptions) {
-    atomsAggregate {
+    atomsAggregate(where: $where) {
       count
     }
     atoms(where: $where, options: $options) {
       ...Atom
-    }
-    atomsAggregate {
-      count
     }
   }
   ${AtomFragmentDoc}
