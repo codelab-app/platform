@@ -3,7 +3,7 @@ import {
   IBuilderComponent,
 } from '@codelab/frontend/abstract/core'
 import { antDesignIconPrefix } from '@codelab/shared/data'
-import { Card, Col, Row, Typography } from 'antd'
+import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
@@ -39,7 +39,7 @@ export const DraggableGetComponentItem = ({
       {...listeners}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...attributes}
-      css={tw`m-1 mb-6 cursor-pointer`}
+      css={tw`mb-6 cursor-pointer`}
     >
       <GetComponentItem component={component} />
     </div>
@@ -55,32 +55,20 @@ export const GetComponentItem = ({
   component,
   className = '',
 }: GetComponentItemProps) => (
-  <Card hoverable>
-    <Row align="middle" justify="space-between">
-      <Col span={16}>
-        <Row>
-          <Col span={24}>
-            <Typography.Text ellipsis strong>
-              {component.name}
-            </Typography.Text>
-          </Col>
-        </Row>
-      </Col>
-      <Col span={8}>
-        <Row>
-          <Col span={24}>
-            <img
-              alt=""
-              css={tw`flex-1 border border-black [max-width:70px] [max-height:70px]`}
-              src={
-                component.icon
-                  ? `/${antDesignIconPrefix}/${component.icon}.svg`
-                  : '/codelab-logo-default.svg'
-              }
-            />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+  <Card
+    className={className}
+    css={tw`mr-16`}
+    hoverable
+    title={<b css={tw`text-sm`}>{component.name}</b>}
+  >
+    <img
+      alt=""
+      css={tw`w-full`}
+      src={
+        component.icon
+          ? `/${antDesignIconPrefix}/${component.icon}.svg`
+          : '/codelab-logo-default.svg'
+      }
+    />
   </Card>
 )
