@@ -673,6 +673,81 @@ element is new parentElement's first child
     ),
   )
 
+  @computed
+  get elementSlugs() {
+    return [...this.elements.values()].map((e) => e.slug)
+  }
+
+  // handle slug creation where many duplicates for the same element exists
+  private createDuplicateSlug(element: IElement) {
+    const slug_root = `${element.slug}_duplicate`
+
+    if (!this.elementSlugs.includes(slug_root)) {
+      return slug_root
+    }
+
+    // find how many slug with following format `${slug_root}${index}`
+    const duplicates = this.elementSlugs.filter((s) => s.startsWith(slug_root))
+
+    /**
+     * Normally next_index = duplicates.length
+     * However, we need to make sure that index isn't used by user
+     */
+    const next_index = until(
+      (x: number) => !duplicates.includes(`${slug_root}${x}`),
+      (v: number) => v + 1,
+    )(duplicates.length)
+
+    return `${slug_root}${next_index}`
+  }
+
+  private async recursiveDuplicate(element: IElement, parent: IElement) {
+    const duplicate_slug = this.createDuplicateSlug(element)
+
+    const createInput: ElementCreateInput = makeDuplicateInput(
+      element,
+      duplicate_slug,
+    )
+
+    const {
+      createElements: {
+        elements: [createdElement],
+      },
+    } = await elementApi.CreateElements({ input: createInput })
+
+    if (!createdElement) {
+      throw new Error('No elements created')
+    }
+
+    const elementModel = this.writeCache(createdElement)
+    const lastChildId = parent.children[parent.children.length - 1]?.id
+
+    if (!lastChildId) {
+      await this.attachElementAsFirstChild({
+        elementId: elementModel.id,
+        parentElementId: parent.id,
+      })
+    } else {
+      await this.attachElementAsNextSibling({
+        elementId: elementModel.id,
+        targetElementId: lastChildId,
+      })
+    }
+
+    const children = await Promise.all(
+      element.children.map((child) =>
+        this.recursiveDuplicate(child, elementModel),
+      ),
+    )
+
+    const oldToNewIdMap: Map<string, IElement> = children.reduce(
+      (a, m) => new Map([...a, ...m]),
+      new Map([[element.id, elementModel]]),
+    )
+
+    return oldToNewIdMap
+  }
+
   @modelFlow
   @transaction
   public cloneElement = _async(
@@ -683,86 +758,18 @@ element is new parentElement's first child
         targetElement: IElement,
         targetParent: IElement,
       ) {
-        const createdElements = new Array<IElement>()
-        const oldToNewIdMap = new Map<string, string>()
-        const elementSlugs = [...this.elements.values()].map((e) => e.slug)
+        const oldToNewIdMap = yield* _await(
+          this.recursiveDuplicate(targetElement, targetParent),
+        )
 
-        // handle slug creation where many duplicates for the same element exists
-        const createDuplicateSlug = (element: IElement) => {
-          const slug_root = `${element.slug}_duplicate`
+        console.log(oldToNewIdMap)
 
-          if (!elementSlugs.includes(slug_root)) {
-            return slug_root
-          }
-
-          // find how many slug with following format `${slug_root}${index}`
-          const duplicates = elementSlugs.filter((s) => s.startsWith(slug_root))
-
-          /**
-           * Normally next_index = duplicates.length
-           * However, we need to make sure that index isn't used by user
-           */
-          const next_index = until(
-            (x: number) => !duplicates.includes(`${slug_root}${x}`),
-            (v: number) => v + 1,
-          )(duplicates.length)
-
-          return `${slug_root}${next_index}`
-        }
-
-        const recursiveDuplicate = async (
-          element: IElement,
-          parent: IElement,
-        ) => {
-          const duplicate_slug = createDuplicateSlug(element)
-
-          const createInput: ElementCreateInput = makeDuplicateInput(
-            element,
-            duplicate_slug,
-          )
-
-          const {
-            createElements: {
-              elements: [createdElement],
-            },
-          } = await elementApi.CreateElements({ input: createInput })
-
-          if (!createdElement) {
-            throw new Error('No elements created')
-          }
-
-          const elementModel = this.writeCache(createdElement)
-          const lastChildId = parent.children[parent.children.length - 1]?.id
-
-          if (!lastChildId) {
-            await this.attachElementAsFirstChild({
-              elementId: elementModel.id,
-              parentElementId: parent.id,
-            })
-          } else {
-            await this.attachElementAsNextSibling({
-              elementId: elementModel.id,
-              targetElementId: lastChildId,
-            })
-          }
-
-          oldToNewIdMap.set(element.id, elementModel.id)
-          createdElements.push(elementModel)
-
-          for (const child of element.children) {
-            await recursiveDuplicate(child, elementModel)
-          }
-
-          return elementModel
-        }
-
-        yield* _await(recursiveDuplicate(targetElement, targetParent))
-
+        const createdElements = [...oldToNewIdMap.values()]
         // re-attach the prop map bindings now that we have the new ids
         const allInputs = [targetElement, ...targetElement.descendants]
 
         for (const inputElement of allInputs) {
-          const newId = oldToNewIdMap.get(inputElement.id)
+          const newId = oldToNewIdMap.get(inputElement.id)?.id
 
           if (!newId) {
             throw new Error(`Could not find new id for ${inputElement.id}`)
@@ -781,7 +788,7 @@ element is new parentElement's first child
               this.createPropMapBinding(duplicated, {
                 elementId: newId,
                 targetElementId: propMapBinding.targetElementId
-                  ? oldToNewIdMap.get(propMapBinding.targetElementId)
+                  ? oldToNewIdMap.get(propMapBinding.targetElementId)?.id
                   : undefined,
                 targetKey: propMapBinding.targetKey,
                 sourceKey: propMapBinding.sourceKey,
