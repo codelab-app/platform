@@ -63,7 +63,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     renderService.logRendered(element, renderOutputs)
 
     // Use mapOutput because the output may be array or a single item
-    console.log({ renderOutputs })
 
     const Rendered = mapOutput(renderOutputs, (renderOutput) => {
       // Render the element's children
@@ -88,12 +87,16 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
-      console.log({ extractedProps })
+      const reactComponentProps = mergeProps(extractedProps, rest)
+
+      if (!reactComponentProps['key']) {
+        reactComponentProps['key'] = element.id
+      }
 
       const IntermediateChildren = jsx(
         ReactComponent,
         // merge because some refs are not resolved
-        mergeProps(extractedProps, rest),
+        reactComponentProps,
         children,
       )
 
