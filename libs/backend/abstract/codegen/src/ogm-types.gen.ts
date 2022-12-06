@@ -7086,6 +7086,7 @@ export type ActionTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -7096,6 +7097,7 @@ export type ActionTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -7763,6 +7765,7 @@ export type ApiActionWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -7773,6 +7776,7 @@ export type ApiActionWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -8431,6 +8435,7 @@ export type AppTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -8441,6 +8446,7 @@ export type AppTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -8479,6 +8485,7 @@ export type AppWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -8489,6 +8496,7 @@ export type AppWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -8499,6 +8507,7 @@ export type AppWhere = {
   slug_NOT?: InputMaybe<Scalars['String']>
   slug_IN?: InputMaybe<Array<Scalars['String']>>
   slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  slug_MATCHES?: InputMaybe<Scalars['String']>
   slug_CONTAINS?: InputMaybe<Scalars['String']>
   slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   slug_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -9569,6 +9578,7 @@ export type ArrayTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -9579,6 +9589,7 @@ export type ArrayTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -10004,6 +10015,7 @@ export type AtomWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -10014,6 +10026,7 @@ export type AtomWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -10024,6 +10037,7 @@ export type AtomWhere = {
   icon_NOT?: InputMaybe<Scalars['String']>
   icon_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   icon_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  icon_MATCHES?: InputMaybe<Scalars['String']>
   icon_CONTAINS?: InputMaybe<Scalars['String']>
   icon_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   icon_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -10233,6 +10247,7 @@ export type BaseTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -10243,6 +10258,7 @@ export type BaseTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -10373,6 +10389,7 @@ export type CodeActionWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -10383,6 +10400,7 @@ export type CodeActionWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -10393,6 +10411,7 @@ export type CodeActionWhere = {
   code_NOT?: InputMaybe<Scalars['String']>
   code_IN?: InputMaybe<Array<Scalars['String']>>
   code_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  code_MATCHES?: InputMaybe<Scalars['String']>
   code_CONTAINS?: InputMaybe<Scalars['String']>
   code_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   code_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -10562,6 +10581,7 @@ export type CodeMirrorTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -10572,6 +10592,7 @@ export type CodeMirrorTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -11085,6 +11106,7 @@ export type ComponentWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -11095,6 +11117,7 @@ export type ComponentWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -11155,6 +11178,7 @@ export type CreateInfoWhere = {
   bookmark_NOT?: InputMaybe<Scalars['String']>
   bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_MATCHES?: InputMaybe<Scalars['String']>
   bookmark_CONTAINS?: InputMaybe<Scalars['String']>
   bookmark_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -11216,6 +11240,7 @@ export type DeleteInfoWhere = {
   bookmark_NOT?: InputMaybe<Scalars['String']>
   bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_MATCHES?: InputMaybe<Scalars['String']>
   bookmark_CONTAINS?: InputMaybe<Scalars['String']>
   bookmark_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -11425,6 +11450,7 @@ export type DomainWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -11435,6 +11461,7 @@ export type DomainWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13414,6 +13441,7 @@ export type ElementTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -13424,6 +13452,7 @@ export type ElementTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13479,6 +13508,7 @@ export type ElementWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -13489,6 +13519,7 @@ export type ElementWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13499,6 +13530,7 @@ export type ElementWhere = {
   customCss_NOT?: InputMaybe<Scalars['String']>
   customCss_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   customCss_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  customCss_MATCHES?: InputMaybe<Scalars['String']>
   customCss_CONTAINS?: InputMaybe<Scalars['String']>
   customCss_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   customCss_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13509,6 +13541,7 @@ export type ElementWhere = {
   guiCss_NOT?: InputMaybe<Scalars['String']>
   guiCss_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   guiCss_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  guiCss_MATCHES?: InputMaybe<Scalars['String']>
   guiCss_CONTAINS?: InputMaybe<Scalars['String']>
   guiCss_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   guiCss_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13519,6 +13552,7 @@ export type ElementWhere = {
   propTransformationJs_NOT?: InputMaybe<Scalars['String']>
   propTransformationJs_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   propTransformationJs_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  propTransformationJs_MATCHES?: InputMaybe<Scalars['String']>
   propTransformationJs_CONTAINS?: InputMaybe<Scalars['String']>
   propTransformationJs_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   propTransformationJs_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13529,6 +13563,7 @@ export type ElementWhere = {
   renderForEachPropKey_NOT?: InputMaybe<Scalars['String']>
   renderForEachPropKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   renderForEachPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderForEachPropKey_MATCHES?: InputMaybe<Scalars['String']>
   renderForEachPropKey_CONTAINS?: InputMaybe<Scalars['String']>
   renderForEachPropKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   renderForEachPropKey_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13539,6 +13574,7 @@ export type ElementWhere = {
   renderIfPropKey_NOT?: InputMaybe<Scalars['String']>
   renderIfPropKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   renderIfPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderIfPropKey_MATCHES?: InputMaybe<Scalars['String']>
   renderIfPropKey_CONTAINS?: InputMaybe<Scalars['String']>
   renderIfPropKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   renderIfPropKey_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13549,6 +13585,7 @@ export type ElementWhere = {
   preRenderActionId_NOT?: InputMaybe<Scalars['String']>
   preRenderActionId_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   preRenderActionId_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  preRenderActionId_MATCHES?: InputMaybe<Scalars['String']>
   preRenderActionId_CONTAINS?: InputMaybe<Scalars['String']>
   preRenderActionId_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   preRenderActionId_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -13559,6 +13596,7 @@ export type ElementWhere = {
   postRenderActionId_NOT?: InputMaybe<Scalars['String']>
   postRenderActionId_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   postRenderActionId_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  postRenderActionId_MATCHES?: InputMaybe<Scalars['String']>
   postRenderActionId_CONTAINS?: InputMaybe<Scalars['String']>
   postRenderActionId_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   postRenderActionId_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14062,6 +14100,7 @@ export type EnumTypeValueWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -14072,6 +14111,7 @@ export type EnumTypeValueWhere = {
   key_NOT?: InputMaybe<Scalars['String']>
   key_IN?: InputMaybe<Array<Scalars['String']>>
   key_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  key_MATCHES?: InputMaybe<Scalars['String']>
   key_CONTAINS?: InputMaybe<Scalars['String']>
   key_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   key_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14082,6 +14122,7 @@ export type EnumTypeValueWhere = {
   value_NOT?: InputMaybe<Scalars['String']>
   value_IN?: InputMaybe<Array<Scalars['String']>>
   value_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  value_MATCHES?: InputMaybe<Scalars['String']>
   value_CONTAINS?: InputMaybe<Scalars['String']>
   value_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   value_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14102,6 +14143,7 @@ export type EnumTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -14112,6 +14154,7 @@ export type EnumTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14368,6 +14411,7 @@ export type FieldWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -14378,6 +14422,7 @@ export type FieldWhere = {
   key_NOT?: InputMaybe<Scalars['String']>
   key_IN?: InputMaybe<Array<Scalars['String']>>
   key_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  key_MATCHES?: InputMaybe<Scalars['String']>
   key_CONTAINS?: InputMaybe<Scalars['String']>
   key_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   key_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14388,6 +14433,7 @@ export type FieldWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14398,6 +14444,7 @@ export type FieldWhere = {
   description_NOT?: InputMaybe<Scalars['String']>
   description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   description_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  description_MATCHES?: InputMaybe<Scalars['String']>
   description_CONTAINS?: InputMaybe<Scalars['String']>
   description_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   description_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14408,6 +14455,7 @@ export type FieldWhere = {
   validationRules_NOT?: InputMaybe<Scalars['String']>
   validationRules_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   validationRules_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  validationRules_MATCHES?: InputMaybe<Scalars['String']>
   validationRules_CONTAINS?: InputMaybe<Scalars['String']>
   validationRules_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   validationRules_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14418,6 +14466,7 @@ export type FieldWhere = {
   defaultValues_NOT?: InputMaybe<Scalars['String']>
   defaultValues_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   defaultValues_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  defaultValues_MATCHES?: InputMaybe<Scalars['String']>
   defaultValues_CONTAINS?: InputMaybe<Scalars['String']>
   defaultValues_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   defaultValues_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -14871,6 +14920,7 @@ export type HookWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -15177,6 +15227,7 @@ export type IBaseTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -15187,6 +15238,7 @@ export type IBaseTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -15654,6 +15706,7 @@ export type InterfaceTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -15664,6 +15717,7 @@ export type InterfaceTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -15872,6 +15926,7 @@ export type LambdaTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -15882,6 +15937,7 @@ export type LambdaTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -16467,6 +16523,7 @@ export type PageTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -16477,6 +16534,7 @@ export type PageTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -16515,6 +16573,7 @@ export type PageWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -16525,6 +16584,7 @@ export type PageWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -16535,6 +16595,7 @@ export type PageWhere = {
   slug_NOT?: InputMaybe<Scalars['String']>
   slug_IN?: InputMaybe<Array<Scalars['String']>>
   slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  slug_MATCHES?: InputMaybe<Scalars['String']>
   slug_CONTAINS?: InputMaybe<Scalars['String']>
   slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   slug_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -16545,6 +16606,7 @@ export type PageWhere = {
   getServerSideProps_NOT?: InputMaybe<Scalars['String']>
   getServerSideProps_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   getServerSideProps_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  getServerSideProps_MATCHES?: InputMaybe<Scalars['String']>
   getServerSideProps_CONTAINS?: InputMaybe<Scalars['String']>
   getServerSideProps_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   getServerSideProps_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -16719,6 +16781,7 @@ export type PrimitiveTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -16729,6 +16792,7 @@ export type PrimitiveTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -17311,6 +17375,7 @@ export type PropMapBindingWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -17321,6 +17386,7 @@ export type PropMapBindingWhere = {
   sourceKey_NOT?: InputMaybe<Scalars['String']>
   sourceKey_IN?: InputMaybe<Array<Scalars['String']>>
   sourceKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  sourceKey_MATCHES?: InputMaybe<Scalars['String']>
   sourceKey_CONTAINS?: InputMaybe<Scalars['String']>
   sourceKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   sourceKey_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -17331,6 +17397,7 @@ export type PropMapBindingWhere = {
   targetKey_NOT?: InputMaybe<Scalars['String']>
   targetKey_IN?: InputMaybe<Array<Scalars['String']>>
   targetKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  targetKey_MATCHES?: InputMaybe<Scalars['String']>
   targetKey_CONTAINS?: InputMaybe<Scalars['String']>
   targetKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   targetKey_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -17381,6 +17448,7 @@ export type PropWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -17391,6 +17459,7 @@ export type PropWhere = {
   data_NOT?: InputMaybe<Scalars['String']>
   data_IN?: InputMaybe<Array<Scalars['String']>>
   data_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  data_MATCHES?: InputMaybe<Scalars['String']>
   data_CONTAINS?: InputMaybe<Scalars['String']>
   data_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   data_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -17553,6 +17622,7 @@ export type ReactNodeTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -17563,6 +17633,7 @@ export type ReactNodeTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -17729,6 +17800,7 @@ export type RenderPropsTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -17739,6 +17811,7 @@ export type RenderPropsTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -18032,6 +18105,7 @@ export type ResourceWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -18042,6 +18116,7 @@ export type ResourceWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -18519,6 +18594,7 @@ export type StoreWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -18529,6 +18605,7 @@ export type StoreWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -18968,6 +19045,7 @@ export type TagWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -18978,6 +19056,7 @@ export type TagWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -19047,6 +19126,7 @@ export type TypeReferenceWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -19057,6 +19137,7 @@ export type TypeReferenceWhere = {
   label_NOT?: InputMaybe<Scalars['String']>
   label_IN?: InputMaybe<Array<Scalars['String']>>
   label_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  label_MATCHES?: InputMaybe<Scalars['String']>
   label_CONTAINS?: InputMaybe<Scalars['String']>
   label_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   label_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -20407,6 +20488,7 @@ export type UnionTypeWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -20417,6 +20499,7 @@ export type UnionTypeWhere = {
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -21191,6 +21274,7 @@ export type UserWhere = {
   id_NOT?: InputMaybe<Scalars['ID']>
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
@@ -21201,6 +21285,7 @@ export type UserWhere = {
   auth0Id_NOT?: InputMaybe<Scalars['String']>
   auth0Id_IN?: InputMaybe<Array<Scalars['String']>>
   auth0Id_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  auth0Id_MATCHES?: InputMaybe<Scalars['String']>
   auth0Id_CONTAINS?: InputMaybe<Scalars['String']>
   auth0Id_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   auth0Id_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -21211,6 +21296,7 @@ export type UserWhere = {
   email_NOT?: InputMaybe<Scalars['String']>
   email_IN?: InputMaybe<Array<Scalars['String']>>
   email_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  email_MATCHES?: InputMaybe<Scalars['String']>
   email_CONTAINS?: InputMaybe<Scalars['String']>
   email_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   email_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -21221,6 +21307,7 @@ export type UserWhere = {
   username_NOT?: InputMaybe<Scalars['String']>
   username_IN?: InputMaybe<Array<Scalars['String']>>
   username_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  username_MATCHES?: InputMaybe<Scalars['String']>
   username_CONTAINS?: InputMaybe<Scalars['String']>
   username_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   username_STARTS_WITH?: InputMaybe<Scalars['String']>
