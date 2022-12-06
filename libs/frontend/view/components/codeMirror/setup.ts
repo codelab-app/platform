@@ -28,11 +28,7 @@ import {
   keymap,
   rectangularSelection,
 } from '@codemirror/view'
-import {
-  completionCustomKeymap,
-  completionSource,
-  disallowNewLines,
-} from './extensions'
+import { completionSource, disallowNewLines } from './extensions'
 
 const keymaps = keymap.of([
   ...completionKeymap,
@@ -42,7 +38,6 @@ const keymaps = keymap.of([
   ...historyKeymap,
   ...foldKeymap,
   ...lintKeymap,
-  ...completionCustomKeymap,
 ])
 
 // customized version of the original default extension https://github.com/codemirror/basic-setup/blob/main/src/basic-setup.ts
