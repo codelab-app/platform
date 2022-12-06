@@ -24,7 +24,13 @@ const getServerSideProps = async (context: IPropData) => {
     redirect = undefined,
   } = await eval(`(${page.getServerSideProps})`)(context)
 
-  return { props, notFound, redirect }
+  return {
+    props: {
+      getServerSidePropsData: props,
+    },
+    notFound,
+    redirect,
+  }
 }
 
 const hydrate = (page: IPageDTO) => {

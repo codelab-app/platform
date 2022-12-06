@@ -1,6 +1,7 @@
 import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import type { AppProps } from 'next/app'
 import type { Overwrite } from 'utility-types'
+import type { IPropData } from '../domain'
 
 /**
  * Used by `_app.tsx`
@@ -18,6 +19,8 @@ export type IAppProps<T = object> = Overwrite<
 export interface IPageProps {
   // storeSnapshot?: SnapshotOutOfModel<any>
   user?: Auth0SessionUser
+  // data returned by user after running code inside getServerSideProps
+  getServerSidePropsData: IPropData
   // snapshot?: {
   // rootStore: SnapshotOutOfModel<any>
   // appService: SnapshotOutOfModel<any>

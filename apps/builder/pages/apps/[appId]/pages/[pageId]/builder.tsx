@@ -1,3 +1,4 @@
+import type { IPageProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
@@ -32,76 +33,82 @@ import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 import { useAsync } from 'react-use'
 
-const PageBuilder: CodelabPage = observer(() => {
-  const {
-    componentService,
-    builderRenderService,
-    elementService,
-    builderService,
-  } = useStore()
+const PageBuilder: CodelabPage<IPageProps> = observer(
+  ({ getServerSidePropsData }) => {
+    const {
+      componentService,
+      appService,
+      builderRenderService,
+      elementService,
+      builderService,
+    } = useStore()
 
-  const { value: pageDataValue, error: pageDataError } = useLoadRenderedPage()
+    const { value: pageDataValue, error: pageDataError } = useLoadRenderedPage()
 
-  const {
-    loading,
-    value,
-    error: rendererError,
-  } = useAsync(async () => {
-    if (!pageDataValue) {
-      return
-    }
+    const {
+      loading,
+      value,
+      error: rendererError,
+    } = useAsync(async () => {
+      if (!pageDataValue) {
+        return
+      }
 
-    const { page, pageTree, appTree, appStore, components } = pageDataValue
-    /**
-     *
-     * page Element tree
-     *
-     */
-    const pageRootElement = elementService.element(page.rootElement.id)
+      const { page, pageTree, appTree, appStore, components } = pageDataValue
+      /**
+       *
+       * page Element tree
+       *
+       */
+      const pageRootElement = elementService.element(page.rootElement.id)
 
-    if (pageRootElement) {
-      builderService.selectPageElementTreeNode(elementRef(pageRootElement))
-    }
+      if (pageRootElement) {
+        builderService.selectPageElementTreeNode(elementRef(pageRootElement))
+      }
 
-    const renderer = await builderRenderService.addRenderer({
-      id: page.id,
-      pageTree,
-      appTree,
-      components,
-      appStore,
-      isBuilder: true,
-    })
+      const renderer = await builderRenderService.addRenderer({
+        id: page.id,
+        pageTree,
+        appTree,
+        components,
+        appStore,
+        isBuilder: true,
+      })
 
-    return {
-      pageTree,
-      store: appStore,
-      page,
-      renderer,
-    }
-  }, [pageDataValue])
+      appStore.state.setMany(appService.appsJson)
+      appStore.state.setMany(getServerSidePropsData)
 
-  const error = pageDataError || rendererError
+      return {
+        pageTree,
+        appStore,
+        page,
+        renderer,
+      }
+    }, [pageDataValue])
 
-  return (
-    <>
-      <Head>
-        <title>{value?.page.name} | Builder | Codelab</title>
-      </Head>
+    const error = pageDataError || rendererError
 
-      <BuilderTabs
-        appStore={value?.store}
-        builderRenderService={builderRenderService}
-        builderService={builderService}
-        componentService={componentService}
-        elementService={elementService}
-        elementTree={value?.pageTree}
-        error={error?.message}
-        isLoading={loading}
-        renderer={value?.renderer}
-      />
-    </>
-  )
-})
+    return (
+      <>
+        <Head>
+          <title>{value?.page.name} | Builder | Codelab</title>
+        </Head>
+
+        <BuilderTabs
+          appStore={value?.appStore}
+          builderRenderService={builderRenderService}
+          builderService={builderService}
+          componentService={componentService}
+          elementService={elementService}
+          elementTree={value?.pageTree}
+          error={error?.message}
+          isLoading={loading}
+          renderer={value?.renderer}
+        />
+      </>
+    )
+  },
+)
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired({
   getServerSideProps: Page.getServerSideProps,
