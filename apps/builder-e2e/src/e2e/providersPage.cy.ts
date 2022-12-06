@@ -23,7 +23,7 @@ const mainPageElements = [
     name: INPUT_COMPONENT_NAME,
     parentElement: CARD_COMPONENT_NAME,
     atom: IAtomType.AntDesignInput,
-    slug: slugify(CARD_COMPONENT_NAME),
+    slug: slugify(`${CARD_COMPONENT_NAME}_1`),
   },
 ]
 
