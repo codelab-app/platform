@@ -10,6 +10,7 @@ import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { atomFactory } from '../atoms'
 import { evalCss } from '../utils/evalCss'
+import { increaseCssPrecedence } from '../utils/increaseCssPrecedence'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/AtomRenderPipe')
@@ -45,7 +46,7 @@ export class AtomRenderPipe
     const elCss =
       element.customCss || element.guiCss
         ? css([
-            JSON.parse(element.guiCss || '{}'),
+            increaseCssPrecedence(element.guiCss || '{}'),
             evalCss(element.customCss || ''),
           ])
         : undefined
