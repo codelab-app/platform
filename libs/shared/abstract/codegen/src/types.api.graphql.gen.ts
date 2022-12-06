@@ -4661,6 +4661,10 @@ export type BaseTypeWhere = {
   owner_NOT?: InputMaybe<UserWhere>
 }
 
+export type BaseTypesWhere = {
+  name?: InputMaybe<Scalars['String']>
+}
+
 export type CodeAction = ActionBase & {
   __typename?: 'CodeAction'
   /** Code to run when action is triggered */
@@ -10500,6 +10504,7 @@ export type FieldsConnection = {
 export type GetBaseTypesOptions = {
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
+  where?: InputMaybe<BaseTypesWhere>
 }
 
 export type GetBaseTypesReturn = {

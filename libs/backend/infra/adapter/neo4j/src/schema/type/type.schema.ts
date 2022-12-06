@@ -38,9 +38,14 @@ export const typeSchema = gql`
     label: String!
   }
 
+  input BaseTypesWhere {
+    name: String
+  }
+
   input GetBaseTypesOptions {
     limit: Int
     offset: Int
+    where: BaseTypesWhere
   }
 
   type GetBaseTypesReturn {
@@ -73,9 +78,9 @@ export const typeSchema = gql`
     kind: TypeKind! @readonly
     name: String!
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
-    owner: User! 
+    owner: User!
       @relationship(
-        type: "OWNED_BY", 
+        type: "OWNED_BY",
         direction: OUT
       )
   }

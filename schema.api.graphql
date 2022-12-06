@@ -4495,6 +4495,10 @@ input BaseTypeWhere {
   owner_NOT: UserWhere
 }
 
+input BaseTypesWhere {
+  name: String
+}
+
 type CodeAction implements ActionBase {
   """
   Code to run when action is triggered
@@ -10035,6 +10039,7 @@ type FieldsConnection {
 input GetBaseTypesOptions {
   limit: Int
   offset: Int
+  where: BaseTypesWhere
 }
 
 type GetBaseTypesReturn {

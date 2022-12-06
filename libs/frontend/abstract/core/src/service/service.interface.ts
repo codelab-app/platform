@@ -15,15 +15,15 @@ export interface IQueryService<Entity, EntityWhere, EntityOptions> {
   getAll(where?: EntityWhere, options?: EntityOptions): Promise<Array<Entity>>
 }
 
-export interface IPaginationService<Entity> {
-  entityIdsOfcurrentLoadedPage: Array<string>
-  entitiesOfCurrentPage: Array<Entity>
+export interface IPaginationService {
+  entityIdsOfCurrentPage: Array<string>
+  // entitiesOfCurrentPage: Array<Entity>
   totalEntitiesCount: number
   pageSize: number
-  currentLoadedPage: number
+  currentPage: number
 
-  getByPage(page: number, pageSize: number): Promise<void>
-  refetchCurrentPage(): Promise<void>
+  // getByPage(page: number, pageSize: number): Promise<void>
+  // refetchCurrentPage(): Promise<void>
 }
 
 export interface ICRUDModalService<

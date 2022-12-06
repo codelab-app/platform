@@ -31,7 +31,7 @@ export const PropMapBindingsTable = observer<PropMapBindingsTableProps>(
         dataIndex: 'sourceKey',
         key: 'sourceKey',
         onHeaderCell: headerCellProps,
-        ...useColumnSearchProps('sourceKey'),
+        ...useColumnSearchProps({ dataIndex: 'sourceKey' }),
       },
       {
         title: 'Target Element',

@@ -11,7 +11,6 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -43,11 +42,15 @@ import { TypeModalService } from './type-modal.service'
 export class TypeService
   extends Model({
     id: idProp,
+    /**
+     * This holds all types
+     */
     types: prop(() => objectMap<IAnyType>()),
-    entityIdsOfcurrentLoadedPage: prop<Array<string>>(() => []),
+    entityIdsOfCurrentPage: prop<Array<string>>(() => []),
     totalEntitiesCount: prop<number>(0),
     pageSize: prop<number>(10),
     currentLoadedPage: prop<number>(1),
+    currentPage: prop<number>(1),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -57,35 +60,29 @@ export class TypeService
   })
   implements ITypeService
 {
-  @computed
-  get entitiesOfCurrentPage() {
-    return this.entityIdsOfcurrentLoadedPage
-      .map((id) => this.type(id))
-      .filter(isNonNullable)
-  }
-
+  /**
+   * `page` & `pageSize` are optional
+   */
   @modelFlow
   @transaction
-  refetchCurrentPage = _async(function* (this: TypeService) {
-    return yield* _await(
-      this.getBaseTypesOfPage(this.currentLoadedPage, this.pageSize),
-    )
-  })
-
-  @modelFlow
-  @transaction
-  getBaseTypesOfPage = _async(function* (
+  getBaseTypes = _async(function* (
     this: TypeService,
-    page = 1,
-    pageSize = 10,
+    { page, pageSize, where },
   ) {
-    this.currentLoadedPage = page
-    this.pageSize = pageSize
+    if (page) {
+      this.currentPage = page
+    }
 
-    const previousPage = page - 1
+    if (pageSize) {
+      this.pageSize = pageSize
+    }
+
+    const previousPage = this.currentPage - 1
     // skip entities to page -1
-    const offset = previousPage * pageSize
-    const limit = pageSize
+    const offset = previousPage * this.pageSize
+    const limit = this.pageSize
+
+    console.log(where)
 
     const {
       baseTypes: { totalCount, items },
@@ -94,14 +91,19 @@ export class TypeService
         options: {
           offset,
           limit,
+          where,
         },
       }),
     )
 
     this.totalEntitiesCount = totalCount
-    this.entityIdsOfcurrentLoadedPage = items.map((type) => {
+
+    console.log(this.totalEntitiesCount)
+
+    items.forEach((type) => {
       const typeModel = baseTypesFactory(type)
       this.types.set(type.id, typeModel)
+      this.entityIdsOfCurrentPage.push(type.id)
 
       return typeModel.id
     })

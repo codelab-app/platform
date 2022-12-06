@@ -2,27 +2,38 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
 import type { FilterConfirmProps } from 'antd/es/table/interface'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
-export const useColumnSearchProps = <RecordType extends object>(
-  dataIndex: keyof RecordType,
-) => {
-  const [state, setState] = useState({
-    searchText: '',
-    searchedColumn: '',
-  })
+interface ColumnSearchProps<RecordType extends object> {
+  dataIndex: keyof RecordType
+  onSearch?: (searchText: string) => void
+}
+
+export const useColumnSearchProps = <RecordType extends object>({
+  dataIndex,
+  onSearch,
+}: ColumnSearchProps<RecordType>) => {
+  // const [state, setState] = useState({
+  //   searchText: '',
+  //   searchedColumn: '',
+  // })
 
   const searchInputRef = useRef<null | InputRef>(null)
 
   const handleSearch = (
-    selectedKeys: Array<React.Key>,
+    searchText: string,
     confirm: (params: FilterConfirmProps) => void,
   ) => {
     confirm({ closeDropdown: false })
-    setState({
-      searchText: selectedKeys[0]?.toString() ?? '',
-      searchedColumn: dataIndex.toString(),
-    })
+
+    // setState({
+    //   searchText,
+    //   searchedColumn: dataIndex.toString(),
+    // })
+
+    if (onSearch) {
+      // onSearch(searchText)
+    }
   }
 
   const handleReset = (clearFilters: Maybe<() => void>) => {
@@ -30,7 +41,7 @@ export const useColumnSearchProps = <RecordType extends object>(
       clearFilters()
     }
 
-    setState({ searchText: '', searchedColumn: '' })
+    // setState({ searchText: '', searchedColumn: '' })
   }
 
   return {
@@ -44,9 +55,9 @@ export const useColumnSearchProps = <RecordType extends object>(
         <Input
           onChange={(e) => {
             setSelectedKeys(e.target.value ? [e.target.value] : [])
-            handleSearch(selectedKeys, confirm)
+            handleSearch(e.target.value, confirm)
           }}
-          onPressEnter={() => handleSearch(selectedKeys, confirm)}
+          // onPressEnter={(e) => handleSearch(e.target.value, confirm)}
           placeholder={`Search ${dataIndex.toString()}`}
           ref={(node) => {
             searchInputRef.current = node

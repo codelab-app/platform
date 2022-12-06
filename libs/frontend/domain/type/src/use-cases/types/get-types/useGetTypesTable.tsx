@@ -29,14 +29,19 @@ export const useTypesTable = ({
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('name'),
+      ...useColumnSearchProps({
+        dataIndex: 'name',
+        onSearch: (searchText) => {
+          // void typeService.getBaseTypes({ where: { name: searchText } })
+        },
+      }),
     },
     {
       title: 'Kind',
       dataIndex: 'kind',
       key: 'kind',
       onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('kind'),
+      ...useColumnSearchProps({ dataIndex: 'kind' }),
     },
     {
       title: 'Action',

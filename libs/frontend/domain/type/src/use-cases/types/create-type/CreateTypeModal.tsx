@@ -37,9 +37,9 @@ export const CreateTypeModal = observer<{
     /**
      * typeService.create writes into cache
      * if modal is opened -> bug: modal input values are cleared
-     * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait unitl it finishesp
+     * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait until it finishes
      */
-    void typeService.refetchCurrentPage().then(() => undefined)
+    void typeService.getBaseTypes({}).then(() => undefined)
   }
 
   return (

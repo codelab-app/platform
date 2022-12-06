@@ -15,12 +15,20 @@ import {
 import { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
 import { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
 
+export interface BaseTypesOptions {
+  page?: number
+  pageSize?: number
+  where?: {
+    name: string
+  }
+}
+
 export interface ITypeService
-  extends Omit<IPaginationService<IAnyType>, 'getByPage'>,
+  extends Omit<IPaginationService, 'getByPage'>,
     ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
-  getBaseTypesOfPage(page: number, pageSize: number): Promise<void>
+  getBaseTypes(options: BaseTypesOptions): Promise<void>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>

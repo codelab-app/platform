@@ -34,7 +34,7 @@ export const useAtomTable = (atomService: IAtomService) => {
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
-      ...useColumnSearchProps<AtomRecord>('name'),
+      ...useColumnSearchProps<AtomRecord>({ dataIndex: 'name' }),
     },
     {
       title: 'Library',

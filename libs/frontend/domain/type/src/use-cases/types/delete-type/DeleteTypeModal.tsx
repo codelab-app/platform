@@ -38,10 +38,10 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
        * typeService.delete writes into cache
        * if modal is opened -> bug: modal input values are cleared
        *
-       * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait unitl it finished
+       * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait until it finished
        */
 
-      void typeService.refetchCurrentPage().then(() => undefined)
+      void typeService.getBaseTypes({}).then(() => undefined)
     }
 
     return (

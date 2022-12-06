@@ -14,9 +14,14 @@ export const typeRepository = {
     const limit = options?.limit ?? 10
     const offset = options?.offset ?? 0
 
+    const where = options?.where ?? {
+      name: '',
+    }
+
     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
       limit: int(limit),
       skip: int(offset),
+      name: where.name,
     })
 
     const totalCountRecord = getTypesRecords[0]?.get('totalCount')
