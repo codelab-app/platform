@@ -12,7 +12,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
   return {
     id: appId,
     name: `Test app ${appId}`,
-    slug: 'test',
+    slug: `test-${appId}`,
     owner: connectOwner(userId),
     store: {
       create: {
