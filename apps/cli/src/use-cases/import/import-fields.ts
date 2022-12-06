@@ -42,7 +42,6 @@ export const createImportFieldsData = (
         const existingField = existingData.fields[`${type.name}-${field.key}`]
 
         if (!existingFieldType) {
-          console.error(type)
           throw new Error('Field Type should exist')
         }
 

@@ -1,6 +1,7 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { ITypeExport } from '@codelab/backend/abstract/core'
 import {
+  exportActionTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportInterfaceTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
@@ -44,6 +45,18 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   // Only 1 here
   const renderPropsTypes = await RenderPropsType.find({
     selectionSet: exportRenderPropsTypeSelectionSet,
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
+  })
+
+  /**
+   * ActionType
+   */
+  const ActionType = await Repository.instance.ActionType
+
+  const actionTypes = await ActionType.find({
+    selectionSet: exportActionTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
@@ -95,6 +108,7 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   return [
     ...primitiveTypes,
     ...renderPropsTypes,
+    ...actionTypes,
     ...reactNodeTypes,
     ...enumTypes,
     // Put interfaces last since they depend on primitive types when seeding

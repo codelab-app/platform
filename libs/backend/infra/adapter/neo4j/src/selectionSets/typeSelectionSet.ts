@@ -33,6 +33,10 @@ export const exportRenderPropsTypeSelectionSet = `{
   ${exportBaseSelection}
 }`
 
+export const exportActionTypeSelectionSet = `{
+  ${exportBaseSelection}
+}`
+
 export const exportEnumTypeSelectionSet = `{
   ${exportBaseSelection}
   allowedValues {

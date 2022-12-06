@@ -1,6 +1,7 @@
 import { ExistingData } from '@codelab/backend/abstract/core'
 import {
   atomSelectionSet,
+  exportActionTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
@@ -94,6 +95,16 @@ export const createExistingData = async (): Promise<ExistingData> => {
   })
 
   //
+  // ActionType
+  //
+
+  const ActionType = await Repository.instance.ActionType
+
+  const actionType = await ActionType.find({
+    selectionSet: exportActionTypeSelectionSet,
+  })
+
+  //
   // EnumType
   //
 
@@ -112,6 +123,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
     ...primitiveTypes,
     ...reactNodeTypes,
     ...renderPropsType,
+    ...actionType,
     ...enumTypes,
   ]
     .map((type) => ({
@@ -123,6 +135,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
     ...interfaceTypes,
     ...primitiveTypes,
     ...reactNodeTypes,
+    ...actionType,
     ...renderPropsType,
     ...enumTypes,
   ]
