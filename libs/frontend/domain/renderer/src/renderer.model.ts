@@ -256,7 +256,7 @@ export class Renderer
   }
 
   @modelAction
-  updateComponentOccurrence(componentId: string) {
+  updateComponentRenderIndex(componentId: string) {
     this.renderComponentMeta[componentId] += 1
   }
 
@@ -267,7 +267,7 @@ export class Renderer
     this.runPreAction(element)
 
     if (element.parentComponent?.id) {
-      this.updateComponentOccurrence(element.parentComponent.id)
+      this.updateComponentRenderIndex(element.parentComponent.id)
     }
 
     const wrapperProps: ElementWrapperProps & { key: string } = {
