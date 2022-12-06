@@ -124,6 +124,7 @@ describe('Elements CRUD', () => {
         .click()
 
       cy.getModal().findByLabelText('Name').type(ELEMENT_TEXT)
+      cy.getModal().findByLabelText('Slug').type(`${ELEMENT_TEXT}_2`)
 
       cy.getModal().setFormFieldValue({
         label: 'Parent element',
