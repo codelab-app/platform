@@ -3,16 +3,21 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-export const useColumnSearchProps = <RecordType extends object>(
-  dataIndex: keyof RecordType,
-  onSearchTextChange?: (value: string) => void,
-) => {
+interface ColumnSearchProps<RecordType extends object> {
+  dataIndex: keyof RecordType
+  onSearch?: (searchText: string) => void
+}
+
+export const useColumnSearchProps = <RecordType extends object>({
+  dataIndex,
+  onSearch,
+}: ColumnSearchProps<RecordType>) => {
   const searchInputRef = useRef<null | InputRef>(null)
   const [searchText, setSearchText] = useState('')
 
   const handleSearch = useCallback(() => {
-    onSearchTextChange?.(searchText)
-  }, [searchText, onSearchTextChange])
+    onSearch?.(searchText)
+  }, [searchText, onSearch])
 
   const handleReset = (clearFilters: Maybe<() => void>) => {
     if (clearFilters !== undefined) {
@@ -24,7 +29,7 @@ export const useColumnSearchProps = <RecordType extends object>(
 
   useEffect(() => {
     handleSearch()
-  }, [searchText, onSearchTextChange, handleSearch])
+  }, [searchText, onSearch, handleSearch])
 
   return {
     filterDropdown: ({ setSelectedKeys, confirm, clearFilters }) => (

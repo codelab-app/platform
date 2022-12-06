@@ -44,9 +44,9 @@ export const useAtomTable = (atomService: IAtomService) => {
     [],
   )
 
-  const nameColumnSearchProps = useColumnSearchProps<AtomRecord>(
-    'name',
-    (value) => {
+  const nameColumnSearchProps = useColumnSearchProps<AtomRecord>({
+    dataIndex: 'name',
+    onSearch: (value) => {
       const where = {
         name_MATCHES: `(?i).*${value}.*`,
       }
@@ -55,7 +55,7 @@ export const useAtomTable = (atomService: IAtomService) => {
         debouncedSetAtomWhere(where)
       }
     },
-  )
+  })
 
   // const { data } = useGetTagGraphsQuery()
   // const tagTree = useTagTree(data?.tagGraphs)
