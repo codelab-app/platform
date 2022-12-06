@@ -2,9 +2,10 @@ import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import {
   DATA_ELEMENT_ID,
-  RenderedComponentProps,
+, RenderedComponentProps,
+
 } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codel
 import React, { useMemo } from 'react'
 import ReactGridLayout, {
   Layout,
@@ -12,7 +13,7 @@ import ReactGridLayout, {
 } from 'react-grid-layout'
 import { v4 } from 'uuid'
 
-export const GridLayout = ({
+export const GridLayout =  ({
   children,
   ...restProps
 }: ReactGridLayoutProps & RenderedComponentProps) => {
@@ -21,15 +22,16 @@ export const GridLayout = ({
 
   const rglChildren = useMemo(() => {
     return React.Children.map(children, (child) => {
-      if (!child) {
+      // if not react element, then it's an primative value, and we don't have anything identify it
+      // TODO: handle primative situation if neccessary
+      if (!child || !React.isValidElement(child)) {
         return null
       }
 
-      const key = React.isValidElement(child) ? child.key : v4()
 
-      return <div key={key}>{child}</div>
+      return <div key={child.key}>{child}</div>
     })
-  }, [children])
+  }, [children ])
 
   const layout = restProps.layout || []
 
