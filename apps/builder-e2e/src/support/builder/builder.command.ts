@@ -5,11 +5,12 @@ interface ElementData {
   name: string
   atom?: string
   parentElement: string
+  slug: string
 }
 
 export const createElementTree = (elements: Array<ElementData>) => {
   return cy.wrap(elements).each((element: ElementData) => {
-    const { atom, name, parentElement } = element
+    const { atom, name, parentElement, slug } = element
 
     cy.getSider()
       .find('.ant-page-header-heading')
@@ -17,6 +18,8 @@ export const createElementTree = (elements: Array<ElementData>) => {
       .click()
 
     cy.getModal().findByLabelText('Name').type(name)
+
+    cy.getModal().findByLabelText('Slug').type(slug)
 
     /**
      * We skip this if parent element is root, since it is disabled and can't be accessed
