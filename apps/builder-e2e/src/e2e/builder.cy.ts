@@ -88,10 +88,12 @@ describe('Elements CRUD', () => {
 
         cy.createAtom(atomsInput)
 
+        const initialAppInput = createAppInput(userId)
+
         const appInput: AppCreateInput = {
-          ...createAppInput(userId),
+          ...initialAppInput,
           pages: {
-            create: [{ node: createPageInput() }],
+            create: [{ node: createPageInput(initialAppInput.id) }],
           },
         }
 

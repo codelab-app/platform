@@ -1,4 +1,5 @@
 import { IPageDTO, ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { createSlug } from '@codelab/frontend/shared/utils'
 import { PageCreateInput, PageWhere } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { GetPagesDocument } from 'libs/frontend/domain/page/src/graphql'
@@ -12,12 +13,24 @@ export const getPages = (input: PageWhere) =>
     })
     .then((result) => result.body.data?.pages as Array<IPageDTO>)
 
-export const createPageInput = (): PageCreateInput => ({
-  id: v4(),
-  name: 'Test Page',
-  rootElement: { create: { node: { id: v4(), name: ROOT_ELEMENT_NAME } } },
-  slug: 'test',
-})
+export const createPageInput = (appId: string): PageCreateInput => {
+  const id = v4()
+
+  return {
+    id: id,
+    name: 'Test Page',
+    rootElement: {
+      create: {
+        node: {
+          id: v4(),
+          name: ROOT_ELEMENT_NAME,
+          slug: createSlug(ROOT_ELEMENT_NAME, id),
+        },
+      },
+    },
+    slug: createSlug('Test Page', appId),
+  }
+}
 
 export const createPage = (input: Partial<PageCreateInput>) =>
   cy

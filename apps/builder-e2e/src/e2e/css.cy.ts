@@ -1,3 +1,4 @@
+import { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
@@ -39,10 +40,12 @@ describe('CSS CRUD', () => {
     cy.getCurrentUserId()
       .as(uidCache)
       .then((userId) => {
-        const appInput = {
-          ...createAppInput(userId),
+        const initialAppInput = createAppInput(userId)
+
+        const appInput: AppCreateInput = {
+          ...initialAppInput,
           pages: {
-            create: [{ node: createPageInput() }],
+            create: [{ node: createPageInput(initialAppInput.id) }],
           },
         }
 
