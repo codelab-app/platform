@@ -4605,28 +4605,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@currents/cli@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@currents/cli@npm:3.0.0"
+"@currents/cli@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@currents/cli@npm:3.1.1"
   dependencies:
-    cy2: ^3.2.0
+    cy2: ^3.3.0
   bin:
     currents: bin/currents.js
     currents-prepare: bin/currents-prepare.js
     currents-reset: bin/currents-reset.js
-  checksum: a1ebb21e329fdf3b1d26e4f76aec6f5bad496a9016b4a5a923756b8efd11734ae25306199b8e47aa0eebdc362275e586024a676c2193c59ca8bf588ef7b29c82
+  checksum: ffa398b6f0b0f48fc1d5ffb7d884a51878409a6f923b845c354f64988b889ca7ece787fe300053fa328215181454302d7c214f059b71fdefcd7c96a41a0b6de6
   languageName: node
   linkType: hard
 
-"@currents/nx@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@currents/nx@npm:0.1.1"
+"@currents/nx@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@currents/nx@npm:0.2.0"
   dependencies:
     "@nrwl/devkit": "*"
     "@nrwl/linter": "*"
     "@nrwl/workspace": "*"
-    cy2: ^3.2.0
-  checksum: d9141192c612d705abc245fe1bc9c2e2597412d0d8086175e8d9ba6201e1545bdcf29b07a11e1ab8951461a14adfa2fd8fdbdbb45f0215ac34471cdbabc0d423
+    cy2: ^3.3.0
+  checksum: 34123dce669da5f8d1104b2810ef7b71d243f85a1181c5724325d8fdb8ea92b029f4c6d16125dd435668eba670843f39df58be58c31b5ec1ed70f9070f2c2d40
   languageName: node
   linkType: hard
 
@@ -11505,7 +11505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-keywords@npm:^5.0.0":
+"ajv-keywords@npm:^5.0.0, ajv-keywords@npm:^5.1.0":
   version: 5.1.0
   resolution: "ajv-keywords@npm:5.1.0"
   dependencies:
@@ -14182,8 +14182,8 @@ __metadata:
     "@codemirror/legacy-modes": 6.1.0
     "@commitlint/cli": 17.0.3
     "@commitlint/config-conventional": 17.0.3
-    "@currents/cli": ^3.0.0
-    "@currents/nx": ^0.1.1
+    "@currents/cli": ^3.1.1
+    "@currents/nx": ^0.2.0
     "@dnd-kit/core": 6.0.5
     "@emotion/babel-plugin": 11.10.0
     "@emotion/babel-preset-css-prop": 11.2.0
@@ -14291,6 +14291,7 @@ __metadata:
     "@welldone-software/why-did-you-render": 7.0.1
     ajv: 8.11.0
     ajv-formats: 2.1.1
+    ajv-keywords: ^5.1.0
     animate.css: 4.1.1
     antd: 4.23.4
     apollo-server-micro: 3.6.7
@@ -15642,9 +15643,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cy2@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "cy2@npm:3.2.0"
+"cy2@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "cy2@npm:3.3.0"
   dependencies:
     acorn: ^8.8.0
     debug: ^4.3.2
@@ -15655,7 +15656,7 @@ __metadata:
     slash: 3.0.0
   bin:
     cy2: bin/cy2
-  checksum: 65c43bc260f1d7436a2d72718418aedbab2996f82f459613f4c68e080790d1ec825e043281fca61765fbb57bc7e432c91958ae83c870a6db1a6abaa70e179e35
+  checksum: 525a8ae0095bfdf243b8aa1e7c497af135fbc40cfc7d44c03151a45ba371a52050290e06f616394fabb9a27ef6ccd672df165b2def7b83a2e6a1d18286886d4c
   languageName: node
   linkType: hard
 
