@@ -6,7 +6,7 @@ import {
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
 import isString from 'lodash/isString'
-
+// just add a comment
 registerPlugin('@babel/plugin-transform-react-jsx', jsxPlugin)
 
 export const hasStateExpression = (str: string): boolean =>
