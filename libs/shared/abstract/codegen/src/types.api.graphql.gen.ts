@@ -9545,6 +9545,7 @@ export type ElementWhere = {
   slug_CONTAINS?: InputMaybe<Scalars['String']>
   slug_ENDS_WITH?: InputMaybe<Scalars['String']>
   slug_IN?: InputMaybe<Array<Scalars['String']>>
+  slug_MATCHES?: InputMaybe<Scalars['String']>
   slug_NOT?: InputMaybe<Scalars['String']>
   slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   slug_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>

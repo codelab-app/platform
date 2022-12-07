@@ -9144,6 +9144,7 @@ input ElementWhere {
   slug_CONTAINS: String
   slug_ENDS_WITH: String
   slug_IN: [String!]
+  slug_MATCHES: String
   slug_NOT: String
   slug_NOT_CONTAINS: String
   slug_NOT_ENDS_WITH: String

@@ -13632,6 +13632,17 @@ export type ElementWhere = {
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
   id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  slug?: InputMaybe<Scalars['String']>
+  slug_NOT?: InputMaybe<Scalars['String']>
+  slug_IN?: InputMaybe<Array<Scalars['String']>>
+  slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  slug_MATCHES?: InputMaybe<Scalars['String']>
+  slug_CONTAINS?: InputMaybe<Scalars['String']>
+  slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  slug_STARTS_WITH?: InputMaybe<Scalars['String']>
+  slug_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  slug_ENDS_WITH?: InputMaybe<Scalars['String']>
+  slug_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   name_NOT?: InputMaybe<Scalars['String']>
   name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
@@ -13643,16 +13654,6 @@ export type ElementWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  slug?: InputMaybe<Scalars['String']>
-  slug_NOT?: InputMaybe<Scalars['String']>
-  slug_IN?: InputMaybe<Array<Scalars['String']>>
-  slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  slug_CONTAINS?: InputMaybe<Scalars['String']>
-  slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  slug_STARTS_WITH?: InputMaybe<Scalars['String']>
-  slug_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  slug_ENDS_WITH?: InputMaybe<Scalars['String']>
-  slug_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   customCss?: InputMaybe<Scalars['String']>
   customCss_NOT?: InputMaybe<Scalars['String']>
   customCss_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
