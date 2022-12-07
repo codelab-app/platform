@@ -155,6 +155,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.18.2",
+    "@babel/preset-react": "^7.18.6",
     "@babel/types": "7.18.2",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
