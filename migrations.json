@@ -2,11 +2,19 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "15.1.0-beta.0",
-      "description": "Update to Cypress v11. This migration will only update if the workspace is already on v10. https://www.cypress.io/blog/2022/11/04/upcoming-changes-to-component-testing/",
-      "factory": "./src/migrations/update-15-1-0/cypress-11",
-      "package": "@nrwl/cypress",
-      "name": "update-to-cypress-11"
+      "version": "15.3.0-beta.0",
+      "description": "Update projects using @nrwl/web:rollup to @nrwl/rollup:rollup for build.",
+      "factory": "./src/migrations/update-15-3-0/update-rollup-executor",
+      "package": "@nrwl/react",
+      "name": "update-rollup-executor"
+    },
+    {
+      "cli": "nx",
+      "version": "15.3.0-beta.0",
+      "description": "Install new dependencies for React projects using Webpack or Rollup.",
+      "factory": "./src/migrations/update-15-3-0/install-webpack-rollup-dependencies",
+      "package": "@nrwl/react",
+      "name": "install-webpack-rollup-dependencies"
     }
   ]
 }
