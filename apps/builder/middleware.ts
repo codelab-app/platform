@@ -32,13 +32,12 @@ export default async function middleware(req: NextRequest) {
   // the pages/sites folder and its respective contents. This can also be done
   // via rewrites to a custom 404 page
 
-  return NextResponse.next()
-
   if (isSites) {
     /**
      * Allow site access locally
      */
     if (isLocal) {
+      return NextResponse.next()
     }
 
     return new NextResponse(null, { status: 404 })

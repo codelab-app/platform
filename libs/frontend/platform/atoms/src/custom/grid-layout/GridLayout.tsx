@@ -29,7 +29,7 @@ export const GridLayout = React.memo(
       return React.Children.map(children, (child) => {
         // if not react element, then it's an primative value, and we don't have anything identify it
         // TODO: handle primative situation if neccessary
-        if (!child && !React.isValidElement(child)) {
+        if (!child || !React.isValidElement(child)) {
           return null
         }
 
