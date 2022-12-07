@@ -6,6 +6,8 @@ import {
 import type { Nullable } from '@codelab/shared/abstract/types'
 import isString from 'lodash/isString'
 
+registerPlugin('@babel/plugin-transform-react-jsx', jsxPlugin)
+
 export const hasStateExpression = (str: string): boolean =>
   isString(str) &&
   str.includes(STATE_PATH_TEMPLATE_START) &&
