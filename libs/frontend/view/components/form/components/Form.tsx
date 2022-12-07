@@ -4,7 +4,11 @@ import { css } from '@emotion/react'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm as BaseAutoForm } from 'uniforms-antd'
-import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
+import {
+  connectUniformSubmitRef,
+  createBridge,
+  createValidator,
+} from '../hooks/uniformUtils'
 import { useFormContext } from '../providers'
 
 export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
@@ -47,6 +51,11 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={(formData) => {
+            // apply default values from the schema for the formData
+            // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
+            const validate = createValidator(schema)
+            validate(formData)
+
             const result = onSubmit(formData as TData)
 
             return result
