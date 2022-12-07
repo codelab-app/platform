@@ -4,7 +4,7 @@ import {
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { Table } from 'antd'
+import { Spin, Table } from 'antd'
 import { TableProps } from 'antd/lib/table/Table'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -122,13 +122,16 @@ export const GetTypesTable = observer<{
       )}
       expandable={{
         defaultExpandedRowKeys: [typeId ?? ''],
-        expandedRowRender: (type) => (
-          <NestedTypeTable
-            fieldService={fieldService}
-            typeId={type.id}
-            typeService={typeService}
-          />
-        ),
+        expandedRowRender: (type) =>
+          isLoadingBaseTypes ? (
+            <Spin />
+          ) : (
+            <NestedTypeTable
+              fieldService={fieldService}
+              typeId={type.id}
+              typeService={typeService}
+            />
+          ),
       }}
       loading={isLoadingBaseTypes}
       onChange={onChange}
