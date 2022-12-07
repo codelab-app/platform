@@ -2,6 +2,8 @@ import {
   IRenderer,
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
+import createCache from '@emotion/cache'
+import { CacheProvider } from '@emotion/react'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -30,15 +32,23 @@ export type RendererRoot = Pick<IRenderer, 'renderRoot'>
  *
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
+
+const emotionCache = createCache({
+  key: ROOT_RENDER_CONTAINER_ID,
+  prepend: false,
+})
+
 export const Renderer = observer<RendererRoot>(({ renderRoot }) => {
   return (
     <ErrorBoundary>
-      <div
-        id={ROOT_RENDER_CONTAINER_ID}
-        style={{ minHeight: '100%', transform: 'translatex(0)' }}
-      >
-        {renderRoot()}
-      </div>
+      <CacheProvider value={emotionCache}>
+        <div
+          id={ROOT_RENDER_CONTAINER_ID}
+          style={{ minHeight: '100%', transform: 'translatex(0)' }}
+        >
+          {renderRoot()}
+        </div>
+      </CacheProvider>
     </ErrorBoundary>
   )
 })
