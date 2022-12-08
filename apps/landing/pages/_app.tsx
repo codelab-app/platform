@@ -13,6 +13,7 @@ import { ConfigProvider } from 'antd'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
+import { GoogleAnalytics } from '../home/GoogleAnalytics'
 import { Intercom } from '../home/Intercom'
 import { useHotjar } from '../hooks/useHotjar'
 // import { slickCssFix } from '../src/styles/slick/Slick'
@@ -30,6 +31,7 @@ const App = ({ pageProps, Component }: IAppProps) => {
 
   return (
     <>
+      <GoogleAnalytics />
       <Intercom />
       <RecoilRoot>
         <UserProvider>
