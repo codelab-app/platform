@@ -33,9 +33,6 @@ const options = [
     name: 'left',
     units: defaultUnits,
   },
-  {
-    name: 'zIndex',
-  },
 ]
 
 export const PositionEditor = observer(

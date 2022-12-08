@@ -13,7 +13,15 @@ interface DisplayEditorProps {
 const props = [
   {
     name: 'display',
-    options: ['block', 'flex'],
+    options: [
+      'block',
+      'flex',
+      'inline',
+      'inline-block',
+      'initial',
+      'inherit',
+      'none',
+    ],
   },
   {
     name: 'flexDirection',
@@ -48,7 +56,7 @@ export const DisplayEditor = observer(
           currentValue={guiCssObj['display'] ?? 'block'}
           name="display"
           onClick={updateGuiCssProperty(element, 'display')}
-          options={['block', 'flex']}
+          options={props.find((prop) => prop.name === 'display')?.options ?? []}
         />
         {guiCssObj['display'] !== 'flex' ? null : (
           <>
