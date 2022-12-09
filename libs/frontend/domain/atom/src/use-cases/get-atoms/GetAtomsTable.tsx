@@ -16,19 +16,20 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
     const { columns, rowSelection, pagination, atomWhere, atomOptions } =
       useAtomTable(atomService)
 
-    const { loading } = useAsync(async () => {
-      await atomService.getAll(atomWhere, atomOptions)
+    const { value: atoms, loading } = useAsync(async () => {
+      return await atomService.getAll(atomWhere, atomOptions)
     }, [atomWhere, atomOptions])
 
-    const atomsData: Array<AtomRecord> = atomService.atomsList.map((atom) => ({
-      id: atom.id,
-      type: atom.type,
-      apiId: atom.api.id,
-      name: atom.name,
-      tags: atom.tags.map((tag) => tag.current),
-      library: getAtomLibrary(atom.type),
-      allowedChildren: atom.allowedChildren,
-    }))
+    const atomsData: Array<AtomRecord> =
+      atoms?.map((atom) => ({
+        id: atom.id,
+        type: atom.type,
+        apiId: atom.api.id,
+        name: atom.name,
+        tags: atom.tags.map((tag) => tag.current),
+        library: getAtomLibrary(atom.type),
+        allowedChildren: atom.allowedChildren,
+      })) ?? []
 
     return (
       <Table
