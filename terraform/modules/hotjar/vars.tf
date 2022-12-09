@@ -1,6 +1,6 @@
 variable "next_public_hotjar_id" {
   type = number
-  description = "Hotjar id"
+  description = "Hotjar ID"
 }
 
 variable "next_public_hotjar_snippet_version" {
