@@ -18,6 +18,7 @@ import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useAsync } from 'react-use'
 import { mainContentWidthBreakPoint } from './constants'
 
 export type MenuItemProps = {
@@ -32,10 +33,12 @@ export const PageDetailHeader = observer<{
   const currentAppId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const pagesList = pageService.pagesList.filter(
-    (p) => p.app.id === currentAppId,
+  const { loading } = useAsync(
+    () => pageService.getAll({ app: { id: currentAppId } }),
+    [currentAppId],
   )
 
+  const pagesList = pageService.pagesByApp(currentAppId)
   const currentPage = pagesList.find((x) => x.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 
