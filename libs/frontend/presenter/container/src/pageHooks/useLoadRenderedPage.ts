@@ -19,25 +19,8 @@ export const useLoadRenderedPage = () => {
   const pageId = useCurrentPageId()
 
   return useAsync(async () => {
-    const {
-      apps,
-      components,
-      resources,
-      // Can't change shape in GraphQL so we have to use this structure
-      primitiveTypes,
-      arrayTypes,
-      unionTypes,
-      interfaceTypes,
-      elementTypes,
-      renderPropsTypes,
-      reactNodeTypes,
-      enumTypes,
-      lambdaTypes,
-      pageTypes,
-      appTypes,
-      actionTypes,
-      codeMirrorTypes,
-    } = await pageService.getRenderedPage(appId, pageId)
+    const { apps, components, resources, ...types } =
+      await pageService.getRenderedPage(appId, pageId)
 
     const [app] = apps
 
@@ -56,21 +39,7 @@ export const useLoadRenderedPage = () => {
     const { pageElementTree: pageTree, page } = currentPage
     const { pageElementTree: appTree } = providerPage ?? {}
 
-    typeService.load({
-      primitiveTypes,
-      arrayTypes,
-      unionTypes,
-      interfaceTypes,
-      elementTypes,
-      renderPropsTypes,
-      reactNodeTypes,
-      enumTypes,
-      lambdaTypes,
-      pageTypes,
-      appTypes,
-      actionTypes,
-      codeMirrorTypes,
-    })
+    typeService.load({ ...types })
 
     components.map((component) =>
       componentService.loadRenderedComponentTree(component),

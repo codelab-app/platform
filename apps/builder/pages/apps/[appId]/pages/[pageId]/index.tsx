@@ -38,11 +38,7 @@ const PageRenderer: CodelabPage = observer(() => {
       isBuilder: false,
     })
 
-    return {
-      page,
-      pageTree,
-      renderer,
-    }
+    return { page, pageTree, renderer }
   }, [pageDataValue])
 
   const error = pageDataError || rendererError
@@ -68,7 +64,7 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired({
 })
 
 PageRenderer.Layout = observer((page) => {
-  const { userService, appService, pageService } = useStore()
+  const { pageService } = useStore()
 
   return (
     <DashboardTemplate
