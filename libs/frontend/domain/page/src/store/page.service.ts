@@ -47,27 +47,32 @@ export class PageService
   implements IPageService
 {
   /**
-This function fetches all data required for the rendered page in a single API call.
-  Getting `App`, `Page`, `Store` is easy and works with default GraphQL API
-  Getting `Element` is a bit trickier, since we only get the rootElementId from Page query, we would need a custom resolver to get descendant elements
-
-term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
-page/component
-  rootElement
-    descendantElements
+    This function fetches all data related to the specific page.
    */
   @modelFlow
   @transaction
-  getRenderedPage = _async(function* (
+  getRenderedPage = _async(function* (this: PageService, pageId: string) {
+    return yield* _await(pageApi.GetRenderedPage({ pageId }))
+  })
+
+  /**
+    This function fetches the initial page and all the common data shared across all pages in the application:
+     - app data
+     - current page
+     - providers page (_app)
+     - components
+     - resources
+     - types
+   */
+  @modelFlow
+  @transaction
+  getRenderedPageAndCommonAppData = _async(function* (
     this: PageService,
     appId: string,
     pageId: string,
   ) {
     return yield* _await(
-      pageApi.GetRenderedPage({
-        appId,
-        pageId,
-      }),
+      pageApi.GetRenderedPageAndCommonAppData({ appId, pageId }),
     )
   })
 

@@ -21608,25 +21608,27 @@ export type AppFragment = {
   store: { __typename?: 'Store'; id: string }
 }
 
+export type BuilderPageFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  slug: string
+  getServerSideProps?: string | null
+  isProvider: boolean
+  rootElement: {
+    __typename?: 'Element'
+    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+  } & ElementFragment
+  app: { __typename?: 'App'; id: string }
+}
+
 export type PageBuilderAppFragment = {
   __typename?: 'App'
   id: string
   name: string
   slug: string
   owner: { __typename?: 'User'; id: string }
-  pages: Array<{
-    __typename?: 'Page'
-    id: string
-    name: string
-    slug: string
-    getServerSideProps?: string | null
-    isProvider: boolean
-    rootElement: {
-      __typename?: 'Element'
-      descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
-    } & ElementFragment
-    app: { __typename?: 'App'; id: string }
-  }>
+  pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
   store: { __typename?: 'Store' } & StoreFragment
 }
 
@@ -22466,13 +22468,13 @@ export type GetPagesQuery = {
   pages: Array<{ __typename?: 'Page' } & PageFragment>
 }
 
-export type GetRenderedPageQueryVariables = Exact<{
+export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
   appId: Scalars['ID']
   pageId: Scalars['ID']
   typeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
 }>
 
-export type GetRenderedPageQuery = {
+export type GetRenderedPageAndCommonAppDataQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
   components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
@@ -22502,6 +22504,15 @@ export type GetRenderedPageQuery = {
   codeMirrorTypes: Array<
     { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
   >
+}
+
+export type GetRenderedPageQueryVariables = Exact<{
+  pageId: Scalars['ID']
+}>
+
+export type GetRenderedPageQuery = {
+  __typename?: 'Query'
+  pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
 }
 
 export type CreatePropMapBindingsMutationVariables = Exact<{

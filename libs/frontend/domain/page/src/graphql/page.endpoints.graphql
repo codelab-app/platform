@@ -26,7 +26,11 @@ query GetPages($options: PageOptions, $where: PageWhere) {
   }
 }
 
-query GetRenderedPage($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
+query GetRenderedPageAndCommonAppData(
+  $appId: ID!
+  $pageId: ID!
+  $typeIds: [ID!]
+) {
   apps(where: { id: $appId }) {
     ...PageBuilderApp
   }
@@ -75,5 +79,11 @@ query GetRenderedPage($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
   }
   codeMirrorTypes(where: { id_IN: $typeIds }) {
     ...Type
+  }
+}
+
+query GetRenderedPage($pageId: ID!) {
+  pages(where: { id: $pageId }) {
+    ...BuilderPage
   }
 }

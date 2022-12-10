@@ -1,4 +1,5 @@
 import {
+  GetRenderedPageAndCommonAppDataQuery,
   GetRenderedPageQuery,
   PageOptions,
   PageWhere,
@@ -26,5 +27,9 @@ export interface IPageService
   pagesList: Array<IPage>
   page(id: string): Maybe<IPage>
   pagesByApp(appId: string): Array<IPage>
-  getRenderedPage(appId: string, pageId: string): Promise<GetRenderedPageQuery>
+  getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
+  getRenderedPageAndCommonAppData(
+    appId: string,
+    pageId: string,
+  ): Promise<GetRenderedPageAndCommonAppDataQuery>
 }

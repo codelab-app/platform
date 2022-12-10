@@ -37,6 +37,23 @@ fragment App on App {
   }
 }
 
+fragment BuilderPage on Page {
+  id
+  name
+  slug
+  getServerSideProps
+  rootElement {
+    ...Element
+    descendantElements {
+      ...Element
+    }
+  }
+  app {
+    id
+  }
+  isProvider
+}
+
 fragment PageBuilderApp on App {
   id
   name
@@ -45,20 +62,7 @@ fragment PageBuilderApp on App {
     id
   }
   pages(where: { OR: [{ id: $pageId }, { isProvider: true }] }) {
-    id
-    name
-    slug
-    getServerSideProps
-    rootElement {
-      ...Element
-      descendantElements {
-        ...Element
-      }
-    }
-    app {
-      id
-    }
-    isProvider
+    ...BuilderPage
   }
   store {
     ...Store

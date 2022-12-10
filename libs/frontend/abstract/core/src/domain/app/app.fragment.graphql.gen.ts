@@ -34,22 +34,22 @@ export type AppFragment = {
   store: { id: string }
 }
 
+export type BuilderPageFragment = {
+  id: string
+  name: string
+  slug: string
+  getServerSideProps?: string | null
+  isProvider: boolean
+  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  app: { id: string }
+}
+
 export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
   owner: { id: string }
-  pages: Array<{
-    id: string
-    name: string
-    slug: string
-    getServerSideProps?: string | null
-    isProvider: boolean
-    rootElement: {
-      descendantElements: Array<ElementFragment>
-    } & ElementFragment
-    app: { id: string }
-  }>
+  pages: Array<BuilderPageFragment>
   store: StoreFragment
 }
 
@@ -97,6 +97,25 @@ export const AppFragmentDoc = gql`
   }
   ${PageFragmentDoc}
 `
+export const BuilderPageFragmentDoc = gql`
+  fragment BuilderPage on Page {
+    id
+    name
+    slug
+    getServerSideProps
+    rootElement {
+      ...Element
+      descendantElements {
+        ...Element
+      }
+    }
+    app {
+      id
+    }
+    isProvider
+  }
+  ${ElementFragmentDoc}
+`
 export const PageBuilderAppFragmentDoc = gql`
   fragment PageBuilderApp on App {
     id
@@ -106,26 +125,13 @@ export const PageBuilderAppFragmentDoc = gql`
       id
     }
     pages(where: { OR: [{ id: $pageId }, { isProvider: true }] }) {
-      id
-      name
-      slug
-      getServerSideProps
-      rootElement {
-        ...Element
-        descendantElements {
-          ...Element
-        }
-      }
-      app {
-        id
-      }
-      isProvider
+      ...BuilderPage
     }
     store {
       ...Store
     }
   }
-  ${ElementFragmentDoc}
+  ${BuilderPageFragmentDoc}
   ${StoreFragmentDoc}
 `
 

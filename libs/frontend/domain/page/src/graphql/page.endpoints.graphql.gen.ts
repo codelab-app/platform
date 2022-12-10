@@ -1,7 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageFragment } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
-import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import {
+  PageBuilderAppFragment,
+  BuilderPageFragment,
+} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import {
@@ -24,7 +27,10 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
-import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import {
+  PageBuilderAppFragmentDoc,
+  BuilderPageFragmentDoc,
+} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
@@ -59,13 +65,13 @@ export type GetPagesQueryVariables = Types.Exact<{
 
 export type GetPagesQuery = { pages: Array<PageFragment> }
 
-export type GetRenderedPageQueryVariables = Types.Exact<{
+export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
   pageId: Types.Scalars['ID']
   typeIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
-export type GetRenderedPageQuery = {
+export type GetRenderedPageAndCommonAppDataQuery = {
   apps: Array<PageBuilderAppFragment>
   components: Array<RenderedComponentFragment>
   resources: Array<ResourceFragment>
@@ -83,6 +89,12 @@ export type GetRenderedPageQuery = {
   actionTypes: Array<Type_ActionType_Fragment>
   codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>
 }
+
+export type GetRenderedPageQueryVariables = Types.Exact<{
+  pageId: Types.Scalars['ID']
+}>
+
+export type GetRenderedPageQuery = { pages: Array<BuilderPageFragment> }
 
 export const CreatePagesDocument = gql`
   mutation CreatePages($input: [PageCreateInput!]!) {
@@ -119,8 +131,12 @@ export const GetPagesDocument = gql`
   }
   ${PageFragmentDoc}
 `
-export const GetRenderedPageDocument = gql`
-  query GetRenderedPage($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
+export const GetRenderedPageAndCommonAppDataDocument = gql`
+  query GetRenderedPageAndCommonAppData(
+    $appId: ID!
+    $pageId: ID!
+    $typeIds: [ID!]
+  ) {
     apps(where: { id: $appId }) {
       ...PageBuilderApp
     }
@@ -174,6 +190,14 @@ export const GetRenderedPageDocument = gql`
   ${RenderedComponentFragmentDoc}
   ${ResourceFragmentDoc}
   ${TypeFragmentDoc}
+`
+export const GetRenderedPageDocument = gql`
+  query GetRenderedPage($pageId: ID!) {
+    pages(where: { id: $pageId }) {
+      ...BuilderPage
+    }
+  }
+  ${BuilderPageFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -246,6 +270,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetPages',
+        'query',
+      )
+    },
+    GetRenderedPageAndCommonAppData(
+      variables: GetRenderedPageAndCommonAppDataQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetRenderedPageAndCommonAppDataQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetRenderedPageAndCommonAppDataQuery>(
+            GetRenderedPageAndCommonAppDataDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetRenderedPageAndCommonAppData',
         'query',
       )
     },
