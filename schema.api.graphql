@@ -4513,6 +4513,7 @@ input BaseTypeWhere {
 
 input BaseTypesWhere {
   name: String
+  id: ID
 }
 
 type CodeAction implements ActionBase {
@@ -10216,15 +10217,18 @@ input GetBaseTypesOptions {
 
 type GetBaseTypesReturn {
   items: [BaseType!]!
+  offset: Int
   totalCount: Int!
 }
 
 type GetBaseTypesReturnAggregateSelection {
   count: Int!
+  offset: IntAggregateSelectionNullable!
   totalCount: IntAggregateSelectionNonNullable!
 }
 
 input GetBaseTypesReturnCreateInput {
+  offset: Int
   totalCount: Int!
 }
 
@@ -10247,10 +10251,14 @@ input GetBaseTypesReturnOptions {
 Fields to sort GetBaseTypesReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypesReturnSort object.
 """
 input GetBaseTypesReturnSort {
+  offset: SortDirection
   totalCount: SortDirection
 }
 
 input GetBaseTypesReturnUpdateInput {
+  offset: Int
+  offset_DECREMENT: Int
+  offset_INCREMENT: Int
   totalCount: Int
   totalCount_DECREMENT: Int
   totalCount_INCREMENT: Int
@@ -10259,6 +10267,14 @@ input GetBaseTypesReturnUpdateInput {
 input GetBaseTypesReturnWhere {
   AND: [GetBaseTypesReturnWhere!]
   OR: [GetBaseTypesReturnWhere!]
+  offset: Int
+  offset_GT: Int
+  offset_GTE: Int
+  offset_IN: [Int]
+  offset_LT: Int
+  offset_LTE: Int
+  offset_NOT: Int
+  offset_NOT_IN: [Int]
   totalCount: Int
   totalCount_GT: Int
   totalCount_GTE: Int
@@ -11184,6 +11200,13 @@ type IntAggregateSelectionNonNullable {
   max: Int!
   min: Int!
   sum: Int!
+}
+
+type IntAggregateSelectionNullable {
+  average: Float
+  max: Int
+  min: Int
+  sum: Int
 }
 
 """

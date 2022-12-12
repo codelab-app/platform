@@ -38,4 +38,6 @@ export interface ITypeService
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
   load(types: GetTypesQuery): Array<IAnyType>
+  highlightedTypeId: Nullable<string>
+  setHighlightedTypeId(id: Nullable<string>): void
 }

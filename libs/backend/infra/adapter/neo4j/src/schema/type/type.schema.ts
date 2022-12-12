@@ -40,6 +40,7 @@ export const typeSchema = gql`
 
   input BaseTypesWhere {
     name: String
+    id: ID
   }
 
   input GetBaseTypesOptions {
@@ -51,6 +52,7 @@ export const typeSchema = gql`
   type GetBaseTypesReturn {
     items: [BaseType!]!
     totalCount: Int!
+    offset: Int
   }
 
   type Query {

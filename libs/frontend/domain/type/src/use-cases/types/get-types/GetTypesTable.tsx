@@ -28,6 +28,8 @@ export const GetTypesTable = observer<{
     totalEntitiesCount,
     types,
     typesList,
+    entitiesOfCurrentPage,
+    highlightedTypeId,
   } = typeService
 
   const { isLoadingBaseTypes, isLoadingTypeDependencies, getBaseTypes } =
@@ -38,6 +40,12 @@ export const GetTypesTable = observer<{
     isLoadingTypeDependencies,
     fieldService,
   })
+
+  useEffect(() => {
+    if (typeId) {
+      typeService.setHighlightedTypeId(typeId)
+    }
+  }, [typeId])
 
   useEffect(() => {
     void getBaseTypes({})
@@ -65,32 +73,6 @@ export const GetTypesTable = observer<{
   const router = useRouter()
 
   /**
-   * Change the current page to the page containing the current type
-   */
-  useEffect(() => {
-    const findPageOfCurrentType = () => {
-      const currentType = types.get(typeId ?? '')
-
-      if (!currentType) {
-        return
-      }
-
-      return Math.ceil(
-        (typeService.entityIdsOfCurrentPage.indexOf(currentType.id) + 1) /
-          pageSize,
-      )
-    }
-
-    if (typeId) {
-      const page = findPageOfCurrentType()
-
-      if (page) {
-        getBaseTypes({ page, pageSize }).catch(() => undefined)
-      }
-    }
-  }, [typeId, pageSize, entityIdsOfCurrentPage])
-
-  /**
    * Scroll to the current type to make sure it is visible
    */
   useEffect(() => {
@@ -103,14 +85,22 @@ export const GetTypesTable = observer<{
         },
       })
     }
-  }, [typeId, pageSize, rowClassReady, entityIdsOfCurrentPage])
+  }, [
+    typeId,
+    highlightedTypeId,
+    pageSize,
+    rowClassReady,
+    entitiesOfCurrentPage,
+  ])
 
   /**
    * remove current type id from url
    */
   useEffect(() => {
     if (typeId) {
-      router.push(PageType.Type).catch((e) => console.error(e))
+      router
+        .push(PageType.Type, undefined, { shallow: true })
+        .catch((e) => console.error(e))
     }
   }, [router, typeId])
 
@@ -121,7 +111,7 @@ export const GetTypesTable = observer<{
         entityIdsOfCurrentPage.includes(type.id),
       )}
       expandable={{
-        defaultExpandedRowKeys: [typeId ?? ''],
+        defaultExpandedRowKeys: [typeId || highlightedTypeId || ''],
         expandedRowRender: (type) =>
           isLoadingBaseTypes ? (
             <Spin />
@@ -142,7 +132,7 @@ export const GetTypesTable = observer<{
         total: totalEntitiesCount,
       }}
       rowClassName={(record) => {
-        if (record.id === typeId) {
+        if (record.id === highlightedTypeId) {
           setRowClassReady(true)
 
           return SCROLL_ROW_CLASS_NAME

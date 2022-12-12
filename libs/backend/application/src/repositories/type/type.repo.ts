@@ -1,4 +1,7 @@
-import { getBaseTypes } from '@codelab/backend/infra/adapter/neo4j'
+import {
+  getBaseTypes,
+  getTypeIndex,
+} from '@codelab/backend/infra/adapter/neo4j'
 import {
   GetBaseTypesReturn,
   QueryBaseTypesArgs,
@@ -12,10 +15,40 @@ export const typeRepository = {
   ): Promise<GetBaseTypesReturn> => {
     const { options } = params
     const limit = options?.limit ?? 10
-    const offset = options?.offset ?? 0
+    let offset = options?.offset ?? 0
 
     const where = options?.where ?? {
       name: '',
+    }
+
+    if (where.id) {
+      const result = await txn.run(getTypeIndex, { typeId: where.id })
+      const index = int(result.records[0]?.get('index')).toNumber()
+      offset = Math.floor(index / limit) * limit
+
+      const record = result.records[0]
+      const selectedType = record?.get('selectedType').properties
+
+      if (!selectedType) {
+        return {
+          items: [],
+          totalCount: 0,
+        }
+      }
+
+      const owner = record.get('owner').properties
+
+      return {
+        items: [
+          {
+            ...selectedType,
+            owner,
+            __typename: 'BaseType',
+          },
+        ],
+        totalCount: 1,
+        offset,
+      }
     }
 
     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
@@ -41,6 +74,7 @@ export const typeRepository = {
     return {
       items,
       totalCount,
+      offset,
     }
   },
 }

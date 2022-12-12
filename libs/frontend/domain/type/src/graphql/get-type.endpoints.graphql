@@ -4,6 +4,7 @@ query GetBaseTypes($options: GetBaseTypesOptions) {
     items {
       ...BaseType
     }
+    offset
   }
 }
 

@@ -57,6 +57,7 @@ export class TypeService
     deleteModal: prop(() => new TypeModalService({})),
 
     selectedIds: prop(() => arraySet<string>()).withSetter(),
+    highlightedTypeId: prop<Nullable<string>>(null).withSetter(),
   })
   implements ITypeService
 {
@@ -84,8 +85,18 @@ export class TypeService
 
     console.log(where)
 
+    if (!where) {
+      where = {
+        name: '',
+      }
+    }
+
+    if (this.highlightedTypeId) {
+      where.id = this.highlightedTypeId
+    }
+
     const {
-      baseTypes: { totalCount, items },
+      baseTypes: { totalCount, items, offset: newOffset },
     } = yield* _await(
       getTypeApi.GetBaseTypes({
         options: {
@@ -95,6 +106,21 @@ export class TypeService
         },
       }),
     )
+
+    if (newOffset && this.highlightedTypeId) {
+      const newPage = Math.floor(newOffset / this.pageSize) + 1
+      this.highlightedTypeId = null
+
+      if (where) {
+        where.id = null
+      }
+
+      this.getBaseTypes({ page: newPage, pageSize, where })
+        .then()
+        .catch(console.error)
+
+      return
+    }
 
     this.totalEntitiesCount = totalCount
 

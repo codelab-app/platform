@@ -44,7 +44,11 @@ export type GetBaseTypesQueryVariables = Types.Exact<{
 }>
 
 export type GetBaseTypesQuery = {
-  baseTypes: { totalCount: number; items: Array<BaseType_BaseType_Fragment> }
+  baseTypes: {
+    totalCount: number
+    offset?: number | null
+    items: Array<BaseType_BaseType_Fragment>
+  }
 }
 
 export type GetTypesQueryVariables = Types.Exact<{
@@ -183,6 +187,7 @@ export const GetBaseTypesDocument = gql`
       items {
         ...BaseType
       }
+      offset
     }
   }
   ${BaseTypeFragmentDoc}

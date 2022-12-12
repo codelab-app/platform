@@ -4658,6 +4658,7 @@ export type FieldsConnection = {
 export type GetBaseTypesReturn = {
   __typename?: 'GetBaseTypesReturn'
   totalCount: Scalars['Int']
+  offset?: Maybe<Scalars['Int']>
   items: Array<BaseType>
 }
 
@@ -4665,6 +4666,7 @@ export type GetBaseTypesReturnAggregateSelection = {
   __typename?: 'GetBaseTypesReturnAggregateSelection'
   count: Scalars['Int']
   totalCount: IntAggregateSelectionNonNullable
+  offset: IntAggregateSelectionNullable
 }
 
 export type GetBaseTypesReturnEdge = {
@@ -4832,6 +4834,14 @@ export type IntAggregateSelectionNonNullable = {
   min: Scalars['Int']
   average: Scalars['Float']
   sum: Scalars['Int']
+}
+
+export type IntAggregateSelectionNullable = {
+  __typename?: 'IntAggregateSelectionNullable'
+  max?: Maybe<Scalars['Int']>
+  min?: Maybe<Scalars['Int']>
+  average?: Maybe<Scalars['Float']>
+  sum?: Maybe<Scalars['Int']>
 }
 
 /** Represents an object type with multiple fields */
@@ -14612,6 +14622,7 @@ export type FieldWhere = {
 
 export type GetBaseTypesReturnCreateInput = {
   totalCount: Scalars['Int']
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type GetBaseTypesReturnOptions = {
@@ -14624,12 +14635,16 @@ export type GetBaseTypesReturnOptions = {
 /** Fields to sort GetBaseTypesReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypesReturnSort object. */
 export type GetBaseTypesReturnSort = {
   totalCount?: InputMaybe<SortDirection>
+  offset?: InputMaybe<SortDirection>
 }
 
 export type GetBaseTypesReturnUpdateInput = {
   totalCount?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
   totalCount_INCREMENT?: InputMaybe<Scalars['Int']>
   totalCount_DECREMENT?: InputMaybe<Scalars['Int']>
+  offset_INCREMENT?: InputMaybe<Scalars['Int']>
+  offset_DECREMENT?: InputMaybe<Scalars['Int']>
 }
 
 export type GetBaseTypesReturnWhere = {
@@ -14643,6 +14658,14 @@ export type GetBaseTypesReturnWhere = {
   totalCount_LTE?: InputMaybe<Scalars['Int']>
   totalCount_GT?: InputMaybe<Scalars['Int']>
   totalCount_GTE?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  offset_NOT?: InputMaybe<Scalars['Int']>
+  offset_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  offset_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  offset_LT?: InputMaybe<Scalars['Int']>
+  offset_LTE?: InputMaybe<Scalars['Int']>
+  offset_GT?: InputMaybe<Scalars['Int']>
+  offset_GTE?: InputMaybe<Scalars['Int']>
 }
 
 export type HookConfigAggregateInput = {
@@ -22279,9 +22302,16 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface GetBaseTypesReturnAggregateSelectionInput {
   count?: boolean
   totalCount?: IntAggregateInputNonNullable
+  offset?: IntAggregateInputNullable
 }
 
 export declare class GetBaseTypesReturnModel {
@@ -22338,6 +22368,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -22411,6 +22447,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface PrimitiveTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -22474,6 +22516,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -22547,6 +22595,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface UnionTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -22610,6 +22664,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -22683,6 +22743,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface ElementTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -22746,6 +22812,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -22819,6 +22891,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface ReactNodeTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -22887,6 +22965,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface EnumTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -22950,6 +23034,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -23024,6 +23114,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface LambdaTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23087,6 +23183,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -23160,6 +23262,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface AppTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23223,6 +23331,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -23296,6 +23410,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface CodeMirrorTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23364,6 +23484,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface TagAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23427,6 +23553,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -23508,6 +23640,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface PropAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23568,6 +23706,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -23642,6 +23786,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface HookAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23704,6 +23854,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -23777,6 +23933,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface StoreAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23840,6 +24002,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -23914,6 +24082,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface ApiActionAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -23977,6 +24151,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -24050,6 +24230,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface DeleteInfoAggregateSelectionInput {
   count?: boolean
   bookmark?: StringAggregateInputNullable
@@ -24111,6 +24297,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean
@@ -24179,6 +24371,12 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface VercelProjectDomainAggregateSelectionInput {
   count?: boolean
 }
@@ -24237,6 +24435,12 @@ export interface StringAggregateInputNullable {
   longest?: boolean
 }
 export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
   max?: boolean
   min?: boolean
   average?: boolean

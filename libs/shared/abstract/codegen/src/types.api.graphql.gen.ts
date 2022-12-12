@@ -4678,6 +4678,7 @@ export type BaseTypeWhere = {
 }
 
 export type BaseTypesWhere = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
 }
 
@@ -10682,16 +10683,19 @@ export type GetBaseTypesOptions = {
 export type GetBaseTypesReturn = {
   __typename?: 'GetBaseTypesReturn'
   items: Array<BaseType>
+  offset?: Maybe<Scalars['Int']>
   totalCount: Scalars['Int']
 }
 
 export type GetBaseTypesReturnAggregateSelection = {
   __typename?: 'GetBaseTypesReturnAggregateSelection'
   count: Scalars['Int']
+  offset: IntAggregateSelectionNullable
   totalCount: IntAggregateSelectionNonNullable
 }
 
 export type GetBaseTypesReturnCreateInput = {
+  offset?: InputMaybe<Scalars['Int']>
   totalCount: Scalars['Int']
 }
 
@@ -10710,10 +10714,14 @@ export type GetBaseTypesReturnOptions = {
 
 /** Fields to sort GetBaseTypesReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypesReturnSort object. */
 export type GetBaseTypesReturnSort = {
+  offset?: InputMaybe<SortDirection>
   totalCount?: InputMaybe<SortDirection>
 }
 
 export type GetBaseTypesReturnUpdateInput = {
+  offset?: InputMaybe<Scalars['Int']>
+  offset_DECREMENT?: InputMaybe<Scalars['Int']>
+  offset_INCREMENT?: InputMaybe<Scalars['Int']>
   totalCount?: InputMaybe<Scalars['Int']>
   totalCount_DECREMENT?: InputMaybe<Scalars['Int']>
   totalCount_INCREMENT?: InputMaybe<Scalars['Int']>
@@ -10722,6 +10730,14 @@ export type GetBaseTypesReturnUpdateInput = {
 export type GetBaseTypesReturnWhere = {
   AND?: InputMaybe<Array<GetBaseTypesReturnWhere>>
   OR?: InputMaybe<Array<GetBaseTypesReturnWhere>>
+  offset?: InputMaybe<Scalars['Int']>
+  offset_GT?: InputMaybe<Scalars['Int']>
+  offset_GTE?: InputMaybe<Scalars['Int']>
+  offset_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  offset_LT?: InputMaybe<Scalars['Int']>
+  offset_LTE?: InputMaybe<Scalars['Int']>
+  offset_NOT?: InputMaybe<Scalars['Int']>
+  offset_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
   totalCount?: InputMaybe<Scalars['Int']>
   totalCount_GT?: InputMaybe<Scalars['Int']>
   totalCount_GTE?: InputMaybe<Scalars['Int']>
@@ -11672,6 +11688,14 @@ export type IntAggregateSelectionNonNullable = {
   max: Scalars['Int']
   min: Scalars['Int']
   sum: Scalars['Int']
+}
+
+export type IntAggregateSelectionNullable = {
+  __typename?: 'IntAggregateSelectionNullable'
+  average?: Maybe<Scalars['Float']>
+  max?: Maybe<Scalars['Int']>
+  min?: Maybe<Scalars['Int']>
+  sum?: Maybe<Scalars['Int']>
 }
 
 /** Represents an object type with multiple fields */
@@ -23176,6 +23200,7 @@ export type GetBaseTypesQuery = {
   baseTypes: {
     __typename?: 'GetBaseTypesReturn'
     totalCount: number
+    offset?: number | null
     items: Array<{ __typename?: 'BaseType' } & BaseType_BaseType_Fragment>
   }
 }
