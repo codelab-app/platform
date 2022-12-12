@@ -31,8 +31,6 @@
   // Used for import plugin
   "settings": {
     "extensions": [".js", ".jsx", ".ts", ".tsx"],
-    // Can't resolve for some reason
-    "import/ignore": ["react-query"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },

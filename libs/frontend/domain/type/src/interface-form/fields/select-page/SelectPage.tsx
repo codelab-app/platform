@@ -1,7 +1,7 @@
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
@@ -12,13 +12,15 @@ export const SelectPage = ({ name, error }: SelectPageProps) => {
   const appId = router.query.appId
 
   const {
-    data,
-    isLoading,
+    value,
+    loading,
     error: queryError,
-  } = useQuery('interface-form/select-page', () =>
-    interfaceFormApi.InterfaceForm_GetPages({
-      where: { app: { id: appId as string } },
-    }),
+  } = useAsync(
+    () =>
+      interfaceFormApi.InterfaceForm_GetPages({
+        where: { app: { id: appId as string } },
+      }),
+    [],
   )
 
   if (!appId) {
@@ -28,7 +30,7 @@ export const SelectPage = ({ name, error }: SelectPageProps) => {
   }
 
   const pageOptions =
-    data?.pages.map((page) => ({
+    value?.pages.map((page) => ({
       label: page.name,
       value: page.id,
     })) ?? []
@@ -38,7 +40,7 @@ export const SelectPage = ({ name, error }: SelectPageProps) => {
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label="Page"
-      loading={isLoading}
+      loading={loading}
       name={name}
       optionFilterProp="label"
       options={pageOptions}

@@ -1,7 +1,7 @@
 import { useStore } from '@codelab/frontend/presenter/container'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
@@ -18,16 +18,14 @@ export const SelectComponent = ({
   const { builderService } = useStore()
 
   const {
-    data,
-    isLoading,
+    value,
+    loading,
     error: queryError,
-  } = useQuery('interface-form/select-component', () =>
-    interfaceFormApi.InterfaceForm_GetComponents(),
-  )
+  } = useAsync(() => interfaceFormApi.InterfaceForm_GetComponents(), [])
 
   // remove the components that refer the current component to avoid creating circular references
   // including itself
-  const filteredComponents = data?.components.filter(
+  const filteredComponents = value?.components.filter(
     (component) =>
       component.descendantComponentIds.indexOf(
         builderService.activeComponent?.id ?? '',
@@ -45,7 +43,7 @@ export const SelectComponent = ({
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label={label}
-      loading={isLoading}
+      loading={loading}
       name={name}
       optionFilterProp="label"
       options={componentOptions}

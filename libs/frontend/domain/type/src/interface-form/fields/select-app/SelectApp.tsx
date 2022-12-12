@@ -1,20 +1,18 @@
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
 export const SelectApp = ({ name, error }: UniformSelectFieldProps) => {
   const {
-    data,
-    isLoading,
+    value,
+    loading,
     error: queryError,
-  } = useQuery('interface-form/select-app', () =>
-    interfaceFormApi.InterfaceForm_GetApps(),
-  )
+  } = useAsync(() => interfaceFormApi.InterfaceForm_GetApps(), [])
 
   const appOptions =
-    data?.apps.map((app) => ({
+    value?.apps.map((app) => ({
       label: app.name,
       value: app.id,
     })) ?? []
@@ -23,7 +21,7 @@ export const SelectApp = ({ name, error }: UniformSelectFieldProps) => {
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      loading={isLoading}
+      loading={loading}
       name={name}
       optionFilterProp="label"
       options={appOptions}

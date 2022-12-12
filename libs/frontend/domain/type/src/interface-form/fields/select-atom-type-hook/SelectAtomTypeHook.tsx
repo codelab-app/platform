@@ -1,22 +1,24 @@
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 import { SelectAtomProps } from '../types'
 
 export const SelectAtomTypeHook = ({ name, error }: SelectAtomProps) => {
   const {
-    data,
-    isLoading,
+    value,
+    loading,
     error: queryError,
-  } = useQuery('interface-form/select-atom-hook', () =>
-    interfaceFormApi.InterfaceForm_GetAtoms({
-      where: { name_CONTAINS: 'Hook' },
-    }),
+  } = useAsync(
+    () =>
+      interfaceFormApi.InterfaceForm_GetAtoms({
+        where: { name_CONTAINS: 'Hook' },
+      }),
+    [],
   )
 
   const componentOptions =
-    data?.atoms.map((atom) => ({
+    value?.atoms.map((atom) => ({
       label: atom.name,
       value: atom.id,
     })) ?? []
@@ -24,7 +26,7 @@ export const SelectAtomTypeHook = ({ name, error }: SelectAtomProps) => {
   return (
     <SelectField
       error={error || queryError}
-      loading={isLoading}
+      loading={loading}
       name={name}
       optionFilterProp="label"
       options={componentOptions}

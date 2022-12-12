@@ -1,7 +1,7 @@
 import { filterNotHookType, IAtom } from '@codelab/frontend/abstract/core'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
@@ -19,33 +19,25 @@ export type SelectAtomProps = Pick<
  * @returns { data, isLoading, error }
  */
 export const useGetAllAtoms = () => {
-  const { data, isLoading, error } = useQuery(
-    'interface-form/select-atom',
+  const { value, loading, error } = useAsync(
     () =>
       interfaceFormApi.InterfaceForm_GetAtoms({
         where: { name_NOT_CONTAINS: 'Hook' },
       }),
+    [],
   )
 
   const atomOptions =
-    data?.atoms
+    value?.atoms
       .filter((x) => filterNotHookType(x.type))
-      .map((atom) => ({
-        label: atom.name,
-        value: atom.id,
-      })) ?? []
+      .map((atom) => ({ label: atom.name, value: atom.id })) ?? []
 
-  return {
-    data,
-    atomOptions,
-    isLoading,
-    error,
-  }
+  return { atomOptions, loading, error }
 }
 
 export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
   const allowedChildrenIds = parent?.allowedChildren.map((child) => child.id)
-  const { atomOptions, isLoading, error: queryError } = useGetAllAtoms()
+  const { atomOptions, loading, error: queryError } = useGetAllAtoms()
 
   /**
    * Sort for now before data is added
@@ -58,16 +50,12 @@ export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
     return 1
   })
 
-  // const filteredOptions = atomOptions.filter((atom) => {
-  //   return allowedChildrenIds?.includes(atom.value)
-  // })
-
   return (
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label={label}
-      loading={isLoading}
+      loading={loading}
       name={name}
       optionFilterProp="label"
       options={filteredOptions}

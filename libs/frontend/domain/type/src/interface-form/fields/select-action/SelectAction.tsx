@@ -1,7 +1,7 @@
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
@@ -16,36 +16,31 @@ export type SelectActionProps = Pick<
 const useGetAllActions = () => {
   const appId = useCurrentAppId()
 
-  const { data, isLoading, error } = useQuery(
-    'interface-form/select-action',
+  const { value, loading, error } = useAsync(
     () => interfaceFormApi.InterfaceForm_GetActions({ appId }),
+    [],
   )
 
   const actionOptions = [
-    ...(data?.apiActions || []),
-    ...(data?.codeActions || []),
+    ...(value?.apiActions || []),
+    ...(value?.codeActions || []),
   ].map((action) => ({
     label: action.name,
     value: action.id,
   }))
 
-  return {
-    data,
-    actionOptions,
-    isLoading,
-    error,
-  }
+  return { actionOptions, loading, error }
 }
 
 export const SelectAction = ({ name, label, error }: SelectActionProps) => {
-  const { actionOptions, isLoading, error: queryError } = useGetAllActions()
+  const { actionOptions, loading, error: queryError } = useGetAllActions()
 
   return (
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label={label}
-      loading={isLoading}
+      loading={loading}
       name={name}
       optionFilterProp="label"
       options={actionOptions}

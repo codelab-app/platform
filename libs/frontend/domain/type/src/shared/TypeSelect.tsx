@@ -1,7 +1,7 @@
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { getAllTypes } from '../store'
@@ -25,20 +25,17 @@ const defaultCreateTypeOptions: CreateTypeOptions = (types) =>
 
 export const TypeSelect = observer<TypeSelectProps>(
   ({ name, label, createTypeOptions }) => {
-    const { data, error, isLoading } = useQuery(
-      'interface-form/select-type',
-      () => getAllTypes(),
-    )
+    const { value, error, loading } = useAsync(() => getAllTypes(), [])
 
     const typeOptions = createTypeOptions
-      ? createTypeOptions(data)
-      : defaultCreateTypeOptions(data)
+      ? createTypeOptions(value)
+      : defaultCreateTypeOptions(value)
 
     return (
       <SelectField
         error={error}
         label={label}
-        loading={isLoading}
+        loading={loading}
         name={name}
         optionFilterProp="label"
         options={typeOptions}
