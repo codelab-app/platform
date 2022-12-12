@@ -29,7 +29,7 @@ const PageRenderer: CodelabPage = observer(() => {
 
     const { page, pageTree, appTree, appStore, components } = pageDataValue
 
-    const renderer = appRenderService.addRenderer({
+    const renderer = await appRenderService.addRenderer({
       id: page.id,
       pageTree,
       appTree,

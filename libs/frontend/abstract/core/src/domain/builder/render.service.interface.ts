@@ -17,7 +17,7 @@ export interface RendererProps {
 
 export interface IRenderService {
   renderers: ObjectMap<IRenderer>
-  addRenderer(props: RendererProps & { id: string }): IRenderer
+  addRenderer(props: RendererProps & { id: string }): Promise<IRenderer>
   // componentService: IComponentService
   // elementService: IElementService
 }

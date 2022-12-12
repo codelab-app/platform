@@ -4,8 +4,8 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import {
+  babelTransformer,
   hasStateExpression,
-  transpileAndEvaluateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -53,12 +53,12 @@ export class RenderPropsTypedValueTransformer
     if (hasStateExpression(value.value)) {
       const { values } = this.renderer.appStore.current.state
       const atoms = { ...htmlAtoms, ...codelabAtoms, ...antdAtoms, ...muiAtoms }
+      const evaluationContext = { React, atoms, ...values }
 
-      return transpileAndEvaluateExpression(value.value, {
-        React,
-        atoms,
-        ...values,
-      })
+      return babelTransformer.transpileAndEvaluateExpression(
+        value.value,
+        evaluationContext,
+      )
     }
 
     const componentService = getComponentService(this)

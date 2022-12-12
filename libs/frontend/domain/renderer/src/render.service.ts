@@ -27,11 +27,11 @@ export class RenderService
   // }
 
   @modelAction
-  addRenderer(props: RendererProps & { id: string }) {
+  async addRenderer(props: RendererProps & { id: string }) {
     const existing = this.renderers.get(props.id)
 
     if (!existing) {
-      const renderer = Renderer.init(props)
+      const renderer = await Renderer.init(props)
 
       this.renderers.set(props.id, renderer)
 

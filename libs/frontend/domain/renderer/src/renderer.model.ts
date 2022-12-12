@@ -13,6 +13,7 @@ import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
+import { babelTransformer } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
@@ -64,7 +65,7 @@ import { mapOutput } from './utils/renderOutputUtils'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const init = ({
+const init = async ({
   pageTree,
   appStore,
   appTree,
@@ -95,6 +96,8 @@ const init = ({
   const renderComponentMeta = components
     .map((c) => ({ [c.id]: 0 }))
     .reduce(merge, {})
+
+  await babelTransformer.init()
 
   return new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,

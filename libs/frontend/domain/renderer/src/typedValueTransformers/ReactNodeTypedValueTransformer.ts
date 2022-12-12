@@ -4,8 +4,8 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import {
+  babelTransformer,
   hasStateExpression,
-  transpileAndEvaluateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -55,7 +55,7 @@ export class ReactNodeTypedValueTransformer
       const atoms = { ...htmlAtoms, ...codelabAtoms, ...antdAtoms, ...muiAtoms }
       const evaluationContext = { React, atoms, ...values }
 
-      const transpiledValue = transpileAndEvaluateExpression(
+      const transpiledValue = babelTransformer.transpileAndEvaluateExpression(
         value.value,
         evaluationContext,
       )

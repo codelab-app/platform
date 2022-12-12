@@ -4,14 +4,13 @@ import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
+import React from 'react'
+import { useAsync } from 'react-use'
 
 const Index = (props: AppPagePageProps) => {
   const store = useStore()
 
   const {
-    userService,
     storeService,
     componentService,
     pageService,
@@ -19,19 +18,18 @@ const Index = (props: AppPagePageProps) => {
     builderRenderService,
   } = store
 
-  const router = useRouter()
   const { pageId, storeId, appId } = props
   const app = appService.app(appId)
   const appStore = storeService.store(storeId)
   const page = pageService.pages.get(pageId)
   const components = componentService.componentList
 
-  const renderer = useMemo(() => {
+  const { value: renderer } = useAsync(async () => {
     if (!page || !appStore || !app) {
       return
     }
 
-    const result = builderRenderService.addRenderer({
+    const result = await builderRenderService.addRenderer({
       id: pageId,
       pageTree: page.elementTree,
       appTree: null,
