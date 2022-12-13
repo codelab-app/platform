@@ -41,7 +41,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     // cache it to not confuse the user when auto-saving
     const initialPropsRef = useRef(component.props?.values ?? {})
 
-    console.log(component.name, component)
+    console.log(component.name, 'props =>', component)
 
     const apiId = component.api.id
 
@@ -51,6 +51,8 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     )
 
     const onSubmit = (data: IPropData) => {
+      console.log('onSubmit', data)
+
       const promise = componentService.patchComponent(component, {
         props: {
           update: {

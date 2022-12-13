@@ -4,12 +4,13 @@ import {
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 import React, { RefObject, useCallback, useContext, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { ComponentPropsContext } from '../props/componentPropsContext'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
 import { DraggableElementWrapper } from './DraggableElementWrapper'
@@ -40,6 +41,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
   ({ renderService, element, extraProps = {}, postAction, ...rest }) => {
     const globalPropsContext = useContext(GlobalPropsContext)
     const globalProps = globalPropsContext[element.id]
+    const componentPropsContext = useContext(ComponentPropsContext)
+
+    if (element.parentComponent) {
+      componentPropsContext[element.id] =
+        element.parentComponent.maybeCurrent?.props?.data.data || {}
+    }
 
     const onRefChange = useCallback(
       (node: Nullable<RefObject<HTMLElement>>) => {
@@ -55,10 +62,16 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    let propsPassedFromParentComponent: Maybe<IPropData>
+
+    if (element.parentId) {
+      propsPassedFromParentComponent = componentPropsContext[element.parentId]
+    }
+
     // Render the element to an intermediate output
     const renderOutputs = renderService.renderIntermediateElement(
       element,
-      mergeProps(extraProps, globalProps),
+      mergeProps(extraProps, globalProps, propsPassedFromParentComponent),
     )
 
     renderService.logRendered(element, renderOutputs)

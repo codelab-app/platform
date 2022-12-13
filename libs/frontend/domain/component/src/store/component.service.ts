@@ -225,6 +225,7 @@ export class ComponentService
       }),
     )
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return components.map((component) => this.writeCache(component))[0]!
   })
 
