@@ -140,7 +140,12 @@ export const PageDetailHeader = observer<{
 
   return (
     <Menu
-      items={menuItems.filter((x) => !x.hide)}
+      items={menuItems
+        .filter((x) => !x.hide)
+        .map((x) => ({
+          ...x,
+          hide: String(x.hide),
+        }))}
       mode="horizontal"
       selectable={false}
       theme="light"

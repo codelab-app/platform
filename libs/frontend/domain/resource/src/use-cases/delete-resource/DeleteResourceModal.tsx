@@ -40,8 +40,8 @@ export const DeleteResourceModal = observer<{
       className="delete-resources-modal"
       okText="Delete Resource"
       onCancel={onSubmitSuccess}
+      open={resourceService.deleteModal.isOpen}
       title="Delete Confirmation"
-      visible={resourceService.deleteModal.isOpen}
     >
       <ModalForm.Form
         model={{}}

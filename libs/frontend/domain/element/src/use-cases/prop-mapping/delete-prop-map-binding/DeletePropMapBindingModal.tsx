@@ -1,6 +1,6 @@
+import { IElementService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
-import { IElementService } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -17,8 +17,8 @@ export const DeletePropMapBindingModal = observer<{
     <ModalForm.Modal
       okText="Delete"
       onCancel={closeModal}
+      open={elementService.deletePropMapBindingModal.isOpen}
       title={<span css={tw`font-semibold`}>Delete prop binding</span>}
-      visible={elementService.deletePropMapBindingModal.isOpen}
     >
       <ModalForm.Form
         model={{}}

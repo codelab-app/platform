@@ -83,8 +83,8 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         className="update-type-modal"
         okText="Update"
         onCancel={closeModal}
+        open={typeService.updateModal.isOpen}
         title={<span css={tw`font-semibold`}>Update type</span>}
-        visible={typeService.updateModal.isOpen}
       >
         <ModalForm.Form<IUpdateTypeDTO>
           model={model}

@@ -16,8 +16,8 @@ export const DeleteAtomsModal = observer<{ atomService: IAtomService }>(
         className="delete-atoms-modal"
         okText="Delete Atom"
         onCancel={closeModal}
+        open={atomService.deleteManyModal.isOpen}
         title="Delete Confirmation"
-        visible={atomService.deleteManyModal.isOpen}
       >
         <ModalForm.Form
           model={{}}

@@ -87,7 +87,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       }
 
       if (renderOutput.props) {
-        renderOutput.props['forwardedRef'] = onRefChange
+        renderOutput.props['ref'] = onRefChange
       }
 
       const ReactComponent = getReactComponent(renderOutput)

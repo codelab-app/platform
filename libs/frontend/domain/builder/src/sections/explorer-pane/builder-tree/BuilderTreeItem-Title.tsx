@@ -61,9 +61,10 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
         <BuilderDropHandler element={element}>
           <ItemTitleStyle node={data}>
             <Dropdown
-              onVisibleChange={(visible) => {
+              onOpenChange={(visible) => {
                 setContextMenuNodeId(visible ? element.id : null)
               }}
+              open={contextMenuItemId === element.id}
               overlay={
                 <BuilderTreeItemOverlay
                   ContextMenu={ElementContextMenu}
@@ -76,7 +77,6 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
                 />
               }
               trigger={['contextMenu']}
-              visible={contextMenuItemId === element.id}
             >
               <Row>
                 <Col span={18}>
@@ -112,9 +112,10 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       return (
         <ItemTitleStyle node={data}>
           <Dropdown
-            onVisibleChange={(visible) => {
+            onOpenChange={(visible) => {
               setContextMenuNodeId(visible ? component.id : null)
             }}
+            open={contextMenuItemId === component.id}
             overlay={
               <BuilderTreeItemOverlay
                 ContextMenu={ComponentContextMenu}
@@ -127,7 +128,6 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
               />
             }
             trigger={['contextMenu']}
-            visible={contextMenuItemId === component.id}
           >
             <div>{component.name}</div>
           </Dropdown>

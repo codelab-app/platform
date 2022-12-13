@@ -48,8 +48,8 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
       <ModalForm.Modal
         okText="Delete"
         onCancel={closeModal}
+        open={typeService.deleteModal.isOpen}
         title={<span css={tw`font-semibold`}>Delete type</span>}
-        visible={typeService.deleteModal.isOpen}
       >
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}

@@ -27,7 +27,7 @@ export const DeleteAppModal = observer<{ appService: IAppService }>(
       <ModalForm.Modal
         okText="Delete App"
         onCancel={closeModal}
-        visible={appService.deleteModal.isOpen}
+        open={appService.deleteModal.isOpen}
       >
         <ModalForm.Form
           model={{}}

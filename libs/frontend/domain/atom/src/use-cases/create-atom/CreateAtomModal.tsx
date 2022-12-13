@@ -32,7 +32,7 @@ export const CreateAtomModal = observer<{
     <ModalForm.Modal
       okText="Create Atom"
       onCancel={closeModal}
-      visible={atomService.createModal.isOpen}
+      open={atomService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateAtomDTO>
         model={{

@@ -21,7 +21,7 @@ export const DeleteComponentModal = observer<{
     <ModalForm.Modal
       okText="Delete Component"
       onCancel={closeModal}
-      visible={componentService.deleteModal.isOpen}
+      open={componentService.deleteModal.isOpen}
     >
       <ModalForm.Form
         model={{ id: component.id }}

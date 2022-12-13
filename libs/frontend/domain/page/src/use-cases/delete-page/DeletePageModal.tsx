@@ -22,11 +22,7 @@ export const DeletePageModal = observer<{ pageService: IPageService }>(
     })
 
     return (
-      <ModalForm.Modal
-        okText="Delete Page"
-        onCancel={closeModal}
-        visible={isOpen}
-      >
+      <ModalForm.Modal okText="Delete Page" onCancel={closeModal} open={isOpen}>
         <ModalForm.Form
           model={{}}
           onSubmit={onSubmit}

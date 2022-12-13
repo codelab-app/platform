@@ -24,7 +24,7 @@ export const UpdateTagModal = observer<{ tagService: ITagService }>(
       <ModalForm.Modal
         okText="Update Tag"
         onCancel={closeModal}
-        visible={tagService.updateModal.isOpen}
+        open={tagService.updateModal.isOpen}
       >
         <ModalForm.Form<IUpdateTagDTO>
           model={{ name: tag?.name }}

@@ -47,8 +47,8 @@ export const UpdateFieldModal = observer<{
       className="update-field-modal"
       okText="Update"
       onCancel={closeModal}
+      open={fieldService.updateModal.isOpen}
       title={<span css={tw`font-semibold`}>Update field</span>}
-      visible={fieldService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateFieldDTO>
         model={{

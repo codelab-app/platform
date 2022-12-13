@@ -50,7 +50,7 @@ export const CreateActionModal = observer<{
     <ModalForm.Modal
       okText="Create Action"
       onCancel={closeModal}
-      visible={actionService.createModal.isOpen}
+      open={actionService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateActionDTO>
         model={{

@@ -24,7 +24,7 @@ export const CreateAppModal = observer<{
     <ModalForm.Modal
       okText="Create App"
       onCancel={closeModal}
-      visible={appService.createModal.isOpen}
+      open={appService.createModal.isOpen}
     >
       <ModalForm.Form
         model={{

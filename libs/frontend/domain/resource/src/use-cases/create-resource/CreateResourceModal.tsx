@@ -28,7 +28,7 @@ export const CreateResourceModal = observer<{
     <ModalForm.Modal
       okText="Create Resource"
       onCancel={closeModal}
-      visible={resourceService.createModal.isOpen}
+      open={resourceService.createModal.isOpen}
     >
       <ModalForm.Form
         model={{ auth0Id: userService.auth0Id, type }}

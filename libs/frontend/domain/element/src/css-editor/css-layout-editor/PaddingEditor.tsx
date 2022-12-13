@@ -13,13 +13,7 @@ interface PaddingEditorProps {
   guiCssObj: CssMap
 }
 
-const options = [
-  'padding-top',
-  'padding-right',
-  'padding-bottom',
-  'padding-left',
-]
-
+const options = ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft']
 const units = ['px', '%', 'em', 'rem', 'ch', 'vh', 'vw']
 
 export const PaddingEditor = observer(

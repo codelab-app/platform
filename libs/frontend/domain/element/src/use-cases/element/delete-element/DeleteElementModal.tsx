@@ -1,6 +1,9 @@
+import {
+  IBuilderService,
+  IElementService,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IBuilderService, IElementService } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -43,8 +46,8 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
       <ModalForm.Modal
         okText="Delete"
         onCancel={closeModal}
+        open={elementService.deleteModal.isOpen}
         title={<span css={tw`font-semibold`}>Delete element</span>}
-        visible={elementService.deleteModal.isOpen}
       >
         <ModalForm.Form<DeleteElementData>
           model={model}
@@ -55,8 +58,8 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
         >
           <h4>
             Are you sure you want to delete{' '}
-            {elementToDelete?.name
-              ? `the element "${elementToDelete?.name}"`
+            {elementToDelete.name
+              ? `the element "${elementToDelete.name}"`
               : 'that element'}
             ?
           </h4>

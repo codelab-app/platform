@@ -12,7 +12,7 @@ export type ModalProps = Pick<
   | 'onOk'
   | 'okText'
   | 'onCancel'
-  | 'visible'
+  | 'open'
   | 'className'
   | 'title'
 >
@@ -23,7 +23,7 @@ export const Modal = ({
   onOk,
   okText,
   onCancel,
-  visible,
+  open,
   className,
   children,
 }: PropsWithChildren<ModalProps>) => {
@@ -50,7 +50,7 @@ export const Modal = ({
         okText={okText}
         onCancel={onCancel}
         onOk={handleSubmitRefModalOk(submitRef, onOk)}
-        visible={visible}
+        open={open}
       >
         {children}
       </AntdModal>

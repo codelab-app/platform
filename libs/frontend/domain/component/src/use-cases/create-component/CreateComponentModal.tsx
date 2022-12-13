@@ -31,8 +31,8 @@ export const CreateComponentModal = observer<{
     <ModalForm.Modal
       okText="Create Component"
       onCancel={closeModal}
+      open={componentService.createModal.isOpen}
       title={<span css={tw`font-semibold`}>Create component</span>}
-      visible={componentService.createModal.isOpen}
     >
       <ModalForm.Form<Omit<ICreateComponentDTO, 'rootElementId'>>
         model={{

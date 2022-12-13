@@ -1,14 +1,14 @@
 import {
+  ICreatePropMapBindingDTO,
+  IElementService,
+  IElementTree,
+} from '@codelab/frontend/abstract/core'
+import {
   SelectDescendantElement,
   SelectElementOption,
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
-import {
-  ICreatePropMapBindingDTO,
-  IElementService,
-  IElementTree,
-} from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
@@ -66,8 +66,8 @@ export const CreatePropMapBindingModal = observer(
       <ModalForm.Modal
         okText="Create"
         onCancel={closeModal}
+        open={elementService.createPropMapBindingModal.isOpen}
         title={<span css={tw`font-semibold`}>Create prop binding</span>}
-        visible={elementService.createPropMapBindingModal.isOpen}
       >
         <ModalForm.Form<ICreatePropMapBindingDTO>
           model={{ elementId: element?.id }}

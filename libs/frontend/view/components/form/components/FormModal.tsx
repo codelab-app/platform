@@ -14,7 +14,7 @@ export const FormModal = <
   onCancel,
   okText,
   children,
-  visible,
+  open,
 }: PropsWithChildren<FormModalProps<TData>>) => {
   // This is the controller that will do the form submission, create by the modal and passed down to the form
   const submitRef = useRef<Maybe<SubmitController>>()
@@ -43,7 +43,7 @@ export const FormModal = <
           onOk(e)
         }
       }}
-      visible={visible}
+      open={open}
     >
       {children({ submitRef })}
     </Modal>

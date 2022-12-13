@@ -60,49 +60,54 @@ export const EditorPaneBuilder = observer(
     typeService,
     resourceService,
   }: EditorPaneBuilderProps) => {
+    const tabItems = [
+      {
+        label: (
+          <div>
+            <DatabaseOutlined title="Store" />
+            Store
+          </div>
+        ),
+        key: 'store',
+        children: (
+          <StoreEditorPane
+            actionService={actionService}
+            appStore={appStore}
+            fieldService={fieldService}
+          />
+        ),
+      },
+      {
+        label: (
+          <div>
+            <CodeOutlined title="Store inspector" />
+            Store Inspector
+          </div>
+        ),
+        key: 'store-inspector',
+        children: (
+          <CodeMirrorEditor
+            language={CodeMirrorLanguage.Json}
+            onChange={() => undefined}
+            overrideStyles={css`
+              height: 95%;
+            `}
+            singleLine={false}
+            title="Current props"
+            value={appStore.state.jsonString}
+          />
+        ),
+      },
+    ]
+
     return (
       <>
         <Container>
           <Tabs
             defaultActiveKey="1"
+            items={tabItems}
             tabBarExtraContent={<EditorPaneToggler resizable={resizable} />}
-          >
-            <TabPane
-              key="store"
-              tab={
-                <div>
-                  <DatabaseOutlined title="Store" />
-                  Store
-                </div>
-              }
-            >
-              <StoreEditorPane
-                actionService={actionService}
-                appStore={appStore}
-                fieldService={fieldService}
-              />
-            </TabPane>
-            <TabPane
-              key="store-inspector"
-              tab={
-                <div>
-                  <CodeOutlined title="Store inspector" />
-                  Store Inspector
-                </div>
-              }
-            >
-              <CodeMirrorEditor
-                language={CodeMirrorLanguage.Json}
-                onChange={() => undefined}
-                overrideStyles={css`
-                  height: 95%;
-                `}
-                singleLine={false}
-                title="Current props"
-                value={appStore.state.jsonString}
-              />
-            </TabPane>
-          </Tabs>
+          />
         </Container>
         <CreateFieldModal
           fieldService={fieldService}

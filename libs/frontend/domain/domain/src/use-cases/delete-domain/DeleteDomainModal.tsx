@@ -38,8 +38,8 @@ export const DeleteDomainModal = observer<{
     <ModalForm.Modal
       okText="Delete"
       onCancel={closeModal}
+      open={domainService.deleteModal.isOpen}
       title={<span css={tw`font-semibold`}>Delete domain</span>}
-      visible={domainService.deleteModal.isOpen}
     >
       <ModalForm.Form
         model={model}

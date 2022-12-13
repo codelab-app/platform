@@ -40,7 +40,7 @@ export const CreateDomainModal = observer<{
     <ModalForm.Modal
       okText="Create Domain"
       onCancel={closeModal}
-      visible={domainService.createModal.isOpen}
+      open={domainService.createModal.isOpen}
     >
       <ModalForm.Form
         model={model}

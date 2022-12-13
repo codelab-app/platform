@@ -61,8 +61,8 @@ export const CodeMirrorModal = ({
       okText="Save"
       onCancel={closeModal}
       onOk={onOk}
+      open={visible}
       title={title}
-      visible={visible}
       width="80vw"
     >
       <div className="mt-5" ref={editor} />

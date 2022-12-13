@@ -27,8 +27,8 @@ export const DeleteActionsModal = observer<{ actionService: IActionService }>(
         className="delete-actions-modal"
         okText="Delete Action"
         onCancel={closeModal}
+        open={actionService.deleteModal.isOpen}
         title="Delete Confirmation"
-        visible={actionService.deleteModal.isOpen}
       >
         <ModalForm.Form
           model={{}}

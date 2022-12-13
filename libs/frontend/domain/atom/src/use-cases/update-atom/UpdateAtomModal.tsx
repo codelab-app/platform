@@ -45,7 +45,7 @@ export const UpdateAtomModal = observer<{
     <ModalForm.Modal
       okText="Update Atom"
       onCancel={closeModal}
-      visible={atomService.updateModal.isOpen}
+      open={atomService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateAtomDTO>
         model={model}

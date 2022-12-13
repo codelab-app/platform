@@ -47,8 +47,8 @@ export const CreateTypeModal = observer<{
       className="create-type-modal"
       okText="Create"
       onCancel={closeModal}
+      open={typeService.createModal.isOpen}
       title={<span css={tw`font-semibold`}>Create type</span>}
-      visible={typeService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateTypeDTO>
         model={{

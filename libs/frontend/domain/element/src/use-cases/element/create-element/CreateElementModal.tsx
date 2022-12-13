@@ -99,8 +99,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       <ModalForm.Modal
         okText="Create"
         onCancel={closeModal}
+        open={elementService.createModal.isOpen}
         title={<span css={tw`font-semibold`}>Create element</span>}
-        visible={elementService.createModal.isOpen}
       >
         <ModalForm.Form<ICreateElementDTO>
           model={model}

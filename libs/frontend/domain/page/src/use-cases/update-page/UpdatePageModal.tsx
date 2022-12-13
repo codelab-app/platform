@@ -32,7 +32,7 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
       <ModalForm.Modal
         okText="Update Page"
         onCancel={closeModal}
-        visible={pageService.updateModal.isOpen}
+        open={pageService.updateModal.isOpen}
       >
         <ModalForm.Form<IUpdatePageDTO>
           model={model}

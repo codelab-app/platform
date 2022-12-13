@@ -41,7 +41,7 @@ export const UpdateResourceModal = observer<{
     <ModalForm.Modal
       okText="Update Resource"
       onCancel={closeModal}
-      visible={resourceService.updateModal.isOpen}
+      open={resourceService.updateModal.isOpen}
     >
       <ModalForm.Form
         model={model}

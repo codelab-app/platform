@@ -48,11 +48,7 @@ export const UpdateDomainModal = observer<{
   }
 
   return (
-    <ModalForm.Modal
-      okText="Update Domain"
-      onCancel={closeModal}
-      visible={true}
-    >
+    <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={true}>
       <ModalForm.Form<IUpdateDomainDTO>
         model={model}
         onSubmit={onSubmit}

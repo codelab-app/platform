@@ -13,7 +13,7 @@ interface MarginsEditorProps {
   guiCssObj: CssMap
 }
 
-const options = ['margin-top', 'margin-right', 'margin-bottom', 'margin-left']
+const options = ['marginTop', 'marginRight', 'marginBottom', 'marginLeft']
 const units = ['auto', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw']
 
 export const MarginsEditor = observer(

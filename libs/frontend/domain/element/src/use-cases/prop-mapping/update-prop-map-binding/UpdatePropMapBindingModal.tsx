@@ -55,8 +55,8 @@ export const UpdatePropMapBindingModal =
         <ModalForm.Modal
           okText="Update"
           onCancel={closeModal}
+          open={elementService.updatePropMapBindingModal.isOpen}
           title={<span css={tw`font-semibold`}>Update prop binding</span>}
-          visible={elementService.updatePropMapBindingModal.isOpen}
         >
           <ModalForm.Form<IUpdatePropMapBindingDTO>
             model={{

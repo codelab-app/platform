@@ -17,8 +17,8 @@ export const DeleteTagsModal = observer<{ tagService: ITagService }>(
       <ModalForm.Modal
         okText="Delete Tags"
         onCancel={closeModal}
+        open={tagService.deleteManyModal.isOpen}
         title={<span css={tw`font-semibold`}>Delete tags</span>}
-        visible={tagService.deleteManyModal.isOpen}
       >
         <ModalForm.Form<DeleteTagsData>
           model={{}}

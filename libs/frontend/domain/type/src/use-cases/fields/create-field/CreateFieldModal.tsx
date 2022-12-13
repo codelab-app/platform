@@ -51,8 +51,8 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         className="create-field-modal"
         okText="Create"
         onCancel={closeModal}
+        open={fieldService.createModal.isOpen}
         title={<span css={tw`font-semibold`}>Create field</span>}
-        visible={fieldService.createModal.isOpen}
       >
         <ModalForm.Form<ICreateFieldDTO>
           model={{

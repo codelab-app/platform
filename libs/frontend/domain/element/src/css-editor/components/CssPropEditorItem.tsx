@@ -25,13 +25,13 @@ export const CssPropEditorItem = ({
     <Row align="middle">
       <Col span={2}>
         <Checkbox
+          checked={checked}
           defaultChecked={checked}
           disabled={!enableCheckbox}
           onChange={(e) => {
             onCheck?.(e.target.checked)
             setChecked(e.target.checked)
           }}
-          value={checked}
         />
       </Col>
       <Col span={8}>

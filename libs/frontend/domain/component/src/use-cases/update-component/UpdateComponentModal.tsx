@@ -30,8 +30,8 @@ export const UpdateComponentModal = observer<{
     <ModalForm.Modal
       okText="Update Component"
       onCancel={closeModal}
+      open={componentService.updateModal.isOpen}
       title={<span css={tw`font-semibold`}>Update component</span>}
-      visible={componentService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateComponentDTO>
         model={model}

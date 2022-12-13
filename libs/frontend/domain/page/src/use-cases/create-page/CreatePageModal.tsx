@@ -30,11 +30,7 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
     const closeModal = () => pageService.createModal.close()
 
     return (
-      <ModalForm.Modal
-        okText="Create Page"
-        onCancel={closeModal}
-        visible={isOpen}
-      >
+      <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>
         <ModalForm.Form
           model={model}
           onSubmit={onSubmit}

@@ -14,7 +14,7 @@ import { css, Global } from '@emotion/react'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ConfigProvider } from 'antd'
-import React, { PropsWithChildren, useMemo } from 'react'
+import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
@@ -28,6 +28,14 @@ const queryClient = new QueryClient()
 
 const App = ({ pageProps, Component }: IAppProps<IPageProps>) => {
   const store = useMemo(() => initializeStore(pageProps), [])
+  const [hasMounted, setHasMounted] = useState(false)
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
+  if (!hasMounted) {
+    return null
+  }
 
   const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
     Component as CodelabPage<unknown>

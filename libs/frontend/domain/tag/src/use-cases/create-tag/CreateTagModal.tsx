@@ -26,7 +26,7 @@ export const CreateTagModal = observer<{
     <ModalForm.Modal
       okText="Create Tag"
       onCancel={closeModal}
-      visible={tagService.createModal.isOpen}
+      open={tagService.createModal.isOpen}
     >
       <ModalForm.Form
         model={{

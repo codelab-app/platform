@@ -75,7 +75,7 @@ export const UpdateActionModal = observer<{
     <ModalForm.Modal
       okText="Update Action"
       onCancel={closeModal}
-      visible={actionService.updateModal.isOpen}
+      open={actionService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateActionDTO>
         model={model}

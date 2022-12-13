@@ -29,8 +29,8 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
         okButtonProps={{ danger: true }}
         okText="Delete"
         onCancel={closeModal}
+        open={fieldService.deleteModal.isOpen}
         title={<span css={tw`font-semibold`}>Delete field</span>}
-        visible={fieldService.deleteModal.isOpen}
       >
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
