@@ -1,6 +1,5 @@
 import {
   BuilderDragData,
-  BuilderTab,
   IBuilderService,
   INode,
   isComponent,
@@ -46,12 +45,8 @@ export class BuilderService
     mainResizingContentWidth: prop<Nullable<number>>(null).withSetter(),
     resizingMainContent: prop<boolean>(false).withSetter(),
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
-
-    activeBuilderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
-
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
-    // configPaneWidth: prop(0),
   })
   implements IBuilderService
 {

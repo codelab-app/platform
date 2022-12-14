@@ -5,7 +5,6 @@ import { IComponent } from '../component'
 import { IElementTree } from '../element'
 import { RendererTab } from '../render'
 import { BuilderDragData } from './builder.interface'
-import { BuilderTab } from './builder-tab.interface'
 import { INode } from './node.interface'
 
 // TBC: | IComponent
@@ -14,7 +13,6 @@ export type IBuilderComponent = IAtom & {
 }
 
 export interface IBuilderService {
-  activeBuilderTab: BuilderTab
   /**
    * Tells us which tree we are selecting in the main pane
    */
@@ -53,5 +51,4 @@ export interface IBuilderService {
 
   setActiveTree(tab: RendererTab): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
-  setActiveBuilderTab(data: BuilderTab): void
 }

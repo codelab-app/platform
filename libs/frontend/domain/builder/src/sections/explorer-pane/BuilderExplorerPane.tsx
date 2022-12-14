@@ -1,5 +1,4 @@
 import {
-  BuilderTab,
   IActionService,
   IAtomService,
   IBuilderService,
@@ -18,21 +17,13 @@ import {
   CreateElementModal,
   DeleteElementModal,
 } from '@codelab/frontend/domain/element'
-import { DisplayIf } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { Divider } from 'antd'
-import debounce from 'lodash/debounce'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
-import { Toolbox } from './toolbox/Toolbox'
-
-const paneTitles: Record<BuilderTab, string> = {
-  [BuilderTab.Toolbox]: 'Toolbox',
-  [BuilderTab.Tree]: 'Page',
-}
 
 interface BuilderMainPaneProps {
   atomService: IAtomService
@@ -58,18 +49,6 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     storeId,
     renderService,
   }) => {
-    const builderTab = builderService.activeBuilderTab
-    const [searchValue, setSearchValue] = useState('')
-
-    const debouncedSearch = useCallback((value: string) => {
-      const debouncedSetSearchValue = debounce(
-        (nextValue: string) => setSearchValue(nextValue),
-        200,
-      )
-
-      return debouncedSetSearchValue(value)
-    }, [])
-
     const pageBuilderRenderer = renderService.renderers.get(pageId)
 
     if (!pageBuilderRenderer) {
@@ -100,60 +79,48 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           <BuilderExplorerPaneHeader
             builderService={builderService}
             elementService={elementService}
-            onSearch={debouncedSearch}
             root={root ?? null}
-            tab={builderTab}
           />
         }
         key={root?.id ?? 'main-pane-builder'}
-        title={paneTitles[builderTab]}
+        title="Page"
       >
-        <DisplayIf condition={builderTab === BuilderTab.Tree}>
-          {isPageTree && (
-            <BuilderTree
-              className="page-builder"
-              elementTree={pageTree}
-              expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
-              selectTreeNode={builderService.selectPageElementTreeNode.bind(
-                builderService,
-              )}
-              setActiveTree={() =>
-                builderService.setActiveTree(RendererTab.Page)
-              }
-              setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
-                builderService,
-              )}
-              treeData={antdTree}
-            />
-          )}
-          <Divider />
-          <div css={tw`flex justify-end`}>
-            <CreateComponentButton componentService={componentService} />
-          </div>
-          {antdTree && (
-            <BuilderTree
-              elementTree={componentTree ?? null}
-              expandedNodeIds={builderService.expandedComponentTreeNodeIds}
-              selectTreeNode={builderService.selectComponentTreeNode.bind(
-                builderService,
-              )}
-              setActiveTree={() =>
-                builderService.setActiveTree(RendererTab.Component)
-              }
-              setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(
-                builderService,
-              )}
-              treeData={componentsAntdTree}
-            />
-          )}
-        </DisplayIf>
-        <DisplayIf condition={builderTab === BuilderTab.Toolbox}>
-          <Toolbox
-            atomService={atomService}
-            componentService={componentService}
-            searchQuery={searchValue}
+        {isPageTree && (
+          <BuilderTree
+            className="page-builder"
+            elementTree={pageTree}
+            expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
+            selectTreeNode={builderService.selectPageElementTreeNode.bind(
+              builderService,
+            )}
+            setActiveTree={() => builderService.setActiveTree(RendererTab.Page)}
+            setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
+              builderService,
+            )}
+            treeData={antdTree}
           />
-        </DisplayIf>
+        )}
+        <Divider />
+        <div css={tw`flex justify-end`}>
+          <CreateComponentButton componentService={componentService} />
+        </div>
+        {antdTree && (
+          <BuilderTree
+            elementTree={componentTree ?? null}
+            expandedNodeIds={builderService.expandedComponentTreeNodeIds}
+            selectTreeNode={builderService.selectComponentTreeNode.bind(
+              builderService,
+            )}
+            setActiveTree={() =>
+              builderService.setActiveTree(RendererTab.Component)
+            }
+            setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(
+              builderService,
+            )}
+            treeData={componentsAntdTree}
+          />
+        )}
+
         {pageTree && (
           <CreateElementModal
             actionService={actionService}

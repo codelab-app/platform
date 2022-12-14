@@ -91,7 +91,6 @@
     "csv-parser": "3.0.0",
     "env-var": "7.1.1",
     "framer-motion": "6.3.3",
-    "fuse.js": "6.5.3",
     "graphql": "16.3.0",
     "graphql-iso-date": "3.6.1",
     "graphql-request": "4.1.0",
