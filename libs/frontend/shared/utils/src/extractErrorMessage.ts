@@ -1,4 +1,4 @@
-import { ApolloError } from 'apollo-server-micro'
+import type { ApolloError } from 'apollo-server-micro'
 import isObjectLike from 'lodash/isObjectLike'
 import isString from 'lodash/isString'
 import { AsyncState } from 'react-use/lib/useAsyncFn'
@@ -42,7 +42,7 @@ export const extractErrorMessage = (
     //   return extractErrorMessage(e.message)
     // }
 
-    if (e instanceof ApolloError) {
+    if (e.extensions.response) {
       return `[${e.extensions.response.message}]: ${e.extensions.response.error}`
       // return e.graphQLErrors[0].extensions
       //   ? `[${e.message}]: ${
