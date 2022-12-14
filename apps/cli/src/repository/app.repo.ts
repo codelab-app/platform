@@ -62,28 +62,6 @@ export const createApp = async (app: IAppExport, userId: string) => {
     })
   }
 
-  console.log('Creating store...')
-
-  const {
-    stores: [appStore],
-  } = await Store.create({
-    input: [
-      {
-        id: app.store.id,
-        name: app.store.name,
-        api: connectNode(app.store.api.id),
-      },
-    ],
-  })
-
-  console.log('Creating actions...')
-
-  if (!appStore) {
-    throw new Error('App store not created')
-  }
-
-  await importActions(app.store.actions, appStore.id)
-
   console.log('Creating new app...')
 
   const {
@@ -95,7 +73,15 @@ export const createApp = async (app: IAppExport, userId: string) => {
         name: app.name,
         owner: connectNode(userId),
         slug: app.slug,
-        store: connectNode(appStore.id),
+        store: {
+          create: {
+            node: {
+              id: app.store.id,
+              name: app.store.name,
+              api: connectNode(app.store.api.id),
+            },
+          },
+        },
         pages: {
           create: app.pages.map((page) => ({
             node: {
@@ -109,6 +95,10 @@ export const createApp = async (app: IAppExport, userId: string) => {
       },
     ],
   })
+
+  console.log('Creating actions...')
+
+  await importActions(app.store.actions, app.store.id)
 
   return importedApp
 }
