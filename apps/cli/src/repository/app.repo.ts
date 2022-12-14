@@ -18,7 +18,6 @@ export const createApp = async (app: IAppExport, userId: string) => {
   cLog(omit(app, ['pages']))
 
   const App = await Repository.instance.App
-  const Store = await Repository.instance.Store
   const { pages } = app
   await validate(pages)
 

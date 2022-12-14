@@ -109,6 +109,10 @@ export const updateImportedElement = async (
     where: { id: element.id },
     update: {
       parentComponent: connectNode(element.parentComponent?.id),
+      firstChild: connectNode(element.firstChild?.id),
+      nextSibling: connectNode(element.nextSibling?.id),
+      prevSibling: connectNode(element.prevSibling?.id),
+      parent: connectNode(element.parent?.id),
       renderComponentType: connectNode(element.renderComponentType?.id),
       props: element.props
         ? {
