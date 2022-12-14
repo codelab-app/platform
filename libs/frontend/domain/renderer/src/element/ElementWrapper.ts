@@ -64,8 +64,9 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     let propsPassedFromParentComponent: Maybe<IPropData>
 
-    if (element.parentId) {
-      propsPassedFromParentComponent = componentPropsContext[element.parentId]
+    if (element.parentElement) {
+      propsPassedFromParentComponent =
+        componentPropsContext[element.parentElement.id]
     }
 
     // Render the element to an intermediate output
