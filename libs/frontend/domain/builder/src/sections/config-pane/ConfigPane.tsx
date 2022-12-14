@@ -39,7 +39,6 @@ interface MetaPaneProps {
   componentService: IComponentService
   actionService: IActionService
   userService: IUserService
-  pageId: string
 }
 
 export const ConfigPane = observer<MetaPaneProps>(
@@ -53,7 +52,6 @@ export const ConfigPane = observer<MetaPaneProps>(
     elementTree,
     actionService,
     userService,
-    pageId,
   }) => {
     const { providePropCompletion } = usePropCompletion(renderService)
     const selectedNode = builderService.selectedNode
@@ -83,7 +81,6 @@ export const ConfigPane = observer<MetaPaneProps>(
                         element={node}
                         elementService={elementService}
                         key={node.id + '_update_form'}
-                        pageId={pageId}
                         providePropCompletion={(value) =>
                           providePropCompletion(value, node.id)
                         }

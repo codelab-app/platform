@@ -19,7 +19,6 @@ import { updateElementSchema } from './updateElementSchema'
 
 export interface UpdateElementFormProps {
   element: IElement
-  pageId: string
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
