@@ -76,7 +76,10 @@ const PageBuilder: CodelabPage<IPageProps> = observer(
       })
 
       appStore.state.setMany(appService.appsJson)
-      appStore.state.setMany(getServerSidePropsData)
+
+      if (getServerSidePropsData) {
+        appStore.state.setMany(getServerSidePropsData)
+      }
 
       return {
         pageTree,

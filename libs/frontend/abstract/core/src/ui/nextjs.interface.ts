@@ -20,7 +20,7 @@ export interface IPageProps {
   // storeSnapshot?: SnapshotOutOfModel<any>
   user?: Auth0SessionUser
   // data returned by user after running code inside getServerSideProps
-  getServerSidePropsData: IPropData
+  getServerSidePropsData?: IPropData
   // snapshot?: {
   // rootStore: SnapshotOutOfModel<any>
   // appService: SnapshotOutOfModel<any>

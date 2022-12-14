@@ -83,6 +83,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                         element={node}
                         elementService={elementService}
                         key={node.id + '_update_form'}
+                        pageId={pageId}
                         providePropCompletion={(value) =>
                           providePropCompletion(value, node.id)
                         }
