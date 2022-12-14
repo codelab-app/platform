@@ -1,12 +1,14 @@
-import { Extension } from '@codemirror/state'
-import { graphql as cm6Graphql } from 'cm6-graphql'
-import { GraphQLSchema } from 'graphql'
-import { buildClientSchema, getIntrospectionQuery } from 'graphql/utilities'
+import type { Extension } from '@codemirror/state'
+import type { GraphQLSchema } from 'graphql'
 
 export const getRemoteSchema = async function (
   endpoint: string,
 ): Promise<GraphQLSchema | undefined> {
   try {
+    const { buildClientSchema, getIntrospectionQuery } = await import(
+      'graphql/utilities'
+    )
+
     const { data, errors } = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -30,12 +32,14 @@ export const getRemoteSchema = async function (
 export const graphqlExtensionFactory = async (
   url: string,
 ): Promise<Array<Extension>> => {
-  // fetch schema
-  const schema = await getRemoteSchema(url)
+  const [{ graphql }, schema] = await Promise.all([
+    import('cm6-graphql'),
+    getRemoteSchema(url),
+  ])
 
   if (!schema) {
-    return cm6Graphql()
+    return graphql()
   }
 
-  return cm6Graphql(schema)
+  return graphql(schema)
 }

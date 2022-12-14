@@ -4,7 +4,6 @@ import { bracketMatching, syntaxHighlighting } from '@codemirror/language'
 import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
 import { lineNumbers } from '@codemirror/view'
 import { Form, Spin } from 'antd'
-import { graphql } from 'cm6-graphql'
 import React, { Ref } from 'react'
 import { useAsync } from 'react-use'
 import { connectField, Context, FieldProps, useForm } from 'uniforms'
@@ -42,17 +41,12 @@ export const CodeMirrorGraphqlField = <T,>(
       const form = useForm<T>()
       const url = baseProps.getUrl(form)
 
-      // eslint-disable-next-line prefer-const
-      let { value: extension, loading } = useAsync(
+      const { value: graphqlExtension, loading } = useAsync(
         () => graphqlExtensionFactory(url),
         [],
       )
 
-      if (!extension) {
-        extension = [graphql()]
-      }
-
-      extension = [
+      const extension = [
         bracketMatching(),
         closeBrackets(),
         history(),
@@ -60,7 +54,7 @@ export const CodeMirrorGraphqlField = <T,>(
         lineNumbers(),
         oneDark,
         syntaxHighlighting(oneDarkHighlightStyle),
-        extension,
+        graphqlExtension ?? [],
       ]
 
       return (
