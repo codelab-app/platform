@@ -107,11 +107,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
             <AutoField name="allowedValues" />
           )}
           <DisplayIfKind kind={ITypeKind.ArrayType}>
-            <TypeSelect
-              label="Array Item Type"
-              name="arrayTypeId"
-              types={typeService.typesList}
-            />
+            <TypeSelect label="Array Item Type" name="arrayTypeId" />
           </DisplayIfKind>
           <DisplayIfKind kind={ITypeKind.CodeMirrorType}>
             <AutoField label="Language" name="language" />

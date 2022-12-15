@@ -75,11 +75,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
               'defaultValues',
             ]}
           />
-          <TypeSelect
-            label="Type"
-            name="fieldType"
-            types={typeService.typesList}
-          />
+          <TypeSelect label="Type" name="fieldType" />
           <AutoFields fields={['validationRules.general']} />
           <DisplayIfField<ICreateFieldDTO>
             condition={({ model }) => isPrimitive(typeService, model.fieldType)}

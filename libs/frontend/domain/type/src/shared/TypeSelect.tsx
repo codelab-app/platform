@@ -1,4 +1,3 @@
-import { IAnyType } from '@codelab/frontend/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -16,7 +15,6 @@ export type CreateTypeOptions = (
 ) => Array<Option>
 
 export interface TypeSelectProps {
-  types: Array<IAnyType>
   name: string
   label: string
   createTypeOptions?: CreateTypeOptions
