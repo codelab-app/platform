@@ -1,4 +1,7 @@
-import { IResource, IResourceService } from '@codelab/frontend/abstract/core'
+import type {
+  IResource,
+  IResourceService,
+} from '@codelab/frontend/abstract/core'
 import { Card } from 'antd'
 import capitalize from 'lodash/capitalize'
 import { observer } from 'mobx-react-lite'

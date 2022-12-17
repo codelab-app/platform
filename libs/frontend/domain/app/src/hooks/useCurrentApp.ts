@@ -1,4 +1,4 @@
-import { IAppService } from '@codelab/frontend/abstract/core'
+import type { IAppService } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { useAsync } from 'react-use'
 

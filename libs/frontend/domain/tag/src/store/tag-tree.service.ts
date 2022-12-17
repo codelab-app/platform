@@ -1,6 +1,7 @@
-import { ITag, ITagTreeService } from '@codelab/frontend/abstract/core'
+import type { ITag, ITagTreeService } from '@codelab/frontend/abstract/core'
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { tagRef } from './tag.model'
 
 @model('@codelab/TagTreeService')

@@ -1,7 +1,7 @@
-import { IResourceType } from '@codelab/shared/abstract/core'
-import { IGraphQLResourceConfig } from './graphql-resource-config.interface'
-import { ResourceFragment } from './resource.fragment.graphql.gen'
-import { IRestResourceConfig } from './rest-resource-config.interface'
+import type { IResourceType } from '@codelab/shared/abstract/core'
+import type { IGraphQLResourceConfig } from './graphql-resource-config.interface'
+import type { ResourceFragment } from './resource.fragment.graphql.gen'
+import type { IRestResourceConfig } from './rest-resource-config.interface'
 
 export interface ICreateResourceDTO {
   name: string

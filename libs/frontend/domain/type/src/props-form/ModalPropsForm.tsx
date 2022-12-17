@@ -1,7 +1,8 @@
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { PropsForm, PropsFormProps } from './PropsForm'
+import type { PropsFormProps } from './PropsForm'
+import { PropsForm } from './PropsForm'
 
 type ModalPropsFormProps = React.PropsWithChildren<PropsFormProps>
 

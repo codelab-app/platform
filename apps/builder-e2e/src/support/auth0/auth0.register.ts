@@ -1,4 +1,4 @@
-import { CypressCommand } from '../types'
+import type { CypressCommand } from '../types'
 import { loginByAuth0Api } from './auth0.command'
 
 export interface Auth0Commands {

@@ -1,6 +1,6 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { IElementExport } from './element.interface'
-import { IStoreExport } from './store.interface'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { IElementExport } from './element.interface'
+import type { IStoreExport } from './store.interface'
 
 export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
   pages: Array<IPageExport>

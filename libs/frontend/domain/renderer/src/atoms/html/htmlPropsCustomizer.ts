@@ -1,5 +1,5 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { AtomCustomizer, AtomCustomizerFn } from '../types'
+import type { AtomCustomizer, AtomCustomizerFn } from '../types'
 
 const reactFragmentFn: AtomCustomizerFn = ({ props }) => {
   const { key } = props

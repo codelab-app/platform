@@ -1,13 +1,15 @@
-import {
-  APP_PAGE_NAME,
-  APP_PAGE_SLUG,
-  DEFAULT_GET_SERVER_SIDE_PROPS,
+import type {
   IApp,
   IAppDTO,
   IAppService,
   ICreateAppDTO,
   IPageBuilderAppProps,
   IUpdateAppDTO,
+} from '@codelab/frontend/abstract/core'
+import {
+  APP_PAGE_NAME,
+  APP_PAGE_SLUG,
+  DEFAULT_GET_SERVER_SIDE_PROPS,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/domain/page'
@@ -17,9 +19,9 @@ import {
 } from '@codelab/frontend/domain/store'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
-import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
+import type { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/data'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'

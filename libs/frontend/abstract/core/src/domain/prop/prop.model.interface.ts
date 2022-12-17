@@ -1,7 +1,7 @@
-import { Frozen } from 'mobx-keystone'
-import { ICacheService } from '../../service'
-import { IElement } from '../element'
-import { IPropDTO } from './prop.dto.interface'
+import type { Frozen } from 'mobx-keystone'
+import type { ICacheService } from '../../service'
+import type { IElement } from '../element'
+import type { IPropDTO } from './prop.dto.interface'
 
 export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   id: string

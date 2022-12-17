@@ -3,8 +3,8 @@ import {
   tagDescendants,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { Element } from '@codelab/shared/abstract/codegen'
-import { Node, Transaction } from 'neo4j-driver'
+import type { Element } from '@codelab/shared/abstract/codegen'
+import type { Node, Transaction } from 'neo4j-driver'
 
 export const tagRepository = {
   /**

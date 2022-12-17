@@ -1,4 +1,4 @@
-import { IProp, IPropService } from '@codelab/frontend/abstract/core'
+import type { IProp, IPropService } from '@codelab/frontend/abstract/core'
 import { idProp, Model, model, objectMap, prop } from 'mobx-keystone'
 
 @model('@codelab/PropService')

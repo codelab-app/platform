@@ -1,5 +1,5 @@
 /* eslint-disable no-inline-comments */
-import { Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 
 export type UnboxNullableRef<Entity extends object | Array<object> = never> =
   // If entity is an array

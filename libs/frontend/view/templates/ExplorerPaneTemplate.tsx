@@ -1,7 +1,8 @@
 import { css } from '@emotion/react'
 import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import styled from '@emotion/styled'
-import { PageHeader, PageHeaderProps } from 'antd'
+import type { PageHeaderProps } from 'antd'
+import { PageHeader } from 'antd'
 import React from 'react'
 import tw, { GlobalStyles } from 'twin.macro'
 

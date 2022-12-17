@@ -1,30 +1,30 @@
-import {
+import type {
   ElementOptions,
   ElementUpdateInput,
   ElementWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import {
+import type {
   ICreatePropMapBindingDTO,
   IPropMapBinding,
   IUpdatePropMapBindingDTO,
 } from '../prop'
-import { IAuth0Id } from '../user'
-import {
+import type { IAuth0Id } from '../user'
+import type {
   ICreateElementDTO,
   IElementDTO,
   IUpdateElementDTO,
 } from './element.dto.interface'
-import { IElement, IElementRef } from './element.model.interface'
+import type { IElement, IElementRef } from './element.model.interface'
 
 /**
  * Used for modal input

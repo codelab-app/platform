@@ -1,4 +1,4 @@
-import { IAtomExport } from '@codelab/backend/abstract/core'
+import type { IAtomExport } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

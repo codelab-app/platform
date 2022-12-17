@@ -1,5 +1,5 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { IBaseType } from '../base-type'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseType } from '../base-type'
 
 /**
  * Prop values for this type have the shape of {@see TypedValue} in order to

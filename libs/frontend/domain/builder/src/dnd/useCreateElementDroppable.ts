@@ -1,4 +1,7 @@
-import { ICreateElementDTO, IElementRef } from '@codelab/frontend/abstract/core'
+import type {
+  ICreateElementDTO,
+  IElementRef,
+} from '@codelab/frontend/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 
 export const useCreateElementDroppable = (

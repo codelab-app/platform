@@ -1,4 +1,4 @@
-import {
+import type {
   IActionDTO,
   IAnyActionWhere,
   IConnectActionInput,
@@ -8,17 +8,15 @@ import {
   IUpdateActionInput,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
-import { CodeActionCreateInput } from '@codelab/shared/abstract/codegen'
+import type { CodeActionCreateInput } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { UnboxArray } from '@codelab/shared/abstract/types'
-import { Maybe } from 'graphql/jsutils/Maybe'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { UnboxArray } from '@codelab/shared/abstract/types'
+import type { Maybe } from 'graphql/jsutils/Maybe'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { getSdk as getCreateSdk } from '../../graphql/create-action.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-action.endpoints.graphql.gen'
-import {
-  GetActionsQuery,
-  getSdk as getGetSdk,
-} from '../../graphql/get-action.endpoints.graphql.gen'
+import type { GetActionsQuery } from '../../graphql/get-action.endpoints.graphql.gen'
+import { getSdk as getGetSdk } from '../../graphql/get-action.endpoints.graphql.gen'
 import { getSdk as getUpdateSdk } from '../../graphql/update-action.endpoints.graphql.gen'
 
 export const getActionApi = getGetSdk(client)

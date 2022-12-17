@@ -1,4 +1,4 @@
-import { IPropData } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/frontend/abstract/core'
 import type { Completion } from '@codemirror/autocomplete'
 import capitalize from 'lodash/capitalize'
 import isArray from 'lodash/isArray'

@@ -1,4 +1,4 @@
-import {
+import type {
   IElement,
   IPropData,
   IRenderOutput,
@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { atomFactory } from '../atoms'
 import { evalCss } from '../utils/evalCss'

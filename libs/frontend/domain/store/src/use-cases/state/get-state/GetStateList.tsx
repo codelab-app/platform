@@ -1,9 +1,9 @@
-import {
+import type {
   IFieldService,
   IInterfaceType,
   IStore,
 } from '@codelab/frontend/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/codegen'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

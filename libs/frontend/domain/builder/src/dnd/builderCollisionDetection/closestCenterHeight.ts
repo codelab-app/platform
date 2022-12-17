@@ -1,4 +1,4 @@
-import { CollisionDescriptor, CollisionDetection } from '@dnd-kit/core'
+import type { CollisionDescriptor, CollisionDetection } from '@dnd-kit/core'
 
 /**
  * Returns the coordinates of the center of a given ClientRect

@@ -1,5 +1,5 @@
-import { IAuth0Id } from '../user'
-import { StoreFragment } from './store.fragment.graphql.gen'
+import type { IAuth0Id } from '../user'
+import type { StoreFragment } from './store.fragment.graphql.gen'
 
 export interface ICreateStoreDTO {
   id: string

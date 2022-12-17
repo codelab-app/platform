@@ -1,4 +1,4 @@
-import { QueryConfigDescriptionProps } from './types'
+import type { QueryConfigDescriptionProps } from './types'
 
 export const QueryConfigDescription = ({
   config,

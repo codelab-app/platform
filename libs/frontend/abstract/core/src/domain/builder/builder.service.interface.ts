@@ -1,11 +1,11 @@
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { Frozen, Ref } from 'mobx-keystone'
-import { IAtom } from '../atom'
-import { IComponent } from '../component'
-import { IElementTree } from '../element'
-import { RendererTab } from '../render'
-import { BuilderDragData } from './builder.interface'
-import { INode } from './node.interface'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Frozen, Ref } from 'mobx-keystone'
+import type { IAtom } from '../atom'
+import type { IComponent } from '../component'
+import type { IElementTree } from '../element'
+import type { RendererTab } from '../render'
+import type { BuilderDragData } from './builder.interface'
+import type { INode } from './node.interface'
 
 // TBC: | IComponent
 export type IBuilderComponent = IAtom & {

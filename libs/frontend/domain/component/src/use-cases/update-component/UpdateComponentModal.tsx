@@ -1,4 +1,4 @@
-import {
+import type {
   IComponentService,
   IUpdateComponentDTO,
 } from '@codelab/frontend/abstract/core'

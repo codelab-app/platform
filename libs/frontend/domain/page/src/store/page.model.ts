@@ -1,12 +1,8 @@
-import type {
-  IElement,
-  IPageDTO,
-  IPropData,
-} from '@codelab/frontend/abstract/core'
-import { IPage } from '@codelab/frontend/abstract/core'
+import type { IPage, IPropData } from '@codelab/frontend/abstract/core'
+import { IElement, IPageDTO } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { extractSlug } from '@codelab/frontend/shared/utils'
-import { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 import { pageApi } from './page.api'

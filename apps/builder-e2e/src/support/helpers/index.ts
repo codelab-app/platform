@@ -1,9 +1,7 @@
-import { CypressCommand } from '../types'
+import type { CypressCommand } from '../types'
 import { createPageFromScratch } from './createPageFromScratch'
-import {
-  CypressGraphQLHelpersCommands,
-  graphQLCommands,
-} from './graphql.commands'
+import type { CypressGraphQLHelpersCommands } from './graphql.commands'
+import { graphQLCommands } from './graphql.commands'
 
 export interface CypressHelpersCommands extends CypressGraphQLHelpersCommands {
   createPageFromScratch: typeof createPageFromScratch

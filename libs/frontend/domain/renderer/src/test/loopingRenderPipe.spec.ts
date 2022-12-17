@@ -1,4 +1,4 @@
-import { IRenderOutput } from '@codelab/frontend/abstract/core'
+import type { IRenderOutput } from '@codelab/frontend/abstract/core'
 import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
 

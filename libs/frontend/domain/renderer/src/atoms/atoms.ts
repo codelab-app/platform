@@ -1,9 +1,9 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms, antdPropsCustomizer } from './antd'
 import { codelabAtoms } from './codelab'
 import { htmlAtoms, htmlPropsCustomizer } from './html'
 import { muiAtoms, muiPropsCustomizer } from './mui'
-import { AtomCustomizer, AtomsRecord, IComponentType } from './types'
+import type { AtomCustomizer, AtomsRecord, IComponentType } from './types'
 
 // Add new atom records here
 const allAtoms: AtomsRecord = {

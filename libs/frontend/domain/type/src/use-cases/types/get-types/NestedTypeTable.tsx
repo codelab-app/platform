@@ -1,4 +1,7 @@
-import { IFieldService, ITypeService } from '@codelab/frontend/abstract/core'
+import type {
+  IFieldService,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import { Spin } from 'antd'
 import React from 'react'
 import { useAsync } from 'react-use'

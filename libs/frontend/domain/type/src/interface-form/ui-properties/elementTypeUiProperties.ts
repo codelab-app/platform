@@ -1,6 +1,6 @@
-import { IElementType } from '@codelab/frontend/abstract/core'
+import type { IElementType } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '../fields'
-import { UiPropertiesFn } from '../types'
+import type { UiPropertiesFn } from '../types'
 
 export const elementTypeUiProperties: UiPropertiesFn<IElementType> = (type) => {
   return {

@@ -1,5 +1,6 @@
-import { Nullish } from '@codelab/shared/abstract/types'
-import { UseCodeMirror, useCodeMirror } from '@uiw/react-codemirror'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { UseCodeMirror } from '@uiw/react-codemirror'
+import { useCodeMirror } from '@uiw/react-codemirror'
 import AntdModal from 'antd/lib/modal'
 import React, { useEffect, useRef, useState } from 'react'
 

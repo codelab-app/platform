@@ -1,23 +1,23 @@
-import {
+import type {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IResourceType } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import {
+import type { IResourceType } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import {
+import type {
   ICreateResourceDTO,
   IResourceDTO,
   IUpdateResourceDTO,
 } from './resource.dto.interface'
-import { IResource, IResourceRef } from './resource.model.interface'
+import type { IResource, IResourceRef } from './resource.model.interface'
 
 export interface CreateResourceData {
   type?: IResourceType

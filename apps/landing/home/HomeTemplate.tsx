@@ -1,5 +1,6 @@
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
-import React, { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 import { useRecoilValue } from 'recoil'
 import tw from 'twin.macro'
 import { Footer } from '../sections/footer/Footer'

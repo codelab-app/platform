@@ -1,6 +1,5 @@
 import type {
   IAtom,
-  IBuilderDataNode,
   IComponent,
   IElement,
   IElementDTO,
@@ -18,6 +17,7 @@ import {
   CssMap,
   DATA_ELEMENT_ID,
   ELEMENT_NODE_TYPE,
+  IBuilderDataNode,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
@@ -27,15 +27,16 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import { extractSlug } from '@codelab/frontend/shared/utils'
-import { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import {
-  AnyModel,
   findParent,
   getRefsResolvingTo,
   idProp,
@@ -45,7 +46,6 @@ import {
   modelTypeKey,
   objectMap,
   prop,
-  Ref,
 } from 'mobx-keystone'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'

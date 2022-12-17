@@ -1,14 +1,12 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import {
+import type {
   CssMap,
   IElement,
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
-import {
-  CodeMirrorEditor,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
+import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Col, Collapse, Row } from 'antd'
 import isString from 'lodash/isString'

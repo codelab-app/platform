@@ -1,9 +1,10 @@
 import { getBaseTypes } from '@codelab/backend/infra/adapter/neo4j'
-import {
+import type {
   GetBaseTypesReturn,
   QueryBaseTypesArgs,
 } from '@codelab/shared/abstract/codegen'
-import { int, Transaction } from 'neo4j-driver'
+import type { Transaction } from 'neo4j-driver'
+import { int } from 'neo4j-driver'
 
 export const typeRepository = {
   baseTypes: async (

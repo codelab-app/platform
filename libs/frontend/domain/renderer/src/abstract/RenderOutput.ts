@@ -1,5 +1,5 @@
-import { IPropData, IRenderOutput } from '@codelab/frontend/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import type { IPropData, IRenderOutput } from '@codelab/frontend/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 
 // Named factory methods for convenience

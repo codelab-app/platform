@@ -1,14 +1,13 @@
-import {
+import type {
   IAnyAction,
   IApiAction,
   IApiActionConfig,
-  IApiActionDTO,
   IGraphQLActionConfig,
-  IProp,
   IPropData,
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
+import { IApiActionDTO, IProp } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
 import { tryParse } from '@codelab/frontend/shared/utils'
@@ -17,12 +16,14 @@ import {
   IActionKind,
   IResourceType,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
-import axios, { Axios, Method } from 'axios'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Axios, Method } from 'axios'
+import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
-import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { actionRef } from './action.ref'
 import { createBaseAction, updateBaseAction } from './base-action.model'
 import { storeRef } from './store.model'

@@ -1,6 +1,6 @@
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { IBaseType } from '../base-type'
+import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseType } from '../base-type'
 
 export interface ICodeMirrorType extends IBaseType {
   kind: ITypeKind.CodeMirrorType

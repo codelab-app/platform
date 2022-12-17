@@ -1,11 +1,12 @@
-import { ITagService } from '@codelab/frontend/abstract/core'
+import type { ITagService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields, ListField } from 'uniforms-antd'
-import { DeleteTagsData, deleteTagsSchema } from './deleteTagsSchema'
+import type { DeleteTagsData } from './deleteTagsSchema'
+import { deleteTagsSchema } from './deleteTagsSchema'
 
 export const DeleteTagsModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {

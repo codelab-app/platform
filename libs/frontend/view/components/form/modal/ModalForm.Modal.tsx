@@ -1,7 +1,9 @@
-import { SubmitController } from '@codelab/frontend/abstract/types'
-import { Maybe } from '@codelab/shared/abstract/types'
-import AntdModal, { ModalProps as AntModalProps } from 'antd/lib/modal'
-import React, { PropsWithChildren, useRef, useState } from 'react'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ModalProps as AntModalProps } from 'antd/lib/modal'
+import AntdModal from 'antd/lib/modal'
+import type { PropsWithChildren } from 'react'
+import React, { useRef, useState } from 'react'
 import { handleSubmitRefModalOk } from '../components/utils'
 import { ModalFormContext } from './ModalForm.Context'
 

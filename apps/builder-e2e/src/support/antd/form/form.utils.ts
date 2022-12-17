@@ -4,10 +4,10 @@ import isNumber from 'lodash/isNumber'
 import map from 'lodash/map'
 import mapValues from 'lodash/mapValues'
 import merge from 'lodash/merge'
-import { CommonOptions } from '../types'
+import type { CommonOptions } from '../types'
 import { MUTE } from '../utils'
 import { getSelectDropdown } from './form.commands'
-import { ScrollPosition } from './form.types'
+import type { ScrollPosition } from './form.types'
 
 export const mergeFields = (fields: any, additionalProps: any) => {
   const [empty, mapPropValues]: [

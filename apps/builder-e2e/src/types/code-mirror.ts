@@ -1,4 +1,4 @@
-import CodeMirror from 'codemirror'
+import type CodeMirror from 'codemirror'
 
 export interface CodeMirrorHTMLElement extends HTMLElement {
   CodeMirror: CodeMirror.Editor

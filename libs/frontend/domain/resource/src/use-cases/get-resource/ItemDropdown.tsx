@@ -3,10 +3,15 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-import { IResource, IResourceService } from '@codelab/frontend/abstract/core'
-import { Button, Dropdown, Menu, MenuProps } from 'antd'
+import type {
+  IResource,
+  IResourceService,
+} from '@codelab/frontend/abstract/core'
+import type { MenuProps } from 'antd'
+import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
+import React from 'react'
 import { resourceRef } from '../../store'
 
 export interface ItemMenuProps {

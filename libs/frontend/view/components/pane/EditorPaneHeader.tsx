@@ -1,5 +1,6 @@
 import { Row } from 'antd'
-import React, { PropsWithChildren, ReactNode } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 
 type EditorPaneHeaderProps = PropsWithChildren<{

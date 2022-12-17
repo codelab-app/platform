@@ -1,6 +1,6 @@
-import { SubmitController } from '@codelab/frontend/abstract/types'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import React from 'react'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type React from 'react'
 
 export const setSubmitControllerRef =
   (submitButtonRef: Maybe<React.MutableRefObject<Maybe<SubmitController>>>) =>

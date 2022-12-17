@@ -1,3 +1,3 @@
-import { ApiActionFragment } from '../../fragments'
+import type { ApiActionFragment } from '../../fragments'
 
 export type IApiActionDTO = ApiActionFragment

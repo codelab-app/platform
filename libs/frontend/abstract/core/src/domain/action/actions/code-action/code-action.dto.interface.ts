@@ -1,3 +1,3 @@
-import { CodeActionFragment } from '../../fragments'
+import type { CodeActionFragment } from '../../fragments'
 
 export type ICodeActionDTO = CodeActionFragment

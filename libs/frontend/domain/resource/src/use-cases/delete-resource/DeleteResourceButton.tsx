@@ -1,6 +1,6 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { IResourceService } from '@codelab/frontend/abstract/core'
-import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
+import type { IResourceService } from '@codelab/frontend/abstract/core'
+import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

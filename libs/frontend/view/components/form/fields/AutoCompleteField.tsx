@@ -1,7 +1,10 @@
-import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
-import { RefSelectProps } from 'antd/lib/select'
-import React, { Ref } from 'react'
-import { connectField, FieldProps, filterDOMProps } from 'uniforms'
+import type { AutoCompleteProps } from 'antd/lib/auto-complete'
+import AutoComplete from 'antd/lib/auto-complete'
+import type { RefSelectProps } from 'antd/lib/select'
+import type { Ref } from 'react'
+import React from 'react'
+import type { FieldProps } from 'uniforms'
+import { connectField, filterDOMProps } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
 
 export type AutoCompleteFieldProps = FieldProps<

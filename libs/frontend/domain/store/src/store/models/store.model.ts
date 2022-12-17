@@ -1,8 +1,10 @@
-import {
+import type {
   IInterfaceType,
   IProp,
   IPropData,
   IStore,
+} from '@codelab/frontend/abstract/core'
+import {
   IStoreDTO,
   STATE_PATH_TEMPLATE_REGEX,
 } from '@codelab/frontend/abstract/core'
@@ -17,6 +19,7 @@ import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 import { computed, reaction } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -24,7 +27,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 import { getActionService } from '../action.service'

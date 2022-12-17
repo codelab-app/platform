@@ -1,4 +1,4 @@
-import { CodelabPage } from '@codelab/frontend/abstract/types'
+import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
   BuilderExplorerPane,

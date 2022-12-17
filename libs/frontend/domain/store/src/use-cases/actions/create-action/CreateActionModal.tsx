@@ -1,10 +1,10 @@
-import {
-  HttpMethod,
+import type {
   IActionService,
   ICreateActionDTO,
   IResourceService,
   IStore,
 } from '@codelab/frontend/abstract/core'
+import { HttpMethod } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
@@ -12,7 +12,7 @@ import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Context } from 'uniforms'
+import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 

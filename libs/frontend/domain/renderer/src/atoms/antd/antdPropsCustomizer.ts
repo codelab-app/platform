@@ -3,7 +3,7 @@ import {
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { AtomCustomizer, AtomCustomizerFn } from '../types'
+import type { AtomCustomizer, AtomCustomizerFn } from '../types'
 
 const antDesignRglItemFn: AtomCustomizerFn = ({ node, props }) => ({
   // Currently the react-grid-layout library, for some reason, re-renders the layout

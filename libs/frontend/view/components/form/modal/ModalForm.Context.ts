@@ -1,7 +1,8 @@
-import { SubmitController } from '@codelab/frontend/abstract/types'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { createContext, MutableRefObject } from 'react'
-import { SetIsLoading } from '../components/utils'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { MutableRefObject } from 'react'
+import { createContext } from 'react'
+import type { SetIsLoading } from '../components/utils'
 
 export interface IModalFormContext {
   isLoading: boolean

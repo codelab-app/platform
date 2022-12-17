@@ -1,4 +1,4 @@
-import { CodelabPage } from '@codelab/frontend/abstract/types'
+import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateLambdaButton,
   CreateLambdaModal,
@@ -7,10 +7,8 @@ import {
   UpdateLambdaModal,
 } from '@codelab/frontend/domain/lambda'
 import { ContentSection } from '@codelab/frontend/view/sections'
-import {
-  DashboardTemplate,
-  DashboardTemplateProps,
-} from '@codelab/frontend/view/templates'
+import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
 import Head from 'next/head'

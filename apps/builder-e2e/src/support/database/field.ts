@@ -1,5 +1,5 @@
-import { IFieldDTO } from '@codelab/frontend/abstract/core'
-import { FieldCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IFieldDTO } from '@codelab/frontend/abstract/core'
+import type { FieldCreateInput } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { CreateFieldsDocument } from 'libs/frontend/domain/type/src/graphql/field.endpoints.graphql.gen'
 

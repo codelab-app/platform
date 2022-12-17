@@ -1,9 +1,11 @@
-import { IApp, IAppDTO, IPage, IStore } from '@codelab/frontend/abstract/core'
+import type { IApp, IPage, IStore } from '@codelab/frontend/abstract/core'
+import { IAppDTO } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { pageRef } from '@codelab/frontend/domain/page'
 import { storeRef } from '@codelab/frontend/domain/store'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   ExtendedModel,
@@ -11,7 +13,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 

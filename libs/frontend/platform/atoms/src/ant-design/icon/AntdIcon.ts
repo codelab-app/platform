@@ -1,6 +1,7 @@
 import * as AntdIcons from '@ant-design/icons'
-import { IconProps } from '@ant-design/icons/lib/components/IconBase'
-import React, { ReactElement } from 'react'
+import type { IconProps } from '@ant-design/icons/lib/components/IconBase'
+import type { ReactElement } from 'react'
+import React from 'react'
 
 type _IconProps = IconProps & {
   /**

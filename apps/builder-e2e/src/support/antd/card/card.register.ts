@@ -1,10 +1,6 @@
-import { CypressCommand } from '../../types'
-import {
-  getCard,
-  getCardActions,
-  getCardContent,
-  getCardTitle,
-} from './card.command'
+import type { CypressCommand } from '../../types'
+import type { getCardActions } from './card.command'
+import { getCard, getCardContent, getCardTitle } from './card.command'
 
 export interface AntCardCommands {
   getCard: typeof getCard

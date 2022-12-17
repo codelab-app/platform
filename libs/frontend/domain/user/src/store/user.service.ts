@@ -1,8 +1,12 @@
-import { IUser, IUserDTO, IUserService } from '@codelab/frontend/abstract/core'
+import type {
+  IUser,
+  IUserDTO,
+  IUserService,
+} from '@codelab/frontend/abstract/core'
 import { App, getAppService } from '@codelab/frontend/domain/app'
 import { getPageService, Page } from '@codelab/frontend/domain/page'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,

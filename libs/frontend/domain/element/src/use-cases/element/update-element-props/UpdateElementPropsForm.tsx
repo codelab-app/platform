@@ -1,17 +1,15 @@
-import {
+import type {
   IElement,
   IElementService,
   IPropData,
-  isAdmin,
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import { isAdmin } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { PropsForm } from '@codelab/frontend/domain/type'
-import {
-  Spinner,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
+import { Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

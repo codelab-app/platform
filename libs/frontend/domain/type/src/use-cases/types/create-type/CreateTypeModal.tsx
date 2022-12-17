@@ -1,4 +1,4 @@
-import {
+import type {
   ICreateTypeDTO,
   ITypeService,
   IUserService,

@@ -1,4 +1,4 @@
-import { IPageProps, IRootStore } from '@codelab/frontend/abstract/core'
+import type { IPageProps, IRootStore } from '@codelab/frontend/abstract/core'
 import { User } from '@codelab/frontend/domain/user'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { registerRootStore } from 'mobx-keystone'

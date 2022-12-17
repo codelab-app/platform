@@ -1,4 +1,4 @@
-import { ExistingData } from '@codelab/backend/abstract/core'
+import type { ExistingData } from '@codelab/backend/abstract/core'
 import {
   atomSelectionSet,
   exportActionTypeSelectionSet,

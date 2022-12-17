@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
 import React from 'react'
-import { ListItemButton, ListItemButtonProps } from './ListItemButton'
+import type { ListItemButtonProps } from './ListItemButton'
+import { ListItemButton } from './ListItemButton'
 
 export type ListItemCreateButtonProps = Omit<
   ListItemButtonProps,

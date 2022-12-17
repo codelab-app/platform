@@ -1,4 +1,7 @@
-import { ITypeService, IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  ITypeService,
+  IUpdateTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'

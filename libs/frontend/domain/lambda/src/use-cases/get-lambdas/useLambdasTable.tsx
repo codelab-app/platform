@@ -1,5 +1,5 @@
 import React from 'react'
-import { LambdaFragment } from '../../graphql/lambda.fragment.graphql.gen'
+import type { LambdaFragment } from '../../graphql/lambda.fragment.graphql.gen'
 import { ActionColumn } from './colums/ActionColumn'
 
 export const useLambdaTable = () => {

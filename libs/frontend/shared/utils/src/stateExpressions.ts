@@ -1,6 +1,6 @@
 import type { BabelFileResult, TransformOptions } from '@babel/core'
+import type { IPropData } from '@codelab/frontend/abstract/core'
 import {
-  IPropData,
   STATE_PATH_TEMPLATE_END,
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'

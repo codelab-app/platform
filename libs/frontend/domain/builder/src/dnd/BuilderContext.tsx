@@ -1,12 +1,14 @@
-import {
+import type {
   IBuilderService,
   IElementService,
   IElementTree,
-  ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
-import { Active, DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import type { Active } from '@dnd-kit/core'
+import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
-import React, { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 import { useBuilderDnd } from './useBuilderDnd'
 
 /**

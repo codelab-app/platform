@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
-import { DataNode } from 'antd/lib/tree'
-import { MutableRefObject } from 'react'
+import type { DataNode } from 'antd/lib/tree'
+import type { MutableRefObject } from 'react'
 
 export const DISABLE_HOVER_CLASSNAME = 'disable-hover'
 

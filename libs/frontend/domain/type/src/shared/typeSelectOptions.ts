@@ -1,5 +1,5 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { CreateTypeOptions } from './TypeSelect'
+import type { CreateTypeOptions } from './TypeSelect'
 
 /**
  * Non-union type select

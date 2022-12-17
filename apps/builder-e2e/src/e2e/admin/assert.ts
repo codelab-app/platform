@@ -1,4 +1,4 @@
-import { ExportedData, ITagExport } from '@codelab/backend/abstract/core'
+import type { ExportedData, ITagExport } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdTagTree } from 'libs/shared/data/src/tag/antd-tag-tree.data'
 import { AntdTag } from 'libs/shared/data/src/tag/antd-tags.data'

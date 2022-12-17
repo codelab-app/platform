@@ -1,18 +1,18 @@
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import {
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
 } from '../../../service'
-import {
+import type {
   ICreateFieldDTO,
   IFieldDTO,
   IUpdateFieldDTO,
 } from '../field.dto.interface'
-import { IInterfaceType } from '../types'
-import { IField } from './field.interface'
+import type { IInterfaceType } from '../types'
+import type { IField } from './field.interface'
 
 export interface IFieldService
   extends ICRUDService<IField, ICreateFieldDTO, IUpdateFieldDTO>,

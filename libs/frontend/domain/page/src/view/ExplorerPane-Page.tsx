@@ -1,4 +1,4 @@
-import { IPageService } from '@codelab/frontend/abstract/core'
+import type { IPageService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'

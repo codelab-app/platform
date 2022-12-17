@@ -1,8 +1,6 @@
 import { DOMAIN_GRAPHQL_ERROR_CODES } from '@codelab/frontend/abstract/core'
-import {
-  extractFirstGraphQlErrorCode,
-  UseNotifyReturnType,
-} from '@codelab/frontend/shared/utils'
+import type { UseNotifyReturnType } from '@codelab/frontend/shared/utils'
+import { extractFirstGraphQlErrorCode } from '@codelab/frontend/shared/utils'
 import type { ApolloError } from 'apollo-server-micro'
 
 export const handleDomainExistError = (

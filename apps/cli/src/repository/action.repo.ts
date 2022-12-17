@@ -1,5 +1,5 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { IActionExport } from '@codelab/backend/abstract/core'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { IActionExport } from '@codelab/backend/abstract/core'
 import {
   codeActionSelectionSet,
   Repository,

@@ -1,10 +1,10 @@
-import { ITypeExport } from '@codelab/backend/abstract/core'
+import type { ITypeExport } from '@codelab/backend/abstract/core'
 import {
   exportEnumTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import type { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode, makeAllowedValuesNodeInput } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import omit from 'lodash/omit'

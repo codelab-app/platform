@@ -1,12 +1,7 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
 import type { CommonOptions } from '../types'
-import {
-  ifOnClock,
-  logAndMute,
-  MUTE,
-  tickIfOnClock,
-  TickOptions,
-} from '../utils'
+import type { TickOptions } from '../utils'
+import { ifOnClock, logAndMute, MUTE, tickIfOnClock } from '../utils'
 import { forceHidePopover, forceShowPopover } from './popover.util'
 
 export const getPopover = (options?: CommonOptions) =>

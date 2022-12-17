@@ -1,4 +1,4 @@
-import { ICreateTypeDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeDTO } from '@codelab/frontend/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IElementTypeKind,
@@ -6,7 +6,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
 /**

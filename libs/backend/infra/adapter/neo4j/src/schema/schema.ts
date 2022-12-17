@@ -1,9 +1,9 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { EnvBuilder } from '@codelab/shared/env'
-import { IResolvers } from '@graphql-tools/utils'
+import type { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
-import { Driver } from 'neo4j-driver'
+import type { Driver } from 'neo4j-driver'
 import { typeDefs } from './typeDefs'
 
 /**

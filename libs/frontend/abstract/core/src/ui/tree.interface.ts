@@ -1,6 +1,9 @@
-import { DataNode } from 'antd/lib/tree'
-import * as React from 'react'
-import { COMPONENT_NODE_TYPE, ELEMENT_NODE_TYPE } from '../base/node.interface'
+import type { DataNode } from 'antd/lib/tree'
+import type * as React from 'react'
+import type {
+  COMPONENT_NODE_TYPE,
+  ELEMENT_NODE_TYPE,
+} from '../base/node.interface'
 
 export interface IBuilderDataNode extends DataNode {
   /**

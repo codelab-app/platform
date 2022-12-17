@@ -1,4 +1,4 @@
-import { IAdminService } from '@codelab/frontend/abstract/core'
+import type { IAdminService } from '@codelab/frontend/abstract/core'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

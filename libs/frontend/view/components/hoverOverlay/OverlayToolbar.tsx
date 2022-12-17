@@ -1,5 +1,6 @@
 import { useScroll } from '@codelab/frontend/shared/utils'
-import React, { CSSProperties, RefObject } from 'react'
+import type { CSSProperties, RefObject } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import useResizeObserver from 'use-resize-observer/polyfilled'
 

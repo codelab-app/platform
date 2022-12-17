@@ -1,4 +1,4 @@
-import { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
+import type { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AppService, appServiceContext } from '@codelab/frontend/domain/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'

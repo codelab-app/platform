@@ -1,4 +1,4 @@
-import { CypressCommand } from '../../types'
+import type { CypressCommand } from '../../types'
 import { expectMessage, getMessage } from './message.command'
 
 export interface AntMessageCommands {

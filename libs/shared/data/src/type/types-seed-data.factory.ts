@@ -1,4 +1,4 @@
-import { ITypeExport } from '@codelab/backend/abstract/core'
+import type { ITypeExport } from '@codelab/backend/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

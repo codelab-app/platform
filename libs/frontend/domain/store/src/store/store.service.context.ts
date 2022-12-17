@@ -1,4 +1,4 @@
-import { IStoreService } from '@codelab/frontend/abstract/core'
+import type { IStoreService } from '@codelab/frontend/abstract/core'
 import { createContext } from 'mobx-keystone'
 
 // This can be used to access the type store from anywhere inside the mobx-keystone tree

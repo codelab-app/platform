@@ -1,4 +1,4 @@
-import { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'

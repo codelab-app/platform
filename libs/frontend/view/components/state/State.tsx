@@ -3,7 +3,7 @@ import isFunction from 'lodash/isFunction'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { stateAtomFamily } from './stateAtomFamily'
-import { StateProps } from './StateProps'
+import type { StateProps } from './StateProps'
 
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
 const eventSafeStringify = (e: any) => {

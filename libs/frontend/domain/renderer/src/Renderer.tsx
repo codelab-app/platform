@@ -1,7 +1,5 @@
-import {
-  IRenderer,
-  ROOT_RENDER_CONTAINER_ID,
-} from '@codelab/frontend/abstract/core'
+import type { IRenderer } from '@codelab/frontend/abstract/core'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'

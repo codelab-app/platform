@@ -1,6 +1,6 @@
-import { IEnumType } from '@codelab/frontend/abstract/core'
+import type { IEnumType } from '@codelab/frontend/abstract/core'
 import { ToggleExpressionField } from '@codelab/frontend/view/components'
-import { UiPropertiesFn } from '../types'
+import type { UiPropertiesFn } from '../types'
 
 export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
   type: IEnumType,

@@ -1,4 +1,4 @@
-import { AppCreateInput } from '@codelab/shared/abstract/codegen'
+import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'

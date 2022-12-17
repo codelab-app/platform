@@ -1,10 +1,10 @@
-import {
+import type {
   ICreateElementDTO,
   IElement,
   IUpdateElementDTO,
 } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
-import {
+import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'

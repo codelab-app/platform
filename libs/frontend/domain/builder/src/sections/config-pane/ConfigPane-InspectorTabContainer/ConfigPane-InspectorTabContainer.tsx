@@ -6,7 +6,7 @@ import {
   SettingOutlined,
   SwapOutlined,
 } from '@ant-design/icons'
-import {
+import type {
   IActionService,
   IAtomService,
   IBuilderService,
@@ -14,10 +14,10 @@ import {
   IElementTree,
   INode,
   IRenderer,
-  isElement,
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import { isElement } from '@codelab/frontend/abstract/core'
 import {
   ElementCssEditor,
   PropMapBindingSection,
@@ -25,16 +25,17 @@ import {
   UpdateElementPropTransformationForm,
   UpdateRichTextForm,
 } from '@codelab/frontend/domain/element'
+import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   FormContextProvider,
   LoadingIndicator,
-  UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../../../hooks'
 import { PropsInspectorTab } from '../PropsInspectorTab'

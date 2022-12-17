@@ -1,4 +1,4 @@
-import { CypressCommand } from '../../types'
+import type { CypressCommand } from '../../types'
 import { getListItem } from './list.command'
 
 export interface AntListCommands {

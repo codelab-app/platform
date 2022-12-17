@@ -1,7 +1,9 @@
-import type { IApp, IUser, IUserDTO } from '@codelab/frontend/abstract/core'
+import type { IApp, IUser } from '@codelab/frontend/abstract/core'
+import { IUserDTO } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/domain/app'
-import { IRole } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { IRole } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -9,7 +11,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 

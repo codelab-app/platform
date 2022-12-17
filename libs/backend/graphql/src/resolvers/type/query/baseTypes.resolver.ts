@@ -1,8 +1,8 @@
 import { typeRepository } from '@codelab/backend/application'
-import { QueryBaseTypesArgs } from '@codelab/shared/abstract/codegen'
-import { IFieldResolver } from '@graphql-tools/utils'
-import { GraphQLRequestContext } from 'graphql-request/dist/types'
-import { Transaction } from 'neo4j-driver'
+import type { QueryBaseTypesArgs } from '@codelab/shared/abstract/codegen'
+import type { IFieldResolver } from '@graphql-tools/utils'
+import type { GraphQLRequestContext } from 'graphql-request/dist/types'
+import type { Transaction } from 'neo4j-driver'
 
 export const baseTypes: IFieldResolver<
   GraphQLRequestContext,

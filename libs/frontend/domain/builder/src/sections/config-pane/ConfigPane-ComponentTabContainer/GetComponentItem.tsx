@@ -1,7 +1,5 @@
-import {
-  BuilderDndType,
-  IBuilderComponent,
-} from '@codelab/frontend/abstract/core'
+import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
+import { BuilderDndType } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import { antDesignIconPrefix } from '@codelab/shared/data'
 import { Card } from 'antd'

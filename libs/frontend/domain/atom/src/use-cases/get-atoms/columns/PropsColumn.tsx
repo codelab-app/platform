@@ -2,7 +2,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { AtomRecordProps } from './types'
+import type { AtomRecordProps } from './types'
 
 export const PropsColumn = ({ atom }: AtomRecordProps) => {
   return (

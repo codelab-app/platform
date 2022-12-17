@@ -1,7 +1,8 @@
-import { FormProps } from '@codelab/frontend/abstract/types'
+import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { css } from '@emotion/react'
-import React, { ReactElement, useEffect, useState } from 'react'
+import type { ReactElement } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm as BaseAutoForm } from 'uniforms-antd'
 import {

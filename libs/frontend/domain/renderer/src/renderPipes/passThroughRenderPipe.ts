@@ -1,12 +1,12 @@
-import {
+import type {
   IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import { Element } from '@codelab/frontend/domain/element'
+import type { Element } from '@codelab/frontend/domain/element'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
 

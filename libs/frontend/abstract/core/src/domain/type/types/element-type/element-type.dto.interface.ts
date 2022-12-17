@@ -1,3 +1,3 @@
-import { ElementTypeFragment } from '../../fragments'
+import type { ElementTypeFragment } from '../../fragments'
 
 export type IElementTypeDTO = ElementTypeFragment

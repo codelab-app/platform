@@ -1,5 +1,5 @@
 import { CodeOutlined, DatabaseOutlined } from '@ant-design/icons'
-import {
+import type {
   IActionService,
   IFieldService,
   IResourceService,
@@ -17,10 +17,10 @@ import {
   DeleteFieldModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
+import type { UseResizable } from '@codelab/frontend/view/components'
 import {
   CodeMirrorEditor,
   EditorPaneToggler,
-  UseResizable,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@emotion/react'

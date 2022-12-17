@@ -1,14 +1,12 @@
-import { IInterfaceType, IPropData } from '@codelab/frontend/abstract/core'
-import { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import {
-  handleFormSubmit,
-  SetIsLoading,
-} from '@codelab/frontend/view/components'
+import type { IInterfaceType, IPropData } from '@codelab/frontend/abstract/core'
+import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
+import type { SetIsLoading } from '@codelab/frontend/view/components'
+import { handleFormSubmit } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'
-import { CSSInterpolation } from '@emotion/serialize'
+import type { CSSInterpolation } from '@emotion/serialize'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { DeepPartial } from 'utility-types'
+import type { DeepPartial } from 'utility-types'
 import { InterfaceForm } from '../interface-form'
 
 export interface PropsFormProps

@@ -1,10 +1,10 @@
-import { IRenderPipe } from '@codelab/frontend/abstract/core'
+import type { IRenderPipe } from '@codelab/frontend/abstract/core'
 import { AtomRenderPipe } from './atomRenderPipe'
 import { ComponentRenderPipe } from './componentRenderPipe'
 import { ConditionalRenderPipe } from './conditionalRenderPipe'
 import { LoopingRenderPipe } from './loopingRenderPipe'
 import { NullRenderPipe } from './nullRenderPipe'
-import { PassThroughRenderPipe } from './passThroughRenderPipe'
+import type { PassThroughRenderPipe } from './passThroughRenderPipe'
 
 export type RenderPipeClass =
   | typeof LoopingRenderPipe

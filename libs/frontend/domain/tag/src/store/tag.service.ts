@@ -7,10 +7,11 @@ import type {
   IUpdateTagDTO,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { TagWhere } from '@codelab/shared/abstract/codegen'
+import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -20,7 +21,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'

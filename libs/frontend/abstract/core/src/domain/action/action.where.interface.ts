@@ -1,4 +1,4 @@
-import * as cg from '@codelab/shared/abstract/codegen'
+import type * as cg from '@codelab/shared/abstract/codegen'
 
 export type IAnyActionWhere = cg.CodeActionWhere & cg.ApiActionWhere
 

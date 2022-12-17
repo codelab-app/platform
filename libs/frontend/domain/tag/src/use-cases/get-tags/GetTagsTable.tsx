@@ -1,9 +1,10 @@
-import { ITagService } from '@codelab/frontend/abstract/core'
+import type { ITagService } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
-import { Space, Table, TableColumnProps } from 'antd'
+import type { TableColumnProps } from 'antd'
+import { Space, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { tagRef } from '../../store'

@@ -1,5 +1,5 @@
+import type { BaseTypeFragment } from '@codelab/shared/abstract/codegen'
 import {
-  BaseTypeFragment,
   CodeMirrorLanguage,
   ElementTypeKind,
   PrimitiveTypeKind,

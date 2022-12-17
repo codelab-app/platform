@@ -5,9 +5,9 @@ import {
   FileOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { Nullish } from '@codelab/shared/abstract/types'
-import { MenuProps } from 'antd'
-import { ItemType } from 'antd/lib/menu/hooks/useItems'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { MenuProps } from 'antd'
+import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import Link from 'next/link'
 import React from 'react'
 

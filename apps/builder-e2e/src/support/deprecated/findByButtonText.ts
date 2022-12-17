@@ -1,6 +1,6 @@
-import { SelectorMatcherOptions } from '@testing-library/cypress'
+import type { SelectorMatcherOptions } from '@testing-library/cypress'
 import type { ByRoleOptions } from '@testing-library/dom'
-import { CypressElement } from './types'
+import type { CypressElement } from './types'
 import { wrapSubject } from './utils'
 
 export const findByButtonText = (

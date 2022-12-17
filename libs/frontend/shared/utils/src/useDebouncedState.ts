@@ -1,5 +1,6 @@
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Dispatch, SetStateAction } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useDebouncedState = <T>(
   delay: number,

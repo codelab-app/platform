@@ -1,18 +1,15 @@
-import { IBaseRenderPipe, IRenderer } from '@codelab/frontend/abstract/core'
+import type {
+  IBaseRenderPipe,
+  IRenderer,
+} from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
-import {
-  AnyModel,
-  findParent,
-  idProp,
-  Model,
-  model,
-  modelTypeKey,
-} from 'mobx-keystone'
+import type { AnyModel } from 'mobx-keystone'
+import { findParent, idProp, Model, model, modelTypeKey } from 'mobx-keystone'
 
 @model('@codelab/BaseRenderPipe')
 export class BaseRenderPipe

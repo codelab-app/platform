@@ -1,4 +1,4 @@
-import {
+import type {
   IActionService,
   IResourceService,
   IUpdateActionDTO,
@@ -9,7 +9,7 @@ import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Context } from 'uniforms'
+import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { updateActionSchema } from './updateActionSchema'
 

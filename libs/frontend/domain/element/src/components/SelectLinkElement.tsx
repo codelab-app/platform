@@ -1,8 +1,6 @@
-import {
-  SelectChildElement,
-  SelectElementProps,
-} from '@codelab/frontend/domain/type'
-import { ICreateElementDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateElementDTO } from '@codelab/frontend/abstract/core'
+import type { SelectElementProps } from '@codelab/frontend/domain/type'
+import { SelectChildElement } from '@codelab/frontend/domain/type'
 import { observer } from 'mobx-react-lite'
 import { useForm } from 'uniforms'
 import { AutoField } from 'uniforms-antd'

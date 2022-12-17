@@ -1,4 +1,4 @@
-import { IDomainExport } from '@codelab/backend/abstract/core'
+import type { IDomainExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import {
   PROJECT_NOT_FOUND,

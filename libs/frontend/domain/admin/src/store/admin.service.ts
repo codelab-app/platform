@@ -1,4 +1,4 @@
-import { IAdminService } from '@codelab/frontend/abstract/core'
+import type { IAdminService } from '@codelab/frontend/abstract/core'
 import {
   _async,
   _await,

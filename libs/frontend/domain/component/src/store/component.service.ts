@@ -1,7 +1,5 @@
 import type {
-  IBuilderDataNode,
   IComponent,
-  IComponentDTO,
   IComponentService,
   ICreateComponentDTO,
   IUpdateComponentDTO,
@@ -9,14 +7,16 @@ import type {
 import {
   COMPONENT_NODE_TYPE,
   COMPONENT_TREE_CONTAINER,
+  IBuilderDataNode,
+  IComponentDTO,
 } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import {
+import type {
   ComponentWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,

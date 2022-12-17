@@ -1,10 +1,8 @@
-import {
-  filterNotHookType,
-  ICreateAtomDTO,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateAtomDTO } from '@codelab/frontend/abstract/core'
+import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
   title: 'Create Atom',

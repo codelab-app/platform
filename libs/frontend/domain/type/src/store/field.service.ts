@@ -1,12 +1,12 @@
 import type {
   ICreateFieldDTO,
   IField,
-  IFieldDTO,
+  IFieldService,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
-import { IFieldService } from '@codelab/frontend/abstract/core'
+import { IFieldDTO } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import {
+import type {
   FieldCreateInput,
   FieldUpdateInput,
 } from '@codelab/shared/abstract/codegen'

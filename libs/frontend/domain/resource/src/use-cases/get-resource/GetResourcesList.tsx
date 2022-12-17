@@ -1,4 +1,4 @@
-import { IResourceService } from '@codelab/frontend/abstract/core'
+import type { IResourceService } from '@codelab/frontend/abstract/core'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { threeGridCol } from '@codelab/frontend/view/style'
 import { Col, Empty, Row } from 'antd'

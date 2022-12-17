@@ -1,11 +1,12 @@
-import {
+import type {
   IEntityModalService,
   ITag,
   ITagDTO,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
-import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/TagModalService')
 export class TagModalService

@@ -1,4 +1,4 @@
-import { ExportedData } from '@codelab/backend/abstract/core'
+import type { ExportedData } from '@codelab/backend/abstract/core'
 import { exportAtoms } from './export-atoms'
 import { exportTags } from './export-tags'
 import { exportTypes } from './export-types'

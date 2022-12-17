@@ -1,4 +1,4 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
 
 export interface ITypeRecord {
   id: string

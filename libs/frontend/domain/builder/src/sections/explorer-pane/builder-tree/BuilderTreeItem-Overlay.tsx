@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import type { IBuilderDataNode } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
-  IBuilderDataNode,
 } from '@codelab/frontend/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React, { JSXElementConstructor, PropsWithChildren } from 'react'
+import type { JSXElementConstructor, PropsWithChildren } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
-import { ComponentContextMenuProps } from '../ComponentContextMenu'
-import { ElementContextMenuProps } from '../ElementContextMenu'
+import type { ComponentContextMenuProps } from '../ComponentContextMenu'
+import type { ElementContextMenuProps } from '../ElementContextMenu'
 
 export type BuilderTreeItemOverlayProps = {
   setContextMenuNodeId: (id: Nullable<string>) => void

@@ -1,4 +1,4 @@
-import { IResourceExport } from '@codelab/backend/abstract/core'
+import type { IResourceExport } from '@codelab/backend/abstract/core'
 import {
   Repository,
   resourceSelectionSet,

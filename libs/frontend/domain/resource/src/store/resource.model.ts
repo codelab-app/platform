@@ -1,10 +1,10 @@
-import {
+import type {
   IResource,
   IResourceConfig,
-  IResourceDTO,
 } from '@codelab/frontend/abstract/core'
+import { IResourceDTO } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
-import { IResourceType } from '@codelab/shared/abstract/core'
+import type { IResourceType } from '@codelab/shared/abstract/core'
 import {
   detach,
   idProp,

@@ -1,10 +1,6 @@
-import { IBuilderService } from '@codelab/frontend/abstract/core'
-import {
-  MotionProps,
-  MotionValue,
-  PanInfo,
-  useMotionValue,
-} from 'framer-motion'
+import type { IBuilderService } from '@codelab/frontend/abstract/core'
+import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
+import { useMotionValue } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
 export interface MinMaxValue {

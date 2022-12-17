@@ -1,5 +1,8 @@
 import { FileOutlined } from '@ant-design/icons'
-import { IActionService, IAnyAction } from '@codelab/frontend/abstract/core'
+import type {
+  IActionService,
+  IAnyAction,
+} from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,

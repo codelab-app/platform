@@ -1,10 +1,11 @@
-import {
+import type {
   FormModalProps,
   SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import Modal from 'antd/lib/modal'
-import React, { PropsWithChildren, useRef } from 'react'
+import type { PropsWithChildren } from 'react'
+import React, { useRef } from 'react'
 
 export const FormModal = <
   TData extends Record<string, unknown> = Record<string, unknown>,

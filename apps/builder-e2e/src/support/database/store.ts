@@ -1,5 +1,5 @@
-import { IStoreDTO } from '@codelab/frontend/abstract/core'
-import { StoreCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IStoreDTO } from '@codelab/frontend/abstract/core'
+import type { StoreCreateInput } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { CreateStoresDocument } from 'libs/frontend/domain/store/src/graphql/store.endpoints.graphql.gen'
 

@@ -2,19 +2,15 @@
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace'
-import { AutoCompleteProps, Button, Space, Tooltip } from 'antd'
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace'
+import type { AutoCompleteProps } from 'antd'
+import { Button, Space, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import { connectField, FieldProps } from 'uniforms'
-import {
-  BoolField,
-  ListField,
-  ListFieldProps,
-  NumField,
-  SelectField,
-  SelectFieldProps,
-} from 'uniforms-antd'
+import type { FieldProps } from 'uniforms'
+import { connectField } from 'uniforms'
+import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
+import { BoolField, ListField, NumField, SelectField } from 'uniforms-antd'
 import { CodeMirrorEditor, createAutoCompleteOptions } from '../../codeMirror'
 import { useFormContext } from '../providers'
 

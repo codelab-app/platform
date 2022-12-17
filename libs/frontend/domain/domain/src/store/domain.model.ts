@@ -1,5 +1,6 @@
-import { IDomain, IDomainDTO } from '@codelab/frontend/abstract/core'
-import {
+import type { IDomain } from '@codelab/frontend/abstract/core'
+import { IDomainDTO } from '@codelab/frontend/abstract/core'
+import type {
   VercelDomainConfig,
   VercelProjectDomain,
   // VercelProjectDomainData,

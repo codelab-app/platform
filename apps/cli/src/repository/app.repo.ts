@@ -1,5 +1,5 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { IAppExport } from '@codelab/backend/abstract/core'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { IAppExport } from '@codelab/backend/abstract/core'
 import {
   pageSelectionSet,
   Repository,

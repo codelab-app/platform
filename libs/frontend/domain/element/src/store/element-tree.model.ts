@@ -1,10 +1,12 @@
-import { IElement, IElementTree } from '@codelab/frontend/abstract/core'
+import type { IElement, IElementTree } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
 } from '@codelab/frontend/presenter/container'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -13,7 +15,6 @@ import {
   modelAction,
   objectMap,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 import { elementRef } from './element.ref'

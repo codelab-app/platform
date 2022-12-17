@@ -1,12 +1,12 @@
-import { SubmitController } from '@codelab/frontend/abstract/types'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import type { Schema } from 'ajv'
-import Ajv, { JSONSchemaType } from 'ajv'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { JSONSchemaType, Schema } from 'ajv'
+import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 import addKeywords from 'ajv-keywords'
-import { MutableRefObject } from 'react'
+import type { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
-import { FormContextValue } from '../providers'
+import type { FormContextValue } from '../providers'
 
 export const connectUniformSubmitRef =
   (submitRef: Maybe<MutableRefObject<Maybe<SubmitController>>>) =>

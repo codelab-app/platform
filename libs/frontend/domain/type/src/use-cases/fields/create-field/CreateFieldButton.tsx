@@ -1,11 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { IFieldService } from '@codelab/frontend/abstract/core'
+import type { IFieldService } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
-import { Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { InterfaceType, typeRef } from '../../../store'
+import type { InterfaceType } from '../../../store'
+import { typeRef } from '../../../store'
 
 export interface CreateFieldButtonProps {
   interfaceId: string

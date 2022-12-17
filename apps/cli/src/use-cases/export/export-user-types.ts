@@ -1,5 +1,5 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { ITypeExport } from '@codelab/backend/abstract/core'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { ITypeExport } from '@codelab/backend/abstract/core'
 import {
   exportInterfaceTypeSelectionSet,
   getDriver,

@@ -1,4 +1,4 @@
-import {
+import type {
   IBuilderComponent,
   IBuilderService,
 } from '@codelab/frontend/abstract/core'

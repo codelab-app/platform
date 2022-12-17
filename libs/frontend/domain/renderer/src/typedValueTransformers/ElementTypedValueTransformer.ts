@@ -1,7 +1,7 @@
-import { TypedValue } from '@codelab/frontend/abstract/core'
+import type { TypedValue } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
+import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 
 /**

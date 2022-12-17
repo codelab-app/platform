@@ -1,4 +1,5 @@
-import Script, { ScriptProps } from 'next/script'
+import type { ScriptProps } from 'next/script'
+import Script from 'next/script'
 import React from 'react'
 
 export const CodelabScript = (props: ScriptProps) => (

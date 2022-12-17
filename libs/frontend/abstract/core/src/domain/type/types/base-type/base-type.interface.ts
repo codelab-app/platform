@@ -1,6 +1,6 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { ICacheService } from '../../../../service'
-import { ITypeDTO } from '../../type.dto.interface'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { ICacheService } from '../../../../service'
+import type { ITypeDTO } from '../../type.dto.interface'
 
 export interface IBaseType extends ICacheService<ITypeDTO, IBaseType> {
   id: string

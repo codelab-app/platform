@@ -1,7 +1,5 @@
 import { CodeSandboxOutlined, EditOutlined } from '@ant-design/icons'
-import {
-  COMPONENT_NODE_TYPE,
-  ELEMENT_NODE_TYPE,
+import type {
   IActionService,
   IAtomService,
   IBuilderService,
@@ -11,6 +9,10 @@ import {
   IRenderer,
   ITypeService,
   IUserService,
+} from '@codelab/frontend/abstract/core'
+import {
+  COMPONENT_NODE_TYPE,
+  ELEMENT_NODE_TYPE,
 } from '@codelab/frontend/abstract/core'
 import { UpdateComponentForm } from '@codelab/frontend/domain/component'
 import {

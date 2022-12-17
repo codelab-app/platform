@@ -1,10 +1,7 @@
-import { ITypeService } from '@codelab/frontend/abstract/core'
+import type { ITypeService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  emptyJsonSchema,
-  EmptyJsonSchemaType,
-  ModalForm,
-} from '@codelab/frontend/view/components'
+import type { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
+import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'

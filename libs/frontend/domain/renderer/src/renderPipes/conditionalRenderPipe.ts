@@ -1,4 +1,4 @@
-import {
+import type {
   IElement,
   IPropData,
   IRenderOutput,
@@ -7,7 +7,7 @@ import {
 import get from 'lodash/get'
 import isString from 'lodash/isString'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
 

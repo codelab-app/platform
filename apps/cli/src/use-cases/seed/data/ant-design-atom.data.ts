@@ -1,4 +1,4 @@
-import { ExistingData, IAtomImport } from '@codelab/backend/abstract/core'
+import type { ExistingData, IAtomImport } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtomData, getApiName } from '@codelab/shared/data'
 import { ObjectTyped } from 'object-typed'

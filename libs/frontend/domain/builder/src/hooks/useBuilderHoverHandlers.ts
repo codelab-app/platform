@@ -1,6 +1,7 @@
-import { IBuilderService } from '@codelab/frontend/abstract/core'
+import type { IBuilderService } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
-import { MouseEvent, useCallback } from 'react'
+import type { MouseEvent } from 'react'
+import { useCallback } from 'react'
 
 type UseBuilderHoverHandlersProps = Pick<
   IBuilderService,

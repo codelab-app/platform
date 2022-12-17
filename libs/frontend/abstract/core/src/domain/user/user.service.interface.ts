@@ -1,6 +1,6 @@
-import { Nullable } from '@codelab/shared/abstract/types'
-import { ObjectMap } from 'mobx-keystone'
-import { IUser } from './user.interface'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { ObjectMap } from 'mobx-keystone'
+import type { IUser } from './user.interface'
 
 export interface IUserService {
   users: ObjectMap<IUser>

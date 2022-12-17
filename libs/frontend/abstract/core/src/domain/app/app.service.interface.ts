@@ -1,20 +1,20 @@
-import { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
 } from '../../service'
-import { IPropData } from '../prop'
-import {
+import type { IPropData } from '../prop'
+import type {
   IAppDTO,
   ICreateAppDTO,
   IPageBuilderAppProps,
   IUpdateAppDTO,
 } from './app.dto.interface'
-import { IApp, IBuilderApp } from './app.model.interface'
+import type { IApp, IBuilderApp } from './app.model.interface'
 
 export interface IAppService
   extends ICRUDService<IApp, ICreateAppDTO, IUpdateAppDTO>,

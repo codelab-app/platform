@@ -1,7 +1,7 @@
 import type { ApolloError } from 'apollo-server-micro'
 import isObjectLike from 'lodash/isObjectLike'
 import isString from 'lodash/isString'
-import { AsyncState } from 'react-use/lib/useAsyncFn'
+import type { AsyncState } from 'react-use/lib/useAsyncFn'
 
 export const extractErrorMessage = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

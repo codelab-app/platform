@@ -1,4 +1,4 @@
-import { IDomainService } from '@codelab/frontend/abstract/core'
+import type { IDomainService } from '@codelab/frontend/abstract/core'
 import { DisplayIf, ErrorBoundary } from '@codelab/frontend/view/components'
 import { padding, threeGridCol } from '@codelab/frontend/view/style'
 import { Col, Empty, Row } from 'antd'

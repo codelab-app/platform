@@ -1,4 +1,4 @@
-import { Label } from '../types'
+import type { Label } from '../types'
 
 export const getCardTitle = () => {
   return cy.get('.ant-card-head-title')

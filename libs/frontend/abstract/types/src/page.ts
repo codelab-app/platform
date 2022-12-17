@@ -1,6 +1,6 @@
-import { NextRouter } from 'next/router'
+import type { NextRouter } from 'next/router'
 import * as R from 'ramda'
-import { PageType } from './pageType'
+import type { PageType } from './pageType'
 
 interface PropsWithRouter {
   router: NextRouter

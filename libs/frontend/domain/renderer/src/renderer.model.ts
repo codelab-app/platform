@@ -1,6 +1,5 @@
 import type {
   IElement,
-  IElementTree,
   IPropData,
   IRenderer,
   IRenderOutput,
@@ -8,19 +7,20 @@ import type {
   IStore,
   RendererProps,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import { DATA_ELEMENT_ID, IElementTree } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { babelTransformer } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   frozen,
@@ -30,15 +30,16 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
-import React, { ComponentType, ReactElement, ReactNode } from 'react'
-import { ArrayOrSingle } from 'ts-essentials'
-import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
+import type { ComponentType, ReactElement, ReactNode } from 'react'
+import React from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
+import type { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import { getAtom } from './atoms'
-import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
+import type { ElementWrapperProps } from './element/ElementWrapper'
+import { ElementWrapper } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
 import {
   defaultPipes,

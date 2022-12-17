@@ -1,12 +1,13 @@
-import {
+import type {
   IAnyType,
   IField,
   IFieldDefaultValue,
-  IFieldDTO,
   IInterfaceType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
+import { IFieldDTO } from '@codelab/frontend/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -14,7 +15,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 import { typeRef } from './union-type.model'

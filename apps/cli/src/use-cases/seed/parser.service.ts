@@ -1,9 +1,9 @@
-import {
+import type {
   AntDesignFieldsByFile,
   ExistingData,
   IAtomImport,
 } from '@codelab/backend/abstract/core'
-import { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
 import { atomTypeKeyByFileName } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import merge from 'lodash/merge'

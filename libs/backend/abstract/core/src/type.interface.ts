@@ -1,4 +1,4 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 
 export type IBaseTypeExportFields = 'id' | 'name' | 'kind'
 

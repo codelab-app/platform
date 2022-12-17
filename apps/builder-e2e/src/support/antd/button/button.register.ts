@@ -1,5 +1,5 @@
-import { OmitFirstArg } from '../../deprecated/types'
-import { CypressCommand } from '../../types'
+import type { OmitFirstArg } from '../../deprecated/types'
+import type { CypressCommand } from '../../types'
 import { getButton } from './button.command'
 
 export interface AntButtonCommands {

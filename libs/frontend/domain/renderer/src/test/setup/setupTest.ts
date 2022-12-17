@@ -1,13 +1,15 @@
 /// <reference types='jest'/>
 
-import {
-  CUSTOM_TEXT_PROP_KEY,
+import type {
   IAtom,
   IComponent,
   IElement,
   IInterfaceType,
   IRenderer,
   IStore,
+} from '@codelab/frontend/abstract/core'
+import {
+  CUSTOM_TEXT_PROP_KEY,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
@@ -19,8 +21,8 @@ import {
 } from '@codelab/frontend/domain/element'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { Store, storeRef, StoreService } from '@codelab/frontend/domain/store'
+import type { AnyTypeModel } from '@codelab/frontend/domain/type'
 import {
-  AnyTypeModel,
   InterfaceType,
   PrimitiveType,
   ReactNodeType,
@@ -35,14 +37,13 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { frozen, objectMap, Ref, unregisterRootStore } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { Renderer } from '../../renderer.model'
 import { PassThroughRenderPipe } from '../../renderPipes/passThroughRenderPipe'
-import {
-  RenderPipeClass,
-  renderPipeFactory,
-} from '../../renderPipes/renderPipe.factory'
+import type { RenderPipeClass } from '../../renderPipes/renderPipe.factory'
+import { renderPipeFactory } from '../../renderPipes/renderPipe.factory'
 import { RenderTestRootStore } from './renderTestRootStore'
 
 interface TestingData {

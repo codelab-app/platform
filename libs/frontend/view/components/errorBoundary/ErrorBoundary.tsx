@@ -3,7 +3,8 @@
  *
  * Error boundary as recommended by Next.js
  */
-import React, { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 
 interface ErrorState {
   hasError: boolean

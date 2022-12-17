@@ -1,5 +1,7 @@
-import dynamic, { LoaderComponent } from 'next/dynamic'
-import React, { RefObject } from 'react'
+import type { LoaderComponent } from 'next/dynamic'
+import dynamic from 'next/dynamic'
+import type { RefObject } from 'react'
+import React from 'react'
 
 /**
  * a workaround for : https://github.com/vercel/next.js/issues/4957

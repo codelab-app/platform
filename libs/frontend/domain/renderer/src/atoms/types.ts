@@ -1,7 +1,7 @@
-import { IPropData } from '@codelab/frontend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
-import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import React from 'react'
+import type { IPropData } from '@codelab/frontend/abstract/core'
+import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type React from 'react'
 
 /**
  * This is our representation of what kind of ReactComponent to use

@@ -1,4 +1,4 @@
-import { ITagExport } from '@codelab/backend/abstract/core'
+import type { ITagExport } from '@codelab/backend/abstract/core'
 import { connectChildTagToParent, upsertTag } from '../../repository/tag.repo'
 import { logSection, logTask } from '../../shared/utils/log-task'
 

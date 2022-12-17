@@ -1,10 +1,10 @@
-import {
+import type {
   IBuilderDataNode,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
-import { TreeProps } from 'antd/lib/tree'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { TreeProps } from 'antd/lib/tree'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,

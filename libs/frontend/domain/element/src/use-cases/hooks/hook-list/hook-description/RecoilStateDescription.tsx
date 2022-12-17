@@ -1,4 +1,4 @@
-import { RecoilStateDescriptionProps } from './types'
+import type { RecoilStateDescriptionProps } from './types'
 
 export const RecoilStateDescription = ({
   config,

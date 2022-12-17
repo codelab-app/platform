@@ -1,4 +1,5 @@
-import { Button, Input, Modal, ModalProps } from 'antd'
+import type { ModalProps } from 'antd'
+import { Button, Input, Modal } from 'antd'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { z } from 'zod'

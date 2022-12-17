@@ -1,4 +1,4 @@
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 
 export const shouldMoveElementAsNextSibling = (
   currentPrevSibling: Nullable<string>,

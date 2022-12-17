@@ -1,5 +1,5 @@
-import { IUpdateBaseElementDTO } from '@codelab/frontend/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import type { IUpdateBaseElementDTO } from '@codelab/frontend/abstract/core'
+import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
   title: 'Update Element Input',

@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { MiddlewareFunction, Options } from 'yargs'
+import type { MiddlewareFunction, Options } from 'yargs'
 import { Stage } from './utils/stage'
 
 type GetEnvOptions = (environments: Array<Stage>) => {

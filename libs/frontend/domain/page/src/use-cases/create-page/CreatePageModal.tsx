@@ -1,8 +1,8 @@
-import {
-  DEFAULT_GET_SERVER_SIDE_PROPS,
+import type {
   ICreatePageDTO,
   IPageService,
 } from '@codelab/frontend/abstract/core'
+import { DEFAULT_GET_SERVER_SIDE_PROPS } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'

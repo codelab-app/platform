@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { JSXElementConstructor, PropsWithChildren } from 'react'
+import type { JSXElementConstructor, PropsWithChildren } from 'react'
 
 export type CodelabPage<P = unknown, IP = P> = NextPage<P, IP> & PageProps
 

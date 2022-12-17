@@ -1,7 +1,10 @@
 import { Form } from 'antd'
-import React, { Ref } from 'react'
-import { connectField, FieldProps } from 'uniforms'
-import { CodeMirrorEditor, CodeMirrorEditorProps } from '../../codeMirror'
+import type { Ref } from 'react'
+import React from 'react'
+import type { FieldProps } from 'uniforms'
+import { connectField } from 'uniforms'
+import type { CodeMirrorEditorProps } from '../../codeMirror'
+import { CodeMirrorEditor } from '../../codeMirror'
 
 export type Value = string | number | boolean | undefined
 

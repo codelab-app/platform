@@ -1,5 +1,6 @@
-import { FormProps } from '@codelab/frontend/abstract/types'
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import type { FormProps } from '@codelab/frontend/abstract/types'
+import type { ReactElement } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'

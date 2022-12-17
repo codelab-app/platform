@@ -1,19 +1,19 @@
-import { ApiActionOptions } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import {
+import type { ApiActionOptions } from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
 } from '../../service'
-import {
+import type {
   IActionDTO,
   ICreateActionDTO,
   IUpdateActionDTO,
 } from './action.dto.interface'
-import { IAnyAction } from './action.interface'
-import { IAnyActionWhere } from './action.where.interface'
+import type { IAnyAction } from './action.interface'
+import type { IAnyActionWhere } from './action.where.interface'
 
 export interface IActionService
   extends ICRUDService<IAnyAction, ICreateActionDTO, IUpdateActionDTO>,

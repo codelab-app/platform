@@ -1,5 +1,5 @@
-import { IElementTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { IBaseType } from '../base-type'
+import type { IElementTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseType } from '../base-type'
 
 /**
  * Allows picking an element from the current tree

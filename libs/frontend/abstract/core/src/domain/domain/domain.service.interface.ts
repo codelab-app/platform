@@ -1,14 +1,17 @@
-import { DomainOptions, DomainWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type {
+  DomainOptions,
+  DomainWhere,
+} from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
 } from '../../service'
-import { ICreateDomainDTO, IDomainDTO } from './domain.dto.interface'
-import { IDomain } from './domain.model.interface'
+import type { ICreateDomainDTO, IDomainDTO } from './domain.dto.interface'
+import type { IDomain } from './domain.model.interface'
 
 export interface IDomainService
   extends ICRUDService<IDomain, ICreateDomainDTO, ICreateDomainDTO>,

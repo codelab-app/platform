@@ -1,10 +1,10 @@
-import { Nullable } from '@codelab/shared/abstract/types'
-import { ObjectMap } from 'mobx-keystone'
-import { IComponent } from '../component'
-import { IElementTree } from '../element'
-import { IStore } from '../store'
-import { IBuilderService } from './builder.service.interface'
-import { IRenderer } from './renderer.model.interface'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { ObjectMap } from 'mobx-keystone'
+import type { IComponent } from '../component'
+import type { IElementTree } from '../element'
+import type { IStore } from '../store'
+import type { IBuilderService } from './builder.service.interface'
+import type { IRenderer } from './renderer.model.interface'
 
 export interface RendererProps {
   pageTree: IElementTree

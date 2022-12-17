@@ -1,9 +1,9 @@
-import { Ref } from 'mobx-keystone'
-import { ICacheService } from '../../service'
-import { IAnyAction } from '../action'
-import { IProp, IPropData } from '../prop'
-import { IInterfaceType } from '../type'
-import { IStoreDTO } from './store.dto.interface'
+import type { Ref } from 'mobx-keystone'
+import type { ICacheService } from '../../service'
+import type { IAnyAction } from '../action'
+import type { IProp, IPropData } from '../prop'
+import type { IInterfaceType } from '../type'
+import type { IStoreDTO } from './store.dto.interface'
 
 export interface IStore extends ICacheService<IStoreDTO, IStore> {
   id: string

@@ -1,4 +1,4 @@
-import {
+import type {
   IElement,
   IPropData,
   IRenderOutput,
@@ -7,7 +7,7 @@ import {
 import { mergeProps } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/LoopingRenderPipe')

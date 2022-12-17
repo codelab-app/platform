@@ -1,4 +1,4 @@
-import { AntdDesignField } from '@codelab/backend/abstract/core'
+import type { AntdDesignField } from '@codelab/backend/abstract/core'
 import { stripQuotes } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { stripBracketsRegex } from './matchers'

@@ -1,4 +1,4 @@
-import { IElement, IElementService } from '@codelab/frontend/abstract/core'
+import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import { propMapBindingRef } from '@codelab/frontend/domain/prop'
 import {
   ListItemDeleteButton,
@@ -6,7 +6,8 @@ import {
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { Space, Table, TableColumnProps } from 'antd'
+import type { TableColumnProps } from 'antd'
+import { Space, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef } from '../../../store'

@@ -1,15 +1,15 @@
-import {
+import type {
   ICreateDomainDTO,
   IDomainDTO,
   IDomainService,
   IUpdateDomainDTO,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import {
+import type {
   DomainCreateInput,
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {

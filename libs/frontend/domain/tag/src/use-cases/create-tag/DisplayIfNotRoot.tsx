@@ -1,4 +1,4 @@
-import { ICreateTagDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateTagDTO } from '@codelab/frontend/abstract/core'
 import { DisplayIfField } from '@codelab/frontend/view/components'
 import React from 'react'
 

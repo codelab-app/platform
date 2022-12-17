@@ -1,18 +1,21 @@
-import {
-  COMPONENT_NODE_TYPE,
-  ELEMENT_NODE_TYPE,
+import type {
   IBuilderDataNode,
   IElementTree,
   INode,
 } from '@codelab/frontend/abstract/core'
+import {
+  COMPONENT_NODE_TYPE,
+  ELEMENT_NODE_TYPE,
+} from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { componentRef, useStore } from '@codelab/frontend/presenter/container'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
-import { EventDataNode } from 'antd/lib/tree'
+import type { EventDataNode } from 'antd/lib/tree'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
-import React, { Ref } from 'react'
+import type { Ref } from 'react'
+import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
 import { antdTreeStyle } from './antdTree.styles'
 import { BuilderTreeItemTitle } from './BuilderTreeItem-Title'

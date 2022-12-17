@@ -1,5 +1,5 @@
-import { IAppDTO } from '@codelab/frontend/abstract/core'
-import { AppCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IAppDTO } from '@codelab/frontend/abstract/core'
+import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { print } from 'graphql'

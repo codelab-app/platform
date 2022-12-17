@@ -1,6 +1,6 @@
-import { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 
 export const createComponentSchema: JSONSchemaType<
   Omit<ICreateComponentDTO, 'rootElementId'>

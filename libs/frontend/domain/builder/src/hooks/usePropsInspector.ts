@@ -1,11 +1,11 @@
-import {
+import type {
   IElement,
   IElementService,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
-import { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { autorun } from 'mobx'
 import { useCallback, useEffect, useState } from 'react'

@@ -1,4 +1,4 @@
-import {
+import type {
   ICreateTypeDTO,
   ICreateTypeInput,
 } from '@codelab/frontend/abstract/core'

@@ -1,5 +1,5 @@
-import { IUpdateAppDTO } from '@codelab/frontend/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import type { IUpdateAppDTO } from '@codelab/frontend/abstract/core'
+import type { JSONSchemaType } from 'ajv'
 
 export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
   title: 'Edit App Input',

@@ -1,4 +1,4 @@
-import {
+import type {
   IBuilderService,
   IComponentService,
   IElementService,
@@ -6,10 +6,10 @@ import {
   IRenderer,
   IRenderService,
   IStore,
-  RendererTab,
 } from '@codelab/frontend/abstract/core'
+import { RendererTab } from '@codelab/frontend/abstract/core'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { useWindowWidth } from '@react-hook/window-size'
 import { Alert, Layout, Spin, Tabs } from 'antd'
 import { Content, Header } from 'antd/lib/layout/layout'

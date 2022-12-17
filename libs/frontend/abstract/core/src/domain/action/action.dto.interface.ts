@@ -1,7 +1,7 @@
-import { IActionKind } from '@codelab/shared/abstract/core'
-import { IProp } from '../prop'
-import { IGraphQLActionConfig, IRestActionConfig } from './actions'
-import { ActionFragment } from './fragments'
+import type { IActionKind } from '@codelab/shared/abstract/core'
+import type { IProp } from '../prop'
+import type { IGraphQLActionConfig, IRestActionConfig } from './actions'
+import type { ActionFragment } from './fragments'
 
 export type IApiActionConfig = IProp<IRestActionConfig | IGraphQLActionConfig>
 

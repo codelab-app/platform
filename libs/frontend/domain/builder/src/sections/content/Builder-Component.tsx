@@ -1,4 +1,4 @@
-import {
+import type {
   IBuilderService,
   IComponentService,
   IElementService,
@@ -6,8 +6,9 @@ import {
   IStore,
 } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React, { JSXElementConstructor, useEffect } from 'react'
-import { BaseBuilderProps } from './BaseBuilder'
+import type { JSXElementConstructor } from 'react'
+import React, { useEffect } from 'react'
+import type { BaseBuilderProps } from './BaseBuilder'
 
 interface BuilderComponentProps {
   componentId: string

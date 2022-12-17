@@ -1,5 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons'
-import { IDomain } from '@codelab/frontend/abstract/core'
+import type { IDomain } from '@codelab/frontend/abstract/core'
 import { useCurrentApp } from '@codelab/frontend/domain/app'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { Button, Tooltip } from 'antd'

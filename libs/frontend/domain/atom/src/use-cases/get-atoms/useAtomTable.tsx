@@ -1,9 +1,9 @@
-import { IAtomService } from '@codelab/frontend/abstract/core'
+import type { IAtomService } from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import {
+import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type {
   ColumnType,
   TablePaginationConfig,
   TableRowSelection,
@@ -14,7 +14,7 @@ import { arraySet } from 'mobx-keystone'
 import React, { useCallback, useState } from 'react'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
-import { AtomRecord } from './columns/types'
+import type { AtomRecord } from './columns/types'
 
 const onLibraryFilter = (
   value: string | number | boolean,

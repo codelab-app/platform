@@ -1,6 +1,6 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { UserCreateInput } from '@codelab/shared/abstract/codegen'
-import { IRole } from '@codelab/shared/abstract/core'
+import type { UserCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IRole } from '@codelab/shared/abstract/core'
 
 type UserUniqueWhereCallback = (user: UserCreateInput) =>
   | {

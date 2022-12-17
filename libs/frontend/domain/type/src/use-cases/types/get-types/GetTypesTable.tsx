@@ -1,11 +1,11 @@
-import {
+import type {
   IAnyType,
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
-import { TableProps } from 'antd/lib/table/Table'
+import type { TableProps } from 'antd/lib/table/Table'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'

@@ -1,12 +1,12 @@
-import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import {
+import type {
   IElement,
   IElementService,
   IElementTree,
   MoveData,
 } from '@codelab/frontend/abstract/core'
+import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'

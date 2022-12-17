@@ -1,4 +1,5 @@
-import List, { ListProps } from 'antd/lib/list'
+import type { ListProps } from 'antd/lib/list'
+import List from 'antd/lib/list'
 import React from 'react'
 
 /**

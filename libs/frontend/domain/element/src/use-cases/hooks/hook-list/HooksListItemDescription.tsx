@@ -1,4 +1,4 @@
-import { IHook } from '@codelab/frontend/abstract/core'
+import type { IHook } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import {

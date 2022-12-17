@@ -1,13 +1,15 @@
-import {
+import type {
   ICreatePageDTO,
-  IPage,
-  IPageDTO,
   IPageService,
   IUpdatePageDTO,
+} from '@codelab/frontend/abstract/core'
+import {
+  IPage,
+  IPageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
-import { PageWhere } from '@codelab/shared/abstract/codegen'
+import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import { connectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {

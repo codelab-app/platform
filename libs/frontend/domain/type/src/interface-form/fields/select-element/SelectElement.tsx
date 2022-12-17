@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useFormContext } from '@codelab/frontend/view/components'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
-import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import difference from 'lodash/difference'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
-import { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
+import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 export interface SelectElementOption {
   label: string

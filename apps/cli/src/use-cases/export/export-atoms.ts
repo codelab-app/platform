@@ -1,5 +1,5 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { IAtomExport } from '@codelab/backend/abstract/core'
+import type { IAtomExport } from '@codelab/backend/abstract/core'
 import {
   atomSelectionSet,
   Repository,

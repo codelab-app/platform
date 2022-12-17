@@ -1,4 +1,4 @@
-import {
+import type {
   IBuilderService,
   IElementService,
 } from '@codelab/frontend/abstract/core'
@@ -9,7 +9,8 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { elementRef } from '../../../store'
-import { DeleteElementData, deleteElementSchema } from './deleteElementSchema'
+import type { DeleteElementData } from './deleteElementSchema'
+import { deleteElementSchema } from './deleteElementSchema'
 
 interface DeleteElementModalProps {
   elementService: IElementService

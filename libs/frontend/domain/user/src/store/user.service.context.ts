@@ -1,4 +1,4 @@
-import { IUserService } from '@codelab/frontend/abstract/core'
+import type { IUserService } from '@codelab/frontend/abstract/core'
 import { createContext } from 'mobx-keystone'
 
 export const userServiceContext = createContext<IUserService>()

@@ -1,4 +1,4 @@
-import {
+import type {
   AppPreviewFragment,
   PageBuilderAppFragment,
 } from './app.fragment.graphql.gen'

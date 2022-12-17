@@ -1,6 +1,7 @@
 import { DragPosition } from '@codelab/frontend/abstract/core'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { RefObject, useEffect, useRef } from 'react'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { RefObject } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface Position {
   x: number

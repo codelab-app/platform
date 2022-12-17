@@ -1,4 +1,4 @@
-import {
+import type {
   IActionService,
   IBuilderService,
   IComponentService,
@@ -16,7 +16,7 @@ import {
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'

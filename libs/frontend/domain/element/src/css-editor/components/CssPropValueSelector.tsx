@@ -1,5 +1,5 @@
 import { DownOutlined } from '@ant-design/icons'
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace'
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'

@@ -1,5 +1,6 @@
 import { ITag, ITagDTO } from '@codelab/frontend/abstract/core'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -7,7 +8,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 

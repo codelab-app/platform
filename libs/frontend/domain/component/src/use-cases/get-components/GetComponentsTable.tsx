@@ -1,6 +1,7 @@
-import { IComponentService } from '@codelab/frontend/abstract/core'
+import type { IComponentService } from '@codelab/frontend/abstract/core'
 import { Spinner } from '@codelab/frontend/view/components'
-import { Table, TableColumnProps } from 'antd'
+import type { TableColumnProps } from 'antd'
+import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
@@ -8,7 +9,7 @@ import tw from 'twin.macro'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
 import { PropsColumn } from './columns/PropsColumn'
-import { ComponentColumnData } from './columns/types'
+import type { ComponentColumnData } from './columns/types'
 
 export const GetComponentsTable = observer<{
   componentService: IComponentService

@@ -1,16 +1,16 @@
 import type {
   ICreateResourceDTO,
   IResource,
-  IResourceDTO,
   IResourceService,
   IUpdateResourceDTO,
 } from '@codelab/frontend/abstract/core'
+import { IResourceDTO } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ResourceCreateInput,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {

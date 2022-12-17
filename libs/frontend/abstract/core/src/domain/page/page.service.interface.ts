@@ -1,19 +1,23 @@
-import {
+import type {
   GetRenderedPageAndCommonAppDataQuery,
   GetRenderedPageQuery,
   PageOptions,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
 } from '../../service'
-import { ICreatePageDTO, IPageDTO, IUpdatePageDTO } from './page.dto.interface'
-import { IPage } from './page.model.interface'
+import type {
+  ICreatePageDTO,
+  IPageDTO,
+  IUpdatePageDTO,
+} from './page.dto.interface'
+import type { IPage } from './page.model.interface'
 
 export interface IPageService
   extends ICRUDService<IPage, ICreatePageDTO, IUpdatePageDTO>,

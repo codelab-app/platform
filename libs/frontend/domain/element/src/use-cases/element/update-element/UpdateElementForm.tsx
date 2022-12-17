@@ -1,4 +1,4 @@
-import {
+import type {
   IElement,
   IElementService,
   IUpdateBaseElementDTO,
@@ -10,11 +10,8 @@ import {
   SelectComponent,
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  AutoCompleteField,
-  Form,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
+import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'

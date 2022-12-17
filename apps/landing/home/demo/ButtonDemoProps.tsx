@@ -3,7 +3,8 @@ import {
   ShoppingCartOutlined,
   ShoppingOutlined,
 } from '@ant-design/icons'
-import { ButtonProps, Descriptions, Radio, Select, Space, Switch } from 'antd'
+import type { ButtonProps } from 'antd'
+import { Descriptions, Radio, Select, Space, Switch } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import tw from 'twin.macro'

@@ -1,4 +1,5 @@
-import { Menu, MenuProps } from 'antd'
+import type { MenuProps } from 'antd'
+import { Menu } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'

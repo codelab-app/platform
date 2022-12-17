@@ -1,6 +1,6 @@
-import { IHook } from '@codelab/frontend/abstract/core'
+import type { IHook } from '@codelab/frontend/abstract/core'
 import { List } from 'antd'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import tw from 'twin.macro'
 import { RemoveHookFromElementButton } from '../remove-hook-from-element'
 import { HooksListItemDescription } from './HooksListItemDescription'

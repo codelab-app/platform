@@ -1,4 +1,4 @@
-import { IBuilderComponent } from '@codelab/frontend/abstract/core'
+import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
 import { ErrorBoundary } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

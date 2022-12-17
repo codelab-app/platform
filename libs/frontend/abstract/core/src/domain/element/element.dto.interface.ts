@@ -1,6 +1,6 @@
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { IPropData } from '../prop'
-import { ElementFragment } from './element.fragment.graphql.gen'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IPropData } from '../prop'
+import type { ElementFragment } from './element.fragment.graphql.gen'
 
 export interface ICreateElementDTO {
   id?: string

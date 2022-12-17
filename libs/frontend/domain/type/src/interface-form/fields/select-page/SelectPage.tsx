@@ -1,4 +1,4 @@
-import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useAsync } from 'react-use'

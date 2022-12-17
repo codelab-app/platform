@@ -1,7 +1,7 @@
-import { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
+import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
-import { MouseEvent } from 'react'
-import { DeepPartial } from 'uniforms'
+import type { MouseEvent } from 'react'
+import type { DeepPartial } from 'uniforms'
 
 export type SetIsLoading = (isLoading: boolean) => void
 

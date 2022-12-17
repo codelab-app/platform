@@ -1,7 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
-import { CommandModule } from 'yargs'
+import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import { assignUserOption, upsertUserMiddleware } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'

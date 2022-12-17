@@ -1,8 +1,5 @@
-import {
-  HttpMethod,
-  HttpResponseType,
-  ICreateActionDTO,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateActionDTO } from '@codelab/frontend/abstract/core'
+import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
@@ -10,7 +7,7 @@ import {
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 
 export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {

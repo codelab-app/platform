@@ -1,5 +1,5 @@
-import { IUpdateResourceDTO } from '@codelab/frontend/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import type { IUpdateResourceDTO } from '@codelab/frontend/abstract/core'
+import type { JSONSchemaType } from 'ajv'
 import { createResourceSchema } from '../create-resource'
 
 export const updateResourceSchema: JSONSchemaType<IUpdateResourceDTO> = {

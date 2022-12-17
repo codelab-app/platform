@@ -1,9 +1,6 @@
-import {
-  BuilderDndType,
-  BuilderDropData,
-  IElement,
-} from '@codelab/frontend/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { BuilderDropData, IElement } from '@codelab/frontend/abstract/core'
+import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React from 'react'
 import { calcDragPosition, useElementLayout } from './draggableElement.util'

@@ -1,5 +1,5 @@
 import { domClasses } from './domClasses'
-import { CypressElement } from './types'
+import type { CypressElement } from './types'
 import { wrapSubject } from './utils'
 
 export const getOpenedModal = (

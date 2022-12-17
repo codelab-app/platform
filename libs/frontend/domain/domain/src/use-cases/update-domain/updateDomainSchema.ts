@@ -1,6 +1,6 @@
-import { IUpdateDomainDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateDomainDTO } from '@codelab/frontend/abstract/core'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 
 export const updateDomainSchema: JSONSchemaType<IUpdateDomainDTO> = {
   title: 'Edit App Input',

@@ -2,10 +2,11 @@ import type {
   IAnyType,
   IArrayType,
   IArrayTypeDTO,
-  ITypeDTO,
 } from '@codelab/frontend/abstract/core'
+import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'

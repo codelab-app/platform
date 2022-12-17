@@ -1,5 +1,5 @@
-import { IRenderOutput } from '@codelab/frontend/abstract/core'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { IRenderOutput } from '@codelab/frontend/abstract/core'
+import type { ArrayOrSingle } from 'ts-essentials'
 
 /**
  * Utility function for looping over one or more RenderOutputs

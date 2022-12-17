@@ -1,6 +1,4 @@
-import {
-  DATA_COMPONENT_ID,
-  DATA_ELEMENT_ID,
+import type {
   IComponent,
   IElement,
   IPropData,
@@ -8,8 +6,12 @@ import {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
+import {
+  DATA_COMPONENT_ID,
+  DATA_ELEMENT_ID,
+} from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/ComponentRenderPipe')

@@ -1,11 +1,11 @@
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import { ReactElement, ReactNode } from 'react'
-import { ArrayOrSingle } from 'ts-essentials'
-import { IElement, IElementTree } from '../element'
-import { IExtraElementProps, IProp, IPropData } from '../prop'
-import { IRenderOutput } from '../render'
-import { IStore } from '../store'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { ReactElement, ReactNode } from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
+import type { IElement, IElementTree } from '../element'
+import type { IExtraElementProps, IProp, IPropData } from '../prop'
+import type { IRenderOutput } from '../render'
+import type { IStore } from '../store'
 
 export interface IRenderer {
   renderRoot(): ReactElement | null

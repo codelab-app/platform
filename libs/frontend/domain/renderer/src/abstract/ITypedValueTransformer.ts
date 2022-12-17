@@ -1,10 +1,10 @@
-import {
+import type {
   IBaseRenderPipe,
   IComponentService,
   IElementService,
   TypedValue,
 } from '@codelab/frontend/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
 
 /**
  * Transforms a typed value prop to a specific value

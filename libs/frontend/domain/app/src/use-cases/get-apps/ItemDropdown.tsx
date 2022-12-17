@@ -4,11 +4,13 @@ import {
   EllipsisOutlined,
   GlobalOutlined,
 } from '@ant-design/icons'
-import { IApp, IAppService } from '@codelab/frontend/abstract/core'
-import { Button, Dropdown, Menu, MenuProps } from 'antd'
+import type { IApp, IAppService } from '@codelab/frontend/abstract/core'
+import type { MenuProps } from 'antd'
+import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
+import React from 'react'
 import { appRef } from '../../store'
 
 export interface ItemMenuProps {

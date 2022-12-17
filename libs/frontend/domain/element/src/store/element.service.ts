@@ -1,4 +1,4 @@
-import {
+import type {
   IAuth0Id,
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
@@ -6,11 +6,10 @@ import {
   IElementDTO,
   IElementRef,
   IElementService,
-  isAtomDTO,
-  isComponentDTO,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
+import { isAtomDTO, isComponentDTO } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import {
   PropMapBinding,
@@ -18,13 +17,13 @@ import {
 } from '@codelab/frontend/domain/prop'
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import { createSlug, runSequentially } from '@codelab/frontend/shared/utils'
-import {
+import type {
   ElementCreateInput,
   ElementUpdateInput,
   ElementWhere,
-  RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
+import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -42,7 +41,7 @@ import {
 } from 'mobx-keystone'
 import { until } from 'ramda'
 import { v4 } from 'uuid'
-import { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
+import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import {
   makeCreateInput,
   makeDuplicateInput,

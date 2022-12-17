@@ -1,10 +1,10 @@
-import {
+import type {
   IAtomDTO,
   IAtomService,
   IInterfaceTypeRef,
   ITag,
 } from '@codelab/frontend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 
 export interface AtomLibrary {
   name: string

@@ -3,8 +3,11 @@ import {
   Repository,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { Atom, GetAtomsQueryVariables } from '@codelab/shared/abstract/codegen'
-import { Transaction } from 'neo4j-driver'
+import type {
+  Atom,
+  GetAtomsQueryVariables,
+} from '@codelab/shared/abstract/codegen'
+import type { Transaction } from 'neo4j-driver'
 
 export const atomRepository = {
   /**

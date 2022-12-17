@@ -1,4 +1,4 @@
-import { DomainFragment } from './domain.fragment.graphql.gen'
+import type { DomainFragment } from './domain.fragment.graphql.gen'
 
 export interface ICreateDomainDTO {
   appId: string

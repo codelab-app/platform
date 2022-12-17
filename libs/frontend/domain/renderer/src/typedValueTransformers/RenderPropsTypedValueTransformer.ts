@@ -1,4 +1,4 @@
-import { IElement, TypedValue } from '@codelab/frontend/abstract/core'
+import type { IElement, TypedValue } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
@@ -10,7 +10,7 @@ import {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import React from 'react'
-import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
+import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { antdAtoms, codelabAtoms, htmlAtoms, muiAtoms } from '../atoms/atoms'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'

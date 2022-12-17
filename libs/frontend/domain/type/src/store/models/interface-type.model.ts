@@ -1,21 +1,19 @@
 import type {
-  IField,
   IFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
-  IPropData,
-  ITypeDTO,
 } from '@codelab/frontend/abstract/core'
+import { IField, IPropData, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   ExtendedModel,
   model,
   modelAction,
   objectMap,
   prop,
-  Ref,
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { getFieldService } from '../field.service.context'

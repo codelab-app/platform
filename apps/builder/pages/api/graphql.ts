@@ -1,7 +1,7 @@
 /**
  * This file is under `api` code so can import backend code
  */
-import {
+import type {
   GraphQLRequestContext,
   NextApiRequest,
 } from '@codelab/backend/abstract/types'
@@ -12,12 +12,12 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { upsertUser } from '@codelab/frontend/domain/user'
-import { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { logger } from '@codelab/shared/adapter/logging'
 import { EnvBuilder } from '@codelab/shared/env'
 import { ApolloServer } from 'apollo-server-micro'
-import { NextApiHandler } from 'next'
+import type { NextApiHandler } from 'next'
 import * as util from 'util'
 
 /*eslint-disable */

@@ -1,4 +1,7 @@
-import { IFieldService, ITypeService } from '@codelab/frontend/abstract/core'
+import type {
+  IFieldService,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { fieldServiceContext } from '../field.service.context'
 import { typeServiceContext } from '../type.service.context'

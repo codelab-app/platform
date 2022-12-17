@@ -1,10 +1,10 @@
-import {
-  CUSTOM_TEXT_PROP_KEY,
+import type {
   IElement,
   IElementService,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
+import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { Col, Row } from 'antd'
 import debounce from 'lodash/debounce'
 import { observer } from 'mobx-react-lite'

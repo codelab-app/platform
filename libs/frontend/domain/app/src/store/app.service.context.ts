@@ -1,4 +1,4 @@
-import { IAppService } from '@codelab/frontend/abstract/core'
+import type { IAppService } from '@codelab/frontend/abstract/core'
 import { createContext } from 'mobx-keystone'
 
 export const appServiceContext = createContext<IAppService>()

@@ -1,8 +1,11 @@
-import type { IAtom, IAtomDTO, ITag } from '@codelab/frontend/abstract/core'
+import type { IAtom, ITag } from '@codelab/frontend/abstract/core'
+import { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
-import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import type { InterfaceType } from '@codelab/frontend/domain/type'
+import { typeRef } from '@codelab/frontend/domain/type'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -10,7 +13,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'

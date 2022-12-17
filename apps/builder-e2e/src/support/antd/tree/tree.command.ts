@@ -1,4 +1,4 @@
-import { CommonOptions, Label } from '../types'
+import type { CommonOptions, Label } from '../types'
 
 export const getTree = (options?: CommonOptions) => {
   return cy.get('.ant-tree', options)

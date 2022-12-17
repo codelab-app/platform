@@ -1,6 +1,6 @@
-import { CypressElement } from '../../deprecated/types'
+import type { CypressElement } from '../../deprecated/types'
 import { wrapSubject } from '../../deprecated/utils'
-import { Label } from '../types'
+import type { Label } from '../types'
 
 interface ButtonSelector {
   label?: Label

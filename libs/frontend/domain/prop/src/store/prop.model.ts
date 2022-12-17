@@ -1,11 +1,10 @@
+import type { IInterfaceType, IProp } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
-  IInterfaceType,
-  IProp,
   IPropData,
   IPropDTO,
 } from '@codelab/frontend/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
@@ -14,6 +13,7 @@ import omitBy from 'lodash/omitBy'
 import set from 'lodash/set'
 import values from 'lodash/values'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   frozen,
@@ -22,7 +22,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'

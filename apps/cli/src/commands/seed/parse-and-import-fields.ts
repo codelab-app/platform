@@ -1,4 +1,4 @@
-import { ExistingData } from '@codelab/backend/abstract/core'
+import type { ExistingData } from '@codelab/backend/abstract/core'
 import { logSection } from '../../shared/utils/log-task'
 import { ParserService } from '../../use-cases/seed/parser.service'
 

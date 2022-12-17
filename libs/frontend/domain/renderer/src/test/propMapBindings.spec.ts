@@ -1,4 +1,4 @@
-import { IRenderOutput } from '@codelab/frontend/abstract/core'
+import type { IRenderOutput } from '@codelab/frontend/abstract/core'
 import { PropMapBinding } from '@codelab/frontend/domain/prop'
 import { v4 } from 'uuid'
 import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'

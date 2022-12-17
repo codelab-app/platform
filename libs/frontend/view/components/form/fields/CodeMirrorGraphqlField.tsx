@@ -4,15 +4,14 @@ import { bracketMatching, syntaxHighlighting } from '@codemirror/language'
 import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
 import { lineNumbers } from '@codemirror/view'
 import { Form, Spin } from 'antd'
-import React, { Ref } from 'react'
+import type { Ref } from 'react'
+import React from 'react'
 import { useAsync } from 'react-use'
-import { connectField, Context, FieldProps, useForm } from 'uniforms'
-import {
-  CodeMirrorEditor,
-  CodeMirrorEditorProps,
-  graphqlExtensionFactory,
-} from '../../codeMirror'
-import { MainPropsOnChange, Value } from './CodeMirrorField'
+import type { Context, FieldProps } from 'uniforms'
+import { connectField, useForm } from 'uniforms'
+import type { CodeMirrorEditorProps } from '../../codeMirror'
+import { CodeMirrorEditor, graphqlExtensionFactory } from '../../codeMirror'
+import type { MainPropsOnChange, Value } from './CodeMirrorField'
 
 export interface ICodeMirrorGraphqlProps<T> {
   getUrl: (context: Context<T>) => string

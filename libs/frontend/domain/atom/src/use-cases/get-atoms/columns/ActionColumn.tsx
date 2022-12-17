@@ -6,7 +6,7 @@ import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { atomRef } from '../../../store'
-import { ActionColumnProps } from './types'
+import type { ActionColumnProps } from './types'
 
 export const ActionColumn = observer<ActionColumnProps>(
   ({ atom, atomService }) => {

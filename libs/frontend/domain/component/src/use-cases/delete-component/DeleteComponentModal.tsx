@@ -1,4 +1,4 @@
-import { IComponentService } from '@codelab/frontend/abstract/core'
+import type { IComponentService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'

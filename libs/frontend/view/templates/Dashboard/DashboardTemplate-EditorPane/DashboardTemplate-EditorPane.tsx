@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
-import React, { ComponentType, useEffect, useState } from 'react'
+import type { ComponentType } from 'react'
+import React, { useEffect, useState } from 'react'
 import tw from 'twin.macro'
-import { UseResizable } from '../../../components'
+import type { UseResizable } from '../../../components'
 import { sidebarWidth } from '../constants'
-import { DashboardTemplateProps } from '../types'
+import type { DashboardTemplateProps } from '../types'
 
 export type EditorPaneProps = {
   EditorPane: ComponentType<Pick<EditorPaneProps, 'resizable'>>

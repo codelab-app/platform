@@ -8,8 +8,9 @@ import isNumber from 'lodash/isNumber'
 import isObject from 'lodash/isObject'
 import isUndefined from 'lodash/isUndefined'
 import { wrapSubject } from '../../deprecated/utils'
-import { CommonOptions, Label } from '../types'
-import { ifOnClock, logAndMute, tickIfOnClock, TickOptions } from '../utils'
+import type { CommonOptions, Label } from '../types'
+import type { TickOptions } from '../utils'
+import { ifOnClock, logAndMute, tickIfOnClock } from '../utils'
 import {
   type ExpectFormFieldErrorArgs,
   type ExpectFormFieldsArgs,

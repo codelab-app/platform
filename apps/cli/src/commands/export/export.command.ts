@@ -1,9 +1,10 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import inquirer from 'inquirer'
-import yargs, { CommandModule } from 'yargs'
+import type { CommandModule } from 'yargs'
+import yargs from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
+import type { ExportProps } from '../../shared/path-args'
 import {
-  ExportProps,
   seedDataPathOption,
   skipSeedDataOption,
   skipUserDataOption,

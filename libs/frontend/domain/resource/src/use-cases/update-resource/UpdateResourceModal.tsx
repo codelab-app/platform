@@ -1,4 +1,4 @@
-import {
+import type {
   IResourceService,
   IUpdateResourceDTO,
 } from '@codelab/frontend/abstract/core'

@@ -1,5 +1,5 @@
-import { ExistingData } from '@codelab/backend/abstract/core'
-import { AtomSeedData } from '@codelab/shared/data'
+import type { ExistingData } from '@codelab/backend/abstract/core'
+import type { AtomSeedData } from '@codelab/shared/data'
 
 /**
  * @param atomName The atom name we want to update

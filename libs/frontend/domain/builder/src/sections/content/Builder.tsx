@@ -1,12 +1,15 @@
 import { PauseOutlined } from '@ant-design/icons'
-import {
-  BUILDER_CONTAINER_ID,
-  DATA_ELEMENT_ID,
+import type {
   IBuilderService,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { Renderer, RendererRoot } from '@codelab/frontend/domain/renderer'
+import {
+  BUILDER_CONTAINER_ID,
+  DATA_ELEMENT_ID,
+} from '@codelab/frontend/abstract/core'
+import type { RendererRoot } from '@codelab/frontend/domain/renderer'
+import { Renderer } from '@codelab/frontend/domain/renderer'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'

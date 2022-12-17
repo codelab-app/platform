@@ -1,4 +1,4 @@
-import {
+import type {
   IAnyType,
   IFieldRecord,
   IFieldService,
@@ -11,7 +11,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Divider, Space, Table, Tag } from 'antd'
-import { ColumnProps } from 'antd/lib/table/Column'
+import type { ColumnProps } from 'antd/lib/table/Column'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'

@@ -1,4 +1,4 @@
-import {
+import type {
   ICreateStoreDTO,
   IStore,
   IStoreDTO,
@@ -7,8 +7,8 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { StoreWhere } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
+import type { StoreWhere } from '@codelab/shared/abstract/codegen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,

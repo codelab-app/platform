@@ -1,15 +1,19 @@
-import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import { IAtomDTO, ICreateAtomDTO, IUpdateAtomDTO } from './atom.dto.interface'
-import { IAtom } from './atom.model.interface'
+import type {
+  IAtomDTO,
+  ICreateAtomDTO,
+  IUpdateAtomDTO,
+} from './atom.dto.interface'
+import type { IAtom } from './atom.model.interface'
 
 export interface IAtomService
   extends ICRUDService<IAtom, ICreateAtomDTO, IUpdateAtomDTO>,

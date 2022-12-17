@@ -1,5 +1,5 @@
 import { ApartmentOutlined } from '@ant-design/icons'
-import { IComponentService } from '@codelab/frontend/abstract/core'
+import type { IComponentService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import {
@@ -11,7 +11,7 @@ import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { ComponentColumnData } from './types'
+import type { ComponentColumnData } from './types'
 
 export interface ActionColumnProps {
   component: ComponentColumnData

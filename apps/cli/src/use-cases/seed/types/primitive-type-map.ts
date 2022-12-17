@@ -1,6 +1,6 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { FieldTypeRef } from '../utils/type-predicates'
+import type { FieldTypeRef } from '../utils/type-predicates'
 
 export const getPrimitiveTypeForApi: FieldTypeRef = async ({ field, atom }) => {
   const PrimitiveType = await Repository.instance.PrimitiveType

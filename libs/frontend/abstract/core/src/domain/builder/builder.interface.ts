@@ -1,5 +1,5 @@
-import { Nullable } from '@codelab/shared/abstract/types'
-import { ICreateElementDTO } from '../element'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { ICreateElementDTO } from '../element'
 
 export interface MoveData {
   parentElementId: Nullable<string>

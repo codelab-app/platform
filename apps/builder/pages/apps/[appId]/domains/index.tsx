@@ -1,4 +1,4 @@
-import { CodelabPage } from '@codelab/frontend/abstract/types'
+import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/domain/app'
 import {
   CreateDomainButton,
@@ -19,9 +19,9 @@ import {
   pageBuilderMenuItem,
   resourceMenuItem,
 } from '@codelab/frontend/view/sections'
+import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'

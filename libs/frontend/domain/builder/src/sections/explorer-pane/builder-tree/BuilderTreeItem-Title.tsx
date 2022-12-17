@@ -1,24 +1,20 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
+import type { INode } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
-  INode,
 } from '@codelab/frontend/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { Col, Dropdown, Row, Tooltip } from 'antd'
-import { DataNode } from 'antd/lib/tree'
+import type { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderDropHandler } from '../../../dnd/BuilderDropHandler'
-import {
-  ComponentContextMenu,
-  ComponentContextMenuProps,
-} from '../ComponentContextMenu'
-import {
-  ElementContextMenu,
-  ElementContextMenuProps,
-} from '../ElementContextMenu'
+import type { ComponentContextMenuProps } from '../ComponentContextMenu'
+import { ComponentContextMenu } from '../ComponentContextMenu'
+import type { ElementContextMenuProps } from '../ElementContextMenu'
+import { ElementContextMenu } from '../ElementContextMenu'
 import { BuilderTreeItemOverlay } from './BuilderTreeItem-Overlay'
 import { ItemTitleStyle } from './ItemTitleStyle'
 

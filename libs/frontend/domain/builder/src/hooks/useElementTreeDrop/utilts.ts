@@ -1,5 +1,5 @@
-import { EventDataNode } from 'antd/lib/tree'
-import { Key } from 'rc-tree/lib/interface'
+import type { EventDataNode } from 'antd/lib/tree'
+import type { Key } from 'rc-tree/lib/interface'
 
 interface DropInfo {
   node: EventDataNode<unknown>

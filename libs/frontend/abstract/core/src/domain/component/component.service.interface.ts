@@ -1,23 +1,23 @@
-import {
+import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
 } from '../../service'
-import { IBuilderDataNode } from '../../ui'
-import {
+import type { IBuilderDataNode } from '../../ui'
+import type {
   IComponentDTO,
   ICreateComponentDTO,
   IUpdateComponentDTO,
 } from './component.dto.interface'
-import { IComponent } from './component.model.interface'
-import { RenderedComponentFragment } from './component-render.fragment.graphql.gen'
+import type { IComponent } from './component.model.interface'
+import type { RenderedComponentFragment } from './component-render.fragment.graphql.gen'
 
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,

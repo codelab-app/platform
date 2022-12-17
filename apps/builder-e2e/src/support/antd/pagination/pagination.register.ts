@@ -1,4 +1,4 @@
-import { CypressCommand } from '../../types'
+import type { CypressCommand } from '../../types'
 import {
   selectNextPage,
   selectPage,

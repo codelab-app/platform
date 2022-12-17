@@ -1,7 +1,7 @@
-import { Nullish } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import { ICacheService } from '../../../service'
-import { IFieldDTO, IValidationRules } from '../field.dto.interface'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { ICacheService } from '../../../service'
+import type { IFieldDTO, IValidationRules } from '../field.dto.interface'
 import type { IAnyType, IInterfaceType } from '../types'
 
 export type IFieldDefaultValue = object | string | number | boolean

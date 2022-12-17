@@ -1,4 +1,4 @@
-import { IPropMapBinding } from '@codelab/frontend/abstract/core'
+import type { IPropMapBinding } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const propMapBindingRef = rootRef<IPropMapBinding>(

@@ -7,14 +7,17 @@ import {
   TabletOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import { IBuilderService, IPageService } from '@codelab/frontend/abstract/core'
+import type {
+  IBuilderService,
+  IPageService,
+} from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useCurrentAppId,
   useCurrentPageId,
 } from '@codelab/frontend/presenter/container'
 import { InputNumber, Menu } from 'antd'
-import { ItemType } from 'antd/lib/menu/hooks/useItems'
+import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'

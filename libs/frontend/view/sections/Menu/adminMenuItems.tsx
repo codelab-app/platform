@@ -4,7 +4,7 @@ import {
   TagOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { MenuProps } from 'antd'
+import type { MenuProps } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 

@@ -1,8 +1,8 @@
-import { IAtomDTO } from '@codelab/frontend/abstract/core'
-import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { CreateAtomsDocument } from 'libs/frontend/domain/atom/src/graphql/atom.endpoints.graphql.gen'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 
 export const createAtomRequestId = 'CreateAtom'
 

@@ -2,9 +2,11 @@ import type {
   IElementRef,
   IPropData,
   IPropMapBinding,
+} from '@codelab/frontend/abstract/core'
+import {
+  BINDING_WILDCARD,
   IPropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
-import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
 import get from 'lodash/get'
 import isObjectLike from 'lodash/isObjectLike'
 import set from 'lodash/set'

@@ -1,8 +1,8 @@
-import {
+import type {
   ICodeAction,
   ICodeActionDTO,
-  IProp,
 } from '@codelab/frontend/abstract/core'
+import { IProp } from '@codelab/frontend/abstract/core'
 import { assertIsActionKind, IActionKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction, updateBaseAction } from './base-action.model'

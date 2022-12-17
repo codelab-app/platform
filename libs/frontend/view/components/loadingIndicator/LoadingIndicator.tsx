@@ -1,8 +1,9 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Spin from 'antd/lib/spin'
 import isFunction from 'lodash/isFunction'
-import React, { CSSProperties } from 'react'
-import { LoadingData } from './useTrackLoadingPromises'
+import type { CSSProperties } from 'react'
+import React from 'react'
+import type { LoadingData } from './useTrackLoadingPromises'
 
 interface LoadIndicatorProps extends LoadingData {
   renderErrored?: (error: unknown) => React.ReactElement

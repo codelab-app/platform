@@ -1,6 +1,6 @@
 import { EnvLanding } from '@codelab/shared/env'
 import client from '@mailchimp/mailchimp_marketing'
-import { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import z from 'zod'
 
 const schema = z.object({

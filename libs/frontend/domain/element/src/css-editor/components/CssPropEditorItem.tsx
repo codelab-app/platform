@@ -1,4 +1,4 @@
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace'
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import { Checkbox, Col, Row } from 'antd'
 import { useState } from 'react'
 

@@ -1,5 +1,5 @@
-import { Nullable } from '@codelab/shared/abstract/types'
-import React from 'react'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type React from 'react'
 
 export interface OverlayProps {
   nodeId?: string

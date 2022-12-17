@@ -1,4 +1,4 @@
-import { ExportAppWhere, IAppExport } from '@codelab/backend/abstract/core'
+import type { ExportAppWhere, IAppExport } from '@codelab/backend/abstract/core'
 import {
   appSelectionSet,
   Repository,

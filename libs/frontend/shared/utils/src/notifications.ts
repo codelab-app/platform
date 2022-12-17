@@ -1,4 +1,4 @@
-import { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
 import isFunction from 'lodash/isFunction'
 import isString from 'lodash/isString'

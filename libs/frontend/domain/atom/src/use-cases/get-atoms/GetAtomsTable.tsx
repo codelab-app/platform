@@ -1,9 +1,9 @@
-import { IAtomService } from '@codelab/frontend/abstract/core'
+import type { IAtomService } from '@codelab/frontend/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
-import { AtomLibrary, AtomRecord } from './columns'
+import type { AtomLibrary, AtomRecord } from './columns'
 import { useAtomTable } from './useAtomTable'
 
 interface GetAtomsTableProps {

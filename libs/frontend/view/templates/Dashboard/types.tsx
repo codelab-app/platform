@@ -1,5 +1,5 @@
-import { JSXElementConstructor } from 'react'
-import { UseResizable } from '../../components'
+import type { JSXElementConstructor } from 'react'
+import type { UseResizable } from '../../components'
 
 export interface DashboardTemplateProps {
   Header?: JSXElementConstructor<unknown>

@@ -1,19 +1,19 @@
-import {
+import type {
   BaseTypeOptions,
   BaseTypeWhere,
   GetTypesQuery,
 } from '@codelab/shared/abstract/codegen'
-import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICRUDModalService,
   ICRUDService,
   IPaginationService,
   IQueryService,
 } from '../../service'
-import { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
-import { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
+import type { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
+import type { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
 
 export interface BaseTypesOptions {
   page?: number

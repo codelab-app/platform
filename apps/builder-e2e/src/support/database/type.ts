@@ -1,7 +1,8 @@
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
-import { BaseTypeCreateInput } from '@codelab/shared/abstract/codegen'
+import type { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { BaseTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { DocumentNode, print } from 'graphql'
+import type { DocumentNode } from 'graphql'
+import { print } from 'graphql'
 import {
   CreateActionTypesDocument,
   CreateAppTypesDocument,

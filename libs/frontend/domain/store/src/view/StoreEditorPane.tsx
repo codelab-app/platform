@@ -1,4 +1,4 @@
-import {
+import type {
   IActionService,
   IFieldService,
   IStore,
@@ -11,7 +11,8 @@ import {
 import { Row } from 'antd'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React, { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { CreateActionButton, GetActionsList, GetStateList } from '../use-cases'
 

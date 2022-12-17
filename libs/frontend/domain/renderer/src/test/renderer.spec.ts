@@ -1,7 +1,5 @@
-import {
-  DATA_COMPONENT_ID,
-  IRenderOutput,
-} from '@codelab/frontend/abstract/core'
+import type { IRenderOutput } from '@codelab/frontend/abstract/core'
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { ComponentRenderPipe } from '../renderPipes/componentRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
 

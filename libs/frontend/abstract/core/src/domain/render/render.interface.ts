@@ -1,9 +1,9 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
-import { ArrayOrSingle } from 'ts-essentials'
-import { IRenderer } from '../builder'
-import { IComponentService } from '../component'
-import { IElement, IElementService } from '../element'
-import { IPropData, IPropDataByElementId } from '../prop'
+import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { ArrayOrSingle } from 'ts-essentials'
+import type { IRenderer } from '../builder'
+import type { IComponentService } from '../component'
+import type { IElement, IElementService } from '../element'
+import type { IPropData, IPropDataByElementId } from '../prop'
 
 export enum RendererTab {
   Page = 'Page',

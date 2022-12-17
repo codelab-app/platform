@@ -1,4 +1,4 @@
-import {
+import type {
   ExistingData,
   IInterfaceTypeExport,
 } from '@codelab/backend/abstract/core'

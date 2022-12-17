@@ -1,10 +1,10 @@
-import { IAnyType, IPrimitiveType } from '@codelab/frontend/abstract/core'
+import type { IAnyType, IPrimitiveType } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
   ToggleExpressionField,
 } from '@codelab/frontend/view/components'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { UiPropertiesFn } from '../types'
+import type { UiPropertiesFn } from '../types'
 
 export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
   type: IAnyType,

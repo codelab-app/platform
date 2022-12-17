@@ -1,10 +1,10 @@
-import { Ref } from 'mobx-keystone'
-import { ICacheService } from '../../service'
-import { IElementTree } from '../element'
-import { IPage } from '../page'
-import { IPropData } from '../prop'
-import { IStore } from '../store'
-import { IAppDTO } from './app.dto.interface'
+import type { Ref } from 'mobx-keystone'
+import type { ICacheService } from '../../service'
+import type { IElementTree } from '../element'
+import type { IPage } from '../page'
+import type { IPropData } from '../prop'
+import type { IStore } from '../store'
+import type { IAppDTO } from './app.dto.interface'
 
 export interface IApp extends ICacheService<IAppDTO, IApp> {
   id: IAppRef

@@ -1,4 +1,4 @@
-import { IElement } from './element.model.interface'
+import type { IElement } from './element.model.interface'
 
 export interface IElementGraph {
   vertices: Array<IElement>

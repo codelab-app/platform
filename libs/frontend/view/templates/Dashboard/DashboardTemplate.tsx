@@ -15,7 +15,7 @@ import {
 import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
 import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane'
 import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
-import { DashboardTemplateProps } from './types'
+import type { DashboardTemplateProps } from './types'
 
 const { Sider, Header: AntDesignHeader } = Layout
 

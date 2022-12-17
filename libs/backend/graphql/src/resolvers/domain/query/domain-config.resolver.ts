@@ -1,6 +1,6 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import { IFieldResolver } from '@graphql-tools/utils'
+import type { IFieldResolver } from '@graphql-tools/utils'
 
 export const domainConfig: IFieldResolver<
   OGM_TYPES.Domain,

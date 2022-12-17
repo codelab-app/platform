@@ -1,7 +1,7 @@
-import { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import { COMPONENT_NODE_TYPE, ELEMENT_NODE_TYPE } from '../../base'
-import { IComponent } from '../component'
-import { IElement } from '../element'
+import type { IComponent } from '../component'
+import type { IElement } from '../element'
 
 /**
  * These are the polymorphic node type of an view tree

@@ -1,4 +1,4 @@
-import { IElement } from '@codelab/frontend/abstract/core'
+import type { IElement } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const elementRef = rootRef<IElement>('@codelab/ElementRef', {

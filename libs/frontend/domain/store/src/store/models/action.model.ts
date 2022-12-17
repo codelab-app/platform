@@ -1,4 +1,4 @@
-import {
+import type {
   IActionDTO,
   IApiAction,
   ICodeAction,

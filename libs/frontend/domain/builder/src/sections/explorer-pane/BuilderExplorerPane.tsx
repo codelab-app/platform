@@ -1,4 +1,4 @@
-import {
+import type {
   IActionService,
   IAtomService,
   IBuilderService,
@@ -6,8 +6,8 @@ import {
   IElementService,
   IRenderService,
   IUserService,
-  RendererTab,
 } from '@codelab/frontend/abstract/core'
+import { RendererTab } from '@codelab/frontend/abstract/core'
 import {
   CreateComponentButton,
   CreateComponentModal,

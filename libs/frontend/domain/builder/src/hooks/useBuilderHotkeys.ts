@@ -1,8 +1,8 @@
-import {
+import type {
   IBuilderService,
   IElementService,
-  isElement,
 } from '@codelab/frontend/abstract/core'
+import { isElement } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { useHotkeys } from 'react-hotkeys-hook'
 

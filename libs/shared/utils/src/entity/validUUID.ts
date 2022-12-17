@@ -1,4 +1,4 @@
-import { Key } from 'react'
+import type { Key } from 'react'
 
 /* Check if string is valid UUID */
 export const checkIfValidUUID = (str: Key | undefined) => {

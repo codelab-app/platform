@@ -467,6 +467,7 @@
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/consistent-type-assertions": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-unnecessary-condition": "error",
         "@typescript-eslint/ban-types": [

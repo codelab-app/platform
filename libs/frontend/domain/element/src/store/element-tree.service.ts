@@ -1,8 +1,8 @@
-import {
-  IElement,
+import type {
   IElementTree,
   IElementTreeService,
 } from '@codelab/frontend/abstract/core'
+import { IElement } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { ElementTree } from './element-tree.model'

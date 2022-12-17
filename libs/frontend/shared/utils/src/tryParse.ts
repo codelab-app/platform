@@ -1,4 +1,4 @@
-import { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared/abstract/types'
 
 export const tryParse = (str: Nullish<string>) => {
   try {

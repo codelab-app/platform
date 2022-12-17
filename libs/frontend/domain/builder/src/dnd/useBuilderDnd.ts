@@ -1,18 +1,13 @@
-import {
-  BuilderDndType,
+import type {
   BuilderDragData,
   IBuilderService,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
-import {
-  DragEndEvent,
-  DragStartEvent,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core'
+import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
+import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'
 import { useCallback } from 'react'
 import { useDndDropHandler } from './useDndDropHandlers'

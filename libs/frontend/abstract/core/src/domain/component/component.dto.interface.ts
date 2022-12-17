@@ -1,7 +1,7 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { IInterfaceTypeRef } from '../type'
-import { IAuth0Id } from '../user'
-import { ComponentFragment } from './component.fragment.graphql.gen'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { IInterfaceTypeRef } from '../type'
+import type { IAuth0Id } from '../user'
+import type { ComponentFragment } from './component.fragment.graphql.gen'
 
 export interface ICreateComponentDTO {
   id: string

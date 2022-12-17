@@ -1,8 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { IAppService } from '@codelab/frontend/abstract/core'
+import type { IAppService } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 
 export const CreateAppButton = observer<
   PropsWithChildren<{ appService: IAppService }>

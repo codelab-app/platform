@@ -1,6 +1,6 @@
-import { SelectorMatcherOptions } from '@testing-library/cypress'
+import type { SelectorMatcherOptions } from '@testing-library/cypress'
 import type { Matcher } from '@testing-library/dom'
-import { CypressButton } from './types'
+import type { CypressButton } from './types'
 import { wrapSubject } from './utils'
 
 /**

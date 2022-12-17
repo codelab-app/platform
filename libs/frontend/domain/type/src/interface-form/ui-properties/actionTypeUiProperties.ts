@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { IAnyActionType } from '@codelab/frontend/abstract/core'
+import type { IAnyActionType } from '@codelab/frontend/abstract/core'
 import { ToggleExpressionField } from '@codelab/frontend/view/components'
 import { SelectAction } from '../fields'
-import { UiPropertiesFn } from '../types'
+import type { UiPropertiesFn } from '../types'
 
 const ACTION_TEMPLATE = `{{
   function() {

@@ -3,7 +3,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/data'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { FieldTypeRef } from '../utils/type-predicates'
+import type { FieldTypeRef } from '../utils/type-predicates'
 
 export const getEnumTypeForApi: FieldTypeRef = async ({
   field,

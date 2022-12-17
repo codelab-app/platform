@@ -1,6 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons'
-import { Button, Upload, UploadProps } from 'antd'
-import { RcFile } from 'antd/lib/upload'
+import type { UploadProps } from 'antd'
+import { Button, Upload } from 'antd'
+import type { RcFile } from 'antd/lib/upload'
 import type { UploadProgressEvent } from 'rc-upload/es/interface'
 import React, { useState } from 'react'
 

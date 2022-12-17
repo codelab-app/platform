@@ -1,4 +1,4 @@
-import { CypressElement } from '../../deprecated/types'
+import type { CypressElement } from '../../deprecated/types'
 import { wrapSubject } from '../../deprecated/utils'
 
 export const getIcon = (

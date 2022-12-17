@@ -1,4 +1,4 @@
-import {
+import type {
   AppCreateInput,
   AtomCreateInput,
 } from '@codelab/shared/abstract/codegen'

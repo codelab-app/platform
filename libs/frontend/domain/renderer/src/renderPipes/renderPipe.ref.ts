@@ -1,4 +1,4 @@
-import { IRenderPipe } from '@codelab/frontend/abstract/core'
+import type { IRenderPipe } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const renderPipeRef = rootRef<IRenderPipe>('@codelab/RenderPipeRef', {

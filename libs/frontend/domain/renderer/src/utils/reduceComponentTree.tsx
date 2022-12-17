@@ -1,6 +1,7 @@
-import { IPropData } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/frontend/abstract/core'
 import { jsx } from '@emotion/react'
-import React, { ComponentProps, ComponentType, PropsWithChildren } from 'react'
+import type { ComponentProps, ComponentType, PropsWithChildren } from 'react'
+import React from 'react'
 
 const ChildrenRender = ({ children }: PropsWithChildren): JSX.Element => (
   <>{children}</>

@@ -1,6 +1,6 @@
 import { EditOutlined } from '@ant-design/icons'
-import { IResourceService } from '@codelab/frontend/abstract/core'
-import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
+import type { IResourceService } from '@codelab/frontend/abstract/core'
+import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

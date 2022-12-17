@@ -1,12 +1,10 @@
-import {
+import type {
   IElementService,
   IElementTree,
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
-import {
-  SelectDescendantElement,
-  SelectElementOption,
-} from '@codelab/frontend/domain/type'
+import type { SelectElementOption } from '@codelab/frontend/domain/type'
+import { SelectDescendantElement } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'

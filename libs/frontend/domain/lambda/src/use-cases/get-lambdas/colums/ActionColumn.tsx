@@ -4,7 +4,7 @@ import React from 'react'
 import { DeleteLambdaButton } from '../../delete-lambda'
 import { ExecuteLambdaButton } from '../../execute-lambda'
 import { UpdateLambdaButton } from '../../update-lambda'
-import { ActionColumnProps } from './types'
+import type { ActionColumnProps } from './types'
 
 export const ActionColumn = ({ lambda }: ActionColumnProps) => {
   return (

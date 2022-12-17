@@ -1,9 +1,7 @@
-import {
-  filterNotHookType,
-  IUpdateAtomDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IUpdateAtomDTO } from '@codelab/frontend/abstract/core'
+import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 
 export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
   title: 'Update Atom Input',

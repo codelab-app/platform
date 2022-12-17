@@ -1,4 +1,4 @@
-import { CodelabPage } from '@codelab/frontend/abstract/types'
+import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {

@@ -1,4 +1,4 @@
-import { Label } from '../types'
+import type { Label } from '../types'
 
 type SortOrder = 'asc' | 'desc'
 

@@ -1,8 +1,8 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
-import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { Assign } from 'utility-types'
-import { ExistingData } from './seed'
-import { ITagExport } from './tag.interface'
+import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import type { Assign } from 'utility-types'
+import type { ExistingData } from './seed'
+import type { ITagExport } from './tag.interface'
 
 export interface IAtomExport {
   icon?: string | null

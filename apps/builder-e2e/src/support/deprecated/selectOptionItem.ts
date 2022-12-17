@@ -1,4 +1,4 @@
-import { CypressElement } from './types'
+import type { CypressElement } from './types'
 import { wrapSubject } from './utils'
 
 export const selectOptionItem = (

@@ -1,12 +1,12 @@
+import type { IPropData } from '@codelab/frontend/abstract/core'
 import {
   BUILDER_NONE_CLASS_NAME,
   DATA_ELEMENT_ID,
-  IPropData,
 } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
 import { mergeProps } from '@codelab/shared/utils'
 import { allPropsCustomizer, getAtom } from './atoms'
-import { AtomFactoryInput, AtomFactoryResult } from './types'
+import type { AtomFactoryInput, AtomFactoryResult } from './types'
 
 /**
  * Creates a React Component and default props for it out of an node and an atom

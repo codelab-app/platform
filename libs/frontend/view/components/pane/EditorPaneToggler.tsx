@@ -1,7 +1,7 @@
 import Button from 'antd/lib/button'
 import React, { useEffect, useState } from 'react'
 import { editorPaneHeight } from '../../templates/Dashboard/constants'
-import { UseResizable } from '../resizable'
+import type { UseResizable } from '../resizable'
 
 interface EditorPaneTogglerProps {
   resizable: UseResizable

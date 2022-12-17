@@ -1,8 +1,9 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { ITagExport } from '@codelab/backend/abstract/core'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { ITagExport } from '@codelab/backend/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
-import { antdTagTree, TagNode } from './antd-tag-tree.data'
+import type { TagNode } from './antd-tag-tree.data'
+import { antdTagTree } from './antd-tag-tree.data'
 
 // Create hierarchical data from data file
 interface TagNodeData {

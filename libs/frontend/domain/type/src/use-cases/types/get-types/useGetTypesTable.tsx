@@ -1,4 +1,4 @@
-import {
+import type {
   IAnyType,
   IFieldService,
   ITypeService,
@@ -6,8 +6,8 @@ import {
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { Skeleton } from 'antd'
-import { ColumnsType } from 'antd/lib/table'
-import { TableRowSelection } from 'antd/lib/table/interface'
+import type { ColumnsType } from 'antd/lib/table'
+import type { TableRowSelection } from 'antd/lib/table/interface'
 import { arraySet } from 'mobx-keystone'
 import React from 'react'
 import { ActionColumn } from './columns'

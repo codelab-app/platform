@@ -1,4 +1,4 @@
-import {
+import type {
   IDomainService,
   IUpdateDomainDTO,
   IUserService,

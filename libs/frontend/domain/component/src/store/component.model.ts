@@ -1,19 +1,10 @@
-import {
-  COMPONENT_NODE_TYPE,
-  IComponent,
-  IComponentDTO,
-  IElement,
-} from '@codelab/frontend/abstract/core'
+import type { IComponent, IComponentDTO } from '@codelab/frontend/abstract/core'
+import { COMPONENT_NODE_TYPE, IElement } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
-import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
-import {
-  ExtendedModel,
-  idProp,
-  model,
-  modelAction,
-  prop,
-  Ref,
-} from 'mobx-keystone'
+import type { InterfaceType } from '@codelab/frontend/domain/type'
+import { typeRef } from '@codelab/frontend/domain/type'
+import type { Ref } from 'mobx-keystone'
+import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
   return new Component({

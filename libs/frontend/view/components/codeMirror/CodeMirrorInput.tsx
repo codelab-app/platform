@@ -1,13 +1,14 @@
 import { ExpandAltOutlined } from '@ant-design/icons'
-import { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
-import { EditorView, ViewUpdate } from '@codemirror/view'
-import { SerializedStyles } from '@emotion/react'
+import type { EditorView, ViewUpdate } from '@codemirror/view'
+import type { SerializedStyles } from '@emotion/react'
 import type { ReactCodeMirrorProps } from '@uiw/react-codemirror'
 import { useCodeMirror } from '@uiw/react-codemirror'
 import merge from 'lodash/merge'
 import React, { useEffect, useRef, useState } from 'react'
-import { CodeMirrorModal, CodeMirrorModalProps } from './CodeMirrorModal'
+import type { CodeMirrorModalProps } from './CodeMirrorModal'
+import { CodeMirrorModal } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
 
 export interface CodeMirrorInputProps

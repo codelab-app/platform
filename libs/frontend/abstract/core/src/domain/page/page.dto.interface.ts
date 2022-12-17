@@ -1,6 +1,6 @@
-import { Nullish } from '@codelab/shared/abstract/types'
-import { IAuth0Id } from '../user'
-import { PageFragment } from './page.fragment.graphql.gen'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { IAuth0Id } from '../user'
+import type { PageFragment } from './page.fragment.graphql.gen'
 
 export interface ICreatePageDTO {
   id?: string

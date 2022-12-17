@@ -1,6 +1,10 @@
-import { IPageDTO, ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import type { IPageDTO } from '@codelab/frontend/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
-import { PageCreateInput, PageWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  PageCreateInput,
+  PageWhere,
+} from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { GetPagesDocument } from 'libs/frontend/domain/page/src/graphql'
 import { v4 } from 'uuid'

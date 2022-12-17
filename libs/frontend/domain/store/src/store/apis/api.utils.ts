@@ -2,7 +2,7 @@
 // Utilities for transforming the form inputs to api inputs
 //
 
-import {
+import type {
   IAnyAction,
   IAnyActionWhere,
   ICreateActionDTO,
@@ -11,7 +11,7 @@ import {
   IUpdateActionDTO,
   IUpdateActionInput,
 } from '@codelab/frontend/abstract/core'
-import {
+import type {
   InterfaceTypeCreateInput,
   StoreCreateInput,
 } from '@codelab/shared/abstract/codegen'

@@ -1,12 +1,12 @@
-import type {
+import type { IExtraElementProps } from '@codelab/frontend/abstract/core'
+import {
   IElementRef,
-  IExtraElementProps,
   IPropData,
   IPropDataByElementId,
 } from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
+import type { Frozen } from 'mobx-keystone'
 import {
-  Frozen,
   frozen,
   Model,
   model,

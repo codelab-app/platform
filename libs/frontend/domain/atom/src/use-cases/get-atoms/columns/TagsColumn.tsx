@@ -1,6 +1,6 @@
 import { Tag } from 'antd'
 import React from 'react'
-import { AtomRecord } from './types'
+import type { AtomRecord } from './types'
 
 export const TagsColumn = ({ tags }: Pick<AtomRecord, 'tags'>) => {
   return (

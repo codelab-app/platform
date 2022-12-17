@@ -1,10 +1,10 @@
-import {
-  CUSTOM_TEXT_PROP_KEY,
+import type {
   IElement,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'

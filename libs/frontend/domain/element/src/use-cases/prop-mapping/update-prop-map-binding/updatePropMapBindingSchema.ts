@@ -1,5 +1,5 @@
-import { IUpdatePropMapBindingDTO } from '@codelab/frontend/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import type { IUpdatePropMapBindingDTO } from '@codelab/frontend/abstract/core'
+import type { JSONSchemaType } from 'ajv'
 
 export const updatePropMapBindingSchema: JSONSchemaType<IUpdatePropMapBindingDTO> =
   {

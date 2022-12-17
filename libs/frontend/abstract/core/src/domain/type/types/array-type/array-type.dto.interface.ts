@@ -1,3 +1,3 @@
-import { ArrayTypeFragment } from '../../fragments'
+import type { ArrayTypeFragment } from '../../fragments'
 
 export type IArrayTypeDTO = ArrayTypeFragment

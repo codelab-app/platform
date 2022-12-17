@@ -1,3 +1,3 @@
-import { InterfaceTypeFragment } from '../../fragments'
+import type { InterfaceTypeFragment } from '../../fragments'
 
 export type IInterfaceTypeDTO = InterfaceTypeFragment

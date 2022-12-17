@@ -1,6 +1,6 @@
 import { ToggleExpressionField } from '@codelab/frontend/view/components'
 import { SelectComponent } from '../fields'
-import { UiPropertiesFn } from '../types'
+import type { UiPropertiesFn } from '../types'
 
 const ACTION_TEMPLATE = `{{
   function run() {

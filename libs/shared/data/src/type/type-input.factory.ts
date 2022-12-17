@@ -1,9 +1,9 @@
-import {
+import type {
   IEnumTypeValue,
   IPropData,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import {
+import type {
   ArrayTypeItemTypeDisconnectInput,
   UnionTypeTypesOfUnionTypeDisconnectInput,
   UnionTypeTypesOfUnionTypeUpdateInput,

@@ -1,11 +1,11 @@
-import {
+import type {
   ICodeMirrorLanguage,
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { TypeFragment } from './fragments'
-import { IEnumTypeValue } from './types'
+import type { TypeFragment } from './fragments'
+import type { IEnumTypeValue } from './types'
 
 export interface IBaseTypeDTO {
   id: string

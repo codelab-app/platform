@@ -1,4 +1,4 @@
-import {
+import type {
   AntdDesignField,
   AntDesignFieldsByFile,
 } from '@codelab/backend/abstract/core'

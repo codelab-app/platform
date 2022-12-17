@@ -1,5 +1,6 @@
-import { DataNode } from 'antd/lib/tree'
-import React, { PropsWithChildren, useRef } from 'react'
+import type { DataNode } from 'antd/lib/tree'
+import type { PropsWithChildren } from 'react'
+import React, { useRef } from 'react'
 import tw from 'twin.macro'
 
 /**

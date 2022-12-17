@@ -1,8 +1,5 @@
-import type {
-  IPageType,
-  IPageTypeDTO,
-  ITypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IPageType, IPageTypeDTO } from '@codelab/frontend/abstract/core'
+import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'

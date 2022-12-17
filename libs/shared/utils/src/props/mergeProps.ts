@@ -1,4 +1,4 @@
-import { IPropData } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/frontend/abstract/core'
 import mergeWith from 'lodash/mergeWith'
 
 type PropsArray = Array<IPropData | undefined | null>

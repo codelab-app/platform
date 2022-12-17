@@ -3,7 +3,8 @@ import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
-import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
+import type { CodeMirrorInputProps } from './CodeMirrorInput'
+import { CodeMirrorInput } from './CodeMirrorInput'
 import { getDefaultExtensions } from './setup'
 
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {

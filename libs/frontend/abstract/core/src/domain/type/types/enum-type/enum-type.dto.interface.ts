@@ -1,4 +1,4 @@
-import { EnumTypeFragment, EnumTypeValueFragment } from '../../fragments'
+import type { EnumTypeFragment, EnumTypeValueFragment } from '../../fragments'
 
 export type IEnumTypeDTO = EnumTypeFragment
 

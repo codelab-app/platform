@@ -1,9 +1,9 @@
-import { IRole } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import { ICacheService } from '../../service'
-import { IApp } from '../app'
-import { IUserDTO } from './user.dto.interface'
+import type { IRole } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { ICacheService } from '../../service'
+import type { IApp } from '../app'
+import type { IUserDTO } from './user.dto.interface'
 
 export interface IUser extends ICacheService<IUserDTO, IUser> {
   // Mobx class requires an id, so we'll use the auth0Id here

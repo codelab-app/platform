@@ -1,5 +1,5 @@
-import { IFieldResolver } from '@graphql-tools/utils'
-import { Transaction } from 'neo4j-driver'
+import type { IFieldResolver } from '@graphql-tools/utils'
+import type { Transaction } from 'neo4j-driver'
 import { getDriver } from './driver'
 
 export type ITxnResolver<

@@ -1,4 +1,4 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNode, connectOwner } from '@codelab/shared/data'

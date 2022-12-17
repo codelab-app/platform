@@ -1,4 +1,4 @@
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {

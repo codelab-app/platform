@@ -1,4 +1,4 @@
-import {
+import type {
   IconnectNodeInput,
   ICreateTypeInput,
   IDeleteTypeInput,
@@ -8,21 +8,19 @@ import {
   IUpdateTypeInput,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
-import {
+import type {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { UnboxArray } from '@codelab/shared/abstract/types'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { UnboxArray } from '@codelab/shared/abstract/types'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.graphql.gen'
-import {
-  getSdk as getGetSdk,
-  GetTypesQuery,
-} from '../../graphql/get-type.endpoints.graphql.gen'
+import type { GetTypesQuery } from '../../graphql/get-type.endpoints.graphql.gen'
+import { getSdk as getGetSdk } from '../../graphql/get-type.endpoints.graphql.gen'
 import { getSdk } from '../../graphql/type.endpoints.graphql.gen'
 import { getSdk as getUpdateSdk } from '../../graphql/update-type.endpoints.graphql.gen'
 

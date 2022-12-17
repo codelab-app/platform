@@ -1,9 +1,9 @@
-import { UnboxArray } from '@codelab/shared/abstract/types'
+import type { UnboxArray } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
-import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
+import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { getAllTypes } from '../store'
 
 interface Option {

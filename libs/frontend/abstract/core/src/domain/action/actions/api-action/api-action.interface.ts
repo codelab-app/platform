@@ -1,12 +1,12 @@
-import { IActionKind } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import { ICacheService } from '../../../../service'
-import { IResource } from '../../../resource'
-import { IApiActionConfig } from '../../action.dto.interface'
-import { IAnyAction } from '../../action.interface'
-import { IActionBase } from '../../action-base.interface'
-import { IApiActionDTO } from './api-action.dto.interface'
+import type { IActionKind } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { ICacheService } from '../../../../service'
+import type { IResource } from '../../../resource'
+import type { IApiActionConfig } from '../../action.dto.interface'
+import type { IAnyAction } from '../../action.interface'
+import type { IActionBase } from '../../action-base.interface'
+import type { IApiActionDTO } from './api-action.dto.interface'
 
 export interface IApiAction
   extends IActionBase,

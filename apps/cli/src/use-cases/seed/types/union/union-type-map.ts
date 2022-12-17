@@ -6,8 +6,8 @@ import { capitalizeFirstLetter, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { isInterfaceTypeRegex } from '../../utils/matchers'
 import { extractObjectFromString } from '../../utils/parser'
+import type { FieldTypeRef } from '../../utils/type-predicates'
 import {
-  FieldTypeRef,
   isPrimitivePredicate,
   unionContainsInterfaceType,
 } from '../../utils/type-predicates'

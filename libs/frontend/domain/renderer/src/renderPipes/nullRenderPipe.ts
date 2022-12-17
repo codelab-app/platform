@@ -1,11 +1,11 @@
-import {
+import type {
   IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
 

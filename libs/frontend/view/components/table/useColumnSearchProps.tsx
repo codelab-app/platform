@@ -1,6 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { InputRef, TableColumnProps } from 'antd'
+import { Button, Input, Space } from 'antd'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ColumnSearchProps<RecordType extends object> {

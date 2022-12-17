@@ -1,7 +1,7 @@
 import { Role } from '@codelab/shared/abstract/codegen'
 import { EnvBuilder } from '@codelab/shared/env'
 import { v4 } from 'uuid'
-import { MiddlewareFunction, Options } from 'yargs'
+import type { MiddlewareFunction, Options } from 'yargs'
 import { upsertUser } from '../repository/user.repo'
 import { Stage } from './utils/stage'
 

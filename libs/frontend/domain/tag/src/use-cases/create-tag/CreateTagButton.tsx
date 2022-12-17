@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { ITagService } from '@codelab/frontend/abstract/core'
+import type { ITagService } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

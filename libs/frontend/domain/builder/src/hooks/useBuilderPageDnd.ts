@@ -1,14 +1,12 @@
-import { IElementService } from '@codelab/frontend/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
-import {
+import type { IElementService } from '@codelab/frontend/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type {
   Active,
   DragEndEvent,
   DragMoveEvent,
   DragStartEvent,
-  PointerSensor,
-  useSensor,
-  useSensors,
 } from '@dnd-kit/core'
+import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { useState } from 'react'
 
 export interface UseBuilderPageDndProps {

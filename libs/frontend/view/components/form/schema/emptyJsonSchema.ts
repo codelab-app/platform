@@ -1,4 +1,4 @@
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EmptyJsonSchemaType {}

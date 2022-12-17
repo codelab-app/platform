@@ -1,4 +1,4 @@
-import { IPropData, TypedValue } from '@codelab/frontend/abstract/core'
+import type { IPropData, TypedValue } from '@codelab/frontend/abstract/core'
 import isPlainObject from 'lodash/isPlainObject'
 
 export const isTypedValue = (

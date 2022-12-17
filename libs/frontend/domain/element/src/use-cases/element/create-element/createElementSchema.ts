@@ -1,5 +1,5 @@
-import { ICreateElementDTO } from '@codelab/frontend/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import type { ICreateElementDTO } from '@codelab/frontend/abstract/core'
+import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
   title: 'Create Element Input',

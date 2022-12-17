@@ -1,15 +1,15 @@
 import type {
-  IAnyType,
   ICreateTypeDTO,
   IInterfaceTypeRef,
-  ITypeDTO,
   ITypeService,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
+import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
+import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -25,7 +25,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
+import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { createTypeFactory, updateTypeInputFactory } from '../use-cases'
 import {
   createTypeApi,

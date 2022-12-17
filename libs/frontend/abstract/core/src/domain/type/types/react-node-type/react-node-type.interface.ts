@@ -1,5 +1,5 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { IBaseType } from '../base-type'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseType } from '../base-type'
 
 /**
  * Allows picking a Component from the list of components.

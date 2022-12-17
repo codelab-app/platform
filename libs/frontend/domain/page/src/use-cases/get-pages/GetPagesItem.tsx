@@ -1,5 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
-import { IPage, IPageService } from '@codelab/frontend/abstract/core'
+import type { IPage, IPageService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,

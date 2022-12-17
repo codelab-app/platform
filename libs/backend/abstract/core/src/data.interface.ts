@@ -1,8 +1,8 @@
-import { IAppExport } from './app.interface'
-import { IAtomExport } from './atom.interface'
-import { IResourceExport } from './resource.interface'
-import { ITagExport } from './tag.interface'
-import { ITypeExport } from './type.interface'
+import type { IAppExport } from './app.interface'
+import type { IAtomExport } from './atom.interface'
+import type { IResourceExport } from './resource.interface'
+import type { ITagExport } from './tag.interface'
+import type { ITypeExport } from './type.interface'
 
 export interface ExportedData {
   apps: Array<IAppExport>

@@ -1,10 +1,11 @@
-import {
+import type {
   IActionBase,
   IActionDTO,
   IStore,
 } from '@codelab/frontend/abstract/core'
-import { IActionKind } from '@codelab/shared/abstract/core'
-import { idProp, Model, prop, Ref } from 'mobx-keystone'
+import type { IActionKind } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
+import { idProp, Model, prop } from 'mobx-keystone'
 import { storeRef } from './store.model'
 
 export const createBaseAction = <T extends IActionKind>(type: T) =>

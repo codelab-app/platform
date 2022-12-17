@@ -1,5 +1,5 @@
 import { elementRepository } from '@codelab/backend/application'
-import { Transaction } from 'neo4j-driver'
+import type { Transaction } from 'neo4j-driver'
 
 /**
  * We can re-use the same repository, since it just takes an id and get the descendants. The only difference here is that our ID comes from parent context as opposed to argument

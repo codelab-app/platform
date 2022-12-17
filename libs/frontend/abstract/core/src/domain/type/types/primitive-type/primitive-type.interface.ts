@@ -1,5 +1,8 @@
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { IBaseType } from '../base-type'
+import type {
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import type { IBaseType } from '../base-type'
 
 /**
  * Base atomic building block of the type system.

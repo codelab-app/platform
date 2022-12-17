@@ -1,5 +1,5 @@
-import { IElementDTO } from '@codelab/frontend/abstract/core'
-import {
+import type { IElementDTO } from '@codelab/frontend/abstract/core'
+import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'

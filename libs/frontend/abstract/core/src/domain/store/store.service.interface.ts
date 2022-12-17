@@ -1,18 +1,18 @@
-import { StoreOptions, StoreWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { StoreOptions, StoreWhere } from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
 } from '../../service'
-import {
+import type {
   ICreateStoreDTO,
   IStoreDTO,
   IUpdateStoreDTO,
 } from './store.dto.interface'
-import { IStore } from './store.model.interface'
+import type { IStore } from './store.model.interface'
 
 export interface IStoreService
   extends ICRUDService<IStore, ICreateStoreDTO, IUpdateStoreDTO>,

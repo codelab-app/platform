@@ -1,6 +1,6 @@
-import { ExistingData, ITypeExport } from '@codelab/backend/abstract/core'
+import type { ExistingData, ITypeExport } from '@codelab/backend/abstract/core'
 import { fieldRepository } from '@codelab/backend/application'
-import { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { logSection } from '../../shared/utils/log-task'
 

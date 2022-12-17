@@ -1,4 +1,4 @@
-import {
+import type {
   IElement,
   IElementService,
   IElementTree,

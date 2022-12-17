@@ -1,4 +1,4 @@
-import { GraphqlDescriptionProps } from './types'
+import type { GraphqlDescriptionProps } from './types'
 
 export const GraphqlDescription = ({ config }: GraphqlDescriptionProps) => {
   return (

@@ -1,4 +1,4 @@
-import { IResolvers } from '@graphql-tools/utils'
+import type { IResolvers } from '@graphql-tools/utils'
 import { createDomains, deleteDomains, updateDomains } from './mutation'
 import { domainConfig, projectDomain } from './query'
 

@@ -1,4 +1,4 @@
-import {
+import type {
   IFieldService,
   ITypeService,
   IUnionMembersRecord,
@@ -7,7 +7,8 @@ import {
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
-import Table, { ColumnProps } from 'antd/lib/table'
+import type { ColumnProps } from 'antd/lib/table'
+import Table from 'antd/lib/table'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateFieldButton } from '../../fields'

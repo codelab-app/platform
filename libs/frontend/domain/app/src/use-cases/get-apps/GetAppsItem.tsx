@@ -1,4 +1,4 @@
-import { IApp, IAppService } from '@codelab/frontend/abstract/core'
+import type { IApp, IAppService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'

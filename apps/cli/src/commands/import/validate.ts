@@ -1,5 +1,5 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { IPageExport } from '@codelab/backend/abstract/core'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { IPageExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import flatMap from 'lodash/flatMap'
 

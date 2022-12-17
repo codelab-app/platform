@@ -1,6 +1,6 @@
-import { ICreateTagDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateTagDTO } from '@codelab/frontend/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 
 export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
   title: 'Create Tag Input',

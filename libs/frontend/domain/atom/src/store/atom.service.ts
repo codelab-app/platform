@@ -1,13 +1,13 @@
 import type {
   IAtom,
-  IAtomDTO,
   IAtomService,
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/frontend/abstract/core'
+import { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import { connectNode, connectOwner, reconnectNodes } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {

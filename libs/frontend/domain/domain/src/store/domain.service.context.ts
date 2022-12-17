@@ -1,5 +1,5 @@
 import { createContext } from 'mobx-keystone'
-import { DomainService } from './domain.service'
+import type { DomainService } from './domain.service'
 
 export const domainServiceContext = createContext<DomainService>()
 

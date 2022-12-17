@@ -1,13 +1,13 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { GraphQLRequestContext } from '@codelab/backend/abstract/types'
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { GraphQLRequestContext } from '@codelab/backend/abstract/types'
 import {
   domainSelection,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
 import { connectNode } from '@codelab/shared/data'
-import { IFieldResolver } from '@graphql-tools/utils'
+import type { IFieldResolver } from '@graphql-tools/utils'
 import { v4 } from 'uuid'
 import { domainExistsError } from '../domain.error'
 

@@ -1,13 +1,13 @@
-import {
+import type {
   BuilderDragData,
   BuilderDropData,
-  DragPosition,
   ICreateElementDTO,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { DragEndEvent } from '@dnd-kit/core'
+import { DragPosition } from '@codelab/frontend/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { DragEndEvent } from '@dnd-kit/core'
 
 export interface UseDndDropHandler {
   handleCreateElement: (event: DragEndEvent) => Promise<void>

@@ -1,8 +1,8 @@
-import { IEntity, Nullish } from '@codelab/shared/abstract/types'
-import { ICacheService } from '../../service'
-import { IElementTreeService } from '../element'
-import { IPropData } from '../prop'
-import { IPageDTO } from './page.dto.interface'
+import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { ICacheService } from '../../service'
+import type { IElementTreeService } from '../element'
+import type { IPropData } from '../prop'
+import type { IPageDTO } from './page.dto.interface'
 
 export interface IPage
   extends IEntity,

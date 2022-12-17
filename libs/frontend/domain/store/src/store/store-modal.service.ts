@@ -1,8 +1,12 @@
-import { IEntityModalService, IStore } from '@codelab/frontend/abstract/core'
+import type {
+  IEntityModalService,
+  IStore,
+} from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/StoreModalService')
 export class StoreModalService

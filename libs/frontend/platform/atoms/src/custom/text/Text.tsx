@@ -1,5 +1,6 @@
-import { IPropData } from '@codelab/frontend/abstract/core'
-import { List as AntList, ListProps } from 'antd'
+import type { IPropData } from '@codelab/frontend/abstract/core'
+import type { ListProps } from 'antd'
+import { List as AntList } from 'antd'
 import React from 'react'
 
 export const Text = (props: IPropData) => {

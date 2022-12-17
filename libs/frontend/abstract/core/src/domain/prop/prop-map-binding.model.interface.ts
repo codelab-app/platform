@@ -1,7 +1,7 @@
-import { ICacheService } from '../../service'
-import { IElementRef } from '../element'
-import { IPropData } from './prop.model.interface'
-import { IPropMapBindingDTO } from './prop-map-binding.dto.interface'
+import type { ICacheService } from '../../service'
+import type { IElementRef } from '../element'
+import type { IPropData } from './prop.model.interface'
+import type { IPropMapBindingDTO } from './prop-map-binding.dto.interface'
 
 export interface IPropMapBinding
   extends ICacheService<IPropMapBindingDTO, IPropMapBinding> {

@@ -1,4 +1,4 @@
-import { IPageService } from '@codelab/frontend/abstract/core'
+import type { IPageService } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { Spinner } from '@codelab/frontend/view/components'
 import { List } from 'antd'

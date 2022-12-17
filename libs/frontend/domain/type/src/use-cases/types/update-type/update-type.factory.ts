@@ -1,4 +1,4 @@
-import {
+import type {
   IUpdateTypeArgs,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'

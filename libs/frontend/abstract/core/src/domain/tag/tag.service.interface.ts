@@ -1,17 +1,17 @@
-import { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { LabeledValue } from 'antd/es/select'
-import { ObjectMap, Ref } from 'mobx-keystone'
-import {
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type {
   ICacheService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import { ICreateTagDTO, ITagDTO, IUpdateTagDTO } from './tag.dto.interface'
-import { ITag } from './tag.model.interface'
-import { ITagTreeService } from './tag-tree.service.interface'
+import type { ICreateTagDTO, ITagDTO, IUpdateTagDTO } from './tag.dto.interface'
+import type { ITag } from './tag.model.interface'
+import type { ITagTreeService } from './tag-tree.service.interface'
 
 export interface ITagService
   extends ICRUDService<ITag, ICreateTagDTO, IUpdateTagDTO>,

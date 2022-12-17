@@ -1,5 +1,6 @@
 import { EnvBuilder } from '@codelab/shared/env'
-import neo4j, { Driver } from 'neo4j-driver'
+import type { Driver } from 'neo4j-driver'
+import neo4j from 'neo4j-driver'
 
 const defaultOptions = () => ({
   uri: EnvBuilder().neo4j.uri,

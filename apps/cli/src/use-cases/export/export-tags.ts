@@ -1,5 +1,5 @@
 import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import { ITagExport } from '@codelab/backend/abstract/core'
+import type { ITagExport } from '@codelab/backend/abstract/core'
 import {
   Repository,
   tagSelectionSet,

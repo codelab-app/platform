@@ -1,4 +1,4 @@
-import { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import keyBy from 'lodash/keyBy'
 
 export const entityToIdAndEntity = <T extends IEntity>(

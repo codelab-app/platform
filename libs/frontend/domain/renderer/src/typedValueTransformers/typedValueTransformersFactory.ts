@@ -1,4 +1,4 @@
-import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
+import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { ActionTypedValueTransformer } from './ActionTypedValueTransformer'
 import { ElementTypedValueTransformer } from './ElementTypedValueTransformer'
 import { RawTypedValuePropsTransformer } from './RawTypedValuePropsTransformer'

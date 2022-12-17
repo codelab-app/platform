@@ -1,9 +1,10 @@
 import { EditOutlined } from '@ant-design/icons'
-import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
+import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { pageRef, PageService } from '../../store'
+import type { PageService } from '../../store'
+import { pageRef } from '../../store'
 
 export interface UpdatePageButtonProps extends UpdateButtonProps {
   pages: PageService

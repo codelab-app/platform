@@ -1,5 +1,5 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import {
+import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type {
   ExistingData,
   IAtomImport,
   ITagExport,
@@ -8,7 +8,7 @@ import {
   atomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import type { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode, connectNodes } from '@codelab/shared/data'
 import { logTask } from '../shared/utils/log-task'
 

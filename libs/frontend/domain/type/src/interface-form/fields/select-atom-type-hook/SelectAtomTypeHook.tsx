@@ -2,7 +2,7 @@ import React from 'react'
 import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
-import { SelectAtomProps } from '../types'
+import type { SelectAtomProps } from '../types'
 
 export const SelectAtomTypeHook = ({ name, error }: SelectAtomProps) => {
   const {

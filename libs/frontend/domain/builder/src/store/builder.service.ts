@@ -1,7 +1,9 @@
-import {
+import type {
   BuilderDragData,
   IBuilderService,
   INode,
+} from '@codelab/frontend/abstract/core'
+import {
   isComponent,
   isElement,
   RendererTab,
@@ -9,23 +11,21 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Element, elementRef } from '@codelab/frontend/domain/element'
 import { getTagService } from '@codelab/frontend/domain/tag'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { COMPONENT_TAG_NAME } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 // eslint-disable-next-line lodash/import-scope
 import { chain } from 'lodash'
 import { computed } from 'mobx'
+import type { AnyModel, Frozen, Ref } from 'mobx-keystone'
 import {
-  AnyModel,
   findParent,
-  Frozen,
   getRefsResolvingTo,
   Model,
   model,
   modelAction,
   modelTypeKey,
   prop,
-  Ref,
 } from 'mobx-keystone'
 
 @model('@codelab/BuilderService')

@@ -1,7 +1,7 @@
-import { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 
 export const updatePageSchema: JSONSchemaType<IUpdatePageDTO> = {
   title: 'Update Page Input',

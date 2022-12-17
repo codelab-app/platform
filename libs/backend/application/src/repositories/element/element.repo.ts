@@ -3,7 +3,7 @@ import {
   getDescendantsCypher,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { Node, Transaction } from 'neo4j-driver'
+import type { Node, Transaction } from 'neo4j-driver'
 
 export const elementRepository = {
   /**

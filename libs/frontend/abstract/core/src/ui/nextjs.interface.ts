@@ -1,6 +1,6 @@
-import { Auth0SessionUser } from '@codelab/shared/abstract/core'
-import { AppProps } from 'next/app'
-import { Overwrite } from 'utility-types'
+import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import type { AppProps } from 'next/app'
+import type { Overwrite } from 'utility-types'
 
 /**
  * Used by `_app.tsx`

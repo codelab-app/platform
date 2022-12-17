@@ -1,4 +1,7 @@
-import { BaseTypesOptions, ITypeService } from '@codelab/frontend/abstract/core'
+import type {
+  BaseTypesOptions,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import { useAsyncFn } from 'react-use'
 
 export const useGetTypesTableData = (typeService: ITypeService) => {

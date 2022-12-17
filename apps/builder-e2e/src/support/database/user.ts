@@ -1,4 +1,4 @@
-import { CreateUserMutationVariables } from '@codelab/shared/abstract/codegen'
+import type { CreateUserMutationVariables } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { CreateUserDocument } from 'libs/frontend/domain/user/src/graphql/user.endpoints.graphql.gen'
 

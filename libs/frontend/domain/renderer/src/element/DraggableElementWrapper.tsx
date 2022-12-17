@@ -1,5 +1,6 @@
 import React from 'react'
-import { DraggableElement, DraggableElementProps } from './DraggableElement'
+import type { DraggableElementProps } from './DraggableElement'
+import { DraggableElement } from './DraggableElement'
 
 export const DraggableElementWrapper = ({
   children,

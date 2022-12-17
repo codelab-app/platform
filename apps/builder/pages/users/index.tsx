@@ -1,12 +1,10 @@
-import { IUser } from '@codelab/frontend/abstract/core'
-import { CodelabPage } from '@codelab/frontend/abstract/types'
-import {
-  DashboardTemplate,
-  DashboardTemplateProps,
-} from '@codelab/frontend/view/templates'
+import type { IUser } from '@codelab/frontend/abstract/core'
+import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Space, Table } from 'antd'
-import { ColumnsType } from 'antd/lib/table'
+import type { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 
 const UsersPage: CodelabPage<DashboardTemplateProps> = () => {

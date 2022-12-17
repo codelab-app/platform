@@ -1,9 +1,5 @@
-import {
-  MotionProps,
-  MotionValue,
-  PanInfo,
-  useMotionValue,
-} from 'framer-motion'
+import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
+import { useMotionValue } from 'framer-motion'
 import { useCallback, useState } from 'react'
 
 export interface MinMaxValue {

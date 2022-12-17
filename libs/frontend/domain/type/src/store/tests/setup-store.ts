@@ -3,8 +3,8 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { FieldService } from '../field.service'
+import type { AnyTypeModel } from '../models'
 import {
-  AnyTypeModel,
   Field,
   fieldRef,
   InterfaceType,

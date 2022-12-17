@@ -1,5 +1,5 @@
 import 'isomorphic-fetch'
-import { ExportedData } from '@codelab/backend/abstract/core'
+import type { ExportedData } from '@codelab/backend/abstract/core'
 import fs from 'fs'
 import path from 'path'
 import { importApps } from '../../use-cases/import/import-apps'

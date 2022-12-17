@@ -1,17 +1,17 @@
 import type {
   IAnyType,
-  ITypeDTO,
   IUnionType,
   IUnionTypeDTO,
 } from '@codelab/frontend/abstract/core'
+import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   ExtendedModel,
   model,
   modelAction,
   prop,
-  Ref,
   rootRef,
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'

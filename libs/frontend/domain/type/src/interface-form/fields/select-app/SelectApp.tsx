@@ -1,4 +1,4 @@
-import { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'

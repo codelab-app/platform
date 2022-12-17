@@ -1,5 +1,7 @@
-import React, { PropsWithChildren, useState } from 'react'
-import Sticky, { StatusCode } from 'react-stickynode'
+import type { PropsWithChildren } from 'react'
+import React, { useState } from 'react'
+import type { StatusCode } from 'react-stickynode'
+import Sticky from 'react-stickynode'
 import tw from 'twin.macro'
 
 export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {

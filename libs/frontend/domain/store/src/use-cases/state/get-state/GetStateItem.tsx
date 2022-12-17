@@ -1,5 +1,9 @@
 import { FileOutlined } from '@ant-design/icons'
-import { IField, IFieldService, IStore } from '@codelab/frontend/abstract/core'
+import type {
+  IField,
+  IFieldService,
+  IStore,
+} from '@codelab/frontend/abstract/core'
 import { fieldRef } from '@codelab/frontend/domain/type'
 import {
   ListItemDeleteButton,

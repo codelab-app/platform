@@ -1,3 +1,3 @@
-import { CodeMirrorTypeFragment } from '../../fragments'
+import type { CodeMirrorTypeFragment } from '../../fragments'
 
 export type ICodeMirrorTypeDTO = CodeMirrorTypeFragment

@@ -1,8 +1,8 @@
-import { Nullable } from '@codelab/shared/abstract/types'
-import { ObjectMap } from 'mobx-keystone'
-import { IRenderer } from '../builder'
-import { IElementTree } from '../element'
-import { IStore } from '../store'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { ObjectMap } from 'mobx-keystone'
+import type { IRenderer } from '../builder'
+import type { IElementTree } from '../element'
+import type { IStore } from '../store'
 
 export interface IBaseRenderer {
   /**

@@ -1,6 +1,6 @@
-import { IPropData } from '@codelab/frontend/abstract/core'
-import { Key } from 'react'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { IPropData } from '@codelab/frontend/abstract/core'
+import type { Key } from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
 
 export type IOutput = ArrayOrSingle<IPropData>
 export type IValueMapper = (value: IPropData, key: Key) => unknown

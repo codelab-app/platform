@@ -1,8 +1,8 @@
-import { GraphQLRequestContext } from '@codelab/backend/abstract/types'
+import type { GraphQLRequestContext } from '@codelab/backend/abstract/types'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import { DeleteInfo } from '@codelab/shared/abstract/codegen'
-import { IFieldResolver } from '@graphql-tools/utils'
+import type { DeleteInfo } from '@codelab/shared/abstract/codegen'
+import type { IFieldResolver } from '@graphql-tools/utils'
 import { domainNotFoundError } from '../domain.error'
 
 export const deleteDomains: IFieldResolver<

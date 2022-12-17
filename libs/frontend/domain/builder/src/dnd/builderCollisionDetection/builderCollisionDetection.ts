@@ -1,14 +1,12 @@
-import {
-  BuilderDndType,
-  BuilderDragData,
-} from '@codelab/frontend/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
-import type { Data } from '@dnd-kit/core'
-import {
+import type { BuilderDragData } from '@codelab/frontend/abstract/core'
+import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type {
   CollisionDetection,
+  Data,
   DroppableContainer,
-  rectIntersection,
 } from '@dnd-kit/core'
+import { rectIntersection } from '@dnd-kit/core'
 import { calcDropPosition } from './calcDropPosition'
 import { closestCenterHeight } from './closestCenterHeight'
 

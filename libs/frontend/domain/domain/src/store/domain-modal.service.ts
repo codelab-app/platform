@@ -1,9 +1,10 @@
-import { IEntityModalService } from '@codelab/frontend/abstract/core'
+import type { IEntityModalService } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
-import { Domain } from './domain.model'
+import type { Ref } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
+import type { Domain } from './domain.model'
 
 @model('@codelab/DomainModalService')
 export class DomainModalService

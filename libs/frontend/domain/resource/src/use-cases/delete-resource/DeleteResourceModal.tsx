@@ -1,4 +1,4 @@
-import { IResourceService } from '@codelab/frontend/abstract/core'
+import type { IResourceService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'

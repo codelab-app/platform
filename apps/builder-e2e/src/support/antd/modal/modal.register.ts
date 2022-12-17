@@ -1,4 +1,5 @@
 import type { CypressCommand } from '../../types'
+import type { expectModalToClose, getModalConfirmAction } from './modal.command'
 import {
   cancelModalConfirm,
   closeModal,
@@ -9,12 +10,10 @@ import {
   expectModalConfirmTitle,
   expectModalText,
   expectModalTitle,
-  expectModalToClose,
   expectModalToOpen,
   getModal,
   getModalAction,
   getModalBody,
-  getModalConfirmAction,
   getModalConfirmBody,
   getModalConfirmButtons,
   getModalConfirmCancel,

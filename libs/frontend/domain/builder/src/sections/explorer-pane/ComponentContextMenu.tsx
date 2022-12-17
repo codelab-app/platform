@@ -1,11 +1,15 @@
-import { IComponent, IComponentService } from '@codelab/frontend/abstract/core'
+import type {
+  IComponent,
+  IComponentService,
+} from '@codelab/frontend/abstract/core'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
-import { Menu, MenuProps } from 'antd'
+import type { MenuProps } from 'antd'
+import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { ContextMenuProps } from './ElementContextMenu'
+import type { ContextMenuProps } from './ElementContextMenu'
 
 export type ComponentContextMenuProps = ContextMenuProps &
   Pick<IComponentService, 'deleteModal'> & {

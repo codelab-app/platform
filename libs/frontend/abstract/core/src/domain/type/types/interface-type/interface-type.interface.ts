@@ -1,9 +1,9 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { IPropData } from '../../../prop'
-import { IField } from '../../field'
-import { IFieldDTO } from '../../field.dto.interface'
-import { IBaseType } from '../base-type'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IPropData } from '../../../prop'
+import type { IField } from '../../field'
+import type { IFieldDTO } from '../../field.dto.interface'
+import type { IBaseType } from '../base-type'
 
 /**
  * Represent an object type with multiple fields

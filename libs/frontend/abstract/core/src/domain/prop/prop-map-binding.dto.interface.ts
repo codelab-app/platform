@@ -1,4 +1,4 @@
-import { PropMapBindingFragment } from './prop.fragment.graphql.gen'
+import type { PropMapBindingFragment } from './prop.fragment.graphql.gen'
 
 export interface ICreatePropMapBindingDTO {
   elementId: string

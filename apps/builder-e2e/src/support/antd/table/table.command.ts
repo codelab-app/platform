@@ -3,9 +3,10 @@ import get from 'lodash/get'
 import isNil from 'lodash/isNil'
 import isNumber from 'lodash/isNumber'
 import isUndefined from 'lodash/isUndefined'
-import { CommonOptions, Label } from '../types'
+import type { CommonOptions, Label } from '../types'
 import { logAndMute } from '../utils'
-import { SearchCellOptions, SORT_ORDER, SortOptions } from './table.types'
+import type { SearchCellOptions, SortOptions } from './table.types'
+import { SORT_ORDER } from './table.types'
 
 const { $ } = Cypress
 

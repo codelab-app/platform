@@ -1,5 +1,5 @@
-import { ITypeExport } from '@codelab/backend/abstract/core'
-import { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import type { ITypeExport } from '@codelab/backend/abstract/core'
+import type { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { upsertType } from '../../repository/type.repo'
 import { logSection, logTask } from '../../shared/utils/log-task'
 

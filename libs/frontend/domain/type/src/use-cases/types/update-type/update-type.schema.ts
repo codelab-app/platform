@@ -1,11 +1,11 @@
-import { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
 import {
   ICodeMirrorLanguage,
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
 export const updateTypeSchema: JSONSchemaType<

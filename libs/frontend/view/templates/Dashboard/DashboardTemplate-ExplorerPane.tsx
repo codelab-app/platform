@@ -1,8 +1,9 @@
 import Sider from 'antd/lib/layout/Sider'
 import { motion } from 'framer-motion'
-import React, { ComponentType } from 'react'
+import type { ComponentType } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
-import { UseResizable } from '../../components'
+import type { UseResizable } from '../../components'
 import { sidebarWidth } from './constants'
 
 export interface ExplorerPaneProps {

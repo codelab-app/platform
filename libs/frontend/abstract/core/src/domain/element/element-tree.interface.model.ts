@@ -1,7 +1,7 @@
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import { INode } from '../builder'
-import { IElement } from './element.model.interface'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { INode } from '../builder'
+import type { IElement } from './element.model.interface'
 
 /**
  * Uses ref's only for the implementation
