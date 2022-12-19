@@ -3,6 +3,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { IPropData } from '../../../prop'
 import type { IField } from '../../field'
 import type { IFieldDTO } from '../../field.dto.interface'
+import type { FieldFragment } from '../../fragments'
 import type { IBaseType } from '../base-type'
 
 /**
@@ -17,6 +18,7 @@ export interface IInterfaceType extends IBaseType {
   defaultValues: IPropData
   deleteField(field: IField): void
   writeFieldCache(fields: Array<IFieldDTO>): void
+  load(fields: Array<FieldFragment>): void
 }
 
 export type IInterfaceTypeRef = string

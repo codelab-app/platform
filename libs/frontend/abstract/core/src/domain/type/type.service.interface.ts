@@ -35,6 +35,7 @@ export interface ITypeService
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
-  load(types: GetTypesQuery): Array<IAnyType>
+  loadTypes(types: GetTypesQuery): Array<IAnyType>
+  loadFields(types: GetTypesQuery['interfaceTypes']): void
   count: number
 }

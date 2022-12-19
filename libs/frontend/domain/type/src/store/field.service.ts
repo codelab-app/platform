@@ -8,6 +8,7 @@ import { IFieldDTO } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import type {
   FieldCreateInput,
+  FieldFragment,
   FieldUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
@@ -51,6 +52,10 @@ export class FieldService
   @computed
   get typeService() {
     return getTypeService(this)
+  }
+
+  getField(id: string) {
+    return this.fields.get(id)
   }
 
   // The field actions are here because if I put them in InterfaceType
@@ -146,6 +151,13 @@ export class FieldService
 
     // interfaceType.deleteFieldLocal(field)
   })
+
+  @modelAction
+  load(fields: Array<FieldFragment>) {
+    const hydratedFields = fields.map((fragment) => Field.hydrate(fragment))
+
+    this.fields = objectMap(hydratedFields.map((field) => [field.id, field]))
+  }
 
   @modelAction
   writeCache(fragment: IFieldDTO) {

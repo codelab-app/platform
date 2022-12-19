@@ -5,11 +5,11 @@ import type {
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   BaseTypeOptions,
   BaseTypeWhere,
+  FieldFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -38,6 +38,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { baseTypesFactory } from './base-types.factory'
+import { getFieldService } from './field.service.context'
 import { typeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
@@ -91,8 +92,8 @@ export class TypeService
   })
 
   @computed
-  private get elementService() {
-    return getElementService(this)
+  private get fieldService() {
+    return getFieldService(this)
   }
 
   @computed
@@ -120,10 +121,27 @@ export class TypeService
    * Caches all types into mobx
    */
   @modelAction
-  load = (types: GetTypesQuery) => {
+  loadTypes = (types: GetTypesQuery) => {
     const flatTypes = Object.values(types).flat()
+    const loadedTypes = flatTypes.map((fragment) => typeFactory(fragment))
 
-    return flatTypes.map((type) => this.writeCache(type))
+    this.types = objectMap(
+      loadedTypes.map((typeModel) => [typeModel.id, typeModel]),
+    )
+
+    return loadedTypes
+  }
+
+  @modelAction
+  loadFields = (types: GetTypesQuery['interfaceTypes']) => {
+    const flatTypes = Object.values(types).flat()
+    const fields: Array<FieldFragment> = []
+
+    flatTypes.forEach((fragment) => {
+      fields.push(...fragment.fields)
+    })
+
+    this.fieldService.load(fields)
   }
 
   @modelAction
@@ -194,6 +212,10 @@ export class TypeService
       return this.writeCache(type)
     })
   })
+
+  getType(id: string) {
+    return this.types.get(id)
+  }
 
   @modelFlow
   @transaction

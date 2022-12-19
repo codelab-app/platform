@@ -11,7 +11,8 @@ import type {
   IFieldDTO,
   IUpdateFieldDTO,
 } from '../field.dto.interface'
-import type { IInterfaceType } from '../types'
+import type { FieldFragment } from '../fragments'
+import type { IAnyType, IInterfaceType } from '../types'
 import type { IField } from './field.interface'
 
 export interface IFieldService
@@ -25,4 +26,6 @@ export interface IFieldService
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
+  getField(id: string): Maybe<IField<IAnyType>>
+  load(fields: Array<FieldFragment>): void
 }

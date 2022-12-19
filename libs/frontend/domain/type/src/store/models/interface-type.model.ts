@@ -67,6 +67,17 @@ export class InterfaceType
   }
 
   @modelAction
+  load(fields: Array<IFieldDTO>) {
+    const fieldModels = fields.map(
+      ({ id }) => this.fieldService.getField(id) as IField,
+    )
+
+    this._fields = objectMap(
+      fieldModels.map((fieldModel) => [fieldModel.id, fieldRef(fieldModel)]),
+    )
+  }
+
+  @modelAction
   writeFieldCache(fields: Array<IFieldDTO>) {
     for (const field of fields) {
       const fieldModel = this.fieldService.writeCache(field)

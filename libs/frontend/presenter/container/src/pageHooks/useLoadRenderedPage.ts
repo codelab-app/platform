@@ -1,3 +1,4 @@
+import type { IInterfaceType } from '@codelab/frontend/abstract/core'
 import { useEffect, useState } from 'react'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
@@ -45,7 +46,29 @@ export const useLoadRenderedPage = () => {
     const { pageElementTree: pageTree, page } = currentPage
     const { pageElementTree: appTree } = providerPage ?? {}
 
-    typeService.load({ ...types })
+    // type loading is quiet a heavy operation which takes up to 500ms of blocking time.
+    // split types loading into many chunks and queue each of them as a macrotask.
+    // this will unblock UI and allow other js to execute between them, which makes UI much more responsive.
+    await new Promise((resolve) =>
+      setTimeout(() => resolve(typeService.loadFields(types.interfaceTypes))),
+    )
+
+    await new Promise((resolve) =>
+      setTimeout(() => resolve(typeService.loadTypes(types))),
+    )
+
+    await Promise.all(
+      Object.values(types.interfaceTypes).map(
+        (type) =>
+          new Promise((resolve) =>
+            setTimeout(() => {
+              const typeModel = typeService.type(type.id) as IInterfaceType
+
+              resolve(typeModel.load(type.fields))
+            }),
+          ),
+      ),
+    )
 
     components.map((component) =>
       componentService.loadRenderedComponentTree(component),
