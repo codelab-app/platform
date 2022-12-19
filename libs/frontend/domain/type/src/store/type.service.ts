@@ -7,7 +7,10 @@ import type {
 import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  BaseTypeOptions,
+  BaseTypeWhere,
+} from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -46,11 +49,7 @@ export class TypeService
      * This holds all types
      */
     types: prop(() => objectMap<IAnyType>()),
-    entityIdsOfCurrentPage: prop<Array<string>>(() => []),
-    totalEntitiesCount: prop<number>(0),
-    pageSize: prop<number>(10),
-    currentLoadedPage: prop<number>(1),
-    currentPage: prop<number>(1),
+    count: prop(() => 0),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -67,23 +66,8 @@ export class TypeService
   @transaction
   getBaseTypes = _async(function* (
     this: TypeService,
-    { page, pageSize, where },
+    { offset, limit, where },
   ) {
-    if (page) {
-      this.currentPage = page
-    }
-
-    if (pageSize) {
-      this.pageSize = pageSize
-    }
-
-    const previousPage = this.currentPage - 1
-    // skip entities to page -1
-    const offset = previousPage * this.pageSize
-    const limit = this.pageSize
-
-    console.log(where)
-
     const {
       baseTypes: { totalCount, items },
     } = yield* _await(
@@ -96,14 +80,11 @@ export class TypeService
       }),
     )
 
-    this.totalEntitiesCount = totalCount
+    this.count = totalCount
 
-    console.log(this.totalEntitiesCount)
-
-    items.forEach((type) => {
+    return items.map((type) => {
       const typeModel = baseTypesFactory(type)
       this.types.set(type.id, typeModel)
-      this.entityIdsOfCurrentPage.push(type.id)
 
       return typeModel.id
     })
@@ -191,8 +172,19 @@ export class TypeService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
-    const ids = where?.id_IN ?? undefined
+  getAll = _async(function* (
+    this: TypeService,
+    where?: BaseTypeWhere,
+    options?: BaseTypeOptions,
+  ) {
+    const ids = yield* _await(
+      this.getBaseTypes({
+        where,
+        offset: options?.offset,
+        limit: options?.limit,
+      }),
+    )
+
     const types = yield* _await(getAllTypes(ids))
 
     return types.map((type) => {

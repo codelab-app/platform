@@ -15,9 +15,11 @@ export const typeRepository = {
     const limit = options?.limit ?? 10
     const offset = options?.offset ?? 0
 
-    const where = options?.where ?? {
-      name: '',
-    }
+    const where = options?.where?.name
+      ? options.where
+      : {
+          name: '',
+        }
 
     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
       limit: int(limit),

@@ -9,26 +9,24 @@ import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
-  IPaginationService,
   IQueryService,
 } from '../../service'
 import type { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
 import type { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
 
 export interface BaseTypesOptions {
-  page?: number
-  pageSize?: number
+  offset?: number
+  limit?: number
   where?: {
     name: string
   }
 }
 
 export interface ITypeService
-  extends Omit<IPaginationService, 'getByPage'>,
-    ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
+  extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
-  getBaseTypes(options: BaseTypesOptions): Promise<void>
+  getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
@@ -38,4 +36,5 @@ export interface ITypeService
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
   load(types: GetTypesQuery): Array<IAnyType>
+  count: number
 }
