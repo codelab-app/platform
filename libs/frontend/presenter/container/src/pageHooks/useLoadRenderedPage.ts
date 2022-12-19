@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
 import { useCurrentAppId, useCurrentPageId } from '../routerHooks'
@@ -19,6 +19,10 @@ export const useLoadRenderedPage = () => {
   const appId = useCurrentAppId()
   const initialPageId = useCurrentPageId()
   const [currentPageId, setCurrentPageId] = useState(initialPageId)
+
+  useEffect(() => {
+    setCurrentPageId(initialPageId)
+  }, [initialPageId])
 
   const commonPagesData = useAsync(async () => {
     const { apps, components, resources, ...types } =
@@ -72,7 +76,7 @@ export const useLoadRenderedPage = () => {
     const { app, appTree, appStore, components } = commonPagesData.value
     const alreadyLoadedPage = pageService.pages.get(currentPageId)
 
-    if (alreadyLoadedPage) {
+    if (alreadyLoadedPage?.elementTree) {
       const pageTree = alreadyLoadedPage.elementTree
 
       return {
