@@ -29,15 +29,13 @@ import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-const { TabPane } = Tabs
-
 interface EditorPaneBuilderProps {
   resizable: UseResizable
   actionService: IActionService
   fieldService: IFieldService
   typeService: ITypeService
   resourceService: IResourceService
-  appStore: IStore
+  appStore?: IStore
 }
 
 const Container = styled.div`
@@ -94,7 +92,7 @@ export const EditorPaneBuilder = observer(
             `}
             singleLine={false}
             title="Current props"
-            value={appStore.state.jsonString}
+            value={appStore?.state.jsonString}
           />
         ),
       },

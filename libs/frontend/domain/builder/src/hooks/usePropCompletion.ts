@@ -12,21 +12,21 @@ import isObjectLike from 'lodash/isObjectLike'
  * If the element hasn't been rendered it returns an empty array
  * It returns nested keys in format parsable by lodash.get method, like 'data.item' or 'data.items[0].something'
  */
-export const usePropCompletion = (renderService: IRenderer) => {
+export const usePropCompletion = (renderService?: IRenderer) => {
   const providePropCompletion = (value: string, elementId: IElementRef) => {
-    const element = renderService.pageTree?.current.element(elementId)
+    const element = renderService?.pageTree?.current.element(elementId)
 
     if (!element) {
       return []
     }
 
-    const renderOutput = renderService.renderIntermediateElement(element)
+    const renderOutput = renderService?.renderIntermediateElement(element)
 
     const allRenderedProps = Array.isArray(renderOutput)
       ? renderOutput
           .map((r) => r.props)
           .reduce((acc, next) => mergeProps(acc, next), {} as IPropData)
-      : renderOutput.props
+      : renderOutput?.props
 
     const keys: Array<string> = []
     const visited: Array<unknown> = []

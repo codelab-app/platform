@@ -141,42 +141,33 @@ PageBuilder.Layout = observer((page) => {
     >
       <DashboardTemplate
         ConfigPane={observer(() => (
-          <>
-            {activeElementTree && pageBuilderRenderer ? (
-              <ConfigPane
-                actionService={actionService}
-                atomService={atomService}
-                builderService={builderService}
-                componentService={componentService}
-                elementService={elementService}
-                // The element tree changes depending on whether a page or a component is selected
-                elementTree={activeElementTree}
-                key={pageBuilderRenderer.pageTree?.current.root?.id}
-                renderService={pageBuilderRenderer}
-                typeService={typeService}
-                userService={userService}
-              />
-            ) : null}
-          </>
+          <ConfigPane
+            actionService={actionService}
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            // The element tree changes depending on whether a page or a component is selected
+            elementTree={activeElementTree}
+            key={pageBuilderRenderer?.pageTree?.current.root?.id}
+            renderService={pageBuilderRenderer}
+            typeService={typeService}
+            userService={userService}
+          />
         ))}
         EditorPane={observer(({ resizable }) => (
-          <>
-            {pageBuilderRenderer?.appStore.current && (
-              <EditorPaneBuilder
-                actionService={actionService}
-                appStore={pageBuilderRenderer.appStore.current}
-                fieldService={fieldService}
-                resizable={resizable}
-                resourceService={resourceService}
-                typeService={typeService}
-              />
-            )}
-          </>
+          <EditorPaneBuilder
+            actionService={actionService}
+            appStore={pageBuilderRenderer?.appStore.current}
+            fieldService={fieldService}
+            resizable={resizable}
+            resourceService={resourceService}
+            typeService={typeService}
+          />
         ))}
         ExplorerPane={observer(() => (
           <BuilderExplorerPane
             actionService={actionService}
-            atomService={atomService}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}

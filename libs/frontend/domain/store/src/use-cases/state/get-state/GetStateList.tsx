@@ -10,23 +10,20 @@ import React from 'react'
 import { GetStateItem } from './GetStateItem'
 
 export interface GetStateTreeProps {
-  store: IStore
+  store?: IStore
   fieldService: IFieldService
 }
 
 export const GetStateList = observer<GetStateTreeProps>(
   ({ store, fieldService }) => {
-    const api = store.api.current as Maybe<IInterfaceType>
+    const api = store?.api.current as Maybe<IInterfaceType>
 
     return (
       <List
         dataSource={api?.fields}
+        loading={!store}
         renderItem={(field) => (
-          <GetStateItem
-            field={field}
-            fieldService={fieldService}
-            store={store}
-          />
+          <GetStateItem field={field} fieldService={fieldService} />
         )}
         size="small"
       />

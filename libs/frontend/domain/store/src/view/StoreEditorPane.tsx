@@ -19,7 +19,7 @@ import { CreateActionButton, GetActionsList, GetStateList } from '../use-cases'
 export interface StoreEditorPaneProps {
   fieldService: IFieldService
   actionService: IActionService
-  appStore: IStore
+  appStore?: IStore
 }
 
 const ResizableColumn = ({ children }: PropsWithChildren) => {
@@ -48,7 +48,7 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
     const createStateFieldButton = (
       <CreateFieldButton
         fieldService={fieldService}
-        interfaceId={appStore.api.current.id}
+        interfaceId={appStore?.api.current.id}
       />
     )
 

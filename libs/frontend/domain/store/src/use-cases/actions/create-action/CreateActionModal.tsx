@@ -24,7 +24,7 @@ const defaultCodeAction = `function run() {
 export const CreateActionModal = observer<{
   actionService: IActionService
   resourceService: IResourceService
-  store: IStore
+  store?: IStore
 }>(({ actionService, resourceService, store }) => {
   const closeModal = () => actionService.createModal.close()
 
@@ -54,7 +54,7 @@ export const CreateActionModal = observer<{
     >
       <ModalForm.Form<ICreateActionDTO>
         model={{
-          storeId: store.id,
+          storeId: store?.id,
           code: defaultCodeAction,
           config: {
             body: '{}',

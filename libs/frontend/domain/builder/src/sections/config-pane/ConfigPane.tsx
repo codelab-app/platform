@@ -20,7 +20,7 @@ import {
   MoveElementForm,
   UpdateElementForm,
 } from '@codelab/frontend/domain/element'
-import { Tabs } from 'antd'
+import { Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -30,8 +30,8 @@ import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContai
 import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-InspectorTabContainerStyle'
 
 interface MetaPaneProps {
-  elementTree: IElementTree
-  renderService: IRenderer
+  elementTree?: IElementTree
+  renderService?: IRenderer
   atomService: IAtomService
   typeService: ITypeService
   builderService: IBuilderService
@@ -56,10 +56,6 @@ export const ConfigPane = observer<MetaPaneProps>(
     const { providePropCompletion } = usePropCompletion(renderService)
     const selectedNode = builderService.selectedNode
 
-    if (!selectedNode) {
-      return null
-    }
-
     const tabItems = [
       {
         label: (
@@ -72,6 +68,10 @@ export const ConfigPane = observer<MetaPaneProps>(
         children: (
           <ConfigPaneInspectorTabContainer
             UpdateElementContent={observer(({ node, trackPromises }) => {
+              if (!elementTree) {
+                return <Spin />
+              }
+
               // The builder tree nodes could be a component as well, in which case we would show the form for components
               return (
                 <>
@@ -137,7 +137,7 @@ export const ConfigPane = observer<MetaPaneProps>(
     return (
       <TabContainer>
         <Tabs
-          defaultActiveKey={selectedNode.id + '_tab2'}
+          defaultActiveKey={selectedNode?.id + '_tab2'}
           items={tabItems}
           size="small"
         />

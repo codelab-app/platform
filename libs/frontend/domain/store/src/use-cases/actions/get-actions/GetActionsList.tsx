@@ -6,12 +6,12 @@ import { useAsync } from 'react-use'
 import { GetActionItem } from './GetActionItem'
 
 export const GetActionsList = observer<{
-  store: IStore
+  store?: IStore
   actionService: IActionService
 }>(({ actionService, store }) => {
   const { loading } = useAsync(
     async () => (storeId: string) => actionService.getAll(storeId),
-    [store.id],
+    [store?.id],
   )
 
   const actions = actionService.actionsList
@@ -19,6 +19,7 @@ export const GetActionsList = observer<{
   return (
     <List
       dataSource={actions}
+      loading={loading || !store}
       renderItem={(action) => (
         <GetActionItem
           action={action}

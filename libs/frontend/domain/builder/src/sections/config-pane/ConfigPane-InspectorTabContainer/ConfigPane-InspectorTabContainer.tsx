@@ -32,7 +32,7 @@ import {
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'
-import { Tabs, Tooltip } from 'antd'
+import { Spin, Tabs, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
 import React from 'react'
@@ -43,8 +43,8 @@ import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
 
 export interface MetaPaneBuilderProps {
-  elementTree: IElementTree
-  renderService: IRenderer
+  elementTree?: IElementTree
+  renderService?: IRenderer
   UpdateElementContent: (props: {
     node: INode
     trackPromises: UseTrackLoadingPromises
@@ -92,12 +92,12 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
     const trackPromises = useTrackLoadingPromises()
 
     if (!selectedNode) {
-      return null
+      return <Spin />
     }
 
-    const autocomplete = renderService.state
+    const autocomplete = renderService?.state
     const allowExpressions = true
-    const appStore = renderService.appStore.current
+    const appStore = renderService?.appStore.current
 
     const tabItems = [
       {
@@ -178,7 +178,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             title={TAB_NAMES.PropsInspector}
           />
         ),
-        children: isElement(selectedNode) && (
+        children: isElement(selectedNode) && renderService && (
           <PropsInspectorTab
             element={selectedNode}
             elementService={elementService}
@@ -192,17 +192,18 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         label: (
           <TooltipIcon icon={<SwapOutlined />} title={TAB_NAMES.PropsMap} />
         ),
-        children: isElement(selectedNode) ? (
-          <PropMapBindingSection
-            element={selectedNode}
-            elementService={elementService}
-            elementTree={elementTree}
-            key={selectedNode.id}
-            providePropCompletion={(searchValue) =>
-              providePropCompletion(searchValue, selectedNode.id)
-            }
-          />
-        ) : null,
+        children:
+          isElement(selectedNode) && elementTree ? (
+            <PropMapBindingSection
+              element={selectedNode}
+              elementService={elementService}
+              elementTree={elementTree}
+              key={selectedNode.id}
+              providePropCompletion={(searchValue) =>
+                providePropCompletion(searchValue, selectedNode.id)
+              }
+            />
+          ) : null,
       },
       {
         key: TAB_NAMES.PropsTransformation,

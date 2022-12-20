@@ -1,6 +1,5 @@
 import type {
   IActionService,
-  IAtomService,
   IBuilderService,
   IComponentService,
   IElementService,
@@ -18,7 +17,7 @@ import {
   DeleteElementModal,
 } from '@codelab/frontend/domain/element'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
-import { Divider } from 'antd'
+import { Divider, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -26,7 +25,6 @@ import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
 
 interface BuilderMainPaneProps {
-  atomService: IAtomService
   componentService: IComponentService
   elementService: IElementService
   actionService: IActionService
@@ -39,7 +37,6 @@ interface BuilderMainPaneProps {
 
 export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
   ({
-    atomService,
     builderService,
     elementService,
     componentService,
@@ -50,14 +47,8 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     renderService,
   }) => {
     const pageBuilderRenderer = renderService.renderers.get(pageId)
-
-    if (!pageBuilderRenderer) {
-      return null
-      // throw new Error('Missing page builder renderer')
-    }
-
-    const root = pageBuilderRenderer.pageTree?.current.root
-    const pageTree = pageBuilderRenderer.pageTree?.current
+    const root = pageBuilderRenderer?.pageTree?.current.root
+    const pageTree = pageBuilderRenderer?.pageTree?.current
     const componentId = builderService.activeComponent?.id
 
     const componentTree = componentId
@@ -85,6 +76,8 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
         key={root?.id ?? 'main-pane-builder'}
         title="Page"
       >
+        {!pageBuilderRenderer && <Spin />}
+
         {isPageTree && (
           <BuilderTree
             className="page-builder"
@@ -100,10 +93,15 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             treeData={antdTree}
           />
         )}
-        <Divider />
-        <div css={tw`flex justify-end`}>
-          <CreateComponentButton componentService={componentService} />
-        </div>
+
+        {pageBuilderRenderer && (
+          <>
+            <Divider />
+            <div css={tw`flex justify-end`}>
+              <CreateComponentButton componentService={componentService} />
+            </div>
+          </>
+        )}
         {antdTree && (
           <BuilderTree
             elementTree={componentTree ?? null}

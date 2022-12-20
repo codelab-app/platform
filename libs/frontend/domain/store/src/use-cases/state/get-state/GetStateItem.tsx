@@ -1,9 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
-import type {
-  IField,
-  IFieldService,
-  IStore,
-} from '@codelab/frontend/abstract/core'
+import type { IField, IFieldService } from '@codelab/frontend/abstract/core'
 import { fieldRef } from '@codelab/frontend/domain/type'
 import {
   ListItemDeleteButton,
@@ -16,11 +12,10 @@ import React from 'react'
 export interface StateTreeItemProp {
   field: IField
   fieldService: IFieldService
-  store: IStore
 }
 
 export const GetStateItem = observer<StateTreeItemProp>(
-  ({ field, fieldService, store }) => {
+  ({ field, fieldService }) => {
     const onEdit = () => {
       fieldService.updateModal.open(fieldRef(field.id))
     }
