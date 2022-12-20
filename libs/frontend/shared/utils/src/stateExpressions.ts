@@ -1,4 +1,3 @@
-import type { BabelFileResult, TransformOptions } from '@babel/core'
 import type { IPropData } from '@codelab/frontend/abstract/core'
 import {
   STATE_PATH_TEMPLATE_END,
@@ -35,11 +34,9 @@ export const evaluateExpression = (
   }
 }
 
-interface BabelTransformer {
+interface ExpressionTransformer {
   initialized: boolean
-  transform: Nullable<
-    (code: string, options: TransformOptions) => BabelFileResult
-  >
+  transform: Nullable<(code: string) => { code: string | null }>
   init: () => Promise<void>
   transpileAndEvaluateExpression: (
     expression: string,
@@ -47,7 +44,7 @@ interface BabelTransformer {
   ) => unknown
 }
 
-export const babelTransformer: BabelTransformer = {
+export const expressionTransformer: ExpressionTransformer = {
   transform: null,
   initialized: false,
   init: async function () {
@@ -55,12 +52,7 @@ export const babelTransformer: BabelTransformer = {
       return
     }
 
-    const [jsxPlugin, { registerPlugin, transform }] = await Promise.all([
-      import('@babel/plugin-transform-react-jsx'),
-      import('@babel/standalone'),
-    ])
-
-    registerPlugin('@babel/plugin-transform-react-jsx', jsxPlugin)
+    const { transform } = await import('buble')
 
     this.transform = transform
     this.initialized = true
@@ -82,9 +74,7 @@ export const babelTransformer: BabelTransformer = {
             return ${stripStateExpression(expression)}
           }).call(this)`
 
-      const { code } = this.transform(wrappedExpression, {
-        plugins: ['@babel/plugin-transform-react-jsx'],
-      })
+      const { code } = this.transform(wrappedExpression)
 
       // eslint-disable-next-line no-new-func
       return new Function('return ' + (code ?? '')).call(evaluationContext)

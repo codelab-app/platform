@@ -4,7 +4,7 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import {
-  babelTransformer,
+  expressionTransformer,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -55,10 +55,11 @@ export class ReactNodeTypedValueTransformer
       const atoms = { ...htmlAtoms, ...codelabAtoms, ...antdAtoms, ...muiAtoms }
       const evaluationContext = { React, atoms, ...values }
 
-      const transpiledValue = babelTransformer.transpileAndEvaluateExpression(
-        value.value,
-        evaluationContext,
-      )
+      const transpiledValue =
+        expressionTransformer.transpileAndEvaluateExpression(
+          value.value,
+          evaluationContext,
+        )
 
       return typeof transpiledValue === 'function'
         ? transpiledValue.call(evaluationContext)

@@ -12,7 +12,7 @@ import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { babelTransformer } from '@codelab/frontend/shared/utils'
+import { expressionTransformer } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
@@ -98,7 +98,7 @@ const init = async ({
     .map((c) => ({ [c.id]: 0 }))
     .reduce(merge, {})
 
-  await babelTransformer.init()
+  await expressionTransformer.init()
 
   return new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,

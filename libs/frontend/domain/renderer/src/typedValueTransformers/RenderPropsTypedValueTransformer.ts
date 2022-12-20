@@ -4,7 +4,7 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import {
-  babelTransformer,
+  expressionTransformer,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -55,7 +55,7 @@ export class RenderPropsTypedValueTransformer
       const atoms = { ...htmlAtoms, ...codelabAtoms, ...antdAtoms, ...muiAtoms }
       const evaluationContext = { React, atoms, ...values }
 
-      return babelTransformer.transpileAndEvaluateExpression(
+      return expressionTransformer.transpileAndEvaluateExpression(
         value.value,
         evaluationContext,
       )
