@@ -179,13 +179,16 @@ export class TypeService
   ) {
     const ids = yield* _await(
       this.getBaseTypes({
-        where,
+        where: {
+          name: where?.name,
+        },
         offset: options?.offset,
         limit: options?.limit,
       }),
     )
 
-    const types = yield* _await(getAllTypes(ids))
+    const allIds = [...ids, ...(where?.id_IN || [])]
+    const types = yield* _await(getAllTypes(allIds))
 
     return types.map((type) => {
       return this.writeCache(type)

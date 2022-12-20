@@ -7,7 +7,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import scrollIntoView from 'scroll-into-view'
 import { NestedTypeTable } from './NestedTypeTable'
 import { useTypesTable } from './useGetTypesTable'
@@ -22,7 +22,10 @@ export const GetTypesTable = observer<{
 }>(({ typeId, typeService, fieldService }) => {
   const { types, typesList } = typeService
   const { isLoadingAllTypes, getAllTypes } = useGetTypesTableData(typeService)
-  // const [curPage, setCurPage] = useState(1)
+  const [curPage, setCurPage] = useState(1)
+  const [curPageSize, setCurPageSize] = useState(25)
+  const [rowClassReady, setRowClassReady] = React.useState(false)
+  const router = useRouter()
 
   const { columns, rowSelection, baseTypeOptions, baseTypeWhere, pagination } =
     useTypesTable({
@@ -31,48 +34,57 @@ export const GetTypesTable = observer<{
       fieldService,
     })
 
+  const handlePageChange = useCallback(
+    (page: number, pageSize: number) => {
+      setCurPage(page)
+      setCurPageSize(pageSize)
+      pagination.onChange?.(page, pageSize)
+    },
+    [pagination, setCurPage],
+  )
+
   useEffect(() => {
     void getAllTypes(
       {
-        name: baseTypeWhere?.name ?? undefined,
+        name: baseTypeWhere?.name ?? '',
+        id_IN: [typeId ?? ''],
       },
       {
         offset: baseTypeOptions.offset ?? undefined,
         limit: baseTypeOptions.limit ?? undefined,
       },
     )
-  }, [baseTypeOptions, baseTypeWhere, getAllTypes])
+  }, [baseTypeOptions, baseTypeWhere, getAllTypes, typeId])
 
-  const [rowClassReady, setRowClassReady] = React.useState(false)
-  const router = useRouter()
+  /**
+   * Change the current page to the page containing the current type
+   */
+  useEffect(() => {
+    const findPageOfCurrentType = () => {
+      const currentType = types.get(typeId ?? '')
 
-  // /**
-  //  * Change the current page to the page containing the current type
-  //  */
-  // useEffect(() => {
-  //   const findPageOfCurrentType = () => {
-  //     const currentType = types.get(typeId ?? '')
+      if (!currentType) {
+        return
+      }
 
-  //     if (!currentType) {
-  //       return
-  //     }
+      return Math.ceil(
+        (typesList.findIndex((t) => t.id === currentType.id) + 1) / curPageSize,
+      )
+    }
 
-  //     return Math.ceil(
-  //       (typeService.typesList.findIndex((t) => t.id === currentType.id) + 1) /
-  //         // TODO: CHANGE THIS!!
-  //         25,
-  //     )
-  //   }
+    if (typeId) {
+      const page = findPageOfCurrentType()
 
-  //   if (typeId) {
-  //     const page = findPageOfCurrentType()
+      if (page) {
+        handlePageChange(page, curPageSize)
 
-  //     if (page) {
-  //       setCurPage(page)
-  //       getAllTypes().catch(() => undefined)
-  //     }
-  //   }
-  // }, [typeId, typeService.typesList, types])
+        /**
+         * Removing the current type id from the url because there is no use for it anymore
+         */
+        router.push(PageType.Type).catch((e) => console.error(e))
+      }
+    }
+  }, [router, typeId, typesList, types, curPageSize, handlePageChange])
 
   /**
    * Scroll to the current type to make sure it is visible
@@ -88,15 +100,6 @@ export const GetTypesTable = observer<{
       })
     }
   }, [typeId, rowClassReady])
-
-  /**
-   * remove current type id from url
-   */
-  useEffect(() => {
-    if (typeId) {
-      router.push(PageType.Type).catch((e) => console.error(e))
-    }
-  }, [router, typeId])
 
   return (
     <Table<IAnyType>
@@ -116,7 +119,12 @@ export const GetTypesTable = observer<{
           ),
       }}
       loading={isLoadingAllTypes}
-      pagination={pagination}
+      pagination={{
+        ...pagination,
+        current: curPage,
+        pageSize: curPageSize,
+        onChange: handlePageChange,
+      }}
       rowClassName={(record) => {
         if (record.id === typeId) {
           setRowClassReady(true)
