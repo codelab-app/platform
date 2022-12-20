@@ -10,8 +10,8 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import scrollIntoView from 'scroll-into-view'
 import { NestedTypeTable } from './NestedTypeTable'
-import { useTypesTable } from './useGetTypesTable'
-import { useGetTypesTableData } from './useGetTypesTableData'
+import { useTypesTable } from './useTypesTable'
+import { useTypesTableData } from './useTypesTableData'
 
 const SCROLL_ROW_CLASS_NAME = 'scroll-row'
 
@@ -21,7 +21,7 @@ export const GetTypesTable = observer<{
   fieldService: IFieldService
 }>(({ typeId, typeService, fieldService }) => {
   const { types, typesList } = typeService
-  const { isLoadingAllTypes, getAllTypes } = useGetTypesTableData(typeService)
+  const { isLoadingAllTypes, getAllTypes } = useTypesTableData(typeService)
   const [curPage, setCurPage] = useState(1)
   const [curPageSize, setCurPageSize] = useState(25)
   const [rowClassReady, setRowClassReady] = React.useState(false)
