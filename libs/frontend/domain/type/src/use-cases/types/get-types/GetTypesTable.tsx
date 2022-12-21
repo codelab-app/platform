@@ -3,7 +3,6 @@ import type {
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -20,8 +19,12 @@ export const GetTypesTable = observer<{
   typeService: ITypeService
   fieldService: IFieldService
 }>(({ typeId, typeService, fieldService }) => {
-  const { types, typesList } = typeService
-  const { isLoadingAllTypes, getAllTypes } = useTypesTableData(typeService)
+  const {
+    isLoadingAllTypes,
+    value: typesList,
+    getAllTypes,
+  } = useTypesTableData(typeService)
+
   const [curPage, setCurPage] = useState(1)
   const [curPageSize, setCurPageSize] = useState(25)
   const [rowClassReady, setRowClassReady] = React.useState(false)
@@ -61,9 +64,9 @@ export const GetTypesTable = observer<{
    */
   useEffect(() => {
     const findPageOfCurrentType = () => {
-      const currentType = types.get(typeId ?? '')
+      const currentType = typesList?.find((t) => t.id === typeId)
 
-      if (!currentType) {
+      if (!currentType || !typesList) {
         return
       }
 
@@ -77,14 +80,9 @@ export const GetTypesTable = observer<{
 
       if (page) {
         handlePageChange(page, curPageSize)
-
-        /**
-         * Removing the current type id from the url because there is no use for it anymore
-         */
-        router.push(PageType.Type).catch((e) => console.error(e))
       }
     }
-  }, [router, typeId, typesList, types, curPageSize, handlePageChange])
+  }, [router, typeId, typesList, curPageSize, handlePageChange])
 
   /**
    * Scroll to the current type to make sure it is visible
