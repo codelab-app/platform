@@ -1,4 +1,5 @@
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
+import { Skeleton } from 'antd'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -31,6 +32,7 @@ const Content = ({ children }: PropsWithChildren) => {
 
 export const HomeTemplate = ({ children }: HomeTemplateProps) => {
   const isMobileOrTablet = useMobileOrTabletMediaQuery()
+  // https://github.com/vercel/next.js/discussions/35773#discussioncomment-2485078
   const [hasMounted, setHasMounted] = useState(false)
   useEffect(() => {
     setHasMounted(true)
@@ -46,7 +48,9 @@ export const HomeTemplate = ({ children }: HomeTemplateProps) => {
       <Content>{children}</Content>
       <Footer></Footer>
     </Layout>
-  ) : null
+  ) : (
+    <Skeleton paragraph={false} />
+  )
 }
 
 // const LayoutTest = ({ children }: PropsWithChildren<any>) => {
