@@ -5,6 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import isObjectLike from 'lodash/isObjectLike'
+import { useCallback } from 'react'
 
 /**
  * Provides a callback that takes in a search input value and a target element id
@@ -13,74 +14,77 @@ import isObjectLike from 'lodash/isObjectLike'
  * It returns nested keys in format parsable by lodash.get method, like 'data.item' or 'data.items[0].something'
  */
 export const usePropCompletion = (renderService?: IRenderer) => {
-  const providePropCompletion = (value: string, elementId: IElementRef) => {
-    const element = renderService?.pageTree?.current.element(elementId)
+  const providePropCompletion = useCallback(
+    (value: string, elementId: IElementRef) => {
+      const element = renderService?.pageTree?.current.element(elementId)
 
-    if (!element) {
-      return []
-    }
-
-    const renderOutput = renderService?.renderIntermediateElement(element)
-
-    const allRenderedProps = Array.isArray(renderOutput)
-      ? renderOutput
-          .map((r) => r.props)
-          .reduce((acc, next) => mergeProps(acc, next), {} as IPropData)
-      : renderOutput?.props
-
-    const keys: Array<string> = []
-    const visited: Array<unknown> = []
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const visitProp = (prop: any, key: string) => {
-      if (!prop) {
-        return
+      if (!element) {
+        return []
       }
 
-      if (key.startsWith('_')) {
-        return
-      }
+      const renderOutput = renderService?.renderIntermediateElement(element)
 
-      if (visited.includes(prop)) {
-        return
-      }
+      const allRenderedProps = Array.isArray(renderOutput)
+        ? renderOutput
+            .map((r) => r.props)
+            .reduce((acc, next) => mergeProps(acc, next), {} as IPropData)
+        : renderOutput?.props
 
-      visited.push(prop)
-      keys.push(key)
+      const keys: Array<string> = []
+      const visited: Array<unknown> = []
 
-      if (key.startsWith('_') || key === 'children') {
-        return
-      }
-
-      if (Array.isArray(prop)) {
-        for (let i = 0; i < prop.length; i++) {
-          visitProp(prop[i], `${key}[${i}]`)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const visitProp = (prop: any, key: string) => {
+        if (!prop) {
+          return
         }
-      }
 
-      if (isObjectLike(prop)) {
-        for (const innerKey in prop) {
-          if (
-            innerKey.startsWith('_') ||
-            innerKey === 'children' ||
-            innerKey.startsWith('$')
-          ) {
-            return
+        if (key.startsWith('_')) {
+          return
+        }
+
+        if (visited.includes(prop)) {
+          return
+        }
+
+        visited.push(prop)
+        keys.push(key)
+
+        if (key.startsWith('_') || key === 'children') {
+          return
+        }
+
+        if (Array.isArray(prop)) {
+          for (let i = 0; i < prop.length; i++) {
+            visitProp(prop[i], `${key}[${i}]`)
           }
+        }
 
-          visitProp(prop[innerKey], `${key}.${innerKey}`)
+        if (isObjectLike(prop)) {
+          for (const innerKey in prop) {
+            if (
+              innerKey.startsWith('_') ||
+              innerKey === 'children' ||
+              innerKey.startsWith('$')
+            ) {
+              return
+            }
+
+            visitProp(prop[innerKey], `${key}.${innerKey}`)
+          }
         }
       }
-    }
 
-    for (const propKey in allRenderedProps) {
-      if (propKey.toLowerCase().startsWith(value.toLowerCase())) {
-        visitProp(allRenderedProps[propKey], propKey)
+      for (const propKey in allRenderedProps) {
+        if (propKey.toLowerCase().startsWith(value.toLowerCase())) {
+          visitProp(allRenderedProps[propKey], propKey)
+        }
       }
-    }
 
-    return keys
-  }
+      return keys
+    },
+    [renderService],
+  )
 
   return {
     providePropCompletion,

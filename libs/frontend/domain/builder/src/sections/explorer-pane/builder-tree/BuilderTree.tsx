@@ -15,7 +15,7 @@ import type { EventDataNode } from 'antd/lib/tree'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import type { Ref } from 'react'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
 import { antdTreeStyle } from './antdTree.styles'
 import { BuilderTreeItemTitle } from './BuilderTreeItem-Title'
@@ -67,6 +67,25 @@ export const BuilderTree = observer<BuilderTreeProps>(
         selectTreeNode(elementRef(element))
       }
     }
+
+    const componentContextMenuProps = useMemo(
+      () => ({
+        deleteModal: componentService.deleteModal,
+      }),
+      [componentService.deleteModal],
+    )
+
+    const elementContextMenuProps = useMemo(
+      () => ({
+        createModal: elementService.createModal,
+        deleteModal: elementService.deleteModal,
+        cloneElement: elementService.cloneElement.bind(elementService),
+        convertElementToComponent:
+          elementService.convertElementToComponent.bind(elementService),
+        elementTree,
+      }),
+      [elementTree, elementService],
+    )
 
     return (
       <AntdTree<IBuilderDataNode>
@@ -131,18 +150,9 @@ export const BuilderTree = observer<BuilderTreeProps>(
 
           return (
             <BuilderTreeItemTitle
-              componentContextMenuProps={{
-                deleteModal: componentService.deleteModal,
-              }}
+              componentContextMenuProps={componentContextMenuProps}
               data={data}
-              elementContextMenuProps={{
-                createModal: elementService.createModal,
-                deleteModal: elementService.deleteModal,
-                cloneElement: elementService.cloneElement.bind(elementService),
-                convertElementToComponent:
-                  elementService.convertElementToComponent.bind(elementService),
-                elementTree,
-              }}
+              elementContextMenuProps={elementContextMenuProps}
               node={node}
             />
           )

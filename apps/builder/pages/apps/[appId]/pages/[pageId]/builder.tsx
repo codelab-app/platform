@@ -14,6 +14,7 @@ import {
   useLoadRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
+import type { UseResizable } from '@codelab/frontend/view/components'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -28,7 +29,7 @@ import {
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useAsync } from 'react-use'
 
 const PageBuilder: CodelabPage = observer(() => {
@@ -133,6 +134,87 @@ PageBuilder.Layout = observer((page) => {
     userService.user?.setCurPageId(pageId)
   }, [appId, pageId])
 
+  const ConfigPaneComponent = useMemo(
+    () =>
+      observer(() => (
+        <ConfigPane
+          actionService={actionService}
+          atomService={atomService}
+          builderService={builderService}
+          componentService={componentService}
+          elementService={elementService}
+          // The element tree changes depending on whether a page or a component is selected
+          elementTree={activeElementTree}
+          key={pageBuilderRenderer?.pageTree?.current.root?.id}
+          renderService={pageBuilderRenderer}
+          typeService={typeService}
+          userService={userService}
+        />
+      )),
+    [pageBuilderRenderer, builderService],
+  )
+
+  const EditorPaneComponent = useMemo(
+    () =>
+      observer(({ resizable }: { resizable: UseResizable }) => (
+        <EditorPaneBuilder
+          actionService={actionService}
+          appStore={pageBuilderRenderer?.appStore.current}
+          fieldService={fieldService}
+          resizable={resizable}
+          resourceService={resourceService}
+          typeService={typeService}
+        />
+      )),
+    [pageBuilderRenderer],
+  )
+
+  const ExplorerPaneComponent = useMemo(
+    () =>
+      observer(() => (
+        <BuilderExplorerPane
+          actionService={actionService}
+          builderService={builderService}
+          componentService={componentService}
+          elementService={elementService}
+          pageId={pageId}
+          renderService={builderRenderService}
+          storeId={pageBuilderRenderer?.appStore.id as string}
+          userService={userService}
+        />
+      )),
+    [pageBuilderRenderer, builderService],
+  )
+
+  const HeaderComponent = useMemo(
+    () =>
+      observer(() => (
+        <PageDetailHeader
+          builderService={builderService}
+          pageService={pageService}
+        />
+      )),
+    [],
+  )
+
+  const SidebarNavigationComponent = useMemo(
+    () => () =>
+      (
+        <SidebarNavigation
+          primaryItems={[
+            appMenuItem,
+            allPagesMenuItem(appId),
+            pageBuilderMenuItem(appId, pageId),
+            resourceMenuItem,
+          ]}
+          secondaryItems={adminMenuItems}
+        />
+      ),
+    [],
+  )
+
+  const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
+
   return (
     <BuilderContext
       builderService={builderService}
@@ -140,61 +222,12 @@ PageBuilder.Layout = observer((page) => {
       elementTree={pageTree}
     >
       <DashboardTemplate
-        ConfigPane={observer(() => (
-          <ConfigPane
-            actionService={actionService}
-            atomService={atomService}
-            builderService={builderService}
-            componentService={componentService}
-            elementService={elementService}
-            // The element tree changes depending on whether a page or a component is selected
-            elementTree={activeElementTree}
-            key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            renderService={pageBuilderRenderer}
-            typeService={typeService}
-            userService={userService}
-          />
-        ))}
-        EditorPane={observer(({ resizable }) => (
-          <EditorPaneBuilder
-            actionService={actionService}
-            appStore={pageBuilderRenderer?.appStore.current}
-            fieldService={fieldService}
-            resizable={resizable}
-            resourceService={resourceService}
-            typeService={typeService}
-          />
-        ))}
-        ExplorerPane={observer(() => (
-          <BuilderExplorerPane
-            actionService={actionService}
-            builderService={builderService}
-            componentService={componentService}
-            elementService={elementService}
-            pageId={pageId}
-            renderService={builderRenderService}
-            storeId={pageBuilderRenderer?.appStore.id as string}
-            userService={userService}
-          />
-        ))}
-        Header={observer(() => (
-          <PageDetailHeader
-            builderService={builderService}
-            pageService={pageService}
-          />
-        ))}
-        SidebarNavigation={() => (
-          <SidebarNavigation
-            primaryItems={[
-              appMenuItem,
-              allPagesMenuItem(appId),
-              pageBuilderMenuItem(appId, pageId),
-              resourceMenuItem,
-            ]}
-            secondaryItems={adminMenuItems}
-          />
-        )}
-        contentStyles={{ paddingTop: '0rem' }}
+        ConfigPane={ConfigPaneComponent}
+        EditorPane={EditorPaneComponent}
+        ExplorerPane={ExplorerPaneComponent}
+        Header={HeaderComponent}
+        SidebarNavigation={SidebarNavigationComponent}
+        contentStyles={contentStyles}
         headerHeight={48}
       >
         {page.children}

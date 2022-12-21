@@ -1,10 +1,9 @@
 import { css } from '@emotion/react'
-import useSize from '@react-hook/size'
 import { useWindowHeight } from '@react-hook/window-size'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import tw from 'twin.macro'
 import { useResizable } from '../../components'
 import {
@@ -42,7 +41,17 @@ export const DashboardTemplate = observer(
     const windowHeight = useWindowHeight()
     const headerContainerRef = useRef<HTMLDivElement>(null)
     const sideNavigationContainerRef = useRef<HTMLDivElement>(null)
-    const [sideNavigationContainerWidth] = useSize(sideNavigationContainerRef)
+
+    const [sideNavigationContainerWidth, setSideNavigationContainerWidth] =
+      useState(() => sideNavigationContainerRef.current?.offsetWidth ?? 0)
+
+    useLayoutEffect(() => {
+      const sideNavigation = sideNavigationContainerRef.current
+
+      if (sideNavigation) {
+        setSideNavigationContainerWidth(sideNavigation.offsetWidth)
+      }
+    }, [sideNavigationContainerRef])
 
     const [cuMainPaneWidth, setCurMainPaneWidth] = useState(
       mainPaneResizable.width.get(),
@@ -165,7 +174,7 @@ export const DashboardTemplate = observer(
 
             {/* Main Content */}
             <motion.main
-              css={tw`relative p-2 flex-auto`}
+              css={tw`relative px-2 flex-auto`}
               style={{
                 marginTop: Header ? headerHeight ?? defaultHeaderHeight : 0,
                 marginLeft: mainContentMarginLeft,

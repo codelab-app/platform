@@ -4,11 +4,11 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import type { Active } from '@dnd-kit/core'
+import type { Active, DragStartEvent } from '@dnd-kit/core'
 import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useBuilderDnd } from './useBuilderDnd'
 
 /**
@@ -31,23 +31,31 @@ export const BuilderContext = observer<
     null,
   )
 
+  const autoScroll = useMemo(
+    () => ({
+      canScroll: (e: Element) => {
+        const renderRoot = document.getElementById(ROOT_RENDER_CONTAINER_ID)
+
+        return e.contains(renderRoot)
+      },
+    }),
+    [],
+  )
+
+  const onDragStartHandler = useCallback(
+    (e: DragStartEvent) => {
+      setDraggedElement(e.active)
+      onDragStart(e)
+    },
+    [onDragStart],
+  )
+
   return (
     <DndContext
-      autoScroll={{
-        canScroll: (e) => {
-          const renderRoot = document.getElementById(ROOT_RENDER_CONTAINER_ID)
-
-          return e.contains(renderRoot)
-        },
-      }}
+      autoScroll={autoScroll}
       collisionDetection={pointerWithin}
-      onDragEnd={(e) => {
-        onDragEnd(e)
-      }}
-      onDragStart={(e) => {
-        setDraggedElement(e.active)
-        onDragStart(e)
-      }}
+      onDragEnd={onDragEnd}
+      onDragStart={onDragStartHandler}
       sensors={sensors}
     >
       {children}
