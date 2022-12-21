@@ -5,7 +5,7 @@ import tw from 'twin.macro'
 
 export const Logo = () => {
   return (
-    <Link css={tw`flex items-center `} href="/" legacyBehavior>
+    <Link css={tw`flex items-center `} href="/">
       <Image
         alt="Codelab Logo"
         css={tw`hover:cursor-pointer`}

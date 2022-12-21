@@ -7,13 +7,58 @@ import { DemoShoppingCard } from './DemoShoppingCard'
 import { DOMTree } from './DOMTree'
 import { DOMTreeCode } from './DOMTreeCode'
 
-const { TabPane } = Tabs
-
 const onChange = (key: string) => {
   console.log(key)
 }
 
 export const BuilderDemo = () => {
+  const tabItems = [
+    {
+      label: 'Builder View',
+      key: '1',
+      children: (
+        <Row>
+          <Col
+            css={tw`border-2 border-solid border-black mr-0 md:mr-10 mb-6 lg:mb-0`}
+            lg={8}
+            span={24}
+            xl={6}
+          >
+            <p
+              css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black `}
+            >
+              DOM Tree
+            </p>
+            <DOMTree />
+          </Col>
+          <Col
+            css={tw`border-2 border-solid border-black`}
+            lg={14}
+            span={24}
+            xl={11}
+          >
+            <p
+              css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black`}
+            >
+              Props (Button)
+            </p>
+            <ButtonPropsForm />
+          </Col>
+          {/* <Col span={8}> */}
+          {/*  <SyntaxHighlighter language="javascript" style={materialDark}> */}
+          {/*    backgroundColor: #A855F6 */}
+          {/*  </SyntaxHighlighter> */}
+          {/* </Col> */}
+        </Row>
+      ),
+    },
+    {
+      label: 'Code Equivalent',
+      key: '2',
+      children: <DOMTreeCode />,
+    },
+  ]
+
   return (
     <Row css={tw`w-full md:container flex flex-col-reverse xl:flex-row`}>
       <Col
@@ -22,47 +67,7 @@ export const BuilderDemo = () => {
         span={24}
         xl={16}
       >
-        <Tabs defaultActiveKey="1" onChange={onChange}>
-          <TabPane key="1" tab="Builder View">
-            {/* <BuilderView /> */}
-            <Row>
-              <Col
-                css={tw`border-2 border-solid border-black mr-0 md:mr-10 mb-6 lg:mb-0`}
-                lg={8}
-                span={24}
-                xl={6}
-              >
-                <p
-                  css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black `}
-                >
-                  DOM Tree
-                </p>
-                <DOMTree />
-              </Col>
-              <Col
-                css={tw`border-2 border-solid border-black`}
-                lg={14}
-                span={24}
-                xl={11}
-              >
-                <p
-                  css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black`}
-                >
-                  Props (Button)
-                </p>
-                <ButtonPropsForm />
-              </Col>
-              {/* <Col span={8}> */}
-              {/*  <SyntaxHighlighter language="javascript" style={materialDark}> */}
-              {/*    backgroundColor: #A855F6 */}
-              {/*  </SyntaxHighlighter> */}
-              {/* </Col> */}
-            </Row>
-          </TabPane>
-          <TabPane key="2" tab="Code Equivalent">
-            <DOMTreeCode />
-          </TabPane>
-        </Tabs>
+        <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange}></Tabs>
       </Col>
       <Col md={24} span={24} xl={8}>
         <div
@@ -72,6 +77,7 @@ export const BuilderDemo = () => {
             css={tw`relative w-full sm:w-full m-0 lg:m-auto lg:m-0 xl:m-0 md:w-3/5 xl:w-full`}
           >
             <img
+              alt="/Browser/Safari (Big Sur)"
               css={tw`absolute w-full max-h-80 object-contain sm:max-h-[520px] md:max-h-fit z-10 border border-gray-200 border-solid rounded-xl`}
               src="/Browser/Safari (Big Sur) - Light.png"
             />

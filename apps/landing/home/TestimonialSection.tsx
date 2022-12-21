@@ -46,20 +46,24 @@ export const TestimonialItem = ({
             />
           </span>
         </div>
-        {Array(5).fill(
-          <FontAwesomeIcon
-            css={[
-              css`
-                path {
-                  ${tw`fill-yellow-400`}
-                }
-              `,
-              tw`pr-1.5`,
-            ]}
-            icon={faStar}
-            size="lg"
-          />,
-        )}
+        {Array(5)
+          .fill(
+            <FontAwesomeIcon
+              css={[
+                css`
+                  path {
+                    ${tw`fill-yellow-400`}
+                  }
+                `,
+                tw`pr-1.5`,
+              ]}
+              icon={faStar}
+              size="lg"
+            />,
+          )
+          .map((item, idx) => (
+            <React.Fragment key={idx}>{item}</React.Fragment>
+          ))}
         <div
           css={tw`mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]`}
         >

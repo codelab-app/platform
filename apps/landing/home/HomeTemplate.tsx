@@ -1,6 +1,6 @@
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import tw from 'twin.macro'
 import { Footer } from '../sections/footer/Footer'
@@ -31,12 +31,12 @@ const Content = ({ children }: PropsWithChildren) => {
 
 export const HomeTemplate = ({ children }: HomeTemplateProps) => {
   const isMobileOrTablet = useMobileOrTabletMediaQuery()
+  const [hasMounted, setHasMounted] = useState(false)
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
-  if (typeof window === 'undefined') {
-    return <></>
-  }
-
-  return (
+  return hasMounted ? (
     <Layout>
       <Header>
         <CodelabMenuContainer>
@@ -46,7 +46,7 @@ export const HomeTemplate = ({ children }: HomeTemplateProps) => {
       <Content>{children}</Content>
       <Footer></Footer>
     </Layout>
-  )
+  ) : null
 }
 
 // const LayoutTest = ({ children }: PropsWithChildren<any>) => {
