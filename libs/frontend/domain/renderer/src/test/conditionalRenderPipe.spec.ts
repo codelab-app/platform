@@ -6,11 +6,11 @@ describe('ConditionalRenderPipe', () => {
   const data = setupTestForRenderer([ConditionalRenderPipe])
 
   beforeEach(() => {
-    data.elementToRender.setRenderIfPropKey('shouldRender')
+    data.elementToRender.setRenderIfExpression('{{this.shouldRender}}')
   })
 
   it('should render normally if no key is found', async () => {
-    data.elementToRender.setRenderIfPropKey(null)
+    data.elementToRender.setRenderIfExpression(undefined)
 
     const output = data.renderer.renderIntermediateElement(
       data.elementToRender,

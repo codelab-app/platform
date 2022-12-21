@@ -54,7 +54,7 @@ export const importElementInitial = async (
             : undefined,
           propTransformationJs: element.propTransformationJs,
           renderForEachPropKey: element.renderForEachPropKey,
-          renderIfPropKey: element.renderIfPropKey,
+          renderIfExpression: element.renderIfExpression,
         },
       ],
     })

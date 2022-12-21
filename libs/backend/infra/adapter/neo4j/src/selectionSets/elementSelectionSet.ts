@@ -42,7 +42,7 @@ export const elementSelectionSet = `{
     }
   }
   renderForEachPropKey
-  renderIfPropKey
+  renderIfExpression
   propMapBindings {
     id
     sourceKey

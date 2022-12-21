@@ -23,7 +23,7 @@ export interface IUpdateElementDTO {
   renderComponentTypeId?: Nullable<string>
   atomId?: Nullable<string>
   renderForEachPropKey?: Nullable<string>
-  renderIfPropKey?: Nullable<string>
+  renderIfExpression?: Nullable<string>
   customCss?: Nullable<string>
   guiCss?: Nullable<string>
   props?: Nullable<IPropData>
@@ -40,7 +40,7 @@ export type IUpdateBaseElementDTO = Pick<
   | 'atomId'
   | 'name'
   | 'slug'
-  | 'renderIfPropKey'
+  | 'renderIfExpression'
   | 'renderForEachPropKey'
   | 'renderComponentTypeId'
   | 'preRenderActionId'

@@ -5409,7 +5409,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -5727,26 +5727,26 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -6602,7 +6602,7 @@ export type Element = {
   renderComponentTypeAggregate?: Maybe<ElementComponentRenderComponentTypeAggregationSelection>
   renderComponentTypeConnection: ElementRenderComponentTypeConnection
   renderForEachPropKey?: Maybe<Scalars['String']>
-  renderIfPropKey?: Maybe<Scalars['String']>
+  renderIfExpression?: Maybe<Scalars['String']>
   slug: Scalars['String']
 }
 
@@ -6826,7 +6826,7 @@ export type ElementAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -6925,7 +6925,7 @@ export type ElementCreateInput = {
   renderAtomType?: InputMaybe<ElementRenderAtomTypeFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
+  renderIfExpression?: InputMaybe<Scalars['String']>
   slug: Scalars['String']
 }
 
@@ -6981,7 +6981,7 @@ export type ElementElementFirstChildNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -7001,7 +7001,7 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -7021,7 +7021,7 @@ export type ElementElementParentNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -7041,7 +7041,7 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -7252,26 +7252,26 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -7621,26 +7621,26 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -7692,7 +7692,7 @@ export type ElementOnCreateInput = {
   preRenderActionId?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
+  renderIfExpression?: InputMaybe<Scalars['String']>
   slug: Scalars['String']
 }
 
@@ -8182,26 +8182,26 @@ export type ElementParentNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -8451,26 +8451,26 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -9039,7 +9039,7 @@ export type ElementSort = {
   preRenderActionId?: InputMaybe<SortDirection>
   propTransformationJs?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
-  renderIfPropKey?: InputMaybe<SortDirection>
+  renderIfExpression?: InputMaybe<SortDirection>
   slug?: InputMaybe<SortDirection>
 }
 
@@ -9364,7 +9364,7 @@ export type ElementUpdateInput = {
   renderAtomType?: InputMaybe<ElementRenderAtomTypeUpdateFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeUpdateFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
+  renderIfExpression?: InputMaybe<Scalars['String']>
   slug?: InputMaybe<Scalars['String']>
 }
 
@@ -9530,17 +9530,17 @@ export type ElementWhere = {
   renderForEachPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   renderForEachPropKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   renderForEachPropKey_STARTS_WITH?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey_CONTAINS?: InputMaybe<Scalars['String']>
-  renderIfPropKey_ENDS_WITH?: InputMaybe<Scalars['String']>
-  renderIfPropKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  renderIfPropKey_MATCHES?: InputMaybe<Scalars['String']>
-  renderIfPropKey_NOT?: InputMaybe<Scalars['String']>
-  renderIfPropKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  renderIfPropKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  renderIfPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  renderIfPropKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  renderIfPropKey_STARTS_WITH?: InputMaybe<Scalars['String']>
+  renderIfExpression?: InputMaybe<Scalars['String']>
+  renderIfExpression_CONTAINS?: InputMaybe<Scalars['String']>
+  renderIfExpression_ENDS_WITH?: InputMaybe<Scalars['String']>
+  renderIfExpression_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderIfExpression_MATCHES?: InputMaybe<Scalars['String']>
+  renderIfExpression_NOT?: InputMaybe<Scalars['String']>
+  renderIfExpression_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  renderIfExpression_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  renderIfExpression_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderIfExpression_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  renderIfExpression_STARTS_WITH?: InputMaybe<Scalars['String']>
   slug?: InputMaybe<Scalars['String']>
   slug_CONTAINS?: InputMaybe<Scalars['String']>
   slug_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -11014,7 +11014,7 @@ export type HookElementElementNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -11168,26 +11168,26 @@ export type HookElementNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -13619,7 +13619,7 @@ export type PageElementRootElementNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -13859,26 +13859,26 @@ export type PageRootElementNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -14722,7 +14722,7 @@ export type PropMapBindingElementElementNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -14876,26 +14876,26 @@ export type PropMapBindingElementNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -14940,7 +14940,7 @@ export type PropMapBindingElementTargetElementNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -15189,26 +15189,26 @@ export type PropMapBindingTargetElementNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -20666,7 +20666,7 @@ export type UserElementElementsNodeAggregateSelection = {
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
   slug: StringAggregateSelectionNonNullable
 }
 
@@ -20877,26 +20877,26 @@ export type UserElementsNodeAggregationWhereInput = {
   renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -21698,7 +21698,7 @@ export type ElementFragment = {
   customCss?: string | null
   guiCss?: string | null
   renderForEachPropKey?: string | null
-  renderIfPropKey?: string | null
+  renderIfExpression?: string | null
   preRenderActionId?: string | null
   postRenderActionId?: string | null
   propTransformationJs?: string | null

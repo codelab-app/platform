@@ -3,15 +3,13 @@ import type {
   IPropData,
   IRenderOutput,
   IRenderPipe,
+  IStore,
 } from '@codelab/frontend/abstract/core'
-import get from 'lodash/get'
-import isString from 'lodash/isString'
+import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
-
-const falseValues = ['false', 'undefined', 'null', '0']
 
 @model('@codelab/ConditionalRenderPipe')
 export class ConditionalRenderPipe
@@ -21,33 +19,29 @@ export class ConditionalRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    if (ConditionalRenderPipe.shouldStopRendering(element, props)) {
-      if (this.renderer.debugMode) {
-        console.info('ConditionalRenderPipe: should stop rendering', {
-          element: element.name,
-          value: element.renderIfPropKey
-            ? get(props, element.renderIfPropKey)
-            : undefined,
-        })
-      }
+    const appStore = this.renderer.appStore.current
 
-      return RenderOutput.empty({ elementId: element.id })
+    if (ConditionalRenderPipe.shouldRender(element, appStore)) {
+      return this.next.render(element, props)
     }
 
-    return this.next.render(element, props)
+    if (this.renderer.debugMode) {
+      console.info('ConditionalRenderPipe: should stop rendering', {
+        element: element.name,
+        value: element.renderIfExpression
+          ? appStore.getByExpression(element.renderIfExpression)
+          : undefined,
+      })
+    }
+
+    return RenderOutput.empty({ elementId: element.id, stop: true })
   }
 
-  private static shouldStopRendering(element: IElement, props: IPropData) {
-    if (!element.renderIfPropKey) {
-      return false
-    }
-
-    const value = get(props, element.renderIfPropKey)
-
-    if (isString(value) && falseValues.includes(value.trim().toLowerCase())) {
+  private static shouldRender({ renderIfExpression }: IElement, store: IStore) {
+    if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
       return true
     }
 
-    return !value
+    return store.evaluateExpression(renderIfExpression)
   }
 }

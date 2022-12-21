@@ -118,6 +118,8 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: '02',
       slug: '02-slug',
       props: new Prop({}),
+      slug: `02`,
+      originId: '',
     })
 
     const compRootElementId = v4()
@@ -132,6 +134,8 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     data.componentRootElement = new Element({
       id: compRootElementId,
+      slug: `${compRootElementId}-01`,
+      originId: data.componentToRender.id,
       name: '01',
       slug: 'component.rootElement-slug',
       customCss: '',

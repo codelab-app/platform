@@ -1,10 +1,10 @@
 import type {
   IInterfaceType,
   IProp,
-  IPropData,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
+  IPropData,
   IStoreDTO,
   STATE_PATH_TEMPLATE_REGEX,
 } from '@codelab/frontend/abstract/core'
@@ -101,12 +101,12 @@ export class Store
   }
 
   @modelAction
-  private evaluateExpression(expression: string) {
+  public evaluateExpression(expression: string) {
     return evaluateExpression(expression, this.state.values)
   }
 
   @modelAction
-  public replaceStateInProps = (props: IPropData) => {
+  public replaceStateInProps(props: IPropData) {
     props = mapDeep(
       props,
       // value mapper

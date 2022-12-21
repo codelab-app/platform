@@ -3,7 +3,6 @@ import type {
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
@@ -14,10 +13,8 @@ import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
 import { DraggableElementWrapper } from './DraggableElementWrapper'
 import {
-  childrenAreEmpty,
   extractValidProps,
   getReactComponent,
-  makeCustomTextContainer,
   withMaybeGlobalPropsProvider,
 } from './wrapper.utils'
 
@@ -71,20 +68,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     // Use mapOutput because the output may be array or a single item
     const Rendered = mapOutput(renderOutputs, (renderOutput) => {
       // Render the element's children
-      let children = renderService.renderChildren(renderOutput)
-      const hasNoChildren = childrenAreEmpty(children)
 
-      // Allow for a 'children' prop, but only if we have no regular children
-      if (
-        hasNoChildren &&
-        renderOutput.props &&
-        renderOutput.props[CUSTOM_TEXT_PROP_KEY] &&
-        element.atom?.current.allowCustomTextInjection
-      ) {
-        children = makeCustomTextContainer(
-          renderOutput.props[CUSTOM_TEXT_PROP_KEY],
-        )
-      }
+      const children = renderOutput.stop
+        ? undefined
+        : renderService.renderChildren(renderOutput)
 
       if (renderOutput.props) {
         renderOutput.props['forwardedRef'] = onRefChange

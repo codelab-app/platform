@@ -46,7 +46,4 @@ export const makeCustomTextContainer = (customText: string) =>
     },
   })
 
-export const childrenAreEmpty = (children: unknown) =>
-  !children || (Array.isArray(children) && !children.length)
-
 export const noWrapper = () => (children: ReactElement) => children

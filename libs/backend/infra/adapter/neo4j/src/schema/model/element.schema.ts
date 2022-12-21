@@ -30,7 +30,7 @@ export const elementSchema = gql`
     guiCss: String
     propTransformationJs: String
     renderForEachPropKey: String
-    renderIfPropKey: String
+    renderIfExpression: String
 
     preRenderActionId: String
     postRenderActionId: String

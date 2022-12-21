@@ -58,7 +58,7 @@ export interface IElement
   postRenderActionId: Nullish<string>
   children: Array<IElement>
   renderForEachPropKey: Nullable<string>
-  renderIfPropKey: Nullable<string>
+  renderIfExpression: Nullable<string>
   renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
   ancestorError: Nullish<RenderingError>
@@ -110,6 +110,7 @@ export interface IElement
   deleteFromGuiCss(propNames: Array<string>): void
 
   setRenderingError(error: Nullish<RenderingError>): void
+  setRenderIfExpression(key: Nullish<string>): void
   setRenderForEachPropKey(key: string): void
 }
 

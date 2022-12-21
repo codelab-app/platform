@@ -7,7 +7,11 @@ import type {
   IStore,
   RendererProps,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID, IElementTree } from '@codelab/frontend/abstract/core'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  DATA_ELEMENT_ID,
+  IElementTree,
+} from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -40,6 +44,7 @@ import type { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import { getAtom } from './atoms'
 import type { ElementWrapperProps } from './element/ElementWrapper'
 import { ElementWrapper } from './element/ElementWrapper'
+import { makeCustomTextContainer } from './element/wrapper.utils'
 import { ExtraElementProps } from './ExtraElementProps'
 import {
   defaultPipes,
@@ -353,6 +358,14 @@ export class Renderer
         : Boolean(children)
 
       if (!hasChildren) {
+        // Inject text, but only if we have no regular children
+        const injectedText = parentOutput.props?.[CUSTOM_TEXT_PROP_KEY]
+        const shouldInjectText = element.atom?.current.allowCustomTextInjection
+
+        if (shouldInjectText && injectedText) {
+          return makeCustomTextContainer(injectedText)
+        }
+
         /*
          * It's important to be undefined if we have no children to display,
          * since void components like input will throw an error if their children prop isn't undefined

@@ -18,7 +18,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
     slug: {
       type: 'string',
     },
-    renderIfPropKey: {
+    renderIfExpression: {
       type: 'string',
       nullable: true,
       label: 'Render if',

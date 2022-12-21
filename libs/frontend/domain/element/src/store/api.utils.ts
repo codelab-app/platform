@@ -71,7 +71,7 @@ export const makeDuplicateInput = (
     props,
     slug: createSlug(duplicate_slug, element.baseId),
     propTransformationJs: element.propTransformationJs,
-    renderIfPropKey: element.renderIfPropKey,
+    renderIfExpression: element.renderIfExpression,
     renderForEachPropKey: element.renderForEachPropKey,
     name: element.name,
     customCss: element.customCss,
@@ -102,6 +102,6 @@ export const makeUpdateInput = (
     guiCss: input.guiCss,
     renderForEachPropKey: input.renderForEachPropKey,
     renderComponentType,
-    renderIfPropKey: input.renderIfPropKey,
+    renderIfExpression: input.renderIfExpression,
   }
 }

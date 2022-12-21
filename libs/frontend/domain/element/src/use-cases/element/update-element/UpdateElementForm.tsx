@@ -40,7 +40,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       name: element.name,
       slug: element.slug,
       renderForEachPropKey: element.renderForEachPropKey,
-      renderIfPropKey: element.renderIfPropKey,
+      renderIfExpression: element.renderIfExpression,
       renderComponentTypeId: element.renderComponentType?.id,
       postRenderActionId: element.postRenderActionId,
       preRenderActionId: element.preRenderActionId,
@@ -88,7 +88,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         <AutoFields
           omitFields={[
             'atomId',
-            'renderIfPropKey',
+            'renderIfExpression',
             'renderForEachPropKey',
             'propTransformationJs',
             'renderComponentTypeId',
@@ -110,7 +110,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           name="atomId"
         />
         <AutoCompleteField
-          name="renderIfPropKey"
+          name="renderIfExpression"
           onSearch={handlePropSearch}
           options={propCompleteOptions}
         />

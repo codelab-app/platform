@@ -76,7 +76,7 @@ export const hydrate = ({
   propMapBindings,
   props,
   propTransformationJs,
-  renderIfPropKey,
+  renderIfExpression,
   renderForEachPropKey,
 }: Omit<IElementDTO, '__typename'>) => {
   const apiRef = renderAtomType
@@ -100,7 +100,7 @@ export const hydrate = ({
     postRenderActionId,
     props: props ? Prop.hydrate({ ...props, apiRef }) : null,
     propTransformationJs,
-    renderIfPropKey,
+    renderIfExpression,
     renderForEachPropKey,
     renderingMetadata: null,
     parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
@@ -149,7 +149,7 @@ export class Element
     preRenderActionId: prop<Nullish<string>>(null),
     postRenderActionId: prop<Nullish<string>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
-    renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
+    renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
@@ -762,7 +762,7 @@ export class Element
     propMapBindings,
     props,
     propTransformationJs,
-    renderIfPropKey,
+    renderIfExpression,
     postRenderActionId,
     preRenderActionId,
     renderForEachPropKey,
@@ -780,7 +780,7 @@ export class Element
     this.customCss = customCss ?? null
     this.guiCss = guiCss ?? null
     this.propTransformationJs = propTransformationJs ?? null
-    this.renderIfPropKey = renderIfPropKey ?? null
+    this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.atom = renderAtomType ? atomRef(renderAtomType.id) : null
 
