@@ -14,8 +14,7 @@ import { getTagService } from '@codelab/frontend/domain/tag'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { COMPONENT_TAG_NAME } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
-// eslint-disable-next-line lodash/import-scope
-import { chain } from 'lodash'
+import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
 import type { AnyModel, Frozen, Ref } from 'mobx-keystone'
 import {
@@ -78,16 +77,18 @@ export class BuilderService
    */
   get componentsGroupedByCategory() {
     // atoms are internal components while components are created by users
-    return chain([...this.atomService.atoms.values()])
-      .filter((component) => Boolean(component.tags))
-      .groupBy(
-        (component) =>
-          // Here we assume each atom only has one category tag
-          component.tags.filter(
-            (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
-          )[0]?.maybeCurrent?.name,
-      )
-      .value()
+    const components = [...this.atomService.atoms.values()].filter(
+      (component) => Boolean(component.tags),
+    )
+
+    return groupBy(
+      components,
+      (component) =>
+        // Here we assume each atom only has one category tag
+        component.tags.filter(
+          (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
+        )[0]?.maybeCurrent?.name,
+    )
   }
 
   @computed
