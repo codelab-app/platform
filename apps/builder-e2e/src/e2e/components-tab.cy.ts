@@ -7,8 +7,12 @@ import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
 import { createPageInput } from '../support/database/page'
 
-const COMPONENTS_TAB_ID = 'rc-tabs-1-tab-component'
-const COMPONENTS_TAB_PANEL_ID = 'rc-tabs-1-panel-component'
+// antd tabs use internal id counter and tab "id" is computed based on initialization order.
+// so the ids of tabs may change depending on the order in which they are rendered:
+// rc-tabs-0-tab, rc-tabs-1-tab, rc-tabs-2-tab, etc...
+// so the id below may change anytime when components rendering order is changed.
+const COMPONENTS_TAB_ID = 'rc-tabs-4-tab-component'
+const COMPONENTS_TAB_PANEL_ID = 'rc-tabs-4-panel-component'
 
 describe('Components Tab', () => {
   before(() => {
