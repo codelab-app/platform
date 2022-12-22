@@ -10,6 +10,7 @@ import {
 import { faArrowLeft, faBars } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useRecoilState } from 'recoil'
@@ -43,8 +44,8 @@ const Backdrop = ({ active }: BackdropProps) => {
   return ReactDOM.createPortal(
     <div
       css={[
-        tw`fixed w-screen h-screen top-0`,
-        active && tw`backdrop-blur-sm bg-white/5`,
+        tw`fixed top-0`,
+        active && tw`backdrop-blur-sm bg-white/5 w-screen h-screen`,
       ]}
       id="backdrop"
     />,
@@ -92,7 +93,7 @@ export const MenuMobile = () => {
           <ul css={[tw` p-0 flex-col pt-4 flex`]}>
             {menuItems.map((items, index) => (
               <li css={tw`hidden laptop:flex pt-8 text-base flex`} key={index}>
-                <a
+                <Link
                   css={tw`flex items-center text-black hover:text-primary  font-display font-normal`}
                   href={items.href}
                 >
@@ -103,7 +104,7 @@ export const MenuMobile = () => {
                     width={20}
                   />
                   <p css={tw`p-0 ml-4 mb-0 mt-0 mr-0`}>{items.title}</p>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -143,12 +144,12 @@ const menuItems = [
   },
   {
     title: 'Pricing',
-    href: '/',
+    href: '/pricing',
     icon: '/pricing.svg',
   },
   {
     title: 'Tutorials',
-    href: '/',
+    href: '/tutorials',
     icon: '/tutorials.svg',
   },
 ]

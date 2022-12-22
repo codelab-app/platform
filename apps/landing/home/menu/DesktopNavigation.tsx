@@ -27,12 +27,12 @@ export const MenuDesktop = () => {
               css={tw`hidden laptop:flex text-base flex p-2 mr-4`}
               key={index}
             >
-              <a
+              <Link
                 css={tw`flex items-center text-black hover:text-primary font-display font-normal`}
                 href={items.href}
               >
                 {items.title}
-              </a>
+              </Link>
             </li>
           ))}
 
@@ -49,26 +49,28 @@ export const MenuDesktop = () => {
           ) : (
             <>
               <li css={tw`tablet:w-8 laptop:w-auto laptop:flex p-2`}>
-                <Link href="/api/auth/login" legacyBehavior>
-                  <Button css={tw`rounded-lg mr-2`} ghost type="primary">
-                    <a
-                      css={tw`hidden text-base font-semibold laptop:flex items-center`}
-                    >
-                      Log in
-                    </a>
-                  </Button>
-                </Link>
+                {/* <Link href="/api/auth/login" legacyBehavior> */}
+                <Button css={tw`rounded-lg mr-2`} ghost type="primary">
+                  <Link
+                    css={tw`hidden text-base font-semibold laptop:flex items-center`}
+                    href="/api/auth/login"
+                  >
+                    Log in
+                  </Link>
+                </Button>
+                {/* </Link> */}
               </li>
               <li css={tw`hidden laptop:flex p-2`}>
-                <Link href="/api/auth/logout" legacyBehavior>
-                  <Button css={tw`rounded-lg`} type="primary">
-                    <a
-                      css={tw`hidden text-base font-semibold laptop:flex items-center`}
-                    >
-                      Sign up
-                    </a>
-                  </Button>
-                </Link>
+                {/* <Link href="/api/auth/logout" legacyBehavior> */}
+                <Button css={tw`rounded-lg`} type="primary">
+                  <Link
+                    css={tw`hidden text-base font-semibold laptop:flex items-center`}
+                    href="/api/auth/logout"
+                  >
+                    Sign up
+                  </Link>
+                </Button>
+                {/* </Link> */}
               </li>
             </>
           )}

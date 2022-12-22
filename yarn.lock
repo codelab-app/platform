@@ -14380,6 +14380,7 @@ __metadata:
     next: 13.0.0
     next-compose-plugins: 2.2.1
     next-plugin-antd-less: ^1.8.0
+    next-seo: ^5.15.0
     next-with-less: 2.0.5
     node-fetch: 3.1.0
     nx: 15.3.0
@@ -24937,6 +24938,17 @@ __metadata:
     loader-utils: ^3.2.0
     null-loader: ^4.0.1
   checksum: 696c88fdf96b10daea40d0b294533d8089ecc32f2ab147772161c599fca82c763eff2d57b3072f2ffed3c60eaddd260e3ac3807e940dea2c53c3e9270be0f466
+  languageName: node
+  linkType: hard
+
+"next-seo@npm:^5.15.0":
+  version: 5.15.0
+  resolution: "next-seo@npm:5.15.0"
+  peerDependencies:
+    next: ^8.1.1-canary.54 || >=9.0.0
+    react: ">=16.0.0"
+    react-dom: ">=16.0.0"
+  checksum: 05b0769d9c9abcc6a0179e5d724e87b1a3a7591a9c2caa4ef5b791769fcf868cb97fbcd90264106101cf7fbc073b0375ab90026aa519d2e899fbabea12cafbfb
   languageName: node
   linkType: hard
 

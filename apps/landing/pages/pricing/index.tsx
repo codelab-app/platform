@@ -1,13 +1,15 @@
-import Head from 'next/head'
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+import { SeoHead } from 'apps/landing/home/SeoHead'
 import * as React from 'react'
 import { HomeTemplate, PricingBody, PricingHeader } from '../../home'
 
 const PricingPage = () => {
   return (
     <>
-      <Head>
-        <title>Pricing</title>
-      </Head>
+      <SeoHead
+        description="Whether you're trying out our product, or building your next startup, we have you covered with our different plans"
+        title="Pricing"
+      />
       <PricingHeader />
       <PricingBody />
     </>

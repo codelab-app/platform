@@ -9,7 +9,6 @@ import { useRecoilValue } from 'recoil'
 import tw from 'twin.macro'
 import { demoCardPropState } from './ButtonDemoProps'
 
-const { Meta } = Card
 const { Text } = Typography
 
 export const DemoShoppingCard = () => {
@@ -35,6 +34,7 @@ export const DemoShoppingCard = () => {
     <Card
       cover={
         <img
+          alt="apple-macboook-pro"
           css={tw`w-44 m-auto sm:w-11/12 lg:w-full xl:w-64 xl:m-auto 2xl:w-full`}
           src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg"
         />

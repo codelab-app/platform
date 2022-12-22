@@ -111,6 +111,7 @@
     "morphext": "2.4.7",
     "neo4j-driver": "5.2.0",
     "next": "13.0.0",
+    "next-seo": "^5.15.0",
     "node-fetch": "3.1.0",
     "object-typed": "^1.0.0",
     "puppeteer": "17.1.3",
