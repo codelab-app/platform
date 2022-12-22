@@ -1,5 +1,4 @@
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
-import { Skeleton } from 'antd'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -32,7 +31,10 @@ const Content = ({ children }: PropsWithChildren) => {
 
 export const HomeTemplate = ({ children }: HomeTemplateProps) => {
   const isMobileOrTablet = useMobileOrTabletMediaQuery()
-  // https://github.com/vercel/next.js/discussions/35773#discussioncomment-2485078
+  // While rendering your application, there was a difference between the React tree that was pre-rendered (SSR/SSG) and the React tree that rendered during the first render in the Browser.
+  // The first render is called Hydration which is a feature of React.
+  // This can cause the React tree to be out of sync with the DOM and result in unexpected content/attributes being present.
+  // Possible Ways to Fix It - https://github.com/vercel/next.js/discussions/35773#discussioncomment-2485078
   const [hasMounted, setHasMounted] = useState(false)
   useEffect(() => {
     setHasMounted(true)
@@ -48,9 +50,7 @@ export const HomeTemplate = ({ children }: HomeTemplateProps) => {
       <Content>{children}</Content>
       <Footer></Footer>
     </Layout>
-  ) : (
-    <Skeleton paragraph={false} />
-  )
+  ) : null
 }
 
 // const LayoutTest = ({ children }: PropsWithChildren<any>) => {
