@@ -2,7 +2,10 @@ import { isCircleCi, isProduction, isVercel } from './flags'
 
 const graphqlApiHost =
   isProduction && isVercel && !isCircleCi
-    ? `https://${process.env['NEXT_PUBLIC_VERCEL_URL']}`
-    : `http://${process.env['NEXT_PUBLIC_BUILDER_HOST']}`
+    ? process.env['NEXT_PUBLIC_VERCEL_URL']
+    : process.env['NEXT_PUBLIC_BUILDER_HOST']
 
-export const graphqlApiOrigin = `${graphqlApiHost}/api/graphql`
+const isDev = graphqlApiHost?.startsWith('127.0.0.1')
+const protocol = isDev ? 'http' : 'https'
+
+export const graphqlApiOrigin = `${protocol}://${graphqlApiHost}/api/graphql`
