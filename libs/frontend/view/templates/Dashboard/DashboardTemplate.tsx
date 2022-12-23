@@ -19,7 +19,7 @@ import type { DashboardTemplateProps } from './types'
 
 const { Sider, Header: AntDesignHeader } = Layout
 
-export const DashboardTemplate = observer(
+const DashboardTemplate = observer(
   ({
     children,
     Header,
@@ -210,3 +210,5 @@ export const DashboardTemplate = observer(
 )
 
 DashboardTemplate.displayName = 'DashboardTemplate'
+
+export default DashboardTemplate

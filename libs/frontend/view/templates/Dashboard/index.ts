@@ -1,3 +1,3 @@
 export * from './constants'
-export * from './DashboardTemplate'
+export * from './DashboardTemplateNoSSR'
 export * from './types'

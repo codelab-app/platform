@@ -15,7 +15,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ConfigProvider } from 'antd'
 import type { PropsWithChildren } from 'react'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
@@ -23,14 +23,6 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 
 const App = ({ pageProps, Component }: IAppProps<IPageProps>) => {
   const store = useMemo(() => initializeStore(pageProps), [])
-  const [hasMounted, setHasMounted] = useState(false)
-  useEffect(() => {
-    setHasMounted(true)
-  }, [])
-
-  if (!hasMounted) {
-    return null
-  }
 
   const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
     Component as CodelabPage<unknown>
