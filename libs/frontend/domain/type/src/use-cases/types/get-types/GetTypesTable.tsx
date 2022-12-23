@@ -3,7 +3,6 @@ import type {
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -23,7 +22,7 @@ export const GetTypesTable = observer<{
   const { types, typesList } = typeService
   const { isLoadingAllTypes, getAllTypes } = useTypesTableData(typeService)
   const [curPage, setCurPage] = useState(1)
-  const [curPageSize, setCurPageSize] = useState(25)
+  const [curPageSize, setCurPageSize] = useState(typeId ? 1 : 25)
   const [rowClassReady, setRowClassReady] = React.useState(false)
   const router = useRouter()
 
@@ -32,6 +31,7 @@ export const GetTypesTable = observer<{
       typeService,
       isLoadingTypeDependencies: isLoadingAllTypes,
       fieldService,
+      typeId,
     })
 
   const handlePageChange = useCallback(
@@ -44,16 +44,10 @@ export const GetTypesTable = observer<{
   )
 
   useEffect(() => {
-    void getAllTypes(
-      {
-        name: baseTypeWhere?.name ?? '',
-        id_IN: [typeId ?? ''],
-      },
-      {
-        offset: baseTypeOptions.offset ?? undefined,
-        limit: baseTypeOptions.limit ?? undefined,
-      },
-    )
+    void getAllTypes(baseTypeWhere, {
+      offset: baseTypeOptions.offset ?? undefined,
+      limit: baseTypeOptions.limit ?? undefined,
+    })
   }, [baseTypeOptions, baseTypeWhere, getAllTypes, typeId])
 
   /**
@@ -77,11 +71,6 @@ export const GetTypesTable = observer<{
 
       if (page) {
         handlePageChange(page, curPageSize)
-
-        /**
-         * Removing the current type id from the url because there is no use for it anymore
-         */
-        router.push(PageType.Type).catch((e) => console.error(e))
       }
     }
   }, [router, typeId, typesList, types, curPageSize, handlePageChange])
@@ -101,10 +90,16 @@ export const GetTypesTable = observer<{
     }
   }, [typeId, rowClassReady])
 
+  // if (typeId) {
+  //   useAsync((id: string) => typeService.getOne(id), [typeId])
+  // }
+
+  const selectedType = typesList.filter((type) => type.id === typeId)[0]
+
   return (
     <Table<IAnyType>
       columns={columns}
-      dataSource={typesList}
+      dataSource={typeId && selectedType ? [selectedType] : typesList}
       expandable={{
         defaultExpandedRowKeys: [typeId ?? ''],
         expandedRowRender: (type) =>
@@ -121,8 +116,8 @@ export const GetTypesTable = observer<{
       loading={isLoadingAllTypes}
       pagination={{
         ...pagination,
-        current: curPage,
-        pageSize: curPageSize,
+        current: selectedType ? 0 : curPage,
+        pageSize: selectedType ? 1 : curPageSize,
         onChange: handlePageChange,
       }}
       rowClassName={(record) => {

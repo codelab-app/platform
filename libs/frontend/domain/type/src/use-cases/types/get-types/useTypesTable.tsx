@@ -26,15 +26,19 @@ interface UseTypesTableParams {
   typeService: ITypeService
   fieldService: IFieldService
   isLoadingTypeDependencies: boolean
+  typeId?: string
 }
 
 export const useTypesTable = ({
   typeService,
   isLoadingTypeDependencies,
   fieldService,
+  typeId,
 }: UseTypesTableParams) => {
-  const [baseTypeWhere, setBaseTypeWhere] =
-    useState<Maybe<BaseTypeWhere>>(undefined)
+  const [baseTypeWhere, setBaseTypeWhere] = useState<Maybe<BaseTypeWhere>>({
+    name: '',
+    id_IN: [typeId ?? ''],
+  })
 
   const [baseTypeOptions, setBaseTypeOptions] = useState<BaseTypeOptions>({
     offset: 0,
