@@ -3,6 +3,7 @@ import type {
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -22,7 +23,7 @@ export const GetTypesTable = observer<{
   const { types, typesList } = typeService
   const { isLoadingAllTypes, getAllTypes } = useTypesTableData(typeService)
   const [curPage, setCurPage] = useState(1)
-  const [curPageSize, setCurPageSize] = useState(typeId ? 1 : 25)
+  const [curPageSize, setCurPageSize] = useState(25)
   const [rowClassReady, setRowClassReady] = React.useState(false)
   const router = useRouter()
 
@@ -36,9 +37,15 @@ export const GetTypesTable = observer<{
 
   const handlePageChange = useCallback(
     (page: number, pageSize: number) => {
+      if (typeId) {
+        router.push(PageType.Type).catch((e) => console.error(e))
+      }
+
       setCurPage(page)
-      setCurPageSize(pageSize)
-      pagination.onChange?.(page, pageSize)
+
+      const adjustedPageSize = pageSize === 1 ? 25 : pageSize
+      setCurPageSize(adjustedPageSize)
+      pagination.onChange?.(page, adjustedPageSize)
     },
     [pagination, setCurPage],
   )
@@ -49,31 +56,6 @@ export const GetTypesTable = observer<{
       limit: baseTypeOptions.limit ?? undefined,
     })
   }, [baseTypeOptions, baseTypeWhere, getAllTypes, typeId])
-
-  /**
-   * Change the current page to the page containing the current type
-   */
-  useEffect(() => {
-    const findPageOfCurrentType = () => {
-      const currentType = types.get(typeId ?? '')
-
-      if (!currentType) {
-        return
-      }
-
-      return Math.ceil(
-        (typesList.findIndex((t) => t.id === currentType.id) + 1) / curPageSize,
-      )
-    }
-
-    if (typeId) {
-      const page = findPageOfCurrentType()
-
-      if (page) {
-        handlePageChange(page, curPageSize)
-      }
-    }
-  }, [router, typeId, typesList, types, curPageSize, handlePageChange])
 
   /**
    * Scroll to the current type to make sure it is visible
@@ -91,6 +73,7 @@ export const GetTypesTable = observer<{
   }, [typeId, rowClassReady])
 
   const selectedType = typesList.filter((type) => type.id === typeId)[0]
+  console.log('selectedType', selectedType)
 
   return (
     <Table<IAnyType>
