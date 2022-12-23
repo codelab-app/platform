@@ -90,10 +90,6 @@ export const GetTypesTable = observer<{
     }
   }, [typeId, rowClassReady])
 
-  // if (typeId) {
-  //   useAsync((id: string) => typeService.getOne(id), [typeId])
-  // }
-
   const selectedType = typesList.filter((type) => type.id === typeId)[0]
 
   return (
