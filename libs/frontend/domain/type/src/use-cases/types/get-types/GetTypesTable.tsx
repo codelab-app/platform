@@ -73,7 +73,6 @@ export const GetTypesTable = observer<{
   }, [typeId, rowClassReady])
 
   const selectedType = typesList.filter((type) => type.id === typeId)[0]
-  console.log('selectedType', selectedType)
 
   return (
     <Table<IAnyType>
