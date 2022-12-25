@@ -10,8 +10,12 @@ export const isCi =
   // Others may use 'true'
   process.env['CI'] === 'true'
 
-export const isVercelPreview = process.env['VERCEL_ENV'] === 'preview'
+export const isVercelPreview =
+  process.env['VERCEL_ENV'] === 'preview' ||
+  Boolean(process.env['NEXT_PUBLIC_VERCEL_URL'])
 
-export const isVercel = process.env['VERCEL'] === '1'
+export const isVercel =
+  process.env['VERCEL'] === '1' ||
+  Boolean(process.env['NEXT_PUBLIC_VERCEL_URL'])
 
 export const isCircleCi = process.env['CIRCLECI'] === 'true'
