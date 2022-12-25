@@ -186,7 +186,7 @@ export class AppService
       const providerPage = {
         id: pageId,
         name: APP_PAGE_NAME,
-        slug: APP_PAGE_SLUG,
+        slug: `${appId}-${APP_PAGE_SLUG}`,
         getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
         app: {
           connect: { where: { node: { id: appId } } },
