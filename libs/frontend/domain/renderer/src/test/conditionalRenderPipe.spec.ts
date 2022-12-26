@@ -9,14 +9,12 @@ describe('ConditionalRenderPipe', () => {
     data.elementToRender.setRenderIfExpression('{{this.shouldRender}}')
   })
 
-  it('should render normally if no key is found', async () => {
+  it('should render normally if no expression is set', async () => {
     data.elementToRender.setRenderIfExpression(undefined)
 
     const output = data.renderer.renderIntermediateElement(
       data.elementToRender,
-      {
-        shouldRender: false,
-      },
+      {},
     )
 
     expect(output).toEqual({
@@ -29,11 +27,11 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should stop rendering by returning an empty output', async () => {
+    data.renderer.appStore.current.state.set('shouldRender', false)
+
     const output = data.renderer.renderIntermediateElement(
       data.elementToRender,
-      {
-        shouldRender: false,
-      },
+      {},
     )
 
     expect(output).toMatchObject({
@@ -42,8 +40,9 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should continue rendering', async () => {
+    data.renderer.appStore.current.state.set('shouldRender', true)
+
     const initialProps = {
-      shouldRender: true,
       prop01: 'prop01',
     }
 

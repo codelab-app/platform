@@ -198,6 +198,20 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     }`,
     })
 
+    data.componentInstanceElementToRender = new Element({
+      id: v4(),
+      name: '01',
+      slug: '01-instance',
+      originId: data.elementToRender.id,
+      renderComponentType: componentRef(data.componentToRender),
+      props: new Prop({
+        id: v4(),
+        data: frozen({
+          componentProp: 'instance',
+        }),
+      }),
+    })
+
     const typeService = new TypeService({
       types: objectMap([
         [data.primitiveType.id, data.primitiveType],
