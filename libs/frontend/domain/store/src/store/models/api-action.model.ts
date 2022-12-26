@@ -120,13 +120,12 @@ export class ApiAction
 
   @modelAction
   createRunner(state: IProp) {
-    const successAction = this.successAction?.current
-    const errorAction = this.errorAction?.current
-    const resource = this.resource.current
-    const config = this.store.current.replaceStateInProps(this.config.values)
-
     const runner = (...args: Array<unknown>) => {
+      const successAction = this.successAction?.current
+      const errorAction = this.errorAction?.current
+      const resource = this.resource.current
       const overrideConfig = args[0] as IPropData
+      const config = this.store.current.replaceStateInProps(this.config.values)
       state.set(this.name, { response: null })
       state.set(this.name, { error: null })
 

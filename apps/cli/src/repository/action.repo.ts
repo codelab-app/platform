@@ -54,6 +54,14 @@ export const importActions = async (
       id: action.id,
       name: action.name,
       type: action.type,
+      successAction: {
+        ApiAction: connectNode(action.successAction?.id),
+        CodeAction: connectNode(action.successAction?.id),
+      },
+      errorAction: {
+        ApiAction: connectNode(action.errorAction?.id),
+        CodeAction: connectNode(action.errorAction?.id),
+      },
       config: { create: { node: { data: action.config.data } } },
       store: connectNode(storeId),
     })),
