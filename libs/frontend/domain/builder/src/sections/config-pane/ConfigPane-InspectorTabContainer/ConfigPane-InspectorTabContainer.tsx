@@ -23,7 +23,6 @@ import {
   PropMapBindingSection,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
-  UpdateRichTextForm,
 } from '@codelab/frontend/domain/element'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
@@ -122,31 +121,22 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           <div key={selectedNode.id}>
             {isElement(selectedNode) &&
             (selectedNode.atom || selectedNode.renderComponentType) ? (
-              <>
-                <div css={tw`mb-5`}>
-                  <UpdateRichTextForm
-                    element={selectedNode}
-                    elementService={elementService}
-                    trackPromises={trackPromises}
-                  />
-                </div>
-                <FormContextProvider
-                  value={{
-                    autocomplete,
-                    appStore,
-                    allowExpressions,
-                    elementTree,
-                  }}
-                >
-                  <UpdateElementPropsForm
-                    element={selectedNode}
-                    elementService={elementService}
-                    trackPromises={trackPromises}
-                    typeService={typeService}
-                    userService={userService}
-                  />
-                </FormContextProvider>
-              </>
+              <FormContextProvider
+                value={{
+                  autocomplete,
+                  appStore,
+                  allowExpressions,
+                  elementTree,
+                }}
+              >
+                <UpdateElementPropsForm
+                  element={selectedNode}
+                  elementService={elementService}
+                  trackPromises={trackPromises}
+                  typeService={typeService}
+                  userService={userService}
+                />
+              </FormContextProvider>
             ) : (
               `Add an atom or a component to this element to edit its props`
             )}

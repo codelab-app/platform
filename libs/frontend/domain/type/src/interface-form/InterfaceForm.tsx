@@ -7,7 +7,7 @@ import type { JSONSchemaType } from 'ajv'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { schemaTransformer } from './type-schema.factory'
 import type { InterfaceFormProps } from './types'
 
@@ -30,7 +30,6 @@ export const InterfaceForm = observer(
     submitField,
   }: React.PropsWithChildren<InterfaceFormProps<TData, TResponse>>) => {
     const context = useFormContext()
-    const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
 
     useEffect(
@@ -41,11 +40,9 @@ export const InterfaceForm = observer(
             context,
           )
 
-          setFormSchema(
-            mergeDeepRight(initialSchemaRef.current ?? {}, typeTreeSchema),
-          )
+          setFormSchema(mergeDeepRight(initialSchema ?? {}, typeTreeSchema))
         }),
-      [interfaceType],
+      [interfaceType, initialSchema, context],
     )
 
     return (

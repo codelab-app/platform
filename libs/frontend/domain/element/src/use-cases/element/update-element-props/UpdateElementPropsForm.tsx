@@ -5,12 +5,13 @@ import type {
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { isAdmin } from '@codelab/frontend/abstract/core'
+import { CUSTOM_TEXT_PROP_KEY, isAdmin } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import { Spinner } from '@codelab/frontend/view/components'
+import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings } from '@codelab/shared/utils'
+import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -25,6 +26,24 @@ export interface UpdateElementPropsFormProps {
   trackPromises?: UseTrackLoadingPromises
   userService: IUserService
 }
+
+const withCustomTextSchema: JSONSchemaType<{
+  [CUSTOM_TEXT_PROP_KEY]?: string
+}> = {
+  title: '',
+  type: 'object',
+  properties: {
+    [CUSTOM_TEXT_PROP_KEY]: {
+      type: 'string',
+      label: 'Custom text',
+      uniforms: {
+        component: ReactQuillField,
+      },
+      nullable: true,
+    },
+  },
+  required: [],
+} as const
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ elementService, element, trackPromises, typeService, userService }) => {
@@ -58,6 +77,12 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
+    const allowCustomText =
+      element.atom?.current.allowCustomTextInjection &&
+      element.children.length === 0
+
+    const initialSchema = allowCustomText ? withCustomTextSchema : {}
+
     return (
       <Spinner isLoading={loading}>
         {interfaceType && (
@@ -65,6 +90,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             <Col span={24}>
               <PropsForm
                 autosave
+                initialSchema={initialSchema}
                 interfaceType={interfaceType}
                 key={element.id}
                 model={initialPropsRef.current}

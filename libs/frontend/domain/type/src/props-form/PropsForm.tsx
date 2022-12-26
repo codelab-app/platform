@@ -16,6 +16,7 @@ export interface PropsFormProps
       'submitField' | 'onSubmitError' | 'onSubmitSuccess'
     > {
   interfaceType?: IInterfaceType
+  initialSchema?: object
   model?: IPropData
   onSubmit: (values: IPropData) => Promise<IPropData | void>
   autosave?: boolean
@@ -32,6 +33,7 @@ export const PropsForm = observer<PropsFormProps>(
     model,
     onSubmit,
     autosave,
+    initialSchema,
     setIsLoading,
     submitRef,
     onSubmitError,
@@ -51,6 +53,7 @@ export const PropsForm = observer<PropsFormProps>(
       >
         <InterfaceForm
           autosave={autosave}
+          initialSchema={initialSchema}
           interfaceType={interfaceType}
           model={model || {}}
           onSubmit={handleFormSubmit<DeepPartial<IPropData>, IPropData>(

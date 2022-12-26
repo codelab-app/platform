@@ -1,7 +1,8 @@
 import { Spin } from 'antd'
 import dynamic from 'next/dynamic'
+import React from 'react'
 
-const ReactQuill = dynamic(
+export const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import('react-quill')
 
@@ -12,5 +13,3 @@ const ReactQuill = dynamic(
     loading: () => <Spin />,
   },
 )
-
-export default ReactQuill
