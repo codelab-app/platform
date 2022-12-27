@@ -46,6 +46,10 @@ export const BuilderComponent = observer<BuilderComponentProps>(
 
         const componentTree = component.elementTree
 
+        if (!componentTree) {
+          return
+        }
+
         await renderService.addRenderer({
           id: componentId,
           pageTree: componentTree,

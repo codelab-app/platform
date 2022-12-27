@@ -22,7 +22,7 @@ export interface IElementTree {
 }
 
 export interface IElementTreeService {
-  elementTree: IElementTree
+  elementTree: Maybe<IElementTree>
   setElementTree(t: IElementTree): void
   initTree(rootElement: IElement, elements: Array<IElement>): IElementTree
 }

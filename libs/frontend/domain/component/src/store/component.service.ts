@@ -86,7 +86,7 @@ export class ComponentService
       selectable: false,
       children: [...this.components.values()].map((component) => {
         const elementTree = component.elementTree
-        const dataNode = elementTree.root?.antdNode
+        const dataNode = elementTree?.root?.antdNode
 
         return {
           key: component.id,
@@ -97,7 +97,7 @@ export class ComponentService
           children: [dataNode].filter((data): data is IBuilderDataNode =>
             Boolean(data),
           ),
-          rootKey: elementTree.root?.id ?? null,
+          rootKey: elementTree?.root?.id ?? null,
         }
       }),
       rootKey: null,

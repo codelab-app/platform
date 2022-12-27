@@ -25,7 +25,7 @@ const Index = (props: AppPagePageProps) => {
   const components = componentService.componentList
 
   const { value: renderer } = useAsync(async () => {
-    if (!page || !appStore || !app) {
+    if (!page?.elementTree || !appStore || !app) {
       return
     }
 
