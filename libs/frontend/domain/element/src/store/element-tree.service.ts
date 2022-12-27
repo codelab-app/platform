@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IElement } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { Model, model, modelAction, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { ElementTree } from './element-tree.model'
 
 /**
@@ -13,6 +13,7 @@ import { ElementTree } from './element-tree.model'
 @model('@codelab/ElementTreeService')
 export class ElementTreeService
   extends Model({
+    id: idProp,
     elementTree: prop<IElementTree>(null!).withSetter(),
   })
   implements IElementTreeService
@@ -25,6 +26,8 @@ export class ElementTreeService
     console.debug('ElementTreeService.initTree', elements)
 
     const elementService = getElementService(this)
+
+    rootElement.setOriginId(this.id)
 
     elements.forEach((element) => {
       elementService.elements.set(element.id, element)

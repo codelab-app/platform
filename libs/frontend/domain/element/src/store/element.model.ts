@@ -87,7 +87,6 @@ export const hydrate = ({
     name,
     customCss,
     guiCss,
-    originId: '',
     // parent of first child
     parentId: parent?.id,
     slug: extractSlug(slug),
@@ -152,23 +151,24 @@ export class Element
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
-
     // component which has this element as rootElement
     parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    _originId: prop<string>(() => '').withSetter(),
 
     // Marks the element as an instance of a specific component
     renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
-
-    // element origin could be a page or a component
-    // used to create unique slug for element
-    originId: prop<string>().withSetter(),
   })
   implements IElement
 {
   @computed
   get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  get originId() {
+    return this.parentElement ? this.parentElement.originId : this._originId
   }
 
   @computed
@@ -232,6 +232,11 @@ export class Element
     }
 
     return
+  }
+
+  @modelAction
+  setOriginId(originId: string) {
+    this._originId = originId
   }
 
   @modelAction
