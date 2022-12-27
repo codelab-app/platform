@@ -761,8 +761,6 @@ element is new parentElement's first child
           this.recursiveDuplicate(targetElement, targetParent),
         )
 
-        console.log(oldToNewIdMap)
-
         const createdElements = [...oldToNewIdMap.values()]
         // re-attach the prop map bindings now that we have the new ids
         const allInputs = [targetElement, ...targetElement.descendants]
