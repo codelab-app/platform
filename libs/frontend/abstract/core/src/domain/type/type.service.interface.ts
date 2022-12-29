@@ -1,6 +1,7 @@
 import type {
   BaseTypeOptions,
   BaseTypeWhere,
+  GetBaseTypeOffsetWhere,
   GetTypesQuery,
 } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
@@ -27,6 +28,7 @@ export interface ITypeService
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
   getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
+  getBaseTypeOffset(where: GetBaseTypeOffsetWhere): Promise<number>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
@@ -37,5 +39,5 @@ export interface ITypeService
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
   loadTypes(types: GetTypesQuery): Array<IAnyType>
   loadFields(types: GetTypesQuery['interfaceTypes']): void
-  count: number
+  latestFetchCount: number
 }

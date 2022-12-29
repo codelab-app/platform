@@ -110,7 +110,7 @@ export const useTypesTable = ({
   const pagination: TablePaginationConfig = {
     position: ['bottomCenter'],
     defaultPageSize: 25,
-    total: typeService.count,
+    total: typeService.latestFetchCount,
     onChange: async (page: number, pageSize: number) => {
       const options = {
         offset: (page - 1) * pageSize,

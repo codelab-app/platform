@@ -1,5 +1,8 @@
 import { typeRepository } from '@codelab/backend/application'
-import type { QueryBaseTypesArgs } from '@codelab/shared/abstract/codegen'
+import type {
+  QueryBaseTypeOffsetArgs,
+  QueryBaseTypesArgs,
+} from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
 import type { GraphQLRequestContext } from 'graphql-request/dist/types'
 import type { Transaction } from 'neo4j-driver'
@@ -10,4 +13,12 @@ export const baseTypes: IFieldResolver<
   QueryBaseTypesArgs
 > = (_, args) => async (txn: Transaction) => {
   return typeRepository.baseTypes(txn, args)
+}
+
+export const baseTypeOffset: IFieldResolver<
+  GraphQLRequestContext,
+  unknown,
+  QueryBaseTypeOffsetArgs
+> = (_, args) => async (txn: Transaction) => {
+  return typeRepository.baseTypeOffset(txn, args)
 }

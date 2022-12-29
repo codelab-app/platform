@@ -5972,6 +5972,12 @@ export type CreateFieldsMutationResponse = {
   info: CreateInfo
 }
 
+export type CreateGetBaseTypeOffsetReturnsMutationResponse = {
+  __typename?: 'CreateGetBaseTypeOffsetReturnsMutationResponse'
+  getBaseTypeOffsetReturns: Array<GetBaseTypeOffsetReturn>
+  info: CreateInfo
+}
+
 export type CreateGetBaseTypesReturnsMutationResponse = {
   __typename?: 'CreateGetBaseTypesReturnsMutationResponse'
   getBaseTypesReturns: Array<GetBaseTypesReturn>
@@ -10673,6 +10679,70 @@ export type FieldsConnection = {
   totalCount: Scalars['Int']
 }
 
+export type GetBaseTypeOffsetReturn = {
+  __typename?: 'GetBaseTypeOffsetReturn'
+  offset: Scalars['Int']
+}
+
+export type GetBaseTypeOffsetReturnAggregateSelection = {
+  __typename?: 'GetBaseTypeOffsetReturnAggregateSelection'
+  count: Scalars['Int']
+  offset: IntAggregateSelectionNonNullable
+}
+
+export type GetBaseTypeOffsetReturnCreateInput = {
+  offset: Scalars['Int']
+}
+
+export type GetBaseTypeOffsetReturnEdge = {
+  __typename?: 'GetBaseTypeOffsetReturnEdge'
+  cursor: Scalars['String']
+  node: GetBaseTypeOffsetReturn
+}
+
+export type GetBaseTypeOffsetReturnOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more GetBaseTypeOffsetReturnSort objects to sort GetBaseTypeOffsetReturns by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<GetBaseTypeOffsetReturnSort>>
+}
+
+/** Fields to sort GetBaseTypeOffsetReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypeOffsetReturnSort object. */
+export type GetBaseTypeOffsetReturnSort = {
+  offset?: InputMaybe<SortDirection>
+}
+
+export type GetBaseTypeOffsetReturnUpdateInput = {
+  offset?: InputMaybe<Scalars['Int']>
+  offset_DECREMENT?: InputMaybe<Scalars['Int']>
+  offset_INCREMENT?: InputMaybe<Scalars['Int']>
+}
+
+export type GetBaseTypeOffsetReturnWhere = {
+  AND?: InputMaybe<Array<GetBaseTypeOffsetReturnWhere>>
+  OR?: InputMaybe<Array<GetBaseTypeOffsetReturnWhere>>
+  offset?: InputMaybe<Scalars['Int']>
+  offset_GT?: InputMaybe<Scalars['Int']>
+  offset_GTE?: InputMaybe<Scalars['Int']>
+  offset_IN?: InputMaybe<Array<Scalars['Int']>>
+  offset_LT?: InputMaybe<Scalars['Int']>
+  offset_LTE?: InputMaybe<Scalars['Int']>
+  offset_NOT?: InputMaybe<Scalars['Int']>
+  offset_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+}
+
+export type GetBaseTypeOffsetReturnsConnection = {
+  __typename?: 'GetBaseTypeOffsetReturnsConnection'
+  edges: Array<GetBaseTypeOffsetReturnEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type GetBaseTypeOffsetWhere = {
+  id: Scalars['String']
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+}
+
 export type GetBaseTypesOptions = {
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
@@ -12614,6 +12684,7 @@ export type Mutation = {
   createEnumTypeValues: CreateEnumTypeValuesMutationResponse
   createEnumTypes: CreateEnumTypesMutationResponse
   createFields: CreateFieldsMutationResponse
+  createGetBaseTypeOffsetReturns: CreateGetBaseTypeOffsetReturnsMutationResponse
   createGetBaseTypesReturns: CreateGetBaseTypesReturnsMutationResponse
   createHooks: CreateHooksMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
@@ -12651,6 +12722,7 @@ export type Mutation = {
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
   deleteFields: DeleteInfo
+  deleteGetBaseTypeOffsetReturns: DeleteInfo
   deleteGetBaseTypesReturns: DeleteInfo
   deleteHooks: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
@@ -12689,6 +12761,7 @@ export type Mutation = {
   updateEnumTypeValues: UpdateEnumTypeValuesMutationResponse
   updateEnumTypes: UpdateEnumTypesMutationResponse
   updateFields: UpdateFieldsMutationResponse
+  updateGetBaseTypeOffsetReturns: UpdateGetBaseTypeOffsetReturnsMutationResponse
   updateGetBaseTypesReturns: UpdateGetBaseTypesReturnsMutationResponse
   updateHooks: UpdateHooksMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
@@ -12776,6 +12849,10 @@ export type MutationCreateEnumTypesArgs = {
 
 export type MutationCreateFieldsArgs = {
   input: Array<FieldCreateInput>
+}
+
+export type MutationCreateGetBaseTypeOffsetReturnsArgs = {
+  input: Array<GetBaseTypeOffsetReturnCreateInput>
 }
 
 export type MutationCreateGetBaseTypesReturnsArgs = {
@@ -12939,6 +13016,10 @@ export type MutationDeleteEnumTypesArgs = {
 export type MutationDeleteFieldsArgs = {
   delete?: InputMaybe<FieldDeleteInput>
   where?: InputMaybe<FieldWhere>
+}
+
+export type MutationDeleteGetBaseTypeOffsetReturnsArgs = {
+  where?: InputMaybe<GetBaseTypeOffsetReturnWhere>
 }
 
 export type MutationDeleteGetBaseTypesReturnsArgs = {
@@ -13193,6 +13274,11 @@ export type MutationUpdateFieldsArgs = {
   disconnect?: InputMaybe<FieldDisconnectInput>
   update?: InputMaybe<FieldUpdateInput>
   where?: InputMaybe<FieldWhere>
+}
+
+export type MutationUpdateGetBaseTypeOffsetReturnsArgs = {
+  update?: InputMaybe<GetBaseTypeOffsetReturnUpdateInput>
+  where?: InputMaybe<GetBaseTypeOffsetReturnWhere>
 }
 
 export type MutationUpdateGetBaseTypesReturnsArgs = {
@@ -15396,6 +15482,7 @@ export type Query = {
   atoms: Array<Atom>
   atomsAggregate: AtomAggregateSelection
   atomsConnection: AtomsConnection
+  baseTypeOffset: GetBaseTypeOffsetReturn
   baseTypes: GetBaseTypesReturn
   codeActions: Array<CodeAction>
   codeActionsAggregate: CodeActionAggregateSelection
@@ -15430,6 +15517,9 @@ export type Query = {
   fields: Array<Field>
   fieldsAggregate: FieldAggregateSelection
   fieldsConnection: FieldsConnection
+  getBaseTypeOffsetReturns: Array<GetBaseTypeOffsetReturn>
+  getBaseTypeOffsetReturnsAggregate: GetBaseTypeOffsetReturnAggregateSelection
+  getBaseTypeOffsetReturnsConnection: GetBaseTypeOffsetReturnsConnection
   getBaseTypesReturns: Array<GetBaseTypesReturn>
   getBaseTypesReturnsAggregate: GetBaseTypesReturnAggregateSelection
   getBaseTypesReturnsConnection: GetBaseTypesReturnsConnection
@@ -15593,6 +15683,10 @@ export type QueryAtomsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<AtomSort>>>
   where?: InputMaybe<AtomWhere>
+}
+
+export type QueryBaseTypeOffsetArgs = {
+  where?: InputMaybe<GetBaseTypeOffsetWhere>
 }
 
 export type QueryBaseTypesArgs = {
@@ -15773,6 +15867,22 @@ export type QueryFieldsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<FieldSort>>>
   where?: InputMaybe<FieldWhere>
+}
+
+export type QueryGetBaseTypeOffsetReturnsArgs = {
+  options?: InputMaybe<GetBaseTypeOffsetReturnOptions>
+  where?: InputMaybe<GetBaseTypeOffsetReturnWhere>
+}
+
+export type QueryGetBaseTypeOffsetReturnsAggregateArgs = {
+  where?: InputMaybe<GetBaseTypeOffsetReturnWhere>
+}
+
+export type QueryGetBaseTypeOffsetReturnsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InputMaybe<GetBaseTypeOffsetReturnSort>>>
+  where?: InputMaybe<GetBaseTypeOffsetReturnWhere>
 }
 
 export type QueryGetBaseTypesReturnsArgs = {
@@ -20074,6 +20184,12 @@ export type UpdateFieldsMutationResponse = {
   info: UpdateInfo
 }
 
+export type UpdateGetBaseTypeOffsetReturnsMutationResponse = {
+  __typename?: 'UpdateGetBaseTypeOffsetReturnsMutationResponse'
+  getBaseTypeOffsetReturns: Array<GetBaseTypeOffsetReturn>
+  info: UpdateInfo
+}
+
 export type UpdateGetBaseTypesReturnsMutationResponse = {
   __typename?: 'UpdateGetBaseTypesReturnsMutationResponse'
   getBaseTypesReturns: Array<GetBaseTypesReturn>
@@ -23190,6 +23306,15 @@ export type GetBaseTypesQuery = {
     totalCount: number
     items: Array<{ __typename?: 'BaseType' } & BaseType_BaseType_Fragment>
   }
+}
+
+export type GetBaseTypeOffsetQueryVariables = Exact<{
+  where?: InputMaybe<GetBaseTypeOffsetWhere>
+}>
+
+export type GetBaseTypeOffsetQuery = {
+  __typename?: 'Query'
+  baseTypeOffset: { __typename?: 'GetBaseTypeOffsetReturn'; offset: number }
 }
 
 export type GetTypesQueryVariables = Exact<{

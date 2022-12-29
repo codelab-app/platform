@@ -5741,6 +5741,11 @@ type CreateFieldsMutationResponse {
   info: CreateInfo!
 }
 
+type CreateGetBaseTypeOffsetReturnsMutationResponse {
+  getBaseTypeOffsetReturns: [GetBaseTypeOffsetReturn!]!
+  info: CreateInfo!
+}
+
 type CreateGetBaseTypesReturnsMutationResponse {
   getBaseTypesReturns: [GetBaseTypesReturn!]!
   info: CreateInfo!
@@ -10208,6 +10213,71 @@ type FieldsConnection {
   totalCount: Int!
 }
 
+type GetBaseTypeOffsetReturn {
+  offset: Int!
+}
+
+type GetBaseTypeOffsetReturnAggregateSelection {
+  count: Int!
+  offset: IntAggregateSelectionNonNullable!
+}
+
+input GetBaseTypeOffsetReturnCreateInput {
+  offset: Int!
+}
+
+type GetBaseTypeOffsetReturnEdge {
+  cursor: String!
+  node: GetBaseTypeOffsetReturn!
+}
+
+input GetBaseTypeOffsetReturnOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more GetBaseTypeOffsetReturnSort objects to sort GetBaseTypeOffsetReturns by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [GetBaseTypeOffsetReturnSort!]
+}
+
+"""
+Fields to sort GetBaseTypeOffsetReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypeOffsetReturnSort object.
+"""
+input GetBaseTypeOffsetReturnSort {
+  offset: SortDirection
+}
+
+input GetBaseTypeOffsetReturnUpdateInput {
+  offset: Int
+  offset_DECREMENT: Int
+  offset_INCREMENT: Int
+}
+
+input GetBaseTypeOffsetReturnWhere {
+  AND: [GetBaseTypeOffsetReturnWhere!]
+  OR: [GetBaseTypeOffsetReturnWhere!]
+  offset: Int
+  offset_GT: Int
+  offset_GTE: Int
+  offset_IN: [Int!]
+  offset_LT: Int
+  offset_LTE: Int
+  offset_NOT: Int
+  offset_NOT_IN: [Int!]
+}
+
+type GetBaseTypeOffsetReturnsConnection {
+  edges: [GetBaseTypeOffsetReturnEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input GetBaseTypeOffsetWhere {
+  id: String!
+  name_CONTAINS: String
+}
+
 input GetBaseTypesOptions {
   limit: Int
   offset: Int
@@ -12114,6 +12184,9 @@ type Mutation {
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
   createFields(input: [FieldCreateInput!]!): CreateFieldsMutationResponse!
+  createGetBaseTypeOffsetReturns(
+    input: [GetBaseTypeOffsetReturnCreateInput!]!
+  ): CreateGetBaseTypeOffsetReturnsMutationResponse!
   createGetBaseTypesReturns(
     input: [GetBaseTypesReturnCreateInput!]!
   ): CreateGetBaseTypesReturnsMutationResponse!
@@ -12206,6 +12279,9 @@ type Mutation {
     where: EnumTypeWhere
   ): DeleteInfo!
   deleteFields(delete: FieldDeleteInput, where: FieldWhere): DeleteInfo!
+  deleteGetBaseTypeOffsetReturns(
+    where: GetBaseTypeOffsetReturnWhere
+  ): DeleteInfo!
   deleteGetBaseTypesReturns(where: GetBaseTypesReturnWhere): DeleteInfo!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
   deleteInterfaceTypes(
@@ -12399,6 +12475,10 @@ type Mutation {
     update: FieldUpdateInput
     where: FieldWhere
   ): UpdateFieldsMutationResponse!
+  updateGetBaseTypeOffsetReturns(
+    update: GetBaseTypeOffsetReturnUpdateInput
+    where: GetBaseTypeOffsetReturnWhere
+  ): UpdateGetBaseTypeOffsetReturnsMutationResponse!
   updateGetBaseTypesReturns(
     update: GetBaseTypesReturnUpdateInput
     where: GetBaseTypesReturnWhere
@@ -14551,6 +14631,7 @@ type Query {
     sort: [AtomSort]
     where: AtomWhere
   ): AtomsConnection!
+  baseTypeOffset(where: GetBaseTypeOffsetWhere): GetBaseTypeOffsetReturn!
   baseTypes(options: GetBaseTypesOptions): GetBaseTypesReturn!
   codeActions(
     options: CodeActionOptions
@@ -14662,6 +14743,19 @@ type Query {
     sort: [FieldSort]
     where: FieldWhere
   ): FieldsConnection!
+  getBaseTypeOffsetReturns(
+    options: GetBaseTypeOffsetReturnOptions
+    where: GetBaseTypeOffsetReturnWhere
+  ): [GetBaseTypeOffsetReturn!]!
+  getBaseTypeOffsetReturnsAggregate(
+    where: GetBaseTypeOffsetReturnWhere
+  ): GetBaseTypeOffsetReturnAggregateSelection!
+  getBaseTypeOffsetReturnsConnection(
+    after: String
+    first: Int
+    sort: [GetBaseTypeOffsetReturnSort]
+    where: GetBaseTypeOffsetReturnWhere
+  ): GetBaseTypeOffsetReturnsConnection!
   getBaseTypesReturns(
     options: GetBaseTypesReturnOptions
     where: GetBaseTypesReturnWhere
@@ -18315,6 +18409,11 @@ type UpdateEnumTypesMutationResponse {
 
 type UpdateFieldsMutationResponse {
   fields: [Field!]!
+  info: UpdateInfo!
+}
+
+type UpdateGetBaseTypeOffsetReturnsMutationResponse {
+  getBaseTypeOffsetReturns: [GetBaseTypeOffsetReturn!]!
   info: UpdateInfo!
 }
 

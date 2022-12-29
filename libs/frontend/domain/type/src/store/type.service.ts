@@ -10,6 +10,7 @@ import type {
   BaseTypeOptions,
   BaseTypeWhere,
   FieldFragment,
+  GetBaseTypeOffsetWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -50,7 +51,7 @@ export class TypeService
      * This holds all types
      */
     types: prop(() => objectMap<IAnyType>()),
-    count: prop(() => 0),
+    latestFetchCount: prop(() => 0),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
@@ -60,9 +61,6 @@ export class TypeService
   })
   implements ITypeService
 {
-  /**
-   * `page` & `pageSize` are optional
-   */
   @modelFlow
   @transaction
   getBaseTypes = _async(function* (
@@ -81,7 +79,7 @@ export class TypeService
       }),
     )
 
-    this.count = totalCount
+    this.latestFetchCount = totalCount
 
     return items.map((type) => {
       const typeModel = baseTypesFactory(type)
@@ -89,6 +87,23 @@ export class TypeService
 
       return typeModel.id
     })
+  })
+
+  @modelFlow
+  @transaction
+  getBaseTypeOffset = _async(function* (
+    this: TypeService,
+    where: GetBaseTypeOffsetWhere,
+  ) {
+    const {
+      baseTypeOffset: { offset },
+    } = yield* _await(
+      getTypeApi.GetBaseTypeOffset({
+        where,
+      }),
+    )
+
+    return offset
   })
 
   @computed

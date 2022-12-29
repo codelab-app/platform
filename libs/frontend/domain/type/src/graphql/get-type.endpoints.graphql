@@ -7,6 +7,12 @@ query GetBaseTypes($options: GetBaseTypesOptions) {
   }
 }
 
+query GetBaseTypeOffset($where: GetBaseTypeOffsetWhere) {
+  baseTypeOffset(where: $where) {
+    offset
+  }
+}
+
 query GetTypes($ids: [ID!]) {
   primitiveTypes(where: { id_IN: $ids }) {
     ...Type

@@ -3,10 +3,12 @@ import type {
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useAsyncFn } from 'react-use'
 import scrollIntoView from 'scroll-into-view'
 import { NestedTypeTable } from './NestedTypeTable'
 import { useTypesTable } from './useTypesTable'
@@ -14,128 +16,145 @@ import { useTypesTableData } from './useTypesTableData'
 
 const SCROLL_ROW_CLASS_NAME = 'scroll-row'
 
-export const GetTypesTable = observer<{
+interface GetTypesTableProps {
   typeId?: string
   typeService: ITypeService
   fieldService: IFieldService
-}>(({ typeId, typeService, fieldService }) => {
-  const {
-    isLoadingAllTypes,
-    value: typesList,
-    getAllTypes,
-  } = useTypesTableData(typeService)
+}
 
-  const [curPage, setCurPage] = useState(1)
-  const [curPageSize, setCurPageSize] = useState(25)
-  const [rowClassReady, setRowClassReady] = React.useState(false)
-  const router = useRouter()
+export const GetTypesTable = observer<GetTypesTableProps>(
+  ({ typeId, typeService, fieldService }) => {
+    const [curPage, setCurPage] = useState(1)
+    const [curPageSize, setCurPageSize] = useState(25)
+    const [rowClassReady, setRowClassReady] = useState(false)
+    const router = useRouter()
+    const { typesList } = typeService
 
-  const { columns, rowSelection, baseTypeOptions, baseTypeWhere, pagination } =
-    useTypesTable({
+    const {
+      isLoadingAllTypes,
+      value: latestFetchedTypes,
+      getAllTypes,
+    } = useTypesTableData(typeService)
+
+    const [
+      { loading: isTypeOffsetLoading, value: curTypeOffset },
+      getTypeOffset,
+    ] = useAsyncFn(typeService.getBaseTypeOffset.bind(typeService), [])
+
+    const {
+      columns,
+      rowSelection,
+      baseTypeOptions,
+      baseTypeWhere,
+      pagination,
+    } = useTypesTable({
       typeService,
       isLoadingTypeDependencies: isLoadingAllTypes,
       fieldService,
     })
 
-  const handlePageChange = useCallback(
-    (page: number, pageSize: number) => {
-      setCurPage(page)
-      setCurPageSize(pageSize)
-      pagination.onChange?.(page, pageSize)
-    },
-    [pagination, setCurPage],
-  )
-
-  useEffect(() => {
-    void getAllTypes(
-      {
-        name: baseTypeWhere?.name ?? '',
-        id_IN: [typeId ?? ''],
+    const handlePageChange = useCallback(
+      (page: number, pageSize: number) => {
+        setCurPage(page)
+        setCurPageSize(pageSize)
+        pagination.onChange?.(page, pageSize)
       },
-      {
-        offset: baseTypeOptions.offset ?? undefined,
-        limit: baseTypeOptions.limit ?? undefined,
-      },
+      [setCurPage, pagination],
     )
-  }, [baseTypeOptions, baseTypeWhere, getAllTypes, typeId])
 
-  /**
-   * Change the current page to the page containing the current type
-   */
-  useEffect(() => {
-    const findPageOfCurrentType = () => {
-      const currentType = typesList?.find((t) => t.id === typeId)
-
-      if (!currentType || !typesList) {
-        return
-      }
-
-      return Math.ceil(
-        (typesList.findIndex((t) => t.id === currentType.id) + 1) / curPageSize,
-      )
-    }
-
-    if (typeId) {
-      const page = findPageOfCurrentType()
-
-      if (page) {
-        handlePageChange(page, curPageSize)
-      }
-    }
-  }, [router, typeId, typesList, curPageSize, handlePageChange])
-
-  /**
-   * Scroll to the current type to make sure it is visible
-   */
-  useEffect(() => {
-    const scrollRow = document.querySelector(`.${SCROLL_ROW_CLASS_NAME}`)
-
-    if (scrollRow) {
-      scrollIntoView(scrollRow as HTMLElement, {
-        align: {
-          top: 0,
+    useEffect(() => {
+      void getAllTypes(
+        {
+          name: baseTypeWhere?.name ?? '',
         },
-      })
-    }
-  }, [typeId, rowClassReady])
+        {
+          offset: baseTypeOptions.offset ?? undefined,
+          limit: baseTypeOptions.limit ?? undefined,
+        },
+      )
+    }, [getAllTypes, baseTypeOptions, baseTypeWhere, typesList.length])
 
-  return (
-    <Table<IAnyType>
-      columns={columns}
-      dataSource={typesList}
-      expandable={{
-        defaultExpandedRowKeys: [typeId ?? ''],
-        expandedRowRender: (type) =>
-          isLoadingAllTypes ? (
-            <Spin />
-          ) : (
-            <NestedTypeTable
-              fieldService={fieldService}
-              typeId={type.id}
-              typeService={typeService}
-            />
-          ),
-      }}
-      loading={isLoadingAllTypes}
-      pagination={{
-        ...pagination,
-        current: curPage,
-        pageSize: curPageSize,
-        onChange: handlePageChange,
-      }}
-      rowClassName={(record) => {
-        if (record.id === typeId) {
-          setRowClassReady(true)
+    /**
+     * Get the offset of the current type
+     */
+    useEffect(() => {
+      if (typeId) {
+        void getTypeOffset({ id: typeId })
 
-          return SCROLL_ROW_CLASS_NAME
-        }
+        /**
+         * Removing the current type id from the url because there is no use for it anymore
+         */
+        void router.push(PageType.Type)
+      }
+    }, [typeId, getTypeOffset, router])
 
-        return ''
-      }}
-      rowKey={(type) => type.id}
-      rowSelection={rowSelection}
-      scroll={{ y: '80vh', x: 'max-content' }}
-      size="small"
-    />
-  )
-})
+    /**
+     * Change the current page to the page containing
+     * the current type using its offset
+     */
+    useEffect(() => {
+      if (curTypeOffset) {
+        handlePageChange(
+          Math.ceil((curTypeOffset + 1) / curPageSize),
+          curPageSize,
+        )
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [curTypeOffset])
+
+    /**
+     * Scroll to the current type to make sure it is visible
+     */
+    useEffect(() => {
+      const scrollRow = document.querySelector(`.${SCROLL_ROW_CLASS_NAME}`)
+
+      if (scrollRow) {
+        scrollIntoView(scrollRow as HTMLElement, {
+          align: {
+            top: 0,
+          },
+        })
+      }
+    }, [typeId, rowClassReady])
+
+    return (
+      <Table<IAnyType>
+        columns={columns}
+        dataSource={latestFetchedTypes}
+        expandable={{
+          defaultExpandedRowKeys: [typeId ?? ''],
+          expandedRowRender: (type) =>
+            isLoadingAllTypes ? (
+              <Spin />
+            ) : (
+              <NestedTypeTable
+                fieldService={fieldService}
+                typeId={type.id}
+                typeService={typeService}
+              />
+            ),
+        }}
+        loading={isLoadingAllTypes || isTypeOffsetLoading}
+        pagination={{
+          ...pagination,
+          current: curPage,
+          pageSize: curPageSize,
+          onChange: handlePageChange,
+        }}
+        rowClassName={(record) => {
+          if (record.id === typeId) {
+            setRowClassReady(true)
+
+            return SCROLL_ROW_CLASS_NAME
+          }
+
+          return ''
+        }}
+        rowKey={(type) => type.id}
+        rowSelection={rowSelection}
+        scroll={{ y: '80vh', x: 'max-content' }}
+        size="small"
+      />
+    )
+  },
+)
