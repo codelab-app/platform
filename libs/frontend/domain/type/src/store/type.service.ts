@@ -220,14 +220,28 @@ export class TypeService
   @modelFlow
   @transaction
   getOne = _async(function* (this: TypeService, id: string) {
-    if (this.types.has(id)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return this.types.get(id)!
+    let type = this.types.get(id)
+
+    if (!type) {
+      ;[type] = yield* _await(this.getAll({ id_IN: [id] }))
     }
 
-    const all = yield* _await(this.getAll({ id_IN: [id] }))
+    if (!type) {
+      throw new Error(`Type with id ${id} not found`)
+    }
 
-    return all[0]
+    if (type.kind === ITypeKind.InterfaceType && type.fields.length) {
+      const subTypesIds = type.fields
+        .filter((field) => !this.types.has(field.type.id))
+        .map((field) => field.type.id)
+
+      const types = yield* _await(getAllTypes(subTypesIds))
+      types.map((_type) => {
+        return this.writeCache(_type)
+      })
+    }
+
+    return type
   })
 
   @modelFlow

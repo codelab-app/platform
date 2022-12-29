@@ -101,10 +101,14 @@ export const GetTypesTable = observer<{
     }
   }, [typeId, rowClassReady])
 
+  const currentPageTypes = typesList.length
+    ? typesList.slice((curPage - 1) * curPageSize, curPage * curPageSize)
+    : []
+
   return (
     <Table<IAnyType>
       columns={columns}
-      dataSource={typesList}
+      dataSource={currentPageTypes}
       expandable={{
         defaultExpandedRowKeys: [typeId ?? ''],
         expandedRowRender: (type) =>
