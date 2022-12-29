@@ -28,6 +28,11 @@ export const GetTypesTable = observer<GetTypesTableProps>(
     const [curPageSize, setCurPageSize] = useState(25)
     const [rowClassReady, setRowClassReady] = useState(false)
     const router = useRouter()
+    const [sortedTypesList, setSortedTypesList] = useState<Array<IAnyType>>([])
+
+    const [sortedLatestFetchedTypesList, setSortedLatestFetchedTypesList] =
+      useState<Array<IAnyType>>([])
+
     const { typesList } = typeService
 
     const {
@@ -63,6 +68,24 @@ export const GetTypesTable = observer<GetTypesTableProps>(
     )
 
     useEffect(() => {
+      const sorted = typesList.sort((a, b) =>
+        a.id > b.id ? 1 : b.id > a.id ? -1 : 0,
+      )
+
+      setSortedTypesList(sorted)
+    }, [setSortedTypesList, typesList])
+
+    useEffect(() => {
+      if (latestFetchedTypes) {
+        const sorted = latestFetchedTypes.sort((a, b) =>
+          a.id > b.id ? 1 : b.id > a.id ? -1 : 0,
+        )
+
+        setSortedLatestFetchedTypesList(sorted)
+      }
+    }, [setSortedLatestFetchedTypesList, latestFetchedTypes])
+
+    useEffect(() => {
       void getAllTypes(
         {
           name: baseTypeWhere?.name ?? '',
@@ -72,7 +95,7 @@ export const GetTypesTable = observer<GetTypesTableProps>(
           limit: baseTypeOptions.limit ?? undefined,
         },
       )
-    }, [getAllTypes, baseTypeOptions, baseTypeWhere, typesList.length])
+    }, [getAllTypes, baseTypeOptions, baseTypeWhere])
 
     /**
      * Get the offset of the current type
@@ -117,10 +140,18 @@ export const GetTypesTable = observer<GetTypesTableProps>(
       }
     }, [typeId, rowClassReady])
 
+    const curPageDataStartIndex = sortedTypesList.findIndex(
+      (t) => t.id === sortedLatestFetchedTypesList[0]?.id,
+    )
+
     return (
       <Table<IAnyType>
         columns={columns}
-        dataSource={latestFetchedTypes}
+        dataSource={sortedTypesList.slice(
+          curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0,
+          (curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0) +
+            curPageSize,
+        )}
         expandable={{
           defaultExpandedRowKeys: [typeId ?? ''],
           expandedRowRender: (type) =>

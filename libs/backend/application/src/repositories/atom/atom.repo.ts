@@ -1,3 +1,4 @@
+import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   atomSelectionSet,
   Repository,
@@ -28,6 +29,11 @@ export const atomRepository = {
       where: params.where as any,
       selectionSet: `{ id }`,
       options: {
+        sort: [
+          {
+            id: OGM_TYPES.SortDirection.Asc,
+          },
+        ],
         limit,
         offset,
       },
@@ -39,6 +45,13 @@ export const atomRepository = {
           return (
             await AtomInstance.find({
               where: { id: item.id },
+              options: {
+                sort: [
+                  {
+                    id: OGM_TYPES.SortDirection.Asc,
+                  },
+                ],
+              },
               selectionSet: atomSelectionSet.replace(
                 /tags {([a-z]|\s)*}/g,
                 `tags ${tagSelectionSet}`,
