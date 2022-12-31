@@ -43,8 +43,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const state = renderService.appStore.current.state
     const componentMeta = renderService.renderComponentMeta
 
-    const slug = componentMeta[element.originId]
-      ? `${element.slug}.${componentMeta[element.originId]}`
+    const slug = componentMeta[element.baseId]
+      ? `${element.slug}.${componentMeta[element.baseId]}`
       : element.slug
 
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {

@@ -4,7 +4,7 @@ import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { extractSlug } from '@codelab/frontend/shared/utils'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 import { pageApi } from './page.api'
 
 const getServerSideProps = async (context: IPropData) => {
@@ -42,6 +42,7 @@ const hydrate = (page: IPageDTO) => {
 @model('@codelab/Page')
 export class Page
   extends ExtendedModel(ElementTreeService, {
+    id: idProp,
     app: prop<IEntity>(),
     name: prop<string>().withSetter(),
     slug: prop<string>(),

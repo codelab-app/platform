@@ -9,6 +9,7 @@ import type { Ref } from 'mobx-keystone'
 import {
   detach,
   ExtendedModel,
+  idProp,
   model,
   modelAction,
   prop,
@@ -31,6 +32,7 @@ const hydrate = (app: IAppDTO) => {
 @model('@codelab/App')
 export class App
   extends ExtendedModel(ElementTreeService, {
+    id: idProp,
     ownerId: prop<string>(),
     name: prop<string>().withSetter(),
     slug: prop<string>(),

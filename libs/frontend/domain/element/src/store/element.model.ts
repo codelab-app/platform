@@ -153,7 +153,6 @@ export class Element
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
     // component which has this element as rootElement
     parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
-    _originId: prop<string>(() => '').withSetter(),
 
     // Marks the element as an instance of a specific component
     renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
@@ -167,8 +166,8 @@ export class Element
   }
 
   @computed
-  get originId() {
-    return this.parentElement ? this.parentElement.originId : this._originId
+  get baseId() {
+    return
   }
 
   @computed
@@ -235,8 +234,8 @@ export class Element
   }
 
   @modelAction
-  setOriginId(originId: string) {
-    this._originId = originId
+  setBaseId(baseId: string) {
+    this._baseId = baseId
   }
 
   @modelAction

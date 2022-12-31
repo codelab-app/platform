@@ -69,7 +69,7 @@ export const makeDuplicateInput = (
     renderComponentType: connectNode(element.renderComponentType?.id),
     renderAtomType: connectNode(element.atom?.id),
     props,
-    slug: createSlug(duplicate_slug, element.originId),
+    slug: createSlug(duplicate_slug, element.baseId),
     propTransformationJs: element.propTransformationJs,
     renderIfPropKey: element.renderIfPropKey,
     renderForEachPropKey: element.renderForEachPropKey,

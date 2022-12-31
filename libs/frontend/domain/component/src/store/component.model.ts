@@ -4,7 +4,7 @@ import { ElementTreeService } from '@codelab/frontend/domain/element'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { ExtendedModel, idProp, model, prop } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
   return new Component({
@@ -19,6 +19,7 @@ const hydrate = (component: IComponentDTO) => {
 @model('@codelab/Component')
 export class Component
   extends ExtendedModel(ElementTreeService, {
+    id: idProp,
     __nodeType: prop<COMPONENT_NODE_TYPE>(COMPONENT_NODE_TYPE),
     name: prop<string>().withSetter(),
     // this isn't a Ref, because it will cause a circular dep.
