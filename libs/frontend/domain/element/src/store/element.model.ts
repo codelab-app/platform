@@ -151,6 +151,7 @@ export class Element
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     propMapBindings: prop(() => objectMap<IPropMapBinding>()),
+
     // component which has this element as rootElement
     parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
 
