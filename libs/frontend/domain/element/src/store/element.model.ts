@@ -234,11 +234,6 @@ export class Element
   }
 
   @modelAction
-  setBaseId(baseId: string) {
-    this._baseId = baseId
-  }
-
-  @modelAction
   addPropMapBinding(propMapBinding: PropMapBinding) {
     this.propMapBindings.set(propMapBinding.id, propMapBinding)
   }

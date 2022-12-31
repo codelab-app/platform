@@ -96,7 +96,6 @@ export interface IElement
   firstChildId: Nullable<string>
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   setOrderInParent(order: number | null): void
-  setBaseId(origin: string): void
   setSlug(slug: string): void
   /**
    * Keeps the ref in place

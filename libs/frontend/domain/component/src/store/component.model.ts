@@ -19,8 +19,8 @@ const hydrate = (component: IComponentDTO) => {
 @model('@codelab/Component')
 export class Component
   extends ExtendedModel(ElementTreeService, {
-    id: idProp,
     __nodeType: prop<COMPONENT_NODE_TYPE>(COMPONENT_NODE_TYPE),
+    id: idProp,
     name: prop<string>().withSetter(),
     // this isn't a Ref, because it will cause a circular dep.
     rootElementId: prop<string>().withSetter(),
