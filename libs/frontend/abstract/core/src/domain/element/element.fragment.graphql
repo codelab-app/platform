@@ -5,6 +5,9 @@ fragment Element on Element {
   slug
   customCss
   guiCss
+  page {
+    id
+  }
   renderComponentType {
     ...Component
   }

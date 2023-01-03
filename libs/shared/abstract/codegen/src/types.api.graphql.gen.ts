@@ -21702,6 +21702,7 @@ export type ElementFragment = {
   preRenderActionId?: string | null
   postRenderActionId?: string | null
   propTransformationJs?: string | null
+  page?: { __typename?: 'Page'; id: string } | null
   renderComponentType?:
     | ({ __typename?: 'Component' } & ComponentFragment)
     | null

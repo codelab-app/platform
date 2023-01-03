@@ -29,6 +29,7 @@ export type ElementFragment = {
   preRenderActionId?: string | null
   postRenderActionId?: string | null
   propTransformationJs?: string | null
+  page?: { id: string } | null
   renderComponentType?: ComponentFragment | null
   renderAtomType?: RenderAtomFragment | null
   prevSibling?: { id: string } | null
@@ -49,6 +50,9 @@ export const ElementFragmentDoc = gql`
     slug
     customCss
     guiCss
+    page {
+      id
+    }
     renderComponentType {
       ...Component
     }

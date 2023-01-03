@@ -63,6 +63,7 @@ export const hydrate = ({
   renderAtomType,
   parent,
   slug,
+  page,
   parentComponent,
   renderComponentType,
   nextSibling,
@@ -89,6 +90,7 @@ export const hydrate = ({
     guiCss,
     // parent of first child
     parentId: parent?.id,
+    pageId: page?.id,
     slug: extractSlug(slug),
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
@@ -154,6 +156,8 @@ export class Element
 
     // component which has this element as rootElement
     parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    // page which has this element as rootElement
+    pageId: prop<Nullable<string>>(null),
 
     // Marks the element as an instance of a specific component
     renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
@@ -168,7 +172,17 @@ export class Element
 
   @computed
   get baseId() {
-    return
+    if (this.parentElement) {
+      return this.parentElement.baseId
+    }
+
+    const baseId = this.pageId || this.parentComponent?.id
+
+    if (!baseId) {
+      throw new Error('Element has no baseId')
+    }
+
+    return baseId
   }
 
   @computed
