@@ -9,6 +9,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
   detach,
+  idProp,
   Model,
   model,
   modelAction,
@@ -45,6 +46,7 @@ const init = (rootElement: IElement, elements: Array<IElement> = []) => {
 @model('@codelab/ElementTree')
 export class ElementTree
   extends Model({
+    id: idProp,
     _elements: prop(() => objectMap<Ref<IElement>>()),
     /** The root tree element */
     _root: prop<Nullable<Ref<IElement>>>(null).withSetter(),
