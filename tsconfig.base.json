@@ -137,6 +137,9 @@
       "@codelab/shared/adapter/logging": [
         "libs/shared/adapter/logging/src/index.ts"
       ],
+      "@codelab/shared/adapter/supabase": [
+        "libs/shared/adapter/supabase/src/index.ts"
+      ],
       "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data": ["libs/shared/data/src/index.ts"],
       "@codelab/shared/env": ["libs/shared/env/src/index.ts"],

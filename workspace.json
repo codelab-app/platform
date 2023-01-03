@@ -44,6 +44,7 @@
     "shared-abstract-types": "libs/shared/abstract/types",
     "shared-adapter-auth0": "libs/shared/adapter/auth0",
     "shared-adapter-logging": "libs/shared/adapter/logging",
+    "shared-adapter-supabase": "libs/shared/adapter/supabase",
     "shared-config": "libs/shared/config",
     "shared-data": "libs/shared/data",
     "shared-env": "libs/shared/env",
