@@ -29,7 +29,6 @@ import {
   RenderPropsType,
   typeRef,
   TypeService,
-  typeServiceRef,
 } from '@codelab/frontend/domain/type'
 import {
   componentRef,
@@ -117,6 +116,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.elementToRender02 = new Element({
       id: v4(),
       name: '02',
+      slug: '02-slug',
       props: new Prop({}),
     })
 
@@ -133,6 +133,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentRootElement = new Element({
       id: compRootElementId,
       name: '01',
+      slug: 'component.rootElement-slug',
       customCss: '',
       guiCss: '',
       atom: atomRef(data.textAtom.id),
@@ -149,6 +150,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentInstanceElementToRender = new Element({
       id: v4(),
       name: '01',
+      slug: 'component01.01-slug',
       renderComponentType: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
@@ -161,7 +163,9 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.elementToRender = new Element({
       id: v4(),
       name: ROOT_ELEMENT_NAME,
+      slug: `${ROOT_ELEMENT_NAME}-slug`,
       customCss: '',
+      pageId: v4(),
       guiCss: '',
       atom: atomRef(data.divAtom.id),
       props: new Prop({
@@ -201,7 +205,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.rootStore = new RenderTestRootStore({
       storeService: new StoreService({
         stores: objectMap([[data.store.id, data.store]]),
-        _typeService: typeServiceRef(typeService),
       }),
       typeService,
       componentService: new ComponentService({
