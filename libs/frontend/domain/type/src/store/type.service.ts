@@ -5,12 +5,11 @@ import type {
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, runSequentially } from '@codelab/frontend/shared/utils'
 import type {
   BaseTypeOptions,
   BaseTypeWhere,
   FieldFragment,
-  GetBaseTypeOffsetWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -87,23 +86,6 @@ export class TypeService
 
       return typeModel.id
     })
-  })
-
-  @modelFlow
-  @transaction
-  getBaseTypeOffset = _async(function* (
-    this: TypeService,
-    where: GetBaseTypeOffsetWhere,
-  ) {
-    const {
-      baseTypeOffset: { offset },
-    } = yield* _await(
-      getTypeApi.GetBaseTypeOffset({
-        where,
-      }),
-    )
-
-    return offset
   })
 
   @computed
@@ -205,28 +187,33 @@ export class TypeService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (
-    this: TypeService,
-    where?: BaseTypeWhere,
-    options?: BaseTypeOptions,
-  ) {
-    const ids = yield* _await(
-      this.getBaseTypes({
-        where: {
-          name: where?.name,
-        },
-        offset: options?.offset,
-        limit: options?.limit,
-      }),
-    )
+  getAll = _async(
+    runSequentially(
+      'TypeService.getAll',
+      function* (
+        this: TypeService,
+        where?: BaseTypeWhere,
+        options?: BaseTypeOptions,
+      ) {
+        const ids = yield* _await(
+          this.getBaseTypes({
+            where: {
+              name: where?.name,
+            },
+            offset: options?.offset,
+            limit: options?.limit,
+          }),
+        )
 
-    const allIds = [...ids, ...(where?.id_IN || [])]
-    const types = yield* _await(getAllTypes(allIds))
+        const allIds = [...ids, ...(where?.id_IN || [])]
+        const types = yield* _await(getAllTypes(allIds))
 
-    return types.map((type) => {
-      return this.writeCache(type)
-    })
-  })
+        return types.map((type) => {
+          return this.writeCache(type)
+        })
+      },
+    ),
+  )
 
   getType(id: string) {
     return this.types.get(id)

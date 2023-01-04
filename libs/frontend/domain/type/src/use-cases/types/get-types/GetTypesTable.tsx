@@ -44,7 +44,19 @@ export const GetTypesTable = observer<GetTypesTableProps>(
     const [
       { loading: isTypeOffsetLoading, value: curTypeOffset },
       getTypeOffset,
-    ] = useAsyncFn(typeService.getBaseTypeOffset.bind(typeService), [])
+    ] = useAsyncFn(async (id: string) => {
+      const [type] = await typeService.getAll(
+        {
+          id_IN: [id],
+        },
+        {
+          limit: 0,
+          offset: 0,
+        },
+      )
+
+      return (await type?.getPagination(''))?.offset
+    }, [])
 
     const {
       columns,
@@ -102,7 +114,7 @@ export const GetTypesTable = observer<GetTypesTableProps>(
      */
     useEffect(() => {
       if (typeId) {
-        void getTypeOffset({ id: typeId })
+        void getTypeOffset(typeId)
 
         /**
          * Removing the current type id from the url because there is no use for it anymore
