@@ -187,6 +187,7 @@
     "@nrwl/nx-plugin": "15.3.0",
     "@nrwl/react": "15.3.0",
     "@nrwl/storybook": "15.3.0",
+    "@nrwl/tao": "15.3.0",
     "@nrwl/web": "15.3.0",
     "@nrwl/workspace": "15.3.0",
     "@svgr/webpack": "6.2.0",
