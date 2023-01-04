@@ -184,6 +184,7 @@ export type ActionTypeEdge = {
 
 export type ActionTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -828,6 +829,7 @@ export type ApiActionErrorActionUpdateInput = {
 export type ApiActionOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
+  type?: ActionKind
 }
 
 export type ApiActionOptions = {
@@ -2014,6 +2016,7 @@ export type AppTypeEdge = {
 
 export type AppTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -3276,6 +3279,7 @@ export type ArrayTypeItemTypeUpdateInput = {
 
 export type ArrayTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -3848,6 +3852,7 @@ export type AtomOnCreateInput = {
   icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
+  type: AtomType
 }
 
 export type AtomOptions = {
@@ -4522,6 +4527,7 @@ export type BaseTypeDisconnectInput = {
 
 export type BaseTypeOnCreateInput = {
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
 }
 
@@ -4762,6 +4768,7 @@ export type CodeActionOnCreateInput = {
   code: Scalars['String']
   id: Scalars['ID']
   name: Scalars['String']
+  type?: ActionKind
 }
 
 export type CodeActionOptions = {
@@ -4987,6 +4994,8 @@ export type CodeMirrorTypeEdge = {
 
 export type CodeMirrorTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
+  language: CodeMirrorLanguage
   name: Scalars['String']
 }
 
@@ -9167,7 +9176,9 @@ export enum ElementTypeKind {
 }
 
 export type ElementTypeOnCreateInput = {
+  elementKind: ElementTypeKind
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -9828,6 +9839,7 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
 
 export type EnumTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -11231,8 +11243,7 @@ export type HookElementUpdateFieldInput = {
 }
 
 export type HookOnCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']>
+  type: AtomType
 }
 
 export type HookOptions = {
@@ -12156,6 +12167,7 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
 
 export type InterfaceTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -12430,6 +12442,7 @@ export type LambdaTypeEdge = {
 
 export type LambdaTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -14009,6 +14022,7 @@ export type PageTypeEdge = {
 
 export type PageTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -14345,7 +14359,9 @@ export enum PrimitiveTypeKind {
 
 export type PrimitiveTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
+  primitiveKind: PrimitiveTypeKind
 }
 
 export type PrimitiveTypeOptions = {
@@ -16224,6 +16240,7 @@ export type ReactNodeTypeEdge = {
 
 export type ReactNodeTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -16508,6 +16525,7 @@ export type RenderPropsTypeEdge = {
 
 export type RenderPropsTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
@@ -16932,6 +16950,7 @@ export type ResourceEdge = {
 export type ResourceOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
+  type: ResourceType
 }
 
 export type ResourceOptions = {
@@ -18602,6 +18621,7 @@ export type UnionTypeEdge = {
 
 export type UnionTypeOnCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
 }
 
