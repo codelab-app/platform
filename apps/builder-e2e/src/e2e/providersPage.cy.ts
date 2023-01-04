@@ -89,7 +89,7 @@ describe('_app page', () => {
       .should('exist')
       .click()
 
-    cy.getModal().findByLabelText('Name').type(pageName)
+    cy.getModal().should('be.visible').findByLabelText('Name').type(pageName)
     cy.getModal().findByLabelText('Slug').type(pageSlug)
     cy.getModal()
       .getModalAction(/Create Page/)
