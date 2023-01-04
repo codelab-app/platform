@@ -153,6 +153,7 @@ type ActionTypeEdge {
 
 input ActionTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = ActionType
   name: String!
 }
 
@@ -772,6 +773,7 @@ input ApiActionErrorActionUpdateInput {
 input ApiActionOnCreateInput {
   id: ID!
   name: String!
+  type: ActionKind! = ApiAction
 }
 
 input ApiActionOptions {
@@ -1897,6 +1899,7 @@ type AppTypeEdge {
 
 input AppTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = AppType
   name: String!
 }
 
@@ -3131,6 +3134,7 @@ input ArrayTypeItemTypeUpdateInput {
 
 input ArrayTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = ArrayType
   name: String!
 }
 
@@ -3666,6 +3670,7 @@ input AtomOnCreateInput {
   icon: String
   id: ID!
   name: String!
+  type: AtomType!
 }
 
 input AtomOptions {
@@ -4353,6 +4358,7 @@ input BaseTypeDisconnectInput {
 
 input BaseTypeOnCreateInput {
   id: ID!
+  kind: TypeKind!
   name: String!
 }
 
@@ -4589,6 +4595,7 @@ input CodeActionOnCreateInput {
   code: String!
   id: ID!
   name: String!
+  type: ActionKind! = CodeAction
 }
 
 input CodeActionOptions {
@@ -4802,6 +4809,8 @@ type CodeMirrorTypeEdge {
 
 input CodeMirrorTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = CodeMirrorType
+  language: CodeMirrorLanguage!
   name: String!
 }
 
@@ -8740,7 +8749,9 @@ enum ElementTypeKind {
 }
 
 input ElementTypeOnCreateInput {
+  elementKind: ElementTypeKind!
   id: ID!
+  kind: TypeKind! = ElementType
   name: String!
 }
 
@@ -9373,6 +9384,7 @@ type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
 
 input EnumTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = EnumType
   name: String!
 }
 
@@ -10746,10 +10758,7 @@ input HookElementUpdateFieldInput {
 }
 
 input HookOnCreateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
+  type: AtomType!
 }
 
 input HookOptions {
@@ -11621,6 +11630,7 @@ input InterfaceTypeFieldsUpdateFieldInput {
 
 input InterfaceTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = InterfaceType
   name: String!
 }
 
@@ -11907,6 +11917,7 @@ type LambdaTypeEdge {
 
 input LambdaTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = LambdaType
   name: String!
 }
 
@@ -13161,6 +13172,7 @@ type PageTypeEdge {
 
 input PageTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = PageType
   name: String!
 }
 
@@ -13484,7 +13496,9 @@ enum PrimitiveTypeKind {
 
 input PrimitiveTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = PrimitiveType
   name: String!
+  primitiveKind: PrimitiveTypeKind!
 }
 
 input PrimitiveTypeOptions {
@@ -14965,6 +14979,7 @@ type ReactNodeTypeEdge {
 
 input ReactNodeTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = ReactNodeType
   name: String!
 }
 
@@ -15205,6 +15220,7 @@ type RenderPropsTypeEdge {
 
 input RenderPropsTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = RenderPropsType
   name: String!
 }
 
@@ -15611,6 +15627,7 @@ type ResourceEdge {
 input ResourceOnCreateInput {
   id: ID!
   name: String!
+  type: ResourceType!
 }
 
 input ResourceOptions {
@@ -17205,6 +17222,7 @@ type UnionTypeEdge {
 
 input UnionTypeOnCreateInput {
   id: ID!
+  kind: TypeKind! = UnionType
   name: String!
 }
 
