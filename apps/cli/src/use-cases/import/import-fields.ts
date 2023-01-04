@@ -10,16 +10,32 @@ export const importFields = async (createFieldsDTO: Array<ICreateFieldDTO>) => {
   for await (const field of createFieldsDTO) {
     // logger.info('Upsert Field', { field })
 
-    await fieldRepository.upsertField({
-      input: {
-        id: field.id,
-        name: field.name,
-        key: field.key,
-        description: field.description,
+    await fieldRepository.upsertField(
+      {
+        input: {
+          id: field.id,
+          name: field.name,
+          key: field.key,
+          description: field.description,
+        },
+        interfaceTypeId: field.interfaceTypeId,
+        fieldTypeId: field.fieldType,
       },
-      interfaceTypeId: field.interfaceTypeId,
-      fieldTypeId: field.fieldType,
-    })
+      () => ({
+        AND: [
+          {
+            key: field.key,
+          },
+          // {
+          //   fieldTypeConnection: {
+          //     node: {
+          //       id: existingType.existingId,
+          //     },
+          //   },
+          // },
+        ],
+      }),
+    )
   }
 }
 

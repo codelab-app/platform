@@ -5,7 +5,7 @@ import { v4 } from 'uuid'
 import { upsertType } from '../../../repository/type.repo'
 import { interfaceTypeParser } from '../parser/interface-type-parser'
 import { getTypeForApi } from '../type-map'
-import { FieldTypeRef } from '../utils/type-predicates'
+import type { FieldTypeRef } from '../utils/type-predicates'
 
 /**
  * Same file because interface has nested types that need resolution
@@ -49,14 +49,30 @@ export const getInterfaceTypeForApi: FieldTypeRef = async ({
       continue
     }
 
-    await fieldRepository.upsertField({
-      input: {
-        id: v4(),
-        key,
+    await fieldRepository.upsertField(
+      {
+        input: {
+          id: v4(),
+          key,
+        },
+        interfaceTypeId: interfaceType.id,
+        fieldTypeId: existingType.existingId,
       },
-      interfaceTypeId: interfaceType.id,
-      fieldTypeId: existingType.existingId,
-    })
+      () => ({
+        AND: [
+          {
+            key,
+          },
+          // {
+          //   fieldTypeConnection: {
+          //     node: {
+          //       id: existingType.existingId,
+          //     },
+          //   },
+          // },
+        ],
+      }),
+    )
   }
 
   return {

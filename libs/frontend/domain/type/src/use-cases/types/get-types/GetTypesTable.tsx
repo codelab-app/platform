@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import scrollIntoView from 'scroll-into-view'
-import { NestedTypeTable } from './NestedTypeTable'
+import { TypeDetailsTable } from './tables/TypeDetailsTable'
 import { useTypesTable } from './useTypesTable'
 import { useTypesTableData } from './useTypesTableData'
 

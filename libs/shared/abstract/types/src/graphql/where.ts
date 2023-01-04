@@ -6,4 +6,4 @@ export type BaseUniqueWhere =
       name: string
     }
 
-export type BaseUniqueWhereCallback<T> = (data: T) => BaseUniqueWhere
+export type BaseUniqueWhereCallback<T, R = BaseUniqueWhere> = (data: T) => R

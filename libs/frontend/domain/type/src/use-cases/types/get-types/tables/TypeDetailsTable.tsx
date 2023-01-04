@@ -2,6 +2,7 @@ import type {
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import React from 'react'
 import { useAsync } from 'react-use'
