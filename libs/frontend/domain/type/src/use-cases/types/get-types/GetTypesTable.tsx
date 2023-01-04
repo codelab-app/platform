@@ -21,18 +21,29 @@ export const GetTypesTable = observer<{
   fieldService: IFieldService
 }>(({ typeId, typeService, fieldService }) => {
   const { types, typesList } = typeService
-  const { isLoadingAllTypes, getAllTypes } = useTypesTableData(typeService)
+  const { isLoadingAllTypes, getBaseTypes } = useTypesTableData(typeService)
   const [curPage, setCurPage] = useState(1)
   const [curPageSize, setCurPageSize] = useState(25)
-  const [rowClassReady, setRowClassReady] = React.useState(false)
+  const [rowClassReady, setRowClassReady] = useState(false)
   const router = useRouter()
 
-  const { columns, rowSelection, baseTypeOptions, baseTypeWhere, pagination } =
-    useTypesTable({
-      typeService,
-      isLoadingTypeDependencies: isLoadingAllTypes,
-      fieldService,
-    })
+  const { columns, rowSelection, pagination } = useTypesTable({
+    typeService,
+    isLoadingTypeDependencies: isLoadingAllTypes,
+    fieldService,
+  })
+
+  const findPageOfCurrentType = () => {
+    const currentType = types.get(typeId ?? '')
+
+    if (!currentType) {
+      return
+    }
+
+    return Math.ceil(
+      (typesList.findIndex((t) => t.id === currentType.id) + 1) / curPageSize,
+    )
+  }
 
   const handlePageChange = useCallback(
     (page: number, pageSize: number) => {
@@ -44,39 +55,18 @@ export const GetTypesTable = observer<{
   )
 
   useEffect(() => {
-    void getAllTypes(
-      {
-        name: baseTypeWhere?.name ?? '',
-        id_IN: [typeId ?? ''],
-      },
-      {
-        offset: baseTypeOptions.offset ?? undefined,
-        limit: baseTypeOptions.limit ?? undefined,
-      },
-    )
-  }, [baseTypeOptions, baseTypeWhere, getAllTypes, typeId])
-
-  /**
-   * Change the current page to the page containing the current type
-   */
-  useEffect(() => {
-    const findPageOfCurrentType = () => {
-      const currentType = types.get(typeId ?? '')
-
-      if (!currentType) {
-        return
-      }
-
-      return Math.ceil(
-        (typesList.findIndex((t) => t.id === currentType.id) + 1) / curPageSize,
-      )
+    if (!typesList.length && typeId) {
+      return
     }
+
+    let offset = (curPage - 1) * curPageSize
 
     if (typeId) {
       const page = findPageOfCurrentType()
 
       if (page) {
         handlePageChange(page, curPageSize)
+        offset = (page - 1) * curPageSize
 
         /**
          * Removing the current type id from the url because there is no use for it anymore
@@ -84,7 +74,12 @@ export const GetTypesTable = observer<{
         router.push(PageType.Type).catch((e) => console.error(e))
       }
     }
-  }, [router, typeId, typesList, types, curPageSize, handlePageChange])
+
+    void getBaseTypes({
+      offset,
+      limit: curPageSize,
+    })
+  }, [curPage, curPageSize, getBaseTypes])
 
   /**
    * Scroll to the current type to make sure it is visible
@@ -99,7 +94,7 @@ export const GetTypesTable = observer<{
         },
       })
     }
-  }, [typeId, rowClassReady])
+  }, [rowClassReady])
 
   return (
     <Table<IAnyType>

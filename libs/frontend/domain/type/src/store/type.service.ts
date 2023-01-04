@@ -7,7 +7,6 @@ import type {
 import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
-  BaseTypeOptions,
   BaseTypeWhere,
   FieldFragment,
 } from '@codelab/shared/abstract/codegen'
@@ -98,7 +97,12 @@ export class TypeService
 
   @computed
   get typesList() {
-    return [...this.types.values()]
+    // loading sub types messes up the order of the next page
+    // we need to sort here to make sure the types on the
+    // table are always sorted alphabetically
+    return [...this.types.values()].sort((typeA, typeB) =>
+      typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
+    )
   }
 
   @modelAction
@@ -190,23 +194,9 @@ export class TypeService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (
-    this: TypeService,
-    where?: BaseTypeWhere,
-    options?: BaseTypeOptions,
-  ) {
-    const ids = yield* _await(
-      this.getBaseTypes({
-        where: {
-          name: where?.name,
-        },
-        offset: options?.offset,
-        limit: options?.limit,
-      }),
-    )
-
-    const allIds = [...ids, ...(where?.id_IN || [])]
-    const types = yield* _await(getAllTypes(allIds))
+  getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
+    const ids = where?.id_IN ?? undefined
+    const types = yield* _await(getAllTypes(ids))
 
     return types.map((type) => {
       return this.writeCache(type)
