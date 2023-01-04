@@ -1,8 +1,8 @@
 import type {
   IFieldService,
   ITypeService,
-  IUnionMembersRecord,
   IUnionType,
+  IUnionTypeRecord,
 } from '@codelab/frontend/abstract/core'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -11,19 +11,19 @@ import type { ColumnProps } from 'antd/lib/table'
 import Table from 'antd/lib/table'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
-import { CreateFieldButton } from '../../fields'
-import { NestedTypeTable } from '../../types/get-types'
+import { CreateFieldButton } from '../../../fields'
+import { TypeDetailsTable } from './TypeDetailsTable'
 
-interface UnionMembersTableProps {
+interface UnionTypeTableProps {
   unionType: IUnionType
   typeService: ITypeService
   fieldService: IFieldService
   isLoading: boolean
 }
 
-export const UnionMembersTable = observer<UnionMembersTableProps>(
+export const UnionTypeTable = observer<UnionTypeTableProps>(
   ({ fieldService, isLoading, typeService, unionType }) => {
-    const columns: Array<ColumnProps<IUnionMembersRecord>> = [
+    const columns: Array<ColumnProps<IUnionTypeRecord>> = [
       {
         title: 'Member Type',
         dataIndex: 'name',
@@ -67,7 +67,7 @@ export const UnionMembersTable = observer<UnionMembersTableProps>(
         expandable={{
           expandedRowRender: (record) => {
             return record.id ? (
-              <NestedTypeTable
+              <TypeDetailsTable
                 fieldService={fieldService}
                 typeId={record.id}
                 typeService={typeService}

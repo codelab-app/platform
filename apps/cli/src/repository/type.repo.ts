@@ -39,22 +39,26 @@ export const upsertType = async (
     case ITypeKind.PrimitiveType: {
       const PrimitiveType = await Repository.instance.PrimitiveType
 
-      const exists = await PrimitiveType.find({
-        where: where(type),
-      })
+      const primitiveType = (
+        await PrimitiveType.find({
+          where: where(type),
+        })
+      )[0]
 
-      if (!exists.length) {
+      if (!primitiveType) {
         console.log(`Creating ${type.name} [${type.kind}]...`)
 
         try {
-          return await PrimitiveType.create({
-            input: [
-              {
-                ...createCreateBaseFields(type, userId),
-                primitiveKind: type.primitiveKind,
-              },
-            ],
-          })
+          return (
+            await PrimitiveType.create({
+              input: [
+                {
+                  ...createCreateBaseFields(type, userId),
+                  primitiveKind: type.primitiveKind,
+                },
+              ],
+            })
+          ).primitiveTypes[0]
         } catch (e) {
           console.error(e)
           throw new Error('Create primitive failed')
@@ -65,76 +69,90 @@ export const upsertType = async (
 
       cLog(createUpdateBaseFields(type, userId))
 
-      return await PrimitiveType.update({
-        where: where(type),
-        update: createUpdateBaseFields(type, userId),
-      })
+      return (
+        await PrimitiveType.update({
+          where: where(type),
+          update: createUpdateBaseFields(type, userId),
+        })
+      ).primitiveTypes[0]
     }
 
     case ITypeKind.ActionType: {
       const ActionType = await Repository.instance.ActionType
 
-      const exists = await ActionType.find({
-        where: where(type),
-      })
+      const actionType = (
+        await ActionType.find({
+          where: where(type),
+        })
+      )[0]
 
-      if (!exists.length) {
+      if (!actionType) {
         console.log(`Creating ${type.name} [${type.kind}]...`)
 
-        return await ActionType.create({
-          input: [
-            {
-              ...createCreateBaseFields(type, userId),
-            },
-          ],
-        })
+        return (
+          await ActionType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+              },
+            ],
+          })
+        ).actionTypes[0]
       }
 
-      return
+      return actionType
     }
 
     case ITypeKind.RenderPropsType: {
       const RenderPropsType = await Repository.instance.RenderPropsType
 
-      const exists = await RenderPropsType.find({
-        where: where(type),
-      })
+      const renderPropsType = (
+        await RenderPropsType.find({
+          where: where(type),
+        })
+      )[0]
 
-      if (!exists.length) {
+      if (!renderPropsType) {
         console.log(`Creating ${type.name} [${type.kind}]...`)
 
-        return await RenderPropsType.create({
-          input: [
-            {
-              ...createCreateBaseFields(type, userId),
-            },
-          ],
-        })
+        return (
+          await RenderPropsType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+              },
+            ],
+          })
+        ).renderPropsTypes[0]
       }
 
-      return
+      return renderPropsType
     }
 
     case ITypeKind.ReactNodeType: {
       const ReactNodeType = await Repository.instance.ReactNodeType
 
-      const exists = await ReactNodeType.find({
-        where: where(type),
-      })
+      const reactNodeType = (
+        await ReactNodeType.find({
+          where: where(type),
+        })
+      )[0]
 
-      if (!exists.length) {
+      if (!reactNodeType) {
         console.log(`Creating ${type.name} [${type.kind}]...`)
 
-        return await ReactNodeType.create({
-          input: [
-            {
-              ...createCreateBaseFields(type, userId),
-            },
-          ],
-        })
+        return (
+          await ReactNodeType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+              },
+            ],
+          })
+        ).reactNodeTypes[0]
       }
 
-      return
+      return reactNodeType
     }
 
     case ITypeKind.EnumType: {
@@ -150,70 +168,80 @@ export const upsertType = async (
       if (!enumType) {
         console.log(`Creating ${type.name} [${type.kind}]...`)
 
-        return EnumType.create({
-          input: [
-            {
-              ...createCreateBaseFields(type, userId),
-              allowedValues: {
-                create: type.allowedValues.map((value) => ({
-                  node: makeAllowedValuesNodeInput(value),
-                })),
+        return (
+          await EnumType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+                allowedValues: {
+                  create: type.allowedValues.map((value) => ({
+                    node: makeAllowedValuesNodeInput(value),
+                  })),
+                },
               },
-            },
-          ],
-        })
+            ],
+          })
+        ).enumTypes[0]
       }
 
       console.log(`Updating ${type.name} [${type.kind}]...`, enumType)
 
-      return EnumType.update({
-        where: where(type),
-        update: {
-          ...createUpdateBaseFields(type, userId),
-          allowedValues: type.allowedValues.map((enumTypeValue) => {
-            const existingAllowedValue = enumType.allowedValues.find(
-              (x) => x.key === enumTypeValue.key,
-            )
+      return (
+        await EnumType.update({
+          where: where(type),
+          update: {
+            ...createUpdateBaseFields(type, userId),
+            allowedValues: type.allowedValues.map((enumTypeValue) => {
+              const existingAllowedValue = enumType.allowedValues.find(
+                (x) => x.key === enumTypeValue.key,
+              )
 
-            return {
-              where: {
-                node: {
-                  // This shouldn't happen, unless the enums went missing
-                  id: existingAllowedValue?.id ?? v4(),
+              return {
+                where: {
+                  node: {
+                    // This shouldn't happen, unless the enums went missing
+                    id: existingAllowedValue?.id ?? v4(),
+                  },
                 },
-              },
-              update: {
-                node: {
-                  ...omit(makeAllowedValuesNodeInput(enumTypeValue), 'id'),
+                update: {
+                  node: {
+                    ...omit(makeAllowedValuesNodeInput(enumTypeValue), 'id'),
+                  },
                 },
-              },
-            }
-          }),
-        },
-      })
+              }
+            }),
+          },
+        })
+      ).enumTypes[0]
     }
 
     case ITypeKind.InterfaceType: {
       const InterfaceType = await Repository.instance.InterfaceType
 
-      const exists = await InterfaceType.find({
-        where: where(type),
-      })
+      const interfaceType = (
+        await InterfaceType.find({
+          where: where(type),
+        })
+      )[0]
 
       /**
        * First create the interface
        */
-      if (!exists.length) {
+      if (!interfaceType) {
         logTask(`Create Interface ${type.kind}`, type.name)
 
-        await InterfaceType.create({
-          input: [
-            {
-              ...createCreateBaseFields(type, userId),
-            },
-          ],
-        })
+        return (
+          await InterfaceType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+              },
+            ],
+          })
+        ).interfaceTypes[0]
       }
+
+      return interfaceType
     }
   }
 

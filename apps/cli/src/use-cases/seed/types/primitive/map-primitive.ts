@@ -12,7 +12,7 @@ export const mapPrimitiveType = (value: string) => {
     case 'ReactNode':
       return ITypeKind.ReactNodeType
     case 'number':
-      return IPrimitiveTypeKind.Float
+      return IPrimitiveTypeKind.Number
     case 'integer':
       return IPrimitiveTypeKind.Integer
     default:

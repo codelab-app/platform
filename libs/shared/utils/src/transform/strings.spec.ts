@@ -1,4 +1,4 @@
-import { stripQuotes } from './strings'
+import { compoundCaseToTitleCase, stripQuotes } from './strings'
 
 describe('String transform', () => {
   it('can strip quotes', () => {
@@ -6,5 +6,12 @@ describe('String transform', () => {
     const expected = `a, b`
 
     expect(stripQuotes(actual)).toBe(expected)
+  })
+
+  it('can transform compound to title case', () => {
+    const actual = 'space'
+    const expected = 'Space'
+
+    expect(compoundCaseToTitleCase(actual)).toBe(expected)
   })
 })

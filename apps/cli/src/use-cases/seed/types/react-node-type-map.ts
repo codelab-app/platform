@@ -1,21 +1,25 @@
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { FieldTypeRef } from '../utils/type-predicates'
+import { v4 } from 'uuid'
+import { upsertType } from '../../../repository/type.repo'
+import { FieldTypeRef } from '../utils/type-predicates'
 
-export const getReactNodeTypeForApi: FieldTypeRef = async () => {
-  const ReactNodeType = await Repository.instance.ReactNodeType
-
-  const [renderNodeType] = await ReactNodeType.find({
-    where: {
+export const getReactNodeTypeForApi: FieldTypeRef = async ({ userId }) => {
+  const reactNodeType = await upsertType(
+    {
+      id: v4(),
+      __typename: ITypeKind.ReactNodeType,
+      kind: ITypeKind.ReactNodeType,
       name: ITypeKind.ReactNodeType,
     },
-  })
+    userId,
+    (type) => ({ name: type.name }),
+  )
 
-  if (!renderNodeType) {
-    throw new Error('Render node type not found')
+  if (!reactNodeType) {
+    throw new Error('ReactNodeType not found')
   }
 
   return {
-    existingId: renderNodeType.id,
+    existingId: reactNodeType.id,
   }
 }

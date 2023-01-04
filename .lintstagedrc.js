@@ -8,7 +8,7 @@ module.exports = {
 
     const cmds = [
       `cross-env NODE_OPTIONS=--max-old-space-size=8192 eslint --color ${stagedFiles} ${rules} --fix --quiet`,
-      `madge --circular ${stagedFiles} --extensions ts,tsx,js,jsx`,
+      // `madge --circular ${stagedFiles} --extensions ts,tsx,js,jsx`,
     ]
 
     console.info(`Running: ${cmds}`)

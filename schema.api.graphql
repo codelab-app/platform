@@ -13477,8 +13477,8 @@ type PrimitiveTypeEdge {
 
 enum PrimitiveTypeKind {
   Boolean
-  Float
   Integer
+  Number
   String
 }
 

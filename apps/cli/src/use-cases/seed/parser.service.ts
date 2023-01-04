@@ -5,7 +5,7 @@ import type {
 } from '@codelab/backend/abstract/core'
 import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
 import { atomTypeKeyByFileName } from '@codelab/shared/data'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 import { createAntdAtomData } from './data/ant-design-atom.data'
@@ -84,7 +84,7 @@ export class ParserService {
           {
             id: existingField ? existingField.id : v4(),
             key: field.property,
-            name: pascalCaseToWords(field.property),
+            name: compoundCaseToTitleCase(field.property),
             description: field.description,
             // Return empty string for filtering later
             fieldType,

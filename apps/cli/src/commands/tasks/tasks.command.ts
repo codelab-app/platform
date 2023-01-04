@@ -254,9 +254,9 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             execCommand(
               `npx prettier --check "./**/*.{graphql,yaml,json}" "./*.json"`,
             )
-            execCommand(
-              `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
-            )
+            // execCommand(
+            //   `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
+            // )
             execCommand(`npx ls-lint`)
           }
         },

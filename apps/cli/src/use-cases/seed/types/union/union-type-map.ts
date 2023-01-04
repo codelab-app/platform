@@ -2,13 +2,16 @@ import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { logger } from '@codelab/shared/adapter/logging'
 import { connectNode } from '@codelab/shared/data'
-import { capitalizeFirstLetter, pascalCaseToWords } from '@codelab/shared/utils'
+import {
+  capitalizeFirstLetter,
+  compoundCaseToTitleCase,
+} from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { isInterfaceTypeRegex } from '../../utils/matchers'
-import { extractObjectFromString } from '../../utils/parser'
-import type { FieldTypeRef } from '../../utils/type-predicates'
+import { extractObjectFromString, parseSeparators } from '../../utils/parser'
 import {
-  isPrimitivePredicate,
+  FieldTypeRef,
+  isPrimitiveType,
   unionContainsInterfaceType,
 } from '../../utils/type-predicates'
 import { mapPrimitiveType } from '../primitive/map-primitive'
@@ -57,28 +60,30 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
   field,
   atom,
   userId,
-  values,
 }) => {
-  logger.info('Get Union Type', values)
+  logger.info('Get Union Type', field.type)
 
   const UnionType = await Repository.instance.UnionType
+  const values = parseSeparators(field)
 
   /**
    * If we have a nested interface type
    */
-  if (unionContainsInterfaceType(values)) {
+  if (unionContainsInterfaceType(field.type)) {
     const [existingUnion] = await UnionType.find({
       where: {
         AND: [
           {
-            name: `${atom.name} ${pascalCaseToWords(field.property)} Union API`,
+            name: `${atom.name} ${compoundCaseToTitleCase(
+              field.property,
+            )} Union API`,
           },
         ],
       },
     })
 
     if (!existingUnion) {
-      const unionName = `${atom.name} ${pascalCaseToWords(
+      const unionName = `${atom.name} ${compoundCaseToTitleCase(
         field.property,
       )} Union API`
 
@@ -93,7 +98,7 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
             typesOfUnionType: {
               PrimitiveType: {
                 connect: values
-                  .filter((type) => isPrimitivePredicate([type]))
+                  .filter((type) => isPrimitiveType(type))
                   .map((value: string) => ({
                     where: {
                       node: {
@@ -118,7 +123,7 @@ export const getUnionTypeForApi: FieldTypeRef = async ({
                     return {
                       node: {
                         id: v4(),
-                        name: `${atom.name} ${pascalCaseToWords(
+                        name: `${atom.name} ${compoundCaseToTitleCase(
                           field.property,
                         )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
                         kind: ITypeKind.InterfaceType,

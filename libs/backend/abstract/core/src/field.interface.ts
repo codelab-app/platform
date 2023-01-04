@@ -11,6 +11,9 @@ export interface AntDesignFieldsByFile {
 export interface AntdDesignField {
   property: string
   description: string
+  /**
+   * The type is the most important, we parse this into our type schema
+   */
   type: string
   default: string
   version: string

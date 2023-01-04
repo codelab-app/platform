@@ -15,10 +15,10 @@ import type { ColumnProps } from 'antd/lib/table/Column'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { fieldRef, typeRef } from '../../../store'
-import { NestedTypeTable } from '../../types'
-import { CreateFieldButton } from '../create-field'
-import { getValidationRuleTagsArray } from './validation'
+import { fieldRef, typeRef } from '../../../../store'
+import { CreateFieldButton } from '../../../fields/create-field'
+import { getValidationRuleTagsArray } from '../../../fields/get-fields/validation'
+import { TypeDetailsTable } from '../../index'
 
 export interface FieldsTableProps {
   interfaceType: IInterfaceType
@@ -159,6 +159,8 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     )
 
+    console.log(dataSource)
+
     return (
       <Table
         columns={
@@ -171,7 +173,7 @@ export const FieldsTable = observer<FieldsTableProps>(
           indentSize: 0,
           expandedRowRender: (record) => {
             return record.type ? (
-              <NestedTypeTable
+              <TypeDetailsTable
                 fieldService={fieldService}
                 typeId={record.type.id}
                 typeService={typeService}
@@ -180,7 +182,7 @@ export const FieldsTable = observer<FieldsTableProps>(
           },
         }}
         loading={isLoading}
-        pagination={{ disabled: false, hideOnSinglePage: true }}
+        pagination={{ disabled: false, hideOnSinglePage: true, pageSize: 25 }}
         rowKey={(f) => f.key}
         size="small"
       />

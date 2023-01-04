@@ -133,8 +133,8 @@ export const typeSchema = gql`
   enum PrimitiveTypeKind {
     String
     Integer
-    Float
     Boolean
+    Number
   }
 
   """

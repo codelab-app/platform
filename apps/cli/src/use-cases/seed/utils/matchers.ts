@@ -5,9 +5,19 @@ const es5FnReturnReactNode = /^function(.+): ReactNode$/
  */
 const arrayTypeRegex = /(\[.+\]|<.+>)/
 
-export const functionTypeRegex = /(function|=>)/
+/**
+ * Use non greedy for () matching
+ *
+ * (^function\(.*?\)) - function()
+ * ((\(.*?\)) => [any|boolean]) - () => any
+ */
 
-export const unionTypeRegex = /(function|=>|<|[?.;]|[[]])/
+export const functionTypeRegex =
+  // /(^function\(.*?\))|((\(.*?\)) => [any|boolean|void])/
+  /(^function\(.*?\))|((\(.*?\)) => \w)/
+
+// export const unionTypeRegex = /(function|=>|<|[?.;]|[[]])/
+export const unionTypeRegex = /\|/
 
 // export const skippedTypeRegex = new RegExp(
 //   `/${arrayTypeRegex}|${functionTypeRegex}/`,
@@ -33,6 +43,11 @@ export const stripBracketsRegex = /(?:\{)(.*)(?:\})/
  */
 export const isInterfaceTypeRegex = /^\{.+}$/
 
-export const reactNodeTypeRegex = /^ReactNode$/
+/**
+ * : ReactNode|HTMLElement
+ * => ReactNode|HTMLElement
+ * ReactNode
+ */
+export const reactNodeTypeRegex = /(([:|=>] (ReactNode|HTMLElement))|ReactNode)/
 
 export const renderPropsRegexes = [arrowFnReturnReactNode, es5FnReturnReactNode]

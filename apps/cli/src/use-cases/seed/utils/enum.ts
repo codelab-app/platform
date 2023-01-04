@@ -1,5 +1,5 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
 export const createEnumTypeInputForAtomType = (
@@ -9,11 +9,11 @@ export const createEnumTypeInputForAtomType = (
 ) => ({
   id: v4(),
   kind: ITypeKind.EnumType,
-  name: `${atomName} ${pascalCaseToWords(property)} Enum`,
+  name: `${atomName} ${compoundCaseToTitleCase(property)} Enum`,
   enumType: {
     allowedValues: allowValues.map((value) => ({
       value,
-      name: pascalCaseToWords(value),
+      name: compoundCaseToTitleCase(value),
     })),
   },
 })

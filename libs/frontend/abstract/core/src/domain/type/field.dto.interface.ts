@@ -44,7 +44,7 @@ export interface INumberValidationRules {
 export interface IValidationRules {
   general?: Nullish<IGeneralValidationRules>
   [PrimitiveTypeKind.String]?: Nullish<IStringValidationRules>
-  [PrimitiveTypeKind.Float]?: Nullish<INumberValidationRules>
+  [PrimitiveTypeKind.Number]?: Nullish<INumberValidationRules>
   [PrimitiveTypeKind.Integer]?: Nullish<INumberValidationRules>
 }
 

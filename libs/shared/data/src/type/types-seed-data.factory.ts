@@ -7,7 +7,7 @@ type CreateSeedTypes = (ids?: Array<string>) => Array<ITypeExport>
 export const createSeedTypesData: CreateSeedTypes = ([
   stringId = v4(),
   booleanId = v4(),
-  floatId = v4(),
+  numberId = v4(),
   integerId = v4(),
 ] = []) => [
   // PrimitiveTypes
@@ -26,11 +26,11 @@ export const createSeedTypesData: CreateSeedTypes = ([
     primitiveKind: IPrimitiveTypeKind.Boolean,
   },
   {
-    id: floatId,
+    id: numberId,
     __typename: ITypeKind.PrimitiveType,
-    name: IPrimitiveTypeKind.Float,
+    name: IPrimitiveTypeKind.Number,
     kind: ITypeKind.PrimitiveType,
-    primitiveKind: IPrimitiveTypeKind.Float,
+    primitiveKind: IPrimitiveTypeKind.Number,
   },
   {
     id: integerId,

@@ -31,7 +31,7 @@ import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { connectNode, disconnectNode } from '@codelab/shared/data'
-import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
+import { compoundCaseToTitleCase, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
@@ -361,7 +361,7 @@ export class Element
       this.name ||
       this.atom?.current.name ||
       (this.atom?.current
-        ? pascalCaseToWords(this.atom.current.type)
+        ? compoundCaseToTitleCase(this.atom.current.type)
         : undefined) ||
       this.parentComponent?.current.name ||
       this.renderComponentType?.current.name ||

@@ -5,3 +5,15 @@ export interface ITypeRecord {
   name: string
   kind: ITypeKind
 }
+
+export interface IUnionTypeRecord {
+  id: string
+  name: string
+  kind: string
+}
+
+export interface IEnumTypeRecord {
+  id: string
+  key: string
+  value: string
+}

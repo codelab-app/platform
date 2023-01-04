@@ -1,7 +1,7 @@
 import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { connectNode } from '@codelab/shared/data'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
 /**
  * Creates the element without prop map bindings and without parent/children connections
@@ -11,7 +11,7 @@ const label = (element: OGM_TYPES.Element) =>
   element.name ||
   element.renderAtomType?.name ||
   (element.renderAtomType
-    ? pascalCaseToWords(element.renderAtomType.type)
+    ? compoundCaseToTitleCase(element.renderAtomType.type)
     : undefined) ||
   element.parentComponent?.name ||
   element.renderComponentType?.name

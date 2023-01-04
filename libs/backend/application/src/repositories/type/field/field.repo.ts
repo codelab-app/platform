@@ -6,20 +6,25 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { connectNode } from '@codelab/shared/data'
 
+export type UpsertFieldProps = {
+  input: OGM_TYPES.FieldCreateInput
+} & FieldRelationshipProps
+
 interface FieldRelationshipProps {
   interfaceTypeId: string
   fieldTypeId: string
 }
 
 export const fieldRepository = {
-  upsertField: async (
-    input: OGM_TYPES.FieldCreateInput,
-    { fieldTypeId, interfaceTypeId }: FieldRelationshipProps,
-  ): Promise<void> => {
+  upsertField: async ({
+    input,
+    fieldTypeId,
+    interfaceTypeId,
+  }: UpsertFieldProps): Promise<void> => {
     console.log('Upsert Field', input)
 
     const session = getDriver().session()
-    const Field = await Repository.instance.Field()
+    const Field = await Repository.instance.Field
 
     try {
       const existingField = await Field.find({

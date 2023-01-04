@@ -6,17 +6,19 @@ import type {
 import {
   containsInterfaceTypeRegex,
   functionTypeRegex,
+  isInterfaceTypeRegex,
   isPrimitiveTypesRegex,
   reactNodeTypeRegex,
   renderPropsRegexes,
+  unionTypeRegex,
 } from './matchers'
 
 interface UnionTypeArgs {
-  field: AntdDesignField
+  field: Pick<AntdDesignField, 'property' | 'type'>
   atom: IAtomImport
   userId: string
   // These are the split values after processing field.types
-  values: Array<string>
+  // values: Array<string>
 }
 
 export type FieldTypeRef = (args: UnionTypeArgs) => Promise<TypeRef>
@@ -26,14 +28,10 @@ export type FieldTypeRef = (args: UnionTypeArgs) => Promise<TypeRef>
  *
  * We reduce each predicate by multiplying all elements in an array
  */
-export type IsTypePredicates = (values: UnionTypeArgs['values']) => boolean
+export type IsTypePredicates = (fieldType: string) => boolean
 
-export const isPrimitivePredicate: IsTypePredicates = (values) => {
-  if (values.length !== 1) {
-    return false
-  }
-
-  return isPrimitiveTypesRegex.test(values[0] ?? '')
+export const isPrimitiveType: IsTypePredicates = (fieldType) => {
+  return isPrimitiveTypesRegex.test(fieldType)
 }
 
 /**
@@ -41,72 +39,47 @@ export const isPrimitivePredicate: IsTypePredicates = (values) => {
  *
  * Input.status = 'error' | 'warning'
  *
+ * Make sure it isn't an interface first, then check for `|`. Some interfaces have `|` in them
+ *
  * @param field
  */
-export const isEnumType: IsTypePredicates = (values) => {
-  console.log(values)
-
-  // Enum type must have more than 1 item
-  if (values.length <= 1) {
+export const isEnumType: IsTypePredicates = (fieldType) => {
+  if (isInterfaceTypeRegex.test(fieldType)) {
     return false
   }
 
-  return values.reduce((passes, value) => {
-    return !functionTypeRegex.test(value) && passes
-  }, true)
+  return unionTypeRegex.test(fieldType)
 }
 
-export const isUnionType: IsTypePredicates = (values) => {
-  // Union type must have more than 1 item
-  if (values.length <= 1) {
-    return false
-  }
-
-  return values.reduce((passes, value) => {
-    return !functionTypeRegex.test(value) && passes
-  }, true)
+export const isUnionType: IsTypePredicates = (fieldType) => {
+  return unionTypeRegex.test(fieldType) && !isInterfaceTypeRegex.test(fieldType)
 }
 
-export const isReactNodeType: IsTypePredicates = (values) => {
-  if (values.length !== 1) {
-    return false
-  }
-
-  return reactNodeTypeRegex.test(values[0] ?? '')
+export const isReactNodeType: IsTypePredicates = (fieldType) => {
+  return reactNodeTypeRegex.test(fieldType)
 }
 
-export const isActionType: IsTypePredicates = (values) => {
-  if (values.length !== 1) {
-    return false
-  }
-
-  return functionTypeRegex.test(values[0] ?? '')
+export const isActionType: IsTypePredicates = (fieldType) => {
+  return functionTypeRegex.test(fieldType)
 }
 
 // ReactNode is also render props
-export const isRenderPropType: IsTypePredicates = (values) => {
-  if (values.length !== 1) {
-    return false
-  }
+export const isRenderPropType: IsTypePredicates = (fieldType) => {
+  return renderPropsRegexes.some((regex) => regex.test(fieldType))
+}
 
-  return renderPropsRegexes.some((regex) => regex.test(values[0] ?? ''))
+export const isInterfaceType: IsTypePredicates = (fieldType) => {
+  return isInterfaceTypeRegex.test(fieldType)
 }
 
 /**
  * See if `boolean | { loading: true }` contains a nested interface
  */
-export const unionContainsInterfaceType: IsTypePredicates = (values) => {
-  if (values.length <= 1) {
-    return false
-  }
-
-  return values.reduce((passes, value) => {
-    // We use `||` since we only need 1 to have a nested interface
-    return (
-      containsInterfaceTypeRegex.test(value) ||
-      // We don't want to parse edge cases yet
-      !functionTypeRegex.test(value) ||
-      passes
-    )
-  }, true)
+export const unionContainsInterfaceType: IsTypePredicates = (fieldType) => {
+  // We use `||` since we only need 1 to have a nested interface
+  return (
+    containsInterfaceTypeRegex.test(fieldType) ||
+    // We don't want to parse edge cases yet
+    !functionTypeRegex.test(fieldType)
+  )
 }

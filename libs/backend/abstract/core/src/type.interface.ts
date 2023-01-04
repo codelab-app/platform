@@ -27,11 +27,11 @@ export type IInterfaceTypeExport = Pick<
     fields: Array<OGM_TYPES.Field>
   }
 
-export type IEnumTypeExport = Pick<
-  OGM_TYPES.EnumType,
-  IBaseTypeExportFields | 'allowedValues'
-> &
-  Required<Pick<OGM_TYPES.EnumType, '__typename'>>
+export type IEnumTypeExport = Pick<OGM_TYPES.EnumType, IBaseTypeExportFields> &
+  Required<Pick<OGM_TYPES.EnumType, '__typename'>> & {
+    // Need to remove enumTypeConnection
+    allowedValues: Array<Omit<OGM_TYPES.EnumTypeValue, 'enumTypeConnection'>>
+  }
 
 export type IPrimitiveTypeExport = Pick<
   OGM_TYPES.PrimitiveType,

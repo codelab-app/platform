@@ -118,7 +118,7 @@ export const GetTypesTable = observer<{
           isLoadingAllTypes || isLoadingTypeDescendants ? (
             <Spin />
           ) : (
-            <NestedTypeTable
+            <TypeDetailsTable
               fieldService={fieldService}
               typeId={type.id}
               typeService={typeService}

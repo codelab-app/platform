@@ -93,7 +93,7 @@ export const UpdateFieldModal = observer<{
             condition={({ model }) => isFloat(typeService, model.fieldType)}
           >
             <AutoFields
-              fields={[`validationRules.${PrimitiveTypeKind.Float}`]}
+              fields={[`validationRules.${PrimitiveTypeKind.Number}`]}
             />
           </DisplayIfField>
         </DisplayIfField>

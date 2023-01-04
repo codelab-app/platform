@@ -5,20 +5,21 @@ import type {
 import { Spin } from 'antd'
 import React from 'react'
 import { useAsync } from 'react-use'
-import { FieldsTable } from '../../fields'
-import { UnionMembersTable } from '../../union-members/get-union-members/UnionMembersTable'
+import { EnumTypeTable } from './EnumTypeTable'
+import { FieldsTable } from './FieldsTable'
+import { UnionTypeTable } from './UnionTypeTable'
 
-interface NestedTypeTableProps {
+interface TypeDetailsTableProps {
   typeId: string
   typeService: ITypeService
   fieldService: IFieldService
 }
 
-export const NestedTypeTable = ({
+export const TypeDetailsTable = ({
   typeId,
   fieldService,
   typeService,
-}: NestedTypeTableProps) => {
+}: TypeDetailsTableProps) => {
   const {
     loading,
     error,
@@ -33,20 +34,22 @@ export const NestedTypeTable = ({
     return <div>Error</div>
   }
 
-  return type?.kind === 'InterfaceType' ? (
+  return type?.kind === ITypeKind.InterfaceType ? (
     <FieldsTable
       fieldService={fieldService}
       interfaceType={type}
       isLoading={loading}
       typeService={typeService}
     />
-  ) : type?.kind === 'UnionType' ? (
-    <UnionMembersTable
+  ) : type?.kind === ITypeKind.UnionType ? (
+    <UnionTypeTable
       fieldService={fieldService}
       isLoading={loading}
       typeService={typeService}
       unionType={type}
     />
+  ) : type?.kind === ITypeKind.EnumType ? (
+    <EnumTypeTable enumType={type} />
   ) : (
     <div>No data</div>
   )

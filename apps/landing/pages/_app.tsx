@@ -19,7 +19,6 @@ import { Intercom } from '../home/Intercom'
 import { useHotjar } from '../hooks/useHotjar'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 
-//
 /**
  * Pass { snapshot: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
  */

@@ -17,10 +17,10 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
-import { pascalCaseToWords } from '@codelab/shared/utils'
-import type { JSONSchema7 } from 'json-schema'
-import type { UiPropertiesContext } from './types'
+import { Maybe } from '@codelab/shared/abstract/types'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { JSONSchema7 } from 'json-schema'
+import { UiPropertiesContext } from './types'
 import { getUiProperties } from './ui-properties'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: object; label?: string }
@@ -40,13 +40,13 @@ export const nullUniforms = { component: null }
 export const primitives = {
   [PrimitiveTypeKind.String]: 'string' as const,
   [PrimitiveTypeKind.Integer]: 'integer' as const,
-  [PrimitiveTypeKind.Float]: 'number' as const,
+  [PrimitiveTypeKind.Number]: 'number' as const,
   [PrimitiveTypeKind.Boolean]: 'boolean' as const,
 }
 
 const primitivesDefaults = {
   [PrimitiveTypeKind.Boolean]: false,
-  [PrimitiveTypeKind.Float]: 0.0,
+  [PrimitiveTypeKind.Number]: 0.0,
   [PrimitiveTypeKind.Integer]: 0,
   [PrimitiveTypeKind.String]: '',
 }
@@ -97,7 +97,7 @@ export class TypeSchemaFactory {
 
   fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: IField) => ({
-      label: field.name || pascalCaseToWords(field.key),
+      label: field.name || compoundCaseToTitleCase(field.key),
       ...this.transform(field.type.current, {
         validationRules: field.validationRules ?? undefined,
         fieldName: field.name,
@@ -225,9 +225,9 @@ export class TypeSchemaFactory {
           ...context?.validationRules?.String,
         }
         break
-      case PrimitiveTypeKind.Float:
+      case PrimitiveTypeKind.Number:
         validation = {
-          ...context?.validationRules?.Float,
+          ...context?.validationRules?.Number,
         }
         break
       case PrimitiveTypeKind.Integer:

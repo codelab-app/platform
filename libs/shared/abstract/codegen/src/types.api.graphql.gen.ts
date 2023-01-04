@@ -14338,8 +14338,8 @@ export type PrimitiveTypeEdge = {
 
 export enum PrimitiveTypeKind {
   Boolean = 'Boolean',
-  Float = 'Float',
   Integer = 'Integer',
+  Number = 'Number',
   String = 'String',
 }
 

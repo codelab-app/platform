@@ -1,21 +1,25 @@
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { FieldTypeRef } from '../utils/type-predicates'
+import { v4 } from 'uuid'
+import { upsertType } from '../../../repository/type.repo'
+import { FieldTypeRef } from '../utils/type-predicates'
 
-export const getActionTypeForApi: FieldTypeRef = async () => {
-  const ActionType = await Repository.instance.ActionType
-
-  const [existingAction] = await ActionType.find({
-    where: {
+export const getActionTypeForApi: FieldTypeRef = async ({ userId }) => {
+  const actionType = await upsertType(
+    {
+      id: v4(),
+      __typename: ITypeKind.ActionType,
+      kind: ITypeKind.ActionType,
       name: ITypeKind.ActionType,
     },
-  })
+    userId,
+    (type) => ({ name: type.name }),
+  )
 
-  if (!existingAction) {
-    throw new Error('Action type not found')
+  if (!actionType) {
+    throw new Error('ActionType not found')
   }
 
   return {
-    existingId: existingAction.id,
+    existingId: actionType.id,
   }
 }

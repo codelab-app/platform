@@ -9,6 +9,7 @@ import type {
   UnionTypeTypesOfUnionTypeUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { connectNode } from '../shared'
 
 const makeAllTypes = (input: IPropData) =>
@@ -56,6 +57,9 @@ export const makeAllowedValuesNodeInput = (value: IEnumTypeValue) => {
 export const makeItemTypeCreateInput = (type: IUpdateTypeDTO) => {
   return type.arrayTypeId ? makeAllTypes(connectNode(type.arrayTypeId)) : {}
 }
+
+export const getInterfaceName = (type: string) =>
+  `${compoundCaseToTitleCase(type)} API`
 
 // export const makeFieldsCreateInput = (type: ICreateTypeDTO) => {
 //   return {

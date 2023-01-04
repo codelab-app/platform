@@ -53,7 +53,7 @@ export const isInterfaceType: FieldCondition = (typeService, fieldType) =>
 export const isFloat: FieldCondition = (typeService, fieldType) =>
   Boolean(
     fieldType &&
-      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Float,
+      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Number,
   )
 
 export const isBoolean: FieldCondition = (typeService, fieldType) =>

@@ -181,8 +181,11 @@ export class Repository implements IRepository {
   //
 
   get Field() {
-    return async () =>
-      (this.field ??= await this.getOgmInstance<'Field'>(this.field, 'Field'))
+    return (async () =>
+      (this.field ??= await this.getOgmInstance<'Field'>(
+        this.field,
+        'Field',
+      )))()
   }
 
   get InterfaceType() {

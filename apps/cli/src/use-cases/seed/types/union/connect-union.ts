@@ -1,11 +1,10 @@
-// Async function to connect Union Type
-
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/data'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import type { FieldTypeRef } from '../../utils/type-predicates'
+import { parseSeparators } from '../../utils/parser'
+import { FieldTypeRef } from '../../utils/type-predicates'
 import { mapPrimitiveType } from '../primitive/map-primitive'
 
 /**
@@ -19,16 +18,18 @@ export const connectUnionType: FieldTypeRef = async ({
   field,
   atom,
   userId,
-  values,
 }) => {
   const UnionType = await Repository.instance.UnionType
+  const values = parseSeparators(field)
 
   // Check if enum has been created already
   const [existingUnion] = await UnionType.find({
     where: {
       AND: [
         {
-          name: `${atom.name} ${pascalCaseToWords(field.property)} Union API`,
+          name: `${atom.name} ${compoundCaseToTitleCase(
+            field.property,
+          )} Union API`,
         },
       ],
     },
@@ -36,7 +37,7 @@ export const connectUnionType: FieldTypeRef = async ({
 
   // If not exist
   if (!existingUnion) {
-    const unionName = `${atom.name} ${pascalCaseToWords(
+    const unionName = `${atom.name} ${compoundCaseToTitleCase(
       field.property,
     )} Union API`
 

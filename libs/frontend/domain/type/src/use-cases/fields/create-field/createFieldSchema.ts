@@ -50,7 +50,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
             [StringValidationRules.Pattern]: { type: 'string', nullable: true },
           },
         },
-        [PrimitiveTypeKind.Float]: {
+        [PrimitiveTypeKind.Number]: {
           type: 'object',
           nullable: true,
           properties: {

@@ -36,11 +36,8 @@ export const extractObjectFromString = (object: string): object => {
  *
  * "'error' | 'warning'" -> ['error', 'warning']
  */
-export const parseAntDesignTypeValues = (
-  field: Pick<AntdDesignField, 'type'>,
-) => {
+export const parseSeparators = (field: Pick<AntdDesignField, 'type'>) => {
   const processedField = stripQuotes(field.type)
-  const values = processedField.split('|').map((value) => value.trim())
 
-  return values
+  return processedField.split('|').map((value) => value.trim())
 }
