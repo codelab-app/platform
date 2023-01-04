@@ -4,7 +4,7 @@ import { connectNode } from '@codelab/shared/data'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { parseSeparators } from '../../utils/parser'
-import { FieldTypeRef } from '../../utils/type-predicates'
+import type { FieldTypeRef } from '../../utils/type-predicates'
 import { mapPrimitiveType } from '../primitive/map-primitive'
 
 /**

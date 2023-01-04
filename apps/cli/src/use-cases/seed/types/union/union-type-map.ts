@@ -9,8 +9,8 @@ import {
 import { v4 } from 'uuid'
 import { isInterfaceTypeRegex } from '../../utils/matchers'
 import { extractObjectFromString, parseSeparators } from '../../utils/parser'
+import type { FieldTypeRef } from '../../utils/type-predicates'
 import {
-  FieldTypeRef,
   isPrimitiveType,
   unionContainsInterfaceType,
 } from '../../utils/type-predicates'

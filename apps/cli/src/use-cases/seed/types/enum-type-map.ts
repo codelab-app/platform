@@ -3,7 +3,7 @@ import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { upsertType } from '../../../repository/type.repo'
 import { parseSeparators } from '../utils/parser'
-import { FieldTypeRef } from '../utils/type-predicates'
+import type { FieldTypeRef } from '../utils/type-predicates'
 
 export const getEnumTypeForApi: FieldTypeRef = async ({
   field,

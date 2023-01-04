@@ -1,7 +1,7 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { upsertType } from '../../../repository/type.repo'
-import { FieldTypeRef } from '../utils/type-predicates'
+import type { FieldTypeRef } from '../utils/type-predicates'
 
 export const getRenderPropTypeForApi: FieldTypeRef = async ({ userId }) => {
   const renderPropType = await upsertType(

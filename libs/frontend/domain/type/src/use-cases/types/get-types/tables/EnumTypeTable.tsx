@@ -1,5 +1,9 @@
-import { IEnumType, IEnumTypeRecord } from '@codelab/frontend/abstract/core'
-import Table, { ColumnProps } from 'antd/lib/table'
+import type {
+  IEnumType,
+  IEnumTypeRecord,
+} from '@codelab/frontend/abstract/core'
+import type { ColumnProps } from 'antd/lib/table'
+import Table from 'antd/lib/table'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
