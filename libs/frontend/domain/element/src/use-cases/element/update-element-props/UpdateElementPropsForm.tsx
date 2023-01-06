@@ -1,30 +1,26 @@
 import type {
+  IAnyType,
   IElement,
-  IElementService,
+  IField,
   IPropData,
-  ITypeService,
-  IUserService,
 } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY, isAdmin } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
-import { PropsForm } from '@codelab/frontend/domain/type'
+import type { InterfaceType } from '@codelab/frontend/domain/type'
+import { fieldRef, PropsForm, typeRef } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
-import { Col, Row } from 'antd'
+import { Button, Col, Dropdown, Menu, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import Link from 'next/link'
 import React, { useRef } from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 
 export interface UpdateElementPropsFormProps {
-  typeService: ITypeService
-  elementService: IElementService
   element: IElement
   trackPromises?: UseTrackLoadingPromises
-  userService: IUserService
 }
 
 const withCustomTextSchema: JSONSchemaType<{
@@ -46,7 +42,10 @@ const withCustomTextSchema: JSONSchemaType<{
 } as const
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({ elementService, element, trackPromises, typeService, userService }) => {
+  ({ element, trackPromises }) => {
+    const { typeService, fieldService, elementService, userService } =
+      useStore()
+
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     const initialPropsRef = useRef(element.props?.values ?? {})
@@ -83,6 +82,30 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const initialSchema = allowCustomText ? withCustomTextSchema : {}
 
+    const onEdit = (field: IField<IAnyType>) => {
+      fieldService.updateModal.open(fieldRef(field.id))
+    }
+
+    const onDelete = (field: IField<IAnyType>) => {
+      fieldService.deleteModal.open(fieldRef(field.id))
+    }
+
+    const editMenuItems = interfaceType?.fields.map((field) => {
+      return {
+        label: field.name,
+        key: field.key,
+        onClick: () => onEdit(field),
+      }
+    })
+
+    const deleteMenuItems = interfaceType?.fields.map((field) => {
+      return {
+        label: field.name,
+        key: field.key,
+        onClick: () => onDelete(field),
+      }
+    })
+
     return (
       <Spinner isLoading={loading}>
         {interfaceType && (
@@ -100,17 +123,30 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             </Col>
             <Col span={24}>
               {isAdmin(userService.user) ? (
-                <Row justify="center">
+                <Row gutter={[16, 16]} justify="center">
                   <Col>
-                    <Link
-                      href={{
-                        pathname: PageType.Type,
-                        query: { typeId: interfaceType.id },
-                      }}
-                      legacyBehavior
+                    <Button
+                      onClick={() =>
+                        fieldService.createModal.open(
+                          typeRef<InterfaceType>(interfaceType.id),
+                        )
+                      }
                     >
-                      {`Edit ${interfaceType.name}`}
-                    </Link>
+                      Add
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Dropdown.Button overlay={<Menu items={editMenuItems} />}>
+                      Edit
+                    </Dropdown.Button>
+                  </Col>
+                  <Col>
+                    <Dropdown.Button
+                      danger
+                      overlay={<Menu items={deleteMenuItems} />}
+                    >
+                      Delete
+                    </Dropdown.Button>
                   </Col>
                 </Row>
               ) : null}

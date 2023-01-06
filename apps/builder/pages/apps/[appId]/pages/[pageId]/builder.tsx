@@ -138,17 +138,10 @@ PageBuilder.Layout = observer((page) => {
     () =>
       observer(() => (
         <ConfigPane
-          actionService={actionService}
-          atomService={atomService}
-          builderService={builderService}
-          componentService={componentService}
-          elementService={elementService}
           // The element tree changes depending on whether a page or a component is selected
           elementTree={activeElementTree}
           key={pageBuilderRenderer?.pageTree?.current.root?.id}
           renderService={pageBuilderRenderer}
-          typeService={typeService}
-          userService={userService}
         />
       )),
     [pageBuilderRenderer, builderService],

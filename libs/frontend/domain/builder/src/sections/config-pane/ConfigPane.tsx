@@ -1,15 +1,5 @@
 import { CodeSandboxOutlined, EditOutlined } from '@ant-design/icons'
-import type {
-  IActionService,
-  IAtomService,
-  IBuilderService,
-  IComponentService,
-  IElementService,
-  IElementTree,
-  IRenderer,
-  ITypeService,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { IElementTree, IRenderer } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
@@ -20,6 +10,7 @@ import {
   MoveElementForm,
   UpdateElementForm,
 } from '@codelab/frontend/domain/element'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -32,27 +23,11 @@ import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-Insp
 interface MetaPaneProps {
   elementTree?: IElementTree
   renderService?: IRenderer
-  atomService: IAtomService
-  typeService: ITypeService
-  builderService: IBuilderService
-  elementService: IElementService
-  componentService: IComponentService
-  actionService: IActionService
-  userService: IUserService
 }
 
 export const ConfigPane = observer<MetaPaneProps>(
-  ({
-    typeService,
-    atomService,
-    builderService,
-    elementService,
-    componentService,
-    renderService,
-    elementTree,
-    actionService,
-    userService,
-  }) => {
+  ({ renderService, elementTree }) => {
+    const { builderService, elementService, componentService } = useStore()
     const { providePropCompletion } = usePropCompletion(renderService)
     const selectedNode = builderService.selectedNode
 
@@ -111,14 +86,8 @@ export const ConfigPane = observer<MetaPaneProps>(
                 </>
               )
             })}
-            actionService={actionService}
-            atomService={atomService}
-            builderService={builderService}
-            elementService={elementService}
             elementTree={elementTree}
             renderService={renderService}
-            typeService={typeService}
-            userService={userService}
           />
         ),
       },

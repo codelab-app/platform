@@ -7,15 +7,9 @@ import {
   SwapOutlined,
 } from '@ant-design/icons'
 import type {
-  IActionService,
-  IAtomService,
-  IBuilderService,
-  IElementService,
   IElementTree,
   INode,
   IRenderer,
-  ITypeService,
-  IUserService,
 } from '@codelab/frontend/abstract/core'
 import { isElement } from '@codelab/frontend/abstract/core'
 import {
@@ -24,6 +18,7 @@ import {
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/domain/element'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   FormContextProvider,
@@ -48,12 +43,6 @@ export interface MetaPaneBuilderProps {
     node: INode
     trackPromises: UseTrackLoadingPromises
   }) => React.ReactElement | null
-  typeService: ITypeService
-  atomService: IAtomService
-  builderService: IBuilderService
-  elementService: IElementService
-  actionService: IActionService
-  userService: IUserService
 }
 
 interface TooltipIconProps {
@@ -77,15 +66,8 @@ const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
-  ({
-    userService,
-    UpdateElementContent,
-    typeService,
-    elementTree,
-    builderService,
-    renderService,
-    elementService,
-  }) => {
+  ({ UpdateElementContent, elementTree, renderService }) => {
+    const { builderService, elementService } = useStore()
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
     const trackPromises = useTrackLoadingPromises()
@@ -131,10 +113,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
               >
                 <UpdateElementPropsForm
                   element={selectedNode}
-                  elementService={elementService}
                   trackPromises={trackPromises}
-                  typeService={typeService}
-                  userService={userService}
                 />
               </FormContextProvider>
             ) : (
