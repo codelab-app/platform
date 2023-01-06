@@ -47,12 +47,6 @@ export type GetBaseTypesQuery = {
   baseTypes: { totalCount: number; items: Array<BaseType_BaseType_Fragment> }
 }
 
-export type GetBaseTypeOffsetQueryVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.GetBaseTypeOffsetWhere>
-}>
-
-export type GetBaseTypeOffsetQuery = { baseTypeOffset: { offset: number } }
-
 export type GetTypesQueryVariables = Types.Exact<{
   ids?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
@@ -192,13 +186,6 @@ export const GetBaseTypesDocument = gql`
     }
   }
   ${BaseTypeFragmentDoc}
-`
-export const GetBaseTypeOffsetDocument = gql`
-  query GetBaseTypeOffset($where: GetBaseTypeOffsetWhere) {
-    baseTypeOffset(where: $where) {
-      offset
-    }
-  }
 `
 export const GetTypesDocument = gql`
   query GetTypes($ids: [ID!]) {
@@ -408,21 +395,6 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetBaseTypes',
-        'query',
-      )
-    },
-    GetBaseTypeOffset(
-      variables?: GetBaseTypeOffsetQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetBaseTypeOffsetQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetBaseTypeOffsetQuery>(
-            GetBaseTypeOffsetDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'GetBaseTypeOffset',
         'query',
       )
     },

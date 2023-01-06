@@ -53,15 +53,6 @@ export const typeSchema = gql`
     totalCount: Int!
   }
 
-  input GetBaseTypeOffsetWhere {
-    name_CONTAINS: String
-    id: String!
-  }
-
-  type GetBaseTypeOffsetReturn {
-    offset: Int!
-  }
-
   type Query {
     """
     Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
@@ -79,10 +70,6 @@ export const typeSchema = gql`
     baseTypes(
       options: GetBaseTypesOptions
     ): GetBaseTypesReturn!
-
-    baseTypeOffset(
-      where: GetBaseTypeOffsetWhere
-    ): GetBaseTypeOffsetReturn!
   }
 
     interface IBaseType

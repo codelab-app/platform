@@ -3,31 +3,22 @@ import type {
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useAsyncFn } from 'react-use'
-import scrollIntoView from 'scroll-into-view'
 import { NestedTypeTable } from './NestedTypeTable'
 import { useTypesTable } from './useTypesTable'
 import { useTypesTableData } from './useTypesTableData'
 
-const SCROLL_ROW_CLASS_NAME = 'scroll-row'
-
 interface GetTypesTableProps {
-  typeId?: string
   typeService: ITypeService
   fieldService: IFieldService
 }
 
 export const GetTypesTable = observer<GetTypesTableProps>(
-  ({ typeId, typeService, fieldService }) => {
+  ({ typeService, fieldService }) => {
     const [curPage, setCurPage] = useState(1)
     const [curPageSize, setCurPageSize] = useState(25)
-    const [rowClassReady, setRowClassReady] = useState(false)
-    const router = useRouter()
     const [sortedTypesList, setSortedTypesList] = useState<Array<IAnyType>>([])
 
     const [sortedLatestFetchedTypesList, setSortedLatestFetchedTypesList] =
@@ -40,23 +31,6 @@ export const GetTypesTable = observer<GetTypesTableProps>(
       value: latestFetchedTypes,
       getAllTypes,
     } = useTypesTableData(typeService)
-
-    const [
-      { loading: isTypeOffsetLoading, value: curTypeOffset },
-      getTypeOffset,
-    ] = useAsyncFn(async (id: string) => {
-      const [type] = await typeService.getAll(
-        {
-          id_IN: [id],
-        },
-        {
-          limit: 0,
-          offset: 0,
-        },
-      )
-
-      return (await type?.getPagination(''))?.offset
-    }, [])
 
     const {
       columns,
@@ -109,49 +83,6 @@ export const GetTypesTable = observer<GetTypesTableProps>(
       )
     }, [getAllTypes, baseTypeOptions, baseTypeWhere])
 
-    /**
-     * Get the offset of the current type
-     */
-    useEffect(() => {
-      if (typeId) {
-        void getTypeOffset(typeId)
-
-        /**
-         * Removing the current type id from the url because there is no use for it anymore
-         */
-        void router.push(PageType.Type)
-      }
-    }, [typeId, getTypeOffset, router])
-
-    /**
-     * Change the current page to the page containing
-     * the current type using its offset
-     */
-    useEffect(() => {
-      if (curTypeOffset) {
-        handlePageChange(
-          Math.ceil((curTypeOffset + 1) / curPageSize),
-          curPageSize,
-        )
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [curTypeOffset])
-
-    /**
-     * Scroll to the current type to make sure it is visible
-     */
-    useEffect(() => {
-      const scrollRow = document.querySelector(`.${SCROLL_ROW_CLASS_NAME}`)
-
-      if (scrollRow) {
-        scrollIntoView(scrollRow as HTMLElement, {
-          align: {
-            top: 0,
-          },
-        })
-      }
-    }, [typeId, rowClassReady])
-
     const curPageDataStartIndex = sortedTypesList.findIndex(
       (t) => t.id === sortedLatestFetchedTypesList[0]?.id,
     )
@@ -165,7 +96,6 @@ export const GetTypesTable = observer<GetTypesTableProps>(
             curPageSize,
         )}
         expandable={{
-          defaultExpandedRowKeys: [typeId ?? ''],
           expandedRowRender: (type) =>
             isLoadingAllTypes ? (
               <Spin />
@@ -177,21 +107,12 @@ export const GetTypesTable = observer<GetTypesTableProps>(
               />
             ),
         }}
-        loading={isLoadingAllTypes || isTypeOffsetLoading}
+        loading={isLoadingAllTypes}
         pagination={{
           ...pagination,
           current: curPage,
           pageSize: curPageSize,
           onChange: handlePageChange,
-        }}
-        rowClassName={(record) => {
-          if (record.id === typeId) {
-            setRowClassReady(true)
-
-            return SCROLL_ROW_CLASS_NAME
-          }
-
-          return ''
         }}
         rowKey={(type) => type.id}
         rowSelection={rowSelection}
