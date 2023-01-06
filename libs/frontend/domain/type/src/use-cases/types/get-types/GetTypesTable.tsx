@@ -21,7 +21,14 @@ export const GetTypesTable = observer<{
   fieldService: IFieldService
 }>(({ typeId, typeService, fieldService }) => {
   const { types, typesList } = typeService
-  const { isLoadingAllTypes, getBaseTypes } = useTypesTableData(typeService)
+
+  const {
+    isLoadingAllTypes,
+    getBaseTypes,
+    isLoadingTypeDescendants,
+    getTypeDescendants,
+  } = useTypesTableData(typeService)
+
   const [curPage, setCurPage] = useState(1)
   const [curPageSize, setCurPageSize] = useState(25)
   const [rowClassReady, setRowClassReady] = useState(false)
@@ -101,9 +108,14 @@ export const GetTypesTable = observer<{
       columns={columns}
       dataSource={typesList}
       expandable={{
+        onExpand: async (expanded, record) => {
+          if (expanded) {
+            await getTypeDescendants(record.id)
+          }
+        },
         defaultExpandedRowKeys: [typeId ?? ''],
         expandedRowRender: (type) =>
-          isLoadingAllTypes ? (
+          isLoadingAllTypes || isLoadingTypeDescendants ? (
             <Spin />
           ) : (
             <NestedTypeTable

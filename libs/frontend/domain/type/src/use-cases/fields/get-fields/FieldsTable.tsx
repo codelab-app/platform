@@ -10,11 +10,10 @@ import {
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Divider, Space, Spin, Table, Tag } from 'antd'
+import { Divider, Space, Table, Tag } from 'antd'
 import type { ColumnProps } from 'antd/lib/table/Column'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../store'
 import { NestedTypeTable } from '../../types'
@@ -33,20 +32,6 @@ const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 
 export const FieldsTable = observer<FieldsTableProps>(
   ({ interfaceType, fieldService, isLoading, hideActions, typeService }) => {
-    const { loading, error } = useAsync(() =>
-      typeService.getAll({
-        id_IN: interfaceType.fields.map((field) => field.type.id),
-      }),
-    )
-
-    if (loading) {
-      return <Spin />
-    }
-
-    if (error) {
-      return <div>Error</div>
-    }
-
     const columns: Array<ColumnProps<IFieldRecord>> = [
       {
         title: 'Field Name',

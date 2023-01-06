@@ -4,6 +4,7 @@ import { useAsyncFn } from 'react-use'
 export const useTypesTableData = (typeService: ITypeService) => {
   typeService.getBaseTypes.bind(typeService)
   typeService.getAll.bind(typeService)
+  typeService.getAllWithDescendants.bind(typeService)
 
   /**
    * Get the base types of the current page and load the fields and write to cache
@@ -19,8 +20,15 @@ export const useTypesTableData = (typeService: ITypeService) => {
     setupCurrentPageTypes,
   )
 
+  const [{ loading: isLoadingTypeDescendants }, getTypeDescendants] =
+    useAsyncFn(async (id: string) => {
+      await typeService.getAllWithDescendants([id])
+    })
+
   return {
     isLoadingAllTypes,
     getBaseTypes,
+    isLoadingTypeDescendants,
+    getTypeDescendants,
   }
 }
