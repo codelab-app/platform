@@ -12,6 +12,10 @@ interface EnvPublic {
   googleAnalytics: {
     id: string
   }
+  supabase: {
+    url: string
+    key: string
+  }
 }
 
 export const EnvPublic = (): EnvPublic => ({
@@ -25,5 +29,9 @@ export const EnvPublic = (): EnvPublic => ({
   },
   googleAnalytics: {
     id: process.env['NEXT_PUBLIC_GOOGLE_ANALYTICS'] || '',
+  },
+  supabase: {
+    url: process.env['NEXT_PUBLIC_SUPABASE_URL'] || '',
+    key: process.env['NEXT_PUBLIC_SUPABASE_KEY'] || '',
   },
 })

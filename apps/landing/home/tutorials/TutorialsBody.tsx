@@ -5,45 +5,33 @@ import Image from 'next/image'
 import React from 'react'
 import tw from 'twin.macro'
 
-const tutorialsItem = [
-  {
-    image: '/TutorialsImage.svg',
-    title: 'Mrhost Online Travel Agency Listing',
-    description:
-      'Learn how Mrhost, a web-based marketplace for room reservation, uses Codelab to create their frontend for filtering room listings',
-    tags: ['Card', ' Google Maps', 'Button'],
-  },
-  {
-    image: '/TutorialsImage.svg',
-    title: 'Mrhost Online Travel Agency Listing',
-    description:
-      'Learn how Mrhost, a web-based marketplace for room reservation, uses Codelab to create their frontend for filtering room listings',
-    tags: ['Card', ' Google Maps', 'Button'],
-  },
-  {
-    image: '/TutorialsImage.svg',
-    title: 'Mrhost Online Travel Agency Listing',
-    description:
-      'Learn how Mrhost, a web-based marketplace for room reservation, uses Codelab to create their frontend for filtering room listings',
-    tags: ['Card', ' Google Maps', 'Button'],
-  },
-  {
-    image: '/TutorialsImage.svg',
-    title: 'Mrhost Online Travel Agency Listing',
-    description:
-      'Learn how Mrhost, a web-based marketplace for room reservation, uses Codelab to create their frontend for filtering room listings',
-    tags: ['Card', ' Google Maps', 'Button'],
-  },
-]
+export interface ITutorialsItem {
+  image: string
+  title: string
+  description: string
+  tags: Array<string>
+}
 
-export const TutorialsBody = () => {
+export interface TutorialsBodyProps {
+  tutorials: Array<ITutorialsItem>
+}
+
+export const TutorialsBody = ({ tutorials }: TutorialsBodyProps) => {
   return (
     <section css={tw`w-11/12 m-auto xl:container pb-14`}>
-      <Row css={tw`w-3/4 lg:w-11/12 xl:w-4/5 m-auto pb-14`}>
-        {tutorialsItem.map((item, index) => (
+      <Row css={tw`w-3/4 lg:w-11/12 xl:w-4/5 m-auto mb-0 pb-14`}>
+        {tutorials.map((item, index) => (
           <Col css={tw`w-full lg:w-[47%] m-auto mb-16`} key={index}>
-            <div css={tw`mb-4 w-full`}>
-              <Image alt="image" height={308} src={item.image} width={623} />
+            <div
+              css={tw`relative mb-4 w-full h-[180px] sm:h-[260px] md:h-[300px] lg:h-[260px] xl:h-[300px]`}
+            >
+              <Image
+                alt="image"
+                fill
+                sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 47vw"
+                src={item.image}
+              />
             </div>
             <h5 css={tw`text-base md:text-xl lg:text-lg 2xl:text-2xl`}>
               {item.title}
@@ -60,14 +48,16 @@ export const TutorialsBody = () => {
             </Button>
             <div css={tw`flex items-center mt-2`}>
               <FontAwesomeIcon css={tw`mr-2 text-xl`} icon={faTag} />
-              {item.tags.map((tag, i) => (
-                <p
-                  css={tw`mb-0 mr-2 bg-gray-100 border-solid border-2 border-gray-200  px-2 `}
-                  key={i}
-                >
-                  {tag}
-                </p>
-              ))}
+              <div css={tw`flex flex-wrap gap-2`}>
+                {item.tags.map((tag, i) => (
+                  <p
+                    css={tw`mb-0 bg-gray-100 border-solid border-2 border-gray-200 px-2`}
+                    key={i}
+                  >
+                    {tag}
+                  </p>
+                ))}
+              </div>
             </div>
           </Col>
         ))}

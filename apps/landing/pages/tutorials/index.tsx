@@ -1,9 +1,25 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { SeoHead } from 'apps/landing/home/SeoHead'
+import { supabase } from 'apps/landing/utils/supabase'
+import type { GetStaticProps } from 'next'
 import * as React from 'react'
+import type { ITutorialsItem, TutorialsBodyProps } from '../../home'
 import { HomeTemplate, TutorialsBody, TutorialsHeader } from '../../home'
 
-const TutorialsPage = () => {
+export const getStaticProps: GetStaticProps<{
+  tutorials: Array<ITutorialsItem> | null
+}> = async () => {
+  const { data: tutorials } = await supabase.from('tutorials').select('*')
+
+  return {
+    props: {
+      tutorials,
+    },
+    revalidate: 15,
+  }
+}
+
+const TutorialsPage = ({ tutorials }: TutorialsBodyProps) => {
   return (
     <>
       <SeoHead
@@ -11,7 +27,7 @@ const TutorialsPage = () => {
         title="Tutorials"
       />
       <TutorialsHeader />
-      <TutorialsBody />
+      <TutorialsBody tutorials={tutorials} />
     </>
   )
 }

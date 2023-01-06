@@ -48,5 +48,8 @@ module "vercel-landing" {
 
   next_public_hotjar_id = var.NEXT_PUBLIC_HOTJAR_ID
   next_public_hotjar_snippet_version = var.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
+
+  next_public_supabase_url = var.NEXT_PUBLIC_SUPABASE_URL
+  next_public_supabase_key = var.NEXT_PUBLIC_SUPABASE_KEY
 }
 

@@ -48,6 +48,17 @@ resource "vercel_project" "landing" {
       target = ["production", "preview"]
       key = "NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION"
       value = var.next_public_hotjar_snippet_version
+    },
+    // Supabase
+    {
+      target = ["production", "preview"]
+      key = "NEXT_PUBLIC_SUPABASE_URL"
+      value = var.next_public_supabase_url
+    },
+    {
+      target = ["production", "preview"]
+      key = "NEXT_PUBLIC_SUPABASE_KEY"
+      value = var.next_public_supabase_key
     }
   ]
 }
