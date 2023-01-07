@@ -93,3 +93,17 @@ resource "circleci_environment_variable" "TERRAFORM_TOKEN" {
   project      = local.project_name
   organization = local.organization
 }
+
+resource "circleci_environment_variable" "NEXT_PUBLIC_SUPABASE_URL" {
+  name         = "NEXT_PUBLIC_SUPABASE_URL"
+  value        = var.next_public_supabase_url
+  project      = local.project_name
+  organization = local.organization
+}
+
+resource "circleci_environment_variable" "NEXT_PUBLIC_SUPABASE_KEY" {
+  name         = "NEXT_PUBLIC_SUPABASE_KEY"
+  value        = var.next_public_supabase_key
+  project      = local.project_name
+  organization = local.organization
+}

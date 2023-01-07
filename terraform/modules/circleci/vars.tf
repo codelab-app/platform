@@ -27,3 +27,13 @@ variable "terraform_token" {
   type        = string
   description = "Terraform API token"
 }
+
+variable "next_public_supabase_url" {
+  type        = string
+  description = "Next public Supabase URL"
+}
+
+variable "next_public_supabase_key" {
+  type        = string
+  description = "Next public Supabase key"
+}
