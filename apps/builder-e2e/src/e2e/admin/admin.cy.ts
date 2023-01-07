@@ -14,8 +14,6 @@ const createCypressUser = () =>
     },
   })
 
-//
-
 describe('Admin', () => {
   before(() => {
     cy.resetDatabase()
@@ -29,7 +27,7 @@ describe('Admin', () => {
   /**
    * Can be used as parameter into `exportAndAssert` to see output as file
    */
-  // const filePath = './src/data/seed-data.test.json'
+  const filePath = './src/data/seed-data.test.json'
 
   describe('seed', () => {
     it('should seed Ant Design CSV data & export', () => {
