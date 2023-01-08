@@ -26,6 +26,9 @@ export const importFields = async (createFieldsDTO: Array<ICreateFieldDTO>) => {
           {
             key: field.key,
           },
+          {
+            api: { id: field.interfaceTypeId },
+          },
           // {
           //   fieldTypeConnection: {
           //     node: {
