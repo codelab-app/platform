@@ -37,7 +37,12 @@ interface ToggleExpressionFieldProps {
 }
 
 const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
-  const props = { ...fieldProps, label: null }
+  const fullFieldName = fieldProps.name
+  // If an expression field is nested in form schema - need to drop parent object name since 'connectField' will prepend it again.
+  // So if the property name is 'objectProp.nestedProp' - need to drop 'objectProp'.
+  // Otherwise 'connectField' wrapper will prepend it and construct invalid name 'objectProp.objectProp.nestedProp'
+  const name = fullFieldName.substring(fullFieldName.indexOf('.') + 1)
+  const props = { ...fieldProps, name, label: null }
 
   switch (fieldProps.field.type) {
     case 'boolean':
