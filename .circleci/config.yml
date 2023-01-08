@@ -328,6 +328,9 @@ jobs:
       - store_artifacts:
           path: ~/project/apps/builder-e2e/src/screenshots
           destination: cypress/screenshots
+      - store_artifacts:
+          path: ~/project/apps/builder-e2e/src/data
+          destination: cypress/data
 
   plan:
     <<: *executor-params
