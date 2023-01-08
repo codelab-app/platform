@@ -91,7 +91,7 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   const interfaceTypes = await InterfaceType.find({
     where: {
       apiOfAtomsAggregate: {
-        count_GT: 0,
+        count_GTE: 0,
       },
     },
     options: {
