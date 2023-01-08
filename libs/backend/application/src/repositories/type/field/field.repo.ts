@@ -30,12 +30,12 @@ export const fieldRepository = {
     const Field = await Repository.instance.Field
 
     try {
-      const existingField = await Field.find({
+      const [existingField] = await Field.find({
         where: where(input),
         selectionSet: fieldSelectionSet,
       })
 
-      if (!existingField[0]) {
+      if (!existingField) {
         await Field.create({
           input: [
             {
@@ -48,7 +48,7 @@ export const fieldRepository = {
       } else {
         await Field.update({
           where: where(input),
-          update: input,
+          update: { ...input, id: existingField.id },
         })
       }
     } finally {

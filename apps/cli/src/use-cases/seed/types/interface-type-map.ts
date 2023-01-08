@@ -63,6 +63,9 @@ export const getInterfaceTypeForApi: FieldTypeRef = async ({
           {
             key,
           },
+          {
+            api: { id: interfaceType.id },
+          },
           // {
           //   fieldTypeConnection: {
           //     node: {
