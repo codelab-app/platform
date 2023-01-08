@@ -1,0 +1,2058 @@
+{
+  "apps": [
+    {
+      "__typename": "App",
+      "id": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6",
+      "name": "ٍSupabase Crud App",
+      "slug": "supabase-crud-app",
+      "store": {
+        "id": "56419c6d-393d-4b0f-ad60-a9400849f0cd",
+        "name": "ٍSupabase Crud App Store",
+        "api": {
+          "id": "230dad52-4166-4d9c-8cc3-8240d9e4768a"
+        },
+        "actions": [
+          {
+            "id": "a150b08b-1ae4-47f8-aa8a-fff597a3ff77",
+            "name": "onSupabaseLoad",
+            "type": "CodeAction",
+            "code": "async function run() {\n\n  // create client\n  const { createClient } = supabase\n  const url = 'https://ipmecappxmrsvvuenizf.supabase.co';\n  const publicKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwbWVjYXBweG1yc3Z2dWVuaXpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU4NTg5MzQsImV4cCI6MTk4MTQzNDkzNH0.KTxOKQLJQ9AAvXY2H3AdZGFz7JsIUmhlniqiPj-6nXM';\n  const supabaseClient = createClient(url, publicKey);\n\n  // pass client to state\n  this.set('supabase', supabaseClient);\n\n  const storedSession = localStorage.getItem('session');\n\n  if(storedSession){\n    this.set('isLoggedIn', true);\n    this.set('session', JSON.parse(storedSession));    \n    return;\n  }\n  \n  const { data, error } = await supabaseClient.auth.getSession();\n\n  if(data.session){\n    console.log(data.session);\n    this.set('isLoggedIn', true);\n    this.set('session', data.session);\n    localStorage.setItem('session',  JSON.stringify(data.session));\n\n    // set session for servver side\n    const maxAge = 100 * 365 * 24 * 60 * 60;\n    document.cookie = `access-token=${data.session.access_token}; path=/; max-age=${maxAge}; SameSite=Lax; secure`;\n    document.cookie = `refresh-token=${data.session.refresh_token}; path=/; max-age=${maxAge}; SameSite=Lax; secure`;\n    console.log(document.cookie);\n  }\n  \n}"
+          },
+          {
+            "id": "81a25176-525c-4457-ad8e-53631a20d24f",
+            "name": "onLogin",
+            "type": "CodeAction",
+            "code": "async function run() {\n  const supabase = this.get('supabase');\n  const { data, error } = await supabase.auth.signInWithOAuth({\n    provider: 'github',\n    options:{\n      redirectTo:'http://127.0.0.1:3000/apps/c79c8a5c-f5c1-4973-9d93-54db2fd0ead6/pages/a050b9de-7240-43c3-9e4e-220f9a63d711'\n    }\n  });\n}"
+          },
+          {
+            "id": "d7322a61-8845-4543-96f0-3d9aa1e1a1ff",
+            "name": "onLogout",
+            "type": "CodeAction",
+            "code": "async function run() {\n const supabase = this.get('supabase');\n const { error } = await supabase.auth.signOut();\n console.log(error);\n if(!error){\n   this.set('isLoggedIn',false);\n   this.set('session', null);\n   localStorage.removeItem('session');\n   // delete cookies used by server\n   const expires = new Date(0).toUTCString()\n   document.cookie = `access-token=; path=/; expires=${expires}; SameSite=Lax; secure`\n   document.cookie = `refresh-token=; path=/; expires=${expires}; SameSite=Lax; secure`\n\n }\n}"
+          },
+          {
+            "id": "c389ee76-9afb-45e7-ac07-461ce26901e2",
+            "name": "onGetTodosSuccess",
+            "type": "CodeAction",
+            "code": "function run() {\n  this.set('todos', this.get('getTodos').response.todoCollection.edges.map((x)=>x.node));\n}"
+          },
+          {
+            "id": "422c9109-d7b9-446b-8165-ed837dbbd3b6",
+            "name": "onTodoDeleteSuccess",
+            "type": "CodeAction",
+            "code": "async function run() {\n  await this.get('getTodos').run();\n  this.get('closeDeleteTodoModal').run();\n}"
+          },
+          {
+            "id": "f1dbc587-26db-4683-8953-df48bacd0cbe",
+            "name": "openCreateTodoModal",
+            "type": "CodeAction",
+            "code": "function run() {\n  this.set('showCreateTodoModal',true);\n}"
+          },
+          {
+            "id": "b7e529a1-7730-4ce8-9946-669abbdb17fd",
+            "name": "closeCreateTodoModal",
+            "type": "CodeAction",
+            "code": "function run() {\n  this.set('showCreateTodoModal',false);\n}"
+          },
+          {
+            "id": "07ccad58-d33e-49ee-bcff-31762c61b4bc",
+            "name": "onCreateTodoModalOk",
+            "type": "CodeAction",
+            "code": "function run() {\n  this.get('cr-todo-form').submit();\n}"
+          },
+          {
+            "id": "a17d82a4-15ca-4282-adf2-09930a19192d",
+            "name": "onCreateTodoFormFinish",
+            "type": "CodeAction",
+            "code": "async function run(values) {\n  await this.get('createTodo').run({\n    variables:{ input: values }\n  });\n  \n  await this.get('getTodos').run();\n\n  this.get('closeCreateTodoModal').run();\n}"
+          },
+          {
+            "id": "2f41f65e-1a52-4410-bbe3-796ebd7344e9",
+            "name": "openDeleteTodoModal",
+            "type": "CodeAction",
+            "code": "function run(event) {\n  this.set('deletedTodoId', event.currentTarget.getAttribute('deleteId'));\n  this.set('showDeleteTodoModal', true);  \n}"
+          },
+          {
+            "id": "47b03621-bbbe-4d34-84fa-281b7be16507",
+            "name": "closeDeleteTodoModal",
+            "type": "CodeAction",
+            "code": "function run() {\n  this.set('deletedTodoId',null);\n  this.set('showDeleteTodoModal',false);\n}"
+          },
+          {
+            "id": "1154fd7b-879f-4f81-abbf-f9b6d303b938",
+            "name": "onUpdateTodoModalOk",
+            "type": "CodeAction",
+            "code": "function run() {\n  this.get('update-todo-form').submit();\n}"
+          },
+          {
+            "id": "6866a2ef-0d2d-447a-bbb5-63e58f8d98d7",
+            "name": "closeUpdateTodoModal",
+            "type": "CodeAction",
+            "code": "function run() {\n  this.set('updatedTodoId',null);\n  this.set('showUpdateTodoModal',false);\n}"
+          },
+          {
+            "id": "fdca5970-e926-4d3d-afeb-4a3f04f18731",
+            "name": "onUpdateTodoFormFinish",
+            "type": "CodeAction",
+            "code": "async function run(values) {\n  console.log(values);\n  await this.get('updateTodo').run({\n    variables:{ \n      input: {...values},\n      filter: {\n        id : {\n          eq: this.get('updatedTodoId')\n        }\n      }\n    }\n  });\n  \n  await this.get('getTodos').run();\n\n  this.get('closeUpdateTodoModal').run();\n}"
+          },
+          {
+            "id": "e53b54db-0db6-4b6f-a794-6cb19125c497",
+            "name": "openUpdateTodoModal",
+            "type": "CodeAction",
+            "code": "function run(event) {\n  this.set('updatedTodoId', event.currentTarget.getAttribute('updateId'));\n  this.set('showUpdateTodoModal', true);  \n}"
+          },
+          {
+            "id": "5a2d9631-0952-4a27-9356-345c09f23fb1",
+            "name": "getTodos",
+            "type": "ApiAction",
+            "successAction": {
+              "id": "c389ee76-9afb-45e7-ac07-461ce26901e2"
+            },
+            "errorAction": null,
+            "resource": {
+              "id": "c1fc41b0-bb31-4a88-923a-0b6248b86456"
+            },
+            "config": {
+              "data": "{\"body\":\"{}\",\"method\":\"GET\",\"query\":\"{ \\n  todoCollection { \\n    edges { \\n      node { \\n        id\\n        title\\n        description\\n        done\\n      } \\n    } \\n  } \\n}\",\"headers\":\"{\\n  \\\"Authorization\\\":\\\"Bearer {{this.session.access_token}}\\\"\\n}\",\"variables\":\"{}\",\"queryParams\":\"{}\",\"urlSegment\":\"\"}",
+              "id": "9df42c71-6748-4b7f-9bc5-4dc6ea436af9"
+            }
+          },
+          {
+            "id": "31305558-a747-4b83-8767-ed487ff7a957",
+            "name": "createTodo",
+            "type": "ApiAction",
+            "successAction": null,
+            "errorAction": null,
+            "resource": {
+              "id": "c1fc41b0-bb31-4a88-923a-0b6248b86456"
+            },
+            "config": {
+              "data": "{\"body\":\"{}\",\"method\":\"GET\",\"query\":\"mutation createTodoMutation($input: TodoInsertInput!) {\\n    insertIntoTodoCollection(objects: [$input]) {\\n      affectedCount\\n      records {\\n        id\\n      }\\n   }\\n}\",\"headers\":\"{\\n  \\\"Authorization\\\":\\\"Bearer {{this.session.access_token}}\\\"\\n}\",\"variables\":\"{\\n  \\\"input\\\":{\\n      \\\"user_id\\\":\\\"{{this.session.user.id}}\\\"\\n  }\\n}\",\"queryParams\":\"{}\",\"urlSegment\":\"\"}",
+              "id": "9e32f42c-ad86-483d-8599-efcd55be2550"
+            }
+          },
+          {
+            "id": "5102aa22-c594-4ad9-93fc-84bfec1e6dee",
+            "name": "deleteTodo",
+            "type": "ApiAction",
+            "successAction": {
+              "id": "422c9109-d7b9-446b-8165-ed837dbbd3b6"
+            },
+            "errorAction": null,
+            "resource": {
+              "id": "c1fc41b0-bb31-4a88-923a-0b6248b86456"
+            },
+            "config": {
+              "data": "{\"body\":\"{}\",\"method\":\"GET\",\"query\":\"mutation deleteTodoMutation($filter: TodoFilter!) {\\n  deleteFromTodoCollection(atMost: 1,filter: $filter) {\\n    affectedCount\\n  }\\n}\",\"headers\":\"{\\n  \\\"Authorization\\\":\\\"Bearer {{this.session.access_token}}\\\"\\n}\",\"variables\":\"{\\n  \\\"filter\\\":{\\n      \\\"id\\\" : {\\n        \\\"eq\\\" : {{this.deletedTodoId}}\\n      }\\n  }\\n}\",\"queryParams\":\"{}\",\"urlSegment\":\"\"}",
+              "id": "8d40003e-c912-4636-8e1b-84fe338d5c47"
+            }
+          },
+          {
+            "id": "e4febae2-2c43-404b-8ac2-867f3f94d56e",
+            "name": "updateTodo",
+            "type": "ApiAction",
+            "successAction": null,
+            "errorAction": null,
+            "resource": {
+              "id": "c1fc41b0-bb31-4a88-923a-0b6248b86456"
+            },
+            "config": {
+              "data": "{\"body\":\"{}\",\"method\":\"GET\",\"query\":\"mutation updateTodoMutation($input: TodoUpdatetInput!, $filter:TodoFilter!) {\\n    updateTodoCollection(set: $input, filter:$filter) {\\n      affectedCount\\n      records {\\n        id\\n      }\\n   }\\n}\",\"headers\":\"{\\n  \\\"Authorization\\\":\\\"Bearer {{this.session.access_token}}\\\"\\n}\",\"variables\":\"{}\",\"queryParams\":\"{}\",\"urlSegment\":\"\"}",
+              "id": "414aaa25-41aa-45b5-b265-eb0dc3bb3c61"
+            }
+          }
+        ]
+      },
+      "domains": [],
+      "pages": [
+        {
+          "id": "a050b9de-7240-43c3-9e4e-220f9a63d711",
+          "name": "Home",
+          "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-home",
+          "rootElement": {
+            "id": "04ab7c6c-9396-4cf7-844a-162a89ce6d13",
+            "name": "Body"
+          },
+          "elements": [
+            {
+              "id": "04ab7c6c-9396-4cf7-844a-162a89ce6d13",
+              "name": "Body",
+              "customCss": "",
+              "guiCss": "{\"paddingTop\":\"-7px\"}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-body",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": {
+                "id": "b2bea4be-2169-4b6f-bc79-fc07b079fd4b"
+              },
+              "props": null,
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "fd4611e0-c3a4-4040-9309-ac03f8da8ecc",
+              "name": "TitleFormItem",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-title-form-item",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                "name": "AntDesignFormItem",
+                "type": "AntDesignFormItem",
+                "api": {
+                  "id": "b2342967-43b5-464a-87e2-45aaf1fef33e",
+                  "name": "AntDesignFormItem API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "f9915329-5ab4-41f6-986e-e6b49fb8ef69",
+                    "name": "Form.Item"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
+                    "name": "AntDesignRadioGroup",
+                    "type": "AntDesignRadioGroup"
+                  },
+                  {
+                    "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                    "name": "AntDesignButton",
+                    "type": "AntDesignButton"
+                  },
+                  {
+                    "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                    "name": "AntDesignInput",
+                    "type": "AntDesignInput"
+                  },
+                  {
+                    "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                    "name": "AntDesignCheckbox",
+                    "type": "AntDesignCheckbox"
+                  }
+                ]
+              },
+              "parent": {
+                "id": "6d1667e0-4406-4f03-a026-66b3972d3396"
+              },
+              "prevSibling": null,
+              "nextSibling": {
+                "id": "eafc049f-bec0-40fb-ad4e-2b32d28832a9"
+              },
+              "firstChild": {
+                "id": "6e8a31c3-15f1-4e6a-84f1-457263e783f3"
+              },
+              "props": {
+                "id": "4a55a2e3-3062-456c-b119-2efae48d08f1",
+                "data": "{\n  \"label\":\"Title\",\n  \"name\":\"title\",\n  \"required\":true\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "e46d33d4-328d-4527-bdb2-37b8c6720e53",
+              "name": "DoneFormItem",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-done-form-item",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                "name": "AntDesignFormItem",
+                "type": "AntDesignFormItem",
+                "api": {
+                  "id": "b2342967-43b5-464a-87e2-45aaf1fef33e",
+                  "name": "AntDesignFormItem API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "f9915329-5ab4-41f6-986e-e6b49fb8ef69",
+                    "name": "Form.Item"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
+                    "name": "AntDesignRadioGroup",
+                    "type": "AntDesignRadioGroup"
+                  },
+                  {
+                    "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                    "name": "AntDesignButton",
+                    "type": "AntDesignButton"
+                  },
+                  {
+                    "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                    "name": "AntDesignInput",
+                    "type": "AntDesignInput"
+                  },
+                  {
+                    "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                    "name": "AntDesignCheckbox",
+                    "type": "AntDesignCheckbox"
+                  }
+                ]
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "682b24f7-378d-4495-b6ec-1755147fb69d"
+              },
+              "nextSibling": null,
+              "firstChild": {
+                "id": "cd395344-2dea-4a17-bfab-026074ecbe8b"
+              },
+              "props": {
+                "id": "1e812e54-4937-471c-acf7-e4b0c16b88b5",
+                "data": "{\n    \"valuePropName\": \"checked\",\n    \"label\": \"Done\",\n    \"name\": \"done\"\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "b292d800-8e5a-4637-8e28-8215dc5dfbd3",
+              "name": "RefreshButton",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-refresh-button",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                "name": "AntDesignButton",
+                "type": "AntDesignButton",
+                "api": {
+                  "id": "4ed58306-d2b0-4c79-ab41-3b1ac30c0481",
+                  "name": "AntDesignButton API"
+                },
+                "icon": "Button",
+                "tags": [
+                  {
+                    "id": "c3fa94d1-88cb-48c7-965d-46a9b30964d2",
+                    "name": "Button"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "34e1510f-fb83-4da9-84a7-f72d506fab7c"
+              },
+              "prevSibling": null,
+              "nextSibling": {
+                "id": "216e2527-fa8f-428c-9ef2-994d351125fd"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "2cfa1589-7bc6-4db0-a13b-90deef400ba1",
+                "data": "{\n    \"customText\": \"<p>Refresh</p>\",\n    \"onClick\": {\n        \"value\": \"5a2d9631-0952-4a27-9356-345c09f23fb1\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    }\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "f96e7bec-6824-4546-98eb-6033c8d978f2",
+              "name": "Login Title",
+              "customCss": "",
+              "guiCss": "{\"marginBottom\":\"20px\",\"marginTop\":\"40px\"}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-a050b9de-7240-43c3-9e4e-220f9a63d711-login-title",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "df95ca6c-f377-410f-8d76-9d183e6ad4d7",
+                "name": "Text",
+                "type": "Text",
+                "api": {
+                  "id": "623e4bbd-2c18-4f52-ac25-0a7731788988",
+                  "name": "Text API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "2a7d39cf-b8f6-41c3-9252-9f1d1ba3086a"
+              },
+              "prevSibling": null,
+              "nextSibling": {
+                "id": "4d647285-3575-4c6a-8c1a-b9c80b72eb77"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "6a463c06-35ce-4d6a-abf0-74844e05271a",
+                "data": "{\"customText\":\"<h1 class=\\\"ql-align-center\\\"><span style=\\\"color: rgb(136, 136, 136);\\\" class=\\\"ql-font-serif\\\">Todo App</span></h1>\"}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "097144a7-96c3-4aff-a8f2-90c2159030d5",
+              "name": "DoneFormItem",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-done-form-item",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                "name": "AntDesignFormItem",
+                "type": "AntDesignFormItem",
+                "api": {
+                  "id": "b2342967-43b5-464a-87e2-45aaf1fef33e",
+                  "name": "AntDesignFormItem API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "f9915329-5ab4-41f6-986e-e6b49fb8ef69",
+                    "name": "Form.Item"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
+                    "name": "AntDesignRadioGroup",
+                    "type": "AntDesignRadioGroup"
+                  },
+                  {
+                    "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                    "name": "AntDesignButton",
+                    "type": "AntDesignButton"
+                  },
+                  {
+                    "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                    "name": "AntDesignInput",
+                    "type": "AntDesignInput"
+                  },
+                  {
+                    "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                    "name": "AntDesignCheckbox",
+                    "type": "AntDesignCheckbox"
+                  }
+                ]
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "eafc049f-bec0-40fb-ad4e-2b32d28832a9"
+              },
+              "nextSibling": null,
+              "firstChild": {
+                "id": "75546327-b728-43e9-bb02-0314f182a52f"
+              },
+              "props": {
+                "id": "085973be-6c52-40a4-986d-fed4e8f097fa",
+                "data": "{\n    \"valuePropName\": \"checked\",\n    \"label\": \"Done\",\n  \"name\":\"done\"\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "24de08d6-cea8-4e95-95f2-be76b4f3dda8",
+              "name": "DescriptionInput",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-description-input",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                "name": "AntDesignInput",
+                "type": "AntDesignInput",
+                "api": {
+                  "id": "10f52d2f-07de-466f-88b8-46dfa8a4242a",
+                  "name": "AntDesignInput API"
+                },
+                "icon": "Input",
+                "tags": [
+                  {
+                    "id": "0eb28533-a6a2-4cd7-b452-2dfce26d8e24",
+                    "name": "Input"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "682b24f7-378d-4495-b6ec-1755147fb69d"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "f11dfec3-785c-45f3-a79c-1f6582ccecda",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "6d1667e0-4406-4f03-a026-66b3972d3396",
+              "name": "CreateTodoForm",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-todo-form",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "946f15ae-7306-4bb7-bb84-cbc069925376",
+                "name": "AntDesignForm",
+                "type": "AntDesignForm",
+                "api": {
+                  "id": "05b778d9-51af-456c-a558-cba680225d16",
+                  "name": "AntDesignForm API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "3bf3bc1f-4af2-499d-971d-b8465fd9fd67",
+                    "name": "Form"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                    "name": "AntDesignFormItem",
+                    "type": "AntDesignFormItem"
+                  }
+                ]
+              },
+              "parent": {
+                "id": "8009f008-489e-494a-8b47-722016733192"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": {
+                "id": "fd4611e0-c3a4-4040-9309-ac03f8da8ecc"
+              },
+              "props": {
+                "id": "4b076081-8127-4dc6-87d0-536606255d0c",
+                "data": "{\n    \"onFinish\": {\n        \"value\": \"a17d82a4-15ca-4282-adf2-09930a19192d\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"preserve\": false,\n    \"labelWrap\": false,\n    \"disabled\": false,\n    \"colon\": false\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "6554f5cc-82f3-4d51-96fc-fac31bf6500b",
+              "name": "TitleFormItem",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-title-form-item",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                "name": "AntDesignFormItem",
+                "type": "AntDesignFormItem",
+                "api": {
+                  "id": "b2342967-43b5-464a-87e2-45aaf1fef33e",
+                  "name": "AntDesignFormItem API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "f9915329-5ab4-41f6-986e-e6b49fb8ef69",
+                    "name": "Form.Item"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
+                    "name": "AntDesignRadioGroup",
+                    "type": "AntDesignRadioGroup"
+                  },
+                  {
+                    "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                    "name": "AntDesignButton",
+                    "type": "AntDesignButton"
+                  },
+                  {
+                    "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                    "name": "AntDesignInput",
+                    "type": "AntDesignInput"
+                  },
+                  {
+                    "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                    "name": "AntDesignCheckbox",
+                    "type": "AntDesignCheckbox"
+                  }
+                ]
+              },
+              "parent": {
+                "id": "3843bd67-aa73-4c8d-9708-d2386ad5ae07"
+              },
+              "prevSibling": null,
+              "nextSibling": {
+                "id": "682b24f7-378d-4495-b6ec-1755147fb69d"
+              },
+              "firstChild": {
+                "id": "dbce6dc0-548c-48a4-9600-b360f5b4c621"
+              },
+              "props": {
+                "id": "96c82da9-3dfd-4d31-8f08-69e8ccb50290",
+                "data": "{\n    \"label\": \"Title\",\n    \"name\": \"title\",\n    \"required\": true\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "cd395344-2dea-4a17-bfab-026074ecbe8b",
+              "name": "DoneCheckbox",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-done-checkbox",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                "name": "AntDesignCheckbox",
+                "type": "AntDesignCheckbox",
+                "api": {
+                  "id": "70fe552a-63b0-4a38-ae00-53fc11f13a95",
+                  "name": "AntDesignCheckbox API"
+                },
+                "icon": "Checkbox",
+                "tags": [
+                  {
+                    "id": "a3f88ed3-23ab-4e85-ac6b-391f1bf68e78",
+                    "name": "Checkbox"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "e46d33d4-328d-4527-bdb2-37b8c6720e53"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "d8047126-517c-4aa8-8ba0-8a7dbbbdd065",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "6e8a31c3-15f1-4e6a-84f1-457263e783f3",
+              "name": "TitleInput",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-title-input",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                "name": "AntDesignInput",
+                "type": "AntDesignInput",
+                "api": {
+                  "id": "10f52d2f-07de-466f-88b8-46dfa8a4242a",
+                  "name": "AntDesignInput API"
+                },
+                "icon": "Input",
+                "tags": [
+                  {
+                    "id": "0eb28533-a6a2-4cd7-b452-2dfce26d8e24",
+                    "name": "Input"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "fd4611e0-c3a4-4040-9309-ac03f8da8ecc"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "a2c46b51-4d12-4e7d-814e-0f06b1122879",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "eafc049f-bec0-40fb-ad4e-2b32d28832a9",
+              "name": "DescriptionFormItem",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-description-form-item",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                "name": "AntDesignFormItem",
+                "type": "AntDesignFormItem",
+                "api": {
+                  "id": "b2342967-43b5-464a-87e2-45aaf1fef33e",
+                  "name": "AntDesignFormItem API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "f9915329-5ab4-41f6-986e-e6b49fb8ef69",
+                    "name": "Form.Item"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
+                    "name": "AntDesignRadioGroup",
+                    "type": "AntDesignRadioGroup"
+                  },
+                  {
+                    "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                    "name": "AntDesignButton",
+                    "type": "AntDesignButton"
+                  },
+                  {
+                    "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                    "name": "AntDesignInput",
+                    "type": "AntDesignInput"
+                  },
+                  {
+                    "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                    "name": "AntDesignCheckbox",
+                    "type": "AntDesignCheckbox"
+                  }
+                ]
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "fd4611e0-c3a4-4040-9309-ac03f8da8ecc"
+              },
+              "nextSibling": {
+                "id": "097144a7-96c3-4aff-a8f2-90c2159030d5"
+              },
+              "firstChild": {
+                "id": "7f2a301a-bccb-4b0d-9951-cdf7796f8684"
+              },
+              "props": {
+                "id": "44a2e0ed-0c7d-43f8-95d0-c453269fae69",
+                "data": "{\n    \"label\": \"Description\",\n    \"name\": \"description\",\n    \"required\": true\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "4d647285-3575-4c6a-8c1a-b9c80b72eb77",
+              "name": "Login",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-login-button",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                "name": "AntDesignButton",
+                "type": "AntDesignButton",
+                "api": {
+                  "id": "4ed58306-d2b0-4c79-ab41-3b1ac30c0481",
+                  "name": "AntDesignButton API"
+                },
+                "icon": "Button",
+                "tags": [
+                  {
+                    "id": "c3fa94d1-88cb-48c7-965d-46a9b30964d2",
+                    "name": "Button"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "f96e7bec-6824-4546-98eb-6033c8d978f2"
+              },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "2aaa5eec-c13a-43c1-91c1-05d26db6619b",
+                "data": "{\"onClick\":{\"type\":\"33b3b155-f357-48f9-adf6-581121c3ae02\",\"value\":\"81a25176-525c-4457-ad8e-53631a20d24f\"},\"ghost\":false,\"disabled\":false,\"danger\":false,\"block\":false,\"size\":\"large\",\"customText\":\"<p><strong>Login</strong></p>\",\"type\":\"primary\"}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": "",
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "b2bea4be-2169-4b6f-bc79-fc07b079fd4b",
+              "name": "SSR  Protected Page",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-protected-link",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                "name": "AntDesignButton",
+                "type": "AntDesignButton",
+                "api": {
+                  "id": "4ed58306-d2b0-4c79-ab41-3b1ac30c0481",
+                  "name": "AntDesignButton API"
+                },
+                "icon": "Button",
+                "tags": [
+                  {
+                    "id": "c3fa94d1-88cb-48c7-965d-46a9b30964d2",
+                    "name": "Button"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "04ab7c6c-9396-4cf7-844a-162a89ce6d13"
+              },
+              "prevSibling": null,
+              "nextSibling": {
+                "id": "49258380-dadb-4b1b-8aec-06cb429f67c3"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "a2c31728-d24d-4ce3-a1bc-3a5abe192c06",
+                "data": "{\"customText\":\"<p><strong>SSR&nbsp;Protected Page</strong></p>\",\"ghost\":false,\"href\":\"/apps/c79c8a5c-f5c1-4973-9d93-54db2fd0ead6/pages/d15fce86-f784-46fc-961b-9b93762c61fb\",\"disabled\":false,\"danger\":false,\"block\":false}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "3b6197e6-577d-4e98-b086-1e6922c25c1c",
+              "name": "Toolbar-space",
+              "customCss": "flex: 1 1 auto;",
+              "guiCss": "{\"flexGrow\":\"1\"}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-toolbar-space",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "216e2527-fa8f-428c-9ef2-994d351125fd"
+              },
+              "nextSibling": {
+                "id": "7bebb920-4b91-4691-8d37-84bf59c9fb4b"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "ac8a26c8-f4bd-4f19-924c-00b89a56650c",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "75546327-b728-43e9-bb02-0314f182a52f",
+              "name": "DoneCheckbox",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-done-checkbox",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                "name": "AntDesignCheckbox",
+                "type": "AntDesignCheckbox",
+                "api": {
+                  "id": "70fe552a-63b0-4a38-ae00-53fc11f13a95",
+                  "name": "AntDesignCheckbox API"
+                },
+                "icon": "Checkbox",
+                "tags": [
+                  {
+                    "id": "a3f88ed3-23ab-4e85-ac6b-391f1bf68e78",
+                    "name": "Checkbox"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "097144a7-96c3-4aff-a8f2-90c2159030d5"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "c1a2e954-35d1-4a07-9e79-78f04e45131b",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "dbce6dc0-548c-48a4-9600-b360f5b4c621",
+              "name": "TitleInput",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-title-input",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                "name": "AntDesignInput",
+                "type": "AntDesignInput",
+                "api": {
+                  "id": "10f52d2f-07de-466f-88b8-46dfa8a4242a",
+                  "name": "AntDesignInput API"
+                },
+                "icon": "Input",
+                "tags": [
+                  {
+                    "id": "0eb28533-a6a2-4cd7-b452-2dfce26d8e24",
+                    "name": "Input"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "6554f5cc-82f3-4d51-96fc-fac31bf6500b"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "6cbac28b-ea5f-4332-b2e6-f8d0df1400ab",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "6392d055-73cc-4512-856e-bb31254b472c",
+              "name": "TodosTable",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-todos-table",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "39b77c87-ccc8-41b3-a24a-5da0b6b0dd6c",
+                "name": "AntDesignTable",
+                "type": "AntDesignTable",
+                "api": {
+                  "id": "98d4c619-866c-4cc1-833f-14a4f8050d0e",
+                  "name": "AntDesignTable API"
+                },
+                "icon": "Table",
+                "tags": [
+                  {
+                    "id": "a786abe3-4068-43dd-9a39-0d013fe22c42",
+                    "name": "Table"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "34e1510f-fb83-4da9-84a7-f72d506fab7c"
+              },
+              "nextSibling": {
+                "id": "8009f008-489e-494a-8b47-722016733192"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "4a320019-8bb3-41d9-b19f-3979c840601c",
+                "data": "{\n    \"dataSource\": \"{{this.todos}}\",\n    \"columns\": [\n        {\n            \"dataIndex\": \"title\",\n            \"key\": \"title\",\n            \"title\": \"Title\"\n        },\n        {\n            \"dataIndex\": \"description\",\n            \"key\": \"description\",\n            \"title\": \"Description\"\n        },\n        {\n            \"key\": \"done\",\n            \"title\": \"Done\",\n            \"render\": {\n                \"type\": \"47965d30-6d41-427e-8aef-8951d26789ec\",\n                \"value\": \"b78f0f87-7ceb-4800-8fec-b433d6fae8f3\"\n            }\n        },\n        {\n            \"key\": \"action\",\n            \"title\": \"Action\",\n            \"render\": {\n                \"type\": \"47965d30-6d41-427e-8aef-8951d26789ec\",\n                \"value\": \"2dd7a43d-2112-4add-bc1b-535e9cfe98c5\"\n            }\n        }\n    ],\n    \"showHeader\": true,\n    \"bordered\": true\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": "5a2d9631-0952-4a27-9356-345c09f23fb1"
+            },
+            {
+              "id": "216e2527-fa8f-428c-9ef2-994d351125fd",
+              "name": "NewButton",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-new-button",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                "name": "AntDesignButton",
+                "type": "AntDesignButton",
+                "api": {
+                  "id": "4ed58306-d2b0-4c79-ab41-3b1ac30c0481",
+                  "name": "AntDesignButton API"
+                },
+                "icon": "Button",
+                "tags": [
+                  {
+                    "id": "c3fa94d1-88cb-48c7-965d-46a9b30964d2",
+                    "name": "Button"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "b292d800-8e5a-4637-8e28-8215dc5dfbd3"
+              },
+              "nextSibling": {
+                "id": "3b6197e6-577d-4e98-b086-1e6922c25c1c"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "a6c073ca-f1bb-4b81-8b29-8b643c1c4307",
+                "data": "{\n    \"customText\": \"<p>New</p>\",\n    \"onClick\": {\n        \"value\": \"f1dbc587-26db-4683-8953-df48bacd0cbe\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    }\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "3843bd67-aa73-4c8d-9708-d2386ad5ae07",
+              "name": "UpdateTodoForm",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-update-todo-form",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "946f15ae-7306-4bb7-bb84-cbc069925376",
+                "name": "AntDesignForm",
+                "type": "AntDesignForm",
+                "api": {
+                  "id": "05b778d9-51af-456c-a558-cba680225d16",
+                  "name": "AntDesignForm API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "3bf3bc1f-4af2-499d-971d-b8465fd9fd67",
+                    "name": "Form"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                    "name": "AntDesignFormItem",
+                    "type": "AntDesignFormItem"
+                  }
+                ]
+              },
+              "parent": {
+                "id": "3cdad897-8bd5-4634-85ca-6aa2b6d6e966"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": {
+                "id": "6554f5cc-82f3-4d51-96fc-fac31bf6500b"
+              },
+              "props": {
+                "id": "b0eeab1d-68b3-4b5e-926b-862bd3c9e83d",
+                "data": "{\n    \"onFinish\": {\n        \"value\": \"fdca5970-e926-4d3d-afeb-4a3f04f18731\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"initialValues\": \"{{this.todos?.find((x)=>x.id===this.updatedTodoId)}}\"\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "7f2a301a-bccb-4b0d-9951-cdf7796f8684",
+              "name": "DescriptionInput",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-description-input",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                "name": "AntDesignInput",
+                "type": "AntDesignInput",
+                "api": {
+                  "id": "10f52d2f-07de-466f-88b8-46dfa8a4242a",
+                  "name": "AntDesignInput API"
+                },
+                "icon": "Input",
+                "tags": [
+                  {
+                    "id": "0eb28533-a6a2-4cd7-b452-2dfce26d8e24",
+                    "name": "Input"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "eafc049f-bec0-40fb-ad4e-2b32d28832a9"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "f5cc3a07-3752-4c0a-98ab-2a66a4d9b7d6",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "682b24f7-378d-4495-b6ec-1755147fb69d",
+              "name": "DescriptionFormItem",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-description-form-item",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
+                "name": "AntDesignFormItem",
+                "type": "AntDesignFormItem",
+                "api": {
+                  "id": "b2342967-43b5-464a-87e2-45aaf1fef33e",
+                  "name": "AntDesignFormItem API"
+                },
+                "icon": "Form",
+                "tags": [
+                  {
+                    "id": "f9915329-5ab4-41f6-986e-e6b49fb8ef69",
+                    "name": "Form.Item"
+                  }
+                ],
+                "allowedChildren": [
+                  {
+                    "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
+                    "name": "AntDesignRadioGroup",
+                    "type": "AntDesignRadioGroup"
+                  },
+                  {
+                    "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                    "name": "AntDesignButton",
+                    "type": "AntDesignButton"
+                  },
+                  {
+                    "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
+                    "name": "AntDesignInput",
+                    "type": "AntDesignInput"
+                  },
+                  {
+                    "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                    "name": "AntDesignCheckbox",
+                    "type": "AntDesignCheckbox"
+                  }
+                ]
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "6554f5cc-82f3-4d51-96fc-fac31bf6500b"
+              },
+              "nextSibling": {
+                "id": "e46d33d4-328d-4527-bdb2-37b8c6720e53"
+              },
+              "firstChild": {
+                "id": "24de08d6-cea8-4e95-95f2-be76b4f3dda8"
+              },
+              "props": {
+                "id": "c9ae3741-ed85-4f0b-a49e-f4ecdb4a8f99",
+                "data": "{\n    \"label\": \"Description\",\n    \"name\": \"description\",\n    \"required\": true\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "a6d3d941-f790-442c-a0a4-4a404440d8db",
+              "name": "Text Container",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-text-container",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "4aa6bbfd-5a67-46af-b6d4-90dae3ba8f5b"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "552fb7b2-3571-4d0b-a26e-ccc48f355d8c",
+                "data": "{\n    \"customText\": \"<p>Are you sure you want to delete todo with id {{this.deletedTodoId}}</p>\"\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "49258380-dadb-4b1b-8aec-06cb429f67c3",
+              "name": "Supabase Script",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-a050b9de-7240-43c3-9e4e-220f9a63d711-supabase-script",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "95ed4eee-0d3c-4c61-8fb2-61b3d64a310e",
+                "name": "Script",
+                "type": "Script",
+                "api": {
+                  "id": "82bcf8ec-78d0-48af-8c62-868c60a25757",
+                  "name": "Script API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "b2bea4be-2169-4b6f-bc79-fc07b079fd4b"
+              },
+              "nextSibling": {
+                "id": "2a7d39cf-b8f6-41c3-9252-9f1d1ba3086a"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "64853536-31de-4716-9dbd-a49bf0119908",
+                "data": "{\"src\":\"https://cdn.jsdelivr.net/npm/@supabase/supabase-js\",\"onLoad\":{\"value\":\"a150b08b-1ae4-47f8-aa8a-fff597a3ff77\",\"type\":\"33b3b155-f357-48f9-adf6-581121c3ae02\"}}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "7bebb920-4b91-4691-8d37-84bf59c9fb4b",
+              "name": "Logout",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-logout-button",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                "name": "AntDesignButton",
+                "type": "AntDesignButton",
+                "api": {
+                  "id": "4ed58306-d2b0-4c79-ab41-3b1ac30c0481",
+                  "name": "AntDesignButton API"
+                },
+                "icon": "Button",
+                "tags": [
+                  {
+                    "id": "c3fa94d1-88cb-48c7-965d-46a9b30964d2",
+                    "name": "Button"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "3b6197e6-577d-4e98-b086-1e6922c25c1c"
+              },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "8fa2e26e-c184-4df1-a3f8-bba837931764",
+                "data": "{\"onClick\":{\"type\":\"33b3b155-f357-48f9-adf6-581121c3ae02\",\"value\":\"d7322a61-8845-4543-96f0-3d9aa1e1a1ff\"},\"ghost\":false,\"disabled\":false,\"danger\":false,\"block\":false,\"size\":\"middle\",\"customText\":\"<p>Logout</p>\"}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": "{{this.isLoggedIn}}",
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "d881bd3c-9e4d-4d4d-9f22-20022e67a49b",
+              "name": "Protected Content",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-protected-content",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "2a7d39cf-b8f6-41c3-9252-9f1d1ba3086a"
+              },
+              "nextSibling": null,
+              "firstChild": {
+                "id": "34e1510f-fb83-4da9-84a7-f72d506fab7c"
+              },
+              "props": {
+                "id": "3bbc3ab0-698c-474b-9957-6369ed9d3699",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": "{{this.isLoggedIn}}",
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "8009f008-489e-494a-8b47-722016733192",
+              "name": "CreateTodoModal",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-create-todo-modal",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "f27e79ed-488c-4071-a12a-474a9861d0ff",
+                "name": "AntDesignModal",
+                "type": "AntDesignModal",
+                "api": {
+                  "id": "8777e172-1c3e-47ea-86c5-096bcbaa6d45",
+                  "name": "AntDesignModal API"
+                },
+                "icon": "Modal",
+                "tags": [
+                  {
+                    "id": "f3de5d6f-4e58-49ba-8105-8d8c382fd598",
+                    "name": "Modal"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "6392d055-73cc-4512-856e-bb31254b472c"
+              },
+              "nextSibling": {
+                "id": "4aa6bbfd-5a67-46af-b6d4-90dae3ba8f5b"
+              },
+              "firstChild": {
+                "id": "6d1667e0-4406-4f03-a026-66b3972d3396"
+              },
+              "props": {
+                "id": "eb02ffae-5ab8-4b03-8f96-ce123b444ae2",
+                "data": "{\n    \"visible\": \"{{this.showCreateTodoModal}}\",\n    \"title\": \"Create Todo\",\n    \"okType\": \"primary\",\n    \"okText\": \"Create\",\n    \"closable\": true,\n    \"centered\": true,\n    \"onCancel\": {\n        \"value\": \"b7e529a1-7730-4ce8-9946-669abbdb17fd\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"onOk\": {\n        \"value\": \"07ccad58-d33e-49ee-bcff-31762c61b4bc\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"destroyOnClose\": true\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "4aa6bbfd-5a67-46af-b6d4-90dae3ba8f5b",
+              "name": "DeleteTodoModal",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-delete-todo-modal",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "f27e79ed-488c-4071-a12a-474a9861d0ff",
+                "name": "AntDesignModal",
+                "type": "AntDesignModal",
+                "api": {
+                  "id": "8777e172-1c3e-47ea-86c5-096bcbaa6d45",
+                  "name": "AntDesignModal API"
+                },
+                "icon": "Modal",
+                "tags": [
+                  {
+                    "id": "f3de5d6f-4e58-49ba-8105-8d8c382fd598",
+                    "name": "Modal"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "8009f008-489e-494a-8b47-722016733192"
+              },
+              "nextSibling": {
+                "id": "3cdad897-8bd5-4634-85ca-6aa2b6d6e966"
+              },
+              "firstChild": {
+                "id": "a6d3d941-f790-442c-a0a4-4a404440d8db"
+              },
+              "props": {
+                "id": "5524138c-e494-41a1-8793-0755cdfc6d00",
+                "data": "{\n    \"visible\": \"{{this.showDeleteTodoModal}}\",\n    \"title\": \"Delete Todo\",\n    \"okType\": \"primary\",\n    \"okText\": \"Delete\",\n    \"closable\": true,\n    \"centered\": true,\n    \"onCancel\": {\n        \"value\": \"47b03621-bbbe-4d34-84fa-281b7be16507\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"onOk\": {\n        \"value\": \"5102aa22-c594-4ad9-93fc-84bfec1e6dee\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"destroyOnClose\": false\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "2a7d39cf-b8f6-41c3-9252-9f1d1ba3086a",
+              "name": "Public Content",
+              "customCss": "display:block;\nmargin: 80px auto auto auto;\ntext-align:center;",
+              "guiCss": "{\"display\":\"block\",\"flexDirection\":\"row\",\"justifyContent\":\"center\",\"alignItems\":\"center\",\"height\":\"300px\",\"minHeight\":\"auto\",\"width\":\"300px\",\"background\":\"#ffffff\",\"paddingTop\":\"20px\",\"marginTop\":\"80px\",\"boxShadow\":\"2px 2px 2px 2px #deddda\"}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-public-container",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "49258380-dadb-4b1b-8aec-06cb429f67c3"
+              },
+              "nextSibling": {
+                "id": "d881bd3c-9e4d-4d4d-9f22-20022e67a49b"
+              },
+              "firstChild": {
+                "id": "f96e7bec-6824-4546-98eb-6033c8d978f2"
+              },
+              "props": {
+                "id": "34918364-015f-4434-b66f-b5cb2c7db445",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": "{{!this.isLoggedIn}}",
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "34e1510f-fb83-4da9-84a7-f72d506fab7c",
+              "name": "Toolbar",
+              "customCss": "",
+              "guiCss": "{\"display\":\"flex\",\"margin-top\":\"5px\",\"margin-right\":\"0px\",\"margin-bottom\":\"5px\",\"margin-left\":\"5px\",\"flexDirection\":\"row\",\"flexWrap\":\"nowrap\",\"alignItems\":\"center\"}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-toolbar",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "d881bd3c-9e4d-4d4d-9f22-20022e67a49b"
+              },
+              "prevSibling": null,
+              "nextSibling": {
+                "id": "6392d055-73cc-4512-856e-bb31254b472c"
+              },
+              "firstChild": {
+                "id": "b292d800-8e5a-4637-8e28-8215dc5dfbd3"
+              },
+              "props": {
+                "id": "ea4c64b9-47f3-4071-930d-d662bf7ecf05",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "3cdad897-8bd5-4634-85ca-6aa2b6d6e966",
+              "name": "UpdateTodoModal",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-update-todo-modal",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "f27e79ed-488c-4071-a12a-474a9861d0ff",
+                "name": "AntDesignModal",
+                "type": "AntDesignModal",
+                "api": {
+                  "id": "8777e172-1c3e-47ea-86c5-096bcbaa6d45",
+                  "name": "AntDesignModal API"
+                },
+                "icon": "Modal",
+                "tags": [
+                  {
+                    "id": "f3de5d6f-4e58-49ba-8105-8d8c382fd598",
+                    "name": "Modal"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "4aa6bbfd-5a67-46af-b6d4-90dae3ba8f5b"
+              },
+              "nextSibling": null,
+              "firstChild": {
+                "id": "3843bd67-aa73-4c8d-9708-d2386ad5ae07"
+              },
+              "props": {
+                "id": "d04c996e-5ac1-402c-a59c-b435e7c95877",
+                "data": "{\n    \"visible\": \"{{this.showUpdateTodoModal}}\",\n    \"title\": \"Update Todo\",\n    \"okType\": \"primary\",\n    \"okText\": \"Update\",\n    \"closable\": true,\n    \"centered\": true,\n    \"onCancel\": {\n        \"value\": \"6866a2ef-0d2d-447a-bbb5-63e58f8d98d7\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"onOk\": {\n        \"value\": \"1154fd7b-879f-4f81-abbf-f9b6d303b938\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"destroyOnClose\": true\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30",
+              "name": "ActionColumn",
+              "customCss": "",
+              "guiCss": "{\"display\":\"flex\"}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-action-column",
+              "parentComponent": {
+                "id": "2dd7a43d-2112-4add-bc1b-535e9cfe98c5",
+                "name": "ActionColumn",
+                "rootElement": {
+                  "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30",
+                  "name": "ActionColumn"
+                },
+                "owner": {
+                  "id": "12391654-ed13-4219-9aa5-3d39d7613f8b",
+                  "auth0Id": "google-oauth2|108970771486851254431"
+                },
+                "api": {
+                  "id": "d660e585-66ba-40b1-aca6-a95d6a7d382a",
+                  "name": "ActionColumn API"
+                }
+              },
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": {
+                "id": "8ed7649c-c7f4-40f7-b3e3-8d2bba264ccf"
+              },
+              "props": {
+                "id": "b9ef0396-9a06-4355-8a0b-bf5b738fd59e",
+                "data": "{}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [
+                {
+                  "id": "edf3b6a3-12bb-4940-a900-829a82e8bc13",
+                  "sourceKey": "id",
+                  "targetKey": "updateId",
+                  "element": {
+                    "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30",
+                    "name": "ActionColumn"
+                  },
+                  "targetElement": {
+                    "id": "97c096b8-e765-4a52-ab03-e4b954124365",
+                    "name": "EditButton"
+                  }
+                },
+                {
+                  "id": "7ec5e958-8567-442f-88aa-39f389609710",
+                  "sourceKey": "id",
+                  "targetKey": "deleteId",
+                  "element": {
+                    "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30",
+                    "name": "ActionColumn"
+                  },
+                  "targetElement": {
+                    "id": "8ed7649c-c7f4-40f7-b3e3-8d2bba264ccf",
+                    "name": "DeleteButton"
+                  }
+                }
+              ],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "8ed7649c-c7f4-40f7-b3e3-8d2bba264ccf",
+              "name": "DeleteButton",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-delete-button",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                "name": "AntDesignButton",
+                "type": "AntDesignButton",
+                "api": {
+                  "id": "4ed58306-d2b0-4c79-ab41-3b1ac30c0481",
+                  "name": "AntDesignButton API"
+                },
+                "icon": "Button",
+                "tags": [
+                  {
+                    "id": "c3fa94d1-88cb-48c7-965d-46a9b30964d2",
+                    "name": "Button"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30"
+              },
+              "prevSibling": null,
+              "nextSibling": {
+                "id": "97c096b8-e765-4a52-ab03-e4b954124365"
+              },
+              "firstChild": null,
+              "props": {
+                "id": "c64e377c-ad2e-44bc-bd61-19161256a1e4",
+                "data": "{\n    \"customText\": \"<p>Delete</p>\",\n    \"onClick\": {\n        \"value\": \"2f41f65e-1a52-4410-bbe3-796ebd7344e9\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"ghost\": false,\n    \"disabled\": false,\n    \"danger\": false,\n    \"block\": false\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "97c096b8-e765-4a52-ab03-e4b954124365",
+              "name": "EditButton",
+              "customCss": "",
+              "guiCss": "{}",
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-edit-button",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
+                "name": "AntDesignButton",
+                "type": "AntDesignButton",
+                "api": {
+                  "id": "4ed58306-d2b0-4c79-ab41-3b1ac30c0481",
+                  "name": "AntDesignButton API"
+                },
+                "icon": "Button",
+                "tags": [
+                  {
+                    "id": "c3fa94d1-88cb-48c7-965d-46a9b30964d2",
+                    "name": "Button"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": {
+                "id": "8ed7649c-c7f4-40f7-b3e3-8d2bba264ccf"
+              },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "fd2997a6-25a2-48eb-bfb6-cc1b68ee382c",
+                "data": "{\n    \"customText\": \"<p>Edit</p>\",\n    \"onClick\": {\n        \"value\": \"e53b54db-0db6-4b6f-a794-6cb19125c497\",\n        \"type\": \"33b3b155-f357-48f9-adf6-581121c3ae02\"\n    },\n    \"ghost\": false,\n    \"disabled\": false,\n    \"danger\": false,\n    \"block\": false\n}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "c8fbe71a-0de0-4d06-a155-4d602c96d8c8",
+              "name": "DoneColumn",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-done-column",
+              "parentComponent": {
+                "id": "b78f0f87-7ceb-4800-8fec-b433d6fae8f3",
+                "name": "DoneColumn",
+                "rootElement": {
+                  "id": "c8fbe71a-0de0-4d06-a155-4d602c96d8c8",
+                  "name": "DoneColumn"
+                },
+                "owner": {
+                  "id": "12391654-ed13-4219-9aa5-3d39d7613f8b",
+                  "auth0Id": "google-oauth2|108970771486851254431"
+                },
+                "api": {
+                  "id": "a5480dee-caa0-474c-a7a6-f69e0df872ab",
+                  "name": "DoneColumn API"
+                }
+              },
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
+                "name": "AntDesignCheckbox",
+                "type": "AntDesignCheckbox",
+                "api": {
+                  "id": "70fe552a-63b0-4a38-ae00-53fc11f13a95",
+                  "name": "AntDesignCheckbox API"
+                },
+                "icon": "Checkbox",
+                "tags": [
+                  {
+                    "id": "a3f88ed3-23ab-4e85-ac6b-391f1bf68e78",
+                    "name": "Checkbox"
+                  }
+                ],
+                "allowedChildren": []
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "a9450415-75aa-45c8-b2e7-23e6149b53d4",
+                "data": "{\"disabled\":true,\"defaultChecked\":false}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [
+                {
+                  "id": "9d0c59e8-3ea0-4322-a916-9c226d63188f",
+                  "sourceKey": "done",
+                  "targetKey": "defaultChecked",
+                  "element": {
+                    "id": "c8fbe71a-0de0-4d06-a155-4d602c96d8c8",
+                    "name": "DoneColumn"
+                  },
+                  "targetElement": null
+                }
+              ],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            }
+          ],
+          "components": [
+            {
+              "id": "2dd7a43d-2112-4add-bc1b-535e9cfe98c5",
+              "name": "ActionColumn",
+              "rootElement": {
+                "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30",
+                "name": "ActionColumn"
+              },
+              "owner": {
+                "id": "12391654-ed13-4219-9aa5-3d39d7613f8b",
+                "auth0Id": "google-oauth2|108970771486851254431"
+              },
+              "api": {
+                "id": "d660e585-66ba-40b1-aca6-a95d6a7d382a",
+                "name": "ActionColumn API"
+              }
+            },
+            {
+              "id": "b78f0f87-7ceb-4800-8fec-b433d6fae8f3",
+              "name": "DoneColumn",
+              "rootElement": {
+                "id": "c8fbe71a-0de0-4d06-a155-4d602c96d8c8",
+                "name": "DoneColumn"
+              },
+              "owner": {
+                "id": "12391654-ed13-4219-9aa5-3d39d7613f8b",
+                "auth0Id": "google-oauth2|108970771486851254431"
+              },
+              "api": {
+                "id": "a5480dee-caa0-474c-a7a6-f69e0df872ab",
+                "name": "DoneColumn API"
+              }
+            }
+          ]
+        },
+        {
+          "id": "b076ca30-1602-4d1f-8838-1b7adb39b136",
+          "name": "_app",
+          "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-_app",
+          "rootElement": {
+            "id": "dce9c6f4-8d9c-4520-b797-794905112acd",
+            "name": "Body"
+          },
+          "elements": [
+            {
+              "id": "dce9c6f4-8d9c-4520-b797-794905112acd",
+              "name": "Body",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "b076ca30-1602-4d1f-8838-1b7adb39b136-body",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": null,
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            }
+          ],
+          "components": []
+        },
+        {
+          "id": "d15fce86-f784-46fc-961b-9b93762c61fb",
+          "name": "Protected",
+          "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-protected",
+          "rootElement": {
+            "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2",
+            "name": "Body"
+          },
+          "elements": [
+            {
+              "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2",
+              "name": "Body",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "d15fce86-f784-46fc-961b-9b93762c61fb-body",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": {
+                "id": "aec6c64e-a34e-448b-a6ab-088dfcb77148"
+              },
+              "props": null,
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            },
+            {
+              "id": "aec6c64e-a34e-448b-a6ab-088dfcb77148",
+              "name": "text",
+              "customCss": null,
+              "guiCss": null,
+              "slug": "d15fce86-f784-46fc-961b-9b93762c61fb-text",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": {
+                "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
+                "name": "Html Div",
+                "type": "HtmlDiv",
+                "api": {
+                  "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
+                  "name": "Html Div API"
+                },
+                "icon": null,
+                "tags": [],
+                "allowedChildren": []
+              },
+              "parent": {
+                "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2"
+              },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "13408e7a-0926-4922-a535-b0a03326f54e",
+                "data": "{\"customText\":\"<h1 class=\\\"ql-align-center\\\"><strong>This content is protected with server side auth validation.</strong></h1>\"}"
+              },
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propMapBindings": [],
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            }
+          ],
+          "components": []
+        }
+      ]
+    }
+  ],
+  "types": [],
+  "resources": [
+    {
+      "id": "c1fc41b0-bb31-4a88-923a-0b6248b86456",
+      "type": "GraphQL",
+      "name": "supabase-api",
+      "config": {
+        "id": "d9d520a1-892b-4a8e-81f2-320ddc3092cf",
+        "data": "{\"url\":\"https://ipmecappxmrsvvuenizf.supabase.co/graphql/v1\",\"headers\":\"{\\n  \\\"apiKey\\\":\\\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwbWVjYXBweG1yc3Z2dWVuaXpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU4NTg5MzQsImV4cCI6MTk4MTQzNDkzNH0.KTxOKQLJQ9AAvXY2H3AdZGFz7JsIUmhlniqiPj-6nXM\\\"\\n}\"}"
+      }
+    }
+  ]
+}
