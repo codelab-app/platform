@@ -19,6 +19,7 @@ export const GetTypesTable = observer<{
   const {
     isLoadingAllTypes,
     getBaseTypes,
+    fetchedBaseTypes,
     isLoadingTypeDescendants,
     getTypeDescendants,
   } = useTypesTableData(typeService)
@@ -49,10 +50,17 @@ export const GetTypesTable = observer<{
     })
   }, [curPage, curPageSize, getBaseTypes])
 
+  const curPageDataStartIndex = typesList.findIndex(
+    (t) => t.id === fetchedBaseTypes?.[0]?.id,
+  )
+
   return (
     <Table<IAnyType>
       columns={columns}
-      dataSource={typesList}
+      dataSource={typesList.slice(
+        curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0,
+        (curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0) + curPageSize,
+      )}
       expandable={{
         onExpand: async (expanded, record) => {
           if (expanded) {

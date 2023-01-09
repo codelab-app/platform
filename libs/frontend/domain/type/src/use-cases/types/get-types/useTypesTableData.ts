@@ -13,12 +13,14 @@ export const useTypesTableData = (typeService: ITypeService) => {
     options: Parameters<typeof typeService.getBaseTypes>[0],
   ) => {
     const baseTypeIds = await typeService.getBaseTypes(options)
-    await typeService.getAll({ id_IN: baseTypeIds })
+
+    return await typeService.getAll({ id_IN: baseTypeIds })
   }
 
-  const [{ loading: isLoadingAllTypes }, getBaseTypes] = useAsyncFn(
-    setupCurrentPageTypes,
-  )
+  const [
+    { loading: isLoadingAllTypes, value: fetchedBaseTypes },
+    getBaseTypes,
+  ] = useAsyncFn(setupCurrentPageTypes)
 
   const [{ loading: isLoadingTypeDescendants }, getTypeDescendants] =
     useAsyncFn(async (id: string) => {
@@ -28,6 +30,7 @@ export const useTypesTableData = (typeService: ITypeService) => {
   return {
     isLoadingAllTypes,
     getBaseTypes,
+    fetchedBaseTypes,
     isLoadingTypeDescendants,
     getTypeDescendants,
   }

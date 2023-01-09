@@ -198,9 +198,16 @@ export class TypeService
     const ids = where?.id_IN ?? undefined
     const types = yield* _await(getAllTypes(ids))
 
-    return types.map((type) => {
-      return this.writeCache(type)
-    })
+    return (
+      types
+        .map((type) => {
+          return this.writeCache(type)
+        })
+        // Sort the most recently fetched types
+        .sort((typeA, typeB) =>
+          typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
+        )
+    )
   })
 
   getType(id: string) {
