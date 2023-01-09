@@ -1,7 +1,7 @@
 import type { IAtomService } from '@codelab/frontend/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useState } from 'react'
 import { useAsync } from 'react-use'
 import type { AtomLibrary, AtomRecord } from './columns'
 import { useAtomTable } from './useAtomTable'
@@ -13,29 +13,49 @@ interface GetAtomsTableProps {
 
 export const GetAtomsTable = observer<GetAtomsTableProps>(
   ({ atomService, getAtomLibrary }) => {
+    const { atomsList } = atomService
+
     const { columns, rowSelection, pagination, atomWhere, atomOptions } =
       useAtomTable(atomService)
 
-    const { loading } = useAsync(async () => {
-      await atomService.getAll(atomWhere, atomOptions)
+    const { value: latestFetchedAtoms, loading } = useAsync(async () => {
+      return await atomService.getAll(atomWhere, atomOptions)
     }, [atomWhere, atomOptions])
 
-    const atomsData: Array<AtomRecord> = atomService.atomsList.map((atom) => ({
-      id: atom.id,
-      type: atom.type,
-      apiId: atom.api.id,
-      name: atom.name,
-      tags: atom.tags.map((tag) => tag.current),
-      library: getAtomLibrary(atom.type),
-      allowedChildren: atom.allowedChildren,
-    }))
+    const [curPageSize, setCurPageSize] = useState(25)
+
+    const curPageDataStartIndex = atomsList.findIndex(
+      (t) => t.name === latestFetchedAtoms?.[0]?.name,
+    )
+
+    const atomsData: Array<AtomRecord> = atomsList
+      .slice(
+        curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0,
+        (curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0) + curPageSize,
+      )
+      .map((atom) => ({
+        id: atom.id,
+        type: atom.type,
+        apiId: atom.api.id,
+        name: atom.name,
+        tags: atom.tags.map((tag) => tag.current),
+        library: getAtomLibrary(atom.type),
+        allowedChildren: atom.allowedChildren,
+      }))
 
     return (
       <Table
         columns={columns}
         dataSource={atomsData}
         loading={loading}
-        pagination={pagination}
+        pagination={{
+          ...pagination,
+          pageSize: curPageSize,
+          onChange(page, pageSize) {
+            setCurPageSize(pageSize)
+            pagination.onChange?.(page, pageSize)
+          },
+        }}
         rowKey={(atom) => atom.id}
         rowSelection={rowSelection}
       />
