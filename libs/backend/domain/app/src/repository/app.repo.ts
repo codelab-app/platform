@@ -90,6 +90,7 @@ export const createApp = async (app: IAppExport, userId: string) => {
               name: page.name,
               slug: page.slug,
               rootElement: connectNodeId(page.rootElement.id),
+              kind: page.kind,
             },
           })),
         },
@@ -124,6 +125,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
         id: page.id,
         name: page.name,
         slug: page.slug,
+        kind: page.kind,
         rootElement: {
           id: page.rootElement.id,
           name: page.rootElement.name ?? null,
