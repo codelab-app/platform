@@ -10,6 +10,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
@@ -154,6 +155,7 @@ export class PageService
         slug: createSlug(page.slug, page.appId),
         app: connectNodeId(page.appId),
         getServerSideProps: page.getServerSideProps,
+        kind: IPageKind.Regular,
         rootElement: {
           create: {
             node: {

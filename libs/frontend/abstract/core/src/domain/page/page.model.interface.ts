@@ -1,3 +1,4 @@
+import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { ICacheService } from '../../service'
 import type { IElementTreeService } from '../element'
@@ -14,6 +15,6 @@ export interface IPage
   toJson: IPropData
   rootElement: IEntity
   getServerSideProps: Nullish<string>
-  isProvider: boolean
   pageContainerElement: Nullish<IEntity>
+  kind: IPageKind
 }

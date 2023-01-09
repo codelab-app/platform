@@ -42,10 +42,10 @@ fragment BuilderPage on Page {
   app {
     id
   }
-  isProvider
   pageContainerElement {
     id
   }
+  kind
 }
 
 fragment PageBuilderApp on App {
@@ -55,7 +55,7 @@ fragment PageBuilderApp on App {
   owner {
     id
   }
-  pages(where: { OR: [{ id: $pageId }, { isProvider: true }] }) {
+  pages(where: { OR: [{ id: $pageId }, { kind: Provider }] }) {
     ...BuilderPage
   }
   store {

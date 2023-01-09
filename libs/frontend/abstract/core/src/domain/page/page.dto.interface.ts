@@ -16,7 +16,7 @@ export interface ICreatePageDTO {
 
 export type IUpdatePageDTO = Omit<
   ICreatePageDTO,
-  'id' | 'rootElementId' | 'auth0Id'
+  'id' | 'rootElementId' | 'auth0Id' | 'kind'
 >
 
 export type IPageDTO = PageFragment

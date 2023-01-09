@@ -2,6 +2,7 @@ import type { IPage, IPropData } from '@codelab/frontend/abstract/core'
 import { IPageDTO } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { extractSlug } from '@codelab/frontend/shared/utils'
+import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
@@ -41,10 +42,10 @@ const hydrate = (page: IPageDTO) => {
     rootElement: { id: page.rootElement.id },
     getServerSideProps: page.getServerSideProps,
     app: { id: page.app.id },
-    isProvider: page.isProvider,
     pageContainerElement: page.pageContainerElement
       ? { id: page.pageContainerElement.id }
       : null,
+    kind: page.kind,
   })
 }
 
@@ -57,8 +58,8 @@ export class Page
     slug: prop<string>(),
     rootElement: prop<IEntity>(),
     getServerSideProps: prop<Nullish<string>>(),
-    isProvider: prop<boolean>(),
     pageContainerElement: prop<Nullish<IEntity>>(),
+    kind: prop<IPageKind>(),
   })
   implements IPage
 {
@@ -81,8 +82,8 @@ export class Page
     this.app = page.app
     this.slug = extractSlug(page.slug)
     this.getServerSideProps = page.getServerSideProps
-    this.isProvider = page.isProvider
     this.pageContainerElement = page.pageContainerElement
+    this.kind = page.kind
 
     return this
   }

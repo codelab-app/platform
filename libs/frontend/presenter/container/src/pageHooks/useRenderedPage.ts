@@ -3,6 +3,7 @@ import type {
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
 
@@ -54,7 +55,9 @@ export const useRenderedPage = ({
       return null
     }
 
-    const providerPage = app.pages.find((page) => page.isProvider)
+    const [currentPage, providerPage] = app.pages
+      .sort((page) => (page.kind === IPageKind.Regular ? -1 : 1))
+      .map((page) => appService.load({ app, pageId: page.id }))
 
     if (!providerPage) {
       // TODO: redirect to 505 page
@@ -124,7 +127,7 @@ export const useRenderedPage = ({
      * hot-reload makes commonPagesData contains invalid values, read from mobx store.
      */
     const appTree = pageService.pagesList.find(
-      ({ isProvider }) => isProvider,
+      ({ kind }) => kind === IPageKind.Provider,
     )?.elementTree
 
     const appStore = storeService.stores.get(app.store.id)

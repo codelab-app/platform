@@ -1,6 +1,13 @@
 import { gql } from 'apollo-server-micro'
 
 export const pageSchema = gql`
+  enum PageKind {
+    Provider
+    InternalServerError
+    NotFound
+    Regular
+  }
+
   type Page {
     id: ID! @id(autogenerate: false)
     name: String!
@@ -10,11 +17,11 @@ export const pageSchema = gql`
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
     app: App! @relationship(type: "PAGES", direction: IN)
     getServerSideProps: String
-    isProvider: Boolean! @default(value: false)
     # this is an element on _app page tree inside of which child pages content is rendered
     # default is root "Body" element, but can be changed using dropdown on Page Inspector tab
     pageContainerElement: Element
       @relationship(type: "CHILD_PAGE_CONTAINER_ELEMENT", direction: OUT)
+    kind: PageKind!
   }
 
   extend type Page

@@ -32,7 +32,7 @@ export type BuilderPageFragment = {
   name: string
   slug: string
   getServerSideProps?: string | null
-  isProvider: boolean
+  kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string }
   pageContainerElement?: { id: string } | null
@@ -96,10 +96,10 @@ export const BuilderPageFragmentDoc = gql`
     app {
       id
     }
-    isProvider
     pageContainerElement {
       id
     }
+    kind
   }
   ${ElementFragmentDoc}
 `
@@ -111,7 +111,7 @@ export const PageBuilderAppFragmentDoc = gql`
     owner {
       id
     }
-    pages(where: { OR: [{ id: $pageId }, { isProvider: true }] }) {
+    pages(where: { OR: [{ id: $pageId }, { kind: Provider }] }) {
       ...BuilderPage
     }
     store {

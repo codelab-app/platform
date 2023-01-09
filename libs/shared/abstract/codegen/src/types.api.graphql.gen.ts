@@ -12647,7 +12647,7 @@ export type Page = {
   appConnection: PageAppConnection
   getServerSideProps?: Maybe<Scalars['String']>
   id: Scalars['ID']
-  isProvider: Scalars['Boolean']
+  kind: PageKind
   name: Scalars['String']
   pageContainerElement?: Maybe<Element>
   pageContainerElementAggregate?: Maybe<PageElementPageContainerElementAggregationSelection>
@@ -12883,7 +12883,7 @@ export type PageCreateInput = {
   app?: InputMaybe<PageAppFieldInput>
   getServerSideProps?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
-  isProvider?: Scalars['Boolean']
+  kind: PageKind
   name: Scalars['String']
   pageContainerElement?: InputMaybe<PagePageContainerElementFieldInput>
   rootElement?: InputMaybe<PageRootElementFieldInput>
@@ -12957,10 +12957,17 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars['String']>
 }
 
+export enum PageKind {
+  InternalServerError = 'InternalServerError',
+  NotFound = 'NotFound',
+  Provider = 'Provider',
+  Regular = 'Regular',
+}
+
 export type PageOnCreateInput = {
   getServerSideProps?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
-  isProvider?: Scalars['Boolean']
+  kind: PageKind
   name: Scalars['String']
   slug: Scalars['String']
 }
@@ -13436,7 +13443,7 @@ export type PageRootElementUpdateFieldInput = {
 export type PageSort = {
   getServerSideProps?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
-  isProvider?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   slug?: InputMaybe<SortDirection>
 }
@@ -13667,7 +13674,7 @@ export type PageUpdateInput = {
   app?: InputMaybe<PageAppUpdateFieldInput>
   getServerSideProps?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
-  isProvider?: InputMaybe<Scalars['Boolean']>
+  kind?: InputMaybe<PageKind>
   name?: InputMaybe<Scalars['String']>
   pageContainerElement?: InputMaybe<PagePageContainerElementUpdateFieldInput>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
@@ -13692,7 +13699,10 @@ export type PageWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_MATCHES?: InputMaybe<Scalars['String']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  isProvider?: InputMaybe<Scalars['Boolean']>
+  kind?: InputMaybe<PageKind>
+  kind_IN?: InputMaybe<Array<PageKind>>
+  kind_NOT?: InputMaybe<PageKind>
+  kind_NOT_IN?: InputMaybe<Array<PageKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -19982,7 +19992,7 @@ export type BuilderPageFragment = {
   name: string
   slug: string
   getServerSideProps?: string | null
-  isProvider: boolean
+  kind: PageKind
   rootElement: {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
@@ -20103,7 +20113,7 @@ export type PageFragment = {
   name: string
   slug: string
   getServerSideProps?: string | null
-  isProvider: boolean
+  kind: PageKind
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string; name?: string | null }
   pageContainerElement?: { __typename?: 'Element'; id: string } | null

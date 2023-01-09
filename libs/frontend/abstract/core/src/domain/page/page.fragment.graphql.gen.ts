@@ -8,7 +8,7 @@ export type PageFragment = {
   name: string
   slug: string
   getServerSideProps?: string | null
-  isProvider: boolean
+  kind: Types.PageKind
   app: { id: string }
   rootElement: { id: string; name?: string | null }
   pageContainerElement?: { id: string } | null
@@ -27,10 +27,10 @@ export const PageFragmentDoc = gql`
       id
       name
     }
-    isProvider
     pageContainerElement {
       id
     }
+    kind
   }
 `
 

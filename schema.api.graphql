@@ -11916,7 +11916,7 @@ type Page {
   ): PageAppConnection!
   getServerSideProps: String
   id: ID!
-  isProvider: Boolean!
+  kind: PageKind!
   name: String!
   pageContainerElement(
     directed: Boolean = true
@@ -12119,7 +12119,7 @@ input PageCreateInput {
   app: PageAppFieldInput
   getServerSideProps: String
   id: ID!
-  isProvider: Boolean! = false
+  kind: PageKind!
   name: String!
   pageContainerElement: PagePageContainerElementFieldInput
   rootElement: PageRootElementFieldInput
@@ -12189,10 +12189,17 @@ type PageInfo {
   startCursor: String
 }
 
+enum PageKind {
+  InternalServerError
+  NotFound
+  Provider
+  Regular
+}
+
 input PageOnCreateInput {
   getServerSideProps: String
   id: ID!
-  isProvider: Boolean! = false
+  kind: PageKind!
   name: String!
   slug: String!
 }
@@ -12675,7 +12682,7 @@ Fields to sort Pages by. The order in which sorts are applied is not guaranteed 
 input PageSort {
   getServerSideProps: SortDirection
   id: SortDirection
-  isProvider: SortDirection
+  kind: SortDirection
   name: SortDirection
   slug: SortDirection
 }
@@ -12894,7 +12901,7 @@ input PageUpdateInput {
   app: PageAppUpdateFieldInput
   getServerSideProps: String
   id: ID
-  isProvider: Boolean
+  kind: PageKind
   name: String
   pageContainerElement: PagePageContainerElementUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
@@ -12919,7 +12926,10 @@ input PageWhere {
   id_IN: [ID!]
   id_MATCHES: String
   id_STARTS_WITH: ID
-  isProvider: Boolean
+  kind: PageKind
+  kind_IN: [PageKind!]
+  kind_NOT: PageKind
+  kind_NOT_IN: [PageKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String

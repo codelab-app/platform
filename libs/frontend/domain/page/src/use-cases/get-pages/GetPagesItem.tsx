@@ -11,6 +11,7 @@ import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -50,7 +51,7 @@ export const GetPagesItem = observer<GetPagesItemProps>(
           <FileOutlined />
           <Link href={href}>{page.name}</Link>
         </Space>
-        {!page.isProvider && (
+        {page.kind === IPageKind.Regular && (
           <Space>
             <ListItemBuildButton
               disabled={!domains}
