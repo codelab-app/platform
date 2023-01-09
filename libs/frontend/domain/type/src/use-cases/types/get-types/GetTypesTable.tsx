@@ -3,18 +3,28 @@ import type {
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect } from 'react'
 import { TypeDetailsTable } from './tables/TypeDetailsTable'
 import { useTypesTable } from './useTypesTable'
 import { useTypesTableData } from './useTypesTableData'
 
+const DEFAULT_PAGE_SIZE = 25
+const DEFAULT_CUR_PAGE = 1
+
 export const GetTypesTable = observer<{
   typeService: ITypeService
   fieldService: IFieldService
-}>(({ typeService, fieldService }) => {
+  page?: number
+  pageSize?: number
+}>(({ typeService, fieldService, page, pageSize }) => {
   const { typesList } = typeService
+  const router = useRouter()
+  const curPage = page ?? DEFAULT_CUR_PAGE
+  const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
   const {
     isLoadingAllTypes,
@@ -24,9 +34,6 @@ export const GetTypesTable = observer<{
     getTypeDescendants,
   } = useTypesTableData(typeService)
 
-  const [curPage, setCurPage] = useState(1)
-  const [curPageSize, setCurPageSize] = useState(25)
-
   const { columns, rowSelection, pagination } = useTypesTable({
     typeService,
     isLoadingTypeDependencies: isLoadingAllTypes,
@@ -34,13 +41,26 @@ export const GetTypesTable = observer<{
   })
 
   const handlePageChange = useCallback(
-    (page: number, pageSize: number) => {
-      setCurPage(page)
-      setCurPageSize(pageSize)
-      pagination.onChange?.(page, pageSize)
+    (newPage: number, newPageSize: number) => {
+      void router.push({
+        pathname: PageType.Type,
+        query: {
+          page: newPage,
+          pageSize: newPageSize,
+        },
+      })
     },
-    [pagination, setCurPage],
+    [router],
   )
+
+  /**
+   * Change page
+   */
+  useEffect(() => {
+    if (curPage && pageSize) {
+      pagination.onChange?.(curPage, pageSize)
+    }
+  }, [curPage, pageSize, pagination])
 
   useEffect(() => {
     const offset = (curPage - 1) * curPageSize

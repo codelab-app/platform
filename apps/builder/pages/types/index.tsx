@@ -27,6 +27,7 @@ import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
@@ -50,6 +51,10 @@ const Header = observer(() => {
 })
 
 const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+  const {
+    query: { page, pageSize },
+  } = useRouter()
+
   const { userService, typeService, fieldService } = useStore()
 
   return (
@@ -65,7 +70,12 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTypeModal typeService={typeService} />
       <UpdateTypeModal typeService={typeService} />
       <ContentSection>
-        <GetTypesTable fieldService={fieldService} typeService={typeService} />
+        <GetTypesTable
+          fieldService={fieldService}
+          page={page ? parseInt(page as string) : undefined}
+          pageSize={pageSize ? parseInt(pageSize as string) : undefined}
+          typeService={typeService}
+        />
       </ContentSection>
     </>
   )
