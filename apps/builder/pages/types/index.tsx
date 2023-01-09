@@ -8,7 +8,6 @@ import {
   GetTypesTable,
   UpdateFieldModal,
   UpdateTypeModal,
-  useCurrentTypeId,
 } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
@@ -51,7 +50,6 @@ const Header = observer(() => {
 })
 
 const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const typeId = useCurrentTypeId()
   const { userService, typeService, fieldService } = useStore()
 
   return (
@@ -67,11 +65,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTypeModal typeService={typeService} />
       <UpdateTypeModal typeService={typeService} />
       <ContentSection>
-        <GetTypesTable
-          fieldService={fieldService}
-          typeId={typeId}
-          typeService={typeService}
-        />
+        <GetTypesTable fieldService={fieldService} typeService={typeService} />
       </ContentSection>
     </>
   )
