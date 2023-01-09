@@ -35,6 +35,13 @@ export const CUSTOM_TEXT_PROP_KEY = 'customText'
 
 export const APP_PAGE_NAME = '_app'
 export const APP_PAGE_SLUG = '_app'
+
+export const NOT_FOUND_PAGE_NAME = '404'
+export const NOT_FOUND_PAGE_SLUG = '404'
+
+export const INTERNAL_SERVER_ERROR_PAGE_NAME = '500'
+export const INTERNAL_SERVER_ERROR_PAGE_SLUG = '500'
+
 export const DEFAULT_GET_SERVER_SIDE_PROPS = `async function (context) {
   return {
     props: {},

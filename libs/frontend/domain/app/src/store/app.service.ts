@@ -6,12 +6,6 @@ import type {
   IPageBuilderAppProps,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
-import {
-  APP_PAGE_NAME,
-  APP_PAGE_SLUG,
-  DEFAULT_GET_SERVER_SIDE_PROPS,
-  ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
@@ -37,6 +31,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { makeBasicPagesInput } from './api.utils'
 import { appApi } from './app.api'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
@@ -182,28 +177,6 @@ export class AppService
   create = _async(function* (this: AppService, data: Array<ICreateAppDTO>) {
     const input: Array<AppCreateInput> = data.map((app) => {
       const appId = app.id ?? v4()
-      const pageId = v4()
-      const rootId = v4()
-
-      const providerPage = {
-        id: pageId,
-        name: APP_PAGE_NAME,
-        slug: `${appId}-${APP_PAGE_SLUG}`,
-        getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-        app: {
-          connect: { where: { node: { id: appId } } },
-        },
-        rootElement: {
-          create: {
-            node: {
-              id: rootId,
-              name: ROOT_ELEMENT_NAME,
-              slug: createSlug(ROOT_ELEMENT_NAME, pageId),
-            },
-          },
-        },
-        pageContainerElement: { connect: { where: { node: { id: rootId } } } },
-      }
 
       return {
         id: appId,
@@ -228,9 +201,7 @@ export class AppService
             },
           },
         },
-        pages: {
-          create: [{ node: providerPage }],
-        },
+        pages: makeBasicPagesInput(appId),
       }
     })
 
