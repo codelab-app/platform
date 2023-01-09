@@ -170,6 +170,7 @@
           "id": "a050b9de-7240-43c3-9e4e-220f9a63d711",
           "name": "Home",
           "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-home",
+          "kind": "Regular",
           "rootElement": {
             "id": "04ab7c6c-9396-4cf7-844a-162a89ce6d13",
             "name": "Body"
@@ -876,7 +877,7 @@
               "firstChild": null,
               "props": {
                 "id": "a2c31728-d24d-4ce3-a1bc-3a5abe192c06",
-                "data": "{\"customText\":\"<p><strong>SSR&nbsp;Protected Page</strong></p>\",\"ghost\":false,\"href\":\"/apps/c79c8a5c-f5c1-4973-9d93-54db2fd0ead6/pages/d15fce86-f784-46fc-961b-9b93762c61fb\",\"disabled\":false,\"danger\":false,\"block\":false}"
+                "data": "{\n    \"customText\": \"<p><strong>SSR&nbsp;Protected Page</strong></p>\",\n    \"ghost\": false,\n    \"href\": \"/apps/c79c8a5c-f5c1-4973-9d93-54db2fd0ead6/pages/7da81889-4399-4217-8aff-f2d95adfa0be\",\n    \"disabled\": false,\n    \"danger\": false,\n    \"block\": false\n}"
               },
               "hooks": [],
               "renderForEachPropKey": null,
@@ -1863,6 +1864,7 @@
           "id": "b076ca30-1602-4d1f-8838-1b7adb39b136",
           "name": "_app",
           "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-_app",
+          "kind": "Provider",
           "rootElement": {
             "id": "dce9c6f4-8d9c-4520-b797-794905112acd",
             "name": "Body"
@@ -1893,20 +1895,21 @@
           "components": []
         },
         {
-          "id": "d15fce86-f784-46fc-961b-9b93762c61fb",
+          "id": "7da81889-4399-4217-8aff-f2d95adfa0be",
           "name": "Protected",
           "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-protected",
+          "kind": "Regular",
           "rootElement": {
-            "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2",
+            "id": "94c526ed-87b8-4031-acec-9c130b978a54",
             "name": "Body"
           },
           "elements": [
             {
-              "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2",
+              "id": "94c526ed-87b8-4031-acec-9c130b978a54",
               "name": "Body",
               "customCss": null,
               "guiCss": null,
-              "slug": "d15fce86-f784-46fc-961b-9b93762c61fb-body",
+              "slug": "7da81889-4399-4217-8aff-f2d95adfa0be-body",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": null,
@@ -1914,7 +1917,7 @@
               "prevSibling": null,
               "nextSibling": null,
               "firstChild": {
-                "id": "aec6c64e-a34e-448b-a6ab-088dfcb77148"
+                "id": "9f8ec693-d0f5-4a42-8a44-e967ae618f90"
               },
               "props": null,
               "hooks": [],
@@ -1925,11 +1928,11 @@
               "postRenderActionId": null
             },
             {
-              "id": "aec6c64e-a34e-448b-a6ab-088dfcb77148",
-              "name": "text",
+              "id": "9f8ec693-d0f5-4a42-8a44-e967ae618f90",
+              "name": "Protected-content",
               "customCss": null,
               "guiCss": null,
-              "slug": "d15fce86-f784-46fc-961b-9b93762c61fb-text",
+              "slug": "7da81889-4399-4217-8aff-f2d95adfa0be-protected-content",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1945,14 +1948,14 @@
                 "allowedChildren": []
               },
               "parent": {
-                "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2"
+                "id": "94c526ed-87b8-4031-acec-9c130b978a54"
               },
               "prevSibling": null,
               "nextSibling": null,
               "firstChild": null,
               "props": {
-                "id": "13408e7a-0926-4922-a535-b0a03326f54e",
-                "data": "{\"customText\":\"<h1 class=\\\"ql-align-center\\\"><strong>This content is protected with server side auth validation.</strong></h1>\"}"
+                "id": "d0acff95-c6e9-4975-8dd5-15d67ea10698",
+                "data": "{\"customText\":\"<h1><strong>This is protected content by server</strong></h1>\"}"
               },
               "hooks": [],
               "renderForEachPropKey": null,
