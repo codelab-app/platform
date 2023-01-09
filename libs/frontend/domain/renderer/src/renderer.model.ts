@@ -114,6 +114,7 @@ const init = async ({
       // pass
       global: frozen(isBuilder ? builderGlobals : {}),
     }),
+    isBuilder,
   })
 }
 
@@ -160,6 +161,11 @@ export class Renderer
       debugMode: prop(false).withSetter(),
 
       renderComponentMeta: prop<IPropData>(() => ({})).withSetter(),
+
+      /**
+       * Used for making the element draggable if true (e.g. in builder page)
+       */
+      isBuilder: prop(false),
     },
     {
       toSnapshotProcessor(sn, modelInstance) {

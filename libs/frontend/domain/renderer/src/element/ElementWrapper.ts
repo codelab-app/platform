@@ -11,10 +11,10 @@ import React, { useCallback, useContext, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
-import { DraggableElementWrapper } from './DraggableElementWrapper'
 import {
   extractValidProps,
   getReactComponent,
+  makeDraggableElement,
   withMaybeGlobalPropsProvider,
 } from './wrapper.utils'
 
@@ -95,6 +95,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
+    // wrap to div if not draggable so that its view is the same as in builder mode
+    const WrappedElement = renderService.isBuilder
+      ? makeDraggableElement({ children: Rendered, element })
+      : React.createElement('div', {
+          children: Rendered,
+          style: { position: 'relative' },
+        })
+
     return React.createElement(
       ErrorBoundary,
       {
@@ -107,10 +115,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           element.setRenderingError(null)
         },
       },
-      React.createElement(DraggableElementWrapper, {
-        children: Rendered,
-        element,
-      }),
+      WrappedElement,
     )
   },
 )

@@ -8,6 +8,8 @@ import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
 import { withGlobalPropsProvider } from '../props/globalPropsContext'
+import type { DraggableElementProps } from './DraggableElement'
+import { DraggableElementWrapper } from './DraggableElementWrapper'
 
 /**
  * Fragments can only have the `key` prop
@@ -47,3 +49,13 @@ export const makeCustomTextContainer = (customText: string) =>
   })
 
 export const noWrapper = () => (children: ReactElement) => children
+
+export const makeDraggableElement = ({
+  children,
+  element,
+}: DraggableElementProps) => {
+  return React.createElement(DraggableElementWrapper, {
+    children,
+    element,
+  })
+}
