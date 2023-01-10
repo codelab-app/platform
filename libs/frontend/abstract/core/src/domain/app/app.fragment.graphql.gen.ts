@@ -111,7 +111,9 @@ export const PageBuilderAppFragmentDoc = gql`
     owner {
       id
     }
-    pages(where: { OR: [{ id: $pageId }, { kind: Provider }] }) {
+    pages(
+      where: { OR: [{ id: $pageId }, { kind: Provider }, { kind: NotFound }] }
+    ) {
       ...BuilderPage
     }
     store {

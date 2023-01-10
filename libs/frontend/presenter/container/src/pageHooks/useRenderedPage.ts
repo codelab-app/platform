@@ -4,6 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import remove from 'lodash/remove'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
 
@@ -52,19 +53,25 @@ export const useRenderedPage = ({
     const [app] = apps
 
     if (!app) {
-      return null
+      throw new Error('Unable to find app')
     }
+
+    const [notFoundPage] = remove(
+      app.pages,
+      (x) => x.kind === IPageKind.NotFound,
+    )
 
     const [currentPage, providerPage] = app.pages
       .sort((page) => (page.kind === IPageKind.Regular ? -1 : 1))
       .map((page) => appService.load({ app, pageId: page.id }))
 
-    if (!providerPage) {
-      // TODO: redirect to 505 page
-      return null
+    if (!currentPage) {
+      console.log('redirect')
+
+      throw new Error('Unable to find page')
     }
 
-    appService.load({ app: app, pageId: providerPage.id })
+    appService.load({ app: app, pageId: providerPage?.page.id })
 
     // load types by chucks so UI is not blocked
     typeService.loadTypesByChunks(types)
