@@ -1,23 +1,28 @@
-import type { BuilderDropData, IElement } from '@codelab/frontend/abstract/core'
-import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import type {
+  BuilderDropData,
+  IElement,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
+import { BuilderDndType, DragPosition } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { calcDragPosition, useElementLayout } from './draggableElement.util'
-import { DragPositionIndicator } from './DragPositionIndicator'
 import { ElementDragOverlay } from './ElementDragOverlay'
 
 export interface DraggableElementProps {
   element: IElement
-  children: React.ReactElement | Array<React.ReactElement>
+  makeRenderedElements: (
+    props?: IPropData,
+  ) => React.ReactElement | Array<React.ReactElement>
 }
 
 export const DraggableElement = ({
   element,
-  children,
+  makeRenderedElements,
 }: DraggableElementProps) => {
   const droppableNodeRef = React.useRef<Nullable<HTMLElement>>(null)
-  const elLayout = useElementLayout(droppableNodeRef)
+  const { relativeY } = useElementLayout(droppableNodeRef.current)
 
   // Create a draggable for the element
   const {
@@ -28,7 +33,7 @@ export const DraggableElement = ({
     id: element.id,
     data: {
       type: BuilderDndType.MoveElement,
-      overlayRenderer: () => ElementDragOverlay(children),
+      overlayRenderer: () => ElementDragOverlay(renderedChildren),
     },
   })
 
@@ -39,14 +44,25 @@ export const DraggableElement = ({
     over,
   } = useDroppable({ id: element.id })
 
+  useEffect(() => {
+    // This could be improved
+    setTimeout(() => {
+      const htmlElement = document.querySelector(
+        `[data-element-id="${element.id}"]`,
+      )
+
+      setDraggableAndDroppableNodeRef(htmlElement as HTMLElement)
+    }, 2000)
+  }, [])
+
+  const dragPosition = isOver
+    ? calcDragPosition(relativeY ?? 0, over?.rect.height ?? 0)
+    : undefined
+
   // Set dragPosition for DragEndEvent
   if (isOver && over) {
     const dragData: BuilderDropData = {
-      dragPosition: calcDragPosition(
-        isOver,
-        elLayout.current.relativeMousePosition?.y ?? 0,
-        elLayout.current.size?.h ?? 0,
-      ),
+      dragPosition,
     }
 
     over.data.current = {
@@ -55,30 +71,29 @@ export const DraggableElement = ({
     }
   }
 
-  // Set node ref for both draggable element and mouse hook
-  const setDroppableNodeRef = (ref: Nullable<HTMLElement>) => {
+  // Set node ref for both draggable and droppable element and mouse hooks
+  const setDraggableAndDroppableNodeRef = (ref: Nullable<HTMLElement>) => {
+    draggableNodeRefSetter(ref)
     droppableNodeRefSetter(ref)
     droppableNodeRef.current = ref
   }
 
-  return (
-    <div ref={setDroppableNodeRef} style={{ position: 'relative' }}>
-      <DragPositionIndicator
-        dragPosition={calcDragPosition(
-          isOver,
-          elLayout.current.relativeMousePosition?.y ?? 0,
-          elLayout.current.size?.h ?? 0,
-        )}
-      />
-      <div
-        ref={draggableNodeRefSetter}
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...draggableAttrs}
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...draggableListeners}
-      >
-        {children}
-      </div>
-    </div>
+  const indicatorStyle = {
+    boxShadow:
+      dragPosition === DragPosition.After
+        ? '0px 5px 0px cyan'
+        : '0px -5px 0px cyan',
+  }
+
+  const renderedChildren = makeRenderedElements({
+    ...draggableAttrs,
+    ...draggableListeners,
+    ...(isOver ? { style: indicatorStyle } : {}),
+  })
+
+  return Array.isArray(renderedChildren) ? (
+    <>{renderedChildren.map((child) => child)}</>
+  ) : (
+    renderedChildren
   )
 }

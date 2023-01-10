@@ -51,11 +51,11 @@ export const makeCustomTextContainer = (customText: string) =>
 export const noWrapper = () => (children: ReactElement) => children
 
 export const makeDraggableElement = ({
-  children,
   element,
+  makeRenderedElements,
 }: DraggableElementProps) => {
   return React.createElement(DraggableElementWrapper, {
-    children,
     element,
+    makeRenderedElements,
   })
 }

@@ -1,7 +1,6 @@
 import { DragPosition } from '@codelab/frontend/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { RefObject } from 'react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Position {
   x: number
@@ -24,54 +23,38 @@ interface ElementLayout {
  * @param refElement
  * @returns
  */
-export const useElementLayout = (refElement: RefObject<Element>) => {
-  const refLayout = useRef<ElementLayout>({
-    size: null,
-    relativeMousePosition: null,
-  })
+export const useElementLayout = (refElement: Nullable<Element>) => {
+  const [relativeX, setRelativeX] = useState<number>()
+  const [relativeY, setRelativeY] = useState<number>()
 
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      if (refElement.current) {
-        const {
-          left,
-          top,
-          width: w,
-          height: h,
-        } = refElement.current.getBoundingClientRect()
-
+    if (refElement) {
+      const handleMouseMove = (event: MouseEvent) => {
+        const { left, top } = refElement.getBoundingClientRect()
         const posX = left + window.pageXOffset
         const posY = top + window.pageYOffset
+        setRelativeX(event.pageX - posX)
+        setRelativeY(event.pageY - posY)
+      }
 
-        refLayout.current.relativeMousePosition = {
-          x: event.pageX - posX,
-          y: event.pageY - posY,
-        }
+      document.addEventListener('mousemove', handleMouseMove)
 
-        refLayout.current.size = { w, h }
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove)
       }
     }
 
-    document.addEventListener('mousemove', handleMouseMove)
+    return
+  }, [refElement])
 
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [refLayout, refElement])
-
-  return refLayout
+  return { relativeX, relativeY }
 }
 
 export const calcDragPosition = (
-  isOver: boolean,
   dragYCoordinate: number,
   draggedOnElHeight: number,
 ): Maybe<DragPosition> => {
-  if (!isOver) {
-    return undefined
-  }
-
-  if (dragYCoordinate < draggedOnElHeight / 2) {
+  if (Math.abs(dragYCoordinate) < draggedOnElHeight / 2) {
     return DragPosition.Before
   }
 

@@ -66,42 +66,52 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     renderService.logRendered(element, renderOutputs)
 
     // Use mapOutput because the output may be array or a single item
-    const Rendered = mapOutput(renderOutputs, (renderOutput) => {
-      // Render the element's children
-
-      const children = renderOutput.stop
+    const childrenMap = mapOutput(renderOutputs, (renderOutput) => {
+      return renderOutput.stop
         ? undefined
-        : renderService.renderChildren(renderOutput)
-
-      if (renderOutput.props) {
-        renderOutput.props['forwardedRef'] = onRefChange
-      }
-
-      const ReactComponent = getReactComponent(renderOutput)
-      const extractedProps = extractValidProps(ReactComponent, renderOutput)
-
-      const IntermediateChildren = jsx(
-        ReactComponent,
-        // merge because some refs are not resolved
-        mergeProps(extractedProps, rest),
-        children,
-      )
-
-      const withMaybeProviders = withMaybeGlobalPropsProvider(
-        renderOutput,
-        globalPropsContext,
-      )
-
-      return withMaybeProviders(IntermediateChildren)
+        : {
+            [renderOutput.elementId]:
+              renderService.renderChildren(renderOutput),
+          }
     })
 
-    // wrap to div if not draggable so that its view is the same as in builder mode
+    // to be used for dnd to be able to add necessary props later
+    const makeRenderedElements = (moreProps?: IPropData) => {
+      return mapOutput(renderOutputs, function (renderOutput) {
+        // get the rendered children to be rendered later
+        const children = Array.isArray(childrenMap)
+          ? childrenMap.find((c) => c?.[renderOutput.elementId])?.[
+              renderOutput.elementId
+            ]
+          : childrenMap?.[renderOutput.elementId]
+
+        if (renderOutput.props) {
+          renderOutput.props['forwardedRef'] = onRefChange
+        }
+
+        const ReactComponent = getReactComponent(renderOutput)
+        const extractedProps = extractValidProps(ReactComponent, renderOutput)
+
+        const IntermediateChildren = jsx(
+          ReactComponent,
+          // merge because some refs are not resolved
+          mergeProps(extractedProps, rest, moreProps),
+          children,
+        )
+
+        const withMaybeProviders = withMaybeGlobalPropsProvider(
+          renderOutput,
+          globalPropsContext,
+        )
+
+        return withMaybeProviders(IntermediateChildren)
+      })
+    }
+
+    // we need to include additional props from dnd so we need to render the element there
     const WrappedElement = renderService.isBuilder
-      ? makeDraggableElement({ children: Rendered, element })
-      : React.createElement('div', {
-          children: Rendered,
-          style: { position: 'relative' },
-        })
+      ? makeDraggableElement({ element, makeRenderedElements })
+      : makeRenderedElements()
 
     return React.createElement(
       ErrorBoundary,

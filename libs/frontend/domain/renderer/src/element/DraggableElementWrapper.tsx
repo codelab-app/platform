@@ -3,21 +3,18 @@ import type { DraggableElementProps } from './DraggableElement'
 import { DraggableElement } from './DraggableElement'
 
 export const DraggableElementWrapper = ({
-  children,
   element,
+  makeRenderedElements,
 }: DraggableElementProps) => {
   if (!element.parentElement) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
-    return <>{children}</>
+    return <>{makeRenderedElements()}</>
   }
 
-  return Array.isArray(children) ? (
-    <>
-      {children.map((child) => (
-        <DraggableElement children={child} element={element} key={child.key} />
-      ))}
-    </>
-  ) : (
-    <DraggableElement children={children} element={element} />
+  return (
+    <DraggableElement
+      element={element}
+      makeRenderedElements={makeRenderedElements}
+    />
   )
 }
