@@ -47,7 +47,7 @@ export class RenderService
 
       this.renderers.set(props.id, renderer)
 
-      return this.renderers.get(props.id)
+      return renderer
     }
 
     existing.initForce(props.pageTree, props.appTree)
