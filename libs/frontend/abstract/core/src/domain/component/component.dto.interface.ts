@@ -15,10 +15,7 @@ export interface ICreateComponentDTO {
   rootElementId?: string | undefined
 }
 
-export type IUpdateComponentDTO = Omit<
-  ICreateComponentDTO,
-  'id' | 'auth0Id' | 'rootElementId' | 'api'
->
+export type IUpdateComponentDTO = Pick<ICreateComponentDTO, 'name'>
 
 export type IComponentDTO = ComponentFragment
 

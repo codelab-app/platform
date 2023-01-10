@@ -13,6 +13,7 @@ import {
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
+  ComponentUpdateInput,
   ComponentWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
@@ -208,6 +209,25 @@ export class ComponentService
     )
 
     return nodesDeleted
+  })
+
+  @modelFlow
+  @transaction
+  public patchComponent = _async(function* (
+    this: ComponentService,
+    entity: IEntity,
+    input: ComponentUpdateInput,
+  ) {
+    const {
+      updateComponents: { components },
+    } = yield* _await(
+      componentApi.UpdateComponents({
+        where: { id: entity.id },
+        update: input,
+      }),
+    )
+
+    return components.map((component) => this.writeCache(component))[0]!
   })
 
   @modelAction

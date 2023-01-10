@@ -1,18 +1,13 @@
-import type {
-  IAnyType,
-  IElement,
-  IField,
-  IPropData,
-} from '@codelab/frontend/abstract/core'
-import { CUSTOM_TEXT_PROP_KEY, isAdmin } from '@codelab/frontend/abstract/core'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
-import { fieldRef, PropsForm, typeRef } from '@codelab/frontend/domain/type'
+import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
+import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
+import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
-import { Button, Col, Dropdown, Menu, Row } from 'antd'
+import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { useAsync } from 'react-use'
@@ -43,9 +38,7 @@ const withCustomTextSchema: JSONSchemaType<{
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element, trackPromises }) => {
-    const { typeService, fieldService, elementService, userService } =
-      useStore()
-
+    const { typeService, elementService } = useStore()
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     const initialPropsRef = useRef(element.props?.values ?? {})
@@ -82,30 +75,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const initialSchema = allowCustomText ? withCustomTextSchema : {}
 
-    const onEdit = (field: IField<IAnyType>) => {
-      fieldService.updateModal.open(fieldRef(field.id))
-    }
-
-    const onDelete = (field: IField<IAnyType>) => {
-      fieldService.deleteModal.open(fieldRef(field.id))
-    }
-
-    const editMenuItems = interfaceType?.fields.map((field) => {
-      return {
-        label: field.name,
-        key: field.key,
-        onClick: () => onEdit(field),
-      }
-    })
-
-    const deleteMenuItems = interfaceType?.fields.map((field) => {
-      return {
-        label: field.name,
-        key: field.key,
-        onClick: () => onDelete(field),
-      }
-    })
-
     return (
       <Spinner isLoading={loading}>
         {interfaceType && (
@@ -122,34 +91,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
               />
             </Col>
             <Col span={24}>
-              {isAdmin(userService.user) ? (
-                <Row gutter={[16, 16]} justify="center">
-                  <Col>
-                    <Button
-                      onClick={() =>
-                        fieldService.createModal.open(
-                          typeRef<InterfaceType>(interfaceType.id),
-                        )
-                      }
-                    >
-                      Add
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Dropdown.Button overlay={<Menu items={editMenuItems} />}>
-                      Edit
-                    </Dropdown.Button>
-                  </Col>
-                  <Col>
-                    <Dropdown.Button
-                      danger
-                      overlay={<Menu items={deleteMenuItems} />}
-                    >
-                      Delete
-                    </Dropdown.Button>
-                  </Col>
-                </Row>
-              ) : null}
+              <AdminPropsPanel interfaceType={interfaceType} />
             </Col>
           </Row>
         )}

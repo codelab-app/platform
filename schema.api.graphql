@@ -5016,6 +5016,18 @@ type Component implements WithOwner {
     sort: [WithOwnerOwnerConnectionSort!]
     where: WithOwnerOwnerConnectionWhere
   ): WithOwnerOwnerConnection!
+  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  propsAggregate(
+    directed: Boolean = true
+    where: PropWhere
+  ): ComponentPropPropsAggregationSelection
+  propsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ComponentPropsConnectionSort!]
+    where: ComponentPropsConnectionWhere
+  ): ComponentPropsConnection!
   rootElement(
     directed: Boolean = true
     options: ElementOptions
@@ -5150,12 +5162,14 @@ input ComponentApiUpdateFieldInput {
 input ComponentConnectInput {
   api: ComponentApiConnectFieldInput
   owner: WithOwnerOwnerConnectFieldInput
+  props: ComponentPropsConnectFieldInput
   rootElement: ComponentRootElementConnectFieldInput
 }
 
 input ComponentConnectOrCreateInput {
   api: ComponentApiConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
+  props: ComponentPropsConnectOrCreateFieldInput
   rootElement: ComponentRootElementConnectOrCreateFieldInput
 }
 
@@ -5172,18 +5186,21 @@ input ComponentCreateInput {
   id: ID!
   name: String!
   owner: WithOwnerOwnerFieldInput
+  props: ComponentPropsFieldInput
   rootElement: ComponentRootElementFieldInput
 }
 
 input ComponentDeleteInput {
   api: ComponentApiDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
+  props: ComponentPropsDeleteFieldInput
   rootElement: ComponentRootElementDeleteFieldInput
 }
 
 input ComponentDisconnectInput {
   api: ComponentApiDisconnectFieldInput
   owner: WithOwnerOwnerDisconnectFieldInput
+  props: ComponentPropsDisconnectFieldInput
   rootElement: ComponentRootElementDisconnectFieldInput
 }
 
@@ -5312,9 +5329,124 @@ input ComponentOwnerNodeAggregationWhereInput {
   username_SHORTEST_LTE: Int
 }
 
+type ComponentPropPropsAggregationSelection {
+  count: Int!
+  node: ComponentPropPropsNodeAggregateSelection
+}
+
+type ComponentPropPropsNodeAggregateSelection {
+  data: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+}
+
+input ComponentPropsAggregateInput {
+  AND: [ComponentPropsAggregateInput!]
+  OR: [ComponentPropsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ComponentPropsNodeAggregationWhereInput
+}
+
+input ComponentPropsConnectFieldInput {
+  where: PropConnectWhere
+}
+
+input ComponentPropsConnectOrCreateFieldInput {
+  onCreate: ComponentPropsConnectOrCreateFieldInputOnCreate!
+  where: PropConnectOrCreateWhere!
+}
+
+input ComponentPropsConnectOrCreateFieldInputOnCreate {
+  node: PropOnCreateInput!
+}
+
+type ComponentPropsConnection {
+  edges: [ComponentPropsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ComponentPropsConnectionSort {
+  node: PropSort
+}
+
+input ComponentPropsConnectionWhere {
+  AND: [ComponentPropsConnectionWhere!]
+  OR: [ComponentPropsConnectionWhere!]
+  node: PropWhere
+  node_NOT: PropWhere
+}
+
+input ComponentPropsCreateFieldInput {
+  node: PropCreateInput!
+}
+
+input ComponentPropsDeleteFieldInput {
+  where: ComponentPropsConnectionWhere
+}
+
+input ComponentPropsDisconnectFieldInput {
+  where: ComponentPropsConnectionWhere
+}
+
+input ComponentPropsFieldInput {
+  connect: ComponentPropsConnectFieldInput
+  connectOrCreate: ComponentPropsConnectOrCreateFieldInput
+  create: ComponentPropsCreateFieldInput
+}
+
+input ComponentPropsNodeAggregationWhereInput {
+  AND: [ComponentPropsNodeAggregationWhereInput!]
+  OR: [ComponentPropsNodeAggregationWhereInput!]
+  data_AVERAGE_EQUAL: Float
+  data_AVERAGE_GT: Float
+  data_AVERAGE_GTE: Float
+  data_AVERAGE_LT: Float
+  data_AVERAGE_LTE: Float
+  data_EQUAL: String
+  data_GT: Int
+  data_GTE: Int
+  data_LONGEST_EQUAL: Int
+  data_LONGEST_GT: Int
+  data_LONGEST_GTE: Int
+  data_LONGEST_LT: Int
+  data_LONGEST_LTE: Int
+  data_LT: Int
+  data_LTE: Int
+  data_SHORTEST_EQUAL: Int
+  data_SHORTEST_GT: Int
+  data_SHORTEST_GTE: Int
+  data_SHORTEST_LT: Int
+  data_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+type ComponentPropsRelationship {
+  cursor: String!
+  node: Prop!
+}
+
+input ComponentPropsUpdateConnectionInput {
+  node: PropUpdateInput
+}
+
+input ComponentPropsUpdateFieldInput {
+  connect: ComponentPropsConnectFieldInput
+  connectOrCreate: ComponentPropsConnectOrCreateFieldInput
+  create: ComponentPropsCreateFieldInput
+  delete: ComponentPropsDeleteFieldInput
+  disconnect: ComponentPropsDisconnectFieldInput
+  update: ComponentPropsUpdateConnectionInput
+  where: ComponentPropsConnectionWhere
+}
+
 input ComponentRelationInput {
   api: ComponentApiCreateFieldInput
   owner: WithOwnerOwnerCreateFieldInput
+  props: ComponentPropsCreateFieldInput
   rootElement: ComponentRootElementCreateFieldInput
 }
 
@@ -5602,6 +5734,7 @@ input ComponentUpdateInput {
   id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
+  props: ComponentPropsUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput
 }
 
@@ -5652,6 +5785,11 @@ input ComponentWhere {
   ownerConnection: WithOwnerOwnerConnectionWhere
   ownerConnection_NOT: WithOwnerOwnerConnectionWhere
   owner_NOT: UserWhere
+  props: PropWhere
+  propsAggregate: ComponentPropsAggregateInput
+  propsConnection: ComponentPropsConnectionWhere
+  propsConnection_NOT: ComponentPropsConnectionWhere
+  props_NOT: PropWhere
   rootElement: ElementWhere
   rootElementAggregate: ComponentRootElementAggregateInput
   rootElementConnection: ComponentRootElementConnectionWhere

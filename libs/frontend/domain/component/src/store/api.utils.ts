@@ -36,11 +36,16 @@ export const mapCreateInput = (
     },
   }
 
+  const props: ComponentCreateInput['props'] = {
+    create: { node: { data: JSON.stringify({}) } },
+  }
+
   return {
     id,
     name,
     rootElement: rootElementId ? connectRootElement : createRootElement,
     api,
     owner: connectOwner(auth0Id),
+    props,
   }
 }

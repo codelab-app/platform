@@ -13,4 +13,7 @@ fragment Component on Component {
     id
     name
   }
+  props {
+    ...Prop
+  }
 }

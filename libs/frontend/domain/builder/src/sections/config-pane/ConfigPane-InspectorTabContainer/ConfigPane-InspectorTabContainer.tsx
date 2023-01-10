@@ -11,7 +11,8 @@ import type {
   INode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isElement } from '@codelab/frontend/abstract/core'
+import { isComponent, isElement } from '@codelab/frontend/abstract/core'
+import { UpdateComponentPropsForm } from '@codelab/frontend/domain/component'
 import {
   ElementCssEditor,
   PropMapBindingSection,
@@ -116,6 +117,11 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                   trackPromises={trackPromises}
                 />
               </FormContextProvider>
+            ) : isComponent(selectedNode) ? (
+              <UpdateComponentPropsForm
+                component={selectedNode}
+                trackPromises={trackPromises}
+              />
             ) : (
               `Add an atom or a component to this element to edit its props`
             )}

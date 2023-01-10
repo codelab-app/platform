@@ -1,18 +1,29 @@
-import type { IComponent, IComponentDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IComponent,
+  IComponentDTO,
+  IProp,
+} from '@codelab/frontend/abstract/core'
 import { COMPONENT_NODE_TYPE } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
+import { Prop } from '@codelab/frontend/domain/prop'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, idProp, model, prop } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
+  const apiRef = typeRef(component.api.id) as Ref<InterfaceType>
+
   return new Component({
     id: component.id,
     name: component.name,
     rootElementId: component.rootElement.id,
     ownerId: component.owner.id,
     api: typeRef(component.api.id) as Ref<InterfaceType>,
+    props: component.props
+      ? Prop.hydrate({ ...component.props, apiRef })
+      : null,
   })
 }
 
@@ -26,6 +37,7 @@ export class Component
     rootElementId: prop<string>().withSetter(),
     ownerId: prop<string>(),
     api: prop<Ref<InterfaceType>>(),
+    props: prop<Nullable<IProp>>(null),
   })
   implements IComponent
 {
@@ -33,10 +45,19 @@ export class Component
   static hydrate = hydrate
 
   writeCache(fragment: IComponentDTO) {
+    const apiRef = typeRef(fragment.api.id) as Ref<InterfaceType>
+
     this.setName(fragment.name)
     this.rootElementId = fragment.rootElement.id
     this.ownerId = fragment.owner.id
     this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
+    this.props = fragment.props
+      ? new Prop({ id: fragment.props.id, apiRef })
+      : null
+
+    if (fragment.props) {
+      this.props?.writeCache({ ...fragment.props, apiRef })
+    }
 
     return this
   }
