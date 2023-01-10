@@ -83,23 +83,13 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     componentService,
     actionService,
     userService,
-    pageId,
-    storeId,
     renderService,
     appStore,
     fieldService,
     typeService,
     resourceService,
   }) => {
-    const pageBuilderRenderer = renderService.renderers.get(pageId)
-    const root = pageBuilderRenderer?.pageTree?.current.root
-    const pageTree = pageBuilderRenderer?.pageTree?.current
-    const componentId = builderService.activeComponent?.id
-
-    const componentTree = componentId
-      ? renderService.renderers.get(componentId)?.pageTree?.current
-      : null
-
+    const root = pageTree?.root
     const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
@@ -263,7 +253,6 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             elementService={elementService}
             pageTree={pageTree}
             renderService={renderService}
-            storeId={storeId}
             userService={userService}
           />
         )}

@@ -36,7 +36,11 @@ const PageBuilder: CodelabPage = observer(() => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const { value: pageDataValue, error: pageDataError } = useRenderedPage({
+  const {
+    value: pageDataValue,
+    error: pageDataError,
+    loading: pageLoading,
+  } = useRenderedPage({
     appId,
     pageId,
     renderService: builderRenderService,
@@ -44,12 +48,16 @@ const PageBuilder: CodelabPage = observer(() => {
   })
 
   const {
-    loading,
+    loading: renderLoading,
     value,
     error: rendererError,
   } = useAsync(async () => {
     if (!pageDataValue) {
-      return
+      return {
+        value: null,
+        error: undefined,
+        loading: pageLoading,
+      }
     }
 
     const { page, pageTree, appTree, appStore } = pageDataValue
@@ -80,14 +88,15 @@ const PageBuilder: CodelabPage = observer(() => {
       page,
       renderer,
     }
-  }, [pageDataValue])
+  }, [pageLoading])
 
   const error = pageDataError || rendererError
+  const loading = pageLoading || renderLoading
 
   return (
     <>
       <Head>
-        <title>{value?.page.name} | Builder | Codelab</title>
+        <title>{value?.page?.name} | Builder | Codelab</title>
       </Head>
 
       <BuilderTabs
@@ -157,7 +166,7 @@ PageBuilder.Layout = observer((page) => {
           userService={userService}
         />
       )),
-    [pageBuilderRenderer, builderService],
+    [pageTree, componentTree],
   )
 
   const HeaderComponent = useMemo(

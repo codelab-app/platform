@@ -34,7 +34,6 @@ export class RenderService
   // get componentService() {
   //   return this._componentService.current
   // }
-
   @modelFlow
   @transaction
   addRenderer = _async(function* (
@@ -48,7 +47,7 @@ export class RenderService
 
       this.renderers.set(props.id, renderer)
 
-      return renderer
+      return this.renderers.get(props.id)
     }
 
     existing.initForce(props.pageTree, props.appTree)

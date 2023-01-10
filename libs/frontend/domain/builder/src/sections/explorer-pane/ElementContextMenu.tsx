@@ -8,6 +8,7 @@ import { RendererTab } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -20,7 +21,7 @@ export interface ContextMenuProps {
 
 export type ElementContextMenuProps = {
   element: IElement
-  elementTree: IElementTree | null
+  elementTree: Maybe<IElementTree>
 } & ContextMenuProps &
   Pick<
     IElementService,
