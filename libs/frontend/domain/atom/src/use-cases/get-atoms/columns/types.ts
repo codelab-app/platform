@@ -1,8 +1,10 @@
 import type {
   IAtomDTO,
   IAtomService,
+  IFieldService,
   IInterfaceTypeRef,
   ITag,
+  ITypeService,
 } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 
@@ -23,6 +25,11 @@ export interface AtomRecord {
 
 export type ActionColumnProps = {
   atomService: IAtomService
+} & AtomRecordProps
+
+export type PropsColumnProps = {
+  fieldService: IFieldService
+  typeService: ITypeService
 } & AtomRecordProps
 
 /**

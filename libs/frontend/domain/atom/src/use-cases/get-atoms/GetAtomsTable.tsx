@@ -1,4 +1,8 @@
-import type { IAtomService } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomService,
+  IFieldService,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -13,20 +17,29 @@ const DEFAULT_CUR_PAGE = 1
 
 interface GetAtomsTableProps {
   atomService: IAtomService
+  typeService: ITypeService
+  fieldService: IFieldService
   getAtomLibrary: (atomType: string) => AtomLibrary
   page?: number
   pageSize?: number
 }
 
 export const GetAtomsTable = observer<GetAtomsTableProps>(
-  ({ atomService, getAtomLibrary, page, pageSize }) => {
+  ({
+    atomService,
+    typeService,
+    fieldService,
+    getAtomLibrary,
+    page,
+    pageSize,
+  }) => {
     const { atomsList } = atomService
     const router = useRouter()
     const curPage = page ?? DEFAULT_CUR_PAGE
     const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
     const { columns, rowSelection, pagination, atomWhere, atomOptions } =
-      useAtomTable(atomService)
+      useAtomTable({ atomService, typeService, fieldService })
 
     const { value: latestFetchedAtoms, loading } = useAsync(async () => {
       return await atomService.getAll(atomWhere, atomOptions)

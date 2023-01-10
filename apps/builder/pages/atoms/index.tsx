@@ -13,6 +13,11 @@ import {
   htmlAtoms,
   muiAtoms,
 } from '@codelab/frontend/domain/renderer'
+import {
+  CreateFieldModal,
+  DeleteFieldModal,
+  UpdateFieldModal,
+} from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
@@ -77,12 +82,23 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         tagService={store.tagService}
       />
       <DeleteAtomsModal atomService={store.atomService} />
+      <CreateFieldModal
+        fieldService={store.fieldService}
+        typeService={store.typeService}
+      />
+      <UpdateFieldModal
+        fieldService={store.fieldService}
+        typeService={store.typeService}
+      />
+      <DeleteFieldModal fieldService={store.fieldService} />
       <ContentSection>
         <GetAtomsTable
           atomService={store.atomService}
+          fieldService={store.fieldService}
           getAtomLibrary={getAtomLibrary}
           page={page ? parseInt(page as string) : undefined}
           pageSize={pageSize ? parseInt(pageSize as string) : undefined}
+          typeService={store.typeService}
         />
       </ContentSection>
     </>

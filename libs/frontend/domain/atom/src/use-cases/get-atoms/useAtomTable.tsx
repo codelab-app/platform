@@ -1,4 +1,8 @@
-import type { IAtomService } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomService,
+  IFieldService,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
@@ -26,7 +30,15 @@ const onLibraryFilter = (
   return list.some((x) => x.startsWith(search))
 }
 
-export const useAtomTable = (atomService: IAtomService) => {
+export const useAtomTable = ({
+  atomService,
+  typeService,
+  fieldService,
+}: {
+  atomService: IAtomService
+  typeService: ITypeService
+  fieldService: IFieldService
+}) => {
   const [atomWhere, setAtomWhere] = useState<Maybe<AtomWhere>>(undefined)
 
   const [atomOptions, setAtomOptions] = useState<AtomOptions>({
@@ -98,9 +110,15 @@ export const useAtomTable = (atomService: IAtomService) => {
       title: 'Props API',
       dataIndex: 'props',
       key: 'props',
-      width: 100,
+      width: 300,
       onHeaderCell: headerCellProps,
-      render: (_, atom) => <PropsColumn atom={atom} />,
+      render: (_, atom) => (
+        <PropsColumn
+          atom={atom}
+          fieldService={fieldService}
+          typeService={typeService}
+        />
+      ),
     },
     {
       title: 'Action',
