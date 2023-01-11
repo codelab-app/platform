@@ -38,6 +38,7 @@ export enum BuilderDndType {
 export enum DragPosition {
   Before = 'Before',
   After = 'After',
+  Inside = 'Inside',
 }
 
 export const defaultBuilderWidthBreakPoints: Record<

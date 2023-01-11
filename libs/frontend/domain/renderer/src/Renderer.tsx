@@ -1,5 +1,9 @@
 import type { IRenderer } from '@codelab/frontend/abstract/core'
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import {
+  DragPosition,
+  ROOT_RENDER_CONTAINER_ID,
+} from '@codelab/frontend/abstract/core'
+import { useDroppable } from '@dnd-kit/core'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
@@ -36,19 +40,34 @@ const emotionCache = createCache({
   prepend: false,
 })
 
-export const Renderer = observer<RendererRoot>(({ renderRoot }) => {
-  return (
-    <ErrorBoundary>
-      <CacheProvider value={emotionCache}>
-        <div
-          id={ROOT_RENDER_CONTAINER_ID}
-          style={{ minHeight: '100%', transform: 'translatex(0)' }}
-        >
-          {renderRoot()}
-        </div>
-      </CacheProvider>
-    </ErrorBoundary>
-  )
-})
+export const Renderer = observer<RendererRoot & { elementId?: string }>(
+  ({ renderRoot, elementId }) => {
+    const { setNodeRef, isOver, over } = useDroppable({
+      id: elementId!,
+      disabled: !elementId,
+    })
+
+    if (isOver && over) {
+      over.data.current = {
+        ...over.data.current,
+        dragPosition: DragPosition.Inside,
+      }
+    }
+
+    return (
+      <ErrorBoundary>
+        <CacheProvider value={emotionCache}>
+          <div
+            id={ROOT_RENDER_CONTAINER_ID}
+            ref={setNodeRef}
+            style={{ minHeight: '100%', transform: 'translatex(0)' }}
+          >
+            {renderRoot()}
+          </div>
+        </CacheProvider>
+      </ErrorBoundary>
+    )
+  },
+)
 
 Renderer.displayName = 'Renderer'

@@ -2,11 +2,12 @@ import type {
   BuilderDragData,
   BuilderDropData,
   ICreateElementDTO,
+  IElement,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { DragPosition } from '@codelab/frontend/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 
 export interface UseDndDropHandler {
@@ -25,6 +26,12 @@ export const useDndDropHandler = (
     const dragPosition = overData?.dragPosition
     const createElementInput = data?.createElementInput
 
+    if (!elementTree) {
+      console.error('Element Tree is missing')
+
+      return
+    }
+
     if (!targetElementId || !createElementInput) {
       return
     }
@@ -37,40 +44,36 @@ export const useDndDropHandler = (
 
     const createElementDto: ICreateElementDTO = {
       ...createElementInput,
-      parentElementId: targetElement.parentElement?.id,
+      parentElementId:
+        dragPosition === DragPosition.Inside
+          ? targetElement.id
+          : targetElement.parentElement?.id,
     }
 
-    if (!elementTree) {
-      console.error('Element Tree is missing')
+    let newElement: Nullable<IElement> = null
 
-      return
-    }
-
-    let newElement
-
-    // targetElement->[newElement]
     if (dragPosition === DragPosition.After) {
       createElementDto.prevSiblingId = targetElement.id
       newElement = await elementService.createElementAsNextSibling(
         createElementDto,
       )
-    } else {
-      // targetElementPrev->[newElement]->targetElement
-      if (targetElement.prevSibling) {
-        createElementDto.prevSiblingId = targetElement.prevSibling.id
-        newElement = await elementService.createElementAsNextSibling(
-          createElementDto,
-        )
-      } else {
-        // parent->[newElement]->targetElement
-        createElementDto.parentElementId = targetElement.parentElement?.id
-        newElement = await elementService.createElementAsFirstChild(
-          createElementDto,
-        )
-      }
+    } else if (
+      dragPosition === DragPosition.Before &&
+      targetElement.prevSibling
+    ) {
+      createElementDto.prevSiblingId = targetElement.prevSibling.id
+      newElement = await elementService.createElementAsNextSibling(
+        createElementDto,
+      )
+    } else if (dragPosition === DragPosition.Inside) {
+      newElement = await elementService.createElementAsFirstChild(
+        createElementDto,
+      )
     }
 
-    elementTree.addElements([newElement])
+    if (newElement) {
+      elementTree.addElements([newElement])
+    }
   }
 
   const handleMoveElement = async (event: DragEndEvent) => {
@@ -88,30 +91,25 @@ export const useDndDropHandler = (
       return
     }
 
-    // targetElement->[draggedElement]
     if (dragPosition === DragPosition.After) {
       await elementService.moveElementAsNextSibling({
         elementId: draggedElementId,
         targetElementId,
       })
-    } else {
-      // targetElementPrev->[draggedElement]->targetElement
-      if (targetElement.prevSibling) {
-        if (draggedElementId === targetElement.prevSibling.id) {
-          return
-        }
-
-        await elementService.moveElementAsNextSibling({
-          elementId: draggedElementId,
-          targetElementId: targetElement.prevSibling.id,
-        })
-      } else {
-        // parent->[draggedElement]->targetElement
-        await elementService.moveElementAsFirstChild({
-          elementId: draggedElementId,
-          parentElementId: targetElement.parentId!,
-        })
-      }
+    } else if (
+      dragPosition === DragPosition.Before &&
+      targetElement.prevSibling &&
+      draggedElementId !== targetElement.prevSibling.id
+    ) {
+      await elementService.moveElementAsNextSibling({
+        elementId: draggedElementId,
+        targetElementId: targetElement.prevSibling.id,
+      })
+    } else if (dragPosition === DragPosition.Inside) {
+      await elementService.moveElementAsFirstChild({
+        elementId: draggedElementId,
+        parentElementId: targetElement.parentId!,
+      })
     }
   }
 

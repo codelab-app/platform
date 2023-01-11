@@ -105,7 +105,10 @@ export const Builder = observer<BuilderProps>(
           onMouseLeave={handleMouseLeave}
           onMouseOver={handleMouseOver}
         >
-          <Renderer renderRoot={rendererProps.renderRoot} />
+          <Renderer
+            elementId={elementTree.root?.id}
+            renderRoot={rendererProps.renderRoot}
+          />
 
           {/* <BuilderHoverOverlay /> */}
           {/* <BuilderClickOverlay /> */}

@@ -54,9 +54,13 @@ export const calcDragPosition = (
   dragYCoordinate: number,
   draggedOnElHeight: number,
 ): Maybe<DragPosition> => {
-  if (Math.abs(dragYCoordinate) < draggedOnElHeight / 2) {
+  if (Math.abs(dragYCoordinate) < draggedOnElHeight / 3) {
     return DragPosition.Before
   }
 
-  return DragPosition.After
+  if (Math.abs(dragYCoordinate) > draggedOnElHeight * (2 / 3)) {
+    return DragPosition.After
+  }
+
+  return DragPosition.Inside
 }
