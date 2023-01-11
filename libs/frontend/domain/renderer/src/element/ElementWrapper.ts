@@ -66,46 +66,46 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     renderService.logRendered(element, renderOutputs)
 
     // Use mapOutput because the output may be array or a single item
-    const childrenMap = mapOutput(renderOutputs, (renderOutput) => {
-      return renderOutput.stop
+    /**
+     * Generates an ArrayOrSingle of functions that accepts additional props
+     * and will return the React Elements with the attached additional props
+     */
+    const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
+      const children = renderOutput.stop
         ? undefined
-        : {
-            [renderOutput.elementId]:
-              renderService.renderChildren(renderOutput),
-          }
+        : renderService.renderChildren(renderOutput)
+
+      if (renderOutput.props) {
+        renderOutput.props['forwardedRef'] = onRefChange
+      }
+
+      const ReactComponent = getReactComponent(renderOutput)
+      const extractedProps = extractValidProps(ReactComponent, renderOutput)
+
+      const withMaybeProviders = withMaybeGlobalPropsProvider(
+        renderOutput,
+        globalPropsContext,
+      )
+
+      return (props?: IPropData) => {
+        const IntermediateChildren = jsx(
+          ReactComponent,
+          // merge because some refs are not resolved
+          mergeProps(extractedProps, rest, props),
+          children,
+        )
+
+        return withMaybeProviders(IntermediateChildren)
+      }
     })
 
     // to be used for dnd to be able to add necessary props later
     const makeRenderedElements = (moreProps?: IPropData) => {
-      return mapOutput(renderOutputs, function (renderOutput) {
-        // get the rendered children to be rendered later
-        const children = Array.isArray(childrenMap)
-          ? childrenMap.find((c) => c?.[renderOutput.elementId])?.[
-              renderOutput.elementId
-            ]
-          : childrenMap?.[renderOutput.elementId]
+      if (Array.isArray(renderOutputWithProps)) {
+        return renderOutputWithProps.map((fn) => fn(moreProps))
+      }
 
-        if (renderOutput.props) {
-          renderOutput.props['forwardedRef'] = onRefChange
-        }
-
-        const ReactComponent = getReactComponent(renderOutput)
-        const extractedProps = extractValidProps(ReactComponent, renderOutput)
-
-        const IntermediateChildren = jsx(
-          ReactComponent,
-          // merge because some refs are not resolved
-          mergeProps(extractedProps, rest, moreProps),
-          children,
-        )
-
-        const withMaybeProviders = withMaybeGlobalPropsProvider(
-          renderOutput,
-          globalPropsContext,
-        )
-
-        return withMaybeProviders(IntermediateChildren)
-      })
+      return renderOutputWithProps(moreProps)
     }
 
     // we need to include additional props from dnd so we need to render the element there
