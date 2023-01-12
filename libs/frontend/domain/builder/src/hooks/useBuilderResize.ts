@@ -1,22 +1,15 @@
-import type { IBuilderService } from '@codelab/frontend/abstract/core'
+import type {
+  BuilderWidth,
+  IBuilderService,
+} from '@codelab/frontend/abstract/core'
 import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
 import { useMotionValue } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
-export interface MinMaxValue {
-  min?: number
-  max?: number
-  default?: number
-}
-
 type UseBuilderDragInput = {
-  width?: MinMaxValue
-} & Pick<
-  IBuilderService,
-  | 'setResizingMainContent'
-  | 'setMainResizingContentWidth'
-  | 'setMainContentWidth'
->
+  width?: BuilderWidth
+  selectedWidth: BuilderWidth
+} & Pick<IBuilderService, 'setCurrentBuilderWidth'>
 
 export type DragHandleProps = Pick<
   MotionProps,
@@ -40,7 +33,7 @@ export interface UseBuilderResize {
 const clampSet = (
   mValue: MotionValue<number>,
   delta: number,
-  minMax?: MinMaxValue,
+  minMax?: BuilderWidth,
 ) => {
   let newValue = mValue.get() + delta
 
@@ -57,43 +50,32 @@ const clampSet = (
 
 export const useBuilderResize = ({
   width,
-  setResizingMainContent,
-  setMainResizingContentWidth,
-  setMainContentWidth,
+  selectedWidth,
+  setCurrentBuilderWidth,
 }: UseBuilderDragInput): UseBuilderResize => {
   const [isDragging, setIsDragging] = useState(false)
   const mWidth = useMotionValue(width?.default ?? 0)
 
   const handleXDrag = useCallback(
     (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      setResizingMainContent(true)
-      clampSet(mWidth, info.delta.x, width)
-      setMainResizingContentWidth(Math.round(mWidth.get()))
+      clampSet(mWidth, info.delta.x, selectedWidth)
+
+      const roundedWidth = Math.round(mWidth.get())
+      setCurrentBuilderWidth({ ...selectedWidth, default: roundedWidth })
     },
-    [mWidth, width],
+
+    [mWidth, selectedWidth, setCurrentBuilderWidth],
   )
 
   useEffect(() => {
-    if (!(width?.default && width.max && width.min)) {
+    if (!(selectedWidth.default && selectedWidth.max && selectedWidth.min)) {
       return
     }
 
-    if (width.default > width.max) {
-      setMainResizingContentWidth(width.max)
+    setCurrentBuilderWidth(selectedWidth)
 
-      return mWidth.set(width.max)
-    }
-
-    if (width.default < width.min) {
-      setMainResizingContentWidth(width.min)
-
-      return mWidth.set(width.min)
-    }
-
-    setMainContentWidth(width.default)
-
-    return mWidth.set(width.default)
-  }, [width?.default, width?.max])
+    return mWidth.set(selectedWidth.default)
+  }, [selectedWidth, mWidth, setCurrentBuilderWidth])
 
   const commonDragProps: Partial<DragHandleProps> = {
     dragElastic: 0,

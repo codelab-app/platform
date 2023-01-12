@@ -4,6 +4,8 @@ import type {
   INode,
 } from '@codelab/frontend/abstract/core'
 import {
+  BuilderWidth,
+  defaultBuilderWidthBreakPoints,
   isComponent,
   isElement,
   RendererTab,
@@ -40,9 +42,13 @@ export class BuilderService
      */
     _selectedNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
     _hoveredNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
-    mainContentWidth: prop<Nullable<number>>(null),
-    mainResizingContentWidth: prop<Nullable<number>>(null).withSetter(),
-    resizingMainContent: prop<boolean>(false).withSetter(),
+    currentBuilderWidth: prop<BuilderWidth>(
+      () => defaultBuilderWidthBreakPoints.desktop,
+    ),
+    selectedBuilderWidth: prop<BuilderWidth>(
+      () => defaultBuilderWidthBreakPoints.desktop,
+    ),
+    builderContainerWidth: prop<number>(0).withSetter(),
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
@@ -221,8 +227,26 @@ export class BuilderService
   }
 
   @modelAction
-  setMainContentWidth(width: Nullable<number>) {
-    this.mainContentWidth = width
-    this.mainResizingContentWidth = width
+  setCurrentBuilderWidth(width: BuilderWidth) {
+    this.currentBuilderWidth.default = width.default
+    this.currentBuilderWidth.min = width.min
+    this.currentBuilderWidth.max = width.max
+  }
+
+  @modelAction
+  setSelectedBuilderWidth(width: BuilderWidth) {
+    // -1 max width means fill the screen, so we use the available
+    // container width as long as it's not smaller than the min
+    this.selectedBuilderWidth = {
+      default:
+        width.default < 0
+          ? Math.max(width.min, this.builderContainerWidth)
+          : width.default,
+      min: width.min,
+      max:
+        width.max < 0
+          ? Math.max(width.min, this.builderContainerWidth)
+          : width.max,
+    }
   }
 }

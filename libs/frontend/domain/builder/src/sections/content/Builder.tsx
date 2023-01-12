@@ -13,7 +13,7 @@ import { Renderer } from '@codelab/frontend/domain/renderer'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
@@ -21,17 +21,15 @@ import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandl
 
 type BuilderProps = {
   elementTree: IElementTree
-  builderTabsWidth?: number
 } & Pick<
   IBuilderService,
   | 'set_hoveredNode'
   | 'currentDragData'
   | 'selectedNode'
   | 'set_selectedNode'
-  | 'mainContentWidth'
-  | 'setMainContentWidth'
-  | 'setMainResizingContentWidth'
-  | 'setResizingMainContent'
+  | 'currentBuilderWidth'
+  | 'selectedBuilderWidth'
+  | 'setCurrentBuilderWidth'
 > &
   Pick<IElementService, 'deleteModal'> & {
     rendererProps: RendererRoot
@@ -49,11 +47,9 @@ export const Builder = observer<BuilderProps>(
     deleteModal,
     set_selectedNode,
     rendererProps,
-    mainContentWidth,
-    setMainContentWidth,
-    setMainResizingContentWidth,
-    setResizingMainContent,
-    builderTabsWidth,
+    currentBuilderWidth: mainContentWidth,
+    selectedBuilderWidth: selectedMainContentWidth,
+    setCurrentBuilderWidth,
   }) => {
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
       currentDragData,
@@ -61,14 +57,9 @@ export const Builder = observer<BuilderProps>(
     })
 
     const builderResizable = useBuilderResize({
-      width: {
-        default: mainContentWidth ? mainContentWidth : builderTabsWidth,
-        min: 100,
-        max: builderTabsWidth,
-      },
-      setResizingMainContent,
-      setMainResizingContentWidth,
-      setMainContentWidth,
+      width: mainContentWidth,
+      selectedWidth: selectedMainContentWidth,
+      setCurrentBuilderWidth,
     })
 
     useBuilderHotkeys({
@@ -78,10 +69,6 @@ export const Builder = observer<BuilderProps>(
     })
 
     const handleContainerClick = useBuilderRootClickHandler()
-
-    useEffect(() => {
-      return setResizingMainContent(false)
-    }, [])
 
     return (
       <StyledBuilderResizeContainer

@@ -3,7 +3,6 @@ import {
   EyeOutlined,
   FileOutlined,
   MobileOutlined,
-  SettingOutlined,
   TabletOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
@@ -11,18 +10,22 @@ import type {
   IBuilderService,
   IPageService,
 } from '@codelab/frontend/abstract/core'
+import {
+  BuilderWidthBreakPoints,
+  defaultBuilderWidthBreakPoints,
+} from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useCurrentAppId,
   useCurrentPageId,
 } from '@codelab/frontend/presenter/container'
-import { InputNumber, Menu } from 'antd'
+import { InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { useAsync } from 'react-use'
-import { mainContentWidthBreakPoint } from './constants'
+// import { BuilderSizeBreakpoints, mainContentWidthBreakPoint } from './constants'
 
 export type MenuItemProps = {
   hide?: boolean
@@ -52,9 +55,23 @@ export const PageDetailHeader = observer<{
     })
   }
 
+  const [selectedWidthBreakpoint, setSelectedWidthBreakpoint] = useState(
+    BuilderWidthBreakPoints.Desktop,
+  )
+
+  const handleBreakpointSelected = useCallback(
+    (breakpoint: BuilderWidthBreakPoints) => {
+      setSelectedWidthBreakpoint(breakpoint)
+      builderService?.setSelectedBuilderWidth(
+        defaultBuilderWidthBreakPoints[breakpoint],
+      )
+    },
+    [],
+  )
+
   const menuItems: Array<MenuItemProps> = [
     {
-      icon: <FileOutlined />,
+      label: <FileOutlined />,
       key: 'sub1',
       title: currentPage?.name,
       children: pagesList.map((page) => ({
@@ -73,74 +90,70 @@ export const PageDetailHeader = observer<{
       hide: false,
     },
     {
-      icon: isBuilder ? <EyeOutlined /> : <ToolOutlined />,
+      label: isBuilder ? <EyeOutlined /> : <ToolOutlined />,
       key: '1',
+      title: isBuilder ? 'Preview' : 'Builder',
       onClick: switchPreviewMode,
       style: { backgroundColor: 'initial' },
       hide: false,
     },
     {
-      icon: <MobileOutlined />,
-      key: 'mobile',
-      onClick: () => {
-        builderService?.setMainContentWidth(mainContentWidthBreakPoint.mobile)
-      },
+      label: <MobileOutlined />,
+      key: BuilderWidthBreakPoints.Mobile,
+      title: 'mobile',
+      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoints.Mobile),
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,
     },
     {
-      icon: <MobileOutlined rotate={-90} />,
-      key: 'mobile-vertical',
-      onClick: () => {
-        builderService?.setMainContentWidth(
-          mainContentWidthBreakPoint.mobile_vertical,
-        )
-      },
+      label: <MobileOutlined rotate={-90} />,
+      key: BuilderWidthBreakPoints.MobileVertical,
+      title: 'mobile vertical',
+      onClick: () =>
+        handleBreakpointSelected(BuilderWidthBreakPoints.MobileVertical),
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,
     },
     {
-      icon: <TabletOutlined />,
-      key: 'tablet-horizontal',
-      onClick: () => {
-        builderService?.setMainContentWidth(
-          mainContentWidthBreakPoint.tablet_horizontal,
-        )
-      },
+      label: <TabletOutlined />,
+      key: BuilderWidthBreakPoints.TabletHorizontal,
+      title: 'tablet horizontal',
+      onClick: () =>
+        handleBreakpointSelected(BuilderWidthBreakPoints.TabletHorizontal),
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,
     },
     {
-      icon: <DesktopOutlined />,
-      key: 'desktop',
-      onClick: () => {
-        builderService?.setMainContentWidth(null)
-      },
+      label: <DesktopOutlined />,
+      key: BuilderWidthBreakPoints.Desktop,
+      title: 'desktop',
+      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoints.Desktop),
       style: { backgroundColor: 'initial' },
       hide: !isBuilder,
     },
     {
-      icon: <SettingOutlined />,
-      key: 'sub2',
-      children: [
-        {
-          key: 'custom-width',
-          disabled: true,
-          icon: (
-            <InputNumber
-              controls={false}
-              min={100}
-              onBlur={(e) => {
-                builderService?.setMainContentWidth(Number(e.target.value))
-              }}
-              value={builderService?.mainResizingContentWidth ?? ''}
-            />
-          ),
-          label: 'px',
-        },
-      ],
+      label: (
+        <Space direction="horizontal" size="small">
+          <InputNumber
+            controls={false}
+            max={builderService?.selectedBuilderWidth.max}
+            min={builderService?.selectedBuilderWidth.min}
+            onChange={(value) =>
+              builderService?.setSelectedBuilderWidth({
+                ...builderService.selectedBuilderWidth,
+                default: Number(value),
+              })
+            }
+            size="small"
+            value={builderService?.currentBuilderWidth.default ?? ''}
+          />
+          <span>px</span>
+        </Space>
+      ),
+      key: 'custom',
+      title: 'custom size',
       style: { backgroundColor: 'initial' },
-      hide: !builderService?.resizingMainContent,
+      hide: !isBuilder,
     },
   ]
 
@@ -154,6 +167,7 @@ export const PageDetailHeader = observer<{
         }))}
       mode="horizontal"
       selectable={false}
+      selectedKeys={[selectedWidthBreakpoint]}
       theme="light"
       triggerSubMenuAction="click"
     />

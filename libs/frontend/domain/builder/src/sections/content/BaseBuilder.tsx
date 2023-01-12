@@ -4,8 +4,9 @@ import type {
   IElementTree,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
+import { defaultBuilderWidthBreakPoints } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Builder } from './Builder'
 
 export interface BaseBuilderProps {
@@ -31,34 +32,29 @@ export const BaseBuilder = observer<BaseBuilderProps>(
       [renderer],
     )
 
-    const setMainContentWidth = useMemo(
-      () => builderService.setMainContentWidth.bind(builderService),
+    const setCurrentBuilderWidth = useMemo(
+      () => builderService.setCurrentBuilderWidth.bind(builderService),
       [builderService],
     )
 
-    const setMainResizingContentWidth = useMemo(
-      () => builderService.setMainResizingContentWidth.bind(builderService),
-      [builderService],
-    )
-
-    const setResizingMainContent = useMemo(
-      () => builderService.setResizingMainContent.bind(builderService),
-      [builderService],
-    )
+    useEffect(() => {
+      builderService.setBuilderContainerWidth(builderTabsWidth ?? 0)
+      builderService.setSelectedBuilderWidth(
+        defaultBuilderWidthBreakPoints.desktop,
+      )
+    }, [builderTabsWidth, builderService])
 
     return (
       <Builder
-        builderTabsWidth={builderTabsWidth}
+        currentBuilderWidth={builderService.currentBuilderWidth}
         currentDragData={builderService.currentDragData}
         deleteModal={elementService.deleteModal}
         elementTree={elementTree}
         key={renderer.pageTree?.current.root?.id}
-        mainContentWidth={builderService.mainContentWidth}
         rendererProps={rendererProps}
+        selectedBuilderWidth={builderService.selectedBuilderWidth}
         selectedNode={builderService.selectedNode}
-        setMainContentWidth={setMainContentWidth}
-        setMainResizingContentWidth={setMainResizingContentWidth}
-        setResizingMainContent={setResizingMainContent}
+        setCurrentBuilderWidth={setCurrentBuilderWidth}
         set_hoveredNode={builderService.set_hoveredNode.bind(builderService)}
         set_selectedNode={builderService.set_selectedNode.bind(builderService)}
       />
