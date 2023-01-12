@@ -101,25 +101,30 @@ export class Store
   }
 
   @modelAction
-  public evaluateExpression(expression: string) {
-    return evaluateExpression(expression, this.state.values)
+  public evaluateExpression(
+    expression: string,
+    context: IPropData = this.state.values,
+  ) {
+    return evaluateExpression(expression, context)
   }
 
   @modelAction
   public replaceStateInProps(props: IPropData) {
+    const context = { ...props, ...this.state.values }
+
     props = mapDeep(
       props,
       // value mapper
-      (v, k) => (isString(v) ? this.getByExpression(v) : v),
+      (v, k) => (isString(v) ? this.getByExpression(v, context) : v),
       // key mapper
-      (v, k) => (isString(k) ? this.getByExpression(k) : k) as string,
+      (v, k) => (isString(k) ? this.getByExpression(k, context) : k) as string,
     )
 
     return props
   }
 
   @modelAction
-  public getByExpression(key: string) {
+  public getByExpression(key: string, context: IPropData = this.state.values) {
     if (!hasStateExpression(key)) {
       return key
     }
@@ -128,14 +133,14 @@ export class Store
      * return typed value for : {{expression}}
      */
     if (isSingleStateExpression(key)) {
-      return this.evaluateExpression(key)
+      return evaluateExpression(key, context)
     }
 
     /**
      * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
      */
     return key.replace(STATE_PATH_TEMPLATE_REGEX, (v) =>
-      this.evaluateExpression(v),
+      evaluateExpression(v, context),
     )
   }
 

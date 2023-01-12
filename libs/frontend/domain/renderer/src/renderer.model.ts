@@ -275,6 +275,32 @@ export class Renderer
     this.renderComponentMeta[componentId] += 1
   }
 
+  computePropsForComponentElements(element: IElement) {
+    const component = (element.renderComponentType ?? element.parentComponent)
+      ?.maybeCurrent
+
+    const componentProps = element.parentComponent
+      ? component?.props?.values
+      : element.props?.values
+
+    if (!component || !componentProps) {
+      return
+    }
+
+    const propsForCurrentElement = this.extraElementProps.getForElement(
+      element.id,
+    )['props']
+
+    const props = this.processPropsForRender(
+      { ...componentProps, props: propsForCurrentElement },
+      element,
+    )
+
+    component.elementTree?.elementsList.forEach((elem: IElement) => {
+      this.extraElementProps.addForElement(elem.id, { props })
+    })
+  }
+
   /**
    * Renders a single Element using the provided RenderAdapter
    */
@@ -284,6 +310,8 @@ export class Renderer
     if (element.parentComponent?.id) {
       this.updateComponentRenderIndex(element.parentComponent.id)
     }
+
+    this.computePropsForComponentElements(element)
 
     const wrapperProps: ElementWrapperProps & { key: string } = {
       key: `element-wrapper-${element.id}`,
