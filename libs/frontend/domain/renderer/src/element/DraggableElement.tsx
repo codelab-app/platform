@@ -3,10 +3,11 @@ import type {
   IElement,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { BuilderDndType, DragPosition } from '@codelab/frontend/abstract/core'
+import { BuilderDndType } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React, { useEffect } from 'react'
+import { makeDropIndicatorStyle } from '../utils'
 import { calcDragPosition, useElementLayout } from './draggableElement.util'
 import { ElementDragOverlay } from './ElementDragOverlay'
 
@@ -80,26 +81,15 @@ export const DraggableElement = ({
     droppableNodeRef.current = ref
   }
 
-  const indicatorStyle: Record<string, string | number> = { zIndex: 100 }
-
-  switch (dragPosition) {
-    case DragPosition.After:
-      indicatorStyle['boxShadow'] = '0px 5px 0px cyan'
-      break
-    case DragPosition.Before:
-      indicatorStyle['boxShadow'] = '0px -5px 0px cyan'
-      break
-    case DragPosition.Inside:
-      indicatorStyle['boxShadow'] = '0px 0px 0px 5px cyan'
-      break
-    default:
-      break
-  }
+  const indicatorStyle =
+    isOver && dragPosition
+      ? { style: makeDropIndicatorStyle(dragPosition) }
+      : {}
 
   const renderedChildren = makeRenderedElements({
     ...draggableAttrs,
     ...draggableListeners,
-    ...(isOver ? { style: indicatorStyle } : {}),
+    ...indicatorStyle,
   })
 
   return Array.isArray(renderedChildren) ? (

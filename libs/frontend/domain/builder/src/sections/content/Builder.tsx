@@ -7,9 +7,14 @@ import type {
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
+  DragPosition,
 } from '@codelab/frontend/abstract/core'
 import type { RendererRoot } from '@codelab/frontend/domain/renderer'
-import { Renderer } from '@codelab/frontend/domain/renderer'
+import {
+  makeDropIndicatorStyle,
+  Renderer,
+} from '@codelab/frontend/domain/renderer'
+import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
@@ -62,6 +67,13 @@ export const Builder = observer<BuilderProps>(
       setCurrentBuilderWidth,
     })
 
+    // by our current IElement, root can be undefined
+    // useDroppable does not accept an undefined id
+    // since this is the root element, id should be defined
+    const { setNodeRef, isOver, over } = useDroppable({
+      id: elementTree.root?.id as string,
+    })
+
     useBuilderHotkeys({
       selectedNode,
       set_selectedNode,
@@ -69,6 +81,19 @@ export const Builder = observer<BuilderProps>(
     })
 
     const handleContainerClick = useBuilderRootClickHandler()
+
+    if (isOver && over) {
+      over.data.current = {
+        ...over.data.current,
+        dragPosition: DragPosition.Inside,
+      }
+    }
+
+    const rootStyle = isOver
+      ? makeDropIndicatorStyle(DragPosition.Inside, {
+        backgroundColor: 'rgba(0, 255, 255, 0.2)',
+      })
+      : {}
 
     return (
       <StyledBuilderResizeContainer
@@ -106,8 +131,9 @@ export const Builder = observer<BuilderProps>(
           onMouseOver={handleMouseOver}
         >
           <Renderer
-            elementId={elementTree.root?.id}
+            ref={setNodeRef}
             renderRoot={rendererProps.renderRoot}
+            style={rootStyle}
           />
 
           {/* <BuilderHoverOverlay /> */}

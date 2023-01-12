@@ -1,9 +1,6 @@
 import type { IRenderer } from '@codelab/frontend/abstract/core'
-import {
-  DragPosition,
-  ROOT_RENDER_CONTAINER_ID,
-} from '@codelab/frontend/abstract/core'
-import { useDroppable } from '@dnd-kit/core'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import type { WithStyleProp } from '@codelab/frontend/abstract/types'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
@@ -40,27 +37,15 @@ const emotionCache = createCache({
   prepend: false,
 })
 
-export const Renderer = observer<RendererRoot & { elementId?: string }>(
-  ({ renderRoot, elementId }) => {
-    const { setNodeRef, isOver, over } = useDroppable({
-      id: elementId!,
-      disabled: !elementId,
-    })
-
-    if (isOver && over) {
-      over.data.current = {
-        ...over.data.current,
-        dragPosition: DragPosition.Inside,
-      }
-    }
-
+export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
+  ({ renderRoot, style = {} }, ref) => {
     return (
       <ErrorBoundary>
         <CacheProvider value={emotionCache}>
           <div
             id={ROOT_RENDER_CONTAINER_ID}
-            ref={setNodeRef}
-            style={{ minHeight: '100%', transform: 'translatex(0)' }}
+            ref={ref}
+            style={{ minHeight: '100%', transform: 'translatex(0)', ...style }}
           >
             {renderRoot()}
           </div>
@@ -68,6 +53,7 @@ export const Renderer = observer<RendererRoot & { elementId?: string }>(
       </ErrorBoundary>
     )
   },
+  { forwardRef: true },
 )
 
 Renderer.displayName = 'Renderer'
