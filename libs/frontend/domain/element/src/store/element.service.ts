@@ -577,21 +577,37 @@ element is new parentElement's first child
         {
           elementId,
           targetElementId,
+          dropPosition,
         }: Parameters<IElementService['moveElementToAnotherTree']>[0],
       ) {
-        const element = this.element(elementId)
         const targetElement = this.element(targetElementId)
 
-        if (!targetElement || !element) {
+        if (!targetElement) {
           return
         }
 
-        yield* _await(this.detachElementFromElementTree(element.id))
+        let element = this.element(elementId)
 
-        const lastChildId =
-          targetElement.children[targetElement.children.length - 1]?.id
+        if (!element) {
+          const component = this.componentService.component(elementId)
+          const name = `${component?.name}_${v4()}`
+          const slug = `${component?.name}_${v4()}`
+          const renderComponentTypeId = component?.id
+          const parentElementId = targetElement.id
+          const data = { name, slug, renderComponentTypeId, parentElementId }
 
-        if (!lastChildId) {
+          element = (yield* _await(this.create([data])))[0]
+        } else {
+          yield* _await(this.detachElementFromElementTree(element.id))
+        }
+
+        if (!element) {
+          return
+        }
+
+        const insertAfterId = targetElement.children[dropPosition]?.id
+
+        if (!insertAfterId || dropPosition === 0) {
           yield* _await(
             this.attachElementAsFirstChild({
               elementId: element.id,
@@ -602,7 +618,7 @@ element is new parentElement's first child
           yield* _await(
             this.attachElementAsNextSibling({
               elementId: element.id,
-              targetElementId: lastChildId,
+              targetElementId: insertAfterId,
             }),
           )
         }

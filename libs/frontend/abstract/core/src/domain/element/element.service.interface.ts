@@ -78,6 +78,7 @@ export interface IElementService
   moveElementToAnotherTree(props: {
     elementId: string
     targetElementId: string
+    dropPosition: number
   }): Promise<void>
   moveElementAsFirstChild(props: {
     elementId: string
