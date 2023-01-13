@@ -1,4 +1,4 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IElementExport } from './element.interface'
 import type { IStoreExport } from './store.interface'
 

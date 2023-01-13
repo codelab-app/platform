@@ -1,5 +1,5 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import type { ITagExport } from '@codelab/backend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 import type { TagNode } from './antd-tag-tree.data'

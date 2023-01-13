@@ -1,4 +1,4 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 

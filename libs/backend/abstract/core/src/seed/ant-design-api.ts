@@ -1,4 +1,4 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
 export interface ExistingData {
   atoms: { [atomName: string]: OGM_TYPES.Atom }

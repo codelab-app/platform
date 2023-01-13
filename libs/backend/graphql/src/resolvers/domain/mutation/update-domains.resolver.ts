@@ -1,10 +1,10 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   domainSelection,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
 import type { Context } from '@neo4j/graphql/dist/types'
 import { domainExistsError } from '../domain.error'

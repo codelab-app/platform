@@ -1,5 +1,7 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
-import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type {
+  OGM_TYPES,
+  PrimitiveTypeKind,
+} from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { IFieldDefaultValue, IFieldRef } from './field'
 import type { FieldFragment } from './fragments'

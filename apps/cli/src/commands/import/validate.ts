@@ -1,6 +1,6 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import type { IPageExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import flatMap from 'lodash/flatMap'
 
 export const validate = async (pages: Array<IPageExport>) => {

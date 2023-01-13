@@ -1,4 +1,4 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
 /**
  * This is the port our application uses, can't use static interfaces, so we sacrifice some use-ability for this architecture.

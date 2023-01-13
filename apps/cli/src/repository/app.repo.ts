@@ -1,9 +1,9 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import type { IAppExport } from '@codelab/backend/abstract/core'
 import {
   pageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { connectNode } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 import omit from 'lodash/omit'

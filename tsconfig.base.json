@@ -23,9 +23,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/backend/abstract/codegen": [
-        "libs/backend/abstract/codegen/src/index.ts"
-      ],
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
       ],

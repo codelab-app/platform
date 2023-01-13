@@ -1,4 +1,3 @@
-import { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   atomSelectionSet,
   Repository,
@@ -8,6 +7,7 @@ import type {
   Atom,
   GetAtomsQueryVariables,
 } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { Transaction } from 'neo4j-driver'
 
 export const atomRepository = {

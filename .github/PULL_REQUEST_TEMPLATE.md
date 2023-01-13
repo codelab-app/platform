@@ -7,7 +7,7 @@
 
 ## Video or Image
 
-<-- Add video or image showing how the new feature works -->
+<!-- Add video or image showing how the new feature works -->
 
 ## Related Issue(s)
 

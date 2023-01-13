@@ -1,9 +1,9 @@
-import type { OGM_TYPES } from '@codelab/backend/abstract/codegen'
 import {
   fieldSelectionSet,
   getDriver,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNode } from '@codelab/shared/data'
 

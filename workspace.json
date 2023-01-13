@@ -1,7 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "backend-abstract-codegen": "libs/backend/abstract/codegen",
     "backend-abstract-core": "libs/backend/abstract/core",
     "backend-abstract-types": "libs/backend/abstract/types",
     "backend-application": "libs/backend/application",

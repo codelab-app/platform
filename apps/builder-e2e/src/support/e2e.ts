@@ -31,6 +31,7 @@ Cypress.on('uncaught:exception', (err) => {
 
 /**
  * Preserve cookies globally here
+ *
  * https://docs.cypress.io/api/cypress-api/cookies#Defaults
  */
 beforeEach(() => {
