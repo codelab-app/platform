@@ -589,9 +589,20 @@ element is new parentElement's first child
         let element = this.element(elementId)
 
         if (!element) {
+          const elementTree = Element.getElementTree(targetElement)
+
+          const existingInstances = elementTree?.elementsList.filter(
+            ({ renderComponentType }) => renderComponentType?.id === elementId,
+          )
+
           const component = this.componentService.component(elementId)
-          const name = `${component?.name}_${v4()}`
-          const slug = `${component?.name}_${v4()}`
+
+          const componentInstanceCounter = existingInstances?.length
+            ? ` ${existingInstances.length}`
+            : ''
+
+          const name = `${component?.name}${componentInstanceCounter}`
+          const slug = `${component?.name}${componentInstanceCounter}`
           const renderComponentTypeId = component?.id
           const parentElementId = targetElement.id
           const data = { name, slug, renderComponentTypeId, parentElementId }
