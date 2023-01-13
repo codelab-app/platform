@@ -19,7 +19,7 @@ export const userSchema = gql`
     apps: [App!]! @relationship(type: "OWNED_BY", direction: IN)
     elements: [Element!]! @relationship(type: "OWNED_BY", direction: IN)
     components: [Component!]! @relationship(type: "OWNED_BY", direction: IN)
-    roles: [Role!]!
+    roles: [Role!]
     tags: [Tag!]! @relationship(type: "OWNED_BY", direction: IN)
   }
 

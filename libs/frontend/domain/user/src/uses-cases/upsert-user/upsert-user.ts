@@ -1,6 +1,6 @@
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
 /**
  * Create user using OGM, used by Next.js serverless for first time logins.
@@ -31,7 +31,7 @@ export const upsertUser = async (
         auth0Id: user.sub,
         email: user.email,
         username: user.nickname,
-        roles: user[JWT_CLAIMS].roles,
+        roles: user[JWT_CLAIMS].roles.map((role) => IRole[role]),
       },
     })
   } else {
@@ -42,7 +42,7 @@ export const upsertUser = async (
             auth0Id: user.sub,
             email: user.email,
             username: user.email,
-            roles: user[JWT_CLAIMS].roles,
+            roles: user[JWT_CLAIMS].roles.map((role) => IRole[role]),
           },
         ],
       })

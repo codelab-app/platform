@@ -20388,7 +20388,7 @@ export type User = {
   elementsConnection: UserElementsConnection
   email: Scalars['String']
   id: Scalars['ID']
-  roles: Array<Role>
+  roles?: Maybe<Array<Role>>
   tags: Array<Tag>
   tagsAggregate?: Maybe<UserTagTagsAggregationSelection>
   tagsConnection: UserTagsConnection
@@ -20799,7 +20799,7 @@ export type UserCreateInput = {
   components?: InputMaybe<UserComponentsFieldInput>
   elements?: InputMaybe<UserElementsFieldInput>
   email: Scalars['String']
-  roles: Array<Role>
+  roles?: InputMaybe<Array<Role>>
   tags?: InputMaybe<UserTagsFieldInput>
   types?: InputMaybe<UserTypesFieldInput>
   username: Scalars['String']
@@ -21119,7 +21119,7 @@ export type UserElementsUpdateFieldInput = {
 export type UserOnCreateInput = {
   auth0Id: Scalars['String']
   email: Scalars['String']
-  roles: Array<Role>
+  roles?: InputMaybe<Array<Role>>
   username: Scalars['String']
 }
 
@@ -22304,7 +22304,7 @@ export type UserFragment = {
   username: string
   email: string
   auth0Id: string
-  roles: Array<Role>
+  roles?: Array<Role> | null
   apps: Array<{ __typename?: 'App' } & AppFragment>
 }
 

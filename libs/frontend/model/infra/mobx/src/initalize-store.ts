@@ -1,6 +1,6 @@
 import type { IPageProps, IRootStore } from '@codelab/frontend/abstract/core'
 import { User } from '@codelab/frontend/domain/user'
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
 
@@ -19,7 +19,7 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
     ? {
         id: pageProps.user.sub,
         auth0Id: pageProps.user.sub,
-        roles: pageProps.user[JWT_CLAIMS].roles,
+        roles: pageProps.user[JWT_CLAIMS].roles.map((role) => IRole[role]),
         email: pageProps.user.email,
         username: pageProps.user.nickname,
         apps: [],

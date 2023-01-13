@@ -18630,7 +18630,7 @@ type User {
   ): UserElementsConnection!
   email: String!
   id: ID!
-  roles: [Role!]!
+  roles: [Role!]
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
     directed: Boolean = true
@@ -18957,7 +18957,7 @@ input UserCreateInput {
   components: UserComponentsFieldInput
   elements: UserElementsFieldInput
   email: String!
-  roles: [Role!]!
+  roles: [Role!]
   tags: UserTagsFieldInput
   types: UserTypesFieldInput
   username: String!
@@ -19272,7 +19272,7 @@ input UserElementsUpdateFieldInput {
 input UserOnCreateInput {
   auth0Id: String!
   email: String!
-  roles: [Role!]!
+  roles: [Role!]
   username: String!
 }
 

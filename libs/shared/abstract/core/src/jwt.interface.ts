@@ -2,8 +2,10 @@ import type { Claims } from '@auth0/nextjs-auth0'
 import type { IRole } from './role.enum'
 
 export interface CodelabApiClaims extends Claims {
-  // email: string
-  roles: Array<IRole>
+  /**
+   * When it comes from the Auth0 endpoint, the session data is encoded as string, not enum
+   */
+  roles: Array<keyof typeof IRole>
 }
 
 export const JWT_CLAIMS = `https://api.codelab.app/jwt/claims`

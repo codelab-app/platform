@@ -6614,7 +6614,7 @@ export type User = {
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
-  roles: Array<Role>
+  roles?: Maybe<Array<Role>>
   types: Array<BaseType>
   typesAggregate?: Maybe<UserBaseTypeTypesAggregationSelection>
   apps: Array<App>
@@ -21151,7 +21151,7 @@ export type UserCreateInput = {
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
-  roles: Array<Role>
+  roles?: InputMaybe<Array<Role>>
   types?: InputMaybe<UserTypesFieldInput>
   apps?: InputMaybe<UserAppsFieldInput>
   elements?: InputMaybe<UserElementsFieldInput>
@@ -21435,7 +21435,7 @@ export type UserOnCreateInput = {
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
-  roles: Array<Role>
+  roles?: InputMaybe<Array<Role>>
 }
 
 export type UserOptions = {
