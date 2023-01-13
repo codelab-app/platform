@@ -68,7 +68,7 @@ export const TestimonialItem = ({
           css={tw`mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]`}
         >
           <Text
-            css={tw` text-sm sm:text-base text-slate-300`}
+            css={tw`text-sm sm:text-base text-slate-300`}
             italic
           >{`"${review}"`}</Text>
         </div>
