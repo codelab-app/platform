@@ -56,6 +56,11 @@ export const Builder = observer<BuilderProps>(
     selectedBuilderWidth: selectedMainContentWidth,
     setCurrentBuilderWidth,
   }) => {
+    // to render the body of the app, the root is required
+    if (!elementTree.root) {
+      return null
+    }
+
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
       currentDragData,
       set_hoveredNode,
@@ -67,11 +72,8 @@ export const Builder = observer<BuilderProps>(
       setCurrentBuilderWidth,
     })
 
-    // by our current IElement, root can be undefined
-    // useDroppable does not accept an undefined id
-    // since this is the root element, id should be defined
     const { setNodeRef, isOver, over } = useDroppable({
-      id: elementTree.root?.id as string,
+      id: elementTree.root.id,
     })
 
     useBuilderHotkeys({
@@ -91,8 +93,8 @@ export const Builder = observer<BuilderProps>(
 
     const rootStyle = isOver
       ? makeDropIndicatorStyle(DragPosition.Inside, {
-        backgroundColor: 'rgba(0, 255, 255, 0.2)',
-      })
+          backgroundColor: 'rgba(0, 255, 255, 0.2)',
+        })
       : {}
 
     return (
