@@ -103,6 +103,32 @@ export const upsertType = async (
       return actionType
     }
 
+    case ITypeKind.ArrayType: {
+      const ArrayType = await Repository.instance.ArrayType
+
+      const arrayType = (
+        await ArrayType.find({
+          where: where(type),
+        })
+      )[0]
+
+      if (!arrayType) {
+        console.log(`Creating ${type.name} [${type.kind}]...`)
+
+        return (
+          await ArrayType.create({
+            input: [
+              {
+                ...createCreateBaseFields(type, userId),
+              },
+            ],
+          })
+        ).arrayTypes[0]
+      }
+
+      return arrayType
+    }
+
     case ITypeKind.RenderPropsType: {
       const RenderPropsType = await Repository.instance.RenderPropsType
 
