@@ -58,4 +58,10 @@ export const createSeedTypesData: CreateSeedTypes = ([
     name: ITypeKind.ActionType,
     kind: ITypeKind.ActionType,
   },
+  {
+    id: v4(),
+    __typename: ITypeKind.ArrayType,
+    name: ITypeKind.ArrayType,
+    kind: ITypeKind.ArrayType,
+  },
 ]

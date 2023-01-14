@@ -45,6 +45,12 @@ export type IActionTypeExport = Pick<
 > &
   Required<Pick<OGM_TYPES.ActionType, '__typename'>>
 
+export type IArrayTypeExport = Pick<
+  OGM_TYPES.ArrayType,
+  IBaseTypeExportFields
+> &
+  Required<Pick<OGM_TYPES.ArrayType, '__typename'>>
+
 // Uses OGM types
 export type ITypeExport =
   | IPrimitiveTypeExport
@@ -53,3 +59,4 @@ export type ITypeExport =
   | IReactNodeTypeExport
   | IRenderPropsTypeExport
   | IActionTypeExport
+  | IArrayTypeExport
