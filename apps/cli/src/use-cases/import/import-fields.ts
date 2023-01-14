@@ -55,7 +55,11 @@ export const createImportFieldsData = (
      */
     if (type.__typename === ITypeKind.InterfaceType) {
       const fields = type.fields.map((field) => {
-        const existingFieldType = existingData.types[field.fieldType.name]
+        let existingFieldType = existingData.types[field.fieldType.name]
+
+        if (field.fieldType.kind === 'ArrayType') {
+          existingFieldType = existingData.types[field.fieldType.kind]
+        }
         const existingField = existingData.fields[`${type.name}-${field.key}`]
 
         if (!existingFieldType) {
