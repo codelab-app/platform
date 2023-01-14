@@ -37,6 +37,10 @@ export const exportActionTypeSelectionSet = `{
   ${exportBaseSelection}
 }`
 
+export const exportArrayTypeSelectionSet = `{
+  ${exportBaseSelection}
+}`
+
 export const exportEnumTypeSelectionSet = `{
   ${exportBaseSelection}
   allowedValues {

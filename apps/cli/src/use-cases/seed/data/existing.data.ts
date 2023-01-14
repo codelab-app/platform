@@ -1,15 +1,15 @@
 import type { ExistingData } from '@codelab/backend/abstract/core'
 import {
   atomSelectionSet,
-  exportActionTypeSelectionSet,
+  exportActionTypeSelectionSet, exportArrayTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
   exportRenderPropsTypeSelectionSet,
   interfaceTypeSelectionSet,
   Repository,
-  tagSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
+  tagSelectionSet
+} from "@codelab/backend/infra/adapter/neo4j";
 import merge from 'lodash/merge'
 
 /**
@@ -105,6 +105,17 @@ export const createExistingData = async (): Promise<ExistingData> => {
   })
 
   //
+  // ArrayType
+  //
+  const ArrayType = await Repository.instance.ArrayType
+
+  const arrayType = await ArrayType.find({
+    selectionSet: exportArrayTypeSelectionSet,
+  })
+
+  const a = '';
+
+  //
   // EnumType
   //
 
@@ -124,6 +135,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
     ...reactNodeTypes,
     ...renderPropsType,
     ...actionType,
+    ...arrayType,
     ...enumTypes,
   ]
     .map((type) => ({
@@ -136,6 +148,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
     ...primitiveTypes,
     ...reactNodeTypes,
     ...actionType,
+    ...arrayType,
     ...renderPropsType,
     ...enumTypes,
   ]
