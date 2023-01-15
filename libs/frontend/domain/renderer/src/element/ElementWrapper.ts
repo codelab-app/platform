@@ -73,7 +73,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
       const children = renderOutput.stop
         ? undefined
-        : renderService.renderChildren(renderOutput)
+        : renderService.renderChildren(renderOutput) ??
+          renderOutput.props?.['children']
 
       if (renderOutput.props) {
         renderOutput.props['forwardedRef'] = onRefChange
