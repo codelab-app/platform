@@ -44,8 +44,9 @@ module.exports = withPlugins(
   withNx({
     nx: { svgr: true },
     // https://github.com/vercel/next.js/issues/9830
-    // experimental: {
-    //   css: true,
-    // },
+    experimental: {
+      // appDir: true,
+      // css: true,
+    },
   }),
 )

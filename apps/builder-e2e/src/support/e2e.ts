@@ -35,6 +35,7 @@ Cypress.on('uncaught:exception', (err) => {
  * https://docs.cypress.io/api/cypress-api/cookies#Defaults
  */
 beforeEach(() => {
+  // TODO(@nrwl/cypress): this command has been removed, use cy.session instead. https://docs.cypress.io/guides/references/migration-guide#Command-Cypress-API-Changes
   Cypress.Cookies.preserveOnce(
     'appSession',
     'appSession.0',

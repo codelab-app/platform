@@ -16,7 +16,12 @@
     "incremental": true,
     "module": "esnext",
     "useDefineForClassFields": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "**/*.ts",
@@ -26,7 +31,11 @@
     "index.d.ts",
     "middleware.ts",
     "**/*.js",
-    "**/*.jsx"
+    "**/*.jsx",
+    ".next/types/**/*.ts",
+    "../../tmp/apps/builder/src/.next/types/**/*.ts",
+    "../../dist/apps/builder/.next/types/**/*.ts",
+    "../../dist/apps/builder-test/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",
