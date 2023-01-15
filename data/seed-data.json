@@ -1539,6 +1539,18 @@
         }
       ],
       "allowedChildren": []
+    },
+    {
+      "id": "1bd87901-849b-4415-836f-e585e913e593",
+      "name": "ReactFragment",
+      "type": "ReactFragment",
+      "api": {
+        "id": "222dbb1a-e029-48a2-9c27-94d6b6f477a2",
+        "name": "ReactFragment API"
+      },
+      "icon": null,
+      "tags": [],
+      "allowedChildren": []
     }
   ],
   "types": [
@@ -15061,6 +15073,28 @@
             "id": "5c7b55e9-e5c3-405c-b097-53078b86e75b",
             "kind": "PrimitiveType",
             "name": "String"
+          }
+        }
+      ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "222dbb1a-e029-48a2-9c27-94d6b6f477a2",
+      "kind": "InterfaceType",
+      "name": "ReactFragment API",
+      "fields": [
+        {
+          "id": "c8930cf4-8fdd-4bd8-89ad-b18b80f94e79",
+          "key": "children",
+          "name": null,
+          "description": null,
+          "validationRules": "{}",
+          "defaultValues": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "e8f65a67-56c4-47be-94ce-88c1e2905d52",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
           }
         }
       ]

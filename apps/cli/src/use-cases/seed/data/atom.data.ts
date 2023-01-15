@@ -1,15 +1,17 @@
 import type { ExistingData, IAtomImport } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { antdAtomData, getApiName } from '@codelab/shared/data'
+import { antdAtomData, getApiName, htmlAtomData } from '@codelab/shared/data'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
 /**
  * Create new seed data from atom types, we specify the data we want, the upsert resolution will happen later
  */
-export const createAntdAtomData = (data: ExistingData): Array<IAtomImport> => {
-  return ObjectTyped.keys(antdAtomData).map((name) => {
-    const atomData = antdAtomData[name]
+export const createAtomData = (data: ExistingData): Array<IAtomImport> => {
+  const atomsData = { ...antdAtomData, ...htmlAtomData }
+
+  return ObjectTyped.keys(atomsData).map((name) => {
+    const atomData = atomsData[name]
 
     if (!atomData) {
       throw new Error(`Missing data for: ${name}`)
@@ -36,7 +38,7 @@ export const createAntdAtomData = (data: ExistingData): Array<IAtomImport> => {
        * @param newData
        */
       allowedChildren: (newData: ExistingData) => {
-        const newAtomData = antdAtomData[name]
+        const newAtomData = atomsData[name]
 
         if (!newAtomData) {
           throw new Error(`Missing data for: ${name}`)

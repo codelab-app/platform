@@ -3,17 +3,19 @@ import type {
   IInterfaceTypeExport,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { antdAtomData, getApiName } from '@codelab/shared/data'
+import { antdAtomData, getApiName, htmlAtomData } from '@codelab/shared/data'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
 /**
  * We need to create interface separately, our atom creation logic only links to existing interfaces
  */
-export const createAntDesignApiData = (
+export const createApiData = (
   data: ExistingData,
 ): Array<IInterfaceTypeExport> => {
-  return ObjectTyped.keys(antdAtomData).map((name) => {
+  const atomsData = { ...antdAtomData, ...htmlAtomData }
+
+  return ObjectTyped.keys(atomsData).map((name) => {
     const atomApiId = data.api[getApiName(name)]?.id ?? v4()
 
     return {

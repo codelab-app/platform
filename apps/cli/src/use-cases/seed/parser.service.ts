@@ -8,7 +8,7 @@ import { atomTypeKeyByFileName } from '@codelab/shared/data'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
-import { createAntdAtomData } from './data/ant-design-atom.data'
+import { createAtomData } from './data/atom.data'
 import { readCsvFiles } from './read-csv-files'
 import { getTypeForApi } from './type-map'
 
@@ -20,13 +20,15 @@ import { getTypeForApi } from './type-map'
 export class ParserService {
   private antdDataFolder = `${process.cwd()}/data/antd/`
 
+  private htmlDataFolder = `${process.cwd()}/data/html/`
+
   private readonly atoms: { [atomName: string]: IAtomImport }
 
   constructor(private userId: string, private existingData: ExistingData) {
     // cLog('Existing Data', existingData)
     // logger.info('Existing Data', existingData)
 
-    this.atoms = createAntdAtomData(existingData)
+    this.atoms = createAtomData(existingData)
       .map((atom) => ({
         [atom.name]: atom,
       }))
@@ -37,7 +39,9 @@ export class ParserService {
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
   async extractFieldData(): Promise<Array<ICreateFieldDTO>> {
-    const csvData = await readCsvFiles(this.antdDataFolder)
+    const antdCsvData = await readCsvFiles(this.antdDataFolder)
+    const htmlCsvData = await readCsvFiles(this.htmlDataFolder)
+    const csvData = { ...antdCsvData, ...htmlCsvData }
 
     return this.transform(csvData)
   }
@@ -47,7 +51,7 @@ export class ParserService {
   ): Promise<Array<ICreateFieldDTO>> {
     const createFieldsDTO: Array<ICreateFieldDTO> = []
 
-    for (const [file, antdDesignFields] of Object.entries(fieldsByFile)) {
+    for (const [file, atomFields] of Object.entries(fieldsByFile)) {
       const atomName = atomTypeKeyByFileName[file.replace('.csv', '')]
 
       if (!atomName) {
@@ -64,7 +68,7 @@ export class ParserService {
         continue
       }
 
-      const fields: Array<ICreateFieldDTO> = await antdDesignFields.reduce<
+      const fields: Array<ICreateFieldDTO> = await atomFields.reduce<
         Promise<Array<ICreateFieldDTO>>
       >(async (accFields, field) => {
         const existingField =

@@ -10,8 +10,8 @@ import { importAtoms } from '../../use-cases/import/import-atoms'
 import { importFields } from '../../use-cases/import/import-fields'
 import { importTags } from '../../use-cases/import/import-tags'
 import { importTypes } from '../../use-cases/import/import-types'
-import { createAntDesignApiData } from '../../use-cases/seed/data/ant-design-api.data'
-import { createAntdAtomData } from '../../use-cases/seed/data/ant-design-atom.data'
+import { createApiData } from '../../use-cases/seed/data/ant-design-api.data'
+import { createAtomData } from '../../use-cases/seed/data/atom.data'
 import { createExistingData } from '../../use-cases/seed/data/existing.data'
 import { parseFields } from './parse-and-import-fields'
 
@@ -49,7 +49,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
         // Import base types first
         ...createSeedTypesData(),
         // Then interfaces
-        ...createAntDesignApiData(await createExistingData()),
+        ...createApiData(await createExistingData()),
       ],
       selectedUserId,
       (type) => ({
@@ -67,7 +67,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
      */
     await importAtoms({
       // We need to re-fetch data here, since the previous steps may have created interfaces
-      atoms: createAntdAtomData(await createExistingData()),
+      atoms: createAtomData(await createExistingData()),
       userId: selectedUserId,
       atomWhere: (atom) => ({
         name: atom.name,
