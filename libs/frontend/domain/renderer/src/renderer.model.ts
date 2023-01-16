@@ -200,8 +200,11 @@ export class Renderer
     }
 
     const rootElement = this.renderElement(root)
+    const pageService = getPageService(this)
+    const { isProvider } = pageService.page(root.baseId) ?? {}
 
-    return this.renderWithProviders(rootElement)
+    // do not self-wrap with providers page if the current page is _app
+    return isProvider ? rootElement : this.renderWithProviders(rootElement)
   }
 
   /**

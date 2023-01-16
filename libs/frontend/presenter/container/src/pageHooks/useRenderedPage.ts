@@ -39,7 +39,12 @@ export const useRenderedPage = ({ appId, pageId }: RenderedPageProps) => {
     }
 
     const { pageElementTree: pageTree, page } = currentPage
-    const { pageElementTree: appTree } = providerPage ?? {}
+
+    // handle case when user initially opens _app page
+    // providerPage is undefined and currentPage is providers page
+    const { pageElementTree: appTree } = page.isProvider
+      ? currentPage
+      : providerPage ?? {}
 
     // type loading is quiet a heavy operation which takes up to 500ms of blocking time.
     // split types loading into many chunks and queue each of them as a macrotask.
