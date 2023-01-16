@@ -1,5 +1,6 @@
 import {
   CodeOutlined,
+  FileOutlined,
   FormatPainterOutlined,
   FunctionOutlined,
   NodeIndexOutlined,
@@ -19,6 +20,7 @@ import {
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/domain/element'
+import { UpdatePageTabForm } from '@codelab/frontend/domain/page'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
@@ -68,7 +70,7 @@ const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
 
 export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
   ({ UpdateElementContent, elementTree, renderService }) => {
-    const { builderService, elementService } = useStore()
+    const { builderService, elementService, pageService } = useStore()
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
     const trackPromises = useTrackLoadingPromises()
@@ -196,6 +198,25 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             trackPromises={trackPromises}
           />
         ) : null,
+      },
+      {
+        key: TAB_NAMES.Page,
+        label: <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />,
+        children: (
+          <FormContextProvider
+            value={{
+              autocomplete,
+              appStore,
+              allowExpressions,
+              elementTree,
+            }}
+          >
+            <UpdatePageTabForm
+              key={selectedNode.id}
+              pageService={pageService}
+            />
+          </FormContextProvider>
+        ),
       },
     ]
 

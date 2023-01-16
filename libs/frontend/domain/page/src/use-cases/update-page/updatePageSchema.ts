@@ -3,7 +3,9 @@ import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const updatePageSchema: JSONSchemaType<IUpdatePageDTO> = {
+export const updatePageSchema: JSONSchemaType<
+  Omit<IUpdatePageDTO, 'pageContainerElementId'>
+> = {
   title: 'Update Page Input',
   type: 'object',
   properties: {

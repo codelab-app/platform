@@ -96,7 +96,13 @@ export class PageService
   update = _async(function* (
     this: PageService,
     existingPage: IPage,
-    { name, appId, slug, getServerSideProps }: IUpdatePageDTO,
+    {
+      name,
+      appId,
+      slug,
+      getServerSideProps,
+      pageContainerElementId,
+    }: IUpdatePageDTO,
   ) {
     const {
       updatePages: { pages },
@@ -107,6 +113,7 @@ export class PageService
           slug: createSlug(slug, appId),
           app: connectNode(appId),
           getServerSideProps,
+          pageContainerElementId,
         },
         where: { id: existingPage.id },
       }),

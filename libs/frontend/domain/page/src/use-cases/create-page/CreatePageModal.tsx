@@ -31,7 +31,7 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
 
     return (
       <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>
-        <ModalForm.Form
+        <ModalForm.Form<Omit<ICreatePageDTO, 'pageContainerElementId'>>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

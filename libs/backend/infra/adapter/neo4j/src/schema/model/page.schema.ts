@@ -11,6 +11,7 @@ export const pageSchema = gql`
     app: App! @relationship(type: "PAGES", direction: IN)
     getServerSideProps: String
     isProvider: Boolean! @default(value: false)
+    pageContainerElementId: String
   }
 
   extend type Page

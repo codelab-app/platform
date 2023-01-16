@@ -13,6 +13,7 @@ import {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
+import { getPageService } from '@codelab/frontend/domain/page'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
@@ -20,7 +21,6 @@ import { expressionTransformer } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
-import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -37,14 +37,17 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
-import type { ComponentType, ReactElement, ReactNode } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
-import { getAtom } from './atoms'
 import type { ElementWrapperProps } from './element/ElementWrapper'
 import { ElementWrapper } from './element/ElementWrapper'
-import { makeCustomTextContainer } from './element/wrapper.utils'
+import {
+  extractValidProps,
+  getReactComponent,
+  makeCustomTextContainer,
+} from './element/wrapper.utils'
 import { ExtraElementProps } from './ExtraElementProps'
 import {
   defaultPipes,
@@ -52,7 +55,6 @@ import {
 } from './renderPipes/renderPipe.factory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
 import { isTypedValue } from './utils/isTypedValue'
-import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
 /**
@@ -208,27 +210,49 @@ export class Renderer
   private renderWithProviders(rootElement: ReactElement) {
     const providerRoot = this.appTree?.current.root
 
-    const providerElements = providerRoot
-      ? [providerRoot, ...providerRoot.leftHandDescendants]
-      : []
+    if (!providerRoot) {
+      return rootElement
+    }
 
-    const providerOutputsMaybeArray = providerElements.map((element) =>
-      this.renderIntermediateElement(element),
-    )
+    const pageService = getPageService(this)
+    const providerPageId = providerRoot.baseId
+    const { pageContainerElementId } = pageService.page(providerPageId) ?? {}
 
-    const providerOutputs = flatMap(providerOutputsMaybeArray, (o) =>
-      mapOutput(o, (io) => io),
-    ).filter((o): o is IRenderOutput => Boolean(o))
+    const renderRecursive = (
+      element: IElement,
+    ): ArrayOrSingle<ReactElement> => {
+      const output = this.renderIntermediateElement(element)
 
-    const Providers = reduceComponentTree(
-      providerOutputs
-        .map((output) =>
-          output.atomType ? [getAtom(output.atomType), output.props] : null,
+      return mapOutput<ReactElement>(output, (renderOutput) => {
+        const Component = getReactComponent(renderOutput)
+        const props = extractValidProps(Component, renderOutput) ?? {}
+
+        const children = element.children.map((childElement) =>
+          renderRecursive(childElement),
         )
-        .filter((x): x is [ComponentType, IPropData] => Boolean(x)),
-    )
 
-    return React.createElement(Providers, {}, rootElement)
+        if (element.id === pageContainerElementId) {
+          children.push(rootElement)
+        }
+
+        const injectedText = renderOutput.props?.[CUSTOM_TEXT_PROP_KEY]
+
+        const shouldInjectText =
+          !children.length && element.atom?.current.allowCustomTextInjection
+
+        if (shouldInjectText && injectedText) {
+          return makeCustomTextContainer(injectedText)
+        }
+
+        return React.createElement(Component, props, children)
+      })
+    }
+
+    const result = renderRecursive(providerRoot)
+
+    return Array.isArray(result)
+      ? React.createElement(React.Fragment, {}, result)
+      : result
   }
 
   runPreAction = (element: IElement) => {

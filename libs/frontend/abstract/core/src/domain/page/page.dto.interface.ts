@@ -11,6 +11,7 @@ export interface ICreatePageDTO {
   name: string
   appId: string
   auth0Id: IAuth0Id
+  pageContainerElementId?: Nullish<string>
 }
 
 export type IUpdatePageDTO = Omit<

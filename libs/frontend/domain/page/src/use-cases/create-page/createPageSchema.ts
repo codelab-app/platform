@@ -4,7 +4,9 @@ import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { hideField } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
-export const createPageSchema: JSONSchemaType<ICreatePageDTO> = {
+export const createPageSchema: JSONSchemaType<
+  Omit<ICreatePageDTO, 'pageContainerElementId'>
+> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {

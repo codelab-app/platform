@@ -40,6 +40,7 @@ export type BuilderPageFragment = {
   slug: string
   getServerSideProps?: string | null
   isProvider: boolean
+  pageContainerElementId?: string | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string }
 }
@@ -113,6 +114,7 @@ export const BuilderPageFragmentDoc = gql`
       id
     }
     isProvider
+    pageContainerElementId
   }
   ${ElementFragmentDoc}
 `

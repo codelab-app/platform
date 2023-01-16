@@ -1,4 +1,5 @@
 export enum TAB_NAMES {
+  Page = 'Page',
   Node = 'Node',
   Props = 'Props',
   CSS = 'CSS',

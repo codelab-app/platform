@@ -42,6 +42,7 @@ const hydrate = (page: IPageDTO) => {
     getServerSideProps: page.getServerSideProps,
     app: { id: page.app.id },
     isProvider: page.isProvider,
+    pageContainerElementId: page.pageContainerElementId,
   })
 }
 
@@ -55,6 +56,7 @@ export class Page
     rootElement: prop<IEntity>(),
     getServerSideProps: prop<Nullish<string>>(),
     isProvider: prop<boolean>(),
+    pageContainerElementId: prop<Nullish<string>>(),
   })
   implements IPage
 {
@@ -78,6 +80,7 @@ export class Page
     this.slug = extractSlug(page.slug)
     this.getServerSideProps = page.getServerSideProps
     this.isProvider = page.isProvider
+    this.pageContainerElementId = page.pageContainerElementId
 
     return this
   }

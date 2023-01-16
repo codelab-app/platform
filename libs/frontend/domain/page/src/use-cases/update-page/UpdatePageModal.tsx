@@ -37,7 +37,7 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
         onCancel={closeModal}
         open={pageService.updateModal.isOpen}
       >
-        <ModalForm.Form<IUpdatePageDTO>
+        <ModalForm.Form<Omit<IUpdatePageDTO, 'pageContainerElementId'>>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

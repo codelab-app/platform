@@ -182,6 +182,7 @@ export class AppService
     const input: Array<AppCreateInput> = data.map((app) => {
       const appId = app.id ?? v4()
       const pageId = v4()
+      const rootId = v4()
 
       const providerPage = {
         id: pageId,
@@ -194,13 +195,14 @@ export class AppService
         rootElement: {
           create: {
             node: {
-              id: v4(),
+              id: rootId,
               name: ROOT_ELEMENT_NAME,
               slug: createSlug(ROOT_ELEMENT_NAME, pageId),
             },
           },
         },
         isProvider: true,
+        pageContainerElementId: rootId,
       }
 
       return {

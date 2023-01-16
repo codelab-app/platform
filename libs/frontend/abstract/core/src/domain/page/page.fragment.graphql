@@ -11,4 +11,5 @@ fragment Page on Page {
     name
   }
   isProvider
+  pageContainerElementId
 }

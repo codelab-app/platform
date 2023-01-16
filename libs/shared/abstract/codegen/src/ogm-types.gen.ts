@@ -2493,6 +2493,7 @@ export type AppPagePagesNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   slug: StringAggregateSelectionNonNullable
   getServerSideProps: StringAggregateSelectionNullable
+  pageContainerElementId: StringAggregateSelectionNullable
 }
 
 export type AppPagesConnection = {
@@ -4140,6 +4141,7 @@ export type ElementPagePageNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   slug: StringAggregateSelectionNonNullable
   getServerSideProps: StringAggregateSelectionNullable
+  pageContainerElementId: StringAggregateSelectionNullable
 }
 
 export type ElementPageRelationship = {
@@ -5134,6 +5136,7 @@ export type Page = {
   slug: Scalars['String']
   getServerSideProps?: Maybe<Scalars['String']>
   isProvider: Scalars['Boolean']
+  pageContainerElementId?: Maybe<Scalars['String']>
   rootElement: Element
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
   app: App
@@ -5187,6 +5190,7 @@ export type PageAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   slug: StringAggregateSelectionNonNullable
   getServerSideProps: StringAggregateSelectionNullable
+  pageContainerElementId: StringAggregateSelectionNullable
 }
 
 export type PageAppAppAggregationSelection = {
@@ -8226,6 +8230,26 @@ export type AppPagesNodeAggregationWhereInput = {
   getServerSideProps_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   getServerSideProps_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   getServerSideProps_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_EQUAL?: InputMaybe<Scalars['String']>
+  pageContainerElementId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_GT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_GTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_LT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_LTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AppPagesUpdateConnectionInput = {
@@ -12493,6 +12517,26 @@ export type ElementPageNodeAggregationWhereInput = {
   getServerSideProps_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   getServerSideProps_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   getServerSideProps_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_EQUAL?: InputMaybe<Scalars['String']>
+  pageContainerElementId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_GT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_GTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_LT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_LTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  pageContainerElementId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  pageContainerElementId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementPageUpdateConnectionInput = {
@@ -16413,6 +16457,7 @@ export type PageCreateInput = {
   slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
   isProvider?: Scalars['Boolean']
+  pageContainerElementId?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<PageRootElementFieldInput>
   app?: InputMaybe<PageAppFieldInput>
 }
@@ -16433,6 +16478,7 @@ export type PageOnCreateInput = {
   slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
   isProvider?: Scalars['Boolean']
+  pageContainerElementId?: InputMaybe<Scalars['String']>
 }
 
 export type PageOptions = {
@@ -16710,6 +16756,7 @@ export type PageSort = {
   slug?: InputMaybe<SortDirection>
   getServerSideProps?: InputMaybe<SortDirection>
   isProvider?: InputMaybe<SortDirection>
+  pageContainerElementId?: InputMaybe<SortDirection>
 }
 
 export type PageTypeConnectInput = {
@@ -16902,6 +16949,7 @@ export type PageUpdateInput = {
   slug?: InputMaybe<Scalars['String']>
   getServerSideProps?: InputMaybe<Scalars['String']>
   isProvider?: InputMaybe<Scalars['Boolean']>
+  pageContainerElementId?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   app?: InputMaybe<PageAppUpdateFieldInput>
 }
@@ -16955,6 +17003,19 @@ export type PageWhere = {
   getServerSideProps_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   isProvider?: InputMaybe<Scalars['Boolean']>
   isProvider_NOT?: InputMaybe<Scalars['Boolean']>
+  pageContainerElementId?: InputMaybe<Scalars['String']>
+  pageContainerElementId_NOT?: InputMaybe<Scalars['String']>
+  pageContainerElementId_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  pageContainerElementId_NOT_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']>>
+  >
+  pageContainerElementId_MATCHES?: InputMaybe<Scalars['String']>
+  pageContainerElementId_CONTAINS?: InputMaybe<Scalars['String']>
+  pageContainerElementId_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  pageContainerElementId_STARTS_WITH?: InputMaybe<Scalars['String']>
+  pageContainerElementId_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  pageContainerElementId_ENDS_WITH?: InputMaybe<Scalars['String']>
+  pageContainerElementId_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<ElementWhere>
   rootElement_NOT?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
@@ -22325,6 +22386,7 @@ export interface PageAggregateSelectionInput {
   name?: StringAggregateInputNonNullable
   slug?: StringAggregateInputNonNullable
   getServerSideProps?: StringAggregateInputNullable
+  pageContainerElementId?: StringAggregateInputNullable
 }
 
 export declare class PageModel {
