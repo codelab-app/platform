@@ -77,6 +77,20 @@ describe('_app page', () => {
       .getModalAction(/Create/)
       .click()
     cy.getModal().should('not.exist')
+  })
+
+  it('should set config provider element as a container for child pages', () => {
+    cy.get(`.ant-tabs [aria-label="file"]`).click()
+    cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
+      label: 'Page container element id',
+      value: CONFIG_PROVIDER_NAME,
+      type: FIELD_TYPE.SELECT,
+    })
+
+    // After props are changed - need to wait for the corresponding API call
+    // which is sent to the server in order to save this change to the database.
+    // Otherwise, there is a risk that `cy.go('back')` will prevent the request from being sent
+    cy.waitForApiCalls()
 
     cy.go('back')
     cy.getSider().find('.ant-page-header-heading').should('be.visible')
@@ -119,7 +133,7 @@ describe('_app page', () => {
 
     cy.findByText(CONFIG_PROVIDER_NAME).click()
 
-    cy.get(`[aria-label="setting"]`).click()
+    cy.get(`.ant-tabs [aria-label="setting"]`).click()
     cy.findByLabelText(/Component Disabled/).click()
 
     // After atom props are changed - need to wait for the corresponding API call
