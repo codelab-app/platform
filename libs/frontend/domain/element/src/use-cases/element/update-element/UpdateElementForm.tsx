@@ -11,7 +11,8 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import slugify from 'slugify'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { updateElementSchema } from './updateElementSchema'
@@ -62,7 +63,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     >([])
 
     // Cache the initial element model, because when it updates it will interfere with what the user is typing
-    const { current: model } = useRef(makeCurrentModel(element))
+    const [model, setModel] = useState(makeCurrentModel(element))
 
     const onSubmit = (data: IUpdateElementDTO) => {
       const promise = elementService.update(element, data)
@@ -95,6 +96,13 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         `}
         key={element.id}
         model={model}
+        onChange={(k, v) => {
+          setModel({
+            ...model,
+            slug: k === 'name' ? slugify(v) : model.slug,
+            [k]: v,
+          })
+        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating element',

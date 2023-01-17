@@ -5,8 +5,10 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import slugify from 'slugify'
 import { AutoFields } from 'uniforms-antd'
 import { updateAppSchema } from './updateAppSchema'
 
@@ -16,7 +18,23 @@ export const UpdateAppModal = observer<{
 }>(({ appService, userService }) => {
   const app = appService.updateModal.app
 
-  if (!app) {
+  const [model, setModel] =
+    useState<
+      Nullable<Partial<IUpdateAppDTO & { ownerId: string; storeId: string }>>
+    >(null)
+
+  useEffect(() => {
+    if (app) {
+      setModel({
+        name: app.name,
+        slug: app.slug,
+        ownerId: userService.user?.auth0Id,
+        storeId: app.store.id,
+      })
+    }
+  }, [app])
+
+  if (!app || !model) {
     return null
   }
 
@@ -27,13 +45,6 @@ export const UpdateAppModal = observer<{
     throw new Error('Missing user for update app')
   }
 
-  const model = {
-    name: app.name,
-    slug: app.slug,
-    ownerId: userService.user.auth0Id,
-    storeId: app.store.id,
-  }
-
   return (
     <ModalForm.Modal
       okText="Update App"
@@ -42,6 +53,13 @@ export const UpdateAppModal = observer<{
     >
       <ModalForm.Form<IUpdateAppDTO>
         model={model}
+        onChange={(k, v) => {
+          setModel({
+            ...model,
+            slug: k === 'name' ? slugify(v) : model.slug,
+            [k]: v,
+          })
+        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating app',

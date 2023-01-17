@@ -6,7 +6,8 @@ import type {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useState } from 'react'
+import slugify from 'slugify'
 import { AutoFields } from 'uniforms-antd'
 import { createAppSchema } from './createAppSchema'
 
@@ -14,6 +15,10 @@ export const CreateAppModal = observer<{
   appService: IAppService
   userService: IUserService
 }>(({ appService, userService }) => {
+  const [model, setModel] = useState<Partial<ICreateAppDTO>>({
+    auth0Id: userService.user?.auth0Id,
+  })
+
   const onSubmit = (data: ICreateAppDTO) => {
     return appService.create([data])
   }
@@ -27,8 +32,13 @@ export const CreateAppModal = observer<{
       open={appService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{
-          auth0Id: userService.user?.auth0Id,
+        model={model}
+        onChange={(k, v) => {
+          setModel({
+            ...model,
+            slug: k === 'name' ? slugify(v) : model.slug,
+            [k]: v,
+          })
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({

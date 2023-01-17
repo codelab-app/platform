@@ -7,7 +7,8 @@ import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useState } from 'react'
+import slugify from 'slugify'
 import { AutoFields } from 'uniforms-antd'
 import { createPageSchema } from './createPageSchema'
 
@@ -16,10 +17,10 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
     const currentAppId = useCurrentAppId()
     const isOpen = pageService.createModal.isOpen
 
-    const model = {
+    const [model, setModel] = useState<Partial<ICreatePageDTO>>({
       appId: currentAppId,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-    }
+    })
 
     const onSubmit = (data: ICreatePageDTO) => pageService.create([data])
 
@@ -33,6 +34,13 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
       <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>
         <ModalForm.Form<Omit<ICreatePageDTO, 'pageContainerElementId'>>
           model={model}
+          onChange={(k, v) => {
+            setModel({
+              ...model,
+              slug: k === 'name' ? slugify(v) : model.slug,
+              [k]: v,
+            })
+          }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}

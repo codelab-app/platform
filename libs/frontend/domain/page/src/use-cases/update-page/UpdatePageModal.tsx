@@ -4,8 +4,10 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import slugify from 'slugify'
 import { AutoFields } from 'uniforms-antd'
 import { updatePageSchema } from './updatePageSchema'
 
@@ -13,8 +15,20 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const closeModal = () => pageService.updateModal.close()
     const page = pageService.updateModal.page
+    const [model, setModel] = useState<Nullable<Partial<IUpdatePageDTO>>>(null)
 
-    if (!page) {
+    useEffect(() => {
+      if (page) {
+        setModel({
+          name: page.name,
+          appId: page.app.id || undefined,
+          slug: page.slug,
+          getServerSideProps: page.getServerSideProps,
+        })
+      }
+    }, [page])
+
+    if (!page || !model) {
       return null
     }
 
@@ -24,13 +38,6 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
       title: 'Error while updating page',
     })
 
-    const model = {
-      name: page.name,
-      appId: page.app.id || undefined,
-      slug: page.slug,
-      getServerSideProps: page.getServerSideProps,
-    }
-
     return (
       <ModalForm.Modal
         okText="Update Page"
@@ -39,6 +46,13 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
       >
         <ModalForm.Form<Omit<IUpdatePageDTO, 'pageContainerElementId'>>
           model={model}
+          onChange={(k, v) => {
+            setModel({
+              ...model,
+              slug: k === 'name' ? slugify(v) : model.slug,
+              [k]: v,
+            })
+          }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}

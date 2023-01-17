@@ -11,9 +11,13 @@ import type {
 import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type {
+  Nullable,
+  UniformSelectFieldProps,
+} from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import slugify from 'slugify'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
@@ -69,16 +73,23 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const parentElement = elementService.createModal.parentElement
 
-    if (!parentElement) {
-      return null
-    }
+    const [model, setModel] =
+      useState<Nullable<Partial<ICreateElementDTO & { owner: string }>>>(null)
 
-    const model = {
-      parentElementId: parentElement.id,
-      owner: userService.user?.auth0Id,
-      // Needs to be null initially so that required sub-fields
-      // are not validated when nothing is selected yet
-      renderType: null,
+    useEffect(() => {
+      if (parentElement) {
+        setModel({
+          parentElementId: parentElement.id,
+          owner: userService.user?.auth0Id,
+          // Needs to be null initially so that required sub-fields
+          // are not validated when nothing is selected yet
+          renderType: null,
+        })
+      }
+    }, [parentElement, userService.user?.auth0Id])
+
+    if (!parentElement || !model) {
+      return null
     }
 
     const closeModal = () => elementService.createModal.close()
@@ -98,6 +109,13 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       >
         <ModalForm.Form<ICreateElementDTO>
           model={model}
+          onChange={(k, v) => {
+            setModel({
+              ...model,
+              slug: k === 'name' ? slugify(v) : model.slug,
+              [k]: v,
+            })
+          }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
