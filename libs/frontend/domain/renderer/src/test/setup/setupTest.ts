@@ -61,7 +61,7 @@ interface TestingData {
   store: IStore
 }
 
-// Clone everything so that we don't get conflicts between different test files
+// Clone everything so that we don't get conflicts between different test files.
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   const data: TestingData = {} as TestingData
 
