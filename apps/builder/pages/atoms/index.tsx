@@ -12,6 +12,7 @@ import {
   codelabAtoms,
   htmlAtoms,
   muiAtoms,
+  reactAtoms,
 } from '@codelab/frontend/domain/renderer'
 import {
   CreateFieldModal,
@@ -47,6 +48,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const muiAtomsKeys = useMemo(() => Object.keys(muiAtoms), [])
   const antdAtomsKeys = useMemo(() => Object.keys(antdAtoms), [])
   const clAtomsKeys = useMemo(() => Object.keys(codelabAtoms), [])
+  const reactAtomsKeys = useMemo(() => Object.keys(reactAtoms), [])
 
   const {
     query: { page, pageSize },
@@ -62,9 +64,11 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         ? { name: 'Material UI', color: 'purple' }
         : clAtomsKeys.includes(atomType)
         ? { name: 'Codelab', color: 'yellow' }
+        : reactAtomsKeys.includes(atomType)
+        ? { name: 'React', color: 'green' }
         : { name: 'Unknown', color: 'black' }
     },
-    [htmlAtomsKeys, antdAtomsKeys, muiAtomsKeys, clAtomsKeys],
+    [htmlAtomsKeys, antdAtomsKeys, muiAtomsKeys, clAtomsKeys, reactAtomsKeys],
   )
 
   return (

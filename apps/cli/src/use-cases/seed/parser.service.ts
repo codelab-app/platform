@@ -20,7 +20,7 @@ import { getTypeForApi } from './type-map'
 export class ParserService {
   private antdDataFolder = `${process.cwd()}/data/antd/`
 
-  private htmlDataFolder = `${process.cwd()}/data/html/`
+  private reactDataFolder = `${process.cwd()}/data/react/`
 
   private readonly atoms: { [atomName: string]: IAtomImport }
 
@@ -40,8 +40,8 @@ export class ParserService {
    */
   async extractFieldData(): Promise<Array<ICreateFieldDTO>> {
     const antdCsvData = await readCsvFiles(this.antdDataFolder)
-    const htmlCsvData = await readCsvFiles(this.htmlDataFolder)
-    const csvData = { ...antdCsvData, ...htmlCsvData }
+    const reactCsvData = await readCsvFiles(this.reactDataFolder)
+    const csvData = { ...antdCsvData, ...reactCsvData }
 
     return this.transform(csvData)
   }

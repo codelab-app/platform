@@ -1,3 +1,3 @@
-export enum HtmlTag {
+export enum ReactTag {
   ReactFragment = 'React.Fragment',
 }

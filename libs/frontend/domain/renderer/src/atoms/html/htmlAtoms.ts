@@ -1,9 +1,7 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import React from 'react'
 import type { AtomsRecord } from '../types'
 
 export const htmlAtoms: AtomsRecord = {
-  [IAtomType.ReactFragment]: React.Fragment,
   [IAtomType.HtmlDiv]: 'div',
   [IAtomType.HtmlSpan]: 'span',
   [IAtomType.HtmlA]: 'a',

@@ -8,11 +8,6 @@ const reactFragmentFn: AtomCustomizerFn = ({ props }) => {
   return { props: { key, children } }
 }
 
-// const htmlImageFn: AtomCustomizerFn = (input) => ({
-//   props: { src: '', alt: '' },
-// })
-
-export const htmlPropsCustomizer: AtomCustomizer = {
+export const reactPropsCustomizer: AtomCustomizer = {
   [IAtomType.ReactFragment]: reactFragmentFn,
-  // [IAtomType.HtmlImage]: htmlImageFn,
 }

@@ -1,6 +1,6 @@
 import type { ExistingData, IAtomImport } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { antdAtomData, getApiName, htmlAtomData } from '@codelab/shared/data'
+import { antdAtomData, getApiName, reactAtomData } from '@codelab/shared/data'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
@@ -8,7 +8,7 @@ import { v4 } from 'uuid'
  * Create new seed data from atom types, we specify the data we want, the upsert resolution will happen later
  */
 export const createAtomData = (data: ExistingData): Array<IAtomImport> => {
-  const atomsData = { ...antdAtomData, ...htmlAtomData }
+  const atomsData = { ...antdAtomData, ...reactAtomData }
 
   return ObjectTyped.keys(atomsData).map((name) => {
     const atomData = atomsData[name]

@@ -1,5 +1,5 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import { antdAtomData, htmlAtomData } from '.'
+import { antdAtomData, reactAtomData } from '.'
 
 interface AtomTypeKeyByFileName {
   [fileName: string]: IAtomType
@@ -10,7 +10,7 @@ interface AtomTypeKeyByFileName {
  */
 export const atomTypeKeyByFileName: AtomTypeKeyByFileName = Object.entries({
   ...antdAtomData,
-  ...htmlAtomData,
+  ...reactAtomData,
 }).reduce(
   (record, [atomType, atom]) => ({ ...record, [atom.file ?? '']: atomType }),
   {},

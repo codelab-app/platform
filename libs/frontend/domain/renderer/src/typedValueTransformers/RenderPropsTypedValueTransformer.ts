@@ -11,7 +11,13 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import React from 'react'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { antdAtoms, codelabAtoms, htmlAtoms, muiAtoms } from '../atoms/atoms'
+import {
+  antdAtoms,
+  codelabAtoms,
+  htmlAtoms,
+  muiAtoms,
+  reactAtoms,
+} from '../atoms/atoms'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'
 
@@ -52,7 +58,15 @@ export class RenderPropsTypedValueTransformer
   public transform(value: TypedValue<string>) {
     if (hasStateExpression(value.value)) {
       const { values } = this.renderer.appStore.current.state
-      const atoms = { ...htmlAtoms, ...codelabAtoms, ...antdAtoms, ...muiAtoms }
+
+      const atoms = {
+        ...htmlAtoms,
+        ...codelabAtoms,
+        ...antdAtoms,
+        ...muiAtoms,
+        ...reactAtoms,
+      }
+
       const evaluationContext = { React, atoms, ...values }
 
       return expressionTransformer.transpileAndEvaluateExpression(
