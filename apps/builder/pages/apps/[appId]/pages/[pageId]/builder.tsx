@@ -12,25 +12,18 @@ import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
-  useLoadRenderedPage,
+  useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
 import type { UseResizable } from '@codelab/frontend/view/components'
 import {
-  adminMenuItems,
-  allPagesMenuItem,
-  appMenuItem,
-  pageBuilderMenuItem,
-  resourceMenuItem,
-} from '@codelab/frontend/view/sections'
-import {
   DashboardTemplate,
-  SidebarNavigation,
+  sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useAsync } from 'react-use'
 
 const PageBuilder: CodelabPage<IPageProps> = observer(
@@ -43,7 +36,13 @@ const PageBuilder: CodelabPage<IPageProps> = observer(
       builderService,
     } = useStore()
 
-    const { value: pageDataValue, error: pageDataError } = useLoadRenderedPage()
+    const appId = useCurrentAppId()
+    const pageId = useCurrentPageId()
+
+    const { value: pageDataValue, error: pageDataError } = useRenderedPage({
+      appId,
+      pageId,
+    })
 
     const {
       loading,
@@ -139,11 +138,6 @@ PageBuilder.Layout = observer((page) => {
   // should be defined by the time, components list renders
   const pageTree = pageBuilderRenderer?.pageTree?.current
 
-  useEffect(() => {
-    userService.user?.setCurAppId(appId)
-    userService.user?.setCurPageId(pageId)
-  }, [appId, pageId])
-
   const ConfigPaneComponent = useMemo(
     () =>
       observer(() => (
@@ -200,22 +194,6 @@ PageBuilder.Layout = observer((page) => {
     [],
   )
 
-  const SidebarNavigationComponent = useMemo(
-    () => () =>
-      (
-        <SidebarNavigation
-          primaryItems={[
-            appMenuItem,
-            allPagesMenuItem(appId),
-            pageBuilderMenuItem(appId, pageId),
-            resourceMenuItem,
-          ]}
-          secondaryItems={adminMenuItems}
-        />
-      ),
-    [],
-  )
-
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   return (
@@ -229,9 +207,9 @@ PageBuilder.Layout = observer((page) => {
         EditorPane={EditorPaneComponent}
         ExplorerPane={ExplorerPaneComponent}
         Header={HeaderComponent}
-        SidebarNavigation={SidebarNavigationComponent}
         contentStyles={contentStyles}
         headerHeight={48}
+        sidebarNavigation={sidebarNavigation({ appId, pageId })}
       >
         {page.children}
       </DashboardTemplate>

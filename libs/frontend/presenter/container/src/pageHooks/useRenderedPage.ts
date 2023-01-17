@@ -1,13 +1,16 @@
 import type { IInterfaceType } from '@codelab/frontend/abstract/core'
-import { useEffect, useState } from 'react'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
-import { useCurrentAppId, useCurrentPageId } from '../routerHooks'
+
+interface RenderedPageProps {
+  appId: string
+  pageId: string
+}
 
 /**
  * Fetch related data for rendering page, and load them into store
  */
-export const useLoadRenderedPage = () => {
+export const useRenderedPage = ({ appId, pageId }: RenderedPageProps) => {
   const {
     appService,
     storeService,
@@ -17,17 +20,9 @@ export const useLoadRenderedPage = () => {
     pageService,
   } = useStore()
 
-  const appId = useCurrentAppId()
-  const initialPageId = useCurrentPageId()
-  const [currentPageId, setCurrentPageId] = useState(initialPageId)
-
-  useEffect(() => {
-    setCurrentPageId(initialPageId)
-  }, [initialPageId])
-
   const commonPagesData = useAsync(async () => {
     const { apps, components, resources, ...types } =
-      await pageService.getRenderedPageAndCommonAppData(appId, currentPageId)
+      await pageService.getRenderedPageAndCommonAppData(appId, pageId)
 
     const [app] = apps
 
@@ -79,7 +74,7 @@ export const useLoadRenderedPage = () => {
     // hydrate after types and resources
     const appStore = storeService.writeCache(app.store)
     appStore.state.setMany(appService.appsJson)
-    appStore.state.set('redirectToPage', setCurrentPageId)
+    // appStore.state.set('redirectToPage', setCurrentPageId)
 
     return {
       app,
@@ -97,7 +92,7 @@ export const useLoadRenderedPage = () => {
     }
 
     const { app, appTree, appStore, components } = commonPagesData.value
-    const alreadyLoadedPage = pageService.pages.get(currentPageId)
+    const alreadyLoadedPage = pageService.pages.get(pageId)
 
     if (alreadyLoadedPage?.elementTree) {
       const pageTree = alreadyLoadedPage.elementTree
@@ -111,20 +106,22 @@ export const useLoadRenderedPage = () => {
       }
     }
 
-    const { pages } = await pageService.getRenderedPage(currentPageId)
+    const { pages } = await pageService.getRenderedPage(pageId)
     const [loadedPage] = pages
 
     if (!loadedPage) {
       return null
     }
 
-    const pageId = loadedPage.id
     app.pages.push(loadedPage)
 
-    const { pageElementTree: pageTree, page } = appService.load({ app, pageId })
+    const { pageElementTree: pageTree, page } = appService.load({
+      app,
+      pageId: loadedPage.id,
+    })
 
     return { page, pageTree, appTree, appStore, components }
-  }, [currentPageId, commonPagesData])
+  }, [pageId, commonPagesData])
 
   const loading = commonPagesData.loading || currentPageData.loading
   const error = commonPagesData.error ?? currentPageData.error

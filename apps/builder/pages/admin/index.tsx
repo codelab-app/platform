@@ -1,17 +1,14 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/presenter/container'
 import {
-  adminMenuItems,
-  allPagesMenuItem,
-  commonMenuItems,
-  ContentSection,
-  pageBuilderMenuItem,
-  resourceMenuItem,
-} from '@codelab/frontend/view/sections'
+  useCurrentAppId,
+  useCurrentPageId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import {
   DashboardTemplate,
-  SidebarNavigation,
+  sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader, Space } from 'antd'
@@ -41,25 +38,13 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AdminPage.Layout = (page) => {
   const AdminHeader = () => <PageHeader ghost={false} title="Admin" />
-  const { userService } = useStore()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
 
   return (
     <DashboardTemplate
       Header={AdminHeader}
-      SidebarNavigation={() => (
-        <SidebarNavigation
-          primaryItems={[
-            ...(commonMenuItems ?? []),
-            allPagesMenuItem(userService.user?.curAppId),
-            pageBuilderMenuItem(
-              userService.user?.curAppId,
-              userService.user?.curPageId,
-            ),
-            resourceMenuItem,
-          ]}
-          secondaryItems={adminMenuItems}
-        />
-      )}
+      sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {page.children}
     </DashboardTemplate>

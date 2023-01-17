@@ -8,19 +8,16 @@ import {
   GetTagsTree,
   UpdateTagModal,
 } from '@codelab/frontend/domain/tag'
-import { useStore } from '@codelab/frontend/presenter/container'
 import {
-  adminMenuItems,
-  allPagesMenuItem,
-  appMenuItem,
-  ContentSection,
-  pageBuilderMenuItem,
-  resourceMenuItem,
-} from '@codelab/frontend/view/sections'
+  useCurrentAppId,
+  useCurrentPageId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import {
   DashboardTemplate,
-  SidebarNavigation,
+  sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
@@ -69,26 +66,15 @@ const TagPageHeader = observer(() => {
 export default TagPage
 
 TagPage.Layout = observer((page) => {
-  const { tagService, userService } = useStore()
+  const { tagService } = useStore()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
 
   return (
     <DashboardTemplate
       ExplorerPane={() => <GetTagsTree tagService={tagService} />}
       Header={TagPageHeader}
-      SidebarNavigation={() => (
-        <SidebarNavigation
-          primaryItems={[
-            appMenuItem,
-            allPagesMenuItem(userService.user?.curAppId),
-            pageBuilderMenuItem(
-              userService.user?.curAppId,
-              userService.user?.curPageId,
-            ),
-            resourceMenuItem,
-          ]}
-          secondaryItems={adminMenuItems}
-        />
-      )}
+      sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {page.children}
     </DashboardTemplate>

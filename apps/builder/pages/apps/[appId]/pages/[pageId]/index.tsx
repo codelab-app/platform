@@ -2,7 +2,9 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
-  useLoadRenderedPage,
+  useCurrentAppId,
+  useCurrentPageId,
+  useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
@@ -16,7 +18,13 @@ import { useAsync } from 'react-use'
 
 const PageRenderer: CodelabPage = observer(() => {
   const { appRenderService } = useStore()
-  const { value: pageDataValue, error: pageDataError } = useLoadRenderedPage()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
+
+  const { value: pageDataValue, error: pageDataError } = useRenderedPage({
+    appId,
+    pageId,
+  })
 
   const {
     loading,

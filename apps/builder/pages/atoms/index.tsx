@@ -18,7 +18,11 @@ import {
   DeleteFieldModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presenter/container'
+import {
+  useCurrentAppId,
+  useCurrentPageId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -28,10 +32,7 @@ import {
   resourceMenuItem,
 } from '@codelab/frontend/view/sections'
 import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
-import {
-  DashboardTemplate,
-  SidebarNavigation,
-} from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -125,25 +126,21 @@ export default AtomsPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AtomsPage.Layout = (page) => {
-  const { userService } = useStore()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
 
   return (
     <DashboardTemplate
       Header={Header}
-      SidebarNavigation={() => (
-        <SidebarNavigation
-          primaryItems={[
-            appMenuItem,
-            allPagesMenuItem(userService.user?.curAppId),
-            pageBuilderMenuItem(
-              userService.user?.curAppId,
-              userService.user?.curPageId,
-            ),
-            resourceMenuItem,
-          ]}
-          secondaryItems={adminMenuItems}
-        />
-      )}
+      sidebarNavigation={{
+        primaryItems: [
+          appMenuItem,
+          allPagesMenuItem(appId),
+          pageBuilderMenuItem(appId, pageId),
+          resourceMenuItem,
+        ],
+        secondaryItems: adminMenuItems,
+      }}
     >
       {page.children}
     </DashboardTemplate>

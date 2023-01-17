@@ -1,3 +1,4 @@
+import type { MenuProps } from 'antd'
 import type { JSXElementConstructor } from 'react'
 import type { UseResizable } from '../../components'
 
@@ -18,7 +19,10 @@ export interface DashboardTemplateProps {
   /**
    * The vertical icon only menu
    */
-  SidebarNavigation?: JSXElementConstructor<unknown>
+  sidebarNavigation?: {
+    primaryItems: MenuProps['items']
+    secondaryItems: MenuProps['items']
+  }
   headerHeight?: number
   contentStyles?: React.CSSProperties
 }

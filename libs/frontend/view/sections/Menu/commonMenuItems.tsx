@@ -6,7 +6,6 @@ import {
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import type { MenuProps } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import Link from 'next/link'
 import React from 'react'
@@ -48,7 +47,7 @@ export const pageBuilderMenuItem = (
   ),
 })
 
-export const commonMenuItems: MenuProps['items'] = [
+export const commonMenuItems: Array<ItemType> = [
   appMenuItem,
   // {
   //   icon: <TagOutlined data-testid="tag-tab-trigger" title="Tags" />,

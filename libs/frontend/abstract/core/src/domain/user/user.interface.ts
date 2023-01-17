@@ -1,5 +1,4 @@
 import type { IRole } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IApp } from '../app'
@@ -12,11 +11,6 @@ export interface IUser extends ICacheService<IUserDTO, IUser> {
   username: string
   roles: Array<IRole>
   apps: Array<Ref<IApp>>
-  curAppId: Nullable<string>
-  curPageId: Nullable<string>
-  setCurAppId(appId: string): void
-  setCurPageId(pageId: string): void
-  // apps: ObjectMap<IApp>
 }
 
 // export type IUserRef = string

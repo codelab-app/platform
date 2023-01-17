@@ -1,1 +1,1 @@
-export * from './useLoadRenderedPage'
+export * from './useRenderedPage'

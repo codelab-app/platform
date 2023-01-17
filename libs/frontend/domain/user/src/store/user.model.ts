@@ -2,7 +2,6 @@ import type { IApp, IUser } from '@codelab/frontend/abstract/core'
 import { IUserDTO } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/domain/app'
 import type { IRole } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import {
   detach,
@@ -38,8 +37,6 @@ export class User
     auth0Id: prop<string>(),
     roles: prop<Array<IRole>>(() => []),
     apps: prop<Array<Ref<IApp>>>(() => []),
-    curAppId: prop<Nullable<string>>(null).withSetter(),
-    curPageId: prop<Nullable<string>>(null).withSetter(),
   })
   implements IUser
 {

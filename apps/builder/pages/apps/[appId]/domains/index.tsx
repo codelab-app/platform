@@ -9,20 +9,14 @@ import {
 } from '@codelab/frontend/domain/domain'
 import {
   useCurrentAppId,
+  useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import {
-  adminMenuItems,
-  allPagesMenuItem,
-  appMenuItem,
-  ContentSection,
-  pageBuilderMenuItem,
-  resourceMenuItem,
-} from '@codelab/frontend/view/sections'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import {
   DashboardTemplate,
-  SidebarNavigation,
+  sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader, Spin } from 'antd'
@@ -94,25 +88,13 @@ export default DomainsPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 DomainsPage.Layout = (page) => {
-  const { userService } = useStore()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
 
   return (
     <DashboardTemplate
       Header={DomainsPageHeader}
-      SidebarNavigation={() => (
-        <SidebarNavigation
-          primaryItems={[
-            appMenuItem,
-            allPagesMenuItem(userService.user?.curAppId),
-            pageBuilderMenuItem(
-              userService.user?.curAppId,
-              userService.user?.curPageId,
-            ),
-            resourceMenuItem,
-          ]}
-          secondaryItems={adminMenuItems}
-        />
-      )}
+      sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {page.children}
     </DashboardTemplate>

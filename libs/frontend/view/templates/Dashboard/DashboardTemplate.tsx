@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import tw from 'twin.macro'
 import { useResizable } from '../../components'
+import { SidebarNavigation } from '../SidebarNavigation'
 import {
   defaultHeaderHeight,
   editorPaneHeight,
@@ -23,7 +24,7 @@ const DashboardTemplate = observer(
     children,
     Header,
     ExplorerPane,
-    SidebarNavigation,
+    sidebarNavigation,
     ConfigPane,
     EditorPane,
     headerHeight,
@@ -118,7 +119,7 @@ const DashboardTemplate = observer(
           min-height: 100% !important;
         `}
       >
-        {SidebarNavigation && (
+        {sidebarNavigation && (
           <Sider
             collapsed
             collapsedWidth={sidebarWidth}
@@ -133,7 +134,10 @@ const DashboardTemplate = observer(
             }}
             theme="light"
           >
-            <SidebarNavigation />
+            <SidebarNavigation
+              primaryItems={sidebarNavigation.primaryItems}
+              secondaryItems={sidebarNavigation.secondaryItems}
+            />
           </Sider>
         )}
 
@@ -147,9 +151,9 @@ const DashboardTemplate = observer(
                 top: 0,
                 left: 0,
                 right: 0,
-                width: `calc(100% - ${SidebarNavigation ? sidebarWidth : 0}px)`,
+                width: `calc(100% - ${sidebarNavigation ? sidebarWidth : 0}px)`,
                 height: headerHeight ?? defaultHeaderHeight,
-                marginLeft: SidebarNavigation ? sidebarWidth : 0,
+                marginLeft: sidebarNavigation ? sidebarWidth : 0,
                 background: 'initial',
               }}
             >
@@ -165,7 +169,7 @@ const DashboardTemplate = observer(
               <DashboardTemplateExplorerPane
                 ExplorerPane={ExplorerPane}
                 hasHeader={Boolean(Header)}
-                hasSidebarNavigation={Boolean(SidebarNavigation)}
+                hasSidebarNavigation={Boolean(sidebarNavigation)}
                 headerHeight={headerHeight ?? defaultHeaderHeight}
                 paddingBottom={explorerPanePaddingBottom}
                 resizable={mainPaneResizable}
