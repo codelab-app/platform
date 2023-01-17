@@ -304,9 +304,9 @@ export class Repository implements IRepository {
     inst: OGM_TYPES.ModelMap[ModelKey] | undefined,
     name: keyof OGM_TYPES.ModelMap,
   ) => {
-    if (!inst) {
-      const ogm = await getOgm()
+    const ogm = await getOgm()
 
+    if (!inst) {
       return ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
     }
 

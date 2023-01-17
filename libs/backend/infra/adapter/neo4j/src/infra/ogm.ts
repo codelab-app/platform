@@ -15,9 +15,9 @@ export const getOgm = async () => {
         enableRegex: true,
       },
     })
-
-    await ogm.init()
   }
+
+  await ogm.init()
 
   return ogm
 }
