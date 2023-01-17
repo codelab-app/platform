@@ -16,13 +16,14 @@ export const makeDropIndicatorStyle = (
 
   switch (dragPosition) {
     case DragPosition.After:
-      indicatorStyle['boxShadow'] = '0px 5px 0px cyan'
+      indicatorStyle['boxShadow'] = '0px -2px 0px cyan inset, 0px 2px 0px cyan'
       break
     case DragPosition.Before:
-      indicatorStyle['boxShadow'] = '0px -5px 0px cyan'
+      indicatorStyle['boxShadow'] = '0px 2px 0px cyan inset, 0px -2px 0px cyan'
       break
     case DragPosition.Inside:
-      indicatorStyle['boxShadow'] = '0px 0px 0px 5px cyan'
+      indicatorStyle['boxShadow'] =
+        '0px 0px 0px 2px cyan inset, 0px 0px 0px 2px cyan'
       break
     default:
       break

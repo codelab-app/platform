@@ -3,6 +3,7 @@ import type {
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
@@ -109,8 +110,15 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return renderOutputWithProps(moreProps)
     }
 
+    const isInsideAComponent = Boolean(globalPropsContext[DATA_COMPONENT_ID])
+    const isComponentRootElement = element.parentComponent && isInsideAComponent
+
+    // we only apply dnd to the root element of a component or elements not inside a component
+    const isDraggable =
+      renderService.isBuilder && (isComponentRootElement || !isInsideAComponent)
+
     // we need to include additional props from dnd so we need to render the element there
-    const WrappedElement = renderService.isBuilder
+    const WrappedElement = isDraggable
       ? makeDraggableElement({ element, makeRenderedElements })
       : makeRenderedElements()
 

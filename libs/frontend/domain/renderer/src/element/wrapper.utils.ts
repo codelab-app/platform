@@ -1,15 +1,22 @@
 import type {
+  IPropData,
   IPropDataByElementId,
   IRenderOutput,
 } from '@codelab/frontend/abstract/core'
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
-import { isEmpty } from 'ramda'
+import { isEmpty, pick } from 'ramda'
 import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
 import { withGlobalPropsProvider } from '../props/globalPropsContext'
 import type { DraggableElementProps } from './DraggableElement'
 import { DraggableElementWrapper } from './DraggableElementWrapper'
+
+const getComponentProp = (props: IPropData = {}) => {
+  return pick([DATA_COMPONENT_ID], props)
+}
 
 /**
  * Fragments can only have the `key` prop
@@ -29,16 +36,31 @@ export const withMaybeGlobalPropsProvider = (
   renderOutput: IRenderOutput,
   globalProps: IPropDataByElementId,
 ) => {
-  const mergedProps = mergeProps(globalProps, renderOutput.globalProps)
+  // the root element of a component has a prop for component id
+  // we store the component id so we can determine if an element is rendered inside a component
+  const componentProp = getComponentProp(renderOutput.props)
+
+  const mergedProps = mergeProps(
+    globalProps,
+    renderOutput.globalProps,
+    componentProp,
+  )
 
   return isEmpty(renderOutput.globalProps)
     ? noWrapper()
     : withGlobalPropsProvider(mergedProps as IPropDataByElementId)
 }
 
-export const getReactComponent = (renderOutput: IRenderOutput) =>
+export const getReactComponent = (renderOutput: IRenderOutput) => {
+  // use span to hold the component's elements together and it is an html
+  // element with the least effect on its child and can be used for dnd
+  const atomType = renderOutput.props?.[DATA_COMPONENT_ID]
+    ? IAtomType.HtmlSpan
+    : renderOutput.atomType
+
   // Render the atom if it exists, otherwise use fragment
-  renderOutput.atomType ? getAtom(renderOutput.atomType) ?? Fragment : Fragment
+  return atomType ? getAtom(atomType) ?? Fragment : Fragment
+}
 
 export const makeCustomTextContainer = (customText: string) =>
   React.createElement('div', {

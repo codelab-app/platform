@@ -1,7 +1,6 @@
 import type {
   BuilderDragData,
   BuilderDropData,
-  ICreateElementDTO,
   IElement,
   IElementService,
   IElementTree,
@@ -42,32 +41,35 @@ export const useDndDropHandler = (
       return
     }
 
-    const createElementDto: ICreateElementDTO = {
-      ...createElementInput,
-      parentElementId:
-        dragPosition === DragPosition.Inside
-          ? targetElement.id
-          : targetElement.parentElement?.id,
-    }
-
     let newElement: Nullable<IElement> = null
 
     if (dragPosition === DragPosition.After) {
-      createElementDto.prevSiblingId = targetElement.id
+      createElementInput.prevSiblingId = targetElement.id
       newElement = await elementService.createElementAsNextSibling(
-        createElementDto,
+        createElementInput,
       )
-    } else if (
-      dragPosition === DragPosition.Before &&
-      targetElement.prevSibling
-    ) {
-      createElementDto.prevSiblingId = targetElement.prevSibling.id
-      newElement = await elementService.createElementAsNextSibling(
-        createElementDto,
-      )
-    } else if (dragPosition === DragPosition.Inside) {
+    }
+
+    if (dragPosition === DragPosition.Before) {
+      if (targetElement.prevSibling) {
+        createElementInput.prevSiblingId = targetElement.prevSibling.id
+        newElement = await elementService.createElementAsNextSibling(
+          createElementInput,
+        )
+      }
+
+      if (!targetElement.prevSibling && targetElement.parentElement?.id) {
+        createElementInput.parentElementId = targetElement.parentElement.id
+        newElement = await elementService.createElementAsFirstChild(
+          createElementInput,
+        )
+      }
+    }
+
+    if (dragPosition === DragPosition.Inside) {
+      createElementInput.parentElementId = targetElement.id
       newElement = await elementService.createElementAsFirstChild(
-        createElementDto,
+        createElementInput,
       )
     }
 
@@ -92,23 +94,35 @@ export const useDndDropHandler = (
     }
 
     if (dragPosition === DragPosition.After) {
-      await elementService.moveElementAsNextSibling({
+      return await elementService.moveElementAsNextSibling({
         elementId: draggedElementId,
         targetElementId,
       })
-    } else if (
-      dragPosition === DragPosition.Before &&
-      targetElement.prevSibling &&
-      draggedElementId !== targetElement.prevSibling.id
-    ) {
-      await elementService.moveElementAsNextSibling({
+    }
+
+    if (dragPosition === DragPosition.Before) {
+      if (
+        targetElement.prevSibling &&
+        draggedElementId !== targetElement.prevSibling.id
+      ) {
+        return await elementService.moveElementAsNextSibling({
+          elementId: draggedElementId,
+          targetElementId: targetElement.prevSibling.id,
+        })
+      }
+
+      if (!targetElement.prevSibling && targetElement.parentElement?.id) {
+        return await elementService.moveElementAsFirstChild({
+          elementId: draggedElementId,
+          parentElementId: targetElement.parentElement.id,
+        })
+      }
+    }
+
+    if (dragPosition === DragPosition.Inside) {
+      return await elementService.moveElementAsFirstChild({
         elementId: draggedElementId,
-        targetElementId: targetElement.prevSibling.id,
-      })
-    } else if (dragPosition === DragPosition.Inside) {
-      await elementService.moveElementAsFirstChild({
-        elementId: draggedElementId,
-        parentElementId: targetElement.parentId!,
+        parentElementId: targetElement.id,
       })
     }
   }
