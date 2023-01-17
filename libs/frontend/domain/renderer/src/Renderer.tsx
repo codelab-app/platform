@@ -38,7 +38,7 @@ const emotionCache = createCache({
 })
 
 export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
-  ({ renderRoot, style = {} }, ref) => {
+  React.forwardRef(({ renderRoot, style = {} }, ref) => {
     // this prevents re-rendering too much
     const renderedRoot = useMemo(() => renderRoot(), [])
 
@@ -55,8 +55,7 @@ export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
         </CacheProvider>
       </ErrorBoundary>
     )
-  },
-  { forwardRef: true },
+  }),
 )
 
 Renderer.displayName = 'Renderer'
