@@ -65,7 +65,7 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       name: page.name,
       slug: page.slug,
       getServerSideProps: page.getServerSideProps,
-      pageContainerElementId: page.pageContainerElementId,
+      pageContainerElementId: page.pageContainerElement?.id,
     }
 
     return (

@@ -219,7 +219,7 @@ export class Renderer
 
     const pageService = getPageService(this)
     const providerPageId = providerRoot.baseId
-    const { pageContainerElementId } = pageService.page(providerPageId) ?? {}
+    const { pageContainerElement } = pageService.page(providerPageId) ?? {}
 
     const renderRecursive = (
       element: IElement,
@@ -234,7 +234,7 @@ export class Renderer
           renderRecursive(childElement),
         )
 
-        if (element.id === pageContainerElementId) {
+        if (element.id === pageContainerElement?.id) {
           children.push(rootElement)
         }
 

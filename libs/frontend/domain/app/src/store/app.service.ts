@@ -202,7 +202,7 @@ export class AppService
           },
         },
         isProvider: true,
-        pageContainerElementId: rootId,
+        pageContainerElement: { connect: { where: { node: { id: rootId } } } },
       }
 
       return {

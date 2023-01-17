@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import { connectNode } from '@codelab/shared/data'
+import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -113,7 +113,7 @@ export class PageService
           slug: createSlug(slug, appId),
           app: connectNode(appId),
           getServerSideProps,
-          pageContainerElementId,
+          pageContainerElement: reconnectNode(pageContainerElementId),
         },
         where: { id: existingPage.id },
       }),

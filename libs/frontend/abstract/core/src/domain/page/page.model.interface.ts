@@ -15,5 +15,5 @@ export interface IPage
   rootElement: IEntity
   getServerSideProps: Nullish<string>
   isProvider: boolean
-  pageContainerElementId: Nullish<string>
+  pageContainerElement: Nullish<IEntity>
 }
