@@ -4,11 +4,8 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import remove from 'lodash/remove'
-import { useEffect, useState } from 'react'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
-import { useCurrentPageId } from '../routerHooks'
 
 interface RenderedPageProps {
   appId: string
@@ -39,12 +36,12 @@ export const useRenderedPage = ({
   rendererType,
 }: RenderedPageProps) => {
   const {
-    pageService,
     appService,
+    storeService,
     typeService,
     componentService,
     resourceService,
-    storeService,
+    pageService,
   } = useStore()
 
   const commonPagesData = useAsync(async () => {
@@ -57,11 +54,6 @@ export const useRenderedPage = ({
     if (!app) {
       return null
     }
-
-    const [notFoundPage] = remove(
-      app.pages,
-      (x) => x.kind === IPageKind.NotFound,
-    )
 
     const [currentPage, providerPage] = app.pages
       .sort((page) => (page.kind === IPageKind.Regular ? -1 : 1))
@@ -96,30 +88,8 @@ export const useRenderedPage = ({
     return { app }
   }, [])
 
-  return output
-}
-
-/**
- * Fetch related data for rendering page, and load them into store
- */
-export const useLoadRenderedPage = (previewMode: boolean) => {
-  const { appService, pageService } = useStore()
-  const initialPageId = useCurrentPageId()
-  const [currentPageId, setCurrentPageId] = useState(initialPageId)
-
-  useEffect(() => {
-    setCurrentPageId(initialPageId)
-  }, [initialPageId])
-
-  const commonPagesData = useLoadCommonData(
-    currentPageId,
-    setCurrentPageId,
-    previewMode,
-  )
-
   const currentPageData = useAsync(async () => {
     if (!commonPagesData.value) {
-      // commonPageData is not loaded yet
       return null
     }
 
