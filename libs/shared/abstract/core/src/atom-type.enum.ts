@@ -310,6 +310,7 @@ export enum __AtomType {
   Text = 'Text',
   Script = 'Script',
   State = 'State',
+  GridLayout = 'GridLayout',
 
   // React
   ReactFragment = 'ReactFragment',

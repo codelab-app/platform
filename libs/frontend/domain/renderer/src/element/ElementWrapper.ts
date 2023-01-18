@@ -4,6 +4,7 @@ import type {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
@@ -79,6 +80,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       if (renderOutput.props) {
         renderOutput.props['forwardedRef'] = onRefChange
+
+        if (element.atom?.current.type === IAtomType.GridLayout) {
+          renderOutput.props['static'] = !renderService.isBuilder
+        }
       }
 
       const ReactComponent = getReactComponent(renderOutput)

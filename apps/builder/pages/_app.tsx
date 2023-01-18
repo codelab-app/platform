@@ -4,6 +4,8 @@ import '../src/styles/antd-theme.less'
 import 'react-quill/dist/quill.snow.css'
 // This stylesheet is used to override some of the default Quill editor's styles.
 import '../src/styles/quill.snow.override.css'
+import 'react-grid-layout/css/styles.css'
+import 'react-resizable/css/styles.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'

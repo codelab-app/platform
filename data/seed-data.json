@@ -1551,6 +1551,18 @@
       "icon": null,
       "tags": [],
       "allowedChildren": []
+    },
+    {
+      "id": "0d277046-f84c-4d12-8b48-777794cd6f90",
+      "name": "GridLayout",
+      "type": "GridLayout",
+      "api": {
+        "id": "cc75e449-a7b8-4422-8de3-59272d9914f3",
+        "name": "GridLayout API"
+      },
+      "icon": null,
+      "tags": [],
+      "allowedChildren": []
     }
   ],
   "types": [
@@ -5030,6 +5042,24 @@
           "id": "40459c3a-07c0-46fe-a510-2d449e3dfaa2",
           "key": "uploading",
           "value": "uploading"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f6bc0bbc-9656-4879-9664-a31fb9bfe4be",
+      "kind": "EnumType",
+      "name": "GridLayout Enum",
+      "allowedValues": [
+        {
+          "id": "07f80427-419f-4262-84d4-f8f665bdb3b9",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "88f29648-92bb-48a2-b5b3-3c18f64fb227",
+          "key": "object",
+          "value": "object"
         }
       ]
     },
@@ -15095,6 +15125,28 @@
             "id": "e8f65a67-56c4-47be-94ce-88c1e2905d52",
             "kind": "ReactNodeType",
             "name": "ReactNodeType"
+          }
+        }
+      ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "cc75e449-a7b8-4422-8de3-59272d9914f3",
+      "kind": "InterfaceType",
+      "name": "GridLayout API",
+      "fields": [
+        {
+          "id": "262e54a2-99f9-4c6c-972e-0c5f5d4e88a2",
+          "key": "layouts",
+          "name": null,
+          "description": null,
+          "validationRules": "{}",
+          "defaultValues": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "f6bc0bbc-9656-4879-9664-a31fb9bfe4be",
+            "kind": "EnumType",
+            "name": "GridLayout Enum"
           }
         }
       ]
