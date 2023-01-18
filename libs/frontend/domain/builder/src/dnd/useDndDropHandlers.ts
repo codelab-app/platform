@@ -41,35 +41,40 @@ export const useDndDropHandler = (
       return
     }
 
+    // for not mutating the actual input from the components tab
+    const createElementDto = {
+      ...createElementInput,
+    }
+
     let newElement: Nullable<IElement> = null
 
     if (dragPosition === DragPosition.After) {
-      createElementInput.prevSiblingId = targetElement.id
+      createElementDto.prevSiblingId = targetElement.id
       newElement = await elementService.createElementAsNextSibling(
-        createElementInput,
+        createElementDto,
       )
     }
 
     if (dragPosition === DragPosition.Before) {
       if (targetElement.prevSibling) {
-        createElementInput.prevSiblingId = targetElement.prevSibling.id
+        createElementDto.prevSiblingId = targetElement.prevSibling.id
         newElement = await elementService.createElementAsNextSibling(
-          createElementInput,
+          createElementDto,
         )
       }
 
       if (!targetElement.prevSibling && targetElement.parentElement?.id) {
-        createElementInput.parentElementId = targetElement.parentElement.id
+        createElementDto.parentElementId = targetElement.parentElement.id
         newElement = await elementService.createElementAsFirstChild(
-          createElementInput,
+          createElementDto,
         )
       }
     }
 
     if (dragPosition === DragPosition.Inside) {
-      createElementInput.parentElementId = targetElement.id
+      createElementDto.parentElementId = targetElement.id
       newElement = await elementService.createElementAsFirstChild(
-        createElementInput,
+        createElementDto,
       )
     }
 
