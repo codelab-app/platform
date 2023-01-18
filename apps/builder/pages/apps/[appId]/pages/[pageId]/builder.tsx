@@ -135,8 +135,6 @@ PageBuilder.Layout = observer((page) => {
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
   const activeElementTree = builderService.activeElementTree
-  // should be defined by the time, components list renders
-  const pageTree = pageBuilderRenderer?.pageTree?.current
 
   const ConfigPaneComponent = useMemo(
     () =>
@@ -200,7 +198,7 @@ PageBuilder.Layout = observer((page) => {
     <BuilderContext
       builderService={builderService}
       elementService={elementService}
-      elementTree={pageTree}
+      elementTree={activeElementTree}
     >
       <DashboardTemplate
         ConfigPane={ConfigPaneComponent}

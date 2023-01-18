@@ -56,6 +56,27 @@ export const useDndDropHandler = (
 
     let newElement: Nullable<IElement> = null
 
+    const existingSameAtoms = elementTree.elementsList.filter(({ atom }) => {
+      return atom?.id === createElementDto.atomId
+    })
+
+    if (existingSameAtoms.length) {
+      const newCount = existingSameAtoms.length + 1
+      createElementDto.slug = `${createElementDto.slug}-${newCount}`
+    }
+
+    // theres still a chance that the auto-incremented slug already exists
+    // we can prevent it from being sent to backend by throwing early
+    const hasSameSlug = elementTree.elementsList.some(
+      ({ slug }) => slug === createElementDto.slug,
+    )
+
+    if (hasSameSlug) {
+      throw new Error(
+        `Found element with the same slug: ${createElementDto.slug}`,
+      )
+    }
+
     // create the new element after the target element
     if (dragPosition === DragPosition.After) {
       createElementDto.prevSiblingId = targetElement.id
