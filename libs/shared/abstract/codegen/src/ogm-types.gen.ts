@@ -1681,6 +1681,7 @@ export enum AtomType {
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
   AntDesignImage = 'AntDesignImage',
+  GridLayout = 'GridLayout',
   MuiAccordion = 'MuiAccordion',
   MuiAccordionActions = 'MuiAccordionActions',
   MuiAccordionDetails = 'MuiAccordionDetails',
