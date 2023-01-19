@@ -1,11 +1,14 @@
 import type {
+  IAtom,
   IAuth0Id,
+  IComponent,
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
   IElement,
   IElementDTO,
   IElementRef,
   IElementService,
+  IInterfaceType,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/frontend/abstract/core'
@@ -15,6 +18,7 @@ import {
   PropMapBinding,
   PropMapBindingModalService,
 } from '@codelab/frontend/domain/prop'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import { createSlug, runSequentially } from '@codelab/frontend/shared/utils'
 import type {
@@ -23,7 +27,7 @@ import type {
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -44,6 +48,7 @@ import { v4 } from 'uuid'
 import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import {
   makeCreateInput,
+  makeDefaultProps,
   makeDuplicateInput,
   makeUpdateInput,
 } from './api.utils'
@@ -91,6 +96,11 @@ export class ElementService
   @computed
   private get componentService() {
     return getComponentService(this)
+  }
+
+  @computed
+  private get typeService() {
+    return getTypeService(this)
   }
 
   @modelFlow
@@ -180,21 +190,76 @@ export class ElementService
     this: ElementService,
     data: Array<ICreateElementDTO>,
   ) {
-    const input = data.map((element) => {
-      const parentElement = this.elements.get(element.parentElementId as string)
-      const slug = createSlug(element.slug, parentElement?.baseId)
+    const input: Array<ElementCreateInput> = []
 
-      return makeCreateInput({
-        ...element,
-        slug,
-      })
-    })
+    for (const elementInput of data) {
+      const parentElement = this.elements.get(
+        elementInput.parentElementId as string,
+      )
+
+      const slug = createSlug(elementInput.slug, parentElement?.baseId)
+      // When creating a new element, we need the interface type fields
+      // and we use it to create a props with default values for the created element
+      const typeApi = yield* _await(this.getElementInputTypeApi(elementInput))
+
+      input.push(
+        makeCreateInput({
+          ...elementInput,
+          slug,
+          propsData: makeDefaultProps(typeApi),
+        }),
+      )
+    }
 
     const {
       createElements: { elements },
     } = yield* _await(elementApi.CreateElements({ input }))
 
     return elements.map((element) => this.writeCache(element))
+  })
+
+  /**
+   * Returns the associated interface type of the new element to be created.
+   * To be used to check on the fields that has a default value
+   * and make a default `dataProps` input for the creation of the element
+   */
+  @modelFlow
+  private getElementInputTypeApi = _async(function* (
+    this: ElementService,
+    elementInput: ICreateElementDTO,
+  ) {
+    let baseElementType: Maybe<IAtom | IComponent>
+
+    if (elementInput.renderComponentTypeId) {
+      baseElementType = yield* _await(
+        this.componentService.getOne(elementInput.renderComponentTypeId),
+      )
+
+      if (!baseElementType) {
+        throw new Error(
+          `Component with id ${elementInput.renderComponentTypeId} not found`,
+        )
+      }
+    } else if (elementInput.atomId) {
+      baseElementType = yield* _await(
+        this.atomService.getOne(elementInput.atomId),
+      )
+
+      if (!baseElementType) {
+        throw new Error(`Atom with id ${elementInput.atomId} not found`)
+      }
+    }
+
+    if (baseElementType) {
+      const typeApi = yield* _await(
+        this.typeService.getOne(baseElementType.api.id),
+      )
+
+      // Atoms and components have interface type
+      return typeApi as Maybe<IInterfaceType>
+    }
+
+    return
   })
 
   /**

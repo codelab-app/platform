@@ -1,6 +1,8 @@
 import type {
   ICreateElementDTO,
   IElement,
+  IFieldDefaultValue,
+  IInterfaceType,
   IUpdateElementDTO,
 } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
@@ -8,7 +10,9 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { connectNode, reconnectNode } from '@codelab/shared/data'
+import { isNil } from 'ramda'
 import { v4 } from 'uuid'
 
 //
@@ -104,4 +108,25 @@ export const makeUpdateInput = (
     renderComponentType,
     renderIfExpression: input.renderIfExpression,
   }
+}
+
+/**
+ * Generates a JSON containing api fields that has a default value
+ * that will be saved as props for the new element created
+ */
+export const makeDefaultProps = (typeApi: Maybe<IInterfaceType>) => {
+  const fields = typeApi?.fields ?? []
+
+  const defaultProps = fields.reduce<Record<string, IFieldDefaultValue>>(
+    (acc, field) => {
+      if (!isNil(field.defaultValues)) {
+        acc[field.key] = field.defaultValues
+      }
+
+      return acc
+    },
+    {},
+  )
+
+  return JSON.stringify(defaultProps)
 }
