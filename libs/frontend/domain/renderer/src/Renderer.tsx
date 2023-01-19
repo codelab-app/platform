@@ -5,7 +5,7 @@ import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 export type RendererRoot = Pick<IRenderer, 'renderRoot'>
 /**
@@ -39,6 +39,9 @@ const emotionCache = createCache({
 
 export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
   ({ renderRoot, style = {} }, ref) => {
+    // this prevents re-rendering too much
+    const renderedRoot = useMemo(() => renderRoot(), [])
+
     return (
       <ErrorBoundary>
         <CacheProvider value={emotionCache}>
@@ -47,7 +50,7 @@ export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
             ref={ref}
             style={{ minHeight: '100%', transform: 'translatex(0)', ...style }}
           >
-            {renderRoot()}
+            {renderedRoot}
           </div>
         </CacheProvider>
       </ErrorBoundary>
