@@ -10,10 +10,9 @@ import type {
 import {
   COMPONENT_INSTANCE_ID,
   CUSTOM_TEXT_PROP_KEY,
-  DATA_ELEMENT_ID,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
+import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -86,7 +85,7 @@ const init = async ({
    * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
    */
   const builderGlobals = {
-    onClick: (e: React.MouseEvent) => {
+    /*     onClick: (e: React.MouseEvent) => {
       if (!isBuilder) {
         return
       }
@@ -98,7 +97,7 @@ const init = async ({
       if (elementId !== null) {
         set_selectedNode?.(elementRef(elementId))
       }
-    },
+    }, */
     href: '#',
   }
 

@@ -11,6 +11,7 @@ import {
   UpdateElementForm,
 } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -21,8 +22,8 @@ import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContai
 import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-InspectorTabContainerStyle'
 
 interface MetaPaneProps {
-  elementTree?: IElementTree
-  renderService?: IRenderer
+  elementTree: Maybe<IElementTree>
+  renderService: Maybe<IRenderer>
 }
 
 export const ConfigPane = observer<MetaPaneProps>(

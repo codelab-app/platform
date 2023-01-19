@@ -37,5 +37,6 @@ export interface ITypeService
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
   loadTypes(types: GetTypesQuery): Array<IAnyType>
   loadFields(types: GetTypesQuery['interfaceTypes']): void
+  loadTypesByChunks(types: GetTypesQuery): void
   count: number
 }

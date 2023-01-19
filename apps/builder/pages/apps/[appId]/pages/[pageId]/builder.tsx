@@ -1,4 +1,3 @@
-import type { IPageProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
@@ -23,94 +22,60 @@ import {
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useMemo } from 'react'
-import { useAsync } from 'react-use'
+import React, { useEffect, useMemo } from 'react'
 
-const PageBuilder: CodelabPage<IPageProps> = observer(
-  ({ getServerSidePropsData }) => {
-    const {
-      componentService,
-      appService,
-      builderRenderService,
-      elementService,
-      builderService,
-    } = useStore()
+const PageBuilder: CodelabPage = observer(() => {
+  const {
+    componentService,
+    elementService,
+    builderService,
+    builderRenderService,
+  } = useStore()
 
-    const appId = useCurrentAppId()
-    const pageId = useCurrentPageId()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
 
-    const { value: pageDataValue, error: pageDataError } = useRenderedPage({
-      appId,
-      pageId,
-    })
+  const { value, error, loading } = useRenderedPage({
+    appId,
+    pageId,
+    renderService: builderRenderService,
+    isBuilder: true,
+  })
 
-    const {
-      loading,
-      value,
-      error: rendererError,
-    } = useAsync(async () => {
-      if (!pageDataValue) {
-        return
-      }
-
-      const { page, pageTree, appTree, appStore, components } = pageDataValue
-      /**
-       *
-       * page Element tree
-       *
-       */
-      const pageRootElement = elementService.element(page.rootElement.id)
+  useEffect(() => {
+    /**
+     * Select root element for current page
+     */
+    if (value?.page) {
+      const pageRootElement = elementService.element(value.page.rootElement.id)
 
       if (pageRootElement) {
         builderService.selectPageElementTreeNode(elementRef(pageRootElement))
       }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value?.page])
 
-      const renderer = await builderRenderService.addRenderer({
-        id: page.id,
-        pageTree,
-        appTree,
-        components,
-        appStore,
-        isBuilder: true,
-      })
+  return (
+    <>
+      <Head>
+        <title>{value?.page.name} | Builder | Codelab</title>
+      </Head>
 
-      appStore.state.setMany(appService.appsJson)
-
-      if (getServerSidePropsData) {
-        appStore.state.setMany(getServerSidePropsData)
-      }
-
-      return {
-        pageTree,
-        appStore,
-        page,
-        renderer,
-      }
-    }, [pageDataValue])
-
-    const error = pageDataError || rendererError
-
-    return (
-      <>
-        <Head>
-          <title>{value?.page.name} | Builder | Codelab</title>
-        </Head>
-
-        <BuilderTabs
-          appStore={value?.appStore}
-          builderRenderService={builderRenderService}
-          builderService={builderService}
-          componentService={componentService}
-          elementService={elementService}
-          elementTree={value?.pageTree}
-          error={error?.message}
-          isLoading={loading}
-          renderer={value?.renderer}
-        />
-      </>
-    )
-  },
-)
+      <BuilderTabs
+        appStore={value?.appStore}
+        builderRenderService={builderRenderService}
+        builderService={builderService}
+        componentService={componentService}
+        elementService={elementService}
+        elementTree={value?.pageTree}
+        error={error?.message}
+        isLoading={loading}
+        renderer={value?.renderer}
+      />
+    </>
+  )
+})
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired({
   getServerSideProps: Page.getServerSideProps,
@@ -119,7 +84,6 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired({
 PageBuilder.Layout = observer((page) => {
   const {
     elementService,
-    atomService,
     componentService,
     userService,
     builderService,
@@ -142,11 +106,11 @@ PageBuilder.Layout = observer((page) => {
         <ConfigPane
           // The element tree changes depending on whether a page or a component is selected
           elementTree={activeElementTree}
-          key={pageBuilderRenderer?.pageTree?.current.root?.id}
+          key={activeElementTree?.root?.id}
           renderService={pageBuilderRenderer}
         />
       )),
-    [pageBuilderRenderer, builderService],
+    [pageBuilderRenderer, activeElementTree],
   )
 
   const EditorPaneComponent = useMemo(

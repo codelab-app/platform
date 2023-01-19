@@ -104,7 +104,7 @@
     "lodash": "4.17.21",
     "micro": "9.4.1",
     "mobx": "6.6.0",
-    "mobx-keystone": "0.68.6",
+    "mobx-keystone": "1.2.0",
     "mobx-react-lite": "3.4.0",
     "mobx-utils": "6.0.5",
     "morphext": "2.4.7",

@@ -1,5 +1,6 @@
 import type {
   ICreateTypeDTO,
+  IInterfaceType,
   IInterfaceTypeRef,
   ITypeService,
   IUpdateTypeDTO,
@@ -27,7 +28,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
+import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { createTypeFactory, updateTypeInputFactory } from '../use-cases'
 import {
   createTypeApi,
@@ -173,6 +174,22 @@ export class TypeService
     }
 
     return typeModel
+  }
+
+  @modelAction
+  loadTypesByChunks(this: TypeService, types: GetTypesQuery) {
+    // type loading is quiet a heavy operation which takes up to 500ms of blocking time.
+    // split types loading into many chunks and queue each of them as a macrotask.
+    // this will unblock UI and allow other js to execute between them, which makes UI much more responsive.
+    this.loadFields(types.interfaceTypes)
+
+    this.loadTypes(types)
+
+    Object.values(types.interfaceTypes).map((type) => {
+      const typeModel = this.type(type.id) as IInterfaceType
+
+      typeModel.load(type.fields)
+    })
   }
 
   @modelFlow

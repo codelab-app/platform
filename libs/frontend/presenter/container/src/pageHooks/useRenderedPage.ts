@@ -1,16 +1,29 @@
-import type { IInterfaceType } from '@codelab/frontend/abstract/core'
+import type { IRenderService } from '@codelab/frontend/abstract/core'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
 
 interface RenderedPageProps {
   appId: string
   pageId: string
+  /**
+   * builder uses builderRenderService while preview uses appRenderService
+   */
+  renderService: IRenderService
+  /**
+   * indicates whether the hook is used inside builder page or preview page
+   */
+  isBuilder: boolean
 }
 
 /**
  * Fetch related data for rendering page, and load them into store
  */
-export const useRenderedPage = ({ appId, pageId }: RenderedPageProps) => {
+export const useRenderedPage = ({
+  appId,
+  pageId,
+  isBuilder,
+  renderService,
+}: RenderedPageProps) => {
   const {
     appService,
     storeService,
@@ -46,91 +59,40 @@ export const useRenderedPage = ({ appId, pageId }: RenderedPageProps) => {
       ? currentPage
       : providerPage ?? {}
 
-    // type loading is quiet a heavy operation which takes up to 500ms of blocking time.
-    // split types loading into many chunks and queue each of them as a macrotask.
-    // this will unblock UI and allow other js to execute between them, which makes UI much more responsive.
-    await new Promise((resolve) =>
-      setTimeout(() => resolve(typeService.loadFields(types.interfaceTypes))),
-    )
+    // load types by chucks so UI is not blocked
+    typeService.loadTypesByChunks(types)
 
-    await new Promise((resolve) =>
-      setTimeout(() => resolve(typeService.loadTypes(types))),
-    )
+    // load components trees
+    componentService.loadRenderedComponentTree(components)
 
-    await Promise.all(
-      Object.values(types.interfaceTypes).map(
-        (type) =>
-          new Promise((resolve) =>
-            setTimeout(() => {
-              const typeModel = typeService.type(type.id) as IInterfaceType
+    // write cache for resources
+    resourceService.load(resources)
 
-              resolve(typeModel.load(type.fields))
-            }),
-          ),
-      ),
-    )
-
-    components.map((component) =>
-      componentService.loadRenderedComponentTree(component),
-    )
-
-    resources.map((resource) => resourceService.writeCache(resource))
-
-    // hydrate after types and resources
+    // hydrate store after types and resources
     const appStore = storeService.writeCache(app.store)
     appStore.state.setMany(appService.appsJson)
-    // appStore.state.set('redirectToPage', setCurrentPageId)
 
-    return {
-      app,
-      page,
+    /** 
+     FIXME: mobx-keystone 1.2.0 requires frozen data must be serializable too.
+    // appStore.state.set('redirectToPage', setCurrentPageId)
+    */
+
+    const renderer = await renderService.addRenderer({
+      id: page.id,
       pageTree,
       appTree,
-      appStore,
       components: componentService.componentList,
+      appStore,
+      isBuilder,
+    })
+
+    return {
+      pageTree,
+      appStore,
+      page,
+      renderer,
     }
   }, [])
 
-  const currentPageData = useAsync(async () => {
-    if (!commonPagesData.value) {
-      return null
-    }
-
-    const { app, appTree, appStore, components } = commonPagesData.value
-    const alreadyLoadedPage = pageService.pages.get(pageId)
-
-    if (alreadyLoadedPage?.elementTree) {
-      const pageTree = alreadyLoadedPage.elementTree
-
-      return {
-        page: alreadyLoadedPage,
-        pageTree,
-        appTree,
-        appStore,
-        components,
-      }
-    }
-
-    const { pages } = await pageService.getRenderedPage(pageId)
-    const [loadedPage] = pages
-
-    if (!loadedPage) {
-      return null
-    }
-
-    app.pages.push(loadedPage)
-
-    const { pageElementTree: pageTree, page } = appService.load({
-      app,
-      pageId: loadedPage.id,
-    })
-
-    return { page, pageTree, appTree, appStore, components }
-  }, [pageId, commonPagesData])
-
-  const loading = commonPagesData.loading || currentPageData.loading
-  const error = commonPagesData.error ?? currentPageData.error
-  const value = currentPageData.value
-
-  return { loading, error, value }
+  return commonPagesData
 }

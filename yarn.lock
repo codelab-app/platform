@@ -14638,7 +14638,7 @@ __metadata:
     madge: 5.0.1
     micro: 9.4.1
     mobx: 6.6.0
-    mobx-keystone: 0.68.6
+    mobx-keystone: 1.2.0
     mobx-react-lite: 3.4.0
     mobx-utils: 6.0.5
     morphext: 2.4.7
@@ -24983,17 +24983,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx-keystone@npm:0.68.6":
-  version: 0.68.6
-  resolution: "mobx-keystone@npm:0.68.6"
+"mobx-keystone@npm:1.2.0":
+  version: 1.2.0
+  resolution: "mobx-keystone@npm:1.2.0"
   dependencies:
     fast-deep-equal: ^3.1.3
     nanoid: ^3.3.4
     ts-toolbelt: ^9.6.0
-    tslib: ^2.4.0
+    tslib: ^2.4.1
   peerDependencies:
     mobx: ^6.0.0 || ^5.0.0 || ^4.0.0
-  checksum: 22e059627fc78faf98d83d38280a8dcbad3437bd39c9b8dcf9797bed9c4a78e2fb7b23b4bb5fc2fc0fa7543aeb377973cc4f9a7bdb5afffa6429ac4eeea4310d
+  checksum: 145eb3e4eb1adb1e2e55e0778ef7a836fe07aa68cf5b87ab6d0ce89eef24444f52f8db89c300b31e973090e1fdb8573b61969ef9d15ad85c26cfba6d9ca43e79
   languageName: node
   linkType: hard
 
@@ -32979,6 +32979,13 @@ __metadata:
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "tslib@npm:2.4.1"
+  checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
   languageName: node
   linkType: hard
 

@@ -3,7 +3,16 @@ import type {
   IRenderService,
   RendererProps,
 } from '@codelab/frontend/abstract/core'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import {
+  _async,
+  _await,
+  Model,
+  model,
+  modelFlow,
+  objectMap,
+  prop,
+  transaction,
+} from 'mobx-keystone'
 import { Renderer } from './renderer.model'
 
 @model('@codelab/RenderService')
@@ -26,12 +35,16 @@ export class RenderService
   //   return this._componentService.current
   // }
 
-  @modelAction
-  async addRenderer(props: RendererProps & { id: string }) {
+  @modelFlow
+  @transaction
+  addRenderer = _async(function* (
+    this: RenderService,
+    props: RendererProps & { id: string },
+  ) {
     const existing = this.renderers.get(props.id)
 
     if (!existing) {
-      const renderer = await Renderer.init(props)
+      const renderer = yield* _await(Renderer.init(props))
 
       this.renderers.set(props.id, renderer)
 
@@ -41,5 +54,5 @@ export class RenderService
     existing.initForce(props.pageTree, props.appTree)
 
     return existing
-  }
+  })
 }

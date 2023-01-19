@@ -61,17 +61,18 @@ export class ComponentService
     return [...this.components.values()]
   }
 
+  @modelAction
   loadRenderedComponentTree(
-    renderedComponentFragment: RenderedComponentFragment,
+    renderedComponentFragments: Array<RenderedComponentFragment>,
   ) {
-    const componentModel = this.writeCache(renderedComponentFragment)
+    renderedComponentFragments.forEach((component) => {
+      const componentModel = this.writeCache(component)
 
-    const { rootElement, hydratedElements } =
-      this.elementService.loadComponentTree(renderedComponentFragment)
+      const { rootElement, hydratedElements } =
+        this.elementService.loadComponentTree(component)
 
-    componentModel.initTree(rootElement, hydratedElements)
-
-    return componentModel
+      componentModel.initTree(rootElement, hydratedElements)
+    })
   }
 
   component(id: string) {

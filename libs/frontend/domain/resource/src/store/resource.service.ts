@@ -139,6 +139,11 @@ export class ResourceService
   })
 
   @modelAction
+  load(resources: Array<IResourceDTO>) {
+    resources.forEach((resource) => this.writeCache(resource))
+  }
+
+  @modelAction
   writeCache(resource: IResourceDTO) {
     let resourceModel = this.resource(resource.id)
 

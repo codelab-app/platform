@@ -1,3 +1,4 @@
+import type { IPageProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
@@ -13,57 +14,43 @@ import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React from 'react'
-import { useAsync } from 'react-use'
+import React, { useEffect } from 'react'
 
-const PageRenderer: CodelabPage = observer(() => {
-  const { appRenderService } = useStore()
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
+const PageRenderer: CodelabPage<IPageProps> = observer(
+  ({ getServerSidePropsData }) => {
+    const { appRenderService } = useStore()
+    const appId = useCurrentAppId()
+    const pageId = useCurrentPageId()
 
-  const { value: pageDataValue, error: pageDataError } = useRenderedPage({
-    appId,
-    pageId,
-  })
-
-  const {
-    loading,
-    value,
-    error: rendererError,
-  } = useAsync(async () => {
-    if (!pageDataValue) {
-      return
-    }
-
-    const { page, pageTree, appTree, appStore, components } = pageDataValue
-
-    const renderer = await appRenderService.addRenderer({
-      id: page.id,
-      pageTree,
-      appTree,
-      components,
-      appStore,
+    const { value, error, loading } = useRenderedPage({
+      appId,
+      pageId,
+      renderService: appRenderService,
       isBuilder: false,
     })
 
-    return { page, pageTree, renderer }
-  }, [pageDataValue])
+    useEffect(() => {
+      if (value?.appStore && getServerSidePropsData) {
+        value.appStore.state.setMany(getServerSidePropsData)
+      }
+    }, [loading])
 
-  const error = pageDataError || rendererError
-
-  return (
-    <>
-      <Head>
-        <title>{value?.page.name}</title>
-      </Head>
-      {error && <Alert message={extractErrorMessage(error)} type="error" />}
-      {loading && <Spin />}
-      {!loading && value?.pageTree && (
-        <Renderer renderRoot={value.renderer.renderRoot.bind(value.renderer)} />
-      )}
-    </>
-  )
-})
+    return (
+      <>
+        <Head>
+          <title>{value?.page.name}</title>
+        </Head>
+        {error && <Alert message={extractErrorMessage(error)} type="error" />}
+        {loading && <Spin />}
+        {!loading && value?.pageTree && (
+          <Renderer
+            renderRoot={value.renderer.renderRoot.bind(value.renderer)}
+          />
+        )}
+      </>
+    )
+  },
+)
 
 export default PageRenderer
 

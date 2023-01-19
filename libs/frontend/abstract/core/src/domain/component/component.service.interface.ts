@@ -40,6 +40,6 @@ component
     decendantElements
    */
   loadRenderedComponentTree(
-    renderedComponentFragment: RenderedComponentFragment,
+    renderedComponentFragments: Array<RenderedComponentFragment>,
   ): void
 }
