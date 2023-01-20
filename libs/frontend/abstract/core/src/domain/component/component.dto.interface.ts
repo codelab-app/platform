@@ -7,6 +7,7 @@ export interface ICreateComponentDTO {
   id: string
   name: string
   auth0Id: IAuth0Id
+  childrenContainerElementId: string
 
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined
@@ -15,7 +16,10 @@ export interface ICreateComponentDTO {
   rootElementId?: string | undefined
 }
 
-export type IUpdateComponentDTO = Pick<ICreateComponentDTO, 'name'>
+export type IUpdateComponentDTO = Pick<
+  ICreateComponentDTO,
+  'name' | 'childrenContainerElementId'
+>
 
 export type IComponentDTO = ComponentFragment
 

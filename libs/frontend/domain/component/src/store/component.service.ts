@@ -18,6 +18,7 @@ import type {
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
+import { reconnectNode } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -178,13 +179,16 @@ export class ComponentService
   update = _async(function* (
     this: ComponentService,
     existingComponent: IEntity,
-    { name }: IUpdateComponentDTO,
+    { name, childrenContainerElementId }: IUpdateComponentDTO,
   ) {
     const {
       updateComponents: { components },
     } = yield* _await(
       componentApi.UpdateComponents({
-        update: { name },
+        update: {
+          name,
+          childrenContainerElement: reconnectNode(childrenContainerElementId),
+        },
         where: { id: existingComponent.id },
       }),
     )

@@ -16,4 +16,7 @@ fragment Component on Component {
   props {
     ...Prop
   }
+  childrenContainerElement {
+    id
+  }
 }

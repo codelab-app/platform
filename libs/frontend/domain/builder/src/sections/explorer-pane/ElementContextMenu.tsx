@@ -97,14 +97,11 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         key: 'add-child',
         onClick: onAddChild,
         label: 'Add child',
-        // find a way to hide it instead of disabling
-        hide: isComponentInstance,
       },
       {
         key: 'duplicate',
         onClick: onDuplicate,
         label: 'Duplicate',
-        // find a way to hide it instead of disabling
         hide: element.isRoot,
       },
       {

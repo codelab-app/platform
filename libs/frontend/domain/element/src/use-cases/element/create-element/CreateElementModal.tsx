@@ -84,11 +84,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const closeModal = () => elementService.createModal.close()
 
-    const selectParentElementOptions = pageTree.elementsList
-      .filter(
-        (element) => !element.renderComponentType && !element.parentComponent,
-      )
-      .map(mapElementOption)
+    const selectParentElementOptions =
+      pageTree.elementsList.map(mapElementOption)
 
     const selectChildrenElementOptions =
       pageTree.elementsList.map(mapElementOption)

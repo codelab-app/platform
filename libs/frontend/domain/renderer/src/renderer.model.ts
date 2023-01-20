@@ -8,6 +8,7 @@ import type {
   RendererProps,
 } from '@codelab/frontend/abstract/core'
 import {
+  COMPONENT_INSTANCE_ID,
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   IElementTree,
@@ -319,7 +320,11 @@ export class Renderer
     )['props']
 
     const props = this.processPropsForRender(
-      { ...componentProps, props: propsForCurrentElement },
+      {
+        ...componentProps,
+        props: propsForCurrentElement,
+        [COMPONENT_INSTANCE_ID]: element.id,
+      },
       element,
     )
 
@@ -410,7 +415,20 @@ export class Renderer
         return undefined
       }
 
-      const children = element.children.map((child) =>
+      const componentInstance = elementService.elements.get(
+        parentOutput.props?.['props']?.[COMPONENT_INSTANCE_ID],
+      )
+
+      const componentChildrenContainerId =
+        componentInstance?.renderComponentType?.current
+          .childrenContainerElementId
+
+      const childrenToRender =
+        element.id === componentChildrenContainerId && componentInstance
+          ? [...element.children, ...componentInstance.children]
+          : element.children
+
+      const children = childrenToRender.map((child) =>
         this.renderElement(child),
       )
 

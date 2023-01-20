@@ -3117,10 +3117,13 @@ export type Component = WithOwner & {
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>
   props?: Maybe<Prop>
   propsAggregate?: Maybe<ComponentPropPropsAggregationSelection>
+  childrenContainerElement: Element
+  childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>
   rootElementConnection: ComponentRootElementConnection
   apiConnection: ComponentApiConnection
   ownerConnection: WithOwnerOwnerConnection
   propsConnection: ComponentPropsConnection
+  childrenContainerElementConnection: ComponentChildrenContainerElementConnection
 }
 
 export type ComponentRootElementArgs = {
@@ -3167,6 +3170,17 @@ export type ComponentPropsAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
+export type ComponentChildrenContainerElementArgs = {
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ComponentChildrenContainerElementAggregateArgs = {
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
 export type ComponentRootElementConnectionArgs = {
   where?: InputMaybe<ComponentRootElementConnectionWhere>
   first?: InputMaybe<Scalars['Int']>
@@ -3199,6 +3213,14 @@ export type ComponentPropsConnectionArgs = {
   sort?: InputMaybe<Array<ComponentPropsConnectionSort>>
 }
 
+export type ComponentChildrenContainerElementConnectionArgs = {
+  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ComponentChildrenContainerElementConnectionSort>>
+}
+
 export type ComponentAggregateSelection = {
   __typename?: 'ComponentAggregateSelection'
   count: Scalars['Int']
@@ -3219,10 +3241,43 @@ export type ComponentApiRelationship = {
   node: InterfaceType
 }
 
+export type ComponentChildrenContainerElementConnection = {
+  __typename?: 'ComponentChildrenContainerElementConnection'
+  edges: Array<ComponentChildrenContainerElementRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type ComponentChildrenContainerElementRelationship = {
+  __typename?: 'ComponentChildrenContainerElementRelationship'
+  cursor: Scalars['String']
+  node: Element
+}
+
 export type ComponentEdge = {
   __typename?: 'ComponentEdge'
   cursor: Scalars['String']
   node: Component
+}
+
+export type ComponentElementChildrenContainerElementAggregationSelection = {
+  __typename?: 'ComponentElementChildrenContainerElementAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ComponentElementChildrenContainerElementNodeAggregateSelection>
+}
+
+export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
+  __typename?: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  slug: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  customCss: StringAggregateSelectionNullable
+  guiCss: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
+  preRenderActionId: StringAggregateSelectionNullable
+  postRenderActionId: StringAggregateSelectionNullable
 }
 
 export type ComponentElementRootElementAggregationSelection = {
@@ -10838,11 +10893,273 @@ export type ComponentApiUpdateFieldInput = {
   connectOrCreate?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
 }
 
+export type ComponentChildrenContainerElementAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ComponentChildrenContainerElementAggregateInput>>
+  OR?: InputMaybe<Array<ComponentChildrenContainerElementAggregateInput>>
+  node?: InputMaybe<ComponentChildrenContainerElementNodeAggregationWhereInput>
+}
+
+export type ComponentChildrenContainerElementConnectFieldInput = {
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<ElementConnectInput>
+}
+
+export type ComponentChildrenContainerElementConnectionSort = {
+  node?: InputMaybe<ElementSort>
+}
+
+export type ComponentChildrenContainerElementConnectionWhere = {
+  AND?: InputMaybe<Array<ComponentChildrenContainerElementConnectionWhere>>
+  OR?: InputMaybe<Array<ComponentChildrenContainerElementConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
+}
+
+export type ComponentChildrenContainerElementConnectOrCreateFieldInput = {
+  where: ElementConnectOrCreateWhere
+  onCreate: ComponentChildrenContainerElementConnectOrCreateFieldInputOnCreate
+}
+
+export type ComponentChildrenContainerElementConnectOrCreateFieldInputOnCreate =
+  {
+    node: ElementOnCreateInput
+  }
+
+export type ComponentChildrenContainerElementCreateFieldInput = {
+  node: ElementCreateInput
+}
+
+export type ComponentChildrenContainerElementDeleteFieldInput = {
+  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
+}
+
+export type ComponentChildrenContainerElementDisconnectFieldInput = {
+  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
+}
+
+export type ComponentChildrenContainerElementFieldInput = {
+  create?: InputMaybe<ComponentChildrenContainerElementCreateFieldInput>
+  connect?: InputMaybe<ComponentChildrenContainerElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<ComponentChildrenContainerElementConnectOrCreateFieldInput>
+}
+
+export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
+  AND?: InputMaybe<
+    Array<ComponentChildrenContainerElementNodeAggregationWhereInput>
+  >
+  OR?: InputMaybe<
+    Array<ComponentChildrenContainerElementNodeAggregationWhereInput>
+  >
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  slug_EQUAL?: InputMaybe<Scalars['String']>
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  slug_GT?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  slug_GTE?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  slug_LT?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  slug_LTE?: InputMaybe<Scalars['Int']>
+  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  customCss_GT?: InputMaybe<Scalars['Int']>
+  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  customCss_GTE?: InputMaybe<Scalars['Int']>
+  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  customCss_LT?: InputMaybe<Scalars['Int']>
+  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  customCss_LTE?: InputMaybe<Scalars['Int']>
+  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  guiCss_EQUAL?: InputMaybe<Scalars['String']>
+  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  guiCss_GT?: InputMaybe<Scalars['Int']>
+  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  guiCss_GTE?: InputMaybe<Scalars['Int']>
+  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  guiCss_LT?: InputMaybe<Scalars['Int']>
+  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  guiCss_LTE?: InputMaybe<Scalars['Int']>
+  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfExpression_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  preRenderActionId_EQUAL?: InputMaybe<Scalars['String']>
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  preRenderActionId_GT?: InputMaybe<Scalars['Int']>
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  preRenderActionId_GTE?: InputMaybe<Scalars['Int']>
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  preRenderActionId_LT?: InputMaybe<Scalars['Int']>
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  preRenderActionId_LTE?: InputMaybe<Scalars['Int']>
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  postRenderActionId_EQUAL?: InputMaybe<Scalars['String']>
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  postRenderActionId_GT?: InputMaybe<Scalars['Int']>
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  postRenderActionId_GTE?: InputMaybe<Scalars['Int']>
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  postRenderActionId_LT?: InputMaybe<Scalars['Int']>
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  postRenderActionId_LTE?: InputMaybe<Scalars['Int']>
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type ComponentChildrenContainerElementUpdateConnectionInput = {
+  node?: InputMaybe<ElementUpdateInput>
+}
+
+export type ComponentChildrenContainerElementUpdateFieldInput = {
+  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
+  update?: InputMaybe<ComponentChildrenContainerElementUpdateConnectionInput>
+  connect?: InputMaybe<ComponentChildrenContainerElementConnectFieldInput>
+  disconnect?: InputMaybe<ComponentChildrenContainerElementDisconnectFieldInput>
+  create?: InputMaybe<ComponentChildrenContainerElementCreateFieldInput>
+  delete?: InputMaybe<ComponentChildrenContainerElementDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ComponentChildrenContainerElementConnectOrCreateFieldInput>
+}
+
 export type ComponentConnectInput = {
   rootElement?: InputMaybe<ComponentRootElementConnectFieldInput>
   api?: InputMaybe<ComponentApiConnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   props?: InputMaybe<ComponentPropsConnectFieldInput>
+  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementConnectFieldInput>
 }
 
 export type ComponentConnectOrCreateInput = {
@@ -10850,6 +11167,7 @@ export type ComponentConnectOrCreateInput = {
   api?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   props?: InputMaybe<ComponentPropsConnectOrCreateFieldInput>
+  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementConnectOrCreateFieldInput>
 }
 
 export type ComponentConnectOrCreateWhere = {
@@ -10867,6 +11185,7 @@ export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   props?: InputMaybe<ComponentPropsFieldInput>
+  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementFieldInput>
 }
 
 export type ComponentDeleteInput = {
@@ -10874,6 +11193,7 @@ export type ComponentDeleteInput = {
   api?: InputMaybe<ComponentApiDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   props?: InputMaybe<ComponentPropsDeleteFieldInput>
+  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementDeleteFieldInput>
 }
 
 export type ComponentDisconnectInput = {
@@ -10881,6 +11201,7 @@ export type ComponentDisconnectInput = {
   api?: InputMaybe<ComponentApiDisconnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   props?: InputMaybe<ComponentPropsDisconnectFieldInput>
+  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementDisconnectFieldInput>
 }
 
 export type ComponentOnCreateInput = {
@@ -11070,6 +11391,7 @@ export type ComponentRelationInput = {
   api?: InputMaybe<ComponentApiCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   props?: InputMaybe<ComponentPropsCreateFieldInput>
+  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementCreateFieldInput>
 }
 
 export type ComponentRootElementAggregateInput = {
@@ -11345,6 +11667,7 @@ export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
+  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementUpdateFieldInput>
 }
 
 export type ComponentWhere = {
@@ -11384,6 +11707,9 @@ export type ComponentWhere = {
   props?: InputMaybe<PropWhere>
   props_NOT?: InputMaybe<PropWhere>
   propsAggregate?: InputMaybe<ComponentPropsAggregateInput>
+  childrenContainerElement?: InputMaybe<ElementWhere>
+  childrenContainerElement_NOT?: InputMaybe<ElementWhere>
+  childrenContainerElementAggregate?: InputMaybe<ComponentChildrenContainerElementAggregateInput>
   rootElementConnection?: InputMaybe<ComponentRootElementConnectionWhere>
   rootElementConnection_NOT?: InputMaybe<ComponentRootElementConnectionWhere>
   apiConnection?: InputMaybe<ComponentApiConnectionWhere>
@@ -11392,6 +11718,8 @@ export type ComponentWhere = {
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   propsConnection?: InputMaybe<ComponentPropsConnectionWhere>
   propsConnection_NOT?: InputMaybe<ComponentPropsConnectionWhere>
+  childrenContainerElementConnection?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
+  childrenContainerElementConnection_NOT?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
 }
 
 export type CreateInfoCreateInput = {

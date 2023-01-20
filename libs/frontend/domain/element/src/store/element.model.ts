@@ -404,9 +404,7 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-      children: !this.renderComponentType?.current
-        ? this.children.map((child) => child.antdNode)
-        : [],
+      children: this.children.map((child) => child.antdNode),
       rootKey: getElementTree(this)?._root?.id ?? null,
     }
   }

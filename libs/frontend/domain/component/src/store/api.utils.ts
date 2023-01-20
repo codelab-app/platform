@@ -9,10 +9,15 @@ export const mapCreateInput = (
   input: ICreateComponentDTO,
 ): ComponentCreateInput => {
   const { id = v4(), name, auth0Id, rootElementId } = input
+  const newRootElementId = v4()
 
   const createRootElement: ComponentCreateInput['rootElement'] = {
     create: {
-      node: makeCreateInput({ name, slug: createSlug(name, id) }),
+      node: makeCreateInput({
+        id: newRootElementId,
+        name,
+        slug: createSlug(name, id),
+      }),
     },
   }
 
@@ -20,7 +25,7 @@ export const mapCreateInput = (
     connect: {
       where: {
         node: {
-          id: rootElementId,
+          id: rootElementId ?? newRootElementId,
         },
       },
     },
@@ -47,5 +52,6 @@ export const mapCreateInput = (
     api,
     owner: connectOwner(auth0Id),
     props,
+    childrenContainerElement: connectRootElement,
   }
 }

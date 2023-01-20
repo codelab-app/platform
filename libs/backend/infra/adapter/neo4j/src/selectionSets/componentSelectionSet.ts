@@ -13,4 +13,7 @@ export const componentSelectionSet = `{
     id
     name
   }
+  childrenContainerElement {
+    id
+  }
 }`

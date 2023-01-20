@@ -18,6 +18,7 @@ export type ComponentFragment = {
   owner: { id: string; auth0Id: string }
   api: { id: string; name: string }
   props?: PropFragment | null
+  childrenContainerElement: { id: string }
 }
 
 export const ComponentFragmentDoc = gql`
@@ -38,6 +39,9 @@ export const ComponentFragmentDoc = gql`
     }
     props {
       ...Prop
+    }
+    childrenContainerElement {
+      id
     }
   }
   ${PropFragmentDoc}

@@ -853,6 +853,7 @@ element is new parentElement's first child
               id: v4(),
               name,
               rootElementId: elementId,
+              childrenContainerElementId: elementId,
             },
           ]),
         )

@@ -22,6 +22,12 @@ export const createComponentSchema: JSONSchemaType<
         component: () => null,
       },
     },
+    childrenContainerElementId: {
+      type: 'string',
+      uniforms: {
+        component: () => null,
+      },
+    },
     auth0Id: {
       type: 'string',
       disabled: true,

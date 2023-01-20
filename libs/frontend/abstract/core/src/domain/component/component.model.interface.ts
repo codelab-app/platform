@@ -14,6 +14,7 @@ export interface IComponent
   id: string
   name: string
   rootElementId: string
+  childrenContainerElementId: string
   ownerId: string
   api: Ref<IAnyType>
   props?: Nullable<IProp>

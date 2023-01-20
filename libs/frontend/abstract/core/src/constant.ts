@@ -9,6 +9,7 @@ export const DATASET_COMPONENT_ID = 'componentId'
 export const DATA_COMPONENT_ID = 'data-component-id'
 export const DATASET_ELEMENT_ID = 'elementId'
 export const DATA_ELEMENT_ID = 'data-element-id'
+export const COMPONENT_INSTANCE_ID = 'component-instance-id'
 
 export const BUILDER_CONTAINER_ID = 'Builder'
 export const BUILDER_NONE_CLASS_NAME = 'Builder-none'

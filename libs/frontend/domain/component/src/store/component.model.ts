@@ -24,6 +24,7 @@ const hydrate = (component: IComponentDTO) => {
     props: component.props
       ? Prop.hydrate({ ...component.props, apiRef })
       : null,
+    childrenContainerElementId: component.childrenContainerElement.id,
   })
 }
 
@@ -38,6 +39,7 @@ export class Component
     ownerId: prop<string>(),
     api: prop<Ref<InterfaceType>>(),
     props: prop<Nullable<IProp>>(null),
+    childrenContainerElementId: prop<string>(),
   })
   implements IComponent
 {
@@ -58,6 +60,8 @@ export class Component
     if (fragment.props) {
       this.props?.writeCache({ ...fragment.props, apiRef })
     }
+
+    this.childrenContainerElementId = fragment.childrenContainerElement.id
 
     return this
   }
