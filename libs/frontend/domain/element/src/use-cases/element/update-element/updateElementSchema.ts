@@ -14,6 +14,8 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
     },
     slug: {
       ...nonEmptyString,
+      disabled: true,
+      type: 'string',
     },
     renderIfExpression: {
       type: 'string',

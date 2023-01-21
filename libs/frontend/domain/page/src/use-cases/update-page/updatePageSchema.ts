@@ -19,6 +19,8 @@ export const updatePageSchema: JSONSchemaType<
     },
     slug: {
       ...nonEmptyString,
+      disabled: true,
+      type: 'string',
     },
     getServerSideProps: {
       type: 'string',
