@@ -85,7 +85,9 @@ const init = async ({
    * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
    */
   const builderGlobals = {
-    /*     onClick: (e: React.MouseEvent) => {
+    /*   
+    FIXME: mobx-keystone 1.2.0 requires frozen data to be serializable.
+    onClick: (e: React.MouseEvent) => {
       if (!isBuilder) {
         return
       }
@@ -97,7 +99,8 @@ const init = async ({
       if (elementId !== null) {
         set_selectedNode?.(elementRef(elementId))
       }
-    }, */
+    }, 
+    */
     href: '#',
   }
 
