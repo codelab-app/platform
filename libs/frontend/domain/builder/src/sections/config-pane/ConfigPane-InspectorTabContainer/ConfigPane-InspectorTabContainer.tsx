@@ -28,6 +28,7 @@ import {
   LoadingIndicator,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { css } from '@emotion/react'
 import { Spin, Tabs, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -40,8 +41,8 @@ import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
 
 export interface MetaPaneBuilderProps {
-  elementTree?: IElementTree
-  renderService?: IRenderer
+  elementTree: Maybe<IElementTree>
+  renderService?: Maybe<IRenderer>
   UpdateElementContent: (props: {
     node: INode
     trackPromises: UseTrackLoadingPromises

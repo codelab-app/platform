@@ -3,13 +3,14 @@ import type {
   IPropData,
   IStore,
 } from '@codelab/frontend/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { createContext, useContext } from 'react'
 
 export interface FormContextValue {
   autocomplete?: IPropData
   appStore?: IStore
   allowExpressions?: boolean
-  elementTree?: IElementTree
+  elementTree: Maybe<IElementTree>
 }
 
 const FormContext = createContext<FormContextValue>({})

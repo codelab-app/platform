@@ -21,7 +21,7 @@ export interface UseBuilderDnd {
 export const useBuilderDnd = (
   builderService: IBuilderService,
   elementService: IElementService,
-  elementTree?: IElementTree,
+  elementTree: Maybe<IElementTree>,
 ): UseBuilderDnd => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
