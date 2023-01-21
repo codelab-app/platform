@@ -3,12 +3,14 @@ import type {
   UniformSelectFieldProps,
 } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { Input } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useAsyncFn } from 'react-use'
-import { TextField } from 'uniforms-antd'
+import { connectField } from 'uniforms'
+import { wrapField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type AutofillElementNameProps = Pick<
+type AutoComputedElementNameProps = Pick<
   UniformSelectFieldProps,
   'label' | 'name' | 'error'
 > & {
@@ -62,7 +64,7 @@ const useGetComponentById = () => {
   }
 }
 
-export const AutofillElementName = ({
+const AutoComputedElementName = ({
   label,
   name,
   error,
@@ -70,7 +72,7 @@ export const AutofillElementName = ({
   componentId,
   value,
   onChange,
-}: AutofillElementNameProps) => {
+}: AutoComputedElementNameProps) => {
   const { retrievedAtom, error: atomQueryError, getAtom } = useGetAtomById()
 
   const {
@@ -106,17 +108,20 @@ export const AutofillElementName = ({
     onChange(curValue)
   }, [curValue, onChange])
 
-  const handleChange = (v: Maybe<string>) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const v = e.target.value
     v && setCurValue(v)
   }
 
-  return (
-    <TextField
-      error={error && atomQueryError && componentQueryError}
-      label={label}
-      name={name}
-      onChange={handleChange}
-      value={curValue}
-    />
+  return wrapField(
+    { label, error: error && atomQueryError && componentQueryError },
+    <Input name={name} onChange={handleChange} value={curValue} />,
   )
 }
+
+export const AutoComputedElementNameField = connectField(
+  AutoComputedElementName,
+  {
+    kind: 'leaf',
+  },
+)

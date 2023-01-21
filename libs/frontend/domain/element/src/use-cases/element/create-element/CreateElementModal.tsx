@@ -17,8 +17,8 @@ import {
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import type { Maybe } from '@codelab/shared/abstract/codegen'
 import type {
+  Maybe,
   Nullable,
   UniformSelectFieldProps,
 } from '@codelab/shared/abstract/types'
