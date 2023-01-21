@@ -4,9 +4,9 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Active, DragStartEvent } from '@dnd-kit/core'
 import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
-import type { Maybe } from '@graphql-tools/utils/typings/types'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React, { useCallback, useMemo } from 'react'
