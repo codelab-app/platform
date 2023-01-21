@@ -56,7 +56,7 @@ export const useRenderedPage = ({
     typeService.loadTypesByChunks(types)
 
     // load components trees
-    componentService.loadRenderedComponentTree(components)
+    componentService.loadRenderedComponentsTree(components)
 
     // write cache for resources
     resourceService.load(resources)

@@ -62,7 +62,7 @@ export class ComponentService
   }
 
   @modelAction
-  loadRenderedComponentTree(
+  loadRenderedComponentsTree(
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ) {
     renderedComponentFragments.forEach((component) => {
