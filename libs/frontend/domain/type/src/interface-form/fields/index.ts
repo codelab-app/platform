@@ -1,3 +1,4 @@
+export * from './autofull-element-name'
 export * from './select-action'
 export * from './select-app'
 export * from './select-atom'

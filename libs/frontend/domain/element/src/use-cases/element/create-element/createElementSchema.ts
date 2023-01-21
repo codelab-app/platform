@@ -15,12 +15,13 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       },
     },
     name: {
-      autoFocus: true,
       type: 'string',
       nullable: true,
     },
     slug: {
       ...nonEmptyString,
+      disabled: true,
+      type: 'string',
     },
     parentElementId: {
       type: 'string',

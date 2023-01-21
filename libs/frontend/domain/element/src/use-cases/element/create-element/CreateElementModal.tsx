@@ -8,18 +8,26 @@ import type {
   IRenderService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
+import {
+  AutofillElementName,
+  SelectAction,
+  SelectAnyElement,
+  SelectAtom,
+  SelectComponent,
+} from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import type { Maybe } from '@codelab/shared/abstract/codegen'
 import type {
   Nullable,
   UniformSelectFieldProps,
 } from '@codelab/shared/abstract/types'
+import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import slugify from 'slugify'
 import tw from 'twin.macro'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, TextField } from 'uniforms-antd'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
@@ -72,6 +80,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     })
 
     const parentElement = elementService.createModal.parentElement
+    const [atomId, setAtomId] = useState<Maybe<string>>()
+    const [compId, setCompId] = useState<Maybe<string>>()
+    const [name, setName] = useState<Maybe<string>>()
 
     const [model, setModel] =
       useState<Nullable<Partial<ICreateElementDTO & { owner: string }>>>(null)
@@ -110,17 +121,36 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         <ModalForm.Form<ICreateElementDTO>
           model={model}
           onChange={(k, v) => {
-            setModel({
-              ...model,
-              slug: k === 'name' ? slugify(v) : model.slug,
-              [k]: v,
+            if (k === 'atomId' && v !== atomId) {
+              setAtomId(v)
+            }
+
+            if (k === 'renderComponentTypeId' && v !== compId) {
+              setCompId(v)
+            }
+          }}
+          onSubmit={(data) => {
+            return onSubmit({
+              ...data,
+              name,
             })
           }}
-          onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
           schema={createElementSchema}
         >
+          <AutoField
+            component={(props: UniformSelectFieldProps) => (
+              <SelectAtom
+                error={props.error}
+                label={props.label}
+                name={props.name}
+                parent={parentElement.atom?.maybeCurrent}
+              />
+            )}
+            name="atomId"
+          />
+          <AutoField component={SelectComponent} name="renderComponentTypeId" />
           <AutoFields
             omitFields={[
               'parentElementId',
@@ -131,6 +161,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               'preRenderActionId',
               'postRenderActionId',
               'renderType',
+              'name',
+              'slug',
             ]}
           />
           <AutoField
@@ -153,6 +185,27 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           />
           <AutoField component={SelectAction} name="preRenderActionId" />
           <AutoField component={SelectAction} name="postRenderActionId" />
+          <Divider />
+          <AutofillElementName
+            atomId={atomId ?? undefined}
+            componentId={compId ?? undefined}
+            label="name"
+            name="name"
+            onChange={(value) => {
+              setName(value)
+            }}
+          />
+          <AutoField
+            component={(props: UniformSelectFieldProps) => (
+              <TextField
+                error={props.error}
+                label={props.label}
+                name={props.name}
+                value={slugify(name || '')}
+              />
+            )}
+            name="slug"
+          />
         </ModalForm.Form>
       </ModalForm.Modal>
     )
