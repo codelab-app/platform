@@ -1,4 +1,3 @@
-import { Row } from 'antd'
 import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
@@ -11,11 +10,8 @@ export const EditorPaneHeader = ({
   children,
   extra,
 }: EditorPaneHeaderProps) => (
-  <Row
-    css={tw`px-2 pt-2 border-solid border-0 border-b border-b-gray-300`}
-    justify="space-between"
-  >
-    <h3>{children}</h3>
+  <div css={tw`flex justify-between`}>
+    <span css={tw`text-sm font-bold`}>{children}</span>
     <div>{extra}</div>
-  </Row>
+  </div>
 )

@@ -7,10 +7,11 @@ import { elementRef } from '../../../store'
 
 export type CreateElementButtonProps = {
   parentElementId: string
-} & Pick<IElementService, 'createModal'>
+} & Pick<IElementService, 'createModal'> &
+  React.ComponentProps<typeof Button>
 
 export const CreateElementButton = observer<CreateElementButtonProps>(
-  ({ parentElementId, createModal }) => {
+  ({ parentElementId, createModal, type }) => {
     return (
       <Button
         icon={<PlusOutlined data-testid="create-page-element-button" />}
@@ -20,6 +21,7 @@ export const CreateElementButton = observer<CreateElementButtonProps>(
           })
         }}
         size="small"
+        type={type}
       />
     )
   },

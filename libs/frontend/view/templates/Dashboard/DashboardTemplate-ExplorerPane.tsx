@@ -42,7 +42,7 @@ export const DashboardTemplateExplorerPane = ({
         width="auto"
       >
         <div css={tw`relative max-h-full h-full flex flex-row`}>
-          <motion.div css={tw`h-full flex-1`}>
+          <motion.div css={tw`h-full flex-1 w-[calc(100% - 1rem)]`}>
             <ExplorerPane />
           </motion.div>
           <motion.div

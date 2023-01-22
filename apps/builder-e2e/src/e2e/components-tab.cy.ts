@@ -11,8 +11,8 @@ import { createPageInput } from '../support/database/page'
 // so the ids of tabs may change depending on the order in which they are rendered:
 // rc-tabs-0-tab, rc-tabs-1-tab, rc-tabs-2-tab, etc...
 // so the id below may change anytime when components rendering order is changed.
-const COMPONENTS_TAB_ID = 'rc-tabs-4-tab-component'
-const COMPONENTS_TAB_PANEL_ID = 'rc-tabs-4-panel-component'
+const COMPONENTS_TAB_ID = 'rc-tabs-5-tab-component'
+const COMPONENTS_TAB_PANEL_ID = 'rc-tabs-5-panel-component'
 
 describe('Components Tab', () => {
   before(() => {

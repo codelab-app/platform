@@ -15,6 +15,7 @@ export const CreateComponentButton = observer<{
       key={0}
       onClick={() => componentService.createModal.open()}
       size="small"
+      type="text"
     />
   )
 })
