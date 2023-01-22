@@ -9,7 +9,7 @@ import type {
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import {
-  AutofillElementName,
+  AutoComputedElementNameField,
   SelectAction,
   SelectAnyElement,
   SelectAtom,
@@ -18,7 +18,6 @@ import {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import type {
-  Maybe,
   Nullable,
   UniformSelectFieldProps,
 } from '@codelab/shared/abstract/types'
@@ -27,7 +26,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import slugify from 'slugify'
 import tw from 'twin.macro'
-import { AutoField, AutoFields, TextField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
@@ -44,6 +43,11 @@ interface CreateElementModalProps {
   storeId: string
 }
 
+/**
+ * This component autofills the element name with the name of
+ * the selected atom or component. additionally, it allows the
+ * user to customize the name.
+ */
 export const CreateElementModal = observer<CreateElementModalProps>(
   ({
     elementService,
@@ -80,9 +84,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     })
 
     const parentElement = elementService.createModal.parentElement
-    const [atomId, setAtomId] = useState<Maybe<string>>()
-    const [compId, setCompId] = useState<Maybe<string>>()
-    const [name, setName] = useState<Maybe<string>>()
 
     const [model, setModel] =
       useState<Nullable<Partial<ICreateElementDTO & { owner: string }>>>(null)
@@ -121,20 +122,13 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         <ModalForm.Form<ICreateElementDTO>
           model={model}
           onChange={(k, v) => {
-            if (k === 'atomId' && v !== atomId) {
-              setAtomId(v)
-            }
-
-            if (k === 'renderComponentTypeId' && v !== compId) {
-              setCompId(v)
-            }
-          }}
-          onSubmit={(data) => {
-            return onSubmit({
-              ...data,
-              name,
+            setModel({
+              ...model,
+              slug: k === 'name' ? slugify(v) : model.slug,
+              [k]: v,
             })
           }}
+          onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
           schema={createElementSchema}
@@ -186,26 +180,13 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           <AutoField component={SelectAction} name="preRenderActionId" />
           <AutoField component={SelectAction} name="postRenderActionId" />
           <Divider />
-          <AutofillElementName
-            atomId={atomId ?? undefined}
-            componentId={compId ?? undefined}
+          <AutoComputedElementNameField
+            atomId={model.atomId ?? undefined}
+            componentId={model.renderComponentTypeId ?? undefined}
             label="name"
             name="name"
-            onChange={(value) => {
-              setName(value)
-            }}
           />
-          <AutoField
-            component={(props: UniformSelectFieldProps) => (
-              <TextField
-                error={props.error}
-                label={props.label}
-                name={props.name}
-                value={slugify(name || '')}
-              />
-            )}
-            name="slug"
-          />
+          <AutoField name="slug" />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

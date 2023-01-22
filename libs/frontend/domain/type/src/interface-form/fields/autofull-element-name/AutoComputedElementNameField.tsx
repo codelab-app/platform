@@ -20,9 +20,6 @@ type AutoComputedElementNameProps = Pick<
   onChange: (value: string) => void
 }
 
-/**
- * @returns { data, isLoading, error }
- */
 const useGetAtomById = () => {
   const [{ value, loading, error }, getAtom] = useAsyncFn(
     (id: Maybe<string>) => {
