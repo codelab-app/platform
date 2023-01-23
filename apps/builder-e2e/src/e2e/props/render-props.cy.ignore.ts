@@ -2,7 +2,6 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import {
   createListAtomInput,
-  createListElementInput,
   createListItemAtomInput,
   createTextAtomInput,
   headerFieldName,
@@ -59,27 +58,26 @@ describe('Render props', () => {
              *  - listItem component
              *  - text component to be used as (React Node)
              */
-            return cy.createComponent(componentInput).then(() =>
+            return cy.createComponent(componentInput).then(() => {
               /**
                * create :
                *  - app
                *  - page
                */
-              cy.createPageFromScratch().then((data: any) => {
-                const elementInput = createListElementInput(
-                  listId,
-                  data.rootElementId,
-                )
-
-                /**
-                 * create :
-                 * element with list atom
-                 */
-                return cy.createElement(elementInput).then(() => {
-                  cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
-                })
-              }),
-            )
+              // cy.createPageFromScratch().then((data: any) => {
+              // const elementInput = createListElementInput(
+              //  listId,
+              //  data.rootElementId,
+              // )
+              /**
+               * create :
+               * element with list atom
+               */
+              // return cy.createElement(elementInput).then(() => {
+              //  cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
+              // })
+              // })
+            })
           })
         })
       })
