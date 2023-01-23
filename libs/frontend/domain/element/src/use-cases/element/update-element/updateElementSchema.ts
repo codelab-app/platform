@@ -11,6 +11,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       type: 'string',
       nullable: true,
       autoFocus: true,
+      pattern: '^[a-z0-9 ]+$',
     },
     slug: {
       ...nonEmptyString,

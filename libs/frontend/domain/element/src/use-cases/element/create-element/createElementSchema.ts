@@ -17,6 +17,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
     name: {
       type: 'string',
       nullable: true,
+      pattern: '^[a-z0-9 ]+$',
     },
     slug: {
       ...nonEmptyString,

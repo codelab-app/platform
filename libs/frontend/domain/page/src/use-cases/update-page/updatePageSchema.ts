@@ -16,6 +16,7 @@ export const updatePageSchema: JSONSchemaType<
     name: {
       autoFocus: true,
       ...nonEmptyString,
+      pattern: '^[a-z0-9 ]+$',
     },
     slug: {
       ...nonEmptyString,

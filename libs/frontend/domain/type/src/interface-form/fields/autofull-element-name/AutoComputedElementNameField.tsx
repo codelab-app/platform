@@ -93,9 +93,11 @@ const AutoComputedElementName = ({
     // elements. if a component and an atom is selected we render the
     // element as an instance of the component.
     if (retrievedComponent) {
-      setCurValue(compoundCaseToTitleCase(retrievedComponent.name))
+      setCurValue(
+        compoundCaseToTitleCase(retrievedComponent.name).toLowerCase(),
+      )
     } else if (retrievedAtom) {
-      setCurValue(compoundCaseToTitleCase(retrievedAtom.name))
+      setCurValue(compoundCaseToTitleCase(retrievedAtom.name).toLowerCase())
     } else {
       setCurValue('')
     }
@@ -107,7 +109,7 @@ const AutoComputedElementName = ({
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const v = e.target.value
-    v && setCurValue(v)
+    setCurValue(v)
   }
 
   return wrapField(

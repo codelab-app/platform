@@ -28,6 +28,7 @@ export const createPageSchema: JSONSchemaType<
     name: {
       autoFocus: true,
       ...nonEmptyString,
+      pattern: '^[a-z0-9 ]+$',
     },
     slug: {
       ...nonEmptyString,

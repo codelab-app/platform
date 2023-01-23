@@ -18,6 +18,7 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
     name: {
       autoFocus: true,
       ...nonEmptyString,
+      pattern: '^[a-z0-9 ]+$',
     },
     slug: {
       ...nonEmptyString,

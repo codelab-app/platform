@@ -9,6 +9,7 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
     name: {
       autoFocus: true,
       ...nonEmptyString,
+      pattern: '^[a-z0-9 ]+$',
     },
     slug: {
       ...nonEmptyString,
