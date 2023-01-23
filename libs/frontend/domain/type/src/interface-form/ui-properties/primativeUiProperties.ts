@@ -9,7 +9,12 @@ import type { UiPropertiesFn } from '../types'
 export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
   type: IAnyType,
 ) => {
-  if (type.name === IPrimitiveTypeKind.String) {
+  if (
+    type.name === IPrimitiveTypeKind.String ||
+    type.name === IPrimitiveTypeKind.Number ||
+    type.name === IPrimitiveTypeKind.Integer ||
+    type.name === IPrimitiveTypeKind.Boolean
+  ) {
     return {
       uniforms: {
         component: CodeMirrorField(),

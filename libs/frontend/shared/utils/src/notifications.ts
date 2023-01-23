@@ -31,7 +31,7 @@ export const notify = <TEvent>(
     titleString = title
   } else if (isFunction(title)) {
     titleString = title(e)
-  } else if (options.type === 'error') {
+  } else if (type === 'error') {
     titleString = 'Error'
   }
 
@@ -39,7 +39,7 @@ export const notify = <TEvent>(
     contentString = content
   } else if (isFunction(content)) {
     contentString = content(e)
-  } else if (options.type === 'error') {
+  } else if (type === 'error') {
     contentString = extractErrorMessage(e)
   }
 

@@ -42,7 +42,7 @@ export const extractErrorMessage = (
     //   return extractErrorMessage(e.message)
     // }
 
-    if (e.extensions.response) {
+    if (e.extensions?.response) {
       return `[${e.extensions.response.message}]: ${e.extensions.response.error}`
       // return e.graphQLErrors[0].extensions
       //   ? `[${e.message}]: ${

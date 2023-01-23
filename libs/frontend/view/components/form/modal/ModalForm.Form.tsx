@@ -50,7 +50,6 @@ export const Form = <TData, TResponse = unknown>({
         onSubmitSuccess,
         onSubmitError,
       )}
-      onValidate={() => null}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
     >
