@@ -99,7 +99,7 @@ const AutoComputedElementName = ({
     } else if (retrievedAtom) {
       setCurValue(compoundCaseToTitleCase(retrievedAtom.name).toLowerCase())
     } else {
-      setCurValue('')
+      setCurValue(curValue || '')
     }
   }, [retrievedComponent, retrievedAtom, componentId, atomId])
 

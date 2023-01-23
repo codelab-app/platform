@@ -6,7 +6,10 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import { SelectAction } from '@codelab/frontend/domain/type'
+import {
+  AutoComputedElementNameField,
+  SelectAction,
+} from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
@@ -64,6 +67,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
 
     // Cache the initial element model, because when it updates it will interfere with what the user is typing
     const [model, setModel] = useState(makeCurrentModel(element))
+    // these are used to track changes in atom and comp id to update the name accordingly
+    const [atomId, setAtomId] = useState('')
+    const [renderComponentTypeId, setRenderComponentTypeId] = useState('')
 
     const onSubmit = (data: IUpdateElementDTO) => {
       const promise = elementService.update(element, data)
@@ -102,6 +108,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             slug: k === 'name' ? slugify(v) : model.slug,
             [k]: v,
           })
+
+          k === 'atomId' && setAtomId(v)
+          k === 'renderComponentTypeId' && setRenderComponentTypeId(v)
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -111,6 +120,12 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         schema={updateElementSchema}
       >
         {element.id}
+        <AutoComputedElementNameField
+          atomId={atomId}
+          componentId={renderComponentTypeId}
+          label="name"
+          name="name"
+        />
         <AutoFields
           omitFields={[
             'renderIfExpression',
