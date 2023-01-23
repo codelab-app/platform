@@ -1,10 +1,8 @@
 import { createSlug } from '@codelab/frontend/shared/utils'
-import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
-import { createPageInput } from '../support/database/page'
 
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
@@ -41,15 +39,6 @@ describe('CSS CRUD', () => {
     cy.getCurrentUserId()
       .as(uidCache)
       .then((userId) => {
-        const initialAppInput = createAppInput(userId)
-
-        const appInput: AppCreateInput = {
-          ...initialAppInput,
-          pages: {
-            create: [{ node: createPageInput(initialAppInput.id) }],
-          },
-        }
-
         cy.createAtom([
           {
             name: atomName,
@@ -67,7 +56,7 @@ describe('CSS CRUD', () => {
           },
         ]).as(atomCache)
 
-        cy.createApp(String(userId), appInput).as(appCache)
+        cy.createApp(createAppInput(userId)).as(appCache)
       })
 
     cy.then(function () {

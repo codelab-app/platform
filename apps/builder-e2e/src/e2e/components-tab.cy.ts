@@ -1,11 +1,7 @@
-import type {
-  AppCreateInput,
-  AtomCreateInput,
-} from '@codelab/shared/abstract/codegen'
+import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { connectOwner, createAtomsData } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
-import { createPageInput } from '../support/database/page'
 
 // antd tabs use internal id counter and tab "id" is computed based on initialization order.
 // so the ids of tabs may change depending on the order in which they are rendered:
@@ -39,16 +35,7 @@ describe('Components Tab', () => {
 
         cy.createAtom(atomsInput)
 
-        const initialAppInput = createAppInput(userId)
-
-        const appInput: AppCreateInput = {
-          ...initialAppInput,
-          pages: {
-            create: [{ node: createPageInput(initialAppInput.id) }],
-          },
-        }
-
-        return cy.createApp(userId, appInput)
+        return cy.createApp(createAppInput(userId))
       })
       .then((apps) => {
         const app = apps[0]

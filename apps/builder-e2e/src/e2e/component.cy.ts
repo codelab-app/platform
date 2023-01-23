@@ -1,9 +1,7 @@
-import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
-import { createPageInput } from '../support/database/page'
 
 const NEW_COMP_NAME = 'new component'
 const CHILD_BUTTON = 'Button'
@@ -58,16 +56,7 @@ describe('Component CRUD', () => {
           },
         ])
 
-        const initialAppInput = createAppInput(userId)
-
-        const appInput: AppCreateInput = {
-          ...initialAppInput,
-          pages: {
-            create: [{ node: createPageInput(initialAppInput.id) }],
-          },
-        }
-
-        return cy.createApp(userId, appInput)
+        return cy.createApp(createAppInput(userId))
       })
       .then((apps) => {
         testApp = apps

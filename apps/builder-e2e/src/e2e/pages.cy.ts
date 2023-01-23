@@ -1,4 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { createAppInput } from '../support/database/app'
 import {
   pageName,
   pageSlug,
@@ -12,7 +13,7 @@ describe('Pages CRUD', () => {
     cy.login()
     cy.getCurrentUserId()
       .then((userId) => {
-        return cy.createApp(String(userId))
+        return cy.createApp(createAppInput(userId))
       })
       .then((apps) => {
         const app = apps[0]

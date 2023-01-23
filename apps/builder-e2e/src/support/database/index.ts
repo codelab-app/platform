@@ -5,7 +5,6 @@ import { createAtom } from './atom'
 import { createComponent } from './component'
 import { createElement, updateElement } from './element'
 import { createField } from './field'
-import { createPage, getPages } from './page'
 import { createResource } from './resource'
 import { createStore } from './store'
 import { createTag } from './tag'
@@ -15,10 +14,6 @@ import { createUser, getCurrentUserId } from './user'
 export interface CypressDatabaseCommands {
   /** app model */
   createApp: typeof createApp
-
-  /** page model */
-  createPage: typeof createPage
-  getPages: typeof getPages
 
   /** admin model */
   resetDatabase: typeof resetDatabase
@@ -56,8 +51,6 @@ export const databaseCommands: Array<CypressCommand> = [
   { name: 'createUser', fn: createUser },
   { name: 'createTag', fn: createTag },
   { name: 'createApp', fn: createApp },
-  { name: 'createPage', fn: createPage },
-  { name: 'getPages', fn: getPages },
   { name: 'resetDatabase', fn: resetDatabase },
   // { name: 'exportAdminData', fn: exportAdminData },
   // { name: 'importAdminData', fn: importAdminData },

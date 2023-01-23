@@ -6,6 +6,7 @@ import {
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
+import { createAppInput } from '../support/database/app'
 import {
   actionBody,
   actionName,
@@ -33,7 +34,7 @@ describe('Store', () => {
           ITypeKind.PrimitiveType,
         )
 
-        return cy.createApp(userId)
+        return cy.createApp(createAppInput(userId))
       })
       .then((apps) => {
         const app = apps[0]

@@ -1,15 +1,11 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import type {
-  AppCreateInput,
-  AtomCreateInput,
-} from '@codelab/shared/abstract/codegen'
+import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner, createAtomsData } from '@codelab/shared/data'
 import slugify from 'slugify'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
-import { createPageInput } from '../support/database/page'
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
@@ -88,16 +84,7 @@ describe('Elements CRUD', () => {
 
         cy.createAtom(atomsInput)
 
-        const initialAppInput = createAppInput(userId)
-
-        const appInput: AppCreateInput = {
-          ...initialAppInput,
-          pages: {
-            create: [{ node: createPageInput(initialAppInput.id) }],
-          },
-        }
-
-        return cy.createApp(userId, appInput)
+        return cy.createApp(createAppInput(userId))
       })
       .then((apps) => {
         const app = apps[0]
