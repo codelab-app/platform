@@ -117,41 +117,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
      */
     fieldType: { type: 'string', nullable: true },
     defaultValues: {
-      definitions: {
-        allowedTypes: {
-          anyOf: [
-            {
-              nullable: true,
-              type: 'string',
-            },
-            {
-              nullable: true,
-              type: 'number',
-            },
-            {
-              nullable: true,
-              type: 'boolean',
-            },
-            {
-              nullable: true,
-              type: 'integer',
-            },
-            {
-              nullable: true,
-              type: 'array',
-              items: [{ ref: 'allowedTypes' }],
-            },
-            {
-              nullable: true,
-              type: 'object',
-              patternProperties: {
-                '^.*$': { ref: 'allowedTypes' },
-              },
-            },
-          ],
-        },
-      },
-      ref: 'allowedTypes',
+      $ref: 'customTypes#/definitions/fieldDefaultValues',
     },
   },
   required: ['id', 'key', 'fieldType'],

@@ -4,7 +4,12 @@ import type { ICacheService } from '../../../service'
 import type { IFieldDTO, IValidationRules } from '../field.dto.interface'
 import type { IAnyType, IInterfaceType } from '../types'
 
-export type IFieldDefaultValue = object | string | number | boolean
+export type IFieldDefaultValue =
+  | { [x: string]: IFieldDefaultValue }
+  | string
+  | number
+  | boolean
+  | Array<IFieldDefaultValue>
 export interface IField<T extends IAnyType = IAnyType>
   extends ICacheService<IFieldDTO, IField> {
   id: string

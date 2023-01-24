@@ -24,6 +24,38 @@ export const connectUniformSubmitRef =
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 addFormats(ajv)
 addKeywords(ajv, ['typeof'])
+ajv.addSchema({
+  $id: 'customTypes',
+  definitions: {
+    fieldDefaultValues: {
+      oneOf: [
+        {
+          type: 'string',
+          nullable: true,
+        },
+        {
+          type: 'boolean',
+        },
+        {
+          type: ['number', 'integer'],
+          nullable: true,
+        },
+        {
+          type: 'array',
+          nullable: true,
+          items: { $ref: '#/definitions/fieldDefaultValues' },
+        },
+        {
+          type: 'object',
+          nullable: true,
+          patternProperties: {
+            '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
+          },
+        },
+      ],
+    },
+  },
+})
 
 export const createValidator = (schema: Schema, context?: FormContextValue) => {
   const validator = ajv.compile(schema)
@@ -33,7 +65,9 @@ export const createValidator = (schema: Schema, context?: FormContextValue) => {
       ? context.appStore?.replaceStateInProps(model)
       : model
 
+    console.log('modelToValidate', modelToValidate)
     validator(modelToValidate)
+    console.log('validator.errors', validator.errors)
 
     return validator.errors?.length ? { details: validator.errors } : null
   }
