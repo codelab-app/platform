@@ -1,4 +1,11 @@
-import { isVercelPreview } from '@codelab/shared/config'
+import {
+  isCi,
+  isCircleCi,
+  isProduction,
+  isTest,
+  isVercel,
+  isVercelPreview,
+} from '@codelab/shared/config'
 import * as env from 'env-var'
 
 /**
@@ -29,32 +36,51 @@ interface EnvBuilder {
   }
 }
 
-export const EnvBuilder = (): EnvBuilder => ({
-  neo4j: {
-    uri: env.get('NEO4J_URI').required().asString(),
-    user: env.get('NEO4J_USER').required().asString(),
-    password: env.get('NEO4J_PASSWORD').required().asString(),
-  },
-  auth0: {
-    issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
-    // audience: env.get('AUTH0_AUDIENCE').required().asString(),
-    secret: env.get('AUTH0_SECRET').required().asString(),
-    client_id: env.get('AUTH0_CLIENT_ID').required().asString(),
-    client_secret: env.get('AUTH0_CLIENT_SECRET').required().asString(),
-    cypress_username: env.get('AUTH0_CYPRESS_USERNAME').asString(),
-    // cypress_password: env.get('AUTH0_CYPRESS_PASSWORD').asString(),
-    base_url:
-      /**
-       * https://github.com/auth0/nextjs-auth0/issues/383
-       *
-       * `isVercel` is runtime
-       * `isVercelPreview` is build-time
-       */
-      isVercelPreview
-        ? `https://${env.get('VERCEL_URL').required().asString()}`
-        : `http://${env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()}`,
-  },
-  next: {
-    enableAPILogging: env.get('NEXT_API_ENABLE_LOGGING').asBool(),
-  },
-})
+export const EnvBuilder = (): EnvBuilder => {
+  const envVariableEntries = Object.entries(env.get()).filter(
+    ([key, val]) => !key.includes('AWS_'),
+  )
+
+  const envVariables = Object.fromEntries(envVariableEntries)
+
+  console.log('isProduction', isProduction)
+  console.log('isTest', isTest)
+  console.log('isCi', isCi)
+  console.log('isVercelPreview', isVercelPreview)
+  console.log('isVercel', isVercel)
+  console.log('isCircleCi', isCircleCi)
+  console.log('envVariables', envVariables)
+
+  return {
+    neo4j: {
+      uri: env.get('NEO4J_URI').required().asString(),
+      user: env.get('NEO4J_USER').required().asString(),
+      password: env.get('NEO4J_PASSWORD').required().asString(),
+    },
+    auth0: {
+      issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
+      // audience: env.get('AUTH0_AUDIENCE').required().asString(),
+      secret: env.get('AUTH0_SECRET').required().asString(),
+      client_id: env.get('AUTH0_CLIENT_ID').required().asString(),
+      client_secret: env.get('AUTH0_CLIENT_SECRET').required().asString(),
+      cypress_username: env.get('AUTH0_CYPRESS_USERNAME').asString(),
+      // cypress_password: env.get('AUTH0_CYPRESS_PASSWORD').asString(),
+      base_url:
+        /**
+         * https://github.com/auth0/nextjs-auth0/issues/383
+         *
+         * `isVercel` is runtime
+         * `isVercelPreview` is build-time
+         */
+        isVercelPreview
+          ? `https://${env.get('VERCEL_URL').required().asString()}`
+          : `http://${env
+              .get('NEXT_PUBLIC_BUILDER_HOST')
+              .required()
+              .asString()}`,
+    },
+    next: {
+      enableAPILogging: env.get('NEXT_API_ENABLE_LOGGING').asBool(),
+    },
+  }
+}
