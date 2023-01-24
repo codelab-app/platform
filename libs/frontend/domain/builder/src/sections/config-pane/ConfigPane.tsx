@@ -12,6 +12,7 @@ import {
 } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { TabsProps } from 'antd'
 import { Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -32,7 +33,7 @@ export const ConfigPane = observer<MetaPaneProps>(
     const { providePropCompletion } = usePropCompletion(renderService)
     const selectedNode = builderService.selectedNode
 
-    const tabItems = [
+    const tabItems: TabsProps['items'] = [
       {
         label: (
           <div>
@@ -99,7 +100,7 @@ export const ConfigPane = observer<MetaPaneProps>(
             Component
           </div>
         ),
-        key: 'component',
+        key: 'component-tab',
         children: <ConfigPaneComponentTabContainer />,
       },
     ]
