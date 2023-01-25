@@ -121,6 +121,8 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
      */
     fieldType: { type: 'string', nullable: true },
     defaultValues: {
+      // by using ref, this can support array or object type that
+      // has items or properties of any possible default value type
       $ref: 'customTypes#/definitions/fieldDefaultValues',
     },
   },

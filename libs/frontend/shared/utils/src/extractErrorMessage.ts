@@ -22,7 +22,7 @@ export const extractErrorMessage = (
   }
 
   if (isObjectLike(e)) {
-    if (e?.error) {
+    if (e.error) {
       return extractErrorMessage(e.error)
     }
 
@@ -43,8 +43,6 @@ export const extractErrorMessage = (
     if (e.message) {
       return extractErrorMessage(e.message)
     }
-
-    console.log('eeee', e)
 
     if (e.extensions?.response) {
       return `[${e.extensions.response.message}]: ${e.extensions.response.error}`
