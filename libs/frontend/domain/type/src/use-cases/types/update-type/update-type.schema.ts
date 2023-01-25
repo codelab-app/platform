@@ -5,6 +5,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
@@ -20,8 +21,8 @@ export const updateTypeSchema: JSONSchemaType<
       disabled: true,
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     kind: { type: 'string', enum: Object.values(ITypeKind) },
     unionTypeIds: {

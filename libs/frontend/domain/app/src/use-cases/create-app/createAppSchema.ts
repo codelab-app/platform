@@ -1,5 +1,9 @@
 import type { ICreateAppDTO } from '@codelab/frontend/abstract/core'
-import { hideField, showFieldOnDev } from '@codelab/shared/utils'
+import {
+  hideField,
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
@@ -12,11 +16,11 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
       ...hideField,
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     slug: {
-      type: 'string',
+      ...nonEmptyString,
     },
     auth0Id: {
       type: 'string',

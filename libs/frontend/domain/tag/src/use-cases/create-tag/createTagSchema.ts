@@ -1,5 +1,5 @@
 import type { ICreateTagDTO } from '@codelab/frontend/abstract/core'
-import { showFieldOnDev } from '@codelab/shared/utils'
+import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
@@ -7,8 +7,8 @@ export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
   type: 'object',
   properties: {
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     parentTagId: {
       type: 'string',

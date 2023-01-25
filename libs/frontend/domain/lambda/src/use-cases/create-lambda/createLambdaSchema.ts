@@ -1,3 +1,4 @@
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export interface CreateLambdaData {
@@ -10,8 +11,8 @@ export const createLambdaSchema: JSONSchemaType<CreateLambdaData> = {
   type: 'object',
   properties: {
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     body: {
       type: 'string',

@@ -1,3 +1,4 @@
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export interface UpdateLambdaData {
@@ -16,7 +17,7 @@ export const updateLambdaSchema: JSONSchemaType<UpdateLambdaData> = {
       autoFocus: true,
     },
     name: {
-      type: 'string',
+      ...nonEmptyString,
     },
     body: {
       type: 'string',

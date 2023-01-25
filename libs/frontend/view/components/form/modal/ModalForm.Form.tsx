@@ -1,5 +1,4 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
-import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
@@ -51,12 +50,9 @@ export const Form = <TData, TResponse = unknown>({
         onSubmitSuccess,
         onSubmitError,
       )}
-      onValidate={(_, err) => {
-        callbackWithParams(onSubmitError, err)
-        throw err
-      }}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
+      showInlineError
     >
       {children}
     </AutoForm>

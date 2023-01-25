@@ -1,6 +1,7 @@
 import type { IUpdateAtomDTO } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
@@ -15,8 +16,8 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
       },
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     // Hide field for now, added only to implement the interface
     api: {

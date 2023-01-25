@@ -26,21 +26,25 @@ export const extractErrorMessage = (
       return extractErrorMessage(e.error)
     }
 
-    // if (e.errors) {
-    //   return extractErrorMessage(e.errors)
-    // }
+    if (e.errors) {
+      return extractErrorMessage(e.errors)
+    }
+
     //
-    // if (e.response) {
-    //   return extractErrorMessage(e.response)
-    // }
+    if (e.response) {
+      return extractErrorMessage(e.response)
+    }
+
     //
     // if (e.data) {
     //   return extractErrorMessage(e.data)
     // }
     //
-    // if (e.message) {
-    //   return extractErrorMessage(e.message)
-    // }
+    if (e.message) {
+      return extractErrorMessage(e.message)
+    }
+
+    console.log('eeee', e)
 
     if (e.extensions?.response) {
       return `[${e.extensions.response.message}]: ${e.extensions.response.error}`

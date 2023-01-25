@@ -1,4 +1,5 @@
 import type { ICreateElementDTO } from '@codelab/frontend/abstract/core'
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
@@ -18,7 +19,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       nullable: true,
     },
     slug: {
-      type: 'string',
+      ...nonEmptyString,
     },
     parentElementId: {
       type: 'string',

@@ -5,7 +5,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { showFieldOnDev } from '@codelab/shared/utils'
+import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
@@ -28,8 +28,8 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
       disabled: true,
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     kind: { type: 'string', enum: Object.values(ITypeKind) },
     unionTypeIds: {

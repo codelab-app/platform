@@ -23,7 +23,7 @@ export const connectUniformSubmitRef =
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 addFormats(ajv)
-addKeywords(ajv, ['typeof'])
+addKeywords(ajv, ['typeof', 'transform'])
 ajv.addSchema({
   $id: 'customTypes',
   definitions: {

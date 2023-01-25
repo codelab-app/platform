@@ -1,4 +1,5 @@
 import type { IUpdateBaseElementDTO } from '@codelab/frontend/abstract/core'
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
@@ -16,7 +17,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       autoFocus: true,
     },
     slug: {
-      type: 'string',
+      ...nonEmptyString,
     },
     renderIfExpression: {
       type: 'string',

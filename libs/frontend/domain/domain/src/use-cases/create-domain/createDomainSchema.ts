@@ -1,5 +1,9 @@
 import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
-import { hideField, showFieldOnDev } from '@codelab/shared/utils'
+import {
+  hideField,
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createDomainSchema: JSONSchemaType<ICreateDomainDTO> = {
@@ -12,9 +16,9 @@ export const createDomainSchema: JSONSchemaType<ICreateDomainDTO> = {
       ...hideField,
     },
     name: {
-      type: 'string',
       autoFocus: true,
       format: 'hostname',
+      ...nonEmptyString,
     },
     appId: {
       type: 'string',

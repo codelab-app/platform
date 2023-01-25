@@ -1,4 +1,5 @@
 import type { IUpdateAppDTO } from '@codelab/frontend/abstract/core'
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
@@ -6,11 +7,11 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
   type: 'object',
   properties: {
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     slug: {
-      type: 'string',
+      ...nonEmptyString,
     },
   },
   required: ['name', 'slug'],

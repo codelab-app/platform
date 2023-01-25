@@ -1,5 +1,5 @@
 import type { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
-import { showFieldOnDev } from '@codelab/shared/utils'
+import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createComponentSchema: JSONSchemaType<
@@ -35,7 +35,7 @@ export const createComponentSchema: JSONSchemaType<
     },
     name: {
       autoFocus: true,
-      type: 'string',
+      ...nonEmptyString,
     },
   },
   required: ['name', 'auth0Id'],

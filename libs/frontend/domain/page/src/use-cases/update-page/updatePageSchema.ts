@@ -1,6 +1,7 @@
 import type { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updatePageSchema: JSONSchemaType<
@@ -13,11 +14,11 @@ export const updatePageSchema: JSONSchemaType<
       type: 'string',
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     slug: {
-      type: 'string',
+      ...nonEmptyString,
     },
     getServerSideProps: {
       type: 'string',

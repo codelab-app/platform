@@ -1,7 +1,7 @@
 import type { ICreatePageDTO } from '@codelab/frontend/abstract/core'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { hideField } from '@codelab/shared/utils'
+import { hideField, nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createPageSchema: JSONSchemaType<
@@ -26,11 +26,11 @@ export const createPageSchema: JSONSchemaType<
       ...hideField,
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     slug: {
-      type: 'string',
+      ...nonEmptyString,
     },
     appId: {
       type: 'string',

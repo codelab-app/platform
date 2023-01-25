@@ -1,7 +1,7 @@
 import type { ICreateAtomDTO } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { showFieldOnDev } from '@codelab/shared/utils'
+import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
@@ -29,8 +29,8 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
       },
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     type: {
       type: 'string',

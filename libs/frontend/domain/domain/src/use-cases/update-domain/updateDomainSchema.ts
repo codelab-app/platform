@@ -1,5 +1,9 @@
 import type { IUpdateDomainDTO } from '@codelab/frontend/abstract/core'
-import { hideField, showFieldOnDev } from '@codelab/shared/utils'
+import {
+  hideField,
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateDomainSchema: JSONSchemaType<IUpdateDomainDTO> = {
@@ -17,8 +21,8 @@ export const updateDomainSchema: JSONSchemaType<IUpdateDomainDTO> = {
       ...hideField,
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
   },
   required: ['name', 'appId', 'id'],

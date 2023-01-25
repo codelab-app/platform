@@ -6,7 +6,11 @@ import {
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { hideField, showFieldOnDev } from '@codelab/shared/utils'
+import {
+  hideField,
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 
@@ -25,8 +29,8 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
       ...showFieldOnDev(),
     },
     name: {
-      type: 'string',
       autoFocus: true,
+      ...nonEmptyString,
     },
     type: {
       type: 'string',

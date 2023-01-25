@@ -1,6 +1,7 @@
 import type { IUpdateComponentDTO } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateComponentSchema: JSONSchemaType<IUpdateComponentDTO> = {
@@ -9,7 +10,7 @@ export const updateComponentSchema: JSONSchemaType<IUpdateComponentDTO> = {
   properties: {
     name: {
       autoFocus: true,
-      type: 'string',
+      ...nonEmptyString,
     },
     childrenContainerElementId: {
       type: 'string',
