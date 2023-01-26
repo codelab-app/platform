@@ -19,13 +19,13 @@ export const CreateFieldButton = observer<CreateFieldButtonProps>(
       <Button
         css={tw`flex justify-center items-center`}
         icon={<PlusOutlined />}
-        onClick={() =>
+        onClick={(e) => {
+          e.stopPropagation()
           fieldService.createModal.open(
             typeRef(interfaceId) as Ref<InterfaceType>,
           )
-        }
+        }}
         size="small"
-        type="primary"
       />
     ) : null
   },

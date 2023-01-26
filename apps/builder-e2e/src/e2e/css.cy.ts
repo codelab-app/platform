@@ -25,6 +25,7 @@ const clickEditor = () => {
     cy
       // https://stackoverflow.com/questions/58833459/cypresserror-timed-out-retrying-cy-click-failed-because-this-element-is-deta
       .get('[role="textbox"]')
+      .first()
       // .should('be.visible')
       // .click({ force: true })
       // .trigger('click')

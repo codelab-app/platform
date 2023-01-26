@@ -62,26 +62,26 @@ describe('Component CRUD', () => {
         testApp = apps
 
         const app = apps[0]
-        // const pageId = app?.pages[0]?.id
-        // cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
-        // cy.getSpinner().should('not.exist')
+        const pageId = app?.pages[0]?.id
+        cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
+        cy.getSpinner().should('not.exist')
       })
   })
 
   describe('Add component', () => {
     it('should be able to add a new component', () => {
       cy.log('my app', JSON.stringify(testApp, null, 2))
-      // cy.getSider().getButton({ icon: 'plus' }).eq(1).click()
-      // cy.getModal().findByLabelText('Name').type(NEW_COMP_NAME)
-      // cy.getModal()
-      //   .getModalAction(/Create/)
-      //   .click()
-      // cy.getModal().should('not.exist', { timeout: 10000 })
-      // cy.get('[title="Components"]')
-      //   .parent()
-      //   .find('.ant-tree-switcher_close')
-      //   .click()
-      // cy.findByText(NEW_COMP_NAME).should('exist')
+      cy.getSider().getButton({ icon: 'plus' }).eq(1).click()
+      cy.getModal().findByLabelText('Name').type(NEW_COMP_NAME)
+      cy.getModal()
+        .getModalAction(/Create/)
+        .click()
+      cy.getModal().should('not.exist', { timeout: 10000 })
+      cy.get('[title="Components"]')
+        .parent()
+        .find('.ant-tree-switcher_close')
+        .click()
+      cy.findByText(NEW_COMP_NAME).should('exist')
     })
   })
 })

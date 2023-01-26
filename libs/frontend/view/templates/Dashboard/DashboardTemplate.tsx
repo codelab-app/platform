@@ -13,7 +13,6 @@ import {
   sidebarWidth,
 } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
-import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane'
 import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
 import type { DashboardTemplateProps } from './types'
 
@@ -164,6 +163,7 @@ const DashboardTemplate = observer(
           )}
 
           {/* Explorer Pane */}
+          {/* NOTE: The paddingBottom prop prevents the explorer pane and the editor pane from overlapping. */}
           <Layout style={contentStyles}>
             {ExplorerPane && (
               <DashboardTemplateExplorerPane
@@ -171,27 +171,26 @@ const DashboardTemplate = observer(
                 hasHeader={Boolean(Header)}
                 hasSidebarNavigation={Boolean(sidebarNavigation)}
                 headerHeight={headerHeight ?? defaultHeaderHeight}
-                paddingBottom={explorerPanePaddingBottom}
+                paddingBottom={0}
                 resizable={mainPaneResizable}
               />
             )}
 
             {/* Main Content */}
             <motion.main
-              css={tw`relative px-2 flex-auto`}
+              css={tw`relative px-2 flex-auto mb-3`}
               style={{
                 marginTop: Header ? headerHeight ?? defaultHeaderHeight : 0,
                 marginLeft: mainContentMarginLeft,
                 marginRight: ConfigPane ? metaPaneResizable.width : undefined,
               }}
             >
-              <div
-                style={{
-                  height: mainHeight,
-                }}
-              >
-                {children}
-              </div>
+              {/* The code below was used to control the main pane height so that it
+              doesn't overlap with the editor pane. style=
+              {{
+                height: mainHeight,
+              }} */}
+              <div css={tw`h-full`}>{children}</div>
             </motion.main>
 
             {/* Config Pane */}
@@ -204,8 +203,11 @@ const DashboardTemplate = observer(
               )}
             </AnimatePresence>
 
+            {/*
+             ** TODO: reuse as a container for some input modals
+             */}
             {/* Editor Pane */}
-            <AnimatePresence initial={false}>
+            {/* <AnimatePresence initial={false}>
               {EditorPane && (
                 <DashboardTemplateEditorPane
                   ConfigPane={ConfigPane}
@@ -214,7 +216,7 @@ const DashboardTemplate = observer(
                   resizable={editorPaneResizable}
                 />
               )}
-            </AnimatePresence>
+            </AnimatePresence> */}
           </Layout>
         </Layout>
       </Layout>
