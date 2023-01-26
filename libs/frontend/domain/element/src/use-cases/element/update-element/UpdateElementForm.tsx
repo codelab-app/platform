@@ -123,7 +123,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         <AutoComputedElementNameField
           atomId={atomId}
           componentId={renderComponentTypeId}
-          label="name"
+          label="Name"
           name="name"
         />
         <AutoFields

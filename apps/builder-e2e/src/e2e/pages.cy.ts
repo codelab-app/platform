@@ -1,11 +1,6 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { createAppInput } from '../support/database/app'
-import {
-  pageName,
-  pageSlug,
-  updatedPageName,
-  updatedPageSlug,
-} from './apps/app.data'
+import { pageName, updatedPageName } from './apps/app.data'
 
 describe('Pages CRUD', () => {
   before(() => {
@@ -30,7 +25,6 @@ describe('Pages CRUD', () => {
       cy.getSider().getButton({ icon: 'plus' }).click()
 
       cy.getModal().findByLabelText('Name').type(pageName)
-      cy.getModal().findByLabelText('Slug').type(pageSlug)
       cy.getModal()
         .getModalAction(/Create Page/)
         .click()
@@ -56,7 +50,6 @@ describe('Pages CRUD', () => {
       cy.getSpinner().should('not.exist')
 
       cy.getModal().findByLabelText('Name').clear().type(updatedPageName)
-      cy.getModal().findByLabelText('Slug').clear().type(updatedPageSlug)
 
       cy.getModal()
         .getModalAction(/Update Page/)

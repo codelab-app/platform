@@ -76,7 +76,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         componentTree?.addElements([element])
       }
 
-      return Promise.resolve([element])
+      return Promise.resolve([element]).finally(() => {
+        setModel(null)
+      })
     }
 
     const onSubmitError = createNotificationHandler({
@@ -183,7 +185,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           <AutoComputedElementNameField
             atomId={model.atomId ?? undefined}
             componentId={model.renderComponentTypeId ?? undefined}
-            label="name"
+            label="Name"
             name="name"
           />
           <AutoField name="slug" />

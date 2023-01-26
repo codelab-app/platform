@@ -1,18 +1,17 @@
-import type {
-  Maybe,
-  UniformSelectFieldProps,
-} from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import type { InputProps } from 'antd'
 import { Input } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useAsyncFn } from 'react-use'
-import { connectField } from 'uniforms'
+import type { FieldProps } from 'uniforms'
+import { connectField, filterDOMProps } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-type AutoComputedElementNameProps = Pick<
-  UniformSelectFieldProps,
-  'label' | 'name' | 'error'
+type AutoComputedElementNameProps = FieldProps<
+  string,
+  Omit<InputProps, 'onReset'>
 > & {
   atomId?: string
   componentId?: string
@@ -61,15 +60,8 @@ const useGetComponentById = () => {
   }
 }
 
-const AutoComputedElementName = ({
-  label,
-  name,
-  error,
-  atomId,
-  componentId,
-  value,
-  onChange,
-}: AutoComputedElementNameProps) => {
+const AutoComputedElementName = (props: AutoComputedElementNameProps) => {
+  const { name, error, atomId, componentId, value, onChange } = props
   const { retrievedAtom, error: atomQueryError, getAtom } = useGetAtomById()
 
   const {
@@ -113,8 +105,18 @@ const AutoComputedElementName = ({
   }
 
   return wrapField(
-    { label, error: error && atomQueryError && componentQueryError },
-    <Input name={name} onChange={handleChange} value={curValue} />,
+    { error: error && atomQueryError && componentQueryError, ...props },
+    <Input
+      disabled={props.disabled}
+      name={name}
+      onChange={handleChange}
+      placeholder={props.placeholder}
+      readOnly={props.readOnly}
+      type={props.type ?? 'text'}
+      value={curValue}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...filterDOMProps(props)}
+    />,
   )
 }
 

@@ -1,9 +1,4 @@
-import {
-  appName,
-  appSlug,
-  updatedAppName,
-  updatedAppSlug,
-} from './apps/app.data'
+import { appName, updatedAppName } from './apps/app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
@@ -21,7 +16,6 @@ describe('Apps CRUD', () => {
       cy.getButton({ label: /Create App/ }).click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
-      cy.getModal().setFormFieldValue({ label: 'Slug', value: appSlug })
 
       cy.getModal()
         .getModalAction(/Create App/)
@@ -40,7 +34,6 @@ describe('Apps CRUD', () => {
       cy.getSpinner().should('not.exist')
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: updatedAppName })
-      cy.getModal().setFormFieldValue({ label: 'Slug', value: updatedAppSlug })
 
       cy.getModal()
         .getModalAction(/Update App/)

@@ -7,12 +7,13 @@ import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
 
-const ELEMENT_CONTAINER = 'Container'
-const ELEMENT_ROW = 'Row'
-const ELEMENT_COL_A = 'Col A'
-const ELEMENT_COL_B = 'Col B'
-const ELEMENT_TEXT = 'Text'
-const ELEMENT_BUTTON = 'Button'
+const ELEMENT_CONTAINER = 'container'
+const ELEMENT_ROW = 'row'
+const ELEMENT_COL_A = 'col a'
+const ELEMENT_COL_B = 'col b'
+const ELEMENT_TEXT_1 = 'text 1'
+const ELEMENT_TEXT_2 = 'text 2'
+const ELEMENT_BUTTON = 'button'
 
 const elements = [
   {
@@ -38,10 +39,10 @@ const elements = [
     slug: slugify(ELEMENT_COL_B),
   },
   {
-    name: ELEMENT_TEXT,
+    name: ELEMENT_TEXT_1,
     atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_COL_A,
-    slug: slugify(ELEMENT_TEXT),
+    slug: slugify(ELEMENT_TEXT_1),
   },
   {
     name: ELEMENT_BUTTON,
@@ -50,14 +51,14 @@ const elements = [
     slug: slugify(ELEMENT_BUTTON),
   },
   {
-    name: ELEMENT_TEXT,
+    name: ELEMENT_TEXT_2,
     atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_BUTTON,
-    slug: slugify(`${ELEMENT_TEXT}_1`),
+    slug: slugify(`${ELEMENT_TEXT_2}`),
   },
 ]
 
-const updatedElementName = 'Container updated'
+const updatedElementName = 'container updated'
 
 describe('Elements CRUD', () => {
   before(() => {
@@ -112,8 +113,8 @@ describe('Elements CRUD', () => {
         .getButton({ icon: 'plus' })
         .click()
 
-      cy.getModal().findByLabelText('Name').type(ELEMENT_TEXT)
-      cy.getModal().findByLabelText('Slug').type(`${ELEMENT_TEXT}_2`)
+      cy.getModal().findByLabelText('Name').type(ELEMENT_TEXT_1)
+      cy.getModal().findByLabelText('Slug').type(`${ELEMENT_TEXT_1}_2`)
 
       cy.getModal().setFormFieldValue({
         label: 'Parent element',
@@ -143,7 +144,7 @@ describe('Elements CRUD', () => {
 
   describe(`update`, () => {
     it(`should be able to update element`, () => {
-      cy.findByText('Container').click()
+      cy.findByText('container').click()
       cy.findByLabelText('Name').clear().type(updatedElementName)
       cy.findByText(updatedElementName).should('exist')
     })
@@ -151,7 +152,7 @@ describe('Elements CRUD', () => {
 
   describe(`delete`, () => {
     it(`should be able to delete element sub tree`, () => {
-      cy.findByText(/Container/).rightclick()
+      cy.findByText(/container/).rightclick()
       cy.contains(/Delete/).click({ force: true })
       cy.getSpinner().should('not.exist')
 
@@ -160,7 +161,7 @@ describe('Elements CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(/Container/).should('not.exist')
+      cy.findByText(/container/).should('not.exist')
     })
   })
 })

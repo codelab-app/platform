@@ -10,16 +10,12 @@ interface ElementData {
 
 export const createElementTree = (elements: Array<ElementData>) => {
   return cy.wrap(elements).each((element: ElementData) => {
-    const { atom, name, parentElement, slug } = element
+    const { atom, name, parentElement } = element
 
     cy.getSider()
       .find('.ant-page-header-heading')
       .getButton({ icon: 'plus' })
       .click()
-
-    cy.getModal().findByLabelText('Name').type(name)
-
-    cy.getModal().findByLabelText('Slug').type(slug)
 
     /**
      * We skip this if parent element is root, since it is disabled and can't be accessed
@@ -42,6 +38,29 @@ export const createElementTree = (elements: Array<ElementData>) => {
         label: 'Atom',
         value: atom,
         type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal()
+        .getFormField({
+          label: 'Name',
+        })
+        .within(() => {
+          // Need to wait for the name to automatically be set first (after the
+          // atom is set) because it would override the name otherwise
+          cy.get('input')
+            .should('not.have.value', '')
+            .getModal()
+            .setFormFieldValue({
+              label: 'Name',
+              value: name,
+              type: FIELD_TYPE.INPUT,
+            })
+        })
+    } else {
+      cy.getModal().setFormFieldValue({
+        label: 'Name',
+        value: name,
+        type: FIELD_TYPE.INPUT,
       })
     }
 
