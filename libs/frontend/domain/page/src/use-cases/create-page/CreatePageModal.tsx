@@ -8,8 +8,8 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import slugify from 'slugify'
 import { AutoFields } from 'uniforms-antd'
+import slugify from 'voca/slugify'
 import { createPageSchema } from './createPageSchema'
 
 export const CreatePageModal = observer<{ pageService: IPageService }>(

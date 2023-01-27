@@ -7,8 +7,8 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import slugify from 'slugify'
 import { AutoFields } from 'uniforms-antd'
+import slugify from 'voca/slugify'
 import { updatePageSchema } from './updatePageSchema'
 
 export const UpdatePageModal = observer<{ pageService: IPageService }>(

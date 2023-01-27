@@ -14681,7 +14681,6 @@ __metadata:
     rxjs: 7.5.6
     sanitize-filename: 1.6.3
     scroll-into-view: ^1.16.2
-    slugify: 1.6.5
     stringify-object: 4.0.1
     tailwindcss: 3.1.8
     ts-essentials: 9.1.2
@@ -30872,13 +30871,6 @@ __metadata:
     ansi-styles: ^6.0.0
     is-fullwidth-code-point: ^4.0.0
   checksum: 7e600a2a55e333a21ef5214b987c8358fe28bfb03c2867ff2cbf919d62143d1812ac27b4297a077fdaf27a03da3678e49551c93e35f9498a3d90221908a1180e
-  languageName: node
-  linkType: hard
-
-"slugify@npm:1.6.5":
-  version: 1.6.5
-  resolution: "slugify@npm:1.6.5"
-  checksum: a955a1b600201030f4c1daa9bb74a17d4402a0693fc40978bbd17e44e64fd72dad3bac4037422aa8aed55b5170edd57f3f4cd8f59ba331f5cf0f10f1a7795609
   languageName: node
   linkType: hard
 

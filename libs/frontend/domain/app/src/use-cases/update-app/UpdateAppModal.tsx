@@ -8,8 +8,8 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import slugify from 'slugify'
 import { AutoFields } from 'uniforms-antd'
+import slugify from 'voca/slugify'
 import { updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppModal = observer<{
