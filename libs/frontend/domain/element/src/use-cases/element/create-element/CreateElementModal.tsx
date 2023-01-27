@@ -12,7 +12,7 @@ import {
   AutoComputedElementNameField,
   SelectAction,
   SelectAnyElement,
-  SelectAtom,
+  SelectAtomField,
   SelectComponent,
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -135,17 +135,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           onSubmitSuccess={closeModal}
           schema={createElementSchema}
         >
-          <AutoField
-            component={(props: UniformSelectFieldProps) => (
-              <SelectAtom
-                error={props.error}
-                label={props.label}
-                name={props.name}
-                parent={parentElement.atom?.maybeCurrent}
-              />
-            )}
-            name="atomId"
-          />
+          <SelectAtomField name="atomId" />
           <AutoField component={SelectComponent} name="renderComponentTypeId" />
           <AutoFields
             omitFields={[

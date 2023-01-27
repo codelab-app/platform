@@ -3,7 +3,7 @@ import type {
   ITagService,
   IUpdateAtomDTO,
 } from '@codelab/frontend/abstract/core'
-import { SelectAtom } from '@codelab/frontend/domain/type'
+import { SelectAtomField } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -63,7 +63,7 @@ export const UpdateAtomModal = observer<{
           options={tagListOption}
           showSearch={true}
         />
-        <SelectAtom label="Allowed Children" name="allowedChildren" />
+        <SelectAtomField label="Allowed Children" name="allowedChildren" />
         {/* <SelectField */}
         {/*  label="Allowed Children" */}
         {/*  mode="multiple" */}

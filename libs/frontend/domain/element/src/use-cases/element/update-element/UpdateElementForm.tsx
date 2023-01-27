@@ -9,6 +9,8 @@ import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import {
   AutoComputedElementNameField,
   SelectAction,
+  SelectAtomField,
+  SelectComponent,
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
@@ -140,6 +142,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           ]}
         />
         <RenderTypeCompositeField name="renderType" />
+        <AutoField component={SelectComponent} name="renderComponentTypeId" />
+        <SelectAtomField name="atomId" />
         <AutoCompleteField
           name="renderIfExpression"
           onSearch={handlePropSearch}
