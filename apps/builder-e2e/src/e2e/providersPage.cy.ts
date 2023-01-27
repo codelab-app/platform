@@ -3,27 +3,24 @@ import {
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import slugify from 'slugify'
 import { FIELD_TYPE } from '../support/antd/form'
 import { seedData } from './admin/assert'
-import { appName, appSlug, pageName, pageSlug } from './apps/app.data'
+import { appName, pageName } from './apps/app.data'
 
-const CONFIG_PROVIDER_NAME = 'ConfigProvider'
-const CARD_COMPONENT_NAME = 'Card Component'
-const INPUT_COMPONENT_NAME = 'Input Component'
+const CONFIG_PROVIDER_NAME = 'config provider'
+const CARD_COMPONENT_NAME = 'card component'
+const INPUT_COMPONENT_NAME = 'input component'
 
 const mainPageElements = [
   {
     name: CARD_COMPONENT_NAME,
     parentElement: ROOT_ELEMENT_NAME,
     atom: IAtomType.AntDesignCard,
-    slug: slugify(CARD_COMPONENT_NAME),
   },
   {
     name: INPUT_COMPONENT_NAME,
     parentElement: CARD_COMPONENT_NAME,
     atom: IAtomType.AntDesignInput,
-    slug: slugify(`${CARD_COMPONENT_NAME}_1`),
   },
 ]
 
@@ -48,7 +45,6 @@ describe('_app page', () => {
 
     cy.getButton({ label: /Create App/ }).click()
     cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
-    cy.getModal().setFormFieldValue({ label: 'Slug', value: appSlug })
     cy.getModal()
       .getModalAction(/Create App/)
       .click()
@@ -67,7 +63,6 @@ describe('_app page', () => {
       .click()
 
     cy.getModal().findByLabelText('Name').type(CONFIG_PROVIDER_NAME)
-    cy.getModal().findByLabelText('Slug').type(slugify(CONFIG_PROVIDER_NAME))
     cy.getModal().setFormFieldValue({
       label: 'Render Type',
       value: 'Atom',
@@ -109,7 +104,6 @@ describe('_app page', () => {
       .click()
 
     cy.getModal().should('be.visible').findByLabelText('Name').type(pageName)
-    cy.getModal().findByLabelText('Slug').type(pageSlug)
     cy.getModal()
       .getModalAction(/Create Page/)
       .click()
