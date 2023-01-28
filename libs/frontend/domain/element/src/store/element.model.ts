@@ -171,6 +171,11 @@ export class Element
   }
 
   @computed
+  get rootElement() {
+    return this.parentElement ? this.parentElement : this
+  }
+
+  @computed
   get baseId() {
     if (this.parentElement) {
       return this.parentElement.baseId
@@ -796,14 +801,6 @@ export class Element
       this.props?.writeCache({ ...props, apiRef })
     } else {
       this.props = null
-    }
-
-    for (const pmb of propMapBindings) {
-      if (this.propMapBindings.has(pmb.id)) {
-        this.propMapBindings.get(pmb.id)?.writeCache(pmb)
-      } else {
-        this.propMapBindings.set(pmb.id, PropMapBinding.hydrate(pmb))
-      }
     }
 
     this.parentComponent = parentComponent

@@ -65,13 +65,24 @@ export interface IElement
   antdNode: IBuilderDataNode
   leftHandDescendants: Array<IElement>
   descendants: Array<IElement>
-  __metadataProps: object
+  __metadataProps: IPropData
   atomName: string
   slug: string
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
   prevSibling: Maybe<IElement>
   prevSiblingId: Nullable<string>
+  /**
+   * the tree's root element
+   */
+  rootElement: IElement
+  /**
+   * the tree's root element
+   */
+  currentComponentInstanceElement: Maybe<IElement>
+  /**
+   * id of component or page's tree that element belong to
+   */
   baseId: string
 
   detachNextSibling(): () => void

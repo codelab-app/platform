@@ -8,8 +8,8 @@ import type {
   RendererProps,
 } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_INSTANCE_ID,
   CUSTOM_TEXT_PROP_KEY,
+  DATA_COMPONENT_INSTANCE_ID,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { elementTreeRef } from '@codelab/frontend/domain/element'
@@ -21,14 +21,10 @@ import { expressionTransformer } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
-import isEmpty from 'lodash/isEmpty'
-import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
   detach,
-  frozen,
-  getSnapshot,
   idProp,
   Model,
   model,
@@ -77,7 +73,6 @@ const init = async ({
   pageTree,
   appStore,
   appTree,
-  components,
   isBuilder,
   set_selectedNode,
 }: RendererProps) => {
@@ -104,21 +99,15 @@ const init = async ({
     href: '#',
   }
 
-  const renderComponentMeta = components
-    .map((c) => ({ [c.id]: 0 }))
-    .reduce(merge, {})
-
   await expressionTransformer.init()
 
   return new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
     appStore: storeRef(appStore),
-    renderComponentMeta,
-    extraElementProps: new ExtraElementProps({
-      // pass
-      global: frozen(isBuilder ? builderGlobals : {}),
-    }),
+    // extraElementProps: new ExtraElementProps({
+    //  global: frozen(isBuilder ? builderGlobals : {}),
+    // }),
     isBuilder,
   })
 }
@@ -165,22 +154,20 @@ export class Renderer
        */
       debugMode: prop(false).withSetter(),
 
-      renderComponentMeta: prop<IPropData>(() => ({})).withSetter(),
-
       /**
        * Used for making the element draggable if true (e.g. in builder page)
        */
       isBuilder: prop(false),
     },
-    {
-      toSnapshotProcessor(sn, modelInstance) {
-        return {
-          ...sn,
-          // Remove those, because they are runtime only and not serializable
-          extraElementProps: getSnapshot(new ExtraElementProps({})),
-        }
-      },
-    },
+    // {
+    //  toSnapshotProcessor(sn, modelInstance) {
+    //    return {
+    //      ...sn,
+    //      Remove those, because they are runtime only and not serializable
+    //      extraElementProps: getSnapshot(new ExtraElementProps({})),
+    //    }
+    //  },
+    // },
   )
   implements IRenderer
 {
@@ -300,11 +287,7 @@ export class Renderer
     return this.appStore.current.state
   }
 
-  @modelAction
-  updateComponentRenderIndex(componentId: string) {
-    this.renderComponentMeta[componentId] += 1
-  }
-
+  /*   
   computePropsForComponentElements(element: IElement) {
     const component = (element.renderComponentType ?? element.parentComponent)
       ?.maybeCurrent
@@ -334,18 +317,13 @@ export class Renderer
       this.extraElementProps.addForElement(elem.id, { props })
     })
   }
+  */
 
   /**
    * Renders a single Element using the provided RenderAdapter
    */
   renderElement = (element: IElement, extraProps?: IPropData): ReactElement => {
     this.runPreAction(element)
-
-    if (element.parentComponent?.id) {
-      this.updateComponentRenderIndex(element.parentComponent.id)
-    }
-
-    this.computePropsForComponentElements(element)
 
     const wrapperProps: ElementWrapperProps & { key: string } = {
       key: `element-wrapper-${element.id}`,
@@ -371,33 +349,33 @@ export class Renderer
       element.__metadataProps,
       element.props?.values,
       extraProps,
-      this.extraElementProps.getForElement(element.id),
     )
 
     props = this.processPropsForRender(props, element)
 
+    return this.renderPipe.render(element, props)
     /**
      * Pass down global props
      */
-    const { globalProps } = element.applyPropMapBindings(props)
+    // const { globalProps } = element.applyPropMapBindings(props)
 
-    const appendGlobalProps = (renderOutput: IRenderOutput) => {
-      const mergedGlobalProps = mergeProps(
-        renderOutput.globalProps,
-        globalProps,
-      )
+    // const appendGlobalProps = (renderOutput: IRenderOutput) => {
+    //  const mergedGlobalProps = mergeProps(
+    //    renderOutput.globalProps,
+    //    globalProps,
+    //  )
 
-      return isEmpty(mergedGlobalProps)
-        ? renderOutput
-        : {
-            ...renderOutput,
-            globalProps: mergedGlobalProps,
-          }
-    }
+    //  return isEmpty(mergedGlobalProps)
+    //    ? renderOutput
+    //    : {
+    //        ...renderOutput,
+    //        globalProps: mergedGlobalProps,
+    //      }
+    // }
 
-    const output = this.renderPipe.render(element, props)
+    // const output = this.renderPipe.render(element, props)
 
-    return mapOutput(output, appendGlobalProps)
+    // return mapOutput(output, appendGlobalProps)
   }
 
   /**
@@ -418,7 +396,7 @@ export class Renderer
       }
 
       const componentInstance = elementService.elements.get(
-        parentOutput.props?.['props']?.[COMPONENT_INSTANCE_ID],
+        parentOutput.props?.['props']?.[DATA_COMPONENT_INSTANCE_ID],
       )
 
       const componentChildrenContainerId =
@@ -480,8 +458,8 @@ export class Renderer
     props = element.executePropTransformJs(props)
     props = this.appStore.current.replaceStateInProps(props)
 
-    const { localProps } = element.applyPropMapBindings(props)
-    props = mergeProps(props, localProps)
+    // const { localProps } = element.applyPropMapBindings(props)
+    // props = mergeProps(props, localProps)
 
     return props
   }

@@ -3,21 +3,18 @@ import type {
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
 import {
   extractValidProps,
   getReactComponent,
   makeDraggableElement,
-  withMaybeGlobalPropsProvider,
 } from './wrapper.utils'
 
 export interface ElementWrapperProps {
@@ -37,19 +34,19 @@ export interface ElementWrapperProps {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({ renderService, element, extraProps = {}, postAction, ...rest }) => {
-    const globalPropsContext = useContext(GlobalPropsContext)
-    const globalProps = globalPropsContext[element.id]
+    // const globalPropsContext = useContext(GlobalPropsContext)
+    // const globalProps = globalPropsContext[element.id]    const state = renderService.appStore.current.state
     const state = renderService.appStore.current.state
-    const componentMeta = renderService.renderComponentMeta
 
+    /* 
     const slug = componentMeta[element.baseId]
       ? `${element.slug}.${componentMeta[element.baseId]}`
       : element.slug
-
+   */
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
         state.setSilently(element.id, node)
-        state.setSilently(slug, node)
+        //  state.setSilently(slug, node)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -62,7 +59,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     // Render the element to an intermediate output
     const renderOutputs = renderService.renderIntermediateElement(
       element,
-      mergeProps(extraProps, globalProps),
+      extraProps,
     )
 
     renderService.logRendered(element, renderOutputs)
@@ -89,21 +86,16 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
-      const withMaybeProviders = withMaybeGlobalPropsProvider(
-        renderOutput,
-        globalPropsContext,
-      )
+      // const withMaybeProviders = withMaybeGlobalPropsProvider(
+      //  renderOutput,
+      //  globalPropsContext,
+      // )
 
-      return (props?: IPropData) => {
-        const IntermediateChildren = jsx(
-          ReactComponent,
-          // merge because some refs are not resolved
-          mergeProps(extractedProps, rest, props),
-          children,
-        )
-
-        return withMaybeProviders(IntermediateChildren)
-      }
+      return (props?: IPropData) =>
+        /**
+         * rest makes ElementWrapper pass-through
+         */
+        jsx(ReactComponent, mergeProps(extractedProps, rest, props), children)
     })
 
     // to be used for dnd to be able to add necessary props later
@@ -115,7 +107,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return renderOutputWithProps(moreProps)
     }
 
-    const isInsideAComponent = Boolean(globalPropsContext[DATA_COMPONENT_ID])
+    const isInsideAComponent = Boolean(element.rootElement.parentComponent)
     const isComponentRootElement = element.parentComponent && isInsideAComponent
 
     // we only apply dnd to the root element of a component or elements not inside a component

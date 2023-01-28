@@ -44,18 +44,21 @@ export class ComponentRenderPipe
     const overrideProps = ComponentRenderPipe.makeOverrideProps(
       props,
       component,
+      element,
     )
 
     return this.renderer.renderIntermediateElement(rootElement, overrideProps)
   }
 
-  private static makeOverrideProps(props: IPropData, component: IComponent) {
-    const { ...overrideProps } = { ...props }
-
+  private static makeOverrideProps(
+    props: IPropData,
+    component: IComponent,
+    element: IElement,
+  ) {
     return {
       [DATA_COMPONENT_ID]: component.id,
       [DATA_ELEMENT_ID]: component.rootElementId,
-      ...overrideProps,
+      ...props,
     }
   }
 

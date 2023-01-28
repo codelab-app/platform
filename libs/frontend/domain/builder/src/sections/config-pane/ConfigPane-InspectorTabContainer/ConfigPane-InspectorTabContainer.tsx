@@ -5,7 +5,6 @@ import {
   FunctionOutlined,
   NodeIndexOutlined,
   SettingOutlined,
-  SwapOutlined,
 } from '@ant-design/icons'
 import type {
   IElementTree,
@@ -16,7 +15,6 @@ import { isComponent, isElement } from '@codelab/frontend/abstract/core'
 import { UpdateComponentPropsForm } from '@codelab/frontend/domain/component'
 import {
   ElementCssEditor,
-  PropMapBindingSection,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/domain/element'
@@ -164,6 +162,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           />
         ),
       },
+      /* 
       {
         key: TAB_NAMES.PropsMap,
         label: (
@@ -182,6 +181,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             />
           ) : null,
       },
+     */
       {
         key: TAB_NAMES.PropsTransformation,
         label: (
