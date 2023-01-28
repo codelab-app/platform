@@ -123,11 +123,11 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       >
         <ModalForm.Form<ICreateElementDTO>
           model={model}
-          onChange={(k, v) => {
+          onChange={(key, value) => {
             setModel({
               ...model,
-              slug: k === 'name' ? slugify(v) : model.slug,
-              [k]: v,
+              slug: key === 'name' ? slugify(value) : model.slug,
+              [key]: value,
             })
           }}
           onSubmit={onSubmit}

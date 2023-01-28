@@ -104,15 +104,15 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         `}
         key={element.id}
         model={model}
-        onChange={(k, v) => {
+        onChange={(key, value) => {
           setModel({
             ...model,
-            slug: k === 'name' ? slugify(v) : model.slug,
-            [k]: v,
+            slug: key === 'name' ? slugify(value) : model.slug,
+            [key]: value,
           })
 
-          k === 'atomId' && setAtomId(v)
-          k === 'renderComponentTypeId' && setRenderComponentTypeId(v)
+          key === 'atomId' && setAtomId(value)
+          key === 'renderComponentTypeId' && setRenderComponentTypeId(value)
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({

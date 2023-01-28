@@ -34,11 +34,11 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
       <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>
         <ModalForm.Form<Omit<ICreatePageDTO, 'pageContainerElementId'>>
           model={model}
-          onChange={(k, v) => {
+          onChange={(key, value) => {
             setModel({
               ...model,
-              slug: k === 'name' ? slugify(v) : model.slug,
-              [k]: v,
+              slug: key === 'name' ? slugify(value) : model.slug,
+              [key]: value,
             })
           }}
           onSubmit={onSubmit}
