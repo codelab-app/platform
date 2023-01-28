@@ -14,7 +14,6 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
     slug: {
       ...nonEmptyString,
       disabled: true,
-      type: 'string',
     },
   },
   required: ['name', 'slug'],

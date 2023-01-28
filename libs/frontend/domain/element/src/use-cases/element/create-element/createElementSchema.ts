@@ -22,7 +22,6 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
     slug: {
       ...nonEmptyString,
       disabled: true,
-      type: 'string',
     },
     parentElementId: {
       type: 'string',

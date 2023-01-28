@@ -33,7 +33,6 @@ export const createPageSchema: JSONSchemaType<
     slug: {
       ...nonEmptyString,
       disabled: true,
-      type: 'string',
     },
     appId: {
       type: 'string',

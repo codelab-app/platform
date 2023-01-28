@@ -23,7 +23,6 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
     slug: {
       ...nonEmptyString,
       disabled: true,
-      type: 'string',
     },
     auth0Id: {
       type: 'string',
