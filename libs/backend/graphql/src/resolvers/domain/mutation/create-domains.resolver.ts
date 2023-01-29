@@ -4,27 +4,20 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { connectNode } from '@codelab/shared/data'
 import type { IFieldResolver } from '@graphql-tools/utils'
-import { v4 } from 'uuid'
 import { domainExistsError } from '../domain.error'
 
 export const createDomains: IFieldResolver<
   unknown,
   GraphQLRequestContext,
-  { input: ICreateDomainDTO },
+  { input: Array<OGM_TYPES.DomainCreateInput> },
   Promise<OGM_TYPES.CreateDomainsMutationResponse>
 > = async (_, args, { req }) => {
   console.log(args)
 
-  const {
-    input: { appId, name },
-  } = args
-
+  const { id, app, name } = args.input[0]!
   // await validateDomainAuth(req, appId)
-
   const res = await vercelApis.domain.addDomain(name)
 
   if (res.status === 409) {
@@ -41,12 +34,6 @@ export const createDomains: IFieldResolver<
           ${domainSelection}
         }
       }`,
-    input: [
-      {
-        name,
-        id: v4(),
-        app: connectNode(appId),
-      },
-    ],
+    input: [{ id, name, app }],
   })
 }
