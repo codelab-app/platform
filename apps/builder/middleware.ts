@@ -14,6 +14,9 @@ import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
  */
 export default async function middleware(req: NextRequest) {
   const hostname = req.headers.get('host')
+
+  console.log('req', req)
+
   /**
    * Check if `hostname` contains `builder-egs3r8s85-codelabai.vercel.app`, if so we don't redirect.
    */
