@@ -34,6 +34,11 @@ export const createElementTree = (elements: Array<ElementData>) => {
 
     if (atom) {
       cy.getModal().setFormFieldValue({
+        label: 'Render Type',
+        value: 'Atom',
+        type: FIELD_TYPE.SELECT,
+      })
+      cy.getModal().setFormFieldValue({
         label: 'Atom',
         value: atom,
         type: FIELD_TYPE.SELECT,

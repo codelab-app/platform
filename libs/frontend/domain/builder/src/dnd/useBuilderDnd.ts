@@ -9,6 +9,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'
+import { pick } from 'ramda'
 import { useCallback } from 'react'
 import { useDndDropHandler } from './useDndDropHandlers'
 
@@ -43,7 +44,14 @@ export const useBuilderDnd = (
       const data = e.active.data.current as Maybe<BuilderDragData>
 
       if (data?.type === BuilderDndType.CreateElement) {
-        builderService.setCurrentDragData(frozen(data))
+        // In mobx-keystone v1.2.0, `frozen` will throw if property is not serializable
+        // e.g. `overlayRenderer` which is a function we add used for dragging effect style
+        const dragData = pick(
+          ['name', 'type', 'createElementInput', 'icon'],
+          data,
+        )
+
+        builderService.setCurrentDragData(frozen(dragData))
       }
     },
     [builderService],

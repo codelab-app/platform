@@ -1,5 +1,4 @@
 import type { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
-import { makeCreateInput } from '@codelab/frontend/domain/element'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import { connectOwner } from '@codelab/shared/data'
@@ -13,11 +12,11 @@ export const mapCreateInput = (
 
   const createRootElement: ComponentCreateInput['rootElement'] = {
     create: {
-      node: makeCreateInput({
+      node: {
         id: newRootElementId,
         name,
         slug: createSlug(name, id),
-      }),
+      },
     },
   }
 

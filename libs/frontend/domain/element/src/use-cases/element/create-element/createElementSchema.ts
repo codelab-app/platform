@@ -57,10 +57,10 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
     renderType: {
       type: 'object',
       label: 'Render Type',
+      nullable: true,
       properties: {
         id: {
           type: 'string',
-          nullable: true,
         },
         model: {
           type: 'string',
@@ -71,5 +71,5 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       required: ['id', 'model'],
     },
   },
-  required: ['slug', 'renderType'],
+  required: ['slug'],
 }

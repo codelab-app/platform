@@ -12,7 +12,11 @@ import type {
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { connectNode, reconnectNode } from '@codelab/shared/data'
+import {
+  connectNode,
+  disconnectNode,
+  reconnectNode,
+} from '@codelab/shared/data'
 import { isNil } from 'ramda'
 import { v4 } from 'uuid'
 
@@ -49,12 +53,12 @@ export const makeCreateInput = (
   }
 
   const renderAtomType =
-    renderType.model === RenderTypeEnum.atom
+    renderType?.model === RenderTypeEnum.Atom
       ? connectNode(renderType.id)
       : undefined
 
   const renderComponentType =
-    renderType.model === RenderTypeEnum.component
+    renderType?.model === RenderTypeEnum.Component
       ? connectNode(renderType.id)
       : undefined
 
@@ -107,30 +111,33 @@ export const makeUpdateInput = (
     guiCss,
     renderForEachPropKey,
     renderIfExpression,
+    propsData,
   } = input
 
-  const renderAtomType =
-    renderType.model === RenderTypeEnum.atom
-      ? reconnectNode(renderType.id)
-      : undefined
+  // If render type changes, we replace the existing `props` connected to the
+  // element with the new `props` from the default values of the new interface type
+  const updateProps: ElementUpdateInput['props'] = {
+    update: { node: { data: propsData ?? JSON.stringify(props) } },
+  }
 
-  const renderComponentType =
-    renderType.model === RenderTypeEnum.component
+  // We need to disconnect the atom if render type changed to component or empty
+  const renderAtomType =
+    renderType?.model === RenderTypeEnum.Atom
       ? reconnectNode(renderType.id)
-      : undefined
+      : disconnectNode(undefined)
+
+  // We need to disconnect the component if render type changed to atom or empty
+  const renderComponentType =
+    renderType?.model === RenderTypeEnum.Component
+      ? reconnectNode(renderType.id)
+      : disconnectNode(undefined)
 
   return {
     name: name,
     renderAtomType,
     renderComponentType,
     slug: slug,
-    props: {
-      update: {
-        node: {
-          data: JSON.stringify(props),
-        },
-      },
-    },
+    props: updateProps,
     customCss: customCss,
     postRenderActionId: postRenderActionId || null,
     preRenderActionId: preRenderActionId || null,

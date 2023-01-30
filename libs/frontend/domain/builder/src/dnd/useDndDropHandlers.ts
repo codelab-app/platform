@@ -20,7 +20,7 @@ const makeAutoIncrementedSlug = (
   input: ICreateElementDTO,
 ) => {
   const existingSameAtoms = elementTree.elementsList.filter(({ atom }) => {
-    return atom?.id === input.atomId
+    return atom?.id === input.renderType?.id
   })
 
   if (existingSameAtoms.length) {

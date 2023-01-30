@@ -38,10 +38,10 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
     renderType: {
       type: 'object',
       label: 'Render Type',
+      nullable: true,
       properties: {
         id: {
           type: 'string',
-          nullable: true,
         },
         model: {
           type: 'string',
@@ -52,5 +52,5 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       required: ['id', 'model'],
     },
   },
-  required: ['renderType', 'slug'],
+  required: ['slug'],
 } as const

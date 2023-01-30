@@ -3,8 +3,8 @@ import type { IPropData } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
 
 export enum RenderTypeEnum {
-  component = 'component',
-  atom = 'atom',
+  Component = 'component',
+  Atom = 'atom',
 }
 
 export interface RenderType {
@@ -16,7 +16,7 @@ export interface ICreateElementDTO {
   id?: string
   slug: string
   name?: Nullable<string>
-  renderType: RenderType
+  renderType?: Nullable<RenderType>
   parentElementId?: string
   preRenderActionId?: Nullish<string>
   postRenderActionId?: Nullish<string>
@@ -29,7 +29,7 @@ export interface ICreateElementDTO {
 export interface IUpdateElementDTO {
   name?: Nullable<string>
   slug: string
-  renderType: RenderType
+  renderType?: Nullable<RenderType>
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
   customCss?: Nullable<string>
@@ -38,6 +38,7 @@ export interface IUpdateElementDTO {
   preRenderActionId?: Nullish<string>
   postRenderActionId?: Nullish<string>
   propTransformationJs?: Nullish<string>
+  propsData?: string
 }
 
 /**

@@ -16,10 +16,10 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { createElementSchema } from './createElementSchema'
-import RenderTypeCompositeField from './RenderTypeCompositeField'
 
 interface CreateElementModalProps {
   pageTree: IElementTree
@@ -76,6 +76,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const model = {
       parentElementId: parentElement.id,
       owner: userService.user?.auth0Id,
+      // Needs to be null initially so that required sub-fields
+      // are not validated when nothing is selected yet
+      renderType: null,
     }
 
     const closeModal = () => elementService.createModal.close()

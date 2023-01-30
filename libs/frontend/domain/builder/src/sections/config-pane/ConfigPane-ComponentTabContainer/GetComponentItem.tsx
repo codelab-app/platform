@@ -1,5 +1,5 @@
 import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
-import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import { BuilderDndType, RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import { antDesignIconPrefix } from '@codelab/shared/data'
 import { Card } from 'antd'
@@ -17,7 +17,10 @@ export const DraggableGetComponentItem = ({
   const createElementInput = useMemo(() => {
     return {
       name: component.name,
-      atomId: component.id,
+      renderType: {
+        id: component.id,
+        model: RenderTypeEnum.Atom,
+      },
       slug: createSlug(component.name),
     }
   }, [component])

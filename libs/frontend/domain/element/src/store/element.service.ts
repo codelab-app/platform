@@ -48,7 +48,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { until } from 'ramda'
+import { isNil, until } from 'ramda'
 import { v4 } from 'uuid'
 import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import {
@@ -216,8 +216,6 @@ export class ElementService
       )
     }
 
-    console.log('input', input)
-
     const {
       createElements: { elements },
     } = yield* _await(elementApi.CreateElements({ input }))
@@ -237,7 +235,7 @@ export class ElementService
   ) {
     let baseElementType: Maybe<IAtom | IComponent>
 
-    if (elementInput.renderType.model === RenderTypeEnum.component) {
+    if (elementInput.renderType?.model === RenderTypeEnum.Component) {
       baseElementType = yield* _await(
         this.componentService.getOne(elementInput.renderType.id),
       )
@@ -247,7 +245,7 @@ export class ElementService
           `Component with id ${elementInput.renderType.id} not found`,
         )
       }
-    } else {
+    } else if (elementInput.renderType?.model === RenderTypeEnum.Atom) {
       baseElementType = yield* _await(
         this.atomService.getOne(elementInput.renderType.id),
       )
@@ -257,12 +255,16 @@ export class ElementService
       }
     }
 
-    const typeApi = yield* _await(
-      this.typeService.getOne(baseElementType.api.id),
-    )
+    if (baseElementType) {
+      const typeApi = yield* _await(
+        this.typeService.getOne(baseElementType.api.id),
+      )
 
-    // Atoms and components have interface type
-    return typeApi as Maybe<IInterfaceType>
+      // Atoms and components have interface type
+      return typeApi as Maybe<IInterfaceType>
+    }
+
+    return
   })
 
   /**
@@ -303,9 +305,53 @@ export class ElementService
   ) {
     const slug = createSlug(input.slug, element.baseId)
 
+    const {
+      atom: currentAtom,
+      renderComponentType: currentRenderComponentType,
+    } = element
+
+    const { model: renderTypeModel, id: newRenderTypeId } =
+      input.renderType ?? {}
+
+    const isUpdatedWithAtom = renderTypeModel === RenderTypeEnum.Atom
+    const isUpdatedWithComponent = renderTypeModel === RenderTypeEnum.Component
+
+    const isCurrentlyEmptyElement =
+      isNil(currentAtom) && isNil(currentRenderComponentType)
+
+    const changedFromAtomToComponent =
+      isUpdatedWithAtom && !isNil(currentRenderComponentType)
+
+    const changedFromComponentToAtom =
+      isUpdatedWithComponent && !isNil(currentAtom)
+
+    const changedFromEmptyToAtomOrComponent =
+      isCurrentlyEmptyElement && (isUpdatedWithAtom || isUpdatedWithComponent)
+
+    const renderTypeChanged =
+      changedFromAtomToComponent ||
+      changedFromComponentToAtom ||
+      changedFromEmptyToAtomOrComponent
+
+    const renderIdChanged =
+      (isUpdatedWithAtom && newRenderTypeId !== currentAtom?.id) ||
+      (isUpdatedWithComponent &&
+        newRenderTypeId !== currentRenderComponentType?.id)
+
+    // we only want to change the props of the element if the user changes the atom or component
+    let propsData: string | undefined
+
+    if (renderTypeChanged || renderIdChanged) {
+      // When replacing the atom or component of an element, we need the interface type fields of the new
+      // atom/component and we use it to create a props with default values for the updated element
+      const typeApi = yield* _await(this.getElementInputTypeApi(input))
+      propsData = makeDefaultProps(typeApi)
+    }
+
     const update = makeUpdateInput({
       ...input,
       slug,
+      propsData,
     })
 
     const {
@@ -678,7 +724,7 @@ element is new parentElement's first child
 
           const renderType: RenderType = {
             id: component.id,
-            model: RenderTypeEnum.component,
+            model: RenderTypeEnum.Component,
           }
 
           const parentElementId = targetElement.id
@@ -948,7 +994,7 @@ element is new parentElement's first child
                 slug,
                 renderType: {
                   id: createdComponent.id,
-                  model: RenderTypeEnum.component,
+                  model: RenderTypeEnum.Component,
                 },
                 parentElementId: parentElement.id,
               },
@@ -975,7 +1021,7 @@ element is new parentElement's first child
             slug,
             renderType: {
               id: createdComponent.id,
-              model: RenderTypeEnum.component,
+              model: RenderTypeEnum.Component,
             },
             parentElementId: parentElement.id,
             prevSiblingId: prevSibling.id,
