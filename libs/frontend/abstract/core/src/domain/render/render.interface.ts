@@ -18,7 +18,6 @@ export interface IRenderOutput {
   elementId: string
   atomType?: IAtomType
   props?: IPropData
-  stop?: boolean
   /** Any props that should get passed to descendants of this element, mapped by id */
   globalProps?: IPropDataByElementId
 }

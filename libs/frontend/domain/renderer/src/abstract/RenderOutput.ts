@@ -5,7 +5,7 @@ import { mergeProps } from '@codelab/shared/utils'
 // Named factory methods for convenience
 export const RenderOutput = {
   empty: (
-    input: Pick<IRenderOutput, 'elementId' | 'props' | 'stop'>,
+    input: Pick<IRenderOutput, 'elementId' | 'props'>,
   ): IRenderOutput => ({
     ...input,
   }),

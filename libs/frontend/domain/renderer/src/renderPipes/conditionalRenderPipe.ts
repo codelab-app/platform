@@ -34,7 +34,7 @@ export class ConditionalRenderPipe
       })
     }
 
-    return RenderOutput.empty({ elementId: element.id, stop: true })
+    return RenderOutput.empty({ elementId: element.id })
   }
 
   public static shouldRender({ renderIfExpression }: IElement, store: IStore) {
