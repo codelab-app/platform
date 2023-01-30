@@ -4,17 +4,15 @@ import type {
   IUpdateBaseElementDTO,
   IUpdateElementDTO,
 } from '@codelab/frontend/abstract/core'
-import {
-  SelectAction,
-  SelectAtom,
-  SelectComponent,
-} from '@codelab/frontend/domain/type'
+import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import { SelectAction } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import RenderTypeCompositeField from '../create-element/RenderTypeCompositeField'
 import { updateElementSchema } from './updateElementSchema'
 
 export interface UpdateElementFormProps {
@@ -44,6 +42,12 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       renderComponentTypeId: element.renderComponentType?.id,
       postRenderActionId: element.postRenderActionId,
       preRenderActionId: element.preRenderActionId,
+      renderType: {
+        id: element.renderComponentType?.id ?? element.atom?.id,
+        model: element.renderComponentType?.id
+          ? RenderTypeEnum.component
+          : RenderTypeEnum.atom,
+      },
     })
 
     const onSubmit = (data: IUpdateElementDTO) => {
@@ -87,28 +91,18 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         {element.id}
         <AutoFields
           omitFields={[
-            'atomId',
             'renderIfExpression',
             'renderForEachPropKey',
             'propTransformationJs',
-            'renderComponentTypeId',
             // We edit it in the css tab
             'customCss',
             'guiCss',
             'preRenderActionId',
             'postRenderActionId',
+            'renderType',
           ]}
         />
-        <AutoField component={SelectComponent} name="renderComponentTypeId" />
-        <AutoField
-          component={SelectAtom}
-          // component={(props) => {
-          //   console.log(props)
-          //
-          //   return <SelectAtom />
-          // }}
-          name="atomId"
-        />
+        <RenderTypeCompositeField name="renderType" />
         <AutoCompleteField
           name="renderIfExpression"
           onSearch={handlePropSearch}

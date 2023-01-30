@@ -1,4 +1,5 @@
 import type { IUpdateBaseElementDTO } from '@codelab/frontend/abstract/core'
+import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
@@ -6,11 +7,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
   title: 'Update Element Input',
   type: 'object',
   properties: {
-    atomId: {
-      type: 'string',
-      label: 'Atom',
-      nullable: true,
-    },
     name: {
       type: 'string',
       nullable: true,
@@ -29,11 +25,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       nullable: true,
       label: 'Render for each',
     },
-    renderComponentTypeId: {
-      type: 'string',
-      nullable: true,
-      label: 'Component',
-    },
     preRenderActionId: {
       type: 'string',
       label: 'Pre Render action',
@@ -44,6 +35,22 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       label: 'Post Render action',
       nullable: true,
     },
+    renderType: {
+      type: 'object',
+      label: 'Render Type',
+      properties: {
+        id: {
+          type: 'string',
+          nullable: true,
+        },
+        model: {
+          type: 'string',
+          enum: Object.values(RenderTypeEnum),
+          label: 'Render Type',
+        },
+      },
+      required: ['id', 'model'],
+    },
   },
-  required: [],
+  required: ['renderType', 'slug'],
 } as const

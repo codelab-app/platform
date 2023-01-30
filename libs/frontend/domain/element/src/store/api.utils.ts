@@ -5,6 +5,7 @@ import type {
   IInterfaceType,
   IUpdateElementDTO,
 } from '@codelab/frontend/abstract/core'
+import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
@@ -32,8 +33,7 @@ export const makeCreateInput = (
 ): ElementCreateInput => {
   const {
     id = v4(),
-    renderComponentTypeId,
-    atomId,
+    renderType,
     name,
     slug,
     postRenderActionId,
@@ -48,9 +48,19 @@ export const makeCreateInput = (
     create: { node: { data: propsData ?? JSON.stringify({}) } },
   }
 
+  const renderAtomType =
+    renderType.model === RenderTypeEnum.atom
+      ? connectNode(renderType.id)
+      : undefined
+
+  const renderComponentType =
+    renderType.model === RenderTypeEnum.component
+      ? connectNode(renderType.id)
+      : undefined
+
   return {
-    renderComponentType: connectNode(renderComponentTypeId),
-    renderAtomType: connectNode(atomId),
+    renderComponentType,
+    renderAtomType,
     props,
     slug,
     postRenderActionId,
@@ -86,27 +96,47 @@ export const makeDuplicateInput = (
 export const makeUpdateInput = (
   input: IUpdateElementDTO,
 ): ElementUpdateInput => {
-  const renderAtomType = reconnectNode(input.atomId)
-  const renderComponentType = reconnectNode(input.renderComponentTypeId)
+  const {
+    renderType,
+    name,
+    slug,
+    postRenderActionId,
+    preRenderActionId,
+    props,
+    customCss,
+    guiCss,
+    renderForEachPropKey,
+    renderIfExpression,
+  } = input
+
+  const renderAtomType =
+    renderType.model === RenderTypeEnum.atom
+      ? reconnectNode(renderType.id)
+      : undefined
+
+  const renderComponentType =
+    renderType.model === RenderTypeEnum.component
+      ? reconnectNode(renderType.id)
+      : undefined
 
   return {
-    name: input.name,
+    name: name,
     renderAtomType,
-    slug: input.slug,
+    renderComponentType,
+    slug: slug,
     props: {
       update: {
         node: {
-          data: JSON.stringify(input.props),
+          data: JSON.stringify(props),
         },
       },
     },
-    customCss: input.customCss,
-    postRenderActionId: input.postRenderActionId || null,
-    preRenderActionId: input.preRenderActionId || null,
-    guiCss: input.guiCss,
-    renderForEachPropKey: input.renderForEachPropKey,
-    renderComponentType,
-    renderIfExpression: input.renderIfExpression,
+    customCss: customCss,
+    postRenderActionId: postRenderActionId || null,
+    preRenderActionId: preRenderActionId || null,
+    guiCss: guiCss,
+    renderForEachPropKey: renderForEachPropKey,
+    renderIfExpression: renderIfExpression,
   }
 }
 

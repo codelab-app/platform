@@ -11,8 +11,13 @@ import type {
   IInterfaceType,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
+  RenderType,
 } from '@codelab/frontend/abstract/core'
-import { isAtomDTO, isComponentDTO } from '@codelab/frontend/abstract/core'
+import {
+  isAtomDTO,
+  isComponentDTO,
+  RenderTypeEnum,
+} from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import {
   PropMapBinding,
@@ -211,6 +216,8 @@ export class ElementService
       )
     }
 
+    console.log('input', input)
+
     const {
       createElements: { elements },
     } = yield* _await(elementApi.CreateElements({ input }))
@@ -230,36 +237,32 @@ export class ElementService
   ) {
     let baseElementType: Maybe<IAtom | IComponent>
 
-    if (elementInput.renderComponentTypeId) {
+    if (elementInput.renderType.model === RenderTypeEnum.component) {
       baseElementType = yield* _await(
-        this.componentService.getOne(elementInput.renderComponentTypeId),
+        this.componentService.getOne(elementInput.renderType.id),
       )
 
       if (!baseElementType) {
         throw new Error(
-          `Component with id ${elementInput.renderComponentTypeId} not found`,
+          `Component with id ${elementInput.renderType.id} not found`,
         )
       }
-    } else if (elementInput.atomId) {
+    } else {
       baseElementType = yield* _await(
-        this.atomService.getOne(elementInput.atomId),
+        this.atomService.getOne(elementInput.renderType.id),
       )
 
       if (!baseElementType) {
-        throw new Error(`Atom with id ${elementInput.atomId} not found`)
+        throw new Error(`Atom with id ${elementInput.renderType.id} not found`)
       }
     }
 
-    if (baseElementType) {
-      const typeApi = yield* _await(
-        this.typeService.getOne(baseElementType.api.id),
-      )
+    const typeApi = yield* _await(
+      this.typeService.getOne(baseElementType.api.id),
+    )
 
-      // Atoms and components have interface type
-      return typeApi as Maybe<IInterfaceType>
-    }
-
-    return
+    // Atoms and components have interface type
+    return typeApi as Maybe<IInterfaceType>
   })
 
   /**
@@ -662,15 +665,24 @@ element is new parentElement's first child
 
           const component = this.componentService.component(elementId)
 
+          if (!component) {
+            return
+          }
+
           const componentInstanceCounter = existingInstances?.length
             ? ` ${existingInstances.length}`
             : ''
 
-          const name = `${component?.name}${componentInstanceCounter}`
-          const slug = `${component?.name}${componentInstanceCounter}`
-          const renderComponentTypeId = component?.id
+          const name = `${component.name}${componentInstanceCounter}`
+          const slug = `${component.name}${componentInstanceCounter}`
+
+          const renderType: RenderType = {
+            id: component.id,
+            model: RenderTypeEnum.component,
+          }
+
           const parentElementId = targetElement.id
-          const data = { name, slug, renderComponentTypeId, parentElementId }
+          const data = { name, slug, renderType, parentElementId }
 
           element = (yield* _await(this.create([data])))[0]
         } else {
@@ -923,6 +935,10 @@ element is new parentElement's first child
           ]),
         )
 
+        if (!createdComponent) {
+          throw new Error('Create component failed')
+        }
+
         // 3. create a new element as an instance of the component
         if (!prevSibling) {
           const [createdElement] = yield* _await(
@@ -930,7 +946,10 @@ element is new parentElement's first child
               {
                 name,
                 slug,
-                renderComponentTypeId: createdComponent?.id,
+                renderType: {
+                  id: createdComponent.id,
+                  model: RenderTypeEnum.component,
+                },
                 parentElementId: parentElement.id,
               },
             ]),
@@ -954,7 +973,10 @@ element is new parentElement's first child
           this.createElementAsNextSibling({
             name,
             slug,
-            renderComponentTypeId: createdComponent?.id,
+            renderType: {
+              id: createdComponent.id,
+              model: RenderTypeEnum.component,
+            },
             parentElementId: parentElement.id,
             prevSiblingId: prevSibling.id,
           }),

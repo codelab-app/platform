@@ -2,12 +2,21 @@ import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { IPropData } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
 
+export enum RenderTypeEnum {
+  component = 'component',
+  atom = 'atom',
+}
+
+export interface RenderType {
+  id: string
+  model: RenderTypeEnum
+}
+
 export interface ICreateElementDTO {
   id?: string
   slug: string
   name?: Nullable<string>
-  renderComponentTypeId?: Nullable<string>
-  atomId?: Nullable<string>
+  renderType: RenderType
   parentElementId?: string
   preRenderActionId?: Nullish<string>
   postRenderActionId?: Nullish<string>
@@ -20,8 +29,7 @@ export interface ICreateElementDTO {
 export interface IUpdateElementDTO {
   name?: Nullable<string>
   slug: string
-  renderComponentTypeId?: Nullable<string>
-  atomId?: Nullable<string>
+  renderType: RenderType
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
   customCss?: Nullable<string>
@@ -37,12 +45,11 @@ export interface IUpdateElementDTO {
  */
 export type IUpdateBaseElementDTO = Pick<
   IUpdateElementDTO,
-  | 'atomId'
+  | 'renderType'
   | 'name'
   | 'slug'
   | 'renderIfExpression'
   | 'renderForEachPropKey'
-  | 'renderComponentTypeId'
   | 'preRenderActionId'
   | 'postRenderActionId'
 >
