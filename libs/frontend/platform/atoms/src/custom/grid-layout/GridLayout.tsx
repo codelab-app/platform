@@ -1,5 +1,6 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
+import { ObjectTyped } from 'object-typed'
 import React, { useEffect, useMemo, useRef } from 'react'
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'
 import { Responsive, WidthProvider } from 'react-grid-layout'
@@ -33,17 +34,50 @@ export const GridLayout = React.memo(
       })
     }, [children])
 
-    const layouts = restProps.layouts || {}
-    const previewLayouts = restProps.layouts || {}
+    // Make the RGL layouts and disable the dnd in preview mode
+    const makeLayouts = () => {
+      const layouts = restProps.layouts || {}
 
-    if (restProps.static) {
-      const keys = Object.keys(layouts)
-      keys.forEach((key) => {
-        layouts[key] = layouts[key]?.map((ele) => ({
-          ...ele,
-          static: restProps.static,
-        })) as Array<Layout>
-      })
+      if (restProps.static) {
+        ObjectTyped.keys(layouts).forEach((key) => {
+          layouts[key] = layouts[key]?.map((ele) => ({
+            ...ele,
+            static: restProps.static,
+          })) as Array<Layout>
+        })
+      }
+
+      return layouts
+    }
+
+    // Make the RGL breakpoints
+    const makeBreakpoints = () => {
+      const breakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
+
+      if (restProps.breakpoints) {
+        ObjectTyped.keys(breakpoints).forEach((key) => {
+          if (restProps.breakpoints && restProps.breakpoints[key]) {
+            breakpoints[key] = restProps.breakpoints[key]!
+          }
+        })
+      }
+
+      return breakpoints
+    }
+
+    // Make the RGL cols
+    const makeCols = () => {
+      const cols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }
+
+      if (restProps.cols) {
+        ObjectTyped.keys(cols).forEach((key) => {
+          if (restProps.cols && restProps.cols[key]) {
+            cols[key] = restProps.cols[key]!
+          }
+        })
+      }
+
+      return cols
     }
 
     const onLayoutChange = (_layout: Array<Layout>, allLayouts: Layouts) => {
@@ -78,15 +112,15 @@ export const GridLayout = React.memo(
 
     return (
       <ResponsiveReactGridLayout
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-        containerPadding={[0, 0]}
-        layouts={restProps.static ? previewLayouts : layouts}
-        margin={[0, 0]}
-        onLayoutChange={onLayoutChange}
-        rowHeight={30}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...restProps}
+        breakpoints={makeBreakpoints()}
+        cols={makeCols()}
+        containerPadding={[0, 0]}
+        layouts={makeLayouts()}
+        margin={[0, 0]}
+        onLayoutChange={onLayoutChange}
+        rowHeight={restProps.rowHeight || 30}
       >
         {rglChildren}
       </ResponsiveReactGridLayout>
