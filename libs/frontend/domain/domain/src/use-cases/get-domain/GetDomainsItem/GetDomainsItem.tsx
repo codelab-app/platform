@@ -30,7 +30,7 @@ export const GetDomainItem = observer<GetAppsItemProps>(
             {domain.name} <LinkOutlined />
           </span>
         </Link>
-        <ConfigStatus misconfigured={!verified && misconfigured} />
+        <ConfigStatus misconfigured={!verified || misconfigured} />
       </div>
     )
 
