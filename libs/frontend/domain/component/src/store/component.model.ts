@@ -5,7 +5,10 @@ import type {
   IInterfaceType,
   IProp,
 } from '@codelab/frontend/abstract/core'
-import { COMPONENT_NODE_TYPE } from '@codelab/frontend/abstract/core'
+import {
+  COMPONENT_NODE_TYPE,
+  DATA_COMPONENT_INSTANCE_ID,
+} from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import {
   ElementTree,
@@ -20,6 +23,7 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
   clone,
@@ -87,6 +91,18 @@ export class Component
     return this
   }
 
+  @computed
+  get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  get instanceElement() {
+    return this.elementService.element(
+      this.props?.values[DATA_COMPONENT_INSTANCE_ID],
+    )
+  }
+
   /**
    * @param elements  All elements are assumed to be cached before being used here
    */
@@ -94,7 +110,6 @@ export class Component
   cloneTree(clonedComponentId: string, cloneIndex: number) {
     console.debug('ElementTreeService.cloneTree', this.elementTree.elementsList)
 
-    const elementService = getElementService(this)
     const componentService = getComponentService(this)
     const elementMap: Map<string, string> = new Map()
 
@@ -130,7 +145,7 @@ export class Component
         }
 
         // store elements in elementService
-        elementService.clonedElements.set(clonedElement.id, clonedElement)
+        this.elementService.clonedElements.set(clonedElement.id, clonedElement)
 
         // keep trace of copies to update parents
         elementMap.set(e.id, clonedElement.id)

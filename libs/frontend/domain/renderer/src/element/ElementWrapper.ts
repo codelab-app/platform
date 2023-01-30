@@ -10,6 +10,7 @@ import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { mapOutput } from '../utils/renderOutputUtils'
 import {
   extractValidProps,
@@ -36,12 +37,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
   ({ renderService, element, extraProps = {}, postAction, ...rest }) => {
     // const globalPropsContext = useContext(GlobalPropsContext)
     // const globalProps = globalPropsContext[element.id]    const state = renderService.appStore.current.state
-    const state = renderService.appStore.current.state
+    const store = renderService.appStore.current
 
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
-        state.setSilently(element.id, node)
-        state.setSilently(element.slug, node)
+        store.state.setSilently(element.id, node)
+        store.state.setSilently(element.slug, node)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -65,10 +66,9 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      * and will return the React Elements with the attached additional props
      */
     const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
-      const children = renderOutput.stop
-        ? undefined
-        : renderService.renderChildren(renderOutput) ??
-          renderOutput.props?.['children']
+      const children = ConditionalRenderPipe.shouldRender(element, store)
+        ? renderService.renderChildren(renderOutput)
+        : undefined
 
       if (renderOutput.props) {
         renderOutput.props['forwardedRef'] = onRefChange

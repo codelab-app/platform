@@ -37,7 +37,7 @@ export class ConditionalRenderPipe
     return RenderOutput.empty({ elementId: element.id, stop: true })
   }
 
-  private static shouldRender({ renderIfExpression }: IElement, store: IStore) {
+  public static shouldRender({ renderIfExpression }: IElement, store: IStore) {
     if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
       return true
     }

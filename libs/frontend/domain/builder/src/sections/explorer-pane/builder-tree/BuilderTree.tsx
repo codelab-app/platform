@@ -61,7 +61,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
     }
 
     const selectElementNode = (node: EventDataNode<IBuilderDataNode>) => {
-      const element = elementService.elements.get(node.key.toString())
+      const element = elementService.element(node.key.toString())
 
       if (element) {
         selectTreeNode(elementRef(element))

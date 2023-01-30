@@ -81,7 +81,7 @@ export const PropMapBindingsTable = observer<PropMapBindingsTableProps>(
       id: pmb.id,
       sourceKey: pmb.sourceKey,
       targetElementName: pmb.targetElementId
-        ? elementService.elements.get(pmb.targetElementId)?.label ?? ''
+        ? elementService.element(pmb.targetElementId)?.label ?? ''
         : '',
       targetKey: pmb.targetKey,
     }))

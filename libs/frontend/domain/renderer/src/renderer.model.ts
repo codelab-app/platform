@@ -9,7 +9,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
-  DATA_COMPONENT_INSTANCE_ID,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { elementTreeRef } from '@codelab/frontend/domain/element'
@@ -381,14 +380,26 @@ export class Renderer
     // return mapOutput(output, appendGlobalProps)
   }
 
+  getComponentInstanceChildren(element: IElement) {
+    const parentComponent = element.parentComponent?.current
+
+    const isContainer =
+      element.id === parentComponent?.childrenContainerElementId
+
+    if (!isContainer || !parentComponent.instanceElement) {
+      return []
+    }
+
+    return parentComponent.instanceElement.children
+  }
+
   /**
    * Renders the elements children, createTransformer memoizes the function
    */
   renderChildren = createTransformer(
     (parentOutput: IRenderOutput): ArrayOrSingle<ReactNode> => {
-      // const element = this.pageTree?.current.element(parentOutput.elementId)
       const elementService = getElementService(this)
-      const element = elementService.elements.get(parentOutput.elementId)
+      const element = elementService.element(parentOutput.elementId)
 
       if (!element) {
         console.warn(
@@ -398,26 +409,18 @@ export class Renderer
         return undefined
       }
 
-      const componentInstance = elementService.elements.get(
-        parentOutput.props?.['props']?.[DATA_COMPONENT_INSTANCE_ID],
-      )
+      const children = [
+        ...element.children,
+        ...this.getComponentInstanceChildren(element),
+      ]
 
-      const componentChildrenContainerId =
-        componentInstance?.renderComponentType?.current
-          .childrenContainerElementId
-
-      const childrenToRender =
-        element.id === componentChildrenContainerId && componentInstance
-          ? [...element.children, ...componentInstance.children]
-          : element.children
-
-      const children = childrenToRender.map((child) =>
+      const renderedChildren = children.map((child) =>
         this.renderElement(child),
       )
 
-      const hasChildren = Array.isArray(children)
-        ? children.length > 0
-        : Boolean(children)
+      const hasChildren = Array.isArray(renderedChildren)
+        ? renderedChildren.length > 0
+        : Boolean(renderedChildren)
 
       if (!hasChildren) {
         // Inject text, but only if we have no regular children
@@ -440,10 +443,10 @@ export class Renderer
        * Ant Design doesn't handle array children well in some cases, like Forms
        */
       if (Array.isArray(children) && children.length === 1) {
-        return children[0]
+        return renderedChildren[0]
       }
 
-      return children
+      return renderedChildren
     },
   )
 

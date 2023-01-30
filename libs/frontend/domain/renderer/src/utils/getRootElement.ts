@@ -24,5 +24,5 @@ export const getRootElement = (
     return null
   }
 
-  return elementService.elements.get(component.rootElementId)
+  return elementService.element(component.rootElementId)
 }
