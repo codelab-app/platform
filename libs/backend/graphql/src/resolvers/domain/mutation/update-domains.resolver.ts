@@ -3,42 +3,38 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
 import type { Context } from '@neo4j/graphql/dist/types'
-import { domainExistsError } from '../domain.error'
+import { domainExistsError, domainNotFoundError } from '../domain.error'
 
 export const updateDomains: IFieldResolver<
   unknown,
   Context,
-  { input: ICreateDomainDTO },
+  { where: OGM_TYPES.DomainWhere; update: OGM_TYPES.DomainUpdateInput },
   Promise<OGM_TYPES.UpdateDomainsMutationResponse>
 > = async (_, args, { req }) => {
-  const {
-    input: { name, id },
-  } = args
-
+  const { where, update } = args
+  const { name } = update
   // await validateDomainAuth(req, String(id))
-
   const Domain = await Repository.instance.Domain
-  // const domains = await Domain.find({ where: { id } })
-  // // get old domain name
-  // const domain = domains[0]
-  //
-  // if (!domain) {
-  //   throw new Error('Missing domain')
-  // }
+  const [domainBeforeUpdate] = await Domain.find({ where })
+
+  if (!domainBeforeUpdate) {
+    throw domainNotFoundError
+  }
 
   // to rename domain, we need create new one, and delete the old one
 
   // await handleAPIError(createRes, 'createDomain - vercel')
-  await vercelApis.domain.deleteDomain(name)
+  if (name && name !== domainBeforeUpdate.name) {
+    await vercelApis.domain.deleteDomain(domainBeforeUpdate.name)
 
-  const createRes = await vercelApis.domain.addDomain(name)
+    const createRes = await vercelApis.domain.addDomain(name)
 
-  if (createRes.status === 409) {
-    throw domainExistsError
+    if (createRes.status === 409) {
+      throw domainExistsError
+    }
   }
   // await handleAPIError(deleteRes, 'deleteDomain - vercel')
 
@@ -48,7 +44,7 @@ export const updateDomains: IFieldResolver<
           ${domainSelection}
         }
       }`,
-    where: { id },
-    update: { name },
+    where,
+    update,
   })
 }
