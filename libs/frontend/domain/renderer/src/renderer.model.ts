@@ -348,8 +348,11 @@ export class Renderer
     let props = mergeProps(
       element.__metadataProps,
       element.props?.values,
+      element.rootElement.parentComponent?.current.props,
       extraProps,
     )
+
+    console.log(props)
 
     props = this.processPropsForRender(props, element)
 

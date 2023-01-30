@@ -38,15 +38,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     // const globalProps = globalPropsContext[element.id]    const state = renderService.appStore.current.state
     const state = renderService.appStore.current.state
 
-    /* 
-    const slug = componentMeta[element.baseId]
-      ? `${element.slug}.${componentMeta[element.baseId]}`
-      : element.slug
-   */
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
         state.setSilently(element.id, node)
-        //  state.setSilently(slug, node)
+        state.setSilently(element.slug, node)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

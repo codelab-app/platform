@@ -133,10 +133,10 @@ export class Element
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
     // Data used for tree initializing, before our Element model is ready
-    parentId: prop<Nullable<string>>(null),
-    nextSiblingId: prop<Nullable<string>>(null),
-    prevSiblingId: prop<Nullable<string>>(null),
-    firstChildId: prop<Nullable<string>>(null),
+    parentId: prop<Nullable<string>>(null).withSetter(),
+    nextSiblingId: prop<Nullable<string>>(null).withSetter(),
+    prevSiblingId: prop<Nullable<string>>(null).withSetter(),
+    firstChildId: prop<Nullable<string>>(null).withSetter(),
     owner: prop<Nullable<string>>(null),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
@@ -145,7 +145,7 @@ export class Element
     customCss: prop<Nullable<string>>(null).withSetter(),
     guiCss: prop<Nullable<string>>(null),
     atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
-    props: prop<Nullable<IProp>>(null),
+    props: prop<Nullable<IProp>>(null).withSetter(),
     preRenderActionId: prop<Nullish<string>>(null),
     postRenderActionId: prop<Nullish<string>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
@@ -162,6 +162,9 @@ export class Element
     // Marks the element as an instance of a specific component
     renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
+
+    // if this is a duplicate, trace source element id else null
+    sourceElementId: prop<Nullable<string>>(null).withSetter(),
   })
   implements IElement
 {

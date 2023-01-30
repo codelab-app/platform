@@ -1,4 +1,4 @@
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { IPropData } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
 
@@ -58,4 +58,6 @@ export type IUpdateBaseElementDTO = Pick<
 /**
  * This is the graphql fragment equivalent, used for hydrating object
  */
-export type IElementDTO = ElementFragment
+export type IElementDTO = Omit<ElementFragment, 'parentComponent'> & {
+  parentComponent?: IEntity
+}

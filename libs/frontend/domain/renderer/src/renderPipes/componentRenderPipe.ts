@@ -1,6 +1,6 @@
 import type {
-  IComponent,
   IElement,
+  IInterfaceType,
   IPropData,
   IRenderer,
   IRenderOutput,
@@ -8,8 +8,10 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   DATA_COMPONENT_ID,
-  DATA_ELEMENT_ID,
+  DATA_COMPONENT_INSTANCE_ID,
 } from '@codelab/frontend/abstract/core'
+import { getComponentService } from '@codelab/frontend/presenter/container'
+import merge from 'lodash/merge'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -28,9 +30,14 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    const rootElement = this.elementService.elements.get(
-      component.rootElementId,
+    const componentService = getComponentService(this)
+
+    const clonedComponent = componentService.cloneComponentTree(
+      element,
+      component,
     )
+
+    const rootElement = clonedComponent.elementTree?.root
 
     if (!rootElement) {
       ComponentRenderPipe.logRootElementNotFound(this.renderer, element)
@@ -38,28 +45,29 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
+    const defaultValues = (component.api.current as IInterfaceType)
+      .defaultValues
 
-    // Start the pipe again with the root element
-    const overrideProps = ComponentRenderPipe.makeOverrideProps(
-      props,
-      component,
-      element,
+    /**
+     * instance props --overrides--> component props --overrides--> interface default values
+     */
+    const overrideProps = merge(
+      defaultValues,
+      component.props?.values,
+      element.props?.values,
     )
 
-    return this.renderer.renderIntermediateElement(rootElement, overrideProps)
-  }
-
-  private static makeOverrideProps(
-    props: IPropData,
-    component: IComponent,
-    element: IElement,
-  ) {
-    return {
-      [DATA_COMPONENT_ID]: component.id,
-      [DATA_ELEMENT_ID]: component.rootElementId,
-      ...props,
+    const instanceProps = {
+      ...overrideProps,
+      [DATA_COMPONENT_ID]: clonedComponent.id,
+      [DATA_COMPONENT_INSTANCE_ID]: element.id,
     }
+
+    clonedComponent.props?.setMany(instanceProps)
+
+    ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
+
+    return this.renderer.renderIntermediateElement(rootElement)
   }
 
   private static logRootElementNotFound(

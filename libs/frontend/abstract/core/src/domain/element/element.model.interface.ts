@@ -77,13 +77,14 @@ export interface IElement
    */
   rootElement: IElement
   /**
-   * the tree's root element
-   */
-  currentComponentInstanceElement: Maybe<IElement>
-  /**
    * id of component or page's tree that element belong to
    */
   baseId: string
+  /**
+   * to render a component we create a duplicate for each element
+   * keeps track of source element in case this is a duplicate
+   */
+  sourceElementId: Nullable<string>
 
   detachNextSibling(): () => void
   detachPrevSibling(): () => void
@@ -108,6 +109,15 @@ export interface IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   setOrderInParent(order: number | null): void
   setSlug(slug: string): void
+  setAtom(atom: Ref<IAtom>): void
+  setSourceElementId(id: string): void
+  setParentComponent(componentRef: Ref<IComponent>): void
+  setParentId(parentId: Nullable<string>): void
+  setNextSiblingId(nextSiblingId: Nullable<string>): void
+  setPrevSiblingId(prevSiblingId: Nullable<string>): void
+  setFirstChildId(firstChildId: Nullable<string>): void
+  setProps(props: Nullable<IProp>): void
+  setRenderComponentType(componentRef: Ref<IComponent>): void
   /**
    * Keeps the ref in place
    */

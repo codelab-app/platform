@@ -5,7 +5,6 @@ import type {
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
   IElement,
-  IElementDTO,
   IElementRef,
   IElementService,
   IInterfaceType,
@@ -14,6 +13,7 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
+  IElementDTO,
   isAtomDTO,
   isComponentDTO,
   RenderTypeEnum,
@@ -82,6 +82,7 @@ export class ElementService
      * - Elements that are detached
      */
     elements: prop(() => objectMap<IElement>()),
+    clonedElements: prop(() => objectMap<IElement>()),
     createModal: prop(() => new CreateElementModalService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
@@ -179,6 +180,7 @@ export class ElementService
 
     if (elementModel) {
       elementModel.writeCache(element)
+      this.writeClonesCache(element)
     } else {
       elementModel = Element.hydrate(element)
       this.elements.set(element.id, elementModel)
@@ -294,7 +296,7 @@ export class ElementService
 
   @modelAction
   public element(id: string) {
-    return this.elements.get(id)
+    return this.elements.get(id) || this.clonedElements.get(id)
   }
 
   @modelFlow
@@ -785,7 +787,7 @@ element is new parentElement's first child
           return []
         }
 
-        const idsToDelete = [
+        const idsToDelete: Array<string> = [
           elementTrees[0].id,
           ...elementTrees[0].descendantElements.map((element) => element.id),
         ]
@@ -798,6 +800,7 @@ element is new parentElement's first child
 
         for (const id of idsToDelete.reverse()) {
           this.elements.delete(id)
+          this.removeClones(id)
         }
 
         const {
@@ -1120,4 +1123,25 @@ element is new parentElement's first child
 
     return propMapBinding
   })
+
+  @modelAction
+  writeClonesCache(elementFragment: IElementDTO) {
+    return [...this.clonedElements.values()]
+      .filter((c) => c.sourceElementId === elementFragment.id)
+      .map((e) =>
+        e.writeCache({
+          ...elementFragment,
+          parentComponent: e.parentComponent?.current
+            ? { id: e.parentComponent.current.id }
+            : undefined,
+        }),
+      )
+  }
+
+  @modelAction
+  removeClones(elementId: string) {
+    return [...this.clonedElements.entries()]
+      .filter(([_, component]) => component.sourceElementId === elementId)
+      .forEach(([id]) => this.clonedElements.delete(id))
+  }
 }

@@ -1,16 +1,35 @@
 import type {
   IComponent,
   IComponentDTO,
+  IElement,
+  IInterfaceType,
   IProp,
 } from '@codelab/frontend/abstract/core'
 import { COMPONENT_NODE_TYPE } from '@codelab/frontend/abstract/core'
-import { ElementTreeService } from '@codelab/frontend/domain/element'
+import { atomRef } from '@codelab/frontend/domain/atom'
+import {
+  ElementTree,
+  ElementTreeService,
+} from '@codelab/frontend/domain/element'
 import { Prop } from '@codelab/frontend/domain/prop'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
+import {
+  componentRef,
+  getComponentService,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, idProp, model, prop } from 'mobx-keystone'
+import {
+  clone,
+  ExtendedModel,
+  idProp,
+  model,
+  modelAction,
+  prop,
+} from 'mobx-keystone'
+import { v4 } from 'uuid'
 
 const hydrate = (component: IComponentDTO) => {
   const apiRef = typeRef(component.api.id) as Ref<InterfaceType>
@@ -40,6 +59,8 @@ export class Component
     api: prop<Ref<InterfaceType>>(),
     props: prop<Nullable<IProp>>(null),
     childrenContainerElementId: prop<string>(),
+    // if this is a duplicate, trace source component id else null
+    sourceComponentId: prop<Nullable<string>>(null).withSetter(),
   })
   implements IComponent
 {
@@ -64,5 +85,89 @@ export class Component
     this.childrenContainerElementId = fragment.childrenContainerElement.id
 
     return this
+  }
+
+  /**
+   * @param elements  All elements are assumed to be cached before being used here
+   */
+  @modelAction
+  cloneTree(clonedComponentId: string, cloneIndex: number) {
+    console.debug('ElementTreeService.cloneTree', this.elementTree.elementsList)
+
+    const elementService = getElementService(this)
+    const componentService = getComponentService(this)
+    const elementMap: Map<string, string> = new Map()
+
+    const elements = this.elementTree.elementsList
+      .map((e) => {
+        const clonedElement = clone<IElement>(e, { generateNewIds: true })
+        clonedElement.setSlug(`${e.slug}.${cloneIndex}`)
+        clonedElement.setSourceElementId(e.id)
+
+        if (e.atom) {
+          clonedElement.setAtom(atomRef(e.atom.id))
+        }
+
+        if (e.props) {
+          clonedElement.setProps(
+            Prop.hydrate({
+              id: v4(),
+              data: e.props.jsonString,
+              apiRef: e.props.apiRef?.id
+                ? (typeRef(e.props.apiRef.id) as Ref<IInterfaceType>)
+                : undefined,
+            }),
+          )
+        }
+
+        if (e.renderComponentType?.current) {
+          const clonedComponent = componentService.cloneComponentTree(
+            clonedElement,
+            e.renderComponentType.current,
+          )
+
+          clonedElement.setRenderComponentType(componentRef(clonedComponent.id))
+        }
+
+        // store elements in elementService
+        elementService.clonedElements.set(clonedElement.id, clonedElement)
+
+        // keep trace of copies to update parents
+        elementMap.set(e.id, clonedElement.id)
+
+        return clonedElement
+      })
+      .map((element) => {
+        element.setParentId(
+          (element.parentId && elementMap.get(element.parentId)) || null,
+        )
+        element.setNextSiblingId(
+          (element.nextSiblingId && elementMap.get(element.nextSiblingId)) ||
+            null,
+        )
+        element.setPrevSiblingId(
+          (element.prevSiblingId && elementMap.get(element.prevSiblingId)) ||
+            null,
+        )
+        element.setFirstChildId(
+          (element.firstChildId && elementMap.get(element.firstChildId)) ||
+            null,
+        )
+
+        return element
+      })
+
+    const rootElementId = this.elementTree.root?.id
+      ? elementMap.get(this.elementTree.root.id)
+      : null
+
+    const rootElement = elements.find((e) => e.id === rootElementId)
+    rootElement?.setParentComponent(componentRef(clonedComponentId))
+
+    if (!rootElement) {
+      throw new Error('rootElement not found')
+    }
+
+    return ElementTree.init(rootElement, elements)
   }
 }

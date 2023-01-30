@@ -12,6 +12,7 @@ import type {
   IQueryService,
 } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
+import type { IElement } from '../element'
 import type {
   IComponentDTO,
   ICreateComponentDTO,
@@ -42,4 +43,5 @@ component
   loadRenderedComponentsTree(
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ): void
+  cloneComponentTree(element: IElement, component: IComponent): IComponent
 }
