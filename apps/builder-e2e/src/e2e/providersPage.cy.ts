@@ -69,6 +69,11 @@ describe('_app page', () => {
     cy.getModal().findByLabelText('Name').type(CONFIG_PROVIDER_NAME)
     cy.getModal().findByLabelText('Slug').type(slugify(CONFIG_PROVIDER_NAME))
     cy.getModal().setFormFieldValue({
+      label: 'Render Type',
+      value: 'Atom',
+      type: FIELD_TYPE.SELECT,
+    })
+    cy.getModal().setFormFieldValue({
       label: 'Atom',
       value: IAtomType.AntDesignConfigProvider,
       type: FIELD_TYPE.SELECT,
