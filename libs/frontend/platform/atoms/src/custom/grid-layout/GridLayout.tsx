@@ -1,7 +1,7 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { ObjectTyped } from 'object-typed'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 
@@ -15,11 +15,6 @@ export interface RenderedComponentProps {
 export const GridLayout = React.memo(
   ({ children, ...restProps }: ResponsiveProps & RenderedComponentProps) => {
     const elementId = restProps[DATA_ELEMENT_ID]
-    const isComponentMountedFirstTime = useRef(false)
-    useEffect(() => {
-      isComponentMountedFirstTime.current = true
-    }, [])
-
     const { elementService } = useStore()
 
     const rglChildren = useMemo(() => {
@@ -40,10 +35,9 @@ export const GridLayout = React.memo(
 
       if (restProps.static) {
         ObjectTyped.keys(layouts).forEach((key) => {
-          layouts[key] = layouts[key]?.map((ele) => ({
-            ...ele,
-            static: restProps.static,
-          })) as Array<Layout>
+          layouts[key]?.forEach((ele) => {
+            ele.static = restProps.static
+          })
         })
       }
 
@@ -81,8 +75,7 @@ export const GridLayout = React.memo(
     }
 
     const onLayoutChange = (_layout: Array<Layout>, allLayouts: Layouts) => {
-      // callback is called on initial render. We want to handle onChange after it's changed by user's reaction
-      if (!isComponentMountedFirstTime.current || restProps.static) {
+      if (restProps.static) {
         return
       }
 
@@ -119,6 +112,7 @@ export const GridLayout = React.memo(
         containerPadding={[0, 0]}
         layouts={makeLayouts()}
         margin={[0, 0]}
+        measureBeforeMount
         onLayoutChange={onLayoutChange}
         rowHeight={restProps.rowHeight || 30}
       >

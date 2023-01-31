@@ -5047,17 +5047,53 @@
     },
     {
       "__typename": "EnumType",
-      "id": "f6bc0bbc-9656-4879-9664-a31fb9bfe4be",
+      "id": "d385f44f-c0e0-4dba-bcf5-f5f1b3996507",
       "kind": "EnumType",
-      "name": "GridLayout Enum",
+      "name": "GridLayout Breakpoints",
       "allowedValues": [
         {
-          "id": "07f80427-419f-4262-84d4-f8f665bdb3b9",
+          "id": "5f85f55f-0f9e-43f7-a48c-5d82fdb6fb76",
           "key": "number",
           "value": "number"
         },
         {
-          "id": "88f29648-92bb-48a2-b5b3-3c18f64fb227",
+          "id": "51a994e2-f73d-4df3-a7d4-8c2faa36ac4c",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0f77764b-79ac-45d4-9965-2f52152321ab",
+      "kind": "EnumType",
+      "name": "GridLayout Cols",
+      "allowedValues": [
+        {
+          "id": "303d1db7-2389-4a89-9d13-8ad62ad61a20",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "0a13772b-8f96-49d6-997f-8a6681393c28",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f6bc0bbc-9656-4879-9664-a31fb9bfe4be",
+      "kind": "EnumType",
+      "name": "GridLayout Layouts",
+      "allowedValues": [
+        {
+          "id": "ce0176f1-f0ab-4854-885c-a5312fe7fd46",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "2f66ef87-a7a6-4bc8-b394-5cb64ebbad57",
           "key": "object",
           "value": "object"
         }
@@ -15109,44 +15145,64 @@
     },
     {
       "__typename": "InterfaceType",
-      "id": "222dbb1a-e029-48a2-9c27-94d6b6f477a2",
-      "kind": "InterfaceType",
-      "name": "ReactFragment API",
-      "fields": [
-        {
-          "id": "c8930cf4-8fdd-4bd8-89ad-b18b80f94e79",
-          "key": "children",
-          "name": null,
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "ReactNodeType",
-            "id": "e8f65a67-56c4-47be-94ce-88c1e2905d52",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
-          }
-        }
-      ]
-    },
-    {
-      "__typename": "InterfaceType",
       "id": "cc75e449-a7b8-4422-8de3-59272d9914f3",
       "kind": "InterfaceType",
       "name": "GridLayout API",
       "fields": [
         {
-          "id": "262e54a2-99f9-4c6c-972e-0c5f5d4e88a2",
-          "key": "layouts",
-          "name": null,
+          "id": "0a0ac014-6cc4-472c-8f58-2e13b31b4fd2",
+          "key": "breakpoints",
+          "name": "Breakpoints",
+          "description": "",
+          "validationRules": "{}",
+          "defaultValues": "null",
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "d385f44f-c0e0-4dba-bcf5-f5f1b3996507",
+            "kind": "EnumType",
+            "name": "GridLayout Breakpoints"
+          }
+        },
+        {
+          "id": "1e57e1f8-7c87-40f0-a802-e03bde96e341",
+          "key": "cols",
+          "name": "Cols",
           "description": null,
           "validationRules": "{}",
-          "defaultValues": null,
+          "defaultValues": "null",
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "0f77764b-79ac-45d4-9965-2f52152321ab",
+            "kind": "EnumType",
+            "name": "GridLayout Cols"
+          }
+        },
+        {
+          "id": "262e54a2-99f9-4c6c-972e-0c5f5d4e88a2",
+          "key": "layouts",
+          "name": "Layouts",
+          "description": null,
+          "validationRules": "{}",
+          "defaultValues": "null",
           "fieldType": {
             "__typename": "EnumType",
             "id": "f6bc0bbc-9656-4879-9664-a31fb9bfe4be",
             "kind": "EnumType",
-            "name": "GridLayout Enum"
+            "name": "GridLayout Layouts"
+          }
+        },
+        {
+          "id": "5a9c9738-9bcb-465a-a2c3-497daccf0ad0",
+          "key": "rowHeight",
+          "name": "RowHeight",
+          "description": null,
+          "validationRules": "{}",
+          "defaultValues": "0",
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "63b5f2d1-a6a7-4feb-8867-575a640a09c5",
+            "kind": "PrimitiveType",
+            "name": "Integer"
           }
         }
       ]
