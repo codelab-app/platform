@@ -351,8 +351,6 @@ export class Renderer
       extraProps,
     )
 
-    console.log(props)
-
     props = this.processPropsForRender(props, element)
 
     return this.renderPipe.render(element, props)
@@ -386,11 +384,11 @@ export class Renderer
     const isContainer =
       element.id === parentComponent?.childrenContainerElementId
 
-    if (!isContainer || !parentComponent.instanceElement) {
+    if (!isContainer || !parentComponent.instanceElement?.current) {
       return []
     }
 
-    return parentComponent.instanceElement.children
+    return parentComponent.instanceElement.current.children
   }
 
   /**

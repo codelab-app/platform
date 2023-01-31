@@ -1,4 +1,4 @@
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { INodeType } from '../../base'
 import type { ICacheService } from '../../service'
@@ -18,13 +18,14 @@ export interface IComponent
   ownerId: string
   api: Ref<IInterfaceType>
   props?: Nullable<IProp>
-  instanceElement: Maybe<IElement>
+  instanceElement: Nullable<Ref<IElement>>
   /**
    * to render a component we create a duplicate for each instance
    * keeps track of source component in case this is a duplicate
    */
   sourceComponentId?: Nullable<string>
   setSourceComponentId: (id: string) => void
+  setInstanceElement: (elementRef: Ref<IElement>) => void
   cloneTree(clonedComponentId: string, cloneIndex: number): IElementTree
 }
 

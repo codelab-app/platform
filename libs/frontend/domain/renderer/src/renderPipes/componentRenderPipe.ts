@@ -6,10 +6,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import {
-  DATA_COMPONENT_ID,
-  DATA_COMPONENT_INSTANCE_ID,
-} from '@codelab/frontend/abstract/core'
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
@@ -60,7 +57,6 @@ export class ComponentRenderPipe
     const instanceProps = {
       ...overrideProps,
       [DATA_COMPONENT_ID]: clonedComponent.id,
-      [DATA_COMPONENT_INSTANCE_ID]: element.id,
     }
 
     clonedComponent.props?.setMany(instanceProps)

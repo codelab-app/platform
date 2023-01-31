@@ -11,6 +11,7 @@ import {
   IComponentDTO,
   IElement,
 } from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
@@ -92,6 +93,7 @@ export class ComponentService
     const componentInstance: IComponent = clone<IComponent>(component)
 
     componentInstance.setSourceComponentId(component.id)
+    componentInstance.setInstanceElement(elementRef(element.id))
 
     this.clonedComponents.set(element.id, componentInstance)
 

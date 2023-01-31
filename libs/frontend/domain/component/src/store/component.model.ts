@@ -5,10 +5,7 @@ import type {
   IInterfaceType,
   IProp,
 } from '@codelab/frontend/abstract/core'
-import {
-  COMPONENT_NODE_TYPE,
-  DATA_COMPONENT_INSTANCE_ID,
-} from '@codelab/frontend/abstract/core'
+import { COMPONENT_NODE_TYPE } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import {
   ElementTree,
@@ -48,6 +45,7 @@ const hydrate = (component: IComponentDTO) => {
       ? Prop.hydrate({ ...component.props, apiRef })
       : null,
     childrenContainerElementId: component.childrenContainerElement.id,
+    instanceElement: null,
   })
 }
 
@@ -65,6 +63,8 @@ export class Component
     childrenContainerElementId: prop<string>(),
     // if this is a duplicate, trace source component id else null
     sourceComponentId: prop<Nullable<string>>(null).withSetter(),
+    // element which this component is attached to.
+    instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
   })
   implements IComponent
 {
@@ -94,13 +94,6 @@ export class Component
   @computed
   get elementService() {
     return getElementService(this)
-  }
-
-  @computed
-  get instanceElement() {
-    return this.elementService.element(
-      this.props?.values[DATA_COMPONENT_INSTANCE_ID],
-    )
   }
 
   /**
