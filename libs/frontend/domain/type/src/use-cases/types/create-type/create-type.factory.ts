@@ -8,7 +8,7 @@ import {
   makeAllowedValuesCreateInput,
   makeItemTypeCreateInput,
   makeTypesOfUnionTypeCreateInput,
-} from '@codelab/shared/data'
+} from '@codelab/shared/domain/mapper'
 
 export const createTypeFactory = (
   types: Array<ICreateTypeDTO>,

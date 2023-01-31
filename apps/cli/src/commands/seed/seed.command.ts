@@ -1,19 +1,18 @@
+import type { IUserRef } from '@codelab/backend/abstract/core'
+import { SeedAtomsService } from '@codelab/backend/application/atom'
+import { SeedTagsService } from '@codelab/backend/application/tag'
+import {
+  SeedAntDesignApiService,
+  SeedAntDesignFieldsService,
+  SeedSystemTypeService,
+} from '@codelab/backend/application/type'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { createSeedTypesData, createTagSeedData } from '@codelab/shared/data'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import { assignUserOption, upsertUserMiddleware } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Stage } from '../../shared/utils/stage'
-import { importAtoms } from '../../use-cases/import/import-atoms'
-import { importFields } from '../../use-cases/import/import-fields'
-import { importTags } from '../../use-cases/import/import-tags'
-import { importTypes } from '../../use-cases/import/import-types'
-import { createApiData } from '../../use-cases/seed/data/ant-design-api.data'
-import { createAtomData } from '../../use-cases/seed/data/atom.data'
-import { createExistingData } from '../../use-cases/seed/data/existing.data'
-import { parseFields } from './parse-and-import-fields'
 
 interface ParseProps {
   email?: string
@@ -30,62 +29,22 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
         ...assignUserOption,
       })
       .middleware([loadStageMiddleware, upsertUserMiddleware]),
-  handler: async ({ email }) => {
-    const User = await Repository.instance.User
+  handler: async () => {
+    const selectedAuth0Id: string = (
+      await inquirer.prompt([await selectUserPrompt()])
+    ).selectedAuth0Id
 
-    const selectedUserId = email
-      ? (await User.find({ where: { email } }))[0]?.id
-      : (await inquirer.prompt([await selectUserPrompt()])).selectedUserId
+    const user: IUserRef = { auth0Id: selectedAuth0Id }
 
-    if (!selectedUserId) {
-      throw new Error('User not found!')
-    }
+    await new SeedSystemTypeService().execute(user)
 
-    /**
-     * (1) First all our types first
-     */
-    await importTypes(
-      [
-        // Import base types first
-        ...createSeedTypesData(),
-        // Then interfaces
-        ...createApiData(await createExistingData()),
-      ],
-      selectedUserId,
-      (type) => ({
-        name: type.name,
-      }),
-    )
+    await new SeedAntDesignApiService().execute(user)
 
-    /**
-     * (2) Import tag tree
-     */
-    await importTags(createTagSeedData(), selectedUserId)
+    await new SeedTagsService().execute(user)
 
-    /**
-     * (3) Then import all atoms, and assign tags
-     */
-    await importAtoms({
-      // We need to re-fetch data here, since the previous steps may have created interfaces
-      atoms: createAtomData(await createExistingData()),
-      userId: selectedUserId,
-      atomWhere: (atom) => ({
-        name: atom.name,
-      }),
-      tagWhere: (tag) => ({
-        name: tag.name,
-      }),
-    })
+    await new SeedAtomsService().execute(user)
 
-    /**
-     * (4) Then parse and import the Ant Design interfaces
-     */
-    const parsedData = await parseFields(
-      selectedUserId,
-      await createExistingData(),
-    )
-
-    await importFields(parsedData)
+    await (await SeedAntDesignFieldsService.init(user)).execute()
 
     return process.exit(0)
   },

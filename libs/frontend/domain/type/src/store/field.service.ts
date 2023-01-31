@@ -11,7 +11,7 @@ import type {
   FieldFragment,
   FieldUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { connectNode, reconnectNode } from '@codelab/shared/data'
+import { connectNode, reconnectNode } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,

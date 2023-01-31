@@ -1,5 +1,5 @@
+import { resetDatabase } from '@codelab/backend/domain/admin'
 import type { CommandModule } from 'yargs'
-import { resetDatabase } from '../../repository/admin.repo'
 
 export const resetCommand: CommandModule<unknown, unknown> = {
   command: 'reset',

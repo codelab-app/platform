@@ -22,7 +22,7 @@ import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
 import type { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {

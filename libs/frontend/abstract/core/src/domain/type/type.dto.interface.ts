@@ -7,7 +7,12 @@ import type {
 import type { TypeFragment } from './fragments'
 import type { IEnumTypeValue } from './types'
 
-export interface IBaseTypeDTO {
+/**
+ * This keeps the form easier, and reduce the number of type services. However we get less fine-grained data validation with Zod in the backend during import/export.
+ *
+ * For the backend, we'll create a type for each sub-type.
+ */
+export interface IAllTypeDTO {
   id: string
   name: string
   kind: ITypeKind
@@ -22,13 +27,13 @@ export interface IBaseTypeDTO {
 /**
  * Create
  */
-export interface ICreateTypeDTO extends IBaseTypeDTO {
+export interface ICreateTypeDTO extends IAllTypeDTO {
   auth0Id: string
 }
 
 /**
  * Update
  */
-export type IUpdateTypeDTO = IBaseTypeDTO
+export type IUpdateTypeDTO = IAllTypeDTO
 
 export type ITypeDTO = TypeFragment

@@ -1,14 +1,15 @@
 import type { ExistingData, ITypeExport } from '@codelab/backend/abstract/core'
-import { fieldRepository } from '@codelab/backend/application'
+import { fieldRepository } from '@codelab/backend/domain/type'
 import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { logSection } from '../../shared/utils/log-task'
+import { logSection, logTask } from '@codelab/shared/utils'
 
 export const importFields = async (createFieldsDTO: Array<ICreateFieldDTO>) => {
   logSection('Import Fields')
 
   for await (const field of createFieldsDTO) {
     // logger.info('Upsert Field', { field })
+    logTask('Upsert Field', field.key, field)
 
     await fieldRepository.upsertField(
       {

@@ -1,4 +1,4 @@
-import type { ITagExport } from '@codelab/backend/abstract/core'
+import type { ITag } from '@codelab/backend/abstract/core'
 import {
   Repository,
   tagSelectionSet,
@@ -13,5 +13,5 @@ export const exportTags = async () => {
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
-  })) as Array<ITagExport>
+  })) as Array<ITag>
 }

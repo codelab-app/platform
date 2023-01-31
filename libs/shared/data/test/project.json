@@ -1,0 +1,16 @@
+{
+  "name": "shared-data-test",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/data/test/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/data/test/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

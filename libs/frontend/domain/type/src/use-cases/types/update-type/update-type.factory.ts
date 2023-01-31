@@ -9,7 +9,7 @@ import {
   makeItemTypeCreateInput,
   makeTypesOfUnionTypeCreateInput,
   makeTypesOfUnionTypeDisconnectInput,
-} from '@codelab/shared/data'
+} from '@codelab/shared/domain/mapper'
 
 export const updateTypeInputFactory = (
   type: IUpdateTypeDTO,

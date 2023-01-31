@@ -16,7 +16,7 @@ import {
   connectNode,
   disconnectNode,
   reconnectNode,
-} from '@codelab/shared/data'
+} from '@codelab/shared/domain/mapper'
 import { isNil } from 'ramda'
 import { v4 } from 'uuid'
 

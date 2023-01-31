@@ -14,7 +14,7 @@ export const exportSeedData = async () => {
     .map((atom) => ({
       ...atom,
       allowedChildren: atom.allowedChildren.sort((a, b) =>
-        a.name.localeCompare(b.name),
+        a.id.localeCompare(b.id),
       ),
     }))
 
@@ -22,7 +22,7 @@ export const exportSeedData = async () => {
     // Sort children values
     .map((tag) => ({
       ...tag,
-      children: tag.children?.sort((a, b) => a.id.localeCompare(b.id)),
+      children: tag.children.sort((a, b) => a.id.localeCompare(b.id)),
     }))
 
   const seedData: Omit<

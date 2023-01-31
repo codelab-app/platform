@@ -6,8 +6,10 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { exportCommand } from './commands/export/export.command'
 import { importCommand } from './commands/import/import.command'
+import { parseHtmlCommand } from './commands/parse/parse-html.command'
 import { resetCommand } from './commands/reset/reset.command'
-import { scrapeCommand } from './commands/scrape/scrape.command'
+import { scrapeAntdCommand } from './commands/scrape/scrape-antd.command'
+import { scrapeHtmlCommand } from './commands/scrape/scrape-html.command'
 import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { terraformCommand } from './commands/terraform/terraform.command'
@@ -49,7 +51,10 @@ void yargs(hideBin(process.argv))
   /**
    * This uses puppeteer to scrape the API documentation as CSV file
    */
-  .command(scrapeCommand)
+  // .command(scrapeCommand)
+  .command('scrape', 'Antd / Html', (argv) =>
+    argv.command(scrapeAntdCommand).command(scrapeHtmlCommand),
+  )
 
   /**
    * Terraform
@@ -59,22 +64,9 @@ void yargs(hideBin(process.argv))
   /**
    * TS Parser
    */
-
-  // .command('parse-ts', 'Typescript prop types to Interface parse', (_yargs) => {
-  //   return _yargs.command(
-  //     'mui',
-  //     "Parses Material UI's component declarations",
-  //     (__yargs) =>
-  //       __yargs.option('dir', {
-  //         type: 'string',
-  //         alias: 'd',
-  //         required: true,
-  //         describe:
-  //           'The root directory where MUI is downloaded, e.g. ~/material-ui',
-  //       }),
-  //     (argv) => runCli(Env.Dev, `parse-ts mui -d ${argv.dir}`),
-  //   )
-  // })
+  .command('parse', 'Parse Typescript interface to JSON Schema', (argv) =>
+    argv.command(parseHtmlCommand).demandCommand(1, 'Please provide a target'),
+  )
 
   .demandCommand(1, 'Please provide a command')
   // Must add this to throw error for unknown arguments

@@ -1,4 +1,4 @@
-import { tagRepository } from '@codelab/backend/application'
+import { tagRepository } from '@codelab/backend/domain/tag'
 import type { Transaction } from 'neo4j-driver'
 
 export const tagDescendants =

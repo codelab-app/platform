@@ -1,7 +1,7 @@
 import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
 import { BuilderDndType, RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
-import { antDesignIconPrefix } from '@codelab/shared/data'
+import { antDesignIconPrefix } from '@codelab/shared/data/seed'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'

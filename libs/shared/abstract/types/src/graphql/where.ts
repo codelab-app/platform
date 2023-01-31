@@ -1,9 +1,9 @@
 export type BaseUniqueWhere =
   | {
-      id: string
+      name: string
     }
   | {
-      name: string
+      id: string
     }
 
 export type BaseUniqueWhereCallback<T, R = BaseUniqueWhere> = (data: T) => R

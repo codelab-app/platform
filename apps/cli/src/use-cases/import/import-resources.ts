@@ -1,6 +1,6 @@
 import type { IResourceExport } from '@codelab/backend/abstract/core'
-import { createResource } from '../../repository/resource.repo'
-import { logSection, logTask } from '../../shared/utils/log-task'
+import { createResource } from '@codelab/backend/domain/resource'
+import { logSection, logTask } from '@codelab/shared/utils'
 
 export const importResources = async (
   resources: Array<IResourceExport> = [],

@@ -1,13 +1,9 @@
 import type { ExportAppWhere, IAppExport } from '@codelab/backend/abstract/core'
+import { getApp } from '@codelab/backend/domain/app'
 import {
   appSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { getApp } from '../../repository/app.repo'
-
-export interface ExportAppData {
-  app: IAppExport
-}
 
 export const exportApps = async ({ appIds }: ExportAppWhere) => {
   const App = await Repository.instance.App

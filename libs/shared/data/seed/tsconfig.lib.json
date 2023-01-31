@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "../../../../dist/out-tsc",
+    "declaration": true,
+    "types": ["node"]
+  },
+  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
+  "include": [
+    "**/*.ts",
+    "../../domain/mapper/src/type/type-input.factory.ts",
+    "../test/src/atoms.data.ts",
+    "../../../../apps/cli/src/use-cases/seed/existing.data.ts",
+    "../../../backend/application/type/src/use-case/system-types.data.ts",
+    "../../../backend/application/app/src/use-case/seed-atoms/atom.data.ts"
+  ]
+}

@@ -30,5 +30,5 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../coverage/apps/builder',
   displayName: 'builder',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 }

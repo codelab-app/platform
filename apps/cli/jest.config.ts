@@ -1,7 +1,7 @@
 /* eslint-disable */
 module.exports = {
   displayName: 'cli',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',

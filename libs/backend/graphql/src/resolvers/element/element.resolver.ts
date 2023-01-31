@@ -1,4 +1,4 @@
-import { elementRepository } from '@codelab/backend/application'
+import { elementRepository } from '@codelab/backend/domain/element'
 import type { Transaction } from 'neo4j-driver'
 
 /**

@@ -110,7 +110,6 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
               />
             </DisplayIfField>
           </DisplayIfField>
-
           <DisplayIfField<ICreateFieldDTO>
             condition={({ model }) =>
               !isInterfaceType(typeService, model.fieldType)

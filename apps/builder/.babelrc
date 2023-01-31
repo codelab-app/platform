@@ -14,7 +14,13 @@
   ],
   "plugins": [
     "@emotion",
-    "macros"
+    "macros",
+    [
+      "@babel/plugin-transform-typescript",
+      {
+        "allowDeclareFields": true
+      }
+    ]
     // [
     //   "import",
     //   {

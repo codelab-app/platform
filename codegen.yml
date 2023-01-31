@@ -37,6 +37,7 @@ generates:
     config:
       #      constEnums: true
       inlineFragmentTypes: combine
+      # enumsAsTypes: true
       namingConvention:
         enumValues: keep
   #        dedupeFragments: true

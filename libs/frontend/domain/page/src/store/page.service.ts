@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import { connectNode, reconnectNode } from '@codelab/shared/data'
+import { connectNode, reconnectNode } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,

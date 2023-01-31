@@ -4,7 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "module": "ESNext",
     "strict": true,
-    "types": ["node", "worker-loader", "@fancyapps/ui", "cypher"],
+    "types": ["node", "worker-loader", "cypher"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "preserve",
@@ -18,5 +18,10 @@
     "useDefineForClassFields": true
   },
   "exclude": ["**/*.spec.ts", "jest.config.ts"],
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "../../libs/backend/application/atom/src/use-case/import-atoms/import-atoms.service.ts",
+    "../../libs/backend/application/type/src/use-case/seed-ant-design-fields/seed-ant-design-fields.service.ts",
+    "../../libs/backend/application/type/src/use-case/seed-ant-design-fields/parse-and-import-fields.ts"
+  ]
 }

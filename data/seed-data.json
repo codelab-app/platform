@@ -15206,6 +15206,28 @@
           }
         }
       ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "cc75e449-a7b8-4422-8de3-59272d9914f3",
+      "kind": "InterfaceType",
+      "name": "GridLayout API",
+      "fields": [
+        {
+          "id": "262e54a2-99f9-4c6c-972e-0c5f5d4e88a2",
+          "key": "layouts",
+          "name": null,
+          "description": null,
+          "validationRules": "{}",
+          "defaultValues": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "f6bc0bbc-9656-4879-9664-a31fb9bfe4be",
+            "kind": "EnumType",
+            "name": "GridLayout Enum"
+          }
+        }
+      ]
     }
   ],
   "tags": [

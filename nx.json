@@ -94,7 +94,12 @@
       "inputs": ["production", "^production"]
     },
     "test": {
-      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/jest.preset.js",
+        "{workspaceRoot}/jest.preset.js"
+      ]
     },
     "e2e": {
       "inputs": ["default", "^default"]
@@ -111,6 +116,11 @@
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/tsconfig.base.json"
     ],
-    "production": ["default"]
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s"
+    ]
   }
 }

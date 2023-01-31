@@ -16,7 +16,7 @@ import type {
   StoreCreateInput,
 } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNode, connectOwner } from '@codelab/shared/data'
+import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
 import capitalize from 'lodash/capitalize'
 import { v4 } from 'uuid'
 

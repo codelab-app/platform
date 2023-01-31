@@ -3,7 +3,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'

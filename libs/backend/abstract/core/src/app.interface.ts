@@ -22,6 +22,10 @@ export interface IDomainExport {
   }
 }
 
+export interface ExportAppData {
+  app: IAppExport
+}
+
 // export type IPageExport = {
 //   id: string
 //   name: string

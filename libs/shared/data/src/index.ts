@@ -1,5 +1,0 @@
-export * from './app'
-export * from './atom'
-export * from './shared'
-export * from './tag'
-export * from './type'

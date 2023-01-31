@@ -1,4 +1,4 @@
-import { atomRepository } from '@codelab/backend/application'
+import { atomRepository } from '@codelab/backend/domain/atom'
 import type { GetAtomsQueryVariables } from '@codelab/shared/abstract/codegen'
 import type { Transaction } from 'neo4j-driver'
 

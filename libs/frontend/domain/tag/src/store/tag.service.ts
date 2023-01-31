@@ -9,7 +9,7 @@ import type {
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
-import { connectNode, connectOwner } from '@codelab/shared/data'
+import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {

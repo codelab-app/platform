@@ -2,8 +2,8 @@ import type { IDomainExport } from '@codelab/backend/abstract/core'
 import {
   addVercelDomain,
   createDomainIfNotExist,
-} from '../../repository/domain.repo'
-import { logSection } from '../../shared/utils/log-task'
+} from '@codelab/backend/domain/domain'
+import { logSection } from '@codelab/shared/utils'
 
 export const importDomains = async (domain: IDomainExport) => {
   logSection('Importing Domains')

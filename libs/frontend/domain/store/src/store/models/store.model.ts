@@ -89,12 +89,12 @@ export class Store
   }
 
   @computed
-  get _defaultValues() {
+  private get _defaultValues() {
     return this.api.current.defaultValues
   }
 
   @computed
-  get _actionsRunners() {
+  private get _actionsRunners() {
     return this.actions
       .map((a) => ({ [a.name]: { run: a.createRunner(this.state) } }))
       .reduce(merge, {})

@@ -1,4 +1,4 @@
-import { typeRepository } from '@codelab/backend/application'
+import { typeRepository } from '@codelab/backend/domain/type'
 import type { QueryBaseTypesArgs } from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
 import type { GraphQLRequestContext } from 'graphql-request/dist/types'

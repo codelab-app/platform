@@ -1,11 +1,8 @@
-import type {
-  OGM_TYPES,
-  PrimitiveTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { IFieldDefaultValue, IFieldRef } from './field'
 import type { FieldFragment } from './fragments'
-import type { IInterfaceTypeRef } from './types'
+import type { IInterfaceTypeRef, ITypeRef } from './types'
 
 export enum GeneralValidationRules {
   Nullable = 'nullable',
@@ -56,21 +53,19 @@ export interface ICreateFieldDTO {
   name?: Nullish<string>
   description?: Nullish<string>
   validationRules?: Nullish<IValidationRules>
-  // Type of field specified by an interface id
-  fieldType: IInterfaceTypeRef
+  // Type of field specified by a type id
+  // TODO: Refactor fieldType to take in `{ id: string }`
+  fieldType: ITypeRef
+  // fieldType: {
+  //   id: ITypeRef
+  // }
   interfaceTypeId: IInterfaceTypeRef
-  defaultValues: Nullish<IFieldDefaultValue>
+  defaultValues?: Nullish<IFieldDefaultValue>
 }
 
 export type IUpdateFieldDTO = ICreateFieldDTO
-
-export interface IDeleteFieldDTO {
-  id: IFieldRef
-}
 
 /**
  * Props imply as input for something, in this case a model
  */
 export type IFieldDTO = FieldFragment
-
-export type IFieldExport = OGM_TYPES.Field

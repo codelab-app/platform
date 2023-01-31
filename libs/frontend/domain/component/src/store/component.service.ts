@@ -18,7 +18,7 @@ import type {
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { reconnectNode } from '@codelab/shared/data'
+import { reconnectNode } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,

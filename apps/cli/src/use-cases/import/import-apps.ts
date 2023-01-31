@@ -1,6 +1,6 @@
 import type { IAppExport } from '@codelab/backend/abstract/core'
-import { createApp } from '../../repository/app.repo'
-import { logSection, logTask } from '../../shared/utils/log-task'
+import { createApp } from '@codelab/backend/domain/app'
+import { logSection, logTask } from '@codelab/shared/utils'
 import { importDomains } from './import-domains'
 
 export const importApps = async (

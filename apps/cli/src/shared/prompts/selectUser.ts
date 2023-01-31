@@ -1,7 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 
 export interface SelectUserAnswer {
-  selectedUserId: string
+  selectedAuth0Id: string
 }
 
 export const selectUserPrompt = async () => {
@@ -10,11 +10,11 @@ export const selectUserPrompt = async () => {
 
   return {
     type: 'list',
-    name: 'selectedUserId',
+    name: 'selectedAuth0Id',
     message: 'Select which user to be owner of the app',
     choices: users.map((user) => ({
       name: user.email,
-      value: user.id,
+      value: user.auth0Id,
     })),
   }
 }

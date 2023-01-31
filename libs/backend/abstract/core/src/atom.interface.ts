@@ -1,28 +1,34 @@
-import type { IAtomType } from '@codelab/shared/abstract/core'
-import type { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import { IAtomType } from '@codelab/shared/abstract/core'
+import {
+  BaseUniqueWhereCallback,
+  EntitySchema,
+} from '@codelab/shared/abstract/types'
 import type { Assign } from 'utility-types'
+import { z } from 'zod'
 import type { ExistingData } from './seed'
-import type { ITagExport } from './tag.interface'
+import type { ITag } from './tag.interface'
+import { TagSchema } from './tag.interface'
+import { InterfaceTypeSchema } from './type'
 
-export interface IAtomExport {
-  icon?: string | null
-  id: string
-  name: string
-  type: IAtomType
-  api: {
-    id: string
-    /**
-     * Used for composite key lookup (along with field key), we can't depend on ID since it may be outdated
-     */
-    name: string
-  }
-  tags: Array<ITagExport>
-  allowedChildren: Array<{
-    id: string
-    // Used for sorting export data
-    name: string
-  }>
-}
+// export interface IAtomExport {
+//   icon?: string | null
+//   id: string
+//   name: string
+//   type: IAtomType
+//   api: {
+//     id: string
+//     /**
+//      * Used for composite key lookup (along with field key), we can't depend on ID since it may be outdated
+//      */
+//     name: string
+//   }
+//   tags: Array<ITag>
+//   allowedChildren: Array<{
+//     id: string
+//     // Used for sorting export data
+//     name: string
+//   }>
+// }
 
 /**
  * Shape it needs to be for import
@@ -40,8 +46,36 @@ export type IAtomImport = Assign<
 >
 
 export interface ImportAtoms {
-  atoms: Array<IAtomImport>
+  atoms: Array<IAtom>
   userId: string
-  atomWhere: BaseUniqueWhereCallback<IAtomImport>
-  tagWhere: BaseUniqueWhereCallback<ITagExport>
+  // atomWhere: BaseUniqueWhereCallback<IAtomImport>
+  // tagWhere: BaseUniqueWhereCallback<ITag>
 }
+
+export const AtomSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  icon: z.string().optional().nullable(),
+  type: z.nativeEnum(IAtomType),
+  api: InterfaceTypeSchema,
+  tags: z.array(TagSchema),
+  allowedChildren: z
+    .array(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .optional(),
+})
+
+export const AtomExportSchema = AtomSchema.merge(
+  z.object({
+    api: EntitySchema,
+    tags: z.array(EntitySchema),
+    allowedChildren: z.array(EntitySchema),
+  }),
+)
+
+export type IAtomExport = z.infer<typeof AtomExportSchema>
+
+export type IAtom = z.infer<typeof AtomSchema>

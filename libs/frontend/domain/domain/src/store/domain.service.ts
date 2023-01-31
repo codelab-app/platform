@@ -10,7 +10,7 @@ import type {
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectNode } from '@codelab/shared/data'
+import { connectNode } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,

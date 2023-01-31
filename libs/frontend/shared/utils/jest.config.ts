@@ -15,5 +15,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/shared/utils',
-  preset: '../../../../jest.preset.ts',
+  preset: '../../../../jest.preset.js',
 }

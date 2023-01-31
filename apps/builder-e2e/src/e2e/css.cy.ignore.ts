@@ -1,6 +1,6 @@
 import { createSlug } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
 

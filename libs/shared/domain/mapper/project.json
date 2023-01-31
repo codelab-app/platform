@@ -1,0 +1,16 @@
+{
+  "name": "shared-domain-mapper",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain/mapper/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/domain/mapper/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

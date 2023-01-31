@@ -24,7 +24,7 @@ import {
 
 export const baseTypesFactory = (type: BaseTypeFragment) => {
   // this is just a fallback
-  // except __typename, all fallback properties should be refeched later
+  // except __typename, all fallback properties should be refetched later
   switch (type.kind) {
     case ITypeKind.AppType:
       return AppType.hydrate({

@@ -11,7 +11,7 @@ import type {
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
