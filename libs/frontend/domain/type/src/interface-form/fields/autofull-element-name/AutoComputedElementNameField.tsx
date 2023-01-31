@@ -1,3 +1,7 @@
+import type {
+  IAtomService,
+  IComponentService,
+} from '@codelab/frontend/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import type { InputProps } from 'antd'
@@ -7,7 +11,6 @@ import { useAsyncFn } from 'react-use'
 import type { FieldProps } from 'uniforms'
 import { connectField, filterDOMProps } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
-import { interfaceFormApi } from '../../../store'
 
 type AutoComputedElementNameProps = FieldProps<
   string,
@@ -16,86 +19,98 @@ type AutoComputedElementNameProps = FieldProps<
   atomId?: string
   componentId?: string
   value?: string
+  componentService: IComponentService
+  atomService: IAtomService
   onChange: (value: string) => void
 }
 
-const useGetAtomById = () => {
-  const [{ value, loading, error }, getAtom] = useAsyncFn(
-    (id: Maybe<string>) => {
-      if (id) {
-        return interfaceFormApi.InterfaceForm_GetAtoms({
-          where: { id },
-        })
-      }
+const useComponentName = ({
+  componentId,
+  componentService,
+}: {
+  componentId: Maybe<string>
+  componentService: IComponentService
+}) => {
+  const [{ loading, error, value }, getComponent] = useAsyncFn((id: string) => {
+    return componentService.getOne(id)
+  })
 
-      return Promise.resolve({ atoms: [] })
-    },
-    [],
-  )
-
-  return { getAtom, retrievedAtom: value?.atoms[0], loading, error }
-}
-
-const useGetComponentById = () => {
-  const [{ value, loading, error }, getComponent] = useAsyncFn(
-    (id: Maybe<string>) => {
-      if (id) {
-        return interfaceFormApi.InterfaceForm_GetComponents({
-          where: {
-            id,
-          },
-        })
-      }
-
-      return Promise.resolve({ components: [] })
-    },
-    [],
-  )
+  useEffect(() => {
+    if (componentId) {
+      void getComponent(componentId)
+    }
+  }, [componentId, getComponent])
 
   return {
-    getComponent,
-    retrievedComponent: value?.components[0],
+    componentName: value?.name || '',
+    loading,
+    error,
+  }
+}
+
+const useAtomName = ({
+  atomId,
+  atomService,
+}: {
+  atomId: Maybe<string>
+  atomService: IAtomService
+}) => {
+  const [{ loading, error, value }, getAtom] = useAsyncFn((id: string) => {
+    return atomService.getOne(id)
+  })
+
+  useEffect(() => {
+    if (atomId) {
+      void getAtom(atomId)
+    }
+  }, [atomId, getAtom])
+
+  return {
+    atomName: value?.name || '',
     loading,
     error,
   }
 }
 
 const AutoComputedElementName = (props: AutoComputedElementNameProps) => {
-  const { name, error, atomId, componentId, value, onChange } = props
-  const { retrievedAtom, error: atomQueryError, getAtom } = useGetAtomById()
-
   const {
-    retrievedComponent,
-    error: componentQueryError,
-    getComponent,
-  } = useGetComponentById()
+    name,
+    atomId,
+    componentId,
+    value,
+    onChange,
+    componentService,
+    atomService,
+  } = props
 
   const [curValue, setCurValue] = useState(value || '')
 
-  useEffect(() => {
-    void getAtom(atomId)
-  }, [atomId, getAtom])
+  const { componentName } = useComponentName({
+    componentId,
+    componentService,
+  })
 
-  useEffect(() => {
-    void getComponent(componentId)
-  }, [componentId, getComponent])
+  const { atomName } = useAtomName({
+    atomId,
+    atomService,
+  })
 
   useEffect(() => {
     // The priority is given for the component because of how we render
     // elements. if a component and an atom is selected we render the
     // element as an instance of the component.
-    if (retrievedComponent) {
-      setCurValue(
-        compoundCaseToTitleCase(retrievedComponent.name).toLowerCase(),
-      )
-    } else if (retrievedAtom) {
-      setCurValue(compoundCaseToTitleCase(retrievedAtom.name).toLowerCase())
+    if (componentName) {
+      setCurValue(compoundCaseToTitleCase(componentName).toLowerCase())
+    } else if (atomName) {
+      setCurValue(compoundCaseToTitleCase(atomName).toLowerCase())
     } else {
       setCurValue(curValue || '')
     }
-  }, [retrievedComponent, retrievedAtom, componentId, atomId])
+  }, [componentName, atomName])
 
   useEffect(() => {
+    // Calls the params.onChange when the current value changes either
+    // by user input or when the selected atom or component change
     onChange(curValue)
   }, [curValue, onChange])
 
@@ -105,7 +120,7 @@ const AutoComputedElementName = (props: AutoComputedElementNameProps) => {
   }
 
   return wrapField(
-    { error: error && atomQueryError && componentQueryError, ...props },
+    props,
     <Input
       disabled={props.disabled}
       name={name}

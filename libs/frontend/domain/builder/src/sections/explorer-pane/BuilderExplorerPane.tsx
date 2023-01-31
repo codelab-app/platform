@@ -1,6 +1,7 @@
 import { ApartmentOutlined, DatabaseOutlined } from '@ant-design/icons'
 import type {
   IActionService,
+  IAtomService,
   IBuilderService,
   IComponentService,
   IElementService,
@@ -53,6 +54,7 @@ const { Panel } = Collapse
 
 interface BuilderMainPaneProps {
   componentService: IComponentService
+  atomService: IAtomService
   elementService: IElementService
   actionService: IActionService
   builderService: IBuilderService
@@ -71,6 +73,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     builderService,
     elementService,
     componentService,
+    atomService,
     actionService,
     userService,
     pageId,
@@ -247,6 +250,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
         {pageTree && (
           <CreateElementModal
             actionService={actionService}
+            atomService={atomService}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}

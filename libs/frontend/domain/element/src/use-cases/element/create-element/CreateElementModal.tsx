@@ -1,5 +1,6 @@
 import type {
   IActionService,
+  IAtomService,
   IBuilderService,
   IComponentService,
   ICreateElementDTO,
@@ -40,6 +41,7 @@ interface CreateElementModalProps {
   elementService: IElementService
   userService: IUserService
   componentService: IComponentService
+  atomService: IAtomService
   storeId: string
 }
 
@@ -55,6 +57,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     userService,
     pageTree,
     renderService,
+    componentService,
+    atomService,
   }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
       const { prevSiblingId } = data
@@ -174,7 +178,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           <Divider />
           <AutoComputedElementNameField
             atomId={model.atomId ?? undefined}
+            atomService={atomService}
             componentId={model.renderComponentTypeId ?? undefined}
+            componentService={componentService}
             label="Name"
             name="name"
           />
