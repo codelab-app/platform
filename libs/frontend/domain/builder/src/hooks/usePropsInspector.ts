@@ -1,38 +1,65 @@
 import type {
+  IComponent,
   IElement,
   IElementService,
+  IInterfaceType,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
+import { isElement } from '@codelab/frontend/abstract/core'
+import { convertFieldsToProps } from '@codelab/frontend/domain/component'
 import { notify } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
-import { autorun } from 'mobx'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+const getNodeProps = (
+  node: IElement | IComponent,
+  renderer: IRenderer,
+  updatedProps: IPropData,
+) => {
+  if (isElement(node)) {
+    // this is memoized by createTransformer, so we're effectively getting the last rendered output
+    const renderOutput = renderer.renderIntermediateElement(node)
+    console.log('renderOutput', renderOutput)
+
+    return Array.isArray(renderOutput)
+      ? mergeProps(renderOutput.map((o) => o.props))
+      : renderOutput.props
+  }
+
+  const defaultProps = convertFieldsToProps(
+    (node.api.current as IInterfaceType).fields,
+  )
+
+  return mergeProps(defaultProps, node.props?.values, updatedProps)
+}
 
 export const usePropsInspector = (
-  element: IElement,
+  node: IElement | IComponent,
   renderer: IRenderer,
   elementService: IElementService,
+  updatedProps: IPropData,
 ) => {
   const [isLoading, setIsLoading] = useState(false)
+  console.log('node', node)
 
-  const [persistedProps, setPersistedProps] = useState<Maybe<string>>(
-    element.props?.jsonString ?? '{}',
-  )
+  console.log('updatedProps', updatedProps)
 
-  // this is memoized by createTransformer, so we're effectively getting the last rendered output
-  const renderOutput = renderer.renderIntermediateElement(element)
+  const lastRenderedProps = getNodeProps(node, renderer, updatedProps)
+  const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 
-  const lastRenderedProps = Array.isArray(renderOutput)
-    ? mergeProps(renderOutput.map((o) => o.props))
-    : renderOutput.props
+  useEffect(() => {
+    if (isElement(node)) {
+      renderer.extraElementProps.setForElement(node.id, updatedProps)
 
-  const setExtraProps = useCallback(
-    (props: IPropData) =>
-      renderer.extraElementProps.setForElement(element.id, props),
-    [renderer.extraElementProps, element.id],
-  )
+      return () => {
+        renderer.extraElementProps.setForElement(node.id, {})
+      }
+    }
+
+    return
+  }, [node.props, updatedProps])
 
   const save = async (data: Maybe<string>) => {
     if (!data) {
@@ -43,9 +70,12 @@ export const usePropsInspector = (
 
     try {
       setIsLoading(true)
-      await elementService.patchElement(element, {
-        props: { update: { node: { data } } },
-      })
+
+      if (isElement(node)) {
+        await elementService.patchElement(node, {
+          props: { update: { node: { data } } },
+        })
+      }
     } catch (e) {
       console.error(e)
       notify({ title: 'Invalid json', type: 'warning' })
@@ -54,28 +84,9 @@ export const usePropsInspector = (
     }
   }
 
-  useEffect(
-    () =>
-      autorun(() => {
-        setPersistedProps(element.props?.jsonString ?? '{}')
-      }),
-    [element.props],
-  )
-
-  useEffect(() => {
-    return () => {
-      setExtraProps({})
-    }
-  }, [setExtraProps])
-
-  const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
-
   return {
     lastRenderedPropsString,
     save,
     isLoading,
-    persistedProps,
-    setPersistedProps,
-    setExtraPropsForElement: setExtraProps,
   }
 }

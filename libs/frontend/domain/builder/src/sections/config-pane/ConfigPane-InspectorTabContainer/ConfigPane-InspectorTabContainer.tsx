@@ -156,11 +156,11 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             title={TAB_NAMES.PropsInspector}
           />
         ),
-        children: isElement(selectedNode) && renderService && (
+        children: renderService && (
           <PropsInspectorTab
-            element={selectedNode}
             elementService={elementService}
             key={selectedNode.id}
+            node={selectedNode}
             renderer={renderService}
           />
         ),

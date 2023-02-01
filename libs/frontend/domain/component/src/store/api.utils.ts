@@ -1,6 +1,11 @@
-import type { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
+import type {
+  ICreateComponentDTO,
+  IField,
+  IFieldDefaultValue,
+} from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
@@ -53,4 +58,20 @@ export const mapCreateInput = (
     props,
     childrenContainerElement: connectRootElement,
   }
+}
+
+/**
+ * Generates a key-value pair from an array of IField
+ */
+export const convertFieldsToProps = (fields: Array<IField>) => {
+  const props = fields.reduce<Record<string, Nullish<IFieldDefaultValue>>>(
+    (acc, field) => {
+      acc[field.key] = field.defaultValues
+
+      return acc
+    },
+    {},
+  )
+
+  return props
 }

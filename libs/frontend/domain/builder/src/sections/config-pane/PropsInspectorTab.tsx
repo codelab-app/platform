@@ -1,10 +1,14 @@
 import type {
+  IComponent,
   IElement,
   IElementService,
+  IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
+import { isElement } from '@codelab/frontend/abstract/core'
 import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { propSafeStringify } from '@codelab/shared/utils'
 import Button from 'antd/lib/button'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -12,30 +16,40 @@ import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
 export interface ElementPropsSectionProps {
-  element: IElement
+  node: IElement | IComponent
   renderer: IRenderer
   elementService: IElementService
 }
 
 const PropsInspectorTab = observer(
-  ({ element, renderer, elementService }: ElementPropsSectionProps) => {
-    const {
-      save,
-      persistedProps,
-      setPersistedProps,
-      lastRenderedPropsString,
-      isLoading,
-      setExtraPropsForElement,
-    } = usePropsInspector(element, renderer, elementService)
+  ({ node, renderer, elementService }: ElementPropsSectionProps) => {
+    const initialProps = node.props?.values ?? {}
+
+    const [editorValue, setEditorValue] = React.useState(
+      propSafeStringify(initialProps),
+    )
+
+    const [updatedProps, setUpdatedProps] = React.useState(initialProps)
+    const [isValidProps, setIsValidProps] = React.useState(true)
+
+    const { save, lastRenderedPropsString, isLoading } = usePropsInspector(
+      node,
+      renderer,
+      elementService,
+      updatedProps,
+    )
 
     const onChange = (value: string) => {
-      setPersistedProps(value)
+      setEditorValue(value)
 
       try {
-        setExtraPropsForElement(JSON.parse(value))
+        const newValue = JSON.parse(value) as IPropData
+        // only a valid IPropData will be saved
+        setUpdatedProps(newValue)
+        setIsValidProps(true)
       } catch (error) {
-        //
-        console.log(error)
+        console.error(error)
+        setIsValidProps(false)
       }
     }
 
@@ -51,7 +65,9 @@ const PropsInspectorTab = observer(
           value={lastRenderedPropsString}
         />
 
-        <h3 css={tw`text-gray-700`}>Element props</h3>
+        <h3 css={tw`text-gray-700`}>
+          {isElement(node) ? 'Element' : 'Component'} props
+        </h3>
         <CodeMirrorEditor
           height="150px"
           language={ICodeMirrorLanguage.Json}
@@ -59,10 +75,14 @@ const PropsInspectorTab = observer(
           // it takes time to be updated by onChange
           onChange={(v: string) => onChange(v)}
           onSave={(v: string) => save(v)}
-          title="Element props"
-          value={persistedProps || '{}'}
+          title={`${isElement(node) ? 'Element' : 'Component'} props`}
+          value={editorValue}
         />
-        <Button loading={isLoading} onClick={() => save(persistedProps)}>
+        <Button
+          disabled={!isValidProps}
+          loading={isLoading}
+          onClick={() => save(propSafeStringify(updatedProps))}
+        >
           Save
         </Button>
       </div>
