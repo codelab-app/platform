@@ -8,7 +8,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { getComponentService } from '@codelab/frontend/presenter/container'
-import merge from 'lodash/merge'
+import { mergeProps } from '@codelab/shared/utils'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -48,10 +48,10 @@ export class ComponentRenderPipe
     /**
      * instance props --overrides--> component props --overrides--> interface default values
      */
-    const overrideProps = merge(
-      defaultValues,
-      component.props?.values,
+    const overrideProps = mergeProps(
       element.props?.values,
+      component.props?.values,
+      defaultValues,
     )
 
     const instanceProps = {

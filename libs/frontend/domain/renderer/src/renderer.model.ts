@@ -73,6 +73,7 @@ const init = async ({
   appStore,
   appTree,
   isBuilder,
+  isComponentBuilder,
   set_selectedNode,
 }: RendererProps) => {
   /**
@@ -108,6 +109,7 @@ const init = async ({
     //  global: frozen(isBuilder ? builderGlobals : {}),
     // }),
     isBuilder,
+    isComponentBuilder,
   })
 }
 
@@ -157,6 +159,11 @@ export class Renderer
        * Used for making the element draggable if true (e.g. in builder page)
        */
       isBuilder: prop(false),
+      /**
+       * Used for to decide component props expression context :
+       * either global state + instance props + component props or just component props
+       */
+      isComponentBuilder: prop(false),
     },
     // {
     //  toSnapshotProcessor(sn, modelInstance) {
@@ -460,7 +467,12 @@ export class Renderer
   private processPropsForRender = (props: IPropData, element: IElement) => {
     props = this.applyPropTypeTransformers(props)
     props = element.executePropTransformJs(props)
-    props = this.appStore.current.replaceStateInProps(props)
+
+    const context = this.isComponentBuilder
+      ? props
+      : mergeProps(this.state.values, props)
+
+    props = this.appStore.current.replaceStateInProps(props, context)
 
     // const { localProps } = element.applyPropMapBindings(props)
     // props = mergeProps(props, localProps)

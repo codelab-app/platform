@@ -109,9 +109,10 @@ export class Store
   }
 
   @modelAction
-  public replaceStateInProps(props: IPropData) {
-    const context = merge(this.state.values, props)
-
+  public replaceStateInProps(
+    props: IPropData,
+    context: IPropData = this.state.values,
+  ) {
     props = mapDeep(
       props,
       // value mapper

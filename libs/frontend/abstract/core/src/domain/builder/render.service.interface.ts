@@ -10,6 +10,7 @@ export interface RendererProps {
   appStore: IStore
   appTree?: Nullable<IElementTree>
   isBuilder?: boolean
+  isComponentBuilder?: boolean
   set_selectedNode?: IBuilderService['set_selectedNode']
 }
 
