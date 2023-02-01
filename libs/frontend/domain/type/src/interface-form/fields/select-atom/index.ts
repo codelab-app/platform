@@ -1,1 +1,1 @@
-export * from './SelectAtomField'
+export * from './SelectAtom'
