@@ -9,12 +9,12 @@ import type {
   IRenderService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import {
   AutoComputedElementNameField,
   SelectAction,
   SelectAnyElement,
-  SelectAtomField,
-  SelectComponent,
+  SlugField,
 } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -24,10 +24,9 @@ import type {
 } from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import slugify from 'voca/slugify'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
@@ -80,9 +79,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         componentTree?.addElements([element])
       }
 
-      return Promise.resolve([element]).finally(() => {
-        setModel(null)
-      })
+      return Promise.resolve([element])
     }
 
     const onSubmitError = createNotificationHandler({
@@ -90,24 +87,21 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     })
 
     const parentElement = elementService.createModal.parentElement
+    const [renderType, setRenderType] = useState<Nullable<RenderTypeEnum>>(null)
+    const [componentId, setComponentId] = useState()
+    const [atomId, setAtomId] = useState()
+    const [name, setName] = useState('')
 
-    const [model, setModel] =
-      useState<Nullable<Partial<ICreateElementDTO & { owner: string }>>>(null)
-
-    useEffect(() => {
-      if (parentElement) {
-        setModel({
-          parentElementId: parentElement.id,
-          owner: userService.user?.auth0Id,
-          // Needs to be null initially so that required sub-fields
-          // are not validated when nothing is selected yet
-          renderType: null,
-        })
-      }
-    }, [parentElement, userService.user?.auth0Id])
-
-    if (!parentElement || !model) {
+    if (!parentElement) {
       return null
+    }
+
+    const model = {
+      parentElementId: parentElement.id,
+      owner: userService.user?.auth0Id,
+      // Needs to be null initially so that required sub-fields
+      // are not validated when nothing is selected yet
+      renderType: null,
     }
 
     const closeModal = () => elementService.createModal.close()
@@ -128,19 +122,24 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         <ModalForm.Form<ICreateElementDTO>
           model={model}
           onChange={(key, value) => {
-            setModel({
-              ...model,
-              slug: key === 'name' ? slugify(value) : model.slug,
-              [key]: value,
-            })
+            if (key === 'renderType') {
+              setRenderType(value.model)
+            }
+
+            if (key === 'renderType.id') {
+              renderType === RenderTypeEnum.Component && setComponentId(value)
+              renderType === RenderTypeEnum.Atom && setAtomId(value)
+            }
+
+            if (key === 'name') {
+              setName(value)
+            }
           }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
           schema={createElementSchema}
         >
-          <SelectAtomField name="atomId" />
-          <AutoField component={SelectComponent} name="renderComponentTypeId" />
           <AutoFields
             omitFields={[
               'parentElementId',
@@ -177,14 +176,14 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           <AutoField component={SelectAction} name="postRenderActionId" />
           <Divider />
           <AutoComputedElementNameField
-            atomId={model.atomId ?? undefined}
+            atomId={atomId}
             atomService={atomService}
-            componentId={model.renderComponentTypeId ?? undefined}
+            componentId={componentId}
             componentService={componentService}
             label="Name"
             name="name"
           />
-          <AutoField name="slug" />
+          <SlugField name="slug" srcString={name} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

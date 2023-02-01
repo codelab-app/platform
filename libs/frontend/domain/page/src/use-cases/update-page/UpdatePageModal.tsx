@@ -2,34 +2,34 @@ import type {
   IPageService,
   IUpdatePageDTO,
 } from '@codelab/frontend/abstract/core'
+import { SlugField } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import { AutoFields } from 'uniforms-antd'
-import slugify from 'voca/slugify'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { updatePageSchema } from './updatePageSchema'
 
 export const UpdatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const closeModal = () => pageService.updateModal.close()
     const page = pageService.updateModal.page
-    const [model, setModel] = useState<Nullable<Partial<IUpdatePageDTO>>>(null)
+    const [name, setName] = useState('')
 
     useEffect(() => {
-      if (page) {
-        setModel({
-          name: page.name,
-          appId: page.app.id || undefined,
-          slug: page.slug,
-          getServerSideProps: page.getServerSideProps,
-        })
-      }
+      // set the initial value of the page's name once available
+      page && setName(page.name)
     }, [page])
 
-    if (!page || !model) {
+    if (!page) {
       return null
+    }
+
+    const model = {
+      name: page.name,
+      appId: page.app.id || undefined,
+      slug: page.slug,
+      getServerSideProps: page.getServerSideProps,
     }
 
     const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
@@ -47,18 +47,16 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
         <ModalForm.Form<Omit<IUpdatePageDTO, 'pageContainerElementId'>>
           model={model}
           onChange={(key, value) => {
-            setModel({
-              ...model,
-              slug: key === 'name' ? slugify(value) : model.slug,
-              [key]: value,
-            })
+            key === 'name' && setName(value)
           }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
           schema={updatePageSchema}
         >
-          <AutoFields omitFields={['appId']} />
+          <AutoField name="name" />
+          <SlugField name="slug" srcString={name} />
+          <AutoFields omitFields={['appId', 'name', 'slug']} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

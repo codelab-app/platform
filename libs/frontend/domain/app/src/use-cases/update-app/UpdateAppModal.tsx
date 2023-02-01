@@ -3,13 +3,12 @@ import type {
   IUpdateAppDTO,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import { SlugField } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import { AutoFields } from 'uniforms-antd'
-import slugify from 'voca/slugify'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppModal = observer<{
@@ -17,25 +16,22 @@ export const UpdateAppModal = observer<{
   userService: IUserService
 }>(({ appService, userService }) => {
   const app = appService.updateModal.app
-
-  const [model, setModel] =
-    useState<
-      Nullable<Partial<IUpdateAppDTO & { ownerId: string; storeId: string }>>
-    >(null)
+  const [name, setName] = useState('')
 
   useEffect(() => {
-    if (app) {
-      setModel({
-        name: app.name,
-        slug: app.slug,
-        ownerId: userService.user?.auth0Id,
-        storeId: app.store.id,
-      })
-    }
+    // set the initial value of the app's name once available
+    app && setName(app.name)
   }, [app])
 
-  if (!app || !model) {
+  if (!app) {
     return null
+  }
+
+  const model = {
+    name: app.name,
+    slug: app.slug,
+    ownerId: userService.user?.auth0Id,
+    storeId: app.store.id,
   }
 
   const onSubmit = (input: IUpdateAppDTO) => appService.update(app, input)
@@ -54,11 +50,7 @@ export const UpdateAppModal = observer<{
       <ModalForm.Form<IUpdateAppDTO>
         model={model}
         onChange={(key, value) => {
-          setModel({
-            ...model,
-            slug: key === 'name' ? slugify(value) : model.slug,
-            [key]: value,
-          })
+          key === 'name' && setName(value)
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -67,7 +59,9 @@ export const UpdateAppModal = observer<{
         onSubmitSuccess={closeModal}
         schema={updateAppSchema}
       >
-        <AutoFields omitFields={['storeId']} />
+        <AutoField name="name" />
+        <SlugField name="slug" srcString={name} />
+        <AutoFields omitFields={['storeId', 'name', 'slug']} />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

@@ -3,25 +3,20 @@ import type {
   IPageService,
 } from '@codelab/frontend/abstract/core'
 import { DEFAULT_GET_SERVER_SIDE_PROPS } from '@codelab/frontend/abstract/core'
+import { SlugField } from '@codelab/frontend/domain/type'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import { AutoFields } from 'uniforms-antd'
-import slugify from 'voca/slugify'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { createPageSchema } from './createPageSchema'
 
 export const CreatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const currentAppId = useCurrentAppId()
     const isOpen = pageService.createModal.isOpen
-
-    const [model, setModel] = useState<Partial<ICreatePageDTO>>({
-      appId: currentAppId,
-      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-    })
-
+    const [name, setName] = useState('')
     const onSubmit = (data: ICreatePageDTO) => pageService.create([data])
 
     const onSubmitError = createNotificationHandler({
@@ -30,23 +25,26 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
 
     const closeModal = () => pageService.createModal.close()
 
+    const model = {
+      appId: currentAppId,
+      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+    }
+
     return (
       <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>
         <ModalForm.Form<Omit<ICreatePageDTO, 'pageContainerElementId'>>
           model={model}
           onChange={(key, value) => {
-            setModel({
-              ...model,
-              slug: key === 'name' ? slugify(value) : model.slug,
-              [key]: value,
-            })
+            key === 'name' && setName(value)
           }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
           schema={createPageSchema}
         >
-          <AutoFields omitFields={['appId']} />
+          <AutoField name="name" />
+          <SlugField name="slug" srcString={name} />
+          <AutoFields omitFields={['appId', 'name', 'slug']} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )
