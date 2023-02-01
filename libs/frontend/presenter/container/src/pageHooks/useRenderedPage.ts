@@ -1,4 +1,5 @@
 import type { IRenderService } from '@codelab/frontend/abstract/core'
+import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
 
@@ -13,6 +14,11 @@ interface RenderedPageProps {
    * indicates whether the hook is used inside builder page or preview page
    */
   isBuilder: boolean
+  /**
+   * for production we prebuild pages with all required information
+   * so if this object exists - use it as a source of truth instead of making a request
+   */
+  initialData?: GetRenderedPageAndCommonAppDataQuery
 }
 
 /**
@@ -23,6 +29,7 @@ export const useRenderedPage = ({
   pageId,
   isBuilder,
   renderService,
+  initialData,
 }: RenderedPageProps) => {
   const {
     appService,
@@ -35,7 +42,8 @@ export const useRenderedPage = ({
 
   const commonPagesData = useAsync(async () => {
     const { apps, components, resources, ...types } =
-      await pageService.getRenderedPageAndCommonAppData(appId, pageId)
+      initialData ??
+      (await pageService.getRenderedPageAndCommonAppData(appId, pageId))
 
     const [app] = apps
 

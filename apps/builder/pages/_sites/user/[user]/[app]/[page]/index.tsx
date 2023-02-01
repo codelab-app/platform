@@ -1,62 +1,35 @@
 import type { AppPagePageProps } from '@codelab/frontend/abstract/types'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
-import { useStore } from '@codelab/frontend/presenter/container'
+import {
+  useRenderedPage,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import { useAsync } from 'react-use'
 
 const Index = (props: AppPagePageProps) => {
   const store = useStore()
+  const { pageId, appId, renderingData } = props
 
-  const {
-    storeService,
-    componentService,
-    pageService,
-    appService,
-    builderRenderService,
-  } = store
+  const { value } = useRenderedPage({
+    appId,
+    pageId,
+    renderService: store.appRenderService,
+    isBuilder: false,
+    initialData: renderingData,
+  })
 
-  const { pageId, storeId, appId } = props
-  const app = appService.app(appId)
-  const appStore = storeService.store(storeId)
-  const page = pageService.pages.get(pageId)
-  const components = componentService.componentList
-
-  const { value: renderer } = useAsync(async () => {
-    if (!page?.elementTree || !appStore || !app) {
-      return
-    }
-
-    const result = await builderRenderService.addRenderer({
-      id: pageId,
-      pageTree: page.elementTree,
-      appTree: null,
-      components,
-      appStore,
-    })
-
-    return result
-  }, [pageId])
-
-  if (!page) {
-    throw new Error('Page not found')
-  }
-
-  if (!appStore) {
-    throw new Error('App store not found')
-  }
+  const { renderer, page } = value ?? {}
 
   return (
     <>
       <Head>
-        <title>{page.name}</title>
+        <title>{page?.name}</title>
       </Head>
 
-      {renderer ? (
-        <Renderer renderRoot={renderer.renderRoot.bind(renderer)} />
-      ) : null}
+      {renderer && <Renderer renderRoot={renderer.renderRoot.bind(renderer)} />}
     </>
   )
 }
@@ -111,45 +84,37 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
   context,
 ) => {
+  console.log('getStaticProps', context.params)
+
   if (!context.params) {
     throw new Error('No context params ')
   }
 
   const store = initializeStore({})
-
-  const { userService, appService, typeService, pageService, storeService } =
-    store
-
+  const { appService, pageService } = store
   const { app: appSlug, page: pageSlug } = context.params
-
-  const apps = await appService.getAll({
-    slug: String(appSlug),
-  })
-
-  const app = apps[0]
+  const [app] = await appService.getAll({ slug: String(appSlug) })
 
   if (!app) {
     throw new Error(`App with slug ${appSlug} not found`)
   }
 
-  const [page] = await pageService.getAll({
-    slug: pageSlug as string,
-  })
+  const page = app.pages.find((p) => p.current.slug === pageSlug)
 
   if (!page) {
     throw new Error(`Page ${pageSlug} of App ${appSlug} Not found`)
   }
 
-  const appStore = app.store.id ? await storeService.getOne(app.store.id) : null
+  const renderingData = await pageService.getRenderedPageAndCommonAppData(
+    app.id,
+    page.id,
+  )
 
-  // components are needed to build pageElementTree
-  // therefore they must be loaded first
-  // This requires a current userId to work
   return {
     props: {
       appId: app.id,
       pageId: page.id,
-      storeId: app.store.id,
+      renderingData,
     },
     revalidate: 10,
   }
