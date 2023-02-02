@@ -17,6 +17,12 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
     const currentAppId = useCurrentAppId()
     const isOpen = pageService.createModal.isOpen
     const [name, setName] = useState('')
+
+    const model = {
+      appId: currentAppId,
+      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+    }
+
     const onSubmit = (data: ICreatePageDTO) => pageService.create([data])
 
     const onSubmitError = createNotificationHandler({
@@ -24,11 +30,6 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
     })
 
     const closeModal = () => pageService.createModal.close()
-
-    const model = {
-      appId: currentAppId,
-      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-    }
 
     return (
       <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>

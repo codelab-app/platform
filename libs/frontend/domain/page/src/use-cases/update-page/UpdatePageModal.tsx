@@ -25,18 +25,18 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
       return null
     }
 
+    const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
+
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while updating page',
+    })
+
     const model = {
       name: page.name,
       appId: page.app.id || undefined,
       slug: page.slug,
       getServerSideProps: page.getServerSideProps,
     }
-
-    const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
-
-    const onSubmitError = createNotificationHandler({
-      title: 'Error while updating page',
-    })
 
     return (
       <ModalForm.Modal

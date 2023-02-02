@@ -29,9 +29,7 @@ interface MetaPaneProps {
 
 export const ConfigPane = observer<MetaPaneProps>(
   ({ renderService, elementTree }) => {
-    const { builderService, elementService, componentService, atomService } =
-      useStore()
-
+    const { builderService, elementService, componentService } = useStore()
     const { providePropCompletion } = usePropCompletion(renderService)
     const selectedNode = builderService.selectedNode
 
@@ -57,8 +55,6 @@ export const ConfigPane = observer<MetaPaneProps>(
                   {node.__nodeType === ELEMENT_NODE_TYPE ? (
                     <>
                       <UpdateElementForm
-                        atomService={atomService}
-                        componentService={componentService}
                         element={node}
                         elementService={elementService}
                         key={node.id + '_update_form'}

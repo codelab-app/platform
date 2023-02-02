@@ -15,6 +15,11 @@ type AutoComputedElementNameProps = FieldProps<
   computeElementNameService: IComputeElementNameService
 }
 
+/**
+ * This component helps providing the computeElementNameService with
+ * the user input as well as connect the parent form with the final
+ * result from the computeElementNameService.
+ */
 const AutoComputedElementName = observer<AutoComputedElementNameProps>(
   (props) => {
     const { name, onChange, computeElementNameService, defaultValue } = props
@@ -24,8 +29,8 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
     }, [defaultValue, computeElementNameService])
 
     useEffect(() => {
-      // Calls the params.onChange when the current value changes either
-      // by user input or when the selected atom or component change
+      // Calls the params.onChange when the current value changes
+      // to keep the form control updated
       onChange(computeElementNameService.computedName)
     }, [computeElementNameService.computedName, onChange])
 

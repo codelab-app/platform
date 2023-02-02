@@ -1,6 +1,4 @@
 import type {
-  IAtomService,
-  IComponentService,
   IElement,
   IElementService,
   IUpdateBaseElementDTO,
@@ -25,8 +23,6 @@ export interface UpdateElementFormProps {
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
-  componentService: IComponentService
-  atomService: IAtomService
 }
 
 const makeCurrentModel = (element: IElement) => {
@@ -60,14 +56,7 @@ const makeCurrentModel = (element: IElement) => {
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({
-    elementService,
-    element,
-    trackPromises,
-    providePropCompletion,
-    componentService,
-    atomService,
-  }) => {
+  ({ elementService, element, trackPromises, providePropCompletion }) => {
     const { trackPromise } = trackPromises ?? {}
 
     const [propCompleteOptions, setPropCompleteOptions] = useState<

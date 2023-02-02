@@ -1,6 +1,5 @@
 import type {
   IActionService,
-  IAtomService,
   IBuilderService,
   IComponentService,
   ICreateElementDTO,
@@ -40,15 +39,9 @@ interface CreateElementModalProps {
   elementService: IElementService
   userService: IUserService
   componentService: IComponentService
-  atomService: IAtomService
   storeId: string
 }
 
-/**
- * This component autofills the element name with the name of
- * the selected atom or component. additionally, it allows the
- * user to customize the name.
- */
 export const CreateElementModal = observer<CreateElementModalProps>(
   ({
     elementService,

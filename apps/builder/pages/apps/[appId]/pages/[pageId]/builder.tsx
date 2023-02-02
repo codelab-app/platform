@@ -83,7 +83,6 @@ PageBuilder.Layout = observer((page) => {
   const {
     elementService,
     componentService,
-    atomService,
     userService,
     builderService,
     builderRenderService,
@@ -133,7 +132,6 @@ PageBuilder.Layout = observer((page) => {
         <BuilderExplorerPane
           actionService={actionService}
           appStore={pageBuilderRenderer?.appStore.current}
-          atomService={atomService}
           builderService={builderService}
           componentService={componentService}
           elementService={elementService}
