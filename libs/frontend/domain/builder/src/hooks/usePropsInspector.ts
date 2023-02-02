@@ -8,8 +8,8 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { isElement } from '@codelab/frontend/abstract/core'
 import { convertFieldsToProps } from '@codelab/frontend/domain/component'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { notify } from '@codelab/frontend/shared/utils'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { useEffect, useState } from 'react'
 
@@ -21,7 +21,6 @@ const getNodeProps = (
   if (isElement(node)) {
     // this is memoized by createTransformer, so we're effectively getting the last rendered output
     const renderOutput = renderer.renderIntermediateElement(node)
-    console.log('renderOutput', renderOutput)
 
     return Array.isArray(renderOutput)
       ? mergeProps(renderOutput.map((o) => o.props))
@@ -41,11 +40,8 @@ export const usePropsInspector = (
   elementService: IElementService,
   updatedProps: IPropData,
 ) => {
+  const { componentService } = useStore()
   const [isLoading, setIsLoading] = useState(false)
-  console.log('node', node)
-
-  console.log('updatedProps', updatedProps)
-
   const lastRenderedProps = getNodeProps(node, renderer, updatedProps)
   const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 
@@ -59,23 +55,28 @@ export const usePropsInspector = (
     }
 
     return
-  }, [node.props, updatedProps])
+  }, [updatedProps])
 
-  const save = async (data: Maybe<string>) => {
-    if (!data) {
-      notify({ title: 'Invalid json', type: 'warning' })
-
-      return
-    }
+  const save = async (data: IPropData) => {
+    const jsonData = propSafeStringify(data)
 
     try {
       setIsLoading(true)
 
       if (isElement(node)) {
         await elementService.patchElement(node, {
-          props: { update: { node: { data } } },
+          props: { update: { node: { data: jsonData } } },
+        })
+      } else {
+        await componentService.patchComponent(node, {
+          props: { update: { node: { data: jsonData } } },
         })
       }
+
+      notify({
+        title: `${isElement(node) ? 'Element' : 'Component'} props updated.`,
+        type: 'success',
+      })
     } catch (e) {
       console.error(e)
       notify({ title: 'Invalid json', type: 'warning' })

@@ -48,8 +48,23 @@ const PropsInspectorTab = observer(
         setUpdatedProps(newValue)
         setIsValidProps(true)
       } catch (error) {
-        console.error(error)
+        console.log(error)
         setIsValidProps(false)
+      }
+    }
+
+    // string argument is used for when saving in the code mirror modal
+    // TODO: Check in the code mirror component why it doesnt
+    // trigger `onChange` when editing in the modal
+    const onSave = async (data: IPropData | string) => {
+      if (typeof data === 'string') {
+        try {
+          await save(JSON.parse(data))
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        await save(data)
       }
     }
 
@@ -71,17 +86,15 @@ const PropsInspectorTab = observer(
         <CodeMirrorEditor
           height="150px"
           language={ICodeMirrorLanguage.Json}
-          // persistedProps is state variable which means
-          // it takes time to be updated by onChange
           onChange={(v: string) => onChange(v)}
-          onSave={(v: string) => save(v)}
+          onSave={(v: string) => onSave(v)}
           title={`${isElement(node) ? 'Element' : 'Component'} props`}
           value={editorValue}
         />
         <Button
           disabled={!isValidProps}
           loading={isLoading}
-          onClick={() => save(propSafeStringify(updatedProps))}
+          onClick={() => onSave(updatedProps)}
         >
           Save
         </Button>

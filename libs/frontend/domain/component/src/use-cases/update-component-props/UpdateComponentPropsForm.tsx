@@ -7,7 +7,7 @@ import { Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import React from 'react'
 import { useAsync } from 'react-use'
 
 export interface UpdateComponentPropsFormProps {
@@ -19,7 +19,6 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
   ({ component, trackPromises }) => {
     const { typeService, componentService } = useStore()
     const { trackPromise } = trackPromises ?? {}
-    const initialPropsRef = useRef(component.props?.values ?? {})
     const apiId = component.api.id
 
     const { value: interfaceType, loading } = useAsync(
@@ -52,7 +51,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
                 autosave
                 interfaceType={interfaceType}
                 key={component.id}
-                model={initialPropsRef.current}
+                model={component.props?.values ?? {}}
                 onSubmit={onSubmit}
                 submitField={React.Fragment}
               />
