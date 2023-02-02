@@ -78,7 +78,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     })
 
     const parentElement = elementService.createModal.parentElement
-    const computeElementNameService = elementService.computeElementNameService
+
+    const computeElementNameService =
+      elementService.computeNewElementNameService
+
     const [renderType, setRenderType] = useState<Nullable<RenderTypeEnum>>(null)
 
     if (!parentElement) {

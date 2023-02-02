@@ -67,7 +67,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const { current: model } = useRef(makeCurrentModel(element))
 
     const { current: computeElementNameService } = useRef(
-      elementService.computeElementNameService,
+      elementService.computeUpdatedElementNameService,
     )
 
     const [renderType, setRenderType] = useState<Maybe<RenderTypeEnum>>(

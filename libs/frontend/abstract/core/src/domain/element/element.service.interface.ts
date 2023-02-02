@@ -70,7 +70,8 @@ export interface IElementService
   >
   updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
-  computeElementNameService: IComputeElementNameService
+  computeNewElementNameService: IComputeElementNameService
+  computeUpdatedElementNameService: IComputeElementNameService
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,

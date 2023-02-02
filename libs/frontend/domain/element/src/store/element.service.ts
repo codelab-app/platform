@@ -90,7 +90,10 @@ export class ElementService
     updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
     deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
 
-    computeElementNameService: prop(() => new ComputeElementNameService({})),
+    computeNewElementNameService: prop(() => new ComputeElementNameService({})),
+    computeUpdatedElementNameService: prop(
+      () => new ComputeElementNameService({}),
+    ),
 
     // _atomService: prop<Ref<IAtomService>>(),
   })
