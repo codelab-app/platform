@@ -8,11 +8,7 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import {
-  AutoComputedElementNameField,
-  SelectAction,
-  SlugField,
-} from '@codelab/frontend/domain/type'
+import { SelectAction, SlugField } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
@@ -20,6 +16,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { updateElementSchema } from './updateElementSchema'
 
@@ -80,14 +77,13 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     // Cache the initial element model, because when it updates it will interfere with what the user is typing
     const { current: model } = useRef(makeCurrentModel(element))
 
-    // these are used to track changes in atom and comp id to update the name accordingly
+    const { current: computeElementNameService } = useRef(
+      elementService.computeElementNameService,
+    )
+
     const [renderType, setRenderType] = useState<Maybe<RenderTypeEnum>>(
       model.renderType?.model,
     )
-
-    const [componentId, setComponentId] = useState()
-    const [atomId, setAtomId] = useState()
-    const [name, setName] = useState(model.name || '')
 
     const onSubmit = (data: IUpdateElementDTO) => {
       const promise = elementService.update(element, data)
@@ -121,17 +117,13 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         key={element.id}
         model={model}
         onChange={(key, value) => {
-          if (key === 'renderType') {
-            setRenderType(value.model)
-          }
+          key === 'renderType' && setRenderType(value?.model)
 
-          if (key === 'renderType.id') {
-            renderType === RenderTypeEnum.Component && setComponentId(value)
-            renderType === RenderTypeEnum.Atom && setAtomId(value)
-          }
-
-          if (key === 'name') {
-            setName(value)
+          if (key === 'renderType.id' && renderType) {
+            computeElementNameService.setPickedRenderType({
+              model: renderType,
+              id: value,
+            })
           }
         }}
         onSubmit={onSubmit}
@@ -143,14 +135,15 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       >
         {element.id}
         <AutoComputedElementNameField
-          atomId={atomId}
-          atomService={atomService}
-          componentId={componentId}
-          componentService={componentService}
+          computeElementNameService={computeElementNameService}
+          defaultValue={model.name ?? undefined}
           label="Name"
           name="name"
         />
-        <SlugField name="slug" srcString={name} />
+        <SlugField
+          name="slug"
+          srcString={computeElementNameService.computedName}
+        />
         <AutoFields
           omitFields={[
             'renderIfExpression',

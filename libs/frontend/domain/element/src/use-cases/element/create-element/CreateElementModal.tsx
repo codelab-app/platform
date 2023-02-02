@@ -8,10 +8,9 @@ import type {
   IElementTree,
   IRenderService,
   IUserService,
+  RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import {
-  AutoComputedElementNameField,
   SelectAction,
   SelectAnyElement,
   SlugField,
@@ -27,6 +26,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
@@ -56,8 +56,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     userService,
     pageTree,
     renderService,
-    componentService,
-    atomService,
   }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
       const { prevSiblingId } = data
@@ -87,10 +85,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     })
 
     const parentElement = elementService.createModal.parentElement
+    const computeElementNameService = elementService.computeElementNameService
     const [renderType, setRenderType] = useState<Nullable<RenderTypeEnum>>(null)
-    const [componentId, setComponentId] = useState()
-    const [atomId, setAtomId] = useState()
-    const [name, setName] = useState('')
 
     if (!parentElement) {
       return null
@@ -122,17 +118,13 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         <ModalForm.Form<ICreateElementDTO>
           model={model}
           onChange={(key, value) => {
-            if (key === 'renderType') {
-              setRenderType(value.model)
-            }
+            key === 'renderType' && setRenderType(value.model)
 
-            if (key === 'renderType.id') {
-              renderType === RenderTypeEnum.Component && setComponentId(value)
-              renderType === RenderTypeEnum.Atom && setAtomId(value)
-            }
-
-            if (key === 'name') {
-              setName(value)
+            if (key === 'renderType.id' && renderType) {
+              computeElementNameService.setPickedRenderType({
+                model: renderType,
+                id: value,
+              })
             }
           }}
           onSubmit={onSubmit}
@@ -176,14 +168,14 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           <AutoField component={SelectAction} name="postRenderActionId" />
           <Divider />
           <AutoComputedElementNameField
-            atomId={atomId}
-            atomService={atomService}
-            componentId={componentId}
-            componentService={componentService}
+            computeElementNameService={computeElementNameService}
             label="Name"
             name="name"
           />
-          <SlugField name="slug" srcString={name} />
+          <SlugField
+            name="slug"
+            srcString={computeElementNameService.computedName}
+          />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

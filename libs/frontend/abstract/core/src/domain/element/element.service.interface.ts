@@ -19,6 +19,7 @@ import type {
   IUpdatePropMapBindingDTO,
 } from '../prop'
 import type { IAuth0Id } from '../user'
+import type { IComputeElementNameService } from './compute-element-name.service.interface'
 import type {
   ICreateElementDTO,
   IElementDTO,
@@ -69,6 +70,7 @@ export interface IElementService
   >
   updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
+  computeElementNameService: IComputeElementNameService
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,

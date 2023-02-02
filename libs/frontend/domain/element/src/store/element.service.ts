@@ -58,6 +58,7 @@ import {
   makeUpdateInput,
 } from './api.utils'
 import { elementApi, propMapBindingApi } from './apis'
+import { ComputeElementNameService } from './compute-element-name.service'
 import { Element } from './element.model'
 import {
   CreateElementModalService,
@@ -88,6 +89,8 @@ export class ElementService
     createPropMapBindingModal: prop(() => new ElementModalService({})),
     updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
     deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
+
+    computeElementNameService: prop(() => new ComputeElementNameService({})),
 
     // _atomService: prop<Ref<IAtomService>>(),
   })
