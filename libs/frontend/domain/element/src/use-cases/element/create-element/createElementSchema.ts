@@ -1,6 +1,9 @@
 import type { ICreateElementDTO } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import { nonEmptyString } from '@codelab/shared/utils'
+import {
+  nonEmptyString,
+  spacedLowercaseAlphanumericRegex,
+} from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
@@ -17,7 +20,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
     name: {
       type: 'string',
       nullable: true,
-      pattern: '^[a-z0-9 ]+$',
+      pattern: spacedLowercaseAlphanumericRegex.source,
     },
     slug: {
       ...nonEmptyString,
