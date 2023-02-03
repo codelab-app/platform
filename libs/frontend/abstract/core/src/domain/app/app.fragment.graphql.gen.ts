@@ -9,13 +9,6 @@ import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
 import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
-export type RedirectedAppFragment = {
-  id: string
-  name: string
-  slug: string
-  owner: { username: string }
-}
-
 export type AppPreviewFragment = {
   id: string
   name: string
@@ -54,16 +47,6 @@ export type PageBuilderAppFragment = {
   store: StoreFragment
 }
 
-export const RedirectedAppFragmentDoc = gql`
-  fragment RedirectedApp on App {
-    id
-    name
-    slug
-    owner {
-      username
-    }
-  }
-`
 export const AppPreviewFragmentDoc = gql`
   fragment AppPreview on App {
     id

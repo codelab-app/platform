@@ -41,44 +41,11 @@ export default Index
  * - `getStaticPaths` will only run during build in production, it will not be called during runtime.
  */
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  console.log('getStaticPaths', `env ${process.env.NODE_ENV}`)
-
-  const isProd = process.env.NODE_ENV === 'production'
-
-  if (isProd) {
-    return { paths: [], fallback: 'blocking' }
-  }
-
-  const { userService } = initializeStore()
-  await userService.loadUsers()
-
-  const paths = [...userService.users.values()]
-    .map((user) => {
-      console.log('apps', [...user.apps.values()])
-
-      return [...user.apps.values()]
-        .map((app) => {
-          return app.current.pages.map((page) => {
-            return {
-              params: {
-                user: user.username,
-                app: app.current.slug,
-                page: page.current.slug,
-              },
-            }
-          })
-        })
-        .flat()
-    })
-    .flat()
-
-  console.log('getStaticPaths', paths)
-
-  return {
-    paths,
-    // fallback true allows sites to be generated using ISR
-    fallback: true,
-  }
+  // Do not return any paths to be generated at build time
+  // 1. The backend is not deployed yet so request to get page data would fail
+  // 2. In production when many pages will be created - build may take too long
+  // Instead allow manually to build pages by users and keep already generated pages between deploys
+  return { paths: [], fallback: 'blocking' }
 }
 
 export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
@@ -92,17 +59,20 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
 
   const store = initializeStore({})
   const { appService, pageService } = store
-  const { app: appSlug, page: pageSlug } = context.params
-  const [app] = await appService.getAll({ slug: String(appSlug) })
+  const { domain, page: pageSlug } = context.params
+
+  const [app] = await appService.getAll({
+    domains_SOME: { name_IN: [String(domain)] },
+  })
 
   if (!app) {
-    throw new Error(`App with slug ${appSlug} not found`)
+    throw new Error(`No apps found for "${domain}" domain`)
   }
 
   const page = app.pages.find((p) => p.current.slug === pageSlug)
 
   if (!page) {
-    throw new Error(`Page ${pageSlug} of App ${appSlug} Not found`)
+    throw new Error(`Page ${pageSlug} on "${domain}" domain Not found`)
   }
 
   const renderingData = await pageService.getRenderedPageAndCommonAppData(
@@ -116,6 +86,5 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
       pageId: page.id,
       renderingData,
     },
-    revalidate: 10,
   }
 }

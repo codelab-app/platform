@@ -1,12 +1,3 @@
-fragment RedirectedApp on App {
-  id
-  name
-  slug
-  owner {
-    username
-  }
-}
-
 fragment AppPreview on App {
   id
   name

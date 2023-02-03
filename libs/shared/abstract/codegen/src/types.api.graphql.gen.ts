@@ -22344,16 +22344,6 @@ export type WithOwnerOwnerUpdateFieldInput = {
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
-export type GetRedirectedAppsQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetRedirectedAppsQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & RedirectedAppFragment>
-}
-
 type ActionBase_ApiAction_Fragment = {
   __typename: 'ApiAction'
   id: string
@@ -22406,14 +22396,6 @@ export type CodeActionFragment = {
   __typename?: 'CodeAction'
   code: string
 } & ActionBase_CodeAction_Fragment
-
-export type RedirectedAppFragment = {
-  __typename?: 'App'
-  id: string
-  name: string
-  slug: string
-  owner: { __typename?: 'User'; username: string }
-}
 
 export type AppPreviewFragment = {
   __typename?: 'App'

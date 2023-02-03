@@ -1,6 +1,5 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
-import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
 
 /**
  * Edge Runtime limitations prevent us from using many libraries such as `env-var`
@@ -56,14 +55,9 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  return await redirectExternalDomain({
-    /**
-     * `codelab.app` or `127.0.0.1:3000`
-     */
-    hostname,
-    /**
-     * `/user/app/page`
-     */
-    pathname,
-  })
+  const url = new URL(`/_sites/${hostname}${pathname}`, `https://${hostname}`)
+
+  console.log('Redirecting...', url)
+
+  return NextResponse.rewrite(url)
 }

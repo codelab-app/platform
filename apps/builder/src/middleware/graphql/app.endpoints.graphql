@@ -1,5 +1,0 @@
-query GetRedirectedApps($options: AppOptions, $where: AppWhere) {
-  apps(options: $options, where: $where) {
-    ...RedirectedApp
-  }
-}
