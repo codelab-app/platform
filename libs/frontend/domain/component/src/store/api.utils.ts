@@ -64,7 +64,7 @@ export const mapCreateInput = (
  */
 export const getDefaultComponentFieldProps = (component: IComponent) => {
   const props = component.api.current.fields.reduce<IPropData>((acc, field) => {
-    acc[field.key] = field.defaultValues ?? undefined
+    acc[field.key] = field.defaultValues
 
     return acc
   }, {})
