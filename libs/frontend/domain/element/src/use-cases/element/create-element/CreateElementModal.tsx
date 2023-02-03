@@ -80,7 +80,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const parentElement = elementService.createModal.parentElement
 
     const computeElementNameService =
-      elementService.computeNewElementNameService
+      elementService.createModal.computeElementNameService!
 
     const [renderType, setRenderType] = useState<Nullable<RenderTypeEnum>>(null)
 

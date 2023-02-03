@@ -36,6 +36,12 @@ export interface CreateElementData {
 
 export interface CreateElementProperties {
   parentElement: IElement
+  computeElementNameService: IComputeElementNameService
+}
+
+export interface UpdateElementProperties {
+  element: IElement
+  computeElementNameService: IComputeElementNameService
 }
 
 export interface PropMapData {
@@ -59,10 +65,8 @@ export interface IElementService
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'
     > {
-  createModal: IEntityModalService<
-    CreateElementData,
-    { parentElement: IElement }
-  >
+  createModal: IEntityModalService<CreateElementData, CreateElementProperties>
+  updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
   elements: ObjectMap<IElement>
   createPropMapBindingModal: IEntityModalService<
     Ref<IElement>,
@@ -70,8 +74,6 @@ export interface IElementService
   >
   updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
-  computeNewElementNameService: IComputeElementNameService
-  computeUpdatedElementNameService: IComputeElementNameService
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
