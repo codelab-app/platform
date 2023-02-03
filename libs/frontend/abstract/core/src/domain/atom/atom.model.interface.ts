@@ -3,7 +3,7 @@ import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { ITag } from '../tag'
-import type { IAnyType } from '../type'
+import type { IInterfaceType } from '../type'
 import type { IAtomDTO, IRenderAtomDTO } from './atom.dto.interface'
 
 export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
@@ -11,7 +11,7 @@ export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
   icon?: string | null
   type: IAtomType
   tags: Array<Ref<ITag>>
-  api: Ref<IAnyType>
+  api: Ref<IInterfaceType>
   allowCustomTextInjection: boolean
   /**
    * We don't need Ref here, only need id to filter the select options. Making it Ref requires dependency resolution that makes it more difficult.

@@ -158,7 +158,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         ),
         children: renderService && (
           <PropsInspectorTab
-            elementService={elementService}
             key={selectedNode.id}
             node={selectedNode}
             renderer={renderService}

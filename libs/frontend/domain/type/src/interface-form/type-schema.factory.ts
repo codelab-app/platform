@@ -20,7 +20,6 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import type { JSONSchema7 } from 'json-schema'
-import { isNil } from 'ramda'
 import type { UiPropertiesContext } from './types'
 import { getUiProperties } from './ui-properties'
 
@@ -104,9 +103,6 @@ export class TypeSchemaFactory {
         fieldName: field.name,
       }),
       ...field.validationRules?.general,
-      // `default` should not be included if the field does not have `defaultValues`
-      // so that `null` or `undefined` does not show in the uniforms field
-      ...(!isNil(field.defaultValues) ? { default: field.defaultValues } : {}),
     })
 
     const makeFieldProperties = (

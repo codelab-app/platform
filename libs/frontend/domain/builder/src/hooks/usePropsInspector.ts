@@ -1,13 +1,11 @@
 import type {
   IComponent,
   IElement,
-  IElementService,
-  IInterfaceType,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { isElement } from '@codelab/frontend/abstract/core'
-import { convertFieldsToProps } from '@codelab/frontend/domain/component'
+import { getDefaultComponentFieldProps } from '@codelab/frontend/domain/component'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { notify } from '@codelab/frontend/shared/utils'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
@@ -16,7 +14,7 @@ import { useEffect, useState } from 'react'
 const getNodeProps = (
   node: IElement | IComponent,
   renderer: IRenderer,
-  updatedProps: IPropData,
+  editedProps: IPropData,
 ) => {
   if (isElement(node)) {
     // this is memoized by createTransformer, so we're effectively getting the last rendered output
@@ -27,27 +25,29 @@ const getNodeProps = (
       : renderOutput.props
   }
 
-  const defaultProps = convertFieldsToProps(
-    (node.api.current as IInterfaceType).fields,
-  )
+  // These are the component's api fields with defaultValues
+  const defaultProps = getDefaultComponentFieldProps(node)
 
-  return mergeProps(defaultProps, node.props?.values, updatedProps)
+  // `editedProps` can be merged directly since it is in component builder only
+  return mergeProps(defaultProps, node.props?.values, editedProps)
 }
 
+/**
+ * If node is IComponent, that means we are viewing it in the component builder only.
+ */
 export const usePropsInspector = (
   node: IElement | IComponent,
   renderer: IRenderer,
-  elementService: IElementService,
-  updatedProps: IPropData,
+  editedProps: IPropData,
 ) => {
-  const { componentService } = useStore()
+  const { componentService, elementService } = useStore()
   const [isLoading, setIsLoading] = useState(false)
-  const lastRenderedProps = getNodeProps(node, renderer, updatedProps)
+  const lastRenderedProps = getNodeProps(node, renderer, editedProps)
   const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 
   useEffect(() => {
     if (isElement(node)) {
-      renderer.extraElementProps.setForElement(node.id, updatedProps)
+      renderer.extraElementProps.setForElement(node.id, editedProps)
 
       return () => {
         renderer.extraElementProps.setForElement(node.id, {})
@@ -55,7 +55,7 @@ export const usePropsInspector = (
     }
 
     return
-  }, [updatedProps])
+  }, [editedProps])
 
   const save = async (data: IPropData) => {
     const jsonData = propSafeStringify(data)

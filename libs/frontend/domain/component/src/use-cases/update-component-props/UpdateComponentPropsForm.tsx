@@ -4,11 +4,12 @@ import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { Spinner } from '@codelab/frontend/view/components'
-import { filterEmptyStrings } from '@codelab/shared/utils'
+import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
+import { getDefaultComponentFieldProps } from '../../store'
 
 export interface UpdateComponentPropsFormProps {
   component: IComponent
@@ -42,6 +43,13 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
+    // We only set the `defaultValues` as an initial value, not as `defaultValue` in the schema
+    // so that the value of `defaultValues` wont show when the field is cleared
+    const propsModel = mergeProps(
+      getDefaultComponentFieldProps(component),
+      component.props?.values,
+    )
+
     return (
       <Spinner isLoading={loading}>
         {interfaceType && (
@@ -51,7 +59,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
                 autosave
                 interfaceType={interfaceType}
                 key={component.id}
-                model={component.props?.values ?? {}}
+                model={propsModel}
                 onSubmit={onSubmit}
                 submitField={React.Fragment}
               />

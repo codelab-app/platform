@@ -1,11 +1,10 @@
 import type {
+  IComponent,
   ICreateComponentDTO,
-  IField,
-  IFieldDefaultValue,
+  IPropData,
 } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
@@ -61,17 +60,14 @@ export const mapCreateInput = (
 }
 
 /**
- * Generates a key-value pair from an array of IField
+ * Generates a key-value pair from the api fields of an IComponent
  */
-export const convertFieldsToProps = (fields: Array<IField>) => {
-  const props = fields.reduce<Record<string, Nullish<IFieldDefaultValue>>>(
-    (acc, field) => {
-      acc[field.key] = field.defaultValues
+export const getDefaultComponentFieldProps = (component: IComponent) => {
+  const props = component.api.current.fields.reduce<IPropData>((acc, field) => {
+    acc[field.key] = field.defaultValues ?? undefined
 
-      return acc
-    },
-    {},
-  )
+    return acc
+  }, {})
 
   return props
 }

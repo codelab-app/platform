@@ -4,7 +4,7 @@ import type { INodeType } from '../../base'
 import type { ICacheService } from '../../service'
 import type { IElementTreeService } from '../element'
 import type { IProp } from '../prop'
-import type { IAnyType } from '../type'
+import type { IInterfaceType } from '../type'
 import type { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent
@@ -16,7 +16,7 @@ export interface IComponent
   rootElementId: string
   childrenContainerElementId: string
   ownerId: string
-  api: Ref<IAnyType>
+  api: Ref<IInterfaceType>
   props?: Nullable<IProp>
 }
 

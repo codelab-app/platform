@@ -1,7 +1,6 @@
 import type {
   IComponent,
   IElement,
-  IElementService,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
@@ -18,34 +17,26 @@ import { usePropsInspector } from '../../hooks'
 export interface ElementPropsSectionProps {
   node: IElement | IComponent
   renderer: IRenderer
-  elementService: IElementService
 }
 
 const PropsInspectorTab = observer(
-  ({ node, renderer, elementService }: ElementPropsSectionProps) => {
+  ({ node, renderer }: ElementPropsSectionProps) => {
     const initialProps = node.props?.values ?? {}
-
-    const [editorValue, setEditorValue] = React.useState(
-      propSafeStringify(initialProps),
-    )
-
-    const [updatedProps, setUpdatedProps] = React.useState(initialProps)
+    const initialEditorValue = propSafeStringify(initialProps)
+    const [editedProps, setEditedProps] = React.useState(initialProps)
     const [isValidProps, setIsValidProps] = React.useState(true)
 
     const { save, lastRenderedPropsString, isLoading } = usePropsInspector(
       node,
       renderer,
-      elementService,
-      updatedProps,
+      editedProps,
     )
 
     const onChange = (value: string) => {
-      setEditorValue(value)
-
       try {
         const newValue = JSON.parse(value) as IPropData
         // only a valid IPropData will be saved
-        setUpdatedProps(newValue)
+        setEditedProps(newValue)
         setIsValidProps(true)
       } catch (error) {
         console.log(error)
@@ -89,12 +80,12 @@ const PropsInspectorTab = observer(
           onChange={(v: string) => onChange(v)}
           onSave={(v: string) => onSave(v)}
           title={`${isElement(node) ? 'Element' : 'Component'} props`}
-          value={editorValue}
+          value={initialEditorValue}
         />
         <Button
           disabled={!isValidProps}
           loading={isLoading}
-          onClick={() => onSave(updatedProps)}
+          onClick={() => onSave(editedProps)}
         >
           Save
         </Button>
