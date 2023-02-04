@@ -1,6 +1,7 @@
 import { EllipsisOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
+  BuildAppModal,
   CreateAppButton,
   CreateAppModal,
   DeleteAppModal,
@@ -51,8 +52,9 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { userService, appService } = useStore()
+  const { userService, appService, domainService } = useStore()
   const { loading, error, value } = useAsync(() => appService.getAll(), [])
+  const { value: domains } = useAsync(() => domainService.getAll(), [])
 
   return (
     <>
@@ -60,13 +62,14 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         <title>Apps | Codelab</title>
       </Head>
 
+      <BuildAppModal appService={appService} />
       <CreateAppModal appService={appService} userService={userService} />
       <UpdateAppModal appService={appService} userService={userService} />
       <DeleteAppModal appService={appService} />
 
       <ContentSection>
         {loading && <Spin />}
-        {!loading && <GetAppsList appService={appService} />}
+        {!loading && <GetAppsList appService={appService} domains={domains} />}
       </ContentSection>
     </>
   )

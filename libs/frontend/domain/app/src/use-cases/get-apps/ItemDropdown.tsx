@@ -3,8 +3,13 @@ import {
   EditOutlined,
   EllipsisOutlined,
   GlobalOutlined,
+  ToolOutlined,
 } from '@ant-design/icons'
-import type { IApp, IAppService } from '@codelab/frontend/abstract/core'
+import type {
+  IApp,
+  IAppService,
+  IDomain,
+} from '@codelab/frontend/abstract/core'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -16,6 +21,7 @@ import { appRef } from '../../store'
 export interface ItemMenuProps {
   app: IApp
   appService: IAppService
+  domains?: Array<IDomain>
 }
 
 const menuItemStyle: CSSProperties = {
@@ -30,38 +36,50 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
-  const onEditClick = () => appService.updateModal.open(appRef(app.id))
-  const onDeleteClick = () => appService.deleteModal.open(appRef(app.id))
-  const router = useRouter()
+export const ItemDropdown = observer<ItemMenuProps>(
+  ({ app, appService, domains }) => {
+    const onEditClick = () => appService.updateModal.open(appRef(app.id))
+    const onDeleteClick = () => appService.deleteModal.open(appRef(app.id))
+    const onBuildClick = () => appService.buildModal.open(appRef(app.id))
+    const router = useRouter()
 
-  const goToDomainsPage = () =>
-    router.push(`${router.pathname}/${app.id}/domains`)
+    const goToDomainsPage = () =>
+      router.push(`${router.pathname}/${app.id}/domains`)
 
-  const menuItems: MenuProps['items'] = [
-    {
-      label: 'Edit',
-      key: 'edit',
-      onClick: onEditClick,
-      style: menuItemStyle,
-      icon: <EditOutlined style={menuItemIconStyle} />,
-    },
-    {
-      label: 'Domains',
-      key: 'domains',
-      onClick: goToDomainsPage,
-      style: menuItemStyle,
-      icon: <GlobalOutlined style={menuItemIconStyle} />,
-    },
-    {
-      label: 'Delete',
-      key: 'delete',
-      onClick: onDeleteClick,
-      style: menuItemStyle,
-      icon: <DeleteOutlined style={menuItemIconStyle} />,
-    },
+    const menuItems: MenuProps['items'] = [
+      {
+        label: 'Build',
+        key: 'build',
+        onClick: onBuildClick,
+        style: menuItemStyle,
+        icon: <ToolOutlined style={menuItemIconStyle} />,
+        disabled:
+          !domains ||
+          !domains.some((domain) => !domain.domainConfig.misconfigured),
+      },
+      {
+        label: 'Edit',
+        key: 'edit',
+        onClick: onEditClick,
+        style: menuItemStyle,
+        icon: <EditOutlined style={menuItemIconStyle} />,
+      },
+      {
+        label: 'Domains',
+        key: 'domains',
+        onClick: goToDomainsPage,
+        style: menuItemStyle,
+        icon: <GlobalOutlined style={menuItemIconStyle} />,
+      },
+      {
+        label: 'Delete',
+        key: 'delete',
+        onClick: onDeleteClick,
+        style: menuItemStyle,
+        icon: <DeleteOutlined style={menuItemIconStyle} />,
+      },
 
-    /*
+      /*
       {
         label: 'Export',
         key: 'export',
@@ -70,11 +88,12 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
         icon: isExporting ? <Spin /> : <ExportOutlined style={menuItemIconStyle} />,
       },
     */
-  ]
+    ]
 
-  return (
-    <Dropdown overlay={<Menu items={menuItems} />} trigger={['click']}>
-      <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
-    </Dropdown>
-  )
-})
+    return (
+      <Dropdown overlay={<Menu items={menuItems} />} trigger={['click']}>
+        <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
+      </Dropdown>
+    )
+  },
+)

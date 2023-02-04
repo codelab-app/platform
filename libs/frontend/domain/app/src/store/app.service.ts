@@ -48,6 +48,7 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
+    buildModal: prop(() => new AppModalService({})),
   })
   implements IAppService
 {

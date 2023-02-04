@@ -1,7 +1,9 @@
 import { SyncOutlined } from '@ant-design/icons'
 import type { IDomain } from '@codelab/frontend/abstract/core'
-import { useCurrentApp } from '@codelab/frontend/domain/app'
-import { useStore } from '@codelab/frontend/presenter/container'
+import {
+  useCurrentAppId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -13,18 +15,18 @@ interface RefreshDomainButtonProps {
 
 export const RefreshDomainButton = observer(
   ({ domain }: RefreshDomainButtonProps) => {
-    const { userService, appService, domainService } = useStore()
-    const { app } = useCurrentApp(appService)
+    const { domainService } = useStore()
+    const appId = useCurrentAppId()
 
     const { loading, value } = useAsync(async () => {
       return {
         refreshDomain: () =>
           domainService.getAll({
             id: domain.id,
-            appConnection: { node: { id: app?.id } },
+            appConnection: { node: { id: appId } },
           }),
       }
-    }, [app?.id])
+    }, [appId])
 
     return (
       <Tooltip title="Refresh">
