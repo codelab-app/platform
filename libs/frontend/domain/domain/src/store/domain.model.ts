@@ -19,7 +19,7 @@ const hydrate = (domain: IDomainDTO) => {
   return new Domain({
     id: domain.id,
     name: domain.name,
-    // app: domain.app.id,
+    appId: domain.app.id,
     domainConfig: domain.domainConfig,
     projectDomain: domain.projectDomain,
   })
@@ -30,7 +30,7 @@ export class Domain
   extends Model({
     id: idProp,
     name: prop<string>(),
-    // app: prop<IApp>(),
+    appId: prop<string>(),
     domainConfig: prop<VercelDomainConfig>(),
     projectDomain: prop<VercelProjectDomain>(),
   })
@@ -44,6 +44,7 @@ export class Domain
     this.name = data.name
     this.domainConfig = data.domainConfig
     this.projectDomain = data.projectDomain
+    this.appId = data.app.id
 
     return this
   }
