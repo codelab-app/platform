@@ -236,8 +236,10 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
         <Tabs
           css={css`
             ${tw`px-4 h-full w-full`}
-            .ant-collapse-header {
-              ${tw`px-0!`}
+            .ant-page-header-content,
+            .ant-collapse-header,
+            .ant-page-header-heading {
+              ${tw`px-0! mt-0!`}
             }
           `}
           defaultActiveKey="1"
