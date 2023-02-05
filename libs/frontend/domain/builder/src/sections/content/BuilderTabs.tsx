@@ -44,7 +44,6 @@ export const BuilderTabs = observer<BuilderTabsProps>(
     return (
       <Layout style={{ height: '100%' }}>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
-        {isLoading && <Spin />}
         <Header style={{ background: 'rgba(0,0,0,0)', marginBottom: '5px' }}>
           <Tabs
             activeKey={builderService.activeTree}
@@ -56,6 +55,7 @@ export const BuilderTabs = observer<BuilderTabsProps>(
             <Tabs.TabPane key={RendererTab.Component} tab="Component" />
           </Tabs>
         </Header>
+        {isLoading && <Spin />}
         <Content>
           {builderService.activeTree === RendererTab.Page ? (
             elementTree && renderer ? (
