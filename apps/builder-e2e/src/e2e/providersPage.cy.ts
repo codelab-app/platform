@@ -62,7 +62,6 @@ describe('_app page', () => {
       .getButton({ icon: 'plus' })
       .click()
 
-    cy.getModal().findByLabelText('Name').type(CONFIG_PROVIDER_NAME)
     cy.getModal().setFormFieldValue({
       label: 'Render Type',
       value: 'Atom',
@@ -73,6 +72,7 @@ describe('_app page', () => {
       value: IAtomType.AntDesignConfigProvider,
       type: FIELD_TYPE.SELECT,
     })
+    cy.getModal().findByLabelText('Name').clear().type(CONFIG_PROVIDER_NAME)
     cy.getModal()
       .getModalAction(/Create/)
       .click()
