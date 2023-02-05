@@ -1,4 +1,7 @@
-import type { IPageService } from '@codelab/frontend/abstract/core'
+import type {
+  IDomainService,
+  IPageService,
+} from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
@@ -11,25 +14,26 @@ import {
   UpdatePageModal,
 } from '../use-cases'
 
-export const ExplorerPanePage = observer<{ pageService: IPageService }>(
-  ({ pageService }) => {
-    const router = useRouter()
+export const ExplorerPanePage = observer<{
+  pageService: IPageService
+  domainService: IDomainService
+}>(({ pageService, domainService }) => {
+  const router = useRouter()
 
-    const headerProps = {
-      onBack: () => router.push({ pathname: PageType.AppList }),
-    }
+  const headerProps = {
+    onBack: () => router.push({ pathname: PageType.AppList }),
+  }
 
-    return (
-      <ExplorerPaneTemplate
-        header={<CreatePageButton key={0} pageService={pageService} />}
-        headerProps={headerProps}
-        title="Pages"
-      >
-        <GetPagesList pageService={pageService} />
-        <CreatePageModal pageService={pageService} />
-        <UpdatePageModal pageService={pageService} />
-        <DeletePageModal pageService={pageService} />
-      </ExplorerPaneTemplate>
-    )
-  },
-)
+  return (
+    <ExplorerPaneTemplate
+      header={<CreatePageButton key={0} pageService={pageService} />}
+      headerProps={headerProps}
+      title="Pages"
+    >
+      <GetPagesList domainService={domainService} pageService={pageService} />
+      <CreatePageModal pageService={pageService} />
+      <UpdatePageModal pageService={pageService} />
+      <DeletePageModal pageService={pageService} />
+    </ExplorerPaneTemplate>
+  )
+})
