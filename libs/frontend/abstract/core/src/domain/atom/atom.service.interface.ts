@@ -20,6 +20,9 @@ export interface IAtomService
     IQueryService<IAtom, AtomWhere, AtomOptions>,
     Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'>,
     ICacheService<IAtomDTO, IAtom> {
+  // Select dropdown for atoms need to load all atoms from the db
+  // but this is a heavy operation, this flag allows to call it only once
+  allAtomsLoaded: boolean
   atoms: ObjectMap<IAtom>
   count: number
   atomsList: Array<IAtom>

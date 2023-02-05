@@ -32,6 +32,7 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 export class AtomService
   extends Model({
     id: idProp,
+    allAtomsLoaded: prop(() => false),
     atoms: prop(() => objectMap<IAtom>()),
     count: prop(() => 1),
     createModal: prop(() => new ModalService({})),
@@ -104,6 +105,10 @@ export class AtomService
     const { atoms, atomsAggregate } = yield* _await(
       atomApi.GetAtoms({ where, options }),
     )
+
+    if (!where) {
+      this.allAtomsLoaded = true
+    }
 
     this.count = atomsAggregate.count
 
