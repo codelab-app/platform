@@ -9,7 +9,7 @@ import { getDefaultComponentFieldProps } from '@codelab/frontend/domain/componen
 import { useStore } from '@codelab/frontend/presenter/container'
 import { notify } from '@codelab/frontend/shared/utils'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const getNodeProps = (
   node: IElement | IComponent,
@@ -45,6 +45,7 @@ export const usePropsInspector = (
   const lastRenderedProps = getNodeProps(node, renderer, editedProps)
   const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 
+  /*  
   useEffect(() => {
     if (isElement(node)) {
       renderer.extraElementProps.setForElement(node.id, editedProps)
@@ -56,7 +57,7 @@ export const usePropsInspector = (
 
     return
   }, [editedProps])
-
+*/
   const save = async (data: IPropData) => {
     const jsonData = propSafeStringify(data)
 
