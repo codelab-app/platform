@@ -98,7 +98,7 @@ export class ComponentService
   }
 
   component(id: string) {
-    return this.components.get(id)
+    return this.components.get(id) || this.clonedComponents.get(id)
   }
 
   @computed
