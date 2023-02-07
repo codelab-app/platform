@@ -1,5 +1,6 @@
 import type {
   IElement,
+  IInterfaceType,
   IPropData,
   IRenderer,
   IRenderOutput,
@@ -17,6 +18,7 @@ import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { expressionTransformer } from '@codelab/frontend/shared/utils'
+import type { Maybe } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
@@ -351,10 +353,16 @@ export class Renderer
     element: IElement,
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
+    const component = element.rootElement.parentComponent?.current
+    const componentInstance = component?.instanceElement?.current
+    const componentApi = component?.api.current as Maybe<IInterfaceType>
+
     let props = mergeProps(
       element.__metadataProps,
+      componentApi?.defaultValues,
+      component?.props?.values,
+      componentInstance?.props?.values,
       element.props?.values,
-      element.rootElement.parentComponent?.current.props,
       extraProps,
     )
 

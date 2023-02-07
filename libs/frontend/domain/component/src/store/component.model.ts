@@ -2,7 +2,6 @@ import type {
   IComponent,
   IComponentDTO,
   IElement,
-  IInterfaceType,
   IProp,
 } from '@codelab/frontend/abstract/core'
 import { COMPONENT_NODE_TYPE } from '@codelab/frontend/abstract/core'
@@ -30,7 +29,6 @@ import {
   modelAction,
   prop,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 
 const hydrate = (component: IComponentDTO) => {
   const apiRef = typeRef(component.api.id) as Ref<InterfaceType>
@@ -96,11 +94,8 @@ export class Component
     return getElementService(this)
   }
 
-  /**
-   * @param elements  All elements are assumed to be cached before being used here
-   */
   @modelAction
-  cloneTree(clonedComponentId: string, cloneIndex: number) {
+  private cloneTree(clonedComponentId: string, cloneIndex: number) {
     console.debug('ElementTreeService.cloneTree', this.elementTree.elementsList)
 
     const componentService = getComponentService(this)
@@ -117,15 +112,7 @@ export class Component
         }
 
         if (e.props) {
-          clonedElement.setProps(
-            Prop.hydrate({
-              id: v4(),
-              data: e.props.jsonString,
-              apiRef: e.props.apiRef?.id
-                ? (typeRef(e.props.apiRef.id) as Ref<IInterfaceType>)
-                : undefined,
-            }),
-          )
+          clonedElement.setProps(e.props.clone())
         }
 
         if (e.renderComponentType?.current) {
@@ -177,5 +164,25 @@ export class Component
     }
 
     return ElementTree.init(rootElement, elements)
+  }
+
+  /**
+   * @param cloneIndex clones count for the same component (used for elements slugs)
+   */
+  @modelAction
+  clone(cloneIndex: number) {
+    const clonedComponent: IComponent = clone<IComponent>(this)
+
+    if (this.props) {
+      clonedComponent.props = this.props.clone()
+    }
+
+    clonedComponent.setSourceComponentId(this.id)
+
+    clonedComponent.setElementTree(
+      this.cloneTree(clonedComponent.id, cloneIndex),
+    )
+
+    return clonedComponent
   }
 }

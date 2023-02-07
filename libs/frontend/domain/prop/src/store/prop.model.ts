@@ -4,6 +4,7 @@ import {
   IPropData,
   IPropDTO,
 } from '@codelab/frontend/abstract/core'
+import { typeRef } from '@codelab/frontend/domain/type'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
@@ -25,6 +26,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
+import { v4 } from 'uuid'
 
 const hydrate = ({ id, data, apiRef }: IPropDTO): IProp => {
   return new Prop({ id, data: frozen(JSON.parse(data)), apiRef })
@@ -102,6 +104,17 @@ export class Prop
     this.data = frozen(JSON.parse(data))
 
     return this
+  }
+
+  @modelAction
+  clone() {
+    return Prop.hydrate({
+      id: v4(),
+      data: this.jsonString,
+      apiRef: this.apiRef?.id
+        ? (typeRef(this.apiRef.id) as Ref<IInterfaceType>)
+        : undefined,
+    })
   }
 
   @computed

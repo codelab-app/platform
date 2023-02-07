@@ -1,15 +1,12 @@
-import type { Maybe } from '@codelab/shared/abstract/types'
-import type { Frozen, Ref } from 'mobx-keystone'
+import type { Frozen } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElement } from '../element'
-import type { IInterfaceType } from '../type'
 import type { IPropDTO } from './prop.dto.interface'
 
 export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   id: string
   data: Frozen<T>
   jsonString: string
-  apiRef: Maybe<Ref<IInterfaceType>>
   values: T
 
   set(key: string, value: object): void
@@ -17,6 +14,7 @@ export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   setMany(data: IPropData): void
   delete(key: string): void
   get(key: string): unknown
+  clone(): IProp
 }
 
 export interface IPropData {

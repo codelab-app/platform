@@ -2,7 +2,7 @@ import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { INodeType } from '../../base'
 import type { ICacheService } from '../../service'
-import type { IElement, IElementTree, IElementTreeService } from '../element'
+import type { IElement, IElementTreeService } from '../element'
 import type { IProp } from '../prop'
 import type { IInterfaceType } from '../type'
 import type { IComponentDTO } from './component.dto.interface'
@@ -26,7 +26,7 @@ export interface IComponent
   sourceComponentId?: Nullable<string>
   setSourceComponentId: (id: string) => void
   setInstanceElement: (elementRef: Ref<IElement>) => void
-  cloneTree(clonedComponentId: string, cloneIndex: number): IElementTree
+  clone(cloneIndex: number): IComponent
 }
 
 export type IComponentRef = string

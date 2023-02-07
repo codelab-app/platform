@@ -25,7 +25,6 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  clone,
   idProp,
   Model,
   model,
@@ -86,22 +85,16 @@ export class ComponentService
       return throwIfUndefined(this.clonedComponents.get(element.id))
     }
 
-    const previousRendersCount = [...this.clonedComponents.values()].filter(
+    const clonesCount = [...this.clonedComponents.values()].filter(
       (e) => e.sourceComponentId === component.id,
     ).length
 
-    const componentInstance: IComponent = clone<IComponent>(component)
+    const clonedComponent = component.clone(clonesCount)
+    clonedComponent.setInstanceElement(elementRef(element.id))
 
-    componentInstance.setSourceComponentId(component.id)
-    componentInstance.setInstanceElement(elementRef(element.id))
+    this.clonedComponents.set(element.id, clonedComponent)
 
-    this.clonedComponents.set(element.id, componentInstance)
-
-    componentInstance.setElementTree(
-      component.cloneTree(componentInstance.id, previousRendersCount),
-    )
-
-    return componentInstance
+    return clonedComponent
   }
 
   component(id: string) {

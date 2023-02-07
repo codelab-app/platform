@@ -1,6 +1,5 @@
 import type {
   IElement,
-  IInterfaceType,
   IPropData,
   IRenderer,
   IRenderOutput,
@@ -8,7 +7,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { getComponentService } from '@codelab/frontend/presenter/container'
-import { mergeProps } from '@codelab/shared/utils'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -42,28 +40,14 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    const defaultValues = (component.api.current as IInterfaceType)
-      .defaultValues
-
-    /**
-     * instance props --overrides--> component props --overrides--> interface default values
-     */
-    const overrideProps = mergeProps(
-      element.props?.values,
-      component.props?.values,
-      defaultValues,
-    )
-
-    const instanceProps = {
-      ...overrideProps,
+    const overrideProps = {
+      ...props,
       [DATA_COMPONENT_ID]: clonedComponent.id,
     }
 
-    clonedComponent.props?.setMany(instanceProps)
-
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 
-    return this.renderer.renderIntermediateElement(rootElement)
+    return this.renderer.renderIntermediateElement(rootElement, overrideProps)
   }
 
   private static logRootElementNotFound(
