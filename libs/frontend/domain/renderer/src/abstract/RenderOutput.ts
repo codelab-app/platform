@@ -4,14 +4,11 @@ import { mergeProps } from '@codelab/shared/utils'
 
 // Named factory methods for convenience
 export const RenderOutput = {
-  empty: (
-    input: Pick<IRenderOutput, 'elementId' | 'props'>,
-  ): IRenderOutput => ({
-    ...input,
-  }),
+  empty: (input: Pick<IRenderOutput, 'elementId' | 'props'>): IRenderOutput =>
+    input,
   withAtom: (
     input: Pick<IRenderOutput, 'atomType' | 'elementId' | 'props'>,
-  ): IRenderOutput => ({ ...input }),
+  ): IRenderOutput => input,
   overrideProps: (input: IRenderOutput, props: Nullish<IPropData>) => {
     return { ...input, props: mergeProps(input.props, props) }
   },
