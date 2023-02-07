@@ -12,7 +12,6 @@ import type {
   IQueryService,
 } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
-import type { IElement } from '../element'
 import type {
   IComponentDTO,
   ICreateComponentDTO,
@@ -27,6 +26,7 @@ export interface IComponentService
     ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
     ICacheService<IComponentDTO, IComponent> {
   components: ObjectMap<IComponent>
+  clonedComponents: ObjectMap<IComponent>
   componentList: Array<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
@@ -43,5 +43,4 @@ component
   loadRenderedComponentsTree(
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ): void
-  cloneComponentTree(element: IElement, component: IComponent): IComponent
 }

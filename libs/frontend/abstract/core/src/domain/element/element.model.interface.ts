@@ -94,7 +94,8 @@ export interface IElement
   attachToParent(parentElementId: string): () => void
   appendSibling(siblingId: string): () => void
   prependSibling(siblingId: string): () => void
-
+  clone(cloneIndex: number): IElement
+  updateCloneIds(elementMap: Map<string, string>): IElement
   makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachPrevSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachParentInput(): UpdateElementsMutationVariables | null

@@ -1,16 +1,25 @@
 import type {
+  IActionService,
   IAtomService,
   IComponentService,
   IElementService,
   IElementTree,
+  IFieldService,
   IRenderer,
   IRootStore,
   IStoreService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { atomServiceContext } from '@codelab/frontend/domain/atom'
-import { typeServiceContext } from '@codelab/frontend/domain/type'
-import { componentServiceContext } from '@codelab/frontend/presenter/container'
+import { actionServiceContext } from '@codelab/frontend/domain/store'
+import {
+  fieldServiceContext,
+  typeServiceContext,
+} from '@codelab/frontend/domain/type'
+import {
+  componentServiceContext,
+  elementServiceContext,
+} from '@codelab/frontend/presenter/container'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
 export type IRenderTestRootStore = {
@@ -25,10 +34,12 @@ export type IRenderTestRootStore = {
 export class RenderTestRootStore
   extends Model({
     storeService: prop<IStoreService>(),
+    actionService: prop<IActionService>(),
     typeService: prop<ITypeService>(),
     atomService: prop<IAtomService>(),
     elementService: prop<IElementService>(),
     pageElementTree: prop<IElementTree>(),
+    fieldService: prop<IFieldService>(),
     renderer: prop<IRenderer>(),
     componentService: prop<IComponentService>(),
   })
@@ -38,7 +49,9 @@ export class RenderTestRootStore
     typeServiceContext.set(this, this.typeService)
     atomServiceContext.set(this, this.atomService)
     componentServiceContext.set(this, this.componentService)
-
+    elementServiceContext.set(this, this.elementService)
+    fieldServiceContext.set(this, this.fieldService)
+    actionServiceContext.set(this, this.actionService)
     registerRootStore(this)
   }
 }

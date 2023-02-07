@@ -37,6 +37,7 @@ import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import {
+  clone,
   findParent,
   getRefsResolvingTo,
   idProp,
@@ -498,6 +499,45 @@ export class Element
     }
 
     return result
+  }
+
+  @modelAction
+  clone(cloneIndex: number) {
+    const clonedElement: IElement = clone<IElement>(this, {
+      generateNewIds: true,
+    })
+
+    clonedElement.setSlug(`${this.slug}.${cloneIndex}`)
+    clonedElement.setSourceElementId(this.id)
+
+    if (this.atom) {
+      clonedElement.setAtom(atomRef(this.atom.id))
+    }
+
+    if (this.props) {
+      clonedElement.setProps(this.props.clone())
+    }
+
+    // store elements in elementService
+    this.elementService.clonedElements.set(clonedElement.id, clonedElement)
+
+    return clonedElement
+  }
+
+  @modelAction
+  updateCloneIds(elementMap: Map<string, string>) {
+    this.parentId = (this.parentId && elementMap.get(this.parentId)) || null
+
+    this.nextSiblingId =
+      (this.nextSiblingId && elementMap.get(this.nextSiblingId)) || null
+
+    this.prevSiblingId =
+      (this.prevSiblingId && elementMap.get(this.prevSiblingId)) || null
+
+    this.firstChildId =
+      (this.firstChildId && elementMap.get(this.firstChildId)) || null
+
+    return this
   }
 
   /**

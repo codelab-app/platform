@@ -16,7 +16,6 @@ import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { expressionTransformer } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -45,7 +44,6 @@ import {
   getReactComponent,
   makeCustomTextContainer,
 } from './element/wrapper.utils'
-import { ExtraElementProps } from './ExtraElementProps'
 import {
   defaultPipes,
   renderPipeFactory,
@@ -138,7 +136,7 @@ export class Renderer
       /**
        * Props passed to specific elements, such as from global props context
        */
-      extraElementProps: prop(() => new ExtraElementProps({})),
+      // extraElementProps: prop(() => new ExtraElementProps({})),
 
       /**
        * Those transform different kinds of typed values into render-ready props
@@ -410,18 +408,7 @@ export class Renderer
    * Renders the elements children, createTransformer memoizes the function
    */
   renderChildren = createTransformer(
-    (parentOutput: IRenderOutput): ArrayOrSingle<ReactNode> => {
-      const elementService = getElementService(this)
-      const element = elementService.element(parentOutput.elementId)
-
-      if (!element) {
-        console.warn(
-          `RenderService: Element ${parentOutput.elementId} not found in tree`,
-        )
-
-        return undefined
-      }
-
+    ({ element, parentOutput }): ArrayOrSingle<ReactNode> => {
       const children = [
         ...element.children,
         ...this.getComponentInstanceChildren(element),

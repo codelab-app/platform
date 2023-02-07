@@ -1,4 +1,5 @@
 import type {
+  IComponent,
   IComponentService,
   ICreateComponentDTO,
   IUpdateComponentDTO,
@@ -7,13 +8,10 @@ import {
   COMPONENT_NODE_TYPE,
   COMPONENT_TREE_CONTAINER,
   IBuilderDataNode,
-  IComponent,
   IComponentDTO,
-  IElement,
 } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ComponentUpdateInput,
   ComponentWhere,
@@ -76,25 +74,6 @@ export class ComponentService
 
       componentModel.initTree(rootElement, hydratedElements)
     })
-  }
-
-  @modelAction
-  cloneComponentTree(element: IElement, component: IComponent) {
-    // if instance already created
-    if (this.clonedComponents.has(element.id)) {
-      return throwIfUndefined(this.clonedComponents.get(element.id))
-    }
-
-    const clonesCount = [...this.clonedComponents.values()].filter(
-      (e) => e.sourceComponentId === component.id,
-    ).length
-
-    const clonedComponent = component.clone(clonesCount)
-    clonedComponent.setInstanceElement(elementRef(element.id))
-
-    this.clonedComponents.set(element.id, clonedComponent)
-
-    return clonedComponent
   }
 
   component(id: string) {

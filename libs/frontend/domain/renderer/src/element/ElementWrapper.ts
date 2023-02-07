@@ -67,7 +67,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      */
     const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
       const children = shouldRenderElement(element, store)
-        ? renderService.renderChildren(renderOutput)
+        ? renderService.renderChildren({ element, parentOutput: renderOutput })
         : undefined
 
       if (renderOutput.props) {

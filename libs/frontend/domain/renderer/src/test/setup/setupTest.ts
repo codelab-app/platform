@@ -20,9 +20,15 @@ import {
   ElementTree,
 } from '@codelab/frontend/domain/element'
 import { Prop } from '@codelab/frontend/domain/prop'
-import { Store, storeRef, StoreService } from '@codelab/frontend/domain/store'
+import {
+  ActionService,
+  Store,
+  storeRef,
+  StoreService,
+} from '@codelab/frontend/domain/store'
 import type { AnyTypeModel } from '@codelab/frontend/domain/type'
 import {
+  FieldService,
   InterfaceType,
   PrimitiveType,
   ReactNodeType,
@@ -30,10 +36,7 @@ import {
   typeRef,
   TypeService,
 } from '@codelab/frontend/domain/type'
-import {
-  componentRef,
-  elementServiceContext,
-} from '@codelab/frontend/presenter/container'
+import { componentRef } from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -56,6 +59,7 @@ interface TestingData {
   renderPropsType: AnyTypeModel
   reactNodeType: AnyTypeModel
   primitiveType: AnyTypeModel
+  emptyInterface: AnyTypeModel
   divAtom: IAtom
   textAtom: IAtom
   store: IStore
@@ -67,14 +71,14 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
   beforeEach(() => {
     const ownerId = v4()
-
-    const emptyInterface = new InterfaceType({
+    const pageId = v4()
+    data.emptyInterface = new InterfaceType({
       name: 'Empty interface',
       ownerId,
     })
 
     data.store = new Store({
-      api: typeRef(emptyInterface) as Ref<IInterfaceType>,
+      api: typeRef(data.emptyInterface) as Ref<IInterfaceType>,
       name: 'Store',
     })
 
@@ -101,7 +105,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: 'Html Div',
       id: v4(),
       type: IAtomType.HtmlDiv,
-      api: typeRef(emptyInterface),
+      api: typeRef(data.emptyInterface),
       tags: [],
     })
 
@@ -109,7 +113,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: 'Text',
       id: v4(),
       type: IAtomType.Text,
-      api: typeRef(emptyInterface),
+      api: typeRef(data.emptyInterface),
       tags: [],
     })
 
@@ -127,7 +131,8 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: 'My Component',
       rootElementId: compRootElementId,
       ownerId: v4(),
-      api: typeRef(emptyInterface),
+      api: typeRef(data.emptyInterface),
+      childrenContainerElementId: compRootElementId,
     })
 
     data.componentRootElement = new Element({
@@ -137,7 +142,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       customCss: '',
       guiCss: '',
       atom: atomRef(data.textAtom.id),
-      parentComponent: componentRef(data.componentToRender),
+      parentComponent: componentRef(data.componentToRender.id),
       props: new Prop({
         id: v4(),
         data: frozen({
@@ -147,25 +152,12 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       }),
     })
 
-    data.componentInstanceElementToRender = new Element({
-      id: v4(),
-      name: '01',
-      slug: 'component01.01-slug',
-      renderComponentType: componentRef(data.componentToRender),
-      props: new Prop({
-        id: v4(),
-        data: frozen({
-          componentProp: 'instance',
-        }),
-      }),
-    })
-
     data.elementToRender = new Element({
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       slug: `${ROOT_ELEMENT_NAME}-slug`,
       customCss: '',
-      pageId: v4(),
+      pageId,
       guiCss: '',
       atom: atomRef(data.divAtom.id),
       props: new Prop({
@@ -180,18 +172,32 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         }),
       }),
       propTransformationJs: `
-  // Write a transformer function, you get the input props as parameter
-  // All returned props will get merged with the original ones
-  function transform(props) {
-    return Object.keys(props)
-        .map((x)=> ({
-          [\`$\{x}-edited\`] : props[x]
-        }))
-        .reduce((total,current) =>
-          ({...total,...current}),
-          {}
-        )
-    }`,
+    // Write a transformer function, you get the input props as parameter
+    // All returned props will get merged with the original ones
+    function transform(props) {
+      return Object.keys(props)
+          .map((x)=> ({
+            [\`$\{x}-edited\`] : props[x]
+          }))
+          .reduce((total,current) =>
+            ({...total,...current}),
+            {}
+          )
+      }`,
+    })
+
+    data.componentInstanceElementToRender = new Element({
+      id: v4(),
+      name: '01',
+      slug: 'component01.01-slug',
+      renderComponentType: componentRef(data.componentToRender),
+      props: new Prop({
+        id: v4(),
+        data: frozen({
+          componentProp: 'instance',
+        }),
+      }),
+      parentId: data.elementToRender.id,
     })
 
     data.componentInstanceElementToRender = new Element({
@@ -212,7 +218,14 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         [data.primitiveType.id, data.primitiveType],
         [data.renderPropsType.id, data.renderPropsType as AnyTypeModel],
         [data.reactNodeType.id, data.reactNodeType],
+        [data.emptyInterface.id, data.emptyInterface],
       ]),
+    })
+
+    data.renderer = new Renderer({
+      debugMode: false,
+      appStore: storeRef(data.store),
+      renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
 
     data.rootStore = new RenderTestRootStore({
@@ -231,11 +244,9 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [data.textAtom.id, data.textAtom],
         ]),
       }),
-      renderer: new Renderer({
-        debugMode: true,
-        appStore: storeRef(data.store),
-        renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
-      }),
+      renderer: data.renderer,
+      fieldService: new FieldService({}),
+      actionService: new ActionService({}),
       elementService: new ElementService({
         elements: objectMap([
           [data.elementToRender.id, data.elementToRender],
@@ -252,15 +263,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       ]),
     })
 
-    data.renderer = data.rootStore.renderer
+    data.componentToRender.setElementTree(
+      ElementTree.init(data.componentRootElement, [data.componentRootElement]),
+    )
 
     data.renderer.initForce(data.rootStore.pageElementTree)
-
-    // Renderer isn't attached to rootStore, so has issue accessing context
-    elementServiceContext.apply(
-      () => data.renderer,
-      data.rootStore.elementService,
-    )
   })
 
   afterEach(() => {

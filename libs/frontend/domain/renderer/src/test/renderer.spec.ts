@@ -12,12 +12,7 @@ describe('Renderer', () => {
   /**
    * Before all render pipes were built in to the renderer, now we extract and test only the ones we need
    */
-  const data = setupTestForRenderer([
-    // LoopingRenderPipe,
-    // ConditionalRenderPipe,
-    ComponentRenderPipe,
-    // AtomRenderPipe,
-  ])
+  const data = setupTestForRenderer([ComponentRenderPipe])
 
   it('should add extra props', () => {
     const { props } = data.renderer.renderIntermediateElement(
@@ -63,12 +58,16 @@ describe('Renderer', () => {
         {},
       ) as IRenderOutput
 
+    const clonedComponent =
+      data.rootStore.componentService.clonedComponents.get(
+        data.componentInstanceElementToRender.id,
+      )
+
     expect(props).toMatchObject({
-      [DATA_COMPONENT_ID]: data.componentToRender.id,
+      [DATA_COMPONENT_ID]: clonedComponent?.id,
       ...data.componentInstanceElementToRender.props?.values,
     })
 
     expect(atomType).toBe(data.componentRootElement.atom?.current.type)
-    expect(elementId).toBe(data.componentRootElement.id)
   })
 })

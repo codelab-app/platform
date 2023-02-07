@@ -26,7 +26,8 @@ export interface IComponent
   sourceComponentId?: Nullable<string>
   setSourceComponentId: (id: string) => void
   setInstanceElement: (elementRef: Ref<IElement>) => void
-  clone(cloneIndex: number): IComponent
+  setProps(t: Nullable<IProp>): void
+  clone(instanceId: string): IComponent
 }
 
 export type IComponentRef = string

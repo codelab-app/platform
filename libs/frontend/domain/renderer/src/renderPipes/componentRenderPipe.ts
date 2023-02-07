@@ -6,7 +6,6 @@ import type {
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
-import { getComponentService } from '@codelab/frontend/presenter/container'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -25,13 +24,7 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    const componentService = getComponentService(this)
-
-    const clonedComponent = componentService.cloneComponentTree(
-      element,
-      component,
-    )
-
+    const clonedComponent = component.clone(element.id)
     const rootElement = clonedComponent.elementTree?.root
 
     if (!rootElement) {

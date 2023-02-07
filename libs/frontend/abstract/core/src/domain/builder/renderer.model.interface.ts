@@ -3,7 +3,7 @@ import type { Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { IElement, IElementTree } from '../element'
-import type { IExtraElementProps, IProp, IPropData } from '../prop'
+import type { IProp, IPropData } from '../prop'
 import type { IRenderOutput } from '../render'
 import type { IStore } from '../store'
 
@@ -20,8 +20,11 @@ export interface IRenderer {
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput>
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
-  extraElementProps: IExtraElementProps
-  renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
+  // extraElementProps: IExtraElementProps
+  renderChildren(input: {
+    element: IElement
+    parentOutput: IRenderOutput
+  }): ArrayOrSingle<ReactNode>
   runPreAction(element: IElement): void
   getPostAction(element: IElement): Nullish<() => unknown>
   renderElement(element: IElement, extraProps?: IPropData): ReactElement
