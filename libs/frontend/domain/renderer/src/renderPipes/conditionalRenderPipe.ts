@@ -3,12 +3,11 @@ import type {
   IPropData,
   IRenderOutput,
   IRenderPipe,
-  IStore,
 } from '@codelab/frontend/abstract/core'
-import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
+import { shouldRenderElement } from '../utils'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/ConditionalRenderPipe')
@@ -21,7 +20,7 @@ export class ConditionalRenderPipe
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     const appStore = this.renderer.appStore.current
 
-    if (ConditionalRenderPipe.shouldRender(element, appStore)) {
+    if (shouldRenderElement(element, appStore)) {
       return this.next.render(element, props)
     }
 
@@ -35,13 +34,5 @@ export class ConditionalRenderPipe
     }
 
     return RenderOutput.empty({ elementId: element.id })
-  }
-
-  public static shouldRender({ renderIfExpression }: IElement, store: IStore) {
-    if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
-      return true
-    }
-
-    return store.evaluateExpression(renderIfExpression)
   }
 }

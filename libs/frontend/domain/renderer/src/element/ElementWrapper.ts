@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
+import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/renderOutputUtils'
 import {
   extractValidProps,
@@ -66,7 +66,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      * and will return the React Elements with the attached additional props
      */
     const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
-      const children = ConditionalRenderPipe.shouldRender(element, store)
+      const children = shouldRenderElement(element, store)
         ? renderService.renderChildren(renderOutput)
         : undefined
 
