@@ -324,7 +324,7 @@ export class Renderer
     const props = this.processPropsForRender(
       {
         ...componentProps,
-        props: propsForCurrentElement,
+        ...propsForCurrentElement,
         [COMPONENT_INSTANCE_ID]: element.id,
       },
       element,

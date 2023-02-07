@@ -14,6 +14,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import { whereEq } from 'ramda'
 
 @model('@codelab/ExtraElementProps')
 export class ExtraElementProps
@@ -32,10 +33,14 @@ export class ExtraElementProps
 
   @modelAction
   addForElement(elementId: string, props: IPropData) {
-    this.elementPropMap.set(
-      elementId,
-      frozen(mergeProps(this.getForElement(elementId), props)),
-    )
+    const currentProps = this.getForElement(elementId)
+
+    if (!whereEq(props, currentProps)) {
+      this.elementPropMap.set(
+        elementId,
+        frozen(mergeProps(currentProps, props)),
+      )
+    }
   }
 
   @modelAction
