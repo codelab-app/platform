@@ -35,6 +35,8 @@ export class ExtraElementProps
   addForElement(elementId: string, props: IPropData) {
     const currentProps = this.getForElement(elementId)
 
+    // This prevents creating a new object if the new `props` is already
+    // in the current `props` because it can cause to render infinitely
     if (!whereEq(props, currentProps)) {
       this.elementPropMap.set(
         elementId,
