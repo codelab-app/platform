@@ -122,7 +122,6 @@ export const useRenderedPage = ({
      */
     const appTree = pageService.pagesList.find((p) => p.isProvider)?.elementTree
     const appStore = storeService.stores.get(app.store.id)
-    const components = componentService.componentList
 
     if (!appStore) {
       return null
@@ -132,7 +131,6 @@ export const useRenderedPage = ({
       id: page.id,
       pageTree,
       appTree,
-      components,
       appStore,
       isBuilder,
     })
@@ -143,7 +141,6 @@ export const useRenderedPage = ({
       page,
       renderer,
       appTree,
-      components,
       appStore,
     }
   }, [pageId, commonPagesData.loading])

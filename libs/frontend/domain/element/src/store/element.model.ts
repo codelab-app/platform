@@ -1,7 +1,6 @@
 import type {
   IAtom,
   IComponent,
-  IElement,
   IElementDTO,
   IElementTree,
   IHook,
@@ -18,6 +17,7 @@ import {
   DATA_ELEMENT_ID,
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
+  IElement,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
@@ -174,7 +174,7 @@ export class Element
   }
 
   @computed
-  get rootElement() {
+  get rootElement(): IElement {
     return this.parentElement ? this.parentElement : this
   }
 

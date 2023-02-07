@@ -1132,7 +1132,9 @@ element is new parentElement's first child
         e.writeCache({
           ...elementFragment,
           parentComponent: e.parentComponent?.current
-            ? { id: e.parentComponent.current.id }
+            ? ({
+                id: e.parentComponent.current.id,
+              } as IElementDTO['parentComponent'])
             : undefined,
         }),
       )
