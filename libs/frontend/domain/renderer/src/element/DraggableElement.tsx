@@ -46,16 +46,11 @@ export const DraggableElement = ({
   } = useDroppable({ id: element.id })
 
   useEffect(() => {
-    // Passing the setDraggableAndDroppableNodeRef as ref to makeRenderedElements
-    // doesn't work properly for some components like AntDesignImage.
-    // This works for now but could be improved later on
-    setTimeout(() => {
-      const htmlElement = document.querySelector(
-        `[data-element-id="${element.id}"]`,
-      )
+    const htmlElement = document.querySelector(
+      `[data-element-id="${element.id}"]`,
+    )
 
-      setDraggableAndDroppableNodeRef(htmlElement as HTMLElement)
-    }, 2000)
+    setDraggableAndDroppableNodeRef(htmlElement as HTMLElement)
   }, [])
 
   const dragPosition = isOver
