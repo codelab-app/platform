@@ -100,7 +100,9 @@ const ToggleExpression = ({
   return (
     <div className="ant-form-item">
       <Space css={tw`mb-1 justify-between w-full`}>
-        <label htmlFor={fieldProps.id}>{fieldProps.label ?? ''}</label>
+        <Tooltip placement="right" title={fieldProps.label}>
+          <label htmlFor={fieldProps.id}>{fieldProps.label ?? ''}</label>
+        </Tooltip>
 
         <Tooltip placement="left" title={toggleButtonTooltip}>
           <Button
