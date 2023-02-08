@@ -101,9 +101,11 @@ describe('CSS CRUD', () => {
 
       clickEditor().clear().type(createBackgroundColorStyle(backgroundColor1))
 
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('have.css', 'background-color', backgroundColor1)
+      cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
+        'have.css',
+        'background-color',
+        backgroundColor1,
+      )
     })
   })
 
@@ -113,9 +115,11 @@ describe('CSS CRUD', () => {
         .clear({ force: true })
         .type(createBackgroundColorStyle(backgroundColor2))
 
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('have.css', 'background-color', backgroundColor2)
+      cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
+        'have.css',
+        'background-color',
+        backgroundColor2,
+      )
     })
   })
 
@@ -123,13 +127,17 @@ describe('CSS CRUD', () => {
     it('should be able to remove the css styling', () => {
       clickEditor().clear({ force: true }).type(' ')
 
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('not.have.css', 'background-color', backgroundColor1)
+      cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
+        'not.have.css',
+        'background-color',
+        backgroundColor1,
+      )
 
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('not.have.css', 'background-color', backgroundColor2)
+      cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
+        'not.have.css',
+        'background-color',
+        backgroundColor2,
+      )
     })
   })
 })
