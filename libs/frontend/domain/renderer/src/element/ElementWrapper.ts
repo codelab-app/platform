@@ -118,7 +118,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       ErrorBoundary,
       {
         fallbackRender: () => null,
-        onError({ message, stack }) {
+        onError: ({ message, stack }) => {
           element.setRenderingError({ message, stack })
         },
         resetKeys: [renderOutputs],

@@ -67,7 +67,7 @@ export class Atom
 }
 
 export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {
-  onResolvedValueChange(ref, newAtom, oldAtom) {
+  onResolvedValueChange: (ref, newAtom, oldAtom) => {
     if (oldAtom && !newAtom) {
       detach(ref)
     }

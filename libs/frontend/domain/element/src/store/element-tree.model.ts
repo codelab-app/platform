@@ -138,7 +138,7 @@ export class ElementTree
 }
 
 export const elementTreeRef = rootRef<IElementTree>('@codelab/ElementTreeRef', {
-  onResolvedValueChange(ref, newType, oldType) {
+  onResolvedValueChange: (ref, newType, oldType) => {
     if (oldType && !newType) {
       detach(ref)
     }

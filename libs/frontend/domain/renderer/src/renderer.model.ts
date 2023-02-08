@@ -525,7 +525,7 @@ export class Renderer
 export const renderServiceRef = rootRef<IRenderer>(
   '@codelab/RenderServiceRef',
   {
-    onResolvedValueChange(ref, newType, oldType) {
+    onResolvedValueChange: (ref, newType, oldType) => {
       if (oldType && !newType) {
         detach(ref)
       }

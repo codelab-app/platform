@@ -7,10 +7,7 @@ const schema = z.object({
   email: z.string().email(),
 })
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { list_id, api_key, server_prefix } = EnvLanding().mailchimp
 
   try {
@@ -30,3 +27,5 @@ export default async function handler(
     return res.status(500).json({ error: 'invalid or already added email' })
   }
 }
+
+export default handler

@@ -14,9 +14,7 @@ export const connectUniformSubmitRef =
     if (submitRef && r) {
       // eslint-disable-next-line no-param-reassign
       submitRef.current = {
-        submit() {
-          return r.submit()
-        },
+        submit: () => r.submit(),
       }
     }
   }

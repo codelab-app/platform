@@ -49,7 +49,7 @@ export class Resource
 }
 
 export const resourceRef = rootRef<IResource>('@codelab/ResourceRef', {
-  onResolvedValueChange(ref, newResource, oldResource) {
+  onResolvedValueChange: (ref, newResource, oldResource) => {
     if (oldResource && !newResource) {
       detach(ref)
     }

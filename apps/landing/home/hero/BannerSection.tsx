@@ -27,7 +27,7 @@ export const BannerSection = () => {
       separator: ',',
       // The delay between the changing of each phrase in milliseconds.
       speed: 4200,
-      complete: function () {
+      complete: () => {
         // Called after the entrance animation is executed.
       },
     })

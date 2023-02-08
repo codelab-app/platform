@@ -79,7 +79,7 @@ export class Field
 }
 
 export const fieldRef = rootRef<IField>('@codelab/FieldRef', {
-  onResolvedValueChange(ref, newType, oldType) {
+  onResolvedValueChange: (ref, newType, oldType) => {
     if (oldType && !newType) {
       detach(ref)
     }

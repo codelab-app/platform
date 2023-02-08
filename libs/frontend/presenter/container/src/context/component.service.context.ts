@@ -11,7 +11,7 @@ import { createContext, detach, rootRef } from 'mobx-keystone'
  */
 
 export const componentRef = rootRef<IComponent>('@codelab/ComponentRef', {
-  onResolvedValueChange(ref, newComponent, oldComponent) {
+  onResolvedValueChange: (ref, newComponent, oldComponent) => {
     if (oldComponent && !newComponent) {
       detach(ref)
     }

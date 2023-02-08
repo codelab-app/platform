@@ -68,7 +68,7 @@ export class App
 }
 
 export const appRef = rootRef<IApp>('@codelab/AppRef', {
-  onResolvedValueChange(ref, newApp, oldApp) {
+  onResolvedValueChange: (ref, newApp, oldApp) => {
     if (oldApp && !newApp) {
       detach(ref)
     }

@@ -124,7 +124,7 @@ export class Prop
 }
 
 export const propRef = rootRef<IProp>('@codelab/PropRef', {
-  onResolvedValueChange(ref, newProp, oldProp) {
+  onResolvedValueChange: (ref, newProp, oldProp) => {
     if (oldProp && !newProp) {
       detach(ref)
     }

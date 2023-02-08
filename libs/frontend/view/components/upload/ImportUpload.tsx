@@ -37,7 +37,7 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
           setIsLoading(false)
         })
     },
-    onChange({ file, fileList }) {
+    onChange: ({ file, fileList }) => {
       console.info(file.status)
 
       if (file.status !== 'uploading') {

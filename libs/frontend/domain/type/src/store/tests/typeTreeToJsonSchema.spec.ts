@@ -19,7 +19,7 @@ describe('Type tree to json schema', () => {
     ajv.compile(jsonSchema)
   })
 
-  it('should transform interface with nested types', function () {
+  it('should transform interface with nested types', () => {
     const jsonSchema = transformer.transform(interfaceWithUnionField)
 
     expect(jsonSchema).toEqual(interfaceWithUnionExpectedSchema)

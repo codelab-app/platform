@@ -1,9 +1,9 @@
 import type { Extension } from '@codemirror/state'
 import type { GraphQLSchema } from 'graphql'
 
-export const getRemoteSchema = async function (
+export const getRemoteSchema = async (
   endpoint: string,
-): Promise<GraphQLSchema | undefined> {
+): Promise<GraphQLSchema | undefined> => {
   try {
     const { buildClientSchema, getIntrospectionQuery } = await import(
       'graphql/utilities'

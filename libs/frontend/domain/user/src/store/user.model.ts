@@ -51,9 +51,8 @@ export class User
     return this
   }
 }
-
 export const userRef = rootRef<IUser>('@codelab/UserRef', {
-  onResolvedValueChange(ref, newUser, oldUser) {
+  onResolvedValueChange: (ref, newUser, oldUser) => {
     if (oldUser && !newUser) {
       detach(ref)
     }

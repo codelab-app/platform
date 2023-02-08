@@ -13,7 +13,8 @@
     "jest",
     "jest-formatting",
     "simple-import-sort",
-    "lodash"
+    "lodash",
+    "prefer-arrow"
   ],
   "env": {
     "jest/globals": true
@@ -464,6 +465,7 @@
       ],
       "rules": {
         "curly": "error",
+        "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/consistent-type-assertions": "error",

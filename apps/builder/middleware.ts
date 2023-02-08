@@ -11,7 +11,7 @@ import { NextResponse } from 'next/server'
  * Vercel domain `my-site-7q03y4pi5.vercel.app`
  * Project domain `codelab.app`
  */
-export default async function middleware(req: NextRequest) {
+const middleware = async (req: NextRequest) => {
   const hostname = req.headers.get('host')
   /**
    * Check if `hostname` contains `builder-egs3r8s85-codelabai.vercel.app`, if so we don't redirect.
@@ -61,3 +61,5 @@ export default async function middleware(req: NextRequest) {
 
   return NextResponse.rewrite(url)
 }
+
+export default middleware

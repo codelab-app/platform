@@ -59,7 +59,7 @@ export class UnionType
 }
 
 export const typeRef = rootRef<IAnyType>('@codelab/TypeRef', {
-  onResolvedValueChange(ref, newType, oldType) {
+  onResolvedValueChange: (ref, newType, oldType) => {
     if (oldType && !newType) {
       detach(ref)
     }

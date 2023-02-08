@@ -61,7 +61,7 @@ export class Tag
 }
 
 export const tagRef = rootRef<ITag>('@codelab/TagRef', {
-  onResolvedValueChange(ref, newTag, oldTag) {
+  onResolvedValueChange: (ref, newTag, oldTag) => {
     if (oldTag && !newTag) {
       detach(ref)
     }

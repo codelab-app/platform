@@ -149,7 +149,7 @@ export class Store
 }
 
 export const storeRef = rootRef<IStore>('@codelab/StoreRef', {
-  onResolvedValueChange(ref, newStore, oldStore) {
+  onResolvedValueChange: (ref, newStore, oldStore) => {
     if (oldStore && !newStore) {
       detach(ref)
     }
