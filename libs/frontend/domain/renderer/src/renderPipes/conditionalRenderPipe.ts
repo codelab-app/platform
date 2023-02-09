@@ -33,6 +33,6 @@ export class ConditionalRenderPipe
       })
     }
 
-    return RenderOutput.empty({ elementId: element.id })
+    return RenderOutput.empty({ element })
   }
 }

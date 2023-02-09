@@ -52,11 +52,10 @@ describe('Renderer', () => {
   })
 
   it('should render component instance', () => {
-    const { props, atomType, elementId } =
-      data.renderer.renderIntermediateElement(
-        data.componentInstanceElementToRender,
-        {},
-      ) as IRenderOutput
+    const { props, atomType } = data.renderer.renderIntermediateElement(
+      data.componentInstanceElementToRender,
+      {},
+    ) as IRenderOutput
 
     const clonedComponent =
       data.rootStore.componentService.clonedComponents.get(

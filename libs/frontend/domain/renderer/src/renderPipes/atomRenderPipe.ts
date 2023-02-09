@@ -58,7 +58,7 @@ export class AtomRenderPipe
     }
 
     return RenderOutput.withAtom({
-      elementId: element.id,
+      element,
       atomType: element.atom.current.type,
       props: { ...newProps, css: elCss },
     })

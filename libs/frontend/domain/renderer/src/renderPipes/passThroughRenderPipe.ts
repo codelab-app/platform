@@ -29,7 +29,7 @@ export class PassThroughRenderPipe
     return RenderOutput.withAtom({
       props: props,
       atomType: element.atom?.current.type || IAtomType.ReactFragment,
-      elementId: element.id,
+      element,
     })
   }
 }

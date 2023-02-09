@@ -14,8 +14,8 @@ export enum RendererTab {
  * This is the intermediate output from rendering a single Element
  */
 export interface IRenderOutput {
-  /** This is the id of the element which this RenderOutput was rendered from */
-  elementId: string
+  /** This is the element which this RenderOutput was rendered from */
+  element: IElement
   atomType?: IAtomType
   props?: IPropData
   /** Any props that should get passed to descendants of this element, mapped by id */

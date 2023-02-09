@@ -22,7 +22,6 @@ export interface IRenderer {
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   // extraElementProps: IExtraElementProps
   renderChildren(input: {
-    element: IElement
     parentOutput: IRenderOutput
   }): ArrayOrSingle<ReactNode>
   runPreAction(element: IElement): void
