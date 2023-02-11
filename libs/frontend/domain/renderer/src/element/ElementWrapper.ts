@@ -109,7 +109,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     // we only apply dnd to the root element of a component or elements not inside a component
     const isDraggable =
-      renderService.isBuilder && (isComponentRootElement || !isInsideAComponent)
+      renderService.rendererType === RendererType.PageBuilder &&
+      (isComponentRootElement || !isInsideAComponent)
 
     // we need to include additional props from dnd so we need to render the element there
     const WrappedElement = isDraggable
