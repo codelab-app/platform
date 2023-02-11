@@ -34,6 +34,7 @@ export class RenderService
   // get componentService() {
   //   return this._componentService.current
   // }
+
   @modelFlow
   @transaction
   addRenderer = _async(function* (
