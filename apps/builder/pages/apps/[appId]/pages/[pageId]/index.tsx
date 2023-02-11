@@ -1,8 +1,7 @@
 import type { IPageProps } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { PageType } from '@codelab/frontend/abstract/types'
-import { Page, pageApi, PageDetailHeader } from '@codelab/frontend/domain/page'
+import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
   useCurrentAppId,
@@ -12,7 +11,6 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
-import { IPageKind } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -58,29 +56,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(
 export default PageRenderer
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired({
-  getServerSideProps: async (context) => {
-    try {
-      return await Page.getServerSideProps(context)
-    } catch (error) {
-      const appId = context.query.appId as string
-
-      const {
-        pages: [errorPage],
-      } = await pageApi.GetPages({
-        where: {
-          app: { id: appId },
-          kind: IPageKind.InternalServerError,
-        },
-      })
-
-      const url = `${PageType.AppList}/${appId}/pages/${errorPage?.id}`
-
-      return {
-        props: {},
-        redirect: { permanent: false, destination: url },
-      }
-    }
-  },
+  getServerSideProps: Page.getServerSideProps,
 })
 
 PageRenderer.Layout = observer((page) => {

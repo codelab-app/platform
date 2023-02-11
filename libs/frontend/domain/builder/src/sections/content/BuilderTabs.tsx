@@ -55,32 +55,28 @@ export const BuilderTabs = observer<BuilderTabsProps>(
             <Tabs.TabPane key={RendererTab.Component} tab="Component" />
           </Tabs>
         </Header>
-        {isLoading ? (
-          <Spin />
-        ) : (
-          <Content>
-            {builderService.activeTree === RendererTab.Page ? (
-              elementTree && renderer ? (
-                <BaseBuilder
-                  builderService={builderService}
-                  elementService={elementService}
-                  elementTree={elementTree}
-                  renderer={renderer}
-                />
-              ) : null
-            ) : builderService.activeComponent && appStore ? (
-              <BuilderComponent
-                BaseBuilder={BaseBuilder}
-                appStore={appStore}
+        <Content>
+          {builderService.activeTree === RendererTab.Page ? (
+            elementTree && renderer ? (
+              <BaseBuilder
                 builderService={builderService}
-                componentId={builderService.activeComponent.id}
-                componentService={componentService}
                 elementService={elementService}
-                renderService={builderRenderService}
+                elementTree={elementTree}
+                renderer={renderer}
               />
-            ) : null}
-          </Content>
-        )}
+            ) : null
+          ) : builderService.activeComponent && appStore ? (
+            <BuilderComponent
+              BaseBuilder={BaseBuilder}
+              appStore={appStore}
+              builderService={builderService}
+              componentId={builderService.activeComponent.id}
+              componentService={componentService}
+              elementService={elementService}
+              renderService={builderRenderService}
+            />
+          ) : null}
+        </Content>
       </Layout>
     )
   },

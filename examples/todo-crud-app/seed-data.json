@@ -1587,17 +1587,17 @@
     },
     {
       "__typename": "PrimitiveType",
+      "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
+      "kind": "PrimitiveType",
+      "name": "Float",
+      "primitiveKind": "Float"
+    },
+    {
+      "__typename": "PrimitiveType",
       "id": "a9c6aa66-f642-487a-aab2-d458f0ee85d4",
       "kind": "PrimitiveType",
       "name": "Integer",
       "primitiveKind": "Integer"
-    },
-    {
-      "__typename": "PrimitiveType",
-      "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
-      "kind": "PrimitiveType",
-      "name": "Number",
-      "primitiveKind": "Number"
     },
     {
       "__typename": "PrimitiveType",
@@ -4467,20 +4467,6 @@
     },
     {
       "__typename": "InterfaceType",
-      "id": "7842ec3b-efd2-4f81-8b00-a49b6c84eb7a",
-      "kind": "InterfaceType",
-      "name": "01 Store API",
-      "fields": []
-    },
-    {
-      "__typename": "InterfaceType",
-      "id": "d660e585-66ba-40b1-aca6-a95d6a7d382a",
-      "kind": "InterfaceType",
-      "name": "ActionColumn API",
-      "fields": []
-    },
-    {
-      "__typename": "InterfaceType",
       "id": "3109949f-4553-4207-98fa-6a509429a197",
       "kind": "InterfaceType",
       "name": "AntDesignAffix API",
@@ -4496,7 +4482,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -4510,7 +4496,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -4610,7 +4596,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -4652,7 +4638,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -4708,7 +4694,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         }
       ]
@@ -4829,7 +4815,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -4935,7 +4921,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -4977,7 +4963,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         }
       ]
@@ -5041,7 +5027,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -6623,7 +6609,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -6715,7 +6701,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         }
       ]
@@ -7123,7 +7109,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         }
       ]
@@ -7821,7 +7807,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -7835,7 +7821,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -7849,7 +7835,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -7863,7 +7849,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -7891,7 +7877,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -8033,7 +8019,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -8301,7 +8287,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -8520,7 +8506,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9184,7 +9170,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9310,7 +9296,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9324,7 +9310,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9670,7 +9656,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9684,7 +9670,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9698,7 +9684,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9768,7 +9754,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -9894,7 +9880,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         }
       ]
@@ -10057,7 +10043,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -10071,7 +10057,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         }
       ]
@@ -10551,7 +10537,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -10593,7 +10579,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -11348,7 +11334,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -11376,7 +11362,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -11418,7 +11404,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -11798,70 +11784,6 @@
     },
     {
       "__typename": "InterfaceType",
-      "id": "58e5829e-5458-4b44-bb20-be866ff5ee57",
-      "kind": "InterfaceType",
-      "name": "AntDesignTableColumn",
-      "fields": [
-        {
-          "id": "0ddb40a3-e5bf-42d0-bc34-5a3a954bf992",
-          "key": "dataIndex",
-          "name": "dataIndex",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        },
-        {
-          "id": "5db50080-52f8-4fd8-bba8-264ca55b55ec",
-          "key": "key",
-          "name": "key",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        },
-        {
-          "id": "f76d2b4b-e226-48b7-9b97-842dc78674e7",
-          "key": "render",
-          "name": "render",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "RenderPropsType",
-            "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
-          }
-        },
-        {
-          "id": "0b505b2f-98c6-4e8f-b651-f9e337766b34",
-          "key": "title",
-          "name": "title",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        }
-      ]
-    },
-    {
-      "__typename": "InterfaceType",
       "id": "1b75e512-2f84-4906-ae34-a170196aee43",
       "kind": "InterfaceType",
       "name": "AntDesignTabs API",
@@ -12073,7 +11995,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -12498,7 +12420,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -12512,7 +12434,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -12596,7 +12518,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         }
       ]
@@ -12765,7 +12687,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -13165,7 +13087,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -14163,7 +14085,7 @@
             "__typename": "PrimitiveType",
             "id": "83e92d2a-4859-4c3e-9709-c661a916b0b6",
             "kind": "PrimitiveType",
-            "name": "Number"
+            "name": "Float"
           }
         },
         {
@@ -14226,20 +14148,6 @@
     },
     {
       "__typename": "InterfaceType",
-      "id": "a5480dee-caa0-474c-a7a6-f69e0df872ab",
-      "kind": "InterfaceType",
-      "name": "DoneColumn API",
-      "fields": []
-    },
-    {
-      "__typename": "InterfaceType",
-      "id": "a8a1e88a-ce3b-498d-9470-c039d8bd5899",
-      "kind": "InterfaceType",
-      "name": "Grid API",
-      "fields": []
-    },
-    {
-      "__typename": "InterfaceType",
       "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
       "kind": "InterfaceType",
       "name": "Html Div API",
@@ -14297,194 +14205,10 @@
     },
     {
       "__typename": "InterfaceType",
-      "id": "230dad52-4166-4d9c-8cc3-8240d9e4768a",
-      "kind": "InterfaceType",
-      "name": "Supabase Crud App Store API",
-      "fields": [
-        {
-          "id": "0e1c4d5f-25d7-4e2f-9d40-6fde7bc0a35b",
-          "key": "deletedTodoId",
-          "name": "deletedTodoId",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        },
-        {
-          "id": "683978a6-e2d1-4798-bdd8-29d4bb01a054",
-          "key": "isLoggedIn",
-          "name": "isLoggedIn",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": "false",
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "582fc518-3fca-40a5-87c0-1dafb96ff554",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          }
-        },
-        {
-          "id": "b244733b-718c-4857-a5be-9c45ff376299",
-          "key": "session",
-          "name": "session",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": "null",
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        },
-        {
-          "id": "c7f3186f-2c3f-4a64-b992-ab0d8a154173",
-          "key": "showCreateTodoModal",
-          "name": "showCreateTodoModal",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "582fc518-3fca-40a5-87c0-1dafb96ff554",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          }
-        },
-        {
-          "id": "718d9908-2911-4758-93b5-ba65ce003e5b",
-          "key": "showDeleteTodoModal",
-          "name": "showDeleteTodoModal",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "582fc518-3fca-40a5-87c0-1dafb96ff554",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          }
-        },
-        {
-          "id": "143c011e-0f4c-4fd5-8105-9b1d698ece3e",
-          "key": "showUpdateTodoModal",
-          "name": "showUpdateTodoModal",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "582fc518-3fca-40a5-87c0-1dafb96ff554",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          }
-        },
-        {
-          "id": "8152d2fd-63d3-4649-8a9b-9116faaf428c",
-          "key": "todos",
-          "name": "todos",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "ArrayType",
-            "id": "7e9a4f3f-18db-41b0-8795-1cb8f1aef958",
-            "kind": "ArrayType",
-            "name": "Todos"
-          }
-        },
-        {
-          "id": "3a3205ed-3b6a-4327-85be-7ca18f1a62cf",
-          "key": "updatedTodoId",
-          "name": "updatedTodoId",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        }
-      ]
-    },
-    {
-      "__typename": "InterfaceType",
       "id": "623e4bbd-2c18-4f52-ac25-0a7731788988",
       "kind": "InterfaceType",
       "name": "Text API",
       "fields": []
-    },
-    {
-      "__typename": "InterfaceType",
-      "id": "d0be678f-3a6b-4093-a5c1-b4ab1e994fdf",
-      "kind": "InterfaceType",
-      "name": "Todo",
-      "fields": [
-        {
-          "id": "a0727b8d-bb41-4f55-8d59-dd3af39c9f4e",
-          "key": "description",
-          "name": "description",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        },
-        {
-          "id": "a4e2a299-5028-4c9d-886b-660d3270d4c6",
-          "key": "done",
-          "name": "done",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "582fc518-3fca-40a5-87c0-1dafb96ff554",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          }
-        },
-        {
-          "id": "82ec870b-8fde-4438-a7c7-b1460ca28a09",
-          "key": "id",
-          "name": "id",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        },
-        {
-          "id": "24fa6e48-4b41-4df5-a1ae-032c2645ed2f",
-          "key": "title",
-          "name": "title",
-          "description": null,
-          "validationRules": "{}",
-          "defaultValues": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "1fa8f923-63b7-489f-99ca-e774d59be753",
-            "kind": "PrimitiveType",
-            "name": "String"
-          }
-        }
-      ]
     }
   ],
   "tags": [

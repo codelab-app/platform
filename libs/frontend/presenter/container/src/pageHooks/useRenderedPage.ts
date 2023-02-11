@@ -55,17 +55,16 @@ export const useRenderedPage = ({
       return null
     }
 
-    const [currentPage, providerPage] = app.pages
-      .sort((page) => (page.kind === IPageKind.Regular ? -1 : 1))
-      .map((page) => appService.load({ app, pageId: page.id }))
+    const providerPage = app.pages.find(
+      ({ kind }) => kind === IPageKind.Provider,
+    )
 
-    if (!currentPage) {
-      console.log('redirect')
-
-      throw new Error('Unable to find page')
+    if (!providerPage) {
+      // TODO: redirect to 505 page
+      return null
     }
 
-    appService.load({ app: app, pageId: providerPage?.page.id })
+    appService.load({ app: app, pageId: providerPage.id })
 
     // load types by chucks so UI is not blocked
     typeService.loadTypesByChunks(types)
@@ -90,6 +89,7 @@ export const useRenderedPage = ({
 
   const currentPageData = useAsync(async () => {
     if (!commonPagesData.value) {
+      // commonPageData is not loaded yet
       return null
     }
 

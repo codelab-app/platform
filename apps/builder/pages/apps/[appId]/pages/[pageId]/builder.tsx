@@ -21,82 +21,44 @@ import {
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useMemo } from 'react'
-import { useAsync } from 'react-use'
+import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
   const {
     componentService,
-    appService,
-    builderRenderService,
     elementService,
     builderService,
+    builderRenderService,
   } = useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const {
-    value: pageDataValue,
-    error: pageDataError,
-    loading: pageLoading,
-  } = useRenderedPage({
+  const { value, error, loading } = useRenderedPage({
     appId,
     pageId,
     renderService: builderRenderService,
     rendererType: RendererType.PageBuilder,
   })
 
-  const {
-    loading: renderLoading,
-    value,
-    error: rendererError,
-  } = useAsync(async () => {
-    if (!pageDataValue) {
-      return {
-        value: null,
-        error: undefined,
-        loading: pageLoading,
+  useEffect(() => {
+    /**
+     * Select root element for current page
+     */
+    if (value?.page) {
+      const pageRootElement = elementService.element(value.page.rootElement.id)
+
+      if (pageRootElement) {
+        builderService.selectPageElementTreeNode(elementRef(pageRootElement))
       }
     }
-
-    const { page, pageTree, appTree, appStore } = pageDataValue
-    /**
-     *
-     * page Element tree
-     *
-     */
-    const pageRootElement = elementService.element(page.rootElement.id)
-
-    if (pageRootElement) {
-      builderService.selectPageElementTreeNode(elementRef(pageRootElement))
-    }
-
-    const renderer = await builderRenderService.addRenderer({
-      id: page.id,
-      pageTree,
-      appTree,
-      appStore,
-      rendererType: RendererType.PageBuilder,
-    })
-
-    appStore.state.setMany(appService.appsJson)
-
-    return {
-      pageTree,
-      appStore,
-      page,
-      renderer,
-    }
-  }, [pageLoading])
-
-  const error = pageDataError || rendererError
-  const loading = pageLoading || renderLoading
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value?.page])
 
   return (
     <>
       <Head>
-        <title>{value?.page?.name} | Builder | Codelab</title>
+        <title>{value?.page.name} | Builder | Codelab</title>
       </Head>
 
       <BuilderTabs
@@ -114,7 +76,7 @@ const PageBuilder: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 PageBuilder.Layout = observer((page) => {
   const {
@@ -166,7 +128,7 @@ PageBuilder.Layout = observer((page) => {
           userService={userService}
         />
       )),
-    [pageTree, componentTree],
+    [pageBuilderRenderer, builderService],
   )
 
   const HeaderComponent = useMemo(

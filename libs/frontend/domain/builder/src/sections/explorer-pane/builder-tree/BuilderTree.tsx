@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { componentRef, useStore } from '@codelab/frontend/presenter/container'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import type { EventDataNode } from 'antd/lib/tree'
 import has from 'lodash/has'
@@ -28,7 +28,7 @@ import {
 interface BuilderTreeProps {
   treeData: IBuilderDataNode | undefined
   className?: string
-  elementTree: Maybe<IElementTree>
+  elementTree: IElementTree | null
   setActiveTree: () => void
   setExpandedNodeIds: (ids: Array<string>) => void
   selectTreeNode(node: Nullable<Ref<INode>>): void

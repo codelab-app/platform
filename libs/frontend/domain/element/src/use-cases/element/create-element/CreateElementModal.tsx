@@ -39,6 +39,7 @@ interface CreateElementModalProps {
   elementService: IElementService
   userService: IUserService
   componentService: IComponentService
+  storeId: string
 }
 
 export const CreateElementModal = observer<CreateElementModalProps>(
