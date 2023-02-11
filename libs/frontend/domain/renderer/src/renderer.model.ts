@@ -159,7 +159,6 @@ export class Renderer
     this.appTree = appElementTree ? elementTreeRef(appElementTree) : null
   }
 
-  @modelAction
   renderRoot() {
     const root = this.pageTree?.current.root
 
