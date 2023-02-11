@@ -161,7 +161,7 @@ export class Renderer
 
   @modelAction
   renderRoot() {
-    const root = this.pageTree?.maybeCurrent?.root
+    const root = this.pageTree?.current.root
 
     if (!root) {
       console.warn('Renderer: No root element found')
