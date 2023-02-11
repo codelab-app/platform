@@ -59,6 +59,14 @@ export const useRenderedPage = ({
       ({ kind }) => kind === IPageKind.Provider,
     )
 
+    const notFoundPage = app.pages.find(
+      ({ kind }) => kind === IPageKind.NotFound,
+    )
+
+    const internalServerErrorPage = app.pages.find(
+      ({ kind }) => kind === IPageKind.InternalServerError,
+    )
+
     if (!providerPage) {
       // TODO: redirect to 505 page
       return null
