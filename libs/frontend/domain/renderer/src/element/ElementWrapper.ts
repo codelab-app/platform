@@ -3,6 +3,7 @@ import type {
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
+import { RendererType } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
@@ -74,7 +75,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         renderOutput.props['forwardedRef'] = onRefChange
 
         if (element.atom?.current.type === IAtomType.GridLayout) {
-          renderOutput.props['static'] = !renderService.isBuilder
+          renderOutput.props['static'] =
+            renderService.rendererType === RendererType.Preview
         }
       }
 

@@ -1,3 +1,4 @@
+import { RendererType } from '@codelab/frontend/abstract/core'
 import type { AppPagePageProps } from '@codelab/frontend/abstract/types'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
@@ -17,7 +18,7 @@ const Index = (props: AppPagePageProps) => {
     appId,
     pageId,
     renderService: store.appRenderService,
-    isBuilder: false,
+    rendererType: RendererType.Preview,
     initialData: renderingData,
   })
 

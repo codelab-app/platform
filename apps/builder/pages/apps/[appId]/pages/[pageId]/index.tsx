@@ -1,4 +1,5 @@
 import type { IPageProps } from '@codelab/frontend/abstract/core'
+import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { Page, PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
@@ -26,7 +27,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(
       appId,
       pageId,
       renderService: appRenderService,
-      isBuilder: false,
+      rendererType: RendererType.Preview,
     })
 
     useEffect(() => {

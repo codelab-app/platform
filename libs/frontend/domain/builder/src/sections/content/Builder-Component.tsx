@@ -5,6 +5,7 @@ import type {
   IRenderService,
   IStore,
 } from '@codelab/frontend/abstract/core'
+import { RendererType } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import type { JSXElementConstructor } from 'react'
 import React, { useEffect } from 'react'
@@ -55,8 +56,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           pageTree: componentTree,
           appTree: null,
           appStore,
-          isComponentBuilder: true,
-          isBuilder: true,
+          rendererType: RendererType.ComponentBuilder,
         })
       })()
     }, [componentId])

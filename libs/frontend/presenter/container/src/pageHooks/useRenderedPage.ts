@@ -1,4 +1,7 @@
-import type { IRenderService } from '@codelab/frontend/abstract/core'
+import type {
+  IRenderService,
+  RendererType,
+} from '@codelab/frontend/abstract/core'
 import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
@@ -13,7 +16,7 @@ interface RenderedPageProps {
   /**
    * indicates whether the hook is used inside builder page or preview page
    */
-  isBuilder: boolean
+  rendererType: RendererType
   /**
    * for production we prebuild pages with all required information
    * so if this object exists - use it as a source of truth instead of making a request
@@ -27,9 +30,9 @@ interface RenderedPageProps {
 export const useRenderedPage = ({
   appId,
   pageId,
-  isBuilder,
   renderService,
   initialData,
+  rendererType,
 }: RenderedPageProps) => {
   const {
     appService,
@@ -132,7 +135,7 @@ export const useRenderedPage = ({
       pageTree,
       appTree,
       appStore,
-      isBuilder,
+      rendererType,
     })
 
     return {

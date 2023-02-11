@@ -11,6 +11,7 @@ import type {
 import {
   CUSTOM_TEXT_PROP_KEY,
   IElementTree,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
@@ -72,8 +73,7 @@ const init = async ({
   pageTree,
   appStore,
   appTree,
-  isBuilder,
-  isComponentBuilder,
+  rendererType,
   set_selectedNode,
 }: RendererProps) => {
   /**
@@ -108,8 +108,7 @@ const init = async ({
     // extraElementProps: new ExtraElementProps({
     //  global: frozen(isBuilder ? builderGlobals : {}),
     // }),
-    isBuilder,
-    isComponentBuilder,
+    rendererType,
   })
 }
 
@@ -156,14 +155,9 @@ export class Renderer
       debugMode: prop(false).withSetter(),
 
       /**
-       * Used for making the element draggable if true (e.g. in builder page)
+       * Different types of renderer requires behaviors in some cases.
        */
-      isBuilder: prop(false),
-      /**
-       * Used for to decide component props expression context :
-       * either global state + instance props + component props or just component props
-       */
-      isComponentBuilder: prop(false),
+      rendererType: prop<RendererType>(),
     },
     // {
     //  toSnapshotProcessor(sn, modelInstance) {
@@ -463,9 +457,10 @@ export class Renderer
     props = this.applyPropTypeTransformers(props)
     props = element.executePropTransformJs(props)
 
-    const context = this.isComponentBuilder
-      ? props
-      : mergeProps(this.state.values, props)
+    const context =
+      this.rendererType === RendererType.ComponentBuilder
+        ? props
+        : mergeProps(this.state.values, props)
 
     props = this.appStore.current.replaceStateInProps(props, context)
 

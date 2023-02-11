@@ -1127,13 +1127,13 @@ element is new parentElement's first child
   @modelAction
   writeClonesCache(elementFragment: IElementDTO) {
     return [...this.clonedElements.values()]
-      .filter((c) => c.sourceElementId === elementFragment.id)
-      .map((e) =>
-        e.writeCache({
+      .filter((element) => element.sourceElementId === elementFragment.id)
+      .map((element) =>
+        element.writeCache({
           ...elementFragment,
-          parentComponent: e.parentComponent?.current
+          parentComponent: element.parentComponent?.current
             ? ({
-                id: e.parentComponent.current.id,
+                id: element.parentComponent.current.id,
               } as IElementDTO['parentComponent'])
             : undefined,
         }),
@@ -1143,7 +1143,7 @@ element is new parentElement's first child
   @modelAction
   removeClones(elementId: string) {
     return [...this.clonedElements.entries()]
-      .filter(([_, component]) => component.sourceElementId === elementId)
+      .filter(([id, component]) => component.sourceElementId === elementId)
       .forEach(([id]) => this.clonedElements.delete(id))
   }
 }

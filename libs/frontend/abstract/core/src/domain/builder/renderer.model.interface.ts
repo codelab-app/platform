@@ -7,13 +7,18 @@ import type { IProp, IPropData } from '../prop'
 import type { IRenderOutput } from '../render'
 import type { IStore } from '../store'
 
+export const enum RendererType {
+  PageBuilder = 'page-builder',
+  ComponentBuilder = 'component-builder',
+  Preview = 'preview',
+}
 export interface IRenderer {
   renderRoot(): ReactElement | null
   appTree: Nullable<Ref<IElementTree>>
   appStore: Ref<IStore>
   pageTree: Nullable<Ref<IElementTree>>
   debugMode: boolean
-  isBuilder: boolean
+  rendererType: RendererType
   state: IProp
   renderIntermediateElement(
     element: IElement,

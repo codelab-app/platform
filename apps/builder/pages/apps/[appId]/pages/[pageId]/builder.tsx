@@ -1,3 +1,4 @@
+import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
@@ -39,7 +40,7 @@ const PageBuilder: CodelabPage = observer(() => {
     appId,
     pageId,
     renderService: builderRenderService,
-    isBuilder: true,
+    rendererType: RendererType.PageBuilder,
   })
 
   useEffect(() => {
