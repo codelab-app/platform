@@ -2,7 +2,7 @@ import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import { APP_PAGE_NAME, APP_PAGE_SLUG } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { print } from 'graphql'
 import { CreateAppsDocument } from 'libs/frontend/domain/app/src/graphql/app.endpoints.graphql.gen'
@@ -24,7 +24,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
           node: createPageInput(appId, {
             name: APP_PAGE_NAME,
             slug: createSlug(APP_PAGE_SLUG, appId),
-            isProvider: true,
+            kind: IPageKind.Provider,
           }),
         },
         // create test page

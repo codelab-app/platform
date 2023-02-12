@@ -112,7 +112,14 @@ export const PageBuilderAppFragmentDoc = gql`
       id
     }
     pages(
-      where: { OR: [{ id: $pageId }, { kind: Provider }, { kind: NotFound }] }
+      where: {
+        OR: [
+          { id: $pageId }
+          { kind: Provider }
+          { kind: NotFound }
+          { kind: InternalServerError }
+        ]
+      }
     ) {
       ...BuilderPage
     }

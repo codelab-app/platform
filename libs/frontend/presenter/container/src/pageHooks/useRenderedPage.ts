@@ -1,9 +1,14 @@
+import type { IRenderService } from '@codelab/frontend/abstract/core'
+import { RendererType } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
+import { notify } from '@codelab/frontend/shared/utils'
 import type {
-  IRenderService,
-  RendererType,
-} from '@codelab/frontend/abstract/core'
-import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
+  GetRenderedPageAndCommonAppDataQuery,
+  PageBuilderAppFragment,
+} from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@graphql-tools/utils/typings/types'
+import { useRouter } from 'next/router'
 import { useAsync } from 'react-use'
 import { useStore } from '../providers'
 
@@ -25,6 +30,17 @@ interface RenderedPageProps {
   initialData?: GetRenderedPageAndCommonAppDataQuery
 }
 
+const defaultErrorPages: Map<IPageKind, PageType> = new Map([
+  [IPageKind.InternalServerError, PageType.Page500],
+  [IPageKind.NotFound, PageType.Page404],
+])
+
+const requiredPageKinds: Array<IPageKind> = [
+  IPageKind.NotFound,
+  IPageKind.Provider,
+  IPageKind.InternalServerError,
+]
+
 /**
  * Fetch related data for rendering page, and load them into store
  */
@@ -44,6 +60,37 @@ export const useRenderedPage = ({
     pageService,
   } = useStore()
 
+  const router = useRouter()
+
+  const redirectToErrorPage = async (
+    kind: IPageKind,
+    app: Maybe<PageBuilderAppFragment>,
+  ) => {
+    const errorPage = app?.pages.find(
+      (page) => page.kind === IPageKind.InternalServerError,
+    )
+
+    console.log(errorPage)
+
+    await router.push(
+      errorPage
+        ? { query: { ...router.query, pageId: errorPage.id } }
+        : { pathname: defaultErrorPages.get(kind), query: router.query },
+    )
+  }
+
+  const notifyMissingPagesOnBuilder = (loadedPageKinds: Array<IPageKind>) => {
+    if (rendererType === RendererType.Preview) {
+      return
+    }
+
+    requiredPageKinds.forEach((kind) => {
+      if (!loadedPageKinds.includes(kind)) {
+        notify({ type: 'error', title: `Failed to load ${kind} page` })
+      }
+    })
+  }
+
   const commonPagesData = useAsync(async () => {
     const { apps, components, resources, ...types } =
       initialData ??
@@ -52,27 +99,24 @@ export const useRenderedPage = ({
     const [app] = apps
 
     if (!app) {
-      return null
+      return rendererType === RendererType.Preview
+        ? await redirectToErrorPage(IPageKind.NotFound, undefined)
+        : notify({ type: 'error', title: 'Failed to load app' })
     }
 
     const providerPage = app.pages.find(
       ({ kind }) => kind === IPageKind.Provider,
     )
 
-    const notFoundPage = app.pages.find(
-      ({ kind }) => kind === IPageKind.NotFound,
-    )
+    notifyMissingPagesOnBuilder(app.pages.map((page) => page.kind))
 
-    const internalServerErrorPage = app.pages.find(
-      ({ kind }) => kind === IPageKind.InternalServerError,
-    )
-
-    if (!providerPage) {
-      // TODO: redirect to 505 page
-      return null
+    if (providerPage) {
+      appService.load({ app: app, pageId: providerPage.id })
+    } else {
+      if (rendererType === RendererType.Preview) {
+        return await redirectToErrorPage(IPageKind.InternalServerError, app)
+      }
     }
-
-    appService.load({ app: app, pageId: providerPage.id })
 
     // load types by chucks so UI is not blocked
     typeService.loadTypesByChunks(types)
@@ -111,8 +155,7 @@ export const useRenderedPage = ({
       const [loadedPage] = pages
 
       if (!loadedPage) {
-        // TODO: redirect to 404 page
-        return null
+        return await redirectToErrorPage(IPageKind.NotFound, app)
       }
 
       app.pages.push(loadedPage)
@@ -141,7 +184,7 @@ export const useRenderedPage = ({
     const appStore = storeService.stores.get(app.store.id)
 
     if (!appStore) {
-      return null
+      return await redirectToErrorPage(IPageKind.InternalServerError, app)
     }
 
     const renderer = await renderService.addRenderer({

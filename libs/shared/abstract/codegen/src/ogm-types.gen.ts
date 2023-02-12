@@ -1918,6 +1918,13 @@ export enum ElementTypeKind {
   ExcludeDescendantsElements = 'ExcludeDescendantsElements',
 }
 
+export enum PageKind {
+  Provider = 'Provider',
+  InternalServerError = 'InternalServerError',
+  NotFound = 'NotFound',
+  Regular = 'Regular',
+}
+
 export enum PrimitiveTypeKind {
   String = 'String',
   Integer = 'Integer',
@@ -5094,7 +5101,7 @@ export type Page = {
   name: Scalars['String']
   slug: Scalars['String']
   getServerSideProps?: Maybe<Scalars['String']>
-  isProvider: Scalars['Boolean']
+  kind: PageKind
   rootElement: Element
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
   app: App
@@ -22001,7 +22008,7 @@ export type PageCreateInput = {
   name: Scalars['String']
   slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
-  isProvider?: Scalars['Boolean']
+  kind: PageKind
   rootElement?: InputMaybe<PageRootElementFieldInput>
   app?: InputMaybe<PageAppFieldInput>
   pageContainerElement?: InputMaybe<PagePageContainerElementFieldInput>
@@ -22024,7 +22031,7 @@ export type PageOnCreateInput = {
   name: Scalars['String']
   slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
-  isProvider?: Scalars['Boolean']
+  kind: PageKind
 }
 
 export type PageOptions = {
@@ -23202,7 +23209,7 @@ export type PageSort = {
   name?: InputMaybe<SortDirection>
   slug?: InputMaybe<SortDirection>
   getServerSideProps?: InputMaybe<SortDirection>
-  isProvider?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
 }
 
 export type PageTypeConnectInput = {
@@ -23518,7 +23525,7 @@ export type PageUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   slug?: InputMaybe<Scalars['String']>
   getServerSideProps?: InputMaybe<Scalars['String']>
-  isProvider?: InputMaybe<Scalars['Boolean']>
+  kind?: InputMaybe<PageKind>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   app?: InputMaybe<PageAppUpdateFieldInput>
   pageContainerElement?: InputMaybe<PagePageContainerElementUpdateFieldInput>
@@ -23592,10 +23599,10 @@ export type PageWhere = {
   getServerSideProps_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   getServerSideProps_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  isProvider?: InputMaybe<Scalars['Boolean']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  isProvider_NOT?: InputMaybe<Scalars['Boolean']>
-  /** @deprecated Use `rootElement_SOME` instead. */
+  kind?: InputMaybe<PageKind>
+  kind_NOT?: InputMaybe<PageKind>
+  kind_IN?: InputMaybe<Array<PageKind>>
+  kind_NOT_IN?: InputMaybe<Array<PageKind>>
   rootElement?: InputMaybe<ElementWhere>
   /** @deprecated Use `rootElement_NONE` instead. */
   rootElement_NOT?: InputMaybe<ElementWhere>

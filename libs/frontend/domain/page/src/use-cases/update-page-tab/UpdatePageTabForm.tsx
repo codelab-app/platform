@@ -9,6 +9,7 @@ import {
   CodeMirrorLanguage,
   ElementTypeKind,
 } from '@codelab/shared/abstract/codegen'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -24,10 +25,10 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
     }
 
     const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
-    const { isProvider } = page
+    const { kind } = page
     const omitFields = ['appId']
 
-    if (!isProvider) {
+    if (kind === IPageKind.Regular) {
       omitFields.push('pageContainerElementId')
     }
 
@@ -38,8 +39,8 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       type: 'object',
       properties: {
         appId: { type: 'string' },
-        name: { type: 'string', disabled: isProvider },
-        slug: { type: 'string', disabled: isProvider },
+        name: { type: 'string', disabled: kind !== IPageKind.Regular },
+        slug: { type: 'string', disabled: kind !== IPageKind.Regular },
         getServerSideProps: {
           type: 'string',
           nullable: true,
