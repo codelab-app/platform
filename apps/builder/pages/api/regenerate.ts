@@ -22,7 +22,10 @@ const getAllPagesToRevalidate = async () => {
       for (const page of app.pages) {
         if (!page.isProvider) {
           const pageSlug = extractSlug(page.slug)
-          pathsToRevalidate.push(`/_sites/${domain.name}/${pageSlug}`)
+          pathsToRevalidate.push({
+            domain,
+            path: `/_sites/${domain.name}/${pageSlug}`,
+          })
         }
       }
     }
@@ -45,7 +48,10 @@ const getAllAppPagesToRevalidate = async (appId: string) => {
 
   return pages
     .filter((page) => !page.isProvider)
-    .map((page) => `/_sites/${domain.name}/${extractSlug(page.slug)}`)
+    .map((page) => ({
+      domain,
+      path: `/_sites/${domain.name}/${extractSlug(page.slug)}`,
+    }))
 }
 
 const getSpecificPagesToRevalidate = async (
@@ -60,7 +66,10 @@ const getSpecificPagesToRevalidate = async (
     const domain = domains.find((d) => d.app.id === page.app.id)
 
     if (!page.isProvider && domain && !domain.domainConfig.misconfigured) {
-      pathsToRevalidate.push(`/_sites/${domain.name}/${extractSlug(page.slug)}`)
+      pathsToRevalidate.push({
+        domain,
+        path: `/_sites/${domain.name}/${extractSlug(page.slug)}`,
+      })
     }
   }
 
@@ -91,15 +100,22 @@ const regenerate: NextApiHandler = async (req, res) => {
     const revalidatedPages: Array<string> = []
     const failedPages: Array<string> = []
 
-    const revalidationPromises = pathsToRevalidate.map(async (path) => {
-      try {
-        await res.revalidate(path)
+    const revalidationPromises = pathsToRevalidate.map(
+      async ({ path, domain }) => {
+        try {
+          // even though builder and user web sites share the same codebase
+          // it is still required to specify for which domain to regenerate
+          // see https://github.com/vercel/platforms/issues/76
+          req.headers.host = domain.name
 
-        revalidatedPages.push(path)
-      } catch (e) {
-        failedPages.push(path)
-      }
-    })
+          await res.revalidate(path)
+
+          revalidatedPages.push(path)
+        } catch (e) {
+          failedPages.push(path)
+        }
+      },
+    )
 
     await Promise.all(revalidationPromises)
 
