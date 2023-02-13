@@ -99,7 +99,9 @@ export const useRenderedPage = ({
     const [app] = apps
 
     if (!app) {
-      return await router.push({ pathname: PageType.AppList, query: {} })
+      await router.push({ pathname: PageType.AppList, query: {} })
+
+      return null
     }
 
     const providerPage = app.pages.find(
@@ -112,6 +114,8 @@ export const useRenderedPage = ({
       appService.load({ app: app, pageId: providerPage.id })
     } else if (rendererType === RendererType.Preview) {
       await redirectToErrorPage(IPageKind.InternalServerError, app)
+
+      return null
     }
 
     // load types by chucks so UI is not blocked
@@ -151,9 +155,11 @@ export const useRenderedPage = ({
       const [loadedPage] = pages
 
       if (!loadedPage) {
-        return rendererType === RendererType.Preview
+        rendererType === RendererType.Preview
           ? await redirectToErrorPage(IPageKind.NotFound, app)
           : await router.push({ pathname: PageType.PageList, query: { appId } })
+
+        return null
       }
 
       app.pages.push(loadedPage)
@@ -182,7 +188,9 @@ export const useRenderedPage = ({
     const appStore = storeService.stores.get(app.store.id)
 
     if (!appStore) {
-      return await redirectToErrorPage(IPageKind.InternalServerError, app)
+      await redirectToErrorPage(IPageKind.InternalServerError, app)
+
+      return null
     }
 
     const renderer = await renderService.addRenderer({
