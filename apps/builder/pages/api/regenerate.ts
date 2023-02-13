@@ -9,7 +9,7 @@ import type { NextApiHandler } from 'next'
 const getAllPagesToRevalidate = async () => {
   const { users } = await userApi.GetUsers()
   const { domains } = await domainApis.GetDomains()
-  const pathsToRevalidate = []
+  const revalidationData = []
 
   for (const user of users) {
     for (const app of user.apps) {
@@ -21,17 +21,13 @@ const getAllPagesToRevalidate = async () => {
 
       for (const page of app.pages) {
         if (!page.isProvider) {
-          const pageSlug = extractSlug(page.slug)
-          pathsToRevalidate.push({
-            domain,
-            path: `/_sites/${domain.name}/${pageSlug}`,
-          })
+          revalidationData.push({ domain, page })
         }
       }
     }
   }
 
-  return pathsToRevalidate
+  return revalidationData
 }
 
 const getAllAppPagesToRevalidate = async (appId: string) => {
@@ -48,10 +44,7 @@ const getAllAppPagesToRevalidate = async (appId: string) => {
 
   return pages
     .filter((page) => !page.isProvider)
-    .map((page) => ({
-      domain,
-      path: `/_sites/${domain.name}/${extractSlug(page.slug)}`,
-    }))
+    .map((page) => ({ domain, page }))
 }
 
 const getSpecificPagesToRevalidate = async (
@@ -60,20 +53,17 @@ const getSpecificPagesToRevalidate = async (
   const { domains } = await domainApis.GetDomains()
   const condition = Array.isArray(pageIds) ? 'id_IN' : 'id'
   const { pages } = await pageApi.GetPages({ where: { [condition]: pageIds } })
-  const pathsToRevalidate = []
+  const revalidationData = []
 
   for (const page of pages) {
     const domain = domains.find((d) => d.app.id === page.app.id)
 
     if (!page.isProvider && domain && !domain.domainConfig.misconfigured) {
-      pathsToRevalidate.push({
-        domain,
-        path: `/_sites/${domain.name}/${extractSlug(page.slug)}`,
-      })
+      revalidationData.push({ domain, page })
     }
   }
 
-  return pathsToRevalidate
+  return revalidationData
 }
 
 const regenerate: NextApiHandler = async (req, res) => {
@@ -85,23 +75,26 @@ const regenerate: NextApiHandler = async (req, res) => {
     }
 
     const { appId, pageId } = req.query
-    let pathsToRevalidate
+    let revalidationData
 
     if (appId) {
-      pathsToRevalidate = await getAllAppPagesToRevalidate(String(appId))
+      revalidationData = await getAllAppPagesToRevalidate(String(appId))
     } else if (pageId) {
-      pathsToRevalidate = await getSpecificPagesToRevalidate(pageId)
+      revalidationData = await getSpecificPagesToRevalidate(pageId)
     } else {
-      pathsToRevalidate = await getAllPagesToRevalidate()
+      revalidationData = await getAllPagesToRevalidate()
     }
 
-    console.log(pathsToRevalidate)
+    console.log(revalidationData)
 
     const revalidatedPages: Array<string> = []
     const failedPages: Array<string> = []
 
-    const revalidationPromises = pathsToRevalidate.map(
-      async ({ path, domain }) => {
+    const revalidationPromises = revalidationData.map(
+      async ({ page, domain }) => {
+        const pageSlug = extractSlug(page.slug)
+        const path = `/_sites/${domain.name}/${pageSlug}`
+
         try {
           // even though builder and user web sites share the same codebase
           // it is still required to specify for which domain to regenerate
