@@ -1,13 +1,13 @@
 import type { UpdateElementsMutationVariables } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import type { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
 import type { ICacheService } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
 import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
-import type { IProp, IPropData, IPropMapBinding } from '../prop'
+import type { IProp, IPropData } from '../prop'
 import type { IAuth0Id } from '../user'
 import type { IElementDTO } from './element.dto.interface'
 
@@ -50,7 +50,6 @@ export interface IElement
   hooks: Array<IHook>
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
-  propMapBindings: ObjectMap<IPropMapBinding>
   parentComponent: Nullable<Ref<IComponent>>
   label: string
   propTransformationJs: Nullable<string>
@@ -107,7 +106,6 @@ export interface IElement
 
   firstChild: Maybe<IElement>
   firstChildId: Nullable<string>
-  addPropMapBinding(propMapBinding: IPropMapBinding): void
   setOrderInParent(order: number | null): void
   setSlug(slug: string): void
   setAtom(atom: Ref<IAtom>): void
@@ -122,10 +120,6 @@ export interface IElement
   /**
    * Keeps the ref in place
    */
-  applyPropMapBindings(sourceProps: IPropData): {
-    localProps: IPropData
-    globalProps: IPropData
-  }
   executePropTransformJs(props: IPropData): IPropData
 
   appendToGuiCss(css: CssMap): void

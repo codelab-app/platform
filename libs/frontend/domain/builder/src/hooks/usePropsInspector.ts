@@ -45,19 +45,6 @@ export const usePropsInspector = (
   const lastRenderedProps = getNodeProps(node, renderer, editedProps)
   const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 
-  /*  
-  useEffect(() => {
-    if (isElement(node)) {
-      renderer.extraElementProps.setForElement(node.id, editedProps)
-
-      return () => {
-        renderer.extraElementProps.setForElement(node.id, {})
-      }
-    }
-
-    return
-  }, [editedProps])
-*/
   const save = async (data: IPropData) => {
     const jsonData = propSafeStringify(data)
 

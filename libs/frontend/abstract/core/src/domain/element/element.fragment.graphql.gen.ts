@@ -1,20 +1,14 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ComponentFragment } from '../component/component.fragment.graphql.gen'
-import {
-  PropFragment,
-  PropMapBindingFragment,
-} from '../prop/prop.fragment.graphql.gen'
+import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { RenderAtomFragment } from '../atom/atom.fragment.graphql.gen'
 import { HookFragment } from '../hook/hook.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ComponentFragmentDoc } from '../component/component.fragment.graphql.gen'
-import {
-  PropFragmentDoc,
-  PropMapBindingFragmentDoc,
-} from '../prop/prop.fragment.graphql.gen'
+import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 import { RenderAtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
 import { HookFragmentDoc } from '../hook/hook.fragment.graphql.gen'
 export type ElementFragment = {
@@ -39,7 +33,6 @@ export type ElementFragment = {
   firstChild?: { id: string } | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
-  propMapBindings: Array<PropMapBindingFragment>
 }
 
 export const ElementFragmentDoc = gql`
@@ -84,16 +77,12 @@ export const ElementFragmentDoc = gql`
     renderIfExpression
     preRenderActionId
     postRenderActionId
-    propMapBindings {
-      ...PropMapBinding
-    }
     propTransformationJs
   }
   ${ComponentFragmentDoc}
   ${RenderAtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

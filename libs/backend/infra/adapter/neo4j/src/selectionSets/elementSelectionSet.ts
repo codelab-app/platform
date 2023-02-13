@@ -43,19 +43,6 @@ export const elementSelectionSet = `{
   }
   renderForEachPropKey
   renderIfExpression
-  propMapBindings {
-    id
-    sourceKey
-    targetKey
-    element {
-      id
-      name
-    }
-    targetElement {
-      id
-      name
-    }
-  }
   propTransformationJs
   preRenderActionId
   postRenderActionId

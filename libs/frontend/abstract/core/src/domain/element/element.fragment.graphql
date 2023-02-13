@@ -39,8 +39,5 @@ fragment Element on Element {
   renderIfExpression
   preRenderActionId
   postRenderActionId
-  propMapBindings {
-    ...PropMapBinding
-  }
   propTransformationJs
 }

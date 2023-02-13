@@ -25,7 +25,6 @@ export interface IRenderer {
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput>
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
-  // extraElementProps: IExtraElementProps
   renderChildren(input: {
     parentOutput: IRenderOutput
   }): ArrayOrSingle<ReactNode>

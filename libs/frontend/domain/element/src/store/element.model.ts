@@ -7,8 +7,6 @@ import type {
   IInterfaceType,
   IProp,
   IPropData,
-  IPropDataByElementId,
-  IPropMapBinding,
   RenderingError,
   RenderingMetadata,
 } from '@codelab/frontend/abstract/core'
@@ -20,7 +18,7 @@ import {
   IElement,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
-import { Prop, PropMapBinding } from '@codelab/frontend/domain/prop'
+import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
@@ -45,7 +43,6 @@ import {
   model,
   modelAction,
   modelTypeKey,
-  objectMap,
   prop,
 } from 'mobx-keystone'
 import { makeUpdateElementInput } from './api.utils'
@@ -74,7 +71,6 @@ export const hydrate = ({
   postRenderActionId,
   // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
   hooks,
-  propMapBindings,
   props,
   propTransformationJs,
   renderIfExpression,
@@ -108,9 +104,6 @@ export const hydrate = ({
     renderComponentType: renderComponentType
       ? componentRef(renderComponentType.id)
       : null,
-    propMapBindings: objectMap(
-      propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)]),
-    ),
   })
 }
 
@@ -153,7 +146,6 @@ export class Element
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
-    propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
     parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
@@ -255,11 +247,6 @@ export class Element
     }
 
     return
-  }
-
-  @modelAction
-  addPropMapBinding(propMapBinding: PropMapBinding) {
-    this.propMapBindings.set(propMapBinding.id, propMapBinding)
   }
 
   @modelAction
@@ -445,35 +432,6 @@ export class Element
   // }
 
   /**
-   * Parses the prop map bindings with the given source props as input
-   * and separates them into two categories:
-   *
-   * - those that are bound this element
-   * - those that are bound to other elements
-   */
-  applyPropMapBindings = (sourceProps: IPropData) => {
-    // those are the props that are bound to the element
-    let localProps = { ...sourceProps }
-    // Those are the props that are bound to the element's descendants
-    const globalProps: IPropDataByElementId = {}
-
-    for (const pmb of this.propMapBindings.values()) {
-      const appliedProps = pmb.applyBindings(localProps)
-
-      if (pmb.targetElementId && pmb.targetElementId !== this.id) {
-        globalProps[pmb.targetElementId] = mergeProps(
-          globalProps[pmb.targetElementId],
-          appliedProps,
-        )
-      } else {
-        localProps = mergeProps(localProps, appliedProps)
-      }
-    }
-
-    return { localProps, globalProps }
-  }
-
-  /**
    * Parses and materializes the propTransformationJs
    */
   @computed
@@ -561,11 +519,6 @@ export class Element
     }
 
     return mergeProps(props, result)
-  }
-
-  @modelAction
-  removePropMapBinding(propMapBinding: PropMapBinding): void {
-    this.propMapBindings.delete(propMapBinding.id)
   }
 
   @modelAction
@@ -805,7 +758,6 @@ export class Element
     renderComponentType,
     parentComponent,
     hooks,
-    propMapBindings,
     props,
     propTransformationJs,
     renderIfExpression,

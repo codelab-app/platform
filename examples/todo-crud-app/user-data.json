@@ -205,7 +205,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -273,7 +272,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -339,7 +337,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -384,7 +381,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -424,7 +420,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -490,7 +485,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -533,7 +527,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -584,7 +577,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -652,7 +644,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -695,7 +686,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -738,7 +728,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -806,7 +795,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -849,7 +837,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": "",
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -894,7 +881,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -934,7 +920,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -977,7 +962,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1020,7 +1004,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1065,7 +1048,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": "5a2d9631-0952-4a27-9356-345c09f23fb1"
@@ -1110,7 +1092,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1161,7 +1142,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1204,7 +1184,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1272,7 +1251,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1310,7 +1288,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1350,7 +1327,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1393,7 +1369,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": "{{this.isLoggedIn}}",
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1433,7 +1408,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": "{{this.isLoggedIn}}",
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1480,7 +1454,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1527,7 +1500,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1569,7 +1541,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": "{{!this.isLoggedIn}}",
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1611,7 +1582,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1656,7 +1626,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1709,34 +1678,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [
-                {
-                  "id": "edf3b6a3-12bb-4940-a900-829a82e8bc13",
-                  "sourceKey": "id",
-                  "targetKey": "updateId",
-                  "element": {
-                    "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30",
-                    "name": "ActionColumn"
-                  },
-                  "targetElement": {
-                    "id": "97c096b8-e765-4a52-ab03-e4b954124365",
-                    "name": "EditButton"
-                  }
-                },
-                {
-                  "id": "7ec5e958-8567-442f-88aa-39f389609710",
-                  "sourceKey": "id",
-                  "targetKey": "deleteId",
-                  "element": {
-                    "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30",
-                    "name": "ActionColumn"
-                  },
-                  "targetElement": {
-                    "id": "8ed7649c-c7f4-40f7-b3e3-8d2bba264ccf",
-                    "name": "DeleteButton"
-                  }
-                }
-              ],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1781,7 +1722,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1824,7 +1764,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1880,18 +1819,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [
-                {
-                  "id": "9d0c59e8-3ea0-4322-a916-9c226d63188f",
-                  "sourceKey": "done",
-                  "targetKey": "defaultChecked",
-                  "element": {
-                    "id": "c8fbe71a-0de0-4d06-a155-4d602c96d8c8",
-                    "name": "DoneColumn"
-                  },
-                  "targetElement": null
-                }
-              ],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1958,7 +1885,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -1994,7 +1920,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null
@@ -2032,7 +1957,6 @@
               "hooks": [],
               "renderForEachPropKey": null,
               "renderIfExpression": null,
-              "propMapBindings": [],
               "propTransformationJs": null,
               "preRenderActionId": null,
               "postRenderActionId": null

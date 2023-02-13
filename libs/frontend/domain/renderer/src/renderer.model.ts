@@ -103,70 +103,51 @@ const init = async ({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
     appStore: storeRef(appStore),
-    // extraElementProps: new ExtraElementProps({
-    //  global: frozen(isBuilder ? builderGlobals : {}),
-    // }),
     rendererType,
   })
 }
 
 @model('@codelab/Renderer')
 export class Renderer
-  extends Model(
-    {
-      id: idProp,
+  extends Model({
+    id: idProp,
 
-      /**
-       * A tree of providers that will get rendered before all of the regular elements
-       */
-      appTree: prop<Nullable<Ref<IElementTree>>>(null),
+    /**
+     * A tree of providers that will get rendered before all of the regular elements
+     */
+    appTree: prop<Nullable<Ref<IElementTree>>>(null),
 
-      /**
-       * Store attached to app, needed to access its actions
-       */
-      appStore: prop<Ref<IStore>>(),
-      /**
-       * The tree that's being rendered, we assume that this is properly constructed
-       */
-      pageTree: prop<Nullable<Ref<IElementTree>>>(null),
+    /**
+     * Store attached to app, needed to access its actions
+     */
+    appStore: prop<Ref<IStore>>(),
+    /**
+     * The tree that's being rendered, we assume that this is properly constructed
+     */
+    pageTree: prop<Nullable<Ref<IElementTree>>>(null),
 
-      /**
-       * Props passed to specific elements, such as from global props context
-       */
-      // extraElementProps: prop(() => new ExtraElementProps({})),
+    /**
+     * Those transform different kinds of typed values into render-ready props
+     */
+    typedValueTransformers: prop<Array<ITypedValueTransformer>>(() =>
+      typedValueTransformersFactory(),
+    ),
 
-      /**
-       * Those transform different kinds of typed values into render-ready props
-       */
-      typedValueTransformers: prop<Array<ITypedValueTransformer>>(() =>
-        typedValueTransformersFactory(),
-      ),
+    /**
+     * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
+     */
+    renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
 
-      /**
-       * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
-       */
-      renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
+    /**
+     * Will log the render output and render pipe info to the console
+     */
+    debugMode: prop(false).withSetter(),
 
-      /**
-       * Will log the render output and render pipe info to the console
-       */
-      debugMode: prop(false).withSetter(),
-
-      /**
-       * Different types of renderer requires behaviors in some cases.
-       */
-      rendererType: prop<RendererType>(),
-    },
-    // {
-    //  toSnapshotProcessor(sn, modelInstance) {
-    //    return {
-    //      ...sn,
-    //      Remove those, because they are runtime only and not serializable
-    //      extraElementProps: getSnapshot(new ExtraElementProps({})),
-    //    }
-    //  },
-    // },
-  )
+    /**
+     * Different types of renderer requires behaviors in some cases.
+     */
+    rendererType: prop<RendererType>(),
+  })
   implements IRenderer
 {
   @modelAction
@@ -298,9 +279,6 @@ export class Renderer
       return
     }
 
-    const propsForCurrentElement = this.extraElementProps.getForElement(
-      element.id,
-    )['props']
 
     const props = this.processPropsForRender(
       {
@@ -310,10 +288,6 @@ export class Renderer
       },
       element,
     )
-
-    component.elementTree?.elementsList.forEach((elem: IElement) => {
-      this.extraElementProps.addForElement(elem.id, { props })
-    })
   }
   */
 
@@ -359,28 +333,6 @@ export class Renderer
     props = this.processPropsForRender(props, element)
 
     return this.renderPipe.render(element, props)
-    /**
-     * Pass down global props
-     */
-    // const { globalProps } = element.applyPropMapBindings(props)
-
-    // const appendGlobalProps = (renderOutput: IRenderOutput) => {
-    //  const mergedGlobalProps = mergeProps(
-    //    renderOutput.globalProps,
-    //    globalProps,
-    //  )
-
-    //  return isEmpty(mergedGlobalProps)
-    //    ? renderOutput
-    //    : {
-    //        ...renderOutput,
-    //        globalProps: mergedGlobalProps,
-    //      }
-    // }
-
-    // const output = this.renderPipe.render(element, props)
-
-    // return mapOutput(output, appendGlobalProps)
   }
 
   getComponentInstanceChildren(element: IElement) {
@@ -463,9 +415,6 @@ export class Renderer
         : mergeProps(this.state.values, props)
 
     props = this.appStore.current.replaceStateInProps(props, context)
-
-    // const { localProps } = element.applyPropMapBindings(props)
-    // props = mergeProps(props, localProps)
 
     return props
   }

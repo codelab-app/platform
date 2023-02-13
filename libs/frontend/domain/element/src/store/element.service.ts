@@ -3,13 +3,11 @@ import type {
   IAuth0Id,
   IComponent,
   ICreateElementDTO,
-  ICreatePropMapBindingDTO,
   IElement,
   IElementRef,
   IElementService,
   IInterfaceType,
   IUpdateElementDTO,
-  IUpdatePropMapBindingDTO,
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -19,10 +17,6 @@ import {
   RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
-import {
-  PropMapBinding,
-  PropMapBindingModalService,
-} from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import { createSlug, runSequentially } from '@codelab/frontend/shared/utils'
@@ -33,7 +27,6 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
-import { connectNode, reconnectNode } from '@codelab/shared/data'
 import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -57,7 +50,7 @@ import {
   makeDuplicateInput,
   makeUpdateInput,
 } from './api.utils'
-import { elementApi, propMapBindingApi } from './apis'
+import { elementApi } from './apis'
 import { Element } from './element.model'
 import {
   CreateElementModalService,
@@ -86,10 +79,6 @@ export class ElementService
     createModal: prop(() => new CreateElementModalService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
-
-    createPropMapBindingModal: prop(() => new ElementModalService({})),
-    updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
-    deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
 
     // _atomService: prop<Ref<IAtomService>>(),
   })
@@ -811,7 +800,6 @@ element is new parentElement's first child
               id_IN: idsToDelete,
             },
             delete: {
-              propMapBindings: [{}],
               props: {},
             },
           }),
@@ -933,19 +921,6 @@ element is new parentElement's first child
           if (!duplicated) {
             throw new Error(`Could not find duplicated element ${newId}`)
           }
-
-          for (const propMapBinding of inputElement.propMapBindings.values()) {
-            yield* _await(
-              this.createPropMapBinding(duplicated, {
-                elementId: newId,
-                targetElementId: propMapBinding.targetElementId
-                  ? oldToNewIdMap.get(propMapBinding.targetElementId)?.id
-                  : undefined,
-                targetKey: propMapBinding.targetKey,
-                sourceKey: propMapBinding.sourceKey,
-              }),
-            )
-          }
         }
 
         return createdElements
@@ -1034,95 +1009,6 @@ element is new parentElement's first child
       },
     ),
   )
-
-  @modelFlow
-  @transaction
-  public createPropMapBinding = _async(function* (
-    this: ElementService,
-    element: IElement,
-    createInput: ICreatePropMapBindingDTO,
-  ) {
-    const {
-      createPropMapBindings: {
-        propMapBindings: [createdPropMapBinding],
-      },
-    } = yield* _await(
-      propMapBindingApi.CreatePropMapBindings({
-        input: {
-          sourceKey: createInput.sourceKey.trim(),
-          targetKey: createInput.targetKey.trim(),
-          element: connectNode(element.id),
-          targetElement: connectNode(createInput.targetElementId),
-        },
-      }),
-    )
-
-    if (!createdPropMapBinding) {
-      throw new Error('No prop map bindings created')
-    }
-
-    const propMapBinding = PropMapBinding.hydrate(createdPropMapBinding)
-
-    element.addPropMapBinding(propMapBinding)
-
-    return propMapBinding
-  })
-
-  @modelFlow
-  @transaction
-  public updatePropMapBinding = _async(function* (
-    this: ElementService,
-    element: Element,
-    propMapBinding: PropMapBinding,
-    updateData: IUpdatePropMapBindingDTO,
-  ) {
-    const {
-      updatePropMapBindings: {
-        propMapBindings: [updatedPropMapBinding],
-      },
-    } = yield* _await(
-      propMapBindingApi.UpdatePropMapBindings({
-        where: { id: propMapBinding.id },
-        update: {
-          sourceKey: updateData.sourceKey,
-          targetKey: updateData.targetKey,
-          targetElement: reconnectNode(updateData.targetElementId),
-        },
-      }),
-    )
-
-    if (!updatedPropMapBinding) {
-      throw new Error('No prop map bindings updated')
-    }
-
-    propMapBinding.writeCache(updatedPropMapBinding)
-
-    return propMapBinding
-  })
-
-  @modelFlow
-  @transaction
-  public deletePropMapBinding = _async(function* (
-    this: ElementService,
-    element: Element,
-    propMapBinding: PropMapBinding,
-  ) {
-    const {
-      deletePropMapBindings: { nodesDeleted },
-    } = yield* _await(
-      propMapBindingApi.DeletePropMapBindings({
-        where: { id: propMapBinding.id },
-      }),
-    )
-
-    if (nodesDeleted === 0) {
-      throw new Error('No prop map bindings deleted')
-    }
-
-    element.removePropMapBinding(propMapBinding)
-
-    return propMapBinding
-  })
 
   @modelAction
   writeClonesCache(elementFragment: IElementDTO) {

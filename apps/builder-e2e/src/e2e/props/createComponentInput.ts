@@ -126,22 +126,6 @@ export const listItemComponentName = 'ListItem'
 //     create: {
 //       node: {
 //         name: ROOT_ELEMENT_NAME,
-//         propMapBindings: {
-//           create: [
-//             {
-//               node: {
-//                 sourceKey: 'value',
-//                 targetKey: 'text',
-//                 element: {
-//                   connect: { where: { node: { name: ROOT_ELEMENT_NAME } } },
-//                 },
-//                 targetElement: {
-//                   connect: { where: { node: { name: 'List Item Text' } } },
-//                 },
-//               },
-//             },
-//           ],
-//         },
 //         children: {
 //           create: [
 //             {

@@ -162,26 +162,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           />
         ),
       },
-      /* 
-      {
-        key: TAB_NAMES.PropsMap,
-        label: (
-          <TooltipIcon icon={<SwapOutlined />} title={TAB_NAMES.PropsMap} />
-        ),
-        children:
-          isElement(selectedNode) && elementTree ? (
-            <PropMapBindingSection
-              element={selectedNode}
-              elementService={elementService}
-              elementTree={elementTree}
-              key={selectedNode.id}
-              providePropCompletion={(searchValue) =>
-                providePropCompletion(searchValue, selectedNode.id)
-              }
-            />
-          ) : null,
-      },
-     */
       {
         key: TAB_NAMES.PropsTransformation,
         label: (

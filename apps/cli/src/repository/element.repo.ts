@@ -119,17 +119,6 @@ export const updateImportedElement = async (
             update: { node: { data: element.props.data } },
           }
         : undefined,
-      propMapBindings: element.propMapBindings.map((pmb) => ({
-        create: [
-          {
-            node: {
-              sourceKey: pmb.sourceKey,
-              targetKey: pmb.targetKey,
-              targetElement: connectNode(pmb.targetElement?.id),
-            },
-          },
-        ],
-      })),
     },
   })
 }

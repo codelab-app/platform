@@ -13,11 +13,6 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type {
-  ICreatePropMapBindingDTO,
-  IPropMapBinding,
-  IUpdatePropMapBindingDTO,
-} from '../prop'
 import type { IAuth0Id } from '../user'
 import type { IComputeElementNameService } from './compute-element-name.service.interface'
 import type {
@@ -44,16 +39,6 @@ export interface UpdateElementProperties {
   computeElementNameService: IComputeElementNameService
 }
 
-export interface PropMapData {
-  propMapBinding: Ref<IPropMapBinding>
-  element: Ref<IElement>
-}
-
-export interface PropMapProperties {
-  propMapBinding: Maybe<IPropMapBinding>
-  element: Maybe<IElement>
-}
-
 export interface IElementService
   extends Omit<
       ICRUDService<IElement, ICreateElementDTO, IUpdateElementDTO>,
@@ -69,12 +54,6 @@ export interface IElementService
   updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
   elements: ObjectMap<IElement>
   clonedElements: ObjectMap<IElement>
-  createPropMapBindingModal: IEntityModalService<
-    Ref<IElement>,
-    { element: Maybe<IElement> }
-  >
-  updatePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
-  deletePropMapBindingModal: IEntityModalService<PropMapData, PropMapProperties>
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
@@ -103,20 +82,7 @@ export interface IElementService
     auth0Id: IAuth0Id,
   ): Promise<Maybe<IElement>>
   element(id: string): Maybe<IElement>
-  createPropMapBinding(
-    element: IElement,
-    createInput: ICreatePropMapBindingDTO,
-  ): Promise<IPropMapBinding>
-  updatePropMapBinding(
-    element: IElement,
-    propMapBinding: IPropMapBinding,
-    updateData: IUpdatePropMapBindingDTO,
-  ): Promise<IPropMapBinding>
   deleteElementSubgraph(root: IElementRef): Promise<Array<string>>
-  deletePropMapBinding(
-    element: IElement,
-    propMapBinding: IPropMapBinding,
-  ): Promise<IPropMapBinding>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
   loadComponentTree(component: RenderedComponentFragment): {
     rootElement: IElement

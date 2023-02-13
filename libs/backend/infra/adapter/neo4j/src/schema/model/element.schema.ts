@@ -41,8 +41,6 @@ export const elementSchema = gql`
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
 
     hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
-    propMapBindings: [PropMapBinding!]!
-      @relationship(type: "BIND_PROPS_TO_ELEMENT", direction: OUT)
 
     # This is a custom field resolver
     descendantElements: [Element!]!

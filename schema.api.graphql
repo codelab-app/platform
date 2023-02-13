@@ -6328,11 +6328,6 @@ type CreatePrimitiveTypesMutationResponse {
   primitiveTypes: [PrimitiveType!]!
 }
 
-type CreatePropMapBindingsMutationResponse {
-  info: CreateInfo!
-  propMapBindings: [PropMapBinding!]!
-}
-
 type CreatePropsMutationResponse {
   info: CreateInfo!
   props: [Prop!]!
@@ -6873,22 +6868,6 @@ type Element {
     sort: [ElementPrevSiblingConnectionSort!]
     where: ElementPrevSiblingConnectionWhere
   ): ElementPrevSiblingConnection!
-  propMapBindings(
-    directed: Boolean = true
-    options: PropMapBindingOptions
-    where: PropMapBindingWhere
-  ): [PropMapBinding!]!
-  propMapBindingsAggregate(
-    directed: Boolean = true
-    where: PropMapBindingWhere
-  ): ElementPropMapBindingPropMapBindingsAggregationSelection
-  propMapBindingsConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementPropMapBindingsConnectionSort!]
-    where: ElementPropMapBindingsConnectionWhere
-  ): ElementPropMapBindingsConnection!
   propTransformationJs: String
   props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
   propsAggregate(
@@ -6992,7 +6971,6 @@ input ElementConnectInput {
   parent: ElementParentConnectFieldInput
   parentComponent: ElementParentComponentConnectFieldInput
   prevSibling: ElementPrevSiblingConnectFieldInput
-  propMapBindings: [ElementPropMapBindingsConnectFieldInput!]
   props: ElementPropsConnectFieldInput
   renderAtomType: ElementRenderAtomTypeConnectFieldInput
   renderComponentType: ElementRenderComponentTypeConnectFieldInput
@@ -7006,7 +6984,6 @@ input ElementConnectOrCreateInput {
   parent: ElementParentConnectOrCreateFieldInput
   parentComponent: ElementParentComponentConnectOrCreateFieldInput
   prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
-  propMapBindings: [ElementPropMapBindingsConnectOrCreateFieldInput!]
   props: ElementPropsConnectOrCreateFieldInput
   renderAtomType: ElementRenderAtomTypeConnectOrCreateFieldInput
   renderComponentType: ElementRenderComponentTypeConnectOrCreateFieldInput
@@ -7034,7 +7011,6 @@ input ElementCreateInput {
   postRenderActionId: String
   preRenderActionId: String
   prevSibling: ElementPrevSiblingFieldInput
-  propMapBindings: ElementPropMapBindingsFieldInput
   propTransformationJs: String
   props: ElementPropsFieldInput
   renderAtomType: ElementRenderAtomTypeFieldInput
@@ -7052,7 +7028,6 @@ input ElementDeleteInput {
   parent: ElementParentDeleteFieldInput
   parentComponent: ElementParentComponentDeleteFieldInput
   prevSibling: ElementPrevSiblingDeleteFieldInput
-  propMapBindings: [ElementPropMapBindingsDeleteFieldInput!]
   props: ElementPropsDeleteFieldInput
   renderAtomType: ElementRenderAtomTypeDeleteFieldInput
   renderComponentType: ElementRenderComponentTypeDeleteFieldInput
@@ -7066,7 +7041,6 @@ input ElementDisconnectInput {
   parent: ElementParentDisconnectFieldInput
   parentComponent: ElementParentComponentDisconnectFieldInput
   prevSibling: ElementPrevSiblingDisconnectFieldInput
-  propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
   props: ElementPropsDisconnectFieldInput
   renderAtomType: ElementRenderAtomTypeDisconnectFieldInput
   renderComponentType: ElementRenderComponentTypeDisconnectFieldInput
@@ -8602,144 +8576,6 @@ input ElementPrevSiblingUpdateFieldInput {
   where: ElementPrevSiblingConnectionWhere
 }
 
-type ElementPropMapBindingPropMapBindingsAggregationSelection {
-  count: Int!
-  node: ElementPropMapBindingPropMapBindingsNodeAggregateSelection
-}
-
-type ElementPropMapBindingPropMapBindingsNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  sourceKey: StringAggregateSelectionNonNullable!
-  targetKey: StringAggregateSelectionNonNullable!
-}
-
-input ElementPropMapBindingsAggregateInput {
-  AND: [ElementPropMapBindingsAggregateInput!]
-  OR: [ElementPropMapBindingsAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementPropMapBindingsNodeAggregationWhereInput
-}
-
-input ElementPropMapBindingsConnectFieldInput {
-  connect: [PropMapBindingConnectInput!]
-  where: PropMapBindingConnectWhere
-}
-
-input ElementPropMapBindingsConnectOrCreateFieldInput {
-  onCreate: ElementPropMapBindingsConnectOrCreateFieldInputOnCreate!
-  where: PropMapBindingConnectOrCreateWhere!
-}
-
-input ElementPropMapBindingsConnectOrCreateFieldInputOnCreate {
-  node: PropMapBindingOnCreateInput!
-}
-
-type ElementPropMapBindingsConnection {
-  edges: [ElementPropMapBindingsRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementPropMapBindingsConnectionSort {
-  node: PropMapBindingSort
-}
-
-input ElementPropMapBindingsConnectionWhere {
-  AND: [ElementPropMapBindingsConnectionWhere!]
-  OR: [ElementPropMapBindingsConnectionWhere!]
-  node: PropMapBindingWhere
-  node_NOT: PropMapBindingWhere
-}
-
-input ElementPropMapBindingsCreateFieldInput {
-  node: PropMapBindingCreateInput!
-}
-
-input ElementPropMapBindingsDeleteFieldInput {
-  delete: PropMapBindingDeleteInput
-  where: ElementPropMapBindingsConnectionWhere
-}
-
-input ElementPropMapBindingsDisconnectFieldInput {
-  disconnect: PropMapBindingDisconnectInput
-  where: ElementPropMapBindingsConnectionWhere
-}
-
-input ElementPropMapBindingsFieldInput {
-  connect: [ElementPropMapBindingsConnectFieldInput!]
-  connectOrCreate: [ElementPropMapBindingsConnectOrCreateFieldInput!]
-  create: [ElementPropMapBindingsCreateFieldInput!]
-}
-
-input ElementPropMapBindingsNodeAggregationWhereInput {
-  AND: [ElementPropMapBindingsNodeAggregationWhereInput!]
-  OR: [ElementPropMapBindingsNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  sourceKey_AVERAGE_EQUAL: Float
-  sourceKey_AVERAGE_GT: Float
-  sourceKey_AVERAGE_GTE: Float
-  sourceKey_AVERAGE_LT: Float
-  sourceKey_AVERAGE_LTE: Float
-  sourceKey_EQUAL: String
-  sourceKey_GT: Int
-  sourceKey_GTE: Int
-  sourceKey_LONGEST_EQUAL: Int
-  sourceKey_LONGEST_GT: Int
-  sourceKey_LONGEST_GTE: Int
-  sourceKey_LONGEST_LT: Int
-  sourceKey_LONGEST_LTE: Int
-  sourceKey_LT: Int
-  sourceKey_LTE: Int
-  sourceKey_SHORTEST_EQUAL: Int
-  sourceKey_SHORTEST_GT: Int
-  sourceKey_SHORTEST_GTE: Int
-  sourceKey_SHORTEST_LT: Int
-  sourceKey_SHORTEST_LTE: Int
-  targetKey_AVERAGE_EQUAL: Float
-  targetKey_AVERAGE_GT: Float
-  targetKey_AVERAGE_GTE: Float
-  targetKey_AVERAGE_LT: Float
-  targetKey_AVERAGE_LTE: Float
-  targetKey_EQUAL: String
-  targetKey_GT: Int
-  targetKey_GTE: Int
-  targetKey_LONGEST_EQUAL: Int
-  targetKey_LONGEST_GT: Int
-  targetKey_LONGEST_GTE: Int
-  targetKey_LONGEST_LT: Int
-  targetKey_LONGEST_LTE: Int
-  targetKey_LT: Int
-  targetKey_LTE: Int
-  targetKey_SHORTEST_EQUAL: Int
-  targetKey_SHORTEST_GT: Int
-  targetKey_SHORTEST_GTE: Int
-  targetKey_SHORTEST_LT: Int
-  targetKey_SHORTEST_LTE: Int
-}
-
-type ElementPropMapBindingsRelationship {
-  cursor: String!
-  node: PropMapBinding!
-}
-
-input ElementPropMapBindingsUpdateConnectionInput {
-  node: PropMapBindingUpdateInput
-}
-
-input ElementPropMapBindingsUpdateFieldInput {
-  connect: [ElementPropMapBindingsConnectFieldInput!]
-  connectOrCreate: [ElementPropMapBindingsConnectOrCreateFieldInput!]
-  create: [ElementPropMapBindingsCreateFieldInput!]
-  delete: [ElementPropMapBindingsDeleteFieldInput!]
-  disconnect: [ElementPropMapBindingsDisconnectFieldInput!]
-  update: ElementPropMapBindingsUpdateConnectionInput
-  where: ElementPropMapBindingsConnectionWhere
-}
-
 type ElementPropPropsAggregationSelection {
   count: Int!
   node: ElementPropPropsNodeAggregateSelection
@@ -8862,7 +8698,6 @@ input ElementRelationInput {
   parent: ElementParentCreateFieldInput
   parentComponent: ElementParentComponentCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
-  propMapBindings: [ElementPropMapBindingsCreateFieldInput!]
   props: ElementPropsCreateFieldInput
   renderAtomType: ElementRenderAtomTypeCreateFieldInput
   renderComponentType: ElementRenderComponentTypeCreateFieldInput
@@ -9396,7 +9231,6 @@ input ElementUpdateInput {
   postRenderActionId: String
   preRenderActionId: String
   prevSibling: ElementPrevSiblingUpdateFieldInput
-  propMapBindings: [ElementPropMapBindingsUpdateFieldInput!]
   propTransformationJs: String
   props: ElementPropsUpdateFieldInput
   renderAtomType: ElementRenderAtomTypeUpdateFieldInput
@@ -9530,31 +9364,6 @@ input ElementWhere {
   prevSiblingConnection: ElementPrevSiblingConnectionWhere
   prevSiblingConnection_NOT: ElementPrevSiblingConnectionWhere
   prevSibling_NOT: ElementWhere
-  propMapBindingsAggregate: ElementPropMapBindingsAggregateInput
-  propMapBindingsConnection_ALL: ElementPropMapBindingsConnectionWhere
-  propMapBindingsConnection_NONE: ElementPropMapBindingsConnectionWhere
-  propMapBindingsConnection_SINGLE: ElementPropMapBindingsConnectionWhere
-  propMapBindingsConnection_SOME: ElementPropMapBindingsConnectionWhere
-
-  """
-  Return Elements where all of the related PropMapBindings match this filter
-  """
-  propMapBindings_ALL: PropMapBindingWhere
-
-  """
-  Return Elements where none of the related PropMapBindings match this filter
-  """
-  propMapBindings_NONE: PropMapBindingWhere
-
-  """
-  Return Elements where one of the related PropMapBindings match this filter
-  """
-  propMapBindings_SINGLE: PropMapBindingWhere
-
-  """
-  Return Elements where some of the related PropMapBindings match this filter
-  """
-  propMapBindings_SOME: PropMapBindingWhere
   propTransformationJs: String
   propTransformationJs_CONTAINS: String
   propTransformationJs_ENDS_WITH: String
@@ -12594,9 +12403,6 @@ type Mutation {
   createPrimitiveTypes(
     input: [PrimitiveTypeCreateInput!]!
   ): CreatePrimitiveTypesMutationResponse!
-  createPropMapBindings(
-    input: [PropMapBindingCreateInput!]!
-  ): CreatePropMapBindingsMutationResponse!
   createProps(input: [PropCreateInput!]!): CreatePropsMutationResponse!
   createReactNodeTypes(
     input: [ReactNodeTypeCreateInput!]!
@@ -12687,10 +12493,6 @@ type Mutation {
   deletePrimitiveTypes(
     delete: PrimitiveTypeDeleteInput
     where: PrimitiveTypeWhere
-  ): DeleteInfo!
-  deletePropMapBindings(
-    delete: PropMapBindingDeleteInput
-    where: PropMapBindingWhere
   ): DeleteInfo!
   deleteProps(where: PropWhere): DeleteInfo!
   deleteReactNodeTypes(
@@ -12920,15 +12722,6 @@ type Mutation {
     update: PrimitiveTypeUpdateInput
     where: PrimitiveTypeWhere
   ): UpdatePrimitiveTypesMutationResponse!
-  updatePropMapBindings(
-    connect: PropMapBindingConnectInput
-    connectOrCreate: PropMapBindingConnectOrCreateInput
-    create: PropMapBindingRelationInput
-    delete: PropMapBindingDeleteInput
-    disconnect: PropMapBindingDisconnectInput
-    update: PropMapBindingUpdateInput
-    where: PropMapBindingWhere
-  ): UpdatePropMapBindingsMutationResponse!
   updateProps(
     update: PropUpdateInput
     where: PropWhere
@@ -14466,755 +14259,6 @@ type PropEdge {
   node: Prop!
 }
 
-type PropMapBinding {
-  element(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element!
-  elementAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): PropMapBindingElementElementAggregationSelection
-  elementConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [PropMapBindingElementConnectionSort!]
-    where: PropMapBindingElementConnectionWhere
-  ): PropMapBindingElementConnection!
-  id: ID!
-  sourceKey: String!
-  targetElement(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element
-  targetElementAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): PropMapBindingElementTargetElementAggregationSelection
-  targetElementConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [PropMapBindingTargetElementConnectionSort!]
-    where: PropMapBindingTargetElementConnectionWhere
-  ): PropMapBindingTargetElementConnection!
-  targetKey: String!
-}
-
-type PropMapBindingAggregateSelection {
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  sourceKey: StringAggregateSelectionNonNullable!
-  targetKey: StringAggregateSelectionNonNullable!
-}
-
-input PropMapBindingConnectInput {
-  element: PropMapBindingElementConnectFieldInput
-  targetElement: PropMapBindingTargetElementConnectFieldInput
-}
-
-input PropMapBindingConnectOrCreateInput {
-  element: PropMapBindingElementConnectOrCreateFieldInput
-  targetElement: PropMapBindingTargetElementConnectOrCreateFieldInput
-}
-
-input PropMapBindingConnectOrCreateWhere {
-  node: PropMapBindingUniqueWhere!
-}
-
-input PropMapBindingConnectWhere {
-  node: PropMapBindingWhere!
-}
-
-input PropMapBindingCreateInput {
-  element: PropMapBindingElementFieldInput
-  sourceKey: String!
-  targetElement: PropMapBindingTargetElementFieldInput
-  targetKey: String!
-}
-
-input PropMapBindingDeleteInput {
-  element: PropMapBindingElementDeleteFieldInput
-  targetElement: PropMapBindingTargetElementDeleteFieldInput
-}
-
-input PropMapBindingDisconnectInput {
-  element: PropMapBindingElementDisconnectFieldInput
-  targetElement: PropMapBindingTargetElementDisconnectFieldInput
-}
-
-type PropMapBindingEdge {
-  cursor: String!
-  node: PropMapBinding!
-}
-
-input PropMapBindingElementAggregateInput {
-  AND: [PropMapBindingElementAggregateInput!]
-  OR: [PropMapBindingElementAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: PropMapBindingElementNodeAggregationWhereInput
-}
-
-input PropMapBindingElementConnectFieldInput {
-  connect: ElementConnectInput
-  where: ElementConnectWhere
-}
-
-input PropMapBindingElementConnectOrCreateFieldInput {
-  onCreate: PropMapBindingElementConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input PropMapBindingElementConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type PropMapBindingElementConnection {
-  edges: [PropMapBindingElementRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input PropMapBindingElementConnectionSort {
-  node: ElementSort
-}
-
-input PropMapBindingElementConnectionWhere {
-  AND: [PropMapBindingElementConnectionWhere!]
-  OR: [PropMapBindingElementConnectionWhere!]
-  node: ElementWhere
-  node_NOT: ElementWhere
-}
-
-input PropMapBindingElementCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input PropMapBindingElementDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: PropMapBindingElementConnectionWhere
-}
-
-input PropMapBindingElementDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: PropMapBindingElementConnectionWhere
-}
-
-type PropMapBindingElementElementAggregationSelection {
-  count: Int!
-  node: PropMapBindingElementElementNodeAggregateSelection
-}
-
-type PropMapBindingElementElementNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
-}
-
-input PropMapBindingElementFieldInput {
-  connect: PropMapBindingElementConnectFieldInput
-  connectOrCreate: PropMapBindingElementConnectOrCreateFieldInput
-  create: PropMapBindingElementCreateFieldInput
-}
-
-input PropMapBindingElementNodeAggregationWhereInput {
-  AND: [PropMapBindingElementNodeAggregationWhereInput!]
-  OR: [PropMapBindingElementNodeAggregationWhereInput!]
-  customCss_AVERAGE_EQUAL: Float
-  customCss_AVERAGE_GT: Float
-  customCss_AVERAGE_GTE: Float
-  customCss_AVERAGE_LT: Float
-  customCss_AVERAGE_LTE: Float
-  customCss_EQUAL: String
-  customCss_GT: Int
-  customCss_GTE: Int
-  customCss_LONGEST_EQUAL: Int
-  customCss_LONGEST_GT: Int
-  customCss_LONGEST_GTE: Int
-  customCss_LONGEST_LT: Int
-  customCss_LONGEST_LTE: Int
-  customCss_LT: Int
-  customCss_LTE: Int
-  customCss_SHORTEST_EQUAL: Int
-  customCss_SHORTEST_GT: Int
-  customCss_SHORTEST_GTE: Int
-  customCss_SHORTEST_LT: Int
-  customCss_SHORTEST_LTE: Int
-  guiCss_AVERAGE_EQUAL: Float
-  guiCss_AVERAGE_GT: Float
-  guiCss_AVERAGE_GTE: Float
-  guiCss_AVERAGE_LT: Float
-  guiCss_AVERAGE_LTE: Float
-  guiCss_EQUAL: String
-  guiCss_GT: Int
-  guiCss_GTE: Int
-  guiCss_LONGEST_EQUAL: Int
-  guiCss_LONGEST_GT: Int
-  guiCss_LONGEST_GTE: Int
-  guiCss_LONGEST_LT: Int
-  guiCss_LONGEST_LTE: Int
-  guiCss_LT: Int
-  guiCss_LTE: Int
-  guiCss_SHORTEST_EQUAL: Int
-  guiCss_SHORTEST_GT: Int
-  guiCss_SHORTEST_GTE: Int
-  guiCss_SHORTEST_LT: Int
-  guiCss_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-  postRenderActionId_AVERAGE_EQUAL: Float
-  postRenderActionId_AVERAGE_GT: Float
-  postRenderActionId_AVERAGE_GTE: Float
-  postRenderActionId_AVERAGE_LT: Float
-  postRenderActionId_AVERAGE_LTE: Float
-  postRenderActionId_EQUAL: String
-  postRenderActionId_GT: Int
-  postRenderActionId_GTE: Int
-  postRenderActionId_LONGEST_EQUAL: Int
-  postRenderActionId_LONGEST_GT: Int
-  postRenderActionId_LONGEST_GTE: Int
-  postRenderActionId_LONGEST_LT: Int
-  postRenderActionId_LONGEST_LTE: Int
-  postRenderActionId_LT: Int
-  postRenderActionId_LTE: Int
-  postRenderActionId_SHORTEST_EQUAL: Int
-  postRenderActionId_SHORTEST_GT: Int
-  postRenderActionId_SHORTEST_GTE: Int
-  postRenderActionId_SHORTEST_LT: Int
-  postRenderActionId_SHORTEST_LTE: Int
-  preRenderActionId_AVERAGE_EQUAL: Float
-  preRenderActionId_AVERAGE_GT: Float
-  preRenderActionId_AVERAGE_GTE: Float
-  preRenderActionId_AVERAGE_LT: Float
-  preRenderActionId_AVERAGE_LTE: Float
-  preRenderActionId_EQUAL: String
-  preRenderActionId_GT: Int
-  preRenderActionId_GTE: Int
-  preRenderActionId_LONGEST_EQUAL: Int
-  preRenderActionId_LONGEST_GT: Int
-  preRenderActionId_LONGEST_GTE: Int
-  preRenderActionId_LONGEST_LT: Int
-  preRenderActionId_LONGEST_LTE: Int
-  preRenderActionId_LT: Int
-  preRenderActionId_LTE: Int
-  preRenderActionId_SHORTEST_EQUAL: Int
-  preRenderActionId_SHORTEST_GT: Int
-  preRenderActionId_SHORTEST_GTE: Int
-  preRenderActionId_SHORTEST_LT: Int
-  preRenderActionId_SHORTEST_LTE: Int
-  propTransformationJs_AVERAGE_EQUAL: Float
-  propTransformationJs_AVERAGE_GT: Float
-  propTransformationJs_AVERAGE_GTE: Float
-  propTransformationJs_AVERAGE_LT: Float
-  propTransformationJs_AVERAGE_LTE: Float
-  propTransformationJs_EQUAL: String
-  propTransformationJs_GT: Int
-  propTransformationJs_GTE: Int
-  propTransformationJs_LONGEST_EQUAL: Int
-  propTransformationJs_LONGEST_GT: Int
-  propTransformationJs_LONGEST_GTE: Int
-  propTransformationJs_LONGEST_LT: Int
-  propTransformationJs_LONGEST_LTE: Int
-  propTransformationJs_LT: Int
-  propTransformationJs_LTE: Int
-  propTransformationJs_SHORTEST_EQUAL: Int
-  propTransformationJs_SHORTEST_GT: Int
-  propTransformationJs_SHORTEST_GTE: Int
-  propTransformationJs_SHORTEST_LT: Int
-  propTransformationJs_SHORTEST_LTE: Int
-  renderForEachPropKey_AVERAGE_EQUAL: Float
-  renderForEachPropKey_AVERAGE_GT: Float
-  renderForEachPropKey_AVERAGE_GTE: Float
-  renderForEachPropKey_AVERAGE_LT: Float
-  renderForEachPropKey_AVERAGE_LTE: Float
-  renderForEachPropKey_EQUAL: String
-  renderForEachPropKey_GT: Int
-  renderForEachPropKey_GTE: Int
-  renderForEachPropKey_LONGEST_EQUAL: Int
-  renderForEachPropKey_LONGEST_GT: Int
-  renderForEachPropKey_LONGEST_GTE: Int
-  renderForEachPropKey_LONGEST_LT: Int
-  renderForEachPropKey_LONGEST_LTE: Int
-  renderForEachPropKey_LT: Int
-  renderForEachPropKey_LTE: Int
-  renderForEachPropKey_SHORTEST_EQUAL: Int
-  renderForEachPropKey_SHORTEST_GT: Int
-  renderForEachPropKey_SHORTEST_GTE: Int
-  renderForEachPropKey_SHORTEST_LT: Int
-  renderForEachPropKey_SHORTEST_LTE: Int
-  renderIfExpression_AVERAGE_EQUAL: Float
-  renderIfExpression_AVERAGE_GT: Float
-  renderIfExpression_AVERAGE_GTE: Float
-  renderIfExpression_AVERAGE_LT: Float
-  renderIfExpression_AVERAGE_LTE: Float
-  renderIfExpression_EQUAL: String
-  renderIfExpression_GT: Int
-  renderIfExpression_GTE: Int
-  renderIfExpression_LONGEST_EQUAL: Int
-  renderIfExpression_LONGEST_GT: Int
-  renderIfExpression_LONGEST_GTE: Int
-  renderIfExpression_LONGEST_LT: Int
-  renderIfExpression_LONGEST_LTE: Int
-  renderIfExpression_LT: Int
-  renderIfExpression_LTE: Int
-  renderIfExpression_SHORTEST_EQUAL: Int
-  renderIfExpression_SHORTEST_GT: Int
-  renderIfExpression_SHORTEST_GTE: Int
-  renderIfExpression_SHORTEST_LT: Int
-  renderIfExpression_SHORTEST_LTE: Int
-  slug_AVERAGE_EQUAL: Float
-  slug_AVERAGE_GT: Float
-  slug_AVERAGE_GTE: Float
-  slug_AVERAGE_LT: Float
-  slug_AVERAGE_LTE: Float
-  slug_EQUAL: String
-  slug_GT: Int
-  slug_GTE: Int
-  slug_LONGEST_EQUAL: Int
-  slug_LONGEST_GT: Int
-  slug_LONGEST_GTE: Int
-  slug_LONGEST_LT: Int
-  slug_LONGEST_LTE: Int
-  slug_LT: Int
-  slug_LTE: Int
-  slug_SHORTEST_EQUAL: Int
-  slug_SHORTEST_GT: Int
-  slug_SHORTEST_GTE: Int
-  slug_SHORTEST_LT: Int
-  slug_SHORTEST_LTE: Int
-}
-
-type PropMapBindingElementRelationship {
-  cursor: String!
-  node: Element!
-}
-
-type PropMapBindingElementTargetElementAggregationSelection {
-  count: Int!
-  node: PropMapBindingElementTargetElementNodeAggregateSelection
-}
-
-type PropMapBindingElementTargetElementNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
-}
-
-input PropMapBindingElementUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input PropMapBindingElementUpdateFieldInput {
-  connect: PropMapBindingElementConnectFieldInput
-  connectOrCreate: PropMapBindingElementConnectOrCreateFieldInput
-  create: PropMapBindingElementCreateFieldInput
-  delete: PropMapBindingElementDeleteFieldInput
-  disconnect: PropMapBindingElementDisconnectFieldInput
-  update: PropMapBindingElementUpdateConnectionInput
-  where: PropMapBindingElementConnectionWhere
-}
-
-input PropMapBindingOnCreateInput {
-  sourceKey: String!
-  targetKey: String!
-}
-
-input PropMapBindingOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more PropMapBindingSort objects to sort PropMapBindings by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [PropMapBindingSort!]
-}
-
-input PropMapBindingRelationInput {
-  element: PropMapBindingElementCreateFieldInput
-  targetElement: PropMapBindingTargetElementCreateFieldInput
-}
-
-"""
-Fields to sort PropMapBindings by. The order in which sorts are applied is not guaranteed when specifying many fields in one PropMapBindingSort object.
-"""
-input PropMapBindingSort {
-  id: SortDirection
-  sourceKey: SortDirection
-  targetKey: SortDirection
-}
-
-input PropMapBindingTargetElementAggregateInput {
-  AND: [PropMapBindingTargetElementAggregateInput!]
-  OR: [PropMapBindingTargetElementAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: PropMapBindingTargetElementNodeAggregationWhereInput
-}
-
-input PropMapBindingTargetElementConnectFieldInput {
-  connect: ElementConnectInput
-  where: ElementConnectWhere
-}
-
-input PropMapBindingTargetElementConnectOrCreateFieldInput {
-  onCreate: PropMapBindingTargetElementConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input PropMapBindingTargetElementConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type PropMapBindingTargetElementConnection {
-  edges: [PropMapBindingTargetElementRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input PropMapBindingTargetElementConnectionSort {
-  node: ElementSort
-}
-
-input PropMapBindingTargetElementConnectionWhere {
-  AND: [PropMapBindingTargetElementConnectionWhere!]
-  OR: [PropMapBindingTargetElementConnectionWhere!]
-  node: ElementWhere
-  node_NOT: ElementWhere
-}
-
-input PropMapBindingTargetElementCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input PropMapBindingTargetElementDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: PropMapBindingTargetElementConnectionWhere
-}
-
-input PropMapBindingTargetElementDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: PropMapBindingTargetElementConnectionWhere
-}
-
-input PropMapBindingTargetElementFieldInput {
-  connect: PropMapBindingTargetElementConnectFieldInput
-  connectOrCreate: PropMapBindingTargetElementConnectOrCreateFieldInput
-  create: PropMapBindingTargetElementCreateFieldInput
-}
-
-input PropMapBindingTargetElementNodeAggregationWhereInput {
-  AND: [PropMapBindingTargetElementNodeAggregationWhereInput!]
-  OR: [PropMapBindingTargetElementNodeAggregationWhereInput!]
-  customCss_AVERAGE_EQUAL: Float
-  customCss_AVERAGE_GT: Float
-  customCss_AVERAGE_GTE: Float
-  customCss_AVERAGE_LT: Float
-  customCss_AVERAGE_LTE: Float
-  customCss_EQUAL: String
-  customCss_GT: Int
-  customCss_GTE: Int
-  customCss_LONGEST_EQUAL: Int
-  customCss_LONGEST_GT: Int
-  customCss_LONGEST_GTE: Int
-  customCss_LONGEST_LT: Int
-  customCss_LONGEST_LTE: Int
-  customCss_LT: Int
-  customCss_LTE: Int
-  customCss_SHORTEST_EQUAL: Int
-  customCss_SHORTEST_GT: Int
-  customCss_SHORTEST_GTE: Int
-  customCss_SHORTEST_LT: Int
-  customCss_SHORTEST_LTE: Int
-  guiCss_AVERAGE_EQUAL: Float
-  guiCss_AVERAGE_GT: Float
-  guiCss_AVERAGE_GTE: Float
-  guiCss_AVERAGE_LT: Float
-  guiCss_AVERAGE_LTE: Float
-  guiCss_EQUAL: String
-  guiCss_GT: Int
-  guiCss_GTE: Int
-  guiCss_LONGEST_EQUAL: Int
-  guiCss_LONGEST_GT: Int
-  guiCss_LONGEST_GTE: Int
-  guiCss_LONGEST_LT: Int
-  guiCss_LONGEST_LTE: Int
-  guiCss_LT: Int
-  guiCss_LTE: Int
-  guiCss_SHORTEST_EQUAL: Int
-  guiCss_SHORTEST_GT: Int
-  guiCss_SHORTEST_GTE: Int
-  guiCss_SHORTEST_LT: Int
-  guiCss_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-  postRenderActionId_AVERAGE_EQUAL: Float
-  postRenderActionId_AVERAGE_GT: Float
-  postRenderActionId_AVERAGE_GTE: Float
-  postRenderActionId_AVERAGE_LT: Float
-  postRenderActionId_AVERAGE_LTE: Float
-  postRenderActionId_EQUAL: String
-  postRenderActionId_GT: Int
-  postRenderActionId_GTE: Int
-  postRenderActionId_LONGEST_EQUAL: Int
-  postRenderActionId_LONGEST_GT: Int
-  postRenderActionId_LONGEST_GTE: Int
-  postRenderActionId_LONGEST_LT: Int
-  postRenderActionId_LONGEST_LTE: Int
-  postRenderActionId_LT: Int
-  postRenderActionId_LTE: Int
-  postRenderActionId_SHORTEST_EQUAL: Int
-  postRenderActionId_SHORTEST_GT: Int
-  postRenderActionId_SHORTEST_GTE: Int
-  postRenderActionId_SHORTEST_LT: Int
-  postRenderActionId_SHORTEST_LTE: Int
-  preRenderActionId_AVERAGE_EQUAL: Float
-  preRenderActionId_AVERAGE_GT: Float
-  preRenderActionId_AVERAGE_GTE: Float
-  preRenderActionId_AVERAGE_LT: Float
-  preRenderActionId_AVERAGE_LTE: Float
-  preRenderActionId_EQUAL: String
-  preRenderActionId_GT: Int
-  preRenderActionId_GTE: Int
-  preRenderActionId_LONGEST_EQUAL: Int
-  preRenderActionId_LONGEST_GT: Int
-  preRenderActionId_LONGEST_GTE: Int
-  preRenderActionId_LONGEST_LT: Int
-  preRenderActionId_LONGEST_LTE: Int
-  preRenderActionId_LT: Int
-  preRenderActionId_LTE: Int
-  preRenderActionId_SHORTEST_EQUAL: Int
-  preRenderActionId_SHORTEST_GT: Int
-  preRenderActionId_SHORTEST_GTE: Int
-  preRenderActionId_SHORTEST_LT: Int
-  preRenderActionId_SHORTEST_LTE: Int
-  propTransformationJs_AVERAGE_EQUAL: Float
-  propTransformationJs_AVERAGE_GT: Float
-  propTransformationJs_AVERAGE_GTE: Float
-  propTransformationJs_AVERAGE_LT: Float
-  propTransformationJs_AVERAGE_LTE: Float
-  propTransformationJs_EQUAL: String
-  propTransformationJs_GT: Int
-  propTransformationJs_GTE: Int
-  propTransformationJs_LONGEST_EQUAL: Int
-  propTransformationJs_LONGEST_GT: Int
-  propTransformationJs_LONGEST_GTE: Int
-  propTransformationJs_LONGEST_LT: Int
-  propTransformationJs_LONGEST_LTE: Int
-  propTransformationJs_LT: Int
-  propTransformationJs_LTE: Int
-  propTransformationJs_SHORTEST_EQUAL: Int
-  propTransformationJs_SHORTEST_GT: Int
-  propTransformationJs_SHORTEST_GTE: Int
-  propTransformationJs_SHORTEST_LT: Int
-  propTransformationJs_SHORTEST_LTE: Int
-  renderForEachPropKey_AVERAGE_EQUAL: Float
-  renderForEachPropKey_AVERAGE_GT: Float
-  renderForEachPropKey_AVERAGE_GTE: Float
-  renderForEachPropKey_AVERAGE_LT: Float
-  renderForEachPropKey_AVERAGE_LTE: Float
-  renderForEachPropKey_EQUAL: String
-  renderForEachPropKey_GT: Int
-  renderForEachPropKey_GTE: Int
-  renderForEachPropKey_LONGEST_EQUAL: Int
-  renderForEachPropKey_LONGEST_GT: Int
-  renderForEachPropKey_LONGEST_GTE: Int
-  renderForEachPropKey_LONGEST_LT: Int
-  renderForEachPropKey_LONGEST_LTE: Int
-  renderForEachPropKey_LT: Int
-  renderForEachPropKey_LTE: Int
-  renderForEachPropKey_SHORTEST_EQUAL: Int
-  renderForEachPropKey_SHORTEST_GT: Int
-  renderForEachPropKey_SHORTEST_GTE: Int
-  renderForEachPropKey_SHORTEST_LT: Int
-  renderForEachPropKey_SHORTEST_LTE: Int
-  renderIfExpression_AVERAGE_EQUAL: Float
-  renderIfExpression_AVERAGE_GT: Float
-  renderIfExpression_AVERAGE_GTE: Float
-  renderIfExpression_AVERAGE_LT: Float
-  renderIfExpression_AVERAGE_LTE: Float
-  renderIfExpression_EQUAL: String
-  renderIfExpression_GT: Int
-  renderIfExpression_GTE: Int
-  renderIfExpression_LONGEST_EQUAL: Int
-  renderIfExpression_LONGEST_GT: Int
-  renderIfExpression_LONGEST_GTE: Int
-  renderIfExpression_LONGEST_LT: Int
-  renderIfExpression_LONGEST_LTE: Int
-  renderIfExpression_LT: Int
-  renderIfExpression_LTE: Int
-  renderIfExpression_SHORTEST_EQUAL: Int
-  renderIfExpression_SHORTEST_GT: Int
-  renderIfExpression_SHORTEST_GTE: Int
-  renderIfExpression_SHORTEST_LT: Int
-  renderIfExpression_SHORTEST_LTE: Int
-  slug_AVERAGE_EQUAL: Float
-  slug_AVERAGE_GT: Float
-  slug_AVERAGE_GTE: Float
-  slug_AVERAGE_LT: Float
-  slug_AVERAGE_LTE: Float
-  slug_EQUAL: String
-  slug_GT: Int
-  slug_GTE: Int
-  slug_LONGEST_EQUAL: Int
-  slug_LONGEST_GT: Int
-  slug_LONGEST_GTE: Int
-  slug_LONGEST_LT: Int
-  slug_LONGEST_LTE: Int
-  slug_LT: Int
-  slug_LTE: Int
-  slug_SHORTEST_EQUAL: Int
-  slug_SHORTEST_GT: Int
-  slug_SHORTEST_GTE: Int
-  slug_SHORTEST_LT: Int
-  slug_SHORTEST_LTE: Int
-}
-
-type PropMapBindingTargetElementRelationship {
-  cursor: String!
-  node: Element!
-}
-
-input PropMapBindingTargetElementUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input PropMapBindingTargetElementUpdateFieldInput {
-  connect: PropMapBindingTargetElementConnectFieldInput
-  connectOrCreate: PropMapBindingTargetElementConnectOrCreateFieldInput
-  create: PropMapBindingTargetElementCreateFieldInput
-  delete: PropMapBindingTargetElementDeleteFieldInput
-  disconnect: PropMapBindingTargetElementDisconnectFieldInput
-  update: PropMapBindingTargetElementUpdateConnectionInput
-  where: PropMapBindingTargetElementConnectionWhere
-}
-
-input PropMapBindingUniqueWhere {
-  id: ID
-}
-
-input PropMapBindingUpdateInput {
-  element: PropMapBindingElementUpdateFieldInput
-  sourceKey: String
-  targetElement: PropMapBindingTargetElementUpdateFieldInput
-  targetKey: String
-}
-
-input PropMapBindingWhere {
-  AND: [PropMapBindingWhere!]
-  OR: [PropMapBindingWhere!]
-  element: ElementWhere
-  elementAggregate: PropMapBindingElementAggregateInput
-  elementConnection: PropMapBindingElementConnectionWhere
-  elementConnection_NOT: PropMapBindingElementConnectionWhere
-  element_NOT: ElementWhere
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_MATCHES: String
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  sourceKey: String
-  sourceKey_CONTAINS: String
-  sourceKey_ENDS_WITH: String
-  sourceKey_IN: [String!]
-  sourceKey_MATCHES: String
-  sourceKey_NOT: String
-  sourceKey_NOT_CONTAINS: String
-  sourceKey_NOT_ENDS_WITH: String
-  sourceKey_NOT_IN: [String!]
-  sourceKey_NOT_STARTS_WITH: String
-  sourceKey_STARTS_WITH: String
-  targetElement: ElementWhere
-  targetElementAggregate: PropMapBindingTargetElementAggregateInput
-  targetElementConnection: PropMapBindingTargetElementConnectionWhere
-  targetElementConnection_NOT: PropMapBindingTargetElementConnectionWhere
-  targetElement_NOT: ElementWhere
-  targetKey: String
-  targetKey_CONTAINS: String
-  targetKey_ENDS_WITH: String
-  targetKey_IN: [String!]
-  targetKey_MATCHES: String
-  targetKey_NOT: String
-  targetKey_NOT_CONTAINS: String
-  targetKey_NOT_ENDS_WITH: String
-  targetKey_NOT_IN: [String!]
-  targetKey_NOT_STARTS_WITH: String
-  targetKey_STARTS_WITH: String
-}
-
-type PropMapBindingsConnection {
-  edges: [PropMapBindingEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 input PropOnCreateInput {
   data: String! = "{}"
 }
@@ -15526,19 +14570,6 @@ type Query {
     sort: [PrimitiveTypeSort]
     where: PrimitiveTypeWhere
   ): PrimitiveTypesConnection!
-  propMapBindings(
-    options: PropMapBindingOptions
-    where: PropMapBindingWhere
-  ): [PropMapBinding!]!
-  propMapBindingsAggregate(
-    where: PropMapBindingWhere
-  ): PropMapBindingAggregateSelection!
-  propMapBindingsConnection(
-    after: String
-    first: Int
-    sort: [PropMapBindingSort]
-    where: PropMapBindingWhere
-  ): PropMapBindingsConnection!
   props(options: PropOptions, where: PropWhere): [Prop!]!
   propsAggregate(where: PropWhere): PropAggregateSelection!
   propsConnection(
@@ -19147,11 +18178,6 @@ type UpdatePagesMutationResponse {
 type UpdatePrimitiveTypesMutationResponse {
   info: UpdateInfo!
   primitiveTypes: [PrimitiveType!]!
-}
-
-type UpdatePropMapBindingsMutationResponse {
-  info: UpdateInfo!
-  propMapBindings: [PropMapBinding!]!
 }
 
 type UpdatePropsMutationResponse {
