@@ -1,5 +1,12 @@
 import type { IAppDTO } from '@codelab/frontend/abstract/core'
-import { APP_PAGE_NAME, APP_PAGE_SLUG } from '@codelab/frontend/abstract/core'
+import {
+  APP_PAGE_NAME,
+  APP_PAGE_SLUG,
+  INTERNAL_SERVER_ERROR_PAGE_NAME,
+  INTERNAL_SERVER_ERROR_PAGE_SLUG,
+  NOT_FOUND_PAGE_NAME,
+  NOT_FOUND_PAGE_SLUG,
+} from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -25,6 +32,20 @@ export const createAppInput = (userId: string): AppCreateInput => {
             name: APP_PAGE_NAME,
             slug: createSlug(APP_PAGE_SLUG, appId),
             kind: IPageKind.Provider,
+          }),
+        },
+        {
+          node: createPageInput(appId, {
+            name: NOT_FOUND_PAGE_NAME,
+            slug: createSlug(NOT_FOUND_PAGE_SLUG, appId),
+            kind: IPageKind.NotFound,
+          }),
+        },
+        {
+          node: createPageInput(appId, {
+            name: INTERNAL_SERVER_ERROR_PAGE_NAME,
+            slug: createSlug(INTERNAL_SERVER_ERROR_PAGE_SLUG, appId),
+            kind: IPageKind.InternalServerError,
           }),
         },
         // create test page

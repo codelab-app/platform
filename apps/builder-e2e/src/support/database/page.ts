@@ -4,6 +4,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { createSlug } from '@codelab/frontend/shared/utils'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 
@@ -29,6 +30,7 @@ export const createPageInput = (
           },
         },
       },
+      kind: IPageKind.Regular,
       app: {
         connect: { where: { node: { id: appId } } },
       },
