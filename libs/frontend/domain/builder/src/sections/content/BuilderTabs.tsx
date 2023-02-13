@@ -55,6 +55,7 @@ export const BuilderTabs = observer<BuilderTabsProps>(
             <Tabs.TabPane key={RendererTab.Component} tab="Component" />
           </Tabs>
         </Header>
+        {isLoading && <Spin />}
         <Content>
           {builderService.activeTree === RendererTab.Page ? (
             elementTree && renderer ? (
