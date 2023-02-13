@@ -66,11 +66,11 @@ export const useRenderedPage = ({
     kind: IPageKind,
     app: Maybe<PageBuilderAppFragment>,
   ) => {
-    const errorPage = app?.pages.find(
-      (page) => page.kind === IPageKind.InternalServerError,
-    )
+    const errorPage = app?.pages.find((page) => page.kind === kind)
 
-    console.log(errorPage)
+    if (errorPage?.id === pageId) {
+      return
+    }
 
     await router.push(
       errorPage
@@ -99,9 +99,7 @@ export const useRenderedPage = ({
     const [app] = apps
 
     if (!app) {
-      return rendererType === RendererType.Preview
-        ? await redirectToErrorPage(IPageKind.NotFound, undefined)
-        : notify({ type: 'error', title: 'Failed to load app' })
+      return await router.push({ pathname: PageType.AppList, query: {} })
     }
 
     const providerPage = app.pages.find(
@@ -112,10 +110,8 @@ export const useRenderedPage = ({
 
     if (providerPage) {
       appService.load({ app: app, pageId: providerPage.id })
-    } else {
-      if (rendererType === RendererType.Preview) {
-        return await redirectToErrorPage(IPageKind.InternalServerError, app)
-      }
+    } else if (rendererType === RendererType.Preview) {
+      await redirectToErrorPage(IPageKind.InternalServerError, app)
     }
 
     // load types by chucks so UI is not blocked
@@ -155,7 +151,9 @@ export const useRenderedPage = ({
       const [loadedPage] = pages
 
       if (!loadedPage) {
-        return await redirectToErrorPage(IPageKind.NotFound, app)
+        return rendererType === RendererType.Preview
+          ? await redirectToErrorPage(IPageKind.NotFound, app)
+          : await router.push({ pathname: PageType.PageList, query: { appId } })
       }
 
       app.pages.push(loadedPage)

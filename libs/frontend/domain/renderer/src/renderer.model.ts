@@ -173,9 +173,9 @@ export class Renderer
     const { kind } = pageService.page(root.baseId) ?? {}
 
     // do not self-wrap with providers page if the current page is _app
-    return kind === IPageKind.Provider
-      ? rootElement
-      : this.renderWithProviders(rootElement)
+    return kind === IPageKind.Regular
+      ? this.renderWithProviders(rootElement)
+      : rootElement
   }
 
   /**
@@ -196,7 +196,6 @@ export class Renderer
       element: IElement,
     ): ArrayOrSingle<ReactElement> => {
       const output = this.renderIntermediateElement(element)
-      console.log(output)
 
       return mapOutput<ReactElement>(output, (renderOutput) => {
         const Component = getReactComponent(renderOutput)
