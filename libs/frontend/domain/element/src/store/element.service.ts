@@ -19,7 +19,7 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { getComponentService } from '@codelab/frontend/presenter/container'
-import { createSlug, runSequentially } from '@codelab/frontend/shared/utils'
+import { runSequentially } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
@@ -193,11 +193,6 @@ export class ElementService
     const input: Array<ElementCreateInput> = []
 
     for (const elementInput of data) {
-      const parentElement = this.elements.get(
-        elementInput.parentElementId as string,
-      )
-
-      const slug = createSlug(elementInput.slug, parentElement?.baseId)
       // When creating a new element, we need the interface type fields
       // and we use it to create a props with default values for the created element
       const typeApi = yield* _await(this.getElementInputTypeApi(elementInput))
@@ -205,7 +200,6 @@ export class ElementService
       input.push(
         makeCreateInput({
           ...elementInput,
-          slug,
           propsData: makeDefaultProps(typeApi),
         }),
       )
@@ -298,8 +292,6 @@ export class ElementService
     element: IElement,
     input: IUpdateElementDTO,
   ) {
-    const slug = createSlug(input.slug, element.baseId)
-
     const {
       atom: currentAtom,
       renderComponentType: currentRenderComponentType,
@@ -345,7 +337,6 @@ export class ElementService
 
     const update = makeUpdateInput({
       ...input,
-      slug,
       propsData,
     })
 
@@ -715,7 +706,6 @@ element is new parentElement's first child
             : ''
 
           const name = `${component.name}${componentInstanceCounter}`
-          const slug = `${component.name}${componentInstanceCounter}`
 
           const renderType: RenderType = {
             id: component.id,
@@ -723,7 +713,7 @@ element is new parentElement's first child
           }
 
           const parentElementId = targetElement.id
-          const data = { name, slug, renderType, parentElementId }
+          const data = { name, renderType, parentElementId }
 
           element = (yield* _await(this.create([data])))[0]
         } else {
@@ -945,7 +935,6 @@ element is new parentElement's first child
         }
 
         const name = element.label
-        const slug = element.slug
         const elementId = element.id
         const parentElement = element.parentElement
         const prevSibling = element.prevSibling
@@ -976,7 +965,6 @@ element is new parentElement's first child
             this.create([
               {
                 name,
-                slug,
                 renderType: {
                   id: createdComponent.id,
                   model: RenderTypeEnum.Component,
@@ -1003,7 +991,6 @@ element is new parentElement's first child
         return yield* _await(
           this.createElementAsNextSibling({
             name,
-            slug,
             renderType: {
               id: createdComponent.id,
               model: RenderTypeEnum.Component,

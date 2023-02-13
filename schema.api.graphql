@@ -1490,7 +1490,6 @@ type AppPagePagesNodeAggregateSelection {
   getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input AppPagesAggregateInput {
@@ -5227,7 +5226,6 @@ type ComponentElementChildrenContainerElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type ComponentElementRootElementAggregationSelection {
@@ -5245,7 +5243,6 @@ type ComponentElementRootElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type ComponentInterfaceTypeApiAggregationSelection {
@@ -6534,7 +6531,6 @@ type ElementAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementAtomRenderAtomTypeAggregationSelection {
@@ -6622,7 +6618,6 @@ input ElementCreateInput {
   renderComponentType: ElementRenderComponentTypeFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
-  slug: String!
 }
 
 input ElementDeleteInput {
@@ -6671,7 +6666,6 @@ type ElementElementFirstChildNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementElementNextSiblingAggregationSelection {
@@ -6689,7 +6683,6 @@ type ElementElementNextSiblingNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementElementParentAggregationSelection {
@@ -6707,7 +6700,6 @@ type ElementElementParentNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementElementPrevSiblingAggregationSelection {
@@ -6725,7 +6717,6 @@ type ElementElementPrevSiblingNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input ElementFirstChildAggregateInput {
@@ -7296,7 +7287,6 @@ input ElementOnCreateInput {
   propTransformationJs: String
   renderForEachPropKey: String
   renderIfExpression: String
-  slug: String!
 }
 
 input ElementOptions {
@@ -7437,7 +7427,6 @@ type ElementPagePageNodeAggregateSelection {
   getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementPageRelationship {
@@ -8394,7 +8383,6 @@ input ElementSort {
   propTransformationJs: SortDirection
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
-  slug: SortDirection
 }
 
 """
@@ -8628,7 +8616,6 @@ type ElementTypesConnection {
 
 input ElementUniqueWhere {
   id: ID
-  slug: String
 }
 
 input ElementUpdateInput {
@@ -8651,7 +8638,6 @@ input ElementUpdateInput {
   renderComponentType: ElementRenderComponentTypeUpdateFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
-  slug: String
 }
 
 input ElementWhere {
@@ -10067,7 +10053,6 @@ type HookElementElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input HookElementFieldInput {
@@ -11958,7 +11943,6 @@ type PageAggregateSelection {
   getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input PageAppAggregateInput {
@@ -12123,7 +12107,6 @@ input PageCreateInput {
   name: String!
   pageContainerElement: PagePageContainerElementFieldInput
   rootElement: PageRootElementFieldInput
-  slug: String!
 }
 
 input PageDeleteInput {
@@ -12158,7 +12141,6 @@ type PageElementPageContainerElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 type PageElementRootElementAggregationSelection {
@@ -12176,7 +12158,6 @@ type PageElementRootElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 """
@@ -12201,7 +12182,6 @@ input PageOnCreateInput {
   id: ID!
   kind: PageKind!
   name: String!
-  slug: String!
 }
 
 input PageOptions {
@@ -12684,7 +12664,6 @@ input PageSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-  slug: SortDirection
 }
 
 """
@@ -12894,7 +12873,6 @@ type PageTypesConnection {
 
 input PageUniqueWhere {
   id: ID
-  slug: String
 }
 
 input PageUpdateInput {
@@ -12905,7 +12883,6 @@ input PageUpdateInput {
   name: String
   pageContainerElement: PagePageContainerElementUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
-  slug: String
 }
 
 input PageWhere {
@@ -13104,43 +13081,34 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
-input PrimitiveTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+type PropMapBindingTargetElementRelationship {
+  cursor: String!
+  node: Element!
 }
 
-"""
-Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object.
-"""
-input PrimitiveTypeSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
-  primitiveKind: SortDirection
+input PropMapBindingTargetElementUpdateConnectionInput {
+  node: ElementUpdateInput
 }
 
-input PrimitiveTypeUniqueWhere {
+input PropMapBindingTargetElementUpdateFieldInput {
+  connect: PropMapBindingTargetElementConnectFieldInput
+  connectOrCreate: PropMapBindingTargetElementConnectOrCreateFieldInput
+  create: PropMapBindingTargetElementCreateFieldInput
+  delete: PropMapBindingTargetElementDeleteFieldInput
+  disconnect: PropMapBindingTargetElementDisconnectFieldInput
+  update: PropMapBindingTargetElementUpdateConnectionInput
+  where: PropMapBindingTargetElementConnectionWhere
+}
+
+input PropMapBindingUniqueWhere {
   id: ID
-  name: String
-  primitiveKind: PrimitiveTypeKind
 }
 
-input PrimitiveTypeUpdateInput {
-  id: ID
-  name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
-  primitiveKind: PrimitiveTypeKind
-}
-
-type PrimitiveTypeUserOwnerAggregationSelection {
-  count: Int!
-  node: PrimitiveTypeUserOwnerNodeAggregateSelection
-}
-
-type PrimitiveTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
+input PropMapBindingUpdateInput {
+  element: PropMapBindingElementUpdateFieldInput
+  sourceKey: String
+  targetElement: PropMapBindingTargetElementUpdateFieldInput
+  targetKey: String
 }
 
 input PrimitiveTypeWhere {
@@ -13171,34 +13139,6 @@ type PrimitiveTypesConnection {
   edges: [PrimitiveTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-type Prop {
-  data: String!
-  id: ID!
-}
-
-type PropAggregateSelection {
-  count: Int!
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-}
-
-input PropConnectOrCreateWhere {
-  node: PropUniqueWhere!
-}
-
-input PropConnectWhere {
-  node: PropWhere!
-}
-
-input PropCreateInput {
-  data: String! = "{}"
-}
-
-type PropEdge {
-  cursor: String!
-  node: Prop!
 }
 
 input PropOnCreateInput {
@@ -17419,7 +17359,6 @@ type UserElementElementsNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input UserElementsAggregateInput {

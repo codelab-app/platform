@@ -6,7 +6,7 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import { SelectAction, SlugField } from '@codelab/frontend/domain/type'
+import { SelectAction } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
@@ -45,7 +45,6 @@ const makeCurrentModel = (element: IElement) => {
   return {
     id: element.id,
     name: element.name,
-    slug: element.slug,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfExpression: element.renderIfExpression,
     postRenderActionId: element.postRenderActionId,
@@ -124,13 +123,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         {element.id}
         <AutoComputedElementNameField
           computeElementNameService={computeElementNameService}
-          defaultValue={model.name ?? undefined}
+          defaultValue={model.name}
           label="Name"
           name="name"
-        />
-        <SlugField
-          name="slug"
-          srcString={computeElementNameService.computedName}
         />
         <AutoFields
           omitFields={[
@@ -143,7 +138,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'preRenderActionId',
             'postRenderActionId',
             'renderType',
-            'slug',
             'name',
           ]}
         />

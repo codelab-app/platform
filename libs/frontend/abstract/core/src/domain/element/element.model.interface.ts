@@ -42,7 +42,7 @@ export interface IElement
   id: string
   isRoot: boolean
   owner: Nullable<IAuth0Id>
-  name: Nullable<string>
+  name: string
   customCss: Nullable<string>
   guiCss: Nullable<string>
   props?: Nullable<IProp>

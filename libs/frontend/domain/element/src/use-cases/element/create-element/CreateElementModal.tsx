@@ -9,11 +9,7 @@ import type {
   IUserService,
   RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
-import {
-  SelectAction,
-  SelectAnyElement,
-  SlugField,
-} from '@codelab/frontend/domain/type'
+import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import type {
@@ -139,7 +135,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               'postRenderActionId',
               'renderType',
               'name',
-              'slug',
             ]}
           />
           <AutoField
@@ -167,10 +162,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             computeElementNameService={computeElementNameService}
             label="Name"
             name="name"
-          />
-          <SlugField
-            name="slug"
-            srcString={computeElementNameService.computedName}
           />
         </ModalForm.Form>
       </ModalForm.Modal>

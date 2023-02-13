@@ -4,7 +4,6 @@ import type { PageFragment } from './page.fragment.graphql.gen'
 
 export interface ICreatePageDTO {
   id?: string
-  slug: string
   // Allow us to specify rootElementId
   rootElementId?: string
   getServerSideProps?: Nullish<string>

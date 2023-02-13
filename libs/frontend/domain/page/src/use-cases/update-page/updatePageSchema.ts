@@ -21,10 +21,6 @@ export const updatePageSchema: JSONSchemaType<
       ...nonEmptyString,
       pattern: spacedLowercaseAlphanumericRegex.source,
     },
-    slug: {
-      ...nonEmptyString,
-      disabled: true,
-    },
     getServerSideProps: {
       type: 'string',
       nullable: true,
@@ -33,5 +29,5 @@ export const updatePageSchema: JSONSchemaType<
       },
     },
   },
-  required: ['name', 'slug'],
+  required: ['name'],
 } as const

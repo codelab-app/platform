@@ -8,7 +8,7 @@ import {
   IPageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
@@ -97,13 +97,7 @@ export class PageService
   update = _async(function* (
     this: PageService,
     existingPage: IPage,
-    {
-      name,
-      appId,
-      slug,
-      getServerSideProps,
-      pageContainerElementId,
-    }: IUpdatePageDTO,
+    { name, appId, getServerSideProps, pageContainerElementId }: IUpdatePageDTO,
   ) {
     const {
       updatePages: { pages },
@@ -111,7 +105,6 @@ export class PageService
       pageApi.UpdatePages({
         update: {
           name,
-          slug: createSlug(slug, appId),
           app: connectNodeId(appId),
           getServerSideProps,
           pageContainerElement: reconnectNodeId(pageContainerElementId),
@@ -152,7 +145,6 @@ export class PageService
       return {
         id: pageId,
         name: page.name,
-        slug: createSlug(page.slug, page.appId),
         app: connectNodeId(page.appId),
         getServerSideProps: page.getServerSideProps,
         kind: IPageKind.Regular,
@@ -161,7 +153,6 @@ export class PageService
             node: {
               id: page.rootElementId ?? v4(),
               name: ROOT_ELEMENT_NAME,
-              slug: createSlug(ROOT_ELEMENT_NAME, pageId),
             },
           },
         },

@@ -3,20 +3,18 @@ import type {
   IPageService,
 } from '@codelab/frontend/abstract/core'
 import { DEFAULT_GET_SERVER_SIDE_PROPS } from '@codelab/frontend/abstract/core'
-import { SlugField } from '@codelab/frontend/domain/type'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { createPageSchema } from './createPageSchema'
 
 export const CreatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const currentAppId = useCurrentAppId()
     const isOpen = pageService.createModal.isOpen
-    const [name, setName] = useState('')
 
     const model = {
       appId: currentAppId,
@@ -35,17 +33,12 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
       <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>
         <ModalForm.Form<Omit<ICreatePageDTO, 'pageContainerElementId'>>
           model={model}
-          onChange={(key, value) => {
-            key === 'name' && setName(value)
-          }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
           schema={createPageSchema}
         >
-          <AutoField name="name" />
-          <SlugField name="slug" srcString={name} />
-          <AutoFields omitFields={['appId', 'name', 'slug']} />
+          <AutoFields omitFields={['appId']} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

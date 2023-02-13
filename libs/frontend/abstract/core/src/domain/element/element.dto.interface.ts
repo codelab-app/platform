@@ -14,8 +14,7 @@ export interface RenderType {
 
 export interface ICreateElementDTO {
   id?: string
-  slug: string
-  name?: Nullable<string>
+  name: string
   renderType?: Nullable<RenderType>
   parentElementId?: string
   preRenderActionId?: Nullish<string>
@@ -27,8 +26,7 @@ export interface ICreateElementDTO {
 }
 
 export interface IUpdateElementDTO {
-  name?: Nullable<string>
-  slug: string
+  name: string
   renderType?: Nullable<RenderType>
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
@@ -48,7 +46,6 @@ export type IUpdateBaseElementDTO = Pick<
   IUpdateElementDTO,
   | 'renderType'
   | 'name'
-  | 'slug'
   | 'renderIfExpression'
   | 'renderForEachPropKey'
   | 'preRenderActionId'

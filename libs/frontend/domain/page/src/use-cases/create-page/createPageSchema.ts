@@ -34,10 +34,6 @@ export const createPageSchema: JSONSchemaType<
       ...nonEmptyString,
       pattern: spacedLowercaseAlphanumericRegex.source,
     },
-    slug: {
-      ...nonEmptyString,
-      disabled: true,
-    },
     appId: {
       type: 'string',
     },
@@ -49,5 +45,5 @@ export const createPageSchema: JSONSchemaType<
       },
     },
   },
-  required: ['name', 'slug'],
+  required: ['name'],
 } as const
