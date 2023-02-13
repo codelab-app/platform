@@ -5220,7 +5220,7 @@ type ComponentElementChildrenContainerElementNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -5237,7 +5237,7 @@ type ComponentElementRootElementNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -6391,7 +6391,7 @@ type Element {
     where: ElementHooksConnectionWhere
   ): ElementHooksConnection!
   id: ID!
-  name: String
+  name: String!
   nextSibling(
     directed: Boolean = true
     options: ElementOptions
@@ -6525,7 +6525,7 @@ type ElementAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -6604,7 +6604,7 @@ input ElementCreateInput {
   guiCss: String
   hooks: ElementHooksFieldInput
   id: ID!
-  name: String
+  name: String!
   nextSibling: ElementNextSiblingFieldInput
   page: ElementPageFieldInput
   parent: ElementParentFieldInput
@@ -6660,7 +6660,7 @@ type ElementElementFirstChildNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -6677,7 +6677,7 @@ type ElementElementNextSiblingNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -6694,7 +6694,7 @@ type ElementElementParentNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -6711,7 +6711,7 @@ type ElementElementPrevSiblingNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -7281,7 +7281,7 @@ input ElementOnCreateInput {
   customCss: String
   guiCss: String
   id: ID!
-  name: String
+  name: String!
   postRenderActionId: String
   preRenderActionId: String
   propTransformationJs: String
@@ -8616,6 +8616,7 @@ type ElementTypesConnection {
 
 input ElementUniqueWhere {
   id: ID
+  name: String
 }
 
 input ElementUpdateInput {
@@ -8692,7 +8693,7 @@ input ElementWhere {
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
   nextSiblingAggregate: ElementNextSiblingAggregateInput
@@ -10047,7 +10048,7 @@ type HookElementElementNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -12135,7 +12136,7 @@ type PageElementPageContainerElementNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -12152,7 +12153,7 @@ type PageElementRootElementNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
@@ -12873,6 +12874,7 @@ type PageTypesConnection {
 
 input PageUniqueWhere {
   id: ID
+  name: String
 }
 
 input PageUpdateInput {
@@ -17353,7 +17355,7 @@ type UserElementElementsNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
   postRenderActionId: StringAggregateSelectionNullable!
   preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!

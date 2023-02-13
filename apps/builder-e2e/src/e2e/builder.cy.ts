@@ -4,7 +4,6 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import { createAtomsData } from '@codelab/shared/data/test'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
-import slugify from 'voca/slugify'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
 
@@ -20,42 +19,35 @@ const elements = [
   {
     name: ELEMENT_CONTAINER,
     parentElement: ROOT_ELEMENT_NAME,
-    slug: slugify(ELEMENT_CONTAINER),
   },
   {
     name: ELEMENT_ROW,
     parentElement: ELEMENT_CONTAINER,
-    slug: slugify(ELEMENT_ROW),
   },
   {
     name: ELEMENT_COL_A,
     atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
-    slug: slugify(ELEMENT_COL_A),
   },
   {
     name: ELEMENT_COL_B,
     atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
-    slug: slugify(ELEMENT_COL_B),
   },
   {
     name: ELEMENT_TEXT_1,
     atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_COL_A,
-    slug: slugify(ELEMENT_TEXT_1),
   },
   {
     name: ELEMENT_BUTTON,
     atom: IAtomType.AntDesignButton,
     parentElement: ELEMENT_COL_B,
-    slug: slugify(ELEMENT_BUTTON),
   },
   {
     name: ELEMENT_TEXT_2,
     atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_BUTTON,
-    slug: slugify(`${ELEMENT_TEXT_2}`),
   },
 ]
 
@@ -115,7 +107,6 @@ describe('Elements CRUD', () => {
         .click()
 
       cy.getModal().findByLabelText('Name').type(ELEMENT_TEXT_1)
-      cy.getModal().findByLabelText('Slug').type(`${ELEMENT_TEXT_1}_2`)
 
       cy.getModal().setFormFieldValue({
         label: 'Parent element',

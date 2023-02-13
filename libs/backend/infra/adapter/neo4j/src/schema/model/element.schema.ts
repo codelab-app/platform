@@ -20,7 +20,7 @@ export const elementSchema = gql`
       @relationship(type: "COMPONENT_ROOT", direction: IN)
     # format : pageId-slug because element slug is unique inside page.
     slug: String! @computed(from: ["name"])
-    name: String
+    name: String! @unique
     # Used for the css the user types it manually using the integrated code editor. This is
     # a pure css string.
     customCss: String

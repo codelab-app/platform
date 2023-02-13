@@ -9,7 +9,7 @@ export type HookFragment = {
   id: string
   type: Types.AtomType
   config: HookPropFragment
-  element: { id: string; name?: string | null }
+  element: { id: string; name: string }
 }
 
 export const HookPropFragmentDoc = gql`

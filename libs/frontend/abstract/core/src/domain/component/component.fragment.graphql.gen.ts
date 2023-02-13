@@ -8,7 +8,7 @@ import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 export type ComponentFragment = {
   id: string
   name: string
-  rootElement: { id: string; name?: string | null }
+  rootElement: { id: string; name: string }
   owner: { id: string; auth0Id: string }
   api: { id: string; name: string }
   props?: PropFragment | null

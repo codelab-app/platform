@@ -1,7 +1,7 @@
 import type { IPage, IPropData } from '@codelab/frontend/abstract/core'
 import { IPageDTO } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
-import { extractSlug } from '@codelab/frontend/shared/utils'
+import { extractName } from '@codelab/frontend/shared/utils'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -37,8 +37,8 @@ const getServerSideProps = async (context: IPropData) => {
 const hydrate = (page: IPageDTO) => {
   return new Page({
     id: page.id,
-    name: page.name,
-    slug: extractSlug(page.slug),
+    name: extractName(page.name),
+    slug: page.slug,
     rootElement: { id: page.rootElement.id },
     getServerSideProps: page.getServerSideProps,
     app: { id: page.app.id },
@@ -77,10 +77,10 @@ export class Page
 
   @modelAction
   writeCache(page: IPageDTO) {
-    this.setName(page.name)
+    this.setName(extractName(page.name))
     this.rootElement = page.rootElement
     this.app = page.app
-    this.slug = extractSlug(page.slug)
+    this.slug = page.slug
     this.getServerSideProps = page.getServerSideProps
     this.pageContainerElement = page.pageContainerElement
     this.kind = page.kind

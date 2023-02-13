@@ -107,7 +107,7 @@ export interface IElement
   firstChild: Maybe<IElement>
   firstChildId: Nullable<string>
   setOrderInParent(order: number | null): void
-  setSlug(slug: string): void
+  setName(name: string): void
   setAtom(atom: Ref<IAtom>): void
   setSourceElementId(id: string): void
   setParentComponent(componentRef: Ref<IComponent>): void

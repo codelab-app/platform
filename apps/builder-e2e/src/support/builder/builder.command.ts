@@ -5,7 +5,6 @@ interface ElementData {
   name: string
   atom?: string
   parentElement: string
-  slug: string
 }
 
 export const createElementTree = (elements: Array<ElementData>) => {

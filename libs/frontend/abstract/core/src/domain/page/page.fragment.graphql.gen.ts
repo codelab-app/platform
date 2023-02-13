@@ -10,7 +10,7 @@ export type PageFragment = {
   getServerSideProps?: string | null
   kind: Types.PageKind
   app: { id: string }
-  rootElement: { id: string; name?: string | null }
+  rootElement: { id: string; name: string }
   pageContainerElement?: { id: string } | null
 }
 

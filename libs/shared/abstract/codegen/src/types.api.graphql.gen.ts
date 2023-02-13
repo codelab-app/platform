@@ -5423,7 +5423,7 @@ export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -5442,7 +5442,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -6616,7 +6616,7 @@ export type Element = {
   hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
   hooksConnection: ElementHooksConnection
   id: Scalars['ID']
-  name?: Maybe<Scalars['String']>
+  name: Scalars['String']
   nextSibling?: Maybe<Element>
   nextSiblingAggregate?: Maybe<ElementElementNextSiblingAggregationSelection>
   nextSiblingConnection: ElementNextSiblingConnection
@@ -6845,7 +6845,7 @@ export type ElementAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -6930,7 +6930,7 @@ export type ElementCreateInput = {
   guiCss?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<ElementHooksFieldInput>
   id: Scalars['ID']
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
   page?: InputMaybe<ElementPageFieldInput>
   parent?: InputMaybe<ElementParentFieldInput>
@@ -6989,7 +6989,7 @@ export type ElementElementFirstChildNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -7008,7 +7008,7 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -7027,7 +7027,7 @@ export type ElementElementParentNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -7046,7 +7046,7 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -7615,7 +7615,7 @@ export type ElementOnCreateInput = {
   customCss?: InputMaybe<Scalars['String']>
   guiCss?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
   postRenderActionId?: InputMaybe<Scalars['String']>
   preRenderActionId?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
@@ -8982,6 +8982,7 @@ export type ElementTypesConnection = {
 
 export type ElementUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type ElementUpdateInput = {
@@ -9046,7 +9047,7 @@ export type ElementWhere = {
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
   nextSiblingAggregate?: InputMaybe<ElementNextSiblingAggregateInput>
@@ -10470,7 +10471,7 @@ export type HookElementElementNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -12902,7 +12903,7 @@ export type PageElementPageContainerElementNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -12921,7 +12922,7 @@ export type PageElementRootElementNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -13646,6 +13647,7 @@ export type PageTypesConnection = {
 
 export type PageUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type PageUpdateInput = {
@@ -14165,7 +14167,7 @@ export type PropMapBindingElementElementNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -14362,7 +14364,7 @@ export type PropMapBindingElementTargetElementNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -19917,7 +19919,7 @@ export type UserElementElementsNodeAggregateSelection = {
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   postRenderActionId: StringAggregateSelectionNullable
   preRenderActionId: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -20849,7 +20851,7 @@ export type ComponentFragment = {
   __typename?: 'Component'
   id: string
   name: string
-  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  rootElement: { __typename?: 'Element'; id: string; name: string }
   owner: { __typename?: 'User'; id: string; auth0Id: string }
   api: { __typename?: 'InterfaceType'; id: string; name: string }
   props?: ({ __typename?: 'Prop' } & PropFragment) | null
@@ -20868,7 +20870,7 @@ export type DomainFragment = {
 export type ElementFragment = {
   __typename: 'Element'
   id: string
-  name?: string | null
+  name: string
   slug: string
   customCss?: string | null
   guiCss?: string | null
@@ -20898,7 +20900,7 @@ export type HookFragment = {
   id: string
   type: AtomType
   config: { __typename?: 'Prop' } & HookPropFragment
-  element: { __typename?: 'Element'; id: string; name?: string | null }
+  element: { __typename?: 'Element'; id: string; name: string }
 }
 
 export type PageFragment = {
@@ -20909,11 +20911,20 @@ export type PageFragment = {
   getServerSideProps?: string | null
   kind: PageKind
   app: { __typename?: 'App'; id: string }
-  rootElement: { __typename?: 'Element'; id: string; name?: string | null }
+  rootElement: { __typename?: 'Element'; id: string; name: string }
   pageContainerElement?: { __typename?: 'Element'; id: string } | null
 }
 
 export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
+
+export type PropMapBindingFragment = {
+  __typename?: 'PropMapBinding'
+  id: string
+  sourceKey: string
+  targetKey: string
+  element: { __typename?: 'Element'; id: string; name: string }
+  targetElement?: { __typename?: 'Element'; id: string; name: string } | null
+}
 
 export type ResourceFragment = {
   __typename: 'Resource'

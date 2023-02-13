@@ -14,7 +14,7 @@ import { HookFragmentDoc } from '../hook/hook.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
-  name?: string | null
+  name: string
   slug: string
   customCss?: string | null
   guiCss?: string | null

@@ -10,7 +10,7 @@ export const pageSchema = gql`
 
   type Page {
     id: ID! @id(autogenerate: false)
-    name: String!
+    name: String! @unique
     # format : appId-slug because page slug is unique inside app.
     slug: String! @computed(from: ["name"])
     rootElement: Element!

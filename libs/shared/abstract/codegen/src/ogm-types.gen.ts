@@ -2458,7 +2458,6 @@ export type AppPagePagesNodeAggregateSelection = {
   __typename?: 'AppPagePagesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
   getServerSideProps: StringAggregateSelectionNullable
 }
 
@@ -3236,7 +3235,7 @@ export type ComponentElementChildrenContainerElementAggregationSelection = {
 export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
   __typename?: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -3255,7 +3254,7 @@ export type ComponentElementRootElementAggregationSelection = {
 export type ComponentElementRootElementNodeAggregateSelection = {
   __typename?: 'ComponentElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -3693,7 +3692,7 @@ export type DomainsConnection = {
 export type Element = {
   __typename?: 'Element'
   id: Scalars['ID']
-  name?: Maybe<Scalars['String']>
+  name: Scalars['String']
   customCss?: Maybe<Scalars['String']>
   guiCss?: Maybe<Scalars['String']>
   propTransformationJs?: Maybe<Scalars['String']>
@@ -3929,7 +3928,7 @@ export type ElementAggregateSelection = {
   __typename?: 'ElementAggregateSelection'
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -3991,7 +3990,7 @@ export type ElementElementFirstChildAggregationSelection = {
 export type ElementElementFirstChildNodeAggregateSelection = {
   __typename?: 'ElementElementFirstChildNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -4010,7 +4009,7 @@ export type ElementElementNextSiblingAggregationSelection = {
 export type ElementElementNextSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementNextSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -4029,7 +4028,7 @@ export type ElementElementParentAggregationSelection = {
 export type ElementElementParentNodeAggregateSelection = {
   __typename?: 'ElementElementParentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -4048,7 +4047,7 @@ export type ElementElementPrevSiblingAggregationSelection = {
 export type ElementElementPrevSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementPrevSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -4125,7 +4124,6 @@ export type ElementPagePageNodeAggregateSelection = {
   __typename?: 'ElementPagePageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
   getServerSideProps: StringAggregateSelectionNullable
 }
 
@@ -4784,7 +4782,7 @@ export type HookElementElementAggregationSelection = {
 export type HookElementElementNodeAggregateSelection = {
   __typename?: 'HookElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -5091,7 +5089,6 @@ export type Page = {
   __typename?: 'Page'
   id: Scalars['ID']
   name: Scalars['String']
-  slug: Scalars['String']
   getServerSideProps?: Maybe<Scalars['String']>
   kind: PageKind
   rootElement: Element
@@ -5167,7 +5164,6 @@ export type PageAggregateSelection = {
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
   getServerSideProps: StringAggregateSelectionNullable
 }
 
@@ -5212,7 +5208,7 @@ export type PageElementPageContainerElementAggregationSelection = {
 export type PageElementPageContainerElementNodeAggregateSelection = {
   __typename?: 'PageElementPageContainerElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -5231,7 +5227,7 @@ export type PageElementRootElementAggregationSelection = {
 export type PageElementRootElementNodeAggregateSelection = {
   __typename?: 'PageElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -5518,7 +5514,7 @@ export type PropMapBindingElementElementAggregationSelection = {
 export type PropMapBindingElementElementNodeAggregateSelection = {
   __typename?: 'PropMapBindingElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -5543,7 +5539,7 @@ export type PropMapBindingElementTargetElementAggregationSelection = {
 export type PropMapBindingElementTargetElementNodeAggregateSelection = {
   __typename?: 'PropMapBindingElementTargetElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -6819,7 +6815,7 @@ export type UserElementElementsAggregationSelection = {
 export type UserElementElementsNodeAggregateSelection = {
   __typename?: 'UserElementElementsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
+  name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   propTransformationJs: StringAggregateSelectionNullable
@@ -14333,7 +14329,7 @@ export type ElementConnectWhere = {
 
 export type ElementCreateInput = {
   id: Scalars['ID']
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
   customCss?: InputMaybe<Scalars['String']>
   guiCss?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
@@ -15620,7 +15616,7 @@ export type ElementNextSiblingUpdateFieldInput = {
 
 export type ElementOnCreateInput = {
   id: Scalars['ID']
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
   customCss?: InputMaybe<Scalars['String']>
   guiCss?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
@@ -17986,6 +17982,7 @@ export type ElementTypeWhere = {
 
 export type ElementUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type ElementUpdateInput = {
@@ -22126,7 +22123,6 @@ export type PageConnectWhere = {
 export type PageCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
   kind: PageKind
   rootElement?: InputMaybe<PageRootElementFieldInput>
@@ -22149,7 +22145,6 @@ export type PageDisconnectInput = {
 export type PageOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  slug: Scalars['String']
   getServerSideProps?: InputMaybe<Scalars['String']>
   kind: PageKind
 }
@@ -23327,7 +23322,6 @@ export type PageRootElementUpdateFieldInput = {
 export type PageSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-  slug?: InputMaybe<SortDirection>
   getServerSideProps?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
 }
@@ -23637,13 +23631,12 @@ export type PageTypeWhere = {
 
 export type PageUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
-  slug?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type PageUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  slug?: InputMaybe<Scalars['String']>
   getServerSideProps?: InputMaybe<Scalars['String']>
   kind?: InputMaybe<PageKind>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
@@ -30696,7 +30689,6 @@ export interface PageAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   name?: StringAggregateInputNonNullable
-  slug?: StringAggregateInputNonNullable
   getServerSideProps?: StringAggregateInputNullable
 }
 
@@ -31983,7 +31975,7 @@ export interface IntAggregateInputNonNullable {
 export interface ElementAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
-  name?: StringAggregateInputNullable
+  name?: StringAggregateInputNonNullable
   customCss?: StringAggregateInputNullable
   guiCss?: StringAggregateInputNullable
   propTransformationJs?: StringAggregateInputNullable

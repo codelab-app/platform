@@ -24,7 +24,7 @@ import {
   componentRef,
   getElementService,
 } from '@codelab/frontend/presenter/container'
-import { extractSlug } from '@codelab/frontend/shared/utils'
+import { extractName } from '@codelab/frontend/shared/utils'
 import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
@@ -82,13 +82,13 @@ export const hydrate = ({
 
   return new Element({
     id,
-    name,
+    name: extractName(name),
     customCss,
     guiCss,
     // parent of first child
     parentId: parent?.id,
     pageId: page?.id,
-    slug: extractSlug(slug),
+    slug: slug,
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
     firstChildId: firstChild?.id,
@@ -135,7 +135,7 @@ export class Element
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
     name: prop<Nullable<string>>(null).withSetter(),
-    slug: prop<string>().withSetter(),
+    slug: prop<string>(),
     customCss: prop<Nullable<string>>(null).withSetter(),
     guiCss: prop<Nullable<string>>(null),
     atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
@@ -465,7 +465,7 @@ export class Element
       generateNewIds: true,
     })
 
-    clonedElement.setSlug(`${this.slug}.${cloneIndex}`)
+    clonedElement.setName(`${this.name} ${cloneIndex}`)
     clonedElement.setSourceElementId(this.id)
 
     if (this.atom) {
@@ -774,7 +774,7 @@ export class Element
       : undefined
 
     this.id = id
-    this.name = name ?? null
+    this.name = extractName(name)
     this.customCss = customCss ?? null
     this.guiCss = guiCss ?? null
     this.propTransformationJs = propTransformationJs ?? null
@@ -790,7 +790,7 @@ export class Element
     this.nextSiblingId = nextSibling?.id ?? null
     this.prevSiblingId = prevSibling?.id ?? null
     this.firstChildId = firstChild?.id ?? null
-    this.slug = extractSlug(slug)
+    this.slug = slug
 
     if (props) {
       this.props?.writeCache({ ...props, apiRef })
