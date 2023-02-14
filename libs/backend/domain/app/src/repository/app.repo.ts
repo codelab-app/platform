@@ -73,7 +73,6 @@ export const createApp = async (app: IAppExport, userId: string) => {
         id: app.id,
         name: app.name,
         owner: connectNodeId(userId),
-        slug: app.slug,
         store: {
           create: {
             node: {
