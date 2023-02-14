@@ -3,7 +3,7 @@ import type {
   ICreateComponentDTO,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { createSlug } from '@codelab/frontend/shared/utils'
+import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
@@ -22,8 +22,7 @@ export const mapCreateInput = (
     create: {
       node: {
         id: newRootElementId,
-        name,
-        slug: createSlug(name, id),
+        name: createUniqueName(name, id),
         props,
       },
     },

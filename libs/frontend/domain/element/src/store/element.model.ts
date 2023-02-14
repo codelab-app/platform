@@ -134,7 +134,7 @@ export class Element
     owner: prop<Nullable<string>>(null),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
-    name: prop<Nullable<string>>(null).withSetter(),
+    name: prop<string>().withSetter(),
     slug: prop<string>(),
     customCss: prop<Nullable<string>>(null).withSetter(),
     guiCss: prop<Nullable<string>>(null),

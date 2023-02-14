@@ -40,7 +40,6 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       properties: {
         appId: { type: 'string' },
         name: { type: 'string', disabled: kind !== IPageKind.Regular },
-        slug: { type: 'string', disabled: kind !== IPageKind.Regular },
         getServerSideProps: {
           type: 'string',
           nullable: true,
