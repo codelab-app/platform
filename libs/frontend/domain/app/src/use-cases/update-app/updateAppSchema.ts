@@ -14,10 +14,6 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
       ...nonEmptyString,
       pattern: spacedLowercaseAlphanumericRegex.source,
     },
-    slug: {
-      ...nonEmptyString,
-      disabled: true,
-    },
   },
-  required: ['name', 'slug'],
+  required: ['name'],
 } as const

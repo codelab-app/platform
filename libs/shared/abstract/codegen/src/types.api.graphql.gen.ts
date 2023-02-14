@@ -1317,7 +1317,6 @@ export type AppAggregateSelection = {
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type AppConnectInput = {
@@ -1348,7 +1347,6 @@ export type AppCreateInput = {
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
-  slug: Scalars['String']
   store?: InputMaybe<AppStoreFieldInput>
 }
 
@@ -1494,7 +1492,6 @@ export type AppEdge = {
 export type AppOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  slug: Scalars['String']
 }
 
 export type AppOptions = {
@@ -1728,7 +1725,6 @@ export type AppRelationInput = {
 export type AppSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-  slug?: InputMaybe<SortDirection>
 }
 
 export type AppStoreAggregateInput = {
@@ -2077,7 +2073,6 @@ export type AppUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
-  slug?: InputMaybe<Scalars['String']>
   store?: InputMaybe<AppStoreUpdateFieldInput>
 }
 
@@ -6396,7 +6391,6 @@ export type DomainAppAppNodeAggregateSelection = {
   __typename?: 'DomainAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type DomainAppConnectFieldInput = {
@@ -12731,7 +12725,6 @@ export type PageAppAppNodeAggregateSelection = {
   __typename?: 'PageAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type PageAppConnectFieldInput = {
@@ -16865,7 +16858,6 @@ export type StoreAppAppNodeAggregateSelection = {
   __typename?: 'StoreAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type StoreAppConnectFieldInput = {
@@ -19601,7 +19593,6 @@ export type UserAppAppsNodeAggregateSelection = {
   __typename?: 'UserAppAppsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type UserAppsAggregateInput = {

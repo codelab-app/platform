@@ -21,15 +21,11 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
       ...nonEmptyString,
       pattern: spacedLowercaseAlphanumericRegex.source,
     },
-    slug: {
-      ...nonEmptyString,
-      disabled: true,
-    },
     auth0Id: {
       type: 'string',
       disabled: true,
       ...showFieldOnDev(),
     },
   },
-  required: ['name', 'auth0Id', 'slug'],
+  required: ['name', 'auth0Id'],
 } as const

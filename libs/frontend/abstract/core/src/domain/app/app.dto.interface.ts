@@ -6,7 +6,6 @@ import type {
 export interface ICreateAppDTO {
   id?: string
   name: string
-  slug: string
   auth0Id: string
 }
 

@@ -3,20 +3,17 @@ import type {
   ICreateAppDTO,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { SlugField } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { createAppSchema } from './createAppSchema'
 
 export const CreateAppModal = observer<{
   appService: IAppService
   userService: IUserService
 }>(({ appService, userService }) => {
-  const [name, setName] = useState('')
-
   const onSubmit = (data: ICreateAppDTO) => {
     return appService.create([data])
   }
@@ -35,9 +32,6 @@ export const CreateAppModal = observer<{
     >
       <ModalForm.Form
         model={model}
-        onChange={(key, value) => {
-          key === 'name' && setName(value)
-        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating app',
@@ -45,9 +39,7 @@ export const CreateAppModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createAppSchema}
       >
-        <AutoField name="name" />
-        <SlugField name="slug" srcString={name} />
-        <AutoFields omitFields={['storeId', 'name', 'slug']} />
+        <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

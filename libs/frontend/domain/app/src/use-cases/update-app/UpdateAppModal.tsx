@@ -3,12 +3,11 @@ import type {
   IUpdateAppDTO,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { SlugField } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppModal = observer<{
@@ -16,12 +15,6 @@ export const UpdateAppModal = observer<{
   userService: IUserService
 }>(({ appService, userService }) => {
   const app = appService.updateModal.app
-  const [name, setName] = useState('')
-
-  useEffect(() => {
-    // set the initial value of the app's name once available
-    app && setName(app.name)
-  }, [app])
 
   if (!app) {
     return null
@@ -29,7 +22,6 @@ export const UpdateAppModal = observer<{
 
   const model = {
     name: app.name,
-    slug: app.slug,
     ownerId: userService.user?.auth0Id,
     storeId: app.store.id,
   }
@@ -49,9 +41,6 @@ export const UpdateAppModal = observer<{
     >
       <ModalForm.Form<IUpdateAppDTO>
         model={model}
-        onChange={(key, value) => {
-          key === 'name' && setName(value)
-        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating app',
@@ -59,9 +48,7 @@ export const UpdateAppModal = observer<{
         onSubmitSuccess={closeModal}
         schema={updateAppSchema}
       >
-        <AutoField name="name" />
-        <SlugField name="slug" srcString={name} />
-        <AutoFields omitFields={['storeId', 'name', 'slug']} />
+        <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

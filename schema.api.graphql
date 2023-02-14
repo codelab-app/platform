@@ -1230,7 +1230,6 @@ type AppAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input AppConnectInput {
@@ -1261,7 +1260,6 @@ input AppCreateInput {
   name: String!
   owner: WithOwnerOwnerFieldInput
   pages: AppPagesFieldInput
-  slug: String!
   store: AppStoreFieldInput
 }
 
@@ -1405,7 +1403,6 @@ type AppEdge {
 input AppOnCreateInput {
   id: ID!
   name: String!
-  slug: String!
 }
 
 input AppOptions {
@@ -1643,7 +1640,6 @@ Fields to sort Apps by. The order in which sorts are applied is not guaranteed w
 input AppSort {
   id: SortDirection
   name: SortDirection
-  slug: SortDirection
 }
 
 input AppStoreAggregateInput {
@@ -1979,7 +1975,6 @@ input AppUpdateInput {
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
-  slug: String
   store: AppStoreUpdateFieldInput
 }
 
@@ -6142,7 +6137,6 @@ type DomainAppAppAggregationSelection {
 type DomainAppAppNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input DomainAppConnectFieldInput {
@@ -11966,7 +11960,6 @@ type PageAppAppAggregationSelection {
 type PageAppAppNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input PageAppConnectFieldInput {
@@ -14757,7 +14750,6 @@ type StoreAppAppAggregationSelection {
 type StoreAppAppNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input StoreAppConnectFieldInput {
@@ -17042,7 +17034,6 @@ type UserAppAppsAggregationSelection {
 type UserAppAppsNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
 }
 
 input UserAppsAggregateInput {

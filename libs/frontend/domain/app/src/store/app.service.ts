@@ -12,7 +12,7 @@ import {
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
+import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
 import type { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
@@ -146,13 +146,13 @@ export class AppService
   update = _async(function* (
     this: AppService,
     entity: IEntity,
-    { name, slug }: IUpdateAppDTO,
+    { name }: IUpdateAppDTO,
   ) {
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
-        update: { name, slug: createSlug(slug) },
+        update: { name: createUniqueName(name) },
         where: { id: entity.id },
       }),
     )
@@ -180,9 +180,8 @@ export class AppService
 
       return {
         id: appId,
-        name: app.name,
+        name: createUniqueName(app.name),
         owner: connectOwner(app.auth0Id),
-        slug: createSlug(app.slug),
         store: {
           create: {
             node: {
