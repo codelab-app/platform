@@ -2,7 +2,6 @@ import { appApi } from '@codelab/frontend/domain/app'
 import { domainApis } from '@codelab/frontend/domain/domain'
 import { pageApi } from '@codelab/frontend/domain/page'
 import { userApi } from '@codelab/frontend/domain/user'
-import { extractSlug } from '@codelab/frontend/shared/utils'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import type { NextApiHandler } from 'next'
@@ -97,7 +96,7 @@ const regenerate: NextApiHandler = async (req, res) => {
 
     const revalidationPromises = revalidationData.map(
       async ({ page, domain }) => {
-        const pageSlug = extractSlug(page.slug)
+        const pageSlug = page.slug
         const path = `/_sites/${domain.name}/${pageSlug}`
 
         try {

@@ -128,7 +128,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
         kind: page.kind,
         rootElement: {
           id: page.rootElement.id,
-          name: page.rootElement.name ?? null,
+          name: page.rootElement.name,
         },
         elements,
         components,
