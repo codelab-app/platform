@@ -2414,7 +2414,6 @@ export type AppAggregateSelection = {
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type AppDomainDomainsAggregationSelection = {
@@ -3660,7 +3659,6 @@ export type DomainAppAppNodeAggregateSelection = {
   __typename?: 'DomainAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type DomainAppConnection = {
@@ -5177,7 +5175,6 @@ export type PageAppAppNodeAggregateSelection = {
   __typename?: 'PageAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type PageAppConnection = {
@@ -6027,7 +6024,6 @@ export type StoreAppAppNodeAggregateSelection = {
   __typename?: 'StoreAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type StoreAppConnection = {
@@ -6747,7 +6743,6 @@ export type UserAppAppsNodeAggregateSelection = {
   __typename?: 'UserAppAppsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-  slug: StringAggregateSelectionNonNullable
 }
 
 export type UserAppsConnection = {
@@ -8181,7 +8176,6 @@ export type AppConnectWhere = {
 export type AppCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  slug: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
   store?: InputMaybe<AppStoreFieldInput>
@@ -8343,7 +8337,6 @@ export type AppDomainsUpdateFieldInput = {
 export type AppOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  slug: Scalars['String']
 }
 
 export type AppOptions = {
@@ -8797,7 +8790,6 @@ export type AppRelationInput = {
 export type AppSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-  slug?: InputMaybe<SortDirection>
 }
 
 export type AppStoreAggregateInput = {
@@ -9248,7 +9240,6 @@ export type AppUniqueWhere = {
 export type AppUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  slug?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
   store?: InputMaybe<AppStoreUpdateFieldInput>
@@ -30425,7 +30416,6 @@ export interface AppAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   name?: StringAggregateInputNonNullable
-  slug?: StringAggregateInputNonNullable
 }
 
 export declare class AppModel {
