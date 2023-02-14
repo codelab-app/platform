@@ -6,7 +6,7 @@ import { useDroppable } from '@dnd-kit/core'
 
 export const useCreateElementDroppable = (
   id: IElementRef,
-  input?: Omit<ICreateElementDTO, 'renderType'>,
+  input?: Omit<ICreateElementDTO, 'name' | 'renderType'>,
 ) => {
   return useDroppable({
     id,
