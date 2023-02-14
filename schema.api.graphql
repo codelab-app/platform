@@ -3342,6 +3342,22 @@ type Atom {
   icon: String
   id: ID!
   name: String!
+  requiredParent(
+    directed: Boolean = true
+    options: AtomOptions
+    where: AtomWhere
+  ): Atom
+  requiredParentAggregate(
+    directed: Boolean = true
+    where: AtomWhere
+  ): AtomAtomRequiredParentAggregationSelection
+  requiredParentConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AtomRequiredParentConnectionSort!]
+    where: AtomRequiredParentConnectionWhere
+  ): AtomRequiredParentConnection!
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
     directed: Boolean = true
@@ -3609,15 +3625,28 @@ type AtomAtomAllowedChildrenNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
+type AtomAtomRequiredParentAggregationSelection {
+  count: Int!
+  node: AtomAtomRequiredParentNodeAggregateSelection
+}
+
+type AtomAtomRequiredParentNodeAggregateSelection {
+  icon: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
 input AtomConnectInput {
   allowedChildren: [AtomAllowedChildrenConnectFieldInput!]
   api: AtomApiConnectFieldInput
+  requiredParent: AtomRequiredParentConnectFieldInput
   tags: [AtomTagsConnectFieldInput!]
 }
 
 input AtomConnectOrCreateInput {
   allowedChildren: [AtomAllowedChildrenConnectOrCreateFieldInput!]
   api: AtomApiConnectOrCreateFieldInput
+  requiredParent: AtomRequiredParentConnectOrCreateFieldInput
   tags: [AtomTagsConnectOrCreateFieldInput!]
 }
 
@@ -3635,6 +3664,7 @@ input AtomCreateInput {
   icon: String
   id: ID!
   name: String!
+  requiredParent: AtomRequiredParentFieldInput
   tags: AtomTagsFieldInput
   type: AtomType!
 }
@@ -3642,12 +3672,14 @@ input AtomCreateInput {
 input AtomDeleteInput {
   allowedChildren: [AtomAllowedChildrenDeleteFieldInput!]
   api: AtomApiDeleteFieldInput
+  requiredParent: AtomRequiredParentDeleteFieldInput
   tags: [AtomTagsDeleteFieldInput!]
 }
 
 input AtomDisconnectInput {
   allowedChildren: [AtomAllowedChildrenDisconnectFieldInput!]
   api: AtomApiDisconnectFieldInput
+  requiredParent: AtomRequiredParentDisconnectFieldInput
   tags: [AtomTagsDisconnectFieldInput!]
 }
 
@@ -3686,7 +3718,135 @@ input AtomOptions {
 input AtomRelationInput {
   allowedChildren: [AtomAllowedChildrenCreateFieldInput!]
   api: AtomApiCreateFieldInput
+  requiredParent: AtomRequiredParentCreateFieldInput
   tags: [AtomTagsCreateFieldInput!]
+}
+
+input AtomRequiredParentAggregateInput {
+  AND: [AtomRequiredParentAggregateInput!]
+  OR: [AtomRequiredParentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AtomRequiredParentNodeAggregationWhereInput
+}
+
+input AtomRequiredParentConnectFieldInput {
+  connect: AtomConnectInput
+  where: AtomConnectWhere
+}
+
+input AtomRequiredParentConnectOrCreateFieldInput {
+  onCreate: AtomRequiredParentConnectOrCreateFieldInputOnCreate!
+  where: AtomConnectOrCreateWhere!
+}
+
+input AtomRequiredParentConnectOrCreateFieldInputOnCreate {
+  node: AtomOnCreateInput!
+}
+
+type AtomRequiredParentConnection {
+  edges: [AtomRequiredParentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AtomRequiredParentConnectionSort {
+  node: AtomSort
+}
+
+input AtomRequiredParentConnectionWhere {
+  AND: [AtomRequiredParentConnectionWhere!]
+  OR: [AtomRequiredParentConnectionWhere!]
+  node: AtomWhere
+  node_NOT: AtomWhere
+}
+
+input AtomRequiredParentCreateFieldInput {
+  node: AtomCreateInput!
+}
+
+input AtomRequiredParentDeleteFieldInput {
+  delete: AtomDeleteInput
+  where: AtomRequiredParentConnectionWhere
+}
+
+input AtomRequiredParentDisconnectFieldInput {
+  disconnect: AtomDisconnectInput
+  where: AtomRequiredParentConnectionWhere
+}
+
+input AtomRequiredParentFieldInput {
+  connect: AtomRequiredParentConnectFieldInput
+  connectOrCreate: AtomRequiredParentConnectOrCreateFieldInput
+  create: AtomRequiredParentCreateFieldInput
+}
+
+input AtomRequiredParentNodeAggregationWhereInput {
+  AND: [AtomRequiredParentNodeAggregationWhereInput!]
+  OR: [AtomRequiredParentNodeAggregationWhereInput!]
+  icon_AVERAGE_EQUAL: Float
+  icon_AVERAGE_GT: Float
+  icon_AVERAGE_GTE: Float
+  icon_AVERAGE_LT: Float
+  icon_AVERAGE_LTE: Float
+  icon_EQUAL: String
+  icon_GT: Int
+  icon_GTE: Int
+  icon_LONGEST_EQUAL: Int
+  icon_LONGEST_GT: Int
+  icon_LONGEST_GTE: Int
+  icon_LONGEST_LT: Int
+  icon_LONGEST_LTE: Int
+  icon_LT: Int
+  icon_LTE: Int
+  icon_SHORTEST_EQUAL: Int
+  icon_SHORTEST_GT: Int
+  icon_SHORTEST_GTE: Int
+  icon_SHORTEST_LT: Int
+  icon_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type AtomRequiredParentRelationship {
+  cursor: String!
+  node: Atom!
+}
+
+input AtomRequiredParentUpdateConnectionInput {
+  node: AtomUpdateInput
+}
+
+input AtomRequiredParentUpdateFieldInput {
+  connect: AtomRequiredParentConnectFieldInput
+  connectOrCreate: AtomRequiredParentConnectOrCreateFieldInput
+  create: AtomRequiredParentCreateFieldInput
+  delete: AtomRequiredParentDeleteFieldInput
+  disconnect: AtomRequiredParentDisconnectFieldInput
+  update: AtomRequiredParentUpdateConnectionInput
+  where: AtomRequiredParentConnectionWhere
 }
 
 """
@@ -4205,6 +4365,7 @@ input AtomUpdateInput {
   icon: String
   id: ID
   name: String
+  requiredParent: AtomRequiredParentUpdateFieldInput
   tags: [AtomTagsUpdateFieldInput!]
   type: AtomType
 }
@@ -4275,6 +4436,11 @@ input AtomWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  requiredParent: AtomWhere
+  requiredParentAggregate: AtomRequiredParentAggregateInput
+  requiredParentConnection: AtomRequiredParentConnectionWhere
+  requiredParentConnection_NOT: AtomRequiredParentConnectionWhere
+  requiredParent_NOT: AtomWhere
   tagsAggregate: AtomTagsAggregateInput
   tagsConnection_ALL: AtomTagsConnectionWhere
   tagsConnection_NONE: AtomTagsConnectionWhere

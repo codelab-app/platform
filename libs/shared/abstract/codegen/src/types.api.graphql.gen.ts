@@ -3460,6 +3460,9 @@ export type Atom = {
   icon?: Maybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
+  requiredParent?: Maybe<Atom>
+  requiredParentAggregate?: Maybe<AtomAtomRequiredParentAggregationSelection>
+  requiredParentConnection: AtomRequiredParentConnection
   tags: Array<Tag>
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   tagsConnection: AtomTagsConnection
@@ -3502,6 +3505,25 @@ export type AtomApiConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<AtomApiConnectionSort>>
   where?: InputMaybe<AtomApiConnectionWhere>
+}
+
+export type AtomRequiredParentArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type AtomRequiredParentAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type AtomRequiredParentConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AtomRequiredParentConnectionSort>>
+  where?: InputMaybe<AtomRequiredParentConnectionWhere>
 }
 
 export type AtomTagsArgs = {
@@ -3786,9 +3808,23 @@ export type AtomAtomAllowedChildrenNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
+export type AtomAtomRequiredParentAggregationSelection = {
+  __typename?: 'AtomAtomRequiredParentAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AtomAtomRequiredParentNodeAggregateSelection>
+}
+
+export type AtomAtomRequiredParentNodeAggregateSelection = {
+  __typename?: 'AtomAtomRequiredParentNodeAggregateSelection'
+  icon: StringAggregateSelectionNullable
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
 export type AtomConnectInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
   api?: InputMaybe<AtomApiConnectFieldInput>
+  requiredParent?: InputMaybe<AtomRequiredParentConnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
 }
 
@@ -3797,6 +3833,7 @@ export type AtomConnectOrCreateInput = {
     Array<AtomAllowedChildrenConnectOrCreateFieldInput>
   >
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
+  requiredParent?: InputMaybe<AtomRequiredParentConnectOrCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
 }
 
@@ -3814,6 +3851,7 @@ export type AtomCreateInput = {
   icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
+  requiredParent?: InputMaybe<AtomRequiredParentFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
   type: AtomType
 }
@@ -3821,12 +3859,14 @@ export type AtomCreateInput = {
 export type AtomDeleteInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
   api?: InputMaybe<AtomApiDeleteFieldInput>
+  requiredParent?: InputMaybe<AtomRequiredParentDeleteFieldInput>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
 }
 
 export type AtomDisconnectInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
   api?: InputMaybe<AtomApiDisconnectFieldInput>
+  requiredParent?: InputMaybe<AtomRequiredParentDisconnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
 }
 
@@ -3865,7 +3905,137 @@ export type AtomOptions = {
 export type AtomRelationInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
   api?: InputMaybe<AtomApiCreateFieldInput>
+  requiredParent?: InputMaybe<AtomRequiredParentCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+}
+
+export type AtomRequiredParentAggregateInput = {
+  AND?: InputMaybe<Array<AtomRequiredParentAggregateInput>>
+  OR?: InputMaybe<Array<AtomRequiredParentAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<AtomRequiredParentNodeAggregationWhereInput>
+}
+
+export type AtomRequiredParentConnectFieldInput = {
+  connect?: InputMaybe<AtomConnectInput>
+  where?: InputMaybe<AtomConnectWhere>
+}
+
+export type AtomRequiredParentConnectOrCreateFieldInput = {
+  onCreate: AtomRequiredParentConnectOrCreateFieldInputOnCreate
+  where: AtomConnectOrCreateWhere
+}
+
+export type AtomRequiredParentConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type AtomRequiredParentConnection = {
+  __typename?: 'AtomRequiredParentConnection'
+  edges: Array<AtomRequiredParentRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type AtomRequiredParentConnectionSort = {
+  node?: InputMaybe<AtomSort>
+}
+
+export type AtomRequiredParentConnectionWhere = {
+  AND?: InputMaybe<Array<AtomRequiredParentConnectionWhere>>
+  OR?: InputMaybe<Array<AtomRequiredParentConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+  node_NOT?: InputMaybe<AtomWhere>
+}
+
+export type AtomRequiredParentCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type AtomRequiredParentDeleteFieldInput = {
+  delete?: InputMaybe<AtomDeleteInput>
+  where?: InputMaybe<AtomRequiredParentConnectionWhere>
+}
+
+export type AtomRequiredParentDisconnectFieldInput = {
+  disconnect?: InputMaybe<AtomDisconnectInput>
+  where?: InputMaybe<AtomRequiredParentConnectionWhere>
+}
+
+export type AtomRequiredParentFieldInput = {
+  connect?: InputMaybe<AtomRequiredParentConnectFieldInput>
+  connectOrCreate?: InputMaybe<AtomRequiredParentConnectOrCreateFieldInput>
+  create?: InputMaybe<AtomRequiredParentCreateFieldInput>
+}
+
+export type AtomRequiredParentNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomRequiredParentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AtomRequiredParentNodeAggregationWhereInput>>
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  icon_EQUAL?: InputMaybe<Scalars['String']>
+  icon_GT?: InputMaybe<Scalars['Int']>
+  icon_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  icon_LT?: InputMaybe<Scalars['Int']>
+  icon_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type AtomRequiredParentRelationship = {
+  __typename?: 'AtomRequiredParentRelationship'
+  cursor: Scalars['String']
+  node: Atom
+}
+
+export type AtomRequiredParentUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type AtomRequiredParentUpdateFieldInput = {
+  connect?: InputMaybe<AtomRequiredParentConnectFieldInput>
+  connectOrCreate?: InputMaybe<AtomRequiredParentConnectOrCreateFieldInput>
+  create?: InputMaybe<AtomRequiredParentCreateFieldInput>
+  delete?: InputMaybe<AtomRequiredParentDeleteFieldInput>
+  disconnect?: InputMaybe<AtomRequiredParentDisconnectFieldInput>
+  update?: InputMaybe<AtomRequiredParentUpdateConnectionInput>
+  where?: InputMaybe<AtomRequiredParentConnectionWhere>
 }
 
 /** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
@@ -4386,6 +4556,7 @@ export type AtomUpdateInput = {
   icon?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
+  requiredParent?: InputMaybe<AtomRequiredParentUpdateFieldInput>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   type?: InputMaybe<AtomType>
 }
@@ -4444,6 +4615,11 @@ export type AtomWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  requiredParent?: InputMaybe<AtomWhere>
+  requiredParentAggregate?: InputMaybe<AtomRequiredParentAggregateInput>
+  requiredParentConnection?: InputMaybe<AtomRequiredParentConnectionWhere>
+  requiredParentConnection_NOT?: InputMaybe<AtomRequiredParentConnectionWhere>
+  requiredParent_NOT?: InputMaybe<AtomWhere>
   tagsAggregate?: InputMaybe<AtomTagsAggregateInput>
   tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>
   tagsConnection_NONE?: InputMaybe<AtomTagsConnectionWhere>
@@ -21443,6 +21619,12 @@ export type AtomFragment = {
     name: string
     type: AtomType
   }>
+  requiredParent?: {
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  } | null
 }
 
 export type RenderAtomFragment = {
@@ -21459,6 +21641,12 @@ export type RenderAtomFragment = {
     name: string
     type: AtomType
   }>
+  requiredParent?: {
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  } | null
 }
 
 export type RenderedComponentFragment = {

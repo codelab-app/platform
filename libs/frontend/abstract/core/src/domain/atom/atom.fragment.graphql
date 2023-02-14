@@ -15,6 +15,11 @@ fragment Atom on Atom {
     name
     type
   }
+  requiredParent {
+    id
+    name
+    type
+  }
 }
 
 fragment RenderAtom on Atom {
@@ -30,6 +35,11 @@ fragment RenderAtom on Atom {
     name
   }
   allowedChildren {
+    id
+    name
+    type
+  }
+  requiredParent {
     id
     name
     type

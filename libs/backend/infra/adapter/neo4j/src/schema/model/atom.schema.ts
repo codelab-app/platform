@@ -17,6 +17,7 @@ export const atomSchema = gql`
     icon: String
     allowedChildren: [Atom!]!
       @relationship(type: "ALLOWED_CHILDREN", direction: OUT)
+    requiredParent: Atom @relationship(type: "REQUIRED_PARENT", direction: OUT)
   }
 
   extend type Atom
