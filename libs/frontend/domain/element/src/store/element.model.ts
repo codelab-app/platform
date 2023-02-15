@@ -168,7 +168,7 @@ export class Element
 
   @computed
   get rootElement(): IElement {
-    return this.parentElement ? this.parentElement : this
+    return this.parentElement ? this.parentElement.rootElement : this
   }
 
   @computed
