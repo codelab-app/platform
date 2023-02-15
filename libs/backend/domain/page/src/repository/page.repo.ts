@@ -1,3 +1,4 @@
+import { getElementAndDescendants } from '@codelab/backend/domain/element'
 import {
   componentSelectionSet,
   Repository,
@@ -6,24 +7,25 @@ import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { uuidRegex } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import flatten from 'lodash/flatten'
-import { getElementAndDescendants } from '../../../element/src/repository'
 
 export const getPageData = async (page: OGM_TYPES.Page) => {
   const Component = await Repository.instance.Component
   const elements = await getElementAndDescendants(page.rootElement.id)
 
-  const componentIds = flatMap(elements, (e) => [
-    e.parentComponent?.id,
-    e.renderComponentType?.id,
-    ...(e.props?.data.match(uuidRegex) || []),
-  ]).filter((x): x is string => Boolean(x))
+  const componentIds = flatMap(elements, (element) => [
+    element.parentComponent?.id,
+    element.renderComponentType?.id,
+    ...(element.props?.data.match(uuidRegex) || []),
+  ]).filter((element): element is string => Boolean(element))
 
   const components = await Component.find({
     where: { id_IN: componentIds },
     selectionSet: componentSelectionSet,
   })
 
-  const componentRootIds = components.map((c) => c.rootElement.id)
+  const componentRootIds = components.map(
+    (component) => component.rootElement.id,
+  )
 
   const componentElements = await Promise.all(
     componentRootIds.map((id) => getElementAndDescendants(id)),

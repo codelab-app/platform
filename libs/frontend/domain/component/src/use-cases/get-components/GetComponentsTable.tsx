@@ -58,10 +58,10 @@ export const GetComponentsTable = observer<{
 
   const dataSource: Array<ComponentColumnData> = [
     ...(value ? value.values() : []),
-  ].map((c) => ({
-    name: c.name,
-    id: c.id,
-    apiId: c.api.id,
+  ].map((component) => ({
+    name: component.name,
+    id: component.id,
+    apiId: component.api.id,
   }))
 
   return (

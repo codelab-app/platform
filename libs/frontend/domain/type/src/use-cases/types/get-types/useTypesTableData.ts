@@ -2,10 +2,6 @@ import type { ITypeService } from '@codelab/frontend/abstract/core'
 import { useAsyncFn } from 'react-use'
 
 export const useTypesTableData = (typeService: ITypeService) => {
-  typeService.getBaseTypes.bind(typeService)
-  typeService.getAll.bind(typeService)
-  typeService.getAllWithDescendants.bind(typeService)
-
   /**
    * Get the base types of the current page and load the fields and write to cache
    */

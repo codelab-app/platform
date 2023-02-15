@@ -6,7 +6,7 @@ import {
   SeedAntDesignFieldsService,
   SeedSystemTypeService,
 } from '@codelab/backend/application/type'
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { UserRepository } from '@codelab/backend/domain/user'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
@@ -29,10 +29,16 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
         ...assignUserOption,
       })
       .middleware([loadStageMiddleware, upsertUserMiddleware]),
-  handler: async () => {
-    const selectedAuth0Id: string = (
-      await inquirer.prompt([await selectUserPrompt()])
-    ).selectedAuth0Id
+  handler: async ({ email }) => {
+    const userRepository = new UserRepository()
+
+    const selectedAuth0Id = email
+      ? (await userRepository.find({ email }))?.auth0Id
+      : (await inquirer.prompt([await selectUserPrompt()])).selectedAuth0Id
+
+    if (!selectedAuth0Id) {
+      throw new Error('User not found!')
+    }
 
     const user: IUserRef = { auth0Id: selectedAuth0Id }
 

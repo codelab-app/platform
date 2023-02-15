@@ -8,8 +8,6 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { upsertUser } from '@codelab/frontend/domain/user'
 import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'
 
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -23,15 +21,6 @@ const test = async () => {
   // const User = await Repository.instance.User
 
   return true
-
-  // await upsertUser(User, {
-  //   email: 'cypress@codelab.app',
-  //   nickname: 'test',
-  //   sub: 'test',
-  //   'https://api.codelab.app/jwt/claims': {
-  //     roles: ['Admin', 'User'] as any,
-  //   },
-  // })
 }
 
 const pluginConfig = async (

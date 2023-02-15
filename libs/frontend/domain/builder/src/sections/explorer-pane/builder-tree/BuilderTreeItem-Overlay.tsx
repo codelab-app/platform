@@ -24,9 +24,9 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
   ({ type, setContextMenuNodeId, contextMenuProps, ContextMenu }) => {
     const closeMenu = () => setContextMenuNodeId(null)
 
-    const onClick = (e: React.MouseEvent) => {
+    const onClick = (event: React.MouseEvent) => {
       closeMenu()
-      e.stopPropagation()
+      event.stopPropagation()
     }
 
     const Wrapper = ({ children }: PropsWithChildren) => (

@@ -1,9 +1,7 @@
-import type { ITag, TagNodeData } from '@codelab/backend/abstract/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { TagNodeData } from '@codelab/backend/abstract/core'
 import type { TagNode } from '@codelab/shared/data/seed'
-import { allTagTree, antdTagTree } from '@codelab/shared/data/seed'
+import { allTagTree } from '@codelab/shared/data/seed'
 import { ObjectTyped } from 'object-typed'
-import { v4 } from 'uuid'
 
 /**
  * Function to parse our custom tag structure that is optimized for easy manual editing

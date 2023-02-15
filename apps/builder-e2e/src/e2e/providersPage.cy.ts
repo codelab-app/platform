@@ -3,6 +3,7 @@ import {
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import slugify from 'voca/slugify'
 import { FIELD_TYPE } from '../support/antd/form'
 import { seedData } from './admin/assert'
 import { appName, pageName } from './apps/app.data'
@@ -14,11 +15,13 @@ const INPUT_COMPONENT_NAME = 'input component'
 const mainPageElements = [
   {
     name: CARD_COMPONENT_NAME,
+    slug: slugify(CARD_COMPONENT_NAME),
     parentElement: ROOT_ELEMENT_NAME,
     atom: IAtomType.AntDesignCard,
   },
   {
     name: INPUT_COMPONENT_NAME,
+    slug: slugify(INPUT_COMPONENT_NAME),
     parentElement: CARD_COMPONENT_NAME,
     atom: IAtomType.AntDesignInput,
   },

@@ -16,7 +16,7 @@ import type {
   StoreCreateInput,
 } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import capitalize from 'lodash/capitalize'
 import { v4 } from 'uuid'
 
@@ -45,7 +45,7 @@ export const makeActionCreateInput = (
     id: v4(),
     name: action.name,
     type: action.type,
-    store: connectNode(action.storeId),
+    store: connectNodeId(action.storeId),
 
     code: action.type === IActionKind.CodeAction ? action.code : undefined,
 
@@ -56,22 +56,22 @@ export const makeActionCreateInput = (
 
     resource:
       action.type === IActionKind.ApiAction
-        ? connectNode(action.resourceId)
+        ? connectNodeId(action.resourceId)
         : undefined,
 
     errorAction:
       action.type === IActionKind.ApiAction && action.errorActionId
         ? {
-            ApiAction: connectNode(action.errorActionId),
-            CodeAction: connectNode(action.errorActionId),
+            ApiAction: connectNodeId(action.errorActionId),
+            CodeAction: connectNodeId(action.errorActionId),
           }
         : undefined,
 
     successAction:
       action.type === IActionKind.ApiAction && action.successActionId
         ? {
-            ApiAction: connectNode(action.successActionId),
-            CodeAction: connectNode(action.successActionId),
+            ApiAction: connectNodeId(action.successActionId),
+            CodeAction: connectNodeId(action.successActionId),
           }
         : undefined,
   }
@@ -91,7 +91,7 @@ export const makeActionUpdateInput = (
 
       resource:
         input.type === IActionKind.ApiAction
-          ? connectNode(input.resourceId)
+          ? connectNodeId(input.resourceId)
           : undefined,
 
       config:
@@ -101,15 +101,15 @@ export const makeActionUpdateInput = (
       errorAction:
         input.type === IActionKind.ApiAction
           ? {
-              ApiAction: connectNode(input.errorActionId),
-              CodeAction: connectNode(input.errorActionId),
+              ApiAction: connectNodeId(input.errorActionId),
+              CodeAction: connectNodeId(input.errorActionId),
             }
           : undefined,
       successAction:
         input.type === IActionKind.ApiAction
           ? {
-              ApiAction: connectNode(input.successActionId),
-              CodeAction: connectNode(input.successActionId),
+              ApiAction: connectNodeId(input.successActionId),
+              CodeAction: connectNodeId(input.successActionId),
             }
           : undefined,
 

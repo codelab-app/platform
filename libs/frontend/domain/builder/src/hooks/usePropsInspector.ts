@@ -25,7 +25,7 @@ const getNodeProps = (
     const renderOutput = renderer.renderIntermediateElement(node)
 
     return Array.isArray(renderOutput)
-      ? mergeProps(renderOutput.map((o) => o.props))
+      ? mergeProps(renderOutput.map((output) => output.props))
       : renderOutput.props
   }
 
@@ -93,9 +93,9 @@ export const usePropsInspector = (
         title: `${isElement(node) ? 'Element' : 'Component'} props updated.`,
         type: 'success',
       })
-    } catch (err) {
-      console.error(err)
-      notify({ title: get(err, 'message', 'Invalid json'), type: 'error' })
+    } catch (error) {
+      console.error(error)
+      notify({ title: get(error, 'message', 'Invalid json'), type: 'error' })
     } finally {
       setIsLoading(false)
     }

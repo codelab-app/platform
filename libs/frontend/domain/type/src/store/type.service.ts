@@ -235,8 +235,7 @@ export class TypeService
   @transaction
   getOne = _async(function* (this: TypeService, id: string) {
     if (this.types.has(id)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return this.types.get(id)!
+      return this.types.get(id)
     }
 
     const all = yield* _await(this.getAll({ id_IN: [id] }))
@@ -279,13 +278,15 @@ export class TypeService
   @transaction
   getInterfaceAndDescendants = _async(function* (
     this: TypeService,
-    id: IInterfaceTypeRef,
+    interfaceTypeId: IInterfaceTypeRef,
   ) {
-    const interfaceAndDescendants = yield* _await(
-      this.getAllWithDescendants([id]),
+    const interfaceWithDescendants = yield* _await(
+      this.getAllWithDescendants([interfaceTypeId]),
     )
 
-    const interfaceType = interfaceAndDescendants.find((x) => x.id === id)
+    const interfaceType = interfaceWithDescendants.find(
+      ({ id }) => id === interfaceTypeId,
+    )
 
     if (!interfaceType) {
       throw new Error('Type not found')

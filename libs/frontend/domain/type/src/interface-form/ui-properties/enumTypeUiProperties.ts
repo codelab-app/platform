@@ -6,11 +6,11 @@ export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
   type: IEnumType,
 ) => {
   return {
-    enum: type.allowedValues.map((v) => v.value),
+    enum: type.allowedValues.map((allowedValue) => allowedValue.value),
     uniforms: {
-      options: type.allowedValues.map((v) => ({
-        value: v.value,
-        label: v.key,
+      options: type.allowedValues.map(({ value, key }) => ({
+        value: value,
+        label: key,
       })),
       showSearch: true,
       optionFilterProp: 'label',

@@ -90,7 +90,11 @@ export const updateActionApi: UpdateActionsRecord = {
 
 export const deleteActionApi: DeleteActionsRecord = {
   [IActionKind.CodeAction]: (vars) =>
-    _deleteActionApi.DeleteCodeActions(vars).then((r) => r.deleteCodeActions),
+    _deleteActionApi
+      .DeleteCodeActions(vars)
+      .then((results) => results.deleteCodeActions),
   [IActionKind.ApiAction]: (vars) =>
-    _deleteActionApi.DeleteApiActions(vars).then((r) => r.deleteApiActions),
+    _deleteActionApi
+      .DeleteApiActions(vars)
+      .then((results) => results.deleteApiActions),
 }

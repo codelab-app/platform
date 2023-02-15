@@ -41,49 +41,51 @@ type CreateTypesRecord = Record<
 
 export const createTypeApi: CreateTypesRecord = {
   [ITypeKind.AppType]: (input) =>
-    _createApi.CreateAppTypes({ input }).then((r) => r.types.types),
+    _createApi.CreateAppTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.ActionType]: (input) =>
-    _createApi.CreateActionTypes({ input }).then((r) => r.types.types),
+    _createApi.CreateActionTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.PrimitiveType]: (input) =>
     _createApi
       .CreatePrimitiveTypes({
         input: input as ArrayOrSingle<PrimitiveTypeCreateInput>,
       })
-      .then((r) => r.types.types),
+      .then(({ types }) => types.types),
   [ITypeKind.ArrayType]: (input) =>
-    _createApi.CreateArrayTypes({ input }).then((r) => r.types.types),
+    _createApi.CreateArrayTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.InterfaceType]: (input) =>
     _createApi
       .CreateInterfaceTypes({ input: input })
-      .then((r) => r.types.types),
+      .then(({ types }) => types.types),
   [ITypeKind.EnumType]: (input) =>
-    _createApi.CreateEnumTypes({ input }).then((r) => r.types.types),
+    _createApi.CreateEnumTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.LambdaType]: (input) =>
-    _createApi.CreateLambdaTypes({ input }).then((r) => r.types.types),
+    _createApi.CreateLambdaTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.ElementType]: (input) =>
     _createApi
       .CreateElementTypes({
         input: input as ArrayOrSingle<ElementTypeCreateInput>,
       })
-      .then((r) => r.types.types),
+      .then(({ types }) => types.types),
   [ITypeKind.RenderPropsType]: (input) =>
-    _createApi.CreateRenderPropsTypes({ input }).then((r) => r.types.types),
+    _createApi
+      .CreateRenderPropsTypes({ input })
+      .then(({ types }) => types.types),
   [ITypeKind.ReactNodeType]: (input) =>
     _createApi
       .CreateReactNodeTypes({
         input: input as ArrayOrSingle<ReactNodeTypeCreateInput>,
       })
-      .then((r) => r.types.types),
+      .then(({ types }) => types.types),
   [ITypeKind.UnionType]: (input) =>
-    _createApi.CreateUnionTypes({ input }).then((r) => r.types.types),
+    _createApi.CreateUnionTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.CodeMirrorType]: (input) =>
     _createApi
       .CreateCodeMirrorTypes({
         input: input as ArrayOrSingle<CodeMirrorTypeCreateInput>,
       })
-      .then((r) => r.types.types),
+      .then(({ types }) => types.types),
   [ITypeKind.PageType]: (input) =>
-    _createApi.CreatePageTypes({ input }).then((r) => r.types.types),
+    _createApi.CreatePageTypes({ input }).then(({ types }) => types.types),
 }
 
 export const getTypeApi = getGetSdk(client)
@@ -106,6 +108,8 @@ export const getAllTypes = async (
     actionTypes,
     codeMirrorTypes,
   } = await getTypeApi.GetTypes({ ids })
+
+  console.log(interfaceTypes)
 
   return [
     ...primitiveTypes,
@@ -142,33 +146,33 @@ type UpdateTypesRecord = Record<
 
 export const updateTypeApi: UpdateTypesRecord = {
   [ITypeKind.AppType]: (vars) =>
-    _updateApi.UpdateAppTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateAppTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ActionType]: (vars) =>
-    _updateApi.UpdateActionTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateActionTypes(vars).then(({ types }) => types.types),
   [ITypeKind.PrimitiveType]: (vars) =>
-    _updateApi.UpdatePrimitiveTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdatePrimitiveTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ArrayType]: (vars) =>
-    _updateApi.UpdateArrayTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateArrayTypes(vars).then(({ types }) => types.types),
   [ITypeKind.InterfaceType]: (vars) =>
-    _updateApi.UpdateInterfaceTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateInterfaceTypes(vars).then(({ types }) => types.types),
   [ITypeKind.EnumType]: (vars) =>
-    _updateApi.UpdateEnumTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateEnumTypes(vars).then(({ types }) => types.types),
   [ITypeKind.LambdaType]: (vars) =>
-    _updateApi.UpdateLambdaTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateLambdaTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ElementType]: (vars) =>
-    _updateApi.UpdateElementTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateElementTypes(vars).then(({ types }) => types.types),
   [ITypeKind.RenderPropsType]: (vars) =>
-    _updateApi.UpdateRenderPropsTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateRenderPropsTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ReactNodeType]: (vars) =>
-    _updateApi.UpdateReactNodeTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateReactNodeTypes(vars).then(({ types }) => types.types),
   [ITypeKind.UnionType]: (vars) =>
-    _updateApi.UpdateUnionTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateUnionTypes(vars).then(({ types }) => types.types),
   [ITypeKind.CodeMirrorType]: (vars) =>
-    _updateApi.UpdateCodeMirrorTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateCodeMirrorTypes(vars).then(({ types }) => types.types),
   [ITypeKind.PageType]: (vars) =>
-    _updateApi.UpdatePageTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdatePageTypes(vars).then(({ types }) => types.types),
   [ITypeKind.AppType]: (vars) =>
-    _updateApi.UpdateAppTypes(vars).then((r) => r.types.types),
+    _updateApi.UpdateAppTypes(vars).then(({ types }) => types.types),
 }
 
 //
@@ -185,31 +189,49 @@ type DeleteTypesRecord = Record<
 
 export const deleteTypeApi: DeleteTypesRecord = {
   [ITypeKind.AppType]: (vars) =>
-    _deleteApi.DeleteAppTypes(vars).then((r) => r.deleteAppTypes),
+    _deleteApi.DeleteAppTypes(vars).then((results) => results.deleteAppTypes),
   [ITypeKind.ActionType]: (vars) =>
-    _deleteApi.DeleteActionTypes(vars).then((r) => r.deleteActionTypes),
+    _deleteApi
+      .DeleteActionTypes(vars)
+      .then((results) => results.deleteActionTypes),
   [ITypeKind.PrimitiveType]: (vars) =>
-    _deleteApi.DeletePrimitiveTypes(vars).then((r) => r.deletePrimitiveTypes),
+    _deleteApi
+      .DeletePrimitiveTypes(vars)
+      .then((results) => results.deletePrimitiveTypes),
   [ITypeKind.ArrayType]: (vars) =>
-    _deleteApi.DeleteArrayTypes(vars).then((r) => r.deleteArrayTypes),
+    _deleteApi
+      .DeleteArrayTypes(vars)
+      .then((results) => results.deleteArrayTypes),
   [ITypeKind.InterfaceType]: (vars) =>
-    _deleteApi.DeleteInterfaceTypes(vars).then((r) => r.deleteInterfaceTypes),
+    _deleteApi
+      .DeleteInterfaceTypes(vars)
+      .then((results) => results.deleteInterfaceTypes),
   [ITypeKind.EnumType]: (vars) =>
-    _deleteApi.DeleteEnumTypes(vars).then((r) => r.deleteEnumTypes),
+    _deleteApi.DeleteEnumTypes(vars).then((results) => results.deleteEnumTypes),
   [ITypeKind.LambdaType]: (vars) =>
-    _deleteApi.DeleteLambdaTypes(vars).then((r) => r.deleteLambdaTypes),
+    _deleteApi
+      .DeleteLambdaTypes(vars)
+      .then((results) => results.deleteLambdaTypes),
   [ITypeKind.ElementType]: (vars) =>
-    _deleteApi.DeleteElementTypes(vars).then((r) => r.deleteElementTypes),
+    _deleteApi
+      .DeleteElementTypes(vars)
+      .then((results) => results.deleteElementTypes),
   [ITypeKind.RenderPropsType]: (vars) =>
     _deleteApi
       .DeleteRenderPropsTypes(vars)
-      .then((r) => r.deleteRenderPropsTypes),
+      .then((results) => results.deleteRenderPropsTypes),
   [ITypeKind.ReactNodeType]: (vars) =>
-    _deleteApi.DeleteReactNodeTypes(vars).then((r) => r.deleteReactNodeTypes),
+    _deleteApi
+      .DeleteReactNodeTypes(vars)
+      .then((results) => results.deleteReactNodeTypes),
   [ITypeKind.UnionType]: (vars) =>
-    _deleteApi.DeleteUnionTypes(vars).then((r) => r.deleteUnionTypes),
+    _deleteApi
+      .DeleteUnionTypes(vars)
+      .then((results) => results.deleteUnionTypes),
   [ITypeKind.CodeMirrorType]: (vars) =>
-    _deleteApi.DeleteCodeMirrorTypes(vars).then((r) => r.deleteCodeMirrorTypes),
+    _deleteApi
+      .DeleteCodeMirrorTypes(vars)
+      .then((results) => results.deleteCodeMirrorTypes),
   [ITypeKind.PageType]: (vars) =>
-    _deleteApi.DeletePageTypes(vars).then((r) => r.deletePageTypes),
+    _deleteApi.DeletePageTypes(vars).then((results) => results.deletePageTypes),
 }

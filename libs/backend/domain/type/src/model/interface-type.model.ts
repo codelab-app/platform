@@ -1,12 +1,11 @@
 import type {
   IAtom,
+  ICreateInterfaceType,
   IField,
   IInterfaceType,
   IUserRef,
 } from '@codelab/backend/abstract/core'
-import type { IModel } from '@codelab/backend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
@@ -23,13 +22,27 @@ export class InterfaceType extends BaseType implements IInterfaceType {
 
   fields: Array<IField>
 
-  constructor({ id, name, kind, fields, owner }: IInterfaceType) {
+  private constructor({ id, name, kind, fields, owner }: IInterfaceType) {
     super({ id, name, kind, __typename: ITypeKind.InterfaceType, owner })
     this.fields = fields
   }
 
-  static getApiName({ name }: Pick<IAtom, 'name'>) {
-    return `${name} API`
+  static getApiName(
+    { name }: Pick<IAtom, 'name'>,
+    field?: Pick<IField, 'key'>,
+  ) {
+    return field?.key ? `${name} ${field.key} API` : `${name} API`
+  }
+
+  static init({ owner, name, fields }: ICreateInterfaceType) {
+    return new InterfaceType({
+      id: v4(),
+      __typename: ITypeKind.InterfaceType,
+      kind: ITypeKind.InterfaceType,
+      name,
+      owner,
+      fields,
+    })
   }
 
   /**

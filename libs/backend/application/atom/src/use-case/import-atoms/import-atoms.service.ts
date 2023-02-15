@@ -1,7 +1,6 @@
 import type { ImportAtoms } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { whereNullableNodeIds } from '@codelab/shared/domain/mapper'
 import { logSection } from '@codelab/shared/utils'
 
 export class ImportAtomsService extends IUseCase<ImportAtoms, void> {

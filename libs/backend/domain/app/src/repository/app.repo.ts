@@ -11,7 +11,7 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { cLog } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { validate } from './validate'
@@ -72,14 +72,14 @@ export const createApp = async (app: IAppExport, userId: string) => {
       {
         id: app.id,
         name: app.name,
-        owner: connectNode(userId),
+        owner: connectNodeId(userId),
         slug: app.slug,
         store: {
           create: {
             node: {
               id: app.store.id,
               name: app.store.name,
-              api: connectNode(app.store.api.id),
+              api: connectNodeId(app.store.api.id),
             },
           },
         },
@@ -89,7 +89,7 @@ export const createApp = async (app: IAppExport, userId: string) => {
               id: page.id,
               name: page.name,
               slug: page.slug,
-              rootElement: connectNode(page.rootElement.id),
+              rootElement: connectNodeId(page.rootElement.id),
             },
           })),
         },

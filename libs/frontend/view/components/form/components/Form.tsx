@@ -70,20 +70,20 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
             const validate = createValidator(schema)
             validate(formData)
 
-            const result = onSubmit(formData as TData)
-
-            return result
-              .then((r) => {
+            const submitResults = onSubmit(formData as TData)
+       
+            return submitResults
+              .then((result) => {
                 lastSubmitted.current = formData
 
-                if (r) {
-                  callbackWithParams(onSubmitSuccess, r)
+                if (result) {
+                  callbackWithParams(onSubmitSuccess, result)
                 }
               })
-              .catch((err) => {
-                console.error(err)
+              .catch((error) => {
+                console.error(error)
 
-                callbackWithParams(onSubmitError, err)
+                callbackWithParams(onSubmitError, error)
               })
           }}
           ref={connectUniformSubmitRef(submitRef)}

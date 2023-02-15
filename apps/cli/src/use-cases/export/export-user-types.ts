@@ -68,7 +68,9 @@ export const exportUserTypes = async (): Promise<Array<ITypeExport>> => {
   // Here we get all the types that needs to be added
   const orderedInterfaceTypes = dependentTypes
     .map((type) => {
-      return interfaceTypes.find((t) => t.id === type.id)
+      return interfaceTypes.find(
+        (interfaceType) => interfaceType.id === type.id,
+      )
     })
     .filter((type): type is OGM_TYPES.InterfaceType => Boolean(type))
 

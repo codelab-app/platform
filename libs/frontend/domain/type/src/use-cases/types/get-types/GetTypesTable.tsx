@@ -71,7 +71,7 @@ export const GetTypesTable = observer<{
   }, [curPage, curPageSize, getBaseTypes])
 
   const curPageDataStartIndex = typesList.findIndex(
-    (t) => t.id === fetchedBaseTypes?.[0]?.id,
+    (type) => type.id === fetchedBaseTypes?.[0]?.id,
   )
 
   return (

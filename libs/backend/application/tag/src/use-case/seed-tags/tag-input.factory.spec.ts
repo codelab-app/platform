@@ -1,4 +1,4 @@
-import { AntdTag } from '@codelab/shared/data/seed'
+import { allTags, AntdTag } from '@codelab/shared/data/seed'
 import { createTagTreeData, flattenTagTree } from './tag-input.factory'
 
 describe('Tag Parser', () => {
@@ -26,6 +26,6 @@ describe('Tag Parser', () => {
     const tagsNameList = tags.map((tag) => tag.name)
 
     // Assert that all names have been processed as a flat list
-    expect(new Set(tagsNameList)).toEqual(new Set(Object.values(AntdTag)))
+    expect(new Set(tagsNameList)).toEqual(new Set(allTags))
   })
 })

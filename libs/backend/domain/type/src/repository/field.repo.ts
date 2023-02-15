@@ -4,12 +4,25 @@ import {
   fieldSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
+
+/**
+ * Field name is not enough, since it is not unique.
+ *
+ * We need to use a composite with api name
+ */
+export type FieldWhere = BaseTypeUniqueWhere & {
+  api: {
+    id: string
+  }
+  key: string
+}
 
 export class FieldRepository extends IRepository<IField> {
   private Field = Repository.instance.Field
 
-  async find(where: BaseUniqueWhere) {
+  async find(where: FieldWhere) {
     return (
       await (
         await this.Field
@@ -20,14 +33,6 @@ export class FieldRepository extends IRepository<IField> {
     )[0]
   }
 
-  async save(field: IField, where?: BaseUniqueWhere) {
-    if (await this.exists(field, where)) {
-      return this.update(field, this.getWhere(field, where))
-    }
-
-    return (await this.add([field]))[0]
-  }
-
   protected async _add(fields: Array<IField>) {
     return (
       await (
@@ -35,6 +40,7 @@ export class FieldRepository extends IRepository<IField> {
       ).create({
         input: fields.map(({ api, fieldType, ...field }) => ({
           ...field,
+          api: connectNodeId(api.id),
         })),
       })
     ).fields
@@ -47,7 +53,7 @@ export class FieldRepository extends IRepository<IField> {
    */
   protected async _update(
     { api, fieldType, ...field }: IField,
-    where: BaseUniqueWhere,
+    where: FieldWhere,
   ) {
     return (
       await (

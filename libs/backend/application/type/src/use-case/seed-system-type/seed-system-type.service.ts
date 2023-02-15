@@ -1,14 +1,6 @@
-import type {
-  ITag,
-  IType,
-  IUserRef,
-  TagNodeData,
-} from '@codelab/backend/abstract/core'
-import { IInterfaceType } from '@codelab/backend/abstract/core'
-import type { IRepository } from '@codelab/backend/abstract/types'
+import type { IUserRef } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
-  InterfaceType,
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   TypeFactory,
@@ -25,8 +17,10 @@ export class SeedSystemTypeService extends IUseCase<IUserRef, void> {
   async _execute(owner: IUserRef) {
     await Promise.all(
       systemTypesData.map(
-        async (type) =>
-          await TypeFactory.create(type, owner, { name: type.name }),
+        async (systemTypeData) =>
+          await TypeFactory.create(systemTypeData, owner, (type) => ({
+            name: type.name,
+          })),
       ),
     )
   }

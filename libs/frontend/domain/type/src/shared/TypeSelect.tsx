@@ -21,7 +21,7 @@ export interface TypeSelectProps {
 }
 
 const defaultCreateTypeOptions: CreateTypeOptions = (types) =>
-  types?.map((t) => ({ label: t.name, value: t.id })) ?? []
+  types?.map(({ name, id }) => ({ label: name, value: id })) ?? []
 
 export const TypeSelect = observer<TypeSelectProps>(
   ({ name, label, createTypeOptions }) => {

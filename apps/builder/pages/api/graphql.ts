@@ -5,13 +5,9 @@ import type {
   GraphQLRequestContext,
   NextApiRequest,
 } from '@codelab/backend/abstract/types'
+import { User, UserRepository } from '@codelab/backend/domain/user'
 import { resolvers } from '@codelab/backend/graphql'
-import {
-  getDriver,
-  getSchema,
-  Repository,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { upsertUser } from '@codelab/frontend/domain/user'
+import { getDriver, getSchema } from '@codelab/backend/infra/adapter/neo4j'
 import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { logger } from '@codelab/shared/adapter/logging'
@@ -137,10 +133,13 @@ const handler: NextApiHandler = async (req, res) => {
     // If localhost enable this
     process.env['NEXT_PUBLIC_BUILDER_HOST']?.includes('127.0.0.1')
   ) {
-    const user = session.user as Auth0SessionUser
-    const User = await Repository.instance.User
+    const userSession = session.user as Auth0SessionUser
+    const userRepository = new UserRepository()
+    const user = User.fromSession(userSession)
 
-    await upsertUser(User, user)
+    await userRepository.save(user)
+
+    // await upsertUser(User, user)
   }
 
   /**

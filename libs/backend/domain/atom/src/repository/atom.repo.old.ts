@@ -1,7 +1,7 @@
 import type {
   ExistingData,
   IAtomImport,
-  ITagExport,
+  ITag,
 } from '@codelab/backend/abstract/core'
 import {
   atomSelectionSet,
@@ -9,10 +9,14 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type {
+  BaseTypeUniqueWhereCallback,
   BaseUniqueWhere,
-  BaseUniqueWhereCallback,
 } from '@codelab/shared/abstract/types'
-import { connectNode, connectNodes } from '@codelab/shared/domain/mapper'
+import {
+  connectNode,
+  connectNodeId,
+  connectNodeIds,
+} from '@codelab/shared/domain/mapper'
 import { logTask } from '@codelab/shared/utils'
 
 export class AtomRepository {
@@ -37,8 +41,8 @@ export class AtomRepository {
  */
 export const upsertAtom = async (
   atom: IAtomImport,
-  atomWhere: BaseUniqueWhereCallback<IAtomImport>,
-  tagWhere: BaseUniqueWhereCallback<ITagExport>,
+  atomWhere: BaseTypeUniqueWhereCallback<IAtomImport>,
+  tagWhere: BaseTypeUniqueWhereCallback<ITag>,
 ) => {
   logTask('Upserting Atom', atom.name)
 
@@ -59,7 +63,7 @@ export const upsertAtom = async (
   }
 
   const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] = atom.tags.map(
-    (tag) => ({ where: { node: tagWhere(tag) } }),
+    (tag) => ({ where: { node: tagWhere(tag as ITag) } }),
   )
 
   if (!existingAtom) {
@@ -68,7 +72,7 @@ export const upsertAtom = async (
       /**
        * We assume interface has been created in a previous step
        */
-      api: connectNode(atom.api.id),
+      api: connectNodeId(atom.api.id),
       tags: { connect: connectTags },
     }
 
@@ -78,8 +82,8 @@ export const upsertAtom = async (
       return await Atom.create({
         input: [createInput],
       })
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      console.error(error)
       throw new Error('Create atom failed')
     }
   } else {
@@ -92,7 +96,7 @@ export const upsertAtom = async (
     const updateInput: OGM_TYPES.AtomUpdateInput = {
       ...baseInput,
       // Assume the API exists
-      api: connectNode(existingAtom.api.id),
+      api: connectNodeId(existingAtom.api.id),
       tags: [{ connect: connectTags }],
     }
 
@@ -103,8 +107,8 @@ export const upsertAtom = async (
         where: atomWhere(atom),
         update: updateInput,
       })
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      console.error(error)
       throw new Error('Update atom failed')
     }
   }
@@ -123,11 +127,11 @@ export const assignAllowedChildren = async (
         id: atom.id,
       },
       update: {
-        allowedChildren: [connectNodes(allowedChildrenIds)],
+        allowedChildren: [connectNodeIds(allowedChildrenIds)],
       },
     })
-  } catch (e) {
-    console.error(e)
+  } catch (error) {
+    console.error(error)
     throw new Error('Update atom failed')
   }
 }

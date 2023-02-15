@@ -6,25 +6,25 @@ import { stateAtomFamily } from './stateAtomFamily'
 import type { StateProps } from './StateProps'
 
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
-const eventSafeStringify = (e: any) => {
+const eventSafeStringify = (event: any) => {
   const obj: Record<string, unknown> = {}
 
-  for (const k in e) {
-    obj[k] = e[k]
+  for (const key in event) {
+    obj[key] = event[key]
   }
 
   return JSON.stringify(
     obj,
-    (k, v) => {
-      if (v instanceof Node) {
+    (key, value) => {
+      if (value instanceof Node) {
         return 'Node'
       }
 
-      if (v instanceof Window) {
+      if (value instanceof Window) {
         return 'Window'
       }
 
-      return v
+      return value
     },
     ' ',
   )
@@ -54,14 +54,17 @@ export const State = ({
   }
 
   if (eventKey) {
-    childProps[eventKey] = (e: unknown) => {
+    childProps[eventKey] = (error: unknown) => {
       // Call the lambda if we have one
       if (setterLambda) {
         executeLambda({
           variables: {
             input: {
               lambdaId: setterLambda,
-              payload: eventSafeStringify({ event: e, previousState: state }),
+              payload: eventSafeStringify({
+                event: error,
+                previousState: state,
+              }),
             },
           },
         })
@@ -80,12 +83,12 @@ export const State = ({
           .catch((err: unknown) => console.error(err))
       } else {
         // If not - directly set the state
-        setState(e)
+        setState(error)
       }
 
       // Pass the event up, so that we can nest State elements
       if (props[eventKey] && isFunction(props[eventKey])) {
-        props[eventKey](e)
+        props[eventKey](error)
       }
     }
   }

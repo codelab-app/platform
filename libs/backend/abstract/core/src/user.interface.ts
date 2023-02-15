@@ -18,14 +18,15 @@ export type IUserRef = z.infer<typeof UserRefSchema>
 export const UserSchema = UserRefSchema.extend({
   id: z.string(),
   username: z.string(),
-  roles: z.array(z.nativeEnum(IRole)),
+  email: z.string(),
+  roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
 })
 
 export type IUser = z.infer<typeof UserSchema>
 
 export const UserExportSchema = EntitySchema.extend({
   username: z.string(),
-  roles: z.array(z.nativeEnum(IRole)),
+  roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
 })
 
 export type IUserExport = z.infer<typeof UserSchema>

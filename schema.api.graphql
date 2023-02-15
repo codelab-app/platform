@@ -8,6 +8,11 @@ interface ActionBase {
 
 input ActionBaseStoreConnectFieldInput {
   connect: StoreConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: StoreConnectWhere
 }
 
@@ -461,6 +466,10 @@ input ApiActionConfigAggregateInput {
 }
 
 input ApiActionConfigConnectFieldInput {
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: PropConnectWhere
 }
 
@@ -817,6 +826,11 @@ input ApiActionResourceAggregateInput {
 
 input ApiActionResourceConnectFieldInput {
   connect: ResourceConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ResourceConnectWhere
 }
 
@@ -1350,6 +1364,11 @@ input AppDomainsAggregateInput {
 
 input AppDomainsConnectFieldInput {
   connect: [DomainConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: DomainConnectWhere
 }
 
@@ -1567,6 +1586,11 @@ input AppPagesAggregateInput {
 
 input AppPagesConnectFieldInput {
   connect: [PageConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: PageConnectWhere
 }
 
@@ -1730,6 +1754,11 @@ input AppStoreAggregateInput {
 
 input AppStoreConnectFieldInput {
   connect: StoreConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: StoreConnectWhere
 }
 
@@ -3377,6 +3406,11 @@ input AtomAllowedChildrenAggregateInput {
 
 input AtomAllowedChildrenConnectFieldInput {
   connect: [AtomConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: AtomConnectWhere
 }
 
@@ -3504,6 +3538,11 @@ input AtomApiAggregateInput {
 
 input AtomApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
 }
 
@@ -3722,6 +3761,11 @@ input AtomTagsAggregateInput {
 
 input AtomTagsConnectFieldInput {
   connect: [TagConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: TagConnectWhere
 }
 
@@ -5082,6 +5126,11 @@ input ComponentApiAggregateInput {
 
 input ComponentApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
 }
 
@@ -5189,6 +5238,11 @@ input ComponentChildrenContainerElementAggregateInput {
 
 input ComponentChildrenContainerElementConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -5658,6 +5712,10 @@ input ComponentPropsAggregateInput {
 }
 
 input ComponentPropsConnectFieldInput {
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: PropConnectWhere
 }
 
@@ -5771,6 +5829,11 @@ input ComponentRootElementAggregateInput {
 
 input ComponentRootElementConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -6528,6 +6591,11 @@ type DomainAppAppNodeAggregateSelection {
 
 input DomainAppConnectFieldInput {
   connect: AppConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: AppConnectWhere
 }
 
@@ -7136,6 +7204,11 @@ input ElementFirstChildAggregateInput {
 
 input ElementFirstChildConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -7412,6 +7485,11 @@ input ElementHooksAggregateInput {
 
 input ElementHooksConnectFieldInput {
   connect: [HookConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: HookConnectWhere
 }
 
@@ -7499,6 +7577,11 @@ input ElementNextSiblingAggregateInput {
 
 input ElementNextSiblingConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -7789,6 +7872,11 @@ input ElementPageAggregateInput {
 
 input ElementPageConnectFieldInput {
   connect: PageConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: PageConnectWhere
 }
 
@@ -7959,6 +8047,11 @@ input ElementParentComponentAggregateInput {
 
 input ElementParentComponentConnectFieldInput {
   connect: ComponentConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ComponentConnectWhere
 }
 
@@ -8055,6 +8148,11 @@ input ElementParentComponentUpdateFieldInput {
 
 input ElementParentConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -8322,6 +8420,11 @@ input ElementPrevSiblingAggregateInput {
 
 input ElementPrevSiblingConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -8598,6 +8701,10 @@ input ElementPropsAggregateInput {
 }
 
 input ElementPropsConnectFieldInput {
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: PropConnectWhere
 }
 
@@ -8716,6 +8823,11 @@ input ElementRenderAtomTypeAggregateInput {
 
 input ElementRenderAtomTypeConnectFieldInput {
   connect: AtomConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: AtomConnectWhere
 }
 
@@ -8843,6 +8955,11 @@ input ElementRenderComponentTypeAggregateInput {
 
 input ElementRenderComponentTypeConnectFieldInput {
   connect: ComponentConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ComponentConnectWhere
 }
 
@@ -9489,6 +9606,11 @@ input EnumTypeAllowedValuesAggregateInput {
 
 input EnumTypeAllowedValuesConnectFieldInput {
   connect: [EnumTypeValueConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: EnumTypeValueConnectWhere
 }
 
@@ -9847,6 +9969,11 @@ input EnumTypeValueEnumTypeAggregateInput {
 
 input EnumTypeValueEnumTypeConnectFieldInput {
   connect: EnumTypeConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: EnumTypeConnectWhere
 }
 
@@ -10157,6 +10284,11 @@ input FieldApiAggregateInput {
 
 input FieldApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
 }
 
@@ -10602,6 +10734,10 @@ input HookConfigAggregateInput {
 }
 
 input HookConfigConnectFieldInput {
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: PropConnectWhere
 }
 
@@ -10746,6 +10882,11 @@ input HookElementAggregateInput {
 
 input HookElementConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -11259,6 +11400,11 @@ input IBaseTypeOwnerAggregateInput {
 
 input IBaseTypeOwnerConnectFieldInput {
   connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: UserConnectWhere
 }
 
@@ -11529,6 +11675,11 @@ input InterfaceTypeApiOfAtomsAggregateInput {
 
 input InterfaceTypeApiOfAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: AtomConnectWhere
 }
 
@@ -11726,6 +11877,11 @@ input InterfaceTypeFieldsAggregateInput {
 
 input InterfaceTypeFieldsConnectFieldInput {
   connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: FieldConnectWhere
 }
 
@@ -12882,6 +13038,11 @@ type PageAppAppNodeAggregateSelection {
 
 input PageAppConnectFieldInput {
   connect: AppConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: AppConnectWhere
 }
 
@@ -13121,6 +13282,11 @@ input PagePageContainerElementAggregateInput {
 
 input PagePageContainerElementConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -13394,6 +13560,11 @@ input PageRootElementAggregateInput {
 
 input PageRootElementConnectFieldInput {
   connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -15287,6 +15458,10 @@ input ResourceConfigAggregateInput {
 }
 
 input ResourceConfigConnectFieldInput {
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: PropConnectWhere
 }
 
@@ -15854,6 +16029,11 @@ input StoreApiAggregateInput {
 
 input StoreApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
 }
 
@@ -15972,6 +16152,11 @@ type StoreAppAppNodeAggregateSelection {
 
 input StoreAppConnectFieldInput {
   connect: AppConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: AppConnectWhere
 }
 
@@ -16305,6 +16490,11 @@ input TagChildrenAggregateInput {
 
 input TagChildrenConnectFieldInput {
   connect: [TagConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: TagConnectWhere
 }
 
@@ -16472,6 +16662,11 @@ input TagOwnerAggregateInput {
 
 input TagOwnerConnectFieldInput {
   connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: UserConnectWhere
 }
 
@@ -16619,6 +16814,11 @@ input TagParentAggregateInput {
 
 input TagParentConnectFieldInput {
   connect: TagConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: TagConnectWhere
 }
 
@@ -18347,6 +18547,11 @@ input UserAppsAggregateInput {
 
 input UserAppsConnectFieldInput {
   connect: [AppConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: AppConnectWhere
 }
 
@@ -18494,6 +18699,11 @@ input UserComponentsAggregateInput {
 
 input UserComponentsConnectFieldInput {
   connect: [ComponentConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ComponentConnectWhere
 }
 
@@ -18610,7 +18820,8 @@ input UserCreateInput {
   components: UserComponentsFieldInput
   elements: UserElementsFieldInput
   email: String!
-  roles: [Role!]
+  id: ID!
+  roles: [Role!] = [User]
   tags: UserTagsFieldInput
   types: UserTypesFieldInput
   username: String!
@@ -18668,6 +18879,11 @@ input UserElementsAggregateInput {
 
 input UserElementsConnectFieldInput {
   connect: [ElementConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: ElementConnectWhere
 }
 
@@ -18925,7 +19141,8 @@ input UserElementsUpdateFieldInput {
 input UserOnCreateInput {
   auth0Id: String!
   email: String!
-  roles: [Role!]
+  id: ID!
+  roles: [Role!] = [User]
   username: String!
 }
 
@@ -18972,6 +19189,11 @@ input UserTagsAggregateInput {
 
 input UserTagsConnectFieldInput {
   connect: [TagConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: TagConnectWhere
 }
 
@@ -19079,6 +19301,11 @@ input UserTypesAggregateInput {
 
 input UserTypesConnectFieldInput {
   connect: [BaseTypeConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: BaseTypeConnectWhere
 }
 
@@ -19185,6 +19412,7 @@ input UserUpdateInput {
   components: [UserComponentsUpdateFieldInput!]
   elements: [UserElementsUpdateFieldInput!]
   email: String
+  id: ID
   roles: [Role!]
   tags: [UserTagsUpdateFieldInput!]
   types: [UserTypesUpdateFieldInput!]
@@ -19488,6 +19716,11 @@ interface WithOwner {
 
 input WithOwnerOwnerConnectFieldInput {
   connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
   where: UserConnectWhere
 }
 

@@ -6817,6 +6817,8 @@ export type WithOwnerOwnerRelationship = {
 export type ActionBaseStoreConnectFieldInput = {
   where?: InputMaybe<StoreConnectWhere>
   connect?: InputMaybe<StoreConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ActionBaseStoreConnectionSort = {
@@ -7086,6 +7088,8 @@ export type ApiActionConfigAggregateInput = {
 
 export type ApiActionConfigConnectFieldInput = {
   where?: InputMaybe<PropConnectWhere>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ApiActionConfigConnectionSort = {
@@ -7402,6 +7406,8 @@ export type ApiActionResourceAggregateInput = {
 export type ApiActionResourceConnectFieldInput = {
   where?: InputMaybe<ResourceConnectWhere>
   connect?: InputMaybe<ResourceConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ApiActionResourceConnectionSort = {
@@ -7806,6 +7812,8 @@ export type AppDomainsAggregateInput = {
 export type AppDomainsConnectFieldInput = {
   where?: InputMaybe<DomainConnectWhere>
   connect?: InputMaybe<Array<DomainConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type AppDomainsConnectionSort = {
@@ -7992,6 +8000,8 @@ export type AppPagesAggregateInput = {
 export type AppPagesConnectFieldInput = {
   where?: InputMaybe<PageConnectWhere>
   connect?: InputMaybe<Array<PageConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type AppPagesConnectionSort = {
@@ -8142,6 +8152,8 @@ export type AppStoreAggregateInput = {
 export type AppStoreConnectFieldInput = {
   where?: InputMaybe<StoreConnectWhere>
   connect?: InputMaybe<StoreConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type AppStoreConnectionSort = {
@@ -9563,6 +9575,8 @@ export type AtomAllowedChildrenAggregateInput = {
 export type AtomAllowedChildrenConnectFieldInput = {
   where?: InputMaybe<AtomConnectWhere>
   connect?: InputMaybe<Array<AtomConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type AtomAllowedChildrenConnectionSort = {
@@ -9683,6 +9697,8 @@ export type AtomApiAggregateInput = {
 export type AtomApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>
   connect?: InputMaybe<InterfaceTypeConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type AtomApiConnectionSort = {
@@ -9851,6 +9867,8 @@ export type AtomTagsAggregateInput = {
 export type AtomTagsConnectFieldInput = {
   where?: InputMaybe<TagConnectWhere>
   connect?: InputMaybe<Array<TagConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type AtomTagsConnectionSort = {
@@ -10573,6 +10591,8 @@ export type ComponentApiAggregateInput = {
 export type ComponentApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>
   connect?: InputMaybe<InterfaceTypeConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ComponentApiConnectionSort = {
@@ -10669,6 +10689,8 @@ export type ComponentChildrenContainerElementAggregateInput = {
 export type ComponentChildrenContainerElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ComponentChildrenContainerElementConnectionSort = {
@@ -11068,6 +11090,8 @@ export type ComponentPropsAggregateInput = {
 
 export type ComponentPropsConnectFieldInput = {
   where?: InputMaybe<PropConnectWhere>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ComponentPropsConnectionSort = {
@@ -11170,6 +11194,8 @@ export type ComponentRootElementAggregateInput = {
 export type ComponentRootElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ComponentRootElementConnectionSort = {
@@ -11622,6 +11648,8 @@ export type DomainAppAggregateInput = {
 export type DomainAppConnectFieldInput = {
   where?: InputMaybe<AppConnectWhere>
   connect?: InputMaybe<AppConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type DomainAppConnectionSort = {
@@ -11915,6 +11943,8 @@ export type ElementFirstChildAggregateInput = {
 export type ElementFirstChildConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementFirstChildConnectionSort = {
@@ -12171,6 +12201,8 @@ export type ElementHooksAggregateInput = {
 export type ElementHooksConnectFieldInput = {
   where?: InputMaybe<HookConnectWhere>
   connect?: InputMaybe<Array<HookConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementHooksConnectionSort = {
@@ -12247,6 +12279,8 @@ export type ElementNextSiblingAggregateInput = {
 export type ElementNextSiblingConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementNextSiblingConnectionSort = {
@@ -12523,6 +12557,8 @@ export type ElementPageAggregateInput = {
 export type ElementPageConnectFieldInput = {
   where?: InputMaybe<PageConnectWhere>
   connect?: InputMaybe<PageConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementPageConnectionSort = {
@@ -12670,6 +12706,8 @@ export type ElementParentComponentAggregateInput = {
 export type ElementParentComponentConnectFieldInput = {
   where?: InputMaybe<ComponentConnectWhere>
   connect?: InputMaybe<ComponentConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementParentComponentConnectionSort = {
@@ -12755,6 +12793,8 @@ export type ElementParentComponentUpdateFieldInput = {
 export type ElementParentConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementParentConnectionSort = {
@@ -13011,6 +13051,8 @@ export type ElementPrevSiblingAggregateInput = {
 export type ElementPrevSiblingConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementPrevSiblingConnectionSort = {
@@ -13266,6 +13308,8 @@ export type ElementPropsAggregateInput = {
 
 export type ElementPropsConnectFieldInput = {
   where?: InputMaybe<PropConnectWhere>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementPropsConnectionSort = {
@@ -13373,6 +13417,8 @@ export type ElementRenderAtomTypeAggregateInput = {
 export type ElementRenderAtomTypeConnectFieldInput = {
   where?: InputMaybe<AtomConnectWhere>
   connect?: InputMaybe<AtomConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementRenderAtomTypeConnectionSort = {
@@ -13489,6 +13535,8 @@ export type ElementRenderComponentTypeAggregateInput = {
 export type ElementRenderComponentTypeConnectFieldInput = {
   where?: InputMaybe<ComponentConnectWhere>
   connect?: InputMaybe<ComponentConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ElementRenderComponentTypeConnectionSort = {
@@ -13995,6 +14043,8 @@ export type EnumTypeAllowedValuesAggregateInput = {
 export type EnumTypeAllowedValuesConnectFieldInput = {
   where?: InputMaybe<EnumTypeValueConnectWhere>
   connect?: InputMaybe<Array<EnumTypeValueConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type EnumTypeAllowedValuesConnectionSort = {
@@ -14276,6 +14326,8 @@ export type EnumTypeValueEnumTypeAggregateInput = {
 export type EnumTypeValueEnumTypeConnectFieldInput = {
   where?: InputMaybe<EnumTypeConnectWhere>
   connect?: InputMaybe<EnumTypeConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type EnumTypeValueEnumTypeConnectionSort = {
@@ -14497,6 +14549,8 @@ export type FieldApiAggregateInput = {
 export type FieldApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>
   connect?: InputMaybe<InterfaceTypeConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type FieldApiConnectionSort = {
@@ -14820,6 +14874,8 @@ export type HookConfigAggregateInput = {
 
 export type HookConfigConnectFieldInput = {
   where?: InputMaybe<PropConnectWhere>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type HookConfigConnectionSort = {
@@ -14948,6 +15004,8 @@ export type HookElementAggregateInput = {
 export type HookElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type HookElementConnectionSort = {
@@ -15394,6 +15452,8 @@ export type IBaseTypeOwnerAggregateInput = {
 export type IBaseTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
   connect?: InputMaybe<UserConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type IBaseTypeOwnerConnectionSort = {
@@ -15580,6 +15640,8 @@ export type InterfaceTypeApiOfAtomsAggregateInput = {
 export type InterfaceTypeApiOfAtomsConnectFieldInput = {
   where?: InputMaybe<AtomConnectWhere>
   connect?: InputMaybe<Array<AtomConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type InterfaceTypeApiOfAtomsConnectionSort = {
@@ -15742,6 +15804,8 @@ export type InterfaceTypeFieldsAggregateInput = {
 export type InterfaceTypeFieldsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
   connect?: InputMaybe<Array<FieldConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type InterfaceTypeFieldsConnectionSort = {
@@ -16280,6 +16344,8 @@ export type PageAppAggregateInput = {
 export type PageAppConnectFieldInput = {
   where?: InputMaybe<AppConnectWhere>
   connect?: InputMaybe<AppConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type PageAppConnectionSort = {
@@ -16454,6 +16520,8 @@ export type PagePageContainerElementAggregateInput = {
 export type PagePageContainerElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type PagePageContainerElementConnectionSort = {
@@ -16716,6 +16784,8 @@ export type PageRootElementAggregateInput = {
 export type PageRootElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<ElementConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type PageRootElementConnectionSort = {
@@ -17884,6 +17954,8 @@ export type ResourceConfigAggregateInput = {
 
 export type ResourceConfigConnectFieldInput = {
   where?: InputMaybe<PropConnectWhere>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type ResourceConfigConnectionSort = {
@@ -18329,6 +18401,8 @@ export type StoreApiAggregateInput = {
 export type StoreApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>
   connect?: InputMaybe<InterfaceTypeConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type StoreApiConnectionSort = {
@@ -18425,6 +18499,8 @@ export type StoreAppAggregateInput = {
 export type StoreAppConnectFieldInput = {
   where?: InputMaybe<AppConnectWhere>
   connect?: InputMaybe<AppConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type StoreAppConnectionSort = {
@@ -18662,6 +18738,8 @@ export type TagChildrenAggregateInput = {
 export type TagChildrenConnectFieldInput = {
   where?: InputMaybe<TagConnectWhere>
   connect?: InputMaybe<Array<TagConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type TagChildrenConnectionSort = {
@@ -18810,6 +18888,8 @@ export type TagOwnerAggregateInput = {
 export type TagOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
   connect?: InputMaybe<UserConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type TagOwnerConnectionSort = {
@@ -18946,6 +19026,8 @@ export type TagParentAggregateInput = {
 export type TagParentConnectFieldInput = {
   where?: InputMaybe<TagConnectWhere>
   connect?: InputMaybe<TagConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type TagParentConnectionSort = {
@@ -20556,6 +20638,8 @@ export type UserAppsAggregateInput = {
 export type UserAppsConnectFieldInput = {
   where?: InputMaybe<AppConnectWhere>
   connect?: InputMaybe<Array<AppConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type UserAppsConnectionSort = {
@@ -20672,6 +20756,8 @@ export type UserComponentsAggregateInput = {
 export type UserComponentsConnectFieldInput = {
   where?: InputMaybe<ComponentConnectWhere>
   connect?: InputMaybe<Array<ComponentConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type UserComponentsConnectionSort = {
@@ -20779,6 +20865,7 @@ export type UserConnectWhere = {
 }
 
 export type UserCreateInput = {
+  id: Scalars['ID']
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
@@ -20820,6 +20907,8 @@ export type UserElementsAggregateInput = {
 export type UserElementsConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   connect?: InputMaybe<Array<ElementConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type UserElementsConnectionSort = {
@@ -21063,6 +21152,7 @@ export type UserElementsUpdateFieldInput = {
 }
 
 export type UserOnCreateInput = {
+  id: Scalars['ID']
   auth0Id: Scalars['String']
   email: Scalars['String']
   username: Scalars['String']
@@ -21106,6 +21196,8 @@ export type UserTagsAggregateInput = {
 export type UserTagsConnectFieldInput = {
   where?: InputMaybe<TagConnectWhere>
   connect?: InputMaybe<Array<TagConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type UserTagsConnectionSort = {
@@ -21202,6 +21294,8 @@ export type UserTypesAggregateInput = {
 export type UserTypesConnectFieldInput = {
   where?: InputMaybe<BaseTypeConnectWhere>
   connect?: InputMaybe<Array<BaseTypeConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type UserTypesConnectionSort = {
@@ -21291,6 +21385,7 @@ export type UserUniqueWhere = {
 }
 
 export type UserUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   auth0Id?: InputMaybe<Scalars['String']>
   email?: InputMaybe<Scalars['String']>
   username?: InputMaybe<Scalars['String']>
@@ -21517,6 +21612,8 @@ export type VercelProjectDomainWhere = {
 export type WithOwnerOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
   connect?: InputMaybe<UserConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
 }
 
 export type WithOwnerOwnerConnectionSort = {

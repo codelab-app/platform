@@ -49,10 +49,10 @@ export const TutorialsBody = ({ tutorials }: TutorialsBodyProps) => {
             <div css={tw`flex items-center mt-2`}>
               <FontAwesomeIcon css={tw`mr-2 text-xl`} icon={faTag} />
               <div css={tw`flex flex-wrap gap-2`}>
-                {item.tags.map((tag, i) => (
+                {item.tags.map((tag, tagIndex) => (
                   <p
                     css={tw`mb-0 bg-gray-100 border-solid border-2 border-gray-200 px-2`}
-                    key={i}
+                    key={tagIndex}
                   >
                     {tag}
                   </p>

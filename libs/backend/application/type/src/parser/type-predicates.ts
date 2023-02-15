@@ -62,7 +62,7 @@ export const isActionType: IsTypePredicates = (fieldType) => {
 }
 
 // ReactNode is also render props
-export const isRenderPropType: IsTypePredicates = (fieldType) => {
+export const isRenderPropsType: IsTypePredicates = (fieldType) => {
   return renderPropsRegexes.some((regex) => regex.test(fieldType))
 }
 

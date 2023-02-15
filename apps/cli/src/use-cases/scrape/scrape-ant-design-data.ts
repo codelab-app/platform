@@ -168,8 +168,8 @@ export const scrapeAntDesignData = async () => {
 
     try {
       tableData
-        .filter((d): d is ComponentData => Boolean(d))
-        .filter((d) => d.props.length > 0)
+        .filter((data): data is ComponentData => Boolean(data))
+        .filter((data) => data.props.length > 0)
         .forEach(({ name, props }) => {
           const csv = parse(props, {
             fields: [...antdTableKeys, 'isEnum'],

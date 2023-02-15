@@ -19,4 +19,8 @@ module.exports = {
   // transformIgnorePatterns: [
   //   '<rootDir>/node_modules/(?!(stringify-object|is-regexp|is-obj|cheerio)/)',
   // ],
+  transform: {
+    '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2|cypher|cyp)$':
+      'jest-transform-stub',
+  },
 }

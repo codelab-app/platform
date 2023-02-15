@@ -1,23 +1,32 @@
 import type {
-  IBaseType,
+  ICreatePrimitiveType,
   IPrimitiveType,
   ITypeFactory,
-  IUserRef,
 } from '@codelab/backend/abstract/core'
-import type { IRepository } from '@codelab/backend/abstract/types'
-import type {
-  BaseUniqueWhere,
-  BaseUniqueWhereCallback,
-} from '@codelab/shared/abstract/types'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { PrimitiveType } from '../model'
 import { PrimitiveTypeRepository } from '../repository/primitive-type.repo'
 
-export class PrimitiveTypeFactory implements ITypeFactory<IPrimitiveType> {
+/**
+ * We only require user, since all other info is unchangeable
+ */
+export class PrimitiveTypeFactory
+  implements ITypeFactory<ICreatePrimitiveType>
+{
   repository: PrimitiveTypeRepository = new PrimitiveTypeRepository()
 
-  async create(data: IPrimitiveType, where: BaseUniqueWhere) {
-    const primitiveType = new PrimitiveType(data)
-    await this.repository.save({ ...primitiveType }, where)
+  async create(
+    { owner, primitiveKind }: ICreatePrimitiveType,
+    where: BaseTypeUniqueWhereCallback<IPrimitiveType>,
+  ) {
+    const primitiveType = PrimitiveType.init({
+      __typename: ITypeKind.PrimitiveType,
+      primitiveKind,
+      owner,
+    })
+
+    await this.repository.save(primitiveType, where(primitiveType))
 
     return primitiveType
   }

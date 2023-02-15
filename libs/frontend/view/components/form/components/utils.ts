@@ -36,10 +36,10 @@ export const handleFormSubmit =
 
 export const handleSubmitRefModalOk = (
   submitRef: SubmitRef['submitRef'],
-  onOk?: (e: MouseEvent<HTMLElement>) => void,
+  onOk?: (event: MouseEvent<HTMLElement>) => void,
 ) => {
-  return (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault()
+  return (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault()
 
     if (!submitRef?.current) {
       throw new Error('Submit controller ref not initialized')
@@ -50,7 +50,7 @@ export const handleSubmitRefModalOk = (
 
     // Call the callback from the modalProps prop, if defined
     if (onOk) {
-      onOk(e)
+      onOk(event)
     }
   }
 }

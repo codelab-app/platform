@@ -1,7 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 export const createComponent = async (
@@ -17,10 +17,10 @@ export const createComponent = async (
       {
         id: component.id,
         name: component.name,
-        owner: connectNode(selectedUser),
-        rootElement: connectNode(component.rootElement.id),
+        owner: connectNodeId(selectedUser),
+        rootElement: connectNodeId(component.rootElement.id),
         api: component.api.id
-          ? connectNode(component.api.id)
+          ? connectNodeId(component.api.id)
           : {
               create: {
                 node: {

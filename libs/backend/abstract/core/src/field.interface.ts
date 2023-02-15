@@ -23,12 +23,14 @@ export interface AntDesignField {
   isEnum: boolean
 }
 
+/**
+ * Entity
+ */
 export const FieldSchema = z.object({
   id: z.string(),
   key: z.string(),
   name: z.string().optional().nullable(),
   description: z.string().optional().nullable(),
-  // validationRules: ,
   fieldType: EntitySchema,
   api: EntitySchema,
   defaultValues: z.string().optional().nullable(),
@@ -36,6 +38,9 @@ export const FieldSchema = z.object({
 
 export type IField = z.infer<typeof FieldSchema>
 
+/**
+ * Export
+ */
 export const FieldExportSchema = FieldSchema.extend({
   fieldType: z.object({
     id: z.string(),
@@ -45,3 +50,11 @@ export const FieldExportSchema = FieldSchema.extend({
 })
 
 export type IFieldExport = z.infer<typeof FieldExportSchema>
+
+/**
+ * Create
+ */
+
+export const CreateFieldSchema = FieldExportSchema
+
+export type ICreateField = z.infer<typeof CreateFieldSchema>

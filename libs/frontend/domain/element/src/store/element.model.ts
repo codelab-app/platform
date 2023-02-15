@@ -28,7 +28,7 @@ import { extractSlug } from '@codelab/frontend/shared/utils'
 import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import { connectNode, disconnectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId, disconnectNodeId } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
@@ -617,8 +617,8 @@ export class Element
 
     return makeUpdateElementInput(parentElement, {
       firstChild: {
-        ...connectNode(this.id),
-        ...disconnectNode(parentElement.firstChild?.id),
+        ...connectNodeId(this.id),
+        ...disconnectNodeId(parentElement.firstChild?.id),
       },
     })
   }
@@ -632,8 +632,8 @@ export class Element
 
     if (this.parentElement.firstChildId === this.id) {
       parentElementChanges.firstChild = {
-        ...disconnectNode(this.id),
-        ...connectNode(this.nextSibling?.id),
+        ...disconnectNodeId(this.id),
+        ...connectNodeId(this.nextSibling?.id),
       }
     }
 
@@ -649,9 +649,9 @@ export class Element
     return makeUpdateElementInput(this.prevSibling, {
       nextSibling: {
         // disconnect element
-        ...disconnectNode(this.id),
+        ...disconnectNodeId(this.id),
         // connect next sibling
-        ...connectNode(this.nextSibling?.id),
+        ...connectNodeId(this.nextSibling?.id),
       },
     })
   }
@@ -665,9 +665,9 @@ export class Element
     return makeUpdateElementInput(this.nextSibling, {
       prevSibling: {
         // detach element
-        ...disconnectNode(this.id),
+        ...disconnectNodeId(this.id),
         // attach prev sibling
-        ...connectNode(this.prevSibling?.id),
+        ...connectNodeId(this.prevSibling?.id),
       },
     })
   }
@@ -684,9 +684,9 @@ export class Element
     return makeUpdateElementInput(sibling, {
       nextSibling: {
         // sibling detaches
-        ...disconnectNode(sibling.nextSibling?.id),
+        ...disconnectNodeId(sibling.nextSibling?.id),
         // appends element
-        ...connectNode(this.id),
+        ...connectNodeId(this.id),
       },
     })
   }
@@ -703,9 +703,9 @@ export class Element
     return makeUpdateElementInput(sibling, {
       prevSibling: {
         // sibling detaches its prev sibling
-        ...disconnectNode(sibling.prevSibling?.id),
+        ...disconnectNodeId(sibling.prevSibling?.id),
         // sibling prepends element
-        ...connectNode(this.id),
+        ...connectNodeId(this.id),
       },
     })
   }

@@ -68,7 +68,7 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
     }, [curPage, pageSize, pagination])
 
     const curPageDataStartIndex = atomsList.findIndex(
-      (t) => t.name === latestFetchedAtoms?.[0]?.name,
+      ({ name }) => name === latestFetchedAtoms?.[0]?.name,
     )
 
     const atomsData: Array<AtomRecord> = atomsList

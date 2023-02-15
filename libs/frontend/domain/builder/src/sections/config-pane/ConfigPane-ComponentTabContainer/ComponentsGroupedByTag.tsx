@@ -46,7 +46,7 @@ export const ComponentsGroupedByTag = ({
       <Search
         allowClear
         key={1}
-        onChange={(e) => debouncedSearch(e.target.value)}
+        onChange={(event) => debouncedSearch(event.target.value)}
         placeholder="Search component"
       />
       <div css={tw`flex flex-wrap justify-between mt-6`}>

@@ -4,13 +4,13 @@ import {
   exportRenderPropsTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 
 export class RenderPropsTypeRepository extends IRepository<IRenderPropsType> {
   private RenderPropsType = Repository.instance.RenderPropsType
 
-  async find(where: BaseUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere) {
     return (
       await (
         await this.RenderPropsType
@@ -21,13 +21,13 @@ export class RenderPropsTypeRepository extends IRepository<IRenderPropsType> {
     )[0]
   }
 
-  async save(renderPropsType: IRenderPropsType, where?: BaseUniqueWhere) {
-    if (await this.exists(renderPropsType, where)) {
-      return this.update(renderPropsType, this.getWhere(renderPropsType, where))
-    }
+  // async save(renderPropsType: IRenderPropsType, where?: BaseTypeUniqueWhere) {
+  //   if (await this.exists(renderPropsType, where)) {
+  //     return this.update(renderPropsType, this.getWhere(renderPropsType, where))
+  //   }
 
-    return (await this.add([renderPropsType]))[0]
-  }
+  //   return (await this.add([renderPropsType]))[0]
+  // }
 
   protected async _add(renderPropsTypes: Array<IRenderPropsType>) {
     return (
@@ -46,7 +46,7 @@ export class RenderPropsTypeRepository extends IRepository<IRenderPropsType> {
 
   protected async _update(
     { __typename, owner, ...renderPropsType }: IRenderPropsType,
-    where: BaseUniqueWhere,
+    where: BaseTypeUniqueWhere,
   ) {
     return (
       await (

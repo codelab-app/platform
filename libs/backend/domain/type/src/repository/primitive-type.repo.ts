@@ -4,13 +4,13 @@ import {
   exportPrimitiveTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 
 export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
   private PrimitiveType = Repository.instance.PrimitiveType
 
-  async find(where: BaseUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere) {
     return (
       await (
         await this.PrimitiveType
@@ -19,14 +19,6 @@ export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
         selectionSet: exportPrimitiveTypeSelectionSet,
       })
     )[0]
-  }
-
-  async save(primitiveType: IPrimitiveType, where?: BaseUniqueWhere) {
-    if (await this.exists(primitiveType, where)) {
-      return this.update(primitiveType, this.getWhere(primitiveType, where))
-    }
-
-    return (await this.add([primitiveType]))[0]
   }
 
   protected async _add(primitiveTypes: Array<IPrimitiveType>) {
@@ -44,7 +36,7 @@ export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
 
   protected async _update(
     { __typename, owner, ...primitiveType }: IPrimitiveType,
-    where: BaseUniqueWhere,
+    where: BaseTypeUniqueWhere,
   ) {
     return (
       await (

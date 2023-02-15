@@ -1,7 +1,5 @@
 import type { IBaseType, IUserRef } from '@codelab/backend/abstract/core'
-import type { IRepository } from '@codelab/backend/abstract/types'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
 
 export abstract class BaseType implements IBaseType {
   id: string

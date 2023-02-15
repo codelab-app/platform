@@ -10,11 +10,11 @@ import type { FormContextValue } from '../providers'
 
 export const connectUniformSubmitRef =
   (submitRef: Maybe<MutableRefObject<Maybe<SubmitController>>>) =>
-  (r: Nullish<{ submit: () => unknown }>) => {
-    if (submitRef && r) {
+  (ref: Nullish<{ submit: () => unknown }>) => {
+    if (submitRef && ref) {
       // eslint-disable-next-line no-param-reassign
       submitRef.current = {
-        submit: () => r.submit(),
+        submit: () => ref.submit(),
       }
     }
   }

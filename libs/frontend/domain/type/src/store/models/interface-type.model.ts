@@ -53,7 +53,7 @@ export class InterfaceType
   @computed
   get defaultValues(): IPropData {
     return this.fields
-      .map((x) => ({ [x.key]: x.defaultValues }))
+      .map((field) => ({ [field.key]: field.defaultValues }))
       .reduce(merge, {})
   }
 

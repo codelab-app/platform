@@ -19,12 +19,12 @@ describe('LoopingRenderPipe', () => {
   })
 
   it('should add renderForEachPropKey props', () => {
-    const output = data.renderer.renderIntermediateElement(
+    const renderOutputs = data.renderer.renderIntermediateElement(
       data.elementToRender,
       initialProps,
     ) as Array<IRenderOutput>
 
-    const props = output.map((x) => x.props)
+    const props = renderOutputs.map((output) => output.props)
 
     expect(props).toMatchObject([
       {

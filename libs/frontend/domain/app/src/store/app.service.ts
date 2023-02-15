@@ -69,7 +69,7 @@ export class AppService
 
   @computed
   get appsJson() {
-    return this.appsList.map((a) => a.toJson).reduce(merge, {})
+    return this.appsList.map((app) => app.toJson).reduce(merge, {})
   }
 
   /**
@@ -92,7 +92,7 @@ export class AppService
     )
 
     const pageModel = pageModels.find((page) => page.id === pageId)
-    const page = app.pages.find((x) => x.id === pageId)
+    const page = app.pages.find((appPage) => appPage.id === pageId)
 
     if (!page || !pageModel) {
       throw new Error('Missing page')

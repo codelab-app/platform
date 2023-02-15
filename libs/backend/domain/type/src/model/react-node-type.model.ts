@@ -1,12 +1,10 @@
 import type {
-  IField,
-  IInterfaceType,
+  ICreateReactNodeType,
   IReactNodeType,
   IUserRef,
 } from '@codelab/backend/abstract/core'
-import type { IModel } from '@codelab/backend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class ReactNodeType extends BaseType implements IReactNodeType {
@@ -20,7 +18,26 @@ export class ReactNodeType extends BaseType implements IReactNodeType {
 
   declare owner: IUserRef
 
-  constructor({ id, name, kind, owner }: IReactNodeType) {
+  private constructor({ id, name, kind, owner }: IReactNodeType) {
     super({ id, name, kind, __typename: ITypeKind.ReactNodeType, owner })
   }
+
+  static init({ owner }: ICreateReactNodeType) {
+    return new ReactNodeType({
+      id: v4(),
+      __typename: ITypeKind.ReactNodeType,
+      name: ITypeKind.ReactNodeType,
+      kind: ITypeKind.ReactNodeType,
+      owner,
+    })
+  }
+  // static seedData(user: IUserRef): IReactNodeType {
+  //   return new ReactNodeType({
+  //     id: v4(),
+  //     __typename: ITypeKind.ReactNodeType,
+  //     kind: ITypeKind.ReactNodeType,
+  //     name: ITypeKind.ReactNodeType,
+  //     owner: user,
+  //   })
+  // }
 }

@@ -31,7 +31,7 @@ export const FormModal = <
       }}
       okText={okText}
       onCancel={onCancel}
-      onOk={(e) => {
+      onOk={(event) => {
         if (!submitRef.current) {
           throw new Error('Submit controller ref not initialized')
         }
@@ -41,7 +41,7 @@ export const FormModal = <
 
         // Call the callback from the modalProps prop, if defined
         if (onOk) {
-          onOk(e)
+          onOk(event)
         }
       }}
       open={open}

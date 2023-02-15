@@ -61,14 +61,14 @@ export const UpdateActionModal = observer<{
         : undefined,
   }
 
-  const getResourceType = (c: Context<IUpdateActionDTO>) =>
-    c.model.resourceId
-      ? resourceService.resource(c.model.resourceId)?.type
+  const getResourceType = (context: Context<IUpdateActionDTO>) =>
+    context.model.resourceId
+      ? resourceService.resource(context.model.resourceId)?.type
       : null
 
-  const getResourceApiUrl = (c: Context<IUpdateActionDTO>) =>
-    c.model.resourceId
-      ? resourceService.resource(c.model.resourceId)?.config.get('url')
+  const getResourceApiUrl = (context: Context<IUpdateActionDTO>) =>
+    context.model.resourceId
+      ? resourceService.resource(context.model.resourceId)?.config.get('url')
       : null
 
   return (
@@ -97,14 +97,14 @@ export const UpdateActionModal = observer<{
 
         {/** Code Action */}
         <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => c.model.type === IActionKind.CodeAction}
+          condition={(context) => context.model.type === IActionKind.CodeAction}
         >
           <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
         {/** Api Action */}
         <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => c.model.type === IActionKind.ApiAction}
+          condition={(context) => context.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
           <AutoField component={SelectAction} name="successActionId" />
@@ -112,7 +112,9 @@ export const UpdateActionModal = observer<{
 
           {/** GraphQL Config Form */}
           <DisplayIfField<IUpdateActionDTO>
-            condition={(c) => getResourceType(c) === IResourceType.GraphQL}
+            condition={(context) =>
+              getResourceType(context) === IResourceType.GraphQL
+            }
           >
             <AutoField getUrl={getResourceApiUrl} name="config.query" />
             <AutoField name="config.variables" />
@@ -121,7 +123,9 @@ export const UpdateActionModal = observer<{
 
           {/** Rest Config Form */}
           <DisplayIfField<IUpdateActionDTO>
-            condition={(c) => getResourceType(c) === IResourceType.Rest}
+            condition={(context) =>
+              getResourceType(context) === IResourceType.Rest
+            }
           >
             <AutoField name="config.urlSegment" />
             <AutoField name="config.method" />

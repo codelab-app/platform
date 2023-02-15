@@ -98,7 +98,9 @@ export const muiAtoms: AtomsRecord = {
   ),
   // [AtomType.MuiDataGrid]: dynamicLoader(()=>import('@mui/x-data-grid')), // not working for some reason ,can't find @material-ui/core/badge?
   [IAtomType.MuiDatePicker]: dynamicLoader(() =>
-    import('@mui/x-date-pickers/DatePicker').then((x) => x.DatePicker),
+    import('@mui/x-date-pickers/DatePicker').then(
+      (module) => module.DatePicker,
+    ),
   ),
   [IAtomType.MuiDateRangePicker]: dynamicLoader(
     () => import('@mui/lab/DateRangePicker'),

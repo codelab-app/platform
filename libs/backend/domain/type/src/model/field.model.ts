@@ -1,4 +1,6 @@
+import type { ICreateField } from '@codelab/backend/abstract/core'
 import type { IFieldDTO } from '@codelab/frontend/abstract/core'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
 export class Field implements IFieldDTO {
   readonly api: { id: string }
@@ -37,7 +39,20 @@ export class Field implements IFieldDTO {
     this.validationRules = validationRules
   }
 
+  /**
+   * Used to get composite key, fieldKey is
+   */
   static compositeKey(apiName: string, fieldKey: string) {
     return `${apiName}-${fieldKey}`
+  }
+
+  static init({ id, key, fieldType, api }: ICreateField) {
+    return new Field({
+      id,
+      name: compoundCaseToTitleCase(key),
+      key,
+      fieldType,
+      api,
+    })
   }
 }

@@ -4,13 +4,13 @@ import {
   exportActionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 
 export class ActionTypeRepository extends IRepository<IActionType> {
   private ActionType = Repository.instance.ActionType
 
-  async find(where: BaseUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere) {
     return (
       await (
         await this.ActionType
@@ -36,7 +36,7 @@ export class ActionTypeRepository extends IRepository<IActionType> {
 
   protected async _update(
     { __typename, owner, ...actionType }: IActionType,
-    where: BaseUniqueWhere,
+    where: BaseTypeUniqueWhere,
   ) {
     return (
       await (
@@ -46,13 +46,5 @@ export class ActionTypeRepository extends IRepository<IActionType> {
         where,
       })
     ).actionTypes[0]
-  }
-
-  async save(actionType: IActionType, where?: BaseUniqueWhere) {
-    if (await this.exists(actionType, where)) {
-      return this.update(actionType, this.getWhere(actionType, where))
-    }
-
-    return (await this.add([actionType]))[0]
   }
 }

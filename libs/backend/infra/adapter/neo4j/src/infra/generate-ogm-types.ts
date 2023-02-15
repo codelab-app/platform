@@ -21,8 +21,8 @@ export const generateOgmTypes = async () => {
 
       return data
     })
-    .catch((e) =>
-      console.error(`[generateOgmTypes] ${JSON.stringify(e, null, 2)}`),
+    .catch((error) =>
+      console.error(`[generateOgmTypes] ${JSON.stringify(error, null, 2)}`),
     )
 
   // Get prettier config

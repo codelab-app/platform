@@ -1,12 +1,12 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { atomsData } from './data'
 
-interface AtomTypeKeyByFileName {
+export interface AtomTypeKeyByFileName {
   [fileName: string]: IAtomType
 }
 
 /**
- * Used for CSV file mapping to atomType
+ * Used for CSV file mapping to atomType, this contains the full atoms list
  */
 export const atomTypeKeyByFileName: AtomTypeKeyByFileName = Object.entries(
   atomsData,

@@ -195,6 +195,8 @@ describe('Types CRUD', () => {
         .find('.ant-table-row-expand-icon')
         .click()
 
+      cy.getSpinner().should('not.exist')
+
       cy.searchTableRow({
         header: 'Key',
         row: fieldName,

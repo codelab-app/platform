@@ -36,14 +36,14 @@ export const CreateActionModal = observer<{
     title: 'Error while creating action',
   })
 
-  const getResourceType = (c: Context<ICreateActionDTO>) =>
-    c.model.resourceId
-      ? resourceService.resource(c.model.resourceId)?.type
+  const getResourceType = (context: Context<ICreateActionDTO>) =>
+    context.model.resourceId
+      ? resourceService.resource(context.model.resourceId)?.type
       : null
 
-  const getResourceApiUrl = (c: Context<ICreateActionDTO>) =>
-    c.model.resourceId
-      ? resourceService.resource(c.model.resourceId)?.config.get('url')
+  const getResourceApiUrl = (context: Context<ICreateActionDTO>) =>
+    context.model.resourceId
+      ? resourceService.resource(context.model.resourceId)?.config.get('url')
       : null
 
   return (
@@ -84,14 +84,14 @@ export const CreateActionModal = observer<{
 
         {/** Code Action */}
         <DisplayIfField<ICreateActionDTO>
-          condition={(c) => c.model.type === IActionKind.CodeAction}
+          condition={(context) => context.model.type === IActionKind.CodeAction}
         >
           <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
         {/** Api Action */}
         <DisplayIfField<ICreateActionDTO>
-          condition={(c) => c.model.type === IActionKind.ApiAction}
+          condition={(context) => context.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
           <AutoField component={SelectAction} name="successActionId" />
@@ -99,7 +99,9 @@ export const CreateActionModal = observer<{
 
           {/** GraphQL Config Form */}
           <DisplayIfField<ICreateActionDTO>
-            condition={(c) => getResourceType(c) === ResourceType.GraphQL}
+            condition={(context) =>
+              getResourceType(context) === ResourceType.GraphQL
+            }
           >
             <AutoField getUrl={getResourceApiUrl} name="config.query" />
             <AutoField name="config.variables" />
@@ -108,7 +110,9 @@ export const CreateActionModal = observer<{
 
           {/** Rest Config Form */}
           <DisplayIfField<ICreateActionDTO>
-            condition={(c) => getResourceType(c) === ResourceType.Rest}
+            condition={(context) =>
+              getResourceType(context) === ResourceType.Rest
+            }
           >
             <AutoField name="config.urlSegment" />
             <AutoField name="config.method" />

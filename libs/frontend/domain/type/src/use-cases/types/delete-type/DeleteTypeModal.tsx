@@ -23,7 +23,10 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
       })
 
       if (getTypeReferences?.length) {
-        const allRefs = getTypeReferences.map((r) => `${r.name} (${r.label})`)
+        const allRefs = getTypeReferences.map(
+          (typeRef) => `${typeRef.name} (${typeRef.label})`,
+        )
+
         const label = Array.from(new Set(allRefs)).join(', ')
 
         throw new Error(`Can't delete typed since it's referenced in ${label}`)

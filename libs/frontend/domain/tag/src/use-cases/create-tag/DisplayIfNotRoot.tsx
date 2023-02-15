@@ -6,7 +6,7 @@ export const DisplayIfNotRoot = ({
   children,
 }: React.PropsWithChildren<unknown>) => (
   <DisplayIfField<ICreateTagDTO>
-    condition={(c) => Boolean(c.model.parentTagId)}
+    condition={(context) => Boolean(context.model.parentTagId)}
   >
     {children}
   </DisplayIfField>

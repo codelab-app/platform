@@ -20,7 +20,7 @@ const isCyclic = (obj?: IPropData) =>
 export const mapDeep = (
   obj: IPropData,
   valueMapper: IValueMapper,
-  keyMapper: IKeyMapper = (v, k) => k,
+  keyMapper: IKeyMapper = (value, key) => key,
   key: Key = '',
 ): IOutput => {
   obj = valueMapper(obj, key) as IOutput
@@ -33,17 +33,17 @@ export const mapDeep = (
       )
     : isObjectLike(obj)
     ? toPairsIn(obj)
-        .map(([k, v]) => {
-          const mappedKey = keyMapper(v, k)
+        .map(([_key, _value]) => {
+          const mappedKey = keyMapper(_value, _key)
 
-          const mappedValue = isObjectLike(v)
-            ? mapDeep(v, valueMapper, keyMapper, mappedKey)
-            : valueMapper(v, k)
+          const mappedValue = isObjectLike(_value)
+            ? mapDeep(_value, valueMapper, keyMapper, mappedKey)
+            : valueMapper(_value, _key)
 
           return {
             [mappedKey]: mappedValue,
           }
         })
-        .reduce((acc, c) => ({ ...acc, ...c }), {})
+        .reduce((acc, cur) => ({ ...acc, ...cur }), {})
     : (valueMapper(obj, '') as IPropData)
 }

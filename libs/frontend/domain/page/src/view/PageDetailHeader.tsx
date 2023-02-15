@@ -46,7 +46,7 @@ export const PageDetailHeader = observer<{
   )
 
   const pagesList = pageService.pagesByApp(currentAppId)
-  const currentPage = pagesList.find((x) => x.id === pageId)
+  const currentPage = pagesList.find((page) => page.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 
   const switchPreviewMode = () => {
@@ -162,10 +162,10 @@ export const PageDetailHeader = observer<{
     <Menu
       css={tw`flex justify-center`}
       items={menuItems
-        .filter((x) => !x.hide)
-        .map((x) => ({
-          ...x,
-          hide: String(x.hide),
+        .filter((item) => !item.hide)
+        .map((item) => ({
+          ...item,
+          hide: String(item.hide),
         }))}
       mode="horizontal"
       selectable={false}

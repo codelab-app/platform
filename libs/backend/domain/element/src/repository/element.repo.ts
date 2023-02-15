@@ -1,6 +1,6 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
 /**
@@ -46,7 +46,7 @@ export const importElementInitial = async (
           preRenderActionId: element.preRenderActionId,
           postRenderActionId: element.postRenderActionId,
 
-          renderAtomType: connectNode(element.renderAtomType?.id),
+          renderAtomType: connectNodeId(element.renderAtomType?.id),
           props: element.props
             ? {
                 create: { node: { data: element.props.data } },
@@ -108,12 +108,12 @@ export const updateImportedElement = async (
   await Element.update({
     where: { id: element.id },
     update: {
-      parentComponent: connectNode(element.parentComponent?.id),
-      firstChild: connectNode(element.firstChild?.id),
-      nextSibling: connectNode(element.nextSibling?.id),
-      prevSibling: connectNode(element.prevSibling?.id),
-      parent: connectNode(element.parent?.id),
-      renderComponentType: connectNode(element.renderComponentType?.id),
+      parentComponent: connectNodeId(element.parentComponent?.id),
+      firstChild: connectNodeId(element.firstChild?.id),
+      nextSibling: connectNodeId(element.nextSibling?.id),
+      prevSibling: connectNodeId(element.prevSibling?.id),
+      parent: connectNodeId(element.parent?.id),
+      renderComponentType: connectNodeId(element.renderComponentType?.id),
       props: element.props
         ? {
             update: { node: { data: element.props.data } },

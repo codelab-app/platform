@@ -12,8 +12,8 @@ describe('User', () => {
   it('logs in shows email and signs out', () => {
     cy.login().then(() => {
       cy.visit('/')
-      cy.request('/api/auth/me').then((r) => {
-        const email = r.body.email
+      cy.request('/api/auth/me').then((results) => {
+        const email = results.body.email
 
         if (!email) {
           throw new Error('Email is not valid!')

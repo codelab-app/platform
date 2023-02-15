@@ -12811,7 +12811,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-loader@npm:^8.0.2, babel-loader@npm:^8.2.2":
+"babel-loader@npm:^8.0.2":
   version: 8.3.0
   resolution: "babel-loader@npm:8.3.0"
   dependencies:

@@ -4,8 +4,8 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseUniqueWhereCallback } from '@codelab/shared/abstract/types'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 
 export type UpsertFieldProps = {
   input: OGM_TYPES.FieldCreateInput
@@ -19,7 +19,7 @@ interface FieldRelationshipProps {
 export const fieldRepository = {
   upsertField: async (
     { input, fieldTypeId, interfaceTypeId }: UpsertFieldProps,
-    where: BaseUniqueWhereCallback<
+    where: BaseTypeUniqueWhereCallback<
       OGM_TYPES.FieldCreateInput,
       OGM_TYPES.FieldWhere
     >,
@@ -40,8 +40,8 @@ export const fieldRepository = {
           input: [
             {
               ...input,
-              fieldType: connectNode(fieldTypeId),
-              api: connectNode(interfaceTypeId),
+              fieldType: connectNodeId(fieldTypeId),
+              api: connectNodeId(interfaceTypeId),
             },
           ],
         })

@@ -13,28 +13,17 @@ import React, { useCallback, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/renderOutputUtils'
-import { isDraggable } from './isDraggable'
 import {
   extractValidProps,
   getReactComponent,
   makeDraggableElement,
 } from './wrapper.utils'
 
-/**
- * These are props that is common to all elements
- */
-interface ElementProps {
-  /**
-   * Whether the context is in builder mode, this is useful for some components to decide dnd behavior
-   */
-  isBuilder: boolean
-}
-
 export interface ElementWrapperProps {
   renderService: IRenderer
   element: IElement
   /**
-   * Props passed in from outside the component (element), could be from parent
+   * Props passed in from outside the component
    */
   extraProps?: IPropData
   postAction?: Nullish<() => unknown>
@@ -124,11 +113,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       (isComponentRootElement || !isInsideAComponent)
 
     // we need to include additional props from dnd so we need to render the element there
-    const WrappedElement = isDraggable({
-      isBuilder: renderService.isBuilder,
-      element,
-      globalPropsContext,
-    })
+    const WrappedElement = isDraggable
       ? makeDraggableElement({ element, makeRenderedElements })
       : makeRenderedElements()
 

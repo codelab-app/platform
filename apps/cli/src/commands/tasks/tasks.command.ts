@@ -22,8 +22,8 @@ export const execCommand = (command: string) => {
       stdio: 'inherit',
       shell: true,
     })
-  } catch (e) {
-    console.error(e)
+  } catch (error) {
+    console.error(error)
     process.exit(1)
   }
 }
@@ -77,81 +77,15 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Test) {
-            const startServer = `${NX_TEST} serve-test builder -c test`
-            const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && ${NX_TEST} test builder -c test`
-
-            const runSpecsChildProcess = spawn(runSpecs, {
-              stdio: 'inherit',
-              // Need shell to access yarn/npx etc
-              shell: true,
-              detached: true,
-            })
-
-            const startServerChildProcess = spawn(startServer, {
-              stdio: 'inherit',
-              /**
-               * The next.js server will spawn it's own set of child processes, setting detached to true means these sub processes won't be attached to the main process, but rather to a detached group.
-               *
-               * Issue prior was that shutting down this process didn't kill the sub processes
-               */
-              shell: true,
-              detached: true,
-            })
-
-            runSpecsChildProcess.on('exit', (code: number, signal) => {
-              // console.log('specs process exit!', code, signal)
-
-              /**
-               * SIGINT - requested by user
-               * SIGKILL - right away
-               *
-               * If a child process in Node.js spawn their own child processes, kill() method will not kill the child process’s own child processes.
-               */
-              if (startServerChildProcess.pid) {
-                // Please note - before pid. This converts a pid to a group of pids for process kill() method.
-                try {
-                  process.kill(-startServerChildProcess.pid, 'SIGINT')
-                } catch (e) {
-                  //
-                }
-              }
-
-              process.exit(code)
-
-              // Child process will exit by itself
-              // if (runSpecsChildProcess.pid) {
-              //   process.kill(-runSpecsChildProcess.pid)
-              // }
-            })
+            execCommand(
+              `${NX_TEST} affected --target=test --testPathPattern="[i].spec.ts" --memoryLimit=8192 --color`,
+            )
           }
 
           if (stage === Stage.CI) {
-            const startServer = `nx serve-test builder -c ci`
-            const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test builder -c ci --verbose`
-
-            const runSpecsChildProcess = spawn(runSpecs, {
-              stdio: 'inherit',
-              shell: true,
-              detached: true,
-            })
-
-            const startServerChildProcess = spawn(startServer, {
-              stdio: 'inherit',
-              shell: true,
-              detached: true,
-            })
-
-            runSpecsChildProcess.on('exit', async (code: number) => {
-              if (startServerChildProcess.pid) {
-                try {
-                  process.kill(-startServerChildProcess.pid, 'SIGINT')
-                } catch (e) {
-                  //
-                }
-              }
-
-              process.exit(code)
-            })
+            execCommand(
+              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=3 --verbose',
+            )
           }
         },
       )
@@ -194,8 +128,8 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
                 try {
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
-                } catch (e) {
-                  console.error(e)
+                } catch (error) {
+                  console.error(error)
                 }
               }
 

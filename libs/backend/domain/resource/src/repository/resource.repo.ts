@@ -1,6 +1,6 @@
 import type { IResourceExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 
 export const createResource = async (
   resource: IResourceExport,
@@ -12,7 +12,7 @@ export const createResource = async (
     id: resource.id,
     name: resource.name,
     type: resource.type,
-    owner: connectNode(userId),
+    owner: connectNodeId(userId),
     config: {
       create: { node: { data: resource.config.data } },
     },

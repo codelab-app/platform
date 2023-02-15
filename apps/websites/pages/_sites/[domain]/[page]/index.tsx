@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`No apps found for "${domain}" domain`)
   }
 
-  const page = app.pages.find((p) => p.current.slug === pageSlug)
+  const page = app.pages.find((appPage) => appPage.current.slug === pageSlug)
 
   if (!page) {
     throw new Error(`Page ${pageSlug} on "${domain}" domain Not found`)

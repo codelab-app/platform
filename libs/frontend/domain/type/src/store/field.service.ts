@@ -11,7 +11,7 @@ import type {
   FieldFragment,
   FieldUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { connectNode, reconnectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -70,8 +70,8 @@ export class FieldService
       name: field.name,
       defaultValues: JSON.stringify(field.defaultValues),
       validationRules: JSON.stringify(field.validationRules),
-      fieldType: connectNode(field.fieldType),
-      api: connectNode(field.interfaceTypeId),
+      fieldType: connectNodeId(field.fieldType),
+      api: connectNodeId(field.interfaceTypeId),
     }))
 
     const {
@@ -97,7 +97,7 @@ export class FieldService
     data: ICreateFieldDTO,
   ) {
     const input: FieldUpdateInput = {
-      fieldType: reconnectNode(data.fieldType),
+      fieldType: reconnectNodeId(data.fieldType),
       description: data.description,
       id: data.id,
       key: data.key,

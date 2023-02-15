@@ -54,8 +54,8 @@ export const CodeMirrorInput = ({
         basicSetup: false,
         value,
         onUpdate,
-        onChange: (v: string, view: ViewUpdate) => {
-          onChange(v)
+        onChange: (_value: string, view: ViewUpdate) => {
+          onChange(_value)
         },
       },
       overWriteOpts,

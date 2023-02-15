@@ -1,4 +1,3 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { EntitySchema } from '@codelab/shared/abstract/types'
 import { z } from 'zod'
 import { OwnerSchema } from './user.interface'

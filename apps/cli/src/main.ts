@@ -24,8 +24,9 @@ config({})
  */
 void yargs(hideBin(process.argv))
   .scriptName('cli')
-  // .options(getEnvOptions([Stage.Dev, Stage.Test, Stage.Prod]))
-  // .middleware(loadStageMiddleware)
+  // Moved this to subcommand
+  // .options({ ...getStageOptions([Stage.Dev, Stage.Test, Stage.Prod]) })
+  // .middleware([loadStageMiddleware])
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */

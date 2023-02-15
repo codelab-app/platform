@@ -145,8 +145,8 @@ export const PricingBody = () => {
             </div>
             <div css={tw`px-0 sm:px-4 md:px-0 lg:px-4 xl:px-0 2xl:px-4`}>
               <ul css={tw`list-none p-0`}>
-                {items.description.map((list, i) => (
-                  <li css={tw`flex `} key={i}>
+                {items.description.map((list, descriptionIndex) => (
+                  <li css={tw`flex `} key={descriptionIndex}>
                     <FontAwesomeIcon
                       css={[
                         items.descriptionColor,

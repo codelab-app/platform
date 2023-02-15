@@ -18,7 +18,7 @@ import type {
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { reconnectNode } from '@codelab/shared/domain/mapper'
+import { reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -189,7 +189,7 @@ export class ComponentService
       componentApi.UpdateComponents({
         update: {
           name,
-          childrenContainerElement: reconnectNode(childrenContainerElementId),
+          childrenContainerElement: reconnectNodeId(childrenContainerElementId),
         },
         where: { id: existingComponent.id },
       }),
@@ -257,9 +257,9 @@ export class ComponentService
   @modelAction
   writeClonesCache(componentFragment: IComponentDTO) {
     return [...this.clonedComponents.values()]
-      .filter((c) => c.sourceComponentId === componentFragment.id)
-      .map((c) => {
-        const clonedChildrenContainer = c.elementTree?.elementsList.find(
+      .filter((component) => component.sourceComponentId === componentFragment.id)
+      .map((component) => {
+        const clonedChildrenContainer = component.elementTree?.elementsList.find(
           ({ sourceElementId }) =>
             sourceElementId === componentFragment.childrenContainerElement.id,
         )

@@ -9,7 +9,7 @@ import type {
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
-import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -80,7 +80,7 @@ export class TagService
         id: v4(),
         name: tag.name,
         owner: connectOwner(tag.auth0Id),
-        parent: connectNode(tag.parentTagId),
+        parent: connectNodeId(tag.parentTagId),
       }
     })
 

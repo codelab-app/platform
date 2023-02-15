@@ -8,9 +8,9 @@ export const interfaceTypeParser = (type: string) => {
     // Replace brackets, optional, and space
     .replace(/[{}? ]/g, '')
     .split(',')
-    .map((x) => {
+    .map((typeValue) => {
       // Add quotes around each value so we can json parse
-      const objectString = `{ "${x.trim().replace(':', '":"')}" }`
+      const objectString = `{ "${typeValue.trim().replace(':', '":"')}" }`
       const object = JSON.parse(objectString)
       const fieldKey = Object.keys(object)[0]
       const fieldType = Object.values(object)[0] as string

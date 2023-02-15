@@ -16,12 +16,12 @@ export const useBuilderHoverHandlers = ({
   currentDragData,
   set_hoveredNode,
 }: UseBuilderHoverHandlersProps) => {
-  const handleMouseOver = useCallback((e: MouseEvent) => {
+  const handleMouseOver = useCallback((event: MouseEvent) => {
     if (currentDragData) {
       return
     }
 
-    const target = e.target as HTMLElement | undefined
+    const target = event.target as HTMLElement | undefined
 
     if (!target) {
       set_hoveredNode(null)

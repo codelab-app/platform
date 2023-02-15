@@ -1,30 +1,29 @@
 import type {
-  IBaseType,
-  IPrimitiveType,
+  ICreateType,
   IType,
   IUserRef,
 } from '@codelab/backend/abstract/core'
-import { ITypeFactory } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type {
-  BaseUniqueWhere,
+  BaseTypeUniqueWhereCallback,
   DistributiveOmit,
 } from '@codelab/shared/abstract/types'
-import omit from 'lodash/omit'
 import { ActionTypeFactory } from './action-type.factory'
+import { ArrayTypeFactory } from './array-type.factory'
 import { EnumTypeFactory } from './enum-type.factory'
 import { InterfaceTypeFactory } from './interface-type.factory'
 import { PrimitiveTypeFactory } from './primitive-type.factory'
 import { ReactNodeTypeFactory } from './react-node-type.factory'
 import { RenderPropsTypeFactory } from './render-props.factory'
+import { UnionTypeFactory } from './union-type.factory'
 
 export class TypeFactory {
   static async create(
-    data: DistributiveOmit<IType, 'owner'>,
+    data: DistributiveOmit<ICreateType, 'owner'>,
     owner: IUserRef,
-    where: BaseUniqueWhere,
-  ) {
-    const type: IType = { ...data, owner }
+    where: BaseTypeUniqueWhereCallback<IType> = (type) => ({ id: type.name }),
+  ): Promise<IType> {
+    const type: ICreateType = { ...data, owner }
 
     /**
      * Type narrow using discriminated union
@@ -32,38 +31,50 @@ export class TypeFactory {
     switch (type.__typename) {
       case ITypeKind.PrimitiveType: {
         const factory = new PrimitiveTypeFactory()
-        await factory.create(type, where)
-        break
+
+        return await factory.create(type, where)
       }
 
       case ITypeKind.EnumType: {
         const factory = new EnumTypeFactory()
-        await factory.create(type, where)
-        break
+
+        return await factory.create(type, where)
       }
 
       case ITypeKind.InterfaceType: {
         const factory = new InterfaceTypeFactory()
-        await factory.create(type, where)
-        break
+
+        return await factory.create(type, where)
       }
 
       case ITypeKind.ReactNodeType: {
         const factory = new ReactNodeTypeFactory()
-        await factory.create(type, where)
-        break
+
+        return await factory.create(type, where)
       }
 
       case ITypeKind.RenderPropsType: {
         const factory = new RenderPropsTypeFactory()
-        await factory.create(type, where)
-        break
+
+        return await factory.create(type, where)
       }
 
       case ITypeKind.ActionType: {
         const factory = new ActionTypeFactory()
-        await factory.create(type, where)
-        break
+
+        return await factory.create(type, where)
+      }
+
+      case ITypeKind.UnionType: {
+        const factory = new UnionTypeFactory()
+
+        return await factory.create(type, where)
+      }
+
+      case ITypeKind.ArrayType: {
+        const factory = new ArrayTypeFactory()
+
+        return await factory.create(type, where)
       }
 
       default: {

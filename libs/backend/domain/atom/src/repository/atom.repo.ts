@@ -4,19 +4,19 @@ import {
   atomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
-  connectNode,
-  connectNodes,
-  whereNodeId,
+  connectNodeId,
+  connectNodeIds,
+  reconnectNodeId,
+  reconnectNodeIds,
   whereNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { checkIfValidUUID } from '@codelab/shared/utils'
 
 export class AtomRepository extends IRepository<IAtom> {
   private Atom = Repository.instance.Atom
 
-  async find(where: BaseUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere) {
     return (
       await (
         await this.Atom
@@ -25,14 +25,6 @@ export class AtomRepository extends IRepository<IAtom> {
         selectionSet: atomSelectionSet,
       })
     )[0]
-  }
-
-  async save(data: IAtom, where?: BaseUniqueWhere) {
-    if (await this.exists(data, where)) {
-      return this.update(data, this.getWhere(data, where))
-    }
-
-    return (await this.add([data]))[0]
   }
 
   /**
@@ -45,9 +37,9 @@ export class AtomRepository extends IRepository<IAtom> {
       ).create({
         input: atoms.map(({ tags, api, allowedChildren = [], ...atom }) => ({
           ...atom,
-          tags: connectNodes(tags.map((tag) => tag.id)),
-          api: connectNode(api.id),
-          allowedChildren: connectNodes(
+          tags: connectNodeIds(tags.map((tag) => tag.id)),
+          api: connectNodeId(api.id),
+          allowedChildren: connectNodeIds(
             allowedChildren.map((child) => child.id),
           ),
         })),
@@ -57,21 +49,21 @@ export class AtomRepository extends IRepository<IAtom> {
 
   protected async _update(
     { tags, api, allowedChildren = [], ...atom }: IAtom,
-    where: BaseUniqueWhere,
+    where: BaseTypeUniqueWhere,
   ) {
     return (
       await (
         await this.Atom
       ).update({
-        update: atom,
-        where,
-        connect: {
-          tags: whereNodeIds(tags.map((tag) => tag.id)),
-          api: whereNodeId(api.id),
+        update: {
+          ...atom,
+          tags: reconnectNodeIds(tags.map((tag) => tag.id)),
+          api: reconnectNodeId(api.id),
           allowedChildren: whereNodeIds(
             allowedChildren.map((child) => child.id),
           ),
         },
+        where,
       })
     ).atoms[0]
   }

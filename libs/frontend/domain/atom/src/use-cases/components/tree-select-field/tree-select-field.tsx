@@ -32,8 +32,8 @@ const TreeSelectComponent = ({
           value: 'id',
           children: 'children',
         }}
-        onChange={(v) => {
-          onValueChange(v)
+        onChange={(_value) => {
+          onValueChange(_value)
         }}
         placeholder="Please select"
         showCheckedStrategy={SHOW_PARENT}

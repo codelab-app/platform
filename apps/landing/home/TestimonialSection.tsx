@@ -6,7 +6,7 @@ import React from 'react'
 import type { Settings } from 'react-slick'
 import Slider from 'react-slick'
 import tw from 'twin.macro'
-import v from 'voca'
+import voca from 'voca'
 import styles from './customDots.module.css'
 
 const { Meta } = Card
@@ -24,9 +24,9 @@ export const TestimonialItem = ({
   role,
 }: TestimonialItemProps) => {
   const initials = (words: string) =>
-    v(words)
+    voca(words)
       .words()
-      .reduce((acc, curr) => `${acc}${v.first(curr)}`, '')
+      .reduce((acc, curr) => `${acc}${voca.first(curr)}`, '')
 
   return (
     <>

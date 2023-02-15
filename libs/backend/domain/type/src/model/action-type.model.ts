@@ -1,14 +1,10 @@
 import type {
   IActionType,
-  IField,
-  IInterfaceType,
-  IReactNodeType,
-  IRenderPropsType,
+  ICreateActionType,
   IUserRef,
 } from '@codelab/backend/abstract/core'
-import type { IModel } from '@codelab/backend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class ActionType extends BaseType implements IActionType {
@@ -22,7 +18,17 @@ export class ActionType extends BaseType implements IActionType {
 
   declare owner: IUserRef
 
-  constructor({ id, name, kind, owner }: IActionType) {
+  private constructor({ id, name, kind, owner }: IActionType) {
     super({ id, name, kind, __typename: ITypeKind.ActionType, owner })
+  }
+
+  static init({ owner }: ICreateActionType) {
+    return new ActionType({
+      id: v4(),
+      __typename: ITypeKind.ActionType,
+      kind: ITypeKind.ActionType,
+      name: ITypeKind.ActionType,
+      owner,
+    })
   }
 }

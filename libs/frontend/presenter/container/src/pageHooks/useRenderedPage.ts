@@ -76,7 +76,7 @@ export const useRenderedPage = ({
     const appStore = storeService.writeCache(app.store)
     appStore.state.setMany(appService.appsJson)
 
-    /** 
+    /**
      FIXME: mobx-keystone 1.2.0 requires frozen data to be serializable.
     // appStore.state.set('redirectToPage', setCurrentPageId)
     */
@@ -95,7 +95,7 @@ export const useRenderedPage = ({
     /**
      * if page was not loaded before load it.
      */
-    if (!app.pages.find((p) => p.id === pageId)) {
+    if (!app.pages.find(({ id }) => id === pageId)) {
       const { pages } = await pageService.getRenderedPage(pageId)
       const [loadedPage] = pages
 
@@ -123,7 +123,10 @@ export const useRenderedPage = ({
     /**
      * hot-reload makes commonPagesData contains invalid values, read from mobx store.
      */
-    const appTree = pageService.pagesList.find((p) => p.isProvider)?.elementTree
+    const appTree = pageService.pagesList.find(
+      ({ isProvider }) => isProvider,
+    )?.elementTree
+
     const appStore = storeService.stores.get(app.store.id)
 
     if (!appStore) {

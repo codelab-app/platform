@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 
 export const importActions = async (
   actions: Array<IActionExport>,
@@ -42,7 +42,7 @@ export const importActions = async (
       id: action.id,
       name: action.name,
       type: action.type,
-      store: connectNode(storeId),
+      store: connectNodeId(storeId),
     })),
   })
 
@@ -50,34 +50,34 @@ export const importActions = async (
 
   await ApiAction.create({
     input: apiActions.map((action) => ({
-      resource: connectNode(action.resource.id),
+      resource: connectNodeId(action.resource.id),
       id: action.id,
       name: action.name,
       type: action.type,
       successAction: {
-        ApiAction: connectNode(action.successAction?.id),
-        CodeAction: connectNode(action.successAction?.id),
+        ApiAction: connectNodeId(action.successAction?.id),
+        CodeAction: connectNodeId(action.successAction?.id),
       },
       errorAction: {
-        ApiAction: connectNode(action.errorAction?.id),
-        CodeAction: connectNode(action.errorAction?.id),
+        ApiAction: connectNodeId(action.errorAction?.id),
+        CodeAction: connectNodeId(action.errorAction?.id),
       },
       config: { create: { node: { data: action.config.data } } },
-      store: connectNode(storeId),
+      store: connectNodeId(storeId),
     })),
   })
 
   console.log('Updating ApiActions...')
 
-  for (const r of apiActions) {
+  for (const action of apiActions) {
     await ApiAction.update({
-      where: { id: r.id },
+      where: { id: action.id },
       update: {
         errorAction: {
-          ApiAction: connectNode(r.errorAction?.id),
+          ApiAction: connectNodeId(action.errorAction?.id),
         },
         successAction: {
-          ApiAction: connectNode(r.successAction?.id),
+          ApiAction: connectNodeId(action.successAction?.id),
         },
       },
     })

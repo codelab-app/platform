@@ -5,13 +5,13 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 
 export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
   private InterfaceType = Repository.instance.InterfaceType
 
-  async find(where: BaseUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere) {
     return (
       await (
         await this.InterfaceType
@@ -22,13 +22,13 @@ export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
     )[0]
   }
 
-  async save(interfaceType: IInterfaceType, where?: BaseUniqueWhere) {
-    if (await this.exists(interfaceType, where)) {
-      return this.update(interfaceType, this.getWhere(interfaceType, where))
-    }
+  // async save(interfaceType: IInterfaceType, where?: BaseTypeUniqueWhere) {
+  //   if (await this.exists(interfaceType, where)) {
+  //     return this.update(interfaceType, this.getWhere(interfaceType, where))
+  //   }
 
-    return (await this.add([interfaceType]))[0]
-  }
+  //   return (await this.add([interfaceType]))[0]
+  // }
 
   /**
    * If interface doesn't exist, we can safely assume that fields don't exist as well. So fields will always be created.
@@ -58,7 +58,7 @@ export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
    */
   protected async _update(
     { __typename, fields, owner, ...data }: IInterfaceType,
-    where: BaseUniqueWhere,
+    where: BaseTypeUniqueWhere,
   ) {
     return (
       await (
@@ -80,7 +80,7 @@ export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
       create: fields.map(({ api, fieldType, ...field }) => ({
         node: {
           ...field,
-          fieldType: connectNode(fieldType.id),
+          fieldType: connectNodeId(fieldType.id),
         },
       })),
     }

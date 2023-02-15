@@ -33,7 +33,7 @@ export class ActionTypedValueTransformer
       isString(value.value) &&
       Boolean(
         this.renderer.appStore.current.actions.find(
-          (a) => a.id === value.value,
+          (action) => action.id === value.value,
         ),
       )
     )
@@ -47,7 +47,7 @@ export class ActionTypedValueTransformer
     }
 
     const action = this.renderer.appStore.current.actions.find(
-      (a) => a.id === actionId,
+      ({ id }) => id === actionId,
     )
 
     if (!action) {

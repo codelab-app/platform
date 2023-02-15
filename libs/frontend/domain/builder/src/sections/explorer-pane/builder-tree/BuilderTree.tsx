@@ -102,7 +102,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
         }}
         // disabled={isMoving}
         expandedKeys={expandedNodeIds}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
         onDrop={handleDrop}
         onExpand={(expandedKeys) => {
           return setExpandedNodeIds(expandedKeys as Array<string>)

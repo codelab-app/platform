@@ -37,6 +37,13 @@ export const exportActionTypeSelectionSet = `{
   ${exportBaseSelection}
 }`
 
+export const exportArrayTypeSelectionSet = `{
+  ${exportBaseSelection}
+  itemType {
+    id
+  }
+}`
+
 export const exportEnumTypeSelectionSet = `{
   ${exportBaseSelection}
   allowedValues {
@@ -52,9 +59,13 @@ export const exportInterfaceTypeSelectionSet = `{
     ${fieldSelectionSet}
 }`
 
+export const exportUnionTypeSelectionSet = `{
+  ${exportBaseSelection}
+  descendantTypesIds
+}`
+
 export const interfaceTypeSelectionSet = `{
   ${baseSelection}
-
   fields
     ${fieldSelectionSet}
 }`

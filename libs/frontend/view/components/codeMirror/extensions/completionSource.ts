@@ -47,7 +47,7 @@ export const completionSource: CompletionExtension = (input) => {
     const options =
       !currentKey || currentKey === word?.text
         ? allOptions
-        : allOptions.filter((x) => x.label.includes(currentKey))
+        : allOptions.filter(({ label }) => label.includes(currentKey))
 
     return {
       from,

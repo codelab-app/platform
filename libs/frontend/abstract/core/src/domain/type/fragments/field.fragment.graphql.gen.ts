@@ -41,7 +41,9 @@ export const FieldFragmentDoc = gql`
       }
     }
     api {
-      id
+      ... on InterfaceType {
+        id
+      }
     }
     defaultValues
   }

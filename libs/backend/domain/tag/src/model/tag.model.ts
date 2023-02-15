@@ -3,7 +3,6 @@ import type {
   ITagPreview,
   IUserRef,
 } from '@codelab/backend/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 
 export class Tag implements ITag {
   declare id: string

@@ -40,8 +40,8 @@ export const useBuilderDnd = (
   )
 
   const onDragStart = useCallback(
-    (e: DragStartEvent) => {
-      const data = e.active.data.current as Maybe<BuilderDragData>
+    (event: DragStartEvent) => {
+      const data = event.active.data.current as Maybe<BuilderDragData>
 
       if (data?.type === BuilderDndType.CreateElement) {
         // In mobx-keystone v1.2.0, `frozen` will throw if property is not serializable

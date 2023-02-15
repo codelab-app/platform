@@ -10,7 +10,7 @@ import type {
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -86,7 +86,7 @@ export class DomainService
   ) {
     const input: Array<DomainCreateInput> = data.map((domain) => ({
       id: domain.id ?? v4(),
-      app: connectNode(domain.appId),
+      app: connectNodeId(domain.appId),
       name: domain.name,
     }))
 

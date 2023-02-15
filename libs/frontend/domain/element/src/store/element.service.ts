@@ -133,7 +133,10 @@ export class ElementService
     console.debug('ElementService.writeComponentsCache', elements)
 
     const components = elements
-      .map((v) => v.parentComponent || v.renderComponentType)
+      .map(
+        ({ parentComponent, renderComponentType }) =>
+          parentComponent || renderComponentType,
+      )
       .filter(isComponentDTO)
 
     return components.map((component) =>
@@ -355,7 +358,7 @@ export class ElementService
       }),
     )
 
-    return elements.map((e: IElementDTO) => this.writeCache(e))
+    return elements.map((_element: IElementDTO) => this.writeCache(_element))
   })
 
   /**
@@ -816,38 +819,41 @@ element is new parentElement's first child
 
   @computed
   get elementSlugs() {
-    return [...this.elements.values()].map((e) => e.slug)
+    return [...this.elements.values()].map(({ slug }) => slug)
   }
 
   // handle slug creation where many duplicates for the same element exists
   private createDuplicateSlug(element: IElement) {
-    const slug_root = `${element.slug}_duplicate`
+    const slugRoot = `${element.slug}_duplicate`
 
-    if (!this.elementSlugs.includes(slug_root)) {
-      return slug_root
+    if (!this.elementSlugs.includes(slugRoot)) {
+      return slugRoot
     }
 
     // find how many slug with following format `${slug_root}${index}`
-    const duplicates = this.elementSlugs.filter((s) => s.startsWith(slug_root))
+    const duplicates = this.elementSlugs.filter((slug) =>
+      slug.startsWith(slugRoot),
+    )
 
     /**
-     * Normally next_index = duplicates.length
+     * Normally nextIndex = duplicates.length
      * However, we need to make sure that index isn't used by user
      */
-    const next_index = until(
-      (x: number) => !duplicates.includes(`${slug_root}${x}`),
-      (v: number) => v + 1,
+    const nextIndex = until(
+      (predicateValue: number) =>
+        !duplicates.includes(`${slugRoot}${predicateValue}`),
+      (callbackValue: number) => callbackValue + 1,
     )(duplicates.length)
 
-    return `${slug_root}${next_index}`
+    return `${slugRoot}${nextIndex}`
   }
 
   private async recursiveDuplicate(element: IElement, parent: IElement) {
-    const duplicate_slug = this.createDuplicateSlug(element)
+    const duplicateSlug = this.createDuplicateSlug(element)
 
     const createInput: ElementCreateInput = makeDuplicateInput(
       element,
-      duplicate_slug,
+      duplicateSlug,
     )
 
     const {
@@ -882,7 +888,7 @@ element is new parentElement's first child
     )
 
     const oldToNewIdMap: Map<string, IElement> = children.reduce(
-      (a, m) => new Map([...a, ...m]),
+      (acc, curElementModel) => new Map([...acc, ...curElementModel]),
       new Map([[element.id, elementModel]]),
     )
 

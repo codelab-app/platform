@@ -1,5 +1,3 @@
-import type { BaseUniqueWhere, IEntity } from '@codelab/shared/abstract/types'
-
 /**
  * Extended by our domain models
  */

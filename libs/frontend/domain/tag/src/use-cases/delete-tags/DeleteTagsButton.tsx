@@ -9,7 +9,7 @@ import { tagRef } from '../../store'
 export const DeleteTagsButton = observer<
   { tagService: ITagService } & Omit<DeleteButtonProps, 'ids'>
 >(({ disabled, tagService }) => {
-  const ids = tagService.checkedTags.map((c) => c.id)
+  const ids = tagService.checkedTags.map((tag) => tag.id)
 
   return (
     <Button

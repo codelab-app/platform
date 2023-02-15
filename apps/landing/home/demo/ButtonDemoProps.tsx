@@ -27,8 +27,8 @@ export const demoCardPropState = atom<DemoCardProps>({
 const { Option } = Select
 
 export const ButtonPropsForm = () => {
-  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('click left button', e)
+  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('click left button', event)
   }
 
   const [demoCardProp, setDemoCardProp] = useRecoilState(demoCardPropState)
@@ -49,10 +49,10 @@ export const ButtonPropsForm = () => {
         <Descriptions.Item label="type">
           <Radio.Group
             defaultValue="primary"
-            onChange={(e) => {
+            onChange={(event) => {
               setDemoCardProp({
                 ...demoCardProp,
-                type: e.target.value as ButtonProps['type'],
+                type: event.target.value as ButtonProps['type'],
               })
             }}
             size="middle"

@@ -21,26 +21,30 @@ export const useTrackLoadingPromises = (): UseTrackLoadingPromises => {
   const [promises, setPromises] = useState<Array<Promise<unknown>>>([])
 
   useEffect(() => {
-    setState((s) => ({ ...s, loading: promises.length !== 0 }))
+    setState((state) => ({ ...state, loading: promises.length !== 0 }))
   }, [promises.length])
 
   const trackPromise = useCallback(
     (promise: Promise<unknown>) => {
       setPromises((prev) => [...prev, promise])
-      setState((s) => ({ ...s, isErrored: false }))
+      setState((state) => ({ ...state, isErrored: false }))
 
       return promise
-        .then((r) => {
-          setPromises((previous) => previous.filter((p) => p !== promise))
-          setState((s) => ({ ...s, error: undefined }))
+        .then((result) => {
+          setPromises((previous) =>
+            previous.filter((_promise) => _promise !== promise),
+          )
+          setState((_state) => ({ ..._state, error: undefined }))
 
-          return r
+          return result
         })
-        .catch((e) => {
-          setPromises((prs) => prs.filter((p) => p !== promise))
-          setState((s) => ({ ...s, error: e }))
+        .catch((_error) => {
+          setPromises((_promises) =>
+            _promises.filter((_promise) => _promise !== promise),
+          )
+          setState((_state) => ({ ..._state, error: _error }))
 
-          return e
+          return _error
         })
     },
     [setState],

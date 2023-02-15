@@ -30,7 +30,7 @@ export const useGetAllAtoms = () => {
 
   const atomOptions =
     value
-      ?.filter((x) => filterNotHookType(x.type))
+      ?.filter(({ type }) => filterNotHookType(type))
       .map((atom) => ({ label: atom.name, value: atom.id })) ?? []
 
   return { atomOptions, loading, error }
@@ -43,8 +43,8 @@ export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
   /**
    * Sort for now before data is added
    */
-  const filteredOptions = atomOptions.sort((a) =>
-    allowedChildrenIds?.includes(a.value) ? -1 : 1,
+  const filteredOptions = atomOptions.sort(({ value }) =>
+    allowedChildrenIds?.includes(value) ? -1 : 1,
   )
 
   return (

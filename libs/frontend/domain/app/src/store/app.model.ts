@@ -49,7 +49,7 @@ export class App
         id: this.id,
         name: this.name,
         slug: this.slug,
-        pages: this.pages.map((p) => p.current.toJson).reduce(merge, {}),
+        pages: this.pages.map((page) => page.current.toJson).reduce(merge, {}),
       },
     }
   }

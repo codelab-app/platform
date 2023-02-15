@@ -1,9 +1,8 @@
 import type {
-  AntDesignFieldsByFile,
-  ExistingData,
+  AntDesignField,
   IAtom,
-  IAtomImport,
   IField,
+  IType,
   IUserRef,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
@@ -11,18 +10,17 @@ import {
   atomTypeKeyByFileName,
   SeedAtomsService,
 } from '@codelab/backend/application/atom'
+import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
   Field,
   FieldRepository,
-  InterfaceType,
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
+import { TransformAntDesignTypesService } from '../transform-ant-design-types/transform-ant-design-types.service'
 import { readCsvFiles } from './read-csv-files'
 // import { upsertFieldType } from '../../repository/type/upsert-field-type'
 
@@ -40,10 +38,15 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
 
   fieldRepository: FieldRepository = new FieldRepository()
 
+  atomRepository: AtomRepository = new AtomRepository()
+
   interfaceTypeRepository: InterfaceTypeRepository =
     new InterfaceTypeRepository()
 
-  private constructor(atoms: Array<IAtom>) {
+  /**
+   * @param atoms Created from hard coded atoms data
+   */
+  private constructor(atoms: Array<IAtom>, private readonly owner: IUserRef) {
     super()
     this.atoms = atoms
       .map((atom) => ({
@@ -55,123 +58,120 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
   static async init(owner: IUserRef) {
     const atoms = await new SeedAtomsService().createAtomsData(owner)
 
-    return new SeedAntDesignFieldsService(atoms)
+    return new SeedAntDesignFieldsService(atoms, owner)
   }
 
   /**
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
-  async _execute() {
+  protected async _execute() {
     const antdCsvData = await readCsvFiles(this.antdDataFolder)
     const reactCsvData = await readCsvFiles(this.reactDataFolder)
-    const csvData = { ...antdCsvData, ...reactCsvData }
-    const fields = this.transform(csvData)
+    const csvDataByFile = { ...antdCsvData, ...reactCsvData }
+    console.log(this.atoms)
 
-    await Promise.all(
-      (await fields).map((field) => this.fieldRepository.save(field)),
-    )
-  }
+    /**
+     * Break down function to act on each file
+     */
+    for await (const [file, antDesignFields] of Object.entries(csvDataByFile)) {
+      const atomName = file.replace('.csv', '')
+      const atomType = atomTypeKeyByFileName[atomName]
 
-  private async transform(
-    fieldsByFile: AntDesignFieldsByFile,
-  ): Promise<Array<IField>> {
-    const fields: Array<IField> = []
-
-    for (const [file, atomFields] of Object.entries(fieldsByFile)) {
-      const atomName = atomTypeKeyByFileName[file.replace('.csv', '')]
-
-      if (!atomName) {
-        console.log('Missing atom data for file', file)
-
+      if (!atomType) {
         continue
       }
 
-      const atom = (await this.atoms)[atomName]
+      const atom = this.atoms[atomType]
 
       if (!atom) {
-        console.log('Atom data not found', atomName)
-
         continue
       }
 
-      const _fields = await atomFields.reduce<Promise<Array<IField>>>(
-        async (accFields, field) => {
-          const fieldType = await this.fieldRepository.find({
-            name: Field.compositeKey(atom.api.name, field.property),
-          })
+      const fields = await this.transformFields(atom, antDesignFields)
 
-          if (!fieldType) {
-            console.log('Field type not found', fieldType)
-          }
-
-          const api = await this.interfaceTypeRepository.find({
-            name: InterfaceType.getApiName(atom),
-          })
-
-          if (!api) {
-            throw new Error('Missing api')
-          }
-
-          // TODO: Need to create field types that don't exist
-
-          // logger.info('Field Type', {
-          //   existingField,
-          //   name: `${atom.api.name}-${field.property}`,
-          //   fieldType,
-          // })
-
-          const innerField: Array<IField> = fieldType
-            ? [
-                {
-                  id: v4(),
-                  key: field.property,
-                  name: compoundCaseToTitleCase(field.property),
-                  description: field.description,
-                  // Return empty string for filtering later
-                  fieldType,
-                  api,
-                  // Set default validation rules
-                  // validationRules: {
-                  //   general: {
-                  //     nullable: true,
-                  //   },
-                  // },
-                  defaultValues: null,
-                },
-              ]
-            : []
-
-          return [...(await accFields), ...innerField]
-        },
-        Promise.resolve([]),
-      )
-
-      const filteredFields = _fields.filter((field): field is IField => {
-        return Boolean(field.fieldType)
-      })
-
-      fields.push(...filteredFields)
+      for await (const field of fields) {
+        await this.fieldRepository.save(field, {
+          api: {
+            id: atom.api.id,
+          },
+          key: field.key,
+        })
+      }
     }
-
-    return fields
   }
 
-  static mapPrimitiveType = (value: string) => {
-    switch (value) {
-      case 'boolean':
-        return IPrimitiveTypeKind.Boolean
-      case 'string':
-        return IPrimitiveTypeKind.String
-      case 'ReactNode':
-        return ITypeKind.ReactNodeType
-      case 'number':
-        return IPrimitiveTypeKind.Number
-      case 'integer':
-        return IPrimitiveTypeKind.Integer
-      default:
-        console.log(`Type not found: [${value}]`)
+  private async transformFields(
+    atom: IAtom,
+    atomFields: Array<AntDesignField>,
+  ) {
+    return await atomFields.reduce<Promise<Array<IField>>>(
+      async (accFields, field) => {
+        /**
+         * Get the existing atom first, these should have already been seeded at this point
+         */
+        let existingField: IField | undefined = await this.fieldRepository.find(
+          {
+            // name: compoundCaseToTitleCase(field.property),
+            key: field.property,
+            api: {
+              id: atom.api.id,
+            },
+          },
+        )
 
-        return null
-    }
+        /**
+         * If field doesn't exist try to create it here
+         */
+        if (!existingField) {
+          /**
+           * This is the field type we want from the field, this is a local copy so we'll need to upsert
+           */
+          const fieldTypeDTO =
+            await new TransformAntDesignTypesService().execute({
+              field,
+              atom,
+              owner: this.owner,
+            })
+
+          /**
+           * If field type can't be transformed by our parser, then we skip it by returning the accumulator
+           */
+          if (!fieldTypeDTO) {
+            return [...(await accFields)]
+          }
+
+          /**
+           * We need to upsert here by specifying where as name
+           */
+          const type = await TypeFactory.create(
+            fieldTypeDTO,
+            this.owner,
+            (typeData: IType) => ({ name: typeData.name }),
+          )
+
+          existingField = Field.init({
+            id: v4(),
+            key: field.property,
+            name: compoundCaseToTitleCase(field.property),
+            description: field.description,
+            /**
+             * Need to get type from the field type
+             *
+             * If doesn't exist like union or interface we'll need to create it
+             */
+            fieldType: type,
+            api: { id: atom.api.id },
+            defaultValues: null,
+          })
+        }
+
+        return [...(await accFields), existingField]
+      },
+      Promise.resolve([]),
+    )
+
+    // const filteredFields = _fields.filter((field): field is IField => {
+    //   return Boolean(field.fieldType)
+    // })
   }
 }

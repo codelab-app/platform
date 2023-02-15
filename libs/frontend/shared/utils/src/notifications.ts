@@ -21,7 +21,7 @@ const defaultOptions: NotificationOptions = {
 
 export const notify = <TEvent>(
   options: NotificationOptions<TEvent>,
-  e: Maybe<TEvent> = undefined,
+  event: Maybe<TEvent> = undefined,
 ) => {
   const { content, type, title } = { ...defaultOptions, ...options }
   let titleString = ''
@@ -30,7 +30,7 @@ export const notify = <TEvent>(
   if (isString(title)) {
     titleString = title
   } else if (isFunction(title)) {
-    titleString = title(e)
+    titleString = title(event)
   } else if (type === 'error') {
     titleString = 'Error'
   }
@@ -38,9 +38,9 @@ export const notify = <TEvent>(
   if (isString(content)) {
     contentString = content
   } else if (isFunction(content)) {
-    contentString = content(e)
+    contentString = content(event)
   } else if (type === 'error') {
-    contentString = extractErrorMessage(e)
+    contentString = extractErrorMessage(event)
   }
 
   notification[type || 'info']({
@@ -69,12 +69,12 @@ export const useNotify = (
 ): UseNotifyReturnType => {
   const onSuccess = () => notify({ ...success, type: 'success' })
 
-  const onError = (e: unknown) => {
-    console.error(e)
+  const onError = (_error: unknown) => {
+    console.error(_error)
     notify({
       ...error,
       type: 'error',
-      content: error.content || extractErrorMessage(e),
+      content: error.content || extractErrorMessage(_error),
     })
   }
 
@@ -91,7 +91,7 @@ export const useNotify = (
  *  .catch(getNotificationHandler({...options}))
  */
 export const createNotificationHandler =
-  <TEvent>(o: NotificationOptions<TEvent> = defaultOptions) =>
-  (e: Maybe<TEvent> = undefined) => {
-    notify(o, e)
+  <TEvent>(options: NotificationOptions<TEvent> = defaultOptions) =>
+  (event: Maybe<TEvent> = undefined) => {
+    notify(options, event)
   }

@@ -19,9 +19,9 @@ export const createAutoCompleteOptions = (
 
     if (isArray(value)) {
       // [item1, item2 ...] = value
-      const children = value.flatMap((v, index) =>
+      const children = value.flatMap((_value, index) =>
         // [...autoComplete of item1 [option1,2...], ...autoComplete of item2, ...]
-        createAutoCompleteOptions(v, `${key}.${index}`),
+        createAutoCompleteOptions(_value, `${key}.${index}`),
       )
 
       return [option, ...children]

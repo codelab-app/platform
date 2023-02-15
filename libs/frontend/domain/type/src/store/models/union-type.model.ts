@@ -30,7 +30,9 @@ const hydrate = ({
     id,
     kind,
     name,
-    typesOfUnionType: typesOfUnionType.map((t) => typeRef(t.id)),
+    typesOfUnionType: typesOfUnionType.map((typeOfUnionType) =>
+      typeRef(typeOfUnionType.id),
+    ),
     ownerId: owner.id,
   })
 }
@@ -50,7 +52,9 @@ export class UnionType
       throw new Error('Invalid UnionType')
     }
 
-    this.typesOfUnionType = fragment.typesOfUnionType.map((t) => typeRef(t.id))
+    this.typesOfUnionType = fragment.typesOfUnionType.map((typeOfUnionType) =>
+      typeRef(typeOfUnionType.id),
+    )
 
     return this
   }

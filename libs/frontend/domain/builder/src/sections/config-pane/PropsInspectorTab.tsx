@@ -77,8 +77,8 @@ const PropsInspectorTab = observer(
         <CodeMirrorEditor
           height="150px"
           language={ICodeMirrorLanguage.Json}
-          onChange={(v: string) => onChange(v)}
-          onSave={(v: string) => onSave(v)}
+          onChange={(value) => onChange(value)}
+          onSave={(value) => onSave(value)}
           title={`${isElement(node) ? 'Element' : 'Component'} props`}
           value={initialEditorValue}
         />

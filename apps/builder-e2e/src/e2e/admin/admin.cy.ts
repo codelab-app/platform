@@ -7,6 +7,7 @@ import { exportAndAssert, importData, seedData } from './assert'
 const createCypressUser = () =>
   cy.createUser({
     input: {
+      id: v4(),
       auth0Id: v4(),
       email: 'cypress@codelab.app',
       username: 'cypress@codelab.app',

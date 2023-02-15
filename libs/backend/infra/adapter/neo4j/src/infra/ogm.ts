@@ -3,7 +3,7 @@ import { OGM } from '@neo4j/graphql-ogm'
 import { typeDefs } from '../schema'
 import { getDriver } from './driver'
 
-// Keep a single OGM instance if possible
+// Keep a single OGM instance
 let ogm: OGM<OGM_TYPES.ModelMap> | undefined
 
 export const getOgm = async () => {

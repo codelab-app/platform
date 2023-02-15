@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, AudioHTMLAttributes } from 'react'
+import type { AnchorHTMLAttributes } from 'react'
 
 /**
  * The name exports here must be a key from IAtomType, unfortunately no way to validate this

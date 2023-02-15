@@ -1,22 +1,12 @@
-import type {
-  ITag,
-  IUserRef,
-  TagNodeData,
-} from '@codelab/backend/abstract/core'
-import { IInterfaceType } from '@codelab/backend/abstract/core'
-import type { IRepository } from '@codelab/backend/abstract/types'
+import type { IUserRef } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { atomsData } from '@codelab/backend/application/atom'
 import {
   InterfaceType,
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
-  TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
-import { v4 } from 'uuid'
 
 /**
  * Seed both interface types and fields

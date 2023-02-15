@@ -1,13 +1,10 @@
 import type {
-  IField,
-  IInterfaceType,
-  IReactNodeType,
+  ICreateRenderPropsType,
   IRenderPropsType,
   IUserRef,
 } from '@codelab/backend/abstract/core'
-import type { IModel } from '@codelab/backend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class RenderPropsType extends BaseType implements IRenderPropsType {
@@ -21,7 +18,17 @@ export class RenderPropsType extends BaseType implements IRenderPropsType {
 
   declare owner: IUserRef
 
-  constructor({ id, name, kind, owner }: IRenderPropsType) {
+  private constructor({ id, name, kind, owner }: IRenderPropsType) {
     super({ id, name, kind, __typename: ITypeKind.RenderPropsType, owner })
+  }
+
+  static init({ owner }: ICreateRenderPropsType) {
+    return new RenderPropsType({
+      id: v4(),
+      __typename: ITypeKind.RenderPropsType,
+      kind: ITypeKind.RenderPropsType,
+      name: ITypeKind.RenderPropsType,
+      owner,
+    })
   }
 }

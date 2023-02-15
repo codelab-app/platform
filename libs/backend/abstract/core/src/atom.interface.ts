@@ -1,12 +1,8 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import {
-  BaseUniqueWhereCallback,
-  EntitySchema,
-} from '@codelab/shared/abstract/types'
+import { EntitySchema } from '@codelab/shared/abstract/types'
 import type { Assign } from 'utility-types'
 import { z } from 'zod'
 import type { ExistingData } from './seed'
-import type { ITag } from './tag.interface'
 import { TagSchema } from './tag.interface'
 import { InterfaceTypeSchema } from './type'
 

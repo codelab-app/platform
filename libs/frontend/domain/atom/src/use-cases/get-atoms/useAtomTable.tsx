@@ -24,10 +24,10 @@ const onLibraryFilter = (
   value: string | number | boolean,
   atom: AtomRecord,
 ): boolean => {
-  const list = [atom.name, atom.type].map((x) => x.toLowerCase())
+  const list = [atom.name, atom.type].map((item) => item.toLowerCase())
   const search = value.toString().toLowerCase()
 
-  return list.some((x) => x.startsWith(search))
+  return list.some((item) => item.startsWith(search))
 }
 
 export const useAtomTable = ({
@@ -134,7 +134,7 @@ export const useAtomTable = ({
   const rowSelection: TableRowSelection<AtomRecord> = {
     type: 'checkbox',
     onChange: (_: Array<React.Key>, selectedRows: Array<AtomRecord>) => {
-      atomService.setSelectedIds(arraySet(selectedRows.map((a) => a.id)))
+      atomService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
     },
   }
 

@@ -77,7 +77,7 @@ export const UnionTypeTable = observer<UnionTypeTableProps>(
         }}
         loading={isLoading}
         pagination={{ disabled: false, hideOnSinglePage: true }}
-        rowKey={(f) => f.id}
+        rowKey={({ id }) => id}
         size="small"
       />
     )

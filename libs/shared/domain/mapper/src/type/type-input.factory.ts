@@ -10,7 +10,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import { connectNode } from '../orm'
+import { connectNodeId } from '../orm'
 
 const makeAllTypes = (input: IPropData) =>
   Object.values(ITypeKind)
@@ -59,7 +59,7 @@ export const makeAllowedValuesNodeInput = (value: IEnumTypeValue) => {
 }
 
 export const makeItemTypeCreateInput = (type: IUpdateTypeDTO) => {
-  return type.arrayTypeId ? makeAllTypes(connectNode(type.arrayTypeId)) : {}
+  return type.arrayTypeId ? makeAllTypes(connectNodeId(type.arrayTypeId)) : {}
 }
 
 export const getInterfaceName = (type: string) =>

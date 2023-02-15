@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { createSlug, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import { connectNode, reconnectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -84,7 +84,7 @@ export class PageService
   }
 
   pagesByApp(appId: string) {
-    return this.pagesList.filter((p) => p.app.id === appId)
+    return this.pagesList.filter((page) => page.app.id === appId)
   }
 
   page(id: string) {
@@ -111,9 +111,9 @@ export class PageService
         update: {
           name,
           slug: createSlug(slug, appId),
-          app: connectNode(appId),
+          app: connectNodeId(appId),
           getServerSideProps,
-          pageContainerElement: reconnectNode(pageContainerElementId),
+          pageContainerElement: reconnectNodeId(pageContainerElementId),
         },
         where: { id: existingPage.id },
       }),
@@ -152,7 +152,7 @@ export class PageService
         id: pageId,
         name: page.name,
         slug: createSlug(page.slug, page.appId),
-        app: connectNode(page.appId),
+        app: connectNodeId(page.appId),
         getServerSideProps: page.getServerSideProps,
         rootElement: {
           create: {

@@ -1,9 +1,8 @@
-import { upsertUser } from '@codelab/backend/domain/user'
-import { Role } from '@codelab/shared/abstract/codegen'
+import { User, UserRepository } from '@codelab/backend/domain/user'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { EnvBuilder } from '@codelab/shared/env'
 import { v4 } from 'uuid'
 import type { MiddlewareFunction, Options } from 'yargs'
-import { Stage } from './utils/stage'
 
 export interface ExportProps {
   seedDataPath?: string
@@ -60,15 +59,16 @@ export const upsertUserMiddleware: MiddlewareFunction<unknown> = async ({
 }) => {
   // Perform upsert here
   // if (env === Stage.Test) {
-  await upsertUser(
-    {
-      auth0Id: v4(),
-      // email: EnvBuilder().auth0.cypress_username!,
-      email: 'admin@codelab.app',
-      username: 'Codelab',
-      roles: [Role.Admin],
-    },
-    (user) => ({ email: user.email }),
-  )
+  const userRepository: UserRepository = new UserRepository()
+
+  const user = new User({
+    id: v4(),
+    auth0Id: v4(),
+    email: EnvBuilder().auth0.cypress_username!,
+    username: 'Codelab',
+    roles: [OGM_TYPES.Role.Admin],
+  })
+
+  await userRepository.save(user, { email: user.email })
   // }
 }

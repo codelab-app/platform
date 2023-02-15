@@ -10,7 +10,7 @@ export const validate = async (pages: Array<IPageExport>) => {
     pages,
     (page) =>
       page.elements
-        .map((e) => e.renderAtomType?.id)
+        .map((element) => element.renderAtomType?.id)
         .filter(Boolean) as Array<string>,
   )
 
@@ -21,7 +21,7 @@ export const validate = async (pages: Array<IPageExport>) => {
   })
 
   const foundAtomsMap = new Map<string, OGM_TYPES.Atom>(
-    foundAtoms.map((f) => [f.id, f]),
+    foundAtoms.map((atom) => [atom.id, atom]),
   )
 
   const notFound = allAtomIds.filter((id) => !foundAtomsMap.has(id))

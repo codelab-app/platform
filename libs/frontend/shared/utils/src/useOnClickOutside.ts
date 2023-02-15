@@ -13,12 +13,12 @@ export const useOnClickOutside = (
   const handlerCb = useCallback(handler, deps)
 
   useEffect(() => {
-    const listener: OnClickHandler = (e) => {
-      if (!ref.current || ref.current.contains(e.target as Node)) {
+    const listener: OnClickHandler = (error) => {
+      if (!ref.current || ref.current.contains(error.target as Node)) {
         return
       }
 
-      handlerCb(e)
+      handlerCb(error)
     }
 
     document.addEventListener('mousedown', listener, true)

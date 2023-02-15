@@ -10,7 +10,9 @@ fragment Field on Field {
     }
   }
   api {
-    id
+    ... on InterfaceType {
+      id
+    }
   }
   defaultValues
 }

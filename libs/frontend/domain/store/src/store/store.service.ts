@@ -54,7 +54,7 @@ export class StoreService
   @modelAction
   private updateActionsCache(stores: Array<IStoreDTO>) {
     const actionService = getActionService(this)
-    const actions = stores.flatMap((s) => s.actions)
+    const actions = stores.flatMap((store) => store.actions)
 
     return actions.map((action) => actionService.writeCache(action))
   }
@@ -62,7 +62,7 @@ export class StoreService
   @modelAction
   private async fetchStatesApis(stores: Array<IStoreDTO>) {
     return await this.typeService.getAllWithDescendants(
-      stores.map((x) => x.api.id),
+      stores.map((store) => store.api.id),
     )
   }
 

@@ -1,4 +1,4 @@
-import type { ExportedData, ITagExport } from '@codelab/backend/abstract/core'
+import type { ExportedData, ITag } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdTagTree } from 'libs/shared/data/seed/src/tag/antd/antd-tag-tree.data'
 import { AntdTag } from 'libs/shared/data/seed/src/tag/antd/antd-tags.data'
@@ -58,9 +58,9 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
      */
     const allAtomNames = Object.values(IAtomType)
 
-    const assignedTags = hydratedAtoms.reduce<Array<ITagExport>>(
+    const assignedTags = hydratedAtoms.reduce<Array<ITag>>(
       (atomTags, atom) => [
-        ...atom.tags.filter((t): t is ITagExport => Boolean(t)),
+        ...atom.tags.filter((tag): tag is ITag => Boolean(tag)),
         ...atomTags,
       ],
       [],

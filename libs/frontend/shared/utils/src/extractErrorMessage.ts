@@ -5,34 +5,34 @@ import type { AsyncState } from 'react-use/lib/useAsyncFn'
 
 export const extractErrorMessage = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  e: AsyncState<unknown> | string | ApolloError | Error | undefined | any,
+  error: AsyncState<unknown> | string | ApolloError | Error | undefined | any,
 ): string => {
-  if (!e) {
+  if (!error) {
     return ''
   }
 
-  console.error(JSON.stringify(e))
+  console.error(JSON.stringify(error))
 
-  if (isString(e)) {
-    return e
+  if (isString(error)) {
+    return error
   }
 
-  if (Array.isArray(e)) {
-    return e.map(extractErrorMessage).join('\n')
+  if (Array.isArray(error)) {
+    return error.map(extractErrorMessage).join('\n')
   }
 
-  if (isObjectLike(e)) {
-    if (e.error) {
-      return extractErrorMessage(e.error)
+  if (isObjectLike(error)) {
+    if (error.error) {
+      return extractErrorMessage(error.error)
     }
 
-    if (e.errors) {
-      return extractErrorMessage(e.errors)
+    if (error.errors) {
+      return extractErrorMessage(error.errors)
     }
 
     //
-    if (e.response) {
-      return extractErrorMessage(e.response)
+    if (error.response) {
+      return extractErrorMessage(error.response)
     }
 
     //
@@ -40,12 +40,12 @@ export const extractErrorMessage = (
     //   return extractErrorMessage(e.data)
     // }
     //
-    if (e.message) {
-      return extractErrorMessage(e.message)
+    if (error.message) {
+      return extractErrorMessage(error.message)
     }
 
-    if (e.extensions?.response) {
-      return `[${e.extensions.response.message}]: ${e.extensions.response.error}`
+    if (error.extensions?.response) {
+      return `[${error.extensions.response.message}]: ${error.extensions.response.error}`
       // return e.graphQLErrors[0].extensions
       //   ? `[${e.message}]: ${
       //       (e.graphQLErrors[0].extensions.response as any)?.error
@@ -54,5 +54,5 @@ export const extractErrorMessage = (
     }
   }
 
-  return JSON.stringify(e)
+  return JSON.stringify(error)
 }

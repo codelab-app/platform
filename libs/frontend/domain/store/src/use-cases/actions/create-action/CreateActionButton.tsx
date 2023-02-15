@@ -10,8 +10,8 @@ export const CreateActionButton = observer<{ actionService: IActionService }>(
     <Button
       css={tw`flex justify-center items-center`}
       icon={<PlusOutlined />}
-      onClick={(e) => {
-        e.stopPropagation()
+      onClick={(event) => {
+        event.stopPropagation()
         actionService.createModal.open()
       }}
       size="small"

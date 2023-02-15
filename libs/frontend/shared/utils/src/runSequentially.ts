@@ -36,10 +36,10 @@ export const runSequentially = <A extends Array<unknown>, R>(
       deferred.resolve()
 
       return result
-    } catch (e: unknown) {
+    } catch (error: unknown) {
       deferred.reject()
 
-      throw e
+      throw error
     } finally {
       const index = pendingPromises[key]?.indexOf(deferred.promise) as number
       pendingPromises[key]?.splice(index, 1)

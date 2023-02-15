@@ -4,7 +4,7 @@ import {
   PROJECT_NOT_FOUND,
   vercelApis,
 } from '@codelab/backend/infra/adapter/vercel'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { logTask } from '@codelab/shared/utils'
 
 /**
@@ -82,7 +82,7 @@ export const createDomainIfNotExist = async (domain: IDomainExport) => {
       {
         id: domain.id,
         name: domain.name,
-        app: connectNode(domain.app.id),
+        app: connectNodeId(domain.app.id),
       },
     ],
   })

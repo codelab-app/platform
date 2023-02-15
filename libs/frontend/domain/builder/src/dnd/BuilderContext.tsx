@@ -34,19 +34,19 @@ export const BuilderContext = observer<
 
   const autoScroll = useMemo(
     () => ({
-      canScroll: (e: Element) => {
+      canScroll: (element: Element) => {
         const renderRoot = document.getElementById(ROOT_RENDER_CONTAINER_ID)
 
-        return e.contains(renderRoot)
+        return element.contains(renderRoot)
       },
     }),
     [],
   )
 
   const onDragStartHandler = useCallback(
-    (e: DragStartEvent) => {
-      setDraggedElement(e.active)
-      onDragStart(e)
+    (event: DragStartEvent) => {
+      setDraggedElement(event.active)
+      onDragStart(event)
     },
     [onDragStart],
   )

@@ -6,21 +6,24 @@ export const whereNodeIds = (ids: Array<string>) =>
 /**
  * Trying this version out before combining, so we don't break others
  */
+export const whereNullableNodeId = (id?: string | null) =>
+  id ? whereNodeId(id) : null
+
+export const whereNullableNodeIds = (ids?: Array<string> | null) =>
+  ids ? whereNodeIds(ids) : null
+
+/**
+ * Not sure if we should use `null` or `undefined`
+ */
 export const whereMaybeNodeId = (id?: string | null) =>
-  id ? whereNode('id', id) : undefined
+  id ? whereNodeId(id) : undefined
 
 export const whereMaybeNodeIds = (ids?: Array<string> | null) =>
   ids ? whereNodeIds(ids) : undefined
 
 /**
- * Not sure if we should use `null` or `undefined`
+ * Where node
  */
-export const whereNullableNodeId = (id?: string | null) =>
-  id ? whereNode('id', id) : undefined
-
-export const whereNullableNodeIds = (ids?: Array<string> | null) =>
-  ids ? whereNodeIds(ids) : undefined
-
 export const whereNode = (key: string, value: string) => ({
   where: {
     node: {
@@ -28,6 +31,17 @@ export const whereNode = (key: string, value: string) => ({
     },
   },
 })
+
+export const whereMaybeNode = (key: string, value: string | null | undefined) =>
+  value
+    ? {
+        where: {
+          node: {
+            [key]: value,
+          },
+        },
+      }
+    : undefined
 
 /**
  * Used for disconnecting everything

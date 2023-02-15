@@ -9,7 +9,6 @@ import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 export interface SelectElementOption {
   label: string
-  // id
   value: string
   childrenIds?: Array<string>
 }
@@ -33,10 +32,10 @@ export const SelectElement = ({
   let elements: Array<SelectElementOption>
 
   allElementOptions ??=
-    elementTree?.elementsList.map((e) => ({
-      value: e.id,
-      label: e.label,
-      childrenIds: e.children.map((c) => c.id),
+    elementTree?.elementsList.map(({ id, label, children }) => ({
+      value: id,
+      label: label,
+      childrenIds: children.map((child) => child.id),
     })) ?? []
 
   const targetElement = allElementOptions.find(
@@ -75,7 +74,7 @@ export const SelectElement = ({
           getDescendants(targetElement, elementMap),
         )
           // remove the element itself
-          .filter((x) => x.value !== targetElement.value)
+          .filter(({ value }) => value !== targetElement.value)
         break
       default:
         elements = []

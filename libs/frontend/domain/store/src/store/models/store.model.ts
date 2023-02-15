@@ -84,7 +84,7 @@ export class Store
   @computed
   get actions() {
     return getActionService(this).actionsList.filter(
-      (x) => x.store.id === this.id,
+      (action) => action.store.id === this.id,
     )
   }
 
@@ -96,7 +96,9 @@ export class Store
   @computed
   private get _actionsRunners() {
     return this.actions
-      .map((a) => ({ [a.name]: { run: a.createRunner(this.state) } }))
+      .map((action) => ({
+        [action.name]: { run: action.createRunner(this.state) },
+      }))
       .reduce(merge, {})
   }
 
@@ -116,9 +118,11 @@ export class Store
     props = mapDeep(
       props,
       // value mapper
-      (v, k) => (isString(v) ? this.getByExpression(v, context) : v),
+      (value, key) =>
+        isString(value) ? this.getByExpression(value, context) : value,
       // key mapper
-      (v, k) => (isString(k) ? this.getByExpression(k, context) : k) as string,
+      (value, key) =>
+        (isString(key) ? this.getByExpression(key, context) : key) as string,
     )
 
     return props
@@ -140,8 +144,8 @@ export class Store
     /**
      * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
      */
-    return key.replace(STATE_PATH_TEMPLATE_REGEX, (v) =>
-      evaluateExpression(v, context),
+    return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
+      evaluateExpression(value, context),
     )
   }
 

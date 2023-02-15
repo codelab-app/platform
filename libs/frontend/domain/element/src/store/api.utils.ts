@@ -13,9 +13,9 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import {
-  connectNode,
-  disconnectNode,
-  reconnectNode,
+  connectNodeId,
+  disconnectNodeId,
+  reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { isNil } from 'ramda'
 import { v4 } from 'uuid'
@@ -54,12 +54,12 @@ export const makeCreateInput = (
 
   const renderAtomType =
     renderType?.model === RenderTypeEnum.Atom
-      ? connectNode(renderType.id)
+      ? connectNodeId(renderType.id)
       : undefined
 
   const renderComponentType =
     renderType?.model === RenderTypeEnum.Component
-      ? connectNode(renderType.id)
+      ? connectNodeId(renderType.id)
       : undefined
 
   return {
@@ -84,8 +84,8 @@ export const makeDuplicateInput = (
 
   return {
     id: v4(),
-    renderComponentType: connectNode(element.renderComponentType?.id),
-    renderAtomType: connectNode(element.atom?.id),
+    renderComponentType: connectNodeId(element.renderComponentType?.id),
+    renderAtomType: connectNodeId(element.atom?.id),
     props,
     slug: createSlug(duplicate_slug, element.baseId),
     propTransformationJs: element.propTransformationJs,
@@ -123,14 +123,14 @@ export const makeUpdateInput = (
   // We need to disconnect the atom if render type changed to component or empty
   const renderAtomType =
     renderType?.model === RenderTypeEnum.Atom
-      ? reconnectNode(renderType.id)
-      : disconnectNode(undefined)
+      ? reconnectNodeId(renderType.id)
+      : disconnectNodeId(undefined)
 
   // We need to disconnect the component if render type changed to atom or empty
   const renderComponentType =
     renderType?.model === RenderTypeEnum.Component
-      ? reconnectNode(renderType.id)
-      : disconnectNode(undefined)
+      ? reconnectNodeId(renderType.id)
+      : disconnectNodeId(undefined)
 
   return {
     name: name,

@@ -137,10 +137,10 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
       <Menu
         css={tw`border border-gray-200 shadow-xl`}
         items={menuItems
-          .filter((x) => !x.hide)
-          .map((x) => ({
-            ...x,
-            hide: String(x.hide),
+          .filter((item) => !item.hide)
+          .map((item) => ({
+            ...item,
+            hide: String(item.hide),
           }))}
         onBlur={onBlur}
         onClick={() => onClick?.()}

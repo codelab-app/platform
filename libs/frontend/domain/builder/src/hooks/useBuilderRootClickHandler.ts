@@ -6,7 +6,7 @@ import {
 import type { MouseEventHandler } from 'react'
 
 export const useBuilderRootClickHandler = () => {
-  const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleContainerClick: MouseEventHandler<HTMLDivElement> = (event) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
     // be able to capture clicks on elements like disabled antd buttons and other ones that are designed not to emit clicks
 
@@ -18,7 +18,7 @@ export const useBuilderRootClickHandler = () => {
 
       if (elementId && !componentId) {
         // setSelectedTreeNode(elementId)
-        e.stopPropagation()
+        event.stopPropagation()
       } else if (element.parentElement && element.id !== BUILDER_CONTAINER_ID) {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
         visit(element.parentElement)
@@ -27,7 +27,7 @@ export const useBuilderRootClickHandler = () => {
       }
     }
 
-    visit(e.target as HTMLElement)
+    visit(event.target as HTMLElement)
   }
 
   return handleContainerClick

@@ -3,7 +3,7 @@
 
 yarn cli tasks build --stage test
 yarn cli tasks unit --stage test
-#yarn cli tasks int --stage test
+yarn cli tasks int --stage test
 yarn cli tasks e2e --stage test
 
 ./scripts/git.sh

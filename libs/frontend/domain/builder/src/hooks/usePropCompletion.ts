@@ -26,7 +26,7 @@ export const usePropCompletion = (renderService?: IRenderer) => {
 
       const allRenderedProps = Array.isArray(renderOutput)
         ? renderOutput
-            .map((r) => r.props)
+            .map((output) => output.props)
             .reduce((acc, next) => mergeProps(acc, next), {} as IPropData)
         : renderOutput?.props
 
@@ -55,8 +55,8 @@ export const usePropCompletion = (renderService?: IRenderer) => {
         }
 
         if (Array.isArray(prop)) {
-          for (let i = 0; i < prop.length; i++) {
-            visitProp(prop[i], `${key}[${i}]`)
+          for (let index = 0; index < prop.length; index++) {
+            visitProp(prop[index], `${key}[${index}]`)
           }
         }
 

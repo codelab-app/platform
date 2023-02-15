@@ -4,24 +4,19 @@ import {
   Repository,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { BaseUniqueWhere } from '@codelab/shared/abstract/types'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
-  connectNode,
-  connectNodes,
+  connectNodeId,
+  connectNodeIds,
   connectOwner,
-  whereAll,
-  whereManyAll,
-  whereMaybeNodeId,
-  whereNode,
-  whereNodeId,
-  whereNodeIds,
+  reconnectNodeId,
+  reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import difference from 'lodash/difference'
 
 export class TagRepository extends IRepository<ITag> {
   private Tag = Repository.instance.Tag
 
-  async find(where: BaseUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere) {
     return (
       await (
         await this.Tag
@@ -30,14 +25,6 @@ export class TagRepository extends IRepository<ITag> {
         selectionSet: tagSelectionSet,
       })
     )[0]
-  }
-
-  async save(data: ITag, where?: BaseUniqueWhere) {
-    if (await this.exists(data, where)) {
-      return this.update(data, this.getWhere(data, where))
-    }
-
-    return (await this.add([data]))[0]
   }
 
   /**
@@ -50,8 +37,8 @@ export class TagRepository extends IRepository<ITag> {
       ).create({
         input: tags.map(({ owner, ...tag }) => ({
           ...tag,
-          parent: connectNode(tag.parent?.id),
-          children: connectNodes(tag.children.map((child) => child.id)),
+          parent: connectNodeId(tag.parent?.id),
+          children: connectNodeIds(tag.children.map((child) => child.id)),
           owner: connectOwner(owner.auth0Id),
         })),
       })
@@ -60,7 +47,7 @@ export class TagRepository extends IRepository<ITag> {
 
   protected async _update(
     { parent, children, owner, ...tag }: ITag,
-    where: BaseUniqueWhere,
+    where: BaseTypeUniqueWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect
     const existing = await this.find(where)
@@ -75,74 +62,15 @@ export class TagRepository extends IRepository<ITag> {
     const parentTagToConnect = parent?.id
     const childrenTagsToConnect = children.map((_tag) => _tag.id)
 
-    // const parentTagToConnect = difference(
-    //   [parent?.id],
-    //   [existing.parent?.id],
-    // )[0]
-
-    // const parentTagToDisconnect = difference(
-    //   [existing.parent?.id],
-    //   [parent?.id],
-    // )[0]
-
-    /**
-     * Children
-     */
-    // const childrenTagsToConnect = difference(
-    //   children.map((t) => t.id),
-    //   existing.children.map((t) => t.id),
-    // )
-
-    // const childrenTagsToDisconnect = difference(
-    //   existing.children.map((t) => t.id),
-    //   children.map((t) => t.id),
-    // )
-
-    console.log({
-      update: tag,
-      connect: {
-        parent: whereMaybeNodeId(parentTagToConnect),
-        children: whereNodeIds(childrenTagsToConnect),
-        owner: whereNode('auth0Id', owner.auth0Id),
-      },
-      /**
-       * Disconnect all here
-       */
-      disconnect: {
-        parent: whereAll(),
-        children: whereManyAll(),
-        owner: whereAll(),
-      },
-    })
-
     return (
       await (
         await this.Tag
       ).update({
-        update: tag,
-        connect: {
-          parent: whereMaybeNodeId(parentTagToConnect),
-          children: whereNodeIds(childrenTagsToConnect),
-          owner: whereNode('auth0Id', owner.auth0Id),
+        update: {
+          ...tag,
+          parent: reconnectNodeId(parentTagToConnect),
+          children: reconnectNodeIds(childrenTagsToConnect),
         },
-        /**
-         * Disconnect all here
-         */
-        disconnect: {
-          parent: whereAll(),
-          children: whereManyAll(),
-          owner: whereAll(),
-        },
-        // disconnect: {
-        //   parent: parentTagToDisconnect
-        //     ? whereNodeId(parentTagToDisconnect)
-        //     : null,
-        //   children: childrenTagsToDisconnect.map((id) => ({
-        //     disconnect: {
-        //       parent: whereNodeId(id),
-        //     },
-        //   })),
-        // },
         where,
       })
     ).tags[0]

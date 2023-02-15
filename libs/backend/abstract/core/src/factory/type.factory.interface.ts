@@ -1,15 +1,17 @@
-import type { IRepository } from '@codelab/backend/abstract/types'
-import type {
-  BaseUniqueWhere,
-  BaseUniqueWhereCallback,
-} from '@codelab/shared/abstract/types'
-import type { IBaseType } from '../type'
+import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
+import type { IBaseType, ICreateType, IType } from '../type'
 
 /**
  * This uses the factory pattern
  */
-export interface ITypeFactory<T> {
-  create(data: T, where?: BaseUniqueWhere): Promise<IBaseType>
+export interface ITypeFactory<Data extends ICreateType> {
+  create(
+    data: Data,
+    /**
+     * We pass the complete type in the callback
+     */
+    where: BaseTypeUniqueWhereCallback<IType>,
+  ): Promise<IBaseType>
 
   repository: unknown
 }

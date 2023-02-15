@@ -11,4 +11,7 @@ export const fieldSelectionSet = `{
     kind
     name
   }
+  api {
+    id
+  }
 }`
