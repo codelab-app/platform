@@ -8,7 +8,12 @@ import { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { connectNode, connectOwner, reconnectNodes } from '@codelab/shared/data'
+import {
+  connectNode,
+  connectOwner,
+  reconnectNode,
+  reconnectNodes,
+} from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -47,7 +52,13 @@ export class AtomService
   update = _async(function* (
     this: AtomService,
     existingAtom: IAtom,
-    { name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
+    {
+      name,
+      type,
+      tags = [],
+      allowedChildren = [],
+      requiredParent,
+    }: IUpdateAtomDTO,
   ) {
     const allowedChildrenIds = allowedChildren.map(
       (allowedChild) => allowedChild,
@@ -61,6 +72,7 @@ export class AtomService
           name,
           type,
           allowedChildren: [reconnectNodes(allowedChildrenIds)],
+          requiredParent: reconnectNode(requiredParent),
           tags: [reconnectNodes(tags)],
         },
         where: { id: existingAtom.id },

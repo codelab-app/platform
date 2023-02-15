@@ -53,6 +53,11 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
       nullable: true,
       showSearch: true,
     },
+    requiredParent: {
+      type: 'string',
+      nullable: true,
+      showSearch: true,
+    },
   },
   required: ['name', 'type', 'owner'],
 } as const

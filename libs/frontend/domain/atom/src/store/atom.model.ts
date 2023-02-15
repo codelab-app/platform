@@ -4,6 +4,7 @@ import { tagRef } from '@codelab/frontend/domain/tag'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
 import type { IAtomType } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -26,6 +27,7 @@ const hydrate = (atom: IAtomDTO) => {
     api: typeRef(atom.api.id) as Ref<InterfaceType>,
     tags: atom.tags.map((tag) => tagRef(tag.id)),
     allowedChildren: atom.allowedChildren,
+    requiredParent: atom.requiredParent,
   })
 }
 
@@ -39,6 +41,7 @@ export class Atom
     tags: prop<Array<Ref<ITag>>>(() => []),
     api: prop<Ref<InterfaceType>>(),
     allowedChildren: prop<Array<Pick<IAtomDTO, 'id' | 'name'>>>(() => []),
+    requiredParent: prop<Nullish<Pick<IAtom, 'id' | 'name'>>>(),
   })
   implements IAtom
 {
@@ -61,6 +64,7 @@ export class Atom
     this.tags = atom.tags.map((tag) => tagRef(tag.id))
     this.icon = atom.icon
     this.allowedChildren = atom.allowedChildren
+    this.requiredParent = atom.requiredParent
 
     return this
   }

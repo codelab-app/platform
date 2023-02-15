@@ -1,4 +1,5 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import type { ITagRef } from '../tag'
 import type { IInterfaceTypeRef } from '../type'
 import type { IAuth0Id } from '../user'
@@ -22,7 +23,7 @@ export interface ICreateAtomDTO {
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined
   allowedChildren?: Array<IAtomRef>
-  requiredParent?: IAtomRef
+  requiredParent?: Nullish<IAtomRef>
 }
 
 export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>

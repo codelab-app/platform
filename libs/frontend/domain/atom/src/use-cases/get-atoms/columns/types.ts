@@ -7,6 +7,7 @@ import type {
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 
 export interface AtomLibrary {
   name: string
@@ -21,6 +22,7 @@ export interface AtomRecord {
   apiId: IInterfaceTypeRef
   library: AtomLibrary
   allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
+  requiredParent: Nullish<Pick<IAtomDTO, 'id' | 'name'>>
 }
 
 export type ActionColumnProps = {

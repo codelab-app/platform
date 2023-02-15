@@ -16,8 +16,14 @@ import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
 import { arraySet } from 'mobx-keystone'
 import React, { useCallback, useState } from 'react'
-import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
-import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
+import {
+  ActionColumn,
+  AllowedChildrenColumn,
+  LibraryColumn,
+  PropsColumn,
+  RequiredParentColumn,
+  TagsColumn,
+} from './columns'
 import type { AtomRecord } from './columns/types'
 
 const onLibraryFilter = (
@@ -98,12 +104,21 @@ export const useAtomTable = ({
       render: (tags) => <TagsColumn tags={tags} />,
     },
     {
-      title: 'Allowed',
+      title: 'Allowed Children',
       dataIndex: 'allowedChildren',
       key: 'allowedChildren',
       onHeaderCell: headerCellProps,
       render: (allowedChildren) => {
         return <AllowedChildrenColumn allowedChildren={allowedChildren} />
+      },
+    },
+    {
+      title: 'Required Parent',
+      dataIndex: 'requiredParent',
+      key: 'requiredParent',
+      onHeaderCell: headerCellProps,
+      render: (requiredParent) => {
+        return <RequiredParentColumn requiredParent={requiredParent} />
       },
     },
     {

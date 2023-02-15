@@ -37,6 +37,7 @@ export const UpdateAtomModal = observer<{
     allowedChildren: atom?.allowedChildren.map(
       (allowedChild) => allowedChild.id,
     ),
+    requiredParent: atom?.requiredParent?.id,
   }
 
   const tagListOption = tagService.tagsSelectOptions
@@ -64,6 +65,7 @@ export const UpdateAtomModal = observer<{
           showSearch={true}
         />
         <SelectAtom label="Allowed Children" name="allowedChildren" />
+        <SelectAtom label="Required Parent" name="requiredParent" />
         {/* <SelectField */}
         {/*  label="Allowed Children" */}
         {/*  mode="multiple" */}
