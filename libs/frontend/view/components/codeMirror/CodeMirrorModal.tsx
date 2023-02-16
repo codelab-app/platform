@@ -35,7 +35,8 @@ export const CodeMirrorModal = ({
     codeMirrorSetupFactory(editor, {
       value: internalValue,
       onChange: setInternalValue,
-      height: '50vh',
+      height: '100%',
+      maxHeight: '100%',
     }),
   )
 
@@ -66,7 +67,7 @@ export const CodeMirrorModal = ({
       title={title}
       width="80vw"
     >
-      <div className="mt-5" ref={editor} />
+      <div className="mt-5" ref={editor} style={{ height: '50vh' }} />
     </AntdModal>
   )
 }
