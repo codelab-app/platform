@@ -121,7 +121,7 @@ export const typeSchema = gql`
   """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
   """
-  type PrimitiveType implements IBaseType @node(additionalLabels: ["Type"])  {
+  type PrimitiveType implements IBaseType @node(labels: ["Type", "PrimitiveType"])  {
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
@@ -141,7 +141,7 @@ export const typeSchema = gql`
   ArrayType Allows defining a variable number of items of a given type.
   Contains a reference to another type which is the array item type.
   """
-  type ArrayType implements IBaseType & WithDescendants @node(additionalLabels: ["Type"]) {
+  type ArrayType implements IBaseType & WithDescendants @node(labels: ["Type", "ArrayType"]) {
     id: ID!
     kind: TypeKind! @default(value: ArrayType)
     name: String!
@@ -157,7 +157,7 @@ export const typeSchema = gql`
   """
   Allows picking one of a set of types
   """
-  type UnionType implements IBaseType & WithDescendants @node(additionalLabels: ["Type"]) {
+  type UnionType implements IBaseType & WithDescendants @node(labels: ["Type", "UnionType"]) {
     id: ID!
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
@@ -181,7 +181,7 @@ export const typeSchema = gql`
   """
   Represents an object type with multiple fields
   """
-  type InterfaceType implements IBaseType & WithDescendants @node(additionalLabels: ["Type"]) {
+  type InterfaceType implements IBaseType & WithDescendants @node(labels: ["Type", "InterfaceType"]) {
     id: ID!
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
@@ -212,7 +212,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ElementType implements IBaseType @node(additionalLabels: ["Type"])  {
+  type ElementType implements IBaseType @node(labels: ["Type", "ElementType"])  {
     id: ID!
     kind: TypeKind! @default(value: ElementType)
     name: String!
@@ -234,7 +234,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type RenderPropsType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type RenderPropsType implements IBaseType @node(labels: ["Type", "RenderPropsType"]) {
     id: ID!
     kind: TypeKind! @default(value: RenderPropsType)
     name: String!
@@ -251,7 +251,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ReactNodeType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type ReactNodeType implements IBaseType @node(labels: ["Type", "ReactNodeType"]) {
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
     name: String!
@@ -265,7 +265,7 @@ export const typeSchema = gql`
   The value gets passed to the render pipe as a Enum Type Value id.
   The actual value must be de-referenced by the id.
   """
-  type EnumType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type EnumType implements IBaseType @node(labels: ["Type", "EnumType"]) {
     id: ID!
     kind: TypeKind! @default(value: EnumType)
     name: String!
@@ -287,7 +287,7 @@ export const typeSchema = gql`
   """
   Allows picking a lambda
   """
-  type LambdaType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type LambdaType implements IBaseType @node(labels: ["Type", "LambdaType"]) {
     id: ID!
     kind: TypeKind! @default(value: LambdaType)
     name: String!
@@ -297,7 +297,7 @@ export const typeSchema = gql`
   """
   Allows picking a page from the list of pages
   """
-  type PageType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type PageType implements IBaseType @node(labels: ["Type", "PageType"]) {
     id: ID!
     kind: TypeKind! @default(value: PageType)
     name: String!
@@ -307,7 +307,7 @@ export const typeSchema = gql`
   """
   Allows picking a app from the list of apps
   """
-  type AppType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type AppType implements IBaseType @node(labels: ["Type", "AppType"]) {
     id: ID!
     kind: TypeKind! @default(value: AppType)
     name: String!
@@ -317,7 +317,7 @@ export const typeSchema = gql`
   """
   Allows picking a action from the list of actions
   """
-  type ActionType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type ActionType implements IBaseType @node(labels: ["Type", "ActionType"]) {
     id: ID!
     kind: TypeKind! @default(value: ActionType)
     name: String!
@@ -327,7 +327,7 @@ export const typeSchema = gql`
   """
   Allows editing the value using a code mirror editor
   """
-  type CodeMirrorType implements IBaseType @node(additionalLabels: ["Type"]) {
+  type CodeMirrorType implements IBaseType @node(labels: ["Type", "CodeMirrorType"]) {
     id: ID!
     kind: TypeKind! @default(value: CodeMirrorType)
     name: String!

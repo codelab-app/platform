@@ -14,7 +14,7 @@ export const defaultDirectives = gql`
     """
     Map the GraphQL type to match additional Neo4j node labels
     """
-    additionalLabels: [String]
+    labels: [String]
   ) on OBJECT
 
   """
