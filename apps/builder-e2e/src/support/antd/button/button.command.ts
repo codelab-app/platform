@@ -24,8 +24,6 @@ export const getButton = (
   // })
 
   if (icon) {
-    console.log(subject)
-
     return subject
       ? cy
           .wrap(subject)

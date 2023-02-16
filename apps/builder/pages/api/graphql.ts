@@ -137,9 +137,7 @@ const handler: NextApiHandler = async (req, res) => {
     const userRepository = new UserRepository()
     const user = User.fromSession(userSession)
 
-    await userRepository.save(user)
-
-    // await upsertUser(User, user)
+    await userRepository.save(user, { auth0Id: user.auth0Id })
   }
 
   /**

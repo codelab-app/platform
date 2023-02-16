@@ -7,7 +7,6 @@ const updatedAtomName = 'Button updated'
 
 describe('Atoms CRUD', () => {
   before(() => {
-    console.log(process.env.NEO4J_URI)
     cy.resetDatabase().then(() => {
       cy.login()
     })

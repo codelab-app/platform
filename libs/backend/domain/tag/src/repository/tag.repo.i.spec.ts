@@ -1,7 +1,7 @@
 import { AdminService } from '@codelab/backend/domain/admin'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { IRole } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo'
@@ -14,18 +14,17 @@ const user = new User({
   auth0Id: v4(),
   email: 'admin@codelab.app',
   username: 'Codelab',
-  roles: [OGM_TYPES.Role.Admin],
+  roles: [IRole.Admin],
 })
 
 beforeAll(async () => {
   await new AdminService().reset()
 
-  const newUser = await userRepository.save(user)
-  console.log(newUser)
+  await userRepository.save(user)
 
-  // const savedUser = await userRepository.find({ email: user.email })
+  const savedUser = await userRepository.find({ email: user.email })
 
-  // expect(savedUser?.username).toEqual('Codelab')
+  expect(savedUser?.username).toEqual('Codelab')
 })
 
 afterAll(async () => {
@@ -34,13 +33,7 @@ afterAll(async () => {
 })
 
 describe('Tag repository', () => {
-  it('can create a user', async () => {
-    const savedUser = await userRepository.find({ email: user.email })
-
-    expect(savedUser?.username).toEqual('Codelab')
-  })
-
-  it.skip('can create a tag', async () => {
+  it('can create a tag', async () => {
     const parentTag = new Tag({
       id: v4(),
       name: 'Parent Tag',

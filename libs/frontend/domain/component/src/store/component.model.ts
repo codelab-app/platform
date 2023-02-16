@@ -102,14 +102,14 @@ export class Component
 
         // don't move it to element model to avoid dependency issues
         if (element.renderComponentType?.current) {
-          const clonedComponent = element.renderComponentType.current.clone(
+          const componentClone = element.renderComponentType.current.clone(
             clonedElement.id,
           )
 
           clonedElement.setRenderComponentType(componentRef(componentClone.id))
         }
 
-        if (e.id === clonedComponent.childrenContainerElementId) {
+        if (element.id === clonedComponent.childrenContainerElementId) {
           clonedComponent.setChildrenContainerElementId(clonedElement.id)
         }
 
