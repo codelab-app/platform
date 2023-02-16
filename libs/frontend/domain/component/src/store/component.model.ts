@@ -1,10 +1,12 @@
 import type {
-  IComponent,
   IComponentDTO,
   IElement,
   IProp,
 } from '@codelab/frontend/abstract/core'
-import { COMPONENT_NODE_TYPE } from '@codelab/frontend/abstract/core'
+import {
+  COMPONENT_NODE_TYPE,
+  IComponent,
+} from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   ElementTree,
@@ -57,7 +59,7 @@ export class Component
     ownerId: prop<string>(),
     api: prop<Ref<InterfaceType>>(),
     props: prop<Nullable<IProp>>(null).withSetter(),
-    childrenContainerElementId: prop<string>(),
+    childrenContainerElementId: prop<string>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponentId: prop<Nullable<string>>(null).withSetter(),
     // element which this component is attached to.
@@ -89,7 +91,7 @@ export class Component
   }
 
   @modelAction
-  private cloneTree(clonedComponentId: string, cloneIndex: number) {
+  private cloneTree(clonedComponent: IComponent, cloneIndex: number) {
     console.debug('ElementTreeService.cloneTree', this.elementTree.elementsList)
 
     const elementMap: Map<string, string> = new Map()
@@ -100,11 +102,15 @@ export class Component
 
         // don't move it to element model to avoid dependency issues
         if (e.renderComponentType?.current) {
-          const clonedComponent = e.renderComponentType.current.clone(
+          const componentClone = e.renderComponentType.current.clone(
             clonedElement.id,
           )
 
-          clonedElement.setRenderComponentType(componentRef(clonedComponent.id))
+          clonedElement.setRenderComponentType(componentRef(componentClone.id))
+        }
+
+        if (e.id === clonedComponent.childrenContainerElementId) {
+          clonedComponent.setChildrenContainerElementId(clonedElement.id)
         }
 
         // keep trace of copies to update parents
@@ -120,7 +126,7 @@ export class Component
       : null
 
     const rootElement = elements.find((e) => e.id === rootElementId)
-    rootElement?.setParentComponent(componentRef(clonedComponentId))
+    rootElement?.setParentComponent(componentRef(clonedComponent.id))
 
     if (!rootElement) {
       throw new Error('rootElement not found')
@@ -146,7 +152,7 @@ export class Component
     )
 
     const clonedComponent: IComponent = clone<IComponent>(this)
-    const clonedTree = this.cloneTree(clonedComponent.id, clonesList.length)
+    const clonedTree = this.cloneTree(clonedComponent, clonesList.length)
 
     clonedComponent.setProps(this.props ? this.props.clone() : null)
     clonedComponent.setElementTree(clonedTree)
