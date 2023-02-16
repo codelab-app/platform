@@ -318,6 +318,8 @@
   "resolutions": {
     "rxjs": "^6.6.3",
     "cypress@11.1.0": "patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch",
-    "cypress@*": "patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch"
+    "cypress@*": "patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch",
+    "@neo4j/graphql@3.16.1": "patch:@neo4j/graphql@npm%3A3.16.1#./.yarn/patches/@neo4j-graphql-npm-3.16.1-1b83dda2a3.patch",
+    "@neo4j/graphql@^3.16.1": "patch:@neo4j/graphql@npm%3A3.16.1#./.yarn/patches/@neo4j-graphql-npm-3.16.1-1b83dda2a3.patch"
   }
 }
