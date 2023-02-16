@@ -2,10 +2,9 @@ import type { IAtom, ICreateElementDTO } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
-import { AutoField, SelectField } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 
 const RenderTypeFields = ({
   parent,
@@ -39,35 +38,18 @@ const RenderTypeFields = ({
         context.model.renderType?.model === RenderTypeEnum.Atom
       }
     >
-      <AutoField
-        component={(props: UniformSelectFieldProps) => (
-          <SelectAtom
-            error={error ?? props.error}
-            label={props.label}
-            name={props.name}
-            parent={parent}
-          />
-        )}
-        label="Atom"
-        name="id"
-      />
+      {/**
+       * AutoField renders subcomponent frequently, so SelectField of SelectAtom component flicks
+       * No need AutoField here
+       */}
+      <SelectAtom error={error} label="Atom" name="id" parent={parent} />
     </DisplayIfField>
     <DisplayIfField<ICreateElementDTO>
       condition={(context) =>
         context.model.renderType?.model === RenderTypeEnum.Component
       }
     >
-      <AutoField
-        component={(props: UniformSelectFieldProps) => (
-          <SelectComponent
-            error={error ?? props.error}
-            label={props.label}
-            name={props.name}
-          />
-        )}
-        label="Component"
-        name="id"
-      />
+      <SelectComponent error={error} label="Component" name="id" />
     </DisplayIfField>
   </section>
 )
