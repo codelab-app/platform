@@ -41,7 +41,7 @@ export const PageDetailHeader = observer<{
   const pageId = useCurrentPageId()
 
   const { loading } = useAsync(
-    () => pageService.getAll({ app: { id: currentAppId } }),
+    () => pageService.getAll({ appConnection: { node: { id: currentAppId } } }),
     [currentAppId],
   )
 

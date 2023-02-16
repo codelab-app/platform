@@ -207,7 +207,7 @@ export const DeleteEnumTypesDocument = gql`
       relationshipsDeleted
       nodesDeleted
     }
-    deleteEnumTypeValues(where: { enumType: $where }) {
+    deleteEnumTypeValues(where: { enumTypeConnection: { node: $where } }) {
       nodesDeleted
     }
   }

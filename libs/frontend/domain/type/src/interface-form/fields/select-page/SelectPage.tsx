@@ -18,7 +18,7 @@ export const SelectPage = ({ name, error }: SelectPageProps) => {
   } = useAsync(
     () =>
       interfaceFormApi.InterfaceForm_GetPages({
-        where: { app: { id: appId as string } },
+        where: { appConnection: { node: { id: appId as string } } },
       }),
     [],
   )

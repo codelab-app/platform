@@ -19,10 +19,10 @@ export type GetActionsQuery = {
 
 export const GetActionsDocument = gql`
   query GetActions($storeId: ID) {
-    codeActions(where: { store: { id: $storeId } }) {
+    codeActions(where: { storeConnection: { node: { id: $storeId } } }) {
       ...Action
     }
-    apiActions(where: { store: { id: $storeId } }) {
+    apiActions(where: { storeConnection: { node: { id: $storeId } } }) {
       ...Action
     }
   }

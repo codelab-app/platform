@@ -67,7 +67,9 @@ export const updateTypeInputFactory = (
               {
                 where: {
                   node: {
-                    id_NOT_IN: type.allowedValues?.map((av) => av.id),
+                    NOT: {
+                      id_IN: type.allowedValues?.map((av) => av.id),
+                    },
                   },
                 },
               },

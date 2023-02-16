@@ -17,12 +17,12 @@ export const GetPagesList = observer<{
   const appId = useCurrentAppId()
 
   const { loading } = useAsync(
-    () => pageService.getAll({ app: { id: appId } }),
+    () => pageService.getAll({ appConnection: { node: { id: appId } } }),
     [appId],
   )
 
   const { value: domains } = useAsync(
-    () => domainService.getAll({ app: { id: appId } }),
+    () => domainService.getAll({ appConnection: { node: { id: appId } } }),
     [appId],
   )
 

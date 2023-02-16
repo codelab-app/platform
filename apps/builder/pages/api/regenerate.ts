@@ -31,7 +31,7 @@ const getAllPagesToRevalidate = async () => {
 }
 
 const getAllAppPagesToRevalidate = async (appId: string) => {
-  const domainCondition = { where: { app: { id: appId } } }
+  const domainCondition = { where: { appConnection: { node: { id: appId } } } }
   const { domains } = await domainApis.GetDomains(domainCondition)
   const domain = domains[0]
 

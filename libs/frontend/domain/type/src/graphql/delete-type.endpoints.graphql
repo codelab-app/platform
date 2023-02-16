@@ -75,7 +75,7 @@ mutation DeleteEnumTypes($delete: EnumTypeDeleteInput, $where: EnumTypeWhere) {
   }
 
   # When deleting the enum we must clean up the enum type values too
-  deleteEnumTypeValues(where: { enumType: $where }) {
+  deleteEnumTypeValues(where: { enumTypeConnection: { node: $where } }) {
     nodesDeleted
   }
 }

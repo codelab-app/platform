@@ -164,7 +164,7 @@ export class TypeService
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
 
-      // Write cache writes to the fields
+      // Write cache to the fields
       if (
         typeModel.kind === ITypeKind.InterfaceType &&
         fragment.__typename === 'InterfaceType'
@@ -239,6 +239,8 @@ export class TypeService
     }
 
     const all = yield* _await(this.getAll({ id_IN: [id] }))
+
+    console.log(all)
 
     return all[0]
   })
