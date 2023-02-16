@@ -21,6 +21,3 @@ export const elementDescendants =
   (parent: { id: string }) => (txn: Transaction) => {
     return elementRepository.getDescendants(txn, parent.id)
   }
-
-export const elementSlug = ({ name }: { name: string }) =>
-  name.replace(/\s/g, '-')

@@ -23,6 +23,7 @@
     "backend-infra-adapter-neo4j": "libs/backend/infra/adapter/neo4j",
     "backend-infra-adapter-vercel": "libs/backend/infra/adapter/vercel",
     "backend-infra-ports": "libs/backend/infra/ports",
+    "backend-pure-resolvers": "libs/backend/pure-resolvers",
     "builder": "apps/builder",
     "builder-e2e": "apps/builder-e2e",
     "cli": "apps/cli",

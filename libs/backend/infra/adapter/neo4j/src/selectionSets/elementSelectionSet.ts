@@ -4,6 +4,7 @@ import { componentSelectionSet } from './componentSelectionSet'
 export const elementSelectionSet = `{
   id
   name
+  slug
   customCss
   guiCss
   parentComponent
