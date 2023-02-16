@@ -1017,6 +1017,8 @@ element is new parentElement's first child
       .map((element) =>
         element.writeCache({
           ...elementFragment,
+          // keep the cloned element's id
+          id: element.id,
           parentComponent: element.parentComponent?.current
             ? ({
                 id: element.parentComponent.current.id,
