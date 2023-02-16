@@ -5,9 +5,11 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import { notification } from 'antd'
 import { frozen } from 'mobx-keystone'
 import { pick } from 'ramda'
 import { useCallback } from 'react'
@@ -33,6 +35,8 @@ export const useBuilderDnd = (
       },
     }),
   )
+
+  const { atomService } = useStore()
 
   const { handleCreateElement, handleMoveElement } = useDndDropHandler(
     elementService,
@@ -60,12 +64,30 @@ export const useBuilderDnd = (
   const onDragEnd = useCallback(
     async (event: DragEndEvent) => {
       const data = event.active.data.current as Maybe<BuilderDragData>
+      const parent = event.over
+
+      const child = atomService.atoms.get(
+        `${data?.createElementInput?.renderType?.id}`,
+      )
 
       const shouldCreate =
         data?.type === BuilderDndType.CreateElement &&
         data.createElementInput !== undefined
 
       const shouldMove = data?.type === BuilderDndType.MoveElement
+
+      // check required parent
+      if (child?.requiredParent) {
+        if (child.requiredParent.id !== parent?.id) {
+          notification['error']({
+            message: 'Parent element required',
+            description: `This element requires ${child.requiredParent.name} as a parent`,
+            duration: 5,
+          })
+
+          return
+        }
+      }
 
       builderService.setCurrentDragData(null)
 
