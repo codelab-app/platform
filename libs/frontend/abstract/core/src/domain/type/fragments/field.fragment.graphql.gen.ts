@@ -3,16 +3,6 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-export type FieldPreviewFragment = {
-  id: string
-  key: string
-  name?: string | null
-  description?: string | null
-  validationRules?: string | null
-  defaultValues?: string | null
-  api: { id: string }
-}
-
 export type FieldFragment = {
   id: string
   key: string
@@ -38,21 +28,6 @@ export type FieldFragment = {
   api: { id: string }
 }
 
-export const FieldPreviewFragmentDoc = gql`
-  fragment FieldPreview on Field {
-    id
-    key
-    name
-    description
-    validationRules
-    api {
-      ... on InterfaceType {
-        id
-      }
-    }
-    defaultValues
-  }
-`
 export const FieldFragmentDoc = gql`
   fragment Field on Field {
     id

@@ -1,6 +1,6 @@
 fragment InterfaceType on InterfaceType {
   ...BaseType
   fields {
-    ...FieldPreview
+    ...Field
   }
 }

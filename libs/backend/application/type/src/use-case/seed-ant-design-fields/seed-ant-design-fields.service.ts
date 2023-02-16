@@ -22,7 +22,6 @@ import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 import { TransformAntDesignTypesService } from '../transform-ant-design-types/transform-ant-design-types.service'
 import { readCsvFiles } from './read-csv-files'
-// import { upsertFieldType } from '../../repository/type/upsert-field-type'
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
@@ -68,7 +67,6 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
     const antdCsvData = await readCsvFiles(this.antdDataFolder)
     const reactCsvData = await readCsvFiles(this.reactDataFolder)
     const csvDataByFile = { ...antdCsvData, ...reactCsvData }
-    console.log(this.atoms)
 
     /**
      * Break down function to act on each file

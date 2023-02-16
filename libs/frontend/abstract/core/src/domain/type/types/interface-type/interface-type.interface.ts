@@ -2,7 +2,7 @@ import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { IPropData } from '../../../prop'
 import type { IField } from '../../field'
-import type { FieldPreviewFragment } from '../../fragments'
+import type { FieldFragment } from '../../fragments'
 import type { IBaseType } from '../base-type'
 
 /**
@@ -16,8 +16,8 @@ export interface IInterfaceType extends IBaseType {
   fields: Array<IField>
   defaultValues: IPropData
   deleteField(field: IField): void
-  writeFieldCache(fields: Array<FieldPreviewFragment>): void
-  load(fields: Array<FieldPreviewFragment>): void
+  writeFieldCache(fields: Array<FieldFragment>): void
+  load(fields: Array<FieldFragment>): void
 }
 
 export type IInterfaceTypeRef = string

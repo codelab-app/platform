@@ -117,6 +117,7 @@ describe('_app page', () => {
     cy.getModal()
       .getModalAction(/Create Page/)
       .click()
+    cy.getSpinner().should('not.exist')
     cy.getModal().should('not.exist')
 
     openPageByName(pageName)

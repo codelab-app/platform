@@ -24,7 +24,7 @@ const hydrate = ({
   key,
   name,
   description,
-  // fieldType,
+  fieldType,
   api,
   validationRules,
   defaultValues,
@@ -34,8 +34,7 @@ const hydrate = ({
     name,
     description,
     key,
-    // type: typeRef(fieldType.id),
-    type: typeRef(''),
+    type: typeRef(fieldType.id),
     api: typeRef(api.id) as Ref<IInterfaceType>,
     validationRules: JSON.parse(validationRules || '{}'),
     defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
@@ -62,7 +61,7 @@ export class Field
     this.name = fragment.name
     this.description = fragment.description
     this.key = fragment.key
-    // this.type = typeRef(fragment.fieldType.id)
+    this.type = typeRef(fragment.fieldType.id)
     this.validationRules = JSON.parse(fragment.validationRules || '{}')
     this.defaultValues = fragment.defaultValues
       ? JSON.parse(fragment.defaultValues)

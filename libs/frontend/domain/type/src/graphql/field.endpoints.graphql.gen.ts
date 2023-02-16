@@ -1,16 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { FieldPreviewFragment } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { FieldFragment } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { FieldPreviewFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { FieldFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 export type CreateFieldsMutationVariables = Types.Exact<{
   input: Array<Types.FieldCreateInput> | Types.FieldCreateInput
 }>
 
 export type CreateFieldsMutation = {
-  createFields: { fields: Array<FieldPreviewFragment> }
+  createFields: { fields: Array<FieldFragment> }
 }
 
 export type UpdateFieldsMutationVariables = Types.Exact<{
@@ -19,7 +19,7 @@ export type UpdateFieldsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateFieldsMutation = {
-  updateFields: { fields: Array<FieldPreviewFragment> }
+  updateFields: { fields: Array<FieldFragment> }
 }
 
 export type DeleteFieldsMutationVariables = Types.Exact<{
@@ -32,21 +32,21 @@ export const CreateFieldsDocument = gql`
   mutation CreateFields($input: [FieldCreateInput!]!) {
     createFields(input: $input) {
       fields {
-        ...FieldPreview
+        ...Field
       }
     }
   }
-  ${FieldPreviewFragmentDoc}
+  ${FieldFragmentDoc}
 `
 export const UpdateFieldsDocument = gql`
   mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
     updateFields(where: $where, update: $update) {
       fields {
-        ...FieldPreview
+        ...Field
       }
     }
   }
-  ${FieldPreviewFragmentDoc}
+  ${FieldFragmentDoc}
 `
 export const DeleteFieldsDocument = gql`
   mutation DeleteFields($where: FieldWhere!) {

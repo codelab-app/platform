@@ -1,7 +1,7 @@
 mutation CreateFields($input: [FieldCreateInput!]!) {
   createFields(input: $input) {
     fields {
-      ...FieldPreview
+      ...Field
     }
   }
 }
@@ -9,7 +9,7 @@ mutation CreateFields($input: [FieldCreateInput!]!) {
 mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
   updateFields(where: $where, update: $update) {
     fields {
-      ...FieldPreview
+      ...Field
     }
   }
 }

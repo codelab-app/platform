@@ -20323,17 +20323,6 @@ export type EnumTypeFragment = {
   allowedValues: Array<{ __typename?: 'EnumTypeValue' } & EnumTypeValueFragment>
 } & BaseType_EnumType_Fragment
 
-export type FieldPreviewFragment = {
-  __typename?: 'Field'
-  id: string
-  key: string
-  name?: string | null
-  description?: string | null
-  validationRules?: string | null
-  defaultValues?: string | null
-  api: { __typename?: 'InterfaceType'; id: string }
-}
-
 export type FieldFragment = {
   __typename?: 'Field'
   id: string
@@ -20362,7 +20351,7 @@ export type FieldFragment = {
 
 export type InterfaceTypeFragment = {
   __typename?: 'InterfaceType'
-  fields: Array<{ __typename?: 'Field' } & FieldPreviewFragment>
+  fields: Array<{ __typename?: 'Field' } & FieldFragment>
 } & BaseType_InterfaceType_Fragment
 
 export type LambdaTypeFragment = {
@@ -21470,7 +21459,7 @@ export type CreateFieldsMutation = {
   __typename?: 'Mutation'
   createFields: {
     __typename?: 'CreateFieldsMutationResponse'
-    fields: Array<{ __typename?: 'Field' } & FieldPreviewFragment>
+    fields: Array<{ __typename?: 'Field' } & FieldFragment>
   }
 }
 
@@ -21483,7 +21472,7 @@ export type UpdateFieldsMutation = {
   __typename?: 'Mutation'
   updateFields: {
     __typename?: 'UpdateFieldsMutationResponse'
-    fields: Array<{ __typename?: 'Field' } & FieldPreviewFragment>
+    fields: Array<{ __typename?: 'Field' } & FieldFragment>
   }
 }
 

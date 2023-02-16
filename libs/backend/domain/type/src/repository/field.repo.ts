@@ -5,7 +5,7 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 
 /**
  * Field name is not enough, since it is not unique.
@@ -41,6 +41,7 @@ export class FieldRepository extends IRepository<IField> {
         input: fields.map(({ api, fieldType, ...field }) => ({
           ...field,
           api: connectNodeId(api.id),
+          fieldType: connectNodeId(fieldType.id),
         })),
       })
     ).fields
@@ -59,7 +60,11 @@ export class FieldRepository extends IRepository<IField> {
       await (
         await this.Field
       ).update({
-        update: field,
+        update: {
+          ...field,
+          api: reconnectNodeId(api.id),
+          fieldType: reconnectNodeId(fieldType.id),
+        },
         where,
       })
     ).fields[0]
