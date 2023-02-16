@@ -1,4 +1,10 @@
 query GetActions($storeId: ID) {
+  # codeActions {
+  #   ...Action
+  # }
+  # apiActions {
+  #   ...Action
+  # }
   codeActions(where: { store: { id: $storeId } }) {
     ...Action
   }
