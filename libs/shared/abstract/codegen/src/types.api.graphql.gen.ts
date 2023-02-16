@@ -20908,15 +20908,6 @@ export type PageFragment = {
 
 export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
 
-export type PropMapBindingFragment = {
-  __typename?: 'PropMapBinding'
-  id: string
-  sourceKey: string
-  targetKey: string
-  element: { __typename?: 'Element'; id: string; name: string }
-  targetElement?: { __typename?: 'Element'; id: string; name: string } | null
-}
-
 export type ResourceFragment = {
   __typename: 'Resource'
   id: string

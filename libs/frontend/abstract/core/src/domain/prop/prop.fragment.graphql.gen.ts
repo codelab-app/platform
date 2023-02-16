@@ -5,14 +5,6 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type PropFragment = { id: string; data: string }
 
-export type PropMapBindingFragment = {
-  id: string
-  sourceKey: string
-  targetKey: string
-  element: { id: string; name: string }
-  targetElement?: { id: string; name: string } | null
-}
-
 export const PropFragmentDoc = gql`
   fragment Prop on Prop {
     id
