@@ -9,7 +9,7 @@ import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   BaseTypeWhere,
-  FieldFragment,
+  FieldPreviewFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -140,7 +140,7 @@ export class TypeService
   @modelAction
   loadFields = (types: GetTypesQuery['interfaceTypes']) => {
     const flatTypes = Object.values(types).flat()
-    const fields: Array<FieldFragment> = []
+    const fields: Array<FieldPreviewFragment> = []
 
     flatTypes.forEach((fragment) => {
       fields.push(...fragment.fields)
@@ -239,8 +239,6 @@ export class TypeService
     }
 
     const all = yield* _await(this.getAll({ id_IN: [id] }))
-
-    console.log(all)
 
     return all[0]
   })

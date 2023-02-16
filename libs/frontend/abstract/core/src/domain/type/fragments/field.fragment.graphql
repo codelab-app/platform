@@ -1,3 +1,23 @@
+fragment FieldPreview on Field {
+  id
+  key
+  name
+  description
+  validationRules
+  # This breaks the whole field if used on interface type
+  # fieldType {
+  #   ... on IBaseType {
+  #     id
+  #   }
+  # }
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+}
+
 fragment Field on Field {
   id
   key
@@ -17,23 +37,3 @@ fragment Field on Field {
   }
   defaultValues
 }
-
-# fragment FieldPreview on Field {
-#   id
-#   key
-#   name
-#   description
-#   validationRules
-#   # This breaks the whole field if used on interface type
-#   # fieldType {
-#   #   ... on IBaseType {
-#   #     id
-#   #   }
-#   # }
-#   api {
-#     ... on InterfaceType {
-#       id
-#     }
-#   }
-#   defaultValues
-# }

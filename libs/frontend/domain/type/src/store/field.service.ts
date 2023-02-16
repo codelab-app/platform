@@ -8,7 +8,7 @@ import { IFieldDTO } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import type {
   FieldCreateInput,
-  FieldFragment,
+  FieldPreviewFragment,
   FieldUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
@@ -153,7 +153,7 @@ export class FieldService
   })
 
   @modelAction
-  load(fields: Array<FieldFragment>) {
+  load(fields: Array<FieldPreviewFragment>) {
     const hydratedFields = fields.map((fragment) => Field.hydrate(fragment))
 
     this.fields = objectMap(hydratedFields.map((field) => [field.id, field]))

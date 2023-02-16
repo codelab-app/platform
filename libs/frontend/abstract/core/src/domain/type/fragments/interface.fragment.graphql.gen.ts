@@ -16,25 +16,25 @@ import {
   BaseType_RenderPropsType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
-import { FieldFragment } from './field.fragment.graphql.gen'
+import { FieldPreviewFragment } from './field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
-import { FieldFragmentDoc } from './field.fragment.graphql.gen'
+import { FieldPreviewFragmentDoc } from './field.fragment.graphql.gen'
 export type InterfaceTypeFragment = {
-  fields: Array<FieldFragment>
+  fields: Array<FieldPreviewFragment>
 } & BaseType_InterfaceType_Fragment
 
 export const InterfaceTypeFragmentDoc = gql`
   fragment InterfaceType on InterfaceType {
     ...BaseType
     fields {
-      ...Field
+      ...FieldPreview
     }
   }
   ${BaseTypeFragmentDoc}
-  ${FieldFragmentDoc}
+  ${FieldPreviewFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

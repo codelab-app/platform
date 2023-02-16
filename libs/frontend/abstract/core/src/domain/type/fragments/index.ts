@@ -5,7 +5,7 @@ export type { CodeMirrorTypeFragment } from './code-mirror-type.fragment.graphql
 export type { ElementTypeFragment } from './element-type.fragment.graphql.gen'
 export type { EnumTypeFragment } from './enum-type.fragment.graphql.gen'
 export type { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'
-export type { FieldFragment } from './field.fragment.graphql.gen'
+export type { FieldPreviewFragment } from './field.fragment.graphql.gen'
 export type { InterfaceTypeFragment } from './interface.fragment.graphql.gen'
 export type { LambdaTypeFragment } from './lambda-type.fragment.graphql.gen'
 export type { PageTypeFragment } from './page-type.fragment.graphql.gen'

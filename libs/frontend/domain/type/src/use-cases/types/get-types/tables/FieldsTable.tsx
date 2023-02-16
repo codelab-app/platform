@@ -168,8 +168,6 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     )
 
-    console.log(dataSource)
-
     return (
       <Table
         columns={

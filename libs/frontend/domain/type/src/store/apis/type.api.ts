@@ -109,8 +109,6 @@ export const getAllTypes = async (
     codeMirrorTypes,
   } = await getTypeApi.GetTypes({ ids })
 
-  console.log(interfaceTypes)
-
   return [
     ...primitiveTypes,
     ...arrayTypes,

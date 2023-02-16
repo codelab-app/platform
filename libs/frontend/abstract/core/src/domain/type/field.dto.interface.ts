@@ -1,7 +1,7 @@
 import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { IFieldDefaultValue, IFieldRef } from './field'
-import type { FieldFragment } from './fragments'
+import type { FieldPreviewFragment } from './fragments'
 import type { IInterfaceTypeRef, ITypeRef } from './types'
 
 export enum GeneralValidationRules {
@@ -68,4 +68,4 @@ export type IUpdateFieldDTO = ICreateFieldDTO
 /**
  * Props imply as input for something, in this case a model
  */
-export type IFieldDTO = FieldFragment
+export type IFieldDTO = FieldPreviewFragment
