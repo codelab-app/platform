@@ -336,7 +336,7 @@ export class Renderer
   }
 
   getComponentInstanceChildren(element: IElement) {
-    const parentComponent = element.parentComponent?.current
+    const parentComponent = element.rootElement.parentComponent?.current
 
     const isContainer =
       element.id === parentComponent?.childrenContainerElementId
