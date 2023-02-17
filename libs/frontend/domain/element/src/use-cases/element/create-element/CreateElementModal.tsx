@@ -14,6 +14,7 @@ import {
   SelectAnyElement,
   SlugField,
 } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import type {
@@ -50,8 +51,27 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     pageTree,
     renderService,
   }) => {
+    const { atomService } = useStore()
+
     const onSubmit = async (data: ICreateElementDTO) => {
       const { prevSiblingId } = data
+
+      const parentElement = elementService.elements.get(
+        `${data.parentElementId}`,
+      )
+
+      const parentAtom = parentElement?.atom
+      const childAtom = atomService.atoms.get(`${data.renderType?.id}`)
+
+      // required parent validation
+      // TODO:refactor validation to be set on form schema
+      if (childAtom?.requiredParent) {
+        if (childAtom.requiredParent.id !== parentAtom?.id) {
+          throw new Error(
+            `${childAtom.name} must have ${childAtom.requiredParent.name} as a parent`,
+          )
+        }
+      }
 
       const element = await (prevSiblingId
         ? elementService.createElementAsNextSibling(data)
