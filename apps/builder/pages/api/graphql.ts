@@ -8,7 +8,7 @@ import type {
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { resolvers } from '@codelab/backend/graphql'
 import { getDriver, getSchema } from '@codelab/backend/infra/adapter/neo4j'
-import { pureResolvers } from '@codelab/backend/pure-resolvers'
+import { repoResolvers } from '@codelab/backend/repo-resolvers'
 import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { logger } from '@codelab/shared/adapter/logging'
@@ -21,7 +21,7 @@ import * as util from 'util'
 /*eslint-disable */
 
 const driver = getDriver()
-const neoSchema = getSchema(driver, mergeResolvers([resolvers, pureResolvers]))
+const neoSchema = getSchema(driver, mergeResolvers([resolvers, repoResolvers]))
 const path = '/api/graphql'
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 let apolloServer: ApolloServer

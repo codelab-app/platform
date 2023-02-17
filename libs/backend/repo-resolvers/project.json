@@ -1,14 +1,14 @@
 {
-  "name": "backend-pure-resolvers",
+  "name": "backend-repo-resolvers",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/pure-resolvers/src",
+  "sourceRoot": "libs/backend/repo-resolvers/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/pure-resolvers/**/*.ts"]
+        "lintFilePatterns": ["libs/backend/repo-resolvers/**/*.ts"]
       }
     }
   },

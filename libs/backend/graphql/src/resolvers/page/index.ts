@@ -1,1 +1,10 @@
-export * from './page.resolver'
+import type { IResolvers } from '@graphql-tools/utils'
+import { pageSlug } from './page.resolver'
+
+export const pageResolver: IResolvers = {
+  Mutation: {},
+  Query: {},
+  Page: {
+    slug: pageSlug,
+  },
+}

@@ -73,8 +73,8 @@
         "libs/backend/infra/adapter/vercel/src/index.ts"
       ],
       "@codelab/backend/infra/ports": ["libs/backend/infra/ports/src/index.ts"],
-      "@codelab/backend/pure-resolvers": [
-        "libs/backend/pure-resolvers/src/index.ts"
+      "@codelab/backend/repo-resolvers": [
+        "libs/backend/repo-resolvers/src/index.ts"
       ],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
