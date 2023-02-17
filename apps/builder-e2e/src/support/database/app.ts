@@ -19,7 +19,6 @@ export const createAppInput = (userId: string): AppCreateInput => {
   return {
     id: appId,
     name: `Test app ${appId}`,
-    slug: `test-${appId}`,
     owner: connectOwner(userId),
     pages: {
       create: [
