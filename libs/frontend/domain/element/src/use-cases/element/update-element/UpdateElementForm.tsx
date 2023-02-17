@@ -63,8 +63,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       Array<{ label: string; value: string }>
     >([])
 
-    // Cache the initial element model, because when it updates it will interfere with what the user is typing
-    const { current: model } = useRef(makeCurrentModel(element))
+    const model = makeCurrentModel(element)
 
     const { current: computeElementNameService } = useRef(
       elementService.updateModal.computeElementNameService!,

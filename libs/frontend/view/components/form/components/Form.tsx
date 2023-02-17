@@ -1,8 +1,10 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { css } from '@emotion/react'
+import { complement, ifElse, whereEq } from 'ramda'
 import type { ReactElement } from 'react'
 import React, { useEffect, useState } from 'react'
+import type { DeepPartial } from 'uniforms'
 import { Bridge } from 'uniforms'
 import { AutoForm as BaseAutoForm } from 'uniforms-antd'
 import {
@@ -39,6 +41,32 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
       )
     }, [schema])
 
+    const onFormSubmit = (formData: DeepPartial<TData>) => {
+      const validate = createValidator(schema)
+      validate(formData)
+
+      const result = onSubmit(formData as TData)
+
+      return result
+        .then((r) => {
+          if (r) {
+            callbackWithParams(onSubmitSuccess, r)
+          }
+        })
+        .catch((err) => {
+          console.error(err)
+
+          callbackWithParams(onSubmitError, err)
+        })
+    }
+
+    // This prevents submitting when there is no actual change in the form
+    const submitWhenChanged = ifElse(
+      complement(whereEq(model)),
+      onFormSubmit,
+      () => Promise.resolve(),
+    )
+
     return (
       <div
         css={css`
@@ -51,26 +79,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           model={model}
           onChange={onChange}
           onChangeModel={onChangeModel}
-          onSubmit={(formData) => {
-            // apply default values from the schema for the formData
-            // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
-            const validate = createValidator(schema)
-            validate(formData)
-
-            const result = onSubmit(formData as TData)
-
-            return result
-              .then((r) => {
-                if (r) {
-                  callbackWithParams(onSubmitSuccess, r)
-                }
-              })
-              .catch((err) => {
-                console.error(err)
-
-                callbackWithParams(onSubmitError, err)
-              })
-          }}
+          onSubmit={submitWhenChanged}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           submitField={submitField}
