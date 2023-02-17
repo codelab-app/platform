@@ -58,7 +58,7 @@ export const upsertUserMiddleware: MiddlewareFunction<unknown> = async ({
   env,
 }) => {
   // Perform upsert here
-  // if (env === Stage.Test) {
+  // if (env === Stage.Dev) {
   const userRepository: UserRepository = new UserRepository()
 
   const user = new User({

@@ -39,6 +39,7 @@ describe('Apps CRUD', () => {
         .getModalAction(/Update App/)
         .click()
       cy.getModal().should('not.exist')
+      cy.getSpinner().should('not.exist')
 
       cy.findByText(appName).should('not.exist')
       cy.findByText(updatedAppName).should('exist')

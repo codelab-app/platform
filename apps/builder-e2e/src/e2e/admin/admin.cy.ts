@@ -10,7 +10,7 @@ const createCypressUser = () =>
       id: v4(),
       auth0Id: v4(),
       email: 'cypress@codelab.app',
-      username: 'cypress@codelab.app',
+      username: 'cypress',
       roles: [IRole.Admin, IRole.User],
     },
   })
@@ -18,7 +18,11 @@ const createCypressUser = () =>
 describe('Admin', () => {
   before(() => {
     cy.resetDatabase()
-    createCypressUser()
+    cy.login()
+    // Visit so we can trigger upsert user
+    cy.visit('/apps')
+    cy.getSpinner().should('not.exist')
+    // createCypressUser()
   })
 
   /**
@@ -52,8 +56,12 @@ describe('Admin', () => {
      * Importing from file should result in the same data as seed
      */
     it('should import Ant Design data', () => {
+      cy.logout()
       cy.resetDatabase()
-      createCypressUser()
+      cy.login()
+      // Visit so we can trigger upsert user
+      cy.visit('/apps')
+      cy.getSpinner().should('not.exist')
       importData()
 
       return exportAndAssert(createSeedDataPath(2)).then((payload) => {

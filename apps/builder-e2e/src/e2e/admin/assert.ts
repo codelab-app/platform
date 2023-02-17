@@ -8,16 +8,16 @@ import * as path from 'path'
 const TIMEOUT = 140000
 
 export const seedData = () => {
-  cy.log('yarn cli seed').exec(
-    'yarn cli data seed --stage test --email cypress@codelab.app',
-    {
+  cy.log('yarn cli seed')
+    .exec('yarn cli data seed --stage test --email cypress@codelab.app', {
       timeout: TIMEOUT,
-    },
-  )
-  // .its('stdout')
-  // .then((res) => {
-  //   cy.log(res)
-  // })
+    })
+    .then((res) => {
+      cy.log(res.stdout)
+      cy.log(res.stderr)
+      // cy.log(res.err)
+      // cy.log(res.code)
+    })
 }
 
 const DEFAULT_SEED_FILE_PATH = './src/data/seed-data.test.json'

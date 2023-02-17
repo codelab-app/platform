@@ -1,7 +1,7 @@
 import type { IUser } from '@codelab/backend/abstract/core'
-import type { Auth0SessionUser, IRole } from '@codelab/shared/abstract/core'
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { rolesToEnum } from '@codelab/shared/domain/mapper'
+import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
 
 export class User implements IUser {
   id: string
@@ -12,7 +12,7 @@ export class User implements IUser {
 
   username: string
 
-  roles: Array<IRole> | undefined | null
+  roles: Array<IRole> | null
 
   constructor({ id, auth0Id, email, roles = [], username }: IUser) {
     this.id = id
@@ -27,11 +27,12 @@ export class User implements IUser {
     const roles = session[JWT_CLAIMS].roles
 
     return new User({
-      id: auth0Id,
+      id: v4(),
       auth0Id,
       email,
       username: nickname,
-      roles: rolesToEnum(roles),
+      // roles: rolesToEnum(roles),
+      roles: [IRole.Admin],
     })
   }
 }

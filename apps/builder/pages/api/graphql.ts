@@ -130,6 +130,8 @@ const handler: NextApiHandler = async (req, res) => {
 
   if (
     session?.user &&
+    // If dev mode, in e2e specs we create user
+    // process.env.NODE_ENV === 'development' &&
     // If localhost enable this
     process.env['NEXT_PUBLIC_BUILDER_HOST']?.includes('127.0.0.1')
   ) {

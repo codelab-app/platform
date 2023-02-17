@@ -32,7 +32,7 @@ export class UserRepository extends IRepository<IUser> {
     ).users
   }
 
-  protected async _update(user: IUser, where: UserWhere) {
+  protected async _update({ id, ...user }: IUser, where: UserWhere) {
     return (
       await (
         await this.User

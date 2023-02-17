@@ -11,7 +11,6 @@
   "scripts": {
     "setup": "./scripts/yarn/setup.sh",
     "postinstall": "./scripts/yarn/postinstall.sh && husky install",
-    "serve:test": "npx env-cmd -f .env.test nx serve web -c test",
     "e2e": "env-cmd -f .env.test nx e2e builder-e2e -c dev",
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",

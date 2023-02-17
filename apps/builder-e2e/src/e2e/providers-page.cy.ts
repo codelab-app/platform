@@ -147,6 +147,7 @@ describe('_app page', () => {
   it('should render the input in disabled state', () => {
     openPageByHeaderMenu(pageName)
 
+    // This is not working in headless mode
     cy.get('#render-root .ant-card-body input').should('be.disabled')
 
     cy.get('header .anticon-eye').click()
