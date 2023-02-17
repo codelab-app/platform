@@ -17,10 +17,11 @@ export class PrimitiveTypeFactory
   repository: PrimitiveTypeRepository = new PrimitiveTypeRepository()
 
   async create(
-    { owner, primitiveKind }: ICreatePrimitiveType,
+    { id, owner, primitiveKind }: ICreatePrimitiveType,
     where: BaseTypeUniqueWhereCallback<IPrimitiveType>,
   ) {
     const primitiveType = PrimitiveType.init({
+      id,
       __typename: ITypeKind.PrimitiveType,
       primitiveKind,
       owner,

@@ -6,10 +6,11 @@ import type {
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
-  ActionType,
+  ActionTypeRepository,
   EnumType,
   InterfaceType,
-  PrimitiveType,
+  InterfaceTypeRepository,
+  PrimitiveTypeRepository,
   ReactNodeType,
   ReactNodeTypeRepository,
   RenderPropsType,
@@ -38,21 +39,32 @@ interface Request {
   owner: IUserRef
 }
 
+const throwError = (type: string) => {
+  throw new Error(`${type} should have been seeded already`)
+}
+
 export class TransformAntDesignTypesService extends IUseCase<
   Request,
   IType | undefined
 > {
   reactNodeTypeRepository = new ReactNodeTypeRepository()
 
+  primitiveTypeRepository = new PrimitiveTypeRepository()
+
+  interfaceTypeRepository = new InterfaceTypeRepository()
+
   renderPropsTypeRepository = new RenderPropsTypeRepository()
 
   unionTypeRepository = new UnionTypeRepository()
+
+  actionTypeRepository = new ActionTypeRepository()
 
   protected async _execute({ field, atom, owner }: Request) {
     if (isEnumType(field.type)) {
       const values = parseSeparators(field)
 
       const enumType = EnumType.init({
+        id: v4(),
         __typename: ITypeKind.EnumType,
         name: EnumType.getCompositeName(atom, { key: field.property }),
         owner,
@@ -76,14 +88,28 @@ export class TransformAntDesignTypesService extends IUseCase<
     if (isPrimitiveType(field.type)) {
       const primitiveKind = AntDesignTypeMapper.mapPrimitiveType(field.type)
 
-      return PrimitiveType.init({
-        owner,
-        __typename: ITypeKind.PrimitiveType,
-        primitiveKind,
+      console.log('Map primitiveType', field.type, primitiveKind)
+
+      const primitiveType = await this.primitiveTypeRepository.find({
+        name: primitiveKind,
       })
+
+      if (!primitiveType) {
+        throwError(`PrimitiveType ${primitiveKind}`)
+      }
+
+      return primitiveType
     }
 
     if (isRenderPropsType(field.type)) {
+      const renderPropsType = await this.renderPropsTypeRepository.find({
+        name: ITypeKind.RenderPropsType,
+      })
+
+      if (!renderPropsType) {
+        throwError(ITypeKind.RenderPropsType)
+      }
+
       return RenderPropsType.init({
         owner,
         __typename: ITypeKind.RenderPropsType,
@@ -91,19 +117,34 @@ export class TransformAntDesignTypesService extends IUseCase<
     }
 
     if (isActionType(field.type)) {
-      return ActionType.init({
-        owner,
-        __typename: ITypeKind.ActionType,
+      const actionType = await this.actionTypeRepository.find({
+        name: ITypeKind.ActionType,
       })
+
+      if (!actionType) {
+        throwError(ITypeKind.ActionType)
+      }
     }
 
     if (isInterfaceType(field.type)) {
-      return InterfaceType.init({
-        name: InterfaceType.getApiName(atom, { key: field.property }),
-        owner,
-        __typename: ITypeKind.InterfaceType,
-        fields: [],
+      const interfaceTypeName = InterfaceType.getApiName(atom, {
+        key: field.property,
       })
+
+      const interfaceType = await this.interfaceTypeRepository.find({
+        name: interfaceTypeName,
+      })
+
+      if (!interfaceType) {
+        const newInterfaceType = InterfaceType.init({
+          name: InterfaceType.getApiName(atom, { key: field.property }),
+          owner,
+          __typename: ITypeKind.InterfaceType,
+          fields: [],
+        })
+
+        // this.interfaceTypeRepository.
+      }
     }
 
     if (isUnionType(field.type)) {
@@ -131,12 +172,20 @@ export class TransformAntDesignTypesService extends IUseCase<
         }),
       )
 
-      const unionType = UnionType.init({
-        owner,
-        __typename: ITypeKind.UnionType,
-        name: UnionType.compositeName(atom, { key: field.property }),
-        // These need to exist already
-        typesOfUnionType: mappedTypesOfUnionType,
+      const unionTypeName = UnionType.compositeName(atom, {
+        key: field.property,
+      })
+
+      // const unionType = UnionType.init({
+      //   owner,
+      //   __typename: ITypeKind.UnionType,
+      //   name: UnionType.compositeName(atom, { key: field.property }),
+      //   // These need to exist already
+      //   typesOfUnionType: mappedTypesOfUnionType,
+      // })
+
+      const unionType = this.unionTypeRepository.find({
+        name: unionTypeName,
       })
 
       return unionType

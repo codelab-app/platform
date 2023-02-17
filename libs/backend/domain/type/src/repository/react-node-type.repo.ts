@@ -21,14 +21,6 @@ export class ReactNodeTypeRepository extends IRepository<IReactNodeType> {
     )[0]
   }
 
-  // async save(reactNodeType: IReactNodeType, where?: BaseTypeUniqueWhere) {
-  //   if (await this.exists(reactNodeType, where)) {
-  //     return this.update(reactNodeType, this.getWhere(reactNodeType, where))
-  //   }
-
-  //   return (await this.add([reactNodeType]))[0]
-  // }
-
   protected async _add(reactNodeTypes: Array<IReactNodeType>) {
     return (
       await (

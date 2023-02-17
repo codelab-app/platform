@@ -14,7 +14,8 @@ import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
  */
 export type FieldWhere = BaseTypeUniqueWhere & {
   api: {
-    id: string
+    // id: string
+    name: string
   }
   key: string
 }

@@ -11,8 +11,13 @@ export abstract class IRepository<Model extends IEntity> {
 
   protected abstract _add(data: Array<Model>): Promise<Array<Model>>
 
+  /**
+   * We disallow updating of ID, since it disallows us from keying a where search by name, and having consistent ID.
+   *
+   * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as well.
+   */
   public update(
-    data: Model,
+    data: Omit<Model, 'id'>,
     where: BaseUniqueWhere,
   ): Promise<Model | undefined> {
     // Add logger here
@@ -22,7 +27,7 @@ export abstract class IRepository<Model extends IEntity> {
   }
 
   protected abstract _update(
-    data: Model,
+    data: Omit<Model, 'id'>,
     where: BaseUniqueWhere,
   ): Promise<Model | undefined>
 
@@ -33,7 +38,8 @@ export abstract class IRepository<Model extends IEntity> {
    */
   async save(data: Model, where?: BaseUniqueWhere): Promise<Model | undefined> {
     if (await this.exists(data, where)) {
-      const results = this.update(data, this.getWhere(data, where))
+      const { id, ...updateData } = data
+      const results = this.update(updateData, this.getWhere(data, where))
 
       return results
     }

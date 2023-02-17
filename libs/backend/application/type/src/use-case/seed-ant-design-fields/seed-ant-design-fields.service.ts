@@ -90,7 +90,8 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
       for await (const field of fields) {
         await this.fieldRepository.save(field, {
           api: {
-            id: atom.api.id,
+            name: atom.api.name,
+            // id: atom.api.id,
           },
           key: field.key,
         })
@@ -112,7 +113,8 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
             // name: compoundCaseToTitleCase(field.property),
             key: field.property,
             api: {
-              id: atom.api.id,
+              name: atom.api.name,
+              // id: atom.api.id,
             },
           },
         )
@@ -146,6 +148,8 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
             this.owner,
             (typeData: IType) => ({ name: typeData.name }),
           )
+
+          console.log('TypeFactory.create', type)
 
           existingField = Field.init({
             id: v4(),
