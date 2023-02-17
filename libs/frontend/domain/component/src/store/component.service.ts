@@ -258,7 +258,17 @@ export class ComponentService
   writeClonesCache(componentFragment: IComponentDTO) {
     return [...this.clonedComponents.values()]
       .filter((c) => c.sourceComponentId === componentFragment.id)
-      .map((c) => c.writeCache(componentFragment))
+      .map((c) => {
+        const clonedChildrenContainer = c.elementTree?.elementsList.find(
+          ({ sourceElementId }) =>
+            sourceElementId === componentFragment.childrenContainerElement.id,
+        )
+
+        const childrenContainerElement =
+          clonedChildrenContainer ?? componentFragment.childrenContainerElement
+
+        return c.writeCache({ ...componentFragment, childrenContainerElement })
+      })
   }
 
   @modelAction

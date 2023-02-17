@@ -9,6 +9,8 @@ export const componentSchema = gql`
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
     owner: User!
     props: Prop @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
+    # This is the element inside the component that is going to be
+    # the container for component instance children
     childrenContainerElement: Element! @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
     # This is used to prevent components from referencing each other in a
     # circular way. In another words, if component A references component B,
