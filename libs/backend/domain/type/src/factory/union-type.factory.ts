@@ -1,17 +1,20 @@
 import type {
   ICreateUnionType,
-  ITypeFactory,
   IUnionType,
 } from '@codelab/backend/abstract/core'
+import { ITypeFactory } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { UnionType } from '../model'
 import { UnionTypeRepository } from '../repository'
 
-export class UnionTypeFactory implements ITypeFactory<ICreateUnionType> {
+export class UnionTypeFactory extends ITypeFactory<
+  ICreateUnionType,
+  IUnionType
+> {
   repository = new UnionTypeRepository()
 
-  async create(
+  async _create(
     { owner, name }: ICreateUnionType,
     where: BaseTypeUniqueWhereCallback<IUnionType>,
   ) {
@@ -22,8 +25,6 @@ export class UnionTypeFactory implements ITypeFactory<ICreateUnionType> {
       typesOfUnionType: [],
     })
 
-    await this.repository.save(renderPropsType, where(renderPropsType))
-
-    return renderPropsType
+    return await this.repository.save(renderPropsType, where(renderPropsType))
   }
 }

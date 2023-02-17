@@ -1,17 +1,20 @@
 import type {
   IArrayType,
   ICreateArrayType,
-  ITypeFactory,
 } from '@codelab/backend/abstract/core'
+import { ITypeFactory } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { ArrayType } from '../model/array-type.model'
 import { ArrayTypeRepository } from '../repository'
 
-export class ArrayTypeFactory implements ITypeFactory<ICreateArrayType> {
+export class ArrayTypeFactory extends ITypeFactory<
+  ICreateArrayType,
+  IArrayType
+> {
   repository = new ArrayTypeRepository()
 
-  async create(
+  async _create(
     { owner, name }: ICreateArrayType,
     where: BaseTypeUniqueWhereCallback<IArrayType>,
   ) {
@@ -21,8 +24,6 @@ export class ArrayTypeFactory implements ITypeFactory<ICreateArrayType> {
       owner,
     })
 
-    await this.repository.save(arrayType, where(arrayType))
-
-    return arrayType
+    return await this.repository.save(arrayType, where(arrayType))
   }
 }

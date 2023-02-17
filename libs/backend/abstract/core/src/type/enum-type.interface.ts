@@ -34,7 +34,7 @@ export type IEnumTypeExport = z.infer<typeof EnumTypeExportSchema>
  * Create
  */
 const CreateEnumTypeSchema = EnumTypeSchema.pick({
-  id: true,
+  // id: true,
   name: true,
   owner: true,
   allowedValues: true,

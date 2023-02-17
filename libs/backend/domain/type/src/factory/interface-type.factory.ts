@@ -1,19 +1,20 @@
 import type {
   ICreateInterfaceType,
   IInterfaceType,
-  ITypeFactory,
 } from '@codelab/backend/abstract/core'
+import { ITypeFactory } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { InterfaceType } from '../model'
 import { InterfaceTypeRepository } from '../repository/interface-type.repo'
 
-export class InterfaceTypeFactory
-  implements ITypeFactory<ICreateInterfaceType>
-{
+export class InterfaceTypeFactory extends ITypeFactory<
+  ICreateInterfaceType,
+  IInterfaceType
+> {
   repository: InterfaceTypeRepository = new InterfaceTypeRepository()
 
-  async create(
+  async _create(
     { owner, name, fields }: ICreateInterfaceType,
     where: BaseTypeUniqueWhereCallback<IInterfaceType>,
   ) {
@@ -24,8 +25,6 @@ export class InterfaceTypeFactory
       fields,
     })
 
-    await this.repository.save(interfaceType, where(interfaceType))
-
-    return interfaceType
+    return await this.repository.save(interfaceType, where(interfaceType))
   }
 }

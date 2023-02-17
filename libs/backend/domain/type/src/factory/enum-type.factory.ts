@@ -1,30 +1,24 @@
-import type {
-  ICreateEnumType,
-  IEnumType,
-  ITypeFactory,
-} from '@codelab/backend/abstract/core'
+import type { ICreateEnumType, IEnumType } from '@codelab/backend/abstract/core'
+import { ITypeFactory } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { EnumType } from '../model/enum-type.model'
 import { EnumTypeRepository } from '../repository/enum-type.repo'
 
-export class EnumTypeFactory implements ITypeFactory<ICreateEnumType> {
+export class EnumTypeFactory extends ITypeFactory<ICreateEnumType, IEnumType> {
   repository: EnumTypeRepository = new EnumTypeRepository()
 
-  async create(
-    { id, name, owner, allowedValues }: ICreateEnumType,
+  async _create(
+    { name, owner, allowedValues }: ICreateEnumType,
     where: BaseTypeUniqueWhereCallback<IEnumType>,
   ) {
     const enumType = EnumType.init({
-      id,
       __typename: ITypeKind.EnumType,
       name,
       owner,
       allowedValues,
     })
 
-    await this.repository.save(enumType, where(enumType))
-
-    return enumType
+    return await this.repository.save(enumType, where(enumType))
   }
 }

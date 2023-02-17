@@ -1,19 +1,20 @@
 import type {
   ICreateReactNodeType,
   IReactNodeType,
-  ITypeFactory,
 } from '@codelab/backend/abstract/core'
+import { ITypeFactory } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { ReactNodeType } from '../model/react-node-type.model'
 import { ReactNodeTypeRepository } from '../repository/react-node-type.repo'
 
-export class ReactNodeTypeFactory
-  implements ITypeFactory<ICreateReactNodeType>
-{
+export class ReactNodeTypeFactory extends ITypeFactory<
+  ICreateReactNodeType,
+  IReactNodeType
+> {
   repository: ReactNodeTypeRepository = new ReactNodeTypeRepository()
 
-  async create(
+  async _create(
     { owner }: ICreateReactNodeType,
     where: BaseTypeUniqueWhereCallback<IReactNodeType>,
   ) {
@@ -22,8 +23,6 @@ export class ReactNodeTypeFactory
       owner,
     })
 
-    await this.repository.save(reactNodeType, where(reactNodeType))
-
-    return reactNodeType
+    return await this.repository.save(reactNodeType, where(reactNodeType))
   }
 }

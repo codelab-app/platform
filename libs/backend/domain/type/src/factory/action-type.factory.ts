@@ -1,17 +1,20 @@
 import type {
   IActionType,
   ICreateActionType,
-  ITypeFactory,
 } from '@codelab/backend/abstract/core'
+import { ITypeFactory } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { ActionType } from '../model/action-type.model'
 import { ActionTypeRepository } from '../repository/action-type.repo'
 
-export class ActionTypeFactory implements ITypeFactory<ICreateActionType> {
+export class ActionTypeFactory extends ITypeFactory<
+  ICreateActionType,
+  IActionType
+> {
   repository: ActionTypeRepository = new ActionTypeRepository()
 
-  async create(
+  async _create(
     { owner }: ICreateActionType,
     where: BaseTypeUniqueWhereCallback<IActionType>,
   ) {
@@ -20,8 +23,6 @@ export class ActionTypeFactory implements ITypeFactory<ICreateActionType> {
       __typename: ITypeKind.ActionType,
     })
 
-    await this.repository.save(actionType, where(actionType))
-
-    return actionType
+    return await this.repository.save(actionType, where(actionType))
   }
 }
