@@ -30,6 +30,13 @@ const openPageByName = (name: string) => {
   cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
 }
 
+const openPageByHeaderMenu = (name: string) => {
+  cy.get('header .anticon-file').click()
+  cy.findByText(name).click()
+  cy.getSpinner().should('not.exist')
+  cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
+}
+
 describe('_app page', () => {
   before(() => {
     cy.resetDatabase()
@@ -122,29 +129,19 @@ describe('_app page', () => {
     cy.get('header .anticon-eye').click()
     cy.get('header .anticon-tool', { timeout: 30000 }).should('be.visible')
     cy.get('#render-root .ant-card-body input').should('not.be.disabled')
-
-    cy.go('back')
-    cy.go('back')
   })
 
   it('should be able to toggle "Component Disabled" AntDesignConfigProvider prop on _app page', () => {
-    openPageByName(APP_PAGE_NAME)
+    openPageByHeaderMenu(APP_PAGE_NAME)
 
     cy.findByText(CONFIG_PROVIDER_NAME).click()
 
     cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.findByLabelText(/Component Disabled/).click()
-
-    // After atom props are changed - need to wait for the corresponding API call
-    // which is sent to the server in order to save this change to the database.
-    // Otherwise, there is a risk that `cy.go('back')` will prevent the request from being sent
-    cy.waitForApiCalls()
-
-    cy.go('back')
+    cy.findByLabelText(/Component Disabled/).click({ force: true })
   })
 
   it('should render the input in disabled state', () => {
-    openPageByName(pageName)
+    openPageByHeaderMenu(pageName)
 
     cy.get('#render-root .ant-card-body input').should('be.disabled')
 
