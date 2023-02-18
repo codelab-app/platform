@@ -14,12 +14,17 @@ export const mapCreateInput = (
   const { id = v4(), name, auth0Id, rootElementId } = input
   const newRootElementId = v4()
 
+  const props: ComponentCreateInput['props'] = {
+    create: { node: { data: JSON.stringify({}) } },
+  }
+
   const createRootElement: ComponentCreateInput['rootElement'] = {
     create: {
       node: {
         id: newRootElementId,
         name,
         slug: createSlug(name, id),
+        props,
       },
     },
   }
@@ -42,10 +47,6 @@ export const mapCreateInput = (
         owner: connectOwner(auth0Id),
       },
     },
-  }
-
-  const props: ComponentCreateInput['props'] = {
-    create: { node: { data: JSON.stringify({}) } },
   }
 
   return {
