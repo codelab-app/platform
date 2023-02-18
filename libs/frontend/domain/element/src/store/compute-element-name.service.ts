@@ -53,6 +53,11 @@ export class ComputeElementNameService
     this: ComputeElementNameService,
     renderType: RenderType,
   ) {
+    // Don't change the name picked by the user
+    if (this.pickedName) {
+      return
+    }
+
     if (renderType.model === RenderTypeEnum.Atom) {
       this.pickedRenderTypeName = (yield* _await(
         this.atomService.getOne(renderType.id),
