@@ -1,0 +1,51 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "allowJs": true,
+    "jsxImportSource": "@emotion/react",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "lib": ["es2021"],
+    "types": ["node", "worker-loader", "@fancyapps/ui", "cypher"],
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "module": "esnext",
+    "useDefineForClassFields": true,
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.graphql",
+    "next-env.d.ts",
+    "index.d.ts",
+    "middleware.ts",
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.ts",
+    "../../tmp/apps/websites/src/.next/types/**/*.ts",
+    "../../dist/apps/websites/.next/types/**/*.ts",
+    "../../dist/apps/websites-test/.next/types/**/*.ts"
+  ],
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.tsx",
+    "**/*.test.tsx",
+    "**/*.spec.js",
+    "**/*.test.js",
+    "**/*.spec.jsx",
+    "**/*.test.jsx"
+  ]
+}

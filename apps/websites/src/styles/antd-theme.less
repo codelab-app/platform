@@ -1,0 +1,47 @@
+@import '~antd/lib/style/themes/default.less'; // you need to import antd variables once in your project
+@import '~antd/dist/antd.less'; // Import Ant Design styles
+
+// @import '~highlight.js/styles/monokai-sublime.css';
+// @import '~react-grid-sections/css/styles.css';
+// @import '~react-resizable/css/styles.css';
+
+// https://stackoverflow.com/questions/60853067/how-to-solve-ant-design-base-css-and-tailwindcss-base-css-alignments-problem
+span.anticon {
+  vertical-align: middle;
+  svg {
+    vertical-align: initial !important;
+  }
+}
+
+// https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+
+@font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
+
+// Menu
+@menu-item-height: calc(@layout-header-height - 1px);
+@menu-item-padding: 0 10px;
+@menu-item-font-size: 14px;
+
+@menu-inline-toplevel-item-height: 36px;
+
+// @divider-text-padding: 0.5em;;
+//@primary-color: #a855f7;
+// @heading-color: @primary-color;
+
+.ant-divider-horizontal {
+  margin: 16px 0;
+}
+
+@border-radius-base: 4px;
+
+// Page Header
+@page-header-padding-vertical: @padding-xss;
+
+// Header
+@layout-header-height: 38px;
+// @sections-header-background: @white;
+@layout-header-padding: 0px;
+
+@card-padding-base: 16px;

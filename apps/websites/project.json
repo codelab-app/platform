@@ -1,0 +1,89 @@
+{
+  "name": "websites",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/websites/src",
+  "projectType": "application",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "root": "apps/websites",
+        "outputPath": "dist/apps/websites"
+      },
+      "configurations": {
+        "ci": {
+          "root": "apps/websites",
+          "outputPath": "dist/apps/websites"
+        },
+        "production": {},
+        "development": {
+          "outputPath": "tmp/apps/websites/src"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-test": {
+      "executor": "nx:run-commands",
+      "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "npx env-cmd -f .env.test nx serve websites -c test"
+            }
+          ]
+        },
+        "ci": {
+          "commands": [
+            {
+              "command": "npx next start dist/apps/websites --port 3000"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "websites:build",
+        "dev": true,
+        "port": 3000,
+        "hostname": "0.0.0.0",
+        "maxWorkers": 4
+      },
+      "configurations": {
+        "ci": {},
+        "test": {
+          "buildTarget": "websites:build:test",
+          "memoryLimit": 8192,
+          "port": 3001
+        },
+        "production": {
+          "buildTarget": "websites:build:production",
+          "dev": false
+        },
+        "development": {
+          "buildTarget": "websites:build:development",
+          "dev": true
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "websites:build:production"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/websites/**/*.{ts,tsx,js,jsx}"]
+      },
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": ["scope:frontend"],
+  "implicitDependencies": []
+}
