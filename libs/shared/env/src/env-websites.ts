@@ -5,7 +5,7 @@ import * as env from 'env-var'
  * This can't be imported by Vercel due to edge middleware
  */
 
-interface EnvBuilder {
+interface EnvWebsites {
   neo4j: {
     uri: string
     user: string
@@ -29,7 +29,7 @@ interface EnvBuilder {
   }
 }
 
-export const EnvBuilder = (): EnvBuilder => {
+export const EnvWebsites = (): EnvWebsites => {
   const auth0baseUrl = isVercelPreview
     ? env.get('VERCEL_URL').required().asString()
     : env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()
