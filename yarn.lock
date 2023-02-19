@@ -14695,6 +14695,7 @@ __metadata:
     react-resizable-panels: ^0.0.36
     react-responsive: 9.0.0-beta.10
     react-slick: 0.29.0
+    react-sticky-box: ^2.0.0
     react-stickynode: 4.1.0
     react-syntax-highlighter: 15.5.0
     react-use: 17.4.0
@@ -29130,6 +29131,15 @@ __metadata:
     react: ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: 67ce4981914da8a76c6efb4bc8ee7ab69e04c33bd4b3517419ab2165679a3c701dae781556149713fe2c542f84188b7ca101ea58883537be5c05756408f48c8b
+  languageName: node
+  linkType: hard
+
+"react-sticky-box@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "react-sticky-box@npm:2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: cfe20bdbadb7ca12af0eee3746eb2880ef44b0f92f4d2a35814b6f0558ebe9b27733102d284caa1c8d13d5db3410780afb68009a38c1f533f9a156776ed82192
   languageName: node
   linkType: hard
 

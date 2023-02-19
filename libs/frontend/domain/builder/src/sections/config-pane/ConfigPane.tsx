@@ -18,6 +18,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
+import { renderStickyTabBar } from '../stickyTabBarRenderer'
 import { ConfigPaneComponentTabContainer } from './ConfigPane-ComponentTabContainer'
 import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContainer'
 import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-InspectorTabContainerStyle'
@@ -110,6 +111,7 @@ export const ConfigPane = observer<MetaPaneProps>(
         <Tabs
           defaultActiveKey={selectedNode?.id + '_tab2'}
           items={tabItems}
+          renderTabBar={renderStickyTabBar}
           size="small"
         />
       </TabContainer>

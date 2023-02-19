@@ -44,6 +44,7 @@ import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
+import { renderStickyTabBar } from '../stickyTabBarRenderer'
 import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
 
@@ -251,6 +252,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           `}
           defaultActiveKey="1"
           items={tabItems}
+          renderTabBar={renderStickyTabBar}
           size="small"
         />
         {pageTree && (
