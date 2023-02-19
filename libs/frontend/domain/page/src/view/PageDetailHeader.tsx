@@ -25,6 +25,7 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import { useAsync } from 'react-use'
+import tw from 'twin.macro'
 // import { BuilderSizeBreakpoints, mainContentWidthBreakPoint } from './constants'
 
 export type MenuItemProps = {
@@ -159,6 +160,7 @@ export const PageDetailHeader = observer<{
 
   return (
     <Menu
+      css={tw`flex justify-center`}
       items={menuItems
         .filter((x) => !x.hide)
         .map((x) => ({

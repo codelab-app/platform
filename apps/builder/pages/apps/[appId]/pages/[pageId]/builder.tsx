@@ -5,7 +5,6 @@ import {
   BuilderExplorerPane,
   BuilderTabs,
   ConfigPane,
-  EditorPaneBuilder,
 } from '@codelab/frontend/domain/builder'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
@@ -15,7 +14,6 @@ import {
   useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import type { UseResizable } from '@codelab/frontend/view/components'
 import {
   DashboardTemplate,
   sidebarNavigation,
@@ -112,21 +110,6 @@ PageBuilder.Layout = observer((page) => {
     [pageBuilderRenderer, activeElementTree],
   )
 
-  const EditorPaneComponent = useMemo(
-    () =>
-      observer(({ resizable }: { resizable: UseResizable }) => (
-        <EditorPaneBuilder
-          actionService={actionService}
-          appStore={pageBuilderRenderer?.appStore.current}
-          fieldService={fieldService}
-          resizable={resizable}
-          resourceService={resourceService}
-          typeService={typeService}
-        />
-      )),
-    [pageBuilderRenderer],
-  )
-
   const ExplorerPaneComponent = useMemo(
     () =>
       observer(() => (
@@ -169,7 +152,6 @@ PageBuilder.Layout = observer((page) => {
     >
       <DashboardTemplate
         ConfigPane={ConfigPaneComponent}
-        EditorPane={EditorPaneComponent}
         ExplorerPane={ExplorerPaneComponent}
         Header={HeaderComponent}
         contentStyles={contentStyles}

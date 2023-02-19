@@ -126,6 +126,7 @@
     "react-hotkeys-hook": "3.4.4",
     "react-quill": "2.0.0",
     "react-resizable": "3.0.4",
+    "react-resizable-panels": "^0.0.36",
     "react-responsive": "9.0.0-beta.10",
     "react-slick": "0.29.0",
     "react-stickynode": "4.1.0",

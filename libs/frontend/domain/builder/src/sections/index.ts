@@ -1,5 +1,4 @@
 export * from './config-pane'
 export * from './content'
-export * from './editor-pane'
 export * from './explorer-pane'
 // export * from './overlay-toolbar'

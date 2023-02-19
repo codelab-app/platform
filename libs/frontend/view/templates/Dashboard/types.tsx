@@ -1,6 +1,5 @@
 import type { MenuProps } from 'antd'
 import type { JSXElementConstructor } from 'react'
-import type { UseResizable } from '../../components'
 
 export interface DashboardTemplateProps {
   Header?: JSXElementConstructor<unknown>
@@ -12,10 +11,6 @@ export interface DashboardTemplateProps {
    * The right panel used for configuration element settings
    */
   ConfigPane?: JSXElementConstructor<unknown>
-  /**
-   * The bottom panel used for workflow & editors
-   */
-  EditorPane?: JSXElementConstructor<{ resizable: UseResizable }>
   /**
    * The vertical icon only menu
    */

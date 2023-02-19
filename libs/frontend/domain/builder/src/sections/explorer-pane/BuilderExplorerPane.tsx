@@ -35,21 +35,23 @@ import {
   DeleteFieldModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
-import {
-  CodeMirrorEditor,
-  EditorPaneHeader,
-} from '@codelab/frontend/view/components'
+import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@emotion/react'
 import { Collapse, Divider, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
+import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
 
 const { Panel } = Collapse
+
+type StoreHeaderProps = PropsWithChildren<{
+  extra?: ReactNode
+}>
 
 interface BuilderMainPaneProps {
   componentService: IComponentService
@@ -65,6 +67,13 @@ interface BuilderMainPaneProps {
   typeService: ITypeService
   resourceService: IResourceService
 }
+
+export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
+  <div css={tw`flex justify-between`}>
+    <span css={tw`text-sm font-bold`}>{children}</span>
+    <div>{extra}</div>
+  </div>
+)
 
 export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
   ({
@@ -191,9 +200,9 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             <Collapse css={tw`w-full mb-2`} defaultActiveKey={['1']} ghost>
               <Panel
                 header={
-                  <EditorPaneHeader extra={createStateFieldButton}>
+                  <StoreHeader extra={createStateFieldButton}>
                     State
-                  </EditorPaneHeader>
+                  </StoreHeader>
                 }
                 key="1"
               >
@@ -203,9 +212,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               <Divider />
               <Panel
                 header={
-                  <EditorPaneHeader extra={createActionButton}>
-                    Actions
-                  </EditorPaneHeader>
+                  <StoreHeader extra={createActionButton}>Actions</StoreHeader>
                 }
                 key="2"
               >
@@ -215,7 +222,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 />
               </Panel>
             </Collapse>
-            <EditorPaneHeader>Store Inspector</EditorPaneHeader>
+            <StoreHeader>Store Inspector</StoreHeader>
             <CodeMirrorEditor
               language={CodeMirrorLanguage.Json}
               onChange={() => undefined}
