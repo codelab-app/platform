@@ -37,9 +37,13 @@ export const GetPagesItem = observer<GetPagesItemProps>(
     const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
 
     const onClickBuild = async () => {
-      setRebuildButtonLoading(true)
-      await regeneratePages(page.id)
-      setRebuildButtonLoading(false)
+      const pageDomain = domains?.find((domain) => domain.appId === page.app.id)
+
+      if (pageDomain?.name) {
+        setRebuildButtonLoading(true)
+        await regeneratePages([page.slug], pageDomain.name)
+        setRebuildButtonLoading(false)
+      }
     }
 
     const onClickDelete = () => pageService.deleteModal.open(pageRef(page.id))

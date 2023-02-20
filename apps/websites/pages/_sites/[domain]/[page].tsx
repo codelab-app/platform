@@ -27,7 +27,7 @@ const Index = (props: AppPagePageProps) => {
   return (
     <>
       <Head>
-        <title>{page?.name}</title>
+        <title>{page?.name ?? 'Loading...'}</title>
       </Head>
 
       {renderer && <Renderer renderRoot={renderer.renderRoot.bind(renderer)} />}

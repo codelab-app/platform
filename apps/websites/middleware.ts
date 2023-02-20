@@ -47,7 +47,7 @@ const middleware = async (req: NextRequest) => {
 
   const url = new URL(`/_sites/${hostname}${pathname}`, `https://${hostname}`)
 
-  console.log('Redirecting...', url)
+  console.log('Redirecting...', url.toString())
 
   return NextResponse.rewrite(url)
 }

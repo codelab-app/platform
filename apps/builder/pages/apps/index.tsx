@@ -62,7 +62,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <BuildAppModal appService={appService} />
+      <BuildAppModal appService={appService} domainService={domainService} />
       <CreateAppModal appService={appService} userService={userService} />
       <UpdateAppModal appService={appService} userService={userService} />
       <DeleteAppModal appService={appService} />
