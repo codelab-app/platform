@@ -44,13 +44,6 @@ export const primitives = {
   [PrimitiveTypeKind.Boolean]: 'boolean' as const,
 }
 
-const primitivesDefaults = {
-  [PrimitiveTypeKind.Boolean]: false,
-  [PrimitiveTypeKind.Number]: 0.0,
-  [PrimitiveTypeKind.Integer]: 0,
-  [PrimitiveTypeKind.String]: '',
-}
-
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
@@ -217,31 +210,35 @@ export class TypeSchemaFactory {
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type)
-    let validation = {}
+    let rulesSchema = {}
 
     switch (type.primitiveKind) {
       case PrimitiveTypeKind.String:
-        validation = {
+        rulesSchema = {
           ...context?.validationRules?.String,
         }
         break
       case PrimitiveTypeKind.Number:
-        validation = {
+        rulesSchema = {
           ...context?.validationRules?.Number,
         }
         break
       case PrimitiveTypeKind.Integer:
-        validation = {
+        rulesSchema = {
           ...context?.validationRules?.Integer,
+        }
+        break
+      case PrimitiveTypeKind.Boolean:
+        rulesSchema = {
+          default: false,
         }
         break
     }
 
     return {
       type: primitives[type.primitiveKind],
-      ...validation,
+      ...rulesSchema,
       ...extra,
-      default: primitivesDefaults[type.primitiveKind],
     }
   }
 

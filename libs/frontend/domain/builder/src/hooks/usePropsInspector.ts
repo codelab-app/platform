@@ -6,10 +6,14 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { isElement } from '@codelab/frontend/abstract/core'
 import { getDefaultComponentFieldProps } from '@codelab/frontend/domain/component'
+import { schemaTransformer } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { notify } from '@codelab/frontend/shared/utils'
+import { createValidator } from '@codelab/frontend/view/components'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
+import get from 'lodash/get'
 import { useState } from 'react'
+import { noop } from 'ts-essentials'
 
 const getNodeProps = (
   node: IElement | IComponent,
@@ -32,6 +36,28 @@ const getNodeProps = (
   return mergeProps(defaultProps, node.props?.values, editedProps)
 }
 
+const getNodePropsValidateFn = (node: IElement | IComponent) => {
+  const interfaceType = isElement(node)
+    ? node.atom?.current.api.current ??
+      node.renderComponentType?.current.api.current
+    : node.api.current
+
+  if (!interfaceType) {
+    return noop
+  }
+
+  const nodeApiSchema = schemaTransformer.transform(interfaceType)
+  const validator = createValidator(nodeApiSchema)
+
+  return (data: IPropData) => {
+    const validation = validator(data)
+
+    if (validation?.details.length) {
+      throw new Error('Validation failed')
+    }
+  }
+}
+
 /**
  * If node is IComponent, that means we are viewing it in the component builder only.
  */
@@ -42,6 +68,7 @@ export const usePropsInspector = (
 ) => {
   const { componentService, elementService } = useStore()
   const [isLoading, setIsLoading] = useState(false)
+  const validate = getNodePropsValidateFn(node)
   const lastRenderedProps = getNodeProps(node, renderer, editedProps)
   const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 
@@ -50,6 +77,7 @@ export const usePropsInspector = (
 
     try {
       setIsLoading(true)
+      validate(data)
 
       if (isElement(node)) {
         await elementService.patchElement(node, {
@@ -65,9 +93,9 @@ export const usePropsInspector = (
         title: `${isElement(node) ? 'Element' : 'Component'} props updated.`,
         type: 'success',
       })
-    } catch (e) {
-      console.error(e)
-      notify({ title: 'Invalid json', type: 'warning' })
+    } catch (err) {
+      console.error(err)
+      notify({ title: get(err, 'message', 'Invalid json'), type: 'error' })
     } finally {
       setIsLoading(false)
     }

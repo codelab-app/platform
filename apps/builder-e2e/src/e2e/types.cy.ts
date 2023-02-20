@@ -24,6 +24,7 @@ const interfaceTypeName = 'New Interface'
 const interfaceTypeKind = ITypeKind.InterfaceType
 // Field
 const fieldName = 'Name'
+const fieldDefaultValue = 'something default'
 
 describe('Types CRUD', () => {
   before(() => {
@@ -170,9 +171,24 @@ describe('Types CRUD', () => {
         type: FIELD_TYPE.SELECT,
       })
 
+      // should show error because nullable is false by default
       cy.getModal()
         .getModalAction(/Create/)
         .click()
+
+      cy.getModal().findByText('Default values is required if not nullable')
+
+      cy.getModal().setFormFieldValue({
+        label: 'Default values',
+        value: fieldDefaultValue,
+        type: FIELD_TYPE.CODE_MIRROR,
+      })
+
+      cy.getModal()
+        .getModalAction(/Create/)
+        .click()
+
+      cy.getModal().should('not.exist')
 
       cy.findByText(interfaceTypeName)
         .closest('.ant-table-row')
@@ -182,11 +198,19 @@ describe('Types CRUD', () => {
       cy.searchTableRow({
         header: 'Key',
         row: fieldName,
+        table: cy.get('.ant-table-expanded-row'),
       }).should('exist')
 
       cy.searchTableRow({
         header: 'Kind',
         row: primitiveTypeKind,
+        table: cy.get('.ant-table-expanded-row'),
+      })
+
+      cy.searchTableRow({
+        header: 'Default',
+        row: fieldDefaultValue,
+        table: cy.get('.ant-table-expanded-row'),
       })
     })
   })

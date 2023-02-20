@@ -5,11 +5,11 @@ import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
-import { filterEmptyStrings } from '@codelab/shared/utils'
+import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import React from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 
@@ -40,8 +40,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element, trackPromises }) => {
     const { typeService, elementService } = useStore()
     const { trackPromise } = trackPromises ?? {}
-    // cache it to not confuse the user when auto-saving
-    const initialPropsRef = useRef(element.props?.values ?? {})
 
     const apiId =
       element.atom?.current.api.id ||
@@ -75,6 +73,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const initialSchema = allowCustomText ? withCustomTextSchema : {}
 
+    // If element is a component type, we also show the component props
+    // but should prioritize the element props
+    const propsModel = mergeProps(
+      element.renderComponentType?.maybeCurrent?.props?.values,
+      element.props?.values,
+    )
+
     return (
       <Spinner isLoading={loading}>
         {interfaceType && (
@@ -85,7 +90,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 initialSchema={initialSchema}
                 interfaceType={interfaceType}
                 key={element.id}
-                model={initialPropsRef.current}
+                model={propsModel}
                 onSubmit={onSubmit}
                 submitField={React.Fragment}
               />

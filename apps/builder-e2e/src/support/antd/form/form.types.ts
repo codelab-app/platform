@@ -15,6 +15,7 @@ type FieldType =
   | 'radio'
   | 'date'
   | 'codeMirror'
+  | 'toggle'
 
 export enum FIELD_TYPE {
   INPUT = 'input',
@@ -25,6 +26,7 @@ export enum FIELD_TYPE {
   RADIO = 'radio',
   DATE = 'date',
   CODE_MIRROR = 'codeMirror',
+  TOGGLE = 'toggle',
 }
 
 export interface FormFieldOptions {
@@ -34,7 +36,7 @@ export interface FormFieldOptions {
 export type FormInputOptions = FormFieldOptions & { type?: FieldType }
 
 export type FormFieldValueOptions = FormInputOptions & {
-  value: string | number | Array<string>
+  value: string | number | Array<string> | boolean
   placeholder?: string
   scrollIntoView?: boolean
 }

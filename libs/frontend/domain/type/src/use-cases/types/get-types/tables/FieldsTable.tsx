@@ -12,6 +12,7 @@ import {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Divider, Space, Table, Tag } from 'antd'
 import type { ColumnProps } from 'antd/lib/table/Column'
+import isNil from 'lodash/isNil'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -105,8 +106,16 @@ export const FieldsTable = observer<FieldsTableProps>(
         dataIndex: 'defaultValues',
         key: 'defaultValues',
         onHeaderCell: headerCellProps,
-        render: () => {
-          return <div>value</div>
+        render: (_, record) => {
+          const field = interfaceType.fields.find(
+            ({ key }) => key === record.key,
+          )
+
+          const showValue =
+            record.type?.kind === ITypeKind.PrimitiveType &&
+            !isNil(field?.defaultValues)
+
+          return showValue ? <div>{String(field?.defaultValues)}</div> : ''
         },
       },
       {

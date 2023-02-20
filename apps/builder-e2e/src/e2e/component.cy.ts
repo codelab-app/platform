@@ -118,6 +118,11 @@ describe('Component CRUD', () => {
         value: IPrimitiveTypeKind.String,
         type: FIELD_TYPE.SELECT,
       })
+      cy.getModal().setFormFieldValue({
+        label: 'Nullable',
+        value: true,
+        type: FIELD_TYPE.TOGGLE,
+      })
       cy.getModal()
         .getModalAction(/Create/)
         .click()

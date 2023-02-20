@@ -16,6 +16,7 @@ import { TypeSelect } from '../../../shared'
 import { createFieldSchema } from './createFieldSchema'
 import {
   filterValidationRules,
+  isBoolean,
   isFloat,
   isInteger,
   isInterfaceType,
@@ -76,7 +77,14 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             ]}
           />
           <TypeSelect label="Type" name="fieldType" />
-          <AutoFields fields={['validationRules.general']} />
+          <DisplayIfField<ICreateFieldDTO>
+            condition={({ model }) =>
+              Boolean(model.fieldType) &&
+              !isBoolean(typeService, model.fieldType)
+            }
+          >
+            <AutoFields fields={['validationRules.general']} />
+          </DisplayIfField>
           <DisplayIfField<ICreateFieldDTO>
             condition={({ model }) => isPrimitive(typeService, model.fieldType)}
           >

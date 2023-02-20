@@ -36,6 +36,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
             [GeneralValidationRules.Nullable]: {
               type: 'boolean',
               nullable: true,
+              default: false,
             },
           },
         },
@@ -126,5 +127,21 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
       $ref: 'customTypes#/definitions/fieldDefaultValues',
     },
   },
+  // This is overridden if the field is not nullable, which will require a value for `defaultValues`
   required: ['id', 'key', 'fieldType'],
+  if: {
+    properties: {
+      validationRules: {
+        properties: {
+          general: {
+            properties: {
+              // Using enum, we can check if it matches the current value in the form
+              [GeneralValidationRules.Nullable]: { enum: [false] },
+            },
+          },
+        },
+      },
+    },
+  },
+  then: { required: ['id', 'key', 'fieldType', 'defaultValues'] },
 }

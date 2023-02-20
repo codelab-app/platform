@@ -1,4 +1,4 @@
-import type { IAnyType, IPrimitiveType } from '@codelab/frontend/abstract/core'
+import type { IPrimitiveType } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
   ToggleExpressionField,
@@ -7,9 +7,9 @@ import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import type { UiPropertiesFn } from '../types'
 
 export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
-  type: IAnyType,
+  type,
 ) => {
-  if (type.name === IPrimitiveTypeKind.String) {
+  if (type.primitiveKind === IPrimitiveTypeKind.String) {
     return {
       uniforms: {
         component: CodeMirrorField(),

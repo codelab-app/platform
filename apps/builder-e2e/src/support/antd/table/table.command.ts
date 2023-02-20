@@ -83,13 +83,13 @@ export const getTableRows = (options?: CommonOptions) => {
  * @returns Row
  */
 export const searchTableRow = (
-  { header, row }: SearchCellOptions,
+  { header, row, table }: SearchCellOptions,
   options?: CommonOptions,
 ) => {
   /**
    * Get the index of the header column we're searching for
    */
-  return getTableHeader()
+  return (table ?? getTableHeader())
     .contains('.ant-table-cell', header, options)
     .invoke('index')
     .then((columnIndex) => {

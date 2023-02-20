@@ -5,6 +5,7 @@ import { css } from '@emotion/react'
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import type { AutoCompleteProps } from 'antd'
 import { Button, Space, Tooltip } from 'antd'
+import isNil from 'lodash/isNil'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import type { FieldProps } from 'uniforms'
@@ -75,8 +76,13 @@ const ToggleExpression = ({
   fieldProps,
 }: ToggleExpressionFieldProps) => {
   const { allowExpressions, appStore } = useFormContext()
-  const value = String(fieldProps.value ?? fieldProps.field.default)
-  const isExpression = hasStateExpression(value)
+
+  // Will show blank if undefined instead of "undefined" string
+  const value = !isNil(fieldProps.value ?? fieldProps.field?.default)
+    ? String(fieldProps.value ?? fieldProps.field?.default)
+    : undefined
+
+  const isExpression = value && hasStateExpression(value)
   const [showExpressionEditor, setShowExpressionEditor] = useState(isExpression)
   const [valueBeforeToggle, setValueBeforeToggle] = useState<Value>()
 

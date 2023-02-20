@@ -2,9 +2,9 @@
 import merge from 'lodash/merge'
 import { intType, stringType } from './setup-store'
 
-export const stringTypeExpectedSchema = { type: 'string', default: '' }
+export const stringTypeExpectedSchema = { type: 'string' }
 
-export const intTypeExpectedSchema = { type: 'integer', default: 0 }
+export const intTypeExpectedSchema = { type: 'integer' }
 
 export const unionTypeExpectedSchema = {
   oneOf: [

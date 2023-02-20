@@ -3,6 +3,7 @@ import { absoluteRoot } from '@hon2a/cypress-without'
 import escapeRegExp from 'lodash/escapeRegExp'
 import forEach from 'lodash/forEach'
 import isArray from 'lodash/isArray'
+import isBoolean from 'lodash/isBoolean'
 import isEmpty from 'lodash/isEmpty'
 import isNumber from 'lodash/isNumber'
 import isObject from 'lodash/isObject'
@@ -97,6 +98,8 @@ export const getFormInput = (
       return getSelectValuePart(scope, opts)
     case FIELD_TYPE.RADIO:
       return scope.find('.ant-radio-group', opts)
+    case FIELD_TYPE.TOGGLE:
+      return scope.findByRole('switch', opts)
     case FIELD_TYPE.DATE:
       return scope.find('.ant-picker-input > input', opts)
     default:
@@ -212,6 +215,18 @@ export const expectFormFieldValue = ({
       getInput()
         .contains('.ant-radio-wrapper', String(value), opts)
         .should('have.class', 'ant-radio-wrapper-checked')
+
+      return
+    case FIELD_TYPE.TOGGLE:
+      if (value) {
+        getInput()
+          .findByRole('switch', opts)
+          .should('have.class', 'ant-switch-checked')
+      } else {
+        getInput()
+          .findByRole('switch', opts)
+          .should('not.have.class', 'ant-switch-checked')
+      }
 
       return
     default:
@@ -461,6 +476,17 @@ export const setRadioValue =
   (value: Label, options?: CommonOptions) => ($el: JQuery) =>
     on($el).contains('.ant-radio-wrapper', value, options).click(options)
 
+export const setToggleValue =
+  (value: boolean, options?: CommonOptions) => ($el: JQuery) => {
+    if (value) {
+      on($el).should('not.have.class', 'ant-switch-checked')
+      on($el).click(options)
+    } else {
+      on($el).should('have.class', 'ant-switch-checked')
+      on($el).click(options)
+    }
+  }
+
 export const setDatePickerValue =
   (value?: string, options: CommonOptions = {}) =>
   ($el: JQuery) => {
@@ -510,7 +536,7 @@ export const setFormFieldValue = (
 
       return
     case FIELD_TYPE.SELECT:
-      if (isArray(value)) {
+      if (isArray(value) || isBoolean(value)) {
         throw new Error('Select `value` must be a `Label`.')
       }
 
@@ -550,15 +576,23 @@ export const setFormFieldValue = (
 
       return
     case FIELD_TYPE.RADIO:
-      if (isArray(value)) {
+      if (isArray(value) || isBoolean(value)) {
         throw new Error('Select `value` must be a `Label`.')
       }
 
       getInput().then(setRadioValue(value, opts))
 
       return
+    case FIELD_TYPE.TOGGLE:
+      if (!isBoolean(value)) {
+        throw new Error('Value must be a boolean')
+      }
+
+      getInput().then(setToggleValue(value, opts))
+
+      return
     case FIELD_TYPE.DATE:
-      if (isArray(value) || isNumber(value)) {
+      if (isArray(value) || isNumber(value) || isBoolean(value)) {
         throw new Error('Date `value` must be a string.')
       }
 

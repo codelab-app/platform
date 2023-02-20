@@ -17,4 +17,7 @@ export interface SearchCellOptions {
 
   // The value to search within the row
   row: Label
+
+  // The table to search from (useful for nested tables)
+  table?: Cypress.Chainable<JQuery<HTMLElement>>
 }

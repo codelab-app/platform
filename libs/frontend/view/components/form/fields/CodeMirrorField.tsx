@@ -1,4 +1,5 @@
 import { Form } from 'antd'
+import isNil from 'lodash/isNil'
 import type { Ref } from 'react'
 import React from 'react'
 import type { FieldProps } from 'uniforms'
@@ -45,6 +46,11 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
          * currently, everything is interpreted as string
          */
 
+        // Will show blank if undefined instead of "undefined" string
+        const editorValue = !isNil(merged.value ?? merged.field?.default)
+          ? String(merged.value ?? merged.field?.default)
+          : undefined
+
         return (
           <Form.Item label={baseProps.label ?? ''}>
             <CodeMirrorEditor
@@ -53,7 +59,7 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...merged}
               onChange={onChange}
-              value={String(merged.value || merged.field?.default)}
+              value={editorValue}
             />
           </Form.Item>
         )
