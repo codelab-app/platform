@@ -17,7 +17,7 @@ resource "vercel_project" "builder" {
 
   git_repository = {
     type = "github"
-    repo = "codelab-app/builder"
+    repo = "codelab-app/platform"
   }
 
   build_command    = "./scripts/vercel/builder/build.sh"
