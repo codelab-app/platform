@@ -1,16 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-/**
- * Edge Runtime limitations prevent us from using many libraries such as `env-var`
- *
- * Say the user domain is `codelab.ai`, while the project domain is `codelab.app`
- *
- * Take `https://codelab.ai/abc`
- *
- * Vercel domain `my-site-7q03y4pi5.vercel.app`
- * Project domain `codelab.app`
- */
 const middleware = async (req: NextRequest) => {
   const hostname = req.headers.get('host')
   /**
@@ -36,11 +26,11 @@ const middleware = async (req: NextRequest) => {
     /**
      * Allow site access locally
      */
-    if (isLocal) {
-      return NextResponse.next()
-    }
+    // if (isLocal) {
+    return NextResponse.next()
+    // }
 
-    return new NextResponse(null, { status: 404 })
+    // return new NextResponse(null, { status: 404 })
   }
 
   if (

@@ -29,7 +29,6 @@
     "**/*.graphql",
     "next-env.d.ts",
     "index.d.ts",
-    "middleware.ts",
     "**/*.js",
     "**/*.jsx",
     ".next/types/**/*.ts",
