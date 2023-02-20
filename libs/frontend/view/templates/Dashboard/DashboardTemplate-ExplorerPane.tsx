@@ -11,7 +11,7 @@ export const DashboardTemplateExplorerPane = ({
   ExplorerPane,
 }: ExplorerPaneProps) => {
   return (
-    <div css={tw`w-full`}>
+    <div css={tw`w-full h-full`}>
       <Sider
         css={tw`w-auto border-r border-gray-200 max-h-full h-full overflow-x-hidden overflow-y-auto overscroll-contain`}
         theme="light"
