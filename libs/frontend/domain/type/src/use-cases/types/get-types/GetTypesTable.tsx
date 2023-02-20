@@ -29,7 +29,6 @@ export const GetTypesTable = observer<{
   const {
     isLoadingAllTypes,
     getBaseTypes,
-    fetchedBaseTypes,
     isLoadingTypeDescendants,
     getTypeDescendants,
   } = useTypesTableData(typeService)
@@ -53,6 +52,17 @@ export const GetTypesTable = observer<{
     [router],
   )
 
+  const loadAllBaseTypes = async () => {
+    await getBaseTypes({
+      offset: 0,
+      limit: curPageSize,
+    })
+    await getBaseTypes({
+      offset: 0,
+      limit: typeService.count,
+    })
+  }
+
   /**
    * Change page
    */
@@ -63,24 +73,13 @@ export const GetTypesTable = observer<{
   }, [curPage, pageSize, pagination])
 
   useEffect(() => {
-    const offset = (curPage - 1) * curPageSize
-    void getBaseTypes({
-      offset,
-      limit: curPageSize,
-    })
-  }, [curPage, curPageSize, getBaseTypes])
-
-  const curPageDataStartIndex = typesList.findIndex(
-    (t) => t.id === fetchedBaseTypes?.[0]?.id,
-  )
+    void loadAllBaseTypes()
+  }, [])
 
   return (
     <Table<IAnyType>
       columns={columns}
-      dataSource={typesList.slice(
-        curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0,
-        (curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0) + curPageSize,
-      )}
+      dataSource={typesList}
       expandable={{
         onExpand: async (expanded, record) => {
           if (expanded) {
