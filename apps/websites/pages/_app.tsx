@@ -1,4 +1,3 @@
-// import '../src/wdyr'
 import 'reflect-metadata'
 import '../src/styles/antd-theme.less'
 import 'react-quill/dist/quill.snow.css'
@@ -6,8 +5,6 @@ import 'react-quill/dist/quill.snow.css'
 import '../src/styles/quill.snow.override.css'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
-// https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
-import { UserProvider } from '@auth0/nextjs-auth0'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
@@ -32,30 +29,28 @@ const App = ({ pageProps, Component }: IAppProps<IPageProps>) => {
   return (
     <StoreProvider value={store}>
       <RecoilRoot>
-        <UserProvider>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <ConfigProvider>
-              <GlobalStyles />
-              <Global
-                styles={[
-                  css({
-                    '#__next': {
-                      height: '100%',
-                    },
-                  }),
-                  slickCssFix,
-                  ...globalTailwindFix,
-                ]}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <ConfigProvider>
+            <GlobalStyles />
+            <Global
+              styles={[
+                css({
+                  '#__next': {
+                    height: '100%',
+                  },
+                }),
+                slickCssFix,
+                ...globalTailwindFix,
+              ]}
+            />
+            <Layout>
+              <Component
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...pageProps}
               />
-              <Layout>
-                <Component
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...pageProps}
-                />
-              </Layout>
-            </ConfigProvider>
-          </LocalizationProvider>
-        </UserProvider>
+            </Layout>
+          </ConfigProvider>
+        </LocalizationProvider>
       </RecoilRoot>
     </StoreProvider>
   )
