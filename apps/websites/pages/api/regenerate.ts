@@ -13,7 +13,7 @@ const getAllPagesToRevalidate = async () => {
 
   for (const user of users) {
     for (const app of user.apps) {
-      const domain = domains.find((d) => d.app.id === app.id)
+      const domain = domains.find((_domain) => _domain.app.id === app.id)
 
       if (!domain || domain.domainConfig.misconfigured) {
         continue
@@ -31,7 +31,7 @@ const getAllPagesToRevalidate = async () => {
 }
 
 const getAllAppPagesToRevalidate = async (appId: string) => {
-  const domainCondition = { where: { app: { id: appId } } }
+  const domainCondition = { where: { appConnection: { node: { id: appId } } } }
   const { domains } = await domainApis.GetDomains(domainCondition)
   const domain = domains[0]
 
@@ -56,7 +56,7 @@ const getSpecificPagesToRevalidate = async (
   const revalidationData = []
 
   for (const page of pages) {
-    const domain = domains.find((d) => d.app.id === page.app.id)
+    const domain = domains.find((_domain) => _domain.app.id === page.app.id)
 
     if (!page.isProvider && domain && !domain.domainConfig.misconfigured) {
       revalidationData.push({ domain, page })
@@ -104,7 +104,7 @@ const regenerate: NextApiHandler = async (req, res) => {
           await res.revalidate(path)
 
           revalidatedPages.push(path)
-        } catch (e) {
+        } catch (error) {
           failedPages.push(path)
         }
       },
