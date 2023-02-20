@@ -52,16 +52,20 @@ export const GetTypesTable = observer<{
     [router],
   )
 
-  const loadAllBaseTypes = async () => {
-    await getBaseTypes({
-      offset: 0,
-      limit: curPageSize,
-    })
-    await getBaseTypes({
-      offset: 0,
-      limit: typeService.count,
-    })
-  }
+  const loadAllBaseTypes = useCallback(
+    async (pagesize: number) => {
+      let callCounter = 0
+
+      while (callCounter < 2) {
+        await getBaseTypes({
+          offset: 0,
+          limit: callCounter === 0 ? pagesize : typeService.count,
+        })
+        callCounter++
+      }
+    },
+    [curPageSize],
+  )
 
   /**
    * Change page
@@ -73,8 +77,8 @@ export const GetTypesTable = observer<{
   }, [curPage, pageSize, pagination])
 
   useEffect(() => {
-    void loadAllBaseTypes()
-  }, [])
+    void loadAllBaseTypes(curPageSize)
+  }, [curPageSize])
 
   return (
     <Table<IAnyType>
