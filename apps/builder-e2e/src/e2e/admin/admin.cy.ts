@@ -48,6 +48,12 @@ describe('Admin', () => {
       seedData()
 
       return exportAndAssert(createSeedDataPath(1)).then((payload) => {
+        // Uncomment to see detailed diff
+        // for (let i = 0; i < payload.tags.length; i++) {
+        //   const payloadTag = payload.tags[i]
+        //   const initialPayloadTag = initialPayload.tags[i]
+        //   expect(payloadTag).toEqual(initialPayloadTag)
+        // }
         expect(payload).toEqual(initialPayload)
       })
     })
