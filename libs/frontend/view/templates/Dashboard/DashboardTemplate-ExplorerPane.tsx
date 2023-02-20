@@ -13,7 +13,7 @@ export const DashboardTemplateExplorerPane = ({
   return (
     <div css={tw`w-full`}>
       <Sider
-        css={tw`w-auto border-r border-gray-200 max-h-full h-full overflow-x-hidden overflow-y-auto`}
+        css={tw`w-auto border-r border-gray-200 max-h-full h-full overflow-x-hidden overflow-y-auto overscroll-contain`}
         theme="light"
         width="auto"
       >
