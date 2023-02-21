@@ -31,15 +31,14 @@ describe('Apps CRUD', () => {
       cy.getCard({ title: appName }).getButton({ icon: 'ellipsis' }).click()
 
       cy.getDropdownItem('Edit').click()
-      cy.getSpinner().should('not.exist')
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: updatedAppName })
 
       cy.getModal()
         .getModalAction(/Update App/)
         .click()
-      cy.getModal().should('not.exist')
-      // cy.getSpinner().should('not.exist')
+
+      cy.getModal().should('not.exist').getSpinner().should('not.exist')
 
       cy.findByText(appName).should('not.exist')
       cy.findByText(updatedAppName).should('exist')
@@ -61,7 +60,7 @@ describe('Apps CRUD', () => {
         .click()
 
       cy.getDropdownItem('Delete').click()
-      // cy.getSpinner().should('not.exist')
+      cy.getModal().should('not.exist').getSpinner().should('not.exist')
 
       cy.getModal()
         .getModalAction(/Delete App/)
