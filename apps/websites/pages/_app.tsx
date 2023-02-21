@@ -8,7 +8,6 @@ import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { StoreProvider } from '@codelab/frontend/presenter/container'
 import React, { useMemo } from 'react'
-import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 
 const App = ({ pageProps, Component }: IAppProps<IPageProps>) => {
@@ -16,14 +15,12 @@ const App = ({ pageProps, Component }: IAppProps<IPageProps>) => {
 
   return (
     <StoreProvider value={store}>
-      <RecoilRoot>
-        <GlobalStyles />
+      <GlobalStyles />
 
-        <Component
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...pageProps}
-        />
-      </RecoilRoot>
+      <Component
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...pageProps}
+      />
     </StoreProvider>
   )
 }
