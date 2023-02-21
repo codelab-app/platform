@@ -1,1 +1,1 @@
-export * from './winston-driver'
+export * from './winston'

@@ -523,7 +523,7 @@ workflows:
       - e2e:
           <<: *filters-pr
           e: docker-node-neo4j
-          size: large
+          size: xlarge
           requires:
             - install-and-build-workspace
       - notify-success:

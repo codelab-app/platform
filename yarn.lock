@@ -4954,6 +4954,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@elastic/ecs-helpers@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@elastic/ecs-helpers@npm:1.1.0"
+  dependencies:
+    fast-json-stringify: ^2.4.1
+  checksum: 8f64e86fe3cfe67540fd8c2a62e0b7db1f4e8cab8c4a63e2f49ce295c3d3b629d0f3363b0107fe530650898a89b5b1d86190717447a481932856651911e6ef61
+  languageName: node
+  linkType: hard
+
+"@elastic/ecs-winston-format@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@elastic/ecs-winston-format@npm:1.3.1"
+  dependencies:
+    "@elastic/ecs-helpers": ^1.1.0
+  checksum: 49a7767c64258fee8ad73ccc27ae5ab32b331b57de915c361520ca8a9717e76137182f242d2d14ce6204ba1cbf371c0fa4cb2e58f6d3e7413c61e61be5f4a61d
+  languageName: node
+  linkType: hard
+
 "@emotion/babel-plugin-jsx-pragmatic@npm:^0.1.5":
   version: 0.1.5
   resolution: "@emotion/babel-plugin-jsx-pragmatic@npm:0.1.5"
@@ -11856,7 +11874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.1.0, ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.2, ajv@npm:^6.12.4, ajv@npm:^6.12.5, ajv@npm:^6.12.6":
+"ajv@npm:^6.1.0, ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.11.0, ajv@npm:^6.12.2, ajv@npm:^6.12.4, ajv@npm:^6.12.5, ajv@npm:^6.12.6":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -14592,6 +14610,7 @@ __metadata:
     "@currents/cli": ^3.1.3
     "@currents/nx": ^0.2.1
     "@dnd-kit/core": 6.0.5
+    "@elastic/ecs-winston-format": ^1.3.1
     "@emotion/babel-plugin": 11.10.0
     "@emotion/babel-preset-css-prop": 11.2.0
     "@emotion/eslint-plugin": 11.7.0
@@ -18772,6 +18791,18 @@ __metadata:
   version: 2.1.0
   resolution: "fast-json-stable-stringify@npm:2.1.0"
   checksum: b191531e36c607977e5b1c47811158733c34ccb3bfde92c44798929e9b4154884378536d26ad90dfecd32e1ffc09c545d23535ad91b3161a27ddbb8ebe0cbecb
+  languageName: node
+  linkType: hard
+
+"fast-json-stringify@npm:^2.4.1":
+  version: 2.7.13
+  resolution: "fast-json-stringify@npm:2.7.13"
+  dependencies:
+    ajv: ^6.11.0
+    deepmerge: ^4.2.2
+    rfdc: ^1.2.0
+    string-similarity: ^4.0.1
+  checksum: f78ab25047c790de5b521c369e0b18c595055d48a106add36e9f86fe45be40226f168ff4708a226e187d0b46f1d6b32129842041728944bd9a03ca5efbbe4ccb
   languageName: node
   linkType: hard
 
@@ -30280,7 +30311,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rfdc@npm:^1.3.0":
+"rfdc@npm:^1.2.0, rfdc@npm:^1.3.0":
   version: 1.3.0
   resolution: "rfdc@npm:1.3.0"
   checksum: fb2ba8512e43519983b4c61bd3fa77c0f410eff6bae68b08614437bc3f35f91362215f7b4a73cbda6f67330b5746ce07db5dd9850ad3edc91271ad6deea0df32
@@ -31729,6 +31760,13 @@ __metadata:
     char-regex: ^1.0.2
     strip-ansi: ^6.0.0
   checksum: ce85533ef5113fcb7e522bcf9e62cb33871aa99b3729cec5595f4447f660b0cefd542ca6df4150c97a677d58b0cb727a3fe09ac1de94071d05526c73579bf505
+  languageName: node
+  linkType: hard
+
+"string-similarity@npm:^4.0.1":
+  version: 4.0.4
+  resolution: "string-similarity@npm:4.0.4"
+  checksum: 797b41b24e1eb6b3b0ab896950b58c295a19a82933479c75f7b5279ffb63e0b456a8c8d10329c02f607ca1a50370e961e83d552aa468ff3b0fa15809abc9eff7
   languageName: node
   linkType: hard
 
