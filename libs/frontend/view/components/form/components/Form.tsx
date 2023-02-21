@@ -74,6 +74,8 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
 
             return result
               .then((r) => {
+                lastSubmitted.current = formData
+
                 if (r) {
                   callbackWithParams(onSubmitSuccess, r)
                 }
