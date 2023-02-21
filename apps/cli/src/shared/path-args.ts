@@ -56,14 +56,14 @@ export const assignUserOption: { [key: string]: Options } = {
 }
 
 export const upsertUserMiddleware: MiddlewareFunction<unknown> = async ({
-  env,
+  stage,
 }) => {
   /**
    * This may cause errors. The auth0Id may not match up
    *
    * Perform upsert here
    */
-  if (env === Stage.Dev) {
+  if (stage === Stage.Dev) {
     const userRepository: UserRepository = new UserRepository()
 
     const user = new User({
