@@ -1,4 +1,5 @@
-#resource "vercel_project_domain" "websites" {
-#  project_id = vercel_project.websites.id
-#  domain     = var.next_public_websites_host
-#}
+resource "vercel_project_domain" "websites" {
+  project_id = vercel_project.websites.id
+  # builder uses "admin.codelab.app" and user websites use "apps.codelab.app"
+  domain     = replace(var.next_public_builder_host, "admin", "apps")
+}
