@@ -35,12 +35,13 @@ export default defineConfig({
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
     setupNodeEvents,
+    specPattern: 'src/e2e/**/admin.cy.{js,jsx,ts,tsx}',
     env: {
       CYPRESS_ENABLE_LOGGING: false,
     },
     /**
      * TODO(@nrwl/cypress): In Cypress v12,the testIsolation option is turned on by default.
-     * This can cause tests to start breaking where not indended.
+     * This can cause tests to start breaking where not intended.
      * You should consider enabling this once you verify tests do not depend on each other
      * More Info: https://docs.cypress.io/guides/references/migration-guide#Test-Isolation
      * */

@@ -1,6 +1,7 @@
 import type { IUser } from '@codelab/backend/abstract/core'
-import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
-import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { Auth0SessionUser, IRole } from '@codelab/shared/abstract/core'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export class User implements IUser {
@@ -32,7 +33,7 @@ export class User implements IUser {
       email,
       username: nickname,
       // roles: rolesToEnum(roles),
-      roles: [IRole.Admin],
+      roles: [OGM_TYPES.Role.Admin],
     })
   }
 }

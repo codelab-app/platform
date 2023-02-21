@@ -20,7 +20,8 @@ export const userSchema = gql`
     elements: [Element!]! @relationship(type: "OWNED_BY", direction: IN)
     components: [Component!]! @relationship(type: "OWNED_BY", direction: IN)
     # Some issue using required array of enum, can't add using []! signature
-    roles: [Role!] @default(value: User)
+    # roles: [Role!] @default(value: User)
+    roles: [Role!]
     tags: [Tag!]! @relationship(type: "OWNED_BY", direction: IN)
   }
 

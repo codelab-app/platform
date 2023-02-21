@@ -17369,7 +17369,7 @@ input UserCreateInput {
   elements: UserElementsFieldInput
   email: String!
   id: ID!
-  roles: [Role!] = [User]
+  roles: [Role!]
   tags: UserTagsFieldInput
   types: UserTypesFieldInput
   username: String!
@@ -17646,7 +17646,7 @@ input UserOnCreateInput {
   auth0Id: String!
   email: String!
   id: ID!
-  roles: [Role!] = [User]
+  roles: [Role!]
   username: String!
 }
 

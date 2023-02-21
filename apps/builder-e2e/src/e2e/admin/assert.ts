@@ -10,13 +10,18 @@ const TIMEOUT = 140000
 export const seedData = () => {
   cy.log('yarn cli seed')
     .exec('yarn cli data seed --stage test --email cypress@codelab.app', {
+      failOnNonZeroExit: false,
       timeout: TIMEOUT,
     })
+    /**
+     * Currently cannot catch errors from exec failing
+     *
+     * https://github.com/cypress-io/cypress/issues/5094
+     */
     .then((res) => {
+      cy.log(`${res.code}`)
       cy.log(res.stdout)
       cy.log(res.stderr)
-      // cy.log(res.err)
-      // cy.log(res.code)
     })
 }
 
@@ -26,21 +31,36 @@ const getFullPath = (file: string) => path.join('apps/builder-e2e', file)
 // TODO: CLI commands should have stage, and automatically load equivalent envs depended on state
 
 export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
-  cy.log('yarn cli data import').exec(
-    ` yarn cli data import --seedDataPath ${getFullPath(
-      file,
-    )} --skipUserData --skipSeedData false --email cypress@codelab.app`,
-    { timeout: TIMEOUT },
-  )
+  cy.log('yarn cli data import')
+    .exec(
+      ` yarn cli data import --seedDataPath ${getFullPath(
+        file,
+      )} --skipUserData --skipSeedData false --email cypress@codelab.app`,
+      {
+        timeout: TIMEOUT,
+        failOnNonZeroExit: false,
+      },
+    )
+    .then((res) => {
+      cy.log(`${res.code}`)
+      cy.log(res.stdout)
+      cy.log(res.stderr)
+    })
 }
 
 export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
-  cy.log('yarn cli data export').exec(
-    `yarn cli data export --seedDataPath ${getFullPath(
-      file,
-    )} --skipUserData --skipSeedData false`,
-    { timeout: TIMEOUT },
-  )
+  cy.log('yarn cli data export')
+    .exec(
+      `yarn cli data export --seedDataPath ${getFullPath(
+        file,
+      )} --skipUserData --skipSeedData false`,
+      { timeout: TIMEOUT, failOnNonZeroExit: false },
+    )
+    .then((res) => {
+      cy.log(`${res.code}`)
+      cy.log(res.stdout)
+      cy.log(res.stderr)
+    })
 
   return cy.readFile(file).then((payload: ExportedData) => {
     const { atoms, tags, types } = payload

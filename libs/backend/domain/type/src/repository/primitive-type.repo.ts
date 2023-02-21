@@ -35,7 +35,7 @@ export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
   }
 
   protected async _update(
-    { __typename, owner, ...primitiveType }: IPrimitiveType,
+    { id, __typename, owner, ...primitiveType }: IPrimitiveType,
     where: BaseTypeUniqueWhere,
   ) {
     return (

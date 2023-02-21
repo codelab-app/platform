@@ -22,14 +22,6 @@ export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
     )[0]
   }
 
-  // async save(interfaceType: IInterfaceType, where?: BaseTypeUniqueWhere) {
-  //   if (await this.exists(interfaceType, where)) {
-  //     return this.update(interfaceType, this.getWhere(interfaceType, where))
-  //   }
-
-  //   return (await this.add([interfaceType]))[0]
-  // }
-
   /**
    * If interface doesn't exist, we can safely assume that fields don't exist as well. So fields will always be created.
    *
