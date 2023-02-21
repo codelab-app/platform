@@ -71,7 +71,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
             validate(formData)
 
             const submitResults = onSubmit(formData as TData)
-       
+
             return submitResults
               .then((result) => {
                 lastSubmitted.current = formData
