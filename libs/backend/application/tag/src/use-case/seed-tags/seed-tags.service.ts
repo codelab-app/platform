@@ -5,6 +5,7 @@ import type {
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
+import { cLog } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { createTagTreeData, flattenTagTree } from './tag-input.factory'
 
@@ -14,11 +15,7 @@ export class SeedTagsService extends IUseCase<IUserRef, void> {
   async _execute(owner: IUserRef) {
     const tags = await this.createTagsData(owner)
 
-    // await tags.reduce(async (acc, tag) => {
-    //   await this.tagRepository.save(tag, { name: tag.name })
-
-    //   return []
-    // }, Promise.resolve([]))
+    cLog('Tag data', tags)
 
     await Promise.all(
       tags.map(

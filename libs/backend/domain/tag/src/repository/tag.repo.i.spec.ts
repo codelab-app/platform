@@ -34,18 +34,30 @@ afterAll(async () => {
 
 describe('Tag repository', () => {
   it('can create a tag', async () => {
+    // Parent
+    const parentTagId = v4()
+    const parentTagName = 'Parent Tag'
+    // Child
+    const childTagId = v4()
+    const childTagName = 'Child Tag'
+
     const parentTag = new Tag({
-      id: v4(),
-      name: 'Parent Tag',
+      id: parentTagId,
+      name: parentTagName,
       owner: { auth0Id: user.auth0Id },
-      children: [],
+      children: [
+        {
+          id: childTagId,
+          name: childTagName,
+        },
+      ],
     })
 
     const childTag = new Tag({
-      id: v4(),
-      name: 'Child Tag',
+      id: childTagId,
+      name: childTagName,
       owner: { auth0Id: user.auth0Id },
-      // parent: parentTag,
+      parent: parentTag,
       children: [],
     })
 
@@ -54,21 +66,41 @@ describe('Tag repository', () => {
      */
     await tagRepository.add([parentTag, childTag])
 
-    const savedParentTag = await tagRepository.find({ id: parentTag.id })
+    let savedParentTag = await tagRepository.find({ id: parentTag.id })
     let savedChildTag = await tagRepository.find({ id: childTag.id })
 
-    expect(savedChildTag?.name).toEqual(childTag.name)
-    expect(savedParentTag?.name).toEqual(parentTag.name)
+    // Parent
+    expect(savedParentTag?.name).toEqual(parentTagName)
+    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
+
+    // Child
+    expect(savedChildTag?.name).toEqual(childTagName)
+    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
+
+    // Run again to check for the e2e error on second seed
+    await tagRepository.save(parentTag)
+    await tagRepository.save(childTag)
+
+    savedParentTag = await tagRepository.find({ id: parentTag.id })
+    savedChildTag = await tagRepository.find({ id: childTag.id })
+
+    // Parent
+    expect(savedParentTag?.name).toEqual(parentTagName)
+    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
+
+    // Child
+    expect(savedChildTag?.name).toEqual(childTagName)
+    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
 
     /**
      * Then update relationship
      */
-    childTag.parent = parentTag
+    // childTag.parent = parentTag
 
-    await tagRepository.save(childTag)
+    // await tagRepository.save(childTag)
 
-    savedChildTag = await tagRepository.find({ id: childTag.id })
+    // savedChildTag = await tagRepository.find({ id: childTag.id })
 
-    expect(savedChildTag?.parent?.id).toEqual(parentTag.id)
+    // expect(savedChildTag?.parent?.id).toEqual(parentTag.id)
   })
 })

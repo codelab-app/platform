@@ -1,4 +1,9 @@
+import { User, UserRepository } from '@codelab/backend/domain/user'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { EnvBuilder } from '@codelab/shared/env'
+import { v4 } from 'uuid'
 import type { MiddlewareFunction, Options } from 'yargs'
+import { Stage } from './utils/stage'
 
 export interface ExportProps {
   seedDataPath?: string
@@ -54,18 +59,21 @@ export const upsertUserMiddleware: MiddlewareFunction<unknown> = async ({
   env,
 }) => {
   /**
-   * This may cause errors, comment out. The auth0Id may not match up
+   * This may cause errors. The auth0Id may not match up
+   *
+   * Perform upsert here
    */
-  // Perform upsert here
-  // if (env === Stage.Dev) {
-  //   const userRepository: UserRepository = new UserRepository()
-  //   const user = new User({
-  //     id: v4(),
-  //     auth0Id: v4(),
-  //     email: EnvBuilder().auth0.cypress_username!,
-  //     username: 'Codelab',
-  //     roles: [OGM_TYPES.Role.Admin],
-  //   })
-  //   await userRepository.save(user, { email: user.email })
-  // }
+  if (env === Stage.Dev) {
+    const userRepository: UserRepository = new UserRepository()
+
+    const user = new User({
+      id: v4(),
+      auth0Id: v4(),
+      email: EnvBuilder().auth0.cypress_username!,
+      username: 'Codelab',
+      roles: [OGM_TYPES.Role.Admin],
+    })
+
+    await userRepository.save(user, { email: user.email })
+  }
 }
