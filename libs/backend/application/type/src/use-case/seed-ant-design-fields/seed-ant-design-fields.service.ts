@@ -149,8 +149,6 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
             (typeData: IType) => ({ name: typeData.name }),
           )
 
-          console.log('TypeFactory.create', type)
-
           existingField = Field.init({
             id: v4(),
             key: field.property,
