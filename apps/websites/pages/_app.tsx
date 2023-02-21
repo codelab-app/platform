@@ -1,4 +1,3 @@
-import 'reflect-metadata'
 import '../src/styles/antd-theme.less'
 import 'react-quill/dist/quill.snow.css'
 // This stylesheet is used to override some of the default Quill editor's styles.
