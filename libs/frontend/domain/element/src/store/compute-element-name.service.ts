@@ -42,7 +42,7 @@ export class ComputeElementNameService
   @computed
   get computedName() {
     if (this.pickedRenderTypeName) {
-      return compoundCaseToTitleCase(this.pickedRenderTypeName).toLowerCase()
+      return compoundCaseToTitleCase(this.pickedRenderTypeName)
     }
 
     return this.pickedName

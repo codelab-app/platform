@@ -1,3 +1,3 @@
 export * from './hexadecimalRegex'
-export * from './spacedLowercaseAlphanumericRegex'
+export * from './singlySpacedTitleCaseWithNumbersRegex'
 export * from './uuidRegex'

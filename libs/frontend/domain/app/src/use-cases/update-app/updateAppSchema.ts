@@ -1,7 +1,7 @@
 import type { IUpdateAppDTO } from '@codelab/frontend/abstract/core'
 import {
   nonEmptyString,
-  spacedLowercaseAlphanumericRegex,
+  singlySpacedTitleCaseWithNumbersRegex,
 } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
@@ -12,7 +12,7 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
     name: {
       autoFocus: true,
       ...nonEmptyString,
-      pattern: spacedLowercaseAlphanumericRegex.source,
+      pattern: singlySpacedTitleCaseWithNumbersRegex.source,
     },
   },
   required: ['name'],

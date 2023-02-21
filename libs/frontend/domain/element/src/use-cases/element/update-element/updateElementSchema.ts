@@ -1,6 +1,6 @@
 import type { IUpdateBaseElementDTO } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import { spacedLowercaseAlphanumericRegex } from '@codelab/shared/utils'
+import { singlySpacedTitleCaseWithNumbersRegex } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
@@ -10,7 +10,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
     name: {
       type: 'string',
       autoFocus: true,
-      // pattern: spacedLowercaseAlphanumericRegex.source,
+      pattern: singlySpacedTitleCaseWithNumbersRegex.source,
     },
     renderIfExpression: {
       type: 'string',

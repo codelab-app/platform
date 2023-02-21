@@ -3,7 +3,7 @@ import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   nonEmptyString,
-  spacedLowercaseAlphanumericRegex,
+  singlySpacedTitleCaseWithNumbersRegex,
 } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
@@ -19,7 +19,7 @@ export const updatePageSchema: JSONSchemaType<
     name: {
       autoFocus: true,
       ...nonEmptyString,
-      pattern: spacedLowercaseAlphanumericRegex.source,
+      pattern: singlySpacedTitleCaseWithNumbersRegex.source,
     },
     getServerSideProps: {
       type: 'string',

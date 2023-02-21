@@ -3,7 +3,7 @@ import {
   hideField,
   nonEmptyString,
   showFieldOnDev,
-  spacedLowercaseAlphanumericRegex,
+  singlySpacedTitleCaseWithNumbersRegex,
 } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
@@ -19,7 +19,7 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
     name: {
       autoFocus: true,
       ...nonEmptyString,
-      pattern: spacedLowercaseAlphanumericRegex.source,
+      pattern: singlySpacedTitleCaseWithNumbersRegex.source,
     },
     auth0Id: {
       type: 'string',
