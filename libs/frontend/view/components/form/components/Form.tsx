@@ -1,9 +1,9 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { css } from '@emotion/react'
-import { complement, ifElse, whereEq } from 'ramda'
+import { complement, equals, ifElse } from 'ramda'
 import type { ReactElement } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import type { DeepPartial } from 'uniforms'
 import { Bridge } from 'uniforms'
 import { AutoForm as BaseAutoForm } from 'uniforms-antd'
@@ -41,6 +41,18 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
       )
     }, [schema])
 
+    const lastSubmitted = useRef<typeof model>({})
+    const modelRef = useRef(model)
+
+    // This prevents a new model update to interfere while user is typing.
+    // This also enables the form model to be updated when the
+    // model is updated outside the form (e.g. props inspector)
+    useEffect(() => {
+      if (!equals(model, lastSubmitted.current)) {
+        modelRef.current = model
+      }
+    }, [model])
+
     const onFormSubmit = (formData: DeepPartial<TData>) => {
       const validate = createValidator(schema)
       validate(formData)
@@ -49,6 +61,8 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
 
       return result
         .then((r) => {
+          lastSubmitted.current = formData
+
           if (r) {
             callbackWithParams(onSubmitSuccess, r)
           }
@@ -62,7 +76,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
 
     // This prevents submitting when there is no actual change in the form
     const submitWhenChanged = ifElse(
-      complement(whereEq(model)),
+      complement(equals(model)),
       onFormSubmit,
       () => Promise.resolve(),
     )
@@ -76,7 +90,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
         <AutoForm<TData>
           autosave={autosave}
           autosaveDelay={500}
-          model={model}
+          model={modelRef.current}
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={submitWhenChanged}
