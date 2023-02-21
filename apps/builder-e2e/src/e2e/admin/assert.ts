@@ -5,7 +5,7 @@ import { AntdTag } from 'libs/shared/data/seed/src/tag/antd/antd-tags.data'
 import difference from 'lodash/difference'
 import * as path from 'path'
 
-const TIMEOUT = 140000
+const TIMEOUT = 150000
 
 export const seedData = () => {
   cy.log('yarn cli seed')

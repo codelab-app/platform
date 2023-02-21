@@ -1,19 +1,4 @@
-import { IRole } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
 import { exportAndAssert, importData, seedData } from './assert'
-
-// data's correctness doesn't matter here
-// just need user with test email to exist
-const createCypressUser = () =>
-  cy.createUser({
-    input: {
-      id: v4(),
-      auth0Id: v4(),
-      email: 'cypress@codelab.app',
-      username: 'cypress',
-      roles: [IRole.Admin, IRole.User],
-    },
-  })
 
 describe('Admin', () => {
   before(() => {
@@ -22,7 +7,6 @@ describe('Admin', () => {
     // Visit so we can trigger upsert user
     cy.visit('/apps')
     cy.getSpinner().should('not.exist')
-    // createCypressUser()
   })
 
   /**
