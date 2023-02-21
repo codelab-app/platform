@@ -10,7 +10,6 @@ import {
   connectNodeIds,
   connectOwner,
   reconnectNodeId,
-  reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 
 export class TagRepository extends IRepository<ITag> {
@@ -69,7 +68,12 @@ export class TagRepository extends IRepository<ITag> {
         update: {
           ...tag,
           parent: reconnectNodeId(parentTagToConnect),
-          children: reconnectNodeIds(childrenTagsToConnect),
+          /**
+           * This causes a bug where some nodes aren't connected, can't figure out why maybe race condition
+           *
+           * It is also unnecessary to have both.
+           */
+          // children: reconnectNodeIds(childrenTagsToConnect),
         },
         where,
       })

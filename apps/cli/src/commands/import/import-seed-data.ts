@@ -1,10 +1,5 @@
 import type { ExistingData, ExportedData } from '@codelab/backend/abstract/core'
 import fs from 'fs'
-import {
-  createImportFieldsData,
-  importFields,
-} from '../../use-cases/import/import-fields'
-import { createExistingData } from '../../use-cases/seed/existing.data'
 
 export const importSeedData = async (
   selectedUser: string,
@@ -47,5 +42,5 @@ export const importSeedData = async (
   //   tagWhere: (tag) => ({ name: tag.name }),
   // })
 
-  await importFields(createImportFieldsData(types, await createExistingData()))
+  // await importFields(createImportFieldsData(types, await createExistingData()))
 }

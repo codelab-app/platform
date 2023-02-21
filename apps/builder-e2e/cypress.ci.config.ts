@@ -35,7 +35,7 @@ export default defineConfig({
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
     setupNodeEvents,
-    specPattern: 'src/e2e/**/admin.cy.{js,jsx,ts,tsx}',
+    // specPattern: 'src/e2e/**/admin.cy.{js,jsx,ts,tsx}',
     env: {
       CYPRESS_ENABLE_LOGGING: false,
     },
