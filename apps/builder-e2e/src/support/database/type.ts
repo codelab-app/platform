@@ -35,7 +35,10 @@ const createTypeQuery: { [key in ITypeKind]: DocumentNode } = {
   [ITypeKind.ActionType]: CreateActionTypesDocument,
 }
 
-export const createType = (input: BaseTypeCreateInput, typeKind: ITypeKind) =>
+export const createType = (
+  input: Record<ITypeKind, BaseTypeCreateInput>,
+  typeKind: ITypeKind,
+) =>
   cy
     .graphqlRequest({
       query: print(createTypeQuery[typeKind]),

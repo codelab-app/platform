@@ -15,6 +15,17 @@ import {
 export class TagRepository extends IRepository<ITag> {
   private Tag = Repository.instance.Tag
 
+  /**
+   * Temporary
+   */
+  async all() {
+    return await (
+      await this.Tag
+    ).find({
+      selectionSet: tagSelectionSet,
+    })
+  }
+
   async find(where: BaseTypeUniqueWhere) {
     return (
       await (

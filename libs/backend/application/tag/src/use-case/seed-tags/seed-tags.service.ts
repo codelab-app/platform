@@ -25,11 +25,15 @@ export class SeedTagsService extends IUseCase<IUserRef, void> {
    * Here we want to flatten the hierarchical data
    */
   private async createTagsData(owner: IUserRef): Promise<Array<ITag>> {
+    const existingTags = new Map(
+      (await this.tagRepository.all()).map((tag) => [tag.name, tag]),
+    )
+
     const tagData: Array<TagNodeData & { id: string }> = await Promise.all(
       createTagTreeData()
         .flatMap((node) => flattenTagTree(node))
         .map(async (node) => {
-          const existingTag = await this.tagRepository.find({ name: node.name })
+          const existingTag = existingTags.get(node.name)
 
           return { ...node, id: existingTag?.id ?? v4() }
         }),
