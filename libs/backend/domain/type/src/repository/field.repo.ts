@@ -23,6 +23,14 @@ export type FieldWhere = BaseTypeUniqueWhere & {
 export class FieldRepository extends IRepository<IField> {
   private Field = Repository.instance.Field
 
+  async all() {
+    return await (
+      await this.Field
+    ).find({
+      selectionSet: fieldSelectionSet,
+    })
+  }
+
   async find(where: FieldWhere) {
     return (
       await (

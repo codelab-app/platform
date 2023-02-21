@@ -48,12 +48,19 @@ export class SeedAtomsService extends IUseCase<IUserRef, void> {
    * Assume all tags have already been created
    */
   async createAtomsData(owner: IUserRef): Promise<Array<IAtom>> {
+    const existingInterfaceTypes = new Map(
+      (await this.interfaceTypeRepository.all()).map((interfaceType) => [
+        interfaceType.name,
+        interfaceType,
+      ]),
+    )
+
     return await Promise.all(
       ObjectTyped.entries(atomsData).map(async ([atomType, atomData]) => {
         // Search api by name
-        const existingApi = await this.interfaceTypeRepository.find({
-          name: InterfaceType.getApiName({ name: atomType }),
-        })
+        const existingApi = existingInterfaceTypes.get(
+          InterfaceType.getApiName({ name: atomType }),
+        )
 
         const api = existingApi
           ? existingApi

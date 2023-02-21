@@ -11,6 +11,14 @@ import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
   private InterfaceType = Repository.instance.InterfaceType
 
+  async all() {
+    return await (
+      await this.InterfaceType
+    ).find({
+      selectionSet: interfaceTypeSelectionSet,
+    })
+  }
+
   async find(where: BaseTypeUniqueWhere) {
     return (
       await (

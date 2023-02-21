@@ -103,20 +103,20 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
     atom: IAtom,
     atomFields: Array<AntDesignField>,
   ) {
+    const existingFields = new Map(
+      (await this.fieldRepository.all()).map((field) => [
+        `${atom.api.name}-${field.key}`,
+        field,
+      ]),
+    )
+
     return await atomFields.reduce<Promise<Array<IField>>>(
       async (accFields, field) => {
         /**
          * Get the existing atom first, these should have already been seeded at this point
          */
-        let existingField: IField | undefined = await this.fieldRepository.find(
-          {
-            // name: compoundCaseToTitleCase(field.property),
-            key: field.property,
-            api: {
-              name: atom.api.name,
-              // id: atom.api.id,
-            },
-          },
+        let existingField: IField | undefined = existingFields.get(
+          `${atom.api.name}-${field.property}`,
         )
 
         /**
@@ -171,9 +171,5 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
       },
       Promise.resolve([]),
     )
-
-    // const filteredFields = _fields.filter((field): field is IField => {
-    //   return Boolean(field.fieldType)
-    // })
   }
 }

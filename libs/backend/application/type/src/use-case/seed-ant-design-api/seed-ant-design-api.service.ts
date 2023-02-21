@@ -22,15 +22,22 @@ export class SeedAntDesignApiService extends IUseCase<IUserRef, void> {
    * Create empty interfaces from Ant Design atom name
    */
   async _execute(owner: IUserRef) {
+    const existingInterfaceTypes = new Map(
+      (await this.interfaceTypeRepository.all()).map((interfaceType) => [
+        interfaceType.name,
+        interfaceType,
+      ]),
+    )
+
     await Promise.all(
       ObjectTyped.keys(atomsData).map(async (name) => {
         // Want to get atom api ID by atom name
         const interfaceType = InterfaceType.createFromAtomName(name, owner)
 
         // Search existing interface type
-        const existingInterfaceType = await this.interfaceTypeRepository.find({
-          name: InterfaceType.getApiName({ name }),
-        })
+        const existingInterfaceType = existingInterfaceTypes.get(
+          interfaceType.name,
+        )
 
         // Keep same ID if exists
         if (existingInterfaceType) {
