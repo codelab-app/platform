@@ -3,6 +3,7 @@ import { domainApis } from '@codelab/frontend/domain/domain'
 import { pageApi } from '@codelab/frontend/domain/page'
 import { userApi } from '@codelab/frontend/domain/user'
 import { extractSlug } from '@codelab/frontend/shared/utils'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import type { NextApiHandler } from 'next'
 
@@ -20,7 +21,7 @@ const getAllPagesToRevalidate = async () => {
       }
 
       for (const page of app.pages) {
-        if (!page.isProvider) {
+        if (page.kind === IPageKind.Regular) {
           revalidationData.push({ domain, page })
         }
       }
@@ -43,7 +44,7 @@ const getAllAppPagesToRevalidate = async (appId: string) => {
   const pages = apps[0]?.pages ?? []
 
   return pages
-    .filter((page) => !page.isProvider)
+    .filter((page) => page.kind === IPageKind.Regular)
     .map((page) => ({ domain, page }))
 }
 
@@ -58,7 +59,11 @@ const getSpecificPagesToRevalidate = async (
   for (const page of pages) {
     const domain = domains.find((_domain) => _domain.app.id === page.app.id)
 
-    if (!page.isProvider && domain && !domain.domainConfig.misconfigured) {
+    if (
+      page.kind === IPageKind.Regular &&
+      domain &&
+      !domain.domainConfig.misconfigured
+    ) {
       revalidationData.push({ domain, page })
     }
   }
