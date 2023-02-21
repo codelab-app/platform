@@ -7,7 +7,7 @@ const MyDocument = () => (
       <link href="https://fonts.googleapis.com" rel="preconnect" />
       <link crossOrigin="" href="https://fonts.gstatic.com" rel="preconnect" />
       <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Roboto:wght@300;400&family=Nunito:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Nunito:wght@300;400;500;600&display=swap"
         rel="stylesheet"
       />
     </Head>
