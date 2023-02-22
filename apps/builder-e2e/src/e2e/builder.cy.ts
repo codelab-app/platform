@@ -7,13 +7,13 @@ import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
 
-const ELEMENT_CONTAINER = 'container'
-const ELEMENT_ROW = 'row'
-const ELEMENT_COL_A = 'col a'
-const ELEMENT_COL_B = 'col b'
-const ELEMENT_TEXT_1 = 'text 1'
-const ELEMENT_TEXT_2 = 'text 2'
-const ELEMENT_BUTTON = 'button'
+const ELEMENT_CONTAINER = 'Container'
+const ELEMENT_ROW = 'Row'
+const ELEMENT_COL_A = 'Col A'
+const ELEMENT_COL_B = 'Col B'
+const ELEMENT_TEXT_1 = 'Text 1'
+const ELEMENT_TEXT_2 = 'Text 2'
+const ELEMENT_BUTTON = 'Button'
 
 const elements = [
   {
@@ -51,7 +51,7 @@ const elements = [
   },
 ]
 
-const updatedElementName = 'container updated'
+const updatedElementName = 'Container Updated'
 
 describe('Elements CRUD', () => {
   before(() => {

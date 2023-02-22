@@ -8,9 +8,9 @@ import { FIELD_TYPE } from '../support/antd/form'
 import { seedData } from './admin/assert'
 import { appName, pageName } from './apps/app.data'
 
-const CONFIG_PROVIDER_NAME = 'config provider'
-const CARD_COMPONENT_NAME = 'card component'
-const INPUT_COMPONENT_NAME = 'input component'
+const CONFIG_PROVIDER_NAME = 'Config Provider'
+const CARD_COMPONENT_NAME = 'Card Component'
+const INPUT_COMPONENT_NAME = 'Input Component'
 
 const mainPageElements = [
   {

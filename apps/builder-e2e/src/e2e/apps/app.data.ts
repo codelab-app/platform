@@ -1,8 +1,8 @@
-export const pageName = 'new useful page'
-export const updatedPageName = 'updated page'
+export const pageName = 'New Useful Page'
+export const updatedPageName = 'Updated Page'
 
-export const appName = 'new app'
-export const updatedAppName = 'updated app'
+export const appName = 'New App'
+export const updatedAppName = 'Updated App'
 
 export const appSlug = 'new-app'
 export const updatedAppSlug = 'updated-app'
