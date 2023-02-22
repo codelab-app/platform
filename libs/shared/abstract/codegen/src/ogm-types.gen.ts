@@ -8518,61 +8518,6 @@ export type AppPagesNodeAggregationWhereInput = {
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   getServerSideProps_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   getServerSideProps_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -9146,22 +9091,6 @@ export type AppWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  slug?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT?: InputMaybe<Scalars['String']>
-  slug_IN?: InputMaybe<Array<Scalars['String']>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  slug_MATCHES?: InputMaybe<Scalars['String']>
-  slug_CONTAINS?: InputMaybe<Scalars['String']>
-  slug_STARTS_WITH?: InputMaybe<Scalars['String']>
-  slug_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
   /** @deprecated Use `owner_NONE` instead. */
@@ -12127,61 +12056,6 @@ export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -13095,61 +12969,6 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -13969,61 +13788,6 @@ export type DomainAppNodeAggregationWhereInput = {
   name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type DomainAppUpdateConnectionInput = {
@@ -14297,61 +14061,6 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   NOT?: InputMaybe<ElementFirstChildNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -14959,61 +14668,6 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -15611,61 +15265,6 @@ export type ElementPageNodeAggregationWhereInput = {
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   getServerSideProps_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   getServerSideProps_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -15941,61 +15540,6 @@ export type ElementParentNodeAggregationWhereInput = {
   NOT?: InputMaybe<ElementParentNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -16519,61 +16063,6 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   NOT?: InputMaybe<ElementPrevSiblingNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -17882,28 +17371,12 @@ export type ElementWhere = {
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  slug?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT?: InputMaybe<Scalars['String']>
-  slug_IN?: InputMaybe<Array<Scalars['String']>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  slug_MATCHES?: InputMaybe<Scalars['String']>
-  slug_CONTAINS?: InputMaybe<Scalars['String']>
-  slug_STARTS_WITH?: InputMaybe<Scalars['String']>
-  slug_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
@@ -19527,61 +19000,6 @@ export type HookElementNodeAggregationWhereInput = {
   NOT?: InputMaybe<HookElementNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -21884,61 +21302,6 @@ export type PageAppNodeAggregationWhereInput = {
   name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PageAppUpdateConnectionInput = {
@@ -22078,61 +21441,6 @@ export type PagePageContainerElementNodeAggregationWhereInput = {
   NOT?: InputMaybe<PagePageContainerElementNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -22662,61 +21970,6 @@ export type PageRootElementNodeAggregationWhereInput = {
   NOT?: InputMaybe<PageRootElementNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -23535,22 +22788,6 @@ export type PageWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  slug?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT?: InputMaybe<Scalars['String']>
-  slug_IN?: InputMaybe<Array<Scalars['String']>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  slug_MATCHES?: InputMaybe<Scalars['String']>
-  slug_CONTAINS?: InputMaybe<Scalars['String']>
-  slug_STARTS_WITH?: InputMaybe<Scalars['String']>
-  slug_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  slug_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   getServerSideProps?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   getServerSideProps_NOT?: InputMaybe<Scalars['String']>
@@ -25506,61 +24743,6 @@ export type StoreAppNodeAggregationWhereInput = {
   name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type StoreAppUpdateConnectionInput = {
@@ -28105,61 +27287,6 @@ export type UserAppsNodeAggregationWhereInput = {
   name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UserAppsUpdateConnectionInput = {
@@ -28434,61 +27561,6 @@ export type UserElementsNodeAggregationWhereInput = {
   NOT?: InputMaybe<UserElementsNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  slug_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  slug_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  slug_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  slug_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  slug_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   name_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */

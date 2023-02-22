@@ -1591,21 +1591,6 @@ input AppPagesNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type AppPagesRelationship {
@@ -2058,12 +2043,6 @@ input AppWhere {
   Return Apps where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
-  slug: String
-  slug_CONTAINS: String
-  slug_ENDS_WITH: String
-  slug_IN: [String!]
-  slug_MATCHES: String
-  slug_STARTS_WITH: String
   storeAggregate: AppStoreAggregateInput
   storeConnection: AppStoreConnectionWhere
 }
@@ -5115,21 +5094,6 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type ComponentChildrenContainerElementRelationship {
@@ -5642,21 +5606,6 @@ input ComponentRootElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type ComponentRootElementRelationship {
@@ -6214,21 +6163,6 @@ input DomainAppNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type DomainAppRelationship {
@@ -6905,21 +6839,6 @@ input ElementFirstChildNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementFirstChildRelationship {
@@ -7235,21 +7154,6 @@ input ElementNextSiblingNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementNextSiblingRelationship {
@@ -7395,21 +7299,6 @@ input ElementPageNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementPagePageAggregationSelection {
@@ -7742,21 +7631,6 @@ input ElementParentNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementParentRelationship {
@@ -7970,21 +7844,6 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementPrevSiblingRelationship {
@@ -8736,12 +8595,6 @@ input ElementWhere {
   renderIfExpression_IN: [String]
   renderIfExpression_MATCHES: String
   renderIfExpression_STARTS_WITH: String
-  slug: String
-  slug_CONTAINS: String
-  slug_ENDS_WITH: String
-  slug_IN: [String!]
-  slug_MATCHES: String
-  slug_STARTS_WITH: String
 }
 
 type ElementsConnection {
@@ -10180,21 +10033,6 @@ input HookElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type HookElementRelationship {
@@ -12037,21 +11875,6 @@ input PageAppNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageAppRelationship {
@@ -12380,21 +12203,6 @@ input PagePageContainerElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type PagePageContainerElementRelationship {
@@ -12614,21 +12422,6 @@ input PageRootElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageRootElementRelationship {
@@ -12910,12 +12703,6 @@ input PageWhere {
   pageContainerElementConnection: PagePageContainerElementConnectionWhere
   rootElementAggregate: PageRootElementAggregateInput
   rootElementConnection: PageRootElementConnectionWhere
-  slug: String
-  slug_CONTAINS: String
-  slug_ENDS_WITH: String
-  slug_IN: [String!]
-  slug_MATCHES: String
-  slug_STARTS_WITH: String
 }
 
 type PagesConnection {
@@ -13076,34 +12863,43 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
-type PropMapBindingTargetElementRelationship {
-  cursor: String!
-  node: Element!
+input PrimitiveTypeRelationInput {
+  owner: IBaseTypeOwnerCreateFieldInput
 }
 
-input PropMapBindingTargetElementUpdateConnectionInput {
-  node: ElementUpdateInput
+"""
+Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object.
+"""
+input PrimitiveTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  name: SortDirection
+  primitiveKind: SortDirection
 }
 
-input PropMapBindingTargetElementUpdateFieldInput {
-  connect: PropMapBindingTargetElementConnectFieldInput
-  connectOrCreate: PropMapBindingTargetElementConnectOrCreateFieldInput
-  create: PropMapBindingTargetElementCreateFieldInput
-  delete: PropMapBindingTargetElementDeleteFieldInput
-  disconnect: PropMapBindingTargetElementDisconnectFieldInput
-  update: PropMapBindingTargetElementUpdateConnectionInput
-  where: PropMapBindingTargetElementConnectionWhere
-}
-
-input PropMapBindingUniqueWhere {
+input PrimitiveTypeUniqueWhere {
   id: ID
+  name: String
+  primitiveKind: PrimitiveTypeKind
 }
 
-input PropMapBindingUpdateInput {
-  element: PropMapBindingElementUpdateFieldInput
-  sourceKey: String
-  targetElement: PropMapBindingTargetElementUpdateFieldInput
-  targetKey: String
+input PrimitiveTypeUpdateInput {
+  id: ID
+  name: String
+  owner: IBaseTypeOwnerUpdateFieldInput
+  primitiveKind: PrimitiveTypeKind
+}
+
+type PrimitiveTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: PrimitiveTypeUserOwnerNodeAggregateSelection
+}
+
+type PrimitiveTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input PrimitiveTypeWhere {
@@ -13134,6 +12930,34 @@ type PrimitiveTypesConnection {
   edges: [PrimitiveTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type Prop {
+  data: String!
+  id: ID!
+}
+
+type PropAggregateSelection {
+  count: Int!
+  data: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+}
+
+input PropConnectOrCreateWhere {
+  node: PropUniqueWhere!
+}
+
+input PropConnectWhere {
+  node: PropWhere!
+}
+
+input PropCreateInput {
+  data: String! = "{}"
+}
+
+type PropEdge {
+  cursor: String!
+  node: Prop!
 }
 
 input PropOnCreateInput {
@@ -14827,21 +14651,6 @@ input StoreAppNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type StoreAppRelationship {
@@ -17123,21 +16932,6 @@ input UserAppsNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserAppsRelationship {
@@ -17546,21 +17340,6 @@ input UserElementsNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  slug_AVERAGE_LENGTH_EQUAL: Float
-  slug_AVERAGE_LENGTH_GT: Float
-  slug_AVERAGE_LENGTH_GTE: Float
-  slug_AVERAGE_LENGTH_LT: Float
-  slug_AVERAGE_LENGTH_LTE: Float
-  slug_LONGEST_LENGTH_EQUAL: Int
-  slug_LONGEST_LENGTH_GT: Int
-  slug_LONGEST_LENGTH_GTE: Int
-  slug_LONGEST_LENGTH_LT: Int
-  slug_LONGEST_LENGTH_LTE: Int
-  slug_SHORTEST_LENGTH_EQUAL: Int
-  slug_SHORTEST_LENGTH_GT: Int
-  slug_SHORTEST_LENGTH_GTE: Int
-  slug_SHORTEST_LENGTH_LT: Int
-  slug_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserElementsRelationship {
