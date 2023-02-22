@@ -8,14 +8,14 @@ import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
 
-const COMPONENT_NAME = 'new component'
-const COMPONENT_INSTANCE_NAME = 'component instance'
+const COMPONENT_NAME = 'New Component'
+const COMPONENT_INSTANCE_NAME = 'Component Instance'
 const COMPONENT_PROP_NAME = 'component_prop'
 const COMPONENT_PROP_VALUE = 'component_prop_value'
-const COMPONENT_CHILD_SPACE = 'space'
-const COMPONENT_CHILD_TYPOGRAPHY = 'typography'
+const COMPONENT_CHILD_SPACE = 'Space'
+const COMPONENT_CHILD_TYPOGRAPHY = 'Typography'
 const COMPONENT_CHILD_TEXT = `text {{this.${COMPONENT_PROP_NAME}}}`
-const COMPONENT_INSTANCE_TEXT = 'instance text'
+const COMPONENT_INSTANCE_TEXT = 'Instance Text'
 
 interface ComponentChildData {
   name: string
