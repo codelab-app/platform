@@ -1,16 +1,30 @@
 import type {
   IElement,
   IElementService,
+  IRenderer,
   IUpdateBaseElementDTO,
   IUpdateElementDTO,
   RenderType,
 } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import {
+  DATA_COMPONENT_ID,
+  DATA_ELEMENT_ID,
+  RenderTypeEnum,
+} from '@codelab/frontend/abstract/core'
 import { SelectAction } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
+import {
+  AutoCompleteField,
+  CodeMirrorField,
+  createAutoCompleteOptions,
+  Form,
+} from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import { mergeProps } from '@codelab/shared/utils'
+import isNil from 'lodash/isNil'
+import omit from 'lodash/omit'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -20,9 +34,9 @@ import { updateElementSchema } from './updateElementSchema'
 
 export interface UpdateElementFormProps {
   element: IElement
-  providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
+  renderer?: IRenderer
 }
 
 const makeCurrentModel = (element: IElement) => {
@@ -55,13 +69,8 @@ const makeCurrentModel = (element: IElement) => {
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({ elementService, element, trackPromises, providePropCompletion }) => {
+  ({ elementService, element, trackPromises, renderer }) => {
     const { trackPromise } = trackPromises ?? {}
-
-    const [propCompleteOptions, setPropCompleteOptions] = useState<
-      Array<{ label: string; value: string }>
-    >([])
-
     const model = makeCurrentModel(element)
 
     const { current: computeElementNameService } = useRef(
@@ -82,16 +91,19 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       return promise
     }
 
-    const handlePropSearch = (value: string) => {
-      if (providePropCompletion) {
-        setPropCompleteOptions(
-          providePropCompletion(value).map((option) => ({
-            value: option,
-            label: option,
-          })),
-        )
+    const propsData = React.useMemo(() => {
+      const renderOutput = renderer?.renderIntermediateElement(element)
+
+      if (isNil(renderOutput)) {
+        return {}
       }
-    }
+
+      const props = Array.isArray(renderOutput)
+        ? mergeProps(renderOutput.map((output) => output.props))
+        : renderOutput.props
+
+      return omit(props ?? {}, ['key', DATA_ELEMENT_ID, DATA_COMPONENT_ID])
+    }, [element])
 
     return (
       <Form<IUpdateBaseElementDTO>
@@ -142,16 +154,19 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           ]}
         />
         <RenderTypeCompositeField name="renderType" />
-        <AutoCompleteField
+        <AutoField
+          component={CodeMirrorField({
+            language: CodeMirrorLanguage.Javascript,
+            customOptions: createAutoCompleteOptions(propsData, 'this'),
+          })}
           name="renderIfExpression"
-          onSearch={handlePropSearch}
-          options={propCompleteOptions}
         />
-
         <AutoCompleteField
+          filterOption
           name="renderForEachPropKey"
-          onSearch={handlePropSearch}
-          options={propCompleteOptions}
+          options={Object.keys(propsData)
+            .sort()
+            .map((label) => ({ label, value: label }))}
         />
         <AutoField component={SelectAction} name="preRenderActionId" />
         <AutoField component={SelectAction} name="postRenderActionId" />

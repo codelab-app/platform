@@ -33,7 +33,6 @@ import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
-import { usePropCompletion } from '../../../hooks'
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
@@ -71,7 +70,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
   ({ UpdateElementContent, elementTree, renderService }) => {
     const { builderService, elementService, pageService } = useStore()
     const selectedNode = builderService.selectedNode
-    const { providePropCompletion } = usePropCompletion(renderService)
     const trackPromises = useTrackLoadingPromises()
 
     if (!selectedNode) {

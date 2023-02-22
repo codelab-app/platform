@@ -17,7 +17,6 @@ import { Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { usePropCompletion } from '../../hooks'
 import { renderStickyTabBar } from '../stickyTabBarRenderer'
 import { ConfigPaneComponentTabContainer } from './ConfigPane-ComponentTabContainer'
 import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContainer'
@@ -31,7 +30,6 @@ interface MetaPaneProps {
 export const ConfigPane = observer<MetaPaneProps>(
   ({ renderService, elementTree }) => {
     const { builderService, elementService, componentService } = useStore()
-    const { providePropCompletion } = usePropCompletion(renderService)
     const selectedNode = builderService.selectedNode
 
     const tabItems: TabsProps['items'] = [
@@ -59,9 +57,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                         element={node}
                         elementService={elementService}
                         key={node.id + '_update_form'}
-                        providePropCompletion={(value) =>
-                          providePropCompletion(value, node.id)
-                        }
+                        renderer={renderService}
                         trackPromises={trackPromises}
                       />
                       <MoveElementForm
