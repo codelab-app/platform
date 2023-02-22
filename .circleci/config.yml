@@ -140,6 +140,7 @@ commands:
           # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
           name: 'Install Terraform'
           command: |
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA16FCBCA621E701
             curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
             sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
             sudo apt update
