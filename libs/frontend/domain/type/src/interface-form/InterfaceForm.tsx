@@ -1,13 +1,8 @@
-import {
-  Form,
-  handleFormSubmit,
-  useFormContext,
-} from '@codelab/frontend/view/components'
+import { Form, handleFormSubmit } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
-import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'
-import React, { useEffect, useState } from 'react'
+import React, { useMemo } from 'react'
 import { schemaTransformer } from './type-schema.factory'
 import type { InterfaceFormProps } from './types'
 
@@ -29,21 +24,11 @@ export const InterfaceForm = observer(
     autosave,
     submitField,
   }: React.PropsWithChildren<InterfaceFormProps<TData, TResponse>>) => {
-    const context = useFormContext()
-    const [formSchema, setFormSchema] = useState(initialSchema ?? {})
+    const formSchema = useMemo(() => {
+      const typeTreeSchema = schemaTransformer.transform(interfaceType)
 
-    useEffect(
-      () =>
-        autorun(() => {
-          const typeTreeSchema = schemaTransformer.transform(
-            interfaceType,
-            context,
-          )
-
-          setFormSchema(mergeDeepRight(initialSchema ?? {}, typeTreeSchema))
-        }),
-      [interfaceType, initialSchema, context],
-    )
+      return mergeDeepRight(initialSchema ?? {}, typeTreeSchema)
+    }, [interfaceType, initialSchema])
 
     return (
       <Form
