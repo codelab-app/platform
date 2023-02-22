@@ -7,9 +7,5 @@
     "types": ["node"]
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": [
-    "**/*.ts",
-    "../application/repo-resolvers/resolvers/domain/domain.error.ts",
-    "../application/repo-resolvers/resolvers/domain/domain.validation.ts"
-  ]
+  "include": ["**/*.ts"]
 }

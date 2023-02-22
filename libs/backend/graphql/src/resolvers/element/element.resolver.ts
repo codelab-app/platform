@@ -1,2 +1,3 @@
-export const elementSlug = ({ name }: { name: string }) =>
-  name.replace(/\s/g, '-')
+import slugify from 'voca/slugify'
+
+export const elementSlug = ({ name }: { name: string }) => slugify(name)
