@@ -13701,8 +13701,6 @@ export type PageWhere = {
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
   kind?: InputMaybe<PageKind>
   kind_IN?: InputMaybe<Array<PageKind>>
-  kind_NOT?: InputMaybe<PageKind>
-  kind_NOT_IN?: InputMaybe<Array<PageKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>

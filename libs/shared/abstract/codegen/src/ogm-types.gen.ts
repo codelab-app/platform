@@ -23600,9 +23600,12 @@ export type PageWhere = {
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   getServerSideProps_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   kind?: InputMaybe<PageKind>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT?: InputMaybe<PageKind>
   kind_IN?: InputMaybe<Array<PageKind>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<PageKind>>
+  /** @deprecated Use `rootElement_SOME` instead. */
   rootElement?: InputMaybe<ElementWhere>
   /** @deprecated Use `rootElement_NONE` instead. */
   rootElement_NOT?: InputMaybe<ElementWhere>

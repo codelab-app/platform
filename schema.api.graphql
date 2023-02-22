@@ -12928,8 +12928,6 @@ input PageWhere {
   id_STARTS_WITH: ID
   kind: PageKind
   kind_IN: [PageKind!]
-  kind_NOT: PageKind
-  kind_NOT_IN: [PageKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
