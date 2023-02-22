@@ -10,9 +10,9 @@ const regenerate: NextApiHandler = async (req, res) => {
     }
 
     const domain = req.headers.host
-    const { pages } = req.query
+    const pages = String(req.query.pages).split(',')
 
-    if (!Array.isArray(pages)) {
+    if (!pages.length) {
       return res
         .status(400)
         .send(
@@ -30,7 +30,7 @@ const regenerate: NextApiHandler = async (req, res) => {
         await res.revalidate(path)
 
         revalidatedPages.push(path)
-      } catch (e) {
+      } catch (error) {
         failedPages.push(path)
       }
     })

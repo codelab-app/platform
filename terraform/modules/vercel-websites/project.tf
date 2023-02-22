@@ -22,6 +22,36 @@ resource "vercel_project" "websites" {
       target = ["production", "preview"]
       key    = "NEXT_PUBLIC_BUILDER_HOST"
       value  = var.next_public_builder_host
+    },
+    # Auth0
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_ISSUER_BASE_URL"
+      value  = var.auth0_issuer_base_url
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_SECRET"
+      value = var.auth0_secret
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_CLIENT_SECRET"
+      # This isn't working
+      # value = data.auth0_client.web_client.client_secret
+      value = var.auth0_client_secret
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_CLIENT_ID"
+      # This isn't working
+      # value = data.auth0_client.web_client.id
+      value = var.auth0_client_id
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_AUDIENCE"
+      value = "${var.auth0_issuer_base_url}api/v2/"
     }
   ]
 }
