@@ -144,7 +144,7 @@ describe('Elements CRUD', () => {
 
   describe(`delete`, () => {
     it(`should be able to delete element sub tree`, () => {
-      cy.findByText(ELEMENT_CONTAINER).rightclick()
+      cy.findByText(updatedElementName).rightclick()
       cy.contains(/Delete/).click({ force: true })
       cy.getSpinner().should('not.exist')
 
@@ -153,7 +153,7 @@ describe('Elements CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(ELEMENT_CONTAINER).should('not.exist')
+      cy.findByText(updatedElementName).should('not.exist')
     })
   })
 })
