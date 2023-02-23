@@ -1,14 +1,12 @@
-import type { IApp, IPage, IStore } from '@codelab/frontend/abstract/core'
-import { IAppDTO } from '@codelab/frontend/abstract/core'
-import { Page, PageFactory, pageRef } from '@codelab/frontend/domain/page'
-import { Store, storeRef } from '@codelab/frontend/domain/store'
-import {
-  getTypeService,
-  InterfaceType,
-  typeRef,
-} from '@codelab/frontend/domain/type'
+import type {
+  IApp,
+  IAuth0Owner,
+  IPage,
+  IStore,
+} from '@codelab/frontend/abstract/core'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -23,31 +21,17 @@ import {
 } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
-const hydrate = (app: IAppDTO) => {
-  const store = storeRef(app.store.id)
-
-  return new App({
-    id: app.id,
-    name: app.name,
-    ownerId: app.owner.id,
-    store,
-    pages: app.pages.map((page) => pageRef(page.id)),
-  })
-}
-
 @model('@codelab/App')
 export class App
   extends Model({
     id: idProp,
-    ownerId: prop<string>(),
+    owner: prop<IAuth0Owner>(),
     name: prop<string>().withSetter(),
     store: prop<Ref<IStore>>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })
   implements IApp
 {
-  static hydrate = hydrate
-
   @computed
   get slug() {
     return slugify(this.name)
@@ -71,17 +55,6 @@ export class App
   }
 
   @modelAction
-  public writeCache(data: IAppDTO) {
-    this.id = data.id
-    this.ownerId = data.owner.id
-    this.setName(data.name)
-    this.store = storeRef(data.store.id)
-    this.pages = data.pages.map((page) => pageRef(page.id))
-
-    return this
-  }
-
-  @modelAction
   page(id: string) {
     const currentPage = this.pages.find(
       (page) => page.current.id === id,
@@ -98,7 +71,7 @@ export class App
     return {
       id: this.id,
       name: this.name,
-      owner: connectNodeId(this.ownerId),
+      owner: connectAuth0Owner(this.owner.auth0Id),
       store: {
         create: {
           node: this.store.current.toCreateInput(),

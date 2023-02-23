@@ -6,9 +6,9 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
+  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
-  connectOwner,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 
@@ -49,7 +49,7 @@ export class TagRepository extends AbstractRepository<ITag> {
           ...tag,
           parent: connectNodeId(tag.parent?.id),
           children: connectNodeIds(tag.children.map((child) => child.id)),
-          owner: connectOwner(owner.auth0Id),
+          owner: connectAuth0Owner(owner.auth0Id),
         })),
       })
     ).tags

@@ -14,5 +14,5 @@ export const connectNode = (key: string, value: string | undefined | null) => ({
   connect: value ? whereNode(key, value) : undefined,
 })
 
-export const connectOwner = (auth0Id: string | undefined) =>
+export const connectAuth0Owner = (auth0Id: string | undefined) =>
   connectNode('auth0Id', auth0Id)

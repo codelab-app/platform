@@ -1,7 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 export const createComponent = async (

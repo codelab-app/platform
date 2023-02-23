@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 
 export class InterfaceTypeRepository extends AbstractRepository<IInterfaceType> {
   private InterfaceType = Repository.instance.InterfaceType
@@ -44,7 +44,7 @@ export class InterfaceTypeRepository extends AbstractRepository<IInterfaceType> 
           ({ __typename, fields, owner, ...interfaceType }) => ({
             ...interfaceType,
             fields: this.mapCreateFields(fields),
-            owner: connectOwner(owner.auth0Id),
+            owner: connectAuth0Owner(owner.auth0Id),
           }),
         ),
       })

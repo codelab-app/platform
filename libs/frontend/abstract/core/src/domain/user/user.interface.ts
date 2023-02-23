@@ -5,7 +5,6 @@ import type { IApp } from '../app'
 import type { IUserDTO } from './user.dto.interface'
 
 export interface IUser extends ICacheService<IUserDTO, IUser> {
-  // Mobx class requires an id, so we'll use the auth0Id here
   id: string
   setId(id: string): void
   auth0Id: string
@@ -14,6 +13,4 @@ export interface IUser extends ICacheService<IUserDTO, IUser> {
   apps: Array<Ref<IApp>>
 }
 
-// export type IUserRef = string
-
-export type IAuth0Id = string
+export type IAuth0Owner = Pick<IUser, 'auth0Id'>

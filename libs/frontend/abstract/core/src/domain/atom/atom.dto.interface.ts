@@ -1,7 +1,7 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { ITagRef } from '../tag'
 import type { IInterfaceTypeRef } from '../type'
-import type { IAuth0Id } from '../user'
+import type { IAuth0Owner } from '../user'
 import type {
   AtomFragment,
   RenderAtomFragment,
@@ -17,7 +17,7 @@ export interface ICreateAtomDTO {
   type: IAtomType
   tags?: Array<ITagRef>
   // Used for interface
-  owner: IAuth0Id
+  owner: IAuth0Owner
 
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined

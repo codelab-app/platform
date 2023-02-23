@@ -10,7 +10,7 @@ const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
     id,
     kind,
     name,
-    ownerId: owner.id,
+    owner,
   })
 }
 

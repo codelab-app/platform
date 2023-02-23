@@ -1,5 +1,5 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
 
@@ -49,7 +49,7 @@ describe('CSS CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignButton} API`,
-                  owner: connectOwner(userId),
+                  owner: connectAuth0Owner(userId),
                 },
               },
             },

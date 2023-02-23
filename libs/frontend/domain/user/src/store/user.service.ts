@@ -3,26 +3,19 @@ import type {
   IUserDTO,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { App, getAppService } from '@codelab/frontend/domain/app'
-import { getPageService, Page } from '@codelab/frontend/domain/page'
+import { getAppService } from '@codelab/frontend/domain/app'
+import { getPageService } from '@codelab/frontend/domain/page'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { Nullable, UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
-  AnyModel,
-  BaseModel,
   Model,
   model,
-  ModelClass,
   modelFlow,
-  ModelToSnapshot,
-  modelTypeKey,
   objectMap,
-  onChildAttachedTo,
   prop,
-  SnapshotOutOf,
   transaction,
 } from 'mobx-keystone'
 import { userApi } from './user.api'
@@ -40,25 +33,25 @@ const init = (data?: IUserDTO) => {
     user,
   })
 
-  onChildAttachedTo(
-    () => userService,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (child: any) => {
-      /**
-       * Once the user model is attached, we want to replace the id with the db id.
-       *
-       * User.id is initially set with auth0Id, so needs to be replaced
-       */
-      if (modelTypeKey in child && child[modelTypeKey] === '@codelab/User') {
-        void userService.getOne({ auth0Id: user.auth0Id }).then((userData) => {
-          if (userData) {
-            console.log('set user data id')
-            userService.user?.setId(userData.id)
-          }
-        })
-      }
-    },
-  )
+  // onChildAttachedTo(
+  //   () => userService,
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   (child: any) => {
+  //     /**
+  //      * Once the user model is attached, we want to replace the id with the db id.
+  //      *
+  //      * User.id is initially set with auth0Id, so needs to be replaced
+  //      */
+  //     if (modelTypeKey in child && child[modelTypeKey] === '@codelab/User') {
+  //       void userService.getOne({ auth0Id: user.auth0Id }).then((userData) => {
+  //         if (userData) {
+  //           console.log('set user data id')
+  //           userService.user?.setId(userData.id)
+  //         }
+  //       })
+  //     }
+  //   },
+  // )
 
   return userService
 }

@@ -3,7 +3,7 @@ fragment AppPreview on App {
   name
   slug
   owner {
-    id
+    auth0Id
   }
   pages {
     ...Page
@@ -18,7 +18,7 @@ fragment App on App {
   name
   slug
   owner {
-    id
+    auth0Id
   }
   pages {
     ...Page
@@ -42,7 +42,7 @@ fragment BuilderPage on Page {
   app {
     id
     owner {
-      id
+      auth0Id
     }
   }
   pageContainerElement {
@@ -56,7 +56,7 @@ fragment PageBuilderApp on App {
   name
   slug
   owner {
-    id
+    auth0Id
   }
   pages(
     where: {

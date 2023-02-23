@@ -43,7 +43,7 @@ const hydrate = ({ id, allowedValues, kind, name, owner }: IEnumTypeDTO) => {
     kind,
     name,
     allowedValues: allowedValues.map(EnumTypeValue.hydrate),
-    ownerId: owner.id,
+    owner,
   })
 }
 

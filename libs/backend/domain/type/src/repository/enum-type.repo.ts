@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectOwner, whereNodeId } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, whereNodeId } from '@codelab/shared/domain/mapper'
 
 export class EnumTypeRepository extends AbstractRepository<IEnumType> {
   private EnumType = Repository.instance.EnumType
@@ -31,7 +31,7 @@ export class EnumTypeRepository extends AbstractRepository<IEnumType> {
           ({ __typename, allowedValues, owner, ...enumType }) => ({
             ...enumType,
             allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-            owner: connectOwner(owner.auth0Id),
+            owner: connectAuth0Owner(owner.auth0Id),
           }),
         ),
       })
@@ -49,7 +49,7 @@ export class EnumTypeRepository extends AbstractRepository<IEnumType> {
         update: {
           ...enumType,
           allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
-          owner: connectOwner(owner.auth0Id),
+          owner: connectAuth0Owner(owner.auth0Id),
         },
         where,
       })

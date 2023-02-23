@@ -135,9 +135,7 @@ export class Store
     return `${app.name} Store`
   }
 
-  static createStoreData(
-    app: Pick<IApp, 'name' | 'ownerId'>,
-  ): StoreCreateInput {
+  static createStoreData(app: Pick<IApp, 'name' | 'owner'>): StoreCreateInput {
     return {
       id: v4(),
       name: `${app.name} Store`,
@@ -145,7 +143,7 @@ export class Store
         create: {
           node: InterfaceType.createApiNode({
             name: `${app.name} Store`,
-            ownerId: app.ownerId,
+            owner: app.owner,
           }),
         },
       },

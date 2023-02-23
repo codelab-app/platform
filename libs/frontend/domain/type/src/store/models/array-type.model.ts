@@ -11,15 +11,21 @@ import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'
 
-const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
-  assertIsTypeKind(fragment.kind, ITypeKind.ArrayType)
+const hydrate = ({
+  id,
+  kind,
+  name,
+  owner,
+  itemType,
+}: IArrayTypeDTO): ArrayType => {
+  assertIsTypeKind(kind, ITypeKind.ArrayType)
 
   return new ArrayType({
-    id: fragment.id,
-    kind: fragment.kind,
-    name: fragment.name,
-    itemType: typeRef(fragment.itemType.id),
-    ownerId: fragment.owner.id,
+    id: id,
+    kind: kind,
+    name: name,
+    itemType: typeRef(itemType.id),
+    owner: owner,
   })
 }
 

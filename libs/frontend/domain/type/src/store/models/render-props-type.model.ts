@@ -15,7 +15,7 @@ const hydrate = ({ id, kind, name, owner }: IRenderPropsTypeDTO) => {
     id,
     kind,
     name,
-    ownerId: owner.id,
+    owner,
   })
 }
 

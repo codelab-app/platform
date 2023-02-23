@@ -3,7 +3,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
@@ -42,7 +42,7 @@ describe('Component CRUD', () => {
               name: IPrimitiveTypeKind.String,
               primitiveKind: IPrimitiveTypeKind.String,
               kind: ITypeKind.PrimitiveType,
-              owner: connectOwner(userId),
+              owner: connectAuth0Owner(userId),
             },
           },
           ITypeKind.PrimitiveType,
@@ -57,7 +57,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignSpace} API`,
-                  owner: connectOwner(userId),
+                  owner: connectAuth0Owner(userId),
                 },
               },
             },
@@ -71,7 +71,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignTypographyText} API`,
-                  owner: connectOwner(userId),
+                  owner: connectAuth0Owner(userId),
                 },
               },
             },

@@ -5,6 +5,7 @@ import type { ICacheService } from '../../service'
 import type { IElement, IElementTreeService } from '../element'
 import type { IProp } from '../prop'
 import type { IInterfaceType } from '../type'
+import type { IAuth0Owner } from '../user'
 import type { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent
@@ -15,7 +16,7 @@ export interface IComponent
   name: string
   rootElementId: string
   childrenContainerElementId: string
-  ownerId: string
+  owner: IAuth0Owner
   api: Ref<IInterfaceType>
   props?: Nullable<IProp>
   instanceElement: Nullable<Ref<IElement>>

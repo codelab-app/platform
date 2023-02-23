@@ -28,15 +28,21 @@ export const createComponentSchema: JSONSchemaType<
         component: () => null,
       },
     },
-    auth0Id: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
+    owner: {
+      type: 'object',
+      properties: {
+        auth0Id: {
+          type: 'string',
+          disabled: true,
+          ...showFieldOnDev(),
+        },
+      },
+      required: ['auth0Id'],
     },
     name: {
       autoFocus: true,
       ...nonEmptyString,
     },
   },
-  required: ['name', 'auth0Id'],
+  required: ['name', 'owner'],
 }

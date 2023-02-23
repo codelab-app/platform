@@ -5,7 +5,7 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ArrayTypeRepository extends AbstractRepository<IArrayType> {
   private ArrayType = Repository.instance.ArrayType
@@ -28,7 +28,7 @@ export class ArrayTypeRepository extends AbstractRepository<IArrayType> {
       ).create({
         input: primitiveTypes.map(({ __typename, owner, ...type }) => ({
           ...type,
-          owner: connectOwner(owner.auth0Id),
+          owner: connectAuth0Owner(owner.auth0Id),
         })),
       })
     ).arrayTypes

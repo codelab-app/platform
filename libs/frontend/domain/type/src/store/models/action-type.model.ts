@@ -9,7 +9,7 @@ import { createBaseType } from './base-type.model'
 const hydrate = ({ id, kind, name, owner }: IAnyActionTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ActionType)
 
-  return new ActionType({ id, kind, name, ownerId: owner.id })
+  return new ActionType({ id, kind, name, owner })
 }
 
 @model('@codelab/ActionType')

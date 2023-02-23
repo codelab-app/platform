@@ -1,12 +1,12 @@
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IInterfaceTypeRef } from '../type'
-import type { IAuth0Id } from '../user'
+import type { IAuth0Owner } from '../user'
 import type { ComponentFragment } from './component.fragment.graphql.gen'
 
 export interface ICreateComponentDTO {
   id: string
   name: string
-  auth0Id: IAuth0Id
+  owner: IAuth0Owner
   childrenContainerElementId: string
 
   // Allow for connection to existing interface

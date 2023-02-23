@@ -1,6 +1,5 @@
 import type {
   IAtom,
-  IAuth0Id,
   IComponent,
   IElement,
   IElementRef,
@@ -10,10 +9,12 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
-  ICreateElementDTO,  IElementDTO,
+  ICreateElementDTO,
+  IElementDTO,
   isAtomDTO,
   isComponentDTO,
-  RenderTypeEnum} from '@codelab/frontend/abstract/core'
+  RenderTypeEnum,
+} from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
@@ -940,7 +941,7 @@ element is new parentElement's first child
   public convertElementToComponent = _async(
     runSequentially(
       'elementTransaction',
-      function* (this: ElementService, element: Element, auth0Id: IAuth0Id) {
+      function* (this: ElementService, element: IElement, auth0Id: string) {
         if (!element.parentElement) {
           throw new Error("Can't convert root element")
         }
@@ -957,7 +958,9 @@ element is new parentElement's first child
         const [createdComponent] = yield* _await(
           this.componentService.create([
             {
-              auth0Id,
+              owner: {
+                auth0Id,
+              },
               id: v4(),
               name,
               rootElementId: elementId,

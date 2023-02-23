@@ -13,7 +13,7 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  owner: { id: string }
+  owner: { auth0Id: string }
   pages: Array<PageFragment>
   store: { id: string }
 }
@@ -22,7 +22,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: { id: string }
+  owner: { auth0Id: string }
   pages: Array<PageFragment>
   store: { id: string }
 }
@@ -34,7 +34,7 @@ export type BuilderPageFragment = {
   getServerSideProps?: string | null
   kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
-  app: { id: string; owner: { id: string } }
+  app: { id: string; owner: { auth0Id: string } }
   pageContainerElement?: { id: string } | null
 }
 
@@ -42,7 +42,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { id: string }
+  owner: { auth0Id: string }
   pages: Array<BuilderPageFragment>
   store: StoreFragment
 }
@@ -53,7 +53,7 @@ export const AppPreviewFragmentDoc = gql`
     name
     slug
     owner {
-      id
+      auth0Id
     }
     pages {
       ...Page
@@ -70,7 +70,7 @@ export const AppFragmentDoc = gql`
     name
     slug
     owner {
-      id
+      auth0Id
     }
     pages {
       ...Page
@@ -96,7 +96,7 @@ export const BuilderPageFragmentDoc = gql`
     app {
       id
       owner {
-        id
+        auth0Id
       }
     }
     pageContainerElement {
@@ -112,7 +112,7 @@ export const PageBuilderAppFragmentDoc = gql`
     name
     slug
     owner {
-      id
+      auth0Id
     }
     pages(
       where: {

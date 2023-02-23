@@ -1,6 +1,5 @@
 import type {
   IApp,
-  ICreateAppDTO,
   IFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
@@ -8,7 +7,7 @@ import type {
 import { IField, IPropData, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -25,14 +24,19 @@ import { getFieldService } from '../field.service.context'
 import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
 
-const hydrate = (type: IInterfaceTypeDTO): InterfaceType => {
-  assertIsTypeKind(type.kind, ITypeKind.InterfaceType)
+const hydrate = ({
+  id,
+  kind,
+  name,
+  owner,
+}: IInterfaceTypeDTO): InterfaceType => {
+  assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({
-    id: type.id,
-    kind: type.kind,
-    name: type.name,
-    ownerId: type.owner.id,
+    id,
+    kind,
+    name,
+    owner,
   })
 
   return interfaceType
@@ -120,22 +124,19 @@ export class InterfaceType
       id: this.id,
       name: this.name,
       kind: ITypeKind.InterfaceType,
-      owner: connectNodeId(this.ownerId),
+      owner: connectAuth0Owner(this.owner.auth0Id),
     }
   }
 
   static createApiNode({
     name,
-    ownerId,
-  }: {
-    name: string
-    ownerId: string
-  }): InterfaceTypeCreateInput {
+    owner,
+  }: Pick<IApp, 'name' | 'owner'>): InterfaceTypeCreateInput {
     return {
       id: v4(),
       name: `${name} Store API`,
       kind: ITypeKind.InterfaceType,
-      owner: connectNodeId(ownerId),
+      owner: connectAuth0Owner(owner.auth0Id),
     }
   }
 

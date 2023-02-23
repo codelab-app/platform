@@ -1,3 +1,4 @@
+import type { IAuth0Owner } from '../user'
 import type {
   AppPreviewFragment,
   PageBuilderAppFragment,
@@ -6,10 +7,10 @@ import type {
 export interface ICreateAppDTO {
   id: string
   name: string
-  ownerId: string
+  owner: IAuth0Owner
 }
 
-export type IUpdateAppDTO = Omit<ICreateAppDTO, 'ownerId' | 'id'>
+export type IUpdateAppDTO = Omit<ICreateAppDTO, 'owner' | 'id'>
 
 export type IAppDTO = AppPreviewFragment
 

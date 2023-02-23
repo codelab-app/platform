@@ -36,7 +36,7 @@ export const CreateComponentModal = observer<{
     >
       <ModalForm.Form<Omit<ICreateComponentDTO, 'rootElementId'>>
         model={{
-          auth0Id: user?.auth0Id,
+          owner: { auth0Id: user?.auth0Id },
         }}
         onSubmit={handleSubmit}
         onSubmitError={onSubmitError}

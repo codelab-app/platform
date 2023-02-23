@@ -1,44 +1,20 @@
 import type {
   IApp,
   IAppService,
-  IInterfaceType,
   IPageBuilderAppProps,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
-import {
-  APP_PAGE_NAME,
-  DEFAULT_GET_SERVER_SIDE_PROPS,
-  IAppDTO,
-  ICreateAppDTO,
-  ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
-import {
-  getPageService,
-  Page,
-  PageFactory,
-  pageRef,
-} from '@codelab/frontend/domain/page'
+import { ICreateAppDTO } from '@codelab/frontend/abstract/core'
+import { getPageService, pageRef } from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
   getStoreService,
-  Store,
   storeRef,
 } from '@codelab/frontend/domain/store'
-import {
-  getTypeService,
-  InterfaceType,
-  typeRef,
-} from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
-import type {
-  AppCreateInput,
-  AppPreviewFragment,
-  AppWhere,
-} from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
@@ -53,9 +29,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { AppRepository } from '../services/app.repo'
-import { makeBasicPagesInput } from './api.utils'
 import { appApi } from './app.api'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
@@ -107,7 +81,7 @@ export class AppService
     /**
      * Need to create nested model
      */
-    const appModel = this.create({ ...app, ownerId: app.owner.id })
+    const appModel = this.create(app)
     const pageModel = appModel.page(pageId)
     const page = app.pages.find((appPage) => appPage.id === pageId)
 
@@ -150,7 +124,7 @@ export class AppService
   getAll = _async(function* (this: AppService, where?: AppWhere) {
     const { apps } = yield* _await(appApi.GetApps({ where }))
 
-    return apps.map((app) => this.create({ ...app, ownerId: app.owner.id }))
+    return apps.map((app) => this.create(app))
   })
 
   @modelFlow
@@ -169,7 +143,7 @@ export class AppService
       }),
     )
 
-    return apps.map((app) => this.create({ ...app, ownerId: app.owner.id }))
+    return apps.map((app) => this.create(app))
   })
 
   @modelFlow

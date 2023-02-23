@@ -36,7 +36,7 @@ export const CreateAtomModal = observer<{
     >
       <ModalForm.Form<ICreateAtomDTO>
         model={{
-          owner: userService.user?.auth0Id,
+          owner: { auth0Id: userService.user?.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
