@@ -20,6 +20,7 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
       autoFocus: true,
       ...nonEmptyString,
       pattern: singlySpacedTitleCaseWithNumbersRegex.source,
+      errorMessage: 'must be in Title Case',
     },
     auth0Id: {
       type: 'string',

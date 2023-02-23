@@ -33,6 +33,7 @@ export const createPageSchema: JSONSchemaType<
       autoFocus: true,
       ...nonEmptyString,
       pattern: singlySpacedTitleCaseWithNumbersRegex.source,
+      errorMessage: 'must be in Title Case',
     },
     appId: {
       type: 'string',

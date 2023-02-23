@@ -11,6 +11,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       type: 'string',
       autoFocus: true,
       pattern: singlySpacedTitleCaseWithNumbersRegex.source,
+      errorMessage: 'must be in Title Case',
     },
     renderIfExpression: {
       type: 'string',

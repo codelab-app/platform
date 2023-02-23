@@ -17,6 +17,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
     name: {
       type: 'string',
       pattern: singlySpacedTitleCaseWithNumbersRegex.source,
+      errorMessage: 'must be in Title Case',
     },
     parentElementId: {
       type: 'string',

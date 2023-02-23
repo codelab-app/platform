@@ -13,6 +13,7 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
       autoFocus: true,
       ...nonEmptyString,
       pattern: singlySpacedTitleCaseWithNumbersRegex.source,
+      errorMessage: 'must be in Title Case',
     },
   },
   required: ['name'],

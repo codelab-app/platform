@@ -20,6 +20,7 @@ export const updatePageSchema: JSONSchemaType<
       autoFocus: true,
       ...nonEmptyString,
       pattern: singlySpacedTitleCaseWithNumbersRegex.source,
+      errorMessage: 'must be in Title Case',
     },
     getServerSideProps: {
       type: 'string',
