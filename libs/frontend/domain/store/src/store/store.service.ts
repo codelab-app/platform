@@ -1,13 +1,17 @@
 import type {
+  ICreateAppDTO,
   ICreateStoreDTO,
+  IInterfaceType,
   IStore,
   IStoreDTO,
   IStoreService,
   IUpdateStoreDTO,
 } from '@codelab/frontend/abstract/core'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import { IAppDTO } from '@codelab/frontend/abstract/core'
+import { getTypeService, InterfaceType, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { StoreWhere } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -21,6 +25,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { deleteStoreInput } from '../utils'
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, storeApi } from './apis'
@@ -64,6 +69,25 @@ export class StoreService
     return await this.typeService.getAllWithDescendants(
       stores.map((store) => store.api.id),
     )
+  }
+
+  @modelAction
+  add(app: ICreateAppDTO) {
+    const interfaceType = this.typeService.add({
+      id: v4(),
+      name: InterfaceType.createName(`${app.name} Store`),
+      kind: ITypeKind.InterfaceType,
+      ownerId: app.ownerId,
+    }) as IInterfaceType
+
+    const store = new Store({
+      name: Store.createName(app),
+      api: typeRef(interfaceType),
+    })
+
+    this.stores.set(store.id, store)
+
+    return store
   }
 
   @modelAction

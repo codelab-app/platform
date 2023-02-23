@@ -5,7 +5,7 @@ import type {
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { ModelPropsToSetter, ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICacheService,
   ICRUDModalService,
@@ -70,6 +70,7 @@ export interface IElementService
     elementId: string
     parentElementId: string
   }): Promise<void>
+  add(elementDTO: ICreateElementDTO): IElement
   moveElementAsNextSibling(props: {
     elementId: string
     targetElementId: string

@@ -6,8 +6,9 @@ import type {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import React, { useState } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { createAppSchema } from './createAppSchema'
 
 export const CreateAppModal = observer<{
@@ -15,13 +16,13 @@ export const CreateAppModal = observer<{
   userService: IUserService
 }>(({ appService, userService }) => {
   const onSubmit = (data: ICreateAppDTO) => {
-    return appService.create([data])
+    return appService.add({ ...data, id: v4() })
   }
 
   const closeModal = () => appService.createModal.close()
 
   const model = {
-    auth0Id: userService.user?.auth0Id,
+    ownerId: userService.user?.id,
   }
 
   return (

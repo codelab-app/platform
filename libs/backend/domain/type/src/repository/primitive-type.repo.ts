@@ -1,5 +1,5 @@
 import type { IPrimitiveType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportPrimitiveTypeSelectionSet,
   Repository,
@@ -7,7 +7,7 @@ import {
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 
-export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
+export class PrimitiveTypeRepository extends AbstractRepository<IPrimitiveType> {
   private PrimitiveType = Repository.instance.PrimitiveType
 
   async find(where: BaseTypeUniqueWhere) {

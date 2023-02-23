@@ -23,7 +23,6 @@ export const CreateTypeModal = observer<{
   const user = userService.user
 
   const onSubmit = async (data: ICreateTypeDTO) => {
-    // Here we want to append ids to enum
     const input = {
       ...data,
       allowedValues: data.allowedValues?.map((val) => ({
@@ -53,7 +52,7 @@ export const CreateTypeModal = observer<{
       <ModalForm.Form<ICreateTypeDTO>
         model={{
           id: v4(),
-          auth0Id: user?.auth0Id,
+          ownerId: user?.id,
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -63,7 +62,7 @@ export const CreateTypeModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}
       >
-        <AutoFields fields={['name', 'auth0Id']} />
+        <AutoFields fields={['name', 'ownerId']} />
         <SelectField name="kind" showSearch />
 
         <DisplayIfKind kind={ITypeKind.PrimitiveType}>

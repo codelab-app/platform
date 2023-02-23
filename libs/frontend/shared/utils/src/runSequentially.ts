@@ -6,6 +6,8 @@ const pendingPromises: Record<string, Array<Promise<unknown>>> = {}
 /**
  * Runs the provided generator functions with a specific key one at a time.
  *
+ * Queues all operations of same key
+ *
  * Important: note to not recursively call functions wrapped with this function using the same key,
  * because they'll wait for each other and never return.
  * @param fn

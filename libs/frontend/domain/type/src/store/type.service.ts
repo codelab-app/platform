@@ -1,11 +1,14 @@
 import type {
-  ICreateTypeDTO,
   IInterfaceType,
   IInterfaceTypeRef,
   ITypeService,
   IUpdateTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
+import {
+  IAnyType,
+  ICreateTypeDTO,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   BaseTypeWhere,
@@ -39,6 +42,7 @@ import {
 } from './apis/type.api'
 import { baseTypesFactory } from './base-types.factory'
 import { getFieldService } from './field.service.context'
+import { InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
@@ -104,6 +108,18 @@ export class TypeService
     return [...this.types.values()].sort((typeA, typeB) =>
       typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
     )
+  }
+
+  @modelAction
+  add(data: ICreateTypeDTO) {
+    const interfaceType = new InterfaceType({
+      name: data.name,
+      ownerId: data.ownerId,
+    })
+
+    this.types.set(interfaceType.id, interfaceType)
+
+    return interfaceType
   }
 
   @modelAction

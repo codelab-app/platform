@@ -4,7 +4,7 @@ import type {
   PageOptions,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICacheService,
@@ -12,6 +12,7 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
+import type { IApp } from '../app'
 import type {
   ICreatePageDTO,
   IPageDTO,
@@ -19,16 +20,19 @@ import type {
 } from './page.dto.interface'
 import type { IPage } from './page.model.interface'
 
+export interface IPageFactory {
+  createProviderPage(app: IEntity): IPage
+  createNotFoundPage(app: IEntity): IPage
+  createInternalServerErrorPage(app: IEntity): IPage
+}
+
 export interface IPageService
   extends ICRUDService<IPage, ICreatePageDTO, IUpdatePageDTO>,
     IQueryService<IPage, PageWhere, PageOptions>,
-    ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }>,
-    ICacheService<IPageDTO, IPage> {
-  /**
-   * Properties
-   */
+    ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }> {
   pages: ObjectMap<IPage>
   pagesList: Array<IPage>
+  pageFactory: IPageFactory
   page(id: string): Maybe<IPage>
   pagesByApp(appId: string): Array<IPage>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
@@ -36,4 +40,6 @@ export interface IPageService
     appId: string,
     pageId: string,
   ): Promise<GetRenderedPageAndCommonAppDataQuery>
+  add(pageDTO: IPageDTO): IPage
+  // create(app: Ref<IApp>, data: Array<ICreatePageDTO>): Promise<Array<IPage>>
 }

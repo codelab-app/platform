@@ -1,19 +1,41 @@
 import type {
   IApp,
-  IAppDTO,
   IAppService,
-  ICreateAppDTO,
+  IInterfaceType,
   IPageBuilderAppProps,
   IUpdateAppDTO,
 } from '@codelab/frontend/abstract/core'
-import { getPageService } from '@codelab/frontend/domain/page'
+import {
+  APP_PAGE_NAME,
+  DEFAULT_GET_SERVER_SIDE_PROPS,
+  IAppDTO,
+  ICreateAppDTO,
+  ROOT_ELEMENT_NAME,
+} from '@codelab/frontend/abstract/core'
+import {
+  getPageService,
+  Page,
+  PageFactory,
+  pageRef,
+} from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
   getStoreService,
+  Store,
+  storeRef,
 } from '@codelab/frontend/domain/store'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
-import type { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  AppCreateInput,
+  AppPreviewFragment,
+  AppWhere,
+} from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
@@ -22,6 +44,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  getSnapshot,
   Model,
   model,
   modelAction,
@@ -31,6 +54,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { AppRepository } from '../services/app.repo'
 import { makeBasicPagesInput } from './api.utils'
 import { appApi } from './app.api'
 import { App } from './app.model'
@@ -44,6 +68,7 @@ export class AppService
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
     buildModal: prop(() => new AppModalService({})),
+    appRepository: prop(() => new AppRepository({})),
   })
   implements IAppService
 {
@@ -62,6 +87,11 @@ export class AppService
     return getPageService(this)
   }
 
+  // @computed
+  // private get typeService() {
+  //   return getTypeService(this)
+  // }
+
   @computed
   get appsJson() {
     return this.appsList.map((app) => app.toJson).reduce(merge, {})
@@ -77,19 +107,11 @@ export class AppService
     /**
      * Need to create nested model
      */
-    const appModel = this.writeCache(app)
-
-    /**
-     * Build the pageElementTree for page
-     */
-    const pageModels = app.pages.map((page) =>
-      this.pageService.writeCache(page),
-    )
-
-    const pageModel = pageModels.find((page) => page.id === pageId)
+    const appModel = this.create({ ...app, ownerId: app.owner.id })
+    const pageModel = appModel.page(pageId)
     const page = app.pages.find((appPage) => appPage.id === pageId)
 
-    if (!page || !pageModel) {
+    if (!page) {
       throw new Error('Missing page')
     }
 
@@ -123,22 +145,12 @@ export class AppService
     return this.apps.get(id)
   }
 
-  @modelAction
-  private updatePagesCache(apps: Array<IAppDTO>) {
-    // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
-    const pages = apps.flatMap((app) => app.pages)
-
-    pages.map((page) => this.pageService.writeCache(page))
-  }
-
   @modelFlow
   @transaction
   getAll = _async(function* (this: AppService, where?: AppWhere) {
     const { apps } = yield* _await(appApi.GetApps({ where }))
 
-    this.updatePagesCache(apps)
-
-    return apps.map((app) => this.writeCache(app))
+    return apps.map((app) => this.create({ ...app, ownerId: app.owner.id }))
   })
 
   @modelFlow
@@ -157,7 +169,7 @@ export class AppService
       }),
     )
 
-    return apps.map((app) => this.writeCache(app))
+    return apps.map((app) => this.create({ ...app, ownerId: app.owner.id }))
   })
 
   @modelFlow
@@ -174,61 +186,35 @@ export class AppService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: AppService, data: Array<ICreateAppDTO>) {
-    const input: Array<AppCreateInput> = data.map((app) => {
-      const appId = app.id ?? v4()
+  add = _async(function* (this: AppService, appDto: ICreateAppDTO) {
+    const app = this.create(appDto)
 
-      return {
-        id: appId,
-        name: createUniqueName(app.name),
-        owner: connectOwner(app.auth0Id),
-        store: {
-          create: {
-            node: {
-              id: v4(),
-              name: `${app.name} Store`,
-              api: {
-                create: {
-                  node: {
-                    id: v4(),
-                    name: `${app.name} Store API`,
-                    kind: ITypeKind.InterfaceType,
-                    owner: connectOwner(app.auth0Id),
-                  },
-                },
-              },
-            },
-          },
-        },
-        pages: makeBasicPagesInput(appId),
-      }
-    })
+    console.log(getSnapshot(app))
 
-    const {
-      createApps: { apps },
-    } = yield* _await(
-      appApi.CreateApps({
-        input,
-      }),
-    )
+    yield* _await(this.appRepository.add(app))
 
-    return apps.map((app) => this.writeCache(app))
+    return app
   })
 
   @modelAction
-  writeCache = (app: IAppDTO) => {
-    let appModel = this.app(app.id)
+  create(appDTO: ICreateAppDTO) {
+    const store = this.storeService.add(appDTO)
 
-    if (appModel) {
-      appModel.writeCache(app)
-    } else {
-      appModel = App.hydrate(app)
-      this.apps.set(app.id, appModel)
-    }
+    const app = new App({
+      ...appDTO,
+      pages: [
+        pageRef(this.pageService.pageFactory.createProviderPage(appDTO)),
+        pageRef(this.pageService.pageFactory.createNotFoundPage(appDTO)),
+        pageRef(
+          this.pageService.pageFactory.createInternalServerErrorPage(appDTO),
+        ),
+      ],
+      store: storeRef(store),
+    })
 
-    app.pages.map((page) => this.pageService.writeCache(page))
+    this.apps.set(app.id, app)
 
-    return appModel
+    return app
   }
 
   @modelFlow

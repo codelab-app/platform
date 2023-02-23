@@ -5,7 +5,9 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { UserFragmentDoc } from '../../../../abstract/core/src/domain/user/user.fragment.graphql.gen'
-export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
+export type GetUsersQueryVariables = Types.Exact<{
+  where?: Types.InputMaybe<Types.UserWhere>
+}>
 
 export type GetUsersQuery = { users: Array<UserFragment> }
 
@@ -18,8 +20,8 @@ export type CreateUserMutation = {
 }
 
 export const GetUsersDocument = gql`
-  query GetUsers {
-    users {
+  query GetUsers($where: UserWhere) {
+    users(where: $where) {
       ...User
     }
   }

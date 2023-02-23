@@ -1,4 +1,4 @@
-import type { IAtom, ITag } from '@codelab/frontend/abstract/core'
+import type { IAtom, IInterfaceType, ITag } from '@codelab/frontend/abstract/core'
 import { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
@@ -37,7 +37,7 @@ export class Atom
     icon: prop<string | null | undefined>(),
     type: prop<IAtomType>(),
     tags: prop<Array<Ref<ITag>>>(() => []),
-    api: prop<Ref<InterfaceType>>(),
+    api: prop<Ref<IInterfaceType>>(),
     allowedChildren: prop<Array<Pick<IAtomDTO, 'id' | 'name'>>>(() => []),
   })
   implements IAtom

@@ -1,5 +1,5 @@
 import type { IActionType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportActionTypeSelectionSet,
   Repository,
@@ -7,7 +7,7 @@ import {
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 
-export class ActionTypeRepository extends IRepository<IActionType> {
+export class ActionTypeRepository extends AbstractRepository<IActionType> {
   private ActionType = Repository.instance.ActionType
 
   async find(where: BaseTypeUniqueWhere) {

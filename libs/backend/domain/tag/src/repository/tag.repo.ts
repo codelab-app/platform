@@ -1,5 +1,5 @@
 import type { ITag } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   Repository,
   tagSelectionSet,
@@ -12,7 +12,7 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 
-export class TagRepository extends IRepository<ITag> {
+export class TagRepository extends AbstractRepository<ITag> {
   private Tag = Repository.instance.Tag
 
   /**

@@ -1,5 +1,5 @@
 import type { IUnionType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportUnionTypeSelectionSet,
   Repository,
@@ -7,7 +7,7 @@ import {
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectNodeIds, connectOwner } from '@codelab/shared/domain/mapper'
 
-export class UnionTypeRepository extends IRepository<IUnionType> {
+export class UnionTypeRepository extends AbstractRepository<IUnionType> {
   private UnionType = Repository.instance.UnionType
 
   async find(where: BaseTypeUniqueWhere) {

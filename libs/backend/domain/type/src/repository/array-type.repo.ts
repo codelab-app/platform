@@ -1,5 +1,5 @@
 import type { IArrayType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportArrayTypeSelectionSet,
   Repository,
@@ -7,7 +7,7 @@ import {
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 
-export class ArrayTypeRepository extends IRepository<IArrayType> {
+export class ArrayTypeRepository extends AbstractRepository<IArrayType> {
   private ArrayType = Repository.instance.ArrayType
 
   async find(where: BaseTypeUniqueWhere) {

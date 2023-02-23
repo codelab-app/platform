@@ -1,6 +1,7 @@
 import type {
   IComponentDTO,
   IElement,
+  IInterfaceType,
   IProp,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -57,7 +58,7 @@ export class Component
     // this isn't a Ref, because it will cause a circular dep.
     rootElementId: prop<string>().withSetter(),
     ownerId: prop<string>(),
-    api: prop<Ref<InterfaceType>>(),
+    api: prop<Ref<IInterfaceType>>(),
     props: prop<Nullable<IProp>>(null).withSetter(),
     childrenContainerElementId: prop<string>().withSetter(),
     // if this is a duplicate, trace source component id else null

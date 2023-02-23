@@ -1,5 +1,5 @@
 import type { IField } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   fieldSelectionSet,
   Repository,
@@ -20,7 +20,7 @@ export type FieldWhere = BaseTypeUniqueWhere & {
   key: string
 }
 
-export class FieldRepository extends IRepository<IField> {
+export class FieldRepository extends AbstractRepository<IField> {
   private Field = Repository.instance.Field
 
   async all() {

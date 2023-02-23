@@ -1,10 +1,14 @@
 import type {
+  IApp,
+  ICreateAppDTO,
   IFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { IField, IPropData, ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -15,6 +19,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { updateBaseTypeCache } from '../base-type'
 import { getFieldService } from '../field.service.context'
 import { createBaseType } from './base-type.model'
@@ -106,5 +111,33 @@ export class InterfaceType
     return this
   }
 
-  public static hydrate = hydrate
+  static createName(name: string) {
+    return `${name} API`
+  }
+
+  toCreateInput(): InterfaceTypeCreateInput {
+    return {
+      id: this.id,
+      name: this.name,
+      kind: ITypeKind.InterfaceType,
+      owner: connectNodeId(this.ownerId),
+    }
+  }
+
+  static createApiNode({
+    name,
+    ownerId,
+  }: {
+    name: string
+    ownerId: string
+  }): InterfaceTypeCreateInput {
+    return {
+      id: v4(),
+      name: `${name} Store API`,
+      kind: ITypeKind.InterfaceType,
+      owner: connectNodeId(ownerId),
+    }
+  }
+
+  static hydrate = hydrate
 }

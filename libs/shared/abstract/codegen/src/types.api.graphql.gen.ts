@@ -19706,7 +19706,11 @@ export type BuilderPageFragment = {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
   } & ElementFragment
-  app: { __typename?: 'App'; id: string }
+  app: {
+    __typename?: 'App'
+    id: string
+    owner: { __typename?: 'User'; id: string }
+  }
   pageContainerElement?: { __typename?: 'Element'; id: string } | null
 }
 
@@ -21730,7 +21734,9 @@ export type UpdateCodeMirrorTypesMutation = {
   }
 }
 
-export type GetUsersQueryVariables = Exact<{ [key: string]: never }>
+export type GetUsersQueryVariables = Exact<{
+  where?: InputMaybe<UserWhere>
+}>
 
 export type GetUsersQuery = {
   __typename?: 'Query'

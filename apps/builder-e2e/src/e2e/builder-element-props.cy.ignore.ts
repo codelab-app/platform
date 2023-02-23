@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 // ignore because we need to seed Button.csv first
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 

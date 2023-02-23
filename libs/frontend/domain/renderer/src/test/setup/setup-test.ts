@@ -1,15 +1,18 @@
 /// <reference types='jest'/>
 
 import type {
+  IAnyType,
   IAtom,
   IComponent,
   IElement,
   IInterfaceType,
   IRenderer,
+  IRenderPropsType,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
+  RendererType,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
@@ -26,7 +29,6 @@ import {
   storeRef,
   StoreService,
 } from '@codelab/frontend/domain/store'
-import type { AnyTypeModel } from '@codelab/frontend/domain/type'
 import {
   FieldService,
   InterfaceType,
@@ -46,28 +48,12 @@ import { Renderer } from '../../renderer.model'
 import { PassThroughRenderPipe } from '../../renderPipes/passThroughRenderPipe'
 import type { RenderPipeClass } from '../../renderPipes/renderPipe.factory'
 import { renderPipeFactory } from '../../renderPipes/renderPipe.factory'
-import { RenderTestRootStore } from './renderTestRootStore'
-
-interface TestingData {
-  rootStore: RenderTestRootStore
-  renderer: IRenderer
-  componentToRender: IComponent
-  componentRootElement: IElement
-  elementToRender: IElement
-  elementToRender02: IElement
-  componentInstanceElementToRender: IElement
-  renderPropsType: AnyTypeModel
-  reactNodeType: AnyTypeModel
-  primitiveType: AnyTypeModel
-  emptyInterface: AnyTypeModel
-  divAtom: IAtom
-  textAtom: IAtom
-  store: IStore
-}
+import { TestRootStore } from './test-root-store'
+import type { TestServices } from './test-root-store.interface'
 
 // Clone everything so that we don't get conflicts between different test files.
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
-  const data: TestingData = {} as TestingData
+  const data: TestServices = {} as TestServices
 
   beforeEach(() => {
     const ownerId = v4()
@@ -78,7 +64,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.store = new Store({
-      api: typeRef(data.emptyInterface) as Ref<IInterfaceType>,
+      api: typeRef(data.emptyInterface),
       name: 'Store',
     })
 
@@ -120,7 +106,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.elementToRender02 = new Element({
       id: v4(),
       name: '02',
-      slug: '02-slug',
       props: new Prop({}),
     })
 
@@ -137,7 +122,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     data.componentRootElement = new Element({
       id: compRootElementId,
-      slug: `${compRootElementId}-01`,
       name: '01',
       customCss: '',
       guiCss: '',
@@ -155,7 +139,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.elementToRender = new Element({
       id: v4(),
       name: ROOT_ELEMENT_NAME,
-      slug: `${ROOT_ELEMENT_NAME}-slug`,
       customCss: '',
       pageId,
       guiCss: '',
@@ -189,7 +172,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentInstanceElementToRender = new Element({
       id: v4(),
       name: '01',
-      slug: 'component01.01-slug',
       renderComponentType: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
@@ -203,7 +185,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentInstanceElementToRender = new Element({
       id: v4(),
       name: '01',
-      slug: '01-instance',
       renderComponentType: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
@@ -214,9 +195,9 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     const typeService = new TypeService({
-      types: objectMap([
+      types: objectMap<IAnyType>([
         [data.primitiveType.id, data.primitiveType],
-        [data.renderPropsType.id, data.renderPropsType as AnyTypeModel],
+        [data.renderPropsType.id, data.renderPropsType],
         [data.reactNodeType.id, data.reactNodeType],
         [data.emptyInterface.id, data.emptyInterface],
       ]),
@@ -225,10 +206,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.renderer = new Renderer({
       debugMode: false,
       appStore: storeRef(data.store),
+      rendererType: RendererType.PageBuilder,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
 
-    data.rootStore = new RenderTestRootStore({
+    data.rootStore = new TestRootStore({
       storeService: new StoreService({
         stores: objectMap([[data.store.id, data.store]]),
       }),

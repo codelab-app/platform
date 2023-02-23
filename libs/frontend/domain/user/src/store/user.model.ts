@@ -32,7 +32,7 @@ const hydrate = (user: IUserDTO) => {
 export class User
   extends Model({
     // We use auth0Id as the id here
-    id: idProp,
+    id: idProp.withSetter(),
     username: prop<string>(),
     auth0Id: prop<string>(),
     roles: prop<Array<IRole>>(() => []),
@@ -51,6 +51,7 @@ export class User
     return this
   }
 }
+
 export const userRef = rootRef<IUser>('@codelab/UserRef', {
   onResolvedValueChange: (ref, newUser, oldUser) => {
     if (oldUser && !newUser) {

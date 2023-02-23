@@ -45,6 +45,7 @@ import {
   modelTypeKey,
   prop,
 } from 'mobx-keystone'
+import { slugify } from 'voca'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
 
@@ -88,7 +89,6 @@ export const hydrate = ({
     // parent of first child
     parentId: parent?.id,
     pageId: page?.id,
-    slug: slug,
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
     firstChildId: firstChild?.id,
@@ -135,7 +135,6 @@ export class Element
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
     name: prop<string>().withSetter(),
-    slug: prop<string>(),
     customCss: prop<Nullable<string>>(null).withSetter(),
     guiCss: prop<Nullable<string>>(null),
     atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
@@ -164,6 +163,11 @@ export class Element
   @computed
   get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  get slug() {
+    return slugify(this.name)
   }
 
   @computed
@@ -790,7 +794,6 @@ export class Element
     this.nextSiblingId = nextSibling?.id ?? null
     this.prevSiblingId = prevSibling?.id ?? null
     this.firstChildId = firstChild?.id ?? null
-    this.slug = slug
 
     if (props) {
       this.props?.writeCache({ ...props, apiRef })

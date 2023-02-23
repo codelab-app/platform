@@ -1,5 +1,5 @@
 import type { IEnumType, IEnumTypeValue } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportEnumTypeSelectionSet,
   Repository,
@@ -8,7 +8,7 @@ import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner, whereNodeId } from '@codelab/shared/domain/mapper'
 
-export class EnumTypeRepository extends IRepository<IEnumType> {
+export class EnumTypeRepository extends AbstractRepository<IEnumType> {
   private EnumType = Repository.instance.EnumType
 
   async find(where: BaseTypeUniqueWhere) {

@@ -1,6 +1,6 @@
 import type { UpdateElementsMutationVariables } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { ModelPropsToSetter, Ref } from 'mobx-keystone'
 import type { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
 import type { ICacheService } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
@@ -49,8 +49,8 @@ export interface IElement
   atom: Nullable<Ref<IAtom>>
   hooks: Array<IHook>
   parentId: Nullable<string>
-  parentElement: Maybe<IElement>
   parentComponent: Nullable<Ref<IComponent>>
+  parentElement: Maybe<IElement>
   label: string
   propTransformationJs: Nullable<string>
   preRenderActionId: Nullish<string>
@@ -128,6 +128,7 @@ export interface IElement
   setRenderingError(error: Nullish<RenderingError>): void
   setRenderIfExpression(key: Nullish<string>): void
   setRenderForEachPropKey(key: string): void
+  setPropTransformationJs(props: string): void
 }
 
 export type IElementRef = string

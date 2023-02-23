@@ -18,7 +18,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
   title: 'Create Type Input',
   type: 'object',
   properties: {
-    auth0Id: {
+    ownerId: {
       type: 'string',
       disabled: true,
       ...showFieldOnDev(),
@@ -84,5 +84,5 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
     },
     arrayTypeId: { type: 'string', nullable: true },
   },
-  required: ['kind', 'name', 'auth0Id'],
+  required: ['kind', 'name', 'ownerId'],
 }

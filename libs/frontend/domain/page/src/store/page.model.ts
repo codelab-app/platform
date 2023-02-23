@@ -1,11 +1,30 @@
-import type { IPage, IPropData } from '@codelab/frontend/abstract/core'
-import { IPageDTO } from '@codelab/frontend/abstract/core'
-import { ElementTreeService } from '@codelab/frontend/domain/element'
+import type {
+  IElement,
+  IPage,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
+import {
+  APP_PAGE_NAME,
+  DEFAULT_GET_SERVER_SIDE_PROPS,
+  IPageDTO,
+  ROOT_ELEMENT_NAME,
+} from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
+import {
+  Element,
+  elementRef,
+  ElementTreeService,
+} from '@codelab/frontend/domain/element'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { extractName } from '@codelab/frontend/shared/utils'
+import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
+import { v4 } from 'uuid'
+import slugify from 'voca/slugify'
 import { pageApi } from './page.api'
 
 const getServerSideProps = async (context: IPropData) => {
@@ -34,20 +53,24 @@ const getServerSideProps = async (context: IPropData) => {
   }
 }
 
-const hydrate = (page: IPageDTO) => {
-  return new Page({
-    id: page.id,
-    name: extractName(page.name),
-    slug: page.slug,
-    rootElement: { id: page.rootElement.id },
-    getServerSideProps: page.getServerSideProps,
-    app: { id: page.app.id },
-    pageContainerElement: page.pageContainerElement
-      ? { id: page.pageContainerElement.id }
-      : null,
-    kind: page.kind,
-  })
-}
+// const hydrate = (page: IPageDTO) => {
+//   const rootElement = new Element({
+//     id: page.rootElement.id,
+//     name: page.rootElement.name,
+//   })
+
+//   return new Page({
+//     id: page.id,
+//     name: extractName(page.name),
+//     rootElement: elementRef(rootElement),
+//     getServerSideProps: page.getServerSideProps,
+//     app: { id: page.app.id },
+//     pageContainerElement: page.pageContainerElement
+//       ? { id: page.pageContainerElement.id }
+//       : null,
+//     kind: page.kind,
+//   })
+// }
 
 @model('@codelab/Page')
 export class Page
@@ -55,14 +78,23 @@ export class Page
     id: idProp,
     app: prop<IEntity>(),
     name: prop<string>().withSetter(),
-    slug: prop<string>(),
-    rootElement: prop<IEntity>(),
+    rootElement: prop<Ref<IElement>>(),
     getServerSideProps: prop<Nullish<string>>(),
     pageContainerElement: prop<Nullish<IEntity>>(),
     kind: prop<IPageKind>(),
   })
   implements IPage
 {
+  @computed
+  get slug() {
+    return slugify(this.name)
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
+
   @computed
   get toJson() {
     return {
@@ -75,20 +107,24 @@ export class Page
     }
   }
 
-  @modelAction
-  writeCache(page: IPageDTO) {
-    this.setName(extractName(page.name))
-    this.rootElement = page.rootElement
-    this.app = page.app
-    this.slug = page.slug
-    this.getServerSideProps = page.getServerSideProps
-    this.pageContainerElement = page.pageContainerElement
-    this.kind = page.kind
+  // @modelAction
+  // writeCache(page: IPageDTO) {
+  //   const rootElement = new Element({
+  //     id: page.rootElement.id,
+  //     name: page.rootElement.name,
+  //   })
 
-    return this
-  }
+  //   this.setName(extractName(page.name))
+  //   this.rootElement = elementRef(rootElement)
+  //   this.app = page.app
+  //   this.getServerSideProps = page.getServerSideProps
+  //   this.pageContainerElement = page.pageContainerElement
+  //   this.kind = page.kind
 
-  static hydrate = hydrate
+  //   return this
+  // }
+
+  // static hydrate = hydrate
 
   static getServerSideProps = getServerSideProps
 }

@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "types": ["jest", "node", "@testing-library/jest-dom"],
+    "noPropertyAccessFromIndexSignature": false,
+    "outDir": "../../../../dist/out-tsc",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "jest.config.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "**/*.test.js",
+    "**/*.spec.js",
+    "**/*.test.jsx",
+    "**/*.spec.jsx",
+    "**/*.d.ts"
+  ]
+}
