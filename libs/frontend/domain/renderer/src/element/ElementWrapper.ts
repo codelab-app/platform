@@ -67,7 +67,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      * and will return the React Elements with the attached additional props
      */
     const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
-      const children = shouldRenderElement(element, renderOutput.props, store)
+      const children = shouldRenderElement(
+        element,
+        mergeProps(renderOutput.props, store.state.values),
+      )
         ? renderService.renderChildren({ parentOutput: renderOutput })
         : undefined
 

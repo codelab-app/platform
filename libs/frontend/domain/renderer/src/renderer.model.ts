@@ -16,7 +16,10 @@ import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { expressionTransformer } from '@codelab/frontend/shared/utils'
+import {
+  expressionTransformer,
+  replaceStateInProps,
+} from '@codelab/frontend/shared/utils'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
@@ -416,7 +419,7 @@ export class Renderer
         ? props
         : mergeProps(this.state.values, props)
 
-    props = this.appStore.current.replaceStateInProps(props, context)
+    props = replaceStateInProps(props, context)
 
     return props
   }

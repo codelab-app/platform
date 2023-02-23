@@ -10,7 +10,7 @@ import type {
 import { IApiActionDTO, IProp } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
-import { tryParse } from '@codelab/frontend/shared/utils'
+import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
 import {
   assertIsActionKind,
   IActionKind,
@@ -95,7 +95,7 @@ export class ApiAction
 
   @modelAction
   private replaceStateInConfig(config: IProp) {
-    return this.store.current.replaceStateInProps(config.values)
+    return replaceStateInProps(config.values, this.store.current.state.values)
   }
 
   @computed
@@ -125,7 +125,12 @@ export class ApiAction
       const errorAction = this.errorAction?.current
       const resource = this.resource.current
       const overrideConfig = args[0] as IPropData
-      const config = this.store.current.replaceStateInProps(this.config.values)
+
+      const config = replaceStateInProps(
+        this.config.values,
+        this.store.current.state.values,
+      )
+
       state.set(this.name, { response: null })
       state.set(this.name, { error: null })
 

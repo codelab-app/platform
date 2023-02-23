@@ -1,4 +1,5 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType, Schema } from 'ajv'
 import Ajv from 'ajv'
@@ -62,7 +63,7 @@ export const createValidator = (schema: Schema, context?: FormContextValue) => {
 
   return (model: Record<string, unknown>) => {
     const modelToValidate = context?.allowExpressions
-      ? context.appStore?.replaceStateInProps(model)
+      ? replaceStateInProps(model, context.appStore?.state.values)
       : model
 
     validator(modelToValidate)

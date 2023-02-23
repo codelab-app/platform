@@ -3,18 +3,10 @@ import type {
   IProp,
   IStore,
 } from '@codelab/frontend/abstract/core'
-import {
-  IPropData,
-  IStoreDTO,
-  STATE_PATH_TEMPLATE_REGEX,
-} from '@codelab/frontend/abstract/core'
+import { IPropData, IStoreDTO } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
-import {
-  evaluateExpression,
-  hasStateExpression,
-  isSingleStateExpression,
-} from '@codelab/frontend/shared/utils'
+import { getByExpression } from '@codelab/frontend/shared/utils'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
@@ -103,14 +95,6 @@ export class Store
   }
 
   @modelAction
-  public evaluateExpression(
-    expression: string,
-    context: IPropData = this.state.values,
-  ) {
-    return evaluateExpression(expression, context)
-  }
-
-  @modelAction
   public replaceStateInProps(
     props: IPropData,
     context: IPropData = this.state.values,
@@ -119,34 +103,13 @@ export class Store
       props,
       // value mapper
       (value, key) =>
-        isString(value) ? this.getByExpression(value, context) : value,
+        isString(value) ? getByExpression(value, context) : value,
       // key mapper
       (value, key) =>
-        (isString(key) ? this.getByExpression(key, context) : key) as string,
+        (isString(key) ? getByExpression(key, context) : key) as string,
     )
 
     return props
-  }
-
-  @modelAction
-  public getByExpression(key: string, context: IPropData = this.state.values) {
-    if (!hasStateExpression(key)) {
-      return key
-    }
-
-    /**
-     * return typed value for : {{expression}}
-     */
-    if (isSingleStateExpression(key)) {
-      return evaluateExpression(key, context)
-    }
-
-    /**
-     * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
-     */
-    return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
-      evaluateExpression(value, context),
-    )
   }
 
   static hydrate = hydrate

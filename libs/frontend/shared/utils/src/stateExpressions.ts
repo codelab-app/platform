@@ -1,9 +1,11 @@
 import type { IPropData } from '@codelab/frontend/abstract/core'
 import {
   STATE_PATH_TEMPLATE_END,
+  STATE_PATH_TEMPLATE_REGEX,
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 
 export const hasStateExpression = (str: string): boolean =>
@@ -32,6 +34,42 @@ export const evaluateExpression = (
 
     return expression
   }
+}
+
+export const replaceStateInProps = (
+  props: IPropData,
+  context: IPropData = {},
+) => {
+  props = mapDeep(
+    props,
+    // value mapper
+    (value, key) => (isString(value) ? getByExpression(value, context) : value),
+    // key mapper
+    (value, key) =>
+      (isString(key) ? getByExpression(key, context) : key) as string,
+  )
+
+  return props
+}
+
+export const getByExpression = (key: string, context: IPropData) => {
+  if (!hasStateExpression(key)) {
+    return key
+  }
+
+  /**
+   * return typed value for : {{expression}}
+   */
+  if (isSingleStateExpression(key)) {
+    return evaluateExpression(key, context)
+  }
+
+  /**
+   * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
+   */
+  return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
+    evaluateExpression(value, context),
+  )
 }
 
 interface ExpressionTransformer {
