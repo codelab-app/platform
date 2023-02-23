@@ -1,6 +1,6 @@
 import type { ICreateElementDTO } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import { singlySpacedTitleCaseWithNumbersRegex } from '@codelab/shared/utils'
+import { titleCaseValidation } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
@@ -16,8 +16,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
     },
     name: {
       type: 'string',
-      pattern: singlySpacedTitleCaseWithNumbersRegex.source,
-      errorMessage: 'must be in Title Case',
+      ...titleCaseValidation,
     },
     parentElementId: {
       type: 'string',

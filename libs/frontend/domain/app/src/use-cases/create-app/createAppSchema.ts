@@ -3,7 +3,7 @@ import {
   hideField,
   nonEmptyString,
   showFieldOnDev,
-  singlySpacedTitleCaseWithNumbersRegex,
+  titleCaseValidation,
 } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
@@ -19,8 +19,7 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
     name: {
       autoFocus: true,
       ...nonEmptyString,
-      pattern: singlySpacedTitleCaseWithNumbersRegex.source,
-      errorMessage: 'must be in Title Case',
+      ...titleCaseValidation,
     },
     auth0Id: {
       type: 'string',

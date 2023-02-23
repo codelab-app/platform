@@ -1,10 +1,7 @@
 import type { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import {
-  nonEmptyString,
-  singlySpacedTitleCaseWithNumbersRegex,
-} from '@codelab/shared/utils'
+import { nonEmptyString, titleCaseValidation } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updatePageSchema: JSONSchemaType<
@@ -19,8 +16,7 @@ export const updatePageSchema: JSONSchemaType<
     name: {
       autoFocus: true,
       ...nonEmptyString,
-      pattern: singlySpacedTitleCaseWithNumbersRegex.source,
-      errorMessage: 'must be in Title Case',
+      ...titleCaseValidation,
     },
     getServerSideProps: {
       type: 'string',
