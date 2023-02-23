@@ -1,75 +1,7 @@
-import { appApi } from '@codelab/frontend/domain/app'
-import { domainApis } from '@codelab/frontend/domain/domain'
-import { pageApi } from '@codelab/frontend/domain/page'
-import { userApi } from '@codelab/frontend/domain/user'
-import { IPageKind } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import type { NextApiHandler } from 'next'
 
-const getAllPagesToRevalidate = async () => {
-  const { users } = await userApi.GetUsers()
-  const { domains } = await domainApis.GetDomains()
-  const revalidationData = []
-
-  for (const user of users) {
-    for (const app of user.apps) {
-      const domain = domains.find((_domain) => _domain.app.id === app.id)
-
-      if (!domain || domain.domainConfig.misconfigured) {
-        continue
-      }
-
-      for (const page of app.pages) {
-        if (page.kind === IPageKind.Regular) {
-          revalidationData.push({ domain, page })
-        }
-      }
-    }
-  }
-
-  return revalidationData
-}
-
-const getAllAppPagesToRevalidate = async (appId: string) => {
-  const domainCondition = { where: { appConnection: { node: { id: appId } } } }
-  const { domains } = await domainApis.GetDomains(domainCondition)
-  const domain = domains[0]
-
-  if (!domain || domain.domainConfig.misconfigured) {
-    return []
-  }
-
-  const { apps } = await appApi.GetApps({ where: { id: appId } })
-  const pages = apps[0]?.pages ?? []
-
-  return pages
-    .filter((page) => page.kind === IPageKind.Regular)
-    .map((page) => ({ domain, page }))
-}
-
-const getSpecificPagesToRevalidate = async (
-  pageIds: string | Array<string>,
-) => {
-  const { domains } = await domainApis.GetDomains()
-  const condition = Array.isArray(pageIds) ? 'id_IN' : 'id'
-  const { pages } = await pageApi.GetPages({ where: { [condition]: pageIds } })
-  const revalidationData = []
-
-  for (const page of pages) {
-    const domain = domains.find((_domain) => _domain.app.id === page.app.id)
-
-    if (
-      page.kind === IPageKind.Regular &&
-      domain &&
-      !domain.domainConfig.misconfigured
-    ) {
-      revalidationData.push({ domain, page })
-    }
-  }
-
-  return revalidationData
-}
-
+// endpoint to securely redirect request to a user domain
 const regenerate: NextApiHandler = async (req, res) => {
   try {
     const session = await auth0Instance.getSession(req, res)
@@ -78,45 +10,20 @@ const regenerate: NextApiHandler = async (req, res) => {
       res.status(403).send('Not Authenticated')
     }
 
-    const { appId, pageId } = req.query
-    let revalidationData
+    const { domain, pages } = req.query
 
-    if (appId) {
-      revalidationData = await getAllAppPagesToRevalidate(String(appId))
-    } else if (pageId) {
-      revalidationData = await getSpecificPagesToRevalidate(pageId)
-    } else {
-      revalidationData = await getAllPagesToRevalidate()
-    }
-
-    console.log(revalidationData)
-
-    const revalidatedPages: Array<string> = []
-    const failedPages: Array<string> = []
-
-    const revalidationPromises = revalidationData.map(
-      async ({ page, domain }) => {
-        const pageSlug = page.slug
-        const path = `/_sites/${domain.name}/${pageSlug}`
-
-        try {
-          // even though builder and user web sites share the same codebase
-          // it is still required to specify for which domain to regenerate
-          // see https://github.com/vercel/platforms/issues/76
-          req.headers.host = domain.name
-
-          await res.revalidate(path)
-
-          revalidatedPages.push(path)
-        } catch (error) {
-          failedPages.push(path)
-        }
+    const regenerationResult = await fetch(
+      `https://${domain}/api/regenerate?pages=${pages}`,
+      {
+        headers: {
+          Cookie: req.headers.cookie ?? '',
+        },
       },
     )
 
-    await Promise.all(revalidationPromises)
+    const json = await regenerationResult.json()
 
-    return res.json({ revalidatedPages, failedPages })
+    return res.json(json)
   } catch (err) {
     return res.status(500).send(err)
   }

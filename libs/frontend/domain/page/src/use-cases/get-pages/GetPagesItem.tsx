@@ -41,7 +41,7 @@ export const GetPagesItem = observer<GetPagesItemProps>(
 
       if (pageDomain?.name) {
         setRebuildButtonLoading(true)
-        await regeneratePages([page.slug], pageDomain.name)
+        await regeneratePages([page.name], pageDomain.name)
         setRebuildButtonLoading(false)
       }
     }

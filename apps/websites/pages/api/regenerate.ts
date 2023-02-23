@@ -1,3 +1,5 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { pageSlug } from '@codelab/backend/graphql'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import type { NextApiHandler } from 'next'
 
@@ -23,8 +25,8 @@ const regenerate: NextApiHandler = async (req, res) => {
     const revalidatedPages: Array<string> = []
     const failedPages: Array<string> = []
 
-    const revalidationPromises = pages.map(async (pageSlug) => {
-      const path = `/${domain}/${pageSlug}`
+    const revalidationPromises = pages.map(async (pageName) => {
+      const path = `/${domain}/${pageSlug({ name: pageName })}`
 
       try {
         await res.revalidate(path)

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { pageSlug as getPageSlug } from '@codelab/backend/graphql'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { AppPagePageProps } from '@codelab/frontend/abstract/types'
 import { Renderer } from '@codelab/frontend/domain/renderer'
@@ -70,7 +72,9 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`No apps found for "${domain}" domain`)
   }
 
-  const page = app.pages.find((appPage) => appPage.current.slug === pageSlug)
+  const page = app.pages.find(
+    (appPage) => getPageSlug({ name: appPage.current.name }) === pageSlug,
+  )
 
   if (!page) {
     throw new Error(`Page ${pageSlug} on "${domain}" domain Not found`)

@@ -21,7 +21,7 @@ export const BuildAppModal = observer<{
         (_domain) => _domain.appId === app.id,
       )
 
-      const pages = app.pages.map((page) => page.id)
+      const pages = app.pages.map((page) => page.current.name)
 
       if (domain) {
         await regeneratePages(pages, domain.name)
