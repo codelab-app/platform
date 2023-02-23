@@ -20,7 +20,7 @@ export class ConditionalRenderPipe
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     const appStore = this.renderer.appStore.current
 
-    if (shouldRenderElement(element, appStore)) {
+    if (shouldRenderElement(element, props, appStore)) {
       return this.next.render(element, props)
     }
 

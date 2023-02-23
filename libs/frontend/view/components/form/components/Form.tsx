@@ -43,7 +43,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
     const lastSubmitted = useRef<typeof model>({})
     const modelRef = useRef(model)
 
-    // This prevents a new model update to interfere while user is typing.
+    // This prevents the new model from autosave to interfere while user is typing.
     // This also enables the form model to be updated when the
     // model is updated outside the form (e.g. props inspector)
     useEffect(() => {
@@ -61,7 +61,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
         <AutoForm<TData>
           autosave={autosave}
           autosaveDelay={500}
-          model={modelRef.current}
+          model={autosave ? modelRef.current : model}
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={(formData) => {

@@ -12,7 +12,7 @@ export interface IStore extends ICacheService<IStoreDTO, IStore> {
   actions: Array<IAnyAction>
   state: IProp
   getByExpression: (key: string) => unknown
-  evaluateExpression: (key: string) => unknown
+  evaluateExpression: (key: string, context: IPropData) => unknown
   replaceStateInProps: (props: IPropData, context?: IPropData) => IPropData
 }
 
