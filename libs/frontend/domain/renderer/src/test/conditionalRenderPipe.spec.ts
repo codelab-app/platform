@@ -1,6 +1,6 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
-import { setupTestForRenderer } from './setup/setupTest'
+import { setupTestForRenderer } from './setup/setup-test'
 
 describe('ConditionalRenderPipe', () => {
   const data = setupTestForRenderer([ConditionalRenderPipe])

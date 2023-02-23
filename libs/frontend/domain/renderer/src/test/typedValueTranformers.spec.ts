@@ -1,7 +1,7 @@
 import type { IRenderOutput, TypedValue } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
 import { render } from '@testing-library/react'
-import { setupTestForRenderer } from './setup/setupTest'
+import { setupTestForRenderer } from './setup/setup-test'
 
 describe('RenderService', () => {
   const data = setupTestForRenderer()

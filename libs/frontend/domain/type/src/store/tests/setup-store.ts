@@ -1,9 +1,9 @@
+import type { IAnyType } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { FieldService } from '../field.service'
-import type { AnyTypeModel } from '../models'
 import {
   Field,
   fieldRef,
@@ -39,11 +39,18 @@ export const unionType = new UnionType({
   ownerId: '',
 })
 
+const emptyInterface = new InterfaceType({
+  id: v4(),
+  name: 'Empty Interface Type',
+  ownerId: '',
+})
+
 const stringField = new Field({
   id: v4(),
   name: 'String field',
   key: 'stringField',
   type: typeRef(stringType),
+  api: typeRef(emptyInterface),
 })
 
 const unionField = new Field({
@@ -51,6 +58,7 @@ const unionField = new Field({
   name: 'union field',
   key: 'unionField',
   type: typeRef(unionType),
+  api: typeRef(emptyInterface),
 })
 
 export const interfaceWithUnionField = new InterfaceType({
@@ -66,8 +74,8 @@ export const interfaceWithUnionField = new InterfaceType({
 
 export const rootStore = new TestRootStore({
   typeService: new TypeService({
-    types: objectMap([
-      [unionType.id, unionType as AnyTypeModel],
+    types: objectMap<IAnyType>([
+      [unionType.id, unionType],
       [interfaceWithUnionField.id, interfaceWithUnionField],
       [intType.id, intType],
       [stringType.id, stringType],

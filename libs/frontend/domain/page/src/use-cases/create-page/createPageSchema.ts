@@ -19,7 +19,7 @@ export const createPageSchema: JSONSchemaType<
       nullable: true,
       ...hideField,
     },
-    auth0Id: {
+    ownerId: {
       type: 'string',
       nullable: true,
       ...hideField,

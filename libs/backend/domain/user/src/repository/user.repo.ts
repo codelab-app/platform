@@ -1,12 +1,12 @@
 import type { IUser } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   Repository,
   userSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 
-export class UserRepository extends IRepository<IUser> {
+export class UserRepository extends AbstractRepository<IUser> {
   private User = Repository.instance.User
 
   async find(where: UserWhere) {

@@ -28,7 +28,7 @@ export interface IAllTypeDTO {
  * Create
  */
 export interface ICreateTypeDTO extends IAllTypeDTO {
-  auth0Id: string
+  ownerId: string
 }
 
 /**

@@ -57,7 +57,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
     domainService: prop(() => new DomainService({})),
     fieldService: prop(() => new FieldService({})),
   }) {
-    protected onInit(): void {
+    protected onInit() {
       appServiceContext.set(this, this.appService)
       domainServiceContext.set(this, this.domainService)
       pageServiceContext.set(this, this.pageService)
@@ -74,10 +74,6 @@ export const createRootStore = ({ user }: RootStoreData) => {
       fieldServiceContext.set(this, this.fieldService)
     }
   }
-
-  // if (!init) {
-  //   return
-  // }
 
   return new RootStore({}) as IRootStore
 }

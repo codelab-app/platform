@@ -1,18 +1,23 @@
 import type {
+  IApp,
   ICreatePageDTO,
+  IPage,
   IPageService,
   IUpdatePageDTO,
 } from '@codelab/frontend/abstract/core'
 import {
-  IPage,
+  DEFAULT_GET_SERVER_SIDE_PROPS,
   IPageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
+import { Element, elementRef } from '@codelab/frontend/domain/element'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -27,6 +32,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { PageFactory } from '../services'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
 import { PageModalService } from './page-modal.service'
@@ -46,6 +52,7 @@ export class PageService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new PageModalService({})),
     deleteModal: prop(() => new PageModalService({})),
+    pageFactory: prop(() => new PageFactory({})),
   })
   implements IPageService
 {
@@ -80,6 +87,11 @@ export class PageService
   })
 
   @computed
+  private get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
   get pagesList() {
     return [...this.pages.values()]
   }
@@ -97,7 +109,7 @@ export class PageService
   update = _async(function* (
     this: PageService,
     existingPage: IPage,
-    { name, appId, getServerSideProps, pageContainerElementId }: IUpdatePageDTO,
+    { name, getServerSideProps, appId, pageContainerElementId }: IUpdatePageDTO,
   ) {
     const {
       updatePages: { pages },
@@ -113,7 +125,13 @@ export class PageService
       }),
     )
 
-    return pages.map((page) => this.writeCache(page))
+    return pages.map((page) =>
+      this.add({
+        ...page,
+        appId: page.app.id,
+        rootElementId: page.rootElement.id,
+      }),
+    )
   })
 
   @modelFlow
@@ -121,7 +139,13 @@ export class PageService
   getAll = _async(function* (this: PageService, where?: PageWhere) {
     const { pages } = yield* _await(pageApi.GetPages({ where }))
 
-    return pages.map((page) => this.writeCache(page))
+    return pages.map((page) =>
+      this.add({
+        ...page,
+        appId: page.app.id,
+        rootElementId: page.rootElement.id,
+      }),
+    )
   })
 
   @modelFlow
@@ -151,7 +175,7 @@ export class PageService
         rootElement: {
           create: {
             node: {
-              id: page.rootElementId ?? v4(),
+              id: page.rootElementId,
               name: createUniqueName(ROOT_ELEMENT_NAME, pageId),
             },
           },
@@ -167,7 +191,13 @@ export class PageService
       }),
     )
 
-    return pages.map((page) => this.writeCache(page))
+    return pages.map((page) =>
+      this.add({
+        ...page,
+        rootElementId: page.rootElement.id,
+        appId: page.app.id,
+      }),
+    )
   })
 
   @modelFlow
@@ -183,43 +213,20 @@ export class PageService
   })
 
   @modelAction
-  writeCache(page: IPageDTO): IPage {
-    let pageModel = this.page(page.id)
+  add(pageDTO: IPageDTO) {
+    const providerPageId = v4()
 
-    if (pageModel) {
-      pageModel = pageModel.writeCache(page)
-    } else {
-      pageModel = Page.hydrate(page)
-      this.pages.set(page.id, pageModel)
-    }
+    const page = new Page({
+      id: providerPageId,
+      name: pageDTO.name,
+      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+      app: { id: pageDTO.appId },
+      rootElement: elementRef(pageDTO.rootElementId),
+      kind: IPageKind.Provider,
+    })
 
-    return pageModel
+    this.pages.set(page.id, page)
+
+    return page
   }
-
-  // @modelFlow
-  // @transaction
-  // deleteMany = _async(function* (this: PageService, ids: Array<string>) {
-  //   if (ids.length === 0) {
-  //     return []
-  //   }
-  //
-  //   const existingPages: Array<IPage> = []
-  //
-  //   for (const id of ids) {
-  //     const existing = throwIfUndefined(this.pages.get(id))
-  //     existingPages.push(existing)
-  //     this.pages.delete(id)
-  //   }
-  //
-  //   const { deletePages } = yield* _await(
-  //     pageApi.DeletePages({ where: { id_IN: ids } }),
-  //   )
-  //
-  //   if (deletePages.nodesDeleted === 0) {
-  //     // throw error so that the atomic middleware rolls back the changes
-  //     throw new Error('Page was not deleted')
-  //   }
-  //
-  //   return existingPages
-  // })
 }

@@ -1,5 +1,5 @@
 import type { IAtom } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   atomSelectionSet,
   Repository,
@@ -13,7 +13,7 @@ import {
   whereNodeIds,
 } from '@codelab/shared/domain/mapper'
 
-export class AtomRepository extends IRepository<IAtom> {
+export class AtomRepository extends AbstractRepository<IAtom> {
   private Atom = Repository.instance.Atom
 
   async find(where: BaseTypeUniqueWhere) {

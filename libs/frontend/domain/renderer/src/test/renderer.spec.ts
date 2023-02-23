@@ -1,7 +1,7 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { ComponentRenderPipe } from '../renderPipes/componentRenderPipe'
-import { setupTestForRenderer } from './setup/setupTest'
+import { setupTestForRenderer } from './setup/setup-test'
 
 const extraProps = {
   extra1: '01',

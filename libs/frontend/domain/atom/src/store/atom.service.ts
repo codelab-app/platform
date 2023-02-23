@@ -6,10 +6,13 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
+import { InterfaceType } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
+  connectNodeIds,
   connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
@@ -137,30 +140,23 @@ export class AtomService
   @modelFlow
   @transaction
   create = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
-    const createApiNode = (atom: ICreateAtomDTO) => ({
-      id: v4(),
-      name: `${atom.name} API`,
-      owner: connectOwner(atom.owner),
-    })
-
-    const connectTags = (atom: ICreateAtomDTO) => {
-      return atom.tags?.map((tag) => ({
-        where: { node: { id: tag } },
-      }))
-    }
-
     const connectOrCreateApi = (atom: ICreateAtomDTO) =>
       atom.api
         ? connectNodeId(atom.api)
         : {
-            create: { node: createApiNode(atom) },
+            create: {
+              node: InterfaceType.createApiNode({
+                name: atom.name,
+                ownerId: atom.owner,
+              }),
+            },
           }
 
     const input = data.map((atom) => ({
       id: atom.id ?? v4(),
       name: atom.name,
       type: atom.type,
-      tags: { connect: connectTags(atom) },
+      tags: connectNodeIds(atom.tags),
       api: connectOrCreateApi(atom),
     }))
 

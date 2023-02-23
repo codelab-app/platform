@@ -2,7 +2,6 @@ import type {
   IAtom,
   IAuth0Id,
   IComponent,
-  ICreateElementDTO,
   IElement,
   IElementRef,
   IElementService,
@@ -11,11 +10,10 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
-  IElementDTO,
+  ICreateElementDTO,  IElementDTO,
   isAtomDTO,
   isComponentDTO,
-  RenderTypeEnum,
-} from '@codelab/frontend/abstract/core'
+  RenderTypeEnum} from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
@@ -229,6 +227,18 @@ export class ElementService
 
     return elements.map((element) => this.writeCache(element))
   })
+
+  @modelAction
+  add(elementDTO: ICreateElementDTO) {
+    const element = new Element({
+      id: elementDTO.id ?? v4(),
+      name: elementDTO.name,
+    })
+
+    this.elements.set(element.id, element)
+
+    return element
+  }
 
   /**
    * Returns the associated interface type of the new element to be created.
@@ -596,7 +606,7 @@ parent
     }
 
     /**
-     * [target]-nextSbiling
+     * [target]-nextSibiling
      * target-[element]-nextSibling
      * element appends to nextSibling
      */
@@ -782,17 +792,17 @@ element is new parentElement's first child
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, root: IElementRef) {
-        const { elementTrees } = yield* _await(
-          elementApi.GetElementTree({ where: { id: root } }),
-        )
+        const {
+          elementTrees: [elementTree],
+        } = yield* _await(elementApi.GetElementTree({ where: { id: root } }))
 
-        if (!elementTrees[0]) {
+        if (!elementTree) {
           return []
         }
 
-        const idsToDelete: Array<string> = [
-          elementTrees[0].id,
-          ...elementTrees[0].descendantElements.map((element) => element.id),
+        const idsToDelete = [
+          elementTree.id,
+          ...elementTree.descendantElements.map((element) => element.id),
         ]
 
         const rootElement = this.element(root)

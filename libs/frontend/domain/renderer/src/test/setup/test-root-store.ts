@@ -21,17 +21,10 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/presenter/container'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
+import type { ITestRootStore } from './test-root-store.interface'
 
-export type IRenderTestRootStore = {
-  /**
-   * We only use a single renderer for testing
-   */
-  renderer: IRenderer
-  pageElementTree: IElementTree
-} & Pick<IRootStore, 'atomService' | 'elementService' | 'componentService'>
-
-@model('@codelab/RenderTestRootStore')
-export class RenderTestRootStore
+@model('@codelab/TestRootStore')
+export class TestRootStore
   extends Model({
     storeService: prop<IStoreService>(),
     actionService: prop<IActionService>(),
@@ -43,15 +36,16 @@ export class RenderTestRootStore
     renderer: prop<IRenderer>(),
     componentService: prop<IComponentService>(),
   })
-  implements IRenderTestRootStore
+  implements ITestRootStore
 {
-  protected override onInit(): void {
+  protected override onInit() {
     typeServiceContext.set(this, this.typeService)
     atomServiceContext.set(this, this.atomService)
     componentServiceContext.set(this, this.componentService)
     elementServiceContext.set(this, this.elementService)
     fieldServiceContext.set(this, this.fieldService)
     actionServiceContext.set(this, this.actionService)
+
     registerRootStore(this)
   }
 }

@@ -1,5 +1,5 @@
 import type { IReactNodeType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportReactNodeTypeSelectionSet,
   Repository,
@@ -7,7 +7,7 @@ import {
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 
-export class ReactNodeTypeRepository extends IRepository<IReactNodeType> {
+export class ReactNodeTypeRepository extends AbstractRepository<IReactNodeType> {
   private ReactNodeType = Repository.instance.ReactNodeType
 
   async find(where: BaseTypeUniqueWhere) {

@@ -1,3 +1,4 @@
+import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { IPropData } from '../../../prop'
@@ -18,6 +19,7 @@ export interface IInterfaceType extends IBaseType {
   deleteField(field: IField): void
   writeFieldCache(fields: Array<FieldFragment>): void
   load(fields: Array<FieldFragment>): void
+  toCreateInput(): InterfaceTypeCreateInput
 }
 
 export type IInterfaceTypeRef = string

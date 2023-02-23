@@ -1,5 +1,5 @@
 import type { IField, IInterfaceType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   interfaceTypeSelectionSet,
   Repository,
@@ -8,7 +8,7 @@ import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 
-export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
+export class InterfaceTypeRepository extends AbstractRepository<IInterfaceType> {
   private InterfaceType = Repository.instance.InterfaceType
 
   async all() {

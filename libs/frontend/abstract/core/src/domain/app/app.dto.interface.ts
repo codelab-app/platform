@@ -4,12 +4,12 @@ import type {
 } from './app.fragment.graphql.gen'
 
 export interface ICreateAppDTO {
-  id?: string
+  id: string
   name: string
-  auth0Id: string
+  ownerId: string
 }
 
-export type IUpdateAppDTO = Omit<ICreateAppDTO, 'auth0Id' | 'id'>
+export type IUpdateAppDTO = Omit<ICreateAppDTO, 'ownerId' | 'id'>
 
 export type IAppDTO = AppPreviewFragment
 

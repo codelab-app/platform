@@ -7,6 +7,7 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
+import type { IAppDTO } from '../app'
 import type {
   ICreateStoreDTO,
   IStoreDTO,
@@ -21,5 +22,5 @@ export interface IStoreService
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   stores: ObjectMap<IStore>
   store(id: string): Maybe<IStore>
-  // typeService: ITypeService
+  add(appDTO: Pick<IAppDTO, 'id' | 'name'>): IStore
 }

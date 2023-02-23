@@ -1,4 +1,5 @@
 export * from './atoms'
 export * from './render.service'
 export * from './Renderer'
+export * from './test/setup/test-root-store'
 export * from './utils'

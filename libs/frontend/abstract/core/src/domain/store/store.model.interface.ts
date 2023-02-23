@@ -1,3 +1,4 @@
+import type { StoreCreateInput } from '@codelab/shared/abstract/codegen'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IAnyAction } from '../action'

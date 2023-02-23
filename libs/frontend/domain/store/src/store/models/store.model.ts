@@ -1,4 +1,6 @@
 import type {
+  IApp,
+  ICreateAppDTO,
   IInterfaceType,
   IProp,
   IStore,
@@ -21,6 +23,7 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { getActionService } from '../action.service'
 
 export const hydrate = ({ id, name, api }: IStoreDTO) =>
@@ -113,6 +116,41 @@ export class Store
   }
 
   static hydrate = hydrate
+
+  toCreateInput(): StoreCreateInput {
+    const api = this.api.current
+
+    return {
+      id: this.id,
+      name: this.name,
+      api: {
+        create: {
+          node: api.toCreateInput(),
+        },
+      },
+    }
+  }
+
+  static createName(app: ICreateAppDTO) {
+    return `${app.name} Store`
+  }
+
+  static createStoreData(
+    app: Pick<IApp, 'name' | 'ownerId'>,
+  ): StoreCreateInput {
+    return {
+      id: v4(),
+      name: `${app.name} Store`,
+      api: {
+        create: {
+          node: InterfaceType.createApiNode({
+            name: `${app.name} Store`,
+            ownerId: app.ownerId,
+          }),
+        },
+      },
+    }
+  }
 }
 
 export const storeRef = rootRef<IStore>('@codelab/StoreRef', {

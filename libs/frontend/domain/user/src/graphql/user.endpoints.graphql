@@ -1,5 +1,5 @@
-query GetUsers {
-  users {
+query GetUsers($where: UserWhere) {
+  users(where: $where) {
     ...User
   }
 }

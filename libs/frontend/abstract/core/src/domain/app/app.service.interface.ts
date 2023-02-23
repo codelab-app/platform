@@ -18,20 +18,18 @@ import type {
 import type { IApp, IBuilderApp } from './app.model.interface'
 
 export interface IAppService
-  extends ICRUDService<IApp, ICreateAppDTO, IUpdateAppDTO>,
+  extends Omit<ICRUDService<IApp, ICreateAppDTO, IUpdateAppDTO>, 'create'>,
     IQueryService<IApp, AppWhere, AppOptions>,
-    ICacheService<IAppDTO, IApp>,
     ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
   /**
    * Properties
    */
+  add(appDto: ICreateAppDTO): Promise<IApp>
   apps: ObjectMap<IApp>
   app(id: string): Maybe<IApp>
   appsList: Array<IApp>
+  create(appDTO: ICreateAppDTO): IApp
   appsJson: IPropData
   load(data: IPageBuilderAppProps): IBuilderApp
   buildModal: IEntityModalService<Ref<IApp>, { app: IApp }>
-  // elementService: IElementService
-  // pageService: IPageService
-  // storeService: IStoreService
 }

@@ -41,6 +41,9 @@ fragment BuilderPage on Page {
   }
   app {
     id
+    owner {
+      id
+    }
   }
   pageContainerElement {
     id

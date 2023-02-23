@@ -1,3 +1,4 @@
+import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElementTree } from '../element'
@@ -14,6 +15,8 @@ export interface IApp extends ICacheService<IAppDTO, IApp> {
   store: Ref<IStore>
   pages: Array<Ref<IPage>>
   toJson: IPropData
+  page(id: string): IPage
+  toCreateInput(): AppCreateInput
 }
 
 export interface IBuilderApp {

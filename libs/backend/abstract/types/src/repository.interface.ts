@@ -1,6 +1,19 @@
 import type { BaseUniqueWhere, IEntity } from '@codelab/shared/abstract/types'
 
-export abstract class IRepository<Model extends IEntity> {
+export interface IRepository<Model extends IEntity> {
+  find(where: BaseUniqueWhere): Promise<Model | undefined>
+  add(data: Array<Model>): Promise<Array<Model>>
+  update(
+    data: Omit<Model, 'id'>,
+    where: BaseUniqueWhere,
+  ): Promise<Model | undefined>
+  save(data: Model, where?: BaseUniqueWhere): Promise<Model | undefined>
+  exists(data: Model, where?: BaseUniqueWhere): Promise<boolean>
+}
+
+export abstract class AbstractRepository<Model extends IEntity>
+  implements IRepository<Model>
+{
   abstract find(where: BaseUniqueWhere): Promise<Model | undefined>
 
   public add(data: Array<Model>): Promise<Array<Model>> {
@@ -14,7 +27,7 @@ export abstract class IRepository<Model extends IEntity> {
   /**
    * We disallow updating of ID, since it disallows us from keying a where search by name, and having consistent ID.
    *
-   * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as well.
+   * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
   public update(
     data: Omit<Model, 'id'>,
@@ -33,7 +46,7 @@ export abstract class IRepository<Model extends IEntity> {
   /**
    * Upsert behavior, uses data id by default for upsert. If `where` clause is specified, then it overrides id
    *
-   * @param where
+   * @param wh ere
    */
   async save(data: Model, where?: BaseUniqueWhere): Promise<Model | undefined> {
     if (await this.exists(data, where)) {
@@ -59,7 +72,7 @@ export abstract class IRepository<Model extends IEntity> {
   }
 
   /**
-   * Specifying a `where` clause overrides the id
+   * Specifying a `where` clause overrides the  id
    */
   getWhere(data: Model, where?: BaseUniqueWhere) {
     return where ? where : { id: data.id }

@@ -19,7 +19,7 @@ export const atomRepository = {
   atoms: async (
     _: Transaction,
     params: GetAtomsQueryVariables,
-  ): Promise<Array<Atom>> => {
+  ): Promise<Array<OGM_TYPES.Atom>> => {
     const limit = params.options?.limit
     const offset = params.options?.offset
     const AtomInstance = await Repository.instance.Atom
@@ -39,9 +39,9 @@ export const atomRepository = {
       },
     })
 
-    const items = Promise.all(
-      filteredItemIds
-        .map(async (item) => {
+    const items = (
+      await Promise.all(
+        filteredItemIds.map(async (item) => {
           return (
             await AtomInstance.find({
               where: { id: item.id },
@@ -58,9 +58,9 @@ export const atomRepository = {
               ),
             })
           )[0]
-        })
-        .filter(Boolean) as Array<Promise<Atom>>,
-    )
+        }),
+      )
+    ).filter((atom): atom is OGM_TYPES.Atom => !atom)
 
     return items
   },
