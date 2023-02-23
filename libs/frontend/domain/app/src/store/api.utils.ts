@@ -7,12 +7,14 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 export const makeBasicPagesInput = (appId: string) => {
   const providerPageId = v4()
   const notFoundPageId = v4()
   const internalServerErrorPageId = v4()
+  const providerRootId = v4()
 
   const providerPage = {
     id: providerPageId,
@@ -29,6 +31,7 @@ export const makeBasicPagesInput = (appId: string) => {
         },
       },
     },
+    pageContainerElement: connectNodeId(providerRootId),
     kind: IPageKind.Provider,
   }
 
