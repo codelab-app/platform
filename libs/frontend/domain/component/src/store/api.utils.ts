@@ -5,13 +5,13 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 export const mapCreateInput = (
   input: ICreateComponentDTO,
 ): ComponentCreateInput => {
-  const { id = v4(), name, auth0Id, rootElementId } = input
+  const { id = v4(), name, owner, rootElementId } = input
   const newRootElementId = v4()
 
   const props: ComponentCreateInput['props'] = {
@@ -43,7 +43,7 @@ export const mapCreateInput = (
       node: {
         id: v4(),
         name: `${name} API`,
-        owner: connectOwner(auth0Id),
+        owner: connectAuth0Owner(owner.auth0Id),
       },
     },
   }
@@ -53,7 +53,7 @@ export const mapCreateInput = (
     name,
     rootElement: rootElementId ? connectRootElement : createRootElement,
     api,
-    owner: connectOwner(auth0Id),
+    owner: connectAuth0Owner(owner.auth0Id),
     props,
     childrenContainerElement: connectRootElement,
   }

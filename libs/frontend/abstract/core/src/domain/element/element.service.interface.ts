@@ -5,7 +5,7 @@ import type {
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ModelPropsToSetter, ObjectMap, Ref } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICacheService,
   ICRUDModalService,
@@ -13,7 +13,6 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type { IAuth0Id } from '../user'
 import type { IComputeElementNameService } from './compute-element-name.service.interface'
 import type {
   ICreateElementDTO,
@@ -81,7 +80,7 @@ export interface IElementService
   ): Promise<Array<IElement>>
   convertElementToComponent(
     element: IElement,
-    auth0Id: IAuth0Id,
+    auth0Id: string,
   ): Promise<Maybe<IElement>>
   element(id: string): Maybe<IElement>
   deleteElementSubgraph(root: IElementRef): Promise<Array<string>>

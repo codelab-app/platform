@@ -5,7 +5,7 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ActionTypeRepository extends AbstractRepository<IActionType> {
   private ActionType = Repository.instance.ActionType
@@ -28,7 +28,7 @@ export class ActionTypeRepository extends AbstractRepository<IActionType> {
       ).create({
         input: actionTypes.map(({ __typename, owner, ...actionType }) => ({
           ...actionType,
-          owner: connectOwner(owner.auth0Id),
+          owner: connectAuth0Owner(owner.auth0Id),
         })),
       })
     ).actionTypes

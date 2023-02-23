@@ -1,4 +1,5 @@
 import type {
+  IAuth0Owner,
   IComponentDTO,
   IElement,
   IInterfaceType,
@@ -39,7 +40,7 @@ const hydrate = (component: IComponentDTO) => {
     id: component.id,
     name: component.name,
     rootElementId: component.rootElement.id,
-    ownerId: component.owner.id,
+    owner: component.owner,
     api: typeRef(component.api.id) as Ref<InterfaceType>,
     props: component.props
       ? Prop.hydrate({ ...component.props, apiRef })
@@ -57,7 +58,7 @@ export class Component
     name: prop<string>().withSetter(),
     // this isn't a Ref, because it will cause a circular dep.
     rootElementId: prop<string>().withSetter(),
-    ownerId: prop<string>(),
+    owner: prop<IAuth0Owner>(),
     api: prop<Ref<IInterfaceType>>(),
     props: prop<Nullable<IProp>>(null).withSetter(),
     childrenContainerElementId: prop<string>().withSetter(),
@@ -76,7 +77,7 @@ export class Component
 
     this.setName(fragment.name)
     this.rootElementId = fragment.rootElement.id
-    this.ownerId = fragment.owner.id
+    this.owner = fragment.owner
     this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
     this.props = fragment.props
       ? new Prop({ id: fragment.props.id, apiRef })

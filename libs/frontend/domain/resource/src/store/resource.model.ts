@@ -1,4 +1,5 @@
 import type {
+  IAuth0Owner,
   IResource,
   IResourceConfig,
 } from '@codelab/frontend/abstract/core'
@@ -15,13 +16,13 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const hydrate = (resource: IResourceDTO) =>
+const hydrate = ({ id, name, type, config, owner }: IResourceDTO) =>
   new Resource({
-    id: resource.id,
-    name: resource.name,
-    type: resource.type,
-    config: Prop.hydrate(resource.config) as IResourceConfig,
-    ownerId: resource.owner.id,
+    id,
+    name,
+    type,
+    config: Prop.hydrate(config) as IResourceConfig,
+    owner,
   })
 
 @model('@codelab/Resource')
@@ -31,7 +32,7 @@ export class Resource
     name: prop<string>(),
     config: prop<IResourceConfig>(),
     type: prop<IResourceType>(),
-    ownerId: prop<string>(),
+    owner: prop<IAuth0Owner>(),
   }))
   implements IResource
 {

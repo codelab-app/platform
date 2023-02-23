@@ -16,7 +16,7 @@ import type {
   StoreCreateInput,
 } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import capitalize from 'lodash/capitalize'
 import { v4 } from 'uuid'
 
@@ -28,7 +28,7 @@ export const makeStoreCreateInput = (
   const interfaceCreateInput: InterfaceTypeCreateInput = {
     id: v4(),
     name: `${capitalize(name)} State`,
-    owner: connectOwner(auth0Id),
+    owner: connectAuth0Owner(auth0Id),
   }
 
   return {

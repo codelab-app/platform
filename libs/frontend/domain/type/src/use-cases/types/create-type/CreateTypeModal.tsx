@@ -52,7 +52,9 @@ export const CreateTypeModal = observer<{
       <ModalForm.Form<ICreateTypeDTO>
         model={{
           id: v4(),
-          ownerId: user?.id,
+          owner: {
+            auth0Id: user?.auth0Id,
+          },
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -62,7 +64,7 @@ export const CreateTypeModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}
       >
-        <AutoFields fields={['name', 'ownerId']} />
+        <AutoFields fields={['name', 'owner']} />
         <SelectField name="kind" showSearch />
 
         <DisplayIfKind kind={ITypeKind.PrimitiveType}>

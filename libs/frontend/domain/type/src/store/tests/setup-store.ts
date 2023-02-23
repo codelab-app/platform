@@ -20,7 +20,9 @@ export const stringType = new PrimitiveType({
   name: 'String type',
   kind: ITypeKind.PrimitiveType,
   primitiveKind: PrimitiveTypeKind.String,
-  ownerId: '',
+  owner: {
+    auth0Id: '',
+  },
 })
 
 export const intType = new PrimitiveType({
@@ -28,7 +30,9 @@ export const intType = new PrimitiveType({
   name: 'Int type',
   kind: ITypeKind.PrimitiveType,
   primitiveKind: PrimitiveTypeKind.Integer,
-  ownerId: '',
+  owner: {
+    auth0Id: '',
+  },
 })
 
 export const unionType = new UnionType({
@@ -36,13 +40,17 @@ export const unionType = new UnionType({
   name: 'Union type',
   kind: ITypeKind.UnionType,
   typesOfUnionType: [typeRef(stringType), typeRef(intType)],
-  ownerId: '',
+  owner: {
+    auth0Id: '',
+  },
 })
 
 const emptyInterface = new InterfaceType({
   id: v4(),
   name: 'Empty Interface Type',
-  ownerId: '',
+  owner: {
+    auth0Id: '',
+  },
 })
 
 const stringField = new Field({
@@ -65,7 +73,9 @@ export const interfaceWithUnionField = new InterfaceType({
   id: v4(),
   name: 'Interface with union field',
   kind: ITypeKind.InterfaceType,
-  ownerId: '',
+  owner: {
+    auth0Id: '',
+  },
   _fields: objectMap([
     [stringField.id, fieldRef(stringField)],
     [unionField.id, fieldRef(unionField)],

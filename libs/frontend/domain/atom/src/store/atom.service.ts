@@ -9,11 +9,9 @@ import { getTagService } from '@codelab/frontend/domain/tag'
 import { InterfaceType } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   connectNodeIds,
-  connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
@@ -147,7 +145,7 @@ export class AtomService
             create: {
               node: InterfaceType.createApiNode({
                 name: atom.name,
-                ownerId: atom.owner,
+                owner: atom.owner,
               }),
             },
           }

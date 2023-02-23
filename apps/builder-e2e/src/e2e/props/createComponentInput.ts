@@ -1,7 +1,8 @@
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNode } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 /**
@@ -11,7 +12,7 @@ export const headerFieldName = 'Header'
 
 export const renderItemFieldName = 'Render Item'
 
-export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
+export const createListAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
   name: 'List',
   type: AtomType.AntDesignList,
   api: {
@@ -25,7 +26,7 @@ export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
                 ReactNodeType: {
                   id: v4(),
                   name: ITypeKind.ReactNodeType,
-                  owner: connectOwner(ownerId),
+                  owner: connectAuth0Owner(owner.auth0Id),
                 },
               },
               edge: {
@@ -38,7 +39,7 @@ export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
                 RenderPropsType: {
                   id: v4(),
                   name: ITypeKind.RenderPropsType,
-                  owner: connectOwner(ownerId),
+                  owner: connectAuth0Owner(owner.auth0Id),
                 },
               },
               edge: {
@@ -48,7 +49,7 @@ export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
             },
           ],
         },
-        owner: connectOwner(ownerId),
+        owner: connectAuth0Owner(owner.auth0Id),
       },
     },
   },
@@ -58,14 +59,14 @@ export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
  * create ListItem Atom
  */
 
-export const createListItemAtomInput = (userId: string): AtomCreateInput => ({
+export const createListItemAtomInput = (auth0Id: string): AtomCreateInput => ({
   name: 'ListItem',
   type: AtomType.AntDesignListItem,
   api: {
     create: {
       node: {
         name: 'ListItem API',
-        owner: connectOwner(ownerId),
+        owner: connectAuth0Owner(auth0Id),
       },
     },
   },
@@ -75,7 +76,7 @@ export const createListItemAtomInput = (userId: string): AtomCreateInput => ({
  * create Text Atom
  */
 
-export const createTextAtomInput = (ownerId: string): AtomCreateInput => ({
+export const createTextAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
   name: 'Text',
   type: AtomType.Text,
   api: {
@@ -86,11 +87,17 @@ export const createTextAtomInput = (ownerId: string): AtomCreateInput => ({
           create: [
             {
               node: {
-                PrimitiveType: {
-                  id: v4(),
-                  name: 'String',
-                  primitiveKind: PrimitiveTypeKind.String,
-                  owner: connectOwner(ownerId),
+                fieldType: {
+                  create: {
+                    node: {
+                      PrimitiveType: {
+                        id: v4(),
+                        name: 'String',
+                        primitiveKind: PrimitiveTypeKind.String,
+                        owner: connectAuth0Owner(owner.auth0Id),
+                      },
+                    },
+                  },
                 },
               },
               edge: {
@@ -100,7 +107,7 @@ export const createTextAtomInput = (ownerId: string): AtomCreateInput => ({
             },
           ],
         },
-        owner: connectOwner(ownerId),
+        owner: connectAuth0Owner(owner.auth0Id),
       },
     },
   },

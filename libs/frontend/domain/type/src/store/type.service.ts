@@ -114,7 +114,7 @@ export class TypeService
   add(data: ICreateTypeDTO) {
     const interfaceType = new InterfaceType({
       name: data.name,
-      ownerId: data.ownerId,
+      owner: data.owner,
     })
 
     this.types.set(interfaceType.id, interfaceType)

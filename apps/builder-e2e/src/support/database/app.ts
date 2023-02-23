@@ -7,7 +7,7 @@ import {
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { print } from 'graphql'
 import { CreateAppsDocument } from 'libs/frontend/domain/app/src/graphql/app.endpoints.graphql.gen'
 import { v4 } from 'uuid'
@@ -19,7 +19,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
   return {
     id: appId,
     name: `Test app ${appId}`,
-    owner: connectOwner(userId),
+    owner: connectAuth0Owner(userId),
     pages: {
       create: [
         // create provider page
@@ -55,7 +55,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
             create: {
               node: {
                 id: v4(),
-                owner: connectOwner(userId),
+                owner: connectAuth0Owner(userId),
                 name: `Test Store ${appId} API`,
                 fields: {},
                 apiOfAtoms: {},

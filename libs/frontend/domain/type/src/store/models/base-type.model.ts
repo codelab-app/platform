@@ -1,4 +1,8 @@
-import type { IBaseType, ITypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAuth0Owner,
+  IBaseType,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import { idProp, Model, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -9,7 +13,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       id: idProp,
       name: prop<string>(),
       kind: prop<T>(() => typeKind),
-      ownerId: prop<string>().withSetter(),
+      owner: prop<IAuth0Owner>().withSetter(),
     })
     implements IBaseType
   {

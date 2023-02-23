@@ -8,5 +8,6 @@ fragment Resource on Resource {
   }
   owner {
     id
+    auth0Id
   }
 }

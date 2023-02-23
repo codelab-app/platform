@@ -1,5 +1,4 @@
 import type {
-  ICreateAppDTO,
   ICreateStoreDTO,
   IInterfaceType,
   IStore,
@@ -7,8 +6,12 @@ import type {
   IStoreService,
   IUpdateStoreDTO,
 } from '@codelab/frontend/abstract/core'
-import { IAppDTO } from '@codelab/frontend/abstract/core'
-import { getTypeService, InterfaceType, typeRef } from '@codelab/frontend/domain/type'
+import { ICreateAppDTO } from '@codelab/frontend/abstract/core'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { StoreWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -77,7 +80,7 @@ export class StoreService
       id: v4(),
       name: InterfaceType.createName(`${app.name} Store`),
       kind: ITypeKind.InterfaceType,
-      ownerId: app.ownerId,
+      owner: app.owner,
     }) as IInterfaceType
 
     const store = new Store({

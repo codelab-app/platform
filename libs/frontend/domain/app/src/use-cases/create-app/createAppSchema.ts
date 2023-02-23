@@ -20,11 +20,17 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    ownerId: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
+    owner: {
+      type: 'object',
+      properties: {
+        auth0Id: {
+          type: 'string',
+          disabled: true,
+          ...showFieldOnDev(),
+        },
+      },
+      required: ['auth0Id'],
     },
   },
-  required: ['name', 'ownerId'],
+  required: ['name', 'owner'],
 } as const

@@ -4,6 +4,7 @@ import type {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type { IAuth0Owner } from '../user'
 import type { TypeFragment } from './fragments'
 import type { IEnumTypeValue } from './types'
 
@@ -28,7 +29,7 @@ export interface IAllTypeDTO {
  * Create
  */
 export interface ICreateTypeDTO extends IAllTypeDTO {
-  ownerId: string
+  owner: IAuth0Owner
 }
 
 /**

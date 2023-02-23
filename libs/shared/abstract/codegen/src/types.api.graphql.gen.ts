@@ -19680,7 +19680,7 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User'; id: string }
+  owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   store: { __typename?: 'Store'; id: string }
 }
@@ -19690,7 +19690,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User'; id: string }
+  owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   store: { __typename?: 'Store'; id: string }
 }
@@ -19709,7 +19709,7 @@ export type BuilderPageFragment = {
   app: {
     __typename?: 'App'
     id: string
-    owner: { __typename?: 'User'; id: string }
+    owner: { __typename?: 'User'; auth0Id: string }
   }
   pageContainerElement?: { __typename?: 'Element'; id: string } | null
 }
@@ -19719,7 +19719,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User'; id: string }
+  owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
   store: { __typename?: 'Store' } & StoreFragment
 }
@@ -19840,7 +19840,7 @@ export type ResourceFragment = {
   name: string
   type: ResourceType
   config: { __typename?: 'Prop' } & PropFragment
-  owner: { __typename?: 'User'; id: string }
+  owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
 export type StoreFragment = {

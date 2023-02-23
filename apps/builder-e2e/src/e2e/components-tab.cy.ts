@@ -1,7 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { createAtomsData } from '@codelab/shared/data/test'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
@@ -22,7 +22,7 @@ describe('Components Tab', () => {
                 node: {
                   id: v4(),
                   name: `${atom.name} API`,
-                  owner: userId ? connectOwner(userId) : undefined,
+                  owner: userId ? connectAuth0Owner(userId) : undefined,
                 },
               },
             },

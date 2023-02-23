@@ -9,7 +9,6 @@ import { InterfaceType } from '@codelab/frontend/domain/type'
 import { getSnapshot, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { TestRootStore } from '../test/testRootStore'
-import { AppService } from './app.service'
 
 let rootStore: TestRootStore
 
@@ -25,7 +24,7 @@ describe('AppService', () => {
   it('should add an app to the database', () => {
     const appDTO: ICreateAppDTO = {
       id: v4(),
-      ownerId: v4(),
+      owner: { auth0Id: v4() },
       name: 'Demo App',
     }
 
@@ -33,7 +32,7 @@ describe('AppService', () => {
 
     // App
     expect(app.id).toBe(appDTO.id)
-    expect(app.ownerId).toBe(appDTO.ownerId)
+    expect(app.owner).toEqual(appDTO.owner)
     expect(app.name).toBe(appDTO.name)
 
     // Page

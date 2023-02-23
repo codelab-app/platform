@@ -33,7 +33,7 @@ const hydrate = ({
     typesOfUnionType: typesOfUnionType.map((typeOfUnionType) =>
       typeRef(typeOfUnionType.id),
     ),
-    ownerId: owner.id,
+    owner,
   })
 }
 

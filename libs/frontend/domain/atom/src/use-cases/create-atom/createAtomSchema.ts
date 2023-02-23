@@ -16,9 +16,15 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
       },
     },
     owner: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
+      type: 'object',
+      properties: {
+        auth0Id: {
+          type: 'string',
+          disabled: true,
+          ...showFieldOnDev(),
+        },
+      },
+      required: ['auth0Id'],
     },
     // Hide field for now, added only to implement the interface
     api: {

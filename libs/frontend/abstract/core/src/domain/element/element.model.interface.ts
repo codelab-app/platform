@@ -1,6 +1,6 @@
 import type { UpdateElementsMutationVariables } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { ModelPropsToSetter, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import type { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
 import type { ICacheService } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
@@ -8,7 +8,6 @@ import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IProp, IPropData } from '../prop'
-import type { IAuth0Id } from '../user'
 import type { IElementDTO } from './element.dto.interface'
 
 /**
@@ -41,7 +40,7 @@ export interface IElement
     ICacheService<IElementDTO, IElement> {
   id: string
   isRoot: boolean
-  owner: Nullable<IAuth0Id>
+  owner: Nullable<string>
   name: string
   customCss: Nullable<string>
   guiCss: Nullable<string>

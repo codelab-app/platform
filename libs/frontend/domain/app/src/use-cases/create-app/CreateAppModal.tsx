@@ -6,8 +6,8 @@ import type {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAppSchema } from './createAppSchema'
 
@@ -22,7 +22,9 @@ export const CreateAppModal = observer<{
   const closeModal = () => appService.createModal.close()
 
   const model = {
-    ownerId: userService.user?.id,
+    owner: {
+      auth0Id: userService.user?.id,
+    },
   }
 
   return (

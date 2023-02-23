@@ -3,7 +3,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
@@ -28,7 +28,7 @@ describe('Store', () => {
               name: IPrimitiveTypeKind.Integer,
               primitiveKind: IPrimitiveTypeKind.Integer,
               kind: ITypeKind.PrimitiveType,
-              owner: connectOwner(userId),
+              owner: connectAuth0Owner(userId),
             },
           },
           ITypeKind.PrimitiveType,

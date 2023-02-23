@@ -11,7 +11,7 @@ import type {
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -84,7 +84,7 @@ export class ResourceService
           },
         },
       },
-      owner: connectOwner(resource.auth0Id),
+      owner: connectAuth0Owner(resource.auth0Id),
     }))
 
     const {
