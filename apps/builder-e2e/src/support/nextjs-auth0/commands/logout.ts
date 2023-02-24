@@ -8,7 +8,7 @@
  */
 const DEFAULT_LOGOUT_URL = '/api/auth/logout'
 
-export const logout = (returnTo: string) => {
+export const logout = (returnTo = '/') => {
   /**
    * nextjs-auth0's logout URL supports redirecting to a custom `returnTo` URL.
    * cy.logout supports that and will create a logout URL that either uses the
