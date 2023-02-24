@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
-import { mapElementOption } from '../../../utils/elementOptions'
+import { mapElementOption } from '../../../utils'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
 import { moveElementSchema } from './moveElementSchema'
 import {
@@ -101,7 +101,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
                 allElementOptions={elementOptions}
                 allowClear={false}
                 targetElementId={element.id}
-                // eslint-disable-next-line react/jsx-props-no-spreading
+                // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
                 {...(props as any)}
               />
             )

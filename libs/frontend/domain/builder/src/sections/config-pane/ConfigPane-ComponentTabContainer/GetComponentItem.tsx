@@ -2,6 +2,7 @@ import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
 import { BuilderDndType, RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import { antDesignIconPrefix } from '@codelab/shared/data/seed'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
@@ -16,7 +17,7 @@ export const DraggableGetComponentItem = ({
 }: DraggableGetComponentItemProps) => {
   const createElementInput = useMemo(() => {
     return {
-      name: createUniqueName(component.name),
+      name: createUniqueName(compoundCaseToTitleCase(component.name)),
       renderType: {
         id: component.id,
         model: RenderTypeEnum.Atom,

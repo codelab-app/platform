@@ -1,45 +1,18 @@
 import type {
   BuilderDragData,
   BuilderDropData,
-  ICreateElementDTO,
   IElement,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { DragPosition } from '@codelab/frontend/abstract/core'
+import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 
 export interface UseDndDropHandler {
   handleCreateElement: (event: DragEndEvent) => Promise<void>
   handleMoveElement: (event: DragEndEvent) => Promise<void>
-}
-
-const makeAutoIncrementedName = (
-  elementTree: IElementTree,
-  input: ICreateElementDTO,
-) => {
-  const existingSameAtoms = elementTree.elementsList.filter(({ atom }) => {
-    return atom?.id === input.renderType?.id
-  })
-
-  if (existingSameAtoms.length) {
-    const newCount = existingSameAtoms.length + 1
-
-    return `${input.name}-${newCount}`
-  }
-
-  return input.name
-}
-
-const validateUniqueName = (elementTree: IElementTree, name: string) => {
-  const hasSameName = elementTree.elementsList.some(
-    (element) => element.name === name,
-  )
-
-  if (hasSameName) {
-    throw new Error(`Found element with the same name: ${name}`)
-  }
 }
 
 export const useDndDropHandler = (
@@ -80,12 +53,11 @@ export const useDndDropHandler = (
     // for not mutating the actual input from the components tab
     const createElementDto = {
       ...createElementInput,
-      name: makeAutoIncrementedName(elementTree, createElementInput),
+      name: makeAutoIncrementedName(
+        elementTree.elementsList.map((element) => element.name),
+        createElementInput.name,
+      ),
     }
-
-    // theres still a chance that the auto-incremented name already exists
-    // we can prevent it from being sent to backend by throwing early
-    validateUniqueName(elementTree, createElementDto.name)
 
     let newElement: Nullable<IElement> = null
 

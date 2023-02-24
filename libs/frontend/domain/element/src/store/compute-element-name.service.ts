@@ -4,7 +4,10 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
-import { getComponentService } from '@codelab/frontend/presenter/container'
+import {
+  getBuilderService,
+  getComponentService,
+} from '@codelab/frontend/presenter/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -17,6 +20,7 @@ import {
   modelFlow,
   prop,
 } from 'mobx-keystone'
+import { makeAutoIncrementedName } from '../utils'
 
 /**
  * A base class to extend with, any model that could contain element trees
@@ -40,9 +44,19 @@ export class ComputeElementNameService
   }
 
   @computed
+  private get builderService() {
+    return getBuilderService(this)
+  }
+
+  @computed
   get computedName() {
     if (this.pickedRenderTypeName) {
-      return compoundCaseToTitleCase(this.pickedRenderTypeName)
+      return makeAutoIncrementedName(
+        this.builderService.activeElementTree?.elementsList.map(
+          (element) => element.name,
+        ) || [],
+        compoundCaseToTitleCase(this.pickedRenderTypeName),
+      )
     }
 
     return this.pickedName

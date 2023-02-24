@@ -18,7 +18,10 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { getComponentService } from '@codelab/frontend/presenter/container'
+import {
+  getBuilderService,
+  getComponentService,
+} from '@codelab/frontend/presenter/container'
 import {
   createUniqueName,
   runSequentially,
@@ -44,9 +47,10 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { isNil, until } from 'ramda'
+import { isNil } from 'ramda'
 import { v4 } from 'uuid'
 import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
+import { makeAutoIncrementedName } from '../utils'
 import {
   makeCreateInput,
   makeDefaultProps,
@@ -100,6 +104,11 @@ export class ElementService
   @computed
   private get typeService() {
     return getTypeService(this)
+  }
+
+  @computed
+  private get builderService() {
+    return getBuilderService(this)
   }
 
   @modelFlow
@@ -824,34 +833,14 @@ element is new parentElement's first child
     return [...this.elements.values()].map((element) => element.name)
   }
 
-  // handle name creation where many duplicates for the same element exists
-  private createDuplicateName(element: IElement) {
-    const nameRoot = `${element.name} duplicate`
-
-    if (!this.elementNames.includes(nameRoot)) {
-      return nameRoot
-    }
-
-    // find how many names with following format `${name_root} duplicate ${index}`
-    const duplicates = this.elementNames.filter((nane) =>
-      nane.startsWith(nameRoot),
-    )
-
-    /**
-     * Normally nextIndex = duplicates.length
-     * However, we need to make sure that index isn't used by user
-     */
-    const nextIndex = until(
-      (predicateValue: number) =>
-        !duplicates.includes(`${nameRoot} ${predicateValue}`),
-      (callbackValue: number) => callbackValue + 1,
-    )(duplicates.length)
-
-    return `${nameRoot} ${nextIndex}`
-  }
-
   private async recursiveDuplicate(element: IElement, parent: IElement) {
-    const duplicate_name = this.createDuplicateName(element)
+    const duplicate_name = makeAutoIncrementedName(
+      this.builderService.activeElementTree?.elementsList.map(
+        (anElement) => anElement.name,
+      ) || [],
+      element.name,
+      true,
+    )
 
     const createInput: ElementCreateInput = makeDuplicateInput(
       element,

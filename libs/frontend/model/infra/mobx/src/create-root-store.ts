@@ -30,6 +30,7 @@ import {
 } from '@codelab/frontend/domain/type'
 import { UserService, userServiceContext } from '@codelab/frontend/domain/user'
 import {
+  builderServiceContext,
   componentServiceContext,
   elementServiceContext,
 } from '@codelab/frontend/presenter/container'
@@ -67,6 +68,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       storeServiceContext.set(this, this.storeService)
       resourceServiceContext.set(this, this.resourceService)
       elementServiceContext.set(this, this.elementService)
+      builderServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)

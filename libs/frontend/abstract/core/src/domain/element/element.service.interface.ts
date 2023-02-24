@@ -53,6 +53,7 @@ export interface IElementService
   createModal: IEntityModalService<CreateElementData, CreateElementProperties>
   updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
   elements: ObjectMap<IElement>
+  elementNames: Array<string>
   clonedElements: ObjectMap<IElement>
   // moveElement(
   //   targetElementId: IElementRef,
