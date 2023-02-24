@@ -13,7 +13,7 @@ describe('Pages CRUD', () => {
       .then((apps) => {
         const app = apps[0]
 
-        cy.visit(`/apps/${app.id}/pages`)
+        cy.visit(`/apps/${app?.id}/pages`)
         cy.getSpinner().should('not.exist')
       })
   })

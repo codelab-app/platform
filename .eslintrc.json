@@ -71,7 +71,7 @@
           "error",
           {
             "properties": "never",
-            "exceptions": ["_", "a", "b", "$", "z"]
+            "exceptions": ["_", "a", "b", "$", "z", "i"]
           }
         ],
         "lodash/import-scope": ["error", "method"],

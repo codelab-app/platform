@@ -14,38 +14,38 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import 'cypress-nextjs-auth0'
+// import 'cypress-nextjs-auth0'
 import 'cypress-jest-adapter'
+import '@testing-library/cypress/add-commands'
 // import '@hon2a/cypress-antd/lib/register'
 import './commands'
 import './antd/register'
-import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector'
-import { Env } from './env'
+// import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector'
 
-Cypress.on('uncaught:exception', (err) => {
-  const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
+// Cypress.on('uncaught:exception', (err) => {
+//   const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
 
-  /* returning false here prevents Cypress from failing the test */
-  return !resizeObserverLoopErrRe.test(err.message)
-})
+//   /* returning false here prevents Cypress from failing the test */
+//   return !resizeObserverLoopErrRe.test(err.message)
+// })
 
 /**
  * Preserve cookies globally here
  *
  * https://docs.cypress.io/api/cypress-api/cookies#Defaults
  */
-beforeEach(() => {
-  // TODO(@nrwl/cypress): this command has been removed, use cy.session instead. https://docs.cypress.io/guides/references/migration-guide#Command-Cypress-API-Changes
-  Cypress.Cookies.preserveOnce(
-    'appSession',
-    'appSession.0',
-    'appSession.1',
-    'appSession.2',
-    'appSession.3',
-  )
-  // cy.preserveAuth0CookiesOnce()
-})
+// beforeEach(() => {
+//   // TODO(@nrwl/cypress): this command has been removed, use cy.session instead. https://docs.cypress.io/guides/references/migration-guide#Command-Cypress-API-Changes
+//   Cypress.Cookies.preserveOnce(
+//     'appSession',
+//     'appSession.0',
+//     'appSession.1',
+//     'appSession.2',
+//     'appSession.3',
+//   )
+//   // cy.preserveAuth0CookiesOnce()
+// })
 
-if (Env().e2e.enableLogging) {
-  installLogsCollector()
-}
+// if (Env().e2e.enableLogging) {
+//   installLogsCollector()
+// }

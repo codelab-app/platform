@@ -9,6 +9,7 @@
     "types": [
       "cypress",
       "node",
+      "@testing-library/cypress",
       "cypress-jest-adapter",
       "jest",
       "worker-loader",

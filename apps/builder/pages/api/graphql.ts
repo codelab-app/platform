@@ -106,18 +106,35 @@ const handler: NextApiHandler = async (req, res) => {
     return
   }
 
-  let session
-  let accessToken
-
   try {
     /**
      * Requires `headers.cookie` to be set by client
      */
-    session = await auth0Instance.getSession(req, res)
+    const session = await auth0Instance.getSession(req, res)
 
     Object.assign(req, { user: session?.user })
 
-    accessToken = (await auth0Instance.getAccessToken(req, res)).accessToken
+    const accessToken = (await auth0Instance.getAccessToken(req, res)).accessToken
+
+    /**
+     * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
+     */
+    if (accessToken) {
+      req.headers.authorization = `Bearer ${accessToken}`
+    }
+
+    console.log('Session', session?.user)
+
+    if (
+      session?.user &&
+      process.env['NEXT_PUBLIC_BUILDER_HOST']?.includes('127.0.0.1')
+    ) {
+      const userSession = session.user as Auth0SessionUser
+      const userRepository = new UserRepository()
+      const user = User.fromSession(userSession)
+
+      await userRepository.save(user, { auth0Id: user.auth0Id })
+    }
   } catch (e) {
     console.log('error when get access token', e)
 
@@ -128,27 +145,6 @@ const handler: NextApiHandler = async (req, res) => {
     ) {
       // console.error(e)
     }
-  }
-
-  if (
-    session?.user &&
-    // If dev mode, in e2e specs we create user
-    // process.env.NODE_ENV === 'development' &&
-    // If localhost enable this
-    process.env['NEXT_PUBLIC_BUILDER_HOST']?.includes('127.0.0.1')
-  ) {
-    const userSession = session.user as Auth0SessionUser
-    const userRepository = new UserRepository()
-    const user = User.fromSession(userSession)
-
-    await userRepository.save(user, { auth0Id: user.auth0Id })
-  }
-
-  /**
-   * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
-   */
-  if (accessToken) {
-    req.headers.authorization = `Bearer ${accessToken}`
   }
 
   await startServer

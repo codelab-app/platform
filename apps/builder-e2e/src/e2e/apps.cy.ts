@@ -3,6 +3,7 @@ import { appName, updatedAppName } from './apps/app.data'
 describe('Apps CRUD', () => {
   before(() => {
     cy.resetDatabase()
+    // cy.login()
     cy.login()
     cy.visit('/apps')
     cy.getSpinner().should('not.exist')

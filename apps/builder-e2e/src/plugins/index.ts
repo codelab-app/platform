@@ -8,10 +8,12 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'
+import { encrypt } from '../support/nextjs-auth0/utils/encrypt'
+
+// import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-const encrypt = require('cypress-nextjs-auth0/encrypt')
+// const encrypt = require('cypress-nextjs-auth0/encrypt')
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -27,18 +29,18 @@ const pluginConfig = async (
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions,
 ) => {
-  installLogsPrinter(on, {
-    printLogsToConsole: 'always',
-    collectTestLogs: () => console.log('a'),
-    includeSuccessfulHookLogs: false,
-  })
+  // installLogsPrinter(on, {
+  //   printLogsToConsole: 'always',
+  //   collectTestLogs: () => console.log('a'),
+  //   includeSuccessfulHookLogs: false,
+  // })
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
   /**
    * Difficult to get this working so we can properly import using project references, instead we opt for relative to bypass this issue
    */
-  on('task', { encrypt, test })
+  on('task', { encrypt })
 
   config.env.tsConfig = 'tsconfig.json'
 

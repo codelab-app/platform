@@ -1,9 +1,9 @@
 import jwt_decode from 'jwt-decode'
 
-export const loginByAuth0Api = () => {
-  const username = Cypress.env('auth0Username')
-  const password = Cypress.env('auth0Password')
+const username = Cypress.env('auth0Username')
+const password = Cypress.env('auth0Password')
 
+export const loginByAuth0Api = () => {
   cy.log(`Logging in as ${username}`)
 
   const client_id = Cypress.env('auth0ClientId')
@@ -13,58 +13,114 @@ export const loginByAuth0Api = () => {
 
   // console.log(new URL('oauth/token', Cypress.env('auth0_domain')).href)
 
-  /**
-   * https://auth0.com/docs/api/authentication#get-token
-   */
-  cy.request({
-    method: 'POST',
-    url: `${Cypress.env('auth0Domain')}oauth/token`,
-    body: {
-      grant_type: 'password',
-      username,
-      password,
-      audience,
-      scope,
-      client_id,
-      client_secret,
-    },
-  }).then(({ body }) => {
-    const claims = jwt_decode<any>(body.id_token)
-
-    const {
-      nickname,
-      name,
-      picture,
-      updated_at,
-      email,
-      email_verified,
-      sub,
-      exp,
-    } = claims
-
-    const item = {
+  cy.session(`auth0-${username}`, () => {
+    /**
+     * https://auth0.com/docs/api/authentication#get-token
+     */
+    cy.request({
+      method: 'POST',
+      url: `${Cypress.env('auth0Domain')}oauth/token`,
       body: {
-        ...body,
-        decodedToken: {
-          claims,
-          user: {
-            nickname,
-            name,
-            picture,
-            updated_at,
-            email,
-            email_verified,
-            sub,
-          },
-          audience,
-          client_id,
-        },
+        grant_type: 'password',
+        username,
+        password,
+        audience,
+        scope,
+        client_id,
+        client_secret,
       },
-      expiresAt: exp,
-    }
+    }).then(({ body }) => {
+      const claims = jwt_decode<any>(body.id_token)
 
-    window.localStorage.setItem('auth0Cypress', JSON.stringify(item))
+      const {
+        nickname,
+        name,
+        picture,
+        updated_at,
+        email,
+        email_verified,
+        sub,
+        exp,
+      } = claims
 
-    cy.visit('/')
+      const item = {
+        body: {
+          ...body,
+          decodedToken: {
+            claims,
+            user: {
+              nickname,
+              name,
+              picture,
+              updated_at,
+              email,
+              email_verified,
+              sub,
+            },
+            audience,
+            client_id,
+          },
+        },
+        expiresAt: exp,
+      }
+
+      window.localStorage.setItem('auth0Cypress', JSON.stringify(item))
+
+      console.log(item)
+    })
+
+    cy.visit('/apps')
   })
+}
+
+export const loginToAuth0 = () => {
+  const log = Cypress.log({
+    displayName: 'AUTH0 LOGIN',
+    message: [`🔐 Authenticating | ${username}`],
+    autoEnd: false,
+  })
+
+  log.snapshot('before')
+
+  // loginViaAuth0Ui()
+
+  cy.session(
+    `auth0-${username}`,
+    () => {
+      loginViaAuth0Ui()
+    },
+    {
+      validate: () => {
+        cy.getCookies()
+        // Validate presence of access token in localStorage.
+        // cy.wrap(localStorage)
+        //   .invoke('getItem', 'authAccessToken')
+        //   .should('exist')
+      },
+    },
+  )
+
+  log.snapshot('after')
+  log.end()
+}
+
+export const loginViaAuth0Ui = () => {
+  // App landing page redirects to Auth0.
+  cy.visit('/apps')
+
+  // const origin = 'http://127.0.0.1:3001'
+  const origin = 'https://codelab-app-dev.us.auth0.com/'
+
+  // cy.origin(origin, () => {
+  //   cy.get('input#username').type('cypress@codelab.app')
+  //   cy.get('input#password').type('Qd8Y4mxNYepVhU', { log: false })
+  //   cy.contains('button[value=default]', 'Continue').click()
+  // })
+
+  cy.get('input#username').type(username)
+  cy.get('input#password').type(password, { log: false })
+  cy.contains('button[value=default]', 'Continue').click()
+
+  // Ensure Auth0 has redirected us back to the RWA.
+  cy.url().should('equal', '/apps')
 }

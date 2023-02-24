@@ -13,7 +13,6 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   responseTimeout: 30000,
   execTimeout: 30000,
   pageLoadTimeout: 30000,
-  experimentalSessionAndOrigin: false,
   // Old Cypress.io project ID but too expensive
   // projectId: '86p5h3',
   // New currents.dev alternative
@@ -35,9 +34,8 @@ export default defineConfig({
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
     setupNodeEvents,
-    // specPattern: 'src/e2e/**/admin.cy.{js,jsx,ts,tsx}',
     env: {
-      CYPRESS_ENABLE_LOGGING: false,
+      // CYPRESS_ENABLE_LOGGING: false,
     },
     /**
      * TODO(@nrwl/cypress): In Cypress v12,the testIsolation option is turned on by default.
@@ -45,6 +43,6 @@ export default defineConfig({
      * You should consider enabling this once you verify tests do not depend on each other
      * More Info: https://docs.cypress.io/guides/references/migration-guide#Test-Isolation
      * */
-    // testIsolation: false,
+    testIsolation: false,
   },
 })
