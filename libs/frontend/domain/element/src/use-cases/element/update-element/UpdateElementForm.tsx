@@ -140,7 +140,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         {element.id}
         <AutoComputedElementNameField
           computeElementNameService={computeElementNameService}
-          defaultValue={model.name}
           label="Name"
           name="name"
         />

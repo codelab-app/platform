@@ -10,16 +10,9 @@ import {
 } from '@codelab/frontend/presenter/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-} from 'mobx-keystone'
+import { _async, _await, Model, model, modelFlow, prop } from 'mobx-keystone'
 import { makeAutoIncrementedName } from '../utils'
 
 /**
@@ -29,7 +22,7 @@ import { makeAutoIncrementedName } from '../utils'
 export class ComputeElementNameService
   extends Model({
     pickedRenderTypeName: prop<Maybe<string>>(),
-    pickedName: prop<string>(() => ''),
+    pickedName: prop<Maybe<string>>().withSetter(),
   })
   implements IComputeElementNameService
 {
@@ -49,17 +42,10 @@ export class ComputeElementNameService
   }
 
   @computed
-  get computedName() {
-    if (this.pickedRenderTypeName) {
-      return makeAutoIncrementedName(
-        this.builderService.activeElementTree?.elementsList.map(
-          (element) => element.name,
-        ) || [],
-        compoundCaseToTitleCase(this.pickedRenderTypeName),
-      )
-    }
-
-    return this.pickedName
+  get hasCustomName() {
+    return (
+      !isNil(this.pickedName) && this.pickedRenderTypeName !== this.pickedName
+    )
   }
 
   @modelFlow
@@ -67,27 +53,31 @@ export class ComputeElementNameService
     this: ComputeElementNameService,
     renderType: RenderType,
   ) {
-    // Don't change the name picked by the user
-    if (this.pickedName) {
-      return
-    }
+    let name: Maybe<string>
 
     if (renderType.model === RenderTypeEnum.Atom) {
-      this.pickedRenderTypeName = (yield* _await(
-        this.atomService.getOne(renderType.id),
-      ))?.name
+      name = (yield* _await(this.atomService.getOne(renderType.id)))?.name
     }
 
     if (renderType.model === RenderTypeEnum.Component) {
-      this.pickedRenderTypeName = (yield* _await(
-        this.componentService.getOne(renderType.id),
-      ))?.name
+      name = (yield* _await(this.componentService.getOne(renderType.id)))?.name
     }
-  })
 
-  @modelAction
-  setPickedName(name: string) {
-    this.pickedName = name
-    this.pickedRenderTypeName = undefined
-  }
+    name = name
+      ? makeAutoIncrementedName(
+          this.builderService.activeElementTree?.elementsList.map(
+            (element) => element.name,
+          ) || [],
+          compoundCaseToTitleCase(name),
+        )
+      : undefined
+
+    // If the previous name is unchanged, this updates
+    // the name based on the selected atom or component
+    if (this.pickedRenderTypeName === this.pickedName && name) {
+      this.pickedName = name
+    }
+
+    this.pickedRenderTypeName = name
+  })
 }

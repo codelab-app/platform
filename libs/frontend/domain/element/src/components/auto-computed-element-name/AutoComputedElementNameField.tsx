@@ -10,7 +10,6 @@ type AutoComputedElementNameProps = FieldProps<
   string,
   Omit<InputProps, 'onReset'>
 > & {
-  defaultValue?: string
   onChange: (value: string) => void
   computeElementNameService: IComputeElementNameService
 }
@@ -22,27 +21,22 @@ type AutoComputedElementNameProps = FieldProps<
  */
 const AutoComputedElementName = observer<AutoComputedElementNameProps>(
   (props) => {
-    const { name, onChange, computeElementNameService, defaultValue } = props
+    const { name, onChange, computeElementNameService, value } = props
 
     useEffect(() => {
-      computeElementNameService.setPickedName(defaultValue)
-    }, [defaultValue, computeElementNameService])
+      computeElementNameService.setPickedName(value)
+    }, [value])
 
     useEffect(() => {
-      // Calls the params.onChange when the current value changes
-      // to keep the form control updated
-      onChange(computeElementNameService.computedName)
-    }, [computeElementNameService.computedName, onChange])
+      // When renderType changes, we need to programatically
+      // change the name field based on the selected renderTypeName
+      // but only if user did not changed the name
+      if (!computeElementNameService.hasCustomName) {
+        onChange(computeElementNameService.pickedName)
+      }
+    }, [computeElementNameService.pickedRenderTypeName])
 
-    return (
-      <TextField
-        name={name}
-        onChange={(newValue) =>
-          computeElementNameService.setPickedName(newValue)
-        }
-        value={computeElementNameService.computedName}
-      />
-    )
+    return <TextField name={name} />
   },
 )
 
