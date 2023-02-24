@@ -162,7 +162,7 @@
     "@babel/types": "7.18.2",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
-    "@currents/cli": "^3.1.3",
+    "@currents/cli": "^4.0.3",
     "@currents/nx": "^0.2.1",
     "@emotion/babel-plugin": "11.10.0",
     "@emotion/babel-preset-css-prop": "11.2.0",
