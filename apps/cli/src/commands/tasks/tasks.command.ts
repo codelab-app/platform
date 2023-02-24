@@ -169,7 +169,9 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (stage === Stage.CI) {
-            execCommand(`npx nx run builder-e2e:currents:ci --verbose`)
+            // Currents getting error
+            execCommand(`npx nx run builder-e2e:e2e:ci --verbose`)
+            // execCommand(`npx nx run builder-e2e:currents:ci --verbose`)
           }
         },
       )
