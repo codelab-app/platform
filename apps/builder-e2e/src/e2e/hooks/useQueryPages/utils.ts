@@ -63,7 +63,7 @@
 //   // seed hooks
 //   cy.runSeeder()
 
-//   cy.login().then(async () => {
+//   loginSession().then(async () => {
 //     cy.createAtom({ name: 'test', type: AtomType.Text }).then(
 //       (atom: CreateResponse) => {
 //         const atomId = atom.id

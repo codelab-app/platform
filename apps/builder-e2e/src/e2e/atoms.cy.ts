@@ -1,5 +1,6 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const atomName = 'Button'
 const atomType = IAtomType.AntDesignButton
@@ -7,16 +8,12 @@ const updatedAtomName = 'Button updated'
 
 describe('Atoms CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login()
-    })
+    cy.resetDatabase()
+    loginSession()
+    cy.visit('/atoms')
   })
 
   describe('create', () => {
-    before(() => {
-      cy.visit(`/atoms`)
-    })
-
     it('should be able to create atom', () => {
       cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
         'not.exist',

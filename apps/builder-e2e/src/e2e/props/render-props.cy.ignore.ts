@@ -38,7 +38,7 @@ const componentsInputs = (
 describe('Render props', () => {
   before(() => {
     cy.resetDatabase().then(() => {
-      cy.login().then(async () => {
+      loginSession().then(async () => {
         cy.getCurrentUserId().then((userId) => {
           /**
            * create :

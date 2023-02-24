@@ -35,7 +35,7 @@ const clickEditor = () => {
 describe('CSS CRUD', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     cy.getCurrentUserId()
       .as(uidCache)
       .then((userId) => {

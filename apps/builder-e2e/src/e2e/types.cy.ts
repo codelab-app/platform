@@ -1,5 +1,6 @@
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
@@ -28,11 +29,9 @@ const fieldDefaultValue = 'something default'
 
 describe('Types CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        cy.visit(`/types`)
-      })
-    })
+    cy.resetDatabase()
+    loginSession()
+    cy.visit(`/types`)
   })
 
   describe('create type', () => {

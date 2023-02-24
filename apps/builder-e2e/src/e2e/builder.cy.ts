@@ -6,6 +6,7 @@ import { connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
@@ -56,7 +57,7 @@ const updatedElementName = 'Container Updated'
 describe('Elements CRUD', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     cy.getCurrentUserId()
       .then((userId) => {
         const atomsInput: Array<AtomCreateInput> = createAtomsData().map(

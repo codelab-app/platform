@@ -1,11 +1,12 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { createAppInput } from '../support/database/app'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { pageName, updatedPageName } from './apps/app.data'
 
 describe('Pages CRUD', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     cy.getCurrentUserId()
       .then((userId) => {
         return cy.createApp(createAppInput(userId))

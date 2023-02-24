@@ -7,6 +7,7 @@ import { connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const COMPONENT_NAME = 'New Component'
 const COMPONENT_INSTANCE_NAME = 'Component Instance'
@@ -31,7 +32,7 @@ let testApp: any
 describe('Component CRUD', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     cy.getCurrentUserId()
       .then((userId) => {
         cy.createType(

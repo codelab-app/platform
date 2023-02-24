@@ -1,10 +1,10 @@
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { appName, updatedAppName } from './apps/app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
     cy.resetDatabase()
-    // cy.login()
-    cy.login()
+    loginSession()
     cy.visit('/apps')
     cy.getSpinner().should('not.exist')
   })
@@ -21,6 +21,7 @@ describe('Apps CRUD', () => {
       cy.getModal()
         .getModalAction(/Create App/)
         .click()
+
       cy.getModal().should('not.exist')
 
       cy.findByText(appName).should('exist')
@@ -39,7 +40,6 @@ describe('Apps CRUD', () => {
         .getModalAction(/Update App/)
         .click()
 
-      cy.getModal().getSpinner().should('not.exist')
       cy.getModal().should('not.exist')
 
       cy.findByText(appName).should('not.exist')
@@ -48,10 +48,6 @@ describe('Apps CRUD', () => {
   })
 
   describe('delete', () => {
-    before(() => {
-      cy.visit('/apps')
-    })
-
     it('should be able to delete app', () => {
       cy.getCard({
         title: updatedAppName,
@@ -67,7 +63,6 @@ describe('Apps CRUD', () => {
         .getModalAction(/Delete App/)
         .click()
 
-      cy.getModal().getSpinner().should('not.exist')
       cy.getModal().should('not.exist')
 
       cy.findAllByText(updatedAppName).should('not.exist')

@@ -5,6 +5,7 @@ import {
 import { IAtomType } from '@codelab/shared/abstract/core'
 import slugify from 'voca/slugify'
 import { FIELD_TYPE } from '../support/antd/form'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { seedData } from './admin/assert'
 import { appName, pageName } from './apps/app.data'
 
@@ -43,7 +44,7 @@ const openPageByHeaderMenu = (name: string) => {
 describe('_app page', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     cy.visit('/apps')
     cy.getSpinner().should('not.exist')
 

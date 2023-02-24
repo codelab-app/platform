@@ -123,8 +123,6 @@ const handler: NextApiHandler = async (req, res) => {
       req.headers.authorization = `Bearer ${accessToken}`
     }
 
-    console.log('Session', session?.user)
-
     if (
       session?.user &&
       process.env['NEXT_PUBLIC_BUILDER_HOST']?.includes('127.0.0.1')

@@ -4,11 +4,12 @@ import { createAtomsData } from '@codelab/shared/data/test'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 describe('Components Tab', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     cy.getCurrentUserId()
       .then((userId) => {
         const atomsInput: Array<AtomCreateInput> = createAtomsData().map(

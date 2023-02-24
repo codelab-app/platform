@@ -34,7 +34,7 @@ const selectPropsTab = () => {
 // TODO: ignored e2e test. Fix types later if requires
 // before(() => {
 //   cy.resetDatabase().then(() => {
-//     cy.login().then(() => {
+//     loginSession().then(() => {
 //       cy.createPageFromScratch().then((data: any) => {
 //         // create Button element
 //         cy.createElement({

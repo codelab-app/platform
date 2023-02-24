@@ -4,7 +4,7 @@ export abstract class IRepository<Model extends IEntity> {
   abstract find(where: BaseUniqueWhere): Promise<Model | undefined>
 
   public add(data: Array<Model>): Promise<Array<Model>> {
-    console.debug(`Adding ${this.constructor.name}`, data)
+    // console.debug(`Adding ${this.constructor.name}`, data)
 
     return this._add(data)
   }
@@ -20,7 +20,7 @@ export abstract class IRepository<Model extends IEntity> {
     data: Omit<Model, 'id'>,
     where: BaseUniqueWhere,
   ): Promise<Model | undefined> {
-    console.debug(`Updating ${this.constructor.name}`, data, { where })
+    // console.debug(`Updating ${this.constructor.name}`, data, { where })
 
     return this._update(data, where)
   }
@@ -49,11 +49,11 @@ export abstract class IRepository<Model extends IEntity> {
   async exists(data: Model, where?: BaseUniqueWhere) {
     const results = await this.find(this.getWhere(data, where))
 
-    console.debug('Checking Exists: ', this.constructor, {
-      data,
-      where: this.getWhere(data, where),
-      results,
-    })
+    // console.debug('Checking Exists: ', this.constructor, {
+    //   data,
+    //   where: this.getWhere(data, where),
+    //   results,
+    // })
 
     return Boolean(results)
   }

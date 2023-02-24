@@ -18,7 +18,7 @@ import {
 describe('Store', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     cy.getCurrentUserId()
       .then((userId) => {
         cy.createType(

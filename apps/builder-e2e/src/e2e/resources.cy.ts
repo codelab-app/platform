@@ -1,5 +1,6 @@
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { FIELD_TYPE } from '../support/antd/form'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 import {
   resourceName,
   resourcesUrl,
@@ -8,12 +9,10 @@ import {
 
 describe('Resource CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        cy.visit('/resources')
-        cy.getSpinner().should('not.exist')
-      })
-    })
+    cy.resetDatabase()
+    loginSession()
+    cy.visit('/resources')
+    cy.getSpinner().should('not.exist')
   })
 
   describe('create', () => {

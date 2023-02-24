@@ -1,11 +1,11 @@
 import { v4 } from 'uuid'
 import { createData, deleteData, updateData } from '../data/tag'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 describe('Tag CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login()
-    })
+    cy.resetDatabase()
+    loginSession()
 
     cy.getCurrentUserId()
       .then((userId) => {

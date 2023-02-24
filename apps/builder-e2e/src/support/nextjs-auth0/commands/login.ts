@@ -6,54 +6,52 @@ interface LoginCredentials {
   password?: string
 }
 
-export const login = (credentials: LoginCredentials = {}) => {
-  const { username, password } = credentials
-  const cachedUserIsCurrentUser = cachedUsername && cachedUsername === username
+export const loginSession = () => {
+  cy.session(
+    ['auth0-session'],
+    () => {
+      login()
+    },
+    {
+      cacheAcrossSpecs: true,
+      // validate: () => {},
+    },
+  )
+}
 
-  const _credentials = {
-    username: username || Cypress.env('auth0Username'),
-    password: password || Cypress.env('auth0Password'),
-  }
-
-  const sessionCookieName = Cypress.env('auth0SessionCookieName')
-
+export const login = ({
+  username = Cypress.env('auth0Username'),
+  password = Cypress.env('auth0Password'),
+}: LoginCredentials = {}) => {
   /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/login.ts#L70 */
 
   try {
-    cy.getCookie(sessionCookieName).then((cookieValue) => {
-      /* Skip logging in again if session already exists */
+    cy.getUserTokens({ username, password }).then((response: any) => {
+      const { accessToken, expiresIn, idToken, scope } = response
 
-      if (cookieValue && cachedUserIsCurrentUser) {
-        return true
-      } else {
-        cy.clearCookies()
+      cy.getUserInfo(accessToken).then((user) => {
+        /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L44 */
+        /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L47 */
+        /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L57 */
 
-        cy.getUserTokens(_credentials).then((response: any) => {
-          const { accessToken, expiresIn, idToken, scope } = response
+        const payload = {
+          secret: Cypress.env('auth0CookieSecret'),
+          user,
+          idToken,
+          accessToken,
+          accessTokenScope: scope,
+          accessTokenExpiresAt: Date.now() + expiresIn,
+          createdAt: Date.now(),
+        }
 
-          cy.getUserInfo(accessToken).then((user) => {
-            /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L44 */
-            /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L47 */
-            /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L57 */
+        console.log(payload)
 
-            const payload = {
-              secret: Cypress.env('auth0CookieSecret'),
-              user,
-              idToken,
-              accessToken,
-              accessTokenScope: scope,
-              accessTokenExpiresAt: Date.now() + expiresIn,
-              createdAt: Date.now(),
-            }
+        /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L73 */
 
-            /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L73 */
-
-            cy.task('encrypt', payload).then((encryptedSession) => {
-              cy._setAuth0Cookie(encryptedSession as string)
-            })
-          })
+        cy.task('encrypt', payload).then((encryptedSession) => {
+          cy._setAuth0Cookie(encryptedSession as string)
         })
-      }
+      })
     })
   } catch (error) {
     // throw new Error(error);

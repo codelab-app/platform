@@ -1,9 +1,10 @@
+import { loginSession } from '../../support/nextjs-auth0/commands/login'
 import { exportAndAssert, importData, seedData } from './assert'
 
 describe('Admin', () => {
   before(() => {
     cy.resetDatabase()
-    cy.login()
+    loginSession()
     // Visit so we can trigger upsert user
     cy.visit('/apps')
     cy.getSpinner().should('not.exist')
@@ -48,7 +49,7 @@ describe('Admin', () => {
     it.skip('should import Ant Design data', () => {
       cy.logout()
       cy.resetDatabase()
-      cy.login()
+      loginSession()
       // Visit so we can trigger upsert user
       cy.visit('/apps')
       cy.getSpinner().should('not.exist')

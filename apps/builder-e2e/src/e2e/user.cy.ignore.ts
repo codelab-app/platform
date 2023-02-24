@@ -10,7 +10,7 @@ describe('User', () => {
   })
 
   it('logs in shows email and signs out', () => {
-    cy.login().then(() => {
+    loginSession().then(() => {
       cy.visit('/')
       cy.request('/api/auth/me').then((results) => {
         const email = results.body.email
