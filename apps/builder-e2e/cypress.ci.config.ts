@@ -16,7 +16,7 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   // Old Cypress.io project ID but too expensive
   // projectId: '86p5h3',
   // New currents.dev alternative
-  projectId: 'cw5cx6',
+  projectId: '9hfoow',
   env: {},
   // numTestsKeptInMemory: 1,
   retries: {
