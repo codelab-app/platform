@@ -23,6 +23,7 @@ import {
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
+import { jsx } from '@emotion/react'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -221,7 +222,9 @@ export class Renderer
           return makeCustomTextContainer(injectedText)
         }
 
-        return React.createElement(Component, props, children)
+        // jsx from @emotion is a must use here.
+        // React.createElement must not be used, because css prop is not supported out of the box by React.
+        return jsx(Component, props, children)
       })
     }
 
