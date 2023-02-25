@@ -11,6 +11,7 @@ export const loginSession = () => {
     ['auth0-session'],
     () => {
       login()
+      fetch('/api/upsert-user')
     },
     {
       cacheAcrossSpecs: true,

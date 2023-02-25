@@ -5,6 +5,9 @@ describe('Apps CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
+    cy.getCookies().then((cookies) => {
+      console.log(cookies)
+    })
     cy.visit('/apps')
     cy.getSpinner().should('not.exist')
   })

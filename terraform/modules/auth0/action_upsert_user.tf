@@ -11,8 +11,9 @@ resource "auth0_action" "upsert_user" {
 
 const { request, gql, GraphQLClient } = require('graphql-request')
 const { ManagementClient } = require('auth0')
-const { URL } = require('url');
-const axios = require('axios');
+const { URL } = require('url')
+const axios = require('axios')
+const { v4 } = require('uuid')
 
 /**
   * Handler that will be called during the execution of a PostLogin flow.
@@ -76,6 +77,7 @@ exports.onExecutePostLogin = async (event, api) => {
   const variables = {
     input: [
       {
+        id: v4(),
         auth0Id: event.user.user_id,
         email: event.user.email,
         username: event.user.nickname,
