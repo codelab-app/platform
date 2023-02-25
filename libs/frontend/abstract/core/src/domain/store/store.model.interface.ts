@@ -12,6 +12,7 @@ export interface IStore extends ICacheService<IStoreDTO, IStore> {
   api: Ref<IInterfaceType>
   actions: Array<IAnyAction>
   state: IProp
+  toCreateInput(): StoreCreateInput
 }
 
 export type IStoreRef = string

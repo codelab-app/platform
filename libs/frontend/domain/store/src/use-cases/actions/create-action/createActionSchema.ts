@@ -1,16 +1,17 @@
 import type { ICreateActionDTO } from '@codelab/frontend/abstract/core'
 import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/shared/domain'
+import {
+  hideField,
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/frontend/shared/utils'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import {
-  hideField,
-  nonEmptyString,
-  showFieldOnDev,
-} from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 
@@ -18,11 +19,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
   title: 'Create Action',
   type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
-    },
+    ...idSchema,
     storeId: {
       type: 'string',
       disabled: true,

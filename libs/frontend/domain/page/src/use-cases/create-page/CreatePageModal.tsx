@@ -9,6 +9,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import type { CreatePageSchema } from './createPageSchema'
 import { createPageSchema } from './createPageSchema'
 
 export const CreatePageModal = observer<{ pageService: IPageService }>(
@@ -31,14 +32,14 @@ export const CreatePageModal = observer<{ pageService: IPageService }>(
 
     return (
       <ModalForm.Modal okText="Create Page" onCancel={closeModal} open={isOpen}>
-        <ModalForm.Form<Omit<ICreatePageDTO, 'pageContainerElementId'>>
+        <ModalForm.Form<CreatePageSchema>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
           schema={createPageSchema}
         >
-          <AutoFields omitFields={['appId']} />
+          <AutoFields omitFields={['app']} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

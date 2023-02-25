@@ -1,4 +1,4 @@
-import { singlySpacedTitleCaseWithNumbersRegex } from './regex'
+import { singlySpacedTitleCaseWithNumbersRegex } from '@codelab/shared/utils'
 
 export const showFieldOnDev = () => {
   if (process.env.NODE_ENV === 'development') {
@@ -15,14 +15,6 @@ export const showFieldOnDev = () => {
 export const hideField = {
   uniforms: {
     component: () => null,
-  },
-}
-
-export const idField = {
-  id: {
-    type: 'string',
-    nullable: true,
-    ...hideField,
   },
 }
 

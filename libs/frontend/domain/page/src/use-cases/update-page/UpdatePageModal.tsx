@@ -7,7 +7,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updatePageSchema } from './updatePageSchema'
+import { UpdatePageSchema, updatePageSchema } from './updatePageSchema'
 
 export const UpdatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
@@ -18,7 +18,7 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
       return null
     }
 
-    const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
+    const onSubmit = (pageDTO: IUpdatePageDTO) => pageService.update(pageDTO)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while updating page',
@@ -36,7 +36,7 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
         onCancel={closeModal}
         open={pageService.updateModal.isOpen}
       >
-        <ModalForm.Form<Omit<IUpdatePageDTO, 'pageContainerElementId'>>
+        <ModalForm.Form<UpdatePageSchema>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

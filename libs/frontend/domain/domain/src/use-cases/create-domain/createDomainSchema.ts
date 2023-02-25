@@ -1,30 +1,33 @@
 import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/shared/domain'
 import {
   hideField,
   nonEmptyString,
   showFieldOnDev,
-} from '@codelab/shared/utils'
+} from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createDomainSchema: JSONSchemaType<ICreateDomainDTO> = {
   title: 'Create Domain Input',
   type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
-    },
+    ...idSchema,
     name: {
       autoFocus: true,
       format: 'hostname',
       ...nonEmptyString,
     },
-    appId: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
+    app: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          disabled: true,
+          ...showFieldOnDev(),
+        },
+      },
+      required: ['id'],
     },
   },
-  required: ['name', 'appId'],
+  required: ['name'],
 } as const

@@ -30,8 +30,8 @@ export const CreateTagModal = observer<{
     >
       <ModalForm.Form
         model={{
-          parentTagId: `${defaultOption.value}`,
-          auth0Id: userService.user?.auth0Id,
+          parentTag: { id: defaultOption.value.toString() },
+          owner: { auth0Id: userService.user?.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({

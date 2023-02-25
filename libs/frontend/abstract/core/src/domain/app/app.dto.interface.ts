@@ -10,7 +10,7 @@ export interface ICreateAppDTO {
   owner: IAuth0Owner
 }
 
-export type IUpdateAppDTO = Omit<ICreateAppDTO, 'owner' | 'id'>
+export type IUpdateAppDTO = Omit<ICreateAppDTO, 'owner'>
 
 export type IAppDTO = AppPreviewFragment
 

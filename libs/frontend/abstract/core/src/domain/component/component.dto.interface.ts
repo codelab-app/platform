@@ -1,4 +1,5 @@
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type { IInterfaceTypeRef } from '../type'
 import type { IAuth0Owner } from '../user'
 import type { ComponentFragment } from './component.fragment.graphql.gen'
@@ -13,14 +14,16 @@ export interface ICreateComponentDTO {
   api?: IInterfaceTypeRef | undefined
 
   // Allow for connection to existing element
-  rootElementId?: string | undefined
+  rootElement?: IEntity
 }
 
 export type IUpdateComponentDTO = Pick<
   ICreateComponentDTO,
-  'name' | 'childrenContainerElementId'
+  'id' | 'name' | 'childrenContainerElementId'
 >
 
 export type IComponentDTO = ComponentFragment
 
 export type IComponentExport = OGM_TYPES.Component
+
+export type IComponentID = string

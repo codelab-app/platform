@@ -1,29 +1,32 @@
 import type { IUpdateDomainDTO } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/shared/domain'
 import {
   hideField,
   nonEmptyString,
   showFieldOnDev,
-} from '@codelab/shared/utils'
+} from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateDomainSchema: JSONSchemaType<IUpdateDomainDTO> = {
   title: 'Edit App Input',
   type: 'object',
   properties: {
-    appId: {
-      type: 'string',
-      disabled: true,
+    ...idSchema,
+    app: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+        },
+      },
       ...showFieldOnDev(),
-    },
-    id: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
+      disabled: true,
+      required: ['id'],
     },
     name: {
       autoFocus: true,
       ...nonEmptyString,
     },
   },
-  required: ['name', 'appId', 'id'],
+  required: ['name', 'id'],
 } as const

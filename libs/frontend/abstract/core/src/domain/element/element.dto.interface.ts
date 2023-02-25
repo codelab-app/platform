@@ -1,4 +1,6 @@
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IAtomID } from '../atom'
+import type { IComponentID } from '../component'
 import type { IPropData } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
 
@@ -8,35 +10,34 @@ export enum RenderTypeEnum {
 }
 
 export interface RenderType {
-  id: string
+  // This is the ID of either `atom` or `component`
+  id: IAtomID | IComponentID
   model: RenderTypeEnum
 }
 
 export interface ICreateElementDTO {
-  id?: string
+  id: string
   name: string
-  renderType?: Nullable<RenderType>
-  parentElementId?: string
+  parentElement?: IEntity
   preRenderActionId?: Nullish<string>
   postRenderActionId?: Nullish<string>
   customCss?: Nullish<string>
   guiCss?: Nullish<string>
   propsData?: string
   prevSiblingId?: Nullable<string>
+  /**
+   * We should connect to `atom` or `component` in future
+   */
+  renderType?: Nullable<RenderType>
 }
 
-export interface IUpdateElementDTO {
-  name: string
-  renderType?: Nullable<RenderType>
+export type IUpdateElementDTO = ICreateElementDTO & {
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
-  customCss?: Nullable<string>
-  guiCss?: Nullable<string>
   props?: Nullable<IPropData>
   preRenderActionId?: Nullish<string>
   postRenderActionId?: Nullish<string>
   propTransformationJs?: Nullish<string>
-  propsData?: string
 }
 
 /**
@@ -44,6 +45,7 @@ export interface IUpdateElementDTO {
  */
 export type IUpdateBaseElementDTO = Pick<
   IUpdateElementDTO,
+  | 'id'
   | 'renderType'
   | 'name'
   | 'renderIfExpression'

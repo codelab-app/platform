@@ -20,7 +20,7 @@ export const CreateDomainModal = observer<{
 
   const model = {
     auth0Id: userService.user?.auth0Id,
-    appId: currentAppId,
+    app: { id: currentAppId },
   }
 
   const onSubmit = (data: ICreateDomainDTO) => {

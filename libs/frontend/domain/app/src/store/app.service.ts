@@ -73,6 +73,9 @@ export class AppService
 
   /**
    * Aggregate root method to setup all data invariants
+   *
+   * - Hydrate app
+   * - Hydrate page
    */
   @modelAction
   load = ({ app, pageId }: IPageBuilderAppProps) => {
@@ -82,26 +85,22 @@ export class AppService
      * Need to create nested model
      */
     const appModel = this.create(app)
-    const pageModel = appModel.page(pageId)
+    // const pageModel = appModel.page(pageId)
     const page = app.pages.find((appPage) => appPage.id === pageId)
 
     if (!page) {
       throw new Error('Missing page')
     }
 
-    const elements = [page.rootElement, ...page.rootElement.descendantElements]
+    const pageModel = this.pageService.add(page)
 
-    const pageElements = elements.map((element) =>
-      this.elementService.writeCache(element),
-    )
+    const elements = [
+      page.rootElement,
+      ...page.rootElement.descendantElements,
+    ].map((element) => this.elementService.add(element))
 
     const rootElement = this.elementService.element(page.rootElement.id)
-
-    if (!rootElement) {
-      throw new Error('No root element found')
-    }
-
-    const pageElementTree = pageModel.initTree(rootElement, pageElements)
+    const pageElementTree = pageModel.initTree(rootElement, elements)
 
     return {
       pageElementTree,
@@ -129,17 +128,13 @@ export class AppService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: AppService,
-    entity: IEntity,
-    { name }: IUpdateAppDTO,
-  ) {
+  update = _async(function* (this: AppService, { name, id }: IUpdateAppDTO) {
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
         update: { name: createUniqueName(name) },
-        where: { id: entity.id },
+        where: { id },
       }),
     )
 
@@ -170,6 +165,11 @@ export class AppService
     return app
   })
 
+  /**
+   * We don't hydrate pages here, because a page is its own aggregate root.
+   *
+   * Also we can create an app with creating user pages
+   */
   @modelAction
   create(appDTO: ICreateAppDTO) {
     const store = this.storeService.add(appDTO)

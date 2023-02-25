@@ -1,41 +1,48 @@
 import type { ICreatePageDTO } from '@codelab/frontend/abstract/core'
-import { CodeMirrorField } from '@codelab/frontend/view/components'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { idSchema, ownerSchema } from '@codelab/frontend/shared/domain'
 import {
   hideField,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/shared/utils'
+} from '@codelab/frontend/shared/utils'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const createPageSchema: JSONSchemaType<
-  Omit<ICreatePageDTO, 'pageContainerElementId'>
-> = {
+export type CreatePageSchema = Omit<
+  ICreatePageDTO,
+  'pageContainerElementId' | 'descendentElements'
+>
+
+export const createPageSchema: JSONSchemaType<CreatePageSchema> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
-    },
-    auth0Id: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
-    },
-    rootElementId: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
+    ...idSchema,
+    ...ownerSchema,
+    rootElement: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          ...hideField,
+        },
+      },
+      required: ['id'],
     },
     name: {
       autoFocus: true,
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    appId: {
-      type: 'string',
+    app: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+        },
+      },
+      required: ['id'],
     },
     getServerSideProps: {
       type: 'string',

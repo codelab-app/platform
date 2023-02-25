@@ -17,7 +17,6 @@ import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -28,6 +27,7 @@ import {
   modelFlow,
   objectMap,
   prop,
+  Ref,
   rootRef,
   transaction,
 } from 'mobx-keystone'
@@ -108,28 +108,33 @@ export class PageService
   @transaction
   update = _async(function* (
     this: PageService,
-    existingPage: IPage,
-    { name, getServerSideProps, appId, pageContainerElementId }: IUpdatePageDTO,
+    {
+      id,
+      name,
+      getServerSideProps,
+      app,
+      pageContainerElementId,
+    }: IUpdatePageDTO,
   ) {
     const {
       updatePages: { pages },
     } = yield* _await(
       pageApi.UpdatePages({
         update: {
-          name: createUniqueName(name, appId),
-          app: connectNodeId(appId),
+          name: createUniqueName(name, app.id),
+          app: connectNodeId(app.id),
           getServerSideProps,
           pageContainerElement: reconnectNodeId(pageContainerElementId),
         },
-        where: { id: existingPage.id },
+        where: { id },
       }),
     )
 
     return pages.map((page) =>
       this.add({
         ...page,
-        appId: page.app.id,
-        rootElementId: page.rootElement.id,
+        app: page.app,
+        rootElement: page.rootElement,
       }),
     )
   })
@@ -142,8 +147,8 @@ export class PageService
     return pages.map((page) =>
       this.add({
         ...page,
-        appId: page.app.id,
-        rootElementId: page.rootElement.id,
+        app: page.app,
+        rootElement: page.rootElement,
       }),
     )
   })
@@ -163,25 +168,27 @@ export class PageService
   @modelFlow
   @transaction
   create = _async(function* (this: PageService, data: Array<ICreatePageDTO>) {
-    const input = data.map((page) => {
-      const pageId = page.id ?? v4()
+    const input = data.map(
+      ({ id, name, app, rootElement, getServerSideProps }) => {
+        const pageId = id
 
-      return {
-        id: pageId,
-        name: createUniqueName(page.name, page.appId),
-        app: connectNodeId(page.appId),
-        getServerSideProps: page.getServerSideProps,
-        kind: IPageKind.Regular,
-        rootElement: {
-          create: {
-            node: {
-              id: page.rootElementId,
-              name: createUniqueName(ROOT_ELEMENT_NAME, pageId),
+        return {
+          id: pageId,
+          name: createUniqueName(name, app.id),
+          app: connectNodeId(app.id),
+          getServerSideProps: getServerSideProps,
+          kind: IPageKind.Regular,
+          rootElement: {
+            create: {
+              node: {
+                id: rootElement.id,
+                name: createUniqueName(ROOT_ELEMENT_NAME, pageId),
+              },
             },
           },
-        },
-      }
-    })
+        }
+      },
+    )
 
     const {
       createPages: { pages },
@@ -191,11 +198,11 @@ export class PageService
       }),
     )
 
-    return pages.map((page) =>
+    return pages.map(({ rootElement, app, ...page }) =>
       this.add({
         ...page,
-        rootElementId: page.rootElement.id,
-        appId: page.app.id,
+        rootElement,
+        app,
       }),
     )
   })
@@ -213,17 +220,19 @@ export class PageService
   })
 
   @modelAction
-  add(pageDTO: IPageDTO) {
+  add({ name, app, rootElement, descendentElements }: IPageDTO) {
     const providerPageId = v4()
 
     const page = new Page({
       id: providerPageId,
-      name: pageDTO.name,
+      name,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-      app: { id: pageDTO.appId },
-      rootElement: elementRef(pageDTO.rootElementId),
+      app,
+      rootElement: elementRef(rootElement.id),
       kind: IPageKind.Provider,
     })
+
+    // Add all elements of page
 
     this.pages.set(page.id, page)
 

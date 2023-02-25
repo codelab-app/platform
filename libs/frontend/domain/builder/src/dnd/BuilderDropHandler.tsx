@@ -55,7 +55,7 @@ export const BuilderDropHandler = observer<
   }, [element, dropPosition])
 
   const { setNodeRef, isOver } = useCreateElementDroppable(
-    droppableId,
+    { id: droppableId },
     createElementInput,
   )
 

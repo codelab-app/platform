@@ -13,4 +13,8 @@ export interface IUser extends ICacheService<IUserDTO, IUser> {
   apps: Array<Ref<IApp>>
 }
 
+export interface IOwnerSchema {
+  owner: IAuth0Owner
+}
+
 export type IAuth0Owner = Pick<IUser, 'auth0Id'>

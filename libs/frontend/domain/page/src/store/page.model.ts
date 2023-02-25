@@ -107,6 +107,10 @@ export class Page
     }
   }
 
+  onAttachedToRootStore() {
+    console.log('Page model attached')
+  }
+
   // @modelAction
   // writeCache(page: IPageDTO) {
   //   const rootElement = new Element({

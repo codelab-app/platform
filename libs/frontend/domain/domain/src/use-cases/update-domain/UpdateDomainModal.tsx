@@ -17,14 +17,15 @@ export const UpdateDomainModal = observer<{
   userService: IUserService
 }>(({ domainService, userService }) => {
   const domain = domainService.updateModal.domain
-  const currentAppId = useCurrentAppId()
 
-  if (!domain || !domain.id) {
+  if (!domain) {
     return null
   }
 
-  const onSubmit = (input: IUpdateDomainDTO) => {
-    return domainService.update(domain, input)
+  const currentAppId = useCurrentAppId()
+
+  const onSubmit = (domainDTO: IUpdateDomainDTO) => {
+    return domainService.update(domainDTO)
   }
 
   const closeModal = () => domainService.updateModal.close()
@@ -43,7 +44,7 @@ export const UpdateDomainModal = observer<{
 
   const model: IUpdateDomainDTO = {
     name: domain.name,
-    appId: currentAppId,
+    app: { id: currentAppId },
     id: domain.id,
   }
 

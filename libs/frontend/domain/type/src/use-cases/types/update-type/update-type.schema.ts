@@ -1,11 +1,12 @@
 import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/shared/domain'
+import { nonEmptyString } from '@codelab/frontend/shared/utils'
 import {
   ICodeMirrorLanguage,
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
@@ -16,10 +17,7 @@ export const updateTypeSchema: JSONSchemaType<
   type: 'object',
   properties: {
     // Base types
-    id: {
-      type: 'string',
-      disabled: true,
-    },
+    ...idSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,

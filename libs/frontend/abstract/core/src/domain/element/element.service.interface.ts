@@ -42,7 +42,7 @@ export interface UpdateElementProperties {
 export interface IElementService
   extends Omit<
       ICRUDService<IElement, ICreateElementDTO, IUpdateElementDTO>,
-      'delete'
+      'delete' | 'update'
     >,
     ICacheService<IElementDTO, IElement>,
     Omit<IQueryService<IElement, ElementWhere, ElementOptions>, 'getOne'>,
@@ -59,6 +59,7 @@ export interface IElementService
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
+  update(element: IElement, input: IUpdateElementDTO): Promise<Array<IElement>>
   createElementAsFirstChild(data: ICreateElementDTO): Promise<IElement>
   createElementAsNextSibling(data: ICreateElementDTO): Promise<IElement>
   moveElementToAnotherTree(props: {
@@ -81,9 +82,10 @@ export interface IElementService
   ): Promise<Array<IElement>>
   convertElementToComponent(
     element: IElement,
-    auth0Id: string,
+    owner: IAuth0Owner,
   ): Promise<Maybe<IElement>>
-  element(id: string): Maybe<IElement>
+  element(id: string): IElement
+  maybeElement(id: string): Maybe<IElement>
   deleteElementSubgraph(root: IElementRef): Promise<Array<string>>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
   loadComponentTree(component: RenderedComponentFragment): {

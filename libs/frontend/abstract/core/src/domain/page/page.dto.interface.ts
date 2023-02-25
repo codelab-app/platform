@@ -1,20 +1,25 @@
 import type { IPageKind } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { IElement } from '../element'
+import type { IAuth0Owner } from '../user'
 
 export interface ICreatePageDTO {
-  id?: string
+  id: string
   // Allow us to specify rootElementId
-  rootElementId: string
+  rootElement: IEntity
+  // These are data used to hydrate the page
+  descendentElements?: Array<Ref<IElement>>
   getServerSideProps?: Nullish<string>
   name: string
-  appId: string
-  auth0Id: string
+  app: IEntity
+  // owner: IAuth0Owner
   pageContainerElementId?: Nullish<string>
 }
 
-export type IUpdatePageDTO = Omit<
+export type IUpdatePageDTO = Pick<
   ICreatePageDTO,
-  'id' | 'rootElementId' | 'auth0Id' | 'kind'
+  'id' | 'getServerSideProps' | 'name' | 'pageContainerElementId' | 'app'
 >
 
 export type IPageDTO = Omit<ICreatePageDTO, 'auth0Id'> & {
