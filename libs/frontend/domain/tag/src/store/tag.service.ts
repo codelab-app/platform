@@ -75,12 +75,12 @@ export class TagService
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, data: Array<ICreateTagDTO>) {
-    const input = data.map((tag) => {
+    const input = data.map(({ id, name, parentTag, owner }) => {
       return {
-        id: v4(),
-        name: tag.name,
-        owner: connectAuth0Owner(tag.auth0Id),
-        parent: connectNodeId(tag.parentTagId),
+        id,
+        name,
+        owner: connectAuth0Owner(owner.auth0Id),
+        parent: connectNodeId(parentTag?.id),
       }
     })
 

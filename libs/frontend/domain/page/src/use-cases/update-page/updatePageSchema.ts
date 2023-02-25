@@ -1,17 +1,31 @@
 import type { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/shared/domain'
+import {
+  nonEmptyString,
+  showFieldOnDev,
+  titleCaseValidation,
+} from '@codelab/frontend/shared/utils'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { nonEmptyString, titleCaseValidation } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
-export const updatePageSchema: JSONSchemaType<
-  Omit<IUpdatePageDTO, 'pageContainerElementId'>
-> = {
+export type UpdatePageSchema = Omit<IUpdatePageDTO, 'pageContainerElementId'>
+
+export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
   title: 'Update Page Input',
   type: 'object',
   properties: {
-    appId: {
-      type: 'string',
+    ...idSchema,
+    app: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+        },
+      },
+      ...showFieldOnDev(),
+      disabled: true,
+      required: ['id'],
     },
     name: {
       autoFocus: true,
@@ -26,5 +40,5 @@ export const updatePageSchema: JSONSchemaType<
       },
     },
   },
-  required: ['name'],
+  required: ['name', 'app'],
 } as const

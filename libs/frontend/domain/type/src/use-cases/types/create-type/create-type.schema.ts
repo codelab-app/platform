@@ -1,11 +1,12 @@
 import type { ICreateTypeDTO } from '@codelab/frontend/abstract/core'
+import { idSchema, ownerSchema } from '@codelab/frontend/shared/domain'
+import { nonEmptyString, showFieldOnDev } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
@@ -18,21 +19,8 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
   title: 'Create Type Input',
   type: 'object',
   properties: {
-    owner: {
-      type: 'object',
-      properties: {
-        auth0Id: {
-          type: 'string',
-          disabled: true,
-          ...showFieldOnDev(),
-        },
-      },
-      required: ['auth0Id'],
-    },
-    id: {
-      type: 'string',
-      disabled: true,
-    },
+    ...ownerSchema,
+    ...idSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,

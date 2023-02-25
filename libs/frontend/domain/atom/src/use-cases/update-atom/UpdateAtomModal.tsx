@@ -18,12 +18,8 @@ export const UpdateAtomModal = observer<{
   const atom = atomService.updateModal.atom
   const closeModal = () => atomService.updateModal.close()
 
-  const onSubmit = (data: IUpdateAtomDTO) => {
-    if (!atom) {
-      throw new Error('Updated atom is not set')
-    }
-
-    return atomService.update(atom, data)
+  const onSubmit = (atomDTO: IUpdateAtomDTO) => {
+    return atomService.update(atomDTO)
   }
 
   const onSubmitError = createNotificationHandler({

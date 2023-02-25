@@ -1,5 +1,6 @@
 import type {
   IAtom,
+  IAuth0Owner,
   IComponent,
   IElement,
   IElementRef,
@@ -126,6 +127,18 @@ export class ElementService
   })
 
   @modelAction
+  add({ id, name }: ICreateElementDTO) {
+    const element = new Element({
+      id,
+      name,
+    })
+
+    this.elements.set(element.id, element)
+
+    return element
+  }
+
+  @modelAction
   private writeAtomsCache(elements: Array<IElementDTO>) {
     console.debug('ElementService.writeAtomsCache', elements)
 
@@ -165,10 +178,6 @@ export class ElementService
     const hydratedElements = elements.map((element) => this.writeCache(element))
     const rootElement = this.element(component.rootElement.id)
 
-    if (!rootElement) {
-      throw new Error('No root element found')
-    }
-
     return { rootElement, hydratedElements }
   }
 
@@ -205,7 +214,7 @@ export class ElementService
 
     for (const elementInput of data) {
       const parentElement = this.elements.get(
-        elementInput.parentElementId as string,
+        elementInput.parentElement?.id ?? '',
       )
 
       const name = createUniqueName(elementInput.name, parentElement?.baseId)
@@ -228,18 +237,6 @@ export class ElementService
 
     return elements.map((element) => this.writeCache(element))
   })
-
-  @modelAction
-  add(elementDTO: ICreateElementDTO) {
-    const element = new Element({
-      id: elementDTO.id ?? v4(),
-      name: elementDTO.name,
-    })
-
-    this.elements.set(element.id, element)
-
-    return element
-  }
 
   /**
    * Returns the associated interface type of the new element to be created.
@@ -311,6 +308,17 @@ export class ElementService
 
   @modelAction
   public element(id: string) {
+    const element = this.maybeElement(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
+
+    return element
+  }
+
+  @modelAction
+  public maybeElement(id: string) {
     return this.elements.get(id) || this.clonedElements.get(id)
   }
 
@@ -420,7 +428,7 @@ Detaches element from an element tree. Will perform 3 conditional checks to see 
 - Detach from prev sibling
 - Connect prev to next
 */
-    const element = this.element(elementId)
+    const element = this.maybeElement(elementId)
 
     if (!element) {
       console.warn(`Can't find element id ${elementId}`)
@@ -477,8 +485,8 @@ parent
           targetElementId,
         }: Parameters<IElementService['moveElementAsNextSibling']>[0],
       ) {
-        const element = this.element(elementId)
-        const targetElement = this.element(targetElementId)
+        const element = this.maybeElement(elementId)
+        const targetElement = this.maybeElement(targetElementId)
 
         if (!element || !targetElement) {
           return
@@ -509,8 +517,8 @@ parent
           parentElementId,
         }: Parameters<IElementService['moveElementAsFirstChild']>[0],
       ) {
-        const element = this.element(elementId)
-        const parentElement = this.element(parentElementId)
+        const element = this.maybeElement(elementId)
+        const parentElement = this.maybeElement(parentElementId)
 
         if (!element || !parentElement) {
           return
@@ -531,8 +539,8 @@ parent
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, data: ICreateElementDTO) {
-        if (!data.parentElementId) {
-          throw new Error('Parent element id doesnt exist')
+        if (!data.parentElement?.id) {
+          throw new Error("Parent element id doesn't exist")
         }
 
         const [element] = yield* _await(this.create([data]))
@@ -544,7 +552,7 @@ parent
         yield* _await(
           this.attachElementAsFirstChild({
             elementId: element.id,
-            parentElementId: data.parentElementId,
+            parentElementId: data.parentElement.id,
           }),
         )
 
@@ -589,8 +597,8 @@ parent
       targetElementId: string
     },
   ) {
-    const element = this.element(elementId)
-    const targetElement = this.element(targetElementId)
+    const element = this.maybeElement(elementId)
+    const targetElement = this.maybeElement(targetElementId)
 
     if (!element || !targetElement) {
       return
@@ -607,7 +615,7 @@ parent
     }
 
     /**
-     * [target]-nextSibiling
+     * [target]-nextSbiling
      * target-[element]-nextSibling
      * element appends to nextSibling
      */
@@ -654,8 +662,8 @@ parent
       parentElementId: string
     },
   ) {
-    const element = this.element(elementId)
-    const parentElement = this.element(parentElementId)
+    const element = this.maybeElement(elementId)
+    const parentElement = this.maybeElement(parentElementId)
 
     if (!element || !parentElement) {
       return
@@ -712,13 +720,13 @@ element is new parentElement's first child
           dropPosition,
         }: Parameters<IElementService['moveElementToAnotherTree']>[0],
       ) {
-        const targetElement = this.element(targetElementId)
+        const targetElement = this.maybeElement(targetElementId)
 
         if (!targetElement) {
           return
         }
 
-        let element = this.element(elementId)
+        let element = this.maybeElement(elementId)
 
         if (!element) {
           const elementTree = Element.getElementTree(targetElement)
@@ -745,7 +753,7 @@ element is new parentElement's first child
           }
 
           const parentElementId = targetElement.id
-          const data = { name, renderType, parentElementId }
+          const data = { id: v4(), name, renderType, parentElementId }
 
           element = (yield* _await(this.create([data])))[0]
         } else {
@@ -793,20 +801,20 @@ element is new parentElement's first child
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, root: IElementRef) {
-        const {
-          elementTrees: [elementTree],
-        } = yield* _await(elementApi.GetElementTree({ where: { id: root } }))
+        const { elementTrees } = yield* _await(
+          elementApi.GetElementTree({ where: { id: root } }),
+        )
 
-        if (!elementTree) {
+        if (!elementTrees[0]) {
           return []
         }
 
-        const idsToDelete = [
-          elementTree.id,
-          ...elementTree.descendantElements.map((element) => element.id),
+        const idsToDelete: Array<string> = [
+          elementTrees[0].id,
+          ...elementTrees[0].descendantElements.map((element) => element.id),
         ]
 
-        const rootElement = this.element(root)
+        const rootElement = this.maybeElement(root)
 
         if (rootElement) {
           yield* _await(this.detachElementFromElementTree(rootElement.id))
@@ -941,7 +949,7 @@ element is new parentElement's first child
   public convertElementToComponent = _async(
     runSequentially(
       'elementTransaction',
-      function* (this: ElementService, element: IElement, auth0Id: string) {
+      function* (this: ElementService, element: IElement, owner: IAuth0Owner) {
         if (!element.parentElement) {
           throw new Error("Can't convert root element")
         }
@@ -958,12 +966,10 @@ element is new parentElement's first child
         const [createdComponent] = yield* _await(
           this.componentService.create([
             {
-              owner: {
-                auth0Id,
-              },
               id: v4(),
+              owner,
               name,
-              rootElementId: elementId,
+              rootElement: { id: elementId },
               childrenContainerElementId: elementId,
             },
           ]),
@@ -978,12 +984,13 @@ element is new parentElement's first child
           const [createdElement] = yield* _await(
             this.create([
               {
+                id: v4(),
                 name,
                 renderType: {
                   id: createdComponent.id,
                   model: RenderTypeEnum.Component,
                 },
-                parentElementId: parentElement.id,
+                parentElement,
               },
             ]),
           )
@@ -1004,12 +1011,13 @@ element is new parentElement's first child
 
         return yield* _await(
           this.createElementAsNextSibling({
+            id: v4(),
             name,
             renderType: {
               id: createdComponent.id,
               model: RenderTypeEnum.Component,
             },
-            parentElementId: parentElement.id,
+            parentElement,
             prevSiblingId: prevSibling.id,
           }),
         )

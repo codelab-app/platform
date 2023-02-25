@@ -12,7 +12,7 @@ export interface ICreateAtomDTO {
   /**
    * Optional string to override auto-generated id
    */
-  id?: string
+  id: string
   name: string
   type: IAtomType
   tags?: Array<ITagRef>
@@ -29,3 +29,5 @@ export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>
 export type IAtomDTO = AtomFragment
 
 export type IRenderAtomDTO = RenderAtomFragment
+
+export type IAtomID = string

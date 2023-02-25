@@ -1,5 +1,5 @@
-import type { Maybe } from '@codelab/shared/abstract/types'
-import type { RenderType } from './element.dto.interface'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import type { RenderType, RenderTypeEnum } from './element.dto.interface'
 
 export interface IComputeElementNameService {
   pickedRenderTypeName: Maybe<string>

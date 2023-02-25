@@ -1,36 +1,23 @@
 import type { ICreateAppDTO } from '@codelab/frontend/abstract/core'
+import { idSchema, ownerSchema } from '@codelab/frontend/shared/domain'
 import {
   hideField,
   nonEmptyString,
-  showFieldOnDev,
   titleCaseValidation,
-} from '@codelab/shared/utils'
+} from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
   title: 'Create App Input',
   type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      ...hideField,
-    },
+    ...idSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    owner: {
-      type: 'object',
-      properties: {
-        auth0Id: {
-          type: 'string',
-          disabled: true,
-          ...showFieldOnDev(),
-        },
-      },
-      required: ['auth0Id'],
-    },
+    ...ownerSchema,
   },
   required: ['name', 'owner'],
 } as const

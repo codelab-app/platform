@@ -25,13 +25,13 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
       return null
     }
 
-    const model = { elementId: elementService.deleteModal.element.id }
+    const model = { element: { id: elementService.deleteModal.element.id } }
     const elementToDelete = elementService.deleteModal.element
     const parentElement = elementToDelete.parentElement
 
-    const onSubmit = ({ elementId }: DeleteElementData) => {
+    const onSubmit = ({ element }: DeleteElementData) => {
       return elementService
-        .deleteElementSubgraph(elementId)
+        .deleteElementSubgraph(element.id)
         .then(
           () =>
             parentElement &&

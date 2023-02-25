@@ -12,7 +12,7 @@ type SelectLinkElementProps = Pick<SelectElementProps, 'allElementOptions'> & {
 export const SelectLinkElement = observer(
   ({ allElementOptions, name }: SelectLinkElementProps) => {
     const form = useForm<ICreateElementDTO>()
-    const parentElementId = form.model.parentElementId
+    const parentElementId = form.model.parentElement?.id
 
     if (!parentElementId) {
       return null
@@ -20,13 +20,13 @@ export const SelectLinkElement = observer(
 
     return (
       <AutoField
-        component={(props: any) => (
+        component={(props: unknown) => (
           <SelectChildElement
             allElementOptions={allElementOptions}
             allowClear
             disableWhenOneOpt={false}
             targetElementId={parentElementId}
-            // eslint-disable-next-line react/jsx-props-no-spreading
+            // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
             {...(props as any)}
           />
         )}

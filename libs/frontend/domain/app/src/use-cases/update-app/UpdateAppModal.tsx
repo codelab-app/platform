@@ -26,7 +26,7 @@ export const UpdateAppModal = observer<{
     storeId: app.store.id,
   }
 
-  const onSubmit = (input: IUpdateAppDTO) => appService.update(app, input)
+  const onSubmit = (appDTO: IUpdateAppDTO) => appService.update(appDTO)
   const closeModal = () => appService.updateModal.close()
 
   if (!userService.user) {

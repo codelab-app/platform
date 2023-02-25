@@ -5,38 +5,37 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
-export const mapCreateInput = (
-  input: ICreateComponentDTO,
-): ComponentCreateInput => {
-  const { id = v4(), name, owner, rootElementId } = input
+type CreateRootElement = (
+  rootElementId: string,
+) => ComponentCreateInput['rootElement']
+
+export const mapCreateInput = ({
+  id = v4(),
+  name,
+  owner,
+  rootElement,
+}: ICreateComponentDTO): ComponentCreateInput => {
   const newRootElementId = v4()
 
   const props: ComponentCreateInput['props'] = {
     create: { node: { data: JSON.stringify({}) } },
   }
 
-  const createRootElement: ComponentCreateInput['rootElement'] = {
+  const createRootElement: CreateRootElement = (rootElementId: string) => ({
     create: {
       node: {
-        id: newRootElementId,
-        name: createUniqueName(name, id),
+        id: rootElementId,
+        name: createUniqueName(name, rootElementId),
         props,
       },
     },
-  }
+  })
 
-  const connectRootElement: ComponentCreateInput['rootElement'] = {
-    connect: {
-      where: {
-        node: {
-          id: rootElementId ?? newRootElementId,
-        },
-      },
-    },
-  }
+  const connectRootElement: CreateRootElement = (rootElementId: string) =>
+    connectNodeId(rootElementId)
 
   const api: ComponentCreateInput['api'] = {
     create: {
@@ -51,11 +50,15 @@ export const mapCreateInput = (
   return {
     id,
     name,
-    rootElement: rootElementId ? connectRootElement : createRootElement,
+    rootElement: rootElement
+      ? connectRootElement(rootElement.id)
+      : createRootElement(newRootElementId),
     api,
     owner: connectAuth0Owner(owner.auth0Id),
     props,
-    childrenContainerElement: connectRootElement,
+    childrenContainerElement: rootElement
+      ? connectRootElement(rootElement.id)
+      : connectRootElement(newRootElementId),
   }
 }
 

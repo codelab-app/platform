@@ -84,10 +84,10 @@ export class DomainService
     this: DomainService,
     data: Array<ICreateDomainDTO>,
   ) {
-    const input: Array<DomainCreateInput> = data.map((domain) => ({
-      id: domain.id ?? v4(),
-      app: connectNodeId(domain.appId),
-      name: domain.name,
+    const input: Array<DomainCreateInput> = data.map(({ id, app, name }) => ({
+      id,
+      app: connectNodeId(app.id),
+      name,
     }))
 
     const {
@@ -113,18 +113,17 @@ export class DomainService
   @transaction
   update = _async(function* (
     this: DomainService,
-    entity: IEntity,
-    input: IUpdateDomainDTO,
+    { id, name }: IUpdateDomainDTO,
   ) {
     const {
       updateDomains: { domains },
     } = yield* _await(
       domainApis.UpdateDomains({
         where: {
-          id: entity.id,
+          id,
         },
         update: {
-          name: input.name,
+          name,
         },
       }),
     )

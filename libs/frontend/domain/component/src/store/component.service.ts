@@ -180,8 +180,7 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    existingComponent: IEntity,
-    { name, childrenContainerElementId }: IUpdateComponentDTO,
+    { id, name, childrenContainerElementId }: IUpdateComponentDTO,
   ) {
     const {
       updateComponents: { components },
@@ -191,7 +190,7 @@ export class ComponentService
           name,
           childrenContainerElement: reconnectNodeId(childrenContainerElementId),
         },
-        where: { id: existingComponent.id },
+        where: { id },
       }),
     )
 

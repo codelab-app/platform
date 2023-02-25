@@ -1,27 +1,28 @@
 import type { ICreateElementDTO } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import { titleCaseValidation } from '@codelab/shared/utils'
+import { idSchema } from '@codelab/frontend/shared/domain'
+import { titleCaseValidation } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
   title: 'Create Element Input',
   type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
+    ...idSchema,
     name: {
       type: 'string',
       ...titleCaseValidation,
     },
-    parentElementId: {
-      type: 'string',
+    parentElement: {
+      type: 'object',
       nullable: true,
-      label: 'Parent element',
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Parent element',
+        },
+      },
+      required: ['id'],
     },
     prevSiblingId: {
       type: 'string',
@@ -67,5 +68,5 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       required: ['id', 'model'],
     },
   },
-  required: ['name'],
+  required: ['name', 'id'],
 }

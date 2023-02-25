@@ -38,12 +38,6 @@ export const useDndDropHandler = (
 
     const targetElement = elementService.element(targetElementId)
 
-    if (!targetElement) {
-      console.error('Target element not found')
-
-      return
-    }
-
     if (!dragPosition) {
       console.error('Drag position is required')
 
@@ -82,7 +76,7 @@ export const useDndDropHandler = (
       // if theres no element before the target, create the new element
       // as the first child of the target's parent element
       if (!targetElement.prevSibling && targetElement.parentElement?.id) {
-        createElementDto.parentElementId = targetElement.parentElement.id
+        createElementDto.parentElement = targetElement.parentElement
         newElement = await elementService.createElementAsFirstChild(
           createElementDto,
         )
@@ -91,7 +85,7 @@ export const useDndDropHandler = (
 
     // create the new element inside the target element as a first child
     if (dragPosition === DragPosition.Inside) {
-      createElementDto.parentElementId = targetElement.id
+      createElementDto.parentElement = targetElement
       newElement = await elementService.createElementAsFirstChild(
         createElementDto,
       )
@@ -112,12 +106,6 @@ export const useDndDropHandler = (
     }
 
     const targetElement = elementService.element(targetElementId)
-
-    if (!targetElement) {
-      console.error('Target element not found')
-
-      return
-    }
 
     if (!dragPosition) {
       console.error('Drag position is required')

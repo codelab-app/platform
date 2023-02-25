@@ -51,8 +51,7 @@ export class AtomService
   @transaction
   update = _async(function* (
     this: AtomService,
-    existingAtom: IAtom,
-    { name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
+    { id, name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
   ) {
     const allowedChildrenIds = allowedChildren.map(
       (allowedChild) => allowedChild,
@@ -68,7 +67,7 @@ export class AtomService
           allowedChildren: reconnectNodeIds(allowedChildrenIds),
           tags: reconnectNodeIds(tags),
         },
-        where: { id: existingAtom.id },
+        where: { id },
       }),
     )
 
@@ -138,7 +137,9 @@ export class AtomService
   @modelFlow
   @transaction
   create = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
-    const connectOrCreateApi = (atom: ICreateAtomDTO) =>
+    const connectOrCreateApi = (
+      atom: Pick<ICreateAtomDTO, 'api' | 'name' | 'owner'>,
+    ) =>
       atom.api
         ? connectNodeId(atom.api)
         : {
@@ -150,12 +151,12 @@ export class AtomService
             },
           }
 
-    const input = data.map((atom) => ({
-      id: atom.id ?? v4(),
-      name: atom.name,
-      type: atom.type,
-      tags: connectNodeIds(atom.tags),
-      api: connectOrCreateApi(atom),
+    const input = data.map(({ id, name, type, tags, api, owner }) => ({
+      id,
+      name,
+      type,
+      tags: connectNodeIds(tags),
+      api: connectOrCreateApi({ api, name, owner }),
     }))
 
     const {

@@ -15,15 +15,11 @@ export const UpdateComponentModal = observer<{
 }>(({ componentService }) => {
   const updatedComponent = componentService.updateModal.component
 
-  if (!updatedComponent) {
-    return null
+  const handleSubmit = (componentDTO: IUpdateComponentDTO) => {
+    return componentService.update(componentDTO)
   }
 
-  const handleSubmit = (input: IUpdateComponentDTO) => {
-    return componentService.update(updatedComponent, input)
-  }
-
-  const model = { name: updatedComponent.name }
+  const model = { name: updatedComponent?.name }
   const closeModal = () => componentService.updateModal.close()
 
   return (

@@ -1,20 +1,15 @@
 import type { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
-import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
+import { idSchema, ownerSchema } from '@codelab/frontend/shared/domain'
+import { nonEmptyString, showFieldOnDev } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
-export const createComponentSchema: JSONSchemaType<
-  Omit<ICreateComponentDTO, 'rootElementId'>
-> = {
+export type CreateComponentSchema = Omit<ICreateComponentDTO, 'rootElement'>
+
+export const createComponentSchema: JSONSchemaType<CreateComponentSchema> = {
   title: 'Create Component Input',
   type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
+    ...idSchema,
     api: {
       type: 'string',
       nullable: true,
@@ -28,17 +23,7 @@ export const createComponentSchema: JSONSchemaType<
         component: () => null,
       },
     },
-    owner: {
-      type: 'object',
-      properties: {
-        auth0Id: {
-          type: 'string',
-          disabled: true,
-          ...showFieldOnDev(),
-        },
-      },
-      required: ['auth0Id'],
-    },
+    ...ownerSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,

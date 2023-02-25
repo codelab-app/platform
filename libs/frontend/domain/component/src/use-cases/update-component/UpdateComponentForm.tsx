@@ -26,13 +26,12 @@ export const UpdateComponentForm = observer<UpdateComponentFormProps>(
       childrenContainerElementId: component.childrenContainerElementId,
     }
 
-    const onSubmit = (input: IUpdateComponentDTO) => {
-      return componentService.update(component, input)
-    }
+    const onSubmit = (componentDTO: IUpdateComponentDTO) =>
+      componentService.update(componentDTO)
 
     return (
       <FormContextProvider value={{ elementTree }}>
-        <Form<Omit<IUpdateComponentDTO, 'rootElementId'>>
+        <Form<IUpdateComponentDTO>
           autosave
           model={model}
           onSubmit={onSubmit}

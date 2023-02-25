@@ -33,6 +33,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     const providerPageId = v4()
 
     const rootElement = this.elementService.add({
+      id: v4(),
       name: slugify(`${providerPageId}-${ROOT_ELEMENT_NAME}`),
     })
 
@@ -40,8 +41,8 @@ export class PageFactory extends Model({}) implements IPageFactory {
       id: providerPageId,
       name: APP_PAGE_NAME,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-      appId: app.id,
-      rootElementId: rootElement.id,
+      app,
+      rootElement,
       kind: IPageKind.Provider,
     })
   }
@@ -51,6 +52,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     const notFoundPageId = v4()
 
     const rootElement = this.elementService.add({
+      id: v4(),
       name: slugify(`${notFoundPageId}-${ROOT_ELEMENT_NAME}`),
     })
 
@@ -59,8 +61,8 @@ export class PageFactory extends Model({}) implements IPageFactory {
       name: NOT_FOUND_PAGE_NAME,
       // name: slugify(`${app.id}-${NOT_FOUND_PAGE_NAME}`),
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-      appId: app.id,
-      rootElementId: rootElement.id,
+      app,
+      rootElement,
       kind: IPageKind.NotFound,
     })
   }
@@ -70,6 +72,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     const internalServerErrorPageId = v4()
 
     const rootElement = this.elementService.add({
+      id: v4(),
       name: slugify(`${internalServerErrorPageId}-${ROOT_ELEMENT_NAME}`),
     })
 
@@ -78,8 +81,8 @@ export class PageFactory extends Model({}) implements IPageFactory {
       name: INTERNAL_SERVER_ERROR_PAGE_NAME,
       // name: slugify(`${app.id}-${NOT_FOUND_PAGE_NAME}`),
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-      appId: app.id,
-      rootElementId: rootElement.id,
+      app,
+      rootElement,
       kind: IPageKind.InternalServerError,
     })
   }

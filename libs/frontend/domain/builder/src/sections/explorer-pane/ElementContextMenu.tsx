@@ -70,7 +70,9 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      const createdElement = await convertElementToComponent(element, user.sub)
+      const createdElement = await convertElementToComponent(element, {
+        auth0Id: user.sub,
+      })
 
       if (createdElement) {
         elementTree?.addElements([createdElement])

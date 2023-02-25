@@ -4,21 +4,16 @@ import {
   NumberValidationRules,
   StringValidationRules,
 } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/shared/domain'
+import { nonEmptyString } from '@codelab/frontend/shared/utils'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
+    ...idSchema,
     key: {
       autoFocus: true,
       ...nonEmptyString,

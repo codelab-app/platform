@@ -4,7 +4,7 @@ import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
 
-let _store: IRootStore | null = null
+export let _store: IRootStore | null = null
 
 /**
  * User is passed automatically when we call withPageAuthRequired
