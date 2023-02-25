@@ -20,15 +20,14 @@ import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import capitalize from 'lodash/capitalize'
 import { v4 } from 'uuid'
 
-export const makeStoreCreateInput = (
-  input: ICreateStoreDTO,
-): StoreCreateInput => {
-  const { name, auth0Id } = input
-
+export const makeStoreCreateInput = ({
+  name,
+  owner,
+}: ICreateStoreDTO): StoreCreateInput => {
   const interfaceCreateInput: InterfaceTypeCreateInput = {
     id: v4(),
     name: `${capitalize(name)} State`,
-    owner: connectAuth0Owner(auth0Id),
+    owner: connectAuth0Owner(owner.auth0Id),
   }
 
   return {
@@ -77,43 +76,47 @@ export const makeActionCreateInput = (
   }
 }
 
-export const makeActionUpdateInput = (
-  action: IAnyAction,
-  input: IUpdateActionDTO,
-): {
+export const makeActionUpdateInput = ({
+  id,
+  name,
+  type,
+  resourceId,
+  config,
+  errorActionId,
+  successActionId,
+  code,
+}: IUpdateActionDTO): {
   where: IAnyActionWhere
   update: IUpdateActionInput
 } => {
   return {
-    where: { id: action.id },
+    where: { id },
     update: {
-      name: input.name,
+      name: name,
 
       resource:
-        input.type === IActionKind.ApiAction
-          ? connectNodeId(input.resourceId)
-          : undefined,
+        type === IActionKind.ApiAction ? connectNodeId(resourceId) : undefined,
 
       config:
-        input.type === IActionKind.ApiAction
-          ? { update: { node: { data: JSON.stringify(input.config) } } }
+        type === IActionKind.ApiAction
+          ? { update: { node: { data: JSON.stringify(config) } } }
           : undefined,
       errorAction:
-        input.type === IActionKind.ApiAction
+        type === IActionKind.ApiAction
           ? {
-              ApiAction: connectNodeId(input.errorActionId),
-              CodeAction: connectNodeId(input.errorActionId),
+              ApiAction: connectNodeId(errorActionId),
+              CodeAction: connectNodeId(errorActionId),
             }
           : undefined,
       successAction:
-        input.type === IActionKind.ApiAction
+        type === IActionKind.ApiAction
           ? {
-              ApiAction: connectNodeId(input.successActionId),
-              CodeAction: connectNodeId(input.successActionId),
+              ApiAction: connectNodeId(successActionId),
+              CodeAction: connectNodeId(successActionId),
             }
           : undefined,
 
-      code: input.type === IActionKind.CodeAction ? input.code : undefined,
+      code: type === IActionKind.CodeAction ? code : undefined,
     },
   }
 }

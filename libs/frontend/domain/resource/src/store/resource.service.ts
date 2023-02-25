@@ -84,7 +84,7 @@ export class ResourceService
           },
         },
       },
-      owner: connectAuth0Owner(resource.auth0Id),
+      owner: connectAuth0Owner(resource.owner.auth0Id),
     }))
 
     const {
@@ -102,11 +102,8 @@ export class ResourceService
   @transaction
   update = _async(function* (
     this: ResourceService,
-    entity: IEntity,
-    input: IUpdateResourceDTO,
+    { id, config, name, type }: IUpdateResourceDTO,
   ) {
-    const { config, name, type } = input
-
     const {
       updateResources: { resources },
     } = yield* _await(
@@ -119,7 +116,7 @@ export class ResourceService
             where: {},
           },
         },
-        where: { id: entity.id },
+        where: { id },
       }),
     )
 

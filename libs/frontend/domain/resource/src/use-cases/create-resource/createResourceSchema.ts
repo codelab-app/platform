@@ -1,4 +1,5 @@
 import type { ICreateResourceDTO } from '@codelab/frontend/abstract/core'
+import { idSchema, ownerSchema } from '@codelab/frontend/shared/domain'
 import { nonEmptyString, showFieldOnDev } from '@codelab/frontend/shared/utils'
 import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
@@ -9,6 +10,8 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
   title: 'Create Resource',
   type: 'object',
   properties: {
+    ...idSchema,
+    ...ownerSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,
@@ -33,11 +36,6 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
       },
       label: '',
       required: ['url'],
-    },
-    auth0Id: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
     },
   },
   required: ['name', 'type'],

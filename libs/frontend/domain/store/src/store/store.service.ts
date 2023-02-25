@@ -145,8 +145,7 @@ export class StoreService
   @transaction
   update = _async(function* (
     this: StoreService,
-    { id }: IEntity,
-    { name }: IUpdateStoreDTO,
+    { name, id }: IUpdateStoreDTO,
   ) {
     const {
       updateStores: { stores },

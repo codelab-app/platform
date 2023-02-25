@@ -16,12 +16,12 @@ export const UpdateResourceModal = observer<{
   const updateResource = resourceService.updateModal.resource
   const closeModal = () => resourceService.updateModal.close()
 
-  const onSubmit = async (data: IUpdateResourceDTO) => {
+  const onSubmit = async (resourceDTO: IUpdateResourceDTO) => {
     if (!updateResource) {
       throw new Error('Updated resource is not set')
     }
 
-    return resourceService.update(updateResource, data)
+    return resourceService.update(resourceDTO)
   }
 
   const onSubmitError = createNotificationHandler({

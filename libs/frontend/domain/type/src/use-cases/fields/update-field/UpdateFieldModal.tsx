@@ -39,7 +39,7 @@ export const UpdateFieldModal = observer<{
       typeService.primitiveKind(input.fieldType),
     )
 
-    return fieldService.update(field, { ...input, validationRules })
+    return fieldService.update({ ...input, validationRules })
   }
 
   return (

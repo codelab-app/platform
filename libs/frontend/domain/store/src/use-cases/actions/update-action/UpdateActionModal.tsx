@@ -20,12 +20,12 @@ export const UpdateActionModal = observer<{
   const closeModal = () => actionService.updateModal.close()
   const updateAction = actionService.updateModal.action
 
-  const onSubmit = (data: IUpdateActionDTO) => {
+  const onSubmit = (actionDTO: IUpdateActionDTO) => {
     if (!updateAction) {
       throw new Error('Updated action is not set')
     }
 
-    return actionService.update(updateAction, data)
+    return actionService.update(actionDTO)
   }
 
   const onSubmitError = createNotificationHandler({

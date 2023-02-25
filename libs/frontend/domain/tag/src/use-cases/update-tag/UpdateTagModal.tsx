@@ -7,18 +7,19 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import type { UpdateTagSchema } from './updateTagSchema'
 import { updateTagSchema } from './updateTagSchema'
 
 export const UpdateTagModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {
     const tag = tagService.updateModal.tag
 
-    const onSubmit = (input: IUpdateTagDTO) => {
+    const onSubmit = (tagDTO: IUpdateTagDTO) => {
       if (!tag) {
         throw new Error('Updated tag is not set')
       }
 
-      return tagService.update(tag, input)
+      return tagService.update(tagDTO)
     }
 
     const closeModal = () => tagService.updateModal.close()
@@ -29,7 +30,7 @@ export const UpdateTagModal = observer<{ tagService: ITagService }>(
         onCancel={closeModal}
         open={tagService.updateModal.isOpen}
       >
-        <ModalForm.Form<IUpdateTagDTO>
+        <ModalForm.Form<UpdateTagSchema>
           model={{ name: tag?.name }}
           onSubmit={onSubmit}
           onSubmitError={createNotificationHandler({
