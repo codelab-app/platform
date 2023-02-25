@@ -17,10 +17,6 @@ export const UpdateResourceModal = observer<{
   const closeModal = () => resourceService.updateModal.close()
 
   const onSubmit = async (resourceDTO: IUpdateResourceDTO) => {
-    if (!updateResource) {
-      throw new Error('Updated resource is not set')
-    }
-
     return resourceService.update(resourceDTO)
   }
 
@@ -28,14 +24,12 @@ export const UpdateResourceModal = observer<{
     title: 'Error while updating resource',
   })
 
-  const model = updateResource
-    ? {
-        name: updateResource.name,
-        config: updateResource.config.values,
-        type: updateResource.type,
-        owner: updateResource.owner,
-      }
-    : {}
+  const model = {
+    name: updateResource?.name,
+    config: updateResource?.config.values,
+    type: updateResource?.type,
+    owner: updateResource?.owner,
+  }
 
   return (
     <ModalForm.Modal

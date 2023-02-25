@@ -21,10 +21,6 @@ export const UpdateActionModal = observer<{
   const updateAction = actionService.updateModal.action
 
   const onSubmit = (actionDTO: IUpdateActionDTO) => {
-    if (!updateAction) {
-      throw new Error('Updated action is not set')
-    }
-
     return actionService.update(actionDTO)
   }
 
