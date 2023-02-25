@@ -57,6 +57,13 @@ export const GetTagsTable = observer<GetTagsTableProps>(
       },
     ]
 
-    return <Table columns={columns} dataSource={dataSource} loading={loading} />
+    return (
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        loading={loading}
+        scroll={{ y: '80vh' }}
+      />
+    )
   },
 )

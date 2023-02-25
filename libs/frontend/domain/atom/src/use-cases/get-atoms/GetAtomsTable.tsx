@@ -99,6 +99,7 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
         }}
         rowKey={(atom) => atom.id}
         rowSelection={rowSelection}
+        scroll={{ y: '80vh' }}
       />
     )
   },
