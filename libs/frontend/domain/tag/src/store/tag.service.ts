@@ -115,15 +115,14 @@ export class TagService
   @transaction
   update = _async(function* (
     this: TagService,
-    entity: IEntity,
-    input: IUpdateTagDTO,
+    { id, name, parentTag }: IUpdateTagDTO,
   ) {
     const {
       updateTags: { tags },
     } = yield* _await(
       tagApi.UpdateTags({
-        where: { id: entity.id },
-        update: { ...input },
+        where: { id },
+        update: { name },
       }),
     )
 

@@ -9,6 +9,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { createAtomSchema } from './createAtomSchema'
 
 export const CreateAtomModal = observer<{
@@ -36,7 +37,8 @@ export const CreateAtomModal = observer<{
     >
       <ModalForm.Form<ICreateAtomDTO>
         model={{
-          owner: { auth0Id: userService.user?.auth0Id },
+          id: v4(),
+          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

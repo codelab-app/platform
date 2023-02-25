@@ -93,27 +93,32 @@ export class FieldService
   @transaction
   update = _async(function* (
     this: FieldService,
-    existing: IField,
-    data: ICreateFieldDTO,
+    {
+      fieldType,
+      description,
+      id,
+      key,
+      name,
+      defaultValues,
+      validationRules,
+    }: ICreateFieldDTO,
   ) {
-    const input: FieldUpdateInput = {
-      fieldType: reconnectNodeId(data.fieldType),
-      description: data.description,
-      id: data.id,
-      key: data.key,
-      name: data.name,
-      defaultValues: JSON.stringify(data.defaultValues),
-      validationRules: JSON.stringify(data.validationRules),
-    }
-
     const {
       updateFields: { fields },
     } = yield* _await(
       fieldApi.UpdateFields({
         where: {
-          id: existing.id,
+          id,
         },
-        update: input,
+        update: {
+          fieldType: reconnectNodeId(fieldType),
+          description: description,
+          id: id,
+          key: key,
+          name: name,
+          defaultValues: JSON.stringify(defaultValues),
+          validationRules: JSON.stringify(validationRules),
+        },
       }),
     )
 

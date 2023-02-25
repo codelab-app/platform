@@ -13910,9 +13910,9 @@ __metadata:
     twin.macro: 3.1.0
     typescript: 4.8.4
     typescript-json-schema: ^0.55.0
-    uniforms: 3.10.0
-    uniforms-antd: 3.10.0
-    uniforms-bridge-json-schema: 3.10.0
+    uniforms: 3.10.2
+    uniforms-antd: 3.10.2
+    uniforms-bridge-json-schema: 3.10.2
     use-resize-observer: 8.0.0
     utility-types: 3.10.0
     uuid: 8.3.2
@@ -33055,45 +33055,45 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uniforms-antd@npm:3.10.0":
-  version: 3.10.0
-  resolution: "uniforms-antd@npm:3.10.0"
+"uniforms-antd@npm:3.10.2":
+  version: 3.10.2
+  resolution: "uniforms-antd@npm:3.10.2"
   dependencies:
     invariant: ^2.0.0
     lodash: ^4.0.0
     tslib: ^2.2.0
-    uniforms: ^3.10.0
+    uniforms: ^3.10.2
     warning: ^4.0.0
   peerDependencies:
     "@ant-design/icons": ^4.0.0
     antd: ^4.0.0
     react: ^18.0.0 || ^17.0.0 || ^16.8.0
-  checksum: 6ce9bb88e2da06e8049d0fcab7087f7ab7f63071f991cdebd134026c482136d96580e8078c6259670787dd2194d1f5816ad5caa46437dcb526b8529066f085b1
+  checksum: ec05577c885a103e5efdf908c1d23a7933d48d6bbca4f50584c961f92f77a6d0b469e73f57a2e58e1d5a0866836cb57ed590ba8c205367962154119b3095da0c
   languageName: node
   linkType: hard
 
-"uniforms-bridge-json-schema@npm:3.10.0":
-  version: 3.10.0
-  resolution: "uniforms-bridge-json-schema@npm:3.10.0"
+"uniforms-bridge-json-schema@npm:3.10.2":
+  version: 3.10.2
+  resolution: "uniforms-bridge-json-schema@npm:3.10.2"
   dependencies:
     invariant: ^2.0.0
     lodash: ^4.0.0
     tslib: ^2.2.0
-    uniforms: ^3.10.0
-  checksum: b09b64b45e9b8535f80639dcac966f694f96991a7f8b1ba871b25a1e5dee9688c6fbe43831681a4ecdb5a1ef3d327eafd590521f6a4d6274ccece0549c2dbc53
+    uniforms: ^3.10.2
+  checksum: c5eb33b2f58a4f5e107cbbe79652373d1104ddb547ae1d5a3f31d5fc57c4dde03ce00835f1c5e284d782dc4a6f49f7b797b636aaff9d3a84fe2f9133f394a48f
   languageName: node
   linkType: hard
 
-"uniforms@npm:3.10.0, uniforms@npm:^3.10.0":
-  version: 3.10.0
-  resolution: "uniforms@npm:3.10.0"
+"uniforms@npm:3.10.2, uniforms@npm:^3.10.2":
+  version: 3.10.2
+  resolution: "uniforms@npm:3.10.2"
   dependencies:
     invariant: ^2.0.0
     lodash: ^4.0.0
     tslib: ^2.2.0
   peerDependencies:
     react: ^18.0.0 || ^17.0.0 || ^16.8.0
-  checksum: e3a387db10ee8d70d0c17ad05ab33382f9c1d385a1fb660fecaba0561ac0ab2e72590e2f0538bfbdd45468efc229d37f6ed7468765bd3d2c9d6238c43b2cc5cb
+  checksum: 6a9284b8a6eab09074a3a64d60ea3b9f7c5112f26d45f986aa73c299d1583c7d866d609c318063a21ce8389ae31ad8d935a0454e26e76f14bf73604197104fd0
   languageName: node
   linkType: hard
 

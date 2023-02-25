@@ -1,6 +1,6 @@
 import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
-import { nonEmptyString } from '@codelab/frontend/shared/utils'
+import { hideField, nonEmptyString } from '@codelab/frontend/shared/utils'
 import {
   ICodeMirrorLanguage,
   IElementTypeKind,
@@ -17,7 +17,12 @@ export const updateTypeSchema: JSONSchemaType<
   type: 'object',
   properties: {
     // Base types
-    ...idSchema,
+    // ...idSchema,
+    id: {
+      type: 'string',
+      ...hideField,
+      required: ['id'],
+    },
     name: {
       autoFocus: true,
       ...nonEmptyString,

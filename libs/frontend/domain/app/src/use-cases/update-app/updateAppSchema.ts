@@ -17,5 +17,5 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
       ...titleCaseValidation,
     },
   },
-  required: ['name'],
+  required: ['name', 'id'],
 } as const

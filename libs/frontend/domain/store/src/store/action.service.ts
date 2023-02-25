@@ -77,13 +77,9 @@ export class ActionService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: ActionService,
-    existing: IAnyAction,
-    input: IUpdateActionDTO,
-  ) {
-    const updateInput = makeActionUpdateInput(existing, input)
-    const actions = yield* _await(updateActionApi[existing.type](updateInput))
+  update = _async(function* (this: ActionService, actionDTO: IUpdateActionDTO) {
+    const updateInput = makeActionUpdateInput(actionDTO)
+    const actions = yield* _await(updateActionApi[actionDTO.type](updateInput))
 
     return actions.map((action) => this.writeCache(action))
   })

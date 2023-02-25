@@ -58,9 +58,9 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
   useEffect(() => {
     // Only call this once on dev mode
-    if (process.env.NEXT_PUBLIC_BUILDER_HOST?.includes('127.0.0.1')) {
-      void fetch('/api/upsert-user')
-    }
+    // if (process.env.NEXT_PUBLIC_BUILDER_HOST?.includes('127.0.0.1')) {
+    //   void fetch('/api/upsert-user')
+    // }
   }, [])
 
   return (

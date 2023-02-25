@@ -210,17 +210,13 @@ export class TypeService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: TypeService,
-    entity: IAnyType,
-    data: IUpdateTypeDTO,
-  ) {
+  update = _async(function* (this: TypeService, typeDTO: IUpdateTypeDTO) {
     const args = {
-      where: { id: entity.id },
-      ...updateTypeInputFactory(data),
+      where: { id: typeDTO.id },
+      ...updateTypeInputFactory(typeDTO),
     }
 
-    const updatedTypes = yield* _await(updateTypeApi[entity.kind](args))
+    const updatedTypes = yield* _await(updateTypeApi[typeDTO.kind](args))
 
     return updatedTypes.map((type) => this.writeCache(type))
   })

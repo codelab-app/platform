@@ -31,7 +31,7 @@ export const CreateResourceModal = observer<{
       open={resourceService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{ auth0Id: userService.auth0Id, type }}
+        model={{ owner: { auth0Id: userService.auth0Id }, type }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
