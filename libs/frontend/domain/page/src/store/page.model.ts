@@ -3,27 +3,13 @@ import type {
   IPage,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import {
-  APP_PAGE_NAME,
-  DEFAULT_GET_SERVER_SIDE_PROPS,
-  IPageDTO,
-  ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  Element,
-  elementRef,
-  ElementTreeService,
-} from '@codelab/frontend/domain/element'
+import { ElementTreeService } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { extractName } from '@codelab/frontend/shared/utils'
-import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
-import { v4 } from 'uuid'
+import { ExtendedModel, idProp, model, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 import { pageApi } from './page.api'
 
@@ -107,9 +93,9 @@ export class Page
     }
   }
 
-  onAttachedToRootStore() {
-    console.log('Page model attached')
-  }
+  // onAttachedToRootStore() {
+  //   console.log('Page model attached')
+  // }
 
   // @modelAction
   // writeCache(page: IPageDTO) {

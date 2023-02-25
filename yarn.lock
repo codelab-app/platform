@@ -8736,6 +8736,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/auth0-js@npm:^9.14.7":
+  version: 9.14.7
+  resolution: "@types/auth0-js@npm:9.14.7"
+  checksum: dda4c3355aaeca38a8a330e09392f74acca368ca6ba2f2e91e3ac42cbbbb7a52dddd775942afe168987cca62e909b3541c65f7f36881bd22a769f29715e02ea8
+  languageName: node
+  linkType: hard
+
 "@types/auth0@npm:2.35.6":
   version: 2.35.6
   resolution: "@types/auth0@npm:2.35.6"
@@ -13727,6 +13734,7 @@ __metadata:
     "@testing-library/react-hooks": 8.0.1
     "@testing-library/user-event": 14.2.0
     "@types/auth0": 2.35.6
+    "@types/auth0-js": ^9.14.7
     "@types/buble": ^0.20.1
     "@types/concurrently": 6.4.0
     "@types/cookie": ^0.5.1
@@ -13791,7 +13799,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
-    cypress: ^12.6.0
+    cypress: ^12.7.0
     cypress-jest-adapter: ^0.1.1
     cypress-log-to-output: ^1.1.2
     cypress-nextjs-auth0: 2.1.0
@@ -15234,61 +15242,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:11.1.0":
-  version: 11.1.0
-  resolution: "cypress@npm:11.1.0"
-  dependencies:
-    "@cypress/request": ^2.88.10
-    "@cypress/xvfb": ^1.2.4
-    "@types/node": ^14.14.31
-    "@types/sinonjs__fake-timers": 8.1.1
-    "@types/sizzle": ^2.3.2
-    arch: ^2.2.0
-    blob-util: ^2.0.2
-    bluebird: ^3.7.2
-    buffer: ^5.6.0
-    cachedir: ^2.3.0
-    chalk: ^4.1.0
-    check-more-types: ^2.24.0
-    cli-cursor: ^3.1.0
-    cli-table3: ~0.6.1
-    commander: ^5.1.0
-    common-tags: ^1.8.0
-    dayjs: ^1.10.4
-    debug: ^4.3.2
-    enquirer: ^2.3.6
-    eventemitter2: 6.4.7
-    execa: 4.1.0
-    executable: ^4.1.1
-    extract-zip: 2.0.1
-    figures: ^3.2.0
-    fs-extra: ^9.1.0
-    getos: ^3.2.1
-    is-ci: ^3.0.0
-    is-installed-globally: ~0.4.0
-    lazy-ass: ^1.6.0
-    listr2: ^3.8.3
-    lodash: ^4.17.21
-    log-symbols: ^4.0.0
-    minimist: ^1.2.6
-    ospath: ^1.2.2
-    pretty-bytes: ^5.6.0
-    proxy-from-env: 1.0.0
-    request-progress: ^3.0.0
-    semver: ^7.3.2
-    supports-color: ^8.1.1
-    tmp: ~0.2.1
-    untildify: ^4.0.0
-    yauzl: ^2.10.0
-  bin:
-    cypress: bin/cypress
-  checksum: ee0097778cf3cdf3854325cabf19a60a7486d46ae70082034c05b22b203f21ff85a4871c08dadc6641be649a64c739a443dd3f2d6a5ab112fc9ead703e1f1be3
-  languageName: node
-  linkType: hard
-
-"cypress@npm:^12.6.0":
-  version: 12.6.0
-  resolution: "cypress@npm:12.6.0"
+"cypress@npm:*, cypress@npm:^12.7.0":
+  version: 12.7.0
+  resolution: "cypress@npm:12.7.0"
   dependencies:
     "@cypress/request": ^2.88.10
     "@cypress/xvfb": ^1.2.4
@@ -15334,59 +15290,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 716afdc7bd83d14d9ad31aba9f757a5dfccc1a693c57273a6b2281ddc1b201a432fae5c5ae8f049088384e3bcc3bda530910870ff8604a0233e1b96abc069850
-  languageName: node
-  linkType: hard
-
-"cypress@patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch::locator=codelab%40workspace%3A.":
-  version: 11.1.0
-  resolution: "cypress@patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch::version=11.1.0&hash=13cd81&locator=codelab%40workspace%3A."
-  dependencies:
-    "@cypress/request": ^2.88.10
-    "@cypress/xvfb": ^1.2.4
-    "@types/node": ^14.14.31
-    "@types/sinonjs__fake-timers": 8.1.1
-    "@types/sizzle": ^2.3.2
-    arch: ^2.2.0
-    blob-util: ^2.0.2
-    bluebird: ^3.7.2
-    buffer: ^5.6.0
-    cachedir: ^2.3.0
-    chalk: ^4.1.0
-    check-more-types: ^2.24.0
-    cli-cursor: ^3.1.0
-    cli-table3: ~0.6.1
-    commander: ^5.1.0
-    common-tags: ^1.8.0
-    dayjs: ^1.10.4
-    debug: ^4.3.2
-    enquirer: ^2.3.6
-    eventemitter2: 6.4.7
-    execa: 4.1.0
-    executable: ^4.1.1
-    extract-zip: 2.0.1
-    figures: ^3.2.0
-    fs-extra: ^9.1.0
-    getos: ^3.2.1
-    is-ci: ^3.0.0
-    is-installed-globally: ~0.4.0
-    lazy-ass: ^1.6.0
-    listr2: ^3.8.3
-    lodash: ^4.17.21
-    log-symbols: ^4.0.0
-    minimist: ^1.2.6
-    ospath: ^1.2.2
-    pretty-bytes: ^5.6.0
-    proxy-from-env: 1.0.0
-    request-progress: ^3.0.0
-    semver: ^7.3.2
-    supports-color: ^8.1.1
-    tmp: ~0.2.1
-    untildify: ^4.0.0
-    yauzl: ^2.10.0
-  bin:
-    cypress: bin/cypress
-  checksum: e6952e956fcd26626ee15bbc16a4570abb52ffe9af8508c8b601baad2fdfc9cacc49dfdf73d615d6ebfc1cded3251707be736e643beaa0ac49d5a603421f1ca3
+  checksum: a9489f7f254dcee1b8a374d14d175c8f8681a3388e4c02181e0486f064f4de59bfc79dec1f401605332d3a5869bf2ba06b3a1653a5c287e447810d756d470078
   languageName: node
   linkType: hard
 

@@ -203,6 +203,7 @@
     "@testing-library/react-hooks": "8.0.1",
     "@testing-library/user-event": "14.2.0",
     "@types/auth0": "2.35.6",
+    "@types/auth0-js": "^9.14.7",
     "@types/buble": "^0.20.1",
     "@types/concurrently": "6.4.0",
     "@types/cookie": "^0.5.1",
@@ -252,7 +253,7 @@
     "cookie": "^0.5.0",
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
-    "cypress": "^12.6.0",
+    "cypress": "^12.7.0",
     "cypress-jest-adapter": "^0.1.1",
     "cypress-log-to-output": "^1.1.2",
     "cypress-nextjs-auth0": "2.1.0",
@@ -323,8 +324,6 @@
   },
   "resolutions": {
     "rxjs": "^6.6.3",
-    "cypress@11.1.0": "patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch",
-    "cypress@*": "patch:cypress@npm%3A11.1.0#./.yarn/patches/cypress-npm-11.1.0-cfbafae592.patch",
     "@neo4j/graphql@3.16.1": "patch:@neo4j/graphql@npm%3A3.16.1#./.yarn/patches/@neo4j-graphql-npm-3.16.1-1b83dda2a3.patch",
     "@neo4j/graphql@^3.16.1": "patch:@neo4j/graphql@npm%3A3.16.1#./.yarn/patches/@neo4j-graphql-npm-3.16.1-1b83dda2a3.patch"
   }

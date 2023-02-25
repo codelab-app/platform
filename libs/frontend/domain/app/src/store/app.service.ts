@@ -14,13 +14,11 @@ import {
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
-  getSnapshot,
   Model,
   model,
   modelAction,
@@ -157,8 +155,6 @@ export class AppService
   @transaction
   add = _async(function* (this: AppService, appDto: ICreateAppDTO) {
     const app = this.create(appDto)
-
-    console.log(getSnapshot(app))
 
     yield* _await(this.appRepository.add(app))
 
