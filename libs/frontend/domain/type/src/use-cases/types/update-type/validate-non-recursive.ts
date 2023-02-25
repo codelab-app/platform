@@ -8,9 +8,13 @@ const getInnerTypeIds = (submitData: IUpdateTypeDTO) => [
 // Check if the updated type is not a descendant of any of the inner types
 // because this would cause a circular dependency between them and
 export const validateNonRecursive = async (
-  updateId: string,
+  updateId: string | undefined,
   submitData: IUpdateTypeDTO,
 ) => {
+  if (!updateId) {
+    throw new Error('Missing type id')
+  }
+
   const innerTypes = getInnerTypeIds(submitData)
 
   if (innerTypes.length > 0) {

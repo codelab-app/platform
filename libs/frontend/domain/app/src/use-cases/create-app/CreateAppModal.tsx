@@ -19,16 +19,12 @@ export const CreateAppModal = observer<{
     return appService.add({ ...data, id: v4() })
   }
 
-  if (!userService.user?.auth0Id) {
-    return null
-  }
-
   const closeModal = () => appService.createModal.close()
 
   const model = {
     id: v4(),
     owner: {
-      auth0Id: userService.user.auth0Id,
+      auth0Id: userService.user?.auth0Id,
     },
   }
 

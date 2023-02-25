@@ -19,15 +19,11 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const closeModal = () => typeService.updateModal.close()
 
-    const typeToUpdate = typeService.updateModal.type
-      ? typeService.types.get(typeService.updateModal.type.id)
-      : null
+    const typeToUpdate = typeService.types.get(
+      typeService.updateModal.type?.id ?? '',
+    )
 
     const handleSubmit = async (submitData: IUpdateTypeDTO) => {
-      if (!typeToUpdate) {
-        throw new Error('Type not set for typeStore.updateModal.')
-      }
-
       const data = {
         ...submitData,
         allowedValues: submitData.allowedValues?.map((val) => ({
@@ -36,7 +32,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         })),
       }
 
-      await validateNonRecursive(typeToUpdate.id, data)
+      await validateNonRecursive(typeToUpdate?.id, data)
 
       await typeService.update(data)
       void typeService.getBaseTypes({}).then(() => undefined)
@@ -77,10 +73,6 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           : undefined,
     }
 
-    if (!typeToUpdate) {
-      return null
-    }
-
     return (
       <ModalForm.Modal
         className="update-type-modal"
@@ -100,13 +92,13 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           schema={updateTypeSchema}
         >
           <AutoFields fields={['name']} />
-          {typeToUpdate.kind === ITypeKind.UnionType && (
+          {typeToUpdate?.kind === ITypeKind.UnionType && (
             <AutoField name="unionTypeIds" types={typeService.typesList} />
           )}
-          {typeToUpdate.kind === ITypeKind.PrimitiveType && (
+          {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
             <AutoField name="primitiveKind" />
           )}
-          {typeToUpdate.kind === ITypeKind.EnumType && (
+          {typeToUpdate?.kind === ITypeKind.EnumType && (
             <AutoField name="allowedValues" />
           )}
           <DisplayIfKind kind={ITypeKind.ArrayType}>

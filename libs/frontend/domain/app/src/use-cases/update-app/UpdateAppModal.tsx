@@ -16,15 +16,11 @@ export const UpdateAppModal = observer<{
 }>(({ appService, userService }) => {
   const app = appService.updateModal.app
 
-  if (!app || !userService.user?.auth0Id) {
-    return null
-  }
-
   const model = {
-    id: app.id,
-    name: app.name,
-    ownerId: userService.user.auth0Id,
-    storeId: app.store.id,
+    id: app?.id,
+    name: app?.name,
+    ownerId: userService.user?.auth0Id,
+    storeId: app?.store.id,
   }
 
   const onSubmit = (appDTO: IUpdateAppDTO) => appService.update(appDTO)

@@ -17,11 +17,6 @@ export const UpdateDomainModal = observer<{
   userService: IUserService
 }>(({ domainService, userService }) => {
   const domain = domainService.updateModal.domain
-
-  if (!domain) {
-    return null
-  }
-
   const currentAppId = useCurrentAppId()
 
   const onSubmit = (domainDTO: IUpdateDomainDTO) => {
@@ -29,11 +24,6 @@ export const UpdateDomainModal = observer<{
   }
 
   const closeModal = () => domainService.updateModal.close()
-
-  if (!userService.user) {
-    throw new Error('Missing user for update app')
-  }
-
   const { onError } = useNotify({}, {})
 
   const onSubmitError = (error: unknown) => {
@@ -42,10 +32,10 @@ export const UpdateDomainModal = observer<{
     }
   }
 
-  const model: IUpdateDomainDTO = {
-    name: domain.name,
+  const model = {
+    name: domain?.name,
     app: { id: currentAppId },
-    id: domain.id,
+    id: domain?.id,
   }
 
   return (

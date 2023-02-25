@@ -15,10 +15,6 @@ export const UpdateTagModal = observer<{ tagService: ITagService }>(
     const tag = tagService.updateModal.tag
 
     const onSubmit = (tagDTO: IUpdateTagDTO) => {
-      if (!tag) {
-        throw new Error('Updated tag is not set')
-      }
-
       return tagService.update(tagDTO)
     }
 
