@@ -9,10 +9,10 @@ resource "auth0_action" "upsert_user" {
   runtime = "node16"
   code    = <<-EOT
 
-const { request, gql, GraphQLClient } = require('graphql-request')
-const { ManagementClient } = require('auth0')
+const { gql, GraphQLClient } = require('graphql-request')
 const { URL } = require('url');
 const axios = require('axios');
+const { v4 } = require('uuid');
 
 /**
   * Handler that will be called during the execution of a PostLogin flow.
@@ -23,14 +23,6 @@ const axios = require('axios');
   * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
  */
 exports.onExecutePostLogin = async (event, api) => {
-  console.log(event)
-
-  const loginsCount = event.stats.logins_count
-
-  // if (loginsCount > 1) {
-  //  return
-  // }
-
   /**
    * Get Access Token
    */
@@ -76,6 +68,7 @@ exports.onExecutePostLogin = async (event, api) => {
   const variables = {
     input: [
       {
+        id: v4(),
         auth0Id: event.user.user_id,
         email: event.user.email,
         username: event.user.nickname,
@@ -102,12 +95,12 @@ exports.onExecutePostLogin = async (event, api) => {
   }
 
   dependencies {
-    name    = "auth0"
-    version = "2.44.0"
+    name    = "axios"
+    version = "0.24.0"
   }
 
   dependencies {
-    name    = "axios"
-    version = "0.24.0"
+    name    = "uuid"
+    version = "8.3.2"
   }
 }
