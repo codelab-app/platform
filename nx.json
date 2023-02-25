@@ -10,6 +10,7 @@
         "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true,
+        "accessToken": "ZmNjNjM4ZmYtMmIzOC00ZDNjLTgzMzUtZmFiNDZkMGI4MjEzfHJlYWQ=",
         "parallel": 3
       }
     }
