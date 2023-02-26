@@ -3,7 +3,7 @@ import type { ICacheService } from '../../service'
 import type { IElement } from '../element'
 import type { IPropDTO } from './prop.dto.interface'
 
-export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
+export interface IProp<T = IPropData> {
   id: string
   data: Frozen<T>
   jsonString: string

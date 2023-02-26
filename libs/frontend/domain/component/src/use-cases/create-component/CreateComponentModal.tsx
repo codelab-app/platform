@@ -1,6 +1,6 @@
 import type {
   IComponentService,
-  ICreateComponentDTO,
+  ICreateComponentData,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -18,8 +18,8 @@ export const CreateComponentModal = observer<{
 }>(({ componentService, userService }) => {
   const user = userService.user
 
-  const handleSubmit = (componentDTO: ICreateComponentDTO) => {
-    return componentService.create([componentDTO])
+  const handleSubmit = (componentDTO: ICreateComponentData) => {
+    return componentService.createSubmit([componentDTO])
   }
 
   const closeModal = () => componentService.createModal.close()

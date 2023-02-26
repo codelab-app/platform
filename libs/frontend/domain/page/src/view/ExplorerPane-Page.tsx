@@ -1,6 +1,7 @@
 import type {
   IDomainService,
   IPageService,
+  IUserService,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
@@ -17,7 +18,8 @@ import {
 export const ExplorerPanePage = observer<{
   pageService: IPageService
   domainService: IDomainService
-}>(({ pageService, domainService }) => {
+  userService: IUserService
+}>(({ pageService, domainService, userService }) => {
   const router = useRouter()
 
   const headerProps = {
@@ -31,7 +33,7 @@ export const ExplorerPanePage = observer<{
       title="Pages"
     >
       <GetPagesList domainService={domainService} pageService={pageService} />
-      <CreatePageModal pageService={pageService} />
+      <CreatePageModal pageService={pageService} userService={userService} />
       <UpdatePageModal pageService={pageService} />
       <DeletePageModal pageService={pageService} />
     </ExplorerPaneTemplate>

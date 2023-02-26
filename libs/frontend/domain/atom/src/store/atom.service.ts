@@ -5,8 +5,12 @@ import type {
   IUpdateAtomDTO,
 } from '@codelab/frontend/abstract/core'
 import { IAtomDTO } from '@codelab/frontend/abstract/core'
-import { getTagService } from '@codelab/frontend/domain/tag'
-import { InterfaceType } from '@codelab/frontend/domain/type'
+import { getTagService, tagRef } from '@codelab/frontend/domain/tag'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -71,8 +75,18 @@ export class AtomService
       }),
     )
 
-    return atoms.map((atom) => this.writeCache(atom))
+    return atoms.map((atom) => this.create(atom))
   })
+
+  @computed
+  get tagService() {
+    return getTagService(this)
+  }
+
+  @computed
+  get typeService() {
+    return getTypeService(this)
+  }
 
   @computed
   get atomsList() {
@@ -80,23 +94,14 @@ export class AtomService
   }
 
   @modelAction
-  writeCache(atom: IAtomDTO) {
-    console.debug('AtomService.writeCache', atom)
+  create({ tags, api, allowedChildren, ...atomDTO }: IAtomDTO) {
+    const tagRefs = tags.map((tag) => tagRef(this.tagService.create(tag)))
+    const apiRef = typeRef(this.typeService.addInterface(api))
+    const atom = new Atom({ ...atomDTO, api: apiRef, tags: tagRefs })
 
-    let atomModel = this.atoms.get(atom.id)
+    this.atoms.set(atom.id, atom)
 
-    if (atomModel) {
-      atomModel = atomModel.writeCache(atom)
-    } else {
-      atomModel = Atom.hydrate(atom)
-      this.atoms.set(atom.id, atomModel)
-    }
-
-    const tagService = getTagService(this)
-
-    atom.tags.map((tag) => tagService.writeCache(tag))
-
-    return atomModel
+    return atom
   }
 
   @modelFlow
@@ -116,7 +121,7 @@ export class AtomService
 
     this.count = atomsAggregate.count
 
-    return atoms.map((atom) => this.writeCache(atom))
+    return atoms.map((atom) => this.create(atom))
   })
 
   @modelFlow
@@ -136,7 +141,10 @@ export class AtomService
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
+  createSubmit = _async(function* (
+    this: AtomService,
+    data: Array<ICreateAtomDTO>,
+  ) {
     const connectOrCreateApi = (
       atom: Pick<ICreateAtomDTO, 'api' | 'name' | 'owner'>,
     ) =>
@@ -163,7 +171,7 @@ export class AtomService
       createAtoms: { atoms },
     } = yield* _await(atomApi.CreateAtoms({ input }))
 
-    return atoms.map((atom) => this.writeCache(atom))
+    return atoms.map((atom) => this.create(atom))
   })
 
   @modelFlow

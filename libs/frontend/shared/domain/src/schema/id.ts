@@ -5,8 +5,9 @@ import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 export const idSchema: PropertiesSchema<IEntity> = {
   id: {
     type: 'string',
-    ...hideField,
+    ...showFieldOnDev(),
     required: ['id'],
+    disabled: true,
   },
 }
 

@@ -56,7 +56,7 @@ export class Field
   implements IField
 {
   @modelAction
-  writeCache(fragment: IFieldDTO) {
+  create(fragment: IFieldDTO) {
     this.id = fragment.id
     this.name = fragment.name
     this.description = fragment.description

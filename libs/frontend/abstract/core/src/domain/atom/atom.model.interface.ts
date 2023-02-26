@@ -6,7 +6,7 @@ import type { ITag } from '../tag'
 import type { IInterfaceType } from '../type'
 import type { IAtomDTO, IRenderAtomDTO } from './atom.dto.interface'
 
-export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
+export interface IAtom extends IEntity {
   name: string
   icon?: string | null
   type: IAtomType
@@ -18,7 +18,7 @@ export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
    *
    * We store preview data here so we can more easily display the tags in the atoms table
    */
-  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
+  allowedChildren: Array<Ref<IAtom>>
 }
 
 export type IAtomRef = string

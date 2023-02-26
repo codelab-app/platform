@@ -10,8 +10,7 @@ import type { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent
   extends INodeType<'Component'>,
-    IElementTreeService,
-    ICacheService<IComponentDTO, IComponent> {
+    IElementTreeService {
   id: string
   name: string
   rootElementId: string

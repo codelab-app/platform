@@ -17,6 +17,7 @@ export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
       properties: {
         id: {
           type: 'string',
+          nullable: true,
         },
       },
       required: ['id'],

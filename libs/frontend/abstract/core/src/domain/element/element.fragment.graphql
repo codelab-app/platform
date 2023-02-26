@@ -12,7 +12,8 @@ fragment Element on Element {
     ...Component
   }
   renderAtomType {
-    ...RenderAtom
+    ...Atom
+    # ...RenderAtom
   }
   prevSibling {
     id
@@ -32,9 +33,9 @@ fragment Element on Element {
   props {
     ...Prop
   }
-  hooks {
-    ...Hook
-  }
+  # hooks {
+  #   ...Hook
+  # }
   renderForEachPropKey
   renderIfExpression
   preRenderActionId

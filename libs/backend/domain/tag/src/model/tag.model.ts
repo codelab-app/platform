@@ -3,6 +3,7 @@ import type {
   ITagPreview,
   IUserRef,
 } from '@codelab/backend/abstract/core'
+import { detach, rootRef } from 'mobx-keystone'
 
 export class Tag implements ITag {
   declare id: string
@@ -23,3 +24,11 @@ export class Tag implements ITag {
     this.owner = owner
   }
 }
+
+export const tagRef = rootRef<ITag>('@codelab/TagRef', {
+  onResolvedValueChange: (ref, newTag, oldTag) => {
+    if (oldTag && !newTag) {
+      detach(ref)
+    }
+  },
+})

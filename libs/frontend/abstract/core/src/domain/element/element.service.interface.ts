@@ -15,9 +15,9 @@ import type {
 } from '../../service'
 import type { IAuth0Id } from '../user'
 import type {
-  ICreateElementDTO,
+  ICreateElementData,
   IElementDTO,
-  IUpdateElementDTO,
+  IUpdateElementData,
 } from './element.dto.interface'
 import type { IElement, IElementRef } from './element.model.interface'
 import type { IElementTree } from './element-tree.interface.model'
@@ -41,7 +41,7 @@ export interface UpdateElementProperties {
 
 export interface IElementService
   extends Omit<
-      ICRUDService<IElement, ICreateElementDTO, IUpdateElementDTO>,
+      ICRUDService<IElement, ICreateElementData, IUpdateElementData>,
       'delete' | 'update'
     >,
     ICacheService<IElementDTO, IElement>,
@@ -59,9 +59,9 @@ export interface IElementService
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  update(element: IElement, input: IUpdateElementDTO): Promise<Array<IElement>>
-  createElementAsFirstChild(data: ICreateElementDTO): Promise<IElement>
-  createElementAsNextSibling(data: ICreateElementDTO): Promise<IElement>
+  update(element: IElement, input: IUpdateElementData): Promise<Array<IElement>>
+  createElementAsFirstChild(data: ICreateElementData): Promise<IElement>
+  createElementAsNextSibling(data: ICreateElementData): Promise<IElement>
   moveElementToAnotherTree(props: {
     elementId: string
     targetElementId: string
@@ -71,7 +71,7 @@ export interface IElementService
     elementId: string
     parentElementId: string
   }): Promise<void>
-  add(elementDTO: ICreateElementDTO): IElement
+  create(elementDTO: ICreateElementData): IElement
   moveElementAsNextSibling(props: {
     elementId: string
     targetElementId: string

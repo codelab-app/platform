@@ -61,11 +61,11 @@ export class DomainService
   })
 
   @modelAction
-  writeCache = (domain: IDomainDTO) => {
+  create = (domain: IDomainDTO) => {
     let domainModel = this.domains.get(domain.id)
 
     domainModel = domainModel
-      ? domainModel.writeCache(domain)
+      ? domainModel.create(domain)
       : Domain.hydrate(domain)
 
     this.domains.set(domain.id, domainModel)
@@ -80,7 +80,7 @@ export class DomainService
 
   @modelFlow
   @transaction
-  create = _async(function* (
+  createSubmit = _async(function* (
     this: DomainService,
     data: Array<ICreateDomainDTO>,
   ) {
@@ -94,7 +94,7 @@ export class DomainService
       createDomains: { domains },
     } = yield* _await(domainApis.CreateDomains({ input }))
 
-    return domains.map((domain) => this.writeCache(domain))
+    return domains.map((domain) => this.create(domain))
   })
 
   @modelFlow
@@ -128,6 +128,6 @@ export class DomainService
       }),
     )
 
-    return domains.map((domain) => this.writeCache(domain))
+    return domains.map((domain) => this.create(domain))
   })
 }

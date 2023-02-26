@@ -39,5 +39,7 @@ export interface ITypeService
   loadFields(types: GetTypesQuery['interfaceTypes']): void
   loadTypesByChunks(types: GetTypesQuery): void
   count: number
-  add(data: ICreateTypeDTO): IAnyType
+  // add(data: ICreateTypeDTO): IAnyType
+  // create(data: ICreateTypeDTO): IAnyType
+  addInterface(data: ICreateTypeDTO): IInterfaceType
 }

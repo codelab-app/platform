@@ -37,7 +37,7 @@ export class ArrayType
   implements IArrayType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  create(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.ArrayType) {

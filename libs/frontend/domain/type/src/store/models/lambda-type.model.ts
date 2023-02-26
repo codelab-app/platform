@@ -25,7 +25,7 @@ export class LambdaType
   implements ILambdaType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  create(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     return this

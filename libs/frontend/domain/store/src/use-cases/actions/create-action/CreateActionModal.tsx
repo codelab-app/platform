@@ -1,6 +1,6 @@
 import type {
   IActionService,
-  ICreateActionDTO,
+  ICreateActionData,
   IResourceService,
   IStore,
 } from '@codelab/frontend/abstract/core'
@@ -28,20 +28,20 @@ export const CreateActionModal = observer<{
 }>(({ actionService, resourceService, store }) => {
   const closeModal = () => actionService.createModal.close()
 
-  const onSubmit = (data: ICreateActionDTO) => {
-    return actionService.create([data])
+  const onSubmit = (data: ICreateActionData) => {
+    return actionService.createSubmit([data])
   }
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating action',
   })
 
-  const getResourceType = (context: Context<ICreateActionDTO>) =>
+  const getResourceType = (context: Context<ICreateActionData>) =>
     context.model.resourceId
       ? resourceService.resource(context.model.resourceId)?.type
       : null
 
-  const getResourceApiUrl = (context: Context<ICreateActionDTO>) =>
+  const getResourceApiUrl = (context: Context<ICreateActionData>) =>
     context.model.resourceId
       ? resourceService.resource(context.model.resourceId)?.config.get('url')
       : null
@@ -52,7 +52,7 @@ export const CreateActionModal = observer<{
       onCancel={closeModal}
       open={actionService.createModal.isOpen}
     >
-      <ModalForm.Form<ICreateActionDTO>
+      <ModalForm.Form<ICreateActionData>
         model={{
           storeId: store?.id,
           code: defaultCodeAction,
@@ -83,14 +83,14 @@ export const CreateActionModal = observer<{
         />
 
         {/** Code Action */}
-        <DisplayIfField<ICreateActionDTO>
+        <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.CodeAction}
         >
           <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
         {/** Api Action */}
-        <DisplayIfField<ICreateActionDTO>
+        <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
@@ -98,7 +98,7 @@ export const CreateActionModal = observer<{
           <AutoField component={SelectAction} name="errorActionId" />
 
           {/** GraphQL Config Form */}
-          <DisplayIfField<ICreateActionDTO>
+          <DisplayIfField<ICreateActionData>
             condition={(context) =>
               getResourceType(context) === ResourceType.GraphQL
             }
@@ -109,7 +109,7 @@ export const CreateActionModal = observer<{
           </DisplayIfField>
 
           {/** Rest Config Form */}
-          <DisplayIfField<ICreateActionDTO>
+          <DisplayIfField<ICreateActionData>
             condition={(context) =>
               getResourceType(context) === ResourceType.Rest
             }

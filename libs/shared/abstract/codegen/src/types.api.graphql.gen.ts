@@ -19682,7 +19682,7 @@ export type AppPreviewFragment = {
   slug: string
   owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & PageFragment>
-  store: { __typename?: 'Store'; id: string }
+  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 export type AppFragment = {
@@ -19731,7 +19731,7 @@ export type AtomFragment = {
   name: string
   type: AtomType
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
+  api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   allowedChildren: Array<{
     __typename?: 'Atom'
     id: string
@@ -19770,7 +19770,7 @@ export type ComponentFragment = {
   name: string
   rootElement: { __typename?: 'Element'; id: string; name: string }
   owner: { __typename?: 'User'; id: string; auth0Id: string }
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
+  api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   props?: ({ __typename?: 'Prop' } & PropFragment) | null
   childrenContainerElement: { __typename?: 'Element'; id: string }
 }
@@ -19800,14 +19800,13 @@ export type ElementFragment = {
   renderComponentType?:
     | ({ __typename?: 'Component' } & ComponentFragment)
     | null
-  renderAtomType?: ({ __typename?: 'Atom' } & RenderAtomFragment) | null
+  renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null
   parent?: { __typename?: 'Element'; id: string } | null
   firstChild?: { __typename?: 'Element'; id: string } | null
   props?: ({ __typename?: 'Prop' } & PropFragment) | null
-  hooks: Array<{ __typename?: 'Hook' } & HookFragment>
 }
 
 export type HookPropFragment = { __typename?: 'Prop'; id: string; data: string }

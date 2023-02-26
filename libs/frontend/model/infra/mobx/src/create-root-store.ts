@@ -10,6 +10,7 @@ import {
 } from '@codelab/frontend/domain/domain'
 import { ElementService } from '@codelab/frontend/domain/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
+import { PropService, propServiceContext } from '@codelab/frontend/domain/prop'
 import { RenderService } from '@codelab/frontend/domain/renderer'
 import {
   ResourceService,
@@ -56,6 +57,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
     builderService: prop(() => new BuilderService({})),
     domainService: prop(() => new DomainService({})),
     fieldService: prop(() => new FieldService({})),
+    propService: prop(() => new PropService({})),
   }) {
     protected onInit() {
       appServiceContext.set(this, this.appService)
@@ -67,6 +69,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       actionServiceContext.set(this, this.actionService)
       storeServiceContext.set(this, this.storeService)
       resourceServiceContext.set(this, this.resourceService)
+      propServiceContext.set(this, this.propService)
       elementServiceContext.set(this, this.elementService)
       builderServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)

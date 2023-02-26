@@ -2,7 +2,7 @@ import type {
   IActionService,
   IBuilderService,
   IComponentService,
-  ICreateElementDTO,
+  ICreateElementData,
   IElementService,
   IRenderService,
   IUserService,
@@ -40,7 +40,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       return null
     }
 
-    const onSubmit = async (data: ICreateElementDTO) => {
+    const onSubmit = async (data: ICreateElementData) => {
       const { prevSiblingId } = data
 
       const element = await (prevSiblingId
@@ -80,7 +80,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         open={elementService.createModal.isOpen}
         title={<span css={tw`font-semibold`}>Create element</span>}
       >
-        <ModalForm.Form<ICreateElementDTO>
+        <ModalForm.Form<ICreateElementData>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

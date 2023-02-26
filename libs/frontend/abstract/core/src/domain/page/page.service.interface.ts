@@ -14,9 +14,9 @@ import type {
 } from '../../service'
 import type { IApp } from '../app'
 import type {
-  ICreatePageDTO,
+  ICreatePageData,
   IPageDTO,
-  IUpdatePageDTO,
+  IUpdatePageData,
 } from './page.dto.interface'
 import type { IPage } from './page.model.interface'
 
@@ -27,7 +27,7 @@ export interface IPageFactory {
 }
 
 export interface IPageService
-  extends ICRUDService<IPage, ICreatePageDTO, IUpdatePageDTO>,
+  extends ICRUDService<IPage, ICreatePageData, IUpdatePageData>,
     IQueryService<IPage, PageWhere, PageOptions>,
     ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }> {
   pages: ObjectMap<IPage>
@@ -41,5 +41,4 @@ export interface IPageService
     pageId: string,
   ): Promise<GetRenderedPageAndCommonAppDataQuery>
   add(pageDTO: IPageDTO): IPage
-  // create(app: Ref<IApp>, data: Array<ICreatePageDTO>): Promise<Array<IPage>>
 }

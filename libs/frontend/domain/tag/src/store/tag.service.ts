@@ -74,7 +74,10 @@ export class TagService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TagService, data: Array<ICreateTagDTO>) {
+  createSubmit = _async(function* (
+    this: TagService,
+    data: Array<ICreateTagDTO>,
+  ) {
     const input = data.map(({ id, name, parentTag, owner }) => {
       return {
         id,
@@ -102,9 +105,7 @@ export class TagService
       this.getAll({ id_IN: otherTagIdsToUpdate }),
     )
 
-    const tagModels = [...tags, ...tagsToUpdate].map((tag) =>
-      this.writeCache(tag),
-    )
+    const tagModels = [...tags, ...tagsToUpdate].map((tag) => this.create(tag))
 
     this.treeService.addRoots(tagModels)
 
@@ -126,7 +127,7 @@ export class TagService
       }),
     )
 
-    return tags.map((tag) => this.writeCache(tag))
+    return tags.map((tag) => this.create(tag))
   })
 
   @modelFlow
@@ -176,17 +177,17 @@ export class TagService
 
     console.log(tags)
 
-    return tags.map((tag) => this.writeCache(tag))
+    return tags.map((tag) => this.create(tag))
   })
 
   @modelAction
-  writeCache = (tag: ITagDTO) => {
+  create = (tag: ITagDTO) => {
     console.debug('TagService.writeCache', tag)
 
     let tagModel = this.tags.get(tag.id)
 
     if (tagModel) {
-      tagModel = tagModel.writeCache(tag)
+      tagModel = tagModel.create(tag)
     } else {
       tagModel = Tag.hydrate(tag)
       this.tags.set(tag.id, tagModel)

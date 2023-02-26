@@ -83,7 +83,9 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
         name: atom.name,
         tags: atom.tags.map((tag) => tag.current),
         library: getAtomLibrary(atom.type),
-        allowedChildren: atom.allowedChildren,
+        allowedChildren: atom.allowedChildren.map(
+          (children) => children.current,
+        ),
       }))
 
     return (

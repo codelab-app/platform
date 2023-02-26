@@ -1,5 +1,5 @@
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { ICreateElementDTO } from '../element'
+import type { ICreateElementData } from '../element'
 
 export interface MoveData {
   parentElementId: Nullable<string>
@@ -8,7 +8,7 @@ export interface MoveData {
 
 export interface BuilderDragData {
   type: BuilderDndType
-  createElementInput?: ICreateElementDTO
+  createElementInput?: ICreateElementData
   name?: string
   icon?: string
 }

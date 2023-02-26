@@ -1,12 +1,11 @@
 import type {
-  ICreateStoreDTO,
+  ICreateStoreData,
   IInterfaceType,
   IStore,
-  IStoreDTO,
   IStoreService,
-  IUpdateStoreDTO,
+  IUpdateStoreData,
 } from '@codelab/frontend/abstract/core'
-import { ICreateAppDTO } from '@codelab/frontend/abstract/core'
+import { IAppDTO, IStoreDTO } from '@codelab/frontend/abstract/core'
 import {
   getTypeService,
   InterfaceType,
@@ -14,9 +13,11 @@ import {
 } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { StoreWhere } from '@codelab/shared/abstract/codegen'
+import { StoreFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -32,7 +33,7 @@ import { v4 } from 'uuid'
 import { deleteStoreInput } from '../utils'
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, storeApi } from './apis'
-import { Store } from './models'
+import { actionRef, Store } from './models'
 import { StoreModalService } from './store-modal.service'
 
 @model('@codelab/StoreService')
@@ -50,6 +51,11 @@ export class StoreService
     return getTypeService(this)
   }
 
+  @computed
+  private get actionService() {
+    return getActionService(this)
+  }
+
   store(id: string) {
     return this.stores.get(id)
   }
@@ -64,7 +70,7 @@ export class StoreService
     const actionService = getActionService(this)
     const actions = stores.flatMap((store) => store.actions)
 
-    return actions.map((action) => actionService.writeCache(action))
+    return actions.map((action) => actionService.add(action))
   }
 
   @modelAction
@@ -75,8 +81,8 @@ export class StoreService
   }
 
   @modelAction
-  add(app: ICreateAppDTO) {
-    const interfaceType = this.typeService.add({
+  create(app: IAppDTO) {
+    const interfaceType = this.typeService.addInterface({
       id: v4(),
       name: InterfaceType.createName(`${app.name} Store`),
       kind: ITypeKind.InterfaceType,
@@ -94,21 +100,36 @@ export class StoreService
   }
 
   @modelAction
-  public writeCache = (store: IStoreDTO) => {
-    const actionService = getActionService(this)
+  add({ id, name, api, actions }: IStoreDTO) {
+    // const interfaceType = this.typeService.addInterface({
+    //   id: storeDTO.api.id,
+    //   name: storeDTO.api.,
+    //   kind: ITypeKind.InterfaceType,
+    //   owner: app.owner,
+    // }) as IInterfaceType
 
-    store.actions.map((action) => actionService.writeCache(action))
+    const store = new Store({
+      id,
+      name,
+      api: typeRef(api.id) as Ref<IInterfaceType>,
+      actions: actions.map((action) =>
+        actionRef(this.actionService.add(action)),
+      ),
+    })
 
-    let storeModel = this.store(store.id)
+    this.stores.set(store.id, store)
 
-    if (storeModel) {
-      storeModel.writeCache(store)
-    } else {
-      storeModel = Store.hydrate(store)
-      this.stores.set(store.id, storeModel)
+    return store
+  }
+
+  @modelFlow
+  private mapStore(fragment: StoreFragment): IStoreDTO {
+    return {
+      ...fragment,
+      actions: fragment.actions.map((action) =>
+        this.actionService.actionFactory.fromActionFragment(action),
+      ),
     }
-
-    return storeModel
   }
 
   @modelFlow
@@ -116,7 +137,7 @@ export class StoreService
   getAll = _async(function* (this: StoreService, where?: StoreWhere) {
     const { stores } = yield* _await(storeApi.GetStores({ where }))
 
-    return stores.map((store) => this.writeCache(store))
+    return stores.map((store) => this.add(this.mapStore(store)))
   })
 
   @modelFlow
@@ -131,21 +152,24 @@ export class StoreService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: StoreService, data: Array<ICreateStoreDTO>) {
+  createSubmit = _async(function* (
+    this: StoreService,
+    data: Array<ICreateStoreData>,
+  ) {
     const input = data.map((store) => makeStoreCreateInput(store))
 
     const {
       createStores: { stores },
     } = yield* _await(storeApi.CreateStores({ input }))
 
-    return stores.map((store) => this.writeCache(store))
+    return stores.map((store) => this.add(this.mapStore(store)))
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: StoreService,
-    { name, id }: IUpdateStoreDTO,
+    { name, id }: IUpdateStoreData,
   ) {
     const {
       updateStores: { stores },
@@ -156,7 +180,7 @@ export class StoreService
       }),
     )
 
-    return stores.map((store) => this.writeCache(store))
+    return stores.map((store) => this.add(this.mapStore(store)))
   })
 
   @modelFlow

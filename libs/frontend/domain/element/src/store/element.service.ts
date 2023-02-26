@@ -2,23 +2,25 @@ import type {
   IAtom,
   IAuth0Owner,
   IComponent,
+  ICreateElementData,
   IElement,
   IElementRef,
   IElementService,
   IInterfaceType,
-  IUpdateElementDTO,
+  IUpdateElementData,
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
-  ICreateElementDTO,
   IElementDTO,
   isAtomDTO,
   isComponentDTO,
   RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
+  componentRef,
   getBuilderService,
   getComponentService,
 } from '@codelab/frontend/presenter/container'
@@ -111,6 +113,11 @@ export class ElementService
     return getBuilderService(this)
   }
 
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
   @modelFlow
   @transaction
   public getAll = _async(function* (
@@ -123,20 +130,8 @@ export class ElementService
       }),
     )
 
-    return elements.map((element) => this.writeCache(element))
+    return elements.map((element) => this.create(element))
   })
-
-  @modelAction
-  add({ id, name }: ICreateElementDTO) {
-    const element = new Element({
-      id,
-      name,
-    })
-
-    this.elements.set(element.id, element)
-
-    return element
-  }
 
   @modelAction
   private writeAtomsCache(elements: Array<IElementDTO>) {
@@ -148,7 +143,7 @@ export class ElementService
 
     return atoms.map((atom) =>
       // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
-      this.atomService.writeCache(atom),
+      this.atomService.create(atom),
     )
   }
 
@@ -163,9 +158,7 @@ export class ElementService
       )
       .filter(isComponentDTO)
 
-    return components.map((component) =>
-      this.componentService.writeCache(component),
-    )
+    return components.map((component) => this.componentService.create(component))
   }
 
   @modelAction
@@ -175,30 +168,47 @@ export class ElementService
       ...component.rootElement.descendantElements,
     ]
 
-    const hydratedElements = elements.map((element) => this.writeCache(element))
+    const hydratedElements = elements.map((element) => this.create(element))
     const rootElement = this.element(component.rootElement.id)
 
     return { rootElement, hydratedElements }
   }
 
   @modelAction
-  public writeCache = (element: IElementDTO): IElement => {
-    console.debug('ElementService.writeCache', element)
+  create = ({
+    parentComponent,
+    renderComponentType,
+    ...elementDTO
+  }: IElementDTO): IElement => {
+    console.debug('ElementService.writeCache', elementDTO)
 
-    this.writeAtomsCache([element])
-    this.writeComponentsCache([element])
+    this.writeAtomsCache([elementDTO])
+    this.writeComponentsCache([elementDTO])
 
-    let elementModel = this.elements.get(element.id)
+    const parentComponentRef = parentComponent
+      ? componentRef(this.componentService.create(parentComponent))
+      : null
 
-    if (elementModel) {
-      elementModel.writeCache(element)
-      this.writeClonesCache(element)
-    } else {
-      elementModel = Element.hydrate(element)
-      this.elements.set(element.id, elementModel)
-    }
+    const renderComponentTypeRef = renderComponentType
+      ? componentRef(this.componentService.create(renderComponentType))
+      : null
 
-    return elementModel
+    const props = elementDTO.props
+      ? this.propService.add(elementDTO.props)
+      : null
+
+    const element = new Element({
+      ...elementDTO,
+      props,
+      parentComponent: parentComponentRef,
+      renderComponentType: renderComponentTypeRef,
+    })
+
+    this.elements.set(element.id, element)
+
+    this.writeClonesCache(elementDTO)
+
+    return element
   }
 
   /**
@@ -206,9 +216,9 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  public create = _async(function* (
+  public createSubmit = _async(function* (
     this: ElementService,
-    data: Array<ICreateElementDTO>,
+    data: Array<ICreateElementData>,
   ) {
     const input: Array<ElementCreateInput> = []
 
@@ -235,7 +245,7 @@ export class ElementService
       createElements: { elements },
     } = yield* _await(elementApi.CreateElements({ input }))
 
-    return elements.map((element) => this.writeCache(element))
+    return elements.map((element) => this.create(element))
   })
 
   /**
@@ -246,7 +256,7 @@ export class ElementService
   @modelFlow
   private getElementInputTypeApi = _async(function* (
     this: ElementService,
-    elementInput: ICreateElementDTO,
+    elementInput: ICreateElementData,
   ) {
     let baseElementType: Maybe<IAtom | IComponent>
 
@@ -303,7 +313,7 @@ export class ElementService
       ...(elementTrees[0]?.descendantElements ?? []),
     ]
 
-    return elements.map((element) => this.writeCache(element))
+    return elements.map((element) => this.create(element))
   })
 
   @modelAction
@@ -327,7 +337,7 @@ export class ElementService
   public update = _async(function* (
     this: ElementService,
     element: IElement,
-    input: IUpdateElementDTO,
+    input: IUpdateElementData,
   ) {
     const name = createUniqueName(input.name, element.baseId)
 
@@ -389,7 +399,7 @@ export class ElementService
       }),
     )
 
-    return elements.map((_element: IElementDTO) => this.writeCache(_element))
+    return elements.map((_element: IElementDTO) => this.create(_element))
   })
 
   /**
@@ -411,7 +421,7 @@ export class ElementService
       }),
     )
 
-    return elements.map((element) => this.writeCache(element))[0]!
+    return elements.map((element) => this.create(element))[0]!
   })
 
   @modelFlow
@@ -538,12 +548,12 @@ parent
   public createElementAsFirstChild = _async(
     runSequentially(
       'elementTransaction',
-      function* (this: ElementService, data: ICreateElementDTO) {
+      function* (this: ElementService, data: ICreateElementData) {
         if (!data.parentElement?.id) {
           throw new Error("Parent element id doesn't exist")
         }
 
-        const [element] = yield* _await(this.create([data]))
+        const [element] = yield* _await(this.createSubmit([data]))
 
         if (!element) {
           throw new Error('Create element failed')
@@ -566,8 +576,8 @@ parent
   public createElementAsNextSibling = _async(
     runSequentially(
       'elementTransaction',
-      function* (this: ElementService, data: ICreateElementDTO) {
-        const [element] = yield* _await(this.create([data]))
+      function* (this: ElementService, data: ICreateElementData) {
+        const [element] = yield* _await(this.createSubmit([data]))
 
         if (!element) {
           throw new Error('Create element failed')
@@ -755,7 +765,7 @@ element is new parentElement's first child
           const parentElementId = targetElement.id
           const data = { id: v4(), name, renderType, parentElementId }
 
-          element = (yield* _await(this.create([data])))[0]
+          element = (yield* _await(this.createSubmit([data])))[0]
         } else {
           yield* _await(this.detachElementFromElementTree(element.id))
         }
@@ -876,7 +886,7 @@ element is new parentElement's first child
       throw new Error('No elements created')
     }
 
-    const elementModel = this.writeCache(createdElement)
+    const elementModel = this.create(createdElement)
     const lastChildId = parent.children[parent.children.length - 1]?.id
 
     if (!lastChildId) {
@@ -964,7 +974,7 @@ element is new parentElement's first child
 
         // 2. create the component with predefined root element
         const [createdComponent] = yield* _await(
-          this.componentService.create([
+          this.componentService.createSubmit([
             {
               id: v4(),
               owner,
@@ -982,7 +992,7 @@ element is new parentElement's first child
         // 3. create a new element as an instance of the component
         if (!prevSibling) {
           const [createdElement] = yield* _await(
-            this.create([
+            this.createSubmit([
               {
                 id: v4(),
                 name,
@@ -1030,7 +1040,7 @@ element is new parentElement's first child
     return [...this.clonedElements.values()]
       .filter((element) => element.sourceElementId === elementFragment.id)
       .map((element) =>
-        element.writeCache({
+        element.create({
           ...elementFragment,
           // keep the cloned element's id
           id: element.id,

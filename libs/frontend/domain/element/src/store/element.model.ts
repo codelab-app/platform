@@ -1,7 +1,6 @@
 import type {
   IAtom,
   IComponent,
-  IElementDTO,
   IElementTree,
   IHook,
   IInterfaceType,
@@ -16,9 +15,10 @@ import {
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
   IElement,
+  IElementDTO,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { getPropService, Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
@@ -54,58 +54,58 @@ type TransformFn = (props: IPropData) => IPropData
 /**
  * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
  */
-export const hydrate = ({
-  id,
-  name,
-  customCss,
-  guiCss,
-  renderAtomType,
-  parent,
-  slug,
-  page,
-  parentComponent,
-  renderComponentType,
-  nextSibling,
-  prevSibling,
-  firstChild,
-  preRenderActionId,
-  postRenderActionId,
-  // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
-  hooks,
-  props,
-  propTransformationJs,
-  renderIfExpression,
-  renderForEachPropKey,
-}: Omit<IElementDTO, '__typename'>) => {
-  const apiRef = renderAtomType
-    ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
-    : undefined
+// export const hydrate = ({
+//   id,
+//   name,
+//   customCss,
+//   guiCss,
+//   renderAtomType,
+//   parent,
+//   slug,
+//   page,
+//   parentComponent,
+//   renderComponentType,
+//   nextSibling,
+//   prevSibling,
+//   firstChild,
+//   preRenderActionId,
+//   postRenderActionId,
+//   // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
+//   hooks,
+//   props,
+//   propTransformationJs,
+//   renderIfExpression,
+//   renderForEachPropKey,
+// }: Omit<IElementDTO, '__typename'>) => {
+//   const apiRef = renderAtomType
+//     ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
+//     : undefined
 
-  return new Element({
-    id,
-    name: extractName(name),
-    customCss,
-    guiCss,
-    // parent of first child
-    parentId: parent?.id,
-    pageId: page?.id,
-    nextSiblingId: nextSibling?.id,
-    prevSiblingId: prevSibling?.id,
-    firstChildId: firstChild?.id,
-    atom: renderAtomType ? atomRef(renderAtomType.id) : null,
-    preRenderActionId,
-    postRenderActionId,
-    props: props ? Prop.hydrate({ ...props, apiRef }) : null,
-    propTransformationJs,
-    renderIfExpression,
-    renderForEachPropKey,
-    renderingMetadata: null,
-    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
-    renderComponentType: renderComponentType
-      ? componentRef(renderComponentType.id)
-      : null,
-  })
-}
+//   return new Element({
+//     id,
+//     name: extractName(name),
+//     customCss,
+//     guiCss,
+//     // parent of first child
+//     parentId: parent?.id,
+//     pageId: page?.id,
+//     nextSiblingId: nextSibling?.id,
+//     prevSiblingId: prevSibling?.id,
+//     firstChildId: firstChild?.id,
+//     atom: renderAtomType ? atomRef(renderAtomType.id) : null,
+//     preRenderActionId,
+//     postRenderActionId,
+//     props: props ? Prop.hydrate({ ...props, apiRef }) : null,
+//     propTransformationJs,
+//     renderIfExpression,
+//     renderForEachPropKey,
+//     renderingMetadata: null,
+//     parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
+//     renderComponentType: renderComponentType
+//       ? componentRef(renderComponentType.id)
+//       : null,
+//   })
+// }
 
 export const getElementTree = (element: IElement): Maybe<IElementTree> => {
   const refs = getRefsResolvingTo<IElement>(element, elementRef)
@@ -163,6 +163,11 @@ export class Element
   @computed
   get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  get propService() {
+    return getPropService(this)
   }
 
   @computed
@@ -589,11 +594,7 @@ export class Element
     return () => {
       const parentElement = this.elementService.element(parentElementId)
 
-      if (!parentElement) {
-        throw new Error(`parent element id ${parentElementId} not found`)
-      }
-
-      this.parentId = parentElementId
+      this.parentId = parentElement.id
     }
   }
 
@@ -603,10 +604,6 @@ export class Element
       const parentElement = this.elementService.element(parentElementId)
       this.attachToParent(parentElementId)()
 
-      if (!parentElement) {
-        throw new Error(`parent element id ${parentElementId} not found`)
-      }
-
       parentElement.firstChildId = this.id
       this.parentId = parentElement.id
     }
@@ -614,10 +611,6 @@ export class Element
 
   makeAttachToParentAsFirstChildInput(parentElementId: string) {
     const parentElement = this.elementService.element(parentElementId)
-
-    if (!parentElement) {
-      throw new Error(`parent element id ${parentElementId} not found`)
-    }
 
     return makeUpdateElementInput(parentElement, {
       firstChild: {
@@ -679,10 +672,6 @@ export class Element
   makePrependSiblingInput(siblingId: string) {
     const sibling = this.elementService.element(siblingId)
 
-    if (!sibling) {
-      throw new Error(`sibling element ${siblingId} not found`)
-    }
-
     // sibling - next sibling
     // sibling - [element]
     return makeUpdateElementInput(sibling, {
@@ -697,10 +686,6 @@ export class Element
 
   makeAppendSiblingInput(siblingId: string) {
     const sibling = this.elementService.element(siblingId)
-
-    if (!sibling) {
-      throw new Error(`sibling element ${siblingId} not found`)
-    }
 
     // sibling.prevSibling - sibling
     // [element] - sibling
@@ -720,10 +705,6 @@ export class Element
     return () => {
       const sibling = this.elementService.element(siblingId)
 
-      if (!sibling) {
-        throw new Error(`sibling element ${siblingId} not found`)
-      }
-
       // sibling - next sibling
       // sibling - [element]
       // sibling prepends element
@@ -738,10 +719,6 @@ export class Element
     return () => {
       const sibling = this.elementService.element(siblingId)
 
-      if (!sibling) {
-        throw new Error(`sibling element ${siblingId} not found`)
-      }
-
       // sibling - next sibling
       // sibling - [element]
       // sibling appends element
@@ -752,7 +729,7 @@ export class Element
   }
 
   @modelAction
-  writeCache({
+  create({
     id,
     name,
     customCss,
@@ -761,7 +738,6 @@ export class Element
     renderAtomType,
     renderComponentType,
     parentComponent,
-    hooks,
     props,
     propTransformationJs,
     renderIfExpression,
@@ -772,7 +748,7 @@ export class Element
     nextSibling,
     prevSibling,
     firstChild,
-  }: Omit<IElementDTO, '__typename'>) {
+  }: IElementDTO) {
     const apiRef = renderAtomType
       ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
       : undefined
@@ -788,7 +764,7 @@ export class Element
 
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
-    this.props = props ? new Prop({ id: props.id, apiRef }) : null
+    this.props = props ? new Prop({ id: props.id, api: apiRef }) : null
     this.parentId = parent?.id ?? null
 
     this.nextSiblingId = nextSibling?.id ?? null
@@ -796,9 +772,7 @@ export class Element
     this.firstChildId = firstChild?.id ?? null
 
     if (props) {
-      this.props?.writeCache({ ...props, apiRef })
-    } else {
-      this.props = null
+      this.propService.add({ id: props.id, data: props.data, api: apiRef })
     }
 
     this.parentComponent = parentComponent
@@ -812,7 +786,7 @@ export class Element
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  public static hydrate = hydrate
+  // public static hydrate = hydrate
 
   public static getElementTree = getElementTree
 }

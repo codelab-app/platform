@@ -1,6 +1,6 @@
 import type {
   IAppService,
-  IUpdateAppDTO,
+  IUpdateAppData,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -23,7 +23,7 @@ export const UpdateAppModal = observer<{
     storeId: app?.store.id,
   }
 
-  const onSubmit = (appDTO: IUpdateAppDTO) => appService.update(appDTO)
+  const onSubmit = (appDTO: IUpdateAppData) => appService.update(appDTO)
   const closeModal = () => appService.updateModal.close()
 
   return (
@@ -32,7 +32,7 @@ export const UpdateAppModal = observer<{
       onCancel={closeModal}
       open={appService.updateModal.isOpen}
     >
-      <ModalForm.Form<IUpdateAppDTO>
+      <ModalForm.Form<IUpdateAppData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({

@@ -20,7 +20,7 @@ export const CreateAtomModal = observer<{
   const closeModal = () => atomService.createModal.close()
 
   const onSubmit = (data: ICreateAtomDTO) => {
-    return atomService.create([data])
+    return atomService.createSubmit([data])
   }
 
   const onSubmitError = createNotificationHandler({

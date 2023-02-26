@@ -8,7 +8,10 @@ import type {
   IUpdateActionInput,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
-import type { CodeActionCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  ActionFragment,
+  CodeActionCreateInput,
+} from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { UnboxArray } from '@codelab/shared/abstract/types'
 import type { Maybe } from 'graphql/jsutils/Maybe'
@@ -33,7 +36,7 @@ type CreateActions = Record<
   IActionKind,
   (
     input: ICreateActionInput | Array<ICreateActionInput>,
-  ) => Promise<Array<IActionDTO>>
+  ) => Promise<Array<ActionFragment>>
 >
 
 type UpdateActionsRecord = Record<
@@ -44,7 +47,7 @@ type UpdateActionsRecord = Record<
     delete?: IDeleteActionInput
     disconnect?: IDisconnectActionInput
     connect?: IConnectActionInput
-  }) => Promise<Array<IActionDTO>>
+  }) => Promise<Array<ActionFragment>>
 >
 
 type DeleteActionsRecord = Record<

@@ -1,8 +1,8 @@
 import type {
   IComponent,
   IComponentService,
-  ICreateComponentDTO,
-  IUpdateComponentDTO,
+  ICreateComponentData,
+  IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
@@ -10,16 +10,20 @@ import {
   IBuilderDataNode,
   IComponentDTO,
 } from '@codelab/frontend/abstract/core'
+import { getPropService, Prop } from '@codelab/frontend/domain/prop'
+import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ComponentUpdateInput,
   ComponentWhere,
+  InterfaceType,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -58,6 +62,16 @@ export class ComponentService
   }
 
   @computed
+  get typeService() {
+    return getTypeService(this)
+  }
+
+  @computed
+  get propService() {
+    return getPropService(this)
+  }
+
+  @computed
   get componentList() {
     return [...this.components.values()]
   }
@@ -67,7 +81,7 @@ export class ComponentService
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ) {
     renderedComponentFragments.forEach((component) => {
-      const componentModel = this.writeCache(component)
+      const componentModel = this.create(component)
 
       const { rootElement, hydratedElements } =
         this.elementService.loadComponentTree(component)
@@ -78,6 +92,33 @@ export class ComponentService
 
   component(id: string) {
     return this.components.get(id) || this.clonedComponents.get(id)
+  }
+
+  @modelAction
+  create({
+    api,
+    name,
+    rootElement,
+    owner,
+    props,
+    childrenContainerElement,
+  }: IComponentDTO) {
+    const apiRef = typeRef(this.typeService.addInterface(api))
+
+    const component = new Component({
+      name: name,
+      rootElementId: rootElement.id,
+      owner: owner,
+      api: apiRef,
+      props: props ? new Prop({ id: props.id, api: apiRef }) : null,
+      childrenContainerElementId: childrenContainerElement.id,
+    })
+
+    if (props) {
+      this.propService.add({ ...props, api: apiRef })
+    }
+
+    return component
   }
 
   @computed
@@ -114,19 +155,7 @@ export class ComponentService
     const { components } = yield* _await(componentApi.GetComponents({ where }))
 
     return components
-      .map((component) => {
-        if (this.components.get(component.id)) {
-          return this.components.get(component.id)
-        } else {
-          const componentModel = Component.hydrate(component)
-          this.components.set(component.id, componentModel)
-          // are used by CRUD general components
-          // so not contain rendered component
-          // componentModel.loadComponentTree(component)
-
-          return componentModel
-        }
-      })
+      .map((component) => this.create(component))
       .filter((component): component is Component => Boolean(component))
   })
 
@@ -144,9 +173,9 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  create = _async(function* (
+  createSubmit = _async(function* (
     this: ComponentService,
-    data: Array<ICreateComponentDTO>,
+    data: Array<ICreateComponentData>,
   ) {
     const input = data.map((component) => mapCreateInput(component))
 
@@ -164,7 +193,7 @@ export class ComponentService
     }
 
     const component = components[0]
-    const componentModel = Component.hydrate(component)
+    const componentModel = this.create(component)
 
     this.components.set(component.id, componentModel)
 
@@ -180,7 +209,7 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    { id, name, childrenContainerElementId }: IUpdateComponentDTO,
+    { id, name, childrenContainerElementId }: IUpdateComponentData,
   ) {
     const {
       updateComponents: { components },
@@ -194,7 +223,7 @@ export class ComponentService
       }),
     )
 
-    return components.map((component) => this.writeCache(component))
+    return components.map((component) => this.create(component))
   })
 
   @modelFlow
@@ -235,23 +264,23 @@ export class ComponentService
       }),
     )
 
-    return components.map((component) => this.writeCache(component))[0]!
+    return components.map((component) => this.create(component))[0]!
   })
 
-  @modelAction
-  writeCache(componentFragment: IComponentDTO) {
-    let componentModel = this.component(componentFragment.id)
+  // @modelAction
+  // add(componentFragment: IComponentDTO) {
+  //   let componentModel = this.component(componentFragment.id)
 
-    if (componentModel) {
-      componentModel.writeCache(componentFragment)
-      this.writeClonesCache(componentFragment)
-    } else {
-      componentModel = Component.hydrate(componentFragment)
-      this.components.set(componentModel.id, componentModel)
-    }
+  //   if (componentModel) {
+  //     componentModel.add(componentFragment)
+  //     this.writeClonesCache(componentFragment)
+  //   } else {
+  //     componentModel = Component.hydrate(componentFragment)
+  //     this.components.set(componentModel.id, componentModel)
+  //   }
 
-    return componentModel
-  }
+  //   return componentModel
+  // }
 
   @modelAction
   writeClonesCache(componentFragment: IComponentDTO) {
@@ -269,7 +298,7 @@ export class ComponentService
         const childrenContainerElement =
           clonedChildrenContainer ?? componentFragment.childrenContainerElement
 
-        return component.writeCache({
+        return this.create({
           ...componentFragment,
           childrenContainerElement,
         })

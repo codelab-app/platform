@@ -110,8 +110,20 @@ export class TypeService
     )
   }
 
+  // @modelAction
+  // create(data: ICreateTypeDTO) {
+  //   const interfaceType = new InterfaceType({
+  //     name: data.name,
+  //     owner: data.owner,
+  //   })
+
+  //   this.types.set(interfaceType.id, interfaceType)
+
+  //   return interfaceType
+  // }
+
   @modelAction
-  add(data: ICreateTypeDTO) {
+  addInterface(data: ICreateTypeDTO) {
     const interfaceType = new InterfaceType({
       name: data.name,
       owner: data.owner,
@@ -175,7 +187,7 @@ export class TypeService
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
-      typeModel.writeCache(fragment)
+      typeModel.create(fragment)
     } else {
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
@@ -318,7 +330,10 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: Array<ICreateTypeDTO>) {
+  createSubmit = _async(function* (
+    this: TypeService,
+    data: Array<ICreateTypeDTO>,
+  ) {
     const input = createTypeFactory(data)
 
     const types: Array<ITypeDTO> = yield* _await(

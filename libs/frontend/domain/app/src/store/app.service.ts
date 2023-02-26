@@ -1,10 +1,11 @@
 import type {
   IApp,
   IAppService,
+  ICreateAppData,
   IPageBuilderAppProps,
-  IUpdateAppDTO,
+  IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
-import { ICreateAppDTO } from '@codelab/frontend/abstract/core'
+import { IAppDTO } from '@codelab/frontend/abstract/core'
 import { getPageService, pageRef } from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
@@ -79,10 +80,8 @@ export class AppService
   load = ({ app, pageId }: IPageBuilderAppProps) => {
     console.debug('AppService.load', app, pageId)
 
-    /**
-     * Need to create nested model
-     */
-    const appModel = this.create(app)
+    const appDTO = App.parsePageBuilderData(app)
+    const appModel = this.add(appDTO)
     // const pageModel = appModel.page(pageId)
     const page = app.pages.find((appPage) => appPage.id === pageId)
 
@@ -95,7 +94,7 @@ export class AppService
     const elements = [
       page.rootElement,
       ...page.rootElement.descendantElements,
-    ].map((element) => this.elementService.add(element))
+    ].map((element) => this.elementService.create(element))
 
     const rootElement = this.elementService.element(page.rootElement.id)
     const pageElementTree = pageModel.initTree(rootElement, elements)
@@ -121,12 +120,12 @@ export class AppService
   getAll = _async(function* (this: AppService, where?: AppWhere) {
     const { apps } = yield* _await(appApi.GetApps({ where }))
 
-    return apps.map((app) => this.create(app))
+    return apps.map((app) => this.add(app))
   })
 
   @modelFlow
   @transaction
-  update = _async(function* (this: AppService, { name, id }: IUpdateAppDTO) {
+  update = _async(function* (this: AppService, { name, id }: IUpdateAppData) {
     const {
       updateApps: { apps },
     } = yield* _await(
@@ -136,7 +135,7 @@ export class AppService
       }),
     )
 
-    return apps.map((app) => this.create(app))
+    return apps.map((app) => this.add(app))
   })
 
   @modelFlow
@@ -153,12 +152,8 @@ export class AppService
 
   @modelFlow
   @transaction
-  add = _async(function* (this: AppService, appDto: ICreateAppDTO) {
-    const app = this.create(appDto)
-
-    yield* _await(this.appRepository.add(app))
-
-    return app
+  private save = _async(function* (this: AppService, app: IApp) {
+    return yield* _await(this.appRepository.add(app))
   })
 
   /**
@@ -167,18 +162,25 @@ export class AppService
    * Also we can create an app with creating user pages
    */
   @modelAction
-  create(appDTO: ICreateAppDTO) {
-    const store = this.storeService.add(appDTO)
+  create(appDTO: IAppDTO) {
+    const store = this.storeService.create(appDTO)
 
     const app = new App({
       ...appDTO,
-      pages: [
-        pageRef(this.pageService.pageFactory.createProviderPage(appDTO)),
-        pageRef(this.pageService.pageFactory.createNotFoundPage(appDTO)),
-        pageRef(
-          this.pageService.pageFactory.createInternalServerErrorPage(appDTO),
-        ),
-      ],
+      pages: appDTO.pages.map((page) => pageRef(this.pageService.add(page))),
+      store: storeRef(store),
+    })
+
+    return app
+  }
+
+  @modelAction
+  add(appDTO: IAppDTO) {
+    const store = this.storeService.create(appDTO)
+
+    const app = new App({
+      ...appDTO,
+      pages: appDTO.pages.map((page) => pageRef(this.pageService.add(page))),
       store: storeRef(store),
     })
 
@@ -186,6 +188,27 @@ export class AppService
 
     return app
   }
+
+  @modelAction
+  createSubmit = _async(function* (this: AppService, appData: ICreateAppData) {
+    const store = this.storeService.create(appData)
+
+    const app = new App({
+      ...appData,
+      pages: [
+        pageRef(this.pageService.pageFactory.createProviderPage(appData)),
+        pageRef(this.pageService.pageFactory.createNotFoundPage(appData)),
+        pageRef(
+          this.pageService.pageFactory.createInternalServerErrorPage(appData),
+        ),
+      ],
+      store: storeRef(store),
+    })
+
+    yield* _await(this.save(app))
+
+    return app
+  })
 
   @modelFlow
   @transaction

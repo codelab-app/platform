@@ -128,7 +128,7 @@ export const useRenderedPage = ({
     resourceService.load(resources)
 
     // hydrate store after types and resources
-    const appStore = storeService.writeCache(app.store)
+    const appStore = storeService.create(app.store)
     appStore.state.setMany(appService.appsJson)
 
     /**

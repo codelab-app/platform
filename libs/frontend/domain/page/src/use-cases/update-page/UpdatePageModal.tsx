@@ -1,6 +1,6 @@
 import type {
   IPageService,
-  IUpdatePageDTO,
+  IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -14,7 +14,7 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const closeModal = () => pageService.updateModal.close()
     const page = pageService.updateModal.page
-    const onSubmit = (pageDTO: IUpdatePageDTO) => pageService.update(pageDTO)
+    const onSubmit = (pageDTO: IUpdatePageData) => pageService.update(pageDTO)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while updating page',

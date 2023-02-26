@@ -1,6 +1,7 @@
 import type {
+  IAppDTO,
   IAppService,
-  ICreateAppDTO,
+  ICreateAppData,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -15,8 +16,8 @@ export const CreateAppModal = observer<{
   appService: IAppService
   userService: IUserService
 }>(({ appService, userService }) => {
-  const onSubmit = (appDTO: ICreateAppDTO) => {
-    return appService.add({ ...appDTO, id: v4() })
+  const onSubmit = (appDTO: ICreateAppData) => {
+    return appService.createSubmit({ ...appDTO, id: v4() })
   }
 
   const closeModal = () => appService.createModal.close()
@@ -34,7 +35,7 @@ export const CreateAppModal = observer<{
       onCancel={closeModal}
       open={appService.createModal.isOpen}
     >
-      <ModalForm.Form
+      <ModalForm.Form<ICreateAppData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
