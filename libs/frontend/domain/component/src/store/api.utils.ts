@@ -1,6 +1,6 @@
 import type {
   IComponent,
-  ICreateComponentDTO,
+  ICreateComponentData,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
@@ -17,7 +17,7 @@ export const mapCreateInput = ({
   name,
   owner,
   rootElement,
-}: ICreateComponentDTO): ComponentCreateInput => {
+}: ICreateComponentData): ComponentCreateInput => {
   const newRootElementId = v4()
 
   const props: ComponentCreateInput['props'] = {

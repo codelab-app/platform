@@ -6,11 +6,11 @@ import type { IProp } from '../prop'
 import type { IInterfaceType } from '../type'
 import type { IStoreDTO } from './store.dto.interface'
 
-export interface IStore extends ICacheService<IStoreDTO, IStore> {
+export interface IStore {
   id: string
   name: string
   api: Ref<IInterfaceType>
-  actions: Array<IAnyAction>
+  actions: Array<Ref<IAnyAction>>
   state: IProp
   toCreateInput(): StoreCreateInput
 }

@@ -1,7 +1,7 @@
 import type {
   IComponent,
   IComponentService,
-  IUpdateComponentDTO,
+  IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Form, FormContextProvider } from '@codelab/frontend/view/components'
@@ -26,12 +26,12 @@ export const UpdateComponentForm = observer<UpdateComponentFormProps>(
       childrenContainerElementId: component.childrenContainerElementId,
     }
 
-    const onSubmit = (componentDTO: IUpdateComponentDTO) =>
+    const onSubmit = (componentDTO: IUpdateComponentData) =>
       componentService.update(componentDTO)
 
     return (
       <FormContextProvider value={{ elementTree }}>
-        <Form<IUpdateComponentDTO>
+        <Form<IUpdateComponentData>
           autosave
           model={model}
           onSubmit={onSubmit}

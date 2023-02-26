@@ -1,4 +1,4 @@
-import type { ICreateActionDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateActionData } from '@codelab/frontend/abstract/core'
 import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import {
@@ -15,7 +15,7 @@ import { IActionKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 
-export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
+export const createActionSchema: JSONSchemaType<ICreateActionData> = {
   title: 'Create Action',
   type: 'object',
   properties: {

@@ -39,7 +39,7 @@ export class Domain
   static hydrate = hydrate
 
   @modelAction
-  public writeCache(data: IDomainDTO) {
+  public create(data: IDomainDTO) {
     this.id = data.id
     this.name = data.name
     this.domainConfig = data.domainConfig

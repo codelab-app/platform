@@ -43,7 +43,7 @@ export class User
   static hydrate = hydrate
 
   @modelAction
-  writeCache(data: IUserDTO) {
+  create(data: IUserDTO) {
     this.id = data.id
     this.auth0Id = data.auth0Id
     this.roles = data.roles

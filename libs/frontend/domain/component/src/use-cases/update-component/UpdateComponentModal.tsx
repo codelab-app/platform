@@ -1,6 +1,6 @@
 import type {
   IComponentService,
-  IUpdateComponentDTO,
+  IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -15,7 +15,7 @@ export const UpdateComponentModal = observer<{
 }>(({ componentService }) => {
   const updatedComponent = componentService.updateModal.component
 
-  const handleSubmit = (componentDTO: IUpdateComponentDTO) => {
+  const handleSubmit = (componentDTO: IUpdateComponentData) => {
     return componentService.update(componentDTO)
   }
 
@@ -29,7 +29,7 @@ export const UpdateComponentModal = observer<{
       open={componentService.updateModal.isOpen}
       title={<span css={tw`font-semibold`}>Update component</span>}
     >
-      <ModalForm.Form<IUpdateComponentDTO>
+      <ModalForm.Form<IUpdateComponentData>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createNotificationHandler({

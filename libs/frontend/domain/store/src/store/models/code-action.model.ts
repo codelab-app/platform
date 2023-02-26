@@ -8,18 +8,6 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction, updateBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
 
-const hydrate = (action: ICodeActionDTO): ICodeAction => {
-  assertIsActionKind(action.type, IActionKind.CodeAction)
-
-  return new CodeAction({
-    id: action.id,
-    name: action.name,
-    code: action.code,
-    store: storeRef(action.store.id),
-    type: action.type,
-  })
-}
-
 @model('@codelab/CodeAction')
 export class CodeAction
   extends ExtendedModel(createBaseAction(IActionKind.CodeAction), {
@@ -27,8 +15,6 @@ export class CodeAction
   })
   implements ICodeAction
 {
-  static hydrate = hydrate
-
   @modelAction
   createRunner(state: IProp) {
     try {
@@ -42,7 +28,7 @@ export class CodeAction
   }
 
   @modelAction
-  writeCache = (data: ICodeActionDTO) => {
+  create = (data: ICodeActionDTO) => {
     updateBaseAction(this, data)
 
     this.code = data.code

@@ -1,6 +1,6 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import type { ITagRef } from '../tag'
-import type { IInterfaceTypeRef } from '../type'
+import type { ITagDTO, ITagRef } from '../tag'
+import type { IInterfaceTypeDTO, IInterfaceTypeRef } from '../type'
 import type { IAuth0Owner } from '../user'
 import type {
   AtomFragment,
@@ -26,7 +26,15 @@ export interface ICreateAtomDTO {
 
 export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>
 
-export type IAtomDTO = AtomFragment
+export interface IAtomDTO {
+  id: string
+  name: string
+  type: IAtomType
+  icon?: string | null
+  tags: Array<ITagDTO>
+  api: IInterfaceTypeDTO
+  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name' | 'type'>>
+}
 
 export type IRenderAtomDTO = RenderAtomFragment
 

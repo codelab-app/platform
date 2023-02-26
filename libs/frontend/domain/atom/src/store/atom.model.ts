@@ -1,5 +1,9 @@
-import type { IAtom, IInterfaceType, ITag } from '@codelab/frontend/abstract/core'
-import { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAtom,
+  IAtomDTO,
+  IInterfaceType,
+  ITag,
+} from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
@@ -17,17 +21,17 @@ import {
 } from 'mobx-keystone'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
-const hydrate = (atom: IAtomDTO) => {
-  return new Atom({
-    id: atom.id,
-    icon: atom.icon,
-    name: atom.name,
-    type: atom.type,
-    api: typeRef(atom.api.id) as Ref<InterfaceType>,
-    tags: atom.tags.map((tag) => tagRef(tag.id)),
-    allowedChildren: atom.allowedChildren,
-  })
-}
+// const hydrate = (atom: IAtomDTO) => {
+//   return new Atom({
+//     id: atom.id,
+//     icon: atom.icon,
+//     name: atom.name,
+//     type: atom.type,
+//     api: typeRef(atom.api.id) as Ref<InterfaceType>,
+//     tags: atom.tags.map((tag) => tagRef(tag.id)),
+//     allowedChildren: atom.allowedChildren,
+//   })
+// }
 
 @model('@codelab/Atom')
 export class Atom
@@ -38,7 +42,7 @@ export class Atom
     type: prop<IAtomType>(),
     tags: prop<Array<Ref<ITag>>>(() => []),
     api: prop<Ref<IInterfaceType>>(),
-    allowedChildren: prop<Array<Pick<IAtomDTO, 'id' | 'name'>>>(() => []),
+    allowedChildren: prop<Array<Ref<IAtom>>>(() => []),
   })
   implements IAtom
 {
@@ -51,19 +55,19 @@ export class Atom
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  static hydrate = hydrate
+  // static hydrate = hydrate
 
-  @modelAction
-  writeCache(atom: IAtomDTO) {
-    this.name = atom.name
-    this.type = atom.type
-    this.api = typeRef(atom.api.id) as Ref<InterfaceType>
-    this.tags = atom.tags.map((tag) => tagRef(tag.id))
-    this.icon = atom.icon
-    this.allowedChildren = atom.allowedChildren
+  // @modelAction
+  // add(atom: IAtomDTO) {
+  //   this.name = atom.name
+  //   this.type = atom.type
+  //   this.api = typeRef(atom.api.id) as Ref<InterfaceType>
+  //   this.tags = atom.tags.map((tag) => tagRef(tag.id))
+  //   this.icon = atom.icon
+  //   this.allowedChildren = atom.allowedChildren
 
-    return this
-  }
+  //   return this
+  // }
 }
 
 export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {

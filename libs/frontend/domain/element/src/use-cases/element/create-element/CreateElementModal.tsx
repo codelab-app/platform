@@ -2,7 +2,7 @@ import type {
   IActionService,
   IBuilderService,
   IComponentService,
-  ICreateElementDTO,
+  ICreateElementData,
   IElementService,
   IElementTree,
   IRenderService,
@@ -46,7 +46,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     pageTree,
     renderService,
   }) => {
-    const onSubmit = async (data: ICreateElementDTO) => {
+    const onSubmit = async (data: ICreateElementData) => {
       const { prevSiblingId } = data
 
       const element = await (prevSiblingId
@@ -107,7 +107,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         open={elementService.createModal.isOpen}
         title={<span css={tw`font-semibold`}>Create element</span>}
       >
-        <ModalForm.Form<ICreateElementDTO>
+        <ModalForm.Form<ICreateElementData>
           model={model}
           onChange={(key, value) => {
             key === 'renderType' && setRenderType(value.model)

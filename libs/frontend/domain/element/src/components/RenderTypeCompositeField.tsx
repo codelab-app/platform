@@ -1,4 +1,4 @@
-import type { IAtom, ICreateElementDTO } from '@codelab/frontend/abstract/core'
+import type { IAtom, ICreateElementData } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
@@ -10,7 +10,7 @@ const RenderTypeFields = ({
   parent,
   error,
   onChange,
-}: GuaranteedProps<Partial<ICreateElementDTO['renderType']>> & {
+}: GuaranteedProps<Partial<ICreateElementData['renderType']>> & {
   parent?: IAtom
 }) => (
   <section>
@@ -33,7 +33,7 @@ const RenderTypeFields = ({
       ]}
       required={false}
     />
-    <DisplayIfField<ICreateElementDTO>
+    <DisplayIfField<ICreateElementData>
       condition={(context) =>
         context.model.renderType?.model === RenderTypeEnum.Atom
       }
@@ -44,7 +44,7 @@ const RenderTypeFields = ({
        */}
       <SelectAtom error={error} label="Atom" name="id" parent={parent} />
     </DisplayIfField>
-    <DisplayIfField<ICreateElementDTO>
+    <DisplayIfField<ICreateElementData>
       condition={(context) =>
         context.model.renderType?.model === RenderTypeEnum.Component
       }

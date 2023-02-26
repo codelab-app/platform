@@ -30,7 +30,7 @@ export class ReactNodeType
   implements IReactNodeType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  create(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     return this

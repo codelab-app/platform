@@ -55,7 +55,7 @@ export class EnumType
   implements IEnumType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  create(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.EnumType) {

@@ -15,7 +15,7 @@ export type AppPreviewFragment = {
   slug: string
   owner: { auth0Id: string }
   pages: Array<PageFragment>
-  store: { id: string }
+  store: { id: string; name: string }
 }
 
 export type AppFragment = {
@@ -60,6 +60,7 @@ export const AppPreviewFragmentDoc = gql`
     }
     store {
       id
+      name
     }
   }
   ${PageFragmentDoc}

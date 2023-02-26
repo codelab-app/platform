@@ -1,10 +1,10 @@
-import type { ICreateElementDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import { titleCaseValidation } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
-export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
+export const createElementSchema: JSONSchemaType<ICreateElementData> = {
   title: 'Create Element Input',
   type: 'object',
   properties: {

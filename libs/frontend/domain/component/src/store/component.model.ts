@@ -33,22 +33,22 @@ import {
   prop,
 } from 'mobx-keystone'
 
-const hydrate = (component: IComponentDTO) => {
-  const apiRef = typeRef(component.api.id) as Ref<InterfaceType>
+// const hydrate = (component: IComponentDTO) => {
+//   const apiRef = typeRef(component.api.id) as Ref<InterfaceType>
 
-  return new Component({
-    id: component.id,
-    name: component.name,
-    rootElementId: component.rootElement.id,
-    owner: component.owner,
-    api: typeRef(component.api.id) as Ref<InterfaceType>,
-    props: component.props
-      ? Prop.hydrate({ ...component.props, apiRef })
-      : null,
-    childrenContainerElementId: component.childrenContainerElement.id,
-    instanceElement: null,
-  })
-}
+//   return new Component({
+//     id: component.id,
+//     name: component.name,
+//     rootElementId: component.rootElement.id,
+//     owner: component.owner,
+//     api: typeRef(component.api.id) as Ref<InterfaceType>,
+//     props: component.props
+//       ? Prop.hydrate({ ...component.props, apiRef })
+//       : null,
+//     childrenContainerElementId: component.childrenContainerElement.id,
+//     instanceElement: null,
+//   })
+// }
 
 @model('@codelab/Component')
 export class Component
@@ -70,27 +70,27 @@ export class Component
   implements IComponent
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  static hydrate = hydrate
+  // static hydrate = hydrate
 
-  writeCache(fragment: IComponentDTO) {
-    const apiRef = typeRef(fragment.api.id) as Ref<InterfaceType>
+  // add(fragment: IComponentDTO) {
+  //   const api = typeRef(fragment.api.id) as Ref<InterfaceType>
 
-    this.setName(fragment.name)
-    this.rootElementId = fragment.rootElement.id
-    this.owner = fragment.owner
-    this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
-    this.props = fragment.props
-      ? new Prop({ id: fragment.props.id, apiRef })
-      : null
+  //   this.setName(fragment.name)
+  //   this.rootElementId = fragment.rootElement.id
+  //   this.owner = fragment.owner
+  //   this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
+  //   this.props = fragment.props
+  //     ? new Prop({ id: fragment.props.id, api })
+  //     : null
 
-    if (fragment.props) {
-      this.props?.writeCache({ ...fragment.props, apiRef })
-    }
+  //   if (fragment.props) {
+  //     this.props?.add({ ...fragment.props, api })
+  //   }
 
-    this.childrenContainerElementId = fragment.childrenContainerElement.id
+  //   this.childrenContainerElementId = fragment.childrenContainerElement.id
 
-    return this
-  }
+  //   return this
+  // }
 
   @modelAction
   private cloneTree(clonedComponent: IComponent, cloneIndex: number) {

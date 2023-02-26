@@ -1,4 +1,4 @@
-import type { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import {
   nonEmptyString,
@@ -9,7 +9,7 @@ import { CodeMirrorField } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export type UpdatePageSchema = Omit<IUpdatePageDTO, 'pageContainerElementId'>
+export type UpdatePageSchema = Omit<IUpdatePageData, 'pageContainerElementId'>
 
 export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
   title: 'Update Page Input',

@@ -11,10 +11,10 @@ export const loginSession = () => {
     ['auth0-session'],
     () => {
       login()
-      fetch('/api/upsert-user')
+      cy.request('/api/upsert-user')
     },
     {
-      cacheAcrossSpecs: true,
+      cacheAcrossSpecs: false,
       // validate: () => {},
     },
   )

@@ -9,10 +9,10 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   videosFolder: './src/videos',
   screenshotsFolder: './src/screenshots',
   chromeWebSecurity: false,
-  defaultCommandTimeout: 30000,
-  responseTimeout: 30000,
-  execTimeout: 30000,
-  pageLoadTimeout: 30000,
+  defaultCommandTimeout: 15000,
+  responseTimeout: 15000,
+  execTimeout: 15000,
+  pageLoadTimeout: 15000,
   // Old Cypress.io project ID but too expensive
   // projectId: '86p5h3',
   // New currents.dev alternative

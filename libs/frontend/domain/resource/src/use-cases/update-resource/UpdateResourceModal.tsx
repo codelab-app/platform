@@ -1,6 +1,6 @@
 import type {
   IResourceService,
-  IUpdateResourceDTO,
+  IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
@@ -16,7 +16,7 @@ export const UpdateResourceModal = observer<{
   const updateResource = resourceService.updateModal.resource
   const closeModal = () => resourceService.updateModal.close()
 
-  const onSubmit = async (resourceDTO: IUpdateResourceDTO) => {
+  const onSubmit = async (resourceDTO: IUpdateResourceData) => {
     return resourceService.update(resourceDTO)
   }
 
@@ -28,7 +28,6 @@ export const UpdateResourceModal = observer<{
     name: updateResource?.name,
     config: updateResource?.config.values,
     type: updateResource?.type,
-    owner: updateResource?.owner,
   }
 
   return (
@@ -51,7 +50,7 @@ export const UpdateResourceModal = observer<{
          *  GraphQL Resource Config Form
          *
          */}
-        <DisplayIfField<IUpdateResourceDTO>
+        <DisplayIfField<IUpdateResourceData>
           condition={(context) => context.model.type === IResourceType.GraphQL}
         >
           <AutoField name="config.url" />
@@ -63,7 +62,7 @@ export const UpdateResourceModal = observer<{
          *  Rest Resource Config Form
          *
          */}
-        <DisplayIfField<IUpdateResourceDTO>
+        <DisplayIfField<IUpdateResourceData>
           condition={(context) => context.model.type === IResourceType.Rest}
         >
           <AutoField name="config.url" />

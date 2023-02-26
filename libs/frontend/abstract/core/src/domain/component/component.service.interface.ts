@@ -14,14 +14,14 @@ import type {
 import type { IBuilderDataNode } from '../../ui'
 import type {
   IComponentDTO,
-  ICreateComponentDTO,
-  IUpdateComponentDTO,
+  ICreateComponentData,
+  IUpdateComponentData,
 } from './component.dto.interface'
 import type { IComponent } from './component.model.interface'
 import type { RenderedComponentFragment } from './component-render.fragment.graphql.gen'
 
 export interface IComponentService
-  extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,
+  extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
     IQueryService<IComponent, ComponentWhere, ComponentOptions>,
     ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
     ICacheService<IComponentDTO, IComponent> {
@@ -30,6 +30,7 @@ export interface IComponentService
   componentList: Array<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
+  create(componentDTO: IComponentDTO): IComponent
   patchComponent(
     component: IComponent,
     input: ComponentUpdateInput,

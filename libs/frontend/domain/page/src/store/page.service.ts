@@ -1,9 +1,9 @@
 import type {
   IApp,
-  ICreatePageDTO,
+  ICreatePageData,
   IPage,
   IPageService,
-  IUpdatePageDTO,
+  IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
 import {
   DEFAULT_GET_SERVER_SIDE_PROPS,
@@ -114,7 +114,7 @@ export class PageService
       getServerSideProps,
       app,
       pageContainerElementId,
-    }: IUpdatePageDTO,
+    }: IUpdatePageData,
   ) {
     const {
       updatePages: { pages },
@@ -167,28 +167,29 @@ export class PageService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: PageService, data: Array<ICreatePageDTO>) {
-    const input = data.map(
-      ({ id, name, app, rootElement, getServerSideProps }) => {
-        const pageId = id
+  createSubmit = _async(function* (
+    this: PageService,
+    data: Array<ICreatePageData>,
+  ) {
+    const input = data.map(({ id, name, app, getServerSideProps }) => {
+      const pageId = id
 
-        return {
-          id: pageId,
-          name: createUniqueName(name, app.id),
-          app: connectNodeId(app.id),
-          getServerSideProps: getServerSideProps,
-          kind: IPageKind.Regular,
-          rootElement: {
-            create: {
-              node: {
-                id: rootElement.id,
-                name: createUniqueName(ROOT_ELEMENT_NAME, pageId),
-              },
+      return {
+        id: pageId,
+        name: createUniqueName(name, app.id),
+        app: connectNodeId(app.id),
+        getServerSideProps: getServerSideProps,
+        kind: IPageKind.Regular,
+        rootElement: {
+          create: {
+            node: {
+              id: v4(),
+              name: createUniqueName(ROOT_ELEMENT_NAME, pageId),
             },
           },
-        }
-      },
-    )
+        },
+      }
+    })
 
     const {
       createPages: { pages },
@@ -220,19 +221,22 @@ export class PageService
   })
 
   @modelAction
-  add({ name, app, rootElement, descendentElements }: IPageDTO) {
-    const providerPageId = v4()
-
+  add({
+    id,
+    name,
+    app,
+    rootElement,
+    getServerSideProps,
+    descendentElements,
+  }: IPageDTO) {
     const page = new Page({
-      id: providerPageId,
+      id,
       name,
-      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+      getServerSideProps,
       app,
       rootElement: elementRef(rootElement.id),
       kind: IPageKind.Provider,
     })
-
-    // Add all elements of page
 
     this.pages.set(page.id, page)
 

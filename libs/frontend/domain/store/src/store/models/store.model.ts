@@ -1,11 +1,13 @@
 import type {
+  IAnyAction,
   IApp,
-  ICreateAppDTO,
+  IAppDTO,
   IInterfaceType,
   IProp,
   IStore,
+  IStoreDTO,
 } from '@codelab/frontend/abstract/core'
-import { IPropData, IStoreDTO } from '@codelab/frontend/abstract/core'
+import { IPropData } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
 import { getByExpression } from '@codelab/frontend/shared/utils'
@@ -41,6 +43,7 @@ export class Store
     name: prop<string>(),
     api: prop<Ref<IInterfaceType>>().withSetter(),
     state: prop<IProp>(() => new Prop({})),
+    actions: prop<Array<Ref<IAnyAction>>>(() => []),
   }))
   implements IStore
 {
@@ -68,21 +71,14 @@ export class Store
     }
   }
 
-  @modelAction
-  writeCache({ id, name, api }: IStoreDTO) {
-    this.id = id
-    this.name = name
-    this.api = typeRef(api.id) as Ref<IInterfaceType>
+  // @modelAction
+  // create({ id, name, api, actions }: IStoreDTO) {
+  //   this.id = id
+  //   this.name = name
+  //   this.api = typeRef(api.id) as Ref<IInterfaceType>
 
-    return this
-  }
-
-  @computed
-  get actions() {
-    return getActionService(this).actionsList.filter(
-      (action) => action.store.id === this.id,
-    )
-  }
+  //   return this
+  // }
 
   @computed
   private get _defaultValues() {
@@ -93,7 +89,7 @@ export class Store
   private get _actionsRunners() {
     return this.actions
       .map((action) => ({
-        [action.name]: { run: action.createRunner(this.state) },
+        [action.current.name]: { run: action.current.createRunner(this.state) },
       }))
       .reduce(merge, {})
   }
@@ -132,7 +128,7 @@ export class Store
     }
   }
 
-  static createName(app: ICreateAppDTO) {
+  static createName(app: IAppDTO) {
     return `${app.name} Store`
   }
 

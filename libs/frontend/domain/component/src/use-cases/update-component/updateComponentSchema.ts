@@ -1,11 +1,11 @@
-import type { IUpdateComponentDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateComponentData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import { nonEmptyString } from '@codelab/frontend/shared/utils'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const updateComponentSchema: JSONSchemaType<IUpdateComponentDTO> = {
+export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
   title: 'Update Component Input',
   type: 'object',
   properties: {

@@ -1,12 +1,23 @@
 import type {
   IActionService,
+  IApiActionConfig,
   IApiActionDTO,
-  ICreateActionDTO,
+  ICreateActionData,
   ICreateActionInput,
-  IUpdateActionDTO,
+  IProp,
+  IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
-import { IActionDTO, IAnyAction } from '@codelab/frontend/abstract/core'
-import { getResourceService } from '@codelab/frontend/domain/resource'
+import {
+  IActionDTO,
+  IAnyAction,
+  IBaseActionDTO,
+} from '@codelab/frontend/abstract/core'
+import { getPropService, propRef } from '@codelab/frontend/domain/prop'
+import {
+  getResourceService,
+  resourceRef,
+} from '@codelab/frontend/domain/resource'
+import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -23,6 +34,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { Action } from 'rxjs/internal/scheduler/Action'
+import { ActionFactory } from './action.factory'
 import { ActionModalService } from './action-modal.service'
 import {
   createActionApi,
@@ -32,7 +45,7 @@ import {
   makeActionUpdateInput,
   updateActionApi,
 } from './apis'
-import { Action } from './models'
+import { actionRef, ApiAction, CodeAction, storeRef } from './models'
 
 @model('@codelab/ActionService')
 export class ActionService
@@ -41,6 +54,7 @@ export class ActionService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ActionModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
+    actionFactory: prop(() => new ActionFactory({})),
     selectedActions: prop(() => Array<Ref<IAnyAction>>()).withSetter(),
   })
   implements IActionService
@@ -48,6 +62,21 @@ export class ActionService
   @computed
   get actionsList() {
     return [...this.actions.values()]
+  }
+
+  @computed
+  get propService() {
+    return getPropService(this)
+  }
+
+  @computed
+  get typeService() {
+    return getTypeService(this)
+  }
+
+  @computed
+  private get resourceService() {
+    return getResourceService(this)
   }
 
   action(id: string) {
@@ -60,47 +89,79 @@ export class ActionService
   }
 
   @modelAction
-  writeCache(action: IActionDTO) {
-    this.updateResourceCache([action])
+  add(actionDTO: IActionDTO) {
+    switch (actionDTO.__typename) {
+      case IActionKind.CodeAction: {
+        return new CodeAction({
+          id: actionDTO.id,
+          name: actionDTO.name,
+          code: actionDTO.code,
+          store: storeRef(actionDTO.store.id),
+          type: IActionKind.CodeAction,
+        })
+      }
 
-    let actionModel = this.action(action.id)
+      case IActionKind.ApiAction: {
+        return new ApiAction({
+          id: actionDTO.id,
+          name: actionDTO.name,
+          store: storeRef(actionDTO.store.id),
+          type: IActionKind.ApiAction,
+          config: propRef(
+            this.propService.add({
+              id: actionDTO.config.id,
+              api: actionDTO.config.api
+                ? typeRef(this.typeService.addInterface(actionDTO.config.api))
+                : undefined,
+              data: JSON.stringify(actionDTO.config.data),
+            }) as IProp<IApiActionConfig>,
+          ),
+          // TODO: Need to add resources
+          resource: resourceRef(actionDTO.resource.id),
+          successAction: actionDTO.successAction?.id
+            ? actionRef(actionDTO.successAction.id)
+            : null,
+          errorAction: actionDTO.errorAction?.id
+            ? actionRef(actionDTO.errorAction.id)
+            : null,
+        })
+      }
 
-    if (actionModel) {
-      Action.writeCache(action, actionModel)
-    } else {
-      actionModel = Action.create(action)
-      this.actions.set(actionModel.id, actionModel)
+      default: {
+        throw new Error('Invalid action type')
+      }
     }
-
-    return actionModel
   }
 
   @modelFlow
   @transaction
-  update = _async(function* (this: ActionService, actionDTO: IUpdateActionDTO) {
+  update = _async(function* (
+    this: ActionService,
+    actionDTO: IUpdateActionData,
+  ) {
     const updateInput = makeActionUpdateInput(actionDTO)
-    const actions = yield* _await(updateActionApi[actionDTO.type](updateInput))
 
-    return actions.map((action) => this.writeCache(action))
+    const actionFragments = yield* _await(
+      updateActionApi[actionDTO.type](updateInput),
+    )
+
+    return actionFragments.map((actionFragment) => {
+      const action = this.actionFactory.fromActionFragment(actionFragment)
+
+      return this.add(action)
+    })
   })
-
-  @modelAction
-  updateResourceCache(actions: Array<IActionDTO>) {
-    const resourceService = getResourceService(this)
-
-    const resources = actions
-      .filter((action) => action.__typename === IActionKind.ApiAction)
-      .map((action) => (action as IApiActionDTO).resource)
-
-    return resources.map((resource) => resourceService.writeCache(resource))
-  }
 
   @modelFlow
   @transaction
   getAll = _async(function* (this: ActionService, storeId?: string) {
-    const actions = yield* _await(getActionsByStore(storeId))
+    const actionFragments = yield* _await(getActionsByStore(storeId))
 
-    return actions.map((action) => this.writeCache(action))
+    return actionFragments.map((actionFragment) => {
+      const action = this.actionFactory.fromActionFragment(actionFragment)
+
+      return this.add(action)
+    })
   })
 
   @modelFlow
@@ -113,15 +174,15 @@ export class ActionService
 
   @modelFlow
   @transaction
-  create = _async(function* (
+  createSubmit = _async(function* (
     this: ActionService,
-    data: Array<ICreateActionDTO>,
+    data: Array<ICreateActionData>,
   ) {
     const input: Array<ICreateActionInput> = data.map((action) =>
       makeActionCreateInput(action),
     )
 
-    const actions: Array<IActionDTO> = yield* _await(
+    const actionFragments = yield* _await(
       Promise.all(
         input.map((action) => {
           if (!action.type) {
@@ -133,7 +194,11 @@ export class ActionService
       ).then((res) => res.flat()),
     )
 
-    return actions.map((action) => this.writeCache(action))
+    return actionFragments.map((actionFragment) => {
+      const action = this.actionFactory.fromActionFragment(actionFragment)
+
+      return this.add(action)
+    })
   })
 
   @modelFlow

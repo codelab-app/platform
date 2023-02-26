@@ -1,7 +1,7 @@
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { IAtomID } from '../atom'
-import type { IComponentID } from '../component'
-import type { IPropData } from '../prop'
+import type { IAtomDTO, IAtomID } from '../atom'
+import type { IComponentDTO, IComponentID } from '../component'
+import type { IPropData, IPropDTO } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
 
 export enum RenderTypeEnum {
@@ -15,7 +15,7 @@ export interface RenderType {
   model: RenderTypeEnum
 }
 
-export interface ICreateElementDTO {
+export interface ICreateElementData {
   id: string
   name: string
   parentElement?: IEntity
@@ -31,7 +31,7 @@ export interface ICreateElementDTO {
   renderType?: Nullable<RenderType>
 }
 
-export type IUpdateElementDTO = ICreateElementDTO & {
+export type IUpdateElementData = ICreateElementData & {
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
   props?: Nullable<IPropData>
@@ -43,8 +43,8 @@ export type IUpdateElementDTO = ICreateElementDTO & {
 /**
  * Some properties have their own forms, the base form only uses a subset of fields
  */
-export type IUpdateBaseElementDTO = Pick<
-  IUpdateElementDTO,
+export type IUpdateBaseElementData = Pick<
+  IUpdateElementData,
   | 'id'
   | 'renderType'
   | 'name'
@@ -57,4 +57,24 @@ export type IUpdateBaseElementDTO = Pick<
 /**
  * This is the graphql fragment equivalent, used for hydrating object
  */
-export type IElementDTO = ElementFragment
+export interface IElementDTO {
+  id: string
+  name: string
+  slug: string
+  customCss?: string | null
+  guiCss?: string | null
+  renderForEachPropKey?: string | null
+  renderIfExpression?: string | null
+  preRenderActionId?: string | null
+  postRenderActionId?: string | null
+  propTransformationJs?: string | null
+  page?: { id: string } | null
+  renderComponentType?: IComponentDTO | null
+  renderAtomType?: IAtomDTO | null
+  prevSibling?: IEntity | null
+  nextSibling?: IEntity | null
+  parentComponent?: IComponentDTO | null
+  parent?: IEntity | null
+  firstChild?: IEntity | null
+  props?: IPropDTO | null
+}

@@ -1,10 +1,13 @@
 import type {
+  ICreateResourceData,
   ICreateResourceDTO,
   IResource,
+  IResourceConfig,
   IResourceService,
-  IUpdateResourceDTO,
+  IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
 import { IResourceDTO } from '@codelab/frontend/abstract/core'
+import { getPropService } from '@codelab/frontend/domain/prop'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ResourceCreateInput,
@@ -34,8 +37,6 @@ import { ResourceModalService } from './resource-modal.service'
 export class ResourceService
   extends Model({
     resources: prop(() => objectMap<IResource>()),
-
-    // createModal: prop(() => new CreateResourceModalService({})),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ResourceModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
@@ -51,12 +52,17 @@ export class ResourceService
     return this.resources.get(id)
   }
 
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
 
-    return resources.map((resource) => this.writeCache(resource))
+    return resources.map((resource) => this.create(resource))
   })
 
   @modelFlow
@@ -67,11 +73,18 @@ export class ResourceService
     return resource
   })
 
+  // @modelFlow
+  // add(resourceDTO: IResourceDTO) {
+  //   const resource = new Resource()
+
+  //   return resources.map((resource) => resourceService.writeCache(resource))
+  // }
+
   @modelFlow
   @transaction
-  create = _async(function* (
+  createSubmit = _async(function* (
     this: ResourceService,
-    data: Array<ICreateResourceDTO>,
+    data: Array<ICreateResourceData>,
   ) {
     const input: Array<ResourceCreateInput> = data.map((resource) => ({
       id: v4(),
@@ -95,14 +108,14 @@ export class ResourceService
       }),
     )
 
-    return resources.map((resource) => this.writeCache(resource))
+    return resources.map((resource) => this.create(resource))
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: ResourceService,
-    { id, config, name, type }: IUpdateResourceDTO,
+    { id, config, name, type }: IUpdateResourceData,
   ) {
     const {
       updateResources: { resources },
@@ -120,7 +133,7 @@ export class ResourceService
       }),
     )
 
-    return resources.map((resource) => this.writeCache(resource))
+    return resources.map((resource) => this.create(resource))
   })
 
   @modelFlow
@@ -137,21 +150,21 @@ export class ResourceService
 
   @modelAction
   load(resources: Array<IResourceDTO>) {
-    resources.forEach((resource) => this.writeCache(resource))
+    resources.forEach((resource) => this.create(resource))
   }
 
   @modelAction
-  writeCache(resource: IResourceDTO) {
-    let resourceModel = this.resource(resource.id)
+  create({ id, name, config, type }: IResourceDTO) {
+    const resource = new Resource({
+      id,
+      name,
+      config: this.propService.add(config) as IResourceConfig,
+      type,
+    })
 
-    if (resourceModel) {
-      resourceModel.writeCache(resource)
-    } else {
-      resourceModel = Resource.hydrate(resource)
-      this.resources.set(resourceModel.id, resourceModel)
-    }
+    this.resources.set(resource.id, resource)
 
-    return resourceModel
+    return resource
   }
 }
 

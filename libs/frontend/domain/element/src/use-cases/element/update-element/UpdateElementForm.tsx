@@ -2,8 +2,8 @@ import type {
   IElement,
   IElementService,
   IRenderer,
-  IUpdateBaseElementDTO,
-  IUpdateElementDTO,
+  IUpdateBaseElementData,
+  IUpdateElementData,
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -81,7 +81,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       model.renderType?.model,
     )
 
-    const onSubmit = (data: IUpdateElementDTO) => {
+    const onSubmit = (data: IUpdateElementData) => {
       const promise = elementService.update(element, data)
 
       if (trackPromise) {
@@ -111,7 +111,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }, [element])
 
     return (
-      <Form<IUpdateBaseElementDTO>
+      <Form<IUpdateBaseElementData>
         autosave
         cssString={`
           & .ant-form-item-explain {

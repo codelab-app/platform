@@ -8,6 +8,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { createTagSchema } from './createTagSchema'
 
 export const CreateTagModal = observer<{
@@ -15,12 +16,14 @@ export const CreateTagModal = observer<{
   userService: IUserService
 }>(({ tagService, userService }) => {
   const onSubmit = (input: ICreateTagDTO) => {
-    return tagService.create([input])
+    return tagService.createSubmit([input])
   }
 
   const options = tagService.tagsSelectOptions
   const defaultOption = tagService.selectedOption
   const closeModal = () => tagService.createModal.close()
+
+  console.log(options)
 
   return (
     <ModalForm.Modal
@@ -30,6 +33,7 @@ export const CreateTagModal = observer<{
     >
       <ModalForm.Form
         model={{
+          id: v4(),
           parentTag: { id: defaultOption.value.toString() },
           owner: { auth0Id: userService.user?.auth0Id },
         }}
@@ -40,11 +44,11 @@ export const CreateTagModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createTagSchema}
       >
-        <AutoFields omitFields={['parentTagId']} />
+        <AutoFields omitFields={['parentTag']} />
         {/* <DisplayIfNotRoot> */}
         <SelectField
           label="Parent Tag"
-          name="parentTagId"
+          name="parentTag.id"
           optionFilterProp="label"
           options={options}
           showSearch

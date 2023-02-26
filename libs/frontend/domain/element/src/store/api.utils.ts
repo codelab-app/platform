@@ -1,9 +1,9 @@
 import type {
-  ICreateElementDTO,
+  ICreateElementData,
   IElement,
   IFieldDefaultValue,
   IInterfaceType,
-  IUpdateElementDTO,
+  IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
@@ -33,7 +33,7 @@ export const makeUpdateElementInput = (
 })
 
 export const makeCreateInput = (
-  input: ICreateElementDTO,
+  input: ICreateElementData,
 ): ElementCreateInput => {
   const {
     id = v4(),
@@ -95,7 +95,7 @@ export const makeDuplicateInput = (
 }
 
 export const makeUpdateInput = (
-  input: IUpdateElementDTO,
+  input: IUpdateElementData,
 ): ElementUpdateInput => {
   const {
     renderType,

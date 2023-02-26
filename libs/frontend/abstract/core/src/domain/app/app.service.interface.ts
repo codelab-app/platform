@@ -11,24 +11,28 @@ import type {
 import type { IPropData } from '../prop'
 import type {
   IAppDTO,
-  ICreateAppDTO,
+  ICreateAppData,
   IPageBuilderAppProps,
-  IUpdateAppDTO,
+  IUpdateAppData,
 } from './app.dto.interface'
 import type { IApp, IBuilderApp } from './app.model.interface'
 
 export interface IAppService
-  extends Omit<ICRUDService<IApp, ICreateAppDTO, IUpdateAppDTO>, 'create'>,
+  extends Omit<
+      ICRUDService<IApp, ICreateAppData, IUpdateAppData>,
+      'createSubmit'
+    >,
     IQueryService<IApp, AppWhere, AppOptions>,
     ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
   /**
    * Properties
    */
-  add(appDto: ICreateAppDTO): Promise<IApp>
+  createSubmit(appDto: ICreateAppData): Promise<IApp>
+  add(appDto: IAppDTO): IApp
   apps: ObjectMap<IApp>
   app(id: string): Maybe<IApp>
   appsList: Array<IApp>
-  create(appDTO: ICreateAppDTO): IApp
+  // create(appDTO: ICreateAppDTO): IApp
   appsJson: IPropData
   load(data: IPageBuilderAppProps): IBuilderApp
   buildModal: IEntityModalService<Ref<IApp>, { app: IApp }>

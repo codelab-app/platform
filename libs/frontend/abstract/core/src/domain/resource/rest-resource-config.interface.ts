@@ -1,4 +1,7 @@
-export interface IRestResourceConfig {
-  headers: string
-  url: string
+export interface IRestResourceConfigDTO {
+  id: string
+  data: {
+    headers: string
+    url: string
+  }
 }

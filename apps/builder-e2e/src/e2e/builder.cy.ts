@@ -135,7 +135,7 @@ describe('Elements CRUD', () => {
     })
   })
 
-  describe(`update`, () => {
+  describe('update', () => {
     it(`should be able to update element`, () => {
       cy.findByText(ELEMENT_CONTAINER).click()
       cy.findByLabelText('Name').clear().type(updatedElementName)
@@ -143,7 +143,7 @@ describe('Elements CRUD', () => {
     })
   })
 
-  describe(`delete`, () => {
+  describe('delete', () => {
     it(`should be able to delete element sub tree`, () => {
       cy.findByText(updatedElementName).rightclick()
       cy.contains(/Delete/).click({ force: true })

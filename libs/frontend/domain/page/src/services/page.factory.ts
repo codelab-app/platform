@@ -32,7 +32,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   createProviderPage(app: IEntity) {
     const providerPageId = v4()
 
-    const rootElement = this.elementService.add({
+    const rootElement = this.elementService.create({
       id: v4(),
       name: slugify(`${providerPageId}-${ROOT_ELEMENT_NAME}`),
     })
@@ -51,7 +51,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   createNotFoundPage(app: IEntity) {
     const notFoundPageId = v4()
 
-    const rootElement = this.elementService.add({
+    const rootElement = this.elementService.create({
       id: v4(),
       name: slugify(`${notFoundPageId}-${ROOT_ELEMENT_NAME}`),
     })
@@ -71,7 +71,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   createInternalServerErrorPage(app: IEntity) {
     const internalServerErrorPageId = v4()
 
-    const rootElement = this.elementService.add({
+    const rootElement = this.elementService.create({
       id: v4(),
       name: slugify(`${internalServerErrorPageId}-${ROOT_ELEMENT_NAME}`),
     })

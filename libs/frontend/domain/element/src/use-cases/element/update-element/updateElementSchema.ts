@@ -1,10 +1,10 @@
-import type { IUpdateBaseElementDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import { titleCaseValidation } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
-export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
+export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   title: 'Update Element Input',
   type: 'object',
   properties: {

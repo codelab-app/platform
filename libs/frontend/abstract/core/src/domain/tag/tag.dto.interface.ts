@@ -1,4 +1,4 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity, INullableEntity } from '@codelab/shared/abstract/types'
 import type { Required } from 'utility-types'
 import type { IAuth0Owner } from '../user'
 import type { TagFragment } from './tag.fragment.graphql.gen'

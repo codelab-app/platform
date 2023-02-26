@@ -28,25 +28,6 @@ import { actionRef } from './action.ref'
 import { createBaseAction, updateBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
 
-const hydrate = (action: IApiActionDTO): IApiAction => {
-  assertIsActionKind(action.type, IActionKind.ApiAction)
-
-  return new ApiAction({
-    id: action.id,
-    name: action.name,
-    store: storeRef(action.store.id),
-    type: action.type,
-    // TODO: fix up type
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    config: Prop.hydrate(action.config) as any,
-    resource: resourceRef(action.resource.id),
-    successAction: action.successAction
-      ? actionRef(action.successAction.id)
-      : null,
-    errorAction: action.errorAction ? actionRef(action.errorAction.id) : null,
-  })
-}
-
 const restFetch = (
   client: Axios,
   config: IRestActionConfig,
@@ -85,14 +66,12 @@ const graphqlFetch = (
 export class ApiAction
   extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
     resource: prop<Ref<IResource>>(),
-    config: prop<IApiActionConfig>(),
+    config: prop<Ref<IProp<IApiActionConfig>>>(),
     successAction: prop<Nullish<Ref<IAnyAction>>>(),
     errorAction: prop<Nullish<Ref<IAnyAction>>>(),
   })
   implements IApiAction
 {
-  static hydrate = hydrate
-
   @modelAction
   private replaceStateInConfig(config: IProp) {
     return replaceStateInProps(config.values, this.store.current.state.values)
@@ -127,7 +106,7 @@ export class ApiAction
       const overrideConfig = args[0] as IPropData
 
       const config = replaceStateInProps(
-        this.config.values,
+        this.config.current.values,
         this.store.current.state.values,
       )
 
@@ -163,20 +142,20 @@ export class ApiAction
     return runner.bind(this)
   }
 
-  @modelAction
-  writeCache(action: IApiActionDTO) {
-    updateBaseAction(this, action)
+  // @modelAction
+  // add(action: IApiActionDTO) {
+  //   updateBaseAction(this, action)
 
-    this.resource = resourceRef(action.resource.id)
-    this.config.writeCache(action.config)
-    this.errorAction = action.errorAction
-      ? actionRef(action.errorAction.id)
-      : null
-    this.successAction = action.successAction
-      ? actionRef(action.successAction.id)
-      : null
-    this.store = storeRef(action.store.id)
+  //   this.resource = resourceRef(action.resource.id)
+  //   this.config.add(action.config)
+  //   this.errorAction = action.errorAction
+  //     ? actionRef(action.errorAction.id)
+  //     : null
+  //   this.successAction = action.successAction
+  //     ? actionRef(action.successAction.id)
+  //     : null
+  //   this.store = storeRef(action.store.id)
 
-    return this
-  }
+  //   return this
+  // }
 }

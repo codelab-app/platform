@@ -19,7 +19,7 @@ export const SelectAction = ({ name, label, error }: SelectActionProps) => {
   const storeActions = appStore?.actions
 
   const actionOptions = (storeActions ?? []).map((action) => ({
-    label: action.name,
+    label: action.current.name,
     value: action.id,
   }))
 

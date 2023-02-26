@@ -62,7 +62,10 @@ export class FieldService
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
   @modelFlow
   @transaction
-  create = _async(function* (this: FieldService, data: Array<ICreateFieldDTO>) {
+  createSubmit = _async(function* (
+    this: FieldService,
+    data: Array<ICreateFieldDTO>,
+  ) {
     const input: Array<FieldCreateInput> = data.map((field) => ({
       description: field.description,
       id: field.id,
@@ -86,7 +89,7 @@ export class FieldService
       interfaceType.writeFieldCache(fields)
     }
 
-    return fields.map((field) => this.writeCache(field))
+    return fields.map((field) => this.create(field))
   })
 
   @modelFlow
@@ -122,7 +125,7 @@ export class FieldService
       }),
     )
 
-    return fields.map((field) => this.writeCache(field))
+    return fields.map((field) => this.create(field))
   })
 
   @modelFlow
@@ -165,11 +168,11 @@ export class FieldService
   }
 
   @modelAction
-  writeCache(fragment: IFieldDTO) {
+  create(fragment: IFieldDTO) {
     let fieldModel = this.fields.get(fragment.id)
 
     if (fieldModel) {
-      fieldModel.writeCache(fragment)
+      fieldModel.create(fragment)
     } else {
       fieldModel = Field.hydrate(fragment)
       this.fields.set(fragment.id, fieldModel)

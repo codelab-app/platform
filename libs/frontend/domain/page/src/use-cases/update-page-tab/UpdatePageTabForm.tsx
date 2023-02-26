@@ -1,6 +1,6 @@
 import type {
   IPageService,
-  IUpdatePageDTO,
+  IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
@@ -26,7 +26,7 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       return null
     }
 
-    const onSubmit = (input: IUpdatePageDTO) => pageService.update(input)
+    const onSubmit = (input: IUpdatePageData) => pageService.update(input)
     const { kind } = page
     const omitFields = ['appId']
 

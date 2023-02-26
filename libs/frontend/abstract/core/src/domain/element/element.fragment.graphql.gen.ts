@@ -2,15 +2,13 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ComponentFragment } from '../component/component.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
-import { RenderAtomFragment } from '../atom/atom.fragment.graphql.gen'
-import { HookFragment } from '../hook/hook.fragment.graphql.gen'
+import { AtomFragment } from '../atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ComponentFragmentDoc } from '../component/component.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
-import { RenderAtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
-import { HookFragmentDoc } from '../hook/hook.fragment.graphql.gen'
+import { AtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -25,14 +23,13 @@ export type ElementFragment = {
   propTransformationJs?: string | null
   page?: { id: string } | null
   renderComponentType?: ComponentFragment | null
-  renderAtomType?: RenderAtomFragment | null
+  renderAtomType?: AtomFragment | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: ComponentFragment | null
   parent?: { id: string } | null
   firstChild?: { id: string } | null
   props?: PropFragment | null
-  hooks: Array<HookFragment>
 }
 
 export const ElementFragmentDoc = gql`
@@ -50,7 +47,7 @@ export const ElementFragmentDoc = gql`
       ...Component
     }
     renderAtomType {
-      ...RenderAtom
+      ...Atom
     }
     prevSibling {
       id
@@ -70,9 +67,6 @@ export const ElementFragmentDoc = gql`
     props {
       ...Prop
     }
-    hooks {
-      ...Hook
-    }
     renderForEachPropKey
     renderIfExpression
     preRenderActionId
@@ -80,9 +74,8 @@ export const ElementFragmentDoc = gql`
     propTransformationJs
   }
   ${ComponentFragmentDoc}
-  ${RenderAtomFragmentDoc}
+  ${AtomFragmentDoc}
   ${PropFragmentDoc}
-  ${HookFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -10,8 +10,7 @@ fragment Component on Component {
     auth0Id
   }
   api {
-    id
-    name
+    ...InterfaceType
   }
   props {
     ...Prop

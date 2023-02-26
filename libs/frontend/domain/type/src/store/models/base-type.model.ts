@@ -17,7 +17,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     })
     implements IBaseType
   {
-    writeCache(fragment: ITypeDTO) {
+    create(fragment: ITypeDTO) {
       updateBaseTypeCache(this, fragment)
 
       return this

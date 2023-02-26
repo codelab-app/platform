@@ -5,10 +5,11 @@
 import type {
   IAnyAction,
   IAnyActionWhere,
-  ICreateActionDTO,
+  ICreateActionData,
   ICreateActionInput,
-  ICreateStoreDTO,
-  IUpdateActionDTO,
+  ICreateStoreData,
+  IStoreDTO,
+  IUpdateActionData,
   IUpdateActionInput,
 } from '@codelab/frontend/abstract/core'
 import type {
@@ -23,7 +24,7 @@ import { v4 } from 'uuid'
 export const makeStoreCreateInput = ({
   name,
   owner,
-}: ICreateStoreDTO): StoreCreateInput => {
+}: ICreateStoreData): StoreCreateInput => {
   const interfaceCreateInput: InterfaceTypeCreateInput = {
     id: v4(),
     name: `${capitalize(name)} State`,
@@ -38,7 +39,7 @@ export const makeStoreCreateInput = ({
 }
 
 export const makeActionCreateInput = (
-  action: ICreateActionDTO,
+  action: ICreateActionData,
 ): ICreateActionInput => {
   return {
     id: v4(),
@@ -85,7 +86,7 @@ export const makeActionUpdateInput = ({
   errorActionId,
   successActionId,
   code,
-}: IUpdateActionDTO): {
+}: IUpdateActionData): {
   where: IAnyActionWhere
   update: IUpdateActionInput
 } => {

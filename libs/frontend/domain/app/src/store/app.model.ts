@@ -1,11 +1,16 @@
 import type {
   IApp,
+  IAppDTO,
   IAuth0Owner,
   IPage,
+  IPageBuilderAppProps,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  AppCreateInput,
+  PageBuilderAppFragment,
+} from '@codelab/shared/abstract/codegen'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -35,6 +40,33 @@ export class App
   @computed
   get slug() {
     return slugify(this.name)
+  }
+
+  static parsePageBuilderData({
+    id,
+    name,
+    slug,
+    pages,
+    store,
+    owner,
+  }: PageBuilderAppFragment): IAppDTO {
+    return {
+      id,
+      name,
+      owner,
+      pages: pages.map((page) => ({
+        id: page.id,
+        name: page.name,
+        rootElement: page.rootElement,
+        kind: page.kind,
+        descendentElements: page.rootElement.descendantElements,
+        getServerSideProps: page.getServerSideProps,
+        owner,
+        pageContainerElementId: page.pageContainerElement?.id,
+        app: { id },
+      })),
+      store,
+    }
   }
 
   @computed

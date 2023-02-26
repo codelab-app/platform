@@ -1,8 +1,12 @@
-import type { IInterfaceType, IProp } from '@codelab/frontend/abstract/core'
+import type {
+  IInterfaceType,
+  IProp,
+  IPropDTO,
+  IResourceConfig,
+} from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
   IPropData,
-  IPropDTO,
 } from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -27,26 +31,32 @@ import {
 } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
+import { getPropService } from './prop.service'
 
-const hydrate = ({ id, data, apiRef }: IPropDTO): IProp => {
-  return new Prop({ id, data: frozen(JSON.parse(data)), apiRef })
-}
+// const hydrate = ({ id, data, api }: IPropDTO): IProp => {
+//   return new Prop({ id, data: frozen(JSON.parse(data)), api })
+// }
 
 @model('@codelab/Prop')
 export class Prop
   extends Model({
     id: idProp,
     data: prop(() => frozen<IPropData>({})),
-    apiRef: prop<Maybe<Ref<IInterfaceType>>>(),
+    api: prop<Maybe<Ref<IInterfaceType>>>(),
   })
   implements IProp
 {
   private silentData: IPropData = {}
 
   @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
+  @computed
   get values() {
-    if (this.apiRef?.maybeCurrent) {
-      const apiPropsMap = this.apiRef.current.fields
+    if (this.api?.maybeCurrent) {
+      const apiPropsMap = this.api.current.fields
 
       const apiPropsByKey = values(apiPropsMap)
         .map((propModel) => ({ [propModel.key]: propModel }))
@@ -96,23 +106,13 @@ export class Prop
     this.data = frozen({})
   }
 
-  static hydrate = hydrate
-
-  @modelAction
-  writeCache({ id, data }: IPropDTO) {
-    this.id = id
-    this.data = frozen(JSON.parse(data))
-
-    return this
-  }
-
   @modelAction
   clone() {
-    return Prop.hydrate({
+    return this.propService.add({
       id: v4(),
       data: this.jsonString,
-      apiRef: this.apiRef?.id
-        ? (typeRef(this.apiRef.id) as Ref<IInterfaceType>)
+      api: this.api?.id
+        ? (typeRef(this.api.id) as Ref<IInterfaceType>)
         : undefined,
     })
   }
