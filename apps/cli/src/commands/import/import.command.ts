@@ -1,5 +1,9 @@
+import type { ExportedData } from '@codelab/backend/abstract/core'
+import { importUserData } from '@codelab/backend/data'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import fs from 'fs'
 import inquirer from 'inquirer'
+import path from 'path'
 import type { CommandModule } from 'yargs'
 import yargs from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
@@ -15,7 +19,6 @@ import {
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Stage } from '../../shared/utils/stage'
 import { importSeedData } from './import-seed-data'
-import { importUserData } from './import-user-data'
 
 type ImportProps = ExportProps & {
   email?: string
@@ -122,7 +125,13 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
               ])
             ).inputFilePath
 
-      await importUserData(inputFilePath, selectedUserId)
+      const json = fs.readFileSync(
+        path.resolve(process.cwd(), inputFilePath),
+        'utf8',
+      )
+
+      const data = JSON.parse(json) as ExportedData
+      await importUserData(data, selectedUserId)
     }
 
     yargs.exit(0, null!)

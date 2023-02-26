@@ -1,13 +1,10 @@
 import 'isomorphic-fetch'
 import type { ExportedData } from '@codelab/backend/abstract/core'
-import fs from 'fs'
-import path from 'path'
-import { importApps } from '../../use-cases/import/import-apps'
-import { importResources } from '../../use-cases/import/import-resources'
+import { importApps } from './import-apps'
+import { importResources } from './import-resources'
 
-export const importUserData = async (file: string, userId: string) => {
-  const json = fs.readFileSync(path.resolve(process.cwd(), file), 'utf8')
-  const { apps, atoms, types, resources } = JSON.parse(json) as ExportedData
+export const importUserData = async (data: ExportedData, userId: string) => {
+  const { apps, atoms, types, resources } = data
 
   // await importTypes(types, userId, (type) => ({ id: type.id }))
 

@@ -2,6 +2,7 @@ import {
   DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
+  ExportOutlined,
   GlobalOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
@@ -13,6 +14,7 @@ import type {
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { CSSProperties } from 'react'
 import React from 'react'
@@ -78,16 +80,16 @@ export const ItemDropdown = observer<ItemMenuProps>(
         style: menuItemStyle,
         icon: <DeleteOutlined style={menuItemIconStyle} />,
       },
-
-      /*
       {
-        label: 'Export',
         key: 'export',
-        onClick: () => exportApp(),
         style: menuItemStyle,
-        icon: isExporting ? <Spin /> : <ExportOutlined style={menuItemIconStyle} />,
+        icon: <ExportOutlined style={menuItemIconStyle} />,
+        label: (
+          <Link href={`/api/export?appId=${app.id}`}>
+            <span>Export</span>
+          </Link>
+        ),
       },
-    */
     ]
 
     return (

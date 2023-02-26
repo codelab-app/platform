@@ -6,6 +6,7 @@ import {
   CreateAppModal,
   DeleteAppModal,
   GetAppsList,
+  ImportAppButton,
   UpdateAppModal,
 } from '@codelab/frontend/domain/app'
 import {
@@ -42,7 +43,8 @@ const AppsPageHeader = observer(() => {
   const { appService } = useStore()
 
   const pageHeaderButtons = [
-    <CreateAppButton appService={appService} key={0} />,
+    <ImportAppButton key={0} />,
+    <CreateAppButton appService={appService} key={1} />,
     <Dropdown key={1} overlay={<Menu items={items} />} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,

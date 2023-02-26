@@ -8,10 +8,7 @@ export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
   domains: Array<IDomainExport>
 }
 
-export type IPageExport = Pick<
-  OGM_TYPES.Page,
-  'id' | 'name' | 'slug' | 'kind'
-> & {
+export type IPageExport = Pick<OGM_TYPES.Page, 'id' | 'name' | 'kind'> & {
   rootElement: Pick<IElementExport, 'id' | 'name'>
   elements: Array<OGM_TYPES.Element>
   components: Array<OGM_TYPES.Component>

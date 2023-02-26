@@ -1,3 +1,4 @@
+import { exportUserData } from '@codelab/backend/data'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
@@ -13,7 +14,6 @@ import {
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Stage } from '../../shared/utils/stage'
 import { exportSeedData } from '../../use-cases/export/export-seed-data'
-import { exportUserData } from '../../use-cases/export/export-user-data'
 import { saveExportFile } from '../../use-cases/export/save-export-file'
 
 /**

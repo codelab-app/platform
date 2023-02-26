@@ -76,6 +76,7 @@
       "@codelab/backend/repo-resolvers": [
         "libs/backend/repo-resolvers/src/index.ts"
       ],
+      "@codelab/backend/data": ["libs/backend/data/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],
