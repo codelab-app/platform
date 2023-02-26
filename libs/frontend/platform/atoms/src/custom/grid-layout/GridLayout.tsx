@@ -86,10 +86,6 @@ export const GridLayout = React.memo(
 
       const element = elementService.element(elementId)
 
-      if (!element) {
-        throw new Error(`Element id ${elementId} not found`)
-      }
-
       elementService
         .patchElement(element, {
           props: {

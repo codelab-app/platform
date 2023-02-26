@@ -5,12 +5,14 @@ import type {
   IElementService,
   IElementTree,
   IFieldService,
+  IPropService,
   IRenderer,
   IRootStore,
   IStoreService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { atomServiceContext } from '@codelab/frontend/domain/atom'
+import { propServiceContext } from '@codelab/frontend/domain/prop'
 import { actionServiceContext } from '@codelab/frontend/domain/store'
 import {
   fieldServiceContext,
@@ -30,6 +32,7 @@ export class TestRootStore
     actionService: prop<IActionService>(),
     typeService: prop<ITypeService>(),
     atomService: prop<IAtomService>(),
+    propService: prop<IPropService>(),
     elementService: prop<IElementService>(),
     pageElementTree: prop<IElementTree>(),
     fieldService: prop<IFieldService>(),
@@ -45,6 +48,7 @@ export class TestRootStore
     elementServiceContext.set(this, this.elementService)
     fieldServiceContext.set(this, this.fieldService)
     actionServiceContext.set(this, this.actionService)
+    propServiceContext.set(this, this.propService)
 
     registerRootStore(this)
   }

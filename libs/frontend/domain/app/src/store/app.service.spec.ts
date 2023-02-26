@@ -28,7 +28,7 @@ describe('AppService', () => {
       name: 'Demo App',
     }
 
-    const app = rootStore.appService.create(appDTO)
+    const app = rootStore.appService.add(appDTO)
 
     // App
     expect(app.id).toBe(appDTO.id)
