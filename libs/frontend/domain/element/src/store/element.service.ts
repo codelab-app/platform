@@ -158,7 +158,9 @@ export class ElementService
       )
       .filter(isComponentDTO)
 
-    return components.map((component) => this.componentService.create(component))
+    return components.map((component) =>
+      this.componentService.create(component),
+    )
   }
 
   @modelAction

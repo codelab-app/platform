@@ -20,6 +20,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <meta charSet="UTF-8" />
           <link href="https://fonts.googleapis.com" rel="preconnect" />
           <link
             crossOrigin=""
@@ -36,7 +37,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link
-            charSet="UTF-8"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
             rel="stylesheet"
             type="text/css"

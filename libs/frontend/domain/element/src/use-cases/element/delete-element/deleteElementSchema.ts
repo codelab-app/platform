@@ -15,7 +15,7 @@ export const deleteElementSchema: JSONSchemaType<DeleteElementData> = {
         type: 'string',
         disabled: true,
       },
-      required: ['id']
+      required: ['id'],
     },
   },
   required: ['element'],

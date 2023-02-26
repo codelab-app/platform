@@ -22,7 +22,7 @@ import {
   ElementService,
   ElementTree,
 } from '@codelab/frontend/domain/element'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { Prop, PropService } from '@codelab/frontend/domain/prop'
 import {
   ActionService,
   Store,
@@ -56,11 +56,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   const data: TestServices = {} as TestServices
 
   beforeEach(() => {
-    const ownerId = v4()
+    const owner = { auth0Id: v4() }
     const pageId = v4()
     data.emptyInterface = new InterfaceType({
       name: 'Empty interface',
-      ownerId,
+      owner,
     })
 
     data.store = new Store({
@@ -72,19 +72,19 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: 'primitiveType',
       primitiveKind: PrimitiveTypeKind.Integer,
-      ownerId,
+      owner,
     })
 
     data.renderPropsType = new RenderPropsType({
       id: v4(),
       name: 'renderPropsType',
-      ownerId,
+      owner,
     })
 
     data.reactNodeType = new ReactNodeType({
       id: v4(),
       name: 'reactNodeType',
-      ownerId,
+      owner,
     })
 
     data.divAtom = new Atom({
@@ -115,7 +115,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: 'My Component',
       rootElementId: compRootElementId,
-      ownerId: v4(),
+      owner,
       api: typeRef(data.emptyInterface),
       childrenContainerElementId: compRootElementId,
     })
@@ -226,6 +226,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [data.textAtom.id, data.textAtom],
         ]),
       }),
+      propService: new PropService({}),
       renderer: data.renderer,
       fieldService: new FieldService({}),
       actionService: new ActionService({}),
