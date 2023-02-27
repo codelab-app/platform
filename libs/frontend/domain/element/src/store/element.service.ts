@@ -743,7 +743,7 @@ element is new parentElement's first child
         if (!element) {
           const elementTree = Element.getElementTree(targetElement)
 
-          const existingInstances = elementTree?.elementsList.filter(
+          const existingInstances = elementTree?.elements.filter(
             ({ renderComponentType }) => renderComponentType?.id === elementId,
           )
 
@@ -866,7 +866,7 @@ element is new parentElement's first child
 
   private async recursiveDuplicate(element: IElement, parent: IElement) {
     const duplicate_name = makeAutoIncrementedName(
-      this.builderService.activeElementTree?.elementsList.map(
+      this.builderService.activeElementTree?.elements.map(
         (anElement) => anElement.name,
       ) || [],
       element.name,

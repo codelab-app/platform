@@ -14,7 +14,7 @@ export interface IElementTree {
   id: string
   _root: Nullable<Ref<IElement>>
   root: Maybe<IElement>
-  elementsList: Array<IElement>
+  elements: Array<IElement>
   getPathFromRoot(element: INode): Array<INode>
   element(id: string): Maybe<IElement>
   addElements(elements: Array<IElement>): IElementTree

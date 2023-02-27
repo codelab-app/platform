@@ -94,11 +94,11 @@ export class Component
 
   @modelAction
   private cloneTree(clonedComponent: IComponent, cloneIndex: number) {
-    console.debug('ElementTreeService.cloneTree', this.elementTree.elementsList)
+    console.debug('ElementTreeService.cloneTree', this.elementTree.elements)
 
     const elementMap: Map<string, string> = new Map()
 
-    const elements = this.elementTree.elementsList
+    const elements = this.elementTree.elements
       .map((element) => {
         const clonedElement = element.clone(cloneIndex)
 

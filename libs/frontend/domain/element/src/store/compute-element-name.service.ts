@@ -52,7 +52,7 @@ export class ComputeElementNameService
   get computedName() {
     if (this.pickedRenderTypeName) {
       return makeAutoIncrementedName(
-        this.builderService.activeElementTree?.elementsList.map(
+        this.builderService.activeElementTree?.elements.map(
           (element) => element.name,
         ) || [],
         compoundCaseToTitleCase(this.pickedRenderTypeName),

@@ -95,10 +95,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const closeModal = () => elementService.createModal.close()
 
     const selectParentElementOptions =
-      pageTree.elementsList.map(mapElementOption)
+      pageTree.elements.map(mapElementOption)
 
     const selectChildrenElementOptions =
-      pageTree.elementsList.map(mapElementOption)
+      pageTree.elements.map(mapElementOption)
 
     return (
       <ModalForm.Modal
