@@ -18,25 +18,33 @@ export interface RenderType {
 export interface ICreateElementData {
   id: string
   name: string
-  parentElement?: IEntity
-  preRenderActionId?: Nullish<string>
-  postRenderActionId?: Nullish<string>
-  customCss?: Nullish<string>
-  guiCss?: Nullish<string>
-  propsData?: string
-  prevSiblingId?: Nullable<string>
+  parentElement?: Nullable<IEntity>
+  preRenderAction?: Nullable<IEntity>
+  postRenderAction?: Nullable<IEntity>
+  customCss: Nullish<string>
+  guiCss: Nullish<string>
+  propsData: string
+  prevSibling?: Nullable<IEntity>
   /**
    * We should connect to `atom` or `component` in future
    */
   renderType?: Nullable<RenderType>
 }
 
-export type IUpdateElementData = ICreateElementData & {
+export type IUpdateElementData = Pick<
+  ICreateElementData,
+  | 'id'
+  | 'name'
+  | 'renderType'
+  | 'preRenderAction'
+  | 'postRenderAction'
+  | 'customCss'
+  | 'guiCss'
+  | 'propsData'
+> & {
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
   props?: Nullable<IPropData>
-  preRenderActionId?: Nullish<string>
-  postRenderActionId?: Nullish<string>
   propTransformationJs?: Nullish<string>
 }
 
@@ -50,8 +58,8 @@ export type IUpdateBaseElementData = Pick<
   | 'name'
   | 'renderIfExpression'
   | 'renderForEachPropKey'
-  | 'preRenderActionId'
-  | 'postRenderActionId'
+  | 'preRenderAction'
+  | 'postRenderAction'
 >
 
 /**

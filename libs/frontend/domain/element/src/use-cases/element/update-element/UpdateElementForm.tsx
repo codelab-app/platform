@@ -61,8 +61,8 @@ const makeCurrentModel = (element: IElement) => {
     name: element.name,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfExpression: element.renderIfExpression,
-    postRenderActionId: element.postRenderAction,
-    preRenderActionId: element.preRenderAction,
+    postRenderAction: element.postRenderAction,
+    preRenderAction: element.preRenderAction,
     renderType,
   }
 }
@@ -152,8 +152,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             // We edit it in the css tab
             'customCss',
             'guiCss',
-            'preRenderActionId',
-            'postRenderActionId',
+            'preRenderAction',
+            'postRenderAction',
             'renderType',
             'name',
           ]}

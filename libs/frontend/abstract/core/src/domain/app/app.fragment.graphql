@@ -6,7 +6,7 @@ fragment AppPreview on App {
     auth0Id
   }
   pages {
-    ...Page
+    id
   }
   store {
     id
@@ -46,7 +46,7 @@ fragment BuilderPage on Page {
       auth0Id
     }
   }
-  pageContainerElement {
+  pageContentContainer {
     id
   }
   kind

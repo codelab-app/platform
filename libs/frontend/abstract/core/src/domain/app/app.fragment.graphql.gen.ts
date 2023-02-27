@@ -14,7 +14,7 @@ export type AppPreviewFragment = {
   name: string
   slug: string
   owner: { auth0Id: string }
-  pages: Array<PageFragment>
+  pages: Array<{ id: string }>
   store: { id: string; name: string }
 }
 
@@ -35,7 +35,7 @@ export type BuilderPageFragment = {
   kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string; owner: { auth0Id: string } }
-  pageContainerElement?: { id: string } | null
+  pageContentContainer?: { id: string } | null
 }
 
 export type PageBuilderAppFragment = {
@@ -56,14 +56,13 @@ export const AppPreviewFragmentDoc = gql`
       auth0Id
     }
     pages {
-      ...Page
+      id
     }
     store {
       id
       name
     }
   }
-  ${PageFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {
@@ -100,7 +99,7 @@ export const BuilderPageFragmentDoc = gql`
         auth0Id
       }
     }
-    pageContainerElement {
+    pageContentContainer {
       id
     }
     kind

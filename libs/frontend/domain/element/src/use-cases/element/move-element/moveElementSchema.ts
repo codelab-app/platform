@@ -5,16 +5,28 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
   title: 'Update Element Input',
   type: 'object',
   properties: {
-    parentElementId: {
-      type: 'string',
-      label: 'Parent Element',
-      nullable: true,
+    parentElement: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Parent Element',
+          nullable: true,
+        },
+      },
+      required: ['id'],
     },
-    prevSiblingId: {
-      type: 'string',
-      nullable: true,
-      label: 'Linked by',
+    prevSibling: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          nullable: true,
+          label: 'Linked by',
+        },
+      },
+      required: ['id'],
     },
   },
-  required: [],
+  required: ['parentElement', 'prevSibling'],
 } as const

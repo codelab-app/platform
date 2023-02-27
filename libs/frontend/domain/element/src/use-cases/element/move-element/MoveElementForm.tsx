@@ -7,7 +7,9 @@ import type {
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
+import type { Ref } from 'react'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
@@ -34,41 +36,39 @@ export const MoveElementForm = observer<MoveElementFormProps>(
   ({ element, elementService, trackPromises, elementTree }) => {
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
-      parentElementId: element.parent,
-      prevSiblingId: element.prevSiblingId,
+      parentElement: { id: element.parent?.id },
+      prevSibling: { id: element.prevSibling?.current.id },
     })
 
     useEffect(() => {
-      model.prevSiblingId = element.prevSiblingId
-      model.parentElementId = element.parent
-    }, [element.parent, element.prevSiblingId])
+      model.prevSibling.id = element.prevSibling?.current.id
+      model.parentElement.id = element.parent?.id
+    }, [element.parent, element.prevSibling])
 
-    const onSubmit = (data: MoveData) => {
+    const onSubmit = ({ parentElement, prevSibling }: MoveData) => {
       const {
-        prevSiblingId: currentPrevSiblingId,
-        parentElementId: currentParentElementId,
+        prevSibling: currentPrevSibling,
+        parentElement: currentParentElement,
       } = model
-
-      const { parentElementId, prevSiblingId } = data
 
       if (
         shouldMoveElementAsFirstChild(
-          currentParentElementId,
-          parentElementId,
-          currentPrevSiblingId,
-          prevSiblingId,
+          currentParentElement,
+          parentElement,
+          currentPrevSibling,
+          prevSibling,
         )
       ) {
         return elementService.moveElementAsFirstChild({
-          elementId: element.id,
-          parentElementId: String(parentElementId),
+          element,
+          parentElement,
         })
       }
 
-      if (shouldMoveElementAsNextSibling(currentPrevSiblingId, prevSiblingId)) {
+      if (shouldMoveElementAsNextSibling(currentPrevSibling, prevSibling)) {
         return elementService.moveElementAsNextSibling({
-          elementId: element.id,
-          targetElementId: String(prevSiblingId),
+          element,
+          targetElement: prevSibling,
         })
       }
 

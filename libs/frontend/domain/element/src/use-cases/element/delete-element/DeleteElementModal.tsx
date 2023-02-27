@@ -25,17 +25,16 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
       return null
     }
 
-    const model = { element: { id: elementService.deleteModal.element.id } }
-    const elementToDelete = elementService.deleteModal.element
-    const parentElement = elementToDelete.parentElement
+    const { parent: parentElement, ...elementToDelete } =
+      elementService.deleteModal.element
+
+    const model = { element: elementToDelete }
 
     const onSubmit = ({ element }: DeleteElementData) => {
       return elementService
         .deleteElementSubgraph(element.id)
         .then(
-          () =>
-            parentElement &&
-            builderService.set_selectedNode(elementRef(parentElement)),
+          () => parentElement && builderService.set_selectedNode(parentElement),
         )
     }
 

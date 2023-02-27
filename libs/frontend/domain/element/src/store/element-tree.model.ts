@@ -123,11 +123,11 @@ export class ElementTree
 
   getPathFromRoot(selectedElement: IElement): Array<IElement> {
     const path = []
-    let current: IElement | undefined = selectedElement
+    let currentElement: IElement | undefined = selectedElement
 
-    while (current) {
-      path.push(current)
-      current = current.parentElement
+    while (currentElement) {
+      path.push(currentElement)
+      currentElement = currentElement.parent?.current
     }
 
     return path.reverse()

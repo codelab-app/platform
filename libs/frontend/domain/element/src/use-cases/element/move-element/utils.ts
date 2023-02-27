@@ -1,8 +1,8 @@
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
 export const shouldMoveElementAsNextSibling = (
-  currentPrevSibling: Nullable<string>,
-  newPrevSiblingId: Nullable<string>,
+  currentPrevSibling: Partial<IEntity>,
+  newPrevSiblingId: Partial<IEntity>,
 ) => {
   const changePrevSibling = currentPrevSibling !== newPrevSiblingId
 
@@ -10,20 +10,20 @@ export const shouldMoveElementAsNextSibling = (
 }
 
 export const shouldMoveElementAsFirstChild = (
-  currentParentEmentId: Nullable<string>,
-  newParentElementId: Nullable<string>,
-  currentPrevSibling: Nullable<string>,
-  newPrevSiblingId: Nullable<string>,
+  currentParentElement: Partial<IEntity>,
+  newParentElement: Partial<IEntity>,
+  currentPrevSibling: Partial<IEntity>,
+  newPrevSibling: Partial<IEntity>,
 ) => {
-  const changeParent = currentParentEmentId !== newParentElementId
-  const changePrevSibling = currentPrevSibling !== newPrevSiblingId
+  const changeParent = currentParentElement.id !== newParentElement.id
+  const changePrevSibling = currentPrevSibling.id !== newPrevSibling.id
 
-  if (changeParent && currentParentEmentId) {
+  if (changeParent && currentParentElement.id) {
     return true
   }
 
   // clear prevSibling, move to begin of the tree branch
-  if (changePrevSibling && !newPrevSiblingId) {
+  if (changePrevSibling && !newPrevSibling.id) {
     return true
   }
 

@@ -1,5 +1,6 @@
 import type {
   IAtom,
+  IAuth0Owner,
   IComponent,
   IElementTree,
   IHook,
@@ -71,11 +72,11 @@ export class Element
     __nodeType: prop<ELEMENT_NODE_TYPE>(ELEMENT_NODE_TYPE),
 
     // Data used for tree initializing, before our Element model is ready
-    parent: prop<Nullable<IEntity>>(null).withSetter(),
-    nextSibling: prop<Maybe<Ref<IElement>>>().withSetter(),
-    prevSibling: prop<Maybe<Ref<IElement>>>().withSetter(),
-    firstChild: prop<Maybe<Ref<IElement>>>().withSetter(),
-    owner: prop<Nullable<string>>(null),
+    parent: prop<Maybe<Ref<IElement>>>().withSetter(),
+    nextSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    owner: prop<Nullable<IAuth0Owner>>(null),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
     name: prop<string>().withSetter(),
@@ -424,7 +425,7 @@ export class Element
   @modelAction
   detachNextSibling() {
     return () => {
-      this.nextSibling = undefined
+      this.nextSibling = null
     }
   }
 
@@ -444,7 +445,7 @@ export class Element
   @modelAction
   detachPrevSibling() {
     return () => {
-      this.prevSibling = undefined
+      this.prevSibling = null
     }
   }
 
@@ -473,7 +474,7 @@ export class Element
         }
       }
 
-      this.parent = null
+      this.parent = undefined
     }
   }
 
@@ -638,7 +639,7 @@ export class Element
       customCss,
       guiCss,
       // parent of first child
-      parent,
+      parent: parent?.id ? elementRef(parent.id) : undefined,
       page,
       nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
       prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,

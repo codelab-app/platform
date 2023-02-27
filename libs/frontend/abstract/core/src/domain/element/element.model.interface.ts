@@ -13,6 +13,7 @@ import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IProp, IPropData } from '../prop'
+import { IAuth0Owner } from '../user'
 import type { IElementDTO } from './element.dto.interface'
 
 /**
@@ -43,22 +44,22 @@ export interface RenderingMetadata {
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
   isRoot: boolean
-  owner: Nullable<string>
+  owner: Nullable<IAuth0Owner>
   name: string
-  customCss: Nullable<string>
-  guiCss: Nullable<string>
+  customCss?: Nullable<string>
+  guiCss?: Nullable<string>
   props?: Nullable<IProp>
   atom: Nullable<Ref<IAtom>>
   hooks: Array<IHook>
-  parent: Nullable<IEntity>
-  parentComponent: Nullable<Ref<IComponent>>
-  parentElement: Maybe<IElement>
+  parent?: Ref<IElement>
+  parentComponent?: Nullable<Ref<IComponent>>
+  // parentElement?: IEntity
   label: string
   propTransformationJs: Nullable<string>
-  preRenderAction: Nullish<IEntity>
-  postRenderAction: Nullish<IEntity>
+  preRenderAction?: Nullish<IEntity>
+  postRenderAction?: Nullish<IEntity>
   children: Array<IElement>
-  firstChild?: Ref<IElement>
+  firstChild?: Nullable<Ref<IElement>>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
   renderComponentType: Nullable<Ref<IComponent>>
@@ -70,8 +71,8 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   __metadataProps: IPropData
   atomName: string
   // slug: string
-  nextSibling?: Ref<IElement>
-  prevSibling?: Ref<IElement>
+  nextSibling?: Nullable<Ref<IElement>>
+  prevSibling?: Nullable<Ref<IElement>>
   /**
    * the tree's root element
    */
@@ -110,7 +111,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   setAtom(atom: Ref<IAtom>): void
   setSourceElement(element: Ref<IElement>): void
   setParentComponent(componentRef: Ref<IComponent>): void
-  setParent(parent: Nullable<Ref<IElement>>): void
+  setParent(parent: Ref<IElement>): void
   setNextSibling(nextSibling: Ref<IElement>): void
   setPrevSibling(prevSibling: Ref<IElement>): void
   setProps(props: Nullable<IProp>): void

@@ -2,7 +2,7 @@ fragment Element on Element {
   __typename
   id
   name
-  slug
+  # slug
   customCss
   guiCss
   page {
@@ -33,12 +33,13 @@ fragment Element on Element {
   props {
     ...Prop
   }
-  # hooks {
-  #   ...Hook
-  # }
   renderForEachPropKey
   renderIfExpression
-  preRenderActionId
-  postRenderActionId
+  preRenderAction {
+    id
+  }
+  postRenderAction {
+    id
+  }
   propTransformationJs
 }

@@ -1,9 +1,99 @@
 interface ActionBase {
   id: ID!
   name: String!
-  store: Store!
-  storeConnection: ActionBaseStoreConnection!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store!
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ActionBaseStoreConnectionSort!]
+    where: ActionBaseStoreConnectionWhere
+  ): ActionBaseStoreConnection!
   type: ActionKind!
+}
+
+input ActionBaseConnectInput {
+  _on: ActionBaseImplementationsConnectInput
+  store: ActionBaseStoreConnectFieldInput
+}
+
+input ActionBaseConnectWhere {
+  node: ActionBaseWhere!
+}
+
+input ActionBaseCreateInput {
+  ApiAction: ApiActionCreateInput
+  CodeAction: CodeActionCreateInput
+}
+
+input ActionBaseDeleteInput {
+  _on: ActionBaseImplementationsDeleteInput
+  store: ActionBaseStoreDeleteFieldInput
+}
+
+input ActionBaseDisconnectInput {
+  _on: ActionBaseImplementationsDisconnectInput
+  store: ActionBaseStoreDisconnectFieldInput
+}
+
+input ActionBaseImplementationsConnectInput {
+  ApiAction: [ApiActionConnectInput!]
+  CodeAction: [CodeActionConnectInput!]
+}
+
+input ActionBaseImplementationsDeleteInput {
+  ApiAction: [ApiActionDeleteInput!]
+  CodeAction: [CodeActionDeleteInput!]
+}
+
+input ActionBaseImplementationsDisconnectInput {
+  ApiAction: [ApiActionDisconnectInput!]
+  CodeAction: [CodeActionDisconnectInput!]
+}
+
+input ActionBaseImplementationsUpdateInput {
+  ApiAction: ApiActionUpdateInput
+  CodeAction: CodeActionUpdateInput
+}
+
+input ActionBaseImplementationsWhere {
+  ApiAction: ApiActionWhere
+  CodeAction: CodeActionWhere
+}
+
+input ActionBaseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ActionBaseSort objects to sort ActionBases by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ActionBaseSort]
+}
+
+"""
+Fields to sort ActionBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionBaseSort object.
+"""
+input ActionBaseSort {
+  id: SortDirection
+  name: SortDirection
+  type: SortDirection
+}
+
+input ActionBaseStoreAggregateInput {
+  AND: [ActionBaseStoreAggregateInput!]
+  NOT: ActionBaseStoreAggregateInput
+  OR: [ActionBaseStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ActionBaseStoreNodeAggregationWhereInput
 }
 
 input ActionBaseStoreConnectFieldInput {
@@ -62,6 +152,27 @@ input ActionBaseStoreFieldInput {
   create: ActionBaseStoreCreateFieldInput
 }
 
+input ActionBaseStoreNodeAggregationWhereInput {
+  AND: [ActionBaseStoreNodeAggregationWhereInput!]
+  NOT: ActionBaseStoreNodeAggregationWhereInput
+  OR: [ActionBaseStoreNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
 type ActionBaseStoreRelationship {
   cursor: String!
   node: Store!
@@ -79,6 +190,33 @@ input ActionBaseStoreUpdateFieldInput {
   disconnect: ActionBaseStoreDisconnectFieldInput
   update: ActionBaseStoreUpdateConnectionInput
   where: ActionBaseStoreConnectionWhere
+}
+
+input ActionBaseUpdateInput {
+  _on: ActionBaseImplementationsUpdateInput
+  id: ID
+  name: String
+  store: ActionBaseStoreUpdateFieldInput
+}
+
+input ActionBaseWhere {
+  _on: ActionBaseImplementationsWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  storeAggregate: ActionBaseStoreAggregateInput
+  storeConnection: ActionBaseStoreConnectionWhere
+  type: ActionKind
+  type_IN: [ActionKind!]
 }
 
 enum ActionKind {
@@ -5019,36 +5157,6 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -5180,8 +5288,6 @@ type ComponentElementChildrenContainerElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -5197,8 +5303,6 @@ type ComponentElementRootElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -5531,36 +5635,6 @@ input ComponentRootElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -6380,8 +6454,30 @@ type Element {
     sort: [ElementParentConnectionSort!]
     where: ElementParentConnectionWhere
   ): ElementParentConnection!
-  postRenderActionId: String
-  preRenderActionId: String
+  postRenderAction(
+    directed: Boolean = true
+    options: ActionBaseOptions
+    where: ActionBaseWhere
+  ): ActionBase
+  postRenderActionConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementPostRenderActionConnectionSort!]
+    where: ElementPostRenderActionConnectionWhere
+  ): ElementPostRenderActionConnection!
+  preRenderAction(
+    directed: Boolean = true
+    options: ActionBaseOptions
+    where: ActionBaseWhere
+  ): ActionBase
+  preRenderActionConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementPreRenderActionConnectionSort!]
+    where: ElementPreRenderActionConnectionWhere
+  ): ElementPreRenderActionConnection!
   prevSibling(
     directed: Boolean = true
     options: ElementOptions
@@ -6445,7 +6541,6 @@ type Element {
   ): ElementRenderComponentTypeConnection!
   renderForEachPropKey: String
   renderIfExpression: String
-  slug: String!
 }
 
 type ElementAggregateSelection {
@@ -6454,8 +6549,6 @@ type ElementAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -6499,6 +6592,8 @@ input ElementConnectInput {
   page: ElementPageConnectFieldInput
   parent: ElementParentConnectFieldInput
   parentComponent: ElementParentComponentConnectFieldInput
+  postRenderAction: ElementPostRenderActionConnectFieldInput
+  preRenderAction: ElementPreRenderActionConnectFieldInput
   prevSibling: ElementPrevSiblingConnectFieldInput
   props: ElementPropsConnectFieldInput
   renderAtomType: ElementRenderAtomTypeConnectFieldInput
@@ -6537,8 +6632,8 @@ input ElementCreateInput {
   page: ElementPageFieldInput
   parent: ElementParentFieldInput
   parentComponent: ElementParentComponentFieldInput
-  postRenderActionId: String
-  preRenderActionId: String
+  postRenderAction: ElementPostRenderActionFieldInput
+  preRenderAction: ElementPreRenderActionFieldInput
   prevSibling: ElementPrevSiblingFieldInput
   propTransformationJs: String
   props: ElementPropsFieldInput
@@ -6555,6 +6650,8 @@ input ElementDeleteInput {
   page: ElementPageDeleteFieldInput
   parent: ElementParentDeleteFieldInput
   parentComponent: ElementParentComponentDeleteFieldInput
+  postRenderAction: ElementPostRenderActionDeleteFieldInput
+  preRenderAction: ElementPreRenderActionDeleteFieldInput
   prevSibling: ElementPrevSiblingDeleteFieldInput
   props: ElementPropsDeleteFieldInput
   renderAtomType: ElementRenderAtomTypeDeleteFieldInput
@@ -6568,6 +6665,8 @@ input ElementDisconnectInput {
   page: ElementPageDisconnectFieldInput
   parent: ElementParentDisconnectFieldInput
   parentComponent: ElementParentComponentDisconnectFieldInput
+  postRenderAction: ElementPostRenderActionDisconnectFieldInput
+  preRenderAction: ElementPreRenderActionDisconnectFieldInput
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   props: ElementPropsDisconnectFieldInput
   renderAtomType: ElementRenderAtomTypeDisconnectFieldInput
@@ -6589,8 +6688,6 @@ type ElementElementFirstChildNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -6606,8 +6703,6 @@ type ElementElementNextSiblingNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -6623,8 +6718,6 @@ type ElementElementParentNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -6640,8 +6733,6 @@ type ElementElementPrevSiblingNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -6764,36 +6855,6 @@ input ElementFirstChildNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -7079,36 +7140,6 @@ input ElementNextSiblingNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -7180,8 +7211,6 @@ input ElementOnCreateInput {
   guiCss: String
   id: ID!
   name: String!
-  postRenderActionId: String
-  preRenderActionId: String
   propTransformationJs: String
   renderForEachPropKey: String
   renderIfExpression: String
@@ -7556,36 +7585,6 @@ input ElementParentNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -7650,6 +7649,124 @@ input ElementParentUpdateFieldInput {
   disconnect: ElementParentDisconnectFieldInput
   update: ElementParentUpdateConnectionInput
   where: ElementParentConnectionWhere
+}
+
+input ElementPostRenderActionConnectFieldInput {
+  connect: ActionBaseConnectInput
+  where: ActionBaseConnectWhere
+}
+
+type ElementPostRenderActionConnection {
+  edges: [ElementPostRenderActionRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementPostRenderActionConnectionSort {
+  node: ActionBaseSort
+}
+
+input ElementPostRenderActionConnectionWhere {
+  AND: [ElementPostRenderActionConnectionWhere!]
+  NOT: ElementPostRenderActionConnectionWhere
+  OR: [ElementPostRenderActionConnectionWhere!]
+  node: ActionBaseWhere
+}
+
+input ElementPostRenderActionCreateFieldInput {
+  node: ActionBaseCreateInput!
+}
+
+input ElementPostRenderActionDeleteFieldInput {
+  delete: ActionBaseDeleteInput
+  where: ElementPostRenderActionConnectionWhere
+}
+
+input ElementPostRenderActionDisconnectFieldInput {
+  disconnect: ActionBaseDisconnectInput
+  where: ElementPostRenderActionConnectionWhere
+}
+
+input ElementPostRenderActionFieldInput {
+  connect: ElementPostRenderActionConnectFieldInput
+  create: ElementPostRenderActionCreateFieldInput
+}
+
+type ElementPostRenderActionRelationship {
+  cursor: String!
+  node: ActionBase!
+}
+
+input ElementPostRenderActionUpdateConnectionInput {
+  node: ActionBaseUpdateInput
+}
+
+input ElementPostRenderActionUpdateFieldInput {
+  connect: ElementPostRenderActionConnectFieldInput
+  create: ElementPostRenderActionCreateFieldInput
+  delete: ElementPostRenderActionDeleteFieldInput
+  disconnect: ElementPostRenderActionDisconnectFieldInput
+  update: ElementPostRenderActionUpdateConnectionInput
+  where: ElementPostRenderActionConnectionWhere
+}
+
+input ElementPreRenderActionConnectFieldInput {
+  connect: ActionBaseConnectInput
+  where: ActionBaseConnectWhere
+}
+
+type ElementPreRenderActionConnection {
+  edges: [ElementPreRenderActionRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementPreRenderActionConnectionSort {
+  node: ActionBaseSort
+}
+
+input ElementPreRenderActionConnectionWhere {
+  AND: [ElementPreRenderActionConnectionWhere!]
+  NOT: ElementPreRenderActionConnectionWhere
+  OR: [ElementPreRenderActionConnectionWhere!]
+  node: ActionBaseWhere
+}
+
+input ElementPreRenderActionCreateFieldInput {
+  node: ActionBaseCreateInput!
+}
+
+input ElementPreRenderActionDeleteFieldInput {
+  delete: ActionBaseDeleteInput
+  where: ElementPreRenderActionConnectionWhere
+}
+
+input ElementPreRenderActionDisconnectFieldInput {
+  disconnect: ActionBaseDisconnectInput
+  where: ElementPreRenderActionConnectionWhere
+}
+
+input ElementPreRenderActionFieldInput {
+  connect: ElementPreRenderActionConnectFieldInput
+  create: ElementPreRenderActionCreateFieldInput
+}
+
+type ElementPreRenderActionRelationship {
+  cursor: String!
+  node: ActionBase!
+}
+
+input ElementPreRenderActionUpdateConnectionInput {
+  node: ActionBaseUpdateInput
+}
+
+input ElementPreRenderActionUpdateFieldInput {
+  connect: ElementPreRenderActionConnectFieldInput
+  create: ElementPreRenderActionCreateFieldInput
+  delete: ElementPreRenderActionDeleteFieldInput
+  disconnect: ElementPreRenderActionDisconnectFieldInput
+  update: ElementPreRenderActionUpdateConnectionInput
+  where: ElementPreRenderActionConnectionWhere
 }
 
 input ElementPrevSiblingAggregateInput {
@@ -7769,36 +7886,6 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -7986,6 +8073,8 @@ input ElementRelationInput {
   page: ElementPageCreateFieldInput
   parent: ElementParentCreateFieldInput
   parentComponent: ElementParentComponentCreateFieldInput
+  postRenderAction: ElementPostRenderActionCreateFieldInput
+  preRenderAction: ElementPreRenderActionCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
   props: ElementPropsCreateFieldInput
   renderAtomType: ElementRenderAtomTypeCreateFieldInput
@@ -8231,8 +8320,6 @@ input ElementSort {
   guiCss: SortDirection
   id: SortDirection
   name: SortDirection
-  postRenderActionId: SortDirection
-  preRenderActionId: SortDirection
   propTransformationJs: SortDirection
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
@@ -8469,7 +8556,6 @@ type ElementTypesConnection {
 
 input ElementUniqueWhere {
   id: ID
-  name: String
 }
 
 input ElementUpdateInput {
@@ -8483,8 +8569,8 @@ input ElementUpdateInput {
   page: ElementPageUpdateFieldInput
   parent: ElementParentUpdateFieldInput
   parentComponent: ElementParentComponentUpdateFieldInput
-  postRenderActionId: String
-  preRenderActionId: String
+  postRenderAction: ElementPostRenderActionUpdateFieldInput
+  preRenderAction: ElementPreRenderActionUpdateFieldInput
   prevSibling: ElementPrevSiblingUpdateFieldInput
   propTransformationJs: String
   props: ElementPropsUpdateFieldInput
@@ -8557,18 +8643,8 @@ input ElementWhere {
   parentComponentAggregate: ElementParentComponentAggregateInput
   parentComponentConnection: ElementParentComponentConnectionWhere
   parentConnection: ElementParentConnectionWhere
-  postRenderActionId: String
-  postRenderActionId_CONTAINS: String
-  postRenderActionId_ENDS_WITH: String
-  postRenderActionId_IN: [String]
-  postRenderActionId_MATCHES: String
-  postRenderActionId_STARTS_WITH: String
-  preRenderActionId: String
-  preRenderActionId_CONTAINS: String
-  preRenderActionId_ENDS_WITH: String
-  preRenderActionId_IN: [String]
-  preRenderActionId_MATCHES: String
-  preRenderActionId_STARTS_WITH: String
+  postRenderActionConnection: ElementPostRenderActionConnectionWhere
+  preRenderActionConnection: ElementPreRenderActionConnectionWhere
   prevSiblingAggregate: ElementPrevSiblingAggregateInput
   prevSiblingConnection: ElementPrevSiblingConnectionWhere
   propTransformationJs: String
@@ -9896,8 +9972,6 @@ type HookElementElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -9958,36 +10032,6 @@ input HookElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -11736,22 +11780,22 @@ type Page {
   id: ID!
   kind: PageKind!
   name: String!
-  pageContainerElement(
+  pageContentContainer(
     directed: Boolean = true
     options: ElementOptions
     where: ElementWhere
   ): Element
-  pageContainerElementAggregate(
+  pageContentContainerAggregate(
     directed: Boolean = true
     where: ElementWhere
-  ): PageElementPageContainerElementAggregationSelection
-  pageContainerElementConnection(
+  ): PageElementPageContentContainerAggregationSelection
+  pageContentContainerConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [PagePageContainerElementConnectionSort!]
-    where: PagePageContainerElementConnectionWhere
-  ): PagePageContainerElementConnection!
+    sort: [PagePageContentContainerConnectionSort!]
+    where: PagePageContentContainerConnectionWhere
+  ): PagePageContentContainerConnection!
   rootElement(
     directed: Boolean = true
     options: ElementOptions
@@ -11898,13 +11942,13 @@ input PageAppUpdateFieldInput {
 
 input PageConnectInput {
   app: PageAppConnectFieldInput
-  pageContainerElement: PagePageContainerElementConnectFieldInput
+  pageContentContainer: PagePageContentContainerConnectFieldInput
   rootElement: PageRootElementConnectFieldInput
 }
 
 input PageConnectOrCreateInput {
   app: PageAppConnectOrCreateFieldInput
-  pageContainerElement: PagePageContainerElementConnectOrCreateFieldInput
+  pageContentContainer: PagePageContentContainerConnectOrCreateFieldInput
   rootElement: PageRootElementConnectOrCreateFieldInput
 }
 
@@ -11922,19 +11966,19 @@ input PageCreateInput {
   id: ID!
   kind: PageKind!
   name: String!
-  pageContainerElement: PagePageContainerElementFieldInput
+  pageContentContainer: PagePageContentContainerFieldInput
   rootElement: PageRootElementFieldInput
 }
 
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
-  pageContainerElement: PagePageContainerElementDeleteFieldInput
+  pageContentContainer: PagePageContentContainerDeleteFieldInput
   rootElement: PageRootElementDeleteFieldInput
 }
 
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
-  pageContainerElement: PagePageContainerElementDisconnectFieldInput
+  pageContentContainer: PagePageContentContainerDisconnectFieldInput
   rootElement: PageRootElementDisconnectFieldInput
 }
 
@@ -11943,18 +11987,16 @@ type PageEdge {
   node: Page!
 }
 
-type PageElementPageContainerElementAggregationSelection {
+type PageElementPageContentContainerAggregationSelection {
   count: Int!
-  node: PageElementPageContainerElementNodeAggregateSelection
+  node: PageElementPageContentContainerNodeAggregateSelection
 }
 
-type PageElementPageContainerElementNodeAggregateSelection {
+type PageElementPageContentContainerNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -11970,8 +12012,6 @@ type PageElementRootElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -12011,19 +12051,19 @@ input PageOptions {
   sort: [PageSort!]
 }
 
-input PagePageContainerElementAggregateInput {
-  AND: [PagePageContainerElementAggregateInput!]
-  NOT: PagePageContainerElementAggregateInput
-  OR: [PagePageContainerElementAggregateInput!]
+input PagePageContentContainerAggregateInput {
+  AND: [PagePageContentContainerAggregateInput!]
+  NOT: PagePageContentContainerAggregateInput
+  OR: [PagePageContentContainerAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: PagePageContainerElementNodeAggregationWhereInput
+  node: PagePageContentContainerNodeAggregationWhereInput
 }
 
-input PagePageContainerElementConnectFieldInput {
+input PagePageContentContainerConnectFieldInput {
   connect: ElementConnectInput
 
   """
@@ -12033,56 +12073,56 @@ input PagePageContainerElementConnectFieldInput {
   where: ElementConnectWhere
 }
 
-input PagePageContainerElementConnectOrCreateFieldInput {
-  onCreate: PagePageContainerElementConnectOrCreateFieldInputOnCreate!
+input PagePageContentContainerConnectOrCreateFieldInput {
+  onCreate: PagePageContentContainerConnectOrCreateFieldInputOnCreate!
   where: ElementConnectOrCreateWhere!
 }
 
-input PagePageContainerElementConnectOrCreateFieldInputOnCreate {
+input PagePageContentContainerConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
 }
 
-type PagePageContainerElementConnection {
-  edges: [PagePageContainerElementRelationship!]!
+type PagePageContentContainerConnection {
+  edges: [PagePageContentContainerRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input PagePageContainerElementConnectionSort {
+input PagePageContentContainerConnectionSort {
   node: ElementSort
 }
 
-input PagePageContainerElementConnectionWhere {
-  AND: [PagePageContainerElementConnectionWhere!]
-  NOT: PagePageContainerElementConnectionWhere
-  OR: [PagePageContainerElementConnectionWhere!]
+input PagePageContentContainerConnectionWhere {
+  AND: [PagePageContentContainerConnectionWhere!]
+  NOT: PagePageContentContainerConnectionWhere
+  OR: [PagePageContentContainerConnectionWhere!]
   node: ElementWhere
 }
 
-input PagePageContainerElementCreateFieldInput {
+input PagePageContentContainerCreateFieldInput {
   node: ElementCreateInput!
 }
 
-input PagePageContainerElementDeleteFieldInput {
+input PagePageContentContainerDeleteFieldInput {
   delete: ElementDeleteInput
-  where: PagePageContainerElementConnectionWhere
+  where: PagePageContentContainerConnectionWhere
 }
 
-input PagePageContainerElementDisconnectFieldInput {
+input PagePageContentContainerDisconnectFieldInput {
   disconnect: ElementDisconnectInput
-  where: PagePageContainerElementConnectionWhere
+  where: PagePageContentContainerConnectionWhere
 }
 
-input PagePageContainerElementFieldInput {
-  connect: PagePageContainerElementConnectFieldInput
-  connectOrCreate: PagePageContainerElementConnectOrCreateFieldInput
-  create: PagePageContainerElementCreateFieldInput
+input PagePageContentContainerFieldInput {
+  connect: PagePageContentContainerConnectFieldInput
+  connectOrCreate: PagePageContentContainerConnectOrCreateFieldInput
+  create: PagePageContentContainerCreateFieldInput
 }
 
-input PagePageContainerElementNodeAggregationWhereInput {
-  AND: [PagePageContainerElementNodeAggregationWhereInput!]
-  NOT: PagePageContainerElementNodeAggregationWhereInput
-  OR: [PagePageContainerElementNodeAggregationWhereInput!]
+input PagePageContentContainerNodeAggregationWhereInput {
+  AND: [PagePageContentContainerNodeAggregationWhereInput!]
+  NOT: PagePageContentContainerNodeAggregationWhereInput
+  OR: [PagePageContentContainerNodeAggregationWhereInput!]
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -12128,36 +12168,6 @@ input PagePageContainerElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -12205,28 +12215,28 @@ input PagePageContainerElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
 }
 
-type PagePageContainerElementRelationship {
+type PagePageContentContainerRelationship {
   cursor: String!
   node: Element!
 }
 
-input PagePageContainerElementUpdateConnectionInput {
+input PagePageContentContainerUpdateConnectionInput {
   node: ElementUpdateInput
 }
 
-input PagePageContainerElementUpdateFieldInput {
-  connect: PagePageContainerElementConnectFieldInput
-  connectOrCreate: PagePageContainerElementConnectOrCreateFieldInput
-  create: PagePageContainerElementCreateFieldInput
-  delete: PagePageContainerElementDeleteFieldInput
-  disconnect: PagePageContainerElementDisconnectFieldInput
-  update: PagePageContainerElementUpdateConnectionInput
-  where: PagePageContainerElementConnectionWhere
+input PagePageContentContainerUpdateFieldInput {
+  connect: PagePageContentContainerConnectFieldInput
+  connectOrCreate: PagePageContentContainerConnectOrCreateFieldInput
+  create: PagePageContentContainerCreateFieldInput
+  delete: PagePageContentContainerDeleteFieldInput
+  disconnect: PagePageContentContainerDisconnectFieldInput
+  update: PagePageContentContainerUpdateConnectionInput
+  where: PagePageContentContainerConnectionWhere
 }
 
 input PageRelationInput {
   app: PageAppCreateFieldInput
-  pageContainerElement: PagePageContainerElementCreateFieldInput
+  pageContentContainer: PagePageContentContainerCreateFieldInput
   rootElement: PageRootElementCreateFieldInput
 }
 
@@ -12347,36 +12357,6 @@ input PageRootElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float
@@ -12660,7 +12640,6 @@ type PageTypesConnection {
 
 input PageUniqueWhere {
   id: ID
-  name: String
 }
 
 input PageUpdateInput {
@@ -12669,7 +12648,7 @@ input PageUpdateInput {
   id: ID
   kind: PageKind
   name: String
-  pageContainerElement: PagePageContainerElementUpdateFieldInput
+  pageContentContainer: PagePageContentContainerUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
 }
 
@@ -12699,8 +12678,8 @@ input PageWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
-  pageContainerElementAggregate: PagePageContainerElementAggregateInput
-  pageContainerElementConnection: PagePageContainerElementConnectionWhere
+  pageContentContainerAggregate: PagePageContentContainerAggregateInput
+  pageContentContainerConnection: PagePageContentContainerConnectionWhere
   rootElementAggregate: PageRootElementAggregateInput
   rootElementConnection: PageRootElementConnectionWhere
 }
@@ -17141,8 +17120,6 @@ type UserElementElementsNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -17265,36 +17242,6 @@ input UserElementsNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  postRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  postRenderActionId_AVERAGE_LENGTH_GT: Float
-  postRenderActionId_AVERAGE_LENGTH_GTE: Float
-  postRenderActionId_AVERAGE_LENGTH_LT: Float
-  postRenderActionId_AVERAGE_LENGTH_LTE: Float
-  postRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  postRenderActionId_LONGEST_LENGTH_GT: Int
-  postRenderActionId_LONGEST_LENGTH_GTE: Int
-  postRenderActionId_LONGEST_LENGTH_LT: Int
-  postRenderActionId_LONGEST_LENGTH_LTE: Int
-  postRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  postRenderActionId_SHORTEST_LENGTH_GT: Int
-  postRenderActionId_SHORTEST_LENGTH_GTE: Int
-  postRenderActionId_SHORTEST_LENGTH_LT: Int
-  postRenderActionId_SHORTEST_LENGTH_LTE: Int
-  preRenderActionId_AVERAGE_LENGTH_EQUAL: Float
-  preRenderActionId_AVERAGE_LENGTH_GT: Float
-  preRenderActionId_AVERAGE_LENGTH_GTE: Float
-  preRenderActionId_AVERAGE_LENGTH_LT: Float
-  preRenderActionId_AVERAGE_LENGTH_LTE: Float
-  preRenderActionId_LONGEST_LENGTH_EQUAL: Int
-  preRenderActionId_LONGEST_LENGTH_GT: Int
-  preRenderActionId_LONGEST_LENGTH_GTE: Int
-  preRenderActionId_LONGEST_LENGTH_LT: Int
-  preRenderActionId_LONGEST_LENGTH_LTE: Int
-  preRenderActionId_SHORTEST_LENGTH_EQUAL: Int
-  preRenderActionId_SHORTEST_LENGTH_GT: Int
-  preRenderActionId_SHORTEST_LENGTH_GTE: Int
-  preRenderActionId_SHORTEST_LENGTH_LT: Int
-  preRenderActionId_SHORTEST_LENGTH_LTE: Int
   propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
   propTransformationJs_AVERAGE_LENGTH_GT: Float
   propTransformationJs_AVERAGE_LENGTH_GTE: Float

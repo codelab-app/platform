@@ -100,8 +100,8 @@ export const makeUpdateInput = (
   const {
     renderType,
     name,
-    postRenderActionId,
-    preRenderActionId,
+    postRenderAction,
+    preRenderAction,
     props,
     customCss,
     guiCss,
@@ -129,16 +129,16 @@ export const makeUpdateInput = (
       : disconnectNodeId(undefined)
 
   return {
-    name: name,
+    name,
     renderAtomType,
     renderComponentType,
     props: updateProps,
-    customCss: customCss,
-    postRenderActionId: postRenderActionId || null,
-    preRenderActionId: preRenderActionId || null,
-    guiCss: guiCss,
-    renderForEachPropKey: renderForEachPropKey,
-    renderIfExpression: renderIfExpression,
+    customCss,
+    postRenderAction,
+    preRenderAction: preRenderAction || null,
+    guiCss,
+    renderForEachPropKey,
+    renderIfExpression,
   }
 }
 

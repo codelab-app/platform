@@ -24,15 +24,27 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       nullable: true,
       label: 'Render for each',
     },
-    preRenderActionId: {
-      type: 'string',
-      label: 'Pre Render action',
+    preRenderAction: {
+      type: 'object',
       nullable: true,
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Pre Render action',
+        },
+      },
+      required: ['id'],
     },
-    postRenderActionId: {
-      type: 'string',
-      label: 'Post Render action',
+    postRenderAction: {
+      type: 'object',
       nullable: true,
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Post Render action',
+        },
+      },
+      required: ['id'],
     },
     renderType: {
       type: 'object',

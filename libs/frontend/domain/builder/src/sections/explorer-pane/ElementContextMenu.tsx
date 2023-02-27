@@ -56,12 +56,12 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onDuplicate = async () => {
-      if (!user?.sub || !element.parentElement) {
+      if (!user?.sub || !element.parent) {
         return
       }
 
       elementTree?.addElements(
-        await cloneElement(element, element.parentElement),
+        await cloneElement(element, element.parent.current),
       )
     }
 

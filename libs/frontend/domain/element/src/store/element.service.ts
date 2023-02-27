@@ -460,20 +460,20 @@ parent
       function* (
         this: ElementService,
         {
-          elementId,
-          targetElementId,
+          element,
+          targetElement,
         }: Parameters<IElementService['moveElementAsNextSibling']>[0],
       ) {
-        const targetElement = this.element(targetElementId)
+        const target = this.element(targetElement.id)
 
-        if (targetElement.nextSibling?.getRefId() === elementId) {
+        if (target.nextSibling?.getRefId() === element.id) {
           return
         }
 
-        yield* _await(this.detachElementFromElementTree(elementId))
+        yield* _await(this.detachElementFromElementTree(element.id))
 
         yield* _await(
-          this.attachElementAsNextSibling({ elementId, targetElementId }),
+          this.attachElementAsNextSibling({ element, targetElement }),
         )
       },
     ),
@@ -487,21 +487,14 @@ parent
       function* (
         this: ElementService,
         {
-          elementId,
-          parentElementId,
+          element,
+          parentElement,
         }: Parameters<IElementService['moveElementAsFirstChild']>[0],
       ) {
-        const element = this.maybeElement(elementId)
-        const parentElement = this.maybeElement(parentElementId)
-
-        if (!element || !parentElement) {
-          return
-        }
-
-        yield* _await(this.detachElementFromElementTree(elementId))
+        yield* _await(this.detachElementFromElementTree(element.id))
 
         yield* _await(
-          this.attachElementAsFirstChild({ elementId, parentElementId }),
+          this.attachElementAsFirstChild({ element, parentElement }),
         )
       },
     ),
@@ -525,8 +518,8 @@ parent
 
         yield* _await(
           this.attachElementAsFirstChild({
-            elementId: element.id,
-            parentElementId: data.parentElement.id,
+            element,
+            parentElement: data.parentElement,
           }),
         )
 
@@ -547,10 +540,14 @@ parent
           throw new Error('Create element failed')
         }
 
+        if (!data.prevSibling) {
+          throw new Error('Missing previous sibling')
+        }
+
         yield* _await(
           this.attachElementAsNextSibling({
-            elementId: element.id,
-            targetElementId: String(data.prevSiblingId),
+            element,
+            targetElement: data.prevSibling,
           }),
         )
 
@@ -564,32 +561,25 @@ parent
   private attachElementAsNextSibling = _async(function* (
     this: ElementService,
     {
-      elementId,
-      targetElementId,
+      element: existingElement,
+      targetElement: existingTargetElement,
     }: {
-      elementId: string
-      targetElementId: string
+      element: IEntity
+      targetElement: IEntity
     },
   ) {
-    const element = this.maybeElement(elementId)
-    const targetElement = this.maybeElement(targetElementId)
-
-    if (!element || !targetElement) {
-      return
-    }
-
+    const element = this.element(existingElement.id)
+    const targetElement = this.element(existingTargetElement.id)
     const updateElementInputs: Array<UpdateElementsMutationVariables> = []
     const updateElementCacheFns: Array<() => void> = []
 
     // Attach to parent
-    if (targetElement.parentElement) {
-      updateElementCacheFns.push(
-        element.attachToParent(elementRef(targetElement.parentElement.id)),
-      )
+    if (targetElement.parent) {
+      updateElementCacheFns.push(element.attachToParent(targetElement.parent))
     }
 
     /**
-     * [target]-nextSibiling
+     * [target]-nextSibling
      * target-[element]-nextSibling
      * element appends to nextSibling
      */
@@ -631,20 +621,15 @@ parent
   private attachElementAsFirstChild = _async(function* (
     this: ElementService,
     {
-      elementId,
-      parentElementId,
+      element: existingElement,
+      parentElement: exstingParentElement,
     }: {
-      elementId: string
-      parentElementId: string
+      element: IEntity
+      parentElement: IEntity
     },
   ) {
-    const element = this.maybeElement(elementId)
-    const parentElement = this.maybeElement(parentElementId)
-
-    if (!element || !parentElement) {
-      return
-    }
-
+    const element = this.element(existingElement.id)
+    const parentElement = this.element(exstingParentElement.id)
     const updateElementInputs = []
     const updateElementCacheFns: Array<() => void> = []
 
@@ -691,17 +676,12 @@ element is new parentElement's first child
       function* (
         this: ElementService,
         {
-          elementId,
-          targetElementId,
+          element: { id: elementId },
+          targetElement: { id: targetElementId },
           dropPosition,
         }: Parameters<IElementService['moveElementToAnotherTree']>[0],
       ) {
-        const targetElement = this.maybeElement(targetElementId)
-
-        if (!targetElement) {
-          return
-        }
-
+        const targetElement = this.element(targetElementId)
         let element = this.maybeElement(elementId)
 
         if (!element) {
@@ -745,15 +725,15 @@ element is new parentElement's first child
         if (!insertAfterId || dropPosition === 0) {
           yield* _await(
             this.attachElementAsFirstChild({
-              elementId: element.id,
-              parentElementId: targetElement.id,
+              element,
+              parentElement: targetElement,
             }),
           )
         } else {
           yield* _await(
             this.attachElementAsNextSibling({
-              elementId: element.id,
-              targetElementId: insertAfterId,
+              element,
+              targetElement: { id: insertAfterId },
             }),
           )
         }
@@ -828,7 +808,7 @@ element is new parentElement's first child
     return [...this.elements.values()].map((element) => element.name)
   }
 
-  private async recursiveDuplicate(element: IElement, parent: IElement) {
+  private async recursiveDuplicate(element: IElement, parentElement: IElement) {
     const duplicate_name = makeAutoIncrementedName(
       this.builderService.activeElementTree?.elements.map(
         (anElement) => anElement.name,
@@ -853,17 +833,17 @@ element is new parentElement's first child
     }
 
     const elementModel = this.add(createdElement)
-    const lastChildId = parent.children[parent.children.length - 1]?.id
+    const lastChild = parentElement.children[parentElement.children.length - 1]
 
-    if (!lastChildId) {
+    if (!lastChild) {
       await this.attachElementAsFirstChild({
-        elementId: elementModel.id,
-        parentElementId: parent.id,
+        element: elementModel,
+        parentElement,
       })
     } else {
       await this.attachElementAsNextSibling({
-        elementId: elementModel.id,
-        targetElementId: lastChildId,
+        element: elementModel,
+        targetElement: lastChild,
       })
     }
 
@@ -926,13 +906,11 @@ element is new parentElement's first child
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, element: IElement, owner: IAuth0Owner) {
-        if (!element.parentElement) {
+        if (!element.parent) {
           throw new Error("Can't convert root element")
         }
 
-        const name = element.label
-        const parentElement = element.parentElement
-        const prevSibling = element.prevSibling
+        const { name, parent: parentElement, prevSibling, label } = element
 
         // 1. detach the element from the element tree
         yield* _await(this.detachElementFromElementTree(element.id))
@@ -976,8 +954,8 @@ element is new parentElement's first child
 
           yield* _await(
             this.attachElementAsFirstChild({
-              elementId: createdElement.id,
-              parentElementId: parentElement.id,
+              element: createdElement,
+              parentElement,
             }),
           )
 
@@ -993,7 +971,7 @@ element is new parentElement's first child
               model: RenderTypeEnum.Component,
             },
             parentElement,
-            prevSiblingId: prevSibling.id,
+            prevSibling,
           }),
         )
       },
