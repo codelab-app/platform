@@ -100,6 +100,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       ? renderService.renderers.get(componentId)?.pageTree?.current
       : null
 
+    const activeElementTree = componentTree || pageTree
     const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
@@ -255,13 +256,13 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           renderTabBar={renderStickyTabBar}
           size="small"
         />
-        {pageTree && (
+        {activeElementTree && (
           <CreateElementModal
             actionService={actionService}
+            activeElementTree={activeElementTree}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}
-            pageTree={pageTree}
             renderService={renderService}
             storeId={storeId}
             userService={userService}

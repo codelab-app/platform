@@ -24,7 +24,7 @@ import { mapElementOption } from '../../../utils'
 import { createElementSchema } from './createElementSchema'
 
 interface CreateElementModalProps {
-  pageTree: IElementTree
+  activeElementTree: IElementTree
   renderService: IRenderService
   actionService: IActionService
   builderService: IBuilderService
@@ -35,13 +35,7 @@ interface CreateElementModalProps {
 }
 
 export const CreateElementModal = observer<CreateElementModalProps>(
-  ({
-    elementService,
-    builderService,
-    userService,
-    pageTree,
-    renderService,
-  }) => {
+  ({ elementService, userService, activeElementTree }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
       const { prevSiblingId } = data
 
@@ -50,17 +44,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         : elementService.createElementAsFirstChild(data))
 
       // Build tree for page
-      pageTree.addElements([element])
-
-      // Get the component tree for the current element, so we can update the component tree
-      const componentId = builderService.activeComponent?.id
-
-      if (componentId) {
-        const componentTree =
-          renderService.renderers.get(componentId)?.pageTree?.current
-
-        componentTree?.addElements([element])
-      }
+      activeElementTree.addElements([element])
 
       return Promise.resolve([element])
     }
@@ -86,10 +70,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const closeModal = () => elementService.createModal.close()
 
     const selectParentElementOptions =
-      pageTree.elementsList.map(mapElementOption)
+      activeElementTree.elementsList.map(mapElementOption)
 
     const selectChildrenElementOptions =
-      pageTree.elementsList.map(mapElementOption)
+      activeElementTree.elementsList.map(mapElementOption)
 
     return (
       <ModalForm.Modal
