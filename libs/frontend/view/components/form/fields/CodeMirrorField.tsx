@@ -1,9 +1,9 @@
-import { Form } from 'antd'
 import isNil from 'lodash/isNil'
 import type { Ref } from 'react'
 import React from 'react'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
+import { wrapField } from 'uniforms-antd'
 import type { CodeMirrorEditorProps } from '../../codeMirror'
 import { CodeMirrorEditor } from '../../codeMirror'
 
@@ -20,7 +20,10 @@ type CodeMirrorFieldProps = Omit<CodeMirrorEditorProps, 'onChange'> & {
 
 type CodeMirrorConnectFieldProps = FieldProps<
   Value,
-  CodeMirrorEditorProps,
+  // omitting because it clashes with the default
+  // FieldProps property and it will be overridden
+  // anyways when merging the props
+  Omit<CodeMirrorEditorProps, 'onReset'>,
   {
     inputRef?: Ref<HTMLDivElement>
   }
@@ -51,17 +54,16 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
           ? String(merged.value ?? merged.field?.default)
           : undefined
 
-        return (
-          <Form.Item label={baseProps.label ?? ''}>
-            <CodeMirrorEditor
-              height="auto"
-              maxHeight="150px"
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...merged}
-              onChange={onChange}
-              value={editorValue}
-            />
-          </Form.Item>
+        return wrapField(
+          baseProps,
+          <CodeMirrorEditor
+            height="auto"
+            maxHeight="150px"
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...merged}
+            onChange={onChange}
+            value={editorValue}
+          />,
         )
       },
       {
