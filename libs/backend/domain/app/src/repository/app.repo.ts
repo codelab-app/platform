@@ -98,6 +98,9 @@ export const createApp = async (app: IAppExport, userId: string) => {
               name: page.name,
               rootElement: connectNodeId(page.rootElement.id),
               kind: page.kind,
+              pageContainerElement: page.pageContainerElement?.id
+                ? connectNodeId(page.pageContainerElement.id)
+                : undefined,
             },
           })),
         },
@@ -127,17 +130,19 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
   const pagesData = await Promise.all(
     pages.map(async (page) => {
       const { elements, components } = await getPageData(page)
+      const { id, name, kind, rootElement, pageContainerElement } = page
 
       return {
-        id: page.id,
-        name: page.name,
-        kind: page.kind,
+        id: id,
+        name: name,
+        kind: kind,
         rootElement: {
-          id: page.rootElement.id,
-          name: page.rootElement.name,
+          id: rootElement.id,
+          name: rootElement.name,
         },
         elements,
         components,
+        ...(pageContainerElement ? { pageContainerElement } : {}),
       }
     }),
   )

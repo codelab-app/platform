@@ -7,4 +7,8 @@ export const pageSelectionSet = `{
     id
     name
   }
+  pageContainerElement {
+    id
+    name
+  }
 }`

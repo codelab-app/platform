@@ -1,6 +1,6 @@
 import type { IResourceExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 
 export const createResource = async (
   resource: IResourceExport,
@@ -8,11 +8,23 @@ export const createResource = async (
 ) => {
   const Resource = await Repository.instance.Resource
 
+  const existing = await Resource.find({
+    where: { id: resource.id },
+  })
+
+  if (existing.length) {
+    console.log('Deleting resource before re-creating...')
+
+    await Resource.delete({
+      where: { id: resource.id },
+    })
+  }
+
   const input = {
     id: resource.id,
     name: resource.name,
     type: resource.type,
-    owner: connectNodeId(userId),
+    owner: connectOwner(userId),
     config: {
       create: { node: { data: resource.config.data } },
     },

@@ -45,7 +45,20 @@ export const importElementInitial = async (
           preRenderActionId: element.preRenderActionId,
           postRenderActionId: element.postRenderActionId,
 
-          renderAtomType: connectNodeId(element.renderAtomType?.id),
+          renderAtomType: element.renderAtomType
+            ? {
+                connect: {
+                  where: {
+                    node: {
+                      OR: [
+                        { id: element.renderAtomType.id },
+                        { name: element.renderAtomType.name },
+                      ],
+                    },
+                  },
+                },
+              }
+            : undefined,
           props: element.props
             ? {
                 create: { node: { data: element.props.data } },

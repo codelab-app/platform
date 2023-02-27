@@ -4,7 +4,6 @@
       "__typename": "App",
       "id": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6",
       "name": "ٍSupabase Crud App",
-      "slug": "supabase-crud-app",
       "store": {
         "id": "56419c6d-393d-4b0f-ad60-a9400849f0cd",
         "name": "ٍSupabase Crud App Store",
@@ -169,27 +168,26 @@
         {
           "id": "a050b9de-7240-43c3-9e4e-220f9a63d711",
           "name": "Home",
-          "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-home",
+          "kind": "Regular",
           "rootElement": {
             "id": "04ab7c6c-9396-4cf7-844a-162a89ce6d13",
-            "name": "Body"
+            "name": "a050b9de-7240-43c3-9e4e-220f9a63d711-Body"
           },
           "elements": [
             {
               "id": "04ab7c6c-9396-4cf7-844a-162a89ce6d13",
-              "name": "Body",
+              "name": "a050b9de-7240-43c3-9e4e-220f9a63d711-Body",
               "customCss": "",
               "guiCss": "{\"paddingTop\":\"-7px\"}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-body",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],
@@ -211,10 +209,9 @@
             },
             {
               "id": "fd4611e0-c3a4-4040-9309-ac03f8da8ecc",
-              "name": "TitleFormItem",
+              "name": "CrTitleFormItem",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-title-form-item",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -278,10 +275,9 @@
             },
             {
               "id": "e46d33d4-328d-4527-bdb2-37b8c6720e53",
-              "name": "DoneFormItem",
+              "name": "UpDoneFormItem",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-done-form-item",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -346,7 +342,6 @@
               "name": "RefreshButton",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-refresh-button",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -390,16 +385,15 @@
               "name": "Login Title",
               "customCss": "",
               "guiCss": "{\"marginBottom\":\"20px\",\"marginTop\":\"40px\"}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-a050b9de-7240-43c3-9e4e-220f9a63d711-login-title",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "df95ca6c-f377-410f-8d76-9d183e6ad4d7",
-                "name": "Text",
-                "type": "Text",
+                "name": "AntDesignTypographyText",
+                "type": "AntDesignTypographyText",
                 "api": {
                   "id": "623e4bbd-2c18-4f52-ac25-0a7731788988",
-                  "name": "Text API"
+                  "name": "AntDesignTypographyText API"
                 },
                 "icon": null,
                 "tags": [],
@@ -426,10 +420,9 @@
             },
             {
               "id": "097144a7-96c3-4aff-a8f2-90c2159030d5",
-              "name": "DoneFormItem",
+              "name": "CrDoneFormItem",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-done-form-item",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -491,10 +484,9 @@
             },
             {
               "id": "24de08d6-cea8-4e95-95f2-be76b4f3dda8",
-              "name": "DescriptionInput",
+              "name": "UpDescriptionInput",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-description-input",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -536,7 +528,6 @@
               "name": "CreateTodoForm",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-todo-form",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -583,10 +574,9 @@
             },
             {
               "id": "6554f5cc-82f3-4d51-96fc-fac31bf6500b",
-              "name": "TitleFormItem",
+              "name": "UpTitleFormItem",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-title-form-item",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -650,10 +640,9 @@
             },
             {
               "id": "cd395344-2dea-4a17-bfab-026074ecbe8b",
-              "name": "DoneCheckbox",
+              "name": "UpDoneCheckbox",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-done-checkbox",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -692,10 +681,9 @@
             },
             {
               "id": "6e8a31c3-15f1-4e6a-84f1-457263e783f3",
-              "name": "TitleInput",
+              "name": "CrTitleInput",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-title-input",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -734,10 +722,9 @@
             },
             {
               "id": "eafc049f-bec0-40fb-ad4e-2b32d28832a9",
-              "name": "DescriptionFormItem",
+              "name": "CrDescriptionFormItem",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-description-form-item",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -804,7 +791,6 @@
               "name": "Login",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-login-button",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -846,7 +832,6 @@
               "name": "SSR  Protected Page",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-protected-link",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -890,16 +875,15 @@
               "name": "Toolbar-space",
               "customCss": "flex: 1 1 auto;",
               "guiCss": "{\"flexGrow\":\"1\"}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-toolbar-space",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],
@@ -926,10 +910,9 @@
             },
             {
               "id": "75546327-b728-43e9-bb02-0314f182a52f",
-              "name": "DoneCheckbox",
+              "name": "CrDoneCheckbox",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-done-checkbox",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -968,10 +951,9 @@
             },
             {
               "id": "dbce6dc0-548c-48a4-9600-b360f5b4c621",
-              "name": "TitleInput",
+              "name": "UpTitleInput",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-title-input",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1013,7 +995,6 @@
               "name": "TodosTable",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-todos-table",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1057,7 +1038,6 @@
               "name": "NewButton",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-new-button",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1101,7 +1081,6 @@
               "name": "UpdateTodoForm",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-update-todo-form",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1148,10 +1127,9 @@
             },
             {
               "id": "7f2a301a-bccb-4b0d-9951-cdf7796f8684",
-              "name": "DescriptionInput",
+              "name": "CrDescriptionInput",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-cr-description-input",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1190,10 +1168,9 @@
             },
             {
               "id": "682b24f7-378d-4495-b6ec-1755147fb69d",
-              "name": "DescriptionFormItem",
+              "name": "UpDescriptionFormItem",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-up-description-form-item",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1260,16 +1237,15 @@
               "name": "Text Container",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-text-container",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],
@@ -1297,7 +1273,6 @@
               "name": "Supabase Script",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-a050b9de-7240-43c3-9e4e-220f9a63d711-supabase-script",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1336,7 +1311,6 @@
               "name": "Logout",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-logout-button",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1378,16 +1352,15 @@
               "name": "Protected Content",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-protected-content",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],
@@ -1417,7 +1390,6 @@
               "name": "CreateTodoModal",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-create-todo-modal",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1463,7 +1435,6 @@
               "name": "DeleteTodoModal",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-delete-todo-modal",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1509,16 +1480,15 @@
               "name": "Public Content",
               "customCss": "display:block;\nmargin: 80px auto auto auto;\ntext-align:center;",
               "guiCss": "{\"display\":\"block\",\"flexDirection\":\"row\",\"justifyContent\":\"center\",\"alignItems\":\"center\",\"height\":\"300px\",\"minHeight\":\"auto\",\"width\":\"300px\",\"background\":\"#ffffff\",\"paddingTop\":\"20px\",\"marginTop\":\"80px\",\"boxShadow\":\"2px 2px 2px 2px #deddda\"}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-public-container",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],
@@ -1550,16 +1520,15 @@
               "name": "Toolbar",
               "customCss": "",
               "guiCss": "{\"display\":\"flex\",\"margin-top\":\"5px\",\"margin-right\":\"0px\",\"margin-bottom\":\"5px\",\"margin-left\":\"5px\",\"flexDirection\":\"row\",\"flexWrap\":\"nowrap\",\"alignItems\":\"center\"}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-toolbar",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],
@@ -1591,7 +1560,6 @@
               "name": "UpdateTodoModal",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-update-todo-modal",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1635,7 +1603,6 @@
               "name": "ActionColumn",
               "customCss": "",
               "guiCss": "{\"display\":\"flex\"}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-action-column",
               "parentComponent": {
                 "id": "2dd7a43d-2112-4add-bc1b-535e9cfe98c5",
                 "name": "ActionColumn",
@@ -1655,11 +1622,11 @@
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],
@@ -1687,7 +1654,6 @@
               "name": "DeleteButton",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-delete-button",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1731,7 +1697,6 @@
               "name": "EditButton",
               "customCss": "",
               "guiCss": "{}",
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-edit-button",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
@@ -1773,7 +1738,6 @@
               "name": "DoneColumn",
               "customCss": null,
               "guiCss": null,
-              "slug": "a050b9de-7240-43c3-9e4e-220f9a63d711-done-column",
               "parentComponent": {
                 "id": "b78f0f87-7ceb-4800-8fec-b433d6fae8f3",
                 "name": "DoneColumn",
@@ -1839,6 +1803,9 @@
               "api": {
                 "id": "d660e585-66ba-40b1-aca6-a95d6a7d382a",
                 "name": "ActionColumn API"
+              },
+              "childrenContainerElement": {
+                "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30"
               }
             },
             {
@@ -1855,6 +1822,9 @@
               "api": {
                 "id": "a5480dee-caa0-474c-a7a6-f69e0df872ab",
                 "name": "DoneColumn API"
+              },
+              "childrenContainerElement": {
+                "id": "c8fbe71a-0de0-4d06-a155-4d602c96d8c8"
               }
             }
           ]
@@ -1862,18 +1832,17 @@
         {
           "id": "b076ca30-1602-4d1f-8838-1b7adb39b136",
           "name": "_app",
-          "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-_app",
+          "kind": "Provider",
           "rootElement": {
             "id": "dce9c6f4-8d9c-4520-b797-794905112acd",
-            "name": "Body"
+            "name": "b076ca30-1602-4d1f-8838-1b7adb39b136-Body"
           },
           "elements": [
             {
               "id": "dce9c6f4-8d9c-4520-b797-794905112acd",
-              "name": "Body",
+              "name": "b076ca30-1602-4d1f-8838-1b7adb39b136-Body",
               "customCss": null,
               "guiCss": null,
-              "slug": "b076ca30-1602-4d1f-8838-1b7adb39b136-body",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": null,
@@ -1895,18 +1864,17 @@
         {
           "id": "d15fce86-f784-46fc-961b-9b93762c61fb",
           "name": "Protected",
-          "slug": "c79c8a5c-f5c1-4973-9d93-54db2fd0ead6-protected",
+          "kind": "Regular",
           "rootElement": {
             "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2",
-            "name": "Body"
+            "name": "d15fce86-f784-46fc-961b-9b93762c61fb-Body"
           },
           "elements": [
             {
               "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2",
-              "name": "Body",
+              "name": "d15fce86-f784-46fc-961b-9b93762c61fb-Body",
               "customCss": null,
               "guiCss": null,
-              "slug": "d15fce86-f784-46fc-961b-9b93762c61fb-body",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": null,
@@ -1929,16 +1897,15 @@
               "name": "text",
               "customCss": null,
               "guiCss": null,
-              "slug": "d15fce86-f784-46fc-961b-9b93762c61fb-text",
               "parentComponent": null,
               "renderComponentType": null,
               "renderAtomType": {
                 "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
-                "name": "Html Div",
-                "type": "HtmlDiv",
+                "name": "AntDesignSpace",
+                "type": "AntDesignSpace",
                 "api": {
                   "id": "d9264b24-11e5-40b9-a287-f66347d9863a",
-                  "name": "Html Div API"
+                  "name": "AntDesignSpace API"
                 },
                 "icon": null,
                 "tags": [],

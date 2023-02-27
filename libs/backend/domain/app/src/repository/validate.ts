@@ -1,6 +1,5 @@
 import type { IPageExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import flatMap from 'lodash/flatMap'
 
 export const validate = async (pages: Array<IPageExport>) => {
@@ -14,19 +13,25 @@ export const validate = async (pages: Array<IPageExport>) => {
         .filter(Boolean) as Array<string>,
   )
 
-  allAtomIds = [...new Set(allAtomIds)]
-
-  const foundAtoms = await Atoms.find({
-    where: { id_IN: allAtomIds },
-  })
-
-  const foundAtomsMap = new Map<string, OGM_TYPES.Atom>(
-    foundAtoms.map((atom) => [atom.id, atom]),
+  let allAtomNames = flatMap(
+    pages,
+    (page) =>
+      page.elements
+        .map((element) => element.renderAtomType?.name)
+        .filter(Boolean) as Array<string>,
   )
 
-  const notFound = allAtomIds.filter((id) => !foundAtomsMap.has(id))
+  allAtomIds = [...new Set(allAtomIds)]
+  allAtomNames = [...new Set(allAtomNames)]
 
-  if (notFound.length) {
-    throw new Error(`Can't find Atoms with ids "${notFound.join(', ')}"`)
+  const foundAtoms = await Atoms.find({
+    where: { OR: [{ id_IN: allAtomIds }, { name_IN: allAtomNames }] },
+  })
+
+  if (foundAtoms.length !== allAtomIds.length) {
+    const foundAtomsSet = new Set(foundAtoms.map((atom) => atom.name))
+    const notFound = allAtomNames.filter((name) => !foundAtomsSet.has(name))
+
+    throw new Error(`Can't find Atoms with names "${notFound.join('", "')}"`)
   }
 }

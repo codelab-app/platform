@@ -17,20 +17,24 @@ export const createComponent = async (
       {
         id: component.id,
         name: component.name,
-        owner: connectNodeId(selectedUser),
+        owner: connectOwner(selectedUser),
         rootElement: connectNodeId(component.rootElement.id),
-        api: component.api.id
-          ? connectNodeId(component.api.id)
-          : {
-              create: {
-                node: {
-                  id: v4(),
-                  name: `${component.name} API`,
-                  kind: ITypeKind.InterfaceType,
-                  owner: connectOwner(selectedUser),
-                },
+        childrenContainerElement: connectNodeId(
+          component.childrenContainerElement.id,
+        ),
+        api:
+          // component.api.id
+          // ? connectNodeId(component.api.id) :
+          {
+            create: {
+              node: {
+                id: v4(),
+                name: `${component.name} API`,
+                kind: ITypeKind.InterfaceType,
+                owner: connectOwner(selectedUser),
               },
             },
+          },
       },
     ],
   })
