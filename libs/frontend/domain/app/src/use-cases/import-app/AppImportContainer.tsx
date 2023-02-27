@@ -1,34 +1,31 @@
 import { ImportOutlined } from '@ant-design/icons'
+import type { IAppService } from '@codelab/frontend/abstract/core'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 import React, { useRef } from 'react'
+import importApp from './appImportApi'
 
-export const ImportAppButton = () => {
+export const AppImportContainer = ({
+  appService,
+}: {
+  appService: IAppService
+}) => {
   const { onError } = useNotify(
     { title: 'App imported successfully' },
     { title: 'Failed to import app' },
   )
 
+  const onSuccess = () => appService.getAll()
   const inputFile = useRef<HTMLInputElement | null>(null)
   const icon = <ImportOutlined />
   const onClick = () => inputFile.current?.click()
 
   const onFileChange = async () => {
     const files = inputFile.current?.files
+    const appData = await files?.[0]?.text()
 
-    if (!files?.length) {
-      return
-    }
-
-    const response = await fetch('/api/import', {
-      method: 'POST',
-      body: await files[0]?.text(),
-    })
-
-    if (response.status !== 200) {
-      const error = await response.text()
-
-      onError(error)
+    if (appData) {
+      await importApp(appData, onError, onSuccess)
     }
   }
 
