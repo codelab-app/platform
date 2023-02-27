@@ -81,7 +81,7 @@ export class StoreService
   }
 
   @modelAction
-  create(app: IAppDTO) {
+  add(app: IAppDTO) {
     const interfaceType = this.typeService.addInterface({
       id: v4(),
       name: InterfaceType.createName(`${app.name} Store`),

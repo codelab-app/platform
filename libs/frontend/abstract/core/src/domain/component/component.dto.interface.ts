@@ -19,7 +19,7 @@ export interface ICreateComponentData {
   id: string
   name: string
   owner: IAuth0Owner
-  childrenContainerElementId: string
+  childrenContainerElement: IEntity
 
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined
@@ -30,7 +30,7 @@ export interface ICreateComponentData {
 
 export type IUpdateComponentData = Pick<
   ICreateComponentData,
-  'id' | 'name' | 'childrenContainerElementId'
+  'id' | 'name' | 'childrenContainerElement'
 >
 
 export type IComponentExport = OGM_TYPES.Component

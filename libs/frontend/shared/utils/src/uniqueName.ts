@@ -1,3 +1,4 @@
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { uuidRegex } from '@codelab/shared/utils'
 
 /**
@@ -5,8 +6,8 @@ import { uuidRegex } from '@codelab/shared/utils'
  * constraint makes them unique globally. hence we need to append the
  * parent id to allow same name under different parents.
  */
-export const createUniqueName = (name: string, parentId?: string) =>
-  `${parentId ? `${parentId}-` : ''}${name}`
+export const createUniqueName = (name: string, entity?: Partial<IEntity>) =>
+  `${entity?.id ? `${entity.id}-` : ''}${name}`
 
 /**
  * To reverse what createUniqueName did.

@@ -30,7 +30,7 @@ export interface IComponentService
   componentList: Array<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
-  create(componentDTO: IComponentDTO): IComponent
+  add(componentDTO: IComponentDTO): IComponent
   patchComponent(
     component: IComponent,
     input: ComponentUpdateInput,

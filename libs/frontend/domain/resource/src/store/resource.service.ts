@@ -62,7 +62,7 @@ export class ResourceService
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
 
-    return resources.map((resource) => this.create(resource))
+    return resources.map((resource) => this.add(resource))
   })
 
   @modelFlow
@@ -108,7 +108,7 @@ export class ResourceService
       }),
     )
 
-    return resources.map((resource) => this.create(resource))
+    return resources.map((resource) => this.add(resource))
   })
 
   @modelFlow
@@ -133,7 +133,7 @@ export class ResourceService
       }),
     )
 
-    return resources.map((resource) => this.create(resource))
+    return resources.map((resource) => this.add(resource))
   })
 
   @modelFlow
@@ -150,11 +150,11 @@ export class ResourceService
 
   @modelAction
   load(resources: Array<IResourceDTO>) {
-    resources.forEach((resource) => this.create(resource))
+    resources.forEach((resource) => this.add(resource))
   }
 
   @modelAction
-  create({ id, name, config, type }: IResourceDTO) {
+  add({ id, name, config, type }: IResourceDTO) {
     const resource = new Resource({
       id,
       name,

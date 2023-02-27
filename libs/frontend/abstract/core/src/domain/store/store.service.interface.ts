@@ -18,6 +18,6 @@ export interface IStoreService
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   stores: ObjectMap<IStore>
   store(id: string): Maybe<IStore>
-  create(appDTO: Pick<IAppDTO, 'id' | 'name'>): IStore
+  add(appDTO: Pick<IAppDTO, 'id' | 'name'>): IStore
   add(storeDTO: IStoreDTO): IStore
 }

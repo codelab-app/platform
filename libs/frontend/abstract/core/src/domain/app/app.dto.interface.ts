@@ -1,3 +1,4 @@
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type { IPageDTO } from '../page'
 import type { IStoreDTO } from '../store'
 import type { IAuth0Owner } from '../user'
@@ -10,8 +11,8 @@ export interface IAppDTO {
   id: string
   name: string
   owner: IAuth0Owner
-  pages: Array<IPageDTO>
-  store?: Pick<IStoreDTO, 'id' | 'name'>
+  pages: Array<IEntity>
+  store: IEntity
 }
 
 export type ICreateAppData = Pick<IAppDTO, 'id' | 'name' | 'owner'>

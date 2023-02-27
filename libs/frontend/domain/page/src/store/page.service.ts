@@ -113,7 +113,7 @@ export class PageService
       name,
       getServerSideProps,
       app,
-      pageContainerElementId,
+      pageContentContainer,
     }: IUpdatePageData,
   ) {
     const {
@@ -124,7 +124,7 @@ export class PageService
           name: createUniqueName(name, app.id),
           app: connectNodeId(app.id),
           getServerSideProps,
-          pageContainerElement: reconnectNodeId(pageContainerElementId),
+          pageContainerElement: reconnectNodeId(pageContentContainer),
         },
         where: { id },
       }),

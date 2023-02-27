@@ -81,7 +81,7 @@ export class ComponentService
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ) {
     renderedComponentFragments.forEach((component) => {
-      const componentModel = this.create(component)
+      const componentModel = this.add(component)
 
       const { rootElement, hydratedElements } =
         this.elementService.loadComponentTree(component)
@@ -95,7 +95,7 @@ export class ComponentService
   }
 
   @modelAction
-  create({
+  add({
     api,
     name,
     rootElement,
@@ -106,12 +106,12 @@ export class ComponentService
     const apiRef = typeRef(this.typeService.addInterface(api))
 
     const component = new Component({
-      name: name,
-      rootElementId: rootElement.id,
-      owner: owner,
+      name,
+      rootElement: { id: rootElement.id },
+      owner,
       api: apiRef,
       props: props ? new Prop({ id: props.id, api: apiRef }) : null,
-      childrenContainerElementId: childrenContainerElement.id,
+      childrenContainerElement: { id: childrenContainerElement.id },
     })
 
     if (props) {
@@ -155,7 +155,7 @@ export class ComponentService
     const { components } = yield* _await(componentApi.GetComponents({ where }))
 
     return components
-      .map((component) => this.create(component))
+      .map((component) => this.add(component))
       .filter((component): component is Component => Boolean(component))
   })
 
@@ -193,7 +193,7 @@ export class ComponentService
     }
 
     const component = components[0]
-    const componentModel = this.create(component)
+    const componentModel = this.add(component)
 
     this.components.set(component.id, componentModel)
 
@@ -209,7 +209,7 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    { id, name, childrenContainerElementId }: IUpdateComponentData,
+    { id, name, childrenContainerElement }: IUpdateComponentData,
   ) {
     const {
       updateComponents: { components },
@@ -217,13 +217,15 @@ export class ComponentService
       componentApi.UpdateComponents({
         update: {
           name,
-          childrenContainerElement: reconnectNodeId(childrenContainerElementId),
+          childrenContainerElement: reconnectNodeId(
+            childrenContainerElement.id,
+          ),
         },
         where: { id },
       }),
     )
 
-    return components.map((component) => this.create(component))
+    return components.map((component) => this.add(component))
   })
 
   @modelFlow
@@ -264,7 +266,7 @@ export class ComponentService
       }),
     )
 
-    return components.map((component) => this.create(component))[0]!
+    return components.map((component) => this.add(component))[0]!
   })
 
   // @modelAction
@@ -286,19 +288,18 @@ export class ComponentService
   writeClonesCache(componentFragment: IComponentDTO) {
     return [...this.clonedComponents.values()]
       .filter(
-        (component) => component.sourceComponentId === componentFragment.id,
+        (component) => component.sourceComponent?.id === componentFragment.id,
       )
       .map((component) => {
-        const clonedChildrenContainer =
-          component.elementTree?.elements.find(
-            ({ sourceElementId }) =>
-              sourceElementId === componentFragment.childrenContainerElement.id,
-          )
+        const clonedChildrenContainer = component.elementTree?.elements.find(
+          ({ sourceElement }) =>
+            sourceElement?.id === componentFragment.childrenContainerElement.id,
+        )
 
         const childrenContainerElement =
           clonedChildrenContainer ?? componentFragment.childrenContainerElement
 
-        return this.create({
+        return this.add({
           ...componentFragment,
           childrenContainerElement,
         })
@@ -308,7 +309,7 @@ export class ComponentService
   @modelAction
   removeClones(componentId: string) {
     return [...this.clonedComponents.entries()]
-      .filter(([_, component]) => component.sourceComponentId === componentId)
+      .filter(([_, component]) => component.sourceComponent?.id === componentId)
       .forEach(([elementId]) => this.clonedComponents.delete(elementId))
   }
 }

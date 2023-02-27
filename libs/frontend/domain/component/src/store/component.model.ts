@@ -22,7 +22,7 @@ import {
   getComponentService,
 } from '@codelab/frontend/presenter/container'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import {
   clone,
@@ -57,13 +57,13 @@ export class Component
     id: idProp,
     name: prop<string>().withSetter(),
     // this isn't a Ref, because it will cause a circular dep.
-    rootElementId: prop<string>().withSetter(),
+    rootElement: prop<IEntity>().withSetter(),
     owner: prop<IAuth0Owner>(),
     api: prop<Ref<IInterfaceType>>(),
     props: prop<Nullable<IProp>>(null).withSetter(),
-    childrenContainerElementId: prop<string>().withSetter(),
+    childrenContainerElement: prop<IEntity>().withSetter(),
     // if this is a duplicate, trace source component id else null
-    sourceComponentId: prop<Nullable<string>>(null).withSetter(),
+    sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
   })
@@ -98,30 +98,27 @@ export class Component
 
     const elementMap: Map<string, string> = new Map()
 
-    const elements = this.elementTree.elements
-      .map((element) => {
-        const clonedElement = element.clone(cloneIndex)
+    const elements = this.elementTree.elements.map((element) => {
+      const clonedElement = element.clone(cloneIndex)
 
-        // don't move it to element model to avoid dependency issues
-        if (element.renderComponentType?.current) {
-          const componentClone = element.renderComponentType.current.clone(
-            clonedElement.id,
-          )
+      // don't move it to element model to avoid dependency issues
+      if (element.renderComponentType?.current) {
+        const componentClone = element.renderComponentType.current.clone(
+          clonedElement.id,
+        )
 
-          clonedElement.setRenderComponentType(componentRef(componentClone.id))
-        }
+        clonedElement.setRenderComponentType(componentRef(componentClone.id))
+      }
 
-        if (element.id === clonedComponent.childrenContainerElementId) {
-          clonedComponent.setChildrenContainerElementId(clonedElement.id)
-        }
+      if (element.id === clonedComponent.childrenContainerElement.id) {
+        clonedComponent.setChildrenContainerElement({ id: clonedElement.id })
+      }
 
-        // keep trace of copies to update parents
-        elementMap.set(element.id, clonedElement.id)
+      // keep trace of copies to update parents
+      elementMap.set(element.id, clonedElement.id)
 
-        return clonedElement
-      })
-      // first .map must complete before updating ids (elementMap)
-      .map((element) => element.updateCloneIds(elementMap))
+      return clonedElement
+    })
 
     const rootElementId = this.elementTree.root?.id
       ? elementMap.get(this.elementTree.root.id)
@@ -150,7 +147,7 @@ export class Component
     }
 
     const clonesList = [...componentService.clonedComponents.values()].filter(
-      (component) => component.sourceComponentId === this.id,
+      (component) => component.sourceComponent?.id === this.id,
     )
 
     const clonedComponent: IComponent = clone<IComponent>(this)
@@ -158,7 +155,7 @@ export class Component
 
     clonedComponent.setProps(this.props ? this.props.clone() : null)
     clonedComponent.setElementTree(clonedTree)
-    clonedComponent.setSourceComponentId(this.id)
+    clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setInstanceElement(elementRef(instanceId))
 
     componentService.clonedComponents.set(instanceId, clonedComponent)

@@ -25,7 +25,7 @@ export class RenderPropsType
   implements IRenderPropsType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     return this

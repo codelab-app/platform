@@ -89,7 +89,7 @@ export class FieldService
       interfaceType.writeFieldCache(fields)
     }
 
-    return fields.map((field) => this.create(field))
+    return fields.map((field) => this.add(field))
   })
 
   @modelFlow
@@ -125,7 +125,7 @@ export class FieldService
       }),
     )
 
-    return fields.map((field) => this.create(field))
+    return fields.map((field) => this.add(field))
   })
 
   @modelFlow
@@ -168,11 +168,11 @@ export class FieldService
   }
 
   @modelAction
-  create(fragment: IFieldDTO) {
+  add(fragment: IFieldDTO) {
     let fieldModel = this.fields.get(fragment.id)
 
     if (fieldModel) {
-      fieldModel.create(fragment)
+      fieldModel.add(fragment)
     } else {
       fieldModel = Field.hydrate(fragment)
       this.fields.set(fragment.id, fieldModel)

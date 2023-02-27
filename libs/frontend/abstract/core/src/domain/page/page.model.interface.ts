@@ -12,8 +12,11 @@ export interface IPage extends IEntity, IElementTreeService {
   name: string
   slug: string
   toJson: IPropData
-  rootElement: IEntity
+  rootElement: Ref<IElement>
   getServerSideProps: Nullish<string>
-  pageContainerElement: Nullish<IEntity>
+  /**
+   * A pointer to tell us where to render from app
+   */
+  pageContentContainer?: Ref<IElement>
   kind: IPageKind
 }

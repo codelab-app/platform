@@ -38,6 +38,6 @@ export interface IResourceService
   createModal: IEntityModalService<CreateResourceData, { type?: IResourceType }>
   resource(resource: IResourceRef): Maybe<IResource>
   load(resources: Array<IResourceDTO>): void
-  create(resource: IResourceDTO): IResource
+  add(resource: IResourceDTO): IResource
   resourceList: Array<IResource>
 }

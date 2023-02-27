@@ -11,6 +11,9 @@ export interface IApp {
   owner: IAuth0Owner
   name: string
   slug: string
+  /**
+   * We use ref on something that possible could not exist
+   */
   store: Ref<IStore>
   pages: Array<Ref<IPage>>
   toJson: IPropData

@@ -29,7 +29,7 @@ export class ElementType
   implements IElementType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.ElementType) {

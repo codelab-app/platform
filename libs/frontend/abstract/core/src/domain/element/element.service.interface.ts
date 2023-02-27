@@ -71,7 +71,7 @@ export interface IElementService
     elementId: string
     parentElementId: string
   }): Promise<void>
-  create(elementDTO: ICreateElementData): IElement
+  add(elementDTO: ICreateElementData): IElement
   moveElementAsNextSibling(props: {
     elementId: string
     targetElementId: string

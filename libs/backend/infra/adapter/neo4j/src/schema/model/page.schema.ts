@@ -10,8 +10,7 @@ export const pageSchema = gql`
 
   type Page {
     id: ID! @id(autogenerate: false)
-    # format : appId-name because page name is unique inside app.
-    name: String! @unique
+    name: String!
     slug: String! @computed(from: ["name"])
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
@@ -20,7 +19,7 @@ export const pageSchema = gql`
     # this is an element on _app page tree inside of which child pages content is rendered
     # default is root "Body" element, but can be changed using dropdown on Page Inspector tab
     # TODO: Rename to pageContentContainer
-    pageContainerElement: Element
+    pageContentContainer: Element
       @relationship(type: "CHILD_PAGE_CONTAINER_ELEMENT", direction: OUT)
     kind: PageKind!
   }

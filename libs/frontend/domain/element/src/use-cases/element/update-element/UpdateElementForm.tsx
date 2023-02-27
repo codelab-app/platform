@@ -61,8 +61,8 @@ const makeCurrentModel = (element: IElement) => {
     name: element.name,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfExpression: element.renderIfExpression,
-    postRenderActionId: element.postRenderActionId,
-    preRenderActionId: element.preRenderActionId,
+    postRenderActionId: element.postRenderAction,
+    preRenderActionId: element.preRenderAction,
     renderType,
   }
 }

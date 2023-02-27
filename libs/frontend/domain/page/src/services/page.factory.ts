@@ -29,15 +29,16 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  createProviderPage(app: IEntity) {
+  createSystemPages() {
+
+  }
+
+  @modelAction
+  private createProviderPage(app: IEntity) {
     const providerPageId = v4()
+    const rootElement = Element.createRootElement()
 
-    const rootElement = this.elementService.create({
-      id: v4(),
-      name: slugify(`${providerPageId}-${ROOT_ELEMENT_NAME}`),
-    })
-
-    return this.pageService.add({
+    return Page.create({
       id: providerPageId,
       name: APP_PAGE_NAME,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
@@ -48,18 +49,13 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  createNotFoundPage(app: IEntity) {
+  private createNotFoundPage(app: IEntity) {
     const notFoundPageId = v4()
-
-    const rootElement = this.elementService.create({
-      id: v4(),
-      name: slugify(`${notFoundPageId}-${ROOT_ELEMENT_NAME}`),
-    })
+    const rootElement = Element.createRootElement()
 
     return this.pageService.add({
       id: notFoundPageId,
       name: NOT_FOUND_PAGE_NAME,
-      // name: slugify(`${app.id}-${NOT_FOUND_PAGE_NAME}`),
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       app,
       rootElement,
@@ -68,18 +64,13 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  createInternalServerErrorPage(app: IEntity) {
+  private createInternalServerErrorPage(app: IEntity) {
     const internalServerErrorPageId = v4()
-
-    const rootElement = this.elementService.create({
-      id: v4(),
-      name: slugify(`${internalServerErrorPageId}-${ROOT_ELEMENT_NAME}`),
-    })
+    const rootElement = Element.createRootElement()
 
     return this.pageService.add({
       id: internalServerErrorPageId,
       name: INTERNAL_SERVER_ERROR_PAGE_NAME,
-      // name: slugify(`${app.id}-${NOT_FOUND_PAGE_NAME}`),
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       app,
       rootElement,

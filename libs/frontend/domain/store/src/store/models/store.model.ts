@@ -29,13 +29,6 @@ import {
 import { v4 } from 'uuid'
 import { getActionService } from '../action.service'
 
-export const hydrate = ({ id, name, api }: IStoreDTO) =>
-  new Store({
-    id,
-    name,
-    api: typeRef(api.id) as Ref<IInterfaceType>,
-  })
-
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
@@ -112,7 +105,13 @@ export class Store
     return props
   }
 
-  static hydrate = hydrate
+  static create({ id, name, api }: IStoreDTO) {
+    new Store({
+      id,
+      name,
+      api: typeRef(api.id) as Ref<IInterfaceType>,
+    })
+  }
 
   toCreateInput(): StoreCreateInput {
     const api = this.api.current

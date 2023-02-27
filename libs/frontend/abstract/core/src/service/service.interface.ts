@@ -7,7 +7,7 @@ export interface ICRUDService<Entity, CreateDTO, UpdateDTO extends IEntity> {
 }
 
 export interface ICacheService<CreateDTO, Entity> {
-  create(data: CreateDTO): Entity
+  add(data: CreateDTO): Entity
 }
 
 export interface IQueryService<Entity, EntityWhere, EntityOptions> {

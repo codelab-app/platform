@@ -35,7 +35,7 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.PrimitiveType) {

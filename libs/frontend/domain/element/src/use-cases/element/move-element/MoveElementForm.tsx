@@ -34,14 +34,14 @@ export const MoveElementForm = observer<MoveElementFormProps>(
   ({ element, elementService, trackPromises, elementTree }) => {
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
-      parentElementId: element.parentId,
+      parentElementId: element.parent,
       prevSiblingId: element.prevSiblingId,
     })
 
     useEffect(() => {
       model.prevSiblingId = element.prevSiblingId
-      model.parentElementId = element.parentId
-    }, [element.parentId, element.prevSiblingId])
+      model.parentElementId = element.parent
+    }, [element.parent, element.prevSiblingId])
 
     const onSubmit = (data: MoveData) => {
       const {

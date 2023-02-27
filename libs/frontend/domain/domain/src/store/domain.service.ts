@@ -61,12 +61,10 @@ export class DomainService
   })
 
   @modelAction
-  create = (domain: IDomainDTO) => {
+  add = (domain: IDomainDTO) => {
     let domainModel = this.domains.get(domain.id)
 
-    domainModel = domainModel
-      ? domainModel.create(domain)
-      : Domain.hydrate(domain)
+    domainModel = domainModel ? domainModel.add(domain) : Domain.hydrate(domain)
 
     this.domains.set(domain.id, domainModel)
 
@@ -94,7 +92,7 @@ export class DomainService
       createDomains: { domains },
     } = yield* _await(domainApis.CreateDomains({ input }))
 
-    return domains.map((domain) => this.create(domain))
+    return domains.map((domain) => this.add(domain))
   })
 
   @modelFlow
@@ -128,6 +126,6 @@ export class DomainService
       }),
     )
 
-    return domains.map((domain) => this.create(domain))
+    return domains.map((domain) => this.add(domain))
   })
 }

@@ -75,7 +75,7 @@ export class AtomService
       }),
     )
 
-    return atoms.map((atom) => this.create(atom))
+    return atoms.map((atom) => this.add(atom))
   })
 
   @computed
@@ -94,8 +94,8 @@ export class AtomService
   }
 
   @modelAction
-  create({ tags, api, allowedChildren, ...atomDTO }: IAtomDTO) {
-    const tagRefs = tags.map((tag) => tagRef(this.tagService.create(tag)))
+  add({ tags, api, allowedChildren, ...atomDTO }: IAtomDTO) {
+    const tagRefs = tags.map((tag) => tagRef(this.tagService.add(tag)))
     const apiRef = typeRef(this.typeService.addInterface(api))
     const atom = new Atom({ ...atomDTO, api: apiRef, tags: tagRefs })
 
@@ -121,7 +121,7 @@ export class AtomService
 
     this.count = atomsAggregate.count
 
-    return atoms.map((atom) => this.create(atom))
+    return atoms.map((atom) => this.add(atom))
   })
 
   @modelFlow
@@ -171,7 +171,7 @@ export class AtomService
       createAtoms: { atoms },
     } = yield* _await(atomApi.CreateAtoms({ input }))
 
-    return atoms.map((atom) => this.create(atom))
+    return atoms.map((atom) => this.add(atom))
   })
 
   @modelFlow

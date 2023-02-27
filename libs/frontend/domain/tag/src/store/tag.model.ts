@@ -40,7 +40,7 @@ export class Tag
   static hydrate = hydrate
 
   @modelAction
-  create(tag: ITagDTO): ITag {
+  add(tag: ITagDTO): ITag {
     this.name = tag.name
     this.children = tag.children?.map((child) => tagRef(child.id)) ?? []
     this.descendants =

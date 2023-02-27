@@ -85,7 +85,7 @@ export const makeDuplicateInput = (
     renderComponentType: connectNodeId(element.renderComponentType?.id),
     renderAtomType: connectNodeId(element.atom?.id),
     props,
-    name: createUniqueName(duplicate_name, element.baseId),
+    name: createUniqueName(duplicate_name, { id: element.baseId }),
     propTransformationJs: element.propTransformationJs,
     renderIfExpression: element.renderIfExpression,
     renderForEachPropKey: element.renderForEachPropKey,

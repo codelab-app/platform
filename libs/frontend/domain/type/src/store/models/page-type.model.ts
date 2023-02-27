@@ -17,7 +17,7 @@ export class PageType
   implements IPageType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     return this

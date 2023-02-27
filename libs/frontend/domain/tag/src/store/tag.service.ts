@@ -105,7 +105,7 @@ export class TagService
       this.getAll({ id_IN: otherTagIdsToUpdate }),
     )
 
-    const tagModels = [...tags, ...tagsToUpdate].map((tag) => this.create(tag))
+    const tagModels = [...tags, ...tagsToUpdate].map((tag) => this.add(tag))
 
     this.treeService.addRoots(tagModels)
 
@@ -127,7 +127,7 @@ export class TagService
       }),
     )
 
-    return tags.map((tag) => this.create(tag))
+    return tags.map((tag) => this.add(tag))
   })
 
   @modelFlow
@@ -177,17 +177,17 @@ export class TagService
 
     console.log(tags)
 
-    return tags.map((tag) => this.create(tag))
+    return tags.map((tag) => this.add(tag))
   })
 
   @modelAction
-  create = (tag: ITagDTO) => {
+  add = (tag: ITagDTO) => {
     console.debug('TagService.writeCache', tag)
 
     let tagModel = this.tags.get(tag.id)
 
     if (tagModel) {
-      tagModel = tagModel.create(tag)
+      tagModel = tagModel.add(tag)
     } else {
       tagModel = Tag.hydrate(tag)
       this.tags.set(tag.id, tagModel)

@@ -1,16 +1,19 @@
 import type {
   IApp,
-  IAppDTO,
   IAuth0Owner,
   IPage,
   IPageBuilderAppProps,
   IStore,
 } from '@codelab/frontend/abstract/core'
+import { IAppDTO } from '@codelab/frontend/abstract/core'
+import { Page, pageRef } from '@codelab/frontend/domain/page'
+import { Store, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import type {
   AppCreateInput,
   PageBuilderAppFragment,
 } from '@codelab/shared/abstract/codegen'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -40,6 +43,26 @@ export class App
   @computed
   get slug() {
     return slugify(this.name)
+  }
+
+  @modelAction
+  create({ id, name, owner, pages, store }: IAppDTO) {
+    const app = new App({
+      id,
+      name,
+      owner,
+      pages: pages.map((page) => pageRef(page.id)),
+      // pages: [
+      // pageRef(this.pageService.pageFactory.createProviderPage(appDTO)),
+      // pageRef(this.pageService.pageFactory.createNotFoundPage(appDTO)),
+      // pageRef(
+      //   this.pageService.pageFactory.createInternalServerErrorPage(appDTO),
+      // ),
+      // ],
+      store: storeRef(store.id),
+    })
+
+    return app
   }
 
   static parsePageBuilderData({

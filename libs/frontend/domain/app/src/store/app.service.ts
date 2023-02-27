@@ -1,11 +1,11 @@
 import type {
-  IApp,
   IAppService,
   ICreateAppData,
   IPageBuilderAppProps,
+  IPageDTO,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
-import { IAppDTO } from '@codelab/frontend/abstract/core'
+import { IApp, IAppDTO, IStoreDTO } from '@codelab/frontend/abstract/core'
 import { getPageService, pageRef } from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
@@ -94,7 +94,7 @@ export class AppService
     const elements = [
       page.rootElement,
       ...page.rootElement.descendantElements,
-    ].map((element) => this.elementService.create(element))
+    ].map((element) => this.elementService.add(element))
 
     const rootElement = this.elementService.element(page.rootElement.id)
     const pageElementTree = pageModel.initTree(rootElement, elements)
@@ -161,37 +161,37 @@ export class AppService
    *
    * Also we can create an app with creating user pages
    */
-  @modelAction
-  create(appDTO: IAppDTO) {
-    const store = this.storeService.create(appDTO)
+  // @modelAction
+  // create(appDTO: IAppDTO, pageDTOs?: Array<IPageDTO>, storeDTO?: IStoreDTO) {
+  //   const store = this.storeService.create(appDTO)
 
-    const app = new App({
-      ...appDTO,
-      pages: appDTO.pages.map((page) => pageRef(this.pageService.add(page))),
-      store: storeRef(store),
+  //   const app = new App({
+  //     ...appDTO,
+  //     pages: appDTO.pages.map((page) => pageRef(page.id)),
+  //     store: storeRef(store),
+  //   })
+
+  //   return app
+  // }
+
+  @modelAction
+  add({ id, name, owner, pages, store }: IAppDTO): IApp {
+    const newApp = new App({
+      id,
+      name,
+      owner,
+      pages: pages.map((page) => pageRef(page.id)),
+      store: storeRef(store.id),
     })
 
-    return app
-  }
+    this.apps.set(newApp.id, newApp)
 
-  @modelAction
-  add(appDTO: IAppDTO) {
-    const store = this.storeService.create(appDTO)
-
-    const app = new App({
-      ...appDTO,
-      pages: appDTO.pages.map((page) => pageRef(this.pageService.add(page))),
-      store: storeRef(store),
-    })
-
-    this.apps.set(app.id, app)
-
-    return app
+    return newApp
   }
 
   @modelAction
   createSubmit = _async(function* (this: AppService, appData: ICreateAppData) {
-    const store = this.storeService.create(appData)
+    const store = this.storeService.add(appData)
 
     const app = new App({
       ...appData,

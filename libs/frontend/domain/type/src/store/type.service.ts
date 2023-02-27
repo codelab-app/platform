@@ -187,7 +187,7 @@ export class TypeService
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
-      typeModel.create(fragment)
+      typeModel.add(fragment)
     } else {
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)

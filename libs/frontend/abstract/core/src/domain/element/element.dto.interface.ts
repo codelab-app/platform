@@ -60,15 +60,15 @@ export type IUpdateBaseElementData = Pick<
 export interface IElementDTO {
   id: string
   name: string
-  slug: string
+  // slug: string
   customCss?: string | null
   guiCss?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  preRenderActionId?: string | null
-  postRenderActionId?: string | null
+  preRenderAction?: IEntity | null
+  postRenderAction?: IEntity | null
   propTransformationJs?: string | null
-  page?: { id: string } | null
+  page?: IEntity | null
   renderComponentType?: IComponentDTO | null
   renderAtomType?: IAtomDTO | null
   prevSibling?: IEntity | null

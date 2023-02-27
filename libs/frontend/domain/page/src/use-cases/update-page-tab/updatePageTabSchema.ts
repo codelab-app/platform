@@ -37,7 +37,7 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
           }),
         },
       },
-      pageContainerElementId: {
+      pageContentContainer: {
         type: 'string',
         nullable: true,
         uniforms: {

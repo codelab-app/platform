@@ -45,7 +45,7 @@ export class UnionType
   implements IUnionType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.UnionType) {

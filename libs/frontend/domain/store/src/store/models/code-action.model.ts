@@ -28,7 +28,7 @@ export class CodeAction
   }
 
   @modelAction
-  create = (data: ICodeActionDTO) => {
+  add = (data: ICodeActionDTO) => {
     updateBaseAction(this, data)
 
     this.code = data.code
