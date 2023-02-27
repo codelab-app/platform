@@ -48,7 +48,7 @@ export const useDndDropHandler = (
     const createElementDto = {
       ...createElementInput,
       name: makeAutoIncrementedName(
-        elementTree.elementsList.map((element) => element.name),
+        elementTree.elements.map((element) => element.name),
         createElementInput.name,
       ),
     }

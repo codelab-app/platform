@@ -57,7 +57,7 @@ export class ElementTree
    * All elements within the tree
    */
   @computed
-  get elementsList() {
+  get elements() {
     return this._root
       ? [this._root.current, ...this._root.current.descendants]
       : []

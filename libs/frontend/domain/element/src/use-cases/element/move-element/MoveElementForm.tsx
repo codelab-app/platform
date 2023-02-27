@@ -75,7 +75,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       return Promise.resolve()
     }
 
-    const elementOptions = elementTree.elementsList.map(mapElementOption)
+    const elementOptions = elementTree.elements.map(mapElementOption)
 
     return (
       <MoveElementAutoForm<MoveData>

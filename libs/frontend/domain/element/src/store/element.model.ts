@@ -18,7 +18,7 @@ import {
   IElementDTO,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
-import { getPropService, Prop } from '@codelab/frontend/domain/prop'
+import { getPropService, Prop, propRef } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
@@ -50,62 +50,6 @@ import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
 
 type TransformFn = (props: IPropData) => IPropData
-
-/**
- * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
- */
-// export const hydrate = ({
-//   id,
-//   name,
-//   customCss,
-//   guiCss,
-//   renderAtomType,
-//   parent,
-//   slug,
-//   page,
-//   parentComponent,
-//   renderComponentType,
-//   nextSibling,
-//   prevSibling,
-//   firstChild,
-//   preRenderActionId,
-//   postRenderActionId,
-//   // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
-//   hooks,
-//   props,
-//   propTransformationJs,
-//   renderIfExpression,
-//   renderForEachPropKey,
-// }: Omit<IElementDTO, '__typename'>) => {
-//   const apiRef = renderAtomType
-//     ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
-//     : undefined
-
-//   return new Element({
-//     id,
-//     name: extractName(name),
-//     customCss,
-//     guiCss,
-//     // parent of first child
-//     parentId: parent?.id,
-//     pageId: page?.id,
-//     nextSiblingId: nextSibling?.id,
-//     prevSiblingId: prevSibling?.id,
-//     firstChildId: firstChild?.id,
-//     atom: renderAtomType ? atomRef(renderAtomType.id) : null,
-//     preRenderActionId,
-//     postRenderActionId,
-//     props: props ? Prop.hydrate({ ...props, apiRef }) : null,
-//     propTransformationJs,
-//     renderIfExpression,
-//     renderForEachPropKey,
-//     renderingMetadata: null,
-//     parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
-//     renderComponentType: renderComponentType
-//       ? componentRef(renderComponentType.id)
-//       : null,
-//   })
-// }
 
 export const getElementTree = (element: IElement): Maybe<IElementTree> => {
   const refs = getRefsResolvingTo<IElement>(element, elementRef)
@@ -481,9 +425,9 @@ export class Element
       clonedElement.setAtom(atomRef(this.atom.id))
     }
 
-    if (this.props) {
-      clonedElement.setProps(this.props.clone())
-    }
+    // if (this.props) {
+    //   clonedElement.setProps(this.props.clone())
+    // }
 
     // store elements in elementService
     this.elementService.clonedElements.set(clonedElement.id, clonedElement)
@@ -770,10 +714,6 @@ export class Element
     this.nextSiblingId = nextSibling?.id ?? null
     this.prevSiblingId = prevSibling?.id ?? null
     this.firstChildId = firstChild?.id ?? null
-
-    if (props) {
-      this.propService.add({ id: props.id, data: props.data, api: apiRef })
-    }
 
     this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)

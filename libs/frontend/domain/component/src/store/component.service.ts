@@ -290,7 +290,7 @@ export class ComponentService
       )
       .map((component) => {
         const clonedChildrenContainer =
-          component.elementTree?.elementsList.find(
+          component.elementTree?.elements.find(
             ({ sourceElementId }) =>
               sourceElementId === componentFragment.childrenContainerElement.id,
           )

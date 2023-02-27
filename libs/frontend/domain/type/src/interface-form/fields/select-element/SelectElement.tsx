@@ -32,7 +32,7 @@ export const SelectElement = ({
   let elements: Array<SelectElementOption>
 
   allElementOptions ??=
-    elementTree?.elementsList.map(({ id, label, children }) => ({
+    elementTree?.elements.map(({ id, label, children }) => ({
       value: id,
       label: label,
       childrenIds: children.map((child) => child.id),
