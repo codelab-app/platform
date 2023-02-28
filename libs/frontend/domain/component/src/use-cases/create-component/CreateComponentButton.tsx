@@ -4,17 +4,23 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export const CreateComponentButton = observer<{
+export type CreateComponentButtonProps = {
   className?: string
   componentService: IComponentService
-}>(({ componentService, className }) => {
-  return (
-    <Button
-      className={className}
-      icon={<PlusOutlined />}
-      key={0}
-      onClick={() => componentService.createModal.open()}
-      size="small"
-    />
-  )
-})
+} & React.ComponentProps<typeof Button>
+
+export const CreateComponentButton = observer<CreateComponentButtonProps>(
+  ({ componentService, className, title }) => {
+    return (
+      <Button
+        className={className}
+        icon={<PlusOutlined />}
+        key={0}
+        onClick={() => componentService.createModal.open()}
+        size="small"
+      >
+        {title || ''}
+      </Button>
+    )
+  },
+)

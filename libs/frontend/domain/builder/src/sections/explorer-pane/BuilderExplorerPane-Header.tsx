@@ -25,6 +25,7 @@ export const BuilderExplorerPaneHeader = observer(
         createModal={elementService.createModal}
         key={0}
         parentElementId={builderService.selectedNode?.id || root.id}
+        title="Element"
       />
     )
   },

@@ -11,7 +11,7 @@ export type CreateElementButtonProps = {
   React.ComponentProps<typeof Button>
 
 export const CreateElementButton = observer<CreateElementButtonProps>(
-  ({ parentElementId, createModal, type }) => {
+  ({ parentElementId, createModal, type, title }) => {
     return (
       <Button
         icon={<PlusOutlined data-testid="create-page-element-button" />}
@@ -22,7 +22,9 @@ export const CreateElementButton = observer<CreateElementButtonProps>(
         }}
         size="small"
         type={type}
-      />
+      >
+        {title || ''}
+      </Button>
     )
   },
 )

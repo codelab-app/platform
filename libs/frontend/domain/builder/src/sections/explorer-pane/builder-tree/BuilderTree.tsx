@@ -153,6 +153,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
               componentContextMenuProps={componentContextMenuProps}
               data={data}
               elementContextMenuProps={elementContextMenuProps}
+              elementService={elementService}
               node={node}
             />
           )

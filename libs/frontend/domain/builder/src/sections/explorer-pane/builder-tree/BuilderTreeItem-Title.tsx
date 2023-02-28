@@ -1,9 +1,10 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import type { INode } from '@codelab/frontend/abstract/core'
+import type { IElementService, INode } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
 } from '@codelab/frontend/abstract/core'
+import { CreateElementButton } from '@codelab/frontend/domain/element'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Col, Dropdown, Row, Tooltip } from 'antd'
 import type { DataNode } from 'antd/lib/tree'
@@ -23,10 +24,17 @@ interface BuilderTreeItemTitleProps {
   data: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
   componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
+  elementService: IElementService
 }
 
 export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
-  ({ node, data, elementContextMenuProps, componentContextMenuProps }) => {
+  ({
+    node,
+    data,
+    elementContextMenuProps,
+    componentContextMenuProps,
+    elementService,
+  }) => {
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
@@ -125,7 +133,17 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
             }
             trigger={['contextMenu']}
           >
-            <div>{component.name}</div>
+            <Row justify="space-between">
+              <Col css={tw`px-2`}>{component.name}</Col>
+              <Col css={tw`px-2`}>
+                <CreateElementButton
+                  createModal={elementService.createModal}
+                  key={0}
+                  parentElementId={node.id}
+                  type="text"
+                />
+              </Col>
+            </Row>
           </Dropdown>
         </ItemTitleStyle>
       )
