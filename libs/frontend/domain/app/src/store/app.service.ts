@@ -1,4 +1,5 @@
 import type {
+  IAppService,
   ICreateAppData,
   IPageBuilderAppProps,
   IPageDTO,
@@ -35,16 +36,18 @@ import { appApi } from './app.api'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
 
-export type IAppService = typeof AppService
 @model('@codelab/AppService')
-export class AppService extends Model({
-  apps: prop(() => objectMap<IApp>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new AppModalService({})),
-  deleteModal: prop(() => new AppModalService({})),
-  buildModal: prop(() => new AppModalService({})),
-  appRepository: prop(() => new AppRepository({})),
-}) {
+export class AppService
+  extends Model({
+    apps: prop(() => objectMap<IApp>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new AppModalService({})),
+    deleteModal: prop(() => new AppModalService({})),
+    buildModal: prop(() => new AppModalService({})),
+    appRepository: prop(() => new AppRepository({})),
+  })
+  implements IAppService
+{
   @computed
   private get elementService() {
     return getElementService(this)
@@ -139,7 +142,7 @@ export class AppService extends Model({
       }),
     )
 
-    return app
+    return [app!]
   })
 
   @modelFlow

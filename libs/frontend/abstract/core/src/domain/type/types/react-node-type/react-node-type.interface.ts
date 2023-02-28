@@ -1,5 +1,6 @@
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
+import type { IReactNodeTypeDTO } from './react-node-type.dto.interface'
 
 /**
  * Allows picking a Component from the list of components.
@@ -12,6 +13,6 @@ import type { IBaseType } from '../base-type'
  * - ReactNodeType: Component select box, results it `ReactNode` value
  * - ElementType: Current tree element select box, results it `ReactNode` value
  */
-export interface IReactNodeType extends IBaseType {
+export interface IReactNodeType extends IBaseType<IReactNodeTypeDTO> {
   kind: ITypeKind.ReactNodeType
 }

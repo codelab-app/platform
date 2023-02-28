@@ -19,27 +19,6 @@ import {
 } from 'mobx-keystone'
 import { typeRef } from './union-type.model'
 
-const hydrate = ({
-  id,
-  key,
-  name,
-  description,
-  fieldType,
-  api,
-  validationRules,
-  defaultValues,
-}: IFieldDTO) =>
-  new Field({
-    id,
-    name,
-    description,
-    key,
-    type: typeRef(fieldType.id),
-    api: typeRef(api.id) as Ref<IInterfaceType>,
-    validationRules: JSON.parse(validationRules || '{}'),
-    defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
-  })
-
 @model('@codelab/Field')
 export class Field
   extends Model(() => ({
@@ -71,13 +50,57 @@ export class Field
   }
 
   @modelAction
-  static hydrate = hydrate
+  writeCache({
+    id,
+    name,
+    description,
+    key,
+    validationRules,
+    fieldType,
+    defaultValues,
+  }: Partial<IFieldDTO>) {
+    this.id = id ?? this.id
+    this.name = name ?? this.name
+    this.description = description ?? this.description
+    this.key = key ?? this.key
+    this.type = fieldType?.id ? typeRef(fieldType.id) : this.type
+    this.validationRules = validationRules
+      ? JSON.parse(validationRules || '{}')
+      : this.validationRules
+    this.defaultValues = defaultValues
+      ? JSON.parse(defaultValues)
+      : this.defaultValues
 
-  // toString(options?: { withData?: boolean }) {
-  //   return `\n{ ${this.key}: ${this.type.current.toString()} }`
-  // }
+    return this
+  }
+
+  @modelAction
+  static create({
+    id,
+    key,
+    name,
+    description,
+    fieldType,
+    api,
+    validationRules,
+    defaultValues,
+  }: IFieldDTO) {
+    return new Field({
+      id,
+      name,
+      description,
+      key,
+      type: typeRef(fieldType.id),
+      api: typeRef(api.id) as Ref<IInterfaceType>,
+      validationRules: JSON.parse(validationRules || '{}'),
+      defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
+    })
+  }
 }
 
+// toString(options?: { withData?: boolean }) {
+//   return `\n{ ${this.key}: ${this.type.current.toString()} }`
+// }
 export const fieldRef = rootRef<IField>('@codelab/FieldRef', {
   onResolvedValueChange: (ref, newType, oldType) => {
     if (oldType && !newType) {

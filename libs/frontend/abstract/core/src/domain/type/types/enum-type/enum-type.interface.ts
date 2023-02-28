@@ -1,5 +1,6 @@
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
+import type { IEnumTypeDTO } from './enum-type.dto.interface'
 
 export interface IEnumTypeValue {
   id: string
@@ -14,7 +15,7 @@ export interface IEnumTypeValue {
  *
  * @property {IEnumTypeValue[]} allowedValues - The list of allowed values.
  */
-export interface IEnumType extends IBaseType {
+export interface IEnumType extends IBaseType<IEnumTypeDTO> {
   kind: ITypeKind.EnumType
   allowedValues: Array<IEnumTypeValue>
 }

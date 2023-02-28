@@ -1,5 +1,5 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICacheService,
   ICRUDModalService,
@@ -20,12 +20,13 @@ export interface IFieldService
     Omit<
       ICRUDModalService<Ref<IField>, { field: Maybe<IField> }>,
       'createModal'
-    >,
-    ICacheService<IFieldDTO, IField> {
+    > {
   createModal: IEntityModalService<
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
   getField(id: string): Maybe<IField<IAnyType>>
   load(fields: Array<FieldFragment>): void
+  fields: ObjectMap<IField>
+  add(fieldDTO: IFieldDTO): IField
 }

@@ -47,5 +47,12 @@ export class CodeMirrorType
     return this
   }
 
+  @modelAction
+  writeCache(codeMirrorTypeDTO: ICodeMirrorTypeDTO) {
+    updateBaseTypeCache(this, codeMirrorTypeDTO)
+
+    return this
+  }
+
   public static hydrate = hydrate
 }

@@ -1,4 +1,4 @@
-import type { ICreateTypeDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
 import { idSchema, ownerSchema } from '@codelab/frontend/shared/domain'
 import { nonEmptyString, showFieldOnDev } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
@@ -15,7 +15,7 @@ import { TypeSelect } from '../../../shared'
  *
  * https://github.com/ajv-validator/ajv/issues/1838
  */
-export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
+export const createTypeSchema: JSONSchemaType<ICreateTypeData> = {
   title: 'Create Type Input',
   type: 'object',
   properties: {

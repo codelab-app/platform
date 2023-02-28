@@ -1,8 +1,5 @@
-import type {
-  ILambdaType,
-  ILambdaTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { ILambdaType } from '@codelab/frontend/abstract/core'
+import { ILambdaTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -27,6 +24,13 @@ export class LambdaType
   @modelAction
   add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
+
+    return this
+  }
+
+  @modelAction
+  writeCache(lambdaTypeDTO: ILambdaTypeDTO) {
+    updateBaseTypeCache(this, lambdaTypeDTO)
 
     return this
   }

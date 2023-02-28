@@ -1,5 +1,5 @@
 import type {
-  ICreateTypeDTO,
+  ICreateTypeData,
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
@@ -22,7 +22,7 @@ export const CreateTypeModal = observer<{
   const closeModal = () => typeService.createModal.close()
   const user = userService.user
 
-  const onSubmit = async (data: ICreateTypeDTO) => {
+  const onSubmit = async (data: ICreateTypeData) => {
     const input = {
       ...data,
       allowedValues: data.allowedValues?.map((val) => ({
@@ -49,7 +49,7 @@ export const CreateTypeModal = observer<{
       open={typeService.createModal.isOpen}
       title={<span css={tw`font-semibold`}>Create type</span>}
     >
-      <ModalForm.Form<ICreateTypeDTO>
+      <ModalForm.Form<ICreateTypeData>
         model={{
           id: v4(),
           owner: {

@@ -6,7 +6,22 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { IAuth0Owner } from '../user'
 import type { TypeFragment } from './fragments'
-import type { IEnumTypeValue } from './types'
+import type {
+  IActionTypeDTO,
+  IAppTypeDTO,
+  IArrayTypeDTO,
+  ICodeMirrorTypeDTO,
+  IElementTypeDTO,
+  IEnumTypeDTO,
+  IEnumTypeValue,
+  IInterfaceTypeDTO,
+  ILambdaTypeDTO,
+  IPageTypeDTO,
+  IPrimitiveTypeDTO,
+  IReactNodeTypeDTO,
+  IRenderPropsTypeDTO,
+  IUnionTypeDTO,
+} from './types'
 
 /**
  * This keeps the form easier, and reduce the number of type services. However we get less fine-grained data validation with Zod in the backend during import/export.
@@ -25,16 +40,23 @@ export interface IAllTypeDTO {
   arrayTypeId?: string
 }
 
-/**
- * Create
- */
-export interface ICreateTypeDTO extends IAllTypeDTO {
+export interface ICreateTypeData extends IAllTypeDTO {
   owner: IAuth0Owner
 }
 
-/**
- * Update
- */
-export type IUpdateTypeDTO = IAllTypeDTO
+export type IUpdateTypeData = IAllTypeDTO
 
-export type ITypeDTO = TypeFragment
+export type ITypeDTO =
+  | IActionTypeDTO
+  | IAppTypeDTO
+  | IArrayTypeDTO
+  | ICodeMirrorTypeDTO
+  | IElementTypeDTO
+  | IEnumTypeDTO
+  | IInterfaceTypeDTO
+  | ILambdaTypeDTO
+  | IPageTypeDTO
+  | IPrimitiveTypeDTO
+  | IReactNodeTypeDTO
+  | IRenderPropsTypeDTO
+  | IUnionTypeDTO

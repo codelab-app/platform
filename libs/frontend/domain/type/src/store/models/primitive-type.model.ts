@@ -47,16 +47,12 @@ export class PrimitiveType
     return this
   }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  //
-  //   if (!input.primitiveKind) {
-  //     throw new Error('PrimitiveType must have a primitiveKind')
-  //   }
-  //
-  //   this.primitiveKind = input.primitiveKind
-  // }
+  @modelAction
+  writeCache(primitiveTypeDTO: IPrimitiveTypeDTO) {
+    updateBaseTypeCache(this, primitiveTypeDTO)
+
+    return this
+  }
 
   public static hydrate = hydrate
 }

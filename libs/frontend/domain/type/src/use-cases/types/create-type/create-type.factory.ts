@@ -1,5 +1,5 @@
 import type {
-  ICreateTypeDTO,
+  ICreateTypeData,
   ICreateTypeInput,
 } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -11,7 +11,7 @@ import {
 } from '@codelab/shared/domain/mapper'
 
 export const createTypeFactory = (
-  types: Array<ICreateTypeDTO>,
+  types: Array<ICreateTypeData>,
 ): Array<ICreateTypeInput> => {
   return types.map((type) => ({
     id: type.id,

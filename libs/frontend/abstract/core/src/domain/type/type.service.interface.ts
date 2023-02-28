@@ -1,3 +1,4 @@
+import type { IType } from '@codelab/backend/abstract/core'
 import type {
   BaseTypeOptions,
   BaseTypeWhere,
@@ -11,7 +12,11 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import type { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
+import type {
+  ICreateTypeData,
+  ITypeDTO,
+  IUpdateTypeData,
+} from './type.dto.interface'
 import type { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
 
 export interface BaseTypesOptions {
@@ -23,7 +28,7 @@ export interface BaseTypesOptions {
 }
 
 export interface ITypeService
-  extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
+  extends ICRUDService<IAnyType, ICreateTypeData, IUpdateTypeData>,
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
   getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
@@ -41,5 +46,6 @@ export interface ITypeService
   count: number
   // add(data: ICreateTypeDTO): IAnyType
   // create(data: ICreateTypeDTO): IAnyType
-  addInterface(data: ICreateTypeDTO): IInterfaceType
+  addInterface(data: ICreateTypeData): IInterfaceType
+  add(type: ITypeDTO): IType
 }

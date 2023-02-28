@@ -162,22 +162,17 @@ export class FieldService
 
   @modelAction
   load(fields: Array<FieldFragment>) {
-    const hydratedFields = fields.map((fragment) => Field.hydrate(fragment))
+    const hydratedFields = fields.map((fragment) => Field.create(fragment))
 
     this.fields = objectMap(hydratedFields.map((field) => [field.id, field]))
   }
 
   @modelAction
-  add(fragment: IFieldDTO) {
-    let fieldModel = this.fields.get(fragment.id)
+  add(fieldDTO: IFieldDTO) {
+    const field = Field.create(fieldDTO)
 
-    if (fieldModel) {
-      fieldModel.add(fragment)
-    } else {
-      fieldModel = Field.hydrate(fragment)
-      this.fields.set(fragment.id, fieldModel)
-    }
+    this.fields.set(field.id, field)
 
-    return fieldModel
+    return field
   }
 }

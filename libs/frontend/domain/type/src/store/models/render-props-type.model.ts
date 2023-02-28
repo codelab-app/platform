@@ -1,8 +1,5 @@
-import type {
-  IRenderPropsType,
-  IRenderPropsTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { IRenderPropsType } from '@codelab/frontend/abstract/core'
+import { IRenderPropsTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -27,6 +24,13 @@ export class RenderPropsType
   @modelAction
   add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
+
+    return this
+  }
+
+  @modelAction
+  writeCache(RenderPropsTypeDTO: IRenderPropsTypeDTO) {
+    updateBaseTypeCache(this, RenderPropsTypeDTO)
 
     return this
   }

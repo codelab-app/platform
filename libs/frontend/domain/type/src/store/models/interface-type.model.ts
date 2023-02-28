@@ -2,9 +2,13 @@ import type {
   IApp,
   IFieldDTO,
   IInterfaceType,
-  IInterfaceTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { IField, IPropData, ITypeDTO } from '@codelab/frontend/abstract/core'
+import {
+  IField,
+  IInterfaceTypeDTO,
+  IPropData,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
@@ -126,6 +130,13 @@ export class InterfaceType
       kind: ITypeKind.InterfaceType,
       owner: connectAuth0Owner(this.owner.auth0Id),
     }
+  }
+
+  @modelAction
+  writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
+    updateBaseTypeCache(this, interfaceTypeDTO)
+
+    return this
   }
 
   static createApiNode({

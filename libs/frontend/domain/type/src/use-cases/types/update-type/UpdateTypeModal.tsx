@@ -1,6 +1,6 @@
 import type {
   ITypeService,
-  IUpdateTypeDTO,
+  IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -23,7 +23,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
       typeService.updateModal.type?.id ?? '',
     )
 
-    const handleSubmit = async (submitData: IUpdateTypeDTO) => {
+    const handleSubmit = async (submitData: IUpdateTypeData) => {
       const data = {
         ...submitData,
         allowedValues: submitData.allowedValues?.map((val) => ({
@@ -81,7 +81,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         open={typeService.updateModal.isOpen}
         title={<span css={tw`font-semibold`}>Update type</span>}
       >
-        <ModalForm.Form<IUpdateTypeDTO>
+        <ModalForm.Form<IUpdateTypeData>
           model={model}
           onSubmit={handleSubmit}
           onSubmitError={createNotificationHandler({
