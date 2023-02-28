@@ -37,7 +37,9 @@ export const GetPagesItem = observer<GetPagesItemProps>(
     const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
 
     const onClickBuild = async () => {
-      const pageDomain = domains?.find((domain) => domain.appId === page.app.id)
+      const pageDomain = domains?.find(
+        (domain) => domain.app.id === page.app.id,
+      )
 
       if (pageDomain?.name) {
         setRebuildButtonLoading(true)

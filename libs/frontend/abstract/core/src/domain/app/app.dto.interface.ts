@@ -10,6 +10,7 @@ import type {
 export interface IAppDTO {
   id: string
   name: string
+  // slug: string
   owner: IAuth0Owner
   pages?: Array<IEntity>
   store: IEntity

@@ -44,6 +44,14 @@ export class Prop
 {
   private silentData: IPropData = {}
 
+  @modelAction
+  writeCache({ id, data, api }: Partial<IPropDTO>) {
+    this.data = data ? frozen(JSON.parse(data)) : this.data
+    this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
+
+    return this
+  }
+
   @computed
   private get propService() {
     return getPropService(this)

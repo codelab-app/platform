@@ -21,6 +21,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { getPropService, Prop, propRef } from '@codelab/frontend/domain/prop'
+import { actionRef } from '@codelab/frontend/domain/store'
 import { typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
@@ -661,6 +662,74 @@ export class Element
         ? componentRef(renderComponentType.id)
         : null,
     })
+  }
+
+  @modelAction
+  writeCache({
+    id,
+    name,
+    customCss,
+    guiCss,
+    renderAtomType,
+    renderComponentType,
+    parentComponent,
+    props,
+    propTransformationJs,
+    renderIfExpression,
+    postRenderAction,
+    preRenderAction,
+    renderForEachPropKey,
+    parent,
+    nextSibling,
+    prevSibling,
+    firstChild,
+  }: Partial<IElementDTO>) {
+    const api = renderAtomType
+      ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
+      : undefined
+
+    this.name = name ?? this.name
+    this.customCss = customCss ?? this.customCss
+    this.guiCss = guiCss ?? this.guiCss
+    this.propTransformationJs =
+      propTransformationJs ?? this.propTransformationJs
+    this.renderIfExpression = renderIfExpression ?? null
+    this.renderForEachPropKey = renderForEachPropKey ?? null
+    this.atom = renderAtomType ? atomRef(renderAtomType.id) : null
+
+    this.preRenderAction = preRenderAction
+      ? actionRef(preRenderAction.id)
+      : this.preRenderAction
+    this.postRenderAction = postRenderAction
+      ? actionRef(postRenderAction.id)
+      : this.postRenderAction
+    this.props = props ? new Prop({ id: props.id, api }) : this.props
+    this.parent = parent?.id ? elementRef(parent.id) : this.parent
+
+    this.nextSibling = nextSibling?.id
+      ? elementRef(nextSibling.id)
+      : this.nextSibling
+    this.prevSibling = prevSibling?.id
+      ? elementRef(prevSibling.id)
+      : this.prevSibling
+    this.firstChild = firstChild?.id
+      ? elementRef(firstChild.id)
+      : this.firstChild
+
+    if (props) {
+      this.props?.writeCache({ ...props, api })
+    } else {
+      this.props = this.props
+    }
+
+    this.parentComponent = parentComponent
+      ? componentRef(parentComponent.id)
+      : null
+    this.renderComponentType = renderComponentType
+      ? componentRef(renderComponentType.id)
+      : null
+
+    return this
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173

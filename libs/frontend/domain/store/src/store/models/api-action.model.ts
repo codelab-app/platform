@@ -2,13 +2,14 @@ import type {
   IAnyAction,
   IApiAction,
   IApiActionConfig,
+  IApiActionDTO,
   IGraphQLActionConfig,
   IPropData,
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
-import { IApiActionDTO, IProp } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { IProp } from '@codelab/frontend/abstract/core'
+import { Prop, propRef } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
 import {
@@ -25,7 +26,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { actionRef } from './action.ref'
-import { createBaseAction, updateBaseAction } from './base-action.model'
+import { createBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
 
 const restFetch = (
@@ -142,20 +143,26 @@ export class ApiAction
     return runner.bind(this)
   }
 
-  // @modelAction
-  // add(action: IApiActionDTO) {
-  //   updateBaseAction(this, action)
+  @modelAction
+  writeCache({
+    resource,
+    config,
+    errorAction,
+    successAction,
+    store,
+  }: Partial<IApiActionDTO>) {
+    this.resource = resource ? resourceRef(resource.id) : this.resource
+    this.config = config
+      ? propRef<IProp<IApiActionConfig>>(config.id)
+      : this.config
+    this.errorAction = errorAction
+      ? actionRef(errorAction.id)
+      : this.errorAction
+    this.successAction = successAction
+      ? actionRef(successAction.id)
+      : this.successAction
+    this.store = store ? storeRef(store.id) : this.store
 
-  //   this.resource = resourceRef(action.resource.id)
-  //   this.config.add(action.config)
-  //   this.errorAction = action.errorAction
-  //     ? actionRef(action.errorAction.id)
-  //     : null
-  //   this.successAction = action.successAction
-  //     ? actionRef(action.successAction.id)
-  //     : null
-  //   this.store = storeRef(action.store.id)
-
-  //   return this
-  // }
+    return this
+  }
 }

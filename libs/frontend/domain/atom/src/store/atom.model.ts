@@ -21,18 +21,6 @@ import {
 } from 'mobx-keystone'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
-// const hydrate = (atom: IAtomDTO) => {
-//   return new Atom({
-//     id: atom.id,
-//     icon: atom.icon,
-//     name: atom.name,
-//     type: atom.type,
-//     api: typeRef(atom.api.id) as Ref<InterfaceType>,
-//     tags: atom.tags.map((tag) => tagRef(tag.id)),
-//     allowedChildren: atom.allowedChildren,
-//   })
-// }
-
 @model('@codelab/Atom')
 export class Atom
   extends Model({
@@ -56,18 +44,45 @@ export class Atom
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   // static hydrate = hydrate
+  static create({
+    id,
+    icon,
+    name,
+    type,
+    api,
+    tags,
+    allowedChildren,
+  }: IAtomDTO) {
+    return new Atom({
+      id,
+      icon,
+      name,
+      type,
+      api: typeRef<IInterfaceType>(api.id),
+      tags: tags.map((tag) => tagRef(tag.id)),
+      allowedChildren: allowedChildren.map((child) => atomRef(child.id)),
+    })
+  }
 
-  // @modelAction
-  // add(atom: IAtomDTO) {
-  //   this.name = atom.name
-  //   this.type = atom.type
-  //   this.api = typeRef(atom.api.id) as Ref<InterfaceType>
-  //   this.tags = atom.tags.map((tag) => tagRef(tag.id))
-  //   this.icon = atom.icon
-  //   this.allowedChildren = atom.allowedChildren
+  @modelAction
+  writeCache({
+    id,
+    name,
+    type,
+    icon,
+    tags = [],
+    api,
+    allowedChildren = [],
+  }: Partial<IAtomDTO>) {
+    this.name = name ?? this.name
+    this.type = type ?? this.type
+    this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
+    this.tags = tags.map((tag) => tagRef(tag.id))
+    this.icon = icon ?? this.icon
+    this.allowedChildren = allowedChildren.map((child) => atomRef(child.id))
 
-  //   return this
-  // }
+    return this
+  }
 }
 
 export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {

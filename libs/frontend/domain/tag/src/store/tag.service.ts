@@ -1,11 +1,11 @@
 import type {
   ICreateTagDTO,
   ITag,
-  ITagDTO,
   ITagService,
   ITagTreeService,
-  IUpdateTagDTO,
+  IUpdateTagData,
 } from '@codelab/frontend/abstract/core'
+import { ITagDTO } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
@@ -25,7 +25,7 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { tagApi } from './tag.api'
-import { Tag } from './tag.model'
+import { Tag, tagRef } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
 import { TagTreeService } from './tag-tree.service'
 
@@ -36,7 +36,6 @@ export class TagService
     treeService: prop<ITagTreeService>(() => TagTreeService.init([])),
     selectedTag: prop<Nullish<Ref<ITag>>>(null).withSetter(),
     checkedTags: prop<Array<Ref<ITag>>>(() => []).withSetter(),
-
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TagModalService({})),
     deleteManyModal: prop(() => new TagsModalService({})),
@@ -78,12 +77,12 @@ export class TagService
     this: TagService,
     data: Array<ICreateTagDTO>,
   ) {
-    const input = data.map(({ id, name, parentTag, owner }) => {
+    const input = data.map(({ id, name, parent, owner }) => {
       return {
         id,
         name,
         owner: connectAuth0Owner(owner.auth0Id),
-        parent: connectNodeId(parentTag?.id),
+        parent: connectNodeId(parent?.id),
       }
     })
 
@@ -116,7 +115,7 @@ export class TagService
   @transaction
   update = _async(function* (
     this: TagService,
-    { id, name, parentTag }: IUpdateTagDTO,
+    { id, name, parent }: IUpdateTagData,
   ) {
     const {
       updateTags: { tags },
@@ -175,24 +174,21 @@ export class TagService
   getAll = _async(function* (this: TagService, where?: TagWhere) {
     const { tags } = yield* _await(tagApi.GetTags({ where }))
 
-    console.log(tags)
-
     return tags.map((tag) => this.add(tag))
   })
 
   @modelAction
-  add = (tag: ITagDTO) => {
-    console.debug('TagService.writeCache', tag)
+  add({ id, isRoot, name, parent, children }: ITagDTO) {
+    const tag = new Tag({
+      id,
+      name,
+      isRoot,
+      parent: parent?.id ? tagRef(parent.id) : null,
+      children: children.map((child) => tagRef(child.id)),
+    })
 
-    let tagModel = this.tags.get(tag.id)
+    this.tags.set(tag.id, tag)
 
-    if (tagModel) {
-      tagModel = tagModel.add(tag)
-    } else {
-      tagModel = Tag.hydrate(tag)
-      this.tags.set(tag.id, tagModel)
-    }
-
-    return tagModel
+    return tag
   }
 }

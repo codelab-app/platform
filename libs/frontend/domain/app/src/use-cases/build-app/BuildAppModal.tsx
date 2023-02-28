@@ -18,7 +18,7 @@ export const BuildAppModal = observer<{
   const onSubmit = async () => {
     if (app) {
       const domain = domainService.domainsList.find(
-        (_domain) => _domain.appId === app.id,
+        (_domain) => _domain.app.id === app.id,
       )
 
       const pages = app.pages.map((page) => page.id)

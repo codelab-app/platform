@@ -44,7 +44,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { auth0Id: string }
+  owner: AppOwnerFragment
   pages: Array<BuilderPageFragment>
   store: StoreFragment
 }
@@ -122,7 +122,7 @@ export const PageBuilderAppFragmentDoc = gql`
     name
     slug
     owner {
-      auth0Id
+      ...AppOwner
     }
     pages(
       where: {
@@ -140,6 +140,7 @@ export const PageBuilderAppFragmentDoc = gql`
       ...Store
     }
   }
+  ${AppOwnerFragmentDoc}
   ${BuilderPageFragmentDoc}
   ${StoreFragmentDoc}
 `

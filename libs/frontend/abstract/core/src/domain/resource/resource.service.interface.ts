@@ -30,7 +30,6 @@ export interface CreateResourceProperties {
 export interface IResourceService
   extends ICRUDService<IResource, ICreateResourceData, IUpdateResourceData>,
     IQueryService<IResource, ResourceWhere, ResourceOptions>,
-    ICacheService<IResourceDTO, IResource>,
     Omit<
       ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
       'createModal'

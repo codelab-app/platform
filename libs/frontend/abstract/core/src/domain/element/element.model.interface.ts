@@ -13,7 +13,7 @@ import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IProp, IPropData } from '../prop'
-import { IAuth0Owner } from '../user'
+import type { IAuth0Owner } from '../user'
 import type { IElementDTO } from './element.dto.interface'
 
 /**
@@ -41,7 +41,9 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
+export interface IElement
+  extends INodeType<ELEMENT_NODE_TYPE>,
+    ICacheService<IElementDTO, IElement> {
   id: string
   isRoot: boolean
   owner: Nullable<IAuth0Owner>

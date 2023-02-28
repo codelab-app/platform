@@ -6,7 +6,8 @@ import type { ITag } from '../tag'
 import type { IInterfaceType } from '../type'
 import type { IAtomDTO, IRenderAtomDTO } from './atom.dto.interface'
 
-export interface IAtom extends IEntity {
+export interface IAtom extends ICacheService<IAtomDTO, IAtom> {
+  id: string
   name: string
   icon?: string | null
   type: IAtomType

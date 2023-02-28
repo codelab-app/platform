@@ -6,8 +6,10 @@ import type { IElement, IElementTreeService } from '../element'
 import type { IPropData } from '../prop'
 import type { IPageDTO } from './page.dto.interface'
 
-export interface IPage extends IEntity, IElementTreeService {
-  // ICacheService<IPageDTO, IPage>
+export interface IPage
+  extends IEntity,
+    IElementTreeService,
+    ICacheService<IPageDTO, IPage> {
   app: IEntity
   name: string
   slug: string

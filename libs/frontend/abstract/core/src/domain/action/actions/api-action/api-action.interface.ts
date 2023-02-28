@@ -9,7 +9,9 @@ import type { IAnyAction } from '../../action.interface'
 import type { IActionBase } from '../../action-base.interface'
 import type { IApiActionDTO } from './api-action.dto.interface'
 
-export interface IApiAction extends IActionBase {
+export interface IApiAction
+  extends IActionBase,
+    ICacheService<IApiActionDTO, IApiAction> {
   type: IActionKind.ApiAction
   resource: Ref<IResource>
   config: Ref<IProp<IApiActionConfig>>

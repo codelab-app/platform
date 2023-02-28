@@ -9,14 +9,13 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type { ICreateTagDTO, ITagDTO, IUpdateTagDTO } from './tag.dto.interface'
+import type { ICreateTagDTO, ITagDTO, IUpdateTagData } from './tag.dto.interface'
 import type { ITag } from './tag.model.interface'
 import type { ITagTreeService } from './tag-tree.service.interface'
 
 export interface ITagService
-  extends ICRUDService<ITag, ICreateTagDTO, IUpdateTagDTO>,
+  extends ICRUDService<ITag, ICreateTagDTO, IUpdateTagData>,
     Omit<IQueryService<ITag, TagWhere, TagOptions>, 'getOne'>,
-    ICacheService<ITagDTO, ITag>,
     Omit<ICRUDModalService<Ref<ITag>, { tag: Maybe<ITag> }>, 'deleteModal'> {
   /**
    * Properties
@@ -34,4 +33,5 @@ export interface ITagService
   setCheckedTags(tags: Array<Ref<ITag>>): void
   checkedTags: Array<Ref<ITag>>
   treeService: ITagTreeService
+  add(tagDTO: ITagDTO): ITag
 }

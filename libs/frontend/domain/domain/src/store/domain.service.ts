@@ -52,7 +52,7 @@ export class DomainService
     }
 
     return domains.map((domain) => {
-      const domainModel = Domain.hydrate(domain)
+      const domainModel = Domain.create(domain)
 
       this.domains.set(domain.id, domainModel)
 
@@ -64,7 +64,9 @@ export class DomainService
   add = (domain: IDomainDTO) => {
     let domainModel = this.domains.get(domain.id)
 
-    domainModel = domainModel ? domainModel.add(domain) : Domain.hydrate(domain)
+    domainModel = domainModel
+      ? domainModel.writeCache(domain)
+      : Domain.create(domain)
 
     this.domains.set(domain.id, domainModel)
 

@@ -1,6 +1,7 @@
 import type {
   IApp,
   IAuth0Owner,
+  ICacheService,
   IPage,
   IPageBuilderAppProps,
   IStore,
@@ -9,6 +10,7 @@ import { IAppDTO } from '@codelab/frontend/abstract/core'
 import { Page, pageRef } from '@codelab/frontend/domain/page'
 import { Store, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
+import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type {
   AppCreateInput,
   PageBuilderAppFragment,
@@ -35,6 +37,7 @@ export class App
     id: idProp,
     owner: prop<IAuth0Owner>(),
     name: prop<string>().withSetter(),
+    // slug: prop<string>().withSetter(),
     store: prop<Ref<IStore>>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })
@@ -58,10 +61,22 @@ export class App
     return app
   }
 
+  /**
+   * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
+   */
+  @modelAction
+  writeCache({ id, name, store, pages }: Partial<IAppDTO>) {
+    this.id = id ?? this.id
+    this.name = name ?? this.name
+    this.store = store ? storeRef(store.id) : this.store
+    this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
+
+    return this
+  }
+
   static parsePageBuilderData({
     id,
     name,
-    slug,
     pages,
     store,
     owner,
@@ -91,7 +106,6 @@ export class App
       [this.slug]: {
         id: this.id,
         name: this.name,
-        slug: this.slug,
         pages: this.pages.map((page) => page.current.toJson).reduce(merge, {}),
       },
     }
@@ -118,7 +132,7 @@ export class App
   toCreateInput(): AppCreateInput {
     return {
       id: this.id,
-      name: this.name,
+      _compoundName: createUniqueName(this.name, this),
       owner: connectAuth0Owner(this.owner.auth0Id),
       store: {
         create: {

@@ -23,8 +23,7 @@ import type { RenderedComponentFragment } from './component-render.fragment.grap
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
     IQueryService<IComponent, ComponentWhere, ComponentOptions>,
-    ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
-    ICacheService<IComponentDTO, IComponent> {
+    ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }> {
   components: ObjectMap<IComponent>
   clonedComponents: ObjectMap<IComponent>
   componentList: Array<IComponent>

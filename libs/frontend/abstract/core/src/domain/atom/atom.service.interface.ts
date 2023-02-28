@@ -18,8 +18,7 @@ import type { IAtom } from './atom.model.interface'
 export interface IAtomService
   extends ICRUDService<IAtom, ICreateAtomDTO, IUpdateAtomDTO>,
     IQueryService<IAtom, AtomWhere, AtomOptions>,
-    Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'>,
-    ICacheService<IAtomDTO, IAtom> {
+    Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'> {
   // Select dropdown for atoms need to load all atoms from the db
   // but this is a heavy operation, this flag allows to call it only once
   allAtomsLoaded: boolean
@@ -32,4 +31,5 @@ export interface IAtomService
   >
   selectedIds: ArraySet<string>
   setSelectedIds(arraySet: ArraySet<string>): void
+  add(atomDTO: IAtomDTO): IAtom
 }

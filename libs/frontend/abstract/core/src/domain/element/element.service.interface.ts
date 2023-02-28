@@ -44,7 +44,6 @@ export interface IElementService
       ICRUDService<IElement, ICreateElementData, IUpdateElementData>,
       'delete' | 'update'
     >,
-    ICacheService<IElementDTO, IElement>,
     Omit<IQueryService<IElement, ElementWhere, ElementOptions>, 'getOne'>,
     Omit<
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,

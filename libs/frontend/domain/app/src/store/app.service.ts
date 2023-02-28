@@ -1,5 +1,4 @@
 import type {
-  IAppService,
   ICreateAppData,
   IPageBuilderAppProps,
   IPageDTO,
@@ -36,18 +35,16 @@ import { appApi } from './app.api'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
 
+export type IAppService = typeof AppService
 @model('@codelab/AppService')
-export class AppService
-  extends Model({
-    apps: prop(() => objectMap<IApp>()),
-    createModal: prop(() => new ModalService({})),
-    updateModal: prop(() => new AppModalService({})),
-    deleteModal: prop(() => new AppModalService({})),
-    buildModal: prop(() => new AppModalService({})),
-    appRepository: prop(() => new AppRepository({})),
-  })
-  implements IAppService
-{
+export class AppService extends Model({
+  apps: prop(() => objectMap<IApp>()),
+  createModal: prop(() => new ModalService({})),
+  updateModal: prop(() => new AppModalService({})),
+  deleteModal: prop(() => new AppModalService({})),
+  buildModal: prop(() => new AppModalService({})),
+  appRepository: prop(() => new AppRepository({})),
+}) {
   @computed
   private get elementService() {
     return getElementService(this)
@@ -128,17 +125,21 @@ export class AppService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: AppService, { name, id }: IUpdateAppData) {
+  update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {
+    const app = this.apps.get(id)
+
+    app?.writeCache({ id, name })
+
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
-        update: { name: createUniqueName(name) },
+        update: { _compoundName: createUniqueName(name, { id }) },
         where: { id },
       }),
     )
 
-    return apps.map((app) => this.add(app))
+    return app
   })
 
   @modelFlow
@@ -179,7 +180,7 @@ export class AppService
 
   @modelAction
   add({ id, name, owner, pages, store }: IAppDTO): IApp {
-    const newApp = new App({
+    const newApp = App.create({
       id,
       name,
       owner,

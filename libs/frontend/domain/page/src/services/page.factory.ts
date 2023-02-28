@@ -57,7 +57,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     const notFoundPageId = v4()
     const rootElement = Element.createRootElement()
 
-    return this.pageService.add({
+    return Page.create({
       id: notFoundPageId,
       name: NOT_FOUND_PAGE_NAME,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
@@ -72,7 +72,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     const internalServerErrorPageId = v4()
     const rootElement = Element.createRootElement()
 
-    return this.pageService.add({
+    return Page.create({
       id: internalServerErrorPageId,
       name: INTERNAL_SERVER_ERROR_PAGE_NAME,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,

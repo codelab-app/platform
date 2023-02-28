@@ -8,19 +8,22 @@ export interface IPageDTO {
   id: string
   kind: IPageKind
   name: string
+  // slug: string
   app: IEntity
   rootElement: IEntity
   descendentElements?: Array<IEntity>
   getServerSideProps?: Nullish<string>
-  // owner: IAuth0Owner
   // The container element of the page
   pageContentContainer?: Nullish<IEntity>
 }
 
-export type ICreatePageData = Omit<
+export type ICreatePageData = Pick<
   IPageDTO,
-  'rootElement' | 'pageContentContainer' | 'descendentElements' | 'kind'
->
+  'id' | 'name' | 'app' | 'getServerSideProps'
+> & {
+  owner: IAuth0Owner
+  // _compoundName: string
+}
 
 export type IUpdatePageData = Pick<
   IPageDTO,

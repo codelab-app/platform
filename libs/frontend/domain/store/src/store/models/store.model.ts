@@ -74,14 +74,14 @@ export class Store
     return getTypeService(this)
   }
 
-  // @modelAction
-  // create({ id, name, api, actions }: IStoreDTO) {
-  //   this.id = id
-  //   this.name = name
-  //   this.api = typeRef(api.id) as Ref<IInterfaceType>
+  @modelAction
+  writeCache({ id, name, api }: Partial<IStoreDTO>) {
+    this.id = id ? id : this.id
+    this.name = name ? name : this.name
+    this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
 
-  //   return this
-  // }
+    return this
+  }
 
   @computed
   private get _defaultValues() {
@@ -129,11 +129,11 @@ export class Store
       name: InterfaceType.createName(`${app.name} Store`),
       kind: ITypeKind.InterfaceType,
       owner: app.owner,
-    }) as IInterfaceType
+    })
 
     const store = new Store({
       name: Store.createName(app),
-      api: typeRef(interfaceType),
+      api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
     })
 
     return store

@@ -1,11 +1,13 @@
-import type { Frozen } from 'mobx-keystone'
+import type { Frozen, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElement } from '../element'
+import type { IInterfaceType } from '../type'
 import type { IPropDTO } from './prop.dto.interface'
 
-export interface IProp<T = IPropData> {
+export interface IProp<T = IPropData> extends ICacheService<IPropDTO, IProp> {
   id: string
   data: Frozen<T>
+  api?: Ref<IInterfaceType>
   jsonString: string
   values: T
 

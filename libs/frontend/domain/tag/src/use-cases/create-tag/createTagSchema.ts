@@ -12,7 +12,7 @@ export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    parentTag: {
+    parent: {
       type: 'object',
       properties: {
         id: {

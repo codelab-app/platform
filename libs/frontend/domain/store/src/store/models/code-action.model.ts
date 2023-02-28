@@ -5,7 +5,7 @@ import type {
 import { IProp } from '@codelab/frontend/abstract/core'
 import { assertIsActionKind, IActionKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { createBaseAction, updateBaseAction } from './base-action.model'
+import { createBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
 
 @model('@codelab/CodeAction')
@@ -28,10 +28,10 @@ export class CodeAction
   }
 
   @modelAction
-  add = (data: ICodeActionDTO) => {
-    updateBaseAction(this, data)
-
-    this.code = data.code
+  writeCache({ name, store, type, code }: Partial<ICodeActionDTO>) {
+    this.name = name ?? this.name
+    this.store = store ? storeRef(store.id) : this.store
+    this.code = code ?? this.code
 
     return this
   }

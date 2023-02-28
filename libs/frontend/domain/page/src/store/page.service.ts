@@ -121,7 +121,7 @@ export class PageService
     } = yield* _await(
       pageApi.UpdatePages({
         update: {
-          name: createUniqueName(name, app),
+          _compoundName: createUniqueName(name, app),
           app: connectNodeId(app.id),
           getServerSideProps,
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
@@ -174,7 +174,7 @@ export class PageService
     const input = data.map(({ id, name, app, getServerSideProps }) => {
       return {
         id,
-        name: createUniqueName(name, app),
+        _compoundName: createUniqueName(name, app),
         app: connectNodeId(app.id),
         getServerSideProps: getServerSideProps,
         kind: IPageKind.Regular,

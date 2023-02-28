@@ -20,7 +20,7 @@ import type {
 } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, idProp, model, prop } from 'mobx-keystone'
+import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 import { pageApi } from './page.api'
 
@@ -63,22 +63,30 @@ export class Page
   //   console.log('Page model attached')
   // }
 
-  // @modelAction
-  // writeCache(page: IPageDTO) {
-  //   const rootElement = new Element({
-  //     id: page.rootElement.id,
-  //     name: page.rootElement.name,
-  //   })
+  @modelAction
+  writeCache({
+    app,
+    name,
+    rootElement,
+    getServerSideProps,
+    pageContentContainer,
+    kind,
+  }: Partial<IPageDTO>) {
+    this.name = name ? name : this.name
+    this.rootElement = rootElement
+      ? elementRef(rootElement.id)
+      : this.rootElement
+    this.app = app ? app : this.app
+    this.getServerSideProps = getServerSideProps
+      ? getServerSideProps
+      : this.getServerSideProps
+    this.pageContentContainer = pageContentContainer
+      ? elementRef(pageContentContainer.id)
+      : this.pageContentContainer
+    this.kind = kind ? kind : this.kind
 
-  //   this.setName(extractName(page.name))
-  //   this.rootElement = elementRef(rootElement)
-  //   this.app = page.app
-  //   this.getServerSideProps = page.getServerSideProps
-  //   this.pageContainerElement = page.pageContainerElement
-  //   this.kind = page.kind
-
-  //   return this
-  // }
+    return this
+  }
 
   static create({
     id,

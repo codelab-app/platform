@@ -6,7 +6,7 @@ import type { IProp } from '../prop'
 import type { IInterfaceType } from '../type'
 import type { IStoreDTO } from './store.dto.interface'
 
-export interface IStore {
+export interface IStore extends ICacheService<IStoreDTO, IStore> {
   id: string
   name: string
   api: Ref<IInterfaceType>

@@ -7,7 +7,10 @@ export interface ICRUDService<Entity, CreateDTO, UpdateDTO extends IEntity> {
 }
 
 export interface ICacheService<CreateDTO, Entity> {
-  add(data: CreateDTO): Entity
+  /**
+   * Allows an existing model to update its cache
+   */
+  writeCache(data: Partial<CreateDTO>): Entity
 }
 
 export interface IQueryService<Entity, EntityWhere, EntityOptions> {

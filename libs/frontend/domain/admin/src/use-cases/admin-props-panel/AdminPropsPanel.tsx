@@ -49,7 +49,7 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceType }>(
           <Button
             onClick={() =>
               fieldService.createModal.open(
-                typeRef<InterfaceType>(interfaceType.id),
+                typeRef<IInterfaceType>(interfaceType.id),
               )
             }
           >
