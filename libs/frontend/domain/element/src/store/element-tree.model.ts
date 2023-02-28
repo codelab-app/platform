@@ -64,6 +64,13 @@ export class ElementTree
   }
 
   @computed
+  get name() {
+    const parentComponent = this.root?.parentComponent?.current
+
+    return parentComponent ? parentComponent.name : 'Page'
+  }
+
+  @computed
   get root() {
     return this._root?.current
   }

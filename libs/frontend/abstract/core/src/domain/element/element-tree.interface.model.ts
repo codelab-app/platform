@@ -12,6 +12,7 @@ import type { IElement } from './element.model.interface'
  */
 export interface IElementTree {
   id: string
+  name: string
   _root: Nullable<Ref<IElement>>
   root: Maybe<IElement>
   elementsList: Array<IElement>
