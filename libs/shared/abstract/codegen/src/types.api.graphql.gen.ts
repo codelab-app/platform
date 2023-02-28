@@ -19633,12 +19633,14 @@ export type CodeActionFragment = {
   code: string
 } & ActionBase_CodeAction_Fragment
 
+export type AppOwnerFragment = { __typename?: 'User'; auth0Id: string }
+
 export type AppPreviewFragment = {
   __typename?: 'App'
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User'; auth0Id: string }
+  owner: { __typename?: 'User' } & AppOwnerFragment
   pages: Array<{ __typename?: 'Page'; id: string }>
   store: { __typename?: 'Store'; id: string; name: string }
 }
@@ -19648,7 +19650,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User'; auth0Id: string }
+  owner: { __typename?: 'User' } & AppOwnerFragment
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   store: { __typename?: 'Store'; id: string }
 }
@@ -19667,7 +19669,7 @@ export type BuilderPageFragment = {
   app: {
     __typename?: 'App'
     id: string
-    owner: { __typename?: 'User'; auth0Id: string }
+    owner: { __typename?: 'User' } & AppOwnerFragment
   }
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
@@ -20225,7 +20227,7 @@ export type GetAppsQueryVariables = Exact<{
 
 export type GetAppsQuery = {
   __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+  apps: Array<{ __typename?: 'App' } & AppFragment>
 }
 
 export type CreateAtomsMutationVariables = Exact<{

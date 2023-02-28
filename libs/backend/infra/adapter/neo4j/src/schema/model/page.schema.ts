@@ -18,7 +18,6 @@ export const pageSchema = gql`
     getServerSideProps: String
     # this is an element on _app page tree inside of which child pages content is rendered
     # default is root "Body" element, but can be changed using dropdown on Page Inspector tab
-    # TODO: Rename to pageContentContainer
     pageContentContainer: Element
       @relationship(type: "CHILD_PAGE_CONTAINER_ELEMENT", direction: OUT)
     kind: PageKind!

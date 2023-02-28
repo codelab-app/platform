@@ -47,9 +47,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     renderService,
   }) => {
     const onSubmit = async (data: ICreateElementData) => {
-      const { prevSiblingId } = data
+      const { prevSibling } = data
 
-      const element = await (prevSiblingId
+      const element = await (prevSibling
         ? elementService.createElementAsNextSibling(data)
         : elementService.createElementAsFirstChild(data))
 
@@ -93,12 +93,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     }
 
     const closeModal = () => elementService.createModal.close()
-
-    const selectParentElementOptions =
-      pageTree.elements.map(mapElementOption)
-
-    const selectChildrenElementOptions =
-      pageTree.elements.map(mapElementOption)
+    const selectParentElementOptions = pageTree.elements.map(mapElementOption)
+    const selectChildrenElementOptions = pageTree.elements.map(mapElementOption)
 
     return (
       <ModalForm.Modal

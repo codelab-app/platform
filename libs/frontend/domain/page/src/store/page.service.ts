@@ -121,10 +121,10 @@ export class PageService
     } = yield* _await(
       pageApi.UpdatePages({
         update: {
-          name: createUniqueName(name, app.id),
+          name: createUniqueName(name, app),
           app: connectNodeId(app.id),
           getServerSideProps,
-          pageContainerElement: reconnectNodeId(pageContentContainer),
+          pageContentContainer: reconnectNodeId(pageContentContainer?.id),
         },
         where: { id },
       }),
@@ -172,11 +172,9 @@ export class PageService
     data: Array<ICreatePageData>,
   ) {
     const input = data.map(({ id, name, app, getServerSideProps }) => {
-      const pageId = id
-
       return {
-        id: pageId,
-        name: createUniqueName(name, app.id),
+        id,
+        name: createUniqueName(name, app),
         app: connectNodeId(app.id),
         getServerSideProps: getServerSideProps,
         kind: IPageKind.Regular,
@@ -184,7 +182,7 @@ export class PageService
           create: {
             node: {
               id: v4(),
-              name: createUniqueName(ROOT_ELEMENT_NAME, pageId),
+              name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
             },
           },
         },

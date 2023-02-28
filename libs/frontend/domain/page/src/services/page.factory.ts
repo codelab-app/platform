@@ -29,8 +29,12 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  createSystemPages() {
-
+  createSystemPages(app: IEntity) {
+    return [
+      this.createProviderPage(app),
+      this.createNotFoundPage(app),
+      this.createInternalServerErrorPage(app),
+    ]
   }
 
   @modelAction

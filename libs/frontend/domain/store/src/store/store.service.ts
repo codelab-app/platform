@@ -1,4 +1,5 @@
 import type {
+  IActionDTO,
   ICreateStoreData,
   IInterfaceType,
   IStore,
@@ -67,10 +68,11 @@ export class StoreService
 
   @modelAction
   private updateActionsCache(stores: Array<IStoreDTO>) {
-    const actionService = getActionService(this)
-    const actions = stores.flatMap((store) => store.actions)
+    const actions = stores
+      .flatMap((store) => store.actions)
+      .filter((action): action is IActionDTO => Boolean(action))
 
-    return actions.map((action) => actionService.add(action))
+    return actions.map((action) => this.actionService.add(action))
   }
 
   @modelAction
@@ -80,24 +82,24 @@ export class StoreService
     )
   }
 
-  @modelAction
-  add(app: IAppDTO) {
-    const interfaceType = this.typeService.addInterface({
-      id: v4(),
-      name: InterfaceType.createName(`${app.name} Store`),
-      kind: ITypeKind.InterfaceType,
-      owner: app.owner,
-    }) as IInterfaceType
+  // @modelAction
+  // add(app: IAppDTO) {
+  //   const interfaceType = this.typeService.addInterface({
+  //     id: v4(),
+  //     name: InterfaceType.createName(`${app.name} Store`),
+  //     kind: ITypeKind.InterfaceType,
+  //     owner: app.owner,
+  //   }) as IInterfaceType
 
-    const store = new Store({
-      name: Store.createName(app),
-      api: typeRef(interfaceType),
-    })
+  //   const store = new Store({
+  //     name: Store.createName(app),
+  //     api: typeRef(interfaceType),
+  //   })
 
-    this.stores.set(store.id, store)
+  //   this.stores.set(store.id, store)
 
-    return store
-  }
+  //   return store
+  // }
 
   @modelAction
   add({ id, name, api, actions }: IStoreDTO) {
@@ -112,7 +114,7 @@ export class StoreService
       id,
       name,
       api: typeRef(api.id) as Ref<IInterfaceType>,
-      actions: actions.map((action) =>
+      actions: actions?.map((action) =>
         actionRef(this.actionService.add(action)),
       ),
     })

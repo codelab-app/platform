@@ -39,16 +39,16 @@ export const makeCreateInput = (
     id = v4(),
     renderType,
     name,
-    postRenderActionId,
-    preRenderActionId,
-    propsData,
+    postRenderAction,
+    preRenderAction,
+    props,
   } = input
 
   /**
    * Here we'll want to set default value based on the interface
    */
-  const props: ElementCreateInput['props'] = {
-    create: { node: { data: propsData ?? JSON.stringify({}) } },
+  const createProps: ElementCreateInput['props'] = {
+    create: { node: { data: JSON.stringify(props?.data) } },
   }
 
   const renderAtomType =
@@ -64,9 +64,9 @@ export const makeCreateInput = (
   return {
     renderComponentType,
     renderAtomType,
-    props,
-    postRenderActionId,
-    preRenderActionId,
+    props: createProps,
+    postRenderAction: connectNodeId(postRenderAction?.id),
+    preRenderAction: connectNodeId(preRenderAction?.id),
     name,
     id,
   }
@@ -102,18 +102,17 @@ export const makeUpdateInput = (
     name,
     postRenderAction,
     preRenderAction,
-    props,
     customCss,
     guiCss,
     renderForEachPropKey,
     renderIfExpression,
-    propsData,
+    props,
   } = input
 
   // If render type changes, we replace the existing `props` connected to the
   // element with the new `props` from the default values of the new interface type
   const updateProps: ElementUpdateInput['props'] = {
-    update: { node: { data: propsData ?? JSON.stringify(props) } },
+    update: { node: { data: JSON.stringify(props?.data) } },
   }
 
   // We need to disconnect the atom if render type changed to component or empty
@@ -134,8 +133,8 @@ export const makeUpdateInput = (
     renderComponentType,
     props: updateProps,
     customCss,
-    postRenderAction,
-    preRenderAction: preRenderAction || null,
+    postRenderAction: reconnectNodeId(postRenderAction?.id),
+    preRenderAction: reconnectNodeId(preRenderAction?.id),
     guiCss,
     renderForEachPropKey,
     renderIfExpression,

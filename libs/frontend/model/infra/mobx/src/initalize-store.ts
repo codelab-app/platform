@@ -43,7 +43,7 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
      * Nghia: I think mobx keystone does some internal initializations behind the scene, and we can't set nested service data until the process is done
      */
     // _store.setUserService(UserService.init(user))
-    _store.userService.setUser(User.hydrate(user))
+    _store.userService.setUser(User.create(user))
   }
 
   return _store

@@ -1,5 +1,4 @@
-import type { IApp, IUser } from '@codelab/frontend/abstract/core'
-import { IUserDTO } from '@codelab/frontend/abstract/core'
+import type { IApp, IUser, IUserDTO } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/domain/app'
 import type { IRole } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -12,16 +11,6 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
-
-const hydrate = (user: IUserDTO) => {
-  return new User({
-    id: user.id,
-    username: user.username,
-    auth0Id: user.auth0Id,
-    roles: user.roles,
-    apps: user.apps.map((app) => appRef(app.id)),
-  })
-}
 
 /**
  * Here we use JwtPayload to hydrate our user model, so we don't require an additional api call to our database
@@ -40,15 +29,14 @@ export class User
   })
   implements IUser
 {
-  static hydrate = hydrate
-
-  @modelAction
-  create(data: IUserDTO) {
-    this.id = data.id
-    this.auth0Id = data.auth0Id
-    this.roles = data.roles
-
-    return this
+  static create({ id, username, auth0Id, roles, apps }: IUserDTO) {
+    return new User({
+      id,
+      username,
+      auth0Id,
+      roles,
+      apps: apps.map((app) => appRef(app.id)),
+    })
   }
 }
 

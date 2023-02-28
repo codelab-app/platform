@@ -9,11 +9,13 @@ import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
 import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
+export type AppOwnerFragment = { auth0Id: string }
+
 export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  owner: { auth0Id: string }
+  owner: AppOwnerFragment
   pages: Array<{ id: string }>
   store: { id: string; name: string }
 }
@@ -22,7 +24,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: { auth0Id: string }
+  owner: AppOwnerFragment
   pages: Array<PageFragment>
   store: { id: string }
 }
@@ -34,7 +36,7 @@ export type BuilderPageFragment = {
   getServerSideProps?: string | null
   kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
-  app: { id: string; owner: { auth0Id: string } }
+  app: { id: string; owner: AppOwnerFragment }
   pageContentContainer?: { id: string } | null
 }
 
@@ -47,13 +49,18 @@ export type PageBuilderAppFragment = {
   store: StoreFragment
 }
 
+export const AppOwnerFragmentDoc = gql`
+  fragment AppOwner on User {
+    auth0Id
+  }
+`
 export const AppPreviewFragmentDoc = gql`
   fragment AppPreview on App {
     id
     name
     slug
     owner {
-      auth0Id
+      ...AppOwner
     }
     pages {
       id
@@ -63,6 +70,7 @@ export const AppPreviewFragmentDoc = gql`
       name
     }
   }
+  ${AppOwnerFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {
@@ -70,7 +78,7 @@ export const AppFragmentDoc = gql`
     name
     slug
     owner {
-      auth0Id
+      ...AppOwner
     }
     pages {
       ...Page
@@ -79,6 +87,7 @@ export const AppFragmentDoc = gql`
       id
     }
   }
+  ${AppOwnerFragmentDoc}
   ${PageFragmentDoc}
 `
 export const BuilderPageFragmentDoc = gql`
@@ -96,7 +105,7 @@ export const BuilderPageFragmentDoc = gql`
     app {
       id
       owner {
-        auth0Id
+        ...AppOwner
       }
     }
     pageContentContainer {
@@ -105,6 +114,7 @@ export const BuilderPageFragmentDoc = gql`
     kind
   }
   ${ElementFragmentDoc}
+  ${AppOwnerFragmentDoc}
 `
 export const PageBuilderAppFragmentDoc = gql`
   fragment PageBuilderApp on App {

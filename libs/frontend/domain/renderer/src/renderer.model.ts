@@ -193,7 +193,7 @@ export class Renderer
 
     const pageService = getPageService(this)
     const providerPageId = providerRoot.baseId
-    const { pageContainerElement } = pageService.page(providerPageId) ?? {}
+    const { pageContentContainer } = pageService.page(providerPageId) ?? {}
 
     const renderRecursive = (
       element: IElement,
@@ -208,7 +208,7 @@ export class Renderer
           renderRecursive(childElement),
         )
 
-        if (element.id === pageContainerElement?.id) {
+        if (element.id === pageContentContainer?.id) {
           children.push(rootElement)
         }
 
@@ -233,12 +233,12 @@ export class Renderer
   }
 
   runPreAction = (element: IElement) => {
-    if (!element.preRenderActionId) {
+    if (!element.preRenderAction) {
       return
     }
 
     const actionService = getActionService(this)
-    const action = actionService.action(element.preRenderActionId)
+    const action = actionService.action(element.preRenderAction.id)
 
     if (!action) {
       console.warn(`Pre render action not found for element ${element.label}`)
@@ -250,12 +250,12 @@ export class Renderer
   }
 
   getPostAction = (element: IElement) => {
-    if (!element.postRenderActionId) {
+    if (!element.postRenderAction) {
       return null
     }
 
     const actionService = getActionService(this)
-    const action = actionService.action(element.postRenderActionId)
+    const action = actionService.action(element.postRenderAction.id)
 
     if (!action) {
       console.warn(`Post render action not found for element ${element.label}`)
@@ -344,7 +344,7 @@ export class Renderer
     const parentComponent = element.rootElement.parentComponent?.current
 
     const isContainer =
-      element.id === parentComponent?.childrenContainerElementId
+      element.id === parentComponent?.childrenContainerElement.id
 
     if (!isContainer || !parentComponent.instanceElement?.current) {
       return []

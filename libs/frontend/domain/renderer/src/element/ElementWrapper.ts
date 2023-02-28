@@ -43,7 +43,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
         store.state.setSilently(element.id, node)
-        store.state.setSilently(element.slug, node)
+        // store.state.setSilently(element.slug, node)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -85,11 +85,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
-
-      // const withMaybeProviders = withMaybeGlobalPropsProvider(
-      //  renderOutput,
-      //  globalPropsContext,
-      // )
 
       return (props?: IPropData) =>
         /**

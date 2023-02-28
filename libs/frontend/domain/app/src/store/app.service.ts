@@ -10,8 +10,10 @@ import { getPageService, pageRef } from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
   getStoreService,
+  Store,
   storeRef,
 } from '@codelab/frontend/domain/store'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
@@ -28,6 +30,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { AppRepository } from '../services/app.repo'
 import { appApi } from './app.api'
 import { App } from './app.model'
@@ -60,10 +63,10 @@ export class AppService
     return getPageService(this)
   }
 
-  // @computed
-  // private get typeService() {
-  //   return getTypeService(this)
-  // }
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
 
   @computed
   get appsJson() {
@@ -180,7 +183,7 @@ export class AppService
       id,
       name,
       owner,
-      pages: pages.map((page) => pageRef(page.id)),
+      pages: pages?.map((page) => pageRef(page.id)),
       store: storeRef(store.id),
     })
 
@@ -191,17 +194,23 @@ export class AppService
 
   @modelAction
   createSubmit = _async(function* (this: AppService, appData: ICreateAppData) {
-    const store = this.storeService.add(appData)
+    const store = Store.createFromApp(appData)
+    const api = store.api.current
 
-    const app = new App({
+    this.typeService.addInterface(api)
+    this.storeService.add({
+      ...store,
+      actions: [],
+      api,
+    })
+
+    const pages = this.pageService.pageFactory
+      .createSystemPages(appData)
+      .map((page) => this.pageService.add(page))
+
+    const app = App.create({
       ...appData,
-      pages: [
-        pageRef(this.pageService.pageFactory.createProviderPage(appData)),
-        pageRef(this.pageService.pageFactory.createNotFoundPage(appData)),
-        pageRef(
-          this.pageService.pageFactory.createInternalServerErrorPage(appData),
-        ),
-      ],
+      pages,
       store: storeRef(store),
     })
 

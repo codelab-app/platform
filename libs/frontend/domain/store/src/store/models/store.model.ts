@@ -9,9 +9,14 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IPropData } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
-import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { getByExpression } from '@codelab/frontend/shared/utils'
 import type { StoreCreateInput } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
@@ -64,6 +69,11 @@ export class Store
     }
   }
 
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
+
   // @modelAction
   // create({ id, name, api, actions }: IStoreDTO) {
   //   this.id = id
@@ -113,6 +123,22 @@ export class Store
     })
   }
 
+  static createFromApp(app: Pick<IAppDTO, 'owner' | 'name'>): IStore {
+    const interfaceType = new InterfaceType({
+      id: v4(),
+      name: InterfaceType.createName(`${app.name} Store`),
+      kind: ITypeKind.InterfaceType,
+      owner: app.owner,
+    }) as IInterfaceType
+
+    const store = new Store({
+      name: Store.createName(app),
+      api: typeRef(interfaceType),
+    })
+
+    return store
+  }
+
   toCreateInput(): StoreCreateInput {
     const api = this.api.current
 
@@ -127,7 +153,7 @@ export class Store
     }
   }
 
-  static createName(app: IAppDTO) {
+  static createName(app: Pick<IAppDTO, 'name'>) {
     return `${app.name} Store`
   }
 

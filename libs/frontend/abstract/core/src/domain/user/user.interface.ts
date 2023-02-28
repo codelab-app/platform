@@ -4,7 +4,7 @@ import type { ICacheService } from '../../service'
 import type { IApp } from '../app'
 import type { IUserDTO } from './user.dto.interface'
 
-export interface IUser extends ICacheService<IUserDTO, IUser> {
+export interface IUser {
   id: string
   setId(id: string): void
   auth0Id: string

@@ -46,19 +46,12 @@ export class App
   }
 
   @modelAction
-  create({ id, name, owner, pages, store }: IAppDTO) {
+  static create({ id, name, owner, pages, store }: IAppDTO) {
     const app = new App({
       id,
       name,
       owner,
-      pages: pages.map((page) => pageRef(page.id)),
-      // pages: [
-      // pageRef(this.pageService.pageFactory.createProviderPage(appDTO)),
-      // pageRef(this.pageService.pageFactory.createNotFoundPage(appDTO)),
-      // pageRef(
-      //   this.pageService.pageFactory.createInternalServerErrorPage(appDTO),
-      // ),
-      // ],
+      pages: pages?.map((page) => pageRef(page.id)),
       store: storeRef(store.id),
     })
 
@@ -85,7 +78,7 @@ export class App
         descendentElements: page.rootElement.descendantElements,
         getServerSideProps: page.getServerSideProps,
         owner,
-        pageContainerElementId: page.pageContainerElement?.id,
+        pageContainerElementId: page.pageContentContainer?.id,
         app: { id },
       })),
       store,

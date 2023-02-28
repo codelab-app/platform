@@ -21,9 +21,10 @@ import type {
 import type { IPage } from './page.model.interface'
 
 export interface IPageFactory {
-  createProviderPage(app: IEntity): IPage
-  createNotFoundPage(app: IEntity): IPage
-  createInternalServerErrorPage(app: IEntity): IPage
+  createSystemPages(app: IEntity): Array<IPage>
+  // createProviderPage(app: IEntity): IPage
+  // createNotFoundPage(app: IEntity): IPage
+  // createInternalServerErrorPage(app: IEntity): IPage
 }
 
 export interface IPageService

@@ -58,6 +58,7 @@ export const useRenderedPage = ({
     componentService,
     resourceService,
     pageService,
+    actionService,
   } = useStore()
 
   const router = useRouter()
@@ -128,7 +129,13 @@ export const useRenderedPage = ({
     resourceService.load(resources)
 
     // hydrate store after types and resources
-    const appStore = storeService.add(app.store)
+    const appStore = storeService.add({
+      ...app.store,
+      actions: app.store.actions.map((action) =>
+        actionService.actionFactory.fromActionFragment(action),
+      ),
+    })
+
     appStore.state.setMany(appService.appsJson)
 
     /**

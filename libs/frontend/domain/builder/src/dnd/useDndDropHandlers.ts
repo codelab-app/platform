@@ -45,7 +45,7 @@ export const useDndDropHandler = (
     }
 
     // for not mutating the actual input from the components tab
-    const createElementDto = {
+    const createElementDTO = {
       ...createElementInput,
       name: makeAutoIncrementedName(
         elementTree.elements.map((element) => element.name),
@@ -56,38 +56,38 @@ export const useDndDropHandler = (
     let newElement: Nullable<IElement> = null
 
     // create the new element after the target element
-    if (dragPosition === DragPosition.After) {
-      createElementDto.prevSiblingId = targetElement.id
+    if (dragPosition === DragPosition.After && createElementDTO.prevSibling) {
+      createElementDTO.prevSibling.id = targetElement.id
       newElement = await elementService.createElementAsNextSibling(
-        createElementDto,
+        createElementDTO,
       )
     }
 
     // create the new element before the target element
     if (dragPosition === DragPosition.Before) {
       // if theres an element before the target, create the new element next to that
-      if (targetElement.prevSibling) {
-        createElementDto.prevSiblingId = targetElement.prevSibling.id
+      if (targetElement.prevSibling && createElementDTO.prevSibling) {
+        createElementDTO.prevSibling.id = targetElement.prevSibling.id
         newElement = await elementService.createElementAsNextSibling(
-          createElementDto,
+          createElementDTO,
         )
       }
 
       // if theres no element before the target, create the new element
       // as the first child of the target's parent element
       if (!targetElement.prevSibling && targetElement.parent?.id) {
-        createElementDto.parentElement = targetElement.parent
+        createElementDTO.parentElement = targetElement.parent
         newElement = await elementService.createElementAsFirstChild(
-          createElementDto,
+          createElementDTO,
         )
       }
     }
 
     // create the new element inside the target element as a first child
     if (dragPosition === DragPosition.Inside) {
-      createElementDto.parentElement = targetElement
+      createElementDTO.parentElement = targetElement
       newElement = await elementService.createElementAsFirstChild(
-        createElementDto,
+        createElementDTO,
       )
     }
 

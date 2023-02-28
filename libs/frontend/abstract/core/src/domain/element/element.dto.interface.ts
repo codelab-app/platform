@@ -1,7 +1,7 @@
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { IAtomDTO, IAtomID } from '../atom'
 import type { IComponentDTO, IComponentID } from '../component'
-import type { IPropData, IPropDTO } from '../prop'
+import type { IProp, IPropData, IPropDTO } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
 
 export enum RenderTypeEnum {
@@ -21,9 +21,9 @@ export interface ICreateElementData {
   parentElement?: Nullable<IEntity>
   preRenderAction?: Nullable<IEntity>
   postRenderAction?: Nullable<IEntity>
-  customCss: Nullish<string>
-  guiCss: Nullish<string>
-  propsData: string
+  customCss?: Nullish<string>
+  guiCss?: Nullish<string>
+  props?: Nullish<Pick<IPropDTO, 'data'>>
   prevSibling?: Nullable<IEntity>
   /**
    * We should connect to `atom` or `component` in future
@@ -40,11 +40,10 @@ export type IUpdateElementData = Pick<
   | 'postRenderAction'
   | 'customCss'
   | 'guiCss'
-  | 'propsData'
+  | 'props'
 > & {
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
-  props?: Nullable<IPropData>
   propTransformationJs?: Nullish<string>
 }
 
@@ -69,13 +68,13 @@ export interface IElementDTO {
   id: string
   name: string
   // slug: string
-  customCss?: string | null
-  guiCss?: string | null
-  renderForEachPropKey?: string | null
-  renderIfExpression?: string | null
+  customCss?: Nullable<string>
+  guiCss?: Nullable<string>
+  renderForEachPropKey?: Nullable<string>
+  renderIfExpression?: Nullable<string>
   preRenderAction?: IEntity | null
   postRenderAction?: IEntity | null
-  propTransformationJs?: string | null
+  propTransformationJs?: Nullable<string>
   page?: IEntity | null
   renderComponentType?: IComponentDTO | null
   renderAtomType?: IAtomDTO | null

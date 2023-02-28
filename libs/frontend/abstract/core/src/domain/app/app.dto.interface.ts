@@ -11,7 +11,7 @@ export interface IAppDTO {
   id: string
   name: string
   owner: IAuth0Owner
-  pages: Array<IEntity>
+  pages?: Array<IEntity>
   store: IEntity
 }
 

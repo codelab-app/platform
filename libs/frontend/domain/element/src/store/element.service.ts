@@ -7,6 +7,7 @@ import type {
   IElementRef,
   IElementService,
   IInterfaceType,
+  IPropDTO,
   IUpdateElementData,
   RenderType,
 } from '@codelab/frontend/abstract/core'
@@ -205,7 +206,7 @@ export class ElementService
         makeCreateInput({
           ...elementInput,
           name,
-          propsData: makeDefaultProps(typeApi),
+          props: { data: makeDefaultProps(typeApi) },
         }),
       )
     }
@@ -344,19 +345,19 @@ export class ElementService
         newRenderTypeId !== currentRenderComponentType?.id)
 
     // we only want to change the props of the element if the user changes the atom or component
-    let propsData: string | undefined
+    let props: Pick<IPropDTO, 'data'> | undefined
 
     if (renderTypeChanged || renderIdChanged) {
       // When replacing the atom or component of an element, we need the interface type fields of the new
       // atom/component and we use it to create a props with default values for the updated element
       const typeApi = yield* _await(this.getElementInputTypeApi(input))
-      propsData = makeDefaultProps(typeApi)
+      props = { data: makeDefaultProps(typeApi) }
     }
 
     const update = makeUpdateInput({
       ...input,
       name,
-      propsData,
+      props,
     })
 
     const {

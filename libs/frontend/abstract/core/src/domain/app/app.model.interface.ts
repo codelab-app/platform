@@ -5,6 +5,7 @@ import type { IPage } from '../page'
 import type { IPropData } from '../prop'
 import type { IStore } from '../store'
 import type { IAuth0Owner } from '../user'
+import type { IAppDTO } from './app.dto.interface'
 
 export interface IApp {
   id: IAppRef
