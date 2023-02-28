@@ -1,4 +1,3 @@
-import { ExclamationCircleOutlined } from '@ant-design/icons'
 import type {
   IBuilderService,
   IElementService,
@@ -7,20 +6,19 @@ import type {
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
-  isElement,
 } from '@codelab/frontend/abstract/core'
-import { CreateElementButton } from '@codelab/frontend/domain/element'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { Col, Dropdown, Row, Tooltip } from 'antd'
+import { Dropdown } from 'antd'
 import type { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import tw from 'twin.macro'
 import { BuilderDropHandler } from '../../../dnd/BuilderDropHandler'
 import type { ComponentContextMenuProps } from '../ComponentContextMenu'
 import { ComponentContextMenu } from '../ComponentContextMenu'
 import type { ElementContextMenuProps } from '../ElementContextMenu'
 import { ElementContextMenu } from '../ElementContextMenu'
+import { BuilderTreeItemComponentTitle } from './BuilderTreeItem-ComponentTitle'
+import { BuilderTreeItemElementTitle } from './BuilderTreeItem-ElementTitle'
 import { BuilderTreeItemOverlay } from './BuilderTreeItem-Overlay'
 import { ItemTitleStyle } from './ItemTitleStyle'
 
@@ -45,31 +43,9 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
-    const { selectedNode } = builderService
-    const selectedNodeId = isElement(selectedNode) && selectedNode.id
-
     // Add CSS to disable hover if node is unselectable
     if (node?.__nodeType === ELEMENT_NODE_TYPE) {
       const element = node
-      const atomName = element.atomName
-
-      const componentInstanceName =
-        element.renderComponentType?.maybeCurrent?.name
-
-      const isComponentInstance = Boolean(element.renderComponentType)
-
-      const componentMeta = componentInstanceName
-        ? `(instance of ${componentInstanceName || 'a Component'})`
-        : undefined
-
-      const atomMeta = atomName ? `(${atomName})` : undefined
-      const meta = componentMeta || atomMeta || ''
-
-      const errorMessage = element.renderingMetadata?.error
-        ? `Error: ${element.renderingMetadata.error.message}`
-        : element.ancestorError
-        ? `Something went wrong in a parent element`
-        : undefined
 
       return (
         <BuilderDropHandler element={element}>
@@ -92,28 +68,9 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
               }
               trigger={['contextMenu']}
             >
-              <Row>
-                <Col span={18}>
-                  <div
-                    css={
-                      isComponentInstance ? tw`text-blue-400` : `text-gray-400`
-                    }
-                  >
-                    {element.label} <span css={tw`text-xs`}>{meta}</span>
-                  </div>
-                </Col>
-                <Col span={6}>
-                  <Row justify="end">
-                    <Col>
-                      {errorMessage && (
-                        <Tooltip placement="right" title={errorMessage}>
-                          <ExclamationCircleOutlined style={{ color: 'red' }} />
-                        </Tooltip>
-                      )}
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+              <div>
+                <BuilderTreeItemElementTitle element={element} />
+              </div>
             </Dropdown>
           </ItemTitleStyle>
         </BuilderDropHandler>
@@ -143,18 +100,13 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
             }
             trigger={['contextMenu']}
           >
-            <Row justify="space-between">
-              <Col css={tw`px-2`}>{component.name}</Col>
-              <Col css={tw`px-2`}>
-                <CreateElementButton
-                  createModal={elementService.createModal}
-                  elementTreeId={component.elementTree?.id || ''}
-                  key={0}
-                  selectedElementId={selectedNodeId || component.rootElementId}
-                  type="text"
-                />
-              </Col>
-            </Row>
+            <div>
+              <BuilderTreeItemComponentTitle
+                builderService={builderService}
+                component={component}
+                elementService={elementService}
+              />
+            </div>
           </Dropdown>
         </ItemTitleStyle>
       )
