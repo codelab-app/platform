@@ -1,4 +1,3 @@
-export * from './compute-element-name.service.interface'
 export * from './element.dto.interface'
 export { ElementFragmentDoc } from './element.fragment.graphql.gen'
 export * from './element.model.interface'

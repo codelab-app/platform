@@ -5,7 +5,7 @@
 export const compoundCaseToTitleCase = (input: string) =>
   input
     // insert a space before all caps
-    .replace(/([A-Z])/g, (str) => ` ${str}`)
+    .replace(/(?<=\S)([A-Z])/g, (str) => ` ${str}`)
     // uppercase the first character
     .replace(/^./, (str) => str.toUpperCase())
     .trim()

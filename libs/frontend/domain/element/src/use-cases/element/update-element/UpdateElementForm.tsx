@@ -21,12 +21,11 @@ import {
   Form,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import isNil from 'lodash/isNil'
 import omit from 'lodash/omit'
 import { observer } from 'mobx-react-lite'
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
@@ -73,14 +72,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const { trackPromise } = trackPromises ?? {}
     const model = makeCurrentModel(element)
 
-    const { current: computeElementNameService } = useRef(
-      elementService.updateModal.computeElementNameService!,
-    )
-
-    const [renderType, setRenderType] = useState<Maybe<RenderTypeEnum>>(
-      model.renderType?.model,
-    )
-
     const onSubmit = (data: IUpdateElementDTO) => {
       const promise = elementService.update(element, data)
 
@@ -120,16 +111,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         `}
         key={element.id}
         model={model}
-        onChange={(key, value) => {
-          key === 'renderType' && setRenderType(value?.model)
-
-          if (key === 'renderType.id' && renderType) {
-            computeElementNameService.setPickedRenderType({
-              model: renderType,
-              id: value,
-            })
-          }
-        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating element',
@@ -138,11 +119,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         schema={updateElementSchema}
       >
         {element.id}
-        <AutoComputedElementNameField
-          computeElementNameService={computeElementNameService}
-          label="Name"
-          name="name"
-        />
+        <AutoComputedElementNameField label="Name" name="name" />
         <AutoFields
           omitFields={[
             'renderIfExpression',

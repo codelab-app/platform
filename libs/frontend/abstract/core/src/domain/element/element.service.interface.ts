@@ -14,7 +14,6 @@ import type {
   IQueryService,
 } from '../../service'
 import type { IAuth0Id } from '../user'
-import type { IComputeElementNameService } from './compute-element-name.service.interface'
 import type {
   ICreateElementDTO,
   IElementDTO,
@@ -31,12 +30,10 @@ export interface CreateElementData {
 
 export interface CreateElementProperties {
   parentElement: IElement
-  computeElementNameService: IComputeElementNameService
 }
 
 export interface UpdateElementProperties {
   element: IElement
-  computeElementNameService: IComputeElementNameService
 }
 
 export interface IElementService

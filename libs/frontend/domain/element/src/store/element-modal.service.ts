@@ -8,16 +8,13 @@ import type {
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
-import { ComputeElementNameService } from './compute-element-name.service'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/CreateElementModalService')
 export class CreateElementModalService
   extends ExtendedModel(
     modelClass<ModalService<CreateElementData>>(ModalService),
-    {
-      computeElementNameService: prop(() => new ComputeElementNameService({})),
-    },
+    {},
   )
   implements IEntityModalService<CreateElementData, CreateElementProperties>
 {
@@ -29,9 +26,10 @@ export class CreateElementModalService
 
 @model('@codelab/UpdateElementModalService')
 export class UpdateElementModalService
-  extends ExtendedModel(modelClass<ModalService<Ref<IElement>>>(ModalService), {
-    computeElementNameService: prop(() => new ComputeElementNameService({})),
-  })
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<IElement>>>(ModalService),
+    {},
+  )
   implements IEntityModalService<Ref<IElement>, UpdateElementProperties>
 {
   @computed

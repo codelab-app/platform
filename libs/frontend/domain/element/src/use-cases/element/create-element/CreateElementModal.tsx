@@ -7,18 +7,14 @@ import type {
   IElementTree,
   IRenderService,
   IUserService,
-  RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import type {
-  Nullable,
-  UniformSelectFieldProps,
-} from '@codelab/shared/abstract/types'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
@@ -75,11 +71,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const parentElement = elementService.createModal.parentElement
 
-    const computeElementNameService =
-      elementService.createModal.computeElementNameService!
-
-    const [renderType, setRenderType] = useState<Nullable<RenderTypeEnum>>(null)
-
     if (!parentElement) {
       return null
     }
@@ -109,16 +100,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       >
         <ModalForm.Form<ICreateElementDTO>
           model={model}
-          onChange={(key, value) => {
-            key === 'renderType' && setRenderType(value.model)
-
-            if (key === 'renderType.id' && renderType) {
-              computeElementNameService.setPickedRenderType({
-                model: renderType,
-                id: value,
-              })
-            }
-          }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
@@ -158,11 +139,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           <AutoField component={SelectAction} name="preRenderActionId" />
           <AutoField component={SelectAction} name="postRenderActionId" />
           <Divider />
-          <AutoComputedElementNameField
-            computeElementNameService={computeElementNameService}
-            label="Name"
-            name="name"
-          />
+          <AutoComputedElementNameField label="Name" name="name" />
         </ModalForm.Form>
       </ModalForm.Modal>
     )
