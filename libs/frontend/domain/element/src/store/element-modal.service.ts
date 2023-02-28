@@ -18,9 +18,31 @@ export class CreateElementModalService
   )
   implements IEntityModalService<CreateElementData, CreateElementProperties>
 {
+  /**
+   * The default parent element for the element to be created.
+   * The parent element is the selected node in the explorer tree
+   * if it belongs to the element tree. Otherwise, it's the root
+   * of the tree.
+   */
   @computed
   get parentElement() {
-    return this.metadata?.parentElement.current
+    const elementTree = this.metadata?.elementTree.current
+    const selectedElement = this.metadata?.selectedElement?.current
+
+    if (!elementTree) {
+      return undefined
+    }
+
+    if (selectedElement && elementTree.elementsList.includes(selectedElement)) {
+      return selectedElement
+    }
+
+    return elementTree.root
+  }
+
+  @computed
+  get elementTree() {
+    return this.metadata?.elementTree.current
   }
 }
 

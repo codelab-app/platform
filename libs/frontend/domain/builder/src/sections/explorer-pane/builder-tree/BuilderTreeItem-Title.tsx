@@ -1,8 +1,13 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import type { IElementService, INode } from '@codelab/frontend/abstract/core'
+import type {
+  IBuilderService,
+  IElementService,
+  INode,
+} from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
+  isElement,
 } from '@codelab/frontend/abstract/core'
 import { CreateElementButton } from '@codelab/frontend/domain/element'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -25,6 +30,7 @@ interface BuilderTreeItemTitleProps {
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
   componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
   elementService: IElementService
+  builderService: IBuilderService
 }
 
 export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
@@ -34,9 +40,13 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
     elementContextMenuProps,
     componentContextMenuProps,
     elementService,
+    builderService,
   }) => {
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
+
+    const { selectedNode } = builderService
+    const selectedNodeId = isElement(selectedNode) && selectedNode.id
 
     // Add CSS to disable hover if node is unselectable
     if (node?.__nodeType === ELEMENT_NODE_TYPE) {
@@ -138,8 +148,9 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
               <Col css={tw`px-2`}>
                 <CreateElementButton
                   createModal={elementService.createModal}
+                  elementTreeId={component.elementTree?.id || ''}
                   key={0}
-                  parentElementId={node.id}
+                  selectedElementId={selectedNodeId || component.rootElementId}
                   type="text"
                 />
               </Col>

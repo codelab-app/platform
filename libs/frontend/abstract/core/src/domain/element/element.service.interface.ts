@@ -20,16 +20,19 @@ import type {
   IUpdateElementDTO,
 } from './element.dto.interface'
 import type { IElement, IElementRef } from './element.model.interface'
+import type { IElementTree } from './element-tree.interface.model'
 
 /**
  * Used for modal input
  */
 export interface CreateElementData {
-  parentElement: Ref<IElement>
+  selectedElement?: Maybe<Ref<IElement>>
+  elementTree: Ref<IElementTree>
 }
 
 export interface CreateElementProperties {
   parentElement: IElement
+  elementTree: IElementTree
 }
 
 export interface UpdateElementProperties {

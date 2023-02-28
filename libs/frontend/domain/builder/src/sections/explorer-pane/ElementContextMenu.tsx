@@ -5,7 +5,7 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { RendererTab } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
+import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
 import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
 import { Menu } from 'antd'
@@ -46,8 +46,13 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const isComponentInstance = Boolean(element.renderComponentType)
 
     const onAddChild = () => {
+      if (!elementTree) {
+        return
+      }
+
       return createModal.open({
-        parentElement: elementRef(element.id),
+        selectedElement: elementRef(element.id),
+        elementTree: elementTreeRef(elementTree.id),
       })
     }
 
