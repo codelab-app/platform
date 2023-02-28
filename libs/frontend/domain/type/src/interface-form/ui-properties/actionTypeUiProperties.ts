@@ -15,7 +15,8 @@ export const actionTypeUiProperties: UiPropertiesFn<IAnyActionType> = () => {
     oneOf: [{ typeof: 'string' }, { typeof: 'function' }],
     uniforms: {
       component: ToggleExpressionField({
-        getBaseControl: () => SelectAction({ label: null, name: 'value' }),
+        getBaseControl: (fieldProps) =>
+          SelectAction({ ...fieldProps, label: null, name: '' }),
         onToggle: (showExpression, { field, onChange }, lastValue) => {
           if (showExpression) {
             onChange(lastValue ?? ACTION_TEMPLATE)

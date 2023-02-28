@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
@@ -10,11 +11,7 @@ export type SelectComponentProps = Pick<
   'name' | 'label' | 'error'
 >
 
-export const SelectComponent = ({
-  name,
-  label,
-  error,
-}: SelectComponentProps) => {
+export const SelectComponent = (fieldProps: SelectComponentProps) => {
   const { builderService } = useStore()
 
   const {
@@ -40,11 +37,10 @@ export const SelectComponent = ({
 
   return (
     <SelectField
-      error={error || queryError}
+      {...fieldProps}
+      error={fieldProps.error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      label={label}
       loading={loading}
-      name={name}
       optionFilterProp="label"
       options={componentOptions}
       showSearch

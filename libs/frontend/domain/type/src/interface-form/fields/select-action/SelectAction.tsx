@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   useCurrentAppId,
   useStore,
@@ -11,7 +12,7 @@ export type SelectActionProps = Pick<
   'label' | 'name' | 'error'
 >
 
-export const SelectAction = ({ name, label, error }: SelectActionProps) => {
+export const SelectAction = (fieldProps: SelectActionProps) => {
   const { storeService, appService } = useStore()
   const appId = useCurrentAppId()
   const app = appService.app(appId)
@@ -25,10 +26,8 @@ export const SelectAction = ({ name, label, error }: SelectActionProps) => {
 
   return (
     <SelectField
-      error={error}
+      {...fieldProps}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      label={label}
-      name={name}
       optionFilterProp="label"
       options={actionOptions}
       showSearch
