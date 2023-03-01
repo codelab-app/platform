@@ -38,6 +38,7 @@ export type IAtomImport = Assign<
    */
   {
     suggestedChildren: (data: ExistingData) => IAtomExport['suggestedChildren']
+    requiredParents: (data: ExistingData) => IAtomExport['requiredParents']
   }
 >
 
@@ -62,6 +63,14 @@ export const AtomSchema = z.object({
       }),
     )
     .optional(),
+  requiredParents: z
+    .array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      }),
+    )
+    .optional(),
 })
 
 export const AtomExportSchema = AtomSchema.merge(
@@ -69,6 +78,7 @@ export const AtomExportSchema = AtomSchema.merge(
     api: EntitySchema,
     tags: z.array(EntitySchema),
     suggestedChildren: z.array(EntitySchema),
+    requiredParents: z.array(EntitySchema),
   }),
 )
 

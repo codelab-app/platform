@@ -107,6 +107,15 @@ export const useAtomTable = ({
       },
     },
     {
+      title: 'Required',
+      dataIndex: 'requiredParents',
+      key: 'requiredParents',
+      onHeaderCell: headerCellProps,
+      render: (requiredParents) => {
+        return <SuggestedChildrenColumn suggestedChildren={requiredParents} />
+      },
+    },
+    {
       title: 'Props API',
       dataIndex: 'props',
       key: 'props',

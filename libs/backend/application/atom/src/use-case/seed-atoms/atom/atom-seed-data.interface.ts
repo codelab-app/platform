@@ -18,4 +18,9 @@ export interface AtomSeedData {
    * Which atoms are suggested to be used as children
    */
   suggestedChildren?: Array<IAtomType>
+
+  /**
+   * Which atoms are required to be used as parents
+   */
+  requiredParents?: Array<IAtomType>
 }

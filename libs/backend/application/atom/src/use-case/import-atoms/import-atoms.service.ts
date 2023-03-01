@@ -10,18 +10,18 @@ export class ImportAtomsService extends IUseCase<ImportAtoms, void> {
     logSection('Importing Atoms')
 
     /**
-     * Create all atoms but omit `suggestedChildren`, since that is required
+     * Create all atoms but omit `suggestedChildren` and `requiredParents`, since those are required
      */
     await Promise.all(
       atoms.map(
-        // Omit `suggestedChildren`, since it requires all atoms to be added first
-        async ({ suggestedChildren, ...atom }) =>
+        // Omit `suggestedChildren` and `requiredParents`, since they require all atoms to be added first
+        async ({ suggestedChildren, requiredParents, ...atom }) =>
           await this.atomRepository.save(atom),
       ),
     )
 
     /**
-     * Here we assign suggestedChildren, since all atoms must be created first
+     * Here we assign suggestedChildren and requiredParents, since all atoms must be created first
      */
     await Promise.all(
       atoms.map(async (atom) => await this.atomRepository.save(atom)),

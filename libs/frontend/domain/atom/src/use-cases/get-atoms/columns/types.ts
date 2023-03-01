@@ -21,6 +21,7 @@ export interface AtomRecord {
   apiId: IInterfaceTypeRef
   library: AtomLibrary
   suggestedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
+  requiredParents: Array<Pick<IAtomDTO, 'id' | 'name'>>
 }
 
 export type ActionColumnProps = {

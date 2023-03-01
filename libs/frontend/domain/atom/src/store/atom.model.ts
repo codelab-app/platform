@@ -26,6 +26,7 @@ const hydrate = (atom: IAtomDTO) => {
     api: typeRef(atom.api.id) as Ref<InterfaceType>,
     tags: atom.tags.map((tag) => tagRef(tag.id)),
     suggestedChildren: atom.suggestedChildren,
+    requiredParents: atom.requiredParents,
   })
 }
 
@@ -39,6 +40,7 @@ export class Atom
     tags: prop<Array<Ref<ITag>>>(() => []),
     api: prop<Ref<InterfaceType>>(),
     suggestedChildren: prop<Array<Pick<IAtomDTO, 'id' | 'name'>>>(() => []),
+    requiredParents: prop<Array<Pick<IAtomDTO, 'id' | 'name'>>>(() => []),
   })
   implements IAtom
 {
@@ -61,6 +63,7 @@ export class Atom
     this.tags = atom.tags.map((tag) => tagRef(tag.id))
     this.icon = atom.icon
     this.suggestedChildren = atom.suggestedChildren
+    this.requiredParents = atom.requiredParents
 
     return this
   }

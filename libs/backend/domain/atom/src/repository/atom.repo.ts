@@ -35,20 +35,31 @@ export class AtomRepository extends IRepository<IAtom> {
       await (
         await this.Atom
       ).create({
-        input: atoms.map(({ tags, api, suggestedChildren = [], ...atom }) => ({
-          ...atom,
-          tags: connectNodeIds(tags.map((tag) => tag.id)),
-          api: connectNodeId(api.id),
-          suggestedChildren: connectNodeIds(
-            suggestedChildren.map((child) => child.id),
-          ),
-        })),
+        input: atoms.map(
+          ({
+            tags,
+            api,
+            suggestedChildren = [],
+            requiredParents = [],
+            ...atom
+          }) => ({
+            ...atom,
+            tags: connectNodeIds(tags.map((tag) => tag.id)),
+            api: connectNodeId(api.id),
+            suggestedChildren: connectNodeIds(
+              suggestedChildren.map((child) => child.id),
+            ),
+            requiredParents: connectNodeIds(
+              requiredParents.map((parent) => parent.id),
+            ),
+          }),
+        ),
       })
     ).atoms
   }
 
   protected async _update(
-    { tags, api, suggestedChildren = [], ...atom }: IAtom,
+    { tags, api, suggestedChildren = [], requiredParents = [], ...atom }: IAtom,
     where: BaseTypeUniqueWhere,
   ) {
     return (
@@ -61,6 +72,9 @@ export class AtomRepository extends IRepository<IAtom> {
           api: reconnectNodeId(api.id),
           suggestedChildren: whereNodeIds(
             suggestedChildren.map((child) => child.id),
+          ),
+          requiredParents: whereNodeIds(
+            requiredParents.map((child) => child.id),
           ),
         },
         where,

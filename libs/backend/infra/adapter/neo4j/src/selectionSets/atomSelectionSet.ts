@@ -16,4 +16,9 @@ export const atomSelectionSet = `{
     name
     type
   }
+  requiredParents {
+    id
+    name
+    type
+  }
 }`

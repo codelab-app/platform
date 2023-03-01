@@ -22,6 +22,7 @@ export const createAtomsData: CreateAtoms = (
     },
     tags: [],
     suggestedChildren: [],
+    requiredParents: [],
   },
   {
     id: textId,
@@ -33,6 +34,7 @@ export const createAtomsData: CreateAtoms = (
     },
     tags: [],
     suggestedChildren: [],
+    requiredParents: [],
   },
   {
     id: v4(),
@@ -44,6 +46,7 @@ export const createAtomsData: CreateAtoms = (
     },
     tags: [],
     suggestedChildren: [],
+    requiredParents: [],
   },
   {
     id: v4(),
@@ -55,5 +58,6 @@ export const createAtomsData: CreateAtoms = (
     },
     tags: [],
     suggestedChildren: [],
+    requiredParents: [],
   },
 ]

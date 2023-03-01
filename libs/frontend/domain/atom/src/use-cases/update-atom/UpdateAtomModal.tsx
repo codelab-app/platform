@@ -37,6 +37,9 @@ export const UpdateAtomModal = observer<{
     suggestedChildren: atom?.suggestedChildren.map(
       (suggestedChild) => suggestedChild.id,
     ),
+    requiredParents: atom?.requiredParents.map(
+      (requiredParent) => requiredParent.id,
+    ),
   }
 
   const tagListOption = tagService.tagsSelectOptions
@@ -64,6 +67,7 @@ export const UpdateAtomModal = observer<{
           showSearch={true}
         />
         <SelectAtom label="Suggested Children" name="suggestedChildren" />
+        <SelectAtom label="Required Parents" name="requiredParents" />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

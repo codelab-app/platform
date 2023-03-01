@@ -30,6 +30,7 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
     file: 'Anchor--Link Props',
     tag: AntdTag.AnchorLink,
     icon: AntdTag.Anchor,
+    requiredParents: [IAtomType.AntDesignAnchor],
   },
   [IAtomType.AntDesignAvatar]: {
     file: 'Avatar',
