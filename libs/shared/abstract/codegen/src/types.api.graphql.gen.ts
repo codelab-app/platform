@@ -6844,6 +6844,12 @@ export type CreateRenderPropsTypesMutationResponse = {
   renderPropsTypes: Array<RenderPropsType>
 }
 
+export type CreateRenderTypesMutationResponse = {
+  __typename?: 'CreateRenderTypesMutationResponse'
+  info: CreateInfo
+  renderTypes: Array<RenderType>
+}
+
 export type CreateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'CreateResetDatabaseMutationResponsesMutationResponse'
   info: CreateInfo
@@ -7275,6 +7281,7 @@ export type Element = {
   renderComponentTypeConnection: ElementRenderComponentTypeConnection
   renderForEachPropKey?: Maybe<Scalars['String']>
   renderIfExpression?: Maybe<Scalars['String']>
+  renderType?: Maybe<RenderType>
 }
 
 export type ElementFirstChildArgs = {
@@ -12430,6 +12437,7 @@ export type Mutation = {
   createProps: CreatePropsMutationResponse
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
+  createRenderTypes: CreateRenderTypesMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   createResources: CreateResourcesMutationResponse
   createStores: CreateStoresMutationResponse
@@ -12466,6 +12474,7 @@ export type Mutation = {
   deleteProps: DeleteInfo
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
+  deleteRenderTypes: DeleteInfo
   deleteResetDatabaseMutationResponses: DeleteInfo
   deleteResources: DeleteInfo
   deleteStores: DeleteInfo
@@ -12503,6 +12512,7 @@ export type Mutation = {
   updateProps: UpdatePropsMutationResponse
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
+  updateRenderTypes: UpdateRenderTypesMutationResponse
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
   updateResources: UpdateResourcesMutationResponse
   updateStores: UpdateStoresMutationResponse
@@ -12619,6 +12629,10 @@ export type MutationCreateReactNodeTypesArgs = {
 
 export type MutationCreateRenderPropsTypesArgs = {
   input: Array<RenderPropsTypeCreateInput>
+}
+
+export type MutationCreateRenderTypesArgs = {
+  input: Array<RenderTypeCreateInput>
 }
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
@@ -12786,6 +12800,10 @@ export type MutationDeleteReactNodeTypesArgs = {
 export type MutationDeleteRenderPropsTypesArgs = {
   delete?: InputMaybe<RenderPropsTypeDeleteInput>
   where?: InputMaybe<RenderPropsTypeWhere>
+}
+
+export type MutationDeleteRenderTypesArgs = {
+  where?: InputMaybe<RenderTypeWhere>
 }
 
 export type MutationDeleteResetDatabaseMutationResponsesArgs = {
@@ -13079,6 +13097,11 @@ export type MutationUpdateRenderPropsTypesArgs = {
   where?: InputMaybe<RenderPropsTypeWhere>
 }
 
+export type MutationUpdateRenderTypesArgs = {
+  update?: InputMaybe<RenderTypeUpdateInput>
+  where?: InputMaybe<RenderTypeWhere>
+}
+
 export type MutationUpdateResetDatabaseMutationResponsesArgs = {
   update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
@@ -13139,7 +13162,7 @@ export type MutationUpdateVercelProjectDomainsArgs = {
   where?: InputMaybe<VercelProjectDomainWhere>
 }
 
-export type Page = {
+export type Page = WithOwner & {
   __typename?: 'Page'
   _compoundName: Scalars['String']
   app: App
@@ -13149,6 +13172,9 @@ export type Page = {
   id: Scalars['ID']
   kind: PageKind
   name: Scalars['String']
+  owner: User
+  ownerAggregate?: Maybe<PageUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
   pageContentContainer?: Maybe<Element>
   pageContentContainerAggregate?: Maybe<PageElementPageContentContainerAggregationSelection>
   pageContentContainerConnection: PagePageContentContainerConnection
@@ -13175,6 +13201,25 @@ export type PageAppConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<PageAppConnectionSort>>
   where?: InputMaybe<PageAppConnectionWhere>
+}
+
+export type PageOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type PageOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type PageOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type PagePageContentContainerArgs = {
@@ -13344,12 +13389,14 @@ export type PageAppUpdateFieldInput = {
 
 export type PageConnectInput = {
   app?: InputMaybe<PageAppConnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectFieldInput>
   rootElement?: InputMaybe<PageRootElementConnectFieldInput>
 }
 
 export type PageConnectOrCreateInput = {
   app?: InputMaybe<PageAppConnectOrCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectOrCreateFieldInput>
   rootElement?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
 }
@@ -13368,18 +13415,21 @@ export type PageCreateInput = {
   getServerSideProps?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   kind: PageKind
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerFieldInput>
   rootElement?: InputMaybe<PageRootElementFieldInput>
 }
 
 export type PageDeleteInput = {
   app?: InputMaybe<PageAppDeleteFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDeleteFieldInput>
   rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
 }
 
 export type PageDisconnectInput = {
   app?: InputMaybe<PageAppDisconnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDisconnectFieldInput>
   rootElement?: InputMaybe<PageRootElementDisconnectFieldInput>
 }
@@ -13452,6 +13502,69 @@ export type PageOptions = {
   offset?: InputMaybe<Scalars['Int']>
   /** Specify one or more PageSort objects to sort Pages by. The sorts will be applied in the order in which they are arranged in the array. */
   sort?: InputMaybe<Array<PageSort>>
+}
+
+export type PageOwnerAggregateInput = {
+  AND?: InputMaybe<Array<PageOwnerAggregateInput>>
+  NOT?: InputMaybe<PageOwnerAggregateInput>
+  OR?: InputMaybe<Array<PageOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<PageOwnerNodeAggregationWhereInput>
+}
+
+export type PageOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PageOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<PageOwnerNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<PageOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PagePageContentContainerAggregateInput = {
@@ -13638,6 +13751,7 @@ export type PagePageContentContainerUpdateFieldInput = {
 
 export type PageRelationInput = {
   app?: InputMaybe<PageAppCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerCreateFieldInput>
   rootElement?: InputMaybe<PageRootElementCreateFieldInput>
 }
@@ -14060,8 +14174,23 @@ export type PageUpdateInput = {
   getServerSideProps?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   kind?: InputMaybe<PageKind>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerUpdateFieldInput>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
+}
+
+export type PageUserOwnerAggregationSelection = {
+  __typename?: 'PageUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<PageUserOwnerNodeAggregateSelection>
+}
+
+export type PageUserOwnerNodeAggregateSelection = {
+  __typename?: 'PageUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
 }
 
 export type PageWhere = {
@@ -14090,6 +14219,8 @@ export type PageWhere = {
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
   kind?: InputMaybe<PageKind>
   kind_IN?: InputMaybe<Array<PageKind>>
+  ownerAggregate?: InputMaybe<PageOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   pageContentContainerAggregate?: InputMaybe<PagePageContentContainerAggregateInput>
   pageContentContainerConnection?: InputMaybe<PagePageContentContainerConnectionWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
@@ -14508,6 +14639,9 @@ export type Query = {
   renderPropsTypes: Array<RenderPropsType>
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   renderPropsTypesConnection: RenderPropsTypesConnection
+  renderTypes: Array<RenderType>
+  renderTypesAggregate: RenderTypeAggregateSelection
+  renderTypesConnection: RenderTypesConnection
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
   resetDatabaseMutationResponsesConnection: ResetDatabaseMutationResponsesConnection
@@ -14980,6 +15114,22 @@ export type QueryRenderPropsTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<RenderPropsTypeSort>>>
   where?: InputMaybe<RenderPropsTypeWhere>
+}
+
+export type QueryRenderTypesArgs = {
+  options?: InputMaybe<RenderTypeOptions>
+  where?: InputMaybe<RenderTypeWhere>
+}
+
+export type QueryRenderTypesAggregateArgs = {
+  where?: InputMaybe<RenderTypeWhere>
+}
+
+export type QueryRenderTypesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InputMaybe<RenderTypeSort>>>
+  where?: InputMaybe<RenderTypeWhere>
 }
 
 export type QueryResetDatabaseMutationResponsesArgs = {
@@ -15637,6 +15787,73 @@ export type RenderPropsTypeWhere = {
 export type RenderPropsTypesConnection = {
   __typename?: 'RenderPropsTypesConnection'
   edges: Array<RenderPropsTypeEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type RenderType = {
+  __typename?: 'RenderType'
+  id: Scalars['String']
+  model: RenderTypeEnum
+}
+
+export type RenderTypeAggregateSelection = {
+  __typename?: 'RenderTypeAggregateSelection'
+  count: Scalars['Int']
+  id: StringAggregateSelectionNonNullable
+}
+
+export type RenderTypeCreateInput = {
+  id: Scalars['String']
+  model: RenderTypeEnum
+}
+
+export type RenderTypeEdge = {
+  __typename?: 'RenderTypeEdge'
+  cursor: Scalars['String']
+  node: RenderType
+}
+
+export enum RenderTypeEnum {
+  Atom = 'Atom',
+  Component = 'Component',
+}
+
+export type RenderTypeOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more RenderTypeSort objects to sort RenderTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<RenderTypeSort>>
+}
+
+/** Fields to sort RenderTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderTypeSort object. */
+export type RenderTypeSort = {
+  id?: InputMaybe<SortDirection>
+  model?: InputMaybe<SortDirection>
+}
+
+export type RenderTypeUpdateInput = {
+  id?: InputMaybe<Scalars['String']>
+  model?: InputMaybe<RenderTypeEnum>
+}
+
+export type RenderTypeWhere = {
+  AND?: InputMaybe<Array<RenderTypeWhere>>
+  NOT?: InputMaybe<RenderTypeWhere>
+  OR?: InputMaybe<Array<RenderTypeWhere>>
+  id?: InputMaybe<Scalars['String']>
+  id_CONTAINS?: InputMaybe<Scalars['String']>
+  id_ENDS_WITH?: InputMaybe<Scalars['String']>
+  id_IN?: InputMaybe<Array<Scalars['String']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
+  id_STARTS_WITH?: InputMaybe<Scalars['String']>
+  model?: InputMaybe<RenderTypeEnum>
+  model_IN?: InputMaybe<Array<RenderTypeEnum>>
+}
+
+export type RenderTypesConnection = {
+  __typename?: 'RenderTypesConnection'
+  edges: Array<RenderTypeEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
@@ -18977,6 +19194,12 @@ export type UpdateRenderPropsTypesMutationResponse = {
   renderPropsTypes: Array<RenderPropsType>
 }
 
+export type UpdateRenderTypesMutationResponse = {
+  __typename?: 'UpdateRenderTypesMutationResponse'
+  info: UpdateInfo
+  renderTypes: Array<RenderType>
+}
+
 export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
   info: UpdateInfo
@@ -20387,6 +20610,11 @@ export type ElementFragment = {
     | ({ __typename?: 'Component' } & ComponentFragment)
     | null
   renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
+  renderType?: {
+    __typename?: 'RenderType'
+    id: string
+    model: RenderTypeEnum
+  } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null

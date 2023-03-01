@@ -152,20 +152,19 @@ export class ElementService
   add = (elementDTO: IElementDTO): IElement => {
     console.debug('ElementService.writeCache', elementDTO)
 
-    const { parentComponent, renderComponentType, renderAtomType, props } =
-      elementDTO
+    const { parentComponent, renderType, props } = elementDTO
 
-    if (renderAtomType) {
-      this.atomService.add(renderAtomType)
-    }
+    // if (renderAtomType) {
+    //   this.atomService.add(renderAtomType)
+    // }
 
-    if (parentComponent) {
-      this.componentService.add(parentComponent)
-    }
+    // if (parentComponent) {
+    //   this.componentService.add(parentComponent)
+    // }
 
-    if (renderComponentType) {
-      this.componentService.add(renderComponentType)
-    }
+    // if (renderComponentType) {
+    //   this.componentService.add(renderComponentType)
+    // }
 
     if (props) {
       this.propService.add(props)

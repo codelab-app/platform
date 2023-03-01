@@ -5,6 +5,18 @@ export const elementSchema = gql`
     order: Int
   }
 
+  # An element could render either of these
+  enum RenderTypeEnum {
+    Component
+    Atom
+  }
+
+  # Create this to match frontend
+  type RenderType {
+    id: String!
+    model: RenderTypeEnum!
+  }
+
   type Element {
     id: ID! @id(autogenerate: false)
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
@@ -38,6 +50,7 @@ export const elementSchema = gql`
     renderComponentType: Component
       @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
+    renderType: RenderType
 
     hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
 

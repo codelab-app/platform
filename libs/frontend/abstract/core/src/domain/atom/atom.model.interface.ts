@@ -6,10 +6,10 @@ import type { ICacheService } from '../../service'
 import type { IComponent } from '../component'
 import type { ITag } from '../tag'
 import type { IInterfaceType } from '../type'
-import type { IAuth0Owner } from '../user'
+import type { IAuth0Owner, IOwnerSchema } from '../user'
 import type { IAtomDTO, IRenderAtomDTO } from './atom.dto.interface'
 
-export interface IAtom extends ICacheService<IAtomDTO, IAtom> {
+export interface IAtom extends ICacheService<IAtomDTO, IAtom>, IOwnerSchema {
   id: string
   name: string
   icon?: string | null
@@ -17,7 +17,6 @@ export interface IAtom extends ICacheService<IAtomDTO, IAtom> {
   tags: Array<Ref<ITag>>
   api: Ref<IInterfaceType>
   allowCustomTextInjection: boolean
-  owner: IAuth0Owner
   /**
    * We don't need Ref here, only need id to filter the select options. Making it Ref requires dependency resolution that makes it more difficult.
    *

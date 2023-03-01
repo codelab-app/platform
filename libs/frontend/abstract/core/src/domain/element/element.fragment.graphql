@@ -15,6 +15,10 @@ fragment Element on Element {
     ...Atom
     # ...RenderAtom
   }
+  renderType {
+    id
+    model
+  }
   prevSibling {
     id
   }

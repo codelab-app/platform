@@ -170,7 +170,7 @@ export class PageService
   ) {
     const rootElement = this.elementService.add({
       id: v4(),
-      name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
+      name: ROOT_ELEMENT_NAME,
     })
 
     const page = this.add({
@@ -198,7 +198,7 @@ export class PageService
             create: {
               node: {
                 id: v4(),
-                name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
+                name: ROOT_ELEMENT_NAME,
               },
             },
           },

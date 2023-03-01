@@ -6,18 +6,18 @@ import type { IAtom } from '../atom'
 import type { IElement, IElementTreeService } from '../element'
 import type { IProp } from '../prop'
 import type { IInterfaceType } from '../type'
-import type { IAuth0Owner } from '../user'
+import type { IAuth0Owner, IOwnerSchema } from '../user'
 import type { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent
   extends INodeType<'Component'>,
     IElementTreeService,
-    ICacheService<IComponentDTO, IComponent> {
+    ICacheService<IComponentDTO, IComponent>,
+    IOwnerSchema {
   id: string
   name: string
   rootElement: Ref<IElement>
   childrenContainerElement: Ref<IElement>
-  owner: IAuth0Owner
   api: Ref<IInterfaceType>
   props?: Nullable<IProp>
   instanceElement: Nullable<Ref<IElement>>

@@ -4,7 +4,7 @@ import type {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { IAuth0Owner } from '../user'
+import type { IAuth0Owner, IOwnerSchema } from '../user'
 import type { TypeFragment } from './fragments'
 import type {
   IActionTypeDTO,
@@ -40,9 +40,7 @@ export interface IAllTypeDTO {
   arrayTypeId?: string
 }
 
-export interface ICreateTypeData extends IAllTypeDTO {
-  owner: IAuth0Owner
-}
+export interface ICreateTypeData extends IAllTypeDTO, IOwnerSchema {}
 
 export type IUpdateTypeData = IAllTypeDTO
 

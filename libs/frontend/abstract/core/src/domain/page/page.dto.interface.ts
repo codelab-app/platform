@@ -2,9 +2,9 @@ import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IElement, IElementDTO } from '../element'
-import type { IAuth0Owner } from '../user'
+import type { IAuth0Owner, IOwnerSchema } from '../user'
 
-export interface IPageDTO {
+export interface IPageDTO extends IOwnerSchema {
   id: string
   kind: IPageKind
   name: string
@@ -19,11 +19,8 @@ export interface IPageDTO {
 
 export type ICreatePageData = Pick<
   IPageDTO,
-  'id' | 'name' | 'app' | 'getServerSideProps'
-> & {
-  owner: IAuth0Owner
-  // _compoundName: string
-}
+  'id' | 'name' | 'owner' | 'app' | 'getServerSideProps'
+>
 
 export type IUpdatePageData = Pick<
   IPageDTO,

@@ -1,17 +1,15 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { IPageDTO } from '../page'
 import type { IStoreDTO } from '../store'
-import type { IAuth0Owner } from '../user'
+import type { IAuth0Owner, IOwnerSchema } from '../user'
 import type {
   AppPreviewFragment,
   PageBuilderAppFragment,
 } from './app.fragment.graphql.gen'
 
-export interface IAppDTO {
+export interface IAppDTO extends IOwnerSchema {
   id: string
   name: string
-  // slug: string
-  owner: IAuth0Owner
   pages?: Array<IEntity>
   store: IEntity
 }

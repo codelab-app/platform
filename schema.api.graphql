@@ -6582,6 +6582,11 @@ type CreateRenderPropsTypesMutationResponse {
   renderPropsTypes: [RenderPropsType!]!
 }
 
+type CreateRenderTypesMutationResponse {
+  info: CreateInfo!
+  renderTypes: [RenderType!]!
+}
+
 type CreateResetDatabaseMutationResponsesMutationResponse {
   info: CreateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
@@ -7136,6 +7141,7 @@ type Element {
   ): ElementRenderComponentTypeConnection!
   renderForEachPropKey: String
   renderIfExpression: String
+  renderType: RenderType
 }
 
 type ElementAggregateSelection {
@@ -11970,6 +11976,9 @@ type Mutation {
   createRenderPropsTypes(
     input: [RenderPropsTypeCreateInput!]!
   ): CreateRenderPropsTypesMutationResponse!
+  createRenderTypes(
+    input: [RenderTypeCreateInput!]!
+  ): CreateRenderTypesMutationResponse!
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
@@ -12063,6 +12072,7 @@ type Mutation {
     delete: RenderPropsTypeDeleteInput
     where: RenderPropsTypeWhere
   ): DeleteInfo!
+  deleteRenderTypes(where: RenderTypeWhere): DeleteInfo!
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
@@ -12304,6 +12314,10 @@ type Mutation {
     update: RenderPropsTypeUpdateInput
     where: RenderPropsTypeWhere
   ): UpdateRenderPropsTypesMutationResponse!
+  updateRenderTypes(
+    update: RenderTypeUpdateInput
+    where: RenderTypeWhere
+  ): UpdateRenderTypesMutationResponse!
   updateResetDatabaseMutationResponses(
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
@@ -12358,7 +12372,7 @@ type Mutation {
   ): UpdateVercelProjectDomainsMutationResponse!
 }
 
-type Page {
+type Page implements WithOwner {
   _compoundName: String!
   app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
   appAggregate(
@@ -12376,6 +12390,18 @@ type Page {
   id: ID!
   kind: PageKind!
   name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): PageUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   pageContentContainer(
     directed: Boolean = true
     options: ElementOptions
@@ -12538,12 +12564,14 @@ input PageAppUpdateFieldInput {
 
 input PageConnectInput {
   app: PageAppConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
   pageContentContainer: PagePageContentContainerConnectFieldInput
   rootElement: PageRootElementConnectFieldInput
 }
 
 input PageConnectOrCreateInput {
   app: PageAppConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
   pageContentContainer: PagePageContentContainerConnectOrCreateFieldInput
   rootElement: PageRootElementConnectOrCreateFieldInput
 }
@@ -12562,18 +12590,21 @@ input PageCreateInput {
   getServerSideProps: String
   id: ID!
   kind: PageKind!
+  owner: WithOwnerOwnerFieldInput
   pageContentContainer: PagePageContentContainerFieldInput
   rootElement: PageRootElementFieldInput
 }
 
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
   pageContentContainer: PagePageContentContainerDeleteFieldInput
   rootElement: PageRootElementDeleteFieldInput
 }
 
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
   pageContentContainer: PagePageContentContainerDisconnectFieldInput
   rootElement: PageRootElementDisconnectFieldInput
 }
@@ -12645,6 +12676,69 @@ input PageOptions {
   Specify one or more PageSort objects to sort Pages by. The sorts will be applied in the order in which they are arranged in the array.
   """
   sort: [PageSort!]
+}
+
+input PageOwnerAggregateInput {
+  AND: [PageOwnerAggregateInput!]
+  NOT: PageOwnerAggregateInput
+  OR: [PageOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageOwnerNodeAggregationWhereInput
+}
+
+input PageOwnerNodeAggregationWhereInput {
+  AND: [PageOwnerNodeAggregationWhereInput!]
+  NOT: PageOwnerNodeAggregationWhereInput
+  OR: [PageOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
 }
 
 input PagePageContentContainerAggregateInput {
@@ -12832,6 +12926,7 @@ input PagePageContentContainerUpdateFieldInput {
 
 input PageRelationInput {
   app: PageAppCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
   pageContentContainer: PagePageContentContainerCreateFieldInput
   rootElement: PageRootElementCreateFieldInput
 }
@@ -13245,8 +13340,21 @@ input PageUpdateInput {
   getServerSideProps: String
   id: ID
   kind: PageKind
+  owner: WithOwnerOwnerUpdateFieldInput
   pageContentContainer: PagePageContentContainerUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
+}
+
+type PageUserOwnerAggregationSelection {
+  count: Int!
+  node: PageUserOwnerNodeAggregateSelection
+}
+
+type PageUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input PageWhere {
@@ -13275,6 +13383,8 @@ input PageWhere {
   id_STARTS_WITH: ID
   kind: PageKind
   kind_IN: [PageKind!]
+  ownerAggregate: PageOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
   pageContentContainerAggregate: PagePageContentContainerAggregateInput
   pageContentContainerConnection: PagePageContentContainerConnectionWhere
   rootElementAggregate: PageRootElementAggregateInput
@@ -13872,6 +13982,17 @@ type Query {
     sort: [RenderPropsTypeSort]
     where: RenderPropsTypeWhere
   ): RenderPropsTypesConnection!
+  renderTypes(
+    options: RenderTypeOptions
+    where: RenderTypeWhere
+  ): [RenderType!]!
+  renderTypesAggregate(where: RenderTypeWhere): RenderTypeAggregateSelection!
+  renderTypesConnection(
+    after: String
+    first: Int
+    sort: [RenderTypeSort]
+    where: RenderTypeWhere
+  ): RenderTypesConnection!
   resetDatabaseMutationResponses(
     options: ResetDatabaseMutationResponseOptions
     where: ResetDatabaseMutationResponseWhere
@@ -14392,6 +14513,74 @@ input RenderPropsTypeWhere {
 
 type RenderPropsTypesConnection {
   edges: [RenderPropsTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RenderType {
+  id: String!
+  model: RenderTypeEnum!
+}
+
+type RenderTypeAggregateSelection {
+  count: Int!
+  id: StringAggregateSelectionNonNullable!
+}
+
+input RenderTypeCreateInput {
+  id: String!
+  model: RenderTypeEnum!
+}
+
+type RenderTypeEdge {
+  cursor: String!
+  node: RenderType!
+}
+
+enum RenderTypeEnum {
+  Atom
+  Component
+}
+
+input RenderTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more RenderTypeSort objects to sort RenderTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [RenderTypeSort!]
+}
+
+"""
+Fields to sort RenderTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderTypeSort object.
+"""
+input RenderTypeSort {
+  id: SortDirection
+  model: SortDirection
+}
+
+input RenderTypeUpdateInput {
+  id: String
+  model: RenderTypeEnum
+}
+
+input RenderTypeWhere {
+  AND: [RenderTypeWhere!]
+  NOT: RenderTypeWhere
+  OR: [RenderTypeWhere!]
+  id: String
+  id_CONTAINS: String
+  id_ENDS_WITH: String
+  id_IN: [String!]
+  id_MATCHES: String
+  id_STARTS_WITH: String
+  model: RenderTypeEnum
+  model_IN: [RenderTypeEnum!]
+}
+
+type RenderTypesConnection {
+  edges: [RenderTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -17281,6 +17470,11 @@ type UpdateReactNodeTypesMutationResponse {
 type UpdateRenderPropsTypesMutationResponse {
   info: UpdateInfo!
   renderPropsTypes: [RenderPropsType!]!
+}
+
+type UpdateRenderTypesMutationResponse {
+  info: UpdateInfo!
+  renderTypes: [RenderType!]!
 }
 
 type UpdateResetDatabaseMutationResponsesMutationResponse {

@@ -1,6 +1,6 @@
 import type { IPropDTO } from './prop.dto.interface'
-import type { IProp } from './prop.model.interface'
+import type { IProp, IPropData } from './prop.model.interface'
 
 export interface IPropService {
-  add(propDTO: IPropDTO): IProp
+  add<TData extends IPropData>(propDTO: IPropDTO<TData>): IProp<TData>
 }

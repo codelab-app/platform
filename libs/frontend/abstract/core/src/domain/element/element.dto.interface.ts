@@ -76,11 +76,12 @@ export interface IElementDTO {
   postRenderAction?: IEntity | null
   propTransformationJs?: Nullable<string>
   page?: IEntity | null
-  renderComponentType?: IComponentDTO | null
-  renderAtomType?: IAtomDTO | null
+  renderType?: Nullable<RenderType>
+  // renderComponentType?: IComponentDTO | null
+  // renderAtomType?: IAtomDTO | null
   prevSibling?: IEntity | null
   nextSibling?: IEntity | null
-  parentComponent?: IComponentDTO | null
+  parentComponent?: IEntity | null
   parent?: IEntity | null
   firstChild?: IEntity | null
   props?: IPropDTO | null

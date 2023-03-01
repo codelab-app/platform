@@ -193,5 +193,6 @@ export const makeDefaultProps = (typeApi: Maybe<IInterfaceType>) => {
     {},
   )
 
-  return JSON.stringify(defaultProps)
+  // return JSON.stringify(defaultProps)
+  return defaultProps
 }

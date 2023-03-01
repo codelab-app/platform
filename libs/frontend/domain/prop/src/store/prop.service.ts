@@ -1,4 +1,8 @@
-import type { IProp, IPropService } from '@codelab/frontend/abstract/core'
+import type {
+  IProp,
+  IPropData,
+  IPropService,
+} from '@codelab/frontend/abstract/core'
 import { IPropDTO } from '@codelab/frontend/abstract/core'
 import {
   createContext,
@@ -25,8 +29,8 @@ export class PropService
   }
 
   @modelAction
-  add({ id, data }: IPropDTO) {
-    const propModel = new Prop({ id, data: frozen(JSON.parse(data)) })
+  add<TData extends IPropData>({ id, data }: IPropDTO<TData>) {
+    const propModel = Prop.create({ id, data })
 
     this.props.set(propModel.id, propModel)
 

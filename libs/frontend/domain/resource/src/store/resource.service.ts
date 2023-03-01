@@ -7,7 +7,7 @@ import type {
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
 import { IResourceDTO } from '@codelab/frontend/abstract/core'
-import { getPropService } from '@codelab/frontend/domain/prop'
+import { getPropService, Prop } from '@codelab/frontend/domain/prop'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ResourceCreateInput,
@@ -91,7 +91,12 @@ export class ResourceService
     this: ResourceService,
     { id, type, name, config, owner }: ICreateResourceData,
   ) {
-    const resource = this.add({ id, type, name, config })
+    const resource = this.add({
+      id,
+      type,
+      name,
+      config: Prop.create({ id: v4(), data: config }),
+    })
 
     const {
       createResources: { resources },
@@ -168,7 +173,7 @@ export class ResourceService
     const resource = new Resource({
       id,
       name,
-      config: this.propService.add({ id: v4(), data: JSON.stringify(config) }),
+      config: this.propService.add(config),
       type,
     })
 

@@ -1,6 +1,6 @@
 import type { IResourceType } from '@codelab/shared/abstract/core'
-import type { IPropData, IPropDTO } from '../prop'
-import type { IAuth0Owner } from '../user'
+import type { IProp, IPropData, IPropDTO } from '../prop'
+import type { IAuth0Owner, IOwnerSchema } from '../user'
 import type {
   IGraphQLResourceConfigData,
   IGraphQLResourceConfigDTO,
@@ -14,20 +14,18 @@ export interface IBaseResourceConfigData {
   headers: string
 }
 
-export interface ICreateResourceData {
+export interface ICreateResourceData extends IOwnerSchema {
   id: string
   name: string
   type: IResourceType
   config: IBaseResourceConfigData
-  owner: IAuth0Owner
 }
 
-export interface ICreateResourceDTO {
+export interface ICreateResourceDTO extends IOwnerSchema {
   id: string
   name: string
   type: IResourceType
   config: IGraphQLResourceConfigDTO | IRestResourceConfigDTO
-  owner: IAuth0Owner
 }
 
 export type IUpdateResourceData = ICreateResourceData
@@ -35,6 +33,6 @@ export type IUpdateResourceData = ICreateResourceData
 export interface IResourceDTO {
   id: string
   name: string
-  config: IBaseResourceConfigData
+  config: IProp<IBaseResourceConfigData>
   type: IResourceType
 }

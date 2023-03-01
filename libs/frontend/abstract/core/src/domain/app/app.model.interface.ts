@@ -5,12 +5,11 @@ import type { IElementTree } from '../element'
 import type { IPage } from '../page'
 import type { IPropData } from '../prop'
 import type { IStore } from '../store'
-import type { IAuth0Owner } from '../user'
+import type { IAuth0Owner, IOwnerSchema } from '../user'
 import type { IAppDTO } from './app.dto.interface'
 
-export interface IApp extends ICacheService<IAppDTO, IApp> {
+export interface IApp extends ICacheService<IAppDTO, IApp>, IOwnerSchema {
   id: IAppRef
-  owner: IAuth0Owner
   name: string
   slug: string
   /**

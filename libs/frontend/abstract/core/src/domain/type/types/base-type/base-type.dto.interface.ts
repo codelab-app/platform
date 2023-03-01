@@ -1,9 +1,8 @@
 import type { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IAuth0Owner } from '../../../user'
+import type { IAuth0Owner, IOwnerSchema } from '../../../user'
 
-export interface IBaseTypeDTO {
+export interface IBaseTypeDTO extends IOwnerSchema {
   id: string
   name: string
   kind: ITypeKind
-  owner: IAuth0Owner
 }

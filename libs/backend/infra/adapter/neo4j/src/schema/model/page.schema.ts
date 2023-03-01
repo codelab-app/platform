@@ -8,8 +8,9 @@ export const pageSchema = gql`
     Regular
   }
 
-  type Page {
+  type Page implements WithOwner {
     id: ID! @id(autogenerate: false)
+    owner: User!
     # format : appId-name because page name is unique inside app.
     _compoundName: String! @unique
     name: String! @computed(from: ["id", "_compoundName"])
