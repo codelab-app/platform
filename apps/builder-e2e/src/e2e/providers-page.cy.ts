@@ -45,9 +45,6 @@ describe('_app page', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.visit('/apps')
-    cy.getSpinner().should('not.exist')
-
     seedData()
   })
 

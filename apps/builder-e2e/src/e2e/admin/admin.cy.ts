@@ -5,9 +5,6 @@ describe('Admin', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    // Visit so we can trigger upsert user
-    cy.visit('/apps')
-    cy.getSpinner().should('not.exist')
   })
 
   /**
@@ -50,9 +47,6 @@ describe('Admin', () => {
       cy.logout()
       cy.resetDatabase()
       loginSession()
-      // Visit so we can trigger upsert user
-      cy.visit('/apps')
-      cy.getSpinner().should('not.exist')
       importData()
 
       return exportAndAssert(createSeedDataPath(2)).then((payload) => {

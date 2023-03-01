@@ -11,10 +11,19 @@ export const loginSession = () => {
     ['auth0-session'],
     () => {
       login()
+      // Needs to visit the page where the user data will get upserted
+      // so that there will be no forbidden errors when doing mutations
+      // because the roles are needed
+      cy.visit('/apps')
+      cy.getSpinner().should('not.exist')
+      cy.intercept('GET', '/api/upsert-user').as('upsertUser')
+      cy.wait('@upsertUser')
     },
     {
       cacheAcrossSpecs: true,
-      // validate: () => {},
+      validate: () => {
+        cy.get('@upsertUser.all').should('not.have.length', 0)
+      },
     },
   )
 }
@@ -54,6 +63,7 @@ export const login = ({
       })
     })
   } catch (error) {
+    console.error(error)
     // throw new Error(error);
   }
 }
