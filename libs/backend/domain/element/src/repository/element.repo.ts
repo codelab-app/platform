@@ -40,8 +40,8 @@ export const importElementInitial = async (
           name: element.name,
           customCss: element.customCss,
           guiCss: element.guiCss,
-          preRenderActionId: element.preRenderActionId,
-          postRenderActionId: element.postRenderActionId,
+          preRenderAction: connectNodeId(element.preRenderAction?.id),
+          postRenderAction: connectNodeId(element.postRenderAction?.id),
           renderAtomType: connectNodeId(element.renderAtomType?.id),
           props: element.props
             ? {

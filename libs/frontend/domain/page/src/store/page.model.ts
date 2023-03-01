@@ -5,20 +5,14 @@ import type {
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
-  Element,
   elementRef,
   ElementTreeService,
 } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { createUniqueName, extractName } from '@codelab/frontend/shared/utils'
+import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { AppPagesCreateFieldInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
-import type {
-  IEntity,
-  Maybe,
-  Nullable,
-  Nullish,
-} from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
@@ -116,6 +110,11 @@ export class Page
         kind: this.kind,
         getServerSideProps: this.getServerSideProps,
         _compoundName: createUniqueName(this.name, this),
+        rootElement: {
+          create: {
+            node: this.rootElement.current.toCreateInput(),
+          },
+        },
         pageContentContainer: {
           create: this.pageContentContainer
             ? {

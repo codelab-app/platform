@@ -3,10 +3,9 @@ import type {
   ICreateAppData,
   IInterfaceType,
   IPageBuilderAppProps,
-  IPageDTO,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
-import { IApp, IAppDTO, IStoreDTO } from '@codelab/frontend/abstract/core'
+import { IApp, IAppDTO } from '@codelab/frontend/abstract/core'
 import { getPageService, pageRef } from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
@@ -23,7 +22,6 @@ import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -187,6 +185,7 @@ export class AppService
   }
 
   @modelFlow
+  @transaction
   create = _async(function* (
     this: AppService,
     { id, name, owner }: ICreateAppData,

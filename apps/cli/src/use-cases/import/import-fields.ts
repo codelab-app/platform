@@ -1,10 +1,12 @@
 import type { ExistingData, ITypeExport } from '@codelab/backend/abstract/core'
 import { fieldRepository } from '@codelab/backend/domain/type'
-import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateFieldData } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { logSection, logTask } from '@codelab/shared/utils'
 
-export const importFields = async (createFieldsDTO: Array<ICreateFieldDTO>) => {
+export const importFields = async (
+  createFieldsDTO: Array<ICreateFieldData>,
+) => {
   logSection('Import Fields')
 
   for await (const field of createFieldsDTO) {
@@ -49,8 +51,8 @@ export const importFields = async (createFieldsDTO: Array<ICreateFieldDTO>) => {
 export const createImportFieldsData = (
   types: Array<ITypeExport>,
   existingData: ExistingData,
-): Array<ICreateFieldDTO> => {
-  return types.reduce<Array<ICreateFieldDTO>>((data, type) => {
+): Array<ICreateFieldData> => {
+  return types.reduce<Array<ICreateFieldData>>((data, type) => {
     /**
      * Only deal with interfaces here, since we want the fields
      */
@@ -63,7 +65,7 @@ export const createImportFieldsData = (
           throw new Error('Field Type should exist')
         }
 
-        const createFieldDTO: ICreateFieldDTO = {
+        const createFieldDTO: ICreateFieldData = {
           id: existingField ? existingField.id : field.id,
           name: field.name,
           description: field.description,
