@@ -28,9 +28,14 @@ export interface BaseTypesOptions {
 }
 
 export interface ITypeService
-  extends ICRUDService<IAnyType, ICreateTypeData, IUpdateTypeData>,
+  extends Omit<
+      ICRUDService<IAnyType, ICreateTypeData, IUpdateTypeData>,
+      'create' | 'delete'
+    >,
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
+  create(data: Array<ICreateTypeData>): Promise<Array<IType>>
+  delete(ids: Array<string>): Promise<number>
   getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>

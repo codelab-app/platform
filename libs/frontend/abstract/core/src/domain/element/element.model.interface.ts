@@ -1,4 +1,7 @@
-import type { UpdateElementsMutationVariables } from '@codelab/shared/abstract/codegen'
+import type {
+  ElementCreateInput,
+  UpdateElementsMutationVariables,
+} from '@codelab/shared/abstract/codegen'
 import type {
   IEntity,
   Maybe,
@@ -51,7 +54,6 @@ export interface IElement
   customCss?: Nullable<string>
   guiCss?: Nullable<string>
   props?: Nullable<IProp>
-  atom: Nullable<Ref<IAtom>>
   hooks: Array<IHook>
   parent?: Ref<IElement>
   parentComponent?: Nullable<Ref<IComponent>>
@@ -64,7 +66,9 @@ export interface IElement
   firstChild?: Nullable<Ref<IElement>>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
-  renderComponentType: Nullable<Ref<IComponent>>
+  renderType: Ref<IAtom> | Ref<IComponent> | null
+  // atom: Nullable<Ref<IAtom>>
+  // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
@@ -110,14 +114,15 @@ export interface IElement
 
   setOrderInParent(order: number | null): void
   setName(name: string): void
-  setAtom(atom: Ref<IAtom>): void
+  // setAtom(atom: Ref<IAtom>): void
+  setRenderType(renderType: Ref<IAtom> | Ref<IComponent>): void
   setSourceElement(element: Ref<IElement>): void
   setParentComponent(componentRef: Ref<IComponent>): void
   setParent(parent: Ref<IElement>): void
   setNextSibling(nextSibling: Ref<IElement>): void
   setPrevSibling(prevSibling: Ref<IElement>): void
   setProps(props: Nullable<IProp>): void
-  setRenderComponentType(componentRef: Ref<IComponent>): void
+  // setRenderComponentType(componentRef: Ref<IComponent>): void
   /**
    * Keeps the ref in place
    */
@@ -130,6 +135,8 @@ export interface IElement
   setRenderIfExpression(key: Nullish<string>): void
   setRenderForEachPropKey(key: string): void
   setPropTransformationJs(props: string): void
+
+  toCreateInput(): ElementCreateInput
 }
 
 export type IElementRef = string

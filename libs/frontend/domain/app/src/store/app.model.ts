@@ -1,12 +1,12 @@
 import type {
   IApp,
+  IAppDTO,
   IAuth0Owner,
   ICacheService,
   IPage,
   IPageBuilderAppProps,
   IStore,
 } from '@codelab/frontend/abstract/core'
-import { IAppDTO } from '@codelab/frontend/abstract/core'
 import { Page, pageRef } from '@codelab/frontend/domain/page'
 import { Store, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -31,6 +31,44 @@ import {
 } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
+const create = ({ id, name, owner, pages, store }: IAppDTO) => {
+  const app = new App({
+    id,
+    name,
+    owner,
+    pages: pages?.map((page) => pageRef(page.id)),
+    store: storeRef(store.id),
+  })
+
+  return app
+}
+
+const parsePageBuilderData = ({
+  id,
+  name,
+  pages,
+  store,
+  owner,
+}: PageBuilderAppFragment): IAppDTO => {
+  return {
+    id,
+    name,
+    owner,
+    pages: pages.map((page) => ({
+      id: page.id,
+      name: page.name,
+      rootElement: page.rootElement,
+      kind: page.kind,
+      descendentElements: page.rootElement.descendantElements,
+      getServerSideProps: page.getServerSideProps,
+      owner,
+      pageContainerElementId: page.pageContentContainer?.id,
+      app: { id },
+    })),
+    store,
+  }
+}
+
 @model('@codelab/App')
 export class App
   extends Model({
@@ -49,17 +87,9 @@ export class App
   }
 
   @modelAction
-  static create({ id, name, owner, pages, store }: IAppDTO) {
-    const app = new App({
-      id,
-      name,
-      owner,
-      pages: pages?.map((page) => pageRef(page.id)),
-      store: storeRef(store.id),
-    })
+  static create = create
 
-    return app
-  }
+  static parsePageBuilderData = parsePageBuilderData
 
   /**
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
@@ -74,30 +104,9 @@ export class App
     return this
   }
 
-  static parsePageBuilderData({
-    id,
-    name,
-    pages,
-    store,
-    owner,
-  }: PageBuilderAppFragment): IAppDTO {
-    return {
-      id,
-      name,
-      owner,
-      pages: pages.map((page) => ({
-        id: page.id,
-        name: page.name,
-        rootElement: page.rootElement,
-        kind: page.kind,
-        descendentElements: page.rootElement.descendantElements,
-        getServerSideProps: page.getServerSideProps,
-        owner,
-        pageContainerElementId: page.pageContentContainer?.id,
-        app: { id },
-      })),
-      store,
-    }
+  @computed
+  get pageRootElements() {
+    return this.pages.map((page) => page.current.rootElement.id)
   }
 
   @computed
@@ -140,7 +149,7 @@ export class App
         },
       },
       pages: {
-        // create: [{ node: providerPage }],
+        create: this.pages.map((page) => page.current.toCreateInput()),
       },
     }
   }

@@ -1,3 +1,4 @@
+import type { AppPagesCreateFieldInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
@@ -21,4 +22,6 @@ export interface IPage
    */
   pageContentContainer?: Ref<IElement>
   kind: IPageKind
+
+  toCreateInput(): AppPagesCreateFieldInput
 }

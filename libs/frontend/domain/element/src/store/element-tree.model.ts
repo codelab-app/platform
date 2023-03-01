@@ -99,8 +99,8 @@ export class ElementTree
       this._elements.set(element.id, elementRef(element))
 
       // validate component meta data
-      if (element.renderComponentType?.current) {
-        const componentId = element.renderComponentType.current.id
+      if (element.renderType?.current) {
+        const componentId = element.renderType.current.id
         const component = this.componentService.components.get(componentId)
 
         if (!component) {

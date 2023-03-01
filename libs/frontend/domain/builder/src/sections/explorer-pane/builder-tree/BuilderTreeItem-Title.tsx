@@ -3,6 +3,7 @@ import type { INode } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
+  isComponentModel,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Col, Dropdown, Row, Tooltip } from 'antd'
@@ -30,17 +31,14 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
-    // Add CSS to disable hover if node is unselectable
+    // Add CSS to disable hover if node is un-selectable
     if (node?.__nodeType === ELEMENT_NODE_TYPE) {
       const element = node
       const atomName = element.atomName
+      const componentInstanceName = element.renderType?.maybeCurrent?.name
+      const isComponentInstance = isComponentModel(element.renderType)
 
-      const componentInstanceName =
-        element.renderComponentType?.maybeCurrent?.name
-
-      const isComponentInstance = Boolean(element.renderComponentType)
-
-      const componentMeta = componentInstanceName
+      const componentMeta = isComponentInstance
         ? `(instance of ${componentInstanceName || 'a Component'})`
         : undefined
 

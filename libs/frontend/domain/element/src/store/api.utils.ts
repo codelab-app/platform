@@ -1,11 +1,20 @@
 import type {
+  IAtom,
+  IComponent,
   ICreateElementData,
   IElement,
   IFieldDefaultValue,
   IInterfaceType,
   IUpdateElementData,
+  RenderType,
 } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import {
+  isAtomModel,
+  isComponentModel,
+  RenderTypeEnum,
+} from '@codelab/frontend/abstract/core'
+import { atomRef } from '@codelab/frontend/domain/atom'
+import { componentRef } from '@codelab/frontend/presenter/container'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
@@ -17,6 +26,7 @@ import {
   disconnectNodeId,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
+import type { Ref } from 'mobx-keystone'
 import { isNil } from 'ramda'
 import { v4 } from 'uuid'
 
@@ -31,6 +41,26 @@ export const makeUpdateElementInput = (
   where: { id: element.id },
   update: input,
 })
+
+export const getRenderTypeApi = (
+  renderType: RenderType | null,
+): Ref<IInterfaceType> | null => {
+  // When creating a new element, we need the interface type fields
+  // and we use it to create a props with default values for the created element
+  let renderTypeApi: Ref<IInterfaceType> | null = null
+
+  if (renderType?.model === RenderTypeEnum.Atom) {
+    const renderTypeRef = atomRef(renderType.id)
+    renderTypeApi = renderTypeRef.current.api
+  }
+
+  if (renderType?.model === RenderTypeEnum.Component) {
+    const renderTypeRef = componentRef(renderType.id)
+    renderTypeApi = renderTypeRef.current.api
+  }
+
+  return renderTypeApi
+}
 
 export const makeCreateInput = (
   input: ICreateElementData,
@@ -82,8 +112,12 @@ export const makeDuplicateInput = (
 
   return {
     id: v4(),
-    renderComponentType: connectNodeId(element.renderComponentType?.id),
-    renderAtomType: connectNodeId(element.atom?.id),
+    renderComponentType: isComponentModel(element.renderType)
+      ? connectNodeId(element.renderType.id)
+      : null,
+    renderAtomType: isAtomModel(element.renderType)
+      ? connectNodeId(element.renderType.id)
+      : null,
     props,
     name: createUniqueName(duplicate_name, { id: element.baseId }),
     propTransformationJs: element.propTransformationJs,

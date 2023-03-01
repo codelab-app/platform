@@ -3,7 +3,7 @@ import type {
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
-import { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { travelSchemaPossibleExtensions } from '@graphql-tools/merge'
 import {
   detach,
@@ -14,6 +14,16 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
+
+const create = ({ id, name, app, domainConfig, projectDomain }: IDomainDTO) => {
+  return new Domain({
+    id,
+    name,
+    app,
+    domainConfig,
+    projectDomain,
+  })
+}
 
 @model('@codelab/Domain')
 export class Domain
@@ -26,15 +36,7 @@ export class Domain
   })
   implements IDomain
 {
-  static create(domain: IDomainDTO) {
-    return new Domain({
-      id: domain.id,
-      name: domain.name,
-      app: domain.app,
-      domainConfig: domain.domainConfig,
-      projectDomain: domain.projectDomain,
-    })
-  }
+  static create = create
 
   @modelAction
   public writeCache({

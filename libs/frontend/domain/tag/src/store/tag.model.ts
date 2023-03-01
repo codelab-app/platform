@@ -12,6 +12,16 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
+const create = ({ id, name, isRoot, children, descendants }: ITagDTO) => {
+  return new Tag({
+    id,
+    name,
+    isRoot,
+    children: children.map((child) => tagRef(child.id)),
+    descendants: descendants.map((descendant) => tagRef(descendant.id)),
+  })
+}
+
 @model('@codelab/Tag')
 export class Tag
   extends Model({
@@ -29,15 +39,7 @@ export class Tag
     return this.name
   }
 
-  static create({ id, name, isRoot, children, descendants }: ITagDTO) {
-    return new Tag({
-      id,
-      name,
-      isRoot,
-      children: children.map((child) => tagRef(child.id)),
-      descendants: descendants.map((descendant) => tagRef(descendant.id)),
-    })
-  }
+  static create = create
 
   @modelAction
   writeCache({

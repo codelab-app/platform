@@ -3398,7 +3398,7 @@ export type ArrayTypesConnection = {
   totalCount: Scalars['Int']
 }
 
-export type Atom = {
+export type Atom = WithOwner & {
   __typename?: 'Atom'
   allowedChildren: Array<Atom>
   allowedChildrenAggregate?: Maybe<AtomAtomAllowedChildrenAggregationSelection>
@@ -3409,6 +3409,9 @@ export type Atom = {
   icon?: Maybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
+  owner: User
+  ownerAggregate?: Maybe<AtomUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
   tags: Array<Tag>
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   tagsConnection: AtomTagsConnection
@@ -3451,6 +3454,25 @@ export type AtomApiConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<AtomApiConnectionSort>>
   where?: InputMaybe<AtomApiConnectionWhere>
+}
+
+export type AtomOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type AtomOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type AtomOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type AtomTagsArgs = {
@@ -3729,6 +3751,7 @@ export type AtomAtomAllowedChildrenNodeAggregateSelection = {
 export type AtomConnectInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
   api?: InputMaybe<AtomApiConnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
 }
 
@@ -3737,6 +3760,7 @@ export type AtomConnectOrCreateInput = {
     Array<AtomAllowedChildrenConnectOrCreateFieldInput>
   >
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
 }
 
@@ -3754,6 +3778,7 @@ export type AtomCreateInput = {
   icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
   type: AtomType
 }
@@ -3761,12 +3786,14 @@ export type AtomCreateInput = {
 export type AtomDeleteInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
   api?: InputMaybe<AtomApiDeleteFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
 }
 
 export type AtomDisconnectInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
   api?: InputMaybe<AtomApiDisconnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
 }
 
@@ -3802,9 +3829,73 @@ export type AtomOptions = {
   sort?: InputMaybe<Array<AtomSort>>
 }
 
+export type AtomOwnerAggregateInput = {
+  AND?: InputMaybe<Array<AtomOwnerAggregateInput>>
+  NOT?: InputMaybe<AtomOwnerAggregateInput>
+  OR?: InputMaybe<Array<AtomOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<AtomOwnerNodeAggregationWhereInput>
+}
+
+export type AtomOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AtomOwnerNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AtomOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
 export type AtomRelationInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
   api?: InputMaybe<AtomApiCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
 }
 
@@ -4324,8 +4415,23 @@ export type AtomUpdateInput = {
   icon?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   type?: InputMaybe<AtomType>
+}
+
+export type AtomUserOwnerAggregationSelection = {
+  __typename?: 'AtomUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AtomUserOwnerNodeAggregateSelection>
+}
+
+export type AtomUserOwnerNodeAggregateSelection = {
+  __typename?: 'AtomUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
 }
 
 export type AtomWhere = {
@@ -4365,6 +4471,8 @@ export type AtomWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  ownerAggregate?: InputMaybe<AtomOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   tagsAggregate?: InputMaybe<AtomTagsAggregateInput>
   tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>
   tagsConnection_NONE?: InputMaybe<AtomTagsConnectionWhere>
@@ -19694,6 +19802,7 @@ export type AtomFragment = {
   id: string
   name: string
   type: AtomType
+  owner: { __typename?: 'User'; auth0Id: string }
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   allowedChildren: Array<{

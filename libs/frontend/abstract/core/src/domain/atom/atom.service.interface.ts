@@ -10,18 +10,19 @@ import type {
 } from '../../service'
 import type {
   IAtomDTO,
-  ICreateAtomDTO,
-  IUpdateAtomDTO,
+  ICreateAtomData,
+  IUpdateAtomData,
 } from './atom.dto.interface'
 import type { IAtom } from './atom.model.interface'
 
 export interface IAtomService
-  extends ICRUDService<IAtom, ICreateAtomDTO, IUpdateAtomDTO>,
+  extends Omit<ICRUDService<IAtom, ICreateAtomData, IUpdateAtomData>, 'delete'>,
     IQueryService<IAtom, AtomWhere, AtomOptions>,
     Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'> {
   // Select dropdown for atoms need to load all atoms from the db
   // but this is a heavy operation, this flag allows to call it only once
   allAtomsLoaded: boolean
+  delete(ids: Array<string>): Promise<number>
   atoms: ObjectMap<IAtom>
   count: number
   atomsList: Array<IAtom>

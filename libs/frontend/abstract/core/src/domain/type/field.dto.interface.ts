@@ -49,7 +49,7 @@ export interface IValidationRules {
   [PrimitiveTypeKind.Integer]?: Nullish<INumberValidationRules>
 }
 
-export interface ICreateFieldDTO {
+export interface ICreateFieldData {
   id: IFieldRef
   key: string
   name?: Nullish<string>
@@ -65,7 +65,7 @@ export interface ICreateFieldDTO {
   defaultValues?: Nullish<IFieldDefaultValue>
 }
 
-export type IUpdateFieldDTO = ICreateFieldDTO
+export type IUpdateFieldData = ICreateFieldData
 
 /**
  * Props imply as input for something, in this case a model

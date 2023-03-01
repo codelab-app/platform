@@ -1,4 +1,8 @@
-import type { IAtom, ICreateElementData } from '@codelab/frontend/abstract/core'
+import type {
+  IAtom,
+  IComponent,
+  ICreateElementData,
+} from '@codelab/frontend/abstract/core'
 import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
@@ -11,7 +15,7 @@ const RenderTypeFields = ({
   error,
   onChange,
 }: GuaranteedProps<Partial<ICreateElementData['renderType']>> & {
-  parent?: IAtom
+  parent?: IAtom | IComponent
 }) => (
   <section>
     <SelectField
@@ -39,10 +43,15 @@ const RenderTypeFields = ({
       }
     >
       {/**
-       * AutoField renders subcomponent frequently, so SelectField of SelectAtom component flicks
+       * AutoField renders sub-component frequently, so SelectField of SelectAtom component flicks
        * No need AutoField here
        */}
-      <SelectAtom error={error} label="Atom" name="id" parent={parent} />
+      <SelectAtom
+        error={error}
+        label="Atom"
+        name="id"
+        parent={parent as IAtom}
+      />
     </DisplayIfField>
     <DisplayIfField<ICreateElementData>
       condition={(context) =>

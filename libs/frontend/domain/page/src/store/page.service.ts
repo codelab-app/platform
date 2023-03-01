@@ -116,6 +116,15 @@ export class PageService
       pageContentContainer,
     }: IUpdatePageData,
   ) {
+    const page = this.pages.get(id)
+
+    page?.writeCache({
+      name,
+      getServerSideProps,
+      app,
+      pageContentContainer,
+    })
+
     const {
       updatePages: { pages },
     } = yield* _await(
@@ -130,13 +139,7 @@ export class PageService
       }),
     )
 
-    return pages.map((page) =>
-      this.add({
-        ...page,
-        app: page.app,
-        rootElement: page.rootElement,
-      }),
-    )
+    return page!
   })
 
   @modelFlow
@@ -167,55 +170,62 @@ export class PageService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: PageService,
-    data: Array<ICreatePageData>,
+    { id, name, app, getServerSideProps }: ICreatePageData,
   ) {
-    const input = data.map(({ id, name, app, getServerSideProps }) => {
-      return {
-        id,
-        _compoundName: createUniqueName(name, app),
-        app: connectNodeId(app.id),
-        getServerSideProps: getServerSideProps,
-        kind: IPageKind.Regular,
-        rootElement: {
-          create: {
-            node: {
-              id: v4(),
-              name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
-            },
-          },
-        },
-      }
+    const rootElement = this.elementService.add({
+      id: v4(),
+      name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
     })
+
+    const page = this.add({
+      id,
+      name,
+      app,
+      getServerSideProps,
+      rootElement: elementRef(rootElement.id),
+      kind: IPageKind.Regular,
+    })
+
+    this.pages.set(page.id, page)
 
     const {
       createPages: { pages },
     } = yield* _await(
       pageApi.CreatePages({
-        input,
+        input: {
+          id,
+          _compoundName: createUniqueName(name, app),
+          app: connectNodeId(app.id),
+          getServerSideProps: getServerSideProps,
+          kind: IPageKind.Regular,
+          rootElement: {
+            create: {
+              node: {
+                id: v4(),
+                name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
+              },
+            },
+          },
+        },
       }),
     )
 
-    return pages.map(({ rootElement, app, ...page }) =>
-      this.add({
-        ...page,
-        rootElement,
-        app,
-      }),
-    )
+    return page
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: PageService, ids: Array<string>) {
-    ids.forEach((id) => this.pages.delete(id))
+  delete = _async(function* (this: PageService, id: string) {
+    const page = this.pages.get(id)
+    this.pages.delete(id)
 
     const {
       deletePages: { nodesDeleted },
-    } = yield* _await(pageApi.DeletePages({ where: { id_IN: ids } }))
+    } = yield* _await(pageApi.DeletePages({ where: { id } }))
 
-    return nodesDeleted
+    return page!
   })
 
   @modelAction

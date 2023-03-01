@@ -1,6 +1,6 @@
 import type {
   IAtomService,
-  ICreateAtomDTO,
+  ICreateAtomData,
   ITagService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
@@ -19,8 +19,8 @@ export const CreateAtomModal = observer<{
 }>(({ atomService, tagService, userService }) => {
   const closeModal = () => atomService.createModal.close()
 
-  const onSubmit = (data: ICreateAtomDTO) => {
-    return atomService.createSubmit([data])
+  const onSubmit = (data: ICreateAtomData) => {
+    return atomService.create(data)
   }
 
   const onSubmitError = createNotificationHandler({
@@ -35,7 +35,7 @@ export const CreateAtomModal = observer<{
       onCancel={closeModal}
       open={atomService.createModal.isOpen}
     >
-      <ModalForm.Form<ICreateAtomDTO>
+      <ModalForm.Form<ICreateAtomData>
         model={{
           id: v4(),
           owner: { auth0Id: userService.user?.auth0Id },

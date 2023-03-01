@@ -136,7 +136,7 @@ export const ElementCssEditor = observer(
       setGuiCssString(element.guiCss ?? '{}')
     }, [element.guiCss, setGuiCssString])
 
-    if (!element.atom) {
+    if (!element.renderType) {
       return <>Add an atom to this element to edit its CSS</>
     }
 

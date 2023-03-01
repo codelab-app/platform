@@ -10,7 +10,8 @@ import {
   ElementTreeService,
 } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { extractName } from '@codelab/frontend/shared/utils'
+import { createUniqueName, extractName } from '@codelab/frontend/shared/utils'
+import type { AppPagesCreateFieldInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
@@ -23,6 +24,55 @@ import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 import { pageApi } from './page.api'
+
+const create = ({
+  id,
+  name,
+  app,
+  kind,
+  rootElement,
+  getServerSideProps,
+  pageContentContainer,
+  descendentElements,
+}: IPageDTO): IPage => {
+  return new Page({
+    id,
+    name,
+    rootElement: elementRef(rootElement.id),
+    getServerSideProps: getServerSideProps,
+    app: { id: app.id },
+    pageContentContainer: pageContentContainer?.id
+      ? elementRef(pageContentContainer.id)
+      : undefined,
+    kind: kind,
+  })
+}
+
+const getPageServerSideProps = async (context: IPropData) => {
+  const id = context.params?.pageId as string
+
+  const {
+    pages: [page],
+  } = await pageApi.GetPages({ where: { id } })
+
+  if (!page || !page.getServerSideProps) {
+    return { props: {} }
+  }
+
+  const {
+    props = {},
+    notFound = false,
+    redirect = undefined,
+  } = await eval(`(${page.getServerSideProps})`)(context)
+
+  return {
+    props: {
+      getServerSidePropsData: props,
+    },
+    notFound,
+    redirect,
+  }
+}
 
 @model('@codelab/Page')
 export class Page
@@ -59,6 +109,24 @@ export class Page
     }
   }
 
+  toCreateInput(): AppPagesCreateFieldInput {
+    return {
+      node: {
+        id: this.id,
+        kind: this.kind,
+        getServerSideProps: this.getServerSideProps,
+        _compoundName: createUniqueName(this.name, this),
+        pageContentContainer: {
+          create: this.pageContentContainer
+            ? {
+                node: this.pageContentContainer.current.toCreateInput(),
+              }
+            : null,
+        },
+      },
+    }
+  }
+
   // onAttachedToRootStore() {
   //   console.log('Page model attached')
   // }
@@ -88,52 +156,7 @@ export class Page
     return this
   }
 
-  static create({
-    id,
-    name,
-    app,
-    kind,
-    rootElement,
-    getServerSideProps,
-    pageContentContainer,
-    descendentElements,
-  }: IPageDTO): IPage {
-    return new Page({
-      id,
-      name,
-      rootElement: elementRef(rootElement.id),
-      getServerSideProps: getServerSideProps,
-      app: { id: app.id },
-      pageContentContainer: pageContentContainer?.id
-        ? elementRef(pageContentContainer.id)
-        : undefined,
-      kind: kind,
-    })
-  }
+  static create = create
 
-  static getServerSideProps = async (context: IPropData) => {
-    const id = context.params?.pageId as string
-
-    const {
-      pages: [page],
-    } = await pageApi.GetPages({ where: { id } })
-
-    if (!page || !page.getServerSideProps) {
-      return { props: {} }
-    }
-
-    const {
-      props = {},
-      notFound = false,
-      redirect = undefined,
-    } = await eval(`(${page.getServerSideProps})`)(context)
-
-    return {
-      props: {
-        getServerSidePropsData: props,
-      },
-      notFound,
-      redirect,
-    }
-  }
+  static getServerSideProps = getPageServerSideProps
 }

@@ -2,7 +2,7 @@ import type {
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import type { ICacheService } from '../../service'
 import type { IDomainDTO } from './domain.dto.interface'
 

@@ -70,7 +70,7 @@ export interface IElementService
     element: IEntity
     parentElement: IEntity
   }): Promise<void>
-  add(elementDTO: ICreateElementData): IElement
+  add(elementDTO: IElementDTO): IElement
   moveElementAsNextSibling(props: {
     element: IEntity
     targetElement: IEntity

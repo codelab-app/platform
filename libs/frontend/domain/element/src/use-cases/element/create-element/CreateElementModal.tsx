@@ -149,7 +149,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           />
           <RenderTypeCompositeField
             name="renderType"
-            parent={parentElement.atom?.maybeCurrent}
+            parent={parentElement.renderType?.maybeCurrent}
           />
           <AutoField component={SelectAction} name="preRenderActionId" />
           <AutoField component={SelectAction} name="postRenderActionId" />

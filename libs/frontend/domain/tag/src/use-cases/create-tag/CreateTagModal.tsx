@@ -1,5 +1,5 @@
 import type {
-  ICreateTagDTO,
+  ICreateTagData,
   ITagService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
@@ -15,8 +15,8 @@ export const CreateTagModal = observer<{
   tagService: ITagService
   userService: IUserService
 }>(({ tagService, userService }) => {
-  const onSubmit = (input: ICreateTagDTO) => {
-    return tagService.createSubmit([input])
+  const onSubmit = (input: ICreateTagData) => {
+    return tagService.create(input)
   }
 
   const options = tagService.tagsSelectOptions

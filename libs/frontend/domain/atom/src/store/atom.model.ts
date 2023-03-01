@@ -1,13 +1,19 @@
 import type {
   IAtom,
   IAtomDTO,
+  IAuth0Owner,
   IInterfaceType,
   ITag,
 } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
-import { typeRef } from '@codelab/frontend/domain/type'
+import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
+import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAtomType } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  connectAuth0Owner,
+  connectNodeIds,
+} from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -19,6 +25,7 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 @model('@codelab/Atom')
@@ -26,6 +33,7 @@ export class Atom
   extends Model({
     id: idProp,
     name: prop<string>(),
+    owner: prop<IAuth0Owner>(),
     icon: prop<string | null | undefined>(),
     type: prop<IAtomType>(),
     tags: prop<Array<Ref<ITag>>>(() => []),
@@ -49,6 +57,7 @@ export class Atom
     icon,
     name,
     type,
+    owner,
     api,
     tags,
     allowedChildren,
@@ -57,10 +66,11 @@ export class Atom
       id,
       icon,
       name,
+      owner,
       type,
       api: typeRef<IInterfaceType>(api.id),
-      tags: tags.map((tag) => tagRef(tag.id)),
-      allowedChildren: allowedChildren.map((child) => atomRef(child.id)),
+      tags: tags?.map((tag) => tagRef(tag.id)),
+      allowedChildren: allowedChildren?.map((child) => atomRef(child.id)),
     })
   }
 
@@ -82,6 +92,41 @@ export class Atom
     this.allowedChildren = allowedChildren.map((child) => atomRef(child.id))
 
     return this
+  }
+
+  @modelAction
+  toCreateInput(): AtomCreateInput {
+    // const connectOrCreateApi = (
+    //   atom: Pick<ICreateAtomData, 'api' | 'name' | 'owner'>,
+    // ) =>
+    //   atom.api
+    //     ? connectNodeId(atom.api)
+    //     : {
+    //         create: {
+    //           node: InterfaceType.createApiNode({
+    //             name: atom.name,
+    //             owner: atom.owner,
+    //           }),
+    //         },
+    //       }
+
+    return {
+      id: this.id,
+      name: this.name,
+      type: this.type,
+      tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
+      // api: connectOrCreateApi({ api, name, owner }),
+      api: {
+        create: {
+          node: {
+            id: v4(),
+            name: `${this.name}  API`,
+            kind: ITypeKind.InterfaceType,
+            owner: connectAuth0Owner(this.owner.auth0Id),
+          },
+        },
+      },
+    }
   }
 }
 

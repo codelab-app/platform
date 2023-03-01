@@ -1,6 +1,6 @@
 import type {
   IDomainService,
-  IUpdateDomainDTO,
+  IUpdateDomainData,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
@@ -19,7 +19,7 @@ export const UpdateDomainModal = observer<{
   const domain = domainService.updateModal.domain
   const currentAppId = useCurrentAppId()
 
-  const onSubmit = (domainDTO: IUpdateDomainDTO) => {
+  const onSubmit = (domainDTO: IUpdateDomainData) => {
     return domainService.update(domainDTO)
   }
 
@@ -40,7 +40,7 @@ export const UpdateDomainModal = observer<{
 
   return (
     <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={true}>
-      <ModalForm.Form<IUpdateDomainDTO>
+      <ModalForm.Form<IUpdateDomainData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

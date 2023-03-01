@@ -62,7 +62,12 @@ export class ResourceService
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
 
-    return resources.map((resource) => this.add(resource))
+    return resources.map((resource) =>
+      this.add({
+        ...resource,
+        config: JSON.parse(resource.config.data),
+      }),
+    )
   })
 
   @modelFlow
@@ -82,33 +87,33 @@ export class ResourceService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: ResourceService,
-    data: Array<ICreateResourceData>,
+    { id, type, name, config, owner }: ICreateResourceData,
   ) {
-    const input: Array<ResourceCreateInput> = data.map((resource) => ({
-      id: v4(),
-      type: resource.type,
-      name: resource.name,
-      config: {
-        create: {
-          node: {
-            data: JSON.stringify(resource.config),
-          },
-        },
-      },
-      owner: connectAuth0Owner(resource.owner.auth0Id),
-    }))
+    const resource = this.add({ id, type, name, config })
 
     const {
       createResources: { resources },
     } = yield* _await(
       resourceApi.CreateResources({
-        input,
+        input: {
+          id,
+          type,
+          name,
+          config: {
+            create: {
+              node: {
+                data: JSON.stringify(config),
+              },
+            },
+          },
+          owner: connectAuth0Owner(owner.auth0Id),
+        },
       }),
     )
 
-    return resources.map((resource) => this.add(resource))
+    return resource
   })
 
   @modelFlow
@@ -117,6 +122,10 @@ export class ResourceService
     this: ResourceService,
     { id, config, name, type }: IUpdateResourceData,
   ) {
+    const resource = this.resources.get(id)
+
+    resource?.writeCache({ name, config })
+
     const {
       updateResources: { resources },
     } = yield* _await(
@@ -133,19 +142,20 @@ export class ResourceService
       }),
     )
 
-    return resources.map((resource) => this.add(resource))
+    return resource!
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ResourceService, ids: Array<string>) {
-    ids.forEach((id) => this.resources.delete(id))
+  delete = _async(function* (this: ResourceService, id: string) {
+    const resource = this.resources.get(id)
+    this.resources.delete(id)
 
     const {
       deleteResources: { nodesDeleted },
-    } = yield* _await(resourceApi.DeleteResources({ where: { id_IN: ids } }))
+    } = yield* _await(resourceApi.DeleteResources({ where: { id } }))
 
-    return nodesDeleted
+    return resource!
   })
 
   @modelAction
@@ -158,7 +168,7 @@ export class ResourceService
     const resource = new Resource({
       id,
       name,
-      config: this.propService.add(config) as IResourceConfig,
+      config: this.propService.add({ id: v4(), data: JSON.stringify(config) }),
       type,
     })
 

@@ -21,6 +21,7 @@ export interface IApp extends ICacheService<IAppDTO, IApp> {
   toJson: IPropData
   page(id: string): IPage
   toCreateInput(): AppCreateInput
+  pageRootElements: Array<string>
 }
 
 export interface IBuilderApp {

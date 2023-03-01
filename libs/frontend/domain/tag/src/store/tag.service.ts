@@ -1,5 +1,5 @@
 import type {
-  ICreateTagDTO,
+  ICreateTagData,
   ITag,
   ITagService,
   ITagTreeService,
@@ -73,24 +73,20 @@ export class TagService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: TagService,
-    data: Array<ICreateTagDTO>,
+    { id, name, parent, owner }: ICreateTagData,
   ) {
-    const input = data.map(({ id, name, parent, owner }) => {
-      return {
-        id,
-        name,
-        owner: connectAuth0Owner(owner.auth0Id),
-        parent: connectNodeId(parent?.id),
-      }
-    })
-
     const {
       createTags: { tags },
     } = yield* _await(
       tagApi.CreateTags({
-        input,
+        input: {
+          id,
+          name,
+          owner: connectAuth0Owner(owner.auth0Id),
+          parent: connectNodeId(parent?.id),
+        },
       }),
     )
 
@@ -108,7 +104,7 @@ export class TagService
 
     this.treeService.addRoots(tagModels)
 
-    return tagModels
+    return tagModels[0]!
   })
 
   @modelFlow
@@ -117,6 +113,10 @@ export class TagService
     this: TagService,
     { id, name, parent }: IUpdateTagData,
   ) {
+    const tag = this.tags.get(id)
+
+    tag?.writeCache({ name, parent })
+
     const {
       updateTags: { tags },
     } = yield* _await(
@@ -126,7 +126,7 @@ export class TagService
       }),
     )
 
-    return tags.map((tag) => this.add(tag))
+    return tag!
   })
 
   @modelFlow

@@ -1,10 +1,10 @@
-import type { IUpdateAtomDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { nonEmptyString } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
+export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
   title: 'Update Atom Input',
   type: 'object',
   properties: {
@@ -20,13 +20,13 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
       ...nonEmptyString,
     },
     // Hide field for now, added only to implement the interface
-    api: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
+    // api: {
+    //   type: 'string',
+    //   nullable: true,
+    //   uniforms: {
+    //     component: () => null,
+    //   },
+    // },
     type: {
       type: 'string',
       enum: Object.values(IAtomType).filter(filterNotHookType),
@@ -35,7 +35,13 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
     tags: {
       type: 'array',
       items: {
-        type: 'string',
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+          },
+        },
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,

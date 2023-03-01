@@ -1,9 +1,9 @@
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 
 export interface ICRUDService<Entity, CreateDTO, UpdateDTO extends IEntity> {
-  createSubmit(data: Array<CreateDTO>): Promise<Array<Entity>>
-  update(data: UpdateDTO): Promise<Array<Entity>>
-  delete(ids: Array<string>): Promise<number>
+  create(data: CreateDTO): Promise<Entity>
+  update(data: UpdateDTO): Promise<Entity>
+  delete(id: string): Promise<Entity>
 }
 
 export interface ICacheService<CreateDTO, Entity> {

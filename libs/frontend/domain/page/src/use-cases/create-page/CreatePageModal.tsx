@@ -30,7 +30,7 @@ export const CreatePageModal = observer<{
     getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
   }
 
-  const onSubmit = (data: ICreatePageData) => pageService.createSubmit([data])
+  const onSubmit = (data: ICreatePageData) => pageService.create(data)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating page',

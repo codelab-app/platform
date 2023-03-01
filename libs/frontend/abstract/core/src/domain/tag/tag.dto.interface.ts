@@ -7,14 +7,14 @@ import type { Required } from 'utility-types'
 import type { IAuth0Owner } from '../user'
 import type { TagFragment } from './tag.fragment.graphql.gen'
 
-export interface ICreateTagDTO {
+export interface ICreateTagData {
   id: string
   name: string
   parent?: IEntity
   owner: IAuth0Owner
 }
 
-export type IUpdateTagData = Omit<ICreateTagDTO, 'owner'>
+export type IUpdateTagData = Omit<ICreateTagData, 'owner'>
 
 export interface ITagDTO {
   id: string

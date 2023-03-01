@@ -18,6 +18,7 @@ export type AtomFragment = {
   id: string
   name: string
   type: Types.AtomType
+  owner: { auth0Id: string }
   tags: Array<TagFragment>
   api: InterfaceTypeFragment
   allowedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
@@ -39,6 +40,9 @@ export const AtomFragmentDoc = gql`
     id
     name
     type
+    owner {
+      auth0Id
+    }
     tags {
       ...Tag
     }

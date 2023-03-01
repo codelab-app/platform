@@ -17,7 +17,7 @@ import {
   isComponentDTO,
   RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
-import { getAtomService } from '@codelab/frontend/domain/atom'
+import { atomRef, getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
@@ -38,6 +38,7 @@ import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -55,6 +56,7 @@ import { v4 } from 'uuid'
 import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import { makeAutoIncrementedName } from '../utils'
 import {
+  getRenderTypeApi,
   makeCreateInput,
   makeDefaultProps,
   makeDuplicateInput,
@@ -183,83 +185,38 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  public createSubmit = _async(function* (
+  public create = _async(function* (
     this: ElementService,
-    data: Array<ICreateElementData>,
+    data: ICreateElementData,
   ) {
-    const input: Array<ElementCreateInput> = []
+    const parent = this.elements.get(data.parentElement?.id ?? '')
 
-    for (const elementInput of data) {
-      const parentElement = this.elements.get(
-        elementInput.parentElement?.id ?? '',
-      )
+    const name = createUniqueName(data.name, {
+      id: parent?.baseId,
+    })
 
-      const name = createUniqueName(elementInput.name, {
-        id: parentElement?.baseId,
-      })
+    const renderTypeApi = getRenderTypeApi(data.renderType)
 
-      // When creating a new element, we need the interface type fields
-      // and we use it to create a props with default values for the created element
-      const typeApi = yield* _await(this.getElementInputTypeApi(elementInput))
-
-      input.push(
-        makeCreateInput({
-          ...elementInput,
-          name,
-          props: { data: makeDefaultProps(typeApi) },
-        }),
-      )
-    }
+    const element = this.add({
+      ...data,
+      name,
+      parent,
+      props: { id: v4(), data: makeDefaultProps(renderTypeApi?.current) },
+    })
 
     const {
       createElements: { elements },
-    } = yield* _await(elementApi.CreateElements({ input }))
+    } = yield* _await(
+      elementApi.CreateElements({
+        input: makeCreateInput({
+          ...data,
+          name,
+          props: { data: makeDefaultProps(renderTypeApi?.current) },
+        }),
+      }),
+    )
 
-    return elements.map((element) => this.add(element))
-  })
-
-  /**
-   * Returns the associated interface type of the new element to be created.
-   * To be used to check on the fields that has a default value
-   * and make a default `dataProps` input for the creation of the element
-   */
-  @modelFlow
-  private getElementInputTypeApi = _async(function* (
-    this: ElementService,
-    elementInput: ICreateElementData,
-  ) {
-    let baseElementType: Maybe<IAtom | IComponent>
-
-    if (elementInput.renderType?.model === RenderTypeEnum.Component) {
-      baseElementType = yield* _await(
-        this.componentService.getOne(elementInput.renderType.id),
-      )
-
-      if (!baseElementType) {
-        throw new Error(
-          `Component with id ${elementInput.renderType.id} not found`,
-        )
-      }
-    } else if (elementInput.renderType?.model === RenderTypeEnum.Atom) {
-      baseElementType = yield* _await(
-        this.atomService.getOne(elementInput.renderType.id),
-      )
-
-      if (!baseElementType) {
-        throw new Error(`Atom with id ${elementInput.renderType.id} not found`)
-      }
-    }
-
-    if (baseElementType) {
-      const typeApi = yield* _await(
-        this.typeService.getOne(baseElementType.api.id),
-      )
-
-      // Atoms and components have interface type
-      return typeApi as Maybe<IInterfaceType>
-    }
-
-    return
+    return element
   })
 
   /**
@@ -304,68 +261,24 @@ export class ElementService
 
   @modelFlow
   @transaction
-  public update = _async(function* (
+  update = _async(function* (
     this: ElementService,
     element: IElement,
     input: IUpdateElementData,
   ) {
     const name = createUniqueName(input.name, { id: element.baseId })
-
-    const {
-      atom: currentAtom,
-      renderComponentType: currentRenderComponentType,
-    } = element
-
-    const { model: renderTypeModel, id: newRenderTypeId } =
-      input.renderType ?? {}
-
-    const isUpdatedWithAtom = renderTypeModel === RenderTypeEnum.Atom
-    const isUpdatedWithComponent = renderTypeModel === RenderTypeEnum.Component
-
-    const isCurrentlyEmptyElement =
-      isNil(currentAtom) && isNil(currentRenderComponentType)
-
-    const changedFromAtomToComponent =
-      isUpdatedWithAtom && !isNil(currentRenderComponentType)
-
-    const changedFromComponentToAtom =
-      isUpdatedWithComponent && !isNil(currentAtom)
-
-    const changedFromEmptyToAtomOrComponent =
-      isCurrentlyEmptyElement && (isUpdatedWithAtom || isUpdatedWithComponent)
-
-    const renderTypeChanged =
-      changedFromAtomToComponent ||
-      changedFromComponentToAtom ||
-      changedFromEmptyToAtomOrComponent
-
-    const renderIdChanged =
-      (isUpdatedWithAtom && newRenderTypeId !== currentAtom?.id) ||
-      (isUpdatedWithComponent &&
-        newRenderTypeId !== currentRenderComponentType?.id)
-
-    // we only want to change the props of the element if the user changes the atom or component
-    let props: Pick<IPropDTO, 'data'> | undefined
-
-    if (renderTypeChanged || renderIdChanged) {
-      // When replacing the atom or component of an element, we need the interface type fields of the new
-      // atom/component and we use it to create a props with default values for the updated element
-      const typeApi = yield* _await(this.getElementInputTypeApi(input))
-      props = { data: makeDefaultProps(typeApi) }
-    }
-
-    const update = makeUpdateInput({
-      ...input,
-      name,
-      props,
-    })
+    const renderTypeApi = getRenderTypeApi(input.renderType)
 
     const {
       updateElements: { elements },
     } = yield* _await(
       elementApi.UpdateElements({
         where: { id: element.id },
-        update,
+        update: makeUpdateInput({
+          ...input,
+          name,
+          props: { data: makeDefaultProps(renderTypeApi?.current) },
+        }),
       }),
     )
 
@@ -377,7 +290,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  public patchElement = _async(function* (
+  patchElement = _async(function* (
     this: ElementService,
     entity: IEntity,
     input: ElementUpdateInput,
@@ -511,7 +424,7 @@ parent
           throw new Error("Parent element id doesn't exist")
         }
 
-        const [element] = yield* _await(this.createSubmit([data]))
+        const element = yield* _await(this.create(data))
 
         if (!element) {
           throw new Error('Create element failed')
@@ -535,11 +448,7 @@ parent
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, data: ICreateElementData) {
-        const [element] = yield* _await(this.createSubmit([data]))
-
-        if (!element) {
-          throw new Error('Create element failed')
-        }
+        const element = yield* _await(this.create(data))
 
         if (!data.prevSibling) {
           throw new Error('Missing previous sibling')
@@ -689,7 +598,7 @@ element is new parentElement's first child
           const elementTree = Element.getElementTree(targetElement)
 
           const existingInstances = elementTree?.elements.filter(
-            ({ renderComponentType }) => renderComponentType?.id === elementId,
+            ({ renderType }) => renderType?.id === elementId,
           )
 
           const component = this.componentService.component(elementId)
@@ -712,13 +621,9 @@ element is new parentElement's first child
           const parentElementId = targetElement.id
           const data = { id: v4(), name, renderType, parentElementId }
 
-          element = (yield* _await(this.createSubmit([data])))[0]
+          element = yield* _await(this.create(data))
         } else {
           yield* _await(this.detachElementFromElementTree(element.id))
-        }
-
-        if (!element) {
-          return
         }
 
         const insertAfterId = targetElement.children[dropPosition]?.id
@@ -917,41 +822,29 @@ element is new parentElement's first child
         yield* _await(this.detachElementFromElementTree(element.id))
 
         // 2. create the component with predefined root element
-        const [createdComponent] = yield* _await(
-          this.componentService.createSubmit([
-            {
-              id: v4(),
-              owner,
-              name,
-              rootElement: element,
-              childrenContainerElement: element,
-            },
-          ]),
+        const createdComponent = yield* _await(
+          this.componentService.create({
+            id: v4(),
+            owner,
+            name,
+            rootElement: element,
+            childrenContainerElement: element,
+          }),
         )
-
-        if (!createdComponent) {
-          throw new Error('Create component failed')
-        }
 
         // 3. create a new element as an instance of the component
         if (!prevSibling) {
-          const [createdElement] = yield* _await(
-            this.createSubmit([
-              {
-                id: v4(),
-                name,
-                renderType: {
-                  id: createdComponent.id,
-                  model: RenderTypeEnum.Component,
-                },
-                parentElement,
+          const createdElement = yield* _await(
+            this.create({
+              id: v4(),
+              name,
+              renderType: {
+                id: createdComponent.id,
+                model: RenderTypeEnum.Component,
               },
-            ]),
+              parentElement,
+            }),
           )
-
-          if (!createdElement) {
-            throw new Error('Create element failed')
-          }
 
           yield* _await(
             this.attachElementAsFirstChild({

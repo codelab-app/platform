@@ -17,6 +17,9 @@ import {
   IBuilderDataNode,
   IElement,
   IElementDTO,
+  isAtomModel,
+  isComponentModel,
+  RenderTypeEnum,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
@@ -27,7 +30,10 @@ import {
   componentRef,
   getElementService,
 } from '@codelab/frontend/presenter/container'
-import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  ElementCreateInput,
+  ElementUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, disconnectNodeId } from '@codelab/shared/domain/mapper'
@@ -51,6 +57,7 @@ import {
 import { v4 } from 'uuid'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
+import { getRenderType } from './utils'
 
 type TransformFn = (props: IPropData) => IPropData
 
@@ -84,7 +91,8 @@ export class Element
     // slug: prop<string>().withSetter(),
     customCss: prop<Nullable<string>>(null).withSetter(),
     guiCss: prop<Nullable<string>>(null),
-    atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
+    // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
+    renderType: prop<Ref<IAtom> | Ref<IComponent> | null>(null).withSetter(),
     props: prop<Nullable<IProp>>(null).withSetter(),
     preRenderAction: prop<Nullish<IEntity>>(null),
     postRenderAction: prop<Nullish<IEntity>>(null),
@@ -99,7 +107,7 @@ export class Element
     page: prop<Nullable<IEntity>>(null),
 
     // Marks the element as an instance of a specific component
-    renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
 
     // if this is a duplicate, trace source element id else null
@@ -306,12 +314,11 @@ export class Element
   get label() {
     return (
       this.name ||
-      this.atom?.current.name ||
-      (this.atom?.current
-        ? compoundCaseToTitleCase(this.atom.current.type)
+      this.renderType?.current.name ||
+      (isAtomModel(this.renderType)
+        ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
         : undefined) ||
       this.parentComponent?.current.name ||
-      this.renderComponentType?.current.name ||
       ''
     )
   }
@@ -337,7 +344,11 @@ export class Element
 
   @computed
   get atomName() {
-    return this.atom?.maybeCurrent?.name || this.atom?.maybeCurrent?.type || ''
+    if (isAtomModel(this.renderType)) {
+      return this.renderType.current.name || this.renderType.current.type
+    }
+
+    return ''
   }
 
   /**
@@ -377,6 +388,37 @@ export class Element
     })
   }
 
+  toCreateInput(): ElementCreateInput {
+    /**
+     * Here we'll want to set default value based on the interface
+     */
+    const props: ElementCreateInput['props'] = {
+      create: {
+        node: {
+          data: JSON.stringify(this.props?.data.data ?? {}),
+        },
+      },
+    }
+
+    const renderAtomType = isAtomModel(this.renderType)
+      ? connectNodeId(this.renderType.id)
+      : undefined
+
+    const renderComponentType = isComponentModel(this.renderType)
+      ? connectNodeId(this.renderType.id)
+      : undefined
+
+    return {
+      renderComponentType,
+      renderAtomType,
+      props,
+      // postRenderAction,
+      // preRenderAction,
+      name: this.name,
+      id: this.id,
+    }
+  }
+
   @modelAction
   clone(cloneIndex: number) {
     const clonedElement: IElement = clone<IElement>(this, {
@@ -386,9 +428,9 @@ export class Element
     clonedElement.setName(`${this.name} ${cloneIndex}`)
     clonedElement.setSourceElement(elementRef(this.id))
 
-    if (this.atom) {
-      clonedElement.setAtom(atomRef(this.atom.id))
-    }
+    // if (this.atom) {
+    //   clonedElement.setAtom(atomRef(this.atom.id))
+    // }
 
     // if (this.props) {
     //   clonedElement.setProps(this.props.clone())
@@ -645,7 +687,7 @@ export class Element
       nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
       prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
       firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
-      atom: renderAtomType ? atomRef(renderAtomType.id) : null,
+      renderType: getRenderType({ renderAtomType, renderComponentType }),
       preRenderAction,
       postRenderAction,
       props: props
@@ -657,9 +699,6 @@ export class Element
       renderingMetadata: null,
       parentComponent: parentComponent
         ? componentRef(parentComponent.id)
-        : null,
-      renderComponentType: renderComponentType
-        ? componentRef(renderComponentType.id)
         : null,
     })
   }
@@ -695,8 +734,13 @@ export class Element
       propTransformationJs ?? this.propTransformationJs
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
-    this.atom = renderAtomType ? atomRef(renderAtomType.id) : null
+    // this.atom = renderAtomType ? atomRef(renderAtomType.id) : null
+    // this.renderComponentType = renderComponentType
+    //   ? componentRef(renderComponentType.id)
+    //   : null
 
+    this.renderType =
+      getRenderType({ renderAtomType, renderComponentType }) ?? this.renderType
     this.preRenderAction = preRenderAction
       ? actionRef(preRenderAction.id)
       : this.preRenderAction
@@ -724,9 +768,6 @@ export class Element
 
     this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)
-      : null
-    this.renderComponentType = renderComponentType
-      ? componentRef(renderComponentType.id)
       : null
 
     return this

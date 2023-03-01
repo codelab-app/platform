@@ -4,7 +4,7 @@ import type {
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { RendererTab } from '@codelab/frontend/abstract/core'
+import { isComponentModel, RendererTab } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
 import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
@@ -43,7 +43,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
-    const isComponentInstance = Boolean(element.renderComponentType)
+    const isComponentInstance = isComponentModel(element.renderType)
 
     const onAddChild = () => {
       return createModal.open({
@@ -80,15 +80,13 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onEditComponent = () => {
-      if (!element.renderComponentType) {
+      if (!isComponentModel(element.renderType)) {
         return
       }
 
       builderService.setActiveTree(RendererTab.Component)
 
-      const component = componentService.components.get(
-        element.renderComponentType.id.toString(),
-      )
+      const component = componentService.components.get(element.renderType.id)
 
       component &&
         builderService.selectComponentTreeNode(componentRef(component))

@@ -8,6 +8,7 @@ import type {
 import {
   COMPONENT_NODE_TYPE,
   IComponent,
+  isComponentModel,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -27,28 +28,41 @@ import type { Ref } from 'mobx-keystone'
 import {
   clone,
   ExtendedModel,
+  frozen,
   idProp,
   model,
   modelAction,
   prop,
 } from 'mobx-keystone'
 
-// const hydrate = (component: IComponentDTO) => {
-//   const apiRef = typeRef(component.api.id) as Ref<InterfaceType>
+const create = ({
+  id,
+  name,
+  props,
+  api,
+  owner,
+  rootElement,
+  childrenContainerElement,
+}: IComponentDTO) => {
+  const apiRef = typeRef(api.id) as Ref<InterfaceType>
 
-//   return new Component({
-//     id: component.id,
-//     name: component.name,
-//     rootElementId: component.rootElement.id,
-//     owner: component.owner,
-//     api: typeRef(component.api.id) as Ref<InterfaceType>,
-//     props: component.props
-//       ? Prop.hydrate({ ...component.props, apiRef })
-//       : null,
-//     childrenContainerElementId: component.childrenContainerElement.id,
-//     instanceElement: null,
-//   })
-// }
+  return new Component({
+    id,
+    name,
+    rootElement: elementRef(rootElement.id),
+    owner,
+    api: typeRef<IInterfaceType>(api.id),
+    props: props
+      ? Prop.create({
+          id: props.id,
+          api: apiRef,
+          data: props.data,
+        })
+      : null,
+    childrenContainerElement: elementRef(childrenContainerElement.id),
+    instanceElement: null,
+  })
+}
 
 @model('@codelab/Component')
 export class Component
@@ -57,11 +71,11 @@ export class Component
     id: idProp,
     name: prop<string>().withSetter(),
     // this isn't a Ref, because it will cause a circular dep.
-    rootElement: prop<IEntity>().withSetter(),
+    rootElement: prop<Ref<IElement>>().withSetter(),
     owner: prop<IAuth0Owner>(),
     api: prop<Ref<IInterfaceType>>(),
     props: prop<Nullable<IProp>>(null).withSetter(),
-    childrenContainerElement: prop<IEntity>().withSetter(),
+    childrenContainerElement: prop<Ref<IElement>>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
     // element which this component is attached to.
@@ -70,27 +84,40 @@ export class Component
   implements IComponent
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  // static hydrate = hydrate
+  static create = create
 
-  // add(fragment: IComponentDTO) {
-  //   const api = typeRef(fragment.api.id) as Ref<InterfaceType>
+  @modelAction
+  writeCache({
+    id,
+    name,
+    props,
+    api,
+    owner,
+    rootElement,
+    childrenContainerElement,
+  }: Partial<IComponentDTO>) {
+    const apiRef = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
 
-  //   this.setName(fragment.name)
-  //   this.rootElementId = fragment.rootElement.id
-  //   this.owner = fragment.owner
-  //   this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
-  //   this.props = fragment.props
-  //     ? new Prop({ id: fragment.props.id, api })
-  //     : null
+    this.name = name ?? this.name
+    this.rootElement = rootElement?.id
+      ? elementRef(rootElement.id)
+      : this.rootElement
+    this.owner = owner ?? this.owner
+    this.api = apiRef
+    this.props = props
+      ? Prop.create({
+          id: props.id,
+          api: apiRef,
+          data: props.data,
+        })
+      : null
 
-  //   if (fragment.props) {
-  //     this.props?.add({ ...fragment.props, api })
-  //   }
+    this.childrenContainerElement = childrenContainerElement
+      ? elementRef(childrenContainerElement.id)
+      : this.childrenContainerElement
 
-  //   this.childrenContainerElementId = fragment.childrenContainerElement.id
-
-  //   return this
-  // }
+    return this
+  }
 
   @modelAction
   private cloneTree(clonedComponent: IComponent, cloneIndex: number) {
@@ -102,16 +129,18 @@ export class Component
       const clonedElement = element.clone(cloneIndex)
 
       // don't move it to element model to avoid dependency issues
-      if (element.renderComponentType?.current) {
-        const componentClone = element.renderComponentType.current.clone(
+      if (isComponentModel(element.renderType)) {
+        const componentClone = element.renderType.current.clone(
           clonedElement.id,
         )
 
-        clonedElement.setRenderComponentType(componentRef(componentClone.id))
+        clonedElement.setRenderType(componentRef(componentClone.id))
       }
 
       if (element.id === clonedComponent.childrenContainerElement.id) {
-        clonedComponent.setChildrenContainerElement({ id: clonedElement.id })
+        clonedComponent.setChildrenContainerElement(
+          elementRef(clonedElement.id),
+        )
       }
 
       // keep trace of copies to update parents

@@ -123,21 +123,24 @@ export class Store
     })
   }
 
-  static createFromApp(app: Pick<IAppDTO, 'owner' | 'name'>): IStore {
-    const interfaceType = new InterfaceType({
-      id: v4(),
-      name: InterfaceType.createName(`${app.name} Store`),
-      kind: ITypeKind.InterfaceType,
-      owner: app.owner,
-    })
+  // static addFromApp(app: Pick<IAppDTO, 'owner' | 'name'>): IStore {
+  //   const interfaceType = new InterfaceType({
+  //     id: v4(),
+  //     name: InterfaceType.createName(`${app.name} Store`),
+  //     kind: ITypeKind.InterfaceType,
+  //     owner: app.owner,
+  //   })
 
-    const store = new Store({
-      name: Store.createName(app),
-      api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
-    })
 
-    return store
-  }
+  //   console.log(interfaceType)
+
+  //   const store = new Store({
+  //     name: Store.createName(app),
+  //     api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
+  //   })
+
+  //   return store
+  // }
 
   toCreateInput(): StoreCreateInput {
     const api = this.api.current

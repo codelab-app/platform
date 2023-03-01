@@ -6,6 +6,8 @@ import slugify from 'voca/slugify'
  * Takes the name and slugify it
  */
 const slug = (props: Pick<App, 'id' | '_compoundName'>) => {
+  console.log(props)
+
   return slugify(name(props))
 }
 
@@ -15,7 +17,9 @@ const slug = (props: Pick<App, 'id' | '_compoundName'>) => {
  * We can compute name by replacing the ID
  */
 const name = (props: Pick<App, 'id' | '_compoundName'>) => {
-  return props._compoundName.replace(props.id, '')
+  console.log(props)
+
+  return props._compoundName.replace(`${props.id}-`, '')
 }
 
 export const appResolver: IResolvers = {

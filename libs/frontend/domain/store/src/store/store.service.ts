@@ -154,17 +154,16 @@ export class StoreService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
-    this: StoreService,
-    data: Array<ICreateStoreData>,
-  ) {
-    const input = data.map((store) => makeStoreCreateInput(store))
+  create = _async(function* (this: StoreService, data: ICreateStoreData) {
+    const store = this.add(data)
 
     const {
       createStores: { stores },
-    } = yield* _await(storeApi.CreateStores({ input }))
+    } = yield* _await(
+      storeApi.CreateStores({ input: makeStoreCreateInput(data) }),
+    )
 
-    return stores.map((store) => this.add(this.mapStore(store)))
+    return store
   })
 
   @modelFlow
@@ -173,6 +172,10 @@ export class StoreService
     this: StoreService,
     { name, id }: IUpdateStoreData,
   ) {
+    const store = this.stores.get(id)
+
+    store?.writeCache({ name })
+
     const {
       updateStores: { stores },
     } = yield* _await(
@@ -182,23 +185,25 @@ export class StoreService
       }),
     )
 
-    return stores.map((store) => this.add(this.mapStore(store)))
+  return store!
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: StoreService, ids: Array<string>) {
-    ids.forEach((id) => this.stores.delete(id))
+  delete = _async(function* (this: StoreService, id: string) {
+    const store = this.stores.get(id)
+
+    this.stores.delete(id)
 
     const {
       deleteStores: { nodesDeleted },
     } = yield* _await(
       storeApi.DeleteStores({
-        where: { id_IN: ids },
+        where: { id },
         delete: deleteStoreInput,
       }),
     )
 
-    return nodesDeleted
+    return store!
   })
 }

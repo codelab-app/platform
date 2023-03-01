@@ -96,6 +96,7 @@ export class ComponentService
 
   @modelAction
   add({
+    id,
     api,
     name,
     rootElement,
@@ -103,20 +104,21 @@ export class ComponentService
     props,
     childrenContainerElement,
   }: IComponentDTO) {
-    const apiRef = typeRef(this.typeService.addInterface(api))
+    // const apiRef = typeRef(this.typeService.addInterface(api))
 
-    const component = new Component({
+    const component = Component.create({
+      id,
       name,
       rootElement: { id: rootElement.id },
       owner,
-      api: apiRef,
-      props: props ? new Prop({ id: props.id, api: apiRef }) : null,
+      api,
+      props,
       childrenContainerElement: { id: childrenContainerElement.id },
     })
 
-    if (props) {
-      this.propService.add({ ...props, api: apiRef })
-    }
+    // if (props) {
+    //   this.propService.add({ ...props, api })
+    // }
 
     return component
   }
@@ -173,26 +175,27 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: ComponentService,
-    data: Array<ICreateComponentData>,
+    createComponentData: ICreateComponentData,
   ) {
-    const input = data.map((component) => mapCreateInput(component))
+    const input = mapCreateInput(createComponentData)
 
     const {
-      createComponents: { components },
+      createComponents: {
+        components: [component],
+      },
     } = yield* _await(
       componentApi.CreateComponents({
         input,
       }),
     )
 
-    if (!components[0]) {
+    if (!component) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Component was not created')
     }
 
-    const component = components[0]
     const componentModel = this.add(component)
 
     this.components.set(component.id, componentModel)
@@ -202,7 +205,7 @@ export class ComponentService
 
     componentModel.initTree(rootElement, hydratedElements)
 
-    return [componentModel]
+    return componentModel
   })
 
   @modelFlow
@@ -211,6 +214,10 @@ export class ComponentService
     this: ComponentService,
     { id, name, childrenContainerElement }: IUpdateComponentData,
   ) {
+    const component = this.components.get(id)
+
+    component?.writeCache({ name, childrenContainerElement })
+
     const {
       updateComponents: { components },
     } = yield* _await(
@@ -225,29 +232,29 @@ export class ComponentService
       }),
     )
 
-    return components.map((component) => this.add(component))
+    return component!
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ComponentService, ids: Array<string>) {
-    ids.forEach((id) => {
-      this.components.delete(id)
-      this.removeClones(id)
-    })
+  delete = _async(function* (this: ComponentService, id: string) {
+    const component = this.components.get(id)
+
+    this.components.delete(id)
+    this.removeClones(id)
 
     const {
       deleteComponents: { nodesDeleted },
     } = yield* _await(
       componentApi.DeleteComponents({
-        where: { id_IN: ids },
+        where: { id },
         delete: {
           api: {},
         },
       }),
     )
 
-    return nodesDeleted
+    return component!
   })
 
   @modelFlow

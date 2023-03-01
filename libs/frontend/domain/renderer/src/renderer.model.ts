@@ -10,6 +10,7 @@ import type {
 import {
   CUSTOM_TEXT_PROP_KEY,
   IElementTree,
+  isAtomModel,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import { elementTreeRef } from '@codelab/frontend/domain/element'
@@ -215,7 +216,9 @@ export class Renderer
         const injectedText = renderOutput.props?.[CUSTOM_TEXT_PROP_KEY]
 
         const shouldInjectText =
-          !children.length && element.atom?.current.allowCustomTextInjection
+          !children.length &&
+          isAtomModel(element.renderType) &&
+          element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText && injectedText) {
           return makeCustomTextContainer(injectedText)

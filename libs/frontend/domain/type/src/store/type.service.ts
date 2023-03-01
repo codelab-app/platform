@@ -222,9 +222,9 @@ export class TypeService
       ...updateTypeInputFactory(typeDTO),
     }
 
-    const updatedTypes = yield* _await(updateTypeApi[typeDTO.kind](args))
+    const updatedType = (yield* _await(updateTypeApi[typeDTO.kind](args)))[0]
 
-    return updatedTypes.map((type) => this.add(type))
+    return this.add(updatedType!)
   })
 
   @modelFlow
@@ -324,10 +324,7 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
-    this: TypeService,
-    data: Array<ICreateTypeData>,
-  ) {
+  create = _async(function* (this: TypeService, data: Array<ICreateTypeData>) {
     const input = createTypeFactory(data)
 
     const types: Array<ITypeDTO> = yield* _await(

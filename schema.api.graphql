@@ -3273,7 +3273,7 @@ type ArrayTypesConnection {
   totalCount: Int!
 }
 
-type Atom {
+type Atom implements WithOwner {
   allowedChildren(
     directed: Boolean = true
     options: AtomOptions
@@ -3309,6 +3309,18 @@ type Atom {
   icon: String
   id: ID!
   name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): AtomUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
     directed: Boolean = true
@@ -3576,12 +3588,14 @@ type AtomAtomAllowedChildrenNodeAggregateSelection {
 input AtomConnectInput {
   allowedChildren: [AtomAllowedChildrenConnectFieldInput!]
   api: AtomApiConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
   tags: [AtomTagsConnectFieldInput!]
 }
 
 input AtomConnectOrCreateInput {
   allowedChildren: [AtomAllowedChildrenConnectOrCreateFieldInput!]
   api: AtomApiConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
   tags: [AtomTagsConnectOrCreateFieldInput!]
 }
 
@@ -3599,6 +3613,7 @@ input AtomCreateInput {
   icon: String
   id: ID!
   name: String!
+  owner: WithOwnerOwnerFieldInput
   tags: AtomTagsFieldInput
   type: AtomType!
 }
@@ -3606,12 +3621,14 @@ input AtomCreateInput {
 input AtomDeleteInput {
   allowedChildren: [AtomAllowedChildrenDeleteFieldInput!]
   api: AtomApiDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
   tags: [AtomTagsDeleteFieldInput!]
 }
 
 input AtomDisconnectInput {
   allowedChildren: [AtomAllowedChildrenDisconnectFieldInput!]
   api: AtomApiDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
   tags: [AtomTagsDisconnectFieldInput!]
 }
 
@@ -3647,9 +3664,73 @@ input AtomOptions {
   sort: [AtomSort!]
 }
 
+input AtomOwnerAggregateInput {
+  AND: [AtomOwnerAggregateInput!]
+  NOT: AtomOwnerAggregateInput
+  OR: [AtomOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AtomOwnerNodeAggregationWhereInput
+}
+
+input AtomOwnerNodeAggregationWhereInput {
+  AND: [AtomOwnerNodeAggregationWhereInput!]
+  NOT: AtomOwnerNodeAggregationWhereInput
+  OR: [AtomOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
+}
+
 input AtomRelationInput {
   allowedChildren: [AtomAllowedChildrenCreateFieldInput!]
   api: AtomApiCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
   tags: [AtomTagsCreateFieldInput!]
 }
 
@@ -4170,8 +4251,21 @@ input AtomUpdateInput {
   icon: String
   id: ID
   name: String
+  owner: WithOwnerOwnerUpdateFieldInput
   tags: [AtomTagsUpdateFieldInput!]
   type: AtomType
+}
+
+type AtomUserOwnerAggregationSelection {
+  count: Int!
+  node: AtomUserOwnerNodeAggregateSelection
+}
+
+type AtomUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input AtomWhere {
@@ -4223,6 +4317,8 @@ input AtomWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  ownerAggregate: AtomOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
   tagsAggregate: AtomTagsAggregateInput
   tagsConnection_ALL: AtomTagsConnectionWhere
   tagsConnection_NONE: AtomTagsConnectionWhere

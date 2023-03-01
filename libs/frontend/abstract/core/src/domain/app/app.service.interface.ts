@@ -18,16 +18,13 @@ import type {
 import type { IApp, IBuilderApp } from './app.model.interface'
 
 export interface IAppService
-  extends Omit<
-      ICRUDService<IApp, ICreateAppData, IUpdateAppData>,
-      'createSubmit'
-    >,
+  extends ICRUDService<IApp, ICreateAppData, IUpdateAppData>,
     IQueryService<IApp, AppWhere, AppOptions>,
     ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
   /**
    * Properties
    */
-  createSubmit(appDto: ICreateAppData): Promise<IApp>
+  // createSubmit(appDto: ICreateAppData): Promise<IApp>
   add(appDto: IAppDTO): IApp
   apps: ObjectMap<IApp>
   app(id: string): Maybe<IApp>

@@ -1,7 +1,7 @@
 import type {
   IAtomService,
   ITagService,
-  IUpdateAtomDTO,
+  IUpdateAtomData,
 } from '@codelab/frontend/abstract/core'
 import { SelectAtom } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -18,7 +18,7 @@ export const UpdateAtomModal = observer<{
   const atom = atomService.updateModal.atom
   const closeModal = () => atomService.updateModal.close()
 
-  const onSubmit = (atomDTO: IUpdateAtomDTO) => {
+  const onSubmit = (atomDTO: IUpdateAtomData) => {
     return atomService.update(atomDTO)
   }
 
@@ -29,7 +29,7 @@ export const UpdateAtomModal = observer<{
   const model = {
     name: atom?.name,
     type: atom?.type,
-    tags: atom?.tags.map((tag) => tag.id),
+    tags: atom?.tags,
     allowedChildren: atom?.allowedChildren.map(
       (allowedChild) => allowedChild.id,
     ),
@@ -43,7 +43,7 @@ export const UpdateAtomModal = observer<{
       onCancel={closeModal}
       open={atomService.updateModal.isOpen}
     >
-      <ModalForm.Form<IUpdateAtomDTO>
+      <ModalForm.Form<IUpdateAtomData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
