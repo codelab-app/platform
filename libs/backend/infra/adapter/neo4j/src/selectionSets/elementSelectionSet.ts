@@ -44,6 +44,10 @@ export const elementSelectionSet = `{
   renderForEachPropKey
   renderIfExpression
   propTransformationJs
-  preRenderActionId
-  postRenderActionId
+  preRenderAction {
+    id
+  }
+  postRenderAction {
+    id
+  }
 }`

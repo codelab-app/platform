@@ -1,4 +1,16 @@
 interface ActionBase {
+  element(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
+  elementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ActionBaseElementConnectionSort!]
+    where: ActionBaseElementConnectionWhere
+  ): ActionBaseElementConnection!
   id: ID!
   name: String!
   store(
@@ -18,6 +30,7 @@ interface ActionBase {
 
 input ActionBaseConnectInput {
   _on: ActionBaseImplementationsConnectInput
+  element: ActionBaseElementConnectFieldInput
   store: ActionBaseStoreConnectFieldInput
 }
 
@@ -32,12 +45,197 @@ input ActionBaseCreateInput {
 
 input ActionBaseDeleteInput {
   _on: ActionBaseImplementationsDeleteInput
+  element: ActionBaseElementDeleteFieldInput
   store: ActionBaseStoreDeleteFieldInput
 }
 
 input ActionBaseDisconnectInput {
   _on: ActionBaseImplementationsDisconnectInput
+  element: ActionBaseElementDisconnectFieldInput
   store: ActionBaseStoreDisconnectFieldInput
+}
+
+input ActionBaseElementAggregateInput {
+  AND: [ActionBaseElementAggregateInput!]
+  NOT: ActionBaseElementAggregateInput
+  OR: [ActionBaseElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ActionBaseElementNodeAggregationWhereInput
+}
+
+input ActionBaseElementConnectFieldInput {
+  connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input ActionBaseElementConnectOrCreateFieldInput {
+  onCreate: ActionBaseElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ActionBaseElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type ActionBaseElementConnection {
+  edges: [ActionBaseElementRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ActionBaseElementConnectionSort {
+  node: ElementSort
+}
+
+input ActionBaseElementConnectionWhere {
+  AND: [ActionBaseElementConnectionWhere!]
+  NOT: ActionBaseElementConnectionWhere
+  OR: [ActionBaseElementConnectionWhere!]
+  node: ElementWhere
+}
+
+input ActionBaseElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input ActionBaseElementDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: ActionBaseElementConnectionWhere
+}
+
+input ActionBaseElementDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: ActionBaseElementConnectionWhere
+}
+
+input ActionBaseElementFieldInput {
+  connect: ActionBaseElementConnectFieldInput
+  connectOrCreate: ActionBaseElementConnectOrCreateFieldInput
+  create: ActionBaseElementCreateFieldInput
+}
+
+input ActionBaseElementNodeAggregationWhereInput {
+  AND: [ActionBaseElementNodeAggregationWhereInput!]
+  NOT: ActionBaseElementNodeAggregationWhereInput
+  OR: [ActionBaseElementNodeAggregationWhereInput!]
+  customCss_AVERAGE_LENGTH_EQUAL: Float
+  customCss_AVERAGE_LENGTH_GT: Float
+  customCss_AVERAGE_LENGTH_GTE: Float
+  customCss_AVERAGE_LENGTH_LT: Float
+  customCss_AVERAGE_LENGTH_LTE: Float
+  customCss_LONGEST_LENGTH_EQUAL: Int
+  customCss_LONGEST_LENGTH_GT: Int
+  customCss_LONGEST_LENGTH_GTE: Int
+  customCss_LONGEST_LENGTH_LT: Int
+  customCss_LONGEST_LENGTH_LTE: Int
+  customCss_SHORTEST_LENGTH_EQUAL: Int
+  customCss_SHORTEST_LENGTH_GT: Int
+  customCss_SHORTEST_LENGTH_GTE: Int
+  customCss_SHORTEST_LENGTH_LT: Int
+  customCss_SHORTEST_LENGTH_LTE: Int
+  guiCss_AVERAGE_LENGTH_EQUAL: Float
+  guiCss_AVERAGE_LENGTH_GT: Float
+  guiCss_AVERAGE_LENGTH_GTE: Float
+  guiCss_AVERAGE_LENGTH_LT: Float
+  guiCss_AVERAGE_LENGTH_LTE: Float
+  guiCss_LONGEST_LENGTH_EQUAL: Int
+  guiCss_LONGEST_LENGTH_GT: Int
+  guiCss_LONGEST_LENGTH_GTE: Int
+  guiCss_LONGEST_LENGTH_LT: Int
+  guiCss_LONGEST_LENGTH_LTE: Int
+  guiCss_SHORTEST_LENGTH_EQUAL: Int
+  guiCss_SHORTEST_LENGTH_GT: Int
+  guiCss_SHORTEST_LENGTH_GTE: Int
+  guiCss_SHORTEST_LENGTH_LT: Int
+  guiCss_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
+  propTransformationJs_AVERAGE_LENGTH_GT: Float
+  propTransformationJs_AVERAGE_LENGTH_GTE: Float
+  propTransformationJs_AVERAGE_LENGTH_LT: Float
+  propTransformationJs_AVERAGE_LENGTH_LTE: Float
+  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
+  propTransformationJs_LONGEST_LENGTH_GT: Int
+  propTransformationJs_LONGEST_LENGTH_GTE: Int
+  propTransformationJs_LONGEST_LENGTH_LT: Int
+  propTransformationJs_LONGEST_LENGTH_LTE: Int
+  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
+  propTransformationJs_SHORTEST_LENGTH_GT: Int
+  propTransformationJs_SHORTEST_LENGTH_GTE: Int
+  propTransformationJs_SHORTEST_LENGTH_LT: Int
+  propTransformationJs_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+}
+
+type ActionBaseElementRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input ActionBaseElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ActionBaseElementUpdateFieldInput {
+  connect: ActionBaseElementConnectFieldInput
+  connectOrCreate: ActionBaseElementConnectOrCreateFieldInput
+  create: ActionBaseElementCreateFieldInput
+  delete: ActionBaseElementDeleteFieldInput
+  disconnect: ActionBaseElementDisconnectFieldInput
+  update: ActionBaseElementUpdateConnectionInput
+  where: ActionBaseElementConnectionWhere
 }
 
 input ActionBaseImplementationsConnectInput {
@@ -194,6 +392,7 @@ input ActionBaseStoreUpdateFieldInput {
 
 input ActionBaseUpdateInput {
   _on: ActionBaseImplementationsUpdateInput
+  element: ActionBaseElementUpdateFieldInput
   id: ID
   name: String
   store: ActionBaseStoreUpdateFieldInput
@@ -201,6 +400,8 @@ input ActionBaseUpdateInput {
 
 input ActionBaseWhere {
   _on: ActionBaseImplementationsWhere
+  elementAggregate: ActionBaseElementAggregateInput
+  elementConnection: ActionBaseElementConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -491,6 +692,22 @@ type ApiAction implements ActionBase {
     sort: [ApiActionConfigConnectionSort!]
     where: ApiActionConfigConnectionWhere
   ): ApiActionConfigConnection!
+  element(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
+  elementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): ApiActionElementElementAggregationSelection
+  elementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ActionBaseElementConnectionSort!]
+    where: ActionBaseElementConnectionWhere
+  ): ActionBaseElementConnection!
   errorAction(
     directed: Boolean = true
     options: QueryOptions
@@ -670,6 +887,7 @@ input ApiActionConfigUpdateFieldInput {
 
 input ApiActionConnectInput {
   config: ApiActionConfigConnectFieldInput
+  element: ActionBaseElementConnectFieldInput
   errorAction: ApiActionErrorActionConnectInput
   resource: ApiActionResourceConnectFieldInput
   store: ActionBaseStoreConnectFieldInput
@@ -678,6 +896,7 @@ input ApiActionConnectInput {
 
 input ApiActionConnectOrCreateInput {
   config: ApiActionConfigConnectOrCreateFieldInput
+  element: ActionBaseElementConnectOrCreateFieldInput
   errorAction: ApiActionErrorActionConnectOrCreateInput
   resource: ApiActionResourceConnectOrCreateFieldInput
   store: ActionBaseStoreConnectOrCreateFieldInput
@@ -694,6 +913,7 @@ input ApiActionConnectWhere {
 
 input ApiActionCreateInput {
   config: ApiActionConfigFieldInput
+  element: ActionBaseElementFieldInput
   errorAction: ApiActionErrorActionCreateInput
   id: ID!
   name: String!
@@ -705,6 +925,7 @@ input ApiActionCreateInput {
 
 input ApiActionDeleteInput {
   config: ApiActionConfigDeleteFieldInput
+  element: ActionBaseElementDeleteFieldInput
   errorAction: ApiActionErrorActionDeleteInput
   resource: ApiActionResourceDeleteFieldInput
   store: ActionBaseStoreDeleteFieldInput
@@ -713,6 +934,7 @@ input ApiActionDeleteInput {
 
 input ApiActionDisconnectInput {
   config: ApiActionConfigDisconnectFieldInput
+  element: ActionBaseElementDisconnectFieldInput
   errorAction: ApiActionErrorActionDisconnectInput
   resource: ApiActionResourceDisconnectFieldInput
   store: ActionBaseStoreDisconnectFieldInput
@@ -722,6 +944,129 @@ input ApiActionDisconnectInput {
 type ApiActionEdge {
   cursor: String!
   node: ApiAction!
+}
+
+input ApiActionElementAggregateInput {
+  AND: [ApiActionElementAggregateInput!]
+  NOT: ApiActionElementAggregateInput
+  OR: [ApiActionElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ApiActionElementNodeAggregationWhereInput
+}
+
+type ApiActionElementElementAggregationSelection {
+  count: Int!
+  node: ApiActionElementElementNodeAggregateSelection
+}
+
+type ApiActionElementElementNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfExpression: StringAggregateSelectionNullable!
+}
+
+input ApiActionElementNodeAggregationWhereInput {
+  AND: [ApiActionElementNodeAggregationWhereInput!]
+  NOT: ApiActionElementNodeAggregationWhereInput
+  OR: [ApiActionElementNodeAggregationWhereInput!]
+  customCss_AVERAGE_LENGTH_EQUAL: Float
+  customCss_AVERAGE_LENGTH_GT: Float
+  customCss_AVERAGE_LENGTH_GTE: Float
+  customCss_AVERAGE_LENGTH_LT: Float
+  customCss_AVERAGE_LENGTH_LTE: Float
+  customCss_LONGEST_LENGTH_EQUAL: Int
+  customCss_LONGEST_LENGTH_GT: Int
+  customCss_LONGEST_LENGTH_GTE: Int
+  customCss_LONGEST_LENGTH_LT: Int
+  customCss_LONGEST_LENGTH_LTE: Int
+  customCss_SHORTEST_LENGTH_EQUAL: Int
+  customCss_SHORTEST_LENGTH_GT: Int
+  customCss_SHORTEST_LENGTH_GTE: Int
+  customCss_SHORTEST_LENGTH_LT: Int
+  customCss_SHORTEST_LENGTH_LTE: Int
+  guiCss_AVERAGE_LENGTH_EQUAL: Float
+  guiCss_AVERAGE_LENGTH_GT: Float
+  guiCss_AVERAGE_LENGTH_GTE: Float
+  guiCss_AVERAGE_LENGTH_LT: Float
+  guiCss_AVERAGE_LENGTH_LTE: Float
+  guiCss_LONGEST_LENGTH_EQUAL: Int
+  guiCss_LONGEST_LENGTH_GT: Int
+  guiCss_LONGEST_LENGTH_GTE: Int
+  guiCss_LONGEST_LENGTH_LT: Int
+  guiCss_LONGEST_LENGTH_LTE: Int
+  guiCss_SHORTEST_LENGTH_EQUAL: Int
+  guiCss_SHORTEST_LENGTH_GT: Int
+  guiCss_SHORTEST_LENGTH_GTE: Int
+  guiCss_SHORTEST_LENGTH_LT: Int
+  guiCss_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
+  propTransformationJs_AVERAGE_LENGTH_GT: Float
+  propTransformationJs_AVERAGE_LENGTH_GTE: Float
+  propTransformationJs_AVERAGE_LENGTH_LT: Float
+  propTransformationJs_AVERAGE_LENGTH_LTE: Float
+  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
+  propTransformationJs_LONGEST_LENGTH_GT: Int
+  propTransformationJs_LONGEST_LENGTH_GTE: Int
+  propTransformationJs_LONGEST_LENGTH_LT: Int
+  propTransformationJs_LONGEST_LENGTH_LTE: Int
+  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
+  propTransformationJs_SHORTEST_LENGTH_GT: Int
+  propTransformationJs_SHORTEST_LENGTH_GTE: Int
+  propTransformationJs_SHORTEST_LENGTH_LT: Int
+  propTransformationJs_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
 }
 
 input ApiActionErrorActionApiActionConnectFieldInput {
@@ -913,6 +1258,7 @@ type ApiActionPropConfigNodeAggregateSelection {
 
 input ApiActionRelationInput {
   config: ApiActionConfigCreateFieldInput
+  element: ActionBaseElementCreateFieldInput
   errorAction: ApiActionErrorActionCreateFieldInput
   resource: ApiActionResourceCreateFieldInput
   store: ActionBaseStoreCreateFieldInput
@@ -1256,6 +1602,7 @@ input ApiActionUniqueWhere {
 
 input ApiActionUpdateInput {
   config: ApiActionConfigUpdateFieldInput
+  element: ActionBaseElementUpdateFieldInput
   errorAction: ApiActionErrorActionUpdateInput
   id: ID
   name: String
@@ -1270,6 +1617,8 @@ input ApiActionWhere {
   OR: [ApiActionWhere!]
   configAggregate: ApiActionConfigAggregateInput
   configConnection: ApiActionConfigConnectionWhere
+  elementAggregate: ApiActionElementAggregateInput
+  elementConnection: ActionBaseElementConnectionWhere
   errorActionConnection: ApiActionErrorActionConnectionWhere
   id: ID
   id_CONTAINS: ID
@@ -4541,6 +4890,22 @@ type CodeAction implements ActionBase {
   Code to run when action is triggered
   """
   code: String!
+  element(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
+  elementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): CodeActionElementElementAggregationSelection
+  elementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ActionBaseElementConnectionSort!]
+    where: ActionBaseElementConnectionWhere
+  ): ActionBaseElementConnection!
   id: ID!
   name: String!
   store(
@@ -4570,10 +4935,12 @@ type CodeActionAggregateSelection {
 }
 
 input CodeActionConnectInput {
+  element: ActionBaseElementConnectFieldInput
   store: ActionBaseStoreConnectFieldInput
 }
 
 input CodeActionConnectOrCreateInput {
+  element: ActionBaseElementConnectOrCreateFieldInput
   store: ActionBaseStoreConnectOrCreateFieldInput
 }
 
@@ -4587,6 +4954,7 @@ input CodeActionConnectWhere {
 
 input CodeActionCreateInput {
   code: String!
+  element: ActionBaseElementFieldInput
   id: ID!
   name: String!
   store: ActionBaseStoreFieldInput
@@ -4594,16 +4962,141 @@ input CodeActionCreateInput {
 }
 
 input CodeActionDeleteInput {
+  element: ActionBaseElementDeleteFieldInput
   store: ActionBaseStoreDeleteFieldInput
 }
 
 input CodeActionDisconnectInput {
+  element: ActionBaseElementDisconnectFieldInput
   store: ActionBaseStoreDisconnectFieldInput
 }
 
 type CodeActionEdge {
   cursor: String!
   node: CodeAction!
+}
+
+input CodeActionElementAggregateInput {
+  AND: [CodeActionElementAggregateInput!]
+  NOT: CodeActionElementAggregateInput
+  OR: [CodeActionElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: CodeActionElementNodeAggregationWhereInput
+}
+
+type CodeActionElementElementAggregationSelection {
+  count: Int!
+  node: CodeActionElementElementNodeAggregateSelection
+}
+
+type CodeActionElementElementNodeAggregateSelection {
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfExpression: StringAggregateSelectionNullable!
+}
+
+input CodeActionElementNodeAggregationWhereInput {
+  AND: [CodeActionElementNodeAggregationWhereInput!]
+  NOT: CodeActionElementNodeAggregationWhereInput
+  OR: [CodeActionElementNodeAggregationWhereInput!]
+  customCss_AVERAGE_LENGTH_EQUAL: Float
+  customCss_AVERAGE_LENGTH_GT: Float
+  customCss_AVERAGE_LENGTH_GTE: Float
+  customCss_AVERAGE_LENGTH_LT: Float
+  customCss_AVERAGE_LENGTH_LTE: Float
+  customCss_LONGEST_LENGTH_EQUAL: Int
+  customCss_LONGEST_LENGTH_GT: Int
+  customCss_LONGEST_LENGTH_GTE: Int
+  customCss_LONGEST_LENGTH_LT: Int
+  customCss_LONGEST_LENGTH_LTE: Int
+  customCss_SHORTEST_LENGTH_EQUAL: Int
+  customCss_SHORTEST_LENGTH_GT: Int
+  customCss_SHORTEST_LENGTH_GTE: Int
+  customCss_SHORTEST_LENGTH_LT: Int
+  customCss_SHORTEST_LENGTH_LTE: Int
+  guiCss_AVERAGE_LENGTH_EQUAL: Float
+  guiCss_AVERAGE_LENGTH_GT: Float
+  guiCss_AVERAGE_LENGTH_GTE: Float
+  guiCss_AVERAGE_LENGTH_LT: Float
+  guiCss_AVERAGE_LENGTH_LTE: Float
+  guiCss_LONGEST_LENGTH_EQUAL: Int
+  guiCss_LONGEST_LENGTH_GT: Int
+  guiCss_LONGEST_LENGTH_GTE: Int
+  guiCss_LONGEST_LENGTH_LT: Int
+  guiCss_LONGEST_LENGTH_LTE: Int
+  guiCss_SHORTEST_LENGTH_EQUAL: Int
+  guiCss_SHORTEST_LENGTH_GT: Int
+  guiCss_SHORTEST_LENGTH_GTE: Int
+  guiCss_SHORTEST_LENGTH_LT: Int
+  guiCss_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
+  propTransformationJs_AVERAGE_LENGTH_GT: Float
+  propTransformationJs_AVERAGE_LENGTH_GTE: Float
+  propTransformationJs_AVERAGE_LENGTH_LT: Float
+  propTransformationJs_AVERAGE_LENGTH_LTE: Float
+  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
+  propTransformationJs_LONGEST_LENGTH_GT: Int
+  propTransformationJs_LONGEST_LENGTH_GTE: Int
+  propTransformationJs_LONGEST_LENGTH_LT: Int
+  propTransformationJs_LONGEST_LENGTH_LTE: Int
+  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
+  propTransformationJs_SHORTEST_LENGTH_GT: Int
+  propTransformationJs_SHORTEST_LENGTH_GTE: Int
+  propTransformationJs_SHORTEST_LENGTH_LT: Int
+  propTransformationJs_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
 }
 
 input CodeActionOnCreateInput {
@@ -4624,6 +5117,7 @@ input CodeActionOptions {
 }
 
 input CodeActionRelationInput {
+  element: ActionBaseElementCreateFieldInput
   store: ActionBaseStoreCreateFieldInput
 }
 
@@ -4686,6 +5180,7 @@ input CodeActionUniqueWhere {
 
 input CodeActionUpdateInput {
   code: String
+  element: ActionBaseElementUpdateFieldInput
   id: ID
   name: String
   store: ActionBaseStoreUpdateFieldInput
@@ -4701,6 +5196,8 @@ input CodeActionWhere {
   code_IN: [String!]
   code_MATCHES: String
   code_STARTS_WITH: String
+  elementAggregate: CodeActionElementAggregateInput
+  elementConnection: ActionBaseElementConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

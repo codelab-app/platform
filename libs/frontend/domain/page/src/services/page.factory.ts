@@ -6,15 +6,14 @@ import {
   NOT_FOUND_PAGE_NAME,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { Element, elementRef } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
+import { createUniqueName } from '@codelab/frontend/shared/utils'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import { DataModel, Model, model, modelAction } from 'mobx-keystone'
+import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import slugify from 'voca/slugify'
-import { getPageService, Page } from '../store'
+import { getPageService } from '../store'
 
 @model('@codelab/PageFactory')
 export class PageFactory extends Model({}) implements IPageFactory {
@@ -43,7 +42,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
     const rootElement = this.elementService.add({
       id: v4(),
-      name: ROOT_ELEMENT_NAME,
+      name: createUniqueName(ROOT_ELEMENT_NAME, { id: providerPageId }),
     })
 
     return this.pageService.add({
@@ -62,7 +61,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
     const rootElement = this.elementService.add({
       id: v4(),
-      name: ROOT_ELEMENT_NAME,
+      name: createUniqueName(ROOT_ELEMENT_NAME, { id: notFoundPageId }),
     })
 
     return this.pageService.add({
@@ -81,7 +80,9 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
     const rootElement = this.elementService.add({
       id: v4(),
-      name: ROOT_ELEMENT_NAME,
+      name: createUniqueName(ROOT_ELEMENT_NAME, {
+        id: internalServerErrorPageId,
+      }),
     })
 
     return this.pageService.add({

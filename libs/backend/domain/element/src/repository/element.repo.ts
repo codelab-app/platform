@@ -40,9 +40,6 @@ export const importElementInitial = async (
           name: element.name,
           customCss: element.customCss,
           guiCss: element.guiCss,
-          preRenderActionId: element.preRenderActionId,
-          postRenderActionId: element.postRenderActionId,
-
           renderAtomType: element.renderAtomType
             ? {
                 connect: {
@@ -57,6 +54,8 @@ export const importElementInitial = async (
                 },
               }
             : undefined,
+          preRenderAction: connectNodeId(element.preRenderAction?.id),
+          postRenderAction: connectNodeId(element.postRenderAction?.id),
           props: element.props
             ? {
                 create: { node: { data: element.props.data } },

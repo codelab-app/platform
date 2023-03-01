@@ -1,16 +1,11 @@
 import type {
-  IApp,
   ICreatePageData,
   IPage,
   IPageService,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
-import {
-  DEFAULT_GET_SERVER_SIDE_PROPS,
-  IPageDTO,
-  ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
-import { Element, elementRef } from '@codelab/frontend/domain/element'
+import { IPageDTO, ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
@@ -27,7 +22,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   rootRef,
   transaction,
 } from 'mobx-keystone'
@@ -234,6 +228,7 @@ export class PageService
     name,
     app,
     rootElement,
+    kind,
     getServerSideProps,
     descendentElements,
   }: IPageDTO) {
@@ -243,7 +238,7 @@ export class PageService
       getServerSideProps,
       app,
       rootElement: elementRef(rootElement.id),
-      kind: IPageKind.Provider,
+      kind,
     })
 
     this.pages.set(page.id, page)
