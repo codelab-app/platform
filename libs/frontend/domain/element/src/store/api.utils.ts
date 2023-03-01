@@ -1,11 +1,20 @@
 import type {
+  IAtom,
+  IComponent,
   ICreateElementData,
   IElement,
   IFieldDefaultValue,
   IInterfaceType,
   IUpdateElementData,
+  RenderType,
 } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import {
+  isAtomModel,
+  isComponentModel,
+  RenderTypeEnum,
+} from '@codelab/frontend/abstract/core'
+import { atomRef } from '@codelab/frontend/domain/atom'
+import { componentRef } from '@codelab/frontend/presenter/container'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
@@ -17,6 +26,7 @@ import {
   disconnectNodeId,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
+import type { Ref } from 'mobx-keystone'
 import { isNil } from 'ramda'
 import { v4 } from 'uuid'
 
@@ -32,6 +42,26 @@ export const makeUpdateElementInput = (
   update: input,
 })
 
+export const getRenderTypeApi = (
+  renderType: RenderType | null,
+): Ref<IInterfaceType> | null => {
+  // When creating a new element, we need the interface type fields
+  // and we use it to create a props with default values for the created element
+  let renderTypeApi: Ref<IInterfaceType> | null = null
+
+  if (renderType?.model === RenderTypeEnum.Atom) {
+    const renderTypeRef = atomRef(renderType.id)
+    renderTypeApi = renderTypeRef.current.api
+  }
+
+  if (renderType?.model === RenderTypeEnum.Component) {
+    const renderTypeRef = componentRef(renderType.id)
+    renderTypeApi = renderTypeRef.current.api
+  }
+
+  return renderTypeApi
+}
+
 export const makeCreateInput = (
   input: ICreateElementData,
 ): ElementCreateInput => {
@@ -39,16 +69,16 @@ export const makeCreateInput = (
     id = v4(),
     renderType,
     name,
-    postRenderActionId,
-    preRenderActionId,
-    propsData,
+    postRenderAction,
+    preRenderAction,
+    props,
   } = input
 
   /**
    * Here we'll want to set default value based on the interface
    */
-  const props: ElementCreateInput['props'] = {
-    create: { node: { data: propsData ?? JSON.stringify({}) } },
+  const createProps: ElementCreateInput['props'] = {
+    create: { node: { data: JSON.stringify(props?.data) } },
   }
 
   const renderAtomType =
@@ -64,9 +94,9 @@ export const makeCreateInput = (
   return {
     renderComponentType,
     renderAtomType,
-    props,
-    postRenderActionId,
-    preRenderActionId,
+    props: createProps,
+    postRenderAction: connectNodeId(postRenderAction?.id),
+    preRenderAction: connectNodeId(preRenderAction?.id),
     name,
     id,
   }
@@ -82,10 +112,14 @@ export const makeDuplicateInput = (
 
   return {
     id: v4(),
-    renderComponentType: connectNodeId(element.renderComponentType?.id),
-    renderAtomType: connectNodeId(element.atom?.id),
+    renderComponentType: isComponentModel(element.renderType)
+      ? connectNodeId(element.renderType.id)
+      : null,
+    renderAtomType: isAtomModel(element.renderType)
+      ? connectNodeId(element.renderType.id)
+      : null,
     props,
-    name: createUniqueName(duplicate_name, element.baseId),
+    name: createUniqueName(duplicate_name, { id: element.baseId }),
     propTransformationJs: element.propTransformationJs,
     renderIfExpression: element.renderIfExpression,
     renderForEachPropKey: element.renderForEachPropKey,
@@ -100,20 +134,19 @@ export const makeUpdateInput = (
   const {
     renderType,
     name,
-    postRenderActionId,
-    preRenderActionId,
-    props,
+    postRenderAction,
+    preRenderAction,
     customCss,
     guiCss,
     renderForEachPropKey,
     renderIfExpression,
-    propsData,
+    props,
   } = input
 
   // If render type changes, we replace the existing `props` connected to the
   // element with the new `props` from the default values of the new interface type
   const updateProps: ElementUpdateInput['props'] = {
-    update: { node: { data: propsData ?? JSON.stringify(props) } },
+    update: { node: { data: JSON.stringify(props?.data) } },
   }
 
   // We need to disconnect the atom if render type changed to component or empty
@@ -129,16 +162,16 @@ export const makeUpdateInput = (
       : disconnectNodeId(undefined)
 
   return {
-    name: name,
+    name,
     renderAtomType,
     renderComponentType,
     props: updateProps,
-    customCss: customCss,
-    postRenderActionId: postRenderActionId || null,
-    preRenderActionId: preRenderActionId || null,
-    guiCss: guiCss,
-    renderForEachPropKey: renderForEachPropKey,
-    renderIfExpression: renderIfExpression,
+    customCss,
+    postRenderAction: reconnectNodeId(postRenderAction?.id),
+    preRenderAction: reconnectNodeId(preRenderAction?.id),
+    guiCss,
+    renderForEachPropKey,
+    renderIfExpression,
   }
 }
 

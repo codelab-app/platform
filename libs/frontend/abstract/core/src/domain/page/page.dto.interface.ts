@@ -6,27 +6,26 @@ import type { IAuth0Owner } from '../user'
 
 export interface IPageDTO {
   id: string
-  rootElement: IEntity
   kind: IPageKind
-  descendentElements?: Array<IElementDTO>
-  getServerSideProps?: Nullish<string>
   name: string
+  // slug: string
   app: IEntity
-  // owner: IAuth0Owner
+  rootElement: IEntity
+  descendentElements?: Array<IEntity>
+  getServerSideProps?: Nullish<string>
   // The container element of the page
-  pageContainerElementId?: Nullish<string>
+  pageContentContainer?: Nullish<IEntity>
 }
 
-export type ICreatePageData = Omit<
+export type ICreatePageData = Pick<
   IPageDTO,
-  'rootElement' | 'pageContainerElementId' | 'descendentElements' | 'kind'
->
+  'id' | 'name' | 'app' | 'getServerSideProps'
+> & {
+  owner: IAuth0Owner
+  // _compoundName: string
+}
 
 export type IUpdatePageData = Pick<
   IPageDTO,
-  'id' | 'getServerSideProps' | 'name' | 'pageContainerElementId' | 'app'
+  'id' | 'getServerSideProps' | 'name' | 'pageContentContainer' | 'app'
 >
-
-// export type IPageDTO = Omit<ICreatePageDTO, 'owner'> & {
-//   kind: IPageKind
-// }

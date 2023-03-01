@@ -37,12 +37,18 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
           }),
         },
       },
-      pageContainerElementId: {
-        type: 'string',
+      pageContentContainer: {
+        type: 'object',
         nullable: true,
-        uniforms: {
-          component: getSelectElementComponent(ElementTypeKind.AllElements),
+        properties: {
+          id: {
+            type: 'string',
+            uniforms: {
+              component: getSelectElementComponent(ElementTypeKind.AllElements),
+            },
+          },
         },
+        required: ['id'],
       },
     },
     required: ['name', 'app'],

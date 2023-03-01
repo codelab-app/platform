@@ -15,7 +15,7 @@ export const DeleteComponentModal = observer<{
     return null
   }
 
-  const onSubmit = () => componentService.delete([component.id])
+  const onSubmit = () => componentService.delete(component.id)
 
   return (
     <ModalForm.Modal

@@ -29,7 +29,7 @@ export const CreateActionModal = observer<{
   const closeModal = () => actionService.createModal.close()
 
   const onSubmit = (data: ICreateActionData) => {
-    return actionService.createSubmit([data])
+    return actionService.create(data)
   }
 
   const onSubmitError = createNotificationHandler({

@@ -1,9 +1,5 @@
-import type {
-  IAnyType,
-  IArrayType,
-  IArrayTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { IAnyType, IArrayType } from '@codelab/frontend/abstract/core'
+import { IArrayTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -37,7 +33,7 @@ export class ArrayType
   implements IArrayType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.ArrayType) {
@@ -45,6 +41,13 @@ export class ArrayType
     }
 
     this.itemType = typeRef(fragment.itemType.id)
+
+    return this
+  }
+
+  @modelAction
+  writeCache(arrayTypeDTO: IArrayTypeDTO) {
+    updateBaseTypeCache(this, arrayTypeDTO)
 
     return this
   }

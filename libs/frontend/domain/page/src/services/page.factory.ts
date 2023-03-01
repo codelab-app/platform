@@ -29,12 +29,21 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  createProviderPage(app: IEntity) {
+  addSystemPages(app: IEntity) {
+    return [
+      this.addProviderPage(app),
+      this.addNotFoundPage(app),
+      this.addInternalServerErrorPage(app),
+    ]
+  }
+
+  @modelAction
+  private addProviderPage(app: IEntity) {
     const providerPageId = v4()
 
-    const rootElement = this.elementService.create({
+    const rootElement = this.elementService.add({
       id: v4(),
-      name: slugify(`${providerPageId}-${ROOT_ELEMENT_NAME}`),
+      name: ROOT_ELEMENT_NAME,
     })
 
     return this.pageService.add({
@@ -48,18 +57,17 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  createNotFoundPage(app: IEntity) {
+  private addNotFoundPage(app: IEntity) {
     const notFoundPageId = v4()
 
-    const rootElement = this.elementService.create({
+    const rootElement = this.elementService.add({
       id: v4(),
-      name: slugify(`${notFoundPageId}-${ROOT_ELEMENT_NAME}`),
+      name: ROOT_ELEMENT_NAME,
     })
 
     return this.pageService.add({
       id: notFoundPageId,
       name: NOT_FOUND_PAGE_NAME,
-      // name: slugify(`${app.id}-${NOT_FOUND_PAGE_NAME}`),
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       app,
       rootElement,
@@ -68,18 +76,17 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  createInternalServerErrorPage(app: IEntity) {
+  private addInternalServerErrorPage(app: IEntity) {
     const internalServerErrorPageId = v4()
 
-    const rootElement = this.elementService.create({
+    const rootElement = this.elementService.add({
       id: v4(),
-      name: slugify(`${internalServerErrorPageId}-${ROOT_ELEMENT_NAME}`),
+      name: ROOT_ELEMENT_NAME,
     })
 
     return this.pageService.add({
       id: internalServerErrorPageId,
       name: INTERNAL_SERVER_ERROR_PAGE_NAME,
-      // name: slugify(`${app.id}-${NOT_FOUND_PAGE_NAME}`),
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       app,
       rootElement,

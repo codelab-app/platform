@@ -1,7 +1,8 @@
+import type { IBaseResourceConfigData } from './resource.dto.interface'
+
 export interface IRestResourceConfigDTO {
   id: string
-  data: {
-    headers: string
-    url: string
-  }
+  data: IRestResourceConfigData
 }
+
+export type IRestResourceConfigData = IBaseResourceConfigData

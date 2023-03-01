@@ -41,9 +41,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     }
 
     const onSubmit = async (data: ICreateElementData) => {
-      const { prevSiblingId } = data
+      const { prevSibling } = data
 
-      const element = await (prevSiblingId
+      const element = await (prevSibling
         ? elementService.createElementAsNextSibling(data)
         : elementService.createElementAsFirstChild(data))
 
@@ -117,7 +117,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           />
           <RenderTypeCompositeField
             name="renderType"
-            parent={parentElement.atom?.maybeCurrent}
+            parent={parentElement.renderType?.maybeCurrent}
           />
           <AutoField component={SelectAction} name="preRenderActionId" />
           <AutoField component={SelectAction} name="postRenderActionId" />

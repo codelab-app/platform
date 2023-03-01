@@ -9,11 +9,16 @@ import type { ResourceFragment } from './resource.fragment.graphql.gen'
 import type { IResourceConfig } from './resource.model.interface'
 import type { IRestResourceConfigDTO } from './rest-resource-config.interface'
 
+export interface IBaseResourceConfigData {
+  url: string
+  headers: string
+}
+
 export interface ICreateResourceData {
   id: string
   name: string
   type: IResourceType
-  config: IGraphQLResourceConfigData
+  config: IBaseResourceConfigData
   owner: IAuth0Owner
 }
 
@@ -30,7 +35,6 @@ export type IUpdateResourceData = ICreateResourceData
 export interface IResourceDTO {
   id: string
   name: string
-  // config: IResourceConfig
-  config: IPropDTO
+  config: IBaseResourceConfigData
   type: IResourceType
 }

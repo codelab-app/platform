@@ -1,9 +1,9 @@
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import type { ICreateElementData } from '../element'
 
 export interface MoveData {
-  parentElementId: Nullable<string>
-  prevSiblingId: Nullable<string>
+  parentElement: IEntity
+  prevSibling: IEntity
 }
 
 export interface BuilderDragData {

@@ -39,3 +39,10 @@ Data + Mapper = DTO
 ### DTO
 
 This is the complete data enough for hydrate into a model
+
+
+## Services & Models
+
+`writeCache` exist on each model to update existing cache
+
+`add` exists on services to write data to cache

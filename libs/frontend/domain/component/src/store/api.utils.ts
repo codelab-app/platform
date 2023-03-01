@@ -5,11 +5,12 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 type CreateRootElement = (
-  rootElementId: string,
+  rootElement: IEntity,
 ) => ComponentCreateInput['rootElement']
 
 export const mapCreateInput = ({
@@ -18,24 +19,24 @@ export const mapCreateInput = ({
   owner,
   rootElement,
 }: ICreateComponentData): ComponentCreateInput => {
-  const newRootElementId = v4()
+  const newRootElement = { id: v4() }
 
   const props: ComponentCreateInput['props'] = {
     create: { node: { data: JSON.stringify({}) } },
   }
 
-  const createRootElement: CreateRootElement = (rootElementId: string) => ({
+  const createRootElement: CreateRootElement = (element: IEntity) => ({
     create: {
       node: {
-        id: rootElementId,
-        name: createUniqueName(name, rootElementId),
+        id: element.id,
+        name: createUniqueName(name, element),
         props,
       },
     },
   })
 
-  const connectRootElement: CreateRootElement = (rootElementId: string) =>
-    connectNodeId(rootElementId)
+  const connectRootElement: CreateRootElement = (element: IEntity) =>
+    connectNodeId(element.id)
 
   const api: ComponentCreateInput['api'] = {
     create: {
@@ -51,14 +52,14 @@ export const mapCreateInput = ({
     id,
     name,
     rootElement: rootElement
-      ? connectRootElement(rootElement.id)
-      : createRootElement(newRootElementId),
+      ? connectRootElement(rootElement)
+      : createRootElement(newRootElement),
     api,
     owner: connectAuth0Owner(owner.auth0Id),
     props,
     childrenContainerElement: rootElement
-      ? connectRootElement(rootElement.id)
-      : connectRootElement(newRootElementId),
+      ? connectRootElement(rootElement)
+      : connectRootElement(newRootElement),
   }
 }
 

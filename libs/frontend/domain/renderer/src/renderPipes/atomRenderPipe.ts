@@ -4,6 +4,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
+import { isAtomModel } from '@codelab/frontend/abstract/core'
 import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
@@ -20,7 +21,7 @@ export class AtomRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    if (!element.atom?.current) {
+    if (!isAtomModel(element.renderType)) {
       if (this.renderer.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
       }
@@ -28,15 +29,17 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
+    const atomRenderType = element.renderType.current
+
     const [ReactComponent, newProps] = atomFactory({
-      atomType: element.atom.current.type,
+      atomType: atomRenderType.type,
       node: element,
       props,
     })
 
     if (!ReactComponent) {
       console.warn(
-        `AtomRenderPipe: No RootComponent found for atom type ${element.atom.current.type}`,
+        `AtomRenderPipe: No RootComponent found for atom type ${atomRenderType.type}`,
       )
 
       return this.next.render(element, props)
@@ -51,15 +54,14 @@ export class AtomRenderPipe
         : undefined
 
     if (this.renderer.debugMode) {
-      console.info(
-        `AtomRenderPipe: Rendering atom ${element.atom.current.type}`,
-        { element: element.name },
-      )
+      console.info(`AtomRenderPipe: Rendering atom ${atomRenderType.type}`, {
+        element: element.name,
+      })
     }
 
     return RenderOutput.withAtom({
       element,
-      atomType: element.atom.current.type,
+      atomType: atomRenderType.type,
       props: { ...newProps, css: elCss },
     })
   }

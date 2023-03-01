@@ -18,10 +18,10 @@ export const createBaseAction = <T extends IActionKind>(type: T) =>
     })
     implements Omit<IActionBase, 'createRunner'> {}
 
-export const updateBaseAction = (self: IActionBase, data: IActionDTO) => {
-  self.name = data.name
-  self.store = storeRef(data.store.id)
-  self.type = data.type
+// export const updateBaseAction = (self: IActionBase, data: IActionDTO) => {
+//   self.name = data.name
+//   self.store = storeRef(data.store.id)
+//   self.type = data.type
 
-  return self
-}
+//   return self
+// }

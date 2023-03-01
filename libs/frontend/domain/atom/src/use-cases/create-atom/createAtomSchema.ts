@@ -1,10 +1,10 @@
-import type { ICreateAtomDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { nonEmptyString, showFieldOnDev } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
+export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   title: 'Create Atom',
   type: 'object',
   properties: {
@@ -27,13 +27,13 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
       required: ['auth0Id'],
     },
     // Hide field for now, added only to implement the interface
-    api: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
+    // api: {
+    //   type: 'string',
+    //   nullable: true,
+    //   uniforms: {
+    //     component: () => null,
+    //   },
+    // },
     name: {
       autoFocus: true,
       ...nonEmptyString,
@@ -46,7 +46,13 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
     tags: {
       type: 'array',
       items: {
-        type: 'string',
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+          },
+        },
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,

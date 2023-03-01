@@ -1,5 +1,5 @@
 import type {
-  ICreateDomainDTO,
+  ICreateDomainData,
   IDomainService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
@@ -23,8 +23,8 @@ export const CreateDomainModal = observer<{
     app: { id: currentAppId },
   }
 
-  const onSubmit = (data: ICreateDomainDTO) => {
-    return domainService.createSubmit([data])
+  const onSubmit = (data: ICreateDomainData) => {
+    return domainService.create(data)
   }
 
   const closeModal = () => domainService.createModal.close()

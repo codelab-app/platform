@@ -1,7 +1,7 @@
 import type {
   IFieldService,
   ITypeService,
-  IUpdateFieldDTO,
+  IUpdateFieldData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
@@ -29,7 +29,7 @@ export const UpdateFieldModal = observer<{
   const closeModal = () => fieldService.updateModal.close()
   const field = fieldService.updateModal.field
 
-  const onSubmit = (input: IUpdateFieldDTO) => {
+  const onSubmit = (input: IUpdateFieldData) => {
     if (!field) {
       throw new Error('Updated field is not set')
     }
@@ -50,7 +50,7 @@ export const UpdateFieldModal = observer<{
       open={fieldService.updateModal.isOpen}
       title={<span css={tw`font-semibold`}>Update field</span>}
     >
-      <ModalForm.Form<IUpdateFieldDTO>
+      <ModalForm.Form<IUpdateFieldData>
         model={{
           interfaceTypeId: field?.api.id,
           id: field?.id,
@@ -72,24 +72,24 @@ export const UpdateFieldModal = observer<{
         <AutoFields fields={['key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />
         <AutoFields fields={['validationRules.general']} />
-        <DisplayIfField<IUpdateFieldDTO>
+        <DisplayIfField<IUpdateFieldData>
           condition={({ model }) => isPrimitive(typeService, model.fieldType)}
         >
-          <DisplayIfField<IUpdateFieldDTO>
+          <DisplayIfField<IUpdateFieldData>
             condition={({ model }) => isString(typeService, model.fieldType)}
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.String}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<IUpdateFieldDTO>
+          <DisplayIfField<IUpdateFieldData>
             condition={({ model }) => isInteger(typeService, model.fieldType)}
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<IUpdateFieldDTO>
+          <DisplayIfField<IUpdateFieldData>
             condition={({ model }) => isFloat(typeService, model.fieldType)}
           >
             <AutoFields
@@ -98,7 +98,7 @@ export const UpdateFieldModal = observer<{
           </DisplayIfField>
         </DisplayIfField>
 
-        <DisplayIfField<IUpdateFieldDTO>
+        <DisplayIfField<IUpdateFieldData>
           condition={({ model }) =>
             !isInterfaceType(typeService, model.fieldType)
           }

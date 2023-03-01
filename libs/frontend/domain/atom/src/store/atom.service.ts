@@ -1,8 +1,9 @@
 import type {
   IAtom,
   IAtomService,
-  ICreateAtomDTO,
-  IUpdateAtomDTO,
+  ICreateAtomData,
+  IInterfaceType,
+  IUpdateAtomData,
 } from '@codelab/frontend/abstract/core'
 import { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { getTagService, tagRef } from '@codelab/frontend/domain/tag'
@@ -13,7 +14,9 @@ import {
 } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
+  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
   reconnectNodeIds,
@@ -35,6 +38,7 @@ import {
 import { v4 } from 'uuid'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
+import { AtomRepository } from './atom.repository'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 @model('@codelab/AtomService')
@@ -48,6 +52,7 @@ export class AtomService
     updateModal: prop(() => new AtomModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),
     selectedIds: prop(() => arraySet<string>()).withSetter(),
+    atomRepository: prop(() => new AtomRepository({})),
   })
   implements IAtomService
 {
@@ -55,8 +60,17 @@ export class AtomService
   @transaction
   update = _async(function* (
     this: AtomService,
-    { id, name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
+    { id, name, type, tags = [], allowedChildren = [] }: IUpdateAtomData,
   ) {
+    const atom = this.atoms.get(id)
+
+    atom?.writeCache({
+      name,
+      type,
+      tags,
+      allowedChildren: allowedChildren.map((child) => ({ id: child })),
+    })
+
     const allowedChildrenIds = allowedChildren.map(
       (allowedChild) => allowedChild,
     )
@@ -69,13 +83,13 @@ export class AtomService
           name,
           type,
           allowedChildren: reconnectNodeIds(allowedChildrenIds),
-          tags: reconnectNodeIds(tags),
+          tags: reconnectNodeIds(tags.map((tag) => tag.id)),
         },
         where: { id },
       }),
     )
 
-    return atoms.map((atom) => this.create(atom))
+    return atom!
   })
 
   @computed
@@ -94,9 +108,9 @@ export class AtomService
   }
 
   @modelAction
-  create({ tags, api, allowedChildren, ...atomDTO }: IAtomDTO) {
-    const tagRefs = tags.map((tag) => tagRef(this.tagService.create(tag)))
-    const apiRef = typeRef(this.typeService.addInterface(api))
+  add({ tags, api, allowedChildren, ...atomDTO }: IAtomDTO) {
+    const tagRefs = tags?.map((tag) => tagRef(tag.id))
+    const apiRef = typeRef<IInterfaceType>(api.id)
     const atom = new Atom({ ...atomDTO, api: apiRef, tags: tagRefs })
 
     this.atoms.set(atom.id, atom)
@@ -121,7 +135,7 @@ export class AtomService
 
     this.count = atomsAggregate.count
 
-    return atoms.map((atom) => this.create(atom))
+    return atoms.map((atom) => this.add(atom))
   })
 
   @modelFlow
@@ -141,37 +155,31 @@ export class AtomService
    */
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: AtomService,
-    data: Array<ICreateAtomDTO>,
+    { id, name, type, tags = [], owner }: ICreateAtomData,
   ) {
-    const connectOrCreateApi = (
-      atom: Pick<ICreateAtomDTO, 'api' | 'name' | 'owner'>,
-    ) =>
-      atom.api
-        ? connectNodeId(atom.api)
-        : {
-            create: {
-              node: InterfaceType.createApiNode({
-                name: atom.name,
-                owner: atom.owner,
-              }),
-            },
-          }
+    const interfaceType = this.typeService.addInterface({
+      id: v4(),
+      name: `${name} API`,
+      kind: ITypeKind.InterfaceType,
+      owner,
+    })
 
-    const input = data.map(({ id, name, type, tags, api, owner }) => ({
+    const atom = Atom.create({
       id,
       name,
       type,
-      tags: connectNodeIds(tags),
-      api: connectOrCreateApi({ api, name, owner }),
-    }))
+      owner,
+      tags,
+      api: interfaceType,
+    })
 
-    const {
-      createAtoms: { atoms },
-    } = yield* _await(atomApi.CreateAtoms({ input }))
+    this.atoms.set(atom.id, atom)
 
-    return atoms.map((atom) => this.create(atom))
+    yield* _await(this.atomRepository.add(atom))
+
+    return atom
   })
 
   @modelFlow

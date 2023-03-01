@@ -1,7 +1,7 @@
-import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
 import { typeApi } from '../../../store'
 
-const getInnerTypeIds = (submitData: IUpdateTypeDTO) => [
+const getInnerTypeIds = (submitData: IUpdateTypeData) => [
   ...(submitData.unionTypeIds ?? []),
 ]
 
@@ -9,7 +9,7 @@ const getInnerTypeIds = (submitData: IUpdateTypeDTO) => [
 // because this would cause a circular dependency between them and
 export const validateNonRecursive = async (
   updateId: string | undefined,
-  submitData: IUpdateTypeDTO,
+  submitData: IUpdateTypeData,
 ) => {
   if (!updateId) {
     throw new Error('Missing type id')

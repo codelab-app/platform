@@ -47,7 +47,10 @@ export class ActionFactory extends Model({}) implements IActionFactory {
       errorAction: errorAction
         ? this.fromActionFragment(errorAction as ActionFragment)
         : undefined,
-      resource,
+      resource: {
+        ...resource,
+        config: JSON.parse(resource.config.data),
+      },
       config: {
         id: config.id,
         data: JSON.parse(config.data),

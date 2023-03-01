@@ -17,11 +17,17 @@ export const createComponentSchema: JSONSchemaType<CreateComponentSchema> = {
         component: () => null,
       },
     },
-    childrenContainerElementId: {
-      type: 'string',
-      uniforms: {
-        component: () => null,
+    childrenContainerElement: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          uniforms: {
+            component: () => null,
+          },
+        },
       },
+      required: ['id'],
     },
     ...ownerSchema,
     name: {
@@ -29,5 +35,5 @@ export const createComponentSchema: JSONSchemaType<CreateComponentSchema> = {
       ...nonEmptyString,
     },
   },
-  required: ['name', 'owner'],
+  required: ['name', 'owner', 'childrenContainerElement'],
 }

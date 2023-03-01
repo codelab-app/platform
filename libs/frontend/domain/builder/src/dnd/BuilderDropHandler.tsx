@@ -45,12 +45,12 @@ export const BuilderDropHandler = observer<
   const createElementInput = useMemo(() => {
     if (shouldCreateElementAsFirstChild(dropPosition)) {
       return {
-        parentElementId: element.id,
+        parentElement: element,
       }
     }
 
     return {
-      prevSiblingId: element.id,
+      prevSibling: element,
     }
   }, [element, dropPosition])
 

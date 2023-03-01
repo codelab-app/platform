@@ -4,7 +4,7 @@ import type {
   ElementWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICacheService,
@@ -44,7 +44,6 @@ export interface IElementService
       ICRUDService<IElement, ICreateElementData, IUpdateElementData>,
       'delete' | 'update'
     >,
-    ICacheService<IElementDTO, IElement>,
     Omit<IQueryService<IElement, ElementWhere, ElementOptions>, 'getOne'>,
     Omit<
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
@@ -63,18 +62,18 @@ export interface IElementService
   createElementAsFirstChild(data: ICreateElementData): Promise<IElement>
   createElementAsNextSibling(data: ICreateElementData): Promise<IElement>
   moveElementToAnotherTree(props: {
-    elementId: string
-    targetElementId: string
+    element: IEntity
+    targetElement: IEntity
     dropPosition: number
   }): Promise<void>
   moveElementAsFirstChild(props: {
-    elementId: string
-    parentElementId: string
+    element: IEntity
+    parentElement: IEntity
   }): Promise<void>
-  create(elementDTO: ICreateElementData): IElement
+  add(elementDTO: IElementDTO): IElement
   moveElementAsNextSibling(props: {
-    elementId: string
-    targetElementId: string
+    element: IEntity
+    targetElement: IEntity
   }): Promise<void>
   cloneElement(
     target: IElement,
@@ -85,7 +84,7 @@ export interface IElementService
     owner: IAuth0Owner,
   ): Promise<Maybe<IElement>>
   element(id: string): IElement
-  maybeElement(id: string): Maybe<IElement>
+  maybeElement(id: Maybe<string>): Maybe<IElement>
   deleteElementSubgraph(root: IElementRef): Promise<Array<string>>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
   loadComponentTree(component: RenderedComponentFragment): {

@@ -14,13 +14,19 @@ export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    childrenContainerElementId: {
-      type: 'string',
-      label: 'Container for component children',
-      uniforms: {
-        component: getSelectElementComponent(ElementTypeKind.AllElements),
+    childrenContainerElement: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Container for component children',
+          uniforms: {
+            component: getSelectElementComponent(ElementTypeKind.AllElements),
+          },
+        },
       },
+      required: ['id'],
     },
   },
-  required: ['name', 'childrenContainerElementId'],
+  required: ['name', 'childrenContainerElement'],
 }

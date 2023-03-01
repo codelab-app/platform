@@ -29,28 +29,6 @@ export const extractValidProps = (
     ? { key: renderOutput.props?.['key'] }
     : renderOutput.props
 
-/**
- * Wrap it with global props context if it requires it
- */
-export const withMaybeGlobalPropsProvider = (
-  renderOutput: IRenderOutput,
-  globalProps: IPropDataByElementId,
-) => {
-  // the root element of a component has a prop for component id
-  // we store the component id so we can determine if an element is rendered inside a component
-  const componentProp = getComponentProp(renderOutput.props)
-
-  const mergedProps = mergeProps(
-    globalProps,
-    renderOutput.globalProps,
-    componentProp,
-  )
-
-  return isEmpty(renderOutput.globalProps)
-    ? noWrapper()
-    : withGlobalPropsProvider(mergedProps as IPropDataByElementId)
-}
-
 export const getReactComponent = (renderOutput: IRenderOutput) => {
   // use span to hold the component's elements together and it is an html
   // element with the least effect on its child and can be used for dnd

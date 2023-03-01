@@ -81,7 +81,7 @@ export class ComponentService
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ) {
     renderedComponentFragments.forEach((component) => {
-      const componentModel = this.create(component)
+      const componentModel = this.add(component)
 
       const { rootElement, hydratedElements } =
         this.elementService.loadComponentTree(component)
@@ -95,7 +95,8 @@ export class ComponentService
   }
 
   @modelAction
-  create({
+  add({
+    id,
     api,
     name,
     rootElement,
@@ -103,20 +104,21 @@ export class ComponentService
     props,
     childrenContainerElement,
   }: IComponentDTO) {
-    const apiRef = typeRef(this.typeService.addInterface(api))
+    // const apiRef = typeRef(this.typeService.addInterface(api))
 
-    const component = new Component({
-      name: name,
-      rootElementId: rootElement.id,
-      owner: owner,
-      api: apiRef,
-      props: props ? new Prop({ id: props.id, api: apiRef }) : null,
-      childrenContainerElementId: childrenContainerElement.id,
+    const component = Component.create({
+      id,
+      name,
+      rootElement: { id: rootElement.id },
+      owner,
+      api,
+      props,
+      childrenContainerElement: { id: childrenContainerElement.id },
     })
 
-    if (props) {
-      this.propService.add({ ...props, api: apiRef })
-    }
+    // if (props) {
+    //   this.propService.add({ ...props, api })
+    // }
 
     return component
   }
@@ -155,7 +157,7 @@ export class ComponentService
     const { components } = yield* _await(componentApi.GetComponents({ where }))
 
     return components
-      .map((component) => this.create(component))
+      .map((component) => this.add(component))
       .filter((component): component is Component => Boolean(component))
   })
 
@@ -173,27 +175,28 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: ComponentService,
-    data: Array<ICreateComponentData>,
+    createComponentData: ICreateComponentData,
   ) {
-    const input = data.map((component) => mapCreateInput(component))
+    const input = mapCreateInput(createComponentData)
 
     const {
-      createComponents: { components },
+      createComponents: {
+        components: [component],
+      },
     } = yield* _await(
       componentApi.CreateComponents({
         input,
       }),
     )
 
-    if (!components[0]) {
+    if (!component) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Component was not created')
     }
 
-    const component = components[0]
-    const componentModel = this.create(component)
+    const componentModel = this.add(component)
 
     this.components.set(component.id, componentModel)
 
@@ -202,50 +205,56 @@ export class ComponentService
 
     componentModel.initTree(rootElement, hydratedElements)
 
-    return [componentModel]
+    return componentModel
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: ComponentService,
-    { id, name, childrenContainerElementId }: IUpdateComponentData,
+    { id, name, childrenContainerElement }: IUpdateComponentData,
   ) {
+    const component = this.components.get(id)
+
+    component?.writeCache({ name, childrenContainerElement })
+
     const {
       updateComponents: { components },
     } = yield* _await(
       componentApi.UpdateComponents({
         update: {
           name,
-          childrenContainerElement: reconnectNodeId(childrenContainerElementId),
+          childrenContainerElement: reconnectNodeId(
+            childrenContainerElement.id,
+          ),
         },
         where: { id },
       }),
     )
 
-    return components.map((component) => this.create(component))
+    return component!
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ComponentService, ids: Array<string>) {
-    ids.forEach((id) => {
-      this.components.delete(id)
-      this.removeClones(id)
-    })
+  delete = _async(function* (this: ComponentService, id: string) {
+    const component = this.components.get(id)
+
+    this.components.delete(id)
+    this.removeClones(id)
 
     const {
       deleteComponents: { nodesDeleted },
     } = yield* _await(
       componentApi.DeleteComponents({
-        where: { id_IN: ids },
+        where: { id },
         delete: {
           api: {},
         },
       }),
     )
 
-    return nodesDeleted
+    return component!
   })
 
   @modelFlow
@@ -264,7 +273,7 @@ export class ComponentService
       }),
     )
 
-    return components.map((component) => this.create(component))[0]!
+    return components.map((component) => this.add(component))[0]!
   })
 
   // @modelAction
@@ -286,19 +295,18 @@ export class ComponentService
   writeClonesCache(componentFragment: IComponentDTO) {
     return [...this.clonedComponents.values()]
       .filter(
-        (component) => component.sourceComponentId === componentFragment.id,
+        (component) => component.sourceComponent?.id === componentFragment.id,
       )
       .map((component) => {
-        const clonedChildrenContainer =
-          component.elementTree?.elements.find(
-            ({ sourceElementId }) =>
-              sourceElementId === componentFragment.childrenContainerElement.id,
-          )
+        const clonedChildrenContainer = component.elementTree?.elements.find(
+          ({ sourceElement }) =>
+            sourceElement?.id === componentFragment.childrenContainerElement.id,
+        )
 
         const childrenContainerElement =
           clonedChildrenContainer ?? componentFragment.childrenContainerElement
 
-        return this.create({
+        return this.add({
           ...componentFragment,
           childrenContainerElement,
         })
@@ -308,7 +316,7 @@ export class ComponentService
   @modelAction
   removeClones(componentId: string) {
     return [...this.clonedComponents.entries()]
-      .filter(([_, component]) => component.sourceComponentId === componentId)
+      .filter(([_, component]) => component.sourceComponent?.id === componentId)
       .forEach(([elementId]) => this.clonedComponents.delete(elementId))
   }
 }

@@ -35,7 +35,7 @@ export class CodeMirrorType
   implements ICodeMirrorType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.CodeMirrorType) {
@@ -43,6 +43,13 @@ export class CodeMirrorType
     }
 
     this.language = fragment.language
+
+    return this
+  }
+
+  @modelAction
+  writeCache(codeMirrorTypeDTO: ICodeMirrorTypeDTO) {
+    updateBaseTypeCache(this, codeMirrorTypeDTO)
 
     return this
   }

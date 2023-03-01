@@ -27,7 +27,7 @@ const init = (data?: IUserDTO) => {
     return new UserService({})
   }
 
-  const user = User.hydrate(data)
+  const user = User.create(data)
 
   const userService = new UserService({
     user,

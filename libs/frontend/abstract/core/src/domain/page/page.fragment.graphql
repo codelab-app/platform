@@ -10,7 +10,7 @@ fragment Page on Page {
     id
     name
   }
-  pageContainerElement {
+  pageContentContainer {
     id
   }
   kind

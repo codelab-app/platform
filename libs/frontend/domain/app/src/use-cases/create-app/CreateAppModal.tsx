@@ -17,7 +17,9 @@ export const CreateAppModal = observer<{
   userService: IUserService
 }>(({ appService, userService }) => {
   const onSubmit = (appDTO: ICreateAppData) => {
-    return appService.createSubmit({ ...appDTO, id: v4() })
+    console.log('submit', appDTO)
+
+    return appService.create({ ...appDTO, id: v4() })
   }
 
   const closeModal = () => appService.createModal.close()

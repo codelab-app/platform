@@ -2,15 +2,20 @@ import type {
   IApp,
   IAppDTO,
   IAuth0Owner,
+  ICacheService,
   IPage,
   IPageBuilderAppProps,
   IStore,
 } from '@codelab/frontend/abstract/core'
+import { Page, pageRef } from '@codelab/frontend/domain/page'
+import { Store, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
+import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type {
   AppCreateInput,
   PageBuilderAppFragment,
 } from '@codelab/shared/abstract/codegen'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -26,12 +31,51 @@ import {
 } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
+const create = ({ id, name, owner, pages, store }: IAppDTO) => {
+  const app = new App({
+    id,
+    name,
+    owner,
+    pages: pages?.map((page) => pageRef(page.id)),
+    store: storeRef(store.id),
+  })
+
+  return app
+}
+
+const parsePageBuilderData = ({
+  id,
+  name,
+  pages,
+  store,
+  owner,
+}: PageBuilderAppFragment): IAppDTO => {
+  return {
+    id,
+    name,
+    owner,
+    pages: pages.map((page) => ({
+      id: page.id,
+      name: page.name,
+      rootElement: page.rootElement,
+      kind: page.kind,
+      descendentElements: page.rootElement.descendantElements,
+      getServerSideProps: page.getServerSideProps,
+      owner,
+      pageContainerElementId: page.pageContentContainer?.id,
+      app: { id },
+    })),
+    store,
+  }
+}
+
 @model('@codelab/App')
 export class App
   extends Model({
     id: idProp,
     owner: prop<IAuth0Owner>(),
     name: prop<string>().withSetter(),
+    // slug: prop<string>().withSetter(),
     store: prop<Ref<IStore>>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })
@@ -42,31 +86,27 @@ export class App
     return slugify(this.name)
   }
 
-  static parsePageBuilderData({
-    id,
-    name,
-    slug,
-    pages,
-    store,
-    owner,
-  }: PageBuilderAppFragment): IAppDTO {
-    return {
-      id,
-      name,
-      owner,
-      pages: pages.map((page) => ({
-        id: page.id,
-        name: page.name,
-        rootElement: page.rootElement,
-        kind: page.kind,
-        descendentElements: page.rootElement.descendantElements,
-        getServerSideProps: page.getServerSideProps,
-        owner,
-        pageContainerElementId: page.pageContainerElement?.id,
-        app: { id },
-      })),
-      store,
-    }
+  @modelAction
+  static create = create
+
+  static parsePageBuilderData = parsePageBuilderData
+
+  /**
+   * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
+   */
+  @modelAction
+  writeCache({ id, name, store, pages }: Partial<IAppDTO>) {
+    this.id = id ?? this.id
+    this.name = name ?? this.name
+    this.store = store ? storeRef(store.id) : this.store
+    this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
+
+    return this
+  }
+
+  @computed
+  get pageRootElements() {
+    return this.pages.map((page) => page.current.rootElement.id)
   }
 
   @computed
@@ -75,7 +115,6 @@ export class App
       [this.slug]: {
         id: this.id,
         name: this.name,
-        slug: this.slug,
         pages: this.pages.map((page) => page.current.toJson).reduce(merge, {}),
       },
     }
@@ -102,7 +141,7 @@ export class App
   toCreateInput(): AppCreateInput {
     return {
       id: this.id,
-      name: this.name,
+      _compoundName: createUniqueName(this.name, this),
       owner: connectAuth0Owner(this.owner.auth0Id),
       store: {
         create: {
@@ -110,7 +149,7 @@ export class App
         },
       },
       pages: {
-        // create: [{ node: providerPage }],
+        create: this.pages.map((page) => page.current.toCreateInput()),
       },
     }
   }

@@ -106,8 +106,8 @@ export class ElementTree
       this._elements.set(element.id, elementRef(element))
 
       // validate component meta data
-      if (element.renderComponentType?.current) {
-        const componentId = element.renderComponentType.current.id
+      if (element.renderType?.current) {
+        const componentId = element.renderType.current.id
         const component = this.componentService.components.get(componentId)
 
         if (!component) {
@@ -130,11 +130,11 @@ export class ElementTree
 
   getPathFromRoot(selectedElement: IElement): Array<IElement> {
     const path = []
-    let current: IElement | undefined = selectedElement
+    let currentElement: IElement | undefined = selectedElement
 
-    while (current) {
-      path.push(current)
-      current = current.parentElement
+    while (currentElement) {
+      path.push(currentElement)
+      currentElement = currentElement.parent?.current
     }
 
     return path.reverse()

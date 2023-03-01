@@ -7,7 +7,7 @@ import type { StoreFragment } from './store.fragment.graphql.gen'
 export interface IStoreDTO {
   id: string
   name: string
-  actions: Array<IActionDTO>
+  actions?: Array<IActionDTO>
   api: IEntity
 }
 
@@ -16,5 +16,3 @@ export type ICreateStoreData = IStoreDTO & {
 }
 
 export type IUpdateStoreData = Omit<IStoreDTO, 'owner'>
-
-// export type IStoreDTO = StoreFragment

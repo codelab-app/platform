@@ -12,7 +12,7 @@ export type IResourceConfigDTO =
   | IGraphQLResourceConfigDTO
   | IRestResourceConfigDTO
 
-export interface IResource {
+export interface IResource extends ICacheService<IResourceDTO, IResource> {
   id: string
   name: string
   config: IResourceConfig

@@ -23,11 +23,11 @@ export const UpdateComponentForm = observer<UpdateComponentFormProps>(
 
     const model = {
       name: component.name,
-      childrenContainerElementId: component.childrenContainerElementId,
+      childrenContainerElement: component.childrenContainerElement,
     }
 
-    const onSubmit = (componentDTO: IUpdateComponentData) =>
-      componentService.update(componentDTO)
+    const onSubmit = (componentData: IUpdateComponentData) =>
+      componentService.update(componentData)
 
     return (
       <FormContextProvider value={{ elementTree }}>

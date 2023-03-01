@@ -38,8 +38,8 @@ const getNodeProps = (
 
 const getNodePropsValidateFn = (node: IElement | IComponent) => {
   const interfaceType = isElement(node)
-    ? node.atom?.current.api.current ??
-      node.renderComponentType?.current.api.current
+    ? node.renderType?.current.api.current ??
+      node.renderType?.current.api.current
     : node.api.current
 
   if (!interfaceType) {

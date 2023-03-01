@@ -24,10 +24,16 @@ export const createElementSchema: JSONSchemaType<ICreateElementData> = {
       },
       required: ['id'],
     },
-    prevSiblingId: {
-      type: 'string',
+    prevSibling: {
+      type: 'object',
       nullable: true,
-      label: 'Linked by',
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Linked by',
+        },
+      },
+      required: ['id'],
     },
     customCss: {
       type: 'string',
@@ -37,19 +43,37 @@ export const createElementSchema: JSONSchemaType<ICreateElementData> = {
       type: 'string',
       nullable: true,
     },
-    propsData: {
-      type: 'string',
+    props: {
+      type: 'object',
       nullable: true,
+      properties: {
+        data: {
+          type: 'string',
+        },
+      },
+      required: ['data'],
     },
-    preRenderActionId: {
-      type: 'string',
-      label: 'Pre Render action',
+    preRenderAction: {
+      type: 'object',
       nullable: true,
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Pre Render action',
+        },
+      },
+      required: ['id'],
     },
-    postRenderActionId: {
-      type: 'string',
-      label: 'Post Render action',
+    postRenderAction: {
+      type: 'object',
       nullable: true,
+      properties: {
+        id: {
+          type: 'string',
+          label: 'Post Render action',
+        },
+      },
+      required: ['id'],
     },
     renderType: {
       type: 'object',

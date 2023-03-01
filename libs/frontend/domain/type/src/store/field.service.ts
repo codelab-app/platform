@@ -1,5 +1,5 @@
 import type {
-  ICreateFieldDTO,
+  ICreateFieldData,
   IField,
   IFieldService,
   IInterfaceType,
@@ -62,34 +62,45 @@ export class FieldService
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: FieldService,
-    data: Array<ICreateFieldDTO>,
+    {
+      description,
+      id,
+      key,
+      name,
+      defaultValues,
+      fieldType,
+      validationRules,
+      interfaceTypeId,
+    }: ICreateFieldData,
   ) {
-    const input: Array<FieldCreateInput> = data.map((field) => ({
-      description: field.description,
-      id: field.id,
-      key: field.key,
-      name: field.name,
-      defaultValues: JSON.stringify(field.defaultValues),
-      validationRules: JSON.stringify(field.validationRules),
-      fieldType: connectNodeId(field.fieldType),
-      api: connectNodeId(field.interfaceTypeId),
-    }))
-
     const {
-      createFields: { fields },
-    } = yield* _await(fieldApi.CreateFields({ input }))
+      createFields: {
+        fields: [field],
+      },
+    } = yield* _await(
+      fieldApi.CreateFields({
+        input: {
+          description,
+          id,
+          key,
+          name,
+          defaultValues: JSON.stringify(defaultValues),
+          validationRules: JSON.stringify(validationRules),
+          fieldType: connectNodeId(fieldType),
+          api: connectNodeId(interfaceTypeId),
+        },
+      }),
+    )
 
-    for (const { interfaceTypeId } of data) {
-      const interfaceType = this.typeService.type(
-        interfaceTypeId,
-      ) as IInterfaceType
+    const interfaceType = this.typeService.type(
+      interfaceTypeId,
+    ) as IInterfaceType
 
-      interfaceType.writeFieldCache(fields)
-    }
+    interfaceType.writeFieldCache([field!])
 
-    return fields.map((field) => this.create(field))
+    return this.add(field!)
   })
 
   @modelFlow
@@ -104,10 +115,12 @@ export class FieldService
       name,
       defaultValues,
       validationRules,
-    }: ICreateFieldDTO,
+    }: ICreateFieldData,
   ) {
     const {
-      updateFields: { fields },
+      updateFields: {
+        fields: [field],
+      },
     } = yield* _await(
       fieldApi.UpdateFields({
         where: {
@@ -125,7 +138,7 @@ export class FieldService
       }),
     )
 
-    return fields.map((field) => this.create(field))
+    return this.add(field!)
   })
 
   @modelFlow
@@ -162,22 +175,17 @@ export class FieldService
 
   @modelAction
   load(fields: Array<FieldFragment>) {
-    const hydratedFields = fields.map((fragment) => Field.hydrate(fragment))
+    const hydratedFields = fields.map((fragment) => Field.create(fragment))
 
     this.fields = objectMap(hydratedFields.map((field) => [field.id, field]))
   }
 
   @modelAction
-  create(fragment: IFieldDTO) {
-    let fieldModel = this.fields.get(fragment.id)
+  add(fieldDTO: IFieldDTO) {
+    const field = Field.create(fieldDTO)
 
-    if (fieldModel) {
-      fieldModel.create(fragment)
-    } else {
-      fieldModel = Field.hydrate(fragment)
-      this.fields.set(fragment.id, fieldModel)
-    }
+    this.fields.set(field.id, field)
 
-    return fieldModel
+    return field
   }
 }

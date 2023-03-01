@@ -1,7 +1,7 @@
 import type {
   IEnumTypeValue,
   IPropData,
-  IUpdateTypeDTO,
+  IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
 import type {
   ArrayTypeItemTypeDisconnectInput,
@@ -21,7 +21,7 @@ const makeAllTypes = (input: IPropData) =>
  * We use IUpdateTypeDTO since auth0Id isn't required here
  */
 export const makeTypesOfUnionTypeCreateInput = (
-  type: IUpdateTypeDTO,
+  type: IUpdateTypeData,
 ): UnionTypeTypesOfUnionTypeUpdateInput =>
   makeAllTypes({
     connect: type.unionTypeIds?.map((id) => ({ where: { node: { id } } })),
@@ -32,18 +32,18 @@ export const getApiName = (name: string) => {
 }
 
 export const makeTypesOfUnionTypeDisconnectInput = (
-  type: IUpdateTypeDTO,
+  type: IUpdateTypeData,
 ): UnionTypeTypesOfUnionTypeDisconnectInput =>
   makeAllTypes({
     where: { node: { id_NOT_IN: type.unionTypeIds?.map((id) => id) } },
   })
 
 export const makeArrayTypeDisconnectInput = (
-  type: IUpdateTypeDTO,
+  type: IUpdateTypeData,
 ): ArrayTypeItemTypeDisconnectInput =>
   makeAllTypes({ where: { node: { id_NOT: type.arrayTypeId } } })
 
-export const makeAllowedValuesCreateInput = (type: IUpdateTypeDTO) => {
+export const makeAllowedValuesCreateInput = (type: IUpdateTypeData) => {
   return {
     create: type.allowedValues?.map((value) => ({
       node: makeAllowedValuesNodeInput(value),
@@ -58,7 +58,7 @@ export const makeAllowedValuesNodeInput = (value: IEnumTypeValue) => {
   return { id: value.id, key: value.key, value: value.value }
 }
 
-export const makeItemTypeCreateInput = (type: IUpdateTypeDTO) => {
+export const makeItemTypeCreateInput = (type: IUpdateTypeData) => {
   return type.arrayTypeId ? makeAllTypes(connectNodeId(type.arrayTypeId)) : {}
 }
 

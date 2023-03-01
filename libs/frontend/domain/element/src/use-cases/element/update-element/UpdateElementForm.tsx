@@ -9,6 +9,8 @@ import type {
 import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
+  isAtomModel,
+  isComponentModel,
   RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction } from '@codelab/frontend/domain/type'
@@ -41,16 +43,16 @@ export interface UpdateElementFormProps {
 const makeCurrentModel = (element: IElement) => {
   let renderType: RenderType | null = null
 
-  if (element.atom?.id) {
+  if (isAtomModel(element.renderType)) {
     renderType = {
-      id: element.atom.id,
+      id: element.renderType.id,
       model: RenderTypeEnum.Atom,
     }
   }
 
-  if (element.renderComponentType?.id) {
+  if (isComponentModel(element.renderType)) {
     renderType = {
-      id: element.renderComponentType.id,
+      id: element.renderType.id,
       model: RenderTypeEnum.Component,
     }
   }
@@ -60,8 +62,8 @@ const makeCurrentModel = (element: IElement) => {
     name: element.name,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfExpression: element.renderIfExpression,
-    postRenderActionId: element.postRenderActionId,
-    preRenderActionId: element.preRenderActionId,
+    postRenderAction: element.postRenderAction,
+    preRenderAction: element.preRenderAction,
     renderType,
   }
 }
@@ -128,8 +130,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             // We edit it in the css tab
             'customCss',
             'guiCss',
-            'preRenderActionId',
-            'postRenderActionId',
+            'preRenderAction',
+            'postRenderAction',
             'renderType',
             'name',
           ]}

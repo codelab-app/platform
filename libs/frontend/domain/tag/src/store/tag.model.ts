@@ -1,4 +1,5 @@
-import { ITag, ITagDTO } from '@codelab/frontend/abstract/core'
+import type { ITag, ITagDTO } from '@codelab/frontend/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -11,13 +12,13 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const hydrate = (tag: ITagDTO) => {
+const create = ({ id, name, isRoot, children, descendants }: ITagDTO) => {
   return new Tag({
-    id: tag.id,
-    name: tag.name,
-    isRoot: tag.isRoot ?? false,
-    children: tag.children?.map((child) => tagRef(child.id)),
-    descendants: tag.descendants?.map((descendant) => tagRef(descendant.id)),
+    id,
+    name,
+    isRoot,
+    children: children.map((child) => tagRef(child.id)),
+    descendants: descendants.map((descendant) => tagRef(descendant.id)),
   })
 }
 
@@ -26,7 +27,8 @@ export class Tag
   extends Model({
     id: idProp,
     name: prop<string>(),
-    isRoot: prop<boolean>(),
+    isRoot: prop<boolean>(false),
+    parent: prop<Nullable<Ref<ITag>>>(null),
     children: prop<Array<Ref<ITag>>>(() => []),
     descendants: prop<Array<Ref<ITag>>>(() => []),
   })
@@ -37,15 +39,23 @@ export class Tag
     return this.name
   }
 
-  static hydrate = hydrate
+  static create = create
 
   @modelAction
-  create(tag: ITagDTO): ITag {
-    this.name = tag.name
-    this.children = tag.children?.map((child) => tagRef(child.id)) ?? []
+  writeCache({
+    id,
+    name,
+    isRoot,
+    descendants,
+    parent,
+    children,
+  }: Partial<ITagDTO>) {
+    this.name = name ?? this.name
+    this.children = children?.map((child) => tagRef(child.id)) ?? this.children
     this.descendants =
-      tag.descendants?.map((descendant) => tagRef(descendant.id)) ?? []
-    this.isRoot = tag.isRoot ?? false
+      descendants?.map((descendant) => tagRef(descendant.id)) ??
+      this.descendants
+    this.isRoot = isRoot ?? this.isRoot
 
     return this
   }

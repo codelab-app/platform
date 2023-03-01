@@ -14,10 +14,9 @@ import type { IStore } from './store.model.interface'
 export interface IStoreService
   extends ICRUDService<IStore, IStoreDTO, IUpdateStoreData>,
     IQueryService<IStore, StoreWhere, StoreOptions>,
-    ICacheService<IStoreDTO, IStore>,
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   stores: ObjectMap<IStore>
   store(id: string): Maybe<IStore>
-  create(appDTO: Pick<IAppDTO, 'id' | 'name'>): IStore
+  // add(appDTO: IAppDTO): IStore
   add(storeDTO: IStoreDTO): IStore
 }

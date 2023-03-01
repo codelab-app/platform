@@ -1,5 +1,6 @@
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
+import type { IRenderPropsTypeDTO } from './render-props-type.dto.interface'
 
 /**
  * Prop values for this type have the shape of {@see TypedValue} in order to
@@ -10,6 +11,6 @@ import type { IBaseType } from '../base-type'
  * - ReactNodeType: Component select box, results it `ReactNode` value
  * - ElementType: Current tree element select box, results it `ReactNode` value
  */
-export interface IRenderPropsType extends IBaseType {
+export interface IRenderPropsType extends IBaseType<IRenderPropsTypeDTO> {
   kind: ITypeKind.RenderPropsType
 }

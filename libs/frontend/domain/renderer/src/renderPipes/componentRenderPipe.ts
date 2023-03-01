@@ -5,7 +5,10 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+import {
+  DATA_COMPONENT_ID,
+  isComponentModel,
+} from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -18,12 +21,11 @@ export class ComponentRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    const component = element.renderComponentType?.current
-
-    if (!component) {
+    if (!isComponentModel(element.renderType)) {
       return this.next.render(element, props)
     }
 
+    const component = element.renderType.current
     const clonedComponent = component.clone(element.id)
     const rootElement = clonedComponent.elementTree?.root
 

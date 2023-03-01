@@ -15,7 +15,7 @@ export const DeleteActionsModal = observer<{ actionService: IActionService }>(
         return Promise.reject('Action not defined in DeleteActionModal')
       }
 
-      return actionService.delete([action.id])
+      return actionService.delete(action.id)
     }
 
     const onSubmitError = createNotificationHandler({

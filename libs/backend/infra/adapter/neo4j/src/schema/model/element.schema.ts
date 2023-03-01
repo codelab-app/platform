@@ -18,9 +18,7 @@ export const elementSchema = gql`
     # element is the rootElement for this component
     parentComponent: Component
       @relationship(type: "COMPONENT_ROOT", direction: IN)
-    slug: String! @computed(from: ["name"])
-    # format : pageId-name because element name is unique inside page.
-    name: String! @unique
+    name: String!
     # Used for the css the user types it manually using the integrated code editor. This is
     # a pure css string.
     customCss: String
@@ -31,8 +29,10 @@ export const elementSchema = gql`
     renderForEachPropKey: String
     renderIfExpression: String
 
-    preRenderActionId: String
-    postRenderActionId: String
+    preRenderAction: ActionBase
+      @relationship(type: "ELEMENT_ACTION", direction: OUT)
+    postRenderAction: ActionBase
+      @relationship(type: "ELEMENT_ACTION", direction: OUT)
 
     # Type of element to render, could be either a component or atom
     renderComponentType: Component

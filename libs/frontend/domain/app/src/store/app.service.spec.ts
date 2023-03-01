@@ -1,4 +1,4 @@
-import type { ICreateAppDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateAppData } from '@codelab/frontend/abstract/core'
 import {
   APP_PAGE_NAME,
   INTERNAL_SERVER_ERROR_PAGE_NAME,
@@ -21,13 +21,13 @@ afterAll(() => {
 })
 
 describe('AppService', () => {
-  it('should add an app to the database', () => {
-    const appDTO: ICreateAppDTO = {
-      id: v4(),
-      owner: { auth0Id: v4() },
-      name: 'Demo App',
-    }
 
+
+  it('should add an app to the local store', () => {
+    //
+  })
+
+  it('should add an app to the database', () => {
     const app = rootStore.appService.add(appDTO)
 
     // App

@@ -141,15 +141,13 @@ export class ActionService
   ) {
     const updateInput = makeActionUpdateInput(actionDTO)
 
-    const actionFragments = yield* _await(
+    const actionFragment = (yield* _await(
       updateActionApi[actionDTO.type](updateInput),
-    )
+    ))[0]
 
-    return actionFragments.map((actionFragment) => {
-      const action = this.actionFactory.fromActionFragment(actionFragment)
+    const action = this.actionFactory.fromActionFragment(actionFragment!)
 
-      return this.add(action)
-    })
+    return this.add(action)
   })
 
   @modelFlow
@@ -174,51 +172,34 @@ export class ActionService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
-    this: ActionService,
-    data: Array<ICreateActionData>,
-  ) {
-    const input: Array<ICreateActionInput> = data.map((action) =>
-      makeActionCreateInput(action),
-    )
+  create = _async(function* (this: ActionService, data: ICreateActionData) {
+    const input = makeActionCreateInput(data)
 
-    const actionFragments = yield* _await(
-      Promise.all(
-        input.map((action) => {
-          if (!action.type) {
-            throw new Error('Action type must be provided')
-          }
+    if (!input.type) {
+      throw new Error('Action type must be provided')
+    }
 
-          return createActionApi[action.type](action)
-        }),
-      ).then((res) => res.flat()),
-    )
+    const actionFragment = (yield* _await(
+      createActionApi[input.type](input).then((res) => res.flat()),
+    ))[0]
 
-    return actionFragments.map((actionFragment) => {
-      const action = this.actionFactory.fromActionFragment(actionFragment)
+    const action = this.actionFactory.fromActionFragment(actionFragment!)
 
-      return this.add(action)
-    })
+    return this.add(action)
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ActionService, ids: Array<string>) {
-    const actions = ids
-      .map((id) => this.actions.get(id))
-      .filter((action): action is IAnyAction => Boolean(action))
+  delete = _async(function* (this: ActionService, id: string) {
+    const action = this.actions.get(id)
 
-    ids.forEach((id) => this.actions.delete(id))
+    this.actions.delete(id)
 
     const results = yield* _await(
-      Promise.all(
-        actions.map((action) =>
-          deleteActionApi[action.type]({ where: { id: action.id } }),
-        ),
-      ),
+      deleteActionApi[action!.type]({ where: { id } }),
     )
 
-    return results.reduce((total, { nodesDeleted }) => nodesDeleted + total, 0)
+    return action!
   })
 }
 

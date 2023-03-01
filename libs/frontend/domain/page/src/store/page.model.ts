@@ -1,19 +1,54 @@
 import type {
   IElement,
   IPage,
+  IPageDTO,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { ElementTreeService } from '@codelab/frontend/domain/element'
+import {
+  Element,
+  elementRef,
+  ElementTreeService,
+} from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
+import { createUniqueName, extractName } from '@codelab/frontend/shared/utils'
+import type { AppPagesCreateFieldInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type {
+  IEntity,
+  Maybe,
+  Nullable,
+  Nullish,
+} from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, idProp, model, prop } from 'mobx-keystone'
+import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 import { pageApi } from './page.api'
 
-const getServerSideProps = async (context: IPropData) => {
+const create = ({
+  id,
+  name,
+  app,
+  kind,
+  rootElement,
+  getServerSideProps,
+  pageContentContainer,
+  descendentElements,
+}: IPageDTO): IPage => {
+  return new Page({
+    id,
+    name,
+    rootElement: elementRef(rootElement.id),
+    getServerSideProps: getServerSideProps,
+    app: { id: app.id },
+    pageContentContainer: pageContentContainer?.id
+      ? elementRef(pageContentContainer.id)
+      : undefined,
+    kind: kind,
+  })
+}
+
+const getPageServerSideProps = async (context: IPropData) => {
   const id = context.params?.pageId as string
 
   const {
@@ -39,25 +74,6 @@ const getServerSideProps = async (context: IPropData) => {
   }
 }
 
-// const hydrate = (page: IPageDTO) => {
-//   const rootElement = new Element({
-//     id: page.rootElement.id,
-//     name: page.rootElement.name,
-//   })
-
-//   return new Page({
-//     id: page.id,
-//     name: extractName(page.name),
-//     rootElement: elementRef(rootElement),
-//     getServerSideProps: page.getServerSideProps,
-//     app: { id: page.app.id },
-//     pageContainerElement: page.pageContainerElement
-//       ? { id: page.pageContainerElement.id }
-//       : null,
-//     kind: page.kind,
-//   })
-// }
-
 @model('@codelab/Page')
 export class Page
   extends ExtendedModel(ElementTreeService, {
@@ -66,7 +82,7 @@ export class Page
     name: prop<string>().withSetter(),
     rootElement: prop<Ref<IElement>>(),
     getServerSideProps: prop<Nullish<string>>(),
-    pageContainerElement: prop<Nullish<IEntity>>(),
+    pageContentContainer: prop<Maybe<Ref<IElement>>>(),
     kind: prop<IPageKind>(),
   })
   implements IPage
@@ -93,28 +109,54 @@ export class Page
     }
   }
 
+  toCreateInput(): AppPagesCreateFieldInput {
+    return {
+      node: {
+        id: this.id,
+        kind: this.kind,
+        getServerSideProps: this.getServerSideProps,
+        _compoundName: createUniqueName(this.name, this),
+        pageContentContainer: {
+          create: this.pageContentContainer
+            ? {
+                node: this.pageContentContainer.current.toCreateInput(),
+              }
+            : null,
+        },
+      },
+    }
+  }
+
   // onAttachedToRootStore() {
   //   console.log('Page model attached')
   // }
 
-  // @modelAction
-  // writeCache(page: IPageDTO) {
-  //   const rootElement = new Element({
-  //     id: page.rootElement.id,
-  //     name: page.rootElement.name,
-  //   })
+  @modelAction
+  writeCache({
+    app,
+    name,
+    rootElement,
+    getServerSideProps,
+    pageContentContainer,
+    kind,
+  }: Partial<IPageDTO>) {
+    this.name = name ? name : this.name
+    this.rootElement = rootElement
+      ? elementRef(rootElement.id)
+      : this.rootElement
+    this.app = app ? app : this.app
+    this.getServerSideProps = getServerSideProps
+      ? getServerSideProps
+      : this.getServerSideProps
+    this.pageContentContainer = pageContentContainer
+      ? elementRef(pageContentContainer.id)
+      : this.pageContentContainer
+    this.kind = kind ? kind : this.kind
 
-  //   this.setName(extractName(page.name))
-  //   this.rootElement = elementRef(rootElement)
-  //   this.app = page.app
-  //   this.getServerSideProps = page.getServerSideProps
-  //   this.pageContainerElement = page.pageContainerElement
-  //   this.kind = page.kind
+    return this
+  }
 
-  //   return this
-  // }
+  static create = create
 
-  // static hydrate = hydrate
-
-  static getServerSideProps = getServerSideProps
+  static getServerSideProps = getPageServerSideProps
 }

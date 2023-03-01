@@ -11,7 +11,11 @@ import type {
   INode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isComponent, isElement } from '@codelab/frontend/abstract/core'
+import {
+  isAtomModel,
+  isComponent,
+  isElement,
+} from '@codelab/frontend/abstract/core'
 import { UpdateComponentPropsForm } from '@codelab/frontend/domain/component'
 import {
   ElementCssEditor,
@@ -101,8 +105,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         ),
         children: (
           <div key={selectedNode.id}>
-            {isElement(selectedNode) &&
-            (selectedNode.atom || selectedNode.renderComponentType) ? (
+            {isElement(selectedNode) && selectedNode.renderType ? (
               <FormContextProvider
                 value={{
                   autocomplete,
@@ -133,7 +136,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           <TooltipIcon icon={<FormatPainterOutlined />} title={TAB_NAMES.CSS} />
         ),
         children:
-          isElement(selectedNode) && selectedNode.atom ? (
+          isElement(selectedNode) && isAtomModel(selectedNode.renderType) ? (
             <ElementCssEditor
               element={selectedNode}
               elementService={elementService}

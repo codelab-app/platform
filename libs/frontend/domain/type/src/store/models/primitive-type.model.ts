@@ -35,7 +35,7 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  create(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.PrimitiveType) {
@@ -47,16 +47,12 @@ export class PrimitiveType
     return this
   }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  //
-  //   if (!input.primitiveKind) {
-  //     throw new Error('PrimitiveType must have a primitiveKind')
-  //   }
-  //
-  //   this.primitiveKind = input.primitiveKind
-  // }
+  @modelAction
+  writeCache(primitiveTypeDTO: IPrimitiveTypeDTO) {
+    updateBaseTypeCache(this, primitiveTypeDTO)
+
+    return this
+  }
 
   public static hydrate = hydrate
 }

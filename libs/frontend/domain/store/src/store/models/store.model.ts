@@ -9,9 +9,14 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IPropData } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
-import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { getByExpression } from '@codelab/frontend/shared/utils'
 import type { StoreCreateInput } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
@@ -28,13 +33,6 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { getActionService } from '../action.service'
-
-export const hydrate = ({ id, name, api }: IStoreDTO) =>
-  new Store({
-    id,
-    name,
-    api: typeRef(api.id) as Ref<IInterfaceType>,
-  })
 
 @model('@codelab/Store')
 export class Store
@@ -71,14 +69,19 @@ export class Store
     }
   }
 
-  // @modelAction
-  // create({ id, name, api, actions }: IStoreDTO) {
-  //   this.id = id
-  //   this.name = name
-  //   this.api = typeRef(api.id) as Ref<IInterfaceType>
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
 
-  //   return this
-  // }
+  @modelAction
+  writeCache({ id, name, api }: Partial<IStoreDTO>) {
+    this.id = id ? id : this.id
+    this.name = name ? name : this.name
+    this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
+
+    return this
+  }
 
   @computed
   private get _defaultValues() {
@@ -112,7 +115,32 @@ export class Store
     return props
   }
 
-  static hydrate = hydrate
+  static create({ id, name, api }: IStoreDTO) {
+    new Store({
+      id,
+      name,
+      api: typeRef(api.id) as Ref<IInterfaceType>,
+    })
+  }
+
+  // static addFromApp(app: Pick<IAppDTO, 'owner' | 'name'>): IStore {
+  //   const interfaceType = new InterfaceType({
+  //     id: v4(),
+  //     name: InterfaceType.createName(`${app.name} Store`),
+  //     kind: ITypeKind.InterfaceType,
+  //     owner: app.owner,
+  //   })
+
+
+  //   console.log(interfaceType)
+
+  //   const store = new Store({
+  //     name: Store.createName(app),
+  //     api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
+  //   })
+
+  //   return store
+  // }
 
   toCreateInput(): StoreCreateInput {
     const api = this.api.current
@@ -128,7 +156,7 @@ export class Store
     }
   }
 
-  static createName(app: IAppDTO) {
+  static createName(app: Pick<IAppDTO, 'name'>) {
     return `${app.name} Store`
   }
 

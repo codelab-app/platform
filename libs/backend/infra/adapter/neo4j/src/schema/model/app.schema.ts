@@ -4,8 +4,9 @@ export const appSchema = gql`
   type App implements WithOwner {
     id: ID! @id(autogenerate: false)
     owner: User!
-    name: String!
-    slug: String! @computed(from: ["name"])
+    _compoundName: String! @unique
+    name: String! @computed(from: ["id", "_compoundName"])
+    slug: String! @computed(from: ["id", "_compoundName"])
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
     store: Store! @relationship(type: "STORE_OF_APP", direction: IN)
     domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)

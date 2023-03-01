@@ -1,8 +1,8 @@
 import type {
-  ICreateDomainDTO,
+  ICreateDomainData,
   IDomainDTO,
   IDomainService,
-  IUpdateDomainDTO,
+  IUpdateDomainData,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
@@ -52,7 +52,7 @@ export class DomainService
     }
 
     return domains.map((domain) => {
-      const domainModel = Domain.hydrate(domain)
+      const domainModel = Domain.create(domain)
 
       this.domains.set(domain.id, domainModel)
 
@@ -61,12 +61,12 @@ export class DomainService
   })
 
   @modelAction
-  create = (domain: IDomainDTO) => {
+  add = (domain: IDomainDTO) => {
     let domainModel = this.domains.get(domain.id)
 
     domainModel = domainModel
-      ? domainModel.create(domain)
-      : Domain.hydrate(domain)
+      ? domainModel.writeCache(domain)
+      : Domain.create(domain)
 
     this.domains.set(domain.id, domainModel)
 
@@ -80,41 +80,62 @@ export class DomainService
 
   @modelFlow
   @transaction
-  createSubmit = _async(function* (
+  create = _async(function* (
     this: DomainService,
-    data: Array<ICreateDomainDTO>,
+    { id, app, name }: ICreateDomainData,
   ) {
-    const input: Array<DomainCreateInput> = data.map(({ id, app, name }) => ({
+    const domain = Domain.create({
       id,
-      app: connectNodeId(app.id),
+      app,
       name,
-    }))
+      domainConfig: {
+        misconfigured: true,
+      },
+      projectDomain: {
+        verified: false,
+      },
+    })
+
+    this.domains.set(domain.id, domain)
 
     const {
       createDomains: { domains },
-    } = yield* _await(domainApis.CreateDomains({ input }))
+    } = yield* _await(
+      domainApis.CreateDomains({
+        input: {
+          id,
+          app: connectNodeId(app.id),
+          name,
+        },
+      }),
+    )
 
-    return domains.map((domain) => this.create(domain))
+    return domain
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: DomainService, ids: Array<string>) {
-    ids.forEach((id) => this.domains.delete(id))
+  delete = _async(function* (this: DomainService, id: string) {
+    const domain = this.domains.get(id)
+    this.domains.delete(id)
 
     const {
       deleteDomains: { nodesDeleted },
-    } = yield* _await(domainApis.DeleteDomains({ where: { id_IN: ids } }))
+    } = yield* _await(domainApis.DeleteDomains({ where: { id } }))
 
-    return nodesDeleted
+    return domain!
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: DomainService,
-    { id, name }: IUpdateDomainDTO,
+    { id, name }: IUpdateDomainData,
   ) {
+    const domain = this.domains.get(id)
+
+    domain?.writeCache({ name })
+
     const {
       updateDomains: { domains },
     } = yield* _await(
@@ -128,6 +149,6 @@ export class DomainService
       }),
     )
 
-    return domains.map((domain) => this.create(domain))
+    return domain!
   })
 }

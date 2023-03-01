@@ -1,20 +1,19 @@
 import type {
   ITagService,
-  IUpdateTagDTO,
+  IUpdateTagData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import type { UpdateTagSchema } from './updateTagSchema'
 import { updateTagSchema } from './updateTagSchema'
 
 export const UpdateTagModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {
     const tag = tagService.updateModal.tag
 
-    const onSubmit = (tagDTO: IUpdateTagDTO) => {
+    const onSubmit = (tagDTO: IUpdateTagData) => {
       return tagService.update(tagDTO)
     }
 
@@ -26,7 +25,7 @@ export const UpdateTagModal = observer<{ tagService: ITagService }>(
         onCancel={closeModal}
         open={tagService.updateModal.isOpen}
       >
-        <ModalForm.Form<UpdateTagSchema>
+        <ModalForm.Form<IUpdateTagData>
           model={{ name: tag?.name }}
           onSubmit={onSubmit}
           onSubmitError={createNotificationHandler({

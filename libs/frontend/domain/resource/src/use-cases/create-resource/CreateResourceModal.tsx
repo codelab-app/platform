@@ -17,9 +17,7 @@ export const CreateResourceModal = observer<{
   userService: IUserService
 }>(({ resourceService, userService }) => {
   const closeModal = () => resourceService.createModal.close()
-
-  const onSubmit = (data: ICreateResourceData) =>
-    resourceService.createSubmit([data])
+  const onSubmit = (data: ICreateResourceData) => resourceService.create(data)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating resource',

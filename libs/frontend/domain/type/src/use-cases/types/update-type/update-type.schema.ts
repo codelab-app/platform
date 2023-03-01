@@ -1,4 +1,4 @@
-import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import { hideField, nonEmptyString } from '@codelab/frontend/shared/utils'
 import {
@@ -11,7 +11,7 @@ import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
 export const updateTypeSchema: JSONSchemaType<
-  Omit<IUpdateTypeDTO, 'defaultValue'>
+  Omit<IUpdateTypeData, 'defaultValue'>
 > = {
   title: 'Update Type Input',
   type: 'object',

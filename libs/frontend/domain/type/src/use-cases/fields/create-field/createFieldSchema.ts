@@ -1,4 +1,4 @@
-import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateFieldData } from '@codelab/frontend/abstract/core'
 import {
   GeneralValidationRules,
   NumberValidationRules,
@@ -9,7 +9,7 @@ import { nonEmptyString } from '@codelab/frontend/shared/utils'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
+export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {

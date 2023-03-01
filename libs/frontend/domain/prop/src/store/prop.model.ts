@@ -33,10 +33,6 @@ import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
 import { getPropService } from './prop.service'
 
-// const hydrate = ({ id, data, api }: IPropDTO): IProp => {
-//   return new Prop({ id, data: frozen(JSON.parse(data)), api })
-// }
-
 @model('@codelab/Prop')
 export class Prop
   extends Model({
@@ -48,9 +44,21 @@ export class Prop
 {
   private silentData: IPropData = {}
 
+  @modelAction
+  writeCache({ id, data, api }: Partial<IPropDTO>) {
+    this.data = data ? frozen(JSON.parse(data)) : this.data
+    this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
+
+    return this
+  }
+
   @computed
   private get propService() {
     return getPropService(this)
+  }
+
+  static create({ id, data, api }: IPropDTO) {
+    return new Prop({ id, data: frozen(JSON.parse(data)), api })
   }
 
   @computed

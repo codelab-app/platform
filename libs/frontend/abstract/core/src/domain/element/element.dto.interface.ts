@@ -1,7 +1,7 @@
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { IAtomDTO, IAtomID } from '../atom'
 import type { IComponentDTO, IComponentID } from '../component'
-import type { IPropData, IPropDTO } from '../prop'
+import type { IProp, IPropData, IPropDTO } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
 
 export enum RenderTypeEnum {
@@ -18,25 +18,32 @@ export interface RenderType {
 export interface ICreateElementData {
   id: string
   name: string
-  parentElement?: IEntity
-  preRenderActionId?: Nullish<string>
-  postRenderActionId?: Nullish<string>
+  parentElement?: Nullable<IEntity>
+  preRenderAction?: Nullable<IEntity>
+  postRenderAction?: Nullable<IEntity>
   customCss?: Nullish<string>
   guiCss?: Nullish<string>
-  propsData?: string
-  prevSiblingId?: Nullable<string>
+  props?: Nullish<Pick<IPropDTO, 'data'>>
+  prevSibling?: Nullable<IEntity>
   /**
    * We should connect to `atom` or `component` in future
    */
-  renderType?: Nullable<RenderType>
+  renderType: Nullable<RenderType>
 }
 
-export type IUpdateElementData = ICreateElementData & {
+export type IUpdateElementData = Pick<
+  ICreateElementData,
+  | 'id'
+  | 'name'
+  | 'renderType'
+  | 'preRenderAction'
+  | 'postRenderAction'
+  | 'customCss'
+  | 'guiCss'
+  | 'props'
+> & {
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
-  props?: Nullable<IPropData>
-  preRenderActionId?: Nullish<string>
-  postRenderActionId?: Nullish<string>
   propTransformationJs?: Nullish<string>
 }
 
@@ -50,8 +57,8 @@ export type IUpdateBaseElementData = Pick<
   | 'name'
   | 'renderIfExpression'
   | 'renderForEachPropKey'
-  | 'preRenderActionId'
-  | 'postRenderActionId'
+  | 'preRenderAction'
+  | 'postRenderAction'
 >
 
 /**
@@ -60,15 +67,15 @@ export type IUpdateBaseElementData = Pick<
 export interface IElementDTO {
   id: string
   name: string
-  slug: string
-  customCss?: string | null
-  guiCss?: string | null
-  renderForEachPropKey?: string | null
-  renderIfExpression?: string | null
-  preRenderActionId?: string | null
-  postRenderActionId?: string | null
-  propTransformationJs?: string | null
-  page?: { id: string } | null
+  // slug: string
+  customCss?: Nullable<string>
+  guiCss?: Nullable<string>
+  renderForEachPropKey?: Nullable<string>
+  renderIfExpression?: Nullable<string>
+  preRenderAction?: IEntity | null
+  postRenderAction?: IEntity | null
+  propTransformationJs?: Nullable<string>
+  page?: IEntity | null
   renderComponentType?: IComponentDTO | null
   renderAtomType?: IAtomDTO | null
   prevSibling?: IEntity | null

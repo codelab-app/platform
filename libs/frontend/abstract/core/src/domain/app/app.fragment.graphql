@@ -1,12 +1,16 @@
+fragment AppOwner on User {
+  auth0Id
+}
+
 fragment AppPreview on App {
   id
   name
   slug
   owner {
-    auth0Id
+    ...AppOwner
   }
   pages {
-    ...Page
+    id
   }
   store {
     id
@@ -19,7 +23,7 @@ fragment App on App {
   name
   slug
   owner {
-    auth0Id
+    ...AppOwner
   }
   pages {
     ...Page
@@ -43,10 +47,10 @@ fragment BuilderPage on Page {
   app {
     id
     owner {
-      auth0Id
+      ...AppOwner
     }
   }
-  pageContainerElement {
+  pageContentContainer {
     id
   }
   kind
@@ -57,7 +61,7 @@ fragment PageBuilderApp on App {
   name
   slug
   owner {
-    auth0Id
+    ...AppOwner
   }
   pages(
     where: {

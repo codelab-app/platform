@@ -1,6 +1,6 @@
 import type {
   IUpdateTypeArgs,
-  IUpdateTypeDTO,
+  IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
@@ -12,7 +12,7 @@ import {
 } from '@codelab/shared/domain/mapper'
 
 export const updateTypeInputFactory = (
-  type: IUpdateTypeDTO,
+  type: IUpdateTypeData,
 ): IUpdateTypeArgs => {
   // For some reason if the disconnect and delete are in the update section it throws an error
   return {

@@ -1,4 +1,4 @@
-import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import {
   hideField,
@@ -7,7 +7,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
-export const createDomainSchema: JSONSchemaType<ICreateDomainDTO> = {
+export const createDomainSchema: JSONSchemaType<ICreateDomainData> = {
   title: 'Create Domain Input',
   type: 'object',
   properties: {

@@ -1,22 +1,32 @@
 import type {
-  IApp,
   IAppService,
   ICreateAppData,
+  IInterfaceType,
   IPageBuilderAppProps,
+  IPageDTO,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
-import { IAppDTO } from '@codelab/frontend/abstract/core'
+import { IApp, IAppDTO, IStoreDTO } from '@codelab/frontend/abstract/core'
 import { getPageService, pageRef } from '@codelab/frontend/domain/page'
 import {
   deleteStoreInput,
   getStoreService,
+  Store,
   storeRef,
 } from '@codelab/frontend/domain/store'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -28,6 +38,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { AppRepository } from '../services/app.repo'
 import { appApi } from './app.api'
 import { App } from './app.model'
@@ -60,10 +71,10 @@ export class AppService
     return getPageService(this)
   }
 
-  // @computed
-  // private get typeService() {
-  //   return getTypeService(this)
-  // }
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
 
   @computed
   get appsJson() {
@@ -94,7 +105,7 @@ export class AppService
     const elements = [
       page.rootElement,
       ...page.rootElement.descendantElements,
-    ].map((element) => this.elementService.create(element))
+    ].map((element) => this.elementService.add(element))
 
     const rootElement = this.elementService.element(page.rootElement.id)
     const pageElementTree = pageModel.initTree(rootElement, elements)
@@ -125,17 +136,21 @@ export class AppService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: AppService, { name, id }: IUpdateAppData) {
+  update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {
+    const app = this.apps.get(id)
+
+    app?.writeCache({ name })
+
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
-        update: { name: createUniqueName(name) },
+        update: { _compoundName: createUniqueName(name, { id }) },
         where: { id },
       }),
     )
 
-    return apps.map((app) => this.add(app))
+    return app!
   })
 
   @modelFlow
@@ -156,52 +171,46 @@ export class AppService
     return yield* _await(this.appRepository.add(app))
   })
 
-  /**
-   * We don't hydrate pages here, because a page is its own aggregate root.
-   *
-   * Also we can create an app with creating user pages
-   */
   @modelAction
-  create(appDTO: IAppDTO) {
-    const store = this.storeService.create(appDTO)
-
-    const app = new App({
-      ...appDTO,
-      pages: appDTO.pages.map((page) => pageRef(this.pageService.add(page))),
-      store: storeRef(store),
+  add({ id, name, owner, pages, store }: IAppDTO): IApp {
+    const newApp = App.create({
+      id,
+      name,
+      owner,
+      pages: pages?.map((page) => pageRef(page.id)),
+      store: storeRef(store.id),
     })
 
-    return app
+    this.apps.set(newApp.id, newApp)
+
+    return newApp
   }
 
-  @modelAction
-  add(appDTO: IAppDTO) {
-    const store = this.storeService.create(appDTO)
-
-    const app = new App({
-      ...appDTO,
-      pages: appDTO.pages.map((page) => pageRef(this.pageService.add(page))),
-      store: storeRef(store),
+  @modelFlow
+  create = _async(function* (
+    this: AppService,
+    { id, name, owner }: ICreateAppData,
+  ) {
+    const interfaceType = this.typeService.addInterface({
+      id: v4(),
+      name: InterfaceType.createName(`${name} Store`),
+      kind: ITypeKind.InterfaceType,
+      owner: owner,
     })
 
-    this.apps.set(app.id, app)
+    const store = this.storeService.add({
+      id: v4(),
+      name: Store.createName({ name }),
+      api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
+    })
 
-    return app
-  }
+    const pages = this.pageService.pageFactory.addSystemPages({ id })
 
-  @modelAction
-  createSubmit = _async(function* (this: AppService, appData: ICreateAppData) {
-    const store = this.storeService.create(appData)
-
-    const app = new App({
-      ...appData,
-      pages: [
-        pageRef(this.pageService.pageFactory.createProviderPage(appData)),
-        pageRef(this.pageService.pageFactory.createNotFoundPage(appData)),
-        pageRef(
-          this.pageService.pageFactory.createInternalServerErrorPage(appData),
-        ),
-      ],
+    const app = this.add({
+      id,
+      name,
+      owner,
+      pages,
       store: storeRef(store),
     })
 
@@ -212,13 +221,12 @@ export class AppService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AppService, ids: Array<string>) {
-    const pageRootElements = ids
-      .map((id) => this.apps.get(id))
-      .flatMap((app) => app?.pages.map((page) => page.current.rootElement.id))
-      .filter((id): id is string => Boolean(id))
+  delete = _async(function* (this: AppService, id: string) {
+    const existingApp = this.apps.get(id)
 
-    ids.forEach((id) => this.apps.delete(id))
+    this.apps.delete(id)
+
+    const pageRootElements = existingApp?.pageRootElements ?? []
 
     /**
      * Delete all elements from all pages
@@ -235,7 +243,7 @@ export class AppService
       deleteApps: { nodesDeleted },
     } = yield* _await(
       appApi.DeleteApps({
-        where: { id_IN: ids },
+        where: { id },
         delete: {
           pages: [
             {
@@ -251,6 +259,6 @@ export class AppService
       }),
     )
 
-    return nodesDeleted
+    return existingApp!
   })
 }
