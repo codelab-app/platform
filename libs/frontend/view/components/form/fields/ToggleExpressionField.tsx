@@ -11,9 +11,10 @@ import tw from 'twin.macro'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
-import { BoolField, ListField, NumField, SelectField } from 'uniforms-antd'
+import { BoolField, NumField, SelectField } from 'uniforms-antd'
 import { CodeMirrorEditor, createAutoCompleteOptions } from '../../codeMirror'
 import { useFormContext } from '../providers'
+import { WrappedListField } from './WrappedListField'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
 
@@ -65,7 +66,7 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
     case 'string':
       return <SelectField {...(props as SelectFieldProps)} />
     case 'array':
-      return <ListField {...(props as ListFieldProps)} />
+      return <WrappedListField {...(props as ListFieldProps)} />
     default:
       return null
   }
