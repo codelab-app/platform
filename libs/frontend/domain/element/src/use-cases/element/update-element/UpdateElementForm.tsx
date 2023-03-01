@@ -74,7 +74,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const { trackPromise } = trackPromises ?? {}
     const model = makeCurrentModel(element)
 
-    const onSubmit = (data: IUpdateElementDTO) => {
+    const onSubmit = (data: IUpdateElementData) => {
       const promise = elementService.update(element, data)
 
       if (trackPromise) {
