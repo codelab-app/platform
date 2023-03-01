@@ -18,7 +18,7 @@ export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
    *
    * We store preview data here so we can more easily display the tags in the atoms table
    */
-  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
+  suggestedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
 }
 
 export type IAtomRef = string

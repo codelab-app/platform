@@ -13,7 +13,7 @@ export const exportSeedData = async () => {
     // Sort nested properties, since we can't do this with OGM
     .map((atom) => ({
       ...atom,
-      allowedChildren: atom.allowedChildren.sort((a, b) =>
+      suggestedChildren: atom.suggestedChildren.sort((a, b) =>
         a.id.localeCompare(b.id),
       ),
     }))

@@ -48,7 +48,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
       nullable: true,
       showSearch: true,
     },
-    allowedChildren: {
+    suggestedChildren: {
       type: 'array',
       items: {
         type: 'string',

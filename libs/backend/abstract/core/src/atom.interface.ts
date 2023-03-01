@@ -32,12 +32,12 @@ import { InterfaceTypeSchema } from './type'
 export type IAtomImport = Assign<
   IAtomExport,
   /**
-   * AllowedChildren requires all atoms to be seeded first, so we defer instantiation till data is ready
+   * SuggestedChildren requires all atoms to be seeded first, so we defer instantiation till data is ready
    *
    * This function takes in existing data and return data for upsert
    */
   {
-    allowedChildren: (data: ExistingData) => IAtomExport['allowedChildren']
+    suggestedChildren: (data: ExistingData) => IAtomExport['suggestedChildren']
   }
 >
 
@@ -55,7 +55,7 @@ export const AtomSchema = z.object({
   type: z.nativeEnum(IAtomType),
   api: InterfaceTypeSchema,
   tags: z.array(TagSchema),
-  allowedChildren: z
+  suggestedChildren: z
     .array(
       z.object({
         id: z.string(),
@@ -68,7 +68,7 @@ export const AtomExportSchema = AtomSchema.merge(
   z.object({
     api: EntitySchema,
     tags: z.array(EntitySchema),
-    allowedChildren: z.array(EntitySchema),
+    suggestedChildren: z.array(EntitySchema),
   }),
 )
 

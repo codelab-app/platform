@@ -34,8 +34,8 @@ export const UpdateAtomModal = observer<{
     name: atom?.name,
     type: atom?.type,
     tags: atom?.tags.map((tag) => tag.id),
-    allowedChildren: atom?.allowedChildren.map(
-      (allowedChild) => allowedChild.id,
+    suggestedChildren: atom?.suggestedChildren.map(
+      (suggestedChild) => suggestedChild.id,
     ),
   }
 
@@ -54,7 +54,7 @@ export const UpdateAtomModal = observer<{
         onSubmitSuccess={closeModal}
         schema={updateAtomSchema}
       >
-        <AutoFields omitFields={['tags', 'allowedChildren']} />
+        <AutoFields omitFields={['tags', 'suggestedChildren']} />
         <SelectField
           label="Connect Tag"
           mode="multiple"
@@ -63,15 +63,7 @@ export const UpdateAtomModal = observer<{
           options={tagListOption}
           showSearch={true}
         />
-        <SelectAtom label="Allowed Children" name="allowedChildren" />
-        {/* <SelectField */}
-        {/*  label="Allowed Children" */}
-        {/*  mode="multiple" */}
-        {/*  name="allowedChildren" */}
-        {/*  optionFilterProp="label" */}
-        {/*  options={tagListOption} */}
-        {/*  showSearch={true} */}
-        {/*/ > */}
+        <SelectAtom label="Suggested Children" name="suggestedChildren" />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

@@ -12,11 +12,7 @@ import type {
   BaseTypeUniqueWhereCallback,
   BaseUniqueWhere,
 } from '@codelab/shared/abstract/types'
-import {
-  connectNode,
-  connectNodeId,
-  connectNodeIds,
-} from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectNodeIds } from '@codelab/shared/domain/mapper'
 import { logTask } from '@codelab/shared/utils'
 
 export class AtomRepository {
@@ -114,12 +110,15 @@ export const upsertAtom = async (
   }
 }
 
-export const assignAllowedChildren = async (
+export const assignSuggestedChildren = async (
   atom: IAtomImport,
   data: ExistingData,
 ) => {
   const Atom = await Repository.instance.Atom
-  const allowedChildrenIds = atom.allowedChildren(data).map((child) => child.id)
+
+  const suggestedChildrenIds = atom
+    .suggestedChildren(data)
+    .map((child) => child.id)
 
   try {
     return await Atom.update({
@@ -127,7 +126,7 @@ export const assignAllowedChildren = async (
         id: atom.id,
       },
       update: {
-        allowedChildren: [connectNodeIds(allowedChildrenIds)],
+        suggestedChildren: [connectNodeIds(suggestedChildrenIds)],
       },
     })
   } catch (error) {

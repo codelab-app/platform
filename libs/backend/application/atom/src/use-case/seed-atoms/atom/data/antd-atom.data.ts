@@ -191,13 +191,13 @@ export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
     file: 'Form',
     tag: AntdTag.Form,
     icon: AntdTag.Form,
-    allowedChildren: [IAtomType.AntDesignFormItem],
+    suggestedChildren: [IAtomType.AntDesignFormItem],
   },
   [IAtomType.AntDesignFormItem]: {
     file: 'Form--Item',
     tag: AntdTag.FormItem,
     icon: AntdTag.Form,
-    allowedChildren: [
+    suggestedChildren: [
       IAtomType.AntDesignInput,
       IAtomType.AntDesignButton,
       IAtomType.AntDesignCheckbox,

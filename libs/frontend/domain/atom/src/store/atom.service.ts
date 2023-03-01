@@ -51,10 +51,10 @@ export class AtomService
   update = _async(function* (
     this: AtomService,
     existingAtom: IAtom,
-    { name, type, tags = [], allowedChildren = [] }: IUpdateAtomDTO,
+    { name, type, tags = [], suggestedChildren = [] }: IUpdateAtomDTO,
   ) {
-    const allowedChildrenIds = allowedChildren.map(
-      (allowedChild) => allowedChild,
+    const suggestedChildrenIds = suggestedChildren.map(
+      (suggestedChild) => suggestedChild,
     )
 
     const {
@@ -64,7 +64,7 @@ export class AtomService
         update: {
           name,
           type,
-          allowedChildren: reconnectNodeIds(allowedChildrenIds),
+          suggestedChildren: reconnectNodeIds(suggestedChildrenIds),
           tags: reconnectNodeIds(tags),
         },
         where: { id: existingAtom.id },

@@ -10,7 +10,7 @@ fragment Atom on Atom {
     id
     name
   }
-  allowedChildren {
+  suggestedChildren {
     id
     name
     type
@@ -29,7 +29,7 @@ fragment RenderAtom on Atom {
     id
     name
   }
-  allowedChildren {
+  suggestedChildren {
     id
     name
     type

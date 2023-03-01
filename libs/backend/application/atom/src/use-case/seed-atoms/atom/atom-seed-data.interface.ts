@@ -15,7 +15,7 @@ export interface AtomSeedData {
    */
   icon?: string | null
   /**
-   * Which atoms are allowed to be used as children
+   * Which atoms are suggested to be used as children
    */
-  allowedChildren?: Array<IAtomType>
+  suggestedChildren?: Array<IAtomType>
 }

@@ -11,7 +11,7 @@ export const atomSelectionSet = `{
     id
     name
   }
-  allowedChildren {
+  suggestedChildren {
     id
     name
     type

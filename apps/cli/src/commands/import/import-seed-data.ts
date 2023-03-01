@@ -11,8 +11,8 @@ export const importSeedData = async (
   const mappedAtoms = atoms.map((atom) => {
     return {
       ...atom,
-      allowedChildren: (data: ExistingData) => {
-        return atom.allowedChildren.map((child) => {
+      suggestedChildren: (data: ExistingData) => {
+        return atom.suggestedChildren.map((child) => {
           const existingAtom = data.atomsById[child.id]
 
           if (!existingAtom) {

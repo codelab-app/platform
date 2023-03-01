@@ -23,18 +23,18 @@ export class SeedAtomsService extends IUseCase<IUserRef, void> {
     const atoms = await this.createAtomsData(owner)
 
     /**
-     * Create all atoms but omit `allowedChildren`, since that is required
+     * Create all atoms but omit `suggestedChildren`, since that is required
      */
     await Promise.all(
       atoms.map(
-        // Omit `allowedChildren`, since it requires all atoms to be added first
-        async ({ allowedChildren, ...atom }) =>
+        // Omit `suggestedChildren`, since it requires all atoms to be added first
+        async ({ suggestedChildren, ...atom }) =>
           await this.atomRepository.save(atom, { name: atom.name }),
       ),
     )
 
     /**
-     * Here we assign allowedChildren, since all atoms must be created first
+     * Here we assign suggestedChildren, since all atoms must be created first
      */
     await Promise.all(
       atoms.map(

@@ -20,7 +20,7 @@ export interface AtomRecord {
   tags: Array<ITag>
   apiId: IInterfaceTypeRef
   library: AtomLibrary
-  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
+  suggestedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
 }
 
 export type ActionColumnProps = {

@@ -19,7 +19,7 @@ export class Atom implements IAtom {
 
   tags: Array<ITag>
 
-  allowedChildren: Array<IEntity>
+  suggestedChildren: Array<IEntity>
 
   constructor({
     id,
@@ -28,7 +28,7 @@ export class Atom implements IAtom {
     type,
     api,
     tags,
-    allowedChildren = [],
+    suggestedChildren = [],
   }: IAtom) {
     this.id = id
     this.name = name
@@ -36,6 +36,6 @@ export class Atom implements IAtom {
     this.type = type
     this.api = api
     this.tags = tags
-    this.allowedChildren = allowedChildren
+    this.suggestedChildren = suggestedChildren
   }
 }

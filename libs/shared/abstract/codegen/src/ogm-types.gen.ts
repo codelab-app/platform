@@ -2713,11 +2713,11 @@ export type Atom = {
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
-  allowedChildren: Array<Atom>
-  allowedChildrenAggregate?: Maybe<AtomAtomAllowedChildrenAggregationSelection>
+  suggestedChildren: Array<Atom>
+  suggestedChildrenAggregate?: Maybe<AtomAtomSuggestedChildrenAggregationSelection>
   tagsConnection: AtomTagsConnection
   apiConnection: AtomApiConnection
-  allowedChildrenConnection: AtomAllowedChildrenConnection
+  suggestedChildrenConnection: AtomSuggestedChildrenConnection
 }
 
 export type AtomTagsArgs = {
@@ -2742,13 +2742,13 @@ export type AtomApiAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
-export type AtomAllowedChildrenArgs = {
+export type AtomSuggestedChildrenArgs = {
   where?: InputMaybe<AtomWhere>
   options?: InputMaybe<AtomOptions>
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
-export type AtomAllowedChildrenAggregateArgs = {
+export type AtomSuggestedChildrenAggregateArgs = {
   where?: InputMaybe<AtomWhere>
   directed?: InputMaybe<Scalars['Boolean']>
 }
@@ -2769,12 +2769,12 @@ export type AtomApiConnectionArgs = {
   sort?: InputMaybe<Array<AtomApiConnectionSort>>
 }
 
-export type AtomAllowedChildrenConnectionArgs = {
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+export type AtomSuggestedChildrenConnectionArgs = {
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
   first?: InputMaybe<Scalars['Int']>
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
-  sort?: InputMaybe<Array<AtomAllowedChildrenConnectionSort>>
+  sort?: InputMaybe<Array<AtomSuggestedChildrenConnectionSort>>
 }
 
 export type AtomAggregateSelection = {
@@ -2783,19 +2783,6 @@ export type AtomAggregateSelection = {
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   icon: StringAggregateSelectionNullable
-}
-
-export type AtomAllowedChildrenConnection = {
-  __typename?: 'AtomAllowedChildrenConnection'
-  edges: Array<AtomAllowedChildrenRelationship>
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-}
-
-export type AtomAllowedChildrenRelationship = {
-  __typename?: 'AtomAllowedChildrenRelationship'
-  cursor: Scalars['String']
-  node: Atom
 }
 
 export type AtomApiConnection = {
@@ -2811,14 +2798,14 @@ export type AtomApiRelationship = {
   node: InterfaceType
 }
 
-export type AtomAtomAllowedChildrenAggregationSelection = {
-  __typename?: 'AtomAtomAllowedChildrenAggregationSelection'
+export type AtomAtomSuggestedChildrenAggregationSelection = {
+  __typename?: 'AtomAtomSuggestedChildrenAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<AtomAtomAllowedChildrenNodeAggregateSelection>
+  node?: Maybe<AtomAtomSuggestedChildrenNodeAggregateSelection>
 }
 
-export type AtomAtomAllowedChildrenNodeAggregateSelection = {
-  __typename?: 'AtomAtomAllowedChildrenNodeAggregateSelection'
+export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
+  __typename?: 'AtomAtomSuggestedChildrenNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   icon: StringAggregateSelectionNullable
@@ -2847,6 +2834,19 @@ export type AtomsConnection = {
   totalCount: Scalars['Int']
   pageInfo: PageInfo
   edges: Array<AtomEdge>
+}
+
+export type AtomSuggestedChildrenConnection = {
+  __typename?: 'AtomSuggestedChildrenConnection'
+  edges: Array<AtomSuggestedChildrenRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type AtomSuggestedChildrenRelationship = {
+  __typename?: 'AtomSuggestedChildrenRelationship'
+  cursor: Scalars['String']
+  node: Atom
 }
 
 export type AtomTagsConnection = {
@@ -10345,203 +10345,6 @@ export type ArrayTypeWhere = {
   itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
-export type AtomAllowedChildrenAggregateInput = {
-  count?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  AND?: InputMaybe<Array<AtomAllowedChildrenAggregateInput>>
-  OR?: InputMaybe<Array<AtomAllowedChildrenAggregateInput>>
-  NOT?: InputMaybe<AtomAllowedChildrenAggregateInput>
-  node?: InputMaybe<AtomAllowedChildrenNodeAggregationWhereInput>
-}
-
-export type AtomAllowedChildrenConnectFieldInput = {
-  where?: InputMaybe<AtomConnectWhere>
-  connect?: InputMaybe<Array<AtomConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-}
-
-export type AtomAllowedChildrenConnectionSort = {
-  node?: InputMaybe<AtomSort>
-}
-
-export type AtomAllowedChildrenConnectionWhere = {
-  AND?: InputMaybe<Array<AtomAllowedChildrenConnectionWhere>>
-  OR?: InputMaybe<Array<AtomAllowedChildrenConnectionWhere>>
-  NOT?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  node?: InputMaybe<AtomWhere>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  node_NOT?: InputMaybe<AtomWhere>
-}
-
-export type AtomAllowedChildrenConnectOrCreateFieldInput = {
-  where: AtomConnectOrCreateWhere
-  onCreate: AtomAllowedChildrenConnectOrCreateFieldInputOnCreate
-}
-
-export type AtomAllowedChildrenConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
-}
-
-export type AtomAllowedChildrenCreateFieldInput = {
-  node: AtomCreateInput
-}
-
-export type AtomAllowedChildrenDeleteFieldInput = {
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  delete?: InputMaybe<AtomDeleteInput>
-}
-
-export type AtomAllowedChildrenDisconnectFieldInput = {
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  disconnect?: InputMaybe<AtomDisconnectInput>
-}
-
-export type AtomAllowedChildrenFieldInput = {
-  create?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
-  connect?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
-  >
-}
-
-export type AtomAllowedChildrenNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AtomAllowedChildrenNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<AtomAllowedChildrenNodeAggregationWhereInput>>
-  NOT?: InputMaybe<AtomAllowedChildrenNodeAggregationWhereInput>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  icon_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  icon_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  icon_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  icon_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  icon_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  icon_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type AtomAllowedChildrenUpdateConnectionInput = {
-  node?: InputMaybe<AtomUpdateInput>
-}
-
-export type AtomAllowedChildrenUpdateFieldInput = {
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  update?: InputMaybe<AtomAllowedChildrenUpdateConnectionInput>
-  connect?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
-  disconnect?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
-  create?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
-  delete?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
-  >
-}
-
 export type AtomApiAggregateInput = {
   count?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
@@ -10683,14 +10486,14 @@ export type AtomApiUpdateFieldInput = {
 export type AtomConnectInput = {
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
   api?: InputMaybe<AtomApiConnectFieldInput>
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
 }
 
 export type AtomConnectOrCreateInput = {
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
-  allowedChildren?: InputMaybe<
-    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
+  suggestedChildren?: InputMaybe<
+    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
   >
 }
 
@@ -10709,19 +10512,21 @@ export type AtomCreateInput = {
   type: AtomType
   tags?: InputMaybe<AtomTagsFieldInput>
   api?: InputMaybe<AtomApiFieldInput>
-  allowedChildren?: InputMaybe<AtomAllowedChildrenFieldInput>
+  suggestedChildren?: InputMaybe<AtomSuggestedChildrenFieldInput>
 }
 
 export type AtomDeleteInput = {
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
   api?: InputMaybe<AtomApiDeleteFieldInput>
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
 }
 
 export type AtomDisconnectInput = {
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
   api?: InputMaybe<AtomApiDisconnectFieldInput>
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
+  suggestedChildren?: InputMaybe<
+    Array<AtomSuggestedChildrenDisconnectFieldInput>
+  >
 }
 
 export type AtomOnCreateInput = {
@@ -10741,7 +10546,7 @@ export type AtomOptions = {
 export type AtomRelationInput = {
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
   api?: InputMaybe<AtomApiCreateFieldInput>
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
 }
 
 /** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
@@ -10750,6 +10555,203 @@ export type AtomSort = {
   name?: InputMaybe<SortDirection>
   icon?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
+}
+
+export type AtomSuggestedChildrenAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AtomSuggestedChildrenAggregateInput>>
+  OR?: InputMaybe<Array<AtomSuggestedChildrenAggregateInput>>
+  NOT?: InputMaybe<AtomSuggestedChildrenAggregateInput>
+  node?: InputMaybe<AtomSuggestedChildrenNodeAggregationWhereInput>
+}
+
+export type AtomSuggestedChildrenConnectFieldInput = {
+  where?: InputMaybe<AtomConnectWhere>
+  connect?: InputMaybe<Array<AtomConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+}
+
+export type AtomSuggestedChildrenConnectionSort = {
+  node?: InputMaybe<AtomSort>
+}
+
+export type AtomSuggestedChildrenConnectionWhere = {
+  AND?: InputMaybe<Array<AtomSuggestedChildrenConnectionWhere>>
+  OR?: InputMaybe<Array<AtomSuggestedChildrenConnectionWhere>>
+  NOT?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  node?: InputMaybe<AtomWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<AtomWhere>
+}
+
+export type AtomSuggestedChildrenConnectOrCreateFieldInput = {
+  where: AtomConnectOrCreateWhere
+  onCreate: AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate
+}
+
+export type AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type AtomSuggestedChildrenCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type AtomSuggestedChildrenDeleteFieldInput = {
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  delete?: InputMaybe<AtomDeleteInput>
+}
+
+export type AtomSuggestedChildrenDisconnectFieldInput = {
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  disconnect?: InputMaybe<AtomDisconnectInput>
+}
+
+export type AtomSuggestedChildrenFieldInput = {
+  create?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
+  connect?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
+  >
+}
+
+export type AtomSuggestedChildrenNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomSuggestedChildrenNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AtomSuggestedChildrenNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AtomSuggestedChildrenNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type AtomSuggestedChildrenUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type AtomSuggestedChildrenUpdateFieldInput = {
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  update?: InputMaybe<AtomSuggestedChildrenUpdateConnectionInput>
+  connect?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
+  disconnect?: InputMaybe<Array<AtomSuggestedChildrenDisconnectFieldInput>>
+  create?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
+  delete?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
+  >
 }
 
 export type AtomTagsAggregateInput = {
@@ -10903,7 +10905,7 @@ export type AtomUpdateInput = {
   type?: InputMaybe<AtomType>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   api?: InputMaybe<AtomApiUpdateFieldInput>
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenUpdateFieldInput>>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenUpdateFieldInput>>
 }
 
 export type AtomWhere = {
@@ -10982,19 +10984,19 @@ export type AtomWhere = {
   /** @deprecated Use `api_NONE` instead. */
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<AtomApiAggregateInput>
-  /** @deprecated Use `allowedChildren_SOME` instead. */
-  allowedChildren?: InputMaybe<AtomWhere>
-  /** @deprecated Use `allowedChildren_NONE` instead. */
-  allowedChildren_NOT?: InputMaybe<AtomWhere>
-  allowedChildrenAggregate?: InputMaybe<AtomAllowedChildrenAggregateInput>
+  /** @deprecated Use `suggestedChildren_SOME` instead. */
+  suggestedChildren?: InputMaybe<AtomWhere>
+  /** @deprecated Use `suggestedChildren_NONE` instead. */
+  suggestedChildren_NOT?: InputMaybe<AtomWhere>
+  suggestedChildrenAggregate?: InputMaybe<AtomSuggestedChildrenAggregateInput>
   /** Return Atoms where all of the related Atoms match this filter */
-  allowedChildren_ALL?: InputMaybe<AtomWhere>
+  suggestedChildren_ALL?: InputMaybe<AtomWhere>
   /** Return Atoms where none of the related Atoms match this filter */
-  allowedChildren_NONE?: InputMaybe<AtomWhere>
+  suggestedChildren_NONE?: InputMaybe<AtomWhere>
   /** Return Atoms where one of the related Atoms match this filter */
-  allowedChildren_SINGLE?: InputMaybe<AtomWhere>
+  suggestedChildren_SINGLE?: InputMaybe<AtomWhere>
   /** Return Atoms where some of the related Atoms match this filter */
-  allowedChildren_SOME?: InputMaybe<AtomWhere>
+  suggestedChildren_SOME?: InputMaybe<AtomWhere>
   /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<AtomTagsConnectionWhere>
   /** @deprecated Use `tagsConnection_NONE` instead. */
@@ -11006,14 +11008,14 @@ export type AtomWhere = {
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
   /** @deprecated Use `apiConnection_NONE` instead. */
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
-  /** @deprecated Use `allowedChildrenConnection_SOME` instead. */
-  allowedChildrenConnection?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  /** @deprecated Use `allowedChildrenConnection_NONE` instead. */
-  allowedChildrenConnection_NOT?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  allowedChildrenConnection_ALL?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  allowedChildrenConnection_NONE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  allowedChildrenConnection_SINGLE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  allowedChildrenConnection_SOME?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** @deprecated Use `suggestedChildrenConnection_SOME` instead. */
+  suggestedChildrenConnection?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  /** @deprecated Use `suggestedChildrenConnection_NONE` instead. */
+  suggestedChildrenConnection_NOT?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  suggestedChildrenConnection_ALL?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  suggestedChildrenConnection_NONE?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  suggestedChildrenConnection_SINGLE?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  suggestedChildrenConnection_SOME?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
 }
 
 export type BaseTypeConnectInput = {

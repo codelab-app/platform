@@ -21,7 +21,7 @@ export interface ICreateAtomDTO {
 
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined
-  allowedChildren?: Array<IAtomRef>
+  suggestedChildren?: Array<IAtomRef>
 }
 
 export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>

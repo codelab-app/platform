@@ -21,7 +21,7 @@ export const createAtomsData: CreateAtoms = (
       name: getApiName(IAtomType.AntDesignButton),
     },
     tags: [],
-    allowedChildren: [],
+    suggestedChildren: [],
   },
   {
     id: textId,
@@ -32,7 +32,7 @@ export const createAtomsData: CreateAtoms = (
       name: getApiName(IAtomType.AntDesignTypographyText),
     },
     tags: [],
-    allowedChildren: [],
+    suggestedChildren: [],
   },
   {
     id: v4(),
@@ -43,7 +43,7 @@ export const createAtomsData: CreateAtoms = (
       name: getApiName(IAtomType.AntDesignGridCol),
     },
     tags: [],
-    allowedChildren: [],
+    suggestedChildren: [],
   },
   {
     id: v4(),
@@ -54,6 +54,6 @@ export const createAtomsData: CreateAtoms = (
       name: getApiName(IAtomType.AntDesignGridRow),
     },
     tags: [],
-    allowedChildren: [],
+    suggestedChildren: [],
   },
 ]

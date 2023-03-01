@@ -15,7 +15,7 @@
           "name": "Affix"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "7b7b92d1-7caa-4dde-a9b1-719ebd9fd549",
@@ -32,7 +32,7 @@
           "name": "Alert"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6c769fac-2d59-45b1-9f03-0c6432053a58",
@@ -49,7 +49,7 @@
           "name": "Anchor"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "760032a3-df36-4e59-8466-31a7a0722222",
@@ -66,7 +66,7 @@
           "name": "Anchor.Link"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "46d8eb13-54d6-441e-8d27-2ed5ac31e4c7",
@@ -83,7 +83,7 @@
           "name": "AutoComplete"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "fc52e988-2384-4586-8564-2ddfca5e7e4e",
@@ -100,7 +100,7 @@
           "name": "Avatar"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "15f42658-2d18-4c90-a081-943a49c35b76",
@@ -117,7 +117,7 @@
           "name": "BackTop"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "798022e0-bb21-44f0-8c75-3b7417d71c2a",
@@ -134,7 +134,7 @@
           "name": "Badge"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "29ce89a8-e456-4f27-a714-ce17a03fcfa4",
@@ -151,7 +151,7 @@
           "name": "Breadcrumb"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "8b54513d-5f88-4973-a550-c50947b0ba7d",
@@ -168,7 +168,7 @@
           "name": "Breadcrumb.Item"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "d00fa46b-ebb4-4de4-a8f2-bc3f0768cf07",
@@ -185,7 +185,7 @@
           "name": "Breadcrumb.Separator"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
@@ -202,7 +202,7 @@
           "name": "Button"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "51c52d74-f64f-4fa7-8f90-f70e0854a7c8",
@@ -219,7 +219,7 @@
           "name": "Calendar"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "ec21b79c-1f5a-424c-afd5-93ff7ed168c9",
@@ -236,7 +236,7 @@
           "name": "Card"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6c688826-4b83-4735-b092-dbb19e07b819",
@@ -253,7 +253,7 @@
           "name": "Card.Grid"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6a117bbf-1a5e-4ca6-8f9a-8cbe31f29b2f",
@@ -270,7 +270,7 @@
           "name": "Card.Meta"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "421ece04-9c53-4e6c-8ad5-ad9b41d198b5",
@@ -287,7 +287,7 @@
           "name": "Carousel"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "f077d000-9e09-416d-bb07-87670fbc74c7",
@@ -304,7 +304,7 @@
           "name": "Cascader"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "702c8eb7-0469-46e3-8863-c235890a5c04",
@@ -321,7 +321,7 @@
           "name": "Checkbox"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "4fb272bf-973e-4a7f-b60f-7a36d778a964",
@@ -338,7 +338,7 @@
           "name": "Checkbox.Group"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "4402cd89-4e9e-4565-99fd-bbbf08105a02",
@@ -355,7 +355,7 @@
           "name": "Collapse"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "f6737b29-6e64-4ce2-9ab4-38a7b1163a2c",
@@ -372,7 +372,7 @@
           "name": "Collapse.Panel"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "9f46c418-22f8-496f-874f-f172cdea34d7",
@@ -389,7 +389,7 @@
           "name": "Comment"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "a4a7917f-aeb7-4eb3-8d7e-1a1c827025cd",
@@ -406,7 +406,7 @@
           "name": "ConfigProvider"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6fe9cdca-8205-4c7a-b2f0-7c8f2b29b3b7",
@@ -423,7 +423,7 @@
           "name": "DatePicker"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "e8bb5b58-b2b5-4a32-9fe5-5525263387de",
@@ -440,7 +440,7 @@
           "name": "Descriptions"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "fec2e34e-4862-44df-a3ce-062dfb9990e9",
@@ -457,7 +457,7 @@
           "name": "Descriptions.Item"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "99b43010-46aa-4d3c-831a-50ee8f237428",
@@ -474,7 +474,7 @@
           "name": "Divider"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "d21e40f0-37d4-468e-8823-c18ba6b2f6d2",
@@ -491,7 +491,7 @@
           "name": "Drawer"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "b0f11bb0-3155-4c09-8bc2-4643b666ec28",
@@ -508,7 +508,7 @@
           "name": "Dropdown"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "d0a2643c-cb97-4967-9055-7e70f8fc16dd",
@@ -525,7 +525,7 @@
           "name": "Dropdown.Button"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "8f88bcfe-b4a1-4fbf-8a37-df9774a6cb81",
@@ -542,7 +542,7 @@
           "name": "Empty"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "946f15ae-7306-4bb7-bb84-cbc069925376",
@@ -559,7 +559,7 @@
           "name": "Form"
         }
       ],
-      "allowedChildren": [
+      "suggestedChildren": [
         {
           "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
           "name": "AntDesignFormItem",
@@ -582,7 +582,7 @@
           "name": "Form.ErrorList"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
@@ -599,7 +599,7 @@
           "name": "Form.Item"
         }
       ],
-      "allowedChildren": [
+      "suggestedChildren": [
         {
           "id": "9f944db7-1e85-4516-829d-81338fdf2a15",
           "name": "AntDesignButton",
@@ -637,7 +637,7 @@
           "name": "Form.List"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "d682d0a0-0a91-4e3f-946f-12c18580bd4f",
@@ -654,7 +654,7 @@
           "name": "Form.Provider"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "12b4afa0-f620-4a1d-b6cc-f4dea3a8ff2c",
@@ -671,7 +671,7 @@
           "name": "Col"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "c4872dcb-6b5a-449c-91df-a1bf7161572b",
@@ -688,7 +688,7 @@
           "name": "Row"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "d3cbcac2-1484-4d41-9f06-c16e7b381de1",
@@ -705,7 +705,7 @@
           "name": "Icon"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "65a6e6d3-0b78-47d1-bd47-43cfc0b4ddab",
@@ -722,7 +722,7 @@
           "name": "Image"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "220e3971-6d68-48e6-85b3-d5bd62bcd7ba",
@@ -739,7 +739,7 @@
           "name": "Input"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "9b424472-87eb-4eba-933f-2618cbb7a6de",
@@ -756,7 +756,7 @@
           "name": "InputNumber"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "76f5106c-2255-439f-8c1a-471f41354edb",
@@ -773,7 +773,7 @@
           "name": "Layout"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "5f324170-f92a-44ca-8ca9-8931365751c1",
@@ -790,7 +790,7 @@
           "name": "Layout.Sider"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "de717846-081c-4062-b92b-606ec7e142a3",
@@ -807,7 +807,7 @@
           "name": "List"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "d69a3e93-29d9-4290-a4f4-c7d3a9c77ae5",
@@ -824,7 +824,7 @@
           "name": "List.Item"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "b9993339-40fe-48c2-b24f-e25bffa4e823",
@@ -841,7 +841,7 @@
           "name": "List.Item.Meta"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "ef4e5601-45fa-4a12-8c83-ccac3b094ec5",
@@ -858,7 +858,7 @@
           "name": "Mentions"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "7a64a1b3-2942-41ba-8560-1157eceaa332",
@@ -875,7 +875,7 @@
           "name": "Mentions.Option"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6fed3bd3-d463-48c8-81fa-3def8004cb55",
@@ -892,7 +892,7 @@
           "name": "Menu"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6ea7c6c0-16bc-445a-8995-ab104897e8ed",
@@ -909,7 +909,7 @@
           "name": "Message"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "f27e79ed-488c-4071-a12a-474a9861d0ff",
@@ -926,7 +926,7 @@
           "name": "Modal"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "fc7f75c7-2387-45f8-b242-b41e28cbbffd",
@@ -943,7 +943,7 @@
           "name": "Notification"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "81189844-dd62-4da7-a3eb-34a400c3830e",
@@ -960,7 +960,7 @@
           "name": "PageHeader"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "fa71319a-1d82-4ea5-a147-e941ea08cb62",
@@ -977,7 +977,7 @@
           "name": "Pagination"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "53725c28-a704-426f-a96d-c755190af62a",
@@ -994,7 +994,7 @@
           "name": "Popconfirm"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "57a93f04-de1a-4f59-9bed-96ac47554367",
@@ -1011,7 +1011,7 @@
           "name": "Popover"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "2a1c9aa3-cebe-4a2b-8ef2-a0b2bb796613",
@@ -1028,7 +1028,7 @@
           "name": "Progress"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "ae0f2f5f-1a6c-4821-8c6c-79baae988b33",
@@ -1045,7 +1045,7 @@
           "name": "Radio"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
@@ -1062,7 +1062,7 @@
           "name": "Radio.Group"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "03a485ad-2af5-4101-99a6-8c5b4a07472c",
@@ -1079,7 +1079,7 @@
           "name": "Rate"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "e56819dd-54a8-4f0f-8780-ca862413d349",
@@ -1096,7 +1096,7 @@
           "name": "Result"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "c676bc2c-4bc1-4af5-a90b-e72c4629df3a",
@@ -1113,7 +1113,7 @@
           "name": "Segmented"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "266ac9a2-0b8b-42ea-8f4b-44b5f53f7582",
@@ -1130,7 +1130,7 @@
           "name": "Select"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "4dce3538-cbaf-4491-93f6-99b27b429574",
@@ -1147,7 +1147,7 @@
           "name": "Select.Option"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "a5796598-0fa9-4b5a-ad16-29fe3f6da2b1",
@@ -1164,7 +1164,7 @@
           "name": "Skeleton"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "8ece672f-9f15-4cd4-b428-7eaa69f703a0",
@@ -1181,7 +1181,7 @@
           "name": "Slider"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "99385bae-8cb5-4856-8c22-66964081236e",
@@ -1198,7 +1198,7 @@
           "name": "Space"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "931a9058-6efe-4e36-9584-bb4938f555a7",
@@ -1215,7 +1215,7 @@
           "name": "Spin"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "5fe23983-4d73-4b6b-a0bd-757192815378",
@@ -1232,7 +1232,7 @@
           "name": "Statistic"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6a9ade3e-082e-41c0-b22d-32169014f23e",
@@ -1249,7 +1249,7 @@
           "name": "Steps"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "0bc144f0-a295-4ab3-831c-af444f16fcf3",
@@ -1266,7 +1266,7 @@
           "name": "Steps.Step"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "51bd6691-3c71-4d1c-8551-93c55f41e76d",
@@ -1283,7 +1283,7 @@
           "name": "Switch"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "39b77c87-ccc8-41b3-a24a-5da0b6b0dd6c",
@@ -1300,7 +1300,7 @@
           "name": "Table"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "8d3eebfc-dfb1-4596-a948-56981583c521",
@@ -1317,7 +1317,7 @@
           "name": "Tabs"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "cb070e25-371b-46f1-a17a-9e8ce4ff16e6",
@@ -1334,7 +1334,7 @@
           "name": "Tabs.TabPane"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "acb2587c-095a-4992-aa47-9b3cd52e7a50",
@@ -1351,7 +1351,7 @@
           "name": "Tag"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "973b50a2-d293-44fe-b058-e8725820a856",
@@ -1368,7 +1368,7 @@
           "name": "TimePicker"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "074496ae-1b9c-4c5c-959f-d643fd015183",
@@ -1385,7 +1385,7 @@
           "name": "Timeline"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "bfcd4ad2-a2d7-4187-8874-9ddd293564de",
@@ -1402,7 +1402,7 @@
           "name": "Timeline.Item"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "d5699e74-dfd5-4fbb-83f6-e4a2e5530a6f",
@@ -1419,7 +1419,7 @@
           "name": "Tooltip"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "b7b6452a-8e93-4625-a538-147932dd6a59",
@@ -1436,7 +1436,7 @@
           "name": "Transfer"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "f795968b-0606-4395-878d-ad021ecf3c86",
@@ -1453,7 +1453,7 @@
           "name": "Tree"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "6a761a30-5238-4ff2-b5b5-daef1e1a41b4",
@@ -1470,7 +1470,7 @@
           "name": "TreeSelect"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "8e022691-6588-4087-9c9b-e55bf11ac472",
@@ -1487,7 +1487,7 @@
           "name": "Typography.Paragraph"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "0c981d75-98f7-4233-8495-8fc6c106d54e",
@@ -1504,7 +1504,7 @@
           "name": "Typography.Text"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "2d7a9d3f-092e-48a6-9b5f-438eb80876e9",
@@ -1521,7 +1521,7 @@
           "name": "Typography.Title"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "52d75013-ecf3-44bd-b0bd-cce3899eb205",
@@ -1538,7 +1538,7 @@
           "name": "Upload"
         }
       ],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "49e1edb8-8558-4421-a85a-13b3335b7a11",
@@ -1550,7 +1550,7 @@
       },
       "icon": null,
       "tags": [],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "95ed4eee-0d3c-4c61-8fb2-61b3d64a310e",
@@ -1562,7 +1562,7 @@
       },
       "icon": null,
       "tags": [],
-      "allowedChildren": []
+      "suggestedChildren": []
     },
     {
       "id": "df95ca6c-f377-410f-8d76-9d183e6ad4d7",
@@ -1574,7 +1574,7 @@
       },
       "icon": null,
       "tags": [],
-      "allowedChildren": []
+      "suggestedChildren": []
     }
   ],
   "types": [

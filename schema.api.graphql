@@ -3134,22 +3134,6 @@ type ArrayTypesConnection {
 }
 
 type Atom {
-  allowedChildren(
-    directed: Boolean = true
-    options: AtomOptions
-    where: AtomWhere
-  ): [Atom!]!
-  allowedChildrenAggregate(
-    directed: Boolean = true
-    where: AtomWhere
-  ): AtomAtomAllowedChildrenAggregationSelection
-  allowedChildrenConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [AtomAllowedChildrenConnectionSort!]
-    where: AtomAllowedChildrenConnectionWhere
-  ): AtomAllowedChildrenConnection!
   api(
     directed: Boolean = true
     options: InterfaceTypeOptions
@@ -3169,6 +3153,22 @@ type Atom {
   icon: String
   id: ID!
   name: String!
+  suggestedChildren(
+    directed: Boolean = true
+    options: AtomOptions
+    where: AtomWhere
+  ): [Atom!]!
+  suggestedChildrenAggregate(
+    directed: Boolean = true
+    where: AtomWhere
+  ): AtomAtomSuggestedChildrenAggregationSelection
+  suggestedChildrenConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AtomSuggestedChildrenConnectionSort!]
+    where: AtomSuggestedChildrenConnectionWhere
+  ): AtomSuggestedChildrenConnection!
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
     directed: Boolean = true
@@ -3189,129 +3189,6 @@ type AtomAggregateSelection {
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-}
-
-input AtomAllowedChildrenAggregateInput {
-  AND: [AtomAllowedChildrenAggregateInput!]
-  NOT: AtomAllowedChildrenAggregateInput
-  OR: [AtomAllowedChildrenAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: AtomAllowedChildrenNodeAggregationWhereInput
-}
-
-input AtomAllowedChildrenConnectFieldInput {
-  connect: [AtomConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: AtomConnectWhere
-}
-
-input AtomAllowedChildrenConnectOrCreateFieldInput {
-  onCreate: AtomAllowedChildrenConnectOrCreateFieldInputOnCreate!
-  where: AtomConnectOrCreateWhere!
-}
-
-input AtomAllowedChildrenConnectOrCreateFieldInputOnCreate {
-  node: AtomOnCreateInput!
-}
-
-type AtomAllowedChildrenConnection {
-  edges: [AtomAllowedChildrenRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input AtomAllowedChildrenConnectionSort {
-  node: AtomSort
-}
-
-input AtomAllowedChildrenConnectionWhere {
-  AND: [AtomAllowedChildrenConnectionWhere!]
-  NOT: AtomAllowedChildrenConnectionWhere
-  OR: [AtomAllowedChildrenConnectionWhere!]
-  node: AtomWhere
-}
-
-input AtomAllowedChildrenCreateFieldInput {
-  node: AtomCreateInput!
-}
-
-input AtomAllowedChildrenDeleteFieldInput {
-  delete: AtomDeleteInput
-  where: AtomAllowedChildrenConnectionWhere
-}
-
-input AtomAllowedChildrenDisconnectFieldInput {
-  disconnect: AtomDisconnectInput
-  where: AtomAllowedChildrenConnectionWhere
-}
-
-input AtomAllowedChildrenFieldInput {
-  connect: [AtomAllowedChildrenConnectFieldInput!]
-  connectOrCreate: [AtomAllowedChildrenConnectOrCreateFieldInput!]
-  create: [AtomAllowedChildrenCreateFieldInput!]
-}
-
-input AtomAllowedChildrenNodeAggregationWhereInput {
-  AND: [AtomAllowedChildrenNodeAggregationWhereInput!]
-  NOT: AtomAllowedChildrenNodeAggregationWhereInput
-  OR: [AtomAllowedChildrenNodeAggregationWhereInput!]
-  icon_AVERAGE_LENGTH_EQUAL: Float
-  icon_AVERAGE_LENGTH_GT: Float
-  icon_AVERAGE_LENGTH_GTE: Float
-  icon_AVERAGE_LENGTH_LT: Float
-  icon_AVERAGE_LENGTH_LTE: Float
-  icon_LONGEST_LENGTH_EQUAL: Int
-  icon_LONGEST_LENGTH_GT: Int
-  icon_LONGEST_LENGTH_GTE: Int
-  icon_LONGEST_LENGTH_LT: Int
-  icon_LONGEST_LENGTH_LTE: Int
-  icon_SHORTEST_LENGTH_EQUAL: Int
-  icon_SHORTEST_LENGTH_GT: Int
-  icon_SHORTEST_LENGTH_GTE: Int
-  icon_SHORTEST_LENGTH_LT: Int
-  icon_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-}
-
-type AtomAllowedChildrenRelationship {
-  cursor: String!
-  node: Atom!
-}
-
-input AtomAllowedChildrenUpdateConnectionInput {
-  node: AtomUpdateInput
-}
-
-input AtomAllowedChildrenUpdateFieldInput {
-  connect: [AtomAllowedChildrenConnectFieldInput!]
-  connectOrCreate: [AtomAllowedChildrenConnectOrCreateFieldInput!]
-  create: [AtomAllowedChildrenCreateFieldInput!]
-  delete: [AtomAllowedChildrenDeleteFieldInput!]
-  disconnect: [AtomAllowedChildrenDisconnectFieldInput!]
-  update: AtomAllowedChildrenUpdateConnectionInput
-  where: AtomAllowedChildrenConnectionWhere
 }
 
 input AtomApiAggregateInput {
@@ -3422,26 +3299,26 @@ input AtomApiUpdateFieldInput {
   where: AtomApiConnectionWhere
 }
 
-type AtomAtomAllowedChildrenAggregationSelection {
+type AtomAtomSuggestedChildrenAggregationSelection {
   count: Int!
-  node: AtomAtomAllowedChildrenNodeAggregateSelection
+  node: AtomAtomSuggestedChildrenNodeAggregateSelection
 }
 
-type AtomAtomAllowedChildrenNodeAggregateSelection {
+type AtomAtomSuggestedChildrenNodeAggregateSelection {
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
 input AtomConnectInput {
-  allowedChildren: [AtomAllowedChildrenConnectFieldInput!]
   api: AtomApiConnectFieldInput
+  suggestedChildren: [AtomSuggestedChildrenConnectFieldInput!]
   tags: [AtomTagsConnectFieldInput!]
 }
 
 input AtomConnectOrCreateInput {
-  allowedChildren: [AtomAllowedChildrenConnectOrCreateFieldInput!]
   api: AtomApiConnectOrCreateFieldInput
+  suggestedChildren: [AtomSuggestedChildrenConnectOrCreateFieldInput!]
   tags: [AtomTagsConnectOrCreateFieldInput!]
 }
 
@@ -3454,24 +3331,24 @@ input AtomConnectWhere {
 }
 
 input AtomCreateInput {
-  allowedChildren: AtomAllowedChildrenFieldInput
   api: AtomApiFieldInput
   icon: String
   id: ID!
   name: String!
+  suggestedChildren: AtomSuggestedChildrenFieldInput
   tags: AtomTagsFieldInput
   type: AtomType!
 }
 
 input AtomDeleteInput {
-  allowedChildren: [AtomAllowedChildrenDeleteFieldInput!]
   api: AtomApiDeleteFieldInput
+  suggestedChildren: [AtomSuggestedChildrenDeleteFieldInput!]
   tags: [AtomTagsDeleteFieldInput!]
 }
 
 input AtomDisconnectInput {
-  allowedChildren: [AtomAllowedChildrenDisconnectFieldInput!]
   api: AtomApiDisconnectFieldInput
+  suggestedChildren: [AtomSuggestedChildrenDisconnectFieldInput!]
   tags: [AtomTagsDisconnectFieldInput!]
 }
 
@@ -3508,8 +3385,8 @@ input AtomOptions {
 }
 
 input AtomRelationInput {
-  allowedChildren: [AtomAllowedChildrenCreateFieldInput!]
   api: AtomApiCreateFieldInput
+  suggestedChildren: [AtomSuggestedChildrenCreateFieldInput!]
   tags: [AtomTagsCreateFieldInput!]
 }
 
@@ -3521,6 +3398,129 @@ input AtomSort {
   id: SortDirection
   name: SortDirection
   type: SortDirection
+}
+
+input AtomSuggestedChildrenAggregateInput {
+  AND: [AtomSuggestedChildrenAggregateInput!]
+  NOT: AtomSuggestedChildrenAggregateInput
+  OR: [AtomSuggestedChildrenAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AtomSuggestedChildrenNodeAggregationWhereInput
+}
+
+input AtomSuggestedChildrenConnectFieldInput {
+  connect: [AtomConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: AtomConnectWhere
+}
+
+input AtomSuggestedChildrenConnectOrCreateFieldInput {
+  onCreate: AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate!
+  where: AtomConnectOrCreateWhere!
+}
+
+input AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate {
+  node: AtomOnCreateInput!
+}
+
+type AtomSuggestedChildrenConnection {
+  edges: [AtomSuggestedChildrenRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AtomSuggestedChildrenConnectionSort {
+  node: AtomSort
+}
+
+input AtomSuggestedChildrenConnectionWhere {
+  AND: [AtomSuggestedChildrenConnectionWhere!]
+  NOT: AtomSuggestedChildrenConnectionWhere
+  OR: [AtomSuggestedChildrenConnectionWhere!]
+  node: AtomWhere
+}
+
+input AtomSuggestedChildrenCreateFieldInput {
+  node: AtomCreateInput!
+}
+
+input AtomSuggestedChildrenDeleteFieldInput {
+  delete: AtomDeleteInput
+  where: AtomSuggestedChildrenConnectionWhere
+}
+
+input AtomSuggestedChildrenDisconnectFieldInput {
+  disconnect: AtomDisconnectInput
+  where: AtomSuggestedChildrenConnectionWhere
+}
+
+input AtomSuggestedChildrenFieldInput {
+  connect: [AtomSuggestedChildrenConnectFieldInput!]
+  connectOrCreate: [AtomSuggestedChildrenConnectOrCreateFieldInput!]
+  create: [AtomSuggestedChildrenCreateFieldInput!]
+}
+
+input AtomSuggestedChildrenNodeAggregationWhereInput {
+  AND: [AtomSuggestedChildrenNodeAggregationWhereInput!]
+  NOT: AtomSuggestedChildrenNodeAggregationWhereInput
+  OR: [AtomSuggestedChildrenNodeAggregationWhereInput!]
+  icon_AVERAGE_LENGTH_EQUAL: Float
+  icon_AVERAGE_LENGTH_GT: Float
+  icon_AVERAGE_LENGTH_GTE: Float
+  icon_AVERAGE_LENGTH_LT: Float
+  icon_AVERAGE_LENGTH_LTE: Float
+  icon_LONGEST_LENGTH_EQUAL: Int
+  icon_LONGEST_LENGTH_GT: Int
+  icon_LONGEST_LENGTH_GTE: Int
+  icon_LONGEST_LENGTH_LT: Int
+  icon_LONGEST_LENGTH_LTE: Int
+  icon_SHORTEST_LENGTH_EQUAL: Int
+  icon_SHORTEST_LENGTH_GT: Int
+  icon_SHORTEST_LENGTH_GTE: Int
+  icon_SHORTEST_LENGTH_LT: Int
+  icon_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type AtomSuggestedChildrenRelationship {
+  cursor: String!
+  node: Atom!
+}
+
+input AtomSuggestedChildrenUpdateConnectionInput {
+  node: AtomUpdateInput
+}
+
+input AtomSuggestedChildrenUpdateFieldInput {
+  connect: [AtomSuggestedChildrenConnectFieldInput!]
+  connectOrCreate: [AtomSuggestedChildrenConnectOrCreateFieldInput!]
+  create: [AtomSuggestedChildrenCreateFieldInput!]
+  delete: [AtomSuggestedChildrenDeleteFieldInput!]
+  disconnect: [AtomSuggestedChildrenDisconnectFieldInput!]
+  update: AtomSuggestedChildrenUpdateConnectionInput
+  where: AtomSuggestedChildrenConnectionWhere
 }
 
 type AtomTagTagsAggregationSelection {
@@ -4025,11 +4025,11 @@ input AtomUniqueWhere {
 }
 
 input AtomUpdateInput {
-  allowedChildren: [AtomAllowedChildrenUpdateFieldInput!]
   api: AtomApiUpdateFieldInput
   icon: String
   id: ID
   name: String
+  suggestedChildren: [AtomSuggestedChildrenUpdateFieldInput!]
   tags: [AtomTagsUpdateFieldInput!]
   type: AtomType
 }
@@ -4038,31 +4038,6 @@ input AtomWhere {
   AND: [AtomWhere!]
   NOT: AtomWhere
   OR: [AtomWhere!]
-  allowedChildrenAggregate: AtomAllowedChildrenAggregateInput
-  allowedChildrenConnection_ALL: AtomAllowedChildrenConnectionWhere
-  allowedChildrenConnection_NONE: AtomAllowedChildrenConnectionWhere
-  allowedChildrenConnection_SINGLE: AtomAllowedChildrenConnectionWhere
-  allowedChildrenConnection_SOME: AtomAllowedChildrenConnectionWhere
-
-  """
-  Return Atoms where all of the related Atoms match this filter
-  """
-  allowedChildren_ALL: AtomWhere
-
-  """
-  Return Atoms where none of the related Atoms match this filter
-  """
-  allowedChildren_NONE: AtomWhere
-
-  """
-  Return Atoms where one of the related Atoms match this filter
-  """
-  allowedChildren_SINGLE: AtomWhere
-
-  """
-  Return Atoms where some of the related Atoms match this filter
-  """
-  allowedChildren_SOME: AtomWhere
   apiAggregate: AtomApiAggregateInput
   apiConnection: AtomApiConnectionWhere
   icon: String
@@ -4083,6 +4058,31 @@ input AtomWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  suggestedChildrenAggregate: AtomSuggestedChildrenAggregateInput
+  suggestedChildrenConnection_ALL: AtomSuggestedChildrenConnectionWhere
+  suggestedChildrenConnection_NONE: AtomSuggestedChildrenConnectionWhere
+  suggestedChildrenConnection_SINGLE: AtomSuggestedChildrenConnectionWhere
+  suggestedChildrenConnection_SOME: AtomSuggestedChildrenConnectionWhere
+
+  """
+  Return Atoms where all of the related Atoms match this filter
+  """
+  suggestedChildren_ALL: AtomWhere
+
+  """
+  Return Atoms where none of the related Atoms match this filter
+  """
+  suggestedChildren_NONE: AtomWhere
+
+  """
+  Return Atoms where one of the related Atoms match this filter
+  """
+  suggestedChildren_SINGLE: AtomWhere
+
+  """
+  Return Atoms where some of the related Atoms match this filter
+  """
+  suggestedChildren_SOME: AtomWhere
   tagsAggregate: AtomTagsAggregateInput
   tagsConnection_ALL: AtomTagsConnectionWhere
   tagsConnection_NONE: AtomTagsConnectionWhere
