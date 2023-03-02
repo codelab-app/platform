@@ -21,7 +21,7 @@ export class Atom implements IAtom {
 
   suggestedChildren: Array<IEntity>
 
-  requiredParents: Array<IEntity>
+  requiredParents: Array<IEntity & { name: string }>
 
   constructor({
     id,
