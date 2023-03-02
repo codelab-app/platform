@@ -1,5 +1,4 @@
 import type {
-  IAppDTO,
   IAppService,
   ICreateAppData,
   IUserService,
@@ -19,7 +18,7 @@ export const CreateAppModal = observer<{
   const onSubmit = (appDTO: ICreateAppData) => {
     console.log('submit', appDTO)
 
-    return appService.create({ ...appDTO, id: v4() })
+    return appService.create(appDTO)
   }
 
   const closeModal = () => appService.createModal.close()

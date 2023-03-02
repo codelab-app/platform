@@ -3,9 +3,7 @@ import type {
   IAuth0Owner,
   IComponent,
   IElementDTO,
-  IElementTree,
   IHook,
-  IInterfaceType,
   IProp,
   IPropData,
   RenderingError,
@@ -17,15 +15,11 @@ import {
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
   IElement,
-  IRenderTypeKind,
   isAtomModel,
   isComponentModel,
-  ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { atomRef } from '@codelab/frontend/domain/atom'
-import { getPropService, Prop, propRef } from '@codelab/frontend/domain/prop'
+import { getPropService, propRef } from '@codelab/frontend/domain/prop'
 import { actionRef } from '@codelab/frontend/domain/store'
-import { typeRef } from '@codelab/frontend/domain/type'
 import {
   componentRef,
   getElementService,
@@ -41,20 +35,15 @@ import { compoundCaseToTitleCase, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
-import type { AnyModel } from 'mobx-keystone'
 import {
   clone,
-  findParent,
-  getRefsResolvingTo,
   idProp,
   Model,
   model,
   modelAction,
-  modelTypeKey,
   prop,
   Ref,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
 import { getElementTree } from './element-tree.util'
@@ -382,13 +371,6 @@ export class Element
     /**
      * Here we'll want to set default value based on the interface
      */
-    const props: ElementCreateInput['props'] = {
-      create: {
-        node: {
-          data: JSON.stringify(this.props.current.data.data ?? {}),
-        },
-      },
-    }
 
     const renderAtomType = isAtomModel(this.renderType)
       ? connectNodeId(this.renderType.id)
@@ -401,7 +383,11 @@ export class Element
     return {
       renderComponentType,
       renderAtomType,
-      props,
+      props: {
+        create: {
+          node: this.props.current.toCreateInput(),
+        },
+      },
       // postRenderAction,
       // preRenderAction,
       name: this.name,

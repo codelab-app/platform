@@ -1,19 +1,23 @@
+import type {
+  ResourceCreateInput,
+  ResourceUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { IResourceType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IProp, IPropData } from '../prop'
-import type { IAuth0Owner } from '../user'
-import type { IGraphQLResourceConfigDTO } from './graphql-resource-config.interface'
+import type { IProp } from '../prop'
+import type { IOwnerSchema } from '../user'
 import type { IResourceDTO } from './resource.dto.interface'
-import type { IRestResourceConfigDTO } from './rest-resource-config.interface'
 
-export type IResourceConfig = IProp
-
-export interface IResource extends ICacheService<IResourceDTO, IResource> {
+export interface IResource
+  extends ICacheService<IResourceDTO, IResource>,
+    IOwnerSchema {
   id: string
   name: string
   config: Ref<IProp>
   type: IResourceType
+  toCreateInput(): ResourceCreateInput
+  toUpdateInput(): ResourceUpdateInput
 }
 
 export type IResourceRef = string

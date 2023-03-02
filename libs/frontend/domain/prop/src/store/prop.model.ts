@@ -2,13 +2,13 @@ import type {
   IInterfaceType,
   IProp,
   IPropDTO,
-  IResourceConfig,
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
+import type { PropCreateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
@@ -60,6 +60,12 @@ export class Prop
     this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
 
     return this
+  }
+
+  toCreateInput(): PropCreateInput {
+    return {
+      data: JSON.stringify(this.data.data ?? {}),
+    }
   }
 
   @computed

@@ -4,25 +4,32 @@ import type {
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import { IResourceType } from '@codelab/shared/abstract/core'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { createResourceSchema } from './createResourceSchema'
 
 export const CreateResourceModal = observer<{
   resourceService: IResourceService
   userService: IUserService
 }>(({ resourceService, userService }) => {
+  const onSubmit = (resourceDTO: ICreateResourceData) => {
+    console.log('submit', resourceDTO)
+
+    return resourceService.create(resourceDTO)
+  }
+
   const closeModal = () => resourceService.createModal.close()
-  const onSubmit = (data: ICreateResourceData) => resourceService.create(data)
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating resource',
-  })
-
-  const type = resourceService.createModal.type
+  const model = {
+    id: v4(),
+    type: resourceService.createModal.type,
+    owner: {
+      auth0Id: userService.user?.auth0Id,
+    },
+  }
 
   return (
     <ModalForm.Modal
@@ -31,33 +38,15 @@ export const CreateResourceModal = observer<{
       open={resourceService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{ owner: { auth0Id: userService.auth0Id }, type }}
+        model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating resource',
+        })}
         onSubmitSuccess={closeModal}
         schema={createResourceSchema}
       >
-        <AutoFields omitFields={['config']} />
-
-        {/**
-         *  GraphQL Resource Config Form
-         */}
-        <DisplayIfField<ICreateResourceData>
-          condition={(context) => context.model.type === IResourceType.GraphQL}
-        >
-          <AutoField name="config.url" />
-          <AutoField name="config.headers" />
-        </DisplayIfField>
-
-        {/**
-         *  Rest Resource Config Form
-         */}
-        <DisplayIfField<ICreateResourceData>
-          condition={(context) => context.model.type === IResourceType.Rest}
-        >
-          <AutoField name="config.url" />
-          <AutoField name="config.headers" />
-        </DisplayIfField>
+        <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
   )
