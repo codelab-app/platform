@@ -14099,7 +14099,7 @@ export type PropConnectWhere = {
 }
 
 export type PropCreateInput = {
-  data?: Scalars['String']
+  data: Scalars['String']
 }
 
 export type PropEdge = {
@@ -14109,7 +14109,7 @@ export type PropEdge = {
 }
 
 export type PropOnCreateInput = {
-  data?: Scalars['String']
+  data: Scalars['String']
 }
 
 export type PropOptions = {
@@ -15289,7 +15289,7 @@ export type RenderPropsTypesConnection = {
 
 export type RenderType = {
   __typename?: 'RenderType'
-  id: Scalars['String']
+  id: Scalars['ID']
   kind: RenderTypeKind
 }
 

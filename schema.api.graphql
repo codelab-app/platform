@@ -13308,7 +13308,7 @@ input PropConnectWhere {
 }
 
 input PropCreateInput {
-  data: String! = "{}"
+  data: String!
 }
 
 type PropEdge {
@@ -13317,7 +13317,7 @@ type PropEdge {
 }
 
 input PropOnCreateInput {
-  data: String! = "{}"
+  data: String!
 }
 
 input PropOptions {
@@ -14116,7 +14116,7 @@ type RenderPropsTypesConnection {
 }
 
 type RenderType {
-  id: String!
+  id: ID!
   kind: RenderTypeKind!
 }
 

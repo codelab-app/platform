@@ -125,6 +125,7 @@ export class TypeService
   @modelAction
   addInterface(data: ICreateTypeData) {
     const interfaceType = new InterfaceType({
+      id: data.id,
       name: data.name,
       owner: data.owner,
     })

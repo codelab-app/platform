@@ -4,7 +4,7 @@ import type { Ref } from 'mobx-keystone'
 import type { IElement, IElementDTO } from '../element'
 import type { IAuth0Owner, IOwnerSchema } from '../user'
 
-export interface IPageDTO  {
+export interface IPageDTO {
   id: string
   kind: IPageKind
   name: string

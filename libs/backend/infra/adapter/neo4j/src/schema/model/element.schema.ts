@@ -14,7 +14,7 @@ export const elementSchema = gql`
 
   # Create this to match frontend
   type RenderType @exclude {
-    id: String!
+    id: ID!
     kind: RenderTypeKind!
   }
 
