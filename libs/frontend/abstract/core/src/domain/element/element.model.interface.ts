@@ -53,7 +53,7 @@ export interface IElement
   name: string
   customCss?: Nullable<string>
   guiCss?: Nullable<string>
-  props?: Nullable<Ref<IProp>>
+  props: Ref<IProp>
   hooks: Array<IHook>
   parent?: Ref<IElement>
   parentComponent?: Nullable<Ref<IComponent>>

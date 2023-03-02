@@ -214,8 +214,6 @@ export class AppService
       store: storeRef(store),
     })
 
-    console.log(app)
-
     yield* _await(this.save(app))
 
     return app

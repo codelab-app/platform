@@ -80,5 +80,5 @@ export interface IElementDTO {
   parentComponent?: IEntity | null
   parent?: IEntity | null
   firstChild?: IEntity | null
-  props: IEntity | null
+  props: IEntity
 }

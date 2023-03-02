@@ -91,7 +91,7 @@ export class Prop
   }
 
   @modelAction
-  set(key: string, value: object) {
+  set(key: string, value: object | string) {
     const obj = set({}, key, value)
 
     if (this.data.data) {

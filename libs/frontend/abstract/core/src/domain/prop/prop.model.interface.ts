@@ -12,7 +12,7 @@ export interface IProp extends ICacheService<IPropDTO, IProp> {
   jsonString: string
   values: IPropData
 
-  set(key: string, value: object): void
+  set(key: string, value: object | string): void
   setSilently(key: string, value: object): void
   setMany(data: IPropData): void
   delete(key: string): void

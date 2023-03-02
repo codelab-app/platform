@@ -336,8 +336,8 @@ export class Renderer
       element.__metadataProps,
       componentApi?.defaultValues,
       component?.props?.current.values,
-      componentInstance?.props?.current.values,
-      element.props?.current.values,
+      componentInstance?.props.current.values,
+      element.props.current.values,
       extraProps,
     )
 

@@ -93,6 +93,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       type: IAtomType.HtmlDiv,
       api: typeRef(data.emptyInterface),
       tags: [],
+      owner,
     })
 
     data.textAtom = new Atom({
@@ -101,6 +102,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       type: IAtomType.Text,
       api: typeRef(data.emptyInterface),
       tags: [],
+      owner,
     })
 
     data.elementToRender02 = new Element({

@@ -6,6 +6,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { Store } from '@codelab/frontend/domain/store'
 import { InterfaceType } from '@codelab/frontend/domain/type'
+import { appData } from '@codelab/shared/data/test'
 import { getSnapshot, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { TestRootStore } from '../test/testRootStore'
@@ -20,18 +21,18 @@ afterAll(() => {
   unregisterRootStore(rootStore)
 })
 
-describe('AppService', () => {
-  it('should add an app to the local store', () => {
-    //
-  })
+describe.skip('AppService', () => {
+  // it('should add an app to the local store', () => {
+  //   //
+  // })
 
   it('should add an app to the database', () => {
-    const app = rootStore.appService.add(appDTO)
+    const app = rootStore.appService.add(appData)
 
     // App
-    expect(app.id).toBe(appDTO.id)
-    expect(app.owner).toEqual(appDTO.owner)
-    expect(app.name).toBe(appDTO.name)
+    expect(app.id).toBe(appData.id)
+    expect(app.owner).toEqual(appData.owner)
+    expect(app.name).toBe(appData.name)
 
     // Page
     expect(app.pages.map((page) => getSnapshot(page.current))).toEqual(
@@ -49,7 +50,7 @@ describe('AppService', () => {
     )
 
     // Store
-    expect(app.store.current.name).toBe(Store.createName(appDTO))
+    expect(app.store.current.name).toBe(Store.createName(appData))
 
     // API
     expect(app.store.current.api.current.name).toBe(

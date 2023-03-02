@@ -62,15 +62,6 @@ import { getRenderType } from './utils'
 
 type TransformFn = (props: IPropData) => IPropData
 
-const createRootElement = () => {
-  const id = v4()
-
-  return new Element({
-    id,
-    name: ROOT_ELEMENT_NAME,
-  })
-}
-
 const create = ({
   id,
   name,
@@ -106,7 +97,7 @@ const create = ({
     renderType: elementRenderType,
     preRenderAction,
     postRenderAction,
-    props: props?.id ? propRef(props.id) : null,
+    props: propRef(props.id),
     propTransformationJs,
     renderIfExpression,
     renderForEachPropKey,
@@ -135,7 +126,7 @@ export class Element
     guiCss: prop<Nullable<string>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
     renderType: prop<Ref<IAtom> | Ref<IComponent> | null>(null).withSetter(),
-    props: prop<Nullable<Ref<IProp>>>(null).withSetter(),
+    props: prop<Ref<IProp>>().withSetter(),
     preRenderAction: prop<Nullish<IEntity>>(null),
     postRenderAction: prop<Nullish<IEntity>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
@@ -385,8 +376,6 @@ export class Element
     return result
   }
 
-  static createRootElement = createRootElement
-
   static create = create
 
   toCreateInput(): ElementCreateInput {
@@ -396,7 +385,7 @@ export class Element
     const props: ElementCreateInput['props'] = {
       create: {
         node: {
-          data: JSON.stringify(this.props?.current.data.data ?? {}),
+          data: JSON.stringify(this.props.current.data.data ?? {}),
         },
       },
     }
