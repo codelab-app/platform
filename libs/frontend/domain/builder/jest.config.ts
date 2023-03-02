@@ -1,14 +1,7 @@
 /* eslint-disable */
 module.exports = {
   displayName: 'frontend-domain-builder',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      babelConfig: '<rootDir>/.babelrc',
-      // https://github.com/kentcdodds/babel-plugin-macros/issues/160
-      useESM: true,
-    },
-  },
+  globals: {},
   transform: {
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
   },

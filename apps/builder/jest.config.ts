@@ -1,13 +1,6 @@
 /* eslint-disable */
 export default {
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      babelConfig: '<rootDir>/.babelrc',
-      // https://github.com/kentcdodds/babel-plugin-macros/issues/160
-      useESM: true,
-    },
-  },
+  globals: {},
   // testEnvironment: 'node',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
