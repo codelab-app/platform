@@ -1,0 +1,126 @@
+{
+  "apps": [
+    {
+      "__typename": "App",
+      "id": "97fa1ca4-8dbe-4eb3-8c1f-2cb6dce2b530",
+      "name": "Portfolio Website",
+      "slug": "portfolio-website",
+      "store": {
+        "id": "8b488ad5-6a85-46fd-a072-c45b66d0b83d",
+        "name": "Portfolio Website Store",
+        "api": { "id": "fe542842-077b-415a-b8bc-d21b455d7110" },
+        "actions": []
+      },
+      "domains": [
+        {
+          "id": "1fb73708-15d9-42d4-8648-14cfb0b2a401",
+          "name": "codelab-demo.online",
+          "app": { "id": "97fa1ca4-8dbe-4eb3-8c1f-2cb6dce2b530" }
+        }
+      ],
+      "pages": [
+        {
+          "id": "7e4da67f-f143-4622-9dd8-534288ffe857",
+          "name": "97fa1ca4-8dbe-4eb3-8c1f-2cb6dce2b530-_app",
+          "kind": "Provider",
+          "rootElement": {
+            "id": "52dbea9a-98db-4675-b9a6-29774c87ad08",
+            "name": "7e4da67f-f143-4622-9dd8-534288ffe857-Body"
+          },
+          "elements": [
+            {
+              "id": "52dbea9a-98db-4675-b9a6-29774c87ad08",
+              "name": "7e4da67f-f143-4622-9dd8-534288ffe857-Body",
+              "slug": "7-e-4-da-67-f-f-143-4622-9-dd-8-534288-ffe-857-body",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": null,
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            }
+          ],
+          "components": []
+        },
+        {
+          "id": "69934f4c-b0ea-40c8-ab68-b2d2f578a5a2",
+          "name": "97fa1ca4-8dbe-4eb3-8c1f-2cb6dce2b530-404",
+          "kind": "NotFound",
+          "rootElement": {
+            "id": "623ceab5-490c-44e6-9389-fe202776ee81",
+            "name": "69934f4c-b0ea-40c8-ab68-b2d2f578a5a2-Body"
+          },
+          "elements": [
+            {
+              "id": "623ceab5-490c-44e6-9389-fe202776ee81",
+              "name": "69934f4c-b0ea-40c8-ab68-b2d2f578a5a2-Body",
+              "slug": "69934-f-4-c-b-0-ea-40-c-8-ab-68-b-2-d-2-f-578-a-5-a-2-body",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": null,
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            }
+          ],
+          "components": []
+        },
+        {
+          "id": "487da260-5f04-4b0d-bb93-850c6ce3a7f0",
+          "name": "97fa1ca4-8dbe-4eb3-8c1f-2cb6dce2b530-500",
+          "kind": "InternalServerError",
+          "rootElement": {
+            "id": "6e1f2312-ac31-44ab-b05f-c9eda24b822c",
+            "name": "487da260-5f04-4b0d-bb93-850c6ce3a7f0-Body"
+          },
+          "elements": [
+            {
+              "id": "6e1f2312-ac31-44ab-b05f-c9eda24b822c",
+              "name": "487da260-5f04-4b0d-bb93-850c6ce3a7f0-Body",
+              "slug": "487-da-260-5-f-04-4-b-0-d-bb-93-850-c-6-ce-3-a-7-f-0-body",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderAtomType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": null,
+              "hooks": [],
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderActionId": null,
+              "postRenderActionId": null
+            }
+          ],
+          "components": []
+        }
+      ]
+    }
+  ],
+  "types": [],
+  "resources": []
+}
