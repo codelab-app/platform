@@ -473,6 +473,15 @@ parent
           return
         }
 
+        const isValidParent = this.validateRequiredParentForMove(
+          targetElement.parentElement,
+          element,
+        )
+
+        if (!isValidParent) {
+          return
+        }
+
         if (targetElement.nextSiblingId === elementId) {
           return
         }
@@ -501,6 +510,15 @@ parent
         const element = this.element(elementId)
         const parentElement = this.element(parentElementId)
 
+        const isValidParent = this.validateRequiredParentForMove(
+          parentElement,
+          element,
+        )
+
+        if (!isValidParent) {
+          return
+        }
+
         if (!element || !parentElement) {
           return
         }
@@ -522,6 +540,23 @@ parent
       function* (this: ElementService, data: ICreateElementDTO) {
         if (!data.parentElementId) {
           throw new Error('Parent element id doesnt exist')
+        }
+
+        if (data.renderType?.model === RenderTypeEnum.Atom) {
+          // const requiredParentsNames = this.validateRequiredParent(
+          //   data.parentElementId,
+          //   data.renderType?.id,
+          // )
+
+          // if (requiredParentsNames) {
+          //   throw new Error(
+          //     `Element requires [${requiredParentsNames}] as parent.`,
+          //   )
+          // }
+          this.validateRequiredParentForCreate(
+            data.parentElementId,
+            data.renderType.id,
+          )
         }
 
         const [element] = yield* _await(this.create([data]))
@@ -548,6 +583,26 @@ parent
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, data: ICreateElementDTO) {
+        if (data.renderType?.model === RenderTypeEnum.Atom) {
+          // const isValidParent = this.validateRequiredParent(
+          //   data.parentElementId,
+          //   data.renderType?.id,
+          // )
+
+          // if (isValidParent) {
+          //   throw new Error(
+          //     `Element requires [${isValidParent}] as parent.`,
+          //   )
+          // }
+          const parentElementId = this.element(String(data.prevSiblingId))
+            ?.parentElement?.id
+
+          this.validateRequiredParentForCreate(
+            parentElementId,
+            data.renderType.id,
+          )
+        }
+
         const [element] = yield* _await(this.create([data]))
 
         if (!element) {
@@ -1027,5 +1082,84 @@ element is new parentElement's first child
     return [...this.clonedElements.entries()]
       .filter(([id, component]) => component.sourceElementId === elementId)
       .forEach(([id]) => this.clonedElements.delete(id))
+  }
+
+  validateRequiredParentForCreate(parentId?: string, childAtomId?: string) {
+    const atom = this.atomService.atomsList.find(
+      (item) => item.id === childAtomId,
+    )
+
+    if (!atom || !atom.requiredParents.length) {
+      return
+    }
+
+    const requiredParentNames = atom.requiredParents
+      .map((parent) => parent.name)
+      .join(', ')
+
+    const errorMessage = `${atom.name} requires [${requiredParentNames}] as parent.`
+
+    if (!parentId) {
+      throw new Error(errorMessage)
+    }
+
+    const parentElement = this.element(parentId)
+    const isValidParent = this.validateRequiredParent(parentElement, atom)
+
+    if (!isValidParent) {
+      throw new Error(errorMessage)
+    }
+  }
+
+  validateRequiredParentForMove(parentElement?: IElement, element?: IElement) {
+    if (!element?.atom?.maybeCurrent?.requiredParents.length) {
+      return true
+    }
+
+    const requiredParentNames = element.atom.maybeCurrent.requiredParents
+      .map((parent) => parent.name)
+      .join(', ')
+
+    const errorMessage = `${element.atom.maybeCurrent.name} requires [${requiredParentNames}] as parent.`
+
+    if (!parentElement) {
+      return false
+    }
+
+    const isValidParent = this.validateRequiredParent(
+      parentElement,
+      element.atom.maybeCurrent,
+    )
+
+    if (!isValidParent) {
+      parentElement.setRenderingError({
+        message: errorMessage,
+        stack: undefined,
+      })
+
+      return false
+    }
+
+    return true
+  }
+
+  validateRequiredParent(parentElement?: IElement, childAtom?: IAtom) {
+    if (!childAtom) {
+      return true
+    }
+
+    if (!parentElement) {
+      return false
+    }
+
+    if (!childAtom.requiredParents.length) {
+      return true
+    }
+
+    return (
+      childAtom.requiredParents.find(
+        (parent) => parent.id === parentElement.atom?.maybeCurrent?.id,
+      ) !== undefined
+    )
   }
 }

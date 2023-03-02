@@ -13,6 +13,7 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
+import type { IAtom } from '../atom/atom.model.interface'
 import type { IAuth0Id } from '../user'
 import type {
   ICreateElementDTO,
@@ -89,4 +90,10 @@ export interface IElementService
     rootElement: IElement
     hydratedElements: Array<IElement>
   }
+  validateRequiredParent(parentElement?: IElement, childAtom?: IAtom): boolean
+  validateRequiredParentForMove(
+    parentElement?: IElement,
+    element?: IElement,
+  ): boolean
+  validateRequiredParentForCreate(parentId?: string, childAtomId?: string): void
 }

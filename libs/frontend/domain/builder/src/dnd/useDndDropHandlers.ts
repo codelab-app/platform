@@ -7,6 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { DragPosition } from '@codelab/frontend/abstract/core'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 
@@ -61,40 +62,44 @@ export const useDndDropHandler = (
 
     let newElement: Nullable<IElement> = null
 
-    // create the new element after the target element
-    if (dragPosition === DragPosition.After) {
-      createElementDto.prevSiblingId = targetElement.id
-      newElement = await elementService.createElementAsNextSibling(
-        createElementDto,
-      )
-    }
-
-    // create the new element before the target element
-    if (dragPosition === DragPosition.Before) {
-      // if theres an element before the target, create the new element next to that
-      if (targetElement.prevSibling) {
-        createElementDto.prevSiblingId = targetElement.prevSibling.id
+    try {
+      // create the new element after the target element
+      if (dragPosition === DragPosition.After) {
+        createElementDto.prevSiblingId = targetElement.id
         newElement = await elementService.createElementAsNextSibling(
           createElementDto,
         )
       }
 
-      // if theres no element before the target, create the new element
-      // as the first child of the target's parent element
-      if (!targetElement.prevSibling && targetElement.parentElement?.id) {
-        createElementDto.parentElementId = targetElement.parentElement.id
+      // create the new element before the target element
+      if (dragPosition === DragPosition.Before) {
+        // if theres an element before the target, create the new element next to that
+        if (targetElement.prevSibling) {
+          createElementDto.prevSiblingId = targetElement.prevSibling.id
+          newElement = await elementService.createElementAsNextSibling(
+            createElementDto,
+          )
+        }
+
+        // if theres no element before the target, create the new element
+        // as the first child of the target's parent element
+        if (!targetElement.prevSibling && targetElement.parentElement?.id) {
+          createElementDto.parentElementId = targetElement.parentElement.id
+          newElement = await elementService.createElementAsFirstChild(
+            createElementDto,
+          )
+        }
+      }
+
+      // create the new element inside the target element as a first child
+      if (dragPosition === DragPosition.Inside) {
+        createElementDto.parentElementId = targetElement.id
         newElement = await elementService.createElementAsFirstChild(
           createElementDto,
         )
       }
-    }
-
-    // create the new element inside the target element as a first child
-    if (dragPosition === DragPosition.Inside) {
-      createElementDto.parentElementId = targetElement.id
-      newElement = await elementService.createElementAsFirstChild(
-        createElementDto,
-      )
+    } catch (error) {
+      createNotificationHandler({ title: `${error}` })()
     }
 
     if (newElement) {
