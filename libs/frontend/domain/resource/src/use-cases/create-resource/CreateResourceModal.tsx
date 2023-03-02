@@ -25,7 +25,7 @@ export const CreateResourceModal = observer<{
 
   const model = {
     id: v4(),
-    type: resourceService.createModal.type,
+    type: resourceService.createModal.metadata?.type,
     owner: {
       auth0Id: userService.user?.auth0Id,
     },

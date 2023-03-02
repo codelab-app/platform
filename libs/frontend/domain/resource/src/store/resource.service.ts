@@ -21,9 +21,8 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { ResourceRepository } from '../services/resource.repo'
-import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
+import { ResourceRepository } from './resource.repository'
 import { ResourceModalService } from './resource-modal.service'
 
 @model('@codelab/Resource')
@@ -54,7 +53,7 @@ export class ResourceService
   @modelFlow
   @transaction
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
-    const { resources } = yield* _await(resourceApi.GetResources({ where }))
+    const resources = yield* _await(this.resourceRepository.get(where))
 
     return resources.map((resource) => {
       /**
@@ -93,7 +92,7 @@ export class ResourceService
       owner,
     })
 
-    yield* _await(this.resourceRepository.add(resource))
+    yield* _await(this.resourceRepository.create(resource))
 
     return resource
   })
