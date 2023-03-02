@@ -1,7 +1,10 @@
 import type { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
-import { CodeMirrorField } from '@codelab/frontend/view/components'
+import {
+  CodeMirrorField,
+  nonEmptyString,
+  titleCaseValidation,
+} from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { nonEmptyString, titleCaseValidation } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const updatePageSchema: JSONSchemaType<

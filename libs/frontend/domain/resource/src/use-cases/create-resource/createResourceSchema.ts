@@ -1,8 +1,11 @@
 import type { ICreateResourceDTO } from '@codelab/frontend/abstract/core'
-import { CodeMirrorField } from '@codelab/frontend/view/components'
+import {
+  CodeMirrorField,
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IResourceType } from '@codelab/shared/abstract/core'
-import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {

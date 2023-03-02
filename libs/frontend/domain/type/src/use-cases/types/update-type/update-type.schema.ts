@@ -1,11 +1,11 @@
 import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
+import { nonEmptyString } from '@codelab/frontend/view/components'
 import {
   ICodeMirrorLanguage,
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 

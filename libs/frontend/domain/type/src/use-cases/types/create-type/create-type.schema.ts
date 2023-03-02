@@ -1,11 +1,14 @@
 import type { ICreateTypeDTO } from '@codelab/frontend/abstract/core'
+import {
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 

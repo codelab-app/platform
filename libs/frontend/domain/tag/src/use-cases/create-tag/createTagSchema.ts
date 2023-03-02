@@ -1,5 +1,8 @@
 import type { ICreateTagDTO } from '@codelab/frontend/abstract/core'
-import { nonEmptyString, showFieldOnDev } from '@codelab/shared/utils'
+import {
+  nonEmptyString,
+  showFieldOnDev,
+} from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
 export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {

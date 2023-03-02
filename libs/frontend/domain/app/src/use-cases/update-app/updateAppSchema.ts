@@ -1,5 +1,8 @@
 import type { IUpdateAppDTO } from '@codelab/frontend/abstract/core'
-import { nonEmptyString, titleCaseValidation } from '@codelab/shared/utils'
+import {
+  nonEmptyString,
+  titleCaseValidation,
+} from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {

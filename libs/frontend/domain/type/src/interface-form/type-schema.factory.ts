@@ -15,6 +15,7 @@ import type {
   IRenderPropsType,
   IUnionType,
 } from '@codelab/frontend/abstract/core'
+import { fieldDescription } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -91,7 +92,7 @@ export class TypeSchemaFactory {
   fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: IField) => ({
       label: field.name || compoundCaseToTitleCase(field.key),
-      help: field.description,
+      ...fieldDescription(field.description || ''),
       ...this.transform(field.type.current, {
         validationRules: field.validationRules ?? undefined,
         fieldName: field.name,

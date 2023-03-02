@@ -3,7 +3,7 @@ import {
   hideField,
   nonEmptyString,
   showFieldOnDev,
-} from '@codelab/shared/utils'
+} from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateDomainSchema: JSONSchemaType<IUpdateDomainDTO> = {

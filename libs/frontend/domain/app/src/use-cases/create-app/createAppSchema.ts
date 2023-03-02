@@ -4,7 +4,7 @@ import {
   nonEmptyString,
   showFieldOnDev,
   titleCaseValidation,
-} from '@codelab/shared/utils'
+} from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
 export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {

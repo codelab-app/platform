@@ -4,8 +4,8 @@ import {
   NumberValidationRules,
   StringValidationRules,
 } from '@codelab/frontend/abstract/core'
+import { nonEmptyString } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { nonEmptyString } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 
 export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {

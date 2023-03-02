@@ -1,11 +1,11 @@
 import type { ICreatePageDTO } from '@codelab/frontend/abstract/core'
-import { CodeMirrorField } from '@codelab/frontend/view/components'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
+  CodeMirrorField,
   hideField,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/shared/utils'
+} from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
 export const createPageSchema: JSONSchemaType<
