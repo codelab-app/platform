@@ -26,7 +26,7 @@ export const makeBasicPagesInput = (appId: string) => {
     rootElement: {
       create: {
         node: {
-          id: v4(),
+          id: providerRootId,
           name: createUniqueName(ROOT_ELEMENT_NAME, providerPageId),
         },
       },
