@@ -92,7 +92,7 @@ export class TypeSchemaFactory {
   fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: IField) => ({
       label: field.name || compoundCaseToTitleCase(field.key),
-      ...fieldDescription(field.description || ''),
+      ...(field.description ? fieldDescription(field.description) : {}),
       ...this.transform(field.type.current, {
         validationRules: field.validationRules ?? undefined,
         fieldName: field.name,
