@@ -9,7 +9,7 @@ import type {
 import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
-  IRenderTypeModel,
+  IRenderTypeKind,
   isAtomModel,
   isComponentModel,
 } from '@codelab/frontend/abstract/core'
@@ -46,14 +46,14 @@ const makeCurrentModel = (element: IElement) => {
   if (isAtomModel(element.renderType)) {
     renderType = {
       id: element.renderType.id,
-      model: IRenderTypeModel.Atom,
+      kind: IRenderTypeKind.Atom,
     }
   }
 
   if (isComponentModel(element.renderType)) {
     renderType = {
       id: element.renderType.id,
-      model: IRenderTypeModel.Component,
+      kind: IRenderTypeKind.Component,
     }
   }
 

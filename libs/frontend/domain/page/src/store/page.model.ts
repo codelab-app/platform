@@ -25,7 +25,6 @@ const create = ({
   name,
   app,
   kind,
-  owner,
   rootElement,
   getServerSideProps,
   pageContentContainer,
@@ -40,8 +39,7 @@ const create = ({
     pageContentContainer: pageContentContainer?.id
       ? elementRef(pageContentContainer.id)
       : undefined,
-    kind: kind,
-    owner,
+    kind,
   })
 }
 
@@ -77,7 +75,6 @@ export class Page
     id: idProp,
     app: prop<IEntity>(),
     name: prop<string>().withSetter(),
-    owner: prop<IAuth0Owner>(),
     rootElement: prop<Ref<IElement>>(),
     getServerSideProps: prop<Nullish<string>>(),
     pageContentContainer: prop<Maybe<Ref<IElement>>>(),

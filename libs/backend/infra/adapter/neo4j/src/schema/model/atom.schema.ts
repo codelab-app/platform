@@ -27,11 +27,4 @@ export const atomSchema = gql`
         { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
       ]
     )
-
-  # Can't reuse from Neo4j schema
-  type CreateInfo {
-    bookmark: String
-    nodesCreated: Int!
-    relationshipsCreated: Int!
-  }
 `

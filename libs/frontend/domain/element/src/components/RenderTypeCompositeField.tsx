@@ -3,7 +3,7 @@ import type {
   IComponent,
   ICreateElementData,
 } from '@codelab/frontend/abstract/core'
-import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
+import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
 import type { GuaranteedProps } from 'uniforms'
@@ -23,23 +23,23 @@ const RenderTypeFields = ({
       onChange={(value) => {
         // when the type changes, the selected atom or component has to be
         // removed since they share the same field name `renderType.id`
-        onChange(value ? { model: value } : null)
+        onChange(value ? { kind: value } : null)
       }}
       options={[
         {
           label: 'Atom',
-          value: IRenderTypeModel.Atom,
+          value: IRenderTypeKind.Atom,
         },
         {
           label: 'Component',
-          value: IRenderTypeModel.Component,
+          value: IRenderTypeKind.Component,
         },
       ]}
       required={false}
     />
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.model === IRenderTypeModel.Atom
+        context.model.renderType?.kind === IRenderTypeKind.Atom
       }
     >
       {/**
@@ -55,7 +55,7 @@ const RenderTypeFields = ({
     </DisplayIfField>
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.model === IRenderTypeModel.Component
+        context.model.renderType?.kind === IRenderTypeKind.Component
       }
     >
       <SelectComponent error={error} label="Component" name="id" />

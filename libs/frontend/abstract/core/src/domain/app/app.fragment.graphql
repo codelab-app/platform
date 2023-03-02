@@ -33,9 +33,9 @@ fragment BuilderPage on Page {
   id
   name
   slug
-  owner {
-    ...Owner
-  }
+  # owner {
+  #   ...Owner
+  # }
   getServerSideProps
   rootElement {
     ...Element

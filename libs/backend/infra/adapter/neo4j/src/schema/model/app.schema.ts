@@ -16,9 +16,10 @@ export const appSchema = gql`
     @auth(
       rules: [
         {
-          operations: [UPDATE, CREATE, DELETE]
+          operations: [CREATE, UPDATE, DELETE]
           roles: ["User"]
           where: { owner: { auth0Id: "$jwt.sub" } }
+          # allow: { owner: { auth0Id: "$jwt.sub" } }
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }
         {

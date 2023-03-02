@@ -1,8 +1,8 @@
-import { __RenderTypeModel } from '@codelab/frontend/abstract/core'
+import { __RenderTypeKind } from '@codelab/frontend/abstract/core'
 import { gql } from 'apollo-server-micro'
 
-const renderTypeModelSchema = `enum RenderTypeModel {
-  ${Object.values(__RenderTypeModel).join('\n')}
+const renderTypeKindSchema = `enum RenderTypeKind {
+  ${Object.values(__RenderTypeKind).join('\n')}
 }`
 
 export const elementSchema = gql`
@@ -10,12 +10,12 @@ export const elementSchema = gql`
     order: Int
   }
 
-  ${renderTypeModelSchema}
+  ${renderTypeKindSchema}
 
   # Create this to match frontend
-  type RenderType {
+  type RenderType @exclude {
     id: String!
-    model: RenderTypeModel!
+    kind: RenderTypeKind!
   }
 
   type Element {

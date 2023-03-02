@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-micro'
 
 export const adminSchema = gql`
-  type ResetDatabaseMutationResponse {
+  type ResetDatabaseMutationResponse @exclude {
     success: Boolean
   }
 

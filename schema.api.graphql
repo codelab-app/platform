@@ -6409,16 +6409,6 @@ type CreateComponentsMutationResponse {
   info: CreateInfo!
 }
 
-type CreateCreateInfosMutationResponse {
-  createInfos: [CreateInfo!]!
-  info: CreateInfo!
-}
-
-type CreateDeleteInfosMutationResponse {
-  deleteInfos: [DeleteInfo!]!
-  info: CreateInfo!
-}
-
 type CreateDomainsMutationResponse {
   domains: [Domain!]!
   info: CreateInfo!
@@ -6465,83 +6455,6 @@ type CreateInfo {
   relationshipsCreated: Int!
 }
 
-type CreateInfoAggregateSelection {
-  bookmark: StringAggregateSelectionNullable!
-  count: Int!
-  nodesCreated: IntAggregateSelectionNonNullable!
-  relationshipsCreated: IntAggregateSelectionNonNullable!
-}
-
-input CreateInfoCreateInput {
-  bookmark: String
-  nodesCreated: Int!
-  relationshipsCreated: Int!
-}
-
-type CreateInfoEdge {
-  cursor: String!
-  node: CreateInfo!
-}
-
-input CreateInfoOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more CreateInfoSort objects to sort CreateInfos by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [CreateInfoSort!]
-}
-
-"""
-Fields to sort CreateInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one CreateInfoSort object.
-"""
-input CreateInfoSort {
-  bookmark: SortDirection
-  nodesCreated: SortDirection
-  relationshipsCreated: SortDirection
-}
-
-input CreateInfoUpdateInput {
-  bookmark: String
-  nodesCreated: Int
-  nodesCreated_DECREMENT: Int
-  nodesCreated_INCREMENT: Int
-  relationshipsCreated: Int
-  relationshipsCreated_DECREMENT: Int
-  relationshipsCreated_INCREMENT: Int
-}
-
-input CreateInfoWhere {
-  AND: [CreateInfoWhere!]
-  NOT: CreateInfoWhere
-  OR: [CreateInfoWhere!]
-  bookmark: String
-  bookmark_CONTAINS: String
-  bookmark_ENDS_WITH: String
-  bookmark_IN: [String]
-  bookmark_MATCHES: String
-  bookmark_STARTS_WITH: String
-  nodesCreated: Int
-  nodesCreated_GT: Int
-  nodesCreated_GTE: Int
-  nodesCreated_IN: [Int!]
-  nodesCreated_LT: Int
-  nodesCreated_LTE: Int
-  relationshipsCreated: Int
-  relationshipsCreated_GT: Int
-  relationshipsCreated_GTE: Int
-  relationshipsCreated_IN: [Int!]
-  relationshipsCreated_LT: Int
-  relationshipsCreated_LTE: Int
-}
-
-type CreateInfosConnection {
-  edges: [CreateInfoEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 type CreateInterfaceTypesMutationResponse {
   info: CreateInfo!
   interfaceTypes: [InterfaceType!]!
@@ -6582,16 +6495,6 @@ type CreateRenderPropsTypesMutationResponse {
   renderPropsTypes: [RenderPropsType!]!
 }
 
-type CreateRenderTypesMutationResponse {
-  info: CreateInfo!
-  renderTypes: [RenderType!]!
-}
-
-type CreateResetDatabaseMutationResponsesMutationResponse {
-  info: CreateInfo!
-  resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
-}
-
 type CreateResourcesMutationResponse {
   info: CreateInfo!
   resources: [Resource!]!
@@ -6622,97 +6525,10 @@ type CreateUsersMutationResponse {
   users: [User!]!
 }
 
-type CreateVercelDomainConfigsMutationResponse {
-  info: CreateInfo!
-  vercelDomainConfigs: [VercelDomainConfig!]!
-}
-
-type CreateVercelProjectDomainsMutationResponse {
-  info: CreateInfo!
-  vercelProjectDomains: [VercelProjectDomain!]!
-}
-
 type DeleteInfo {
   bookmark: String
   nodesDeleted: Int!
   relationshipsDeleted: Int!
-}
-
-type DeleteInfoAggregateSelection {
-  bookmark: StringAggregateSelectionNullable!
-  count: Int!
-  nodesDeleted: IntAggregateSelectionNonNullable!
-  relationshipsDeleted: IntAggregateSelectionNonNullable!
-}
-
-input DeleteInfoCreateInput {
-  bookmark: String
-  nodesDeleted: Int!
-  relationshipsDeleted: Int!
-}
-
-type DeleteInfoEdge {
-  cursor: String!
-  node: DeleteInfo!
-}
-
-input DeleteInfoOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more DeleteInfoSort objects to sort DeleteInfos by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [DeleteInfoSort!]
-}
-
-"""
-Fields to sort DeleteInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteInfoSort object.
-"""
-input DeleteInfoSort {
-  bookmark: SortDirection
-  nodesDeleted: SortDirection
-  relationshipsDeleted: SortDirection
-}
-
-input DeleteInfoUpdateInput {
-  bookmark: String
-  nodesDeleted: Int
-  nodesDeleted_DECREMENT: Int
-  nodesDeleted_INCREMENT: Int
-  relationshipsDeleted: Int
-  relationshipsDeleted_DECREMENT: Int
-  relationshipsDeleted_INCREMENT: Int
-}
-
-input DeleteInfoWhere {
-  AND: [DeleteInfoWhere!]
-  NOT: DeleteInfoWhere
-  OR: [DeleteInfoWhere!]
-  bookmark: String
-  bookmark_CONTAINS: String
-  bookmark_ENDS_WITH: String
-  bookmark_IN: [String]
-  bookmark_MATCHES: String
-  bookmark_STARTS_WITH: String
-  nodesDeleted: Int
-  nodesDeleted_GT: Int
-  nodesDeleted_GTE: Int
-  nodesDeleted_IN: [Int!]
-  nodesDeleted_LT: Int
-  nodesDeleted_LTE: Int
-  relationshipsDeleted: Int
-  relationshipsDeleted_GT: Int
-  relationshipsDeleted_GTE: Int
-  relationshipsDeleted_IN: [Int!]
-  relationshipsDeleted_LT: Int
-  relationshipsDeleted_LTE: Int
-}
-
-type DeleteInfosConnection {
-  edges: [DeleteInfoEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
 }
 
 type Domain {
@@ -11934,12 +11750,6 @@ type Mutation {
   createComponents(
     input: [ComponentCreateInput!]!
   ): CreateComponentsMutationResponse!
-  createCreateInfos(
-    input: [CreateInfoCreateInput!]!
-  ): CreateCreateInfosMutationResponse!
-  createDeleteInfos(
-    input: [DeleteInfoCreateInput!]!
-  ): CreateDeleteInfosMutationResponse!
   createDomains(input: [DomainCreateInput!]!): CreateDomainsMutationResponse!
   createElementTypes(
     input: [ElementTypeCreateInput!]!
@@ -11976,12 +11786,6 @@ type Mutation {
   createRenderPropsTypes(
     input: [RenderPropsTypeCreateInput!]!
   ): CreateRenderPropsTypesMutationResponse!
-  createRenderTypes(
-    input: [RenderTypeCreateInput!]!
-  ): CreateRenderTypesMutationResponse!
-  createResetDatabaseMutationResponses(
-    input: [ResetDatabaseMutationResponseCreateInput!]!
-  ): CreateResetDatabaseMutationResponsesMutationResponse!
   createResources(
     input: [ResourceCreateInput!]!
   ): CreateResourcesMutationResponse!
@@ -11994,12 +11798,6 @@ type Mutation {
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
   createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
-  createVercelDomainConfigs(
-    input: [VercelDomainConfigCreateInput!]!
-  ): CreateVercelDomainConfigsMutationResponse!
-  createVercelProjectDomains(
-    input: [VercelProjectDomainCreateInput!]!
-  ): CreateVercelProjectDomainsMutationResponse!
   deleteActionTypes(
     delete: ActionTypeDeleteInput
     where: ActionTypeWhere
@@ -12027,8 +11825,6 @@ type Mutation {
     delete: ComponentDeleteInput
     where: ComponentWhere
   ): DeleteInfo!
-  deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
-  deleteDeleteInfos(where: DeleteInfoWhere): DeleteInfo!
   deleteDomains(delete: DomainDeleteInput, where: DomainWhere): DeleteInfo!
   deleteElementTypes(
     delete: ElementTypeDeleteInput
@@ -12072,10 +11868,6 @@ type Mutation {
     delete: RenderPropsTypeDeleteInput
     where: RenderPropsTypeWhere
   ): DeleteInfo!
-  deleteRenderTypes(where: RenderTypeWhere): DeleteInfo!
-  deleteResetDatabaseMutationResponses(
-    where: ResetDatabaseMutationResponseWhere
-  ): DeleteInfo!
   deleteResources(
     delete: ResourceDeleteInput
     where: ResourceWhere
@@ -12088,8 +11880,6 @@ type Mutation {
     where: UnionTypeWhere
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-  deleteVercelDomainConfigs(where: VercelDomainConfigWhere): DeleteInfo!
-  deleteVercelProjectDomains(where: VercelProjectDomainWhere): DeleteInfo!
   resetDatabase: ResetDatabaseMutationResponse
   updateActionTypes(
     connect: ActionTypeConnectInput
@@ -12172,14 +11962,6 @@ type Mutation {
     update: ComponentUpdateInput
     where: ComponentWhere
   ): UpdateComponentsMutationResponse!
-  updateCreateInfos(
-    update: CreateInfoUpdateInput
-    where: CreateInfoWhere
-  ): UpdateCreateInfosMutationResponse!
-  updateDeleteInfos(
-    update: DeleteInfoUpdateInput
-    where: DeleteInfoWhere
-  ): UpdateDeleteInfosMutationResponse!
   updateDomains(
     connect: DomainConnectInput
     connectOrCreate: DomainConnectOrCreateInput
@@ -12314,14 +12096,6 @@ type Mutation {
     update: RenderPropsTypeUpdateInput
     where: RenderPropsTypeWhere
   ): UpdateRenderPropsTypesMutationResponse!
-  updateRenderTypes(
-    update: RenderTypeUpdateInput
-    where: RenderTypeWhere
-  ): UpdateRenderTypesMutationResponse!
-  updateResetDatabaseMutationResponses(
-    update: ResetDatabaseMutationResponseUpdateInput
-    where: ResetDatabaseMutationResponseWhere
-  ): UpdateResetDatabaseMutationResponsesMutationResponse!
   updateResources(
     connect: ResourceConnectInput
     connectOrCreate: ResourceConnectOrCreateInput
@@ -12362,17 +12136,9 @@ type Mutation {
     update: UnionTypeUpdateInput
     where: UnionTypeWhere
   ): UpdateUnionTypesMutationResponse!
-  updateVercelDomainConfigs(
-    update: VercelDomainConfigUpdateInput
-    where: VercelDomainConfigWhere
-  ): UpdateVercelDomainConfigsMutationResponse!
-  updateVercelProjectDomains(
-    update: VercelProjectDomainUpdateInput
-    where: VercelProjectDomainWhere
-  ): UpdateVercelProjectDomainsMutationResponse!
 }
 
-type Page implements WithOwner {
+type Page {
   _compoundName: String!
   app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
   appAggregate(
@@ -12390,18 +12156,6 @@ type Page implements WithOwner {
   id: ID!
   kind: PageKind!
   name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): PageUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [WithOwnerOwnerConnectionSort!]
-    where: WithOwnerOwnerConnectionWhere
-  ): WithOwnerOwnerConnection!
   pageContentContainer(
     directed: Boolean = true
     options: ElementOptions
@@ -12564,14 +12318,12 @@ input PageAppUpdateFieldInput {
 
 input PageConnectInput {
   app: PageAppConnectFieldInput
-  owner: WithOwnerOwnerConnectFieldInput
   pageContentContainer: PagePageContentContainerConnectFieldInput
   rootElement: PageRootElementConnectFieldInput
 }
 
 input PageConnectOrCreateInput {
   app: PageAppConnectOrCreateFieldInput
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
   pageContentContainer: PagePageContentContainerConnectOrCreateFieldInput
   rootElement: PageRootElementConnectOrCreateFieldInput
 }
@@ -12590,21 +12342,18 @@ input PageCreateInput {
   getServerSideProps: String
   id: ID!
   kind: PageKind!
-  owner: WithOwnerOwnerFieldInput
   pageContentContainer: PagePageContentContainerFieldInput
   rootElement: PageRootElementFieldInput
 }
 
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
-  owner: WithOwnerOwnerDeleteFieldInput
   pageContentContainer: PagePageContentContainerDeleteFieldInput
   rootElement: PageRootElementDeleteFieldInput
 }
 
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
-  owner: WithOwnerOwnerDisconnectFieldInput
   pageContentContainer: PagePageContentContainerDisconnectFieldInput
   rootElement: PageRootElementDisconnectFieldInput
 }
@@ -12676,69 +12425,6 @@ input PageOptions {
   Specify one or more PageSort objects to sort Pages by. The sorts will be applied in the order in which they are arranged in the array.
   """
   sort: [PageSort!]
-}
-
-input PageOwnerAggregateInput {
-  AND: [PageOwnerAggregateInput!]
-  NOT: PageOwnerAggregateInput
-  OR: [PageOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: PageOwnerNodeAggregationWhereInput
-}
-
-input PageOwnerNodeAggregationWhereInput {
-  AND: [PageOwnerNodeAggregationWhereInput!]
-  NOT: PageOwnerNodeAggregationWhereInput
-  OR: [PageOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_LENGTH_EQUAL: Float
-  auth0Id_AVERAGE_LENGTH_GT: Float
-  auth0Id_AVERAGE_LENGTH_GTE: Float
-  auth0Id_AVERAGE_LENGTH_LT: Float
-  auth0Id_AVERAGE_LENGTH_LTE: Float
-  auth0Id_LONGEST_LENGTH_EQUAL: Int
-  auth0Id_LONGEST_LENGTH_GT: Int
-  auth0Id_LONGEST_LENGTH_GTE: Int
-  auth0Id_LONGEST_LENGTH_LT: Int
-  auth0Id_LONGEST_LENGTH_LTE: Int
-  auth0Id_SHORTEST_LENGTH_EQUAL: Int
-  auth0Id_SHORTEST_LENGTH_GT: Int
-  auth0Id_SHORTEST_LENGTH_GTE: Int
-  auth0Id_SHORTEST_LENGTH_LT: Int
-  auth0Id_SHORTEST_LENGTH_LTE: Int
-  email_AVERAGE_LENGTH_EQUAL: Float
-  email_AVERAGE_LENGTH_GT: Float
-  email_AVERAGE_LENGTH_GTE: Float
-  email_AVERAGE_LENGTH_LT: Float
-  email_AVERAGE_LENGTH_LTE: Float
-  email_LONGEST_LENGTH_EQUAL: Int
-  email_LONGEST_LENGTH_GT: Int
-  email_LONGEST_LENGTH_GTE: Int
-  email_LONGEST_LENGTH_LT: Int
-  email_LONGEST_LENGTH_LTE: Int
-  email_SHORTEST_LENGTH_EQUAL: Int
-  email_SHORTEST_LENGTH_GT: Int
-  email_SHORTEST_LENGTH_GTE: Int
-  email_SHORTEST_LENGTH_LT: Int
-  email_SHORTEST_LENGTH_LTE: Int
-  username_AVERAGE_LENGTH_EQUAL: Float
-  username_AVERAGE_LENGTH_GT: Float
-  username_AVERAGE_LENGTH_GTE: Float
-  username_AVERAGE_LENGTH_LT: Float
-  username_AVERAGE_LENGTH_LTE: Float
-  username_LONGEST_LENGTH_EQUAL: Int
-  username_LONGEST_LENGTH_GT: Int
-  username_LONGEST_LENGTH_GTE: Int
-  username_LONGEST_LENGTH_LT: Int
-  username_LONGEST_LENGTH_LTE: Int
-  username_SHORTEST_LENGTH_EQUAL: Int
-  username_SHORTEST_LENGTH_GT: Int
-  username_SHORTEST_LENGTH_GTE: Int
-  username_SHORTEST_LENGTH_LT: Int
-  username_SHORTEST_LENGTH_LTE: Int
 }
 
 input PagePageContentContainerAggregateInput {
@@ -12926,7 +12612,6 @@ input PagePageContentContainerUpdateFieldInput {
 
 input PageRelationInput {
   app: PageAppCreateFieldInput
-  owner: WithOwnerOwnerCreateFieldInput
   pageContentContainer: PagePageContentContainerCreateFieldInput
   rootElement: PageRootElementCreateFieldInput
 }
@@ -13340,21 +13025,8 @@ input PageUpdateInput {
   getServerSideProps: String
   id: ID
   kind: PageKind
-  owner: WithOwnerOwnerUpdateFieldInput
   pageContentContainer: PagePageContentContainerUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
-}
-
-type PageUserOwnerAggregationSelection {
-  count: Int!
-  node: PageUserOwnerNodeAggregateSelection
-}
-
-type PageUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
 }
 
 input PageWhere {
@@ -13383,8 +13055,6 @@ input PageWhere {
   id_STARTS_WITH: ID
   kind: PageKind
   kind_IN: [PageKind!]
-  ownerAggregate: PageOwnerAggregateInput
-  ownerConnection: WithOwnerOwnerConnectionWhere
   pageContentContainerAggregate: PagePageContentContainerAggregateInput
   pageContentContainerConnection: PagePageContentContainerConnectionWhere
   rootElementAggregate: PageRootElementAggregateInput
@@ -13785,28 +13455,6 @@ type Query {
     sort: [ComponentSort]
     where: ComponentWhere
   ): ComponentsConnection!
-  createInfos(
-    options: CreateInfoOptions
-    where: CreateInfoWhere
-  ): [CreateInfo!]!
-  createInfosAggregate(where: CreateInfoWhere): CreateInfoAggregateSelection!
-  createInfosConnection(
-    after: String
-    first: Int
-    sort: [CreateInfoSort]
-    where: CreateInfoWhere
-  ): CreateInfosConnection!
-  deleteInfos(
-    options: DeleteInfoOptions
-    where: DeleteInfoWhere
-  ): [DeleteInfo!]!
-  deleteInfosAggregate(where: DeleteInfoWhere): DeleteInfoAggregateSelection!
-  deleteInfosConnection(
-    after: String
-    first: Int
-    sort: [DeleteInfoSort]
-    where: DeleteInfoWhere
-  ): DeleteInfosConnection!
   domains(options: DomainOptions, where: DomainWhere): [Domain!]!
   domainsAggregate(where: DomainWhere): DomainAggregateSelection!
   domainsConnection(
@@ -13982,30 +13630,6 @@ type Query {
     sort: [RenderPropsTypeSort]
     where: RenderPropsTypeWhere
   ): RenderPropsTypesConnection!
-  renderTypes(
-    options: RenderTypeOptions
-    where: RenderTypeWhere
-  ): [RenderType!]!
-  renderTypesAggregate(where: RenderTypeWhere): RenderTypeAggregateSelection!
-  renderTypesConnection(
-    after: String
-    first: Int
-    sort: [RenderTypeSort]
-    where: RenderTypeWhere
-  ): RenderTypesConnection!
-  resetDatabaseMutationResponses(
-    options: ResetDatabaseMutationResponseOptions
-    where: ResetDatabaseMutationResponseWhere
-  ): [ResetDatabaseMutationResponse!]!
-  resetDatabaseMutationResponsesAggregate(
-    where: ResetDatabaseMutationResponseWhere
-  ): ResetDatabaseMutationResponseAggregateSelection!
-  resetDatabaseMutationResponsesConnection(
-    after: String
-    first: Int
-    sort: [ResetDatabaseMutationResponseSort]
-    where: ResetDatabaseMutationResponseWhere
-  ): ResetDatabaseMutationResponsesConnection!
   resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
   resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
   resourcesConnection(
@@ -14059,32 +13683,6 @@ type Query {
     sort: [UserSort]
     where: UserWhere
   ): UsersConnection!
-  vercelDomainConfigs(
-    options: VercelDomainConfigOptions
-    where: VercelDomainConfigWhere
-  ): [VercelDomainConfig!]!
-  vercelDomainConfigsAggregate(
-    where: VercelDomainConfigWhere
-  ): VercelDomainConfigAggregateSelection!
-  vercelDomainConfigsConnection(
-    after: String
-    first: Int
-    sort: [VercelDomainConfigSort]
-    where: VercelDomainConfigWhere
-  ): VercelDomainConfigsConnection!
-  vercelProjectDomains(
-    options: VercelProjectDomainOptions
-    where: VercelProjectDomainWhere
-  ): [VercelProjectDomain!]!
-  vercelProjectDomainsAggregate(
-    where: VercelProjectDomainWhere
-  ): VercelProjectDomainAggregateSelection!
-  vercelProjectDomainsConnection(
-    after: String
-    first: Int
-    sort: [VercelProjectDomainSort]
-    where: VercelProjectDomainWhere
-  ): VercelProjectDomainsConnection!
 }
 
 input QueryOptions {
@@ -14519,121 +14117,16 @@ type RenderPropsTypesConnection {
 
 type RenderType {
   id: String!
-  model: RenderTypeModel!
+  kind: RenderTypeKind!
 }
 
-type RenderTypeAggregateSelection {
-  count: Int!
-  id: StringAggregateSelectionNonNullable!
-}
-
-input RenderTypeCreateInput {
-  id: String!
-  model: RenderTypeModel!
-}
-
-type RenderTypeEdge {
-  cursor: String!
-  node: RenderType!
-}
-
-enum RenderTypeModel {
+enum RenderTypeKind {
   Atom
   Component
 }
 
-input RenderTypeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more RenderTypeSort objects to sort RenderTypes by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [RenderTypeSort!]
-}
-
-"""
-Fields to sort RenderTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderTypeSort object.
-"""
-input RenderTypeSort {
-  id: SortDirection
-  model: SortDirection
-}
-
-input RenderTypeUpdateInput {
-  id: String
-  model: RenderTypeModel
-}
-
-input RenderTypeWhere {
-  AND: [RenderTypeWhere!]
-  NOT: RenderTypeWhere
-  OR: [RenderTypeWhere!]
-  id: String
-  id_CONTAINS: String
-  id_ENDS_WITH: String
-  id_IN: [String!]
-  id_MATCHES: String
-  id_STARTS_WITH: String
-  model: RenderTypeModel
-  model_IN: [RenderTypeModel!]
-}
-
-type RenderTypesConnection {
-  edges: [RenderTypeEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 type ResetDatabaseMutationResponse {
   success: Boolean
-}
-
-type ResetDatabaseMutationResponseAggregateSelection {
-  count: Int!
-}
-
-input ResetDatabaseMutationResponseCreateInput {
-  success: Boolean
-}
-
-type ResetDatabaseMutationResponseEdge {
-  cursor: String!
-  node: ResetDatabaseMutationResponse!
-}
-
-input ResetDatabaseMutationResponseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more ResetDatabaseMutationResponseSort objects to sort ResetDatabaseMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [ResetDatabaseMutationResponseSort!]
-}
-
-"""
-Fields to sort ResetDatabaseMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDatabaseMutationResponseSort object.
-"""
-input ResetDatabaseMutationResponseSort {
-  success: SortDirection
-}
-
-input ResetDatabaseMutationResponseUpdateInput {
-  success: Boolean
-}
-
-input ResetDatabaseMutationResponseWhere {
-  AND: [ResetDatabaseMutationResponseWhere!]
-  NOT: ResetDatabaseMutationResponseWhere
-  OR: [ResetDatabaseMutationResponseWhere!]
-  success: Boolean
-}
-
-type ResetDatabaseMutationResponsesConnection {
-  edges: [ResetDatabaseMutationResponseEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
 }
 
 type Resource implements WithOwner {
@@ -15000,7 +14493,7 @@ enum SortDirection {
   DESC
 }
 
-type Store implements WithOwner {
+type Store {
   actions(
     directed: Boolean = true
     options: QueryOptions
@@ -15042,18 +14535,6 @@ type Store implements WithOwner {
   ): StoreAppConnection!
   id: ID!
   name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): StoreUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [WithOwnerOwnerConnectionSort!]
-    where: WithOwnerOwnerConnectionWhere
-  ): WithOwnerOwnerConnection!
 }
 
 input StoreActionsApiActionConnectFieldInput {
@@ -15453,14 +14934,12 @@ input StoreConnectInput {
   actions: StoreActionsConnectInput
   api: StoreApiConnectFieldInput
   app: StoreAppConnectFieldInput
-  owner: WithOwnerOwnerConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
   actions: StoreActionsConnectOrCreateInput
   api: StoreApiConnectOrCreateFieldInput
   app: StoreAppConnectOrCreateFieldInput
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
 }
 
 input StoreConnectOrCreateWhere {
@@ -15477,21 +14956,18 @@ input StoreCreateInput {
   app: StoreAppFieldInput
   id: ID!
   name: String!
-  owner: WithOwnerOwnerFieldInput
 }
 
 input StoreDeleteInput {
   actions: StoreActionsDeleteInput
   api: StoreApiDeleteFieldInput
   app: StoreAppDeleteFieldInput
-  owner: WithOwnerOwnerDeleteFieldInput
 }
 
 input StoreDisconnectInput {
   actions: StoreActionsDisconnectInput
   api: StoreApiDisconnectFieldInput
   app: StoreAppDisconnectFieldInput
-  owner: WithOwnerOwnerDisconnectFieldInput
 }
 
 type StoreEdge {
@@ -15524,74 +15000,10 @@ input StoreOptions {
   sort: [StoreSort!]
 }
 
-input StoreOwnerAggregateInput {
-  AND: [StoreOwnerAggregateInput!]
-  NOT: StoreOwnerAggregateInput
-  OR: [StoreOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: StoreOwnerNodeAggregationWhereInput
-}
-
-input StoreOwnerNodeAggregationWhereInput {
-  AND: [StoreOwnerNodeAggregationWhereInput!]
-  NOT: StoreOwnerNodeAggregationWhereInput
-  OR: [StoreOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_LENGTH_EQUAL: Float
-  auth0Id_AVERAGE_LENGTH_GT: Float
-  auth0Id_AVERAGE_LENGTH_GTE: Float
-  auth0Id_AVERAGE_LENGTH_LT: Float
-  auth0Id_AVERAGE_LENGTH_LTE: Float
-  auth0Id_LONGEST_LENGTH_EQUAL: Int
-  auth0Id_LONGEST_LENGTH_GT: Int
-  auth0Id_LONGEST_LENGTH_GTE: Int
-  auth0Id_LONGEST_LENGTH_LT: Int
-  auth0Id_LONGEST_LENGTH_LTE: Int
-  auth0Id_SHORTEST_LENGTH_EQUAL: Int
-  auth0Id_SHORTEST_LENGTH_GT: Int
-  auth0Id_SHORTEST_LENGTH_GTE: Int
-  auth0Id_SHORTEST_LENGTH_LT: Int
-  auth0Id_SHORTEST_LENGTH_LTE: Int
-  email_AVERAGE_LENGTH_EQUAL: Float
-  email_AVERAGE_LENGTH_GT: Float
-  email_AVERAGE_LENGTH_GTE: Float
-  email_AVERAGE_LENGTH_LT: Float
-  email_AVERAGE_LENGTH_LTE: Float
-  email_LONGEST_LENGTH_EQUAL: Int
-  email_LONGEST_LENGTH_GT: Int
-  email_LONGEST_LENGTH_GTE: Int
-  email_LONGEST_LENGTH_LT: Int
-  email_LONGEST_LENGTH_LTE: Int
-  email_SHORTEST_LENGTH_EQUAL: Int
-  email_SHORTEST_LENGTH_GT: Int
-  email_SHORTEST_LENGTH_GTE: Int
-  email_SHORTEST_LENGTH_LT: Int
-  email_SHORTEST_LENGTH_LTE: Int
-  username_AVERAGE_LENGTH_EQUAL: Float
-  username_AVERAGE_LENGTH_GT: Float
-  username_AVERAGE_LENGTH_GTE: Float
-  username_AVERAGE_LENGTH_LT: Float
-  username_AVERAGE_LENGTH_LTE: Float
-  username_LONGEST_LENGTH_EQUAL: Int
-  username_LONGEST_LENGTH_GT: Int
-  username_LONGEST_LENGTH_GTE: Int
-  username_LONGEST_LENGTH_LT: Int
-  username_LONGEST_LENGTH_LTE: Int
-  username_SHORTEST_LENGTH_EQUAL: Int
-  username_SHORTEST_LENGTH_GT: Int
-  username_SHORTEST_LENGTH_GTE: Int
-  username_SHORTEST_LENGTH_LT: Int
-  username_SHORTEST_LENGTH_LTE: Int
-}
-
 input StoreRelationInput {
   actions: StoreActionsCreateFieldInput
   api: StoreApiCreateFieldInput
   app: StoreAppCreateFieldInput
-  owner: WithOwnerOwnerCreateFieldInput
 }
 
 """
@@ -15612,19 +15024,6 @@ input StoreUpdateInput {
   app: StoreAppUpdateFieldInput
   id: ID
   name: String
-  owner: WithOwnerOwnerUpdateFieldInput
-}
-
-type StoreUserOwnerAggregationSelection {
-  count: Int!
-  node: StoreUserOwnerNodeAggregateSelection
-}
-
-type StoreUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
 }
 
 input StoreWhere {
@@ -15651,8 +15050,6 @@ input StoreWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
-  ownerAggregate: StoreOwnerAggregateInput
-  ownerConnection: WithOwnerOwnerConnectionWhere
 }
 
 type StoresConnection {
@@ -17470,16 +16867,6 @@ type UpdateComponentsMutationResponse {
   info: UpdateInfo!
 }
 
-type UpdateCreateInfosMutationResponse {
-  createInfos: [CreateInfo!]!
-  info: UpdateInfo!
-}
-
-type UpdateDeleteInfosMutationResponse {
-  deleteInfos: [DeleteInfo!]!
-  info: UpdateInfo!
-}
-
 type UpdateDomainsMutationResponse {
   domains: [Domain!]!
   info: UpdateInfo!
@@ -17568,16 +16955,6 @@ type UpdateRenderPropsTypesMutationResponse {
   renderPropsTypes: [RenderPropsType!]!
 }
 
-type UpdateRenderTypesMutationResponse {
-  info: UpdateInfo!
-  renderTypes: [RenderType!]!
-}
-
-type UpdateResetDatabaseMutationResponsesMutationResponse {
-  info: UpdateInfo!
-  resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
-}
-
 type UpdateResourcesMutationResponse {
   info: UpdateInfo!
   resources: [Resource!]!
@@ -17601,16 +16978,6 @@ type UpdateTypeReferencesMutationResponse {
 type UpdateUnionTypesMutationResponse {
   info: UpdateInfo!
   unionTypes: [UnionType!]!
-}
-
-type UpdateVercelDomainConfigsMutationResponse {
-  info: UpdateInfo!
-  vercelDomainConfigs: [VercelDomainConfig!]!
-}
-
-type UpdateVercelProjectDomainsMutationResponse {
-  info: UpdateInfo!
-  vercelProjectDomains: [VercelProjectDomain!]!
 }
 
 type User {
@@ -18635,102 +18002,8 @@ type VercelDomainConfig {
   misconfigured: Boolean!
 }
 
-type VercelDomainConfigAggregateSelection {
-  count: Int!
-}
-
-input VercelDomainConfigCreateInput {
-  misconfigured: Boolean!
-}
-
-type VercelDomainConfigEdge {
-  cursor: String!
-  node: VercelDomainConfig!
-}
-
-input VercelDomainConfigOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more VercelDomainConfigSort objects to sort VercelDomainConfigs by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [VercelDomainConfigSort!]
-}
-
-"""
-Fields to sort VercelDomainConfigs by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelDomainConfigSort object.
-"""
-input VercelDomainConfigSort {
-  misconfigured: SortDirection
-}
-
-input VercelDomainConfigUpdateInput {
-  misconfigured: Boolean
-}
-
-input VercelDomainConfigWhere {
-  AND: [VercelDomainConfigWhere!]
-  NOT: VercelDomainConfigWhere
-  OR: [VercelDomainConfigWhere!]
-  misconfigured: Boolean
-}
-
-type VercelDomainConfigsConnection {
-  edges: [VercelDomainConfigEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 type VercelProjectDomain {
   verified: Boolean!
-}
-
-type VercelProjectDomainAggregateSelection {
-  count: Int!
-}
-
-input VercelProjectDomainCreateInput {
-  verified: Boolean!
-}
-
-type VercelProjectDomainEdge {
-  cursor: String!
-  node: VercelProjectDomain!
-}
-
-input VercelProjectDomainOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more VercelProjectDomainSort objects to sort VercelProjectDomains by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [VercelProjectDomainSort!]
-}
-
-"""
-Fields to sort VercelProjectDomains by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelProjectDomainSort object.
-"""
-input VercelProjectDomainSort {
-  verified: SortDirection
-}
-
-input VercelProjectDomainUpdateInput {
-  verified: Boolean
-}
-
-input VercelProjectDomainWhere {
-  AND: [VercelProjectDomainWhere!]
-  NOT: VercelProjectDomainWhere
-  OR: [VercelProjectDomainWhere!]
-  verified: Boolean
-}
-
-type VercelProjectDomainsConnection {
-  edges: [VercelProjectDomainEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
 }
 
 interface WithDescendants {

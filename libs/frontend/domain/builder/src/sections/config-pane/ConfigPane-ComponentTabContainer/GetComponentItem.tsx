@@ -1,7 +1,7 @@
 import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
 import {
   BuilderDndType,
-  IRenderTypeModel,
+  IRenderTypeKind,
 } from '@codelab/frontend/abstract/core'
 import { antDesignIconPrefix } from '@codelab/shared/data/seed'
 import {
@@ -25,7 +25,7 @@ export const DraggableGetComponentItem = ({
       name: createUniqueName(compoundCaseToTitleCase(component.name)),
       renderType: {
         id: component.id,
-        model: IRenderTypeModel.Atom,
+        kind: IRenderTypeKind.Atom,
       },
     }
   }, [component])

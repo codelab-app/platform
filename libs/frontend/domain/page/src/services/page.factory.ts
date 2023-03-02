@@ -34,7 +34,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  addSystemPages(app: Pick<IApp, 'id' | 'owner'>) {
+  addSystemPages(app: Pick<IApp, 'id'>) {
     return [
       this.addProviderPage(app),
       this.addNotFoundPage(app),
@@ -43,44 +43,33 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  private addProviderPage({ owner, ...app }: Pick<IApp, 'id' | 'owner'>) {
+  private addProviderPage(app: Pick<IApp, 'id'>) {
     return this.addDefaultPage({
-      owner,
       app,
       kind: IPageKind.Provider,
     })
   }
 
   @modelAction
-  private addNotFoundPage({ owner, ...app }: Pick<IApp, 'id' | 'owner'>) {
+  private addNotFoundPage(app: Pick<IApp, 'id'>) {
     return this.addDefaultPage({
-      owner,
       app,
       kind: IPageKind.NotFound,
     })
   }
 
   @modelAction
-  private addInternalServerErrorPage({
-    owner,
-    ...app
-  }: Pick<IApp, 'id' | 'owner'>) {
+  private addInternalServerErrorPage(app: Pick<IApp, 'id'>) {
     return this.addDefaultPage({
-      owner,
       app,
       kind: IPageKind.InternalServerError,
     })
   }
 
   @modelAction
-  private addDefaultPage({
-    owner,
-    kind,
-    app,
-  }: Pick<IPage, 'app' | 'owner' | 'kind'>) {
+  private addDefaultPage({ kind, app }: Pick<IPage, 'app' | 'kind'>) {
     const rootElementProps = this.propService.add({
       id: v4(),
-      data: '',
     })
 
     const rootElement = this.elementService.add({
@@ -91,12 +80,11 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
     return this.pageService.add({
       id: v4(),
-      name: APP_PAGE_NAME,
+      name: kind,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       app,
       rootElement,
       kind,
-      owner,
     })
   }
 }

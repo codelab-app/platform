@@ -1,4 +1,4 @@
-import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
+import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import type { Element } from '@codelab/shared/abstract/codegen'
 
 export const renderType = ({
@@ -17,14 +17,14 @@ export const renderType = ({
   if (renderAtomType) {
     return {
       id,
-      model: IRenderTypeModel.Component,
+      kind: IRenderTypeKind.Component,
     }
   }
 
   if (renderComponentType) {
     return {
       id,
-      model: IRenderTypeModel.Atom,
+      kind: IRenderTypeKind.Atom,
     }
   }
 

@@ -1,5 +1,5 @@
 import type { RenderType } from '@codelab/frontend/abstract/core'
-import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
+import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
@@ -46,11 +46,11 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
         return
       }
 
-      if (renderType.model === IRenderTypeModel.Atom) {
+      if (renderType.kind === IRenderTypeKind.Atom) {
         renderTypeName = (await atomService.getOne(renderType.id))?.name
       }
 
-      if (renderType.model === IRenderTypeModel.Component) {
+      if (renderType.kind === IRenderTypeKind.Component) {
         renderTypeName = (await componentService.getOne(renderType.id))?.name
       }
 

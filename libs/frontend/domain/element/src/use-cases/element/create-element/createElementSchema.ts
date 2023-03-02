@@ -1,5 +1,5 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
-import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
+import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import { titleCaseValidation } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
@@ -49,9 +49,9 @@ export const createElementSchema: JSONSchemaType<ICreateElementData> = {
       properties: {
         data: {
           type: 'string',
+          nullable: true,
         },
       },
-      required: ['data'],
     },
     preRenderAction: {
       type: 'object',
@@ -83,13 +83,13 @@ export const createElementSchema: JSONSchemaType<ICreateElementData> = {
         id: {
           type: 'string',
         },
-        model: {
+        kind: {
           type: 'string',
-          enum: Object.values(IRenderTypeModel),
+          enum: Object.values(IRenderTypeKind),
           label: 'Render Type',
         },
       },
-      required: ['id', 'model'],
+      required: ['id', 'kind'],
     },
   },
   required: ['name', 'id'],

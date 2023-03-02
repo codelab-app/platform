@@ -4,7 +4,7 @@ import type { Ref } from 'mobx-keystone'
 import type { IElement, IElementDTO } from '../element'
 import type { IAuth0Owner, IOwnerSchema } from '../user'
 
-export interface IPageDTO extends IOwnerSchema {
+export interface IPageDTO  {
   id: string
   kind: IPageKind
   name: string
@@ -19,7 +19,7 @@ export interface IPageDTO extends IOwnerSchema {
 
 export type ICreatePageData = Pick<
   IPageDTO,
-  'id' | 'name' | 'owner' | 'app' | 'getServerSideProps'
+  'id' | 'name' | 'app' | 'getServerSideProps'
 >
 
 export type IUpdatePageData = Pick<

@@ -35,7 +35,6 @@ export type BuilderPageFragment = {
   slug: string
   getServerSideProps?: string | null
   kind: Types.PageKind
-  owner: OwnerFragment
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string; owner: OwnerFragment }
   pageContentContainer?: { id: string } | null
@@ -91,9 +90,6 @@ export const BuilderPageFragmentDoc = gql`
     id
     name
     slug
-    owner {
-      ...Owner
-    }
     getServerSideProps
     rootElement {
       ...Element
@@ -112,8 +108,8 @@ export const BuilderPageFragmentDoc = gql`
     }
     kind
   }
-  ${OwnerFragmentDoc}
   ${ElementFragmentDoc}
+  ${OwnerFragmentDoc}
 `
 export const PageBuilderAppFragmentDoc = gql`
   fragment PageBuilderApp on App {

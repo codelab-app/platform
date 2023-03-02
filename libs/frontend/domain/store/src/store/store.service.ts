@@ -103,13 +103,6 @@ export class StoreService
 
   @modelAction
   add({ id, name, api, actions }: IStoreDTO) {
-    // const interfaceType = this.typeService.addInterface({
-    //   id: storeDTO.api.id,
-    //   name: storeDTO.api.,
-    //   kind: ITypeKind.InterfaceType,
-    //   owner: app.owner,
-    // }) as IInterfaceType
-
     const store = new Store({
       id,
       name,

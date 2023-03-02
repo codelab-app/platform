@@ -1,11 +1,11 @@
-import { RenderTypeModel } from '@codelab/shared/abstract/codegen'
+import { RenderTypeKind } from '@codelab/shared/abstract/codegen'
 
 /**
  *  @deprecated We have to use the copy from codegen, otherwise they don't match up
  */
-export enum __RenderTypeModel {
+export enum __RenderTypeKind {
   Component = 'Component',
   Atom = 'Atom',
 }
 
-export { RenderTypeModel as IRenderTypeModel }
+export { RenderTypeKind as IRenderTypeKind }

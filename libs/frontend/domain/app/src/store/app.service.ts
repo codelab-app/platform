@@ -202,10 +202,9 @@ export class AppService
       id: v4(),
       name: Store.createName({ name }),
       api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
-      owner,
     })
 
-    const pages = this.pageService.pageFactory.addSystemPages({ id })
+    const pages = this.pageService.pageFactory.addSystemPages({ id, owner })
 
     const app = this.add({
       id,
@@ -214,6 +213,8 @@ export class AppService
       pages,
       store: storeRef(store),
     })
+
+    console.log(app)
 
     yield* _await(this.save(app))
 

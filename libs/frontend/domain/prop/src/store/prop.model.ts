@@ -33,7 +33,7 @@ import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
 import { getPropService } from './prop.service'
 
-const create = ({ id, data, api }: IPropDTO) => {
+const create = ({ id, data = '{}', api }: IPropDTO) => {
   return new Prop({
     id,
     data: frozen(JSON.parse(data)),

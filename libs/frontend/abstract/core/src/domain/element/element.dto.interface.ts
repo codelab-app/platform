@@ -1,15 +1,14 @@
-import { RenderTypeModel } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { IAtomDTO, IAtomID } from '../atom'
 import type { IComponentDTO, IComponentID } from '../component'
 import type { IProp, IPropData, IPropDTO } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
-import type { IRenderTypeModel } from './render-type.enum'
+import type { IRenderTypeKind } from './render-type.enum'
 
 export interface RenderType {
   // This is the ID of either `atom` or `component`
   id: IAtomID | IComponentID
-  model: IRenderTypeModel
+  kind: IRenderTypeKind
 }
 
 export interface ICreateElementData {

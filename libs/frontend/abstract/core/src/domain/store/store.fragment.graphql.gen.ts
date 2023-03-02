@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
   Action_ApiAction_Fragment,
   Action_CodeAction_Fragment,
@@ -8,12 +7,10 @@ import {
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { ActionFragmentDoc } from '../action/fragments/action.fragment.graphql.gen'
 export type StoreFragment = {
   id: string
   name: string
-  owner: OwnerFragment
   api: { id: string; name: string }
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
 }
@@ -22,9 +19,6 @@ export const StoreFragmentDoc = gql`
   fragment Store on Store {
     id
     name
-    owner {
-      ...Owner
-    }
     api {
       id
       name
@@ -33,7 +27,6 @@ export const StoreFragmentDoc = gql`
       ...Action
     }
   }
-  ${OwnerFragmentDoc}
   ${ActionFragmentDoc}
 `
 

@@ -13,7 +13,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   IElementDTO,
-  IRenderTypeModel,
+  IRenderTypeKind,
   isAtomDTO,
   isComponentDTO,
 } from '@codelab/frontend/abstract/core'
@@ -610,7 +610,7 @@ element is new parentElement's first child
 
           const renderType: RenderType = {
             id: component.id,
-            model: IRenderTypeModel.Component,
+            kind: IRenderTypeKind.Component,
           }
 
           const parentElementId = targetElement.id
@@ -835,7 +835,7 @@ element is new parentElement's first child
               name,
               renderType: {
                 id: createdComponent.id,
-                model: IRenderTypeModel.Component,
+                kind: IRenderTypeKind.Component,
               },
               parentElement,
             }),
@@ -857,7 +857,7 @@ element is new parentElement's first child
             name,
             renderType: {
               id: createdComponent.id,
-              model: IRenderTypeModel.Component,
+              kind: IRenderTypeKind.Component,
             },
             parentElement,
             prevSibling,

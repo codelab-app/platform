@@ -17,14 +17,12 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  detach,
   Model,
   model,
   modelAction,
   modelFlow,
   objectMap,
   prop,
-  rootRef,
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -32,14 +30,6 @@ import { PageFactory } from '../services'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
 import { PageModalService } from './page-modal.service'
-
-export const pageRef = rootRef<IPage>('@codelab/PageRef', {
-  onResolvedValueChange: (ref, newPage, oldPage) => {
-    if (oldPage && !newPage) {
-      detach(ref)
-    }
-  },
-})
 
 @model('@codelab/PageService')
 export class PageService
@@ -173,7 +163,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { id, name, app, getServerSideProps, owner }: ICreatePageData,
+    { id, name, app, getServerSideProps }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
       id: v4(),
@@ -193,7 +183,6 @@ export class PageService
       getServerSideProps,
       rootElement: elementRef(rootElement.id),
       kind: IPageKind.Regular,
-      owner,
     })
 
     this.pages.set(page.id, page)
@@ -243,7 +232,6 @@ export class PageService
     app,
     rootElement,
     kind,
-    owner,
     getServerSideProps,
     descendentElements,
   }: IPageDTO) {
@@ -252,7 +240,6 @@ export class PageService
       name,
       getServerSideProps,
       app,
-      owner,
       rootElement: elementRef(rootElement.id),
       kind,
     })

@@ -6,8 +6,6 @@ import { appApi } from '../store'
 export class AppRepository extends Model({}) {
   @modelFlow
   add = _async(function* (this: AppRepository, app: IApp) {
-    console.log(app.toCreateInput())
-
     const {
       createApps: { apps },
     } = yield* _await(

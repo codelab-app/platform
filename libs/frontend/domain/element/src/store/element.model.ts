@@ -17,7 +17,7 @@ import {
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
   IElement,
-  IRenderTypeModel,
+  IRenderTypeKind,
   isAtomModel,
   isComponentModel,
   ROOT_ELEMENT_NAME,

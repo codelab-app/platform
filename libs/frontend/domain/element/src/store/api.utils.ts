@@ -9,7 +9,7 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
-  IRenderTypeModel,
+  IRenderTypeKind,
   isAtomModel,
   isComponentModel,
 } from '@codelab/frontend/abstract/core'
@@ -49,12 +49,12 @@ export const getRenderTypeApi = (
   // and we use it to create a props with default values for the created element
   let renderTypeApi: Ref<IInterfaceType> | null = null
 
-  if (renderType?.model === IRenderTypeModel.Atom) {
+  if (renderType?.kind === IRenderTypeKind.Atom) {
     const renderTypeRef = atomRef(renderType.id)
     renderTypeApi = renderTypeRef.current.api
   }
 
-  if (renderType?.model === IRenderTypeModel.Component) {
+  if (renderType?.kind === IRenderTypeKind.Component) {
     const renderTypeRef = componentRef(renderType.id)
     renderTypeApi = renderTypeRef.current.api
   }
@@ -82,12 +82,12 @@ export const makeCreateInput = (
   }
 
   const renderAtomType =
-    renderType?.model === IRenderTypeModel.Atom
+    renderType?.kind === IRenderTypeKind.Atom
       ? connectNodeId(renderType.id)
       : undefined
 
   const renderComponentType =
-    renderType?.model === IRenderTypeModel.Component
+    renderType?.kind === IRenderTypeKind.Component
       ? connectNodeId(renderType.id)
       : undefined
 
@@ -151,13 +151,13 @@ export const makeUpdateInput = (
 
   // We need to disconnect the atom if render type changed to component or empty
   const renderAtomType =
-    renderType?.model === IRenderTypeModel.Atom
+    renderType?.kind === IRenderTypeKind.Atom
       ? reconnectNodeId(renderType.id)
       : disconnectNodeId(undefined)
 
   // We need to disconnect the component if render type changed to atom or empty
   const renderComponentType =
-    renderType?.model === IRenderTypeModel.Component
+    renderType?.kind === IRenderTypeKind.Component
       ? reconnectNodeId(renderType.id)
       : disconnectNodeId(undefined)
 

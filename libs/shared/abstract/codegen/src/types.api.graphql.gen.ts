@@ -6654,18 +6654,6 @@ export type CreateComponentsMutationResponse = {
   info: CreateInfo
 }
 
-export type CreateCreateInfosMutationResponse = {
-  __typename?: 'CreateCreateInfosMutationResponse'
-  createInfos: Array<CreateInfo>
-  info: CreateInfo
-}
-
-export type CreateDeleteInfosMutationResponse = {
-  __typename?: 'CreateDeleteInfosMutationResponse'
-  deleteInfos: Array<DeleteInfo>
-  info: CreateInfo
-}
-
 export type CreateDomainsMutationResponse = {
   __typename?: 'CreateDomainsMutationResponse'
   domains: Array<Domain>
@@ -6721,81 +6709,6 @@ export type CreateInfo = {
   relationshipsCreated: Scalars['Int']
 }
 
-export type CreateInfoAggregateSelection = {
-  __typename?: 'CreateInfoAggregateSelection'
-  bookmark: StringAggregateSelectionNullable
-  count: Scalars['Int']
-  nodesCreated: IntAggregateSelectionNonNullable
-  relationshipsCreated: IntAggregateSelectionNonNullable
-}
-
-export type CreateInfoCreateInput = {
-  bookmark?: InputMaybe<Scalars['String']>
-  nodesCreated: Scalars['Int']
-  relationshipsCreated: Scalars['Int']
-}
-
-export type CreateInfoEdge = {
-  __typename?: 'CreateInfoEdge'
-  cursor: Scalars['String']
-  node: CreateInfo
-}
-
-export type CreateInfoOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more CreateInfoSort objects to sort CreateInfos by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<CreateInfoSort>>
-}
-
-/** Fields to sort CreateInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one CreateInfoSort object. */
-export type CreateInfoSort = {
-  bookmark?: InputMaybe<SortDirection>
-  nodesCreated?: InputMaybe<SortDirection>
-  relationshipsCreated?: InputMaybe<SortDirection>
-}
-
-export type CreateInfoUpdateInput = {
-  bookmark?: InputMaybe<Scalars['String']>
-  nodesCreated?: InputMaybe<Scalars['Int']>
-  nodesCreated_DECREMENT?: InputMaybe<Scalars['Int']>
-  nodesCreated_INCREMENT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_DECREMENT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_INCREMENT?: InputMaybe<Scalars['Int']>
-}
-
-export type CreateInfoWhere = {
-  AND?: InputMaybe<Array<CreateInfoWhere>>
-  NOT?: InputMaybe<CreateInfoWhere>
-  OR?: InputMaybe<Array<CreateInfoWhere>>
-  bookmark?: InputMaybe<Scalars['String']>
-  bookmark_CONTAINS?: InputMaybe<Scalars['String']>
-  bookmark_ENDS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  bookmark_MATCHES?: InputMaybe<Scalars['String']>
-  bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
-  nodesCreated?: InputMaybe<Scalars['Int']>
-  nodesCreated_GT?: InputMaybe<Scalars['Int']>
-  nodesCreated_GTE?: InputMaybe<Scalars['Int']>
-  nodesCreated_IN?: InputMaybe<Array<Scalars['Int']>>
-  nodesCreated_LT?: InputMaybe<Scalars['Int']>
-  nodesCreated_LTE?: InputMaybe<Scalars['Int']>
-  relationshipsCreated?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_GT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_GTE?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_IN?: InputMaybe<Array<Scalars['Int']>>
-  relationshipsCreated_LT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type CreateInfosConnection = {
-  __typename?: 'CreateInfosConnection'
-  edges: Array<CreateInfoEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
 export type CreateInterfaceTypesMutationResponse = {
   __typename?: 'CreateInterfaceTypesMutationResponse'
   info: CreateInfo
@@ -6844,18 +6757,6 @@ export type CreateRenderPropsTypesMutationResponse = {
   renderPropsTypes: Array<RenderPropsType>
 }
 
-export type CreateRenderTypesMutationResponse = {
-  __typename?: 'CreateRenderTypesMutationResponse'
-  info: CreateInfo
-  renderTypes: Array<RenderType>
-}
-
-export type CreateResetDatabaseMutationResponsesMutationResponse = {
-  __typename?: 'CreateResetDatabaseMutationResponsesMutationResponse'
-  info: CreateInfo
-  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
-}
-
 export type CreateResourcesMutationResponse = {
   __typename?: 'CreateResourcesMutationResponse'
   info: CreateInfo
@@ -6892,98 +6793,11 @@ export type CreateUsersMutationResponse = {
   users: Array<User>
 }
 
-export type CreateVercelDomainConfigsMutationResponse = {
-  __typename?: 'CreateVercelDomainConfigsMutationResponse'
-  info: CreateInfo
-  vercelDomainConfigs: Array<VercelDomainConfig>
-}
-
-export type CreateVercelProjectDomainsMutationResponse = {
-  __typename?: 'CreateVercelProjectDomainsMutationResponse'
-  info: CreateInfo
-  vercelProjectDomains: Array<VercelProjectDomain>
-}
-
 export type DeleteInfo = {
   __typename?: 'DeleteInfo'
   bookmark?: Maybe<Scalars['String']>
   nodesDeleted: Scalars['Int']
   relationshipsDeleted: Scalars['Int']
-}
-
-export type DeleteInfoAggregateSelection = {
-  __typename?: 'DeleteInfoAggregateSelection'
-  bookmark: StringAggregateSelectionNullable
-  count: Scalars['Int']
-  nodesDeleted: IntAggregateSelectionNonNullable
-  relationshipsDeleted: IntAggregateSelectionNonNullable
-}
-
-export type DeleteInfoCreateInput = {
-  bookmark?: InputMaybe<Scalars['String']>
-  nodesDeleted: Scalars['Int']
-  relationshipsDeleted: Scalars['Int']
-}
-
-export type DeleteInfoEdge = {
-  __typename?: 'DeleteInfoEdge'
-  cursor: Scalars['String']
-  node: DeleteInfo
-}
-
-export type DeleteInfoOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more DeleteInfoSort objects to sort DeleteInfos by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<DeleteInfoSort>>
-}
-
-/** Fields to sort DeleteInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteInfoSort object. */
-export type DeleteInfoSort = {
-  bookmark?: InputMaybe<SortDirection>
-  nodesDeleted?: InputMaybe<SortDirection>
-  relationshipsDeleted?: InputMaybe<SortDirection>
-}
-
-export type DeleteInfoUpdateInput = {
-  bookmark?: InputMaybe<Scalars['String']>
-  nodesDeleted?: InputMaybe<Scalars['Int']>
-  nodesDeleted_DECREMENT?: InputMaybe<Scalars['Int']>
-  nodesDeleted_INCREMENT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_DECREMENT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_INCREMENT?: InputMaybe<Scalars['Int']>
-}
-
-export type DeleteInfoWhere = {
-  AND?: InputMaybe<Array<DeleteInfoWhere>>
-  NOT?: InputMaybe<DeleteInfoWhere>
-  OR?: InputMaybe<Array<DeleteInfoWhere>>
-  bookmark?: InputMaybe<Scalars['String']>
-  bookmark_CONTAINS?: InputMaybe<Scalars['String']>
-  bookmark_ENDS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  bookmark_MATCHES?: InputMaybe<Scalars['String']>
-  bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
-  nodesDeleted?: InputMaybe<Scalars['Int']>
-  nodesDeleted_GT?: InputMaybe<Scalars['Int']>
-  nodesDeleted_GTE?: InputMaybe<Scalars['Int']>
-  nodesDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
-  nodesDeleted_LT?: InputMaybe<Scalars['Int']>
-  nodesDeleted_LTE?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_GT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_GTE?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
-  relationshipsDeleted_LT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type DeleteInfosConnection = {
-  __typename?: 'DeleteInfosConnection'
-  edges: Array<DeleteInfoEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
 }
 
 export type Domain = {
@@ -12419,8 +12233,6 @@ export type Mutation = {
   createCodeActions: CreateCodeActionsMutationResponse
   createCodeMirrorTypes: CreateCodeMirrorTypesMutationResponse
   createComponents: CreateComponentsMutationResponse
-  createCreateInfos: CreateCreateInfosMutationResponse
-  createDeleteInfos: CreateDeleteInfosMutationResponse
   createDomains: CreateDomainsMutationResponse
   createElementTypes: CreateElementTypesMutationResponse
   createElements: CreateElementsMutationResponse
@@ -12437,16 +12249,12 @@ export type Mutation = {
   createProps: CreatePropsMutationResponse
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
-  createRenderTypes: CreateRenderTypesMutationResponse
-  createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   createResources: CreateResourcesMutationResponse
   createStores: CreateStoresMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
   createUsers: CreateUsersMutationResponse
-  createVercelDomainConfigs: CreateVercelDomainConfigsMutationResponse
-  createVercelProjectDomains: CreateVercelProjectDomainsMutationResponse
   deleteActionTypes: DeleteInfo
   deleteApiActions: DeleteInfo
   deleteAppTypes: DeleteInfo
@@ -12456,8 +12264,6 @@ export type Mutation = {
   deleteCodeActions: DeleteInfo
   deleteCodeMirrorTypes: DeleteInfo
   deleteComponents: DeleteInfo
-  deleteCreateInfos: DeleteInfo
-  deleteDeleteInfos: DeleteInfo
   deleteDomains: DeleteInfo
   deleteElementTypes: DeleteInfo
   deleteElements: DeleteInfo
@@ -12474,16 +12280,12 @@ export type Mutation = {
   deleteProps: DeleteInfo
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
-  deleteRenderTypes: DeleteInfo
-  deleteResetDatabaseMutationResponses: DeleteInfo
   deleteResources: DeleteInfo
   deleteStores: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
   deleteUsers: DeleteInfo
-  deleteVercelDomainConfigs: DeleteInfo
-  deleteVercelProjectDomains: DeleteInfo
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
   updateActionTypes: UpdateActionTypesMutationResponse
   updateApiActions: UpdateApiActionsMutationResponse
@@ -12494,8 +12296,6 @@ export type Mutation = {
   updateCodeActions: UpdateCodeActionsMutationResponse
   updateCodeMirrorTypes: UpdateCodeMirrorTypesMutationResponse
   updateComponents: UpdateComponentsMutationResponse
-  updateCreateInfos: UpdateCreateInfosMutationResponse
-  updateDeleteInfos: UpdateDeleteInfosMutationResponse
   updateDomains: UpdateDomainsMutationResponse
   updateElementTypes: UpdateElementTypesMutationResponse
   updateElements: UpdateElementsMutationResponse
@@ -12512,15 +12312,11 @@ export type Mutation = {
   updateProps: UpdatePropsMutationResponse
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
-  updateRenderTypes: UpdateRenderTypesMutationResponse
-  updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
   updateResources: UpdateResourcesMutationResponse
   updateStores: UpdateStoresMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
-  updateVercelDomainConfigs: UpdateVercelDomainConfigsMutationResponse
-  updateVercelProjectDomains: UpdateVercelProjectDomainsMutationResponse
 }
 
 export type MutationCreateActionTypesArgs = {
@@ -12557,14 +12353,6 @@ export type MutationCreateCodeMirrorTypesArgs = {
 
 export type MutationCreateComponentsArgs = {
   input: Array<ComponentCreateInput>
-}
-
-export type MutationCreateCreateInfosArgs = {
-  input: Array<CreateInfoCreateInput>
-}
-
-export type MutationCreateDeleteInfosArgs = {
-  input: Array<DeleteInfoCreateInput>
 }
 
 export type MutationCreateDomainsArgs = {
@@ -12631,14 +12419,6 @@ export type MutationCreateRenderPropsTypesArgs = {
   input: Array<RenderPropsTypeCreateInput>
 }
 
-export type MutationCreateRenderTypesArgs = {
-  input: Array<RenderTypeCreateInput>
-}
-
-export type MutationCreateResetDatabaseMutationResponsesArgs = {
-  input: Array<ResetDatabaseMutationResponseCreateInput>
-}
-
 export type MutationCreateResourcesArgs = {
   input: Array<ResourceCreateInput>
 }
@@ -12661,14 +12441,6 @@ export type MutationCreateUnionTypesArgs = {
 
 export type MutationCreateUsersArgs = {
   input: Array<UserCreateInput>
-}
-
-export type MutationCreateVercelDomainConfigsArgs = {
-  input: Array<VercelDomainConfigCreateInput>
-}
-
-export type MutationCreateVercelProjectDomainsArgs = {
-  input: Array<VercelProjectDomainCreateInput>
 }
 
 export type MutationDeleteActionTypesArgs = {
@@ -12714,14 +12486,6 @@ export type MutationDeleteCodeMirrorTypesArgs = {
 export type MutationDeleteComponentsArgs = {
   delete?: InputMaybe<ComponentDeleteInput>
   where?: InputMaybe<ComponentWhere>
-}
-
-export type MutationDeleteCreateInfosArgs = {
-  where?: InputMaybe<CreateInfoWhere>
-}
-
-export type MutationDeleteDeleteInfosArgs = {
-  where?: InputMaybe<DeleteInfoWhere>
 }
 
 export type MutationDeleteDomainsArgs = {
@@ -12802,14 +12566,6 @@ export type MutationDeleteRenderPropsTypesArgs = {
   where?: InputMaybe<RenderPropsTypeWhere>
 }
 
-export type MutationDeleteRenderTypesArgs = {
-  where?: InputMaybe<RenderTypeWhere>
-}
-
-export type MutationDeleteResetDatabaseMutationResponsesArgs = {
-  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
 export type MutationDeleteResourcesArgs = {
   delete?: InputMaybe<ResourceDeleteInput>
   where?: InputMaybe<ResourceWhere>
@@ -12837,14 +12593,6 @@ export type MutationDeleteUnionTypesArgs = {
 export type MutationDeleteUsersArgs = {
   delete?: InputMaybe<UserDeleteInput>
   where?: InputMaybe<UserWhere>
-}
-
-export type MutationDeleteVercelDomainConfigsArgs = {
-  where?: InputMaybe<VercelDomainConfigWhere>
-}
-
-export type MutationDeleteVercelProjectDomainsArgs = {
-  where?: InputMaybe<VercelProjectDomainWhere>
 }
 
 export type MutationUpdateActionTypesArgs = {
@@ -12935,16 +12683,6 @@ export type MutationUpdateComponentsArgs = {
   disconnect?: InputMaybe<ComponentDisconnectInput>
   update?: InputMaybe<ComponentUpdateInput>
   where?: InputMaybe<ComponentWhere>
-}
-
-export type MutationUpdateCreateInfosArgs = {
-  update?: InputMaybe<CreateInfoUpdateInput>
-  where?: InputMaybe<CreateInfoWhere>
-}
-
-export type MutationUpdateDeleteInfosArgs = {
-  update?: InputMaybe<DeleteInfoUpdateInput>
-  where?: InputMaybe<DeleteInfoWhere>
 }
 
 export type MutationUpdateDomainsArgs = {
@@ -13097,16 +12835,6 @@ export type MutationUpdateRenderPropsTypesArgs = {
   where?: InputMaybe<RenderPropsTypeWhere>
 }
 
-export type MutationUpdateRenderTypesArgs = {
-  update?: InputMaybe<RenderTypeUpdateInput>
-  where?: InputMaybe<RenderTypeWhere>
-}
-
-export type MutationUpdateResetDatabaseMutationResponsesArgs = {
-  update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
-  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
 export type MutationUpdateResourcesArgs = {
   connect?: InputMaybe<ResourceConnectInput>
   connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
@@ -13152,17 +12880,7 @@ export type MutationUpdateUnionTypesArgs = {
   where?: InputMaybe<UnionTypeWhere>
 }
 
-export type MutationUpdateVercelDomainConfigsArgs = {
-  update?: InputMaybe<VercelDomainConfigUpdateInput>
-  where?: InputMaybe<VercelDomainConfigWhere>
-}
-
-export type MutationUpdateVercelProjectDomainsArgs = {
-  update?: InputMaybe<VercelProjectDomainUpdateInput>
-  where?: InputMaybe<VercelProjectDomainWhere>
-}
-
-export type Page = WithOwner & {
+export type Page = {
   __typename?: 'Page'
   _compoundName: Scalars['String']
   app: App
@@ -13172,9 +12890,6 @@ export type Page = WithOwner & {
   id: Scalars['ID']
   kind: PageKind
   name: Scalars['String']
-  owner: User
-  ownerAggregate?: Maybe<PageUserOwnerAggregationSelection>
-  ownerConnection: WithOwnerOwnerConnection
   pageContentContainer?: Maybe<Element>
   pageContentContainerAggregate?: Maybe<PageElementPageContentContainerAggregationSelection>
   pageContentContainerConnection: PagePageContentContainerConnection
@@ -13201,25 +12916,6 @@ export type PageAppConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<PageAppConnectionSort>>
   where?: InputMaybe<PageAppConnectionWhere>
-}
-
-export type PageOwnerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<UserOptions>
-  where?: InputMaybe<UserWhere>
-}
-
-export type PageOwnerAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<UserWhere>
-}
-
-export type PageOwnerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
-  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type PagePageContentContainerArgs = {
@@ -13389,14 +13085,12 @@ export type PageAppUpdateFieldInput = {
 
 export type PageConnectInput = {
   app?: InputMaybe<PageAppConnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectFieldInput>
   rootElement?: InputMaybe<PageRootElementConnectFieldInput>
 }
 
 export type PageConnectOrCreateInput = {
   app?: InputMaybe<PageAppConnectOrCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectOrCreateFieldInput>
   rootElement?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
 }
@@ -13415,21 +13109,18 @@ export type PageCreateInput = {
   getServerSideProps?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   kind: PageKind
-  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerFieldInput>
   rootElement?: InputMaybe<PageRootElementFieldInput>
 }
 
 export type PageDeleteInput = {
   app?: InputMaybe<PageAppDeleteFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDeleteFieldInput>
   rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
 }
 
 export type PageDisconnectInput = {
   app?: InputMaybe<PageAppDisconnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDisconnectFieldInput>
   rootElement?: InputMaybe<PageRootElementDisconnectFieldInput>
 }
@@ -13502,69 +13193,6 @@ export type PageOptions = {
   offset?: InputMaybe<Scalars['Int']>
   /** Specify one or more PageSort objects to sort Pages by. The sorts will be applied in the order in which they are arranged in the array. */
   sort?: InputMaybe<Array<PageSort>>
-}
-
-export type PageOwnerAggregateInput = {
-  AND?: InputMaybe<Array<PageOwnerAggregateInput>>
-  NOT?: InputMaybe<PageOwnerAggregateInput>
-  OR?: InputMaybe<Array<PageOwnerAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<PageOwnerNodeAggregationWhereInput>
-}
-
-export type PageOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<PageOwnerNodeAggregationWhereInput>>
-  NOT?: InputMaybe<PageOwnerNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<PageOwnerNodeAggregationWhereInput>>
-  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PagePageContentContainerAggregateInput = {
@@ -13751,7 +13379,6 @@ export type PagePageContentContainerUpdateFieldInput = {
 
 export type PageRelationInput = {
   app?: InputMaybe<PageAppCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerCreateFieldInput>
   rootElement?: InputMaybe<PageRootElementCreateFieldInput>
 }
@@ -14174,23 +13801,8 @@ export type PageUpdateInput = {
   getServerSideProps?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   kind?: InputMaybe<PageKind>
-  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerUpdateFieldInput>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
-}
-
-export type PageUserOwnerAggregationSelection = {
-  __typename?: 'PageUserOwnerAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<PageUserOwnerNodeAggregateSelection>
-}
-
-export type PageUserOwnerNodeAggregateSelection = {
-  __typename?: 'PageUserOwnerNodeAggregateSelection'
-  auth0Id: StringAggregateSelectionNonNullable
-  email: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
-  username: StringAggregateSelectionNonNullable
 }
 
 export type PageWhere = {
@@ -14219,8 +13831,6 @@ export type PageWhere = {
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
   kind?: InputMaybe<PageKind>
   kind_IN?: InputMaybe<Array<PageKind>>
-  ownerAggregate?: InputMaybe<PageOwnerAggregateInput>
-  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   pageContentContainerAggregate?: InputMaybe<PagePageContentContainerAggregateInput>
   pageContentContainerConnection?: InputMaybe<PagePageContentContainerConnectionWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
@@ -14578,12 +14188,6 @@ export type Query = {
   components: Array<Component>
   componentsAggregate: ComponentAggregateSelection
   componentsConnection: ComponentsConnection
-  createInfos: Array<CreateInfo>
-  createInfosAggregate: CreateInfoAggregateSelection
-  createInfosConnection: CreateInfosConnection
-  deleteInfos: Array<DeleteInfo>
-  deleteInfosAggregate: DeleteInfoAggregateSelection
-  deleteInfosConnection: DeleteInfosConnection
   domains: Array<Domain>
   domainsAggregate: DomainAggregateSelection
   domainsConnection: DomainsConnection
@@ -14639,12 +14243,6 @@ export type Query = {
   renderPropsTypes: Array<RenderPropsType>
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   renderPropsTypesConnection: RenderPropsTypesConnection
-  renderTypes: Array<RenderType>
-  renderTypesAggregate: RenderTypeAggregateSelection
-  renderTypesConnection: RenderTypesConnection
-  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
-  resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
-  resetDatabaseMutationResponsesConnection: ResetDatabaseMutationResponsesConnection
   resources: Array<Resource>
   resourcesAggregate: ResourceAggregateSelection
   resourcesConnection: ResourcesConnection
@@ -14663,12 +14261,6 @@ export type Query = {
   users: Array<User>
   usersAggregate: UserAggregateSelection
   usersConnection: UsersConnection
-  vercelDomainConfigs: Array<VercelDomainConfig>
-  vercelDomainConfigsAggregate: VercelDomainConfigAggregateSelection
-  vercelDomainConfigsConnection: VercelDomainConfigsConnection
-  vercelProjectDomains: Array<VercelProjectDomain>
-  vercelProjectDomainsAggregate: VercelProjectDomainAggregateSelection
-  vercelProjectDomainsConnection: VercelProjectDomainsConnection
 }
 
 export type QueryActionTypesArgs = {
@@ -14817,38 +14409,6 @@ export type QueryComponentsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<ComponentSort>>>
   where?: InputMaybe<ComponentWhere>
-}
-
-export type QueryCreateInfosArgs = {
-  options?: InputMaybe<CreateInfoOptions>
-  where?: InputMaybe<CreateInfoWhere>
-}
-
-export type QueryCreateInfosAggregateArgs = {
-  where?: InputMaybe<CreateInfoWhere>
-}
-
-export type QueryCreateInfosConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<CreateInfoSort>>>
-  where?: InputMaybe<CreateInfoWhere>
-}
-
-export type QueryDeleteInfosArgs = {
-  options?: InputMaybe<DeleteInfoOptions>
-  where?: InputMaybe<DeleteInfoWhere>
-}
-
-export type QueryDeleteInfosAggregateArgs = {
-  where?: InputMaybe<DeleteInfoWhere>
-}
-
-export type QueryDeleteInfosConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<DeleteInfoSort>>>
-  where?: InputMaybe<DeleteInfoWhere>
 }
 
 export type QueryDomainsArgs = {
@@ -15116,38 +14676,6 @@ export type QueryRenderPropsTypesConnectionArgs = {
   where?: InputMaybe<RenderPropsTypeWhere>
 }
 
-export type QueryRenderTypesArgs = {
-  options?: InputMaybe<RenderTypeOptions>
-  where?: InputMaybe<RenderTypeWhere>
-}
-
-export type QueryRenderTypesAggregateArgs = {
-  where?: InputMaybe<RenderTypeWhere>
-}
-
-export type QueryRenderTypesConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<RenderTypeSort>>>
-  where?: InputMaybe<RenderTypeWhere>
-}
-
-export type QueryResetDatabaseMutationResponsesArgs = {
-  options?: InputMaybe<ResetDatabaseMutationResponseOptions>
-  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type QueryResetDatabaseMutationResponsesAggregateArgs = {
-  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type QueryResetDatabaseMutationResponsesConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<ResetDatabaseMutationResponseSort>>>
-  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
 export type QueryResourcesArgs = {
   options?: InputMaybe<ResourceOptions>
   where?: InputMaybe<ResourceWhere>
@@ -15242,38 +14770,6 @@ export type QueryUsersConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<UserSort>>>
   where?: InputMaybe<UserWhere>
-}
-
-export type QueryVercelDomainConfigsArgs = {
-  options?: InputMaybe<VercelDomainConfigOptions>
-  where?: InputMaybe<VercelDomainConfigWhere>
-}
-
-export type QueryVercelDomainConfigsAggregateArgs = {
-  where?: InputMaybe<VercelDomainConfigWhere>
-}
-
-export type QueryVercelDomainConfigsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<VercelDomainConfigSort>>>
-  where?: InputMaybe<VercelDomainConfigWhere>
-}
-
-export type QueryVercelProjectDomainsArgs = {
-  options?: InputMaybe<VercelProjectDomainOptions>
-  where?: InputMaybe<VercelProjectDomainWhere>
-}
-
-export type QueryVercelProjectDomainsAggregateArgs = {
-  where?: InputMaybe<VercelProjectDomainWhere>
-}
-
-export type QueryVercelProjectDomainsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<VercelProjectDomainSort>>>
-  where?: InputMaybe<VercelProjectDomainWhere>
 }
 
 export type QueryOptions = {
@@ -15794,118 +15290,17 @@ export type RenderPropsTypesConnection = {
 export type RenderType = {
   __typename?: 'RenderType'
   id: Scalars['String']
-  model: RenderTypeModel
+  kind: RenderTypeKind
 }
 
-export type RenderTypeAggregateSelection = {
-  __typename?: 'RenderTypeAggregateSelection'
-  count: Scalars['Int']
-  id: StringAggregateSelectionNonNullable
-}
-
-export type RenderTypeCreateInput = {
-  id: Scalars['String']
-  model: RenderTypeModel
-}
-
-export type RenderTypeEdge = {
-  __typename?: 'RenderTypeEdge'
-  cursor: Scalars['String']
-  node: RenderType
-}
-
-export enum RenderTypeModel {
+export enum RenderTypeKind {
   Atom = 'Atom',
   Component = 'Component',
-}
-
-export type RenderTypeOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more RenderTypeSort objects to sort RenderTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<RenderTypeSort>>
-}
-
-/** Fields to sort RenderTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderTypeSort object. */
-export type RenderTypeSort = {
-  id?: InputMaybe<SortDirection>
-  model?: InputMaybe<SortDirection>
-}
-
-export type RenderTypeUpdateInput = {
-  id?: InputMaybe<Scalars['String']>
-  model?: InputMaybe<RenderTypeModel>
-}
-
-export type RenderTypeWhere = {
-  AND?: InputMaybe<Array<RenderTypeWhere>>
-  NOT?: InputMaybe<RenderTypeWhere>
-  OR?: InputMaybe<Array<RenderTypeWhere>>
-  id?: InputMaybe<Scalars['String']>
-  id_CONTAINS?: InputMaybe<Scalars['String']>
-  id_ENDS_WITH?: InputMaybe<Scalars['String']>
-  id_IN?: InputMaybe<Array<Scalars['String']>>
-  id_MATCHES?: InputMaybe<Scalars['String']>
-  id_STARTS_WITH?: InputMaybe<Scalars['String']>
-  model?: InputMaybe<RenderTypeModel>
-  model_IN?: InputMaybe<Array<RenderTypeModel>>
-}
-
-export type RenderTypesConnection = {
-  __typename?: 'RenderTypesConnection'
-  edges: Array<RenderTypeEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
 }
 
 export type ResetDatabaseMutationResponse = {
   __typename?: 'ResetDatabaseMutationResponse'
   success?: Maybe<Scalars['Boolean']>
-}
-
-export type ResetDatabaseMutationResponseAggregateSelection = {
-  __typename?: 'ResetDatabaseMutationResponseAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type ResetDatabaseMutationResponseCreateInput = {
-  success?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ResetDatabaseMutationResponseEdge = {
-  __typename?: 'ResetDatabaseMutationResponseEdge'
-  cursor: Scalars['String']
-  node: ResetDatabaseMutationResponse
-}
-
-export type ResetDatabaseMutationResponseOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more ResetDatabaseMutationResponseSort objects to sort ResetDatabaseMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ResetDatabaseMutationResponseSort>>
-}
-
-/** Fields to sort ResetDatabaseMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDatabaseMutationResponseSort object. */
-export type ResetDatabaseMutationResponseSort = {
-  success?: InputMaybe<SortDirection>
-}
-
-export type ResetDatabaseMutationResponseUpdateInput = {
-  success?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ResetDatabaseMutationResponseWhere = {
-  AND?: InputMaybe<Array<ResetDatabaseMutationResponseWhere>>
-  NOT?: InputMaybe<ResetDatabaseMutationResponseWhere>
-  OR?: InputMaybe<Array<ResetDatabaseMutationResponseWhere>>
-  success?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ResetDatabaseMutationResponsesConnection = {
-  __typename?: 'ResetDatabaseMutationResponsesConnection'
-  edges: Array<ResetDatabaseMutationResponseEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
 }
 
 export type Resource = WithOwner & {
@@ -16286,7 +15681,7 @@ export enum SortDirection {
   DESC = 'DESC',
 }
 
-export type Store = WithOwner & {
+export type Store = {
   __typename?: 'Store'
   actions: Array<AnyAction>
   actionsConnection: StoreActionsConnection
@@ -16298,9 +15693,6 @@ export type Store = WithOwner & {
   appConnection: StoreAppConnection
   id: Scalars['ID']
   name: Scalars['String']
-  owner: User
-  ownerAggregate?: Maybe<StoreUserOwnerAggregationSelection>
-  ownerConnection: WithOwnerOwnerConnection
 }
 
 export type StoreActionsArgs = {
@@ -16352,25 +15744,6 @@ export type StoreAppConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<StoreAppConnectionSort>>
   where?: InputMaybe<StoreAppConnectionWhere>
-}
-
-export type StoreOwnerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<UserOptions>
-  where?: InputMaybe<UserWhere>
-}
-
-export type StoreOwnerAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<UserWhere>
-}
-
-export type StoreOwnerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
-  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type StoreActionsApiActionConnectFieldInput = {
@@ -16783,14 +16156,12 @@ export type StoreConnectInput = {
   actions?: InputMaybe<StoreActionsConnectInput>
   api?: InputMaybe<StoreApiConnectFieldInput>
   app?: InputMaybe<StoreAppConnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
 }
 
 export type StoreConnectOrCreateInput = {
   actions?: InputMaybe<StoreActionsConnectOrCreateInput>
   api?: InputMaybe<StoreApiConnectOrCreateFieldInput>
   app?: InputMaybe<StoreAppConnectOrCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
 }
 
 export type StoreConnectOrCreateWhere = {
@@ -16807,21 +16178,18 @@ export type StoreCreateInput = {
   app?: InputMaybe<StoreAppFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
-  owner?: InputMaybe<WithOwnerOwnerFieldInput>
 }
 
 export type StoreDeleteInput = {
   actions?: InputMaybe<StoreActionsDeleteInput>
   api?: InputMaybe<StoreApiDeleteFieldInput>
   app?: InputMaybe<StoreAppDeleteFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
 }
 
 export type StoreDisconnectInput = {
   actions?: InputMaybe<StoreActionsDisconnectInput>
   api?: InputMaybe<StoreApiDisconnectFieldInput>
   app?: InputMaybe<StoreAppDisconnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
 }
 
 export type StoreEdge = {
@@ -16854,74 +16222,10 @@ export type StoreOptions = {
   sort?: InputMaybe<Array<StoreSort>>
 }
 
-export type StoreOwnerAggregateInput = {
-  AND?: InputMaybe<Array<StoreOwnerAggregateInput>>
-  NOT?: InputMaybe<StoreOwnerAggregateInput>
-  OR?: InputMaybe<Array<StoreOwnerAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<StoreOwnerNodeAggregationWhereInput>
-}
-
-export type StoreOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
-  NOT?: InputMaybe<StoreOwnerNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
-  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-}
-
 export type StoreRelationInput = {
   actions?: InputMaybe<StoreActionsCreateFieldInput>
   api?: InputMaybe<StoreApiCreateFieldInput>
   app?: InputMaybe<StoreAppCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
 }
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
@@ -16940,21 +16244,6 @@ export type StoreUpdateInput = {
   app?: InputMaybe<StoreAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
-}
-
-export type StoreUserOwnerAggregationSelection = {
-  __typename?: 'StoreUserOwnerAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<StoreUserOwnerNodeAggregateSelection>
-}
-
-export type StoreUserOwnerNodeAggregateSelection = {
-  __typename?: 'StoreUserOwnerNodeAggregateSelection'
-  auth0Id: StringAggregateSelectionNonNullable
-  email: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
-  username: StringAggregateSelectionNonNullable
 }
 
 export type StoreWhere = {
@@ -16981,8 +16270,6 @@ export type StoreWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  ownerAggregate?: InputMaybe<StoreOwnerAggregateInput>
-  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type StoresConnection = {
@@ -19185,18 +18472,6 @@ export type UpdateComponentsMutationResponse = {
   info: UpdateInfo
 }
 
-export type UpdateCreateInfosMutationResponse = {
-  __typename?: 'UpdateCreateInfosMutationResponse'
-  createInfos: Array<CreateInfo>
-  info: UpdateInfo
-}
-
-export type UpdateDeleteInfosMutationResponse = {
-  __typename?: 'UpdateDeleteInfosMutationResponse'
-  deleteInfos: Array<DeleteInfo>
-  info: UpdateInfo
-}
-
 export type UpdateDomainsMutationResponse = {
   __typename?: 'UpdateDomainsMutationResponse'
   domains: Array<Domain>
@@ -19302,18 +18577,6 @@ export type UpdateRenderPropsTypesMutationResponse = {
   renderPropsTypes: Array<RenderPropsType>
 }
 
-export type UpdateRenderTypesMutationResponse = {
-  __typename?: 'UpdateRenderTypesMutationResponse'
-  info: UpdateInfo
-  renderTypes: Array<RenderType>
-}
-
-export type UpdateResetDatabaseMutationResponsesMutationResponse = {
-  __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
-  info: UpdateInfo
-  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
-}
-
 export type UpdateResourcesMutationResponse = {
   __typename?: 'UpdateResourcesMutationResponse'
   info: UpdateInfo
@@ -19342,18 +18605,6 @@ export type UpdateUnionTypesMutationResponse = {
   __typename?: 'UpdateUnionTypesMutationResponse'
   info: UpdateInfo
   unionTypes: Array<UnionType>
-}
-
-export type UpdateVercelDomainConfigsMutationResponse = {
-  __typename?: 'UpdateVercelDomainConfigsMutationResponse'
-  info: UpdateInfo
-  vercelDomainConfigs: Array<VercelDomainConfig>
-}
-
-export type UpdateVercelProjectDomainsMutationResponse = {
-  __typename?: 'UpdateVercelProjectDomainsMutationResponse'
-  info: UpdateInfo
-  vercelProjectDomains: Array<VercelProjectDomain>
 }
 
 export type User = {
@@ -20361,99 +19612,9 @@ export type VercelDomainConfig = {
   misconfigured: Scalars['Boolean']
 }
 
-export type VercelDomainConfigAggregateSelection = {
-  __typename?: 'VercelDomainConfigAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type VercelDomainConfigCreateInput = {
-  misconfigured: Scalars['Boolean']
-}
-
-export type VercelDomainConfigEdge = {
-  __typename?: 'VercelDomainConfigEdge'
-  cursor: Scalars['String']
-  node: VercelDomainConfig
-}
-
-export type VercelDomainConfigOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more VercelDomainConfigSort objects to sort VercelDomainConfigs by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<VercelDomainConfigSort>>
-}
-
-/** Fields to sort VercelDomainConfigs by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelDomainConfigSort object. */
-export type VercelDomainConfigSort = {
-  misconfigured?: InputMaybe<SortDirection>
-}
-
-export type VercelDomainConfigUpdateInput = {
-  misconfigured?: InputMaybe<Scalars['Boolean']>
-}
-
-export type VercelDomainConfigWhere = {
-  AND?: InputMaybe<Array<VercelDomainConfigWhere>>
-  NOT?: InputMaybe<VercelDomainConfigWhere>
-  OR?: InputMaybe<Array<VercelDomainConfigWhere>>
-  misconfigured?: InputMaybe<Scalars['Boolean']>
-}
-
-export type VercelDomainConfigsConnection = {
-  __typename?: 'VercelDomainConfigsConnection'
-  edges: Array<VercelDomainConfigEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
 export type VercelProjectDomain = {
   __typename?: 'VercelProjectDomain'
   verified: Scalars['Boolean']
-}
-
-export type VercelProjectDomainAggregateSelection = {
-  __typename?: 'VercelProjectDomainAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type VercelProjectDomainCreateInput = {
-  verified: Scalars['Boolean']
-}
-
-export type VercelProjectDomainEdge = {
-  __typename?: 'VercelProjectDomainEdge'
-  cursor: Scalars['String']
-  node: VercelProjectDomain
-}
-
-export type VercelProjectDomainOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more VercelProjectDomainSort objects to sort VercelProjectDomains by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<VercelProjectDomainSort>>
-}
-
-/** Fields to sort VercelProjectDomains by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelProjectDomainSort object. */
-export type VercelProjectDomainSort = {
-  verified?: InputMaybe<SortDirection>
-}
-
-export type VercelProjectDomainUpdateInput = {
-  verified?: InputMaybe<Scalars['Boolean']>
-}
-
-export type VercelProjectDomainWhere = {
-  AND?: InputMaybe<Array<VercelProjectDomainWhere>>
-  NOT?: InputMaybe<VercelProjectDomainWhere>
-  OR?: InputMaybe<Array<VercelProjectDomainWhere>>
-  verified?: InputMaybe<Scalars['Boolean']>
-}
-
-export type VercelProjectDomainsConnection = {
-  __typename?: 'VercelProjectDomainsConnection'
-  edges: Array<VercelProjectDomainEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
 }
 
 export type WithDescendants = {
@@ -20619,7 +19780,6 @@ export type BuilderPageFragment = {
   slug: string
   getServerSideProps?: string | null
   kind: PageKind
-  owner: { __typename?: 'User' } & OwnerFragment
   rootElement: {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
@@ -20720,7 +19880,7 @@ export type ElementFragment = {
   renderType?: {
     __typename?: 'RenderType'
     id: string
-    model: RenderTypeModel
+    kind: RenderTypeKind
   } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
@@ -20755,7 +19915,6 @@ export type PageFragment = {
   slug: string
   getServerSideProps?: string | null
   kind: PageKind
-  owner: { __typename?: 'User' } & OwnerFragment
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string; name: string }
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
@@ -20776,7 +19935,6 @@ export type StoreFragment = {
   __typename?: 'Store'
   id: string
   name: string
-  owner: { __typename?: 'User' } & OwnerFragment
   api: { __typename?: 'InterfaceType'; id: string; name: string }
   actions: Array<
     | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)

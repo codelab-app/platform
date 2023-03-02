@@ -12,8 +12,7 @@ import type { IPageDTO } from './page.dto.interface'
 export interface IPage
   extends IEntity,
     IElementTreeService,
-    ICacheService<IPageDTO, IPage>,
-    IOwnerSchema {
+    ICacheService<IPageDTO, IPage> {
   app: IEntity
   name: string
   slug: string
