@@ -7095,7 +7095,7 @@ type Element {
     where: ElementPrevSiblingConnectionWhere
   ): ElementPrevSiblingConnection!
   propTransformationJs: String
-  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   propsAggregate(
     directed: Boolean = true
     where: PropWhere
@@ -14519,7 +14519,7 @@ type RenderPropsTypesConnection {
 
 type RenderType {
   id: String!
-  model: RenderTypeEnum!
+  model: RenderTypeModel!
 }
 
 type RenderTypeAggregateSelection {
@@ -14529,7 +14529,7 @@ type RenderTypeAggregateSelection {
 
 input RenderTypeCreateInput {
   id: String!
-  model: RenderTypeEnum!
+  model: RenderTypeModel!
 }
 
 type RenderTypeEdge {
@@ -14537,7 +14537,7 @@ type RenderTypeEdge {
   node: RenderType!
 }
 
-enum RenderTypeEnum {
+enum RenderTypeModel {
   Atom
   Component
 }
@@ -14562,7 +14562,7 @@ input RenderTypeSort {
 
 input RenderTypeUpdateInput {
   id: String
-  model: RenderTypeEnum
+  model: RenderTypeModel
 }
 
 input RenderTypeWhere {
@@ -14575,8 +14575,8 @@ input RenderTypeWhere {
   id_IN: [String!]
   id_MATCHES: String
   id_STARTS_WITH: String
-  model: RenderTypeEnum
-  model_IN: [RenderTypeEnum!]
+  model: RenderTypeModel
+  model_IN: [RenderTypeModel!]
 }
 
 type RenderTypesConnection {
@@ -15000,7 +15000,7 @@ enum SortDirection {
   DESC
 }
 
-type Store {
+type Store implements WithOwner {
   actions(
     directed: Boolean = true
     options: QueryOptions
@@ -15042,6 +15042,18 @@ type Store {
   ): StoreAppConnection!
   id: ID!
   name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): StoreUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
 }
 
 input StoreActionsApiActionConnectFieldInput {
@@ -15441,12 +15453,14 @@ input StoreConnectInput {
   actions: StoreActionsConnectInput
   api: StoreApiConnectFieldInput
   app: StoreAppConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
   actions: StoreActionsConnectOrCreateInput
   api: StoreApiConnectOrCreateFieldInput
   app: StoreAppConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
 }
 
 input StoreConnectOrCreateWhere {
@@ -15463,18 +15477,21 @@ input StoreCreateInput {
   app: StoreAppFieldInput
   id: ID!
   name: String!
+  owner: WithOwnerOwnerFieldInput
 }
 
 input StoreDeleteInput {
   actions: StoreActionsDeleteInput
   api: StoreApiDeleteFieldInput
   app: StoreAppDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
 }
 
 input StoreDisconnectInput {
   actions: StoreActionsDisconnectInput
   api: StoreApiDisconnectFieldInput
   app: StoreAppDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
 }
 
 type StoreEdge {
@@ -15507,10 +15524,74 @@ input StoreOptions {
   sort: [StoreSort!]
 }
 
+input StoreOwnerAggregateInput {
+  AND: [StoreOwnerAggregateInput!]
+  NOT: StoreOwnerAggregateInput
+  OR: [StoreOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: StoreOwnerNodeAggregationWhereInput
+}
+
+input StoreOwnerNodeAggregationWhereInput {
+  AND: [StoreOwnerNodeAggregationWhereInput!]
+  NOT: StoreOwnerNodeAggregationWhereInput
+  OR: [StoreOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
+}
+
 input StoreRelationInput {
   actions: StoreActionsCreateFieldInput
   api: StoreApiCreateFieldInput
   app: StoreAppCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
 }
 
 """
@@ -15531,6 +15612,19 @@ input StoreUpdateInput {
   app: StoreAppUpdateFieldInput
   id: ID
   name: String
+  owner: WithOwnerOwnerUpdateFieldInput
+}
+
+type StoreUserOwnerAggregationSelection {
+  count: Int!
+  node: StoreUserOwnerNodeAggregateSelection
+}
+
+type StoreUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input StoreWhere {
@@ -15557,6 +15651,8 @@ input StoreWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  ownerAggregate: StoreOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
 }
 
 type StoresConnection {

@@ -1,6 +1,9 @@
 fragment Store on Store {
   id
   name
+  owner {
+    ...Owner
+  }
   api {
     id
     name

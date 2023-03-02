@@ -10,13 +10,13 @@ import type {
 import { Page, pageRef } from '@codelab/frontend/domain/page'
 import { Store, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type {
   AppCreateInput,
   PageBuilderAppFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -142,7 +142,7 @@ export class App
     return {
       id: this.id,
       _compoundName: createUniqueName(this.name, this),
-      owner: connectAuth0Owner(this.owner.auth0Id),
+      owner: connectAuth0Owner(this.owner),
       store: {
         create: {
           node: this.store.current.toCreateInput(),

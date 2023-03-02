@@ -1,10 +1,11 @@
 import type { IResourceExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export const createResource = async (
   resource: IResourceExport,
-  userId: string,
+  owner: IAuth0Owner,
 ) => {
   const Resource = await Repository.instance.Resource
 
@@ -24,7 +25,7 @@ export const createResource = async (
     id: resource.id,
     name: resource.name,
     type: resource.type,
-    owner: connectOwner(userId),
+    owner: connectAuth0Owner(owner),
     config: {
       create: { node: { data: resource.config.data } },
     },

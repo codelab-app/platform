@@ -1,18 +1,15 @@
+import { RenderTypeModel } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { IAtomDTO, IAtomID } from '../atom'
 import type { IComponentDTO, IComponentID } from '../component'
 import type { IProp, IPropData, IPropDTO } from '../prop'
 import type { ElementFragment } from './element.fragment.graphql.gen'
-
-export enum RenderTypeEnum {
-  Component = 'component',
-  Atom = 'atom',
-}
+import type { IRenderTypeModel } from './render-type.enum'
 
 export interface RenderType {
   // This is the ID of either `atom` or `component`
   id: IAtomID | IComponentID
-  model: RenderTypeEnum
+  model: IRenderTypeModel
 }
 
 export interface ICreateElementData {
@@ -84,5 +81,5 @@ export interface IElementDTO {
   parentComponent?: IEntity | null
   parent?: IEntity | null
   firstChild?: IEntity | null
-  props?: IPropDTO | null
+  props: IEntity | null
 }

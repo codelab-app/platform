@@ -28,7 +28,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<IPrimitiveType> 
       ).create({
         input: primitiveTypes.map(({ __typename, owner, ...type }) => ({
           ...type,
-          owner: connectAuth0Owner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
         })),
       })
     ).primitiveTypes

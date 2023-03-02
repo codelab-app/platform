@@ -1,6 +1,6 @@
 import type {
-  IAnyActionType,
   IActionTypeDTO,
+  IAnyActionType,
 } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'

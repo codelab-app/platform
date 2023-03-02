@@ -21,14 +21,6 @@ export class RenderPropsTypeRepository extends AbstractRepository<IRenderPropsTy
     )[0]
   }
 
-  // async save(renderPropsType: IRenderPropsType, where?: BaseTypeUniqueWhere) {
-  //   if (await this.exists(renderPropsType, where)) {
-  //     return this.update(renderPropsType, this.getWhere(renderPropsType, where))
-  //   }
-
-  //   return (await this.add([renderPropsType]))[0]
-  // }
-
   protected async _add(renderPropsTypes: Array<IRenderPropsType>) {
     return (
       await (
@@ -37,7 +29,7 @@ export class RenderPropsTypeRepository extends AbstractRepository<IRenderPropsTy
         input: renderPropsTypes.map(
           ({ __typename, owner, ...renderPropsType }) => ({
             ...renderPropsType,
-            owner: connectAuth0Owner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
           }),
         ),
       })

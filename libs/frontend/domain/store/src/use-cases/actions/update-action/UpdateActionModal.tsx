@@ -1,6 +1,7 @@
 import type {
   IActionService,
   IResourceService,
+  IRestActionConfig,
   IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
@@ -34,9 +35,10 @@ export const UpdateActionModal = observer<{
     type: updateAction?.type,
     id: updateAction?.id,
 
+    // TODO: Remove casting
     config:
       updateAction?.type === IActionKind.ApiAction
-        ? updateAction.config.current.values
+        ? (updateAction.config.current.values as IRestActionConfig)
         : undefined,
     resourceId:
       updateAction?.type === IActionKind.ApiAction
@@ -64,7 +66,9 @@ export const UpdateActionModal = observer<{
 
   const getResourceApiUrl = (context: Context<IUpdateActionData>) =>
     context.model.resourceId
-      ? resourceService.resource(context.model.resourceId)?.config.get('url')
+      ? resourceService
+          .resource(context.model.resourceId)
+          ?.config.current.get('url')
       : null
 
   return (

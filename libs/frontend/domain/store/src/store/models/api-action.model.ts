@@ -67,7 +67,7 @@ const graphqlFetch = (
 export class ApiAction
   extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
     resource: prop<Ref<IResource>>(),
-    config: prop<Ref<IProp<IApiActionConfig>>>(),
+    config: prop<Ref<IProp>>(),
     successAction: prop<Nullish<Ref<IAnyAction>>>(),
     errorAction: prop<Nullish<Ref<IAnyAction>>>(),
   })
@@ -80,7 +80,7 @@ export class ApiAction
 
   @computed
   get _resourceConfig() {
-    return this.replaceStateInConfig(this.resource.current.config)
+    return this.replaceStateInConfig(this.resource.current.config.current)
   }
 
   @computed
@@ -152,9 +152,7 @@ export class ApiAction
     store,
   }: Partial<IApiActionDTO>) {
     this.resource = resource ? resourceRef(resource.id) : this.resource
-    this.config = config
-      ? propRef<IProp<IApiActionConfig>>(config.id)
-      : this.config
+    this.config = config ? propRef<IProp>(config.id) : this.config
     this.errorAction = errorAction
       ? actionRef(errorAction.id)
       : this.errorAction

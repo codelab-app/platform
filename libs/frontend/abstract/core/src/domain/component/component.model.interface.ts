@@ -19,7 +19,7 @@ export interface IComponent
   rootElement: Ref<IElement>
   childrenContainerElement: Ref<IElement>
   api: Ref<IInterfaceType>
-  props?: Nullable<IProp>
+  props?: Nullable<Ref<IProp>>
   instanceElement: Nullable<Ref<IElement>>
   /**
    * to render a component we create a duplicate for each instance
@@ -29,7 +29,7 @@ export interface IComponent
   setSourceComponent: (entity: IEntity) => void
   setInstanceElement: (elementRef: Ref<IElement>) => void
   setChildrenContainerElement: (element: Ref<IElement>) => void
-  setProps(t: Nullable<IProp>): void
+  setProps(props: Nullable<Ref<IProp>>): void
   clone(instanceId: string): IComponent
 }
 

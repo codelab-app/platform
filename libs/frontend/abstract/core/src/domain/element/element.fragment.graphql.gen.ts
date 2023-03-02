@@ -21,13 +21,13 @@ export type ElementFragment = {
   page?: { id: string } | null
   renderComponentType?: ComponentFragment | null
   renderAtomType?: AtomFragment | null
-  renderType?: { id: string; model: Types.RenderTypeEnum } | null
+  renderType?: { id: string; model: Types.RenderTypeModel } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: ComponentFragment | null
   parent?: { id: string } | null
   firstChild?: { id: string } | null
-  props?: PropFragment | null
+  props: PropFragment
   preRenderAction?: { id: string } | { id: string } | null
   postRenderAction?: { id: string } | { id: string } | null
 }

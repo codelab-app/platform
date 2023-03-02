@@ -1,11 +1,13 @@
 import type {
   IInterfaceType,
   IProp,
-  IPropData,
   IPropDTO,
   IResourceConfig,
 } from '@codelab/frontend/abstract/core'
-import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
@@ -31,37 +33,30 @@ import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
 import { getPropService } from './prop.service'
 
-const create = <TData extends IPropData>({
-  id,
-  data,
-  api,
-}: IPropDTO<TData>) => {
+const create = ({ id, data, api }: IPropDTO) => {
   return new Prop({
     id,
-    data: frozen(data),
+    data: frozen(JSON.parse(data)),
     api,
   })
 }
 
 @model('@codelab/Prop')
-export class Prop<TData extends IPropData>
-  extends Model(
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    <TData extends IPropData>() => ({
-      id: idProp,
-      data: prop(() => frozen<Nullable<TData>>(null)),
-      api: prop<Maybe<Ref<IInterfaceType>>>(),
-    }),
-  )<TData>
-  implements IProp<TData>
+export class Prop
+  extends Model({
+    id: idProp,
+    data: prop(() => frozen<Nullable<IPropData>>(null)),
+    api: prop<Maybe<Ref<IInterfaceType>>>(),
+  })
+  implements IProp
 {
   private silentData: IPropData = {}
 
   static create = create
 
   @modelAction
-  writeCache({ id, data, api }: Partial<IPropDTO<TData>>) {
-    this.data = data ? frozen<TData>(data) : this.data
+  writeCache({ id, data, api }: Partial<IPropDTO>) {
+    this.data = data ? frozen(JSON.parse(data)) : this.data
     this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
 
     return this
@@ -73,7 +68,7 @@ export class Prop<TData extends IPropData>
   }
 
   @computed
-  get values(): TData {
+  get values() {
     if (this.api?.maybeCurrent) {
       const apiPropsMap = this.api.current.fields
 
@@ -89,18 +84,18 @@ export class Prop<TData extends IPropData>
         }
 
         return !apiPropsByKey[key]
-      }) as TData
+      })
     }
 
-    return { ...this.data.data } as TData
+    return { ...this.data.data }
   }
 
   @modelAction
   set(key: string, value: object) {
-    const obj = set({}, key, value) as TData
+    const obj = set({}, key, value)
 
     if (this.data.data) {
-      this.data = frozen(mergeDeepRight(this.data.data, obj) as TData)
+      this.data = frozen(mergeDeepRight(this.data.data, obj))
     }
   }
 
@@ -110,14 +105,14 @@ export class Prop<TData extends IPropData>
   }
 
   @modelAction
-  setMany(data: TData) {
-    this.data = frozen<Nullable<TData>>(mergeProps(this.data.data, data))
+  setMany(data: IPropData) {
+    this.data = frozen(mergeProps(this.data.data, data))
   }
 
   @modelAction
   delete(key: string) {
     // Need to cast since deleting key changes the interface
-    this.data = frozen(omit(this.data.data, key) as TData)
+    this.data = frozen(omit(this.data.data, key))
   }
 
   get(key: string) {
@@ -131,12 +126,10 @@ export class Prop<TData extends IPropData>
 
   @modelAction
   clone() {
-    return this.propService.add<TData>({
+    return this.propService.add({
       id: v4(),
-      data: this.values,
-      api: this.api?.id
-        ? (typeRef(this.api.id) as Ref<IInterfaceType>)
-        : undefined,
+      data: this.jsonString,
+      api: this.api?.id ? typeRef<IInterfaceType>(this.api.id) : undefined,
     })
   }
 
@@ -146,7 +139,7 @@ export class Prop<TData extends IPropData>
   }
 }
 
-export const propRef = rootRef<IProp<IPropData>>('@codelab/PropRef', {
+export const propRef = rootRef<IProp>('@codelab/PropRef', {
   onResolvedValueChange: (ref, newProp, oldProp) => {
     if (oldProp && !newProp) {
       detach(ref)

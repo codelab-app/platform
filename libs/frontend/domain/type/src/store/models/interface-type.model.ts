@@ -128,7 +128,7 @@ export class InterfaceType
       id: this.id,
       name: this.name,
       kind: ITypeKind.InterfaceType,
-      owner: connectAuth0Owner(this.owner.auth0Id),
+      owner: connectAuth0Owner(this.owner),
     }
   }
 
@@ -147,7 +147,7 @@ export class InterfaceType
       id: v4(),
       name: `${name} Store API`,
       kind: ITypeKind.InterfaceType,
-      owner: connectAuth0Owner(owner.auth0Id),
+      owner: connectAuth0Owner(owner),
     }
   }
 

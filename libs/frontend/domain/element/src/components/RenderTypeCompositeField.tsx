@@ -3,7 +3,7 @@ import type {
   IComponent,
   ICreateElementData,
 } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
 import type { GuaranteedProps } from 'uniforms'
@@ -28,18 +28,18 @@ const RenderTypeFields = ({
       options={[
         {
           label: 'Atom',
-          value: RenderTypeEnum.Atom,
+          value: IRenderTypeModel.Atom,
         },
         {
           label: 'Component',
-          value: RenderTypeEnum.Component,
+          value: IRenderTypeModel.Component,
         },
       ]}
       required={false}
     />
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.model === RenderTypeEnum.Atom
+        context.model.renderType?.model === IRenderTypeModel.Atom
       }
     >
       {/**
@@ -55,7 +55,7 @@ const RenderTypeFields = ({
     </DisplayIfField>
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.model === RenderTypeEnum.Component
+        context.model.renderType?.model === IRenderTypeModel.Component
       }
     >
       <SelectComponent error={error} label="Component" name="id" />

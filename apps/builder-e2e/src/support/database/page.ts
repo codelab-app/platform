@@ -2,9 +2,9 @@ import {
   DEFAULT_GET_SERVER_SIDE_PROPS,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { createUniqueName } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 

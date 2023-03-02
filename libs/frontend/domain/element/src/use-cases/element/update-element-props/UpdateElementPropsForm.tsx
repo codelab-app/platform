@@ -69,20 +69,20 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
-    const allowCustomText =
+    const allowCustomInnerHtml =
       isAtomModel(element.renderType) &&
       element.renderType.current.allowCustomTextInjection &&
       element.children.length === 0
 
-    const initialSchema = allowCustomText ? withCustomTextSchema : {}
+    const initialSchema = allowCustomInnerHtml ? withCustomTextSchema : {}
 
     // If element is a component type, we also show the component props
     // but should prioritize the element props
     const propsModel = mergeProps(
       isComponentModel(element.renderType)
-        ? element.renderType.maybeCurrent?.props?.values
+        ? element.renderType.maybeCurrent?.props?.current.values
         : {},
-      element.props?.values,
+      element.props?.current.values,
     )
 
     return (

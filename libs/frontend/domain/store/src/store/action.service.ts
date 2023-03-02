@@ -114,9 +114,8 @@ export class ActionService
                 ? typeRef(this.typeService.addInterface(actionDTO.config.api))
                 : undefined,
               data: JSON.stringify(actionDTO.config.data),
-            }) as IProp<IApiActionConfig>,
+            }),
           ),
-          // TODO: Need to add resources
           resource: resourceRef(actionDTO.resource.id),
           successAction: actionDTO.successAction?.id
             ? actionRef(actionDTO.successAction.id)

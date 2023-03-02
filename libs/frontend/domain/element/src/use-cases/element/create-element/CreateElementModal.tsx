@@ -68,10 +68,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     }
 
     const selectParentElementOptions =
-      elementTree.elementsList.map(mapElementOption)
+      elementTree.elements.map(mapElementOption)
 
     const selectChildrenElementOptions =
-      elementTree.elementsList.map(mapElementOption)
+      elementTree.elements.map(mapElementOption)
 
     return (
       <ModalForm.Modal

@@ -26,7 +26,7 @@ export const createListAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
                 ReactNodeType: {
                   id: v4(),
                   name: ITypeKind.ReactNodeType,
-                  owner: connectAuth0Owner(owner.auth0Id),
+                  owner: connectAuth0Owner(owner),
                 },
               },
               edge: {
@@ -39,7 +39,7 @@ export const createListAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
                 RenderPropsType: {
                   id: v4(),
                   name: ITypeKind.RenderPropsType,
-                  owner: connectAuth0Owner(owner.auth0Id),
+                  owner: connectAuth0Owner(owner),
                 },
               },
               edge: {
@@ -49,7 +49,7 @@ export const createListAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
             },
           ],
         },
-        owner: connectAuth0Owner(owner.auth0Id),
+        owner: connectAuth0Owner(owner),
       },
     },
   },
@@ -94,7 +94,7 @@ export const createTextAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
                         id: v4(),
                         name: 'String',
                         primitiveKind: PrimitiveTypeKind.String,
-                        owner: connectAuth0Owner(owner.auth0Id),
+                        owner: connectAuth0Owner(owner),
                       },
                     },
                   },
@@ -107,7 +107,7 @@ export const createTextAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
             },
           ],
         },
-        owner: connectAuth0Owner(owner.auth0Id),
+        owner: connectAuth0Owner(owner),
       },
     },
   },

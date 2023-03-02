@@ -1,4 +1,3 @@
-import { getElementAndDescendants } from '@codelab/backend/domain/element'
 import {
   componentSelectionSet,
   Repository,
@@ -10,7 +9,7 @@ import flatten from 'lodash/flatten'
 
 export const getPageData = async (page: OGM_TYPES.Page) => {
   const Component = await Repository.instance.Component
-  const elements = await getElementAndDescendants(page.rootElement.id)
+  const elements = [page.rootElement, ...page.rootElement.descendantElements]
 
   const componentIds = flatMap(elements, (element) => [
     element.parentComponent?.id,
@@ -23,13 +22,10 @@ export const getPageData = async (page: OGM_TYPES.Page) => {
     selectionSet: componentSelectionSet,
   })
 
-  const componentRootIds = components.map(
-    (component) => component.rootElement.id,
-  )
-
-  const componentElements = await Promise.all(
-    componentRootIds.map((id) => getElementAndDescendants(id)),
-  )
+  const componentElements = components.map((component) => [
+    component.rootElement,
+    ...component.rootElement.descendantElements,
+  ])
 
   return {
     elements: [...elements, ...flatten(componentElements)],

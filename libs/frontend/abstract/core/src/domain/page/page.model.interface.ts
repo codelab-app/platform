@@ -5,12 +5,15 @@ import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElement, IElementTreeService } from '../element'
 import type { IPropData } from '../prop'
+import type { IOwnerSchema } from '../user'
+import { IAuth0Owner } from '../user'
 import type { IPageDTO } from './page.dto.interface'
 
 export interface IPage
   extends IEntity,
     IElementTreeService,
-    ICacheService<IPageDTO, IPage> {
+    ICacheService<IPageDTO, IPage>,
+    IOwnerSchema {
   app: IEntity
   name: string
   slug: string

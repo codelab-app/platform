@@ -14,7 +14,6 @@ import type {
 } from '../../service'
 import type {
   ICreateResourceData,
-  ICreateResourceDTO,
   IResourceDTO,
   IUpdateResourceData,
 } from './resource.dto.interface'

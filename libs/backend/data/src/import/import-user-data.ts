@@ -1,9 +1,13 @@
 import 'isomorphic-fetch'
 import type { ExportedData } from '@codelab/backend/abstract/core'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { importApps } from './import-apps'
 import { importResources } from './import-resources'
 
-export const importUserData = async (data: ExportedData, userId: string) => {
+export const importUserData = async (
+  data: ExportedData,
+  owner: IAuth0Owner,
+) => {
   const { apps, atoms, types, resources } = data
 
   // await importTypes(types, userId, (type) => ({ id: type.id }))
@@ -15,7 +19,7 @@ export const importUserData = async (data: ExportedData, userId: string) => {
   //   tagWhere: (tag) => ({ id: tag.id }),
   // })
 
-  await importResources(resources, userId)
+  await importResources(resources, owner)
 
-  await importApps(apps, userId)
+  await importApps(apps, owner)
 }

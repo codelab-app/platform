@@ -4,10 +4,10 @@ import {
   INTERNAL_SERVER_ERROR_PAGE_NAME,
   NOT_FOUND_PAGE_NAME,
 } from '@codelab/frontend/abstract/core'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import { print } from 'graphql'
 import { CreateAppsDocument } from 'libs/frontend/domain/app/src/graphql/app.endpoints.graphql.gen'
 import { v4 } from 'uuid'

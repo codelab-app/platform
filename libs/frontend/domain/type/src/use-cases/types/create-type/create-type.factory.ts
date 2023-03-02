@@ -17,7 +17,7 @@ export const createTypeFactory = (
     id: type.id,
     name: type.name,
     kind: type.kind,
-    owner: connectAuth0Owner(type.owner.auth0Id),
+    owner: connectAuth0Owner(type.owner),
     primitiveKind:
       type.kind === ITypeKind.PrimitiveType ? type.primitiveKind : undefined,
     language:

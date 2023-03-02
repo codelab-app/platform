@@ -1,8 +1,5 @@
-import type {
-  ICodeMirrorType,
-  ICodeMirrorTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { ICodeMirrorType } from '@codelab/frontend/abstract/core'
+import { ICodeMirrorTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

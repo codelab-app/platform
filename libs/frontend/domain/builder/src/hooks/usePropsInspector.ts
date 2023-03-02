@@ -33,7 +33,7 @@ const getNodeProps = (
   const defaultProps = getDefaultComponentFieldProps(node)
 
   // `editedProps` can be merged directly since it is in component builder only
-  return mergeProps(defaultProps, node.props?.values, editedProps)
+  return mergeProps(defaultProps, node.props?.current.values, editedProps)
 }
 
 const getNodePropsValidateFn = (node: IElement | IComponent) => {

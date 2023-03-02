@@ -1,5 +1,9 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
-import type { IAnyType, IField, IInterfaceType } from '@codelab/frontend/abstract/core'
+import type {
+  IAnyType,
+  IField,
+  IInterfaceType,
+} from '@codelab/frontend/abstract/core'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
 import { Spinner } from '@codelab/frontend/view/components'

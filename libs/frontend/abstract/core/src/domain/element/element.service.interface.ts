@@ -13,7 +13,7 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type { IAuth0Id } from '../user'
+import type { IAuth0Owner } from '../user'
 import type {
   ICreateElementData,
   IElementDTO,

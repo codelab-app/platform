@@ -1,6 +1,5 @@
 import type {
   ICreateResourceData,
-  ICreateResourceDTO,
   IResourceService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
@@ -43,7 +42,7 @@ export const CreateResourceModal = observer<{
         {/**
          *  GraphQL Resource Config Form
          */}
-        <DisplayIfField<ICreateResourceDTO>
+        <DisplayIfField<ICreateResourceData>
           condition={(context) => context.model.type === IResourceType.GraphQL}
         >
           <AutoField name="config.url" />
@@ -53,7 +52,7 @@ export const CreateResourceModal = observer<{
         {/**
          *  Rest Resource Config Form
          */}
-        <DisplayIfField<ICreateResourceDTO>
+        <DisplayIfField<ICreateResourceData>
           condition={(context) => context.model.type === IResourceType.Rest}
         >
           <AutoField name="config.url" />

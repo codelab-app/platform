@@ -2,6 +2,7 @@ import type {
   IAtom,
   IAuth0Owner,
   IComponent,
+  IElementDTO,
   IElementTree,
   IHook,
   IInterfaceType,
@@ -16,10 +17,9 @@ import {
   ELEMENT_NODE_TYPE,
   IBuilderDataNode,
   IElement,
-  IElementDTO,
+  IRenderTypeModel,
   isAtomModel,
   isComponentModel,
-  RenderTypeEnum,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
@@ -57,20 +57,62 @@ import {
 import { v4 } from 'uuid'
 import { makeUpdateElementInput } from './api.utils'
 import { elementRef } from './element.ref'
+import { getElementTree } from './element-tree.util'
 import { getRenderType } from './utils'
 
 type TransformFn = (props: IPropData) => IPropData
 
-export const getElementTree = (element: IElement): Maybe<IElementTree> => {
-  const refs = getRefsResolvingTo<IElement>(element, elementRef)
+const createRootElement = () => {
+  const id = v4()
 
-  return [...refs.values()].reduce((prev, node) => {
-    const elementTree = findParent(node, (parent) => {
-      return (parent as AnyModel)[modelTypeKey] === '@codelab/ElementTree'
-    })
+  return new Element({
+    id,
+    name: ROOT_ELEMENT_NAME,
+  })
+}
 
-    return elementTree ? elementTree : prev
-  }, undefined)
+const create = ({
+  id,
+  name,
+  customCss,
+  guiCss,
+  renderType,
+  parentComponent,
+  props,
+  page,
+  propTransformationJs,
+  renderIfExpression,
+  postRenderAction,
+  preRenderAction,
+  renderForEachPropKey,
+  parent,
+  nextSibling,
+  prevSibling,
+  firstChild,
+}: IElementDTO) => {
+  const elementRenderType = getRenderType(renderType)
+
+  return new Element({
+    id,
+    name,
+    customCss,
+    guiCss,
+    // parent of first child
+    parent: parent?.id ? elementRef(parent.id) : undefined,
+    page,
+    nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
+    prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
+    firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
+    renderType: elementRenderType,
+    preRenderAction,
+    postRenderAction,
+    props: props?.id ? propRef(props.id) : null,
+    propTransformationJs,
+    renderIfExpression,
+    renderForEachPropKey,
+    renderingMetadata: null,
+    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
+  })
 }
 
 @model('@codelab/Element')
@@ -93,7 +135,7 @@ export class Element
     guiCss: prop<Nullable<string>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
     renderType: prop<Ref<IAtom> | Ref<IComponent> | null>(null).withSetter(),
-    props: prop<Nullable<IProp>>(null).withSetter(),
+    props: prop<Nullable<Ref<IProp>>>(null).withSetter(),
     preRenderAction: prop<Nullish<IEntity>>(null),
     postRenderAction: prop<Nullish<IEntity>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
@@ -250,18 +292,6 @@ export class Element
     return parent.ancestorError
   }
 
-  /**
-   * Check to see if this element is part of a component tree
-   */
-  // @computed
-  // get isComponentElement() {
-  //   const foundParent = findParent(this, (parent: any) => {
-  //     return parent?.$modelType === '@codelab/ComponentService'
-  //   })
-  //
-  //   return Boolean(foundParent)
-  // }
-
   @computed
   get descendants(): Array<IElement> {
     const descendants: Array<IElement> = []
@@ -285,30 +315,6 @@ export class Element
 
     return [firstChild, ...firstChild.leftHandDescendants]
   }
-
-  // TODO: this function isn't used anywhere, update implementation if requires
-  // @computed
-  // get deepestDescendant(): IElement | null {
-  //   let deepest: IElement | null = null
-  //   let deepestDepth = 0
-
-  //   const visitChildren = (child: IElement, depth: number): void => {
-  //     if (child.children.size) {
-  //       for (const subChild of child.children) {
-  //         visitChildren(subChild, depth + 1)
-  //       }
-  //     } else {
-  //       if (depth > deepestDepth) {
-  //         deepest = child
-  //         deepestDepth = depth
-  //       }
-  //     }
-  //   }
-
-  //   visitChildren(this, 0)
-
-  //   return deepest
-  // }
 
   @computed
   get label() {
@@ -379,14 +385,9 @@ export class Element
     return result
   }
 
-  static createRootElement() {
-    const id = v4()
+  static createRootElement = createRootElement
 
-    return new Element({
-      id,
-      name: ROOT_ELEMENT_NAME,
-    })
-  }
+  static create = create
 
   toCreateInput(): ElementCreateInput {
     /**
@@ -395,7 +396,7 @@ export class Element
     const props: ElementCreateInput['props'] = {
       create: {
         node: {
-          data: JSON.stringify(this.props?.data.data ?? {}),
+          data: JSON.stringify(this.props?.current.data.data ?? {}),
         },
       },
     }
@@ -652,66 +653,14 @@ export class Element
   }
 
   @modelAction
-  static create({
-    id,
-    name,
-    customCss,
-    guiCss,
-    renderAtomType,
-    renderComponentType,
-    parentComponent,
-    props,
-    page,
-    propTransformationJs,
-    renderIfExpression,
-    postRenderAction,
-    preRenderAction,
-    renderForEachPropKey,
-    parent,
-    nextSibling,
-    prevSibling,
-    firstChild,
-  }: IElementDTO) {
-    const apiRef = renderAtomType
-      ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
-      : undefined
-
-    return new Element({
-      id,
-      name,
-      customCss,
-      guiCss,
-      // parent of first child
-      parent: parent?.id ? elementRef(parent.id) : undefined,
-      page,
-      nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
-      prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
-      firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
-      renderType: getRenderType({ renderAtomType, renderComponentType }),
-      preRenderAction,
-      postRenderAction,
-      props: props
-        ? Prop.create({ id: props.id, data: props.data, api: props.api })
-        : null,
-      propTransformationJs,
-      renderIfExpression,
-      renderForEachPropKey,
-      renderingMetadata: null,
-      parentComponent: parentComponent
-        ? componentRef(parentComponent.id)
-        : null,
-    })
-  }
-
   @modelAction
   writeCache({
     id,
     name,
     customCss,
     guiCss,
-    renderAtomType,
-    renderComponentType,
     parentComponent,
+    renderType,
     props,
     propTransformationJs,
     renderIfExpression,
@@ -723,9 +672,7 @@ export class Element
     prevSibling,
     firstChild,
   }: Partial<IElementDTO>) {
-    const api = renderAtomType
-      ? (typeRef(renderAtomType.api.id) as Ref<IInterfaceType>)
-      : undefined
+    const elementRenderType = getRenderType(renderType)
 
     this.name = name ?? this.name
     this.customCss = customCss ?? this.customCss
@@ -734,22 +681,15 @@ export class Element
       propTransformationJs ?? this.propTransformationJs
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
-    // this.atom = renderAtomType ? atomRef(renderAtomType.id) : null
-    // this.renderComponentType = renderComponentType
-    //   ? componentRef(renderComponentType.id)
-    //   : null
-
-    this.renderType =
-      getRenderType({ renderAtomType, renderComponentType }) ?? this.renderType
+    this.renderType = elementRenderType ?? this.renderType
     this.preRenderAction = preRenderAction
       ? actionRef(preRenderAction.id)
       : this.preRenderAction
     this.postRenderAction = postRenderAction
       ? actionRef(postRenderAction.id)
       : this.postRenderAction
-    this.props = props ? new Prop({ id: props.id, api }) : this.props
+    this.props = props?.id ? propRef(props.id) : this.props
     this.parent = parent?.id ? elementRef(parent.id) : this.parent
-
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling
@@ -759,13 +699,6 @@ export class Element
     this.firstChild = firstChild?.id
       ? elementRef(firstChild.id)
       : this.firstChild
-
-    if (props) {
-      this.props?.writeCache({ ...props, api })
-    } else {
-      this.props = this.props
-    }
-
     this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)
       : null

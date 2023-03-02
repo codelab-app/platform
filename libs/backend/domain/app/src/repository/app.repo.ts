@@ -10,13 +10,14 @@ import {
   pageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
-import { cLog } from '@codelab/shared/utils'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { cLog, createUniqueName } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { validate } from './validate'
 
-export const createApp = async (app: IAppExport, userId: string) => {
+export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   cLog(omit(app, ['pages']))
 
   const App = await Repository.instance.App
@@ -25,12 +26,12 @@ export const createApp = async (app: IAppExport, userId: string) => {
 
   for (const { elements, components } of pages) {
     for (const element of elements) {
-      await importElementInitial(element, userId)
+      await importElementInitial(element, owner)
     }
 
     // components should be created after their root elements
     for (const component of components) {
-      await createComponent(component, userId)
+      await createComponent(component, owner)
     }
 
     for (const element of elements) {
@@ -71,8 +72,8 @@ export const createApp = async (app: IAppExport, userId: string) => {
     input: [
       {
         id: app.id,
-        name: app.name,
-        owner: connectOwner(userId),
+        _compoundName: createUniqueName(app.name, app),
+        owner: connectAuth0Owner(owner),
         store: {
           create: {
             node: {
@@ -84,7 +85,7 @@ export const createApp = async (app: IAppExport, userId: string) => {
                   node: {
                     id: app.store.api.id,
                     name: `${app.store.name} API`,
-                    owner: connectOwner(userId),
+                    owner: connectAuth0Owner(owner),
                   },
                 },
               },
@@ -95,11 +96,11 @@ export const createApp = async (app: IAppExport, userId: string) => {
           create: app.pages.map((page) => ({
             node: {
               id: page.id,
-              name: page.name,
+              _compoundName: createUniqueName(page.name, page),
               rootElement: connectNodeId(page.rootElement.id),
               kind: page.kind,
-              pageContainerElement: page.pageContainerElement?.id
-                ? connectNodeId(page.pageContainerElement.id)
+              pageContentContainer: page.pageContentContainer?.id
+                ? connectNodeId(page.pageContentContainer.id)
                 : undefined,
             },
           })),
@@ -130,7 +131,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
   const pagesData = await Promise.all(
     pages.map(async (page) => {
       const { elements, components } = await getPageData(page)
-      const { id, name, kind, rootElement, pageContainerElement } = page
+      const { id, name, kind, rootElement, pageContentContainer } = page
 
       return {
         id: id,
@@ -142,7 +143,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
         },
         elements,
         components,
-        ...(pageContainerElement ? { pageContainerElement } : {}),
+        ...(pageContentContainer ? { pageContentContainer } : {}),
       }
     }),
   )

@@ -43,7 +43,9 @@ export const CreateActionModal = observer<{
 
   const getResourceApiUrl = (context: Context<ICreateActionData>) =>
     context.model.resourceId
-      ? resourceService.resource(context.model.resourceId)?.config.get('url')
+      ? resourceService
+          .resource(context.model.resourceId)
+          ?.config.current.get('url')
       : null
 
   return (

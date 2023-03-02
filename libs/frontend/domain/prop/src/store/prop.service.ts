@@ -29,7 +29,7 @@ export class PropService
   }
 
   @modelAction
-  add<TData extends IPropData>({ id, data }: IPropDTO<TData>) {
+  add({ id, data }: IPropDTO) {
     const propModel = Prop.create({ id, data })
 
     this.props.set(propModel.id, propModel)

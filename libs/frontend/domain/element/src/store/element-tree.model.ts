@@ -143,11 +143,3 @@ export class ElementTree
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   public static init = init
 }
-
-export const elementTreeRef = rootRef<IElementTree>('@codelab/ElementTreeRef', {
-  onResolvedValueChange: (ref, newType, oldType) => {
-    if (oldType && !newType) {
-      detach(ref)
-    }
-  },
-})

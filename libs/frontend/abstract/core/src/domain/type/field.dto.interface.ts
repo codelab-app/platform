@@ -58,9 +58,6 @@ export interface ICreateFieldData {
   // Type of field specified by a type id
   // TODO: Refactor fieldType to take in `{ id: string }`
   fieldType: ITypeRef
-  // fieldType: {
-  //   id: ITypeRef
-  // }
   interfaceTypeId: IInterfaceTypeRef
   defaultValues?: Nullish<IFieldDefaultValue>
 }

@@ -1,4 +1,4 @@
-import type { IPageFactory } from '@codelab/frontend/abstract/core'
+import type { IApp, IPage, IPageFactory } from '@codelab/frontend/abstract/core'
 import {
   APP_PAGE_NAME,
   DEFAULT_GET_SERVER_SIDE_PROPS,
@@ -6,10 +6,11 @@ import {
   NOT_FOUND_PAGE_NAME,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
+import { getPropService, Prop } from '@codelab/frontend/domain/prop'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
+import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -23,12 +24,17 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @computed
+  get propService() {
+    return getPropService(this)
+  }
+
+  @computed
   get elementService() {
     return getElementService(this)
   }
 
   @modelAction
-  addSystemPages(app: IEntity) {
+  addSystemPages(app: Pick<IApp, 'id' | 'owner'>) {
     return [
       this.addProviderPage(app),
       this.addNotFoundPage(app),
@@ -37,61 +43,60 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  private addProviderPage(app: IEntity) {
-    const providerPageId = v4()
-
-    const rootElement = this.elementService.add({
-      id: v4(),
-      name: createUniqueName(ROOT_ELEMENT_NAME, { id: providerPageId }),
-    })
-
-    return this.pageService.add({
-      id: providerPageId,
-      name: APP_PAGE_NAME,
-      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+  private addProviderPage({ owner, ...app }: Pick<IApp, 'id' | 'owner'>) {
+    return this.addDefaultPage({
+      owner,
       app,
-      rootElement,
       kind: IPageKind.Provider,
     })
   }
 
   @modelAction
-  private addNotFoundPage(app: IEntity) {
-    const notFoundPageId = v4()
-
-    const rootElement = this.elementService.add({
-      id: v4(),
-      name: createUniqueName(ROOT_ELEMENT_NAME, { id: notFoundPageId }),
-    })
-
-    return this.pageService.add({
-      id: notFoundPageId,
-      name: NOT_FOUND_PAGE_NAME,
-      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+  private addNotFoundPage({ owner, ...app }: Pick<IApp, 'id' | 'owner'>) {
+    return this.addDefaultPage({
+      owner,
       app,
-      rootElement,
       kind: IPageKind.NotFound,
     })
   }
 
   @modelAction
-  private addInternalServerErrorPage(app: IEntity) {
-    const internalServerErrorPageId = v4()
+  private addInternalServerErrorPage({
+    owner,
+    ...app
+  }: Pick<IApp, 'id' | 'owner'>) {
+    return this.addDefaultPage({
+      owner,
+      app,
+      kind: IPageKind.InternalServerError,
+    })
+  }
+
+  @modelAction
+  private addDefaultPage({
+    owner,
+    kind,
+    app,
+  }: Pick<IPage, 'app' | 'owner' | 'kind'>) {
+    const rootElementProps = this.propService.add({
+      id: v4(),
+      data: '',
+    })
 
     const rootElement = this.elementService.add({
       id: v4(),
-      name: createUniqueName(ROOT_ELEMENT_NAME, {
-        id: internalServerErrorPageId,
-      }),
+      name: ROOT_ELEMENT_NAME,
+      props: rootElementProps,
     })
 
     return this.pageService.add({
-      id: internalServerErrorPageId,
-      name: INTERNAL_SERVER_ERROR_PAGE_NAME,
+      id: v4(),
+      name: APP_PAGE_NAME,
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       app,
       rootElement,
-      kind: IPageKind.InternalServerError,
+      kind,
+      owner,
     })
   }
 }

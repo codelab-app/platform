@@ -29,7 +29,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<IReactNodeType> 
         input: reactNodeTypes.map(
           ({ __typename, owner, ...reactNodeType }) => ({
             ...reactNodeType,
-            owner: connectAuth0Owner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
           }),
         ),
       })

@@ -9,13 +9,12 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
+  IRenderTypeModel,
   isAtomModel,
   isComponentModel,
-  RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
@@ -26,6 +25,7 @@ import {
   disconnectNodeId,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import type { Ref } from 'mobx-keystone'
 import { isNil } from 'ramda'
 import { v4 } from 'uuid'
@@ -49,12 +49,12 @@ export const getRenderTypeApi = (
   // and we use it to create a props with default values for the created element
   let renderTypeApi: Ref<IInterfaceType> | null = null
 
-  if (renderType?.model === RenderTypeEnum.Atom) {
+  if (renderType?.model === IRenderTypeModel.Atom) {
     const renderTypeRef = atomRef(renderType.id)
     renderTypeApi = renderTypeRef.current.api
   }
 
-  if (renderType?.model === RenderTypeEnum.Component) {
+  if (renderType?.model === IRenderTypeModel.Component) {
     const renderTypeRef = componentRef(renderType.id)
     renderTypeApi = renderTypeRef.current.api
   }
@@ -82,12 +82,12 @@ export const makeCreateInput = (
   }
 
   const renderAtomType =
-    renderType?.model === RenderTypeEnum.Atom
+    renderType?.model === IRenderTypeModel.Atom
       ? connectNodeId(renderType.id)
       : undefined
 
   const renderComponentType =
-    renderType?.model === RenderTypeEnum.Component
+    renderType?.model === IRenderTypeModel.Component
       ? connectNodeId(renderType.id)
       : undefined
 
@@ -107,7 +107,7 @@ export const makeDuplicateInput = (
   duplicate_name: string,
 ): ElementCreateInput => {
   const props: ElementCreateInput['props'] = element.props
-    ? { create: { node: { data: element.props.jsonString } } }
+    ? { create: { node: { data: element.props.current.jsonString } } }
     : undefined
 
   return {
@@ -151,13 +151,13 @@ export const makeUpdateInput = (
 
   // We need to disconnect the atom if render type changed to component or empty
   const renderAtomType =
-    renderType?.model === RenderTypeEnum.Atom
+    renderType?.model === IRenderTypeModel.Atom
       ? reconnectNodeId(renderType.id)
       : disconnectNodeId(undefined)
 
   // We need to disconnect the component if render type changed to atom or empty
   const renderComponentType =
-    renderType?.model === RenderTypeEnum.Component
+    renderType?.model === IRenderTypeModel.Component
       ? reconnectNodeId(renderType.id)
       : disconnectNodeId(undefined)
 
@@ -193,6 +193,6 @@ export const makeDefaultProps = (typeApi: Maybe<IInterfaceType>) => {
     {},
   )
 
-  // return JSON.stringify(defaultProps)
-  return defaultProps
+  return JSON.stringify(defaultProps)
+  // return defaultProps
 }

@@ -1,5 +1,5 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import { titleCaseValidation } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
@@ -85,7 +85,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementData> = {
         },
         model: {
           type: 'string',
-          enum: Object.values(RenderTypeEnum),
+          enum: Object.values(IRenderTypeModel),
           label: 'Render Type',
         },
       },

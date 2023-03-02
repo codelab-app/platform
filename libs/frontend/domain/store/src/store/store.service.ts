@@ -185,7 +185,7 @@ export class StoreService
       }),
     )
 
-  return store!
+    return store!
   })
 
   @modelFlow

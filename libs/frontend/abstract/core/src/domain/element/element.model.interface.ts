@@ -53,7 +53,7 @@ export interface IElement
   name: string
   customCss?: Nullable<string>
   guiCss?: Nullable<string>
-  props?: Nullable<IProp>
+  props?: Nullable<Ref<IProp>>
   hooks: Array<IHook>
   parent?: Ref<IElement>
   parentComponent?: Nullable<Ref<IComponent>>
@@ -121,7 +121,7 @@ export interface IElement
   setParent(parent: Ref<IElement>): void
   setNextSibling(nextSibling: Ref<IElement>): void
   setPrevSibling(prevSibling: Ref<IElement>): void
-  setProps(props: Nullable<IProp>): void
+  setProps(props: Nullable<Ref<IProp>>): void
   // setRenderComponentType(componentRef: Ref<IComponent>): void
   /**
    * Keeps the ref in place

@@ -14,7 +14,7 @@ export interface IApiAction
     ICacheService<IApiActionDTO, IApiAction> {
   type: IActionKind.ApiAction
   resource: Ref<IResource>
-  config: Ref<IProp<IApiActionConfig>>
+  config: Ref<IProp>
   successAction?: Nullish<Ref<IAnyAction>>
   errorAction?: Nullish<Ref<IAnyAction>>
 }

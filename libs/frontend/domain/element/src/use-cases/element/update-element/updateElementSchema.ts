@@ -1,5 +1,5 @@
 import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
 import { idSchema } from '@codelab/frontend/shared/domain'
 import { titleCaseValidation } from '@codelab/frontend/shared/utils'
 import type { JSONSchemaType } from 'ajv'
@@ -56,7 +56,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         },
         model: {
           type: 'string',
-          enum: Object.values(RenderTypeEnum),
+          enum: Object.values(IRenderTypeModel),
           label: 'Render Type',
         },
       },

@@ -5,20 +5,19 @@ import type { IElement } from '../element'
 import type { IInterfaceType } from '../type'
 import type { IPropDTO } from './prop.dto.interface'
 
-export interface IProp<TData extends IPropData = IPropData>
-  extends ICacheService<IPropDTO<TData>, IProp<TData>> {
+export interface IProp extends ICacheService<IPropDTO, IProp> {
   id: string
-  data: Frozen<Nullable<TData>>
+  data: Frozen<Nullable<IPropData>>
   api?: Ref<IInterfaceType>
   jsonString: string
-  values: TData
+  values: IPropData
 
   set(key: string, value: object): void
   setSilently(key: string, value: object): void
   setMany(data: IPropData): void
   delete(key: string): void
   get(key: string): unknown
-  clone(): IProp<TData>
+  clone(): IProp
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

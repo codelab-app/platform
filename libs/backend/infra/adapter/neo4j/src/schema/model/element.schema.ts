@@ -1,20 +1,21 @@
+import { __RenderTypeModel } from '@codelab/frontend/abstract/core'
 import { gql } from 'apollo-server-micro'
+
+const renderTypeModelSchema = `enum RenderTypeModel {
+  ${Object.values(__RenderTypeModel).join('\n')}
+}`
 
 export const elementSchema = gql`
   interface ParentOfElement @relationshipProperties {
     order: Int
   }
 
-  # An element could render either of these
-  enum RenderTypeEnum {
-    Component
-    Atom
-  }
+  ${renderTypeModelSchema}
 
   # Create this to match frontend
   type RenderType {
     id: String!
-    model: RenderTypeEnum!
+    model: RenderTypeModel!
   }
 
   type Element {
@@ -25,7 +26,7 @@ export const elementSchema = gql`
     parent: Element @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
-    props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
+    props: Prop! @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
 
     # element is the rootElement for this component
     parentComponent: Component

@@ -28,7 +28,7 @@ export class ActionTypeRepository extends AbstractRepository<IActionType> {
       ).create({
         input: actionTypes.map(({ __typename, owner, ...actionType }) => ({
           ...actionType,
-          owner: connectAuth0Owner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
         })),
       })
     ).actionTypes

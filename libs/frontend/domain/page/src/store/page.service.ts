@@ -6,11 +6,13 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IPageDTO, ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
+import { getPropService } from '@codelab/frontend/domain/prop'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -83,6 +85,11 @@ export class PageService
   @computed
   private get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  private get propService() {
+    return getPropService(this)
   }
 
   @computed
@@ -166,11 +173,17 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { id, name, app, getServerSideProps }: ICreatePageData,
+    { id, name, app, getServerSideProps, owner }: ICreatePageData,
   ) {
+    const rootElementProps = this.propService.add({
+      id: v4(),
+      data: '',
+    })
+
     const rootElement = this.elementService.add({
       id: v4(),
       name: ROOT_ELEMENT_NAME,
+      props: rootElementProps,
     })
 
     const page = this.add({
@@ -180,6 +193,7 @@ export class PageService
       getServerSideProps,
       rootElement: elementRef(rootElement.id),
       kind: IPageKind.Regular,
+      owner,
     })
 
     this.pages.set(page.id, page)
@@ -229,6 +243,7 @@ export class PageService
     app,
     rootElement,
     kind,
+    owner,
     getServerSideProps,
     descendentElements,
   }: IPageDTO) {
@@ -237,6 +252,7 @@ export class PageService
       name,
       getServerSideProps,
       app,
+      owner,
       rootElement: elementRef(rootElement.id),
       kind,
     })

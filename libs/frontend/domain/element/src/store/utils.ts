@@ -3,26 +3,21 @@ import type {
   IComponent,
   IElementDTO,
 } from '@codelab/frontend/abstract/core'
+import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import type { Ref } from 'mobx-keystone'
 
-export const getRenderType = ({
-  renderAtomType,
-  renderComponentType,
-}: Pick<IElementDTO, 'renderAtomType' | 'renderComponentType'>):
-  | Ref<IComponent>
-  | Ref<IAtom>
-  | null => {
-  let renderType = null
-
-  if (renderAtomType) {
-    renderType = atomRef(renderAtomType.id)
+export const getRenderType = (
+  renderType: IElementDTO['renderType'],
+): Ref<IComponent> | Ref<IAtom> | null => {
+  if (renderType?.model === IRenderTypeModel.Component) {
+    return atomRef(renderType.id)
   }
 
-  if (renderComponentType) {
-    renderType = componentRef(renderComponentType.id)
+  if (renderType?.model === IRenderTypeModel.Atom) {
+    return componentRef(renderType.id)
   }
 
-  return renderType
+  return null
 }

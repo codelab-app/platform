@@ -40,7 +40,7 @@ export class UnionTypeRepository extends AbstractRepository<IUnionType> {
         input: unionTypes.map(
           ({ __typename, owner, typesOfUnionType, ...type }) => ({
             ...type,
-            owner: connectAuth0Owner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
             typesOfUnionType: {
               PrimitiveType: connectNodeIds([]),
               ArrayType: connectNodeIds([]),

@@ -7270,7 +7270,7 @@ export type Element = {
   prevSiblingAggregate?: Maybe<ElementElementPrevSiblingAggregationSelection>
   prevSiblingConnection: ElementPrevSiblingConnection
   propTransformationJs?: Maybe<Scalars['String']>
-  props?: Maybe<Prop>
+  props: Prop
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>
   propsConnection: ElementPropsConnection
   renderAtomType?: Maybe<Atom>
@@ -15794,7 +15794,7 @@ export type RenderPropsTypesConnection = {
 export type RenderType = {
   __typename?: 'RenderType'
   id: Scalars['String']
-  model: RenderTypeEnum
+  model: RenderTypeModel
 }
 
 export type RenderTypeAggregateSelection = {
@@ -15805,7 +15805,7 @@ export type RenderTypeAggregateSelection = {
 
 export type RenderTypeCreateInput = {
   id: Scalars['String']
-  model: RenderTypeEnum
+  model: RenderTypeModel
 }
 
 export type RenderTypeEdge = {
@@ -15814,7 +15814,7 @@ export type RenderTypeEdge = {
   node: RenderType
 }
 
-export enum RenderTypeEnum {
+export enum RenderTypeModel {
   Atom = 'Atom',
   Component = 'Component',
 }
@@ -15834,7 +15834,7 @@ export type RenderTypeSort = {
 
 export type RenderTypeUpdateInput = {
   id?: InputMaybe<Scalars['String']>
-  model?: InputMaybe<RenderTypeEnum>
+  model?: InputMaybe<RenderTypeModel>
 }
 
 export type RenderTypeWhere = {
@@ -15847,8 +15847,8 @@ export type RenderTypeWhere = {
   id_IN?: InputMaybe<Array<Scalars['String']>>
   id_MATCHES?: InputMaybe<Scalars['String']>
   id_STARTS_WITH?: InputMaybe<Scalars['String']>
-  model?: InputMaybe<RenderTypeEnum>
-  model_IN?: InputMaybe<Array<RenderTypeEnum>>
+  model?: InputMaybe<RenderTypeModel>
+  model_IN?: InputMaybe<Array<RenderTypeModel>>
 }
 
 export type RenderTypesConnection = {
@@ -16286,7 +16286,7 @@ export enum SortDirection {
   DESC = 'DESC',
 }
 
-export type Store = {
+export type Store = WithOwner & {
   __typename?: 'Store'
   actions: Array<AnyAction>
   actionsConnection: StoreActionsConnection
@@ -16298,6 +16298,9 @@ export type Store = {
   appConnection: StoreAppConnection
   id: Scalars['ID']
   name: Scalars['String']
+  owner: User
+  ownerAggregate?: Maybe<StoreUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
 }
 
 export type StoreActionsArgs = {
@@ -16349,6 +16352,25 @@ export type StoreAppConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<StoreAppConnectionSort>>
   where?: InputMaybe<StoreAppConnectionWhere>
+}
+
+export type StoreOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type StoreOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type StoreOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type StoreActionsApiActionConnectFieldInput = {
@@ -16761,12 +16783,14 @@ export type StoreConnectInput = {
   actions?: InputMaybe<StoreActionsConnectInput>
   api?: InputMaybe<StoreApiConnectFieldInput>
   app?: InputMaybe<StoreAppConnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
 }
 
 export type StoreConnectOrCreateInput = {
   actions?: InputMaybe<StoreActionsConnectOrCreateInput>
   api?: InputMaybe<StoreApiConnectOrCreateFieldInput>
   app?: InputMaybe<StoreAppConnectOrCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
 }
 
 export type StoreConnectOrCreateWhere = {
@@ -16783,18 +16807,21 @@ export type StoreCreateInput = {
   app?: InputMaybe<StoreAppFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
 }
 
 export type StoreDeleteInput = {
   actions?: InputMaybe<StoreActionsDeleteInput>
   api?: InputMaybe<StoreApiDeleteFieldInput>
   app?: InputMaybe<StoreAppDeleteFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
 }
 
 export type StoreDisconnectInput = {
   actions?: InputMaybe<StoreActionsDisconnectInput>
   api?: InputMaybe<StoreApiDisconnectFieldInput>
   app?: InputMaybe<StoreAppDisconnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
 }
 
 export type StoreEdge = {
@@ -16827,10 +16854,74 @@ export type StoreOptions = {
   sort?: InputMaybe<Array<StoreSort>>
 }
 
+export type StoreOwnerAggregateInput = {
+  AND?: InputMaybe<Array<StoreOwnerAggregateInput>>
+  NOT?: InputMaybe<StoreOwnerAggregateInput>
+  OR?: InputMaybe<Array<StoreOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<StoreOwnerNodeAggregationWhereInput>
+}
+
+export type StoreOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<StoreOwnerNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
 export type StoreRelationInput = {
   actions?: InputMaybe<StoreActionsCreateFieldInput>
   api?: InputMaybe<StoreApiCreateFieldInput>
   app?: InputMaybe<StoreAppCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
 }
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
@@ -16849,6 +16940,21 @@ export type StoreUpdateInput = {
   app?: InputMaybe<StoreAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+}
+
+export type StoreUserOwnerAggregationSelection = {
+  __typename?: 'StoreUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreUserOwnerNodeAggregateSelection>
+}
+
+export type StoreUserOwnerNodeAggregateSelection = {
+  __typename?: 'StoreUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
 }
 
 export type StoreWhere = {
@@ -16875,6 +16981,8 @@ export type StoreWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  ownerAggregate?: InputMaybe<StoreOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type StoresConnection = {
@@ -20484,14 +20592,12 @@ export type CodeActionFragment = {
   code: string
 } & ActionBase_CodeAction_Fragment
 
-export type AppOwnerFragment = { __typename?: 'User'; auth0Id: string }
-
 export type AppPreviewFragment = {
   __typename?: 'App'
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User' } & AppOwnerFragment
+  owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page'; id: string }>
   store: { __typename?: 'Store'; id: string; name: string }
 }
@@ -20501,7 +20607,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User' } & AppOwnerFragment
+  owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   store: { __typename?: 'Store'; id: string }
 }
@@ -20513,6 +20619,7 @@ export type BuilderPageFragment = {
   slug: string
   getServerSideProps?: string | null
   kind: PageKind
+  owner: { __typename?: 'User' } & OwnerFragment
   rootElement: {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
@@ -20520,7 +20627,7 @@ export type BuilderPageFragment = {
   app: {
     __typename?: 'App'
     id: string
-    owner: { __typename?: 'User' } & AppOwnerFragment
+    owner: { __typename?: 'User' } & OwnerFragment
   }
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
@@ -20530,7 +20637,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User' } & AppOwnerFragment
+  owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
   store: { __typename?: 'Store' } & StoreFragment
 }
@@ -20613,14 +20720,14 @@ export type ElementFragment = {
   renderType?: {
     __typename?: 'RenderType'
     id: string
-    model: RenderTypeEnum
+    model: RenderTypeModel
   } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null
   parent?: { __typename?: 'Element'; id: string } | null
   firstChild?: { __typename?: 'Element'; id: string } | null
-  props?: ({ __typename?: 'Prop' } & PropFragment) | null
+  props: { __typename?: 'Prop' } & PropFragment
   preRenderAction?:
     | { __typename?: 'ApiAction'; id: string }
     | { __typename?: 'CodeAction'; id: string }
@@ -20648,6 +20755,7 @@ export type PageFragment = {
   slug: string
   getServerSideProps?: string | null
   kind: PageKind
+  owner: { __typename?: 'User' } & OwnerFragment
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string; name: string }
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
@@ -20668,6 +20776,7 @@ export type StoreFragment = {
   __typename?: 'Store'
   id: string
   name: string
+  owner: { __typename?: 'User' } & OwnerFragment
   api: { __typename?: 'InterfaceType'; id: string; name: string }
   actions: Array<
     | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
@@ -21021,6 +21130,8 @@ export type UnionTypeFragment = {
     | { __typename?: 'UnionType'; id: string; name: string }
   >
 } & BaseType_UnionType_Fragment
+
+export type OwnerFragment = { __typename?: 'User'; auth0Id: string }
 
 export type UserFragment = {
   __typename?: 'User'

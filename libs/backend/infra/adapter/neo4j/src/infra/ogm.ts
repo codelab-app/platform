@@ -1,6 +1,6 @@
-import { resolvers } from '@codelab/backend/graphql'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { OGM } from '@neo4j/graphql-ogm'
+import { resolvers } from '../resolver'
 import { typeDefs } from '../schema'
 import { getDriver } from './driver'
 

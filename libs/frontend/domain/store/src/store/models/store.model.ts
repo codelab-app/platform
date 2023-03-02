@@ -131,7 +131,6 @@ export class Store
   //     owner: app.owner,
   //   })
 
-
   //   console.log(interfaceType)
 
   //   const store = new Store({

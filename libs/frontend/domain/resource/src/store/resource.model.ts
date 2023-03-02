@@ -5,8 +5,9 @@ import type {
   IResourceConfig,
   IResourceDTO,
 } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { Prop, propRef } from '@codelab/frontend/domain/prop'
 import type { IResourceType } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -23,7 +24,7 @@ const create = ({ id, name, type, config }: IResourceDTO) =>
     id,
     name,
     type,
-    config: Prop.create({ id: v4(), data: JSON.stringify(config) }),
+    config: propRef(config.id),
   })
 
 @model('@codelab/Resource')
@@ -32,7 +33,7 @@ export class Resource
     id: idProp,
     name: prop<string>(),
     // config: prop<IResourceConfig>(),
-    config: prop<IProp>(),
+    config: prop<Ref<IProp>>(),
     type: prop<IResourceType>(),
   }))
   implements IResource
@@ -42,10 +43,7 @@ export class Resource
   @modelAction
   writeCache({ id, name, config }: Partial<IResourceDTO>) {
     this.name = name ?? this.name
-    // Just overwrite with new prop, since we're not using ref
-    this.config = config
-      ? Prop.create({ id: v4(), data: JSON.stringify(config) })
-      : this.config
+    this.config = config?.id ? propRef(config.id) : this.config
 
     return this
   }

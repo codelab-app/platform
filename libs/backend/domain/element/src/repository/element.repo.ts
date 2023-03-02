@@ -1,4 +1,5 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
@@ -18,7 +19,7 @@ const label = (element: OGM_TYPES.Element) =>
 
 export const importElementInitial = async (
   element: OGM_TYPES.Element,
-  userId: string,
+  owner: IAuth0Owner,
 ): Promise<OGM_TYPES.Element> => {
   const Element = await Repository.instance.Element
 

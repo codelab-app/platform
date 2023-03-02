@@ -10,7 +10,7 @@ export interface IComponentDTO extends IOwnerSchema {
   name: string
   rootElement: IEntity
   api: IInterfaceTypeDTO
-  props?: IPropDTO | null
+  props?: IEntity | null
   childrenContainerElement: IEntity
 }
 

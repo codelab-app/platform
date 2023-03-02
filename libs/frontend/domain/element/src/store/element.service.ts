@@ -13,22 +13,19 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   IElementDTO,
+  IRenderTypeModel,
   isAtomDTO,
   isComponentDTO,
-  RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
 import { atomRef, getAtomService } from '@codelab/frontend/domain/atom'
-import { getPropService } from '@codelab/frontend/domain/prop'
+import { getPropService, Prop } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   componentRef,
   getBuilderService,
   getComponentService,
 } from '@codelab/frontend/presenter/container'
-import {
-  createUniqueName,
-  runSequentially,
-} from '@codelab/frontend/shared/utils'
+import { runSequentially } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
@@ -36,7 +33,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
-import { isNonNullable } from '@codelab/shared/utils'
+import { createUniqueName, isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -152,8 +149,6 @@ export class ElementService
   add = (elementDTO: IElementDTO): IElement => {
     console.debug('ElementService.writeCache', elementDTO)
 
-    const { parentComponent, renderType, props } = elementDTO
-
     // if (renderAtomType) {
     //   this.atomService.add(renderAtomType)
     // }
@@ -166,12 +161,11 @@ export class ElementService
     //   this.componentService.add(renderComponentType)
     // }
 
-    if (props) {
-      this.propService.add(props)
-    }
-
+    // if (props) {
+    //   this.propService.add(props)
+    // }
+    const { parentComponent, renderType, props } = elementDTO
     const element = Element.create(elementDTO)
-
     this.elements.set(element.id, element)
 
     this.writeClonesCache(elementDTO)
@@ -184,10 +178,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  public create = _async(function* (
-    this: ElementService,
-    data: ICreateElementData,
-  ) {
+  create = _async(function* (this: ElementService, data: ICreateElementData) {
     const parent = this.elements.get(data.parentElement?.id ?? '')
 
     const name = createUniqueName(data.name, {
@@ -196,11 +187,16 @@ export class ElementService
 
     const renderTypeApi = getRenderTypeApi(data.renderType)
 
+    const elementProps = Prop.create({
+      id: v4(),
+      data: makeDefaultProps(renderTypeApi?.current),
+    })
+
     const element = this.add({
       ...data,
       name,
       parent,
-      props: { id: v4(), data: makeDefaultProps(renderTypeApi?.current) },
+      props: elementProps,
     })
 
     const {
@@ -614,7 +610,7 @@ element is new parentElement's first child
 
           const renderType: RenderType = {
             id: component.id,
-            model: RenderTypeEnum.Component,
+            model: IRenderTypeModel.Component,
           }
 
           const parentElementId = targetElement.id
@@ -839,7 +835,7 @@ element is new parentElement's first child
               name,
               renderType: {
                 id: createdComponent.id,
-                model: RenderTypeEnum.Component,
+                model: IRenderTypeModel.Component,
               },
               parentElement,
             }),
@@ -861,7 +857,7 @@ element is new parentElement's first child
             name,
             renderType: {
               id: createdComponent.id,
-              model: RenderTypeEnum.Component,
+              model: IRenderTypeModel.Component,
             },
             parentElement,
             prevSibling,

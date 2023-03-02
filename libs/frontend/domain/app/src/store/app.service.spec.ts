@@ -21,8 +21,6 @@ afterAll(() => {
 })
 
 describe('AppService', () => {
-
-
   it('should add an app to the local store', () => {
     //
   })

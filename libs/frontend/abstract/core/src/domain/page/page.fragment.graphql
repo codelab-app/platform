@@ -2,6 +2,9 @@ fragment Page on Page {
   id
   name
   slug
+  owner {
+    ...Owner
+  }
   getServerSideProps
   app {
     id

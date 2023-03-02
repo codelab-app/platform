@@ -4,14 +4,8 @@ import type { IInterfaceType, IInterfaceTypeDTO } from '../type'
 import type { PropFragment } from './prop.fragment.graphql.gen'
 import type { IPropData } from './prop.model.interface'
 
-// export type IPropDTO = PropFragment & {
-//   apiRef?: Maybe<Ref<IInterfaceType>>
-// }
-
-export interface IPropDTO<TData extends IPropData = IPropData> {
+export interface IPropDTO {
   id: string
-  // data: IData
-  data: TData
-  // api?: IInterfaceTypeDTO
+  data: string
   api?: Ref<IInterfaceType>
 }

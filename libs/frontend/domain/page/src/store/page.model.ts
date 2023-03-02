@@ -1,4 +1,5 @@
 import type {
+  IAuth0Owner,
   IElement,
   IPage,
   IPageDTO,
@@ -9,10 +10,10 @@ import {
   ElementTreeService,
 } from '@codelab/frontend/domain/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { AppPagesCreateFieldInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
@@ -24,6 +25,7 @@ const create = ({
   name,
   app,
   kind,
+  owner,
   rootElement,
   getServerSideProps,
   pageContentContainer,
@@ -39,6 +41,7 @@ const create = ({
       ? elementRef(pageContentContainer.id)
       : undefined,
     kind: kind,
+    owner,
   })
 }
 
@@ -74,6 +77,7 @@ export class Page
     id: idProp,
     app: prop<IEntity>(),
     name: prop<string>().withSetter(),
+    owner: prop<IAuth0Owner>(),
     rootElement: prop<Ref<IElement>>(),
     getServerSideProps: prop<Nullish<string>>(),
     pageContentContainer: prop<Maybe<Ref<IElement>>>(),

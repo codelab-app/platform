@@ -84,7 +84,7 @@ export class TagService
         input: {
           id,
           name,
-          owner: connectAuth0Owner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
           parent: connectNodeId(parent?.id),
         },
       }),

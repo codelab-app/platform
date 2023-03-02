@@ -31,7 +31,7 @@ export class EnumTypeRepository extends AbstractRepository<IEnumType> {
           ({ __typename, allowedValues, owner, ...enumType }) => ({
             ...enumType,
             allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-            owner: connectAuth0Owner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
           }),
         ),
       })
@@ -49,7 +49,7 @@ export class EnumTypeRepository extends AbstractRepository<IEnumType> {
         update: {
           ...enumType,
           allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
-          owner: connectAuth0Owner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
         },
         where,
       })

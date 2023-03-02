@@ -9,9 +9,9 @@ import type {
 import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
+  IRenderTypeModel,
   isAtomModel,
   isComponentModel,
-  RenderTypeEnum,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -46,14 +46,14 @@ const makeCurrentModel = (element: IElement) => {
   if (isAtomModel(element.renderType)) {
     renderType = {
       id: element.renderType.id,
-      model: RenderTypeEnum.Atom,
+      model: IRenderTypeModel.Atom,
     }
   }
 
   if (isComponentModel(element.renderType)) {
     renderType = {
       id: element.renderType.id,
-      model: RenderTypeEnum.Component,
+      model: IRenderTypeModel.Component,
     }
   }
 

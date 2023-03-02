@@ -19,9 +19,10 @@ import {
   typeRef,
 } from '@codelab/frontend/domain/type'
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { createUniqueName, ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { createUniqueName } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -201,6 +202,7 @@ export class AppService
       id: v4(),
       name: Store.createName({ name }),
       api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
+      owner,
     })
 
     const pages = this.pageService.pageFactory.addSystemPages({ id })

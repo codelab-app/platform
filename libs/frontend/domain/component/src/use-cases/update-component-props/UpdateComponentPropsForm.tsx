@@ -47,7 +47,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     // so that the value of `defaultValues` wont show when the field is cleared
     const propsModel = mergeProps(
       getDefaultComponentFieldProps(component),
-      component.props?.values,
+      component.props?.current.values,
     )
 
     return (

@@ -122,7 +122,7 @@ export class Atom
             id: v4(),
             name: `${this.name}  API`,
             kind: ITypeKind.InterfaceType,
-            owner: connectAuth0Owner(this.owner.auth0Id),
+            owner: connectAuth0Owner(this.owner),
           },
         },
       },

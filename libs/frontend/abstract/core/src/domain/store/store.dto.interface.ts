@@ -7,7 +7,6 @@ import type { StoreFragment } from './store.fragment.graphql.gen'
 export interface IStoreDTO extends IOwnerSchema {
   id: string
   name: string
-
   actions?: Array<IActionDTO>
   api: IEntity
 }

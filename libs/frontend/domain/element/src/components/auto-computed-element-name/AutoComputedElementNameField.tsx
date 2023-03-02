@@ -1,5 +1,5 @@
 import type { RenderType } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import { IRenderTypeModel } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
@@ -46,17 +46,17 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
         return
       }
 
-      if (renderType.model === RenderTypeEnum.Atom) {
+      if (renderType.model === IRenderTypeModel.Atom) {
         renderTypeName = (await atomService.getOne(renderType.id))?.name
       }
 
-      if (renderType.model === RenderTypeEnum.Component) {
+      if (renderType.model === IRenderTypeModel.Component) {
         renderTypeName = (await componentService.getOne(renderType.id))?.name
       }
 
       renderTypeName = renderTypeName
         ? makeAutoIncrementedName(
-            builderService.activeElementTree?.elementsList.map(
+            builderService.activeElementTree?.elements.map(
               (element) => element.name,
             ) || [],
             compoundCaseToTitleCase(renderTypeName),
@@ -71,7 +71,7 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
     }
 
     useEffect(() => {
-      // When renderType changes, we need to programatically
+      // When renderType changes, we need to programmatically
       // change the name field based on the selected renderTypeName
       // but only if user did not changed the name
       void changedRenderTypeHandler(renderTypeField.value)

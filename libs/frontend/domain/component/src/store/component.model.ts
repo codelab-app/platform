@@ -15,7 +15,7 @@ import {
   ElementTree,
   ElementTreeService,
 } from '@codelab/frontend/domain/element'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { Prop, propRef } from '@codelab/frontend/domain/prop'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
 import {
@@ -52,13 +52,7 @@ const create = ({
     rootElement: elementRef(rootElement.id),
     owner,
     api: typeRef<IInterfaceType>(api.id),
-    props: props
-      ? Prop.create({
-          id: props.id,
-          api: apiRef,
-          data: props.data,
-        })
-      : null,
+    props: props?.id ? propRef(props.id) : null,
     childrenContainerElement: elementRef(childrenContainerElement.id),
     instanceElement: null,
   })
@@ -74,7 +68,7 @@ export class Component
     rootElement: prop<Ref<IElement>>().withSetter(),
     owner: prop<IAuth0Owner>(),
     api: prop<Ref<IInterfaceType>>(),
-    props: prop<Nullable<IProp>>(null).withSetter(),
+    props: prop<Nullable<Ref<IProp>>>(null).withSetter(),
     childrenContainerElement: prop<Ref<IElement>>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
@@ -104,13 +98,7 @@ export class Component
       : this.rootElement
     this.owner = owner ?? this.owner
     this.api = apiRef
-    this.props = props
-      ? Prop.create({
-          id: props.id,
-          api: apiRef,
-          data: props.data,
-        })
-      : null
+    this.props = props?.id ? propRef(props.id) : this.props
 
     this.childrenContainerElement = childrenContainerElement
       ? elementRef(childrenContainerElement.id)
@@ -182,7 +170,9 @@ export class Component
     const clonedComponent: IComponent = clone<IComponent>(this)
     const clonedTree = this.cloneTree(clonedComponent, clonesList.length)
 
-    clonedComponent.setProps(this.props ? this.props.clone() : null)
+    clonedComponent.setProps(
+      this.props ? propRef(this.props.current.clone()) : null,
+    )
     clonedComponent.setElementTree(clonedTree)
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setInstanceElement(elementRef(instanceId))

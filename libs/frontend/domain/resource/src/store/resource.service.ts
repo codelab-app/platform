@@ -1,6 +1,5 @@
 import type {
   ICreateResourceData,
-  ICreateResourceDTO,
   IResource,
   IResourceConfig,
   IResourceService,
@@ -95,7 +94,7 @@ export class ResourceService
       id,
       type,
       name,
-      config: Prop.create({ id: v4(), data: config }),
+      config: Prop.create({ id: v4(), data: JSON.stringify(config) }),
     })
 
     const {
@@ -113,7 +112,7 @@ export class ResourceService
               },
             },
           },
-          owner: connectAuth0Owner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
         },
       }),
     )
@@ -129,7 +128,11 @@ export class ResourceService
   ) {
     const resource = this.resources.get(id)
 
-    resource?.writeCache({ name, config })
+    resource?.config.current.writeCache({
+      data: JSON.stringify(config),
+    })
+
+    resource?.writeCache({ name })
 
     const {
       updateResources: { resources },
@@ -170,10 +173,10 @@ export class ResourceService
 
   @modelAction
   add({ id, name, config, type }: IResourceDTO) {
-    const resource = new Resource({
+    const resource = Resource.create({
       id,
       name,
-      config: this.propService.add(config),
+      config,
       type,
     })
 
