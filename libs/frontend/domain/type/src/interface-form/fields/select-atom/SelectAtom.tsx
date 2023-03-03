@@ -39,7 +39,7 @@ export const useGetAllAtoms = () => {
 }
 
 export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
-  const { elementService } = useStore()
+  const { atomService, elementService } = useStore()
   const context = useForm()
 
   const suggestedChildrenIds = parent?.suggestedChildren.map(
@@ -58,15 +58,18 @@ export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
   const validateRequiredParent = (selectedAtomId: string) => {
     const currentFormState = context.formRef.state
 
-    const requiredParents = elementService.validateRequiredParent(
+    const isValid = elementService.validateRequiredParent(
       parent?.id,
       selectedAtomId,
     )
 
-    if (requiredParents) {
-      const requiredParentsNames = requiredParents.map((item) => item.name)
+    if (!isValid) {
+      const requiredParents = atomService.requiredParents(selectedAtomId)
+      const requiredParentsNames = requiredParents?.map((item) => item.name)
       const errorMessage = `Selected atom requires [${requiredParentsNames}] as parent.`
+
       createNotificationHandler({ title: errorMessage })()
+
       context.formRef.reset()
       context.formRef.setState(currentFormState)
     }

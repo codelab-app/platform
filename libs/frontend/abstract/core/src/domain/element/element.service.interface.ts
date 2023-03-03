@@ -13,7 +13,6 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type { IAtom } from '../atom/atom.model.interface'
 import type { IAuth0Id } from '../user'
 import type {
   ICreateElementDTO,
@@ -90,8 +89,5 @@ export interface IElementService
     rootElement: IElement
     hydratedElements: Array<IElement>
   }
-  validateRequiredParent(
-    parentAtomId?: string,
-    childAtomId?: string,
-  ): Maybe<Array<Pick<IAtom, 'id' | 'name'>>>
+  validateRequiredParent(parentAtomId?: string, childAtomId?: string): boolean
 }

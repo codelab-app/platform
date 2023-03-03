@@ -26,6 +26,7 @@ export interface IAtomService
   atoms: ObjectMap<IAtom>
   count: number
   atomsList: Array<IAtom>
+  requiredParents: (id?: string) => Maybe<Array<Pick<IAtom, 'name' | 'id'>>>
   deleteManyModal: IEntityModalService<
     Array<Ref<IAtom>>,
     { atoms: Array<IAtom> }

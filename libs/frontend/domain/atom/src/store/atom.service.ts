@@ -90,6 +90,15 @@ export class AtomService
     return Array.from(this.atoms.values())
   }
 
+  @computed
+  get requiredParents() {
+    return (id?: string) => {
+      const atom = this.atomsList.find((item) => item.id === id)
+
+      return atom?.requiredParents
+    }
+  }
+
   @modelAction
   writeCache(atom: IAtomDTO) {
     console.debug('AtomService.writeCache', atom)

@@ -1073,7 +1073,7 @@ element is new parentElement's first child
     const requiredParents = atom?.requiredParents
 
     if (!requiredParents?.length) {
-      return
+      return true
     }
 
     const parentAtom = this.atomService.atomsList.find(
@@ -1081,7 +1081,7 @@ element is new parentElement's first child
     )
 
     if (!parentAtom) {
-      return requiredParents
+      return false
     }
 
     const isValid =
@@ -1089,10 +1089,10 @@ element is new parentElement's first child
       undefined
 
     if (!isValid) {
-      return requiredParents
+      return false
     }
 
-    return undefined
+    return true
   }
 
   private validateRequiredParentForCreate(
@@ -1102,13 +1102,11 @@ element is new parentElement's first child
     const parentAtomId = this.element(String(parentElementId))?.atom
       ?.maybeCurrent?.id
 
-    const requiredParents = this.validateRequiredParent(
-      parentAtomId,
-      childAtomId,
-    )
+    const isValid = this.validateRequiredParent(parentAtomId, childAtomId)
 
-    if (requiredParents) {
-      const requiredParentsNames = requiredParents.map((parent) => parent.name)
+    if (!isValid) {
+      const requiredParents = this.atomService.requiredParents(childAtomId)
+      const requiredParentsNames = requiredParents?.map((parent) => parent.name)
 
       throw new Error(`Atom requires [${requiredParentsNames}] as parent.`)
     }
@@ -1118,13 +1116,18 @@ element is new parentElement's first child
     parentElement?: IElement,
     element?: IElement,
   ) {
-    const requiredParents = this.validateRequiredParent(
+    const isValid = this.validateRequiredParent(
       parentElement?.atom?.maybeCurrent?.id,
       element?.atom?.maybeCurrent?.id,
     )
 
-    if (requiredParents?.length) {
-      const requiredParentsNames = requiredParents.map((parent) => parent.name)
+    if (!isValid) {
+      const requiredParents = this.atomService.requiredParents(
+        element?.atom?.maybeCurrent?.id,
+      )
+
+      const requiredParentsNames = requiredParents?.map((parent) => parent.name)
+
       createNotificationHandler({
         title: `Atom requires [${requiredParentsNames}] as parent.`,
       })()
