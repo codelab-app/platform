@@ -2,7 +2,7 @@ import type { GraphQLRequestContext } from '@codelab/backend/abstract/types'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import type { DeleteInfo } from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
-import { Repository } from '../../../infra'
+import { Repository } from '../../../../infra'
 import { domainNotFoundError } from '../validation/domain.error'
 
 export const deleteDomains: IFieldResolver<
