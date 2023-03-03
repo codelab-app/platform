@@ -544,16 +544,6 @@ parent
         }
 
         if (data.renderType?.model === RenderTypeEnum.Atom) {
-          // const requiredParentsNames = this.validateRequiredParent(
-          //   data.parentElementId,
-          //   data.renderType?.id,
-          // )
-
-          // if (requiredParentsNames) {
-          //   throw new Error(
-          //     `Element requires [${requiredParentsNames}] as parent.`,
-          //   )
-          // }
           this.validateRequiredParentForCreate(
             data.parentElementId,
             data.renderType.id,
@@ -585,16 +575,6 @@ parent
       'elementTransaction',
       function* (this: ElementService, data: ICreateElementDTO) {
         if (data.renderType?.model === RenderTypeEnum.Atom) {
-          // const isValidParent = this.validateRequiredParent(
-          //   data.parentElementId,
-          //   data.renderType?.id,
-          // )
-
-          // if (isValidParent) {
-          //   throw new Error(
-          //     `Element requires [${isValidParent}] as parent.`,
-          //   )
-          // }
           const parentElementId = this.element(String(data.prevSiblingId))
             ?.parentElement?.id
 
@@ -1085,79 +1065,73 @@ element is new parentElement's first child
       .forEach(([id]) => this.clonedElements.delete(id))
   }
 
-  validateRequiredParentForCreate(parentId?: string, childAtomId?: string) {
+  public validateRequiredParent(parentAtomId?: string, childAtomId?: string) {
     const atom = this.atomService.atomsList.find(
       (item) => item.id === childAtomId,
     )
 
-    if (!atom || !atom.requiredParents.length) {
+    const requiredParents = atom?.requiredParents
+
+    if (!requiredParents?.length) {
       return
     }
 
-    const requiredParentNames = atom.requiredParents
-      .map((parent) => parent.name)
-      .join(', ')
+    const parentAtom = this.atomService.atomsList.find(
+      (item) => item.id === parentAtomId,
+    )
 
-    const errorMessage = `${atom.name} requires [${requiredParentNames}] as parent.`
-
-    if (!parentId) {
-      throw new Error(errorMessage)
+    if (!parentAtom) {
+      return requiredParents
     }
 
-    const parentElement = this.element(parentId)
-    const isValidParent = this.validateRequiredParent(parentElement, atom)
+    const isValid =
+      requiredParents.find((parent) => parent.id === parentAtom.id) !==
+      undefined
 
-    if (!isValidParent) {
-      throw new Error(errorMessage)
+    if (!isValid) {
+      return requiredParents
+    }
+
+    return undefined
+  }
+
+  private validateRequiredParentForCreate(
+    parentElementId?: string,
+    childAtomId?: string,
+  ) {
+    const parentAtomId = this.element(String(parentElementId))?.atom
+      ?.maybeCurrent?.id
+
+    const requiredParents = this.validateRequiredParent(
+      parentAtomId,
+      childAtomId,
+    )
+
+    if (requiredParents) {
+      const requiredParentsNames = requiredParents.map((parent) => parent.name)
+
+      throw new Error(`Atom requires [${requiredParentsNames}] as parent.`)
     }
   }
 
-  validateRequiredParentForMove(parentElement?: IElement, element?: IElement) {
-    if (!element?.atom?.maybeCurrent?.requiredParents.length) {
-      return true
-    }
-
-    const requiredParentNames = element.atom.maybeCurrent.requiredParents
-      .map((parent) => parent.name)
-      .join(', ')
-
-    const errorMessage = `${element.atom.maybeCurrent.name} requires [${requiredParentNames}] as parent.`
-
-    if (!parentElement) {
-      return false
-    }
-
-    const isValidParent = this.validateRequiredParent(
-      parentElement,
-      element.atom.maybeCurrent,
+  private validateRequiredParentForMove(
+    parentElement?: IElement,
+    element?: IElement,
+  ) {
+    const requiredParents = this.validateRequiredParent(
+      parentElement?.atom?.maybeCurrent?.id,
+      element?.atom?.maybeCurrent?.id,
     )
 
-    if (!isValidParent) {
-      createNotificationHandler({ title: errorMessage })()
+    if (requiredParents?.length) {
+      const requiredParentsNames = requiredParents.map((parent) => parent.name)
+      createNotificationHandler({
+        title: `Atom requires [${requiredParentsNames}] as parent.`,
+      })()
 
       return false
     }
 
     return true
-  }
-
-  validateRequiredParent(parentElement?: IElement, childAtom?: IAtom) {
-    if (!childAtom) {
-      return true
-    }
-
-    if (!parentElement) {
-      return false
-    }
-
-    if (!childAtom.requiredParents.length) {
-      return true
-    }
-
-    return (
-      childAtom.requiredParents.find(
-        (parent) => parent.id === parentElement.atom?.maybeCurrent?.id,
-      ) !== undefined
-    )
   }
 }

@@ -90,10 +90,13 @@ export interface IElementService
     rootElement: IElement
     hydratedElements: Array<IElement>
   }
-  validateRequiredParent(parentElement?: IElement, childAtom?: IAtom): boolean
   validateRequiredParentForMove(
     parentElement?: IElement,
     element?: IElement,
   ): boolean
   validateRequiredParentForCreate(parentId?: string, childAtomId?: string): void
+  validateRequiredParent(
+    parentAtomId?: string,
+    childAtomId?: string,
+  ): Maybe<Array<Pick<IAtom, 'id' | 'name'>>>
 }

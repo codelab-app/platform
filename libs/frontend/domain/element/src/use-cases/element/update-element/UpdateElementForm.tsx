@@ -134,7 +134,10 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'name',
           ]}
         />
-        <RenderTypeCompositeField name="renderType" />
+        <RenderTypeCompositeField
+          name="renderType"
+          parent={element.parentElement?.atom?.maybeCurrent}
+        />
         <AutoField
           component={CodeMirrorField({
             language: CodeMirrorLanguage.Javascript,
