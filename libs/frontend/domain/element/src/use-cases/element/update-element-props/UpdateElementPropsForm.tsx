@@ -1,9 +1,10 @@
 import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
-  isComponentModel,
+  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
@@ -11,12 +12,11 @@ import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
+import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
-import { getRenderTypeApi } from '../../../store'
-import { isAtomModel } from "@codelab/frontend/domain/atom";
 
 export interface UpdateElementPropsFormProps {
   element: IElement
@@ -26,19 +26,19 @@ export interface UpdateElementPropsFormProps {
 const withCustomTextSchema: JSONSchemaType<{
   [CUSTOM_TEXT_PROP_KEY]?: string
 }> = {
-  title: '',
-  type: 'object',
   properties: {
     [CUSTOM_TEXT_PROP_KEY]: {
-      type: 'string',
       label: 'Custom text',
+      nullable: true,
+      type: 'string',
       uniforms: {
         component: ReactQuillField,
       },
-      nullable: true,
     },
   },
   required: [],
+  title: '',
+  type: 'object',
 } as const
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
@@ -70,7 +70,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }
 
     const allowCustomInnerHtml =
-      isAtomModel(element.renderType) &&
+      isAtomInstance(element.renderType) &&
       element.renderType.current.allowCustomTextInjection &&
       element.children.length === 0
 
@@ -79,10 +79,10 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     // If element is a component type, we also show the component props
     // but should prioritize the element props
     const propsModel = mergeProps(
-      isComponentModel(element.renderType)
+      isComponentInstance(element.renderType)
         ? element.renderType.maybeCurrent?.props?.current.values
         : {},
-      element.props?.current.values,
+      element.props.current.values,
     )
 
     return (

@@ -1,8 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import type { IBuilderDataNode } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_NODE_TYPE,
-  ELEMENT_NODE_TYPE,
+  isComponentPageNodeRef,
+  isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -18,10 +17,10 @@ export type BuilderTreeItemOverlayProps = {
   ContextMenu:
     | JSXElementConstructor<ElementContextMenuProps>
     | JSXElementConstructor<ComponentContextMenuProps>
-} & Pick<IBuilderDataNode, 'type'>
+} & Pick<IBuilderDataNode, 'node'>
 
 export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
-  ({ type, setContextMenuNodeId, contextMenuProps, ContextMenu }) => {
+  ({ node, setContextMenuNodeId, contextMenuProps, ContextMenu }) => {
     const closeMenu = () => setContextMenuNodeId(null)
 
     const onClick = (event: React.MouseEvent) => {
@@ -35,7 +34,7 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
       </div>
     )
 
-    if (type === ELEMENT_NODE_TYPE) {
+    if (isElementPageNodeRef(node)) {
       const ElementContextMenu =
         ContextMenu as JSXElementConstructor<ElementContextMenuProps>
 
@@ -43,13 +42,14 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
         <Wrapper>
           <ElementContextMenu
             onClick={closeMenu}
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...(contextMenuProps as ElementContextMenuProps)}
           />
         </Wrapper>
       )
     }
 
-    if (type === COMPONENT_NODE_TYPE) {
+    if (isComponentPageNodeRef(node)) {
       const ElementContextMenu =
         ContextMenu as JSXElementConstructor<ComponentContextMenuProps>
 
@@ -57,6 +57,7 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
         <Wrapper>
           <ElementContextMenu
             onClick={closeMenu}
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...(contextMenuProps as ComponentContextMenuProps)}
           />
         </Wrapper>

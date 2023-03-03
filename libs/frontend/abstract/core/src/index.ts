@@ -1,4 +1,3 @@
-export * from './base'
 export * from './constant'
 export * from './domain'
 export * from './routing'

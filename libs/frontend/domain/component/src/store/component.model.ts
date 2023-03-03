@@ -6,12 +6,11 @@ import type {
   IProp,
 } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_NODE_TYPE,
   componentRef,
   elementRef,
   getComponentService,
   IComponent,
-  isComponentModel,
+  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import {
   ElementTree,
@@ -58,7 +57,6 @@ const create = ({
 @model('@codelab/Component')
 export class Component
   extends ExtendedModel(ElementTreeService, {
-    __nodeType: prop<COMPONENT_NODE_TYPE>(COMPONENT_NODE_TYPE),
     api: prop<Ref<IInterfaceType>>(),
     childrenContainerElement: prop<Ref<IElement>>().withSetter(),
     id: idProp,
@@ -114,7 +112,7 @@ export class Component
       const clonedElement = element.clone(cloneIndex)
 
       // don't move it to element model to avoid dependency issues
-      if (isComponentModel(element.renderType)) {
+      if (isComponentInstance(element.renderType)) {
         const componentClone = element.renderType.current.clone(
           clonedElement.id,
         )

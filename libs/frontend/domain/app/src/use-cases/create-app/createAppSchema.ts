@@ -1,7 +1,8 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/core'
-import { idSchema, ownerSchema } from '@codelab/frontend/shared/domain'
 import {
+  idSchema,
   nonEmptyString,
+  ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'

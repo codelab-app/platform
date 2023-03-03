@@ -1,4 +1,4 @@
-import { RendererType } from '@codelab/frontend/abstract/core'
+import { elementRef, RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
@@ -6,7 +6,6 @@ import {
   BuilderTabs,
   ConfigPane,
 } from '@codelab/frontend/domain/builder'
-import { elementRef } from '@codelab/frontend/domain/element'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
@@ -54,7 +53,6 @@ const PageBuilder: CodelabPage = observer(() => {
         builderService.selectPageElementTreeNode(elementRef(pageRootElement))
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value?.page])
 
   return (

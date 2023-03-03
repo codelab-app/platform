@@ -55,8 +55,8 @@ export const BaseBuilder = observer<BaseBuilderProps>(
         selectedBuilderWidth={builderService.selectedBuilderWidth}
         selectedNode={builderService.selectedNode}
         setCurrentBuilderWidth={setCurrentBuilderWidth}
-        set_hoveredNode={builderService.set_hoveredNode.bind(builderService)}
-        set_selectedNode={builderService.set_selectedNode.bind(builderService)}
+        setHoveredNode={builderService.setHoveredNode.bind(builderService)}
+        setSelectedNode={builderService.setSelectedNode.bind(builderService)}
       />
     )
   },

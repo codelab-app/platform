@@ -3,6 +3,7 @@ import type {
   IAuth0Owner,
   IComponent,
   IElementDTO,
+  IElementRenderType,
   IHook,
   IProp,
   IPropData,
@@ -10,6 +11,7 @@ import type {
   RenderingMetadata,
 } from '@codelab/frontend/abstract/core'
 import {
+  componentRef,
   CssMap,
   DATA_ELEMENT_ID,
   ELEMENT_NODE_TYPE,
@@ -17,8 +19,9 @@ import {
   getElementService,
   IBuilderDataNode,
   IElement,
+  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import { isAtomModel } from '@codelab/frontend/domain/atom'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { getPropService, propRef } from '@codelab/frontend/domain/prop'
 import { actionRef } from '@codelab/frontend/domain/store'
 import {
@@ -46,7 +49,6 @@ import {
   Ref,
 } from 'mobx-keystone'
 import { makeUpdateElementInput } from './api.utils'
-import { componentRef, isComponentModel } from './component'
 import { getElementTree } from './element-tree/element-tree.util'
 import { getRenderType } from './utils'
 
@@ -99,7 +101,6 @@ const create = ({
 @model('@codelab/Element')
 export class Element
   extends Model({
-    __nodeType: prop<ELEMENT_NODE_TYPE>(ELEMENT_NODE_TYPE),
     // slug: prop<string>().withSetter(),
     customCss: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
@@ -127,7 +128,7 @@ export class Element
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
-    renderType: prop<Ref<IAtom> | Ref<IComponent> | null>(null).withSetter(),
+    renderType: prop<IElementRenderType | null>(null).withSetter(),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
   })
@@ -297,7 +298,7 @@ export class Element
     return (
       this.name ||
       this.renderType?.current.name ||
-      (isAtomModel(this.renderType)
+      (isAtomInstance(this.renderType)
         ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
         : undefined) ||
       this.parentComponent?.current.name ||
@@ -326,7 +327,7 @@ export class Element
 
   @computed
   get atomName() {
-    if (isAtomModel(this.renderType)) {
+    if (isAtomInstance(this.renderType)) {
       return this.renderType.current.name || this.renderType.current.type
     }
 
@@ -368,11 +369,11 @@ export class Element
     /**
      * Here we'll want to set default value based on the interface
      */
-    const renderAtomType = isAtomModel(this.renderType)
+    const renderAtomType = isAtomInstance(this.renderType)
       ? connectNodeId(this.renderType.id)
       : undefined
 
-    const renderComponentType = isComponentModel(this.renderType)
+    const renderComponentType = isComponentInstance(this.renderType)
       ? connectNodeId(this.renderType.id)
       : undefined
 
@@ -394,12 +395,12 @@ export class Element
   @modelAction
   toUpdateInput(): ElementUpdateInput {
     // We need to disconnect the atom if render type changed to component or empty
-    const renderAtomType = isAtomModel(this.renderType)
+    const renderAtomType = isAtomInstance(this.renderType)
       ? reconnectNodeId(this.renderType.id)
       : disconnectNodeId(undefined)
 
     // We need to disconnect the component if render type changed to atom or empty
-    const renderComponentType = isComponentModel(this.renderType)
+    const renderComponentType = isComponentInstance(this.renderType)
       ? reconnectNodeId(this.renderType.id)
       : disconnectNodeId(undefined)
 

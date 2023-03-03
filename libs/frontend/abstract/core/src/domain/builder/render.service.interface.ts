@@ -10,12 +10,10 @@ export interface RendererProps {
   appStore: IStore
   appTree?: Nullable<IElementTree>
   rendererType: RendererType
-  set_selectedNode?: IBuilderService['set_selectedNode']
+  setSelectedNode?: IBuilderService['setSelectedNode']
 }
 
 export interface IRenderService {
   renderers: ObjectMap<IRenderer>
   addRenderer(props: RendererProps & IEntity): Promise<IRenderer>
-  // componentService: IComponentService
-  // elementService: IElementService
 }

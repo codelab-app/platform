@@ -32,12 +32,8 @@ export interface ElementCssEditorInternalProps {
     can guiCss be set to?
   */
 
-export const ElementCssEditor = observer(
-  ({
-    element,
-    trackPromises,
-    elementService,
-  }: ElementCssEditorInternalProps) => {
+export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
+  ({ element, trackPromises, elementService }) => {
     const { trackPromise } = trackPromises ?? {}
 
     const [guiCssObj, setGuiCssObj] = useState<CssMap>(

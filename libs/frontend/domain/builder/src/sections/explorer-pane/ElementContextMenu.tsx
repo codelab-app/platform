@@ -4,12 +4,13 @@ import type {
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
-import { RendererTab } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
-  isComponentModel,
-} from '@codelab/frontend/domain/component'
-import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
+  elementRef,
+  isComponentInstance,
+  RendererTab,
+} from '@codelab/frontend/abstract/core'
+import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
 import { Menu } from 'antd'
@@ -47,7 +48,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
-    const isComponentInstance = isComponentModel(element.renderType)
+    const componentInstance = isComponentInstance(element.renderType)
 
     const onAddChild = () => {
       if (!elementTree) {
@@ -89,7 +90,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onEditComponent = () => {
-      if (!isComponentModel(element.renderType)) {
+      if (!isComponentInstance(element.renderType)) {
         return
       }
 
@@ -114,14 +115,14 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         onClick: onDuplicate,
       },
       {
-        hide: !isComponentInstance,
+        hide: !componentInstance,
         key: 'edit-component',
         label: 'Edit Component',
         onClick: onEditComponent,
       },
       {
         disabled: element.isRoot,
-        hide: isComponentInstance || element.isRoot,
+        hide: componentInstance || element.isRoot,
         key: 'convert-component',
         label: 'Convert To Component',
         onClick: onConvert,

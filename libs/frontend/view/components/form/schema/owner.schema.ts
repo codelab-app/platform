@@ -1,6 +1,6 @@
 import type { IOwnerSchema } from '@codelab/frontend/abstract/core'
-import { showFieldOnDev } from '@codelab/frontend/shared/utils'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
+import { showFieldOnDev } from './showFieldOnDev'
 
 export const ownerSchema: PropertiesSchema<IOwnerSchema> = {
   owner: {

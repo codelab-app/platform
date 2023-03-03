@@ -1,10 +1,9 @@
 import type {
-  IComponent,
-  IElement,
+  IPageNode,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isElement } from '@codelab/frontend/abstract/core'
+import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
 import { getDefaultComponentFieldProps } from '@codelab/frontend/domain/component'
 import { schemaTransformer } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -16,13 +15,13 @@ import { useState } from 'react'
 import { noop } from 'ts-essentials'
 
 const getNodeProps = (
-  node: IElement | IComponent,
+  node: IPageNode,
   renderer: IRenderer,
   editedProps: IPropData,
 ) => {
-  if (isElement(node)) {
+  if (isElementPageNodeRef(node)) {
     // this is memoized by createTransformer, so we're effectively getting the last rendered output
-    const renderOutput = renderer.renderIntermediateElement(node)
+    const renderOutput = renderer.renderIntermediateElement(node.current)
 
     return Array.isArray(renderOutput)
       ? mergeProps(renderOutput.map((output) => output.props))
@@ -30,17 +29,21 @@ const getNodeProps = (
   }
 
   // These are the component's api fields with defaultValues
-  const defaultProps = getDefaultComponentFieldProps(node)
+  const defaultProps = getDefaultComponentFieldProps(node.current)
 
   // `editedProps` can be merged directly since it is in component builder only
-  return mergeProps(defaultProps, node.props?.current.values, editedProps)
+  return mergeProps(
+    defaultProps,
+    node.current.props?.current.values,
+    editedProps,
+  )
 }
 
-const getNodePropsValidateFn = (node: IElement | IComponent) => {
-  const interfaceType = isElement(node)
-    ? node.renderType?.current.api.current ??
-      node.renderType?.current.api.current
-    : node.api.current
+const getNodePropsValidateFn = (node: IPageNode) => {
+  const interfaceType = isElementPageNodeRef(node)
+    ? node.current.renderType?.current.api.current ??
+      node.current.renderType?.current.api.current
+    : node.current.api.current
 
   if (!interfaceType) {
     return noop
@@ -62,7 +65,7 @@ const getNodePropsValidateFn = (node: IElement | IComponent) => {
  * If node is IComponent, that means we are viewing it in the component builder only.
  */
 export const usePropsInspector = (
-  node: IElement | IComponent,
+  node: IPageNode,
   renderer: IRenderer,
   editedProps: IPropData,
 ) => {
@@ -79,18 +82,20 @@ export const usePropsInspector = (
       setIsLoading(true)
       validate(data)
 
-      if (isElement(node)) {
-        await elementService.patchElement(node, {
+      if (isElementPageNodeRef(node)) {
+        await elementService.patchElement(node.current, {
           props: { update: { node: { data: jsonData } } },
         })
       } else {
-        await componentService.patchComponent(node, {
+        await componentService.patchComponent(node.current, {
           props: { update: { node: { data: jsonData } } },
         })
       }
 
       notify({
-        title: `${isElement(node) ? 'Element' : 'Component'} props updated.`,
+        title: `${
+          isElementPageNodeRef(node) ? 'Element' : 'Component'
+        } props updated.`,
         type: 'success',
       })
     } catch (error) {

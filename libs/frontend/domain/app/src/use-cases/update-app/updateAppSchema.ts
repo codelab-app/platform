@@ -1,5 +1,6 @@
-import type { IUpdateAppDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateAppData } from '@codelab/frontend/abstract/core'
 import {
+  idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
