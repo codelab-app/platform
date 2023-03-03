@@ -21942,7 +21942,7 @@ export type CreatePropsMutation = {
   __typename?: 'Mutation'
   createProps: {
     __typename?: 'CreatePropsMutationResponse'
-    props: Array<{ __typename?: 'Prop'; id: string }>
+    props: Array<{ __typename?: 'Prop' } & PropFragment>
   }
 }
 
@@ -21955,7 +21955,7 @@ export type UpdatePropsMutation = {
   __typename?: 'Mutation'
   updateProps: {
     __typename?: 'UpdatePropsMutationResponse'
-    props: Array<{ __typename?: 'Prop'; id: string }>
+    props: Array<{ __typename?: 'Prop' } & PropFragment>
   }
 }
 

@@ -10,19 +10,12 @@ import type {
 
 export type ITestRootStore = Pick<
   IRootStore,
-  | 'atomService'
-  | 'builderRenderService'
-  | 'componentService'
-  | 'elementService'
-  | 'pageService'
-  | 'propService'
-  | 'storeService'
+  'atomService' | 'componentService' | 'elementService'
 > & {
   /**
    * We only use a single renderer for testing
    */
   renderer: IRenderer
-  setRenderer(renderer: IRenderer): void
 }
 
 export interface TestServices {

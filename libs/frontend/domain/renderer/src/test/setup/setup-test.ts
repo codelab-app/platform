@@ -35,7 +35,6 @@ import {
 } from '@codelab/frontend/domain/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
-  IAtomType,
   IPageKind,
   IRenderTypeKind,
 } from '@codelab/shared/abstract/core'
@@ -71,26 +70,19 @@ const stubServiceRepositories = (rootStore: ITestRootStore) => {
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   const data: TestServices = {} as TestServices
 
-  beforeEach(async () => {
+  beforeEach(() => {
     const owner = { auth0Id: v4() }
     const pageId = v4()
-    const compRootElementId = v4()
-    const emptyInterface = new InterfaceType({ name: 'Empty interface', owner })
-
-    const divAtom = new Atom({
-      api: typeRef(emptyInterface),
-      name: 'Html Div',
+    data.emptyInterface = new InterfaceType({
+      name: 'Empty interface',
       owner,
-      tags: [],
-      type: IAtomType.HtmlDiv,
     })
 
-    const textAtom = new Atom({
-      api: typeRef(emptyInterface),
-      name: 'Text',
-      owner,
-      tags: [],
-      type: IAtomType.Text,
+    data.store = new Store({
+      api: typeRef(data.emptyInterface),
+      component: null,
+      name: 'Store',
+      page: null,
     })
 
     const integerType = new PrimitiveType({
@@ -137,6 +129,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.reactNodeType = new ReactNodeType({
+      id: v4(),
       name: 'reactNodeType',
       owner,
     })
@@ -222,8 +215,22 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       url: 'page-url',
     })
 
-    const componentRootElementProps = await data.rootStore.propService.create({
-      data: JSON.stringify({
+    const compRootElementId = v4()
+    const componentProps = new Prop({ id: v4() })
+
+    data.componentToRender = new Component({
+      api: typeRef(data.emptyInterface),
+      childrenContainerElement: elementRef(compRootElementId),
+      id: v4(),
+      name: 'My Component',
+      owner,
+      props: propRef(componentProps),
+      rootElement: elementRef(compRootElementId),
+      store: storeRef(data.store.id),
+    })
+
+    data.componentRootElementProps = new Prop({
+      data: frozen({
         componentProp: 'original',
         [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
         expressionProp: `expression value - {{this.${data.componentField.key}}}`,
@@ -271,16 +278,105 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           id: data.component.id,
           kind: IRenderTypeKind.Component,
         },
-      })
+      }),
+      id: v4(),
+    })
 
-    const renderer = new Renderer({
+    data.elementToRender = new Element({
+      _page: pageRef(pageId),
+      customCss: '',
+      guiCss: '',
+      id: v4(),
+      name: ROOT_ELEMENT_NAME,
+      props: propRef(data.elementToRenderProps.id),
+      propTransformationJs: `
+    // Write a transformer function, you get the input props as parameter
+    // All returned props will get merged with the original ones
+    function transform(props) {
+      return Object.keys(props)
+          .map((x)=> ({
+            [\`$\{x}-edited\`] : props[x]
+          }))
+          .reduce((total,current) =>
+            ({...total,...current}),
+            {}
+          )
+      }`,
+      renderType: atomRef(data.divAtom.id),
+    })
+
+    data.componentInstanceElementToRenderProps = new Prop({
+      data: frozen({
+        componentProp: 'instance',
+      }),
+      id: v4(),
+    })
+
+    data.componentInstanceElementToRender = new Element({
+      id: v4(),
+      name: '01',
+      props: propRef(data.componentInstanceElementToRenderProps.id),
+      renderType: componentRef(data.componentToRender),
+    })
+
+    const typeService = new TypeService({
+      types: objectMap<IType>([
+        [data.primitiveType.id, data.primitiveType],
+        [data.renderPropType.id, data.renderPropType],
+        [data.reactNodeType.id, data.reactNodeType],
+        [data.emptyInterface.id, data.emptyInterface],
+      ]),
+    })
+
+    data.renderer = new Renderer({
       debugMode: false,
       elementTree: elementTreeRef(data.component),
       rendererType: RendererType.PageBuilder,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
 
-    data.rootStore.setRenderer(renderer)
+    data.rootStore = new TestRootStore({
+      actionService: new ActionService({}),
+      atomService: new AtomService({
+        atoms: objectMap([
+          [data.divAtom.id, data.divAtom],
+          [data.textAtom.id, data.textAtom],
+        ]),
+      }),
+      componentService: new ComponentService({
+        components: objectMap([
+          [data.componentToRender.id, data.componentToRender],
+        ]),
+      }),
+      elementService: new ElementService({
+        elements: objectMap([
+          [data.elementToRender.id, data.elementToRender],
+          [data.elementToRender02.id, data.elementToRender02],
+          [
+            data.componentInstanceElementToRender.id,
+            data.componentInstanceElementToRender,
+          ],
+          [data.componentRootElement.id, data.componentRootElement],
+        ]),
+      }),
+      fieldService: new FieldService({}),
+      propService: new PropService({
+        props: objectMap([
+          [data.elementToRenderProps.id, data.elementToRenderProps],
+          [data.elementToRender02.id, data.elementToRender02Props],
+          [data.componentRootElementProps.id, data.componentRootElementProps],
+          [
+            data.componentInstanceElementToRenderProps.id,
+            data.componentInstanceElementToRenderProps,
+          ],
+        ]),
+      }),
+      renderer: data.renderer,
+      storeService: new StoreService({
+        stores: objectMap([[data.store.id, data.store]]),
+      }),
+      typeService,
+    })
   })
 
   afterEach(() => {
@@ -288,4 +384,8 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   })
 
   return data
+}
+
+function stubServiceRepositories(rootStore: ITestRootStore) {
+  throw new Error('Function not implemented.')
 }

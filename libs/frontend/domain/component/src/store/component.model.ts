@@ -150,12 +150,12 @@ export class Component
 
       if (firstChild) {
         const firstChildId = elementMap.get(firstChild.current.id)
-        element.setFirstChild(elementRef(firstChildId!))
+        element.setParent(elementRef(firstChildId!))
       }
 
       if (nextSibling) {
         const nextSiblingId = elementMap.get(nextSibling.current.id)
-        element.setNextSibling(elementRef(nextSiblingId!))
+        element.setParent(elementRef(nextSiblingId!))
       }
 
       if (prevSibling) {

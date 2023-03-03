@@ -17,11 +17,9 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
       ...appSchema,
       name: { disabled: kind !== IPageKind.Regular, type: 'string' },
       pageContentContainer: {
-        label: '',
         nullable: true,
         properties: {
           id: {
-            label: 'Page Content Container',
             type: 'string',
             uniforms: {
               component: getSelectElementComponent(ElementTypeKind.AllElements),

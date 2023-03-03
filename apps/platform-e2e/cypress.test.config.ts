@@ -6,6 +6,7 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
   defaultCommandTimeout: 15000,
   env: {},
+  execTimeout: 10000,
   execTimeout: 15000,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',

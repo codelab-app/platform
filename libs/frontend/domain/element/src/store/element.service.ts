@@ -132,7 +132,7 @@ export class ElementService
       })
 
     const elementProps = this.propService.add({
-      data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
+      data: makeDefaultProps(renderTypeApi?.current),
       id: v4(),
     })
 
@@ -644,7 +644,7 @@ export class ElementService
       id: v4(),
     })
 
-    const cloneElementDto = {
+    const elementClone = this.add({
       customCss: element.customCss,
       guiCss: element.guiCss,
       id: v4(),
@@ -661,7 +661,7 @@ export class ElementService
               : RenderTypeKind.Atom,
           }
         : null,
-    }
+    })
 
     const elementCloneModel = this.add(cloneElementDto)
 

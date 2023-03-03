@@ -73,8 +73,10 @@ describe('Renderer', () => {
       ...data.componentInstance.props.current.values,
     })
 
-    const componentAtomType = isAtomInstance(componentRootElement.renderType)
-      ? componentRootElement.renderType.current.type
+    const componentAtomType = isAtomInstance(
+      data.componentRootElement.renderType,
+    )
+      ? data.componentRootElement.renderType.current.type
       : null
 
     expect(atomType).toBe(componentAtomType)

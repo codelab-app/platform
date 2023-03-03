@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'frontend-domain-app',
+  displayName: 'frontend-domain-renderer',
   preset: '../../../../jest.preset.js',
   // globals: {
   //   'ts-jest': {

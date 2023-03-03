@@ -10,7 +10,7 @@ export type CreatePropsMutationVariables = Types.Exact<{
 }>
 
 export type CreatePropsMutation = {
-  createProps: { props: Array<{ id: string }> }
+  createProps: { props: Array<PropFragment> }
 }
 
 export type UpdatePropsMutationVariables = Types.Exact<{
@@ -19,7 +19,7 @@ export type UpdatePropsMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePropsMutation = {
-  updateProps: { props: Array<{ id: string }> }
+  updateProps: { props: Array<PropFragment> }
 }
 
 export type DeletePropsMutationVariables = Types.Exact<{
@@ -42,19 +42,21 @@ export const CreatePropsDocument = gql`
   mutation CreateProps($input: [PropCreateInput!]!) {
     createProps(input: $input) {
       props {
-        id
+        ...Prop
       }
     }
   }
+  ${PropFragmentDoc}
 `
 export const UpdatePropsDocument = gql`
   mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {
     updateProps(where: $where, update: $update) {
       props {
-        id
+        ...Prop
       }
     }
   }
+  ${PropFragmentDoc}
 `
 export const DeletePropsDocument = gql`
   mutation DeleteProps($where: PropWhere!) {
