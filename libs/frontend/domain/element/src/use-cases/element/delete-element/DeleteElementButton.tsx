@@ -1,8 +1,8 @@
 import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { elementRef } from '../../../store'
 
 interface DeleteElementProps {
   elementService: IElementService

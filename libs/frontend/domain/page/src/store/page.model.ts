@@ -4,11 +4,8 @@ import type {
   IPageDTO,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/abstract/core'
-import {
-  elementRef,
-  ElementTreeService,
-} from '@codelab/frontend/domain/element'
+import { elementRef, getElementService } from '@codelab/frontend/abstract/core'
+import { ElementTreeService } from '@codelab/frontend/domain/element'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe, Nullish } from '@codelab/shared/abstract/types'
