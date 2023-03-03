@@ -46,7 +46,7 @@ export abstract class AbstractRepository<Model extends IEntity>
   /**
    * Upsert behavior, uses data id by default for upsert. If `where` clause is specified, then it overrides id
    *
-   * @param wh ere
+   * @param where
    */
   async save(data: Model, where?: BaseUniqueWhere): Promise<Model | undefined> {
     if (await this.exists(data, where)) {
