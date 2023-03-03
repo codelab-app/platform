@@ -33,7 +33,7 @@ export const useGetAllAtoms = () => {
       ?.filter(({ type }) => filterNotHookType(type))
       .map((atom) => ({ label: atom.name, value: atom.id })) ?? []
 
-  return { atomOptions, loading, error }
+  return { atomOptions, error, loading }
 }
 
 export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {

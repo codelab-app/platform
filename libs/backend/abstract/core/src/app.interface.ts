@@ -10,7 +10,7 @@ export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
 
 export type IPageExport = Pick<
   OGM_TYPES.Page,
-  'id' | 'name' | 'kind' | 'pageContainerElement'
+  'id' | 'name' | 'kind' | 'pageContentContainer'
 > & {
   rootElement: Pick<IElementExport, 'id' | 'name'>
   elements: Array<OGM_TYPES.Element>

@@ -1,21 +1,17 @@
 import type {
   IAnyAction,
   IApiAction,
-  IApiActionConfig,
+  IApiActionDTO,
   IGraphQLActionConfig,
   IPropData,
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
-import { IApiActionDTO, IProp } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { IProp } from '@codelab/frontend/abstract/core'
+import { propRef } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
-import {
-  assertIsActionKind,
-  IActionKind,
-  IResourceType,
-} from '@codelab/shared/abstract/core'
+import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'
@@ -25,27 +21,8 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { actionRef } from './action.ref'
-import { createBaseAction, updateBaseAction } from './base-action.model'
+import { createBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
-
-const hydrate = (action: IApiActionDTO): IApiAction => {
-  assertIsActionKind(action.type, IActionKind.ApiAction)
-
-  return new ApiAction({
-    id: action.id,
-    name: action.name,
-    store: storeRef(action.store.id),
-    type: action.type,
-    // TODO: fix up type
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    config: Prop.hydrate(action.config) as any,
-    resource: resourceRef(action.resource.id),
-    successAction: action.successAction
-      ? actionRef(action.successAction.id)
-      : null,
-    errorAction: action.errorAction ? actionRef(action.errorAction.id) : null,
-  })
-}
 
 const restFetch = (
   client: Axios,
@@ -61,12 +38,12 @@ const restFetch = (
   )
 
   return client.request({
-    method: config.method as Method,
-    url: config.urlSegment,
-    responseType: config.responseType,
     data,
-    params,
     headers,
+    method: config.method as Method,
+    params,
+    responseType: config.responseType,
+    url: config.urlSegment,
   })
 }
 
@@ -84,15 +61,13 @@ const graphqlFetch = (
 @model('@codelab/ApiAction')
 export class ApiAction
   extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
-    resource: prop<Ref<IResource>>(),
-    config: prop<IApiActionConfig>(),
-    successAction: prop<Nullish<Ref<IAnyAction>>>(),
+    config: prop<Ref<IProp>>(),
     errorAction: prop<Nullish<Ref<IAnyAction>>>(),
+    resource: prop<Ref<IResource>>(),
+    successAction: prop<Nullish<Ref<IAnyAction>>>(),
   })
   implements IApiAction
 {
-  static hydrate = hydrate
-
   @modelAction
   private replaceStateInConfig(config: IProp) {
     return replaceStateInProps(config.values, this.store.current.state.values)
@@ -100,7 +75,7 @@ export class ApiAction
 
   @computed
   get _resourceConfig() {
-    return this.replaceStateInConfig(this.resource.current.config)
+    return this.replaceStateInConfig(this.resource.current.config.current)
   }
 
   @computed
@@ -127,7 +102,7 @@ export class ApiAction
       const overrideConfig = args[0] as IPropData
 
       const config = replaceStateInProps(
-        this.config.values,
+        this.config.current.values,
         this.store.current.state.values,
       )
 
@@ -164,18 +139,22 @@ export class ApiAction
   }
 
   @modelAction
-  writeCache(action: IApiActionDTO) {
-    updateBaseAction(this, action)
-
-    this.resource = resourceRef(action.resource.id)
-    this.config.writeCache(action.config)
-    this.errorAction = action.errorAction
-      ? actionRef(action.errorAction.id)
-      : null
-    this.successAction = action.successAction
-      ? actionRef(action.successAction.id)
-      : null
-    this.store = storeRef(action.store.id)
+  writeCache({
+    resource,
+    config,
+    errorAction,
+    successAction,
+    store,
+  }: Partial<IApiActionDTO>) {
+    this.resource = resource ? resourceRef(resource.id) : this.resource
+    this.config = config ? propRef<IProp>(config.id) : this.config
+    this.errorAction = errorAction
+      ? actionRef(errorAction.id)
+      : this.errorAction
+    this.successAction = successAction
+      ? actionRef(successAction.id)
+      : this.successAction
+    this.store = store ? storeRef(store.id) : this.store
 
     return this
   }

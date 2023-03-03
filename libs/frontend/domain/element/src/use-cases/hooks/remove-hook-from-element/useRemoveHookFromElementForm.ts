@@ -18,19 +18,19 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
   // )
 
   return {
+    actionType: 'DELETE',
+    entity: {},
+    loading: false,
+    model: {},
     onSubmit: () => Promise.reject('Not implemented'),
     onSubmitError: [
       createNotificationHandler({
         title: 'Error while deleting hook',
       }),
     ],
-    model: {},
-    actionType: 'DELETE',
-    entity: {},
     onSubmitSuccess: () => {
       //
     },
-    loading: false,
     reset: () => {
       //
     },

@@ -1,14 +1,14 @@
 import type { IField, IInterfaceType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   interfaceTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 
-export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
+export class InterfaceTypeRepository extends AbstractRepository<IInterfaceType> {
   private InterfaceType = Repository.instance.InterfaceType
 
   async all() {
@@ -24,8 +24,8 @@ export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
       await (
         await this.InterfaceType
       ).find({
-        where,
         selectionSet: interfaceTypeSelectionSet,
+        where,
       })
     )[0]
   }
@@ -44,7 +44,7 @@ export class InterfaceTypeRepository extends IRepository<IInterfaceType> {
           ({ __typename, fields, owner, ...interfaceType }) => ({
             ...interfaceType,
             fields: this.mapCreateFields(fields),
-            owner: connectOwner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
           }),
         ),
       })

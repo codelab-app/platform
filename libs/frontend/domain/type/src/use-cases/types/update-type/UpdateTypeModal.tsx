@@ -1,6 +1,6 @@
 import type {
   ITypeService,
-  IUpdateTypeDTO,
+  IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -19,15 +19,11 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const closeModal = () => typeService.updateModal.close()
 
-    const typeToUpdate = typeService.updateModal.type
-      ? typeService.types.get(typeService.updateModal.type.id)
-      : null
+    const typeToUpdate = typeService.types.get(
+      typeService.updateModal.type?.id ?? '',
+    )
 
-    const handleSubmit = async (submitData: IUpdateTypeDTO) => {
-      if (!typeToUpdate) {
-        throw new Error('Type not set for typeStore.updateModal.')
-      }
-
+    const handleSubmit = async (submitData: IUpdateTypeData) => {
       const data = {
         ...submitData,
         allowedValues: submitData.allowedValues?.map((val) => ({
@@ -36,19 +32,13 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         })),
       }
 
-      await validateNonRecursive(typeToUpdate.id, data)
+      await validateNonRecursive(typeToUpdate?.id, data)
 
-      await typeService.update(typeToUpdate, data)
+      await typeService.update(data)
       void typeService.getBaseTypes({}).then(() => undefined)
     }
 
     const model = {
-      name: typeToUpdate?.name,
-      kind: typeToUpdate?.kind,
-      primitiveKind:
-        typeToUpdate?.kind === ITypeKind.PrimitiveType
-          ? typeToUpdate.primitiveKind
-          : undefined,
       allowedValues:
         typeToUpdate?.kind === ITypeKind.EnumType
           ? typeToUpdate.allowedValues.map((val) => ({
@@ -59,26 +49,28 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
               value: val.value,
             }))
           : undefined,
-      unionTypeIds:
-        typeToUpdate?.kind === ITypeKind.UnionType
-          ? typeToUpdate.typesOfUnionType.map(({ id }) => id)
-          : undefined,
       arrayTypeId:
         typeToUpdate?.kind === ITypeKind.ArrayType
           ? typeToUpdate.itemType.id
-          : undefined,
-      language:
-        typeToUpdate?.kind === ITypeKind.CodeMirrorType
-          ? typeToUpdate.language
           : undefined,
       elementKind:
         typeToUpdate?.kind === ITypeKind.ElementType
           ? typeToUpdate.elementKind
           : undefined,
-    }
-
-    if (!typeToUpdate) {
-      return null
+      kind: typeToUpdate?.kind,
+      language:
+        typeToUpdate?.kind === ITypeKind.CodeMirrorType
+          ? typeToUpdate.language
+          : undefined,
+      name: typeToUpdate?.name,
+      primitiveKind:
+        typeToUpdate?.kind === ITypeKind.PrimitiveType
+          ? typeToUpdate.primitiveKind
+          : undefined,
+      unionTypeIds:
+        typeToUpdate?.kind === ITypeKind.UnionType
+          ? typeToUpdate.typesOfUnionType.map(({ id }) => id)
+          : undefined,
     }
 
     return (
@@ -89,7 +81,7 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         open={typeService.updateModal.isOpen}
         title={<span css={tw`font-semibold`}>Update type</span>}
       >
-        <ModalForm.Form<IUpdateTypeDTO>
+        <ModalForm.Form<IUpdateTypeData>
           model={model}
           onSubmit={handleSubmit}
           onSubmitError={createNotificationHandler({
@@ -100,13 +92,13 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           schema={updateTypeSchema}
         >
           <AutoFields fields={['name']} />
-          {typeToUpdate.kind === ITypeKind.UnionType && (
+          {typeToUpdate?.kind === ITypeKind.UnionType && (
             <AutoField name="unionTypeIds" types={typeService.typesList} />
           )}
-          {typeToUpdate.kind === ITypeKind.PrimitiveType && (
+          {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
             <AutoField name="primitiveKind" />
           )}
-          {typeToUpdate.kind === ITypeKind.EnumType && (
+          {typeToUpdate?.kind === ITypeKind.EnumType && (
             <AutoField name="allowedValues" />
           )}
           <DisplayIfKind kind={ITypeKind.ArrayType}>

@@ -25,18 +25,18 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
       return null
     }
 
-    const model = { elementId: elementService.deleteModal.element.id }
-    const elementToDelete = elementService.deleteModal.element
-    const parentElement = elementToDelete.parentElement
+    const { parent: parentElement, ...elementToDelete } =
+      elementService.deleteModal.element
 
-    const onSubmit = ({ elementId }: DeleteElementData) => {
-      return elementService
-        .deleteElementSubgraph(elementId)
-        .then(
-          () =>
-            parentElement &&
-            builderService.set_selectedNode(elementRef(parentElement)),
-        )
+    const model = { element: elementToDelete }
+
+    const onSubmit = ({ element }: DeleteElementData) => {
+      // Don't wait so we don't block the UI
+      void elementService.deleteElementSubgraph(element)
+
+      parentElement && builderService.set_selectedNode(parentElement)
+
+      return Promise.resolve()
     }
 
     const onSubmitError = createNotificationHandler({

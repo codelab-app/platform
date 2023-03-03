@@ -139,8 +139,8 @@ describe('Types CRUD', () => {
 
       cy.getModal().setFormFieldValue({
         label: 'Kind',
-        value: interfaceTypeKind,
         type: FIELD_TYPE.SELECT,
+        value: interfaceTypeKind,
       })
 
       cy.getModal()
@@ -166,8 +166,8 @@ describe('Types CRUD', () => {
 
       cy.getModal().setFormFieldValue({
         label: 'Type',
-        value: primitiveTypeName,
         type: FIELD_TYPE.SELECT,
+        value: primitiveTypeName,
       })
 
       // should show error because nullable is false by default
@@ -179,8 +179,8 @@ describe('Types CRUD', () => {
 
       cy.getModal().setFormFieldValue({
         label: 'Default values',
-        value: fieldDefaultValue,
         type: FIELD_TYPE.CODE_MIRROR,
+        value: fieldDefaultValue,
       })
 
       cy.getModal()

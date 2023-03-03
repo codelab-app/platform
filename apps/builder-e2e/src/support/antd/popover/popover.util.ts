@@ -4,9 +4,9 @@ import type { CommonOptions } from '../types'
 export const forceShowPopover = (options?: CommonOptions) =>
   absoluteRoot(options)
     .find('.ant-popover')
-    .then(($el) => $el.css({ 'pointer-events': 'all', opacity: 1 }))
+    .then(($el) => $el.css({ opacity: 1, 'pointer-events': 'all' }))
 
 export const forceHidePopover = (options?: CommonOptions) =>
   absoluteRoot(options)
     .find('.ant-popover')
-    .then(($el) => $el.css({ 'pointer-events': 'none', opacity: 0 }))
+    .then(($el) => $el.css({ opacity: 0, 'pointer-events': 'none' }))

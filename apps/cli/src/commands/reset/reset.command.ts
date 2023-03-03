@@ -4,8 +4,6 @@ import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import { Stage } from '../../shared/utils/stage'
 
 export const resetCommand: CommandModule<unknown, unknown> = {
-  command: 'reset',
-  describe: 'Reset database',
   builder: (argv) =>
     argv
       .options({
@@ -16,6 +14,8 @@ export const resetCommand: CommandModule<unknown, unknown> = {
         ]),
       })
       .middleware([loadStageMiddleware]),
+  command: 'reset',
+  describe: 'Reset database',
   handler: async () => {
     return await new AdminService().reset({ close: true })
   },

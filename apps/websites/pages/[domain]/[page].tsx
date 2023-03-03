@@ -18,10 +18,10 @@ const Index = (props: AppPagePageProps) => {
 
   const { value } = useRenderedPage({
     appId,
-    pageId,
-    renderService: store.appRenderService,
-    rendererType: RendererType.Preview,
     initialData: renderingData,
+    pageId,
+    rendererType: RendererType.Preview,
+    renderService: store.appRenderService,
   })
 
   const { renderer, page } = value ?? {}
@@ -48,7 +48,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   // 1. The backend is not deployed yet so request to get page data would fail
   // 2. In production when many pages will be created - build may take too long
   // Instead allow manually to build pages by users and keep already generated pages between deploys
-  return { paths: [], fallback: 'blocking' }
+  return { fallback: 'blocking', paths: [] }
 }
 
 export const getStaticProps: GetStaticProps<AppPagePageProps> = async (

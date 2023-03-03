@@ -2,37 +2,34 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ComponentFragment } from '../component/component.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
-import { RenderAtomFragment } from '../atom/atom.fragment.graphql.gen'
-import { HookFragment } from '../hook/hook.fragment.graphql.gen'
+import { AtomFragment } from '../atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ComponentFragmentDoc } from '../component/component.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
-import { RenderAtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
-import { HookFragmentDoc } from '../hook/hook.fragment.graphql.gen'
+import { AtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
   name: string
-  slug: string
   customCss?: string | null
   guiCss?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  preRenderActionId?: string | null
-  postRenderActionId?: string | null
   propTransformationJs?: string | null
   page?: { id: string } | null
   renderComponentType?: ComponentFragment | null
-  renderAtomType?: RenderAtomFragment | null
+  renderAtomType?: AtomFragment | null
+  renderType?: { id: string; kind: Types.RenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: ComponentFragment | null
   parent?: { id: string } | null
   firstChild?: { id: string } | null
-  props?: PropFragment | null
-  hooks: Array<HookFragment>
+  props: PropFragment
+  preRenderAction?: { id: string } | { id: string } | null
+  postRenderAction?: { id: string } | { id: string } | null
 }
 
 export const ElementFragmentDoc = gql`
@@ -40,7 +37,6 @@ export const ElementFragmentDoc = gql`
     __typename
     id
     name
-    slug
     customCss
     guiCss
     page {
@@ -50,7 +46,11 @@ export const ElementFragmentDoc = gql`
       ...Component
     }
     renderAtomType {
-      ...RenderAtom
+      ...Atom
+    }
+    renderType {
+      id
+      kind
     }
     prevSibling {
       id
@@ -70,19 +70,19 @@ export const ElementFragmentDoc = gql`
     props {
       ...Prop
     }
-    hooks {
-      ...Hook
-    }
     renderForEachPropKey
     renderIfExpression
-    preRenderActionId
-    postRenderActionId
+    preRenderAction {
+      id
+    }
+    postRenderAction {
+      id
+    }
     propTransformationJs
   }
   ${ComponentFragmentDoc}
-  ${RenderAtomFragmentDoc}
+  ${AtomFragmentDoc}
   ${PropFragmentDoc}
-  ${HookFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

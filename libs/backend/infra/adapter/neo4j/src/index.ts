@@ -1,4 +1,6 @@
 export * from './cypher'
+export * from './directive'
 export * from './infra'
+export * from './resolver'
 export * from './schema'
-export * from './selectionSets'
+export * from './selectionSet'

@@ -14,9 +14,9 @@ export class EnumTypeFactory extends ITypeFactory<ICreateEnumType, IEnumType> {
   ) {
     const enumType = EnumType.init({
       __typename: ITypeKind.EnumType,
+      allowedValues,
       name,
       owner,
-      allowedValues,
     })
 
     return await this.repository.save(enumType, where(enumType))

@@ -3,13 +3,14 @@ fragment AppPreview on App {
   name
   slug
   owner {
-    id
+    ...Owner
   }
   pages {
-    ...Page
+    id
   }
   store {
     id
+    name
   }
 }
 
@@ -18,7 +19,7 @@ fragment App on App {
   name
   slug
   owner {
-    id
+    ...Owner
   }
   pages {
     ...Page
@@ -32,6 +33,9 @@ fragment BuilderPage on Page {
   id
   name
   slug
+  # owner {
+  #   ...Owner
+  # }
   getServerSideProps
   rootElement {
     ...Element
@@ -41,8 +45,11 @@ fragment BuilderPage on Page {
   }
   app {
     id
+    owner {
+      ...Owner
+    }
   }
-  pageContainerElement {
+  pageContentContainer {
     id
   }
   kind
@@ -53,7 +60,7 @@ fragment PageBuilderApp on App {
   name
   slug
   owner {
-    id
+    ...Owner
   }
   pages(
     where: {

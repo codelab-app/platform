@@ -9,8 +9,8 @@ export const createTagByUI = (name: string, parentName?: string) => {
   if (parentName) {
     cy.getModal().setFormFieldValue({
       label: 'Parent Tag',
-      value: parentName,
       type: FIELD_TYPE.SELECT,
+      value: parentName,
     })
   }
 

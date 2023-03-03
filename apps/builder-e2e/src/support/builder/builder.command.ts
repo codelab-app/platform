@@ -22,21 +22,21 @@ export const createElementTree = (elements: Array<ElementData>) => {
     if (parentElement !== ROOT_ELEMENT_NAME) {
       cy.getModal().setFormFieldValue({
         label: 'Parent element',
-        value: parentElement,
         type: FIELD_TYPE.SELECT,
+        value: parentElement,
       })
     }
 
     if (atom) {
       cy.getModal().setFormFieldValue({
         label: 'Render Type',
-        value: 'Atom',
         type: FIELD_TYPE.SELECT,
+        value: 'Atom',
       })
       cy.getModal().setFormFieldValue({
         label: 'Atom',
-        value: atom,
         type: FIELD_TYPE.SELECT,
+        value: atom,
       })
 
       cy.getModal()
@@ -51,15 +51,15 @@ export const createElementTree = (elements: Array<ElementData>) => {
             .getModal()
             .setFormFieldValue({
               label: 'Name',
-              value: name,
               type: FIELD_TYPE.INPUT,
+              value: name,
             })
         })
     } else {
       cy.getModal().setFormFieldValue({
         label: 'Name',
-        value: name,
         type: FIELD_TYPE.INPUT,
+        value: name,
       })
     }
 

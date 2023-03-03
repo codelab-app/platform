@@ -43,7 +43,7 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
-    // Add CSS to disable hover if node is unselectable
+    // Add CSS to disable hover if node is un-selectable
     if (node?.__nodeType === ELEMENT_NODE_TYPE) {
       const element = node
 

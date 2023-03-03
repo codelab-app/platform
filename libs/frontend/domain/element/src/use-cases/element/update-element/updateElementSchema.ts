@@ -3,51 +3,64 @@ import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { titleCaseValidation } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
-  title: 'Update Element Input',
-  type: 'object',
+export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
+    ...idSchema,
     name: {
-      type: 'string',
       autoFocus: true,
+      type: 'string',
       ...titleCaseValidation,
     },
-    renderIfExpression: {
-      type: 'string',
+    postRenderAction: {
       nullable: true,
-      label: 'Render if',
+      properties: {
+        id: {
+          label: 'Post Render action',
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
+    },
+    preRenderAction: {
+      nullable: true,
+      properties: {
+        id: {
+          label: 'Pre Render action',
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
     renderForEachPropKey: {
-      type: 'string',
-      nullable: true,
       label: 'Render for each',
-    },
-    preRenderActionId: {
-      type: 'string',
-      label: 'Pre Render action',
       nullable: true,
-    },
-    postRenderActionId: {
       type: 'string',
-      label: 'Post Render action',
+    },
+    renderIfExpression: {
+      label: 'Render if',
       nullable: true,
+      type: 'string',
     },
     renderType: {
-      type: 'object',
       label: 'Render Type',
       nullable: true,
       properties: {
         id: {
           type: 'string',
         },
-        model: {
-          type: 'string',
-          enum: Object.values(RenderTypeEnum),
+        kind: {
+          enum: Object.values(IRenderTypeKind),
           label: 'Render Type',
+          type: 'string',
         },
       },
-      required: ['id', 'model'],
+      required: ['id', 'kind'],
+      type: 'object',
     },
   },
   required: ['name'],
+  title: 'Update Element Input',
+  type: 'object',
 } as const

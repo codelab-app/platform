@@ -1,15 +1,19 @@
-import type { Required } from 'utility-types'
-import type { IAuth0Id } from '../user'
-import type { TagFragment } from './tag.fragment.graphql.gen'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type { IOwnerSchema } from '../user'
 
-export interface ICreateTagDTO {
+export interface ICreateTagData extends IOwnerSchema {
+  id: string
   name: string
-  parentTagId?: string
-  auth0Id: IAuth0Id
+  parent?: IEntity
 }
 
-export interface IUpdateTagDTO {
-  name: string
-}
+export type IUpdateTagData = Omit<ICreateTagData, 'owner'>
 
-export type ITagDTO = Required<Partial<TagFragment>, 'id' | 'name'>
+export interface ITagDTO {
+  id: string
+  isRoot?: boolean | null
+  name: string
+  parent?: Nullable<IEntity>
+  children: Array<IEntity>
+  descendants: Array<IEntity>
+}

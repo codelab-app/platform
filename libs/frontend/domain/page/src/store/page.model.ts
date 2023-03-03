@@ -1,14 +1,48 @@
-import type { IPage, IPropData } from '@codelab/frontend/abstract/core'
-import { IPageDTO } from '@codelab/frontend/abstract/core'
-import { ElementTreeService } from '@codelab/frontend/domain/element'
-import { extractName } from '@codelab/frontend/shared/utils'
+import type {
+  IElement,
+  IPage,
+  IPageDTO,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/abstract/core'
+import {
+  elementRef,
+  ElementTreeService,
+} from '@codelab/frontend/domain/element'
+import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
+import slugify from 'voca/slugify'
 import { pageApi } from './page.api'
 
-const getServerSideProps = async (context: IPropData) => {
+const create = ({
+  id,
+  name,
+  app,
+  kind,
+  rootElement,
+  getServerSideProps,
+  pageContentContainer,
+  descendentElements,
+}: IPageDTO): IPage => {
+  return new Page({
+    app: { id: app.id },
+    getServerSideProps: getServerSideProps,
+    id,
+    kind,
+    name,
+    pageContentContainer: pageContentContainer?.id
+      ? elementRef(pageContentContainer.id)
+      : undefined,
+    rootElement: elementRef(rootElement.id),
+  })
+}
+
+const getPageServerSideProps = async (context: IPropData) => {
   const id = context.params?.pageId as string
 
   const {
@@ -26,43 +60,37 @@ const getServerSideProps = async (context: IPropData) => {
   } = await eval(`(${page.getServerSideProps})`)(context)
 
   return {
+    notFound,
     props: {
       getServerSidePropsData: props,
     },
-    notFound,
     redirect,
   }
-}
-
-const hydrate = (page: IPageDTO) => {
-  return new Page({
-    id: page.id,
-    name: extractName(page.name),
-    slug: page.slug,
-    rootElement: { id: page.rootElement.id },
-    getServerSideProps: page.getServerSideProps,
-    app: { id: page.app.id },
-    pageContainerElement: page.pageContainerElement
-      ? { id: page.pageContainerElement.id }
-      : null,
-    kind: page.kind,
-  })
 }
 
 @model('@codelab/Page')
 export class Page
   extends ExtendedModel(ElementTreeService, {
-    id: idProp,
     app: prop<IEntity>(),
-    name: prop<string>().withSetter(),
-    slug: prop<string>(),
-    rootElement: prop<IEntity>(),
     getServerSideProps: prop<Nullish<string>>(),
-    pageContainerElement: prop<Nullish<IEntity>>(),
+    id: idProp,
     kind: prop<IPageKind>(),
+    name: prop<string>().withSetter(),
+    pageContentContainer: prop<Maybe<Ref<IElement>>>(),
+    rootElement: prop<Ref<IElement>>(),
   })
   implements IPage
 {
+  @computed
+  get slug() {
+    return slugify(this.name)
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
+
   @computed
   get toJson() {
     return {
@@ -75,20 +103,57 @@ export class Page
     }
   }
 
+  toCreateInput(): PageCreateInput {
+    return {
+      _compoundName: createUniqueName(this.name, this),
+      getServerSideProps: this.getServerSideProps,
+      id: this.id,
+      kind: this.kind,
+      pageContentContainer: {
+        create: this.pageContentContainer
+          ? {
+              node: this.pageContentContainer.current.toCreateInput(),
+            }
+          : null,
+      },
+      rootElement: {
+        create: {
+          node: this.rootElement.current.toCreateInput(),
+        },
+      },
+    }
+  }
+
+  // onAttachedToRootStore() {
+  //   console.log('Page model attached')
+  // }
+
   @modelAction
-  writeCache(page: IPageDTO) {
-    this.setName(extractName(page.name))
-    this.rootElement = page.rootElement
-    this.app = page.app
-    this.slug = page.slug
-    this.getServerSideProps = page.getServerSideProps
-    this.pageContainerElement = page.pageContainerElement
-    this.kind = page.kind
+  writeCache({
+    app,
+    name,
+    rootElement,
+    getServerSideProps,
+    pageContentContainer,
+    kind,
+  }: Partial<IPageDTO>) {
+    this.name = name ? name : this.name
+    this.rootElement = rootElement
+      ? elementRef(rootElement.id)
+      : this.rootElement
+    this.app = app ? app : this.app
+    this.getServerSideProps = getServerSideProps
+      ? getServerSideProps
+      : this.getServerSideProps
+    this.pageContentContainer = pageContentContainer
+      ? elementRef(pageContentContainer.id)
+      : this.pageContentContainer
+    this.kind = kind ? kind : this.kind
 
     return this
   }
 
-  static hydrate = hydrate
+  static create = create
 
-  static getServerSideProps = getServerSideProps
+  static getServerSideProps = getPageServerSideProps
 }

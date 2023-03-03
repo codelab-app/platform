@@ -49,7 +49,7 @@ export const useColumnSearchProps = <RecordType extends object>({
           ref={(node) => {
             searchInputRef.current = node
           }}
-          style={{ marginBottom: 8, display: 'block' }}
+          style={{ display: 'block', marginBottom: 8 }}
           value={searchText}
         />
         <Space>

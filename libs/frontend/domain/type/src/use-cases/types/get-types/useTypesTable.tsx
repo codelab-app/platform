@@ -37,8 +37,8 @@ export const useTypesTable = ({
     useState<Maybe<BaseTypeWhere>>(undefined)
 
   const [baseTypeOptions, setBaseTypeOptions] = useState<BaseTypeOptions>({
-    offset: 0,
     limit: 25,
+    offset: 0,
   })
 
   const debouncedSetBaseTypeWhere = useCallback(
@@ -66,24 +66,22 @@ export const useTypesTable = ({
 
   const columns: ColumnsType<IAnyType> = [
     {
-      title: 'Name',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
+      title: 'Name',
       ...nameColumnSearchProps,
     },
     {
-      title: 'Kind',
       dataIndex: 'kind',
       key: 'kind',
       onHeaderCell: headerCellProps,
+      title: 'Kind',
       ...useColumnSearchProps({ dataIndex: 'kind' }),
     },
     {
-      title: 'Action',
       key: 'action',
       onHeaderCell: headerCellProps,
-      width: 100,
       render: (record) => {
         if (isLoadingTypeDependencies) {
           return <Skeleton paragraph={false} />
@@ -97,40 +95,42 @@ export const useTypesTable = ({
           />
         )
       },
+      title: 'Action',
+      width: 100,
     },
   ]
 
   const rowSelection: TableRowSelection<IAnyType> = {
-    type: 'checkbox',
     onChange: (_: Array<React.Key>, selectedRows: Array<IAnyType>) => {
       typeService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
     },
+    type: 'checkbox',
   }
 
   const pagination: TablePaginationConfig = {
-    position: ['bottomCenter'],
     defaultPageSize: 25,
-    total: typeService.count,
     onChange: async (page: number, pageSize: number) => {
       const options = {
-        offset: (page - 1) * pageSize,
         limit: pageSize,
+        offset: (page - 1) * pageSize,
       }
 
       if (!isEqual(options, baseTypeOptions)) {
         debouncedSetBaseTypeOptions({
-          offset: (page - 1) * pageSize,
           limit: pageSize,
+          offset: (page - 1) * pageSize,
         })
       }
     },
+    position: ['bottomCenter'],
+    total: typeService.count,
   }
 
   return {
-    rowSelection,
+    baseTypeOptions,
+    baseTypeWhere,
     columns,
     pagination,
-    baseTypeWhere,
-    baseTypeOptions,
+    rowSelection,
   }
 }

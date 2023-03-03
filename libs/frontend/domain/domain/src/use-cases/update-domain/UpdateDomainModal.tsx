@@ -1,6 +1,6 @@
 import type {
   IDomainService,
-  IUpdateDomainDTO,
+  IUpdateDomainData,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
@@ -19,20 +19,11 @@ export const UpdateDomainModal = observer<{
   const domain = domainService.updateModal.domain
   const currentAppId = useCurrentAppId()
 
-  if (!domain || !domain.id) {
-    return null
-  }
-
-  const onSubmit = (input: IUpdateDomainDTO) => {
-    return domainService.update(domain, input)
+  const onSubmit = (domainDTO: IUpdateDomainData) => {
+    return domainService.update(domainDTO)
   }
 
   const closeModal = () => domainService.updateModal.close()
-
-  if (!userService.user) {
-    throw new Error('Missing user for update app')
-  }
-
   const { onError } = useNotify({}, {})
 
   const onSubmitError = (error: unknown) => {
@@ -41,15 +32,15 @@ export const UpdateDomainModal = observer<{
     }
   }
 
-  const model: IUpdateDomainDTO = {
-    name: domain.name,
-    appId: currentAppId,
-    id: domain.id,
+  const model = {
+    app: { id: currentAppId },
+    id: domain?.id,
+    name: domain?.name,
   }
 
   return (
     <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={true}>
-      <ModalForm.Form<IUpdateDomainDTO>
+      <ModalForm.Form<IUpdateDomainData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

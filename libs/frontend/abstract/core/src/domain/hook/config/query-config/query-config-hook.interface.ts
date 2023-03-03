@@ -16,10 +16,10 @@ import { QueryMethod } from './query-method.enum'
  * Use simple type so we can implement
  */
 export const QueryConfigHookConfigSchema = z.object({
-  queryKey: z.string().min(1),
-  url: z.string().url().optional().nullable(),
   body: z.string().optional().nullable(),
   method: z.nativeEnum(QueryMethod).optional().nullable(),
+  queryKey: z.string().min(1),
+  url: z.string().url().optional().nullable(),
 })
 // z
 //   .object({

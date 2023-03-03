@@ -19,15 +19,15 @@ export class ReactNodeType extends BaseType implements IReactNodeType {
   declare owner: IUserRef
 
   private constructor({ id, name, kind, owner }: IReactNodeType) {
-    super({ id, name, kind, __typename: ITypeKind.ReactNodeType, owner })
+    super({ __typename: ITypeKind.ReactNodeType, id, kind, name, owner })
   }
 
   static init({ owner }: ICreateReactNodeType) {
     return new ReactNodeType({
-      id: v4(),
       __typename: ITypeKind.ReactNodeType,
-      name: ITypeKind.ReactNodeType,
+      id: v4(),
       kind: ITypeKind.ReactNodeType,
+      name: ITypeKind.ReactNodeType,
       owner,
     })
   }

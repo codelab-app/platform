@@ -61,140 +61,140 @@ export interface AntFormCommands {
 
 export const antFormCommands: Array<CypressCommand> = [
   {
-    name: 'getFormFieldLabel',
     fn: getFormFieldLabel,
+    name: 'getFormFieldLabel',
     options: {
       prevSubject: 'optional',
     },
   },
   {
-    name: 'getFormField',
     fn: getFormField,
+    name: 'getFormField',
     options: {
       prevSubject: 'optional',
     },
   },
   {
-    name: 'getFormInput',
     fn: getFormInput,
+    name: 'getFormInput',
     options: {
       prevSubject: 'optional',
     },
   },
   {
-    name: 'expectSelectValue',
     fn: expectSelectValue,
+    name: 'expectSelectValue',
     options: {
       prevSubject: 'element',
     },
   },
   {
-    name: 'expectMultiSelectValue',
     fn: expectMultiSelectValue,
+    name: 'expectMultiSelectValue',
   },
   {
-    name: 'expectSelectPlaceholder',
     fn: expectSelectPlaceholder,
+    name: 'expectSelectPlaceholder',
     options: {
       prevSubject: 'element',
     },
   },
   {
-    name: 'expectFormFieldValue',
     fn: expectFormFieldValue,
+    name: 'expectFormFieldValue',
   },
   {
-    name: 'expectFormFieldError',
     fn: expectFormFieldError,
+    name: 'expectFormFieldError',
   },
   {
-    name: 'expectFormFields',
     fn: expectFormFields,
+    name: 'expectFormFields',
   },
   {
-    name: 'expectFormFieldsFn',
     fn: expectFormFieldsFn,
+    name: 'expectFormFieldsFn',
   },
   {
-    name: 'getSelectDropdown',
     fn: getSelectDropdown,
+    name: 'getSelectDropdown',
   },
   {
-    name: 'scrollSelectDropdown',
     fn: scrollSelectDropdown,
+    name: 'scrollSelectDropdown',
   },
   {
-    name: 'chooseSelectDropdownOption',
     fn: chooseSelectDropdownOption,
+    name: 'chooseSelectDropdownOption',
   },
   {
-    name: 'expectSelectDropdownToClose',
     fn: expectSelectDropdownToClose,
+    name: 'expectSelectDropdownToClose',
   },
   {
-    name: 'setInputValue',
     fn: setInputValue,
+    name: 'setInputValue',
     options: {
       prevSubject: 'element',
     },
   },
   {
-    name: 'setSelectValue',
     fn: setSelectValue,
+    name: 'setSelectValue',
     options: {
       prevSubject: 'element',
     },
   },
   {
-    name: 'clearMultiselect',
     fn: clearMultiselect,
+    name: 'clearMultiselect',
     options: {
       prevSubject: 'element',
     },
   },
   {
-    name: 'closeMultiselectOptions',
     fn: closeMultiselectOptions,
+    name: 'closeMultiselectOptions',
   },
   {
-    name: 'setMultiselectValue',
     fn: setMultiselectValue,
+    name: 'setMultiselectValue',
   },
   {
-    name: 'setTagsValue',
     fn: setTagsValue,
+    name: 'setTagsValue',
     options: {
       prevSubject: 'element',
     },
   },
   {
-    name: 'setRadioValue',
     fn: setRadioValue,
+    name: 'setRadioValue',
     options: {
       prevSubject: 'element',
     },
   },
   {
-    name: 'setDatePickerValue',
     fn: setDatePickerValue,
+    name: 'setDatePickerValue',
   },
   {
-    name: 'setFormFieldValue',
     fn: setFormFieldValue,
+    name: 'setFormFieldValue',
     options: {
       prevSubject: 'optional',
     },
   },
   {
-    name: 'setFormFieldValueFn',
     fn: setFormFieldValueFn,
+    name: 'setFormFieldValueFn',
   },
   {
-    name: 'setFormFieldValues',
     fn: setFormFieldValues,
+    name: 'setFormFieldValues',
   },
   {
-    name: 'setFormFieldValuesFn',
     fn: setFormFieldValuesFn,
+    name: 'setFormFieldValuesFn',
   },
 ]

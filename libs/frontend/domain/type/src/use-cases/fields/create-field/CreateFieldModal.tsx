@@ -1,5 +1,5 @@
 import type {
-  ICreateFieldDTO,
+  ICreateFieldData,
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
@@ -34,7 +34,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
     const closeModal = () => fieldService.createModal.close()
     const interfaceTypeId = fieldService.createModal.interface?.id
 
-    const onSubmit = (input: ICreateFieldDTO) => {
+    const onSubmit = (input: ICreateFieldData) => {
       if (!interfaceTypeId) {
         throw new Error('Missing interface type id')
       }
@@ -44,7 +44,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         typeService.primitiveKind(input.fieldType),
       )
 
-      return fieldService.create([{ ...input, validationRules }])
+      return fieldService.create({ ...input, validationRules })
     }
 
     return (
@@ -55,7 +55,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         open={fieldService.createModal.isOpen}
         title={<span css={tw`font-semibold`}>Create field</span>}
       >
-        <ModalForm.Form<ICreateFieldDTO>
+        <ModalForm.Form<ICreateFieldData>
           model={{
             id: v4(),
             interfaceTypeId,
@@ -77,7 +77,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
             ]}
           />
           <TypeSelect label="Type" name="fieldType" />
-          <DisplayIfField<ICreateFieldDTO>
+          <DisplayIfField<ICreateFieldData>
             condition={({ model }) =>
               Boolean(model.fieldType) &&
               !isBoolean(typeService, model.fieldType)
@@ -85,24 +85,24 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           >
             <AutoFields fields={['validationRules.general']} />
           </DisplayIfField>
-          <DisplayIfField<ICreateFieldDTO>
+          <DisplayIfField<ICreateFieldData>
             condition={({ model }) => isPrimitive(typeService, model.fieldType)}
           >
-            <DisplayIfField<ICreateFieldDTO>
+            <DisplayIfField<ICreateFieldData>
               condition={({ model }) => isString(typeService, model.fieldType)}
             >
               <AutoFields
                 fields={[`validationRules.${PrimitiveTypeKind.String}`]}
               />
             </DisplayIfField>
-            <DisplayIfField<ICreateFieldDTO>
+            <DisplayIfField<ICreateFieldData>
               condition={({ model }) => isInteger(typeService, model.fieldType)}
             >
               <AutoFields
                 fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
               />
             </DisplayIfField>
-            <DisplayIfField<ICreateFieldDTO>
+            <DisplayIfField<ICreateFieldData>
               condition={({ model }) => isFloat(typeService, model.fieldType)}
             >
               <AutoFields
@@ -110,7 +110,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
               />
             </DisplayIfField>
           </DisplayIfField>
-          <DisplayIfField<ICreateFieldDTO>
+          <DisplayIfField<ICreateFieldData>
             condition={({ model }) =>
               !isInterfaceType(typeService, model.fieldType)
             }

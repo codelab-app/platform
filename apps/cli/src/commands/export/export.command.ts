@@ -24,8 +24,6 @@ import { saveExportFile } from '../../use-cases/export/save-export-file'
  *
  */
 export const exportCommand: CommandModule<ExportProps, ExportProps> = {
-  command: 'export',
-  describe: 'Export user data',
   builder: (argv) =>
     argv
       .options({
@@ -36,6 +34,8 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
         ...getStageOptions([Stage.Dev, Stage.Test]),
       })
       .middleware([loadStageMiddleware]),
+  command: 'export',
+  describe: 'Export user data',
   handler: async ({
     skipSeedData,
     skipUserData,
@@ -51,10 +51,10 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
         : !(
             await inquirer.prompt([
               {
-                type: 'confirm',
-                name: 'confirm',
                 default: false,
                 message: 'Would you like to export seed data?',
+                name: 'confirm',
+                type: 'confirm',
               },
             ])
           ).confirm
@@ -65,10 +65,10 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
         : !(
             await inquirer.prompt([
               {
-                type: 'confirm',
-                name: 'confirm',
                 default: false,
                 message: 'Would you like to export user data?',
+                name: 'confirm',
+                type: 'confirm',
               },
             ])
           ).confirm
@@ -91,10 +91,10 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
           : (
               await inquirer.prompt([
                 {
-                  type: 'input',
-                  name: 'outputFilePath',
-                  message: 'Enter a path to export to, relative to ./',
                   default: './data/seed-data.json',
+                  message: 'Enter a path to export to, relative to ./',
+                  name: 'outputFilePath',
+                  type: 'input',
                 },
               ])
             ).outputFilePath
@@ -106,13 +106,13 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
       const { selectedUserId, selectedApp } = await inquirer.prompt([
         await selectUserPrompt(),
         {
-          type: 'list',
-          name: 'selectedApp',
-          message: 'Select which app to export',
           choices: apps.map((app) => ({
             name: app.name,
             value: app.id,
           })),
+          message: 'Select which app to export',
+          name: 'selectedApp',
+          type: 'list',
         },
       ])
 

@@ -25,8 +25,8 @@ describe('Resource CRUD', () => {
       cy.getModal().setFormFieldValue({ label: 'Name', value: resourceName })
       cy.getModal().setFormFieldValue({
         label: 'Type',
-        value: ResourceType.GraphQL,
         type: FIELD_TYPE.SELECT,
+        value: ResourceType.GraphQL,
       })
       cy.getModal().setFormFieldValue({ label: 'Url', value: resourcesUrl })
 

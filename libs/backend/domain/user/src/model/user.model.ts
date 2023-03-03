@@ -28,12 +28,13 @@ export class User implements IUser {
     const roles = session[JWT_CLAIMS].roles
 
     return new User({
-      id: v4(),
       auth0Id,
       email,
-      username: nickname,
+      id: v4(),
       // roles: rolesToEnum(roles),
       roles: [OGM_TYPES.Role.Admin],
+
+      username: nickname,
     })
   }
 }

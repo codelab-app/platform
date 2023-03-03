@@ -7,8 +7,8 @@ const importApp = async (
   onSuccess: SuccessCallback,
 ) => {
   const response = await fetch('/api/import', {
-    method: 'POST',
     body: appData,
+    method: 'POST',
   })
 
   if (response.status === 200) {

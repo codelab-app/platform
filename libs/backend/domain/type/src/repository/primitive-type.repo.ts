@@ -1,13 +1,13 @@
 import type { IPrimitiveType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportPrimitiveTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
-export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
+export class PrimitiveTypeRepository extends AbstractRepository<IPrimitiveType> {
   private PrimitiveType = Repository.instance.PrimitiveType
 
   async find(where: BaseTypeUniqueWhere) {
@@ -15,8 +15,8 @@ export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
       await (
         await this.PrimitiveType
       ).find({
-        where,
         selectionSet: exportPrimitiveTypeSelectionSet,
+        where,
       })
     )[0]
   }
@@ -28,7 +28,7 @@ export class PrimitiveTypeRepository extends IRepository<IPrimitiveType> {
       ).create({
         input: primitiveTypes.map(({ __typename, owner, ...type }) => ({
           ...type,
-          owner: connectOwner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
         })),
       })
     ).primitiveTypes

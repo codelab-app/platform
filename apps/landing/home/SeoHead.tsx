@@ -9,7 +9,7 @@ interface SeoHeadProps {
 export const SeoHead = ({ title, description }: SeoHeadProps) => (
   <NextSeo
     description={description}
-    openGraph={{ title, description: description }}
+    openGraph={{ description: description, title }}
     title={title}
     titleTemplate="%s"
   />

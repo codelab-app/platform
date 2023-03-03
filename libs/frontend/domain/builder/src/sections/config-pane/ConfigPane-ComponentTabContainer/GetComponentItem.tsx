@@ -1,8 +1,13 @@
 import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
-import { BuilderDndType, RenderTypeEnum } from '@codelab/frontend/abstract/core'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
+import {
+  BuilderDndType,
+  IRenderTypeKind,
+} from '@codelab/frontend/abstract/core'
 import { antDesignIconPrefix } from '@codelab/shared/data/seed'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import {
+  compoundCaseToTitleCase,
+  createUniqueName,
+} from '@codelab/shared/utils'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
@@ -20,15 +25,15 @@ export const DraggableGetComponentItem = ({
       name: createUniqueName(compoundCaseToTitleCase(component.name)),
       renderType: {
         id: component.id,
-        model: RenderTypeEnum.Atom,
+        kind: IRenderTypeKind.Atom,
       },
     }
   }, [component])
 
   const { attributes, listeners, setNodeRef } = useCreateElementDraggable({
-    id: component.id,
-    createElementInput,
     component,
+    createElementInput,
+    id: component.id,
     overlayRenderer: () => (
       <GetComponentItem component={component} tw="opacity-40" />
     ),

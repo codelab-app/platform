@@ -1,5 +1,5 @@
 import type {
-  ICreateTypeDTO,
+  ICreateTypeData,
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
@@ -22,8 +22,7 @@ export const CreateTypeModal = observer<{
   const closeModal = () => typeService.createModal.close()
   const user = userService.user
 
-  const onSubmit = async (data: ICreateTypeDTO) => {
-    // Here we want to append ids to enum
+  const onSubmit = async (data: ICreateTypeData) => {
     const input = {
       ...data,
       allowedValues: data.allowedValues?.map((val) => ({
@@ -50,10 +49,12 @@ export const CreateTypeModal = observer<{
       open={typeService.createModal.isOpen}
       title={<span css={tw`font-semibold`}>Create type</span>}
     >
-      <ModalForm.Form<ICreateTypeDTO>
+      <ModalForm.Form<ICreateTypeData>
         model={{
           id: v4(),
-          auth0Id: user?.auth0Id,
+          owner: {
+            auth0Id: user?.auth0Id,
+          },
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -63,7 +64,7 @@ export const CreateTypeModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}
       >
-        <AutoFields fields={['name', 'auth0Id']} />
+        <AutoFields fields={['name', 'owner']} />
         <SelectField name="kind" showSearch />
 
         <DisplayIfKind kind={ITypeKind.PrimitiveType}>

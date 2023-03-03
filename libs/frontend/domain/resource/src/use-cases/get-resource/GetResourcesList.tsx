@@ -11,8 +11,8 @@ import { GetResourcesItem } from './GetResourceItem'
 const buttonContainerStyle: React.CSSProperties = {
   display: 'block',
   margin: 'auto',
-  width: '150px',
   textAlign: 'center',
+  width: '150px',
 }
 
 export const GetResourcesList = observer<{ resourceService: IResourceService }>(
@@ -30,7 +30,7 @@ export const GetResourcesList = observer<{ resourceService: IResourceService }>(
           </Empty>
         </DisplayIf>
 
-        <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
+        <Row gutter={[16, { lg: 32, md: 24, sm: 16, xs: 8 }]}>
           {resourceList.map((resource) => (
             // eslint-disable-next-line react/jsx-props-no-spreading
             <Col key={resource.id} {...threeGridCol}>

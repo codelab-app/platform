@@ -12,9 +12,9 @@ interface ConfigGuideTabProps {
 export const ConfigGuide = ({ type, domain }: ConfigGuideTabProps) => {
   const items = [
     {
-      label: 'A Record (Recommended)',
-      key: '1',
       children: <ARecordTabContent />,
+      key: '1',
+      label: 'A Record (Recommended)',
     },
   ]
 

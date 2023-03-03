@@ -5,7 +5,7 @@ import type { AtomSeedData } from '../atom-seed-data.interface'
 export const htmlAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
   [IAtomType.HtmlA]: {
     file: null,
-    tag: HtmlTag.Html,
     icon: null,
+    tag: HtmlTag.Html,
   },
 }

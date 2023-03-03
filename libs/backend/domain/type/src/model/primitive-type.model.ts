@@ -28,7 +28,7 @@ export class PrimitiveType extends BaseType implements IPrimitiveType {
     primitiveKind,
     owner,
   }: IPrimitiveType) {
-    super({ id, name, kind, __typename: ITypeKind.PrimitiveType, owner })
+    super({ __typename: ITypeKind.PrimitiveType, id, kind, name, owner })
     this.primitiveKind = primitiveKind
   }
 
@@ -36,8 +36,8 @@ export class PrimitiveType extends BaseType implements IPrimitiveType {
     return new PrimitiveType({
       __typename: ITypeKind.PrimitiveType,
       id: v4(),
-      name: primitiveKind,
       kind: ITypeKind.PrimitiveType,
+      name: primitiveKind,
       owner,
       primitiveKind,
     })

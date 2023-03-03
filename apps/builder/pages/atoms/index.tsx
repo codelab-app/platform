@@ -57,16 +57,16 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const getAtomLibrary = useCallback(
     (atomType: string): AtomLibrary => {
       return htmlAtomsKeys.includes(atomType)
-        ? { name: 'HTML', color: 'orange' }
+        ? { color: 'orange', name: 'HTML' }
         : antdAtomsKeys.includes(atomType)
-        ? { name: 'Ant Design', color: 'geekblue' }
+        ? { color: 'geekblue', name: 'Ant Design' }
         : muiAtomsKeys.includes(atomType)
-        ? { name: 'Material UI', color: 'purple' }
+        ? { color: 'purple', name: 'Material UI' }
         : clAtomsKeys.includes(atomType)
-        ? { name: 'Codelab', color: 'yellow' }
+        ? { color: 'yellow', name: 'Codelab' }
         : reactAtomsKeys.includes(atomType)
-        ? { name: 'React', color: 'green' }
-        : { name: 'Unknown', color: 'black' }
+        ? { color: 'green', name: 'React' }
+        : { color: 'black', name: 'Unknown' }
     },
     [htmlAtomsKeys, antdAtomsKeys, muiAtomsKeys, clAtomsKeys, reactAtomsKeys],
   )

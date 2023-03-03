@@ -1,6 +1,6 @@
 import type {
   IComponentService,
-  ICreateComponentDTO,
+  ICreateComponentData,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
+import type { CreateComponentSchema } from './createComponentSchema'
 import { createComponentSchema } from './createComponentSchema'
 
 export const CreateComponentModal = observer<{
@@ -17,8 +18,8 @@ export const CreateComponentModal = observer<{
 }>(({ componentService, userService }) => {
   const user = userService.user
 
-  const handleSubmit = (data: ICreateComponentDTO) => {
-    return componentService.create([data])
+  const handleSubmit = (componentData: ICreateComponentData) => {
+    return componentService.create(componentData)
   }
 
   const closeModal = () => componentService.createModal.close()
@@ -34,9 +35,9 @@ export const CreateComponentModal = observer<{
       open={componentService.createModal.isOpen}
       title={<span css={tw`font-semibold`}>Create component</span>}
     >
-      <ModalForm.Form<Omit<ICreateComponentDTO, 'rootElementId'>>
+      <ModalForm.Form<CreateComponentSchema>
         model={{
-          auth0Id: user?.auth0Id,
+          owner: { auth0Id: user?.auth0Id },
         }}
         onSubmit={handleSubmit}
         onSubmitError={onSubmitError}

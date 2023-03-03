@@ -20,9 +20,9 @@ const dropIndicatorRender = (dropPosition: 0 | 1) => {
   }
 
   const style: React.CSSProperties = {
+    bottom: -4,
     left: leftByDropPosition[dropPosition],
     right: 0,
-    bottom: -4,
   }
 
   return <div className="ant-tree-drop-indicator" style={style} />
@@ -45,17 +45,17 @@ export const BuilderDropHandler = observer<
   const createElementInput = useMemo(() => {
     if (shouldCreateElementAsFirstChild(dropPosition)) {
       return {
-        parentElementId: element.id,
+        parentElement: element,
       }
     }
 
     return {
-      prevSiblingId: element.id,
+      prevSibling: element,
     }
   }, [element, dropPosition])
 
   const { setNodeRef, isOver } = useCreateElementDroppable(
-    droppableId,
+    { id: droppableId },
     createElementInput,
   )
 

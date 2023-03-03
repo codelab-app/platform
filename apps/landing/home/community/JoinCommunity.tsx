@@ -15,8 +15,8 @@ export const JoinCommunity = () => {
       type === 'success' ? 'Thanks for joining!' : 'Something went wrong'
 
     api[type]({
-      message: message,
       duration: 3,
+      message: message,
     })
   }
 

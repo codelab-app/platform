@@ -20,7 +20,7 @@ export interface GetAppsItemProps {
 export const GetAppsItem = observer<GetAppsItemProps>(
   ({ app, appService, domains }) => {
     const href = { pathname: PageType.PageList, query: { appId: app.id } }
-    const appDomains = domains?.filter((domain) => domain.appId === app.id)
+    const appDomains = domains?.filter((domain) => domain.app.id === app.id)
     const Title = <Link href={href}>{app.name}</Link>
 
     const Dropdown = (

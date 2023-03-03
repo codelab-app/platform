@@ -3,47 +3,41 @@ import {
   CodeMirrorField,
   hideField,
   nonEmptyString,
+  showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const createPageSchema: JSONSchemaType<
-  Omit<ICreatePageDTO, 'pageContainerElementId'>
-> = {
-  title: 'Create Page Input',
-  type: 'object',
+export const createPageSchema: JSONSchemaType<ICreatePageData> = {
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
+    ...idSchema,
+    ...ownerSchema,
+    app: {
+      properties: {
+        id: {
+          disabled: true,
+          type: 'string',
+          ...showFieldOnDev(),
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
-    auth0Id: {
-      type: 'string',
+    getServerSideProps: {
       nullable: true,
-      ...hideField,
-    },
-    rootElementId: {
       type: 'string',
-      nullable: true,
-      ...hideField,
+      uniforms: {
+        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
+      },
     },
     name: {
       autoFocus: true,
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    appId: {
-      type: 'string',
-    },
-    getServerSideProps: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
-      },
-    },
   },
   required: ['name'],
+  title: 'Create Page Input',
+  type: 'object',
 } as const

@@ -167,11 +167,11 @@ export const createExistingData = async (): Promise<ExistingData> => {
   // logger.info('Existing Fields', fieldsKeyByCompositeKey)
 
   return {
-    tags: tagsKeyByName,
+    api: interfaceTypesKeyByName,
     atoms: atomsKeyByName,
     atomsById: atomsKeyById,
-    api: interfaceTypesKeyByName,
     fields: fieldsKeyByCompositeKey,
+    tags: tagsKeyByName,
     types: typesKeyByName,
     typesById: typesKeyById,
   }

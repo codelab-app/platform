@@ -33,10 +33,10 @@ export const CodeMirrorModal = ({
 
   const { setContainer } = useCodeMirror(
     codeMirrorSetupFactory(editor, {
-      value: internalValue,
-      onChange: setInternalValue,
       height: '100%',
       maxHeight: '100%',
+      onChange: setInternalValue,
+      value: internalValue,
     }),
   )
 

@@ -28,7 +28,6 @@ export interface RootStoreData {
 }
 
 export interface IRootStore {
-  // setUserService(userService: IUserService): void
   userService: IUserService
   appService: IAppService
   pageService: IPageService
@@ -39,7 +38,6 @@ export interface IRootStore {
   adminService: IAdminService
   componentService: IComponentService
   actionService: IActionService
-  // propService: IPropService
   storeService: IStoreService
   appRenderService: IRenderService
   builderRenderService: IRenderService

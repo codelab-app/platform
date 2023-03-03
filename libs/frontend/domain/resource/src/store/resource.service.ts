@@ -1,22 +1,17 @@
 import type {
-  ICreateResourceDTO,
+  ICreateResourceData,
   IResource,
   IResourceService,
-  IUpdateResourceDTO,
+  IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
 import { IResourceDTO } from '@codelab/frontend/abstract/core'
+import { getPropService } from '@codelab/frontend/domain/prop'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type {
-  ResourceCreateInput,
-  ResourceWhere,
-} from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
-  createContext,
   Model,
   model,
   modelAction,
@@ -26,19 +21,18 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
+import { ResourceRepository } from './resource.repository'
 import { ResourceModalService } from './resource-modal.service'
 
 @model('@codelab/Resource')
 export class ResourceService
   extends Model({
-    resources: prop(() => objectMap<IResource>()),
-
-    // createModal: prop(() => new CreateResourceModalService({})),
     createModal: prop(() => new ModalService({})),
-    updateModal: prop(() => new ResourceModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
+    resourceRepository: prop(() => new ResourceRepository({})),
+    resources: prop(() => objectMap<IResource>()),
+    updateModal: prop(() => new ResourceModalService({})),
   })
   implements IResourceService
 {
@@ -51,12 +45,24 @@ export class ResourceService
     return this.resources.get(id)
   }
 
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
-    const { resources } = yield* _await(resourceApi.GetResources({ where }))
+    const resources = yield* _await(this.resourceRepository.find(where))
 
-    return resources.map((resource) => this.writeCache(resource))
+    return resources.map((resource) => {
+      /**
+       * attach resource config to mobx tree before calling propRef
+       */
+      this.propService.add(resource.config)
+
+      return this.add(resource)
+    })
   })
 
   @modelFlow
@@ -71,101 +77,75 @@ export class ResourceService
   @transaction
   create = _async(function* (
     this: ResourceService,
-    data: Array<ICreateResourceDTO>,
+    { id, type, name, config: configData, owner }: ICreateResourceData,
   ) {
-    const input: Array<ResourceCreateInput> = data.map((resource) => ({
+    const config = this.propService.add({
+      data: JSON.stringify(configData),
       id: v4(),
-      type: resource.type,
-      name: resource.name,
-      config: {
-        create: {
-          node: {
-            data: JSON.stringify(resource.config),
-          },
-        },
-      },
-      owner: connectOwner(resource.auth0Id),
-    }))
+    })
 
-    const {
-      createResources: { resources },
-    } = yield* _await(
-      resourceApi.CreateResources({
-        input,
-      }),
-    )
+    const resource = this.add({
+      config,
+      id,
+      name,
+      owner,
+      type,
+    })
 
-    return resources.map((resource) => this.writeCache(resource))
+    yield* _await(this.resourceRepository.add(resource))
+
+    return resource
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: ResourceService,
-    entity: IEntity,
-    input: IUpdateResourceDTO,
+    { config: configData, id, name, type }: IUpdateResourceData,
   ) {
-    const { config, name, type } = input
+    const resource = this.resources.get(id)!
+    const config = resource.config.current
 
-    const {
-      updateResources: { resources },
-    } = yield* _await(
-      resourceApi.UpdateResource({
-        update: {
-          name,
-          type,
-          config: {
-            update: { node: { data: JSON.stringify(config) } },
-            where: {},
-          },
-        },
-        where: { id: entity.id },
-      }),
-    )
+    /**
+     * Write cache for inner model config of type Prop
+     */
+    config.writeCache({ data: JSON.stringify(configData) })
+    resource.writeCache({ name, type })
 
-    return resources.map((resource) => this.writeCache(resource))
+    yield* _await(this.resourceRepository.update(resource))
+
+    return resource
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ResourceService, ids: Array<string>) {
-    ids.forEach((id) => this.resources.delete(id))
+  delete = _async(function* (this: ResourceService, id: string) {
+    const resource = this.resources.get(id)!
 
-    const {
-      deleteResources: { nodesDeleted },
-    } = yield* _await(resourceApi.DeleteResources({ where: { id_IN: ids } }))
+    this.resources.delete(id)
 
-    return nodesDeleted
+    yield* _await(this.resourceRepository.delete([id]))
+
+    return resource
   })
 
   @modelAction
   load(resources: Array<IResourceDTO>) {
-    resources.forEach((resource) => this.writeCache(resource))
+    resources.forEach((resource) => this.add(resource))
   }
 
   @modelAction
-  writeCache(resource: IResourceDTO) {
-    let resourceModel = this.resource(resource.id)
+  add({ id, name, config, type, owner }: IResourceDTO) {
+    const resource = Resource.create({
+      config,
+      id,
+      name,
+      owner,
+      type,
+    })
 
-    if (resourceModel) {
-      resourceModel.writeCache(resource)
-    } else {
-      resourceModel = Resource.hydrate(resource)
-      this.resources.set(resourceModel.id, resourceModel)
-    }
+    this.resources.set(resource.id, resource)
 
-    return resourceModel
+    return resource
   }
-}
-
-export const resourceServiceContext = createContext<IResourceService>()
-
-export const getResourceService = (self: object) => {
-  const resourceService = resourceServiceContext.get(self)
-
-  if (!resourceService) {
-    throw new Error('ResourceService context is not defined')
-  }
-
-  return resourceService
 }

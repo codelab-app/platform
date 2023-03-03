@@ -8,8 +8,8 @@ import { typeServiceContext } from '../type.service.context'
 
 @model('@codelab/TestRootStore')
 export class TestRootStore extends Model({
-  typeService: prop<ITypeService>(),
   fieldService: prop<IFieldService>(),
+  typeService: prop<ITypeService>(),
 }) {
   protected override onInit(): void {
     typeServiceContext.set(this, this.typeService)

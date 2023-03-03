@@ -35,26 +35,25 @@ export const FieldsTable = observer<FieldsTableProps>(
   ({ interfaceType, fieldService, isLoading, hideActions, typeService }) => {
     const columns: Array<ColumnProps<IFieldRecord>> = [
       {
-        title: 'Field Name',
         dataIndex: 'name',
         key: 'name',
         onHeaderCell: headerCellProps,
+        title: 'Field Name',
       },
       {
-        title: 'Key',
         dataIndex: 'key',
         key: 'key',
         onHeaderCell: headerCellProps,
+        title: 'Key',
       },
       {
-        title: 'Description',
         dataIndex: 'description',
         key: 'description',
         onHeaderCell: headerCellProps,
+        title: 'Description',
       },
       Table.EXPAND_COLUMN,
       {
-        title: 'Type',
         dataIndex: 'type',
         key: 'type',
         onHeaderCell: headerCellProps,
@@ -66,16 +65,16 @@ export const FieldsTable = observer<FieldsTableProps>(
             />
           </Space>
         ),
+        title: 'Type',
       },
       {
-        title: 'Kind',
         dataIndex: 'type',
         key: 'type',
         onHeaderCell: headerCellProps,
         render: (type: IAnyType) => <Space>{type.kind}</Space>,
+        title: 'Kind',
       },
       {
-        title: 'Validation',
         dataIndex: 'ruleName',
         key: 'ruleName',
         onHeaderCell: headerCellProps,
@@ -100,9 +99,9 @@ export const FieldsTable = observer<FieldsTableProps>(
               </Tag>
             )
           }),
+        title: 'Validation',
       },
       {
-        title: 'Default',
         dataIndex: 'defaultValues',
         key: 'defaultValues',
         onHeaderCell: headerCellProps,
@@ -117,12 +116,11 @@ export const FieldsTable = observer<FieldsTableProps>(
 
           return showValue ? <div>{String(field?.defaultValues)}</div> : ''
         },
+        title: 'Default',
       },
       {
-        title: 'Action',
         key: 'action',
         onHeaderCell: headerCellProps,
-        width: 100,
         render: (text, record) => (
           <Observer>
             {() => (
@@ -147,23 +145,25 @@ export const FieldsTable = observer<FieldsTableProps>(
             )}
           </Observer>
         ),
+        title: 'Action',
+        width: 100,
       },
     ]
 
     const dataSource: Array<IFieldRecord> = interfaceType.fields.map(
       (field) => {
         return {
+          dependentTypes: [],
+          description: field.description || '',
           id: field.id,
-          name: field.name || '',
           key: field.key,
+          name: field.name || '',
           type: {
             id: field.type.maybeCurrent?.id ?? '',
-            name: field.type.maybeCurrent?.name ?? '',
             kind: field.type.maybeCurrent?.kind ?? '',
+            name: field.type.maybeCurrent?.name ?? '',
           },
-          description: field.description || '',
           validationRules: getValidationRuleTagsArray(field.validationRules),
-          dependentTypes: [],
         }
       },
     )
@@ -177,7 +177,6 @@ export const FieldsTable = observer<FieldsTableProps>(
         }
         dataSource={dataSource}
         expandable={{
-          indentSize: 0,
           expandedRowRender: (record) => {
             return record.type ? (
               <TypeDetailsTable
@@ -187,6 +186,7 @@ export const FieldsTable = observer<FieldsTableProps>(
               />
             ) : null
           },
+          indentSize: 0,
         }}
         loading={isLoading}
         pagination={{ disabled: false, hideOnSinglePage: true, pageSize: 25 }}

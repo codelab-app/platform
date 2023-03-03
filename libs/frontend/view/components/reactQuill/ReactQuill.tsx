@@ -9,7 +9,7 @@ export const ReactQuill = dynamic(
     return RQ
   },
   {
-    ssr: false,
     loading: () => <Spin />,
+    ssr: false,
   },
 )

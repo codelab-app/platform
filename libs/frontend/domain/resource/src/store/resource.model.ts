@@ -1,10 +1,17 @@
 import type {
+  IAuth0Owner,
+  IProp,
   IResource,
-  IResourceConfig,
+  IResourceDTO,
 } from '@codelab/frontend/abstract/core'
-import { IResourceDTO } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { propRef } from '@codelab/frontend/domain/prop'
+import type {
+  ResourceCreateInput,
+  ResourceUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { IResourceType } from '@codelab/shared/abstract/core'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -15,34 +22,57 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const hydrate = (resource: IResourceDTO) =>
+const create = ({ id, name, type, config, owner }: IResourceDTO) =>
   new Resource({
-    id: resource.id,
-    name: resource.name,
-    type: resource.type,
-    config: Prop.hydrate(resource.config) as IResourceConfig,
-    ownerId: resource.owner.id,
+    config: propRef(config.id),
+    id,
+    name,
+    owner,
+    type,
   })
 
 @model('@codelab/Resource')
 export class Resource
   extends Model(() => ({
+    config: prop<Ref<IProp>>(),
     id: idProp,
     name: prop<string>(),
-    config: prop<IResourceConfig>(),
+    owner: prop<IAuth0Owner>(),
     type: prop<IResourceType>(),
-    ownerId: prop<string>(),
   }))
   implements IResource
 {
-  static hydrate = hydrate
+  static create = create
+
+  toCreateInput(): ResourceCreateInput {
+    return {
+      config: {
+        create: {
+          node: this.config.current.toCreateInput(),
+        },
+      },
+      id: this.id,
+      name: this.name,
+      owner: connectAuth0Owner(this.owner),
+      type: this.type,
+    }
+  }
+
+  toUpdateInput(): ResourceUpdateInput {
+    return {
+      config: {
+        update: { node: this.config.current.toCreateInput() },
+      },
+      name: this.name,
+      type: this.type,
+    }
+  }
 
   @modelAction
-  writeCache(data: IResourceDTO) {
-    this.name = data.name
-    this.config.writeCache(data.config)
-    this.type = data.type
-    this.id = data.id
+  writeCache({ name, config, type }: Partial<IResourceDTO>) {
+    this.name = name ?? this.name
+    this.type = type ?? this.type
+    this.config = config?.id ? propRef(config.id) : this.config
 
     return this
   }

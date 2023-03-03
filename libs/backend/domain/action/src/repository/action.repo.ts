@@ -41,8 +41,8 @@ export const importActions = async (
       code: action.code,
       id: action.id,
       name: action.name,
-      type: action.type,
       store: connectNodeId(storeId),
+      type: action.type,
     })),
   })
 
@@ -50,20 +50,20 @@ export const importActions = async (
 
   await ApiAction.create({
     input: apiActions.map((action) => ({
-      resource: connectNodeId(action.resource.id),
-      id: action.id,
-      name: action.name,
-      type: action.type,
-      successAction: {
-        ApiAction: connectNodeId(action.successAction?.id),
-        CodeAction: connectNodeId(action.successAction?.id),
-      },
+      config: { create: { node: { data: action.config.data } } },
       errorAction: {
         ApiAction: connectNodeId(action.errorAction?.id),
         CodeAction: connectNodeId(action.errorAction?.id),
       },
-      config: { create: { node: { data: action.config.data } } },
+      id: action.id,
+      name: action.name,
+      resource: connectNodeId(action.resource.id),
       store: connectNodeId(storeId),
+      successAction: {
+        ApiAction: connectNodeId(action.successAction?.id),
+        CodeAction: connectNodeId(action.successAction?.id),
+      },
+      type: action.type,
     })),
   })
 
@@ -71,7 +71,6 @@ export const importActions = async (
 
   for (const action of apiActions) {
     await ApiAction.update({
-      where: { id: action.id },
       update: {
         errorAction: {
           ApiAction: connectNodeId(action.errorAction?.id),
@@ -80,6 +79,7 @@ export const importActions = async (
           ApiAction: connectNodeId(action.successAction?.id),
         },
       },
+      where: { id: action.id },
     })
   }
 }
@@ -91,13 +91,13 @@ export const exportActions = async (
   const ApiAction = await Repository.instance.ApiAction
 
   const codeActions = await CodeAction.find({
-    where: { store: { id: storeId } },
     selectionSet: codeActionSelectionSet,
+    where: { store: { id: storeId } },
   })
 
   const apiActions = await ApiAction.find({
-    where: { store: { id: storeId } },
     selectionSet: exportApiActionSelectionSet,
+    where: { store: { id: storeId } },
   })
 
   return [...codeActions, ...apiActions]

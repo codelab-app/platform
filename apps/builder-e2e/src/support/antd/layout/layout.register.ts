@@ -7,7 +7,7 @@ export interface AntLayoutCommands {
 
 export const antLayoutCommands: Array<CypressCommand> = [
   {
-    name: 'getSider',
     fn: getSider,
+    name: 'getSider',
   },
 ]

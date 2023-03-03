@@ -1,7 +1,7 @@
 import type { IPropData } from '@codelab/frontend/abstract/core'
 import mergeWith from 'lodash/mergeWith'
 
-type PropsArray = Array<IPropData | undefined | null>
+type PropsArray = Array<IPropData | null | undefined>
 
 const propsCustomizer = (value: string, srcValue: string, key: string) => {
   if (key === 'className') {
@@ -18,8 +18,10 @@ const propsCustomizer = (value: string, srcValue: string, key: string) => {
  * - Merging className strings together
  */
 
-export const mergeProps = (...propsArray: PropsArray): IPropData => {
-  return propsArray.reduce<IPropData>((mergedProps = {}, nextProps = {}) => {
+export const mergeProps = <TData extends IPropData = IPropData>(
+  ...propsArray: PropsArray
+): TData => {
+  return propsArray.reduce<TData>((mergedProps, nextProps) => {
     return mergeWith(mergedProps, nextProps, propsCustomizer)
-  }, {})
+  }, {} as TData)
 }

@@ -1,5 +1,8 @@
 import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
-import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  isComponentModel,
+} from '@codelab/frontend/abstract/core'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -12,6 +15,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
+import { getRenderTypeApi } from '../../../store'
+import { isAtomModel } from "@codelab/frontend/domain/atom";
 
 export interface UpdateElementPropsFormProps {
   element: IElement
@@ -40,10 +45,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element, trackPromises }) => {
     const { typeService, elementService } = useStore()
     const { trackPromise } = trackPromises ?? {}
-
-    const apiId =
-      element.atom?.current.api.id ||
-      element.renderComponentType?.current.api.id
+    const apiId = element.renderType?.current.api.id
 
     const { value: interfaceType, loading } = useAsync(
       () => typeService.getInterfaceAndDescendants(apiId!),
@@ -67,17 +69,20 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
-    const allowCustomText =
-      element.atom?.current.allowCustomTextInjection &&
+    const allowCustomInnerHtml =
+      isAtomModel(element.renderType) &&
+      element.renderType.current.allowCustomTextInjection &&
       element.children.length === 0
 
-    const initialSchema = allowCustomText ? withCustomTextSchema : {}
+    const initialSchema = allowCustomInnerHtml ? withCustomTextSchema : {}
 
     // If element is a component type, we also show the component props
     // but should prioritize the element props
     const propsModel = mergeProps(
-      element.renderComponentType?.maybeCurrent?.props?.values,
-      element.props?.values,
+      isComponentModel(element.renderType)
+        ? element.renderType.maybeCurrent?.props?.current.values
+        : {},
+      element.props?.current.values,
     )
 
     return (

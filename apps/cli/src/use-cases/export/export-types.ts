@@ -18,10 +18,10 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   const PrimitiveType = await Repository.instance.PrimitiveType
 
   const primitiveTypes = await PrimitiveType.find({
-    selectionSet: exportPrimitiveTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: exportPrimitiveTypeSelectionSet,
   })
 
   /**
@@ -31,10 +31,10 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
 
   // Only 1 here
   const reactNodeTypes = await ReactNodeType.find({
-    selectionSet: exportReactNodeTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: exportReactNodeTypeSelectionSet,
   })
 
   /**
@@ -44,10 +44,10 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
 
   // Only 1 here
   const renderPropsTypes = await RenderPropsType.find({
-    selectionSet: exportRenderPropsTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: exportRenderPropsTypeSelectionSet,
   })
 
   /**
@@ -56,10 +56,10 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   const ActionType = await Repository.instance.ActionType
 
   const actionTypes = await ActionType.find({
-    selectionSet: exportActionTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: exportActionTypeSelectionSet,
   })
 
   /**
@@ -69,10 +69,10 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
 
   const enumTypes = (
     await EnumType.find({
-      selectionSet: exportEnumTypeSelectionSet,
       options: {
         sort: [{ name: OGM_TYPES.SortDirection.Asc }],
       },
+      selectionSet: exportEnumTypeSelectionSet,
     })
   ).map((type) => ({
     ...type,
@@ -89,15 +89,15 @@ export const exportTypes = async (): Promise<Array<ITypeExport>> => {
   const InterfaceType = await Repository.instance.InterfaceType
 
   const interfaceTypes = await InterfaceType.find({
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
+    selectionSet: exportInterfaceTypeSelectionSet,
     where: {
       apiOfAtomsAggregate: {
         count_GTE: 0,
       },
     },
-    options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
-    },
-    selectionSet: exportInterfaceTypeSelectionSet,
   })
 
   /**

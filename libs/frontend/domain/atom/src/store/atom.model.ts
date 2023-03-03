@@ -1,44 +1,37 @@
-import type { IAtom, ITag } from '@codelab/frontend/abstract/core'
-import { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAtom,
+  IAtomDTO,
+  IAuth0Owner,
+  IInterfaceType,
+  ITag,
+} from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
+import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAtomType } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  connectAuth0Owner,
+  connectNodeIds,
+} from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { v4 } from 'uuid'
+import { atomRef } from './atom.model.ref'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
-
-const hydrate = (atom: IAtomDTO) => {
-  return new Atom({
-    id: atom.id,
-    icon: atom.icon,
-    name: atom.name,
-    type: atom.type,
-    api: typeRef(atom.api.id) as Ref<InterfaceType>,
-    tags: atom.tags.map((tag) => tagRef(tag.id)),
-    allowedChildren: atom.allowedChildren,
-  })
-}
 
 @model('@codelab/Atom')
 export class Atom
   extends Model({
+    allowedChildren: prop<Array<Ref<IAtom>>>(() => []),
+    api: prop<Ref<IInterfaceType>>(),
+    icon: prop<string | null | undefined>(),
     id: idProp,
     name: prop<string>(),
-    icon: prop<string | null | undefined>(),
-    type: prop<IAtomType>(),
+    owner: prop<IAuth0Owner>(),
     tags: prop<Array<Ref<ITag>>>(() => []),
-    api: prop<Ref<InterfaceType>>(),
-    allowedChildren: prop<Array<Pick<IAtomDTO, 'id' | 'name'>>>(() => []),
+    type: prop<IAtomType>(),
   })
   implements IAtom
 {
@@ -51,25 +44,85 @@ export class Atom
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  static hydrate = hydrate
+  // static hydrate = hydrate
+  static create({
+    id,
+    icon,
+    name,
+    type,
+    owner,
+    api,
+    tags,
+    allowedChildren,
+  }: IAtomDTO) {
+    return new Atom({
+      allowedChildren: allowedChildren?.map((child) => atomRef(child.id)),
+      api: typeRef<IInterfaceType>(api.id),
+      icon,
+      id,
+      name,
+      owner,
+      tags: tags?.map((tag) => tagRef(tag.id)),
+      type,
+    })
+  }
 
   @modelAction
-  writeCache(atom: IAtomDTO) {
-    this.name = atom.name
-    this.type = atom.type
-    this.api = typeRef(atom.api.id) as Ref<InterfaceType>
-    this.tags = atom.tags.map((tag) => tagRef(tag.id))
-    this.icon = atom.icon
-    this.allowedChildren = atom.allowedChildren
+  writeCache({
+    id,
+    name,
+    type,
+    icon,
+    tags = [],
+    api,
+    allowedChildren = [],
+  }: Partial<IAtomDTO>) {
+    this.name = name ?? this.name
+    this.type = type ?? this.type
+    this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
+    this.tags = tags.map((tag) => tagRef(tag.id))
+    this.icon = icon ?? this.icon
+    this.allowedChildren = allowedChildren.map((child) => atomRef(child.id))
 
     return this
   }
-}
 
-export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {
-  onResolvedValueChange: (ref, newAtom, oldAtom) => {
-    if (oldAtom && !newAtom) {
-      detach(ref)
+  @modelAction
+  toCreateInput(): AtomCreateInput {
+    // const connectOrCreateApi = (
+    //   atom: Pick<ICreateAtomData, 'api' | 'name' | 'owner'>,
+    // ) =>
+    //   atom.api
+    //     ? connectNodeId(atom.api)
+    //     : {
+    //         create: {
+    //           node: InterfaceType.createApiNode({
+    //             name: atom.name,
+    //             owner: atom.owner,
+    //           }),
+    //         },
+    //       }
+
+    return {
+      // api: connectOrCreateApi({ api, name, owner }),
+      api: {
+        create: {
+          node: {
+            id: v4(),
+            kind: ITypeKind.InterfaceType,
+            name: `${this.name}  API`,
+            owner: connectAuth0Owner(this.owner),
+          },
+        },
+      },
+
+      id: this.id,
+
+      name: this.name,
+
+      tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
+
+      type: this.type,
     }
-  },
-})
+  }
+}

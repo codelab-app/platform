@@ -1,6 +1,6 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
-import { setupTestForRenderer } from './setup/setupTest'
+import { setupTestForRenderer } from './setup/setup-test'
 
 describe('ConditionalRenderPipe', () => {
   const data = setupTestForRenderer([ConditionalRenderPipe])
@@ -18,8 +18,8 @@ describe('ConditionalRenderPipe', () => {
     )
 
     expect(output).toEqual({
-      element: data.elementToRender,
       atomType: data.elementToRender.atom?.current.type,
+      element: data.elementToRender,
       props: expect.objectContaining({
         [DATA_ELEMENT_ID]: data.elementToRender.id,
       }),
@@ -52,8 +52,8 @@ describe('ConditionalRenderPipe', () => {
     )
 
     expect(output).toEqual({
-      element: data.elementToRender,
       atomType: data.elementToRender.atom?.current.type,
+      element: data.elementToRender,
       props: expect.objectContaining({
         [DATA_ELEMENT_ID]: data.elementToRender.id,
       }),

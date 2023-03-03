@@ -5,17 +5,17 @@ export interface DeleteTagsData {
 }
 
 export const deleteTagsSchema: JSONSchemaType<DeleteTagsData> = {
-  title: 'Delete Tag Input',
-  type: 'object',
   properties: {
     ids: {
-      type: 'array',
+      autoFocus: true,
+      disabled: true,
       items: {
         type: 'string',
       },
-      disabled: true,
-      autoFocus: true,
+      type: 'array',
     },
   },
   required: ['ids'],
+  title: 'Delete Tag Input',
+  type: 'object',
 }

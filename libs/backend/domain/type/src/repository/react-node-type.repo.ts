@@ -1,13 +1,13 @@
 import type { IReactNodeType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportReactNodeTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
-export class ReactNodeTypeRepository extends IRepository<IReactNodeType> {
+export class ReactNodeTypeRepository extends AbstractRepository<IReactNodeType> {
   private ReactNodeType = Repository.instance.ReactNodeType
 
   async find(where: BaseTypeUniqueWhere) {
@@ -15,8 +15,8 @@ export class ReactNodeTypeRepository extends IRepository<IReactNodeType> {
       await (
         await this.ReactNodeType
       ).find({
-        where,
         selectionSet: exportReactNodeTypeSelectionSet,
+        where,
       })
     )[0]
   }
@@ -29,7 +29,7 @@ export class ReactNodeTypeRepository extends IRepository<IReactNodeType> {
         input: reactNodeTypes.map(
           ({ __typename, owner, ...reactNodeType }) => ({
             ...reactNodeType,
-            owner: connectOwner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
           }),
         ),
       })

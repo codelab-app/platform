@@ -17,23 +17,23 @@ export interface AntTreeCommands {
 
 export const antTreeCommands: Array<CypressCommand> = [
   {
-    name: 'getTreeNodes',
     fn: getTreeNodes,
+    name: 'getTreeNodes',
   },
   {
-    name: 'toggleTreeNodeChk',
     fn: toggleTreeNodeChk,
+    name: 'toggleTreeNodeChk',
   },
   {
-    name: 'getTreeNode',
     fn: getTreeNode,
+    name: 'getTreeNode',
   },
   {
-    name: 'toggleTreeNodeSwitcher',
     fn: toggleTreeNodeSwitcher,
+    name: 'toggleTreeNodeSwitcher',
   },
   {
-    name: 'getTree',
     fn: getTree,
+    name: 'getTree',
   },
 ]

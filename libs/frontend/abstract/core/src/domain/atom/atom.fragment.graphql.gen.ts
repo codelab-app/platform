@@ -4,6 +4,7 @@ import {
   TagFragment,
   TagPreviewFragment,
 } from '../tag/tag.fragment.graphql.gen'
+import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -11,13 +12,15 @@ import {
   TagFragmentDoc,
   TagPreviewFragmentDoc,
 } from '../tag/tag.fragment.graphql.gen'
+import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 export type AtomFragment = {
   icon?: string | null
   id: string
   name: string
   type: Types.AtomType
+  owner: { auth0Id: string }
   tags: Array<TagFragment>
-  api: { id: string; name: string }
+  api: InterfaceTypeFragment
   allowedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
@@ -37,12 +40,14 @@ export const AtomFragmentDoc = gql`
     id
     name
     type
+    owner {
+      auth0Id
+    }
     tags {
       ...Tag
     }
     api {
-      id
-      name
+      ...InterfaceType
     }
     allowedChildren {
       id
@@ -51,6 +56,7 @@ export const AtomFragmentDoc = gql`
     }
   }
   ${TagFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
 `
 export const RenderAtomFragmentDoc = gql`
   fragment RenderAtom on Atom {

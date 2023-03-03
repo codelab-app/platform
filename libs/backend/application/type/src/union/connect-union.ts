@@ -50,8 +50,9 @@ export const connectUnionType: FieldTypeRef = async ({
       input: [
         {
           id: v4(),
-          name: unionName,
           kind: ITypeKind.UnionType,
+          name: unionName,
+          owner: connectNode(userId),
           typesOfUnionType: {
             PrimitiveType: {
               // connect to Primitive Type
@@ -64,7 +65,6 @@ export const connectUnionType: FieldTypeRef = async ({
               })),
             },
           },
-          owner: connectNode(userId),
         },
       ],
     })

@@ -3,10 +3,10 @@ import type {
   IUserDTO,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { App, getAppService } from '@codelab/frontend/domain/app'
-import { getPageService, Page } from '@codelab/frontend/domain/page'
+import { getAppService } from '@codelab/frontend/domain/app'
+import { getPageService } from '@codelab/frontend/domain/page'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -16,6 +16,7 @@ import {
   modelFlow,
   objectMap,
   prop,
+  transaction,
 } from 'mobx-keystone'
 import { userApi } from './user.api'
 import { User } from './user.model'
@@ -26,11 +27,33 @@ const init = (data?: IUserDTO) => {
     return new UserService({})
   }
 
-  const user = User.hydrate(data)
+  const user = User.create(data)
 
-  return new UserService({
+  const userService = new UserService({
     user,
   })
+
+  // onChildAttachedTo(
+  //   () => userService,
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   (child: any) => {
+  //     /**
+  //      * Once the user model is attached, we want to replace the id with the db id.
+  //      *
+  //      * User.id is initially set with auth0Id, so needs to be replaced
+  //      */
+  //     if (modelTypeKey in child && child[modelTypeKey] === '@codelab/User') {
+  //       void userService.getOne({ auth0Id: user.auth0Id }).then((userData) => {
+  //         if (userData) {
+  //           console.log('set user data id')
+  //           userService.user?.setId(userData.id)
+  //         }
+  //       })
+  //     }
+  //   },
+  // )
+
+  return userService
 }
 
 @model('@codelab/UserService')
@@ -61,23 +84,13 @@ export class UserService
   }
 
   @modelFlow
-  loadUsers = _async(function* (this: UserService) {
-    const { users } = yield* _await(userApi.GetUsers())
+  @transaction
+  getOne = _async(function* (this: UserService, where: UserWhere) {
+    const {
+      users: [user],
+    } = yield* _await(userApi.GetUsers({ where }))
 
-    users.forEach((user) => {
-      user.apps.forEach((app) => {
-        this.appService.apps.set(app.id, App.hydrate(app))
-
-        app.pages.forEach((page) => {
-          this.pageService.pages.set(page.id, Page.hydrate(page))
-        })
-      })
-
-      // TODO: temporarily cast user.roles to role[], because types generated in api is string[] because using roles[] makes the insertUser broken
-      this.users.set(user.id, User.hydrate(user as IUserDTO))
-    })
-
-    return
+    return user
   })
 
   static init = init

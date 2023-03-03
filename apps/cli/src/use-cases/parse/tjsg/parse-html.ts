@@ -3,9 +3,9 @@ import { createGenerator } from 'ts-json-schema-generator'
 
 export const config: Config = {
   path: 'apps/cli/src/use-cases/parse/html.interface.ts',
-  tsconfig: 'apps/cli/tsconfig.vega.json',
-  topRef: false,
   skipTypeCheck: true,
+  topRef: false,
+  tsconfig: 'apps/cli/tsconfig.vega.json',
   // 'all' | 'none' | 'export'
   // expose: 'none',
   // Or <type-name> if you want to generate schema for that one type only

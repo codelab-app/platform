@@ -1,8 +1,5 @@
-import type {
-  IReactNodeType,
-  IReactNodeTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { IReactNodeType } from '@codelab/frontend/abstract/core'
+import { IReactNodeTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -20,7 +17,7 @@ const hydrate = ({
     id,
     kind,
     name,
-    ownerId: owner.id,
+    owner,
   })
 }
 
@@ -30,8 +27,15 @@ export class ReactNodeType
   implements IReactNodeType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
+
+    return this
+  }
+
+  @modelAction
+  writeCache(reactNodeTypeDTO: IReactNodeTypeDTO) {
+    updateBaseTypeCache(this, reactNodeTypeDTO)
 
     return this
   }

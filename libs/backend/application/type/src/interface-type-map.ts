@@ -21,11 +21,11 @@ export const upsertInterfaceFieldType: FieldTypeRef = async ({
 
   const interfaceType = await upsertType(
     {
-      id: v4(),
       __typename: ITypeKind.InterfaceType,
+      fields: [],
+      id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${atom.name} ${compoundCaseToTitleCase(field.property)} API`,
-      fields: [],
     },
     userId,
     (type) => ({ name: type.name }),
@@ -40,8 +40,8 @@ export const upsertInterfaceFieldType: FieldTypeRef = async ({
   for await (const [key, value] of fields) {
     const existingType = await upsertFieldType(
       {
-        type: value,
         property: key,
+        type: value,
       },
       atom,
       userId,
@@ -53,12 +53,12 @@ export const upsertInterfaceFieldType: FieldTypeRef = async ({
 
     await fieldRepository.upsertField(
       {
+        fieldTypeId: existingType.existingId,
         input: {
           id: v4(),
           key,
         },
         interfaceTypeId: interfaceType.id,
-        fieldTypeId: existingType.existingId,
       },
       () => ({
         AND: [

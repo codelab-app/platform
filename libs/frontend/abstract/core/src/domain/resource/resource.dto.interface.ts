@@ -1,14 +1,22 @@
 import type { IResourceType } from '@codelab/shared/abstract/core'
-import type { IGraphQLResourceConfig } from './graphql-resource-config.interface'
-import type { ResourceFragment } from './resource.fragment.graphql.gen'
-import type { IRestResourceConfig } from './rest-resource-config.interface'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IOwnerSchema } from '../user'
 
-export interface ICreateResourceDTO {
-  name: string
-  type: IResourceType
-  config: IGraphQLResourceConfig | IRestResourceConfig
-  auth0Id: string
+export interface IBaseResourceConfigData {
+  url: string
+  headers: string
 }
 
-export type IUpdateResourceDTO = ICreateResourceDTO
-export type IResourceDTO = ResourceFragment
+export interface IResourceDTO extends IOwnerSchema {
+  id: string
+  name: string
+  type: IResourceType
+  // ref to prop of IResourceConfigData
+  config: IEntity
+}
+
+export type ICreateResourceData = Omit<IResourceDTO, 'config'> & {
+  config: IBaseResourceConfigData
+}
+
+export type IUpdateResourceData = ICreateResourceData

@@ -4,8 +4,6 @@ import { Stage } from '../../shared/utils/stage'
 import { execCommand } from '../tasks/tasks.command'
 
 export const terraformCommand: CommandModule<unknown, unknown> = {
-  command: 'terraform',
-  describe: 'Terraform commands',
   builder: (yargv) =>
     yargv
       .options({
@@ -66,6 +64,8 @@ export const terraformCommand: CommandModule<unknown, unknown> = {
         },
       )
       .demandCommand(1, 'Please provide a task'),
+  command: 'terraform',
+  describe: 'Terraform commands',
   handler: () => {
     //
   },

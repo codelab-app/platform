@@ -21,7 +21,7 @@ export const DeleteDomainModal = observer<{
       return Promise.reject('Domain ID not defined in DeleteDomainModal')
     }
 
-    return domainService.delete([domain.id])
+    return domainService.delete(domain.id)
   }
 
   const onSubmitError = createNotificationHandler({
@@ -33,8 +33,8 @@ export const DeleteDomainModal = observer<{
   }
 
   const model = {
-    id: domainService.deleteModal.domain.id,
     auth0Id: userService.user?.auth0Id,
+    id: domainService.deleteModal.domain.id,
   }
 
   return (

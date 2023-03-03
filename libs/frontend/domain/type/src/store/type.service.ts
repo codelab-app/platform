@@ -1,11 +1,14 @@
 import type {
-  ICreateTypeDTO,
   IInterfaceType,
   IInterfaceTypeRef,
   ITypeService,
-  IUpdateTypeDTO,
+  IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
-import { IAnyType, ITypeDTO } from '@codelab/frontend/abstract/core'
+import {
+  IAnyType,
+  ICreateTypeData,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   BaseTypeWhere,
@@ -39,24 +42,28 @@ import {
 } from './apis/type.api'
 import { baseTypesFactory } from './base-types.factory'
 import { getFieldService } from './field.service.context'
+import { InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
 @model('@codelab/TypeService')
 export class TypeService
   extends Model({
+    count: prop(() => 0),
+
+    createModal: prop(() => new ModalService({})),
+
+    deleteModal: prop(() => new TypeModalService({})),
+
     id: idProp,
+
+    selectedIds: prop(() => arraySet<string>()).withSetter(),
     /**
      * This holds all types
      */
     types: prop(() => objectMap<IAnyType>()),
-    count: prop(() => 0),
 
-    createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new TypeModalService({})),
-    deleteModal: prop(() => new TypeModalService({})),
-
-    selectedIds: prop(() => arraySet<string>()).withSetter(),
   })
   implements ITypeService
 {
@@ -74,8 +81,8 @@ export class TypeService
     } = yield* _await(
       getTypeApi.GetBaseTypes({
         options: {
-          offset,
           limit,
+          offset,
           where,
         },
       }),
@@ -104,6 +111,31 @@ export class TypeService
     return [...this.types.values()].sort((typeA, typeB) =>
       typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
     )
+  }
+
+  // @modelAction
+  // create(data: ICreateTypeDTO) {
+  //   const interfaceType = new InterfaceType({
+  //     name: data.name,
+  //     owner: data.owner,
+  //   })
+
+  //   this.types.set(interfaceType.id, interfaceType)
+
+  //   return interfaceType
+  // }
+
+  @modelAction
+  addInterface(data: ICreateTypeData) {
+    const interfaceType = new InterfaceType({
+      id: data.id,
+      name: data.name,
+      owner: data.owner,
+    })
+
+    this.types.set(interfaceType.id, interfaceType)
+
+    return interfaceType
   }
 
   @modelAction
@@ -155,25 +187,19 @@ export class TypeService
   }
 
   @modelAction
-  writeCache(fragment: ITypeDTO) {
-    let typeModel = this.types.get(fragment.id)
+  add(typeDTO: ITypeDTO) {
+    const type = typeFactory(typeDTO)
+    this.types.set(type.id, type)
 
-    if (typeModel) {
-      typeModel.writeCache(fragment)
-    } else {
-      typeModel = typeFactory(fragment)
-      this.types.set(fragment.id, typeModel)
-
-      // Write cache to the fields
-      if (
-        typeModel.kind === ITypeKind.InterfaceType &&
-        fragment.__typename === 'InterfaceType'
-      ) {
-        typeModel.writeFieldCache(fragment.fields)
-      }
+    // Write cache to the fields
+    if (
+      type.kind === ITypeKind.InterfaceType &&
+      typeDTO.__typename === 'InterfaceType'
+    ) {
+      type.writeFieldCache(typeDTO.fields)
     }
 
-    return typeModel
+    return type
   }
 
   @modelAction
@@ -194,19 +220,15 @@ export class TypeService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: TypeService,
-    entity: IAnyType,
-    data: IUpdateTypeDTO,
-  ) {
+  update = _async(function* (this: TypeService, typeDTO: IUpdateTypeData) {
     const args = {
-      where: { id: entity.id },
-      ...updateTypeInputFactory(data),
+      where: { id: typeDTO.id },
+      ...updateTypeInputFactory(typeDTO),
     }
 
-    const updatedTypes = yield* _await(updateTypeApi[entity.kind](args))
+    const updatedType = (yield* _await(updateTypeApi[typeDTO.kind](args)))[0]
 
-    return updatedTypes.map((type) => this.writeCache(type))
+    return this.add(updatedType!)
   })
 
   @modelFlow
@@ -218,7 +240,7 @@ export class TypeService
     return (
       types
         .map((type) => {
-          return this.writeCache(type)
+          return this.add(type)
         })
         // Sort the most recently fetched types
         .sort((typeA, typeB) =>
@@ -306,7 +328,7 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: Array<ICreateTypeDTO>) {
+  create = _async(function* (this: TypeService, data: Array<ICreateTypeData>) {
     const input = createTypeFactory(data)
 
     const types: Array<ITypeDTO> = yield* _await(
@@ -321,7 +343,7 @@ export class TypeService
       ).then((res) => res.flat()),
     )
 
-    return types.map((type) => this.writeCache(type))
+    return types.map((type) => this.add(type))
   })
 
   @modelFlow

@@ -1,15 +1,23 @@
 import type { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
+import {
+  builderServiceContext,
+  elementServiceContext,
+} from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AppService, appServiceContext } from '@codelab/frontend/domain/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
-import { ComponentService } from '@codelab/frontend/domain/component'
+import {
+  ComponentService,
+  componentServiceContext,
+} from '@codelab/frontend/domain/component'
 import {
   DomainService,
   domainServiceContext,
 } from '@codelab/frontend/domain/domain'
 import { ElementService } from '@codelab/frontend/domain/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
+import { PropService, propServiceContext } from '@codelab/frontend/domain/prop'
 import { RenderService } from '@codelab/frontend/domain/renderer'
 import {
   ResourceService,
@@ -29,35 +37,31 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/domain/type'
 import { UserService, userServiceContext } from '@codelab/frontend/domain/user'
-import {
-  builderServiceContext,
-  componentServiceContext,
-  elementServiceContext,
-} from '@codelab/frontend/presenter/container'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ user }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore extends Model({
-    userService: prop(() => UserService.init(user)),
-    appService: prop(() => new AppService({})),
-    pageService: prop(() => new PageService({})),
-    typeService: prop(() => new TypeService({})),
-    atomService: prop(() => new AtomService({})),
-    tagService: prop(() => new TagService({})),
-    adminService: prop(() => new AdminService({})),
-    componentService: prop(() => new ComponentService({})),
-    appRenderService: prop(() => new RenderService({})),
-    builderRenderService: prop(() => new RenderService({})),
     actionService: prop(() => new ActionService({})),
-    storeService: prop(() => new StoreService({})),
-    resourceService: prop(() => new ResourceService({})),
-    elementService: prop(() => new ElementService({})),
+    adminService: prop(() => new AdminService({})),
+    appRenderService: prop(() => new RenderService({})),
+    appService: prop(() => new AppService({})),
+    atomService: prop(() => new AtomService({})),
+    builderRenderService: prop(() => new RenderService({})),
     builderService: prop(() => new BuilderService({})),
+    componentService: prop(() => new ComponentService({})),
     domainService: prop(() => new DomainService({})),
+    elementService: prop(() => new ElementService({})),
     fieldService: prop(() => new FieldService({})),
+    pageService: prop(() => new PageService({})),
+    propService: prop(() => new PropService({})),
+    resourceService: prop(() => new ResourceService({})),
+    storeService: prop(() => new StoreService({})),
+    tagService: prop(() => new TagService({})),
+    typeService: prop(() => new TypeService({})),
+    userService: prop(() => UserService.init(user)),
   }) {
-    protected onInit(): void {
+    protected onInit() {
       appServiceContext.set(this, this.appService)
       domainServiceContext.set(this, this.domainService)
       pageServiceContext.set(this, this.pageService)
@@ -67,6 +71,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       actionServiceContext.set(this, this.actionService)
       storeServiceContext.set(this, this.storeService)
       resourceServiceContext.set(this, this.resourceService)
+      propServiceContext.set(this, this.propService)
       elementServiceContext.set(this, this.elementService)
       builderServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)
@@ -74,10 +79,6 @@ export const createRootStore = ({ user }: RootStoreData) => {
       fieldServiceContext.set(this, this.fieldService)
     }
   }
-
-  // if (!init) {
-  //   return
-  // }
 
   return new RootStore({}) as IRootStore
 }

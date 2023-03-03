@@ -1,3 +1,4 @@
+export * from './action.factory'
 export * from './action.service'
 export * from './apis'
 export * from './models'

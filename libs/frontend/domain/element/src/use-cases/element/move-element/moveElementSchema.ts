@@ -2,19 +2,31 @@ import type { MoveData } from '@codelab/frontend/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const moveElementSchema: JSONSchemaType<MoveData> = {
-  title: 'Update Element Input',
-  type: 'object',
   properties: {
-    parentElementId: {
-      type: 'string',
-      label: 'Parent Element',
-      nullable: true,
+    parentElement: {
+      properties: {
+        id: {
+          label: 'Parent Element',
+          nullable: true,
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
-    prevSiblingId: {
-      type: 'string',
-      nullable: true,
-      label: 'Linked by',
+    prevSibling: {
+      properties: {
+        id: {
+          label: 'Linked by',
+          nullable: true,
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
   },
-  required: [],
+  required: ['parentElement', 'prevSibling'],
+  title: 'Update Element Input',
+  type: 'object',
 } as const

@@ -33,7 +33,7 @@ export const BuilderTreeItemComponentTitle = observer(
             createModal={elementService.createModal}
             elementTreeId={component.elementTree?.id || ''}
             key={0}
-            selectedElementId={selectedNodeId || component.rootElementId}
+            selectedElementId={selectedNodeId || component.rootElement.id}
             type="text"
           />
         </Col>

@@ -3,7 +3,7 @@ import { AtomType } from '@codelab/shared/abstract/codegen'
 /**
  * We create the enum here then import into Neo4j graphql schema so we can get linting
  *
- * @deprecated Don't import this for use, use IAtomType instead
+ *  @deprecated We have to use the copy from codegen, otherwise they don't match up
  */
 export enum __AtomType {
   HookQueryLambda = 'HookQueryLambda',

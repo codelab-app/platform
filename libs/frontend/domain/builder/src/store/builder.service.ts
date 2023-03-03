@@ -32,7 +32,7 @@ import {
 @model('@codelab/BuilderService')
 export class BuilderService
   extends Model({
-    activeTree: prop<RendererTab>(RendererTab.Page).withSetter(),
+    _hoveredNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
 
     /**
      * select a node would add it to expand list
@@ -41,17 +41,17 @@ export class BuilderService
      *   - clear node selection
      */
     _selectedNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
-    _hoveredNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
+    activeTree: prop<RendererTab>(RendererTab.Page).withSetter(),
+    builderContainerWidth: prop<number>(0).withSetter(),
     currentBuilderWidth: prop<BuilderWidth>(
       () => defaultBuilderWidthBreakPoints.desktop,
     ),
+    currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
+    expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
+    expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     selectedBuilderWidth: prop<BuilderWidth>(
       () => defaultBuilderWidthBreakPoints.desktop,
     ),
-    builderContainerWidth: prop<number>(0).withSetter(),
-    currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
-    expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
-    expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
   })
   implements IBuilderService
 {
@@ -242,11 +242,11 @@ export class BuilderService
         width.default < 0
           ? Math.max(width.min, this.builderContainerWidth)
           : width.default,
-      min: width.min,
       max:
         width.max < 0
           ? Math.max(width.min, this.builderContainerWidth)
           : width.max,
+      min: width.min,
     }
   }
 }

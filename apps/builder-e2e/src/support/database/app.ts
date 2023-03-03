@@ -4,10 +4,10 @@ import {
   INTERNAL_SERVER_ERROR_PAGE_NAME,
   NOT_FOUND_PAGE_NAME,
 } from '@codelab/frontend/abstract/core'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import { print } from 'graphql'
 import { CreateAppsDocument } from 'libs/frontend/domain/app/src/graphql/app.endpoints.graphql.gen'
 import { v4 } from 'uuid'
@@ -19,26 +19,26 @@ export const createAppInput = (userId: string): AppCreateInput => {
   return {
     id: appId,
     name: `Test app ${appId}`,
-    owner: connectOwner(userId),
+    owner: connectAuth0Owner(userId),
     pages: {
       create: [
         // create provider page
         {
           node: createPageInput(appId, {
-            name: createUniqueName(APP_PAGE_NAME, appId),
             kind: IPageKind.Provider,
+            name: createUniqueName(APP_PAGE_NAME, appId),
           }),
         },
         {
           node: createPageInput(appId, {
-            name: createUniqueName(NOT_FOUND_PAGE_NAME, appId),
             kind: IPageKind.NotFound,
+            name: createUniqueName(NOT_FOUND_PAGE_NAME, appId),
           }),
         },
         {
           node: createPageInput(appId, {
-            name: createUniqueName(INTERNAL_SERVER_ERROR_PAGE_NAME, appId),
             kind: IPageKind.InternalServerError,
+            name: createUniqueName(INTERNAL_SERVER_ERROR_PAGE_NAME, appId),
           }),
         },
         // create test page
@@ -48,21 +48,21 @@ export const createAppInput = (userId: string): AppCreateInput => {
     store: {
       create: {
         node: {
-          id: v4(),
-          name: `Test Store ${appId}`,
           actions: {},
           api: {
             create: {
               node: {
-                id: v4(),
-                owner: connectOwner(userId),
-                name: `Test Store ${appId} API`,
-                fields: {},
                 apiOfAtoms: {},
+                fields: {},
+                id: v4(),
                 kind: ITypeKind.InterfaceType,
+                name: `Test Store ${appId} API`,
+                owner: connectAuth0Owner(userId),
               },
             },
           },
+          id: v4(),
+          name: `Test Store ${appId}`,
         },
       },
     },

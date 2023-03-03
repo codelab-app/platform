@@ -8,23 +8,13 @@ import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
-  title: 'Create Resource',
-  type: 'object',
+export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
   properties: {
-    name: {
-      autoFocus: true,
-      ...nonEmptyString,
-    },
-    type: {
-      type: 'string',
-      enum: Object.values(IResourceType),
-      showSearch: true,
-    },
+    ...idSchema,
+    ...ownerSchema,
     config: {
-      type: 'object',
+      label: '',
       properties: {
-        url: { type: 'string' },
         headers: {
           type: 'string',
           uniforms: {
@@ -33,15 +23,22 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
             }),
           },
         },
+        url: { type: 'string' },
       },
-      label: '',
       required: ['url'],
+      type: 'object',
     },
-    auth0Id: {
+    name: {
+      autoFocus: true,
+      ...nonEmptyString,
+    },
+    type: {
+      enum: Object.values(IResourceType),
+      showSearch: true,
       type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
     },
   },
   required: ['name', 'type'],
+  title: 'Create Resource',
+  type: 'object',
 } as const

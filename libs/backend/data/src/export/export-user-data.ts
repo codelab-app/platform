@@ -14,8 +14,8 @@ export const exportUserData = async (where: ExportAppWhere) => {
 
   const exportData: Omit<ExportedData, 'atoms' | 'tags'> = {
     apps: appsData,
-    types: typesData,
     resources: resourcesData,
+    types: typesData,
   }
 
   return exportData

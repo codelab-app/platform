@@ -7,27 +7,36 @@ import {
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const updatePageSchema: JSONSchemaType<
-  Omit<IUpdatePageDTO, 'pageContainerElementId'>
-> = {
-  title: 'Update Page Input',
-  type: 'object',
+export type UpdatePageSchema = Omit<IUpdatePageData, 'pageContentContainer'>
+
+export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
   properties: {
-    appId: {
+    ...idSchema,
+    app: {
+      properties: {
+        id: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+      ...showFieldOnDev(),
+      disabled: true,
+      required: ['id'],
+    },
+    getServerSideProps: {
+      nullable: true,
       type: 'string',
+      uniforms: {
+        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
+      },
     },
     name: {
       autoFocus: true,
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    getServerSideProps: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
-      },
-    },
   },
-  required: ['name'],
+  required: ['name', 'app'],
+  title: 'Update Page Input',
+  type: 'object',
 } as const

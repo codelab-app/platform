@@ -1,8 +1,5 @@
-import type {
-  IPrimitiveType,
-  IPrimitiveTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { IPrimitiveType } from '@codelab/frontend/abstract/core'
+import { IPrimitiveTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -22,8 +19,8 @@ const hydrate = ({
     id,
     kind,
     name,
+    owner,
     primitiveKind,
-    ownerId: owner.id,
   })
 }
 
@@ -35,7 +32,7 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.PrimitiveType) {
@@ -47,16 +44,12 @@ export class PrimitiveType
     return this
   }
 
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  //
-  //   if (!input.primitiveKind) {
-  //     throw new Error('PrimitiveType must have a primitiveKind')
-  //   }
-  //
-  //   this.primitiveKind = input.primitiveKind
-  // }
+  @modelAction
+  writeCache(primitiveTypeDTO: IPrimitiveTypeDTO) {
+    updateBaseTypeCache(this, primitiveTypeDTO)
+
+    return this
+  }
 
   public static hydrate = hydrate
 }

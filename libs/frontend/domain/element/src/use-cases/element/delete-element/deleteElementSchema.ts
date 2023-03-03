@@ -1,17 +1,22 @@
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
 
 export interface DeleteElementData {
-  elementId: string
+  element: IEntity
 }
 
 export const deleteElementSchema: JSONSchemaType<DeleteElementData> = {
-  title: 'Delete Element',
-  type: 'object',
   properties: {
-    elementId: {
-      type: 'string',
-      disabled: true,
+    element: {
+      id: {
+        disabled: true,
+        type: 'string',
+      },
+      required: ['id'],
+      type: 'object',
     },
   },
-  required: ['elementId'],
+  required: ['element'],
+  title: 'Delete Element',
+  type: 'object',
 }

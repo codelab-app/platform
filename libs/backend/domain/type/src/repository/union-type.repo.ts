@@ -1,13 +1,16 @@
 import type { IUnionType } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportUnionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectNodeIds, connectOwner } from '@codelab/shared/domain/mapper'
+import {
+  connectAuth0Owner,
+  connectNodeIds,
+} from '@codelab/shared/domain/mapper'
 
-export class UnionTypeRepository extends IRepository<IUnionType> {
+export class UnionTypeRepository extends AbstractRepository<IUnionType> {
   private UnionType = Repository.instance.UnionType
 
   async find(where: BaseTypeUniqueWhere) {
@@ -15,8 +18,8 @@ export class UnionTypeRepository extends IRepository<IUnionType> {
       await (
         await this.UnionType
       ).find({
-        where,
         selectionSet: exportUnionTypeSelectionSet,
+        where,
       })
     )[0]
   }
@@ -37,14 +40,14 @@ export class UnionTypeRepository extends IRepository<IUnionType> {
         input: unionTypes.map(
           ({ __typename, owner, typesOfUnionType, ...type }) => ({
             ...type,
-            owner: connectOwner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
             typesOfUnionType: {
-              PrimitiveType: connectNodeIds([]),
               ArrayType: connectNodeIds([]),
-              InterfaceType: connectNodeIds([]),
-              RenderPropsType: connectNodeIds([]),
-              ReactNodeType: connectNodeIds([]),
               EnumType: connectNodeIds([]),
+              InterfaceType: connectNodeIds([]),
+              PrimitiveType: connectNodeIds([]),
+              ReactNodeType: connectNodeIds([]),
+              RenderPropsType: connectNodeIds([]),
             },
           }),
         ),
@@ -63,12 +66,12 @@ export class UnionTypeRepository extends IRepository<IUnionType> {
         update: {
           ...unionType,
           typesOfUnionType: {
-            PrimitiveType: [connectNodeIds([])],
             ArrayType: [connectNodeIds([])],
-            InterfaceType: [connectNodeIds([])],
-            RenderPropsType: [connectNodeIds([])],
-            ReactNodeType: [connectNodeIds([])],
             EnumType: [connectNodeIds([])],
+            InterfaceType: [connectNodeIds([])],
+            PrimitiveType: [connectNodeIds([])],
+            ReactNodeType: [connectNodeIds([])],
+            RenderPropsType: [connectNodeIds([])],
           },
         },
         where,

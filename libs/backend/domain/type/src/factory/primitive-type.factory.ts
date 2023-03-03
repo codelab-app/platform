@@ -23,8 +23,8 @@ export class PrimitiveTypeFactory extends ITypeFactory<
   ) {
     const primitiveType = PrimitiveType.init({
       __typename: ITypeKind.PrimitiveType,
-      primitiveKind,
       owner,
+      primitiveKind,
     })
 
     return await this.repository.save(primitiveType, where(primitiveType))

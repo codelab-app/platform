@@ -13,7 +13,7 @@ export const getProjectDomain = (name: string) => {
   const url = `${projectApiUrl()}/domains/${name}?${teamIdParam}`
 
   return fetch(url, {
-    method: 'GET',
     headers: baseHeaders,
+    method: 'GET',
   })
 }

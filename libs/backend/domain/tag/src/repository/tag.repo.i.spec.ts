@@ -10,11 +10,11 @@ const tagRepository = new TagRepository()
 const userRepository = new UserRepository()
 
 const user = new User({
-  id: v4(),
   auth0Id: v4(),
   email: 'admin@codelab.app',
-  username: 'Codelab',
+  id: v4(),
   roles: [IRole.Admin],
+  username: 'Codelab',
 })
 
 beforeAll(async () => {
@@ -42,23 +42,23 @@ describe('Tag repository', () => {
     const childTagName = 'Child Tag'
 
     const parentTag = new Tag({
-      id: parentTagId,
-      name: parentTagName,
-      owner: { auth0Id: user.auth0Id },
       children: [
         {
           id: childTagId,
           name: childTagName,
         },
       ],
+      id: parentTagId,
+      name: parentTagName,
+      owner: { auth0Id: user.auth0Id },
     })
 
     const childTag = new Tag({
+      children: [],
       id: childTagId,
       name: childTagName,
       owner: { auth0Id: user.auth0Id },
       parent: parentTag,
-      children: [],
     })
 
     /**

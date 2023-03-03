@@ -31,8 +31,8 @@ export const fieldRepository = {
 
     try {
       const [existingField] = await Field.find({
-        where: where(input),
         selectionSet: fieldSelectionSet,
+        where: where(input),
       })
 
       if (!existingField) {
@@ -40,15 +40,15 @@ export const fieldRepository = {
           input: [
             {
               ...input,
-              fieldType: connectNodeId(fieldTypeId),
               api: connectNodeId(interfaceTypeId),
+              fieldType: connectNodeId(fieldTypeId),
             },
           ],
         })
       } else {
         await Field.update({
-          where: where(input),
           update: { ...input, id: existingField.id },
+          where: where(input),
         })
       }
     } finally {

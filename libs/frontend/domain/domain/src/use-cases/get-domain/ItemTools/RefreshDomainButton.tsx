@@ -22,8 +22,8 @@ export const RefreshDomainButton = observer(
       return {
         refreshDomain: () =>
           domainService.getAll({
-            id: domain.id,
             appConnection: { node: { id: appId } },
+            id: domain.id,
           }),
       }
     }, [appId])

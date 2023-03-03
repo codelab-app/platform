@@ -1,19 +1,14 @@
 import type {
   IPageService,
-  IUpdatePageDTO,
+  IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
-import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
-import { CodeMirrorField, Form } from '@codelab/frontend/view/components'
-import {
-  CodeMirrorLanguage,
-  ElementTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import { Form } from '@codelab/frontend/view/components'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { schema } from './updatePageTabSchema'
 
 export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
@@ -24,7 +19,7 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       return null
     }
 
-    const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
+    const onSubmit = (input: IUpdatePageData) => pageService.update(input)
     const { kind } = page
     const omitFields = ['appId']
 
@@ -32,43 +27,20 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       omitFields.push('pageContainerElementId')
     }
 
-    // pageContainerElementId is not required in interface, but is required for _app page
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const schema: JSONSchemaType<IUpdatePageDTO> = {
-      type: 'object',
-      properties: {
-        appId: { type: 'string' },
-        name: { type: 'string', disabled: kind !== IPageKind.Regular },
-        getServerSideProps: {
-          type: 'string',
-          nullable: true,
-          uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Typescript,
-            }),
-          },
-        },
-        pageContainerElementId: {
-          type: 'string',
-          nullable: true,
-          uniforms: {
-            component: getSelectElementComponent(ElementTypeKind.AllElements),
-          },
-        },
-      },
-      required: ['name', 'pageContainerElementId'],
-    } as const
-
     const model = {
       appId: page.app.id,
-      name: page.name,
       getServerSideProps: page.getServerSideProps,
-      pageContainerElementId: page.pageContainerElement?.id,
+      name: page.name,
+      pageContainerElementId: page.pageContentContainer?.id,
     }
 
     return (
-      <Form autosave={true} model={model} onSubmit={onSubmit} schema={schema}>
+      <Form
+        autosave={true}
+        model={model}
+        onSubmit={onSubmit}
+        schema={schema(kind)}
+      >
         <AutoFields omitFields={omitFields} />
       </Form>
     )

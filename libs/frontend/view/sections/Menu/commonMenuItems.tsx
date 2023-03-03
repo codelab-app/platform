@@ -25,9 +25,9 @@ export const resourceMenuItem: ItemType = {
 }
 
 export const allPagesMenuItem = (appId: Nullish<string>): ItemType => ({
+  disabled: !appId,
   icon: <FileOutlined data-testid="pages-tab-trigger" title="Pages" />,
   key: PageType.PageList,
-  disabled: !appId,
   label: (
     <Link href={{ pathname: PageType.PageList, query: { appId } }}>Pages</Link>
   ),
@@ -37,9 +37,9 @@ export const pageBuilderMenuItem = (
   appId: Nullish<string>,
   pageId: Nullish<string>,
 ): ItemType => ({
+  disabled: !appId || !pageId,
   icon: <BuildOutlined data-testid="builder-tab-trigger" title="Builder" />,
   key: PageType.PageBuilder,
-  disabled: !appId || !pageId,
   label: (
     <Link href={{ pathname: PageType.PageBuilder, query: { appId, pageId } }}>
       Builder

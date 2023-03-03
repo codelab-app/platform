@@ -9,9 +9,9 @@ export const exportTags = async () => {
   const Tag = await Repository.instance.Tag
 
   return (await Tag.find({
-    selectionSet: tagSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: tagSelectionSet,
   })) as Array<ITag>
 }

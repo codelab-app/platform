@@ -1,5 +1,5 @@
 import { ComponentRenderPipe } from '../renderPipes/componentRenderPipe'
-import { setupTestForRenderer } from './setup/setupTest'
+import { setupTestForRenderer } from './setup/setup-test'
 
 /**
  * Should render a prop value of ReactNode

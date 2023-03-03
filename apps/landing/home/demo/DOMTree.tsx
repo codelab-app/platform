@@ -10,8 +10,40 @@ import tw from 'twin.macro'
 
 const treeData: Array<DataNode> = [
   {
-    title: 'Card',
-    key: 'card',
+    children: [
+      {
+        children: [
+          {
+            icon: <FontAwesomeIcon icon={faAtom} size="lg" />,
+            key: 'text-0',
+            selectable: false,
+            title: 'Text',
+          },
+          {
+            icon: <FontAwesomeIcon icon={faAtom} size="lg" />,
+            key: 'text-1',
+            selectable: false,
+            title: 'Text',
+          },
+        ],
+        icon: <FontAwesomeIcon icon={faHtml5} size="lg" />,
+        key: 'div',
+        selectable: false,
+        title: 'div',
+      },
+      {
+        icon: <FontAwesomeIcon icon={faHtml5} size="lg" />,
+        key: 'p',
+        selectable: false,
+        title: 'p',
+      },
+      {
+        icon: <FontAwesomeIcon icon={faAtom} size="lg" />,
+        key: 'button',
+        selectable: false,
+        title: 'Button',
+      },
+    ],
     icon: (
       <FontAwesomeIcon
         // css={[
@@ -25,41 +57,9 @@ const treeData: Array<DataNode> = [
         size="lg"
       />
     ),
+    key: 'card',
     selectable: false,
-    children: [
-      {
-        title: 'div',
-        key: 'div',
-        icon: <FontAwesomeIcon icon={faHtml5} size="lg" />,
-        selectable: false,
-        children: [
-          {
-            title: 'Text',
-            key: 'text-0',
-            selectable: false,
-            icon: <FontAwesomeIcon icon={faAtom} size="lg" />,
-          },
-          {
-            title: 'Text',
-            key: 'text-1',
-            selectable: false,
-            icon: <FontAwesomeIcon icon={faAtom} size="lg" />,
-          },
-        ],
-      },
-      {
-        title: 'p',
-        key: 'p',
-        selectable: false,
-        icon: <FontAwesomeIcon icon={faHtml5} size="lg" />,
-      },
-      {
-        title: 'Button',
-        key: 'button',
-        selectable: false,
-        icon: <FontAwesomeIcon icon={faAtom} size="lg" />,
-      },
-    ],
+    title: 'Card',
   },
 ]
 

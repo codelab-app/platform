@@ -126,12 +126,6 @@ const testimonialItems = [
 
 export const TestimonialSection = () => {
   const settings: Settings = {
-    dots: true,
-    infinite: true,
-    centerMode: false,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
     appendDots: (dots) => (
       <>
         <div className={`${styles['slick-dots']} ${styles['slick-thumb']}`}>
@@ -139,23 +133,32 @@ export const TestimonialSection = () => {
         </div>
       </>
     ),
+    centerMode: false,
+    dots: true,
+    infinite: true,
     // dotsClass: 'slick-dots slick-thumb',
     responsive: [
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 2,
           slidesToScroll: 1,
+          slidesToShow: 2,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
           slidesToScroll: 1,
+          slidesToShow: 1,
         },
       },
     ],
+
+    slidesToScroll: 1,
+
+    slidesToShow: 3,
+
+    speed: 500,
   }
 
   return (

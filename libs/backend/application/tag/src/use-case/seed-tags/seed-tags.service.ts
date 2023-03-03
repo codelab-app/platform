@@ -45,9 +45,6 @@ export class SeedTagsService extends IUseCase<IUserRef, void> {
       const parent = tag.parent ? tagDataMap.get(tag.parent) : null
 
       return {
-        id: tag.id,
-        owner,
-        name: tag.name,
         children: tag.children.map((child) => {
           const childTag = tagDataMap.get(child.name)
 
@@ -60,6 +57,9 @@ export class SeedTagsService extends IUseCase<IUserRef, void> {
             name: childTag.name,
           }
         }),
+        id: tag.id,
+        name: tag.name,
+        owner,
         parent: parent ? { id: parent.id, name: parent.name } : undefined,
       }
     })

@@ -10,8 +10,8 @@ export const exportApps = async ({ appIds }: ExportAppWhere) => {
   const where = appIds ? { id_IN: appIds } : {}
 
   const apps = await App.find({
-    where,
     selectionSet: appSelectionSet,
+    where,
   })
 
   return apps.reduce(async (appsData, app) => {

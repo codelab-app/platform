@@ -5,10 +5,11 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
+  componentRef,
   ELEMENT_NODE_TYPE,
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/domain/element'
-import { componentRef, useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import type { EventDataNode } from 'antd/lib/tree'
@@ -61,7 +62,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
     }
 
     const selectElementNode = (node: EventDataNode<IBuilderDataNode>) => {
-      const element = elementService.element(node.key.toString())
+      const element = elementService.maybeElement(node.key.toString())
 
       if (element) {
         selectTreeNode(elementRef(element))
@@ -77,11 +78,11 @@ export const BuilderTree = observer<BuilderTreeProps>(
 
     const elementContextMenuProps = useMemo(
       () => ({
-        createModal: elementService.createModal,
-        deleteModal: elementService.deleteModal,
         cloneElement: elementService.cloneElement.bind(elementService),
         convertElementToComponent:
           elementService.convertElementToComponent.bind(elementService),
+        createModal: elementService.createModal,
+        deleteModal: elementService.deleteModal,
         elementTree,
       }),
       [elementTree, elementService],

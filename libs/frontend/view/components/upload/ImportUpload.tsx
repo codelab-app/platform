@@ -37,6 +37,7 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
           setIsLoading(false)
         })
     },
+    defaultFileList: [],
     onChange: ({ file, fileList }) => {
       console.info(file.status)
 
@@ -44,7 +45,6 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
         console.info(file, fileList)
       }
     },
-    defaultFileList: [],
     showUploadList: false,
   }
 

@@ -16,9 +16,9 @@ const App = () => (
     </div>
     <p
       style={{
-        marginTop: '20px',
-        fontSize: '12px',
         color: '#737373',
+        fontSize: '12px',
+        marginTop: '20px',
       }}
     >
       The new M2 chip makes the 13‑inch MacBook Pro more capable than ever.

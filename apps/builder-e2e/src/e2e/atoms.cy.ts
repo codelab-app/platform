@@ -25,8 +25,8 @@ describe('Atoms CRUD', () => {
 
       cy.getModal().setFormFieldValue({
         label: 'Type',
-        value: atomType,
         type: FIELD_TYPE.SELECT,
+        value: atomType,
       })
 
       cy.getModal()

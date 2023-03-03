@@ -1,14 +1,14 @@
 import type { IEnumType, IEnumTypeValue } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportEnumTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectOwner, whereNodeId } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, whereNodeId } from '@codelab/shared/domain/mapper'
 
-export class EnumTypeRepository extends IRepository<IEnumType> {
+export class EnumTypeRepository extends AbstractRepository<IEnumType> {
   private EnumType = Repository.instance.EnumType
 
   async find(where: BaseTypeUniqueWhere) {
@@ -16,8 +16,8 @@ export class EnumTypeRepository extends IRepository<IEnumType> {
       await (
         await this.EnumType
       ).find({
-        where,
         selectionSet: exportEnumTypeSelectionSet,
+        where,
       })
     )[0]
   }
@@ -31,7 +31,7 @@ export class EnumTypeRepository extends IRepository<IEnumType> {
           ({ __typename, allowedValues, owner, ...enumType }) => ({
             ...enumType,
             allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-            owner: connectOwner(owner.auth0Id),
+            owner: connectAuth0Owner(owner),
           }),
         ),
       })
@@ -49,7 +49,7 @@ export class EnumTypeRepository extends IRepository<IEnumType> {
         update: {
           ...enumType,
           allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
-          owner: connectOwner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
         },
         where,
       })

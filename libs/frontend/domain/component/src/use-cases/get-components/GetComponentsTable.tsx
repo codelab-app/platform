@@ -28,40 +28,40 @@ export const GetComponentsTable = observer<{
     TableColumnProps<ComponentColumnData>
   > = [
     {
-      title: 'Name',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
       render: (_, component) => <NameColumn component={component} />,
+      title: 'Name',
     },
     {
-      title: 'Props API',
       dataIndex: 'props',
       key: 'props',
-      width: 100,
       onHeaderCell: headerCellProps,
       render: (_, component) => <PropsColumn component={component} />,
+      title: 'Props API',
+      width: 100,
     },
     {
-      title: 'Action',
       key: 'action',
       onHeaderCell: headerCellProps,
-      width: 100,
       render: (_, component) => (
         <ActionColumn
           component={component}
           componentService={componentService}
         />
       ),
+      title: 'Action',
+      width: 100,
     },
   ]
 
   const dataSource: Array<ComponentColumnData> = [
     ...(value ? value.values() : []),
   ].map((component) => ({
-    name: component.name,
-    id: component.id,
     apiId: component.api.id,
+    id: component.id,
+    name: component.name,
   }))
 
   return (

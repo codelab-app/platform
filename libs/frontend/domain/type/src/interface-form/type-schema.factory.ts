@@ -84,8 +84,8 @@ export class TypeSchemaFactory {
 
     return {
       ...extra,
-      type: 'array',
       items: this.transform(type.itemType.current),
+      type: 'array',
     }
   }
 
@@ -94,8 +94,8 @@ export class TypeSchemaFactory {
       label: field.name || compoundCaseToTitleCase(field.key),
       ...(field.description ? fieldDescription(field.description) : {}),
       ...this.transform(field.type.current, {
-        validationRules: field.validationRules ?? undefined,
         fieldName: field.name,
+        validationRules: field.validationRules ?? undefined,
       }),
       ...field.validationRules?.general,
     })
@@ -114,7 +114,6 @@ export class TypeSchemaFactory {
 
     return {
       ...extra,
-      type: 'object',
       properties: type.fields.reduce(makeFieldProperties, {}),
       required: type.fields
         .map((field) =>
@@ -123,6 +122,7 @@ export class TypeSchemaFactory {
             : undefined,
         )
         .filter(Boolean) as Array<string>,
+      type: 'object',
     }
   }
 
@@ -145,11 +145,12 @@ export class TypeSchemaFactory {
         )
 
         return {
-          type: 'object',
           label: '',
+          properties,
+
+          type: 'object',
           // We use this as label of the select field item
           typeName: innerType.current.name,
-          properties,
         }
       }),
     }
@@ -200,11 +201,11 @@ export class TypeSchemaFactory {
 
     const properties = TypeSchemaFactory.schemaForTypedValue(
       type.id,
-      { type: 'string', label: '', ...extra },
+      { label: '', type: 'string', ...extra },
       '',
     )
 
-    return { type: 'object', properties, uniforms: nullUniforms }
+    return { properties, type: 'object', uniforms: nullUniforms }
   }
 
   fromPrimitiveType(
@@ -273,15 +274,18 @@ export class TypeSchemaFactory {
     typeLabel: Maybe<string>,
   ): { [key: string]: JsonSchema } {
     return {
-      value: valueSchema,
       type: {
-        type: 'string',
-        uniforms: blankUniforms,
-        label: typeLabel,
         default: typeId,
         // This ensures that only this exact type is considered valid. Allows union types to use oneOf
         enum: typeId ? [typeId] : undefined,
+
+        label: typeLabel,
+
+        type: 'string',
+
+        uniforms: blankUniforms,
       },
+      value: valueSchema,
     }
   }
 
@@ -302,7 +306,7 @@ export class TypeSchemaFactory {
       '',
     )
 
-    return { type: 'object', properties, uniforms: nullUniforms, label: '' }
+    return { label: '', properties, type: 'object', uniforms: nullUniforms }
   }
 
   private getExtraProperties(type: IAnyType, context?: UiPropertiesContext) {

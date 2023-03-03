@@ -18,12 +18,11 @@ const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
 
   const columns: ColumnsType<object> = [
     {
-      title: 'Id',
       dataIndex: 'id',
       key: 'id',
+      title: 'Id',
     },
     {
-      title: 'Action',
       dataIndex: 'action',
       key: 'action',
       render: (text, record) => {
@@ -35,6 +34,7 @@ const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
           </Space>
         )
       },
+      title: 'Action',
     },
   ]
 

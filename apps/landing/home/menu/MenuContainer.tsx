@@ -30,19 +30,19 @@ export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {
 
 export const menuItems = [
   {
+    href: '/',
     title: 'Features',
-    href: '/',
   },
   {
+    href: '/',
     title: 'Docs',
-    href: '/',
   },
   {
-    title: 'Pricing',
     href: '/pricing',
+    title: 'Pricing',
   },
   {
-    title: 'Tutorials',
     href: '/tutorials',
+    title: 'Tutorials',
   },
 ]

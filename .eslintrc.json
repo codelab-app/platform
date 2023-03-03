@@ -14,13 +14,17 @@
     "jest-formatting",
     "simple-import-sort",
     "lodash",
-    "prefer-arrow"
+    "prefer-arrow",
+    // https://github.com/gajus/eslint-plugin-canonical#no-unused-exports
+    "canonical"
   ],
+  "parser": "@typescript-eslint/parser",
   "env": {
     "jest/globals": true
   },
   "extends": [
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:canonical/recommended"
     // "plugin:jest/recommended",
     // "plugin:jest/style"
     // Only enable for projects like cypress & specs
@@ -50,6 +54,21 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "canonical/destructuring-property-newline": "off",
+        "canonical/import-specifier-newline": "off",
+        "canonical/id-match": "off",
+        // "canonical/id-match": [
+        //   "error",
+        //   "(^[A-Za-z]+(?:[A-Z][a-z]*)*\\d*$)|(^[A-Z]+(_[A-Z]+)*(_\\d$)*$)|(^(_|\\$)$)",
+        //   { "onlyDeclarations": true, "ignoreNamedImports": true }
+        // ],
+        // Not working
+        // "canonical/no-unused-exports": [
+        //   "error",
+        //   {
+        //     "tsConfigPath": "./tsconfig.base.json"
+        //   }
+        // ],
         // "max-params": [
         //   "error",
         //   {
@@ -66,7 +85,7 @@
         //     "enforceForRenamedProperties": false
         //   }
         // ],
-        // "unused-imports/no-unused-imports-ts": "error",
+        "unused-imports/no-unused-imports-ts": "error",
         "id-length": [
           "error",
           {

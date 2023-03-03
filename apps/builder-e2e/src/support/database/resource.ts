@@ -6,9 +6,6 @@ import { CreateResourcesDocument } from 'libs/frontend/domain/resource/src/graph
 import { v4 } from 'uuid'
 
 const defaultInput: ResourceCreateInput = {
-  id: v4(),
-  name: 'countries',
-  type: ResourceType.GraphQL,
   config: {
     create: {
       node: {
@@ -16,6 +13,9 @@ const defaultInput: ResourceCreateInput = {
       },
     },
   },
+  id: v4(),
+  name: 'countries',
+  type: ResourceType.GraphQL,
 }
 
 export const createResource = (input: ResourceCreateInput = defaultInput) =>

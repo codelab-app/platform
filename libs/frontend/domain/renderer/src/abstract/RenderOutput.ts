@@ -6,10 +6,10 @@ import { mergeProps } from '@codelab/shared/utils'
 export const RenderOutput = {
   empty: (input: Pick<IRenderOutput, 'element' | 'props'>): IRenderOutput =>
     input,
-  withAtom: (
-    input: Pick<IRenderOutput, 'atomType' | 'element' | 'props'>,
-  ): IRenderOutput => input,
   overrideProps: (input: IRenderOutput, props: Nullish<IPropData>) => {
     return { ...input, props: mergeProps(input.props, props) }
   },
+  withAtom: (
+    input: Pick<IRenderOutput, 'atomType' | 'element' | 'props'>,
+  ): IRenderOutput => input,
 }

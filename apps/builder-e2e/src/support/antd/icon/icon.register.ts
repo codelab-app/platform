@@ -8,8 +8,8 @@ export interface AntIconCommands {
 
 export const antIconCommands: Array<CypressCommand> = [
   {
-    name: 'getIcon',
     fn: getIcon,
+    name: 'getIcon',
     options: {
       prevSubject: 'optional' as any,
     },

@@ -12,6 +12,7 @@ import {
   IElementTree,
   RendererType,
 } from '@codelab/frontend/abstract/core'
+import { isAtomModel } from '@codelab/frontend/domain/atom'
 import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
@@ -82,7 +83,7 @@ const init = async ({
    * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
    */
   const builderGlobals = {
-    /*   
+    /*
     FIXME: mobx-keystone 1.2.0 requires frozen data to be serializable.
     onClick: (e: React.MouseEvent) => {
       if (!isBuilder) {
@@ -96,7 +97,7 @@ const init = async ({
       if (elementId !== null) {
         set_selectedNode?.(elementRef(elementId))
       }
-    }, 
+    },
     */
     href: '#',
   }
@@ -104,9 +105,9 @@ const init = async ({
   await expressionTransformer.init()
 
   return new Renderer({
+    appStore: storeRef(appStore),
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
-    appStore: storeRef(appStore),
     rendererType,
   })
 }
@@ -114,7 +115,10 @@ const init = async ({
 @model('@codelab/Renderer')
 export class Renderer
   extends Model({
-    id: idProp,
+    /**
+     * Store attached to app, needed to access its actions
+     */
+    appStore: prop<Ref<IStore>>(),
 
     /**
      * A tree of providers that will get rendered before all of the regular elements
@@ -122,20 +126,21 @@ export class Renderer
     appTree: prop<Nullable<Ref<IElementTree>>>(null),
 
     /**
-     * Store attached to app, needed to access its actions
+     * Will log the render output and render pipe info to the console
      */
-    appStore: prop<Ref<IStore>>(),
+    debugMode: prop(false).withSetter(),
+
+    id: idProp,
+
     /**
      * The tree that's being rendered, we assume that this is properly constructed
      */
     pageTree: prop<Nullable<Ref<IElementTree>>>(null),
 
     /**
-     * Those transform different kinds of typed values into render-ready props
+     * Different types of renderer requires behaviors in some cases.
      */
-    typedValueTransformers: prop<Array<ITypedValueTransformer>>(() =>
-      typedValueTransformersFactory(),
-    ),
+    rendererType: prop<RendererType>(),
 
     /**
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
@@ -143,14 +148,11 @@ export class Renderer
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
 
     /**
-     * Will log the render output and render pipe info to the console
+     * Those transform different kinds of typed values into render-ready props
      */
-    debugMode: prop(false).withSetter(),
-
-    /**
-     * Different types of renderer requires behaviors in some cases.
-     */
-    rendererType: prop<RendererType>(),
+    typedValueTransformers: prop<Array<ITypedValueTransformer>>(() =>
+      typedValueTransformersFactory(),
+    ),
   })
   implements IRenderer
 {
@@ -194,7 +196,7 @@ export class Renderer
 
     const pageService = getPageService(this)
     const providerPageId = providerRoot.baseId
-    const { pageContainerElement } = pageService.page(providerPageId) ?? {}
+    const { pageContentContainer } = pageService.page(providerPageId) ?? {}
 
     const renderRecursive = (
       element: IElement,
@@ -209,14 +211,16 @@ export class Renderer
           renderRecursive(childElement),
         )
 
-        if (element.id === pageContainerElement?.id) {
+        if (element.id === pageContentContainer?.id) {
           children.push(rootElement)
         }
 
         const injectedText = renderOutput.props?.[CUSTOM_TEXT_PROP_KEY]
 
         const shouldInjectText =
-          !children.length && element.atom?.current.allowCustomTextInjection
+          !children.length &&
+          isAtomModel(element.renderType) &&
+          element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText && injectedText) {
           return makeCustomTextContainer(injectedText)
@@ -236,12 +240,12 @@ export class Renderer
   }
 
   runPreAction = (element: IElement) => {
-    if (!element.preRenderActionId) {
+    if (!element.preRenderAction) {
       return
     }
 
     const actionService = getActionService(this)
-    const action = actionService.action(element.preRenderActionId)
+    const action = actionService.action(element.preRenderAction.id)
 
     if (!action) {
       console.warn(`Pre render action not found for element ${element.label}`)
@@ -253,12 +257,12 @@ export class Renderer
   }
 
   getPostAction = (element: IElement) => {
-    if (!element.postRenderActionId) {
+    if (!element.postRenderAction) {
       return null
     }
 
     const actionService = getActionService(this)
-    const action = actionService.action(element.postRenderActionId)
+    const action = actionService.action(element.postRenderAction.id)
 
     if (!action) {
       console.warn(`Post render action not found for element ${element.label}`)
@@ -274,7 +278,7 @@ export class Renderer
     return this.appStore.current.state
   }
 
-  /*   
+  /*
   computePropsForComponentElements(element: IElement) {
     const component = (element.renderComponentType ?? element.parentComponent)
       ?.maybeCurrent
@@ -306,11 +310,11 @@ export class Renderer
     this.runPreAction(element)
 
     const wrapperProps: ElementWrapperProps & { key: string } = {
-      key: `element-wrapper-${element.id}`,
-      renderService: this,
       element,
       extraProps,
+      key: `element-wrapper-${element.id}`,
       postAction: this.getPostAction(element),
+      renderService: this,
     }
 
     return React.createElement(ElementWrapper, wrapperProps)
@@ -332,9 +336,9 @@ export class Renderer
     let props = mergeProps(
       element.__metadataProps,
       componentApi?.defaultValues,
-      component?.props?.values,
-      componentInstance?.props?.values,
-      element.props?.values,
+      component?.props?.current.values,
+      componentInstance?.props.current.values,
+      element.props.current.values,
       extraProps,
     )
 
@@ -347,7 +351,7 @@ export class Renderer
     const parentComponent = element.rootElement.parentComponent?.current
 
     const isContainer =
-      element.id === parentComponent?.childrenContainerElementId
+      element.id === parentComponent?.childrenContainerElement.id
 
     if (!isContainer || !parentComponent.instanceElement?.current) {
       return []

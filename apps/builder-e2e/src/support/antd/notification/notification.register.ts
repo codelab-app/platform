@@ -15,19 +15,19 @@ export interface AntNotificationCommands {
 
 export const antNotificationCommands: Array<CypressCommand> = [
   {
-    name: 'getNotification',
     fn: getNotification,
+    name: 'getNotification',
   },
   {
-    name: 'getNotificationTitle',
     fn: getNotificationTitle,
+    name: 'getNotificationTitle',
   },
   {
-    name: 'getNotificationBody',
     fn: getNotificationBody,
+    name: 'getNotificationBody',
   },
   {
-    name: 'expectNotification',
     fn: expectNotification,
+    name: 'expectNotification',
   },
 ]

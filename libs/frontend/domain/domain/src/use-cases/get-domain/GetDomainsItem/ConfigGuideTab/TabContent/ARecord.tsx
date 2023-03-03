@@ -4,27 +4,27 @@ import tw from 'twin.macro'
 
 const dataSource = [
   {
-    type: 'A',
     name: '@',
+    type: 'A',
     value: '76.76.21.21',
   },
 ]
 
 const columns = [
   {
-    title: 'Name',
     dataIndex: 'name',
+    title: 'Name',
   },
   {
-    title: 'Type',
     dataIndex: 'type',
+    title: 'Type',
   },
   {
-    title: 'Value',
     dataIndex: 'value',
     render: (_: unknown, { value }: { value: string }) => {
       return <Typography.Text copyable>{value}</Typography.Text>
     },
+    title: 'Value',
   },
 ]
 

@@ -37,8 +37,8 @@ const PageBuilder: CodelabPage = observer(() => {
   const { value, error, loading } = useRenderedPage({
     appId,
     pageId,
-    renderService: builderRenderService,
     rendererType: RendererType.PageBuilder,
+    renderService: builderRenderService,
   })
 
   useEffect(() => {
@@ -46,7 +46,9 @@ const PageBuilder: CodelabPage = observer(() => {
      * Select root element for current page
      */
     if (value?.page) {
-      const pageRootElement = elementService.element(value.page.rootElement.id)
+      const pageRootElement = elementService.maybeElement(
+        value.page.rootElement.id,
+      )
 
       if (pageRootElement) {
         builderService.selectPageElementTreeNode(elementRef(pageRootElement))

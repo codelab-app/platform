@@ -19,14 +19,14 @@ export class ArrayType extends BaseType implements IArrayType {
   declare owner: IUserRef
 
   private constructor({ id, name, kind, owner }: IArrayType) {
-    super({ id, name, kind, owner, __typename: ITypeKind.ArrayType })
+    super({ __typename: ITypeKind.ArrayType, id, kind, name, owner })
   }
 
   static init({ owner, name }: ICreateArrayType) {
     return new ArrayType({
       id: v4(),
-      name,
       kind: ITypeKind.ArrayType,
+      name,
       owner,
     })
   }

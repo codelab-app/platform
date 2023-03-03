@@ -41,7 +41,7 @@ export const expectNotification = ({
 }: { title?: Label; body?: Label } & CommonOptions = {}) => {
   const opts = logAndMute(
     'expectNotification',
-    JSON.stringify(pickBy({ title, body }, Boolean)),
+    JSON.stringify(pickBy({ body, title }, Boolean)),
     options,
   )
 

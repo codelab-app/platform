@@ -44,8 +44,8 @@ export const notify = <TEvent>(
   }
 
   notification[type || 'info']({
-    message: titleString,
     description: contentString,
+    message: titleString,
     placement: 'topRight',
   })
 
@@ -73,12 +73,12 @@ export const useNotify = (
     console.error(_error)
     notify({
       ...error,
-      type: 'error',
       content: error.content || extractErrorMessage(_error),
+      type: 'error',
     })
   }
 
-  return { onSuccess, onError }
+  return { onError, onSuccess }
 }
 
 /**

@@ -9,8 +9,8 @@ export const findByButtonText = (
   options?: SelectorMatcherOptions,
 ): CypressElement =>
   wrapSubject(subject).findByRole('button', {
-    name: text,
     exact: false,
+    name: text,
     timeout: 5000,
     ...options,
   })

@@ -33,13 +33,13 @@ const getNodeProps = (
   const defaultProps = getDefaultComponentFieldProps(node)
 
   // `editedProps` can be merged directly since it is in component builder only
-  return mergeProps(defaultProps, node.props?.values, editedProps)
+  return mergeProps(defaultProps, node.props?.current.values, editedProps)
 }
 
 const getNodePropsValidateFn = (node: IElement | IComponent) => {
   const interfaceType = isElement(node)
-    ? node.atom?.current.api.current ??
-      node.renderComponentType?.current.api.current
+    ? node.renderType?.current.api.current ??
+      node.renderType?.current.api.current
     : node.api.current
 
   if (!interfaceType) {
@@ -102,8 +102,8 @@ export const usePropsInspector = (
   }
 
   return {
+    isLoading,
     lastRenderedPropsString,
     save,
-    isLoading,
   }
 }

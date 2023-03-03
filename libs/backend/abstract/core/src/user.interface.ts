@@ -16,17 +16,17 @@ export const OwnerSchema = z.object({
 export type IUserRef = z.infer<typeof UserRefSchema>
 
 export const UserSchema = UserRefSchema.extend({
-  id: z.string(),
-  username: z.string(),
   email: z.string(),
+  id: z.string(),
   roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
+  username: z.string(),
 })
 
 export type IUser = z.infer<typeof UserSchema>
 
 export const UserExportSchema = EntitySchema.extend({
-  username: z.string(),
   roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
+  username: z.string(),
 })
 
 export type IUserExport = z.infer<typeof UserSchema>

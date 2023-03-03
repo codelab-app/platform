@@ -1,31 +1,33 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import type { ITagRef } from '../tag'
-import type { IInterfaceTypeRef } from '../type'
-import type { IAuth0Id } from '../user'
-import type {
-  AtomFragment,
-  RenderAtomFragment,
-} from './atom.fragment.graphql.gen'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IOwnerSchema } from '../user'
+import type { RenderAtomFragment } from './atom.fragment.graphql.gen'
 import type { IAtomRef } from './atom.model.interface'
 
-export interface ICreateAtomDTO {
-  /**
-   * Optional string to override auto-generated id
-   */
-  id?: string
+export interface ICreateAtomData extends IOwnerSchema {
+  id: string
   name: string
   type: IAtomType
-  tags?: Array<ITagRef>
+  tags?: Array<IEntity>
   // Used for interface
-  owner: IAuth0Id
 
   // Allow for connection to existing interface
-  api?: IInterfaceTypeRef | undefined
+  // api: IEntity
   allowedChildren?: Array<IAtomRef>
 }
 
-export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>
+export type IUpdateAtomData = Omit<ICreateAtomData, 'owner'>
 
-export type IAtomDTO = AtomFragment
+export interface IAtomDTO extends IOwnerSchema {
+  id: string
+  name: string
+  type: IAtomType
+  icon?: string | null
+  tags?: Array<IEntity>
+  api: IEntity
+  allowedChildren?: Array<IEntity>
+}
 
 export type IRenderAtomDTO = RenderAtomFragment
+
+export type IAtomID = string

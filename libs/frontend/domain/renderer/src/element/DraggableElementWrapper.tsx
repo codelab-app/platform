@@ -6,7 +6,7 @@ export const DraggableElementWrapper = ({
   element,
   makeRenderedElements,
 }: DraggableElementProps) => {
-  if (!element.parentElement) {
+  if (!element.parent) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{makeRenderedElements()}</>
   }

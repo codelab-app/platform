@@ -78,5 +78,5 @@ export const useBuilderDnd = (
     [builderService, elementService, elementTree],
   )
 
-  return { onDragStart, onDragEnd, sensors }
+  return { onDragEnd, onDragStart, sensors }
 }

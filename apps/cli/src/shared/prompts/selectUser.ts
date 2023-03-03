@@ -9,12 +9,12 @@ export const selectUserPrompt = async () => {
   const users = await User.find()
 
   return {
-    type: 'list',
-    name: 'selectedAuth0Id',
-    message: 'Select which user to be owner of the app',
     choices: users.map((user) => ({
       name: user.email,
       value: user.auth0Id,
     })),
+    message: 'Select which user to be owner of the app',
+    name: 'selectedAuth0Id',
+    type: 'list',
   }
 }

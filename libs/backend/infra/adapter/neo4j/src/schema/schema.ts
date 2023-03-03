@@ -26,9 +26,10 @@ const escapeDotPathKeys = (key: string) => {
  */
 export const getSchema = (driver: Driver, resolvers: IResolvers) =>
   new Neo4jGraphQL({
-    typeDefs,
+    config: {
+      enableRegex: true,
+    },
     driver,
-    resolvers,
     plugins: {
       /**
        * JWK (JSON Web Key) - allows applications to retrieve public keys programmatically
@@ -54,7 +55,6 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
         rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
       }),
     },
-    config: {
-      enableRegex: true,
-    },
+    resolvers,
+    typeDefs,
   })

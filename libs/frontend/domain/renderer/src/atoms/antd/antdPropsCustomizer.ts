@@ -21,8 +21,8 @@ const antDesignRglResponsiveContainerFn: AtomCustomizerFn = ({ props }) => ({
     ...props,
     // onResizeStop: onResizeStop(handlers),
     style: {
-      width: '200px',
       height: '200px',
+      width: '200px',
     },
   },
 })

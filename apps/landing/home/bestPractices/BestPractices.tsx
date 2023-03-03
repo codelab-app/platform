@@ -22,40 +22,40 @@ const colProps = {
 
 const featureItems = [
   {
-    icon: faAtom,
-    title: 'Build With UI Frameworks',
     description:
       'We integrate with existing UI Frameworks such as Ant Design & Material UI so you can keep using the technologies you love. All component behavior can be configured via props',
+    icon: faAtom,
+    title: 'Build With UI Frameworks',
   },
   {
-    icon: faSliders,
-    title: 'Create Custom Components',
     description:
       'You can create higher level components from UI framework components, or compose your custom components from HTML',
+    icon: faSliders,
+    title: 'Create Custom Components',
   },
   {
-    icon: faFolders,
-    title: 'Component Nesting',
     description:
       'Construct your DOM tree by composing & nesting components. This allows for complex components as you would get from coding',
+    icon: faFolders,
+    title: 'Component Nesting',
   },
   {
-    icon: faPaintbrush,
-    title: 'Modular Design System',
     description:
       'Use TailwindCSS to rapidly style your frontend. Bind variables to your styles and create a truly dynamic system',
+    icon: faPaintbrush,
+    title: 'Modular Design System',
   },
   {
-    icon: faDatabase,
-    title: 'State Management',
     description:
       'We’ve integrated with Mobx to bring you a frontend state management solution. Yes we are opinionated and think it’s better than Redux',
+    icon: faDatabase,
+    title: 'State Management',
   },
   {
-    icon: faServer,
-    title: 'Server Routing Control',
     description:
       'You’ve guessed it, we’re built on top of Vercel so you get all its benefits as well. Sandboxed AWS Lambda functions provide secure control to those functions',
+    icon: faServer,
+    title: 'Server Routing Control',
   },
 ]
 

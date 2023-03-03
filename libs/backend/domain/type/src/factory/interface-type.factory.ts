@@ -20,9 +20,9 @@ export class InterfaceTypeFactory extends ITypeFactory<
   ) {
     const interfaceType = InterfaceType.init({
       __typename: ITypeKind.InterfaceType,
+      fields,
       name,
       owner,
-      fields,
     })
 
     return await this.repository.save(interfaceType, where(interfaceType))

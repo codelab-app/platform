@@ -7,6 +7,8 @@
     "declaration": false,
     "moduleResolution": "node",
     "strict": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -41,6 +43,7 @@
       "@codelab/backend/application/type": [
         "libs/backend/application/type/src/index.ts"
       ],
+      "@codelab/backend/data": ["libs/backend/data/src/index.ts"],
       "@codelab/backend/domain/action": [
         "libs/backend/domain/action/src/index.ts"
       ],
@@ -65,7 +68,6 @@
       "@codelab/backend/domain/tag": ["libs/backend/domain/tag/src/index.ts"],
       "@codelab/backend/domain/type": ["libs/backend/domain/type/src/index.ts"],
       "@codelab/backend/domain/user": ["libs/backend/domain/user/src/index.ts"],
-      "@codelab/backend/graphql": ["libs/backend/graphql/src/index.ts"],
       "@codelab/backend/infra/adapter/neo4j": [
         "libs/backend/infra/adapter/neo4j/src/index.ts"
       ],
@@ -73,10 +75,6 @@
         "libs/backend/infra/adapter/vercel/src/index.ts"
       ],
       "@codelab/backend/infra/ports": ["libs/backend/infra/ports/src/index.ts"],
-      "@codelab/backend/repo-resolvers": [
-        "libs/backend/repo-resolvers/src/index.ts"
-      ],
-      "@codelab/backend/data": ["libs/backend/data/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],
@@ -141,6 +139,12 @@
       ],
       "@codelab/frontend/presenter/container": [
         "libs/frontend/presenter/container/src/index.ts"
+      ],
+      "@codelab/frontend/shared/data": [
+        "libs/frontend/shared/data/src/index.ts"
+      ],
+      "@codelab/frontend/shared/domain": [
+        "libs/frontend/shared/domain/src/index.ts"
       ],
       "@codelab/frontend/shared/style": [
         "libs/frontend/shared/style/src/index.ts"

@@ -4,8 +4,8 @@ import type { JSONSchemaType } from 'ajv'
 export interface EmptyJsonSchemaType {}
 
 export const emptyJsonSchema: JSONSchemaType<EmptyJsonSchemaType> = {
-  title: 'Empty Schema',
-  type: 'object',
   properties: {},
   required: [],
+  title: 'Empty Schema',
+  type: 'object',
 }

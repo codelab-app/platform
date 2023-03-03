@@ -1,12 +1,15 @@
-import type { IAuth0Id } from '../user'
-import type { StoreFragment } from './store.fragment.graphql.gen'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IActionDTO } from '../action'
+import type { IOwnerSchema } from '../user'
 
-export interface ICreateStoreDTO {
+export interface IStoreDTO {
   id: string
   name: string
-  auth0Id: IAuth0Id
+  actions?: Array<IActionDTO>
+  api: IEntity
 }
 
-export type IUpdateStoreDTO = Omit<ICreateStoreDTO, 'id' | 'auth0Id'>
+// Owner is used for interface creation
+export type ICreateStoreData = IStoreDTO & IOwnerSchema
 
-export type IStoreDTO = StoreFragment
+export type IUpdateStoreData = IStoreDTO

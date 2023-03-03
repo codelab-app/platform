@@ -35,8 +35,8 @@ describe('Tag CRUD', () => {
           cy.createTag({
             id: v4(),
             name: deleteData.table.tag_0_0,
-            parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },
+            parent: { connect: { where: { node: { id: parentId } } } },
           })
         })
 
@@ -56,8 +56,8 @@ describe('Tag CRUD', () => {
           cy.createTag({
             id: v4(),
             name: deleteData.tree.tag_0_0,
-            parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },
+            parent: { connect: { where: { node: { id: parentId } } } },
           })
         })
 
@@ -77,8 +77,8 @@ describe('Tag CRUD', () => {
           cy.createTag({
             id: v4(),
             name: deleteData.tree.tag_1_0,
-            parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },
+            parent: { connect: { where: { node: { id: parentId } } } },
           })
         })
       })

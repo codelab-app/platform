@@ -1,11 +1,13 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { PageFragment } from '../page/page.fragment.graphql.gen'
 import { ElementFragment } from '../element/element.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
 import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
@@ -13,16 +15,16 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  owner: { id: string }
-  pages: Array<PageFragment>
-  store: { id: string }
+  owner: OwnerFragment
+  pages: Array<{ id: string }>
+  store: { id: string; name: string }
 }
 
 export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: { id: string }
+  owner: OwnerFragment
   pages: Array<PageFragment>
   store: { id: string }
 }
@@ -34,15 +36,15 @@ export type BuilderPageFragment = {
   getServerSideProps?: string | null
   kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
-  app: { id: string }
-  pageContainerElement?: { id: string } | null
+  app: { id: string; owner: OwnerFragment }
+  pageContentContainer?: { id: string } | null
 }
 
 export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { id: string }
+  owner: OwnerFragment
   pages: Array<BuilderPageFragment>
   store: StoreFragment
 }
@@ -53,16 +55,17 @@ export const AppPreviewFragmentDoc = gql`
     name
     slug
     owner {
-      id
+      ...Owner
     }
     pages {
-      ...Page
+      id
     }
     store {
       id
+      name
     }
   }
-  ${PageFragmentDoc}
+  ${OwnerFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {
@@ -70,7 +73,7 @@ export const AppFragmentDoc = gql`
     name
     slug
     owner {
-      id
+      ...Owner
     }
     pages {
       ...Page
@@ -79,6 +82,7 @@ export const AppFragmentDoc = gql`
       id
     }
   }
+  ${OwnerFragmentDoc}
   ${PageFragmentDoc}
 `
 export const BuilderPageFragmentDoc = gql`
@@ -95,13 +99,17 @@ export const BuilderPageFragmentDoc = gql`
     }
     app {
       id
+      owner {
+        ...Owner
+      }
     }
-    pageContainerElement {
+    pageContentContainer {
       id
     }
     kind
   }
   ${ElementFragmentDoc}
+  ${OwnerFragmentDoc}
 `
 export const PageBuilderAppFragmentDoc = gql`
   fragment PageBuilderApp on App {
@@ -109,7 +117,7 @@ export const PageBuilderAppFragmentDoc = gql`
     name
     slug
     owner {
-      id
+      ...Owner
     }
     pages(
       where: {
@@ -127,6 +135,7 @@ export const PageBuilderAppFragmentDoc = gql`
       ...Store
     }
   }
+  ${OwnerFragmentDoc}
   ${BuilderPageFragmentDoc}
   ${StoreFragmentDoc}
 `

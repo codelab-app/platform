@@ -7,7 +7,7 @@ export interface CypressBuilderCommands {
 
 export const builderCommands: Array<CypressCommand> = [
   {
-    name: 'createElementTree',
     fn: createElementTree,
+    name: 'createElementTree',
   },
 ]

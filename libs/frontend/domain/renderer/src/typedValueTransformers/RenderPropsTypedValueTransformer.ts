@@ -1,9 +1,5 @@
 import type { IElement, TypedValue } from '@codelab/frontend/abstract/core'
 import {
-  getComponentService,
-  getElementService,
-} from '@codelab/frontend/presenter/container'
-import {
   expressionTransformer,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
@@ -45,12 +41,11 @@ export class RenderPropsTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<unknown>): boolean {
-    const componentService = getComponentService(this)
-    const elementService = getElementService(this)
-
     return (
       typeof value.value === 'string' &&
-      (Boolean(getRootElement(value, componentService, elementService)) ||
+      (Boolean(
+        getRootElement(value, this.componentService, this.elementService),
+      ) ||
         hasStateExpression(value.value))
     )
   }
@@ -67,7 +62,7 @@ export class RenderPropsTypedValueTransformer
         ...reactAtoms,
       }
 
-      const evaluationContext = { React, atoms, ...values }
+      const evaluationContext = { atoms, React, ...values }
 
       return expressionTransformer.transpileAndEvaluateExpression(
         value.value,
@@ -75,9 +70,11 @@ export class RenderPropsTypedValueTransformer
       )
     }
 
-    const componentService = getComponentService(this)
-    const elementService = getElementService(this)
-    const rootElement = getRootElement(value, componentService, elementService)
+    const rootElement = getRootElement(
+      value,
+      this.componentService,
+      this.elementService,
+    )
 
     if (!rootElement) {
       return value

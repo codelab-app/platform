@@ -30,8 +30,6 @@ type ImportProps = ExportProps & {
  * User data includes apps, user type, resources
  */
 export const importCommand: CommandModule<ImportProps, ImportProps> = {
-  command: 'import',
-  describe: 'Import user data',
   builder: (argv) =>
     argv
       .options({
@@ -43,6 +41,8 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
         ...getStageOptions([Stage.Dev, Stage.Test]),
       })
       .middleware([loadStageMiddleware, upsertUserMiddleware]),
+  command: 'import',
+  describe: 'Import user data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
   /**
    *
@@ -67,10 +67,10 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
         : !(
             await inquirer.prompt([
               {
-                type: 'confirm',
-                name: 'confirm',
                 default: false,
                 message: 'Would you like to import seed data?',
+                name: 'confirm',
+                type: 'confirm',
               },
             ])
           ).confirm
@@ -81,10 +81,10 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
         : !(
             await inquirer.prompt([
               {
-                type: 'confirm',
-                name: 'confirm',
                 default: false,
                 message: 'Would you like to import user data?',
+                name: 'confirm',
+                type: 'confirm',
               },
             ])
           ).confirm
@@ -99,10 +99,10 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
           : (
               await inquirer.prompt([
                 {
-                  type: 'input',
-                  name: 'inputFilePath',
-                  message: 'Enter a path to import from, relative to ./',
                   default: './data/seed-data.json',
+                  message: 'Enter a path to import from, relative to ./',
+                  name: 'inputFilePath',
+                  type: 'input',
                 },
               ])
             ).inputFilePath
@@ -118,9 +118,9 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
           : (
               await inquirer.prompt([
                 {
-                  type: 'input',
-                  name: 'inputFilePath',
                   message: 'Enter a path to import from, relative to ./',
+                  name: 'inputFilePath',
+                  type: 'input',
                 },
               ])
             ).inputFilePath

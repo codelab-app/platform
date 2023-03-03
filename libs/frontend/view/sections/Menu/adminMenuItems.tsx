@@ -10,21 +10,21 @@ import React from 'react'
 
 export const adminMenuItems: MenuProps['items'] = [
   {
-    label: <Link href={PageType.Atom}>Atoms</Link>,
     icon: (
       <DeploymentUnitOutlined data-testid="atom-tab-trigger" title="Atoms" />
     ),
     key: PageType.Atom,
+    label: <Link href={PageType.Atom}>Atoms</Link>,
   },
   {
-    label: <Link href={PageType.Type}>Types</Link>,
     icon: <ApiOutlined title="Types" />,
     key: PageType.Type,
+    label: <Link href={PageType.Type}>Types</Link>,
   },
   {
-    label: <Link href={PageType.Tag}>Tags</Link>,
     icon: <TagOutlined title="Tags" />,
     key: PageType.Tag,
+    label: <Link href={PageType.Tag}>Tags</Link>,
   },
   // {
   //   icon: <UserOutlined data-testid="admin-tab-trigger" title="Admin" />,

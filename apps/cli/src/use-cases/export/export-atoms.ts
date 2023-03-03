@@ -9,9 +9,9 @@ export const exportAtoms = async (): Promise<Array<IAtomExport>> => {
   const Atom = await Repository.instance.Atom
 
   return (await Atom.find({
-    selectionSet: atomSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: atomSelectionSet,
   })) as Array<IAtomExport>
 }

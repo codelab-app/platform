@@ -11,15 +11,15 @@ export const updateData = {
 }
 
 export const deleteData = {
+  table: {
+    tag_0: 'Delete-Tag-0.',
+    tag_0_0: 'Delete-Tag-0-0.',
+    tag_0_1: 'Delete-Tag-0-1.',
+  },
   tree: {
     tag_0: 'Delete-Tree-Tag-0.',
     tag_0_0: 'Delete-Tree-Tag-0-0.',
     tag_1: 'Delete-Tree-Tag-1.',
     tag_1_0: 'Delete-Tree-Tag-1-0.',
-  },
-  table: {
-    tag_0_0: 'Delete-Tag-0-0.',
-    tag_0: 'Delete-Tag-0.',
-    tag_0_1: 'Delete-Tag-0-1.',
   },
 }

@@ -5,11 +5,11 @@ import type { CSSProperties } from 'react'
 import React from 'react'
 
 const iconStyle: CSSProperties = {
-  width: 'inherit',
+  display: 'none',
   height: 'inherit',
   marginLeft: '1.5rem',
   padding: 0,
-  display: 'none',
+  width: 'inherit',
 }
 
 export const UpdateTagIconButton = ({ id }: UpdateButtonProps) => {

@@ -109,10 +109,10 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
          */
         let existingField: IField | undefined = await this.fieldRepository.find(
           {
-            key: field.property,
             api: {
               name: atom.api.name,
             },
+            key: field.property,
           },
         )
 
@@ -125,8 +125,8 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
            */
           const fieldTypeDTO =
             await new TransformAntDesignTypesService().execute({
-              field,
               atom,
+              field,
               owner: this.owner,
             })
 
@@ -147,9 +147,8 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
           )
 
           existingField = Field.init({
-            id: v4(),
-            key: field.property,
-            name: compoundCaseToTitleCase(field.property),
+            api: { id: atom.api.id },
+            defaultValues: null,
             description: field.description,
             /**
              * Need to get type from the field type
@@ -157,8 +156,12 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
              * If doesn't exist like union or interface we'll need to create it
              */
             fieldType: type,
-            api: { id: atom.api.id },
-            defaultValues: null,
+
+            id: v4(),
+
+            key: field.property,
+
+            name: compoundCaseToTitleCase(field.property),
           })
         }
 

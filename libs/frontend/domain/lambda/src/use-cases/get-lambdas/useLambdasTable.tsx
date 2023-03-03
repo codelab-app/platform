@@ -5,21 +5,21 @@ import { ActionColumn } from './colums/ActionColumn'
 export const useLambdaTable = () => {
   const columns = [
     {
-      title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      title: 'Name',
     },
     {
-      title: 'Body',
       dataIndex: 'body',
       key: 'body',
+      title: 'Body',
     },
     {
-      title: 'Action',
       key: 'action',
       render: (_: string, lambda: LambdaFragment) => (
         <ActionColumn lambda={lambda} />
       ),
+      title: 'Action',
     },
   ]
 

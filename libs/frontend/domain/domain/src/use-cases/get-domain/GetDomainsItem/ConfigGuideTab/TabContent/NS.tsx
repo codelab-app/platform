@@ -17,7 +17,6 @@ export const NS = ({ copyable, nameServers = [] }: NameServersProps) => (
 
 const columns = [
   {
-    title: 'Intended Nameservers',
     dataIndex: 'intendedNameservers',
     render: (
       _: unknown,
@@ -25,13 +24,14 @@ const columns = [
     ) => {
       return <NS copyable nameServers={intendedNameservers} />
     },
+    title: 'Intended Nameservers',
   },
   {
-    title: 'Current Nameservers',
     dataIndex: 'nameservers',
     render: (_: unknown, { nameServers }: { nameServers: Array<string> }) => {
       return <NS copyable={false} nameServers={nameServers} />
     },
+    title: 'Current Nameservers',
   },
 ]
 

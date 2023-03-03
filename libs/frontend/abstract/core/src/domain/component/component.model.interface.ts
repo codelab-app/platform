@@ -1,33 +1,34 @@
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { INodeType } from '../../base'
 import type { ICacheService } from '../../service'
 import type { IElement, IElementTreeService } from '../element'
 import type { IProp } from '../prop'
 import type { IInterfaceType } from '../type'
+import type { IOwnerSchema } from '../user'
 import type { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent
   extends INodeType<'Component'>,
     IElementTreeService,
-    ICacheService<IComponentDTO, IComponent> {
+    ICacheService<IComponentDTO, IComponent>,
+    IOwnerSchema {
   id: string
   name: string
-  rootElementId: string
-  childrenContainerElementId: string
-  ownerId: string
+  rootElement: Ref<IElement>
+  childrenContainerElement: Ref<IElement>
   api: Ref<IInterfaceType>
-  props?: Nullable<IProp>
+  props?: Nullable<Ref<IProp>>
   instanceElement: Nullable<Ref<IElement>>
   /**
    * to render a component we create a duplicate for each instance
    * keeps track of source component in case this is a duplicate
    */
-  sourceComponentId?: Nullable<string>
-  setSourceComponentId: (id: string) => void
+  sourceComponent?: Nullable<IEntity>
+  setSourceComponent: (entity: IEntity) => void
   setInstanceElement: (elementRef: Ref<IElement>) => void
-  setChildrenContainerElementId: (id: string) => void
-  setProps(t: Nullable<IProp>): void
+  setChildrenContainerElement: (element: Ref<IElement>) => void
+  setProps(props: Nullable<Ref<IProp>>): void
   clone(instanceId: string): IComponent
 }
 

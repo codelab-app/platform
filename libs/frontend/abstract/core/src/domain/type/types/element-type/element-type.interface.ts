@@ -1,5 +1,6 @@
 import type { IElementTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
+import type { IElementTypeDTO } from './element-type.dto.interface'
 
 /**
  * Allows picking an element from the current tree
@@ -16,7 +17,7 @@ import type { IBaseType } from '../base-type'
  * @property {ElementTypeKind} elementKind Allows scoping the type of element to only descendants, children or all elements
  *
  */
-export interface IElementType extends IBaseType {
+export interface IElementType extends IBaseType<IElementTypeDTO> {
   kind: ITypeKind.ElementType
   elementKind: IElementTypeKind
 }

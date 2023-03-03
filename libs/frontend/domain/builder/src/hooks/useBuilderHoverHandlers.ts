@@ -53,7 +53,7 @@ export const useBuilderHoverHandlers = ({
   }, [])
 
   return {
-    handleMouseOver,
     handleMouseLeave,
+    handleMouseOver,
   }
 }

@@ -39,11 +39,11 @@ const hydrate = ({ id, allowedValues, kind, name, owner }: IEnumTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({
+    allowedValues: allowedValues.map(EnumTypeValue.hydrate),
     id,
     kind,
     name,
-    allowedValues: allowedValues.map(EnumTypeValue.hydrate),
-    ownerId: owner.id,
+    owner,
   })
 }
 
@@ -55,7 +55,7 @@ export class EnumType
   implements IEnumType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.EnumType) {

@@ -15,16 +15,16 @@ const INPUT_COMPONENT_NAME = 'Input Component'
 
 const mainPageElements = [
   {
-    name: CARD_COMPONENT_NAME,
-    slug: slugify(CARD_COMPONENT_NAME),
-    parentElement: ROOT_ELEMENT_NAME,
     atom: IAtomType.AntDesignCard,
+    name: CARD_COMPONENT_NAME,
+    parentElement: ROOT_ELEMENT_NAME,
+    slug: slugify(CARD_COMPONENT_NAME),
   },
   {
-    name: INPUT_COMPONENT_NAME,
-    slug: slugify(INPUT_COMPONENT_NAME),
-    parentElement: CARD_COMPONENT_NAME,
     atom: IAtomType.AntDesignInput,
+    name: INPUT_COMPONENT_NAME,
+    parentElement: CARD_COMPONENT_NAME,
+    slug: slugify(INPUT_COMPONENT_NAME),
   },
 ]
 
@@ -72,13 +72,13 @@ describe('_app page', () => {
 
     cy.getModal().setFormFieldValue({
       label: 'Render Type',
-      value: 'Atom',
       type: FIELD_TYPE.SELECT,
+      value: 'Atom',
     })
     cy.getModal().setFormFieldValue({
       label: 'Atom',
-      value: IAtomType.AntDesignConfigProvider,
       type: FIELD_TYPE.SELECT,
+      value: IAtomType.AntDesignConfigProvider,
     })
     cy.getModal().findByLabelText('Name').clear().type(CONFIG_PROVIDER_NAME)
     cy.getModal()
@@ -91,8 +91,8 @@ describe('_app page', () => {
     cy.get(`.ant-tabs [aria-label="file"]`).click()
     cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
       label: 'Page container element id',
-      value: CONFIG_PROVIDER_NAME,
       type: FIELD_TYPE.SELECT,
+      value: CONFIG_PROVIDER_NAME,
     })
 
     // After props are changed - need to wait for the corresponding API call

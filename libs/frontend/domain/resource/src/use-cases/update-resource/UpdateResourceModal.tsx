@@ -1,41 +1,31 @@
 import type {
   IResourceService,
-  IUpdateResourceDTO,
+  IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import { IResourceType } from '@codelab/shared/abstract/core'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 import { updateResourceSchema } from './updateResourceSchema'
 
 export const UpdateResourceModal = observer<{
   resourceService: IResourceService
 }>(({ resourceService }) => {
-  const updateResource = resourceService.updateModal.resource
-  const closeModal = () => resourceService.updateModal.close()
+  const resource = resourceService.updateModal.resource
 
-  const onSubmit = async (data: IUpdateResourceDTO) => {
-    if (!updateResource) {
-      throw new Error('Updated resource is not set')
-    }
-
-    return resourceService.update(updateResource, data)
+  const model = {
+    config: resource?.config.current.values,
+    id: resource?.id,
+    name: resource?.name,
+    owner: resource?.owner,
+    type: resource?.type,
   }
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while updating resource',
-  })
+  const onSubmit = (resourceDTO: IUpdateResourceData) =>
+    resourceService.update(resourceDTO)
 
-  const model = updateResource
-    ? {
-        name: updateResource.name,
-        config: updateResource.config.values,
-        type: updateResource.type,
-        auth0Id: updateResource.ownerId,
-      }
-    : {}
+  const closeModal = () => resourceService.updateModal.close()
 
   return (
     <ModalForm.Modal
@@ -43,38 +33,16 @@ export const UpdateResourceModal = observer<{
       onCancel={closeModal}
       open={resourceService.updateModal.isOpen}
     >
-      <ModalForm.Form
+      <ModalForm.Form<IUpdateResourceData>
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while updating resource',
+        })}
         onSubmitSuccess={closeModal}
         schema={updateResourceSchema}
       >
-        <AutoFields omitFields={['config']} />
-
-        {/**
-         *
-         *  GraphQL Resource Config Form
-         *
-         */}
-        <DisplayIfField<IUpdateResourceDTO>
-          condition={(context) => context.model.type === IResourceType.GraphQL}
-        >
-          <AutoField name="config.url" />
-          <AutoField name="config.headers" />
-        </DisplayIfField>
-
-        {/**
-         *
-         *  Rest Resource Config Form
-         *
-         */}
-        <DisplayIfField<IUpdateResourceDTO>
-          condition={(context) => context.model.type === IResourceType.Rest}
-        >
-          <AutoField name="config.url" />
-          <AutoField name="config.headers" />
-        </DisplayIfField>
+        <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

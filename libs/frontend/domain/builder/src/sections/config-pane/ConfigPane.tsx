@@ -34,13 +34,6 @@ export const ConfigPane = observer<MetaPaneProps>(
 
     const tabItems: TabsProps['items'] = [
       {
-        label: (
-          <div>
-            <EditOutlined />
-            Inspector
-          </div>
-        ),
-        key: 'inspector',
         children: (
           <ConfigPaneInspectorTabContainer
             UpdateElementContent={observer(({ node, trackPromises }) => {
@@ -89,16 +82,23 @@ export const ConfigPane = observer<MetaPaneProps>(
             renderService={renderService}
           />
         ),
+        key: 'inspector',
+        label: (
+          <div>
+            <EditOutlined />
+            Inspector
+          </div>
+        ),
       },
       {
+        children: <ConfigPaneComponentTabContainer />,
+        key: 'component-tab',
         label: (
           <div>
             <CodeSandboxOutlined />
             Component
           </div>
         ),
-        key: 'component-tab',
-        children: <ConfigPaneComponentTabContainer />,
       },
     ]
 

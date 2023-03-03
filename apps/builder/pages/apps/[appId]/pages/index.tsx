@@ -34,7 +34,7 @@ export default Pages
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer((page) => {
-  const { pageService, domainService } = useStore()
+  const { pageService, domainService, userService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
@@ -44,6 +44,7 @@ Pages.Layout = observer((page) => {
         <ExplorerPanePage
           domainService={domainService}
           pageService={pageService}
+          userService={userService}
         />
       )}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}

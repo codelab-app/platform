@@ -4,22 +4,22 @@ import type {
   ElementWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
-  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type { IAuth0Id } from '../user'
+import type { IAuth0Owner } from '../user'
 import type {
-  ICreateElementDTO,
+  ICreateElementData,
   IElementDTO,
-  IUpdateElementDTO,
+  IUpdateElementData,
 } from './element.dto.interface'
-import type { IElement, IElementRef } from './element.model.interface'
+import type { IElement } from './element.model.interface'
+import type { IElementRepository } from './element.repository.interface'
 import type { IElementTree } from './element-tree.interface.model'
 
 /**
@@ -41,10 +41,9 @@ export interface UpdateElementProperties {
 
 export interface IElementService
   extends Omit<
-      ICRUDService<IElement, ICreateElementDTO, IUpdateElementDTO>,
+      ICRUDService<IElement, ICreateElementData, IUpdateElementData>,
       'delete'
     >,
-    ICacheService<IElementDTO, IElement>,
     Omit<IQueryService<IElement, ElementWhere, ElementOptions>, 'getOne'>,
     Omit<
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
@@ -55,24 +54,27 @@ export interface IElementService
   elements: ObjectMap<IElement>
   elementNames: Array<string>
   clonedElements: ObjectMap<IElement>
+  elementRepository: IElementRepository
+
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  createElementAsFirstChild(data: ICreateElementDTO): Promise<IElement>
-  createElementAsNextSibling(data: ICreateElementDTO): Promise<IElement>
+  createElementAsFirstChild(data: ICreateElementData): Promise<IElement>
+  createElementAsNextSibling(data: ICreateElementData): Promise<IElement>
   moveElementToAnotherTree(props: {
-    elementId: string
-    targetElementId: string
+    element: IEntity
+    targetElement: IEntity
     dropPosition: number
   }): Promise<void>
   moveElementAsFirstChild(props: {
-    elementId: string
-    parentElementId: string
+    element: IEntity
+    parentElement: IEntity
   }): Promise<void>
+  add(elementDTO: IElementDTO): IElement
   moveElementAsNextSibling(props: {
-    elementId: string
-    targetElementId: string
+    element: IEntity
+    targetElement: IEntity
   }): Promise<void>
   cloneElement(
     target: IElement,
@@ -80,10 +82,11 @@ export interface IElementService
   ): Promise<Array<IElement>>
   convertElementToComponent(
     element: IElement,
-    auth0Id: IAuth0Id,
+    owner: IAuth0Owner,
   ): Promise<Maybe<IElement>>
-  element(id: string): Maybe<IElement>
-  deleteElementSubgraph(root: IElementRef): Promise<Array<string>>
+  element(id: string): IElement
+  maybeElement(id: Maybe<string>): Maybe<IElement>
+  deleteElementSubgraph(subRoot: IEntity): Promise<Array<string>>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
   loadComponentTree(component: RenderedComponentFragment): {
     rootElement: IElement

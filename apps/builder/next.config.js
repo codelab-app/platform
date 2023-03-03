@@ -42,11 +42,12 @@ module.exports = withPlugins(
     withRawCypherFiles,
   ],
   withNx({
-    nx: { svgr: true },
     // https://github.com/vercel/next.js/issues/9830
     experimental: {
       // appDir: true,
       // css: true,
     },
+
+    nx: { svgr: true },
   }),
 )

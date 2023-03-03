@@ -4,6 +4,7 @@ import type {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
+import { isAtomModel } from '@codelab/frontend/domain/atom'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
@@ -43,7 +44,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
         store.state.setSilently(element.id, node)
-        store.state.setSilently(element.slug, node)
+        // store.state.setSilently(element.slug, node)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -77,7 +78,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       if (renderOutput.props) {
         renderOutput.props['forwardedRef'] = onRefChange
 
-        if (element.atom?.current.type === IAtomType.GridLayout) {
+        if (
+          isAtomModel(element.renderType) &&
+          element.renderType.current.type === IAtomType.GridLayout
+        ) {
           renderOutput.props['static'] =
             renderService.rendererType === RendererType.Preview
         }
@@ -85,11 +89,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
-
-      // const withMaybeProviders = withMaybeGlobalPropsProvider(
-      //  renderOutput,
-      //  globalPropsContext,
-      // )
 
       return (props?: IPropData) =>
         /**
@@ -127,10 +126,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         onError: ({ message, stack }) => {
           element.setRenderingError({ message, stack })
         },
-        resetKeys: [renderOutputs],
         onResetKeysChange: () => {
           element.setRenderingError(null)
         },
+        resetKeys: [renderOutputs],
       },
       WrappedElement,
     )

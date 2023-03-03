@@ -1,22 +1,33 @@
 import type {
-  ICreateAppDTO,
-  ICreateElementDTO,
-  ICreatePageDTO,
+  IAppDTO,
+  ICreateElementData,
+  IPageDTO,
+  IStoreDTO,
 } from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 
-export const appData: Pick<ICreateAppDTO, 'id' | 'name'> = {
+export const storeData: IStoreDTO = {
+  api: { id: v4() },
+  id: v4(),
+  name: 'Test Store',
+}
+
+export const appData: IAppDTO = {
   id: v4(),
   name: 'Codelab',
+  owner: {
+    auth0Id: v4(),
+  },
+  store: storeData,
 }
 
-export const pageData: Pick<ICreatePageDTO, 'id' | 'name' | 'appId'> = {
+export const pageData: Pick<IPageDTO, 'id' | 'name' | 'app'> = {
+  app: appData,
   id: v4(),
   name: 'Home',
-  appId: appData.id!,
 }
 
-export const buttonElementData: Pick<ICreateElementDTO, 'id' | 'name'> = {
+export const buttonElementData: Pick<ICreateElementData, 'id' | 'name'> = {
   id: v4(),
   name: 'Button',
 }

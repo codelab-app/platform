@@ -11,7 +11,7 @@ export type PageFragment = {
   kind: Types.PageKind
   app: { id: string }
   rootElement: { id: string; name: string }
-  pageContainerElement?: { id: string } | null
+  pageContentContainer?: { id: string } | null
 }
 
 export const PageFragmentDoc = gql`
@@ -27,7 +27,7 @@ export const PageFragmentDoc = gql`
       id
       name
     }
-    pageContainerElement {
+    pageContentContainer {
       id
     }
     kind

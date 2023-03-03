@@ -96,20 +96,10 @@ export const upsertUnionFieldType: FieldTypeRef = async ({
         input: [
           {
             id: v4(),
-            name: unionName,
             kind: ITypeKind.UnionType,
+            name: unionName,
+            owner: connectNode(userId),
             typesOfUnionType: {
-              PrimitiveType: {
-                connect: values
-                  .filter((type) => isPrimitiveType(type))
-                  .map((value: string) => ({
-                    where: {
-                      node: {
-                        name: mapPrimitiveType(value),
-                      },
-                    },
-                  })),
-              },
               InterfaceType: {
                 create: values
                   .filter((item: string) => item.match(isInterfaceTypeRegex))
@@ -125,12 +115,6 @@ export const upsertUnionFieldType: FieldTypeRef = async ({
 
                     return {
                       node: {
-                        id: v4(),
-                        name: `${atom.name} ${compoundCaseToTitleCase(
-                          field.property,
-                        )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
-                        kind: ITypeKind.InterfaceType,
-                        owner: connectNode(userId),
                         fields: {
                           connect: values
                             .filter((type: string) =>
@@ -170,12 +154,28 @@ export const upsertUnionFieldType: FieldTypeRef = async ({
                               }
                             }),
                         },
+                        id: v4(),
+                        kind: ITypeKind.InterfaceType,
+                        name: `${atom.name} ${compoundCaseToTitleCase(
+                          field.property,
+                        )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
+                        owner: connectNode(userId),
                       },
                     }
                   }),
               },
+              PrimitiveType: {
+                connect: values
+                  .filter((type) => isPrimitiveType(type))
+                  .map((value: string) => ({
+                    where: {
+                      node: {
+                        name: mapPrimitiveType(value),
+                      },
+                    },
+                  })),
+              },
             },
-            owner: connectNode(userId),
           },
         ],
       })

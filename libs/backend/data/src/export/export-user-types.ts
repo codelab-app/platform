@@ -29,12 +29,12 @@ export const exportUserTypes = async (): Promise<Array<ITypeExport>> => {
   const InterfaceType = await Repository.instance.InterfaceType
 
   const interfaceTypes = await InterfaceType.find({
+    selectionSet: exportInterfaceTypeSelectionSet,
     where: {
       apiOfAtomsAggregate: {
         count: 0,
       },
     },
-    selectionSet: exportInterfaceTypeSelectionSet,
   })
 
   /**

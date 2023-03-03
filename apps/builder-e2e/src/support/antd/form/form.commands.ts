@@ -285,10 +285,10 @@ export const expectFormFields = (
   ) &
     CommonOptions = {},
 ) => {
-  const mergedFields = mergeFields(fields, { value: values, error: errors })
+  const mergedFields = mergeFields(fields, { error: errors, value: values })
   forEach(mergedFields, ({ value, placeholder, error, ...fieldSelector }) => {
     if (!isUndefined(value) || !isUndefined(placeholder)) {
-      expectFormFieldValue({ ...options, value, placeholder, ...fieldSelector })
+      expectFormFieldValue({ ...options, placeholder, value, ...fieldSelector })
     }
 
     if (error) {
@@ -308,8 +308,8 @@ export const expectFormFieldsFn =
   ) =>
     expectFormFields(fields, {
       ...options,
-      values,
       errors,
+      values,
     } as ExpectFormFieldsArgs[1])
 
 export const getSelectDropdown = (options?: CommonOptions) =>
@@ -523,8 +523,8 @@ export const setFormFieldValue = (
         view.dispatch({
           changes: {
             from: 0,
-            to: view.state.doc.length,
             insert: String(value),
+            to: view.state.doc.length,
           },
         })
       })

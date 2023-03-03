@@ -1,14 +1,26 @@
-import type { IUpdateTagDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateTagData } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/shared/domain'
 import type { JSONSchemaType } from 'ajv'
 
-export const updateTagSchema: JSONSchemaType<IUpdateTagDTO> = {
-  title: 'Update Tag Input',
-  type: 'object',
+export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
   properties: {
+    ...idSchema,
     name: {
-      type: 'string',
       autoFocus: true,
+      type: 'string',
+    },
+    parent: {
+      nullable: true,
+      properties: {
+        id: {
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
   },
   required: ['name'],
+  title: 'Update Tag Input',
+  type: 'object',
 } as const

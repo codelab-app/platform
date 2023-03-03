@@ -78,13 +78,15 @@ export type ITypeKindLiteral = z.infer<typeof TypeKindSchema>
 
 export const BaseTypeSchema = z
   .object({
-    id: z.string(),
-    name: z.string(),
-    // Changed this to literal so we have a required field for discriminated union
-    kind: z.nativeEnum(ITypeKind),
     __typename:
       // Make optional to match OGM types
       TypeKindSchema.optional(),
+
+    id: z.string(),
+
+    // Changed this to literal so we have a required field for discriminated union
+    kind: z.nativeEnum(ITypeKind),
+    name: z.string(),
   })
   .merge(EntitySchema)
   .merge(OwnerSchema)

@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export const GraphqlHookConfigSchema = z.object({
-  graphqlBody: z.string().min(1),
   dataKey: z.string().optional().nullable(),
+  graphqlBody: z.string().min(1),
   graphqlUrl: z.string().min(1).url(),
 })
 

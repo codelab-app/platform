@@ -19,9 +19,6 @@ interface ParseProps {
 }
 
 export const seedCommand: CommandModule<ParseProps, ParseProps> = {
-  command: 'seed',
-  describe:
-    'Parse Ant Design scraped CSV files and seed to application as types',
   builder: (argv) =>
     argv
       .options({
@@ -29,6 +26,9 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
         ...assignUserOption,
       })
       .middleware([loadStageMiddleware, upsertUserMiddleware]),
+  command: 'seed',
+  describe:
+    'Parse Ant Design scraped CSV files and seed to application as types',
   handler: async ({ email }) => {
     const userRepository = new UserRepository()
 

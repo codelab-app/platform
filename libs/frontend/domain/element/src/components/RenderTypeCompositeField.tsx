@@ -1,5 +1,9 @@
-import type { IAtom, ICreateElementDTO } from '@codelab/frontend/abstract/core'
-import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
+import type {
+  IAtom,
+  IComponent,
+  ICreateElementData,
+} from '@codelab/frontend/abstract/core'
+import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
 import type { GuaranteedProps } from 'uniforms'
@@ -10,8 +14,8 @@ const RenderTypeFields = ({
   parent,
   error,
   onChange,
-}: GuaranteedProps<Partial<ICreateElementDTO['renderType']>> & {
-  parent?: IAtom
+}: GuaranteedProps<Partial<ICreateElementData['renderType']>> & {
+  parent?: IAtom | IComponent
 }) => (
   <section>
     <SelectField
@@ -19,34 +23,39 @@ const RenderTypeFields = ({
       onChange={(value) => {
         // when the type changes, the selected atom or component has to be
         // removed since they share the same field name `renderType.id`
-        onChange(value ? { model: value } : null)
+        onChange(value ? { kind: value } : null)
       }}
       options={[
         {
           label: 'Atom',
-          value: RenderTypeEnum.Atom,
+          value: IRenderTypeKind.Atom,
         },
         {
           label: 'Component',
-          value: RenderTypeEnum.Component,
+          value: IRenderTypeKind.Component,
         },
       ]}
       required={false}
     />
-    <DisplayIfField<ICreateElementDTO>
+    <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.model === RenderTypeEnum.Atom
+        context.model.renderType?.kind === IRenderTypeKind.Atom
       }
     >
       {/**
-       * AutoField renders subcomponent frequently, so SelectField of SelectAtom component flicks
+       * AutoField renders sub-component frequently, so SelectField of SelectAtom component flicks
        * No need AutoField here
        */}
-      <SelectAtom error={error} label="Atom" name="id" parent={parent} />
+      <SelectAtom
+        error={error}
+        label="Atom"
+        name="id"
+        parent={parent as IAtom}
+      />
     </DisplayIfField>
-    <DisplayIfField<ICreateElementDTO>
+    <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.model === RenderTypeEnum.Component
+        context.model.renderType?.kind === IRenderTypeKind.Component
       }
     >
       <SelectComponent error={error} label="Component" name="id" />

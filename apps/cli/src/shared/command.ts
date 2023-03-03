@@ -11,11 +11,11 @@ type GetEnvOptions = (environments: Array<Stage>) => {
  */
 export const getStageOptions: GetEnvOptions = (stages) => ({
   stage: {
-    type: 'string',
     choices: stages,
-    describe: 'Stage used to load proper `.env`',
-    demandOption: true,
     default: Stage.Dev,
+    demandOption: true,
+    describe: 'Stage used to load proper `.env`',
+    type: 'string',
   },
 })
 
@@ -31,14 +31,14 @@ export const loadStageMiddleware: MiddlewareFunction<{
 
   // Load prod env only if not CI
   if (stage === Stage.Prod) {
-    dotenv.config({ path: '.env.prod', override: true })
+    dotenv.config({ override: true, path: '.env.prod' })
   }
 
   if (stage === Stage.Dev) {
-    dotenv.config({ path: '.env', override: true })
+    dotenv.config({ override: true, path: '.env' })
   }
 
   if (stage === Stage.Test) {
-    dotenv.config({ path: '.env.test', override: true })
+    dotenv.config({ override: true, path: '.env.test' })
   }
 }

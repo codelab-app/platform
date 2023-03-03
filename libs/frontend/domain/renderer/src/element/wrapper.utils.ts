@@ -1,16 +1,10 @@
-import type {
-  IPropData,
-  IPropDataByElementId,
-  IRenderOutput,
-} from '@codelab/frontend/abstract/core'
+import type { IPropData, IRenderOutput } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
-import { isEmpty, pick } from 'ramda'
+import { pick } from 'ramda'
 import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
-import { withGlobalPropsProvider } from '../props/globalPropsContext'
 import type { DraggableElementProps } from './DraggableElement'
 import { DraggableElementWrapper } from './DraggableElementWrapper'
 
@@ -28,28 +22,6 @@ export const extractValidProps = (
   ReactComponent === Fragment
     ? { key: renderOutput.props?.['key'] }
     : renderOutput.props
-
-/**
- * Wrap it with global props context if it requires it
- */
-export const withMaybeGlobalPropsProvider = (
-  renderOutput: IRenderOutput,
-  globalProps: IPropDataByElementId,
-) => {
-  // the root element of a component has a prop for component id
-  // we store the component id so we can determine if an element is rendered inside a component
-  const componentProp = getComponentProp(renderOutput.props)
-
-  const mergedProps = mergeProps(
-    globalProps,
-    renderOutput.globalProps,
-    componentProp,
-  )
-
-  return isEmpty(renderOutput.globalProps)
-    ? noWrapper()
-    : withGlobalPropsProvider(mergedProps as IPropDataByElementId)
-}
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
   // use span to hold the component's elements together and it is an html

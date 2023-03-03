@@ -24,8 +24,8 @@ export type IArrayTypeExport = z.infer<typeof ArrayTypeExportSchema>
  * Create
  */
 const CreateArrayTypeSchema = ArrayTypeSchema.pick({
-  name: true,
   __typename: true,
+  name: true,
   owner: true,
 })
 

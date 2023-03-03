@@ -27,10 +27,10 @@ export interface ItemMenuProps {
 }
 
 const menuItemStyle: CSSProperties = {
+  alignItems: 'center',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  alignItems: 'center',
   width: 'full',
 }
 
@@ -50,45 +50,45 @@ export const ItemDropdown = observer<ItemMenuProps>(
 
     const menuItems: MenuProps['items'] = [
       {
-        label: 'Build',
-        key: 'build',
-        onClick: onBuildClick,
-        style: menuItemStyle,
-        icon: <ToolOutlined style={menuItemIconStyle} />,
         disabled:
           !domains ||
           !domains.some((domain) => !domain.domainConfig.misconfigured),
+        icon: <ToolOutlined style={menuItemIconStyle} />,
+        key: 'build',
+        label: 'Build',
+        onClick: onBuildClick,
+        style: menuItemStyle,
       },
       {
-        label: 'Edit',
+        icon: <EditOutlined style={menuItemIconStyle} />,
         key: 'edit',
+        label: 'Edit',
         onClick: onEditClick,
         style: menuItemStyle,
-        icon: <EditOutlined style={menuItemIconStyle} />,
       },
       {
-        label: 'Domains',
+        icon: <GlobalOutlined style={menuItemIconStyle} />,
         key: 'domains',
+        label: 'Domains',
         onClick: goToDomainsPage,
         style: menuItemStyle,
-        icon: <GlobalOutlined style={menuItemIconStyle} />,
       },
       {
-        label: 'Delete',
+        icon: <DeleteOutlined style={menuItemIconStyle} />,
         key: 'delete',
+        label: 'Delete',
         onClick: onDeleteClick,
         style: menuItemStyle,
-        icon: <DeleteOutlined style={menuItemIconStyle} />,
       },
       {
-        key: 'export',
-        style: menuItemStyle,
         icon: <ExportOutlined style={menuItemIconStyle} />,
+        key: 'export',
         label: (
           <Link href={`/api/export?appId=${app.id}`}>
             <span>Export</span>
           </Link>
         ),
+        style: menuItemStyle,
       },
     ]
 

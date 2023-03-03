@@ -1,11 +1,15 @@
-import type { IInterfaceType, IProp } from '@codelab/frontend/abstract/core'
+import type {
+  IInterfaceType,
+  IProp,
+  IPropDTO,
+} from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
   IPropData,
-  IPropDTO,
 } from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { PropCreateInput } from '@codelab/shared/abstract/codegen'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
@@ -27,26 +31,52 @@ import {
 } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
+import { getPropService } from './prop.service'
 
-const hydrate = ({ id, data, apiRef }: IPropDTO): IProp => {
-  return new Prop({ id, data: frozen(JSON.parse(data)), apiRef })
+const create = ({ id, data = '{}', api }: IPropDTO) => {
+  return new Prop({
+    api,
+    data: frozen(JSON.parse(data)),
+    id,
+  })
 }
 
 @model('@codelab/Prop')
 export class Prop
   extends Model({
+    api: prop<Maybe<Ref<IInterfaceType>>>(),
+    data: prop(() => frozen<Nullable<IPropData>>(null)),
     id: idProp,
-    data: prop(() => frozen<IPropData>({})),
-    apiRef: prop<Maybe<Ref<IInterfaceType>>>(),
   })
   implements IProp
 {
   private silentData: IPropData = {}
 
+  static create = create
+
+  @modelAction
+  writeCache({ id, data, api }: Partial<IPropDTO>) {
+    this.data = data ? frozen(JSON.parse(data)) : this.data
+    this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
+
+    return this
+  }
+
+  toCreateInput(): PropCreateInput {
+    return {
+      data: JSON.stringify(this.data.data ?? {}),
+    }
+  }
+
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
   @computed
   get values() {
-    if (this.apiRef?.maybeCurrent) {
-      const apiPropsMap = this.apiRef.current.fields
+    if (this.api?.maybeCurrent) {
+      const apiPropsMap = this.api.current.fields
 
       const apiPropsByKey = values(apiPropsMap)
         .map((propModel) => ({ [propModel.key]: propModel }))
@@ -67,9 +97,12 @@ export class Prop
   }
 
   @modelAction
-  set(key: string, value: object) {
+  set(key: string, value: object | string) {
     const obj = set({}, key, value)
-    this.data = frozen(mergeDeepRight(this.data.data, obj))
+
+    if (this.data.data) {
+      this.data = frozen(mergeDeepRight(this.data.data, obj))
+    }
   }
 
   // set data without re-rendering
@@ -84,7 +117,8 @@ export class Prop
 
   @modelAction
   delete(key: string) {
-    this.data = frozen(omit(this.data, key))
+    // Need to cast since deleting key changes the interface
+    this.data = frozen(omit(this.data.data, key))
   }
 
   get(key: string) {
@@ -93,27 +127,15 @@ export class Prop
 
   @modelAction
   clear() {
-    this.data = frozen({})
-  }
-
-  static hydrate = hydrate
-
-  @modelAction
-  writeCache({ id, data }: IPropDTO) {
-    this.id = id
-    this.data = frozen(JSON.parse(data))
-
-    return this
+    this.data = frozen(null)
   }
 
   @modelAction
   clone() {
-    return Prop.hydrate({
-      id: v4(),
+    return this.propService.add({
+      api: this.api?.id ? typeRef<IInterfaceType>(this.api.id) : undefined,
       data: this.jsonString,
-      apiRef: this.apiRef?.id
-        ? (typeRef(this.apiRef.id) as Ref<IInterfaceType>)
-        : undefined,
+      id: v4(),
     })
   }
 

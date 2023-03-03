@@ -19,8 +19,8 @@ export class ActionTypeFactory extends ITypeFactory<
     where: BaseTypeUniqueWhereCallback<IActionType>,
   ) {
     const actionType = ActionType.init({
-      owner,
       __typename: ITypeKind.ActionType,
+      owner,
     })
 
     return await this.repository.save(actionType, where(actionType))

@@ -1,5 +1,14 @@
-import type { UpdateElementsMutationVariables } from '@codelab/shared/abstract/codegen'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type {
+  ElementCreateInput,
+  ElementUpdateInput,
+  UpdateElementsMutationVariables,
+} from '@codelab/shared/abstract/codegen'
+import type {
+  IEntity,
+  Maybe,
+  Nullable,
+  Nullish,
+} from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
 import type { ICacheService } from '../../service'
@@ -8,7 +17,7 @@ import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IProp, IPropData } from '../prop'
-import type { IAuth0Id } from '../user'
+import type { IAuth0Owner } from '../user'
 import type { IElementDTO } from './element.dto.interface'
 
 /**
@@ -41,24 +50,26 @@ export interface IElement
     ICacheService<IElementDTO, IElement> {
   id: string
   isRoot: boolean
-  owner: Nullable<IAuth0Id>
+  owner: Nullable<IAuth0Owner>
   name: string
-  customCss: Nullable<string>
-  guiCss: Nullable<string>
-  props?: Nullable<IProp>
-  atom: Nullable<Ref<IAtom>>
+  customCss?: Nullable<string>
+  guiCss?: Nullable<string>
+  props: Ref<IProp>
   hooks: Array<IHook>
-  parentId: Nullable<string>
-  parentElement: Maybe<IElement>
-  parentComponent: Nullable<Ref<IComponent>>
+  parent?: Ref<IElement>
+  parentComponent?: Nullable<Ref<IComponent>>
+  // parentElement?: IEntity
   label: string
   propTransformationJs: Nullable<string>
-  preRenderActionId: Nullish<string>
-  postRenderActionId: Nullish<string>
+  preRenderAction?: Nullish<IEntity>
+  postRenderAction?: Nullish<IEntity>
   children: Array<IElement>
+  firstChild?: Nullable<Ref<IElement>>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
-  renderComponentType: Nullable<Ref<IComponent>>
+  renderType: Ref<IAtom> | Ref<IComponent> | null
+  // atom: Nullable<Ref<IAtom>>
+  // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
@@ -66,11 +77,9 @@ export interface IElement
   descendants: Array<IElement>
   __metadataProps: IPropData
   atomName: string
-  slug: string
-  nextSibling: Maybe<IElement>
-  nextSiblingId: Nullable<string>
-  prevSibling: Maybe<IElement>
-  prevSiblingId: Nullable<string>
+  // slug: string
+  nextSibling?: Nullable<Ref<IElement>>
+  prevSibling?: Nullable<Ref<IElement>>
   /**
    * the tree's root element
    */
@@ -83,40 +92,38 @@ export interface IElement
    * to render a component we create a duplicate for each element
    * keeps track of source element in case this is a duplicate
    */
-  sourceElementId: Nullable<string>
+  sourceElement: Nullable<IEntity>
 
   detachNextSibling(): () => void
   detachPrevSibling(): () => void
   detachParent(): () => void
   attachPrevToNextSibling(): () => void
-  attachToParentAsFirstChild(parentElementId: string): () => void
-  attachToParent(parentElementId: string): () => void
-  appendSibling(siblingId: string): () => void
-  prependSibling(siblingId: string): () => void
+  attachToParentAsFirstChild(parentElement: Ref<IElement>): () => void
+  attachToParent(parentElement: Ref<IElement>): () => void
+  appendSibling(sibling: Ref<IElement>): () => void
+  prependSibling(sibling: Ref<IElement>): () => void
   clone(cloneIndex: number): IElement
-  updateCloneIds(elementMap: Map<string, string>): IElement
+  // updateCloneIds(elementMap: Map<string, string>): IElement
   makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachPrevSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachParentInput(): UpdateElementsMutationVariables | null
   makeAttachToParentAsFirstChildInput(
-    parentElementId: string,
+    parentElement: Ref<IElement>,
   ): UpdateElementsMutationVariables
   makeAppendSiblingInput(siblingId: string): UpdateElementsMutationVariables
   makePrependSiblingInput(siblingId: string): UpdateElementsMutationVariables
 
-  firstChild: Maybe<IElement>
-  firstChildId: Nullable<string>
   setOrderInParent(order: number | null): void
   setName(name: string): void
-  setAtom(atom: Ref<IAtom>): void
-  setSourceElementId(id: string): void
+  // setAtom(atom: Ref<IAtom>): void
+  setRenderType(renderType: Ref<IAtom> | Ref<IComponent>): void
+  setSourceElement(element: Ref<IElement>): void
   setParentComponent(componentRef: Ref<IComponent>): void
-  setParentId(parentId: Nullable<string>): void
-  setNextSiblingId(nextSiblingId: Nullable<string>): void
-  setPrevSiblingId(prevSiblingId: Nullable<string>): void
-  setFirstChildId(firstChildId: Nullable<string>): void
-  setProps(props: Nullable<IProp>): void
-  setRenderComponentType(componentRef: Ref<IComponent>): void
+  setParent(parent: Ref<IElement>): void
+  setNextSibling(nextSibling: Ref<IElement>): void
+  setPrevSibling(prevSibling: Ref<IElement>): void
+  setProps(props: Nullable<Ref<IProp>>): void
+  // setRenderComponentType(componentRef: Ref<IComponent>): void
   /**
    * Keeps the ref in place
    */
@@ -128,6 +135,12 @@ export interface IElement
   setRenderingError(error: Nullish<RenderingError>): void
   setRenderIfExpression(key: Nullish<string>): void
   setRenderForEachPropKey(key: string): void
+  setPropTransformationJs(props: string): void
+
+  getDescendantRefs: Array<Ref<IElement>>
+
+  toCreateInput(): ElementCreateInput
+  toUpdateInput(): ElementUpdateInput
 }
 
 export type IElementRef = string

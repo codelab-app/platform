@@ -28,9 +28,9 @@ const TreeSelectComponent = ({
       </label>
       <TreeSelect
         fieldNames={{
+          children: 'children',
           label: 'title',
           value: 'id',
-          children: 'children',
         }}
         onChange={(_value) => {
           onValueChange(_value)
