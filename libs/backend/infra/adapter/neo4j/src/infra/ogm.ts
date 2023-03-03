@@ -1,6 +1,6 @@
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { OGM } from '@neo4j/graphql-ogm'
-import { resolvers } from '../resolver'
+import { pureResolvers } from '../resolver'
 import { typeDefs } from '../schema'
 import { getDriver } from './driver'
 
@@ -14,7 +14,7 @@ export const getOgm = async () => {
         enableRegex: true,
       },
       driver: getDriver(),
-      resolvers,
+      resolvers: pureResolvers,
       typeDefs,
     })
   }

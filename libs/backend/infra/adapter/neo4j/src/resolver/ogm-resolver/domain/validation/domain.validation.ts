@@ -4,7 +4,7 @@ import {
   ForbiddenError,
   UserInputError,
 } from 'apollo-server-micro'
-import { Repository } from '../../../infra'
+import { Repository } from '../../../../infra'
 
 export const validateDomainAuth = async (
   req: NextApiRequest,
