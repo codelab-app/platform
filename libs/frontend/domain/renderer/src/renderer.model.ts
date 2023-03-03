@@ -6,11 +6,11 @@ import type {
   IRenderOutput,
   IRenderPipe,
   RendererProps,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
   elementTreeRef,
-  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -114,6 +114,31 @@ export class Renderer
       ? this.renderElement(providerRoot)
       : this.renderElement(root)
   }
+
+  /*
+  computePropsForComponentElements(element: IElement) {
+    const component = (element.renderComponentType ?? element.parentComponent)
+      ?.maybeCurrent
+
+    const componentProps = element.parentComponent
+      ? component?.props?.values
+      : element.props?.values
+
+    if (!component || !componentProps) {
+      return
+    }
+
+
+    const props = this.processPropsForRender(
+      {
+        ...componentProps,
+        ...propsForCurrentElement,
+        [COMPONENT_INSTANCE_ID]: element.id,
+      },
+      element,
+    )
+  }
+  */
 
   /**
    * Renders a single Element using the provided RenderAdapter
@@ -258,15 +283,10 @@ export class Renderer
    * Parses and transforms the props for a given element, so they are ready for rendering
    */
   private processPropsForRender = (props: IPropData, element: IElement) => {
-    // FIXME:
-    const context =
-      this.rendererType === RendererType.ComponentBuilder
-        ? props
-        : mergeProps(element.store.state, props)
-
-    props = this.applyPropTypeTransformers(props, context)
+    props = this.applyPropTypeTransformers(props, element)
     props = element.executePropTransformJs(props)
-    props = replaceStateInProps(props, context)
+
+    props = replaceStateInProps(props, element.store.state)
 
     return props
   }
@@ -274,7 +294,7 @@ export class Renderer
   /**
    * Applies all the type transformers to the props
    */
-  private applyPropTypeTransformers = (props: IPropData, context: IPropData) =>
+  private applyPropTypeTransformers = (props: IPropData, element: IElement) =>
     mapDeep(props, (value) => {
       value = preTransformPropTypeValue(value)
 
@@ -296,7 +316,7 @@ export class Renderer
           continue
         }
 
-        return propTransformer.transform(value, typeKind, context)
+        return propTransformer.transform(value, typeKind, element)
       }
 
       /*

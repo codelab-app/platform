@@ -9,10 +9,11 @@ import type {
 import {
   getComponentService,
   getElementService,
+  pageRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
-import { getPageService, pageApi, pageRef } from '@codelab/frontend/domain/page'
+import { getPageService, pageApi } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
 import {

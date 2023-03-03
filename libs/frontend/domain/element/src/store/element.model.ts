@@ -18,9 +18,9 @@ import {
   IBuilderDataNode,
   IElement,
   isComponentInstance,
+  pageRef,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
-import { pageRef } from '@codelab/frontend/domain/page'
 import { getPropService, propRef } from '@codelab/frontend/domain/prop'
 import {
   ElementCreateInput,
@@ -155,12 +155,12 @@ export class Element
 
   @computed
   get parentComponent(): Nullable<Ref<IComponent>> {
-    return this.closestParent?.parentComponent ?? this._parentComponent
+    return this.closestParent?.parentComponent || this._parentComponent
   }
 
   @computed
   get page(): Nullable<Ref<IPage>> {
-    return this.closestParent?.page ?? this._page
+    return this.closestParent?.page || this._page
   }
 
   @computed
@@ -270,11 +270,6 @@ export class Element
   @modelAction
   setParentComponent(component: Ref<IComponent>) {
     this._parentComponent = component
-  }
-
-  @modelAction
-  setPage(page: Ref<IPage>) {
-    this._page = page
   }
 
   @modelAction
@@ -456,6 +451,7 @@ export class Element
       generateNewIds: true,
     })
 
+    // FIXME: add atom and props
     clonedElement.setName(`${this.name} ${cloneIndex}`)
     clonedElement.setSourceElement(elementRef(this.id))
 

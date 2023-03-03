@@ -10,7 +10,6 @@ import {
   getBuilderRenderService,
   getElementService,
   IBuilderDataNode,
-  IComponentDTO,
   IUpdateComponentData,
   RendererType,
 } from '@codelab/frontend/abstract/core'
@@ -109,8 +108,8 @@ export class ComponentService
   }
 
   @modelAction
-  add(componentDTO: IComponentDTO) {
-    const component = Component.create(componentDTO)
+  component(id: string) {
+    const component = this.maybeComponent(id)
 
     this.builderRenderService.addRenderer({
       elementTree: component,
@@ -128,7 +127,7 @@ export class ComponentService
   @transaction
   create = _async(function* (
     this: ComponentService,
-    { name, owner, ...data }: ICreateComponentData,
+    { id, name, owner }: ICreateComponentData,
   ) {
     const storeApi = this.typeService.addInterface({
       id: v4(),
@@ -146,14 +145,14 @@ export class ComponentService
     const rootElementProps = this.propService.add({ data: '{}', id: v4() })
 
     const rootElement = this.elementService.add({
-      ...data.rootElement,
+      id: v4(),
       name,
-      parentComponent: { id: data.id },
+      parentComponent: { id },
       props: rootElementProps,
     })
 
     const api = this.typeService.addInterface({
-      ...data.api,
+      id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(name),
       owner,
@@ -165,8 +164,9 @@ export class ComponentService
     })
 
     const component = this.add({
-      ...data,
       api,
+      childrenContainerElement: { id: rootElement.id },
+      id,
       name,
       owner,
       props: componentProps,

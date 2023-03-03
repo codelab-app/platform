@@ -1,6 +1,11 @@
 import { FileOutlined } from '@ant-design/icons'
 import type { IDomain, IPage } from '@codelab/frontend/abstract/core'
-import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
+import { pageRef } from '@codelab/frontend/abstract/core'
+import {
+  ExplorerPaneType,
+  PageType,
+  PageType,
+} from '@codelab/frontend/abstract/types'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
@@ -14,7 +19,6 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { pageRef } from '../../store'
 
 export interface GetPagesItemProps {
   domains?: Array<IDomain>
