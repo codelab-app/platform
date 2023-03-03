@@ -90,11 +90,6 @@ export interface IElementService
     rootElement: IElement
     hydratedElements: Array<IElement>
   }
-  validateRequiredParentForMove(
-    parentElement?: IElement,
-    element?: IElement,
-  ): boolean
-  validateRequiredParentForCreate(parentId?: string, childAtomId?: string): void
   validateRequiredParent(
     parentAtomId?: string,
     childAtomId?: string,
