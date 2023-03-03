@@ -7,8 +7,7 @@
       "parserOptions": {
         "project": ["libs/frontend/domain/element/tsconfig.*?.json"]
       },
-      "rules": {
-      }
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],
