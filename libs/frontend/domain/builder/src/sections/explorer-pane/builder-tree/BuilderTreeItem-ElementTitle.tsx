@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import type { IElement } from '@codelab/frontend/abstract/core'
-import { isComponentModel } from '@codelab/frontend/domain/component'
+import { isComponentInstance } from '@codelab/frontend/abstract/core'
 import { Col, Row, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -13,9 +13,9 @@ interface BuilderTreeItemElementTitleProps {
 export const BuilderTreeItemElementTitle = observer(
   ({ element }: BuilderTreeItemElementTitleProps) => {
     const atomName = element.atomName
-    const isComponentInstance = isComponentModel(element.renderType)
+    const componentInstance = isComponentInstance(element.renderType)
 
-    const componentInstanceName = isComponentInstance
+    const componentInstanceName = componentInstance
       ? element.renderType?.maybeCurrent?.name
       : null
 
@@ -35,7 +35,7 @@ export const BuilderTreeItemElementTitle = observer(
     return (
       <Row>
         <Col span={18}>
-          <div css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}>
+          <div css={componentInstance ? tw`text-blue-400` : `text-gray-400`}>
             {element.label} <span css={tw`text-xs`}>{meta}</span>
           </div>
         </Col>

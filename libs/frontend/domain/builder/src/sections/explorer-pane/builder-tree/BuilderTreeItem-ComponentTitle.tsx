@@ -3,9 +3,10 @@ import type {
   IComponent,
   IElementService,
 } from '@codelab/frontend/abstract/core'
-import { isElement } from '@codelab/frontend/abstract/core'
+import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
 import { CreateElementButton } from '@codelab/frontend/domain/element'
 import { Col, Row } from 'antd'
+import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -23,7 +24,7 @@ export const BuilderTreeItemComponentTitle = observer(
     elementService,
   }: BuilderTreeItemComponentTitleProps) => {
     const { selectedNode } = builderService
-    const selectedNodeId = isElement(selectedNode) && selectedNode.id
+    const selectedNodeId = isElementPageNodeRef(selectedNode) && selectedNode.id
 
     return (
       <Row justify="space-between">

@@ -34,7 +34,7 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
       // Don't wait so we don't block the UI
       void elementService.deleteElementSubgraph(element)
 
-      parentElement && builderService.set_selectedNode(parentElement)
+      parentElement && builderService.setSelectedNode(parentElement)
 
       return Promise.resolve()
     }

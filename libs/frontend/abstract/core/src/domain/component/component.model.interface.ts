@@ -1,6 +1,5 @@
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { INodeType } from '../../base'
 import type { ICacheService } from '../../service'
 import type { IElement, IElementTreeService } from '../element'
 import type { IProp } from '../prop'
@@ -9,8 +8,7 @@ import type { IOwnerSchema } from '../user'
 import type { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent
-  extends INodeType<'Component'>,
-    IElementTreeService,
+  extends IElementTreeService,
     ICacheService<IComponentDTO, IComponent>,
     IOwnerSchema {
   id: string

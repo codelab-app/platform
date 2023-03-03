@@ -18,7 +18,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { atomRef } from './atom.model.ref'
+import { atomRef } from './atom.ref'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 @model('@codelab/Atom')

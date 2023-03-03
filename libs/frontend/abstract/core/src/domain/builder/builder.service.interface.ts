@@ -3,9 +3,9 @@ import type { Frozen, Ref } from 'mobx-keystone'
 import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IElementTree } from '../element'
+import type { IPageNode } from '../page'
 import type { RendererTab } from '../render'
 import type { BuilderDragData, BuilderWidth } from './builder.interface'
-import type { INode } from './node.interface'
 
 // TBC: | IComponent
 export type IBuilderComponent = IAtom & {
@@ -18,10 +18,8 @@ export interface IBuilderService {
    */
   activeTree: RendererTab
 
-  _selectedNode: Nullable<Ref<INode>>
-  _hoveredNode: Nullable<Ref<INode>>
-  selectedNode: Nullable<INode>
-  hoveredNode: Nullable<INode>
+  selectedNode: Nullable<IPageNode>
+  hoveredNode: Nullable<IPageNode>
   /**
    * The difference between current and selected builderWidth is that
    * - currentBuilderWidth is changed by useBuilderResize
@@ -36,21 +34,21 @@ export interface IBuilderService {
 
   expandedPageElementTreeNodeIds: Array<string>
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectComponentTreeNode(node: Nullable<Ref<INode>>): void
+  selectComponentTreeNode(node: Nullable<IPageNode>): void
 
   expandedComponentTreeNodeIds: Array<string>
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectPageElementTreeNode(node: Nullable<Ref<INode>>): void
+  selectPageElementTreeNode(node: Nullable<IPageNode>): void
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
-  activeComponent: Nullable<IComponent>
+  activeComponent: Nullable<Ref<IComponent>>
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
 
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
-  set_hoveredNode(element: Nullable<Ref<INode>>): void
-  set_selectedNode(node: Nullable<Ref<INode>>): void
+  setHoveredNode(element: Nullable<IPageNode>): void
+  setSelectedNode(node: Nullable<IPageNode>): void
   setCurrentBuilderWidth(width: Nullable<BuilderWidth>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
   setBuilderContainerWidth(width: number): void

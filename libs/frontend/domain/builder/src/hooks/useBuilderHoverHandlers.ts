@@ -1,11 +1,11 @@
 import type { IBuilderService } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
+import { elementRef } from '@codelab/frontend/abstract/core'
 import type { MouseEvent } from 'react'
 import { useCallback } from 'react'
 
 type UseBuilderHoverHandlersProps = Pick<
   IBuilderService,
-  'set_hoveredNode' | 'currentDragData'
+  'setHoveredNode' | 'currentDragData'
 >
 
 /**
@@ -14,7 +14,7 @@ type UseBuilderHoverHandlersProps = Pick<
  */
 export const useBuilderHoverHandlers = ({
   currentDragData,
-  set_hoveredNode,
+  setHoveredNode,
 }: UseBuilderHoverHandlersProps) => {
   const handleMouseOver = useCallback((event: MouseEvent) => {
     if (currentDragData) {
@@ -24,7 +24,7 @@ export const useBuilderHoverHandlers = ({
     const target = event.target as HTMLElement | undefined
 
     if (!target) {
-      set_hoveredNode(null)
+      setHoveredNode(null)
 
       return
     }
@@ -42,14 +42,14 @@ export const useBuilderHoverHandlers = ({
     }
 
     if (elementId) {
-      set_hoveredNode(elementRef(elementId))
+      setHoveredNode(elementRef(elementId))
     } else {
-      set_hoveredNode(null)
+      setHoveredNode(null)
     }
   }, [])
 
   const handleMouseLeave = useCallback(() => {
-    set_hoveredNode(null)
+    setHoveredNode(null)
   }, [])
 
   return {

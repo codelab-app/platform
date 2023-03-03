@@ -1,21 +1,20 @@
 import type {
   IBuilderDataNode,
   IElementTree,
-  INode,
+  IPageNode,
 } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_NODE_TYPE,
   componentRef,
-  ELEMENT_NODE_TYPE,
+  elementRef,
+  isComponentPageNodeRef,
+  isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import type { EventDataNode } from 'antd/lib/tree'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
-import type { Ref } from 'react'
 import React, { useMemo } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
 import { antdTreeStyle } from './antdTree.styles'
@@ -32,7 +31,7 @@ interface BuilderTreeProps {
   elementTree: IElementTree | null
   setActiveTree: () => void
   setExpandedNodeIds: (ids: Array<string>) => void
-  selectTreeNode(node: Nullable<Ref<INode>>): void
+  selectTreeNode(node: Nullable<IPageNode>): void
   expandedNodeIds: Array<string>
 }
 
@@ -57,7 +56,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
       const component = componentService.components.get(node.key.toString())
 
       if (component) {
-        selectTreeNode(componentRef(component))
+        selectTreeNode(componentRef(component.id))
       }
     }
 
@@ -65,7 +64,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
       const element = elementService.maybeElement(node.key.toString())
 
       if (element) {
-        selectTreeNode(elementRef(element))
+        selectTreeNode(elementRef(element.id))
       }
     }
 
@@ -117,9 +116,9 @@ export const BuilderTree = observer<BuilderTreeProps>(
             treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
           }
 
-          builderService.set_hoveredNode(elementRef(node.key.toString()))
+          builderService.setHoveredNode(elementRef(node.key.toString()))
         }}
-        onMouseLeave={() => builderService.set_hoveredNode(null)}
+        onMouseLeave={() => builderService.setHoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {
           nativeEvent.stopPropagation()
 
@@ -129,26 +128,16 @@ export const BuilderTree = observer<BuilderTreeProps>(
             return
           }
 
-          if (node.type === COMPONENT_NODE_TYPE) {
+          if (isComponentPageNodeRef(node.node)) {
             selectComponentNode(node)
           }
 
-          if (node.type === ELEMENT_NODE_TYPE) {
+          if (isElementPageNodeRef(node.node)) {
             selectElementNode(node)
           }
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
         titleRender={(data) => {
-          let node
-
-          if (data.type === COMPONENT_NODE_TYPE) {
-            node = componentService.component(data.key.toString())
-          }
-
-          if (data.type === ELEMENT_NODE_TYPE) {
-            node = elementService.element(data.key.toString())
-          }
-
           return (
             <BuilderTreeItemTitle
               builderService={builderService}
@@ -156,7 +145,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
               data={data}
               elementContextMenuProps={elementContextMenuProps}
               elementService={elementService}
-              node={node}
+              node={data.node}
             />
           )
         }}

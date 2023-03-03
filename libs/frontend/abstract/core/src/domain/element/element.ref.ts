@@ -1,4 +1,7 @@
-import { detach, rootRef } from 'mobx-keystone'
+import isNil from 'lodash/isNil'
+import type { Ref } from 'mobx-keystone'
+import { detach, isRefOfType, rootRef } from 'mobx-keystone'
+import type { IComponent } from '../component'
 import type { IElement } from './element.model.interface'
 
 export const elementRef = rootRef<IElement>('@codelab/ElementRef', {
@@ -8,3 +11,12 @@ export const elementRef = rootRef<IElement>('@codelab/ElementRef', {
     }
   },
 })
+
+/**
+ * Used for determining which node type is in the page tree
+ */
+export const isElementRef = (
+  node: Ref<IElement> | Ref<IComponent> | null,
+): node is Ref<IElement> => {
+  return !isNil(node) && isRefOfType(node, elementRef)
+}

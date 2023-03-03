@@ -1,8 +1,8 @@
 import { CodeSandboxOutlined, EditOutlined } from '@ant-design/icons'
 import type { IElementTree, IRenderer } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_NODE_TYPE,
-  ELEMENT_NODE_TYPE,
+  isComponentPageNodeRef,
+  isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import { UpdateComponentForm } from '@codelab/frontend/domain/component'
 import {
@@ -44,17 +44,17 @@ export const ConfigPane = observer<MetaPaneProps>(
               // The builder tree nodes could be a component as well, in which case we would show the form for components
               return (
                 <>
-                  {node.__nodeType === ELEMENT_NODE_TYPE ? (
+                  {isElementPageNodeRef(node) ? (
                     <>
                       <UpdateElementForm
-                        element={node}
+                        element={node.current}
                         elementService={elementService}
                         key={node.id + '_update_form'}
                         renderer={renderService}
                         trackPromises={trackPromises}
                       />
                       <MoveElementForm
-                        element={node}
+                        element={node.current}
                         elementService={elementService}
                         elementTree={elementTree}
                         key={node.id + '_move_form'}
@@ -62,16 +62,16 @@ export const ConfigPane = observer<MetaPaneProps>(
                       />
                       <DeleteElementButton
                         css={tw`my-3`}
-                        disabled={node.isRoot}
-                        element={node}
+                        disabled={node.current.isRoot}
+                        element={node.current}
                         elementService={elementService}
                       />
                     </>
                   ) : null}
 
-                  {node.__nodeType === COMPONENT_NODE_TYPE ? (
+                  {isComponentPageNodeRef(node) ? (
                     <UpdateComponentForm
-                      component={node}
+                      component={node.current}
                       componentService={componentService}
                     />
                   ) : null}

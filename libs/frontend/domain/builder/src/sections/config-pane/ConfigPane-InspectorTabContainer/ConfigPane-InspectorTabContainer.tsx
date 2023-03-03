@@ -8,11 +8,14 @@ import {
 } from '@ant-design/icons'
 import type {
   IElementTree,
-  INode,
+  IPageNode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isComponent, isElement } from '@codelab/frontend/abstract/core'
-import { isAtomModel } from '@codelab/frontend/domain/atom'
+import {
+  isComponentPageNodeRef,
+  isElementPageNodeRef,
+} from '@codelab/frontend/abstract/core'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { UpdateComponentPropsForm } from '@codelab/frontend/domain/component'
 import {
   ElementCssEditor,
@@ -42,7 +45,7 @@ export interface MetaPaneBuilderProps {
   elementTree: Maybe<IElementTree>
   renderService?: Maybe<IRenderer>
   UpdateElementContent: (props: {
-    node: INode
+    node: IPageNode
     trackPromises: UseTrackLoadingPromises
   }) => React.ReactElement | null
 }
@@ -98,7 +101,8 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
       {
         children: (
           <div key={selectedNode.id}>
-            {isElement(selectedNode) && selectedNode.renderType ? (
+            {isElementPageNodeRef(selectedNode) &&
+            selectedNode.current.renderType ? (
               <FormContextProvider
                 value={{
                   allowExpressions,
@@ -108,13 +112,13 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                 }}
               >
                 <UpdateElementPropsForm
-                  element={selectedNode}
+                  element={selectedNode.current}
                   trackPromises={trackPromises}
                 />
               </FormContextProvider>
-            ) : isComponent(selectedNode) ? (
+            ) : isComponentPageNodeRef(selectedNode) ? (
               <UpdateComponentPropsForm
-                component={selectedNode}
+                component={selectedNode.current}
                 trackPromises={trackPromises}
               />
             ) : (
@@ -129,9 +133,10 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
       },
       {
         children:
-          isElement(selectedNode) && isAtomModel(selectedNode.renderType) ? (
+          isElementPageNodeRef(selectedNode) &&
+          isAtomInstance(selectedNode.current.renderType) ? (
             <ElementCssEditor
-              element={selectedNode}
+              element={selectedNode.current}
               elementService={elementService}
               key={selectedNode.id}
               trackPromises={trackPromises}
@@ -161,9 +166,9 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         ),
       },
       {
-        children: isElement(selectedNode) ? (
+        children: isElementPageNodeRef(selectedNode) ? (
           <UpdateElementPropTransformationForm
-            element={selectedNode}
+            element={selectedNode.current}
             elementService={elementService}
             key={selectedNode.id}
             trackPromises={trackPromises}
