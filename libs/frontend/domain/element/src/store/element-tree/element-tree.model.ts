@@ -1,8 +1,13 @@
-import type { IElement, IElementTree } from '@codelab/frontend/abstract/core'
+import type {
+  IElement,
+  IElementTree,
+  IPageNode,
+} from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   getComponentService,
   getElementService,
+  isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
@@ -149,9 +154,14 @@ export class ElementTree
     return this
   }
 
-  getPathFromRoot(selectedElement: IElement): Array<IElement> {
+  getPathFromRoot(selectedElement: IPageNode): Array<IElement> {
     const path = []
-    let currentElement: IElement | undefined = selectedElement
+
+    if (!isElementPageNodeRef(selectedElement)) {
+      return []
+    }
+
+    let currentElement = selectedElement.maybeCurrent
 
     while (currentElement) {
       path.push(currentElement)

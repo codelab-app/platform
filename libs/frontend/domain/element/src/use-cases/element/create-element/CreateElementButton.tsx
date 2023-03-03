@@ -1,10 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
 import type { IElementService } from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { elementRef, elementTreeRef } from '../../../store'
+import { elementTreeRef } from '../../../store'
 
 export type CreateElementButtonProps = {
   selectedElementId: Maybe<string>
@@ -26,8 +27,8 @@ export const CreateElementButton = observer<CreateElementButtonProps>(
           event.preventDefault()
 
           return createModal.open({
-            selectedElement,
             elementTree: elementTreeRef(elementTreeId),
+            selectedElement,
           })
         }}
         size="small"

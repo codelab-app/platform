@@ -8,7 +8,6 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { elementRef } from '../../../store'
 import type { DeleteElementData } from './deleteElementSchema'
 import { deleteElementSchema } from './deleteElementSchema'
 

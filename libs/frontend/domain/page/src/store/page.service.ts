@@ -5,11 +5,11 @@ import type {
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
 import {
+  elementRef,
   getElementService,
   IPageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
