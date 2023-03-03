@@ -7,9 +7,9 @@ import type {
 import {
   componentRef,
   IRenderTypeKind,
-  isComponentRenderTypeRef,
+  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import { atomRef, isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
+import { atomRef, isAtomInstance } from '@codelab/frontend/domain/atom'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
@@ -68,10 +68,10 @@ export const makeDuplicateInput = (
     name: createUniqueName(duplicate_name, { id: element.baseId }),
     props,
     propTransformationJs: element.propTransformationJs,
-    renderAtomType: isAtomRenderTypeRef(element.renderType)
+    renderAtomType: isAtomInstance(element.renderType)
       ? connectNodeId(element.renderType.id)
       : null,
-    renderComponentType: isComponentRenderTypeRef(element.renderType)
+    renderComponentType: isComponentInstance(element.renderType)
       ? connectNodeId(element.renderType.id)
       : null,
     renderForEachPropKey: element.renderForEachPropKey,

@@ -1,8 +1,7 @@
 import isNil from 'lodash/isNil'
 import type { Ref } from 'mobx-keystone'
 import { createContext, detach, isRefOfType, rootRef } from 'mobx-keystone'
-import type { IAtom } from '../atom'
-import type { IElement, IElementRenderType } from '../element'
+import type { IElementRenderType } from '../element'
 import type { IComponent } from './component.model.interface'
 import type { IComponentService } from './component.service.interface'
 
@@ -36,9 +35,8 @@ export const getComponentService = (self: object) => {
 /**
  * Used for determining the RenderType of an element
  */
-export const isComponentRenderTypeRef = (
+export const isComponentInstance = (
   node: IElementRenderType | null,
 ): node is Ref<IComponent> => {
   return !isNil(node) && isRefOfType(node, componentRef)
 }
-

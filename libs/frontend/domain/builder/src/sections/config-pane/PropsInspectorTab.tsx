@@ -1,10 +1,9 @@
 import type {
-  IComponent,
-  IElement,
+  IPageNode,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isElement } from '@codelab/frontend/abstract/core'
+import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
 import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
@@ -15,13 +14,13 @@ import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
 export interface ElementPropsSectionProps {
-  node: IElement | IComponent
+  node: IPageNode
   renderer: IRenderer
 }
 
 const PropsInspectorTab = observer(
   ({ node, renderer }: ElementPropsSectionProps) => {
-    const initialProps = node.props?.current.values ?? {}
+    const initialProps = node.current.props?.current.values ?? {}
     const initialEditorValue = propSafeStringify(initialProps)
     const [editedProps, setEditedProps] = React.useState(initialProps)
     const [isValidProps, setIsValidProps] = React.useState(true)
@@ -72,14 +71,16 @@ const PropsInspectorTab = observer(
         />
 
         <h3 css={tw`text-gray-700`}>
-          {isElement(node) ? 'Element' : 'Component'} props
+          {isElementPageNodeRef(node) ? 'Element' : 'Component'} props
         </h3>
         <CodeMirrorEditor
           height="150px"
           language={ICodeMirrorLanguage.Json}
           onChange={(value) => onChange(value)}
           onSave={(value) => onSave(value)}
-          title={`${isElement(node) ? 'Element' : 'Component'} props`}
+          title={`${
+            isElementPageNodeRef(node) ? 'Element' : 'Component'
+          } props`}
           value={initialEditorValue}
         />
         <Button

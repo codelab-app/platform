@@ -4,8 +4,8 @@ import type {
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_NODE_TYPE,
-  ELEMENT_NODE_TYPE,
+  isComponentPageNodeRef,
+  isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
@@ -23,7 +23,7 @@ import { BuilderTreeItemOverlay } from './BuilderTreeItem-Overlay'
 import { ItemTitleStyle } from './ItemTitleStyle'
 
 interface BuilderTreeItemTitleProps {
-  node: IPageNode | undefined
+  node: IPageNode | null
   data: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
   componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
@@ -44,8 +44,8 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       useState<Nullable<string>>(null)
 
     // Add CSS to disable hover if node is un-selectable
-    if (node?.__nodeType === ELEMENT_NODE_TYPE) {
-      const element = node
+    if (isElementPageNodeRef(node)) {
+      const element = node.current
 
       return (
         <BuilderDropHandler element={element}>
@@ -62,8 +62,8 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
                     ...elementContextMenuProps,
                     element,
                   }}
+                  node={node}
                   setContextMenuNodeId={setContextMenuNodeId}
-                  type={ELEMENT_NODE_TYPE}
                 />
               }
               trigger={['contextMenu']}
@@ -77,8 +77,8 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       )
     }
 
-    if (node?.__nodeType === COMPONENT_NODE_TYPE) {
-      const component = node
+    if (isComponentPageNodeRef(node)) {
+      const component = node.current
 
       return (
         <ItemTitleStyle node={data}>
@@ -94,8 +94,8 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
                   ...componentContextMenuProps,
                   component,
                 }}
+                node={node}
                 setContextMenuNodeId={setContextMenuNodeId}
-                type={COMPONENT_NODE_TYPE}
               />
             }
             trigger={['contextMenu']}

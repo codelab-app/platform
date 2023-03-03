@@ -13,7 +13,7 @@ export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {
 /**
  * used for determining the renderType of an element
  */
-export const isAtomRenderTypeRef = (
+export const isAtomInstance = (
   atom: IElementRenderType | null,
 ): atom is Ref<IAtom> => {
   return atom?.$modelType === '@codelab/Atom'

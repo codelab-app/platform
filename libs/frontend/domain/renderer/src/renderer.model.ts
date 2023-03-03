@@ -12,7 +12,7 @@ import {
   IElementTree,
   RendererType,
 } from '@codelab/frontend/abstract/core'
-import { isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
@@ -219,7 +219,7 @@ export class Renderer
 
         const shouldInjectText =
           !children.length &&
-          isAtomRenderTypeRef(element.renderType) &&
+          isAtomInstance(element.renderType) &&
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText && injectedText) {

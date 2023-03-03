@@ -19,9 +19,9 @@ import {
   getElementService,
   IBuilderDataNode,
   IElement,
-  isComponentRenderTypeRef,
+  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import { isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { getPropService, propRef } from '@codelab/frontend/domain/prop'
 import { actionRef } from '@codelab/frontend/domain/store'
 import {
@@ -101,7 +101,6 @@ const create = ({
 @model('@codelab/Element')
 export class Element
   extends Model({
-    __nodeType: prop<ELEMENT_NODE_TYPE>(ELEMENT_NODE_TYPE),
     // slug: prop<string>().withSetter(),
     customCss: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
@@ -299,7 +298,7 @@ export class Element
     return (
       this.name ||
       this.renderType?.current.name ||
-      (isAtomRenderTypeRef(this.renderType)
+      (isAtomInstance(this.renderType)
         ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
         : undefined) ||
       this.parentComponent?.current.name ||
@@ -328,7 +327,7 @@ export class Element
 
   @computed
   get atomName() {
-    if (isAtomRenderTypeRef(this.renderType)) {
+    if (isAtomInstance(this.renderType)) {
       return this.renderType.current.name || this.renderType.current.type
     }
 
@@ -370,11 +369,11 @@ export class Element
     /**
      * Here we'll want to set default value based on the interface
      */
-    const renderAtomType = isAtomRenderTypeRef(this.renderType)
+    const renderAtomType = isAtomInstance(this.renderType)
       ? connectNodeId(this.renderType.id)
       : undefined
 
-    const renderComponentType = isComponentRenderTypeRef(this.renderType)
+    const renderComponentType = isComponentInstance(this.renderType)
       ? connectNodeId(this.renderType.id)
       : undefined
 
@@ -396,12 +395,12 @@ export class Element
   @modelAction
   toUpdateInput(): ElementUpdateInput {
     // We need to disconnect the atom if render type changed to component or empty
-    const renderAtomType = isAtomRenderTypeRef(this.renderType)
+    const renderAtomType = isAtomInstance(this.renderType)
       ? reconnectNodeId(this.renderType.id)
       : disconnectNodeId(undefined)
 
     // We need to disconnect the component if render type changed to atom or empty
-    const renderComponentType = isComponentRenderTypeRef(this.renderType)
+    const renderComponentType = isComponentInstance(this.renderType)
       ? reconnectNodeId(this.renderType.id)
       : disconnectNodeId(undefined)
 

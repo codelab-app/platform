@@ -1,5 +1,9 @@
 import type { IElement, IElementTree } from '@codelab/frontend/abstract/core'
-import { elementRef, getElementService } from '@codelab/frontend/abstract/core'
+import {
+  elementRef,
+  getComponentService,
+  getElementService,
+} from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -15,7 +19,6 @@ import {
   walkTree,
   WalkTreeMode,
 } from 'mobx-keystone'
-import { getComponentService } from '../component'
 
 /**
  * Helper method to initialize an element tree

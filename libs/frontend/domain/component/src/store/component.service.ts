@@ -5,8 +5,8 @@ import type {
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_NODE_TYPE,
   COMPONENT_TREE_CONTAINER,
+  componentRef,
   getElementService,
   IBuilderDataNode,
   IComponentDTO,
@@ -132,27 +132,21 @@ export class ComponentService
           children: [dataNode].filter((data): data is IBuilderDataNode =>
             Boolean(data),
           ),
-
           key: component.id,
+          node: componentRef(component.id),
 
           rootKey: elementTree?.root?.id ?? null,
-
           // This should bring up a meta pane for editing the component
           selectable: true,
           title: component.name,
-          type: COMPONENT_NODE_TYPE,
         }
       }),
-
       key: COMPONENT_TREE_CONTAINER,
-
-      rootKey: null,
-
-      selectable: false,
-
-      title: 'Components',
       // Container shouldn't have any type
-      type: null,
+      node: null,
+      rootKey: null,
+      selectable: false,
+      title: 'Components',
     }
   }
 

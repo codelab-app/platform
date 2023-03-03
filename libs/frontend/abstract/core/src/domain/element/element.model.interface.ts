@@ -10,7 +10,6 @@ import type {
   Nullish,
 } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ELEMENT_NODE_TYPE, IPageNodeType } from '../../base/node.interface'
 import type { ICacheService } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
 import type { IComponent } from '../component'
@@ -45,9 +44,7 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export interface IElement
-  extends IPageNodeType<ELEMENT_NODE_TYPE>,
-    ICacheService<IElementDTO, IElement> {
+export interface IElement extends ICacheService<IElementDTO, IElement> {
   id: string
   isRoot: boolean
   owner: Nullable<IAuth0Owner>
