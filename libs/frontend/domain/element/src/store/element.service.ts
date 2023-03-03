@@ -23,6 +23,7 @@ import {
   getComponentService,
 } from '@codelab/frontend/presenter/container'
 import {
+  createNotificationHandler,
   createUniqueName,
   runSequentially,
 } from '@codelab/frontend/shared/utils'
@@ -1132,10 +1133,7 @@ element is new parentElement's first child
     )
 
     if (!isValidParent) {
-      parentElement.setRenderingError({
-        message: errorMessage,
-        stack: undefined,
-      })
+      createNotificationHandler({ title: errorMessage })()
 
       return false
     }
