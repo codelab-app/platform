@@ -1,8 +1,9 @@
-import type { ICreateResourceDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateResourceData } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
+  idSchema,
   nonEmptyString,
-  showFieldOnDev,
+  ownerSchema,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IResourceType } from '@codelab/shared/abstract/core'

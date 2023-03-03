@@ -1,6 +1,6 @@
 import type { IUpdateComponentData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
-import { nonEmptyString } from '@codelab/frontend/view/components'
+import { idSchema, nonEmptyString } from '@codelab/frontend/view/components'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 

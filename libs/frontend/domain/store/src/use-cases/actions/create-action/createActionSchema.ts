@@ -1,11 +1,9 @@
 import type { ICreateActionData } from '@codelab/frontend/abstract/core'
 import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/core'
-import { idSchema } from '@codelab/frontend/shared/domain'
-import { nonEmptyString, showFieldOnDev } from '@codelab/frontend/shared/utils'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
-  hideField,
+  idSchema,
   nonEmptyString,
   showFieldOnDev,
 } from '@codelab/frontend/view/components'

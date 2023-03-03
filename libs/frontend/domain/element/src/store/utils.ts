@@ -3,10 +3,9 @@ import type {
   IComponent,
   IElementDTO,
 } from '@codelab/frontend/abstract/core'
-import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
+import { componentRef, IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
 import type { Ref } from 'mobx-keystone'
-import { componentRef } from './component'
 
 export const getRenderType = (
   renderType: IElementDTO['renderType'],

@@ -1,7 +1,8 @@
-import type { ICreateTypeDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
 import {
+  idSchema,
   nonEmptyString,
-  showFieldOnDev,
+  ownerSchema,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
