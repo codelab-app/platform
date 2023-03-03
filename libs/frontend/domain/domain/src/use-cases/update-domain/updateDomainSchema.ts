@@ -1,6 +1,6 @@
-import type { IUpdateDomainDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateDomainData } from '@codelab/frontend/abstract/core'
 import {
-  hideField,
+  idSchema,
   nonEmptyString,
   showFieldOnDev,
 } from '@codelab/frontend/view/components'
