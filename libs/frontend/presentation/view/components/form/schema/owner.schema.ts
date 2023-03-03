@@ -4,10 +4,8 @@ import { showFieldOnDev } from './showFieldOnDev'
 
 export const ownerSchema: PropertiesSchema<IOwner> = {
   owner: {
-    label: '',
     properties: {
       auth0Id: {
-        label: 'Owner',
         disabled: true,
         type: 'string',
       },

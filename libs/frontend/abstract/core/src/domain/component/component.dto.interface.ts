@@ -11,11 +11,9 @@ export interface IComponentDTO extends IOwner {
   store: IEntity
 }
 
-export type ICreateComponentData = IOwner &
-  // Default store and props are added
-  Omit<IComponentDTO, 'props' | 'store'>
+export type ICreateComponentData = Pick<IComponentDTO, 'id' | 'name' | 'owner'>
 
 export type IUpdateComponentData = Pick<
-  ICreateComponentData,
+  IComponentDTO,
   'childrenContainerElement' | 'id' | 'name'
 >

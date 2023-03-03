@@ -1,10 +1,11 @@
 import isNil from 'lodash/isNil'
 import type { AnyModel, Ref } from 'mobx-keystone'
-import { isRefOfType, modelTypeKey } from 'mobx-keystone'
+import { detach, isRefOfType, modelTypeKey, rootRef } from 'mobx-keystone'
 import type { IComponent } from '../component'
 import { componentRef } from '../component'
 import type { IElement } from '../element'
 import { elementRef } from '../element'
+import type { IPage } from './page.model.interface'
 
 export type IPageNodeRef = Ref<IComponent> | Ref<IElement>
 
@@ -45,3 +46,11 @@ export const isElementPageNode = (node: IPageNode | null): node is IElement => {
     (node as unknown as AnyModel)[modelTypeKey] === '@codelab/Element'
   )
 }
+
+export const pageRef = rootRef<IPage>('@codelab/PageRef', {
+  onResolvedValueChange: (ref, newPage, oldPage) => {
+    if (oldPage && !newPage) {
+      detach(ref)
+    }
+  },
+})

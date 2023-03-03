@@ -33,9 +33,9 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        data.componentToRender.rootElement.current.props.maybeCurrent
+        data.componentRootElement.props.maybeCurrent
           ?.get(CUSTOM_TEXT_PROP_KEY)
-          ?.toString() ?? '',
+          .toString() ?? '',
       ),
     ).toBeInTheDocument()
   })
@@ -57,9 +57,9 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        data.componentToRender.rootElement.current.props.maybeCurrent
+        data.componentRootElement.props.maybeCurrent
           ?.get(CUSTOM_TEXT_PROP_KEY)
-          ?.toString() ?? '',
+          .toString() ?? '',
       ),
     ).toBeInTheDocument()
   })

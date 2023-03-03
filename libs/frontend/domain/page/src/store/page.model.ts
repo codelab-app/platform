@@ -1,6 +1,9 @@
 import type { IElement, IPage, IStore } from '@codelab/frontend/abstract/core'
-import { elementRef, ElementTree } from '@codelab/frontend/abstract/core'
-import { storeRef } from '@codelab/frontend/domain/store'
+import {
+  elementRef,
+  ElementTree,
+  storeRef,
+} from '@codelab/frontend/abstract/core'
 import type {
   PageCreateInput,
   PageDeleteInput,

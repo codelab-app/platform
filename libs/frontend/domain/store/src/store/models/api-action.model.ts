@@ -8,7 +8,7 @@ import type {
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
-import { IProp } from '@codelab/frontend/abstract/core'
+import { IProp, storeRef } from '@codelab/frontend/abstract/core'
 import { propRef } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
@@ -30,7 +30,6 @@ import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { actionRef } from './action.ref'
 import { createBaseAction } from './base-action.model'
-import { storeRef } from './store.model'
 
 const create = ({
   config,
@@ -124,8 +123,8 @@ export class ApiAction
     return axios.create({ baseURL: url, headers: tryParse(headers) })
   }
 
+  @modelAction
   createRunner() {
-    const name = this.name
     const successAction = this.successAction?.current
     const errorAction = this.errorAction?.current
     const resource = this.resource.current
@@ -134,7 +133,7 @@ export class ApiAction
     const graphQLClient = this._graphqlClient
     const restClient = this._restClient
 
-    return (...args: Array<unknown>) => {
+    return async function runner(this: unknown, ...args: Array<unknown>) {
       const overrideConfig = args[0] as IPropData
 
       const fetchPromise =
@@ -146,17 +145,13 @@ export class ApiAction
             )
           : restFetch(restClient, config as IRestActionConfig, overrideConfig)
 
-      return fetchPromise
-        .then((response) => {
-          set(this, name, { response })
+      try {
+        const response = await fetchPromise
 
-          return successAction?.createRunner()(...args)
-        })
-        .catch((error) => {
-          set(this, name, { error: JSON.stringify(error) })
-
-          return errorAction?.createRunner()(...args)
-        })
+        return successAction?.createRunner().call(this, response)
+      } catch (error) {
+        return errorAction?.createRunner().call(this, error)
+      }
     }
   }
 

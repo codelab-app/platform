@@ -12,11 +12,10 @@ import {
   getComponentService,
   IComponent,
   isComponentInstance,
+  storeRef,
 } from '@codelab/frontend/abstract/core'
 import { propRef } from '@codelab/frontend/domain/prop'
-import { storeRef } from '@codelab/frontend/domain/store'
 import { typeRef } from '@codelab/frontend/domain/type'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
@@ -138,12 +137,12 @@ export class Component
 
       if (firstChild) {
         const firstChildId = elementMap.get(firstChild.current.id)
-        element.setFirstChild(elementRef(firstChildId!))
+        element.setParent(elementRef(firstChildId!))
       }
 
       if (nextSibling) {
         const nextSiblingId = elementMap.get(nextSibling.current.id)
-        element.setNextSibling(elementRef(nextSiblingId!))
+        element.setParent(elementRef(nextSiblingId!))
       }
 
       if (prevSibling) {
@@ -171,7 +170,8 @@ export class Component
 
     // if instance already created
     if (componentService.clonedComponents.has(instanceId)) {
-      return throwIfUndefined(componentService.clonedComponents.get(instanceId))
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return componentService.clonedComponents.get(instanceId)!
     }
 
     const clonesList = [...componentService.clonedComponents.values()].filter(

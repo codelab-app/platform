@@ -1,7 +1,7 @@
 mutation CreateProps($input: [PropCreateInput!]!) {
   createProps(input: $input) {
     props {
-      id
+      ...Prop
     }
   }
 }
@@ -9,7 +9,7 @@ mutation CreateProps($input: [PropCreateInput!]!) {
 mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {
   updateProps(where: $where, update: $update) {
     props {
-      id
+      ...Prop
     }
   }
 }

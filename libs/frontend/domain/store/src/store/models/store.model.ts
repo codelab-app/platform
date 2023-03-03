@@ -1,35 +1,32 @@
 import type {
   IAction,
+  IAppDTO,
+  IComponent,
   IInterfaceType,
-  IProp,
+  IPage,
   IStore,
 } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { componentRef, pageRef } from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import merge from 'lodash/merge'
+import { computed, makeAutoObservable } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { actionRef } from './action.ref'
 
-const create = ({ api, id, name }: IStoreDTO) => {
+const create = ({ api, component, id, name, page }: IStoreDTO) => {
   new Store({
     api: typeRef(api.id) as Ref<IInterfaceType>,
+    component: component?.id ? componentRef(component.id) : null,
     id,
     name,
+    page: page?.id ? pageRef(page.id) : null,
   })
 }
 
@@ -42,9 +39,10 @@ export class Store
   extends Model(() => ({
     actions: prop<Array<Ref<IAction>>>(() => []),
     api: prop<Ref<IInterfaceType>>().withSetter(),
+    component: prop<Nullable<Ref<IComponent>>>(),
     id: idProp,
     name: prop<string>(),
-    state: prop<IProp>(() => new Prop({})),
+    page: prop<Nullable<Ref<IPage>>>(),
   }))
   implements IStore
 {
@@ -62,7 +60,32 @@ export class Store
 
   @computed
   get jsonString() {
-    return ''
+    return JSON.stringify(this.state)
+  }
+
+  @computed
+  get state() {
+    return makeAutoObservable(
+      merge(
+        { ...this.api.current.defaultValues },
+        { ...this.component?.current.api.current.defaultValues },
+        { ...this.component?.current.props.current.values },
+        {
+          ...this.component?.current.instanceElement?.current.props.current
+            .values,
+        },
+        {
+          ...this.actions
+            .map((action) => ({
+              [action.current.name]: action.current.createRunner(),
+            }))
+            .reduce(merge, {}),
+        },
+      ),
+      {},
+      // bind actions to state
+      { autoBind: true },
+    )
   }
 
   static create = create
@@ -97,11 +120,3 @@ export class Store
 
   static createName = createName
 }
-
-export const storeRef = rootRef<IStore>('@codelab/StoreRef', {
-  onResolvedValueChange: (ref, newStore, oldStore) => {
-    if (oldStore && !newStore) {
-      detach(ref)
-    }
-  },
-})

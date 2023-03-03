@@ -1,3 +1,4 @@
+import type { ICreateComponentData } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -6,25 +7,21 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import type { CreateComponentSchema } from './create-component.schema'
 import { createComponentSchema } from './create-component.schema'
 
 export const CreateComponentModal = observer(() => {
   const { componentService, userService } = useStore()
-  const user = userService.user
 
-  const onSubmit = (componentData: CreateComponentSchema) => {
-    const rootElement = { id: v4() }
-
-    return componentService.create({
-      ...componentData,
-      api: { id: v4() },
-      childrenContainerElement: rootElement,
-      rootElement,
-    })
+  const onSubmit = (componentData: ICreateComponentData) => {
+    return componentService.create(componentData)
   }
 
   const closeModal = () => componentService.createModal.close()
+
+  const model = {
+    id: v4(),
+    owner: { auth0Id: userService.user.auth0Id },
+  }
 
   return (
     <ModalForm.Modal
@@ -33,14 +30,8 @@ export const CreateComponentModal = observer(() => {
       open={componentService.createModal.isOpen}
       title={<span css={tw`font-semibold`}>Create component</span>}
     >
-      <ModalForm.Form<CreateComponentSchema>
-        model={{
-          childrenContainerElement: {
-            id: v4(),
-          },
-          id: v4(),
-          owner: { auth0Id: user.auth0Id },
-        }}
+      <ModalForm.Form<ICreateComponentData>
+        model={model}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating component',
