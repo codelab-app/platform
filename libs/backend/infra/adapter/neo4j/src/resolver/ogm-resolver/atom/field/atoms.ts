@@ -5,8 +5,8 @@ import type {
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
 import type { GraphQLRequestContext } from 'apollo-server-types'
-import { Repository } from '../../../infra'
-import { atomSelectionSet, tagSelectionSet } from '../../../selectionSet'
+import { Repository } from '../../../../infra'
+import { atomSelectionSet, tagSelectionSet } from '../../../../selectionSet'
 
 export const atoms: IFieldResolver<
   GraphQLRequestContext,
@@ -15,7 +15,11 @@ export const atoms: IFieldResolver<
 > = async (_, params) => {
   const limit = params.options?.limit
   const offset = params.options?.offset
+  console.log('at atoms with limit and offset: ', limit, offset)
+
   const AtomInstance = await Repository.instance.Atom
+
+  console.log('got atom instance')
 
   const filteredItemIds = await AtomInstance.find({
     options: {
@@ -32,6 +36,8 @@ export const atoms: IFieldResolver<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     where: params.where as any,
   })
+
+  console.log('got filtered atom ids: ', filteredItemIds)
 
   const items = Promise.all(
     filteredItemIds
@@ -55,6 +61,8 @@ export const atoms: IFieldResolver<
       })
       .filter(Boolean) as Array<Promise<Atom>>,
   )
+
+  console.log('resolving atoms: ', items)
 
   return items
 }
