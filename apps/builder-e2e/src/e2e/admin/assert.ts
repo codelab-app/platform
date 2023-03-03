@@ -35,8 +35,8 @@ export const importData = (file: string = DEFAULT_SEED_FILE_PATH) => {
         file,
       )} --skipUserData --skipSeedData false --email cypress@codelab.app`,
       {
-        timeout: TIMEOUT,
         failOnNonZeroExit: false,
+        timeout: TIMEOUT,
       },
     )
     .then((res) => {
@@ -52,7 +52,7 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
       `yarn cli data export --seedDataPath ${getFullPath(
         file,
       )} --skipUserData --skipSeedData false`,
-      { timeout: TIMEOUT, failOnNonZeroExit: false },
+      { failOnNonZeroExit: false, timeout: TIMEOUT },
     )
     .then((res) => {
       cy.log(`${res.code}`)
@@ -67,8 +67,8 @@ export const exportAndAssert = (file = DEFAULT_SEED_FILE_PATH) => {
 
     const hydratedAtoms = atoms.map((atom) => ({
       ...atom,
-      tags: atom.tags.map((tag) => tagMap.get(tag.id)),
       api: typeMap.get(atom.api.id),
+      tags: atom.tags.map((tag) => tagMap.get(tag.id)),
     }))
 
     /**

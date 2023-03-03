@@ -5,9 +5,9 @@ import {
   NOT_FOUND_PAGE_NAME,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
 export const makeBasicPagesInput = (appId: string) => {
@@ -17,12 +17,14 @@ export const makeBasicPagesInput = (appId: string) => {
   const providerRootId = v4()
 
   const providerPage = {
-    id: providerPageId,
-    name: createUniqueName(APP_PAGE_NAME, appId),
-    getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
     app: {
       connect: { where: { node: { id: appId } } },
     },
+    getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+    id: providerPageId,
+    kind: IPageKind.Provider,
+    name: createUniqueName(APP_PAGE_NAME, appId),
+    pageContainerElement: connectNodeId(providerRootId),
     rootElement: {
       create: {
         node: {
@@ -31,16 +33,15 @@ export const makeBasicPagesInput = (appId: string) => {
         },
       },
     },
-    pageContainerElement: connectNodeId(providerRootId),
-    kind: IPageKind.Provider,
   }
 
   const notFoundPage = {
-    id: notFoundPageId,
-    name: createUniqueName(NOT_FOUND_PAGE_NAME, appId),
     app: {
       connect: { where: { node: { id: appId } } },
     },
+    id: notFoundPageId,
+    kind: IPageKind.NotFound,
+    name: createUniqueName(NOT_FOUND_PAGE_NAME, appId),
     rootElement: {
       create: {
         node: {
@@ -49,15 +50,15 @@ export const makeBasicPagesInput = (appId: string) => {
         },
       },
     },
-    kind: IPageKind.NotFound,
   }
 
   const internalServerErrorPage = {
-    id: internalServerErrorPageId,
-    name: createUniqueName(INTERNAL_SERVER_ERROR_PAGE_NAME, appId),
     app: {
       connect: { where: { node: { id: appId } } },
     },
+    id: internalServerErrorPageId,
+    kind: IPageKind.InternalServerError,
+    name: createUniqueName(INTERNAL_SERVER_ERROR_PAGE_NAME, appId),
     rootElement: {
       create: {
         node: {
@@ -66,7 +67,6 @@ export const makeBasicPagesInput = (appId: string) => {
         },
       },
     },
-    kind: IPageKind.InternalServerError,
   }
 
   return {

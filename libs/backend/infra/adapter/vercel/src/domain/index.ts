@@ -6,10 +6,10 @@ import { updateDomain } from './update-domain'
 
 export const domainApis = {
   addDomain,
-  updateDomain,
   deleteDomain,
   getDomainConfig,
   getProjectDomain,
+  updateDomain,
 }
 
 export { PROJECT_NOT_FOUND }

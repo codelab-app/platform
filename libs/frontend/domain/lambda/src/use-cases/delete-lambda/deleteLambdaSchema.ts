@@ -5,10 +5,10 @@ export interface DeleteLambdaData {
 }
 
 export const deleteLambdaSchema: JSONSchemaType<DeleteLambdaData> = {
-  title: 'Delete Lambda',
-  type: 'object',
   properties: {
-    lambdaId: { type: 'string', disabled: true },
+    lambdaId: { disabled: true, type: 'string' },
   },
   required: ['lambdaId'],
+  title: 'Delete Lambda',
+  type: 'object',
 }

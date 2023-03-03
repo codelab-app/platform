@@ -39,32 +39,32 @@ export interface CypressNextjsAuth0Commands {
 
 export const nextjsAuth0Commands: Array<CypressCommand> = [
   {
-    name: '_clearAuth0Cookie',
     fn: _clearAuth0Cookie,
+    name: '_clearAuth0Cookie',
   },
   {
-    name: '_clearAuth0SplittedCookies',
     fn: _clearAuth0SplittedCookies,
+    name: '_clearAuth0SplittedCookies',
   },
   {
-    name: 'clearAuth0Cookies',
     fn: clearAuth0Cookies,
+    name: 'clearAuth0Cookies',
   },
   {
-    name: 'getUserInfo',
     fn: getUserInfo,
+    name: 'getUserInfo',
   },
   {
-    name: 'getUserTokens',
     fn: getUserTokens,
+    name: 'getUserTokens',
   },
   {
-    name: 'login',
     fn: login,
+    name: 'login',
   },
   {
-    name: 'logout',
     fn: logout,
+    name: 'logout',
   },
   // {
   //   name: 'preserveAuth0CookiesOnce',
@@ -75,7 +75,7 @@ export const nextjsAuth0Commands: Array<CypressCommand> = [
   //   fn: encrypt,
   // },
   {
-    name: '_setAuth0Cookie',
     fn: _setAuth0Cookie,
+    name: '_setAuth0Cookie',
   },
 ]

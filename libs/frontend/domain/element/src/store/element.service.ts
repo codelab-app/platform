@@ -1,39 +1,30 @@
 import type {
-  IAtom,
-  IAuth0Id,
-  IComponent,
-  ICreateElementDTO,
+  IAuth0Owner,
+  ICreateElementData,
   IElement,
   IElementRef,
   IElementService,
-  IInterfaceType,
-  IUpdateElementDTO,
+  IUpdateElementData,
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
+  elementRef,
+  getBuilderService,
   IElementDTO,
-  isAtomDTO,
-  isComponentDTO,
-  RenderTypeEnum,
+  IRenderTypeKind,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import { getPropService, Prop } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import {
-  getBuilderService,
-  getComponentService,
-} from '@codelab/frontend/presenter/container'
-import {
-  createUniqueName,
-  runSequentially,
-} from '@codelab/frontend/shared/utils'
+import { runSequentially } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
-import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
-import { isNonNullable } from '@codelab/shared/utils'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import { createUniqueName, isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -47,18 +38,18 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { isNil } from 'ramda'
 import { v4 } from 'uuid'
 import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import { makeAutoIncrementedName } from '../utils'
 import {
-  makeCreateInput,
+  getRenderTypeApi,
   makeDefaultProps,
   makeDuplicateInput,
-  makeUpdateInput,
 } from './api.utils'
 import { elementApi } from './apis'
+import { getComponentService } from './component'
 import { Element } from './element.model'
+import { ElementRepository } from './element.repository'
 import {
   CreateElementModalService,
   ElementModalService,
@@ -74,7 +65,10 @@ import {
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
-    id: idProp,
+    clonedElements: prop(() => objectMap<IElement>()),
+    createModal: prop(() => new CreateElementModalService({})),
+    deleteModal: prop(() => new ElementModalService({})),
+    elementRepository: prop(() => new ElementRepository({})),
     /**
      * Contains all elements
      *
@@ -82,12 +76,8 @@ export class ElementService
      * - Elements that are detached
      */
     elements: prop(() => objectMap<IElement>()),
-    clonedElements: prop(() => objectMap<IElement>()),
-    createModal: prop(() => new CreateElementModalService({})),
+    id: idProp,
     updateModal: prop(() => new UpdateElementModalService({})),
-    deleteModal: prop(() => new ElementModalService({})),
-
-    // _atomService: prop<Ref<IAtomService>>(),
   })
   implements IElementService
 {
@@ -111,6 +101,11 @@ export class ElementService
     return getBuilderService(this)
   }
 
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
   @modelFlow
   @transaction
   public getAll = _async(function* (
@@ -123,38 +118,8 @@ export class ElementService
       }),
     )
 
-    return elements.map((element) => this.writeCache(element))
+    return elements.map((element) => this.add(element))
   })
-
-  @modelAction
-  private writeAtomsCache(elements: Array<IElementDTO>) {
-    console.debug('ElementService.writeAtomsCache', elements)
-
-    const atoms = elements
-      .map((element) => element.renderAtomType)
-      .filter(isAtomDTO)
-
-    return atoms.map((atom) =>
-      // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
-      this.atomService.writeCache(atom),
-    )
-  }
-
-  @modelAction
-  private writeComponentsCache(elements: Array<IElementDTO>) {
-    console.debug('ElementService.writeComponentsCache', elements)
-
-    const components = elements
-      .map(
-        ({ parentComponent, renderComponentType }) =>
-          parentComponent || renderComponentType,
-      )
-      .filter(isComponentDTO)
-
-    return components.map((component) =>
-      this.componentService.writeCache(component),
-    )
-  }
 
   @modelAction
   public loadComponentTree(component: RenderedComponentFragment) {
@@ -163,34 +128,38 @@ export class ElementService
       ...component.rootElement.descendantElements,
     ]
 
-    const hydratedElements = elements.map((element) => this.writeCache(element))
+    const hydratedElements = elements.map((element) => this.add(element))
     const rootElement = this.element(component.rootElement.id)
 
-    if (!rootElement) {
-      throw new Error('No root element found')
-    }
-
-    return { rootElement, hydratedElements }
+    return { hydratedElements, rootElement }
   }
 
   @modelAction
-  public writeCache = (element: IElementDTO): IElement => {
-    console.debug('ElementService.writeCache', element)
+  add = (elementDTO: IElementDTO): IElement => {
+    console.debug('ElementService.writeCache', elementDTO)
 
-    this.writeAtomsCache([element])
-    this.writeComponentsCache([element])
+    // if (renderAtomType) {
+    //   this.atomService.add(renderAtomType)
+    // }
 
-    let elementModel = this.elements.get(element.id)
+    // if (parentComponent) {
+    //   this.componentService.add(parentComponent)
+    // }
 
-    if (elementModel) {
-      elementModel.writeCache(element)
-      this.writeClonesCache(element)
-    } else {
-      elementModel = Element.hydrate(element)
-      this.elements.set(element.id, elementModel)
-    }
+    // if (renderComponentType) {
+    //   this.componentService.add(renderComponentType)
+    // }
 
-    return elementModel
+    // if (props) {
+    //   this.propService.add(props)
+    // }
+    const { parentComponent, renderType, props } = elementDTO
+    const element = Element.create(elementDTO)
+    this.elements.set(element.id, element)
+
+    this.writeClonesCache(elementDTO)
+
+    return element
   }
 
   /**
@@ -198,80 +167,30 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  public create = _async(function* (
-    this: ElementService,
-    data: Array<ICreateElementDTO>,
-  ) {
-    const input: Array<ElementCreateInput> = []
+  create = _async(function* (this: ElementService, data: ICreateElementData) {
+    const parent = this.elements.get(data.parentElement?.id ?? '')
 
-    for (const elementInput of data) {
-      const parentElement = this.elements.get(
-        elementInput.parentElementId as string,
-      )
+    const name = createUniqueName(data.name, {
+      id: parent?.baseId,
+    })
 
-      const name = createUniqueName(elementInput.name, parentElement?.baseId)
-      // When creating a new element, we need the interface type fields
-      // and we use it to create a props with default values for the created element
-      const typeApi = yield* _await(this.getElementInputTypeApi(elementInput))
+    const renderTypeApi = getRenderTypeApi(data.renderType)
 
-      input.push(
-        makeCreateInput({
-          ...elementInput,
-          name,
-          propsData: makeDefaultProps(typeApi),
-        }),
-      )
-    }
+    const elementProps = Prop.create({
+      data: makeDefaultProps(renderTypeApi?.current),
+      id: v4(),
+    })
 
-    const {
-      createElements: { elements },
-    } = yield* _await(elementApi.CreateElements({ input }))
+    const element = this.add({
+      ...data,
+      name,
+      parent,
+      props: elementProps,
+    })
 
-    return elements.map((element) => this.writeCache(element))
-  })
+    yield* _await(this.elementRepository.add(element))
 
-  /**
-   * Returns the associated interface type of the new element to be created.
-   * To be used to check on the fields that has a default value
-   * and make a default `dataProps` input for the creation of the element
-   */
-  @modelFlow
-  private getElementInputTypeApi = _async(function* (
-    this: ElementService,
-    elementInput: ICreateElementDTO,
-  ) {
-    let baseElementType: Maybe<IAtom | IComponent>
-
-    if (elementInput.renderType?.model === RenderTypeEnum.Component) {
-      baseElementType = yield* _await(
-        this.componentService.getOne(elementInput.renderType.id),
-      )
-
-      if (!baseElementType) {
-        throw new Error(
-          `Component with id ${elementInput.renderType.id} not found`,
-        )
-      }
-    } else if (elementInput.renderType?.model === RenderTypeEnum.Atom) {
-      baseElementType = yield* _await(
-        this.atomService.getOne(elementInput.renderType.id),
-      )
-
-      if (!baseElementType) {
-        throw new Error(`Atom with id ${elementInput.renderType.id} not found`)
-      }
-    }
-
-    if (baseElementType) {
-      const typeApi = yield* _await(
-        this.typeService.getOne(baseElementType.api.id),
-      )
-
-      // Atoms and components have interface type
-      return typeApi as Maybe<IInterfaceType>
-    }
-
-    return
+    return element
   })
 
   /**
@@ -295,82 +214,42 @@ export class ElementService
       ...(elementTrees[0]?.descendantElements ?? []),
     ]
 
-    return elements.map((element) => this.writeCache(element))
+    return elements.map((element) => this.add(element))
   })
 
   @modelAction
   public element(id: string) {
+    const element = this.maybeElement(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
+
+    return element
+  }
+
+  @modelAction
+  public maybeElement(id: string) {
     return this.elements.get(id) || this.clonedElements.get(id)
   }
 
   @modelFlow
   @transaction
-  public update = _async(function* (
+  update = _async(function* (
     this: ElementService,
-    element: IElement,
-    input: IUpdateElementDTO,
+    { id, props, ...elementData }: IUpdateElementData,
   ) {
-    const name = createUniqueName(input.name, element.baseId)
+    const element = this.elements.get(id)!
 
-    const {
-      atom: currentAtom,
-      renderComponentType: currentRenderComponentType,
-    } = element
+    element.props.current.writeCache(props ?? {})
 
-    const { model: renderTypeModel, id: newRenderTypeId } =
-      input.renderType ?? {}
-
-    const isUpdatedWithAtom = renderTypeModel === RenderTypeEnum.Atom
-    const isUpdatedWithComponent = renderTypeModel === RenderTypeEnum.Component
-
-    const isCurrentlyEmptyElement =
-      isNil(currentAtom) && isNil(currentRenderComponentType)
-
-    const changedFromAtomToComponent =
-      isUpdatedWithAtom && !isNil(currentRenderComponentType)
-
-    const changedFromComponentToAtom =
-      isUpdatedWithComponent && !isNil(currentAtom)
-
-    const changedFromEmptyToAtomOrComponent =
-      isCurrentlyEmptyElement && (isUpdatedWithAtom || isUpdatedWithComponent)
-
-    const renderTypeChanged =
-      changedFromAtomToComponent ||
-      changedFromComponentToAtom ||
-      changedFromEmptyToAtomOrComponent
-
-    const renderIdChanged =
-      (isUpdatedWithAtom && newRenderTypeId !== currentAtom?.id) ||
-      (isUpdatedWithComponent &&
-        newRenderTypeId !== currentRenderComponentType?.id)
-
-    // we only want to change the props of the element if the user changes the atom or component
-    let propsData: string | undefined
-
-    if (renderTypeChanged || renderIdChanged) {
-      // When replacing the atom or component of an element, we need the interface type fields of the new
-      // atom/component and we use it to create a props with default values for the updated element
-      const typeApi = yield* _await(this.getElementInputTypeApi(input))
-      propsData = makeDefaultProps(typeApi)
-    }
-
-    const update = makeUpdateInput({
-      ...input,
-      name,
-      propsData,
+    element.writeCache({
+      ...elementData,
     })
 
-    const {
-      updateElements: { elements },
-    } = yield* _await(
-      elementApi.UpdateElements({
-        where: { id: element.id },
-        update,
-      }),
-    )
+    yield* _await(this.elementRepository.update(element))
 
-    return elements.map((_element: IElementDTO) => this.writeCache(_element))
+    return element
   })
 
   /**
@@ -378,7 +257,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  public patchElement = _async(function* (
+  patchElement = _async(function* (
     this: ElementService,
     entity: IEntity,
     input: ElementUpdateInput,
@@ -387,12 +266,12 @@ export class ElementService
       updateElements: { elements },
     } = yield* _await(
       elementApi.UpdateElements({
-        where: { id: entity.id },
         update: input,
+        where: { id: entity.id },
       }),
     )
 
-    return elements.map((element) => this.writeCache(element))[0]!
+    return elements.map((element) => this.add(element))[0]!
   })
 
   @modelFlow
@@ -409,7 +288,7 @@ Detaches element from an element tree. Will perform 3 conditional checks to see 
 - Detach from prev sibling
 - Connect prev to next
 */
-    const element = this.element(elementId)
+    const element = this.maybeElement(elementId)
 
     if (!element) {
       console.warn(`Can't find element id ${elementId}`)
@@ -462,25 +341,20 @@ parent
       function* (
         this: ElementService,
         {
-          elementId,
-          targetElementId,
+          element,
+          targetElement,
         }: Parameters<IElementService['moveElementAsNextSibling']>[0],
       ) {
-        const element = this.element(elementId)
-        const targetElement = this.element(targetElementId)
+        const target = this.element(targetElement.id)
 
-        if (!element || !targetElement) {
+        if (target.nextSibling?.getRefId() === element.id) {
           return
         }
 
-        if (targetElement.nextSiblingId === elementId) {
-          return
-        }
-
-        yield* _await(this.detachElementFromElementTree(elementId))
+        yield* _await(this.detachElementFromElementTree(element.id))
 
         yield* _await(
-          this.attachElementAsNextSibling({ elementId, targetElementId }),
+          this.attachElementAsNextSibling({ element, targetElement }),
         )
       },
     ),
@@ -494,21 +368,14 @@ parent
       function* (
         this: ElementService,
         {
-          elementId,
-          parentElementId,
+          element,
+          parentElement,
         }: Parameters<IElementService['moveElementAsFirstChild']>[0],
       ) {
-        const element = this.element(elementId)
-        const parentElement = this.element(parentElementId)
-
-        if (!element || !parentElement) {
-          return
-        }
-
-        yield* _await(this.detachElementFromElementTree(elementId))
+        yield* _await(this.detachElementFromElementTree(element.id))
 
         yield* _await(
-          this.attachElementAsFirstChild({ elementId, parentElementId }),
+          this.attachElementAsFirstChild({ element, parentElement }),
         )
       },
     ),
@@ -519,12 +386,12 @@ parent
   public createElementAsFirstChild = _async(
     runSequentially(
       'elementTransaction',
-      function* (this: ElementService, data: ICreateElementDTO) {
-        if (!data.parentElementId) {
-          throw new Error('Parent element id doesnt exist')
+      function* (this: ElementService, data: ICreateElementData) {
+        if (!data.parentElement?.id) {
+          throw new Error("Parent element id doesn't exist")
         }
 
-        const [element] = yield* _await(this.create([data]))
+        const element = yield* _await(this.create(data))
 
         if (!element) {
           throw new Error('Create element failed')
@@ -532,8 +399,8 @@ parent
 
         yield* _await(
           this.attachElementAsFirstChild({
-            elementId: element.id,
-            parentElementId: data.parentElementId,
+            element,
+            parentElement: data.parentElement,
           }),
         )
 
@@ -547,17 +414,17 @@ parent
   public createElementAsNextSibling = _async(
     runSequentially(
       'elementTransaction',
-      function* (this: ElementService, data: ICreateElementDTO) {
-        const [element] = yield* _await(this.create([data]))
+      function* (this: ElementService, data: ICreateElementData) {
+        const element = yield* _await(this.create(data))
 
-        if (!element) {
-          throw new Error('Create element failed')
+        if (!data.prevSibling) {
+          throw new Error('Missing previous sibling')
         }
 
         yield* _await(
           this.attachElementAsNextSibling({
-            elementId: element.id,
-            targetElementId: String(data.prevSiblingId),
+            element,
+            targetElement: data.prevSibling,
           }),
         )
 
@@ -571,32 +438,25 @@ parent
   private attachElementAsNextSibling = _async(function* (
     this: ElementService,
     {
-      elementId,
-      targetElementId,
+      element: existingElement,
+      targetElement: existingTargetElement,
     }: {
-      elementId: string
-      targetElementId: string
+      element: IEntity
+      targetElement: IEntity
     },
   ) {
-    const element = this.element(elementId)
-    const targetElement = this.element(targetElementId)
-
-    if (!element || !targetElement) {
-      return
-    }
-
+    const element = this.element(existingElement.id)
+    const targetElement = this.element(existingTargetElement.id)
     const updateElementInputs: Array<UpdateElementsMutationVariables> = []
     const updateElementCacheFns: Array<() => void> = []
 
     // Attach to parent
-    if (targetElement.parentElement) {
-      updateElementCacheFns.push(
-        element.attachToParent(targetElement.parentElement.id),
-      )
+    if (targetElement.parent) {
+      updateElementCacheFns.push(element.attachToParent(targetElement.parent))
     }
 
     /**
-     * [target]-nextSbiling
+     * [target]-nextSibling
      * target-[element]-nextSibling
      * element appends to nextSibling
      */
@@ -605,20 +465,22 @@ parent
         element.makeAppendSiblingInput(targetElement.nextSibling.id),
       )
       updateElementCacheFns.push(
-        element.appendSibling(targetElement.nextSibling.id),
+        element.appendSibling(targetElement.nextSibling),
       )
 
       /** [element]-nextSibling */
       updateElementInputs.push(
-        targetElement.nextSibling.makePrependSiblingInput(element.id),
+        targetElement.nextSibling.current.makePrependSiblingInput(element.id),
       )
       updateElementCacheFns.push(
-        targetElement.nextSibling.prependSibling(element.id),
+        targetElement.nextSibling.current.prependSibling(elementRef(element)),
       )
     }
 
     updateElementInputs.push(element.makePrependSiblingInput(targetElement.id))
-    updateElementCacheFns.push(element.prependSibling(targetElement.id))
+    updateElementCacheFns.push(
+      element.prependSibling(elementRef(targetElement.id)),
+    )
 
     const updateElementRequests = updateElementInputs
       .filter(isNonNullable)
@@ -636,20 +498,15 @@ parent
   private attachElementAsFirstChild = _async(function* (
     this: ElementService,
     {
-      elementId,
-      parentElementId,
+      element: existingElement,
+      parentElement: exstingParentElement,
     }: {
-      elementId: string
-      parentElementId: string
+      element: IEntity
+      parentElement: IEntity
     },
   ) {
-    const element = this.element(elementId)
-    const parentElement = this.element(parentElementId)
-
-    if (!element || !parentElement) {
-      return
-    }
-
+    const element = this.element(existingElement.id)
+    const parentElement = this.element(exstingParentElement.id)
     const updateElementInputs = []
     const updateElementCacheFns: Array<() => void> = []
 
@@ -668,16 +525,16 @@ element is new parentElement's first child
         element.makeAppendSiblingInput(parentElement.firstChild.id),
       )
       updateElementCacheFns.push(
-        element.appendSibling(parentElement.firstChild.id),
+        element.appendSibling(elementRef(parentElement.firstChild.id)),
       )
     }
 
     // attach to parent
     updateElementInputs.push(
-      element.makeAttachToParentAsFirstChildInput(parentElementId),
+      element.makeAttachToParentAsFirstChildInput(elementRef(parentElement.id)),
     )
     updateElementCacheFns.push(
-      element.attachToParentAsFirstChild(parentElement.id),
+      element.attachToParentAsFirstChild(elementRef(parentElement.id)),
     )
 
     const updateElementRequests = updateElementInputs.map((input) =>
@@ -696,24 +553,19 @@ element is new parentElement's first child
       function* (
         this: ElementService,
         {
-          elementId,
-          targetElementId,
+          element: { id: elementId },
+          targetElement: { id: targetElementId },
           dropPosition,
         }: Parameters<IElementService['moveElementToAnotherTree']>[0],
       ) {
         const targetElement = this.element(targetElementId)
-
-        if (!targetElement) {
-          return
-        }
-
-        let element = this.element(elementId)
+        let element = this.maybeElement(elementId)
 
         if (!element) {
           const elementTree = Element.getElementTree(targetElement)
 
-          const existingInstances = elementTree?.elementsList.filter(
-            ({ renderComponentType }) => renderComponentType?.id === elementId,
+          const existingInstances = elementTree?.elements.filter(
+            ({ renderType }) => renderType?.id === elementId,
           )
 
           const component = this.componentService.component(elementId)
@@ -730,19 +582,15 @@ element is new parentElement's first child
 
           const renderType: RenderType = {
             id: component.id,
-            model: RenderTypeEnum.Component,
+            kind: IRenderTypeKind.Component,
           }
 
           const parentElementId = targetElement.id
-          const data = { name, renderType, parentElementId }
+          const data = { id: v4(), name, parentElementId, renderType }
 
-          element = (yield* _await(this.create([data])))[0]
+          element = yield* _await(this.create(data))
         } else {
           yield* _await(this.detachElementFromElementTree(element.id))
-        }
-
-        if (!element) {
-          return
         }
 
         const insertAfterId = targetElement.children[dropPosition]?.id
@@ -750,15 +598,15 @@ element is new parentElement's first child
         if (!insertAfterId || dropPosition === 0) {
           yield* _await(
             this.attachElementAsFirstChild({
-              elementId: element.id,
-              parentElementId: targetElement.id,
+              element,
+              parentElement: targetElement,
             }),
           )
         } else {
           yield* _await(
             this.attachElementAsNextSibling({
-              elementId: element.id,
-              targetElementId: insertAfterId,
+              element,
+              targetElement: { id: insertAfterId },
             }),
           )
         }
@@ -778,73 +626,42 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
-  public deleteElementSubgraph = _async(
-    runSequentially(
-      'elementTransaction',
-      function* (this: ElementService, root: IElementRef) {
-        const { elementTrees } = yield* _await(
-          elementApi.GetElementTree({ where: { id: root } }),
-        )
+  deleteElementSubgraph = _async(function* (
+    this: ElementService,
+    subRoot: IEntity,
+  ) {
+    const subRootElement = elementRef(subRoot.id).current
 
-        if (!elementTrees[0]) {
-          return []
-        }
+    const descendantElements = subRootElement.getDescendantRefs.map(
+      (pageRootElement) => pageRootElement.id,
+    )
 
-        const idsToDelete: Array<string> = [
-          elementTrees[0].id,
-          ...elementTrees[0].descendantElements.map((element) => element.id),
-        ]
+    descendantElements.reverse().forEach((elementId) => {
+      this.elements.delete(elementId)
+      this.removeClones(elementId)
+    })
 
-        const rootElement = this.element(root)
+    yield* _await(this.elementRepository.delete(descendantElements))
 
-        if (rootElement) {
-          yield* _await(this.detachElementFromElementTree(rootElement.id))
-        }
-
-        for (const id of idsToDelete.reverse()) {
-          this.elements.delete(id)
-          this.removeClones(id)
-        }
-
-        const {
-          deleteElements: { nodesDeleted },
-        } = yield* _await(
-          elementApi.DeleteElements({
-            where: {
-              id_IN: idsToDelete,
-            },
-            delete: {
-              props: {},
-            },
-          }),
-        )
-
-        if (nodesDeleted === 0) {
-          throw new Error('No elements deleted')
-        }
-
-        return idsToDelete
-      },
-    ),
-  )
+    return descendantElements
+  })
 
   @computed
   get elementNames() {
     return [...this.elements.values()].map((element) => element.name)
   }
 
-  private async recursiveDuplicate(element: IElement, parent: IElement) {
-    const duplicate_name = makeAutoIncrementedName(
-      this.builderService.activeElementTree?.elementsList.map(
-        (anElement) => anElement.name,
-      ) || [],
+  private async recursiveDuplicate(element: IElement, parentElement: IElement) {
+    const duplicateName = makeAutoIncrementedName(
+      this.builderService.activeElementTree?.elements.map(({ name }) => name) ||
+        [],
       element.name,
       true,
     )
 
     const createInput: ElementCreateInput = makeDuplicateInput(
       element,
-      duplicate_name,
+      duplicateName,
     )
 
     const {
@@ -857,18 +674,18 @@ element is new parentElement's first child
       throw new Error('No elements created')
     }
 
-    const elementModel = this.writeCache(createdElement)
-    const lastChildId = parent.children[parent.children.length - 1]?.id
+    const elementModel = this.add(createdElement)
+    const lastChild = parentElement.children[parentElement.children.length - 1]
 
-    if (!lastChildId) {
+    if (!lastChild) {
       await this.attachElementAsFirstChild({
-        elementId: elementModel.id,
-        parentElementId: parent.id,
+        element: elementModel,
+        parentElement,
       })
     } else {
       await this.attachElementAsNextSibling({
-        elementId: elementModel.id,
-        targetElementId: lastChildId,
+        element: elementModel,
+        targetElement: lastChild,
       })
     }
 
@@ -930,59 +747,45 @@ element is new parentElement's first child
   public convertElementToComponent = _async(
     runSequentially(
       'elementTransaction',
-      function* (this: ElementService, element: Element, auth0Id: IAuth0Id) {
-        if (!element.parentElement) {
+      function* (this: ElementService, element: IElement, owner: IAuth0Owner) {
+        if (!element.parent) {
           throw new Error("Can't convert root element")
         }
 
-        const name = element.label
-        const elementId = element.id
-        const parentElement = element.parentElement
-        const prevSibling = element.prevSibling
+        const { name, parent: parentElement, prevSibling, label } = element
 
         // 1. detach the element from the element tree
-        yield* _await(this.detachElementFromElementTree(elementId))
+        yield* _await(this.detachElementFromElementTree(element.id))
 
         // 2. create the component with predefined root element
-        const [createdComponent] = yield* _await(
-          this.componentService.create([
-            {
-              auth0Id,
-              id: v4(),
-              name,
-              rootElementId: elementId,
-              childrenContainerElementId: elementId,
-            },
-          ]),
+        const createdComponent = yield* _await(
+          this.componentService.create({
+            childrenContainerElement: element,
+            id: v4(),
+            name,
+            owner,
+            rootElement: element,
+          }),
         )
-
-        if (!createdComponent) {
-          throw new Error('Create component failed')
-        }
 
         // 3. create a new element as an instance of the component
         if (!prevSibling) {
-          const [createdElement] = yield* _await(
-            this.create([
-              {
-                name,
-                renderType: {
-                  id: createdComponent.id,
-                  model: RenderTypeEnum.Component,
-                },
-                parentElementId: parentElement.id,
+          const createdElement = yield* _await(
+            this.create({
+              id: v4(),
+              name,
+              parentElement,
+              renderType: {
+                id: createdComponent.id,
+                kind: IRenderTypeKind.Component,
               },
-            ]),
+            }),
           )
-
-          if (!createdElement) {
-            throw new Error('Create element failed')
-          }
 
           yield* _await(
             this.attachElementAsFirstChild({
-              elementId: createdElement.id,
-              parentElementId: parentElement.id,
+              element: createdElement,
+              parentElement,
             }),
           )
 
@@ -991,13 +794,14 @@ element is new parentElement's first child
 
         return yield* _await(
           this.createElementAsNextSibling({
+            id: v4(),
             name,
+            parentElement,
+            prevSibling,
             renderType: {
               id: createdComponent.id,
-              model: RenderTypeEnum.Component,
+              kind: IRenderTypeKind.Component,
             },
-            parentElementId: parentElement.id,
-            prevSiblingId: prevSibling.id,
           }),
         )
       },
@@ -1007,9 +811,9 @@ element is new parentElement's first child
   @modelAction
   writeClonesCache(elementFragment: IElementDTO) {
     return [...this.clonedElements.values()]
-      .filter((element) => element.sourceElementId === elementFragment.id)
+      .filter((element) => element.sourceElement?.id === elementFragment.id)
       .map((element) =>
-        element.writeCache({
+        Element.create({
           ...elementFragment,
           // keep the cloned element's id
           id: element.id,
@@ -1025,7 +829,7 @@ element is new parentElement's first child
   @modelAction
   removeClones(elementId: string) {
     return [...this.clonedElements.entries()]
-      .filter(([id, component]) => component.sourceElementId === elementId)
+      .filter(([id, component]) => component.sourceElement?.id === elementId)
       .forEach(([id]) => this.clonedElements.delete(id))
   }
 }

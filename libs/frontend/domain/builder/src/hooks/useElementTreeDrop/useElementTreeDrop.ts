@@ -8,7 +8,7 @@ import type { TreeProps } from 'antd/lib/tree'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
-} from './utilts'
+} from './utils'
 
 export interface UseElementTreeDropProps {
   elementTree: Nullable<IElementTree>
@@ -21,24 +21,24 @@ export interface UseElementTreeDropProps {
  */
 export const useElementTreeDrop = (elementService: IElementService) => {
   const handleDrop: TreeProps<IBuilderDataNode>['onDrop'] = async (info) => {
-    const dragElementId = info.dragNode.key.toString()
-    const dropElementId = info.node.key.toString()
+    const dragElement = { id: info.dragNode.key.toString() }
+    const dropElement = { id: info.node.key.toString() }
     const dragRootId = info.dragNode.rootKey?.toString()
     const dropRootId = info.node.rootKey?.toString()
 
     // check if the dropNode lives in a different component
     // move the element into the other component
     if (dragRootId !== dropRootId) {
-      if (dragElementId === dragRootId) {
+      if (dragElement.id === dragRootId) {
         // We can't move the root because the drag component
         // can't stay without a root element
         return
       }
 
       void elementService.moveElementToAnotherTree({
-        elementId: dragElementId,
-        targetElementId: dropElementId,
         dropPosition: info.dropPosition,
+        element: dragElement,
+        targetElement: dropElement,
       })
 
       return
@@ -46,8 +46,8 @@ export const useElementTreeDrop = (elementService: IElementService) => {
 
     if (shouldMoveElementAsFirstChild(info)) {
       void elementService.moveElementAsFirstChild({
-        elementId: dragElementId,
-        parentElementId: dropElementId,
+        element: dragElement,
+        parentElement: dropElement,
       })
 
       return
@@ -55,8 +55,8 @@ export const useElementTreeDrop = (elementService: IElementService) => {
 
     if (shouldMoveElementAsNextSibling(info)) {
       void elementService.moveElementAsNextSibling({
-        elementId: dragElementId,
-        targetElementId: dropElementId,
+        element: dragElement,
+        targetElement: dropElement,
       })
     }
 

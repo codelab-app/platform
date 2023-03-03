@@ -3,11 +3,11 @@ import { absoluteRoot } from '@hon2a/cypress-without'
 type MessageType = 'notice' | 'warning' | 'success' | 'error' | 'loading'
 
 export const MESSAGE_TYPE = {
-  INFO: 'notice',
-  WARNING: 'warning',
-  SUCCESS: 'success',
   ERROR: 'error',
+  INFO: 'notice',
   LOADING: 'loading',
+  SUCCESS: 'success',
+  WARNING: 'warning',
 }
 
 type GetMessageOptions = { type?: MessageType } & Partial<

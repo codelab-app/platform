@@ -14,14 +14,14 @@ interface EnumTypeTableProps {
 export const EnumTypeTable = observer<EnumTypeTableProps>(({ enumType }) => {
   const columns: Array<ColumnProps<IEnumTypeRecord>> = [
     {
-      title: 'Key',
       dataIndex: 'key',
       key: 'key',
+      title: 'Key',
     },
     {
-      title: 'Value',
       dataIndex: 'value',
       key: 'value',
+      title: 'Value',
     },
   ]
 

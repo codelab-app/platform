@@ -60,11 +60,11 @@ export const useBuilderPageDnd = (elementService: IElementService) => {
   }
 
   return {
-    sensors,
-    handleDrop,
-    handleDragStart,
-    handleDragMove,
     draggedElement,
+    handleDragMove,
+    handleDragStart,
+    handleDrop,
+    sensors,
     setDraggedElement,
   }
 }

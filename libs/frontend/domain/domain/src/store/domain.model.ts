@@ -1,10 +1,9 @@
-import type { IDomain } from '@codelab/frontend/abstract/core'
-import { IDomainDTO } from '@codelab/frontend/abstract/core'
+import type { IDomain, IDomainDTO } from '@codelab/frontend/abstract/core'
 import type {
   VercelDomainConfig,
   VercelProjectDomain,
-  // VercelProjectDomainData,
 } from '@codelab/shared/abstract/codegen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import {
   detach,
   idProp,
@@ -15,36 +14,41 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const hydrate = (domain: IDomainDTO) => {
+const create = ({ id, name, app, domainConfig, projectDomain }: IDomainDTO) => {
   return new Domain({
-    id: domain.id,
-    name: domain.name,
-    appId: domain.app.id,
-    domainConfig: domain.domainConfig,
-    projectDomain: domain.projectDomain,
+    app,
+    domainConfig,
+    id,
+    name,
+    projectDomain,
   })
 }
 
 @model('@codelab/Domain')
 export class Domain
   extends Model({
+    app: prop<IEntity>(),
+    domainConfig: prop<VercelDomainConfig>(),
     id: idProp,
     name: prop<string>(),
-    appId: prop<string>(),
-    domainConfig: prop<VercelDomainConfig>(),
     projectDomain: prop<VercelProjectDomain>(),
   })
   implements IDomain
 {
-  static hydrate = hydrate
+  static create = create
 
   @modelAction
-  public writeCache(data: IDomainDTO) {
-    this.id = data.id
-    this.name = data.name
-    this.domainConfig = data.domainConfig
-    this.projectDomain = data.projectDomain
-    this.appId = data.app.id
+  public writeCache({
+    id,
+    name,
+    domainConfig,
+    projectDomain,
+    app,
+  }: Partial<IDomainDTO>) {
+    this.name = name ?? this.name
+    this.domainConfig = domainConfig ?? this.domainConfig
+    this.projectDomain = projectDomain ?? this.projectDomain
+    this.app = app ?? this.app
 
     return this
   }

@@ -26,8 +26,8 @@ const PageRenderer: CodelabPage<IPageProps> = observer(
     const { value, error, loading } = useRenderedPage({
       appId,
       pageId,
-      renderService: appRenderService,
       rendererType: RendererType.Preview,
+      renderService: appRenderService,
     })
 
     useEffect(() => {

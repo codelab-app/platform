@@ -23,7 +23,7 @@ export class InterfaceType extends BaseType implements IInterfaceType {
   fields: Array<IField>
 
   private constructor({ id, name, kind, fields, owner }: IInterfaceType) {
-    super({ id, name, kind, __typename: ITypeKind.InterfaceType, owner })
+    super({ __typename: ITypeKind.InterfaceType, id, kind, name, owner })
     this.fields = fields
   }
 
@@ -36,12 +36,12 @@ export class InterfaceType extends BaseType implements IInterfaceType {
 
   static init({ owner, name, fields }: ICreateInterfaceType) {
     return new InterfaceType({
-      id: v4(),
       __typename: ITypeKind.InterfaceType,
+      fields,
+      id: v4(),
       kind: ITypeKind.InterfaceType,
       name,
       owner,
-      fields,
     })
   }
 
@@ -50,10 +50,10 @@ export class InterfaceType extends BaseType implements IInterfaceType {
    */
   static createFromAtomName(name: string, owner: IUserRef): IInterfaceType {
     return new InterfaceType({
-      id: v4(),
-      name: InterfaceType.getApiName({ name }),
-      kind: ITypeKind.InterfaceType,
       fields: [],
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: InterfaceType.getApiName({ name }),
       owner,
     })
   }

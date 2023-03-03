@@ -18,17 +18,17 @@ export const loginByAuth0Api = () => {
      * https://auth0.com/docs/api/authentication#get-token
      */
     cy.request({
-      method: 'POST',
-      url: `${Cypress.env('auth0Domain')}oauth/token`,
       body: {
-        grant_type: 'password',
-        username,
-        password,
         audience,
-        scope,
         client_id,
         client_secret,
+        grant_type: 'password',
+        password,
+        scope,
+        username,
       },
+      method: 'POST',
+      url: `${Cypress.env('auth0Domain')}oauth/token`,
     }).then(({ body }) => {
       const claims = jwt_decode<any>(body.id_token)
 
@@ -47,18 +47,18 @@ export const loginByAuth0Api = () => {
         body: {
           ...body,
           decodedToken: {
+            audience,
             claims,
+            client_id,
             user: {
-              nickname,
-              name,
-              picture,
-              updated_at,
               email,
               email_verified,
+              name,
+              nickname,
+              picture,
               sub,
+              updated_at,
             },
-            audience,
-            client_id,
           },
         },
         expiresAt: exp,
@@ -75,9 +75,9 @@ export const loginByAuth0Api = () => {
 
 export const loginToAuth0 = () => {
   const log = Cypress.log({
+    autoEnd: false,
     displayName: 'AUTH0 LOGIN',
     message: [`🔐 Authenticating | ${username}`],
-    autoEnd: false,
   })
 
   log.snapshot('before')

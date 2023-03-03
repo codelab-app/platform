@@ -21,21 +21,21 @@ export const componentSchema = gql`
     descendantComponentIds: [ID!]! @cypher(statement: """${getDescendantComponentIds}""")
   }
 
-    extend type Component
-    @auth(
-      rules: [
-        { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["User"]
-          where: { owner: { auth0Id: "$jwt.sub" } }
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["Admin"]
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-      ]
-    )
+  extend type Component
+  @auth(
+    rules: [
+      { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
+      {
+        operations: [UPDATE, CREATE, DELETE]
+        roles: ["User"]
+        where: { owner: { auth0Id: "$jwt.sub" } }
+        bind: { owner: { auth0Id: "$jwt.sub" } }
+      }
+      {
+        operations: [UPDATE, CREATE, DELETE]
+        roles: ["Admin"]
+        bind: { owner: { auth0Id: "$jwt.sub" } }
+      }
+    ]
+  )
 `

@@ -31,11 +31,11 @@ export const DraggableElement = ({
     listeners: draggableListeners,
     setNodeRef: draggableNodeRefSetter,
   } = useDraggable({
-    id: element.id,
     data: {
-      type: BuilderDndType.MoveElement,
       overlayRenderer: () => ElementDragOverlay(renderedChildren),
+      type: BuilderDndType.MoveElement,
     },
+    id: element.id,
   })
 
   // Create a droppable for the element

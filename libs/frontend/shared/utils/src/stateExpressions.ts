@@ -83,8 +83,6 @@ interface ExpressionTransformer {
 }
 
 export const expressionTransformer: ExpressionTransformer = {
-  transform: null,
-  initialized: false,
   init: async function () {
     if (this.initialized) {
       return
@@ -95,6 +93,8 @@ export const expressionTransformer: ExpressionTransformer = {
     this.transform = transform
     this.initialized = true
   },
+  initialized: false,
+  transform: null,
   transpileAndEvaluateExpression: function (
     expression: string,
     evaluationContext: IPropData,

@@ -6,7 +6,6 @@ import type {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
-  ICacheService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
@@ -14,22 +13,22 @@ import type {
 import type { IBuilderDataNode } from '../../ui'
 import type {
   IComponentDTO,
-  ICreateComponentDTO,
-  IUpdateComponentDTO,
+  ICreateComponentData,
+  IUpdateComponentData,
 } from './component.dto.interface'
 import type { IComponent } from './component.model.interface'
 import type { RenderedComponentFragment } from './component-render.fragment.graphql.gen'
 
 export interface IComponentService
-  extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,
+  extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
     IQueryService<IComponent, ComponentWhere, ComponentOptions>,
-    ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
-    ICacheService<IComponentDTO, IComponent> {
+    ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }> {
   components: ObjectMap<IComponent>
   clonedComponents: ObjectMap<IComponent>
   componentList: Array<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
+  add(componentDTO: IComponentDTO): IComponent
   patchComponent(
     component: IComponent,
     input: ComponentUpdateInput,

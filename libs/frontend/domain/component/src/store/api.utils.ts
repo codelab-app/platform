@@ -1,61 +1,65 @@
 import type {
   IComponent,
-  ICreateComponentDTO,
+  ICreateComponentData,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
-export const mapCreateInput = (
-  input: ICreateComponentDTO,
-): ComponentCreateInput => {
-  const { id = v4(), name, auth0Id, rootElementId } = input
-  const newRootElementId = v4()
+type CreateRootElement = (
+  rootElement: IEntity,
+) => ComponentCreateInput['rootElement']
+
+export const mapCreateInput = ({
+  id = v4(),
+  name,
+  owner,
+  rootElement,
+}: ICreateComponentData): ComponentCreateInput => {
+  const newRootElement = { id: v4() }
 
   const props: ComponentCreateInput['props'] = {
     create: { node: { data: JSON.stringify({}) } },
   }
 
-  const createRootElement: ComponentCreateInput['rootElement'] = {
+  const createRootElement: CreateRootElement = (element: IEntity) => ({
     create: {
       node: {
-        id: newRootElementId,
-        name: createUniqueName(name, id),
+        id: element.id,
+        name: createUniqueName(name, element),
         props,
       },
     },
-  }
+  })
 
-  const connectRootElement: ComponentCreateInput['rootElement'] = {
-    connect: {
-      where: {
-        node: {
-          id: rootElementId ?? newRootElementId,
-        },
-      },
-    },
-  }
+  const connectRootElement: CreateRootElement = (element: IEntity) =>
+    connectNodeId(element.id)
 
   const api: ComponentCreateInput['api'] = {
     create: {
       node: {
         id: v4(),
         name: `${name} API`,
-        owner: connectOwner(auth0Id),
+        owner: connectAuth0Owner(owner),
       },
     },
   }
 
   return {
+    api,
+    childrenContainerElement: rootElement
+      ? connectRootElement(rootElement)
+      : connectRootElement(newRootElement),
     id,
     name,
-    rootElement: rootElementId ? connectRootElement : createRootElement,
-    api,
-    owner: connectOwner(auth0Id),
+    owner: connectAuth0Owner(owner),
     props,
-    childrenContainerElement: connectRootElement,
+    rootElement: rootElement
+      ? connectRootElement(rootElement)
+      : createRootElement(newRootElement),
   }
 }
 

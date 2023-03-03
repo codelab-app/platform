@@ -30,12 +30,12 @@ import { useAsync } from 'react-use'
 
 const items: MenuProps['items'] = [
   {
-    key: '0',
     icon: (
       <Button href="/api/auth/logout" type="link">
         Sign Out
       </Button>
     ),
+    key: '0',
   },
 ]
 
@@ -73,7 +73,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
       <BuildAppModal appService={appService} domainService={domainService} />
       <CreateAppModal appService={appService} userService={userService} />
-      <UpdateAppModal appService={appService} userService={userService} />
+      <UpdateAppModal appService={appService} />
       <DeleteAppModal appService={appService} />
 
       <ContentSection>

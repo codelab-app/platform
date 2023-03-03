@@ -50,11 +50,11 @@ export class Field implements IFieldDTO {
 
   static init({ id, key, fieldType, api }: ICreateField) {
     return new Field({
-      id,
-      name: compoundCaseToTitleCase(key),
-      key,
-      fieldType,
       api,
+      fieldType,
+      id,
+      key,
+      name: compoundCaseToTitleCase(key),
     })
   }
 }

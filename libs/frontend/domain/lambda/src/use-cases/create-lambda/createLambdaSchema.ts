@@ -7,13 +7,7 @@ export interface CreateLambdaData {
 }
 
 export const createLambdaSchema: JSONSchemaType<CreateLambdaData> = {
-  title: 'Create Lambda Input',
-  type: 'object',
   properties: {
-    name: {
-      autoFocus: true,
-      ...nonEmptyString,
-    },
     body: {
       type: 'string',
       uniforms: {
@@ -30,6 +24,12 @@ export const createLambdaSchema: JSONSchemaType<CreateLambdaData> = {
         // }),
       },
     },
+    name: {
+      autoFocus: true,
+      ...nonEmptyString,
+    },
   },
   required: ['name', 'body'],
+  title: 'Create Lambda Input',
+  type: 'object',
 }

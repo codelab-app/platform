@@ -1,8 +1,21 @@
+import { __RenderTypeKind } from '@codelab/frontend/abstract/core'
 import { gql } from 'apollo-server-micro'
+
+const renderTypeKindSchema = `enum RenderTypeKind {
+  ${Object.values(__RenderTypeKind).join('\n')}
+}`
 
 export const elementSchema = gql`
   interface ParentOfElement @relationshipProperties {
     order: Int
+  }
+
+  ${renderTypeKindSchema}
+
+  # Create this to match frontend
+  type RenderType @exclude {
+    id: ID!
+    kind: RenderTypeKind!
   }
 
   type Element {
@@ -13,14 +26,12 @@ export const elementSchema = gql`
     parent: Element @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
-    props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
+    props: Prop! @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
 
     # element is the rootElement for this component
     parentComponent: Component
       @relationship(type: "COMPONENT_ROOT", direction: IN)
-    slug: String! @computed(from: ["name"])
-    # format : pageId-name because element name is unique inside page.
-    name: String! @unique
+    name: String!
     # Used for the css the user types it manually using the integrated code editor. This is
     # a pure css string.
     customCss: String
@@ -31,13 +42,16 @@ export const elementSchema = gql`
     renderForEachPropKey: String
     renderIfExpression: String
 
-    preRenderActionId: String
-    postRenderActionId: String
+    preRenderAction: ActionBase
+      @relationship(type: "ELEMENT_ACTION", direction: OUT)
+    postRenderAction: ActionBase
+      @relationship(type: "ELEMENT_ACTION", direction: OUT)
 
     # Type of element to render, could be either a component or atom
     renderComponentType: Component
       @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
+    renderType: RenderType
 
     hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
 

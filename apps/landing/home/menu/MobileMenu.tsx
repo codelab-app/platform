@@ -133,23 +133,23 @@ export const MenuMobile = () => {
 
 const menuItems = [
   {
-    title: 'Features',
     href: '/',
     icon: '/features.svg',
+    title: 'Features',
   },
   {
-    title: 'Docs',
     href: '/',
     icon: '/docs.svg',
+    title: 'Docs',
   },
   {
-    title: 'Pricing',
     href: '/pricing',
     icon: '/pricing.svg',
+    title: 'Pricing',
   },
   {
-    title: 'Tutorials',
     href: '/tutorials',
     icon: '/tutorials.svg',
+    title: 'Tutorials',
   },
 ]

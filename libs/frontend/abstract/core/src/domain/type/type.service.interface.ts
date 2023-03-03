@@ -11,7 +11,11 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import type { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
+import type {
+  ICreateTypeData,
+  ITypeDTO,
+  IUpdateTypeData,
+} from './type.dto.interface'
 import type { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
 
 export interface BaseTypesOptions {
@@ -23,9 +27,14 @@ export interface BaseTypesOptions {
 }
 
 export interface ITypeService
-  extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
+  extends Omit<
+      ICRUDService<IAnyType, ICreateTypeData, IUpdateTypeData>,
+      'create' | 'delete'
+    >,
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
+  create(data: Array<ICreateTypeData>): Promise<Array<IAnyType>>
+  delete(ids: Array<string>): Promise<number>
   getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
@@ -39,4 +48,8 @@ export interface ITypeService
   loadFields(types: GetTypesQuery['interfaceTypes']): void
   loadTypesByChunks(types: GetTypesQuery): void
   count: number
+  // add(data: ICreateTypeDTO): IAnyType
+  // create(data: ICreateTypeDTO): IAnyType
+  addInterface(data: ICreateTypeData): IInterfaceType
+  add(type: ITypeDTO): IAnyType
 }

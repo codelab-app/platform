@@ -1,8 +1,5 @@
-import type {
-  ILambdaType,
-  ILambdaTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { ILambdaType } from '@codelab/frontend/abstract/core'
+import { ILambdaTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -15,7 +12,7 @@ const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
     id,
     kind,
     name,
-    ownerId: owner.id,
+    owner,
   })
 }
 
@@ -25,8 +22,15 @@ export class LambdaType
   implements ILambdaType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
+
+    return this
+  }
+
+  @modelAction
+  writeCache(lambdaTypeDTO: ILambdaTypeDTO) {
+    updateBaseTypeCache(this, lambdaTypeDTO)
 
     return this
   }

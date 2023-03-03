@@ -1,18 +1,18 @@
 import type { ITag } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   Repository,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
+  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
-  connectOwner,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 
-export class TagRepository extends IRepository<ITag> {
+export class TagRepository extends AbstractRepository<ITag> {
   private Tag = Repository.instance.Tag
 
   /**
@@ -31,8 +31,8 @@ export class TagRepository extends IRepository<ITag> {
       await (
         await this.Tag
       ).find({
-        where,
         selectionSet: tagSelectionSet,
+        where,
       })
     )[0]
   }
@@ -47,9 +47,9 @@ export class TagRepository extends IRepository<ITag> {
       ).create({
         input: tags.map(({ owner, ...tag }) => ({
           ...tag,
-          parent: connectNodeId(tag.parent?.id),
           children: connectNodeIds(tag.children.map((child) => child.id)),
-          owner: connectOwner(owner.auth0Id),
+          owner: connectAuth0Owner(owner),
+          parent: connectNodeId(tag.parent?.id),
         })),
       })
     ).tags

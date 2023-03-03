@@ -52,10 +52,10 @@ export const BuilderComponent = observer<BuilderComponentProps>(
         }
 
         await renderService.addRenderer({
+          appStore,
+          appTree: null,
           id: componentId,
           pageTree: componentTree,
-          appTree: null,
-          appStore,
           rendererType: RendererType.ComponentBuilder,
         })
       })()

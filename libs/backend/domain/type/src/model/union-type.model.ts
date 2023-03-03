@@ -25,16 +25,16 @@ export class UnionType extends BaseType implements IUnionType {
   typesOfUnionType: Array<IEntity>
 
   private constructor({ id, name, kind, owner, typesOfUnionType }: IUnionType) {
-    super({ id, name, kind, __typename: ITypeKind.UnionType, owner })
+    super({ __typename: ITypeKind.UnionType, id, kind, name, owner })
     this.typesOfUnionType = typesOfUnionType
   }
 
   static init({ owner, name, typesOfUnionType }: ICreateUnionType) {
     return new UnionType({
-      id: v4(),
       __typename: ITypeKind.UnionType,
-      name,
+      id: v4(),
       kind: ITypeKind.UnionType,
+      name,
       owner,
       typesOfUnionType,
     })

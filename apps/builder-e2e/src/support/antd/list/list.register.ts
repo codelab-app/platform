@@ -7,7 +7,7 @@ export interface AntListCommands {
 
 export const antListCommands: Array<CypressCommand> = [
   {
-    name: 'getListItem',
     fn: getListItem,
+    name: 'getListItem',
   },
 ]

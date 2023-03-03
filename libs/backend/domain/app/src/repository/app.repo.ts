@@ -10,13 +10,14 @@ import {
   pageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
-import { cLog } from '@codelab/shared/utils'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { cLog, createUniqueName } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { validate } from './validate'
 
-export const createApp = async (app: IAppExport, userId: string) => {
+export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   cLog(omit(app, ['pages']))
 
   const App = await Repository.instance.App
@@ -25,12 +26,12 @@ export const createApp = async (app: IAppExport, userId: string) => {
 
   for (const { elements, components } of pages) {
     for (const element of elements) {
-      await importElementInitial(element, userId)
+      await importElementInitial(element, owner)
     }
 
     // components should be created after their root elements
     for (const component of components) {
-      await createComponent(component, userId)
+      await createComponent(component, owner)
     }
 
     for (const element of elements) {
@@ -53,12 +54,12 @@ export const createApp = async (app: IAppExport, userId: string) => {
   if (existing.length) {
     console.log('Deleting app/pages before re-creating...')
     await App.delete({
-      where: {
-        id: app.id,
-      },
       delete: {
         pages: [{ where: {} }],
         store: { where: {} },
+      },
+      where: {
+        id: app.id,
       },
     })
   }
@@ -70,39 +71,41 @@ export const createApp = async (app: IAppExport, userId: string) => {
   } = await App.create({
     input: [
       {
+        _compoundName: createUniqueName(app.name, app),
         id: app.id,
-        name: app.name,
-        owner: connectOwner(userId),
+        owner: connectAuth0Owner(owner),
+        pages: {
+          create: app.pages.map((page) => ({
+            node: {
+              _compoundName: createUniqueName(page.name, page),
+              id: page.id,
+              kind: page.kind,
+              pageContentContainer: page.pageContentContainer?.id
+                ? connectNodeId(page.pageContentContainer.id)
+                : undefined,
+              rootElement: connectNodeId(page.rootElement.id),
+            },
+          })),
+        },
         store: {
           create: {
             node: {
-              id: app.store.id,
-              name: app.store.name,
               // api: connectNodeId(app.store.api.id),
               api: {
                 create: {
                   node: {
                     id: app.store.api.id,
                     name: `${app.store.name} API`,
-                    owner: connectOwner(userId),
+                    owner: connectAuth0Owner(owner),
                   },
                 },
               },
+
+              id: app.store.id,
+
+              name: app.store.name,
             },
           },
-        },
-        pages: {
-          create: app.pages.map((page) => ({
-            node: {
-              id: page.id,
-              name: page.name,
-              rootElement: connectNodeId(page.rootElement.id),
-              kind: page.kind,
-              pageContainerElement: page.pageContainerElement?.id
-                ? connectNodeId(page.pageContainerElement.id)
-                : undefined,
-            },
-          })),
         },
       },
     ],
@@ -123,26 +126,26 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
   const actions = await exportActions(app.store.id)
 
   const pages = await Page.find({
-    where: { app: { id: app.id } },
     selectionSet: pageSelectionSet,
+    where: { app: { id: app.id } },
   })
 
   const pagesData = await Promise.all(
     pages.map(async (page) => {
       const { elements, components } = await getPageData(page)
-      const { id, name, kind, rootElement, pageContainerElement } = page
+      const { id, name, kind, rootElement, pageContentContainer } = page
 
       return {
+        components,
+        elements,
         id: id,
-        name: name,
         kind: kind,
+        name: name,
         rootElement: {
           id: rootElement.id,
           name: rootElement.name,
         },
-        elements,
-        components,
-        ...(pageContainerElement ? { pageContainerElement } : {}),
+        ...(pageContentContainer ? { pageContentContainer } : {}),
       }
     }),
   )

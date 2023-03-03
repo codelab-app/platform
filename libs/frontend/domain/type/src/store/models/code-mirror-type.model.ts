@@ -1,8 +1,5 @@
-import type {
-  ICodeMirrorType,
-  ICodeMirrorTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { ICodeMirrorType } from '@codelab/frontend/abstract/core'
+import { ICodeMirrorTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -21,9 +18,9 @@ const hydrate = ({
   return new CodeMirrorType({
     id,
     kind,
-    name,
     language,
-    ownerId: owner.id,
+    name,
+    owner,
   })
 }
 
@@ -35,7 +32,7 @@ export class CodeMirrorType
   implements ICodeMirrorType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.CodeMirrorType) {
@@ -43,6 +40,13 @@ export class CodeMirrorType
     }
 
     this.language = fragment.language
+
+    return this
+  }
+
+  @modelAction
+  writeCache(codeMirrorTypeDTO: ICodeMirrorTypeDTO) {
+    updateBaseTypeCache(this, codeMirrorTypeDTO)
 
     return this
   }

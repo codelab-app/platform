@@ -44,15 +44,15 @@ export const OverlayToolbar = ({
   const style: CSSProperties =
     element && rect
       ? {
+          border: '2px solid rgb(41, 205, 255)',
+          bottom: `${rect.bottom}px`,
+          height: `${rect.height}px`,
+          left: `${rect.left}px`,
           pointerEvents: 'none',
           position: 'fixed',
-          width: `${rect.width}px`,
-          height: `${rect.height}px`,
-          bottom: `${rect.bottom}px`,
-          left: `${rect.left}px`,
-          top: `${rect.top}px`,
           right: `${rect.right}px`,
-          border: '2px solid rgb(41, 205, 255)',
+          top: `${rect.top}px`,
+          width: `${rect.width}px`,
           ...(containerStyle || {}),
         }
       : {}
@@ -66,14 +66,14 @@ export const OverlayToolbar = ({
       {element && content && (
         <div
           style={{
+            backgroundColor: 'rgb(41, 205, 255)',
+            bottom: '100%',
+            color: 'white',
+            fontSize: '0.8rem',
+            marginLeft: '-2px',
+            padding: '0.1rem 0.3rem 0.1rem 0.3rem',
             pointerEvents: 'auto',
             position: 'absolute',
-            bottom: '100%',
-            backgroundColor: 'rgb(41, 205, 255)',
-            padding: '0.1rem 0.3rem 0.1rem 0.3rem',
-            marginLeft: '-2px',
-            fontSize: '0.8rem',
-            color: 'white',
             ...(toolbarStyle || {}),
           }}
           // eslint-disable-next-line react/jsx-props-no-spreading

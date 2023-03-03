@@ -9,40 +9,39 @@ export const intTypeExpectedSchema = { type: 'integer' }
 export const unionTypeExpectedSchema = {
   oneOf: [
     {
-      type: 'object',
-      typeName: stringType.name,
       label: '',
       properties: {
-        value: { ...stringTypeExpectedSchema, label: undefined },
         type: {
-          type: 'string',
-          uniforms: expect.any(Object),
-          label: 'Type',
           default: stringType.id,
           enum: [stringType.id],
-        },
-      },
-    },
-    {
-      type: 'object',
-      label: '',
-      typeName: intType.name,
-      properties: {
-        value: { ...intTypeExpectedSchema, label: undefined },
-        type: {
+          label: 'Type',
           type: 'string',
           uniforms: expect.any(Object),
-          label: 'Type',
+        },
+        value: { ...stringTypeExpectedSchema, label: undefined },
+      },
+      type: 'object',
+      typeName: stringType.name,
+    },
+    {
+      label: '',
+      properties: {
+        type: {
           default: intType.id,
           enum: [intType.id],
+          label: 'Type',
+          type: 'string',
+          uniforms: expect.any(Object),
         },
+        value: { ...intTypeExpectedSchema, label: undefined },
       },
+      type: 'object',
+      typeName: intType.name,
     },
   ],
 }
 
 export const interfaceWithUnionExpectedSchema = {
-  type: 'object',
   properties: {
     stringField: {
       ...stringTypeExpectedSchema,
@@ -68,4 +67,5 @@ export const interfaceWithUnionExpectedSchema = {
     },
   },
   required: [],
+  type: 'object',
 }

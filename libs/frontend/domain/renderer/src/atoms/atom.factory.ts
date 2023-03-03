@@ -20,8 +20,8 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
 
   if (!ReactComponent) {
     notify({
-      type: 'error',
       title: `Missing atom of type ${atomType} in atom type map`,
+      type: 'error',
     })
 
     return [null, {}]
@@ -31,8 +31,8 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
    * Common props passed to all rendered atoms, we don't include runtime props here
    */
   const commonProps: IPropData = {
-    [DATA_ELEMENT_ID]: node.id,
     className: BUILDER_NONE_CLASS_NAME,
+    [DATA_ELEMENT_ID]: node.id,
   }
 
   let newProps = mergeProps(commonProps, props)

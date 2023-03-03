@@ -1,16 +1,20 @@
-import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
 import { typeApi } from '../../../store'
 
-const getInnerTypeIds = (submitData: IUpdateTypeDTO) => [
+const getInnerTypeIds = (submitData: IUpdateTypeData) => [
   ...(submitData.unionTypeIds ?? []),
 ]
 
 // Check if the updated type is not a descendant of any of the inner types
 // because this would cause a circular dependency between them and
 export const validateNonRecursive = async (
-  updateId: string,
-  submitData: IUpdateTypeDTO,
+  updateId: string | undefined,
+  submitData: IUpdateTypeData,
 ) => {
+  if (!updateId) {
+    throw new Error('Missing type id')
+  }
+
   const innerTypes = getInnerTypeIds(submitData)
 
   if (innerTypes.length > 0) {

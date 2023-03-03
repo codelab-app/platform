@@ -35,7 +35,8 @@
       },
       "library": {
         "style": "css",
-        "linter": "eslint"
+        "linter": "eslint",
+        "unitTestRunner": "none"
       },
       "storybook-configuration": {
         "linter": "eslint"
@@ -94,12 +95,7 @@
       "inputs": ["production", "^production"]
     },
     "test": {
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/jest.preset.js",
-        "{workspaceRoot}/jest.preset.js"
-      ]
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
     },
     "e2e": {
       "inputs": ["default", "^default"]

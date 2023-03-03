@@ -1,5 +1,5 @@
 import type { IAtom } from '@codelab/backend/abstract/core'
-import { IRepository } from '@codelab/backend/abstract/types'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   atomSelectionSet,
   Repository,
@@ -13,7 +13,7 @@ import {
   whereNodeIds,
 } from '@codelab/shared/domain/mapper'
 
-export class AtomRepository extends IRepository<IAtom> {
+export class AtomRepository extends AbstractRepository<IAtom> {
   private Atom = Repository.instance.Atom
 
   async find(where: BaseTypeUniqueWhere) {
@@ -21,8 +21,8 @@ export class AtomRepository extends IRepository<IAtom> {
       await (
         await this.Atom
       ).find({
-        where,
         selectionSet: atomSelectionSet,
+        where,
       })
     )[0]
   }
@@ -37,11 +37,11 @@ export class AtomRepository extends IRepository<IAtom> {
       ).create({
         input: atoms.map(({ tags, api, allowedChildren = [], ...atom }) => ({
           ...atom,
-          tags: connectNodeIds(tags.map((tag) => tag.id)),
-          api: connectNodeId(api.id),
           allowedChildren: connectNodeIds(
             allowedChildren.map((child) => child.id),
           ),
+          api: connectNodeId(api.id),
+          tags: connectNodeIds(tags.map((tag) => tag.id)),
         })),
       })
     ).atoms
@@ -57,11 +57,11 @@ export class AtomRepository extends IRepository<IAtom> {
       ).update({
         update: {
           ...atom,
-          tags: reconnectNodeIds(tags.map((tag) => tag.id)),
-          api: reconnectNodeId(api.id),
           allowedChildren: whereNodeIds(
             allowedChildren.map((child) => child.id),
           ),
+          api: reconnectNodeId(api.id),
+          tags: reconnectNodeIds(tags.map((tag) => tag.id)),
         },
         where,
       })

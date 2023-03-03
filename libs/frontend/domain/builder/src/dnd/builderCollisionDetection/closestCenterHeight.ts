@@ -43,8 +43,8 @@ export const closestCenterHeight: CollisionDetection = ({
       )
 
       collisions.push({
+        data: { collisionRect, droppableContainer, value: distOnYAxisBetween },
         id,
-        data: { droppableContainer, value: distOnYAxisBetween, collisionRect },
       })
     }
   }

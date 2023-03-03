@@ -11,7 +11,7 @@ const mute = <O extends Partial<Cypress.Loggable>>(
 
 const log = (name: string, message = '', { log: shouldLog = true } = {}) => {
   if (shouldLog) {
-    cy.wrap({ name, displayName: snakeCase(name), message }, MUTE).then(
+    cy.wrap({ displayName: snakeCase(name), message, name }, MUTE).then(
       Cypress.log,
     )
   }

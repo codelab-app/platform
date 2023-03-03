@@ -28,9 +28,9 @@ export type IInterfaceTypeExport = z.infer<typeof InterfaceTypeExportSchema>
  */
 const CreateInterfaceTypeSchema = InterfaceTypeSchema.pick({
   __typename: true,
-  owner: true,
-  name: true,
   fields: true,
+  name: true,
+  owner: true,
 })
 
 export type ICreateInterfaceType = z.infer<typeof CreateInterfaceTypeSchema>

@@ -5,41 +5,37 @@ import {
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export const createComponentSchema: JSONSchemaType<
-  Omit<ICreateComponentDTO, 'rootElementId'>
-> = {
-  title: 'Create Component Input',
-  type: 'object',
+export type CreateComponentSchema = Omit<ICreateComponentData, 'rootElement'>
+
+export const createComponentSchema: JSONSchemaType<CreateComponentSchema> = {
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
+    ...idSchema,
     api: {
-      type: 'string',
       nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
-    childrenContainerElementId: {
       type: 'string',
       uniforms: {
         component: () => null,
       },
     },
-    auth0Id: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
+    childrenContainerElement: {
+      properties: {
+        id: {
+          type: 'string',
+          uniforms: {
+            component: () => null,
+          },
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
+    ...ownerSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,
     },
   },
-  required: ['name', 'auth0Id'],
+  required: ['name', 'owner', 'childrenContainerElement'],
+  title: 'Create Component Input',
+  type: 'object',
 }

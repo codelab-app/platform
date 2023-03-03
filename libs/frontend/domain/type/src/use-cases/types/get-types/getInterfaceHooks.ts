@@ -30,8 +30,8 @@ export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   )
 
   return {
-    loading,
     error,
+    loading,
     type:
       interfaceId && !loading
         ? (typeService.type(interfaceId) as IInterfaceType)

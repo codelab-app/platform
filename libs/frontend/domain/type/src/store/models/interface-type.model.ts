@@ -1,10 +1,17 @@
 import type {
+  IApp,
   IFieldDTO,
   IInterfaceType,
-  IInterfaceTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { IField, IPropData, ITypeDTO } from '@codelab/frontend/abstract/core'
+import {
+  IField,
+  IInterfaceTypeDTO,
+  IPropData,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
+import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -15,19 +22,25 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { updateBaseTypeCache } from '../base-type'
 import { getFieldService } from '../field.service.context'
 import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
 
-const hydrate = (type: IInterfaceTypeDTO): InterfaceType => {
-  assertIsTypeKind(type.kind, ITypeKind.InterfaceType)
+const hydrate = ({
+  id,
+  kind,
+  name,
+  owner,
+}: IInterfaceTypeDTO): InterfaceType => {
+  assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({
-    id: type.id,
-    kind: type.kind,
-    name: type.name,
-    ownerId: type.owner.id,
+    id,
+    kind,
+    name,
+    owner,
   })
 
   return interfaceType
@@ -80,13 +93,13 @@ export class InterfaceType
   @modelAction
   writeFieldCache(fields: Array<IFieldDTO>) {
     for (const field of fields) {
-      const fieldModel = this.fieldService.writeCache(field)
+      const fieldModel = this.fieldService.add(field)
       this._fields.set(fieldModel.id, fieldRef(fieldModel))
     }
   }
 
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     if (fragment.__typename !== ITypeKind.InterfaceType) {
       throw new Error('Invalid InterfaceType')
     }
@@ -106,5 +119,37 @@ export class InterfaceType
     return this
   }
 
-  public static hydrate = hydrate
+  static createName(name: string) {
+    return `${name} API`
+  }
+
+  toCreateInput(): InterfaceTypeCreateInput {
+    return {
+      id: this.id,
+      kind: ITypeKind.InterfaceType,
+      name: this.name,
+      owner: connectAuth0Owner(this.owner),
+    }
+  }
+
+  @modelAction
+  writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
+    updateBaseTypeCache(this, interfaceTypeDTO)
+
+    return this
+  }
+
+  static createApiNode({
+    name,
+    owner,
+  }: Pick<IApp, 'name' | 'owner'>): InterfaceTypeCreateInput {
+    return {
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: `${name} Store API`,
+      owner: connectAuth0Owner(owner),
+    }
+  }
+
+  static hydrate = hydrate
 }

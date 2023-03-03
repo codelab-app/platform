@@ -7,13 +7,13 @@ export const createEnumTypeInputForAtomType = (
   property: string,
   allowValues: Array<string>,
 ) => ({
+  enumType: {
+    allowedValues: allowValues.map((value) => ({
+      name: compoundCaseToTitleCase(value),
+      value,
+    })),
+  },
   id: v4(),
   kind: ITypeKind.EnumType,
   name: `${atomName} ${compoundCaseToTitleCase(property)} Enum`,
-  enumType: {
-    allowedValues: allowValues.map((value) => ({
-      value,
-      name: compoundCaseToTitleCase(value),
-    })),
-  },
 })

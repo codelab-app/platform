@@ -6,25 +6,27 @@ import {
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export const createDomainSchema: JSONSchemaType<ICreateDomainDTO> = {
-  title: 'Create Domain Input',
-  type: 'object',
+export const createDomainSchema: JSONSchemaType<ICreateDomainData> = {
   properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      ...hideField,
+    ...idSchema,
+    app: {
+      properties: {
+        id: {
+          disabled: true,
+          type: 'string',
+          ...showFieldOnDev(),
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
     name: {
       autoFocus: true,
       format: 'hostname',
       ...nonEmptyString,
     },
-    appId: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
-    },
   },
-  required: ['name', 'appId'],
+  required: ['name'],
+  title: 'Create Domain Input',
+  type: 'object',
 } as const

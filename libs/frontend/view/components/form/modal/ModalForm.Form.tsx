@@ -19,7 +19,7 @@ export const Form = <TData, TResponse = unknown>({
   onSubmitError = [],
   autosave = false,
   schema,
-  onSubmit = (model: TData) => Promise.resolve(),
+  onSubmit = (model: unknown) => Promise.resolve(),
   children,
   model,
   onChangeModel,

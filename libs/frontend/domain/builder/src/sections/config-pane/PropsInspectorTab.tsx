@@ -21,7 +21,7 @@ export interface ElementPropsSectionProps {
 
 const PropsInspectorTab = observer(
   ({ node, renderer }: ElementPropsSectionProps) => {
-    const initialProps = node.props?.values ?? {}
+    const initialProps = node.props?.current.values ?? {}
     const initialEditorValue = propSafeStringify(initialProps)
     const [editedProps, setEditedProps] = React.useState(initialProps)
     const [isValidProps, setIsValidProps] = React.useState(true)
@@ -45,7 +45,7 @@ const PropsInspectorTab = observer(
     }
 
     // string argument is used for when saving in the code mirror modal
-    // TODO: Check in the code mirror component why it doesnt
+    // TODO: Check in the code mirror component why it doesn't
     // trigger `onChange` when editing in the modal
     const onSave = async (data: IPropData | string) => {
       if (typeof data === 'string') {

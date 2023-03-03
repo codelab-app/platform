@@ -1,6 +1,6 @@
 import type {
   IAtomService,
-  ICreateAtomDTO,
+  ICreateAtomData,
   ITagService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
@@ -9,6 +9,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { createAtomSchema } from './createAtomSchema'
 
 export const CreateAtomModal = observer<{
@@ -18,8 +19,8 @@ export const CreateAtomModal = observer<{
 }>(({ atomService, tagService, userService }) => {
   const closeModal = () => atomService.createModal.close()
 
-  const onSubmit = (data: ICreateAtomDTO) => {
-    return atomService.create([data])
+  const onSubmit = (data: ICreateAtomData) => {
+    return atomService.create(data)
   }
 
   const onSubmitError = createNotificationHandler({
@@ -34,9 +35,10 @@ export const CreateAtomModal = observer<{
       onCancel={closeModal}
       open={atomService.createModal.isOpen}
     >
-      <ModalForm.Form<ICreateAtomDTO>
+      <ModalForm.Form<ICreateAtomData>
         model={{
-          owner: userService.user?.auth0Id,
+          id: v4(),
+          owner: { auth0Id: userService.user?.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

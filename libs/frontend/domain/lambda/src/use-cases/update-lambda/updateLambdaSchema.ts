@@ -8,17 +8,7 @@ export interface UpdateLambdaData {
 }
 
 export const updateLambdaSchema: JSONSchemaType<UpdateLambdaData> = {
-  title: 'Update Lambda Input',
-  type: 'object',
   properties: {
-    id: {
-      type: 'string',
-      disabled: true,
-      autoFocus: true,
-    },
-    name: {
-      ...nonEmptyString,
-    },
     body: {
       type: 'string',
       uniforms: {
@@ -35,6 +25,16 @@ export const updateLambdaSchema: JSONSchemaType<UpdateLambdaData> = {
         // }),
       },
     },
+    id: {
+      autoFocus: true,
+      disabled: true,
+      type: 'string',
+    },
+    name: {
+      ...nonEmptyString,
+    },
   },
   required: ['id', 'name', 'body'],
+  title: 'Update Lambda Input',
+  type: 'object',
 }

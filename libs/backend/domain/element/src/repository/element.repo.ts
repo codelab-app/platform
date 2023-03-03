@@ -1,4 +1,5 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
@@ -18,7 +19,7 @@ const label = (element: OGM_TYPES.Element) =>
 
 export const importElementInitial = async (
   element: OGM_TYPES.Element,
-  userId: string,
+  owner: IAuth0Owner,
 ): Promise<OGM_TYPES.Element> => {
   const Element = await Repository.instance.Element
 
@@ -36,15 +37,16 @@ export const importElementInitial = async (
     } = await Element.create({
       input: [
         {
-          id: element.id,
-          name: element.name,
-          // owner: connectNode(userId),
           customCss: element.customCss,
           guiCss: element.guiCss,
-
-          preRenderActionId: element.preRenderActionId,
-          postRenderActionId: element.postRenderActionId,
-
+          id: element.id,
+          name: element.name,
+          postRenderAction: connectNodeId(element.postRenderAction?.id),
+          preRenderAction: connectNodeId(element.preRenderAction?.id),
+          props: {
+            create: { node: { data: element.props.data } },
+          },
+          propTransformationJs: element.propTransformationJs,
           renderAtomType: element.renderAtomType
             ? {
                 connect: {
@@ -59,12 +61,6 @@ export const importElementInitial = async (
                 },
               }
             : undefined,
-          props: element.props
-            ? {
-                create: { node: { data: element.props.data } },
-              }
-            : undefined,
-          propTransformationJs: element.propTransformationJs,
           renderForEachPropKey: element.renderForEachPropKey,
           renderIfExpression: element.renderIfExpression,
         },
@@ -83,11 +79,11 @@ export const importElementInitial = async (
   const {
     elements: [newElement],
   } = await Element.update({
-    where: {
-      id: element.id,
-    },
     update: {
       name: element.name,
+    },
+    where: {
+      id: element.id,
     },
   })
 
@@ -107,30 +103,28 @@ export const updateImportedElement = async (
 ): Promise<void> => {
   const Element = await Repository.instance.Element
 
-  if (element.props) {
-    // replace all references in props
-    // for (const [key, value] of idMap.entries()) {
-    //   element.props.data = element.props.data.replace(
-    //     new RegExp(key, 'g'),
-    //     value,
-    //   )
-    // }
-  }
+  // if (element.props) {
+  // replace all references in props
+  // for (const [key, value] of idMap.entries()) {
+  //   element.props.data = element.props.data.replace(
+  //     new RegExp(key, 'g'),
+  //     value,
+  //   )
+  // }
+  // }
 
   await Element.update({
-    where: { id: element.id },
     update: {
-      parentComponent: connectNodeId(element.parentComponent?.id),
       firstChild: connectNodeId(element.firstChild?.id),
       nextSibling: connectNodeId(element.nextSibling?.id),
-      prevSibling: connectNodeId(element.prevSibling?.id),
       parent: connectNodeId(element.parent?.id),
+      parentComponent: connectNodeId(element.parentComponent?.id),
+      prevSibling: connectNodeId(element.prevSibling?.id),
+      props: {
+        update: { node: { data: element.props.data } },
+      },
       renderComponentType: connectNodeId(element.renderComponentType?.id),
-      props: element.props
-        ? {
-            update: { node: { data: element.props.data } },
-          }
-        : undefined,
     },
+    where: { id: element.id },
   })
 }

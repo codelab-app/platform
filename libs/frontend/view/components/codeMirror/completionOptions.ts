@@ -12,9 +12,9 @@ export const createAutoCompleteOptions = (
 ): Array<Completion> =>
   Object.entries(context).flatMap(([key, value]) => {
     const option = {
+      detail: capitalize(typeof value),
       label: parentKey ? `${parentKey}.${key}` : key,
       type: typeof value == 'function' ? 'function' : 'variable',
-      detail: capitalize(typeof value),
     }
 
     if (isArray(value)) {

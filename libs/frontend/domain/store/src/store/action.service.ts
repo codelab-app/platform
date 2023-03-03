@@ -1,12 +1,15 @@
 import type {
   IActionService,
-  IApiActionDTO,
-  ICreateActionDTO,
-  ICreateActionInput,
-  IUpdateActionDTO,
+  ICreateActionData,
+  IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
 import { IActionDTO, IAnyAction } from '@codelab/frontend/abstract/core'
-import { getResourceService } from '@codelab/frontend/domain/resource'
+import { getPropService, propRef } from '@codelab/frontend/domain/prop'
+import {
+  getResourceService,
+  resourceRef,
+} from '@codelab/frontend/domain/resource'
+import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -23,6 +26,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { ActionFactory } from './action.factory'
 import { ActionModalService } from './action-modal.service'
 import {
   createActionApi,
@@ -32,22 +36,38 @@ import {
   makeActionUpdateInput,
   updateActionApi,
 } from './apis'
-import { Action } from './models'
+import { actionRef, ApiAction, CodeAction, storeRef } from './models'
 
 @model('@codelab/ActionService')
 export class ActionService
   extends Model({
+    actionFactory: prop(() => new ActionFactory({})),
     actions: prop(() => objectMap<IAnyAction>()),
     createModal: prop(() => new ModalService({})),
-    updateModal: prop(() => new ActionModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
     selectedActions: prop(() => Array<Ref<IAnyAction>>()).withSetter(),
+    updateModal: prop(() => new ActionModalService({})),
   })
   implements IActionService
 {
   @computed
   get actionsList() {
     return [...this.actions.values()]
+  }
+
+  @computed
+  get propService() {
+    return getPropService(this)
+  }
+
+  @computed
+  get typeService() {
+    return getTypeService(this)
+  }
+
+  @computed
+  private get resourceService() {
+    return getResourceService(this)
   }
 
   action(id: string) {
@@ -60,51 +80,76 @@ export class ActionService
   }
 
   @modelAction
-  writeCache(action: IActionDTO) {
-    this.updateResourceCache([action])
+  add(actionDTO: IActionDTO) {
+    switch (actionDTO.__typename) {
+      case IActionKind.CodeAction: {
+        return new CodeAction({
+          code: actionDTO.code,
+          id: actionDTO.id,
+          name: actionDTO.name,
+          store: storeRef(actionDTO.store.id),
+          type: IActionKind.CodeAction,
+        })
+      }
 
-    let actionModel = this.action(action.id)
+      case IActionKind.ApiAction: {
+        return new ApiAction({
+          config: propRef(
+            this.propService.add({
+              api: actionDTO.config.api
+                ? typeRef(this.typeService.addInterface(actionDTO.config.api))
+                : undefined,
+              data: JSON.stringify(actionDTO.config.data),
+              id: actionDTO.config.id,
+            }),
+          ),
+          errorAction: actionDTO.errorAction?.id
+            ? actionRef(actionDTO.errorAction.id)
+            : null,
+          id: actionDTO.id,
+          name: actionDTO.name,
+          resource: resourceRef(actionDTO.resource.id),
+          store: storeRef(actionDTO.store.id),
+          successAction: actionDTO.successAction?.id
+            ? actionRef(actionDTO.successAction.id)
+            : null,
+          type: IActionKind.ApiAction,
+        })
+      }
 
-    if (actionModel) {
-      Action.writeCache(action, actionModel)
-    } else {
-      actionModel = Action.create(action)
-      this.actions.set(actionModel.id, actionModel)
+      default: {
+        throw new Error('Invalid action type')
+      }
     }
-
-    return actionModel
   }
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: ActionService,
-    existing: IAnyAction,
-    input: IUpdateActionDTO,
+    actionDTO: IUpdateActionData,
   ) {
-    const updateInput = makeActionUpdateInput(existing, input)
-    const actions = yield* _await(updateActionApi[existing.type](updateInput))
+    const updateInput = makeActionUpdateInput(actionDTO)
 
-    return actions.map((action) => this.writeCache(action))
+    const actionFragment = (yield* _await(
+      updateActionApi[actionDTO.type](updateInput),
+    ))[0]
+
+    const action = this.actionFactory.fromActionFragment(actionFragment!)
+
+    return this.add(action)
   })
-
-  @modelAction
-  updateResourceCache(actions: Array<IActionDTO>) {
-    const resourceService = getResourceService(this)
-
-    const resources = actions
-      .filter((action) => action.__typename === IActionKind.ApiAction)
-      .map((action) => (action as IApiActionDTO).resource)
-
-    return resources.map((resource) => resourceService.writeCache(resource))
-  }
 
   @modelFlow
   @transaction
   getAll = _async(function* (this: ActionService, storeId?: string) {
-    const actions = yield* _await(getActionsByStore(storeId))
+    const actionFragments = yield* _await(getActionsByStore(storeId))
 
-    return actions.map((action) => this.writeCache(action))
+    return actionFragments.map((actionFragment) => {
+      const action = this.actionFactory.fromActionFragment(actionFragment)
+
+      return this.add(action)
+    })
   })
 
   @modelFlow
@@ -117,47 +162,34 @@ export class ActionService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: ActionService,
-    data: Array<ICreateActionDTO>,
-  ) {
-    const input: Array<ICreateActionInput> = data.map((action) =>
-      makeActionCreateInput(action),
-    )
+  create = _async(function* (this: ActionService, data: ICreateActionData) {
+    const input = makeActionCreateInput(data)
 
-    const actions: Array<IActionDTO> = yield* _await(
-      Promise.all(
-        input.map((action) => {
-          if (!action.type) {
-            throw new Error('Action type must be provided')
-          }
+    if (!input.type) {
+      throw new Error('Action type must be provided')
+    }
 
-          return createActionApi[action.type](action)
-        }),
-      ).then((res) => res.flat()),
-    )
+    const actionFragment = (yield* _await(
+      createActionApi[input.type](input).then((res) => res.flat()),
+    ))[0]
 
-    return actions.map((action) => this.writeCache(action))
+    const action = this.actionFactory.fromActionFragment(actionFragment!)
+
+    return this.add(action)
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ActionService, ids: Array<string>) {
-    const actions = ids
-      .map((id) => this.actions.get(id))
-      .filter((action): action is IAnyAction => Boolean(action))
+  delete = _async(function* (this: ActionService, id: string) {
+    const action = this.actions.get(id)
 
-    ids.forEach((id) => this.actions.delete(id))
+    this.actions.delete(id)
 
     const results = yield* _await(
-      Promise.all(
-        actions.map((action) =>
-          deleteActionApi[action.type]({ where: { id: action.id } }),
-        ),
-      ),
+      deleteActionApi[action!.type]({ where: { id } }),
     )
 
-    return results.reduce((total, { nodesDeleted }) => nodesDeleted + total, 0)
+    return action!
   })
 }
 

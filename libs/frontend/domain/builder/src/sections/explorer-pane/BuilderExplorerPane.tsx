@@ -117,13 +117,6 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
 
     const tabItems = [
       {
-        label: (
-          <div>
-            <ApartmentOutlined title="Explorer" />
-            Explorer
-          </div>
-        ),
-        key: 'explorer',
         children: (
           <ExplorerPaneTemplate
             containerProps={{
@@ -191,15 +184,15 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             )}
           </ExplorerPaneTemplate>
         ),
-      },
-      {
+        key: 'explorer',
         label: (
           <div>
-            <DatabaseOutlined title="Store" />
-            Store
+            <ApartmentOutlined title="Explorer" />
+            Explorer
           </div>
         ),
-        key: 'store',
+      },
+      {
         children: (
           <>
             <Collapse css={tw`w-full mb-2`} defaultActiveKey={['1']} ghost>
@@ -239,6 +232,13 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               value={appStore?.state.jsonString}
             />
           </>
+        ),
+        key: 'store',
+        label: (
+          <div>
+            <DatabaseOutlined title="Store" />
+            Store
+          </div>
         ),
       },
     ]

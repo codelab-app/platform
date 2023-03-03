@@ -72,9 +72,6 @@ export const PageDetailHeader = observer<{
 
   const menuItems: Array<MenuItemProps> = [
     {
-      label: <FileOutlined />,
-      key: 'sub1',
-      title: currentPage?.name,
       children: pagesList.map((page) => ({
         key: page.id,
         label: <span>{page.name}</span>,
@@ -89,50 +86,55 @@ export const PageDetailHeader = observer<{
           ),
       })),
       hide: false,
+      key: 'sub1',
+      label: <FileOutlined />,
+      title: currentPage?.name,
     },
     {
-      label: isBuilder ? <EyeOutlined /> : <ToolOutlined />,
+      hide: false,
       key: '1',
-      title: isBuilder ? 'Preview' : 'Builder',
+      label: isBuilder ? <EyeOutlined /> : <ToolOutlined />,
       onClick: switchPreviewMode,
       style: { backgroundColor: 'initial' },
-      hide: false,
+      title: isBuilder ? 'Preview' : 'Builder',
     },
     {
-      label: <MobileOutlined />,
+      hide: !isBuilder,
       key: BuilderWidthBreakPoints.Mobile,
-      title: 'mobile',
+      label: <MobileOutlined />,
       onClick: () => handleBreakpointSelected(BuilderWidthBreakPoints.Mobile),
       style: { backgroundColor: 'initial' },
-      hide: !isBuilder,
+      title: 'mobile',
     },
     {
-      label: <MobileOutlined rotate={-90} />,
+      hide: !isBuilder,
       key: BuilderWidthBreakPoints.MobileVertical,
-      title: 'mobile vertical',
+      label: <MobileOutlined rotate={-90} />,
       onClick: () =>
         handleBreakpointSelected(BuilderWidthBreakPoints.MobileVertical),
       style: { backgroundColor: 'initial' },
-      hide: !isBuilder,
+      title: 'mobile vertical',
     },
     {
-      label: <TabletOutlined />,
+      hide: !isBuilder,
       key: BuilderWidthBreakPoints.TabletHorizontal,
-      title: 'tablet horizontal',
+      label: <TabletOutlined />,
       onClick: () =>
         handleBreakpointSelected(BuilderWidthBreakPoints.TabletHorizontal),
       style: { backgroundColor: 'initial' },
-      hide: !isBuilder,
+      title: 'tablet horizontal',
     },
     {
-      label: <DesktopOutlined />,
+      hide: !isBuilder,
       key: BuilderWidthBreakPoints.Desktop,
-      title: 'desktop',
+      label: <DesktopOutlined />,
       onClick: () => handleBreakpointSelected(BuilderWidthBreakPoints.Desktop),
       style: { backgroundColor: 'initial' },
-      hide: !isBuilder,
+      title: 'desktop',
     },
     {
+      hide: !isBuilder,
+      key: 'custom',
       label: (
         <Space direction="horizontal" size="small">
           <InputNumber
@@ -151,10 +153,8 @@ export const PageDetailHeader = observer<{
           <span>px</span>
         </Space>
       ),
-      key: 'custom',
-      title: 'custom size',
       style: { backgroundColor: 'initial' },
-      hide: !isBuilder,
+      title: 'custom size',
     },
   ]
 

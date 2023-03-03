@@ -1,12 +1,15 @@
+import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { ITag } from '../tag'
 import type { IInterfaceType } from '../type'
+import type { IOwnerSchema } from '../user'
 import type { IAtomDTO, IRenderAtomDTO } from './atom.dto.interface'
 
-export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
+export interface IAtom extends ICacheService<IAtomDTO, IAtom>, IOwnerSchema {
+  id: string
   name: string
   icon?: string | null
   type: IAtomType
@@ -18,11 +21,15 @@ export interface IAtom extends IEntity, ICacheService<IAtomDTO, IAtom> {
    *
    * We store preview data here so we can more easily display the tags in the atoms table
    */
-  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
+  allowedChildren: Array<Ref<IAtom>>
+
+  toCreateInput(): AtomCreateInput
 }
 
 export type IAtomRef = string
 
-export const isAtomDTO = (atom: Nullish<IRenderAtomDTO>): atom is IAtomDTO => {
+export const isAtomDTO = (
+  atom: Nullish<IRenderAtomDTO>,
+): atom is IRenderAtomDTO => {
   return atom !== undefined && atom !== null
 }

@@ -22,8 +22,8 @@ const MAX_COOKIE_SIZE = 4096
  */
 const COOKIE_OPTIONS = {
   domain: Cypress.env('auth0CookieDomain'),
-  path: Cypress.env('auth0CookiePath'),
   httpOnly: Cypress.env('auth0CookieHttpOnly'),
+  path: Cypress.env('auth0CookiePath'),
   sameSite: Cypress.env('auth0CookieCookieSameSite'),
   secure: Cypress.env('auth0CookieCookieSecure'),
   transient: Cypress.env('auth0CookieTransient'),

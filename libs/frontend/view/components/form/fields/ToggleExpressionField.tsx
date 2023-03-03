@@ -50,7 +50,7 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
     ? fullFieldName.substring(fullFieldName.lastIndexOf('.') + 1)
     : null
 
-  const props = { ...fieldProps, name, label: null }
+  const props = { ...fieldProps, label: null, name }
 
   switch (fieldProps.field.type) {
     case 'boolean':

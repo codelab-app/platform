@@ -35,9 +35,9 @@ export const GetTypesTable = observer<{
   } = useTypesTableData(typeService)
 
   const { columns, rowSelection, pagination } = useTypesTable({
-    typeService,
-    isLoadingTypeDependencies: isLoadingAllTypes,
     fieldService,
+    isLoadingTypeDependencies: isLoadingAllTypes,
+    typeService,
   })
 
   const handlePageChange = useCallback(
@@ -65,8 +65,8 @@ export const GetTypesTable = observer<{
   useEffect(() => {
     const offset = (curPage - 1) * curPageSize
     void getBaseTypes({
-      offset,
       limit: curPageSize,
+      offset,
     })
   }, [curPage, curPageSize, getBaseTypes])
 
@@ -82,11 +82,6 @@ export const GetTypesTable = observer<{
         (curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0) + curPageSize,
       )}
       expandable={{
-        onExpand: async (expanded, record) => {
-          if (expanded) {
-            await getTypeDescendants(record.id)
-          }
-        },
         expandedRowRender: (type) =>
           isLoadingAllTypes || isLoadingTypeDescendants ? (
             <Spin />
@@ -97,17 +92,22 @@ export const GetTypesTable = observer<{
               typeService={typeService}
             />
           ),
+        onExpand: async (expanded, record) => {
+          if (expanded) {
+            await getTypeDescendants(record.id)
+          }
+        },
       }}
       loading={isLoadingAllTypes}
       pagination={{
         ...pagination,
         current: curPage,
-        pageSize: curPageSize,
         onChange: handlePageChange,
+        pageSize: curPageSize,
       }}
       rowKey={(type) => type.id}
       rowSelection={rowSelection}
-      scroll={{ y: '80vh', x: 'max-content' }}
+      scroll={{ x: 'max-content', y: '80vh' }}
       size="small"
     />
   )

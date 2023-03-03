@@ -19,13 +19,13 @@ export class ActionType extends BaseType implements IActionType {
   declare owner: IUserRef
 
   private constructor({ id, name, kind, owner }: IActionType) {
-    super({ id, name, kind, __typename: ITypeKind.ActionType, owner })
+    super({ __typename: ITypeKind.ActionType, id, kind, name, owner })
   }
 
   static init({ owner }: ICreateActionType) {
     return new ActionType({
-      id: v4(),
       __typename: ITypeKind.ActionType,
+      id: v4(),
       kind: ITypeKind.ActionType,
       name: ITypeKind.ActionType,
       owner,

@@ -4,7 +4,6 @@ import type {
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import { isAdmin } from '@codelab/frontend/abstract/core'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { Button, Col, Dropdown, Menu, Row } from 'antd'
@@ -29,16 +28,16 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceType }>(
 
     const editMenuItems = interfaceType.fields.map((field) => {
       return {
-        label: field.name,
         key: field.key,
+        label: field.name,
         onClick: () => onEdit(field),
       }
     })
 
     const deleteMenuItems = interfaceType.fields.map((field) => {
       return {
-        label: field.name,
         key: field.key,
+        label: field.name,
         onClick: () => onDelete(field),
       }
     })
@@ -49,7 +48,7 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceType }>(
           <Button
             onClick={() =>
               fieldService.createModal.open(
-                typeRef<InterfaceType>(interfaceType.id),
+                typeRef<IInterfaceType>(interfaceType.id),
               )
             }
           >

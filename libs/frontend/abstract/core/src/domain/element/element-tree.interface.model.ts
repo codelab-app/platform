@@ -15,11 +15,12 @@ export interface IElementTree {
   name: string
   _root: Nullable<Ref<IElement>>
   root: Maybe<IElement>
-  elementsList: Array<IElement>
+  elements: Array<IElement>
   getPathFromRoot(element: INode): Array<INode>
   element(id: string): Maybe<IElement>
   addElements(elements: Array<IElement>): IElementTree
   removeElements(elements: Array<IElement>): IElementTree
+  descendants(subRoot: Ref<IElement>): Array<Ref<IElement>>
 }
 
 export interface IElementTreeService {

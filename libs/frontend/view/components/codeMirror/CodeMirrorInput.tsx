@@ -50,13 +50,13 @@ export const CodeMirrorInput = ({
     merge(
       {
         ...props,
-        container: editorRef.current,
         basicSetup: false,
-        value,
-        onUpdate,
+        container: editorRef.current,
         onChange: (_value: string, view: ViewUpdate) => {
           onChange(_value)
         },
+        onUpdate,
+        value,
       },
       overWriteOpts,
     )

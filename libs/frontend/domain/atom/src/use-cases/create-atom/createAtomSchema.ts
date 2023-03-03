@@ -1,4 +1,4 @@
-import type { ICreateAtomDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import {
   nonEmptyString,
@@ -7,55 +7,69 @@ import {
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
-  title: 'Create Atom',
-  type: 'object',
+export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   properties: {
+    allowedChildren: {
+      items: {
+        type: 'string',
+      },
+      nullable: true,
+      showSearch: true,
+      type: 'array',
+    },
+
     id: {
-      type: 'string',
       nullable: true,
+      type: 'string',
       uniforms: {
         component: () => null,
       },
     },
-    owner: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
-    },
+
     // Hide field for now, added only to implement the interface
-    api: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
+    // api: {
+    //   type: 'string',
+    //   nullable: true,
+    //   uniforms: {
+    //     component: () => null,
+    //   },
+    // },
     name: {
       autoFocus: true,
       ...nonEmptyString,
     },
-    type: {
-      type: 'string',
-      enum: Object.values(IAtomType).filter(filterNotHookType),
-      showSearch: true,
+    owner: {
+      properties: {
+        auth0Id: {
+          disabled: true,
+          type: 'string',
+          ...showFieldOnDev(),
+        },
+      },
+      required: ['auth0Id'],
+      type: 'object',
     },
     tags: {
-      type: 'array',
       items: {
-        type: 'string',
+        properties: {
+          id: {
+            type: 'string',
+          },
+        },
+        required: ['id'],
+        type: 'object',
       },
       nullable: true,
       showSearch: true,
+      type: 'array',
     },
-    allowedChildren: {
-      type: 'array',
-      items: {
-        type: 'string',
-      },
-      nullable: true,
+    type: {
+      enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
+      type: 'string',
     },
   },
   required: ['name', 'type', 'owner'],
+  title: 'Create Atom',
+  type: 'object',
 } as const

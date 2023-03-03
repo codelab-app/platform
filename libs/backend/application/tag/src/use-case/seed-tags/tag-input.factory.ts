@@ -22,17 +22,17 @@ const parseTagNode = (node: TagNode, parent: string | null): TagNodeData => {
     const [name, values] = tagNode
 
     return {
-      parent,
-      name,
       children: values.map((value) => parseTagNode(value, name)),
+      name,
+      parent,
     }
   }
 
   // No children
   return {
-    parent,
-    name: node,
     children: [],
+    name: node,
+    parent,
   }
 }
 
@@ -51,9 +51,9 @@ export const flattenTagTree = (node: TagNodeData): Array<TagNodeData> => {
     },
     [
       {
+        children: node.children,
         name: node.name,
         parent: node.parent,
-        children: node.children,
       },
     ],
   )

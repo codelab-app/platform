@@ -32,10 +32,10 @@ export const SelectElement = ({
   let elements: Array<SelectElementOption>
 
   allElementOptions ??=
-    elementTree?.elementsList.map(({ id, label, children }) => ({
-      value: id,
-      label: label,
+    elementTree?.elements.map(({ id, label, children }) => ({
       childrenIds: children.map((child) => child.id),
+      label: label,
+      value: id,
     })) ?? []
 
   const targetElement = allElementOptions.find(

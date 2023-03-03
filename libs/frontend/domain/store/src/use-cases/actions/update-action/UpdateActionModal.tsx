@@ -1,7 +1,8 @@
 import type {
   IActionService,
   IResourceService,
-  IUpdateActionDTO,
+  IRestActionConfig,
+  IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -20,12 +21,8 @@ export const UpdateActionModal = observer<{
   const closeModal = () => actionService.updateModal.close()
   const updateAction = actionService.updateModal.action
 
-  const onSubmit = (data: IUpdateActionDTO) => {
-    if (!updateAction) {
-      throw new Error('Updated action is not set')
-    }
-
-    return actionService.update(updateAction, data)
+  const onSubmit = (actionDTO: IUpdateActionData) => {
+    return actionService.update(actionDTO)
   }
 
   const onSubmitError = createNotificationHandler({
@@ -33,42 +30,48 @@ export const UpdateActionModal = observer<{
   })
 
   const model = {
-    storeId: updateAction?.store.current.id,
-    name: updateAction?.name,
-    type: updateAction?.type,
-    id: updateAction?.id,
+    code:
+      updateAction?.type === IActionKind.CodeAction
+        ? updateAction.code
+        : undefined,
 
+    // TODO: Remove casting
     config:
       updateAction?.type === IActionKind.ApiAction
-        ? updateAction.config.values
+        ? (updateAction.config.current.values as IRestActionConfig)
         : undefined,
-    resourceId:
-      updateAction?.type === IActionKind.ApiAction
-        ? updateAction.resource.id
-        : undefined,
-    successActionId:
-      updateAction?.type === IActionKind.ApiAction
-        ? updateAction.successAction?.id
-        : undefined,
+
     errorActionId:
       updateAction?.type === IActionKind.ApiAction
         ? updateAction.errorAction?.id
         : undefined,
 
-    code:
-      updateAction?.type === IActionKind.CodeAction
-        ? updateAction.code
+    id: updateAction?.id,
+
+    name: updateAction?.name,
+    resourceId:
+      updateAction?.type === IActionKind.ApiAction
+        ? updateAction.resource.id
         : undefined,
+    storeId: updateAction?.store.current.id,
+    successActionId:
+      updateAction?.type === IActionKind.ApiAction
+        ? updateAction.successAction?.id
+        : undefined,
+
+    type: updateAction?.type,
   }
 
-  const getResourceType = (context: Context<IUpdateActionDTO>) =>
+  const getResourceType = (context: Context<IUpdateActionData>) =>
     context.model.resourceId
       ? resourceService.resource(context.model.resourceId)?.type
       : null
 
-  const getResourceApiUrl = (context: Context<IUpdateActionDTO>) =>
+  const getResourceApiUrl = (context: Context<IUpdateActionData>) =>
     context.model.resourceId
-      ? resourceService.resource(context.model.resourceId)?.config.get('url')
+      ? resourceService
+          .resource(context.model.resourceId)
+          ?.config.current.get('url')
       : null
 
   return (
@@ -77,7 +80,7 @@ export const UpdateActionModal = observer<{
       onCancel={closeModal}
       open={actionService.updateModal.isOpen}
     >
-      <ModalForm.Form<IUpdateActionDTO>
+      <ModalForm.Form<IUpdateActionData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
@@ -96,14 +99,14 @@ export const UpdateActionModal = observer<{
         />
 
         {/** Code Action */}
-        <DisplayIfField<IUpdateActionDTO>
+        <DisplayIfField<IUpdateActionData>
           condition={(context) => context.model.type === IActionKind.CodeAction}
         >
           <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
         {/** Api Action */}
-        <DisplayIfField<IUpdateActionDTO>
+        <DisplayIfField<IUpdateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
@@ -111,7 +114,7 @@ export const UpdateActionModal = observer<{
           <AutoField component={SelectAction} name="errorActionId" />
 
           {/** GraphQL Config Form */}
-          <DisplayIfField<IUpdateActionDTO>
+          <DisplayIfField<IUpdateActionData>
             condition={(context) =>
               getResourceType(context) === IResourceType.GraphQL
             }
@@ -122,7 +125,7 @@ export const UpdateActionModal = observer<{
           </DisplayIfField>
 
           {/** Rest Config Form */}
-          <DisplayIfField<IUpdateActionDTO>
+          <DisplayIfField<IUpdateActionData>
             condition={(context) =>
               getResourceType(context) === IResourceType.Rest
             }

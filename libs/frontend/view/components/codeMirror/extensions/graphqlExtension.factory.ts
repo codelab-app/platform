@@ -10,11 +10,11 @@ export const getRemoteSchema = async (
     )
 
     const { data, errors } = await fetch(endpoint, {
-      method: 'POST',
+      body: JSON.stringify({ query: getIntrospectionQuery() }),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query: getIntrospectionQuery() }),
+      method: 'POST',
     }).then((res) => res.json())
 
     if (errors) {

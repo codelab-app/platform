@@ -1,26 +1,43 @@
 import type { IActionKind } from '@codelab/shared/abstract/core'
-import type { IProp } from '../prop'
-import type { IGraphQLActionConfig, IRestActionConfig } from './actions'
-import type { ActionFragment } from './fragments'
+import type { IStoreDTO } from '../store'
+import type {
+  IApiActionDTO,
+  ICodeActionDTO,
+  IGraphQLActionConfig,
+  IRestActionConfig,
+} from './actions'
 
-export type IApiActionConfig = IProp<IRestActionConfig | IGraphQLActionConfig>
+export type IApiActionConfig = IRestActionConfig | IGraphQLActionConfig
 
-export interface IActionBaseDTO {
+/**
+ * Base
+ */
+export interface IBaseActionData {
   id: string
   name: string
   storeId: string
   type: IActionKind
-
   code?: string
-
   resourceId?: string
-  config?: IRestActionConfig | IGraphQLActionConfig
+  config?: IApiActionConfig
   successActionId?: string
   errorActionId?: string
 }
 
-export type ICreateActionDTO = IActionBaseDTO
+export interface IBaseActionDTO {
+  __typename: `${IActionKind.ApiAction}` | `${IActionKind.CodeAction}`
+  id: string
+  name: string
+  type: IActionKind
+  store: Pick<IStoreDTO, 'id' | 'name'>
+}
 
-export type IUpdateActionDTO = IActionBaseDTO
+/**
+ * Action
+ */
 
-export type IActionDTO = ActionFragment
+export type IActionDTO = IApiActionDTO | ICodeActionDTO
+
+export type ICreateActionData = IBaseActionData
+
+export type IUpdateActionData = IBaseActionData

@@ -77,12 +77,12 @@ export class SeedAtomsService extends IUseCase<IUserRef, void> {
         }
 
         return {
+          api,
+          icon: atomData?.icon,
           id: v4(),
           name: atomType,
-          type: IAtomType[atomType],
-          icon: atomData?.icon,
           tags: [existingTag],
-          api,
+          type: IAtomType[atomType],
         }
       }),
     )

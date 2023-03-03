@@ -67,9 +67,9 @@ export const Builder = observer<BuilderProps>(
     })
 
     const builderResizable = useBuilderResize({
-      width: mainContentWidth,
       selectedWidth: selectedMainContentWidth,
       setCurrentBuilderWidth,
+      width: mainContentWidth,
     })
 
     const { setNodeRef, isOver, over } = useDroppable({
@@ -77,9 +77,9 @@ export const Builder = observer<BuilderProps>(
     })
 
     useBuilderHotkeys({
+      deleteModal,
       selectedNode,
       set_selectedNode,
-      deleteModal,
     })
 
     const handleContainerClick = useBuilderRootClickHandler()

@@ -1,6 +1,9 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
-import type { IAnyType, IField } from '@codelab/frontend/abstract/core'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
+import type {
+  IAnyType,
+  IField,
+  IInterfaceType,
+} from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
 import { Spinner } from '@codelab/frontend/view/components'
 import { Button, Col, Dropdown, Menu, Row } from 'antd'
@@ -31,16 +34,16 @@ export const PropsColumn = observer<PropsColumnProps>(
 
     const editMenuItems = interfaceType?.fields.map((field) => {
       return {
-        label: field.name,
         key: field.key,
+        label: field.name,
         onClick: () => onEdit(field),
       }
     })
 
     const deleteMenuItems = interfaceType?.fields.map((field) => {
       return {
-        label: field.name,
         key: field.key,
+        label: field.name,
         onClick: () => onDelete(field),
       }
     })
@@ -54,7 +57,7 @@ export const PropsColumn = observer<PropsColumnProps>(
                 <Button
                   onClick={() =>
                     fieldService.createModal.open(
-                      typeRef<InterfaceType>(interfaceType.id),
+                      typeRef<IInterfaceType>(interfaceType.id),
                     )
                   }
                 >

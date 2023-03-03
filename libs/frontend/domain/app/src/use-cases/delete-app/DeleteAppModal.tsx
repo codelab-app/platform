@@ -3,7 +3,6 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
 
 export const DeleteAppModal = observer<{ appService: IAppService }>(
   ({ appService }) => {
@@ -20,7 +19,7 @@ export const DeleteAppModal = observer<{ appService: IAppService }>(
         return Promise.reject('App not defined in DeleteAppModal')
       }
 
-      return appService.delete([app.id])
+      return appService.delete(app.id)
     }
 
     return (
@@ -37,7 +36,7 @@ export const DeleteAppModal = observer<{ appService: IAppService }>(
           schema={emptyJsonSchema}
         >
           <h4>Are you sure you want to delete app "{app?.name}"?</h4>
-          <AutoFields omitFields={['appId']} />
+          {/* <AutoFields omitFields={['appId']} /> */}
         </ModalForm.Form>
       </ModalForm.Modal>
     )

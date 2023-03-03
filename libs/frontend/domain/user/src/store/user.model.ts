@@ -1,27 +1,8 @@
-import type { IApp, IUser } from '@codelab/frontend/abstract/core'
-import { IUserDTO } from '@codelab/frontend/abstract/core'
+import type { IApp, IUser, IUserDTO } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/domain/app'
 import type { IRole } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
-
-const hydrate = (user: IUserDTO) => {
-  return new User({
-    id: user.id,
-    username: user.username,
-    auth0Id: user.auth0Id,
-    roles: user.roles,
-    apps: user.apps.map((app) => appRef(app.id)),
-  })
-}
+import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 /**
  * Here we use JwtPayload to hydrate our user model, so we don't require an additional api call to our database
@@ -31,26 +12,27 @@ const hydrate = (user: IUserDTO) => {
 @model('@codelab/User')
 export class User
   extends Model({
-    // We use auth0Id as the id here
-    id: idProp,
-    username: prop<string>(),
-    auth0Id: prop<string>(),
-    roles: prop<Array<IRole>>(() => []),
     apps: prop<Array<Ref<IApp>>>(() => []),
+
+    auth0Id: prop<string>(),
+    // We use auth0Id as the id here
+    id: idProp.withSetter(),
+    roles: prop<Array<IRole>>(() => []),
+    username: prop<string>(),
   })
   implements IUser
 {
-  static hydrate = hydrate
-
-  @modelAction
-  writeCache(data: IUserDTO) {
-    this.id = data.id
-    this.auth0Id = data.auth0Id
-    this.roles = data.roles
-
-    return this
+  static create({ id, username, auth0Id, roles, apps }: IUserDTO) {
+    return new User({
+      apps: apps.map((app) => appRef(app.id)),
+      auth0Id,
+      id,
+      roles,
+      username,
+    })
   }
 }
+
 export const userRef = rootRef<IUser>('@codelab/UserRef', {
   onResolvedValueChange: (ref, newUser, oldUser) => {
     if (oldUser && !newUser) {

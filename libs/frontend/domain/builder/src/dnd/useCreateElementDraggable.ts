@@ -1,14 +1,14 @@
 import type {
   BuilderDndType,
   IBuilderComponent,
-  ICreateElementDTO,
+  ICreateElementData,
   IElementRef,
 } from '@codelab/frontend/abstract/core'
 import { useDraggable } from '@dnd-kit/core'
 
 export interface UseCreateElementDraggableProps {
   id: IElementRef
-  createElementInput?: Omit<ICreateElementDTO, 'owner'>
+  createElementInput?: Omit<ICreateElementData, 'id'>
   component?: Pick<IBuilderComponent, 'name' | 'icon'>
   type?: BuilderDndType
   overlayRenderer?: () => JSX.Element
@@ -22,13 +22,13 @@ export const useCreateElementDraggable = ({
   type,
 }: UseCreateElementDraggableProps) => {
   return useDraggable({
-    id: id,
     data: {
-      name: component?.name,
-      icon: component?.icon,
-      type,
       createElementInput,
+      icon: component?.icon,
+      name: component?.name,
       overlayRenderer,
+      type,
     },
+    id: id,
   })
 }

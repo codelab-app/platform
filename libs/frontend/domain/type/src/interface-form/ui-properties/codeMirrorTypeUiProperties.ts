@@ -12,8 +12,8 @@ export const codeMirrorTypeUiProperties: UiPropertiesFn<ICodeMirrorType> = (
   return {
     uniforms: {
       component: CodeMirrorField({
-        language: type.language,
         customOptions: createAutoCompleteOptions(context?.autocomplete),
+        language: type.language,
       }),
     },
   }

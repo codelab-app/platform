@@ -8,8 +8,9 @@ const atomTypeSchema = `enum AtomType {
 export const atomSchema = gql`
   ${atomTypeSchema}
 
-  type Atom {
+  type Atom implements WithOwner {
     id: ID! @id(autogenerate: false)
+    owner: User!
     type: AtomType! @unique
     name: String! @unique
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
@@ -26,11 +27,4 @@ export const atomSchema = gql`
         { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
       ]
     )
-
-  # Can't reuse from Neo4j schema
-  type CreateInfo {
-    bookmark: String
-    nodesCreated: Int!
-    relationshipsCreated: Int!
-  }
 `

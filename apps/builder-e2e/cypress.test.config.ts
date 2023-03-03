@@ -3,24 +3,32 @@ import { defineConfig } from 'cypress'
 import setupNodeEvents from './src/plugins/index'
 
 const cypressJsonConfig: Cypress.ConfigOptions = {
-  fileServerFolder: '.',
-  fixturesFolder: './src/fixtures',
-  video: true,
-  videosFolder: './src/videos',
-  screenshotsFolder: './src/screenshots',
   chromeWebSecurity: false,
-  defaultCommandTimeout: 20000,
-  responseTimeout: 20000,
-  execTimeout: 20000,
-  pageLoadTimeout: 20000,
+  defaultCommandTimeout: 10000,
   // projectId: '37q6ed',
   env: {},
+
+  execTimeout: 10000,
+
+  fileServerFolder: '.',
+
+  fixturesFolder: './src/fixtures',
+
+  pageLoadTimeout: 10000,
+
+  responseTimeout: 10000,
+
   retries: {
-    runMode: 1,
     openMode: 0,
+    runMode: 0,
   },
-  viewportWidth: 1280,
+
+  screenshotsFolder: './src/screenshots',
+
+  video: true,
+  videosFolder: './src/videos',
   viewportHeight: 960,
+  viewportWidth: 1280,
   // specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
   // supportFile: 'src/support/e2e.ts',
 }
@@ -29,10 +37,10 @@ export default defineConfig({
   e2e: {
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
-    setupNodeEvents,
     env: {
       // CYPRESS_ENABLE_LOGGING: false,
     },
+    setupNodeEvents,
     /**
      * TODO(@nrwl/cypress): In Cypress v12,the testIsolation option is turned on by default.
      * This can cause tests to start breaking where not intended.

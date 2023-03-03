@@ -4,7 +4,7 @@ import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
 
-let _store: IRootStore | null = null
+export let _store: IRootStore | null = null
 
 /**
  * User is passed automatically when we call withPageAuthRequired
@@ -17,12 +17,12 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
    */
   const user = pageProps?.user?.sub
     ? {
-        id: pageProps.user.sub,
-        auth0Id: pageProps.user.sub,
-        roles: pageProps.user[JWT_CLAIMS].roles.map((role) => IRole[role]),
-        email: pageProps.user.email,
-        username: pageProps.user.nickname,
         apps: [],
+        auth0Id: pageProps.user.sub,
+        email: pageProps.user.email,
+        id: pageProps.user.sub,
+        roles: pageProps.user[JWT_CLAIMS].roles.map((role) => IRole[role]),
+        username: pageProps.user.nickname,
       }
     : undefined
 
@@ -43,7 +43,7 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
      * Nghia: I think mobx keystone does some internal initializations behind the scene, and we can't set nested service data until the process is done
      */
     // _store.setUserService(UserService.init(user))
-    _store.userService.setUser(User.hydrate(user))
+    _store.userService.setUser(User.create(user))
   }
 
   return _store

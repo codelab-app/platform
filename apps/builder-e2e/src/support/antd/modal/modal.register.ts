@@ -52,87 +52,87 @@ export interface AntModalCommands {
 
 export const antModalCommands: Array<CypressCommand> = [
   {
-    name: 'getModal',
     fn: getModal,
+    name: 'getModal',
   },
   {
-    name: 'getModalTitle',
     fn: getModalTitle,
+    name: 'getModalTitle',
   },
   {
-    name: 'getModalBody',
     fn: getModalBody,
+    name: 'getModalBody',
   },
   {
-    name: 'getModalAction',
     fn: getModalAction,
+    name: 'getModalAction',
   },
   {
-    name: 'getModalConfirmTitle',
     fn: getModalConfirmTitle,
+    name: 'getModalConfirmTitle',
   },
   {
-    name: 'getModalConfirmBody',
     fn: getModalConfirmBody,
+    name: 'getModalConfirmBody',
   },
   {
-    name: 'getModalConfirmButtons',
     fn: getModalConfirmButtons,
+    name: 'getModalConfirmButtons',
   },
   {
-    name: 'getModalConfirmCancel',
     fn: getModalConfirmCancel,
+    name: 'getModalConfirmCancel',
   },
   {
-    name: 'getModalConfirmOk',
     fn: getModalConfirmOk,
+    name: 'getModalConfirmOk',
   },
   {
-    name: 'expectModalTitle',
     fn: expectModalTitle,
+    name: 'expectModalTitle',
   },
   {
-    name: 'expectModalText',
     fn: expectModalText,
+    name: 'expectModalText',
   },
   {
-    name: 'expectModalActions',
     fn: expectModalActions,
+    name: 'expectModalActions',
   },
   {
-    name: 'expectModalConfirmTitle',
     fn: expectModalConfirmTitle,
+    name: 'expectModalConfirmTitle',
   },
   {
-    name: 'expectModalConfirmText',
     fn: expectModalConfirmText,
+    name: 'expectModalConfirmText',
   },
   {
-    name: 'expectModalConfirmActions',
     fn: expectModalConfirmActions,
+    name: 'expectModalConfirmActions',
   },
   {
-    name: 'expectModalToOpen',
     fn: expectModalToOpen,
+    name: 'expectModalToOpen',
   },
   {
-    name: 'closeModal',
     fn: closeModal,
+    name: 'closeModal',
   },
   {
-    name: 'resolveModal',
     fn: resolveModal,
+    name: 'resolveModal',
   },
   {
-    name: 'resolveModalConfirm',
     fn: resolveModalConfirm,
+    name: 'resolveModalConfirm',
   },
   {
-    name: 'confirmModalConfirm',
     fn: confirmModalConfirm,
+    name: 'confirmModalConfirm',
   },
   {
-    name: 'cancelModalConfirm',
     fn: cancelModalConfirm,
+    name: 'cancelModalConfirm',
   },
 ]

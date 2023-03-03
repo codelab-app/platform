@@ -33,7 +33,7 @@ export class CreateElementModalService
       return undefined
     }
 
-    if (selectedElement && elementTree.elementsList.includes(selectedElement)) {
+    if (selectedElement && elementTree.elements.includes(selectedElement)) {
       return selectedElement
     }
 

@@ -30,8 +30,8 @@ export const exportSeedData = async () => {
     'apps' | 'stores' | 'resources' | 'domains'
   > = {
     atoms: sortedAtomsData,
-    types: seedTypesData,
     tags: sortedTagsData,
+    types: seedTypesData,
   }
 
   return seedData

@@ -1,5 +1,6 @@
 export * from './page.api'
 export * from './page.model'
+export { pageRef } from './page.ref'
 export * from './page.service'
 export * from './page.service.context'
 export * from './page-modal.service'

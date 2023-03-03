@@ -1,19 +1,21 @@
+/// <reference types="cypress" />
+
 // ignore because we need to seed Button.csv first
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 
 const buttonComponent = {
-  name: 'AntDesignButton',
   atom: 'Ant Design Button',
+  name: 'AntDesignButton',
   parentElement: ROOT_ELEMENT_NAME,
 }
 
 const formToggleButtons = ['Block', 'Danger', 'Disabled', 'Ghost']
 
 const formTextInputs = [
-  { text: 'Href', input: 'http://google.com' },
-  { text: 'Html Type', input: 'Html Type' },
-  { text: 'Target', input: '_blank' },
-  { text: 'Type', input: 'primary' },
+  { input: 'http://google.com', text: 'Href' },
+  { input: 'Html Type', text: 'Html Type' },
+  { input: '_blank', text: 'Target' },
+  { input: 'primary', text: 'Type' },
 ]
 
 const selectPropsTab = () => {

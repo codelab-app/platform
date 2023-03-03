@@ -2,9 +2,11 @@
  * This file is under `api` code so can import backend code
  */
 import type { NextApiRequest } from '@codelab/backend/abstract/types'
-import { resolvers } from '@codelab/backend/graphql'
-import { getDriver, getSchema } from '@codelab/backend/infra/adapter/neo4j'
-import { repoResolvers } from '@codelab/backend/repo-resolvers'
+import {
+  getDriver,
+  getSchema,
+  resolvers,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { logger } from '@codelab/shared/adapter/logging'
 import { EnvBuilder } from '@codelab/shared/env'
@@ -23,7 +25,7 @@ import type { NextApiHandler } from 'next'
 import * as util from 'util'
 
 const driver = getDriver()
-const neoSchema = getSchema(driver, mergeResolvers([resolvers, repoResolvers]))
+const neoSchema = getSchema(driver, mergeResolvers([resolvers]))
 const path = '/api/graphql'
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 let apolloServer: ApolloServer
@@ -61,8 +63,6 @@ const startServer = neoSchema
   .getSchema()
   .then(async (schema) => {
     apolloServer = new ApolloServer({
-      schema,
-      plugins: [BASIC_LOGGING],
       context: ({ req }: { req: NextApiRequest }) => {
         const user = req.user
 
@@ -79,12 +79,14 @@ const startServer = neoSchema
         return err
       },
       introspection: true,
+      plugins: [BASIC_LOGGING],
+      schema,
       // plugins: [ApolloServerPluginInlineTrace()],
     })
   })
   .then(() =>
     neoSchema
-      .assertIndexesAndConstraints({ options: { create: true }, driver })
+      .assertIndexesAndConstraints({ driver, options: { create: true } })
       .then(() => apolloServer.start()),
   )
 

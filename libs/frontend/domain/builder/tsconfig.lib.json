@@ -25,5 +25,5 @@
     "**/*.stories.tsx",
     "jest.config.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "../../abstract/core/src/domain/builder/builder.service.context.ts"]
 }

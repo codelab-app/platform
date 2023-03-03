@@ -2,7 +2,7 @@ import type {
   IActionService,
   IBuilderService,
   IComponentService,
-  ICreateElementDTO,
+  ICreateElementData,
   IElementService,
   IRenderService,
   IUserService,
@@ -40,10 +40,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       return null
     }
 
-    const onSubmit = async (data: ICreateElementDTO) => {
-      const { prevSiblingId } = data
+    const onSubmit = async (data: ICreateElementData) => {
+      const { prevSibling } = data
 
-      const element = await (prevSiblingId
+      const element = await (prevSibling
         ? elementService.createElementAsNextSibling(data)
         : elementService.createElementAsFirstChild(data))
 
@@ -68,10 +68,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     }
 
     const selectParentElementOptions =
-      elementTree.elementsList.map(mapElementOption)
+      elementTree.elements.map(mapElementOption)
 
     const selectChildrenElementOptions =
-      elementTree.elementsList.map(mapElementOption)
+      elementTree.elements.map(mapElementOption)
 
     return (
       <ModalForm.Modal
@@ -80,7 +80,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         open={elementService.createModal.isOpen}
         title={<span css={tw`font-semibold`}>Create element</span>}
       >
-        <ModalForm.Form<ICreateElementDTO>
+        <ModalForm.Form<ICreateElementData>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
@@ -117,7 +117,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           />
           <RenderTypeCompositeField
             name="renderType"
-            parent={parentElement.atom?.maybeCurrent}
+            parent={parentElement.renderType?.maybeCurrent}
           />
           <AutoField component={SelectAction} name="preRenderActionId" />
           <AutoField component={SelectAction} name="postRenderActionId" />

@@ -3,7 +3,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
@@ -25,10 +25,10 @@ describe('Store', () => {
           {
             PrimitiveType: {
               id: v4(),
-              name: IPrimitiveTypeKind.Integer,
-              primitiveKind: IPrimitiveTypeKind.Integer,
               kind: ITypeKind.PrimitiveType,
-              owner: connectOwner(userId),
+              name: IPrimitiveTypeKind.Integer,
+              owner: connectAuth0Owner(userId),
+              primitiveKind: IPrimitiveTypeKind.Integer,
             },
           },
           ITypeKind.PrimitiveType,
@@ -54,8 +54,8 @@ describe('Store', () => {
         cy.getModal().setFormFieldValue({ label: 'Name', value: stateVarName })
         cy.getModal().setFormFieldValue({
           label: 'Type',
-          value: IPrimitiveTypeKind.Integer,
           type: FIELD_TYPE.SELECT,
+          value: IPrimitiveTypeKind.Integer,
         })
         cy.getModal()
           .getModalAction(/Create/)
@@ -113,14 +113,14 @@ describe('Store', () => {
 
         cy.getModal().setFormFieldValue({
           label: 'Type',
-          value: IActionKind.CodeAction,
           type: FIELD_TYPE.SELECT,
+          value: IActionKind.CodeAction,
         })
 
         cy.getModal().setFormFieldValue({
           label: 'Action code',
-          value: actionBody,
           type: FIELD_TYPE.CODE_MIRROR,
+          value: actionBody,
         })
 
         cy.getModal()

@@ -14,8 +14,6 @@ const onChange = (key: string) => {
 export const BuilderDemo = () => {
   const tabItems = [
     {
-      label: 'Builder View',
-      key: '1',
       children: (
         <Row>
           <Col
@@ -51,11 +49,13 @@ export const BuilderDemo = () => {
           {/* </Col> */}
         </Row>
       ),
+      key: '1',
+      label: 'Builder View',
     },
     {
-      label: 'Code Equivalent',
-      key: '2',
       children: <DOMTreeCode />,
+      key: '2',
+      label: 'Code Equivalent',
     },
   ]
 

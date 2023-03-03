@@ -8,8 +8,8 @@ export interface AntSpinCommands {
 
 export const antSpinCommands: Array<CypressCommand> = [
   {
-    name: 'getSpinner',
     fn: getSpinner,
+    name: 'getSpinner',
     options: {
       prevSubject: 'optional' as any,
     },

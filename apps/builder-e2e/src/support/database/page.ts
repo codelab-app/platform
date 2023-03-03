@@ -2,9 +2,9 @@ import {
   DEFAULT_GET_SERVER_SIDE_PROPS,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { createUniqueName } from '@codelab/frontend/shared/utils'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { createUniqueName } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 
@@ -18,9 +18,16 @@ export const createPageInput = (
 
   return merge(
     {
-      id: id,
-      name: createUniqueName(name, appId),
+      app: {
+        connect: { where: { node: { id: appId } } },
+      },
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
+      id: id,
+      kind: IPageKind.Regular,
+      name: createUniqueName(name, appId),
+      pageContainerElement: {
+        connect: { where: { node: { id: rootId } } },
+      },
       rootElement: {
         create: {
           node: {
@@ -28,13 +35,6 @@ export const createPageInput = (
             name: createUniqueName(ROOT_ELEMENT_NAME, id),
           },
         },
-      },
-      kind: IPageKind.Regular,
-      app: {
-        connect: { where: { node: { id: appId } } },
-      },
-      pageContainerElement: {
-        connect: { where: { node: { id: rootId } } },
       },
     },
     input,

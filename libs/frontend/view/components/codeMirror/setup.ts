@@ -91,10 +91,10 @@ export const getDefaultExtensions = async ({
 }: Options) => [
   await basicSetup(singleLine),
   autocompletion({
-    defaultKeymap: false,
     activateOnTyping: true,
+    defaultKeymap: false,
     override: [
-      completionSource({ languageSource, languageOptions, customOptions }),
+      completionSource({ customOptions, languageOptions, languageSource }),
     ],
   }),
 ]

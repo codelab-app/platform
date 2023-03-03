@@ -17,59 +17,16 @@ import { TypeSelect } from '../../../shared'
  *
  * https://github.com/ajv-validator/ajv/issues/1838
  */
-export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
-  title: 'Create Type Input',
-  type: 'object',
+export const createTypeSchema: JSONSchemaType<ICreateTypeData> = {
   properties: {
-    auth0Id: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
-    },
-    id: {
-      type: 'string',
-      disabled: true,
-    },
-    name: {
-      autoFocus: true,
-      ...nonEmptyString,
-    },
-    kind: { type: 'string', enum: Object.values(ITypeKind) },
-    unionTypeIds: {
-      type: 'array',
-      nullable: true,
-      label: 'Types',
-      isUnionTypeInput: true,
-      items: {
-        type: 'string',
-        isUnionTypeInput: true,
-      },
-      uniforms: { component: TypeSelect, isUnionTypeInput: true },
-    },
-    primitiveKind: {
-      type: 'string',
-      nullable: true,
-      enum: Object.values(IPrimitiveTypeKind),
-    },
-    elementKind: {
-      type: 'string',
-      nullable: true,
-      enum: Object.values(IElementTypeKind),
-    },
-    language: {
-      type: 'string',
-      nullable: true,
-      enum: Object.values(CodeMirrorLanguage),
-    },
+    ...ownerSchema,
+    ...idSchema,
     allowedValues: {
-      type: 'array',
-      nullable: true,
       items: {
-        type: 'object',
         properties: {
           id: {
-            type: 'string',
             nullable: true,
+            type: 'string',
             uniforms: {
               component: () => null,
             },
@@ -83,9 +40,45 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
           'key',
           'value',
         ],
+        type: 'object',
       },
+      nullable: true,
+      type: 'array',
     },
-    arrayTypeId: { type: 'string', nullable: true },
+    arrayTypeId: { nullable: true, type: 'string' },
+    elementKind: {
+      enum: Object.values(IElementTypeKind),
+      nullable: true,
+      type: 'string',
+    },
+    kind: { enum: Object.values(ITypeKind), type: 'string' },
+    language: {
+      enum: Object.values(CodeMirrorLanguage),
+      nullable: true,
+      type: 'string',
+    },
+    name: {
+      autoFocus: true,
+      ...nonEmptyString,
+    },
+    primitiveKind: {
+      enum: Object.values(IPrimitiveTypeKind),
+      nullable: true,
+      type: 'string',
+    },
+    unionTypeIds: {
+      isUnionTypeInput: true,
+      items: {
+        isUnionTypeInput: true,
+        type: 'string',
+      },
+      label: 'Types',
+      nullable: true,
+      type: 'array',
+      uniforms: { component: TypeSelect, isUnionTypeInput: true },
+    },
   },
-  required: ['kind', 'name', 'auth0Id'],
+  required: ['kind', 'name', 'owner'],
+  title: 'Create Type Input',
+  type: 'object',
 }

@@ -21,7 +21,7 @@ export const LoadingIndicator = ({
   style: styleProp,
 }: LoadIndicatorProps) => {
   const elementStyle = isFunction(styleProp)
-    ? styleProp({ isLoading, error })
+    ? styleProp({ error, isLoading })
     : styleProp || {}
 
   if (error) {

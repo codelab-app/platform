@@ -8,8 +8,8 @@ export interface AntButtonCommands {
 
 export const antButtonCommands: Array<CypressCommand> = [
   {
-    name: 'getButton',
     fn: getButton,
+    name: 'getButton',
     options: {
       prevSubject: 'optional' as any,
     },

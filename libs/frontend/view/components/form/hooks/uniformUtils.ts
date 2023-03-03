@@ -20,7 +20,7 @@ export const connectUniformSubmitRef =
     }
   }
 
-const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
+const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
 addFormats(ajv)
 addKeywords(ajv, ['typeof', 'transform'])
 // we can add custom type definitions here that may be too complex to do in the actual schema
@@ -31,27 +31,27 @@ ajv.addSchema({
     fieldDefaultValues: {
       oneOf: [
         {
-          type: 'string',
           nullable: true,
+          type: 'string',
         },
         {
           type: 'boolean',
         },
         {
+          nullable: true,
           type: ['number', 'integer'],
-          nullable: true,
         },
         {
-          type: 'array',
-          nullable: true,
           items: { $ref: '#/definitions/fieldDefaultValues' },
+          nullable: true,
+          type: 'array',
         },
         {
-          type: 'object',
           nullable: true,
           patternProperties: {
             '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
           },
+          type: 'object',
         },
       ],
     },

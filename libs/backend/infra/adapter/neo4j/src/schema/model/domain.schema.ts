@@ -2,17 +2,17 @@ import { gql } from 'apollo-server-micro'
 
 export const domainSchema = gql`
   # Copied from generated schema
-  type DeleteInfo {
+  type DeleteInfo @exclude {
     bookmark: String
     nodesDeleted: Int!
     relationshipsDeleted: Int!
   }
 
-  type VercelDomainConfig {
+  type VercelDomainConfig @exclude {
     misconfigured: Boolean!
   }
 
-  type VercelProjectDomain {
+  type VercelProjectDomain @exclude {
     verified: Boolean!
   }
 

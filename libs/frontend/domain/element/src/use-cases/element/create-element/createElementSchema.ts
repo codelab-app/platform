@@ -3,69 +3,93 @@ import { RenderTypeEnum } from '@codelab/frontend/abstract/core'
 import { titleCaseValidation } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
-  title: 'Create Element Input',
-  type: 'object',
+export const createElementSchema: JSONSchemaType<ICreateElementData> = {
   properties: {
-    id: {
-      type: 'string',
+    ...idSchema,
+    customCss: {
       nullable: true,
-      uniforms: {
-        component: () => null,
-      },
+      type: 'string',
+    },
+    guiCss: {
+      nullable: true,
+      type: 'string',
     },
     name: {
       type: 'string',
       ...titleCaseValidation,
     },
-    parentElementId: {
-      type: 'string',
+    parentElement: {
       nullable: true,
-      label: 'Parent element',
+      properties: {
+        id: {
+          label: 'Parent element',
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
-    prevSiblingId: {
-      type: 'string',
+    postRenderAction: {
       nullable: true,
-      label: 'Linked by',
+      properties: {
+        id: {
+          label: 'Post Render action',
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
-    customCss: {
-      type: 'string',
+    preRenderAction: {
       nullable: true,
+      properties: {
+        id: {
+          label: 'Pre Render action',
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
-    guiCss: {
-      type: 'string',
+    prevSibling: {
       nullable: true,
+      properties: {
+        id: {
+          label: 'Linked by',
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
-    propsData: {
-      type: 'string',
+    props: {
       nullable: true,
-    },
-    preRenderActionId: {
-      type: 'string',
-      label: 'Pre Render action',
-      nullable: true,
-    },
-    postRenderActionId: {
-      type: 'string',
-      label: 'Post Render action',
-      nullable: true,
+      properties: {
+        data: {
+          nullable: true,
+          type: 'string',
+        },
+      },
+      type: 'object',
     },
     renderType: {
-      type: 'object',
       label: 'Render Type',
       nullable: true,
       properties: {
         id: {
           type: 'string',
         },
-        model: {
-          type: 'string',
-          enum: Object.values(RenderTypeEnum),
+        kind: {
+          enum: Object.values(IRenderTypeKind),
           label: 'Render Type',
+          type: 'string',
         },
       },
-      required: ['id', 'model'],
+      required: ['id', 'kind'],
+      type: 'object',
     },
   },
-  required: ['name'],
+  required: ['name', 'id'],
+  title: 'Create Element Input',
+  type: 'object',
 }

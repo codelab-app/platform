@@ -13,25 +13,25 @@ export const CreateResourceButton = observer<{
 }>(({ resourceService }) => {
   const menuItems: Array<ItemType> = [
     {
-      key: 'apis',
-      type: 'group',
-      label: 'APIs',
       children: [
         {
-          label: 'GraphQL API',
+          icon: <ResourceIcon type={IResourceType.GraphQL} />,
           key: 'graphql',
+          label: 'GraphQL API',
           onClick: () =>
             resourceService.createModal.open({ type: IResourceType.GraphQL }),
-          icon: <ResourceIcon type={IResourceType.GraphQL} />,
         },
         {
-          label: 'Rest API',
           icon: <ResourceIcon type={IResourceType.Rest} />,
           key: 'rest',
+          label: 'Rest API',
           onClick: () =>
             resourceService.createModal.open({ type: IResourceType.Rest }),
         },
       ],
+      key: 'apis',
+      label: 'APIs',
+      type: 'group',
     },
   ]
 

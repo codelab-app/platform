@@ -62,9 +62,9 @@ const useScroll = () => {
   })
 
   return {
-    scrollY,
-    scrollX,
     scrollDirection,
+    scrollX,
+    scrollY,
   }
 }
 

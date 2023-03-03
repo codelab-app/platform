@@ -12,9 +12,9 @@ export const generateOgmTypes = async () => {
   )
 
   const output = await generate({
+    noWrite: true,
     ogm: await getOgm(),
     outFile,
-    noWrite: true,
   })
     .then((data) => {
       console.info('OGM type generated!')

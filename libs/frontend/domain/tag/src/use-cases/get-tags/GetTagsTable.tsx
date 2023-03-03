@@ -27,21 +27,19 @@ interface GetTagsTableProps {
 export const GetTagsTable = observer<GetTagsTableProps>(
   ({ tagService, loading }) => {
     const dataSource: Array<TagRecord> = tagService.tagsList.map((tag) => ({
-      key: tag.id,
       id: tag.id,
+      key: tag.id,
       name: tag.name,
     }))
 
     const columns: Array<TableColumnProps<TagRecord>> = [
       {
-        title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        title: 'Name',
       },
       {
-        title: 'Action',
         key: 'action',
-        width: 100,
         render: (text, tag) => (
           <Space size="middle">
             <ListItemEditButton
@@ -54,6 +52,8 @@ export const GetTagsTable = observer<GetTagsTableProps>(
             />
           </Space>
         ),
+        title: 'Action',
+        width: 100,
       },
     ]
 

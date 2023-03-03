@@ -24,10 +24,10 @@ export const useTypesTableData = (typeService: ITypeService) => {
     })
 
   return {
-    isLoadingAllTypes,
-    getBaseTypes,
     fetchedBaseTypes,
-    isLoadingTypeDescendants,
+    getBaseTypes,
     getTypeDescendants,
+    isLoadingAllTypes,
+    isLoadingTypeDescendants,
   }
 }

@@ -1,3 +1,3 @@
 import type { ActionTypeFragment } from '../../fragments'
 
-export type IAnyActionTypeDTO = ActionTypeFragment
+export type IActionTypeDTO = ActionTypeFragment

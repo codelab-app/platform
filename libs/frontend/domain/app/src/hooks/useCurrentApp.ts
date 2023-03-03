@@ -12,7 +12,7 @@ export const useCurrentApp = (appService: IAppService) => {
 
   return {
     app: value,
-    loading: loading,
     error,
+    loading: loading,
   }
 }

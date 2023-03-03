@@ -8,28 +8,28 @@ import { Integrations } from './Integrations'
 
 const data = [
   {
-    id: 1,
-    title: 'Connect with REST/GraphQL API',
-    image: '/imagePipeline.svg',
-    icon: '/connectDB.svg',
     description:
       'Create remote API calls while having full headers control. Interact with a GraphQL backend using Query or Mutation.',
+    icon: '/connectDB.svg',
+    id: 1,
+    image: '/imagePipeline.svg',
+    title: 'Connect with REST/GraphQL API',
   },
   {
-    id: 2,
-    title: 'Manage Local State With Store',
-    image: '/imagePipeline.svg',
-    icon: '/manageLocal.svg',
     description:
       'Create classes for your models to manipulate data using a domain driven design. Add store models with properties and methods.',
+    icon: '/manageLocal.svg',
+    id: 2,
+    image: '/imagePipeline.svg',
+    title: 'Manage Local State With Store',
   },
   {
-    id: 3,
-    title: 'Component Data Binding',
-    image: '/imagePipeline.svg',
-    icon: '/componentBinding.svg',
     description:
       'Create a truly dynamic frontend system. Pass data through components and their descendants to bind to their props',
+    icon: '/componentBinding.svg',
+    id: 3,
+    image: '/imagePipeline.svg',
+    title: 'Component Data Binding',
   },
 ]
 

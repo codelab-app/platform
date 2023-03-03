@@ -16,12 +16,12 @@ interface DemoCardProps {
 }
 
 export const demoCardPropState = atom<DemoCardProps>({
-  key: 'DemoCardProp',
   default: {
     block: true,
-    type: 'primary',
     icon: 'shopping-outlined',
+    type: 'primary',
   },
+  key: 'DemoCardProp',
 })
 
 const { Option } = Select

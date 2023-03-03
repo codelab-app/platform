@@ -39,7 +39,7 @@ const regenerate: NextApiHandler = async (req, res) => {
 
     await Promise.all(revalidationPromises)
 
-    return res.json({ revalidatedPages, failedPages })
+    return res.json({ failedPages, revalidatedPages })
   } catch (err) {
     return res.status(500).send(err)
   }

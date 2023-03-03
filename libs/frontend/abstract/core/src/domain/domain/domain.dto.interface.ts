@@ -1,13 +1,17 @@
-import type { DomainFragment } from './domain.fragment.graphql.gen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 
-export interface ICreateDomainDTO {
-  appId: string
+export interface ICreateDomainData {
+  id: string
+  app: IEntity
   name: string
-  id?: string
 }
 
-export type IDomainDTO = DomainFragment
+export type IUpdateDomainData = ICreateDomainData
 
-export interface IUpdateDomainDTO extends ICreateDomainDTO {
+export interface IDomainDTO {
   id: string
+  name: string
+  app: IEntity
+  domainConfig: { misconfigured: boolean }
+  projectDomain: { verified: boolean }
 }

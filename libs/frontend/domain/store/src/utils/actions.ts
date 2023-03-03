@@ -1,7 +1,7 @@
 export const deleteStoreInput = {
-  api: { where: {} },
   actions: {
-    CodeAction: [{ where: {} }],
     ApiAction: [{ where: {} }],
+    CodeAction: [{ where: {} }],
   },
+  api: { where: {} },
 }

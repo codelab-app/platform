@@ -5,8 +5,12 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { RendererTab } from '@codelab/frontend/abstract/core'
+import {
+  componentRef,
+  isComponentModel,
+} from '@codelab/frontend/domain/component'
 import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
-import { componentRef, useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -43,7 +47,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
-    const isComponentInstance = Boolean(element.renderComponentType)
+    const isComponentInstance = isComponentModel(element.renderType)
 
     const onAddChild = () => {
       if (!elementTree) {
@@ -51,8 +55,8 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
       }
 
       return createModal.open({
-        selectedElement: elementRef(element.id),
         elementTree: elementTreeRef(elementTree.id),
+        selectedElement: elementRef(element.id),
       })
     }
 
@@ -61,12 +65,12 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onDuplicate = async () => {
-      if (!user?.sub || !element.parentElement) {
+      if (!user?.sub || !element.parent) {
         return
       }
 
       elementTree?.addElements(
-        await cloneElement(element, element.parentElement),
+        await cloneElement(element, element.parent.current),
       )
     }
 
@@ -75,7 +79,9 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      const createdElement = await convertElementToComponent(element, user.sub)
+      const createdElement = await convertElementToComponent(element, {
+        auth0Id: user.sub,
+      })
 
       if (createdElement) {
         elementTree?.addElements([createdElement])
@@ -83,15 +89,13 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onEditComponent = () => {
-      if (!element.renderComponentType) {
+      if (!isComponentModel(element.renderType)) {
         return
       }
 
       builderService.setActiveTree(RendererTab.Component)
 
-      const component = componentService.components.get(
-        element.renderComponentType.id.toString(),
-      )
+      const component = componentService.components.get(element.renderType.id)
 
       component &&
         builderService.selectComponentTreeNode(componentRef(component))
@@ -100,33 +104,32 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const menuItems = [
       {
         key: 'add-child',
-        onClick: onAddChild,
         label: 'Add child',
+        onClick: onAddChild,
       },
       {
-        key: 'duplicate',
-        onClick: onDuplicate,
-        label: 'Duplicate',
         hide: element.isRoot,
+        key: 'duplicate',
+        label: 'Duplicate',
+        onClick: onDuplicate,
       },
       {
-        key: 'edit-component',
-        onClick: onEditComponent,
-        label: 'Edit Component',
         hide: !isComponentInstance,
+        key: 'edit-component',
+        label: 'Edit Component',
+        onClick: onEditComponent,
       },
       {
         disabled: element.isRoot,
-        key: 'convert-component',
-        onClick: onConvert,
-        label: 'Convert To Component',
         hide: isComponentInstance || element.isRoot,
+        key: 'convert-component',
+        label: 'Convert To Component',
+        onClick: onConvert,
       },
       {
         danger: true,
         hide: element.isRoot,
         key: 'delete',
-        onClick: onDelete,
         label: (
           <>
             <span>Delete `{element.name}` </span>{' '}
@@ -135,6 +138,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
             </span>
           </>
         ),
+        onClick: onDelete,
       },
     ]
 

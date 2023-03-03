@@ -1,8 +1,8 @@
-import type { IRepository } from '@codelab/backend/infra/ports'
+import type { INeo4jRepository } from '@codelab/backend/infra/ports'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { getOgm } from './ogm'
 
-export class Repository implements IRepository {
+export class Repository implements INeo4jRepository {
   private user: OGM_TYPES.UserModel | undefined
 
   //

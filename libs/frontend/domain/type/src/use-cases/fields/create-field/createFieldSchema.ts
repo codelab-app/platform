@@ -1,4 +1,4 @@
-import type { ICreateFieldDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateFieldData } from '@codelab/frontend/abstract/core'
 import {
   GeneralValidationRules,
   NumberValidationRules,
@@ -8,127 +8,7 @@ import { nonEmptyString } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
-  title: 'Create Field Input',
-  type: 'object',
-  properties: {
-    id: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
-    key: {
-      autoFocus: true,
-      ...nonEmptyString,
-    },
-    name: { type: 'string', nullable: true },
-    description: { type: 'string', nullable: true },
-    validationRules: {
-      type: 'object',
-      nullable: true,
-      properties: {
-        general: {
-          type: 'object',
-          nullable: true,
-          properties: {
-            [GeneralValidationRules.Nullable]: {
-              type: 'boolean',
-              nullable: true,
-              default: false,
-            },
-          },
-        },
-        [PrimitiveTypeKind.String]: {
-          type: 'object',
-          nullable: true,
-          properties: {
-            [StringValidationRules.MinLength]: {
-              type: 'integer',
-              nullable: true,
-            },
-            [StringValidationRules.MaxLength]: {
-              type: 'integer',
-              nullable: true,
-            },
-            [StringValidationRules.Pattern]: { type: 'string', nullable: true },
-          },
-        },
-        [PrimitiveTypeKind.Number]: {
-          type: 'object',
-          nullable: true,
-          properties: {
-            [NumberValidationRules.Minimum]: {
-              type: 'number',
-              nullable: true,
-            },
-            [NumberValidationRules.Maximum]: {
-              type: 'number',
-              nullable: true,
-            },
-            [NumberValidationRules.ExclusiveMinimum]: {
-              type: 'number',
-              nullable: true,
-            },
-            [NumberValidationRules.ExclusiveMaximum]: {
-              type: 'number',
-              nullable: true,
-            },
-            [NumberValidationRules.MultipleOf]: {
-              type: 'number',
-              nullable: true,
-            },
-          },
-        },
-        [PrimitiveTypeKind.Integer]: {
-          type: 'object',
-          nullable: true,
-          properties: {
-            [NumberValidationRules.Minimum]: {
-              type: 'integer',
-              nullable: true,
-            },
-            [NumberValidationRules.Maximum]: {
-              type: 'integer',
-              nullable: true,
-            },
-            [NumberValidationRules.ExclusiveMinimum]: {
-              type: 'integer',
-              nullable: true,
-            },
-            [NumberValidationRules.ExclusiveMaximum]: {
-              type: 'integer',
-              nullable: true,
-            },
-            [NumberValidationRules.MultipleOf]: {
-              type: 'integer',
-              nullable: true,
-            },
-          },
-        },
-      },
-    },
-    interfaceTypeId: {
-      type: 'string',
-      nullable: true,
-      uniforms: {
-        component: () => null,
-      },
-    },
-    /**
-     * TODO: Refactor to match interface
-     * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
-     */
-    fieldType: { type: 'string', nullable: true },
-    defaultValues: {
-      // by using ref, this can support array or object type that
-      // has items or properties of any possible default value type
-      $ref: 'customTypes#/definitions/fieldDefaultValues',
-    },
-  },
-  // This is overridden if the field is not nullable, which will require a value for `defaultValues`
-  required: ['id', 'key', 'fieldType'],
+export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
   if: {
     properties: {
       validationRules: {
@@ -143,5 +23,125 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
       },
     },
   },
+  properties: {
+    ...idSchema,
+    defaultValues: {
+      // by using ref, this can support array or object type that
+      // has items or properties of any possible default value type
+      $ref: 'customTypes#/definitions/fieldDefaultValues',
+    },
+    description: { nullable: true, type: 'string' },
+    /**
+     * TODO: Refactor to match interface
+     * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
+     */
+    fieldType: { nullable: true, type: 'string' },
+
+    interfaceTypeId: {
+      nullable: true,
+      type: 'string',
+      uniforms: {
+        component: () => null,
+      },
+    },
+
+    key: {
+      autoFocus: true,
+      ...nonEmptyString,
+    },
+
+    name: { nullable: true, type: 'string' },
+
+    validationRules: {
+      nullable: true,
+      properties: {
+        general: {
+          nullable: true,
+          properties: {
+            [GeneralValidationRules.Nullable]: {
+              default: false,
+              nullable: true,
+              type: 'boolean',
+            },
+          },
+          type: 'object',
+        },
+        [PrimitiveTypeKind.String]: {
+          nullable: true,
+          properties: {
+            [StringValidationRules.MinLength]: {
+              nullable: true,
+              type: 'integer',
+            },
+            [StringValidationRules.MaxLength]: {
+              nullable: true,
+              type: 'integer',
+            },
+            [StringValidationRules.Pattern]: { nullable: true, type: 'string' },
+          },
+          type: 'object',
+        },
+        [PrimitiveTypeKind.Number]: {
+          nullable: true,
+          properties: {
+            [NumberValidationRules.Minimum]: {
+              nullable: true,
+              type: 'number',
+            },
+            [NumberValidationRules.Maximum]: {
+              nullable: true,
+              type: 'number',
+            },
+            [NumberValidationRules.ExclusiveMinimum]: {
+              nullable: true,
+              type: 'number',
+            },
+            [NumberValidationRules.ExclusiveMaximum]: {
+              nullable: true,
+              type: 'number',
+            },
+            [NumberValidationRules.MultipleOf]: {
+              nullable: true,
+              type: 'number',
+            },
+          },
+          type: 'object',
+        },
+        [PrimitiveTypeKind.Integer]: {
+          nullable: true,
+          properties: {
+            [NumberValidationRules.Minimum]: {
+              nullable: true,
+              type: 'integer',
+            },
+            [NumberValidationRules.Maximum]: {
+              nullable: true,
+              type: 'integer',
+            },
+            [NumberValidationRules.ExclusiveMinimum]: {
+              nullable: true,
+              type: 'integer',
+            },
+            [NumberValidationRules.ExclusiveMaximum]: {
+              nullable: true,
+              type: 'integer',
+            },
+            [NumberValidationRules.MultipleOf]: {
+              nullable: true,
+              type: 'integer',
+            },
+          },
+          type: 'object',
+        },
+      },
+      type: 'object',
+    },
+  },
+  // This is overridden if the field is not nullable, which will require a value for `defaultValues`
+  required: ['id', 'key', 'fieldType'],
+
   then: { required: ['id', 'key', 'fieldType', 'defaultValues'] },
+
+  title: 'Create Field Input',
+  type: 'object',
 }

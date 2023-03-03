@@ -1,20 +1,34 @@
-import type { IBaseType, ITypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAuth0Owner,
+  IBaseType,
+  IBaseTypeDTO,
+} from '@codelab/frontend/abstract/core'
+import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
-import { idProp, Model, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
-  return class
+  @model('@codelab/BaseType')
+  class BaseType
     extends Model({
       id: idProp,
-      name: prop<string>(),
       kind: prop<T>(() => typeKind),
-      ownerId: prop<string>().withSetter(),
+      name: prop<string>(),
+      owner: prop<IAuth0Owner>().withSetter(),
     })
-    implements IBaseType
+    implements IBaseType<IBaseTypeDTO>
   {
-    writeCache(fragment: ITypeDTO) {
+    @modelAction
+    add(fragment: ITypeDTO) {
       updateBaseTypeCache(this, fragment)
+
+      return this
+    }
+
+    @modelAction
+    writeCache(baseTypeDTO: Partial<IBaseTypeDTO>) {
+      updateBaseTypeCache(this, baseTypeDTO)
 
       return this
     }
@@ -23,4 +37,6 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     //   return `{ ${this.name}: ${this.kind} }`
     // }
   }
+
+  return BaseType
 }

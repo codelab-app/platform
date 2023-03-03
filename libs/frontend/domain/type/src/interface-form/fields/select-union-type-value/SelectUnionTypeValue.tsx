@@ -53,11 +53,11 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const selectOptions = makeSelectOptions(oneOf)
 
   const valueSchema = {
-    type: 'object',
     label: '',
     properties: {
       value: getTypeFromOneOf(oneOf, selectedTypeId).properties.value,
     },
+    type: 'object',
   }
 
   const previousSelectedTypeId = usePrevious(selectedTypeId)

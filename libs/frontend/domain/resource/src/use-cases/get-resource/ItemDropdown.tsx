@@ -20,10 +20,10 @@ export interface ItemMenuProps {
 }
 
 const menuItemStyle: CSSProperties = {
+  alignItems: 'center',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  alignItems: 'center',
   width: 'full',
 }
 
@@ -43,18 +43,18 @@ export const ItemDropdown = observer<ItemMenuProps>(
 
     const menuItems: MenuProps['items'] = [
       {
-        label: 'Edit',
+        icon: <EditOutlined style={menuItemIconStyle} />,
         key: 'edit',
+        label: 'Edit',
         onClick: onEdit,
         style: menuItemStyle,
-        icon: <EditOutlined style={menuItemIconStyle} />,
       },
       {
-        label: 'Delete',
+        icon: <DeleteOutlined style={menuItemIconStyle} />,
         key: 'delete',
+        label: 'Delete',
         onClick: onDelete,
         style: menuItemStyle,
-        icon: <DeleteOutlined style={menuItemIconStyle} />,
       },
     ]
 

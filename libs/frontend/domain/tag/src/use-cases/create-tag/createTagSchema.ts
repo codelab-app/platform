@@ -5,24 +5,27 @@ import {
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
-  title: 'Create Tag Input',
-  type: 'object',
+export const createTagSchema: JSONSchemaType<ICreateTagData> = {
   properties: {
+    ...idSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,
     },
-    parentTagId: {
-      type: 'string',
+    parent: {
       nullable: true,
+      properties: {
+        id: {
+          nullable: true,
+          type: 'string',
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
-    auth0Id: {
-      type: 'string',
-      nullable: true,
-      disabled: true,
-      ...showFieldOnDev(),
-    },
+    ...ownerSchema,
   },
   required: ['name'],
+  title: 'Create Tag Input',
+  type: 'object',
 } as const

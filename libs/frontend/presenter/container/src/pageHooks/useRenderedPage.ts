@@ -58,6 +58,7 @@ export const useRenderedPage = ({
     componentService,
     resourceService,
     pageService,
+    actionService,
   } = useStore()
 
   const router = useRouter()
@@ -86,7 +87,7 @@ export const useRenderedPage = ({
 
     requiredPageKinds.forEach((kind) => {
       if (!loadedPageKinds.includes(kind)) {
-        notify({ type: 'error', title: `Failed to load ${kind} page` })
+        notify({ title: `Failed to load ${kind} page`, type: 'error' })
       }
     })
   }
@@ -128,7 +129,13 @@ export const useRenderedPage = ({
     resourceService.load(resources)
 
     // hydrate store after types and resources
-    const appStore = storeService.writeCache(app.store)
+    const appStore = storeService.add({
+      ...app.store,
+      actions: app.store.actions.map((action) =>
+        actionService.actionFactory.fromActionFragment(action),
+      ),
+    })
+
     appStore.state.setMany(appService.appsJson)
 
     /**
@@ -194,20 +201,20 @@ export const useRenderedPage = ({
     }
 
     const renderer = await renderService.addRenderer({
+      appStore,
+      appTree,
       id: page.id,
       pageTree,
-      appTree,
-      appStore,
       rendererType,
     })
 
     return {
       app,
-      pageTree,
-      page,
-      renderer,
-      appTree,
       appStore,
+      appTree,
+      page,
+      pageTree,
+      renderer,
     }
   }, [pageId, commonPagesData.loading])
 
@@ -216,8 +223,8 @@ export const useRenderedPage = ({
   const value = currentPageData.value
 
   return {
-    loading,
     error,
+    loading,
     value,
   }
 }

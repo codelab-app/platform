@@ -25,13 +25,13 @@ export const upsertUser = async (
     console.debug(`User with email ${user.email} already exists!`)
 
     const { users } = await User.update({
-      where: where(user),
       update: {
         auth0Id: user.auth0Id,
         email: user.email,
-        username: user.username,
         roles: user.roles,
+        username: user.username,
       },
+      where: where(user),
     })
 
     return users[0]
@@ -41,11 +41,11 @@ export const upsertUser = async (
     const { users } = await User.create({
       input: [
         {
-          id: v4(),
           auth0Id: user.auth0Id,
           email: user.email,
-          username: user.email,
+          id: v4(),
           roles: user.roles,
+          username: user.email,
         },
       ],
     })

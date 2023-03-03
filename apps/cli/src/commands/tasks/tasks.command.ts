@@ -19,8 +19,8 @@ const NX_TEST = 'npx env-cmd -f .env.test nx'
 export const execCommand = (command: string) => {
   try {
     execa.commandSync(command, {
-      stdio: 'inherit',
       shell: true,
+      stdio: 'inherit',
     })
   } catch (error) {
     console.error(error)
@@ -29,8 +29,6 @@ export const execCommand = (command: string) => {
 }
 
 export const tasksCommand: CommandModule<unknown, unknown> = {
-  command: 'tasks',
-  describe: 'Run tasks',
   builder: (yargv) =>
     yargv
       .options(getStageOptions([Stage.Dev, Stage.Test, Stage.CI]))
@@ -111,15 +109,15 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
-              stdio: 'inherit',
-              shell: true,
               detached: true,
+              shell: true,
+              stdio: 'inherit',
             })
 
             const startServerChildProcess = spawn(startServer, {
-              stdio: 'inherit',
-              shell: true,
               detached: true,
+              shell: true,
+              stdio: 'inherit',
             })
 
             runSpecsChildProcess.on('exit', async (code: number) => {
@@ -213,6 +211,8 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
       )
 
       .demandCommand(1, 'Please provide a task'),
+  command: 'tasks',
+  describe: 'Run tasks',
   handler: () => {
     //
   },

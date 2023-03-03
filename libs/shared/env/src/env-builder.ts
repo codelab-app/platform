@@ -39,21 +39,8 @@ export const EnvBuilder = (): EnvBuilder => {
   const base_url = `${protocol}://${auth0baseUrl}`
 
   return {
-    get neo4j() {
-      return {
-        uri: env.get('NEO4J_URI').required().asString(),
-        user: env.get('NEO4J_USER').required().asString(),
-        password: env.get('NEO4J_PASSWORD').required().asString(),
-      }
-    },
     get auth0() {
       return {
-        issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
-        // audience: env.get('AUTH0_AUDIENCE').required().asString(),
-        secret: env.get('AUTH0_SECRET').required().asString(),
-        client_id: env.get('AUTH0_CLIENT_ID').required().asString(),
-        client_secret: env.get('AUTH0_CLIENT_SECRET').required().asString(),
-        cypress_username: env.get('AUTH0_CYPRESS_USERNAME').asString(),
         // cypress_password: env.get('AUTH0_CYPRESS_PASSWORD').asString(),
         /**
          * https://github.com/auth0/nextjs-auth0/issues/383
@@ -62,6 +49,24 @@ export const EnvBuilder = (): EnvBuilder => {
          * `isVercelPreview` is build-time
          */
         base_url,
+
+        client_id: env.get('AUTH0_CLIENT_ID').required().asString(),
+
+        client_secret: env.get('AUTH0_CLIENT_SECRET').required().asString(),
+
+        cypress_username: env.get('AUTH0_CYPRESS_USERNAME').asString(),
+
+        issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
+
+        // audience: env.get('AUTH0_AUDIENCE').required().asString(),
+        secret: env.get('AUTH0_SECRET').required().asString(),
+      }
+    },
+    get neo4j() {
+      return {
+        password: env.get('NEO4J_PASSWORD').required().asString(),
+        uri: env.get('NEO4J_URI').required().asString(),
+        user: env.get('NEO4J_USER').required().asString(),
       }
     },
     get next() {

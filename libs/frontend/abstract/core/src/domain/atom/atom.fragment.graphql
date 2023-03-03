@@ -3,12 +3,14 @@ fragment Atom on Atom {
   id
   name
   type
+  owner {
+    auth0Id
+  }
   tags {
     ...Tag
   }
   api {
-    id
-    name
+    ...InterfaceType
   }
   allowedChildren {
     id

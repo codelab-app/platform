@@ -1,7 +1,8 @@
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNode, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNode } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 /**
@@ -11,99 +12,105 @@ export const headerFieldName = 'Header'
 
 export const renderItemFieldName = 'Render Item'
 
-export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
-  name: 'List',
-  type: AtomType.AntDesignList,
+export const createListAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
   api: {
     create: {
       node: {
-        name: 'List API',
         fields: {
           create: [
             {
+              edge: {
+                key: 'header',
+                name: headerFieldName,
+              },
               node: {
                 ReactNodeType: {
                   id: v4(),
                   name: ITypeKind.ReactNodeType,
-                  owner: connectOwner(ownerId),
+                  owner: connectAuth0Owner(owner),
                 },
-              },
-              edge: {
-                name: headerFieldName,
-                key: 'header',
               },
             },
             {
+              edge: {
+                key: 'renderItem',
+                name: renderItemFieldName,
+              },
               node: {
                 RenderPropsType: {
                   id: v4(),
                   name: ITypeKind.RenderPropsType,
-                  owner: connectOwner(ownerId),
+                  owner: connectAuth0Owner(owner),
                 },
-              },
-              edge: {
-                name: renderItemFieldName,
-                key: 'renderItem',
               },
             },
           ],
         },
-        owner: connectOwner(ownerId),
+        name: 'List API',
+        owner: connectAuth0Owner(owner),
       },
     },
   },
+  name: 'List',
+  type: AtomType.AntDesignList,
 })
 
 /**
  * create ListItem Atom
  */
 
-export const createListItemAtomInput = (userId: string): AtomCreateInput => ({
-  name: 'ListItem',
-  type: AtomType.AntDesignListItem,
+export const createListItemAtomInput = (auth0Id: string): AtomCreateInput => ({
   api: {
     create: {
       node: {
         name: 'ListItem API',
-        owner: connectOwner(ownerId),
+        owner: connectAuth0Owner(auth0Id),
       },
     },
   },
+  name: 'ListItem',
+  type: AtomType.AntDesignListItem,
 })
 
 /**
  * create Text Atom
  */
 
-export const createTextAtomInput = (ownerId: string): AtomCreateInput => ({
-  name: 'Text',
-  type: AtomType.Text,
+export const createTextAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
   api: {
     create: {
       node: {
-        name: 'Text API',
         fields: {
           create: [
             {
-              node: {
-                PrimitiveType: {
-                  id: v4(),
-                  name: 'String',
-                  primitiveKind: PrimitiveTypeKind.String,
-                  owner: connectOwner(ownerId),
-                },
-              },
               edge: {
-                name: 'Text',
                 key: 'text',
+                name: 'Text',
+              },
+              node: {
+                fieldType: {
+                  create: {
+                    node: {
+                      PrimitiveType: {
+                        id: v4(),
+                        name: 'String',
+                        owner: connectAuth0Owner(owner),
+                        primitiveKind: PrimitiveTypeKind.String,
+                      },
+                    },
+                  },
+                },
               },
             },
           ],
         },
-        owner: connectOwner(ownerId),
+        name: 'Text API',
+        owner: connectAuth0Owner(owner),
       },
     },
   },
+  name: 'Text',
+  type: AtomType.Text,
 })
 
 /**

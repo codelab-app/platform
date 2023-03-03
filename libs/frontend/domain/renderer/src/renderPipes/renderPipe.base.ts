@@ -5,7 +5,7 @@ import type {
 import {
   getComponentService,
   getElementService,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/abstract/core'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import type { AnyModel } from 'mobx-keystone'

@@ -1,5 +1,5 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { createAppInput } from '../support/database/app'
 
@@ -41,18 +41,18 @@ describe('CSS CRUD', () => {
       .then((userId) => {
         cy.createAtom([
           {
-            name: atomName,
-            type: IAtomType.AntDesignButton,
-            id: v4(),
             api: {
               create: {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignButton} API`,
-                  owner: connectOwner(userId),
+                  owner: connectAuth0Owner(userId),
                 },
               },
             },
+            id: v4(),
+            name: atomName,
+            type: IAtomType.AntDesignButton,
           },
         ]).as(atomCache)
 

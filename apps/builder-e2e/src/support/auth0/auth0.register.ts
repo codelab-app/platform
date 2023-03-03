@@ -8,8 +8,8 @@ export interface CypressAuth0Commands {
 
 export const auth0Commands: Array<CypressCommand> = [
   {
-    name: 'loginByAuth0Api',
     fn: loginByAuth0Api,
+    name: 'loginByAuth0Api',
   },
-  { name: 'loginToAuth0', fn: loginToAuth0 },
+  { fn: loginToAuth0, name: 'loginToAuth0' },
 ]

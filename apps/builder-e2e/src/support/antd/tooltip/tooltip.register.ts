@@ -9,16 +9,16 @@ export interface AntTooltipCommands {
 
 export const antTooltipCommands: Array<CypressCommand> = [
   {
-    name: 'getTooltip',
     fn: getTooltip,
+    name: 'getTooltip',
   },
   {
-    name: 'expectTooltip',
     fn: expectTooltip,
+    name: 'expectTooltip',
   },
   {
-    name: 'shouldHaveTooltip',
     fn: shouldHaveTooltip,
+    name: 'shouldHaveTooltip',
     options: {
       prevSubject: 'element',
     },

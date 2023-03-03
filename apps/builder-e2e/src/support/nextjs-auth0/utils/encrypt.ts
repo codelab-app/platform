@@ -24,9 +24,9 @@ export const encrypt = (arg: EncryptData) => {
     JWE.encrypt(JSON.stringify(thingToEncrypt), key, {
       alg: 'dir',
       enc: 'A256GCM',
-      uat: epochNow,
-      iat: epochNow,
       exp: epochNow + 7 * 24 * 60 * 60,
+      iat: epochNow,
+      uat: epochNow,
     }),
   )
 }

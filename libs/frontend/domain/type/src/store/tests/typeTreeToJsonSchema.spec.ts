@@ -6,7 +6,7 @@ import {
 } from './schema.data'
 import { interfaceWithUnionField, unionType } from './setup-store'
 
-const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
+const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
 
 describe('Type tree to json schema', () => {
   const transformer = new TypeSchemaFactory()

@@ -1,6 +1,6 @@
 import type {
   ITagService,
-  IUpdateTagDTO,
+  IUpdateTagData,
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -13,12 +13,8 @@ export const UpdateTagModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {
     const tag = tagService.updateModal.tag
 
-    const onSubmit = (input: IUpdateTagDTO) => {
-      if (!tag) {
-        throw new Error('Updated tag is not set')
-      }
-
-      return tagService.update(tag, input)
+    const onSubmit = (tagDTO: IUpdateTagData) => {
+      return tagService.update(tagDTO)
     }
 
     const closeModal = () => tagService.updateModal.close()
@@ -29,7 +25,7 @@ export const UpdateTagModal = observer<{ tagService: ITagService }>(
         onCancel={closeModal}
         open={tagService.updateModal.isOpen}
       >
-        <ModalForm.Form<IUpdateTagDTO>
+        <ModalForm.Form<IUpdateTagData>
           model={{ name: tag?.name }}
           onSubmit={onSubmit}
           onSubmitError={createNotificationHandler({

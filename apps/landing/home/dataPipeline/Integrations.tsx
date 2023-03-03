@@ -4,23 +4,23 @@ import tw from 'twin.macro'
 
 const listItem = [
   {
-    src: '/integrations/salesforce.svg',
     alt: 'Salesforce Codelab Integration',
+    src: '/integrations/salesforce.svg',
   },
-  { src: '/integrations/shopify.svg', alt: 'Shopify Codelab Integration' },
-  { src: '/integrations/airtable.svg', alt: 'Airtable Codelab Integration' },
-  { src: '/integrations/zapier.svg', alt: 'Zapier Codelab Integration' },
-  { src: '/integrations/twilio.svg', alt: 'Twilio Codelab Integration' },
-  { src: '/integrations/supabase.svg', alt: 'Supabase Codelab Integration' },
-  { src: '/integrations/sendgrid.svg', alt: 'Sendgrid Codelab Integration' },
-  { src: '/integrations/aws3.svg', alt: 'AWS S3 Codelab Integration' },
-  { src: '/integrations/stripe.svg', alt: 'Stripe Codelab Integration' },
+  { alt: 'Shopify Codelab Integration', src: '/integrations/shopify.svg' },
+  { alt: 'Airtable Codelab Integration', src: '/integrations/airtable.svg' },
+  { alt: 'Zapier Codelab Integration', src: '/integrations/zapier.svg' },
+  { alt: 'Twilio Codelab Integration', src: '/integrations/twilio.svg' },
+  { alt: 'Supabase Codelab Integration', src: '/integrations/supabase.svg' },
+  { alt: 'Sendgrid Codelab Integration', src: '/integrations/sendgrid.svg' },
+  { alt: 'AWS S3 Codelab Integration', src: '/integrations/aws3.svg' },
+  { alt: 'Stripe Codelab Integration', src: '/integrations/stripe.svg' },
   {
-    src: '/integrations/googleSheet.svg',
     alt: 'Google Sheets Codelab Integration',
+    src: '/integrations/googleSheet.svg',
   },
-  { src: '/integrations/hubspot.svg', alt: 'Hubspot Codelab Integration' },
-  { src: '/integrations/firebase.svg', alt: 'Firebase Codelab Integration' },
+  { alt: 'Hubspot Codelab Integration', src: '/integrations/hubspot.svg' },
+  { alt: 'Firebase Codelab Integration', src: '/integrations/firebase.svg' },
 ]
 
 export const Integrations = () => {

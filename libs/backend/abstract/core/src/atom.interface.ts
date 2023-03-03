@@ -49,12 +49,6 @@ export interface ImportAtoms {
 }
 
 export const AtomSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  icon: z.string().optional().nullable(),
-  type: z.nativeEnum(IAtomType),
-  api: InterfaceTypeSchema,
-  tags: z.array(TagSchema),
   allowedChildren: z
     .array(
       z.object({
@@ -62,13 +56,19 @@ export const AtomSchema = z.object({
       }),
     )
     .optional(),
+  api: InterfaceTypeSchema,
+  icon: z.string().optional().nullable(),
+  id: z.string(),
+  name: z.string(),
+  tags: z.array(TagSchema),
+  type: z.nativeEnum(IAtomType),
 })
 
 export const AtomExportSchema = AtomSchema.merge(
   z.object({
+    allowedChildren: z.array(EntitySchema),
     api: EntitySchema,
     tags: z.array(EntitySchema),
-    allowedChildren: z.array(EntitySchema),
   }),
 )
 

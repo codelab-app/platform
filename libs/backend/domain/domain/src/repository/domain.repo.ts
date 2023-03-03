@@ -80,9 +80,9 @@ export const createDomainIfNotExist = async (domain: IDomainExport) => {
   await Domain.create({
     input: [
       {
+        app: connectNodeId(domain.app.id),
         id: domain.id,
         name: domain.name,
-        app: connectNodeId(domain.app.id),
       },
     ],
   })

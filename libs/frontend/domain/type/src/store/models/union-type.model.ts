@@ -1,9 +1,5 @@
-import type {
-  IAnyType,
-  IUnionType,
-  IUnionTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { IAnyType, IUnionType } from '@codelab/frontend/abstract/core'
+import { ITypeDTO, IUnionTypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -30,10 +26,10 @@ const hydrate = ({
     id,
     kind,
     name,
+    owner,
     typesOfUnionType: typesOfUnionType.map((typeOfUnionType) =>
       typeRef(typeOfUnionType.id),
     ),
-    ownerId: owner.id,
   })
 }
 
@@ -45,7 +41,7 @@ export class UnionType
   implements IUnionType
 {
   @modelAction
-  writeCache(fragment: ITypeDTO) {
+  add(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
     if (fragment.__typename !== ITypeKind.UnionType) {
@@ -60,6 +56,13 @@ export class UnionType
   }
 
   public static hydrate = hydrate
+
+  @modelAction
+  writeCache(unionTypeDTO: IUnionTypeDTO) {
+    updateBaseTypeCache(this, unionTypeDTO)
+
+    return this
+  }
 }
 
 export const typeRef = rootRef<IAnyType>('@codelab/TypeRef', {

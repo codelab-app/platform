@@ -27,13 +27,13 @@ export interface AntDesignField {
  * Entity
  */
 export const FieldSchema = z.object({
+  api: EntitySchema,
+  defaultValues: z.string().optional().nullable(),
+  description: z.string().optional().nullable(),
+  fieldType: EntitySchema,
   id: z.string(),
   key: z.string(),
   name: z.string().optional().nullable(),
-  description: z.string().optional().nullable(),
-  fieldType: EntitySchema,
-  api: EntitySchema,
-  defaultValues: z.string().optional().nullable(),
 })
 
 export type IField = z.infer<typeof FieldSchema>
@@ -42,11 +42,11 @@ export type IField = z.infer<typeof FieldSchema>
  * Export
  */
 export const FieldExportSchema = FieldSchema.extend({
+  api: EntitySchema,
   fieldType: z.object({
     id: z.string(),
     name: z.string(),
   }),
-  api: EntitySchema,
 })
 
 export type IFieldExport = z.infer<typeof FieldExportSchema>

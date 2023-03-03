@@ -54,13 +54,13 @@ export class TransformAntDesignTypesService extends IUseCase<
 
       const enumType = EnumType.init({
         __typename: ITypeKind.EnumType,
-        name: EnumType.getCompositeName(atom, { key: field.property }),
-        owner,
         allowedValues: values.map((value) => ({
           id: v4(),
           key: value,
           value: value,
         })),
+        name: EnumType.getCompositeName(atom, { key: field.property }),
+        owner,
       })
 
       return enumType
@@ -83,24 +83,24 @@ export class TransformAntDesignTypesService extends IUseCase<
 
     if (isRenderPropsType(field.type)) {
       return RenderPropsType.init({
-        owner,
         __typename: ITypeKind.RenderPropsType,
+        owner,
       })
     }
 
     if (isActionType(field.type)) {
       return ActionType.init({
-        owner,
         __typename: ITypeKind.ActionType,
+        owner,
       })
     }
 
     if (isInterfaceType(field.type)) {
       return InterfaceType.init({
-        name: InterfaceType.getApiName(atom, { key: field.property }),
-        owner,
         __typename: ITypeKind.InterfaceType,
         fields: [],
+        name: InterfaceType.getApiName(atom, { key: field.property }),
+        owner,
       })
     }
 
@@ -112,8 +112,8 @@ export class TransformAntDesignTypesService extends IUseCase<
         await Promise.all(
           typesOfUnionType.map(async (typeOfUnionType) => {
             return await new TransformAntDesignTypesService().execute({
-              field: { ...field, type: typeOfUnionType },
               atom,
+              field: { ...field, type: typeOfUnionType },
               owner,
             })
           }),
@@ -130,9 +130,9 @@ export class TransformAntDesignTypesService extends IUseCase<
       )
 
       const unionType = UnionType.init({
-        owner,
         __typename: ITypeKind.UnionType,
         name: UnionType.compositeName(atom, { key: field.property }),
+        owner,
         // These need to exist already
         typesOfUnionType: mappedTypesOfUnionType,
       })

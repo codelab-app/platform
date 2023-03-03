@@ -39,7 +39,7 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
     const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
     const { columns, rowSelection, pagination, atomWhere, atomOptions } =
-      useAtomTable({ atomService, typeService, fieldService })
+      useAtomTable({ atomService, fieldService, typeService })
 
     const { value: latestFetchedAtoms, loading } = useAsync(async () => {
       return await atomService.getAll(atomWhere, atomOptions)
@@ -77,13 +77,15 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
         (curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0) + curPageSize,
       )
       .map((atom) => ({
-        id: atom.id,
-        type: atom.type,
+        allowedChildren: atom.allowedChildren.map(
+          (children) => children.current,
+        ),
         apiId: atom.api.id,
+        id: atom.id,
+        library: getAtomLibrary(atom.type),
         name: atom.name,
         tags: atom.tags.map((tag) => tag.current),
-        library: getAtomLibrary(atom.type),
-        allowedChildren: atom.allowedChildren,
+        type: atom.type,
       }))
 
     return (
@@ -93,9 +95,9 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
         loading={loading}
         pagination={{
           ...pagination,
-          pageSize: curPageSize,
           current: curPage,
           onChange: handlePageChange,
+          pageSize: curPageSize,
         }}
         rowKey={(atom) => atom.id}
         rowSelection={rowSelection}

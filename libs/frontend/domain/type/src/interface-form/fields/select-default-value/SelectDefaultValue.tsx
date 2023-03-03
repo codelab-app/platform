@@ -44,12 +44,12 @@ export const SelectDefaultValue = ({
 
   const schema = useMemo(
     () => ({
-      type: 'object',
       label: '',
       properties: type
         ? { defaultValues: schemaTransformer.transform(type) }
         : {},
       required: isRequired ? ['defaultValues'] : undefined,
+      type: 'object',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [type?.id, isRequired],

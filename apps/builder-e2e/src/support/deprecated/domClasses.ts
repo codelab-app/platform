@@ -5,14 +5,14 @@ export const domClasses = {
     settings: '.anticon-ellipsis',
   },
 
-  dropdownItem: '.ant-dropdown-menu-item, .ant-select-item',
+  card: '.ant-card-head-wrapper',
   dropdown: `.ant-dropdown-menu, 
              .ant-select-dropdown:not(.ant-select-dropdown-hidden) .rc-virtual-list`,
 
-  tableRow: '.ant-table-row',
+  dropdownItem: '.ant-dropdown-menu-item, .ant-select-item',
   listItem: '.ant-list-item',
 
-  spinner: '.ant-spin',
-  card: '.ant-card-head-wrapper',
   modal: '.ant-modal-content',
+  spinner: '.ant-spin',
+  tableRow: '.ant-table-row',
 }
