@@ -14,7 +14,6 @@ import {
   componentRef,
   CssMap,
   DATA_ELEMENT_ID,
-  ELEMENT_NODE_TYPE,
   elementRef,
   getElementService,
   IBuilderDataNode,
@@ -319,9 +318,9 @@ export class Element
     return {
       children: this.children.map((child) => child.antdNode),
       key: this.id,
+      node: null,
       rootKey: getElementTree(this)?._root?.id ?? null,
       title: this.label,
-      type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
     }
   }
 
