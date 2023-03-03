@@ -1,7 +1,7 @@
 import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
-  isComponentModel,
+  isComponentRenderTypeRef,
 } from '@codelab/frontend/abstract/core'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { PropsForm } from '@codelab/frontend/domain/type'
@@ -16,7 +16,7 @@ import React from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { getRenderTypeApi } from '../../../store'
-import { isAtomModel } from "@codelab/frontend/domain/atom";
+import { isAtomRenderTypeRef } from "@codelab/frontend/domain/atom";
 
 export interface UpdateElementPropsFormProps {
   element: IElement
@@ -70,7 +70,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }
 
     const allowCustomInnerHtml =
-      isAtomModel(element.renderType) &&
+      isAtomRenderTypeRef(element.renderType) &&
       element.renderType.current.allowCustomTextInjection &&
       element.children.length === 0
 
@@ -79,7 +79,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     // If element is a component type, we also show the component props
     // but should prioritize the element props
     const propsModel = mergeProps(
-      isComponentModel(element.renderType)
+      isComponentRenderTypeRef(element.renderType)
         ? element.renderType.maybeCurrent?.props?.current.values
         : {},
       element.props?.current.values,

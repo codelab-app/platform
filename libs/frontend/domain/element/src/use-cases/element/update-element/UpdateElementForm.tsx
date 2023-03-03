@@ -10,9 +10,9 @@ import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
   IRenderTypeKind,
-  isComponentModel,
+  isComponentRenderTypeRef,
 } from '@codelab/frontend/abstract/core'
-import { isAtomModel } from '@codelab/frontend/domain/atom'
+import { isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
 import { SelectAction } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
@@ -43,14 +43,14 @@ export interface UpdateElementFormProps {
 const makeCurrentModel = (element: IElement) => {
   let renderType: RenderType | null = null
 
-  if (isAtomModel(element.renderType)) {
+  if (isAtomRenderTypeRef(element.renderType)) {
     renderType = {
       id: element.renderType.id,
       kind: IRenderTypeKind.Atom,
     }
   }
 
-  if (isComponentModel(element.renderType)) {
+  if (isComponentRenderTypeRef(element.renderType)) {
     renderType = {
       id: element.renderType.id,
       kind: IRenderTypeKind.Component,

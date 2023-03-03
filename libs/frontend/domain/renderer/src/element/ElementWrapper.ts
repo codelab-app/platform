@@ -4,7 +4,7 @@ import type {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
-import { isAtomModel } from '@codelab/frontend/domain/atom'
+import { isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
@@ -79,7 +79,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         renderOutput.props['forwardedRef'] = onRefChange
 
         if (
-          isAtomModel(element.renderType) &&
+          isAtomRenderTypeRef(element.renderType) &&
           element.renderType.current.type === IAtomType.GridLayout
         ) {
           renderOutput.props['static'] =

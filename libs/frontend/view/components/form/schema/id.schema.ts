@@ -1,6 +1,6 @@
-import { showFieldOnDev } from '@codelab/frontend/shared/utils'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
+import { showFieldOnDev } from './showFieldOnDev'
 
 export const idSchema: PropertiesSchema<IEntity> = {
   id: {

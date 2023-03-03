@@ -2,13 +2,15 @@ import type {
   IBuilderService,
   IElementService,
 } from '@codelab/frontend/abstract/core'
-import { isElement } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
+import {
+  elementRef,
+  isElementPageNodeRef,
+} from '@codelab/frontend/abstract/core'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
   IBuilderService,
-  'selectedNode' | 'set_selectedNode'
+  'selectedNode' | 'setSelectedNode'
 > &
   Pick<IElementService, 'deleteModal'>
 
@@ -19,14 +21,15 @@ type UseBuilderHotkeysProps = Pick<
  */
 export const useBuilderHotkeys = ({
   selectedNode,
-  set_selectedNode,
+  setSelectedNode,
   deleteModal,
 }: UseBuilderHotkeysProps) => {
   useHotkeys(
     'del,backspace',
     () => {
       if (selectedNode) {
-        const isRootElement = isElement(selectedNode) && selectedNode.isRoot
+        const isRootElement =
+          isElementPageNodeRef(selectedNode) && selectedNode.current.isRoot
 
         if (!isRootElement) {
           deleteModal.open(elementRef(selectedNode.id))
@@ -40,7 +43,7 @@ export const useBuilderHotkeys = ({
     'esc',
     () => {
       if (selectedNode) {
-        set_selectedNode(null)
+        setSelectedNode(null)
       }
     },
     { enabled: Boolean(selectedNode) },

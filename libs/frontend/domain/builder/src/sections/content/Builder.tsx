@@ -28,10 +28,10 @@ type BuilderProps = {
   elementTree: IElementTree
 } & Pick<
   IBuilderService,
-  | 'set_hoveredNode'
+  | 'setHoveredNode'
   | 'currentDragData'
   | 'selectedNode'
-  | 'set_selectedNode'
+  | 'setSelectedNode'
   | 'currentBuilderWidth'
   | 'selectedBuilderWidth'
   | 'setCurrentBuilderWidth'
@@ -46,11 +46,11 @@ type BuilderProps = {
 export const Builder = observer<BuilderProps>(
   ({
     currentDragData,
-    set_hoveredNode,
+    setHoveredNode,
     selectedNode,
     elementTree,
     deleteModal,
-    set_selectedNode,
+    setSelectedNode,
     rendererProps,
     currentBuilderWidth: mainContentWidth,
     selectedBuilderWidth: selectedMainContentWidth,
@@ -63,7 +63,7 @@ export const Builder = observer<BuilderProps>(
 
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
       currentDragData,
-      set_hoveredNode,
+      setHoveredNode,
     })
 
     const builderResizable = useBuilderResize({
@@ -79,7 +79,7 @@ export const Builder = observer<BuilderProps>(
     useBuilderHotkeys({
       deleteModal,
       selectedNode,
-      set_selectedNode,
+      setSelectedNode,
     })
 
     const handleContainerClick = useBuilderRootClickHandler()

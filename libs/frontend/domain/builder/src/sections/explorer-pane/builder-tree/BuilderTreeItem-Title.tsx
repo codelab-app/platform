@@ -1,7 +1,7 @@
 import type {
   IBuilderService,
   IElementService,
-  INode,
+  IPageNode,
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
@@ -23,7 +23,7 @@ import { BuilderTreeItemOverlay } from './BuilderTreeItem-Overlay'
 import { ItemTitleStyle } from './ItemTitleStyle'
 
 interface BuilderTreeItemTitleProps {
-  node: INode | undefined
+  node: IPageNode | undefined
   data: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
   componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>

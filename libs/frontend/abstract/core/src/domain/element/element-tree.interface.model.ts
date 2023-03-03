@@ -1,6 +1,6 @@
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { INode } from '../builder'
+import type { IPageNode } from '../page'
 import type { IElement } from './element.model.interface'
 
 /**
@@ -16,7 +16,7 @@ export interface IElementTree {
   _root: Nullable<Ref<IElement>>
   root: Maybe<IElement>
   elements: Array<IElement>
-  getPathFromRoot(element: INode): Array<INode>
+  getPathFromRoot(element: IPageNode): Array<IPageNode>
   element(id: string): Maybe<IElement>
   addElements(elements: Array<IElement>): IElementTree
   removeElements(elements: Array<IElement>): IElementTree

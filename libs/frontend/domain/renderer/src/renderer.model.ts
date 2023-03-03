@@ -12,7 +12,7 @@ import {
   IElementTree,
   RendererType,
 } from '@codelab/frontend/abstract/core'
-import { isAtomModel } from '@codelab/frontend/domain/atom'
+import { isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
 import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getActionService, storeRef } from '@codelab/frontend/domain/store'
@@ -77,7 +77,7 @@ const init = async ({
   appStore,
   appTree,
   rendererType,
-  set_selectedNode,
+  setSelectedNode,
 }: RendererProps) => {
   /**
    * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
@@ -95,7 +95,7 @@ const init = async ({
       const elementId = e.currentTarget.getAttribute(DATA_ELEMENT_ID)
 
       if (elementId !== null) {
-        set_selectedNode?.(elementRef(elementId))
+        setSelectedNode?.(elementRef(elementId))
       }
     },
     */
@@ -219,7 +219,7 @@ export class Renderer
 
         const shouldInjectText =
           !children.length &&
-          isAtomModel(element.renderType) &&
+          isAtomRenderTypeRef(element.renderType) &&
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText && injectedText) {

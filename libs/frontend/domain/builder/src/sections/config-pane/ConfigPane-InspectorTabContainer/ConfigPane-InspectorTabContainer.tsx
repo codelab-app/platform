@@ -8,11 +8,11 @@ import {
 } from '@ant-design/icons'
 import type {
   IElementTree,
-  INode,
+  IPageNode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { isComponent, isElement } from '@codelab/frontend/abstract/core'
-import { isAtomModel } from '@codelab/frontend/domain/atom'
+import { isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
 import { UpdateComponentPropsForm } from '@codelab/frontend/domain/component'
 import {
   ElementCssEditor,
@@ -42,7 +42,7 @@ export interface MetaPaneBuilderProps {
   elementTree: Maybe<IElementTree>
   renderService?: Maybe<IRenderer>
   UpdateElementContent: (props: {
-    node: INode
+    node: IPageNode
     trackPromises: UseTrackLoadingPromises
   }) => React.ReactElement | null
 }
@@ -129,7 +129,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
       },
       {
         children:
-          isElement(selectedNode) && isAtomModel(selectedNode.renderType) ? (
+          isElement(selectedNode) && isAtomRenderTypeRef(selectedNode.renderType) ? (
             <ElementCssEditor
               element={selectedNode}
               elementService={elementService}

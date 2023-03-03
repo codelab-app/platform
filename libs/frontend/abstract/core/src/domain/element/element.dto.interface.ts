@@ -2,7 +2,7 @@ import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { IAtomID } from '../atom'
 import type { IComponentID } from '../component'
 import type { IPropDTO } from '../prop'
-import type { IRenderTypeKind } from './render-type.enum'
+import type { IRenderTypeKind } from './render-type'
 
 export interface RenderType {
   // This is the ID of either `atom` or `component`

@@ -1,4 +1,4 @@
-export interface INodeType<
+export interface IPageNodeType<
   Type extends ELEMENT_NODE_TYPE | COMPONENT_NODE_TYPE,
 > {
   __nodeType: Type

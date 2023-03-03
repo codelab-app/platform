@@ -1,14 +1,13 @@
 import type {
   IBuilderDataNode,
   IElementTree,
-  INode,
+  IPageNode,
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_NODE_TYPE,
   componentRef,
   ELEMENT_NODE_TYPE,
 } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
@@ -32,7 +31,7 @@ interface BuilderTreeProps {
   elementTree: IElementTree | null
   setActiveTree: () => void
   setExpandedNodeIds: (ids: Array<string>) => void
-  selectTreeNode(node: Nullable<Ref<INode>>): void
+  selectTreeNode(node: Nullable<Ref<IPageNode>>): void
   expandedNodeIds: Array<string>
 }
 
@@ -57,7 +56,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
       const component = componentService.components.get(node.key.toString())
 
       if (component) {
-        selectTreeNode(componentRef(component))
+        selectTreeNode(componentRef(component.id))
       }
     }
 
@@ -117,9 +116,9 @@ export const BuilderTree = observer<BuilderTreeProps>(
             treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
           }
 
-          builderService.set_hoveredNode(elementRef(node.key.toString()))
+          builderService.setHoveredNode(elementRef(node.key.toString()))
         }}
-        onMouseLeave={() => builderService.set_hoveredNode(null)}
+        onMouseLeave={() => builderService.setHoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {
           nativeEvent.stopPropagation()
 

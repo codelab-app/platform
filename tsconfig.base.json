@@ -7,8 +7,6 @@
     "declaration": false,
     "moduleResolution": "node",
     "strict": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -142,9 +140,6 @@
       ],
       "@codelab/frontend/shared/data": [
         "libs/frontend/shared/data/src/index.ts"
-      ],
-      "@codelab/frontend/shared/domain": [
-        "libs/frontend/shared/domain/src/index.ts"
       ],
       "@codelab/frontend/shared/style": [
         "libs/frontend/shared/style/src/index.ts"

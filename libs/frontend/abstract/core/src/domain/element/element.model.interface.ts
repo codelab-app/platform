@@ -10,15 +10,15 @@ import type {
   Nullish,
 } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
+import type { ELEMENT_NODE_TYPE, IPageNodeType } from '../../base/node.interface'
 import type { ICacheService } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
-import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IProp, IPropData } from '../prop'
 import type { IAuth0Owner } from '../user'
 import type { IElementDTO } from './element.dto.interface'
+import type { IElementRenderType } from './render-type'
 
 /**
  * This is a non-element type node that contains the root element.
@@ -46,7 +46,7 @@ export interface RenderingMetadata {
 }
 
 export interface IElement
-  extends INodeType<ELEMENT_NODE_TYPE>,
+  extends IPageNodeType<ELEMENT_NODE_TYPE>,
     ICacheService<IElementDTO, IElement> {
   id: string
   isRoot: boolean
@@ -67,7 +67,7 @@ export interface IElement
   firstChild?: Nullable<Ref<IElement>>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
-  renderType: Ref<IAtom> | Ref<IComponent> | null
+  renderType: IElementRenderType | null
   // atom: Nullable<Ref<IAtom>>
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
@@ -116,7 +116,7 @@ export interface IElement
   setOrderInParent(order: number | null): void
   setName(name: string): void
   // setAtom(atom: Ref<IAtom>): void
-  setRenderType(renderType: Ref<IAtom> | Ref<IComponent>): void
+  setRenderType(renderType: IElementRenderType): void
   setSourceElement(element: Ref<IElement>): void
   setParentComponent(componentRef: Ref<IComponent>): void
   setParent(parent: Ref<IElement>): void

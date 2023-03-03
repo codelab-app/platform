@@ -4,7 +4,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import { isAtomModel } from '@codelab/frontend/domain/atom'
+import { isAtomRenderTypeRef } from '@codelab/frontend/domain/atom'
 import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
@@ -21,7 +21,7 @@ export class AtomRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    if (!isAtomModel(element.renderType)) {
+    if (!isAtomRenderTypeRef(element.renderType)) {
       if (this.renderer.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
       }

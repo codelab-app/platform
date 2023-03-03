@@ -1,10 +1,11 @@
 import type {
   IComponent,
   IElement,
+  IPageNode,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isElement } from '@codelab/frontend/abstract/core'
+import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
 import { getDefaultComponentFieldProps } from '@codelab/frontend/domain/component'
 import { schemaTransformer } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -16,11 +17,11 @@ import { useState } from 'react'
 import { noop } from 'ts-essentials'
 
 const getNodeProps = (
-  node: IElement | IComponent,
+  node: IPageNode,
   renderer: IRenderer,
   editedProps: IPropData,
 ) => {
-  if (isElement(node)) {
+  if (isElementPageNodeRef(node)) {
     // this is memoized by createTransformer, so we're effectively getting the last rendered output
     const renderOutput = renderer.renderIntermediateElement(node)
 

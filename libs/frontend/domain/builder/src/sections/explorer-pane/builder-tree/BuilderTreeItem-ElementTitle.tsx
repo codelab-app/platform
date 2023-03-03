@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import type { IElement } from '@codelab/frontend/abstract/core'
-import { isComponentModel } from '@codelab/frontend/domain/component'
+import { isComponentRenderTypeRef } from '@codelab/frontend/domain/component'
 import { Col, Row, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -13,7 +13,7 @@ interface BuilderTreeItemElementTitleProps {
 export const BuilderTreeItemElementTitle = observer(
   ({ element }: BuilderTreeItemElementTitleProps) => {
     const atomName = element.atomName
-    const isComponentInstance = isComponentModel(element.renderType)
+    const isComponentInstance = isComponentRenderTypeRef(element.renderType)
 
     const componentInstanceName = isComponentInstance
       ? element.renderType?.maybeCurrent?.name

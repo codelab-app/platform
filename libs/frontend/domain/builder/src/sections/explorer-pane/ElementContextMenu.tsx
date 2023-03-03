@@ -7,7 +7,7 @@ import type {
 import { RendererTab } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
-  isComponentModel,
+  isComponentRenderTypeRef,
 } from '@codelab/frontend/domain/component'
 import { elementRef, elementTreeRef } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -47,7 +47,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
-    const isComponentInstance = isComponentModel(element.renderType)
+    const isComponentInstance = isComponentRenderTypeRef(element.renderType)
 
     const onAddChild = () => {
       if (!elementTree) {
@@ -89,7 +89,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onEditComponent = () => {
-      if (!isComponentModel(element.renderType)) {
+      if (!isComponentRenderTypeRef(element.renderType)) {
         return
       }
 

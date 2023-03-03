@@ -11,7 +11,7 @@ import {
   elementRef,
   getComponentService,
   IComponent,
-  isComponentModel,
+  isComponentRenderTypeRef,
 } from '@codelab/frontend/abstract/core'
 import {
   ElementTree,
@@ -114,7 +114,7 @@ export class Component
       const clonedElement = element.clone(cloneIndex)
 
       // don't move it to element model to avoid dependency issues
-      if (isComponentModel(element.renderType)) {
+      if (isComponentRenderTypeRef(element.renderType)) {
         const componentClone = element.renderType.current.clone(
           clonedElement.id,
         )
