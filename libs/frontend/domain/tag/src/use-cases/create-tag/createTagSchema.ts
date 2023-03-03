@@ -1,7 +1,8 @@
-import type { ICreateTagDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateTagData } from '@codelab/frontend/abstract/core'
 import {
+  idSchema,
   nonEmptyString,
-  showFieldOnDev,
+  ownerSchema,
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 

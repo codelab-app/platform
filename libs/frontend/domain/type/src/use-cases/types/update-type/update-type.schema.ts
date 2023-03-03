@@ -1,5 +1,5 @@
-import type { IUpdateTypeDTO } from '@codelab/frontend/abstract/core'
-import { nonEmptyString } from '@codelab/frontend/view/components'
+import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
+import { hideField, nonEmptyString } from '@codelab/frontend/view/components'
 import {
   ICodeMirrorLanguage,
   IElementTypeKind,

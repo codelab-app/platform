@@ -10,6 +10,7 @@ import type {
 import {
   elementRef,
   getBuilderService,
+  getComponentService,
   IElementDTO,
   IRenderTypeKind,
 } from '@codelab/frontend/abstract/core'
@@ -47,7 +48,6 @@ import {
   makeDuplicateInput,
 } from './api.utils'
 import { elementApi } from './apis'
-import { getComponentService } from './component'
 import { Element } from './element.model'
 import { ElementRepository } from './element.repository'
 import {

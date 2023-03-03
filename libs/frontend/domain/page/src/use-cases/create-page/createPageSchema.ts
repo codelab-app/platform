@@ -1,8 +1,9 @@
-import type { ICreatePageDTO } from '@codelab/frontend/abstract/core'
+import type { ICreatePageData } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
-  hideField,
+  idSchema,
   nonEmptyString,
+  ownerSchema,
   showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
