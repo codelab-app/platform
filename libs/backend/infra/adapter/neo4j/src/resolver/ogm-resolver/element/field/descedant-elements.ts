@@ -1,9 +1,9 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { IFieldResolver } from '@graphql-tools/utils'
 import type { Node } from 'neo4j-driver'
-import { getDescendantsCypher } from '../../../cypher'
-import { Repository, withReadTransaction } from '../../../infra'
-import { elementSelectionSet } from '../../../selectionSet'
+import { getDescendantsCypher } from '../../../../cypher'
+import { Repository, withReadTransaction } from '../../../../infra'
+import { elementSelectionSet } from '../../../../selectionSet'
 
 export const descendantElementsFieldResolver: IFieldResolver<
   IEntity,

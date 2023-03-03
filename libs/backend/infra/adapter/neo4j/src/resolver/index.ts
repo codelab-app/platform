@@ -1,3 +1,2 @@
-export * from './element'
-export * from './page'
+export * from './pure-resolver'
 export * from './resolvers'

@@ -2,8 +2,8 @@ import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
 import type { Context } from '@neo4j/graphql/dist/types'
-import { Repository } from '../../../infra'
-import { domainSelection } from '../../../selectionSet'
+import { Repository } from '../../../../infra'
+import { domainSelection } from '../../../../selectionSet'
 import {
   domainExistsError,
   domainNotFoundError,
