@@ -1,16 +1,14 @@
 import type { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
 import {
   builderServiceContext,
+  componentServiceContext,
   elementServiceContext,
 } from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AppService, appServiceContext } from '@codelab/frontend/domain/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
-import {
-  ComponentService,
-  componentServiceContext,
-} from '@codelab/frontend/domain/component'
+import { ComponentService } from '@codelab/frontend/domain/component'
 import {
   DomainService,
   domainServiceContext,

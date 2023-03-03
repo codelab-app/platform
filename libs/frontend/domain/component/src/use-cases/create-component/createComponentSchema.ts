@@ -1,7 +1,8 @@
-import type { ICreateComponentDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateComponentData } from '@codelab/frontend/abstract/core'
 import {
+  idSchema,
   nonEmptyString,
-  showFieldOnDev,
+  ownerSchema,
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 

@@ -1,8 +1,12 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
-import { idSchema } from '@codelab/frontend/shared/domain'
-import { showFieldOnDev } from '@codelab/frontend/shared/utils'
-import { CodeMirrorField } from '@codelab/frontend/view/components'
+// import { idSchema } from '@codelab/frontend/shared/domain'
+// import { showFieldOnDev } from '@codelab/frontend/shared/utils'
+import {
+  CodeMirrorField,
+  idSchema,
+  showFieldOnDev,
+} from '@codelab/frontend/view/components'
 import {
   CodeMirrorLanguage,
   ElementTypeKind,

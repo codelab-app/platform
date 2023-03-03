@@ -1,6 +1,6 @@
-import type { ICreateDomainDTO } from '@codelab/frontend/abstract/core'
+import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
 import {
-  hideField,
+  idSchema,
   nonEmptyString,
   showFieldOnDev,
 } from '@codelab/frontend/view/components'

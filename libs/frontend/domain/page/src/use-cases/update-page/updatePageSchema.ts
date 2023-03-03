@@ -1,7 +1,9 @@
-import type { IUpdatePageDTO } from '@codelab/frontend/abstract/core'
+import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
+  idSchema,
   nonEmptyString,
+  showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
