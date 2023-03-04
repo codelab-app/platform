@@ -31,7 +31,7 @@ const create = ({ id, name, type, config, owner }: IResourceDTO) =>
     type,
   })
 
-@model('@codelab/Resource')
+@model('@codelab/ResourceModel')
 export class Resource
   extends Model(() => ({
     config: prop<Ref<IProp>>(),
