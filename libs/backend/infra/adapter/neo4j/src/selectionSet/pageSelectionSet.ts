@@ -7,7 +7,7 @@ export const pageSelectionSet = `{
     id
     name
   }
-  pageContainerElement {
+  pageContentContainer {
     id
     name
   }

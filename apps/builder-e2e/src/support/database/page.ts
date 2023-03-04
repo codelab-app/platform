@@ -18,21 +18,21 @@ export const createPageInput = (
 
   return merge(
     {
+      _compoundName: createUniqueName(name, { id: appId }),
       app: {
         connect: { where: { node: { id: appId } } },
       },
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       id: id,
       kind: IPageKind.Regular,
-      name: createUniqueName(name, appId),
-      pageContainerElement: {
+      pageContentContainer: {
         connect: { where: { node: { id: rootId } } },
       },
       rootElement: {
         create: {
           node: {
             id: rootId,
-            name: createUniqueName(ROOT_ELEMENT_NAME, id),
+            name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
           },
         },
       },
