@@ -9,7 +9,7 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
-  @model('@codelab/BaseType')
+  @model(`@codelab/BaseType/${typeKind}`)
   class BaseType
     extends Model({
       id: idProp,

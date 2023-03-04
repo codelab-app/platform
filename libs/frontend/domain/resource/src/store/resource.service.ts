@@ -25,7 +25,7 @@ import { Resource } from './resource.model'
 import { ResourceRepository } from './resource.repository'
 import { ResourceModalService } from './resource-modal.service'
 
-@model('@codelab/Resource')
+@model('@codelab/ResourceService')
 export class ResourceService
   extends Model({
     createModal: prop(() => new ModalService({})),

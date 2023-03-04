@@ -44,11 +44,11 @@ export const CreateTagModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createTagSchema}
       >
-        <AutoFields omitFields={['parentTag']} />
+        <AutoFields omitFields={['parent']} />
         {/* <DisplayIfNotRoot> */}
         <SelectField
           label="Parent Tag"
-          name="parentTag.id"
+          name="parent.id"
           optionFilterProp="label"
           options={options}
           showSearch

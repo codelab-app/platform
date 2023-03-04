@@ -383,7 +383,7 @@ export class Renderer
         const injectedText = parentOutput.props?.[CUSTOM_TEXT_PROP_KEY]
 
         const shouldInjectText =
-          parentOutput.element.atom?.current.allowCustomTextInjection
+          parentOutput.element.renderType?.current.allowCustomTextInjection
 
         if (shouldInjectText && injectedText) {
           return makeCustomTextContainer(injectedText)

@@ -18,7 +18,7 @@ describe('ConditionalRenderPipe', () => {
     )
 
     expect(output).toEqual({
-      atomType: data.elementToRender.atom?.current.type,
+      atomType: data.elementToRender.renderType?.current.type,
       element: data.elementToRender,
       props: expect.objectContaining({
         [DATA_ELEMENT_ID]: data.elementToRender.id,
@@ -52,7 +52,7 @@ describe('ConditionalRenderPipe', () => {
     )
 
     expect(output).toEqual({
-      atomType: data.elementToRender.atom?.current.type,
+      atomType: data.elementToRender.renderType?.current.type,
       element: data.elementToRender,
       props: expect.objectContaining({
         [DATA_ELEMENT_ID]: data.elementToRender.id,

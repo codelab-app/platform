@@ -23,7 +23,7 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
     const { kind } = page
     const omitFields = ['appId']
 
-    if (kind === IPageKind.Regular) {
+    if (kind !== IPageKind.Provider) {
       omitFields.push('pageContainerElementId')
     }
 

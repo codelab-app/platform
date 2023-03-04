@@ -1,5 +1,5 @@
 export const nonEmptyString = {
-  type: 'string' as const,
-  transform: ['trim'],
   minLength: 1,
+  transform: ['trim'],
+  type: 'string' as const,
 }
