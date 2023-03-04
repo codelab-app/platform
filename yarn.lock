@@ -81,6 +81,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@apollo/cache-control-types@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@apollo/cache-control-types@npm:1.0.2"
+  peerDependencies:
+    graphql: 14.x || 15.x || 16.x
+  checksum: 1e00c57b45fbd8656c96cdcd254658f332c1955bd8db9274c665e1c6ef8ac881a6b6a3f953b60638ae5f59fdfce6b005adb9a5b945b694903579a9665499e823
+  languageName: node
+  linkType: hard
+
+"@apollo/federation-internals@npm:2.3.2":
+  version: 2.3.2
+  resolution: "@apollo/federation-internals@npm:2.3.2"
+  dependencies:
+    chalk: ^4.1.0
+    js-levenshtein: ^1.1.6
+  peerDependencies:
+    graphql: ^16.5.0
+  checksum: 9f52120d30230a0021547f170a7432c8fcb505e1ea3b677543e77aacf3a3e6f3297154ae93090e8713814e20ec970646b5c12d34b28267d856190782a174b485
+  languageName: node
+  linkType: hard
+
 "@apollo/protobufjs@npm:1.2.2":
   version: 1.2.2
   resolution: "@apollo/protobufjs@npm:1.2.2"
@@ -102,6 +123,18 @@ __metadata:
     apollo-pbjs: bin/pbjs
     apollo-pbts: bin/pbts
   checksum: 3f3ec1f428cbcc53760daa6f1076c9043a5aa270b2c9a2ca9f97610eabd3ee1aea08dd36fac658bab83eb6607bc62340bbc6c13ba6bba3c6776df71d68b55929
+  languageName: node
+  linkType: hard
+
+"@apollo/subgraph@npm:^2.2.3":
+  version: 2.3.2
+  resolution: "@apollo/subgraph@npm:2.3.2"
+  dependencies:
+    "@apollo/cache-control-types": ^1.0.2
+    "@apollo/federation-internals": 2.3.2
+  peerDependencies:
+    graphql: ^16.5.0
+  checksum: 047bf80079d58f57f7c93c99735375899528e46189f1a1bb9ce12114c66716ca49d02b941694a2f8167e1c6a1054a51ba85255e5052422605713c8c450f57a75
   languageName: node
   linkType: hard
 
@@ -6627,27 +6660,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/cypher-builder@npm:~0.2.0":
-  version: 0.2.0
-  resolution: "@neo4j/cypher-builder@npm:0.2.0"
-  checksum: 1484c15b1e495444a01ed79830a2ebafb8ac8fea9a960aa785723aa3804a9847d39f025f3a7fec07fe6d41bd4d7c5da90c58cd6130ff96438d599368cf0cfb9d
+"@neo4j/cypher-builder@npm:~0.2.1":
+  version: 0.2.1
+  resolution: "@neo4j/cypher-builder@npm:0.2.1"
+  checksum: 3e77d5d8ac2e1aef549da91cd162a36172aaa4eef4e24ca345d4435e3e06500e0feda65e45193809328ed361a86d05842faa9f8b1658bb26e279da6258e4d002
   languageName: node
   linkType: hard
 
-"@neo4j/graphql-ogm@npm:3.16.1":
-  version: 3.16.1
-  resolution: "@neo4j/graphql-ogm@npm:3.16.1"
+"@neo4j/graphql-ogm@npm:3.17.0":
+  version: 3.17.0
+  resolution: "@neo4j/graphql-ogm@npm:3.17.0"
   dependencies:
     "@graphql-codegen/core": ^2.5.1
     "@graphql-codegen/plugin-helpers": ^3.0.0
     "@graphql-codegen/typescript": ^2.6.0
     "@graphql-tools/merge": ^8.3.3
-    "@neo4j/graphql": ^3.16.1
+    "@neo4j/graphql": ^3.17.0
     prettier: ^2.7.1
   peerDependencies:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0 || ^5.0.0
-  checksum: ec12c12d957fb7d5dc0233584b3f3390f8091c475d03245da89a3640afa3d515c67f4b1077acfc7be9def5ba42ab588d6e951dded4f43cba9521394ea2e1cef9
+  checksum: 9a294e988f792cb7fd9b36b0d610d84428a86d207c45cbe3ab3addb148b0a435f329e5ab330180afefc8d67ad4079cf78bc40baae6c4b869a4e7d4dcc38ca645
   languageName: node
   linkType: hard
 
@@ -6662,15 +6695,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/graphql@npm:3.16.1":
-  version: 3.16.1
-  resolution: "@neo4j/graphql@npm:3.16.1"
+"@neo4j/graphql@npm:3.17.0, @neo4j/graphql@npm:^3.17.0":
+  version: 3.17.0
+  resolution: "@neo4j/graphql@npm:3.17.0"
   dependencies:
+    "@apollo/subgraph": ^2.2.3
     "@graphql-tools/merge": ^8.3.3
     "@graphql-tools/resolvers-composition": ^6.5.3
     "@graphql-tools/schema": 9.0.16
     "@graphql-tools/utils": ^9.0.0
-    "@neo4j/cypher-builder": ~0.2.0
+    "@neo4j/cypher-builder": ~0.2.1
     camelcase: ^6.3.0
     debug: ^4.3.4
     deep-equal: ^2.0.5
@@ -6684,33 +6718,7 @@ __metadata:
   peerDependencies:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0 || ^5.0.0
-  checksum: 1754c339f323e4a313fd22ea74dc1e7a121fa1c0b53f94edb7cf9b194c86b307a201ec544e4049e93bc4e8ef5d901922cff0b9efe2b79e8dbe774139b0a98470
-  languageName: node
-  linkType: hard
-
-"@neo4j/graphql@patch:@neo4j/graphql@npm%3A3.16.1#./.yarn/patches/@neo4j-graphql-npm-3.16.1-1b83dda2a3.patch::locator=codelab%40workspace%3A.":
-  version: 3.16.1
-  resolution: "@neo4j/graphql@patch:@neo4j/graphql@npm%3A3.16.1#./.yarn/patches/@neo4j-graphql-npm-3.16.1-1b83dda2a3.patch::version=3.16.1&hash=bd87ac&locator=codelab%40workspace%3A."
-  dependencies:
-    "@graphql-tools/merge": ^8.3.3
-    "@graphql-tools/resolvers-composition": ^6.5.3
-    "@graphql-tools/schema": 9.0.16
-    "@graphql-tools/utils": ^9.0.0
-    "@neo4j/cypher-builder": ~0.2.0
-    camelcase: ^6.3.0
-    debug: ^4.3.4
-    deep-equal: ^2.0.5
-    dot-prop: ^6.0.1
-    graphql-compose: ^9.0.8
-    graphql-parse-resolve-info: ^4.12.3
-    graphql-relay: ^0.10.0
-    pluralize: ^8.0.0
-    semver: ^7.3.7
-    uuid: ^9.0.0
-  peerDependencies:
-    graphql: ^16.0.0
-    neo4j-driver: ^4.1.0 || ^5.0.0
-  checksum: a7e5603496a4416155fdee473802670873c5bc1425902dcf21f3a8f7815d79437ee4e850447ef81f10287d5408c5091aa821efc8eb76d3a3d7bef9cebf2f2b77
+  checksum: 1ce68817b33f906d2607fbd48ab4076727c3eca772055aa7db26e86eb12e875c7d6ac4b9c0d078023832a207c5fd78e4003120bd83a02e0db43def2d0f544de0
   languageName: node
   linkType: hard
 
@@ -13953,8 +13961,8 @@ __metadata:
     "@mui/material": 5.10.1
     "@mui/x-data-grid": 5.10.0
     "@mui/x-date-pickers": 5.0.0-beta.1
-    "@neo4j/graphql": 3.16.1
-    "@neo4j/graphql-ogm": 3.16.1
+    "@neo4j/graphql": 3.17.0
+    "@neo4j/graphql-ogm": 3.17.0
     "@neo4j/graphql-plugin-auth": 2.1.0
     "@next/bundle-analyzer": 12.0.7
     "@nrwl/cli": 15.8.1
@@ -14118,7 +14126,7 @@ __metadata:
     mobx-react-lite: 3.4.0
     mobx-utils: 6.0.5
     morphext: 2.4.7
-    neo4j-driver: 5.5.0
+    neo4j-driver: 5.6.0
     next: 13.1.1
     next-compose-plugins: 2.2.1
     next-plugin-antd-less: ^1.8.0
@@ -23056,6 +23064,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-levenshtein@npm:^1.1.6":
+  version: 1.1.6
+  resolution: "js-levenshtein@npm:1.1.6"
+  checksum: 409f052a7f1141be4058d97da7860e08efd97fc588b7a4c5cfa0548bc04f6d576644dae65ab630266dff685d56fb90d494e03d4d79cb484c287746b4f1bf0694
+  languageName: node
+  linkType: hard
+
 "js-string-escape@npm:^1.0.1":
   version: 1.0.1
   resolution: "js-string-escape@npm:1.0.1"
@@ -25327,32 +25342,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"neo4j-driver-bolt-connection@npm:^5.5.0":
-  version: 5.5.0
-  resolution: "neo4j-driver-bolt-connection@npm:5.5.0"
+"neo4j-driver-bolt-connection@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "neo4j-driver-bolt-connection@npm:5.6.0"
   dependencies:
     buffer: ^6.0.3
-    neo4j-driver-core: ^5.5.0
+    neo4j-driver-core: ^5.6.0
     string_decoder: ^1.3.0
-  checksum: 57921254dd791858ddd324fc13682d4b7a420d452f60203321fb654eece2eb68d79b8c2e0ee23dfc216c93461c9b2ed770151090501f3af57e242bc00f20162c
+  checksum: 5268e8909017f3a0c5f82cf8473cb3cf132b9e22d71d114a675a865dac1ddc5a36e7655f27dffae89467d3cb603faa2406f0211a1cba36566c32d3a9fd43ee7e
   languageName: node
   linkType: hard
 
-"neo4j-driver-core@npm:^5.5.0":
-  version: 5.5.0
-  resolution: "neo4j-driver-core@npm:5.5.0"
-  checksum: e1648214277aeb3283f9c697d40f09209745270802bc95be7725a09459312fc1c96f3abd58fc1a2b6b4126ac25dd823ea94751dc536a68d43ba4346c9a2a141d
+"neo4j-driver-core@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "neo4j-driver-core@npm:5.6.0"
+  checksum: 3e89225a84b5dd17caad7012a1e24b4192f3d317fcb1054780e631d27cfc1e33a37e6895546bd6e694d51e0e62bbe3bc1dace39391004274e4e4563cbd6c7924
   languageName: node
   linkType: hard
 
-"neo4j-driver@npm:5.5.0":
-  version: 5.5.0
-  resolution: "neo4j-driver@npm:5.5.0"
+"neo4j-driver@npm:5.6.0":
+  version: 5.6.0
+  resolution: "neo4j-driver@npm:5.6.0"
   dependencies:
-    neo4j-driver-bolt-connection: ^5.5.0
-    neo4j-driver-core: ^5.5.0
+    neo4j-driver-bolt-connection: ^5.6.0
+    neo4j-driver-core: ^5.6.0
     rxjs: ^7.8.0
-  checksum: 644e7feb938aaba96f376a8889edc597c93831e735f1e00f60108354bcea142d98199e7f5c8f812783e661927639de3290bc4fe679070872b5e4fbd6a823e03e
+  checksum: c84e73bc5c8beb3112b58418a8f8bda15f5ded62c401d7a3549f8b3a9796071c132d161ec80e3cc4501eca67c80fa7f27f4390ad9bd441887439962c496808a5
   languageName: node
   linkType: hard
 
