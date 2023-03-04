@@ -2,22 +2,21 @@
 
 import type { IAnyType } from '@codelab/frontend/abstract/core'
 import {
+  componentRef,
   CUSTOM_TEXT_PROP_KEY,
+  elementRef,
   RendererType,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
-import {
-  Component,
-  componentRef,
-  ComponentService,
-} from '@codelab/frontend/domain/component'
+import { Component, ComponentService } from '@codelab/frontend/domain/component'
 import {
   Element,
   ElementService,
   ElementTree,
 } from '@codelab/frontend/domain/element'
-import { Prop, PropService } from '@codelab/frontend/domain/prop'
+import { pageRef } from '@codelab/frontend/domain/page'
+import { Prop, propRef, PropService } from '@codelab/frontend/domain/prop'
 import {
   ActionService,
   Store,
@@ -98,57 +97,62 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       type: IAtomType.Text,
     })
 
+    data.elementToRender02Props = new Prop({ id: v4() })
+
     data.elementToRender02 = new Element({
       id: v4(),
       name: '02',
-      props: new Prop({}),
+      props: propRef(data.elementToRender02Props.id),
     })
 
     const compRootElementId = v4()
 
     data.componentToRender = new Component({
       api: typeRef(data.emptyInterface),
-      childrenContainerElementId: compRootElementId,
+      childrenContainerElement: elementRef(compRootElementId),
       id: v4(),
       name: 'My Component',
       owner,
-      rootElementId: compRootElementId,
+      rootElement: elementRef(compRootElementId),
+    })
+
+    data.componentRootElementProps = new Prop({
+      data: frozen({
+        componentProp: 'original',
+        [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
+      }),
+      id: v4(),
     })
 
     data.componentRootElement = new Element({
-      atom: atomRef(data.textAtom.id),
       customCss: '',
       guiCss: '',
       id: compRootElementId,
       name: '01',
       parentComponent: componentRef(data.componentToRender.id),
-      props: new Prop({
-        data: frozen({
-          componentProp: 'original',
-          [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
-        }),
-        id: v4(),
+      props: propRef(data.componentRootElementProps.id),
+      renderType: atomRef(data.textAtom.id),
+    })
+
+    data.elementToRenderProps = new Prop({
+      data: frozen({
+        prop01: 'prop01Value',
+        prop02: 'prop02Value',
+        prop03: {
+          type: data.primitiveType.id,
+          value: 'prop03Value',
+        },
       }),
+      id: v4(),
     })
 
     data.elementToRender = new Element({
-      atom: atomRef(data.divAtom.id),
       customCss: '',
       guiCss: '',
       id: v4(),
       name: ROOT_ELEMENT_NAME,
-      pageId,
-      props: new Prop({
-        data: frozen({
-          prop01: 'prop01Value',
-          prop02: 'prop02Value',
-          prop03: {
-            type: data.primitiveType.id,
-            value: 'prop03Value',
-          },
-        }),
-        id: v4(),
-      }),
+      page: pageRef(pageId),
+      props: propRef(data.elementToRenderProps.id),
       propTransformationJs: `
     // Write a transformer function, you get the input props as parameter
     // All returned props will get merged with the original ones
@@ -162,31 +166,21 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
             {}
           )
       }`,
+      renderType: atomRef(data.divAtom.id),
+    })
+
+    data.componentInstanceElementToRenderProps = new Prop({
+      data: frozen({
+        componentProp: 'instance',
+      }),
+      id: v4(),
     })
 
     data.componentInstanceElementToRender = new Element({
       id: v4(),
       name: '01',
-      parentId: data.elementToRender.id,
-      props: new Prop({
-        data: frozen({
-          componentProp: 'instance',
-        }),
-        id: v4(),
-      }),
-      renderComponentType: componentRef(data.componentToRender),
-    })
-
-    data.componentInstanceElementToRender = new Element({
-      id: v4(),
-      name: '01',
-      props: new Prop({
-        data: frozen({
-          componentProp: 'instance',
-        }),
-        id: v4(),
-      }),
-      renderComponentType: componentRef(data.componentToRender),
+      props: propRef(data.componentInstanceElementToRenderProps.id),
+      renderType: componentRef(data.componentToRender),
     })
 
     const typeService = new TypeService({
@@ -233,7 +227,17 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       pageElementTree: ElementTree.init(data.componentRootElement, [
         data.componentRootElement,
       ]),
-      propService: new PropService({}),
+      propService: new PropService({
+        props: objectMap([
+          [data.elementToRenderProps.id, data.elementToRenderProps],
+          [data.elementToRender02.id, data.elementToRender02Props],
+          [data.componentRootElementProps.id, data.componentRootElementProps],
+          [
+            data.componentInstanceElementToRenderProps.id,
+            data.componentInstanceElementToRenderProps,
+          ],
+        ]),
+      }),
       renderer: data.renderer,
       storeService: new StoreService({
         stores: objectMap([[data.store.id, data.store]]),

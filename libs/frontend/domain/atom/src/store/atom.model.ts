@@ -120,6 +120,8 @@ export class Atom
 
       name: this.name,
 
+      owner: connectAuth0Owner(this.owner),
+
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
 
       type: this.type,

@@ -6,7 +6,6 @@ import type {
 import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
 import { CreateElementButton } from '@codelab/frontend/domain/element'
 import { Col, Row } from 'antd'
-import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
