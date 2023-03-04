@@ -7059,9 +7059,6 @@ export type Element = {
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>
   firstChildConnection: ElementFirstChildConnection
   guiCss?: Maybe<Scalars['String']>
-  hooks: Array<Hook>
-  hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
-  hooksConnection: ElementHooksConnection
   id: Scalars['ID']
   name: Scalars['String']
   nextSibling?: Maybe<Element>
@@ -7115,25 +7112,6 @@ export type ElementFirstChildConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<ElementFirstChildConnectionSort>>
   where?: InputMaybe<ElementFirstChildConnectionWhere>
-}
-
-export type ElementHooksArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<HookOptions>
-  where?: InputMaybe<HookWhere>
-}
-
-export type ElementHooksAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<HookWhere>
-}
-
-export type ElementHooksConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ElementHooksConnectionSort>>
-  where?: InputMaybe<ElementHooksConnectionWhere>
 }
 
 export type ElementNextSiblingArgs = {
@@ -7367,7 +7345,6 @@ export type ElementComponentRenderComponentTypeNodeAggregateSelection = {
 
 export type ElementConnectInput = {
   firstChild?: InputMaybe<ElementFirstChildConnectFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksConnectFieldInput>>
   nextSibling?: InputMaybe<ElementNextSiblingConnectFieldInput>
   page?: InputMaybe<ElementPageConnectFieldInput>
   parent?: InputMaybe<ElementParentConnectFieldInput>
@@ -7382,7 +7359,6 @@ export type ElementConnectInput = {
 
 export type ElementConnectOrCreateInput = {
   firstChild?: InputMaybe<ElementFirstChildConnectOrCreateFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
   nextSibling?: InputMaybe<ElementNextSiblingConnectOrCreateFieldInput>
   page?: InputMaybe<ElementPageConnectOrCreateFieldInput>
   parent?: InputMaybe<ElementParentConnectOrCreateFieldInput>
@@ -7405,7 +7381,6 @@ export type ElementCreateInput = {
   customCss?: InputMaybe<Scalars['String']>
   firstChild?: InputMaybe<ElementFirstChildFieldInput>
   guiCss?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<ElementHooksFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
@@ -7425,7 +7400,6 @@ export type ElementCreateInput = {
 
 export type ElementDeleteInput = {
   firstChild?: InputMaybe<ElementFirstChildDeleteFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
   nextSibling?: InputMaybe<ElementNextSiblingDeleteFieldInput>
   page?: InputMaybe<ElementPageDeleteFieldInput>
   parent?: InputMaybe<ElementParentDeleteFieldInput>
@@ -7440,7 +7414,6 @@ export type ElementDeleteInput = {
 
 export type ElementDisconnectInput = {
   firstChild?: InputMaybe<ElementFirstChildDisconnectFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
   nextSibling?: InputMaybe<ElementNextSiblingDisconnectFieldInput>
   page?: InputMaybe<ElementPageDisconnectFieldInput>
   parent?: InputMaybe<ElementParentDisconnectFieldInput>
@@ -7707,109 +7680,6 @@ export type ElementFirstChildUpdateFieldInput = {
   disconnect?: InputMaybe<ElementFirstChildDisconnectFieldInput>
   update?: InputMaybe<ElementFirstChildUpdateConnectionInput>
   where?: InputMaybe<ElementFirstChildConnectionWhere>
-}
-
-export type ElementHookHooksAggregationSelection = {
-  __typename?: 'ElementHookHooksAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<ElementHookHooksNodeAggregateSelection>
-}
-
-export type ElementHookHooksNodeAggregateSelection = {
-  __typename?: 'ElementHookHooksNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-}
-
-export type ElementHooksAggregateInput = {
-  AND?: InputMaybe<Array<ElementHooksAggregateInput>>
-  NOT?: InputMaybe<ElementHooksAggregateInput>
-  OR?: InputMaybe<Array<ElementHooksAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<ElementHooksNodeAggregationWhereInput>
-}
-
-export type ElementHooksConnectFieldInput = {
-  connect?: InputMaybe<Array<HookConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-  where?: InputMaybe<HookConnectWhere>
-}
-
-export type ElementHooksConnectOrCreateFieldInput = {
-  onCreate: ElementHooksConnectOrCreateFieldInputOnCreate
-  where: HookConnectOrCreateWhere
-}
-
-export type ElementHooksConnectOrCreateFieldInputOnCreate = {
-  node: HookOnCreateInput
-}
-
-export type ElementHooksConnection = {
-  __typename?: 'ElementHooksConnection'
-  edges: Array<ElementHooksRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type ElementHooksConnectionSort = {
-  node?: InputMaybe<HookSort>
-}
-
-export type ElementHooksConnectionWhere = {
-  AND?: InputMaybe<Array<ElementHooksConnectionWhere>>
-  NOT?: InputMaybe<ElementHooksConnectionWhere>
-  OR?: InputMaybe<Array<ElementHooksConnectionWhere>>
-  node?: InputMaybe<HookWhere>
-}
-
-export type ElementHooksCreateFieldInput = {
-  node: HookCreateInput
-}
-
-export type ElementHooksDeleteFieldInput = {
-  delete?: InputMaybe<HookDeleteInput>
-  where?: InputMaybe<ElementHooksConnectionWhere>
-}
-
-export type ElementHooksDisconnectFieldInput = {
-  disconnect?: InputMaybe<HookDisconnectInput>
-  where?: InputMaybe<ElementHooksConnectionWhere>
-}
-
-export type ElementHooksFieldInput = {
-  connect?: InputMaybe<Array<ElementHooksConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<ElementHooksCreateFieldInput>>
-}
-
-export type ElementHooksNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementHooksNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementHooksNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<ElementHooksNodeAggregationWhereInput>>
-}
-
-export type ElementHooksRelationship = {
-  __typename?: 'ElementHooksRelationship'
-  cursor: Scalars['String']
-  node: Hook
-}
-
-export type ElementHooksUpdateConnectionInput = {
-  node?: InputMaybe<HookUpdateInput>
-}
-
-export type ElementHooksUpdateFieldInput = {
-  connect?: InputMaybe<Array<ElementHooksConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<ElementHooksCreateFieldInput>>
-  delete?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
-  update?: InputMaybe<ElementHooksUpdateConnectionInput>
-  where?: InputMaybe<ElementHooksConnectionWhere>
 }
 
 export type ElementNextSiblingAggregateInput = {
@@ -8857,7 +8727,6 @@ export type ElementPropsUpdateFieldInput = {
 
 export type ElementRelationInput = {
   firstChild?: InputMaybe<ElementFirstChildCreateFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksCreateFieldInput>>
   nextSibling?: InputMaybe<ElementNextSiblingCreateFieldInput>
   page?: InputMaybe<ElementPageCreateFieldInput>
   parent?: InputMaybe<ElementParentCreateFieldInput>
@@ -9386,7 +9255,6 @@ export type ElementUpdateInput = {
   customCss?: InputMaybe<Scalars['String']>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
   guiCss?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<ElementHooksUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
@@ -9422,19 +9290,6 @@ export type ElementWhere = {
   guiCss_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   guiCss_MATCHES?: InputMaybe<Scalars['String']>
   guiCss_STARTS_WITH?: InputMaybe<Scalars['String']>
-  hooksAggregate?: InputMaybe<ElementHooksAggregateInput>
-  hooksConnection_ALL?: InputMaybe<ElementHooksConnectionWhere>
-  hooksConnection_NONE?: InputMaybe<ElementHooksConnectionWhere>
-  hooksConnection_SINGLE?: InputMaybe<ElementHooksConnectionWhere>
-  hooksConnection_SOME?: InputMaybe<ElementHooksConnectionWhere>
-  /** Return Elements where all of the related Hooks match this filter */
-  hooks_ALL?: InputMaybe<HookWhere>
-  /** Return Elements where none of the related Hooks match this filter */
-  hooks_NONE?: InputMaybe<HookWhere>
-  /** Return Elements where one of the related Hooks match this filter */
-  hooks_SINGLE?: InputMaybe<HookWhere>
-  /** Return Elements where some of the related Hooks match this filter */
-  hooks_SOME?: InputMaybe<HookWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -10751,14 +10606,6 @@ export type HookConnectOrCreateInput = {
   element?: InputMaybe<HookElementConnectOrCreateFieldInput>
 }
 
-export type HookConnectOrCreateWhere = {
-  node: HookUniqueWhere
-}
-
-export type HookConnectWhere = {
-  node: HookWhere
-}
-
 export type HookCreateInput = {
   config?: InputMaybe<HookConfigFieldInput>
   element?: InputMaybe<HookElementFieldInput>
@@ -10980,10 +10827,6 @@ export type HookElementUpdateFieldInput = {
   where?: InputMaybe<HookElementConnectionWhere>
 }
 
-export type HookOnCreateInput = {
-  type: AtomType
-}
-
 export type HookOptions = {
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
@@ -11012,10 +10855,6 @@ export type HookRelationInput = {
 export type HookSort = {
   id?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
-}
-
-export type HookUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']>
 }
 
 export type HookUpdateInput = {
@@ -19848,7 +19687,7 @@ export type ComponentFragment = {
   id: string
   name: string
   rootElement: { __typename?: 'Element'; id: string; name: string }
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   props?: ({ __typename?: 'Prop' } & PropFragment) | null
   childrenContainerElement: { __typename?: 'Element'; id: string }
@@ -19916,7 +19755,7 @@ export type PageFragment = {
   getServerSideProps?: string | null
   kind: PageKind
   app: { __typename?: 'App'; id: string }
-  rootElement: { __typename?: 'Element'; id: string; name: string }
+  rootElement: { __typename?: 'Element' } & ElementFragment
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 
@@ -20555,21 +20394,6 @@ export type GetElementsQueryVariables = Exact<{
 export type GetElementsQuery = {
   __typename?: 'Query'
   elements: Array<{ __typename?: 'Element' } & ElementFragment>
-}
-
-export type GetElementTreeQueryVariables = Exact<{
-  options?: InputMaybe<ElementOptions>
-  where?: InputMaybe<ElementWhere>
-}>
-
-export type GetElementTreeQuery = {
-  __typename?: 'Query'
-  elementTrees: Array<
-    {
-      __typename?: 'Element'
-      descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
-    } & ElementFragment
-  >
 }
 
 export type CreateHooksMutationVariables = Exact<{

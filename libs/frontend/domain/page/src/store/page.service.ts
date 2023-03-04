@@ -1,13 +1,13 @@
 import type {
   ICreatePageData,
   IPage,
+  IPageDTO,
   IPageService,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   getElementService,
-  IPageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
@@ -186,23 +186,10 @@ export class PageService
   })
 
   @modelAction
-  add({
-    id,
-    name,
-    app,
-    rootElement,
-    kind,
-    getServerSideProps,
-    descendentElements,
-  }: IPageDTO) {
-    const page = new Page({
-      app,
-      getServerSideProps,
-      id,
-      kind,
-      name,
-      rootElement: elementRef(rootElement.id),
-    })
+  add = (pageDTO: IPageDTO) => {
+    const page = Page.create(pageDTO)
+
+    console.log(page)
 
     this.pages.set(page.id, page)
 

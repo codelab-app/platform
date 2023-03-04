@@ -6792,22 +6792,6 @@ type Element {
     where: ElementFirstChildConnectionWhere
   ): ElementFirstChildConnection!
   guiCss: String
-  hooks(
-    directed: Boolean = true
-    options: HookOptions
-    where: HookWhere
-  ): [Hook!]!
-  hooksAggregate(
-    directed: Boolean = true
-    where: HookWhere
-  ): ElementHookHooksAggregationSelection
-  hooksConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementHooksConnectionSort!]
-    where: ElementHooksConnectionWhere
-  ): ElementHooksConnection!
   id: ID!
   name: String!
   nextSibling(
@@ -7004,7 +6988,6 @@ type ElementComponentRenderComponentTypeNodeAggregateSelection {
 
 input ElementConnectInput {
   firstChild: ElementFirstChildConnectFieldInput
-  hooks: [ElementHooksConnectFieldInput!]
   nextSibling: ElementNextSiblingConnectFieldInput
   page: ElementPageConnectFieldInput
   parent: ElementParentConnectFieldInput
@@ -7019,7 +7002,6 @@ input ElementConnectInput {
 
 input ElementConnectOrCreateInput {
   firstChild: ElementFirstChildConnectOrCreateFieldInput
-  hooks: [ElementHooksConnectOrCreateFieldInput!]
   nextSibling: ElementNextSiblingConnectOrCreateFieldInput
   page: ElementPageConnectOrCreateFieldInput
   parent: ElementParentConnectOrCreateFieldInput
@@ -7042,7 +7024,6 @@ input ElementCreateInput {
   customCss: String
   firstChild: ElementFirstChildFieldInput
   guiCss: String
-  hooks: ElementHooksFieldInput
   id: ID!
   name: String!
   nextSibling: ElementNextSiblingFieldInput
@@ -7062,7 +7043,6 @@ input ElementCreateInput {
 
 input ElementDeleteInput {
   firstChild: ElementFirstChildDeleteFieldInput
-  hooks: [ElementHooksDeleteFieldInput!]
   nextSibling: ElementNextSiblingDeleteFieldInput
   page: ElementPageDeleteFieldInput
   parent: ElementParentDeleteFieldInput
@@ -7077,7 +7057,6 @@ input ElementDeleteInput {
 
 input ElementDisconnectInput {
   firstChild: ElementFirstChildDisconnectFieldInput
-  hooks: [ElementHooksDisconnectFieldInput!]
   nextSibling: ElementNextSiblingDisconnectFieldInput
   page: ElementPageDisconnectFieldInput
   parent: ElementParentDisconnectFieldInput
@@ -7336,108 +7315,6 @@ input ElementFirstChildUpdateFieldInput {
   disconnect: ElementFirstChildDisconnectFieldInput
   update: ElementFirstChildUpdateConnectionInput
   where: ElementFirstChildConnectionWhere
-}
-
-type ElementHookHooksAggregationSelection {
-  count: Int!
-  node: ElementHookHooksNodeAggregateSelection
-}
-
-type ElementHookHooksNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-}
-
-input ElementHooksAggregateInput {
-  AND: [ElementHooksAggregateInput!]
-  NOT: ElementHooksAggregateInput
-  OR: [ElementHooksAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementHooksNodeAggregationWhereInput
-}
-
-input ElementHooksConnectFieldInput {
-  connect: [HookConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: HookConnectWhere
-}
-
-input ElementHooksConnectOrCreateFieldInput {
-  onCreate: ElementHooksConnectOrCreateFieldInputOnCreate!
-  where: HookConnectOrCreateWhere!
-}
-
-input ElementHooksConnectOrCreateFieldInputOnCreate {
-  node: HookOnCreateInput!
-}
-
-type ElementHooksConnection {
-  edges: [ElementHooksRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementHooksConnectionSort {
-  node: HookSort
-}
-
-input ElementHooksConnectionWhere {
-  AND: [ElementHooksConnectionWhere!]
-  NOT: ElementHooksConnectionWhere
-  OR: [ElementHooksConnectionWhere!]
-  node: HookWhere
-}
-
-input ElementHooksCreateFieldInput {
-  node: HookCreateInput!
-}
-
-input ElementHooksDeleteFieldInput {
-  delete: HookDeleteInput
-  where: ElementHooksConnectionWhere
-}
-
-input ElementHooksDisconnectFieldInput {
-  disconnect: HookDisconnectInput
-  where: ElementHooksConnectionWhere
-}
-
-input ElementHooksFieldInput {
-  connect: [ElementHooksConnectFieldInput!]
-  connectOrCreate: [ElementHooksConnectOrCreateFieldInput!]
-  create: [ElementHooksCreateFieldInput!]
-}
-
-input ElementHooksNodeAggregationWhereInput {
-  AND: [ElementHooksNodeAggregationWhereInput!]
-  NOT: ElementHooksNodeAggregationWhereInput
-  OR: [ElementHooksNodeAggregationWhereInput!]
-}
-
-type ElementHooksRelationship {
-  cursor: String!
-  node: Hook!
-}
-
-input ElementHooksUpdateConnectionInput {
-  node: HookUpdateInput
-}
-
-input ElementHooksUpdateFieldInput {
-  connect: [ElementHooksConnectFieldInput!]
-  connectOrCreate: [ElementHooksConnectOrCreateFieldInput!]
-  create: [ElementHooksCreateFieldInput!]
-  delete: [ElementHooksDeleteFieldInput!]
-  disconnect: [ElementHooksDisconnectFieldInput!]
-  update: ElementHooksUpdateConnectionInput
-  where: ElementHooksConnectionWhere
 }
 
 input ElementNextSiblingAggregateInput {
@@ -8485,7 +8362,6 @@ input ElementPropsUpdateFieldInput {
 
 input ElementRelationInput {
   firstChild: ElementFirstChildCreateFieldInput
-  hooks: [ElementHooksCreateFieldInput!]
   nextSibling: ElementNextSiblingCreateFieldInput
   page: ElementPageCreateFieldInput
   parent: ElementParentCreateFieldInput
@@ -8979,7 +8855,6 @@ input ElementUpdateInput {
   customCss: String
   firstChild: ElementFirstChildUpdateFieldInput
   guiCss: String
-  hooks: [ElementHooksUpdateFieldInput!]
   id: ID
   name: String
   nextSibling: ElementNextSiblingUpdateFieldInput
@@ -9015,31 +8890,6 @@ input ElementWhere {
   guiCss_IN: [String]
   guiCss_MATCHES: String
   guiCss_STARTS_WITH: String
-  hooksAggregate: ElementHooksAggregateInput
-  hooksConnection_ALL: ElementHooksConnectionWhere
-  hooksConnection_NONE: ElementHooksConnectionWhere
-  hooksConnection_SINGLE: ElementHooksConnectionWhere
-  hooksConnection_SOME: ElementHooksConnectionWhere
-
-  """
-  Return Elements where all of the related Hooks match this filter
-  """
-  hooks_ALL: HookWhere
-
-  """
-  Return Elements where none of the related Hooks match this filter
-  """
-  hooks_NONE: HookWhere
-
-  """
-  Return Elements where one of the related Hooks match this filter
-  """
-  hooks_SINGLE: HookWhere
-
-  """
-  Return Elements where some of the related Hooks match this filter
-  """
-  hooks_SOME: HookWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10288,14 +10138,6 @@ input HookConnectOrCreateInput {
   element: HookElementConnectOrCreateFieldInput
 }
 
-input HookConnectOrCreateWhere {
-  node: HookUniqueWhere!
-}
-
-input HookConnectWhere {
-  node: HookWhere!
-}
-
 input HookCreateInput {
   config: HookConfigFieldInput
   element: HookElementFieldInput
@@ -10515,10 +10357,6 @@ input HookElementUpdateFieldInput {
   where: HookElementConnectionWhere
 }
 
-input HookOnCreateInput {
-  type: AtomType!
-}
-
 input HookOptions {
   limit: Int
   offset: Int
@@ -10550,10 +10388,6 @@ Fields to sort Hooks by. The order in which sorts are applied is not guaranteed 
 input HookSort {
   id: SortDirection
   type: SortDirection
-}
-
-input HookUniqueWhere {
-  id: ID
 }
 
 input HookUpdateInput {

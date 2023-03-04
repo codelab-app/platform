@@ -2,7 +2,6 @@ import type {
   IAuth0Owner,
   ICreateElementData,
   IElement,
-  IElementRef,
   IElementService,
   IUpdateElementData,
   RenderType,
@@ -136,7 +135,7 @@ export class ElementService
 
   @modelAction
   add = (elementDTO: IElementDTO): IElement => {
-    console.debug('ElementService.writeCache', elementDTO)
+    // console.debug('ElementService.writeCache', elementDTO)
 
     // if (renderAtomType) {
     //   this.atomService.add(renderAtomType)
@@ -153,11 +152,11 @@ export class ElementService
     // if (props) {
     //   this.propService.add(props)
     // }
-    const { parentComponent, renderType, props } = elementDTO
     const element = Element.create(elementDTO)
+
     this.elements.set(element.id, element)
 
-    this.writeClonesCache(elementDTO)
+    // this.writeClonesCache(elementDTO)
 
     return element
   }
@@ -191,30 +190,6 @@ export class ElementService
     yield* _await(this.elementRepository.add(element))
 
     return element
-  })
-
-  /**
-   * Used to load the entire page tree
-   */
-  @modelFlow
-  private getDescendants = _async(function* (
-    this: ElementService,
-    rootId: IElementRef,
-  ) {
-    const { elementTrees } = yield* _await(
-      elementApi.GetElementTree({ where: { id: rootId } }),
-    )
-
-    if (!elementTrees[0]) {
-      return []
-    }
-
-    const elements: Array<IElementDTO> = [
-      elementTrees[0],
-      ...(elementTrees[0]?.descendantElements ?? []),
-    ]
-
-    return elements.map((element) => this.add(element))
   })
 
   @modelAction

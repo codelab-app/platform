@@ -34,12 +34,3 @@ query GetElements($options: ElementOptions, $where: ElementWhere) {
     ...Element
   }
 }
-
-query GetElementTree($options: ElementOptions, $where: ElementWhere) {
-  elementTrees: elements(options: $options, where: $where) {
-    ...Element
-    descendantElements {
-      ...Element
-    }
-  }
-}

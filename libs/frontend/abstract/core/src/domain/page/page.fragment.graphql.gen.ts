@@ -1,8 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { ElementFragment } from '../element/element.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
 export type PageFragment = {
   id: string
   name: string
@@ -10,7 +12,7 @@ export type PageFragment = {
   getServerSideProps?: string | null
   kind: Types.PageKind
   app: { id: string }
-  rootElement: { id: string; name: string }
+  rootElement: ElementFragment
   pageContentContainer?: { id: string } | null
 }
 
@@ -24,14 +26,14 @@ export const PageFragmentDoc = gql`
       id
     }
     rootElement {
-      id
-      name
+      ...Element
     }
     pageContentContainer {
       id
     }
     kind
   }
+  ${ElementFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

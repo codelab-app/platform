@@ -1,17 +1,19 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 export type ComponentFragment = {
   id: string
   name: string
   rootElement: { id: string; name: string }
-  owner: { id: string; auth0Id: string }
+  owner: OwnerFragment
   api: InterfaceTypeFragment
   props?: PropFragment | null
   childrenContainerElement: { id: string }
@@ -26,8 +28,7 @@ export const ComponentFragmentDoc = gql`
       name
     }
     owner {
-      id
-      auth0Id
+      ...Owner
     }
     api {
       ...InterfaceType
@@ -39,6 +40,7 @@ export const ComponentFragmentDoc = gql`
       id
     }
   }
+  ${OwnerFragmentDoc}
   ${InterfaceTypeFragmentDoc}
   ${PropFragmentDoc}
 `
