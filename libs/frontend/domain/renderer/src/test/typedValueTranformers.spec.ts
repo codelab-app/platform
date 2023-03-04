@@ -16,7 +16,6 @@ describe('RenderService', () => {
     })
   })
 
-  // TODO figure out why ReactNodeType doesn't work in this test
   it('should render props when kind is ReactNodeType', async () => {
     const extraProps = {
       someNode: {
@@ -34,8 +33,9 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        data.componentRootElement.props.get(CUSTOM_TEXT_PROP_KEY).toString() ??
-          '',
+        data.componentRootElement.props.maybeCurrent
+          ?.get(CUSTOM_TEXT_PROP_KEY)
+          .toString() ?? '',
       ),
     ).toBeInTheDocument()
   })
@@ -57,8 +57,8 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        data.componentRootElement.props.current
-          .get(CUSTOM_TEXT_PROP_KEY)
+        data.componentRootElement.props.maybeCurrent
+          ?.get(CUSTOM_TEXT_PROP_KEY)
           .toString() ?? '',
       ),
     ).toBeInTheDocument()

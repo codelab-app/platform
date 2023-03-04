@@ -64,9 +64,9 @@ describe('Renderer', () => {
 
     expect(props).toMatchObject({
       [DATA_COMPONENT_ID]: clonedComponent?.id,
-      ...data.componentInstanceElementToRender.props.values,
+      ...data.componentInstanceElementToRender.props.current.values,
     })
 
-    expect(atomType).toBe(data.componentRootElement.atom?.current.type)
+    expect(atomType).toBe(data.componentRootElement.renderType?.current.type)
   })
 })

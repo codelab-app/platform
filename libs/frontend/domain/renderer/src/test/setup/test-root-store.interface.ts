@@ -5,6 +5,7 @@ import type {
   IElementTree,
   IInterfaceType,
   IPrimitiveType,
+  IProp,
   IReactNodeType,
   IRenderer,
   IRenderPropsType,
@@ -24,9 +25,13 @@ export interface TestServices {
   rootStore: ITestRootStore
   renderer: IRenderer
   componentToRender: IComponent
+  componentRootElementProps: IProp
   componentRootElement: IElement
+  elementToRenderProps: IProp
   elementToRender: IElement
+  elementToRender02Props: IProp
   elementToRender02: IElement
+  componentInstanceElementToRenderProps: IProp
   componentInstanceElementToRender: IElement
   renderPropsType: IRenderPropsType
   reactNodeType: IReactNodeType

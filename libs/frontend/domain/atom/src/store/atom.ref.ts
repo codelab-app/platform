@@ -16,5 +16,5 @@ export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {
 export const isAtomInstance = (
   atom: IElementRenderType | null,
 ): atom is Ref<IAtom> => {
-  return atom?.$modelType === '@codelab/Atom'
+  return atom?.$modelType === '@codelab/AtomRef'
 }
