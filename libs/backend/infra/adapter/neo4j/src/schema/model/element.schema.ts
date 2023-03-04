@@ -20,6 +20,7 @@ export const elementSchema = gql`
 
   type Element {
     id: ID! @id(autogenerate: false)
+    name: String!
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
@@ -31,7 +32,6 @@ export const elementSchema = gql`
     # element is the rootElement for this component
     parentComponent: Component
       @relationship(type: "COMPONENT_ROOT", direction: IN)
-    name: String!
     # Used for the css the user types it manually using the integrated code editor. This is
     # a pure css string.
     customCss: String
@@ -53,7 +53,7 @@ export const elementSchema = gql`
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
     renderType: RenderType
 
-    hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
+    # hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
 
     # This is a custom field resolver
     descendantElements: [Element!]!

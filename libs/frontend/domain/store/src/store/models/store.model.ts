@@ -32,6 +32,14 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
+const create = ({ id, name, api }: IStoreDTO) => {
+  new Store({
+    api: typeRef(api.id) as Ref<IInterfaceType>,
+    id,
+    name,
+  })
+}
+
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
@@ -113,13 +121,7 @@ export class Store
     return props
   }
 
-  static create({ id, name, api }: IStoreDTO) {
-    new Store({
-      api: typeRef(api.id) as Ref<IInterfaceType>,
-      id,
-      name,
-    })
-  }
+  static create = create
 
   // static addFromApp(app: Pick<IAppDTO, 'owner' | 'name'>): IStore {
   //   const interfaceType = new InterfaceType({

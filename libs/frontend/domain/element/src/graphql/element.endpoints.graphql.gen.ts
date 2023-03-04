@@ -47,17 +47,6 @@ export type GetElementsQueryVariables = Types.Exact<{
 
 export type GetElementsQuery = { elements: Array<ElementFragment> }
 
-export type GetElementTreeQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.ElementOptions>
-  where?: Types.InputMaybe<Types.ElementWhere>
-}>
-
-export type GetElementTreeQuery = {
-  elementTrees: Array<
-    { descendantElements: Array<ElementFragment> } & ElementFragment
-  >
-}
-
 export const CreateElementsDocument = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
     createElements(input: $input) {
@@ -99,17 +88,6 @@ export const GetElementsDocument = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
     elements(options: $options, where: $where) {
       ...Element
-    }
-  }
-  ${ElementFragmentDoc}
-`
-export const GetElementTreeDocument = gql`
-  query GetElementTree($options: ElementOptions, $where: ElementWhere) {
-    elementTrees: elements(options: $options, where: $where) {
-      ...Element
-      descendantElements {
-        ...Element
-      }
     }
   }
   ${ElementFragmentDoc}
@@ -203,21 +181,6 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetElements',
-        'query',
-      )
-    },
-    GetElementTree(
-      variables?: GetElementTreeQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetElementTreeQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetElementTreeQuery>(
-            GetElementTreeDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'GetElementTree',
         'query',
       )
     },

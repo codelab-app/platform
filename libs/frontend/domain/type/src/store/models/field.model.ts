@@ -19,6 +19,28 @@ import {
 } from 'mobx-keystone'
 import { typeRef } from './union-type.model'
 
+const create = ({
+  id,
+  key,
+  name,
+  description,
+  fieldType,
+  api,
+  validationRules,
+  defaultValues,
+}: IFieldDTO) => {
+  return new Field({
+    api: typeRef(api.id) as Ref<IInterfaceType>,
+    defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
+    description,
+    id,
+    key,
+    name,
+    type: typeRef(fieldType.id),
+    validationRules: JSON.parse(validationRules || '{}'),
+  })
+}
+
 @model('@codelab/Field')
 export class Field
   extends Model(() => ({
@@ -51,6 +73,8 @@ export class Field
     return this
   }
 
+  static create = create
+
   @modelAction
   writeCache({
     id,
@@ -74,29 +98,6 @@ export class Field
       : this.defaultValues
 
     return this
-  }
-
-  @modelAction
-  static create({
-    id,
-    key,
-    name,
-    description,
-    fieldType,
-    api,
-    validationRules,
-    defaultValues,
-  }: IFieldDTO) {
-    return new Field({
-      api: typeRef(api.id) as Ref<IInterfaceType>,
-      defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
-      description,
-      id,
-      key,
-      name,
-      type: typeRef(fieldType.id),
-      validationRules: JSON.parse(validationRules || '{}'),
-    })
   }
 }
 

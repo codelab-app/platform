@@ -121,10 +121,6 @@ export class Page
     }
   }
 
-  // onAttachedToRootStore() {
-  //   console.log('Page model attached')
-  // }
-
   @modelAction
   writeCache({
     app,

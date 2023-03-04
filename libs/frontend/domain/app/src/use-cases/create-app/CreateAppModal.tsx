@@ -16,8 +16,6 @@ export const CreateAppModal = observer<{
   userService: IUserService
 }>(({ appService, userService }) => {
   const onSubmit = (appDTO: ICreateAppData) => {
-    console.log('submit', appDTO)
-
     return appService.create(appDTO)
   }
 

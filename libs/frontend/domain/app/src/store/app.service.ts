@@ -26,7 +26,6 @@ import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -188,7 +187,7 @@ export class AppService
     })
 
     const store = this.storeService.add({
-      api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
+      api: typeRef<IInterfaceType>(interfaceType.id),
       id: v4(),
       name: Store.createName({ name }),
     })
@@ -200,10 +199,14 @@ export class AppService
       name,
       owner,
       pages,
-      store: storeRef(store),
+      store,
     })
 
+    console.log(app.toCreateInput())
+
+
     yield* _await(this.save(app))
+    // yield* _await(Promise.resolve())
 
     return app
   })
@@ -213,22 +216,28 @@ export class AppService
   delete = _async(function* (this: AppService, id: string) {
     const app = this.apps.get(id)!
     /**
-     * Delete all elements from all pages
+     * Optimistic update
      */
-    const pageRootElements = app.pageRootElements
-
-    const descendantElements = pageRootElements
-      .flatMap((pageRootElement) => pageRootElement.current.getDescendantRefs)
-      .map((pageRootElement) => pageRootElement.id)
-
+    // this.apps.delete(id)
     /**
-     * Then delete app, so reference isn't gone
+     * Get all pages to delete
      */
-    this.apps.delete(id)
+    const pages = this.pageService.getAll({ appConnection: { node: { id } } })
 
-    yield* _await(
-      this.elementService.elementRepository.delete(descendantElements),
-    )
+    console.log(pages)
+
+    // /**
+    //  * Delete all elements from all pages
+    //  */
+    // const pageRootElements = app.pageRootElements
+
+    // const descendantElements = pageRootElements
+    //   .flatMap((pageRootElement) => pageRootElement.current.getDescendantRefs)
+    //   .map((pageRootElement) => pageRootElement.id)
+
+    // yield* _await(
+    //   this.elementService.elementRepository.delete(descendantElements),
+    // )
 
     yield* _await(this.appRepository.delete([id]))
 
