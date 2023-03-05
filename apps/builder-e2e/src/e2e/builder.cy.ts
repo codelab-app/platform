@@ -59,7 +59,7 @@ describe('Elements CRUD', () => {
     cy.resetDatabase()
     loginSession()
     cy.getCurrentUserId()
-      .then((userId) => {
+      .then((auth0Id: string) => {
         const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
           (atom) => ({
             api: {
@@ -67,19 +67,20 @@ describe('Elements CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${atom.name} API`,
-                  owner: userId ? connectAuth0Owner(userId) : undefined,
+                  owner: auth0Id ? connectAuth0Owner({ auth0Id }) : undefined,
                 },
               },
             },
             id: v4(),
             name: atom.name,
+            owner: auth0Id ? connectAuth0Owner({ auth0Id }) : undefined,
             type: atom.type,
           }),
         )
 
         cy.createAtom(atomsInput)
 
-        return cy.createApp(createAppInput(userId))
+        return cy.createApp(createAppInput(auth0Id))
       })
       .then((apps) => {
         const app = apps[0]
