@@ -184,9 +184,10 @@ export class TagService
   })
 
   @modelAction
-  add({ id, isRoot, name, parent, children }: ITagDTO) {
+  add({ id, isRoot, name, parent, children, descendants }: ITagDTO) {
     const tag = new Tag({
       children: children.map((child) => tagRef(child.id)),
+      descendants: descendants.map((child) => tagRef(child.id)),
       id,
       isRoot,
       name,
