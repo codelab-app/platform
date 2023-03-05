@@ -3856,8 +3856,6 @@ export type Element = {
   renderComponentTypeAggregate?: Maybe<ElementComponentRenderComponentTypeAggregationSelection>
   renderAtomType?: Maybe<Atom>
   renderAtomTypeAggregate?: Maybe<ElementAtomRenderAtomTypeAggregationSelection>
-  hooks: Array<Hook>
-  hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
   nextSiblingConnection: ElementNextSiblingConnection
   prevSiblingConnection: ElementPrevSiblingConnection
   firstChildConnection: ElementFirstChildConnection
@@ -3869,7 +3867,6 @@ export type Element = {
   postRenderActionConnection: ElementPostRenderActionConnection
   renderComponentTypeConnection: ElementRenderComponentTypeConnection
   renderAtomTypeConnection: ElementRenderAtomTypeConnection
-  hooksConnection: ElementHooksConnection
 }
 
 export type ElementNextSiblingArgs = {
@@ -3983,17 +3980,6 @@ export type ElementRenderAtomTypeAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
-export type ElementHooksArgs = {
-  where?: InputMaybe<HookWhere>
-  options?: InputMaybe<HookOptions>
-  directed?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ElementHooksAggregateArgs = {
-  where?: InputMaybe<HookWhere>
-  directed?: InputMaybe<Scalars['Boolean']>
-}
-
 export type ElementNextSiblingConnectionArgs = {
   where?: InputMaybe<ElementNextSiblingConnectionWhere>
   first?: InputMaybe<Scalars['Int']>
@@ -4080,14 +4066,6 @@ export type ElementRenderAtomTypeConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   sort?: InputMaybe<Array<ElementRenderAtomTypeConnectionSort>>
-}
-
-export type ElementHooksConnectionArgs = {
-  where?: InputMaybe<ElementHooksConnectionWhere>
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  sort?: InputMaybe<Array<ElementHooksConnectionSort>>
 }
 
 export type ElementAggregateSelection = {
@@ -4224,30 +4202,6 @@ export type ElementFirstChildRelationship = {
   __typename?: 'ElementFirstChildRelationship'
   cursor: Scalars['String']
   node: Element
-}
-
-export type ElementHookHooksAggregationSelection = {
-  __typename?: 'ElementHookHooksAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<ElementHookHooksNodeAggregateSelection>
-}
-
-export type ElementHookHooksNodeAggregateSelection = {
-  __typename?: 'ElementHookHooksNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-}
-
-export type ElementHooksConnection = {
-  __typename?: 'ElementHooksConnection'
-  edges: Array<ElementHooksRelationship>
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-}
-
-export type ElementHooksRelationship = {
-  __typename?: 'ElementHooksRelationship'
-  cursor: Scalars['String']
-  node: Hook
 }
 
 export type ElementNextSiblingConnection = {
@@ -7670,21 +7624,15 @@ export type ActionBaseWhere = {
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   type_NOT_IN?: InputMaybe<Array<ActionKind>>
   _on?: InputMaybe<ActionBaseImplementationsWhere>
-  /** @deprecated Use `store_SOME` instead. */
   store?: InputMaybe<StoreWhere>
-  /** @deprecated Use `store_NONE` instead. */
   store_NOT?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<ActionBaseStoreAggregateInput>
-  /** @deprecated Use `element_SOME` instead. */
   element?: InputMaybe<ElementWhere>
-  /** @deprecated Use `element_NONE` instead. */
   element_NOT?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<ActionBaseElementAggregateInput>
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
-  /** @deprecated Use `storeConnection_NONE` instead. */
   storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
   elementConnection?: InputMaybe<ActionBaseElementConnectionWhere>
-  /** @deprecated Use `elementConnection_NONE` instead. */
   elementConnection_NOT?: InputMaybe<ActionBaseElementConnectionWhere>
 }
 
@@ -7981,13 +7929,10 @@ export type ActionTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ActionTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -9164,43 +9109,29 @@ export type ApiActionWhere = {
   type_IN?: InputMaybe<Array<ActionKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   type_NOT_IN?: InputMaybe<Array<ActionKind>>
-  /** @deprecated Use `store_SOME` instead. */
   store?: InputMaybe<StoreWhere>
-  /** @deprecated Use `store_NONE` instead. */
   store_NOT?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<ApiActionStoreAggregateInput>
-  /** @deprecated Use `element_SOME` instead. */
   element?: InputMaybe<ElementWhere>
-  /** @deprecated Use `element_NONE` instead. */
   element_NOT?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<ApiActionElementAggregateInput>
-  /** @deprecated Use `resource_SOME` instead. */
   resource?: InputMaybe<ResourceWhere>
-  /** @deprecated Use `resource_NONE` instead. */
   resource_NOT?: InputMaybe<ResourceWhere>
   resourceAggregate?: InputMaybe<ApiActionResourceAggregateInput>
-  /** @deprecated Use `config_SOME` instead. */
   config?: InputMaybe<PropWhere>
-  /** @deprecated Use `config_NONE` instead. */
   config_NOT?: InputMaybe<PropWhere>
   configAggregate?: InputMaybe<ApiActionConfigAggregateInput>
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
-  /** @deprecated Use `storeConnection_NONE` instead. */
   storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
   elementConnection?: InputMaybe<ActionBaseElementConnectionWhere>
-  /** @deprecated Use `elementConnection_NONE` instead. */
   elementConnection_NOT?: InputMaybe<ActionBaseElementConnectionWhere>
   successActionConnection?: InputMaybe<ApiActionSuccessActionConnectionWhere>
-  /** @deprecated Use `successActionConnection_NONE` instead. */
   successActionConnection_NOT?: InputMaybe<ApiActionSuccessActionConnectionWhere>
   errorActionConnection?: InputMaybe<ApiActionErrorActionConnectionWhere>
-  /** @deprecated Use `errorActionConnection_NONE` instead. */
   errorActionConnection_NOT?: InputMaybe<ApiActionErrorActionConnectionWhere>
   resourceConnection?: InputMaybe<ApiActionResourceConnectionWhere>
-  /** @deprecated Use `resourceConnection_NONE` instead. */
   resourceConnection_NOT?: InputMaybe<ApiActionResourceConnectionWhere>
   configConnection?: InputMaybe<ApiActionConfigConnectionWhere>
-  /** @deprecated Use `configConnection_NONE` instead. */
   configConnection_NOT?: InputMaybe<ApiActionConfigConnectionWhere>
 }
 
@@ -10221,13 +10152,10 @@ export type AppTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AppTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -10281,9 +10209,7 @@ export type AppWhere = {
   _compoundName_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   _compoundName_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AppOwnerAggregateInput>
   /** @deprecated Use `pages_SOME` instead. */
@@ -10299,9 +10225,7 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
-  /** @deprecated Use `store_SOME` instead. */
   store?: InputMaybe<StoreWhere>
-  /** @deprecated Use `store_NONE` instead. */
   store_NOT?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<AppStoreAggregateInput>
   /** @deprecated Use `domains_SOME` instead. */
@@ -10318,26 +10242,32 @@ export type AppWhere = {
   /** Return Apps where some of the related Domains match this filter */
   domains_SOME?: InputMaybe<DomainWhere>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   /** @deprecated Use `pagesConnection_SOME` instead. */
   pagesConnection?: InputMaybe<AppPagesConnectionWhere>
   /** @deprecated Use `pagesConnection_NONE` instead. */
   pagesConnection_NOT?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where all of the related AppPagesConnections match this filter */
   pagesConnection_ALL?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where none of the related AppPagesConnections match this filter */
   pagesConnection_NONE?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where one of the related AppPagesConnections match this filter */
   pagesConnection_SINGLE?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where some of the related AppPagesConnections match this filter */
   pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>
   storeConnection?: InputMaybe<AppStoreConnectionWhere>
-  /** @deprecated Use `storeConnection_NONE` instead. */
   storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>
   /** @deprecated Use `domainsConnection_SOME` instead. */
   domainsConnection?: InputMaybe<AppDomainsConnectionWhere>
   /** @deprecated Use `domainsConnection_NONE` instead. */
   domainsConnection_NOT?: InputMaybe<AppDomainsConnectionWhere>
+  /** Return Apps where all of the related AppDomainsConnections match this filter */
   domainsConnection_ALL?: InputMaybe<AppDomainsConnectionWhere>
+  /** Return Apps where none of the related AppDomainsConnections match this filter */
   domainsConnection_NONE?: InputMaybe<AppDomainsConnectionWhere>
+  /** Return Apps where one of the related AppDomainsConnections match this filter */
   domainsConnection_SINGLE?: InputMaybe<AppDomainsConnectionWhere>
+  /** Return Apps where some of the related AppDomainsConnections match this filter */
   domainsConnection_SOME?: InputMaybe<AppDomainsConnectionWhere>
 }
 
@@ -11521,16 +11451,12 @@ export type ArrayTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ArrayTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
-  /** @deprecated Use `itemTypeConnection_NONE` instead. */
   itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
@@ -12345,9 +12271,7 @@ export type AtomWhere = {
   type_IN?: InputMaybe<Array<AtomType>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   type_NOT_IN?: InputMaybe<Array<AtomType>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AtomOwnerAggregateInput>
   /** @deprecated Use `tags_SOME` instead. */
@@ -12363,9 +12287,7 @@ export type AtomWhere = {
   tags_SINGLE?: InputMaybe<TagWhere>
   /** Return Atoms where some of the related Tags match this filter */
   tags_SOME?: InputMaybe<TagWhere>
-  /** @deprecated Use `api_SOME` instead. */
   api?: InputMaybe<InterfaceTypeWhere>
-  /** @deprecated Use `api_NONE` instead. */
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<AtomApiAggregateInput>
   /** @deprecated Use `allowedChildren_SOME` instead. */
@@ -12382,26 +12304,32 @@ export type AtomWhere = {
   /** Return Atoms where some of the related Atoms match this filter */
   allowedChildren_SOME?: InputMaybe<AtomWhere>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<AtomTagsConnectionWhere>
   /** @deprecated Use `tagsConnection_NONE` instead. */
   tagsConnection_NOT?: InputMaybe<AtomTagsConnectionWhere>
+  /** Return Atoms where all of the related AtomTagsConnections match this filter */
   tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>
+  /** Return Atoms where none of the related AtomTagsConnections match this filter */
   tagsConnection_NONE?: InputMaybe<AtomTagsConnectionWhere>
+  /** Return Atoms where one of the related AtomTagsConnections match this filter */
   tagsConnection_SINGLE?: InputMaybe<AtomTagsConnectionWhere>
+  /** Return Atoms where some of the related AtomTagsConnections match this filter */
   tagsConnection_SOME?: InputMaybe<AtomTagsConnectionWhere>
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
-  /** @deprecated Use `apiConnection_NONE` instead. */
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
   /** @deprecated Use `allowedChildrenConnection_SOME` instead. */
   allowedChildrenConnection?: InputMaybe<AtomAllowedChildrenConnectionWhere>
   /** @deprecated Use `allowedChildrenConnection_NONE` instead. */
   allowedChildrenConnection_NOT?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** Return Atoms where all of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_ALL?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** Return Atoms where none of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_NONE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** Return Atoms where one of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_SINGLE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** Return Atoms where some of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_SOME?: InputMaybe<AtomAllowedChildrenConnectionWhere>
 }
 
@@ -12699,13 +12627,10 @@ export type BaseTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<BaseTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -13269,21 +13194,15 @@ export type CodeActionWhere = {
   type_IN?: InputMaybe<Array<ActionKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   type_NOT_IN?: InputMaybe<Array<ActionKind>>
-  /** @deprecated Use `store_SOME` instead. */
   store?: InputMaybe<StoreWhere>
-  /** @deprecated Use `store_NONE` instead. */
   store_NOT?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<CodeActionStoreAggregateInput>
-  /** @deprecated Use `element_SOME` instead. */
   element?: InputMaybe<ElementWhere>
-  /** @deprecated Use `element_NONE` instead. */
   element_NOT?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<CodeActionElementAggregateInput>
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
-  /** @deprecated Use `storeConnection_NONE` instead. */
   storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
   elementConnection?: InputMaybe<ActionBaseElementConnectionWhere>
-  /** @deprecated Use `elementConnection_NONE` instead. */
   elementConnection_NOT?: InputMaybe<ActionBaseElementConnectionWhere>
 }
 
@@ -13590,13 +13509,10 @@ export type CodeMirrorTypeWhere = {
   language_IN?: InputMaybe<Array<CodeMirrorLanguage>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   language_NOT_IN?: InputMaybe<Array<CodeMirrorLanguage>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<CodeMirrorTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -15015,45 +14931,30 @@ export type ComponentWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `rootElement_SOME` instead. */
   rootElement?: InputMaybe<ElementWhere>
-  /** @deprecated Use `rootElement_NONE` instead. */
   rootElement_NOT?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<ComponentRootElementAggregateInput>
-  /** @deprecated Use `api_SOME` instead. */
   api?: InputMaybe<InterfaceTypeWhere>
-  /** @deprecated Use `api_NONE` instead. */
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<ComponentApiAggregateInput>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ComponentOwnerAggregateInput>
-  /** @deprecated Use `props_SOME` instead. */
   props?: InputMaybe<PropWhere>
-  /** @deprecated Use `props_NONE` instead. */
   props_NOT?: InputMaybe<PropWhere>
   propsAggregate?: InputMaybe<ComponentPropsAggregateInput>
-  /** @deprecated Use `childrenContainerElement_SOME` instead. */
   childrenContainerElement?: InputMaybe<ElementWhere>
-  /** @deprecated Use `childrenContainerElement_NONE` instead. */
   childrenContainerElement_NOT?: InputMaybe<ElementWhere>
   childrenContainerElementAggregate?: InputMaybe<ComponentChildrenContainerElementAggregateInput>
   rootElementConnection?: InputMaybe<ComponentRootElementConnectionWhere>
-  /** @deprecated Use `rootElementConnection_NONE` instead. */
   rootElementConnection_NOT?: InputMaybe<ComponentRootElementConnectionWhere>
   apiConnection?: InputMaybe<ComponentApiConnectionWhere>
-  /** @deprecated Use `apiConnection_NONE` instead. */
   apiConnection_NOT?: InputMaybe<ComponentApiConnectionWhere>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   propsConnection?: InputMaybe<ComponentPropsConnectionWhere>
-  /** @deprecated Use `propsConnection_NONE` instead. */
   propsConnection_NOT?: InputMaybe<ComponentPropsConnectionWhere>
   childrenContainerElementConnection?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
-  /** @deprecated Use `childrenContainerElementConnection_NONE` instead. */
   childrenContainerElementConnection_NOT?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
 }
 
@@ -15365,13 +15266,10 @@ export type DomainWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `app_SOME` instead. */
   app?: InputMaybe<AppWhere>
-  /** @deprecated Use `app_NONE` instead. */
   app_NOT?: InputMaybe<AppWhere>
   appAggregate?: InputMaybe<DomainAppAggregateInput>
   appConnection?: InputMaybe<DomainAppConnectionWhere>
-  /** @deprecated Use `appConnection_NONE` instead. */
   appConnection_NOT?: InputMaybe<DomainAppConnectionWhere>
 }
 
@@ -15387,7 +15285,6 @@ export type ElementConnectInput = {
   postRenderAction?: InputMaybe<ElementPostRenderActionConnectFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeConnectFieldInput>
   renderAtomType?: InputMaybe<ElementRenderAtomTypeConnectFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksConnectFieldInput>>
 }
 
 export type ElementConnectOrCreateInput = {
@@ -15400,7 +15297,6 @@ export type ElementConnectOrCreateInput = {
   parentComponent?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeConnectOrCreateFieldInput>
   renderAtomType?: InputMaybe<ElementRenderAtomTypeConnectOrCreateFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
 }
 
 export type ElementConnectOrCreateWhere = {
@@ -15430,7 +15326,6 @@ export type ElementCreateInput = {
   postRenderAction?: InputMaybe<ElementPostRenderActionFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeFieldInput>
   renderAtomType?: InputMaybe<ElementRenderAtomTypeFieldInput>
-  hooks?: InputMaybe<ElementHooksFieldInput>
 }
 
 export type ElementDeleteInput = {
@@ -15445,7 +15340,6 @@ export type ElementDeleteInput = {
   postRenderAction?: InputMaybe<ElementPostRenderActionDeleteFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeDeleteFieldInput>
   renderAtomType?: InputMaybe<ElementRenderAtomTypeDeleteFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
 }
 
 export type ElementDisconnectInput = {
@@ -15460,7 +15354,6 @@ export type ElementDisconnectInput = {
   postRenderAction?: InputMaybe<ElementPostRenderActionDisconnectFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeDisconnectFieldInput>
   renderAtomType?: InputMaybe<ElementRenderAtomTypeDisconnectFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
 }
 
 export type ElementFirstChildAggregateInput = {
@@ -15874,89 +15767,6 @@ export type ElementFirstChildUpdateFieldInput = {
   create?: InputMaybe<ElementFirstChildCreateFieldInput>
   delete?: InputMaybe<ElementFirstChildDeleteFieldInput>
   connectOrCreate?: InputMaybe<ElementFirstChildConnectOrCreateFieldInput>
-}
-
-export type ElementHooksAggregateInput = {
-  count?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  AND?: InputMaybe<Array<ElementHooksAggregateInput>>
-  OR?: InputMaybe<Array<ElementHooksAggregateInput>>
-  NOT?: InputMaybe<ElementHooksAggregateInput>
-  node?: InputMaybe<ElementHooksNodeAggregationWhereInput>
-}
-
-export type ElementHooksConnectFieldInput = {
-  where?: InputMaybe<HookConnectWhere>
-  connect?: InputMaybe<Array<HookConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-}
-
-export type ElementHooksConnectionSort = {
-  node?: InputMaybe<HookSort>
-}
-
-export type ElementHooksConnectionWhere = {
-  AND?: InputMaybe<Array<ElementHooksConnectionWhere>>
-  OR?: InputMaybe<Array<ElementHooksConnectionWhere>>
-  NOT?: InputMaybe<ElementHooksConnectionWhere>
-  node?: InputMaybe<HookWhere>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  node_NOT?: InputMaybe<HookWhere>
-}
-
-export type ElementHooksConnectOrCreateFieldInput = {
-  where: HookConnectOrCreateWhere
-  onCreate: ElementHooksConnectOrCreateFieldInputOnCreate
-}
-
-export type ElementHooksConnectOrCreateFieldInputOnCreate = {
-  node: HookOnCreateInput
-}
-
-export type ElementHooksCreateFieldInput = {
-  node: HookCreateInput
-}
-
-export type ElementHooksDeleteFieldInput = {
-  where?: InputMaybe<ElementHooksConnectionWhere>
-  delete?: InputMaybe<HookDeleteInput>
-}
-
-export type ElementHooksDisconnectFieldInput = {
-  where?: InputMaybe<ElementHooksConnectionWhere>
-  disconnect?: InputMaybe<HookDisconnectInput>
-}
-
-export type ElementHooksFieldInput = {
-  create?: InputMaybe<Array<ElementHooksCreateFieldInput>>
-  connect?: InputMaybe<Array<ElementHooksConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
-}
-
-export type ElementHooksNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementHooksNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ElementHooksNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementHooksNodeAggregationWhereInput>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-}
-
-export type ElementHooksUpdateConnectionInput = {
-  node?: InputMaybe<HookUpdateInput>
-}
-
-export type ElementHooksUpdateFieldInput = {
-  where?: InputMaybe<ElementHooksConnectionWhere>
-  update?: InputMaybe<ElementHooksUpdateConnectionInput>
-  connect?: InputMaybe<Array<ElementHooksConnectFieldInput>>
-  disconnect?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
-  create?: InputMaybe<Array<ElementHooksCreateFieldInput>>
-  delete?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
-  connectOrCreate?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
 }
 
 export type ElementNextSiblingAggregateInput = {
@@ -17793,7 +17603,6 @@ export type ElementRelationInput = {
   postRenderAction?: InputMaybe<ElementPostRenderActionCreateFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeCreateFieldInput>
   renderAtomType?: InputMaybe<ElementRenderAtomTypeCreateFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksCreateFieldInput>>
 }
 
 export type ElementRenderAtomTypeAggregateInput = {
@@ -18441,13 +18250,10 @@ export type ElementTypeWhere = {
   elementKind_IN?: InputMaybe<Array<ElementTypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   elementKind_NOT_IN?: InputMaybe<Array<ElementTypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ElementTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -18474,7 +18280,6 @@ export type ElementUpdateInput = {
   postRenderAction?: InputMaybe<ElementPostRenderActionUpdateFieldInput>
   renderComponentType?: InputMaybe<ElementRenderComponentTypeUpdateFieldInput>
   renderAtomType?: InputMaybe<ElementRenderAtomTypeUpdateFieldInput>
-  hooks?: InputMaybe<Array<ElementHooksUpdateFieldInput>>
 }
 
 export type ElementWhere = {
@@ -18593,105 +18398,55 @@ export type ElementWhere = {
   renderIfExpression_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   renderIfExpression_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `nextSibling_SOME` instead. */
   nextSibling?: InputMaybe<ElementWhere>
-  /** @deprecated Use `nextSibling_NONE` instead. */
   nextSibling_NOT?: InputMaybe<ElementWhere>
   nextSiblingAggregate?: InputMaybe<ElementNextSiblingAggregateInput>
-  /** @deprecated Use `prevSibling_SOME` instead. */
   prevSibling?: InputMaybe<ElementWhere>
-  /** @deprecated Use `prevSibling_NONE` instead. */
   prevSibling_NOT?: InputMaybe<ElementWhere>
   prevSiblingAggregate?: InputMaybe<ElementPrevSiblingAggregateInput>
-  /** @deprecated Use `firstChild_SOME` instead. */
   firstChild?: InputMaybe<ElementWhere>
-  /** @deprecated Use `firstChild_NONE` instead. */
   firstChild_NOT?: InputMaybe<ElementWhere>
   firstChildAggregate?: InputMaybe<ElementFirstChildAggregateInput>
-  /** @deprecated Use `parent_SOME` instead. */
   parent?: InputMaybe<ElementWhere>
-  /** @deprecated Use `parent_NONE` instead. */
   parent_NOT?: InputMaybe<ElementWhere>
   parentAggregate?: InputMaybe<ElementParentAggregateInput>
-  /** @deprecated Use `page_SOME` instead. */
   page?: InputMaybe<PageWhere>
-  /** @deprecated Use `page_NONE` instead. */
   page_NOT?: InputMaybe<PageWhere>
   pageAggregate?: InputMaybe<ElementPageAggregateInput>
-  /** @deprecated Use `props_SOME` instead. */
   props?: InputMaybe<PropWhere>
-  /** @deprecated Use `props_NONE` instead. */
   props_NOT?: InputMaybe<PropWhere>
   propsAggregate?: InputMaybe<ElementPropsAggregateInput>
-  /** @deprecated Use `parentComponent_SOME` instead. */
   parentComponent?: InputMaybe<ComponentWhere>
-  /** @deprecated Use `parentComponent_NONE` instead. */
   parentComponent_NOT?: InputMaybe<ComponentWhere>
   parentComponentAggregate?: InputMaybe<ElementParentComponentAggregateInput>
-  /** @deprecated Use `renderComponentType_SOME` instead. */
   renderComponentType?: InputMaybe<ComponentWhere>
-  /** @deprecated Use `renderComponentType_NONE` instead. */
   renderComponentType_NOT?: InputMaybe<ComponentWhere>
   renderComponentTypeAggregate?: InputMaybe<ElementRenderComponentTypeAggregateInput>
-  /** @deprecated Use `renderAtomType_SOME` instead. */
   renderAtomType?: InputMaybe<AtomWhere>
-  /** @deprecated Use `renderAtomType_NONE` instead. */
   renderAtomType_NOT?: InputMaybe<AtomWhere>
   renderAtomTypeAggregate?: InputMaybe<ElementRenderAtomTypeAggregateInput>
-  /** @deprecated Use `hooks_SOME` instead. */
-  hooks?: InputMaybe<HookWhere>
-  /** @deprecated Use `hooks_NONE` instead. */
-  hooks_NOT?: InputMaybe<HookWhere>
-  hooksAggregate?: InputMaybe<ElementHooksAggregateInput>
-  /** Return Elements where all of the related Hooks match this filter */
-  hooks_ALL?: InputMaybe<HookWhere>
-  /** Return Elements where none of the related Hooks match this filter */
-  hooks_NONE?: InputMaybe<HookWhere>
-  /** Return Elements where one of the related Hooks match this filter */
-  hooks_SINGLE?: InputMaybe<HookWhere>
-  /** Return Elements where some of the related Hooks match this filter */
-  hooks_SOME?: InputMaybe<HookWhere>
   nextSiblingConnection?: InputMaybe<ElementNextSiblingConnectionWhere>
-  /** @deprecated Use `nextSiblingConnection_NONE` instead. */
   nextSiblingConnection_NOT?: InputMaybe<ElementNextSiblingConnectionWhere>
   prevSiblingConnection?: InputMaybe<ElementPrevSiblingConnectionWhere>
-  /** @deprecated Use `prevSiblingConnection_NONE` instead. */
   prevSiblingConnection_NOT?: InputMaybe<ElementPrevSiblingConnectionWhere>
   firstChildConnection?: InputMaybe<ElementFirstChildConnectionWhere>
-  /** @deprecated Use `firstChildConnection_NONE` instead. */
   firstChildConnection_NOT?: InputMaybe<ElementFirstChildConnectionWhere>
   parentConnection?: InputMaybe<ElementParentConnectionWhere>
-  /** @deprecated Use `parentConnection_NONE` instead. */
   parentConnection_NOT?: InputMaybe<ElementParentConnectionWhere>
   pageConnection?: InputMaybe<ElementPageConnectionWhere>
-  /** @deprecated Use `pageConnection_NONE` instead. */
   pageConnection_NOT?: InputMaybe<ElementPageConnectionWhere>
   propsConnection?: InputMaybe<ElementPropsConnectionWhere>
-  /** @deprecated Use `propsConnection_NONE` instead. */
   propsConnection_NOT?: InputMaybe<ElementPropsConnectionWhere>
   parentComponentConnection?: InputMaybe<ElementParentComponentConnectionWhere>
-  /** @deprecated Use `parentComponentConnection_NONE` instead. */
   parentComponentConnection_NOT?: InputMaybe<ElementParentComponentConnectionWhere>
   preRenderActionConnection?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  /** @deprecated Use `preRenderActionConnection_NONE` instead. */
   preRenderActionConnection_NOT?: InputMaybe<ElementPreRenderActionConnectionWhere>
   postRenderActionConnection?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  /** @deprecated Use `postRenderActionConnection_NONE` instead. */
   postRenderActionConnection_NOT?: InputMaybe<ElementPostRenderActionConnectionWhere>
   renderComponentTypeConnection?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-  /** @deprecated Use `renderComponentTypeConnection_NONE` instead. */
   renderComponentTypeConnection_NOT?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
   renderAtomTypeConnection?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-  /** @deprecated Use `renderAtomTypeConnection_NONE` instead. */
   renderAtomTypeConnection_NOT?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-  /** @deprecated Use `hooksConnection_SOME` instead. */
-  hooksConnection?: InputMaybe<ElementHooksConnectionWhere>
-  /** @deprecated Use `hooksConnection_NONE` instead. */
-  hooksConnection_NOT?: InputMaybe<ElementHooksConnectionWhere>
-  hooksConnection_ALL?: InputMaybe<ElementHooksConnectionWhere>
-  hooksConnection_NONE?: InputMaybe<ElementHooksConnectionWhere>
-  hooksConnection_SINGLE?: InputMaybe<ElementHooksConnectionWhere>
-  hooksConnection_SOME?: InputMaybe<ElementHooksConnectionWhere>
 }
 
 export type EnumTypeAllowedValuesAggregateInput = {
@@ -19375,13 +19130,10 @@ export type EnumTypeValueWhere = {
   value_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   value_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `enumType_SOME` instead. */
   enumType?: InputMaybe<EnumTypeWhere>
-  /** @deprecated Use `enumType_NONE` instead. */
   enumType_NOT?: InputMaybe<EnumTypeWhere>
   enumTypeAggregate?: InputMaybe<EnumTypeValueEnumTypeAggregateInput>
   enumTypeConnection?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
-  /** @deprecated Use `enumTypeConnection_NONE` instead. */
   enumTypeConnection_NOT?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
 }
 
@@ -19427,9 +19179,7 @@ export type EnumTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>
   /** @deprecated Use `allowedValues_SOME` instead. */
@@ -19446,15 +19196,18 @@ export type EnumTypeWhere = {
   /** Return EnumTypes where some of the related EnumTypeValues match this filter */
   allowedValues_SOME?: InputMaybe<EnumTypeValueWhere>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   /** @deprecated Use `allowedValuesConnection_SOME` instead. */
   allowedValuesConnection?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
   /** @deprecated Use `allowedValuesConnection_NONE` instead. */
   allowedValuesConnection_NOT?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  /** Return EnumTypes where all of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_ALL?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  /** Return EnumTypes where none of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_NONE?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  /** Return EnumTypes where one of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_SINGLE?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  /** Return EnumTypes where some of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_SOME?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
 }
 
@@ -19813,16 +19566,12 @@ export type FieldWhere = {
   defaultValues_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   defaultValues_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `api_SOME` instead. */
   api?: InputMaybe<InterfaceTypeWhere>
-  /** @deprecated Use `api_NONE` instead. */
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<FieldApiAggregateInput>
   fieldTypeConnection?: InputMaybe<FieldFieldTypeConnectionWhere>
-  /** @deprecated Use `fieldTypeConnection_NONE` instead. */
   fieldTypeConnection_NOT?: InputMaybe<FieldFieldTypeConnectionWhere>
   apiConnection?: InputMaybe<FieldApiConnectionWhere>
-  /** @deprecated Use `apiConnection_NONE` instead. */
   apiConnection_NOT?: InputMaybe<FieldApiConnectionWhere>
 }
 
@@ -20007,14 +19756,6 @@ export type HookConnectInput = {
 export type HookConnectOrCreateInput = {
   config?: InputMaybe<HookConfigConnectOrCreateFieldInput>
   element?: InputMaybe<HookElementConnectOrCreateFieldInput>
-}
-
-export type HookConnectOrCreateWhere = {
-  node: HookUniqueWhere
-}
-
-export type HookConnectWhere = {
-  node: HookWhere
 }
 
 export type HookCreateInput = {
@@ -20446,10 +20187,6 @@ export type HookElementUpdateFieldInput = {
   connectOrCreate?: InputMaybe<HookElementConnectOrCreateFieldInput>
 }
 
-export type HookOnCreateInput = {
-  type: AtomType
-}
-
 export type HookOptions = {
   /** Specify one or more HookSort objects to sort Hooks by. The sorts will be applied in the order in which they are arranged in the array. */
   sort?: InputMaybe<Array<HookSort>>
@@ -20466,10 +20203,6 @@ export type HookRelationInput = {
 export type HookSort = {
   id?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
-}
-
-export type HookUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']>
 }
 
 export type HookUpdateInput = {
@@ -20504,21 +20237,15 @@ export type HookWhere = {
   type_IN?: InputMaybe<Array<AtomType>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   type_NOT_IN?: InputMaybe<Array<AtomType>>
-  /** @deprecated Use `config_SOME` instead. */
   config?: InputMaybe<PropWhere>
-  /** @deprecated Use `config_NONE` instead. */
   config_NOT?: InputMaybe<PropWhere>
   configAggregate?: InputMaybe<HookConfigAggregateInput>
-  /** @deprecated Use `element_SOME` instead. */
   element?: InputMaybe<ElementWhere>
-  /** @deprecated Use `element_NONE` instead. */
   element_NOT?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<HookElementAggregateInput>
   configConnection?: InputMaybe<HookConfigConnectionWhere>
-  /** @deprecated Use `configConnection_NONE` instead. */
   configConnection_NOT?: InputMaybe<HookConfigConnectionWhere>
   elementConnection?: InputMaybe<HookElementConnectionWhere>
-  /** @deprecated Use `elementConnection_NONE` instead. */
   elementConnection_NOT?: InputMaybe<HookElementConnectionWhere>
 }
 
@@ -20953,13 +20680,10 @@ export type IBaseTypeWhere = {
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   _on?: InputMaybe<IBaseTypeImplementationsWhere>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<IBaseTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -21815,9 +21539,7 @@ export type InterfaceTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
   /** @deprecated Use `apiOfAtoms_SOME` instead. */
@@ -21847,23 +21569,30 @@ export type InterfaceTypeWhere = {
   /** Return InterfaceTypes where some of the related Fields match this filter */
   fields_SOME?: InputMaybe<FieldWhere>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   /** @deprecated Use `apiOfAtomsConnection_SOME` instead. */
   apiOfAtomsConnection?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
   /** @deprecated Use `apiOfAtomsConnection_NONE` instead. */
   apiOfAtomsConnection_NOT?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  /** Return InterfaceTypes where all of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_ALL?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  /** Return InterfaceTypes where none of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_NONE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  /** Return InterfaceTypes where one of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_SINGLE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  /** Return InterfaceTypes where some of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_SOME?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
   /** @deprecated Use `fieldsConnection_SOME` instead. */
   fieldsConnection?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   /** @deprecated Use `fieldsConnection_NONE` instead. */
   fieldsConnection_NOT?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  /** Return InterfaceTypes where all of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  /** Return InterfaceTypes where none of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  /** Return InterfaceTypes where one of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  /** Return InterfaceTypes where some of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_SOME?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
 }
 
@@ -22160,13 +21889,10 @@ export type LambdaTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<LambdaTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -23497,13 +23223,10 @@ export type PageTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<PageTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -23580,29 +23303,20 @@ export type PageWhere = {
   kind_IN?: InputMaybe<Array<PageKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<PageKind>>
-  /** @deprecated Use `rootElement_SOME` instead. */
   rootElement?: InputMaybe<ElementWhere>
-  /** @deprecated Use `rootElement_NONE` instead. */
   rootElement_NOT?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
-  /** @deprecated Use `app_SOME` instead. */
   app?: InputMaybe<AppWhere>
-  /** @deprecated Use `app_NONE` instead. */
   app_NOT?: InputMaybe<AppWhere>
   appAggregate?: InputMaybe<PageAppAggregateInput>
-  /** @deprecated Use `pageContentContainer_SOME` instead. */
   pageContentContainer?: InputMaybe<ElementWhere>
-  /** @deprecated Use `pageContentContainer_NONE` instead. */
   pageContentContainer_NOT?: InputMaybe<ElementWhere>
   pageContentContainerAggregate?: InputMaybe<PagePageContentContainerAggregateInput>
   rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
-  /** @deprecated Use `rootElementConnection_NONE` instead. */
   rootElementConnection_NOT?: InputMaybe<PageRootElementConnectionWhere>
   appConnection?: InputMaybe<PageAppConnectionWhere>
-  /** @deprecated Use `appConnection_NONE` instead. */
   appConnection_NOT?: InputMaybe<PageAppConnectionWhere>
   pageContentContainerConnection?: InputMaybe<PagePageContentContainerConnectionWhere>
-  /** @deprecated Use `pageContentContainerConnection_NONE` instead. */
   pageContentContainerConnection_NOT?: InputMaybe<PagePageContentContainerConnectionWhere>
 }
 
@@ -23911,13 +23625,10 @@ export type PrimitiveTypeWhere = {
   primitiveKind_IN?: InputMaybe<Array<PrimitiveTypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   primitiveKind_NOT_IN?: InputMaybe<Array<PrimitiveTypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<PrimitiveTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -24294,13 +24005,10 @@ export type ReactNodeTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ReactNodeTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -24597,13 +24305,10 @@ export type RenderPropsTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<RenderPropsTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
@@ -25122,21 +24827,15 @@ export type ResourceWhere = {
   type_IN?: InputMaybe<Array<ResourceType>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   type_NOT_IN?: InputMaybe<Array<ResourceType>>
-  /** @deprecated Use `config_SOME` instead. */
   config?: InputMaybe<PropWhere>
-  /** @deprecated Use `config_NONE` instead. */
   config_NOT?: InputMaybe<PropWhere>
   configAggregate?: InputMaybe<ResourceConfigAggregateInput>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ResourceOwnerAggregateInput>
   configConnection?: InputMaybe<ResourceConfigConnectionWhere>
-  /** @deprecated Use `configConnection_NONE` instead. */
   configConnection_NOT?: InputMaybe<ResourceConfigConnectionWhere>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
@@ -25692,29 +25391,27 @@ export type StoreWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `app_SOME` instead. */
   app?: InputMaybe<AppWhere>
-  /** @deprecated Use `app_NONE` instead. */
   app_NOT?: InputMaybe<AppWhere>
   appAggregate?: InputMaybe<StoreAppAggregateInput>
-  /** @deprecated Use `api_SOME` instead. */
   api?: InputMaybe<InterfaceTypeWhere>
-  /** @deprecated Use `api_NONE` instead. */
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<StoreApiAggregateInput>
   appConnection?: InputMaybe<StoreAppConnectionWhere>
-  /** @deprecated Use `appConnection_NONE` instead. */
   appConnection_NOT?: InputMaybe<StoreAppConnectionWhere>
   apiConnection?: InputMaybe<StoreApiConnectionWhere>
-  /** @deprecated Use `apiConnection_NONE` instead. */
   apiConnection_NOT?: InputMaybe<StoreApiConnectionWhere>
   /** @deprecated Use `actionsConnection_SOME` instead. */
   actionsConnection?: InputMaybe<StoreActionsConnectionWhere>
   /** @deprecated Use `actionsConnection_NONE` instead. */
   actionsConnection_NOT?: InputMaybe<StoreActionsConnectionWhere>
+  /** Return Stores where all of the related StoreActionsConnections match this filter */
   actionsConnection_ALL?: InputMaybe<StoreActionsConnectionWhere>
+  /** Return Stores where none of the related StoreActionsConnections match this filter */
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>
+  /** Return Stores where one of the related StoreActionsConnections match this filter */
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>
+  /** Return Stores where some of the related StoreActionsConnections match this filter */
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>
 }
 
@@ -26356,9 +26053,7 @@ export type TagWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Use `parent_SOME` instead. */
   parent?: InputMaybe<TagWhere>
-  /** @deprecated Use `parent_NONE` instead. */
   parent_NOT?: InputMaybe<TagWhere>
   parentAggregate?: InputMaybe<TagParentAggregateInput>
   /** @deprecated Use `children_SOME` instead. */
@@ -26374,24 +26069,24 @@ export type TagWhere = {
   children_SINGLE?: InputMaybe<TagWhere>
   /** Return Tags where some of the related Tags match this filter */
   children_SOME?: InputMaybe<TagWhere>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<TagOwnerAggregateInput>
   parentConnection?: InputMaybe<TagParentConnectionWhere>
-  /** @deprecated Use `parentConnection_NONE` instead. */
   parentConnection_NOT?: InputMaybe<TagParentConnectionWhere>
   /** @deprecated Use `childrenConnection_SOME` instead. */
   childrenConnection?: InputMaybe<TagChildrenConnectionWhere>
   /** @deprecated Use `childrenConnection_NONE` instead. */
   childrenConnection_NOT?: InputMaybe<TagChildrenConnectionWhere>
+  /** Return Tags where all of the related TagChildrenConnections match this filter */
   childrenConnection_ALL?: InputMaybe<TagChildrenConnectionWhere>
+  /** Return Tags where none of the related TagChildrenConnections match this filter */
   childrenConnection_NONE?: InputMaybe<TagChildrenConnectionWhere>
+  /** Return Tags where one of the related TagChildrenConnections match this filter */
   childrenConnection_SINGLE?: InputMaybe<TagChildrenConnectionWhere>
+  /** Return Tags where some of the related TagChildrenConnections match this filter */
   childrenConnection_SOME?: InputMaybe<TagChildrenConnectionWhere>
   ownerConnection?: InputMaybe<TagOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<TagOwnerConnectionWhere>
 }
 
@@ -27968,21 +27663,22 @@ export type UnionTypeWhere = {
   kind_IN?: InputMaybe<Array<TypeKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  /** @deprecated Use `owner_SOME` instead. */
   owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<UnionTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   /** @deprecated Use `typesOfUnionTypeConnection_SOME` instead. */
   typesOfUnionTypeConnection?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
   /** @deprecated Use `typesOfUnionTypeConnection_NONE` instead. */
   typesOfUnionTypeConnection_NOT?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  /** Return UnionTypes where all of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_ALL?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  /** Return UnionTypes where none of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_NONE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  /** Return UnionTypes where one of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_SINGLE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  /** Return UnionTypes where some of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_SOME?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
 }
 
@@ -29197,41 +28893,61 @@ export type UserWhere = {
   typesConnection?: InputMaybe<UserTypesConnectionWhere>
   /** @deprecated Use `typesConnection_NONE` instead. */
   typesConnection_NOT?: InputMaybe<UserTypesConnectionWhere>
+  /** Return Users where all of the related UserTypesConnections match this filter */
   typesConnection_ALL?: InputMaybe<UserTypesConnectionWhere>
+  /** Return Users where none of the related UserTypesConnections match this filter */
   typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>
+  /** Return Users where one of the related UserTypesConnections match this filter */
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>
+  /** Return Users where some of the related UserTypesConnections match this filter */
   typesConnection_SOME?: InputMaybe<UserTypesConnectionWhere>
   /** @deprecated Use `appsConnection_SOME` instead. */
   appsConnection?: InputMaybe<UserAppsConnectionWhere>
   /** @deprecated Use `appsConnection_NONE` instead. */
   appsConnection_NOT?: InputMaybe<UserAppsConnectionWhere>
+  /** Return Users where all of the related UserAppsConnections match this filter */
   appsConnection_ALL?: InputMaybe<UserAppsConnectionWhere>
+  /** Return Users where none of the related UserAppsConnections match this filter */
   appsConnection_NONE?: InputMaybe<UserAppsConnectionWhere>
+  /** Return Users where one of the related UserAppsConnections match this filter */
   appsConnection_SINGLE?: InputMaybe<UserAppsConnectionWhere>
+  /** Return Users where some of the related UserAppsConnections match this filter */
   appsConnection_SOME?: InputMaybe<UserAppsConnectionWhere>
   /** @deprecated Use `elementsConnection_SOME` instead. */
   elementsConnection?: InputMaybe<UserElementsConnectionWhere>
   /** @deprecated Use `elementsConnection_NONE` instead. */
   elementsConnection_NOT?: InputMaybe<UserElementsConnectionWhere>
+  /** Return Users where all of the related UserElementsConnections match this filter */
   elementsConnection_ALL?: InputMaybe<UserElementsConnectionWhere>
+  /** Return Users where none of the related UserElementsConnections match this filter */
   elementsConnection_NONE?: InputMaybe<UserElementsConnectionWhere>
+  /** Return Users where one of the related UserElementsConnections match this filter */
   elementsConnection_SINGLE?: InputMaybe<UserElementsConnectionWhere>
+  /** Return Users where some of the related UserElementsConnections match this filter */
   elementsConnection_SOME?: InputMaybe<UserElementsConnectionWhere>
   /** @deprecated Use `componentsConnection_SOME` instead. */
   componentsConnection?: InputMaybe<UserComponentsConnectionWhere>
   /** @deprecated Use `componentsConnection_NONE` instead. */
   componentsConnection_NOT?: InputMaybe<UserComponentsConnectionWhere>
+  /** Return Users where all of the related UserComponentsConnections match this filter */
   componentsConnection_ALL?: InputMaybe<UserComponentsConnectionWhere>
+  /** Return Users where none of the related UserComponentsConnections match this filter */
   componentsConnection_NONE?: InputMaybe<UserComponentsConnectionWhere>
+  /** Return Users where one of the related UserComponentsConnections match this filter */
   componentsConnection_SINGLE?: InputMaybe<UserComponentsConnectionWhere>
+  /** Return Users where some of the related UserComponentsConnections match this filter */
   componentsConnection_SOME?: InputMaybe<UserComponentsConnectionWhere>
   /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<UserTagsConnectionWhere>
   /** @deprecated Use `tagsConnection_NONE` instead. */
   tagsConnection_NOT?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where all of the related UserTagsConnections match this filter */
   tagsConnection_ALL?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where none of the related UserTagsConnections match this filter */
   tagsConnection_NONE?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where one of the related UserTagsConnections match this filter */
   tagsConnection_SINGLE?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where some of the related UserTagsConnections match this filter */
   tagsConnection_SOME?: InputMaybe<UserTagsConnectionWhere>
 }
 

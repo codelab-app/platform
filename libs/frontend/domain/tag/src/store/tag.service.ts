@@ -9,7 +9,11 @@ import { ITagDTO } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import {
+  connectAuth0Owner,
+  connectNodeId,
+  reconnectNodeId,
+} from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -120,7 +124,10 @@ export class TagService
       updateTags: { tags },
     } = yield* _await(
       tagApi.UpdateTags({
-        update: { name },
+        update: {
+          name,
+          parent: parent ? reconnectNodeId(parent.id) : undefined,
+        },
         where: { id },
       }),
     )

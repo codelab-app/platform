@@ -39,7 +39,7 @@ export const atoms: IFieldResolver<
 
   console.log('got filtered atom ids: ', filteredItemIds)
 
-  const items = Promise.all(
+  const items = await Promise.all(
     filteredItemIds
       .map(async (item) => {
         return (

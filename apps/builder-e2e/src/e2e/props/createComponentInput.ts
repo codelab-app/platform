@@ -2,7 +2,7 @@ import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner, connectNode } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 /**
@@ -52,6 +52,7 @@ export const createListAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
     },
   },
   name: 'List',
+  owner: connectAuth0Owner(owner),
   type: AtomType.AntDesignList,
 })
 
@@ -64,7 +65,7 @@ export const createListItemAtomInput = (auth0Id: string): AtomCreateInput => ({
     create: {
       node: {
         name: 'ListItem API',
-        owner: connectAuth0Owner(auth0Id),
+        owner: connectAuth0Owner({ auth0Id }),
       },
     },
   },
@@ -169,7 +170,7 @@ export const createListElementInput = (
   listAtomId: string,
   rootElementId: string,
 ) => ({
-  atom: connectNode(listAtomId),
+  atom: connectNodeId(listAtomId),
   name: listElementName,
   props: {
     create: { node: { data: JSON.stringify({ dataSource: listDataSource }) } },

@@ -421,8 +421,11 @@ export type ActionBaseUpdateInput = {
 
 export type ActionBaseWhere = {
   _on?: InputMaybe<ActionBaseImplementationsWhere>
+  element?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<ActionBaseElementAggregateInput>
   elementConnection?: InputMaybe<ActionBaseElementConnectionWhere>
+  elementConnection_NOT?: InputMaybe<ActionBaseElementConnectionWhere>
+  element_NOT?: InputMaybe<ElementWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -435,8 +438,11 @@ export type ActionBaseWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  store?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<ActionBaseStoreAggregateInput>
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
+  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
+  store_NOT?: InputMaybe<StoreWhere>
   type?: InputMaybe<ActionKind>
   type_IN?: InputMaybe<Array<ActionKind>>
 }
@@ -654,8 +660,11 @@ export type ActionTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ActionTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type ActionTypesConnection = {
@@ -1681,11 +1690,18 @@ export type ApiActionWhere = {
   AND?: InputMaybe<Array<ApiActionWhere>>
   NOT?: InputMaybe<ApiActionWhere>
   OR?: InputMaybe<Array<ApiActionWhere>>
+  config?: InputMaybe<PropWhere>
   configAggregate?: InputMaybe<ApiActionConfigAggregateInput>
   configConnection?: InputMaybe<ApiActionConfigConnectionWhere>
+  configConnection_NOT?: InputMaybe<ApiActionConfigConnectionWhere>
+  config_NOT?: InputMaybe<PropWhere>
+  element?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<ApiActionElementAggregateInput>
   elementConnection?: InputMaybe<ActionBaseElementConnectionWhere>
+  elementConnection_NOT?: InputMaybe<ActionBaseElementConnectionWhere>
+  element_NOT?: InputMaybe<ElementWhere>
   errorActionConnection?: InputMaybe<ApiActionErrorActionConnectionWhere>
+  errorActionConnection_NOT?: InputMaybe<ApiActionErrorActionConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -1698,11 +1714,18 @@ export type ApiActionWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  resource?: InputMaybe<ResourceWhere>
   resourceAggregate?: InputMaybe<ApiActionResourceAggregateInput>
   resourceConnection?: InputMaybe<ApiActionResourceConnectionWhere>
+  resourceConnection_NOT?: InputMaybe<ApiActionResourceConnectionWhere>
+  resource_NOT?: InputMaybe<ResourceWhere>
+  store?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<ApiActionStoreAggregateInput>
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
+  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
+  store_NOT?: InputMaybe<StoreWhere>
   successActionConnection?: InputMaybe<ApiActionSuccessActionConnectionWhere>
+  successActionConnection_NOT?: InputMaybe<ApiActionSuccessActionConnectionWhere>
   type?: InputMaybe<ActionKind>
   type_IN?: InputMaybe<Array<ActionKind>>
 }
@@ -2535,8 +2558,11 @@ export type AppTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AppTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type AppTypesConnection = {
@@ -2585,9 +2611,13 @@ export type AppWhere = {
   _compoundName_MATCHES?: InputMaybe<Scalars['String']>
   _compoundName_STARTS_WITH?: InputMaybe<Scalars['String']>
   domainsAggregate?: InputMaybe<AppDomainsAggregateInput>
+  /** Return Apps where all of the related AppDomainsConnections match this filter */
   domainsConnection_ALL?: InputMaybe<AppDomainsConnectionWhere>
+  /** Return Apps where none of the related AppDomainsConnections match this filter */
   domainsConnection_NONE?: InputMaybe<AppDomainsConnectionWhere>
+  /** Return Apps where one of the related AppDomainsConnections match this filter */
   domainsConnection_SINGLE?: InputMaybe<AppDomainsConnectionWhere>
+  /** Return Apps where some of the related AppDomainsConnections match this filter */
   domainsConnection_SOME?: InputMaybe<AppDomainsConnectionWhere>
   /** Return Apps where all of the related Domains match this filter */
   domains_ALL?: InputMaybe<DomainWhere>
@@ -2603,12 +2633,19 @@ export type AppWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_MATCHES?: InputMaybe<Scalars['String']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AppOwnerAggregateInput>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   pagesAggregate?: InputMaybe<AppPagesAggregateInput>
+  /** Return Apps where all of the related AppPagesConnections match this filter */
   pagesConnection_ALL?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where none of the related AppPagesConnections match this filter */
   pagesConnection_NONE?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where one of the related AppPagesConnections match this filter */
   pagesConnection_SINGLE?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where some of the related AppPagesConnections match this filter */
   pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>
   /** Return Apps where all of the related Pages match this filter */
   pages_ALL?: InputMaybe<PageWhere>
@@ -2618,8 +2655,11 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
+  store?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<AppStoreAggregateInput>
   storeConnection?: InputMaybe<AppStoreConnectionWhere>
+  storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>
+  store_NOT?: InputMaybe<StoreWhere>
 }
 
 export type AppsConnection = {
@@ -3739,6 +3779,7 @@ export type ArrayTypeWhere = {
   id_MATCHES?: InputMaybe<Scalars['String']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
   itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
@@ -3747,8 +3788,11 @@ export type ArrayTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ArrayTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type ArrayTypesConnection = {
@@ -4799,9 +4843,13 @@ export type AtomWhere = {
   NOT?: InputMaybe<AtomWhere>
   OR?: InputMaybe<Array<AtomWhere>>
   allowedChildrenAggregate?: InputMaybe<AtomAllowedChildrenAggregateInput>
+  /** Return Atoms where all of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_ALL?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** Return Atoms where none of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_NONE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** Return Atoms where one of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_SINGLE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
+  /** Return Atoms where some of the related AtomAllowedChildrenConnections match this filter */
   allowedChildrenConnection_SOME?: InputMaybe<AtomAllowedChildrenConnectionWhere>
   /** Return Atoms where all of the related Atoms match this filter */
   allowedChildren_ALL?: InputMaybe<AtomWhere>
@@ -4811,8 +4859,11 @@ export type AtomWhere = {
   allowedChildren_SINGLE?: InputMaybe<AtomWhere>
   /** Return Atoms where some of the related Atoms match this filter */
   allowedChildren_SOME?: InputMaybe<AtomWhere>
+  api?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<AtomApiAggregateInput>
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
+  apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
+  api_NOT?: InputMaybe<InterfaceTypeWhere>
   icon?: InputMaybe<Scalars['String']>
   icon_CONTAINS?: InputMaybe<Scalars['String']>
   icon_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -4831,12 +4882,19 @@ export type AtomWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AtomOwnerAggregateInput>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   tagsAggregate?: InputMaybe<AtomTagsAggregateInput>
+  /** Return Atoms where all of the related AtomTagsConnections match this filter */
   tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>
+  /** Return Atoms where none of the related AtomTagsConnections match this filter */
   tagsConnection_NONE?: InputMaybe<AtomTagsConnectionWhere>
+  /** Return Atoms where one of the related AtomTagsConnections match this filter */
   tagsConnection_SINGLE?: InputMaybe<AtomTagsConnectionWhere>
+  /** Return Atoms where some of the related AtomTagsConnections match this filter */
   tagsConnection_SOME?: InputMaybe<AtomTagsConnectionWhere>
   /** Return Atoms where all of the related Tags match this filter */
   tags_ALL?: InputMaybe<TagWhere>
@@ -5039,8 +5097,11 @@ export type BaseTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<BaseTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type BaseTypesWhere = {
@@ -5370,8 +5431,11 @@ export type CodeActionWhere = {
   code_IN?: InputMaybe<Array<Scalars['String']>>
   code_MATCHES?: InputMaybe<Scalars['String']>
   code_STARTS_WITH?: InputMaybe<Scalars['String']>
+  element?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<CodeActionElementAggregateInput>
   elementConnection?: InputMaybe<ActionBaseElementConnectionWhere>
+  elementConnection_NOT?: InputMaybe<ActionBaseElementConnectionWhere>
+  element_NOT?: InputMaybe<ElementWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -5384,8 +5448,11 @@ export type CodeActionWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  store?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<CodeActionStoreAggregateInput>
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
+  storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
+  store_NOT?: InputMaybe<StoreWhere>
   type?: InputMaybe<ActionKind>
   type_IN?: InputMaybe<Array<ActionKind>>
 }
@@ -5619,8 +5686,11 @@ export type CodeMirrorTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<CodeMirrorTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type CodeMirrorTypesConnection = {
@@ -6569,10 +6639,16 @@ export type ComponentWhere = {
   AND?: InputMaybe<Array<ComponentWhere>>
   NOT?: InputMaybe<ComponentWhere>
   OR?: InputMaybe<Array<ComponentWhere>>
+  api?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<ComponentApiAggregateInput>
   apiConnection?: InputMaybe<ComponentApiConnectionWhere>
+  apiConnection_NOT?: InputMaybe<ComponentApiConnectionWhere>
+  api_NOT?: InputMaybe<InterfaceTypeWhere>
+  childrenContainerElement?: InputMaybe<ElementWhere>
   childrenContainerElementAggregate?: InputMaybe<ComponentChildrenContainerElementAggregateInput>
   childrenContainerElementConnection?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
+  childrenContainerElementConnection_NOT?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
+  childrenContainerElement_NOT?: InputMaybe<ElementWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -6585,12 +6661,21 @@ export type ComponentWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ComponentOwnerAggregateInput>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  props?: InputMaybe<PropWhere>
   propsAggregate?: InputMaybe<ComponentPropsAggregateInput>
   propsConnection?: InputMaybe<ComponentPropsConnectionWhere>
+  propsConnection_NOT?: InputMaybe<ComponentPropsConnectionWhere>
+  props_NOT?: InputMaybe<PropWhere>
+  rootElement?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<ComponentRootElementAggregateInput>
   rootElementConnection?: InputMaybe<ComponentRootElementConnectionWhere>
+  rootElementConnection_NOT?: InputMaybe<ComponentRootElementConnectionWhere>
+  rootElement_NOT?: InputMaybe<ElementWhere>
 }
 
 export type ComponentsConnection = {
@@ -7028,8 +7113,11 @@ export type DomainWhere = {
   AND?: InputMaybe<Array<DomainWhere>>
   NOT?: InputMaybe<DomainWhere>
   OR?: InputMaybe<Array<DomainWhere>>
+  app?: InputMaybe<AppWhere>
   appAggregate?: InputMaybe<DomainAppAggregateInput>
   appConnection?: InputMaybe<DomainAppConnectionWhere>
+  appConnection_NOT?: InputMaybe<DomainAppConnectionWhere>
+  app_NOT?: InputMaybe<AppWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -9236,8 +9324,11 @@ export type ElementTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ElementTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type ElementTypesConnection = {
@@ -9282,8 +9373,11 @@ export type ElementWhere = {
   customCss_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   customCss_MATCHES?: InputMaybe<Scalars['String']>
   customCss_STARTS_WITH?: InputMaybe<Scalars['String']>
+  firstChild?: InputMaybe<ElementWhere>
   firstChildAggregate?: InputMaybe<ElementFirstChildAggregateInput>
   firstChildConnection?: InputMaybe<ElementFirstChildConnectionWhere>
+  firstChildConnection_NOT?: InputMaybe<ElementFirstChildConnectionWhere>
+  firstChild_NOT?: InputMaybe<ElementWhere>
   guiCss?: InputMaybe<Scalars['String']>
   guiCss_CONTAINS?: InputMaybe<Scalars['String']>
   guiCss_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -9302,30 +9396,56 @@ export type ElementWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  nextSibling?: InputMaybe<ElementWhere>
   nextSiblingAggregate?: InputMaybe<ElementNextSiblingAggregateInput>
   nextSiblingConnection?: InputMaybe<ElementNextSiblingConnectionWhere>
+  nextSiblingConnection_NOT?: InputMaybe<ElementNextSiblingConnectionWhere>
+  nextSibling_NOT?: InputMaybe<ElementWhere>
+  page?: InputMaybe<PageWhere>
   pageAggregate?: InputMaybe<ElementPageAggregateInput>
   pageConnection?: InputMaybe<ElementPageConnectionWhere>
+  pageConnection_NOT?: InputMaybe<ElementPageConnectionWhere>
+  page_NOT?: InputMaybe<PageWhere>
+  parent?: InputMaybe<ElementWhere>
   parentAggregate?: InputMaybe<ElementParentAggregateInput>
+  parentComponent?: InputMaybe<ComponentWhere>
   parentComponentAggregate?: InputMaybe<ElementParentComponentAggregateInput>
   parentComponentConnection?: InputMaybe<ElementParentComponentConnectionWhere>
+  parentComponentConnection_NOT?: InputMaybe<ElementParentComponentConnectionWhere>
+  parentComponent_NOT?: InputMaybe<ComponentWhere>
   parentConnection?: InputMaybe<ElementParentConnectionWhere>
+  parentConnection_NOT?: InputMaybe<ElementParentConnectionWhere>
+  parent_NOT?: InputMaybe<ElementWhere>
   postRenderActionConnection?: InputMaybe<ElementPostRenderActionConnectionWhere>
+  postRenderActionConnection_NOT?: InputMaybe<ElementPostRenderActionConnectionWhere>
   preRenderActionConnection?: InputMaybe<ElementPreRenderActionConnectionWhere>
+  preRenderActionConnection_NOT?: InputMaybe<ElementPreRenderActionConnectionWhere>
+  prevSibling?: InputMaybe<ElementWhere>
   prevSiblingAggregate?: InputMaybe<ElementPrevSiblingAggregateInput>
   prevSiblingConnection?: InputMaybe<ElementPrevSiblingConnectionWhere>
+  prevSiblingConnection_NOT?: InputMaybe<ElementPrevSiblingConnectionWhere>
+  prevSibling_NOT?: InputMaybe<ElementWhere>
   propTransformationJs?: InputMaybe<Scalars['String']>
   propTransformationJs_CONTAINS?: InputMaybe<Scalars['String']>
   propTransformationJs_ENDS_WITH?: InputMaybe<Scalars['String']>
   propTransformationJs_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   propTransformationJs_MATCHES?: InputMaybe<Scalars['String']>
   propTransformationJs_STARTS_WITH?: InputMaybe<Scalars['String']>
+  props?: InputMaybe<PropWhere>
   propsAggregate?: InputMaybe<ElementPropsAggregateInput>
   propsConnection?: InputMaybe<ElementPropsConnectionWhere>
+  propsConnection_NOT?: InputMaybe<ElementPropsConnectionWhere>
+  props_NOT?: InputMaybe<PropWhere>
+  renderAtomType?: InputMaybe<AtomWhere>
   renderAtomTypeAggregate?: InputMaybe<ElementRenderAtomTypeAggregateInput>
   renderAtomTypeConnection?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
+  renderAtomTypeConnection_NOT?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
+  renderAtomType_NOT?: InputMaybe<AtomWhere>
+  renderComponentType?: InputMaybe<ComponentWhere>
   renderComponentTypeAggregate?: InputMaybe<ElementRenderComponentTypeAggregateInput>
   renderComponentTypeConnection?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
+  renderComponentTypeConnection_NOT?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
+  renderComponentType_NOT?: InputMaybe<ComponentWhere>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey_CONTAINS?: InputMaybe<Scalars['String']>
   renderForEachPropKey_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -9936,8 +10056,11 @@ export type EnumTypeValueWhere = {
   AND?: InputMaybe<Array<EnumTypeValueWhere>>
   NOT?: InputMaybe<EnumTypeValueWhere>
   OR?: InputMaybe<Array<EnumTypeValueWhere>>
+  enumType?: InputMaybe<EnumTypeWhere>
   enumTypeAggregate?: InputMaybe<EnumTypeValueEnumTypeAggregateInput>
   enumTypeConnection?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
+  enumTypeConnection_NOT?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
+  enumType_NOT?: InputMaybe<EnumTypeWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -9970,9 +10093,13 @@ export type EnumTypeWhere = {
   NOT?: InputMaybe<EnumTypeWhere>
   OR?: InputMaybe<Array<EnumTypeWhere>>
   allowedValuesAggregate?: InputMaybe<EnumTypeAllowedValuesAggregateInput>
+  /** Return EnumTypes where all of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_ALL?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  /** Return EnumTypes where none of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_NONE?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  /** Return EnumTypes where one of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_SINGLE?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  /** Return EnumTypes where some of the related EnumTypeAllowedValuesConnections match this filter */
   allowedValuesConnection_SOME?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
   /** Return EnumTypes where all of the related EnumTypeValues match this filter */
   allowedValues_ALL?: InputMaybe<EnumTypeValueWhere>
@@ -9996,8 +10123,11 @@ export type EnumTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type EnumTypesConnection = {
@@ -10323,8 +10453,11 @@ export type FieldWhere = {
   AND?: InputMaybe<Array<FieldWhere>>
   NOT?: InputMaybe<FieldWhere>
   OR?: InputMaybe<Array<FieldWhere>>
+  api?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<FieldApiAggregateInput>
   apiConnection?: InputMaybe<FieldApiConnectionWhere>
+  apiConnection_NOT?: InputMaybe<FieldApiConnectionWhere>
+  api_NOT?: InputMaybe<InterfaceTypeWhere>
   defaultValues?: InputMaybe<Scalars['String']>
   defaultValues_CONTAINS?: InputMaybe<Scalars['String']>
   defaultValues_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -10338,6 +10471,7 @@ export type FieldWhere = {
   description_MATCHES?: InputMaybe<Scalars['String']>
   description_STARTS_WITH?: InputMaybe<Scalars['String']>
   fieldTypeConnection?: InputMaybe<FieldFieldTypeConnectionWhere>
+  fieldTypeConnection_NOT?: InputMaybe<FieldFieldTypeConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -10867,10 +11001,16 @@ export type HookWhere = {
   AND?: InputMaybe<Array<HookWhere>>
   NOT?: InputMaybe<HookWhere>
   OR?: InputMaybe<Array<HookWhere>>
+  config?: InputMaybe<PropWhere>
   configAggregate?: InputMaybe<HookConfigAggregateInput>
   configConnection?: InputMaybe<HookConfigConnectionWhere>
+  configConnection_NOT?: InputMaybe<HookConfigConnectionWhere>
+  config_NOT?: InputMaybe<PropWhere>
+  element?: InputMaybe<ElementWhere>
   elementAggregate?: InputMaybe<HookElementAggregateInput>
   elementConnection?: InputMaybe<HookElementConnectionWhere>
+  elementConnection_NOT?: InputMaybe<HookElementConnectionWhere>
+  element_NOT?: InputMaybe<ElementWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -11205,8 +11345,11 @@ export type IBaseTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<IBaseTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type IdAggregateSelectionNonNullable = {
@@ -11794,9 +11937,13 @@ export type InterfaceTypeWhere = {
   NOT?: InputMaybe<InterfaceTypeWhere>
   OR?: InputMaybe<Array<InterfaceTypeWhere>>
   apiOfAtomsAggregate?: InputMaybe<InterfaceTypeApiOfAtomsAggregateInput>
+  /** Return InterfaceTypes where all of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_ALL?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  /** Return InterfaceTypes where none of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_NONE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  /** Return InterfaceTypes where one of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_SINGLE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  /** Return InterfaceTypes where some of the related InterfaceTypeApiOfAtomsConnections match this filter */
   apiOfAtomsConnection_SOME?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
   /** Return InterfaceTypes where all of the related Atoms match this filter */
   apiOfAtoms_ALL?: InputMaybe<AtomWhere>
@@ -11807,9 +11954,13 @@ export type InterfaceTypeWhere = {
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
   fieldsAggregate?: InputMaybe<InterfaceTypeFieldsAggregateInput>
+  /** Return InterfaceTypes where all of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  /** Return InterfaceTypes where none of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  /** Return InterfaceTypes where one of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  /** Return InterfaceTypes where some of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_SOME?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   /** Return InterfaceTypes where all of the related Fields match this filter */
   fields_ALL?: InputMaybe<FieldWhere>
@@ -11833,8 +11984,11 @@ export type InterfaceTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type InterfaceTypesConnection = {
@@ -12050,8 +12204,11 @@ export type LambdaTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<LambdaTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type LambdaTypesConnection = {
@@ -13618,8 +13775,11 @@ export type PageTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<PageTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type PageTypesConnection = {
@@ -13654,8 +13814,11 @@ export type PageWhere = {
   _compoundName_IN?: InputMaybe<Array<Scalars['String']>>
   _compoundName_MATCHES?: InputMaybe<Scalars['String']>
   _compoundName_STARTS_WITH?: InputMaybe<Scalars['String']>
+  app?: InputMaybe<AppWhere>
   appAggregate?: InputMaybe<PageAppAggregateInput>
   appConnection?: InputMaybe<PageAppConnectionWhere>
+  appConnection_NOT?: InputMaybe<PageAppConnectionWhere>
+  app_NOT?: InputMaybe<AppWhere>
   getServerSideProps?: InputMaybe<Scalars['String']>
   getServerSideProps_CONTAINS?: InputMaybe<Scalars['String']>
   getServerSideProps_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -13670,10 +13833,16 @@ export type PageWhere = {
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
   kind?: InputMaybe<PageKind>
   kind_IN?: InputMaybe<Array<PageKind>>
+  pageContentContainer?: InputMaybe<ElementWhere>
   pageContentContainerAggregate?: InputMaybe<PagePageContentContainerAggregateInput>
   pageContentContainerConnection?: InputMaybe<PagePageContentContainerConnectionWhere>
+  pageContentContainerConnection_NOT?: InputMaybe<PagePageContentContainerConnectionWhere>
+  pageContentContainer_NOT?: InputMaybe<ElementWhere>
+  rootElement?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
   rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
+  rootElementConnection_NOT?: InputMaybe<PageRootElementConnectionWhere>
+  rootElement_NOT?: InputMaybe<ElementWhere>
 }
 
 export type PagesConnection = {
@@ -13903,8 +14072,11 @@ export type PrimitiveTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<PrimitiveTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   primitiveKind?: InputMaybe<PrimitiveTypeKind>
   primitiveKind_IN?: InputMaybe<Array<PrimitiveTypeKind>>
 }
@@ -14858,8 +15030,11 @@ export type ReactNodeTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ReactNodeTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type ReactNodeTypesConnection = {
@@ -15115,8 +15290,11 @@ export type RenderPropsTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<RenderPropsTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type RenderPropsTypesConnection = {
@@ -15481,8 +15659,11 @@ export type ResourceWhere = {
   AND?: InputMaybe<Array<ResourceWhere>>
   NOT?: InputMaybe<ResourceWhere>
   OR?: InputMaybe<Array<ResourceWhere>>
+  config?: InputMaybe<PropWhere>
   configAggregate?: InputMaybe<ResourceConfigAggregateInput>
   configConnection?: InputMaybe<ResourceConfigConnectionWhere>
+  configConnection_NOT?: InputMaybe<ResourceConfigConnectionWhere>
+  config_NOT?: InputMaybe<PropWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -15495,8 +15676,11 @@ export type ResourceWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ResourceOwnerAggregateInput>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   type?: InputMaybe<ResourceType>
   type_IN?: InputMaybe<Array<ResourceType>>
 }
@@ -16089,14 +16273,24 @@ export type StoreWhere = {
   AND?: InputMaybe<Array<StoreWhere>>
   NOT?: InputMaybe<StoreWhere>
   OR?: InputMaybe<Array<StoreWhere>>
+  /** Return Stores where all of the related StoreActionsConnections match this filter */
   actionsConnection_ALL?: InputMaybe<StoreActionsConnectionWhere>
+  /** Return Stores where none of the related StoreActionsConnections match this filter */
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>
+  /** Return Stores where one of the related StoreActionsConnections match this filter */
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>
+  /** Return Stores where some of the related StoreActionsConnections match this filter */
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>
+  api?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<StoreApiAggregateInput>
   apiConnection?: InputMaybe<StoreApiConnectionWhere>
+  apiConnection_NOT?: InputMaybe<StoreApiConnectionWhere>
+  api_NOT?: InputMaybe<InterfaceTypeWhere>
+  app?: InputMaybe<AppWhere>
   appAggregate?: InputMaybe<StoreAppAggregateInput>
   appConnection?: InputMaybe<StoreAppConnectionWhere>
+  appConnection_NOT?: InputMaybe<StoreAppConnectionWhere>
+  app_NOT?: InputMaybe<AppWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -16689,9 +16883,13 @@ export type TagWhere = {
   NOT?: InputMaybe<TagWhere>
   OR?: InputMaybe<Array<TagWhere>>
   childrenAggregate?: InputMaybe<TagChildrenAggregateInput>
+  /** Return Tags where all of the related TagChildrenConnections match this filter */
   childrenConnection_ALL?: InputMaybe<TagChildrenConnectionWhere>
+  /** Return Tags where none of the related TagChildrenConnections match this filter */
   childrenConnection_NONE?: InputMaybe<TagChildrenConnectionWhere>
+  /** Return Tags where one of the related TagChildrenConnections match this filter */
   childrenConnection_SINGLE?: InputMaybe<TagChildrenConnectionWhere>
+  /** Return Tags where some of the related TagChildrenConnections match this filter */
   childrenConnection_SOME?: InputMaybe<TagChildrenConnectionWhere>
   /** Return Tags where all of the related Tags match this filter */
   children_ALL?: InputMaybe<TagWhere>
@@ -16713,10 +16911,16 @@ export type TagWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<TagOwnerAggregateInput>
   ownerConnection?: InputMaybe<TagOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TagOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  parent?: InputMaybe<TagWhere>
   parentAggregate?: InputMaybe<TagParentAggregateInput>
   parentConnection?: InputMaybe<TagParentConnectionWhere>
+  parentConnection_NOT?: InputMaybe<TagParentConnectionWhere>
+  parent_NOT?: InputMaybe<TagWhere>
 }
 
 export type TagsConnection = {
@@ -18242,11 +18446,18 @@ export type UnionTypeWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<UnionTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  /** Return UnionTypes where all of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_ALL?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  /** Return UnionTypes where none of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_NONE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  /** Return UnionTypes where one of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_SINGLE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  /** Return UnionTypes where some of the related UnionTypeTypesOfUnionTypeConnections match this filter */
   typesOfUnionTypeConnection_SOME?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
 }
 
@@ -19347,9 +19558,13 @@ export type UserWhere = {
   NOT?: InputMaybe<UserWhere>
   OR?: InputMaybe<Array<UserWhere>>
   appsAggregate?: InputMaybe<UserAppsAggregateInput>
+  /** Return Users where all of the related UserAppsConnections match this filter */
   appsConnection_ALL?: InputMaybe<UserAppsConnectionWhere>
+  /** Return Users where none of the related UserAppsConnections match this filter */
   appsConnection_NONE?: InputMaybe<UserAppsConnectionWhere>
+  /** Return Users where one of the related UserAppsConnections match this filter */
   appsConnection_SINGLE?: InputMaybe<UserAppsConnectionWhere>
+  /** Return Users where some of the related UserAppsConnections match this filter */
   appsConnection_SOME?: InputMaybe<UserAppsConnectionWhere>
   /** Return Users where all of the related Apps match this filter */
   apps_ALL?: InputMaybe<AppWhere>
@@ -19366,9 +19581,13 @@ export type UserWhere = {
   auth0Id_MATCHES?: InputMaybe<Scalars['String']>
   auth0Id_STARTS_WITH?: InputMaybe<Scalars['String']>
   componentsAggregate?: InputMaybe<UserComponentsAggregateInput>
+  /** Return Users where all of the related UserComponentsConnections match this filter */
   componentsConnection_ALL?: InputMaybe<UserComponentsConnectionWhere>
+  /** Return Users where none of the related UserComponentsConnections match this filter */
   componentsConnection_NONE?: InputMaybe<UserComponentsConnectionWhere>
+  /** Return Users where one of the related UserComponentsConnections match this filter */
   componentsConnection_SINGLE?: InputMaybe<UserComponentsConnectionWhere>
+  /** Return Users where some of the related UserComponentsConnections match this filter */
   componentsConnection_SOME?: InputMaybe<UserComponentsConnectionWhere>
   /** Return Users where all of the related Components match this filter */
   components_ALL?: InputMaybe<ComponentWhere>
@@ -19379,9 +19598,13 @@ export type UserWhere = {
   /** Return Users where some of the related Components match this filter */
   components_SOME?: InputMaybe<ComponentWhere>
   elementsAggregate?: InputMaybe<UserElementsAggregateInput>
+  /** Return Users where all of the related UserElementsConnections match this filter */
   elementsConnection_ALL?: InputMaybe<UserElementsConnectionWhere>
+  /** Return Users where none of the related UserElementsConnections match this filter */
   elementsConnection_NONE?: InputMaybe<UserElementsConnectionWhere>
+  /** Return Users where one of the related UserElementsConnections match this filter */
   elementsConnection_SINGLE?: InputMaybe<UserElementsConnectionWhere>
+  /** Return Users where some of the related UserElementsConnections match this filter */
   elementsConnection_SOME?: InputMaybe<UserElementsConnectionWhere>
   /** Return Users where all of the related Elements match this filter */
   elements_ALL?: InputMaybe<ElementWhere>
@@ -19406,9 +19629,13 @@ export type UserWhere = {
   roles?: InputMaybe<Array<Role>>
   roles_INCLUDES?: InputMaybe<Role>
   tagsAggregate?: InputMaybe<UserTagsAggregateInput>
+  /** Return Users where all of the related UserTagsConnections match this filter */
   tagsConnection_ALL?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where none of the related UserTagsConnections match this filter */
   tagsConnection_NONE?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where one of the related UserTagsConnections match this filter */
   tagsConnection_SINGLE?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where some of the related UserTagsConnections match this filter */
   tagsConnection_SOME?: InputMaybe<UserTagsConnectionWhere>
   /** Return Users where all of the related Tags match this filter */
   tags_ALL?: InputMaybe<TagWhere>
@@ -19419,9 +19646,13 @@ export type UserWhere = {
   /** Return Users where some of the related Tags match this filter */
   tags_SOME?: InputMaybe<TagWhere>
   typesAggregate?: InputMaybe<UserTypesAggregateInput>
+  /** Return Users where all of the related UserTypesConnections match this filter */
   typesConnection_ALL?: InputMaybe<UserTypesConnectionWhere>
+  /** Return Users where none of the related UserTypesConnections match this filter */
   typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>
+  /** Return Users where one of the related UserTypesConnections match this filter */
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>
+  /** Return Users where some of the related UserTypesConnections match this filter */
   typesConnection_SOME?: InputMaybe<UserTypesConnectionWhere>
   /** Return Users where all of the related BaseTypes match this filter */
   types_ALL?: InputMaybe<BaseTypeWhere>
