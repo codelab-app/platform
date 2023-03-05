@@ -400,8 +400,11 @@ input ActionBaseUpdateInput {
 
 input ActionBaseWhere {
   _on: ActionBaseImplementationsWhere
+  element: ElementWhere
   elementAggregate: ActionBaseElementAggregateInput
   elementConnection: ActionBaseElementConnectionWhere
+  elementConnection_NOT: ActionBaseElementConnectionWhere
+  element_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -414,8 +417,11 @@ input ActionBaseWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  store: StoreWhere
   storeAggregate: ActionBaseStoreAggregateInput
   storeConnection: ActionBaseStoreConnectionWhere
+  storeConnection_NOT: ActionBaseStoreConnectionWhere
+  store_NOT: StoreWhere
   type: ActionKind
   type_IN: [ActionKind!]
 }
@@ -627,8 +633,11 @@ input ActionTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ActionTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type ActionTypesConnection {
@@ -1615,11 +1624,18 @@ input ApiActionWhere {
   AND: [ApiActionWhere!]
   NOT: ApiActionWhere
   OR: [ApiActionWhere!]
+  config: PropWhere
   configAggregate: ApiActionConfigAggregateInput
   configConnection: ApiActionConfigConnectionWhere
+  configConnection_NOT: ApiActionConfigConnectionWhere
+  config_NOT: PropWhere
+  element: ElementWhere
   elementAggregate: ApiActionElementAggregateInput
   elementConnection: ActionBaseElementConnectionWhere
+  elementConnection_NOT: ActionBaseElementConnectionWhere
+  element_NOT: ElementWhere
   errorActionConnection: ApiActionErrorActionConnectionWhere
+  errorActionConnection_NOT: ApiActionErrorActionConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -1632,11 +1648,18 @@ input ApiActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  resource: ResourceWhere
   resourceAggregate: ApiActionResourceAggregateInput
   resourceConnection: ApiActionResourceConnectionWhere
+  resourceConnection_NOT: ApiActionResourceConnectionWhere
+  resource_NOT: ResourceWhere
+  store: StoreWhere
   storeAggregate: ApiActionStoreAggregateInput
   storeConnection: ActionBaseStoreConnectionWhere
+  storeConnection_NOT: ActionBaseStoreConnectionWhere
+  store_NOT: StoreWhere
   successActionConnection: ApiActionSuccessActionConnectionWhere
+  successActionConnection_NOT: ApiActionSuccessActionConnectionWhere
   type: ActionKind
   type_IN: [ActionKind!]
 }
@@ -2428,8 +2451,11 @@ input AppTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: AppTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type AppTypesConnection {
@@ -2475,9 +2501,25 @@ input AppWhere {
   _compoundName_MATCHES: String
   _compoundName_STARTS_WITH: String
   domainsAggregate: AppDomainsAggregateInput
+
+  """
+  Return Apps where all of the related AppDomainsConnections match this filter
+  """
   domainsConnection_ALL: AppDomainsConnectionWhere
+
+  """
+  Return Apps where none of the related AppDomainsConnections match this filter
+  """
   domainsConnection_NONE: AppDomainsConnectionWhere
+
+  """
+  Return Apps where one of the related AppDomainsConnections match this filter
+  """
   domainsConnection_SINGLE: AppDomainsConnectionWhere
+
+  """
+  Return Apps where some of the related AppDomainsConnections match this filter
+  """
   domainsConnection_SOME: AppDomainsConnectionWhere
 
   """
@@ -2505,12 +2547,31 @@ input AppWhere {
   id_IN: [ID!]
   id_MATCHES: String
   id_STARTS_WITH: ID
+  owner: UserWhere
   ownerAggregate: AppOwnerAggregateInput
   ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
   pagesAggregate: AppPagesAggregateInput
+
+  """
+  Return Apps where all of the related AppPagesConnections match this filter
+  """
   pagesConnection_ALL: AppPagesConnectionWhere
+
+  """
+  Return Apps where none of the related AppPagesConnections match this filter
+  """
   pagesConnection_NONE: AppPagesConnectionWhere
+
+  """
+  Return Apps where one of the related AppPagesConnections match this filter
+  """
   pagesConnection_SINGLE: AppPagesConnectionWhere
+
+  """
+  Return Apps where some of the related AppPagesConnections match this filter
+  """
   pagesConnection_SOME: AppPagesConnectionWhere
 
   """
@@ -2532,8 +2593,11 @@ input AppWhere {
   Return Apps where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
+  store: StoreWhere
   storeAggregate: AppStoreAggregateInput
   storeConnection: AppStoreConnectionWhere
+  storeConnection_NOT: AppStoreConnectionWhere
+  store_NOT: StoreWhere
 }
 
 type AppsConnection {
@@ -3604,6 +3668,7 @@ input ArrayTypeWhere {
   id_MATCHES: String
   id_STARTS_WITH: ID
   itemTypeConnection: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection_NOT: ArrayTypeItemTypeConnectionWhere
   kind: TypeKind
   kind_IN: [TypeKind!]
   name: String
@@ -3612,8 +3677,11 @@ input ArrayTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ArrayTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type ArrayTypesConnection {
@@ -4622,9 +4690,25 @@ input AtomWhere {
   NOT: AtomWhere
   OR: [AtomWhere!]
   allowedChildrenAggregate: AtomAllowedChildrenAggregateInput
+
+  """
+  Return Atoms where all of the related AtomAllowedChildrenConnections match this filter
+  """
   allowedChildrenConnection_ALL: AtomAllowedChildrenConnectionWhere
+
+  """
+  Return Atoms where none of the related AtomAllowedChildrenConnections match this filter
+  """
   allowedChildrenConnection_NONE: AtomAllowedChildrenConnectionWhere
+
+  """
+  Return Atoms where one of the related AtomAllowedChildrenConnections match this filter
+  """
   allowedChildrenConnection_SINGLE: AtomAllowedChildrenConnectionWhere
+
+  """
+  Return Atoms where some of the related AtomAllowedChildrenConnections match this filter
+  """
   allowedChildrenConnection_SOME: AtomAllowedChildrenConnectionWhere
 
   """
@@ -4646,8 +4730,11 @@ input AtomWhere {
   Return Atoms where some of the related Atoms match this filter
   """
   allowedChildren_SOME: AtomWhere
+  api: InterfaceTypeWhere
   apiAggregate: AtomApiAggregateInput
   apiConnection: AtomApiConnectionWhere
+  apiConnection_NOT: AtomApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
   icon: String
   icon_CONTAINS: String
   icon_ENDS_WITH: String
@@ -4666,12 +4753,31 @@ input AtomWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: AtomOwnerAggregateInput
   ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
   tagsAggregate: AtomTagsAggregateInput
+
+  """
+  Return Atoms where all of the related AtomTagsConnections match this filter
+  """
   tagsConnection_ALL: AtomTagsConnectionWhere
+
+  """
+  Return Atoms where none of the related AtomTagsConnections match this filter
+  """
   tagsConnection_NONE: AtomTagsConnectionWhere
+
+  """
+  Return Atoms where one of the related AtomTagsConnections match this filter
+  """
   tagsConnection_SINGLE: AtomTagsConnectionWhere
+
+  """
+  Return Atoms where some of the related AtomTagsConnections match this filter
+  """
   tagsConnection_SOME: AtomTagsConnectionWhere
 
   """
@@ -4877,8 +4983,11 @@ input BaseTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: BaseTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 input BaseTypesWhere {
@@ -5196,8 +5305,11 @@ input CodeActionWhere {
   code_IN: [String!]
   code_MATCHES: String
   code_STARTS_WITH: String
+  element: ElementWhere
   elementAggregate: CodeActionElementAggregateInput
   elementConnection: ActionBaseElementConnectionWhere
+  elementConnection_NOT: ActionBaseElementConnectionWhere
+  element_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -5210,8 +5322,11 @@ input CodeActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  store: StoreWhere
   storeAggregate: CodeActionStoreAggregateInput
   storeConnection: ActionBaseStoreConnectionWhere
+  storeConnection_NOT: ActionBaseStoreConnectionWhere
+  store_NOT: StoreWhere
   type: ActionKind
   type_IN: [ActionKind!]
 }
@@ -5433,8 +5548,11 @@ input CodeMirrorTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: CodeMirrorTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type CodeMirrorTypesConnection {
@@ -6334,10 +6452,16 @@ input ComponentWhere {
   AND: [ComponentWhere!]
   NOT: ComponentWhere
   OR: [ComponentWhere!]
+  api: InterfaceTypeWhere
   apiAggregate: ComponentApiAggregateInput
   apiConnection: ComponentApiConnectionWhere
+  apiConnection_NOT: ComponentApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
+  childrenContainerElement: ElementWhere
   childrenContainerElementAggregate: ComponentChildrenContainerElementAggregateInput
   childrenContainerElementConnection: ComponentChildrenContainerElementConnectionWhere
+  childrenContainerElementConnection_NOT: ComponentChildrenContainerElementConnectionWhere
+  childrenContainerElement_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -6350,12 +6474,21 @@ input ComponentWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ComponentOwnerAggregateInput
   ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
+  props: PropWhere
   propsAggregate: ComponentPropsAggregateInput
   propsConnection: ComponentPropsConnectionWhere
+  propsConnection_NOT: ComponentPropsConnectionWhere
+  props_NOT: PropWhere
+  rootElement: ElementWhere
   rootElementAggregate: ComponentRootElementAggregateInput
   rootElementConnection: ComponentRootElementConnectionWhere
+  rootElementConnection_NOT: ComponentRootElementConnectionWhere
+  rootElement_NOT: ElementWhere
 }
 
 type ComponentsConnection {
@@ -6750,8 +6883,11 @@ input DomainWhere {
   AND: [DomainWhere!]
   NOT: DomainWhere
   OR: [DomainWhere!]
+  app: AppWhere
   appAggregate: DomainAppAggregateInput
   appConnection: DomainAppConnectionWhere
+  appConnection_NOT: DomainAppConnectionWhere
+  app_NOT: AppWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -8837,8 +8973,11 @@ input ElementTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ElementTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type ElementTypesConnection {
@@ -8882,8 +9021,11 @@ input ElementWhere {
   customCss_IN: [String]
   customCss_MATCHES: String
   customCss_STARTS_WITH: String
+  firstChild: ElementWhere
   firstChildAggregate: ElementFirstChildAggregateInput
   firstChildConnection: ElementFirstChildConnectionWhere
+  firstChildConnection_NOT: ElementFirstChildConnectionWhere
+  firstChild_NOT: ElementWhere
   guiCss: String
   guiCss_CONTAINS: String
   guiCss_ENDS_WITH: String
@@ -8902,30 +9044,56 @@ input ElementWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  nextSibling: ElementWhere
   nextSiblingAggregate: ElementNextSiblingAggregateInput
   nextSiblingConnection: ElementNextSiblingConnectionWhere
+  nextSiblingConnection_NOT: ElementNextSiblingConnectionWhere
+  nextSibling_NOT: ElementWhere
+  page: PageWhere
   pageAggregate: ElementPageAggregateInput
   pageConnection: ElementPageConnectionWhere
+  pageConnection_NOT: ElementPageConnectionWhere
+  page_NOT: PageWhere
+  parent: ElementWhere
   parentAggregate: ElementParentAggregateInput
+  parentComponent: ComponentWhere
   parentComponentAggregate: ElementParentComponentAggregateInput
   parentComponentConnection: ElementParentComponentConnectionWhere
+  parentComponentConnection_NOT: ElementParentComponentConnectionWhere
+  parentComponent_NOT: ComponentWhere
   parentConnection: ElementParentConnectionWhere
+  parentConnection_NOT: ElementParentConnectionWhere
+  parent_NOT: ElementWhere
   postRenderActionConnection: ElementPostRenderActionConnectionWhere
+  postRenderActionConnection_NOT: ElementPostRenderActionConnectionWhere
   preRenderActionConnection: ElementPreRenderActionConnectionWhere
+  preRenderActionConnection_NOT: ElementPreRenderActionConnectionWhere
+  prevSibling: ElementWhere
   prevSiblingAggregate: ElementPrevSiblingAggregateInput
   prevSiblingConnection: ElementPrevSiblingConnectionWhere
+  prevSiblingConnection_NOT: ElementPrevSiblingConnectionWhere
+  prevSibling_NOT: ElementWhere
   propTransformationJs: String
   propTransformationJs_CONTAINS: String
   propTransformationJs_ENDS_WITH: String
   propTransformationJs_IN: [String]
   propTransformationJs_MATCHES: String
   propTransformationJs_STARTS_WITH: String
+  props: PropWhere
   propsAggregate: ElementPropsAggregateInput
   propsConnection: ElementPropsConnectionWhere
+  propsConnection_NOT: ElementPropsConnectionWhere
+  props_NOT: PropWhere
+  renderAtomType: AtomWhere
   renderAtomTypeAggregate: ElementRenderAtomTypeAggregateInput
   renderAtomTypeConnection: ElementRenderAtomTypeConnectionWhere
+  renderAtomTypeConnection_NOT: ElementRenderAtomTypeConnectionWhere
+  renderAtomType_NOT: AtomWhere
+  renderComponentType: ComponentWhere
   renderComponentTypeAggregate: ElementRenderComponentTypeAggregateInput
   renderComponentTypeConnection: ElementRenderComponentTypeConnectionWhere
+  renderComponentTypeConnection_NOT: ElementRenderComponentTypeConnectionWhere
+  renderComponentType_NOT: ComponentWhere
   renderForEachPropKey: String
   renderForEachPropKey_CONTAINS: String
   renderForEachPropKey_ENDS_WITH: String
@@ -9483,8 +9651,11 @@ input EnumTypeValueWhere {
   AND: [EnumTypeValueWhere!]
   NOT: EnumTypeValueWhere
   OR: [EnumTypeValueWhere!]
+  enumType: EnumTypeWhere
   enumTypeAggregate: EnumTypeValueEnumTypeAggregateInput
   enumTypeConnection: EnumTypeValueEnumTypeConnectionWhere
+  enumTypeConnection_NOT: EnumTypeValueEnumTypeConnectionWhere
+  enumType_NOT: EnumTypeWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -9516,9 +9687,25 @@ input EnumTypeWhere {
   NOT: EnumTypeWhere
   OR: [EnumTypeWhere!]
   allowedValuesAggregate: EnumTypeAllowedValuesAggregateInput
+
+  """
+  Return EnumTypes where all of the related EnumTypeAllowedValuesConnections match this filter
+  """
   allowedValuesConnection_ALL: EnumTypeAllowedValuesConnectionWhere
+
+  """
+  Return EnumTypes where none of the related EnumTypeAllowedValuesConnections match this filter
+  """
   allowedValuesConnection_NONE: EnumTypeAllowedValuesConnectionWhere
+
+  """
+  Return EnumTypes where one of the related EnumTypeAllowedValuesConnections match this filter
+  """
   allowedValuesConnection_SINGLE: EnumTypeAllowedValuesConnectionWhere
+
+  """
+  Return EnumTypes where some of the related EnumTypeAllowedValuesConnections match this filter
+  """
   allowedValuesConnection_SOME: EnumTypeAllowedValuesConnectionWhere
 
   """
@@ -9554,8 +9741,11 @@ input EnumTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: EnumTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type EnumTypesConnection {
@@ -9869,8 +10059,11 @@ input FieldWhere {
   AND: [FieldWhere!]
   NOT: FieldWhere
   OR: [FieldWhere!]
+  api: InterfaceTypeWhere
   apiAggregate: FieldApiAggregateInput
   apiConnection: FieldApiConnectionWhere
+  apiConnection_NOT: FieldApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
   defaultValues: String
   defaultValues_CONTAINS: String
   defaultValues_ENDS_WITH: String
@@ -9884,6 +10077,7 @@ input FieldWhere {
   description_MATCHES: String
   description_STARTS_WITH: String
   fieldTypeConnection: FieldFieldTypeConnectionWhere
+  fieldTypeConnection_NOT: FieldFieldTypeConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10400,10 +10594,16 @@ input HookWhere {
   AND: [HookWhere!]
   NOT: HookWhere
   OR: [HookWhere!]
+  config: PropWhere
   configAggregate: HookConfigAggregateInput
   configConnection: HookConfigConnectionWhere
+  configConnection_NOT: HookConfigConnectionWhere
+  config_NOT: PropWhere
+  element: ElementWhere
   elementAggregate: HookElementAggregateInput
   elementConnection: HookElementConnectionWhere
+  elementConnection_NOT: HookElementConnectionWhere
+  element_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10735,8 +10935,11 @@ input IBaseTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: IBaseTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type IDAggregateSelectionNonNullable {
@@ -11284,9 +11487,25 @@ input InterfaceTypeWhere {
   NOT: InterfaceTypeWhere
   OR: [InterfaceTypeWhere!]
   apiOfAtomsAggregate: InterfaceTypeApiOfAtomsAggregateInput
+
+  """
+  Return InterfaceTypes where all of the related InterfaceTypeApiOfAtomsConnections match this filter
+  """
   apiOfAtomsConnection_ALL: InterfaceTypeApiOfAtomsConnectionWhere
+
+  """
+  Return InterfaceTypes where none of the related InterfaceTypeApiOfAtomsConnections match this filter
+  """
   apiOfAtomsConnection_NONE: InterfaceTypeApiOfAtomsConnectionWhere
+
+  """
+  Return InterfaceTypes where one of the related InterfaceTypeApiOfAtomsConnections match this filter
+  """
   apiOfAtomsConnection_SINGLE: InterfaceTypeApiOfAtomsConnectionWhere
+
+  """
+  Return InterfaceTypes where some of the related InterfaceTypeApiOfAtomsConnections match this filter
+  """
   apiOfAtomsConnection_SOME: InterfaceTypeApiOfAtomsConnectionWhere
 
   """
@@ -11309,9 +11528,25 @@ input InterfaceTypeWhere {
   """
   apiOfAtoms_SOME: AtomWhere
   fieldsAggregate: InterfaceTypeFieldsAggregateInput
+
+  """
+  Return InterfaceTypes where all of the related InterfaceTypeFieldsConnections match this filter
+  """
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
+
+  """
+  Return InterfaceTypes where none of the related InterfaceTypeFieldsConnections match this filter
+  """
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
+
+  """
+  Return InterfaceTypes where one of the related InterfaceTypeFieldsConnections match this filter
+  """
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
+
+  """
+  Return InterfaceTypes where some of the related InterfaceTypeFieldsConnections match this filter
+  """
   fieldsConnection_SOME: InterfaceTypeFieldsConnectionWhere
 
   """
@@ -11347,8 +11582,11 @@ input InterfaceTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: InterfaceTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type InterfaceTypesConnection {
@@ -11552,8 +11790,11 @@ input LambdaTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: LambdaTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type LambdaTypesConnection {
@@ -12838,8 +13079,11 @@ input PageTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: PageTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type PageTypesConnection {
@@ -12873,8 +13117,11 @@ input PageWhere {
   _compoundName_IN: [String!]
   _compoundName_MATCHES: String
   _compoundName_STARTS_WITH: String
+  app: AppWhere
   appAggregate: PageAppAggregateInput
   appConnection: PageAppConnectionWhere
+  appConnection_NOT: PageAppConnectionWhere
+  app_NOT: AppWhere
   getServerSideProps: String
   getServerSideProps_CONTAINS: String
   getServerSideProps_ENDS_WITH: String
@@ -12889,10 +13136,16 @@ input PageWhere {
   id_STARTS_WITH: ID
   kind: PageKind
   kind_IN: [PageKind!]
+  pageContentContainer: ElementWhere
   pageContentContainerAggregate: PagePageContentContainerAggregateInput
   pageContentContainerConnection: PagePageContentContainerConnectionWhere
+  pageContentContainerConnection_NOT: PagePageContentContainerConnectionWhere
+  pageContentContainer_NOT: ElementWhere
+  rootElement: ElementWhere
   rootElementAggregate: PageRootElementAggregateInput
   rootElementConnection: PageRootElementConnectionWhere
+  rootElementConnection_NOT: PageRootElementConnectionWhere
+  rootElement_NOT: ElementWhere
 }
 
 type PagesConnection {
@@ -13110,8 +13363,11 @@ input PrimitiveTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: PrimitiveTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
   primitiveKind: PrimitiveTypeKind
   primitiveKind_IN: [PrimitiveTypeKind!]
 }
@@ -13726,8 +13982,11 @@ input ReactNodeTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ReactNodeTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type ReactNodeTypesConnection {
@@ -13939,8 +14198,11 @@ input RenderPropsTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: RenderPropsTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type RenderPropsTypesConnection {
@@ -14284,8 +14546,11 @@ input ResourceWhere {
   AND: [ResourceWhere!]
   NOT: ResourceWhere
   OR: [ResourceWhere!]
+  config: PropWhere
   configAggregate: ResourceConfigAggregateInput
   configConnection: ResourceConfigConnectionWhere
+  configConnection_NOT: ResourceConfigConnectionWhere
+  config_NOT: PropWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -14298,8 +14563,11 @@ input ResourceWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ResourceOwnerAggregateInput
   ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
   type: ResourceType
   type_IN: [ResourceType!]
 }
@@ -14864,14 +15132,36 @@ input StoreWhere {
   AND: [StoreWhere!]
   NOT: StoreWhere
   OR: [StoreWhere!]
+
+  """
+  Return Stores where all of the related StoreActionsConnections match this filter
+  """
   actionsConnection_ALL: StoreActionsConnectionWhere
+
+  """
+  Return Stores where none of the related StoreActionsConnections match this filter
+  """
   actionsConnection_NONE: StoreActionsConnectionWhere
+
+  """
+  Return Stores where one of the related StoreActionsConnections match this filter
+  """
   actionsConnection_SINGLE: StoreActionsConnectionWhere
+
+  """
+  Return Stores where some of the related StoreActionsConnections match this filter
+  """
   actionsConnection_SOME: StoreActionsConnectionWhere
+  api: InterfaceTypeWhere
   apiAggregate: StoreApiAggregateInput
   apiConnection: StoreApiConnectionWhere
+  apiConnection_NOT: StoreApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
+  app: AppWhere
   appAggregate: StoreAppAggregateInput
   appConnection: StoreAppConnectionWhere
+  appConnection_NOT: StoreAppConnectionWhere
+  app_NOT: AppWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -15434,9 +15724,25 @@ input TagWhere {
   NOT: TagWhere
   OR: [TagWhere!]
   childrenAggregate: TagChildrenAggregateInput
+
+  """
+  Return Tags where all of the related TagChildrenConnections match this filter
+  """
   childrenConnection_ALL: TagChildrenConnectionWhere
+
+  """
+  Return Tags where none of the related TagChildrenConnections match this filter
+  """
   childrenConnection_NONE: TagChildrenConnectionWhere
+
+  """
+  Return Tags where one of the related TagChildrenConnections match this filter
+  """
   childrenConnection_SINGLE: TagChildrenConnectionWhere
+
+  """
+  Return Tags where some of the related TagChildrenConnections match this filter
+  """
   childrenConnection_SOME: TagChildrenConnectionWhere
 
   """
@@ -15470,10 +15776,16 @@ input TagWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: TagOwnerAggregateInput
   ownerConnection: TagOwnerConnectionWhere
+  ownerConnection_NOT: TagOwnerConnectionWhere
+  owner_NOT: UserWhere
+  parent: TagWhere
   parentAggregate: TagParentAggregateInput
   parentConnection: TagParentConnectionWhere
+  parentConnection_NOT: TagParentConnectionWhere
+  parent_NOT: TagWhere
 }
 
 type TagsConnection {
@@ -16642,11 +16954,30 @@ input UnionTypeWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: UnionTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
+
+  """
+  Return UnionTypes where all of the related UnionTypeTypesOfUnionTypeConnections match this filter
+  """
   typesOfUnionTypeConnection_ALL: UnionTypeTypesOfUnionTypeConnectionWhere
+
+  """
+  Return UnionTypes where none of the related UnionTypeTypesOfUnionTypeConnections match this filter
+  """
   typesOfUnionTypeConnection_NONE: UnionTypeTypesOfUnionTypeConnectionWhere
+
+  """
+  Return UnionTypes where one of the related UnionTypeTypesOfUnionTypeConnections match this filter
+  """
   typesOfUnionTypeConnection_SINGLE: UnionTypeTypesOfUnionTypeConnectionWhere
+
+  """
+  Return UnionTypes where some of the related UnionTypeTypesOfUnionTypeConnections match this filter
+  """
   typesOfUnionTypeConnection_SOME: UnionTypeTypesOfUnionTypeConnectionWhere
 }
 
@@ -17674,9 +18005,25 @@ input UserWhere {
   NOT: UserWhere
   OR: [UserWhere!]
   appsAggregate: UserAppsAggregateInput
+
+  """
+  Return Users where all of the related UserAppsConnections match this filter
+  """
   appsConnection_ALL: UserAppsConnectionWhere
+
+  """
+  Return Users where none of the related UserAppsConnections match this filter
+  """
   appsConnection_NONE: UserAppsConnectionWhere
+
+  """
+  Return Users where one of the related UserAppsConnections match this filter
+  """
   appsConnection_SINGLE: UserAppsConnectionWhere
+
+  """
+  Return Users where some of the related UserAppsConnections match this filter
+  """
   appsConnection_SOME: UserAppsConnectionWhere
 
   """
@@ -17705,9 +18052,25 @@ input UserWhere {
   auth0Id_MATCHES: String
   auth0Id_STARTS_WITH: String
   componentsAggregate: UserComponentsAggregateInput
+
+  """
+  Return Users where all of the related UserComponentsConnections match this filter
+  """
   componentsConnection_ALL: UserComponentsConnectionWhere
+
+  """
+  Return Users where none of the related UserComponentsConnections match this filter
+  """
   componentsConnection_NONE: UserComponentsConnectionWhere
+
+  """
+  Return Users where one of the related UserComponentsConnections match this filter
+  """
   componentsConnection_SINGLE: UserComponentsConnectionWhere
+
+  """
+  Return Users where some of the related UserComponentsConnections match this filter
+  """
   componentsConnection_SOME: UserComponentsConnectionWhere
 
   """
@@ -17730,9 +18093,25 @@ input UserWhere {
   """
   components_SOME: ComponentWhere
   elementsAggregate: UserElementsAggregateInput
+
+  """
+  Return Users where all of the related UserElementsConnections match this filter
+  """
   elementsConnection_ALL: UserElementsConnectionWhere
+
+  """
+  Return Users where none of the related UserElementsConnections match this filter
+  """
   elementsConnection_NONE: UserElementsConnectionWhere
+
+  """
+  Return Users where one of the related UserElementsConnections match this filter
+  """
   elementsConnection_SINGLE: UserElementsConnectionWhere
+
+  """
+  Return Users where some of the related UserElementsConnections match this filter
+  """
   elementsConnection_SOME: UserElementsConnectionWhere
 
   """
@@ -17769,9 +18148,25 @@ input UserWhere {
   roles: [Role!]
   roles_INCLUDES: Role
   tagsAggregate: UserTagsAggregateInput
+
+  """
+  Return Users where all of the related UserTagsConnections match this filter
+  """
   tagsConnection_ALL: UserTagsConnectionWhere
+
+  """
+  Return Users where none of the related UserTagsConnections match this filter
+  """
   tagsConnection_NONE: UserTagsConnectionWhere
+
+  """
+  Return Users where one of the related UserTagsConnections match this filter
+  """
   tagsConnection_SINGLE: UserTagsConnectionWhere
+
+  """
+  Return Users where some of the related UserTagsConnections match this filter
+  """
   tagsConnection_SOME: UserTagsConnectionWhere
 
   """
@@ -17794,9 +18189,25 @@ input UserWhere {
   """
   tags_SOME: TagWhere
   typesAggregate: UserTypesAggregateInput
+
+  """
+  Return Users where all of the related UserTypesConnections match this filter
+  """
   typesConnection_ALL: UserTypesConnectionWhere
+
+  """
+  Return Users where none of the related UserTypesConnections match this filter
+  """
   typesConnection_NONE: UserTypesConnectionWhere
+
+  """
+  Return Users where one of the related UserTypesConnections match this filter
+  """
   typesConnection_SINGLE: UserTypesConnectionWhere
+
+  """
+  Return Users where some of the related UserTypesConnections match this filter
+  """
   typesConnection_SOME: UserTypesConnectionWhere
 
   """

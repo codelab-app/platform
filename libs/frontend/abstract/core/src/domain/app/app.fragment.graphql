@@ -29,7 +29,6 @@ fragment App on App {
   }
 }
 
-
 fragment BuilderPage on Page {
   id
   name

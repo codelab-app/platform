@@ -13,32 +13,34 @@ import { CreateAppsDocument } from 'libs/frontend/domain/app/src/graphql/app.end
 import { v4 } from 'uuid'
 import { createPageInput } from './page'
 
-export const createAppInput = (userId: string): AppCreateInput => {
+export const createAppInput = (auth0Id: string): AppCreateInput => {
   const appId = v4()
 
   return {
+    _compoundName: createUniqueName(`Test app ${appId}`, { id: appId }),
     id: appId,
-    name: `Test app ${appId}`,
-    owner: connectAuth0Owner(userId),
+    owner: connectAuth0Owner({ auth0Id }),
     pages: {
       create: [
         // create provider page
         {
           node: createPageInput(appId, {
+            _compoundName: createUniqueName(APP_PAGE_NAME, { id: appId }),
             kind: IPageKind.Provider,
-            name: createUniqueName(APP_PAGE_NAME, appId),
           }),
         },
         {
           node: createPageInput(appId, {
+            _compoundName: createUniqueName(NOT_FOUND_PAGE_NAME, { id: appId }),
             kind: IPageKind.NotFound,
-            name: createUniqueName(NOT_FOUND_PAGE_NAME, appId),
           }),
         },
         {
           node: createPageInput(appId, {
+            _compoundName: createUniqueName(INTERNAL_SERVER_ERROR_PAGE_NAME, {
+              id: appId,
+            }),
             kind: IPageKind.InternalServerError,
-            name: createUniqueName(INTERNAL_SERVER_ERROR_PAGE_NAME, appId),
           }),
         },
         // create test page
@@ -57,7 +59,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
                 id: v4(),
                 kind: ITypeKind.InterfaceType,
                 name: `Test Store ${appId} API`,
-                owner: connectAuth0Owner(userId),
+                owner: connectAuth0Owner({ auth0Id }),
               },
             },
           },

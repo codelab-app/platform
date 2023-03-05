@@ -7,6 +7,7 @@ import {
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 import { atomsData } from './atom'
@@ -81,6 +82,7 @@ export class SeedAtomsService extends IUseCase<IUserRef, void> {
           icon: atomData?.icon,
           id: v4(),
           name: atomType,
+          owner: connectAuth0Owner(owner),
           tags: [existingTag],
           type: IAtomType[atomType],
         }

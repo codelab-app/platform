@@ -30,6 +30,7 @@ export const UpdateAtomModal = observer<{
     allowedChildren: atom?.allowedChildren.map(
       (allowedChild) => allowedChild.id,
     ),
+    id: atom?.id,
     name: atom?.name,
     tags: atom?.tags,
     type: atom?.type,
