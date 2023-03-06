@@ -1,11 +1,10 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
-import type { IActionDTO } from '../action'
 import type { IOwnerSchema } from '../user'
 
 export interface IStoreDTO {
   id: string
   name: string
-  actions?: Array<IActionDTO>
+  actions?: Array<IEntity>
   api: IEntity
 }
 

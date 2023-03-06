@@ -1,4 +1,8 @@
-import type { StoreCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  StoreCreateInput,
+  StoreDeleteInput,
+  StoreUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IAction } from '../action'
@@ -13,6 +17,8 @@ export interface IStore extends ICacheService<IStoreDTO, IStore> {
   actions: Array<Ref<IAction>>
   state: IProp
   toCreateInput(): StoreCreateInput
+  toUpdateInput(): StoreUpdateInput
+  toDeleteInput(): StoreDeleteInput
 }
 
 export type IStoreRef = string

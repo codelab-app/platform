@@ -160,12 +160,6 @@ export class AppService
     return app
   })
 
-  @modelFlow
-  @transaction
-  private save = _async(function* (this: AppService, app: IApp) {
-    return yield* _await(this.appRepository.add(app))
-  })
-
   @modelAction
   add({ id, name, owner, pages, store }: IAppDTO): IApp {
     const newApp = App.create({
@@ -210,7 +204,7 @@ export class AppService
       store,
     })
 
-    yield* _await(this.save(app))
+    yield* _await(this.appRepository.add(app))
 
     return app
   })
