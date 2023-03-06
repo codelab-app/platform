@@ -1,6 +1,7 @@
 import type {
   IAtomService,
   IFieldService,
+  ITag,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -84,7 +85,9 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
         id: atom.id,
         library: getAtomLibrary(atom.type),
         name: atom.name,
-        tags: atom.tags.map((tag) => tag.current),
+        tags: atom.tags
+          .map((tag) => tag.maybeCurrent)
+          .filter(Boolean) as Array<ITag>,
         type: atom.type,
       }))
 
