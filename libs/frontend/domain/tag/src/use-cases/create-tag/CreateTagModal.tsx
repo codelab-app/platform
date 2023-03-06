@@ -23,8 +23,6 @@ export const CreateTagModal = observer<{
   const defaultOption = tagService.selectedOption
   const closeModal = () => tagService.createModal.close()
 
-  console.log(options)
-
   return (
     <ModalForm.Modal
       okText="Create Tag"

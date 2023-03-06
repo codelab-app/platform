@@ -9,7 +9,7 @@ export interface ICreateTagData extends IOwnerSchema {
 
 export type IUpdateTagData = Omit<ICreateTagData, 'owner'>
 
-export interface ITagDTO {
+export interface ITagDTO extends IOwnerSchema {
   id: string
   isRoot?: boolean | null
   name: string
