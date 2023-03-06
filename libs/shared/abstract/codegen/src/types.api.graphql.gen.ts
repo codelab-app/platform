@@ -20020,6 +20020,7 @@ export type TagFragment = {
   parent?: { __typename?: 'Tag'; id: string } | null
   children: Array<{ __typename?: 'Tag'; id: string }>
   descendants: Array<{ __typename?: 'Tag'; id: string }>
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 export type TagPreviewFragment = {

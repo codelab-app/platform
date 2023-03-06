@@ -1,5 +1,18 @@
-import type { ITag, ITagDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAuth0Owner,
+  ITag,
+  ITagDTO,
+} from '@codelab/frontend/abstract/core'
+import type {
+  TagCreateInput,
+  TagUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import {
+  connectAuth0Owner,
+  connectNodeId,
+  reconnectNodeId,
+} from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -12,13 +25,21 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({ id, name, isRoot, children, descendants }: ITagDTO) => {
+const create = ({
+  id,
+  name,
+  isRoot,
+  children,
+  descendants,
+  owner,
+}: ITagDTO) => {
   return new Tag({
     children: children.map((child) => tagRef(child.id)),
     descendants: descendants.map((descendant) => tagRef(descendant.id)),
     id,
     isRoot,
     name,
+    owner,
   })
 }
 
@@ -30,6 +51,7 @@ export class Tag
     id: idProp,
     isRoot: prop<boolean>(false),
     name: prop<string>(),
+    owner: prop<IAuth0Owner>(),
     parent: prop<Nullable<Ref<ITag>>>(null),
   })
   implements ITag
@@ -42,20 +64,14 @@ export class Tag
   static create = create
 
   @modelAction
-  writeCache({
-    id,
-    name,
-    isRoot,
-    descendants,
-    parent,
-    children,
-  }: Partial<ITagDTO>) {
+  writeCache({ name, isRoot, descendants, children, owner }: Partial<ITagDTO>) {
     this.name = name ?? this.name
     this.children = children?.map((child) => tagRef(child.id)) ?? this.children
     this.descendants =
       descendants?.map((descendant) => tagRef(descendant.id)) ??
       this.descendants
     this.isRoot = isRoot ?? this.isRoot
+    this.owner = owner ?? this.owner
 
     return this
   }
@@ -66,6 +82,22 @@ export class Tag
       children: this.children.map((child) => child.current.antdNode),
       key: this.id,
       title: this.name,
+    }
+  }
+
+  toCreateInput(): TagCreateInput {
+    return {
+      id: this.id,
+      name: this.name,
+      owner: connectAuth0Owner(this.owner),
+      parent: connectNodeId(this.parent?.current.id),
+    }
+  }
+
+  toUpdateInput(): TagUpdateInput {
+    return {
+      name: this.name,
+      parent: reconnectNodeId(this.parent?.current.id),
     }
   }
 }

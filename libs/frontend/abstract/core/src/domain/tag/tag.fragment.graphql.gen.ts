@@ -1,8 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 export type TagFragment = {
   id: string
   name: string
@@ -10,6 +12,7 @@ export type TagFragment = {
   parent?: { id: string } | null
   children: Array<{ id: string }>
   descendants: Array<{ id: string }>
+  owner: OwnerFragment
 }
 
 export type TagPreviewFragment = { id: string; name: string }
@@ -28,7 +31,11 @@ export const TagFragmentDoc = gql`
     descendants {
       id
     }
+    owner {
+      ...Owner
+    }
   }
+  ${OwnerFragmentDoc}
 `
 export const TagPreviewFragmentDoc = gql`
   fragment TagPreview on Tag {
