@@ -119,12 +119,12 @@ export class ResourceService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ResourceService, id: string) {
-    const resource = this.resources.get(id)!
+  delete = _async(function* (this: ResourceService, resource: IResource) {
+    const { id } = resource
 
     this.resources.delete(id)
 
-    yield* _await(this.resourceRepository.delete([id]))
+    yield* _await(this.resourceRepository.delete([resource]))
 
     return resource
   })

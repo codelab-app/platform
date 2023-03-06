@@ -6,10 +6,12 @@ import type {
   IStore,
 } from '@codelab/frontend/abstract/core'
 import { pageRef } from '@codelab/frontend/domain/page'
-import { storeRef } from '@codelab/frontend/domain/store'
+import { deleteStoreInput, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import type {
   AppCreateInput,
+  AppDeleteInput,
+  AppUpdateInput,
   PageBuilderAppFragment,
 } from '@codelab/shared/abstract/codegen'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
@@ -149,6 +151,27 @@ export class App
         create: {
           node: this.store.current.toCreateInput(),
         },
+      },
+    }
+  }
+
+  toUpdateInput(): AppUpdateInput {
+    return {
+      _compoundName: createUniqueName(this.name, { id: this.id }),
+    }
+  }
+
+  toDeleteInput(): AppDeleteInput {
+    return {
+      pages: [
+        {
+          delete: {},
+          where: {},
+        },
+      ],
+      store: {
+        delete: deleteStoreInput,
+        where: {},
       },
     }
   }

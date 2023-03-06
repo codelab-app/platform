@@ -1,5 +1,5 @@
 import type {
-  IAnyAction,
+  IAction,
   IApp,
   IAppDTO,
   IInterfaceType,
@@ -43,7 +43,7 @@ const create = ({ id, name, api }: IStoreDTO) => {
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
-    actions: prop<Array<Ref<IAnyAction>>>(() => []),
+    actions: prop<Array<Ref<IAction>>>(() => []),
     api: prop<Ref<IInterfaceType>>().withSetter(),
     id: idProp,
     name: prop<string>(),

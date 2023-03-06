@@ -1,8 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
-import type {
-  IActionService,
-  IAnyAction,
-} from '@codelab/frontend/abstract/core'
+import type { IAction, IActionService } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
@@ -13,7 +10,7 @@ import React from 'react'
 import { actionRef } from '../../../store'
 
 export interface GetActionItemProps {
-  action: IAnyAction
+  action: IAction
   actionService: IActionService
 }
 

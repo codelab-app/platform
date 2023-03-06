@@ -70,7 +70,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: PageRepository, ids: Array<string>) {
+  delete = _async(function* (this: PageRepository, pages: Array<IPage>) {
     const {
       deletePages: { nodesDeleted },
     } = yield* _await(
@@ -79,7 +79,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
           pageContentContainer: { delete: {}, where: {} },
           rootElement: {},
         },
-        where: { id_IN: ids },
+        where: { id_IN: pages.map((page) => page.id) },
       }),
     )
 

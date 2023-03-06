@@ -17,11 +17,12 @@ export interface IRepository<
   find(where: Where): Promise<Array<ModelFragment>>
   findOne?(where: Where): Promise<ModelFragment | undefined>
 
-  add(resource: Model): Promise<ModelFragment | undefined>
-  addMany?(resources: Array<Model>): Promise<Array<ModelFragment>>
+  add(model: Model): Promise<ModelFragment | undefined>
+  addMany?(models: Array<Model>): Promise<Array<ModelFragment>>
 
-  update(resource: Model, where: Where): Promise<ModelFragment | undefined>
+  update(model: Model, where: Where): Promise<ModelFragment | undefined>
+  delete(models: Array<Model>): Promise<number>
 
-  delete(ids: Array<string>): Promise<number>
+  // delete(models: Array<Model>): Promise<number>
   // deleteMany?(ids: Array<string>): Promise<number>
 }

@@ -4,7 +4,7 @@ import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../../../service'
 import type { IProp } from '../../../prop'
 import type { IResource } from '../../../resource'
-import type { IAnyAction } from '../../action.interface'
+import type { IAction } from '../../action.interface'
 import type { IActionBase } from '../../action-base.interface'
 import type { IApiActionDTO } from './api-action.dto.interface'
 
@@ -14,6 +14,6 @@ export interface IApiAction
   type: IActionKind.ApiAction
   resource: Ref<IResource>
   config: Ref<IProp>
-  successAction?: Nullish<Ref<IAnyAction>>
-  errorAction?: Nullish<Ref<IAnyAction>>
+  successAction?: Nullish<Ref<IAction>>
+  errorAction?: Nullish<Ref<IAction>>
 }

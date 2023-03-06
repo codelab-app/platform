@@ -1,5 +1,5 @@
 import type {
-  IAnyAction,
+  IAction,
   IApiAction,
   IApiActionDTO,
   IGraphQLActionConfig,
@@ -62,9 +62,9 @@ const graphqlFetch = (
 export class ApiAction
   extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
     config: prop<Ref<IProp>>(),
-    errorAction: prop<Nullish<Ref<IAnyAction>>>(),
+    errorAction: prop<Nullish<Ref<IAction>>>(),
     resource: prop<Ref<IResource>>(),
-    successAction: prop<Nullish<Ref<IAnyAction>>>(),
+    successAction: prop<Nullish<Ref<IAction>>>(),
   })
   implements IApiAction
 {

@@ -176,8 +176,8 @@ export class StoreService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: StoreService, id: string) {
-    const store = this.stores.get(id)
+  delete = _async(function* (this: StoreService, store: IStore) {
+    const { id } = store
 
     this.stores.delete(id)
 

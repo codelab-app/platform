@@ -66,10 +66,7 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         domainService={domainService}
         userService={userService}
       />
-      <DeleteDomainModal
-        domainService={domainService}
-        userService={userService}
-      />
+      <DeleteDomainModal domainService={domainService} />
       <UpdateDomainModal
         domainService={domainService}
         userService={userService}

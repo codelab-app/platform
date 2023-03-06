@@ -3,7 +3,7 @@ import type {
   ICreateActionData,
   IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
-import { IActionDTO, IAnyAction } from '@codelab/frontend/abstract/core'
+import { IAction, IActionDTO } from '@codelab/frontend/abstract/core'
 import { getPropService, propRef } from '@codelab/frontend/domain/prop'
 import {
   getResourceService,
@@ -42,10 +42,10 @@ import { actionRef, ApiAction, CodeAction, storeRef } from './models'
 export class ActionService
   extends Model({
     actionFactory: prop(() => new ActionFactory({})),
-    actions: prop(() => objectMap<IAnyAction>()),
+    actions: prop(() => objectMap<IAction>()),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
-    selectedActions: prop(() => Array<Ref<IAnyAction>>()).withSetter(),
+    selectedActions: prop(() => Array<Ref<IAction>>()).withSetter(),
     updateModal: prop(() => new ActionModalService({})),
   })
   implements IActionService
@@ -75,7 +75,7 @@ export class ActionService
   }
 
   @modelAction
-  addAction(action: IAnyAction) {
+  addAction(action: IAction) {
     this.actions.set(action.id, action)
   }
 
@@ -180,8 +180,8 @@ export class ActionService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ActionService, id: string) {
-    const action = this.actions.get(id)
+  delete = _async(function* (this: ActionService, action: IAction) {
+    const { id } = action
 
     this.actions.delete(id)
 

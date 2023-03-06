@@ -44,10 +44,17 @@ export class ResourceRepository
   })
 
   @modelFlow
-  delete = _async(function* (this: ResourceRepository, ids: Array<string>) {
+  delete = _async(function* (
+    this: ResourceRepository,
+    resources: Array<IResource>,
+  ) {
     const {
       deleteResources: { nodesDeleted },
-    } = yield* _await(resourceApi.DeleteResources({ where: { id_IN: ids } }))
+    } = yield* _await(
+      resourceApi.DeleteResources({
+        where: { id_IN: resources.map((resource) => resource.id) },
+      }),
+    )
 
     return nodesDeleted
   })

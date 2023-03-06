@@ -202,26 +202,25 @@ export class AppService
       store,
     })
 
-    console.log(app.toCreateInput())
-
     yield* _await(this.save(app))
-    // yield* _await(Promise.resolve())
 
     return app
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AppService, id: string) {
-    const app = this.apps.get(id)!
+  delete = _async(function* (this: AppService, app: IApp) {
     /**
      * Optimistic update
      */
-    // this.apps.delete(id)
+    this.apps.delete(app.id)
+
     /**
      * Get all pages to delete
      */
-    const pages = this.pageService.getAll({ appConnection: { node: { id } } })
+    const pages = this.pageService.getAll({
+      appConnection: { node: { id: app.id } },
+    })
 
     console.log(pages)
 
@@ -238,7 +237,7 @@ export class AppService
     //   this.elementService.elementRepository.delete(descendantElements),
     // )
 
-    yield* _await(this.appRepository.delete([id]))
+    yield* _await(this.appRepository.delete([app]))
 
     return app
   })

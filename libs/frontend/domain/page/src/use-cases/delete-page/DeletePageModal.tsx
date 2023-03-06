@@ -7,15 +7,17 @@ import { AutoFields } from 'uniforms-antd'
 
 export const DeletePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
-    const deletingPage = pageService.deleteModal.page
+    const page = pageService.deleteModal.page
     const isOpen = pageService.deleteModal.isOpen
     const closeModal = () => pageService.deleteModal.close()
 
-    if (!deletingPage) {
-      return null
-    }
+    const onSubmit = () => {
+      if (!page) {
+        return Promise.reject()
+      }
 
-    const onSubmit = () => pageService.delete(deletingPage.id)
+      return pageService.delete(page)
+    }
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while deleting page',
@@ -30,7 +32,7 @@ export const DeletePageModal = observer<{ pageService: IPageService }>(
           onSubmitSuccess={closeModal}
           schema={emptyJsonSchema}
         >
-          <h4>Are you sure you want to delete page "{deletingPage.name}"?</h4>
+          <h4>Are you sure you want to delete page "{page?.name}"?</h4>
           <AutoFields />
         </ModalForm.Form>
       </ModalForm.Modal>
