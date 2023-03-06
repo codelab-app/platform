@@ -49,9 +49,9 @@ export class ActionFactory extends Model({}) implements IActionFactory {
   }
 
   @modelAction
-  private fromCodeActionFragment({
-    ...codeAction
-  }: CodeActionFragment): ICodeActionDTO {
+  private fromCodeActionFragment(
+    codeAction: CodeActionFragment,
+  ): ICodeActionDTO {
     return codeAction
   }
 }
