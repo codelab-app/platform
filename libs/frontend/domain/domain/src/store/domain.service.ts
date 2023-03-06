@@ -1,5 +1,6 @@
 import type {
   ICreateDomainData,
+  IDomain,
   IDomainDTO,
   IDomainService,
   IUpdateDomainData,
@@ -110,8 +111,9 @@ export class DomainService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: DomainService, id: string) {
-    const domain = this.domains.get(id)
+  delete = _async(function* (this: DomainService, domain: IDomain) {
+    const { id } = domain
+
     this.domains.delete(id)
 
     const {

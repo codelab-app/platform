@@ -1,7 +1,4 @@
-import type {
-  IDomainService,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { IDomainService } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -11,17 +8,16 @@ import { AutoFields } from 'uniforms-antd'
 
 export const DeleteDomainModal = observer<{
   domainService: IDomainService
-  userService: IUserService
-}>(({ domainService, userService }) => {
+}>(({ domainService }) => {
   const closeModal = () => domainService.deleteModal.close()
   const domain = domainService.deleteModal.domain
 
   const onSubmit = () => {
-    if (!domain?.id) {
-      return Promise.reject('Domain ID not defined in DeleteDomainModal')
+    if (!domain) {
+      return Promise.reject()
     }
 
-    return domainService.delete(domain.id)
+    return domainService.delete(domain)
   }
 
   const onSubmitError = createNotificationHandler({
@@ -33,7 +29,6 @@ export const DeleteDomainModal = observer<{
   }
 
   const model = {
-    auth0Id: userService.user?.auth0Id,
     id: domainService.deleteModal.domain.id,
   }
 

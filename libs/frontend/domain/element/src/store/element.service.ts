@@ -608,12 +608,12 @@ element is new parentElement's first child
     const subRootElement = elementRef(subRoot.id).current
 
     const descendantElements = subRootElement.getDescendantRefs.map(
-      (pageRootElement) => pageRootElement.id,
+      (pageRootElement) => pageRootElement.current,
     )
 
-    descendantElements.reverse().forEach((elementId) => {
-      this.elements.delete(elementId)
-      this.removeClones(elementId)
+    descendantElements.reverse().forEach((element) => {
+      this.elements.delete(element.id)
+      this.removeClones(element.id)
     })
 
     yield* _await(this.elementRepository.delete(descendantElements))

@@ -43,7 +43,10 @@ export class ElementRepository extends Model({}) implements IElementRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: ElementRepository, ids: Array<string>) {
+  delete = _async(function* (
+    this: ElementRepository,
+    elements: Array<IElement>,
+  ) {
     const {
       deleteElements: { nodesDeleted },
     } = yield* _await(
@@ -52,7 +55,7 @@ export class ElementRepository extends Model({}) implements IElementRepository {
           props: {},
         },
         where: {
-          id_IN: ids,
+          id_IN: elements.map((element) => element.id),
         },
       }),
     )

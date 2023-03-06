@@ -1,7 +1,5 @@
 import type { IApp, IAppRepository } from '@codelab/frontend/abstract/core'
-import { deleteStoreInput } from '@codelab/frontend/domain/store'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
-import { createUniqueName } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { appApi } from '../store'
 
@@ -21,13 +19,13 @@ export class AppRepository extends Model({}) implements IAppRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: AppRepository, { name, id }: IApp) {
+  update = _async(function* (this: AppRepository, app: IApp) {
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
-        update: { _compoundName: createUniqueName(name, { id }) },
-        where: { id },
+        update: app.toUpdateInput(),
+        where: { id: app.id },
       }),
     )
 
@@ -42,24 +40,13 @@ export class AppRepository extends Model({}) implements IAppRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: AppRepository, ids: Array<string>) {
+  delete = _async(function* (this: AppRepository, apps: Array<IApp>) {
     const {
       deleteApps: { nodesDeleted },
     } = yield* _await(
       appApi.DeleteApps({
-        delete: {
-          pages: [
-            {
-              delete: {},
-              where: {},
-            },
-          ],
-          store: {
-            delete: deleteStoreInput,
-            where: {},
-          },
-        },
-        where: { id_IN: ids },
+        delete: apps[0]?.toDeleteInput(),
+        where: { id_IN: apps.map((app) => app.id) },
       }),
     )
 

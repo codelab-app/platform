@@ -37,7 +37,7 @@ export interface IComponentService
 term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
 component
   rootElement
-    decendantElements
+    descendantElements
    */
   loadRenderedComponentsTree(
     renderedComponentFragments: Array<RenderedComponentFragment>,

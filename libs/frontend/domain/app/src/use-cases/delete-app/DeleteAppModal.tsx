@@ -16,10 +16,10 @@ export const DeleteAppModal = observer<{ appService: IAppService }>(
 
     const onSubmit = () => {
       if (!app) {
-        return Promise.reject('App not defined in DeleteAppModal')
+        return Promise.reject()
       }
 
-      return appService.delete(app.id)
+      return appService.delete(app)
     }
 
     return (
@@ -36,7 +36,6 @@ export const DeleteAppModal = observer<{ appService: IAppService }>(
           schema={emptyJsonSchema}
         >
           <h4>Are you sure you want to delete app "{app?.name}"?</h4>
-          {/* <AutoFields omitFields={['appId']} /> */}
         </ModalForm.Form>
       </ModalForm.Modal>
     )
