@@ -17,7 +17,6 @@ import {
   ElementTreeService,
 } from '@codelab/frontend/domain/element'
 import { propRef } from '@codelab/frontend/domain/prop'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
@@ -40,8 +39,6 @@ const create = ({
   rootElement,
   childrenContainerElement,
 }: IComponentDTO) => {
-  const apiRef = typeRef(api.id) as Ref<InterfaceType>
-
   return new Component({
     api: typeRef<IInterfaceType>(api.id),
     childrenContainerElement: elementRef(childrenContainerElement.id),

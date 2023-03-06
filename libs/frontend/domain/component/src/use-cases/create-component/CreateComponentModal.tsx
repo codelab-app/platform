@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import type { CreateComponentSchema } from './createComponentSchema'
 import { createComponentSchema } from './createComponentSchema'
 
@@ -37,6 +38,10 @@ export const CreateComponentModal = observer<{
     >
       <ModalForm.Form<CreateComponentSchema>
         model={{
+          childrenContainerElement: {
+            id: v4(),
+          },
+          id: v4(),
           owner: { auth0Id: user?.auth0Id },
         }}
         onSubmit={handleSubmit}
@@ -44,7 +49,7 @@ export const CreateComponentModal = observer<{
         onSubmitSuccess={closeModal}
         schema={createComponentSchema}
       >
-        <AutoFields />
+        <AutoFields omitFields={['childrenContainerElement', 'api']} />
       </ModalForm.Form>
     </ModalForm.Modal>
   )
