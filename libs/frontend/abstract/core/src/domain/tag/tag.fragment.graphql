@@ -11,6 +11,9 @@ fragment Tag on Tag {
   descendants {
     id
   }
+  owner {
+    ...Owner
+  }
 }
 
 fragment TagPreview on Tag {
