@@ -19,7 +19,7 @@ const RenderTypeFields = ({
 }) => (
   <section>
     <SelectField
-      name="model"
+      name="kind"
       onChange={(value) => {
         // when the type changes, the selected atom or component has to be
         // removed since they share the same field name `renderType.id`
