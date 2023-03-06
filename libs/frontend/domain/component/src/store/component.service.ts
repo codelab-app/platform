@@ -102,21 +102,21 @@ export class ComponentService
     props,
     childrenContainerElement,
   }: IComponentDTO) {
-    // const apiRef = typeRef(this.typeService.addInterface(api))
+    if (props) {
+      this.propService.add(props)
+    }
 
     const component = Component.create({
       api,
-      childrenContainerElement: { id: childrenContainerElement.id },
+      childrenContainerElement,
       id,
       name,
       owner,
       props,
-      rootElement: { id: rootElement.id },
+      rootElement,
     })
 
-    // if (props) {
-    //   this.propService.add({ ...props, api })
-    // }
+    this.components.set(component.id, component)
 
     return component
   }
