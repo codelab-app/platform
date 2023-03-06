@@ -35,23 +35,13 @@ export class ActionFactory extends Model({}) implements IActionFactory {
   private fromApiActionFragment({
     successAction,
     errorAction,
-    resource,
-    config,
     ...apiActionFragment
   }: ApiActionFragment): IApiActionDTO {
     return {
       ...apiActionFragment,
-      config: {
-        data: JSON.parse(config.data),
-        id: config.id,
-      },
       errorAction: errorAction
         ? this.fromActionFragment(errorAction as ActionFragment)
         : undefined,
-      resource: {
-        ...resource,
-        config: JSON.parse(resource.config.data),
-      },
       successAction: successAction
         ? this.fromActionFragment(successAction as ActionFragment)
         : undefined,
@@ -59,11 +49,9 @@ export class ActionFactory extends Model({}) implements IActionFactory {
   }
 
   @modelAction
-  private fromCodeActionFragment({
-    ...codeAction
-  }: CodeActionFragment): ICodeActionDTO {
-    return {
-      ...codeAction,
-    }
+  private fromCodeActionFragment(
+    codeAction: CodeActionFragment,
+  ): ICodeActionDTO {
+    return codeAction
   }
 }

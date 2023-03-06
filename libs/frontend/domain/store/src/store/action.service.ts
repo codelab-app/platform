@@ -9,7 +9,7 @@ import {
   getResourceService,
   resourceRef,
 } from '@codelab/frontend/domain/resource'
-import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -94,15 +94,7 @@ export class ActionService
 
       case IActionKind.ApiAction: {
         return new ApiAction({
-          config: propRef(
-            this.propService.add({
-              api: actionDTO.config.api
-                ? typeRef(this.typeService.addInterface(actionDTO.config.api))
-                : undefined,
-              data: JSON.stringify(actionDTO.config.data),
-              id: actionDTO.config.id,
-            }),
-          ),
+          config: propRef(actionDTO.config.id),
           errorAction: actionDTO.errorAction?.id
             ? actionRef(actionDTO.errorAction.id)
             : null,

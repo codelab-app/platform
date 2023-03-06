@@ -1,8 +1,7 @@
 import type { IActionKind } from '@codelab/shared/abstract/core'
-import type { IStoreDTO } from '../store'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type {
   IApiActionDTO,
-  ICodeActionDTO,
   IGraphQLActionConfig,
   IRestActionConfig,
 } from './actions'
@@ -19,6 +18,9 @@ export interface IBaseActionData {
   type: IActionKind
   code?: string
   resourceId?: string
+  /**
+   * config here is form object and not Action.config which is an IProp instance
+   */
   config?: IApiActionConfig
   successActionId?: string
   errorActionId?: string
@@ -29,7 +31,7 @@ export interface IBaseActionDTO {
   id: string
   name: string
   type: IActionKind
-  store: Pick<IStoreDTO, 'id' | 'name'>
+  store: IEntity
 }
 
 /**

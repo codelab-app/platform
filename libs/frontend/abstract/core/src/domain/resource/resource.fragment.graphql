@@ -1,5 +1,4 @@
 fragment Resource on Resource {
-  __typename
   id
   name
   type

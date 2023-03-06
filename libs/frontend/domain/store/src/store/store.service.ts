@@ -1,5 +1,4 @@
 import type {
-  IActionDTO,
   ICreateStoreData,
   IInterfaceType,
   IStore,
@@ -7,10 +6,9 @@ import type {
   IUpdateStoreData,
 } from '@codelab/frontend/abstract/core'
 import { IStoreDTO } from '@codelab/frontend/abstract/core'
-import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
+import { typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { StoreWhere } from '@codelab/shared/abstract/codegen'
-import { StoreFragment } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -24,9 +22,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { deleteStoreInput } from '../utils'
+import { StoreRepository } from '../services/store.repository'
 import { getActionService } from './action.service'
-import { makeStoreCreateInput, storeApi } from './apis'
 import { actionRef, Store } from './models'
 import { StoreModalService } from './store-modal.service'
 
@@ -35,21 +32,12 @@ export class StoreService
   extends Model({
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
+    storeRepository: prop(() => new StoreRepository({})),
     stores: prop(() => objectMap<IStore>()),
     updateModal: prop(() => new StoreModalService({})),
   })
   implements IStoreService
 {
-  @computed
-  private get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  private get actionService() {
-    return getActionService(this)
-  }
-
   store(id: string) {
     return this.stores.get(id)
   }
@@ -59,47 +47,15 @@ export class StoreService
     return [...this.stores.values()]
   }
 
-  @modelAction
-  private updateActionsCache(stores: Array<IStoreDTO>) {
-    const actions = stores
-      .flatMap((store) => store.actions)
-      .filter((action): action is IActionDTO => Boolean(action))
-
-    return actions.map((action) => this.actionService.add(action))
+  @computed
+  get actionService() {
+    return getActionService(this)
   }
-
-  @modelAction
-  private async fetchStatesApis(stores: Array<IStoreDTO>) {
-    return await this.typeService.getAllWithDescendants(
-      stores.map((store) => store.api.id),
-    )
-  }
-
-  // @modelAction
-  // add(app: IAppDTO) {
-  //   const interfaceType = this.typeService.addInterface({
-  //     id: v4(),
-  //     name: InterfaceType.createName(`${app.name} Store`),
-  //     kind: ITypeKind.InterfaceType,
-  //     owner: app.owner,
-  //   }) as IInterfaceType
-
-  //   const store = new Store({
-  //     name: Store.createName(app),
-  //     api: typeRef(interfaceType),
-  //   })
-
-  //   this.stores.set(store.id, store)
-
-  //   return store
-  // }
 
   @modelAction
   add({ id, name, api, actions }: IStoreDTO) {
     const store = new Store({
-      actions: actions?.map((action) =>
-        actionRef(this.actionService.add(action)),
-      ),
+      actions: actions?.map((action) => actionRef(action.id)),
       api: typeRef(api.id) as Ref<IInterfaceType>,
       id,
       name,
@@ -111,43 +67,39 @@ export class StoreService
   }
 
   @modelFlow
-  private mapStore(fragment: StoreFragment): IStoreDTO {
-    return {
-      ...fragment,
-      actions: fragment.actions.map((action) =>
-        this.actionService.actionFactory.fromActionFragment(action),
-      ),
-    }
-  }
-
-  @modelFlow
   @transaction
-  getAll = _async(function* (this: StoreService, where?: StoreWhere) {
-    const { stores } = yield* _await(storeApi.GetStores({ where }))
+  getAll = _async(function* (this: StoreService, where: StoreWhere) {
+    const stores = yield* _await(this.storeRepository.find(where))
 
-    return stores.map((store) => this.add(this.mapStore(store)))
+    return stores.map((store) => {
+      for (const action of store.actions) {
+        /**
+         * attach action to mobx tree before calling actionRef
+         */
+        const actionDTO =
+          this.actionService.actionFactory.fromActionFragment(action)
+
+        this.actionService.add(actionDTO)
+      }
+
+      return this.add(store)
+    })
   })
 
   @modelFlow
   @transaction
   getOne = _async(function* (this: StoreService, id: string) {
-    if (!this.stores.has(id)) {
-      yield* _await(this.getAll({ id }))
-    }
+    const [store] = yield* _await(this.getAll({ id }))
 
-    return this.stores.get(id)
+    return store
   })
 
   @modelFlow
   @transaction
-  create = _async(function* (this: StoreService, data: ICreateStoreData) {
-    const store = this.add(data)
+  create = _async(function* (this: StoreService, storeData: ICreateStoreData) {
+    const store = this.add(storeData)
 
-    const {
-      createStores: { stores },
-    } = yield* _await(
-      storeApi.CreateStores({ input: makeStoreCreateInput(data) }),
-    )
+    yield* _await(this.storeRepository.add(store))
 
     return store
   })
@@ -158,20 +110,13 @@ export class StoreService
     this: StoreService,
     { name, id }: IUpdateStoreData,
   ) {
-    const store = this.stores.get(id)
+    const store = this.stores.get(id)!
 
-    store?.writeCache({ name })
+    store.writeCache({ name })
 
-    const {
-      updateStores: { stores },
-    } = yield* _await(
-      storeApi.UpdateStores({
-        update: { name },
-        where: { id },
-      }),
-    )
+    yield* _await(this.storeRepository.update(store))
 
-    return store!
+    return store
   })
 
   @modelFlow
@@ -181,14 +126,7 @@ export class StoreService
 
     this.stores.delete(id)
 
-    const {
-      deleteStores: { nodesDeleted },
-    } = yield* _await(
-      storeApi.DeleteStores({
-        delete: deleteStoreInput,
-        where: { id },
-      }),
-    )
+    yield* _await(this.storeRepository.delete([store]))
 
     return store!
   })

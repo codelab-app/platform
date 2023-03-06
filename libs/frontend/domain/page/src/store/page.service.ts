@@ -147,7 +147,7 @@ export class PageService
     { id, name, app, getServerSideProps }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
-      data: '',
+      data: '{}',
       id: v4(),
     })
 

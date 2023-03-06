@@ -1,11 +1,9 @@
 import type { IPage, IPageRepository } from '@codelab/frontend/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { pageApi } from './page.api'
 
 @model('@codelab/PageRepository')
@@ -13,7 +11,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
   @modelFlow
   add = _async(function* (
     this: PageRepository,
-    { id, name, app, getServerSideProps }: IPage,
+    { id, name, app, rootElement, getServerSideProps }: IPage,
   ) {
     const {
       createPages: { pages },
@@ -27,10 +25,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
           kind: IPageKind.Regular,
           rootElement: {
             create: {
-              node: {
-                id: v4(),
-                name: ROOT_ELEMENT_NAME,
-              },
+              node: rootElement.current.toCreateInput(),
             },
           },
         },

@@ -6,7 +6,6 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 export type ResourceFragment = {
-  __typename: 'Resource'
   id: string
   name: string
   type: Types.ResourceType
@@ -16,7 +15,6 @@ export type ResourceFragment = {
 
 export const ResourceFragmentDoc = gql`
   fragment Resource on Resource {
-    __typename
     id
     name
     type

@@ -1,6 +1,5 @@
 import type {
   IAction,
-  IApp,
   IAppDTO,
   IInterfaceType,
   IProp,
@@ -9,17 +8,15 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IPropData } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
-import {
-  getTypeService,
-  InterfaceType,
-  typeRef,
-} from '@codelab/frontend/domain/type'
+import { typeRef } from '@codelab/frontend/domain/type'
 import { getByExpression } from '@codelab/frontend/shared/utils'
-import type { StoreCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  StoreCreateInput,
+  StoreDeleteInput,
+  StoreUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
-import merge from 'lodash/merge'
-import { computed, reaction } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
   detach,
@@ -30,7 +27,6 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 
 const create = ({ id, name, api }: IStoreDTO) => {
   new Store({
@@ -51,35 +47,6 @@ export class Store
   }))
   implements IStore
 {
-  onAttachedToRootStore() {
-    // every time the snapshot of the configuration changes
-    const reactionDisposer = reaction(
-      () => [this._actionsRunners, this._defaultValues],
-      () => {
-        console.debug('Previous state', this.state.values)
-
-        console.debug('actions changed:', this._actionsRunners)
-        this.state.setMany(this._actionsRunners)
-
-        console.debug('defaults changed:', this._defaultValues)
-        this.state.setMany(this._defaultValues)
-
-        console.debug('New state', this.state.values)
-      },
-      { fireImmediately: true },
-    )
-
-    // when the model is no longer part of the root store stop
-    return () => {
-      reactionDisposer()
-    }
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
-  }
-
   @modelAction
   writeCache({ id, name, api }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
@@ -87,20 +54,6 @@ export class Store
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
 
     return this
-  }
-
-  @computed
-  private get _defaultValues() {
-    return this.api.current.defaultValues
-  }
-
-  @computed
-  private get _actionsRunners() {
-    return this.actions
-      .map((action) => ({
-        [action.current.name]: { run: action.current.createRunner(this.state) },
-      }))
-      .reduce(merge, {})
   }
 
   @modelAction
@@ -123,24 +76,6 @@ export class Store
 
   static create = create
 
-  // static addFromApp(app: Pick<IAppDTO, 'owner' | 'name'>): IStore {
-  //   const interfaceType = new InterfaceType({
-  //     id: v4(),
-  //     name: InterfaceType.createName(`${app.name} Store`),
-  //     kind: ITypeKind.InterfaceType,
-  //     owner: app.owner,
-  //   })
-
-  //   console.log(interfaceType)
-
-  //   const store = new Store({
-  //     name: Store.createName(app),
-  //     api: typeRef(interfaceType.id) as Ref<IInterfaceType>,
-  //   })
-
-  //   return store
-  // }
-
   toCreateInput(): StoreCreateInput {
     const api = this.api.current
 
@@ -155,23 +90,22 @@ export class Store
     }
   }
 
-  static createName(app: Pick<IAppDTO, 'name'>) {
-    return `${app.name} Store`
+  toUpdateInput(): StoreUpdateInput {
+    return { name: this.name }
   }
 
-  static createStoreData(app: Pick<IApp, 'name' | 'owner'>): StoreCreateInput {
+  toDeleteInput(): StoreDeleteInput {
     return {
-      api: {
-        create: {
-          node: InterfaceType.createApiNode({
-            name: `${app.name} Store`,
-            owner: app.owner,
-          }),
-        },
+      actions: {
+        ApiAction: [{ where: {} }],
+        CodeAction: [{ where: {} }],
       },
-      id: v4(),
-      name: `${app.name} Store`,
+      api: { where: {} },
     }
+  }
+
+  static createName(app: Pick<IAppDTO, 'name'>) {
+    return `${app.name} Store`
   }
 }
 
