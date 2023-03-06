@@ -1,13 +1,7 @@
 import type { IActionKind } from '@codelab/shared/abstract/core'
+import type { IProp } from '../prop'
 import type { IStoreDTO } from '../store'
-import type {
-  IApiActionDTO,
-  ICodeActionDTO,
-  IGraphQLActionConfig,
-  IRestActionConfig,
-} from './actions'
-
-export type IApiActionConfig = IRestActionConfig | IGraphQLActionConfig
+import type { IApiActionDTO, ICodeActionDTO } from './actions'
 
 /**
  * Base
@@ -19,7 +13,7 @@ export interface IBaseActionData {
   type: IActionKind
   code?: string
   resourceId?: string
-  config?: IApiActionConfig
+  config?: IProp
   successActionId?: string
   errorActionId?: string
 }

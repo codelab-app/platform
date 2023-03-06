@@ -19993,7 +19993,7 @@ export type PageFragment = {
 export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
 
 export type ResourceFragment = {
-  __typename: 'Resource'
+  __typename?: 'Resource'
   id: string
   name: string
   type: ResourceType

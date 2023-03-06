@@ -6,35 +6,12 @@ import type {
   IAnyActionWhere,
   ICreateActionData,
   ICreateActionInput,
-  ICreateStoreData,
   IUpdateActionData,
   IUpdateActionInput,
 } from '@codelab/frontend/abstract/core'
-import type {
-  InterfaceTypeCreateInput,
-  StoreCreateInput,
-} from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
-import capitalize from 'lodash/capitalize'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
-
-export const makeStoreCreateInput = ({
-  name,
-  owner,
-}: ICreateStoreData): StoreCreateInput => {
-  const interfaceCreateInput: InterfaceTypeCreateInput = {
-    id: v4(),
-    name: `${capitalize(name)} State`,
-    owner: connectAuth0Owner(owner),
-  }
-
-  return {
-    api: { create: { node: interfaceCreateInput } },
-    id: v4(),
-    name,
-  }
-}
 
 export const makeActionCreateInput = (
   action: ICreateActionData,
