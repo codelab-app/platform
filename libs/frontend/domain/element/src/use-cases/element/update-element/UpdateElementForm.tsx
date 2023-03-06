@@ -151,8 +151,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             .sort()
             .map((label) => ({ label, value: label }))}
         />
-        <AutoField component={SelectAction} name="preRenderActionId" />
-        <AutoField component={SelectAction} name="postRenderActionId" />
+        <AutoField component={SelectAction} name="preRenderAction.id" />
+        <AutoField component={SelectAction} name="postRenderAction.id" />
       </Form>
     )
   },

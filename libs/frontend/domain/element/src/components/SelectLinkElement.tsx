@@ -7,10 +7,11 @@ import { AutoField } from 'uniforms-antd'
 
 type SelectLinkElementProps = Pick<SelectElementProps, 'allElementOptions'> & {
   name: string
+  required?: boolean
 }
 
 export const SelectLinkElement = observer(
-  ({ allElementOptions, name }: SelectLinkElementProps) => {
+  ({ allElementOptions, name, required }: SelectLinkElementProps) => {
     const form = useForm<ICreateElementData>()
     const parentElementId = form.model.parentElement?.id
 
@@ -31,6 +32,7 @@ export const SelectLinkElement = observer(
           />
         )}
         name={name}
+        required={required}
       ></AutoField>
     )
   },

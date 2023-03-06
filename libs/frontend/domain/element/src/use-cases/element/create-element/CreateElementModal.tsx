@@ -60,8 +60,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const closeModal = () => elementService.createModal.close()
 
     const model = {
-      parentElementId: parentElement.id,
       owner: userService.user?.auth0Id,
+      parentElement: {
+        id: parentElement.id,
+      },
       // Needs to be null initially so that required sub-fields
       // are not validated when nothing is selected yet
       renderType: null,
@@ -89,13 +91,13 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         >
           <AutoFields
             omitFields={[
-              'parentElementId',
+              'parentElement',
               'customCss',
               'guiCss',
               'propsData',
-              'prevSiblingId',
-              'preRenderActionId',
-              'postRenderActionId',
+              'prevSibling',
+              'preRenderAction',
+              'postRenderAction',
               'renderType',
               'name',
             ]}
@@ -109,18 +111,27 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               />
             )}
             help={`only elements from \`${elementTree.name}\` are visible in this list`}
-            name="parentElementId"
+            name="parentElement.id"
           />
           <SelectLinkElement
             allElementOptions={selectChildrenElementOptions}
-            name="prevSiblingId"
+            name="prevSibling.id"
+            required={false}
           />
           <RenderTypeCompositeField
             name="renderType"
             parent={parentElement.renderType?.maybeCurrent}
           />
-          <AutoField component={SelectAction} name="preRenderActionId" />
-          <AutoField component={SelectAction} name="postRenderActionId" />
+          <AutoField
+            component={SelectAction}
+            name="preRenderAction.id"
+            required={false}
+          />
+          <AutoField
+            component={SelectAction}
+            name="postRenderAction.id"
+            required={false}
+          />
           <Divider />
           <AutoComputedElementNameField label="Name" name="name" />
         </ModalForm.Form>
