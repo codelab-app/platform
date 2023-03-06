@@ -23,7 +23,7 @@ export class ElementTreeService
   initTree(rootElement: IElement, elements: Array<IElement>) {
     console.debug('ElementTreeService.initTree', elements)
 
-    const elementService = getElementService(this)
+    const elementService = getElementService(rootElement)
 
     elements.forEach((element) => {
       elementService.elements.set(element.id, element)
