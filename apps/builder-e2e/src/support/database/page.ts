@@ -18,7 +18,7 @@ export const createPageInput = (
 
   return merge(
     {
-      _compoundName: createUniqueName(name, { id: appId }),
+      _compoundName: createUniqueName(name, { id }),
       app: {
         connect: { where: { node: { id: appId } } },
       },
@@ -32,7 +32,14 @@ export const createPageInput = (
         create: {
           node: {
             id: rootId,
-            name: createUniqueName(ROOT_ELEMENT_NAME, { id }),
+            name: ROOT_ELEMENT_NAME,
+            props: {
+              create: {
+                node: {
+                  data: '{}',
+                },
+              },
+            },
           },
         },
       },
