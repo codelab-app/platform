@@ -7,9 +7,7 @@ import type {
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import { IEntity } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import type { Ref } from 'react'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
@@ -93,7 +91,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
         })}
         schema={moveElementSchema}
       >
-        <AutoFields omitFields={['parentElementId', 'prevSiblingId']} />
+        <AutoFields omitFields={['parentElement', 'prevSibling']} />
         <AutoField
           component={observer((props) => {
             return (
@@ -106,11 +104,11 @@ export const MoveElementForm = observer<MoveElementFormProps>(
               />
             )
           })}
-          name="parentElementId"
+          name="parentElement.id"
         />
         <SelectLinkElement
           allElementOptions={elementOptions}
-          name="prevSiblingId"
+          name="prevSibling.id"
         />
       </MoveElementAutoForm>
     )
