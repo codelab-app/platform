@@ -11,6 +11,7 @@ import {
   IAppDTO,
 } from '@codelab/frontend/abstract/core'
 import { getPageService, pageRef } from '@codelab/frontend/domain/page'
+import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   getStoreService,
   Store,
@@ -75,6 +76,11 @@ export class AppService
   }
 
   @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
+  @computed
   get appsJson() {
     return this.appsList.map((app) => app.toJson).reduce(merge, {})
   }
@@ -104,6 +110,8 @@ export class AppService
       page.rootElement,
       ...page.rootElement.descendantElements,
     ].map((element) => this.elementService.add(element))
+
+    elements.forEach((element) => this.propService.add(element.props))
 
     const rootElement = this.elementService.element(page.rootElement.id)
     const pageElementTree = pageModel.initTree(rootElement, elements)

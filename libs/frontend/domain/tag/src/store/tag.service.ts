@@ -9,11 +9,6 @@ import { ITagDTO } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import {
-  connectAuth0Owner,
-  connectNodeId,
-  reconnectNodeId,
-} from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -27,7 +22,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { tagApi } from './tag.api'
+import { TagRepository } from '../services/tag.repository'
 import { Tag, tagRef } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
 import { TagTreeService } from './tag-tree.service'
@@ -39,6 +34,7 @@ export class TagService
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new TagsModalService({})),
     selectedTag: prop<Nullish<Ref<ITag>>>(null).withSetter(),
+    tagRepository: prop(() => new TagRepository({})),
     tags: prop(() => objectMap<ITag>()),
     treeService: prop<ITagTreeService>(() => TagTreeService.init([])),
     updateModal: prop(() => new TagModalService({})),
@@ -76,38 +72,31 @@ export class TagService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: TagService,
-    { id, name, parent, owner }: ICreateTagData,
-  ) {
-    const {
-      createTags: { tags },
-    } = yield* _await(
-      tagApi.CreateTags({
-        input: {
-          id,
-          name,
-          owner: connectAuth0Owner(owner),
-          parent: connectNodeId(parent?.id),
-        },
-      }),
-    )
+  create = _async(function* (this: TagService, data: ICreateTagData) {
+    const tag = this.add({
+      ...data,
+      children: [],
+      descendants: [],
+      isRoot: !data.parent?.id,
+    })
 
-    const otherTagIdsToUpdate = [
-      ...tags
-        .map((tag) => tag.parent?.id)
-        .filter((tag): tag is string => Boolean(tag)),
-    ]
+    this.treeService.addRoots([tag])
 
-    const tagsToUpdate = yield* _await(
-      this.getAll({ id_IN: otherTagIdsToUpdate }),
-    )
+    yield* _await(this.tagRepository.add(tag))
 
-    const tagModels = [...tags, ...tagsToUpdate].map((tag) => this.add(tag))
+    if (!tag.parent) {
+      return tag
+    }
 
-    this.treeService.addRoots(tagModels)
+    const [parentTag] = yield* _await(this.getAll({ id: tag.parent.id }))
 
-    return tagModels[0]!
+    if (parentTag) {
+      this.tags.set(parentTag.id, parentTag)
+
+      this.treeService.addRoots([tag, parentTag])
+    }
+
+    return tag
   })
 
   @modelFlow
@@ -116,49 +105,34 @@ export class TagService
     this: TagService,
     { id, name, parent }: IUpdateTagData,
   ) {
-    const tag = this.tags.get(id)
+    const tag = this.tags.get(id)!
 
-    tag?.writeCache({ name, parent })
+    tag.writeCache({ name, parent })
 
-    const {
-      updateTags: { tags },
-    } = yield* _await(
-      tagApi.UpdateTags({
-        update: {
-          name,
-          parent: parent ? reconnectNodeId(parent.id) : undefined,
-        },
-        where: { id },
-      }),
-    )
+    yield* _await(this.tagRepository.update(tag))!
 
-    return tag!
+    return tag
   })
 
   @modelFlow
   @transaction
   delete = _async(function* (this: TagService, ids: Array<string>) {
-    const descendantsIds: Array<string> = []
     const tags = yield* _await(this.getAll({ id_IN: ids }))
+    const tagsToRemove = []
 
     for (const tag of tags) {
       // Remove parent
       this.tags.delete(tag.id)
+      tagsToRemove.push(tag)
 
       // Remove descendants
       tag.descendants.forEach((descendant) => {
-        descendantsIds.push(descendant.id)
+        tagsToRemove.push(descendant)
         this.tags.delete(descendant.id)
       })
     }
 
-    const {
-      deleteTags: { nodesDeleted },
-    } = yield* _await(
-      tagApi.DeleteTags({ where: { id_IN: [...ids, ...descendantsIds] } }),
-    )
-
-    return nodesDeleted
+    return yield* _await(this.tagRepository.delete(tagsToRemove))
   })
 
   @modelFlow
@@ -178,18 +152,20 @@ export class TagService
   @modelFlow
   @transaction
   getAll = _async(function* (this: TagService, where?: TagWhere) {
-    const { tags } = yield* _await(tagApi.GetTags({ where }))
+    const tags = yield* _await(this.tagRepository.find(where))
 
     return tags.map((tag) => this.add(tag))
   })
 
   @modelAction
-  add({ id, isRoot, name, parent, children }: ITagDTO) {
+  add({ id, isRoot, name, parent, children, descendants, owner }: ITagDTO) {
     const tag = new Tag({
       children: children.map((child) => tagRef(child.id)),
+      descendants: descendants.map((child) => tagRef(child.id)),
       id,
       isRoot,
       name,
+      owner,
       parent: parent?.id ? tagRef(parent.id) : null,
     })
 
