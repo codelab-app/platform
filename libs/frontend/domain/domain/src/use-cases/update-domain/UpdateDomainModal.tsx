@@ -39,7 +39,7 @@ export const UpdateDomainModal = observer<{
   }
 
   return (
-    <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={true}>
+    <ModalForm.Modal okText="Update Domain" onCancel={closeModal}>
       <ModalForm.Form<IUpdateDomainData>
         model={model}
         onSubmit={onSubmit}

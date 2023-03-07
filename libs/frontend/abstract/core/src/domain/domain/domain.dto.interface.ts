@@ -1,4 +1,4 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 
 export interface ICreateDomainData {
   id: string
@@ -12,6 +12,6 @@ export interface IDomainDTO {
   id: string
   name: string
   app: IEntity
-  domainConfig: { misconfigured: boolean }
-  projectDomain: { verified: boolean }
+  domainConfig: Maybe<{ misconfigured: boolean }>
+  projectDomain: Maybe<{ verified: boolean }>
 }
