@@ -12,18 +12,18 @@ export const createPageInput = (
   appId: string,
   input: Partial<PageCreateInput> = {},
 ): PageCreateInput => {
-  const id = v4()
+  const pageId = v4()
   const rootId = v4()
   const name = `Test Page ${v4()}`
 
   return merge(
     {
-      _compoundName: createUniqueName(name, { id }),
+      _compoundName: createUniqueName(name, appId),
       app: {
         connect: { where: { node: { id: appId } } },
       },
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
-      id: id,
+      id: pageId,
       kind: IPageKind.Regular,
       pageContentContainer: {
         connect: { where: { node: { id: rootId } } },

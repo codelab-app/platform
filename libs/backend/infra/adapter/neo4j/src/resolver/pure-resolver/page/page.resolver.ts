@@ -5,8 +5,8 @@ import { slug } from '../app/field/app-slug'
 export const pageResolver: IResolvers = {
   Mutation: {},
   Page: {
-    name,
     // Can re-use from app
+    name,
     slug,
   },
   Query: {},

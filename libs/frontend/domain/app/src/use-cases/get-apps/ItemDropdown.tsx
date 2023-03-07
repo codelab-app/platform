@@ -52,7 +52,7 @@ export const ItemDropdown = observer<ItemMenuProps>(
       {
         disabled:
           !domains ||
-          !domains.some((domain) => !domain.domainConfig.misconfigured),
+          !domains.some((domain) => !domain.domainConfig?.misconfigured),
         icon: <ToolOutlined style={menuItemIconStyle} />,
         key: 'build',
         label: 'Build',

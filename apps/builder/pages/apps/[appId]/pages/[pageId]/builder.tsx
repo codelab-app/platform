@@ -114,18 +114,9 @@ PageBuilder.Layout = observer((page) => {
     () =>
       observer(() => (
         <BuilderExplorerPane
-          actionService={actionService}
           appStore={pageBuilderRenderer?.appStore.current}
-          builderService={builderService}
-          componentService={componentService}
-          elementService={elementService}
-          fieldService={fieldService}
           pageId={pageId}
-          renderService={builderRenderService}
-          resourceService={resourceService}
           storeId={pageBuilderRenderer?.appStore.id as string}
-          typeService={typeService}
-          userService={userService}
         />
       )),
     [pageBuilderRenderer, builderService],

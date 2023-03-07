@@ -2,7 +2,6 @@ import type { IComponent, IPropData } from '@codelab/frontend/abstract/core'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
-import { createUniqueName } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
 type CreateRootElement = (
@@ -25,7 +24,7 @@ export const mapCreateInput = ({
     create: {
       node: {
         id: element.id,
-        name: createUniqueName(name, element),
+        name,
         props,
       },
     },

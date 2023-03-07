@@ -17,12 +17,12 @@ export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
     app: {
       properties: {
         id: {
+          disabled: true,
           type: 'string',
         },
       },
       type: 'object',
       ...showFieldOnDev(),
-      disabled: true,
       required: ['id'],
     },
     getServerSideProps: {

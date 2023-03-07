@@ -6,18 +6,21 @@ import {
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export type CreateComponentSchema = Omit<ICreateComponentData, 'rootElement'>
+export type CreateComponentSchema = Omit<
+  ICreateComponentData,
+  'rootElement' | 'props' | 'api'
+>
 
 export const createComponentSchema: JSONSchemaType<CreateComponentSchema> = {
   properties: {
     ...idSchema,
-    api: {
-      nullable: true,
-      type: 'string',
-      uniforms: {
-        component: () => null,
-      },
-    },
+    // api: {
+    //   nullable: true,
+    //   type: 'string',
+    //   uniforms: {
+    //     component: () => null,
+    //   },
+    // },
     childrenContainerElement: {
       properties: {
         id: {

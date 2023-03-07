@@ -4,6 +4,7 @@ export const appSchema = gql`
   type App implements WithOwner {
     id: ID! @id(autogenerate: false)
     owner: User!
+    # We prefix with user id to make it unique
     _compoundName: String! @unique
     name: String! @computed(from: ["id", "_compoundName"])
     slug: String! @computed(from: ["id", "_compoundName"])

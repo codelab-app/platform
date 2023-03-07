@@ -65,7 +65,7 @@ export const makeDuplicateInput = (
     customCss: element.customCss,
     guiCss: element.guiCss,
     id: v4(),
-    name: createUniqueName(duplicate_name, { id: element.baseId }),
+    name: createUniqueName(duplicate_name, element.baseId),
     props,
     propTransformationJs: element.propTransformationJs,
     renderAtomType: isAtomInstance(element.renderType)

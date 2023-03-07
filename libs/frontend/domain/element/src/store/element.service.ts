@@ -15,7 +15,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService, Prop } from '@codelab/frontend/domain/prop'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { runSequentially } from '@codelab/frontend/shared/utils'
 import type {
   ElementCreateInput,
@@ -23,6 +23,7 @@ import type {
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { createUniqueName, isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -161,11 +162,7 @@ export class ElementService
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
     const parent = this.elements.get(data.parentElement?.id ?? '')
-
-    const name = createUniqueName(data.name, {
-      id: parent?.baseId,
-    })
-
+    const name = createUniqueName(data.name, parent?.baseId ?? '')
     const renderTypeApi = getRenderTypeApi(data.renderType)
 
     const elementProps = Prop.create({
@@ -725,19 +722,20 @@ element is new parentElement's first child
         // 1. detach the element from the element tree
         yield* _await(this.detachElementFromElementTree(element.id))
 
+        const api = this.typeService.addInterface({
+          id: v4(),
+          kind: ITypeKind.InterfaceType,
+          name: InterfaceType.createName(`${element.name}`),
+          owner,
+        })
+
         // 2. create the component with predefined root element
         const createdComponent = yield* _await(
           this.componentService.create({
-            // TODO: fix
-            api: {},
-
+            api,
             childrenContainerElement: element,
-
             id: v4(),
-
             name,
-            name,
-
             owner,
             rootElement: element,
           }),
