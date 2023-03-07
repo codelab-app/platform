@@ -1,7 +1,7 @@
 import type {
   ICreatePrimitiveType,
   IPrimitiveType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -17,7 +17,7 @@ export class PrimitiveType extends BaseType implements IPrimitiveType {
 
   declare __typename: `${ITypeKind.PrimitiveType}`
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   primitiveKind: IPrimitiveTypeKind
 

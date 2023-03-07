@@ -1,7 +1,7 @@
 import type {
   ICreateType,
   IType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type {
@@ -20,7 +20,7 @@ import { UnionTypeFactory } from './union-type.factory'
 export class TypeFactory {
   static async create(
     data: DistributiveOmit<ICreateType, 'owner'>,
-    owner: IUserRef,
+    owner: IOwner,
     where: BaseTypeUniqueWhereCallback<IType> = (type) => ({ id: type.name }),
   ): Promise<IType> {
     const type: ICreateType = { ...data, owner }

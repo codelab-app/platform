@@ -10,13 +10,14 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect } from 'react'
 import { useAsync } from 'react-use'
+import { atomRef } from '../../store'
 import type { AtomLibrary, AtomRecord } from './columns'
 import { useAtomTable } from './useAtomTable'
 
 const DEFAULT_PAGE_SIZE = 25
 const DEFAULT_CUR_PAGE = 1
 
-interface GetAtomsTableProps {
+interface AtomsTableProps {
   atomService: IAtomService
   typeService: ITypeService
   fieldService: IFieldService
@@ -25,7 +26,7 @@ interface GetAtomsTableProps {
   pageSize?: number
 }
 
-export const GetAtomsTable = observer<GetAtomsTableProps>(
+export const AtomsTable = observer<AtomsTableProps>(
   ({
     atomService,
     typeService,
@@ -35,6 +36,12 @@ export const GetAtomsTable = observer<GetAtomsTableProps>(
     pageSize,
   }) => {
     const { atomsList } = atomService
+
+    if (atomsList.length) {
+      const ref = atomRef(atomsList[0]!.id)
+      console.log(ref)
+    }
+
     const router = useRouter()
     const curPage = page ?? DEFAULT_CUR_PAGE
     const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE

@@ -3,7 +3,7 @@ import type {
   ICreateUnionType,
   IField,
   IUnionType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
@@ -20,7 +20,7 @@ export class UnionType extends BaseType implements IUnionType {
 
   declare __typename: `${ITypeKind.UnionType}`
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   typesOfUnionType: Array<IEntity>
 

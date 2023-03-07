@@ -1,7 +1,7 @@
 import type {
   ICreateRenderPropsType,
   IRenderPropsType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -16,7 +16,7 @@ export class RenderPropsType extends BaseType implements IRenderPropsType {
 
   declare __typename: `${ITypeKind.RenderPropsType}`
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   private constructor({ id, name, kind, owner }: IRenderPropsType) {
     super({ __typename: ITypeKind.RenderPropsType, id, kind, name, owner })

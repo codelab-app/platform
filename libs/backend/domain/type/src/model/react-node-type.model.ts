@@ -1,7 +1,7 @@
 import type {
   ICreateReactNodeType,
   IReactNodeType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -16,7 +16,7 @@ export class ReactNodeType extends BaseType implements IReactNodeType {
 
   declare __typename: `${ITypeKind.ReactNodeType}`
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   private constructor({ id, name, kind, owner }: IReactNodeType) {
     super({ __typename: ITypeKind.ReactNodeType, id, kind, name, owner })

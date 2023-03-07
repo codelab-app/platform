@@ -4,7 +4,7 @@ import {
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
-  GetAtomsTable,
+  AtomsTable,
   UpdateAtomModal,
 } from '@codelab/frontend/domain/atom'
 import {
@@ -97,7 +97,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       />
       <DeleteFieldModal fieldService={store.fieldService} />
       <ContentSection>
-        <GetAtomsTable
+        <AtomsTable
           atomService={store.atomService}
           fieldService={store.fieldService}
           getAtomLibrary={getAtomLibrary}

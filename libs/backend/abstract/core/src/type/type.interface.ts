@@ -1,7 +1,7 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { EntitySchema } from '@codelab/shared/abstract/types'
 import { z } from 'zod'
-import { OwnerSchema } from '../user.interface'
+import { OwnerFieldSchema } from '../user.interface'
 import type {
   IActionType,
   IActionTypeExport,
@@ -89,7 +89,7 @@ export const BaseTypeSchema = z
     name: z.string(),
   })
   .merge(EntitySchema)
-  .merge(OwnerSchema)
+  .merge(OwnerFieldSchema)
 
 export type IBaseType = z.infer<typeof BaseTypeSchema>
 

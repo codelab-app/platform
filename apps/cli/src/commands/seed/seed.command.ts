@@ -1,4 +1,4 @@
-import type { IUserRef } from '@codelab/backend/abstract/core'
+import type { IOwner } from '@codelab/backend/abstract/core'
 import { SeedAtomsService } from '@codelab/backend/application/atom'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
@@ -40,7 +40,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
       throw new Error('User not found!')
     }
 
-    const user: IUserRef = { auth0Id: selectedAuth0Id }
+    const user: IOwner = { auth0Id: selectedAuth0Id }
 
     await new SeedSystemTypeService().execute(user)
 
