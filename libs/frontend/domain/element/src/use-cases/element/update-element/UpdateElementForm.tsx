@@ -31,7 +31,7 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
-import { updateElementSchema } from './updateElementSchema'
+import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
   element: IElement

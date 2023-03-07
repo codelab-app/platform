@@ -7,8 +7,8 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import type { UpdatePageSchema } from './updatePageSchema'
-import { updatePageSchema } from './updatePageSchema'
+import type { UpdatePageSchema } from './update-page.schema'
+import { updatePageSchema } from './update-page.schema'
 
 export const UpdatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {

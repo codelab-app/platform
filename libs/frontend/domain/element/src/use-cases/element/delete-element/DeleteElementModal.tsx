@@ -8,8 +8,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import type { DeleteElementData } from './deleteElementSchema'
-import { deleteElementSchema } from './deleteElementSchema'
+import type { DeleteElementData } from './delete-element.schema'
+import { deleteElementSchema } from './delete-element.schema'
 
 interface DeleteElementModalProps {
   elementService: IElementService

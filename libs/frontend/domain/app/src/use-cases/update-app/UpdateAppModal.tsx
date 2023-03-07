@@ -7,7 +7,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updateAppSchema } from './updateAppSchema'
+import { updateAppSchema } from './update-app.schema'
 
 export const UpdateAppModal = observer<{
   appService: IAppService

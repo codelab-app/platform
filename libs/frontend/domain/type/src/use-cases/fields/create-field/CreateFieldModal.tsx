@@ -13,7 +13,7 @@ import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { SelectDefaultValue } from '../../../interface-form'
 import { TypeSelect } from '../../../shared'
-import { createFieldSchema } from './createFieldSchema'
+import { createFieldSchema } from './create-field.schema'
 import {
   filterValidationRules,
   isBoolean,

@@ -1,2 +1,2 @@
+export * from './update-element.schema'
 export * from './UpdateElementForm'
-export * from './updateElementSchema'

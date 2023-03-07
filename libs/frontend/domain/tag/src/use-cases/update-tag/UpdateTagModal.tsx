@@ -7,7 +7,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { updateTagSchema } from './updateTagSchema'
+import { updateTagSchema } from './update-tag.schema'
 
 export const UpdateTagModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {

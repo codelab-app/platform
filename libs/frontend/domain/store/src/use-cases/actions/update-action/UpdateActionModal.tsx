@@ -12,7 +12,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { updateActionSchema } from './updateActionSchema'
+import { updateActionSchema } from './update-action.schema'
 
 export const UpdateActionModal = observer<{
   actionService: IActionService
