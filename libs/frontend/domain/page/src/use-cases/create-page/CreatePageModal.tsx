@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { createPageSchema } from './createPageSchema'
+import { createPageSchema } from './create-page.schema'
 
 export const CreatePageModal = observer<{
   pageService: IPageService

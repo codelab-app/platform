@@ -12,8 +12,8 @@ import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils'
+import { moveElementSchema } from './move-element.schema'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
-import { moveElementSchema } from './moveElementSchema'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,

@@ -1,4 +1,4 @@
-export * from './emptyJsonSchema'
+export * from './empty-json.schema'
 export * from './fieldDescription'
 export * from './hideField'
 export * from './id.schema'

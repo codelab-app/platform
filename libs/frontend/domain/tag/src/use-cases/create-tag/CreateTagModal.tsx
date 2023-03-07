@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { createTagSchema } from './createTagSchema'
+import { createTagSchema } from './create.tag.schema'
 
 export const CreateTagModal = observer<{
   tagService: ITagService

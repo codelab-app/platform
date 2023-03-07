@@ -14,7 +14,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { createActionSchema } from './createActionSchema'
+import { createActionSchema } from './create-action.schema'
 
 const defaultCodeAction = `function run() {
     // insert your code here

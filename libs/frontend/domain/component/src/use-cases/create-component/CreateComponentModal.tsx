@@ -9,8 +9,8 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import type { CreateComponentSchema } from './createComponentSchema'
-import { createComponentSchema } from './createComponentSchema'
+import type { CreateComponentSchema } from './create-component.schema'
+import { createComponentSchema } from './create-component.schema'
 
 export const CreateComponentModal = observer(() => {
   const {

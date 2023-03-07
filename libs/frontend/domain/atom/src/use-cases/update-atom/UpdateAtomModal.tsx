@@ -9,7 +9,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { updateAtomSchema } from './updateAtomSchema'
+import { updateAtomSchema } from './update-atom.schema'
 
 export const UpdateAtomModal = observer<{
   atomService: IAtomService

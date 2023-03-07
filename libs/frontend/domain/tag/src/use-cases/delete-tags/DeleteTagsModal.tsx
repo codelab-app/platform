@@ -5,8 +5,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields, ListField } from 'uniforms-antd'
-import type { DeleteTagsData } from './deleteTagsSchema'
-import { deleteTagsSchema } from './deleteTagsSchema'
+import type { DeleteTagsData } from './delete-tags.schema'
+import { deleteTagsSchema } from './delete-tags.schema'
 
 export const DeleteTagsModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {

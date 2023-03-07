@@ -57,18 +57,6 @@
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",
-        // "canonical/id-match": [
-        //   "error",
-        //   "(^[A-Za-z]+(?:[A-Z][a-z]*)*\\d*$)|(^[A-Z]+(_[A-Z]+)*(_\\d$)*$)|(^(_|\\$)$)",
-        //   { "onlyDeclarations": true, "ignoreNamedImports": true }
-        // ],
-        // Not working
-        // "canonical/no-unused-exports": [
-        //   "error",
-        //   {
-        //     "tsConfigPath": "./tsconfig.base.json"
-        //   }
-        // ],
         // "max-params": [
         //   "error",
         //   {
@@ -474,6 +462,12 @@
           }
         ],
         "lines-between-class-members": ["error", "always"]
+      }
+    },
+    {
+      "files": ["*.schema.ts"],
+      "rules": {
+        "canonical/sort-keys": "off"
       }
     },
     {
