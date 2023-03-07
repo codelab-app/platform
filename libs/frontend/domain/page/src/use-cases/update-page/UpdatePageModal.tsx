@@ -21,8 +21,9 @@ export const UpdatePageModal = observer<{ pageService: IPageService }>(
     })
 
     const model = {
-      appId: page?.app.id,
+      app: page?.app,
       getServerSideProps: page?.getServerSideProps,
+      id: page?.id,
       name: page?.name,
     }
 

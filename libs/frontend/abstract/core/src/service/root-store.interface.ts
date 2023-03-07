@@ -9,6 +9,7 @@ import type {
   IElementService,
   IFieldService,
   IPageService,
+  IPropService,
   IRenderService,
   IResourceService,
   IStoreService,
@@ -36,6 +37,7 @@ export interface IRootStore {
   atomService: IAtomService
   tagService: ITagService
   adminService: IAdminService
+  propService: IPropService
   componentService: IComponentService
   actionService: IActionService
   storeService: IStoreService

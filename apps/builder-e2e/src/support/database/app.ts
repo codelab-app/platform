@@ -1,4 +1,4 @@
-import type { IAppDTO } from '@codelab/frontend/abstract/core'
+import type { IAppDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import {
   APP_PAGE_NAME,
   INTERNAL_SERVER_ERROR_PAGE_NAME,
@@ -13,33 +13,34 @@ import { CreateAppsDocument } from 'libs/frontend/domain/app/src/graphql/app.end
 import { v4 } from 'uuid'
 import { createPageInput } from './page'
 
-export const createAppInput = (auth0Id: string): AppCreateInput => {
+export const createAppInput = (owner: IAuth0Owner): AppCreateInput => {
   const appId = v4()
 
   return {
-    _compoundName: createUniqueName(`Test app ${appId}`, { id: appId }),
+    _compoundName: createUniqueName(`Test app ${appId}`, owner.auth0Id),
     id: appId,
-    owner: connectAuth0Owner({ auth0Id }),
+    owner: connectAuth0Owner(owner),
     pages: {
       create: [
         // create provider page
         {
           node: createPageInput(appId, {
-            _compoundName: createUniqueName(APP_PAGE_NAME, { id: appId }),
+            _compoundName: createUniqueName(APP_PAGE_NAME, appId),
             kind: IPageKind.Provider,
           }),
         },
         {
           node: createPageInput(appId, {
-            _compoundName: createUniqueName(NOT_FOUND_PAGE_NAME, { id: appId }),
+            _compoundName: createUniqueName(NOT_FOUND_PAGE_NAME, appId),
             kind: IPageKind.NotFound,
           }),
         },
         {
           node: createPageInput(appId, {
-            _compoundName: createUniqueName(INTERNAL_SERVER_ERROR_PAGE_NAME, {
-              id: appId,
-            }),
+            _compoundName: createUniqueName(
+              INTERNAL_SERVER_ERROR_PAGE_NAME,
+              appId,
+            ),
             kind: IPageKind.InternalServerError,
           }),
         },
@@ -59,7 +60,7 @@ export const createAppInput = (auth0Id: string): AppCreateInput => {
                 id: v4(),
                 kind: ITypeKind.InterfaceType,
                 name: `Test Store ${appId} API`,
-                owner: connectAuth0Owner({ auth0Id }),
+                owner: connectAuth0Owner(owner),
               },
             },
           },

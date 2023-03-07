@@ -4,10 +4,7 @@ import {
   IRenderTypeKind,
 } from '@codelab/frontend/abstract/core'
 import { antDesignIconPrefix } from '@codelab/shared/data/seed'
-import {
-  compoundCaseToTitleCase,
-  createUniqueName,
-} from '@codelab/shared/utils'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
@@ -22,7 +19,7 @@ export const DraggableGetComponentItem = ({
 }: DraggableGetComponentItemProps) => {
   const createElementInput = useMemo(() => {
     return {
-      name: createUniqueName(compoundCaseToTitleCase(component.name)),
+      name: compoundCaseToTitleCase(component.name),
       renderType: {
         id: component.id,
         kind: IRenderTypeKind.Atom,

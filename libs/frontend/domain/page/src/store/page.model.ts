@@ -120,7 +120,7 @@ export class Page
 
   toCreateInput(): PageCreateInput {
     return {
-      _compoundName: createUniqueName(this.name, this),
+      _compoundName: createUniqueName(this.name, this.app.id),
       getServerSideProps: this.getServerSideProps,
       id: this.id,
       kind: this.kind,

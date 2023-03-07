@@ -16,11 +16,7 @@ export interface GetAppsItemProps {
 
 export const GetDomainItem = observer<GetAppsItemProps>(
   ({ domain, domainService }) => {
-    const {
-      domainConfig: { misconfigured },
-      projectDomain: { verified },
-    } = domain
-
+    const { domainConfig, projectDomain } = domain
     const url = `https://${domain.name}`
 
     const Title = (
@@ -30,7 +26,11 @@ export const GetDomainItem = observer<GetAppsItemProps>(
             {domain.name} <LinkOutlined />
           </span>
         </Link>
-        <ConfigStatus misconfigured={!verified || misconfigured} />
+        <ConfigStatus
+          misconfigured={
+            !projectDomain?.verified || domainConfig?.misconfigured
+          }
+        />
       </div>
     )
 
@@ -40,7 +40,7 @@ export const GetDomainItem = observer<GetAppsItemProps>(
         extra={<ItemTools domain={domain} domainService={domainService} />}
         title={Title}
       >
-        {!verified && (
+        {!projectDomain?.verified && (
           <Alert
             description="Domain misconfigured because it's already assigned to another project."
             message="Error"
@@ -48,7 +48,7 @@ export const GetDomainItem = observer<GetAppsItemProps>(
             type="error"
           />
         )}
-        {verified && misconfigured && (
+        {projectDomain?.verified && domainConfig?.misconfigured && (
           <ConfigGuide domain={domain} type="ARecord" />
         )}
       </Card>

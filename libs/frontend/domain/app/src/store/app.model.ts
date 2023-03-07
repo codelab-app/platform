@@ -139,7 +139,7 @@ export class App
 
   toCreateInput(): AppCreateInput {
     return {
-      _compoundName: createUniqueName(this.name, this),
+      _compoundName: createUniqueName(this.name, this.owner.auth0Id),
       id: this.id,
       owner: connectAuth0Owner(this.owner),
       pages: {
@@ -157,7 +157,7 @@ export class App
 
   toUpdateInput(): AppUpdateInput {
     return {
-      _compoundName: createUniqueName(this.name, { id: this.id }),
+      _compoundName: createUniqueName(this.name, this.owner.auth0Id),
     }
   }
 

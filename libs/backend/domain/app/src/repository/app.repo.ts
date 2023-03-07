@@ -71,13 +71,13 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   } = await App.create({
     input: [
       {
-        _compoundName: createUniqueName(app.name, app),
+        _compoundName: createUniqueName(app.name, owner.auth0Id),
         id: app.id,
         owner: connectAuth0Owner(owner),
         pages: {
           create: app.pages.map((page) => ({
             node: {
-              _compoundName: createUniqueName(page.name, page),
+              _compoundName: createUniqueName(page.name, app.id),
               id: page.id,
               kind: page.kind,
               pageContentContainer: page.pageContentContainer?.id

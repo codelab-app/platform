@@ -18,7 +18,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
     } = yield* _await(
       pageApi.CreatePages({
         input: {
-          _compoundName: createUniqueName(name, app),
+          _compoundName: createUniqueName(name, app.id),
           app: connectNodeId(app.id),
           getServerSideProps,
           id,
@@ -45,7 +45,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
     } = yield* _await(
       pageApi.UpdatePages({
         update: {
-          _compoundName: createUniqueName(name, app),
+          _compoundName: createUniqueName(name, app.id),
           app: connectNodeId(app.id),
           getServerSideProps,
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),

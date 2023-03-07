@@ -1,13 +1,12 @@
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import type { IInterfaceTypeDTO } from '../type'
 import type { IOwnerSchema } from '../user'
 
 export interface IComponentDTO extends IOwnerSchema {
   id: string
   name: string
   rootElement: IEntity
-  api: IInterfaceTypeDTO
+  api: IEntity
   props?: IEntity | null
   childrenContainerElement: IEntity
 }

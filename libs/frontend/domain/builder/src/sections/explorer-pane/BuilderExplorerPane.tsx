@@ -1,16 +1,5 @@
 import { ApartmentOutlined, DatabaseOutlined } from '@ant-design/icons'
-import type {
-  IActionService,
-  IBuilderService,
-  IComponentService,
-  IElementService,
-  IFieldService,
-  IRenderService,
-  IResourceService,
-  IStore,
-  ITypeService,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { IStore } from '@codelab/frontend/abstract/core'
 import { RendererTab } from '@codelab/frontend/abstract/core'
 import {
   CreateComponentButton,
@@ -35,6 +24,7 @@ import {
   DeleteFieldModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
@@ -55,18 +45,9 @@ type StoreHeaderProps = PropsWithChildren<{
 }>
 
 interface BuilderMainPaneProps {
-  componentService: IComponentService
-  elementService: IElementService
-  actionService: IActionService
-  builderService: IBuilderService
-  userService: IUserService
-  renderService: IRenderService
   pageId: string
   storeId: string
-  fieldService: IFieldService
   appStore?: IStore
-  typeService: ITypeService
-  resourceService: IResourceService
 }
 
 export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
@@ -77,27 +58,26 @@ export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
 )
 
 export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
-  ({
-    builderService,
-    elementService,
-    componentService,
-    actionService,
-    userService,
-    pageId,
-    storeId,
-    renderService,
-    appStore,
-    fieldService,
-    typeService,
-    resourceService,
-  }) => {
-    const pageBuilderRenderer = renderService.renderers.get(pageId)
+  ({ pageId, storeId, appStore }) => {
+    const {
+      builderService,
+      elementService,
+      componentService,
+      actionService,
+      userService,
+      builderRenderService,
+      fieldService,
+      typeService,
+      resourceService,
+    } = useStore()
+
+    const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
     const root = pageBuilderRenderer?.pageTree?.current.root
     const pageTree = pageBuilderRenderer?.pageTree?.current
     const componentId = builderService.activeComponent?.id
 
     const componentTree = componentId
-      ? renderService.renderers.get(componentId)?.pageTree?.current
+      ? builderRenderService.renderers.get(componentId)?.pageTree?.current
       : null
 
     const antdTree = root?.antdNode
@@ -264,14 +244,11 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           builderService={builderService}
           componentService={componentService}
           elementService={elementService}
-          renderService={renderService}
+          renderService={builderRenderService}
           storeId={storeId}
           userService={userService}
         />
-        <CreateComponentModal
-          componentService={componentService}
-          userService={userService}
-        />
+        <CreateComponentModal />
         <DeleteComponentModal componentService={componentService} />
         <DeleteElementModal
           builderService={builderService}
