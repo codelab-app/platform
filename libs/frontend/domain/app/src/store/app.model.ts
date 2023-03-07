@@ -19,15 +19,7 @@ import { createUniqueName } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
 const create = ({ id, name, owner, pages, store }: IAppDTO) => {
@@ -176,11 +168,3 @@ export class App
     }
   }
 }
-
-export const appRef = rootRef<IApp>('@codelab/AppRef', {
-  onResolvedValueChange: (ref, newApp, oldApp) => {
-    if (oldApp && !newApp) {
-      detach(ref)
-    }
-  },
-})

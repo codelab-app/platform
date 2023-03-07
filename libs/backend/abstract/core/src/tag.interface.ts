@@ -1,6 +1,6 @@
 import { EntitySchema } from '@codelab/shared/abstract/types'
 import { z } from 'zod'
-import { OwnerSchema } from './user.interface'
+import { OwnerFieldSchema } from './user.interface'
 
 const TagPreviewSchema = z
   .object({
@@ -13,7 +13,7 @@ export type ITagPreview = z.infer<typeof TagPreviewSchema>
 export const TagSchema = TagPreviewSchema.extend({
   children: z.array(TagPreviewSchema),
   parent: TagPreviewSchema.optional().nullable(),
-}).merge(OwnerSchema)
+}).merge(OwnerFieldSchema)
 
 export type ITag = z.infer<typeof TagSchema>
 

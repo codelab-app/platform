@@ -1,4 +1,4 @@
-import type { IAtom, IUserRef } from '@codelab/backend/abstract/core'
+import type { IAtom, IOwner } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
@@ -12,7 +12,7 @@ import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 import { atomsData } from './atom'
 
-export class SeedAtomsService extends IUseCase<IUserRef, void> {
+export class SeedAtomsService extends IUseCase<IOwner, void> {
   atomRepository: AtomRepository = new AtomRepository()
 
   interfaceTypeRepository: InterfaceTypeRepository =
@@ -20,7 +20,7 @@ export class SeedAtomsService extends IUseCase<IUserRef, void> {
 
   tagRepository: TagRepository = new TagRepository()
 
-  async _execute(owner: IUserRef) {
+  async _execute(owner: IOwner) {
     const atoms = await this.createAtomsData(owner)
 
     /**
@@ -48,7 +48,7 @@ export class SeedAtomsService extends IUseCase<IUserRef, void> {
   /**
    * Assume all tags have already been created
    */
-  async createAtomsData(owner: IUserRef): Promise<Array<IAtom>> {
+  async createAtomsData(owner: IOwner): Promise<Array<IAtom>> {
     const existingInterfaceTypes = new Map(
       (await this.interfaceTypeRepository.all()).map((interfaceType) => [
         interfaceType.name,

@@ -1,7 +1,7 @@
 import type {
   IActionType,
   ICreateActionType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -16,7 +16,7 @@ export class ActionType extends BaseType implements IActionType {
 
   declare __typename?: ITypeKind.ActionType
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   private constructor({ id, name, kind, owner }: IActionType) {
     super({ __typename: ITypeKind.ActionType, id, kind, name, owner })

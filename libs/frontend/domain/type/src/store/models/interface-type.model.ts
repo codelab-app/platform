@@ -46,6 +46,22 @@ const hydrate = ({
   return interfaceType
 }
 
+const createName = (name: string) => {
+  return `${name} API`
+}
+
+const createApiNode = ({
+  name,
+  owner,
+}: Pick<IApp, 'name' | 'owner'>): InterfaceTypeCreateInput => {
+  return {
+    id: v4(),
+    kind: ITypeKind.InterfaceType,
+    name: `${name} Store API`,
+    owner: connectAuth0Owner(owner),
+  }
+}
+
 @model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
@@ -119,9 +135,7 @@ export class InterfaceType
     return this
   }
 
-  static createName(name: string) {
-    return `${name} API`
-  }
+  static createName = createName
 
   toCreateInput(): InterfaceTypeCreateInput {
     return {
@@ -139,17 +153,7 @@ export class InterfaceType
     return this
   }
 
-  static createApiNode({
-    name,
-    owner,
-  }: Pick<IApp, 'name' | 'owner'>): InterfaceTypeCreateInput {
-    return {
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: `${name} Store API`,
-      owner: connectAuth0Owner(owner),
-    }
-  }
-
   static hydrate = hydrate
+
+  static createApiNode = createApiNode
 }

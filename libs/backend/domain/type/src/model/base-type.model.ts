@@ -1,4 +1,4 @@
-import type { IBaseType, IUserRef } from '@codelab/backend/abstract/core'
+import type { IBaseType, IOwner } from '@codelab/backend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 
 export abstract class BaseType implements IBaseType {
@@ -10,7 +10,7 @@ export abstract class BaseType implements IBaseType {
 
   __typename?: `${ITypeKind}`
 
-  owner: IUserRef
+  owner: IOwner
 
   constructor({ id, name, kind, __typename, owner }: IBaseType) {
     this.id = id

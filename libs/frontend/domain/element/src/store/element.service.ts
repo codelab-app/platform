@@ -161,6 +161,9 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
+    const atom = this.atomService.atoms.get(data.renderType?.id ?? '')!
+    // console.log(atom)
+    // console.log(atomRef(atom))
     const parent = this.elements.get(data.parentElement?.id ?? '')
     const name = createUniqueName(data.name, parent?.baseId ?? '')
     const renderTypeApi = getRenderTypeApi(data.renderType)

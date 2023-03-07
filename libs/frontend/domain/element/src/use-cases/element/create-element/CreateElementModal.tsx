@@ -1,10 +1,6 @@
 import type {
-  IActionService,
-  IBuilderService,
-  IComponentService,
   ICreateElementData,
   IElementService,
-  IRenderService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
@@ -24,12 +20,8 @@ import { mapElementOption } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
 interface CreateElementModalProps {
-  renderService: IRenderService
-  actionService: IActionService
-  builderService: IBuilderService
   elementService: IElementService
   userService: IUserService
-  componentService: IComponentService
   storeId: string
 }
 

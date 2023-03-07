@@ -3,7 +3,7 @@ import type {
   ICreateInterfaceType,
   IField,
   IInterfaceType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -18,7 +18,7 @@ export class InterfaceType extends BaseType implements IInterfaceType {
 
   declare __typename: `${ITypeKind.InterfaceType}`
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   fields: Array<IField>
 
@@ -48,7 +48,7 @@ export class InterfaceType extends BaseType implements IInterfaceType {
   /**
    * Make create data from atom name
    */
-  static createFromAtomName(name: string, owner: IUserRef): IInterfaceType {
+  static createFromAtomName(name: string, owner: IOwner): IInterfaceType {
     return new InterfaceType({
       fields: [],
       id: v4(),

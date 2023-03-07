@@ -3,7 +3,7 @@ import type {
   IAtom,
   IField,
   IType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
@@ -45,7 +45,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
   /**
    * @param atoms Created from hard coded atoms data
    */
-  private constructor(atoms: Array<IAtom>, private readonly owner: IUserRef) {
+  private constructor(atoms: Array<IAtom>, private readonly owner: IOwner) {
     super()
     this.atoms = atoms
       .map((atom) => ({
@@ -54,7 +54,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
       .reduce(merge, {})
   }
 
-  static async init(owner: IUserRef) {
+  static async init(owner: IOwner) {
     const atoms = await new SeedAtomsService().createAtomsData(owner)
 
     return new SeedAntDesignFieldsService(atoms, owner)

@@ -4,6 +4,14 @@ import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { tagRef } from './tag.model'
 
+const init = (tags: Array<ITag>) => {
+  const tagTree = new TagTreeService({})
+
+  tagTree.addRoots(tags)
+
+  return tagTree
+}
+
 @model('@codelab/TagTreeService')
 export class TagTreeService
   extends Model({
@@ -14,13 +22,7 @@ export class TagTreeService
   })
   implements ITagTreeService
 {
-  static init(tags: Array<ITag>) {
-    const tagTree = new TagTreeService({})
-
-    tagTree.addRoots(tags)
-
-    return tagTree
-  }
+  static init = init
 
   @modelAction
   addRoots(tags: Array<ITag>) {

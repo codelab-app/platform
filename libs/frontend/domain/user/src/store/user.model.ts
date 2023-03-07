@@ -4,6 +4,16 @@ import type { IRole } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
+const create = ({ id, username, auth0Id, roles, apps }: IUserDTO) => {
+  return new User({
+    apps: apps.map((app) => appRef(app.id)),
+    auth0Id,
+    id,
+    roles,
+    username,
+  })
+}
+
 /**
  * Here we use JwtPayload to hydrate our user model, so we don't require an additional api call to our database
  *
@@ -13,7 +23,6 @@ import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 export class User
   extends Model({
     apps: prop<Array<Ref<IApp>>>(() => []),
-
     auth0Id: prop<string>(),
     // We use auth0Id as the id here
     id: idProp.withSetter(),
@@ -22,15 +31,7 @@ export class User
   })
   implements IUser
 {
-  static create({ id, username, auth0Id, roles, apps }: IUserDTO) {
-    return new User({
-      apps: apps.map((app) => appRef(app.id)),
-      auth0Id,
-      id,
-      roles,
-      username,
-    })
-  }
+  static create = create
 }
 
 export const userRef = rootRef<IUser>('@codelab/UserRef', {

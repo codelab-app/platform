@@ -36,6 +36,10 @@ const create = ({ id, name, api }: IStoreDTO) => {
   })
 }
 
+const createName = (app: Pick<IAppDTO, 'name'>) => {
+  return `${app.name} Store`
+}
+
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
@@ -104,9 +108,7 @@ export class Store
     }
   }
 
-  static createName(app: Pick<IAppDTO, 'name'>) {
-    return `${app.name} Store`
-  }
+  static createName = createName
 }
 
 export const storeRef = rootRef<IStore>('@codelab/StoreRef', {

@@ -21,12 +21,34 @@ import { v4 } from 'uuid'
 import { atomRef } from './atom.ref'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
+const create = ({
+  id,
+  icon,
+  name,
+  type,
+  owner,
+  api,
+  tags,
+  allowedChildren,
+}: IAtomDTO) => {
+  return new Atom({
+    allowedChildren: allowedChildren?.map((child) => atomRef(child.id)),
+    api: typeRef<IInterfaceType>(api.id),
+    icon,
+    id,
+    name,
+    owner,
+    tags: tags?.map((tag) => tagRef(tag.id)),
+    type,
+  })
+}
+
 @model('@codelab/Atom')
 export class Atom
   extends Model({
     allowedChildren: prop<Array<Ref<IAtom>>>(() => []),
     api: prop<Ref<IInterfaceType>>(),
-    icon: prop<string | null | undefined>(),
+    icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
     owner: prop<IAuth0Owner>(),
@@ -44,28 +66,8 @@ export class Atom
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  // static hydrate = hydrate
-  static create({
-    id,
-    icon,
-    name,
-    type,
-    owner,
-    api,
-    tags,
-    allowedChildren,
-  }: IAtomDTO) {
-    return new Atom({
-      allowedChildren: allowedChildren?.map((child) => atomRef(child.id)),
-      api: typeRef<IInterfaceType>(api.id),
-      icon,
-      id,
-      name,
-      owner,
-      tags: tags?.map((tag) => tagRef(tag.id)),
-      type,
-    })
-  }
+  @modelAction
+  static create = create
 
   @modelAction
   writeCache({
@@ -115,15 +117,10 @@ export class Atom
           },
         },
       },
-
       id: this.id,
-
       name: this.name,
-
       owner: connectAuth0Owner(this.owner),
-
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
-
       type: this.type,
     }
   }

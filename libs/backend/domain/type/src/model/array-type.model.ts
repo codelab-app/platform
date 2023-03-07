@@ -1,7 +1,7 @@
 import type {
   IArrayType,
   ICreateArrayType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -16,7 +16,7 @@ export class ArrayType extends BaseType implements IArrayType {
 
   declare __typename: `${ITypeKind.ArrayType}`
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   private constructor({ id, name, kind, owner }: IArrayType) {
     super({ __typename: ITypeKind.ArrayType, id, kind, name, owner })
