@@ -1,8 +1,4 @@
-import type {
-  IComponent,
-  ICreateComponentData,
-  IPropData,
-} from '@codelab/frontend/abstract/core'
+import type { IComponent, IPropData } from '@codelab/frontend/abstract/core'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
@@ -18,7 +14,7 @@ export const mapCreateInput = ({
   name,
   owner,
   rootElement,
-}: ICreateComponentData): ComponentCreateInput => {
+}: IComponent): ComponentCreateInput => {
   const newRootElement = { id: v4() }
 
   const props: ComponentCreateInput['props'] = {
@@ -50,15 +46,15 @@ export const mapCreateInput = ({
 
   return {
     api,
-    childrenContainerElement: rootElement
-      ? connectRootElement(rootElement)
+    childrenContainerElement: rootElement.maybeCurrent
+      ? connectRootElement(rootElement.current)
       : connectRootElement(newRootElement),
     id,
     name,
     owner: connectAuth0Owner(owner),
     props,
-    rootElement: rootElement
-      ? connectRootElement(rootElement)
+    rootElement: rootElement.maybeCurrent
+      ? connectRootElement(rootElement.current)
       : createRootElement(newRootElement),
   }
 }

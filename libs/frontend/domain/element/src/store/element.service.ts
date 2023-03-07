@@ -40,6 +40,7 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
+import { ElementRepository } from '../services/element.repository'
 import { makeAutoIncrementedName } from '../utils'
 import {
   getRenderTypeApi,
@@ -48,7 +49,6 @@ import {
 } from './api.utils'
 import { elementApi } from './apis'
 import { Element } from './element.model'
-import { ElementRepository } from './element.repository'
 import {
   CreateElementModalService,
   ElementModalService,
@@ -107,15 +107,8 @@ export class ElementService
 
   @modelFlow
   @transaction
-  public getAll = _async(function* (
-    this: ElementService,
-    where?: ElementWhere,
-  ) {
-    const { elements } = yield* _await(
-      elementApi.GetElements({
-        where,
-      }),
-    )
+  public getAll = _async(function* (this: ElementService, where: ElementWhere) {
+    const elements = yield* _await(this.elementRepository.find(where))
 
     return elements.map((element) => this.add(element))
   })
@@ -735,9 +728,16 @@ element is new parentElement's first child
         // 2. create the component with predefined root element
         const createdComponent = yield* _await(
           this.componentService.create({
+            // TODO: fix
+            api: {},
+
             childrenContainerElement: element,
+
             id: v4(),
+
             name,
+            name,
+
             owner,
             rootElement: element,
           }),
