@@ -20,7 +20,6 @@ import type {
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -34,7 +33,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { mapCreateInput } from './api.utils'
+import { ComponentRepository } from '../services/component.repository'
 import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
@@ -46,6 +45,7 @@ import { ComponentModalService } from './component-modal.service'
 export class ComponentService
   extends Model({
     clonedComponents: prop(() => objectMap<IComponent>()),
+    componentRepository: prop(() => new ComponentRepository({})),
     components: prop(() => objectMap<IComponent>()),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
@@ -152,8 +152,8 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: ComponentService, where?: ComponentWhere) {
-    const { components } = yield* _await(componentApi.GetComponents({ where }))
+  getAll = _async(function* (this: ComponentService, where: ComponentWhere) {
+    const components = yield* _await(this.componentRepository.find(where))
 
     return components
       .map((component) => this.add(component))
@@ -178,33 +178,18 @@ export class ComponentService
     this: ComponentService,
     createComponentData: ICreateComponentData,
   ) {
-    const input = mapCreateInput(createComponentData)
+    const component = this.add(createComponentData)
 
-    const {
-      createComponents: {
-        components: [component],
-      },
-    } = yield* _await(
-      componentApi.CreateComponents({
-        input,
-      }),
-    )
+    this.components.set(component.id, component)
 
-    if (!component) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Component was not created')
-    }
-
-    const componentModel = this.add(component)
-
-    this.components.set(component.id, componentModel)
+    const newComponent = yield* _await(this.componentRepository.add(component))
 
     const { rootElement, hydratedElements } =
-      this.elementService.loadComponentTree(component)
+      this.elementService.loadComponentTree(newComponent)
 
-    componentModel.initTree(rootElement, hydratedElements)
+    component.initTree(rootElement, hydratedElements)
 
-    return componentModel
+    return component
   })
 
   @modelFlow
@@ -213,23 +198,11 @@ export class ComponentService
     this: ComponentService,
     { id, name, childrenContainerElement }: IUpdateComponentData,
   ) {
-    const component = this.components.get(id)
+    const component = this.components.get(id)!
 
-    component?.writeCache({ childrenContainerElement, name })
+    component.writeCache({ childrenContainerElement, name })
 
-    const {
-      updateComponents: { components },
-    } = yield* _await(
-      componentApi.UpdateComponents({
-        update: {
-          childrenContainerElement: reconnectNodeId(
-            childrenContainerElement.id,
-          ),
-          name,
-        },
-        where: { id },
-      }),
-    )
+    yield* _await(this.componentRepository.update(component))
 
     return component!
   })
@@ -242,16 +215,7 @@ export class ComponentService
     this.components.delete(id)
     this.removeClones(id)
 
-    const {
-      deleteComponents: { nodesDeleted },
-    } = yield* _await(
-      componentApi.DeleteComponents({
-        delete: {
-          api: {},
-        },
-        where: { id },
-      }),
-    )
+    yield* _await(this.componentRepository.delete([component]))
 
     return component!
   })
@@ -263,6 +227,7 @@ export class ComponentService
     entity: IEntity,
     input: ComponentUpdateInput,
   ) {
+    // TODO: use the repository
     const {
       updateComponents: { components },
     } = yield* _await(

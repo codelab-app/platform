@@ -1,6 +1,6 @@
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import type { IInterfaceTypeDTO, IInterfaceTypeRef } from '../type'
+import type { IInterfaceTypeDTO } from '../type'
 import type { IOwnerSchema } from '../user'
 
 export interface IComponentDTO extends IOwnerSchema {
@@ -12,17 +12,7 @@ export interface IComponentDTO extends IOwnerSchema {
   childrenContainerElement: IEntity
 }
 
-export interface ICreateComponentData extends IOwnerSchema {
-  id: string
-  name: string
-  childrenContainerElement: IEntity
-
-  // Allow for connection to existing interface
-  api?: IInterfaceTypeRef | undefined
-
-  // Allow for connection to existing element
-  rootElement?: IEntity
-}
+export type ICreateComponentData = IComponentDTO & IOwnerSchema
 
 export type IUpdateComponentData = Pick<
   ICreateComponentData,

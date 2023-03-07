@@ -16,6 +16,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
@@ -60,6 +61,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const closeModal = () => elementService.createModal.close()
 
     const model = {
+      id: v4(),
       owner: userService.user?.auth0Id,
       parentElement: {
         id: parentElement.id,
