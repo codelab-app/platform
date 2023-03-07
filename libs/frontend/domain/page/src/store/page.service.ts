@@ -188,8 +188,6 @@ export class PageService
   add = (pageDTO: IPageDTO) => {
     const page = Page.create(pageDTO)
 
-    console.log(page)
-
     this.pages.set(page.id, page)
 
     return page

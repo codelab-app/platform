@@ -8,9 +8,9 @@ fragment Page on Page {
   }
   rootElement {
     ...Element
-    # descendantElements {
-    #   ...Element
-    # }
+    descendantElements {
+      ...Element
+    }
   }
   pageContentContainer {
     id

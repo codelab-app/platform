@@ -28,7 +28,10 @@ const create = ({
 }: IPageDTO): IPage => {
   return new Page({
     app: { id: app.id },
-    getServerSideProps: getServerSideProps,
+    descendentElements: descendentElements?.map((element) =>
+      elementRef(element.id),
+    ),
+    getServerSideProps,
     id,
     kind,
     name,
@@ -69,6 +72,10 @@ const getPageServerSideProps = async (context: IPropData) => {
 export class Page
   extends ExtendedModel(ElementTreeService, {
     app: prop<IEntity>(),
+    /**
+     * Descendants of the rootElement, does not contain rootElement itself
+     */
+    descendentElements: prop<Array<Ref<IElement>>>(() => []),
     getServerSideProps: prop<Nullish<string>>(),
     id: idProp,
     kind: prop<IPageKind>(),
@@ -86,6 +93,17 @@ export class Page
   @computed
   private get elementService() {
     return getElementService(this)
+  }
+
+  /**
+   * Helper method to get all elements
+   */
+  @computed
+  get elements() {
+    return [
+      this.rootElement.current,
+      ...this.descendentElements.map((element) => element.current),
+    ]
   }
 
   @computed
