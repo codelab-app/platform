@@ -1,2 +1,2 @@
+export * from './move-element.schema'
 export * from './MoveElementForm'
-export * from './moveElementSchema'

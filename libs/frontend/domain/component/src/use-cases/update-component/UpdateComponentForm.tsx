@@ -8,7 +8,7 @@ import { Form, FormContextProvider } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updateComponentSchema } from './updateComponentSchema'
+import { updateComponentSchema } from './update-component.schema'
 
 interface UpdateComponentFormProps {
   component: IComponent

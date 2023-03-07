@@ -11,7 +11,7 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { handleDomainExistError } from '../../errors'
-import { createDomainSchema } from './createDomainSchema'
+import { createDomainSchema } from './createDomain.schema'
 
 export const CreateDomainModal = observer<{
   domainService: IDomainService

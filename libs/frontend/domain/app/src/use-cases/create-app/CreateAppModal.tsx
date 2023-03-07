@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { createAppSchema } from './createAppSchema'
+import { createAppSchema } from './create-app.schema'
 
 export const CreateAppModal = observer<{
   appService: IAppService

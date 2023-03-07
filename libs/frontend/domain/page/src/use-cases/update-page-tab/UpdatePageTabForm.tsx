@@ -8,7 +8,7 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { schema } from './updatePageTabSchema'
+import { schema } from './update-page-tab.schema'
 
 export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
   ({ pageService }) => {

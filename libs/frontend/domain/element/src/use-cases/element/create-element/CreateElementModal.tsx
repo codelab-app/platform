@@ -21,7 +21,7 @@ import { AutoComputedElementNameField } from '../../../components/auto-computed-
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils'
-import { createElementSchema } from './createElementSchema'
+import { createElementSchema } from './create-element.schema'
 
 interface CreateElementModalProps {
   renderService: IRenderService

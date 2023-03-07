@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { createResourceSchema } from './createResourceSchema'
+import { createResourceSchema } from './create-resource.schema'
 
 export const CreateResourceModal = observer<{
   resourceService: IResourceService
