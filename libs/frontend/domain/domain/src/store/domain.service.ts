@@ -7,7 +7,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -20,7 +19,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { domainApis } from './domain.api'
+import { DomainRepository } from '../services'
 import { Domain } from './domain.model'
 import { DomainModalService } from './domain-modal.service'
 
@@ -29,6 +28,7 @@ export class DomainService
   extends Model({
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new DomainModalService({})),
+    domainRepository: prop(() => new DomainRepository({})),
     domains: prop(() => objectMap<Domain>()),
     updateModal: prop(() => new DomainModalService({})),
   })
@@ -41,18 +41,18 @@ export class DomainService
     where?: DomainWhere,
     clearDomain?: boolean,
   ) {
-    const { domains } = yield* _await(domainApis.GetDomains({ where }))
+    const domainFragments = yield* _await(
+      this.domainRepository.find(where || {}),
+    )
 
     if (clearDomain) {
       this.domains.clear()
     }
 
-    return domains.map((domain) => {
-      const domainModel = Domain.create(domain)
+    return domainFragments.map((domainFragment) => {
+      const domain = this.add(domainFragment)
 
-      this.domains.set(domain.id, domainModel)
-
-      return domainModel
+      return domain
     })
   })
 
@@ -78,33 +78,15 @@ export class DomainService
   @transaction
   create = _async(function* (
     this: DomainService,
-    { id, app, name }: ICreateDomainData,
+    domainData: ICreateDomainData,
   ) {
-    const domain = Domain.create({
-      app,
-      domainConfig: {
-        misconfigured: true,
-      },
-      id,
-      name,
-      projectDomain: {
-        verified: false,
-      },
+    const domain = this.add({
+      ...domainData,
+      domainConfig: undefined,
+      projectDomain: undefined,
     })
 
-    this.domains.set(domain.id, domain)
-
-    const {
-      createDomains: { domains },
-    } = yield* _await(
-      domainApis.CreateDomains({
-        input: {
-          app: connectNodeId(app.id),
-          id,
-          name,
-        },
-      }),
-    )
+    yield* _await(this.domainRepository.add(domain))
 
     return domain
   })
@@ -116,9 +98,7 @@ export class DomainService
 
     this.domains.delete(id)
 
-    const {
-      deleteDomains: { nodesDeleted },
-    } = yield* _await(domainApis.DeleteDomains({ where: { id } }))
+    yield* _await(this.domainRepository.delete([domain]))
 
     return domain!
   })
@@ -129,22 +109,11 @@ export class DomainService
     this: DomainService,
     { id, name }: IUpdateDomainData,
   ) {
-    const domain = this.domains.get(id)
+    const domain = this.domains.get(id)!
 
-    domain?.writeCache({ name })
+    domain.writeCache({ name })
 
-    const {
-      updateDomains: { domains },
-    } = yield* _await(
-      domainApis.UpdateDomains({
-        update: {
-          name,
-        },
-        where: {
-          id,
-        },
-      }),
-    )
+    yield* _await(this.domainRepository.update(domain))
 
     return domain!
   })

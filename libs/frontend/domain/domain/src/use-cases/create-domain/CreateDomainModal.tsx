@@ -9,6 +9,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { handleDomainExistError } from '../../errors'
 import { createDomainSchema } from './createDomainSchema'
 
@@ -21,6 +22,7 @@ export const CreateDomainModal = observer<{
   const model = {
     app: { id: currentAppId },
     auth0Id: userService.user?.auth0Id,
+    id: v4(),
   }
 
   const onSubmit = (data: ICreateDomainData) => {

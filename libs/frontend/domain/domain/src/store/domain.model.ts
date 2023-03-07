@@ -3,7 +3,8 @@ import type {
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import {
   detach,
   idProp,
@@ -28,14 +29,32 @@ const create = ({ id, name, app, domainConfig, projectDomain }: IDomainDTO) => {
 export class Domain
   extends Model({
     app: prop<IEntity>(),
-    domainConfig: prop<VercelDomainConfig>(),
+    domainConfig: prop<Maybe<VercelDomainConfig>>(),
     id: idProp,
     name: prop<string>(),
-    projectDomain: prop<VercelProjectDomain>(),
+    projectDomain: prop<Maybe<VercelProjectDomain>>(),
   })
   implements IDomain
 {
   static create = create
+
+  toCreateInput() {
+    return {
+      app: connectNodeId(this.app.id),
+      id: this.id,
+      name: this.name,
+    }
+  }
+
+  toUpdateInput() {
+    return {
+      name: this.name,
+    }
+  }
+
+  toDeleteInput() {
+    return {}
+  }
 
   @modelAction
   public writeCache({
