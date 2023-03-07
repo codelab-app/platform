@@ -9,9 +9,6 @@ describe('Matchers', () => {
     const results = typeString.match(stripBracketsRegex)
     // const results = typeString.matchAll(stripBracketsRegex)
 
-    console.debug(results)
-    // console.debug(Array.from(results))
-
     expect(results?.[1]).toBe(typeStringWithoutBraces)
   })
 

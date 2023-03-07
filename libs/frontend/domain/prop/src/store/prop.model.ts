@@ -100,9 +100,7 @@ export class Prop
   set(key: string, value: object | string) {
     const obj = set({}, key, value)
 
-    if (this.data.data) {
-      this.data = frozen(mergeDeepRight(this.data.data, obj))
-    }
+    this.data = frozen(mergeDeepRight(this.data.data ?? {}, obj))
   }
 
   // set data without re-rendering
