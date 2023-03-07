@@ -5,17 +5,17 @@ import { z } from 'zod'
 /**
  * We use auth0Id since that is passed from frontend
  */
-export const UserRefSchema = z.object({
+export const OwnerSchema = z.object({
   auth0Id: z.string(),
 })
 
-export const OwnerSchema = z.object({
-  owner: UserRefSchema,
+export const OwnerFieldSchema = z.object({
+  owner: OwnerSchema,
 })
 
-export type IUserRef = z.infer<typeof UserRefSchema>
+export type IOwner = z.infer<typeof OwnerSchema>
 
-export const UserSchema = UserRefSchema.extend({
+export const UserSchema = OwnerSchema.extend({
   email: z.string(),
   id: z.string(),
   roles: z.array(z.nativeEnum(IRole)).optional().nullable(),

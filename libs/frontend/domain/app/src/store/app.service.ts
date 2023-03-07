@@ -161,8 +161,8 @@ export class AppService
   })
 
   @modelAction
-  add({ id, name, owner, pages, store }: IAppDTO): IApp {
-    const newApp = App.create({
+  add({ id, name, owner, pages, store }: IAppDTO) {
+    const app = App.create({
       id,
       name,
       owner,
@@ -170,9 +170,9 @@ export class AppService
       store: storeRef(store.id),
     })
 
-    this.apps.set(newApp.id, newApp)
+    this.apps.set(app.id, app)
 
-    return newApp
+    return app
   }
 
   @modelFlow

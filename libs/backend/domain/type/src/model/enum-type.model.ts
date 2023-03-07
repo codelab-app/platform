@@ -4,7 +4,7 @@ import type {
   IEnumType,
   IEnumTypeValue,
   IField,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
@@ -20,7 +20,7 @@ export class EnumType extends BaseType implements IEnumType {
 
   declare __typename: `${ITypeKind.EnumType}`
 
-  declare owner: IUserRef
+  declare owner: IOwner
 
   allowedValues: Array<IEnumTypeValue>
 

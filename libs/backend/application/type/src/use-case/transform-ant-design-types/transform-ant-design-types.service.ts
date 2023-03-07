@@ -2,7 +2,7 @@ import type {
   AntDesignField,
   IAtom,
   IType,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
@@ -35,7 +35,7 @@ import {
 interface Request {
   field: Pick<AntDesignField, 'type' | 'property'>
   atom: IAtom
-  owner: IUserRef
+  owner: IOwner
 }
 
 export class TransformAntDesignTypesService extends IUseCase<

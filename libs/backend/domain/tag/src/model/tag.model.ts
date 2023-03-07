@@ -1,7 +1,7 @@
 import type {
   ITag,
   ITagPreview,
-  IUserRef,
+  IOwner,
 } from '@codelab/backend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
@@ -10,7 +10,7 @@ export class Tag implements ITag {
 
   declare name: string
 
-  owner: IUserRef
+  owner: IOwner
 
   children: Array<ITagPreview>
 

@@ -1,12 +1,12 @@
 import type {
   IAtom,
+  IAtomDTO,
   IAtomService,
   ICreateAtomData,
   IInterfaceType,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/core'
-import { IAtomDTO } from '@codelab/frontend/abstract/core'
-import { getTagService, tagRef } from '@codelab/frontend/domain/tag'
+import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
@@ -29,6 +29,7 @@ import {
 import { v4 } from 'uuid'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
+import { atomRef } from './atom.ref'
 import { AtomRepository } from './atom.repository'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
@@ -99,12 +100,25 @@ export class AtomService
   }
 
   @modelAction
-  add({ tags, api, allowedChildren, ...atomDTO }: IAtomDTO) {
-    const tagRefs = tags?.map((tag) => tagRef(tag.id))
+  add = ({
+    tags,
+    api,
+    allowedChildren,
+    id,
+    icon,
+    name,
+    type,
+    owner,
+  }: IAtomDTO) => {
+    // const tagRefs = tags?.map((tag) => tagRef(tag.id))
     const apiRef = typeRef<IInterfaceType>(api.id)
-    const atom = new Atom({ ...atomDTO, api: apiRef, tags: tagRefs })
+    const atom = Atom.create({ api: apiRef, id, name, owner, tags: [], type })
+
+    console.log(atom)
 
     this.atoms.set(atom.id, atom)
+
+    console.log(atomRef(atom.id))
 
     return atom
   }

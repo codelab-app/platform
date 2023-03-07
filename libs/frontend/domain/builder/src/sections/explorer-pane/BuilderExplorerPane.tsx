@@ -240,11 +240,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           size="small"
         />
         <CreateElementModal
-          actionService={actionService}
-          builderService={builderService}
-          componentService={componentService}
           elementService={elementService}
-          renderService={builderRenderService}
           storeId={storeId}
           userService={userService}
         />
