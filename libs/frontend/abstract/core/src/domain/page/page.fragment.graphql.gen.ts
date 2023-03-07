@@ -12,7 +12,7 @@ export type PageFragment = {
   getServerSideProps?: string | null
   kind: Types.PageKind
   app: { id: string }
-  rootElement: ElementFragment
+  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   pageContentContainer?: { id: string } | null
 }
 
@@ -27,6 +27,9 @@ export const PageFragmentDoc = gql`
     }
     rootElement {
       ...Element
+      descendantElements {
+        ...Element
+      }
     }
     pageContentContainer {
       id

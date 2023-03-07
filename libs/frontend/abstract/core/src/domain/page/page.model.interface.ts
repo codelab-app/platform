@@ -16,6 +16,9 @@ export interface IPage
   slug: string
   toJson: IPropData
   rootElement: Ref<IElement>
+  descendentElements: Array<Ref<IElement>>
+  // Helper getter to get all elements
+  elements: Array<IElement>
   getServerSideProps: Nullish<string>
   /**
    * A pointer to tell us where to render from app

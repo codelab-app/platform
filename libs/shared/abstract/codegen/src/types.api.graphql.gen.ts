@@ -19986,7 +19986,10 @@ export type PageFragment = {
   getServerSideProps?: string | null
   kind: PageKind
   app: { __typename?: 'App'; id: string }
-  rootElement: { __typename?: 'Element' } & ElementFragment
+  rootElement: {
+    __typename?: 'Element'
+    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+  } & ElementFragment
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 

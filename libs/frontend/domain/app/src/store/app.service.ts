@@ -220,24 +220,18 @@ export class AppService
     /**
      * Get all pages to delete
      */
-    const pages = this.pageService.getAll({
-      appConnection: { node: { id: app.id } },
-    })
+    const pages = yield* _await(
+      this.pageService.getAll({
+        appConnection: { node: { id: app.id } },
+      }),
+    )
 
-    console.log(pages)
+    /**
+     * Get all elements of page to delete
+     */
+    const pageElements = pages.flatMap((page) => page.elements)
 
-    // /**
-    //  * Delete all elements from all pages
-    //  */
-    // const pageRootElements = app.pageRootElements
-
-    // const descendantElements = pageRootElements
-    //   .flatMap((pageRootElement) => pageRootElement.current.getDescendantRefs)
-    //   .map((pageRootElement) => pageRootElement.id)
-
-    // yield* _await(
-    //   this.elementService.elementRepository.delete(descendantElements),
-    // )
+    yield* _await(this.elementService.elementRepository.delete(pageElements))
 
     yield* _await(this.appRepository.delete([app]))
 

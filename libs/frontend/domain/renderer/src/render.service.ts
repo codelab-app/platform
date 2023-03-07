@@ -25,16 +25,6 @@ export class RenderService
   })
   implements IRenderService
 {
-  // @computed
-  // get elementService() {
-  //   return this._elementService.current
-  // }
-  //
-  // @computed
-  // get componentService() {
-  //   return this._componentService.current
-  // }
-
   @modelFlow
   @transaction
   addRenderer = _async(function* (
