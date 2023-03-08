@@ -81,8 +81,6 @@ export const useRenderedPage = ({
       return null
     }
 
-    console.log(app)
-
     const page = app.page(pageId)
     const appStore = app.store.current
     const elementTree = page.elementTree

@@ -97,8 +97,8 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   attachPrevToNextSibling(): () => void
   attachToParentAsFirstChild(parentElement: Ref<IElement>): () => void
   attachToParent(parentElement: Ref<IElement>): () => void
-  appendSibling(sibling: Ref<IElement>): () => void
-  prependSibling(sibling: Ref<IElement>): () => void
+  attachAsPrevSibling(sibling: Ref<IElement>): () => void
+  attachAsNextSibling(sibling: Ref<IElement>): () => void
   clone(cloneIndex: number): IElement
   // updateCloneIds(elementMap: Map<string, string>): IElement
   makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
@@ -107,8 +107,10 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   makeAttachToParentAsFirstChildInput(
     parentElement: Ref<IElement>,
   ): UpdateElementsMutationVariables
-  makeAppendSiblingInput(siblingId: string): UpdateElementsMutationVariables
-  makePrependSiblingInput(siblingId: string): UpdateElementsMutationVariables
+  makeAttachAsPrevSiblingInput(
+    siblingId: string,
+  ): UpdateElementsMutationVariables
+  makeAttachAsNextSiblingInput(siblingId: string): UpdateElementsMutationVariables
 
   setOrderInParent(order: number | null): void
   setName(name: string): void
