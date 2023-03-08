@@ -15,6 +15,7 @@ filters-pr: &filters-pr
     branches:
       ignore:
         - master
+        - wip/*
 
 filters-master: &filters-master
   filters:

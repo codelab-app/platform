@@ -115,8 +115,6 @@ export class AppService
    */
   @modelAction
   loadPages = ({ appData, pageId }: IPageBuilderAppProps) => {
-    console.debug('AppService.load', appData, pageId)
-
     const app = this.add(appData)
 
     appData.pages.forEach((page) => {

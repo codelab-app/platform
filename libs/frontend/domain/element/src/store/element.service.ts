@@ -108,14 +108,14 @@ export class ElementService
 
   @modelFlow
   @transaction
-  public getAll = _async(function* (this: ElementService, where: ElementWhere) {
+  getAll = _async(function* (this: ElementService, where: ElementWhere) {
     const elements = yield* _await(this.elementRepository.find(where))
 
     return elements.map((element) => this.add(element))
   })
 
   @modelAction
-  public loadComponentTree(component: RenderedComponentFragment) {
+  loadComponentTree(component: RenderedComponentFragment) {
     const elements = [
       component.rootElement,
       ...component.rootElement.descendantElements,
@@ -161,8 +161,6 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    // console.log(atom)
-    // console.log(atomRef(atom))
     const parent = this.elements.get(data.parentElement?.id ?? '')
     const name = createUniqueName(data.name, parent?.baseId ?? '')
 
@@ -177,8 +175,6 @@ export class ElementService
       id: v4(),
     })
 
-    console.log(elementProps)
-
     const element = this.add({
       ...data,
       name,
@@ -186,15 +182,13 @@ export class ElementService
       props: elementProps,
     })
 
-    console.log(element)
-
     yield* _await(this.elementRepository.add(element))
 
     return element
   })
 
   @modelAction
-  public element(id: string) {
+  element(id: string) {
     const element = this.maybeElement(id)
 
     if (!element) {
@@ -205,7 +199,7 @@ export class ElementService
   }
 
   @modelAction
-  public maybeElement(id: string) {
+  maybeElement(id: string) {
     return this.elements.get(id) || this.clonedElements.get(id)
   }
 
@@ -250,20 +244,20 @@ export class ElementService
     return elements.map((element) => this.add(element))[0]!
   })
 
+  /**
+   * Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
+   *
+   * - Detach from parent
+   * - Detach from next sibling
+   * - Detach from prev sibling
+   * - Connect prev to next
+   */
   @modelFlow
   @transaction
   private detachElementFromElementTree = _async(function* (
     this: ElementService,
     elementId: string,
   ) {
-    /**
-Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
-
-- Detach from parent
-- Detach from next sibling
-- Detach from prev sibling
-- Connect prev to next
-*/
     const element = this.maybeElement(elementId)
 
     if (!element) {
@@ -273,11 +267,11 @@ Detaches element from an element tree. Will perform 3 conditional checks to see 
     }
 
     /**
-parent
-  prev
-  element
-  next
-*/
+     * parent
+     * prev
+     * element
+     * next
+     */
     const updateElementInputs = [
       // Detach from parent
       element.makeDetachParentInput(),
@@ -307,11 +301,11 @@ parent
   })
 
   /**
-   * Moves an element to the next postion of target element
+   * Moves an element to the next position of target element
    */
   @modelFlow
   @transaction
-  public moveElementAsNextSibling = _async(
+  moveElementAsNextSibling = _async(
     runSequentially(
       'elementTransaction',
       function* (
@@ -338,7 +332,7 @@ parent
 
   @modelFlow
   @transaction
-  public moveElementAsFirstChild = _async(
+  moveElementAsFirstChild = _async(
     runSequentially(
       'elementTransaction',
       function* (
@@ -359,7 +353,7 @@ parent
 
   @modelFlow
   @transaction
-  public createElementAsFirstChild = _async(
+  createElementAsFirstChild = _async(
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, data: ICreateElementData) {
@@ -376,7 +370,7 @@ parent
         yield* _await(
           this.attachElementAsFirstChild({
             element,
-            parentElement: data.parentElement,
+            parentElement: this.element(data.parentElement.id),
           }),
         )
 
@@ -387,7 +381,7 @@ parent
 
   @modelFlow
   @transaction
-  public createElementAsNextSibling = _async(
+  createElementAsNextSibling = _async(
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, data: ICreateElementData) {
@@ -397,10 +391,12 @@ parent
           throw new Error('Missing previous sibling')
         }
 
+        const prevSibling = this.element(data.prevSibling.id)
+
         yield* _await(
           this.attachElementAsNextSibling({
             element,
-            targetElement: data.prevSibling,
+            targetElement: prevSibling,
           }),
         )
 
@@ -409,6 +405,12 @@ parent
     ),
   )
 
+  /**
+   * Element appends as next sibling to target
+   *
+   * (target)-(nextSibling)
+   * (target)-[element]-(nextSibling)
+   */
   @modelFlow
   @transaction
   private attachElementAsNextSibling = _async(function* (
@@ -431,31 +433,32 @@ parent
       updateElementCacheFns.push(element.attachToParent(targetElement.parent))
     }
 
-    /**
-     * [target]-nextSibling
-     * target-[element]-nextSibling
-     * element appends to nextSibling
-     */
     if (targetElement.nextSibling) {
       updateElementInputs.push(
-        element.makeAppendSiblingInput(targetElement.nextSibling.id),
+        element.makeAttachAsPrevSiblingInput(targetElement.nextSibling.id),
       )
       updateElementCacheFns.push(
-        element.appendSibling(targetElement.nextSibling),
+        element.attachAsPrevSibling(targetElement.nextSibling),
       )
 
       /** [element]-nextSibling */
       updateElementInputs.push(
-        targetElement.nextSibling.current.makePrependSiblingInput(element.id),
+        targetElement.nextSibling.current.makeAttachAsNextSiblingInput(
+          element.id,
+        ),
       )
       updateElementCacheFns.push(
-        targetElement.nextSibling.current.prependSibling(elementRef(element)),
+        targetElement.nextSibling.current.attachAsNextSibling(
+          elementRef(element),
+        ),
       )
     }
 
-    updateElementInputs.push(element.makePrependSiblingInput(targetElement.id))
+    updateElementInputs.push(
+      element.makeAttachAsNextSiblingInput(targetElement.id),
+    )
     updateElementCacheFns.push(
-      element.prependSibling(elementRef(targetElement.id)),
+      element.attachAsNextSibling(elementRef(targetElement.id)),
     )
 
     const updateElementRequests = updateElementInputs
@@ -467,7 +470,15 @@ parent
   })
 
   /**
-   * Moves an element to the next position of children[0] of parent children element
+   * Moves an element as a first child to a parent. Bumps the existing firstChild as nextSibling
+   *
+   * (parent)
+   * \
+   * (firstChild)
+   *
+   * (parent)
+   * \
+   * [element]-(firstChild)
    */
   @modelFlow
   @transaction
@@ -475,33 +486,23 @@ parent
     this: ElementService,
     {
       element: existingElement,
-      parentElement: exstingParentElement,
+      parentElement: existingParentElement,
     }: {
       element: IEntity
       parentElement: IEntity
     },
   ) {
     const element = this.element(existingElement.id)
-    const parentElement = this.element(exstingParentElement.id)
+    const parentElement = this.element(existingParentElement.id)
     const updateElementInputs = []
     const updateElementCacheFns: Array<() => void> = []
 
-    /**
-parentElement
-  firstChild
-
-parentElement
-  [element]
-  firstChild
-
-element is new parentElement's first child
-     */
     if (parentElement.firstChild) {
       updateElementInputs.push(
-        element.makeAppendSiblingInput(parentElement.firstChild.id),
+        element.makeAttachAsPrevSiblingInput(parentElement.firstChild.id),
       )
       updateElementCacheFns.push(
-        element.appendSibling(elementRef(parentElement.firstChild.id)),
+        element.attachAsPrevSibling(elementRef(parentElement.firstChild.id)),
       )
     }
 
@@ -523,7 +524,7 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
-  public moveElementToAnotherTree = _async(
+  moveElementToAnotherTree = _async(
     runSequentially(
       'elementTransaction',
       function* (
@@ -681,7 +682,7 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
-  public cloneElement = _async(
+  cloneElement = _async(
     runSequentially(
       'elementTransaction',
       function* (
@@ -720,7 +721,7 @@ element is new parentElement's first child
 
   @modelFlow
   @transaction
-  public convertElementToComponent = _async(
+  convertElementToComponent = _async(
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, element: IElement, owner: IAuth0Owner) {

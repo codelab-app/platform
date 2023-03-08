@@ -21,8 +21,6 @@ export class ElementTreeService
    */
   @modelAction
   initTree(rootElement: IElement, elements: Array<IElement>) {
-    console.debug('ElementTreeService.initTree', elements)
-
     const elementService = getElementService(rootElement)
 
     elements.forEach((element) => {
