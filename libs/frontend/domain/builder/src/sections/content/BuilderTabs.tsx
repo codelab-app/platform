@@ -1,13 +1,6 @@
-import type {
-  IBuilderService,
-  IComponentService,
-  IElementService,
-  IElementTree,
-  IRenderer,
-  IRenderService,
-  IStore,
-} from '@codelab/frontend/abstract/core'
+import type { IApp, IPage, IRenderer } from '@codelab/frontend/abstract/core'
 import { RendererTab } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { Alert, Layout, Spin, Tabs } from 'antd'
@@ -21,26 +14,16 @@ export interface BuilderTabsProps {
   error: Nullish<string>
   isLoading: boolean
   renderer: Maybe<IRenderer>
-  builderService: IBuilderService
-  elementService: IElementService
-  elementTree: Maybe<IElementTree>
-  componentService: IComponentService
-  appStore: Maybe<IStore>
-  builderRenderService: IRenderService
+  app: Maybe<IApp>
+  page: Maybe<IPage>
 }
 
 export const BuilderTabs = observer<BuilderTabsProps>(
-  ({
-    error,
-    isLoading,
-    builderService,
-    elementTree,
-    elementService,
-    renderer,
-    appStore,
-    componentService,
-    builderRenderService,
-  }) => {
+  ({ error, isLoading, app, page, renderer }) => {
+    const { builderService } = useStore()
+    const elementTree = page?.elementTree
+    const appStore = app?.store.current
+
     return (
       <Layout style={{ height: '100%' }}>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
@@ -59,22 +42,13 @@ export const BuilderTabs = observer<BuilderTabsProps>(
         <Content>
           {builderService.activeTree === RendererTab.Page ? (
             elementTree && renderer ? (
-              <BaseBuilder
-                builderService={builderService}
-                elementService={elementService}
-                elementTree={elementTree}
-                renderer={renderer}
-              />
+              <BaseBuilder elementTree={elementTree} renderer={renderer} />
             ) : null
           ) : builderService.activeComponent && appStore ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
               appStore={appStore}
-              builderService={builderService}
               componentId={builderService.activeComponent.id}
-              componentService={componentService}
-              elementService={elementService}
-              renderService={builderRenderService}
             />
           ) : null}
         </Content>

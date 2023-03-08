@@ -114,11 +114,7 @@ export class AtomService
     const apiRef = typeRef<IInterfaceType>(api.id)
     const atom = Atom.create({ api: apiRef, id, name, owner, tags: [], type })
 
-    console.log(atom)
-
     this.atoms.set(atom.id, atom)
-
-    console.log(atomRef(atom.id))
 
     return atom
   }

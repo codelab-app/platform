@@ -20008,7 +20008,7 @@ export type StoreFragment = {
   __typename?: 'Store'
   id: string
   name: string
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
+  api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   actions: Array<
     | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
     | ({ __typename?: 'CodeAction' } & Action_CodeAction_Fragment)

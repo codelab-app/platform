@@ -1,15 +1,16 @@
 import type {
+  IAtomService,
+  IComponentService,
   IElement,
   IFieldDefaultValue,
   IInterfaceType,
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
-  componentRef,
   IRenderTypeKind,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import { atomRef, isAtomInstance } from '@codelab/frontend/domain/atom'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
@@ -33,21 +34,32 @@ export const makeUpdateElementInput = (
   where: { id: element.id },
 })
 
-export const getRenderTypeApi = (
-  renderType: RenderType | null,
-): Ref<IInterfaceType> | null => {
+type GetRenderTypeApi = (props: {
+  renderType: RenderType | null
+  atomService: IAtomService
+  componentService: IComponentService
+}) => Ref<IInterfaceType> | undefined
+
+/**
+ * We can't access model using id with Ref (since ref is not attached to root tree), so need service to access it
+ */
+export const getRenderTypeApi: GetRenderTypeApi = ({
+  renderType,
+  atomService,
+  componentService,
+}) => {
   // When creating a new element, we need the interface type fields
   // and we use it to create a props with default values for the created element
-  let renderTypeApi: Ref<IInterfaceType> | null = null
+  let renderTypeApi: Ref<IInterfaceType> | undefined = undefined
 
   if (renderType?.kind === IRenderTypeKind.Atom) {
-    const renderTypeRef = atomRef(renderType.id)
-    renderTypeApi = renderTypeRef.current.api
+    const renderTypeRef = atomService.atoms.get(renderType.id)
+    renderTypeApi = renderTypeRef?.api
   }
 
   if (renderType?.kind === IRenderTypeKind.Component) {
-    const renderTypeRef = componentRef(renderType.id)
-    renderTypeApi = renderTypeRef.current.api
+    const renderTypeRef = componentService.components.get(renderType.id)
+    renderTypeApi = renderTypeRef?.api
   }
 
   return renderTypeApi

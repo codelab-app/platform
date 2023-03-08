@@ -12,7 +12,7 @@ import { ElementTree } from './element-tree.model'
 @model('@codelab/ElementTreeService')
 export class ElementTreeService
   extends Model({
-    elementTree: prop<IElementTree>(null!).withSetter(),
+    elementTree: prop<IElementTree>(() => new ElementTree({})).withSetter(),
   })
   implements IElementTreeService
 {
