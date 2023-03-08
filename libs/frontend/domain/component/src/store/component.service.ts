@@ -33,7 +33,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { ComponentRepository } from '../services/component.repository'
-import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
@@ -177,9 +176,6 @@ export class ComponentService
     createComponentData: ICreateComponentData,
   ) {
     const component = this.add(createComponentData)
-
-    this.components.set(component.id, component)
-
     const newComponent = yield* _await(this.componentRepository.add(component))
 
     const { rootElement, hydratedElements } =
@@ -226,32 +222,12 @@ export class ComponentService
     input: ComponentUpdateInput,
   ) {
     // TODO: use the repository
-    const {
-      updateComponents: { components },
-    } = yield* _await(
-      componentApi.UpdateComponents({
-        update: input,
-        where: { id: entity.id },
-      }),
+    const component = yield* _await(
+      this.componentRepository.patch(entity, input),
     )
 
-    return components.map((component) => this.add(component))[0]!
+    return this.add(component)
   })
-
-  // @modelAction
-  // add(componentFragment: IComponentDTO) {
-  //   let componentModel = this.component(componentFragment.id)
-
-  //   if (componentModel) {
-  //     componentModel.add(componentFragment)
-  //     this.writeClonesCache(componentFragment)
-  //   } else {
-  //     componentModel = Component.hydrate(componentFragment)
-  //     this.components.set(componentModel.id, componentModel)
-  //   }
-
-  //   return componentModel
-  // }
 
   @modelAction
   writeClonesCache(componentFragment: IComponentDTO) {
