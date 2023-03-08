@@ -1,5 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { AppPagePageProps } from '@codelab/frontend/abstract/types'
+import { pageApi } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import {
@@ -59,7 +60,7 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
   }
 
   const store = initializeStore({})
-  const { appService, pageService } = store
+  const { appService } = store
   const { domain, page: pageSlug } = context.params
 
   const [app] = await appService.getAll({
@@ -76,10 +77,10 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`Page ${pageSlug} on "${domain}" domain Not found`)
   }
 
-  const renderingData = await pageService.getRenderedPageAndCommonAppData(
-    app.id,
-    page.id,
-  )
+  const renderingData = await pageApi.GetRenderedPageAndCommonAppData({
+    appId: app.id,
+    pageId: page.id,
+  })
 
   return {
     props: {
