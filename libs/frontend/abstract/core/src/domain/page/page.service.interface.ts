@@ -37,9 +37,6 @@ export interface IPageService
   page(id: string): Maybe<IPage>
   pagesByApp(appId: string): Array<IPage>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
-  getRenderedPageAndCommonAppData(
-    appId: string,
-    pageId: string,
-  ): Promise<GetRenderedPageAndCommonAppDataQuery>
+
   add(pageDTO: IPageDTO): IPage
 }

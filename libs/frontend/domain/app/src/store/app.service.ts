@@ -1,4 +1,5 @@
 import type {
+  IApp,
   IAppService,
   ICreateAppData,
   IInterfaceType,
@@ -6,13 +7,15 @@ import type {
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
 import {
+  getComponentService,
   getElementService,
-  IApp,
   IAppDTO,
 } from '@codelab/frontend/abstract/core'
-import { getPageService, pageRef } from '@codelab/frontend/domain/page'
+import { getPageService, pageApi, pageRef } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import { getResourceService } from '@codelab/frontend/domain/resource'
 import {
+  getActionService,
   getStoreService,
   Store,
   storeRef,
@@ -23,7 +26,10 @@ import {
   typeRef,
 } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type { AppWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  AppWhere,
+  GetRenderedPageAndCommonAppDataQuery,
+} from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -58,6 +64,21 @@ export class AppService
   @computed
   private get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  private get componentService() {
+    return getComponentService(this)
+  }
+
+  @computed
+  private get resourceService() {
+    return getResourceService(this)
+  }
+
+  @computed
+  private get actionService() {
+    return getActionService(this)
   }
 
   @computed
@@ -205,6 +226,80 @@ export class AppService
     })
 
     yield* _await(this.appRepository.add(app))
+
+    return app
+  })
+
+  /**
+    This function fetches the initial page and all the common data shared across all pages in the application:
+     - app data
+     - current page
+     - providers page (_app)
+     - components
+     - resources
+     - types
+   */
+  @modelFlow
+  @transaction
+  getRenderedPageAndCommonAppData = _async(function* (
+    this: AppService,
+    appId: string,
+    pageId: string,
+    // Production is pre-built with all required data, no need for network request
+    initialData?: GetRenderedPageAndCommonAppDataQuery,
+  ) {
+    const {
+      apps: [appData],
+      components,
+      resources,
+      ...types
+    } = initialData
+      ? initialData
+      : yield* _await(
+          pageApi.GetRenderedPageAndCommonAppData({ appId, pageId }),
+        )
+
+    if (!appData) {
+      return undefined
+    }
+
+    /**
+     * Need to load pages and store before hand
+     */
+    const pages = appData.pages.map((page) => this.pageService.add(page))
+    this.storeService.add(appData.store)
+
+    const app = this.add(appData)
+
+    /**
+     * Load for each page
+     */
+    pages.forEach((page) => {
+      this.load({ app: appData, pageId: page.id })
+    })
+
+    const storeApi = this.typeService.addInterface(appData.store.api)
+
+    // load types by chucks so UI is not blocked
+    this.typeService.loadTypesByChunks(types)
+
+    // load components trees
+    this.componentService.loadRenderedComponentsTree(components)
+
+    // write cache for resources
+    this.resourceService.load(resources)
+
+    // hydrate store after types and resources
+    const appStore = this.storeService.add({
+      actions: appData.store.actions.map((action) =>
+        this.actionService.actionFactory.fromActionFragment(action),
+      ),
+      api: storeApi,
+      id: appData.store.id,
+      name: appData.store.name,
+    })
+
+    appStore.state.setMany(this.appsJson)
 
     return app
   })

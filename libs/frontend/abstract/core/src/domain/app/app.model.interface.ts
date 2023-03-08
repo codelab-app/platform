@@ -24,6 +24,10 @@ export interface IApp extends ICacheService<IAppDTO, IApp>, IOwnerSchema {
   toJson: IPropData
   page(id: string): IPage
   pageRootElements: Array<Ref<IElement>>
+  /**
+   * The `_app.tsx` equivalent of pages
+   */
+  providerPage: IPage
 
   toCreateInput(): AppCreateInput
   toUpdateInput(): AppUpdateInput

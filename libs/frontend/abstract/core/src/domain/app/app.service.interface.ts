@@ -1,4 +1,4 @@
-import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
+import type { AppOptions, AppWhere, GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -32,4 +32,10 @@ export interface IAppService
   appsJson: IPropData
   load(data: IPageBuilderAppProps): IBuilderApp
   buildModal: IEntityModalService<Ref<IApp>, { app: IApp }>
+
+  getRenderedPageAndCommonAppData(
+    appId: string,
+    pageId: string,
+    initialData?: GetRenderedPageAndCommonAppDataQuery,
+  ): Promise<IApp | undefined>
 }

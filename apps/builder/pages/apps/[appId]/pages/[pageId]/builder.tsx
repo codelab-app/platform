@@ -23,13 +23,7 @@ import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const {
-    componentService,
-    elementService,
-    builderService,
-    builderRenderService,
-  } = useStore()
-
+  const { elementService, builderService, builderRenderService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
@@ -62,14 +56,10 @@ const PageBuilder: CodelabPage = observer(() => {
       </Head>
 
       <BuilderTabs
-        appStore={value?.appStore}
-        builderRenderService={builderRenderService}
-        builderService={builderService}
-        componentService={componentService}
-        elementService={elementService}
-        elementTree={value?.pageTree}
+        app={value?.app}
         error={error?.message}
         isLoading={loading}
+        page={value?.page}
         renderer={value?.renderer}
       />
     </>

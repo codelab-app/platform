@@ -19,7 +19,7 @@ import { Renderer } from './renderer.model'
 export class RenderService
   extends Model({
     /**
-     * These are renderers for the public
+     * These are renderers for the public, they are keyed by pageId
      */
     renderers: prop(() => objectMap<IRenderer>()),
   })
@@ -27,10 +27,7 @@ export class RenderService
 {
   @modelFlow
   @transaction
-  addRenderer = _async(function* (
-    this: RenderService,
-    props: RendererProps & { id: string },
-  ) {
+  addRenderer = _async(function* (this: RenderService, props: RendererProps) {
     const existing = this.renderers.get(props.id)
 
     if (!existing) {
@@ -41,7 +38,7 @@ export class RenderService
       return renderer
     }
 
-    existing.initForce(props.pageTree, props.appTree)
+    existing.initForce(props.elementTree, props.providerTree)
 
     return existing
   })

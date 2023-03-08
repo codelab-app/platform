@@ -73,10 +73,10 @@ import { mapOutput } from './utils/renderOutputUtils'
  */
 
 const init = async ({
-  pageTree,
-  appStore,
-  appTree,
+  providerTree,
+  elementTree,
   rendererType,
+  appStore,
   setSelectedNode,
 }: RendererProps) => {
   /**
@@ -106,8 +106,8 @@ const init = async ({
 
   return new Renderer({
     appStore: storeRef(appStore),
-    appTree: appTree ? elementTreeRef(appTree) : null,
-    pageTree: elementTreeRef(pageTree),
+    elementTree: elementTreeRef(elementTree),
+    providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
   })
 }
@@ -119,34 +119,27 @@ export class Renderer
      * Store attached to app, needed to access its actions
      */
     appStore: prop<Ref<IStore>>(),
-
-    /**
-     * A tree of providers that will get rendered before all of the regular elements
-     */
-    appTree: prop<Nullable<Ref<IElementTree>>>(null),
-
     /**
      * Will log the render output and render pipe info to the console
      */
     debugMode: prop(false).withSetter(),
-
-    id: idProp,
-
     /**
      * The tree that's being rendered, we assume that this is properly constructed
      */
-    pageTree: prop<Nullable<Ref<IElementTree>>>(null),
-
+    elementTree: prop<Ref<IElementTree>>(),
+    id: idProp,
+    /**
+     * Store attached to app, needed to access its actions
+     */
+    providerTree: prop<Nullable<Ref<IElementTree>>>(null),
     /**
      * Different types of renderer requires behaviors in some cases.
      */
     rendererType: prop<RendererType>(),
-
     /**
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
-
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -157,16 +150,13 @@ export class Renderer
   implements IRenderer
 {
   @modelAction
-  initForce(
-    pageElementTree: IElementTree,
-    appElementTree: Nullable<IElementTree>,
-  ) {
-    this.pageTree = elementTreeRef(pageElementTree)
-    this.appTree = appElementTree ? elementTreeRef(appElementTree) : null
+  initForce(elementTree: IElementTree, providerTree?: Nullable<IElementTree>) {
+    this.elementTree = elementTreeRef(elementTree)
+    this.providerTree = providerTree ? elementTreeRef(providerTree) : null
   }
 
   renderRoot() {
-    const root = this.pageTree?.current.root
+    const root = this.elementTree.current.root
 
     if (!root) {
       console.warn('Renderer: No root element found')
@@ -188,7 +178,7 @@ export class Renderer
    * Takes the provider tree and wrap it around our root element
    */
   private renderWithProviders(rootElement: ReactElement) {
-    const providerRoot = this.appTree?.current.root
+    const providerRoot = this.providerTree?.current.root
 
     if (!providerRoot) {
       return rootElement
