@@ -11,8 +11,8 @@ fragment Element on Element {
     ...Component
   }
   renderAtomType {
-    ...Atom
-    # ...RenderAtom
+    # ...Atom
+    ...RenderAtom
   }
   renderType {
     id

@@ -1,24 +1,20 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  TagFragment,
-  TagPreviewFragment,
-} from '../tag/tag.fragment.graphql.gen'
+import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
+import { TagFragment } from '../tag/tag.fragment.graphql.gen'
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  TagFragmentDoc,
-  TagPreviewFragmentDoc,
-} from '../tag/tag.fragment.graphql.gen'
+import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
+import { TagFragmentDoc } from '../tag/tag.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 export type AtomFragment = {
   icon?: string | null
   id: string
   name: string
   type: Types.AtomType
-  owner: { auth0Id: string }
+  owner: OwnerFragment
   tags: Array<TagFragment>
   api: InterfaceTypeFragment
   allowedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
@@ -29,9 +25,6 @@ export type RenderAtomFragment = {
   id: string
   name: string
   type: Types.AtomType
-  tags: Array<TagPreviewFragment>
-  api: { id: string; name: string }
-  allowedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
 export const AtomFragmentDoc = gql`
@@ -41,7 +34,7 @@ export const AtomFragmentDoc = gql`
     name
     type
     owner {
-      auth0Id
+      ...Owner
     }
     tags {
       ...Tag
@@ -55,6 +48,7 @@ export const AtomFragmentDoc = gql`
       type
     }
   }
+  ${OwnerFragmentDoc}
   ${TagFragmentDoc}
   ${InterfaceTypeFragmentDoc}
 `
@@ -64,20 +58,7 @@ export const RenderAtomFragmentDoc = gql`
     id
     name
     type
-    tags {
-      ...TagPreview
-    }
-    api {
-      id
-      name
-    }
-    allowedChildren {
-      id
-      name
-      type
-    }
   }
-  ${TagPreviewFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

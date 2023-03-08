@@ -25,7 +25,7 @@ import type {
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { createUniqueName, isNonNullable } from '@codelab/shared/utils'
+import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -162,7 +162,7 @@ export class ElementService
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
     const parent = this.elements.get(data.parentElement?.id ?? '')
-    const name = createUniqueName(data.name, parent?.baseId ?? '')
+    // const name = createUniqueName(data.name, parent?.baseId ?? '')
 
     const renderTypeApi = getRenderTypeApi({
       atomService: this.atomService,
@@ -177,7 +177,6 @@ export class ElementService
 
     const element = this.add({
       ...data,
-      name,
       parent,
       props: elementProps,
     })
@@ -283,7 +282,7 @@ export class ElementService
 
     const updateElementCacheFns: Array<() => void> = [
       // Detach from parent
-      element.detachParent(),
+      element.removeParent(),
       // Attach next to prev
       element.attachPrevToNextSibling(),
       // Detach from next sibling
@@ -370,7 +369,7 @@ export class ElementService
         yield* _await(
           this.attachElementAsFirstChild({
             element,
-            parentElement: this.element(data.parentElement.id),
+            parentElement: data.parentElement,
           }),
         )
 
@@ -430,7 +429,9 @@ export class ElementService
 
     // Attach to parent
     if (targetElement.parent) {
-      updateElementCacheFns.push(element.attachToParent(targetElement.parent))
+      updateElementCacheFns.push(
+        element.addParent(targetElement.parent.current),
+      )
     }
 
     if (targetElement.nextSibling) {
@@ -497,6 +498,9 @@ export class ElementService
     const updateElementInputs = []
     const updateElementCacheFns: Array<() => void> = []
 
+    /**
+     * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
+     */
     if (parentElement.firstChild) {
       updateElementInputs.push(
         element.makeAttachAsPrevSiblingInput(parentElement.firstChild.id),
@@ -508,10 +512,10 @@ export class ElementService
 
     // attach to parent
     updateElementInputs.push(
-      element.makeAttachToParentAsFirstChildInput(elementRef(parentElement.id)),
+      element.makeAttachToParentAsFirstChildInput(parentElement),
     )
     updateElementCacheFns.push(
-      element.attachToParentAsFirstChild(elementRef(parentElement.id)),
+      element.attachToParentAsFirstChild(parentElement),
     )
 
     const updateElementRequests = updateElementInputs.map((input) =>
@@ -519,6 +523,7 @@ export class ElementService
     )
 
     yield* _await(Promise.all(updateElementRequests))
+
     updateElementCacheFns.forEach((fn) => fn())
   })
 
@@ -590,12 +595,12 @@ export class ElementService
 
         Element.getElementTree(element)?.removeElements([
           element,
-          ...element.descendants,
+          ...element.descendantElements,
         ])
 
         Element.getElementTree(targetElement)?.addElements([
           element,
-          ...element.descendants,
+          ...element.descendantElements,
         ])
       },
     ),
@@ -696,7 +701,7 @@ export class ElementService
 
         const createdElements = [...oldToNewIdMap.values()]
         // re-attach the prop map bindings now that we have the new ids
-        const allInputs = [targetElement, ...targetElement.descendants]
+        const allInputs = [targetElement, ...targetElement.descendantElements]
 
         for (const inputElement of allInputs) {
           const newId = oldToNewIdMap.get(inputElement.id)?.id

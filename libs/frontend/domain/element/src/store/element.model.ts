@@ -269,12 +269,12 @@ export class Element
   }
 
   @computed
-  get descendants(): Array<IElement> {
+  get descendantElements(): Array<IElement> {
     const descendants: Array<IElement> = []
 
     for (const child of this.children) {
       descendants.push(child)
-      descendants.push(...child.descendants)
+      descendants.push(...child.descendantElements)
     }
 
     return descendants
@@ -318,7 +318,7 @@ export class Element
     return {
       children: this.children.map((child) => child.antdNode),
       key: this.id,
-      node: null,
+      node: this,
       rootKey: getElementTree(this)?._root?.id ?? null,
       title: this.label,
     }
@@ -493,7 +493,7 @@ export class Element
   }
 
   @modelAction
-  detachParent() {
+  removeParent() {
     return () => {
       if (!this.parentElement) {
         return
@@ -522,27 +522,41 @@ export class Element
   }
 
   @modelAction
-  attachToParent(parentElement: Ref<IElement>) {
+  addParent(parentElement: IElement) {
     return () => {
-      this.parent = parentElement
+      this.parent = elementRef(parentElement)
     }
   }
 
+  /**
+   * This function will replace the current `firstChild` with our new element. You'll need to call other function to handle attaching firstChild
+   *
+   * (parent)
+   * \
+   * (firstChild)
+   *
+   *    (parent)
+   *       \   \
+   * [element]  x
+   *             \
+   *             (firstChild)
+   */
   @modelAction
-  attachToParentAsFirstChild(parentElement: Ref<IElement>) {
+  attachToParentAsFirstChild(parentElement: IElement) {
     return () => {
-      this.attachToParent(parentElement)()
-
-      parentElement.current.firstChild = elementRef(this.id)
-      this.parent = parentElement
+      this.addParent(parentElement)()
+      parentElement.firstChild = elementRef(this.id)
     }
   }
 
-  makeAttachToParentAsFirstChildInput(parentElement: Ref<IElement>) {
+  /**
+   * Same as above, but using API
+   */
+  makeAttachToParentAsFirstChildInput(parentElement: IElement) {
     return makeUpdateElementInput(parentElement, {
       firstChild: {
         ...connectNodeId(this.id),
-        ...disconnectNodeId(parentElement.current.firstChild?.id),
+        ...disconnectNodeId(parentElement.firstChild?.id),
       },
     })
   }

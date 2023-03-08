@@ -146,6 +146,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 </div>
               </>
             )}
+
             {antdTree && (
               <BuilderTree
                 elementTree={componentTree ?? null}

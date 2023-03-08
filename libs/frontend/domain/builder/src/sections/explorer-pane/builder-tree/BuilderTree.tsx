@@ -1,13 +1,13 @@
 import type {
   IBuilderDataNode,
   IElementTree,
-  IPageNode,
+  IPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
   elementRef,
-  isComponentPageNodeRef,
-  isElementPageNodeRef,
+  isComponentPageNode,
+  isElementPageNode,
 } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -31,7 +31,7 @@ interface BuilderTreeProps {
   elementTree: IElementTree | null
   setActiveTree: () => void
   setExpandedNodeIds: (ids: Array<string>) => void
-  selectTreeNode(node: Nullable<IPageNode>): void
+  selectTreeNode(node: Nullable<IPageNodeRef>): void
   expandedNodeIds: Array<string>
 }
 
@@ -120,6 +120,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
         }}
         onMouseLeave={() => builderService.setHoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {
+          console.log(id, node)
           nativeEvent.stopPropagation()
 
           setActiveTree()
@@ -128,11 +129,11 @@ export const BuilderTree = observer<BuilderTreeProps>(
             return
           }
 
-          if (isComponentPageNodeRef(node.node)) {
+          if (isComponentPageNode(node.node)) {
             selectComponentNode(node)
           }
 
-          if (isElementPageNodeRef(node.node)) {
+          if (isElementPageNode(node.node)) {
             selectElementNode(node)
           }
         }}
@@ -140,11 +141,9 @@ export const BuilderTree = observer<BuilderTreeProps>(
         titleRender={(data) => {
           return (
             <BuilderTreeItemTitle
-              builderService={builderService}
               componentContextMenuProps={componentContextMenuProps}
               data={data}
               elementContextMenuProps={elementContextMenuProps}
-              elementService={elementService}
               node={data.node}
             />
           )

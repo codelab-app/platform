@@ -5,3 +5,9 @@ export const userSelectionSet = `{
   email
   roles
 }`
+
+export const ownerFieldSelectionSet = `
+  owner {
+    auth0Id
+  }
+`

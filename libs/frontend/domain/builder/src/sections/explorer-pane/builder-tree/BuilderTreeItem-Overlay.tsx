@@ -1,7 +1,7 @@
 import type { IBuilderDataNode } from '@codelab/frontend/abstract/core'
 import {
-  isComponentPageNodeRef,
-  isElementPageNodeRef,
+  isComponentPageNode,
+  isElementPageNode,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -34,7 +34,7 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
       </div>
     )
 
-    if (isElementPageNodeRef(node)) {
+    if (isElementPageNode(node)) {
       const ElementContextMenu =
         ContextMenu as JSXElementConstructor<ElementContextMenuProps>
 
@@ -49,7 +49,7 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
       )
     }
 
-    if (isComponentPageNodeRef(node)) {
+    if (isComponentPageNode(node)) {
       const ElementContextMenu =
         ContextMenu as JSXElementConstructor<ComponentContextMenuProps>
 

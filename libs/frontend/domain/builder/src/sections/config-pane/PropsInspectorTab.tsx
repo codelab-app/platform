@@ -1,5 +1,5 @@
 import type {
-  IPageNode,
+  IPageNodeRef,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
@@ -14,7 +14,7 @@ import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
 export interface ElementPropsSectionProps {
-  node: IPageNode
+  node: IPageNodeRef
   renderer: IRenderer
 }
 
