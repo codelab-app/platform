@@ -4,14 +4,14 @@ import { userSelectionSet } from './userSelectionSet'
 /**
  * We omit user during export, since this creates a non-reproducible file if exported from different accounts
  */
-const exportBaseSelection = `
+const exportBaseTypeSelection = `
   __typename
   id
   kind
   name
 `
 
-const baseSelection = `
+export const baseTypeSelection = `
   __typename
   id
   kind
@@ -21,31 +21,31 @@ const baseSelection = `
 `
 
 export const exportPrimitiveTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
   primitiveKind
 }`
 
 export const exportReactNodeTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
 }`
 
 export const exportRenderPropsTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
 }`
 
 export const exportActionTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
 }`
 
 export const exportArrayTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
   itemType {
     id
   }
 }`
 
 export const exportEnumTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
   allowedValues {
     id
     key
@@ -54,18 +54,18 @@ export const exportEnumTypeSelectionSet = `{
 }`
 
 export const exportInterfaceTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
   fields
     ${fieldSelectionSet}
 }`
 
 export const exportUnionTypeSelectionSet = `{
-  ${exportBaseSelection}
+  ${exportBaseTypeSelection}
   descendantTypesIds
 }`
 
 export const interfaceTypeSelectionSet = `{
-  ${baseSelection}
+  ${baseTypeSelection}
   fields
     ${fieldSelectionSet}
 }`

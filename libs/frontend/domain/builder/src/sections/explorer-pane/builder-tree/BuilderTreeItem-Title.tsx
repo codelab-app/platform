@@ -1,12 +1,9 @@
-import type {
-  IBuilderService,
-  IElementService,
-  IPageNode,
-} from '@codelab/frontend/abstract/core'
+import type { IPageNode } from '@codelab/frontend/abstract/core'
 import {
-  isComponentPageNodeRef,
-  isElementPageNodeRef,
+  isComponentPageNode,
+  isElementPageNode,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import type { DataNode } from 'antd/lib/tree'
@@ -27,25 +24,18 @@ interface BuilderTreeItemTitleProps {
   data: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
   componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
-  elementService: IElementService
-  builderService: IBuilderService
 }
 
 export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
-  ({
-    node,
-    data,
-    elementContextMenuProps,
-    componentContextMenuProps,
-    elementService,
-    builderService,
-  }) => {
+  ({ node, data, elementContextMenuProps, componentContextMenuProps }) => {
+    const { elementService, builderService } = useStore()
+
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
     // Add CSS to disable hover if node is un-selectable
-    if (isElementPageNodeRef(node)) {
-      const element = node.current
+    if (isElementPageNode(node)) {
+      const element = node
 
       return (
         <BuilderDropHandler element={element}>
@@ -77,8 +67,8 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       )
     }
 
-    if (isComponentPageNodeRef(node)) {
-      const component = node.current
+    if (isComponentPageNode(node)) {
+      const component = node
 
       return (
         <ItemTitleStyle node={data}>

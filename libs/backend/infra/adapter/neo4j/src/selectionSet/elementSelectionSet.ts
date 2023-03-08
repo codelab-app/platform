@@ -4,7 +4,6 @@ import { componentSelectionSet } from './componentSelectionSet'
 export const elementSelectionSet = `{
   id
   name
-  slug
   customCss
   guiCss
   parentComponent
@@ -28,18 +27,6 @@ export const elementSelectionSet = `{
   props {
     id
     data
-  }
-  hooks {
-    id
-    type
-    config {
-      id
-      data
-    }
-    element {
-      id
-      name
-    }
   }
   renderForEachPropKey
   renderIfExpression

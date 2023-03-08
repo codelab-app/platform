@@ -1,7 +1,7 @@
 import type {
   BuilderDragData,
   IBuilderService,
-  IPageNode,
+  IPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import {
   BuilderWidth,
@@ -41,7 +41,7 @@ export class BuilderService
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
-    hoveredNode: prop<Nullable<IPageNode>>(null).withSetter(),
+    hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
     selectedBuilderWidth: prop<BuilderWidth>(
       () => defaultBuilderWidthBreakPoints.desktop,
     ),
@@ -51,7 +51,7 @@ export class BuilderService
      *   - when deleting a node because that node needs to be expanded to delete
      *   - clear node selection
      */
-    selectedNode: prop<Nullable<IPageNode>>(null).withSetter(),
+    selectedNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
   })
   implements IBuilderService
 {
@@ -98,7 +98,7 @@ export class BuilderService
   }
 
   findNodesToExpand = (
-    selectedNode: IPageNode,
+    selectedNode: IPageNodeRef,
     alreadyExpandedNodeIds: Array<string>,
   ): Array<string> => {
     /**
@@ -119,7 +119,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectComponentTreeNode(node: Nullable<IPageNode>) {
+  selectComponentTreeNode(node: Nullable<IPageNodeRef>) {
     this.selectedNode = node
 
     if (!node) {
@@ -133,7 +133,8 @@ export class BuilderService
   }
 
   @modelAction
-  selectPageElementTreeNode(node: Nullable<IPageNode>) {
+  selectPageElementTreeNode(node: Nullable<IPageNodeRef>) {
+    console.log(node)
     this.selectedNode = node
 
     if (!node) {
