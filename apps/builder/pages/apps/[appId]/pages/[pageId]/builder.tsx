@@ -69,18 +69,8 @@ const PageBuilder: CodelabPage = observer(() => {
 export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 PageBuilder.Layout = observer((page) => {
-  const {
-    elementService,
-    componentService,
-    userService,
-    builderService,
-    builderRenderService,
-    actionService,
-    resourceService,
-    typeService,
-    pageService,
-    fieldService,
-  } = useStore()
+  const { elementService, builderService, builderRenderService, pageService } =
+    useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()

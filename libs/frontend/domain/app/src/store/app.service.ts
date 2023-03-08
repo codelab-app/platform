@@ -111,35 +111,32 @@ export class AppService
    *
    * - Hydrate app
    * - Hydrate page
+   * - Hydrate element
    */
   @modelAction
-  load = ({ app, pageId }: IPageBuilderAppProps) => {
-    console.debug('AppService.load', app, pageId)
+  loadPages = ({ appData, pageId }: IPageBuilderAppProps) => {
+    console.debug('AppService.load', appData, pageId)
 
-    const appDTO = App.parsePageBuilderData(app)
-    const appModel = this.add(appDTO)
-    // const pageModel = appModel.page(pageId)
-    const page = app.pages.find((appPage) => appPage.id === pageId)
+    const app = this.add(appData)
 
-    if (!page) {
-      throw new Error('Missing page')
-    }
+    appData.pages.forEach((page) => {
+      ;[page.rootElement, ...page.rootElement.descendantElements].forEach(
+        (element) => {
+          this.propService.add(element.props)
+          this.elementService.add(element)
+        },
+      )
 
-    const pageModel = this.pageService.add(page)
+      this.pageService.add(page)
+    })
 
-    const elements = [
-      page.rootElement,
-      ...page.rootElement.descendantElements,
-    ].map((element) => this.elementService.add(element))
-
-    elements.forEach((element) => this.propService.add(element.props))
-
+    const page = app.page(pageId)
     const rootElement = this.elementService.element(page.rootElement.id)
-    const pageElementTree = pageModel.initTree(rootElement, elements)
+    const pageElementTree = page.initTree(rootElement, page.elements)
 
     return {
-      app: appModel,
-      page: pageModel,
+      app,
+      page,
       pageElementTree,
     }
   }
@@ -264,19 +261,14 @@ export class AppService
     }
 
     /**
-     * Need to load pages and store before hand
+     * Load app, pages, elements
      */
-    const pages = appData.pages.map((page) => this.pageService.add(page))
-    this.storeService.add(appData.store)
-
-    const app = this.add(appData)
+    const { app } = this.loadPages({ appData, pageId })
 
     /**
-     * Load for each page
+     * Need to load pages and store before hand
      */
-    pages.forEach((page) => {
-      this.load({ app: appData, pageId: page.id })
-    })
+    this.storeService.add(appData.store)
 
     const storeApi = this.typeService.addInterface(appData.store.api)
 

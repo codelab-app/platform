@@ -17,6 +17,6 @@ export type IUpdateAppData = Pick<IAppDTO, 'id' | 'name'>
  * Data required to initialize a page builder app
  */
 export interface IPageBuilderAppProps {
-  app: PageBuilderAppFragment
+  appData: PageBuilderAppFragment
   pageId: string
 }
