@@ -596,11 +596,16 @@ export class Element
     })
   }
 
-  makePrependSiblingInput(siblingId: string) {
+  /**
+   * (sibling)-(sibling.nextSibling)
+   * (sibling)-[element]-x-(sibling.nextSibling)
+   *
+   * @param siblingId target element to attach as
+   * @returns
+   */
+  makeAttachAsNextSiblingInput(siblingId: string) {
     const sibling = this.elementService.element(siblingId)
 
-    // sibling - next sibling
-    // sibling - [element]
     return makeUpdateElementInput(sibling, {
       nextSibling: {
         // sibling detaches
@@ -611,11 +616,15 @@ export class Element
     })
   }
 
-  makeAppendSiblingInput(siblingId: string) {
+  /**
+   * This will disconnect the current previous sibling, and replace it with the new element
+   *
+   * (sibling.prevSibling)-(sibling)
+   * (sibling.prevSibling)-x-[element]-(sibling)
+   */
+  makeAttachAsPrevSiblingInput(siblingId: string) {
     const sibling = this.elementService.element(siblingId)
 
-    // sibling.prevSibling - sibling
-    // [element] - sibling
     return makeUpdateElementInput(sibling, {
       prevSibling: {
         // sibling detaches its prev sibling
@@ -626,27 +635,37 @@ export class Element
     })
   }
 
+  /**
+   * Attach the new element as prevSibling. Leaves `prevSibling` still connected to `sibling`.
+   *
+   * (prevSibling)-(sibling)
+   * (prevSibling)-x-[element]-(sibling)
+   *
+   * @param sibling
+   * @returns
+   */
   @modelAction
-  appendSibling(sibling: Ref<IElement>) {
-    // update both element and sibling in cache
+  attachAsPrevSibling(sibling: Ref<IElement>) {
     return () => {
-      // sibling - next sibling
-      // sibling - [element]
-      // sibling prepends element
-      sibling.current.prevSibling = elementRef(this.id)
-      // element appends sibling
-      this.nextSibling = elementRef(sibling.current.id)
+      // Add element as as prevSibling
+      sibling.current.prevSibling = elementRef(this)
+      this.nextSibling = elementRef(sibling.current)
     }
   }
 
+  /**
+   * Attach the new element as as nextSibling. Leaves `nextSibling` still connected to `sibling`.
+   *
+   * (sibling)-(nextSibling)
+   * (sibling)-[element]-x-(nextSibling)
+   *
+   * @param sibling
+   * @returns
+   */
   @modelAction
-  prependSibling(sibling: Ref<IElement>) {
+  attachAsNextSibling(sibling: Ref<IElement>) {
     return () => {
-      // sibling - next sibling
-      // sibling - [element]
-      // sibling appends element
       sibling.current.nextSibling = elementRef(this.id)
-      // prepend element sibling
       this.prevSibling = elementRef(sibling.current.id)
     }
   }
