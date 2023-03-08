@@ -12,7 +12,6 @@ import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
-  PageBuilderAppFragment,
 } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
@@ -35,32 +34,6 @@ const create = ({ id, name, owner, pages, store }: IAppDTO) => {
   return app
 }
 
-const parsePageBuilderData = ({
-  id,
-  name,
-  pages,
-  store,
-  owner,
-}: PageBuilderAppFragment): IAppDTO => {
-  return {
-    id,
-    name,
-    owner,
-    pages: pages.map((page) => ({
-      app: { id },
-      descendentElements: page.rootElement.descendantElements,
-      getServerSideProps: page.getServerSideProps,
-      id: page.id,
-      kind: page.kind,
-      name: page.name,
-      owner,
-      pageContainerElementId: page.pageContentContainer?.id,
-      rootElement: page.rootElement,
-    })),
-    store,
-  }
-}
-
 @model('@codelab/App')
 export class App
   extends Model({
@@ -80,8 +53,6 @@ export class App
 
   @modelAction
   static create = create
-
-  static parsePageBuilderData = parsePageBuilderData
 
   /**
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
@@ -134,7 +105,7 @@ export class App
   page(id: string) {
     const currentPage = this.pages.find(
       (page) => page.current.id === id,
-    )?.current
+    )?.maybeCurrent
 
     if (!currentPage) {
       throw new Error('Missing page')
