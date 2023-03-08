@@ -1,7 +1,7 @@
 import type {
   ICreateReactNodeType,
-  IReactNodeType,
   IOwner,
+  IReactNodeType,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'

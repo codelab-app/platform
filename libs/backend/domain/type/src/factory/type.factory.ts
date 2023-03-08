@@ -1,8 +1,4 @@
-import type {
-  ICreateType,
-  IType,
-  IOwner,
-} from '@codelab/backend/abstract/core'
+import type { ICreateType, IOwner, IType } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type {
   BaseTypeUniqueWhereCallback,

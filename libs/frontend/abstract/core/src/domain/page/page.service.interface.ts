@@ -1,5 +1,4 @@
 import type {
-  GetRenderedPageAndCommonAppDataQuery,
   GetRenderedPageQuery,
   PageOptions,
   PageWhere,

@@ -1,8 +1,4 @@
-import type {
-  ITag,
-  IOwner,
-  TagNodeData,
-} from '@codelab/backend/abstract/core'
+import type { IOwner, ITag, TagNodeData } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import { v4 } from 'uuid'
