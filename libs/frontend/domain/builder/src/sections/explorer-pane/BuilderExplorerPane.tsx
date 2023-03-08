@@ -72,12 +72,12 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     } = useStore()
 
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
-    const root = pageBuilderRenderer?.pageTree?.current.root
-    const pageTree = pageBuilderRenderer?.pageTree?.current
+    const root = pageBuilderRenderer?.elementTree.current.root
+    const pageTree = pageBuilderRenderer?.elementTree.current
     const componentId = builderService.activeComponent?.id
 
     const componentTree = componentId
-      ? builderRenderService.renderers.get(componentId)?.pageTree?.current
+      ? builderRenderService.renderers.get(componentId)?.elementTree.current
       : null
 
     const antdTree = root?.antdNode

@@ -42,6 +42,8 @@ const create = ({
   return new Component({
     api: typeRef<IInterfaceType>(api.id),
     childrenContainerElement: elementRef(childrenContainerElement.id),
+    // TODO: Remove this, added now to satisfy interface only
+    elementTree: new ElementTree({}),
     id,
     instanceElement: null,
     name,

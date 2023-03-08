@@ -12,7 +12,10 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type { PageWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  GetRenderedPageAndCommonAppDataQuery,
+  PageWhere,
+} from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -54,26 +57,6 @@ export class PageService
     return yield* _await(pageApi.GetRenderedPage({ pageId }))
   })
 
-  /**
-    This function fetches the initial page and all the common data shared across all pages in the application:
-     - app data
-     - current page
-     - providers page (_app)
-     - components
-     - resources
-     - types
-   */
-  @modelFlow
-  @transaction
-  getRenderedPageAndCommonAppData = _async(function* (
-    this: PageService,
-    appId: string,
-    pageId: string,
-  ) {
-    return yield* _await(
-      pageApi.GetRenderedPageAndCommonAppData({ appId, pageId }),
-    )
-  })
 
   @computed
   private get elementService() {

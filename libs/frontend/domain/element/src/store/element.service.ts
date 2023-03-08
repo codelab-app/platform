@@ -14,7 +14,7 @@ import {
   IRenderTypeKind,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
-import { getPropService, Prop } from '@codelab/frontend/domain/prop'
+import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { runSequentially } from '@codelab/frontend/shared/utils'
 import type {
@@ -161,17 +161,23 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    const atom = this.atomService.atoms.get(data.renderType?.id ?? '')!
     // console.log(atom)
     // console.log(atomRef(atom))
     const parent = this.elements.get(data.parentElement?.id ?? '')
     const name = createUniqueName(data.name, parent?.baseId ?? '')
-    const renderTypeApi = getRenderTypeApi(data.renderType)
 
-    const elementProps = Prop.create({
+    const renderTypeApi = getRenderTypeApi({
+      atomService: this.atomService,
+      componentService: this.componentService,
+      renderType: data.renderType,
+    })
+
+    const elementProps = this.propService.add({
       data: makeDefaultProps(renderTypeApi?.current),
       id: v4(),
     })
+
+    console.log(elementProps)
 
     const element = this.add({
       ...data,
@@ -179,6 +185,8 @@ export class ElementService
       parent,
       props: elementProps,
     })
+
+    console.log(element)
 
     yield* _await(this.elementRepository.add(element))
 

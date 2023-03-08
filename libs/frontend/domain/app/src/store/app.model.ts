@@ -14,6 +14,7 @@ import type {
   AppUpdateInput,
   PageBuilderAppFragment,
 } from '@codelab/shared/abstract/codegen'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
@@ -98,6 +99,19 @@ export class App
   @computed
   get pageRootElements() {
     return this.pages.map((page) => page.current.rootElement)
+  }
+
+  @computed
+  get providerPage() {
+    const providerPage = this.pages.find(
+      (page) => page.current.kind === IPageKind.Provider,
+    )?.current
+
+    if (!providerPage) {
+      throw new Error('ProviderPage is required')
+    }
+
+    return providerPage
   }
 
   @computed

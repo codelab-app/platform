@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import {
   Action_ApiAction_Fragment,
   Action_CodeAction_Fragment,
@@ -7,11 +8,12 @@ import {
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 import { ActionFragmentDoc } from '../action/fragments/action.fragment.graphql.gen'
 export type StoreFragment = {
   id: string
   name: string
-  api: { id: string; name: string }
+  api: InterfaceTypeFragment
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
 }
 
@@ -20,13 +22,13 @@ export const StoreFragmentDoc = gql`
     id
     name
     api {
-      id
-      name
+      ...InterfaceType
     }
     actions {
       ...Action
     }
   }
+  ${InterfaceTypeFragmentDoc}
   ${ActionFragmentDoc}
 `
 

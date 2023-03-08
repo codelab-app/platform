@@ -2,8 +2,9 @@ fragment Store on Store {
   id
   name
   api {
-    id
-    name
+    ...InterfaceType
+    # id
+    # name
   }
   actions {
     ...Action

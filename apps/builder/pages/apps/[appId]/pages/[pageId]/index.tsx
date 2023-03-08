@@ -43,7 +43,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(
         </Head>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
         {loading && <Spin />}
-        {!loading && value?.pageTree && (
+        {!loading && value?.elementTree && (
           <Renderer
             renderRoot={value.renderer.renderRoot.bind(value.renderer)}
           />

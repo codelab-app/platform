@@ -14,9 +14,9 @@ export const enum RendererType {
 }
 export interface IRenderer {
   renderRoot(): ReactElement | null
-  appTree: Nullable<Ref<IElementTree>>
+  providerTree: Nullable<Ref<IElementTree>>
+  elementTree: Ref<IElementTree>
   appStore: Ref<IStore>
-  pageTree: Nullable<Ref<IElementTree>>
   debugMode: boolean
   rendererType: RendererType
   state: IProp
@@ -31,5 +31,8 @@ export interface IRenderer {
   runPreAction(element: IElement): void
   getPostAction(element: IElement): Nullish<() => unknown>
   renderElement(element: IElement, extraProps?: IPropData): ReactElement
-  initForce(pageTree: IElementTree, appTree?: Nullable<IElementTree>): void
+  initForce(
+    elementTree: IElementTree,
+    providerTree?: Nullable<IElementTree>,
+  ): void
 }
