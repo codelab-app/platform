@@ -27,7 +27,7 @@ export class ComponentRenderPipe
 
     const component = element.renderType.current
     const clonedComponent = component.clone(element.id)
-    const rootElement = clonedComponent.elementTree?.root
+    const rootElement = clonedComponent.elementTree.root
 
     if (!rootElement) {
       ComponentRenderPipe.logRootElementNotFound(this.renderer, element)

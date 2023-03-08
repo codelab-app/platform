@@ -2,8 +2,8 @@ import type {
   AntDesignField,
   IAtom,
   IField,
-  IType,
   IOwner,
+  IType,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
