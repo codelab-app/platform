@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons'
 import type {
   IElementTree,
-  IPageNode,
+  IPageNodeRef,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -45,7 +45,7 @@ export interface MetaPaneBuilderProps {
   elementTree: Maybe<IElementTree>
   renderService?: Maybe<IRenderer>
   UpdateElementContent: (props: {
-    node: IPageNode
+    node: IPageNodeRef
     trackPromises: UseTrackLoadingPromises
   }) => React.ReactElement | null
 }

@@ -1,5 +1,5 @@
 import type {
-  IPageNode,
+  IPageNodeRef,
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
@@ -15,7 +15,7 @@ import { useState } from 'react'
 import { noop } from 'ts-essentials'
 
 const getNodeProps = (
-  node: IPageNode,
+  node: IPageNodeRef,
   renderer: IRenderer,
   editedProps: IPropData,
 ) => {
@@ -39,7 +39,7 @@ const getNodeProps = (
   )
 }
 
-const getNodePropsValidateFn = (node: IPageNode) => {
+const getNodePropsValidateFn = (node: IPageNodeRef) => {
   const interfaceType = isElementPageNodeRef(node)
     ? node.current.renderType?.current.api.current ??
       node.current.renderType?.current.api.current
@@ -65,7 +65,7 @@ const getNodePropsValidateFn = (node: IPageNode) => {
  * If node is IComponent, that means we are viewing it in the component builder only.
  */
 export const usePropsInspector = (
-  node: IPageNode,
+  node: IPageNodeRef,
   renderer: IRenderer,
   editedProps: IPropData,
 ) => {

@@ -71,7 +71,7 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
   leftHandDescendants: Array<IElement>
-  descendants: Array<IElement>
+  descendantElements: Array<IElement>
   __metadataProps: IPropData
   atomName: string
   // slug: string
@@ -93,10 +93,9 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
 
   detachNextSibling(): () => void
   detachPrevSibling(): () => void
-  detachParent(): () => void
+  removeParent(): () => void
   attachPrevToNextSibling(): () => void
-  attachToParentAsFirstChild(parentElement: Ref<IElement>): () => void
-  attachToParent(parentElement: Ref<IElement>): () => void
+  addParent(parentElement: IElement): () => void
   attachAsPrevSibling(sibling: Ref<IElement>): () => void
   attachAsNextSibling(sibling: Ref<IElement>): () => void
   clone(cloneIndex: number): IElement
@@ -104,13 +103,16 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachPrevSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachParentInput(): UpdateElementsMutationVariables | null
+  attachToParentAsFirstChild(parentElement: IElement): () => void
   makeAttachToParentAsFirstChildInput(
-    parentElement: Ref<IElement>,
+    parentElement: IElement,
   ): UpdateElementsMutationVariables
   makeAttachAsPrevSiblingInput(
     siblingId: string,
   ): UpdateElementsMutationVariables
-  makeAttachAsNextSiblingInput(siblingId: string): UpdateElementsMutationVariables
+  makeAttachAsNextSiblingInput(
+    siblingId: string,
+  ): UpdateElementsMutationVariables
 
   setOrderInParent(order: number | null): void
   setName(name: string): void

@@ -1,16 +1,18 @@
+import { tagSelectionSet } from './tagSelectionSet'
+import { interfaceTypeSelectionSet } from './typeSelectionSet'
+
 export const atomSelectionSet = `{
   id
   name
   type
-  api {
-    id
-    name
-  }
+  api
+    ${interfaceTypeSelectionSet}
   icon
-  tags {
-    id
-    name
+  owner {
+    auth0Id
   }
+  tags
+    ${tagSelectionSet}
   allowedChildren {
     id
     name

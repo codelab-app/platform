@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_TREE_CONTAINER,
-  componentRef,
   getElementService,
   IBuilderDataNode,
   IComponentDTO,
@@ -126,16 +125,15 @@ export class ComponentService
     return {
       children: [...this.components.values()].map((component) => {
         const elementTree = component.elementTree
-        const dataNode = elementTree?.root?.antdNode
+        const dataNode = elementTree.root?.antdNode
 
         return {
           children: [dataNode].filter((data): data is IBuilderDataNode =>
             Boolean(data),
           ),
           key: component.id,
-          node: componentRef(component.id),
-
-          rootKey: elementTree?.root?.id ?? null,
+          node: component,
+          rootKey: elementTree.root?.id ?? null,
           // This should bring up a meta pane for editing the component
           selectable: true,
           title: component.name,
@@ -262,7 +260,7 @@ export class ComponentService
         (component) => component.sourceComponent?.id === componentFragment.id,
       )
       .map((component) => {
-        const clonedChildrenContainer = component.elementTree?.elements.find(
+        const clonedChildrenContainer = component.elementTree.elements.find(
           ({ sourceElement }) =>
             sourceElement?.id === componentFragment.childrenContainerElement.id,
         )

@@ -19878,7 +19878,7 @@ export type AtomFragment = {
   id: string
   name: string
   type: AtomType
-  owner: { __typename?: 'User'; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   allowedChildren: Array<{
@@ -19895,14 +19895,6 @@ export type RenderAtomFragment = {
   id: string
   name: string
   type: AtomType
-  tags: Array<{ __typename?: 'Tag' } & TagPreviewFragment>
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
-  allowedChildren: Array<{
-    __typename?: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-  }>
 }
 
 export type RenderedComponentFragment = {
@@ -19946,7 +19938,7 @@ export type ElementFragment = {
   renderComponentType?:
     | ({ __typename?: 'Component' } & ComponentFragment)
     | null
-  renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
+  renderAtomType?: ({ __typename?: 'Atom' } & RenderAtomFragment) | null
   renderType?: {
     __typename?: 'RenderType'
     id: string

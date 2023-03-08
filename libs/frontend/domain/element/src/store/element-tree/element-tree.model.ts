@@ -1,7 +1,8 @@
-import type {
+import {
   IElement,
   IElementTree,
-  IPageNode,
+  IPageNodeRef,
+  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -65,7 +66,7 @@ export class ElementTree
   @computed
   get elements() {
     return this._root
-      ? [this._root.current, ...this._root.current.descendants]
+      ? [this._root.current, ...this._root.current.descendantElements]
       : []
   }
 
@@ -132,7 +133,7 @@ export class ElementTree
       this._elements.set(element.id, elementRef(element))
 
       // validate component meta data
-      if (element.renderType?.current) {
+      if (isComponentInstance(element.renderType)) {
         const componentId = element.renderType.current.id
         const component = this.componentService.components.get(componentId)
 
@@ -154,7 +155,7 @@ export class ElementTree
     return this
   }
 
-  getPathFromRoot(selectedElement: IPageNode): Array<IElement> {
+  getPathFromRoot(selectedElement: IPageNodeRef): Array<IElement> {
     const path = []
 
     if (!isElementPageNodeRef(selectedElement)) {

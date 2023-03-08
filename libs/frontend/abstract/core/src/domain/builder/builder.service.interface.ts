@@ -3,7 +3,7 @@ import type { Frozen, Ref } from 'mobx-keystone'
 import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
 import type { IElementTree } from '../element'
-import type { IPageNode } from '../page'
+import type { IPageNodeRef } from '../page'
 import type { RendererTab } from '../render'
 import type { BuilderDragData, BuilderWidth } from './builder.interface'
 
@@ -18,8 +18,8 @@ export interface IBuilderService {
    */
   activeTree: RendererTab
 
-  selectedNode: Nullable<IPageNode>
-  hoveredNode: Nullable<IPageNode>
+  selectedNode: Nullable<IPageNodeRef>
+  hoveredNode: Nullable<IPageNodeRef>
   /**
    * The difference between current and selected builderWidth is that
    * - currentBuilderWidth is changed by useBuilderResize
@@ -34,11 +34,11 @@ export interface IBuilderService {
 
   expandedPageElementTreeNodeIds: Array<string>
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectComponentTreeNode(node: Nullable<IPageNode>): void
+  selectComponentTreeNode(node: Nullable<IPageNodeRef>): void
 
   expandedComponentTreeNodeIds: Array<string>
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectPageElementTreeNode(node: Nullable<IPageNode>): void
+  selectPageElementTreeNode(node: Nullable<IPageNodeRef>): void
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
@@ -47,8 +47,8 @@ export interface IBuilderService {
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
 
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
-  setHoveredNode(element: Nullable<IPageNode>): void
-  setSelectedNode(node: Nullable<IPageNode>): void
+  setHoveredNode(element: Nullable<IPageNodeRef>): void
+  setSelectedNode(node: Nullable<IPageNodeRef>): void
   setCurrentBuilderWidth(width: Nullable<BuilderWidth>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
   setBuilderContainerWidth(width: number): void
