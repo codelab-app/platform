@@ -30,6 +30,10 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
     const model = { element: elementToDelete }
 
     const onSubmit = ({ element }: DeleteElementData) => {
+      console.log(element)
+
+      return Promise.resolve()
+
       // Don't wait so we don't block the UI
       void elementService.deleteElementSubgraph(element)
 
