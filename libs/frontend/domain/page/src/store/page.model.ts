@@ -4,7 +4,7 @@ import type {
   IPageDTO,
   IPropData,
 } from '@codelab/frontend/abstract/core'
-import { elementRef, getElementService } from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
@@ -88,11 +88,6 @@ export class Page
   @computed
   get slug() {
     return slugify(this.name)
-  }
-
-  @computed
-  private get elementService() {
-    return getElementService(this)
   }
 
   /**
