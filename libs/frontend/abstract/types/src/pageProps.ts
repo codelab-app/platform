@@ -3,5 +3,5 @@ import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstr
 export interface AppPagePageProps {
   pageId: string
   appId: string
-  renderingData?: GetRenderedPageAndCommonAppDataQuery
+  renderingData: GetRenderedPageAndCommonAppDataQuery
 }

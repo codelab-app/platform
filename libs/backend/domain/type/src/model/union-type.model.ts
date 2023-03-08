@@ -2,8 +2,8 @@ import type {
   IAtom,
   ICreateUnionType,
   IField,
-  IUnionType,
   IOwner,
+  IUnionType,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'

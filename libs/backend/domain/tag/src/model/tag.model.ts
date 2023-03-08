@@ -1,8 +1,4 @@
-import type {
-  ITag,
-  ITagPreview,
-  IOwner,
-} from '@codelab/backend/abstract/core'
+import type { IOwner, ITag, ITagPreview } from '@codelab/backend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
 
 export class Tag implements ITag {

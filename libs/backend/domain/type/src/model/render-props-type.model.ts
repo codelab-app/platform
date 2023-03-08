@@ -1,7 +1,7 @@
 import type {
   ICreateRenderPropsType,
-  IRenderPropsType,
   IOwner,
+  IRenderPropsType,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'

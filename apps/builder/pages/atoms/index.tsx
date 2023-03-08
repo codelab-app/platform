@@ -1,10 +1,10 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import type { AtomLibrary } from '@codelab/frontend/domain/atom'
 import {
+  AtomsTable,
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
-  AtomsTable,
   UpdateAtomModal,
 } from '@codelab/frontend/domain/atom'
 import {
