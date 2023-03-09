@@ -17,6 +17,7 @@ export const UpdateDomainModal = observer<{
   userService: IUserService
 }>(({ domainService, userService }) => {
   const domain = domainService.updateModal.domain
+  const isOpen = domainService.updateModal.isOpen
   const currentAppId = useCurrentAppId()
 
   const onSubmit = (domainDTO: IUpdateDomainData) => {
@@ -39,7 +40,7 @@ export const UpdateDomainModal = observer<{
   }
 
   return (
-    <ModalForm.Modal okText="Update Domain" onCancel={closeModal}>
+    <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={isOpen}>
       <ModalForm.Form<IUpdateDomainData>
         model={model}
         onSubmit={onSubmit}
