@@ -20,7 +20,7 @@ export interface IElementTree {
   element(id: string): Maybe<IElement>
   addElements(elements: Array<IElement>): IElementTree
   removeElements(elements: Array<IElement>): IElementTree
-  descendants(subRoot: Ref<IElement>): Array<Ref<IElement>>
+  descendants(subRoot: Ref<IElement>): Array<IElement>
 }
 
 export interface IElementTreeService {

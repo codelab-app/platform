@@ -71,6 +71,7 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
   leftHandDescendants: Array<IElement>
+  // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElement>
   __metadataProps: IPropData
   atomName: string
@@ -138,7 +139,7 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   setRenderForEachPropKey(key: string): void
   setPropTransformationJs(props: string): void
 
-  getDescendantRefs: Array<Ref<IElement>>
+  // getDescendantRefs: Array<Ref<IElement>>
 
   toCreateInput(): ElementCreateInput
   toUpdateInput(): ElementUpdateInput

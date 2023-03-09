@@ -612,20 +612,22 @@ export class ElementService
     this: ElementService,
     subRoot: IEntity,
   ) {
-    const subRootElement = elementRef(subRoot.id).current
+    const subRootElement = this.element(subRoot.id)
 
-    const descendantElements = subRootElement.getDescendantRefs.map(
-      (pageRootElement) => pageRootElement.current,
+    const descendantElements = subRootElement.descendantElements.map(
+      (element) => element,
     )
 
-    descendantElements.reverse().forEach((element) => {
-      this.elements.delete(element.id)
+    const allElementsToDelete = [subRootElement, ...descendantElements]
+
+    allElementsToDelete.reverse().forEach((element) => {
       this.removeClones(element.id)
+      this.elements.delete(element.id)
     })
 
-    yield* _await(this.elementRepository.delete(descendantElements))
+    yield* _await(this.elementRepository.delete(allElementsToDelete))
 
-    return descendantElements
+    return allElementsToDelete
   })
 
   @computed
