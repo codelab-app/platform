@@ -44,7 +44,9 @@ export const importElementInitial = async (
           postRenderAction: connectNodeId(element.postRenderAction?.id),
           preRenderAction: connectNodeId(element.preRenderAction?.id),
           props: {
-            create: { node: { data: element.props.data } },
+            create: {
+              node: { data: element.props.data, id: element.props.id },
+            },
           },
           propTransformationJs: element.propTransformationJs,
           renderAtomType: element.renderAtomType
