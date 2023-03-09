@@ -1,6 +1,9 @@
 import { atomSelectionSet } from './atomSelectionSet'
 import { componentSelectionSet } from './componentSelectionSet'
 
+/**
+ * `__typename` needed for renderType to resolve
+ */
 export const elementSelectionSet = `{
   id
   name
@@ -12,6 +15,10 @@ export const elementSelectionSet = `{
     ${componentSelectionSet}
   renderAtomType
     ${atomSelectionSet}
+  renderType {
+    id
+    kind
+  }
   parent {
     id
   }

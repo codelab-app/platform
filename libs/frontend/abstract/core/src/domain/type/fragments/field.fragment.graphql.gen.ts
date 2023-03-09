@@ -11,20 +11,20 @@ export type FieldFragment = {
   validationRules?: string | null
   defaultValues?: string | null
   fieldType:
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
+    | { __typename: 'ActionType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'AppType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'ArrayType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'BaseType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'CodeMirrorType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'ElementType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'EnumType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'InterfaceType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'LambdaType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'PageType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'PrimitiveType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'ReactNodeType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'RenderPropsType'; id: string; kind: Types.TypeKind }
+    | { __typename: 'UnionType'; id: string; kind: Types.TypeKind }
   api: { id: string }
 }
 
@@ -37,7 +37,9 @@ export const FieldFragmentDoc = gql`
     validationRules
     fieldType {
       ... on IBaseType {
+        __typename
         id
+        kind
       }
     }
     api {

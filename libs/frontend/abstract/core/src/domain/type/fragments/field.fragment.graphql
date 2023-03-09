@@ -6,7 +6,10 @@ fragment Field on Field {
   validationRules
   fieldType {
     ... on IBaseType {
+      __typename
       id
+      kind
+      name
     }
   }
   api {

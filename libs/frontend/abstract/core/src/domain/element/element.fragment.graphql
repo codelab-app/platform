@@ -11,12 +11,8 @@ fragment Element on Element {
     ...Component
   }
   renderAtomType {
-    # ...Atom
-    ...RenderAtom
-  }
-  renderType {
-    id
-    kind
+    ...Atom
+    # ...RenderAtom
   }
   prevSibling {
     id
