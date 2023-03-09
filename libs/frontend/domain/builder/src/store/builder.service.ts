@@ -1,10 +1,13 @@
 import type {
   BuilderDragData,
   IBuilderService,
+  IComponent,
+  IElement,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import {
   BuilderWidth,
+  componentRef,
   defaultBuilderWidthBreakPoints,
   elementRef,
   isComponentPageNodeRef,
@@ -119,30 +122,36 @@ export class BuilderService
   }
 
   @modelAction
-  selectComponentTreeNode(node: Nullable<IPageNodeRef>) {
-    this.selectedNode = node
-
+  selectComponentNode(node: Nullable<IComponent>) {
     if (!node) {
       return
     }
 
+    this.selectedNode = componentRef(node)
+
     this.expandedComponentTreeNodeIds = [
       ...this.expandedComponentTreeNodeIds,
-      ...this.findNodesToExpand(node, this.expandedComponentTreeNodeIds),
+      ...this.findNodesToExpand(
+        this.selectedNode,
+        this.expandedComponentTreeNodeIds,
+      ),
     ]
   }
 
   @modelAction
-  selectPageElementTreeNode(node: Nullable<IPageNodeRef>) {
-    this.selectedNode = node
-
+  selectElementNode(node: Nullable<IElement>) {
     if (!node) {
       return
     }
 
+    this.selectedNode = elementRef(node)
+
     this.expandedPageElementTreeNodeIds = [
       ...this.expandedPageElementTreeNodeIds,
-      ...this.findNodesToExpand(node, this.expandedPageElementTreeNodeIds),
+      ...this.findNodesToExpand(
+        this.selectedNode,
+        this.expandedPageElementTreeNodeIds,
+      ),
     ]
   }
 

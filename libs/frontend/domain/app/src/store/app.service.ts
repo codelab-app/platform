@@ -129,37 +129,39 @@ export class AppService
   loadPages = ({ appData, pageId }: IPageBuilderAppProps) => {
     const app = this.add(appData)
 
-    appData.pages.forEach((page) => {
-      ;[page.rootElement, ...page.rootElement.descendantElements].forEach(
-        (element) => {
-          this.propService.add(element.props)
+    appData.pages.forEach((pageData) => {
+      ;[
+        pageData.rootElement,
+        ...pageData.rootElement.descendantElements,
+      ].forEach((elementData) => {
+        this.propService.add(elementData.props)
 
-          /**
-           * Element comes with `component` or `atom` data that we need to load as well
-           */
-          if (element.renderAtomType?.id) {
-            this.typeService.addInterface(element.renderAtomType.api)
+        /**
+         * Element comes with `component` or `atom` data that we need to load as well
+         */
+        if (elementData.renderAtomType?.id) {
+          this.typeService.addInterface(elementData.renderAtomType.api)
 
-            element.renderAtomType.tags.forEach((tag) =>
-              this.tagService.add(tag),
-            )
+          elementData.renderAtomType.tags.forEach((tag) =>
+            this.tagService.add(tag),
+          )
 
-            this.atomService.add(element.renderAtomType)
-          }
+          this.atomService.add(elementData.renderAtomType)
+        }
 
-          if (element.renderComponentType?.id) {
-            this.typeService.addInterface(element.renderComponentType.api)
+        if (elementData.renderComponentType?.id) {
+          this.typeService.addInterface(elementData.renderComponentType.api)
 
-            this.componentService.add(element.renderComponentType)
-          }
+          this.componentService.add(elementData.renderComponentType)
+        }
 
-          this.elementService.add(element)
-        },
-      )
+        const element = this.elementService.add(elementData)
+        console.log(elementData, element)
+      })
 
       this.pageService.add({
-        ...page,
-        descendentElements: page.rootElement.descendantElements,
+        ...pageData,
+        descendentElements: pageData.rootElement.descendantElements,
       })
     })
 

@@ -1,4 +1,4 @@
-import { elementRef, RendererType } from '@codelab/frontend/abstract/core'
+import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
@@ -44,7 +44,7 @@ const PageBuilder: CodelabPage = observer(() => {
       )
 
       if (pageRootElement) {
-        builderService.selectPageElementTreeNode(elementRef(pageRootElement))
+        builderService.selectElementNode(pageRootElement)
       }
     }
   }, [value?.page])
