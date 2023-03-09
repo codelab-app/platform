@@ -112,7 +112,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                 }}
               >
                 <UpdateElementPropsForm
-                  element={selectedNode.current}
+                  element={selectedNode}
                   trackPromises={trackPromises}
                 />
               </FormContextProvider>

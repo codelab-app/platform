@@ -12,13 +12,14 @@ import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
+import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 
 export interface UpdateElementPropsFormProps {
-  element: IElement
+  element: Ref<IElement>
   trackPromises?: UseTrackLoadingPromises
 }
 
@@ -42,9 +43,10 @@ const withCustomTextSchema: JSONSchemaType<{
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element, trackPromises }) => {
-    const { typeService, elementService } = useStore()
+    const { typeService, elementService, propService } = useStore()
     const { trackPromise } = trackPromises ?? {}
-    const apiId = element.renderType?.current.api.id
+    const currentElement = element.current
+    const apiId = currentElement.renderType?.current.api.id
 
     const { value: interfaceType, loading } = useAsync(
       () => typeService.getInterfaceAndDescendants(apiId!),
@@ -55,35 +57,30 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       const filteredData = filterEmptyStrings(data)
       console.log('Submitting: ', filteredData)
 
-      console.log(element)
+      const props = element.current.props.current
 
-      const promise = elementService.patchElement(element, {
-        props: {
-          update: {
-            node: {
-              data: JSON.stringify(filteredData),
-            },
-          },
-        },
+      const promise = propService.update({
+        data: JSON.stringify(filteredData),
+        id: props.id,
       })
 
       return trackPromise?.(promise) ?? promise
     }
 
     const allowCustomInnerHtml =
-      isAtomInstance(element.renderType) &&
-      element.renderType.current.allowCustomTextInjection &&
-      element.children.length === 0
+      isAtomInstance(currentElement.renderType) &&
+      currentElement.renderType.current.allowCustomTextInjection &&
+      currentElement.children.length === 0
 
     const initialSchema = allowCustomInnerHtml ? withCustomTextSchema : {}
 
     // If element is a component type, we also show the component props
     // but should prioritize the element props
     const propsModel = mergeProps(
-      isComponentInstance(element.renderType)
-        ? element.renderType.maybeCurrent?.props?.current.values
+      isComponentInstance(currentElement.renderType)
+        ? currentElement.renderType.maybeCurrent?.props?.current.values
         : {},
-      element.props.current.values,
+      currentElement.props.current.values,
     )
 
     return (

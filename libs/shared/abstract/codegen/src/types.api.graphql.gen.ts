@@ -20744,6 +20744,50 @@ export type GetRenderedPageQuery = {
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
 }
 
+export type CreatePropsMutationVariables = Exact<{
+  input: Array<PropCreateInput> | PropCreateInput
+}>
+
+export type CreatePropsMutation = {
+  __typename?: 'Mutation'
+  createProps: {
+    __typename?: 'CreatePropsMutationResponse'
+    props: Array<{ __typename?: 'Prop' } & PropFragment>
+  }
+}
+
+export type UpdatePropsMutationVariables = Exact<{
+  where?: InputMaybe<PropWhere>
+  update?: InputMaybe<PropUpdateInput>
+}>
+
+export type UpdatePropsMutation = {
+  __typename?: 'Mutation'
+  updateProps: {
+    __typename?: 'UpdatePropsMutationResponse'
+    props: Array<{ __typename?: 'Prop' } & PropFragment>
+  }
+}
+
+export type DeletePropsMutationVariables = Exact<{
+  where: PropWhere
+}>
+
+export type DeletePropsMutation = {
+  __typename?: 'Mutation'
+  deleteProps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetPropsQueryVariables = Exact<{
+  options?: InputMaybe<PropOptions>
+  where?: InputMaybe<PropWhere>
+}>
+
+export type GetPropsQuery = {
+  __typename?: 'Query'
+  props: Array<{ __typename?: 'Prop' } & PropFragment>
+}
+
 export type GetResourcesQueryVariables = Exact<{
   options?: InputMaybe<ResourceOptions>
   where?: InputMaybe<ResourceWhere>
