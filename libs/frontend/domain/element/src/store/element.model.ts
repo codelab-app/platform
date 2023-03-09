@@ -38,16 +38,8 @@ import { compoundCaseToTitleCase, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
-import {
-  clone,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  Ref,
-} from 'mobx-keystone'
-import { makeUpdateElementInput } from './api.utils'
+import type { Ref } from 'mobx-keystone'
+import { clone, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { getElementTree } from './element-tree/element-tree.util'
 import { getRenderType } from './utils'
 
@@ -410,12 +402,18 @@ export class Element
 
     return {
       customCss: this.customCss,
+      firstChild: reconnectNodeId(this.firstChild?.id),
       guiCss: this.guiCss,
       name: this.name,
+      nextSibling: reconnectNodeId(this.nextSibling?.id),
+      parent: reconnectNodeId(this.parent?.id),
       postRenderAction: reconnectNodeId(this.postRenderAction?.id),
       preRenderAction: reconnectNodeId(this.preRenderAction?.id),
+      prevSibling: reconnectNodeId(this.prevSibling?.id),
       props: {
-        update: { node: { data: JSON.stringify(this.props.current.data) } },
+        update: {
+          node: { data: JSON.stringify(this.props.maybeCurrent?.data ?? {}) },
+        },
       },
       renderAtomType,
       renderComponentType,
@@ -479,17 +477,20 @@ export class Element
    */
   @modelAction
   connectPrevToNextSibling() {
-    return () => {
-      console.log(this)
-
-      if (this.nextSibling) {
-        this.nextSibling.current.prevSibling = this.prevSibling
-      }
-
-      if (this.prevSibling) {
-        this.prevSibling.current.nextSibling = this.nextSibling
-      }
+    if (this.nextSibling?.isValid) {
+      this.nextSibling.current.prevSibling = this.prevSibling?.isValid
+        ? elementRef(this.prevSibling.current)
+        : null
     }
+
+    if (this.prevSibling?.isValid) {
+      this.prevSibling.current.nextSibling = this.nextSibling?.isValid
+        ? elementRef(this.nextSibling.current)
+        : null
+    }
+
+    this.nextSibling = null
+    this.prevSibling = null
   }
 
   /**
@@ -501,34 +502,29 @@ export class Element
    */
   @modelAction
   detachFromParent() {
-    return () => {
-      if (!this.parent) {
-        return
-      }
-
-      /**
-       * Connect nextSibling to the parent
-       */
-      if (this.nextSibling) {
-        // Connect parent to nextSibling
-        this.parent.current.firstChild = elementRef(this.nextSibling.current)
-
-        // Connect nextSibling to parent
-        this.nextSibling.current.setParent(elementRef(this.parent.id))
-      }
-
-      this.parent = null
-      this.nextSibling = null
-
-      console.log(this)
+    if (!this.parent) {
+      return
     }
+
+    /**
+     * Connect nextSibling to the parent
+     */
+    if (this.parent.current.firstChild?.id === this.id) {
+      // Connect parent to nextSibling
+      this.parent.current.firstChild = this.nextSibling?.isValid
+        ? elementRef(this.nextSibling.current)
+        : null
+
+      // Connect nextSibling to parent
+      // this.nextSibling?.maybeCurrent?.setParent(elementRef(this.parent.id))
+    }
+
+    this.parent = null
   }
 
   @modelAction
   addParent(parentElement: IElement) {
-    return () => {
-      this.parent = elementRef(parentElement)
-    }
+    this.parent = elementRef(parentElement)
   }
 
   /**
@@ -546,110 +542,8 @@ export class Element
    */
   @modelAction
   attachToParentAsFirstChild(parentElement: IElement) {
-    return () => {
-      this.addParent(parentElement)()
-      parentElement.firstChild = elementRef(this.id)
-    }
-  }
-
-  /**
-   * Same as above, but using API
-   */
-  makeAttachToParentAsFirstChildInput(parentElement: IElement) {
-    return makeUpdateElementInput(parentElement, {
-      firstChild: {
-        ...connectNodeId(this.id),
-        ...disconnectNodeId(parentElement.firstChild?.id),
-      },
-    })
-  }
-
-  makeDetachFromParentInput() {
-    if (!this.closestParent) {
-      return null
-    }
-
-    const parentElementChanges: ElementUpdateInput = {}
-
-    if (this.closestParent.firstChild?.maybeCurrent?.id === this.id) {
-      parentElementChanges.firstChild = {
-        ...disconnectNodeId(this.id),
-        ...connectNodeId(this.nextSibling?.id),
-      }
-    }
-
-    return makeUpdateElementInput(this.closestParent, parentElementChanges)
-  }
-
-  makeDetachFromPrevSiblingInput() {
-    if (!this.prevSibling) {
-      return null
-    }
-
-    // prev Sibling - [element] - next sbiling
-    return makeUpdateElementInput(this.prevSibling, {
-      nextSibling: {
-        // disconnect element
-        ...disconnectNodeId(this.id),
-        // connect next sibling
-        ...connectNodeId(this.nextSibling?.id),
-      },
-    })
-  }
-
-  makeDetachFromNextSiblingInput() {
-    if (!this.nextSibling) {
-      return null
-    }
-
-    // prev Sibling - [element] - next sbiling
-    return makeUpdateElementInput(this.nextSibling, {
-      prevSibling: {
-        // detach element
-        ...disconnectNodeId(this.id),
-        // attach prev sibling
-        ...connectNodeId(this.prevSibling?.id),
-      },
-    })
-  }
-
-  /**
-   * (sibling)-(sibling.nextSibling)
-   * (sibling)-[element]-x-(sibling.nextSibling)
-   *
-   * @param siblingId target element to attach as
-   * @returns
-   */
-  makeAttachAsNextSiblingInput(siblingId: string) {
-    const sibling = this.elementService.element(siblingId)
-
-    return makeUpdateElementInput(sibling, {
-      nextSibling: {
-        // sibling detaches
-        ...disconnectNodeId(sibling.nextSibling?.id),
-        // appends element
-        ...connectNodeId(this.id),
-      },
-    })
-  }
-
-  /**
-   * This will disconnect the current previous sibling, and replace it with the new element
-   *
-   * (sibling.prevSibling)-(sibling)
-   * (sibling.prevSibling)-x-[element]-(sibling)
-   */
-  makeAttachAsPrevSiblingInput(siblingId: string) {
-    const sibling = this.elementService.element(siblingId)
-
-    return makeUpdateElementInput(sibling, {
-      prevSibling: {
-        // sibling detaches its prev sibling
-        ...disconnectNodeId(sibling.prevSibling?.id),
-        // sibling prepends element
-        ...connectNodeId(this.id),
-      },
-    })
+    this.addParent(parentElement)
+    parentElement.firstChild = elementRef(this.id)
   }
 
   /**
@@ -663,11 +557,9 @@ export class Element
    */
   @modelAction
   attachAsPrevSibling(sibling: IElement) {
-    return () => {
-      // Add element as as prevSibling
-      sibling.prevSibling = elementRef(this)
-      this.nextSibling = elementRef(sibling)
-    }
+    // Add element as as prevSibling
+    sibling.prevSibling = elementRef(this)
+    this.nextSibling = elementRef(sibling)
   }
 
   /**
@@ -680,11 +572,9 @@ export class Element
    * @returns
    */
   @modelAction
-  attachAsNextSibling(sibling: Ref<IElement>) {
-    return () => {
-      sibling.current.nextSibling = elementRef(this.id)
-      this.prevSibling = elementRef(sibling.current.id)
-    }
+  attachAsNextSibling(sibling: IElement) {
+    sibling.nextSibling = elementRef(this.id)
+    this.prevSibling = elementRef(sibling.id)
   }
 
   /**

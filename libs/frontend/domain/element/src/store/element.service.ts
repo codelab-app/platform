@@ -7,7 +7,6 @@ import type {
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
-  elementRef,
   getBuilderService,
   getComponentService,
   IElementDTO,
@@ -25,7 +24,7 @@ import type {
 import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { isNonNullable } from '@codelab/shared/utils'
+import compact from 'lodash/compact'
 import { computed } from 'mobx'
 import {
   _async,
@@ -40,7 +39,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import { ElementRepository } from '../services/element.repo'
 import { makeAutoIncrementedName } from '../utils'
 import {
@@ -267,39 +265,27 @@ export class ElementService
    * - Detach from prev sibling
    * - Connect prev to next
    */
-  @modelFlow
-  @transaction
-  private detachElementFromElementTree = _async(function* (
+  @modelAction
+  private detachElementFromElementTree(
     this: ElementService,
     elementId: string,
   ) {
     const element = this.element(elementId)
 
-    /**
-     * parent
-     * prev
-     * element
-     * next
-     */
-    const updateElementInputs = [
-      element.makeDetachFromParentInput(),
-      element.makeDetachFromNextSiblingInput(),
-      element.makeDetachFromPrevSiblingInput(),
+    const affectedNodeIds = [
+      element.prevSibling?.maybeCurrent?.id,
+      element.nextSibling?.maybeCurrent?.id,
     ]
 
-    const updateElementCacheFns: Array<() => void> = [
-      element.detachFromParent(),
-      element.connectPrevToNextSibling(),
-    ]
+    if (element.parent?.maybeCurrent?.firstChild?.id === element.id) {
+      affectedNodeIds.push(element.parent.current.id)
+    }
 
-    const updateElementRequests = updateElementInputs
-      .filter(isNonNullable)
-      .map((input) => elementApi.UpdateElements(input))
+    element.detachFromParent()
+    element.connectPrevToNextSibling()
 
-    yield* _await(Promise.all(updateElementRequests))
-
-    updateElementCacheFns.forEach((fn) => fn())
-  })
+    return compact(affectedNodeIds)
+  }
 
   /**
    * Moves an element to the next position of target element
@@ -322,10 +308,29 @@ export class ElementService
           return
         }
 
-        yield* _await(this.detachElementFromElementTree(element.id))
+        const oldConnectedNodeIds = this.detachElementFromElementTree(
+          element.id,
+        )
 
         yield* _await(
-          this.attachElementAsNextSibling({ element, targetElement }),
+          Promise.all(
+            oldConnectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
+        )
+
+        const newConnectedNodeIds = this.attachElementAsNextSibling({
+          element,
+          targetElement,
+        })
+
+        yield* _await(
+          Promise.all(
+            newConnectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
         )
       },
     ),
@@ -343,10 +348,29 @@ export class ElementService
           parentElement,
         }: Parameters<IElementService['moveElementAsFirstChild']>[0],
       ) {
-        yield* _await(this.detachElementFromElementTree(element.id))
+        const oldConnectedNodeIds = this.detachElementFromElementTree(
+          element.id,
+        )
 
         yield* _await(
-          this.attachElementAsFirstChild({ element, parentElement }),
+          Promise.all(
+            oldConnectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
+        )
+
+        const newConnectedNodeIds = this.attachElementAsFirstChild({
+          element,
+          parentElement,
+        })
+
+        yield* _await(
+          Promise.all(
+            newConnectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
         )
       },
     ),
@@ -370,11 +394,17 @@ export class ElementService
           throw new Error('Create element failed')
         }
 
+        const affectedNodeIds = this.attachElementAsFirstChild({
+          element,
+          parentElement: data.parentElement,
+        })
+
         yield* _await(
-          this.attachElementAsFirstChild({
-            element,
-            parentElement: data.parentElement,
-          }),
+          Promise.all(
+            affectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
         )
 
         return element
@@ -396,11 +426,17 @@ export class ElementService
 
         const prevSibling = this.element(data.prevSibling.id)
 
+        const affectedNodeIds = this.attachElementAsNextSibling({
+          element,
+          targetElement: prevSibling,
+        })
+
         yield* _await(
-          this.attachElementAsNextSibling({
-            element,
-            targetElement: prevSibling,
-          }),
+          Promise.all(
+            affectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
         )
 
         return element
@@ -414,9 +450,8 @@ export class ElementService
    * (target)-(nextSibling)
    * (target)-[element]-(nextSibling)
    */
-  @modelFlow
-  @transaction
-  private attachElementAsNextSibling = _async(function* (
+  @modelAction
+  private attachElementAsNextSibling(
     this: ElementService,
     {
       element: existingElement,
@@ -428,51 +463,27 @@ export class ElementService
   ) {
     const element = this.element(existingElement.id)
     const targetElement = this.element(existingTargetElement.id)
-    const updateElementInputs: Array<UpdateElementsMutationVariables> = []
-    const updateElementCacheFns: Array<() => void> = []
+    const affectedNodeIds: Array<string> = []
 
     // Attach to parent
-    if (targetElement.parent) {
-      updateElementCacheFns.push(
-        element.addParent(targetElement.parent.current),
-      )
+    if (
+      targetElement.parent &&
+      targetElement.parent.id !== element.parent?.id
+    ) {
+      element.addParent(targetElement.parent.current)
     }
 
     if (targetElement.nextSibling) {
-      updateElementInputs.push(
-        element.makeAttachAsPrevSiblingInput(targetElement.nextSibling.id),
-      )
-      updateElementCacheFns.push(
-        element.attachAsPrevSibling(targetElement.nextSibling.current),
-      )
-
-      /** [element]-nextSibling */
-      updateElementInputs.push(
-        targetElement.nextSibling.current.makeAttachAsNextSiblingInput(
-          element.id,
-        ),
-      )
-      updateElementCacheFns.push(
-        targetElement.nextSibling.current.attachAsNextSibling(
-          elementRef(element),
-        ),
-      )
+      element.attachAsPrevSibling(targetElement.nextSibling.current)
+      targetElement.nextSibling.current.attachAsNextSibling(element)
+      affectedNodeIds.push(targetElement.nextSibling.current.id)
     }
 
-    updateElementInputs.push(
-      element.makeAttachAsNextSiblingInput(targetElement.id),
-    )
-    updateElementCacheFns.push(
-      element.attachAsNextSibling(elementRef(targetElement.id)),
-    )
+    element.attachAsNextSibling(targetElement)
+    affectedNodeIds.push(targetElement.id)
 
-    const updateElementRequests = updateElementInputs
-      .filter(isNonNullable)
-      .map((input) => elementApi.UpdateElements(input))
-
-    yield* _await(Promise.all(updateElementRequests))
-    updateElementCacheFns.forEach((fn) => fn())
-  })
+    return affectedNodeIds
+  }
 
   /**
    * Moves an element as a first child to a parent. Bumps the existing firstChild as nextSibling
@@ -485,9 +496,8 @@ export class ElementService
    * \
    * [element]-(firstChild)
    */
-  @modelFlow
-  @transaction
-  private attachElementAsFirstChild = _async(function* (
+  @modelAction
+  private attachElementAsFirstChild(
     this: ElementService,
     {
       element: existingElement,
@@ -499,43 +509,22 @@ export class ElementService
   ) {
     const element = this.element(existingElement.id)
     const parentElement = this.element(existingParentElement.id)
-    const updateElementInputs = []
-    const updateElementCacheFns: Array<() => void> = []
+    const affectedNodeIds: Array<string> = []
 
     /**
      * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
      */
     if (parentElement.firstChild) {
-      updateElementInputs.push(
-        element.makeAttachAsPrevSiblingInput(parentElement.firstChild.id),
-      )
-      updateElementCacheFns.push(
-        element.attachAsPrevSibling(parentElement.firstChild.current),
-      )
+      element.attachAsPrevSibling(parentElement.firstChild.current)
+      affectedNodeIds.push(parentElement.firstChild.current.id)
     }
 
-    console.log('attach to parent')
-
     // attach to parent
-    updateElementInputs.push(
-      element.makeAttachToParentAsFirstChildInput(parentElement),
-    )
-    updateElementCacheFns.push(
-      element.attachToParentAsFirstChild(parentElement),
-    )
+    element.attachToParentAsFirstChild(parentElement)
+    affectedNodeIds.push(parentElement.id)
 
-    const updateElementRequests = updateElementInputs.map((input) =>
-      elementApi.UpdateElements(input),
-    )
-
-    yield* _await(Promise.all(updateElementRequests))
-
-    console.log('After updateRequests')
-
-    updateElementCacheFns.forEach((fn) => fn())
-
-    console.log('After update cache')
-  })
+    return affectedNodeIds
+  }
 
   @modelFlow
   @transaction
@@ -582,26 +571,41 @@ export class ElementService
 
           element = yield* _await(this.create(data))
         } else {
-          yield* _await(this.detachElementFromElementTree(element.id))
+          const oldConnectedNodeIds = this.detachElementFromElementTree(
+            element.id,
+          )
+
+          yield* _await(
+            Promise.all(
+              oldConnectedNodeIds.map((id) =>
+                this.elementRepository.updateNodes(this.element(id)),
+              ),
+            ),
+          )
         }
 
         const insertAfterId = targetElement.children[dropPosition]?.id
+        let newConnectedNodeIds: Array<string> = []
 
         if (!insertAfterId || dropPosition === 0) {
-          yield* _await(
-            this.attachElementAsFirstChild({
-              element,
-              parentElement: targetElement,
-            }),
-          )
+          newConnectedNodeIds = this.attachElementAsFirstChild({
+            element,
+            parentElement: targetElement,
+          })
         } else {
-          yield* _await(
-            this.attachElementAsNextSibling({
-              element,
-              targetElement: { id: insertAfterId },
-            }),
-          )
+          newConnectedNodeIds = this.attachElementAsNextSibling({
+            element,
+            targetElement: { id: insertAfterId },
+          })
         }
+
+        yield* _await(
+          Promise.all(
+            newConnectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
+        )
 
         Element.getElementTree(element)?.removeElements([
           element,
@@ -625,23 +629,28 @@ export class ElementService
     console.debug('deleteElementSubgraph', subRoot)
 
     const subRootElement = this.element(subRoot.id)
+    const affectedNodeIds = this.detachElementFromElementTree(subRootElement.id)
 
-    // const descendantElements = subRootElement.descendantElements.map(
-    //   (element) => element,
-    // )
-
-    // const allElementsToDelete = [subRootElement, ...descendantElements]
-
-    yield* _await(this.detachElementFromElementTree(subRootElement.id))
+    const allElementsToDelete = [
+      subRootElement,
+      ...subRootElement.descendantElements,
+    ]
 
     this.elements.delete(subRootElement.id)
+    allElementsToDelete.reverse().forEach((element) => {
+      this.removeClones(element.id)
+      this.elements.delete(element.id)
+    })
 
-    // allElementsToDelete.reverse().forEach((element) => {
-    //   this.removeClones(element.id)
-    //   this.elements.delete(element.id)
-    // })
+    yield* _await(
+      Promise.all(
+        affectedNodeIds.map((id) =>
+          this.elementRepository.updateNodes(this.element(id)),
+        ),
+      ),
+    )
 
-    // yield* _await(this.elementRepository.delete(allElementsToDelete))
+    yield* _await(this.elementRepository.delete(allElementsToDelete))
 
     return
   })
@@ -676,18 +685,25 @@ export class ElementService
 
     const elementModel = this.add(createdElement)
     const lastChild = parentElement.children[parentElement.children.length - 1]
+    let affectedNodeIds: Array<string> = []
 
     if (!lastChild) {
-      await this.attachElementAsFirstChild({
+      affectedNodeIds = this.attachElementAsFirstChild({
         element: elementModel,
         parentElement,
       })
     } else {
-      await this.attachElementAsNextSibling({
+      affectedNodeIds = this.attachElementAsNextSibling({
         element: elementModel,
         targetElement: lastChild,
       })
     }
+
+    await Promise.all(
+      affectedNodeIds.map((id) =>
+        this.elementRepository.updateNodes(this.element(id)),
+      ),
+    )
 
     const children = await Promise.all(
       element.children.map((child) =>
@@ -755,7 +771,17 @@ export class ElementService
         const { label, name, parent: parentElement, prevSibling } = element
 
         // 1. detach the element from the element tree
-        yield* _await(this.detachElementFromElementTree(element.id))
+        const oldConnectedNodeIds = this.detachElementFromElementTree(
+          element.id,
+        )
+
+        yield* _await(
+          Promise.all(
+            oldConnectedNodeIds.map((id) =>
+              this.elementRepository.updateNodes(this.element(id)),
+            ),
+          ),
+        )
 
         const api = this.typeService.addInterface({
           id: v4(),
@@ -790,11 +816,17 @@ export class ElementService
             }),
           )
 
+          const newConnectedNodeIds = this.attachElementAsFirstChild({
+            element: createdElement,
+            parentElement,
+          })
+
           yield* _await(
-            this.attachElementAsFirstChild({
-              element: createdElement,
-              parentElement,
-            }),
+            Promise.all(
+              newConnectedNodeIds.map((id) =>
+                this.elementRepository.updateNodes(this.element(id)),
+              ),
+            ),
           )
 
           return createdElement
