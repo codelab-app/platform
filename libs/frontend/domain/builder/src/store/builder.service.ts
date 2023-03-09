@@ -134,7 +134,6 @@ export class BuilderService
 
   @modelAction
   selectPageElementTreeNode(node: Nullable<IPageNodeRef>) {
-    console.log(node)
     this.selectedNode = node
 
     if (!node) {

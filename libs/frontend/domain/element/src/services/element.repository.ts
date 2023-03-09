@@ -10,8 +10,6 @@ import { elementApi } from '../store'
 export class ElementRepository extends Model({}) implements IElementRepository {
   @modelFlow
   add = _async(function* (this: ElementRepository, element: IElement) {
-    console.log(element.toCreateInput())
-
     const {
       createElements: { elements },
     } = yield* _await(
