@@ -1,7 +1,10 @@
 import type { IApp, IPage, IPageFactory } from '@codelab/frontend/abstract/core'
 import {
+  APP_PAGE_NAME,
   DEFAULT_GET_SERVER_SIDE_PROPS,
   getElementService,
+  INTERNAL_SERVER_ERROR_PAGE_NAME,
+  NOT_FOUND_PAGE_NAME,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
@@ -42,6 +45,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return this.addDefaultPage({
       app,
       kind: IPageKind.Provider,
+      name: APP_PAGE_NAME,
     })
   }
 
@@ -50,6 +54,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return this.addDefaultPage({
       app,
       kind: IPageKind.NotFound,
+      name: NOT_FOUND_PAGE_NAME,
     })
   }
 
@@ -58,11 +63,16 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return this.addDefaultPage({
       app,
       kind: IPageKind.InternalServerError,
+      name: INTERNAL_SERVER_ERROR_PAGE_NAME,
     })
   }
 
   @modelAction
-  private addDefaultPage({ kind, app }: Pick<IPage, 'app' | 'kind'>) {
+  private addDefaultPage({
+    kind,
+    app,
+    name,
+  }: Pick<IPage, 'app' | 'kind' | 'name'>) {
     const rootElementProps = this.propService.add({
       id: v4(),
     })
@@ -78,7 +88,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
       getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       id: v4(),
       kind,
-      name: kind,
+      name,
       rootElement,
     })
   }
