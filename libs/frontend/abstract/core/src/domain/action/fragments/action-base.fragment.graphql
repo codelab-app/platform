@@ -1,4 +1,4 @@
-fragment ActionBase on ActionBase {
+fragment BaseAction on BaseAction {
   __typename
   id
   name

@@ -16,6 +16,8 @@ export interface IProp extends ICacheService<IPropDTO, IProp> {
   jsonString: string
   values: IPropData
 
+  toCreateInput(): PropCreateInput
+  toUpdateInput(): PropUpdateInput
   set(key: string, value: object | string): void
   setSilently(key: string, value: object): void
   setMany(data: IPropData): void

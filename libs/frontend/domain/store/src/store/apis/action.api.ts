@@ -1,5 +1,5 @@
 import type {
-  IAnyActionWhere,
+  IActionWhere,
   IConnectActionInput,
   ICreateActionInput,
   IDeleteActionInput,
@@ -41,7 +41,7 @@ type CreateActions = Record<
 type UpdateActionsRecord = Record<
   IActionKind,
   (vars: {
-    where: IAnyActionWhere
+    where: IActionWhere
     update: IUpdateActionInput
     delete?: IDeleteActionInput
     disconnect?: IDisconnectActionInput
@@ -52,7 +52,7 @@ type UpdateActionsRecord = Record<
 type DeleteActionsRecord = Record<
   IActionKind,
   (vars: {
-    where: IAnyActionWhere
+    where: IActionWhere
   }) => Promise<{ relationshipsDeleted: number; nodesDeleted: number }>
 >
 

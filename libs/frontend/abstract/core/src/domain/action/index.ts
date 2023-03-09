@@ -1,6 +1,7 @@
 export * from './action.dto.interface'
 export * from './action.input.interface'
 export * from './action.interface'
+export * from './action.repository.interface'
 export * from './action.service.interface'
 export * from './action.where.interface'
 export * from './action-base.interface'

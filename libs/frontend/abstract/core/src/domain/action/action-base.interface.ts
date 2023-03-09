@@ -3,7 +3,7 @@ import type { Ref } from 'mobx-keystone'
 import type { IProp } from '../prop'
 import type { IStore } from '../store'
 
-export interface IActionBase {
+export interface IBaseAction {
   id: IActionRef
   name: string
   type: IActionKind
