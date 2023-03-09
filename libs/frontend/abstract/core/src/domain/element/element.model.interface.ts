@@ -53,7 +53,7 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   guiCss?: Nullable<string>
   props: Ref<IProp>
   hooks: Array<IHook>
-  parent?: Ref<IElement>
+  parent?: Nullable<Ref<IElement>>
   parentComponent?: Nullable<Ref<IComponent>>
   // parentElement?: IEntity
   label: string
@@ -92,18 +92,16 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
    */
   sourceElement: Nullable<IEntity>
 
-  detachNextSibling(): () => void
-  detachPrevSibling(): () => void
-  removeParent(): () => void
-  attachPrevToNextSibling(): () => void
+  detachFromParent(): () => void
+  connectPrevToNextSibling(): () => void
   addParent(parentElement: IElement): () => void
-  attachAsPrevSibling(sibling: Ref<IElement>): () => void
+  attachAsPrevSibling(sibling: IElement): () => void
   attachAsNextSibling(sibling: Ref<IElement>): () => void
   clone(cloneIndex: number): IElement
   // updateCloneIds(elementMap: Map<string, string>): IElement
-  makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
-  makeDetachPrevSiblingInput(): UpdateElementsMutationVariables | null
-  makeDetachParentInput(): UpdateElementsMutationVariables | null
+  makeDetachFromNextSiblingInput(): UpdateElementsMutationVariables | null
+  makeDetachFromPrevSiblingInput(): UpdateElementsMutationVariables | null
+  makeDetachFromParentInput(): UpdateElementsMutationVariables | null
   attachToParentAsFirstChild(parentElement: IElement): () => void
   makeAttachToParentAsFirstChildInput(
     parentElement: IElement,

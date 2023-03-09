@@ -12,7 +12,7 @@ import type { IPropDTO } from './prop.dto.interface'
 export interface IProp extends ICacheService<IPropDTO, IProp> {
   id: string
   data: Frozen<Nullable<IPropData>>
-  api?: Ref<IInterfaceType>
+  api?: Nullable<Ref<IInterfaceType>>
   jsonString: string
   values: IPropData
 

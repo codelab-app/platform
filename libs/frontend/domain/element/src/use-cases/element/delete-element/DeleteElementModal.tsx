@@ -33,7 +33,7 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
       const parentElement = elementToDelete.parent?.current
 
       // Don't wait so we don't block the UI
-      void elementService.deleteElementSubgraph(element)
+      void elementService.delete(element)
 
       parentElement &&
         // Need to create new ref since prev ref already has a parent
