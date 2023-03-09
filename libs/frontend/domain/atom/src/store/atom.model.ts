@@ -7,12 +7,17 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { typeRef } from '@codelab/frontend/domain/type'
-import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
+import {
+  AtomCreateInput,
+  AtomUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
+  connectNodeId,
   connectNodeIds,
+  reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -91,22 +96,7 @@ export class Atom
 
   @modelAction
   toCreateInput(): AtomCreateInput {
-    // const connectOrCreateApi = (
-    //   atom: Pick<ICreateAtomData, 'api' | 'name' | 'owner'>,
-    // ) =>
-    //   atom.api
-    //     ? connectNodeId(atom.api)
-    //     : {
-    //         create: {
-    //           node: InterfaceType.createApiNode({
-    //             name: atom.name,
-    //             owner: atom.owner,
-    //           }),
-    //         },
-    //       }
-
     return {
-      // api: connectOrCreateApi({ api, name, owner }),
       api: {
         create: {
           node: {
@@ -121,6 +111,18 @@ export class Atom
       name: this.name,
       owner: connectAuth0Owner(this.owner),
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
+      type: this.type,
+    }
+  }
+
+  @modelAction
+  toUpdateInput(): AtomUpdateInput {
+    return {
+      api: connectNodeId(this.api.id),
+      id: this.id,
+      name: this.name,
+      owner: connectAuth0Owner(this.owner),
+      tags: reconnectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }
   }

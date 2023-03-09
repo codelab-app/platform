@@ -13,6 +13,7 @@ import type {
   IUpdateAtomData,
 } from './atom.dto.interface'
 import type { IAtom } from './atom.model.interface'
+import type { IAtomRepository } from './atom.repository.interface'
 
 export interface IAtomService
   extends Omit<ICRUDService<IAtom, ICreateAtomData, IUpdateAtomData>, 'delete'>,
@@ -32,4 +33,5 @@ export interface IAtomService
   selectedIds: ArraySet<string>
   setSelectedIds(arraySet: ArraySet<string>): void
   add(atomDTO: IAtomDTO): IAtom
+  atomRepository: IAtomRepository
 }
