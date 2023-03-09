@@ -99,7 +99,7 @@ PageBuilder.Layout = observer((page) => {
           storeId={pageBuilderRenderer?.appStore.id as string}
         />
       )),
-    [pageBuilderRenderer, builderService],
+    [pageBuilderRenderer, pageId],
   )
 
   const HeaderComponent = useMemo(

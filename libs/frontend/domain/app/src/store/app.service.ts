@@ -121,6 +121,7 @@ export class AppService
       ;[page.rootElement, ...page.rootElement.descendantElements].forEach(
         (element) => {
           this.propService.add(element.props)
+          console.log(element)
           this.elementService.add(element)
         },
       )

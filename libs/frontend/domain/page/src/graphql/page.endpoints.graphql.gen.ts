@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { PageFragment } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import {
-  PageBuilderAppFragment,
+  PageFragment,
   BuilderPageFragment,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
+import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import {
@@ -26,11 +26,11 @@ import {
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { PageFragmentDoc } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import {
-  PageBuilderAppFragmentDoc,
+  PageFragmentDoc,
   BuilderPageFragmentDoc,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
+import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'

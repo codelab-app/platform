@@ -19843,25 +19843,6 @@ export type AppFragment = {
   store: { __typename?: 'Store'; id: string }
 }
 
-export type BuilderPageFragment = {
-  __typename?: 'Page'
-  id: string
-  name: string
-  slug: string
-  getServerSideProps?: string | null
-  kind: PageKind
-  rootElement: {
-    __typename?: 'Element'
-    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
-  } & ElementFragment
-  app: {
-    __typename?: 'App'
-    id: string
-    owner: { __typename?: 'User' } & OwnerFragment
-  }
-  pageContentContainer?: { __typename?: 'Element'; id: string } | null
-}
-
 export type PageBuilderAppFragment = {
   __typename?: 'App'
   id: string
@@ -19938,12 +19919,7 @@ export type ElementFragment = {
   renderComponentType?:
     | ({ __typename?: 'Component' } & ComponentFragment)
     | null
-  renderAtomType?: ({ __typename?: 'Atom' } & RenderAtomFragment) | null
-  renderType?: {
-    __typename?: 'RenderType'
-    id: string
-    kind: RenderTypeKind
-  } | null
+  renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null
@@ -19982,6 +19958,25 @@ export type PageFragment = {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
   } & ElementFragment
+  pageContentContainer?: { __typename?: 'Element'; id: string } | null
+}
+
+export type BuilderPageFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  slug: string
+  getServerSideProps?: string | null
+  kind: PageKind
+  rootElement: {
+    __typename?: 'Element'
+    descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
+  } & ElementFragment
+  app: {
+    __typename?: 'App'
+    id: string
+    owner: { __typename?: 'User' } & OwnerFragment
+  }
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 
@@ -20209,20 +20204,20 @@ export type FieldFragment = {
   validationRules?: string | null
   defaultValues?: string | null
   fieldType:
-    | { __typename?: 'ActionType'; id: string }
-    | { __typename?: 'AppType'; id: string }
-    | { __typename?: 'ArrayType'; id: string }
-    | { __typename?: 'BaseType'; id: string }
-    | { __typename?: 'CodeMirrorType'; id: string }
-    | { __typename?: 'ElementType'; id: string }
-    | { __typename?: 'EnumType'; id: string }
-    | { __typename?: 'InterfaceType'; id: string }
-    | { __typename?: 'LambdaType'; id: string }
-    | { __typename?: 'PageType'; id: string }
-    | { __typename?: 'PrimitiveType'; id: string }
-    | { __typename?: 'ReactNodeType'; id: string }
-    | { __typename?: 'RenderPropsType'; id: string }
-    | { __typename?: 'UnionType'; id: string }
+    | { __typename: 'ActionType'; id: string; kind: TypeKind }
+    | { __typename: 'AppType'; id: string; kind: TypeKind }
+    | { __typename: 'ArrayType'; id: string; kind: TypeKind }
+    | { __typename: 'BaseType'; id: string; kind: TypeKind }
+    | { __typename: 'CodeMirrorType'; id: string; kind: TypeKind }
+    | { __typename: 'ElementType'; id: string; kind: TypeKind }
+    | { __typename: 'EnumType'; id: string; kind: TypeKind }
+    | { __typename: 'InterfaceType'; id: string; kind: TypeKind }
+    | { __typename: 'LambdaType'; id: string; kind: TypeKind }
+    | { __typename: 'PageType'; id: string; kind: TypeKind }
+    | { __typename: 'PrimitiveType'; id: string; kind: TypeKind }
+    | { __typename: 'ReactNodeType'; id: string; kind: TypeKind }
+    | { __typename: 'RenderPropsType'; id: string; kind: TypeKind }
+    | { __typename: 'UnionType'; id: string; kind: TypeKind }
   api: { __typename?: 'InterfaceType'; id: string }
 }
 
