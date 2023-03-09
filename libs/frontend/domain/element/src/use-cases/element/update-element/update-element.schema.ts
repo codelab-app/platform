@@ -48,7 +48,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     },
     renderType: {
       label: 'Render Type',
-      nullable: true,
       properties: {
         id: {
           type: 'string',

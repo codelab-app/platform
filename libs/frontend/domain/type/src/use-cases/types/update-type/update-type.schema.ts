@@ -17,7 +17,6 @@ export const updateTypeSchema: JSONSchemaType<
       items: {
         properties: {
           id: {
-            nullable: true,
             type: 'string',
             uniforms: {
               component: () => null,

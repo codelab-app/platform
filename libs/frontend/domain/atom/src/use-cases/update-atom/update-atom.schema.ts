@@ -1,6 +1,6 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
-import { nonEmptyString } from '@codelab/frontend/view/components'
+import { idSchema, nonEmptyString } from '@codelab/frontend/view/components'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -14,19 +14,11 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       showSearch: true,
       type: 'array',
     },
-    id: {
-      nullable: true,
-      type: 'string',
-      uniforms: {
-        component: () => null,
-      },
-    },
-
+    ...idSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,
     },
-
     tags: {
       items: {
         properties: {

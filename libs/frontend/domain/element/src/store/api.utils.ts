@@ -70,7 +70,7 @@ export const makeDuplicateInput = (
   duplicate_name: string,
 ): ElementCreateInput => {
   const props: ElementCreateInput['props'] = {
-    create: { node: { data: element.props.current.jsonString } },
+    create: { node: { data: element.props.current.jsonString, id: v4() } },
   }
 
   return {

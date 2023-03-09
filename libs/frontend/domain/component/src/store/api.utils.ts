@@ -17,7 +17,7 @@ export const mapCreateInput = ({
   const newRootElement = { id: v4() }
 
   const props: ComponentCreateInput['props'] = {
-    create: { node: { data: JSON.stringify({}) } },
+    create: { node: { data: JSON.stringify({}), id: v4() } },
   }
 
   const createRootElement: CreateRootElement = (element: IEntity) => ({

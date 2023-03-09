@@ -1,6 +1,7 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import {
+  idSchema,
   nonEmptyString,
   showFieldOnDev,
 } from '@codelab/frontend/view/components'
@@ -17,15 +18,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       showSearch: true,
       type: 'array',
     },
-
-    id: {
-      nullable: true,
-      type: 'string',
-      uniforms: {
-        component: () => null,
-      },
-    },
-
+    ...idSchema,
     // Hide field for now, added only to implement the interface
     // api: {
     //   type: 'string',

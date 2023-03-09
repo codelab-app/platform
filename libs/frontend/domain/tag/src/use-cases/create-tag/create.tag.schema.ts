@@ -17,7 +17,6 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
       nullable: true,
       properties: {
         id: {
-          nullable: true,
           type: 'string',
         },
       },
@@ -26,7 +25,7 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
     },
     ...ownerSchema,
   },
-  required: ['name'],
+  required: ['id', 'name'],
   title: 'Create Tag Input',
   type: 'object',
 } as const

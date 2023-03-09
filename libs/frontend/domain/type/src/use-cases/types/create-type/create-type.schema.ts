@@ -26,7 +26,6 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeData> = {
       items: {
         properties: {
           id: {
-            nullable: true,
             type: 'string',
             uniforms: {
               component: () => null,
