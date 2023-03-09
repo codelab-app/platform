@@ -8,9 +8,11 @@ export interface DeleteElementData {
 export const deleteElementSchema: JSONSchemaType<DeleteElementData> = {
   properties: {
     element: {
-      id: {
-        disabled: true,
-        type: 'string',
+      properties: {
+        id: {
+          disabled: true,
+          type: 'string',
+        },
       },
       required: ['id'],
       type: 'object',
