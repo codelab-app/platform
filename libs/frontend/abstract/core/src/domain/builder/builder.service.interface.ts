@@ -2,7 +2,7 @@ import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { IAtom } from '../atom'
 import type { IComponent } from '../component'
-import type { IElementTree } from '../element'
+import type { IElement, IElementTree } from '../element'
 import type { IPageNodeRef } from '../page'
 import type { RendererTab } from '../render'
 import type { BuilderDragData, BuilderWidth } from './builder.interface'
@@ -34,11 +34,11 @@ export interface IBuilderService {
 
   expandedPageElementTreeNodeIds: Array<string>
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectComponentTreeNode(node: Nullable<IPageNodeRef>): void
+  selectComponentNode(node: Nullable<IComponent>): void
 
   expandedComponentTreeNodeIds: Array<string>
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectPageElementTreeNode(node: Nullable<IPageNodeRef>): void
+  selectElementNode(node: Nullable<IElement>): void
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
@@ -46,7 +46,7 @@ export interface IBuilderService {
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
 
-  // setSelectedTreeNode(node: IBuilderDataNode | null): void
+  // set SelectedTreeNode(node: IBuilderDataNode | null): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
   setSelectedNode(node: Nullable<IPageNodeRef>): void
   setCurrentBuilderWidth(width: Nullable<BuilderWidth>): void

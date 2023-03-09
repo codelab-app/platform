@@ -1,6 +1,10 @@
 import { ApartmentOutlined, DatabaseOutlined } from '@ant-design/icons'
-import type { IStore } from '@codelab/frontend/abstract/core'
-import { RendererTab } from '@codelab/frontend/abstract/core'
+import type { IPageNode, IStore } from '@codelab/frontend/abstract/core'
+import {
+  isComponentPageNode,
+  isElementPageNode,
+  RendererTab,
+} from '@codelab/frontend/abstract/core'
 import {
   CreateComponentButton,
   CreateComponentModal,
@@ -95,6 +99,18 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       <CreateActionButton actionService={actionService} />
     )
 
+    const selectTreeNode = (node: IPageNode) => {
+      if (isComponentPageNode(node)) {
+        return builderService.selectComponentNode(node)
+      }
+
+      if (isElementPageNode(node)) {
+        return builderService.selectElementNode(node)
+      }
+
+      return
+    }
+
     const tabItems = [
       {
         children: (
@@ -122,9 +138,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 className="page-builder"
                 elementTree={pageTree}
                 expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
-                selectTreeNode={builderService.selectPageElementTreeNode.bind(
-                  builderService,
-                )}
+                selectTreeNode={selectTreeNode}
                 setActiveTree={() =>
                   builderService.setActiveTree(RendererTab.Page)
                 }
@@ -151,9 +165,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               <BuilderTree
                 elementTree={componentTree ?? null}
                 expandedNodeIds={builderService.expandedComponentTreeNodeIds}
-                selectTreeNode={builderService.selectComponentTreeNode.bind(
-                  builderService,
-                )}
+                selectTreeNode={selectTreeNode}
                 setActiveTree={() =>
                   builderService.setActiveTree(RendererTab.Component)
                 }
