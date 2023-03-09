@@ -115,7 +115,7 @@ export class Element
     // page which has this element as rootElement
     page: prop<Nullable<IEntity>>(null),
     // Data used for tree initializing, before our Element model is ready
-    parent: prop<Maybe<Ref<IElement>>>().withSetter(),
+    parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     // component which has this element as rootElement
     parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     postRenderAction: prop<Nullish<IEntity>>(null),
@@ -145,13 +145,13 @@ export class Element
 
   @computed
   get rootElement(): IElement {
-    return this.parentElement ? this.parentElement.rootElement : this
+    return this.closestParent ? this.closestParent.rootElement : this
   }
 
   @computed
   get baseId() {
-    if (this.parentElement) {
-      return this.parentElement.baseId
+    if (this.closestParent) {
+      return this.closestParent.baseId
     }
 
     const baseId = this.page?.id || this.parentComponent?.id
@@ -184,42 +184,47 @@ export class Element
     return results
   }
 
+  /**
+   * Only the root doesn't have a closestParent
+   */
   @computed
   get isRoot() {
-    // check no parent by
-    // travel first child
-    // travel sibling -> first child
-    return !this.parentElement?.id
+    return !this.closestParent?.id
   }
 
+  /**
+   * We have the concept of `parent` and `closestParent`.
+   *
+   * `parent` has an edge connection like `siblings` in the database.
+   *
+   * `closestParent` is a conceptual value, we traverse up the sibling chain until we find the first parent
+   *
+   * (parentA)
+   * \
+   * (firstChild)-(nextSibling)
+   *
+   * `nextSibling` has no `parent`, but has a `closestParent` of `parentA`
+   */
   @computed
-  get parentElement() {
-    // parent - first child (this)
-    const getParentElement = (element: IElement) => {
-      if (element.parent) {
-        return this.elementService.element(element.parent.id)
-      }
+  private get closestParent(): IElement | undefined {
+    const parent = this.parent
 
-      return
+    if (parent) {
+      return parent.current
     }
 
-    const thisParentElementFromId = getParentElement(this)
-
-    if (thisParentElementFromId) {
-      return thisParentElementFromId
-    }
-
-    // parent - first child - prev sibling 1 ... prev sibling n - element (this)
     let traveledNode = this.prevSibling?.maybeCurrent
 
     while (traveledNode) {
-      const traveledNodeParentElement = getParentElement(traveledNode)
+      const currentParent = traveledNode.parent
 
-      if (traveledNodeParentElement) {
-        return traveledNodeParentElement
+      if (currentParent) {
+        return currentParent.current
       }
 
-      // keep traversing backward
+      /**
+       * If we don't find a parent, traverse up the sibling chain
+       */
       traveledNode = traveledNode.prevSibling?.current
     }
 
@@ -255,7 +260,7 @@ export class Element
 
   @computed
   get ancestorError() {
-    const parent = this.parentElement
+    const parent = this.closestParent
 
     if (!parent) {
       return null
@@ -465,16 +470,18 @@ export class Element
     return mergeProps(props, result)
   }
 
+  /**
+   * This removes the `element` and attaches the siblings together
+   *
+   * (prevSibling)-[element]-(nextSibling)
+   *
+   * (prevSibling)-(nextSibling)
+   */
   @modelAction
-  detachNextSibling() {
+  connectPrevToNextSibling() {
     return () => {
-      this.nextSibling = null
-    }
-  }
+      console.log(this)
 
-  @modelAction
-  attachPrevToNextSibling() {
-    return () => {
       if (this.nextSibling) {
         this.nextSibling.current.prevSibling = this.prevSibling
       }
@@ -485,39 +492,35 @@ export class Element
     }
   }
 
+  /**
+   * This will connect any siblings to the current element's parent
+   *
+   * (parent)
+   * \
+   *  [element]-(nextSibling)
+   */
   @modelAction
-  detachPrevSibling() {
+  detachFromParent() {
     return () => {
-      this.prevSibling = null
-    }
-  }
-
-  @modelAction
-  removeParent() {
-    return () => {
-      if (!this.parentElement) {
+      if (!this.parent) {
         return
       }
 
-      // parent = [element] - next sibling
-      // element is first child
-      const parentElementFirstChild =
-        this.parentElement.firstChild?.maybeCurrent
+      /**
+       * Connect nextSibling to the parent
+       */
+      if (this.nextSibling) {
+        // Connect parent to nextSibling
+        this.parent.current.firstChild = elementRef(this.nextSibling.current)
 
-      if (parentElementFirstChild && parentElementFirstChild.id === this.id) {
-        parentElementFirstChild.nextSibling = this.nextSibling
-
-        // We need to set the parent of the next sibling here, because
-        // when we compute the parentElement, we traverse up the tree until the
-        // first child, hence, the first child should always have parentId set
-        if (this.nextSibling) {
-          this.nextSibling.maybeCurrent?.setParent(
-            elementRef(this.parentElement.id),
-          )
-        }
+        // Connect nextSibling to parent
+        this.nextSibling.current.setParent(elementRef(this.parent.id))
       }
 
-      this.parent = undefined
+      this.parent = null
+      this.nextSibling = null
+
+      console.log(this)
     }
   }
 
@@ -561,24 +564,24 @@ export class Element
     })
   }
 
-  makeDetachParentInput() {
-    if (!this.parentElement) {
+  makeDetachFromParentInput() {
+    if (!this.closestParent) {
       return null
     }
 
     const parentElementChanges: ElementUpdateInput = {}
 
-    if (this.parentElement.firstChild?.maybeCurrent?.id === this.id) {
+    if (this.closestParent.firstChild?.maybeCurrent?.id === this.id) {
       parentElementChanges.firstChild = {
         ...disconnectNodeId(this.id),
         ...connectNodeId(this.nextSibling?.id),
       }
     }
 
-    return makeUpdateElementInput(this.parentElement, parentElementChanges)
+    return makeUpdateElementInput(this.closestParent, parentElementChanges)
   }
 
-  makeDetachPrevSiblingInput() {
+  makeDetachFromPrevSiblingInput() {
     if (!this.prevSibling) {
       return null
     }
@@ -594,7 +597,7 @@ export class Element
     })
   }
 
-  makeDetachNextSiblingInput() {
+  makeDetachFromNextSiblingInput() {
     if (!this.nextSibling) {
       return null
     }
@@ -659,11 +662,11 @@ export class Element
    * @returns
    */
   @modelAction
-  attachAsPrevSibling(sibling: Ref<IElement>) {
+  attachAsPrevSibling(sibling: IElement) {
     return () => {
       // Add element as as prevSibling
-      sibling.current.prevSibling = elementRef(this)
-      this.nextSibling = elementRef(sibling.current)
+      sibling.prevSibling = elementRef(this)
+      this.nextSibling = elementRef(sibling)
     }
   }
 
