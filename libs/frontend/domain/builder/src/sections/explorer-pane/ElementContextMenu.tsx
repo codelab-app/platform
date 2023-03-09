@@ -99,7 +99,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
       const component = componentService.components.get(element.renderType.id)
 
       component &&
-        builderService.selectComponentTreeNode(componentRef(component))
+        builderService.selectComponentNode(componentRef(component))
     }
 
     const menuItems = [

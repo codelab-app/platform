@@ -1,18 +1,12 @@
 import type {
   IBuilderDataNode,
   IElementTree,
-  IPageNodeRef,
+  IPageNode,
 } from '@codelab/frontend/abstract/core'
-import {
-  componentRef,
-  elementRef,
-  isComponentPageNode,
-  isElementPageNode,
-} from '@codelab/frontend/abstract/core'
+import { elementRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
-import type { EventDataNode } from 'antd/lib/tree'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
@@ -31,7 +25,7 @@ interface BuilderTreeProps {
   elementTree: IElementTree | null
   setActiveTree: () => void
   setExpandedNodeIds: (ids: Array<string>) => void
-  selectTreeNode(node: Nullable<IPageNodeRef>): void
+  selectTreeNode(node: Nullable<IPageNode>): void
   expandedNodeIds: Array<string>
 }
 
@@ -52,20 +46,8 @@ export const BuilderTree = observer<BuilderTreeProps>(
     const selectedNode = builderService.selectedNode
     const { isMoving, handleDrop } = useElementTreeDrop(elementService)
 
-    const selectComponentNode = (node: EventDataNode<IBuilderDataNode>) => {
-      const component = componentService.components.get(node.key.toString())
-
-      if (component) {
-        selectTreeNode(componentRef(component.id))
-      }
-    }
-
-    const selectElementNode = (node: EventDataNode<IBuilderDataNode>) => {
-      const element = elementService.maybeElement(node.key.toString())
-
-      if (element) {
-        selectTreeNode(elementRef(element.id))
-      }
+    const selectComponentNode = (node: IPageNode) => {
+      selectTreeNode(node)
     }
 
     const componentContextMenuProps = useMemo(
@@ -129,13 +111,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
             return
           }
 
-          if (isComponentPageNode(node.node)) {
-            selectComponentNode(node)
-          }
-
-          if (isElementPageNode(node.node)) {
-            selectElementNode(node)
-          }
+          selectTreeNode(node.node)
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
         titleRender={(data) => {
