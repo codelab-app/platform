@@ -2,7 +2,7 @@ import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
 export interface IPropDTO {
   id: string
-  data?: Nullable<string>
+  data?: string
   api?: Nullable<IEntity>
 }
 

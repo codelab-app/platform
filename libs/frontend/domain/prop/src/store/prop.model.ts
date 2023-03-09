@@ -12,7 +12,7 @@ import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
@@ -38,7 +38,7 @@ import { getPropService } from './prop.service'
 
 const create = ({ id, data = '{}', api }: IPropDTO) => {
   return new Prop({
-    api,
+    api: api ? typeRef<IInterfaceType>(api.id) : null,
     data: frozen(JSON.parse(data)),
     id,
   })
@@ -47,7 +47,7 @@ const create = ({ id, data = '{}', api }: IPropDTO) => {
 @model('@codelab/Prop')
 export class Prop
   extends Model({
-    api: prop<Maybe<Ref<IInterfaceType>>>(),
+    api: prop<Nullable<Ref<IInterfaceType>>>(null),
     data: prop(() => frozen<Nullable<IPropData>>(null)),
     id: idProp,
   })

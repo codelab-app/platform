@@ -5,7 +5,6 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import {
-  componentRef,
   elementRef,
   isComponentInstance,
   RendererTab,
@@ -98,8 +97,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
 
       const component = componentService.components.get(element.renderType.id)
 
-      component &&
-        builderService.selectComponentNode(componentRef(component))
+      component && builderService.selectComponentNode(component)
     }
 
     const menuItems = [

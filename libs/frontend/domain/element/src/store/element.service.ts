@@ -246,6 +246,20 @@ export class ElementService
   /**
    * Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
    *
+   * There are 2 scenarios
+   *
+   * When element is firstChild, we'll need to re-add a first child
+   *
+   * (parent)
+   * \
+   * [element]-(sibling)
+   *
+   * When element is a sibling, we'll reconnect siblings
+   *
+   * (parent)
+   * \
+   * (firstChild)-[element]-(sibling)
+   *
    * - Detach from parent
    * - Detach from next sibling
    * - Detach from prev sibling
@@ -257,13 +271,7 @@ export class ElementService
     this: ElementService,
     elementId: string,
   ) {
-    const element = this.maybeElement(elementId)
-
-    if (!element) {
-      console.warn(`Can't find element id ${elementId}`)
-
-      return
-    }
+    const element = this.element(elementId)
 
     /**
      * parent
@@ -272,23 +280,14 @@ export class ElementService
      * next
      */
     const updateElementInputs = [
-      // Detach from parent
-      element.makeDetachParentInput(),
-      // Detach from next sibling
-      element.makeDetachNextSiblingInput(),
-      // Detach from prev sibling
-      element.makeDetachPrevSiblingInput(),
+      element.makeDetachFromParentInput(),
+      element.makeDetachFromNextSiblingInput(),
+      element.makeDetachFromPrevSiblingInput(),
     ]
 
     const updateElementCacheFns: Array<() => void> = [
-      // Detach from parent
-      element.removeParent(),
-      // Attach next to prev
-      element.attachPrevToNextSibling(),
-      // Detach from next sibling
-      element.detachNextSibling(),
-      // Detach from prev sibling
-      element.detachPrevSibling(),
+      element.detachFromParent(),
+      element.connectPrevToNextSibling(),
     ]
 
     const updateElementRequests = updateElementInputs
@@ -296,6 +295,7 @@ export class ElementService
       .map((input) => elementApi.UpdateElements(input))
 
     yield* _await(Promise.all(updateElementRequests))
+
     updateElementCacheFns.forEach((fn) => fn())
   })
 
@@ -356,6 +356,8 @@ export class ElementService
     runSequentially(
       'elementTransaction',
       function* (this: ElementService, data: ICreateElementData) {
+        console.debug('createElementAsFirstChild', data)
+
         if (!data.parentElement?.id) {
           throw new Error("Parent element id doesn't exist")
         }
@@ -439,7 +441,7 @@ export class ElementService
         element.makeAttachAsPrevSiblingInput(targetElement.nextSibling.id),
       )
       updateElementCacheFns.push(
-        element.attachAsPrevSibling(targetElement.nextSibling),
+        element.attachAsPrevSibling(targetElement.nextSibling.current),
       )
 
       /** [element]-nextSibling */
@@ -506,9 +508,11 @@ export class ElementService
         element.makeAttachAsPrevSiblingInput(parentElement.firstChild.id),
       )
       updateElementCacheFns.push(
-        element.attachAsPrevSibling(elementRef(parentElement.firstChild.id)),
+        element.attachAsPrevSibling(parentElement.firstChild.current),
       )
     }
+
+    console.log('attach to parent')
 
     // attach to parent
     updateElementInputs.push(
@@ -524,7 +528,11 @@ export class ElementService
 
     yield* _await(Promise.all(updateElementRequests))
 
+    console.log('After updateRequests')
+
     updateElementCacheFns.forEach((fn) => fn())
+
+    console.log('After update cache')
   })
 
   @modelFlow
@@ -606,28 +614,34 @@ export class ElementService
     ),
   )
 
+  /**
+   * Need to take care of reconnecting parent/sibling nodes
+   */
   @modelFlow
   @transaction
-  deleteElementSubgraph = _async(function* (
-    this: ElementService,
-    subRoot: IEntity,
-  ) {
+  delete = _async(function* (this: ElementService, subRoot: IEntity) {
+    console.debug('deleteElementSubgraph', subRoot)
+
     const subRootElement = this.element(subRoot.id)
 
-    const descendantElements = subRootElement.descendantElements.map(
-      (element) => element,
-    )
+    // const descendantElements = subRootElement.descendantElements.map(
+    //   (element) => element,
+    // )
 
-    const allElementsToDelete = [subRootElement, ...descendantElements]
+    // const allElementsToDelete = [subRootElement, ...descendantElements]
 
-    allElementsToDelete.reverse().forEach((element) => {
-      this.removeClones(element.id)
-      this.elements.delete(element.id)
-    })
+    yield* _await(this.detachElementFromElementTree(subRootElement.id))
 
-    yield* _await(this.elementRepository.delete(allElementsToDelete))
+    this.elements.delete(subRootElement.id)
 
-    return allElementsToDelete
+    // allElementsToDelete.reverse().forEach((element) => {
+    //   this.removeClones(element.id)
+    //   this.elements.delete(element.id)
+    // })
+
+    // yield* _await(this.elementRepository.delete(allElementsToDelete))
+
+    return
   })
 
   @computed

@@ -86,7 +86,7 @@ export interface IElementService
   ): Promise<Maybe<IElement>>
   element(id: string): IElement
   maybeElement(id: Maybe<string>): Maybe<IElement>
-  deleteElementSubgraph(subRoot: IEntity): Promise<Array<IElement>>
+  delete(subRoot: IEntity): Promise<void>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
   loadComponentTree(component: RenderedComponentFragment): {
     rootElement: IElement
