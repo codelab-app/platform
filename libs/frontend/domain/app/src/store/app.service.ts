@@ -155,8 +155,7 @@ export class AppService
           this.componentService.add(elementData.renderComponentType)
         }
 
-        const element = this.elementService.add(elementData)
-        console.log(elementData, element)
+        this.elementService.add(elementData)
       })
 
       this.pageService.add({
@@ -326,7 +325,7 @@ export class AppService
       name: appData.store.name,
     })
 
-    appStore.state.setMany(this.appsJson)
+    appStore.state.setMany(app.toJson)
 
     return app
   })
