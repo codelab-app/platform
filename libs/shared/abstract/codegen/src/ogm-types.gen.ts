@@ -23641,10 +23641,12 @@ export type PropConnectWhere = {
 }
 
 export type PropCreateInput = {
+  id: Scalars['ID']
   data: Scalars['String']
 }
 
 export type PropOnCreateInput = {
+  id: Scalars['ID']
   data: Scalars['String']
 }
 
@@ -23666,6 +23668,7 @@ export type PropUniqueWhere = {
 }
 
 export type PropUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   data?: InputMaybe<Scalars['String']>
 }
 

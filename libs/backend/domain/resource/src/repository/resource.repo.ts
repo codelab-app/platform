@@ -23,7 +23,7 @@ export const createResource = async (
 
   const input = {
     config: {
-      create: { node: { data: resource.config.data } },
+      create: { node: { data: resource.config.data, id: resource.config.id } },
     },
     id: resource.id,
     name: resource.name,

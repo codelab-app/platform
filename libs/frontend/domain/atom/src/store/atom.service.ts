@@ -11,7 +11,6 @@ import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { reconnectNodeIds } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -62,23 +61,7 @@ export class AtomService
       type,
     })
 
-    const allowedChildrenIds = allowedChildren.map(
-      (allowedChild) => allowedChild,
-    )
-
-    const {
-      updateAtoms: { atoms },
-    } = yield* _await(
-      atomApi.UpdateAtoms({
-        update: {
-          allowedChildren: reconnectNodeIds(allowedChildrenIds),
-          name,
-          tags: reconnectNodeIds(tags.map((tag) => tag.id)),
-          type,
-        },
-        where: { id },
-      }),
-    )
+    yield* _await(this.atomRepository.update(atom!))
 
     return atom!
   })
@@ -99,16 +82,7 @@ export class AtomService
   }
 
   @modelAction
-  add = ({
-    tags,
-    api,
-    allowedChildren,
-    id,
-    icon,
-    name,
-    type,
-    owner,
-  }: IAtomDTO) => {
+  add = ({ api, id, name, type, owner }: IAtomDTO) => {
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
     const apiRef = typeRef<IInterfaceType>(api.id)
     const atom = Atom.create({ api: apiRef, id, name, owner, tags: [], type })
@@ -185,12 +159,19 @@ export class AtomService
   @modelFlow
   @transaction
   delete = _async(function* (this: IAtomService, ids: Array<string>) {
-    ids.forEach((id) => this.atoms.delete(id))
+    const atomsToDelete: Array<IAtom> = []
 
-    const {
-      deleteAtoms: { nodesDeleted },
-    } = yield* _await(atomApi.DeleteAtoms({ where: { id_IN: ids } }))
+    ids.forEach((id) => {
+      const atom = this.atoms.get(id)
 
-    return nodesDeleted
+      if (atom) {
+        atomsToDelete.push(atom)
+        this.atoms.delete(id)
+      }
+    })
+
+    const result = yield* _await(this.atomRepository.delete(atomsToDelete))
+
+    return result
   })
 }

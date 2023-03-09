@@ -50,7 +50,9 @@ export const importActions = async (
 
   await ApiAction.create({
     input: apiActions.map((action) => ({
-      config: { create: { node: { data: action.config.data } } },
+      config: {
+        create: { node: { data: action.config.data, id: action.config.id } },
+      },
       errorAction: {
         ApiAction: connectNodeId(action.errorAction?.id),
         CodeAction: connectNodeId(action.errorAction?.id),

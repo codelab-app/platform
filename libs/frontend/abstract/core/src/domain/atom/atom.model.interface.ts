@@ -1,4 +1,7 @@
-import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  AtomCreateInput,
+  AtomUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
@@ -24,6 +27,7 @@ export interface IAtom extends ICacheService<IAtomDTO, IAtom>, IOwnerSchema {
   allowedChildren: Array<Ref<IAtom>>
 
   toCreateInput(): AtomCreateInput
+  toUpdateInput(): AtomUpdateInput
 }
 
 export type IAtomRef = string
