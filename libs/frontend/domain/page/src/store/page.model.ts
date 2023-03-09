@@ -1,20 +1,14 @@
-import type {
-  IElement,
-  IPage,
-  IPageDTO,
-  IPropData,
-} from '@codelab/frontend/abstract/core'
+import type { IElement, IPage, IPageDTO } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
 import { ElementTreeService } from '@codelab/frontend/domain/element'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
-import type { IEntity, Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
-import { pageApi } from './page.api'
 
 const create = ({
   id,
@@ -22,7 +16,6 @@ const create = ({
   app,
   kind,
   rootElement,
-  getServerSideProps,
   pageContentContainer,
   descendentElements,
 }: IPageDTO): IPage => {
@@ -31,7 +24,6 @@ const create = ({
     descendentElements: descendentElements?.map((element) =>
       elementRef(element.id),
     ),
-    getServerSideProps,
     id,
     kind,
     name,
@@ -42,31 +34,31 @@ const create = ({
   })
 }
 
-const getPageServerSideProps = async (context: IPropData) => {
-  const id = context.params?.pageId as string
+// const getPageServerSideProps = async (context: IPropData) => {
+//   const id = context.params?.pageId as string
 
-  const {
-    pages: [page],
-  } = await pageApi.GetPages({ where: { id } })
+//   const {
+//     pages: [page],
+//   } = await pageApi.GetPages({ where: { id } })
 
-  if (!page || !page.getServerSideProps) {
-    return { props: {} }
-  }
+//   if (!page || !page.getServerSideProps) {
+//     return { props: {} }
+//   }
 
-  const {
-    props = {},
-    notFound = false,
-    redirect = undefined,
-  } = await eval(`(${page.getServerSideProps})`)(context)
+//   const {
+//     props = {},
+//     notFound = false,
+//     redirect = undefined,
+//   } = await eval(`(${page.getServerSideProps})`)(context)
 
-  return {
-    notFound,
-    props: {
-      getServerSidePropsData: props,
-    },
-    redirect,
-  }
-}
+//   return {
+//     notFound,
+//     props: {
+//       getServerSidePropsData: props,
+//     },
+//     redirect,
+//   }
+// }
 
 @model('@codelab/Page')
 export class Page
@@ -76,7 +68,7 @@ export class Page
      * Descendants of the rootElement, does not contain rootElement itself
      */
     descendentElements: prop<Array<Ref<IElement>>>(() => []),
-    getServerSideProps: prop<Nullish<string>>(),
+    // getServerSideProps: prop<Nullish<string>>(),
     id: idProp,
     kind: prop<IPageKind>(),
     name: prop<string>().withSetter(),
@@ -116,7 +108,6 @@ export class Page
   toCreateInput(): PageCreateInput {
     return {
       _compoundName: createUniqueName(this.name, this.app.id),
-      getServerSideProps: this.getServerSideProps,
       id: this.id,
       kind: this.kind,
       pageContentContainer: {
@@ -139,7 +130,6 @@ export class Page
     app,
     name,
     rootElement,
-    getServerSideProps,
     pageContentContainer,
     kind,
   }: Partial<IPageDTO>) {
@@ -148,9 +138,6 @@ export class Page
       ? elementRef(rootElement.id)
       : this.rootElement
     this.app = app ? app : this.app
-    this.getServerSideProps = getServerSideProps
-      ? getServerSideProps
-      : this.getServerSideProps
     this.pageContentContainer = pageContentContainer
       ? elementRef(pageContentContainer.id)
       : this.pageContentContainer
@@ -160,6 +147,4 @@ export class Page
   }
 
   static create = create
-
-  static getServerSideProps = getPageServerSideProps
 }

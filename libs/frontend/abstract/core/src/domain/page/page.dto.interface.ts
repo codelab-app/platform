@@ -9,17 +9,14 @@ export interface IPageDTO {
   app: IEntity
   rootElement: IEntity
   descendentElements?: Array<IEntity>
-  getServerSideProps?: Nullish<string>
+  // getServerSideProps?: Nullish<string>
   // The container element of the page
   pageContentContainer?: Nullish<IEntity>
 }
 
-export type ICreatePageData = Pick<
-  IPageDTO,
-  'id' | 'name' | 'app' | 'getServerSideProps'
->
+export type ICreatePageData = Pick<IPageDTO, 'id' | 'name' | 'app'>
 
 export type IUpdatePageData = Pick<
   IPageDTO,
-  'id' | 'getServerSideProps' | 'name' | 'pageContentContainer' | 'app'
+  'id' | 'name' | 'pageContentContainer' | 'app'
 >

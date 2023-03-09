@@ -11,7 +11,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
   @modelFlow
   add = _async(function* (
     this: PageRepository,
-    { id, name, app, rootElement, getServerSideProps }: IPage,
+    { id, name, app, rootElement }: IPage,
   ) {
     const {
       createPages: { pages },
@@ -20,7 +20,6 @@ export class PageRepository extends Model({}) implements IPageRepository {
         input: {
           _compoundName: createUniqueName(name, app.id),
           app: connectNodeId(app.id),
-          getServerSideProps,
           id,
           kind: IPageKind.Regular,
           rootElement: {
@@ -38,7 +37,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
   @modelFlow
   update = _async(function* (
     this: PageRepository,
-    { name, id, app, getServerSideProps, pageContentContainer }: IPage,
+    { name, id, app, pageContentContainer }: IPage,
   ) {
     const {
       updatePages: { pages },
@@ -47,7 +46,6 @@ export class PageRepository extends Model({}) implements IPageRepository {
         update: {
           _compoundName: createUniqueName(name, app.id),
           app: connectNodeId(app.id),
-          getServerSideProps,
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
         },
         where: { id },

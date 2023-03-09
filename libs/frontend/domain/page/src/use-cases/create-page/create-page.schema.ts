@@ -1,13 +1,11 @@
 import type { ICreatePageData } from '@codelab/frontend/abstract/core'
 import {
-  CodeMirrorField,
   idSchema,
   nonEmptyString,
   ownerSchema,
   showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
 export const createPageSchema: JSONSchemaType<ICreatePageData> = {
@@ -24,13 +22,6 @@ export const createPageSchema: JSONSchemaType<ICreatePageData> = {
       },
       required: ['id'],
       type: 'object',
-    },
-    getServerSideProps: {
-      nullable: true,
-      type: 'string',
-      uniforms: {
-        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
-      },
     },
     name: {
       autoFocus: true,

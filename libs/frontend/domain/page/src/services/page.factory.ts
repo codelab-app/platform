@@ -1,7 +1,6 @@
 import type { IApp, IPage, IPageFactory } from '@codelab/frontend/abstract/core'
 import {
   APP_PAGE_NAME,
-  DEFAULT_GET_SERVER_SIDE_PROPS,
   getElementService,
   INTERNAL_SERVER_ERROR_PAGE_NAME,
   NOT_FOUND_PAGE_NAME,
@@ -85,7 +84,6 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
     return this.pageService.add({
       app,
-      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       id: v4(),
       kind,
       name,
