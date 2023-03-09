@@ -32,7 +32,12 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
-import { createTypeFactory, updateTypeInputFactory } from '../use-cases'
+// import { TypeRepository } from '../services'
+import {
+  createTypeFactory,
+  mapTypeDataToDTO,
+  updateTypeInputFactory,
+} from '../use-cases'
 import {
   createTypeApi,
   deleteTypeApi,
@@ -58,6 +63,9 @@ export class TypeService
     id: idProp,
 
     selectedIds: prop(() => arraySet<string>()).withSetter(),
+
+    // typeRepository: prop(() => new TypeRepository({})),
+
     /**
      * This holds all types
      */
@@ -328,22 +336,17 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: Array<ICreateTypeData>) {
+  create = _async(function* (this: TypeService, data: ICreateTypeData) {
+    const type = this.add(mapTypeDataToDTO(data))
     const input = createTypeFactory(data)
 
-    const types: Array<ITypeDTO> = yield* _await(
-      Promise.all(
-        input.map((type) => {
-          if (!type.kind) {
-            throw new Error('Type requires a kind')
-          }
+    if (!input.kind) {
+      throw new Error('Type requires a kind')
+    }
 
-          return createTypeApi[type.kind](input)
-        }),
-      ).then((res) => res.flat()),
-    )
+    yield* _await(createTypeApi[input.kind]([input]))
 
-    return types.map((type) => this.add(type))
+    return type
   })
 
   @modelFlow

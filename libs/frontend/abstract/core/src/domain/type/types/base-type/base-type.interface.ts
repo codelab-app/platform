@@ -9,4 +9,7 @@ export interface IBaseType<DTO extends IBaseTypeDTO>
   id: string
   name: string
   kind: ITypeKind
+  // toCreateInput(): ICreateTypeInput
+  // toUpdateInput(): IUpdateTypeInput
+  // toDeleteInput(): IDeleteTypeInput
 }

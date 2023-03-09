@@ -31,7 +31,7 @@ export const CreateTypeModal = observer<{
       })),
     }
 
-    await typeService.create([input])
+    await typeService.create(input)
 
     /**
      * typeService.create writes into cache

@@ -10,10 +10,8 @@ import {
   makeTypesOfUnionTypeCreateInput,
 } from '@codelab/shared/domain/mapper'
 
-export const createTypeFactory = (
-  types: Array<ICreateTypeData>,
-): Array<ICreateTypeInput> => {
-  return types.map((type) => ({
+export const createTypeFactory = (type: ICreateTypeData): ICreateTypeInput => {
+  return {
     allowedValues:
       type.kind === ITypeKind.EnumType
         ? makeAllowedValuesCreateInput(type)
@@ -36,5 +34,5 @@ export const createTypeFactory = (
       type.kind === ITypeKind.UnionType
         ? makeTypesOfUnionTypeCreateInput(type)
         : undefined,
-  }))
+  } as ICreateTypeInput
 }
