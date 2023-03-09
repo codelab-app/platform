@@ -13,7 +13,7 @@ export const actionSchema = gql`
     ApiAction
   }
 
-  interface ActionBase {
+  interface BaseAction {
     id: ID! @id(autogenerate: false)
     name: String!
     type: ActionKind! @readonly
@@ -21,7 +21,7 @@ export const actionSchema = gql`
     element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
   }
 
-  type CodeAction implements ActionBase {
+  type CodeAction implements BaseAction {
     id: ID!
     name: String!
     type: ActionKind! @default(value: CodeAction)
@@ -34,7 +34,7 @@ export const actionSchema = gql`
     code: String!
   }
 
-  type ApiAction implements ActionBase {
+  type ApiAction implements BaseAction {
     id: ID!
     name: String!
     type: ActionKind! @default(value: ApiAction)

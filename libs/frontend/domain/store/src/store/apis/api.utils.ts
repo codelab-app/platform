@@ -3,7 +3,7 @@
 //
 
 import type {
-  IAnyActionWhere,
+  IActionWhere,
   ICreateActionData,
   ICreateActionInput,
   IUpdateActionData,
@@ -61,8 +61,8 @@ export const makeActionUpdateInput = ({
   successActionId,
   type,
 }: IUpdateActionData): {
+  where: IActionWhere
   update: IUpdateActionInput
-  where: IAnyActionWhere
 } => {
   return {
     update: {

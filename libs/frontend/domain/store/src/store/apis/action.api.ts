@@ -1,5 +1,5 @@
 import type {
-  IAnyActionWhere,
+  IActionWhere,
   IConnectActionInput,
   ICreateActionInput,
   IDeleteActionInput,
@@ -42,24 +42,27 @@ type UpdateActionsRecord = Record<
   IActionKind,
   (vars: {
     connect?: IConnectActionInput
+    where: IActionWhere
+    update: IUpdateActionInput
     delete?: IDeleteActionInput
     disconnect?: IDisconnectActionInput
-    update: IUpdateActionInput
-    where: IAnyActionWhere
   }) => Promise<Array<ActionFragment>>
 >
 
 type DeleteActionsRecord = Record<
   IActionKind,
   (vars: {
-    where: IAnyActionWhere
-  }) => Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+    where: IActionWhere
+  }) => Promise<{ relationshipsDeleted: number; nodesDeleted: number }>
 >
 
 export const getActionsByStore = async (
   storeId: Maybe<string>,
 ): GetActionsReturnType => {
-  const { apiActions, codeActions } = await getActionApi.GetActions({ storeId })
+  const { apiActions, codeActions } = await getActionApi.GetActions({
+    apiActionWhere: { store: { id: storeId } },
+    codeActionWhere: { store: { id: storeId } },
+  })
 
   return [...codeActions, ...apiActions]
 }

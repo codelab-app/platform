@@ -11,8 +11,14 @@ import { IProp } from '@codelab/frontend/abstract/core'
 import { propRef } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
+import {
+  ApiActionCreateInput,
+  ApiActionDeleteInput,
+  ApiActionUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
@@ -157,5 +163,57 @@ export class ApiAction
     this.store = store ? storeRef(store.id) : this.store
 
     return this
+  }
+
+  @modelAction
+  toCreateInput(): ApiActionCreateInput {
+    return {
+      config: {
+        create: {
+          node: this.config.current.toCreateInput(),
+        },
+      },
+      errorAction: {
+        ApiAction: connectNodeId(this.errorAction?.id),
+        CodeAction: connectNodeId(this.errorAction?.id),
+      },
+      id: this.id,
+      name: this.name,
+      resource: connectNodeId(this.resource.id),
+      store: connectNodeId(this.store.id),
+      successAction: {
+        ApiAction: connectNodeId(this.successAction?.id),
+        CodeAction: connectNodeId(this.successAction?.id),
+      },
+    }
+  }
+
+  @modelAction
+  toUpdateInput(): ApiActionUpdateInput {
+    return {
+      config: {
+        update: {
+          node: this.config.current.toUpdateInput(),
+        },
+      },
+      errorAction: {
+        ApiAction: connectNodeId(this.errorAction?.id),
+        CodeAction: connectNodeId(this.errorAction?.id),
+      },
+      name: this.name,
+      resource: connectNodeId(this.resource.id),
+      store: connectNodeId(this.store.id),
+      successAction: {
+        ApiAction: connectNodeId(this.successAction?.id),
+        CodeAction: connectNodeId(this.successAction?.id),
+      },
+    }
+  }
+
+  @modelAction
+  toDeleteInput(): ApiActionDeleteInput {
+    return {
+      config: { where: {} },
+    }
   }
 }

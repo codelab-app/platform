@@ -3,7 +3,13 @@ import type {
   ICodeActionDTO,
 } from '@codelab/frontend/abstract/core'
 import { IProp } from '@codelab/frontend/abstract/core'
+import {
+  CodeActionCreateInput,
+  CodeActionDeleteInput,
+  CodeActionUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
@@ -34,5 +40,28 @@ export class CodeAction
     this.code = code ?? this.code
 
     return this
+  }
+
+  @modelAction
+  toCreateInput(): CodeActionCreateInput {
+    return {
+      code: this.code,
+      id: this.id,
+      name: this.name,
+      store: connectNodeId(this.store.id),
+    }
+  }
+
+  @modelAction
+  toUpdateInput(): CodeActionUpdateInput {
+    return {
+      code: this.code,
+      name: this.name,
+    }
+  }
+
+  @modelAction
+  toDeleteInput(): CodeActionDeleteInput {
+    return {}
   }
 }

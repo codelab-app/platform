@@ -1,10 +1,10 @@
 fragment ApiAction on ApiAction {
-  ...ActionBase
+  ...BaseAction
   successAction {
-    ...ActionBase
+    ...BaseAction
   }
   errorAction {
-    ...ActionBase
+    ...BaseAction
   }
   resource {
     ...Resource

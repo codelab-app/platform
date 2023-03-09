@@ -1,22 +1,7 @@
-import type {
-  ActionFragment,
-  ApiActionOptions,
-} from '@codelab/shared/abstract/codegen'
-import type { Maybe } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
-import type {
-  ICRUDModalService,
-  ICRUDService,
-  IQueryService,
-} from '../../service'
-import type {
-  IActionDTO,
-  IBaseActionDTO,
-  ICreateActionData,
-  IUpdateActionData,
-} from './action.dto.interface'
+import type { IRepository } from '../../service'
 import type { IAction } from './action.interface'
-import type { IAnyActionWhere } from './action.where.interface'
+import type { IActionWhere } from './action.where.interface'
+import type { ActionFragment } from './fragments'
 
 export interface IActionFactory {
   fromActionFragment(fragment: ActionFragment): IActionDTO
