@@ -60,8 +60,7 @@ ajv.addSchema({
 })
 
 export const createValidator = (schema: Schema, context?: FormContextValue) => {
-  // const validator = ajv.compile(schema)
-  const validator = ajv.compile({})
+  const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
     const modelToValidate = context?.allowExpressions
