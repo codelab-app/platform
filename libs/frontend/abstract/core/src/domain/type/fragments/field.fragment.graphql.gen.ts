@@ -11,20 +11,70 @@ export type FieldFragment = {
   validationRules?: string | null
   defaultValues?: string | null
   fieldType:
-    | { __typename: 'ActionType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'AppType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'ArrayType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'BaseType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'CodeMirrorType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'ElementType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'EnumType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'InterfaceType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'LambdaType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'PageType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'PrimitiveType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'ReactNodeType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'RenderPropsType'; id: string; kind: Types.TypeKind }
-    | { __typename: 'UnionType'; id: string; kind: Types.TypeKind }
+    | {
+        __typename: 'ActionType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | { __typename: 'AppType'; id: string; kind: Types.TypeKind; name: string }
+    | {
+        __typename: 'ArrayType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | { __typename: 'BaseType'; id: string; kind: Types.TypeKind; name: string }
+    | {
+        __typename: 'CodeMirrorType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | {
+        __typename: 'ElementType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | { __typename: 'EnumType'; id: string; kind: Types.TypeKind; name: string }
+    | {
+        __typename: 'InterfaceType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | {
+        __typename: 'LambdaType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | { __typename: 'PageType'; id: string; kind: Types.TypeKind; name: string }
+    | {
+        __typename: 'PrimitiveType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | {
+        __typename: 'ReactNodeType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | {
+        __typename: 'RenderPropsType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
+    | {
+        __typename: 'UnionType'
+        id: string
+        kind: Types.TypeKind
+        name: string
+      }
   api: { id: string }
 }
 
@@ -40,6 +90,7 @@ export const FieldFragmentDoc = gql`
         __typename
         id
         kind
+        name
       }
     }
     api {

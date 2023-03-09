@@ -55,6 +55,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       const filteredData = filterEmptyStrings(data)
       console.log('Submitting: ', filteredData)
 
+      console.log(element)
+
       const promise = elementService.patchElement(element, {
         props: {
           update: {

@@ -35,23 +35,18 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
      * TODO: Refactor to match interface
      * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
      */
-    fieldType: { nullable: true, type: 'string' },
-
+    fieldType: { type: 'string' },
     interfaceTypeId: {
-      nullable: true,
       type: 'string',
       uniforms: {
         component: () => null,
       },
     },
-
     key: {
       autoFocus: true,
       ...nonEmptyString,
     },
-
     name: { nullable: true, type: 'string' },
-
     validationRules: {
       nullable: true,
       properties: {
@@ -139,9 +134,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
   },
   // This is overridden if the field is not nullable, which will require a value for `defaultValues`
   required: ['id', 'key', 'fieldType'],
-
   then: { required: ['id', 'key', 'fieldType', 'defaultValues'] },
-
   title: 'Create Field Input',
   type: 'object',
 }

@@ -65,6 +65,7 @@ export class Prop
   toCreateInput(): PropCreateInput {
     return {
       data: JSON.stringify(this.data.data ?? {}),
+      id: this.id,
     }
   }
 

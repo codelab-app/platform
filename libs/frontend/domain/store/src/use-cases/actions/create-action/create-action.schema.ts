@@ -52,7 +52,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
           type: 'string',
         },
         query: {
-          nullable: true,
+          // nullable: true,
           type: 'string',
           uniforms: {
             component: CodeMirrorGraphqlField({}),

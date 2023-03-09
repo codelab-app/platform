@@ -7,7 +7,6 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
       properties: {
         id: {
           label: 'Parent Element',
-          nullable: true,
           type: 'string',
         },
       },
@@ -18,7 +17,6 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
       properties: {
         id: {
           label: 'Linked by',
-          nullable: true,
           type: 'string',
         },
       },
