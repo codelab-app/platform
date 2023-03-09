@@ -8,7 +8,10 @@ import {
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
-import type { PropCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  PropCreateInput,
+  PropUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
@@ -56,6 +59,7 @@ export class Prop
 
   @modelAction
   writeCache({ id, data, api }: Partial<IPropDTO>) {
+    this.id = id ?? this.id
     this.data = data ? frozen(JSON.parse(data)) : this.data
     this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
 
@@ -66,6 +70,12 @@ export class Prop
     return {
       data: JSON.stringify(this.data.data ?? {}),
       id: this.id,
+    }
+  }
+
+  toUpdateInput(): PropUpdateInput {
+    return {
+      data: JSON.stringify(this.data.data ?? {}),
     }
   }
 

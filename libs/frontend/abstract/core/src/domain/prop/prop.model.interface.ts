@@ -1,4 +1,7 @@
-import type { PropCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  PropCreateInput,
+  PropUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
@@ -13,13 +16,15 @@ export interface IProp extends ICacheService<IPropDTO, IProp> {
   jsonString: string
   values: IPropData
 
-  toCreateInput(): PropCreateInput
   set(key: string, value: object | string): void
   setSilently(key: string, value: object): void
   setMany(data: IPropData): void
   delete(key: string): void
   get(key: string): unknown
   clone(): IProp
+
+  toCreateInput(): PropCreateInput
+  toUpdateInput(): PropUpdateInput
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
