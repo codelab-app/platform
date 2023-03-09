@@ -1,15 +1,19 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
-import { PageFragment } from '../page/page.fragment.graphql.gen'
-import { ElementFragment } from '../element/element.fragment.graphql.gen'
+import {
+  PageFragment,
+  BuilderPageFragment,
+} from '../page/page.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
-import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
-import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
+import {
+  PageFragmentDoc,
+  BuilderPageFragmentDoc,
+} from '../page/page.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type AppPreviewFragment = {
   id: string
@@ -27,17 +31,6 @@ export type AppFragment = {
   owner: OwnerFragment
   pages: Array<PageFragment>
   store: { id: string }
-}
-
-export type BuilderPageFragment = {
-  id: string
-  name: string
-  slug: string
-  getServerSideProps?: string | null
-  kind: Types.PageKind
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
-  app: { id: string; owner: OwnerFragment }
-  pageContentContainer?: { id: string } | null
 }
 
 export type PageBuilderAppFragment = {
@@ -84,32 +77,6 @@ export const AppFragmentDoc = gql`
   }
   ${OwnerFragmentDoc}
   ${PageFragmentDoc}
-`
-export const BuilderPageFragmentDoc = gql`
-  fragment BuilderPage on Page {
-    id
-    name
-    slug
-    getServerSideProps
-    rootElement {
-      ...Element
-      descendantElements {
-        ...Element
-      }
-    }
-    app {
-      id
-      owner {
-        ...Owner
-      }
-    }
-    pageContentContainer {
-      id
-    }
-    kind
-  }
-  ${ElementFragmentDoc}
-  ${OwnerFragmentDoc}
 `
 export const PageBuilderAppFragmentDoc = gql`
   fragment PageBuilderApp on App {

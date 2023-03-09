@@ -80,6 +80,8 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
       return <Spin />
     }
 
+    console.log(selectedNode.current)
+
     const autocomplete = renderService?.state
     const allowExpressions = true
     const appStore = renderService?.appStore.current
@@ -153,7 +155,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
         children: renderService && (
           <PropsInspectorTab
             key={selectedNode.id}
-            node={selectedNode}
+            node={selectedNode.current}
             renderer={renderService}
           />
         ),

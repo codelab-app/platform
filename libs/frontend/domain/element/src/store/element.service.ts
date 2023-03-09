@@ -228,7 +228,7 @@ export class ElementService
   @transaction
   patchElement = _async(function* (
     this: ElementService,
-    entity: IEntity,
+    { id }: IEntity,
     input: ElementUpdateInput,
   ) {
     const {
@@ -236,7 +236,7 @@ export class ElementService
     } = yield* _await(
       elementApi.UpdateElements({
         update: input,
-        where: { id: entity.id },
+        where: { id },
       }),
     )
 
