@@ -1,5 +1,7 @@
+import type { Nullable } from '@codelab/shared/abstract/types'
+
 export interface IGraphQLActionConfig {
   query: string
-  variables: string
-  headers: string
+  variables?: Nullable<string>
+  headers?: Nullable<string>
 }

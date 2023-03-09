@@ -13399,6 +13399,7 @@ input PropConnectWhere {
 
 input PropCreateInput {
   data: String!
+  id: ID!
 }
 
 type PropEdge {
@@ -13408,6 +13409,7 @@ type PropEdge {
 
 input PropOnCreateInput {
   data: String!
+  id: ID!
 }
 
 input PropOptions {
@@ -13434,6 +13436,7 @@ input PropUniqueWhere {
 
 input PropUpdateInput {
   data: String
+  id: ID
 }
 
 input PropWhere {

@@ -20,7 +20,11 @@ export const makeActionCreateInput = (
     code: action.type === IActionKind.CodeAction ? action.code : undefined,
     config:
       action.type === IActionKind.ApiAction
-        ? { create: { node: { data: JSON.stringify(action.config || {}) } } }
+        ? {
+            create: {
+              node: { data: JSON.stringify(action.config || {}), id: v4() },
+            },
+          }
         : undefined,
     errorAction:
       action.type === IActionKind.ApiAction && action.errorActionId
@@ -30,16 +34,12 @@ export const makeActionCreateInput = (
           }
         : undefined,
     id: v4(),
-
     name: action.name,
-
     resource:
       action.type === IActionKind.ApiAction
         ? connectNodeId(action.resourceId)
         : undefined,
-
     store: connectNodeId(action.storeId),
-
     successAction:
       action.type === IActionKind.ApiAction && action.successActionId
         ? {
@@ -47,7 +47,6 @@ export const makeActionCreateInput = (
             CodeAction: connectNodeId(action.successActionId),
           }
         : undefined,
-
     type: action.type,
   }
 }

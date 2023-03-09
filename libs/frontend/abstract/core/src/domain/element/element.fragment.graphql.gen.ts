@@ -21,6 +21,7 @@ export type ElementFragment = {
   page?: { id: string } | null
   renderComponentType?: ComponentFragment | null
   renderAtomType?: AtomFragment | null
+  renderType?: { id: string; kind: Types.RenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: ComponentFragment | null
@@ -46,6 +47,10 @@ export const ElementFragmentDoc = gql`
     }
     renderAtomType {
       ...Atom
+    }
+    renderType {
+      id
+      kind
     }
     prevSibling {
       id

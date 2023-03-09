@@ -11,6 +11,7 @@ import {
   getElementService,
   IAppDTO,
 } from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPageService, pageApi, pageRef } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
@@ -20,6 +21,7 @@ import {
   Store,
   storeRef,
 } from '@codelab/frontend/domain/store'
+import { getTagService } from '@codelab/frontend/domain/tag'
 import {
   getTypeService,
   InterfaceType,
@@ -72,6 +74,11 @@ export class AppService
   }
 
   @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
   private get resourceService() {
     return getResourceService(this)
   }
@@ -89,6 +96,11 @@ export class AppService
   @computed
   private get pageService() {
     return getPageService(this)
+  }
+
+  @computed
+  private get tagService() {
+    return getTagService(this)
   }
 
   @computed
@@ -121,7 +133,26 @@ export class AppService
       ;[page.rootElement, ...page.rootElement.descendantElements].forEach(
         (element) => {
           this.propService.add(element.props)
-          console.log(element)
+
+          /**
+           * Element comes with `component` or `atom` data that we need to load as well
+           */
+          if (element.renderAtomType?.id) {
+            this.typeService.addInterface(element.renderAtomType.api)
+
+            element.renderAtomType.tags.forEach((tag) =>
+              this.tagService.add(tag),
+            )
+
+            this.atomService.add(element.renderAtomType)
+          }
+
+          if (element.renderComponentType?.id) {
+            this.typeService.addInterface(element.renderComponentType.api)
+
+            this.componentService.add(element.renderComponentType)
+          }
+
           this.elementService.add(element)
         },
       )

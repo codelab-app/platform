@@ -14111,6 +14111,7 @@ export type PropConnectWhere = {
 
 export type PropCreateInput = {
   data: Scalars['String']
+  id: Scalars['ID']
 }
 
 export type PropEdge = {
@@ -14121,6 +14122,7 @@ export type PropEdge = {
 
 export type PropOnCreateInput = {
   data: Scalars['String']
+  id: Scalars['ID']
 }
 
 export type PropOptions = {
@@ -14142,6 +14144,7 @@ export type PropUniqueWhere = {
 
 export type PropUpdateInput = {
   data?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type PropWhere = {
@@ -19920,6 +19923,11 @@ export type ElementFragment = {
     | ({ __typename?: 'Component' } & ComponentFragment)
     | null
   renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
+  renderType?: {
+    __typename?: 'RenderType'
+    id: string
+    kind: RenderTypeKind
+  } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null
@@ -20204,20 +20212,25 @@ export type FieldFragment = {
   validationRules?: string | null
   defaultValues?: string | null
   fieldType:
-    | { __typename: 'ActionType'; id: string; kind: TypeKind }
-    | { __typename: 'AppType'; id: string; kind: TypeKind }
-    | { __typename: 'ArrayType'; id: string; kind: TypeKind }
-    | { __typename: 'BaseType'; id: string; kind: TypeKind }
-    | { __typename: 'CodeMirrorType'; id: string; kind: TypeKind }
-    | { __typename: 'ElementType'; id: string; kind: TypeKind }
-    | { __typename: 'EnumType'; id: string; kind: TypeKind }
-    | { __typename: 'InterfaceType'; id: string; kind: TypeKind }
-    | { __typename: 'LambdaType'; id: string; kind: TypeKind }
-    | { __typename: 'PageType'; id: string; kind: TypeKind }
-    | { __typename: 'PrimitiveType'; id: string; kind: TypeKind }
-    | { __typename: 'ReactNodeType'; id: string; kind: TypeKind }
-    | { __typename: 'RenderPropsType'; id: string; kind: TypeKind }
-    | { __typename: 'UnionType'; id: string; kind: TypeKind }
+    | { __typename: 'ActionType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'ArrayType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'BaseType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'CodeMirrorType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'ElementType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'InterfaceType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'LambdaType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'PrimitiveType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'ReactNodeType'; id: string; kind: TypeKind; name: string }
+    | {
+        __typename: 'RenderPropsType'
+        id: string
+        kind: TypeKind
+        name: string
+      }
+    | { __typename: 'UnionType'; id: string; kind: TypeKind; name: string }
   api: { __typename?: 'InterfaceType'; id: string }
 }
 
