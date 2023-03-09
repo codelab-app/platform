@@ -88,7 +88,9 @@ export class DomainService
 
     yield* _await(this.domainRepository.add(domain))
 
-    return domain
+    // Fetching again to get the backend-generated
+    // domainConfig and projectDomain
+    return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
   })
 
   @modelFlow
@@ -115,6 +117,8 @@ export class DomainService
 
     yield* _await(this.domainRepository.update(domain))
 
-    return domain!
+    // Fetching again to get the backend-generated
+    // domainConfig and projectDomain
+    return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
   })
 }
