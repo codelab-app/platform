@@ -1,13 +1,13 @@
-import {
+import type {
   IElement,
   IElementTree,
   IPageNodeRef,
-  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   getComponentService,
   getElementService,
+  isComponentInstance,
   isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -109,12 +109,12 @@ export class ElementTree
    */
   @modelAction
   descendants(subRoot: Ref<IElement>) {
-    const descendants: Array<Ref<IElement>> = []
+    const descendants: Array<IElement> = []
 
     walkTree(
       subRoot,
       (node) => {
-        descendants.push(elementRef((node as AnyModel).$modelId))
+        descendants.push(node as IElement)
       },
       // Walks from root to children
       WalkTreeMode.ParentFirst,

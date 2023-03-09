@@ -687,12 +687,12 @@ export class Element
   /**
    * An element may have a ref that belongs to an element tree. We want to get all descendants of that ref
    */
-  @computed
-  get getDescendantRefs(): Array<Ref<IElement>> {
-    const elementTree = Element.getElementTree(this)
+  // @computed
+  // get getDescendantRefs(): Array<IElement> {
+  //   const elementTree = Element.getElementTree(this)
 
-    return elementTree?.descendants(elementRef(this)) ?? []
-  }
+  //   return elementTree?.descendants(this) ?? []
+  // }
 
   @modelAction
   @modelAction

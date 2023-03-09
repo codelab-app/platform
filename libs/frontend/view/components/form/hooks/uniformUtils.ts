@@ -21,6 +21,7 @@ export const connectUniformSubmitRef =
   }
 
 const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
+
 addFormats(ajv)
 addKeywords(ajv, ['typeof', 'transform'])
 // we can add custom type definitions here that may be too complex to do in the actual schema
@@ -59,7 +60,8 @@ ajv.addSchema({
 })
 
 export const createValidator = (schema: Schema, context?: FormContextValue) => {
-  const validator = ajv.compile(schema)
+  // const validator = ajv.compile(schema)
+  const validator = ajv.compile({})
 
   return (model: Record<string, unknown>) => {
     const modelToValidate = context?.allowExpressions
