@@ -475,12 +475,12 @@ export class ElementService
 
     if (targetElement.nextSibling) {
       element.attachAsPrevSibling(targetElement.nextSibling.current)
-      targetElement.nextSibling.current.attachAsNextSibling(element)
       affectedNodeIds.push(targetElement.nextSibling.current.id)
     }
 
     element.attachAsNextSibling(targetElement)
     affectedNodeIds.push(targetElement.id)
+    affectedNodeIds.push(element.id)
 
     return affectedNodeIds
   }
@@ -522,6 +522,7 @@ export class ElementService
     // attach to parent
     element.attachToParentAsFirstChild(parentElement)
     affectedNodeIds.push(parentElement.id)
+    affectedNodeIds.push(element.id)
 
     return affectedNodeIds
   }

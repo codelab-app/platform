@@ -516,7 +516,7 @@ export class Element
         : null
 
       // Connect nextSibling to parent
-      // this.nextSibling?.maybeCurrent?.setParent(elementRef(this.parent.id))
+      this.nextSibling?.maybeCurrent?.setParent(elementRef(this.parent.id))
     }
 
     this.parent = null
