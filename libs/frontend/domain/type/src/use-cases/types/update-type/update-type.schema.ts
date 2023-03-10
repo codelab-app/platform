@@ -1,6 +1,7 @@
 import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
 import {
   hideField,
+  idSchema,
   nonEmptyString,
   ownerSchema,
 } from '@codelab/frontend/view/components'
@@ -43,16 +44,13 @@ export const updateTypeSchema: JSONSchemaType<
       nullable: true,
       type: 'string',
     },
-    // Base types
-    // ...idSchema,
     owner: {
       ...ownerSchema.owner,
       ...hideField,
     },
     id: {
-      type: 'string',
+      ...idSchema.id,
       ...hideField,
-      required: ['id'],
     },
     kind: { enum: Object.values(ITypeKind), type: 'string' },
     language: {

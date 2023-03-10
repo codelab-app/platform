@@ -7,7 +7,7 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
+const create = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ElementType)
 
   return new ElementType({
@@ -62,5 +62,5 @@ export class ElementType
     })
   }
 
-  public static hydrate = hydrate
+  public static create = create
 }

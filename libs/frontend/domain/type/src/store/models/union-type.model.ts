@@ -15,13 +15,7 @@ import {
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({
-  id,
-  kind,
-  name,
-  typesOfUnionType,
-  owner,
-}: IUnionTypeDTO) => {
+const create = ({ id, kind, name, typesOfUnionType, owner }: IUnionTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)
 
   return new UnionType({
@@ -57,7 +51,7 @@ export class UnionType
     return this
   }
 
-  public static hydrate = hydrate
+  public static create = create
 
   @modelAction
   writeCache(unionTypeDTO: IUnionTypeDTO) {

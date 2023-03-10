@@ -5,7 +5,7 @@ import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({
+const create = ({
   id,
   kind,
   name,
@@ -40,5 +40,5 @@ export class ReactNodeType
     return this
   }
 
-  public static hydrate = hydrate
+  public static create = create
 }

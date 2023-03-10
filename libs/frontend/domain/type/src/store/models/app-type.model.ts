@@ -5,7 +5,7 @@ import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
+const create = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
   assertIsTypeKind(kind, ITypeKind.AppType)
 
   return new AppType({
@@ -28,5 +28,5 @@ export class AppType
     return this
   }
 
-  public static hydrate = hydrate
+  public static create = create
 }

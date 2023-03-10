@@ -33,12 +33,11 @@ import {
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { TypeRepository } from '../services'
-import { mapTypeDataToDTO } from '../use-cases'
 import { getTypeApi } from './apis/type.api'
 import { baseTypesFactory } from './base-types.factory'
 import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
-import { typeFactory } from './type.factory'
+import { TypeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
 @model('@codelab/TypeService')
@@ -158,7 +157,10 @@ export class TypeService
   @modelAction
   loadTypes = (types: GetTypesQuery) => {
     const flatTypes = Object.values(types).flat()
-    const loadedTypes = flatTypes.map((fragment) => typeFactory(fragment))
+
+    const loadedTypes = flatTypes.map((fragment) =>
+      TypeFactory.create(fragment),
+    )
 
     this.types = objectMap(
       loadedTypes.map((typeModel) => [typeModel.id, typeModel]),
@@ -186,7 +188,7 @@ export class TypeService
 
   @modelAction
   add(typeDTO: ITypeDTO) {
-    const type = typeFactory(typeDTO)
+    const type = TypeFactory.create(typeDTO)
     this.types.set(type.id, type)
 
     // Write cache to the fields
@@ -219,7 +221,7 @@ export class TypeService
   @modelFlow
   @transaction
   update = _async(function* (this: TypeService, data: IUpdateTypeData) {
-    const type = this.add(mapTypeDataToDTO(data))
+    const type = this.add(TypeFactory.mapDataToDTO(data))
 
     yield* _await(this.typeRepository.update(type))
 
@@ -320,7 +322,7 @@ export class TypeService
   @modelFlow
   @transaction
   create = _async(function* (this: TypeService, data: ICreateTypeData) {
-    const type = this.add(mapTypeDataToDTO(data))
+    const type = this.add(TypeFactory.mapDataToDTO(data))
 
     yield* _await(this.typeRepository.add(type))
 

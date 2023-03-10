@@ -36,7 +36,7 @@ export class EnumTypeValue extends Model({
   public static hydrate = hydrateEnumValue
 }
 
-const hydrate = ({ id, allowedValues, kind, name, owner }: IEnumTypeDTO) => {
+const create = ({ id, allowedValues, kind, name, owner }: IEnumTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({
@@ -107,5 +107,5 @@ export class EnumType
     })
   }
 
-  public static hydrate = hydrate
+  public static create = create
 }

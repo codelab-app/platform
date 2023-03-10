@@ -9,7 +9,7 @@ import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'
 
-const hydrate = ({
+const create = ({
   id,
   kind,
   name,
@@ -74,5 +74,5 @@ export class ArrayType
     })
   }
 
-  static hydrate = hydrate
+  static create = create
 }
