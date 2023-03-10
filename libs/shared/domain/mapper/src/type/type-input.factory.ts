@@ -12,7 +12,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { connectNodeId } from '../orm'
 
-const makeAllTypes = (input: IPropData) =>
+export const makeAllTypes = (input: IPropData) =>
   Object.values(ITypeKind)
     .map((kind) => ({ [kind]: input }))
     .reduce((all, current) => ({ ...all, ...current }), {})

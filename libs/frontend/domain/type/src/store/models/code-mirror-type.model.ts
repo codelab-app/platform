@@ -2,6 +2,7 @@ import type { ICodeMirrorType } from '@codelab/frontend/abstract/core'
 import { ICodeMirrorTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
@@ -49,6 +50,21 @@ export class CodeMirrorType
     updateBaseTypeCache(this, codeMirrorTypeDTO)
 
     return this
+  }
+
+  toCreateInput() {
+    return {
+      ...super.toCreateInput(),
+      language: this.language,
+    }
+  }
+
+  toUpdateInput() {
+    return merge(super.toUpdateInput(), {
+      update: {
+        language: this.language,
+      },
+    })
   }
 
   public static hydrate = hydrate

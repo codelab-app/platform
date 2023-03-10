@@ -32,19 +32,9 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
-// import { TypeRepository } from '../services'
-import {
-  createTypeFactory,
-  mapTypeDataToDTO,
-  updateTypeInputFactory,
-} from '../use-cases'
-import {
-  createTypeApi,
-  deleteTypeApi,
-  getAllTypes,
-  getTypeApi,
-  updateTypeApi,
-} from './apis/type.api'
+import { TypeRepository } from '../services'
+import { mapTypeDataToDTO } from '../use-cases'
+import { getTypeApi } from './apis/type.api'
 import { baseTypesFactory } from './base-types.factory'
 import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
@@ -64,7 +54,7 @@ export class TypeService
 
     selectedIds: prop(() => arraySet<string>()).withSetter(),
 
-    // typeRepository: prop(() => new TypeRepository({})),
+    typeRepository: prop(() => new TypeRepository({})),
 
     /**
      * This holds all types
@@ -228,27 +218,23 @@ export class TypeService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, typeDTO: IUpdateTypeData) {
-    const args = {
-      where: { id: typeDTO.id },
-      ...updateTypeInputFactory(typeDTO),
-    }
+  update = _async(function* (this: TypeService, data: IUpdateTypeData) {
+    const type = this.add(mapTypeDataToDTO(data))
 
-    const updatedType = (yield* _await(updateTypeApi[typeDTO.kind](args)))[0]
+    yield* _await(this.typeRepository.update(type))
 
-    return this.add(updatedType!)
+    return type
   })
 
   @modelFlow
   @transaction
   getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
-    const ids = where?.id_IN ?? undefined
-    const types = yield* _await(getAllTypes(ids))
+    const typeFragments = yield* _await(this.typeRepository.find(where || {}))
 
     return (
-      types
-        .map((type) => {
-          return this.add(type)
+      typeFragments
+        .map((typeFragment) => {
+          return this.add(typeFragment)
         })
         // Sort the most recently fetched types
         .sort((typeA, typeB) =>
@@ -330,42 +316,25 @@ export class TypeService
   })
 
   /*
-   * The array of types must be of same type
-   *
-   * Issue with interfaceType & fieldConnections variable getting repeated in Neo4j if we create multiple at a time.
    */
   @modelFlow
   @transaction
   create = _async(function* (this: TypeService, data: ICreateTypeData) {
     const type = this.add(mapTypeDataToDTO(data))
-    const input = createTypeFactory(data)
 
-    if (!input.kind) {
-      throw new Error('Type requires a kind')
-    }
-
-    yield* _await(createTypeApi[input.kind]([input]))
+    yield* _await(this.typeRepository.add(type))
 
     return type
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: TypeService, ids: Array<string>) {
-    const types = ids
-      .map((id) => this.types.get(id))
-      .filter((type): type is IAnyType => Boolean(type))
+  delete = _async(function* (this: TypeService, type: IAnyType) {
+    const { id } = type
+    this.types.delete(id)
 
-    ids.forEach((id) => this.types.delete(id))
+    yield* _await(this.typeRepository.delete([type]))
 
-    const results = yield* _await(
-      Promise.all(
-        types.map((type) =>
-          deleteTypeApi[type.kind]({ where: { id: type.id } }),
-        ),
-      ),
-    )
-
-    return results.reduce((total, { nodesDeleted }) => nodesDeleted + total, 0)
+    return type
   })
 }

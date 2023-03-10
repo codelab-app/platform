@@ -1,5 +1,9 @@
 import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
-import { hideField, nonEmptyString } from '@codelab/frontend/view/components'
+import {
+  hideField,
+  nonEmptyString,
+  ownerSchema,
+} from '@codelab/frontend/view/components'
 import {
   ICodeMirrorLanguage,
   IElementTypeKind,
@@ -41,6 +45,10 @@ export const updateTypeSchema: JSONSchemaType<
     },
     // Base types
     // ...idSchema,
+    owner: {
+      ...ownerSchema.owner,
+      ...hideField,
+    },
     id: {
       type: 'string',
       ...hideField,
