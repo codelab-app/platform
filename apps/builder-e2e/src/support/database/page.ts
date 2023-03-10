@@ -1,7 +1,4 @@
-import {
-  DEFAULT_GET_SERVER_SIDE_PROPS,
-  ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { createUniqueName } from '@codelab/shared/utils'
@@ -22,7 +19,6 @@ export const createPageInput = (
       app: {
         connect: { where: { node: { id: appId } } },
       },
-      getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
       id: pageId,
       kind: IPageKind.Regular,
       pageContentContainer: {

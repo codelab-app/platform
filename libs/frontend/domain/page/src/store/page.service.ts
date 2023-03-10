@@ -81,19 +81,12 @@ export class PageService
   @transaction
   update = _async(function* (
     this: PageService,
-    {
-      id,
-      name,
-      getServerSideProps,
-      app,
-      pageContentContainer,
-    }: IUpdatePageData,
+    { id, name, app, pageContentContainer }: IUpdatePageData,
   ) {
     const page = this.pages.get(id)!
 
     page.writeCache({
       app,
-      getServerSideProps,
       name,
       pageContentContainer,
     })
@@ -123,7 +116,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { id, name, app, getServerSideProps }: ICreatePageData,
+    { id, name, app }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
       data: '{}',
@@ -138,7 +131,6 @@ export class PageService
 
     const page = this.add({
       app,
-      getServerSideProps,
       id,
       kind: IPageKind.Regular,
       name,

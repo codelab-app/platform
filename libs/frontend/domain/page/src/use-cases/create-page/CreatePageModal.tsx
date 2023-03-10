@@ -3,7 +3,6 @@ import type {
   IPageService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { DEFAULT_GET_SERVER_SIDE_PROPS } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -22,7 +21,6 @@ export const CreatePageModal = observer<{
 
   const model = {
     app: { id: currentAppId },
-    getServerSideProps: DEFAULT_GET_SERVER_SIDE_PROPS,
     id: v4(),
     owner: {
       auth0Id: userService.auth0Id,

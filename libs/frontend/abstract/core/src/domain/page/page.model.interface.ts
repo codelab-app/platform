@@ -19,7 +19,7 @@ export interface IPage
   descendentElements: Array<Ref<IElement>>
   // Helper getter to get all elements
   elements: Array<IElement>
-  getServerSideProps: Nullish<string>
+  // getServerSideProps: Nullish<string>
   /**
    * A pointer to tell us where to render from app
    */
