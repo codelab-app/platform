@@ -34,14 +34,14 @@ describe('Component CRUD', () => {
     cy.resetDatabase()
     loginSession()
     cy.getCurrentUserId()
-      .then((userId) => {
+      .then((auth0Id: string) => {
         cy.createType(
           {
             PrimitiveType: {
               id: v4(),
               kind: ITypeKind.PrimitiveType,
               name: IPrimitiveTypeKind.String,
-              owner: connectAuth0Owner(userId),
+              owner: connectAuth0Owner({ auth0Id }),
               primitiveKind: IPrimitiveTypeKind.String,
             },
           },
@@ -54,7 +54,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignSpace} API`,
-                  owner: connectAuth0Owner(userId),
+                  owner: connectAuth0Owner({ auth0Id }),
                 },
               },
             },
@@ -68,7 +68,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignTypographyText} API`,
-                  owner: connectAuth0Owner(userId),
+                  owner: connectAuth0Owner({ auth0Id }),
                 },
               },
             },
@@ -78,7 +78,7 @@ describe('Component CRUD', () => {
           },
         ])
 
-        return cy.createApp(createAppInput(userId))
+        return cy.createApp(createAppInput({ auth0Id }))
       })
       .then((apps) => {
         testApp = apps

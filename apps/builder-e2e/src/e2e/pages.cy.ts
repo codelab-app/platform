@@ -8,8 +8,8 @@ describe('Pages CRUD', () => {
     cy.resetDatabase()
     loginSession()
     cy.getCurrentUserId()
-      .then((userId) => {
-        return cy.createApp(createAppInput(userId))
+      .then((auth0Id: string) => {
+        return cy.createApp(createAppInput({ auth0Id }))
       })
       .then((apps) => {
         const app = apps[0]

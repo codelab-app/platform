@@ -80,7 +80,7 @@ describe('Elements CRUD', () => {
 
         cy.createAtom(atomsInput)
 
-        return cy.createApp(createAppInput(auth0Id))
+        return cy.createApp(createAppInput({ auth0Id }))
       })
       .then((apps) => {
         const app = apps[0]
