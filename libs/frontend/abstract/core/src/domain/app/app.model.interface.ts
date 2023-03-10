@@ -41,3 +41,7 @@ export interface IBuilderApp {
 }
 
 export type IAppRef = string
+
+export interface IAppSchema {
+  app: Pick<IApp, 'id'>
+}

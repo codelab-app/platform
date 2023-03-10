@@ -1,8 +1,8 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
 import {
+  appSchema,
   idSchema,
   nonEmptyString,
-  showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
@@ -12,17 +12,7 @@ export type UpdatePageSchema = Omit<IUpdatePageData, 'pageContentContainer'>
 export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
   properties: {
     ...idSchema,
-    app: {
-      properties: {
-        id: {
-          disabled: true,
-          type: 'string',
-        },
-      },
-      type: 'object',
-      ...showFieldOnDev(),
-      required: ['id'],
-    },
+    ...appSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,
