@@ -2,15 +2,8 @@ import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 // import { idSchema } from '@codelab/frontend/shared/domain'
 // import { showFieldOnDev } from '@codelab/frontend/shared/utils'
-import {
-  CodeMirrorField,
-  idSchema,
-  showFieldOnDev,
-} from '@codelab/frontend/view/components'
-import {
-  CodeMirrorLanguage,
-  ElementTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import { idSchema, showFieldOnDev } from '@codelab/frontend/view/components'
+import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -29,15 +22,6 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
         ...showFieldOnDev(),
         disabled: true,
         required: ['id'],
-      },
-      getServerSideProps: {
-        nullable: true,
-        type: 'string',
-        uniforms: {
-          component: CodeMirrorField({
-            language: CodeMirrorLanguage.Typescript,
-          }),
-        },
       },
       name: { disabled: kind !== IPageKind.Regular, type: 'string' },
       pageContentContainer: {

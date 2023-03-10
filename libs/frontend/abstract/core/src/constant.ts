@@ -39,10 +39,10 @@ export const NOT_FOUND_PAGE_NAME = '404'
 
 export const INTERNAL_SERVER_ERROR_PAGE_NAME = '500'
 
-export const DEFAULT_GET_SERVER_SIDE_PROPS = `async function (context) {
-  return {
-    props: {},
-    redirect: undefined,
-    notFound: false,
-  }
-}`
+// export const DEFAULT_GET_SERVER_SIDE_PROPS = `async function (context) {
+//     return {
+//       props: {},
+//       redirect: undefined,
+//       notFound: false,
+//     }
+//   }`

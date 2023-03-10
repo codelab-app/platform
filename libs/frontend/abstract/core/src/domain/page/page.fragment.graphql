@@ -2,7 +2,6 @@ fragment Page on Page {
   id
   name
   slug
-  getServerSideProps
   app {
     id
   }
@@ -22,7 +21,6 @@ fragment BuilderPage on Page {
   id
   name
   slug
-  getServerSideProps
   rootElement {
     ...Element
     descendantElements {
