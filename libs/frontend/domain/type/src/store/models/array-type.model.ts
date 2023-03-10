@@ -1,13 +1,15 @@
 import type { IAnyType, IArrayType } from '@codelab/frontend/abstract/core'
 import { IArrayTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { connectNodeId, makeAllTypes } from '@codelab/shared/domain/mapper'
+import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'
 
-const hydrate = ({
+const create = ({
   id,
   kind,
   name,
@@ -52,5 +54,25 @@ export class ArrayType
     return this
   }
 
-  static hydrate = hydrate
+  toCreateInput() {
+    return {
+      ...super.toCreateInput(),
+      itemType: makeAllTypes(connectNodeId(this.itemType.id)),
+    }
+  }
+
+  toUpdateInput() {
+    return merge(super.toUpdateInput(), {
+      disconnect: {
+        itemType: makeAllTypes({
+          where: { node: { id_NOT: this.itemType.id } },
+        }),
+      },
+      update: {
+        itemType: makeAllTypes(connectNodeId(this.itemType.id)),
+      },
+    })
+  }
+
+  static create = create
 }

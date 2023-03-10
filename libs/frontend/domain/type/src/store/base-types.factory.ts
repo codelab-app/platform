@@ -27,85 +27,85 @@ export const baseTypesFactory = (type: BaseTypeFragment) => {
   // except __typename, all fallback properties should be refetched later
   switch (type.kind) {
     case ITypeKind.AppType:
-      return AppType.hydrate({
+      return AppType.create({
         ...type,
         __typename: 'AppType',
       })
 
     case ITypeKind.ActionType:
-      return ActionType.hydrate({
+      return ActionType.create({
         ...type,
         __typename: 'ActionType',
       })
 
     case ITypeKind.ElementType:
-      return ElementType.hydrate({
+      return ElementType.create({
         ...type,
         __typename: 'ElementType',
         elementKind: ElementTypeKind.AllElements,
       })
 
     case ITypeKind.EnumType:
-      return EnumType.hydrate({
+      return EnumType.create({
         ...type,
         __typename: 'EnumType',
         allowedValues: [],
       })
 
     case ITypeKind.LambdaType:
-      return LambdaType.hydrate({
+      return LambdaType.create({
         ...type,
         __typename: 'LambdaType',
       })
 
     case ITypeKind.CodeMirrorType:
-      return CodeMirrorType.hydrate({
+      return CodeMirrorType.create({
         ...type,
         __typename: 'CodeMirrorType',
         language: CodeMirrorLanguage.Css,
       })
 
     case ITypeKind.PageType:
-      return PageType.hydrate({
+      return PageType.create({
         ...type,
         __typename: 'PageType',
       })
 
     case ITypeKind.PrimitiveType:
-      return PrimitiveType.hydrate({
+      return PrimitiveType.create({
         ...type,
         __typename: 'PrimitiveType',
         primitiveKind: PrimitiveTypeKind.String,
       })
 
     case ITypeKind.ReactNodeType:
-      return ReactNodeType.hydrate({
+      return ReactNodeType.create({
         ...type,
         __typename: 'ReactNodeType',
       })
 
     case ITypeKind.RenderPropsType:
-      return RenderPropsType.hydrate({
+      return RenderPropsType.create({
         ...type,
         __typename: 'RenderPropsType',
       })
 
     case ITypeKind.ArrayType:
-      return ArrayType.hydrate({
+      return ArrayType.create({
         ...type,
         __typename: 'ArrayType',
         itemType: { id: '', name: '' },
       })
 
     case TypeKind.InterfaceType:
-      return InterfaceType.hydrate({
+      return InterfaceType.create({
         ...type,
         __typename: 'InterfaceType',
         fields: [],
       })
 
     case TypeKind.UnionType:
-      return UnionType.hydrate({
+      return UnionType.create({
         ...type,
         __typename: 'UnionType',
         typesOfUnionType: [],

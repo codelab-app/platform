@@ -1,6 +1,10 @@
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { ICacheService } from '../../../../service'
 import type { IOwnerSchema } from '../../../user'
+import type {
+  ICreateTypeInput,
+  IUpdateTypeArgs,
+} from '../../type.input.interface'
 import type { IBaseTypeDTO } from './base-type.dto.interface'
 
 export interface IBaseType<DTO extends IBaseTypeDTO>
@@ -9,4 +13,7 @@ export interface IBaseType<DTO extends IBaseTypeDTO>
   id: string
   name: string
   kind: ITypeKind
+  toCreateInput(): ICreateTypeInput
+  toUpdateInput(): IUpdateTypeArgs
+  // toDeleteInput(): IDeleteTypeInput
 }

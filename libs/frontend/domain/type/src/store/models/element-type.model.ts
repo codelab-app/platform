@@ -2,11 +2,12 @@ import type { IElementType } from '@codelab/frontend/abstract/core'
 import { IElementTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { IElementTypeKind } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
+const create = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ElementType)
 
   return new ElementType({
@@ -45,5 +46,21 @@ export class ElementType
     return this
   }
 
-  public static hydrate = hydrate
+  toCreateInput() {
+    return {
+      ...super.toCreateInput(),
+      elementKind: this.elementKind,
+    }
+  }
+
+  toUpdateInput() {
+    return merge(super.toUpdateInput(), {
+      ...super.toUpdateInput(),
+      update: {
+        elementKind: this.elementKind,
+      },
+    })
+  }
+
+  public static create = create
 }
