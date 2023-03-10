@@ -1,0 +1,17 @@
+{
+  "id": "2e43a678-789e-47f0-a15b-c1f35077fd59",
+  "name": "AntDesignCalendar",
+  "type": "AntDesignCalendar",
+  "api": {
+    "id": "7e813394-3c98-4645-bf9c-4e5e5e22a453",
+    "name": "AntDesignCalendar API"
+  },
+  "icon": "Calendar",
+  "tags": [
+    {
+      "id": "23a44476-e0b1-4bdd-84e9-15e2c34a03ee",
+      "name": "Calendar"
+    }
+  ],
+  "allowedChildren": []
+}

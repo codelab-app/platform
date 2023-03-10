@@ -1,0 +1,17 @@
+{
+  "id": "8f4cab7d-7ab6-4a26-acb0-8202e5e72dc6",
+  "name": "AntDesignPopconfirm",
+  "type": "AntDesignPopconfirm",
+  "api": {
+    "id": "7885453b-1ca3-4899-9f3a-4c045db4b043",
+    "name": "AntDesignPopconfirm API"
+  },
+  "icon": "Popconfirm",
+  "tags": [
+    {
+      "id": "b3f626b8-26db-4301-8142-c3b5e73d888b",
+      "name": "Popconfirm"
+    }
+  ],
+  "allowedChildren": []
+}

@@ -1,0 +1,17 @@
+{
+  "id": "f4b98ff6-6194-4c60-91c6-58ec4e6930fd",
+  "name": "AntDesignTabs",
+  "type": "AntDesignTabs",
+  "api": {
+    "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f",
+    "name": "AntDesignTabs API"
+  },
+  "icon": "Tabs",
+  "tags": [
+    {
+      "id": "cf64b1e7-5963-4de1-8004-be0d914359a0",
+      "name": "Tabs"
+    }
+  ],
+  "allowedChildren": []
+}

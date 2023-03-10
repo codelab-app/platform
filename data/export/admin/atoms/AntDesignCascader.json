@@ -1,0 +1,17 @@
+{
+  "id": "0c294a5e-d116-4c11-9193-a9c746e8c6d9",
+  "name": "AntDesignCascader",
+  "type": "AntDesignCascader",
+  "api": {
+    "id": "c08baebb-decf-4c51-a2d7-1798471f4503",
+    "name": "AntDesignCascader API"
+  },
+  "icon": "Cascader",
+  "tags": [
+    {
+      "id": "3f111439-4746-4686-a439-f620cfeb9d37",
+      "name": "Cascader"
+    }
+  ],
+  "allowedChildren": []
+}

@@ -1,0 +1,17 @@
+{
+  "id": "416944fc-ad76-4de9-8d3e-6d2cca6a3330",
+  "name": "AntDesignConfigProvider",
+  "type": "AntDesignConfigProvider",
+  "api": {
+    "id": "87c4ded5-1fc8-4a5e-a001-b98114eac988",
+    "name": "AntDesignConfigProvider API"
+  },
+  "icon": "ConfigProvider",
+  "tags": [
+    {
+      "id": "37fc4f16-55b9-44d3-a6ec-f466bb2bfb95",
+      "name": "ConfigProvider"
+    }
+  ],
+  "allowedChildren": []
+}

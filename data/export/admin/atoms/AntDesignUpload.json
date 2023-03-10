@@ -1,0 +1,17 @@
+{
+  "id": "3612efeb-fc33-48a8-b174-4f3db953a466",
+  "name": "AntDesignUpload",
+  "type": "AntDesignUpload",
+  "api": {
+    "id": "81cc190c-97b3-43d5-b71d-11181a79b13e",
+    "name": "AntDesignUpload API"
+  },
+  "icon": "Upload",
+  "tags": [
+    {
+      "id": "3569f03c-1e02-42eb-aff2-2e3d6fab48f0",
+      "name": "Upload"
+    }
+  ],
+  "allowedChildren": []
+}

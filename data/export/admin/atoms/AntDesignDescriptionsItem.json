@@ -1,0 +1,17 @@
+{
+  "id": "c26d1b76-3996-4a29-9248-a47f86986856",
+  "name": "AntDesignDescriptionsItem",
+  "type": "AntDesignDescriptionsItem",
+  "api": {
+    "id": "e3a1eead-c6fa-4726-9c5c-7059ae126f89",
+    "name": "AntDesignDescriptionsItem API"
+  },
+  "icon": "Descriptions",
+  "tags": [
+    {
+      "id": "28df097e-8124-4ad2-ab3f-3552782c7500",
+      "name": "Descriptions.Item"
+    }
+  ],
+  "allowedChildren": []
+}

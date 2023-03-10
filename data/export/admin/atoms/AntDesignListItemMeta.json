@@ -1,0 +1,17 @@
+{
+  "id": "1f410838-ad7b-4a47-a25a-629e9289dbfb",
+  "name": "AntDesignListItemMeta",
+  "type": "AntDesignListItemMeta",
+  "api": {
+    "id": "096ee763-4cc7-4e49-bce9-357e07c48fd3",
+    "name": "AntDesignListItemMeta API"
+  },
+  "icon": "List",
+  "tags": [
+    {
+      "id": "ca41d993-4fd3-4012-b093-1782a2b5bdd7",
+      "name": "List.Item.Meta"
+    }
+  ],
+  "allowedChildren": []
+}

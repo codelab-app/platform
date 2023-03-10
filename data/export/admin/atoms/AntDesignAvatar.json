@@ -1,0 +1,17 @@
+{
+  "id": "e58df770-d608-4e86-9e6a-2ef7d00015ee",
+  "name": "AntDesignAvatar",
+  "type": "AntDesignAvatar",
+  "api": {
+    "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf",
+    "name": "AntDesignAvatar API"
+  },
+  "icon": "Avatar",
+  "tags": [
+    {
+      "id": "2d15c4b6-e068-4500-a725-cfd53cac3b4e",
+      "name": "Avatar"
+    }
+  ],
+  "allowedChildren": []
+}

@@ -1,0 +1,17 @@
+{
+  "id": "245c2f56-4ebd-4819-9271-7a3ffe389bee",
+  "name": "AntDesignSpin",
+  "type": "AntDesignSpin",
+  "api": {
+    "id": "844cc227-a77b-422d-aba2-bea2110bc5e6",
+    "name": "AntDesignSpin API"
+  },
+  "icon": "Spin",
+  "tags": [
+    {
+      "id": "f4bf73cb-0c53-414b-945f-f729a03a9f3b",
+      "name": "Spin"
+    }
+  ],
+  "allowedChildren": []
+}

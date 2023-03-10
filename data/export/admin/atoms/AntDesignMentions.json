@@ -1,0 +1,17 @@
+{
+  "id": "08468efd-f78e-4c0a-b57c-b92e14f39d50",
+  "name": "AntDesignMentions",
+  "type": "AntDesignMentions",
+  "api": {
+    "id": "76a77492-4b5a-419d-b9df-28e37bb568d3",
+    "name": "AntDesignMentions API"
+  },
+  "icon": "Mentions",
+  "tags": [
+    {
+      "id": "b39527b5-0ee4-47a3-a9f7-8a7dd30837a9",
+      "name": "Mentions"
+    }
+  ],
+  "allowedChildren": []
+}

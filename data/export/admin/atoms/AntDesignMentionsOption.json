@@ -1,0 +1,17 @@
+{
+  "id": "373ebafd-9fa9-4189-9434-09b1affd73e5",
+  "name": "AntDesignMentionsOption",
+  "type": "AntDesignMentionsOption",
+  "api": {
+    "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da",
+    "name": "AntDesignMentionsOption API"
+  },
+  "icon": "Mentions",
+  "tags": [
+    {
+      "id": "6f9944a0-e6c3-4cb3-9423-cf407dad0bd5",
+      "name": "Mentions.Option"
+    }
+  ],
+  "allowedChildren": []
+}

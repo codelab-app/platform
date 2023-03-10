@@ -1,0 +1,17 @@
+{
+  "id": "b5e3e7fb-cb01-44e6-a93b-667255b15aac",
+  "name": "AntDesignAnchorLink",
+  "type": "AntDesignAnchorLink",
+  "api": {
+    "id": "bdb3c2ea-be6b-4676-b633-7c64b1cdc80c",
+    "name": "AntDesignAnchorLink API"
+  },
+  "icon": "Anchor",
+  "tags": [
+    {
+      "id": "98e7261f-4995-4e25-906e-07a8bc256ae7",
+      "name": "Anchor.Link"
+    }
+  ],
+  "allowedChildren": []
+}

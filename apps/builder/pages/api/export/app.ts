@@ -11,10 +11,10 @@ const exportApp: NextApiHandler = async (req, res) => {
       return res.status(403).send('Not Authenticated')
     }
 
-    const { appId } = req.query
+    const { id } = req.query
 
     const exportedApp = await exportUserData({
-      appIds: [String(appId)],
+      appIds: [String(id)],
     })
 
     const appName = exportedApp.apps[0]?.name

@@ -1,0 +1,17 @@
+{
+  "id": "6d071bf9-8153-4b1b-905a-ab98eddded21",
+  "name": "AntDesignBackTop",
+  "type": "AntDesignBackTop",
+  "api": {
+    "id": "ca611568-f23c-4510-a163-810e147f456d",
+    "name": "AntDesignBackTop API"
+  },
+  "icon": "BackTop",
+  "tags": [
+    {
+      "id": "76e1075b-2060-4a5b-935e-4e4852923d79",
+      "name": "BackTop"
+    }
+  ],
+  "allowedChildren": []
+}

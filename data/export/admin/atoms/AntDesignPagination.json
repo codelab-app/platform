@@ -1,0 +1,17 @@
+{
+  "id": "be270198-44bc-4da2-9580-4ce644649d93",
+  "name": "AntDesignPagination",
+  "type": "AntDesignPagination",
+  "api": {
+    "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4",
+    "name": "AntDesignPagination API"
+  },
+  "icon": "Pagination",
+  "tags": [
+    {
+      "id": "2a2499ef-dd4b-493c-9a8b-9103237f0d33",
+      "name": "Pagination"
+    }
+  ],
+  "allowedChildren": []
+}

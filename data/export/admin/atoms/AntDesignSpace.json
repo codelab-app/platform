@@ -1,0 +1,17 @@
+{
+  "id": "bc2264fb-7acc-479c-b03f-4eed791d20ad",
+  "name": "AntDesignSpace",
+  "type": "AntDesignSpace",
+  "api": {
+    "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84",
+    "name": "AntDesignSpace API"
+  },
+  "icon": "Space",
+  "tags": [
+    {
+      "id": "4ea773ed-a375-44ec-8766-3e686caef3c2",
+      "name": "Space"
+    }
+  ],
+  "allowedChildren": []
+}

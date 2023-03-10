@@ -1,5 +1,6 @@
 import { exportUserData } from '@codelab/backend/data'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import { saveFormattedFile } from '@codelab/backend/shared/util'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
 import yargs from 'yargs'
@@ -14,7 +15,6 @@ import {
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Stage } from '../../shared/utils/stage'
 import { exportSeedData } from '../../use-cases/export/export-seed-data'
-import { saveExportFile } from '../../use-cases/export/save-export-file'
 
 /**
  * Entry point for all export. Show users a list of questions such as
@@ -99,7 +99,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
               ])
             ).outputFilePath
 
-      await saveExportFile(exportedSeedData, outputFilePath)
+      await saveFormattedFile(outputFilePath, exportedSeedData)
     }
 
     if (!shouldSkipUserData) {
@@ -120,9 +120,9 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
         appIds: [selectedApp],
       })
 
-      await saveExportFile(
-        exportedUserData,
+      await saveFormattedFile(
         `${selectedUserId}-${Date.now()}.json`,
+        exportedUserData,
       )
     }
 

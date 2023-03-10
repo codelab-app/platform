@@ -1,0 +1,17 @@
+{
+  "id": "11d5459a-6f77-4785-b30f-e734b66127a2",
+  "name": "AntDesignIcon",
+  "type": "AntDesignIcon",
+  "api": {
+    "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd",
+    "name": "AntDesignIcon API"
+  },
+  "icon": "Icon",
+  "tags": [
+    {
+      "id": "784eb643-c182-44a3-a598-af8355642a84",
+      "name": "Icon"
+    }
+  ],
+  "allowedChildren": []
+}

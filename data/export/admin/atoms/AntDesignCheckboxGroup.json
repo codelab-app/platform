@@ -1,0 +1,17 @@
+{
+  "id": "7a31543d-6d98-4188-ab00-cafc1311058c",
+  "name": "AntDesignCheckboxGroup",
+  "type": "AntDesignCheckboxGroup",
+  "api": {
+    "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8",
+    "name": "AntDesignCheckboxGroup API"
+  },
+  "icon": "Checkbox",
+  "tags": [
+    {
+      "id": "13ab0981-5aa1-4ca8-b63d-85a2a7be7947",
+      "name": "Checkbox.Group"
+    }
+  ],
+  "allowedChildren": []
+}

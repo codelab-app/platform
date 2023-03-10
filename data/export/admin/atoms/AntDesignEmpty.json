@@ -1,0 +1,17 @@
+{
+  "id": "9763af51-dd44-4c82-a79b-be421ac7071e",
+  "name": "AntDesignEmpty",
+  "type": "AntDesignEmpty",
+  "api": {
+    "id": "bf8fc586-0d95-4d21-8d1d-a4987759fa1a",
+    "name": "AntDesignEmpty API"
+  },
+  "icon": "Empty",
+  "tags": [
+    {
+      "id": "8cc93aa9-9409-40b0-b882-7607a21f74d0",
+      "name": "Empty"
+    }
+  ],
+  "allowedChildren": []
+}

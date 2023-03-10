@@ -1,7 +1,7 @@
 import fs from 'fs'
 import * as path from 'path'
 
-export const saveExportFile = async (data: object, outputFilePath: string) => {
+export const saveFormattedFile = (outputFilePath: string, data: object) => {
   if (!outputFilePath.endsWith('.json')) {
     throw new Error('Output path must end with .json')
   }

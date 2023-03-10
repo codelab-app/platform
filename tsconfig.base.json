@@ -73,6 +73,7 @@
         "libs/backend/infra/adapter/vercel/src/index.ts"
       ],
       "@codelab/backend/infra/ports": ["libs/backend/infra/ports/src/index.ts"],
+      "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],

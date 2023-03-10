@@ -1,0 +1,17 @@
+{
+  "id": "74da7af9-1b5f-49c9-b0dc-2a95ff38e7d5",
+  "name": "ReactFragment",
+  "type": "ReactFragment",
+  "api": {
+    "id": "b7361811-cc55-4e2a-ad1a-90d886cbf2c7",
+    "name": "ReactFragment API"
+  },
+  "icon": null,
+  "tags": [
+    {
+      "id": "92ed3815-85ce-4446-8fb1-94e13e92045e",
+      "name": "React.Fragment"
+    }
+  ],
+  "allowedChildren": []
+}

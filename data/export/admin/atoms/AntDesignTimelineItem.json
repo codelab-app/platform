@@ -1,0 +1,17 @@
+{
+  "id": "95efb788-04aa-4ad5-baa1-13e7bfab4296",
+  "name": "AntDesignTimelineItem",
+  "type": "AntDesignTimelineItem",
+  "api": {
+    "id": "0fb584b8-5ea0-41f0-9b08-8f741c168f37",
+    "name": "AntDesignTimelineItem API"
+  },
+  "icon": "Timeline",
+  "tags": [
+    {
+      "id": "b8a9b4ae-5611-4209-988c-412bbd1b9459",
+      "name": "Timeline.Item"
+    }
+  ],
+  "allowedChildren": []
+}

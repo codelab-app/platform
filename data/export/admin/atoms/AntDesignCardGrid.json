@@ -1,0 +1,17 @@
+{
+  "id": "e2f943d1-071d-452c-b33c-53ad4096884e",
+  "name": "AntDesignCardGrid",
+  "type": "AntDesignCardGrid",
+  "api": {
+    "id": "56a490fe-a6d5-4baa-a36f-ef88fad0b644",
+    "name": "AntDesignCardGrid API"
+  },
+  "icon": "Card",
+  "tags": [
+    {
+      "id": "456efe42-6dcc-4a88-945c-c601980ec423",
+      "name": "Card.Grid"
+    }
+  ],
+  "allowedChildren": []
+}

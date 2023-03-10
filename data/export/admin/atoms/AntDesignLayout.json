@@ -1,0 +1,17 @@
+{
+  "id": "e5bb13e2-1471-4940-875e-4fbccb43bc10",
+  "name": "AntDesignLayout",
+  "type": "AntDesignLayout",
+  "api": {
+    "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125",
+    "name": "AntDesignLayout API"
+  },
+  "icon": "Layout",
+  "tags": [
+    {
+      "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
+      "name": "Layout"
+    }
+  ],
+  "allowedChildren": []
+}

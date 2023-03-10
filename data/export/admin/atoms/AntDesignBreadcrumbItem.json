@@ -1,0 +1,17 @@
+{
+  "id": "f6fa7adb-ca95-4fec-a304-b36e2867b544",
+  "name": "AntDesignBreadcrumbItem",
+  "type": "AntDesignBreadcrumbItem",
+  "api": {
+    "id": "52c3fbd6-b8bc-4c9d-af05-b3ad6501d7c0",
+    "name": "AntDesignBreadcrumbItem API"
+  },
+  "icon": "Breadcrumb",
+  "tags": [
+    {
+      "id": "ddcdb7a3-573a-4a72-9a59-aba21c91223e",
+      "name": "Breadcrumb.Item"
+    }
+  ],
+  "allowedChildren": []
+}

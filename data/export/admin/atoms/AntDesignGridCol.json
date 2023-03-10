@@ -1,0 +1,17 @@
+{
+  "id": "ef9369b2-5671-40bb-a233-30a96afadf92",
+  "name": "AntDesignGridCol",
+  "type": "AntDesignGridCol",
+  "api": {
+    "id": "dbcaad5e-2007-4404-8fe4-2e030071304a",
+    "name": "AntDesignGridCol API"
+  },
+  "icon": "Grid",
+  "tags": [
+    {
+      "id": "e5d66ff3-1317-4664-be90-7d73ce079ec7",
+      "name": "Col"
+    }
+  ],
+  "allowedChildren": []
+}

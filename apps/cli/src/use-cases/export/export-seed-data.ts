@@ -1,12 +1,13 @@
 import type { ExportedData } from '@codelab/backend/abstract/core'
-import { exportAtoms } from './export-atoms'
+import { exportAtoms, exportSystemTypes } from '@codelab/backend/data'
+import { exportAdminTypes } from './export-admin-types'
 import { exportTags } from './export-tags'
-import { exportTypes } from './export-types'
 
 export const exportSeedData = async () => {
   const atomsData = await exportAtoms()
   const tagsData = await exportTags()
-  const seedTypesData = await exportTypes()
+  const systemTypes = await exportSystemTypes()
+  const adminTypes = await exportAdminTypes()
 
   // We'll want to sort the data so diff is minimized
   const sortedAtomsData = atomsData
@@ -30,6 +31,7 @@ export const exportSeedData = async () => {
     'apps' | 'stores' | 'resources' | 'domains'
   > = {
     atoms: sortedAtomsData,
+    types: [...systemTypes, ...adminTypes],
     tags: sortedTagsData,
     types: seedTypesData,
   }

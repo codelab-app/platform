@@ -1,0 +1,17 @@
+{
+  "id": "5f0dff9e-10c3-48a3-9dde-9fc2b1831978",
+  "name": "AntDesignModal",
+  "type": "AntDesignModal",
+  "api": {
+    "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3",
+    "name": "AntDesignModal API"
+  },
+  "icon": "Modal",
+  "tags": [
+    {
+      "id": "296ae177-5460-4377-a7d2-5426f4c7baf7",
+      "name": "Modal"
+    }
+  ],
+  "allowedChildren": []
+}

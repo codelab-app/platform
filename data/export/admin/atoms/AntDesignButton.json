@@ -1,0 +1,17 @@
+{
+  "id": "90a3773a-438b-4f85-8b80-efcad1cd3105",
+  "name": "AntDesignButton",
+  "type": "AntDesignButton",
+  "api": {
+    "id": "c26e38f9-4de3-4a6e-9e3c-a1259b9c5b08",
+    "name": "AntDesignButton API"
+  },
+  "icon": "Button",
+  "tags": [
+    {
+      "id": "9aac9066-9b95-47be-bfd2-5e95a8953192",
+      "name": "Button"
+    }
+  ],
+  "allowedChildren": []
+}

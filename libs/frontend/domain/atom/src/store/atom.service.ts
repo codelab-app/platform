@@ -66,6 +66,13 @@ export class AtomService
     return atom!
   })
 
+  @modelAction
+  export() {
+    const ids = Array.from(this.selectedIds.values())
+
+    void fetch(`/api/export/atom?ids=${ids}`)
+  }
+
   @computed
   get tagService() {
     return getTagService(this)

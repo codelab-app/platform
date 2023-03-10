@@ -1,0 +1,17 @@
+{
+  "id": "76d96b5e-b4e3-4810-9bf6-ad6fbb768723",
+  "name": "AntDesignTimePicker",
+  "type": "AntDesignTimePicker",
+  "api": {
+    "id": "a739fe31-0c1f-417a-906d-46f3c107f2f9",
+    "name": "AntDesignTimePicker API"
+  },
+  "icon": "TimePicker",
+  "tags": [
+    {
+      "id": "d5b440ff-9cd1-4e33-b842-5cd50d58efb8",
+      "name": "TimePicker"
+    }
+  ],
+  "allowedChildren": []
+}

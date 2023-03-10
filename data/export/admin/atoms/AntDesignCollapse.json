@@ -1,0 +1,17 @@
+{
+  "id": "0a007bb7-1db8-41f5-aee7-de8b0729c32b",
+  "name": "AntDesignCollapse",
+  "type": "AntDesignCollapse",
+  "api": {
+    "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f",
+    "name": "AntDesignCollapse API"
+  },
+  "icon": "Collapse",
+  "tags": [
+    {
+      "id": "ddd2ede6-0fcd-45f4-ac22-30bad5f4dfb1",
+      "name": "Collapse"
+    }
+  ],
+  "allowedChildren": []
+}

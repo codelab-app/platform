@@ -1,0 +1,17 @@
+{
+  "id": "f709ea63-cca2-43c9-8855-daf8b60b735c",
+  "name": "AntDesignTree",
+  "type": "AntDesignTree",
+  "api": {
+    "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a",
+    "name": "AntDesignTree API"
+  },
+  "icon": "Tree",
+  "tags": [
+    {
+      "id": "eb2d4052-833e-46b0-b3bf-e5fe3d405e93",
+      "name": "Tree"
+    }
+  ],
+  "allowedChildren": []
+}

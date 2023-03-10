@@ -1,0 +1,17 @@
+{
+  "id": "420de611-69f5-4cf4-af7f-58ba2b073b45",
+  "name": "AntDesignDrawer",
+  "type": "AntDesignDrawer",
+  "api": {
+    "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe",
+    "name": "AntDesignDrawer API"
+  },
+  "icon": "Drawer",
+  "tags": [
+    {
+      "id": "4ba390fe-f88f-4016-aca2-20d14ffc52ca",
+      "name": "Drawer"
+    }
+  ],
+  "allowedChildren": []
+}

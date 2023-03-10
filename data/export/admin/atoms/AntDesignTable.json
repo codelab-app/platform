@@ -1,0 +1,17 @@
+{
+  "id": "1c45b9c6-85f5-4790-b6fb-fccba9e758ad",
+  "name": "AntDesignTable",
+  "type": "AntDesignTable",
+  "api": {
+    "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e",
+    "name": "AntDesignTable API"
+  },
+  "icon": "Table",
+  "tags": [
+    {
+      "id": "8a54e22c-688b-4709-9c6e-c95507c74363",
+      "name": "Table"
+    }
+  ],
+  "allowedChildren": []
+}

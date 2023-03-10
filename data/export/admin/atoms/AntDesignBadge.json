@@ -1,0 +1,17 @@
+{
+  "id": "d9295b5e-a5ff-40a6-844f-5950be72c191",
+  "name": "AntDesignBadge",
+  "type": "AntDesignBadge",
+  "api": {
+    "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5",
+    "name": "AntDesignBadge API"
+  },
+  "icon": "Badge",
+  "tags": [
+    {
+      "id": "7098bd3a-fef6-428b-bca2-34e712665a94",
+      "name": "Badge"
+    }
+  ],
+  "allowedChildren": []
+}

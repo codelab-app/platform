@@ -1,0 +1,17 @@
+{
+  "id": "f50135cf-ad44-4755-9f48-92fbad1f4b09",
+  "name": "AntDesignNotification",
+  "type": "AntDesignNotification",
+  "api": {
+    "id": "cf128ff4-f52e-4f96-be84-856e34a83c32",
+    "name": "AntDesignNotification API"
+  },
+  "icon": "Notification",
+  "tags": [
+    {
+      "id": "6166d041-98b3-4556-8914-e53f4f223f7b",
+      "name": "Notification"
+    }
+  ],
+  "allowedChildren": []
+}

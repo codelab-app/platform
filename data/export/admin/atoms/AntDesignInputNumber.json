@@ -1,0 +1,17 @@
+{
+  "id": "6c80cf6d-ba5f-4c65-9983-e8c59cb4b51d",
+  "name": "AntDesignInputNumber",
+  "type": "AntDesignInputNumber",
+  "api": {
+    "id": "f4a23443-2213-44f2-a626-584be3980dc4",
+    "name": "AntDesignInputNumber API"
+  },
+  "icon": "InputNumber",
+  "tags": [
+    {
+      "id": "a37f4e19-6afe-409f-a033-973334f51879",
+      "name": "InputNumber"
+    }
+  ],
+  "allowedChildren": []
+}

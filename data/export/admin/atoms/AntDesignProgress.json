@@ -1,0 +1,17 @@
+{
+  "id": "febf3bee-c9aa-48d0-aa90-100c72f59239",
+  "name": "AntDesignProgress",
+  "type": "AntDesignProgress",
+  "api": {
+    "id": "c5e57d8b-2772-4453-aadc-a8ae37a42f25",
+    "name": "AntDesignProgress API"
+  },
+  "icon": "Progress",
+  "tags": [
+    {
+      "id": "63fd2beb-9394-4405-8050-5161658ebdb9",
+      "name": "Progress"
+    }
+  ],
+  "allowedChildren": []
+}

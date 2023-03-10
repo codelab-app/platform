@@ -1,0 +1,17 @@
+{
+  "id": "c3ab26e5-2ab2-4d10-b237-4ebcf1843688",
+  "name": "AntDesignMenu",
+  "type": "AntDesignMenu",
+  "api": {
+    "id": "21eb008f-563f-4dcc-a31e-9634fc537132",
+    "name": "AntDesignMenu API"
+  },
+  "icon": "Menu",
+  "tags": [
+    {
+      "id": "793a417f-ea02-4288-a840-575ebafc1e58",
+      "name": "Menu"
+    }
+  ],
+  "allowedChildren": []
+}

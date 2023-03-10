@@ -1,0 +1,17 @@
+{
+  "id": "4131bc4a-434d-4a03-85d0-e914d76c4ecb",
+  "name": "AntDesignDatePicker",
+  "type": "AntDesignDatePicker",
+  "api": {
+    "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db",
+    "name": "AntDesignDatePicker API"
+  },
+  "icon": "DatePicker",
+  "tags": [
+    {
+      "id": "92fc37ba-3538-417b-8055-ad034e9b6916",
+      "name": "DatePicker"
+    }
+  ],
+  "allowedChildren": []
+}

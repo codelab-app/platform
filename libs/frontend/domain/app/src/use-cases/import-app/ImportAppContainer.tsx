@@ -3,9 +3,9 @@ import type { IAppService } from '@codelab/frontend/abstract/core'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 import React, { useRef } from 'react'
-import importApp from './appImportApi'
+import importApp from './import-app.api'
 
-export const AppImportContainer = ({
+export const ImportAppContainer = ({
   appService,
 }: {
   appService: IAppService
@@ -17,7 +17,6 @@ export const AppImportContainer = ({
 
   const onSuccess = () => appService.getAll()
   const inputFile = useRef<HTMLInputElement | null>(null)
-  const icon = <ImportOutlined />
   const onClick = () => inputFile.current?.click()
 
   const onFileChange = async () => {
@@ -31,7 +30,7 @@ export const AppImportContainer = ({
 
   return (
     <>
-      <Button icon={icon} onClick={onClick}>
+      <Button icon={<ImportOutlined />} onClick={onClick}>
         Import App
       </Button>
 

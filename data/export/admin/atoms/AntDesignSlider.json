@@ -1,0 +1,17 @@
+{
+  "id": "17f0d178-895a-4632-9c57-6e86ff23766d",
+  "name": "AntDesignSlider",
+  "type": "AntDesignSlider",
+  "api": {
+    "id": "dc0666cc-244c-41c0-90c0-d7177538359c",
+    "name": "AntDesignSlider API"
+  },
+  "icon": "Slider",
+  "tags": [
+    {
+      "id": "4489a840-cceb-4aeb-966f-6d132154602a",
+      "name": "Slider"
+    }
+  ],
+  "allowedChildren": []
+}

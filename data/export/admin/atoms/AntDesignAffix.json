@@ -1,0 +1,17 @@
+{
+  "id": "a224c713-488d-438f-bde9-435a6fd956a6",
+  "name": "AntDesignAffix",
+  "type": "AntDesignAffix",
+  "api": {
+    "id": "68d0a36b-481d-466a-97c0-845e45d8029b",
+    "name": "AntDesignAffix API"
+  },
+  "icon": "Affix",
+  "tags": [
+    {
+      "id": "efd3804a-d181-4deb-8c30-cd2d74b075f4",
+      "name": "Affix"
+    }
+  ],
+  "allowedChildren": []
+}

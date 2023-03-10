@@ -1,0 +1,17 @@
+{
+  "id": "020006f3-ea5e-4f22-a679-f67e3f7f5754",
+  "name": "AntDesignRadio",
+  "type": "AntDesignRadio",
+  "api": {
+    "id": "e1c94ac5-54f6-44c7-ac25-c5fd229a6d29",
+    "name": "AntDesignRadio API"
+  },
+  "icon": "Radio",
+  "tags": [
+    {
+      "id": "cd7758fc-f36e-4288-bac8-17b269246d84",
+      "name": "Radio"
+    }
+  ],
+  "allowedChildren": []
+}

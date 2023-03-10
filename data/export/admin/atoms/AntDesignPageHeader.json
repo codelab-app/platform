@@ -1,0 +1,17 @@
+{
+  "id": "73f0f95c-c3b5-44c8-88f1-4db43b8a07d8",
+  "name": "AntDesignPageHeader",
+  "type": "AntDesignPageHeader",
+  "api": {
+    "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0",
+    "name": "AntDesignPageHeader API"
+  },
+  "icon": "PageHeader",
+  "tags": [
+    {
+      "id": "d8ca4161-3935-4c9a-b3d7-9a8f6095198e",
+      "name": "PageHeader"
+    }
+  ],
+  "allowedChildren": []
+}

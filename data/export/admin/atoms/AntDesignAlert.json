@@ -1,0 +1,17 @@
+{
+  "id": "404c41ce-2522-4e4d-83be-9f5286809476",
+  "name": "AntDesignAlert",
+  "type": "AntDesignAlert",
+  "api": {
+    "id": "daebe9b2-eb88-4b46-bfe8-aec808e615ba",
+    "name": "AntDesignAlert API"
+  },
+  "icon": "Alert",
+  "tags": [
+    {
+      "id": "8e9f7093-04d7-432f-8127-297ff4a33b3d",
+      "name": "Alert"
+    }
+  ],
+  "allowedChildren": []
+}

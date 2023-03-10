@@ -1,0 +1,17 @@
+{
+  "id": "c7092120-f2b4-4c48-ad01-cf67da35a72c",
+  "name": "AntDesignTypographyText",
+  "type": "AntDesignTypographyText",
+  "api": {
+    "id": "ee43dedf-b452-46f0-9ad3-8b15f586786f",
+    "name": "AntDesignTypographyText API"
+  },
+  "icon": "Typography",
+  "tags": [
+    {
+      "id": "3ec1e9da-0015-4d81-9a95-22596775cf25",
+      "name": "Typography.Text"
+    }
+  ],
+  "allowedChildren": []
+}

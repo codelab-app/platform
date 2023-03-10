@@ -1,0 +1,17 @@
+{
+  "id": "9ea77f8a-ef9e-4b9a-b2bd-cb39d9e98ae5",
+  "name": "AntDesignCardMeta",
+  "type": "AntDesignCardMeta",
+  "api": {
+    "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80",
+    "name": "AntDesignCardMeta API"
+  },
+  "icon": "Card",
+  "tags": [
+    {
+      "id": "235e046e-b5fd-4fce-bfbd-06f1a2c854fd",
+      "name": "Card.Meta"
+    }
+  ],
+  "allowedChildren": []
+}

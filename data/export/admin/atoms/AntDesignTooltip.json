@@ -1,0 +1,17 @@
+{
+  "id": "39b0b027-1c74-412c-9f05-2b8a3be21842",
+  "name": "AntDesignTooltip",
+  "type": "AntDesignTooltip",
+  "api": {
+    "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d",
+    "name": "AntDesignTooltip API"
+  },
+  "icon": "Tooltip",
+  "tags": [
+    {
+      "id": "a74879ae-19ee-4038-ad41-5504dd0ca8da",
+      "name": "Tooltip"
+    }
+  ],
+  "allowedChildren": []
+}

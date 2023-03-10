@@ -1,0 +1,17 @@
+{
+  "id": "a37d8094-0765-4d1d-894e-51e0ce635df8",
+  "name": "HtmlA",
+  "type": "HtmlA",
+  "api": {
+    "id": "cc6540eb-898c-4faf-baef-fdd1bd4a3e1d",
+    "name": "HtmlA API"
+  },
+  "icon": null,
+  "tags": [
+    {
+      "id": "03be1ec1-f503-485e-b7e6-c841c7c47ade",
+      "name": "Html"
+    }
+  ],
+  "allowedChildren": []
+}

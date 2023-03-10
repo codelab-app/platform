@@ -1,0 +1,17 @@
+{
+  "id": "c746477b-0861-4fd2-b19d-714240cdc23c",
+  "name": "AntDesignDropdownButton",
+  "type": "AntDesignDropdownButton",
+  "api": {
+    "id": "c834507c-88a4-4642-a43f-1deb467ec860",
+    "name": "AntDesignDropdownButton API"
+  },
+  "icon": "Dropdown",
+  "tags": [
+    {
+      "id": "ee950b65-99a9-4717-8cfb-18bb694b1307",
+      "name": "Dropdown.Button"
+    }
+  ],
+  "allowedChildren": []
+}

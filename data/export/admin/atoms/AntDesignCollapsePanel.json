@@ -1,0 +1,17 @@
+{
+  "id": "27748f46-d131-4662-969c-e013c69d7b66",
+  "name": "AntDesignCollapsePanel",
+  "type": "AntDesignCollapsePanel",
+  "api": {
+    "id": "382c04a5-3fab-46b2-bd96-730061aaa02b",
+    "name": "AntDesignCollapsePanel API"
+  },
+  "icon": "Collapse",
+  "tags": [
+    {
+      "id": "351a631a-766a-488c-9ae8-cafca2624270",
+      "name": "Collapse.Panel"
+    }
+  ],
+  "allowedChildren": []
+}

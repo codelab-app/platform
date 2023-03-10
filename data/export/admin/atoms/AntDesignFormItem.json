@@ -1,0 +1,17 @@
+{
+  "id": "7e971b1c-8d30-4786-9d4a-2cc5fe49bc13",
+  "name": "AntDesignFormItem",
+  "type": "AntDesignFormItem",
+  "api": {
+    "id": "5c73977d-aeea-4742-919e-ec158d0c3eda",
+    "name": "AntDesignFormItem API"
+  },
+  "icon": "Form",
+  "tags": [
+    {
+      "id": "58bcf196-5272-4b3a-97cf-1a0d3e8edc7e",
+      "name": "Form.Item"
+    }
+  ],
+  "allowedChildren": []
+}

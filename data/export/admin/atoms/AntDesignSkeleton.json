@@ -1,0 +1,17 @@
+{
+  "id": "294e6307-c6ea-4de7-8b0d-a43272d593ed",
+  "name": "AntDesignSkeleton",
+  "type": "AntDesignSkeleton",
+  "api": {
+    "id": "77244aa0-773a-477b-9703-fa4d1a3a289e",
+    "name": "AntDesignSkeleton API"
+  },
+  "icon": "Skeleton",
+  "tags": [
+    {
+      "id": "886ac5c2-dc9a-4c28-a6c4-5fa43777e424",
+      "name": "Skeleton"
+    }
+  ],
+  "allowedChildren": []
+}

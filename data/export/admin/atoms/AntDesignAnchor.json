@@ -1,0 +1,17 @@
+{
+  "id": "e0f1352c-f82b-4ee2-ab63-197b01458f80",
+  "name": "AntDesignAnchor",
+  "type": "AntDesignAnchor",
+  "api": {
+    "id": "3318a782-a7a3-4004-a42c-ed08ac836c00",
+    "name": "AntDesignAnchor API"
+  },
+  "icon": "Anchor",
+  "tags": [
+    {
+      "id": "c511b8af-c170-4aff-a4d1-bfb8c4650f4e",
+      "name": "Anchor"
+    }
+  ],
+  "allowedChildren": []
+}

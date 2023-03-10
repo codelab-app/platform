@@ -1,0 +1,17 @@
+{
+  "id": "5dcdf198-159d-40b5-aae4-13915ac8fdd6",
+  "name": "AntDesignTypographyParagraph",
+  "type": "AntDesignTypographyParagraph",
+  "api": {
+    "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f",
+    "name": "AntDesignTypographyParagraph API"
+  },
+  "icon": "Typography",
+  "tags": [
+    {
+      "id": "9ebdd59b-5ca6-4d0c-b7ec-95a6ec7db6ed",
+      "name": "Typography.Paragraph"
+    }
+  ],
+  "allowedChildren": []
+}

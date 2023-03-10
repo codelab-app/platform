@@ -1,0 +1,17 @@
+{
+  "id": "71d27a72-a9cf-4390-b24e-c06f643be920",
+  "name": "AntDesignComment",
+  "type": "AntDesignComment",
+  "api": {
+    "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f",
+    "name": "AntDesignComment API"
+  },
+  "icon": "Comment",
+  "tags": [
+    {
+      "id": "120eec75-5e57-4b1d-a55e-33cc2166591a",
+      "name": "Comment"
+    }
+  ],
+  "allowedChildren": []
+}

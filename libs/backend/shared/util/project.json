@@ -1,0 +1,16 @@
+{
+  "name": "backend-shared-util",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/shared/util/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/shared/util/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

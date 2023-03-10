@@ -1,0 +1,17 @@
+{
+  "id": "1ec78dab-f8ce-4ee0-a4b3-07f38b59be0c",
+  "name": "AntDesignDivider",
+  "type": "AntDesignDivider",
+  "api": {
+    "id": "0439319b-7f50-41da-b67f-ea390fead445",
+    "name": "AntDesignDivider API"
+  },
+  "icon": "Divider",
+  "tags": [
+    {
+      "id": "360a0a63-ede0-46e7-9143-28d1a2046449",
+      "name": "Divider"
+    }
+  ],
+  "allowedChildren": []
+}

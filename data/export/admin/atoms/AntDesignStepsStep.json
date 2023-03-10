@@ -1,0 +1,17 @@
+{
+  "id": "c5cba464-915b-47f7-aec4-e4a8bb22ccff",
+  "name": "AntDesignStepsStep",
+  "type": "AntDesignStepsStep",
+  "api": {
+    "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f",
+    "name": "AntDesignStepsStep API"
+  },
+  "icon": "Steps",
+  "tags": [
+    {
+      "id": "7939efbe-0474-4ddc-9e32-5bd73578f22a",
+      "name": "Steps.Step"
+    }
+  ],
+  "allowedChildren": []
+}

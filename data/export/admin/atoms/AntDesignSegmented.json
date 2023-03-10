@@ -1,0 +1,17 @@
+{
+  "id": "87fb0ab3-96fb-40bc-81f3-c000ad6dbf85",
+  "name": "AntDesignSegmented",
+  "type": "AntDesignSegmented",
+  "api": {
+    "id": "85eb3d00-6f72-4124-ba47-2739100a691d",
+    "name": "AntDesignSegmented API"
+  },
+  "icon": "Segmented",
+  "tags": [
+    {
+      "id": "95517890-a678-4447-a0d5-01958695b49c",
+      "name": "Segmented"
+    }
+  ],
+  "allowedChildren": []
+}
