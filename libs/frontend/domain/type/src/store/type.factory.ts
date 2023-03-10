@@ -1,4 +1,11 @@
-import type { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IArrayTypeDTO,
+  ICreateTypeData,
+  IInterfaceTypeDTO,
+  ITypeDTO,
+  IUnionTypeDTO,
+  IUpdateTypeData,
+} from '@codelab/frontend/abstract/core'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
@@ -17,48 +24,89 @@ import {
   UnionType,
 } from './models'
 
-export const typeFactory = (type: ITypeDTO) => {
-  switch (type.__typename) {
-    case ITypeKind.AppType:
-      return AppType.hydrate(type)
+export class TypeFactory {
+  static create(typeDTO: ITypeDTO) {
+    switch (typeDTO.__typename) {
+      case ITypeKind.AppType:
+        return AppType.create(typeDTO)
 
-    case ITypeKind.ActionType:
-      return ActionType.hydrate(type)
+      case ITypeKind.ActionType:
+        return ActionType.create(typeDTO)
 
-    case ITypeKind.ElementType:
-      return ElementType.hydrate(type)
+      case ITypeKind.ElementType:
+        return ElementType.create(typeDTO)
 
-    case ITypeKind.EnumType:
-      return EnumType.hydrate(type)
+      case ITypeKind.EnumType:
+        return EnumType.create(typeDTO)
 
-    case ITypeKind.LambdaType:
-      return LambdaType.hydrate(type)
+      case ITypeKind.LambdaType:
+        return LambdaType.create(typeDTO)
 
-    case ITypeKind.CodeMirrorType:
-      return CodeMirrorType.hydrate(type)
+      case ITypeKind.CodeMirrorType:
+        return CodeMirrorType.create(typeDTO)
 
-    case ITypeKind.PageType:
-      return PageType.hydrate(type)
+      case ITypeKind.PageType:
+        return PageType.create(typeDTO)
 
-    case ITypeKind.PrimitiveType:
-      return PrimitiveType.hydrate(type)
+      case ITypeKind.PrimitiveType:
+        return PrimitiveType.create(typeDTO)
 
-    case ITypeKind.ReactNodeType:
-      return ReactNodeType.hydrate(type)
+      case ITypeKind.ReactNodeType:
+        return ReactNodeType.create(typeDTO)
 
-    case ITypeKind.RenderPropsType:
-      return RenderPropsType.hydrate(type)
+      case ITypeKind.RenderPropsType:
+        return RenderPropsType.create(typeDTO)
 
-    case ITypeKind.ArrayType:
-      return ArrayType.hydrate(type)
+      case ITypeKind.ArrayType:
+        return ArrayType.create(typeDTO)
 
-    case TypeKind.InterfaceType:
-      return InterfaceType.hydrate(type)
+      case TypeKind.InterfaceType:
+        return InterfaceType.create(typeDTO)
 
-    case TypeKind.UnionType:
-      return UnionType.hydrate(type)
+      case TypeKind.UnionType:
+        return UnionType.create(typeDTO)
 
-    default:
-      throw new Error(`Unknown type kind: ${type.kind}`)
+      default:
+        throw new Error(`Unknown type kind: ${typeDTO.kind}`)
+    }
+  }
+
+  static mapDataToDTO(data: ICreateTypeData | IUpdateTypeData): ITypeDTO {
+    switch (data.kind) {
+      case ITypeKind.InterfaceType:
+        return {
+          ...data,
+          __typename: data.kind,
+          fields: [],
+          owner: {
+            auth0Id: data.owner.auth0Id,
+            // TODO: This assumption might be wrong, check it out!
+            id: data.owner.auth0Id,
+          },
+        } as IInterfaceTypeDTO
+
+      case ITypeKind.ArrayType:
+        return {
+          ...data,
+          __typename: data.kind,
+          itemType: {
+            id: data.arrayTypeId as string,
+            name: '',
+          },
+        } as IArrayTypeDTO
+
+      case ITypeKind.UnionType:
+        return {
+          ...data,
+          __typename: data.kind,
+          typesOfUnionType: data.unionTypeIds?.map((id) => ({
+            id,
+            name: '',
+          })),
+        } as IUnionTypeDTO
+
+      default:
+        return { ...data, __typename: data.kind } as ITypeDTO
+    }
   }
 }

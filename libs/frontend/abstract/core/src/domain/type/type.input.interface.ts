@@ -5,7 +5,23 @@ export interface IUpdateTypeArgs {
   disconnect?: IDisconnectNodeInput
   connect?: IconnectNodeInput
   delete?: IDeleteTypeInput
+  where: ITypeWhere
 }
+
+type ITypeWhere =
+  | cg.AppTypeWhere
+  | cg.ActionTypeWhere
+  | cg.ArrayTypeWhere
+  | cg.ElementTypeWhere
+  | cg.EnumTypeWhere
+  | cg.InterfaceTypeWhere
+  | cg.LambdaTypeWhere
+  | cg.CodeMirrorTypeWhere
+  | cg.PageTypeWhere
+  | cg.PrimitiveTypeWhere
+  | cg.ReactNodeTypeWhere
+  | cg.RenderPropsTypeWhere
+  | cg.UnionTypeWhere
 
 export type ICreateTypeInput =
   | cg.AppTypeCreateInput

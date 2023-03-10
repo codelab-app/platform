@@ -5,6 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 
@@ -31,6 +32,24 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       updateBaseTypeCache(this, baseTypeDTO)
 
       return this
+    }
+
+    toCreateInput() {
+      return {
+        id: this.id,
+        kind: this.kind,
+        name: this.name,
+        owner: connectAuth0Owner(this.owner),
+      }
+    }
+
+    toUpdateInput() {
+      return {
+        update: {
+          name: this.name,
+        },
+        where: { id: this.id },
+      }
     }
 
     // toString() {

@@ -57,12 +57,14 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
         typeToUpdate?.kind === ITypeKind.ElementType
           ? typeToUpdate.elementKind
           : undefined,
+      id: typeToUpdate?.id,
       kind: typeToUpdate?.kind,
       language:
         typeToUpdate?.kind === ITypeKind.CodeMirrorType
           ? typeToUpdate.language
           : undefined,
       name: typeToUpdate?.name,
+      owner: typeToUpdate?.owner,
       primitiveKind:
         typeToUpdate?.kind === ITypeKind.PrimitiveType
           ? typeToUpdate.primitiveKind
