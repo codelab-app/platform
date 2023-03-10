@@ -27,7 +27,7 @@ import type {
  *
  * For the backend, we'll create a type for each sub-type.
  */
-export interface IAllTypeDTO {
+export interface IAllTypeData {
   id: string
   name: string
   kind: ITypeKind
@@ -39,9 +39,9 @@ export interface IAllTypeDTO {
   arrayTypeId?: string
 }
 
-export interface ICreateTypeData extends IAllTypeDTO, IOwnerSchema {}
+export interface ICreateTypeData extends IAllTypeData, IOwnerSchema {}
 
-export type IUpdateTypeData = IAllTypeDTO
+export type IUpdateTypeData = ICreateTypeData
 
 export type ITypeDTO =
   | IActionTypeDTO

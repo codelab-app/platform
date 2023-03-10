@@ -5,7 +5,7 @@ import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
+const create = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
   assertIsTypeKind(kind, ITypeKind.LambdaType)
 
   return new LambdaType({
@@ -35,5 +35,5 @@ export class LambdaType
     return this
   }
 
-  public static hydrate = hydrate
+  public static create = create
 }

@@ -28,7 +28,7 @@ import { getFieldService } from '../field.service.context'
 import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
 
-const hydrate = ({
+const create = ({
   id,
   kind,
   name,
@@ -137,15 +137,6 @@ export class InterfaceType
 
   static createName = createName
 
-  toCreateInput(): InterfaceTypeCreateInput {
-    return {
-      id: this.id,
-      kind: ITypeKind.InterfaceType,
-      name: this.name,
-      owner: connectAuth0Owner(this.owner),
-    }
-  }
-
   @modelAction
   writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
     updateBaseTypeCache(this, interfaceTypeDTO)
@@ -153,7 +144,7 @@ export class InterfaceType
     return this
   }
 
-  static hydrate = hydrate
+  static create = create
 
   static createApiNode = createApiNode
 }

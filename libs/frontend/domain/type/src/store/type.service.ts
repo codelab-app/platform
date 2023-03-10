@@ -32,18 +32,12 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
-import { createTypeFactory, updateTypeInputFactory } from '../use-cases'
-import {
-  createTypeApi,
-  deleteTypeApi,
-  getAllTypes,
-  getTypeApi,
-  updateTypeApi,
-} from './apis/type.api'
+import { TypeRepository } from '../services'
+import { getTypeApi } from './apis/type.api'
 import { baseTypesFactory } from './base-types.factory'
 import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
-import { typeFactory } from './type.factory'
+import { TypeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
 @model('@codelab/TypeService')
@@ -58,6 +52,9 @@ export class TypeService
     id: idProp,
 
     selectedIds: prop(() => arraySet<string>()).withSetter(),
+
+    typeRepository: prop(() => new TypeRepository({})),
+
     /**
      * This holds all types
      */
@@ -160,7 +157,10 @@ export class TypeService
   @modelAction
   loadTypes = (types: GetTypesQuery) => {
     const flatTypes = Object.values(types).flat()
-    const loadedTypes = flatTypes.map((fragment) => typeFactory(fragment))
+
+    const loadedTypes = flatTypes.map((fragment) =>
+      TypeFactory.create(fragment),
+    )
 
     this.types = objectMap(
       loadedTypes.map((typeModel) => [typeModel.id, typeModel]),
@@ -188,7 +188,7 @@ export class TypeService
 
   @modelAction
   add(typeDTO: ITypeDTO) {
-    const type = typeFactory(typeDTO)
+    const type = TypeFactory.create(typeDTO)
     this.types.set(type.id, type)
 
     // Write cache to the fields
@@ -220,27 +220,23 @@ export class TypeService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, typeDTO: IUpdateTypeData) {
-    const args = {
-      where: { id: typeDTO.id },
-      ...updateTypeInputFactory(typeDTO),
-    }
+  update = _async(function* (this: TypeService, data: IUpdateTypeData) {
+    const type = this.add(TypeFactory.mapDataToDTO(data))
 
-    const updatedType = (yield* _await(updateTypeApi[typeDTO.kind](args)))[0]
+    yield* _await(this.typeRepository.update(type))
 
-    return this.add(updatedType!)
+    return type
   })
 
   @modelFlow
   @transaction
   getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
-    const ids = where?.id_IN ?? undefined
-    const types = yield* _await(getAllTypes(ids))
+    const typeFragments = yield* _await(this.typeRepository.find(where || {}))
 
     return (
-      types
-        .map((type) => {
-          return this.add(type)
+      typeFragments
+        .map((typeFragment) => {
+          return this.add(typeFragment)
         })
         // Sort the most recently fetched types
         .sort((typeA, typeB) =>
@@ -322,47 +318,25 @@ export class TypeService
   })
 
   /*
-   * The array of types must be of same type
-   *
-   * Issue with interfaceType & fieldConnections variable getting repeated in Neo4j if we create multiple at a time.
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: Array<ICreateTypeData>) {
-    const input = createTypeFactory(data)
+  create = _async(function* (this: TypeService, data: ICreateTypeData) {
+    const type = this.add(TypeFactory.mapDataToDTO(data))
 
-    const types: Array<ITypeDTO> = yield* _await(
-      Promise.all(
-        input.map((type) => {
-          if (!type.kind) {
-            throw new Error('Type requires a kind')
-          }
+    yield* _await(this.typeRepository.add(type))
 
-          return createTypeApi[type.kind](input)
-        }),
-      ).then((res) => res.flat()),
-    )
-
-    return types.map((type) => this.add(type))
+    return type
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: TypeService, ids: Array<string>) {
-    const types = ids
-      .map((id) => this.types.get(id))
-      .filter((type): type is IAnyType => Boolean(type))
+  delete = _async(function* (this: TypeService, type: IAnyType) {
+    const { id } = type
+    this.types.delete(id)
 
-    ids.forEach((id) => this.types.delete(id))
+    yield* _await(this.typeRepository.delete([type]))
 
-    const results = yield* _await(
-      Promise.all(
-        types.map((type) =>
-          deleteTypeApi[type.kind]({ where: { id: type.id } }),
-        ),
-      ),
-    )
-
-    return results.reduce((total, { nodesDeleted }) => nodesDeleted + total, 0)
+    return type
   })
 }

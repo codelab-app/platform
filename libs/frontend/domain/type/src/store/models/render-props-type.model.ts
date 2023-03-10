@@ -5,7 +5,7 @@ import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({ id, kind, name, owner }: IRenderPropsTypeDTO) => {
+const create = ({ id, kind, name, owner }: IRenderPropsTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.RenderPropsType)
 
   return new RenderPropsType({
@@ -35,5 +35,5 @@ export class RenderPropsType
     return this
   }
 
-  public static hydrate = hydrate
+  public static create = create
 }

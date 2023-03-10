@@ -2,11 +2,12 @@ import type { IPrimitiveType } from '@codelab/frontend/abstract/core'
 import { IPrimitiveTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const hydrate = ({
+const create = ({
   id,
   kind,
   name,
@@ -51,5 +52,20 @@ export class PrimitiveType
     return this
   }
 
-  public static hydrate = hydrate
+  toCreateInput() {
+    return {
+      ...super.toCreateInput(),
+      primitiveKind: this.primitiveKind,
+    }
+  }
+
+  toUpdateInput() {
+    return merge(super.toUpdateInput(), {
+      update: {
+        primitiveKind: this.primitiveKind,
+      },
+    })
+  }
+
+  public static create = create
 }
