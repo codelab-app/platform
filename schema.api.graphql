@@ -1996,7 +1996,6 @@ type AppPagePagesAggregationSelection {
 
 type AppPagePagesNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
-  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -2087,21 +2086,6 @@ input AppPagesNodeAggregationWhereInput {
   _compoundName_SHORTEST_LENGTH_GTE: Int
   _compoundName_SHORTEST_LENGTH_LT: Int
   _compoundName_SHORTEST_LENGTH_LTE: Int
-  getServerSideProps_AVERAGE_LENGTH_EQUAL: Float
-  getServerSideProps_AVERAGE_LENGTH_GT: Float
-  getServerSideProps_AVERAGE_LENGTH_GTE: Float
-  getServerSideProps_AVERAGE_LENGTH_LT: Float
-  getServerSideProps_AVERAGE_LENGTH_LTE: Float
-  getServerSideProps_LONGEST_LENGTH_EQUAL: Int
-  getServerSideProps_LONGEST_LENGTH_GT: Int
-  getServerSideProps_LONGEST_LENGTH_GTE: Int
-  getServerSideProps_LONGEST_LENGTH_LT: Int
-  getServerSideProps_LONGEST_LENGTH_LTE: Int
-  getServerSideProps_SHORTEST_LENGTH_EQUAL: Int
-  getServerSideProps_SHORTEST_LENGTH_GT: Int
-  getServerSideProps_SHORTEST_LENGTH_GTE: Int
-  getServerSideProps_SHORTEST_LENGTH_LT: Int
-  getServerSideProps_SHORTEST_LENGTH_LTE: Int
 }
 
 type AppPagesRelationship {
@@ -7743,21 +7727,6 @@ input ElementPageNodeAggregationWhereInput {
   _compoundName_SHORTEST_LENGTH_GTE: Int
   _compoundName_SHORTEST_LENGTH_LT: Int
   _compoundName_SHORTEST_LENGTH_LTE: Int
-  getServerSideProps_AVERAGE_LENGTH_EQUAL: Float
-  getServerSideProps_AVERAGE_LENGTH_GT: Float
-  getServerSideProps_AVERAGE_LENGTH_GTE: Float
-  getServerSideProps_AVERAGE_LENGTH_LT: Float
-  getServerSideProps_AVERAGE_LENGTH_LTE: Float
-  getServerSideProps_LONGEST_LENGTH_EQUAL: Int
-  getServerSideProps_LONGEST_LENGTH_GT: Int
-  getServerSideProps_LONGEST_LENGTH_GTE: Int
-  getServerSideProps_LONGEST_LENGTH_LT: Int
-  getServerSideProps_LONGEST_LENGTH_LTE: Int
-  getServerSideProps_SHORTEST_LENGTH_EQUAL: Int
-  getServerSideProps_SHORTEST_LENGTH_GT: Int
-  getServerSideProps_SHORTEST_LENGTH_GTE: Int
-  getServerSideProps_SHORTEST_LENGTH_LT: Int
-  getServerSideProps_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementPagePageAggregationSelection {
@@ -7767,7 +7736,6 @@ type ElementPagePageAggregationSelection {
 
 type ElementPagePageNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
-  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -12227,7 +12195,6 @@ type Page {
     sort: [PageAppConnectionSort!]
     where: PageAppConnectionWhere
   ): PageAppConnection!
-  getServerSideProps: String
   id: ID!
   kind: PageKind!
   name: String!
@@ -12269,7 +12236,6 @@ type Page {
 type PageAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   count: Int!
-  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -12414,7 +12380,6 @@ input PageConnectWhere {
 input PageCreateInput {
   _compoundName: String!
   app: PageAppFieldInput
-  getServerSideProps: String
   id: ID!
   kind: PageKind!
   pageContentContainer: PagePageContentContainerFieldInput
@@ -12487,7 +12452,6 @@ enum PageKind {
 
 input PageOnCreateInput {
   _compoundName: String!
-  getServerSideProps: String
   id: ID!
   kind: PageKind!
 }
@@ -12879,7 +12843,6 @@ Fields to sort Pages by. The order in which sorts are applied is not guaranteed 
 """
 input PageSort {
   _compoundName: SortDirection
-  getServerSideProps: SortDirection
   id: SortDirection
   kind: SortDirection
 }
@@ -13100,7 +13063,6 @@ input PageUniqueWhere {
 input PageUpdateInput {
   _compoundName: String
   app: PageAppUpdateFieldInput
-  getServerSideProps: String
   id: ID
   kind: PageKind
   pageContentContainer: PagePageContentContainerUpdateFieldInput
@@ -13122,12 +13084,6 @@ input PageWhere {
   appConnection: PageAppConnectionWhere
   appConnection_NOT: PageAppConnectionWhere
   app_NOT: AppWhere
-  getServerSideProps: String
-  getServerSideProps_CONTAINS: String
-  getServerSideProps_ENDS_WITH: String
-  getServerSideProps_IN: [String]
-  getServerSideProps_MATCHES: String
-  getServerSideProps_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

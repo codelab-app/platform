@@ -24,6 +24,17 @@ export const BuilderTabs = observer<BuilderTabsProps>(
     const elementTree = page?.elementTree
     const appStore = app?.store.current
 
+    const tabItems = [
+      {
+        key: RendererTab.Page,
+        label: 'Page',
+      },
+      {
+        key: RendererTab.Component,
+        label: 'Component',
+      },
+    ]
+
     return (
       <Layout style={{ height: '100%' }}>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
@@ -31,12 +42,10 @@ export const BuilderTabs = observer<BuilderTabsProps>(
           <Tabs
             activeKey={builderService.activeTree}
             defaultActiveKey={RendererTab.Page}
+            items={tabItems}
             onChange={(key) => console.log(key)}
             type="card"
-          >
-            <Tabs.TabPane key={RendererTab.Page} tab="Page" />
-            <Tabs.TabPane key={RendererTab.Component} tab="Component" />
-          </Tabs>
+          />
         </Header>
         {isLoading && <Spin />}
         <Content>

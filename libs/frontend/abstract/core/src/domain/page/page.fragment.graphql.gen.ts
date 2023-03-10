@@ -11,7 +11,6 @@ export type PageFragment = {
   id: string
   name: string
   slug: string
-  getServerSideProps?: string | null
   kind: Types.PageKind
   app: { id: string }
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
@@ -22,7 +21,6 @@ export type BuilderPageFragment = {
   id: string
   name: string
   slug: string
-  getServerSideProps?: string | null
   kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string; owner: OwnerFragment }
@@ -34,7 +32,6 @@ export const PageFragmentDoc = gql`
     id
     name
     slug
-    getServerSideProps
     app {
       id
     }
@@ -56,7 +53,6 @@ export const BuilderPageFragmentDoc = gql`
     id
     name
     slug
-    getServerSideProps
     rootElement {
       ...Element
       descendantElements {
