@@ -11,7 +11,7 @@ const initialProps = {
   ],
 }
 
-describe('LoopingRenderPipe', () => {
+describe('LoopingRenderPipe.', () => {
   const data = setupTestForRenderer([LoopingRenderPipe])
 
   beforeEach(() => {
