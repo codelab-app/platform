@@ -82,11 +82,15 @@ export class PageFactory extends Model({}) implements IPageFactory {
       props: rootElementProps,
     })
 
+    const pageContentContainer =
+      kind === IPageKind.Provider ? { id: rootElement.id } : null
+
     return this.pageService.add({
       app,
       id: v4(),
       kind,
       name,
+      pageContentContainer,
       rootElement,
     })
   }

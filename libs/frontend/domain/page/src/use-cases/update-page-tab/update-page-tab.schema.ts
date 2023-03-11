@@ -5,7 +5,7 @@ import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-// pageContainerElementId is not required in interface, but is required for _app page
+// pageContentContainer is not required in interface, but is required for _app page
 export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
   ({
     properties: {

@@ -4,6 +4,7 @@ import { ElementTreeService } from '@codelab/frontend/domain/element'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -110,13 +111,9 @@ export class Page
       _compoundName: createUniqueName(this.name, this.app.id),
       id: this.id,
       kind: this.kind,
-      pageContentContainer: {
-        create: this.pageContentContainer
-          ? {
-              node: this.pageContentContainer.current.toCreateInput(),
-            }
-          : null,
-      },
+      pageContentContainer: connectNodeId(
+        this.pageContentContainer?.current.id,
+      ),
       rootElement: {
         create: {
           node: this.rootElement.current.toCreateInput(),
