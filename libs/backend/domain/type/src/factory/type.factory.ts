@@ -15,12 +15,9 @@ import { UnionTypeFactory } from './union-type.factory'
 
 export class TypeFactory {
   static async create(
-    data: DistributiveOmit<ICreateType, 'owner'>,
-    owner: IOwner,
-    where: BaseTypeUniqueWhereCallback<IType> = (type) => ({ id: type.name }),
+    type: ICreateType,
+    where: BaseTypeUniqueWhereCallback<IType> = (_type) => ({ id: _type.id }),
   ): Promise<IType> {
-    const type: ICreateType = { ...data, owner }
-
     /**
      * Type narrow using discriminated union
      */

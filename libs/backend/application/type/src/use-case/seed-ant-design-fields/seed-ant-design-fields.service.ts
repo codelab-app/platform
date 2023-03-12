@@ -141,8 +141,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
            * We need to upsert here by specifying where as name
            */
           const type = await TypeFactory.create(
-            fieldTypeDTO,
-            this.owner,
+            { ...fieldTypeDTO, owner: this.owner },
             (typeData: IType) => ({ name: typeData.name }),
           )
 

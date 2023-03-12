@@ -8,6 +8,7 @@ import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   connectNodeIds,
+  connectOwner,
   reconnectNodeId,
   reconnectNodeIds,
   whereNodeIds,
@@ -16,7 +17,7 @@ import {
 export class AtomRepository extends AbstractRepository<IAtom> {
   private Atom = Repository.instance.Atom
 
-  async find(where: BaseTypeUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere = {}) {
     return (
       await (
         await this.Atom
@@ -35,20 +36,23 @@ export class AtomRepository extends AbstractRepository<IAtom> {
       await (
         await this.Atom
       ).create({
-        input: atoms.map(({ tags, api, allowedChildren = [], ...atom }) => ({
-          ...atom,
-          allowedChildren: connectNodeIds(
-            allowedChildren.map((child) => child.id),
-          ),
-          api: connectNodeId(api.id),
-          tags: connectNodeIds(tags.map((tag) => tag.id)),
-        })),
+        input: atoms.map(
+          ({ tags, api, allowedChildren = [], owner, ...atom }) => ({
+            ...atom,
+            owner: connectOwner(owner.auth0Id),
+            tags: connectNodeIds(tags.map((tag) => tag.id)),
+            api: connectNodeId(api.id),
+            allowedChildren: connectNodeIds(
+              allowedChildren.map((child) => child.id),
+            ),
+          }),
+        ),
       })
     ).atoms
   }
 
   protected async _update(
-    { tags, api, allowedChildren = [], ...atom }: IAtom,
+    { tags, api, allowedChildren = [], owner, ...atom }: IAtom,
     where: BaseTypeUniqueWhere,
   ) {
     return (

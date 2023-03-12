@@ -85,6 +85,10 @@ export class SeedAtomsService extends IUseCase<IOwner, void> {
           owner: connectAuth0Owner(owner),
           tags: [existingTag],
           type: IAtomType[atomType],
+          icon: atomData?.icon,
+          tags: [existingTag],
+          api,
+          owner,
         }
       }),
     )

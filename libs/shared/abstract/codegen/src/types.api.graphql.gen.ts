@@ -3799,7 +3799,7 @@ export type Atom = WithOwner & {
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<AtomUserOwnerAggregationSelection>
-  ownerConnection: WithOwnerOwnerConnection
+  ownerConnection: AtomOwnerConnection
   tags: Array<Tag>
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   tagsConnection: AtomTagsConnection
@@ -3859,8 +3859,8 @@ export type AtomOwnerConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
-  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  sort?: InputMaybe<Array<AtomOwnerConnectionSort>>
+  where?: InputMaybe<AtomOwnerConnectionWhere>
 }
 
 export type AtomTagsArgs = {
@@ -4139,7 +4139,7 @@ export type AtomAtomAllowedChildrenNodeAggregateSelection = {
 export type AtomConnectInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
   api?: InputMaybe<AtomApiConnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
+  owner?: InputMaybe<AtomOwnerConnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
 }
 
@@ -4148,7 +4148,7 @@ export type AtomConnectOrCreateInput = {
     Array<AtomAllowedChildrenConnectOrCreateFieldInput>
   >
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
 }
 
@@ -4166,7 +4166,7 @@ export type AtomCreateInput = {
   icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
-  owner?: InputMaybe<WithOwnerOwnerFieldInput>
+  owner?: InputMaybe<AtomOwnerFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
   type: AtomType
 }
@@ -4174,14 +4174,14 @@ export type AtomCreateInput = {
 export type AtomDeleteInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
   api?: InputMaybe<AtomApiDeleteFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
+  owner?: InputMaybe<AtomOwnerDeleteFieldInput>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
 }
 
 export type AtomDisconnectInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
   api?: InputMaybe<AtomApiDisconnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
+  owner?: InputMaybe<AtomOwnerDisconnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
 }
 
@@ -4227,6 +4227,60 @@ export type AtomOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
   node?: InputMaybe<AtomOwnerNodeAggregationWhereInput>
+}
+
+export type AtomOwnerConnectFieldInput = {
+  connect?: InputMaybe<UserConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<UserConnectWhere>
+}
+
+export type AtomOwnerConnectOrCreateFieldInput = {
+  onCreate: AtomOwnerConnectOrCreateFieldInputOnCreate
+  where: UserConnectOrCreateWhere
+}
+
+export type AtomOwnerConnectOrCreateFieldInputOnCreate = {
+  node: UserOnCreateInput
+}
+
+export type AtomOwnerConnection = {
+  __typename?: 'AtomOwnerConnection'
+  edges: Array<AtomOwnerRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type AtomOwnerConnectionSort = {
+  node?: InputMaybe<UserSort>
+}
+
+export type AtomOwnerConnectionWhere = {
+  AND?: InputMaybe<Array<AtomOwnerConnectionWhere>>
+  NOT?: InputMaybe<AtomOwnerConnectionWhere>
+  OR?: InputMaybe<Array<AtomOwnerConnectionWhere>>
+  node?: InputMaybe<UserWhere>
+}
+
+export type AtomOwnerCreateFieldInput = {
+  node: UserCreateInput
+}
+
+export type AtomOwnerDeleteFieldInput = {
+  delete?: InputMaybe<UserDeleteInput>
+  where?: InputMaybe<AtomOwnerConnectionWhere>
+}
+
+export type AtomOwnerDisconnectFieldInput = {
+  disconnect?: InputMaybe<UserDisconnectInput>
+  where?: InputMaybe<AtomOwnerConnectionWhere>
+}
+
+export type AtomOwnerFieldInput = {
+  connect?: InputMaybe<AtomOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<AtomOwnerCreateFieldInput>
 }
 
 export type AtomOwnerNodeAggregationWhereInput = {
@@ -4280,10 +4334,30 @@ export type AtomOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
+export type AtomOwnerRelationship = {
+  __typename?: 'AtomOwnerRelationship'
+  cursor: Scalars['String']
+  node: User
+}
+
+export type AtomOwnerUpdateConnectionInput = {
+  node?: InputMaybe<UserUpdateInput>
+}
+
+export type AtomOwnerUpdateFieldInput = {
+  connect?: InputMaybe<AtomOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<AtomOwnerCreateFieldInput>
+  delete?: InputMaybe<AtomOwnerDeleteFieldInput>
+  disconnect?: InputMaybe<AtomOwnerDisconnectFieldInput>
+  update?: InputMaybe<AtomOwnerUpdateConnectionInput>
+  where?: InputMaybe<AtomOwnerConnectionWhere>
+}
+
 export type AtomRelationInput = {
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
   api?: InputMaybe<AtomApiCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
+  owner?: InputMaybe<AtomOwnerCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
 }
 
@@ -4803,7 +4877,7 @@ export type AtomUpdateInput = {
   icon?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+  owner?: InputMaybe<AtomOwnerUpdateFieldInput>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   type?: InputMaybe<AtomType>
 }
@@ -4866,11 +4940,8 @@ export type AtomWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AtomOwnerAggregateInput>
-  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  owner_NOT?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<AtomOwnerConnectionWhere>
   tagsAggregate?: InputMaybe<AtomTagsAggregateInput>
   /** Return Atoms where all of the related AtomTagsConnections match this filter */
   tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>
@@ -19015,6 +19086,9 @@ export type User = {
   apps: Array<App>
   appsAggregate?: Maybe<UserAppAppsAggregationSelection>
   appsConnection: UserAppsConnection
+  atoms: Array<Atom>
+  atomsAggregate?: Maybe<UserAtomAtomsAggregationSelection>
+  atomsConnection: UserAtomsConnection
   auth0Id: Scalars['String']
   components: Array<Component>
   componentsAggregate?: Maybe<UserComponentComponentsAggregationSelection>
@@ -19051,6 +19125,25 @@ export type UserAppsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<UserAppsConnectionSort>>
   where?: InputMaybe<UserAppsConnectionWhere>
+}
+
+export type UserAtomsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type UserAtomsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type UserAtomsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<UserAtomsConnectionSort>>
+  where?: InputMaybe<UserAtomsConnectionWhere>
 }
 
 export type UserComponentsArgs = {
@@ -19257,6 +19350,141 @@ export type UserAppsUpdateFieldInput = {
   where?: InputMaybe<UserAppsConnectionWhere>
 }
 
+export type UserAtomAtomsAggregationSelection = {
+  __typename?: 'UserAtomAtomsAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<UserAtomAtomsNodeAggregateSelection>
+}
+
+export type UserAtomAtomsNodeAggregateSelection = {
+  __typename?: 'UserAtomAtomsNodeAggregateSelection'
+  icon: StringAggregateSelectionNullable
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type UserAtomsAggregateInput = {
+  AND?: InputMaybe<Array<UserAtomsAggregateInput>>
+  NOT?: InputMaybe<UserAtomsAggregateInput>
+  OR?: InputMaybe<Array<UserAtomsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<UserAtomsNodeAggregationWhereInput>
+}
+
+export type UserAtomsConnectFieldInput = {
+  connect?: InputMaybe<Array<AtomConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<AtomConnectWhere>
+}
+
+export type UserAtomsConnectOrCreateFieldInput = {
+  onCreate: UserAtomsConnectOrCreateFieldInputOnCreate
+  where: AtomConnectOrCreateWhere
+}
+
+export type UserAtomsConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type UserAtomsConnection = {
+  __typename?: 'UserAtomsConnection'
+  edges: Array<UserAtomsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type UserAtomsConnectionSort = {
+  node?: InputMaybe<AtomSort>
+}
+
+export type UserAtomsConnectionWhere = {
+  AND?: InputMaybe<Array<UserAtomsConnectionWhere>>
+  NOT?: InputMaybe<UserAtomsConnectionWhere>
+  OR?: InputMaybe<Array<UserAtomsConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+}
+
+export type UserAtomsCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type UserAtomsDeleteFieldInput = {
+  delete?: InputMaybe<AtomDeleteInput>
+  where?: InputMaybe<UserAtomsConnectionWhere>
+}
+
+export type UserAtomsDisconnectFieldInput = {
+  disconnect?: InputMaybe<AtomDisconnectInput>
+  where?: InputMaybe<UserAtomsConnectionWhere>
+}
+
+export type UserAtomsFieldInput = {
+  connect?: InputMaybe<Array<UserAtomsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<UserAtomsCreateFieldInput>>
+}
+
+export type UserAtomsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UserAtomsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<UserAtomsNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<UserAtomsNodeAggregationWhereInput>>
+  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type UserAtomsRelationship = {
+  __typename?: 'UserAtomsRelationship'
+  cursor: Scalars['String']
+  node: Atom
+}
+
+export type UserAtomsUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type UserAtomsUpdateFieldInput = {
+  connect?: InputMaybe<Array<UserAtomsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<UserAtomsCreateFieldInput>>
+  delete?: InputMaybe<Array<UserAtomsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<UserAtomsDisconnectFieldInput>>
+  update?: InputMaybe<UserAtomsUpdateConnectionInput>
+  where?: InputMaybe<UserAtomsConnectionWhere>
+}
+
 export type UserBaseTypeTypesAggregationSelection = {
   __typename?: 'UserBaseTypeTypesAggregationSelection'
   count: Scalars['Int']
@@ -19390,6 +19618,7 @@ export type UserComponentsUpdateFieldInput = {
 
 export type UserConnectInput = {
   apps?: InputMaybe<Array<UserAppsConnectFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsConnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsConnectFieldInput>>
   elements?: InputMaybe<Array<UserElementsConnectFieldInput>>
   tags?: InputMaybe<Array<UserTagsConnectFieldInput>>
@@ -19406,6 +19635,7 @@ export type UserConnectWhere = {
 
 export type UserCreateInput = {
   apps?: InputMaybe<UserAppsFieldInput>
+  atoms?: InputMaybe<UserAtomsFieldInput>
   auth0Id: Scalars['String']
   components?: InputMaybe<UserComponentsFieldInput>
   elements?: InputMaybe<UserElementsFieldInput>
@@ -19419,6 +19649,7 @@ export type UserCreateInput = {
 
 export type UserDeleteInput = {
   apps?: InputMaybe<Array<UserAppsDeleteFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsDeleteFieldInput>>
   components?: InputMaybe<Array<UserComponentsDeleteFieldInput>>
   elements?: InputMaybe<Array<UserElementsDeleteFieldInput>>
   tags?: InputMaybe<Array<UserTagsDeleteFieldInput>>
@@ -19427,6 +19658,7 @@ export type UserDeleteInput = {
 
 export type UserDisconnectInput = {
   apps?: InputMaybe<Array<UserAppsDisconnectFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsDisconnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>
   elements?: InputMaybe<Array<UserElementsDisconnectFieldInput>>
   tags?: InputMaybe<Array<UserTagsDisconnectFieldInput>>
@@ -19895,6 +20127,7 @@ export type UserUniqueWhere = {
 
 export type UserUpdateInput = {
   apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsUpdateFieldInput>>
   auth0Id?: InputMaybe<Scalars['String']>
   components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
   elements?: InputMaybe<Array<UserElementsUpdateFieldInput>>
@@ -19927,6 +20160,19 @@ export type UserWhere = {
   apps_SINGLE?: InputMaybe<AppWhere>
   /** Return Users where some of the related Apps match this filter */
   apps_SOME?: InputMaybe<AppWhere>
+  atomsAggregate?: InputMaybe<UserAtomsAggregateInput>
+  atomsConnection_ALL?: InputMaybe<UserAtomsConnectionWhere>
+  atomsConnection_NONE?: InputMaybe<UserAtomsConnectionWhere>
+  atomsConnection_SINGLE?: InputMaybe<UserAtomsConnectionWhere>
+  atomsConnection_SOME?: InputMaybe<UserAtomsConnectionWhere>
+  /** Return Users where all of the related Atoms match this filter */
+  atoms_ALL?: InputMaybe<AtomWhere>
+  /** Return Users where none of the related Atoms match this filter */
+  atoms_NONE?: InputMaybe<AtomWhere>
+  /** Return Users where one of the related Atoms match this filter */
+  atoms_SINGLE?: InputMaybe<AtomWhere>
+  /** Return Users where some of the related Atoms match this filter */
+  atoms_SOME?: InputMaybe<AtomWhere>
   auth0Id?: InputMaybe<Scalars['String']>
   auth0Id_CONTAINS?: InputMaybe<Scalars['String']>
   auth0Id_ENDS_WITH?: InputMaybe<Scalars['String']>

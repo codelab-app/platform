@@ -1,4 +1,4 @@
-import type { IAtom } from '@codelab/backend/abstract/core'
+import type { IAtom, IUserRef } from '@codelab/backend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
@@ -17,6 +17,8 @@ export class Atom implements IAtom {
 
   allowedChildren: Array<IEntity>
 
+  owner: IUserRef
+
   constructor({
     id,
     name,
@@ -25,6 +27,7 @@ export class Atom implements IAtom {
     api,
     tags,
     allowedChildren = [],
+    owner,
   }: IAtom) {
     this.id = id
     this.name = name
@@ -33,5 +36,6 @@ export class Atom implements IAtom {
     this.api = api
     this.tags = tags
     this.allowedChildren = allowedChildren
+    this.owner = owner
   }
 }

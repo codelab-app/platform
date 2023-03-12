@@ -2802,11 +2802,14 @@ export type Atom = WithOwner & {
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
+  owner: User
+  ownerAggregate?: Maybe<AtomUserOwnerAggregationSelection>
   allowedChildren: Array<Atom>
   allowedChildrenAggregate?: Maybe<AtomAtomAllowedChildrenAggregationSelection>
   ownerConnection: WithOwnerOwnerConnection
   tagsConnection: AtomTagsConnection
   apiConnection: AtomApiConnection
+  ownerConnection: AtomOwnerConnection
   allowedChildrenConnection: AtomAllowedChildrenConnection
 }
 
@@ -2843,6 +2846,17 @@ export type AtomApiAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
+export type AtomOwnerArgs = {
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type AtomOwnerAggregateArgs = {
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
 export type AtomAllowedChildrenArgs = {
   where?: InputMaybe<AtomWhere>
   options?: InputMaybe<AtomOptions>
@@ -2876,6 +2890,14 @@ export type AtomApiConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   sort?: InputMaybe<Array<AtomApiConnectionSort>>
+}
+
+export type AtomOwnerConnectionArgs = {
+  where?: InputMaybe<AtomOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<AtomOwnerConnectionSort>>
 }
 
 export type AtomAllowedChildrenConnectionArgs = {
@@ -2949,6 +2971,19 @@ export type AtomInterfaceTypeApiNodeAggregateSelection = {
   __typename?: 'AtomInterfaceTypeApiNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+}
+
+export type AtomOwnerConnection = {
+  __typename?: 'AtomOwnerConnection'
+  edges: Array<AtomOwnerRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type AtomOwnerRelationship = {
+  __typename?: 'AtomOwnerRelationship'
+  cursor: Scalars['String']
+  node: User
 }
 
 export type AtomsConnection = {
@@ -6753,12 +6788,15 @@ export type User = {
   elementsAggregate?: Maybe<UserElementElementsAggregationSelection>
   components: Array<Component>
   componentsAggregate?: Maybe<UserComponentComponentsAggregationSelection>
+  atoms: Array<Atom>
+  atomsAggregate?: Maybe<UserAtomAtomsAggregationSelection>
   tags: Array<Tag>
   tagsAggregate?: Maybe<UserTagTagsAggregationSelection>
   typesConnection: UserTypesConnection
   appsConnection: UserAppsConnection
   elementsConnection: UserElementsConnection
   componentsConnection: UserComponentsConnection
+  atomsConnection: UserAtomsConnection
   tagsConnection: UserTagsConnection
 }
 
@@ -6806,6 +6844,17 @@ export type UserComponentsAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
+export type UserAtomsArgs = {
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type UserAtomsAggregateArgs = {
+  where?: InputMaybe<AtomWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
 export type UserTagsArgs = {
   where?: InputMaybe<TagWhere>
   options?: InputMaybe<TagOptions>
@@ -6849,6 +6898,14 @@ export type UserComponentsConnectionArgs = {
   sort?: InputMaybe<Array<UserComponentsConnectionSort>>
 }
 
+export type UserAtomsConnectionArgs = {
+  where?: InputMaybe<UserAtomsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<UserAtomsConnectionSort>>
+}
+
 export type UserTagsConnectionArgs = {
   where?: InputMaybe<UserTagsConnectionWhere>
   first?: InputMaybe<Scalars['Int']>
@@ -6889,6 +6946,32 @@ export type UserAppsRelationship = {
   __typename?: 'UserAppsRelationship'
   cursor: Scalars['String']
   node: App
+}
+
+export type UserAtomAtomsAggregationSelection = {
+  __typename?: 'UserAtomAtomsAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<UserAtomAtomsNodeAggregateSelection>
+}
+
+export type UserAtomAtomsNodeAggregateSelection = {
+  __typename?: 'UserAtomAtomsNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+  icon: StringAggregateSelectionNullable
+}
+
+export type UserAtomsConnection = {
+  __typename?: 'UserAtomsConnection'
+  edges: Array<UserAtomsRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type UserAtomsRelationship = {
+  __typename?: 'UserAtomsRelationship'
+  cursor: Scalars['String']
+  node: Atom
 }
 
 export type UserBaseTypeTypesAggregationSelection = {
@@ -11854,6 +11937,7 @@ export type AtomConnectInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
   api?: InputMaybe<AtomApiConnectFieldInput>
+  owner?: InputMaybe<AtomOwnerConnectFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
 }
 
@@ -11861,6 +11945,7 @@ export type AtomConnectOrCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
+  owner?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
   allowedChildren?: InputMaybe<
     Array<AtomAllowedChildrenConnectOrCreateFieldInput>
   >
@@ -11882,6 +11967,7 @@ export type AtomCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
   api?: InputMaybe<AtomApiFieldInput>
+  owner?: InputMaybe<AtomOwnerFieldInput>
   allowedChildren?: InputMaybe<AtomAllowedChildrenFieldInput>
 }
 
@@ -11889,6 +11975,7 @@ export type AtomDeleteInput = {
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
   api?: InputMaybe<AtomApiDeleteFieldInput>
+  owner?: InputMaybe<AtomOwnerDeleteFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
 }
 
@@ -11896,6 +11983,7 @@ export type AtomDisconnectInput = {
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
   api?: InputMaybe<AtomApiDisconnectFieldInput>
+  owner?: InputMaybe<AtomOwnerDisconnectFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
 }
 
@@ -11923,6 +12011,55 @@ export type AtomOwnerAggregateInput = {
   OR?: InputMaybe<Array<AtomOwnerAggregateInput>>
   NOT?: InputMaybe<AtomOwnerAggregateInput>
   node?: InputMaybe<AtomOwnerNodeAggregationWhereInput>
+}
+
+export type AtomOwnerConnectFieldInput = {
+  where?: InputMaybe<UserConnectWhere>
+  connect?: InputMaybe<UserConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+}
+
+export type AtomOwnerConnectionSort = {
+  node?: InputMaybe<UserSort>
+}
+
+export type AtomOwnerConnectionWhere = {
+  AND?: InputMaybe<Array<AtomOwnerConnectionWhere>>
+  OR?: InputMaybe<Array<AtomOwnerConnectionWhere>>
+  NOT?: InputMaybe<AtomOwnerConnectionWhere>
+  node?: InputMaybe<UserWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<UserWhere>
+}
+
+export type AtomOwnerConnectOrCreateFieldInput = {
+  where: UserConnectOrCreateWhere
+  onCreate: AtomOwnerConnectOrCreateFieldInputOnCreate
+}
+
+export type AtomOwnerConnectOrCreateFieldInputOnCreate = {
+  node: UserOnCreateInput
+}
+
+export type AtomOwnerCreateFieldInput = {
+  node: UserCreateInput
+}
+
+export type AtomOwnerDeleteFieldInput = {
+  where?: InputMaybe<AtomOwnerConnectionWhere>
+  delete?: InputMaybe<UserDeleteInput>
+}
+
+export type AtomOwnerDisconnectFieldInput = {
+  where?: InputMaybe<AtomOwnerConnectionWhere>
+  disconnect?: InputMaybe<UserDisconnectInput>
+}
+
+export type AtomOwnerFieldInput = {
+  create?: InputMaybe<AtomOwnerCreateFieldInput>
+  connect?: InputMaybe<AtomOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
 }
 
 export type AtomOwnerNodeAggregationWhereInput = {
@@ -12098,10 +12235,25 @@ export type AtomOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
+export type AtomOwnerUpdateConnectionInput = {
+  node?: InputMaybe<UserUpdateInput>
+}
+
+export type AtomOwnerUpdateFieldInput = {
+  where?: InputMaybe<AtomOwnerConnectionWhere>
+  update?: InputMaybe<AtomOwnerUpdateConnectionInput>
+  connect?: InputMaybe<AtomOwnerConnectFieldInput>
+  disconnect?: InputMaybe<AtomOwnerDisconnectFieldInput>
+  create?: InputMaybe<AtomOwnerCreateFieldInput>
+  delete?: InputMaybe<AtomOwnerDeleteFieldInput>
+  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
+}
+
 export type AtomRelationInput = {
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
   api?: InputMaybe<AtomApiCreateFieldInput>
+  owner?: InputMaybe<AtomOwnerCreateFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
 }
 
@@ -12265,6 +12417,7 @@ export type AtomUpdateInput = {
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   api?: InputMaybe<AtomApiUpdateFieldInput>
+  owner?: InputMaybe<AtomOwnerUpdateFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenUpdateFieldInput>>
 }
 
@@ -12345,6 +12498,11 @@ export type AtomWhere = {
   api?: InputMaybe<InterfaceTypeWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<AtomApiAggregateInput>
+  /** @deprecated Use `owner_SOME` instead. */
+  owner?: InputMaybe<UserWhere>
+  /** @deprecated Use `owner_NONE` instead. */
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<AtomOwnerAggregateInput>
   /** @deprecated Use `allowedChildren_SOME` instead. */
   allowedChildren?: InputMaybe<AtomWhere>
   /** @deprecated Use `allowedChildren_NONE` instead. */
@@ -12374,6 +12532,9 @@ export type AtomWhere = {
   tagsConnection_SOME?: InputMaybe<AtomTagsConnectionWhere>
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
+  ownerConnection?: InputMaybe<AtomOwnerConnectionWhere>
+  /** @deprecated Use `ownerConnection_NONE` instead. */
+  ownerConnection_NOT?: InputMaybe<AtomOwnerConnectionWhere>
   /** @deprecated Use `allowedChildrenConnection_SOME` instead. */
   allowedChildrenConnection?: InputMaybe<AtomAllowedChildrenConnectionWhere>
   /** @deprecated Use `allowedChildrenConnection_NONE` instead. */
@@ -28385,6 +28546,199 @@ export type UserAppsUpdateFieldInput = {
   connectOrCreate?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
 }
 
+export type UserAtomsAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<UserAtomsAggregateInput>>
+  OR?: InputMaybe<Array<UserAtomsAggregateInput>>
+  NOT?: InputMaybe<UserAtomsAggregateInput>
+  node?: InputMaybe<UserAtomsNodeAggregationWhereInput>
+}
+
+export type UserAtomsConnectFieldInput = {
+  where?: InputMaybe<AtomConnectWhere>
+  connect?: InputMaybe<Array<AtomConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+}
+
+export type UserAtomsConnectionSort = {
+  node?: InputMaybe<AtomSort>
+}
+
+export type UserAtomsConnectionWhere = {
+  AND?: InputMaybe<Array<UserAtomsConnectionWhere>>
+  OR?: InputMaybe<Array<UserAtomsConnectionWhere>>
+  NOT?: InputMaybe<UserAtomsConnectionWhere>
+  node?: InputMaybe<AtomWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<AtomWhere>
+}
+
+export type UserAtomsConnectOrCreateFieldInput = {
+  where: AtomConnectOrCreateWhere
+  onCreate: UserAtomsConnectOrCreateFieldInputOnCreate
+}
+
+export type UserAtomsConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type UserAtomsCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type UserAtomsDeleteFieldInput = {
+  where?: InputMaybe<UserAtomsConnectionWhere>
+  delete?: InputMaybe<AtomDeleteInput>
+}
+
+export type UserAtomsDisconnectFieldInput = {
+  where?: InputMaybe<UserAtomsConnectionWhere>
+  disconnect?: InputMaybe<AtomDisconnectInput>
+}
+
+export type UserAtomsFieldInput = {
+  create?: InputMaybe<Array<UserAtomsCreateFieldInput>>
+  connect?: InputMaybe<Array<UserAtomsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
+}
+
+export type UserAtomsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UserAtomsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<UserAtomsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<UserAtomsNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  icon_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  icon_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type UserAtomsUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type UserAtomsUpdateFieldInput = {
+  where?: InputMaybe<UserAtomsConnectionWhere>
+  update?: InputMaybe<UserAtomsUpdateConnectionInput>
+  connect?: InputMaybe<Array<UserAtomsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<UserAtomsDisconnectFieldInput>>
+  create?: InputMaybe<Array<UserAtomsCreateFieldInput>>
+  delete?: InputMaybe<Array<UserAtomsDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
+}
+
 export type UserComponentsAggregateInput = {
   count?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
@@ -28528,6 +28882,7 @@ export type UserConnectInput = {
   apps?: InputMaybe<Array<UserAppsConnectFieldInput>>
   elements?: InputMaybe<Array<UserElementsConnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsConnectFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsConnectFieldInput>>
   tags?: InputMaybe<Array<UserTagsConnectFieldInput>>
 }
 
@@ -28536,6 +28891,7 @@ export type UserConnectOrCreateInput = {
   apps?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
   elements?: InputMaybe<Array<UserElementsConnectOrCreateFieldInput>>
   components?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
   tags?: InputMaybe<Array<UserTagsConnectOrCreateFieldInput>>
 }
 
@@ -28557,6 +28913,7 @@ export type UserCreateInput = {
   apps?: InputMaybe<UserAppsFieldInput>
   elements?: InputMaybe<UserElementsFieldInput>
   components?: InputMaybe<UserComponentsFieldInput>
+  atoms?: InputMaybe<UserAtomsFieldInput>
   tags?: InputMaybe<UserTagsFieldInput>
 }
 
@@ -28565,6 +28922,7 @@ export type UserDeleteInput = {
   apps?: InputMaybe<Array<UserAppsDeleteFieldInput>>
   elements?: InputMaybe<Array<UserElementsDeleteFieldInput>>
   components?: InputMaybe<Array<UserComponentsDeleteFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsDeleteFieldInput>>
   tags?: InputMaybe<Array<UserTagsDeleteFieldInput>>
 }
 
@@ -28573,6 +28931,7 @@ export type UserDisconnectInput = {
   apps?: InputMaybe<Array<UserAppsDisconnectFieldInput>>
   elements?: InputMaybe<Array<UserElementsDisconnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsDisconnectFieldInput>>
   tags?: InputMaybe<Array<UserTagsDisconnectFieldInput>>
 }
 
@@ -29009,6 +29368,7 @@ export type UserRelationInput = {
   apps?: InputMaybe<Array<UserAppsCreateFieldInput>>
   elements?: InputMaybe<Array<UserElementsCreateFieldInput>>
   components?: InputMaybe<Array<UserComponentsCreateFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsCreateFieldInput>>
   tags?: InputMaybe<Array<UserTagsCreateFieldInput>>
 }
 
@@ -29312,6 +29672,7 @@ export type UserUpdateInput = {
   apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>
   elements?: InputMaybe<Array<UserElementsUpdateFieldInput>>
   components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsUpdateFieldInput>>
   tags?: InputMaybe<Array<UserTagsUpdateFieldInput>>
 }
 
@@ -29441,6 +29802,19 @@ export type UserWhere = {
   components_SINGLE?: InputMaybe<ComponentWhere>
   /** Return Users where some of the related Components match this filter */
   components_SOME?: InputMaybe<ComponentWhere>
+  /** @deprecated Use `atoms_SOME` instead. */
+  atoms?: InputMaybe<AtomWhere>
+  /** @deprecated Use `atoms_NONE` instead. */
+  atoms_NOT?: InputMaybe<AtomWhere>
+  atomsAggregate?: InputMaybe<UserAtomsAggregateInput>
+  /** Return Users where all of the related Atoms match this filter */
+  atoms_ALL?: InputMaybe<AtomWhere>
+  /** Return Users where none of the related Atoms match this filter */
+  atoms_NONE?: InputMaybe<AtomWhere>
+  /** Return Users where one of the related Atoms match this filter */
+  atoms_SINGLE?: InputMaybe<AtomWhere>
+  /** Return Users where some of the related Atoms match this filter */
+  atoms_SOME?: InputMaybe<AtomWhere>
   /** @deprecated Use `tags_SOME` instead. */
   tags?: InputMaybe<TagWhere>
   /** @deprecated Use `tags_NONE` instead. */
@@ -29502,6 +29876,14 @@ export type UserWhere = {
   componentsConnection_SINGLE?: InputMaybe<UserComponentsConnectionWhere>
   /** Return Users where some of the related UserComponentsConnections match this filter */
   componentsConnection_SOME?: InputMaybe<UserComponentsConnectionWhere>
+  /** @deprecated Use `atomsConnection_SOME` instead. */
+  atomsConnection?: InputMaybe<UserAtomsConnectionWhere>
+  /** @deprecated Use `atomsConnection_NONE` instead. */
+  atomsConnection_NOT?: InputMaybe<UserAtomsConnectionWhere>
+  atomsConnection_ALL?: InputMaybe<UserAtomsConnectionWhere>
+  atomsConnection_NONE?: InputMaybe<UserAtomsConnectionWhere>
+  atomsConnection_SINGLE?: InputMaybe<UserAtomsConnectionWhere>
+  atomsConnection_SOME?: InputMaybe<UserAtomsConnectionWhere>
   /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<UserTagsConnectionWhere>
   /** @deprecated Use `tagsConnection_NONE` instead. */

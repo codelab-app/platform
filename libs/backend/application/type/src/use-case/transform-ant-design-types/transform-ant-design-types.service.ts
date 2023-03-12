@@ -125,7 +125,7 @@ export class TransformAntDesignTypesService extends IUseCase<
       // Create nested types
       await Promise.all(
         mappedTypesOfUnionType.map(async ({ ...typeOfUnionType }) => {
-          return await TypeFactory.create(typeOfUnionType, owner)
+          return await TypeFactory.create({ ...typeOfUnionType, owner })
         }),
       )
 

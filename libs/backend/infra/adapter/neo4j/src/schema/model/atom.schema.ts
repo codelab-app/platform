@@ -16,6 +16,7 @@ export const atomSchema = gql`
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
     icon: String
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     allowedChildren: [Atom!]!
       @relationship(type: "ALLOWED_CHILDREN", direction: OUT)
   }

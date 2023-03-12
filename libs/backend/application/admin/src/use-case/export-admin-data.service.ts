@@ -9,31 +9,20 @@ import {
 import { saveFormattedFile } from '@codelab/backend/shared/util'
 import find from 'lodash/find'
 import path from 'path'
+import { DataPaths } from '../data-paths'
 
 /**
  * This service should save the files as well, since admin data is all located in the same location
  */
 export class ExportAdminDataService extends IUseCase<void, void> {
-  private readonly SYSTEM_TYPES_FILE_PATH = path.resolve(
-    this.DATA_EXPORT_PATH,
-    './system/types/system-types.json',
-  )
-
-  private readonly ATOMS_PATH = path.resolve(
-    this.DATA_EXPORT_PATH,
-    './admin/atoms',
-  )
-
-  private readonly TAGS_FILE_PATH = path.resolve(
-    this.DATA_EXPORT_PATH,
-    './tags/tags.json',
-  )
+  dataPaths: DataPaths
 
   constructor(
     // Allow base directory override for testing purpose
-    private readonly DATA_EXPORT_PATH = path.resolve('./data/export'),
+    DATA_EXPORT_PATH = path.resolve('./data/export'),
   ) {
     super()
+    this.dataPaths = new DataPaths(DATA_EXPORT_PATH)
   }
 
   async _execute() {
@@ -56,11 +45,14 @@ export class ExportAdminDataService extends IUseCase<void, void> {
         const type = find(apis, { id: atom.api.id })
         const types = await exportAdminTypes({ apiId: atom.api.id })
 
-        saveFormattedFile(path.resolve(this.ATOMS_PATH, `${atom.name}.json`), {
-          atom,
-          api: type,
-          types,
-        })
+        saveFormattedFile(
+          path.resolve(this.dataPaths.ATOMS_PATH, `${atom.name}.json`),
+          {
+            atom,
+            api: type,
+            types,
+          },
+        )
       }),
     )
   }
@@ -68,12 +60,12 @@ export class ExportAdminDataService extends IUseCase<void, void> {
   private async saveTagsFile() {
     const tags = await exportTags()
 
-    saveFormattedFile(this.TAGS_FILE_PATH, tags)
+    saveFormattedFile(this.dataPaths.TAGS_FILE_PATH, tags)
   }
 
   private async saveSystemTypesFile() {
     const systemTypes = await exportSystemTypes()
 
-    saveFormattedFile(this.SYSTEM_TYPES_FILE_PATH, systemTypes)
+    saveFormattedFile(this.dataPaths.SYSTEM_TYPES_FILE_PATH, systemTypes)
   }
 }

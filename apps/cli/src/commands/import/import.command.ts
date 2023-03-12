@@ -1,4 +1,5 @@
 import type { ExportedUserData } from '@codelab/backend/abstract/core'
+import { ImportAdminDataService } from '@codelab/backend/application/admin'
 import { importUserData } from '@codelab/backend/application/user'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import fs from 'fs'
@@ -93,21 +94,7 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
      * Seed atoms & types for the project
      */
     if (!shouldSkipSeedData) {
-      const inputFilePath =
-        seedDataPath !== undefined
-          ? seedDataPath
-          : (
-              await inquirer.prompt([
-                {
-                  default: './data/seed-data.json',
-                  message: 'Enter a path to import from, relative to ./',
-                  name: 'inputFilePath',
-                  type: 'input',
-                },
-              ])
-            ).inputFilePath
-
-      await importSeedData(selectedUserId, inputFilePath)
+      await new ImportAdminDataService().execute({ auth0Id: selectedUserId })
     }
 
     // If we specified a file for import
