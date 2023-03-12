@@ -1,4 +1,3 @@
-import type { ITag } from '@codelab/backend/abstract/core'
 import {
   Repository,
   tagSelectionSet,
@@ -12,12 +11,20 @@ interface ExportTagsProps {
 export const exportTags = async (props: ExportTagsProps = {}) => {
   const Tag = await Repository.instance.Tag
 
-  return (await Tag.find({
-    where: props.where,
-    selectionSet: tagSelectionSet,
-    options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
-    },
-    selectionSet: tagSelectionSet,
-  })) as Array<ITag>
+  return (
+    (
+      await Tag.find({
+        where: props.where,
+        selectionSet: tagSelectionSet,
+        options: {
+          sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+        },
+      })
+    )
+      // Sort children values
+      .map((tag) => ({
+        ...tag,
+        children: tag.children.sort((a, b) => a.id.localeCompare(b.id)),
+      }))
+  )
 }

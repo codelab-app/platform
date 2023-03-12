@@ -1,4 +1,4 @@
-import { exportSeedData } from '@codelab/backend/application/admin'
+import { ExportAdminDataService } from '@codelab/backend/application/admin'
 import { exportUserData } from '@codelab/backend/application/user'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
@@ -80,26 +80,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
     }
 
     if (!shouldSkipSeedData) {
-      const exportedSeedData = await exportSeedData()
-
-      /**
-       * Export info, file path etc
-       */
-      const outputFilePath =
-        seedDataPath !== undefined
-          ? seedDataPath
-          : (
-              await inquirer.prompt([
-                {
-                  default: './data/seed-data.json',
-                  message: 'Enter a path to export to, relative to ./',
-                  name: 'outputFilePath',
-                  type: 'input',
-                },
-              ])
-            ).outputFilePath
-
-      await saveFormattedFile(outputFilePath, exportedSeedData)
+      const exportedSeedData = await new ExportAdminDataService().execute()
     }
 
     if (!shouldSkipUserData) {

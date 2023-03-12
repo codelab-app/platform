@@ -43,3 +43,5 @@ export class UserRepository extends AbstractRepository<IUser> {
     ).users[0]
   }
 }
+
+export type IUserRepository = typeof UserRepository

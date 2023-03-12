@@ -1,4 +1,3 @@
-export * from './admin.interface'
 export * from './app.interface'
 export * from './atom.interface'
 export * from './data.interface'

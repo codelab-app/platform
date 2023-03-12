@@ -14,11 +14,22 @@ export const exportAtoms = async (
 ): Promise<Array<IAtomExport>> => {
   const Atom = await Repository.instance.Atom
 
-  return await Atom.find({
-    where: props.where,
-    selectionSet: atomSelectionSet,
-    options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
-    },
-  })
+  return (
+    (
+      await Atom.find({
+        where: props.where,
+        selectionSet: atomSelectionSet,
+        options: {
+          sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+        },
+      })
+    )
+      // Sort nested properties, since we can't do this with OGM
+      .map((atom) => ({
+        ...atom,
+        allowedChildren: atom.allowedChildren.sort((a, b) =>
+          a.id.localeCompare(b.id),
+        ),
+      }))
+  )
 }

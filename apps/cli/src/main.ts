@@ -10,7 +10,6 @@ import { parseHtmlCommand } from './commands/parse/parse-html.command'
 import { resetCommand } from './commands/reset/reset.command'
 import { scrapeAntdCommand } from './commands/scrape/scrape-antd.command'
 import { scrapeHtmlCommand } from './commands/scrape/scrape-html.command'
-import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { terraformCommand } from './commands/terraform/terraform.command'
 
@@ -30,9 +29,10 @@ void yargs(hideBin(process.argv))
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */
-  .command('data', 'Import / export / seed / reset', (argv) =>
+  .command('data', 'Import / export / reset', (argv) =>
     argv
-      .command(seedCommand)
+      // Deprecate seed as we rely on import now
+      // .command(seedCommand)
       .command(resetCommand)
       .command(importCommand)
       .command(exportCommand)
