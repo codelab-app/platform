@@ -1,17 +1,131 @@
 {
-  "id": "245c2f56-4ebd-4819-9271-7a3ffe389bee",
-  "name": "AntDesignSpin",
-  "type": "AntDesignSpin",
-  "api": {
-    "id": "844cc227-a77b-422d-aba2-bea2110bc5e6",
-    "name": "AntDesignSpin API"
+  "atom": {
+    "id": "245c2f56-4ebd-4819-9271-7a3ffe389bee",
+    "name": "AntDesignSpin",
+    "type": "AntDesignSpin",
+    "api": {
+      "id": "844cc227-a77b-422d-aba2-bea2110bc5e6",
+      "name": "AntDesignSpin API"
+    },
+    "icon": "Spin",
+    "tags": [
+      {
+        "id": "f4bf73cb-0c53-414b-945f-f729a03a9f3b",
+        "name": "Spin"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Spin",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "844cc227-a77b-422d-aba2-bea2110bc5e6",
+    "kind": "InterfaceType",
+    "name": "AntDesignSpin API",
+    "fields": [
+      {
+        "id": "eba84ddc-fa79-466b-ab28-3cb3505e2561",
+        "key": "indicator",
+        "name": "Indicator",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
+        }
+      },
+      {
+        "id": "4c053b4c-7ec0-4e70-98e5-f5d7e8e380ab",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
+        }
+      },
+      {
+        "id": "93237b01-f780-457e-a465-5efc1209eed1",
+        "key": "spinning",
+        "name": "Spinning",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
+        }
+      },
+      {
+        "id": "46568e1f-3694-42b0-8951-907b78259e9e",
+        "key": "tip",
+        "name": "Tip",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
+        }
+      },
+      {
+        "id": "245dd3e2-004b-48f7-94b1-57d7a7dedb7c",
+        "key": "wrapperClassName",
+        "name": "Wrapper Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "f4bf73cb-0c53-414b-945f-f729a03a9f3b",
-      "name": "Spin"
+      "name": "Spin",
+      "parent": {
+        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
+        "name": "Feedback"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

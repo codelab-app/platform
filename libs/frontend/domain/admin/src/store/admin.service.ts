@@ -18,4 +18,14 @@ export class AdminService extends Model({}) implements IAdminService {
 
     return resetDatabase?.success
   })
+
+  @modelFlow
+  export = _async(function* (this: AdminService) {
+    return yield* _await(fetch(`/api/export/admin`))
+  })
+
+  @modelFlow
+  import = _async(function* (this: AdminService) {
+    return yield* _await(fetch(`/api/import/admin`))
+  })
 }

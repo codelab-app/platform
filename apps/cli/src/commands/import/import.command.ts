@@ -1,5 +1,5 @@
-import type { ExportedData } from '@codelab/backend/abstract/core'
-import { importUserData } from '@codelab/backend/data'
+import type { ExportedUserData } from '@codelab/backend/abstract/core'
+import { importUserData } from '@codelab/backend/application/user'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import fs from 'fs'
 import inquirer from 'inquirer'
@@ -130,8 +130,8 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
         'utf8',
       )
 
-      const data = JSON.parse(json) as ExportedData
-      await importUserData(data, selectedUserId)
+      const userData = JSON.parse(json) as ExportedUserData
+      await importUserData(userData, selectedUserId)
     }
 
     yargs.exit(0, null!)

@@ -1,17 +1,45 @@
 {
-  "id": "d2049c0b-a882-4a8c-aa19-7c300dd41f45",
-  "name": "AntDesignCarousel",
-  "type": "AntDesignCarousel",
-  "api": {
-    "id": "960f9d94-e655-4aa1-9301-f398313a3d08",
-    "name": "AntDesignCarousel API"
+  "atom": {
+    "id": "d2049c0b-a882-4a8c-aa19-7c300dd41f45",
+    "name": "AntDesignCarousel",
+    "type": "AntDesignCarousel",
+    "api": {
+      "id": "960f9d94-e655-4aa1-9301-f398313a3d08",
+      "name": "AntDesignCarousel API"
+    },
+    "icon": "Carousel",
+    "tags": [
+      {
+        "id": "132fe55a-ff23-4f0b-b48b-c677b56d1e28",
+        "name": "Carousel"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Carousel",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "960f9d94-e655-4aa1-9301-f398313a3d08",
+    "kind": "InterfaceType",
+    "name": "AntDesignCarousel API",
+    "fields": []
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "132fe55a-ff23-4f0b-b48b-c677b56d1e28",
-      "name": "Carousel"
+      "name": "Carousel",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

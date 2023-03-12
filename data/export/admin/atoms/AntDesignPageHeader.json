@@ -1,17 +1,235 @@
 {
-  "id": "73f0f95c-c3b5-44c8-88f1-4db43b8a07d8",
-  "name": "AntDesignPageHeader",
-  "type": "AntDesignPageHeader",
-  "api": {
-    "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0",
-    "name": "AntDesignPageHeader API"
+  "atom": {
+    "id": "73f0f95c-c3b5-44c8-88f1-4db43b8a07d8",
+    "name": "AntDesignPageHeader",
+    "type": "AntDesignPageHeader",
+    "api": {
+      "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0",
+      "name": "AntDesignPageHeader API"
+    },
+    "icon": "PageHeader",
+    "tags": [
+      {
+        "id": "d8ca4161-3935-4c9a-b3d7-9a8f6095198e",
+        "name": "PageHeader"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "PageHeader",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0",
+    "kind": "InterfaceType",
+    "name": "AntDesignPageHeader API",
+    "fields": [
+      {
+        "id": "3751e6fe-6c9c-4675-9a28-0ad78ea7790c",
+        "key": "backIcon",
+        "name": "Back Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "9e330133-030f-4e02-9b42-463a970e7c84",
+          "kind": "EnumType",
+          "name": "AntDesignPageHeader Back Icon Enum"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "74d0420d-9a2d-4675-a4a5-59dc90322f83",
+        "key": "breadcrumbRender",
+        "name": "Breadcrumb Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "c6c1c4a5-291b-494e-a64f-85559a3c446f",
+        "key": "extra",
+        "name": "Extra",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "b089f16c-aa53-419a-9427-dadb95c16f66",
+        "key": "footer",
+        "name": "Footer",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "2c1623c6-9ebb-44d7-bb58-29c382a3fdbd",
+        "key": "ghost",
+        "name": "Ghost",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "32eb8071-b620-475b-bee0-2ac8cf0cfcce",
+        "key": "onBack",
+        "name": "On Back",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "ae1a020d-3be7-4d43-a074-89fec1b6cf67",
+        "key": "subTitle",
+        "name": "Sub Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "3fa2445b-54eb-4786-a2eb-81e7a6b7df82",
+        "key": "tags",
+        "name": "Tags",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "23d21a9e-4b37-49f7-ad28-1c33490b0a72",
+          "kind": "EnumType",
+          "name": "AntDesignPageHeader Tags Enum"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      },
+      {
+        "id": "02945f08-f804-43d2-b3a0-07e7c1b46e10",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0b9be25d-f348-40e8-9f40-6102ebd032c0"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9e330133-030f-4e02-9b42-463a970e7c84",
+      "kind": "EnumType",
+      "name": "AntDesignPageHeader Back Icon Enum",
+      "allowedValues": [
+        {
+          "id": "ada82abf-c0a7-4790-9de4-56415e422179",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "33b8a727-3c73-4f13-b421-1f3cba988971",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "23d21a9e-4b37-49f7-ad28-1c33490b0a72",
+      "kind": "EnumType",
+      "name": "AntDesignPageHeader Tags Enum",
+      "allowedValues": [
+        {
+          "id": "7da038cc-527d-4c43-a292-7907db896fb6",
+          "key": "Tag",
+          "value": "Tag"
+        },
+        {
+          "id": "0e3dd7d5-5af5-4ef9-88bd-bb325c9a8e7f",
+          "key": "Tag[]",
+          "value": "Tag[]"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "d8ca4161-3935-4c9a-b3d7-9a8f6095198e",
-      "name": "PageHeader"
+      "name": "PageHeader",
+      "parent": {
+        "id": "1bf9fc94-4b9d-4210-b6b1-0b6183c607b4",
+        "name": "Navigation"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

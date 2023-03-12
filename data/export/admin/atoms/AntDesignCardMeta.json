@@ -1,17 +1,114 @@
 {
-  "id": "9ea77f8a-ef9e-4b9a-b2bd-cb39d9e98ae5",
-  "name": "AntDesignCardMeta",
-  "type": "AntDesignCardMeta",
-  "api": {
-    "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80",
-    "name": "AntDesignCardMeta API"
+  "atom": {
+    "id": "9ea77f8a-ef9e-4b9a-b2bd-cb39d9e98ae5",
+    "name": "AntDesignCardMeta",
+    "type": "AntDesignCardMeta",
+    "api": {
+      "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80",
+      "name": "AntDesignCardMeta API"
+    },
+    "icon": "Card",
+    "tags": [
+      {
+        "id": "235e046e-b5fd-4fce-bfbd-06f1a2c854fd",
+        "name": "Card.Meta"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Card",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80",
+    "kind": "InterfaceType",
+    "name": "AntDesignCardMeta API",
+    "fields": [
+      {
+        "id": "02d9f118-74c2-4027-a165-ecd5f6c3ab37",
+        "key": "avatar",
+        "name": "Avatar",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80"
+        }
+      },
+      {
+        "id": "eb252c3f-5c1c-43d0-b5ae-e43f7e0b2631",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80"
+        }
+      },
+      {
+        "id": "9f20e4d9-a1f3-4403-b940-ed59b7724096",
+        "key": "description",
+        "name": "Description",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80"
+        }
+      },
+      {
+        "id": "eeb7ad78-e6e3-4f54-890a-f45b1517957f",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "1fa83c1a-9a38-44ae-b4f4-35d9fb8ebb80"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "235e046e-b5fd-4fce-bfbd-06f1a2c854fd",
-      "name": "Card.Meta"
+      "name": "Card.Meta",
+      "parent": {
+        "id": "760253bf-3810-4b84-95a8-e3d5d9cb183c",
+        "name": "Card"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

@@ -1,17 +1,148 @@
 {
-  "id": "7a31543d-6d98-4188-ab00-cafc1311058c",
-  "name": "AntDesignCheckboxGroup",
-  "type": "AntDesignCheckboxGroup",
-  "api": {
-    "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8",
-    "name": "AntDesignCheckboxGroup API"
+  "atom": {
+    "id": "7a31543d-6d98-4188-ab00-cafc1311058c",
+    "name": "AntDesignCheckboxGroup",
+    "type": "AntDesignCheckboxGroup",
+    "api": {
+      "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8",
+      "name": "AntDesignCheckboxGroup API"
+    },
+    "icon": "Checkbox",
+    "tags": [
+      {
+        "id": "13ab0981-5aa1-4ca8-b63d-85a2a7be7947",
+        "name": "Checkbox.Group"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Checkbox",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8",
+    "kind": "InterfaceType",
+    "name": "AntDesignCheckboxGroup API",
+    "fields": [
+      {
+        "id": "1797332b-757b-44d8-b3bf-a0b6dc6ae612",
+        "key": "autoFocus",
+        "name": "Auto Focus",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8"
+        }
+      },
+      {
+        "id": "fbaf56c9-e866-4980-a1b3-b21ab6c77363",
+        "key": "checked",
+        "name": "Checked",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8"
+        }
+      },
+      {
+        "id": "4b30e445-af2c-4311-af80-039199731036",
+        "key": "defaultChecked",
+        "name": "Default Checked",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8"
+        }
+      },
+      {
+        "id": "7087ae6e-4fc3-41d3-b3fb-3e4a7b83834f",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8"
+        }
+      },
+      {
+        "id": "4905d7d9-7600-4659-88f2-959f37bbcb7f",
+        "key": "indeterminate",
+        "name": "Indeterminate",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8"
+        }
+      },
+      {
+        "id": "ab897882-c151-4f54-bcc8-365b4dd61d3b",
+        "key": "onChange",
+        "name": "On Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "626bb916-4d6b-4b8f-a8a4-85a8b279cad8"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "13ab0981-5aa1-4ca8-b63d-85a2a7be7947",
-      "name": "Checkbox.Group"
+      "name": "Checkbox.Group",
+      "parent": {
+        "id": "bb4db413-e096-4ddd-b21b-6f4587e855fb",
+        "name": "Checkbox"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

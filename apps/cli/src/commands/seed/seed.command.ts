@@ -1,11 +1,5 @@
-import type { IOwner } from '@codelab/backend/abstract/core'
-import { SeedAtomsService } from '@codelab/backend/application/atom'
-import { SeedTagsService } from '@codelab/backend/application/tag'
-import {
-  SeedAntDesignApiService,
-  SeedAntDesignFieldsService,
-  SeedSystemTypeService,
-} from '@codelab/backend/application/type'
+import type { IUserRef } from '@codelab/backend/abstract/core'
+import { SeedDataService } from '@codelab/backend/application/admin'
 import { UserRepository } from '@codelab/backend/domain/user'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
@@ -42,15 +36,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
 
     const user: IOwner = { auth0Id: selectedAuth0Id }
 
-    await new SeedSystemTypeService().execute(user)
-
-    await new SeedAntDesignApiService().execute(user)
-
-    await new SeedTagsService().execute(user)
-
-    await new SeedAtomsService().execute(user)
-
-    await (await SeedAntDesignFieldsService.init(user)).execute()
+    await new SeedDataService().execute(user)
 
     return process.exit(0)
   },

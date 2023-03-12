@@ -1,17 +1,116 @@
 {
-  "id": "87fb0ab3-96fb-40bc-81f3-c000ad6dbf85",
-  "name": "AntDesignSegmented",
-  "type": "AntDesignSegmented",
-  "api": {
-    "id": "85eb3d00-6f72-4124-ba47-2739100a691d",
-    "name": "AntDesignSegmented API"
+  "atom": {
+    "id": "87fb0ab3-96fb-40bc-81f3-c000ad6dbf85",
+    "name": "AntDesignSegmented",
+    "type": "AntDesignSegmented",
+    "api": {
+      "id": "85eb3d00-6f72-4124-ba47-2739100a691d",
+      "name": "AntDesignSegmented API"
+    },
+    "icon": "Segmented",
+    "tags": [
+      {
+        "id": "95517890-a678-4447-a0d5-01958695b49c",
+        "name": "Segmented"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Segmented",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "85eb3d00-6f72-4124-ba47-2739100a691d",
+    "kind": "InterfaceType",
+    "name": "AntDesignSegmented API",
+    "fields": [
+      {
+        "id": "fd909c19-a355-47be-8d49-d73219a537b8",
+        "key": "content",
+        "name": "Content",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "fbf5f269-93a8-42ac-939b-db6c0b411023",
+          "kind": "EnumType",
+          "name": "AntDesignSegmented Content Enum"
+        },
+        "api": {
+          "id": "85eb3d00-6f72-4124-ba47-2739100a691d"
+        }
+      },
+      {
+        "id": "7b272cdb-73e1-401e-a7aa-133231a1c5e4",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "dc7730ec-639f-40b2-8107-5b438504d1b2",
+          "kind": "EnumType",
+          "name": "AntDesignSegmented Title Enum"
+        },
+        "api": {
+          "id": "85eb3d00-6f72-4124-ba47-2739100a691d"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "fbf5f269-93a8-42ac-939b-db6c0b411023",
+      "kind": "EnumType",
+      "name": "AntDesignSegmented Content Enum",
+      "allowedValues": [
+        {
+          "id": "5bab2d3b-5d52-473d-9b65-6b81d36780db",
+          "key": "() => ReactNode",
+          "value": "() => ReactNode"
+        },
+        {
+          "id": "9a733d38-cd67-4596-af4f-37b6bfb0a225",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "dc7730ec-639f-40b2-8107-5b438504d1b2",
+      "kind": "EnumType",
+      "name": "AntDesignSegmented Title Enum",
+      "allowedValues": [
+        {
+          "id": "cd08572b-93c9-4ef7-8263-cd1a1dd089dc",
+          "key": "() => ReactNode",
+          "value": "() => ReactNode"
+        },
+        {
+          "id": "e12baa03-ae2d-461f-ba5a-0b6211c04d85",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "95517890-a678-4447-a0d5-01958695b49c",
-      "name": "Segmented"
+      "name": "Segmented",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

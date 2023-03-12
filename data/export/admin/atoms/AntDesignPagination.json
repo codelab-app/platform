@@ -1,17 +1,411 @@
 {
-  "id": "be270198-44bc-4da2-9580-4ce644649d93",
-  "name": "AntDesignPagination",
-  "type": "AntDesignPagination",
-  "api": {
-    "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4",
-    "name": "AntDesignPagination API"
+  "atom": {
+    "id": "be270198-44bc-4da2-9580-4ce644649d93",
+    "name": "AntDesignPagination",
+    "type": "AntDesignPagination",
+    "api": {
+      "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4",
+      "name": "AntDesignPagination API"
+    },
+    "icon": "Pagination",
+    "tags": [
+      {
+        "id": "2a2499ef-dd4b-493c-9a8b-9103237f0d33",
+        "name": "Pagination"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Pagination",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4",
+    "kind": "InterfaceType",
+    "name": "AntDesignPagination API",
+    "fields": [
+      {
+        "id": "b114d119-1d30-4521-bdfa-aa20743c4792",
+        "key": "current",
+        "name": "Current",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "61c384c9-f52a-46a6-bd85-c3ca14a06695",
+        "key": "defaultCurrent",
+        "name": "Default Current",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "2e7aac30-fe33-4550-89ae-a2d5d26f238b",
+        "key": "defaultPageSize",
+        "name": "Default Page Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "815299ae-4e74-477b-834b-3efc7249e928",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "76104fee-2d51-40b6-a623-3a41f7c6a824",
+        "key": "hideOnSinglePage",
+        "name": "Hide On Single Page",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "ec4e6c44-0396-404a-8e86-db89ef30eff7",
+        "key": "itemRender",
+        "name": "Item Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "928be2ea-e326-4793-8521-3cb510bf439f",
+          "kind": "EnumType",
+          "name": "AntDesignPagination Item Render Enum"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "67234bda-bcbe-426c-bf65-0c03e0e887aa",
+        "key": "onChange",
+        "name": "On Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "15ce8bba-32f6-4875-b3a9-aa05b2ff45f6",
+        "key": "onShowSizeChange",
+        "name": "On Show Size Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "c9d76efe-a1ab-4937-af00-731ce4b55503",
+        "key": "pageSize",
+        "name": "Page Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "afe791cf-e8b7-4918-89d5-a7fa38293124",
+        "key": "responsive",
+        "name": "Responsive",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "3274dd68-9b6d-4fd1-94a3-af37e670192a",
+        "key": "showLessItems",
+        "name": "Show Less Items",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "628f4ae8-6fe7-4e4f-9fd1-d06a9f9207fc",
+        "key": "showQuickJumper",
+        "name": "Show Quick Jumper",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "e96212e4-fbdf-4b1b-b49a-13ef125004d1",
+          "kind": "EnumType",
+          "name": "AntDesignPagination Show Quick Jumper Enum"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "4b03e4e9-8f7c-46dc-9b34-4024fbea29b1",
+        "key": "showSizeChanger",
+        "name": "Show Size Changer",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "5da07d4e-5bdc-4324-8392-09ae34ff6969",
+        "key": "showTitle",
+        "name": "Show Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "a8cd7424-0b1c-44c3-be17-e3dc438ec465",
+        "key": "showTotal",
+        "name": "Show Total",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "e4167a40-c4cd-4378-9343-f18a15ac1f25",
+        "key": "simple",
+        "name": "Simple",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "100cb408-e1f6-440c-8fe5-1adce6240981",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "49179d91-2eb6-4bb4-8c52-0f2cf2076b05",
+          "kind": "EnumType",
+          "name": "AntDesignPagination Size Enum"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      },
+      {
+        "id": "10e14ee1-d90c-4df0-a8e1-b95466a76683",
+        "key": "total",
+        "name": "Total",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "2363ac66-bfc8-4357-b0e2-5afe8b131bb4"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "928be2ea-e326-4793-8521-3cb510bf439f",
+      "kind": "EnumType",
+      "name": "AntDesignPagination Item Render Enum",
+      "allowedValues": [
+        {
+          "id": "116ba078-c0da-4bf7-b781-97bfa27e237d",
+          "key": "(page, type: page",
+          "value": "(page, type: page"
+        },
+        {
+          "id": "47123523-0d83-49b8-9042-8cdc5a4784a3",
+          "key": "next, originalElement) => React.ReactNode",
+          "value": "next, originalElement) => React.ReactNode"
+        },
+        {
+          "id": "96181148-0991-4ae8-b5be-30b27bf2d30d",
+          "key": "prev",
+          "value": "prev"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e96212e4-fbdf-4b1b-b49a-13ef125004d1",
+      "kind": "EnumType",
+      "name": "AntDesignPagination Show Quick Jumper Enum",
+      "allowedValues": [
+        {
+          "id": "9999c2b1-2906-4885-9672-a96c4d8fe78f",
+          "key": "{ goButton: ReactNode }",
+          "value": "{ goButton: ReactNode }"
+        },
+        {
+          "id": "2b3c41dc-afbf-4285-8d8b-513ea235252b",
+          "key": "boolean",
+          "value": "boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "49179d91-2eb6-4bb4-8c52-0f2cf2076b05",
+      "kind": "EnumType",
+      "name": "AntDesignPagination Size Enum",
+      "allowedValues": [
+        {
+          "id": "2c594aff-cac8-41b4-9051-42819d1c7f92",
+          "key": "default",
+          "value": "default"
+        },
+        {
+          "id": "dc876be9-1313-4b71-8010-d03bd4b5cb70",
+          "key": "small",
+          "value": "small"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "2a2499ef-dd4b-493c-9a8b-9103237f0d33",
-      "name": "Pagination"
+      "name": "Pagination",
+      "parent": {
+        "id": "1bf9fc94-4b9d-4210-b6b1-0b6183c607b4",
+        "name": "Navigation"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

@@ -1,17 +1,70 @@
 {
-  "id": "a37d8094-0765-4d1d-894e-51e0ce635df8",
-  "name": "HtmlA",
-  "type": "HtmlA",
-  "api": {
-    "id": "cc6540eb-898c-4faf-baef-fdd1bd4a3e1d",
-    "name": "HtmlA API"
+  "atom": {
+    "id": "a37d8094-0765-4d1d-894e-51e0ce635df8",
+    "name": "HtmlA",
+    "type": "HtmlA",
+    "api": {
+      "id": "cc6540eb-898c-4faf-baef-fdd1bd4a3e1d",
+      "name": "HtmlA API"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "03be1ec1-f503-485e-b7e6-c841c7c47ade",
+        "name": "Html"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": null,
-  "tags": [
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "cc6540eb-898c-4faf-baef-fdd1bd4a3e1d",
+    "kind": "InterfaceType",
+    "name": "HtmlA API",
+    "fields": [
+      {
+        "id": "7a714cc4-c859-4b02-b7dd-3775efbfaf64",
+        "key": "href",
+        "name": null,
+        "description": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}",
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cc6540eb-898c-4faf-baef-fdd1bd4a3e1d"
+        }
+      },
+      {
+        "id": "42cd0b03-88f2-49d2-8403-b3852cf93d42",
+        "key": "target",
+        "name": null,
+        "description": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}",
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cc6540eb-898c-4faf-baef-fdd1bd4a3e1d"
+        }
+      }
+    ]
+  },
+  "types": [
     {
-      "id": "03be1ec1-f503-485e-b7e6-c841c7c47ade",
-      "name": "Html"
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
     }
   ],
-  "allowedChildren": []
+  "tags": []
 }

@@ -1,17 +1,717 @@
 {
-  "id": "f709ea63-cca2-43c9-8855-daf8b60b735c",
-  "name": "AntDesignTree",
-  "type": "AntDesignTree",
-  "api": {
-    "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a",
-    "name": "AntDesignTree API"
+  "atom": {
+    "id": "f709ea63-cca2-43c9-8855-daf8b60b735c",
+    "name": "AntDesignTree",
+    "type": "AntDesignTree",
+    "api": {
+      "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a",
+      "name": "AntDesignTree API"
+    },
+    "icon": "Tree",
+    "tags": [
+      {
+        "id": "eb2d4052-833e-46b0-b3bf-e5fe3d405e93",
+        "name": "Tree"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Tree",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a",
+    "kind": "InterfaceType",
+    "name": "AntDesignTree API",
+    "fields": [
+      {
+        "id": "4555e1bc-de83-41fc-8b21-dde2965d7ecf",
+        "key": "allowDrop",
+        "name": "Allow Drop",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "d9275230-8965-4969-b6a3-9e69f7cfd8b5",
+        "key": "autoExpandParent",
+        "name": "Auto Expand Parent",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "97e6fe02-29dc-4c49-896b-7bebac86a5c4",
+        "key": "blockNode",
+        "name": "Block Node",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "2b40aea3-315b-4e58-becd-63fc2ad3697a",
+        "key": "checkStrictly",
+        "name": "Check Strictly",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "65dd2b16-c23c-4113-8385-3af9278f7822",
+        "key": "checkable",
+        "name": "Checkable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "b885c98f-b09c-49c5-9a51-39d75b4d271e",
+        "key": "checkedKeys",
+        "name": "Checked Keys",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ca7c4d78-596d-4dff-acf9-da65bfbeb50e",
+          "kind": "EnumType",
+          "name": "AntDesignTree Checked Keys Enum"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "fb88db03-8901-437d-a7a9-f82131451a1f",
+        "key": "defaultExpandAll",
+        "name": "Default Expand All",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "62f84478-2518-4f69-b5ec-309f81d5d605",
+        "key": "defaultExpandParent",
+        "name": "Default Expand Parent",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "a1c1c4f3-5cea-42df-9336-e1b20006b238",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "335af32f-fd93-479a-952a-8da09c494829",
+        "key": "draggable",
+        "name": "Draggable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "a65ee7e0-706d-45e9-862d-0003f8ea25af",
+          "kind": "EnumType",
+          "name": "AntDesignTree Draggable Enum"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "56d340b3-4890-42ac-a560-0bf0f74a1307",
+        "key": "filterTreeNode",
+        "name": "Filter Tree Node",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "0e78cb61-9502-4537-9d7e-259ee18ce611",
+        "key": "height",
+        "name": "Height",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "d9a23719-27f2-427e-a57a-20fd27b32249",
+        "key": "icon",
+        "name": "Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ab72c692-6e7e-42e7-b715-15b4c4c671f6",
+          "kind": "EnumType",
+          "name": "AntDesignTree Icon Enum"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "e51f2b91-3abc-450e-a496-7e6186b5d2d2",
+        "key": "loadData",
+        "name": "Load Data",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "84cbdc83-6019-4ffd-8e0e-6e8e5b07763e",
+        "key": "multiple",
+        "name": "Multiple",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "1876e688-69aa-4610-9742-6ce4a09a9425",
+        "key": "onCheck",
+        "name": "On Check",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "5d5dabbf-7c1d-4d7f-8338-377a1b13f11e",
+        "key": "onDragEnd",
+        "name": "On Drag End",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "2f7236c5-9dbb-4495-85a9-680838f16657",
+        "key": "onDragEnter",
+        "name": "On Drag Enter",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "0d70c0c7-8d66-48c4-9bfc-a0c4b2736cc9",
+        "key": "onDragLeave",
+        "name": "On Drag Leave",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "edd7bb8f-514a-48b1-ad8b-25136cfb1d22",
+        "key": "onDragOver",
+        "name": "On Drag Over",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "c0c11a8c-1628-462a-9028-dcf3be2aac64",
+        "key": "onDragStart",
+        "name": "On Drag Start",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "ac366f81-b80c-4584-a599-4cfbdeb66d64",
+        "key": "onDrop",
+        "name": "On Drop",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "51012209-8382-4549-a3d6-36b49f402518",
+        "key": "onExpand",
+        "name": "On Expand",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "83b5cfc2-69e4-4dff-a7b3-4c3ed71af2ee",
+        "key": "onLoad",
+        "name": "On Load",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "2c4de7da-98ce-4030-a67e-677daf8c37ef",
+        "key": "onRightClick",
+        "name": "On Right Click",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "54f0b592-73a0-4f7f-a490-4920ded66d6b",
+        "key": "onSelect",
+        "name": "On Select",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "2a0ab141-37a1-4e0c-8bf7-4c8844d879f2",
+        "key": "rootClassName",
+        "name": "Root Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "2d1130dc-0a92-46cc-a7e7-92e27828f76a",
+        "key": "selectable",
+        "name": "Selectable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "30269d9e-7f97-4f34-92d2-932e5f948a9c",
+        "key": "showIcon",
+        "name": "Show Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "2344c97d-6143-42df-aa89-87b2e703481a",
+        "key": "showLine",
+        "name": "Show Line",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "fdd62d03-2002-4435-b5f1-9506b960b794",
+          "kind": "EnumType",
+          "name": "AntDesignTree Show Line Enum"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "7eec8b66-d4da-449c-8ac3-8d213cb810ef",
+        "key": "switcherIcon",
+        "name": "Switcher Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "874695d0-5215-48b6-a54d-2dfb243edc4a",
+          "kind": "EnumType",
+          "name": "AntDesignTree Switcher Icon Enum"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "e52128cb-7491-42a2-b1eb-b41c84d0bc32",
+        "key": "titleRender",
+        "name": "Title Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      },
+      {
+        "id": "350f5fe0-83e1-44ba-bea1-828c1ce6ad00",
+        "key": "virtual",
+        "name": "Virtual",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ea4b890-81b2-468b-bb4b-c927bdcfe80a"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ca7c4d78-596d-4dff-acf9-da65bfbeb50e",
+      "kind": "EnumType",
+      "name": "AntDesignTree Checked Keys Enum",
+      "allowedValues": [
+        {
+          "id": "a5dbd6ce-f142-4fde-b7c7-4e4260eb502d",
+          "key": "{checked: string[], halfChecked: string[]}",
+          "value": "{checked: string[], halfChecked: string[]}"
+        },
+        {
+          "id": "c8f328b1-c5c0-412d-96dc-86c860992647",
+          "key": "string[]",
+          "value": "string[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a65ee7e0-706d-45e9-862d-0003f8ea25af",
+      "kind": "EnumType",
+      "name": "AntDesignTree Draggable Enum",
+      "allowedValues": [
+        {
+          "id": "20bafd1c-91c6-4896-876c-958eb79ba17b",
+          "key": "((node: DataNode) => boolean)",
+          "value": "((node: DataNode) => boolean)"
+        },
+        {
+          "id": "42a59692-d6ea-499f-9e1b-6b862a647725",
+          "key": "{ icon?: React.ReactNode",
+          "value": "{ icon?: React.ReactNode"
+        },
+        {
+          "id": "e34ed8a5-c278-4707-85e6-151ddcfc53b4",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "84bb6242-4b58-465a-a475-da70ab18e070",
+          "key": "false, nodeDraggable?: (node: DataNode) => boolean }",
+          "value": "false, nodeDraggable?: (node: DataNode) => boolean }"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ab72c692-6e7e-42e7-b715-15b4c4c671f6",
+      "kind": "EnumType",
+      "name": "AntDesignTree Icon Enum",
+      "allowedValues": [
+        {
+          "id": "f3210203-41b6-468c-ab4e-f23a66430961",
+          "key": "(props) => ReactNode",
+          "value": "(props) => ReactNode"
+        },
+        {
+          "id": "eb15d5b7-cbcc-4609-a78b-50c38092262a",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "fdd62d03-2002-4435-b5f1-9506b960b794",
+      "kind": "EnumType",
+      "name": "AntDesignTree Show Line Enum",
+      "allowedValues": [
+        {
+          "id": "289fb156-84f3-4f5a-a716-16df74f3c8f9",
+          "key": "((props: AntTreeNodeProps) => ReactNode)}",
+          "value": "((props: AntTreeNodeProps) => ReactNode)}"
+        },
+        {
+          "id": "968dbf4f-00e9-4c84-8ce6-ee0f5ecf95b2",
+          "key": "{showLeafIcon: boolean",
+          "value": "{showLeafIcon: boolean"
+        },
+        {
+          "id": "6514b0e8-6b31-439f-abc3-80066233331e",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "0bfa7b7f-56bf-4fa0-b92f-bd540617f870",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "874695d0-5215-48b6-a54d-2dfb243edc4a",
+      "kind": "EnumType",
+      "name": "AntDesignTree Switcher Icon Enum",
+      "allowedValues": [
+        {
+          "id": "244c3b77-ed0e-4d07-8785-a3e7a25c2e65",
+          "key": "((props: AntTreeNodeProps) => ReactNode)",
+          "value": "((props: AntTreeNodeProps) => ReactNode)"
+        },
+        {
+          "id": "534571de-8d1d-4450-a910-790d5323e04b",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "eb2d4052-833e-46b0-b3bf-e5fe3d405e93",
-      "name": "Tree"
+      "name": "Tree",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

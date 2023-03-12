@@ -1,17 +1,60 @@
 {
-  "id": "74da7af9-1b5f-49c9-b0dc-2a95ff38e7d5",
-  "name": "ReactFragment",
-  "type": "ReactFragment",
-  "api": {
-    "id": "b7361811-cc55-4e2a-ad1a-90d886cbf2c7",
-    "name": "ReactFragment API"
+  "atom": {
+    "id": "74da7af9-1b5f-49c9-b0dc-2a95ff38e7d5",
+    "name": "ReactFragment",
+    "type": "ReactFragment",
+    "api": {
+      "id": "b7361811-cc55-4e2a-ad1a-90d886cbf2c7",
+      "name": "ReactFragment API"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "92ed3815-85ce-4446-8fb1-94e13e92045e",
+        "name": "React.Fragment"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": null,
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "b7361811-cc55-4e2a-ad1a-90d886cbf2c7",
+    "kind": "InterfaceType",
+    "name": "ReactFragment API",
+    "fields": [
+      {
+        "id": "e17807c5-3047-4a92-bae2-5b9bd5146e39",
+        "key": "children",
+        "name": "Children",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "b7361811-cc55-4e2a-ad1a-90d886cbf2c7"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "92ed3815-85ce-4446-8fb1-94e13e92045e",
-      "name": "React.Fragment"
+      "name": "React.Fragment",
+      "parent": null,
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

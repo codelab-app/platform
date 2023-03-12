@@ -1,17 +1,332 @@
 {
-  "id": "5dcdf198-159d-40b5-aae4-13915ac8fdd6",
-  "name": "AntDesignTypographyParagraph",
-  "type": "AntDesignTypographyParagraph",
-  "api": {
-    "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f",
-    "name": "AntDesignTypographyParagraph API"
+  "atom": {
+    "id": "5dcdf198-159d-40b5-aae4-13915ac8fdd6",
+    "name": "AntDesignTypographyParagraph",
+    "type": "AntDesignTypographyParagraph",
+    "api": {
+      "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f",
+      "name": "AntDesignTypographyParagraph API"
+    },
+    "icon": "Typography",
+    "tags": [
+      {
+        "id": "9ebdd59b-5ca6-4d0c-b7ec-95a6ec7db6ed",
+        "name": "Typography.Paragraph"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Typography",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f",
+    "kind": "InterfaceType",
+    "name": "AntDesignTypographyParagraph API",
+    "fields": [
+      {
+        "id": "62932635-4e92-453d-bce7-a37fddbff5db",
+        "key": "code",
+        "name": "Code",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "35e47718-c45f-433a-9e9e-0fd34006fd20",
+        "key": "copyable",
+        "name": "Copyable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "5473abea-72fc-41e7-a3d6-2beaae883eb0",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyParagraph Copyable Enum"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "78e25b2b-4470-4da3-baeb-309dda5e0b95",
+        "key": "delete",
+        "name": "Delete",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "fc243401-2433-49f9-95f8-4ada1b792148",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "74b81d86-e98b-4367-8b53-741e051d84f7",
+        "key": "editable",
+        "name": "Editable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "a2507649-a29d-40b6-bad3-af57015148af",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyParagraph Editable Enum"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "3ffc1f1e-d312-4aea-a93a-418bce79d6b0",
+        "key": "ellipsis",
+        "name": "Ellipsis",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "c63e6dc1-f903-40b1-a827-162793cddf0c",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyParagraph Ellipsis Enum"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "b7552471-ddb7-405b-acf6-5faef6d6075e",
+        "key": "italic",
+        "name": "Italic",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "99c7f2cb-a7d2-4fb2-9966-10edb211d17f",
+        "key": "mark",
+        "name": "Mark",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "d071bcec-711a-42ba-b60e-029901ce4eec",
+        "key": "onClick",
+        "name": "On Click",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "365e46d3-ddc3-4a45-a13f-dec5199b7c48",
+        "key": "strong",
+        "name": "Strong",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "72dc6c2a-3f9e-4df7-86e7-50fc79f2ce9c",
+        "key": "type",
+        "name": "Type",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "1da32ed0-1804-42ab-9945-add681ea869d",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyParagraph Type Enum"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      },
+      {
+        "id": "a3c7a439-a6f9-4797-9686-d77588dd20d0",
+        "key": "underline",
+        "name": "Underline",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4c46dba2-7a67-45d6-ab33-a681d5ec823f"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "5473abea-72fc-41e7-a3d6-2beaae883eb0",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Copyable Enum",
+      "allowedValues": [
+        {
+          "id": "2db31bb0-0df0-45a0-9bd4-b3911ba6abe7",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "0a72ae9e-9d43-4512-8f42-97c3607e8a2a",
+          "key": "copyable",
+          "value": "copyable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a2507649-a29d-40b6-bad3-af57015148af",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Editable Enum",
+      "allowedValues": [
+        {
+          "id": "fe5995ae-33b7-443e-ab2e-a4a7cd80a751",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "6106090d-0d62-4d52-9132-013a375dc625",
+          "key": "editable",
+          "value": "editable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c63e6dc1-f903-40b1-a827-162793cddf0c",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Ellipsis Enum",
+      "allowedValues": [
+        {
+          "id": "5a558525-dcfc-41fb-84ba-a8fdaddc4d95",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "dc0835de-3e13-45c2-8e69-284c46d5f2c0",
+          "key": "ellipsis",
+          "value": "ellipsis"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "1da32ed0-1804-42ab-9945-add681ea869d",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyParagraph Type Enum",
+      "allowedValues": [
+        {
+          "id": "6ec0013e-76d6-4963-8539-4109f7497ece",
+          "key": "danger",
+          "value": "danger"
+        },
+        {
+          "id": "29d4ad75-4d03-4aa8-85e6-6a0314e71f3c",
+          "key": "secondary",
+          "value": "secondary"
+        },
+        {
+          "id": "6566ea5c-d257-45d2-b8f8-64259eb2a16b",
+          "key": "success",
+          "value": "success"
+        },
+        {
+          "id": "c7ee6309-b9ec-456d-8191-552ea6c492cb",
+          "key": "warning",
+          "value": "warning"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "9ebdd59b-5ca6-4d0c-b7ec-95a6ec7db6ed",
-      "name": "Typography.Paragraph"
+      "name": "Typography.Paragraph",
+      "parent": {
+        "id": "0ec405ec-a098-44a0-8dc8-b2afe7e5f943",
+        "name": "Typography"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

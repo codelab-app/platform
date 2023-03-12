@@ -1,17 +1,80 @@
 {
-  "id": "c26d1b76-3996-4a29-9248-a47f86986856",
-  "name": "AntDesignDescriptionsItem",
-  "type": "AntDesignDescriptionsItem",
-  "api": {
-    "id": "e3a1eead-c6fa-4726-9c5c-7059ae126f89",
-    "name": "AntDesignDescriptionsItem API"
+  "atom": {
+    "id": "c26d1b76-3996-4a29-9248-a47f86986856",
+    "name": "AntDesignDescriptionsItem",
+    "type": "AntDesignDescriptionsItem",
+    "api": {
+      "id": "e3a1eead-c6fa-4726-9c5c-7059ae126f89",
+      "name": "AntDesignDescriptionsItem API"
+    },
+    "icon": "Descriptions",
+    "tags": [
+      {
+        "id": "28df097e-8124-4ad2-ab3f-3552782c7500",
+        "name": "Descriptions.Item"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Descriptions",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "e3a1eead-c6fa-4726-9c5c-7059ae126f89",
+    "kind": "InterfaceType",
+    "name": "AntDesignDescriptionsItem API",
+    "fields": [
+      {
+        "id": "76456e7f-6761-471d-86e8-fbeab29e6635",
+        "key": "label",
+        "name": "Label",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "e3a1eead-c6fa-4726-9c5c-7059ae126f89"
+        }
+      },
+      {
+        "id": "21a46e0a-f67a-4bcd-a05a-6f2526e3cf5b",
+        "key": "span",
+        "name": "Span",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "e3a1eead-c6fa-4726-9c5c-7059ae126f89"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "28df097e-8124-4ad2-ab3f-3552782c7500",
-      "name": "Descriptions.Item"
+      "name": "Descriptions.Item",
+      "parent": {
+        "id": "f064fa99-06a1-4e69-8a3d-21b217eee43a",
+        "name": "Descriptions"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

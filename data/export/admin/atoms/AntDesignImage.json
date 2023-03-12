@@ -1,17 +1,253 @@
 {
-  "id": "4e23aac6-b9d7-489f-854c-b25c3a6dabdb",
-  "name": "AntDesignImage",
-  "type": "AntDesignImage",
-  "api": {
-    "id": "e0e66926-98d2-4935-84ec-32df4a7896e3",
-    "name": "AntDesignImage API"
+  "atom": {
+    "id": "4e23aac6-b9d7-489f-854c-b25c3a6dabdb",
+    "name": "AntDesignImage",
+    "type": "AntDesignImage",
+    "api": {
+      "id": "e0e66926-98d2-4935-84ec-32df4a7896e3",
+      "name": "AntDesignImage API"
+    },
+    "icon": "Image",
+    "tags": [
+      {
+        "id": "e06f9178-ee0f-4aaf-89cd-c2619cbef252",
+        "name": "Image"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Image",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "e0e66926-98d2-4935-84ec-32df4a7896e3",
+    "kind": "InterfaceType",
+    "name": "AntDesignImage API",
+    "fields": [
+      {
+        "id": "e6393b70-3c0c-431f-ab70-ca6e9797d536",
+        "key": "alt",
+        "name": "Alt",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "f6aa21d9-c65c-43d3-8847-ede9358cff3c",
+        "key": "fallback",
+        "name": "Fallback",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "55dc770d-c27d-4e6c-b153-101722e932ec",
+        "key": "height",
+        "name": "Height",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "e1556875-093c-4da0-b602-181729284ce0",
+          "kind": "EnumType",
+          "name": "AntDesignImage Height Enum"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "85d290ac-b808-477a-9d1c-f1dd381d6cc9",
+        "key": "onError",
+        "name": "On Error",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "594c182c-296c-47b2-9a4e-3bca7b5b2944",
+        "key": "placeholder",
+        "name": "Placeholder",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "6d991267-245d-45f9-af89-5e746e1aa8d0",
+        "key": "preview",
+        "name": "Preview",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "eb2f05db-553d-4f21-a272-8ef1b2e1ccfd",
+          "kind": "EnumType",
+          "name": "AntDesignImage Preview Enum"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "3a6103da-5db9-47b4-9674-f3b859884866",
+        "key": "rootClassName",
+        "name": "Root Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "3d0dfdc8-8a95-48a2-b29e-89915af3e1f5",
+        "key": "src",
+        "name": "Src",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      },
+      {
+        "id": "a57fd537-f0d4-44c1-80b3-b562514488dd",
+        "key": "width",
+        "name": "Width",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "51df000e-4d89-41bf-9f01-00e3a434205a",
+          "kind": "EnumType",
+          "name": "AntDesignImage Width Enum"
+        },
+        "api": {
+          "id": "e0e66926-98d2-4935-84ec-32df4a7896e3"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e1556875-093c-4da0-b602-181729284ce0",
+      "kind": "EnumType",
+      "name": "AntDesignImage Height Enum",
+      "allowedValues": [
+        {
+          "id": "23d394fe-1afa-4107-a491-b212b46a201f",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "966d40dc-fd39-43e4-a328-b3517d2816bf",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "eb2f05db-553d-4f21-a272-8ef1b2e1ccfd",
+      "kind": "EnumType",
+      "name": "AntDesignImage Preview Enum",
+      "allowedValues": [
+        {
+          "id": "932ff1e4-21b3-4302-9cda-8b2370133023",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "054c3a77-dc4e-405d-8b47-85d2e4c5d3fb",
+          "key": "previewType",
+          "value": "previewType"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "51df000e-4d89-41bf-9f01-00e3a434205a",
+      "kind": "EnumType",
+      "name": "AntDesignImage Width Enum",
+      "allowedValues": [
+        {
+          "id": "fe619de4-5271-44c5-a1bb-90c1791ffd8d",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "8bf37cb7-9a0c-41d7-a2c6-cbbb0b664137",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "e06f9178-ee0f-4aaf-89cd-c2619cbef252",
-      "name": "Image"
+      "name": "Image",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

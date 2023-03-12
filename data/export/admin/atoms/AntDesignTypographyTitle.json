@@ -1,17 +1,315 @@
 {
-  "id": "f75755a1-d873-4bb9-9655-8df062e85725",
-  "name": "AntDesignTypographyTitle",
-  "type": "AntDesignTypographyTitle",
-  "api": {
-    "id": "e0c68c22-50fe-4e40-973b-a1599018682f",
-    "name": "AntDesignTypographyTitle API"
+  "atom": {
+    "id": "f75755a1-d873-4bb9-9655-8df062e85725",
+    "name": "AntDesignTypographyTitle",
+    "type": "AntDesignTypographyTitle",
+    "api": {
+      "id": "e0c68c22-50fe-4e40-973b-a1599018682f",
+      "name": "AntDesignTypographyTitle API"
+    },
+    "icon": "Typography",
+    "tags": [
+      {
+        "id": "2d3a7c96-cfa9-4f1a-80b9-d79eb82a5ada",
+        "name": "Typography.Title"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Typography",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "e0c68c22-50fe-4e40-973b-a1599018682f",
+    "kind": "InterfaceType",
+    "name": "AntDesignTypographyTitle API",
+    "fields": [
+      {
+        "id": "b063ad36-a37e-46f5-b117-c2224844aee6",
+        "key": "code",
+        "name": "Code",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "e8052865-3280-4850-b09a-81761ad30f90",
+        "key": "copyable",
+        "name": "Copyable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "161e3814-c7e1-44cc-b762-a104008cce4a",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyTitle Copyable Enum"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "5270cc9c-8b3c-4853-ac60-5770abf691a1",
+        "key": "delete",
+        "name": "Delete",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "ce4e1a28-3e93-4e6f-94e6-f49cf784a512",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "563d6a87-a398-4323-9c8f-2a12f01bdc32",
+        "key": "editable",
+        "name": "Editable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "141f80c9-4789-4bb7-bb6f-5dd85e2482f7",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyTitle Editable Enum"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "2c72df90-f24a-4310-8316-44bb609af1ae",
+        "key": "ellipsis",
+        "name": "Ellipsis",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "46feb69a-cda6-49b2-8703-d4eaec4bb365",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyTitle Ellipsis Enum"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "694a3e68-90e0-4f09-8c43-5709980304c6",
+        "key": "italic",
+        "name": "Italic",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "13e3df3f-7d8a-49f2-b3be-a4eeb8ed6cb3",
+        "key": "mark",
+        "name": "Mark",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "75f480e9-c24f-429f-a1b2-cc3fa5791beb",
+        "key": "onClick",
+        "name": "On Click",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "723ed830-fb2b-4615-b806-a781f75723f4",
+        "key": "type",
+        "name": "Type",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "37523d09-e794-4ab2-a9a7-50f095310599",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyTitle Type Enum"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      },
+      {
+        "id": "8409ca46-bced-422f-b598-a957c436ff88",
+        "key": "underline",
+        "name": "Underline",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e0c68c22-50fe-4e40-973b-a1599018682f"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "161e3814-c7e1-44cc-b762-a104008cce4a",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Copyable Enum",
+      "allowedValues": [
+        {
+          "id": "a29c3caa-50b3-482d-b52d-1131727250a9",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "e7fad34a-b7fd-474e-a889-c60bc1bb6435",
+          "key": "copyable",
+          "value": "copyable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "141f80c9-4789-4bb7-bb6f-5dd85e2482f7",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Editable Enum",
+      "allowedValues": [
+        {
+          "id": "798d0232-5dd2-45bf-ac60-a003f7803d89",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "aa9ef2dc-6e36-44b1-b93a-396425a166e3",
+          "key": "editable",
+          "value": "editable"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "46feb69a-cda6-49b2-8703-d4eaec4bb365",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Ellipsis Enum",
+      "allowedValues": [
+        {
+          "id": "5de9f228-9e25-46b7-ae35-8f6889cc2e21",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "81add89f-ca7c-479b-b7f6-66890349dc98",
+          "key": "ellipsis",
+          "value": "ellipsis"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "37523d09-e794-4ab2-a9a7-50f095310599",
+      "kind": "EnumType",
+      "name": "AntDesignTypographyTitle Type Enum",
+      "allowedValues": [
+        {
+          "id": "5e737d97-9720-44bd-8b8c-a79780ed451b",
+          "key": "danger",
+          "value": "danger"
+        },
+        {
+          "id": "c4b30f93-a371-4d6a-9706-eb787f523f17",
+          "key": "secondary",
+          "value": "secondary"
+        },
+        {
+          "id": "0e701b30-1c18-49f7-b8b5-af9132b48db5",
+          "key": "success",
+          "value": "success"
+        },
+        {
+          "id": "f1ceef66-5e18-4934-82fa-5b667215d46f",
+          "key": "warning",
+          "value": "warning"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "2d3a7c96-cfa9-4f1a-80b9-d79eb82a5ada",
-      "name": "Typography.Title"
+      "name": "Typography.Title",
+      "parent": {
+        "id": "0ec405ec-a098-44a0-8dc8-b2afe7e5f943",
+        "name": "Typography"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

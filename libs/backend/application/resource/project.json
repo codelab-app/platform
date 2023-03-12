@@ -1,0 +1,16 @@
+{
+  "name": "backend-application-resource",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/application/resource/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/application/resource/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

@@ -1,5 +1,5 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { AtomLibrary, ExportAtomButton } from '@codelab/frontend/domain/atom'
+import type { AtomLibrary } from '@codelab/frontend/domain/atom'
 import {
   AtomsTable,
   CreateAtomButton,
@@ -118,7 +118,6 @@ const Header = () => {
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
-      <ExportAtomButton />
       <CreateAtomButton atomService={store.atomService} key="create" />
     </div>,
   ]

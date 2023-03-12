@@ -1,17 +1,131 @@
 {
-  "id": "dcf9899f-a9ff-42c2-9654-df6150c9cad9",
-  "name": "AntDesignTabsTabPane",
-  "type": "AntDesignTabsTabPane",
-  "api": {
-    "id": "4739c20f-792e-4100-b948-fff641403946",
-    "name": "AntDesignTabsTabPane API"
+  "atom": {
+    "id": "dcf9899f-a9ff-42c2-9654-df6150c9cad9",
+    "name": "AntDesignTabsTabPane",
+    "type": "AntDesignTabsTabPane",
+    "api": {
+      "id": "4739c20f-792e-4100-b948-fff641403946",
+      "name": "AntDesignTabsTabPane API"
+    },
+    "icon": "Tabs",
+    "tags": [
+      {
+        "id": "ffd3d79c-c84b-4131-9f79-9d8d79a48718",
+        "name": "Tabs.TabPane"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Tabs",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "4739c20f-792e-4100-b948-fff641403946",
+    "kind": "InterfaceType",
+    "name": "AntDesignTabsTabPane API",
+    "fields": [
+      {
+        "id": "8ff2707d-293d-4e14-8323-4e9c4145280f",
+        "key": "closeIcon",
+        "name": "Close Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "4739c20f-792e-4100-b948-fff641403946"
+        }
+      },
+      {
+        "id": "7ab33356-369e-4c9c-9ddd-bea690f72057",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4739c20f-792e-4100-b948-fff641403946"
+        }
+      },
+      {
+        "id": "e10c9569-ad0a-4ad2-bf90-ff0938baea2a",
+        "key": "forceRender",
+        "name": "Force Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4739c20f-792e-4100-b948-fff641403946"
+        }
+      },
+      {
+        "id": "280ed505-bfbf-4aeb-a44a-41708a606dc4",
+        "key": "key",
+        "name": "Key",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "4739c20f-792e-4100-b948-fff641403946"
+        }
+      },
+      {
+        "id": "4f32245c-8401-481f-a841-2d78665525e7",
+        "key": "tab",
+        "name": "Tab",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "4739c20f-792e-4100-b948-fff641403946"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "ffd3d79c-c84b-4131-9f79-9d8d79a48718",
-      "name": "Tabs.TabPane"
+      "name": "Tabs.TabPane",
+      "parent": {
+        "id": "cf64b1e7-5963-4de1-8004-be0d914359a0",
+        "name": "Tabs"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

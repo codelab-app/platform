@@ -1,17 +1,198 @@
 {
-  "id": "9d253bae-408f-4890-abb7-27a79cecfdf6",
-  "name": "AntDesignGridRow",
-  "type": "AntDesignGridRow",
-  "api": {
-    "id": "c6659e76-1d96-43e8-8c3b-a28b2c4bdbd4",
-    "name": "AntDesignGridRow API"
+  "atom": {
+    "id": "9d253bae-408f-4890-abb7-27a79cecfdf6",
+    "name": "AntDesignGridRow",
+    "type": "AntDesignGridRow",
+    "api": {
+      "id": "c6659e76-1d96-43e8-8c3b-a28b2c4bdbd4",
+      "name": "AntDesignGridRow API"
+    },
+    "icon": "Grid",
+    "tags": [
+      {
+        "id": "0b561a3d-457c-4ad9-9726-cd2ae78c1ea6",
+        "name": "Row"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Grid",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "c6659e76-1d96-43e8-8c3b-a28b2c4bdbd4",
+    "kind": "InterfaceType",
+    "name": "AntDesignGridRow API",
+    "fields": [
+      {
+        "id": "79ceebcc-4df2-4c61-b9ce-47dfb687c73a",
+        "key": "align",
+        "name": "Align",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "714d1de8-bb95-4c3b-88d1-7452b7608a4d",
+          "kind": "EnumType",
+          "name": "AntDesignGridRow Align Enum"
+        },
+        "api": {
+          "id": "c6659e76-1d96-43e8-8c3b-a28b2c4bdbd4"
+        }
+      },
+      {
+        "id": "e7b39cea-09fd-4061-be3e-9dec53334e41",
+        "key": "gutter",
+        "name": "Gutter",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "fc0ace21-7aa0-442a-8b86-ca3c39bf1044",
+          "kind": "EnumType",
+          "name": "AntDesignGridRow Gutter Enum"
+        },
+        "api": {
+          "id": "c6659e76-1d96-43e8-8c3b-a28b2c4bdbd4"
+        }
+      },
+      {
+        "id": "e60e54ff-1da6-4ceb-9c3d-1a3c11d0725d",
+        "key": "justify",
+        "name": "Justify",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b2a127e4-1969-4ba8-aec9-bc8771a494da",
+          "kind": "EnumType",
+          "name": "AntDesignGridRow Justify Enum"
+        },
+        "api": {
+          "id": "c6659e76-1d96-43e8-8c3b-a28b2c4bdbd4"
+        }
+      },
+      {
+        "id": "299068c2-3072-4b58-a919-ef392061f855",
+        "key": "wrap",
+        "name": "Wrap",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "c6659e76-1d96-43e8-8c3b-a28b2c4bdbd4"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "714d1de8-bb95-4c3b-88d1-7452b7608a4d",
+      "kind": "EnumType",
+      "name": "AntDesignGridRow Align Enum",
+      "allowedValues": [
+        {
+          "id": "680f9b67-a623-42dd-8b14-6f1fb371bd5c",
+          "key": "bottom",
+          "value": "bottom"
+        },
+        {
+          "id": "09f0d121-97c1-44cb-8774-1d6eced4b623",
+          "key": "middle",
+          "value": "middle"
+        },
+        {
+          "id": "3a99d16c-d41a-4b60-8e68-8bebcfd827cd",
+          "key": "top",
+          "value": "top"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "fc0ace21-7aa0-442a-8b86-ca3c39bf1044",
+      "kind": "EnumType",
+      "name": "AntDesignGridRow Gutter Enum",
+      "allowedValues": [
+        {
+          "id": "f71cc55e-5fbd-4d76-b0f0-2ad0957c1348",
+          "key": "array",
+          "value": "array"
+        },
+        {
+          "id": "99ae35af-77bb-4c5f-b75f-e4573e8ff464",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "6552106d-c43e-424a-b0e7-f599ab824d6e",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b2a127e4-1969-4ba8-aec9-bc8771a494da",
+      "kind": "EnumType",
+      "name": "AntDesignGridRow Justify Enum",
+      "allowedValues": [
+        {
+          "id": "1c80cb84-e4ea-4c54-8df4-f875a6f1d8c6",
+          "key": "center",
+          "value": "center"
+        },
+        {
+          "id": "5d0ef79d-b53c-4a9f-a4c4-633a236c7ef7",
+          "key": "end",
+          "value": "end"
+        },
+        {
+          "id": "7781c80f-74b9-43f4-83ad-08f9fcb6003e",
+          "key": "space-around",
+          "value": "space-around"
+        },
+        {
+          "id": "e98f1a54-d5be-4384-807c-d02d114ac61e",
+          "key": "space-between",
+          "value": "space-between"
+        },
+        {
+          "id": "bea61428-4c07-41fa-bc37-ac276e6e5152",
+          "key": "space-evenly",
+          "value": "space-evenly"
+        },
+        {
+          "id": "303c870f-29ae-4c2c-a153-e62931df64c0",
+          "key": "start",
+          "value": "start"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "0b561a3d-457c-4ad9-9726-cd2ae78c1ea6",
-      "name": "Row"
+      "name": "Row",
+      "parent": {
+        "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
+        "name": "Layout"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

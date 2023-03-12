@@ -1,1 +1,1 @@
-export * from './ImportAppContainer'
+export * from './ImportAppDialog'

@@ -1,17 +1,115 @@
 {
-  "id": "febf3bee-c9aa-48d0-aa90-100c72f59239",
-  "name": "AntDesignProgress",
-  "type": "AntDesignProgress",
-  "api": {
-    "id": "c5e57d8b-2772-4453-aadc-a8ae37a42f25",
-    "name": "AntDesignProgress API"
+  "atom": {
+    "id": "febf3bee-c9aa-48d0-aa90-100c72f59239",
+    "name": "AntDesignProgress",
+    "type": "AntDesignProgress",
+    "api": {
+      "id": "c5e57d8b-2772-4453-aadc-a8ae37a42f25",
+      "name": "AntDesignProgress API"
+    },
+    "icon": "Progress",
+    "tags": [
+      {
+        "id": "63fd2beb-9394-4405-8050-5161658ebdb9",
+        "name": "Progress"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Progress",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "c5e57d8b-2772-4453-aadc-a8ae37a42f25",
+    "kind": "InterfaceType",
+    "name": "AntDesignProgress API",
+    "fields": [
+      {
+        "id": "6c593ea0-98c4-444c-b9dc-6bfbf596816d",
+        "key": "strokeColor",
+        "name": "Stroke Color",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "fe6c0113-fb30-4960-afe7-6409a01171c6",
+          "kind": "EnumType",
+          "name": "AntDesignProgress Stroke Color Enum"
+        },
+        "api": {
+          "id": "c5e57d8b-2772-4453-aadc-a8ae37a42f25"
+        }
+      },
+      {
+        "id": "8dca2e65-8f3e-4c8a-9a51-c9d7f2514e7f",
+        "key": "strokeWidth",
+        "name": "Stroke Width",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "c5e57d8b-2772-4453-aadc-a8ae37a42f25"
+        }
+      },
+      {
+        "id": "c336fb63-380d-4c05-91ae-5f7fe3f97d9b",
+        "key": "width",
+        "name": "Width",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "c5e57d8b-2772-4453-aadc-a8ae37a42f25"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "fe6c0113-fb30-4960-afe7-6409a01171c6",
+      "kind": "EnumType",
+      "name": "AntDesignProgress Stroke Color Enum",
+      "allowedValues": [
+        {
+          "id": "d17ee6fc-d39f-45d0-ba65-5d65059d6e3b",
+          "key": "object",
+          "value": "object"
+        },
+        {
+          "id": "021b67c2-8fd4-488c-83a6-50b122db1916",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "63fd2beb-9394-4405-8050-5161658ebdb9",
-      "name": "Progress"
+      "name": "Progress",
+      "parent": {
+        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
+        "name": "Feedback"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

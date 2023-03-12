@@ -1,17 +1,97 @@
 {
-  "id": "11d5459a-6f77-4785-b30f-e734b66127a2",
-  "name": "AntDesignIcon",
-  "type": "AntDesignIcon",
-  "api": {
-    "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd",
-    "name": "AntDesignIcon API"
+  "atom": {
+    "id": "11d5459a-6f77-4785-b30f-e734b66127a2",
+    "name": "AntDesignIcon",
+    "type": "AntDesignIcon",
+    "api": {
+      "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd",
+      "name": "AntDesignIcon API"
+    },
+    "icon": "Icon",
+    "tags": [
+      {
+        "id": "784eb643-c182-44a3-a598-af8355642a84",
+        "name": "Icon"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Icon",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd",
+    "kind": "InterfaceType",
+    "name": "AntDesignIcon API",
+    "fields": [
+      {
+        "id": "2dff9875-56e7-4154-a149-3606e392913b",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd"
+        }
+      },
+      {
+        "id": "a05561ce-f5a7-4317-9f83-c0bc49e10f78",
+        "key": "rotate",
+        "name": "Rotate",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd"
+        }
+      },
+      {
+        "id": "05b8efbb-e23c-48fe-906e-37fcc23c851c",
+        "key": "spin",
+        "name": "Spin",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "784eb643-c182-44a3-a598-af8355642a84",
-      "name": "Icon"
+      "name": "Icon",
+      "parent": {
+        "id": "7934beb9-ee9f-43bd-bacb-464f0a5b79d2",
+        "name": "General"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

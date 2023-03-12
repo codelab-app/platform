@@ -1,17 +1,273 @@
 {
-  "id": "b9339580-adc7-4aed-aa47-b4d7a9306f75",
-  "name": "AntDesignSteps",
-  "type": "AntDesignSteps",
-  "api": {
-    "id": "cd1170db-da23-41ea-b336-16b41fabc9d2",
-    "name": "AntDesignSteps API"
+  "atom": {
+    "id": "b9339580-adc7-4aed-aa47-b4d7a9306f75",
+    "name": "AntDesignSteps",
+    "type": "AntDesignSteps",
+    "api": {
+      "id": "cd1170db-da23-41ea-b336-16b41fabc9d2",
+      "name": "AntDesignSteps API"
+    },
+    "icon": "Steps",
+    "tags": [
+      {
+        "id": "98c5eb65-6360-42bf-a683-9cd3ddfe6822",
+        "name": "Steps"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Steps",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "cd1170db-da23-41ea-b336-16b41fabc9d2",
+    "kind": "InterfaceType",
+    "name": "AntDesignSteps API",
+    "fields": [
+      {
+        "id": "e93a652b-6f4d-4429-8fb8-b229a3425716",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "11ad9c12-b7b7-499c-89d8-41ebb9d2f0c1",
+        "key": "current",
+        "name": "Current",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "b163f4d1-5d42-40ca-84d1-57042a1bb1ca",
+        "key": "direction",
+        "name": "Direction",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "b87e1e9c-d21d-4a7f-b979-df19bdbf379c",
+        "key": "initial",
+        "name": "Initial",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "52385d0a-6f97-4a06-810c-26fe18b1f29b",
+        "key": "labelPlacement",
+        "name": "Label Placement",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "34bdb8e4-a0fb-4b2c-9b4e-5cf074f64a3c",
+        "key": "onChange",
+        "name": "On Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "3af92e45-97a7-433c-9984-e798393d3fce",
+        "key": "percent",
+        "name": "Percent",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "cc12cbc5-b449-4283-85e4-7274f9e1a5e8",
+        "key": "progressDot",
+        "name": "Progress Dot",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "34757484-db2e-4378-b1db-8ca84065068e",
+          "kind": "EnumType",
+          "name": "AntDesignSteps Progress Dot Enum"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "61d2942e-b84f-40a9-a1b8-04b42780b0a6",
+        "key": "responsive",
+        "name": "Responsive",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "6ecb956d-3956-4051-a897-221b32092a4e",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "c7f67681-1efb-469d-9d99-7b42f01a38d6",
+        "key": "status",
+        "name": "Status",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      },
+      {
+        "id": "8cdcec25-55fb-48ed-b980-91d11243da60",
+        "key": "type",
+        "name": "Type",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "cd1170db-da23-41ea-b336-16b41fabc9d2"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "34757484-db2e-4378-b1db-8ca84065068e",
+      "kind": "EnumType",
+      "name": "AntDesignSteps Progress Dot Enum",
+      "allowedValues": [
+        {
+          "id": "8feca1c1-891d-4cec-8550-fea20c5f7562",
+          "key": "(iconDot, {index, status, title, description}) => ReactNode",
+          "value": "(iconDot, {index, status, title, description}) => ReactNode"
+        },
+        {
+          "id": "33602929-e1e1-485a-9c82-0bf7d5d986ef",
+          "key": "boolean",
+          "value": "boolean"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "98c5eb65-6360-42bf-a683-9cd3ddfe6822",
-      "name": "Steps"
+      "name": "Steps",
+      "parent": {
+        "id": "1bf9fc94-4b9d-4210-b6b1-0b6183c607b4",
+        "name": "Navigation"
+      },
+      "children": [
+        {
+          "id": "7939efbe-0474-4ddc-9e32-5bd73578f22a",
+          "name": "Steps.Step"
+        }
+      ]
     }
-  ],
-  "allowedChildren": []
+  ]
 }

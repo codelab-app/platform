@@ -1,17 +1,211 @@
 {
-  "id": "64ef0649-bf92-45c2-9c3e-8fc4ccc1d57b",
-  "name": "AntDesignDescriptions",
-  "type": "AntDesignDescriptions",
-  "api": {
-    "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5",
-    "name": "AntDesignDescriptions API"
+  "atom": {
+    "id": "64ef0649-bf92-45c2-9c3e-8fc4ccc1d57b",
+    "name": "AntDesignDescriptions",
+    "type": "AntDesignDescriptions",
+    "api": {
+      "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5",
+      "name": "AntDesignDescriptions API"
+    },
+    "icon": "Descriptions",
+    "tags": [
+      {
+        "id": "f064fa99-06a1-4e69-8a3d-21b217eee43a",
+        "name": "Descriptions"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Descriptions",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5",
+    "kind": "InterfaceType",
+    "name": "AntDesignDescriptions API",
+    "fields": [
+      {
+        "id": "330ca5bd-df82-4ef6-9273-de4955110d4b",
+        "key": "bordered",
+        "name": "Bordered",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5"
+        }
+      },
+      {
+        "id": "c243e14d-3c3f-4808-8672-7c986b9941be",
+        "key": "colon",
+        "name": "Colon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5"
+        }
+      },
+      {
+        "id": "cc5de284-4200-46c2-aff2-e98d7566c8fa",
+        "key": "column",
+        "name": "Column",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5"
+        }
+      },
+      {
+        "id": "15a4244b-a935-4566-9612-0d1ec9b85227",
+        "key": "extra",
+        "name": "Extra",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5"
+        }
+      },
+      {
+        "id": "ca2115b0-bb15-47a2-b3b6-3371f4ea9167",
+        "key": "layout",
+        "name": "Layout",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "7d1bf73d-1750-4f67-8e1c-039ec525bf42",
+          "kind": "EnumType",
+          "name": "AntDesignDescriptions Layout Enum"
+        },
+        "api": {
+          "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5"
+        }
+      },
+      {
+        "id": "58e9fb63-5285-43f9-9f97-020e3ff28399",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "78b88fa7-1c40-4c4b-bcad-50a65833487e",
+          "kind": "EnumType",
+          "name": "AntDesignDescriptions Size Enum"
+        },
+        "api": {
+          "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5"
+        }
+      },
+      {
+        "id": "5f55816b-85bd-4aa2-acec-5303bfeb5570",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "4d1ec792-8bd9-4b60-9d88-e2d320eacde5"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7d1bf73d-1750-4f67-8e1c-039ec525bf42",
+      "kind": "EnumType",
+      "name": "AntDesignDescriptions Layout Enum",
+      "allowedValues": [
+        {
+          "id": "43a61142-b01e-4f11-92f5-f51746ed7a34",
+          "key": "horizontal",
+          "value": "horizontal"
+        },
+        {
+          "id": "61ca3ba9-031d-49b9-8715-0dc859173372",
+          "key": "vertical",
+          "value": "vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "78b88fa7-1c40-4c4b-bcad-50a65833487e",
+      "kind": "EnumType",
+      "name": "AntDesignDescriptions Size Enum",
+      "allowedValues": [
+        {
+          "id": "dbf985a1-5ca9-47ba-8cde-371df3381d9b",
+          "key": "default",
+          "value": "default"
+        },
+        {
+          "id": "4526ca0d-9b10-4730-872c-37d60946b7c8",
+          "key": "middle",
+          "value": "middle"
+        },
+        {
+          "id": "ad3c6a07-26d2-4bd0-93a9-455091ee85d6",
+          "key": "small",
+          "value": "small"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "f064fa99-06a1-4e69-8a3d-21b217eee43a",
-      "name": "Descriptions"
+      "name": "Descriptions",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": [
+        {
+          "id": "28df097e-8124-4ad2-ab3f-3552782c7500",
+          "name": "Descriptions.Item"
+        }
+      ]
     }
-  ],
-  "allowedChildren": []
+  ]
 }

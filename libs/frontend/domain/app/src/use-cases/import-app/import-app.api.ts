@@ -2,12 +2,13 @@ type ErrorCallback = (reason: string) => void
 
 type SuccessCallback = () => void
 
-const importApp = async (
+export const importApp = async (
   appData: string,
   onError: ErrorCallback,
   onSuccess: SuccessCallback,
 ) => {
-  const response = await fetch('/api/import', {
+  const response = await fetch('/api/import/app', {
+    method: 'POST',
     body: appData,
     method: 'POST',
   })
@@ -18,5 +19,3 @@ const importApp = async (
     onError(await response.text())
   }
 }
-
-export default importApp

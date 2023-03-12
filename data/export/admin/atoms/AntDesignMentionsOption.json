@@ -1,17 +1,80 @@
 {
-  "id": "373ebafd-9fa9-4189-9434-09b1affd73e5",
-  "name": "AntDesignMentionsOption",
-  "type": "AntDesignMentionsOption",
-  "api": {
-    "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da",
-    "name": "AntDesignMentionsOption API"
+  "atom": {
+    "id": "373ebafd-9fa9-4189-9434-09b1affd73e5",
+    "name": "AntDesignMentionsOption",
+    "type": "AntDesignMentionsOption",
+    "api": {
+      "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da",
+      "name": "AntDesignMentionsOption API"
+    },
+    "icon": "Mentions",
+    "tags": [
+      {
+        "id": "6f9944a0-e6c3-4cb3-9423-cf407dad0bd5",
+        "name": "Mentions.Option"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Mentions",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da",
+    "kind": "InterfaceType",
+    "name": "AntDesignMentionsOption API",
+    "fields": [
+      {
+        "id": "d235b63a-028a-4467-ad29-c7d514c41070",
+        "key": "children",
+        "name": "Children",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da"
+        }
+      },
+      {
+        "id": "d08b3c10-253c-49a7-a453-ea45d8934751",
+        "key": "value",
+        "name": "Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "6f9944a0-e6c3-4cb3-9423-cf407dad0bd5",
-      "name": "Mentions.Option"
+      "name": "Mentions.Option",
+      "parent": {
+        "id": "b39527b5-0ee4-47a3-a9f7-8a7dd30837a9",
+        "name": "Mentions"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

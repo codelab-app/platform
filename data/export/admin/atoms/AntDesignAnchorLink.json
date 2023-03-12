@@ -1,17 +1,97 @@
 {
-  "id": "b5e3e7fb-cb01-44e6-a93b-667255b15aac",
-  "name": "AntDesignAnchorLink",
-  "type": "AntDesignAnchorLink",
-  "api": {
-    "id": "bdb3c2ea-be6b-4676-b633-7c64b1cdc80c",
-    "name": "AntDesignAnchorLink API"
+  "atom": {
+    "id": "b5e3e7fb-cb01-44e6-a93b-667255b15aac",
+    "name": "AntDesignAnchorLink",
+    "type": "AntDesignAnchorLink",
+    "api": {
+      "id": "bdb3c2ea-be6b-4676-b633-7c64b1cdc80c",
+      "name": "AntDesignAnchorLink API"
+    },
+    "icon": "Anchor",
+    "tags": [
+      {
+        "id": "98e7261f-4995-4e25-906e-07a8bc256ae7",
+        "name": "Anchor.Link"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Anchor",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "bdb3c2ea-be6b-4676-b633-7c64b1cdc80c",
+    "kind": "InterfaceType",
+    "name": "AntDesignAnchorLink API",
+    "fields": [
+      {
+        "id": "ea35f790-d196-4326-8871-b735ffea0bd3",
+        "key": "href",
+        "name": "Href",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "bdb3c2ea-be6b-4676-b633-7c64b1cdc80c"
+        }
+      },
+      {
+        "id": "e75041e7-65ea-4d69-b5aa-558f82018b03",
+        "key": "target",
+        "name": "Target",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "bdb3c2ea-be6b-4676-b633-7c64b1cdc80c"
+        }
+      },
+      {
+        "id": "b5ab3675-fd1b-471f-a4ca-87beab0141d5",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "bdb3c2ea-be6b-4676-b633-7c64b1cdc80c"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "98e7261f-4995-4e25-906e-07a8bc256ae7",
-      "name": "Anchor.Link"
+      "name": "Anchor.Link",
+      "parent": {
+        "id": "c511b8af-c170-4aff-a4d1-bfb8c4650f4e",
+        "name": "Anchor"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

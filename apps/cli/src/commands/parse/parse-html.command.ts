@@ -1,5 +1,5 @@
+import { parseHtmlTjs } from '@codelab/backend/application/admin'
 import type { CommandModule } from 'yargs'
-import { parseHtmlTjs } from '../../use-cases/parse'
 
 export const parseHtmlCommand: CommandModule<unknown, unknown> = {
   command: 'html',

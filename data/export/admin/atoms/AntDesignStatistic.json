@@ -1,17 +1,45 @@
 {
-  "id": "e2bab3d0-e7b5-4ee2-bfd1-7fe4bc5afb37",
-  "name": "AntDesignStatistic",
-  "type": "AntDesignStatistic",
-  "api": {
-    "id": "0c9e2059-85a4-4e23-a52f-d4c6a8c73225",
-    "name": "AntDesignStatistic API"
+  "atom": {
+    "id": "e2bab3d0-e7b5-4ee2-bfd1-7fe4bc5afb37",
+    "name": "AntDesignStatistic",
+    "type": "AntDesignStatistic",
+    "api": {
+      "id": "0c9e2059-85a4-4e23-a52f-d4c6a8c73225",
+      "name": "AntDesignStatistic API"
+    },
+    "icon": "Statistic",
+    "tags": [
+      {
+        "id": "511ce60c-7123-4137-9714-0e4d5c84cf75",
+        "name": "Statistic"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Statistic",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "0c9e2059-85a4-4e23-a52f-d4c6a8c73225",
+    "kind": "InterfaceType",
+    "name": "AntDesignStatistic API",
+    "fields": []
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "511ce60c-7123-4137-9714-0e4d5c84cf75",
-      "name": "Statistic"
+      "name": "Statistic",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

@@ -1,17 +1,45 @@
 {
-  "id": "0c294a5e-d116-4c11-9193-a9c746e8c6d9",
-  "name": "AntDesignCascader",
-  "type": "AntDesignCascader",
-  "api": {
-    "id": "c08baebb-decf-4c51-a2d7-1798471f4503",
-    "name": "AntDesignCascader API"
+  "atom": {
+    "id": "0c294a5e-d116-4c11-9193-a9c746e8c6d9",
+    "name": "AntDesignCascader",
+    "type": "AntDesignCascader",
+    "api": {
+      "id": "c08baebb-decf-4c51-a2d7-1798471f4503",
+      "name": "AntDesignCascader API"
+    },
+    "icon": "Cascader",
+    "tags": [
+      {
+        "id": "3f111439-4746-4686-a439-f620cfeb9d37",
+        "name": "Cascader"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Cascader",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "c08baebb-decf-4c51-a2d7-1798471f4503",
+    "kind": "InterfaceType",
+    "name": "AntDesignCascader API",
+    "fields": []
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
   "tags": [
     {
       "id": "3f111439-4746-4686-a439-f620cfeb9d37",
-      "name": "Cascader"
+      "name": "Cascader",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }

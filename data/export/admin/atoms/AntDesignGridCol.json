@@ -1,17 +1,376 @@
 {
-  "id": "ef9369b2-5671-40bb-a233-30a96afadf92",
-  "name": "AntDesignGridCol",
-  "type": "AntDesignGridCol",
-  "api": {
-    "id": "dbcaad5e-2007-4404-8fe4-2e030071304a",
-    "name": "AntDesignGridCol API"
+  "atom": {
+    "id": "ef9369b2-5671-40bb-a233-30a96afadf92",
+    "name": "AntDesignGridCol",
+    "type": "AntDesignGridCol",
+    "api": {
+      "id": "dbcaad5e-2007-4404-8fe4-2e030071304a",
+      "name": "AntDesignGridCol API"
+    },
+    "icon": "Grid",
+    "tags": [
+      {
+        "id": "e5d66ff3-1317-4664-be90-7d73ce079ec7",
+        "name": "Col"
+      }
+    ],
+    "allowedChildren": []
   },
-  "icon": "Grid",
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "dbcaad5e-2007-4404-8fe4-2e030071304a",
+    "kind": "InterfaceType",
+    "name": "AntDesignGridCol API",
+    "fields": [
+      {
+        "id": "24e59556-14b1-4698-a4f6-23650a843574",
+        "key": "flex",
+        "name": "Flex",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "3fd37f5b-3e57-486b-b57a-935eaca24932",
+          "kind": "EnumType",
+          "name": "AntDesignGridCol Flex Enum"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "4e0c6670-74f4-4d7e-8270-3673e2287d5f",
+        "key": "lg",
+        "name": "Lg",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "23bd5cfc-b5ed-4af5-806d-d3c54acfd869",
+          "kind": "EnumType",
+          "name": "AntDesignGridCol Lg Enum"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "f5407314-c85b-422d-aa87-57f80a8c42ce",
+        "key": "md",
+        "name": "Md",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "cd5cf52d-3306-48ae-a6ab-369b00cfb0ec",
+          "kind": "EnumType",
+          "name": "AntDesignGridCol Md Enum"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "7a86362d-a53c-4da2-8991-9730b7ec7844",
+        "key": "offset",
+        "name": "Offset",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "5556b370-eee4-4cfd-985a-a41ed23ef6b0",
+        "key": "order",
+        "name": "Order",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "e852d2c6-5f27-41b6-94b8-28a043d1c007",
+        "key": "pull",
+        "name": "Pull",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "761cbef7-a71a-40e9-9700-a71ac9579aae",
+        "key": "push",
+        "name": "Push",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "fce8c3bb-dbbd-4ee6-9fb6-324d2a5eaac0",
+        "key": "sm",
+        "name": "Sm",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "7d2d112b-cf22-456d-b90f-227202ddb3f3",
+          "kind": "EnumType",
+          "name": "AntDesignGridCol Sm Enum"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "abe0a5ca-9244-47da-996e-e0b90ceb41f3",
+        "key": "span",
+        "name": "Span",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "ad4d0d70-0ebe-40c2-928f-45bea29b3253",
+        "key": "xl",
+        "name": "Xl",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b79cd758-9e8f-4a7d-b5c4-2e6e1534d3d0",
+          "kind": "EnumType",
+          "name": "AntDesignGridCol Xl Enum"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "d195cfb8-3bbc-4f7e-a364-0531f3c60ae7",
+        "key": "xs",
+        "name": "Xs",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b6a09432-f0cf-46fb-8917-6a48bbf21816",
+          "kind": "EnumType",
+          "name": "AntDesignGridCol Xs Enum"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      },
+      {
+        "id": "d2e0d8d5-903d-4517-830a-bd6e7999ac84",
+        "key": "xxl",
+        "name": "Xxl",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "0b9fa4e8-c322-4409-bab2-ae6dcc8810e4",
+          "kind": "EnumType",
+          "name": "AntDesignGridCol Xxl Enum"
+        },
+        "api": {
+          "id": "dbcaad5e-2007-4404-8fe4-2e030071304a"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3fd37f5b-3e57-486b-b57a-935eaca24932",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Flex Enum",
+      "allowedValues": [
+        {
+          "id": "6f4eef15-a636-44f9-9be3-dbae328fd3ab",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "e481ff02-29a9-45ab-adf2-d688dfa237cb",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "23bd5cfc-b5ed-4af5-806d-d3c54acfd869",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Lg Enum",
+      "allowedValues": [
+        {
+          "id": "66d4eaac-4086-4a1a-92c2-b6eb2745e0d9",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "7db895ab-cae2-4f6d-b162-b28db3a17c59",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "cd5cf52d-3306-48ae-a6ab-369b00cfb0ec",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Md Enum",
+      "allowedValues": [
+        {
+          "id": "6aff8956-8463-4289-a0f6-62225d1feb42",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "41472f0a-3b04-46f0-8777-cb31aa6fb70a",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7d2d112b-cf22-456d-b90f-227202ddb3f3",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Sm Enum",
+      "allowedValues": [
+        {
+          "id": "3bde37ef-36fa-4680-a4e9-8f23d36b5e54",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "a655c310-f86d-4b79-9882-fb6a539f09ed",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b79cd758-9e8f-4a7d-b5c4-2e6e1534d3d0",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Xl Enum",
+      "allowedValues": [
+        {
+          "id": "2b61fe51-7d3e-4293-b1f8-42b16cc2d13f",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "31e1f054-4fad-4d5a-9c3b-f3b3c59a3fed",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b6a09432-f0cf-46fb-8917-6a48bbf21816",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Xs Enum",
+      "allowedValues": [
+        {
+          "id": "d0ee48e0-a780-489e-bc3e-f8909ad2944e",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "da0175ef-959f-4304-a0f8-01262af89bfc",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0b9fa4e8-c322-4409-bab2-ae6dcc8810e4",
+      "kind": "EnumType",
+      "name": "AntDesignGridCol Xxl Enum",
+      "allowedValues": [
+        {
+          "id": "47e12dff-95e7-437d-9023-43d4379ce554",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "77487704-4e6e-474b-9e6e-fccab5c3626f",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    }
+  ],
   "tags": [
     {
       "id": "e5d66ff3-1317-4664-be90-7d73ce079ec7",
-      "name": "Col"
+      "name": "Col",
+      "parent": {
+        "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
+        "name": "Layout"
+      },
+      "children": []
     }
-  ],
-  "allowedChildren": []
+  ]
 }
