@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ICreateField } from '@codelab/backend/abstract/core'
 import type { IFieldDTO } from '@codelab/frontend/abstract/core'
-import type { FieldFragment } from '@codelab/shared/abstract/codegen'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
-export class Field implements IFieldDTO {
+interface IFieldType extends Omit<IFieldDTO, 'fieldType'> {
+  fieldType: { id: string }
+}
+
+export class Field implements IFieldType {
   readonly api: { id: string }
 
   readonly defaultValues: string | null
@@ -30,7 +33,7 @@ export class Field implements IFieldDTO {
     key,
     name = null,
     validationRules = null,
-  }: FieldFragment) {
+  }: IFieldType) {
     this.api = { id: api.id }
     this.defaultValues = defaultValues
     this.description = description

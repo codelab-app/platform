@@ -32,7 +32,7 @@ afterAll(async () => {
   await driver.close()
 })
 
-describe('Tag repository', () => {
+describe('Tag repository.', () => {
   it('can create a tag', async () => {
     // Parent
     const parentTagId = v4()

@@ -164,11 +164,13 @@ export class ElementService
     const parent = this.elements.get(data.parentElement?.id ?? '')
     // const name = createUniqueName(data.name, parent?.baseId ?? '')
 
-    const renderTypeApi = getRenderTypeApi({
-      atomService: this.atomService,
-      componentService: this.componentService,
-      renderType: data.renderType,
-    })
+    const renderTypeApi =
+      data.renderType &&
+      getRenderTypeApi({
+        atomService: this.atomService,
+        componentService: this.componentService,
+        renderType: data.renderType,
+      })
 
     const elementProps = this.propService.add({
       data: makeDefaultProps(renderTypeApi?.current),

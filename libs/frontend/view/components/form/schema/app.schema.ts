@@ -1,16 +1,16 @@
-import type { IOwnerSchema } from '@codelab/frontend/abstract/core'
+import type { IAppSchema } from '@codelab/frontend/abstract/core'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 import { showFieldOnDev } from './showFieldOnDev'
 
-export const ownerSchema: PropertiesSchema<IOwnerSchema> = {
-  owner: {
+export const appSchema: PropertiesSchema<IAppSchema> = {
+  app: {
     properties: {
-      auth0Id: {
+      id: {
         disabled: true,
         type: 'string',
       },
     },
-    required: ['auth0Id'],
+    required: ['id'],
     type: 'object',
     ...showFieldOnDev(),
   },

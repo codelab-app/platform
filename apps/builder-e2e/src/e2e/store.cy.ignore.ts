@@ -19,22 +19,22 @@ describe('Store', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentUserId()
-      .then((userId) => {
+    cy.getCurrentOwner()
+      .then((owner) => {
         cy.createType(
           {
             PrimitiveType: {
               id: v4(),
               kind: ITypeKind.PrimitiveType,
               name: IPrimitiveTypeKind.Integer,
-              owner: connectAuth0Owner(userId),
+              owner: connectAuth0Owner(owner),
               primitiveKind: IPrimitiveTypeKind.Integer,
             },
           },
           ITypeKind.PrimitiveType,
         )
 
-        return cy.createApp(createAppInput(userId))
+        return cy.createApp(createAppInput({ auth0Id }))
       })
       .then((apps) => {
         const app = apps[0]

@@ -13,7 +13,6 @@ import {
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import type { AnyModel } from 'mobx-keystone'
 import {
   idProp,
   Model,

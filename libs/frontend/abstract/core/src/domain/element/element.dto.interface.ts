@@ -23,7 +23,7 @@ export interface ICreateElementData {
   /**
    * We should connect to `atom` or `component` in future
    */
-  renderType: Nullable<RenderType>
+  renderType?: Nullable<RenderType>
 }
 
 export type IUpdateElementData = Pick<
