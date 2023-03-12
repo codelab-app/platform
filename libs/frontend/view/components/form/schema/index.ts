@@ -1,3 +1,4 @@
+export * from './app.schema'
 export * from './empty-json.schema'
 export * from './fieldDescription'
 export * from './hideField'

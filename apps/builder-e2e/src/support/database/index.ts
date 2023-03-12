@@ -9,7 +9,7 @@ import { createResource } from './resource'
 import { createStore } from './store'
 import { createTag } from './tag'
 import { createType } from './type'
-import { createUser, getCurrentUserId } from './user'
+import { createUser, getCurrentOwner } from './user'
 
 export interface CypressDatabaseCommands {
   /** app model */
@@ -38,7 +38,7 @@ export interface CypressDatabaseCommands {
   /** tag model */
   createTag: typeof createTag
 
-  getCurrentUserId: typeof getCurrentUserId
+  getCurrentOwner: typeof getCurrentOwner
 
   /** store model */
   createStore: typeof createStore
@@ -60,7 +60,7 @@ export const databaseCommands: Array<CypressCommand> = [
   { fn: createAtom, name: 'createAtom' },
   { fn: createField, name: 'createField' },
   { fn: createType, name: 'createType' },
-  { fn: getCurrentUserId, name: 'getCurrentUserId' },
+  { fn: getCurrentOwner, name: 'getCurrentOwner' },
   { fn: createStore, name: 'createStore' },
   { fn: createResource, name: 'createResource' },
 ]

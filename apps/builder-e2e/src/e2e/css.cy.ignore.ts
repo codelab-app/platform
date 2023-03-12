@@ -36,9 +36,9 @@ describe('CSS CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentUserId()
+    cy.getCurrentOwner()
       .as(uidCache)
-      .then((userId) => {
+      .then((owner) => {
         cy.createAtom([
           {
             api: {
@@ -46,7 +46,7 @@ describe('CSS CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignButton} API`,
-                  owner: connectAuth0Owner(userId),
+                  owner: connectAuth0Owner(owner),
                 },
               },
             },
@@ -56,7 +56,7 @@ describe('CSS CRUD', () => {
           },
         ]).as(atomCache)
 
-        cy.createApp(createAppInput(userId)).as(appCache)
+        cy.createApp(createAppInput({ auth0Id })).as(appCache)
       })
 
     cy.then(function () {

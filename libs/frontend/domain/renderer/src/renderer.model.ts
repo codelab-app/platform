@@ -156,7 +156,7 @@ export class Renderer
   }
 
   renderRoot() {
-    const root = this.elementTree.current.root
+    const root = this.elementTree.maybeCurrent?.root
 
     if (!root) {
       console.warn('Renderer: No root element found')
