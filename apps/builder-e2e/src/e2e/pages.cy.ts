@@ -7,9 +7,9 @@ describe('Pages CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentUserId()
-      .then((auth0Id: string) => {
-        return cy.createApp(createAppInput({ auth0Id }))
+    cy.getCurrentOwner()
+      .then((owner) => {
+        return cy.createApp(createAppInput(owner))
       })
       .then((apps) => {
         const app = apps[0]

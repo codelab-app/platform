@@ -36,7 +36,7 @@ const createTypeQuery: { [key in ITypeKind]: DocumentNode } = {
 }
 
 export const createType = (
-  input: Record<ITypeKind, BaseTypeCreateInput>,
+  input: Partial<Record<ITypeKind, BaseTypeCreateInput>>,
   typeKind: ITypeKind,
 ) =>
   cy

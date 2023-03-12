@@ -33,16 +33,15 @@ describe('Component CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentUserId()
-      .then((auth0Id: string) => {
+    cy.getCurrentOwner()
+      .then((owner) => {
         cy.createType(
           {
             PrimitiveType: {
               id: v4(),
               kind: ITypeKind.PrimitiveType,
               name: IPrimitiveTypeKind.String,
-              owner: connectAuth0Owner({ auth0Id }),
-              primitiveKind: IPrimitiveTypeKind.String,
+              owner: connectAuth0Owner(owner),
             },
           },
           ITypeKind.PrimitiveType,
@@ -54,7 +53,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignSpace} API`,
-                  owner: connectAuth0Owner({ auth0Id }),
+                  owner: connectAuth0Owner(owner),
                 },
               },
             },
@@ -68,7 +67,7 @@ describe('Component CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${IAtomType.AntDesignTypographyText} API`,
-                  owner: connectAuth0Owner({ auth0Id }),
+                  owner: connectAuth0Owner(owner),
                 },
               },
             },
@@ -78,13 +77,13 @@ describe('Component CRUD', () => {
           },
         ])
 
-        return cy.createApp(createAppInput({ auth0Id }))
+        return cy.createApp(createAppInput(owner))
       })
       .then((apps) => {
         testApp = apps
 
         const app = apps[0]
-        const pageId = app?.pages[0]?.id
+        const pageId = app?.pages?.[0]?.id
         cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
         cy.getSpinner().should('not.exist')
       })

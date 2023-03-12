@@ -19,15 +19,15 @@ describe('Store', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentUserId()
-      .then((auth0Id: string) => {
+    cy.getCurrentOwner()
+      .then((owner) => {
         cy.createType(
           {
             PrimitiveType: {
               id: v4(),
               kind: ITypeKind.PrimitiveType,
               name: IPrimitiveTypeKind.Integer,
-              owner: connectAuth0Owner({ auth0Id }),
+              owner: connectAuth0Owner(owner),
               primitiveKind: IPrimitiveTypeKind.Integer,
             },
           },

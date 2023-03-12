@@ -58,8 +58,8 @@ describe('Elements CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentUserId()
-      .then((auth0Id: string) => {
+    cy.getCurrentOwner()
+      .then((owner) => {
         const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
           (atom) => ({
             api: {
@@ -67,24 +67,24 @@ describe('Elements CRUD', () => {
                 node: {
                   id: v4(),
                   name: `${atom.name} API`,
-                  owner: auth0Id ? connectAuth0Owner({ auth0Id }) : undefined,
+                  owner: connectAuth0Owner(owner),
                 },
               },
             },
             id: v4(),
             name: atom.name,
-            owner: auth0Id ? connectAuth0Owner({ auth0Id }) : undefined,
+            owner: connectAuth0Owner(owner),
             type: atom.type,
           }),
         )
 
         cy.createAtom(atomsInput)
 
-        return cy.createApp(createAppInput({ auth0Id }))
+        return cy.createApp(createAppInput(owner))
       })
       .then((apps) => {
         const app = apps[0]
-        const pageId = app?.pages[0]?.id
+        const pageId = app?.pages?.[0]?.id
         cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
         cy.getSpinner().should('not.exist')
 
