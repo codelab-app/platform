@@ -65,7 +65,7 @@ export const createListItemAtomInput = (auth0Id: string): AtomCreateInput => ({
     create: {
       node: {
         name: 'ListItem API',
-        owner: connectAuth0Owner({ auth0Id }),
+        owner: connectAuth0Owner(owner),
       },
     },
   },

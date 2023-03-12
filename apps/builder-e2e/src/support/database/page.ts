@@ -33,6 +33,7 @@ export const createPageInput = (
               create: {
                 node: {
                   data: '{}',
+                  id: v4(),
                 },
               },
             },

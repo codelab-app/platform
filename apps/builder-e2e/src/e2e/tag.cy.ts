@@ -1,3 +1,4 @@
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { createData, deleteData, updateData } from '../data/tag'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
@@ -7,16 +8,12 @@ describe('Tag CRUD', () => {
     cy.resetDatabase()
     loginSession()
 
-    cy.getCurrentUserId()
-      .then((userId) => {
-        if (!userId) {
-          throw new Error('no user id')
-        }
-
+    cy.getCurrentOwner()
+      .then((owner) => {
         cy.createTag({
           id: v4(),
           name: updateData.tag_0,
-          owner: { connect: { where: { node: { auth0Id: userId } } } },
+          owner: connectAuth0Owner(owner),
         })
 
         /**
@@ -28,14 +25,14 @@ describe('Tag CRUD', () => {
         cy.createTag({
           id: v4(),
           name: deleteData.table.tag_0,
-          owner: { connect: { where: { node: { auth0Id: userId } } } },
+          owner: connectAuth0Owner(owner),
         }).then((value) => {
-          const parentId = value[0].id
+          const parentId = value[0]?.id
 
           cy.createTag({
             id: v4(),
             name: deleteData.table.tag_0_0,
-            owner: { connect: { where: { node: { auth0Id: userId } } } },
+            owner: connectAuth0Owner(owner),
             parent: { connect: { where: { node: { id: parentId } } } },
           })
         })
@@ -49,14 +46,14 @@ describe('Tag CRUD', () => {
         cy.createTag({
           id: v4(),
           name: deleteData.tree.tag_0,
-          owner: { connect: { where: { node: { auth0Id: userId } } } },
+          owner: connectAuth0Owner(owner),
         }).then((value) => {
-          const parentId = value[0].id
+          const parentId = value[0]?.id
 
           cy.createTag({
             id: v4(),
             name: deleteData.tree.tag_0_0,
-            owner: { connect: { where: { node: { auth0Id: userId } } } },
+            owner: connectAuth0Owner(owner),
             parent: { connect: { where: { node: { id: parentId } } } },
           })
         })
@@ -64,20 +61,20 @@ describe('Tag CRUD', () => {
         cy.createTag({
           id: v4(),
           name: deleteData.table.tag_0_1,
-          owner: { connect: { where: { node: { auth0Id: userId } } } },
+          owner: connectAuth0Owner(owner),
         })
 
         cy.createTag({
           id: v4(),
           name: deleteData.tree.tag_1,
-          owner: { connect: { where: { node: { auth0Id: userId } } } },
+          owner: connectAuth0Owner(owner),
         }).then((value) => {
-          const parentId = value[0].id
+          const parentId = value[0]?.id
 
           cy.createTag({
             id: v4(),
             name: deleteData.tree.tag_1_0,
-            owner: { connect: { where: { node: { auth0Id: userId } } } },
+            owner: connectAuth0Owner(owner),
             parent: { connect: { where: { node: { id: parentId } } } },
           })
         })

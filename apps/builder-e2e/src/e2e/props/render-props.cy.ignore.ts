@@ -39,7 +39,7 @@ describe('Render props', () => {
   before(() => {
     cy.resetDatabase().then(() => {
       loginSession().then(async () => {
-        cy.getCurrentUserId().then((userId) => {
+        cy.getCurrentOwner().then((userId) => {
           /**
            * create :
            *  - list atom

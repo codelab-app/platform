@@ -77,6 +77,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementData> = {
     },
     renderType: {
       label: 'Render Type',
+      nullable: true,
       properties: {
         id: {
           type: 'string',

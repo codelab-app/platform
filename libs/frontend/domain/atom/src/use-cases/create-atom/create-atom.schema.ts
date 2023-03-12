@@ -3,7 +3,7 @@ import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import {
   idSchema,
   nonEmptyString,
-  showFieldOnDev,
+  ownerSchema,
 } from '@codelab/frontend/view/components'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
@@ -31,17 +31,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    owner: {
-      properties: {
-        auth0Id: {
-          disabled: true,
-          type: 'string',
-          ...showFieldOnDev(),
-        },
-      },
-      required: ['auth0Id'],
-      type: 'object',
-    },
+    ...ownerSchema,
     tags: {
       items: {
         properties: {
